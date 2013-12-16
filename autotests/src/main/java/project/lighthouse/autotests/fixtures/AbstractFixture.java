@@ -71,5 +71,9 @@ public abstract class AbstractFixture {
         return String.format("%1$,.2f", priceValue).replace(groupSeparator, ' ');
     }
 
+    public String getFormattedValue(String value) {
+        return String.format("%s р.", value);
+    }
+
     abstract public String getFixtureFileName();
 }

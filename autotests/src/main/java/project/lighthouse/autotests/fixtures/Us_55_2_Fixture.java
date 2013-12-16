@@ -122,10 +122,6 @@ public class Us_55_2_Fixture extends AbstractFixture {
         return getFormattedValue(generateFormattedGrossSalesSumPerHour(generateGrossSalesSumPerHour(price)).get(24));
     }
 
-    private String getFormattedValue(String value) {
-        return String.format("%s р.", value);
-    }
-
     private File generateFileDataSetWithTwoProducts(String date, String shopNumber) throws XPathExpressionException, ParserConfigurationException, TransformerException, IOException {
         PurchaseXmlBuilder purchaseXmlBuilder = generateDataSetWithTwoProducts(date, shopNumber);
         return prepareDataFile(purchaseXmlBuilder);

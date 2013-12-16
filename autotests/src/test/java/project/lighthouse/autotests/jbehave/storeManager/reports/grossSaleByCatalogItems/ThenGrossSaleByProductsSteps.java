@@ -19,4 +19,29 @@ public class ThenGrossSaleByProductsSteps {
     public void thenTheUserChecksTheGrossSaleByProductsReportContainsZeroSales() {
         grossSaleByProductsSteps.compareIsZeroSales();
     }
+
+    @Then("the user checks the gross sale by products report contains correct data if the product barCode is empty")
+    public void thenTheUserChecksTheGrossSaleByProductsReportContainsCorrectDataIfTheProductBarCodeIsEmpty() {
+        grossSaleByProductsSteps.compareTableIfBarcodeIsEmpty();
+    }
+
+    @Then("the user checks the gross sale by products report contains correct data for product with sku 255742")
+    public void thenTheUSerChecksTheGrossSaleByProductsReportContainsCorrectDataForProduct1() {
+        grossSaleByProductsSteps.compareTableContainsCorrectDataForProduct1();
+    }
+
+    @Then("the user checks the gross sale by products report contains correct data for product with sku 255743")
+    public void thenTheUSerChecksTheGrossSaleByProductsReportContainsCorrectDataForProduct2() {
+        grossSaleByProductsSteps.compareTableContainsCorrectDataForProduct2();
+    }
+
+    @Then("the user checks the gross sale by products report contains empty data for product with sku 255742")
+    public void thenTheUSerChecksTheGrossSaleByProductsReportContainsEmptyDataForProduct1() {
+        grossSaleByProductsSteps.compareTableContainsEmptyDataForProduc1();
+    }
+
+    @Then("the user checks the gross sale by products report contains empty data for product with sku 255743")
+    public void thenTheUSerChecksTheGrossSaleByProductsReportContainsEmptyDataForProduct2() {
+        grossSaleByProductsSteps.compareTableContainsEmptyDataForProduc2();
+    }
 }
