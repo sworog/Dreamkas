@@ -24,7 +24,7 @@ class DateTimestamp extends DateTime
     {
         if ($time instanceof DateTime) {
             $timezone = ($timezone) ?: $time->getTimezone();
-            $time = '@' . $time->getTimestamp();
+            $time = $time->format('c');
         }
         parent::__construct($time, $timezone);
     }
@@ -54,6 +54,15 @@ class DateTimestamp extends DateTime
         /* @var DateTimestamp $dateTime */
         $dateTime = new static($time);
         return $dateTime->getTimestamp() == $this->getTimestamp();
+    }
+
+    /**
+     * @param DateTime $datetime
+     * @return bool
+     */
+    public function equalsDate(DateTime $datetime)
+    {
+        return $this->format('d-m-Y') === $datetime->format('d-m-Y');
     }
 
     /**

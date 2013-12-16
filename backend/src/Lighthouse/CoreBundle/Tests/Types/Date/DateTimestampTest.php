@@ -56,4 +56,14 @@ class DateTimestampTest extends TestCase
         $this->assertEquals($time, $timestamp->getTimestamp());
         $this->assertEquals("$time", (string) $timestamp);
     }
+
+    public function testEqualDate()
+    {
+        $dateOne = new DateTimestamp('16-12-2013 16:43:57');
+        $dateTwo = new DateTimestamp('16-11-2013 15:34:54');
+        $dateThree = new DateTimestamp('16-12-2013 14:34:32');
+
+        $this->assertTrue($dateOne->equalsDate($dateThree));
+        $this->assertFalse($dateOne->equalsDate($dateTwo));
+    }
 }
