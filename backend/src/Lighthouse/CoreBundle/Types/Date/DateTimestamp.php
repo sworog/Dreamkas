@@ -34,7 +34,7 @@ class DateTimestamp extends DateTime
      */
     public function __toString()
     {
-        return $this->getTimestamp();
+        return (string) $this->getTimestamp();
     }
 
     /**

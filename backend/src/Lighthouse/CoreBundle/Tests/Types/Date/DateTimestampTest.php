@@ -39,4 +39,12 @@ class DateTimestampTest extends TestCase
         $changeSecondDateTime->setSeconds(23);
         $this->assertTrue($expectedDateTimeChangeSecond->equals($changeSecondDateTime));
     }
+
+    public function testToString()
+    {
+        $time = strtotime("-30 days");
+        $timestamp = new DateTimestamp("-30 days");
+        $this->assertEquals($time, $timestamp->getTimestamp());
+        $this->assertEquals("$time", (string) $timestamp);
+    }
 }
