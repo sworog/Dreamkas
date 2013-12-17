@@ -2174,4 +2174,60 @@ class ReportControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($expectedProduct2Yesterday, '*.yesterday', $response);
         Assert::assertJsonPathEquals($expectedProduct2WeekAgo, '*.weekAgo', $response);
     }
+
+    public function testAccessGetGrossSalesByProductReport()
+    {
+        $storeId = $this->factory->getStore();
+        $storeManagerToken = $this->factory->authAsStoreManager($storeId);
+        $departmentManagerToken = $this->factory->authAsDepartmentManager($storeId);
+        $storeManagerOtherStoreToken = $this->factory->authAsRole(User::ROLE_STORE_MANAGER);
+        $commercialManagerToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $departmentManagerOtherStoreToken = $this->factory->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
+        $administratorToken = $this->factory->authAsRole(User::ROLE_ADMINISTRATOR);
+
+        $subCategoryId = $this->createSubCategory();
+
+
+        $this->clientJsonRequest(
+            $storeManagerToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/subcategories/'. $subCategoryId .'/reports/grossSalesByProducts'
+        );
+        $this->assertResponseCode(200);
+
+        $this->clientJsonRequest(
+            $departmentManagerToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/subcategories/'. $subCategoryId .'/reports/grossSalesByProducts'
+        );
+        $this->assertResponseCode(403);
+
+        $this->clientJsonRequest(
+            $storeManagerOtherStoreToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/subcategories/'. $subCategoryId .'/reports/grossSalesByProducts'
+        );
+        $this->assertResponseCode(403);
+
+        $this->clientJsonRequest(
+            $commercialManagerToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/subcategories/'. $subCategoryId .'/reports/grossSalesByProducts'
+        );
+        $this->assertResponseCode(403);
+
+        $this->clientJsonRequest(
+            $departmentManagerOtherStoreToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/subcategories/'. $subCategoryId .'/reports/grossSalesByProducts'
+        );
+        $this->assertResponseCode(403);
+
+        $this->clientJsonRequest(
+            $administratorToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/subcategories/'. $subCategoryId .'/reports/grossSalesByProducts'
+        );
+        $this->assertResponseCode(403);
+    }
 }
