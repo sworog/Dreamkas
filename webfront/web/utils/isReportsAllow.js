@@ -10,9 +10,9 @@ define(function(require, exports, module) {
             storeGrossSales: LH.isAllow('stores', 'GET::{store}/reports/grossSales') && currentUserModel.stores && currentUserModel.stores.length,
             grossSalesByStores: LH.isAllow('others', 'GET::api/1/reports/grossSalesByStores'),
             grossSales: LH.isAllow('others', 'GET::api/1/reports/grossSales'),
-            grossSalesByGroups: true,
-            grossSalesByCategories: true,
-            grossSalesBySubCategories: true,
+            grossSalesByGroups: LH.isAllow('stores', 'GET::{store}/reports/grossSalesByGroups'),
+            grossSalesByCategories: LH.isAllow('stores/{store}/groups', 'GET::{group}/reports/grossSalesByCategories'),
+            grossSalesBySubCategories: LH.isAllow('stores/{store}/categories/{category}', 'GET::reports/grossSalesBySubCategories'),
             grossSalesByProducts: LH.isAllow('stores/{store}/subcategories/{subCategory}', 'GET::reports/grossSalesByProducts')
         };
 
