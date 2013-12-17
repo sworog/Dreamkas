@@ -2075,12 +2075,12 @@ class ReportControllerTest extends WebTestCase
 
         $this->assertCount(2, $response);
 
-        Assert::assertJsonPathEquals($product1Id, '*.product.product.id', $response);
+        Assert::assertJsonPathEquals($product1Id, '*.shopProduct.product.id', $response);
         Assert::assertJsonPathEquals($expectedProduct1Today, '*.today', $response);
         Assert::assertJsonPathEquals($expectedProduct1Yesterday, '*.yesterday', $response);
         Assert::assertJsonPathEquals($expectedProduct1WeekAgo, '*.weekAgo', $response);
 
-        Assert::assertJsonPathEquals($product2Id, '*.product.product.id', $response);
+        Assert::assertJsonPathEquals($product2Id, '*.shopProduct.product.id', $response);
         Assert::assertJsonPathEquals($expectedProduct2Today, '*.today', $response);
         Assert::assertJsonPathEquals($expectedProduct2Yesterday, '*.yesterday', $response);
         Assert::assertJsonPathEquals($expectedProduct2WeekAgo, '*.weekAgo', $response);
@@ -2164,12 +2164,12 @@ class ReportControllerTest extends WebTestCase
 
         $this->assertCount(2, $response);
 
-        Assert::assertJsonPathEquals($product1Id, '*.product.product.id', $response);
+        Assert::assertJsonPathEquals($product1Id, '*.shopProduct.product.id', $response);
         Assert::assertJsonPathEquals($expectedProduct1Today, '*.today', $response);
         Assert::assertJsonPathEquals($expectedProduct1Yesterday, '*.yesterday', $response);
         Assert::assertJsonPathEquals($expectedProduct1WeekAgo, '*.weekAgo', $response);
 
-        Assert::assertJsonPathEquals($product2Id, '*.product.product.id', $response);
+        Assert::assertJsonPathEquals($product2Id, '*.shopProduct.product.id', $response);
         Assert::assertJsonPathEquals($expectedProduct2Today, '*.today', $response);
         Assert::assertJsonPathEquals($expectedProduct2Yesterday, '*.yesterday', $response);
         Assert::assertJsonPathEquals($expectedProduct2WeekAgo, '*.weekAgo', $response);

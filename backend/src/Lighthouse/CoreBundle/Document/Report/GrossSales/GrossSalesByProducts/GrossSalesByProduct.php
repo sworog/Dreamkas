@@ -10,7 +10,7 @@ class GrossSalesByProduct extends AbstractDocument
     /**
      * @var StoreProduct
      */
-    protected $product;
+    protected $shopProduct;
 
     /**
      * @var GrossSalesByProductDay
@@ -29,7 +29,7 @@ class GrossSalesByProduct extends AbstractDocument
 
     public function __construct(StoreProduct $product, $endDayHours)
     {
-        $this->product = $product;
+        $this->shopProduct = $product;
         foreach ($endDayHours as $key => $dayHour) {
             $this->$key = new GrossSalesByProductDay($dayHour);
         }
