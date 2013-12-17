@@ -8,7 +8,7 @@ define(function(require, exports, module) {
         storeId: null,
         subCategoryId: null,
         url: function(){
-            return LH.mockApiUrl + '/stores/' + this.storeId + '/subcategories/' + this.subCategoryId + '/reports/grossSalesByProducts';
+            return LH.baseApiUrl + '/stores/' + this.storeId + '/subcategories/' + this.subCategoryId + '/reports/grossSalesByProducts';
         }
     });
 });
