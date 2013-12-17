@@ -682,6 +682,7 @@ class UserControllerTest extends WebTestCase
                         'GET::{store}/products',
                         'GET::{store}/reports/grossSales',
                         'GET::{store}/reports/grossSalesByHours',
+                        'GET::{store}/reports/grossSalesByGroups',
                     ),
                     'stores/{store}/products/{product}.*' => array(
                         'GET',
@@ -689,11 +690,13 @@ class UserControllerTest extends WebTestCase
                     ),
                     'stores/{store}/groups.*' => array(
                         'GET::{group}/categories',
-                        'GET'
+                        'GET',
+                        'GET::{group}/reports/grossSalesByCategories',
                     ),
                     'stores/{store}/categories/{category}.*' => array(
                         'GET::subcategories',
-                        'GET'
+                        'GET',
+                        'GET::reports/grossSalesBySubCategories',
                     ),
                     'stores/{store}/subcategories/{subCategory}.*' => array(
                         'GET',

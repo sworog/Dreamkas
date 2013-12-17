@@ -2,6 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
+use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\GrossSales;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesByProductsCollection;
@@ -116,5 +118,49 @@ class ReportController extends FOSRestController
     {
         $time = new DateTime($request->get('time', 'now'));
         return $this->grossSalesReportManager->getGrossSalesByProducts($store, $subCategory, $time);
+    }
+
+    /**
+     * @param Store $store
+     * @param Category $category
+     * @param Request $request
+     * @return GrossSalesByProductsCollection
+     *
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
+     * @Rest\Route("stores/{store}/categories/{category}/reports/grossSalesBySubCategories")
+     * @ApiDoc
+     */
+    public function getReportsGrossSalesBySubCategoriesAction(Store $store, Category $category, Request $request)
+    {
+        return null;
+    }
+
+    /**
+     * @param Store $store
+     * @param Group $group
+     * @param Request $request
+     * @return GrossSalesByProductsCollection
+     *
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
+     * @Rest\Route("stores/{store}/groups/{group}/reports/grossSalesByCategories")
+     * @ApiDoc
+     */
+    public function getReportsGrossSalesByPCategoriesAction(Store $store, Group $group, Request $request)
+    {
+        return null;
+    }
+
+    /**
+     * @param Store $store
+     * @param Request $request
+     * @return GrossSalesByProductsCollection
+     *
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
+     * @Rest\Route("stores/{store}/reports/grossSalesByGroups")
+     * @ApiDoc
+     */
+    public function getReportsGrossSalesByGroupsAction(Store $store, Request $request)
+    {
+        return null;
     }
 }
