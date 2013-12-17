@@ -13,7 +13,7 @@ define(function(require, exports, module) {
             grossSalesByGroups: true,
             grossSalesByCategories: true,
             grossSalesBySubCategories: true,
-            grossSalesByProducts: true
+            grossSalesByProducts: LH.isAllow('stores/{store}/subcategories/{subCategory}', 'GET::reports/grossSalesByProducts')
         };
 
         return _.find(reports ? _.pick(reportsPermissionsMap, reports) : reportsPermissionsMap);
