@@ -20,13 +20,13 @@
     <tr name="productGrossSales">
         <td>
             <div name="product.name">
-                <%- productGrossSalesModel.get('product.name') %>
+                <%- productGrossSalesModel.get('storeProduct.product.name') %>
             </div>
             <div name="product.barcode" style="font-size: 11px; float: right">
-                <%- productGrossSalesModel.get('product.barcode') %>
+                <%- productGrossSalesModel.get('storeProduct.product.barcode') %>
             </div>
             <div name="product.sku" style="font-size: 11px;">
-                <%- productGrossSalesModel.get('product.sku') %>
+                <%- productGrossSalesModel.get('storeProduct.product.sku') %>
             </div>
         </td>
         <td style="<%- (todaySum < yesterdaySum && todaySum < weekAgoSum) ? 'color: red' : '' %>" name="today.runningSum">
