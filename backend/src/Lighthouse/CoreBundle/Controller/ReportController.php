@@ -2,7 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\GrossSales;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesByProductsCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSalesByStoresCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesReportManager;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReportByHours;
@@ -98,5 +100,21 @@ class ReportController extends FOSRestController
     public function getReportsGrossSalesAction(DateTime $time = null)
     {
         return $this->grossSalesReportManager->getGrossSales($time);
+    }
+
+    /**
+     * @param Store $store
+     * @param SubCategory $subCategory
+     * @param Request $request
+     * @return GrossSalesByProductsCollection
+     *
+     * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
+     * @Rest\Route("stores/{store}/subcategories/{subCategory}/reports/grossSalesByProducts")
+     * @ApiDoc
+     */
+    public function getReportsGrossSalesByProductsAction(Store $store, SubCategory $subCategory, Request $request)
+    {
+        $time = new DateTime($request->get('time', 'now'));
+        return $this->grossSalesReportManager->getGrossSalesByProducts($store, $subCategory, $time);
     }
 }

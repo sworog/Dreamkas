@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesReportManager;
 use Lighthouse\CoreBundle\Document\User\User;
+use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use DateTime;
 
@@ -1774,9 +1775,6 @@ class ReportControllerTest extends WebTestCase
         $product1Id = $this->createProduct('1', $subCategoryId);
         $product2Id = $this->createProduct('2', $subCategoryId);
         $product3Id = $this->createProduct('3', $subCategoryOtherId);
-        $storeProduct1Id = $this->factory->getStoreProduct($storeId, $product1Id);
-        $storeProduct2Id = $this->factory->getStoreProduct($storeId, $product2Id);
-        $storeProduct3Id = $this->factory->getStoreProduct($storeId, $product3Id);
 
         $sales = array(
             array(
@@ -2047,87 +2045,133 @@ class ReportControllerTest extends WebTestCase
             array('time' => date('c', strtotime("10:35:47")))
         );
 
-        $expectedResponse = array(
+        $this->assertResponseCode(200);
+
+        $expectedProduct2Today = array(
+            'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+            'runningSum' => 583.11,
+        );
+        $expectedProduct2Yesterday = array(
+            'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+            'runningSum' => 583.11,
+        );
+        $expectedProduct2WeekAgo = array(
+            'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+            'runningSum' => 583.11,
+        );
+
+        $expectedProduct1Today = array(
+            'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+            'runningSum' => 312.93,
+        );
+        $expectedProduct1Yesterday = array(
+            'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+            'runningSum' => 312.93,
+        );
+        $expectedProduct1WeekAgo = array(
+            'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+            'runningSum' => 414.93,
+        );
+
+        $this->assertCount(2, $response);
+
+        Assert::assertJsonPathEquals($product1Id, '*.product.product.id', $response);
+        Assert::assertJsonPathEquals($expectedProduct1Today, '*.today', $response);
+        Assert::assertJsonPathEquals($expectedProduct1Yesterday, '*.yesterday', $response);
+        Assert::assertJsonPathEquals($expectedProduct1WeekAgo, '*.weekAgo', $response);
+
+        Assert::assertJsonPathEquals($product2Id, '*.product.product.id', $response);
+        Assert::assertJsonPathEquals($expectedProduct2Today, '*.today', $response);
+        Assert::assertJsonPathEquals($expectedProduct2Yesterday, '*.yesterday', $response);
+        Assert::assertJsonPathEquals($expectedProduct2WeekAgo, '*.weekAgo', $response);
+    }
+
+    public function testGrossSalesByProductsEmpty()
+    {
+        $storeId = $this->factory->getStore('1');
+        $storeOtherId = $this->factory->getStore('Other');
+        $subCategoryId = $this->createSubCategory();
+        $subCategoryOtherId = $this->createSubCategory(null, 'Other');
+        $product1Id = $this->createProduct('1', $subCategoryId);
+        $product2Id = $this->createProduct('2', $subCategoryId);
+        $product3Id = $this->createProduct('3', $subCategoryOtherId);
+
+        $salesInOtherStore = array(
             array(
-                'product' => array(
-                    'id' => $storeProduct1Id,
-                    'store' => array(
-                        'id' => $storeId,
+                'storeId' => $storeOtherId,
+                'createdDate' => "8:01",
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
                     ),
-                    'subCategory' => array(
-                        'id' => $subCategoryId,
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
                     ),
-                ),
-                'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
-                    'runningSum' => 312.93,
-                    'hourSum' => 104.31
-                ),
-                'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
-                    'runningSum' => 312.93,
-                    'hourSum' => 104.31,
-                ),
-                'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
-                    'runningSum' => 414.93,
-                    'hourSum' => 104.31,
-                ),
-            ),
-            array(
-                'product' => array(
-                    'id' => $storeProduct2Id,
-                    'store' => array(
-                        'id' => $storeId,
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
                     ),
-                    'subCategory' => array(
-                        'id' => $subCategoryId,
-                    ),
-                ),
-                'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
-                    'runningSum' => 583.11,
-                    'hourSum' => 194.37
-                ),
-                'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
-                    'runningSum' => 583.11,
-                    'hourSum' => 194.37,
-                ),
-                'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
-                    'runningSum' => 583.11,
-                    'hourSum' => 194.37,
-                ),
-            ),
-            array(
-                'product' => array(
-                    'id' => $storeProduct3Id,
-                    'store' => array(
-                        'id' => $storeId,
-                    ),
-                    'subCategory' => array(
-                        'id' => $subCategoryId,
-                    ),
-                ),
-                'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
-                    'runningSum' => 914.55,
-                    'hourSum' => 304.85
-                ),
-                'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
-                    'runningSum' => 914.55,
-                    'hourSum' => 304.85,
-                ),
-                'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
-                    'runningSum' => 914.55,
-                    'hourSum' => 304.85,
                 ),
             ),
         );
+        $this->factory->createSales($salesInOtherStore);
 
-        $this->assertEquals($expectedResponse, $response);
+        $grossSalesReportManager = $this->getGrossSalesReportService();
+        $grossSalesReportManager->recalculateGrossSalesProductReport();
+
+        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/subcategories/' . $subCategoryId . '/reports/grossSalesByProducts',
+            null,
+            array('time' => date('c', strtotime("10:35:47")))
+        );
+
+        $this->assertResponseCode(200);
+
+        $expectedProduct2Today = array(
+            'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+            'runningSum' => 0,
+        );
+        $expectedProduct2Yesterday = array(
+            'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+            'runningSum' => 0,
+        );
+        $expectedProduct2WeekAgo = array(
+            'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+            'runningSum' => 0,
+        );
+
+        $expectedProduct1Today = array(
+            'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+            'runningSum' => 0,
+        );
+        $expectedProduct1Yesterday = array(
+            'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+            'runningSum' => 0,
+        );
+        $expectedProduct1WeekAgo = array(
+            'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+            'runningSum' => 0,
+        );
+
+        $this->assertCount(2, $response);
+
+        Assert::assertJsonPathEquals($product1Id, '*.product.product.id', $response);
+        Assert::assertJsonPathEquals($expectedProduct1Today, '*.today', $response);
+        Assert::assertJsonPathEquals($expectedProduct1Yesterday, '*.yesterday', $response);
+        Assert::assertJsonPathEquals($expectedProduct1WeekAgo, '*.weekAgo', $response);
+
+        Assert::assertJsonPathEquals($product2Id, '*.product.product.id', $response);
+        Assert::assertJsonPathEquals($expectedProduct2Today, '*.today', $response);
+        Assert::assertJsonPathEquals($expectedProduct2Yesterday, '*.yesterday', $response);
+        Assert::assertJsonPathEquals($expectedProduct2WeekAgo, '*.weekAgo', $response);
     }
 }

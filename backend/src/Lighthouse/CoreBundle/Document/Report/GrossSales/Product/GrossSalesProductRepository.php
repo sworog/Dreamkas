@@ -2,9 +2,11 @@
 
 namespace Lighthouse\CoreBundle\Document\Report\GrossSales\Product;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use DateTime;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProductCollection;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 
 class GrossSalesProductRepository extends DocumentRepository
@@ -19,7 +21,11 @@ class GrossSalesProductRepository extends DocumentRepository
         return md5($storeProductId . ":" . $dayHour->getTimestamp());
     }
 
-
+    /**
+     * @param string $storeProductId
+     * @param DateTime|string $dayHour
+     * @return GrossSalesProductReport|object
+     */
     public function findByStoreProductAndDayHour($storeProductId, $dayHour)
     {
         if (!$dayHour instanceof DateTime) {
@@ -79,5 +85,47 @@ class GrossSalesProductRepository extends DocumentRepository
     ) {
         $storeProduct = $this->dm->getReference(StoreProduct::getClassName(), $storeProductId);
         return $this->createByDayHourAndStoreProduct($dayHour, $storeProduct, $runningSum, $hourSum);
+    }
+
+    /**
+     * @param array $dayHours
+     * @param StoreProductCollection $storeProducts
+     * @return Cursor
+     */
+    public function findByDayHoursStoreProducts(array $dayHours, StoreProductCollection $storeProducts)
+    {
+        $datesForQuery = $this->normalizeDayHours($dayHours);
+        $storeProductsForQuery = $this->normalizeStoreProducts($storeProducts);
+
+        return $this->findBy(
+            array(
+                'dayHour' => array('$in' => $datesForQuery),
+                'product' => array('$in'=> $storeProductsForQuery)
+            )
+        );
+    }
+
+    /**
+     * @param array $dayHours
+     * @return array
+     */
+    public function normalizeDayHours(array $dayHours)
+    {
+        return array_merge($dayHours['today'], $dayHours['yesterday'], $dayHours['weekAgo']);
+    }
+
+    /**
+     * @param StoreProductCollection $collection
+     * @return array
+     */
+    public function normalizeStoreProducts(StoreProductCollection $collection)
+    {
+        $array = $collection->toArray();
+        return array_map(
+            function ($value) {
+                return $value->id;
+            },
+            $array
+        );
     }
 }

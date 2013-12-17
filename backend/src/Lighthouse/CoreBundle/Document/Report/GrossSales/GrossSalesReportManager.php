@@ -3,11 +3,17 @@
 namespace Lighthouse\CoreBundle\Document\Report\GrossSales;
 
 use Doctrine\ODM\MongoDB\Cursor;
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProductCollection;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\DayGrossSales;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\GrossSales;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesByProduct;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesByProductsCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSalesByStoresCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\StoreGrossSalesByStores;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\Product\GrossSalesProductReport;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\Product\GrossSalesProductRepository;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReport;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesRepository;
@@ -50,31 +56,40 @@ class GrossSalesReportManager
     protected $productRepository;
 
     /**
+     * @var StoreProductRepository
+     */
+    protected $storeProductRepository;
+
+    /**
      * @DI\InjectParams({
      *      "grossSalesRepository" = @DI\Inject("lighthouse.core.document.repository.store_gross_sales"),
      *      "grossSalesProductRepository" = @DI\Inject("lighthouse.core.document.repository.product_gross_sales"),
      *      "storeRepository" = @DI\Inject("lighthouse.core.document.repository.store"),
      *      "trialBalanceRepository" = @DI\Inject("lighthouse.core.document.repository.trial_balance"),
-     *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product")
+     *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product"),
+     *      "storeProductRepository" = @DI\Inject("lighthouse.core.document.repository.store_product")
      * })
      * @param StoreGrossSalesRepository $grossSalesRepository
      * @param GrossSalesProductRepository $grossSalesProductRepository
      * @param StoreRepository $storeRepository
      * @param TrialBalanceRepository $trialBalanceRepository
      * @param ProductRepository $productRepository
+     * @param StoreProductRepository $storeProductRepository
      */
     public function __construct(
         StoreGrossSalesRepository $grossSalesRepository,
         GrossSalesProductRepository $grossSalesProductRepository,
         StoreRepository $storeRepository,
         TrialBalanceRepository $trialBalanceRepository,
-        ProductRepository $productRepository
+        ProductRepository $productRepository,
+        StoreProductRepository $storeProductRepository
     ) {
         $this->grossSalesRepository = $grossSalesRepository;
         $this->grossSalesProductRepository = $grossSalesProductRepository;
         $this->storeRepository = $storeRepository;
         $this->trialBalanceRepository = $trialBalanceRepository;
         $this->productRepository = $productRepository;
+        $this->storeProductRepository = $storeProductRepository;
     }
 
     /**
@@ -168,6 +183,29 @@ class GrossSalesReportManager
             $dates[$key] = $nextDateTime->modify($interval);
         }
         return $dates;
+    }
+
+    /**
+     * @param DateTime|string|null $time
+     * @param array $intervals
+     * @return DateTimestamp[]
+     */
+    protected function getDayHours($time, array $intervals)
+    {
+        $dateTime = new DateTimestamp($time);
+        $dateTime->setMinutes(0)->setSeconds(0);
+        $dayHours = array();
+        foreach ($intervals as $key => $interval) {
+            $nextDateTime = clone $dateTime;
+            if (null !== $interval) {
+                $nextDateTime->modify($interval);
+            }
+            for ($hour = 0; $hour <= $nextDateTime->getHours(); $hour++) {
+                $nextDayHour = clone $nextDateTime;
+                $dayHours[$key][$hour] = $nextDayHour->setHours($hour);
+            }
+        }
+        return $dayHours;
     }
 
     /**
@@ -288,5 +326,112 @@ class GrossSalesReportManager
         );
 
         return new DateTimestamp($dateString);
+    }
+
+    /**
+     * @param Store $store
+     * @param SubCategory $subCategory
+     * @param DateTime|null $time
+     * @return GrossSalesByProduct[]
+     */
+    public function getGrossSalesByProducts(Store $store, SubCategory $subCategory, DateTime $time = null)
+    {
+        $intervals = array(
+            'today' => null,
+            'yesterday' => '-1 days',
+            'weekAgo' => '-7 days',
+        );
+
+        $dayHours = $this->getDayHours($time, $intervals);
+        $storeProducts = $this->getStoreProductsByStoreSubCategory($store, $subCategory);
+
+        $reports = $this->grossSalesProductRepository->findByDayHoursStoreProducts($dayHours, $storeProducts);
+        $grossSalesByProductCollection = $this->createGrossSalesByProductsCollection($reports, $dayHours);
+        $this->fillGrossSalesByProductsCollection(
+            $grossSalesByProductCollection,
+            $storeProducts,
+            $dayHours
+        );
+
+        return $grossSalesByProductCollection->getValues();
+    }
+
+    /**
+     * @param Store $store
+     * @param SubCategory $subCategory
+     * @return StoreProductCollection
+     */
+    protected function getStoreProductsByStoreSubCategory(Store $store, SubCategory $subCategory)
+    {
+        return $this->storeProductRepository->findByStoreSubCategory($store, $subCategory);
+    }
+
+    /**
+     * @param Cursor $reports
+     * @param DateTimestamp[] $dayHours
+     * @return GrossSalesByProductsCollection
+     */
+    protected function createGrossSalesByProductsCollection(Cursor $reports, array $dayHours)
+    {
+        $endDayHours = $this->extractEndDayHours($dayHours);
+        $collection = new GrossSalesByProductsCollection();
+        /** @var GrossSalesProductReport $report */
+        foreach ($reports as $report) {
+            $storeProductId = $report->product->id;
+            if (null === $collection->get($storeProductId)) {
+                $collection->set($storeProductId, new GrossSalesByProduct($report->product, $endDayHours));
+            }
+            foreach ($endDayHours as $dayName => $dayHour) {
+                if ($dayHour->equalsDate($report->dayHour)) {
+                    $collection->get($storeProductId)->$dayName->addRunningSum($report->hourSum);
+                    break;
+                }
+            }
+        }
+
+        return $collection;
+    }
+
+    /**
+     * @param GrossSalesByProductsCollection $collection
+     * @param StoreProductCollection $storeProducts
+     * @param DateTime[] $dayHours
+     * @return GrossSalesByProductsCollection
+     */
+    public function fillGrossSalesByProductsCollection(
+        GrossSalesByProductsCollection $collection,
+        StoreProductCollection $storeProducts,
+        array $dayHours
+    ) {
+        $endDayHours = $this->extractEndDayHours($dayHours);
+
+        foreach ($storeProducts as $storeProduct) {
+            $storeProductId = $storeProduct->id;
+            if (null === $collection->get($storeProductId)) {
+                $collection->set($storeProductId, new GrossSalesByProduct($storeProduct, $endDayHours));
+            }
+        }
+
+        return $collection;
+    }
+
+    /**
+     * @param DateTimestamp[] $dayHours
+     * @return DateTimestamp[]
+     */
+    protected function extractEndDayHours(array $dayHours)
+    {
+        $endDayHours = array();
+        foreach ($dayHours as $key => $dayHoursArray) {
+            foreach ($dayHoursArray as $dayHour) {
+                if (!isset ($endDayHours[$key])
+                    || $endDayHours[$key] < $dayHour
+                ) {
+                    $endDayHours[$key] = $dayHour;
+                }
+            }
+        }
+
+        return $endDayHours;
     }
 }
