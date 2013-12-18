@@ -20,4 +20,17 @@ class AbstractCollection extends ArrayCollection
         }
         parent::__construct($elements);
     }
+
+    /**
+     * @return array
+     */
+    public function normalizeKeys()
+    {
+        $values = $this->getValues();
+        $this->clear();
+        foreach ($values as $value) {
+            $this->add($value);
+        }
+        return $this;
+    }
 }

@@ -6,7 +6,7 @@ use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\GrossSales;
-use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesByProductsCollection;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesBySubCategoriesCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSalesByStoresCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesReportManager;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReportByHours;
@@ -132,7 +132,8 @@ class ReportController extends FOSRestController
      */
     public function getReportsGrossSalesBySubCategoriesAction(Store $store, Category $category, Request $request)
     {
-        return null;
+        $time = new DateTime($request->get('time', 'now'));
+        return $this->grossSalesReportManager->getGrossSalesBySubCategories($store, $category, $time);
     }
 
     /**
@@ -145,7 +146,7 @@ class ReportController extends FOSRestController
      * @Rest\Route("stores/{store}/groups/{group}/reports/grossSalesByCategories")
      * @ApiDoc
      */
-    public function getReportsGrossSalesByPCategoriesAction(Store $store, Group $group, Request $request)
+    public function getReportsGrossSalesByCategoriesAction(Store $store, Group $group, Request $request)
     {
         return null;
     }

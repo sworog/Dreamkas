@@ -433,6 +433,29 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @param array $catalog
+     * @param bool $ifNotExists
+     * @return array
+     */
+    protected function createCatalog(array $catalog, $ifNotExists = true)
+    {
+        $catalogIds = array();
+        foreach ($catalog as $groupName => $categories) {
+            $groupId = $this->createGroup($groupName, $ifNotExists);
+            $catalogIds[$groupName] = $groupId;
+            foreach ($categories as $categoryName => $subCategories) {
+                $categoryId = $this->createCategory($groupId, $categoryName, $ifNotExists);
+                $catalogIds[$categoryName] = $categoryId;
+                foreach ($subCategories as $subCategoryName => $void) {
+                    $subCategoryId = $this->createSubCategory($categoryId, $subCategoryName, $ifNotExists);
+                    $catalogIds[$subCategoryName] = $subCategoryId;
+                }
+            }
+        }
+        return $catalogIds;
+    }
+
+    /**
      * @param string $name
      * @param bool $ifNotExists
      * @param mixed $retailMarkupMin

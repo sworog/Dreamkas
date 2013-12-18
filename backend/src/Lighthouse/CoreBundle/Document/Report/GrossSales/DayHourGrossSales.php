@@ -1,12 +1,12 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts;
+namespace Lighthouse\CoreBundle\Document\Report\GrossSales;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use DateTime;
 
-class GrossSalesByProductDay extends AbstractDocument
+class DayHourGrossSales extends AbstractDocument
 {
     /**
      * @var DateTime

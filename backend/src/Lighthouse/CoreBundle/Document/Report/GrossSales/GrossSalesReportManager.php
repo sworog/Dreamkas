@@ -3,7 +3,11 @@
 namespace Lighthouse\CoreBundle\Document\Report\GrossSales;
 
 use Doctrine\ODM\MongoDB\Cursor;
+use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
+use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
+use Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductCollection;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
@@ -11,6 +15,8 @@ use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\DayGrossSales;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\GrossSales;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesByProduct;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesByProductsCollection;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesBySubCategories;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesBySubCategoriesCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSalesByStoresCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\StoreGrossSalesByStores;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\Product\GrossSalesProductReport;
@@ -20,10 +26,10 @@ use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use JMS\DiExtraBundle\Annotation as DI;
 use DateTime;
-use Lighthouse\CoreBundle\Types\Numeric\Money;
 
 /**
  * @DI\Service("lighthouse.core.document.report.gross_sales.manager")
@@ -61,13 +67,31 @@ class GrossSalesReportManager
     protected $storeProductRepository;
 
     /**
+     * @var SubCategoryRepository
+     */
+    protected $subCategoryRepository;
+
+    /**
+     * @var CategoryRepository
+     */
+    protected $categoryRepository;
+
+    /**
+     * @var GroupRepository
+     */
+    protected $groupRepository;
+
+    /**
      * @DI\InjectParams({
      *      "grossSalesRepository" = @DI\Inject("lighthouse.core.document.repository.store_gross_sales"),
      *      "grossSalesProductRepository" = @DI\Inject("lighthouse.core.document.repository.product_gross_sales"),
      *      "storeRepository" = @DI\Inject("lighthouse.core.document.repository.store"),
      *      "trialBalanceRepository" = @DI\Inject("lighthouse.core.document.repository.trial_balance"),
      *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product"),
-     *      "storeProductRepository" = @DI\Inject("lighthouse.core.document.repository.store_product")
+     *      "storeProductRepository" = @DI\Inject("lighthouse.core.document.repository.store_product"),
+     *      "subCategoryRepository" = @DI\Inject("lighthouse.core.document.repository.classifier.subcategory"),
+     *      "categoryRepository" = @DI\Inject("lighthouse.core.document.repository.classifier.category"),
+     *      "groupRepository" = @DI\Inject("lighthouse.core.document.repository.classifier.group"),
      * })
      * @param StoreGrossSalesRepository $grossSalesRepository
      * @param GrossSalesProductRepository $grossSalesProductRepository
@@ -75,6 +99,9 @@ class GrossSalesReportManager
      * @param TrialBalanceRepository $trialBalanceRepository
      * @param ProductRepository $productRepository
      * @param StoreProductRepository $storeProductRepository
+     * @param SubCategoryRepository $subCategoryRepository
+     * @param CategoryRepository $categoryRepository
+     * @param GroupRepository $groupRepository
      */
     public function __construct(
         StoreGrossSalesRepository $grossSalesRepository,
@@ -82,7 +109,10 @@ class GrossSalesReportManager
         StoreRepository $storeRepository,
         TrialBalanceRepository $trialBalanceRepository,
         ProductRepository $productRepository,
-        StoreProductRepository $storeProductRepository
+        StoreProductRepository $storeProductRepository,
+        SubCategoryRepository $subCategoryRepository,
+        CategoryRepository $categoryRepository,
+        GroupRepository $groupRepository
     ) {
         $this->grossSalesRepository = $grossSalesRepository;
         $this->grossSalesProductRepository = $grossSalesProductRepository;
@@ -90,6 +120,9 @@ class GrossSalesReportManager
         $this->trialBalanceRepository = $trialBalanceRepository;
         $this->productRepository = $productRepository;
         $this->storeProductRepository = $storeProductRepository;
+        $this->subCategoryRepository = $subCategoryRepository;
+        $this->categoryRepository = $categoryRepository;
+        $this->groupRepository = $groupRepository;
     }
 
     /**
@@ -353,7 +386,7 @@ class GrossSalesReportManager
             $dayHours
         );
 
-        return $grossSalesByProductCollection->getValues();
+        return $grossSalesByProductCollection->normalizeKeys();
     }
 
     /**
@@ -416,22 +449,66 @@ class GrossSalesReportManager
     }
 
     /**
-     * @param DateTimestamp[] $dayHours
+     * @param Store $store
+     * @param Category $category
+     * @param DateTime|null $time
+     * @return GrossSalesBySubCategoriesCollection[]
+     */
+    public function getGrossSalesBySubCategories(Store $store, Category $category, DateTime $time = null)
+    {
+        $intervals = array(
+            'today' => null,
+            'yesterday' => '-1 days',
+            'weekAgo' => '-7 days',
+        );
+
+        $dayHours = $this->getDayHours($time, $intervals);
+        $subCategories = $this->subCategoryRepository->findByCategory($category->id);
+        $subCategories->sort(array('name' => 1));
+
+        $grossSalesBySubCategoriesCollection = new GrossSalesBySubCategoriesCollection();
+
+        $endDayHours = $this->extractEndDayHours($dayHours);
+        $this->fillGrossSalesBySubCategoriesCollection(
+            $grossSalesBySubCategoriesCollection,
+            $subCategories,
+            $endDayHours
+        );
+
+        return $grossSalesBySubCategoriesCollection->normalizeKeys();
+    }
+
+    /**
+     * @param GrossSalesBySubCategoriesCollection $collection
+     * @param SubCategory[]|Cursor $subCategories
+     * @param DateTime[] $dates
+     * @return GrossSalesBySubCategoriesCollection
+     */
+    public function fillGrossSalesBySubCategoriesCollection(
+        GrossSalesBySubCategoriesCollection $collection,
+        Cursor $subCategories,
+        array $dates
+    ) {
+        foreach ($subCategories as $subCategory) {
+            if (!$collection->containsKey($subCategory->id)) {
+                $collection->createBySubCategory($subCategory, $dates);
+            }
+        }
+
+        return $collection;
+    }
+
+    /**
+     * @param array $dayHours
      * @return DateTimestamp[]
      */
     protected function extractEndDayHours(array $dayHours)
     {
         $endDayHours = array();
         foreach ($dayHours as $key => $dayHoursArray) {
-            foreach ($dayHoursArray as $dayHour) {
-                if (!isset ($endDayHours[$key])
-                    || $endDayHours[$key] < $dayHour
-                ) {
-                    $endDayHours[$key] = $dayHour;
-                }
-            }
+            sort($dayHoursArray);
+            $endDayHours[$key] = end($dayHoursArray);
         }
-
         return $endDayHours;
     }
 }

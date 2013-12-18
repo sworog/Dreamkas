@@ -1662,14 +1662,49 @@ class ReportControllerTest extends WebTestCase
     /**
      * @return array
      */
-    protected function createSales()
+    protected function createSalesProducts()
     {
         $storeIds = $this->factory->getStores(array('1', '2', '3'));
         // create store managers to be sure they would not get in serialization
         $this->factory->getStoreManager($storeIds['1']);
         $this->factory->getDepartmentManager($storeIds['1']);
 
-        $productIds = $this->createProductsBySku(array('1', '2', '3', '4'));
+        $catalogIds = $this->createCatalog(
+            array(
+                '1' => array(
+                    '1.1' => array(
+                        '1.1.1' => '',
+                        '1.1.2' => ''
+                    ),
+                    '1.2' => array(
+                        '1.2.1' => ''
+                    ),
+                ),
+                '2' => array(
+                    '2.1' => array(
+                        '2.1.1' => ''
+                    )
+                )
+            ),
+            false
+        );
+
+        $productIds = array();
+        $productIds['1'] = $this->createProduct(array('sku' => '1'), $catalogIds['1.1.1']);
+        $productIds['2'] = $this->createProduct(array('sku' => '2'), $catalogIds['1.1.1']);
+        $productIds['3'] = $this->createProduct(array('sku' => '3'), $catalogIds['1.1.2']);
+        $productIds['4'] = $this->createProduct(array('sku' => '4'), $catalogIds['2.1.1']);
+        $productIds['5'] = $this->createProduct(array('sku' => '5'), $catalogIds['1.2.1']);
+
+        return array($storeIds, $productIds, $catalogIds);
+    }
+
+    /**
+     * @return array
+     */
+    protected function createSales()
+    {
+        list($storeIds, $productIds, $catalogIds) = $this->createSalesProducts();
 
         // today, should not be counted
         $sale = $this->factory->createSale($storeIds['1'], '8:01', 408.09);
@@ -1763,7 +1798,7 @@ class ReportControllerTest extends WebTestCase
 
         $this->factory->flush();
 
-        return array($storeIds, $productIds);
+        return array($storeIds, $productIds, $catalogIds);
     }
 
     public function testGrossSalesByProducts()
@@ -2229,5 +2264,48 @@ class ReportControllerTest extends WebTestCase
             '/api/1/stores/' . $storeId . '/subcategories/'. $subCategoryId .'/reports/grossSalesByProducts'
         );
         $this->assertResponseCode(403);
+    }
+
+    public function testGrossSalesBySubCategoryEmpty()
+    {
+        list($storeIds,, $catalogIds) = $this->createSalesProducts();
+
+        $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$storeIds['1']}/categories/{$catalogIds['1.1']}/reports/grossSalesBySubCategories",
+            null,
+            array('time' => date('c', strtotime("10:35:47")))
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($catalogIds['1.1.1'], '0.subCategory.id', $response);
+        Assert::assertJsonPathEquals($catalogIds['1.1.2'], '1.subCategory.id', $response);
+
+        $actualResponse = $response;
+        $actualResponse[0]['subCategory'] = array('id' => $actualResponse[0]['subCategory']['id']);
+        $actualResponse[1]['subCategory'] = array('id' => $actualResponse[1]['subCategory']['id']);
+
+        $emptyDayReport = array(
+            'today' => array(
+                'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                'runningSum' => 0,
+            ),
+            'yesterday' => array(
+                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                'runningSum' => 0,
+            ),
+            'weekAgo' => array(
+                'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                'runningSum' => 0,
+            )
+        );
+        $expectedResponse = array(
+            0 => $emptyDayReport + array('subCategory' => array('id' => $catalogIds['1.1.1'])),
+            1 => $emptyDayReport + array('subCategory' => array('id' => $catalogIds['1.1.2']))
+        );
+        $this->assertEquals($expectedResponse, $actualResponse);
     }
 }

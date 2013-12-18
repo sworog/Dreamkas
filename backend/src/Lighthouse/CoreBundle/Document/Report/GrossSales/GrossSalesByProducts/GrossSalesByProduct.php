@@ -2,10 +2,11 @@
 
 namespace Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts;
 
-use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\TodayGrossSales;
+use DateTime;
 
-class GrossSalesByProduct extends AbstractDocument
+class GrossSalesByProduct extends TodayGrossSales
 {
     /**
      * @var StoreProduct
@@ -13,25 +14,12 @@ class GrossSalesByProduct extends AbstractDocument
     protected $storeProduct;
 
     /**
-     * @var GrossSalesByProductDay
+     * @param StoreProduct $product
+     * @param DateTime[] $endDayHours
      */
-    protected $today;
-
-    /**
-     * @var GrossSalesByProductDay
-     */
-    protected $yesterday;
-
-    /**
-     * @var GrossSalesByProductDay
-     */
-    protected $weekAgo;
-
-    public function __construct(StoreProduct $product, $endDayHours)
+    public function __construct(StoreProduct $product, array $endDayHours)
     {
         $this->storeProduct = $product;
-        foreach ($endDayHours as $key => $dayHour) {
-            $this->$key = new GrossSalesByProductDay($dayHour);
-        }
+        parent::__construct($endDayHours);
     }
 }

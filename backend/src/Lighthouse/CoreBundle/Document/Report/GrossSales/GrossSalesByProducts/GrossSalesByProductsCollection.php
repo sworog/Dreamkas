@@ -6,5 +6,4 @@ use Lighthouse\CoreBundle\Document\AbstractCollection;
 
 class GrossSalesByProductsCollection extends AbstractCollection
 {
-
 }
