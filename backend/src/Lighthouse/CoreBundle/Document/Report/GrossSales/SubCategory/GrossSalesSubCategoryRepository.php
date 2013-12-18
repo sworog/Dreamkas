@@ -83,7 +83,6 @@ class GrossSalesSubCategoryRepository extends DocumentRepository
         );
     }
 
-
     /**
      * @param array $ids
      * @return array

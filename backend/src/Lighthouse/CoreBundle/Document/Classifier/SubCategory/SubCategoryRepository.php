@@ -26,7 +26,6 @@ class SubCategoryRepository extends DocumentRepository
         return $this->findBy(array('category' => $categoryId));
     }
 
-
     /**
      * @param string $categoryId
      * @return MongoId[]

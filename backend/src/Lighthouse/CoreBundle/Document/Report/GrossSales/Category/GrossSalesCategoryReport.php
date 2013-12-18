@@ -32,4 +32,12 @@ class GrossSalesCategoryReport extends GrossSalesClassifierNodeReport
     {
         return $this->category;
     }
+
+    /**
+     * @param AbstractNode $node
+     */
+    public function setNode(AbstractNode $node)
+    {
+        $this->category = $node;
+    }
 }

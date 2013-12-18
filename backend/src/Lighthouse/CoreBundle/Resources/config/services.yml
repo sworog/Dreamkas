@@ -167,3 +167,8 @@ services:
         parent: doctrine_mongodb.odm.repository
         arguments:
             - LighthouseCoreBundle:Report\GrossSales\Category\GrossSalesCategoryReport
+
+    lighthouse.core.document.repository.group_gross_sales:
+        parent: doctrine_mongodb.odm.repository
+        arguments:
+            - LighthouseCoreBundle:Report\GrossSales\Group\GrossSalesGroupReport

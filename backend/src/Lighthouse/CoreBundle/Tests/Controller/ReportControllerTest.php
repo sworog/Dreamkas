@@ -2481,12 +2481,12 @@ class ReportControllerTest extends WebTestCase
 
     public function testGrossSalesByGroupsReport()
     {
-        $this->markTestIncomplete();
         list($storeIds,, $catalogIds) = $this->createSales();
 
         $this->getGrossSalesReportService()->recalculateGrossSalesProductReport();
         $this->getGrossSalesReportService()->recalculateGrossSalesBySubCategories();
         $this->getGrossSalesReportService()->recalculateGrossSalesByCategories();
+        $this->getGrossSalesReportService()->recalculateGrossSalesByGroups();
 
         $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(

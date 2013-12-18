@@ -49,4 +49,9 @@ abstract class GrossSalesClassifierNodeReport extends AbstractDocument
      * @return AbstractNode
      */
     abstract public function getNode();
+
+    /**
+     * @param AbstractNode $node
+     */
+    abstract public function setNode(AbstractNode $node);
 }

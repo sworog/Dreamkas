@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document\Classifier\Category;
 
 use Doctrine\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
+use MongoId;
 
 class CategoryRepository extends DocumentRepository
 {
@@ -23,6 +24,25 @@ class CategoryRepository extends DocumentRepository
     public function findByGroup($groupId)
     {
         return $this->findBy(array('group' => $groupId));
+    }
+
+    /**
+     * @param string $groupId
+     * @return MongoId[]
+     */
+    public function findIdsByGroupId($groupId)
+    {
+        $qb = $this->createQueryBuilder()
+            ->hydrate(false)
+            ->select('_id')
+            ->field('group')->equals($groupId);
+        $result = $qb->getQuery()->execute();
+        $ids = array();
+        foreach ($result as $row) {
+            $ids[] = $row['_id'];
+        }
+        return $ids;
+
     }
 
     /**

@@ -81,4 +81,40 @@ class GrossSalesCategoryRepository extends DocumentRepository
             )
         );
     }
+
+    /**
+     * @param array $ids
+     * @return array
+     */
+    public function calculateGrossSalesByIds(array $ids)
+    {
+        $ops = array(
+            array(
+                '$match' => array(
+                    'category' => array(
+                        '$in' => $ids
+                    )
+                ),
+            ),
+            array(
+                '$sort' => array(
+                    'dayHour' => 1,
+                )
+            ),
+            array(
+                '$project' => array(
+                    '_id' => 0,
+                    'dayHour' => 1,
+                    'hourSum' => 1,
+                ),
+            ),
+            array(
+                '$group' => array(
+                    '_id' => '$dayHour',
+                    'hourSum' => array('$sum' => '$hourSum'),
+                ),
+            ),
+        );
+        return $this->aggregate($ops);
+    }
 }
