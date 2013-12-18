@@ -86,15 +86,15 @@ public class Us_57_4_Fixture extends AbstractFixture {
                                                       Map<Integer, String> todayGrossSaleMap,
                                                       Map<Integer, String> yesterdayGrossSaleMap,
                                                       Map<Integer, String> weekAgoGrossSaleMap) {
-        int hour = new DateTime().getHourOfDay();
+        int hour = new DateTime().getHourOfDay() + 1;
         List<Map<String, String>> mapList = new ArrayList<>();
         Map<String, String> shop1DataMap = new HashMap<>();
         shop1DataMap.put("productName", name);
         shop1DataMap.put("productSku", sku);
         shop1DataMap.put("productBarcode", barCode);
-        shop1DataMap.put("todayValue", todayGrossSaleMap.get(hour));
-        shop1DataMap.put("yesterdayValue", yesterdayGrossSaleMap.get(hour));
-        shop1DataMap.put("weekAgoValue", weekAgoGrossSaleMap.get(hour));
+        shop1DataMap.put("todayValue", getFormattedValue(todayGrossSaleMap.get(hour)));
+        shop1DataMap.put("yesterdayValue", getFormattedValue(yesterdayGrossSaleMap.get(hour)));
+        shop1DataMap.put("weekAgoValue", getFormattedValue(weekAgoGrossSaleMap.get(hour)));
         mapList.add(shop1DataMap);
         return new ExamplesTable("").withRows(mapList);
     }
@@ -131,4 +131,81 @@ public class Us_57_4_Fixture extends AbstractFixture {
         PurchaseXmlBuilder purchaseXmlBuilder = generateDataSet(date, shopNumber, id, price);
         return prepareDataFile(purchaseXmlBuilder);
     }
+
+    public class TodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet {
+
+        public File prepareTodayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
+            return generateFileDataSet(todayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_3);
+        }
+
+        public File prepareYesterdayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
+            return generateFileDataSet(yesterdayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_3);
+        }
+
+        public File prepareWeekAgoData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
+            return generateFileDataSet(weekAgoDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_3);
+        }
+    }
+
+    public class TodayIsBiggerThanYesterdayAndWeekAgoDataSet {
+
+        public File prepareTodayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
+            return generateFileDataSet(todayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_3);
+        }
+
+        public File prepareYesterdayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
+            return generateFileDataSet(yesterdayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_2);
+        }
+
+        public File prepareWeekAgoData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
+            return generateFileDataSet(weekAgoDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_1);
+        }
+    }
+
+    public class TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet {
+
+        public File prepareTodayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
+            return generateFileDataSet(todayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_2);
+        }
+
+        public File prepareYesterdayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
+            return generateFileDataSet(yesterdayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_3);
+        }
+
+        public File prepareWeekAgoData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
+            return generateFileDataSet(weekAgoDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_1);
+        }
+    }
+
+    public class TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet {
+
+        public File prepareTodayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
+            return generateFileDataSet(todayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_2);
+        }
+
+        public File prepareYesterdayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
+            return generateFileDataSet(yesterdayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_1);
+        }
+
+        public File prepareWeekAgoData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
+            return generateFileDataSet(weekAgoDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_3);
+        }
+    }
+
+    public class TodayIsSmallerThanYesterdayAndWeekAgoDataSet {
+
+        public File prepareTodayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
+            return generateFileDataSet(todayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_1);
+        }
+
+        public File prepareYesterdayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
+            return generateFileDataSet(yesterdayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_2);
+        }
+
+        public File prepareWeekAgoData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
+            return generateFileDataSet(weekAgoDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_3);
+        }
+    }
+
+
 }

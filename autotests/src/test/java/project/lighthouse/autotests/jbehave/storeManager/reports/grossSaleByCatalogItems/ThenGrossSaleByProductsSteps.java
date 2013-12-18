@@ -44,4 +44,14 @@ public class ThenGrossSaleByProductsSteps {
     public void thenTheUSerChecksTheGrossSaleByProductsReportContainsEmptyDataForProduct2() {
         grossSaleByProductsSteps.compareTableContainsEmptyDataForProduc2();
     }
+
+    @Then("the user checks the table today value by locator '$locator' is not red highlighted")
+    public void thenTheUserChecksTheTableTodayValueByLocatorIsNotRedHighLighted(String locator) {
+        grossSaleByProductsSteps.checkTheTableValueColorIsNotRed(locator);
+    }
+
+    @Then("the user checks the table today value by locator '$locator' is red highlighted")
+    public void thenTheUserChecksTheTableTodayValueByLocatorIsRedHighlighted(String locator) {
+        grossSaleByProductsSteps.checkTheTableValueIsRed(locator);
+    }
 }
