@@ -6,6 +6,8 @@ use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\GrossSales;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByCategories\GrossSalesByCategoriesCollection;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByGroups\GrossSalesByGroupsCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesByProductsCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesBySubCategories\GrossSalesBySubCategoriesCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSalesByStoresCollection;
@@ -141,7 +143,7 @@ class ReportController extends FOSRestController
      * @param Store $store
      * @param Group $group
      * @param Request $request
-     * @return GrossSalesByProductsCollection
+     * @return GrossSalesByCategoriesCollection
      *
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
      * @Rest\Route("stores/{store}/groups/{group}/reports/grossSalesByCategories")
@@ -156,7 +158,7 @@ class ReportController extends FOSRestController
     /**
      * @param Store $store
      * @param Request $request
-     * @return GrossSalesByProductsCollection
+     * @return GrossSalesByGroupsCollection
      *
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
      * @Rest\Route("stores/{store}/reports/grossSalesByGroups")
@@ -164,6 +166,7 @@ class ReportController extends FOSRestController
      */
     public function getReportsGrossSalesByGroupsAction(Store $store, Request $request)
     {
-        return null;
+        $time = new DateTime($request->get('time', 'now'));
+        return $this->grossSalesReportManager->getGrossSalesByGroups($store, $time);
     }
 }

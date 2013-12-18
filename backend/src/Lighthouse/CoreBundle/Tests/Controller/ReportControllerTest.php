@@ -2284,9 +2284,9 @@ class ReportControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($catalogIds['1.1.1'], '0.subCategory.id', $response);
         Assert::assertJsonPathEquals($catalogIds['1.1.2'], '1.subCategory.id', $response);
 
-        $actualResponse = $response;
-        $actualResponse[0]['subCategory'] = array('id' => $actualResponse[0]['subCategory']['id']);
-        $actualResponse[1]['subCategory'] = array('id' => $actualResponse[1]['subCategory']['id']);
+        $filteredResponse = $response;
+        $filteredResponse[0]['subCategory'] = array('id' => $filteredResponse[0]['subCategory']['id']);
+        $filteredResponse[1]['subCategory'] = array('id' => $filteredResponse[1]['subCategory']['id']);
 
         $emptyDayReport = array(
             'today' => array(
@@ -2306,7 +2306,7 @@ class ReportControllerTest extends WebTestCase
             0 => $emptyDayReport + array('subCategory' => array('id' => $catalogIds['1.1.1'])),
             1 => $emptyDayReport + array('subCategory' => array('id' => $catalogIds['1.1.2']))
         );
-        $this->assertEquals($expectedResponse, $actualResponse);
+        $this->assertEquals($expectedResponse, $filteredResponse);
     }
 
     public function testGrossSalesByCategoriesEmpty()
@@ -2327,9 +2327,9 @@ class ReportControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($catalogIds['1.1'], '0.category.id', $response);
         Assert::assertJsonPathEquals($catalogIds['1.2'], '1.category.id', $response);
 
-        $actualResponse = $response;
-        $actualResponse[0]['category'] = array('id' => $actualResponse[0]['category']['id']);
-        $actualResponse[1]['category'] = array('id' => $actualResponse[1]['category']['id']);
+        $filteredResponse = $response;
+        $filteredResponse[0]['category'] = array('id' => $filteredResponse[0]['category']['id']);
+        $filteredResponse[1]['category'] = array('id' => $filteredResponse[1]['category']['id']);
 
         $emptyDayReport = array(
             'today' => array(
@@ -2349,6 +2349,49 @@ class ReportControllerTest extends WebTestCase
             0 => $emptyDayReport + array('category' => array('id' => $catalogIds['1.1'])),
             1 => $emptyDayReport + array('category' => array('id' => $catalogIds['1.2']))
         );
-        $this->assertEquals($expectedResponse, $actualResponse);
+        $this->assertEquals($expectedResponse, $filteredResponse);
+    }
+
+    public function testGrossSalesByGroupsEmpty()
+    {
+        list($storeIds,, $catalogIds) = $this->createSalesProducts();
+
+        $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$storeIds['1']}/reports/grossSalesByGroups",
+            null,
+            array('time' => date('c', strtotime("10:35:47")))
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($catalogIds['1'], '0.group.id', $response);
+        Assert::assertJsonPathEquals($catalogIds['2'], '1.group.id', $response);
+
+        $filteredResponse = $response;
+        $filteredResponse[0]['group'] = array('id' => $filteredResponse[0]['group']['id']);
+        $filteredResponse[1]['group'] = array('id' => $filteredResponse[1]['group']['id']);
+
+        $emptyDayReport = array(
+            'today' => array(
+                'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                'runningSum' => 0,
+            ),
+            'yesterday' => array(
+                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                'runningSum' => 0,
+            ),
+            'weekAgo' => array(
+                'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                'runningSum' => 0,
+            )
+        );
+        $expectedResponse = array(
+            0 => $emptyDayReport + array('group' => array('id' => $catalogIds['1'])),
+            1 => $emptyDayReport + array('group' => array('id' => $catalogIds['2']))
+        );
+        $this->assertEquals($expectedResponse, $filteredResponse);
     }
 }

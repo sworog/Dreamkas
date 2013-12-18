@@ -2,21 +2,20 @@
 
 namespace Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByCategories;
 
-use Lighthouse\CoreBundle\Document\AbstractCollection;
+use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
-use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByClassifierNodeCollection;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\TodayGrossSales;
 
-class GrossSalesByCategoriesCollection extends AbstractCollection
+class GrossSalesByCategoriesCollection extends GrossSalesByClassifierNodeCollection
 {
     /**
-     * @param Category $category
-     * @param DateTime[] $dates
-     * @return GrossSalesByCategories
+     * @param AbstractNode|Category $node
+     * @param array $dates
+     * @return TodayGrossSales
      */
-    public function createByCategory(Category $category, array $dates)
+    public function createReport(AbstractNode $node, array $dates)
     {
-        $report = new GrossSalesByCategories($category, $dates);
-        $this->set($category->id, $report);
-        return $report;
+        return new GrossSalesByCategories($node, $dates);
     }
 }

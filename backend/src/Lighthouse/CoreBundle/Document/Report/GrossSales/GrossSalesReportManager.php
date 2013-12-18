@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\Report\GrossSales;
 
 use Doctrine\ODM\MongoDB\Cursor;
+use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
@@ -15,9 +16,8 @@ use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\DayGrossSales;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\GrossSales;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByCategories\GrossSalesByCategoriesCollection;
-use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesByProduct;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByGroups\GrossSalesByGroupsCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesByProductsCollection;
-use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesBySubCategories\GrossSalesBySubCategories;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesBySubCategories\GrossSalesBySubCategoriesCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSalesByStoresCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\StoreGrossSalesByStores;
@@ -441,13 +441,10 @@ class GrossSalesReportManager
         $collection = new GrossSalesByProductsCollection();
         /** @var GrossSalesProductReport $report */
         foreach ($reports as $report) {
-            $storeProductId = $report->product->id;
-            if (null === $collection->get($storeProductId)) {
-                $collection->set($storeProductId, new GrossSalesByProduct($report->product, $endDayHours));
-            }
+            $storeProductReport = $collection->getByStoreProduct($report->product, $endDayHours);
             foreach ($endDayHours as $dayName => $dayHour) {
                 if ($dayHour->equalsDate($report->dayHour)) {
-                    $collection->get($storeProductId)->$dayName->addRunningSum($report->hourSum);
+                    $storeProductReport->$dayName->addRunningSum($report->hourSum);
                     break;
                 }
             }
@@ -468,9 +465,8 @@ class GrossSalesReportManager
         array $endDayHours
     ) {
         foreach ($storeProducts as $storeProduct) {
-            $storeProductId = $storeProduct->id;
-            if (!$collection->containsKey($storeProductId)) {
-                $collection->set($storeProductId, new GrossSalesByProduct($storeProduct, $endDayHours));
+            if (!$collection->containsStoreProduct($storeProduct)) {
+                $collection->createByStoreProduct($storeProduct, $endDayHours);
             }
         }
 
@@ -499,7 +495,7 @@ class GrossSalesReportManager
 
         $grossSalesBySubCategoriesCollection = new GrossSalesBySubCategoriesCollection();
 
-        $this->fillGrossSalesBySubCategoriesCollection(
+        $this->fillGrossSalesByClassifierNodeCollection(
             $grossSalesBySubCategoriesCollection,
             $subCategories,
             $endDayHours
@@ -507,27 +503,6 @@ class GrossSalesReportManager
 
         return $grossSalesBySubCategoriesCollection->normalizeKeys();
     }
-
-    /**
-     * @param GrossSalesBySubCategoriesCollection $collection
-     * @param SubCategory[]|Cursor $subCategories
-     * @param DateTime[] $dates
-     * @return GrossSalesBySubCategoriesCollection
-     */
-    public function fillGrossSalesBySubCategoriesCollection(
-        GrossSalesBySubCategoriesCollection $collection,
-        Cursor $subCategories,
-        array $dates
-    ) {
-        foreach ($subCategories as $subCategory) {
-            if (!$collection->containsKey($subCategory->id)) {
-                $collection->createBySubCategory($subCategory, $dates);
-            }
-        }
-
-        return $collection;
-    }
-
 
     /**
      * @param Store $store
@@ -551,7 +526,7 @@ class GrossSalesReportManager
 
         $grossSalesByCategoriesCollection = new GrossSalesByCategoriesCollection();
 
-        $this->fillGrossSalesByCategoriesCollection(
+        $this->fillGrossSalesByClassifierNodeCollection(
             $grossSalesByCategoriesCollection,
             $categories,
             $endDayHours
@@ -561,23 +536,50 @@ class GrossSalesReportManager
     }
 
     /**
-     * @param GrossSalesByCategoriesCollection $collection
-     * @param Category[]|Cursor $categories
-     * @param DateTime[] $dates
-     * @return GrossSalesByCategoriesCollection
+     * @param Store $store
+     * @param DateTime|null $time
+     * @return GrossSalesByGroupsCollection
      */
-    public function fillGrossSalesByCategoriesCollection(
-        GrossSalesByCategoriesCollection $collection,
-        Cursor $categories,
+    public function getGrossSalesByGroups(Store $store, DateTime $time = null)
+    {
+        $intervals = array(
+            'today' => null,
+            'yesterday' => '-1 days',
+            'weekAgo' => '-7 days',
+        );
+
+        $dayHours = $this->getDayHours($time, $intervals);
+        $endDayHours = $this->extractEndDayHours($dayHours);
+
+        $groups = $this->groupRepository->findAll();
+        $groups->sort(array('name' => 1));
+
+        $grossSalesByGroupsCollection = new GrossSalesByGroupsCollection();
+
+        $this->fillGrossSalesByClassifierNodeCollection(
+            $grossSalesByGroupsCollection,
+            $groups,
+            $endDayHours
+        );
+
+        return $grossSalesByGroupsCollection->normalizeKeys();
+    }
+
+    /**
+     * @param GrossSalesByClassifierNodeCollection $collection
+     * @param AbstractNode[]|Cursor $nodes
+     * @param DateTime[] $dates
+     */
+    public function fillGrossSalesByClassifierNodeCollection(
+        GrossSalesByClassifierNodeCollection $collection,
+        Cursor $nodes,
         array $dates
     ) {
-        foreach ($categories as $category) {
-            if (!$collection->containsKey($category->id)) {
-                $collection->createByCategory($category, $dates);
+        foreach ($nodes as $node) {
+            if (!$collection->containsKey($node->id)) {
+                $collection->createByNode($node, $dates);
             }
         }
-
-        return $collection;
     }
 
     /**
