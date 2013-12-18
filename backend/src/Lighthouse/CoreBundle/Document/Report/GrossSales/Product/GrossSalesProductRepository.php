@@ -37,11 +37,7 @@ class GrossSalesProductRepository extends DocumentRepository
         $report = $this->find($reportId);
 
         if (null === $report) {
-            $report = new GrossSalesProductReport();
-            $report->id = $reportId;
-            $report->dayHour = $dayHour;
-            $report->hourSum = new Money(0);
-            $report->runningSum = new Money(0);
+            $report = $this->createByDayHourAndStoreProductId($dayHour, $storeProductId);
         }
 
         return $report;
