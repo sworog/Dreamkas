@@ -5,15 +5,11 @@ define(function(require, exports, module) {
 
     return Collection.extend({
         __name__: module.id,
-        model: function(data){
-            return new Model({
-                category: data
-            });
-        },
+        model: Model,
         storeId: null,
         groupId: null,
         url: function(){
-            return LH.baseApiUrl + '/stores/' + this.storeId + '/groups/' + this.groupId + '/categories';
+            return LH.baseApiUrl + '/stores/' + this.storeId + '/groups/' + this.groupId + '/reports/grossSalesByCategories';
         }
     });
 });

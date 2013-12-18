@@ -5,14 +5,10 @@ define(function(require, exports, module) {
 
     return Collection.extend({
         __name__: module.id,
-        model: function(data){
-            return new Model({
-                group: data
-            });
-        },
+        model: Model,
         storeId: null,
         url: function(){
-            return LH.baseApiUrl + '/stores/' + this.storeId + '/groups';
+            return LH.baseApiUrl + '/stores/' + this.storeId + '/reports/grossSalesByGroups';
         }
     });
 });
