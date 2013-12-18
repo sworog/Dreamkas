@@ -6,8 +6,10 @@ use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\AbstractCollection;
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
+use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
+use Lighthouse\CoreBundle\Document\Classifier\Group\GroupCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryCollection;
@@ -584,8 +586,9 @@ class GrossSalesReportManager
         $dayHours = $this->getDayHours($time, $intervals);
         $endDayHours = $this->extractEndDayHours($dayHours);
 
-        $categories = $this->categoryRepository->findByGroup($group->id);
-        $categories->sort(array('name' => 1));
+        $cursor = $this->categoryRepository->findByGroup($group->id);
+        $cursor->sort(array('name' => 1));
+        $categories = new CategoryCollection($cursor);
 
         $grossSalesByCategoriesCollection = new GrossSalesByCategoriesCollection();
 
@@ -614,8 +617,9 @@ class GrossSalesReportManager
         $dayHours = $this->getDayHours($time, $intervals);
         $endDayHours = $this->extractEndDayHours($dayHours);
 
-        $groups = $this->groupRepository->findAll();
-        $groups->sort(array('name' => 1));
+        $cursor = $this->groupRepository->findAll();
+        $cursor->sort(array('name' => 1));
+        $groups = new GroupCollection($cursor);
 
         $grossSalesByGroupsCollection = new GrossSalesByGroupsCollection();
 
