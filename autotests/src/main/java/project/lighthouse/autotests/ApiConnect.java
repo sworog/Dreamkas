@@ -9,9 +9,6 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
@@ -335,21 +332,11 @@ public class ApiConnect {
         HttpEntity httpEntity = response.getEntity();
         if (httpEntity != null) {
             String responseMessage = EntityUtils.toString(httpEntity, "UTF-8");
-            validateResponseMessage(response, responseMessage);
+            validateResponseMessage(httpEntityEnclosingRequestBase.getURI().toURL().toString(), response, responseMessage);
             return responseMessage;
         } else {
             return "";
         }
-    }
-
-    //Fix for the connection time out problem?
-    private DefaultHttpClient getDefaultHttpClientWithHttpParams() {
-        HttpParams httpParams = new BasicHttpParams();
-        int timeoutConnection = 3000;
-        HttpConnectionParams.setConnectionTimeout(httpParams, timeoutConnection);
-        int timeoutSocket = 5000;
-        HttpConnectionParams.setSoTimeout(httpParams, timeoutSocket);
-        return new DefaultHttpClient(httpParams);
     }
 
     private String getLinkHeaderValue(User user, String type) throws JSONException {
@@ -388,7 +375,8 @@ public class ApiConnect {
         );
     }
 
-    private void validateResponseMessage(HttpResponse httpResponse, String responseMessage) {
+    private void validateResponseMessage(String url, HttpResponse httpResponse, String responseMessage) {
+        // TODO refactor to switch logic (status code == 400, 500 and etc)
         int statusCode = httpResponse.getStatusLine().getStatusCode();
         if (statusCode != 201 && statusCode != 200) {
             StringBuilder builder = new StringBuilder();
@@ -396,7 +384,7 @@ public class ApiConnect {
             try {
                 mainJsonObject = new JSONObject(responseMessage);
 
-                if (!mainJsonObject.isNull("errors")) {
+                if (!mainJsonObject.isNull("errors") && mainJsonObject.isNull("children")) {
                     JSONArray jsonArray = mainJsonObject.getJSONArray("errors");
                     for (int i = 0; i < jsonArray.length(); i++) {
                         builder.append(jsonArray.get(i));
@@ -425,10 +413,12 @@ public class ApiConnect {
                 }
             } catch (JSONException e) {
                 fail(
-                        String.format("Exception message: %s. Json: %s. Response message: %s", e.getMessage(),
+                        String.format("Exception message: '%s'. Json: '%s'. Url: '%s'. Response: '%s'. Response message: '%s'", e.getMessage(),
                                 mainJsonObject != null
                                         ? mainJsonObject.toString()
                                         : null,
+                                url,
+                                httpResponse,
                                 responseMessage)
                 );
             }
@@ -439,9 +429,9 @@ public class ApiConnect {
     }
 
     private String executeSimpleGetRequest(String targetUrl, boolean forAccessToken) throws IOException, JSONException {
-
-        //TODO Work around for token expiration 401 : The access token provided has expired.
+        // TODO Work around for token expiration 401 : The access token provided has expired.
         HttpGet request = new HttpGet(targetUrl);
+        request.setHeader("Accept", "application/json");
         if (forAccessToken) {
             request.setHeader("Authorization", "Bearer " + getAccessToken());
         }
@@ -449,7 +439,7 @@ public class ApiConnect {
         HttpResponse response = httpClient.execute(request);
         HttpEntity httpEntity = response.getEntity();
         String responseMessage = EntityUtils.toString(httpEntity, "UTF-8");
-        validateResponseMessage(response, responseMessage);
+        validateResponseMessage(targetUrl, response, responseMessage);
         return responseMessage;
     }
 
