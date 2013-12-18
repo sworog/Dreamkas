@@ -33,6 +33,30 @@ class DocumentRepository extends BaseRepository
     }
 
     /**
+     * @return int
+     */
+    public function count()
+    {
+        return $this->findAll()->count();
+    }
+
+    /**
+     * @return array
+     */
+    public function findAllIds()
+    {
+        $qb = $this->createQueryBuilder()
+            ->hydrate(false)
+            ->select('_id');
+        $result = $qb->getQuery()->execute();
+        $ids = array();
+        foreach ($result as $row) {
+            $ids[] = $row['_id'];
+        }
+        return $ids;
+    }
+
+    /**
      * @return bool
      */
     public function isCollectionEmpty()

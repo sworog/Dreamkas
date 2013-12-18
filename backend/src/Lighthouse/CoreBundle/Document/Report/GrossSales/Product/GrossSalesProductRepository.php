@@ -147,4 +147,40 @@ class GrossSalesProductRepository extends DocumentRepository
             );
         }
     }
+
+    /**
+     * @param array $storeProductIds
+     * @return array
+     */
+    public function calculateGrossSalesByIds(array $storeProductIds)
+    {
+        $ops = array(
+            array(
+                '$match' => array(
+                    'product' => array(
+                        '$in' => $storeProductIds
+                    )
+                ),
+            ),
+            array(
+                '$sort' => array(
+                    'dayHour' => 1,
+                )
+            ),
+            array(
+                '$project' => array(
+                    '_id' => 0,
+                    'dayHour' => 1,
+                    'hourSum' => 1,
+                ),
+            ),
+            array(
+                '$group' => array(
+                    '_id' => '$dayHour',
+                    'hourSum' => array('$sum' => '$hourSum'),
+                ),
+            ),
+        );
+        return $this->aggregate($ops);
+    }
 }

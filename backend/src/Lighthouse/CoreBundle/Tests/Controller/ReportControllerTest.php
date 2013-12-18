@@ -2266,6 +2266,71 @@ class ReportControllerTest extends WebTestCase
         $this->assertResponseCode(403);
     }
 
+    public function testGrossSalesBySubCategoriesReport()
+    {
+        list($storeIds, $productIds, $catalogIds) = $this->createSales();
+
+        $this->getGrossSalesReportService()->recalculateGrossSalesProductReport();
+        $this->getGrossSalesReportService()->recalculateGrossSalesBySubCategories();
+
+        $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$storeIds['1']}/categories/{$catalogIds['1.1']}/reports/grossSalesBySubCategories",
+            null,
+            array('time' => date('c', strtotime("10:35:47")))
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($catalogIds['1.1.1'], '0.subCategory.id', $response);
+        Assert::assertJsonPathEquals($catalogIds['1.1.2'], '1.subCategory.id', $response);
+
+        $filteredResponse = $response;
+        $filteredResponse[0]['subCategory'] = array('id' => $filteredResponse[0]['subCategory']['id']);
+        $filteredResponse[1]['subCategory'] = array('id' => $filteredResponse[1]['subCategory']['id']);
+
+        $expectedResponse = array(
+            0 => array(
+                'today' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'runningSum' => 278.51,
+                ),
+                'yesterday' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'runningSum' => 644.12,
+                ),
+                'weekAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'runningSum' => 443.93,
+                ),
+                'subCategory' => array(
+                    'id' => $catalogIds['1.1.1'],
+                )
+            ),
+            1 => array(
+                'today' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'runningSum' => 129.58,
+                ),
+                'yesterday' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'runningSum' => 64.79,
+                ),
+                'weekAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'runningSum' => 842.27,
+                ),
+                'subCategory' => array(
+                    'id' => $catalogIds['1.1.2'],
+                )
+            )
+        );
+        $this->assertEquals($expectedResponse, $filteredResponse);
+        $this->assertSame($expectedResponse, $filteredResponse);
+    }
+
     public function testGrossSalesBySubCategoriesEmpty()
     {
         list($storeIds,, $catalogIds) = $this->createSalesProducts();

@@ -32,6 +32,24 @@ class ProductRepository extends DocumentRepository
     }
 
     /**
+     * @param string $subCategoryId
+     * @return array
+     */
+    public function findIdsBySubCategoryId($subCategoryId)
+    {
+        $qb = $this->createQueryBuilder()
+            ->hydrate(false)
+            ->select('_id')
+            ->field('subCategory')->equals($subCategoryId);
+        $result = $qb->getQuery()->execute();
+        $ids = array();
+        foreach ($result as $row) {
+            $ids[] = $row['_id'];
+        }
+        return $ids;
+    }
+
+    /**
      * @param string $sku
      * @return Product
      */

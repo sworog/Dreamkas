@@ -26,4 +26,18 @@ abstract class GrossSalesByClassifierNodeCollection extends AbstractCollection
         $this->set($node->id, $report);
         return $report;
     }
+
+    /**
+     * @param AbstractNode $node
+     * @param array $dates
+     * @return TodayGrossSales
+     */
+    public function getByNode(AbstractNode $node, array $dates)
+    {
+        if ($this->containsKey($node->id)) {
+            return $this->get($node->id);
+        } else {
+            return $this->createByNode($node, $dates);
+        }
+    }
 }

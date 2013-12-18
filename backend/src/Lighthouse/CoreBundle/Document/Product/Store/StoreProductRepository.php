@@ -109,13 +109,24 @@ class StoreProductRepository extends DocumentRepository
      */
     public function getIdByStoreAndProduct(Store $store, Product $product)
     {
-        if (null === $store->id) {
+        return $this->getIdByStoreIdAndProductId($store->id, $product->id);
+    }
+
+    /**
+     * @param $storeId
+     * @param $productId
+     * @return string
+     * @throws InvalidArgumentException
+     */
+    public function getIdByStoreIdAndProductId($storeId, $productId)
+    {
+        if (null === $storeId) {
             throw new InvalidArgumentException('Empty store id');
         }
-        if (null === $product->id) {
+        if (null === $productId) {
             throw new InvalidArgumentException('Empty product id');
         }
-        return md5($store->id . ':' . $product->id);
+        return md5($storeId . ':' . $productId);
     }
 
     /**

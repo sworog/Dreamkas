@@ -33,4 +33,26 @@ class AbstractCollection extends ArrayCollection
         }
         return $this;
     }
+
+    /**
+     * @param string $field
+     * @return array
+     */
+    public function extractField($field)
+    {
+        return array_map(
+            function ($value) use ($field) {
+                return $value->$field;
+            },
+            $this->getValues()
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function getIds()
+    {
+        return $this->extractField('id');
+    }
 }
