@@ -69,7 +69,7 @@ class StoreGrossSalesRepository extends DocumentRepository
         Money $runningSum = null,
         Money $hourSum = null
     ) {
-        $store = $this->dm->getReference(Store::getClassName(), $storeId);
+        $store = $this->getReference($storeId);
         return $this->createByDayHourAndStore($dayHour, $store, $runningSum, $hourSum);
     }
 

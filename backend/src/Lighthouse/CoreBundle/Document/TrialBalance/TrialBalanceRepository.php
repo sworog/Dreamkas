@@ -363,11 +363,6 @@ class TrialBalanceRepository extends DocumentRepository
             return array();
         }
 
-        $collection = $this->getDocumentManager()->getDocumentCollection($this->getClassName());
-
-        $backupTimeout = MongoCursor::$timeout;
-        MongoCursor::$timeout = -1;
-
         $requireDatePeriod = new DatePeriod("-8 day 00:00", "+1 day 23:59:59");
 
         $maxHoursStep = (int) (self::MAX_STORE_GROSS_SALES_REPORT_AGGREGATION / $countProducts);
@@ -397,19 +392,18 @@ class TrialBalanceRepository extends DocumentRepository
 
             while (1) {
                 $startAggregateTime = microtime(true);
-                $stepResult = $this->grossSalesProductAggregate($startDate, $endDate, $store, $collection);
+                $stepResult = $this->grossSalesProductAggregate($startDate, $endDate, $store);
                 $durationAggregateTime = microtime(true) - $startAggregateTime;
-                if (1 == $stepResult['ok']) {
 
-                    $startMergeTime = microtime(true);
-                    if (0 !== count($stepResult['result'])) {
-                        $results['reports'][] = $stepResult['result'];
-                        $results['totalCount'] += count($stepResult['result']);
-                    }
-                    $durationMergeTime = microtime(true) - $startMergeTime;
+                $startMergeTime = microtime(true);
+                if (0 !== count($stepResult)) {
+                    $results['reports'][] = $stepResult;
+                    $results['totalCount'] += count($stepResult);
+                }
+                $durationMergeTime = microtime(true) - $startMergeTime;
 
-                    $totalDurationAggregateTime += $durationAggregateTime;
-                    $totalMergeTime += $durationMergeTime;
+                $totalDurationAggregateTime += $durationAggregateTime;
+                $totalMergeTime += $durationMergeTime;
 
 //                    printf(
 //                        "Получено: %6d, Агрегация: %6f|%6f, Мердж: %6f|%6f, Шаг: %3d/%3d \n",
@@ -422,24 +416,18 @@ class TrialBalanceRepository extends DocumentRepository
 //                        $countAllSteps
 //                    );
 
-                    if ($endDate >= $requireDatePeriod->getEndDate()) {
-                        break;
-                    }
-
-                    $startDate = clone $endDate;
-                    $endDate->modify("+{$maxHoursStep} hour");
-                    if ($endDate > $requireDatePeriod->getEndDate()) {
-                        $endDate = $requireDatePeriod->getEndDate();
-                    }
-                } else {
-                    // TODO: Не забыть добавить обработку
-                    throw new \Exception($stepResult['errmsg']);
+                if ($endDate >= $requireDatePeriod->getEndDate()) {
                     break;
+                }
+
+                $startDate = clone $endDate;
+                $endDate->modify("+{$maxHoursStep} hour");
+                if ($endDate > $requireDatePeriod->getEndDate()) {
+                    $endDate = $requireDatePeriod->getEndDate();
                 }
             }
         }
 
-        MongoCursor::$timeout = $backupTimeout;
         $durationCalc = microtime(true) - $startCalc;
 
 //        echo "Время на расчёт: $durationCalc, Всего записей: ". $results['totalCount'] ."\n";
@@ -451,14 +439,12 @@ class TrialBalanceRepository extends DocumentRepository
      * @param DateTimestamp $startDate
      * @param DateTimestamp $endDate
      * @param Store $store
-     * @param Collection $collection
      * @return array
      */
     protected function grossSalesProductAggregate(
         DateTimestamp $startDate,
         DateTimestamp $endDate,
-        Store $store,
-        Collection $collection
+        Store $store
     ) {
         $ops = array(
             array(
@@ -500,8 +486,7 @@ class TrialBalanceRepository extends DocumentRepository
             ),
         );
 
-        $stepResult = $collection->getMongoCollection()->aggregate($ops);
 
-        return $stepResult;
+        return $this->aggregate($ops);
     }
 }

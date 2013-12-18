@@ -82,28 +82,30 @@ class ReportController extends FOSRestController
     }
 
     /**
-     * @param DateTime $time
+     * @param Request $request
      * @return GrossSalesByStoresCollection
      *
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @Rest\Route("reports/grossSalesByStores")
      * @ApiDoc
      */
-    public function getReportsGrossSalesByStoresAction(DateTime $time = null)
+    public function getReportsGrossSalesByStoresAction(Request $request)
     {
+        $time = new DateTime($request->get('time', 'now'));
         return $this->grossSalesReportManager->getGrossSalesByStores($time);
     }
 
     /**
-     * @param DateTime $time
+     * @param Request $request
      * @return GrossSales
      *
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @Rest\Route("reports/grossSales")
      * @ApiDoc
      */
-    public function getReportsGrossSalesAction(DateTime $time = null)
+    public function getReportsGrossSalesAction(Request $request)
     {
+        $time = new DateTime($request->get('time', 'now'));
         return $this->grossSalesReportManager->getGrossSales($time);
     }
 
