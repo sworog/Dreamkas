@@ -112,7 +112,7 @@ Meta:
 @id s25u57.4s5
 @description
 
-GivenStories: precondition/us-57_4/aPreconditionToScenarioS4.story of group named 'defaultGroup-s25u574', category named 'defaultCategory-s25u574', subcategory named 'defaultSubCategory-s25u574'
+GivenStories: precondition/us-57_4/aPreconditionToScenarioS4.story
 
 Given the user prepares data for red highlighted checks - today data is equal yesterday/weekAgo one
 Given the user runs the symfony:reports:recalculate command
