@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\TrialBalance;
 
+use Doctrine\MongoDB\Collection;
 use Doctrine\ODM\MongoDB\Cursor;
 use Doctrine\ODM\MongoDB\Query\Expr;
 use Doctrine\ODM\MongoDB\Query\Query;
@@ -11,9 +12,11 @@ use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Date\DatePeriod;
+use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use MongoId;
 use MongoCode;
 use MongoCursor;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 class TrialBalanceRepository extends DocumentRepository
 {
@@ -372,7 +375,17 @@ class TrialBalanceRepository extends DocumentRepository
             $maxHoursStep = 1;
         }
 
-        $result = array();
+        $results = array(
+            'reports' => array(),
+            'totalCount' => 0,
+        );
+        $countSteps = 1;
+
+        $countAllSteps = ((24 * 10) / $maxHoursStep) * count($stores);
+
+        $startCalc = microtime(true);
+        $totalDurationAggregateTime = 0.0;
+        $totalMergeTime = 0.0;
 
         foreach ($stores as $store) {
             $startDate = clone $requireDatePeriod->getStartDate();
@@ -380,54 +393,34 @@ class TrialBalanceRepository extends DocumentRepository
             $endDate->modify("+{$maxHoursStep} hour");
             if ($endDate > $requireDatePeriod->getEndDate()) {
                 $endDate = $requireDatePeriod->getEndDate();
-            } else {
-                $endDate->modify("+{$maxHoursStep} hour");
             }
 
             while (1) {
-                $ops = array(
-                    array(
-                        '$match' => array(
-                            'createdDate' => array(
-                                '$gte' => $startDate->getMongoDate(),
-                                '$lt' => $endDate->getMongoDate(),
-                            ),
-                            'reason.$ref' => SaleProduct::REASON_TYPE,
-                            'store' => new MongoId($store->id),
-                        ),
-                    ),
-                    array(
-                        '$sort' => array(
-                            'createdDate' => 1,
-                        )
-                    ),
-                    array(
-                        '$project' => array(
-                            'storeProduct' => 1,
-                            'totalPrice' => 1,
-                            'year' => array('$year' => '$createdDate'),
-                            'month' => array('$month' => '$createdDate'),
-                            'day' => array('$dayOfMonth' => '$createdDate'),
-                            'hour' => array('$hour' => '$createdDate'),
-                        ),
-                    ),
-                    array(
-                        '$group' => array(
-                            '_id' => array(
-                                'storeProduct' => '$storeProduct',
-                                'year' => '$year',
-                                'month' => '$month',
-                                'day' => '$day',
-                                'hour' => '$hour',
-                            ),
-                            'hourSum' => array('$sum' => '$totalPrice'),
-                        ),
-                    ),
-                );
-
-                $stepResult = $collection->getMongoCollection()->aggregate($ops);
+                $startAggregateTime = microtime(true);
+                $stepResult = $this->grossSalesProductAggregate($startDate, $endDate, $store, $collection);
+                $durationAggregateTime = microtime(true) - $startAggregateTime;
                 if (1 == $stepResult['ok']) {
-                    $result = array_merge($result, $stepResult['result']);
+
+                    $startMergeTime = microtime(true);
+                    if (0 !== count($stepResult['result'])) {
+                        $results['reports'][] = $stepResult['result'];
+                        $results['totalCount'] += count($stepResult['result']);
+                    }
+                    $durationMergeTime = microtime(true) - $startMergeTime;
+
+                    $totalDurationAggregateTime += $durationAggregateTime;
+                    $totalMergeTime += $durationMergeTime;
+
+//                    printf(
+//                        "Получено: %6d, Агрегация: %6f|%6f, Мердж: %6f|%6f, Шаг: %3d/%3d \n",
+//                        count($stepResult['result']),
+//                        $durationAggregateTime,
+//                        $totalDurationAggregateTime,
+//                        $durationMergeTime,
+//                        $totalMergeTime,
+//                        $countSteps++,
+//                        $countAllSteps
+//                    );
 
                     if ($endDate >= $requireDatePeriod->getEndDate()) {
                         break;
@@ -444,12 +437,71 @@ class TrialBalanceRepository extends DocumentRepository
                     break;
                 }
             }
-
-
         }
 
         MongoCursor::$timeout = $backupTimeout;
+        $durationCalc = microtime(true) - $startCalc;
 
-        return $result;
+//        echo "Время на расчёт: $durationCalc, Всего записей: ". $results['totalCount'] ."\n";
+
+        return $results;
+    }
+
+    /**
+     * @param DateTimestamp $startDate
+     * @param DateTimestamp $endDate
+     * @param Store $store
+     * @param Collection $collection
+     * @return array
+     */
+    protected function grossSalesProductAggregate(
+        DateTimestamp $startDate,
+        DateTimestamp $endDate,
+        Store $store,
+        Collection $collection
+    ) {
+        $ops = array(
+            array(
+                '$match' => array(
+                    'createdDate' => array(
+                        '$gte' => $startDate->getMongoDate(),
+                        '$lt' => $endDate->getMongoDate(),
+                    ),
+                    'reason.$ref' => SaleProduct::REASON_TYPE,
+                    'store' => new MongoId($store->id),
+                ),
+            ),
+            array(
+                '$sort' => array(
+                    'createdDate' => 1,
+                )
+            ),
+            array(
+                '$project' => array(
+                    'storeProduct' => 1,
+                    'totalPrice' => 1,
+                    'year' => array('$year' => '$createdDate'),
+                    'month' => array('$month' => '$createdDate'),
+                    'day' => array('$dayOfMonth' => '$createdDate'),
+                    'hour' => array('$hour' => '$createdDate'),
+                ),
+            ),
+            array(
+                '$group' => array(
+                    '_id' => array(
+                        'storeProduct' => '$storeProduct',
+                        'year' => '$year',
+                        'month' => '$month',
+                        'day' => '$day',
+                        'hour' => '$hour',
+                    ),
+                    'hourSum' => array('$sum' => '$totalPrice'),
+                ),
+            ),
+        );
+
+        $stepResult = $collection->getMongoCollection()->aggregate($ops);
+
+        return $stepResult;
     }
 }
