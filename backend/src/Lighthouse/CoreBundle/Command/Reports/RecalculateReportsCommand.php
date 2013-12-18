@@ -51,7 +51,7 @@ class RecalculateReportsCommand extends Command
 
         $this->grossSalesReportManager->recalculateStoreGrossSalesReport();
 
-        $this->grossSalesReportManager->recalculateGrossSalesProductReport();
+        $this->grossSalesReportManager->recalculateGrossSalesProductReport(5000);
 
         $output->writeln("<info>Recalculate reports finished</info>");
 

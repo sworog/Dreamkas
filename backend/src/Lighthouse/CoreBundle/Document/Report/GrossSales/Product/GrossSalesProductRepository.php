@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\Document\DocumentRepository;
 use DateTime;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductCollection;
+use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 
 class GrossSalesProductRepository extends DocumentRepository
@@ -123,5 +124,27 @@ class GrossSalesProductRepository extends DocumentRepository
             },
             $array
         );
+    }
+
+    /**
+     * @param GrossSalesProductReport[] $reports
+     */
+    public function rawUpsertReports(array $reports)
+    {
+        $collection = $this->getDocumentManager()->getDocumentCollection(GrossSalesProductReport::getClassName());
+        foreach ($reports as $report) {
+            $date = new DateTimestamp($report->dayHour);
+            $arrayObj = array(
+                '_id' => $report->id,
+                'product' => $report->product->id,
+                'hourSum' => $report->hourSum->getCount(),
+                'dayHour' => $date->getMongoDate(),
+            );
+            $collection->upsert(
+                array('_id' => $arrayObj['_id']),
+                $arrayObj,
+                array('w' => 0, 'j' => 0)
+            );
+        }
     }
 }

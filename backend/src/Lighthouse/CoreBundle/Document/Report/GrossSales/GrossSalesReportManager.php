@@ -84,6 +84,11 @@ class GrossSalesReportManager
     protected $groupRepository;
 
     /**
+     * @var GrossSalesProductReport[]
+     */
+    protected $scheduledGrossSalesProductReportsToSave = array();
+
+    /**
      * @DI\InjectParams({
      *      "grossSalesRepository" = @DI\Inject("lighthouse.core.document.repository.store_gross_sales"),
      *      "grossSalesProductRepository" = @DI\Inject("lighthouse.core.document.repository.product_gross_sales"),
@@ -319,17 +324,12 @@ class GrossSalesReportManager
         $stores = $this->storeRepository->findAll()->toArray();
         $countProducts = $this->productRepository->findAll()->count();
 
-        $startCalcTime = microtime(true);
         $results = $this->trialBalanceRepository->calculateGrossSalesProduct($stores, $countProducts);
-        $durationCalcTime = microtime(true) - $startCalcTime;
-//        echo "Расчёт данных занял: $durationCalcTime \n";
 
-        $dm = $this->grossSalesProductRepository->getDocumentManager();
-
-        $countResults = $results['totalCount'];
         $countResultsSaved = 0;
         $batchCount = 0;
         $batchStartTime = microtime(true);
+        $totalSaveTime = 0;
         foreach ($results['reports'] as $reports) {
             foreach ($reports as $reportRAW) {
 
@@ -347,17 +347,18 @@ class GrossSalesReportManager
                     new Money($reportRAW['hourSum'])
                 );
 
-                $dm->persist($report);
+                $this->scheduleGrossSalesProductReportToSave($report);
 
                 $countResultsSaved++;
                 $batchCount++;
                 if (0 == $countResultsSaved % $batch) {
-                    $dm->flush();
-                    $dm->clear();
+                    $this->saveScheduledReports();
                     $batchDurationTime = microtime(true) - $batchStartTime;
+                    $totalSaveTime += $batchDurationTime;
 //                    printf(
-//                        "Скорость: %6.2f отчётов в секунду, всего сохранено: %6d, осталось: %6d \n",
+//                        "Скорость: %6.2f отчётов в секунду, средняя: %6.2f, всего сохранено: %6d, осталось: %6d \n",
 //                        $batchCount / $batchDurationTime,
+//                        $countResultsSaved / $totalSaveTime,
 //                        $countResultsSaved,
 //                        $countResults - $countResultsSaved
 //                    );
@@ -367,9 +368,28 @@ class GrossSalesReportManager
             }
         }
 
-        $dm->flush();
+        $this->saveScheduledReports();
 
         return $results['totalCount'];
+    }
+
+    /**
+     * @param GrossSalesProductReport $report
+     */
+    protected function scheduleGrossSalesProductReportToSave(GrossSalesProductReport $report)
+    {
+        $this->scheduledGrossSalesProductReportsToSave[] = $report;
+    }
+
+    /**
+     *
+     */
+    protected function saveScheduledReports()
+    {
+        if (count($this->scheduledGrossSalesProductReportsToSave)) {
+            $this->grossSalesProductRepository->rawUpsertReports($this->scheduledGrossSalesProductReportsToSave);
+            $this->scheduledGrossSalesProductReportsToSave = array();
+        }
     }
 
     /**
