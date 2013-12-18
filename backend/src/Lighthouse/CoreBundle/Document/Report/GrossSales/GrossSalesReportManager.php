@@ -444,10 +444,17 @@ class GrossSalesReportManager
 
         $dayHours = $this->getDayHours($time, $intervals);
         $endDayHours = $this->extractEndDayHours($dayHours);
-        $storeProducts = $this->getStoreProductsByStoreSubCategory($store, $subCategory);
+        $queryDates = $this->getQueryDates($dayHours);
 
-        $reports = $this->grossSalesProductRepository->findByDayHoursStoreProducts($dayHours, $storeProducts);
+        $storeProducts = $this->storeProductRepository->findByStoreSubCategory($store, $subCategory);
+
+        $reports = $this->grossSalesProductRepository->findByDayHoursStoreProducts(
+            $queryDates,
+            $storeProducts->getIds()
+        );
+
         $grossSalesByProductCollection = $this->createGrossSalesByProductsCollection($reports, $endDayHours);
+
         $this->fillGrossSalesByProductsCollection(
             $grossSalesByProductCollection,
             $storeProducts,
@@ -455,16 +462,6 @@ class GrossSalesReportManager
         );
 
         return $grossSalesByProductCollection->normalizeKeys();
-    }
-
-    /**
-     * @param Store $store
-     * @param SubCategory $subCategory
-     * @return StoreProductCollection
-     */
-    protected function getStoreProductsByStoreSubCategory(Store $store, SubCategory $subCategory)
-    {
-        return $this->storeProductRepository->findByStoreSubCategory($store, $subCategory);
     }
 
     /**
@@ -525,13 +522,14 @@ class GrossSalesReportManager
 
         $dayHours = $this->getDayHours($time, $intervals);
         $endDayHours = $this->extractEndDayHours($dayHours);
+        $queryDates = $this->getQueryDates($dayHours);
 
         $cursor = $this->subCategoryRepository->findByCategory($category->id);
         $cursor->sort(array('name' => 1));
         $subCategories = new SubCategoryCollection($cursor);
 
         $reports = $this->grossSalesSubCategoryRepository->findByDayHoursStoreProducts(
-            $dayHours,
+            $queryDates,
             $subCategories->getIds(),
             $store->id
         );
@@ -660,6 +658,15 @@ class GrossSalesReportManager
             $endDayHours[$key] = max($dayHoursArray);
         }
         return $endDayHours;
+    }
+
+    /**
+     * @param array $dayHours
+     * @return DateTimestamp[]
+     */
+    public function getQueryDates(array $dayHours)
+    {
+        return call_user_func_array('array_merge', $dayHours);
     }
 
     /**

@@ -85,44 +85,17 @@ class GrossSalesProductRepository extends DocumentRepository
     }
 
     /**
-     * @param array $dayHours
-     * @param StoreProductCollection $storeProducts
+     * @param array $dates
+     * @param array $storeProductIds
      * @return Cursor
      */
-    public function findByDayHoursStoreProducts(array $dayHours, StoreProductCollection $storeProducts)
+    public function findByDayHoursStoreProducts(array $dates, array $storeProductIds)
     {
-        $datesForQuery = $this->normalizeDayHours($dayHours);
-        $storeProductsForQuery = $this->normalizeStoreProducts($storeProducts);
-
         return $this->findBy(
             array(
-                'dayHour' => array('$in' => $datesForQuery),
-                'product' => array('$in'=> $storeProductsForQuery)
+                'dayHour' => array('$in' => $dates),
+                'product' => array('$in' => $storeProductIds)
             )
-        );
-    }
-
-    /**
-     * @param array $dayHours
-     * @return array
-     */
-    public function normalizeDayHours(array $dayHours)
-    {
-        return array_merge($dayHours['today'], $dayHours['yesterday'], $dayHours['weekAgo']);
-    }
-
-    /**
-     * @param StoreProductCollection $collection
-     * @return array
-     */
-    public function normalizeStoreProducts(StoreProductCollection $collection)
-    {
-        $array = $collection->toArray();
-        return array_map(
-            function ($value) {
-                return $value->id;
-            },
-            $array
         );
     }
 

@@ -9,6 +9,7 @@ use Doctrine\ODM\MongoDB\Proxy\Proxy;
 use Doctrine\MongoDB\Collection;
 use MongoCollection;
 use MongoCursor;
+use MongoId;
 
 class DocumentRepository extends BaseRepository
 {
@@ -115,5 +116,19 @@ class DocumentRepository extends BaseRepository
         }
 
         throw new MongoDBException($result['errmsg'], $result['code']);
+    }
+
+    /**
+     * @param array $ids
+     * @return MongoId[]
+     */
+    protected function convertToMongoIds(array $ids)
+    {
+        return array_map(
+            function ($id) {
+                return new MongoId((string) $id);
+            },
+            $ids
+        );
     }
 }
