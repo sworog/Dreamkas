@@ -22,6 +22,9 @@ class RecalculateReportsCommandTest extends TestCase
         $mock
             ->expects($this->once())
             ->method('recalculateStoreGrossSalesReport');
+        $mock
+            ->expects($this->once())
+            ->method('recalculateGrossSalesProductReport');
 
         $command = new RecalculateReportsCommand($mock);
 

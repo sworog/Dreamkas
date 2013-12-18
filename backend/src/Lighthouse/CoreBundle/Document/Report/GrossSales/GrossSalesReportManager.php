@@ -276,36 +276,65 @@ class GrossSalesReportManager
     }
 
     /**
+     * @param int $batch
      * @return int
      */
-    public function recalculateGrossSalesProductReport()
+    public function recalculateGrossSalesProductReport($batch = 1000)
     {
         $stores = $this->storeRepository->findAll()->toArray();
         $countProducts = $this->productRepository->findAll()->count();
 
+        $startCalcTime = microtime(true);
         $results = $this->trialBalanceRepository->calculateGrossSalesProduct($stores, $countProducts);
+        $durationCalcTime = microtime(true) - $startCalcTime;
+//        echo "Расчёт данных занял: $durationCalcTime \n";
 
         $dm = $this->grossSalesProductRepository->getDocumentManager();
 
-        foreach ($results as $result) {
-            $storeProductId = $result['_id']['storeProduct'];
-            $year = $result['_id']['year'];
-            $month = $result['_id']['month'];
-            $day = $result['_id']['day'];
-            $hour = $result['_id']['hour'];
-            $dayHour = $this->createUTCDateByYMDH($year, $month, $day, $hour);
-            $report = $this->grossSalesProductRepository->createByDayHourAndStoreProductId(
-                $dayHour,
-                $storeProductId,
-                null,
-                new Money($result['hourSum'])
-            );
-            $dm->persist($report);
+        $countResults = $results['totalCount'];
+        $countResultsSaved = 0;
+        $batchCount = 0;
+        $batchStartTime = microtime(true);
+        foreach ($results['reports'] as $reports) {
+            foreach ($reports as $reportRAW) {
+
+                $storeProductId = $reportRAW['_id']['storeProduct'];
+                $year = $reportRAW['_id']['year'];
+                $month = $reportRAW['_id']['month'];
+                $day = $reportRAW['_id']['day'];
+                $hour = $reportRAW['_id']['hour'];
+                $dayHour = $this->createUTCDateByYMDH($year, $month, $day, $hour);
+
+                $report = $this->grossSalesProductRepository->createByDayHourAndStoreProductId(
+                    $dayHour,
+                    $storeProductId,
+                    null,
+                    new Money($reportRAW['hourSum'])
+                );
+
+                $dm->persist($report);
+
+                $countResultsSaved++;
+                $batchCount++;
+                if (0 == $countResultsSaved % $batch) {
+                    $dm->flush();
+                    $dm->clear();
+                    $batchDurationTime = microtime(true) - $batchStartTime;
+//                    printf(
+//                        "Скорость: %6.2f отчётов в секунду, всего сохранено: %6d, осталось: %6d \n",
+//                        $batchCount / $batchDurationTime,
+//                        $countResultsSaved,
+//                        $countResults - $countResultsSaved
+//                    );
+                    $batchCount = 0;
+                    $batchStartTime = microtime(true);
+                }
+            }
         }
 
         $dm->flush();
 
-        return count($results);
+        return $results['totalCount'];
     }
 
     /**
