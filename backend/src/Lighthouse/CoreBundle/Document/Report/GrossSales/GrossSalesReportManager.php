@@ -17,6 +17,7 @@ use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductCollection;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\Category\GrossSalesCategoryRepository;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\DayGrossSales;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\GrossSales;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByCategories\GrossSalesByCategoriesCollection;
@@ -27,7 +28,6 @@ use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSal
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\StoreGrossSalesByStores;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\Product\GrossSalesProductReport;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\Product\GrossSalesProductRepository;
-use Lighthouse\CoreBundle\Document\Report\GrossSales\SubCategory\GrossSalesSubCategoryReport;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\SubCategory\GrossSalesSubCategoryRepository;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReport;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesRepository;
@@ -58,6 +58,11 @@ class GrossSalesReportManager
      * @var GrossSalesSubCategoryRepository
      */
     protected $grossSalesSubCategoryRepository;
+
+    /**
+     * @var GrossSalesCategoryRepository
+     */
+    protected $grossSalesCategoryRepository;
 
     /**
      * @var StoreRepository
@@ -105,6 +110,7 @@ class GrossSalesReportManager
      *      "grossSalesProductRepository" = @DI\Inject("lighthouse.core.document.repository.product_gross_sales"),
      *      "grossSalesSubCategoryRepository" =
      *      @DI\Inject("lighthouse.core.document.repository.subcategory_gross_sales"),
+     *      "grossSalesCategoryRepository" = @DI\Inject("lighthouse.core.document.repository.category_gross_sales"),
      *      "storeRepository" = @DI\Inject("lighthouse.core.document.repository.store"),
      *      "trialBalanceRepository" = @DI\Inject("lighthouse.core.document.repository.trial_balance"),
      *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product"),
@@ -115,7 +121,8 @@ class GrossSalesReportManager
      * })
      * @param StoreGrossSalesRepository $grossSalesRepository
      * @param GrossSalesProductRepository $grossSalesProductRepository
-     * @param Product\GrossSalesSubCategoryRepository $grossSalesSubCategoryRepository
+     * @param GrossSalesSubCategoryRepository $grossSalesSubCategoryRepository
+     * @param GrossSalesCategoryRepository $grossSalesCategoryRepository
      * @param StoreRepository $storeRepository
      * @param TrialBalanceRepository $trialBalanceRepository
      * @param ProductRepository $productRepository
@@ -128,6 +135,7 @@ class GrossSalesReportManager
         StoreGrossSalesRepository $grossSalesRepository,
         GrossSalesProductRepository $grossSalesProductRepository,
         GrossSalesSubCategoryRepository $grossSalesSubCategoryRepository,
+        GrossSalesCategoryRepository $grossSalesCategoryRepository,
         StoreRepository $storeRepository,
         TrialBalanceRepository $trialBalanceRepository,
         ProductRepository $productRepository,
@@ -139,6 +147,7 @@ class GrossSalesReportManager
         $this->grossSalesRepository = $grossSalesRepository;
         $this->grossSalesProductRepository = $grossSalesProductRepository;
         $this->grossSalesSubCategoryRepository = $grossSalesSubCategoryRepository;
+        $this->grossSalesCategoryRepository = $grossSalesCategoryRepository;
         $this->storeRepository = $storeRepository;
         $this->trialBalanceRepository = $trialBalanceRepository;
         $this->productRepository = $productRepository;
@@ -528,43 +537,18 @@ class GrossSalesReportManager
         $cursor->sort(array('name' => 1));
         $subCategories = new SubCategoryCollection($cursor);
 
-        $reports = $this->grossSalesSubCategoryRepository->findByDayHoursStoreProducts(
+        $reports = $this->grossSalesSubCategoryRepository->findByDayHoursAndSubCategoryIds(
             $queryDates,
             $subCategories->getIds(),
             $store->id
         );
 
-        $grossSalesBySubCategoriesCollection = $this->createGrossSalesBySubCategoriesCollection($reports, $endDayHours);
-
-        $this->fillGrossSalesByClassifierNodeCollection(
-            $grossSalesBySubCategoriesCollection,
-            $subCategories,
-            $endDayHours
-        );
-
-        return $grossSalesBySubCategoriesCollection->normalizeKeys();
-    }
-
-    /**
-     * @param Cursor $reports
-     * @param DateTimestamp[] $endDayHours
-     * @return GrossSalesBySubCategoriesCollection
-     */
-    protected function createGrossSalesBySubCategoriesCollection(Cursor $reports, array $endDayHours)
-    {
         $collection = new GrossSalesBySubCategoriesCollection();
-        /* @var GrossSalesSubCategoryReport $report */
-        foreach ($reports as $report) {
-            $subCategoryReport = $collection->getByNode($report->subCategory, $endDayHours);
-            foreach ($endDayHours as $dayName => $dayHour) {
-                if ($dayHour->equalsDate($report->dayHour)) {
-                    $subCategoryReport->$dayName->addRunningSum($report->hourSum);
-                    break;
-                }
-            }
-        }
 
-        return $collection;
+        $this->createGrossSalesByClassifierNodeCollection($collection, $reports, $endDayHours);
+        $this->fillGrossSalesByClassifierNodeCollection($collection, $subCategories, $endDayHours);
+
+        return $collection->normalizeKeys();
     }
 
     /**
@@ -583,12 +567,25 @@ class GrossSalesReportManager
 
         $dayHours = $this->getDayHours($time, $intervals);
         $endDayHours = $this->extractEndDayHours($dayHours);
+        $queryDates = $this->getQueryDates($dayHours);
 
         $cursor = $this->categoryRepository->findByGroup($group->id);
         $cursor->sort(array('name' => 1));
         $categories = new CategoryCollection($cursor);
 
+        $reports = $this->grossSalesCategoryRepository->findByDayHoursAndCategoryIds(
+            $queryDates,
+            $categories->getIds(),
+            $store->id
+        );
+
         $grossSalesByCategoriesCollection = new GrossSalesByCategoriesCollection();
+
+        $this->createGrossSalesByClassifierNodeCollection(
+            $grossSalesByCategoriesCollection,
+            $reports,
+            $endDayHours
+        );
 
         $this->fillGrossSalesByClassifierNodeCollection(
             $grossSalesByCategoriesCollection,
@@ -597,6 +594,31 @@ class GrossSalesReportManager
         );
 
         return $grossSalesByCategoriesCollection->normalizeKeys();
+    }
+
+
+    /**
+     * @param GrossSalesByClassifierNodeCollection $collection
+     * @param Cursor|GrossSalesClassifierNodeReport[] $reports
+     * @param DateTimestamp[] $endDayHours
+     * @return GrossSalesBySubCategoriesCollection
+     */
+    protected function createGrossSalesByClassifierNodeCollection(
+        GrossSalesByClassifierNodeCollection $collection,
+        Cursor $reports,
+        array $endDayHours
+    ) {
+        foreach ($reports as $report) {
+            $categoryReport = $collection->getByNode($report->getNode(), $endDayHours);
+            foreach ($endDayHours as $dayName => $dayHour) {
+                if ($dayHour->equalsDate($report->dayHour)) {
+                    $categoryReport->$dayName->addRunningSum($report->hourSum);
+                    break;
+                }
+            }
+        }
+
+        return $collection;
     }
 
     /**
@@ -696,6 +718,44 @@ class GrossSalesReportManager
                     $report = $this->grossSalesSubCategoryRepository->createByDayHourAndSubCategoryId(
                         DateTimestamp::createFromMongoDate($hourSum['_id']),
                         (string) $subCategoryId,
+                        (string) $storeId,
+                        new Money($hourSum['hourSum'])
+                    );
+                    $dm->persist($report);
+                    if (0 == ++$i % $batch) {
+                        $dm->flush();
+                        $dm->clear();
+                    }
+                }
+            }
+        }
+
+        $dm->flush();
+        $dm->clear();
+
+        return $i;
+    }
+
+    /**
+     * @param int $batch
+     * @return int
+     */
+    public function recalculateGrossSalesByCategories($batch = 1000)
+    {
+        $categoryIds = $this->categoryRepository->findAllIds();
+        $storeIds = $this->storeRepository->findAllIds();
+
+        $dm = $this->grossSalesSubCategoryRepository->getDocumentManager();
+        $i = 0;
+
+        foreach ($categoryIds as $categoryId) {
+            $subCategoryIds = $this->subCategoryRepository->findIdsByCategoryId($categoryId);
+            foreach ($storeIds as $storeId) {
+                $hourSums = $this->grossSalesSubCategoryRepository->calculateGrossSalesByIds($subCategoryIds);
+                foreach ($hourSums as $hourSum) {
+                    $report = $this->grossSalesCategoryRepository->createByDayHourAndCategoryId(
+                        DateTimestamp::createFromMongoDate($hourSum['_id']),
+                        (string) $categoryId,
                         (string) $storeId,
                         new Money($hourSum['hourSum'])
                     );

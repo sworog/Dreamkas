@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document\Classifier\SubCategory;
 
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
+use MongoId;
 
 class SubCategoryRepository extends DocumentRepository
 {
@@ -23,6 +24,25 @@ class SubCategoryRepository extends DocumentRepository
     public function findByCategory($categoryId)
     {
         return $this->findBy(array('category' => $categoryId));
+    }
+
+
+    /**
+     * @param string $categoryId
+     * @return MongoId[]
+     */
+    public function findIdsByCategoryId($categoryId)
+    {
+        $qb = $this->createQueryBuilder()
+            ->hydrate(false)
+            ->select('_id')
+            ->field('category')->equals($categoryId);
+        $result = $qb->getQuery()->execute();
+        $ids = array();
+        foreach ($result as $row) {
+            $ids[] = $row['_id'];
+        }
+        return $ids;
     }
 
     /**

@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document\Report\GrossSales;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use DateTime;
@@ -43,4 +44,9 @@ abstract class GrossSalesClassifierNodeReport extends AbstractDocument
      * @var Store
      */
     protected $store;
+
+    /**
+     * @return AbstractNode
+     */
+    abstract public function getNode();
 }

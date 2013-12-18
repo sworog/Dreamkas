@@ -2268,7 +2268,7 @@ class ReportControllerTest extends WebTestCase
 
     public function testGrossSalesBySubCategoriesReport()
     {
-        list($storeIds, $productIds, $catalogIds) = $this->createSales();
+        list($storeIds,, $catalogIds) = $this->createSales();
 
         $this->getGrossSalesReportService()->recalculateGrossSalesProductReport();
         $this->getGrossSalesReportService()->recalculateGrossSalesBySubCategories();
@@ -2374,6 +2374,68 @@ class ReportControllerTest extends WebTestCase
         $this->assertEquals($expectedResponse, $filteredResponse);
     }
 
+    public function testGrossSalesByCategoriesReport()
+    {
+        list($storeIds,, $catalogIds) = $this->createSales();
+
+        $this->getGrossSalesReportService()->recalculateGrossSalesProductReport();
+        $this->getGrossSalesReportService()->recalculateGrossSalesBySubCategories();
+        $this->getGrossSalesReportService()->recalculateGrossSalesByCategories();
+
+        $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$storeIds['1']}/groups/{$catalogIds['1']}/reports/grossSalesByCategories",
+            null,
+            array('time' => date('c', strtotime("10:35:47")))
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($catalogIds['1.1'], '0.category.id', $response);
+        Assert::assertJsonPathEquals($catalogIds['1.2'], '1.category.id', $response);
+
+        $filteredResponse = $response;
+        $filteredResponse[0]['category'] = array('id' => $filteredResponse[0]['category']['id']);
+        $filteredResponse[1]['category'] = array('id' => $filteredResponse[1]['category']['id']);
+
+        $expectedResponse = array(
+            0 => array(
+                'today' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'runningSum' => 408.09,
+                ),
+                'yesterday' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'runningSum' => 708.91,
+                ),
+                'weekAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'runningSum' => 1286.2,
+                ),
+                'category' => array('id' => $catalogIds['1.1']),
+            ),
+            1 => array(
+                'today' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'runningSum' => 0,
+                ),
+                'yesterday' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'runningSum' => 0,
+                ),
+                'weekAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'runningSum' => 0,
+                ),
+                'category' => array('id' => $catalogIds['1.2'])
+            ),
+        );
+        $this->assertEquals($expectedResponse, $filteredResponse);
+        $this->assertSame($expectedResponse, $filteredResponse);
+    }
+
     public function testGrossSalesByCategoriesEmpty()
     {
         list($storeIds,, $catalogIds) = $this->createSalesProducts();
@@ -2417,6 +2479,69 @@ class ReportControllerTest extends WebTestCase
         $this->assertEquals($expectedResponse, $filteredResponse);
     }
 
+    public function testGrossSalesByGroupsReport()
+    {
+        $this->markTestIncomplete();
+        list($storeIds,, $catalogIds) = $this->createSales();
+
+        $this->getGrossSalesReportService()->recalculateGrossSalesProductReport();
+        $this->getGrossSalesReportService()->recalculateGrossSalesBySubCategories();
+        $this->getGrossSalesReportService()->recalculateGrossSalesByCategories();
+
+        $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$storeIds['1']}/reports/grossSalesByGroups",
+            null,
+            array('time' => date('c', strtotime("10:35:47")))
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($catalogIds['1'], '0.group.id', $response);
+        Assert::assertJsonPathEquals($catalogIds['2'], '1.group.id', $response);
+
+        $filteredResponse = $response;
+        $filteredResponse[0]['group'] = array('id' => $filteredResponse[0]['group']['id']);
+        $filteredResponse[1]['group'] = array('id' => $filteredResponse[1]['group']['id']);
+
+        $expectedResponse = array(
+            0 => array(
+                'today' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'runningSum' => 408.09,
+                ),
+                'yesterday' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'runningSum' => 708.91,
+                ),
+                'weekAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'runningSum' => 1286.2,
+                ),
+                'group' => array('id' => $catalogIds['1'])
+            ),
+            1 => array(
+                'today' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'runningSum' => 0,
+                ),
+                'yesterday' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'runningSum' => 0,
+                ),
+                'weekAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'runningSum' => 0,
+                ),
+                'group' => array('id' => $catalogIds['2']),
+            )
+        );
+        $this->assertEquals($expectedResponse, $filteredResponse);
+        $this->assertSame($expectedResponse, $filteredResponse);
+    }
+
     public function testGrossSalesByGroupsEmpty()
     {
         list($storeIds,, $catalogIds) = $this->createSalesProducts();
@@ -2439,23 +2564,37 @@ class ReportControllerTest extends WebTestCase
         $filteredResponse[0]['group'] = array('id' => $filteredResponse[0]['group']['id']);
         $filteredResponse[1]['group'] = array('id' => $filteredResponse[1]['group']['id']);
 
-        $emptyDayReport = array(
-            'today' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
-                'runningSum' => 0,
-            ),
-            'yesterday' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
-                'runningSum' => 0,
-            ),
-            'weekAgo' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
-                'runningSum' => 0,
-            )
-        );
         $expectedResponse = array(
-            0 => $emptyDayReport + array('group' => array('id' => $catalogIds['1'])),
-            1 => $emptyDayReport + array('group' => array('id' => $catalogIds['2']))
+            0 => array(
+                'today' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'runningSum' => 0,
+                ),
+                'yesterday' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'runningSum' => 0,
+                ),
+                'weekAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'runningSum' => 0,
+                ),
+                'group' => array('id' => $catalogIds['1'])
+            ),
+            1 => array(
+                'today' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'runningSum' => 0,
+                ),
+                'yesterday' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'runningSum' => 0,
+                ),
+                'weekAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'runningSum' => 0,
+                ),
+                'group' => array('id' => $catalogIds['2'])
+            )
         );
         $this->assertEquals($expectedResponse, $filteredResponse);
     }

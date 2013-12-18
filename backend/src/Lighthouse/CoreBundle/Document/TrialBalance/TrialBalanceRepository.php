@@ -359,8 +359,13 @@ class TrialBalanceRepository extends DocumentRepository
      */
     public function calculateGrossSalesProduct($stores, $countProducts)
     {
+        $results = array(
+            'reports' => array(),
+            'totalCount' => 0,
+        );
+
         if ($this->isCollectionEmpty()) {
-            return array();
+            return $results;
         }
 
         $requireDatePeriod = new DatePeriod("-8 day 00:00", "+1 day 23:59:59");
@@ -370,10 +375,6 @@ class TrialBalanceRepository extends DocumentRepository
             $maxHoursStep = 1;
         }
 
-        $results = array(
-            'reports' => array(),
-            'totalCount' => 0,
-        );
         $countSteps = 1;
 
         $countAllSteps = ((24 * 10) / $maxHoursStep) * count($stores);
