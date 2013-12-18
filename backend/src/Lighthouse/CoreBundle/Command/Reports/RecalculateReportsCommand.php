@@ -49,7 +49,7 @@ class RecalculateReportsCommand extends Command
     {
         $output->writeln("<info>Recalculate reports started</info>");
 
-//        $this->grossSalesReportManager->recalculateStoreGrossSalesReport();
+        $this->grossSalesReportManager->recalculateStoreGrossSalesReport();
 
         $this->grossSalesReportManager->recalculateGrossSalesProductReport(5000);
 
