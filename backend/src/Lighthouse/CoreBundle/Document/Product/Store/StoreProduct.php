@@ -13,6 +13,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
+ * @property string     $id
  * @property Product    $product
  * @property Store      $store
  * @property SubCategory $subCategory

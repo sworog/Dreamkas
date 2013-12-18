@@ -6,7 +6,8 @@ use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\GrossSales;
-use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesBySubCategoriesCollection;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesByProductsCollection;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesBySubCategories\GrossSalesBySubCategoriesCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSalesByStoresCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesReportManager;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReportByHours;
@@ -124,7 +125,7 @@ class ReportController extends FOSRestController
      * @param Store $store
      * @param Category $category
      * @param Request $request
-     * @return GrossSalesByProductsCollection
+     * @return GrossSalesBySubCategoriesCollection
      *
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
      * @Rest\Route("stores/{store}/categories/{category}/reports/grossSalesBySubCategories")
@@ -148,7 +149,8 @@ class ReportController extends FOSRestController
      */
     public function getReportsGrossSalesByCategoriesAction(Store $store, Group $group, Request $request)
     {
-        return null;
+        $time = new DateTime($request->get('time', 'now'));
+        return $this->grossSalesReportManager->getGrossSalesByCategories($store, $group, $time);
     }
 
     /**

@@ -6,7 +6,6 @@ use Lighthouse\CoreBundle\Document\DocumentRepository;
 
 class GroupRepository extends DocumentRepository
 {
-
     /**
      * @param string $name
      * @return Group

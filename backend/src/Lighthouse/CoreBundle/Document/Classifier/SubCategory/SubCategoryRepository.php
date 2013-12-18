@@ -13,18 +13,12 @@ class SubCategoryRepository extends DocumentRepository
      */
     public function countByCategory($categoryId)
     {
-        $query = $this
-            ->createQueryBuilder()
-            ->field('category')->equals($categoryId)
-            ->count()
-            ->getQuery();
-        $count = $query->execute();
-        return $count;
+        return $this->findByCategory($categoryId)->count();
     }
 
     /**
      * @param string $categoryId
-     * @return Cursor
+     * @return Cursor|SubCategory[]
      */
     public function findByCategory($categoryId)
     {

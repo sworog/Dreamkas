@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts;
+namespace Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesBySubCategories;
 
 use Lighthouse\CoreBundle\Document\AbstractCollection;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;

@@ -13,18 +13,12 @@ class CategoryRepository extends DocumentRepository
      */
     public function countByGroup($groupId)
     {
-        $query = $this
-            ->createQueryBuilder()
-            ->field('group')->equals($groupId)
-            ->count()
-            ->getQuery();
-        $count = $query->execute();
-        return $count;
+        return $this->findByGroup($groupId)->count();
     }
 
     /**
      * @param string $groupId
-     * @return Cursor
+     * @return Cursor|Category[]
      */
     public function findByGroup($groupId)
     {

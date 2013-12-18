@@ -2266,7 +2266,7 @@ class ReportControllerTest extends WebTestCase
         $this->assertResponseCode(403);
     }
 
-    public function testGrossSalesBySubCategoryEmpty()
+    public function testGrossSalesBySubCategoriesEmpty()
     {
         list($storeIds,, $catalogIds) = $this->createSalesProducts();
 
@@ -2305,6 +2305,49 @@ class ReportControllerTest extends WebTestCase
         $expectedResponse = array(
             0 => $emptyDayReport + array('subCategory' => array('id' => $catalogIds['1.1.1'])),
             1 => $emptyDayReport + array('subCategory' => array('id' => $catalogIds['1.1.2']))
+        );
+        $this->assertEquals($expectedResponse, $actualResponse);
+    }
+
+    public function testGrossSalesByCategoriesEmpty()
+    {
+        list($storeIds,, $catalogIds) = $this->createSalesProducts();
+
+        $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$storeIds['1']}/groups/{$catalogIds['1']}/reports/grossSalesByCategories",
+            null,
+            array('time' => date('c', strtotime("10:35:47")))
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($catalogIds['1.1'], '0.category.id', $response);
+        Assert::assertJsonPathEquals($catalogIds['1.2'], '1.category.id', $response);
+
+        $actualResponse = $response;
+        $actualResponse[0]['category'] = array('id' => $actualResponse[0]['category']['id']);
+        $actualResponse[1]['category'] = array('id' => $actualResponse[1]['category']['id']);
+
+        $emptyDayReport = array(
+            'today' => array(
+                'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                'runningSum' => 0,
+            ),
+            'yesterday' => array(
+                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                'runningSum' => 0,
+            ),
+            'weekAgo' => array(
+                'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                'runningSum' => 0,
+            )
+        );
+        $expectedResponse = array(
+            0 => $emptyDayReport + array('category' => array('id' => $catalogIds['1.1'])),
+            1 => $emptyDayReport + array('category' => array('id' => $catalogIds['1.2']))
         );
         $this->assertEquals($expectedResponse, $actualResponse);
     }

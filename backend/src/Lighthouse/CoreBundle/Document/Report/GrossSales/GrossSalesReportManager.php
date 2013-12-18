@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document\Report\GrossSales;
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
+use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
@@ -13,10 +14,11 @@ use Lighthouse\CoreBundle\Document\Product\Store\StoreProductCollection;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\DayGrossSales;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\GrossSales;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByCategories\GrossSalesByCategoriesCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesByProduct;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesByProductsCollection;
-use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesBySubCategories;
-use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesBySubCategoriesCollection;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesBySubCategories\GrossSalesBySubCategories;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesBySubCategories\GrossSalesBySubCategoriesCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSalesByStoresCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\StoreGrossSalesByStores;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\Product\GrossSalesProductReport;
@@ -394,7 +396,7 @@ class GrossSalesReportManager
      * @param Store $store
      * @param SubCategory $subCategory
      * @param DateTime|null $time
-     * @return GrossSalesByProduct[]
+     * @return GrossSalesByProductsCollection
      */
     public function getGrossSalesByProducts(Store $store, SubCategory $subCategory, DateTime $time = null)
     {
@@ -405,14 +407,15 @@ class GrossSalesReportManager
         );
 
         $dayHours = $this->getDayHours($time, $intervals);
+        $endDayHours = $this->extractEndDayHours($dayHours);
         $storeProducts = $this->getStoreProductsByStoreSubCategory($store, $subCategory);
 
         $reports = $this->grossSalesProductRepository->findByDayHoursStoreProducts($dayHours, $storeProducts);
-        $grossSalesByProductCollection = $this->createGrossSalesByProductsCollection($reports, $dayHours);
+        $grossSalesByProductCollection = $this->createGrossSalesByProductsCollection($reports, $endDayHours);
         $this->fillGrossSalesByProductsCollection(
             $grossSalesByProductCollection,
             $storeProducts,
-            $dayHours
+            $endDayHours
         );
 
         return $grossSalesByProductCollection->normalizeKeys();
@@ -430,12 +433,11 @@ class GrossSalesReportManager
 
     /**
      * @param Cursor $reports
-     * @param DateTimestamp[] $dayHours
+     * @param DateTimestamp[] $endDayHours
      * @return GrossSalesByProductsCollection
      */
-    protected function createGrossSalesByProductsCollection(Cursor $reports, array $dayHours)
+    protected function createGrossSalesByProductsCollection(Cursor $reports, array $endDayHours)
     {
-        $endDayHours = $this->extractEndDayHours($dayHours);
         $collection = new GrossSalesByProductsCollection();
         /** @var GrossSalesProductReport $report */
         foreach ($reports as $report) {
@@ -457,19 +459,17 @@ class GrossSalesReportManager
     /**
      * @param GrossSalesByProductsCollection $collection
      * @param StoreProductCollection $storeProducts
-     * @param DateTime[] $dayHours
+     * @param DateTime[] $endDayHours
      * @return GrossSalesByProductsCollection
      */
     public function fillGrossSalesByProductsCollection(
         GrossSalesByProductsCollection $collection,
         StoreProductCollection $storeProducts,
-        array $dayHours
+        array $endDayHours
     ) {
-        $endDayHours = $this->extractEndDayHours($dayHours);
-
         foreach ($storeProducts as $storeProduct) {
             $storeProductId = $storeProduct->id;
-            if (null === $collection->get($storeProductId)) {
+            if (!$collection->containsKey($storeProductId)) {
                 $collection->set($storeProductId, new GrossSalesByProduct($storeProduct, $endDayHours));
             }
         }
@@ -481,7 +481,7 @@ class GrossSalesReportManager
      * @param Store $store
      * @param Category $category
      * @param DateTime|null $time
-     * @return GrossSalesBySubCategoriesCollection[]
+     * @return GrossSalesBySubCategoriesCollection
      */
     public function getGrossSalesBySubCategories(Store $store, Category $category, DateTime $time = null)
     {
@@ -492,12 +492,13 @@ class GrossSalesReportManager
         );
 
         $dayHours = $this->getDayHours($time, $intervals);
+        $endDayHours = $this->extractEndDayHours($dayHours);
+
         $subCategories = $this->subCategoryRepository->findByCategory($category->id);
         $subCategories->sort(array('name' => 1));
 
         $grossSalesBySubCategoriesCollection = new GrossSalesBySubCategoriesCollection();
 
-        $endDayHours = $this->extractEndDayHours($dayHours);
         $this->fillGrossSalesBySubCategoriesCollection(
             $grossSalesBySubCategoriesCollection,
             $subCategories,
@@ -527,6 +528,58 @@ class GrossSalesReportManager
         return $collection;
     }
 
+
+    /**
+     * @param Store $store
+     * @param Group $group
+     * @param DateTime|null $time
+     * @return GrossSalesByCategoriesCollection
+     */
+    public function getGrossSalesByCategories(Store $store, Group $group, DateTime $time = null)
+    {
+        $intervals = array(
+            'today' => null,
+            'yesterday' => '-1 days',
+            'weekAgo' => '-7 days',
+        );
+
+        $dayHours = $this->getDayHours($time, $intervals);
+        $endDayHours = $this->extractEndDayHours($dayHours);
+
+        $categories = $this->categoryRepository->findByGroup($group->id);
+        $categories->sort(array('name' => 1));
+
+        $grossSalesByCategoriesCollection = new GrossSalesByCategoriesCollection();
+
+        $this->fillGrossSalesByCategoriesCollection(
+            $grossSalesByCategoriesCollection,
+            $categories,
+            $endDayHours
+        );
+
+        return $grossSalesByCategoriesCollection->normalizeKeys();
+    }
+
+    /**
+     * @param GrossSalesByCategoriesCollection $collection
+     * @param Category[]|Cursor $categories
+     * @param DateTime[] $dates
+     * @return GrossSalesByCategoriesCollection
+     */
+    public function fillGrossSalesByCategoriesCollection(
+        GrossSalesByCategoriesCollection $collection,
+        Cursor $categories,
+        array $dates
+    ) {
+        foreach ($categories as $category) {
+            if (!$collection->containsKey($category->id)) {
+                $collection->createByCategory($category, $dates);
+            }
+        }
+
+        return $collection;
+    }
+
     /**
      * @param array $dayHours
      * @return DateTimestamp[]
@@ -535,8 +588,7 @@ class GrossSalesReportManager
     {
         $endDayHours = array();
         foreach ($dayHours as $key => $dayHoursArray) {
-            sort($dayHoursArray);
-            $endDayHours[$key] = end($dayHoursArray);
+            $endDayHours[$key] = max($dayHoursArray);
         }
         return $endDayHours;
     }
