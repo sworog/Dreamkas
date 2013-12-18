@@ -132,80 +132,137 @@ public class Us_57_4_Fixture extends AbstractFixture {
         return prepareDataFile(purchaseXmlBuilder);
     }
 
-    public class TodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet {
+    public TodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet getTodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet() {
+        return new TodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet(SHOP_1, PRODUCT_ID);
+    }
+
+    public class TodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet extends DataSet {
+
+        public TodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet(String shopNumber, String productId) {
+            super(shopNumber, productId);
+        }
 
         public File prepareTodayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(todayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_3);
+            return generateFileDataSet(todayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_3);
         }
 
         public File prepareYesterdayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(yesterdayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_3);
+            return generateFileDataSet(yesterdayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_3);
         }
 
         public File prepareWeekAgoData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(weekAgoDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_3);
+            return generateFileDataSet(weekAgoDate, getShopNumber(), getProductId(), PRODUCT_PRICE_3);
         }
     }
 
-    public class TodayIsBiggerThanYesterdayAndWeekAgoDataSet {
+    public TodayIsBiggerThanYesterdayAndWeekAgoDataSet getTodayIsBiggerThanYesterdayAndWeekAgoDataSet() {
+        return new TodayIsBiggerThanYesterdayAndWeekAgoDataSet(SHOP_1, PRODUCT_ID);
+    }
+
+    public class TodayIsBiggerThanYesterdayAndWeekAgoDataSet extends DataSet {
+
+        public TodayIsBiggerThanYesterdayAndWeekAgoDataSet(String shopNumber, String productId) {
+            super(shopNumber, productId);
+        }
 
         public File prepareTodayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(todayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_3);
+            return generateFileDataSet(todayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_3);
         }
 
         public File prepareYesterdayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(yesterdayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_2);
+            return generateFileDataSet(yesterdayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_2);
         }
 
         public File prepareWeekAgoData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(weekAgoDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_1);
+            return generateFileDataSet(weekAgoDate, getShopNumber(), getProductId(), PRODUCT_PRICE_1);
         }
     }
 
-    public class TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet {
+    public TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet getTodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet() {
+        return new TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet(SHOP_1, PRODUCT_ID);
+    }
+
+    public class TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet extends DataSet {
+
+        public TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet(String shopNumber, String productId) {
+            super(shopNumber, productId);
+        }
 
         public File prepareTodayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(todayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_2);
+            return generateFileDataSet(todayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_2);
         }
 
         public File prepareYesterdayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(yesterdayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_3);
+            return generateFileDataSet(yesterdayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_3);
         }
 
         public File prepareWeekAgoData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(weekAgoDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_1);
+            return generateFileDataSet(weekAgoDate, getShopNumber(), getProductId(), PRODUCT_PRICE_1);
         }
     }
 
-    public class TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet {
+    public TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet getTodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet() {
+        return new TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet(SHOP_1, PRODUCT_ID);
+    }
+
+    public class TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet extends DataSet {
+
+        public TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet(String shopNumber, String productId) {
+            super(shopNumber, productId);
+        }
 
         public File prepareTodayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(todayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_2);
+            return generateFileDataSet(todayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_2);
         }
 
         public File prepareYesterdayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(yesterdayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_1);
+            return generateFileDataSet(yesterdayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_1);
         }
 
         public File prepareWeekAgoData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(weekAgoDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_3);
+            return generateFileDataSet(weekAgoDate, getShopNumber(), getProductId(), PRODUCT_PRICE_3);
         }
     }
 
-    public class TodayIsSmallerThanYesterdayAndWeekAgoDataSet {
+    public TodayIsSmallerThanYesterdayAndWeekAgoDataSet getTodayIsSmallerThanYesterdayAndWeekAgoDataSet() {
+        return new TodayIsSmallerThanYesterdayAndWeekAgoDataSet(SHOP_1, PRODUCT_ID);
+    }
+
+    public class TodayIsSmallerThanYesterdayAndWeekAgoDataSet extends DataSet {
+
+        public TodayIsSmallerThanYesterdayAndWeekAgoDataSet(String shopNumber, String productId) {
+            super(shopNumber, productId);
+        }
 
         public File prepareTodayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(todayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_1);
+            return generateFileDataSet(todayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_1);
         }
 
         public File prepareYesterdayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(yesterdayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_2);
+            return generateFileDataSet(yesterdayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_2);
         }
 
         public File prepareWeekAgoData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(weekAgoDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_3);
+            return generateFileDataSet(weekAgoDate, getShopNumber(), getProductId(), PRODUCT_PRICE_3);
         }
     }
 
+    private class DataSet {
 
+        private String shopNumber;
+        private String productId;
+
+        public DataSet(String shopNumber, String productId) {
+            this.shopNumber = shopNumber;
+            this.productId = productId;
+        }
+
+        public String getShopNumber() {
+            return shopNumber;
+        }
+
+        public String getProductId() {
+            return productId;
+        }
+    }
 }

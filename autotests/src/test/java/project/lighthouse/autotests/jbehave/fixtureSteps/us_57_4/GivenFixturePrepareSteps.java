@@ -29,7 +29,7 @@ public class GivenFixturePrepareSteps {
 
     @Given("the user prepares data for red highlighted checks - today data is bigger than yesterday/weekAgo one")
     public void givenTheUserPreparesDataForRedHighlitedChecksTodayDataIsBiggerThanYesterdayAndWeekAgoOne() throws ParserConfigurationException, TransformerException, XPathExpressionException, IOException, InterruptedException {
-        Us_57_4_Fixture.TodayIsBiggerThanYesterdayAndWeekAgoDataSet todayIsBiggerThanYesterdayAndWeekAgoDataSet = us_57_4_fixture.new TodayIsBiggerThanYesterdayAndWeekAgoDataSet();
+        Us_57_4_Fixture.TodayIsBiggerThanYesterdayAndWeekAgoDataSet todayIsBiggerThanYesterdayAndWeekAgoDataSet = us_57_4_fixture.getTodayIsBiggerThanYesterdayAndWeekAgoDataSet();
         consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(todayIsBiggerThanYesterdayAndWeekAgoDataSet.prepareTodayData().getPath());
         consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(todayIsBiggerThanYesterdayAndWeekAgoDataSet.prepareYesterdayData().getPath());
         consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(todayIsBiggerThanYesterdayAndWeekAgoDataSet.prepareWeekAgoData().getPath());
@@ -37,7 +37,7 @@ public class GivenFixturePrepareSteps {
 
     @Given("the user prepares data for red highlighted checks - today data is equal yesterday/weekAgo one")
     public void givenTheUserPreparesDataForRedHighLightedChecksTodayDataIsEqualYesterdayWeekAgoOne() throws ParserConfigurationException, TransformerException, XPathExpressionException, IOException, InterruptedException {
-        Us_57_4_Fixture.TodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet todayYesterdayWeekAgoDataAreEqualToEachOtherDataSet = us_57_4_fixture.new TodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet();
+        Us_57_4_Fixture.TodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet todayYesterdayWeekAgoDataAreEqualToEachOtherDataSet = us_57_4_fixture.getTodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet();
         consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(todayYesterdayWeekAgoDataAreEqualToEachOtherDataSet.prepareTodayData().getPath());
         consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(todayYesterdayWeekAgoDataAreEqualToEachOtherDataSet.prepareYesterdayData().getPath());
         consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(todayYesterdayWeekAgoDataAreEqualToEachOtherDataSet.prepareWeekAgoData().getPath());
@@ -45,7 +45,7 @@ public class GivenFixturePrepareSteps {
 
     @Given("the user prepares data for red highlighted checks - today data is smaller than yesterday and bigger than weekAgo one")
     public void givenTheUserPreparesDataForRedHighLightedChecksTodayDataIsSmallerThanYesterdayAndBiggerThanWeekAgo() throws ParserConfigurationException, TransformerException, XPathExpressionException, IOException, InterruptedException {
-        Us_57_4_Fixture.TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet todayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet = us_57_4_fixture.new TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet();
+        Us_57_4_Fixture.TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet todayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet = us_57_4_fixture.getTodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet();
         consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(todayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet.prepareTodayData().getPath());
         consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(todayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet.prepareYesterdayData().getPath());
         consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(todayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet.prepareWeekAgoData().getPath());
@@ -53,7 +53,7 @@ public class GivenFixturePrepareSteps {
 
     @Given("the user prepares data for red highlighted checks - today data is bigger than yesterday and smaller than weekAgo one")
     public void givenTheUserPreparesDataForRedHighLightedChecksTodayDataIsBiggerThanYesterdayAndSmallerThanWeekAgo() throws ParserConfigurationException, TransformerException, XPathExpressionException, IOException, InterruptedException {
-        Us_57_4_Fixture.TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet todayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet = us_57_4_fixture.new TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet();
+        Us_57_4_Fixture.TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet todayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet = us_57_4_fixture.getTodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet();
         consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(todayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet.prepareTodayData().getPath());
         consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(todayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet.prepareYesterdayData().getPath());
         consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(todayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet.prepareWeekAgoData().getPath());
@@ -61,7 +61,7 @@ public class GivenFixturePrepareSteps {
 
     @Given("the user prepares data for red highlighted checks - today data is smaller than yesterday and weekAgo one")
     public void givenTheUserPreparesDataForRedHighLightedChecksTodayDataIsSmallerThanYesterdayAndWeekAgo() throws ParserConfigurationException, TransformerException, XPathExpressionException, IOException, InterruptedException {
-        Us_57_4_Fixture.TodayIsSmallerThanYesterdayAndWeekAgoDataSet todayIsSmallerThanYesterdayAndWeekAgoDataSet = us_57_4_fixture.new TodayIsSmallerThanYesterdayAndWeekAgoDataSet();
+        Us_57_4_Fixture.TodayIsSmallerThanYesterdayAndWeekAgoDataSet todayIsSmallerThanYesterdayAndWeekAgoDataSet = us_57_4_fixture.getTodayIsSmallerThanYesterdayAndWeekAgoDataSet();
         consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(todayIsSmallerThanYesterdayAndWeekAgoDataSet.prepareTodayData().getPath());
         consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(todayIsSmallerThanYesterdayAndWeekAgoDataSet.prepareYesterdayData().getPath());
         consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(todayIsSmallerThanYesterdayAndWeekAgoDataSet.prepareWeekAgoData().getPath());
