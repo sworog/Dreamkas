@@ -2,10 +2,18 @@
 
 namespace Lighthouse\CoreBundle\Document\Classifier\Group;
 
-use Lighthouse\CoreBundle\Document\DocumentRepository;
+use Lighthouse\CoreBundle\Document\Classifier\ClassifierRepository;
 
-class GroupRepository extends DocumentRepository
+class GroupRepository extends ClassifierRepository
 {
+    /**
+     * @return mixed
+     */
+    protected function getParentFieldName()
+    {
+        return '';
+    }
+
     /**
      * @param string $name
      * @return Group

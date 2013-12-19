@@ -44,7 +44,7 @@ class GroupListener
      */
     protected function checkGroupHasNoCategories(Group $group)
     {
-        $count = $this->categoryRepository->countByGroup($group->id);
+        $count = $this->categoryRepository->countByParent($group->id);
         if ($count > 0) {
             throw new GroupNotEmptyException('Group is not empty');
         }

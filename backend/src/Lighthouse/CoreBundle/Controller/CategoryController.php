@@ -91,7 +91,7 @@ class CategoryController extends AbstractRestController
      */
     public function getGroupCategoriesAction(Group $group)
     {
-        $cursor = $this->documentRepository->findByGroup($group->id);
+        $cursor = $this->documentRepository->findByParent($group->id);
         return new CategoryCollection($cursor);
     }
 
@@ -105,7 +105,7 @@ class CategoryController extends AbstractRestController
      */
     public function getStoreGroupCategoriesAction(Store $store, Group $group)
     {
-        $cursor = $this->documentRepository->findByGroup($group->id);
+        $cursor = $this->documentRepository->findByParent($group->id);
         return new CategoryCollection($cursor);
     }
 

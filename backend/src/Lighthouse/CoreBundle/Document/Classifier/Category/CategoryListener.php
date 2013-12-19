@@ -44,7 +44,7 @@ class CategoryListener
      */
     protected function checkCategoryHasNoSubCategories(Category $category)
     {
-        $count = $this->subCategoryRepository->countByCategory($category->id);
+        $count = $this->subCategoryRepository->countByParent($category->id);
         if ($count > 0) {
             throw new CategoryNotEmptyException('Category is not empty');
         }

@@ -544,7 +544,7 @@ class GrossSalesReportManager
         $endDayHours = $this->extractEndDayHours($dayHours);
         $queryDates = $this->getQueryDates($dayHours);
 
-        $cursor = $this->subCategoryRepository->findByCategory($category->id);
+        $cursor = $this->subCategoryRepository->findByParent($category->id);
         $cursor->sort(array('name' => 1));
         $subCategories = new SubCategoryCollection($cursor);
 
@@ -580,7 +580,7 @@ class GrossSalesReportManager
         $endDayHours = $this->extractEndDayHours($dayHours);
         $queryDates = $this->getQueryDates($dayHours);
 
-        $cursor = $this->categoryRepository->findByGroup($group->id);
+        $cursor = $this->categoryRepository->findByParent($group->id);
         $cursor->sort(array('name' => 1));
         $categories = new CategoryCollection($cursor);
 
@@ -773,7 +773,7 @@ class GrossSalesReportManager
         $i = 0;
 
         foreach ($categoryIds as $categoryId) {
-            $subCategoryIds = $this->subCategoryRepository->findIdsByCategoryId($categoryId);
+            $subCategoryIds = $this->subCategoryRepository->findIdsByParentId($categoryId);
             foreach ($storeIds as $storeId) {
                 $hourSums = $this->grossSalesSubCategoryRepository->calculateGrossSalesByIds($subCategoryIds);
                 foreach ($hourSums as $hourSum) {
@@ -811,7 +811,7 @@ class GrossSalesReportManager
         $i = 0;
 
         foreach ($groupIds as $groupId) {
-            $categoryIds = $this->categoryRepository->findIdsByGroupId($groupId);
+            $categoryIds = $this->categoryRepository->findIdsByParentId($groupId);
             foreach ($storeIds as $storeId) {
                 $hourSums = $this->grossSalesCategoryRepository->calculateGrossSalesByIds($categoryIds);
                 foreach ($hourSums as $hourSum) {
