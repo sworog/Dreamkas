@@ -8,5 +8,5 @@ interface GrossSalesCalculatable
      * @param array $ids
      * @return array
      */
-    public function calculateGrossSalesByIds(array $ids);
+    public function calculateGrossSalesByIds(array $ids, $storeId);
 }

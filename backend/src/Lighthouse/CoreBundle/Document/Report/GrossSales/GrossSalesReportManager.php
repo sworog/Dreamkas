@@ -1034,7 +1034,7 @@ class GrossSalesReportManager
                 } else {
                     $preparedChildIds = $childIds;
                 }
-                $hourSums = $childNodeReportRepository->calculateGrossSalesByIds($preparedChildIds);
+                $hourSums = $childNodeReportRepository->calculateGrossSalesByIds($preparedChildIds, $storeId);
                 foreach ($hourSums as $hourSum) {
                     $report = $nodeReportRepository->createByDayHourAndNodeId(
                         DateTimestamp::createFromMongoDate($hourSum['_id']),

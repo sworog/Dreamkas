@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesCalculatable;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use DateTime;
+use MongoId;
 
 abstract class GrossSalesNodeRepository extends DocumentRepository implements GrossSalesCalculatable
 {
@@ -102,16 +103,18 @@ abstract class GrossSalesNodeRepository extends DocumentRepository implements Gr
 
     /**
      * @param array $ids
+     * @param string|MongoId $storeId
      * @return array
      */
-    public function calculateGrossSalesByIds(array $ids)
+    public function calculateGrossSalesByIds(array $ids, $storeId)
     {
         $ops = array(
             array(
                 '$match' => array(
                     $this->getNodeField() => array(
                         '$in' => $ids
-                    )
+                    ),
+                    'store' => new MongoId((string) $storeId)
                 ),
             ),
             array(
