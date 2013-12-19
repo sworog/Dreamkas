@@ -2272,7 +2272,7 @@ class ReportControllerTest extends WebTestCase
         list($storeIds,, $catalogIds) = $this->createSales();
 
         $output = new NullOutput();
-        $this->getGrossSalesReportService()->recalculateGrossSalesProductReport($output);
+        $this->getGrossSalesReportService()->recalculateGrossSalesProductReport();
         $this->getGrossSalesReportService()->recalculateGrossSalesBySubCategories($output);
 
         $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
