@@ -13,7 +13,7 @@ Meta:
 @id s25u57.4s1
 @description check of no sales registered there are zero sales
 
-GivenStories: precondition/us-57_4/aPreconditionToStoryUs57.4.story
+GivenStories: precondition/sprint-25/us-57_4/aPreconditionToStoryUs57.4.story
 
 Given there is the product with 'name-25574' name, '25574' sku, '25574' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u574', category named 'defaultCategory-s25u574', subcategory named 'defaultSubCategory-s25u574'
 
@@ -32,7 +32,7 @@ Meta:
 @id s25u57.4s2
 @description the product entry can be without barcode
 
-GivenStories: precondition/us-57_4/aPreconditionToStoryUs57.4.story
+GivenStories: precondition/sprint-25/us-57_4/aPreconditionToStoryUs57.4.story
 
 Given there is the product with 'name-255741' name, '255741' sku, '' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u574', category named 'defaultCategory-s25u574', subcategory named 'defaultSubCategory-s25u574'
 
@@ -52,7 +52,7 @@ Meta:
 @description check the gross sale by products contains correct data
 @smoke
 
-GivenStories: precondition/us-57_4/aPreconditionToScenarioS3.story
+GivenStories: precondition/sprint-25/us-57_4/aPreconditionToScenarioS3.story
 
 Given the user opens the authorization page
 When the user logs in using 'storeManager-s25u574' userName and 'lighthouse' password
@@ -92,7 +92,7 @@ Meta:
 @id s25u57.4s4
 @description
 
-GivenStories: precondition/us-57_4/aPreconditionToScenarioS4.story
+GivenStories: precondition/sprint-25/us-57_4/aPreconditionToScenarioS4.story
 
 Given the user prepares data for red highlighted checks - today data is bigger than yesterday/weekAgo one
 Given the user runs the symfony:reports:recalculate command
@@ -112,7 +112,7 @@ Meta:
 @id s25u57.4s5
 @description
 
-GivenStories: precondition/us-57_4/aPreconditionToScenarioS4.story
+GivenStories: precondition/sprint-25/us-57_4/aPreconditionToScenarioS4.story
 
 Given the user prepares data for red highlighted checks - today data is equal yesterday/weekAgo one
 Given the user runs the symfony:reports:recalculate command
@@ -132,7 +132,7 @@ Meta:
 @id s25u57.4s6
 @description
 
-GivenStories: precondition/us-57_4/aPreconditionToScenarioS4.story
+GivenStories: precondition/sprint-25/us-57_4/aPreconditionToScenarioS4.story
 
 Given the user prepares data for red highlighted checks - today data is smaller than yesterday and bigger than weekAgo one
 Given the user runs the symfony:reports:recalculate command
@@ -152,7 +152,7 @@ Meta:
 @id s25u57.4s7
 @description
 
-GivenStories: precondition/us-57_4/aPreconditionToScenarioS4.story
+GivenStories: precondition/sprint-25/us-57_4/aPreconditionToScenarioS4.story
 
 Given the user prepares data for red highlighted checks - today data is bigger than yesterday and smaller than weekAgo one
 Given the user runs the symfony:reports:recalculate command
@@ -173,7 +173,7 @@ Meta:
 @description
 @smoke
 
-GivenStories: precondition/us-57_4/aPreconditionToScenarioS4.story
+GivenStories: precondition/sprint-25/us-57_4/aPreconditionToScenarioS4.story
 
 Given the user prepares data for red highlighted checks - today data is smaller than yesterday and weekAgo one
 Given the user runs the symfony:reports:recalculate command
