@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\SubCategor
 
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
-use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesClassifierNodeReport;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\GrossSalesNodeReport;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
@@ -15,7 +15,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  *      "Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\SubCategory\GrossSalesSubCategoryRepository"
  * )
  */
-class GrossSalesSubCategoryReport extends GrossSalesClassifierNodeReport
+class GrossSalesSubCategoryReport extends GrossSalesNodeReport
 {
     /**
      * @MongoDB\ReferenceOne(

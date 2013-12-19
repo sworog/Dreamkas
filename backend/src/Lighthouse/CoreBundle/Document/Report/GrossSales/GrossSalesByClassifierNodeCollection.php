@@ -1,11 +1,10 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier;
+namespace Lighthouse\CoreBundle\Document\Report\GrossSales;
 
 use Lighthouse\CoreBundle\Document\AbstractCollection;
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use DateTime;
-use Lighthouse\CoreBundle\Document\Report\GrossSales\TodayGrossSales;
 
 abstract class GrossSalesByClassifierNodeCollection extends AbstractCollection
 {

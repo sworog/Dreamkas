@@ -133,4 +133,13 @@ class DocumentRepository extends BaseRepository
             $ids
         );
     }
+
+    /**
+     * @param object $document
+     * @return string
+     */
+    public function getDocumentIdentifierValue($document)
+    {
+        return $this->dm->getClassMetadata(get_class($document))->getIdentifierValue($document);
+    }
 }

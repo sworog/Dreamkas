@@ -2,120 +2,33 @@
 
 namespace Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\Category;
 
-use Doctrine\ODM\MongoDB\Proxy\Proxy;
-use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
-use Lighthouse\CoreBundle\Document\DocumentRepository;
-use Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\SubCategory\GrossSalesSubCategoryReport;
-use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Types\Numeric\Money;
-use DateTime;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\GrossSalesNodeReport;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\GrossSalesNodeRepository;
 
-class GrossSalesCategoryRepository extends DocumentRepository
+class GrossSalesCategoryRepository extends GrossSalesNodeRepository
 {
     /**
-     * @param Category $category
-     * @param DateTime $dayHour
+     * @return GrossSalesNodeReport|GrossSalesCategoryReport
+     */
+    public function createReport()
+    {
+        return new GrossSalesCategoryReport();
+    }
+
+    /**
      * @return string
      */
-    public function getIdByCategoryAndDayHour(Category $category, $dayHour)
+    protected function getNodeClass()
     {
-        $categoryId = $this->getClassMetadata()->getIdentifierValue($category);
-        return md5($categoryId . ":" . $dayHour->getTimestamp());
+        return Category::getClassName();
     }
 
     /**
-     * @param DateTime $dayHour
-     * @param Category|Proxy $category
-     * @param Store $store
-     * @param Money $hourSum
-     * @return GrossSalesCategoryReport
+     * @return string
      */
-    public function createByDayHourAndCategory(
-        DateTime $dayHour,
-        Category $category,
-        Store $store,
-        Money $hourSum = null
-    ) {
-        $report = new GrossSalesCategoryReport();
-        $report->id = $this->getIdByCategoryAndDayHour($category, $dayHour);
-        $report->dayHour = $dayHour;
-        $report->category = $category;
-        $report->store = $store;
-        $report->hourSum = $hourSum ?: new Money(0);
-
-        return $report;
-    }
-
-    /**
-     * @param DateTime $dayHour
-     * @param string $categoryId
-     * @param string $storeId
-     * @param Money $hourSum
-     * @return GrossSalesSubCategoryReport
-     */
-    public function createByDayHourAndCategoryId(
-        DateTime $dayHour,
-        $categoryId,
-        $storeId,
-        Money $hourSum = null
-    ) {
-        $category = $this->dm->getReference(Category::getClassName(), $categoryId);
-        $store = $this->dm->getReference(Store::getClassName(), $storeId);
-        return $this->createByDayHourAndCategory($dayHour, $category, $store, $hourSum);
-    }
-
-    /**
-     * @param array $dates
-     * @param array $categoryIds
-     * @param string $storeId
-     * @return Cursor|GrossSalesCategoryReport[]
-     */
-    public function findByDayHoursAndCategoryIds(array $dates, array $categoryIds, $storeId)
+    protected function getNodeField()
     {
-        $categoryIds = $this->convertToMongoIds($categoryIds);
-        return $this->findBy(
-            array(
-                'dayHour' => array('$in' => $dates),
-                'category' => array('$in' => $categoryIds),
-                'store' => $storeId,
-            )
-        );
-    }
-
-    /**
-     * @param array $ids
-     * @return array
-     */
-    public function calculateGrossSalesByIds(array $ids)
-    {
-        $ops = array(
-            array(
-                '$match' => array(
-                    'category' => array(
-                        '$in' => $ids
-                    )
-                ),
-            ),
-            array(
-                '$sort' => array(
-                    'dayHour' => 1,
-                )
-            ),
-            array(
-                '$project' => array(
-                    '_id' => 0,
-                    'dayHour' => 1,
-                    'hourSum' => 1,
-                ),
-            ),
-            array(
-                '$group' => array(
-                    '_id' => '$dayHour',
-                    'hourSum' => array('$sum' => '$hourSum'),
-                ),
-            ),
-        );
-        return $this->aggregate($ops);
+        return 'category';
     }
 }

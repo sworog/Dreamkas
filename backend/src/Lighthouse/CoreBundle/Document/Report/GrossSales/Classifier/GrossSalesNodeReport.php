@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Report\GrossSales;
+namespace Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
@@ -16,7 +16,7 @@ use DateTime;
  *
  * @MongoDB\MappedSuperclass
  */
-abstract class GrossSalesClassifierNodeReport extends AbstractDocument
+abstract class GrossSalesNodeReport extends AbstractDocument
 {
     /**
      * @MongoDB\Id(strategy="NONE")
