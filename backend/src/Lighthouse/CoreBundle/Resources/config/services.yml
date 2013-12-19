@@ -151,7 +151,7 @@ services:
     lighthouse.core.document.repository.store_gross_sales:
         parent: doctrine_mongodb.odm.repository
         arguments:
-            - LighthouseCoreBundle:Report\Store\StoreGrossSalesReport
+            - LighthouseCoreBundle:Report\GrossSales\Store\GrossSalesStoreReport
 
     lighthouse.core.document.repository.product_gross_sales:
         parent: doctrine_mongodb.odm.repository

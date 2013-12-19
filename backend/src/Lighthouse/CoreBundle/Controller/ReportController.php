@@ -72,13 +72,8 @@ class ReportController extends FOSRestController
      */
     public function getStoreReportsGrossSalesByHoursAction(Store $store, Request $request)
     {
-        $time = $request->get('time', 'now');
-        $todayReports = $this->storeGrossSalesRepository->findByStoreAndDateLimitDayHour($store, $time);
-        $yesterdayReports = $this->storeGrossSalesRepository->findByStoreAndDateLimitDayHour($store, $time . " -1 day");
-        $weekAgoReports = $this->storeGrossSalesRepository->findByStoreAndDateLimitDayHour($store, $time . " -1 week");
-
-        $return = new StoreGrossSalesReportByHours($todayReports, $yesterdayReports, $weekAgoReports, $time);
-        return $return;
+        $time = new DateTime($request->get('time', 'now'));
+        return $this->grossSalesReportManager->getGrossSalesStoreByHours($store, $time);
     }
 
     /**
