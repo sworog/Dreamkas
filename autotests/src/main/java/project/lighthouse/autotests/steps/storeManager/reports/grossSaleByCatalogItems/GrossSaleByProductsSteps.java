@@ -1,10 +1,10 @@
 package project.lighthouse.autotests.steps.storeManager.reports.grossSaleByCatalogItems;
 
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.annotations.findby.By;
 import org.jbehave.core.model.ExamplesTable;
 import org.junit.Assert;
 import project.lighthouse.autotests.fixtures.Us_57_4_Fixture;
+import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectValueColorable;
 import project.lighthouse.autotests.pages.storeManager.reports.grossSaleByCatalogItems.GrossSaleByProductsPage;
 
 public class GrossSaleByProductsSteps {
@@ -51,16 +51,15 @@ public class GrossSaleByProductsSteps {
 
     @Step
     public void checkTheTableValueIsRed(String locator) {
-        Assert.assertEquals("color: red;", getTableColorByLocator(locator));
-
+        Assert.assertTrue(isTableColorRedByLocator(locator));
     }
 
     @Step
     public void checkTheTableValueColorIsNotRed(String locator) {
-        Assert.assertEquals("", getTableColorByLocator(locator));
+        Assert.assertFalse(isTableColorRedByLocator(locator));
     }
 
-    private String getTableColorByLocator(String locator) {
-        return grossSaleByProductsPage.getGrossSaleByProductsObjectCollection().getAbstractObjectByLocator(locator).getElement().findElement(By.name("today.runningSum")).getAttribute("style");
+    private Boolean isTableColorRedByLocator(String locator) {
+        return ((ObjectValueColorable) grossSaleByProductsPage.getGrossSaleByProductsObjectCollection().getAbstractObjectByLocator(locator)).isValueColor();
     }
 }

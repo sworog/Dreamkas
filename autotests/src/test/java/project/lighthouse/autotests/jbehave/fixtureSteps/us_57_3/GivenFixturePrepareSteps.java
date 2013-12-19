@@ -40,9 +40,9 @@ public class GivenFixturePrepareSteps {
 
     @Given("the user prepares data for red highlighted checks - today data is bigger than yesterday and smaller than weekAgo one for story 57.3")
     public void givenTheUserPreparesDataForRedHighLightedChecksTodayDataIsBiggerThanYesterdayAndSmallerThanWeekAgo() throws ParserConfigurationException, TransformerException, XPathExpressionException, IOException, InterruptedException {
-        consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(us_57_3_fixture.getTodayIsBiggerThanYesterdayAndWeekAgoDataSet().prepareTodayData().getPath());
-        consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(us_57_3_fixture.getTodayIsBiggerThanYesterdayAndWeekAgoDataSet().prepareYesterdayData().getPath());
-        consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(us_57_3_fixture.getTodayIsBiggerThanYesterdayAndWeekAgoDataSet().prepareWeekAgoData().getPath());
+        consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(us_57_3_fixture.getTodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet().prepareTodayData().getPath());
+        consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(us_57_3_fixture.getTodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet().prepareYesterdayData().getPath());
+        consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(us_57_3_fixture.getTodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet().prepareWeekAgoData().getPath());
     }
 
     @Given("the user prepares data for red highlighted checks - today data is smaller than yesterday and weekAgo one for story 57.3")
