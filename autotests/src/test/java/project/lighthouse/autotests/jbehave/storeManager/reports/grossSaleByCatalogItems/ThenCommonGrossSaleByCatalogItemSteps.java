@@ -25,6 +25,11 @@ public class ThenCommonGrossSaleByCatalogItemSteps {
         commonGrossSaleByCatalogItemSteps.compareWithExampleTable(examplesTable);
     }
 
+    @Then("the user checks the gross sale by subCategory report contains entry with zero sales value")
+    public void thenTheUserChecksTheGrossSaleBySubCategoryReportContainsEntryWithZeroSalesValue() {
+        commonGrossSaleByCatalogItemSteps.compareWithExampleTableIncludingZeroSales();
+    }
+
     @Then("the user checks the subCategory today entry value by locator '$locator' is not red highlighted")
     public void thenTheUserChecksTheTableTodayValueByLocatorIsNotRedHighLighted(String locator) {
         commonGrossSaleByCatalogItemSteps.checkTheTableValueColorIsNotRed(locator);
