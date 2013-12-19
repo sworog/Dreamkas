@@ -14,6 +14,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  *      repositoryClass=
  *      "Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\Group\GrossSalesGroupRepository"
  * )
+ * @MongoDB\Index(keys={"dayHour"="asc", "group"="asc", "store"="asc"})
  */
 class GrossSalesGroupReport extends GrossSalesNodeReport
 {

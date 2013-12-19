@@ -19,6 +19,7 @@ use JMS\Serializer\Annotation\Exclude;
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\Report\GrossSales\Product\GrossSalesProductRepository"
  * )
+ * @MongoDB\Index(keys={"dayHour"="asc", "product"="asc"})
  */
 class GrossSalesProductReport extends AbstractDocument
 {
