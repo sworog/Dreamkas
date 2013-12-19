@@ -10,9 +10,9 @@ use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
 use Lighthouse\CoreBundle\Document\Classifier\ClassifierRepository;
+use Lighthouse\CoreBundle\Document\Classifier\Group\GroupCollection;
 use Lighthouse\CoreBundle\Document\Classifier\ParentableRepository;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
-use Lighthouse\CoreBundle\Document\Classifier\Group\GroupCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryCollection;
@@ -540,32 +540,17 @@ class GrossSalesReportManager
      */
     public function getGrossSalesBySubCategories(Store $store, Category $category, DateTime $time = null)
     {
-        $intervals = array(
-            'today' => null,
-            'yesterday' => '-1 days',
-            'weekAgo' => '-7 days',
-        );
-
-        $dayHours = $this->getDayHours($time, $intervals);
-        $endDayHours = $this->extractEndDayHours($dayHours);
-        $queryDates = $this->getQueryDates($dayHours);
-
         $cursor = $this->subCategoryRepository->findByParent($category->id);
         $cursor->sort(array('name' => 1));
-        $subCategories = new SubCategoryCollection($cursor);
+        $nodes = new SubCategoryCollection($cursor);
 
-        $reports = $this->grossSalesSubCategoryRepository->findByDayHoursAndNodeIds(
-            $queryDates,
-            $subCategories->getIds(),
-            $store->id
+        return $this->getGrossSalesByNode(
+            $this->grossSalesSubCategoryRepository,
+            $nodes,
+            new GrossSalesBySubCategoriesCollection(),
+            $store,
+            $time
         );
-
-        $collection = new GrossSalesBySubCategoriesCollection();
-
-        $this->createGrossSalesByClassifierNodeCollection($collection, $reports, $endDayHours);
-        $this->fillGrossSalesByClassifierNodeCollection($collection, $subCategories, $endDayHours);
-
-        return $collection->normalizeKeys();
     }
 
     /**
@@ -576,6 +561,54 @@ class GrossSalesReportManager
      */
     public function getGrossSalesByCategories(Store $store, Group $group, DateTime $time = null)
     {
+        $cursor = $this->categoryRepository->findByParent($group->id);
+        $cursor->sort(array('name' => 1));
+        $nodes = new CategoryCollection($cursor);
+
+        return $this->getGrossSalesByNode(
+            $this->grossSalesCategoryRepository,
+            $nodes,
+            new GrossSalesByCategoriesCollection(),
+            $store,
+            $time
+        );
+    }
+
+    /**
+     * @param Store $store
+     * @param DateTime|null $time
+     * @return GrossSalesByGroupsCollection
+     */
+    public function getGrossSalesByGroups(Store $store, DateTime $time = null)
+    {
+        $cursor = $this->groupRepository->findAll();
+        $cursor->sort(array('name' => 1));
+        $nodes = new GroupCollection($cursor);
+
+        return $this->getGrossSalesByNode(
+            $this->grossSalesGroupRepository,
+            $nodes,
+            new GrossSalesByGroupsCollection(),
+            $store,
+            $time
+        );
+    }
+
+    /**
+     * @param GrossSalesNodeRepository $grossSalesNodeRepository
+     * @param AbstractCollection $nodes
+     * @param GrossSalesByClassifierNodeCollection $collection
+     * @param Store $store
+     * @param DateTime $time
+     * @return GrossSalesByClassifierNodeCollection
+     */
+    protected function getGrossSalesByNode(
+        GrossSalesNodeRepository $grossSalesNodeRepository,
+        AbstractCollection $nodes,
+        GrossSalesByClassifierNodeCollection $collection,
+        Store $store,
+        DateTime $time = null
+    ) {
         $intervals = array(
             'today' => null,
             'yesterday' => '-1 days',
@@ -586,33 +619,26 @@ class GrossSalesReportManager
         $endDayHours = $this->extractEndDayHours($dayHours);
         $queryDates = $this->getQueryDates($dayHours);
 
-        $cursor = $this->categoryRepository->findByParent($group->id);
-        $cursor->sort(array('name' => 1));
-        $categories = new CategoryCollection($cursor);
-
-        $reports = $this->grossSalesCategoryRepository->findByDayHoursAndNodeIds(
+        $reports = $grossSalesNodeRepository->findByDayHoursAndNodeIds(
             $queryDates,
-            $categories->getIds(),
+            $nodes->getIds(),
             $store->id
         );
 
-        $grossSalesByCategoriesCollection = new GrossSalesByCategoriesCollection();
-
         $this->createGrossSalesByClassifierNodeCollection(
-            $grossSalesByCategoriesCollection,
+            $collection,
             $reports,
             $endDayHours
         );
 
         $this->fillGrossSalesByClassifierNodeCollection(
-            $grossSalesByCategoriesCollection,
-            $categories,
+            $collection,
+            $nodes,
             $endDayHours
         );
 
-        return $grossSalesByCategoriesCollection->normalizeKeys();
+        return $collection->normalizeKeys();
     }
-
 
     /**
      * @param GrossSalesByClassifierNodeCollection $collection
@@ -636,50 +662,6 @@ class GrossSalesReportManager
         }
 
         return $collection;
-    }
-
-    /**
-     * @param Store $store
-     * @param DateTime|null $time
-     * @return GrossSalesByGroupsCollection
-     */
-    public function getGrossSalesByGroups(Store $store, DateTime $time = null)
-    {
-        $intervals = array(
-            'today' => null,
-            'yesterday' => '-1 days',
-            'weekAgo' => '-7 days',
-        );
-
-        $dayHours = $this->getDayHours($time, $intervals);
-        $endDayHours = $this->extractEndDayHours($dayHours);
-        $queryDates = $this->getQueryDates($dayHours);
-
-        $cursor = $this->groupRepository->findAll();
-        $cursor->sort(array('name' => 1));
-        $groups = new GroupCollection($cursor);
-
-        $reports = $this->grossSalesGroupRepository->findByDayHoursAndNodeIds(
-            $queryDates,
-            $groups->getIds(),
-            $store->id
-        );
-
-        $collection = new GrossSalesByGroupsCollection();
-
-        $this->createGrossSalesByClassifierNodeCollection(
-            $collection,
-            $reports,
-            $endDayHours
-        );
-
-        $this->fillGrossSalesByClassifierNodeCollection(
-            $collection,
-            $groups,
-            $endDayHours
-        );
-
-        return $collection->normalizeKeys();
     }
 
     /**

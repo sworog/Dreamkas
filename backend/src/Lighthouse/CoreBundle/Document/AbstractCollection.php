@@ -22,7 +22,7 @@ class AbstractCollection extends ArrayCollection
     }
 
     /**
-     * @return array
+     * @return AbstractCollection
      */
     public function normalizeKeys()
     {
