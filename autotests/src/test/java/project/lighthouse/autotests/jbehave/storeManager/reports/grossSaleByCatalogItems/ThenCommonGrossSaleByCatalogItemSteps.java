@@ -39,4 +39,24 @@ public class ThenCommonGrossSaleByCatalogItemSteps {
     public void thenTheUserChecksTheTableTodayValueByLocatorIsRedHighlighted(String locator) {
         commonGrossSaleByCatalogItemSteps.checkTheTableValueIsRed(locator);
     }
+
+    @Then("the user checks the gross sale by subCategory report contains correct data for defaultCategory-s25u573 of shop 25573")
+    public void thenTheUserChecksTheGrossSaleBySubCategoryReportForSubCategory1Shop1() {
+        commonGrossSaleByCatalogItemSteps.compareWithExampleTableForSubCategory1Shop1();
+    }
+
+    @Then("the user checks the gross sale by subCategory report contains correct data for defaultCategory-s25u5731 of shop 25573")
+    public void thenTheUserChecksTheGrossSaleBySubCategoryReportForSubCategory2Shop1() {
+        commonGrossSaleByCatalogItemSteps.compareWithExampleTableForSubCategory2Shop1();
+    }
+
+    @Then("the user checks the gross sale by subCategory report contains correct data for defaultCategory-s25u573 of shop 255731")
+    public void thenTheUserChecksTheGrossSaleBySubCategoryReportForSubCategory1Shop2() {
+        commonGrossSaleByCatalogItemSteps.compareWithExampleTableForSubCategory1Shop2();
+    }
+
+    @Then("the user checks the gross sale by subCategory report contains correct data for defaultCategory-s25u5731 of shop 255731")
+    public void thenTheUserChecksTheGrossSaleBySubCategoryReportForSubCategory2Shop2() {
+        commonGrossSaleByCatalogItemSteps.compareWithExampleTableForSubCategory2Shop2();
+    }
 }

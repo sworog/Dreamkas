@@ -39,4 +39,24 @@ public class CommonGrossSaleByCatalogItemSteps {
     private Boolean getTableColorByLocator(String locator) {
         return ((ObjectValueColorable) commonGrossSaleByCatalogItemPage.getGrossSaleByTableObjectCollection().getAbstractObjectByLocator(locator)).isValueColor();
     }
+
+    @Step
+    public void compareWithExampleTableForSubCategory1Shop1() {
+        commonGrossSaleByCatalogItemPage.getGrossSaleByTableObjectCollection().compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop1Product1());
+    }
+
+    @Step
+    public void compareWithExampleTableForSubCategory2Shop1() {
+        commonGrossSaleByCatalogItemPage.getGrossSaleByTableObjectCollection().compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop1Product2());
+    }
+
+    @Step
+    public void compareWithExampleTableForSubCategory1Shop2() {
+        commonGrossSaleByCatalogItemPage.getGrossSaleByTableObjectCollection().compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop2Product1());
+    }
+
+    @Step
+    public void compareWithExampleTableForSubCategory2Shop2() {
+        commonGrossSaleByCatalogItemPage.getGrossSaleByTableObjectCollection().compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop2Product2());
+    }
 }
