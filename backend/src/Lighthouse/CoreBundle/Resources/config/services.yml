@@ -161,14 +161,14 @@ services:
     lighthouse.core.document.repository.subcategory_gross_sales:
         parent: doctrine_mongodb.odm.repository
         arguments:
-            - LighthouseCoreBundle:Report\GrossSales\SubCategory\GrossSalesSubCategoryReport
+            - LighthouseCoreBundle:Report\GrossSales\Classifier\SubCategory\GrossSalesSubCategoryReport
 
     lighthouse.core.document.repository.category_gross_sales:
         parent: doctrine_mongodb.odm.repository
         arguments:
-            - LighthouseCoreBundle:Report\GrossSales\Category\GrossSalesCategoryReport
+            - LighthouseCoreBundle:Report\GrossSales\Classifier\Category\GrossSalesCategoryReport
 
     lighthouse.core.document.repository.group_gross_sales:
         parent: doctrine_mongodb.odm.repository
         arguments:
-            - LighthouseCoreBundle:Report\GrossSales\Group\GrossSalesGroupReport
+            - LighthouseCoreBundle:Report\GrossSales\Classifier\Group\GrossSalesGroupReport

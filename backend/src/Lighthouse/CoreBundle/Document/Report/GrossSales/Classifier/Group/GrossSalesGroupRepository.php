@@ -1,11 +1,9 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Report\GrossSales\Group;
+namespace Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\Group;
 
-use Doctrine\ODM\MongoDB\Proxy\Proxy;
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
-use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesClassifierNodeReport;

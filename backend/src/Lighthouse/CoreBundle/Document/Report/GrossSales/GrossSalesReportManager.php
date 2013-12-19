@@ -17,7 +17,9 @@ use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductCollection;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
-use Lighthouse\CoreBundle\Document\Report\GrossSales\Category\GrossSalesCategoryRepository;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\Category\GrossSalesCategoryRepository;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\GrossSalesByClassifierNodeCollection;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesClassifierNodeReport;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\DayGrossSales;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\GrossSales;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByCategories\GrossSalesByCategoriesCollection;
@@ -26,10 +28,10 @@ use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossS
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesBySubCategories\GrossSalesBySubCategoriesCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSalesByStoresCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\StoreGrossSalesByStores;
-use Lighthouse\CoreBundle\Document\Report\GrossSales\Group\GrossSalesGroupRepository;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\Group\GrossSalesGroupRepository;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\Product\GrossSalesProductReport;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\Product\GrossSalesProductRepository;
-use Lighthouse\CoreBundle\Document\Report\GrossSales\SubCategory\GrossSalesSubCategoryRepository;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\SubCategory\GrossSalesSubCategoryRepository;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReport;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
@@ -357,7 +359,7 @@ class GrossSalesReportManager
     public function recalculateGrossSalesProductReport($batch = 1000)
     {
         $stores = $this->storeRepository->findAll()->toArray();
-        $countProducts = $this->productRepository->findAll()->count();
+        $countProducts = $this->productRepository->count();
 
         $results = $this->trialBalanceRepository->calculateGrossSalesProduct($stores, $countProducts);
 

@@ -1,46 +1,46 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Report\GrossSales\SubCategory;
+namespace Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\Category;
 
 use Doctrine\ODM\MongoDB\Proxy\Proxy;
 use Doctrine\ODM\MongoDB\Cursor;
-use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
+use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\SubCategory\GrossSalesSubCategoryReport;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use DateTime;
-use MongoId;
 
-class GrossSalesSubCategoryRepository extends DocumentRepository
+class GrossSalesCategoryRepository extends DocumentRepository
 {
     /**
-     * @param SubCategory $subCategory
+     * @param Category $category
      * @param DateTime $dayHour
      * @return string
      */
-    public function getIdBySubCategoryAndDayHour(SubCategory $subCategory, $dayHour)
+    public function getIdByCategoryAndDayHour(Category $category, $dayHour)
     {
-        $subCategoryId = $this->getClassMetadata()->getIdentifierValue($subCategory);
-        return md5($subCategoryId . ":" . $dayHour->getTimestamp());
+        $categoryId = $this->getClassMetadata()->getIdentifierValue($category);
+        return md5($categoryId . ":" . $dayHour->getTimestamp());
     }
 
     /**
      * @param DateTime $dayHour
-     * @param SubCategory|Proxy $subCategory
+     * @param Category|Proxy $category
      * @param Store $store
      * @param Money $hourSum
-     * @return GrossSalesSubCategoryReport
+     * @return GrossSalesCategoryReport
      */
-    public function createByDayHourAndSubCategory(
+    public function createByDayHourAndCategory(
         DateTime $dayHour,
-        SubCategory $subCategory,
+        Category $category,
         Store $store,
         Money $hourSum = null
     ) {
-        $report = new GrossSalesSubCategoryReport();
-        $report->id = $this->getIdBySubCategoryAndDayHour($subCategory, $dayHour);
+        $report = new GrossSalesCategoryReport();
+        $report->id = $this->getIdByCategoryAndDayHour($category, $dayHour);
         $report->dayHour = $dayHour;
-        $report->subCategory = $subCategory;
+        $report->category = $category;
         $report->store = $store;
         $report->hourSum = $hourSum ?: new Money(0);
 
@@ -49,35 +49,35 @@ class GrossSalesSubCategoryRepository extends DocumentRepository
 
     /**
      * @param DateTime $dayHour
-     * @param string $subCategoryId
+     * @param string $categoryId
      * @param string $storeId
      * @param Money $hourSum
      * @return GrossSalesSubCategoryReport
      */
-    public function createByDayHourAndSubCategoryId(
+    public function createByDayHourAndCategoryId(
         DateTime $dayHour,
-        $subCategoryId,
+        $categoryId,
         $storeId,
         Money $hourSum = null
     ) {
-        $subCategory = $this->dm->getReference(SubCategory::getClassName(), $subCategoryId);
+        $category = $this->dm->getReference(Category::getClassName(), $categoryId);
         $store = $this->dm->getReference(Store::getClassName(), $storeId);
-        return $this->createByDayHourAndSubCategory($dayHour, $subCategory, $store, $hourSum);
+        return $this->createByDayHourAndCategory($dayHour, $category, $store, $hourSum);
     }
 
     /**
      * @param array $dates
-     * @param array $subCategoryIds
+     * @param array $categoryIds
      * @param string $storeId
-     * @return Cursor|GrossSalesSubCategoryReport[]
+     * @return Cursor|GrossSalesCategoryReport[]
      */
-    public function findByDayHoursAndSubCategoryIds(array $dates, array $subCategoryIds, $storeId)
+    public function findByDayHoursAndCategoryIds(array $dates, array $categoryIds, $storeId)
     {
-        $subCategoryIds = $this->convertToMongoIds($subCategoryIds);
+        $categoryIds = $this->convertToMongoIds($categoryIds);
         return $this->findBy(
             array(
                 'dayHour' => array('$in' => $dates),
-                'subCategory' => array('$in'=> $subCategoryIds),
+                'category' => array('$in' => $categoryIds),
                 'store' => $storeId,
             )
         );
@@ -92,7 +92,7 @@ class GrossSalesSubCategoryRepository extends DocumentRepository
         $ops = array(
             array(
                 '$match' => array(
-                    'subCategory' => array(
+                    'category' => array(
                         '$in' => $ids
                     )
                 ),

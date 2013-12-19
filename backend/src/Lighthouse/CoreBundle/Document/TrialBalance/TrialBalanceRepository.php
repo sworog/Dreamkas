@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Document\TrialBalance;
 
-use Doctrine\MongoDB\Collection;
 use Doctrine\ODM\MongoDB\Cursor;
 use Doctrine\ODM\MongoDB\Query\Expr;
 use Doctrine\ODM\MongoDB\Query\Query;
@@ -16,7 +15,6 @@ use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use MongoId;
 use MongoCode;
 use MongoCursor;
-use Symfony\Component\Stopwatch\Stopwatch;
 
 class TrialBalanceRepository extends DocumentRepository
 {

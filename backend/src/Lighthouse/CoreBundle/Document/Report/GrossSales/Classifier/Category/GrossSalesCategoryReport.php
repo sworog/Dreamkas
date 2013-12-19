@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Report\GrossSales\Category;
+namespace Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\Category;
 
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
@@ -11,7 +11,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  * @property Category $category
  *
  * @MongoDB\Document(
- *      repositoryClass="Lighthouse\CoreBundle\Document\Report\GrossSales\Category\GrossSalesCategoryRepository"
+ *      repositoryClass=
+ *      "Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\Category\GrossSalesCategoryRepository"
  * )
  */
 class GrossSalesCategoryReport extends GrossSalesClassifierNodeReport

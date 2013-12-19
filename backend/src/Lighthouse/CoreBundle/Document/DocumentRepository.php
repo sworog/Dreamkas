@@ -38,7 +38,9 @@ class DocumentRepository extends BaseRepository
      */
     public function count()
     {
-        return $this->findAll()->count();
+        /* @var Cursor $cursor */
+        $cursor = $this->findAll();
+        return $cursor->count();
     }
 
     /**
@@ -107,7 +109,7 @@ class DocumentRepository extends BaseRepository
 
         $result = $this->getMongoCollection()->aggregate($ops);
 
-        if (null !== $timeout) {
+        if (isset($backupTimeout)) {
             MongoCursor::$timeout = $backupTimeout;
         }
 

@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesBySubCatego
 
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
-use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByClassifierNodeCollection;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\GrossSalesByClassifierNodeCollection;
 
 class GrossSalesBySubCategoriesCollection extends GrossSalesByClassifierNodeCollection
 {
