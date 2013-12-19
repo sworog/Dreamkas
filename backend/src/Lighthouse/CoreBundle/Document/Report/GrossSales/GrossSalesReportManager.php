@@ -708,10 +708,8 @@ class GrossSalesReportManager
      * @param OutputInterface $output
      * @return int
      */
-    public function recalculateGrossSalesBySubCategories($batch = 1000, OutputInterface $output)
+    public function recalculateGrossSalesBySubCategories(OutputInterface $output, $batch = 1000)
     {
-        $output->writeln('SubCategories Gross Sales report recalculation started');
-
         $storeProductRepository = $this->storeProductRepository;
         $prepareChildIdsClosure = function (array $childIds, $storeId) use ($storeProductRepository) {
             $storeProductIds = array();
@@ -740,7 +738,7 @@ class GrossSalesReportManager
      * @param OutputInterface $output
      * @return int
      */
-    public function recalculateGrossSalesByCategories($batch = 1000, OutputInterface $output)
+    public function recalculateGrossSalesByCategories(OutputInterface $output, $batch = 1000)
     {
         return $this->recalculateGrossSalesByNode(
             $this->categoryRepository,
@@ -757,7 +755,7 @@ class GrossSalesReportManager
      * @param OutputInterface $output
      * @return int
      */
-    public function recalculateGrossSalesByGroups($batch = 1000, OutputInterface $output)
+    public function recalculateGrossSalesByGroups(OutputInterface $output, $batch = 1000)
     {
         return $this->recalculateGrossSalesByNode(
             $this->groupRepository,

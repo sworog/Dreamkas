@@ -49,13 +49,20 @@ class RecalculateReportsCommand extends Command
     {
         $output->writeln("<info>Recalculate reports started</info>");
 
+        $output->writeln("<info>Store Gross Sales</info>");
         $this->grossSalesReportManager->recalculateStoreGrossSalesReport();
 
+        $output->writeln("<info>Product Gross Sales</info>");
         $this->grossSalesReportManager->recalculateGrossSalesProductReport(5000);
 
-        $this->grossSalesReportManager->recalculateGrossSalesBySubCategories();
-        $this->grossSalesReportManager->recalculateGrossSalesByCategories();
-        $this->grossSalesReportManager->recalculateGrossSalesByGroups();
+        $output->writeln("<info>SubCategory Gross Sales</info>");
+        $this->grossSalesReportManager->recalculateGrossSalesBySubCategories($output);
+
+        $output->writeln("<info>Category Gross Sales</info>");
+        $this->grossSalesReportManager->recalculateGrossSalesByCategories($output);
+
+        $output->writeln("<info>Group Gross Sales</info>");
+        $this->grossSalesReportManager->recalculateGrossSalesByGroups($output);
 
         $output->writeln("<info>Recalculate reports finished</info>");
 
