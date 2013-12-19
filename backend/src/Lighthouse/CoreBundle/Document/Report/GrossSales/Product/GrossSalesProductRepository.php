@@ -57,8 +57,9 @@ class GrossSalesProductRepository extends DocumentRepository implements GrossSal
         Money $runningSum = null,
         Money $hourSum = null
     ) {
+        $storeProductId = $this->getDocumentIdentifierValue($storeProduct);
         $report = new GrossSalesProductReport();
-        $report->id = $this->getIdByStoreProductIdAndDayHour($storeProduct->id, $dayHour);
+        $report->id = $this->getIdByStoreProductIdAndDayHour($storeProductId, $dayHour);
         $report->dayHour = $dayHour;
         $report->product = $storeProduct;
         $report->runningSum = $runningSum ?: new Money(0);
