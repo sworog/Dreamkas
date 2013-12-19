@@ -107,4 +107,23 @@ class GrossSalesStoreRepository extends DocumentRepository
 
         return $this->find($reportId);
     }
+
+    /**
+     * @param DateTime[]|array $dates
+     * @return GrossSalesStoreReport[]|Cursor
+     */
+    public function findByDates(array $dates)
+    {
+        $queryDates = $this->normalizeDates($dates);
+        return $this->findBy(array('dayHour' => array('$in' => $queryDates)), array('store' => 1));
+    }
+
+    /**
+     * @param DateTime[] $dates
+     * @return DateTime[]
+     */
+    protected function normalizeDates(array $dates)
+    {
+        return array_values($dates);
+    }
 }
