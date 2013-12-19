@@ -40,4 +40,12 @@ class Group extends AbstractNode
     {
         return null;
     }
+
+    /**
+     * @return string
+     */
+    public function getChildClass()
+    {
+        return Category::getClassName();
+    }
 }

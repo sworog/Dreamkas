@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document\Classifier\SubCategory;
 
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
@@ -35,5 +36,13 @@ class SubCategory extends AbstractNode
     public function getParent()
     {
         return $this->category;
+    }
+
+    /**
+     * @return string
+     */
+    public function getChildClass()
+    {
+        return Product::getClassName();
     }
 }

@@ -54,4 +54,12 @@ class Category extends AbstractNode
     {
         return $this->group;
     }
+
+    /**
+     * @return string
+     */
+    public function getChildClass()
+    {
+        return SubCategory::getClassName();
+    }
 }

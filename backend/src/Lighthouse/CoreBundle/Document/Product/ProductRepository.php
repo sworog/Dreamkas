@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\Product;
 
+use Lighthouse\CoreBundle\Document\Classifier\CountableByParent;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Doctrine\MongoDB\LoggableCursor;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
@@ -9,7 +10,7 @@ use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
-class ProductRepository extends DocumentRepository
+class ProductRepository extends DocumentRepository implements CountableByParent
 {
     /**
      * @param string $property
@@ -59,14 +60,14 @@ class ProductRepository extends DocumentRepository
     }
 
     /**
-     * @param string $subCategoryId
+     * @param string $parentId
      * @return int
      */
-    public function countBySubCategory($subCategoryId)
+    public function countByParent($parentId)
     {
         $query = $this
             ->createQueryBuilder()
-            ->field('subCategory')->equals($subCategoryId)
+            ->field('subCategory')->equals($parentId)
             ->count()
             ->getQuery();
         $count = $query->execute();

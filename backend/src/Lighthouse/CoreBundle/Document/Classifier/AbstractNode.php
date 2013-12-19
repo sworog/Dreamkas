@@ -90,4 +90,9 @@ abstract class AbstractNode extends AbstractDocument
      * @return AbstractNode
      */
     abstract public function getParent();
+
+    /**
+     * @return string
+     */
+    abstract public function getChildClass();
 }
