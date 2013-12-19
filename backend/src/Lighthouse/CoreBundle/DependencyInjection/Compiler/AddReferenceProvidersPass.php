@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\DependencyInjection\Compiler;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
-use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
 use Symfony\Component\DependencyInjection\Reference;
 
 class AddReferenceProvidersPass implements CompilerPassInterface
@@ -24,7 +23,10 @@ class AddReferenceProvidersPass implements CompilerPassInterface
                 if (!isset($tagAttributes[0]['alias'])) {
                     throw new ParameterNotFoundException('alias');
                 }
-                $definition->addMethodCall('addReferenceProvider', array($tagAttributes[0]['alias'], new Reference($id)));
+                $definition->addMethodCall(
+                    'addReferenceProvider',
+                    array($tagAttributes[0]['alias'], new Reference($id))
+                );
             }
         }
     }

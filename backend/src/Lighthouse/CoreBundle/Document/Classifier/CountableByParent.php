@@ -10,4 +10,3 @@ interface CountableByParent
      */
     public function countByParent($parentId);
 }
- 
