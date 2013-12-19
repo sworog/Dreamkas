@@ -32,6 +32,12 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
         return static::$kernel;
     }
 
+    protected static function rebootKernel()
+    {
+        static::$kernel->shutdown();
+        static::$kernel->boot();
+    }
+
     /**
      * @param array $options
      * @return AppKernel

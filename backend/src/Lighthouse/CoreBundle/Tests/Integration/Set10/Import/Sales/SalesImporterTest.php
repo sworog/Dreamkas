@@ -154,6 +154,30 @@ class SalesImporterTest extends WebTestCase
         }
     }
 
+    public function testImportSamePurchaseWithDifferentStoreNumber()
+    {
+        $this->factory->getStores(array('25573', '255731'));
+        $this->createProductsBySku(array('25573', '255731'));
+
+        $output = new TestOutput();
+        $this->import('SameSame/s25u574-shop1-product2-today-1.xml', $output);
+        $display = $output->getDisplay();
+        $this->assertStringStartsWith("........................                             24\nFlushing", $display);
+
+        $this->rebootKernel();
+
+        $this->import('SameSame/s25u574-shop2-product2-today-2.xml', $output);
+        $display = $output->getDisplay();
+        $this->assertStringStartsWith("........................                             24\nFlushing", $display);
+
+        $this->rebootKernel();
+
+        $this->import('SameSame/s25u574-shop2-product1-today-3.xml', $output);
+        $display = $output->getDisplay();
+        $this->assertStringStartsWith("........................                             24\nFlushing", $display);
+
+    }
+
     /**
      * @dataProvider importWithDateShiftProvider
      * @param $end
