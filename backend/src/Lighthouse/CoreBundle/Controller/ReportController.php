@@ -52,13 +52,8 @@ class ReportController extends FOSRestController
      */
     public function getStoreReportsGrossSalesAction(Store $store, Request $request)
     {
-        $time = $request->get('time', 'now');
-        $result = $this->storeGrossSalesRepository->findByStoreAndDate($store, $time);
-        $collection = new StoreGrossSalesReportCollection($result);
-        $dates = $this->storeGrossSalesRepository->getDatesForFullDayReport($time);
-        $ids = $this->storeGrossSalesRepository->getIdsByStoreAndDateArray($store, $dates);
-        $response =  new StoreGrossSalesReportNow($collection, $dates, $ids);
-        return $response;
+        $time = new DateTime($request->get('time', 'now'));
+        return $this->grossSalesReportManager->getGrossSalesStoreReport($store, $time);
     }
 
     /**

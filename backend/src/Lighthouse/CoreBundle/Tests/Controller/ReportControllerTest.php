@@ -277,29 +277,29 @@ class ReportControllerTest extends WebTestCase
             'today' => array(
                 'now' => array(
                     'date' => date(DateTime::ISO8601, strtotime("10:00")),
-                    'value' => "1207.06",
+                    'value' => 1207.06,
                 )
             ),
             'yesterday' => array(
                 'now' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-1 day 10:00")),
-                    'value' => "1207.06",
-                    'diff' => "0.00",
+                    'value' => 1207.06,
+                    'diff' => 0,
                 ),
                 'dayEnd' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-1 day 23:59:59")),
-                    'value' => "1810.59",
+                    'value' => 1810.59,
                 ),
             ),
             'weekAgo' => array(
                 'now' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-7 day 10:00")),
-                    'value' => "1309.06",
-                    'diff' => "-7.79"
+                    'value' => 1309.06,
+                    'diff' => -7.79
                 ),
                 'dayEnd' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-7 day 23:59:59")),
-                    'value' => "1912.59",
+                    'value' => 1912.59,
                 ),
             ),
         );
@@ -326,27 +326,27 @@ class ReportControllerTest extends WebTestCase
             'today' => array(
                 'now' => array(
                     'date' => date(DateTime::ISO8601, strtotime("10:00")),
-                    'value' => "0.00",
+                    'value' => 0,
                 )
             ),
             'yesterday' => array(
                 'now' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-1 day 10:00")),
-                    'value' => "0.00",
+                    'value' => 0,
                 ),
                 'dayEnd' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-1 day 23:59:59")),
-                    'value' => "0.00",
+                    'value' => 0,
                 ),
             ),
             'weekAgo' => array(
                 'now' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-7 day 10:00")),
-                    'value' => "0.00",
+                    'value' => 0,
                 ),
                 'dayEnd' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-7 day 23:59:59")),
-                    'value' => "0.00",
+                    'value' => 0,
                 ),
             ),
         );

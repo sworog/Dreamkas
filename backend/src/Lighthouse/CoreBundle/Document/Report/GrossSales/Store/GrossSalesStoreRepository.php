@@ -91,4 +91,20 @@ class GrossSalesStoreRepository extends DocumentRepository
             )
         );
     }
+
+    /**
+     * @param string $storeId
+     * @param string|DateTime $dayHour
+     * @return null|GrossSalesStoreReport
+     */
+    public function findOneByStoreIdAndDayHour($storeId, $dayHour)
+    {
+        if (!$dayHour instanceof DateTime) {
+            $dayHour = new DateTime($dayHour);
+        }
+
+        $reportId = $this->getIdByStoreIdAndDayHour($storeId, $dayHour);
+
+        return $this->find($reportId);
+    }
 }

@@ -26,6 +26,7 @@ use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossS
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesBySubCategories\GrossSalesBySubCategoriesCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSalesByStoresCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\StoreGrossSalesByStores;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesStoreToday\GrossSalesStoreTodayReport;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\Group\GrossSalesGroupRepository;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\Product\GrossSalesProductReport;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\Product\GrossSalesProductRepository;
@@ -36,6 +37,7 @@ use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReport;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
+use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -285,6 +287,29 @@ class GrossSalesReportManager
     }
 
     /**
+     * @param DateTime|string|null $time
+     * @param array $intervals
+     * @return DateTimestamp[]
+     */
+    public function getDatesForDay($time, array $intervals)
+    {
+        $dateTime = new DateTimestamp($time);
+        $dateTime->setMinutes(0)->setSeconds(0);
+        $dayHours = array();
+        foreach ($intervals as $key => $interval) {
+            $nextDateTime = clone $dateTime;
+            if (null !== $interval) {
+                $nextDateTime->modify($interval);
+            }
+            for ($hour = 0; $hour <= 23; $hour++) {
+                $nextDayHour = clone $nextDateTime;
+                $dayHours[$key][$hour] = $nextDayHour->setHours($hour);
+            }
+        }
+        return $dayHours;
+    }
+
+    /**
      * @param Cursor|StoreGrossSalesReport[] $storeDayReports
      * @param DateTimestamp[] $dates
      * @return StoreGrossSalesByStores[]|GrossSalesByStoresCollection
@@ -349,6 +374,120 @@ class GrossSalesReportManager
         $dm->flush();
 
         return count($results);
+    }
+
+    /**
+     * @param Store $store
+     * @param DateTime $time
+     * @return GrossSalesStoreTodayReport
+     */
+    public function getGrossSalesStoreReport(Store $store, DateTime $time = null)
+    {
+        $time = new DateTimestamp($time);
+        $time->modify("-1 hour");
+
+        $intervals = array(
+            'today' => null,
+            'yesterday' => '-1 days',
+            'weekAgo' => '-7 days',
+        );
+        $dates = $this->getDatesForDay($time, $intervals);
+        $queryDates = $this->getQueryDates($dates);
+
+        $reports = $this->grossSalesStoreRepository->findByStoreDayHours($store, $queryDates);
+
+        $grossSalesStoreTodayReport = $this->createGrossSalesStoreTodayReport($time, $dates, $reports);
+        $this->fillGrossSalesStoreTodayReport($grossSalesStoreTodayReport, $time, $dates);
+        $this->calculateDiffGrossSalesStoreTodayReport($grossSalesStoreTodayReport, $dates);
+
+        return $grossSalesStoreTodayReport;
+    }
+
+    /**
+     * @param DateTimestamp $time
+     * @param array $dates
+     * @param Cursor|GrossSalesStoreReport[] $reports
+     * @return GrossSalesStoreTodayReport
+     */
+    protected function createGrossSalesStoreTodayReport(DateTimestamp $time, array $dates, Cursor $reports)
+    {
+        $grossSalesStoreTodayReport = new GrossSalesStoreTodayReport($dates);
+        $nowHour = $time->getHours();
+
+        foreach ($reports as $report) {
+            /** @var DateTimestamp[] $dayHours */
+            foreach ($dates as $key => $dayHours) {
+                $firstDayHour = current($dayHours);
+                if ($firstDayHour->equalsDate($report->dayHour)) {
+                    $reportDayHour = new DateTimestamp($report->dayHour);
+
+                    if ($reportDayHour->getHours() <= $nowHour) {
+                        $grossSalesStoreTodayReport->$key->now->addValue($report->hourSum);
+                    }
+
+                    if (null !== $grossSalesStoreTodayReport->$key->dayEnd) {
+                        $grossSalesStoreTodayReport->$key->dayEnd->addValue($report->hourSum);
+                    }
+                }
+            }
+        }
+
+        return $grossSalesStoreTodayReport;
+    }
+
+    /**
+     * @param GrossSalesStoreTodayReport $grossSalesStoreTodayReport
+     * @param DateTimestamp $time
+     * @param array $dates
+     */
+    protected function fillGrossSalesStoreTodayReport(
+        GrossSalesStoreTodayReport $grossSalesStoreTodayReport,
+        DateTimestamp $time,
+        array $dates
+    ) {
+        $nowHour = $time->getHours();
+        $endDayHours = $this->extractEndDayHours($dates);
+        foreach ($endDayHours as $key => $dayHour) {
+            if (null === $grossSalesStoreTodayReport->$key->now->date) {
+                $nowDate = clone $dayHour;
+                $nowDate->setHours($nowHour);
+                // TODO: Из за хитрого вывода дат. Желательно поменять фронт и тут будет норм
+                $nowDate->modify("+1 hour");
+                $grossSalesStoreTodayReport->$key->now->date = $nowDate;
+            }
+            if (null !== $grossSalesStoreTodayReport->$key->dayEnd
+                && null === $grossSalesStoreTodayReport->$key->dayEnd->date
+            ) {
+                $dayEndDate = clone $dayHour;
+                $dayEndDate->setMinutes(59)->setSeconds(59);
+                $grossSalesStoreTodayReport->$key->dayEnd->date = $dayEndDate;
+            }
+        }
+    }
+
+    /**
+     * @param GrossSalesStoreTodayReport $grossSalesStoreTodayReport
+     * @param array $dates
+     */
+    protected function calculateDiffGrossSalesStoreTodayReport(
+        GrossSalesStoreTodayReport $grossSalesStoreTodayReport,
+        array $dates
+    ) {
+        $datesKeys = array_keys($dates);
+        $primaryKey = array_shift($datesKeys);
+        /** @var Money $primaryNowValue */
+        $primaryNowValue = $grossSalesStoreTodayReport->$primaryKey->now->value;
+
+        if (0 == $primaryNowValue->getCount()) {
+            return;
+        }
+
+        foreach ($datesKeys as $secondKey) {
+            /** @var Money $secondNowValue */
+            $secondNowValue = $grossSalesStoreTodayReport->$secondKey->now->value;
+            $diff = ($primaryNowValue->toNumber() / $secondNowValue->toNumber() - 1) * 100;
+            $grossSalesStoreTodayReport->$secondKey->now->diff = Decimal::createFromNumeric($diff, 2);
+        }
     }
 
     /**
