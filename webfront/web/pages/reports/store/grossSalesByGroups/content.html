@@ -12,11 +12,16 @@
     </thead>
     <tbody>
     <% collections.grossSalesByGroups.forEach(function(groupGrossSalesModel){ %>
+
+    <% var todaySum = groupGrossSalesModel.get('today.runningSum') %>
+    <% var yesterdaySum = groupGrossSalesModel.get('yesterday.runningSum') %>
+    <% var weekAgoSum = groupGrossSalesModel.get('weekAgo.runningSum') %>
+
     <tr name="groupGrossSales" href="stores/<%- models.store.id %>/groups/<%- groupGrossSalesModel.get('group.id') %>/grossSalesByCategories">
         <td name="group.name">
             <%- groupGrossSalesModel.get('group.name') %>
         </td>
-        <td name="today.runningSum">
+        <td style="<%- (todaySum < yesterdaySum && todaySum < weekAgoSum) ? 'color: red' : '' %>" name="today.runningSum">
             <%- LH.formatMoney(groupGrossSalesModel.get('today.runningSum')) %> р.
         </td>
         <td name="yesterday.runningSum">
