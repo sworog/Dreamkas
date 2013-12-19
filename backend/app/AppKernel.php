@@ -5,6 +5,11 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 
 class AppKernel extends Kernel
 {
+    /**
+     * @var string
+     */
+    protected $cacheDir;
+
     public function registerBundles()
     {
         $bundles = array(
@@ -49,7 +54,18 @@ class AppKernel extends Kernel
      */
     public function getCacheDir()
     {
-        return parent::getCacheDir() . Karzer\Karzer::getThreadName();
+        if (null === $this->cacheDir) {
+            $this->setCacheDir(parent::getCacheDir() . Karzer\Karzer::getThreadName());
+        }
+        return $this->cacheDir;
+    }
+
+    /**
+     * @param $cacheDir
+     */
+    public function setCacheDir($cacheDir)
+    {
+        $this->cacheDir = $cacheDir;
     }
 
     /**

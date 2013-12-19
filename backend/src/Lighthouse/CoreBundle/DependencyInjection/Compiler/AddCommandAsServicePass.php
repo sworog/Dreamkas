@@ -18,14 +18,12 @@ class AddCommandAsServicePass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (false === $container->hasDefinition('lighthouse.core.command.manager')) {
-            throw new ServiceNotFoundException('lighthouse.core.command.manager');
-        }
+        if ($container->hasDefinition('lighthouse.core.command.manager')) {
+            $definition = $container->getDefinition('lighthouse.core.command.manager');
 
-        $definition = $container->getDefinition('lighthouse.core.command.manager');
-
-        foreach ($container->findTaggedServiceIds('console.command') as $id => $tagAttributes) {
-            $definition->addMethodCall('add', array(new Reference($id)));
+            foreach ($container->findTaggedServiceIds('console.command') as $id => $tagAttributes) {
+                $definition->addMethodCall('add', array(new Reference($id)));
+            }
         }
     }
 }

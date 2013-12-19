@@ -18,14 +18,13 @@ class AddRoundingsToManagerPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (false === $container->hasDefinition('lighthouse.core.rounding.manager')) {
-            throw new ServiceNotFoundException('lighthouse.core.rounding.manager');
-        }
+        if ($container->hasDefinition('lighthouse.core.rounding.manager')) {
 
-        $definition = $container->getDefinition('lighthouse.core.rounding.manager');
+            $definition = $container->getDefinition('lighthouse.core.rounding.manager');
 
-        foreach ($container->findTaggedServiceIds('rounding') as $id => $tagAttributes) {
-            $definition->addMethodCall('add', array(new Reference($id)));
+            foreach ($container->findTaggedServiceIds('rounding') as $id => $tagAttributes) {
+                $definition->addMethodCall('add', array(new Reference($id)));
+            }
         }
     }
 }

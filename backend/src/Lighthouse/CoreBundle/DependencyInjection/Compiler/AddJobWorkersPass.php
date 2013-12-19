@@ -15,14 +15,13 @@ class AddJobWorkersPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        if (false === $container->hasDefinition('lighthouse.core.job.worker.manager')) {
-            throw new ServiceNotFoundException('lighthouse.core.job.worker.manager');
-        }
+        if ($container->hasDefinition('lighthouse.core.job.worker.manager')) {
 
-        $definition = $container->getDefinition('lighthouse.core.job.worker.manager');
+            $definition = $container->getDefinition('lighthouse.core.job.worker.manager');
 
-        foreach ($container->findTaggedServiceIds('job.worker') as $id => $tagAttributes) {
-            $definition->addMethodCall('add', array(new Reference($id)));
+            foreach ($container->findTaggedServiceIds('job.worker') as $id => $tagAttributes) {
+                $definition->addMethodCall('add', array(new Reference($id)));
+            }
         }
     }
 }
