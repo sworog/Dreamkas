@@ -1,0 +1,23 @@
+Meta:
+@sprint 25
+@us 57.3
+@id s25u57.3s1
+@id s25u57.3s2
+@id s25u57.3s3
+@id s25u57.3s4
+@id s25u57.3s5
+@id s25u57.3s6
+@smoke
+
+Scenario: A scenario that prepares data
+
+Given the user runs the symfony:env:init command
+
+Given there is the user with name 'storeManager-s25u573', position 'storeManager-s25u573', username 'storeManager-s25u573', password 'lighthouse', role 'storeManager'
+
+Given there is the store with number '25573' managed by 'storeManager-s25u573'
+
+And there is the subCategory with name 'defaultSubCategory-s25u573' related to group named 'defaultGroup-s25u573' and category named 'defaultCategory-s25u573'
+And the user sets subCategory 'defaultSubCategory-s25u573' mark up with max '10' and min '0' values
+
+Given there is the product with 'name-25573' name, '25573' sku, '25573' barcode, 'unit' units, '100,0' purchasePrice of group named 'defaultGroup-s25u573', category named 'defaultCategory-s25u573', subcategory named 'defaultSubCategory-s25u573'
