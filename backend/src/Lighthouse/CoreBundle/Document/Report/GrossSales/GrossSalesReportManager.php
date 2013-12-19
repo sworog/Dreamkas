@@ -182,8 +182,9 @@ class GrossSalesReportManager
             'twoDaysAgo' => '-2 days 23:00',
             'eightDaysAgo' => '-8 days 23:00',
         );
-        $dates = $this->getDates($time, $intervals);
-        $storeDayReports = $this->grossSalesStoreRepository->findByDates($dates);
+        $dates = $this->getDatesForDay($time, $intervals);
+        $queryDates = $this->getQueryDates($dates);
+        $storeDayReports = $this->grossSalesStoreRepository->findByDates($queryDates);
         $grossSales = $this->createGrossSales($storeDayReports, $dates);
         $this->fillGrossSales($grossSales, $dates);
         return $grossSales;
@@ -191,22 +192,23 @@ class GrossSalesReportManager
 
     /**
      * @param Cursor|StoreGrossSalesReport[] $storeDayReports
-     * @param DateTimestamp[] $dates
+     * @param array $dates
      * @return GrossSales
      */
     protected function createGrossSales(Cursor $storeDayReports, array $dates)
     {
         $grossSales = new GrossSales();
         foreach ($storeDayReports as $storeDayReport) {
-            foreach ($dates as $key => $date) {
-                if ($date->equals($storeDayReport->dayHour)) {
+            foreach ($dates as $key => $dayHours) {
+                $endDayHour = end($dayHours);
+                reset($dayHours);
+                if ($endDayHour->equalsDate($storeDayReport->dayHour)) {
                     if (!isset($grossSales->$key)) {
-                        $grossSales->$key = new DayGrossSales($date);
+                        $grossSales->$key = new DayGrossSales($endDayHour);
                     }
                     /* @var DayGrossSales $dayGrossSales */
                     $dayGrossSales = $grossSales->$key;
-                    $dayGrossSales->addRunningSum($storeDayReport->runningSum);
-                    $dayGrossSales->addHourSum($storeDayReport->hourSum);
+                    $dayGrossSales->addRunningSum($storeDayReport->hourSum);
                 }
             }
         }
@@ -215,13 +217,15 @@ class GrossSalesReportManager
 
     /**
      * @param GrossSales $grossSales
-     * @param DateTimestamp[] $dates
+     * @param array $dates
      */
     protected function fillGrossSales(GrossSales $grossSales, array $dates)
     {
-        foreach ($dates as $key => $date) {
+        foreach ($dates as $key => $dayHours) {
+            $endDayHour = end($dayHours);
+            reset($dayHours);
             if (!isset($grossSales->$key)) {
-                $grossSales->$key = new DayGrossSales($date);
+                $grossSales->$key = new DayGrossSales($endDayHour);
             }
         }
     }

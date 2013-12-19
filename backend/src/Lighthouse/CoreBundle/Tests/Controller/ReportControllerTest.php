@@ -1457,17 +1457,14 @@ class ReportControllerTest extends WebTestCase
                 'yesterday' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
                     'runningSum' => 0,
-                    'hourSum' => 0,
                 ),
                 'twoDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
                     'runningSum' => 0,
-                    'hourSum' => 0,
                 ),
                 'eightDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
                     'runningSum' => 0,
-                    'hourSum' => 0,
                 ),
                 'store' => array(
                     'id' => $storeIds['1'],
@@ -1483,17 +1480,14 @@ class ReportControllerTest extends WebTestCase
                 'yesterday' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
                     'runningSum' => 0,
-                    'hourSum' => 0,
                 ),
                 'twoDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
                     'runningSum' => 0,
-                    'hourSum' => 0,
                 ),
                 'eightDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
                     'runningSum' => 0,
-                    'hourSum' => 0,
                 ),
                 'store' => array(
                     'id' => $storeIds['2'],
@@ -1509,17 +1503,14 @@ class ReportControllerTest extends WebTestCase
                 'yesterday' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
                     'runningSum' => 0,
-                    'hourSum' => 0,
                 ),
                 'twoDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
                     'runningSum' => 0,
-                    'hourSum' => 0,
                 ),
                 'eightDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
                     'runningSum' => 0,
-                    'hourSum' => 0,
                 ),
                 'store' => array(
                     'id' => $storeIds['3'],
