@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.jbehave.fixtureSteps.us_57_4;
+package project.lighthouse.autotests.jbehave.fixtureSteps.sprint_25.us_57_4;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;

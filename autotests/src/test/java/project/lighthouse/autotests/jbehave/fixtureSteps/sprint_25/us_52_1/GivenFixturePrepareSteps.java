@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.jbehave.fixtureSteps.us_52_1;
+package project.lighthouse.autotests.jbehave.fixtureSteps.sprint_25.us_52_1;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
@@ -11,7 +11,7 @@ import javax.xml.xpath.XPathExpressionException;
 import java.io.File;
 import java.io.IOException;
 
-public class GivenPrepareFixtureSteps {
+public class GivenFixturePrepareSteps {
 
     @Steps
     ConsoleCommandSteps consoleCommandSteps;
