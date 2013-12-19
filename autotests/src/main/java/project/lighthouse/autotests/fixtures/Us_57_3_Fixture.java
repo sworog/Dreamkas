@@ -1,17 +1,21 @@
 package project.lighthouse.autotests.fixtures;
 
 import org.jbehave.core.model.ExamplesTable;
+import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Us_57_3_Fixture {
+public class Us_57_3_Fixture extends AbstractFixture {
 
     private static final String SHOP_1 = "25573";
+    private static final String SHOP_2 = "255731";
     private static final String PRODUCT_ID_1 = "25573";
-    private static final String SUBCATEGORY_NAME = "defaultSubCategory-s25u573";
+    private static final String PRODUCT_ID_2 = "255731";
+    private static final String SUBCATEGORY_NAME_1 = "defaultSubCategory-s25u573";
+    private static final String SUBCATEGORY_NAME_2 = "defaultSubCategory-s25u5731";
 
     private Us_57_4_Fixture us_57_4_fixture = new Us_57_4_Fixture();
 
@@ -36,7 +40,47 @@ public class Us_57_3_Fixture {
     }
 
     public ExamplesTable getEmptyFixtureExampleTable() {
-        return generateEmptyFixtureExampleTable(SUBCATEGORY_NAME);
+        return generateEmptyFixtureExampleTable(SUBCATEGORY_NAME_1);
+    }
+
+    public ExamplesTable getExampleTableForShop1Product1() {
+        return getExampleTable1(SUBCATEGORY_NAME_1);
+    }
+
+    public ExamplesTable getExampleTableForShop1Product2() {
+        return getExampleTable2(SUBCATEGORY_NAME_2);
+    }
+
+    public ExamplesTable getExampleTableForShop2Product1() {
+        return getExampleTable2(SUBCATEGORY_NAME_1);
+    }
+
+    public ExamplesTable getExampleTableForShop2Product2() {
+        return getExampleTable1(SUBCATEGORY_NAME_2);
+    }
+
+    private ExamplesTable getExampleTable1(String subCategoryName) {
+        int hour = new DateTime().getHourOfDay() + 1;
+        List<Map<String, String>> mapList = new ArrayList<>();
+        Map<String, String> shop1DataMap = new HashMap<>();
+        shop1DataMap.put("name", subCategoryName);
+        shop1DataMap.put("todayValue", getFormattedValue(us_57_4_fixture.getMapPrice2().get(hour)));
+        shop1DataMap.put("yesterdayValue", getFormattedValue(us_57_4_fixture.getMapPrice3().get(hour)));
+        shop1DataMap.put("weekAgoValue", getFormattedValue(us_57_4_fixture.getMapPrice1().get(hour)));
+        mapList.add(shop1DataMap);
+        return new ExamplesTable("").withRows(mapList);
+    }
+
+    private ExamplesTable getExampleTable2(String subCategoryName) {
+        int hour = new DateTime().getHourOfDay() + 1;
+        List<Map<String, String>> mapList = new ArrayList<>();
+        Map<String, String> shop1DataMap = new HashMap<>();
+        shop1DataMap.put("name", subCategoryName);
+        shop1DataMap.put("todayValue", getFormattedValue(us_57_4_fixture.getMapPrice2().get(hour)));
+        shop1DataMap.put("yesterdayValue", getFormattedValue(us_57_4_fixture.getMapPrice1().get(hour)));
+        shop1DataMap.put("weekAgoValue", getFormattedValue(us_57_4_fixture.getMapPrice3().get(hour)));
+        mapList.add(shop1DataMap);
+        return new ExamplesTable("").withRows(mapList);
     }
 
     private ExamplesTable generateEmptyFixtureExampleTable(String name) {
@@ -48,5 +92,26 @@ public class Us_57_3_Fixture {
         shop1DataMap.put("weekAgoValue", "0,00 р.");
         mapList.add(shop1DataMap);
         return new ExamplesTable("").withRows(mapList);
+    }
+
+    public Us_57_4_Fixture.TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet getTodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSetForShop1Product2() {
+        return us_57_4_fixture.new TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet(SHOP_1, PRODUCT_ID_2);
+    }
+
+    public Us_57_4_Fixture.TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet getTodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSetForShop1Product1() {
+        return us_57_4_fixture.new TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet(SHOP_1, PRODUCT_ID_1);
+    }
+
+    public Us_57_4_Fixture.TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet getTodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSetForShop2Product2() {
+        return us_57_4_fixture.new TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet(SHOP_2, PRODUCT_ID_2);
+    }
+
+    public Us_57_4_Fixture.TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet getTodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSetForShop2Product1() {
+        return us_57_4_fixture.new TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet(SHOP_2, PRODUCT_ID_1);
+    }
+
+    @Override
+    public String getFixtureFileName() {
+        return "nullableString";
     }
 }

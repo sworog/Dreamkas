@@ -112,22 +112,22 @@ public class Us_57_4_Fixture extends AbstractFixture {
         return new ExamplesTable("").withRows(mapList);
     }
 
-    private Map<Integer, String> getMapPrice1() {
+    public Map<Integer, String> getMapPrice1() {
         Map<Integer, Double> generatedData = generateGrossSalesSumPerHour(PRODUCT_PRICE_1);
         return generateFormattedGrossSalesSumPerHour(generatedData);
     }
 
-    private Map<Integer, String> getMapPrice2() {
+    public Map<Integer, String> getMapPrice2() {
         Map<Integer, Double> generatedData = generateGrossSalesSumPerHour(PRODUCT_PRICE_2);
         return generateFormattedGrossSalesSumPerHour(generatedData);
     }
 
-    private Map<Integer, String> getMapPrice3() {
+    public Map<Integer, String> getMapPrice3() {
         Map<Integer, Double> generatedData = generateGrossSalesSumPerHour(PRODUCT_PRICE_3);
         return generateFormattedGrossSalesSumPerHour(generatedData);
     }
 
-    private File generateFileDataSet(String date, String shopNumber, String id, Double price) throws XPathExpressionException, ParserConfigurationException, TransformerException, IOException {
+    public File generateFileDataSet(String date, String shopNumber, String id, Double price) throws XPathExpressionException, ParserConfigurationException, TransformerException, IOException {
         PurchaseXmlBuilder purchaseXmlBuilder = generateDataSet(date, shopNumber, id, price);
         return prepareDataFile(purchaseXmlBuilder);
     }
