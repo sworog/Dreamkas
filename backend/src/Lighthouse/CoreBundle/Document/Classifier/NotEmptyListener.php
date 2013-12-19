@@ -6,7 +6,7 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use JMS\DiExtraBundle\Annotation as DI;
-use Lighthouse\CoreBundle\Document\Classifier\CountableByParent;
+use Lighthouse\CoreBundle\Document\Classifier\ParentableRepository;
 use Lighthouse\CoreBundle\Exception\NotEmptyException;
 
 /**
@@ -47,7 +47,7 @@ class NotEmptyListener
      */
     protected function checkNodeHasChildrenIsEmpty(AbstractNode $node)
     {
-        /* @var CountableByParent $repository */
+        /* @var ParentableRepository $repository */
         $repository = $this->documentManager->getRepository($node->getChildClass());
         $shortName = $this->documentManager->getClassMetadata(get_class($node))->getReflectionClass()->getShortName();
         if ($repository->countByParent($node->id) > 0) {

@@ -6,11 +6,12 @@ use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesCalculatable;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use DateTime;
 
-abstract class GrossSalesNodeRepository extends DocumentRepository
+abstract class GrossSalesNodeRepository extends DocumentRepository implements GrossSalesCalculatable
 {
     /**
      * @param AbstractNode $node

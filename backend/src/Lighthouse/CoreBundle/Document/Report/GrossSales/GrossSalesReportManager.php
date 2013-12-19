@@ -3,11 +3,14 @@
 namespace Lighthouse\CoreBundle\Document\Report\GrossSales;
 
 use Doctrine\ODM\MongoDB\Cursor;
+use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\Document\AbstractCollection;
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
+use Lighthouse\CoreBundle\Document\Classifier\ClassifierRepository;
+use Lighthouse\CoreBundle\Document\Classifier\ParentableRepository;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository;
@@ -19,6 +22,7 @@ use Lighthouse\CoreBundle\Document\Product\Store\StoreProductCollection;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\Category\GrossSalesCategoryRepository;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\GrossSalesNodeReport;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\GrossSalesNodeRepository;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\DayGrossSales;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\GrossSales;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByCategories\GrossSalesByCategoriesCollection;
@@ -38,8 +42,10 @@ use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
+use Symfony\Component\Console\Output\OutputInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use DateTime;
+use Closure;
 
 /**
  * @DI\Service("lighthouse.core.document.report.gross_sales.manager")
@@ -717,107 +723,110 @@ class GrossSalesReportManager
 
     /**
      * @param int $batch
+     * @param OutputInterface $output
      * @return int
      */
-    public function recalculateGrossSalesBySubCategories($batch = 1000)
+    public function recalculateGrossSalesBySubCategories($batch = 1000, OutputInterface $output)
     {
-        $subCategoryIds = $this->subCategoryRepository->findAllIds();
-        $storeIds = $this->storeRepository->findAllIds();
+        $output->writeln('SubCategories Gross Sales report recalculation started');
 
-        $dm = $this->grossSalesSubCategoryRepository->getDocumentManager();
-        $i = 0;
-
-        foreach ($subCategoryIds as $subCategoryId) {
-            $productIds = $this->productRepository->findIdsBySubCategoryId($subCategoryId);
-            foreach ($storeIds as $storeId) {
-                $storeProductIds = array();
-                foreach ($productIds as $productId) {
-                    $storeProductIds[] = $this->storeProductRepository->getIdByStoreIdAndProductId(
-                        $storeId,
-                        $productId
-                    );
-                }
-                $hourSums = $this->grossSalesProductRepository->calculateGrossSalesByIds($storeProductIds);
-                foreach ($hourSums as $hourSum) {
-                    $report = $this->grossSalesSubCategoryRepository->createByDayHourAndNodeId(
-                        DateTimestamp::createFromMongoDate($hourSum['_id']),
-                        (string) $subCategoryId,
-                        (string) $storeId,
-                        new Money($hourSum['hourSum'])
-                    );
-                    $dm->persist($report);
-                    if (0 == ++$i % $batch) {
-                        $dm->flush();
-                        $dm->clear();
-                    }
-                }
+        $storeProductRepository = $this->storeProductRepository;
+        $prepareChildIdsClosure = function (array $childIds, $storeId) use ($storeProductRepository) {
+            $storeProductIds = array();
+            foreach ($childIds as $childId) {
+                $storeProductIds[] = $storeProductRepository->getIdByStoreIdAndProductId(
+                    $storeId,
+                    $childId
+                );
             }
-        }
+            return $storeProductIds;
+        };
 
-        $dm->flush();
-        $dm->clear();
-
-        return $i;
+        $this->recalculateGrossSalesByNode(
+            $this->subCategoryRepository,
+            $this->productRepository,
+            $this->grossSalesSubCategoryRepository,
+            $this->grossSalesProductRepository,
+            $batch,
+            $output,
+            $prepareChildIdsClosure
+        );
     }
 
     /**
      * @param int $batch
+     * @param OutputInterface $output
      * @return int
      */
-    public function recalculateGrossSalesByCategories($batch = 1000)
+    public function recalculateGrossSalesByCategories($batch = 1000, OutputInterface $output)
     {
-        $categoryIds = $this->categoryRepository->findAllIds();
-        $storeIds = $this->storeRepository->findAllIds();
-
-        $dm = $this->grossSalesCategoryRepository->getDocumentManager();
-        $i = 0;
-
-        foreach ($categoryIds as $categoryId) {
-            $subCategoryIds = $this->subCategoryRepository->findIdsByParentId($categoryId);
-            foreach ($storeIds as $storeId) {
-                $hourSums = $this->grossSalesSubCategoryRepository->calculateGrossSalesByIds($subCategoryIds);
-                foreach ($hourSums as $hourSum) {
-                    $report = $this->grossSalesCategoryRepository->createByDayHourAndNodeId(
-                        DateTimestamp::createFromMongoDate($hourSum['_id']),
-                        (string) $categoryId,
-                        (string) $storeId,
-                        new Money($hourSum['hourSum'])
-                    );
-                    $dm->persist($report);
-                    if (0 == ++$i % $batch) {
-                        $dm->flush();
-                        $dm->clear();
-                    }
-                }
-            }
-        }
-
-        $dm->flush();
-        $dm->clear();
-
-        return $i;
+        return $this->recalculateGrossSalesByNode(
+            $this->categoryRepository,
+            $this->subCategoryRepository,
+            $this->grossSalesCategoryRepository,
+            $this->grossSalesSubCategoryRepository,
+            $batch,
+            $output
+        );
     }
 
     /**
      * @param int $batch
+     * @param OutputInterface $output
      * @return int
      */
-    public function recalculateGrossSalesByGroups($batch = 1000)
+    public function recalculateGrossSalesByGroups($batch = 1000, OutputInterface $output)
     {
-        $groupIds = $this->groupRepository->findAllIds();
+        return $this->recalculateGrossSalesByNode(
+            $this->groupRepository,
+            $this->categoryRepository,
+            $this->grossSalesGroupRepository,
+            $this->grossSalesCategoryRepository,
+            $batch,
+            $output
+        );
+    }
+
+    /**
+     * @param ClassifierRepository $nodeRepository
+     * @param ParentableRepository $childNodeRepository
+     * @param GrossSalesNodeRepository $nodeReportRepository
+     * @param GrossSalesCalculatable $childNodeReportRepository
+     * @param int $batch
+     * @param OutputInterface $output
+     * @param callable $prepareChildIdsCallback
+     * @return int
+     */
+    protected function recalculateGrossSalesByNode(
+        ClassifierRepository $nodeRepository,
+        ParentableRepository $childNodeRepository,
+        GrossSalesNodeRepository $nodeReportRepository,
+        GrossSalesCalculatable $childNodeReportRepository,
+        $batch = 1000,
+        OutputInterface $output,
+        Closure $prepareChildIdsCallback = null
+    ) {
+        $dotHelper = new DotHelper($output);
+
+        $nodeIds = $nodeRepository->findAllIds();
         $storeIds = $this->storeRepository->findAllIds();
 
-        $dm = $this->grossSalesGroupRepository->getDocumentManager();
+        $dm = $nodeReportRepository->getDocumentManager();
         $i = 0;
 
-        foreach ($groupIds as $groupId) {
-            $categoryIds = $this->categoryRepository->findIdsByParentId($groupId);
+        foreach ($nodeIds as $nodeId) {
+            $childIds = $childNodeRepository->findIdsByParent($nodeId);
             foreach ($storeIds as $storeId) {
-                $hourSums = $this->grossSalesCategoryRepository->calculateGrossSalesByIds($categoryIds);
+                if ($prepareChildIdsCallback) {
+                    $preparedChildIds = $prepareChildIdsCallback($childIds, $storeId);
+                } else {
+                    $preparedChildIds = $childIds;
+                }
+                $hourSums = $childNodeReportRepository->calculateGrossSalesByIds($preparedChildIds);
                 foreach ($hourSums as $hourSum) {
-                    $report = $this->grossSalesGroupRepository->createByDayHourAndNodeId(
+                    $report = $nodeReportRepository->createByDayHourAndNodeId(
                         DateTimestamp::createFromMongoDate($hourSum['_id']),
-                        (string) $groupId,
+                        (string) $nodeId,
                         (string) $storeId,
                         new Money($hourSum['hourSum'])
                     );
@@ -827,11 +836,14 @@ class GrossSalesReportManager
                         $dm->clear();
                     }
                 }
+                $dotHelper->write();
             }
         }
 
         $dm->flush();
         $dm->clear();
+
+        $dotHelper->end();
 
         return $i;
     }

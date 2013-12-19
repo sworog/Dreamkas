@@ -5,11 +5,12 @@ namespace Lighthouse\CoreBundle\Document\Report\GrossSales\Product;
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesCalculatable;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use DateTime;
 
-class GrossSalesProductRepository extends DocumentRepository
+class GrossSalesProductRepository extends DocumentRepository implements GrossSalesCalculatable
 {
     /**
      * @param string $storeProductId

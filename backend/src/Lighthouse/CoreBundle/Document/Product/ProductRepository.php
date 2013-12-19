@@ -2,15 +2,16 @@
 
 namespace Lighthouse\CoreBundle\Document\Product;
 
-use Lighthouse\CoreBundle\Document\Classifier\CountableByParent;
+use Lighthouse\CoreBundle\Document\Classifier\ParentableRepository;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Doctrine\MongoDB\LoggableCursor;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\PropertyAccess\PropertyAccess;
+use MongoId;
 
-class ProductRepository extends DocumentRepository implements CountableByParent
+class ProductRepository extends DocumentRepository implements ParentableRepository
 {
     /**
      * @param string $property
@@ -33,15 +34,15 @@ class ProductRepository extends DocumentRepository implements CountableByParent
     }
 
     /**
-     * @param string $subCategoryId
-     * @return array
+     * @param string $parentId
+     * @return MongoId[]
      */
-    public function findIdsBySubCategoryId($subCategoryId)
+    public function findIdsByParent($parentId)
     {
         $qb = $this->createQueryBuilder()
             ->hydrate(false)
             ->select('_id')
-            ->field('subCategory')->equals($subCategoryId);
+            ->field('subCategory')->equals($parentId);
         $result = $qb->getQuery()->execute();
         $ids = array();
         foreach ($result as $row) {

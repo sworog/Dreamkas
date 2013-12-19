@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use DateTime;
+use Symfony\Component\Console\Output\NullOutput;
 
 class ReportControllerTest extends WebTestCase
 {
@@ -2270,8 +2271,9 @@ class ReportControllerTest extends WebTestCase
     {
         list($storeIds,, $catalogIds) = $this->createSales();
 
-        $this->getGrossSalesReportService()->recalculateGrossSalesProductReport();
-        $this->getGrossSalesReportService()->recalculateGrossSalesBySubCategories();
+        $output = new NullOutput();
+        $this->getGrossSalesReportService()->recalculateGrossSalesProductReport(1000, $output);
+        $this->getGrossSalesReportService()->recalculateGrossSalesBySubCategories(1000, $output);
 
         $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
@@ -2378,9 +2380,11 @@ class ReportControllerTest extends WebTestCase
     {
         list($storeIds,, $catalogIds) = $this->createSales();
 
+        $output = new NullOutput();
         $this->getGrossSalesReportService()->recalculateGrossSalesProductReport();
-        $this->getGrossSalesReportService()->recalculateGrossSalesBySubCategories();
-        $this->getGrossSalesReportService()->recalculateGrossSalesByCategories();
+        $this->getGrossSalesReportService()->recalculateGrossSalesBySubCategories(1000, $output);
+        $this->getGrossSalesReportService()->recalculateGrossSalesByCategories(1000, $output);
+        $this->getGrossSalesReportService()->recalculateGrossSalesByGroups(1000, $output);
 
         $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
@@ -2483,10 +2487,11 @@ class ReportControllerTest extends WebTestCase
     {
         list($storeIds,, $catalogIds) = $this->createSales();
 
+        $output = new NullOutput();
         $this->getGrossSalesReportService()->recalculateGrossSalesProductReport();
-        $this->getGrossSalesReportService()->recalculateGrossSalesBySubCategories();
-        $this->getGrossSalesReportService()->recalculateGrossSalesByCategories();
-        $this->getGrossSalesReportService()->recalculateGrossSalesByGroups();
+        $this->getGrossSalesReportService()->recalculateGrossSalesBySubCategories(1000, $output);
+        $this->getGrossSalesReportService()->recalculateGrossSalesByCategories(1000, $output);
+        $this->getGrossSalesReportService()->recalculateGrossSalesByGroups(1000, $output);
 
         $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(

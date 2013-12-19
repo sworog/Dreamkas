@@ -6,7 +6,7 @@ use Doctrine\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use MongoId;
 
-abstract class ClassifierRepository extends DocumentRepository implements CountableByParent
+abstract class ClassifierRepository extends DocumentRepository implements ParentableRepository
 {
     /**
      * @return mixed
@@ -35,7 +35,7 @@ abstract class ClassifierRepository extends DocumentRepository implements Counta
      * @param string $parentId
      * @return MongoId[]
      */
-    public function findIdsByParentId($parentId)
+    public function findIdsByParent($parentId)
     {
         $qb = $this->createQueryBuilder()
             ->hydrate(false)
