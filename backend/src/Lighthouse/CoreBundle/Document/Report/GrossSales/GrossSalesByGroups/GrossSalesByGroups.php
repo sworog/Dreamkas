@@ -2,11 +2,12 @@
 
 namespace Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByGroups;
 
+use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
-use Lighthouse\CoreBundle\Document\Report\GrossSales\TodayGrossSales;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByClassifierNode;
 use DateTime;
 
-class GrossSalesByGroups extends TodayGrossSales
+class GrossSalesByGroups extends GrossSalesByClassifierNode
 {
     /**
      * @var Group
@@ -21,5 +22,13 @@ class GrossSalesByGroups extends TodayGrossSales
     {
         $this->group = $group;
         parent::__construct($dates);
+    }
+
+    /**
+     * @return AbstractNode
+     */
+    public function getNode()
+    {
+        return $this->group;
     }
 }

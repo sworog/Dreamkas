@@ -2,11 +2,12 @@
 
 namespace Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesBySubCategories;
 
+use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
-use Lighthouse\CoreBundle\Document\Report\GrossSales\TodayGrossSales;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByClassifierNode;
 use DateTime;
 
-class GrossSalesBySubCategories extends TodayGrossSales
+class GrossSalesBySubCategories extends GrossSalesByClassifierNode
 {
     /**
      * @var SubCategory
@@ -21,5 +22,13 @@ class GrossSalesBySubCategories extends TodayGrossSales
     {
         $this->subCategory = $subCategory;
         parent::__construct($dates);
+    }
+
+    /**
+     * @return AbstractNode
+     */
+    public function getNode()
+    {
+        return $this->subCategory;
     }
 }

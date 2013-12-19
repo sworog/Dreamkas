@@ -40,4 +40,23 @@ abstract class GrossSalesByClassifierNodeCollection extends AbstractCollection
             return $this->createByNode($node, $dates);
         }
     }
+
+    /**
+     * @return $this
+     */
+    public function sortByName()
+    {
+        $reports = $this->getValues();
+        usort(
+            $reports,
+            function (GrossSalesByClassifierNode $nodeReportA, GrossSalesByClassifierNode $nodeReportB) {
+                return $nodeReportA->getNode()->name > $nodeReportB->getNode()->name;
+            }
+        );
+        $this->clear();
+        foreach ($reports as $report) {
+            $this->add($report);
+        }
+        return $this;
+    }
 }

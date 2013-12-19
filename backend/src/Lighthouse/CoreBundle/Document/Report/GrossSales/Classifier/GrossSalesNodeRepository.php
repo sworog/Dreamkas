@@ -15,13 +15,15 @@ abstract class GrossSalesNodeRepository extends DocumentRepository implements Gr
 {
     /**
      * @param AbstractNode $node
+     * @param Store $store
      * @param DateTime $dayHour
      * @return string
      */
-    public function getIdByNodeAndDayHour(AbstractNode $node, DateTime $dayHour)
+    public function getIdByNodeAndDayHour(AbstractNode $node, Store $store, DateTime $dayHour)
     {
         $nodeId = $this->getDocumentIdentifierValue($node);
-        return md5($nodeId . ":" . $dayHour->getTimestamp());
+        $storeId = $this->getDocumentIdentifierValue($store);
+        return md5($nodeId . ':' . $storeId . ':' . $dayHour->getTimestamp());
     }
 
     /**
@@ -43,7 +45,7 @@ abstract class GrossSalesNodeRepository extends DocumentRepository implements Gr
         Money $hourSum = null
     ) {
         $report = $this->createReport();
-        $report->id = $this->getIdByNodeAndDayHour($node, $dayHour);
+        $report->id = $this->getIdByNodeAndDayHour($node, $store, $dayHour);
         $report->dayHour = $dayHour;
         $report->store = $store;
         $report->hourSum = $hourSum ?: new Money(0);

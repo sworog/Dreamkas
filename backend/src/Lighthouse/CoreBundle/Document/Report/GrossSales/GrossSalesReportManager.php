@@ -869,7 +869,7 @@ class GrossSalesReportManager
             $endDayHours
         );
 
-        return $collection->normalizeKeys();
+        return $collection->sortByName();
     }
 
     /**

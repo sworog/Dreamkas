@@ -108,9 +108,10 @@ class GrossSalesProductRepository extends DocumentRepository implements GrossSal
         $collection = $this->getDocumentManager()->getDocumentCollection(GrossSalesProductReport::getClassName());
         foreach ($reports as $report) {
             $date = new DateTimestamp($report->dayHour);
+            $productId = $this->getDocumentIdentifierValue($report->product);
             $arrayObj = array(
                 '_id' => $report->id,
-                'product' => $report->product->id,
+                'product' => $productId,
                 'hourSum' => $report->hourSum->getCount(),
                 'dayHour' => $date->getMongoDate(),
             );
