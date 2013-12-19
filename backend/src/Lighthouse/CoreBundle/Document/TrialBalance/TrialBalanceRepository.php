@@ -278,75 +278,48 @@ class TrialBalanceRepository extends DocumentRepository
             return array();
         }
 
-        $datePeriod = new DatePeriod("-10 day 00:00", "+2 day 00:00");
+        $datePeriod = new DatePeriod("-8 day 00:00", "+1 day 23:59:59");
 
-        $backupTimeout = MongoCursor::$timeout;
-        MongoCursor::$timeout = -1;
-        $query = $this
-            ->createQueryBuilder()
-            ->field('createdDate')->gt($datePeriod->getStartDate()->getMongoDate())
-            ->field('createdDate')->lt($datePeriod->getEndDate()->getMongoDate())
-            ->field('reason.$ref')->equals(SaleProduct::REASON_TYPE)
-            ->sort('store', 1)
-            ->map(
-                new MongoCode(
-                    "function() {
-                        var date = this.createdDate;
-                        var createHour = date.getHours();
-                        date.setHours(0, 0, 0, 0);
-                        var grossSales = {};
-                        for (var newHour = 0; newHour < 24; newHour++) {
-                            grossSales[newHour] = {
-                                runningSum: 0,
-                                hourSum: 0
-                            };
-                        }
-
-                        grossSales[createHour].hourSum = this.totalPrice;
-
-                        for (var hour = 23; hour >= createHour; hour--) {
-                            grossSales[hour].runningSum += this.totalPrice;
-                        }
-                        emit(
-                            {
-                                store: this.store,
-                                day: date
-                            },
-                            grossSales
-                        )
-                    }"
+        $ops = array(
+            array(
+                '$match' => array(
+                    'createdDate' => array(
+                        '$gte' => $datePeriod->getStartDate()->getMongoDate(),
+                        '$lt' => $datePeriod->getEndDate()->getMongoDate(),
+                    ),
+                    'reason.$ref' => SaleProduct::REASON_TYPE,
+                ),
+            ),
+            array(
+                '$sort' => array(
+                    'createdDate' => 1,
                 )
-            )
-            ->reduce(
-                new MongoCode(
-                    "function (key, grossSalesItems) {
-                        var reducedGrossSales = {};
-                        for (var newHour = 0; newHour < 24; newHour++) {
-                            reducedGrossSales[newHour] = {
-                                runningSum: 0,
-                                hourSum: 0
-                            };
-                        }
+            ),
+            array(
+                '$project' => array(
+                    'store' => 1,
+                    'totalPrice' => 1,
+                    'year' => array('$year' => '$createdDate'),
+                    'month' => array('$month' => '$createdDate'),
+                    'day' => array('$dayOfMonth' => '$createdDate'),
+                    'hour' => array('$hour' => '$createdDate'),
+                ),
+            ),
+            array(
+                '$group' => array(
+                    '_id' => array(
+                        'store' => '$store',
+                        'year' => '$year',
+                        'month' => '$month',
+                        'day' => '$day',
+                        'hour' => '$hour',
+                    ),
+                    'hourSum' => array('$sum' => '$totalPrice'),
+                ),
+            ),
+        );
 
-                        for (var item in grossSalesItems) {
-                            var grossSale = grossSalesItems[item];
-                            for (var hour in grossSale) {
-                                reducedGrossSales[hour].runningSum += grossSale[hour].runningSum;
-                                reducedGrossSales[hour].hourSum += grossSale[hour].hourSum;
-                            }
-                        }
-
-                        return reducedGrossSales;
-                    }"
-                )
-            )
-            ->out(array('inline' => true));
-
-        $result = $query->getQuery()->execute();
-
-        MongoCursor::$timeout = $backupTimeout;
-
-        return $result;
+        return $this->aggregate($ops);
     }
 
     /**

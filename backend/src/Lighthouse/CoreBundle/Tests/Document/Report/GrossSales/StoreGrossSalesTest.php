@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Document\Report\GrossSales;
 
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesReportManager;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\Store\GrossSalesStoreRepository;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesRepository;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
@@ -89,48 +90,38 @@ class StoreGrossSalesTest extends WebTestCase
         $reportRepository = $this->getReportRepository();
 
         $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 7:00');
-        $this->assertEquals("0", $reportForHour->runningSum->toString());
-        $this->assertEquals("0", $reportForHour->hourSum->toString());
+        $this->assertNull($reportForHour);
 
         $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 8:00');
-        $this->assertEquals("603.53", $reportForHour->runningSum->toString());
         $this->assertEquals("603.53", $reportForHour->hourSum->toString());
 
         $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 9:00');
-        $this->assertEquals("1207.06", $reportForHour->runningSum->toString());
         $this->assertEquals("603.53", $reportForHour->hourSum->toString());
 
         $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 10:00');
-        $this->assertEquals("1505.74", $reportForHour->runningSum->toString());
         $this->assertEquals("298.68", $reportForHour->hourSum->toString());
 
         $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 11:00');
-        $this->assertEquals("1505.74", $reportForHour->runningSum->toString());
-        $this->assertEquals("0", $reportForHour->hourSum->toString());
+        $this->assertNull($reportForHour);
 
 
 
         $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
 
         $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 7:00');
-        $this->assertEquals("0", $reportForHour->runningSum->toString());
-        $this->assertEquals("0", $reportForHour->hourSum->toString());
+        $this->assertNull($reportForHour);
 
         $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 8:00');
-        $this->assertEquals("603.53", $reportForHour->runningSum->toString());
         $this->assertEquals("603.53", $reportForHour->hourSum->toString());
 
         $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 9:00');
-        $this->assertEquals("1207.06", $reportForHour->runningSum->toString());
         $this->assertEquals("603.53", $reportForHour->hourSum->toString());
 
         $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 10:00');
-        $this->assertEquals("1505.74", $reportForHour->runningSum->toString());
         $this->assertEquals("298.68", $reportForHour->hourSum->toString());
 
         $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 11:00');
-        $this->assertEquals("1505.74", $reportForHour->runningSum->toString());
-        $this->assertEquals("0", $reportForHour->hourSum->toString());
+        $this->assertNull($reportForHour);
     }
 
     /**
@@ -142,7 +133,7 @@ class StoreGrossSalesTest extends WebTestCase
     }
 
     /**
-     * @return StoreGrossSalesRepository
+     * @return GrossSalesStoreRepository
      */
     public function getReportRepository()
     {

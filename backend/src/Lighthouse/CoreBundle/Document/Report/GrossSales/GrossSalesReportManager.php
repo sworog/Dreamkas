@@ -28,18 +28,22 @@ use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSales\GrossSales;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByCategories\GrossSalesByCategoriesCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByGroups\GrossSalesByGroupsCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossSalesByProductsCollection;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSalesByStoresReport;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesBySubCategories\GrossSalesBySubCategoriesCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSalesByStoresCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\StoreGrossSalesByStores;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\Group\GrossSalesGroupRepository;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesStoreToday\GrossSalesStoreTodayReport;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\Product\GrossSalesProductReport;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\Product\GrossSalesProductRepository;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\SubCategory\GrossSalesSubCategoryRepository;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\Store\GrossSalesStoreReport;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\Store\GrossSalesStoreRepository;
 use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReport;
-use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
+use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -53,9 +57,9 @@ use Closure;
 class GrossSalesReportManager
 {
     /**
-     * @var StoreGrossSalesRepository
+     * @var GrossSalesStoreRepository
      */
-    protected $grossSalesRepository;
+    protected $grossSalesStoreRepository;
 
     /**
      * @var GrossSalesProductRepository
@@ -119,7 +123,7 @@ class GrossSalesReportManager
 
     /**
      * @DI\InjectParams({
-     *      "grossSalesRepository" = @DI\Inject("lighthouse.core.document.repository.store_gross_sales"),
+     *      "grossSalesStoreRepository" = @DI\Inject("lighthouse.core.document.repository.store_gross_sales"),
      *      "grossSalesProductRepository" = @DI\Inject("lighthouse.core.document.repository.product_gross_sales"),
      *      "grossSalesSubCategoryRepository" =
      *      @DI\Inject("lighthouse.core.document.repository.subcategory_gross_sales"),
@@ -133,7 +137,7 @@ class GrossSalesReportManager
      *      "categoryRepository" = @DI\Inject("lighthouse.core.document.repository.classifier.category"),
      *      "groupRepository" = @DI\Inject("lighthouse.core.document.repository.classifier.group"),
      * })
-     * @param StoreGrossSalesRepository $grossSalesRepository
+     * @param GrossSalesStoreRepository $grossSalesStoreRepository
      * @param GrossSalesProductRepository $grossSalesProductRepository
      * @param GrossSalesSubCategoryRepository $grossSalesSubCategoryRepository
      * @param GrossSalesCategoryRepository $grossSalesCategoryRepository
@@ -147,7 +151,7 @@ class GrossSalesReportManager
      * @param GroupRepository $groupRepository
      */
     public function __construct(
-        StoreGrossSalesRepository $grossSalesRepository,
+        GrossSalesStoreRepository $grossSalesStoreRepository,
         GrossSalesProductRepository $grossSalesProductRepository,
         GrossSalesSubCategoryRepository $grossSalesSubCategoryRepository,
         GrossSalesCategoryRepository $grossSalesCategoryRepository,
@@ -160,7 +164,7 @@ class GrossSalesReportManager
         CategoryRepository $categoryRepository,
         GroupRepository $groupRepository
     ) {
-        $this->grossSalesRepository = $grossSalesRepository;
+        $this->grossSalesStoreRepository = $grossSalesStoreRepository;
         $this->grossSalesProductRepository = $grossSalesProductRepository;
         $this->grossSalesSubCategoryRepository = $grossSalesSubCategoryRepository;
         $this->grossSalesCategoryRepository = $grossSalesCategoryRepository;
@@ -185,8 +189,9 @@ class GrossSalesReportManager
             'twoDaysAgo' => '-2 days 23:00',
             'eightDaysAgo' => '-8 days 23:00',
         );
-        $dates = $this->getDates($time, $intervals);
-        $storeDayReports = $this->grossSalesRepository->findByDates($dates);
+        $dates = $this->getDatesForDay($time, $intervals);
+        $queryDates = $this->getQueryDates($dates);
+        $storeDayReports = $this->grossSalesStoreRepository->findByDates($queryDates);
         $grossSales = $this->createGrossSales($storeDayReports, $dates);
         $this->fillGrossSales($grossSales, $dates);
         return $grossSales;
@@ -194,22 +199,23 @@ class GrossSalesReportManager
 
     /**
      * @param Cursor|StoreGrossSalesReport[] $storeDayReports
-     * @param DateTimestamp[] $dates
+     * @param array $dates
      * @return GrossSales
      */
     protected function createGrossSales(Cursor $storeDayReports, array $dates)
     {
         $grossSales = new GrossSales();
         foreach ($storeDayReports as $storeDayReport) {
-            foreach ($dates as $key => $date) {
-                if ($date->equals($storeDayReport->dayHour)) {
+            foreach ($dates as $key => $dayHours) {
+                $endDayHour = end($dayHours);
+                reset($dayHours);
+                if ($endDayHour->equalsDate($storeDayReport->dayHour)) {
                     if (!isset($grossSales->$key)) {
-                        $grossSales->$key = new DayGrossSales($date);
+                        $grossSales->$key = new DayGrossSales($endDayHour);
                     }
                     /* @var DayGrossSales $dayGrossSales */
                     $dayGrossSales = $grossSales->$key;
-                    $dayGrossSales->addRunningSum($storeDayReport->runningSum);
-                    $dayGrossSales->addHourSum($storeDayReport->hourSum);
+                    $dayGrossSales->addRunningSum($storeDayReport->hourSum);
                 }
             }
         }
@@ -218,13 +224,15 @@ class GrossSalesReportManager
 
     /**
      * @param GrossSales $grossSales
-     * @param DateTimestamp[] $dates
+     * @param array $dates
      */
     protected function fillGrossSales(GrossSales $grossSales, array $dates)
     {
-        foreach ($dates as $key => $date) {
+        foreach ($dates as $key => $dayHours) {
+            $endDayHour = end($dayHours);
+            reset($dayHours);
             if (!isset($grossSales->$key)) {
-                $grossSales->$key = new DayGrossSales($date);
+                $grossSales->$key = new DayGrossSales($endDayHour);
             }
         }
     }
@@ -240,8 +248,9 @@ class GrossSalesReportManager
             'twoDaysAgo' => '-2 days 23:00',
             'eightDaysAgo' => '-8 days 23:00',
         );
-        $dates = $this->getDates($time, $intervals);
-        $storeDayReports = $this->grossSalesRepository->findByDates($dates);
+        $dates = $this->getDatesForDay($time, $intervals);
+        $queryDates = $this->getQueryDates($dates);
+        $storeDayReports = $this->grossSalesStoreRepository->findByDates($queryDates);
         $storeDayReports->sort(array('store' => 1));
         /* @var Store[]|Cursor $stores */
         $stores = $this->storeRepository->findAll();
@@ -291,8 +300,31 @@ class GrossSalesReportManager
     }
 
     /**
+     * @param DateTime|string|null $time
+     * @param array $intervals
+     * @return DateTimestamp[]
+     */
+    public function getDatesForDay($time, array $intervals)
+    {
+        $dateTime = new DateTimestamp($time);
+        $dateTime->setMinutes(0)->setSeconds(0);
+        $dayHours = array();
+        foreach ($intervals as $key => $interval) {
+            $nextDateTime = clone $dateTime;
+            if (null !== $interval) {
+                $nextDateTime->modify($interval);
+            }
+            for ($hour = 0; $hour <= 23; $hour++) {
+                $nextDayHour = clone $nextDateTime;
+                $dayHours[$key][$hour] = $nextDayHour->setHours($hour);
+            }
+        }
+        return $dayHours;
+    }
+
+    /**
      * @param Cursor|StoreGrossSalesReport[] $storeDayReports
-     * @param DateTimestamp[] $dates
+     * @param array $dates
      * @return StoreGrossSalesByStores[]|GrossSalesByStoresCollection
      */
     protected function createGrossSalesByStoresCollection(Cursor $storeDayReports, array $dates)
@@ -301,9 +333,15 @@ class GrossSalesReportManager
         /* @var StoreGrossSalesReport $storeDayReport */
         foreach ($storeDayReports as $storeDayReport) {
             $storeReport = $storeReports->getByStore($storeDayReport->store);
-            foreach ($dates as $key => $date) {
-                if ($date->equals($storeDayReport->dayHour)) {
-                    $storeReport->$key = $storeDayReport;
+            foreach ($dates as $key => $dayHours) {
+                $firstDayHour = current($dayHours);
+                if ($firstDayHour->equalsDate($storeDayReport->dayHour)) {
+                    if (null === $storeReport->$key) {
+                        $storeReportDayHour = clone $firstDayHour;
+                        $storeReportDayHour->setHours(23);
+                        $storeReport->$key = new GrossSalesByStoresReport($storeReportDayHour);
+                    }
+                    $storeReport->$key->addRunningSum($storeDayReport->hourSum);
                 }
             }
         }
@@ -313,7 +351,7 @@ class GrossSalesReportManager
     /**
      * @param GrossSalesByStoresCollection $grossSalesByStores
      * @param Cursor|Store[] $stores
-     * @param DateTime[] $dates
+     * @param array $dates
      */
     protected function fillGrossSalesByStoresCollection(
         GrossSalesByStoresCollection $grossSalesByStores,
@@ -322,9 +360,11 @@ class GrossSalesReportManager
     ) {
         foreach ($stores as $store) {
             $storeReport = $grossSalesByStores->getByStore($store);
-            foreach ($dates as $key => $date) {
+            foreach ($dates as $key => $dayHours) {
                 if (!isset($storeReport->$key)) {
-                    $storeReport->$key = $this->grossSalesRepository->createByDayHourAndStore($date, $store);
+                    $endDayHour = end($dayHours);
+                    reset($dayHours);
+                    $storeReport->$key = new GrossSalesByStoresReport($endDayHour);
                 }
             }
         }
@@ -336,25 +376,217 @@ class GrossSalesReportManager
     public function recalculateStoreGrossSalesReport()
     {
         $results = $this->trialBalanceRepository->calculateGrossSales();
-        $dm = $this->grossSalesRepository->getDocumentManager();
+        $dm = $this->grossSalesStoreRepository->getDocumentManager();
         foreach ($results as $result) {
             $storeId = $result['_id']['store'];
-            $day = DateTimestamp::createFromMongoDate($result['_id']['day']);
-            foreach ($result['value'] as $hour => $grossSales) {
-                $dayHour = clone $day;
-                $dayHour->setTime($hour, 0);
-                $report = $this->grossSalesRepository->createByDayHourAndStoreId(
-                    $dayHour,
-                    (string) $storeId,
-                    new Money($grossSales['runningSum']),
-                    new Money($grossSales['hourSum'])
-                );
-                $dm->persist($report);
-            }
+            $day = $this->createUTCDateByYMDH(
+                $result['_id']['year'],
+                $result['_id']['month'],
+                $result['_id']['day'],
+                $result['_id']['hour']
+            );
+            $report = $this->grossSalesStoreRepository->createByDayHourAndStoreId(
+                $day,
+                (string) $storeId,
+                new Money($result['hourSum'])
+            );
+            $dm->persist($report);
         }
         $dm->flush();
 
         return count($results);
+    }
+
+    /**
+     * @param Store $store
+     * @param DateTime $time
+     * @return GrossSalesStoreTodayReport
+     */
+    public function getGrossSalesStoreReport(Store $store, DateTime $time = null)
+    {
+        $time = new DateTimestamp($time);
+        $time->modify("-1 hour");
+
+        $intervals = array(
+            'today' => null,
+            'yesterday' => '-1 days',
+            'weekAgo' => '-7 days',
+        );
+        $dates = $this->getDatesForDay($time, $intervals);
+        $queryDates = $this->getQueryDates($dates);
+
+        $reports = $this->grossSalesStoreRepository->findByStoreDayHours($store, $queryDates);
+
+        $grossSalesStoreTodayReport = $this->createGrossSalesStoreTodayReport($time, $dates, $reports);
+        $this->fillGrossSalesStoreTodayReport($grossSalesStoreTodayReport, $time, $dates);
+        $this->calculateDiffGrossSalesStoreTodayReport($grossSalesStoreTodayReport, $dates);
+
+        return $grossSalesStoreTodayReport;
+    }
+
+    /**
+     * @param DateTimestamp $time
+     * @param array $dates
+     * @param Cursor|GrossSalesStoreReport[] $reports
+     * @return GrossSalesStoreTodayReport
+     */
+    protected function createGrossSalesStoreTodayReport(DateTimestamp $time, array $dates, Cursor $reports)
+    {
+        $grossSalesStoreTodayReport = new GrossSalesStoreTodayReport($dates);
+        $nowHour = $time->getHours();
+
+        foreach ($reports as $report) {
+            /** @var DateTimestamp[] $dayHours */
+            foreach ($dates as $key => $dayHours) {
+                $firstDayHour = current($dayHours);
+                if ($firstDayHour->equalsDate($report->dayHour)) {
+                    $reportDayHour = new DateTimestamp($report->dayHour);
+
+                    if ($reportDayHour->getHours() <= $nowHour) {
+                        $grossSalesStoreTodayReport->$key->now->addValue($report->hourSum);
+                    }
+
+                    if (null !== $grossSalesStoreTodayReport->$key->dayEnd) {
+                        $grossSalesStoreTodayReport->$key->dayEnd->addValue($report->hourSum);
+                    }
+                }
+            }
+        }
+
+        return $grossSalesStoreTodayReport;
+    }
+
+    /**
+     * @param GrossSalesStoreTodayReport $grossSalesStoreTodayReport
+     * @param DateTimestamp $time
+     * @param array $dates
+     */
+    protected function fillGrossSalesStoreTodayReport(
+        GrossSalesStoreTodayReport $grossSalesStoreTodayReport,
+        DateTimestamp $time,
+        array $dates
+    ) {
+        $nowHour = $time->getHours();
+        $endDayHours = $this->extractEndDayHours($dates);
+        foreach ($endDayHours as $key => $dayHour) {
+            if (null === $grossSalesStoreTodayReport->$key->now->date) {
+                $nowDate = clone $dayHour;
+                $nowDate->setHours($nowHour);
+                // TODO: Из за хитрого вывода дат. Желательно поменять фронт и тут будет норм
+                $nowDate->modify("+1 hour");
+                $grossSalesStoreTodayReport->$key->now->date = $nowDate;
+            }
+            if (null !== $grossSalesStoreTodayReport->$key->dayEnd
+                && null === $grossSalesStoreTodayReport->$key->dayEnd->date
+            ) {
+                $dayEndDate = clone $dayHour;
+                $dayEndDate->setMinutes(59)->setSeconds(59);
+                $grossSalesStoreTodayReport->$key->dayEnd->date = $dayEndDate;
+            }
+        }
+    }
+
+    /**
+     * @param GrossSalesStoreTodayReport $grossSalesStoreTodayReport
+     * @param array $dates
+     */
+    protected function calculateDiffGrossSalesStoreTodayReport(
+        GrossSalesStoreTodayReport $grossSalesStoreTodayReport,
+        array $dates
+    ) {
+        $datesKeys = array_keys($dates);
+        $primaryKey = array_shift($datesKeys);
+        /** @var Money $primaryNowValue */
+        $primaryNowValue = $grossSalesStoreTodayReport->$primaryKey->now->value;
+
+        if (0 == $primaryNowValue->getCount()) {
+            return;
+        }
+
+        foreach ($datesKeys as $secondKey) {
+            /** @var Money $secondNowValue */
+            $secondNowValue = $grossSalesStoreTodayReport->$secondKey->now->value;
+            $diff = ($primaryNowValue->toNumber() / $secondNowValue->toNumber() - 1) * 100;
+            $grossSalesStoreTodayReport->$secondKey->now->diff = Decimal::createFromNumeric($diff, 2);
+        }
+    }
+
+    /**
+     * @param Store $store
+     * @param null|DateTime $time
+     * @return TodayHoursGrossSales
+     */
+    public function getGrossSalesStoreByHours(Store $store, DateTime $time = null)
+    {
+        $intervals = array(
+            'today' => '-1 hour',
+            'yesterday' => '-1 days -1 hour',
+            'weekAgo' => '-7 days -1 hour',
+        );
+
+        $dayHours = $this->getDayHours($time, $intervals);
+
+        $queryDates = $this->getQueryDates($dayHours);
+        $reports = $this->grossSalesStoreRepository->findByStoreDayHours($store, $queryDates);
+
+        $todayHoursGrossSales = $this->createGrossSalesStoreByHoursCollection($reports, $dayHours);
+
+        $this->fillGrossSalesStoreByHoursCollection($todayHoursGrossSales, $dayHours);
+
+        return $todayHoursGrossSales->normalize($dayHours);
+    }
+
+    /**
+     * @param Cursor $reports
+     * @param array $dates
+     * @return TodayHoursGrossSales
+     */
+    protected function createGrossSalesStoreByHoursCollection(Cursor $reports, array $dates)
+    {
+        $todayHoursGrossSales = new TodayHoursGrossSales($dates);
+
+        foreach ($reports as $report) {
+            foreach ($dates as $key => $dayHours) {
+                /** @var DateTimestamp $firstDayHour */
+                $firstDayHour = current($dayHours);
+                if ($firstDayHour->equalsDate($report->dayHour)) {
+                    $reportDayHour = new DateTimestamp($report->dayHour);
+                    $reportHour = $reportDayHour->getHours();
+                    $todayHoursGrossSales->$key->set($reportHour, $report);
+                }
+            }
+        }
+
+        return $todayHoursGrossSales;
+    }
+
+    /**
+     * @param TodayHoursGrossSales $todayHoursGrossSales
+     * @param array $dates
+     */
+    protected function fillGrossSalesStoreByHoursCollection(TodayHoursGrossSales $todayHoursGrossSales, array $dates)
+    {
+        foreach ($dates as $key => $dayHours) {
+            /** @var DateTimestamp $dayHour */
+            foreach ($dayHours as $dayHour) {
+                $hour = $dayHour->getHours();
+                if (null === $todayHoursGrossSales->$key->get($hour)) {
+                    $todayHoursGrossSales->$key->set($hour, $this->createEmptyGrossSalesStoreReport($dayHour));
+                }
+            }
+        }
+    }
+
+    /**
+     * @param DateTimestamp $dayHour
+     * @return GrossSalesStoreReport
+     */
+    protected function createEmptyGrossSalesStoreReport(DateTimestamp $dayHour)
+    {
+        $report = new GrossSalesStoreReport();
+        $report->dayHour = $dayHour;
+        $report->hourSum = new Money(0);
+        return $report;
     }
 
     /**

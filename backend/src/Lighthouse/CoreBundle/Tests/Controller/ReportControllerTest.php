@@ -278,29 +278,29 @@ class ReportControllerTest extends WebTestCase
             'today' => array(
                 'now' => array(
                     'date' => date(DateTime::ISO8601, strtotime("10:00")),
-                    'value' => "1207.06",
+                    'value' => 1207.06,
                 )
             ),
             'yesterday' => array(
                 'now' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-1 day 10:00")),
-                    'value' => "1207.06",
-                    'diff' => "0.00",
+                    'value' => 1207.06,
+                    'diff' => 0,
                 ),
                 'dayEnd' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-1 day 23:59:59")),
-                    'value' => "1810.59",
+                    'value' => 1810.59,
                 ),
             ),
             'weekAgo' => array(
                 'now' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-7 day 10:00")),
-                    'value' => "1309.06",
-                    'diff' => "-7.79"
+                    'value' => 1309.06,
+                    'diff' => -7.79
                 ),
                 'dayEnd' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-7 day 23:59:59")),
-                    'value' => "1912.59",
+                    'value' => 1912.59,
                 ),
             ),
         );
@@ -327,27 +327,27 @@ class ReportControllerTest extends WebTestCase
             'today' => array(
                 'now' => array(
                     'date' => date(DateTime::ISO8601, strtotime("10:00")),
-                    'value' => "0.00",
+                    'value' => 0,
                 )
             ),
             'yesterday' => array(
                 'now' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-1 day 10:00")),
-                    'value' => "0.00",
+                    'value' => 0,
                 ),
                 'dayEnd' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-1 day 23:59:59")),
-                    'value' => "0.00",
+                    'value' => 0,
                 ),
             ),
             'weekAgo' => array(
                 'now' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-7 day 10:00")),
-                    'value' => "0.00",
+                    'value' => 0,
                 ),
                 'dayEnd' => array(
                     'date' => date(DateTime::ISO8601, strtotime("-7 day 23:59:59")),
-                    'value' => "0.00",
+                    'value' => 0,
                 ),
             ),
         );
@@ -827,36 +827,30 @@ class ReportControllerTest extends WebTestCase
         for ($i = 0; $i <= 7; $i++) {
             $expectedYesterday[$i] = array(
                 'dayHour' => date(DateTime::ISO8601, strtotime("-1 day 0{$i}:00")),
-                'runningSum' => 0,
                 'hourSum' => 0,
             );
             $expectedWeekAgo[$i] = array(
                 'dayHour' => date(DateTime::ISO8601, strtotime("-1 week 0{$i}:00")),
-                'runningSum' => 0,
                 'hourSum' => 0,
             );
         }
         $expectedYesterday += array(
             8 => array(
                 'dayHour' => date(DateTime::ISO8601, strtotime("-1 day 08:00")),
-                'runningSum' => 603.53,
                 'hourSum' => 603.53,
             ),
             9 => array(
                 'dayHour' => date(DateTime::ISO8601, strtotime("-1 day 09:00")),
-                'runningSum' => 1207.06,
                 'hourSum' => 603.53,
             ),
         );
         $expectedWeekAgo += array(
             8 => array(
                 'dayHour' => date(DateTime::ISO8601, strtotime("-1 week 08:00")),
-                'runningSum' => 603.53,
                 'hourSum' => 603.53,
             ),
             9 => array(
                 'dayHour' => date(DateTime::ISO8601, strtotime("-1 week 09:00")),
-                'runningSum' => 1309.06,
                 'hourSum' => 705.53,
             ),
         );
@@ -865,52 +859,42 @@ class ReportControllerTest extends WebTestCase
             'today' => array(
                 0 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("00:00")),
-                    'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 1 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("01:00")),
-                    'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 2 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("02:00")),
-                    'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 3 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("03:00")),
-                    'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 4 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("04:00")),
-                    'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 5 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("05:00")),
-                    'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 6 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("06:00")),
-                    'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 7 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("07:00")),
-                    'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 8 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("08:00")),
-                    'runningSum' => 603.53,
                     'hourSum' => 603.53,
                 ),
                 9 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("09:00")),
-                    'runningSum' => 1207.06,
                     'hourSum' => 603.53,
                 ),
             ),
@@ -1199,36 +1183,30 @@ class ReportControllerTest extends WebTestCase
         for ($i = 0; $i <= 7; $i++) {
             $expectedYesterday[$i] = array(
                 'dayHour' => date(DateTime::ISO8601, strtotime("-1 day 0{$i}:00")),
-                'runningSum' => 0,
                 'hourSum' => 0,
             );
             $expectedWeekAgo[$i] = array(
                 'dayHour' => date(DateTime::ISO8601, strtotime("-1 week 0{$i}:00")),
-                'runningSum' => 0,
                 'hourSum' => 0,
             );
         }
         $expectedYesterday += array(
             8 => array(
                 'dayHour' => date(DateTime::ISO8601, strtotime("-1 day 08:00")),
-                'runningSum' => 0,
                 'hourSum' => 0,
             ),
             9 => array(
                 'dayHour' => date(DateTime::ISO8601, strtotime("-1 day 09:00")),
-                'runningSum' => 0,
                 'hourSum' => 0,
             ),
         );
         $expectedWeekAgo += array(
             8 => array(
                 'dayHour' => date(DateTime::ISO8601, strtotime("-1 week 08:00")),
-                'runningSum' => 603.53,
                 'hourSum' => 603.53,
             ),
             9 => array(
                 'dayHour' => date(DateTime::ISO8601, strtotime("-1 week 09:00")),
-                'runningSum' => 1309.06,
                 'hourSum' => 705.53,
             ),
         );
@@ -1237,52 +1215,42 @@ class ReportControllerTest extends WebTestCase
             'today' => array(
                 0 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("00:00")),
-                    'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 1 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("01:00")),
-                    'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 2 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("02:00")),
-                    'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 3 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("03:00")),
-                    'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 4 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("04:00")),
-                    'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 5 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("05:00")),
-                    'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 6 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("06:00")),
-                    'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 7 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("07:00")),
-                    'runningSum' => 0,
                     'hourSum' => 0,
                 ),
                 8 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("08:00")),
-                    'runningSum' => 603.53,
                     'hourSum' => 603.53,
                 ),
                 9 => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime("09:00")),
-                    'runningSum' => 1207.06,
                     'hourSum' => 603.53,
                 ),
             ),
@@ -1352,17 +1320,14 @@ class ReportControllerTest extends WebTestCase
         for ($i = 0; $i <= 9; $i++) {
             $expectedToday[$i] = array(
                 'dayHour' => date(DateTime::ISO8601, strtotime("0{$i}:00")),
-                'runningSum' => 0,
                 'hourSum' => 0,
             );
             $expectedYesterday[$i] = array(
                 'dayHour' => date(DateTime::ISO8601, strtotime("-1 day 0{$i}:00")),
-                'runningSum' => 0,
                 'hourSum' => 0,
             );
             $expectedWeekAgo[$i] = array(
                 'dayHour' => date(DateTime::ISO8601, strtotime("-1 week 0{$i}:00")),
-                'runningSum' => 0,
                 'hourSum' => 0,
             );
         }
@@ -1399,17 +1364,14 @@ class ReportControllerTest extends WebTestCase
                 'yesterday' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
                     'runningSum' => 708.91,
-                    'hourSum' => 0,
                 ),
                 'twoDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
                     'runningSum' => 715.55,
-                    'hourSum' => 0,
                 ),
                 'eightDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
                     'runningSum' => 360.86,
-                    'hourSum' => 0,
                 ),
                 'store' => array(
                     'id' => $storeIds['1'],
@@ -1425,17 +1387,14 @@ class ReportControllerTest extends WebTestCase
                 'yesterday' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
                     'runningSum' => 1535.51,
-                    'hourSum' => 0,
                 ),
                 'twoDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
                     'runningSum' => 594.75,
-                    'hourSum' => 0,
                 ),
                 'eightDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
                     'runningSum' => 748.43,
-                    'hourSum' => 0,
                 ),
                 'store' => array(
                     'id' => $storeIds['2'],
@@ -1451,17 +1410,14 @@ class ReportControllerTest extends WebTestCase
                 'yesterday' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
                     'runningSum' => 0,
-                    'hourSum' => 0,
                 ),
                 'twoDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
                     'runningSum' => 838.84,
-                    'hourSum' => 0,
                 ),
                 'eightDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
                     'runningSum' => 965.58,
-                    'hourSum' => 0,
                 ),
                 'store' => array(
                     'id' => $storeIds['3'],
@@ -1502,17 +1458,14 @@ class ReportControllerTest extends WebTestCase
                 'yesterday' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
                     'runningSum' => 0,
-                    'hourSum' => 0,
                 ),
                 'twoDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
                     'runningSum' => 0,
-                    'hourSum' => 0,
                 ),
                 'eightDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
                     'runningSum' => 0,
-                    'hourSum' => 0,
                 ),
                 'store' => array(
                     'id' => $storeIds['1'],
@@ -1528,17 +1481,14 @@ class ReportControllerTest extends WebTestCase
                 'yesterday' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
                     'runningSum' => 0,
-                    'hourSum' => 0,
                 ),
                 'twoDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
                     'runningSum' => 0,
-                    'hourSum' => 0,
                 ),
                 'eightDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
                     'runningSum' => 0,
-                    'hourSum' => 0,
                 ),
                 'store' => array(
                     'id' => $storeIds['2'],
@@ -1554,17 +1504,14 @@ class ReportControllerTest extends WebTestCase
                 'yesterday' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 23:00')),
                     'runningSum' => 0,
-                    'hourSum' => 0,
                 ),
                 'twoDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-2 days 23:00')),
                     'runningSum' => 0,
-                    'hourSum' => 0,
                 ),
                 'eightDaysAgo' => array(
                     'dayHour' => date(DateTime::ISO8601, strtotime('-8 days 23:00')),
                     'runningSum' => 0,
-                    'hourSum' => 0,
                 ),
                 'store' => array(
                     'id' => $storeIds['3'],

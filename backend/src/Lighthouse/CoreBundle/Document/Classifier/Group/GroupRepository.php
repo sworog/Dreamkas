@@ -16,9 +16,10 @@ class GroupRepository extends ClassifierRepository
 
     /**
      * @param string $name
+     * @param string $parentId
      * @return Group
      */
-    public function findOneByName($name)
+    public function findOneByName($name, $parentId = null)
     {
         return $this->findOneBy(array('name' => $name));
     }
