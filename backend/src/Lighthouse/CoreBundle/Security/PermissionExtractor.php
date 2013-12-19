@@ -99,9 +99,6 @@ class PermissionExtractor
         $resources = $this->extractAll();
         $userPermissions = array();
         foreach ($resources as $resourceName => $methods) {
-            if ('other' == $resourceName) {
-                continue;
-            }
             $userPermissions[$resourceName] = array();
             foreach ($methods as $method => $roles) {
                 if (true === $roles || $securityContext->isGranted($roles)) {

@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints\Compare;
 
-use Lighthouse\CoreBundle\Exception\NullValueException;
 use Lighthouse\CoreBundle\Types\Numeric\Numeric;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
@@ -21,7 +20,6 @@ class Comparison
     /**
      * @param mixed $value
      * @param Comparator $comparator
-     * @throws NullValueException
      */
     public function __construct($value, Comparator $comparator = null)
     {
@@ -33,8 +31,6 @@ class Comparison
      * @param int|float $test
      * @param string $operator
      * @return bool
-     * @throws UnexpectedTypeException
-     * @throws NullValueException
      */
     public function compare($test, $operator)
     {
@@ -46,7 +42,6 @@ class Comparison
      * @param mixed $value
      * @return int|string
      * @throws UnexpectedTypeException
-     * @throws NullValueException
      */
     protected function normalizeValue($value)
     {
