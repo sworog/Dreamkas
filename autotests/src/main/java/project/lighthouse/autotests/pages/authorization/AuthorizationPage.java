@@ -15,7 +15,7 @@ import static junit.framework.Assert.*;
 @DefaultUrl("/")
 public class AuthorizationPage extends UserCreatePage {
 
-    public Map<String, String> users = new HashMap();
+    public Map<String, String> users = new HashMap<>();
     Boolean isAuthorized = false;
 
     public AuthorizationPage(WebDriver driver) {
