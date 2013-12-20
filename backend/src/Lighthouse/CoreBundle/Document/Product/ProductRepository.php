@@ -8,8 +8,8 @@ use Doctrine\MongoDB\LoggableCursor;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 use MongoId;
+use MongoRegex;
 
 class ProductRepository extends DocumentRepository implements ParentableRepository
 {
@@ -20,7 +20,7 @@ class ProductRepository extends DocumentRepository implements ParentableReposito
      */
     public function searchEntry($property, $entry)
     {
-        return $this->findBy(array($property => new \MongoRegex("/".preg_quote($entry, '/')."/i")));
+        return $this->findBy(array($property => new MongoRegex("/".preg_quote($entry, '/')."/i")));
     }
 
     /**

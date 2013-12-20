@@ -12,10 +12,7 @@ use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByProducts\GrossS
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesBySubCategories\GrossSalesBySubCategoriesCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByStores\GrossSalesByStoresCollection;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesReportManager;
-use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReportByHours;
-use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReportCollection;
-use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReportNow;
-use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesRepository;
+use Lighthouse\CoreBundle\Document\Report\GrossSales\TodayHoursGrossSales;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ODM\MongoDB\Cursor;
@@ -29,12 +26,6 @@ use DateTime;
 
 class ReportController extends FOSRestController
 {
-    /**
-     * @DI\Inject("lighthouse.core.document.repository.store_gross_sales")
-     * @var StoreGrossSalesRepository
-     */
-    protected $storeGrossSalesRepository;
-
     /**
      * @DI\Inject("lighthouse.core.document.report.gross_sales.manager")
      * @var GrossSalesReportManager
@@ -59,7 +50,7 @@ class ReportController extends FOSRestController
     /**
      * @param Store $store
      * @param Request $request
-     * @return StoreGrossSalesReportByHours
+     * @return TodayHoursGrossSales
      *
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
      * @Rest\Route("stores/{store}/reports/grossSalesByHours")

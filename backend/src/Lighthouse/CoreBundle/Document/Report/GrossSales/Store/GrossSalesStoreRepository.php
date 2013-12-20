@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Document\Report\GrossSales\Store;
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use DateTime;
 

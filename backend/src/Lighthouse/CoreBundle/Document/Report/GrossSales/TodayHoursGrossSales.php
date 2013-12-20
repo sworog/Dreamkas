@@ -3,9 +3,6 @@
 namespace Lighthouse\CoreBundle\Document\Report\GrossSales;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use DateTime;
-use Lighthouse\CoreBundle\Document\Report\GrossSales\Store\GrossSalesStoreReport;
-use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 
 class TodayHoursGrossSales extends AbstractDocument
 {

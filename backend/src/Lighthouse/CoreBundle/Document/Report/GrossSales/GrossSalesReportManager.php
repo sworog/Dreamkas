@@ -39,7 +39,6 @@ use Lighthouse\CoreBundle\Document\Report\GrossSales\Product\GrossSalesProductRe
 use Lighthouse\CoreBundle\Document\Report\GrossSales\Classifier\SubCategory\GrossSalesSubCategoryRepository;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\Store\GrossSalesStoreReport;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\Store\GrossSalesStoreRepository;
-use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesReport;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
@@ -198,7 +197,7 @@ class GrossSalesReportManager
     }
 
     /**
-     * @param Cursor|StoreGrossSalesReport[] $storeDayReports
+     * @param Cursor|GrossSalesStoreReport[] $storeDayReports
      * @param array $dates
      * @return GrossSales
      */
@@ -261,22 +260,6 @@ class GrossSalesReportManager
     }
 
     /**
-     * @param DateTime|string $time
-     * @param array $intervals
-     * @return DateTimestamp[]
-     */
-    protected function getDates($time, array $intervals)
-    {
-        $dateTime = new DateTimestamp($time);
-        $dates = array();
-        foreach ($intervals as $key => $interval) {
-            $nextDateTime = clone $dateTime;
-            $dates[$key] = $nextDateTime->modify($interval);
-        }
-        return $dates;
-    }
-
-    /**
      * @param DateTime|string|null $time
      * @param array $intervals
      * @return DateTimestamp[]
@@ -323,14 +306,13 @@ class GrossSalesReportManager
     }
 
     /**
-     * @param Cursor|StoreGrossSalesReport[] $storeDayReports
+     * @param Cursor|GrossSalesStoreReport[] $storeDayReports
      * @param array $dates
      * @return StoreGrossSalesByStores[]|GrossSalesByStoresCollection
      */
     protected function createGrossSalesByStoresCollection(Cursor $storeDayReports, array $dates)
     {
         $storeReports = new GrossSalesByStoresCollection();
-        /* @var StoreGrossSalesReport $storeDayReport */
         foreach ($storeDayReports as $storeDayReport) {
             $storeReport = $storeReports->getByStore($storeDayReport->store);
             foreach ($dates as $key => $dayHours) {

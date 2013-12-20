@@ -14,7 +14,6 @@ use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use MongoId;
 use MongoCode;
-use MongoCursor;
 
 class TrialBalanceRepository extends DocumentRepository
 {
@@ -36,7 +35,7 @@ class TrialBalanceRepository extends DocumentRepository
     public function findOneByReason(Reasonable $reason)
     {
         $criteria = array(
-            'reason.$id' => new \MongoId($reason->getReasonId()),
+            'reason.$id' => new MongoId($reason->getReasonId()),
             'reason.$ref' => $reason->getReasonType(),
         );
         return $this->findOneBy($criteria);

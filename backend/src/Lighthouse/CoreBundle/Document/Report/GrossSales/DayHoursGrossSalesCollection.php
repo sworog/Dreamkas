@@ -7,17 +7,14 @@ use Lighthouse\CoreBundle\Document\AbstractCollection;
 class DayHoursGrossSalesCollection extends AbstractCollection
 {
     /**
-     * equals php ksort
+     * Sort by keys
      * @return $this
      */
     public function keySort()
     {
-        $array = $this->toArray();
-        $this->clear();
-        ksort($array);
-        foreach ($array as $key => $value) {
-            $this->set($key, $value);
-        }
+        $values = $this->toArray();
+        ksort($values);
+        $this->setValues($values);
         return $this;
     }
 }
