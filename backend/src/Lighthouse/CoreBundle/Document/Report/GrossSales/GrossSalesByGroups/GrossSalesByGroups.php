@@ -5,11 +5,13 @@ namespace Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByGroups;
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByClassifierNode;
+use JMS\Serializer\Annotation as Serializer;
 use DateTime;
 
 class GrossSalesByGroups extends GrossSalesByClassifierNode
 {
     /**
+     * @Serializer\MaxDepth(2)
      * @var Group
      */
     protected $group;

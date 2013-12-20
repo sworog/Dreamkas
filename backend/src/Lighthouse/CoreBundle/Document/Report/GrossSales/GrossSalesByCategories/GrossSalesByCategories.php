@@ -5,11 +5,13 @@ namespace Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByCategorie
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Report\GrossSales\GrossSalesByClassifierNode;
+use JMS\Serializer\Annotation as Serializer;
 use DateTime;
 
 class GrossSalesByCategories extends GrossSalesByClassifierNode
 {
     /**
+     * @Serializer\MaxDepth(2)
      * @var category
      */
     protected $category;
