@@ -86,7 +86,7 @@ public class Us_57_4_Fixture extends AbstractFixture {
                                                       Map<Integer, String> todayGrossSaleMap,
                                                       Map<Integer, String> yesterdayGrossSaleMap,
                                                       Map<Integer, String> weekAgoGrossSaleMap) {
-        int hour = new DateTime().getHourOfDay() + 1;
+        int hour = new DateTime().getHourOfDay();
         List<Map<String, String>> mapList = new ArrayList<>();
         Map<String, String> shop1DataMap = new HashMap<>();
         shop1DataMap.put("productName", name);
