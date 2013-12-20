@@ -124,21 +124,4 @@ class ProductRepository extends DocumentRepository implements ParentableReposito
         }
         return $retailPrice;
     }
-
-    /**
-     * @param Product $originalProduct
-     * @param Product $dataProduct
-     */
-    public function populateProductByProduct(Product $originalProduct, Product $dataProduct)
-    {
-        $classMetaData = $this->getClassMetadata();
-        $accessor = PropertyAccess::createPropertyAccessor();
-        foreach ($classMetaData->reflFields as $field) {
-            $fieldName = $field->getName();
-            $value = $accessor->getValue($dataProduct, $fieldName);
-            if (null !== $value) {
-                $accessor->setValue($originalProduct, $fieldName, $value);
-            }
-        }
-    }
 }
