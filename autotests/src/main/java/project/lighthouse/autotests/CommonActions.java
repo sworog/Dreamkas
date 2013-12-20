@@ -19,9 +19,9 @@ public class CommonActions extends PageObject {
 
     Map<String, CommonItem> items;
 
-    private String errorMessage1 = "Element not found in the cache - perhaps the page has changed since it was looked up";
-    private String errorMessage2 = "Element is no longer attached to the DOM";
-    private String errorMessage3 = "Element does not exist in cache";
+    private static final String ERROR_MESSAGE_1 = "Element not found in the cache - perhaps the page has changed since it was looked up";
+    private static final String ERROR_MESSAGE_2 = "Element is no longer attached to the DOM";
+    private static final String ERROR_MESSAGE_3 = "Element does not exist in cache";
 
     protected CommonPage commonPage = new CommonPage(getDriver());
     protected Waiter waiter = new Waiter(getDriver());
@@ -244,9 +244,9 @@ public class CommonActions extends PageObject {
 
     private boolean isSkippableException(Exception e, boolean checkThirdErrorMessage) {
         String exceptionMessage = getExceptionMessage(e);
-        return exceptionMessage.contains(errorMessage1)
-                || exceptionMessage.contains(errorMessage2)
-                || (checkThirdErrorMessage && exceptionMessage.contains(errorMessage3));
+        return exceptionMessage.contains(ERROR_MESSAGE_1)
+                || exceptionMessage.contains(ERROR_MESSAGE_2)
+                || (checkThirdErrorMessage && exceptionMessage.contains(ERROR_MESSAGE_3));
     }
 
     private boolean isSkippableException(Exception e) {

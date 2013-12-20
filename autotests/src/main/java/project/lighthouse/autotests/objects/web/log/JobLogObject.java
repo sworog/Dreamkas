@@ -7,7 +7,6 @@ import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 
 public class JobLogObject extends AbstractObject {
 
-    private String id;
     private String type;
     private String status;
     private String title;
@@ -40,7 +39,6 @@ public class JobLogObject extends AbstractObject {
 
     @Override
     public void setProperties() {
-        id = getElement().getAttribute("id");
         type = getElement().getAttribute("type");
         status = getElement().getAttribute("status");
         title = setProperty(By.xpath(".//*[@class='log__title']"));
