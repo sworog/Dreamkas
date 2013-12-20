@@ -459,9 +459,7 @@ EOF;
         Assert::assertJsonPathEquals('set10_export_products', '*.type', $getResponse);
         Assert::assertJsonPathEquals('pending', '*.status', $getResponse);
 
-        /* @var DocumentManager $dm */
-        $dm = $this->getContainer()->get('doctrine.odm.mongodb.document_manager');
-        $dm->clear();
+        $this->getDocumentManager()->clear();
 
         /* @var JobManager $jobManager */
         $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');

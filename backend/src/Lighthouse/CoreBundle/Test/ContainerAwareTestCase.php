@@ -56,10 +56,17 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
         return static::initKernel()->getContainer();
     }
 
+    /**
+     * @return DocumentManager
+     */
+    protected function getDocumentManager()
+    {
+        return $this->getContainer()->get('doctrine.odm.mongodb.document_manager');
+    }
+
     protected function clearMongoDb()
     {
-        /* @var DocumentManager $mongoDb */
-        $mongoDb = $this->getContainer()->get('doctrine.odm.mongodb.document_manager');
+        $mongoDb = $this->getDocumentManager();
         $mongoDb->getSchemaManager()->dropCollections();
         $mongoDb->getSchemaManager()->createCollections();
         $mongoDb->getSchemaManager()->ensureIndexes();

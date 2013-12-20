@@ -89,9 +89,7 @@ class JobControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('recalc_product_price', '*.type', $getResponse);
         Assert::assertJsonPathEquals('pending', '*.status', $getResponse);
 
-        /* @var DocumentManager $dm */
-        $dm = $this->getContainer()->get('doctrine.odm.mongodb.document_manager');
-        $dm->clear();
+        $this->getDocumentManager()->clear();
 
         /* @var JobManager $jobManager */
         $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
@@ -230,9 +228,7 @@ class JobControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('recalc_product_price', '*.type', $getResponse);
         Assert::assertJsonPathEquals('pending', '*.status', $getResponse);
 
-        /* @var DocumentManager $dm */
-        $dm = $this->getContainer()->get('doctrine.odm.mongodb.document_manager');
-        $dm->clear();
+        $this->getDocumentManager()->clear();
 
         /* @var JobManager $jobManager */
         $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
