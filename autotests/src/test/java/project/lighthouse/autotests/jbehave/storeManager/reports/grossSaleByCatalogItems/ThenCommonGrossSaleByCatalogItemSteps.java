@@ -26,7 +26,7 @@ public class ThenCommonGrossSaleByCatalogItemSteps {
         commonGrossSaleByCatalogItemSteps.compareWithExampleTable(examplesTable);
     }
 
-    @Then("the user checks the gross sale by subCategory report contains entry with zero sales value")
+    @Then("the user checks the gross sale by subCategory report contains zero sales value entry")
     public void thenTheUserChecksTheGrossSaleBySubCategoryReportContainsEntryWithZeroSalesValue() {
         commonGrossSaleByCatalogItemSteps.compareWithExampleTableIncludingZeroSales();
     }

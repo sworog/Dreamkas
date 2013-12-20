@@ -21,7 +21,7 @@ And the user clicks the menu report item
 And the user clicks on gross sale by products report link
 When the user clicks the catalog item with name 'defaultGroup-s25u573'
 And the user clicks the catalog item with name 'defaultCategory-s25u573'
-Then the user checks the gross sale by subCategory report contains entry with zero sales value
+Then the user checks the gross sale by subCategory report contains zero sales value entry
 
 Scenario: Gross sale by groups/Categories/subCategories contains data not red highlighted (todayValue is bigger than yesterdaya and weekAgo)
 
