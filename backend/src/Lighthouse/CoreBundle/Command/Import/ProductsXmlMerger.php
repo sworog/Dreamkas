@@ -72,7 +72,7 @@ class ProductsXmlMerger extends Command
                     $file->getFilename(),
                     $i + 1,
                     $filesCount,
-                    ($i + 1) / $filesCount * 100
+                    (($i + 1) / $filesCount) * 100
                 )
             );
             $this->readXmlFile($file, $output);
