@@ -518,13 +518,7 @@ class GrossSalesReportManager
      */
     public function getGrossSalesStoreByHours(Store $store, DateTime $time = null)
     {
-        $intervals = array(
-            'today' => '-1 hour',
-            'yesterday' => '-1 days -1 hour',
-            'weekAgo' => '-7 days -1 hour',
-        );
-
-        $dayHours = $this->getDayHours($time, $intervals);
+        $dayHours = $this->getTodayDayHours($time);
 
         $queryDates = $this->getQueryDates($dayHours);
         $reports = $this->grossSalesStoreRepository->findByStoreDayHours($store, $queryDates);
@@ -687,6 +681,21 @@ class GrossSalesReportManager
     }
 
     /**
+     * @param DateTime $time
+     * @return array
+     */
+    protected function getTodayDayHours(DateTime $time = null)
+    {
+        $intervals = array(
+            'today' => '-1 hour',
+            'yesterday' => '-1 days -1 hour',
+            'weekAgo' => '-7 days -1 hour',
+        );
+
+        return $this->getDayHours($time, $intervals);
+    }
+
+    /**
      * @param Store $store
      * @param SubCategory $subCategory
      * @param DateTime|null $time
@@ -694,13 +703,7 @@ class GrossSalesReportManager
      */
     public function getGrossSalesByProducts(Store $store, SubCategory $subCategory, DateTime $time = null)
     {
-        $intervals = array(
-            'today' => null,
-            'yesterday' => '-1 days',
-            'weekAgo' => '-7 days',
-        );
-
-        $dayHours = $this->getDayHours($time, $intervals);
+        $dayHours = $this->getTodayDayHours($time);
         $endDayHours = $this->extractEndDayHours($dayHours);
         $queryDates = $this->getQueryDates($dayHours);
 
@@ -841,13 +844,7 @@ class GrossSalesReportManager
         Store $store,
         DateTime $time = null
     ) {
-        $intervals = array(
-            'today' => null,
-            'yesterday' => '-1 days',
-            'weekAgo' => '-7 days',
-        );
-
-        $dayHours = $this->getDayHours($time, $intervals);
+        $dayHours = $this->getTodayDayHours($time);
         $endDayHours = $this->extractEndDayHours($dayHours);
         $queryDates = $this->getQueryDates($dayHours);
 
@@ -959,8 +956,8 @@ class GrossSalesReportManager
             $this->productRepository,
             $this->grossSalesSubCategoryRepository,
             $this->grossSalesProductRepository,
-            $batch,
             $output,
+            $batch,
             $prepareChildIdsClosure
         );
     }
@@ -977,8 +974,8 @@ class GrossSalesReportManager
             $this->subCategoryRepository,
             $this->grossSalesCategoryRepository,
             $this->grossSalesSubCategoryRepository,
-            $batch,
-            $output
+            $output,
+            $batch
         );
     }
 
@@ -994,8 +991,8 @@ class GrossSalesReportManager
             $this->categoryRepository,
             $this->grossSalesGroupRepository,
             $this->grossSalesCategoryRepository,
-            $batch,
-            $output
+            $output,
+            $batch
         );
     }
 
@@ -1004,8 +1001,8 @@ class GrossSalesReportManager
      * @param ParentableRepository $childNodeRepository
      * @param GrossSalesNodeRepository $nodeReportRepository
      * @param GrossSalesCalculatable $childNodeReportRepository
-     * @param int $batch
      * @param OutputInterface $output
+     * @param int $batch
      * @param callable $prepareChildIdsCallback
      * @return int
      */
@@ -1014,8 +1011,8 @@ class GrossSalesReportManager
         ParentableRepository $childNodeRepository,
         GrossSalesNodeRepository $nodeReportRepository,
         GrossSalesCalculatable $childNodeReportRepository,
-        $batch = 1000,
         OutputInterface $output,
+        $batch = 1000,
         Closure $prepareChildIdsCallback = null
     ) {
         $dotHelper = new DotHelper($output);
