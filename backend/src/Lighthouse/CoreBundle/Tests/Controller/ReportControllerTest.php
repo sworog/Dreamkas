@@ -2456,9 +2456,9 @@ class ReportControllerTest extends WebTestCase
 
         $output = new NullOutput();
         $this->getGrossSalesReportService()->recalculateGrossSalesProductReport();
-        $this->getGrossSalesReportService()->recalculateGrossSalesBySubCategories($output);
-        $this->getGrossSalesReportService()->recalculateGrossSalesByCategories($output);
-        $this->getGrossSalesReportService()->recalculateGrossSalesByGroups($output);
+        $this->getGrossSalesReportService()->recalculateGrossSalesBySubCategories($output, 1);
+        $this->getGrossSalesReportService()->recalculateGrossSalesByCategories($output, 1);
+        $this->getGrossSalesReportService()->recalculateGrossSalesByGroups($output, 1);
 
         $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
