@@ -41,4 +41,16 @@ class GrossSalesByProductsCollection extends AbstractCollection
             return $this->createByStoreProduct($storeProduct, $endDayHours);
         }
     }
+
+    /**
+     * @return $this
+     */
+    public function sortByName()
+    {
+        return $this->usort(
+            function (GrossSalesByProduct $storeProductA, GrossSalesByProduct $storeProductB) {
+                return $storeProductA->storeProduct->product->name > $storeProductB->storeProduct->product->name;
+            }
+        );
+    }
 }

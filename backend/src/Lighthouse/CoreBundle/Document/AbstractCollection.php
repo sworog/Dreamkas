@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\MongoDB\Cursor;
+use Closure;
 
 class AbstractCollection extends ArrayCollection
 {
@@ -27,10 +28,7 @@ class AbstractCollection extends ArrayCollection
     public function normalizeKeys()
     {
         $values = $this->getValues();
-        $this->clear();
-        foreach ($values as $value) {
-            $this->add($value);
-        }
+        $this->setValues($values);
         return $this;
     }
 
@@ -54,5 +52,33 @@ class AbstractCollection extends ArrayCollection
     public function getIds()
     {
         return $this->extractField('id');
+    }
+
+    /**
+     * @param callable|Closure $sortCallback
+     * @return $this
+     */
+    public function usort(Closure $sortCallback)
+    {
+        $values = $this->getValues();
+        usort(
+            $values,
+            $sortCallback
+        );
+        $this->setValues($values);
+        return $this;
+    }
+
+    /**
+     * @param array|\Traversable $values
+     * @return $this
+     */
+    public function setValues($values)
+    {
+        $this->clear();
+        foreach ($values as $key => $value) {
+            $this->set($key, $value);
+        }
+        return $this;
     }
 }

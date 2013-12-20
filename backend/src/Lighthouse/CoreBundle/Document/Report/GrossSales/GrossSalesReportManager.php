@@ -722,7 +722,7 @@ class GrossSalesReportManager
             $endDayHours
         );
 
-        return $grossSalesByProductCollection->normalizeKeys();
+        return $grossSalesByProductCollection->sortByName();
     }
 
     /**
