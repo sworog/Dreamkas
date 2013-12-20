@@ -42,7 +42,7 @@ class InvoicesFilter implements FilterInterface
     public function populate(array $data)
     {
         if (isset($data['skuOrSupplierInvoiceSku'])) {
-            $this->skuOrSupplierInvoiceSku = $data['skuOrSupplierInvoiceSku'];
+            $this->setSkuOrSupplierInvoiceSku($data['skuOrSupplierInvoiceSku']);
         }
     }
 }

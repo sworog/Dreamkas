@@ -27,7 +27,7 @@ class InvoiceProductRepository extends DocumentRepository
 
     /**
      * @param string|Invoice $invoice
-     * @return Cursor
+     * @return Cursor|InvoiceProduct[]
      */
     public function findByInvoice($invoice)
     {
@@ -47,16 +47,13 @@ class InvoiceProductRepository extends DocumentRepository
     public function recalcVATByInvoice($invoice)
     {
         $invoiceProducts = $this->findByInvoice($invoice);
-        if (count($invoiceProducts) == 0) {
-            return true;
+        if ($invoiceProducts->count() > 0) {
+            foreach ($invoiceProducts as $invoiceProduct) {
+                $invoiceProduct->calculatePrices();
+                $this->getDocumentManager()->persist($invoiceProduct);
+            }
+            $this->getDocumentManager()->flush();
         }
-        foreach ($invoiceProducts as $invoiceProduct) {
-            /** @var $invoiceProduct InvoiceProduct */
-            $invoiceProduct->calculatePrices();
-            $this->getDocumentManager()->persist($invoiceProduct);
-        }
-
-        $this->getDocumentManager()->flush();
         return true;
     }
 }
