@@ -2025,48 +2025,68 @@ class ReportControllerTest extends WebTestCase
             'GET',
             '/api/1/stores/' . $storeId . '/subcategories/' . $subCategoryId . '/reports/grossSalesByProducts',
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime("11:35:47")))
         );
 
         $this->assertResponseCode(200);
 
-        $expectedProduct2Today = array(
-            'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
-            'runningSum' => 583.11,
+        Assert::assertJsonPathEquals($product1Id, '0.storeProduct.product.id', $response);
+        Assert::assertJsonPathEquals($product2Id, '1.storeProduct.product.id', $response);
+
+        $filteredResponse = $response;
+        $filteredResponse[0]['storeProduct'] = array(
+            'product' => array(
+                'id' => $response[0]['storeProduct']['product']['id']
+            )
         );
-        $expectedProduct2Yesterday = array(
-            'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
-            'runningSum' => 583.11,
-        );
-        $expectedProduct2WeekAgo = array(
-            'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
-            'runningSum' => 583.11,
+        $filteredResponse[1]['storeProduct'] = array(
+            'product' => array(
+                'id' => $response[1]['storeProduct']['product']['id']
+            )
         );
 
-        $expectedProduct1Today = array(
-            'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
-            'runningSum' => 312.93,
-        );
-        $expectedProduct1Yesterday = array(
-            'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
-            'runningSum' => 312.93,
-        );
-        $expectedProduct1WeekAgo = array(
-            'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
-            'runningSum' => 414.93,
+        $expectedResponse = array(
+            0 => array(
+                'today' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'runningSum' => 312.93,
+                ),
+                'yesterday' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'runningSum' => 312.93,
+                ),
+                'weekAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'runningSum' => 414.93,
+                ),
+                'storeProduct' => array(
+                    'product' => array(
+                        'id' => $product1Id,
+                    )
+                )
+            ),
+            1 => array(
+                'today' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'runningSum' => 583.11,
+                ),
+                'yesterday' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'runningSum' => 583.11,
+                ),
+                'weekAgo' => array(
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'runningSum' => 583.11,
+                ),
+                'storeProduct' => array(
+                    'product' => array(
+                        'id' => $product2Id,
+                    )
+                )
+            ),
         );
 
-        $this->assertCount(2, $response);
-
-        Assert::assertJsonPathEquals($product1Id, '*.storeProduct.product.id', $response);
-        Assert::assertJsonPathEquals($expectedProduct1Today, '*.today', $response);
-        Assert::assertJsonPathEquals($expectedProduct1Yesterday, '*.yesterday', $response);
-        Assert::assertJsonPathEquals($expectedProduct1WeekAgo, '*.weekAgo', $response);
-
-        Assert::assertJsonPathEquals($product2Id, '*.storeProduct.product.id', $response);
-        Assert::assertJsonPathEquals($expectedProduct2Today, '*.today', $response);
-        Assert::assertJsonPathEquals($expectedProduct2Yesterday, '*.yesterday', $response);
-        Assert::assertJsonPathEquals($expectedProduct2WeekAgo, '*.weekAgo', $response);
+        $this->assertEquals($expectedResponse, $filteredResponse);
     }
 
     public function testGrossSalesByProductsEmpty()
@@ -2120,28 +2140,28 @@ class ReportControllerTest extends WebTestCase
         $this->assertResponseCode(200);
 
         $expectedProduct2Today = array(
-            'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+            'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
             'runningSum' => 0,
         );
         $expectedProduct2Yesterday = array(
-            'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+            'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
             'runningSum' => 0,
         );
         $expectedProduct2WeekAgo = array(
-            'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+            'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
             'runningSum' => 0,
         );
 
         $expectedProduct1Today = array(
-            'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+            'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
             'runningSum' => 0,
         );
         $expectedProduct1Yesterday = array(
-            'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+            'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
             'runningSum' => 0,
         );
         $expectedProduct1WeekAgo = array(
-            'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+            'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
             'runningSum' => 0,
         );
 
@@ -2243,15 +2263,15 @@ class ReportControllerTest extends WebTestCase
         $expectedResponse = array(
             0 => array(
                 'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
                     'runningSum' => 278.51,
                 ),
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
                     'runningSum' => 644.12,
                 ),
                 'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
                     'runningSum' => 443.93,
                 ),
                 'subCategory' => array(
@@ -2260,15 +2280,15 @@ class ReportControllerTest extends WebTestCase
             ),
             1 => array(
                 'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
                     'runningSum' => 129.58,
                 ),
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
                     'runningSum' => 64.79,
                 ),
                 'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
                     'runningSum' => 842.27,
                 ),
                 'subCategory' => array(
@@ -2304,15 +2324,15 @@ class ReportControllerTest extends WebTestCase
 
         $emptyDayReport = array(
             'today' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
                 'runningSum' => 0,
             ),
             'yesterday' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
                 'runningSum' => 0,
             ),
             'weekAgo' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
                 'runningSum' => 0,
             )
         );
@@ -2354,30 +2374,30 @@ class ReportControllerTest extends WebTestCase
         $expectedResponse = array(
             0 => array(
                 'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
                     'runningSum' => 408.09,
                 ),
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
                     'runningSum' => 708.91,
                 ),
                 'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
                     'runningSum' => 1286.2,
                 ),
                 'category' => array('id' => $catalogIds['1.1']),
             ),
             1 => array(
                 'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
                     'runningSum' => 0,
                 ),
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
                     'runningSum' => 0,
                 ),
                 'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
                     'runningSum' => 0,
                 ),
                 'category' => array('id' => $catalogIds['1.2'])
@@ -2411,15 +2431,15 @@ class ReportControllerTest extends WebTestCase
 
         $emptyDayReport = array(
             'today' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
                 'runningSum' => 0,
             ),
             'yesterday' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
                 'runningSum' => 0,
             ),
             'weekAgo' => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
                 'runningSum' => 0,
             )
         );
@@ -2461,30 +2481,30 @@ class ReportControllerTest extends WebTestCase
         $expectedResponse = array(
             0 => array(
                 'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
                     'runningSum' => 408.09,
                 ),
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
                     'runningSum' => 708.91,
                 ),
                 'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
                     'runningSum' => 1286.2,
                 ),
                 'group' => array('id' => $catalogIds['1'])
             ),
             1 => array(
                 'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
                     'runningSum' => 0,
                 ),
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
                     'runningSum' => 0,
                 ),
                 'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
                     'runningSum' => 0,
                 ),
                 'group' => array('id' => $catalogIds['2']),
@@ -2519,30 +2539,30 @@ class ReportControllerTest extends WebTestCase
         $expectedResponse = array(
             0 => array(
                 'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
                     'runningSum' => 0,
                 ),
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
                     'runningSum' => 0,
                 ),
                 'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
                     'runningSum' => 0,
                 ),
                 'group' => array('id' => $catalogIds['1'])
             ),
             1 => array(
                 'today' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
                     'runningSum' => 0,
                 ),
                 'yesterday' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
                     'runningSum' => 0,
                 ),
                 'weekAgo' => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('-7 day 09:00')),
                     'runningSum' => 0,
                 ),
                 'group' => array('id' => $catalogIds['2'])
