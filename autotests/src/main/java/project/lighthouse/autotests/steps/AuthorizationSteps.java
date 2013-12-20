@@ -81,7 +81,7 @@ public class AuthorizationSteps extends ScenarioSteps {
         try {
             productCardView.editButtonClick();
             fail("Edit product link is present!");
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -90,7 +90,7 @@ public class AuthorizationSteps extends ScenarioSteps {
         try {
             productListPage.createNewProductButtonClick();
             fail("Create new product button is present on product list page!");
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -103,7 +103,8 @@ public class AuthorizationSteps extends ScenarioSteps {
     public void userCardEditButtonIsNotPresent() {
         try {
             userCardPage.editButtonClick();
-        } catch (Exception e) {
+            fail("User card edit link is present!");
+        } catch (Exception ignored) {
         }
     }
 
@@ -116,7 +117,8 @@ public class AuthorizationSteps extends ScenarioSteps {
     public void userCardListLinkIsNotPresent() {
         try {
             userCardPage.pageBackLink();
-        } catch (Exception e) {
+            fail("User card list link is present!");
+        } catch (Exception ignored) {
         }
     }
 }

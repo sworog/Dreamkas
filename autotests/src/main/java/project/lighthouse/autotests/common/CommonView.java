@@ -47,9 +47,10 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
     }
 
     public void itemCheck(String value) {
+        // TODO removed thread sleep method
         try {
             Thread.sleep(1000);
-        } catch (InterruptedException e) {
+        } catch (InterruptedException ignored) {
         }
         try {
             commonActions.elementShouldBeVisible(value, this);
@@ -64,7 +65,7 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
         try {
             WebElement listItem = getWebElementItem(value);
             $(listItem).shouldNotBeVisible();
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
