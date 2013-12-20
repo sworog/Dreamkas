@@ -16,6 +16,11 @@ public class Us_57_3_Fixture extends AbstractFixture {
     private static final String PRODUCT_ID_2 = "255731";
     private static final String SUBCATEGORY_NAME_1 = "defaultSubCategory-s25u573";
     private static final String SUBCATEGORY_NAME_2 = "defaultSubCategory-s25u5731";
+    private static final String CATEGORY_NAME_1 = "defaultCategory-s25u573";
+    private static final String CATEGORY_NAME_2 = "defaultCategory-s25u5731";
+    private static final String GROUP_NAME_1 = "defaultGroup-s25u573";
+    private static final String GROUP_NAME_2 = "defaultGroup-s25u5731";
+
 
     private Us_57_4_Fixture us_57_4_fixture = new Us_57_4_Fixture();
 
@@ -43,15 +48,31 @@ public class Us_57_3_Fixture extends AbstractFixture {
         return generateEmptyFixtureExampleTable(SUBCATEGORY_NAME_1);
     }
 
-    public ExamplesTable getExampleTableForShop1Product1() {
+    public ExamplesTable getExampleTableForShop1SubCategory1() {
         return getExampleTable1(SUBCATEGORY_NAME_1);
     }
 
-    public ExamplesTable getExampleTableForShop1Product2() {
+    public ExamplesTable getExampleTableForShop1Group2() {
+        return getExampleTable2(GROUP_NAME_2);
+    }
+
+    public ExamplesTable getExampleTableForShop1Category2() {
+        return getExampleTable2(CATEGORY_NAME_2);
+    }
+
+    public ExamplesTable getExampleTableForShop1SubCategory2() {
         return getExampleTable2(SUBCATEGORY_NAME_2);
     }
 
-    public ExamplesTable getExampleTableForShop2Product1() {
+    public ExamplesTable getExampleTableForShop2Group1() {
+        return getExampleTable2(GROUP_NAME_1);
+    }
+
+    public ExamplesTable getExampleTableForShop2Category1() {
+        return getExampleTable2(CATEGORY_NAME_1);
+    }
+
+    public ExamplesTable getExampleTableForShop2SubCategory1() {
         return getExampleTable2(SUBCATEGORY_NAME_1);
     }
 
@@ -60,7 +81,7 @@ public class Us_57_3_Fixture extends AbstractFixture {
     }
 
     private ExamplesTable getExampleTable1(String subCategoryName) {
-        int hour = new DateTime().getHourOfDay() + 1;
+        int hour = new DateTime().getHourOfDay();
         List<Map<String, String>> mapList = new ArrayList<>();
         Map<String, String> shop1DataMap = new HashMap<>();
         shop1DataMap.put("name", subCategoryName);
@@ -72,7 +93,7 @@ public class Us_57_3_Fixture extends AbstractFixture {
     }
 
     private ExamplesTable getExampleTable2(String subCategoryName) {
-        int hour = new DateTime().getHourOfDay() + 1;
+        int hour = new DateTime().getHourOfDay();
         List<Map<String, String>> mapList = new ArrayList<>();
         Map<String, String> shop1DataMap = new HashMap<>();
         shop1DataMap.put("name", subCategoryName);
