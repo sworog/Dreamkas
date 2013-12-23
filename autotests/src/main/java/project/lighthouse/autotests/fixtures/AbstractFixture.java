@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.fixtures;
 
 import org.apache.commons.io.FileUtils;
+import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.xml.PurchaseXmlBuilder;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -13,6 +14,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class AbstractFixture {
+
+    public final String todayDate = new DateTimeHelper(0).convertDate();
+    public final String yesterdayDate = new DateTimeHelper(1).convertDate();
+    public final String weekAgoDate = new DateTimeHelper(7).convertDate();
 
     public Map<Integer, String> generateFormattedGrossSalesSumPerHour(Map<Integer, Double> fixtureMap) {
         Map<Integer, String> formattedMap = new HashMap<>();
