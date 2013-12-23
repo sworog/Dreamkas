@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\Product;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Classifier\ParentableRepository;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Doctrine\MongoDB\LoggableCursor;
@@ -25,12 +26,11 @@ class ProductRepository extends DocumentRepository implements ParentableReposito
 
     /**
      * @param SubCategory $subCategory
-     * @return ProductCollection
+     * @return Cursor|Product[]
      */
     public function findBySubCategory(SubCategory $subCategory)
     {
-        $cursor = $this->findBy(array('subCategory' => $subCategory->id));
-        return new ProductCollection($cursor);
+        return $this->findBy(array('subCategory' => $subCategory->id));
     }
 
     /**

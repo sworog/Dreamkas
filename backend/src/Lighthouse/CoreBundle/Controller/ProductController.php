@@ -113,10 +113,12 @@ class ProductController extends AbstractRestController
      * @param SubCategory $subCategory
      * @return ProductCollection
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @Rest\View(serializerGroups={"Collection"})
      * @ApiDoc
      */
     public function getSubcategoryProductsAction(SubCategory $subCategory)
     {
-        return $this->documentRepository->findBySubCategory($subCategory);
+        $cursor = $this->documentRepository->findBySubCategory($subCategory);
+        return new ProductCollection($cursor);
     }
 }

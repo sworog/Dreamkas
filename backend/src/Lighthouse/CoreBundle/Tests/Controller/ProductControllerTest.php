@@ -470,6 +470,22 @@ class ProductControllerTest extends WebTestCase
         }
     }
 
+    public function testGetSubCategoryProductsHaveNoSubcategoryField()
+    {
+        $subCategoryId = $this->createSubCategory();
+        $this->createProductsBySku(array('1', '2', '3', '4', '5'));
+
+        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/subcategories/' . $subCategoryId . '/products'
+        );
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(5, '*.id', $response);
+        Assert::assertJsonPathCount(0, '*.subCategory', $response);
+    }
+
     /**
      * @dataProvider productProvider
      */

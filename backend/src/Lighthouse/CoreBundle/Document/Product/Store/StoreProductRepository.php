@@ -163,9 +163,9 @@ class StoreProductRepository extends DocumentRepository
      */
     public function findByStoreSubCategory(Store $store, SubCategory $subCategory)
     {
-        $productCollection = $this->productRepository->findBySubCategory($subCategory);
+        $productsCursor = $this->productRepository->findBySubCategory($subCategory);
         $products = array();
-        foreach ($productCollection as $product) {
+        foreach ($productsCursor as $product) {
             $products[$product->id] = $product;
         }
 

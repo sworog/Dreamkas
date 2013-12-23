@@ -13,7 +13,6 @@ use Lighthouse\CoreBundle\Versionable\VersionableInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints\Product\RetailPrice as AssertProductRetailPrice;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
-use JMS\Serializer\Annotation\Exclude;
 
 /**
  *
@@ -63,6 +62,7 @@ class Product extends AbstractDocument implements VersionableInterface
     /**
      * @MongoDB\Id
      * @var string
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $id;
 
@@ -71,12 +71,14 @@ class Product extends AbstractDocument implements VersionableInterface
      * @Assert\NotBlank
      * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
      * @var string
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $name;
 
     /**
      * @MongoDB\String
      * @Assert\NotBlank(message="lighthouse.validation.errors.product.units.blank")
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $units;
 
@@ -84,18 +86,21 @@ class Product extends AbstractDocument implements VersionableInterface
      * @MongoDB\Int
      * @Assert\NotBlank(message="lighthouse.validation.errors.product.vat.blank")
      * @Assert\Range(min="0")
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $vat;
 
     /**
      * @MongoDB\Field(type="money")
      * @var Money
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $purchasePrice;
 
     /**
      * @MongoDB\String
      * @Assert\Length(max="200", maxMessage="lighthouse.validation.errors.length")
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $barcode;
 
@@ -104,64 +109,74 @@ class Product extends AbstractDocument implements VersionableInterface
      * @MongoDB\UniqueIndex
      * @Assert\NotBlank
      * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $sku;
 
     /**
      * @MongoDB\String
      * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $vendorCountry;
 
     /**
      * @MongoDB\String
      * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $vendor;
 
     /**
      * @MongoDB\String
      * @Assert\Length(max="2000", maxMessage="lighthouse.validation.errors.length")
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $info;
 
     /**
      * @MongoDB\Field(type="money")
      * @var Money
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $retailPriceMin;
 
     /**
      * @MongoDB\Field(type="money")
      * @var Money
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $retailPriceMax;
 
     /**
      * @MongoDB\Float
      * @var float
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $retailMarkupMin;
 
     /**
      * @MongoDB\Float
      * @var float
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $retailMarkupMax;
 
     /**
      * @MongoDB\String
      * @var string
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $retailPricePreference = self::RETAIL_PRICE_PREFERENCE_MARKUP;
 
     /**
      * @var AbstractRounding
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $rounding;
 
     /**
-     * @Exclude
+     * @Serializer\Exclude
      * @MongoDB\String
      * @var string
      */
@@ -173,6 +188,8 @@ class Product extends AbstractDocument implements VersionableInterface
      *     simple=true,
      *     cascade="persist"
      * )
+     * @MongoDB\Index
+     * @Serializer\Groups({"Default"})
      * @var SubCategory
      */
     protected $subCategory;
