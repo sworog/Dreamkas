@@ -27,7 +27,7 @@ public class CompareResults extends ArrayList<CompareResult> {
         for (CompareResult compareResult : this) {
             String message = String.format("'%s' -> Actual: '%s', Expected: '%s'", compareResult.getRowName(),
                     compareResult.getActualValue(), compareResult.getExpectedValue());
-            builder.append(message + "\n");
+            builder.append(message).append("\n");
         }
         return builder.toString();
     }

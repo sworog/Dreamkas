@@ -107,7 +107,7 @@ public class ProductSteps extends ScenarioSteps {
         try {
             productCardView.editProductButtonClick();
             Assert.fail("Edit product button is clicked and present!");
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 

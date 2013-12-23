@@ -12,7 +12,7 @@ abstract public class AbstractObject {
 
     private WebElement element;
     private WebDriver webDriver;
-    public Map<String, ObjectProperty> objectPropertyMap = new HashMap();
+    public Map<String, ObjectProperty> objectPropertyMap = new HashMap<>();
 
     public AbstractObject(WebElement element) {
         this.element = element;

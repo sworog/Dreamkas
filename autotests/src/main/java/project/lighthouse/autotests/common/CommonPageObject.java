@@ -17,7 +17,7 @@ abstract public class CommonPageObject extends PageObject {
 
     protected Waiter waiter = new Waiter(getDriver());
 
-    public Map<String, CommonItem> items = new HashMap();
+    public Map<String, CommonItem> items = new HashMap<>();
 
     protected CommonActions commonActions = new CommonActions(getDriver(), items);
 
