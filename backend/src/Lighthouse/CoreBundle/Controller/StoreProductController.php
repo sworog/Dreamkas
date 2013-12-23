@@ -78,6 +78,7 @@ class StoreProductController extends AbstractRestController
      * @param SubCategory $subCategory
      * @return StoreProductCollection
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
+     * @Rest\View(serializerGroups={"Collection"})
      * @ApiDoc
      */
     public function getStoreSubcategoryProductsAction(Store $store, SubCategory $subCategory)

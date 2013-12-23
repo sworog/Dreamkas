@@ -43,6 +43,7 @@ class StoreProduct extends AbstractDocument
 
     /**
      * @MongoDB\Field(type="money")
+     * @Serializer\Groups({"Default", "Collection"})
      * @var Money
      */
     protected $retailPrice;
@@ -50,18 +51,21 @@ class StoreProduct extends AbstractDocument
     /**
      * @MongoDB\Float
      * @var float
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $retailMarkup;
 
     /**
      * @MongoDB\String
      * @var string
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $retailPricePreference = Product::RETAIL_PRICE_PREFERENCE_MARKUP;
 
     /**
      * @MongoDB\Field(type="money")
      * @var Money
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $roundedRetailPrice;
 
@@ -71,6 +75,7 @@ class StoreProduct extends AbstractDocument
      *     simple=true,
      *     cascade={"persist"}
      * )
+     * @Serializer\Groups({"Default", "Collection"})
      * @var Product
      */
     protected $product;
@@ -93,6 +98,7 @@ class StoreProduct extends AbstractDocument
      *     cascade={"persist"}
      * )
      * @var Store
+     * @Serializer\Groups({"Default"})
      */
     protected $store;
 
@@ -101,6 +107,7 @@ class StoreProduct extends AbstractDocument
      * @MongoDB\Increment
      * @Serializer\Accessor(getter="getInventoryDecimal")
      * @var int
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $inventory = 0;
 
@@ -108,23 +115,27 @@ class StoreProduct extends AbstractDocument
      * @MongoDB\Float
      * @Serializer\Accessor(getter="getAverageDailySalesDecimal")
      * @var float
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $averageDailySales = 0;
 
     /**
      * @MongoDB\Field(type="money")
      * @var Money
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $lastPurchasePrice;
 
     /**
      * @MongoDB\Field(type="money")
      * @var Money
+     * @Serializer\Groups({"Default", "Collection"})
      */
     protected $averagePurchasePrice;
 
     /**
      * @Serializer\VirtualProperty
+     * @Serializer\Groups({"Default", "Collection"})
      * @return int
      * @deprecated
      */
@@ -152,6 +163,7 @@ class StoreProduct extends AbstractDocument
     /**
      * @Serializer\SerializedName("inventoryDays")
      * @Serializer\VirtualProperty
+     * @Serializer\Groups({"Default", "Collection"})
      * @return Decimal
      */
     public function getInventoryDaysDecimal()

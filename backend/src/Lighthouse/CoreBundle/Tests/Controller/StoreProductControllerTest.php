@@ -495,6 +495,29 @@ class StoreProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($productId3, '*.product.id', $getResponse, 1);
     }
 
+    public function testGetStoreSubCategoryProductsHasNoSubCategoryAndStore()
+    {
+        $accessToken = $this->auth($this->storeManager, 'password');
+
+        $subCategoryId = $this->createSubCategory(null, 'Вино сухое');
+
+        $this->createProduct('1', $subCategoryId);
+        $this->createProduct('2', $subCategoryId);
+        $this->createProduct('3', $subCategoryId);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/subcategories/'  . $subCategoryId . '/products'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(3, '*.product', $getResponse);
+        Assert::assertJsonPathCount(0, '*.product.subCategory', $getResponse);
+        Assert::assertJsonPathCount(0, '*.store', $getResponse);
+    }
+
     /**
      * @param $expectedCode
      * @param $productRounding
