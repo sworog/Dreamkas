@@ -7,6 +7,7 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use Karzer\Framework\TestCase\SymfonyWebTestCase;
 use Lighthouse\CoreBundle\Job\JobManager;
 use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 class ContainerAwareTestCase extends SymfonyWebTestCase
 {
@@ -34,8 +35,21 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
 
     protected static function rebootKernel()
     {
-        static::$kernel->shutdown();
+        $kernel = static::getKernel();
+        $kernel->shutdown();
+        $kernel->boot();
+    }
+
+    /**
+     * @return KernelInterface
+     */
+    protected static function getKernel()
+    {
+        if (null === static::$kernel) {
+            static::initKernel();
+        }
         static::$kernel->boot();
+        return static::$kernel;
     }
 
     /**
@@ -53,7 +67,7 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
      */
     protected function getContainer()
     {
-        return static::initKernel()->getContainer();
+        return static::getKernel()->getContainer();
     }
 
     /**

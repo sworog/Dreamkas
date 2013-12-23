@@ -11,13 +11,13 @@ use Symfony\Component\Console\Tester\CommandTester;
 class Set10ProductsImportTest extends ContainerAwareTestCase
 {
     /**
-     * @param bool $shutdown
+     * @param bool $reboot
      * @return CommandTester
      */
-    protected function getCommandTester($shutdown = false)
+    protected function getCommandTester($reboot = false)
     {
-        if ($shutdown) {
-            static::$kernel->shutdown();
+        if ($reboot) {
+            $this->rebootKernel();
         }
 
         /* @var Set10ProductsImport $command */

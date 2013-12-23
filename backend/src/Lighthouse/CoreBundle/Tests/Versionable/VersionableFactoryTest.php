@@ -14,33 +14,14 @@ use Lighthouse\CoreBundle\Versionable\VersionRepository;
 
 class VersionableFactoryTest extends ContainerAwareTestCase
 {
-    /**
-     * @var DocumentManager
-     */
-    protected $dm;
-
-    protected function setUp()
-    {
-        parent::setUp();
-
-        $this->dm = $this->getContainer()->get('doctrine_mongodb.odm.document_manager');
-    }
-
-    protected function tearDown()
-    {
-        $this->dm = null;
-
-        parent::tearDown();
-    }
-
     public function testCreateVersionable()
     {
         $this->clearMongoDb();
 
         $product = $this->createProduct();
 
-        $this->dm->persist($product);
-        $this->dm->flush();
+        $this->getDocumentManager()->persist($product);
+        $this->getDocumentManager()->flush();
 
         /* @var VersionFactory $versionFactory */
         $versionFactory = $this->getContainer()->get('lighthouse.core.versionable.factory');
@@ -56,8 +37,8 @@ class VersionableFactoryTest extends ContainerAwareTestCase
         $this->assertNotNull($productVersion->getVersion());
         $this->assertSame($product, $productVersion->getObject());
 
-        $this->dm->persist($productVersion);
-        $this->dm->flush();
+        $this->getDocumentManager()->persist($productVersion);
+        $this->getDocumentManager()->flush();
 
         $this->assertEquals($version, $productVersion->getVersion());
     }
@@ -68,27 +49,25 @@ class VersionableFactoryTest extends ContainerAwareTestCase
 
         $product = $this->createProduct();
 
-        $this->dm->persist($product);
-        $this->dm->flush();
+        $this->getDocumentManager()->persist($product);
+        $this->getDocumentManager()->flush();
 
         /* @var VersionRepository $productVersionRepo */
         $productVersionRepo = $this->getContainer()->get('lighthouse.core.document.repository.product_version');
         $productVersion = $productVersionRepo->findOrCreateByDocument($product);
 
-        $state = $this->dm->getUnitOfWork()->getDocumentState($productVersion);
-        $this->assertEquals(UnitOfWork::STATE_NEW, $state);
-
-        $this->dm->persist($productVersion);
-        $this->dm->flush();
-
-        $state = $this->dm->getUnitOfWork()->getDocumentState($productVersion);
+        $state = $this->getDocumentManager()->getUnitOfWork()->getDocumentState($productVersion);
         $this->assertEquals(UnitOfWork::STATE_MANAGED, $state);
+
+        $this->getDocumentManager()->persist($productVersion);
+        $this->getDocumentManager()->flush();
+
+        $this->getDocumentManager()->clear();
 
         $foundProductVersion = $productVersionRepo->findOrCreateByDocument($product);
 
         $this->assertEquals($productVersion->getVersion(), $foundProductVersion->getVersion());
-        // FIXME is same assertion is necessary?
-        //$this->assertNotSame($productVersion, $foundProductVersion);
+        $this->assertNotSame($productVersion, $foundProductVersion);
     }
 
     /**
