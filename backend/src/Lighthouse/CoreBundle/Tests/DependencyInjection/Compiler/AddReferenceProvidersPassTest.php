@@ -95,4 +95,3 @@ class AddReferenceProvidersPassTest extends ContainerAwareTestCase
         $this->assertInstanceOf('Symfony\\Component\\DependencyInjection\\Reference', $methodCalls[2][1][1]);
     }
 }
- 
