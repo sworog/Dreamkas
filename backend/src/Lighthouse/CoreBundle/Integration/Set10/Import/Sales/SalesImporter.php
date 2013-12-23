@@ -343,12 +343,22 @@ class SalesImporter
      */
     protected function createReceiptHash(PurchaseElement $purchaseElement)
     {
+        $hashAttributeNames = array(
+            'saletime',
+            'number',
+            'shift',
+            'cash',
+            'shop',
+            'operDay',
+            'operationType',
+            'userName',
+            'tabNumber'
+        );
         $attributes = array();
         /* @var \SimpleXMLElement $attr */
-        foreach ($purchaseElement->attributes() as $attr) {
-            $attributes[$attr->getName()] = (string) $attr;
+        foreach ($hashAttributeNames as $attr) {
+            $attributes[$attr] = (string) $purchaseElement[$attr];
         }
-        ksort($attributes);
         $hashStr = '';
         foreach ($attributes as $name => $value) {
             $hashStr.= sprintf('%s:%s;', $name, $value);

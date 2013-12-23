@@ -128,6 +128,40 @@ class SalesImporterTest extends WebTestCase
         $this->assertStoreProductTotals($storeIds['777'], $productIds['Кит-Кат-343424'], -2);
     }
 
+    public function testImportDoubleSalesWithDifferentAmount()
+    {
+        $storeIds = $this->getStores(array('777', '666'));
+        $productIds = $this->createProductsBySku(
+            array(
+                'Кит-Кат-343424',
+            )
+        );
+
+        $output = new TestOutput();
+        $this->import('purchases-13-09-2013_15-09-26.xml', $output);
+
+        $this->assertStringStartsWith('...', $output->getDisplay());
+
+        $this->assertStoreProductTotals($storeIds['666'], $productIds['Кит-Кат-343424'], -1);
+        $this->assertStoreProductTotals($storeIds['777'], $productIds['Кит-Кат-343424'], -2);
+
+        static::rebootKernel();
+
+        $output = new TestOutput();
+        $this->import('purchases-13-09-2013_15-09-26-double.xml', $output);
+
+        $display = $output->getDisplay();
+        $this->assertStringStartsWith(".V.V.V                                               6\nFlushing", $display);
+        $lines = $output->getLines();
+        $this->assertContains('Errors', $lines[3]);
+        $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[4]);
+        $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[5]);
+        $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[6]);
+
+        $this->assertStoreProductTotals($storeIds['666'], $productIds['Кит-Кат-343424'], -1);
+        $this->assertStoreProductTotals($storeIds['777'], $productIds['Кит-Кат-343424'], -2);
+    }
+
     public function testReturnsImport()
     {
         $storeId = $this->factory->getStore('197');
