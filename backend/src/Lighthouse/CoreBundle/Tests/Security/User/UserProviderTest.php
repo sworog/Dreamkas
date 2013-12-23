@@ -2,23 +2,34 @@
 
 namespace Lighthouse\CoreBundle\Tests\Security\User;
 
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserProviderTest extends ContainerAwareTestCase
 {
+    /**
+     * @return UserProvider
+     */
+    protected function getUserProvider()
+    {
+        return $this->getContainer()->get('lighthouse.core.user.provider');
+    }
+
     /**
      * @expectedException \Symfony\Component\Security\Core\Exception\UnsupportedUserException
      */
     public function testRefreshUserInvalidUser()
     {
-        /* @var UserProvider $userProvider */
-        $userProvider = $this->getContainer()->get('lighthouse.core.user.provider');
+        $this->clearMongoDb();
 
+        /* @var UserInterface $invalidUser */
         $invalidUser = $this->getMock('Symfony\\Component\\Security\\Core\\User\\UserInterface');
 
-        $userProvider->refreshUser($invalidUser);
+        $this->getUserProvider()->refreshUser($invalidUser);
     }
 
     /**
@@ -27,21 +38,19 @@ class UserProviderTest extends ContainerAwareTestCase
      */
     public function testRefreshUserNotFound()
     {
-        /* @var UserProvider $userProvider */
-        $userProvider = $this->getContainer()->get('lighthouse.core.user.provider');
+        $this->clearMongoDb();
 
         $user = new User();
         $user->id = 'unknown';
 
-        $userProvider->refreshUser($user);
+        $this->getUserProvider()->refreshUser($user);
     }
 
     public function testRefreshUser()
     {
         $this->clearMongoDb();
 
-        /* @var UserProvider $userProvider */
-        $userProvider = $this->getContainer()->get('lighthouse.core.user.provider');
+        $userProvider = $this->getUserProvider();
 
         $user = $userProvider->createNewUser(
             'username',
@@ -63,5 +72,45 @@ class UserProviderTest extends ContainerAwareTestCase
         $this->assertEquals($user->id, $refreshedUser->id);
         $this->assertEquals($user->username, $refreshedUser->username);
         $this->assertNotSame($user, $refreshedUser);
+    }
+
+    public function testSupportsClass()
+    {
+        $this->assertTrue($this->getUserProvider()->supportsClass(User::getClassName()));
+    }
+
+    public function testNotSupportsClass()
+    {
+        $this->assertFalse($this->getUserProvider()->supportsClass(Store::getClassName()));
+    }
+
+    public function testLoadUserByUsername()
+    {
+        $this->clearMongoDb();
+
+        $user = $this->getUserProvider()->createNewUser(
+            'username',
+            'password',
+            'name',
+            User::ROLE_ADMINISTRATOR,
+            'position'
+        );
+
+        static::rebootKernel();
+
+        $loadedUser = $this->getUserProvider()->loadUserByUsername('username');
+
+        $this->assertEquals($user->id, $loadedUser->id);
+        $this->assertNotSame($user, $loadedUser);
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Security\Core\Exception\UsernameNotFoundException
+     */
+    public function testLoadUserByUsernameInvalidUsername()
+    {
+        $this->clearMongoDb();
+
+        $this->getUserProvider()->loadUserByUsername('username');
     }
 }

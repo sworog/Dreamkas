@@ -19,11 +19,6 @@ use Symfony\Component\Validator\ValidatorInterface;
 class UserProvider implements UserProviderInterface
 {
     /**
-     * @var string
-     */
-    protected $class = 'Lighthouse\\CoreBundle\\Document\\User\\User';
-
-    /**
      * @var UserRepository
      */
     protected $userRepository;
@@ -107,7 +102,7 @@ class UserProvider implements UserProviderInterface
      */
     public function supportsClass($class)
     {
-        return $class === $this->class;
+        return $class === User::getClassName();
     }
 
     /**
