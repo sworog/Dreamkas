@@ -123,14 +123,9 @@ class UserProvider implements UserProviderInterface
 
     /**
      * @param UserInterface $user
-     * @param bool $validate
      */
-    public function updateUser(UserInterface $user, $validate = false)
+    public function updateUser(UserInterface $user)
     {
-        if ($validate) {
-            $this->validator->validate($user);
-        }
-
         $this->userRepository->getDocumentManager()->persist($user);
         $this->userRepository->getDocumentManager()->flush();
     }
