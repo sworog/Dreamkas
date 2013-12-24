@@ -26,6 +26,8 @@
         <robot.ip>172.16.2.23</robot.ip>
         <robot.wsdl.url>http://${robot.ip}:8086/WS/robot?WSDL</robot.wsdl.url>
         <robot.target.namespace>http://ws.hub.setrobot.crystals.ru/</robot.target.namespace>
+        <centrum.server.url>//faro.lighthouse.cs</centrum.server.url>
+        <centrum.import.folder.path>/centrum/reports</centrum.import.folder.path>
     </properties>
 
     <dependencies>
@@ -117,6 +119,8 @@
                         <webdriver.base.url>${webdriver.base.url}</webdriver.base.url>
                         <robot.wsdl.url>${robot.wsdl.url}</robot.wsdl.url>
                         <robot.target.namespace>${robot.target.namespace}</robot.target.namespace>
+                        <centrum.server.url>${centrum.server.url}</centrum.server.url>
+                        <centrum.import.folder.path>${centrum.import.folder.path}</centrum.import.folder.path>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>

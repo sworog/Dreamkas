@@ -21,8 +21,8 @@ public class RobotSteps extends ScenarioSteps {
 
     SetRobotHubWS robotPort = new SetRobotHubWSService().getSetRobotHubWSPort();
 
-    private static final String SERVER_URL = "//faro.lighthouse.cs";
-    private static final String IMPORT_FOLDER_PATH = "/centrum/reports";
+    private static final String SERVER_URL = System.getProperty("centrum.server.url");
+    private static final String IMPORT_FOLDER_PATH = System.getProperty("centrum.import.folder.path");
 
     public RobotSteps(Pages pages) {
         super(pages);
@@ -43,8 +43,8 @@ public class RobotSteps extends ScenarioSteps {
 
     @Step
     public void checkExportIsDone() throws InterruptedException {
-        final String sourceFolder = "//faro.lighthouse.cs/centrum/products/source";
-        final String tmpFolder = "//faro.lighthouse.cs/centrum/products/tmp";
+        final String sourceFolder = SERVER_URL + "/centrum/products/source";
+        final String tmpFolder = SERVER_URL + "/centrum/products/tmp";
         checkFolderIsEmptyLoop(sourceFolder);
         checkFolderIsEmptyLoop(tmpFolder);
     }
