@@ -3,7 +3,6 @@ package project.lighthouse.autotests.robotClient;
 import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 import javax.xml.ws.WebEndpoint;
-import javax.xml.ws.WebServiceClient;
 import javax.xml.ws.WebServiceFeature;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -13,24 +12,25 @@ import java.net.URL;
  * 2013-09-09T11:39:32.075+04:00
  * Generated source version: 2.7.6
  */
-@WebServiceClient(name = "SetRobotHubWSService",
-        wsdlLocation = "http://172.16.2.23:8086/WS/robot?WSDL",
-        targetNamespace = "http://ws.hub.setrobot.crystals.ru/")
+
 public class SetRobotHubWSService extends Service {
 
     public final static URL WSDL_LOCATION;
 
-    public final static QName SERVICE = new QName("http://ws.hub.setrobot.crystals.ru/", "SetRobotHubWSService");
-    public final static QName SetRobotHubWSPort = new QName("http://ws.hub.setrobot.crystals.ru/", "SetRobotHubWSPort");
+    private final static String TARGET_NAMESPACE = System.getProperty("robot.target.namespace");
+    private final static String URL_STRING = System.getProperty("robot.wsdl.url");
+
+    public final static QName SERVICE = new QName(TARGET_NAMESPACE, "SetRobotHubWSService");
+    public final static QName SetRobotHubWSPort = new QName(TARGET_NAMESPACE, "SetRobotHubWSPort");
 
     static {
         URL url = null;
         try {
-            url = new URL("http://172.16.2.23:8086/WS/robot?WSDL");
+            url = new URL(URL_STRING);
         } catch (MalformedURLException e) {
             java.util.logging.Logger.getLogger(SetRobotHubWSService.class.getName())
                     .log(java.util.logging.Level.INFO,
-                            "Can not initialize the default wsdl from {0}", "http://172.16.2.23:8086/WS/robot?WSDL");
+                            "Can not initialize the default wsdl from {0}", URL_STRING);
         }
         WSDL_LOCATION = url;
     }
@@ -84,5 +84,4 @@ public class SetRobotHubWSService extends Service {
     public SetRobotHubWS getSetRobotHubWSPort(WebServiceFeature... features) {
         return super.getPort(SetRobotHubWSPort, SetRobotHubWS.class, features);
     }
-
 }

@@ -23,6 +23,9 @@
         <webdriver.base.url>http://${init}.autotests.webfront.lighthouse.cs</webdriver.base.url>
         <webdriver.driver>firefox</webdriver.driver>
         <thucydides.take.screenshots>FOR_FAILURES</thucydides.take.screenshots>
+        <robot.ip>172.16.2.23</robot.ip>
+        <robot.wsdl.url>http://${robot.ip}:8086/WS/robot?WSDL</robot.wsdl.url>
+        <robot.target.namespace>http://ws.hub.setrobot.crystals.ru/</robot.target.namespace>
     </properties>
 
     <dependencies>
@@ -94,7 +97,6 @@
                 <artifactId>versions-maven-plugin</artifactId>
                 <version>2.1</version>
             </plugin>
-
             <plugin>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>2.11</version>
@@ -112,9 +114,9 @@
                         <thucydides.outputDirectory>${thucydides.outputDirectory}</thucydides.outputDirectory>
                         <thucydides.capability.types>sprint,user story</thucydides.capability.types>
                         <webdriver.driver>${webdriver.driver}</webdriver.driver>
-                        <webdriver.timeouts.implicitlywait>${webdriver.timeouts.implicitlywait}
-                        </webdriver.timeouts.implicitlywait>
                         <webdriver.base.url>${webdriver.base.url}</webdriver.base.url>
+                        <robot.wsdl.url>${robot.wsdl.url}</robot.wsdl.url>
+                        <robot.target.namespace>${robot.target.namespace}</robot.target.namespace>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>
