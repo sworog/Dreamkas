@@ -251,7 +251,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "getTestName")
     public JAXBElement<GetTestName> createGetTestName(GetTestName value) {
-        return new JAXBElement<GetTestName>(_GetTestName_QNAME, GetTestName.class, null, value);
+        return new JAXBElement<>(_GetTestName_QNAME, GetTestName.class, null, value);
     }
 
     /**
@@ -259,7 +259,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "restartCash")
     public JAXBElement<RestartCash> createRestartCash(RestartCash value) {
-        return new JAXBElement<RestartCash>(_RestartCash_QNAME, RestartCash.class, null, value);
+        return new JAXBElement<>(_RestartCash_QNAME, RestartCash.class, null, value);
     }
 
     /**
@@ -267,7 +267,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "setupResponse")
     public JAXBElement<SetupResponse> createSetupResponse(SetupResponse value) {
-        return new JAXBElement<SetupResponse>(_SetupResponse_QNAME, SetupResponse.class, null, value);
+        return new JAXBElement<>(_SetupResponse_QNAME, SetupResponse.class, null, value);
     }
 
     /**
@@ -275,7 +275,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "stopExecution")
     public JAXBElement<StopExecution> createStopExecution(StopExecution value) {
-        return new JAXBElement<StopExecution>(_StopExecution_QNAME, StopExecution.class, null, value);
+        return new JAXBElement<>(_StopExecution_QNAME, StopExecution.class, null, value);
     }
 
     /**
@@ -283,7 +283,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "restartSystem")
     public JAXBElement<RestartSystem> createRestartSystem(RestartSystem value) {
-        return new JAXBElement<RestartSystem>(_RestartSystem_QNAME, RestartSystem.class, null, value);
+        return new JAXBElement<>(_RestartSystem_QNAME, RestartSystem.class, null, value);
     }
 
     /**
@@ -291,7 +291,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "setupRobotResponse")
     public JAXBElement<SetupRobotResponse> createSetupRobotResponse(SetupRobotResponse value) {
-        return new JAXBElement<SetupRobotResponse>(_SetupRobotResponse_QNAME, SetupRobotResponse.class, null, value);
+        return new JAXBElement<>(_SetupRobotResponse_QNAME, SetupRobotResponse.class, null, value);
     }
 
     /**
@@ -299,7 +299,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "pingResponse")
     public JAXBElement<PingResponse> createPingResponse(PingResponse value) {
-        return new JAXBElement<PingResponse>(_PingResponse_QNAME, PingResponse.class, null, value);
+        return new JAXBElement<>(_PingResponse_QNAME, PingResponse.class, null, value);
     }
 
     /**
@@ -307,7 +307,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "restartCashResponse")
     public JAXBElement<RestartCashResponse> createRestartCashResponse(RestartCashResponse value) {
-        return new JAXBElement<RestartCashResponse>(_RestartCashResponse_QNAME, RestartCashResponse.class, null, value);
+        return new JAXBElement<>(_RestartCashResponse_QNAME, RestartCashResponse.class, null, value);
     }
 
     /**
@@ -315,7 +315,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "getTestListResponse")
     public JAXBElement<GetTestListResponse> createGetTestListResponse(GetTestListResponse value) {
-        return new JAXBElement<GetTestListResponse>(_GetTestListResponse_QNAME, GetTestListResponse.class, null, value);
+        return new JAXBElement<>(_GetTestListResponse_QNAME, GetTestListResponse.class, null, value);
     }
 
     /**
@@ -323,7 +323,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "getTestNameResponse")
     public JAXBElement<GetTestNameResponse> createGetTestNameResponse(GetTestNameResponse value) {
-        return new JAXBElement<GetTestNameResponse>(_GetTestNameResponse_QNAME, GetTestNameResponse.class, null, value);
+        return new JAXBElement<>(_GetTestNameResponse_QNAME, GetTestNameResponse.class, null, value);
     }
 
     /**
@@ -331,7 +331,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "status")
     public JAXBElement<Status> createStatus(Status value) {
-        return new JAXBElement<Status>(_Status_QNAME, Status.class, null, value);
+        return new JAXBElement<>(_Status_QNAME, Status.class, null, value);
     }
 
     /**
@@ -339,7 +339,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "ping")
     public JAXBElement<Ping> createPing(Ping value) {
-        return new JAXBElement<Ping>(_Ping_QNAME, Ping.class, null, value);
+        return new JAXBElement<>(_Ping_QNAME, Ping.class, null, value);
     }
 
     /**
@@ -347,7 +347,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "InterruptedException")
     public JAXBElement<InterruptedException> createInterruptedException(InterruptedException value) {
-        return new JAXBElement<InterruptedException>(_InterruptedException_QNAME, InterruptedException.class, null, value);
+        return new JAXBElement<>(_InterruptedException_QNAME, InterruptedException.class, null, value);
     }
 
     /**
@@ -355,7 +355,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "setupAll")
     public JAXBElement<SetupAll> createSetupAll(SetupAll value) {
-        return new JAXBElement<SetupAll>(_SetupAll_QNAME, SetupAll.class, null, value);
+        return new JAXBElement<>(_SetupAll_QNAME, SetupAll.class, null, value);
     }
 
     /**
@@ -363,7 +363,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "runTestListResponse")
     public JAXBElement<RunTestListResponse> createRunTestListResponse(RunTestListResponse value) {
-        return new JAXBElement<RunTestListResponse>(_RunTestListResponse_QNAME, RunTestListResponse.class, null, value);
+        return new JAXBElement<>(_RunTestListResponse_QNAME, RunTestListResponse.class, null, value);
     }
 
     /**
@@ -371,7 +371,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "setup")
     public JAXBElement<Setup> createSetup(Setup value) {
-        return new JAXBElement<Setup>(_Setup_QNAME, Setup.class, null, value);
+        return new JAXBElement<>(_Setup_QNAME, Setup.class, null, value);
     }
 
     /**
@@ -379,7 +379,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "setupAllResponse")
     public JAXBElement<SetupAllResponse> createSetupAllResponse(SetupAllResponse value) {
-        return new JAXBElement<SetupAllResponse>(_SetupAllResponse_QNAME, SetupAllResponse.class, null, value);
+        return new JAXBElement<>(_SetupAllResponse_QNAME, SetupAllResponse.class, null, value);
     }
 
     /**
@@ -387,7 +387,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "getTestList")
     public JAXBElement<GetTestList> createGetTestList(GetTestList value) {
-        return new JAXBElement<GetTestList>(_GetTestList_QNAME, GetTestList.class, null, value);
+        return new JAXBElement<>(_GetTestList_QNAME, GetTestList.class, null, value);
     }
 
     /**
@@ -395,7 +395,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "setupRobot")
     public JAXBElement<SetupRobot> createSetupRobot(SetupRobot value) {
-        return new JAXBElement<SetupRobot>(_SetupRobot_QNAME, SetupRobot.class, null, value);
+        return new JAXBElement<>(_SetupRobot_QNAME, SetupRobot.class, null, value);
     }
 
     /**
@@ -403,7 +403,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "runTestResponse")
     public JAXBElement<RunTestResponse> createRunTestResponse(RunTestResponse value) {
-        return new JAXBElement<RunTestResponse>(_RunTestResponse_QNAME, RunTestResponse.class, null, value);
+        return new JAXBElement<>(_RunTestResponse_QNAME, RunTestResponse.class, null, value);
     }
 
     /**
@@ -411,7 +411,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "stopAll")
     public JAXBElement<StopAll> createStopAll(StopAll value) {
-        return new JAXBElement<StopAll>(_StopAll_QNAME, StopAll.class, null, value);
+        return new JAXBElement<>(_StopAll_QNAME, StopAll.class, null, value);
     }
 
     /**
@@ -419,7 +419,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "statusResponse")
     public JAXBElement<StatusResponse> createStatusResponse(StatusResponse value) {
-        return new JAXBElement<StatusResponse>(_StatusResponse_QNAME, StatusResponse.class, null, value);
+        return new JAXBElement<>(_StatusResponse_QNAME, StatusResponse.class, null, value);
     }
 
     /**
@@ -427,7 +427,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "runTestList")
     public JAXBElement<RunTestList> createRunTestList(RunTestList value) {
-        return new JAXBElement<RunTestList>(_RunTestList_QNAME, RunTestList.class, null, value);
+        return new JAXBElement<>(_RunTestList_QNAME, RunTestList.class, null, value);
     }
 
     /**
@@ -435,7 +435,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "restartSystemResponse")
     public JAXBElement<RestartSystemResponse> createRestartSystemResponse(RestartSystemResponse value) {
-        return new JAXBElement<RestartSystemResponse>(_RestartSystemResponse_QNAME, RestartSystemResponse.class, null, value);
+        return new JAXBElement<>(_RestartSystemResponse_QNAME, RestartSystemResponse.class, null, value);
     }
 
     /**
@@ -443,7 +443,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "stopAllResponse")
     public JAXBElement<StopAllResponse> createStopAllResponse(StopAllResponse value) {
-        return new JAXBElement<StopAllResponse>(_StopAllResponse_QNAME, StopAllResponse.class, null, value);
+        return new JAXBElement<>(_StopAllResponse_QNAME, StopAllResponse.class, null, value);
     }
 
     /**
@@ -451,7 +451,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "stopExecutionResponse")
     public JAXBElement<StopExecutionResponse> createStopExecutionResponse(StopExecutionResponse value) {
-        return new JAXBElement<StopExecutionResponse>(_StopExecutionResponse_QNAME, StopExecutionResponse.class, null, value);
+        return new JAXBElement<>(_StopExecutionResponse_QNAME, StopExecutionResponse.class, null, value);
     }
 
     /**
@@ -459,7 +459,7 @@ public class ObjectFactory {
      */
     @XmlElementDecl(namespace = "http://ws.hub.setrobot.crystals.ru/", name = "runTest")
     public JAXBElement<RunTest> createRunTest(RunTest value) {
-        return new JAXBElement<RunTest>(_RunTest_QNAME, RunTest.class, null, value);
+        return new JAXBElement<>(_RunTest_QNAME, RunTest.class, null, value);
     }
 
 }
