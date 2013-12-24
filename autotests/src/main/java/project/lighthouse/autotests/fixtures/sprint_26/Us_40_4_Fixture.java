@@ -18,26 +18,26 @@ public class Us_40_4_Fixture extends AbstractFixture {
     public File prepareSalePurchaseFile() throws ParserConfigurationException, XPathExpressionException, TransformerException, IOException {
         Double productPrice = PRODUCT_PRICE * 5;
         PurchaseXmlBuilder purchaseXmlBuilder = PurchaseXmlBuilder.create("1")
-                .addXmlPurchase(todayDate, getDate(todayDate, "00"), SHOP_NUMBER, productPrice.toString(), PRODUCT_PRICE.toString(), "5", PRODUCT_ID);
+                .addXmlPurchase(getDate(todayDate, "00"), todayDate, SHOP_NUMBER, productPrice.toString(), PRODUCT_PRICE.toString(), "5", PRODUCT_ID);
         return prepareDataFile(purchaseXmlBuilder);
     }
 
     public File prepareSalePurchaseReturnFile() throws TransformerException, IOException, ParserConfigurationException, XPathExpressionException {
         PurchaseXmlBuilder purchaseXmlBuilder = PurchaseXmlBuilder.create("1")
-                .addXmlPurchase(todayDate, getDate(todayDate, "00"), SHOP_NUMBER, PRODUCT_PRICE.toString(), PRODUCT_PRICE.toString(), "1", PRODUCT_ID);
+                .addXmlPurchase(getDate(todayDate, "00"), todayDate, SHOP_NUMBER, PRODUCT_PRICE.toString(), PRODUCT_PRICE.toString(), "1", PRODUCT_ID);
         return prepareDataFile(purchaseXmlBuilder);
     }
 
     public File prepareReturnFile() throws ParserConfigurationException, XPathExpressionException, TransformerException, IOException {
         Double productPrice = PRODUCT_PRICE * 5;
         PurchaseXmlBuilder purchaseXmlBuilder = PurchaseXmlBuilder.create("1")
-                .addXmlReturn("2013-12-03", getDate("2013-12-03", "00"), SHOP_NUMBER, productPrice.toString(), PRODUCT_PRICE.toString(), "5", PRODUCT_ID);
+                .addXmlReturn(getDate("2013-12-03", "00"), "2013-12-03+04:00", SHOP_NUMBER, productPrice.toString(), PRODUCT_PRICE.toString(), "5", PRODUCT_ID);
         return prepareDataFile(purchaseXmlBuilder);
     }
 
     public File prepareAnotherReturnFile() throws TransformerException, IOException, ParserConfigurationException, XPathExpressionException {
         PurchaseXmlBuilder purchaseXmlBuilder = PurchaseXmlBuilder.create("1")
-                .addXmlReturn("2013-12-03", getDate("2013-12-03", "00"), SHOP_NUMBER, PRODUCT_PRICE.toString(), PRODUCT_PRICE.toString(), "1", PRODUCT_ID);
+                .addXmlReturn(getDate("2013-12-03", "00"), "2013-12-03+04:00", SHOP_NUMBER, PRODUCT_PRICE.toString(), PRODUCT_PRICE.toString(), "1", PRODUCT_ID);
         return prepareDataFile(purchaseXmlBuilder);
     }
 
