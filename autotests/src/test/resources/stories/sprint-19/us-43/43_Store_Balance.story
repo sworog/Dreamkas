@@ -99,6 +99,8 @@ Then the user checks the product with 'SBV-02' sku has 'amounts purchasePrice' e
 
 Scenario: Department manager who has store can see balance link
 
+Given skipped. Info: 'skipped', Details: 'no dashboard balance link anymore'
+
 Given there is the user with name 'departmentManager-BIC', position 'departmentManager-BIC', username 'departmentManager-BIC', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'BIC-01' managed by department manager named 'departmentManager-BIC'
 And the user opens the authorization page
@@ -142,6 +144,8 @@ When the user logs in using 'commercialManager-BIC-3' userName and 'lighthouse' 
 Then the user sees the 403 error
 
 Scenario: Balance page for storeManager who has store on left menu link
+
+Given skipped. Info: 'skipped', Details: 'no dashboard balance link anymore'
 
 Given there is the user with name 'storeManager-BIC', position 'storeManager-BIC', username 'storeManager-BIC', password 'lighthouse', role 'storeManager'
 And there is the store with number 'BIC-011' managed by 'storeManager-BIC'
