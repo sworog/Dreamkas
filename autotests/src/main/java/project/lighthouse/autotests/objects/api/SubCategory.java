@@ -43,8 +43,8 @@ public class SubCategory extends AbstractClassifierNode {
     public Boolean hasProduct(Product product) throws JSONException {
         if (StaticData.subCategoryProducts.containsKey(getId())) {
             ArrayList<Product> products = StaticData.subCategoryProducts.get(getId());
-            for (int i = 0; i < products.size(); i++) {
-                if (products.get(i).getSku().equals(product.getSku())) {
+            for (Product p : products) {
+                if (p.getSku().equals(product.getSku())) {
                     return true;
                 }
             }
@@ -54,9 +54,9 @@ public class SubCategory extends AbstractClassifierNode {
 
     public Product getProduct(Product product) throws JSONException {
         ArrayList<Product> products = StaticData.subCategoryProducts.get(getId());
-        for (int i = 0; i < products.size(); i++) {
-            if (products.get(i).getSku().equals(product.getSku())) {
-                return products.get(i);
+        for (Product p : products) {
+            if (p.getSku().equals(product.getSku())) {
+                return p;
             }
         }
         return product;
