@@ -474,6 +474,8 @@ Then the user sees the 403 error
 
 Scenario: DepartmentManager role valid rules - authorised access to balance
 
+Given skipped. Info: 'skipped', Details: 'no dashboard balance link anymore'
+
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 When user opens the dashboard 'balance' section
