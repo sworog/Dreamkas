@@ -413,4 +413,53 @@ class SalesImporterTest extends WebTestCase
 
         return $importer;
     }
+
+    public function testDuplicateReceipt()
+    {
+        $storeId = $this->factory->getStore('197');
+
+        $skuAmounts = array(
+            '1' => -1,
+            '2' => -1,
+            '3' => 0,
+            '4' => 2,
+            '5' => 1,
+            '6' => -1,
+        );
+
+        $productIds = $this->createProductsBySku(array_keys($skuAmounts));
+
+        $output = new TestOutput();
+        $this->import('Duplicate/purchase-first.xml', $output);
+
+        $display = $output->getDisplay();
+        $this->assertStringStartsWith(".....                                                5\nFlushing", $display);
+        $lines = $output->getLines();
+        $this->assertCount(3, $lines);
+
+        foreach ($skuAmounts as $sku => $inventory) {
+            $this->assertStoreProductTotals($storeId, $productIds[$sku], $inventory);
+        }
+
+        $skuAmounts = array(
+            '1' => -2,
+            '2' => 0,
+            '3' => -1,
+            '4' => 1,
+            '5' => -1,
+            '6' => 1,
+        );
+
+        $output = new TestOutput();
+        $this->import('Duplicate/purchase-with-duplicate.xml', $output);
+
+        $display = $output->getDisplay();
+        $this->assertStringStartsWith("RRRRR                                                5\nFlushing", $display);
+        $lines = $output->getLines();
+        $this->assertCount(3, $lines);
+
+        foreach ($skuAmounts as $sku => $inventory) {
+            $this->assertStoreProductTotals($storeId, $productIds[$sku], $inventory);
+        }
+    }
 }

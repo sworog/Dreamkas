@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<purchases count="2">
+    <purchase discountAmount="0.0" amount="120.0" number="7" saletime="2012-05-12T20:46:32.912+04:00" shift="30" cash="7"
+              operDay="2012-05-12T00:00:00.000+04:00" operationType="true" userName="Иванов Иван  Иванович"
+              tabNumber="1" shop="197">
+        <positions>
+            <position amount="120.0" costWithDiscount="60.0" discountValue="0.0" ndsSum="0.0" nds="18.0" cost="60.0"
+                      count="2.0" barCode="1" goodsCode="1" departNumber="51" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="120.0" typeClass="BonusCardPaymentEntity"/>
+        </payments>
+        <discountCards/>
+    </purchase>
+    <purchase discountAmount="0.0" amount="60.0" number="8" saletime="2012-05-12T19:46:32.912+04:00" shift="30" cash="7"
+              operDay="2012-05-12T00:00:00.000+04:00" operationType="true" userName="Иванов Иван  Иванович"
+              tabNumber="1" shop="197">
+        <positions>
+            <position amount="60.0" costWithDiscount="60.0" discountValue="0.0" ndsSum="0.0" nds="18.0" cost="60.0"
+                      count="1.0" barCode="3" goodsCode="3" departNumber="51" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="60.0" typeClass="BonusCardPaymentEntity"/>
+        </payments>
+        <discountCards/>
+    </purchase>
+    <purchase discountAmount="0.0" amount="60.0" number="9" saletime="2012-05-12T18:46:32.912+04:00" shift="30" cash="7"
+              operDay="2012-05-12T00:00:00.000+04:00" operationType="false" userName="Иванов Иван  Иванович"
+              tabNumber="1" shop="197">
+        <positions>
+            <position amount="60.0" costWithDiscount="60.0" discountValue="0.0" ndsSum="0.0" nds="18.0" cost="60.0"
+                      count="1.0" barCode="4" goodsCode="4" departNumber="51" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="60.0" typeClass="BonusCardPaymentEntity"/>
+        </payments>
+        <discountCards/>
+    </purchase>
+    <purchase discountAmount="0.0" amount="60.0" number="10" saletime="2012-05-12T17:46:32.912+04:00" shift="30" cash="7"
+              operDay="2012-05-12T00:00:00.000+04:00" operationType="true" userName="Иванов Иван  Иванович"
+              tabNumber="1" shop="197">
+        <positions>
+            <position amount="60.0" costWithDiscount="60.0" discountValue="0.0" ndsSum="0.0" nds="18.0" cost="60.0"
+                      count="1.0" barCode="5" goodsCode="5" departNumber="51" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="60.0" typeClass="BonusCardPaymentEntity"/>
+        </payments>
+        <discountCards/>
+    </purchase>
+    <purchase discountAmount="0.0" amount="60.0" number="11" saletime="2012-05-12T17:46:32.912+04:00" shift="30" cash="7"
+              operDay="2012-05-12T00:00:00.000+04:00" operationType="false" userName="Иванов Иван  Иванович"
+              tabNumber="1" shop="197">
+        <positions>
+            <position amount="60.0" costWithDiscount="60.0" discountValue="0.0" ndsSum="0.0" nds="18.0" cost="60.0"
+                      count="1.0" barCode="6" goodsCode="6" departNumber="51" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="60.0" typeClass="BonusCardPaymentEntity"/>
+        </payments>
+        <discountCards/>
+    </purchase>
+</purchases>
