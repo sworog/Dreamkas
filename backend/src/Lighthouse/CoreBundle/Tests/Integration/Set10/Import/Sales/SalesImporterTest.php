@@ -117,12 +117,8 @@ class SalesImporterTest extends WebTestCase
         $this->import('purchases-13-09-2013_15-09-26.xml', $output);
 
         $display = $output->getDisplay();
-        $this->assertStringStartsWith(".V.V.V                                               6\nFlushing", $display);
+        $this->assertStringStartsWith(".R.R.R                                               6\nFlushing", $display);
         $lines = $output->getLines();
-        $this->assertContains('Errors', $lines[3]);
-        $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[4]);
-        $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[5]);
-        $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[6]);
 
         $this->assertStoreProductTotals($storeIds['666'], $productIds['Кит-Кат-343424'], -1);
         $this->assertStoreProductTotals($storeIds['777'], $productIds['Кит-Кат-343424'], -2);
@@ -151,12 +147,8 @@ class SalesImporterTest extends WebTestCase
         $this->import('purchases-13-09-2013_15-09-26-double.xml', $output);
 
         $display = $output->getDisplay();
-        $this->assertStringStartsWith(".V.V.V                                               6\nFlushing", $display);
+        $this->assertStringStartsWith(".R.R.R                                               6\nFlushing", $display);
         $lines = $output->getLines();
-        $this->assertContains('Errors', $lines[3]);
-        $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[4]);
-        $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[5]);
-        $this->assertContains('Такая продажа уже зарегистрированна в системе', $lines[6]);
 
         $this->assertStoreProductTotals($storeIds['666'], $productIds['Кит-Кат-343424'], -1);
         $this->assertStoreProductTotals($storeIds['777'], $productIds['Кит-Кат-343424'], -2);
@@ -316,7 +308,7 @@ class SalesImporterTest extends WebTestCase
 
         $this->assertCount(0, $importer->getErrors());
 
-        $salesRepository = $this->getContainer()->get('lighthouse.core.document.repository.sale');
+        $salesRepository = $this->getContainer()->get('lighthouse.core.document.repository.receipt');
 
         $utcDateTimeZone = new \DateTimeZone('UTC');
 
@@ -454,7 +446,7 @@ class SalesImporterTest extends WebTestCase
         $this->import('Duplicate/purchase-with-duplicate.xml', $output);
 
         $display = $output->getDisplay();
-        $this->assertStringStartsWith("RRRRR                                                5\nFlushing", $display);
+        $this->assertStringStartsWith(".R.R.R.R.R                                           10\nFlushing", $display);
         $lines = $output->getLines();
         $this->assertCount(3, $lines);
 

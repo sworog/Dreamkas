@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document\Sale;
 use Doctrine\Common\Collections\ArrayCollection;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Lighthouse\CoreBundle\Document\Receipt\Receipt;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
@@ -15,57 +16,20 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 use DateTime;
 
 /**
- * @MongoDB\Document(
- *     repositoryClass="Lighthouse\CoreBundle\Document\Sale\SaleRepository"
- * )
- *
- * @Unique(fields="hash", message="lighthouse.validation.errors.sale.hash.unique")
- *
- * @property int        $id
- * @property DateTime   $createdDate
- * @property string     $hash
- * @property Store      $store
  * @property SaleProduct[]|ArrayCollection  $products
- * @property int        $itemsCount
- * @property Money      $sumTotal
+ *
+ * @MongoDB\Document(
+ *     repositoryClass="Lighthouse\CoreBundle\Document\Receipt\ReceiptRepository",
+ *     collection="Receipt"
+ * )
  */
-class Sale extends AbstractDocument implements Storeable
+class Sale extends Receipt
 {
-    /**
-     * @MongoDB\Id
-     * @var string
-     */
-    protected $id;
-
-    /**
-     * @MongoDB\Date
-     * @var \DateTime
-     */
-    protected $createdDate;
-
-    /**
-     * @MongoDB\String
-     * @MongoDB\UniqueIndex(order="asc")
-     * @Assert\NotBlank
-     * @var string
-     */
-    protected $hash;
-
-    /**
-     * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
-     *     simple=true
-     * )
-     * @Assert\NotBlank
-     * @var Store
-     */
-    protected $store;
-
     /**
      * @MongoDB\ReferenceMany(
      *      targetDocument="Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct",
      *      simple=true,
-     *      cascade="persist",
+     *      cascade={"persist","remove"},
      *      mappedBy="sale"
      * )
      *
@@ -74,33 +38,6 @@ class Sale extends AbstractDocument implements Storeable
      * @var SaleProduct[]|ArrayCollection
      */
     protected $products;
-
-    /**
-     * @MongoDB\Field(type="money")
-     * @var Money
-     */
-    protected $sumTotal;
-
-    /**
-     * Количество позиций
-     *
-     * @MongoDB\Int
-     * @var int
-     */
-    protected $itemsCount;
-
-    public function __construct()
-    {
-        $this->products = new ArrayCollection();
-    }
-
-    /**
-     * @return Store
-     */
-    public function getStore()
-    {
-        return $this->store;
-    }
 
     /**
      * @MongoDB\PrePersist

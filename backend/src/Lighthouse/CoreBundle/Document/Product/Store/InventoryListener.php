@@ -59,6 +59,7 @@ class InventoryListener extends AbstractMongoDBListener
             $storeProduct = $this->getStoreProduct($document);
             $inventoryDiff = $document->getProductQuantity()->sign($document->increaseAmount())->toNumber();
             $storeProduct->inventory = $storeProduct->inventory - $inventoryDiff;
+            $eventArgs->getDocumentManager()->persist($storeProduct);
         }
     }
 

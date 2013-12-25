@@ -9,6 +9,7 @@ use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Returne\Product\ReturnProduct;
+use Lighthouse\CoreBundle\Document\Receipt\ReceiptRepository;
 use Lighthouse\CoreBundle\Document\Returne\Returne;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Sale\Sale;
@@ -48,6 +49,11 @@ class SalesImporter
      * @var VersionRepository
      */
     protected $productVersionRepository;
+
+    /**
+     * @var ReceiptRepository
+     */
+    protected $receiptRepository;
 
     /**
      * @var ValidatorInterface|ExceptionalValidator
@@ -104,6 +110,7 @@ class SalesImporter
      *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product"),
      *      "storeRepository" = @DI\Inject("lighthouse.core.document.repository.store"),
      *      "productVersionRepository" = @DI\Inject("lighthouse.core.document.repository.product_version"),
+     *      "receiptRepository" = @DI\Inject("lighthouse.core.document.repository.receipt"),
      *      "validator" = @DI\Inject("lighthouse.core.validator"),
      *      "moneyTransformer" = @DI\Inject("lighthouse.core.data_transformer.money_model"),
      *      "numericFactory" = @DI\Inject("lighthouse.core.types.numeric.factory")
@@ -111,6 +118,7 @@ class SalesImporter
      * @param ProductRepository $productRepository
      * @param StoreRepository $storeRepository
      * @param VersionRepository $productVersionRepository
+     * @param ReceiptRepository $receiptRepository
      * @param ValidatorInterface $validator
      * @param MoneyModelTransformer $moneyTransformer
      * @param NumericFactory $numericFactory
@@ -119,6 +127,7 @@ class SalesImporter
         ProductRepository $productRepository,
         StoreRepository $storeRepository,
         VersionRepository $productVersionRepository,
+        ReceiptRepository $receiptRepository,
         ValidatorInterface $validator,
         MoneyModelTransformer $moneyTransformer,
         NumericFactory $numericFactory
@@ -126,6 +135,7 @@ class SalesImporter
         $this->productRepository = $productRepository;
         $this->storeRepository = $storeRepository;
         $this->productVersionRepository = $productVersionRepository;
+        $this->receiptRepository = $receiptRepository;
         $this->validator = $validator;
         $this->moneyTransformer = $moneyTransformer;
         $this->numericFactory = $numericFactory;
@@ -174,11 +184,19 @@ class SalesImporter
                     }
                 }
             } catch (ValidationFailedException $e) {
-                $this->dotHelper->writeError('V');
-                $this->errors[] = array(
-                    'count' => $count - 1,
-                    'exception' => $e
-                );
+                if (1 === $e->getConstraintViolationList()->count()
+                    && 'hash' == $e->getConstraintViolationList()->get(0)->getPropertyPath()
+                    && isset($receipt)
+                ) {
+                    $this->replaceReceipt($receipt);
+                    $this->dotHelper->writeQuestion('R');
+                } else {
+                    $this->dotHelper->writeError('V');
+                    $this->errors[] = array(
+                        'count' => $count - 1,
+                        'exception' => $e
+                    );
+                }
             } catch (\Exception $e) {
                 $this->dotHelper->writeError('E');
                 $this->errors[] = array(
@@ -195,6 +213,15 @@ class SalesImporter
         $allEvent->stop();
 
         $this->outputErrors($output, $this->errors);
+    }
+
+    /**
+     * @param Sale|Returne $receipt
+     */
+    protected function replaceReceipt($receipt)
+    {
+        $this->receiptRepository->rollbackByHash($receipt->hash);
+        $this->productRepository->getDocumentManager()->persist($receipt);
     }
 
     /**
@@ -350,7 +377,6 @@ class SalesImporter
             'cash',
             'shop',
             'operDay',
-            'operationType',
             'userName',
             'tabNumber'
         );

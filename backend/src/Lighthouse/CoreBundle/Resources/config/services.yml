@@ -53,17 +53,10 @@ services:
         arguments:
             - LighthouseCoreBundle:TrialBalance\TrialBalance
 
-    lighthouse.core.document.repository.sale:
+    lighthouse.core.document.repository.receipt:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\Sale\SaleRepository
         arguments:
-            - LighthouseCoreBundle:Sale\Sale
-
-    lighthouse.core.document.repository.return:
-        parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\Returne\ReturnRepository
-        arguments:
-            - LighthouseCoreBundle:Returne\Returne
+            - LighthouseCoreBundle:Receipt\Receipt
 
     lighthouse.core.document.repository.return.product:
         parent: doctrine_mongodb.odm.repository
