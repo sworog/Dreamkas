@@ -16,7 +16,7 @@ public class ConsoleCommand {
     }
 
     private String getAbsoluteFolderPath(String folder) {
-        return new File(System.getProperty("user.dir")).getParent().concat("\\").concat(folder);
+        return new File(System.getProperty("user.dir")).getParent().concat(File.separator).concat(folder);
     }
 
     public ConsoleCommandResult exec(String command) throws IOException, InterruptedException {
@@ -28,7 +28,11 @@ public class ConsoleCommand {
     }
 
     private String cmd(String command, String host) {
-        return String.format("cmd /c \"%s -S host=%s\"", command, host);
+        if (isUnix()) {
+            return String.format("%s -S host=%s", command, host);
+        } else {
+            return String.format("cmd /c \"%s -S host=%s\"", command, host);
+        }
     }
 
     private String readOutput(Process process) throws IOException {
@@ -46,5 +50,29 @@ public class ConsoleCommand {
             output = output.concat(s).concat("\n");
         }
         return output;
+    }
+
+    public static boolean isWindows(){
+
+        String os = System.getProperty("os.name").toLowerCase();
+        //windows
+        return (os.contains("win"));
+
+    }
+
+    public static boolean isMac(){
+
+        String os = System.getProperty("os.name").toLowerCase();
+        //Mac
+        return (os.contains("mac"));
+
+    }
+
+    public static boolean isUnix (){
+
+        String os = System.getProperty("os.name").toLowerCase();
+        //linux or unix
+        return (os.contains("nix") || os.contains("nux"));
+
     }
 }

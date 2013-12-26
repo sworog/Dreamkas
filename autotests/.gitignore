@@ -4,3 +4,4 @@
 /chromedriver.log
 /libpeerconnection.log
 /thucydides.properties
+xml/out/*
