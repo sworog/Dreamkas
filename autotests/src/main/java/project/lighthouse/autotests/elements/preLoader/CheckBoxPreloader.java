@@ -5,12 +5,12 @@ import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.Waiter;
 
-public class CheckBoxPreLoader {
+public class CheckBoxPreloader {
 
     private Waiter waiter;
     private static final String PRE_LOADER_XPATH = "//*[@class='preloader_spinner']";
 
-    public CheckBoxPreLoader(WebDriver driver) {
+    public CheckBoxPreloader(WebDriver driver) {
         waiter = new Waiter(driver, StaticData.DEFAULT_PRE_LOADER_TIMEOUT);
     }
 

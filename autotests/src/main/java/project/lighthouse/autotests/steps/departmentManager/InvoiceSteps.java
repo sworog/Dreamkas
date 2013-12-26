@@ -8,7 +8,7 @@ import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.elements.DateTime;
-import project.lighthouse.autotests.elements.preLoader.CheckBoxPreLoader;
+import project.lighthouse.autotests.elements.preLoader.CheckBoxPreloader;
 import project.lighthouse.autotests.pages.departmentManager.invoice.*;
 
 public class InvoiceSteps extends ScenarioSteps {
@@ -282,6 +282,6 @@ public class InvoiceSteps extends ScenarioSteps {
 
     @Step
     public void checkBoxPreLoaderWait() {
-        new CheckBoxPreLoader(getDriver()).await();
+        new CheckBoxPreloader(getDriver()).await();
     }
 }
