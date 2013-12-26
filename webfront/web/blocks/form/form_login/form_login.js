@@ -9,6 +9,9 @@ define(function(require) {
         model: tokenModel,
         submitSuccess: function(response) {
             login(this.model.get('access_token'));
+        },
+        translate: function(text){
+            return LH.getText(this.get('dictionary'), text);
         }
     });
 });
