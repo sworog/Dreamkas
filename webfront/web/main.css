@@ -25,6 +25,7 @@
 @import "blocks/writeOffList/writeOffList.css";
 @import "blocks/layout/layout.css";
 @import "blocks/grossSales/grossSales.css";
+@import "blocks/preloader/preloader.css";
 
 
 body {

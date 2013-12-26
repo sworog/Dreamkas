@@ -1,0 +1,29 @@
+.inputText + .preloader {
+    display: inline-block;
+    visibility: hidden;
+    width: 20px;
+    height: 20px;
+    position: relative;
+    vertical-align: middle;
+
+    border: 5px solid #333;
+    border-top-color: transparent;
+    border-radius: 100%;
+
+    -webkit-animation: spin 1s infinite ease;
+    -moz-animation: spin 1s infinite ease;
+    -ms-animation: spin 1s infinite ease;
+    -o-animation: spin 1s infinite ease;
+    animation: spin 1s infinite ease;
+}
+
+.ui-autocomplete-loading + .preloader {
+    visibility: visible;
+}
+
+.invoice__dataInput .preloader,
+.writeOff__dataInput .preloader {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
