@@ -108,7 +108,7 @@ class DatesCompareValidatorTest extends TestCase
 
     /**
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type Lighthouse\CoreBundle\Document\AbstractDocument
+     * @expectedExceptionMessage Expected argument of type "Lighthouse\CoreBundle\Document\AbstractDocument"
      * @dataProvider unexpectedValueTypeProvider
      */
     public function testValueUnexpectedType($value)
@@ -137,7 +137,7 @@ class DatesCompareValidatorTest extends TestCase
 
     /**
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type \DateTime
+     * @expectedExceptionMessage Expected argument of type "\DateTime"
      * @dataProvider fieldUnexpectedTypesProvider
      */
     public function testFieldUnexpectedType($orderDate, $createdDate)

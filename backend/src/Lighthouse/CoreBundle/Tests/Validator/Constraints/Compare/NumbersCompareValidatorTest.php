@@ -108,7 +108,7 @@ class NumbersCompareValidatorTest extends TestCase
 
     /**
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type Lighthouse\CoreBundle\Document\AbstractDocument
+     * @expectedExceptionMessage Expected argument of type "Lighthouse\CoreBundle\Document\AbstractDocument"
      * @dataProvider unexpectedValueTypeProvider
      */
     public function testValueUnexpectedType($value)
@@ -137,7 +137,7 @@ class NumbersCompareValidatorTest extends TestCase
 
     /**
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type numeric
+     * @expectedExceptionMessage Expected argument of type "numeric"
      * @dataProvider fieldUnexpectedTypesProvider
      */
     public function testFieldUnexpectedType($minValue, $maxValue)
