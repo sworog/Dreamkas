@@ -19,7 +19,6 @@
         "jms/security-extra-bundle": "~1.5",
         "jms/di-extra-bundle": "~1.4",
         "jms/serializer-bundle": "~0.12",
-        "jms/serializer": "~0.13.0",
         "friendsofsymfony/rest-bundle": "~1.0",
         "nelmio/cors-bundle": "~1.1",
         "doctrine/mongodb-odm-bundle": "~3.0@dev",
