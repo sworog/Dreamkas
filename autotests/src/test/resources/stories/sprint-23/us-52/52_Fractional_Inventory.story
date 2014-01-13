@@ -7,8 +7,6 @@ As a заведующий отделом
 I want to чтобы при продаже, приемке, списании товара учетная система корректно обрабатывала дробные значения количества
 In order была возможность работать с реальными количествами товара
 
-GivenStories: precondition/us-52/aPreconditionToStoryUs52.story
-
 Scenario: Adding invoice product with fractional quantity
 
 Meta:
@@ -16,7 +14,8 @@ Meta:
 @description invoice have product with fractional quantity
 @smoke
 
-GivenStories: precondition/us-52/aPreconditionToScenarioS1.story
+GivenStories: precondition/sprint-23/us-52/aPreconditionToStoryUs52.story,
+              precondition/sprint-23/us-52/aPreconditionToScenarioS1.story
 
 Given the user navigates to the subCategory 'defaultSubCategory-s23u52', category 'defaultCategory-s23u52', group 'defaultGroup-s23u52' product list page
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
@@ -32,7 +31,8 @@ Meta:
 @description writeOff have product with fractional quantity
 @smoke
 
-GivenStories: precondition/us-52/aPreconditionToScenarioS2.story
+GivenStories: precondition/sprint-23/us-52/aPreconditionToStoryUs52.story,
+              precondition/sprint-23/us-52/aPreconditionToScenarioS2.story
 
 Given the user navigates to the subCategory 'defaultSubCategory-s23u52', category 'defaultCategory-s23u52', group 'defaultGroup-s23u52' product list page
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
@@ -48,7 +48,8 @@ Meta:
 @description import sale with fractional quantity
 @smoke
 
-GivenStories: precondition/us-52/aPreconditionToScenarioS3.story
+GivenStories: precondition/sprint-23/us-52/aPreconditionToStoryUs52.story,
+              precondition/sprint-23/us-52/aPreconditionToScenarioS3.story
 
 Given the user navigates to the subCategory 'defaultSubCategory-s23u52', category 'defaultCategory-s23u52', group 'defaultGroup-s23u52' product list page
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
@@ -63,7 +64,8 @@ Meta:
 @id s23u52s4
 @description negative product quantity input 0,0003, see the validation message
 
-GivenStories: precondition/us-52/aPreconditionToScenarioS4.story
+GivenStories: precondition/sprint-23/us-52/aPreconditionToStoryUs52.story,
+              precondition/sprint-23/us-52/aPreconditionToScenarioS4.story
 
 Given the user navigates to the invoice page with name 'invoice-2352-1'
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
@@ -79,7 +81,8 @@ Meta:
 @id s23u52s5
 @description negative product quantity input 6,7689, see the validation message
 
-GivenStories: precondition/us-52/aPreconditionToScenarioS5.story
+GivenStories: precondition/sprint-23/us-52/aPreconditionToStoryUs52.story,
+              precondition/sprint-23/us-52/aPreconditionToScenarioS5.story
 
 Given the user navigates to the invoice page with name 'invoice-2352-2'
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
@@ -96,7 +99,8 @@ Meta:
 @id s23u52s6
 @description negative product quantity input 0,6789, see the validation message
 
-GivenStories: precondition/us-52/aPreconditionToScenarioS6.story
+GivenStories: precondition/sprint-23/us-52/aPreconditionToStoryUs52.story,
+              precondition/sprint-23/us-52/aPreconditionToScenarioS6.story
 
 Given the user navigates to the write off with number 'writeOff-2352-2'
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
@@ -114,7 +118,8 @@ Meta:
 @id s23u52s7
 @description negative product quantity input 0,6789, see the validation message
 
-GivenStories: precondition/us-52/aPreconditionToScenarioS7.story
+GivenStories: precondition/sprint-23/us-52/aPreconditionToStoryUs52.story,
+              precondition/sprint-23/us-52/aPreconditionToScenarioS7.story
 
 Given the user navigates to the write off with number 'writeOff-2352-3'
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password

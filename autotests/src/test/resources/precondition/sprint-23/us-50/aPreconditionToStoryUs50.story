@@ -1,4 +1,5 @@
 Meta:
+@sprint 23
 @smoke
 @us 50
 @id s23u50s1

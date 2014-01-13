@@ -7,14 +7,14 @@ As a заведующий отделом,
 I want to при приемке товара видеть ставку НДС и сумму НДС каждого принимаего товара, сумму НДС регистрируемой накладной, а также содержит ли цена приемки НДС,
 In order to не допустить ошибок в учете налогов при приемке
 
-GivenStories: precondition/us-51/aPreconditionToStoryUs51.story
-
 Scenario: The checkbox is active by default
 
 Meta:
 @id s23u51s1
 @description
 @smoke
+
+GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story
 
 Given the user is on the invoice list page
 When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
@@ -37,7 +37,8 @@ Meta:
 @id s23u51s2
 @description
 
-GivenStories: precondition/us-51/aPreconditionToScenarioS2.story
+GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story,
+              precondition/sprint-23/us-51/aPreconditionToScenarioS2.story
 
 Given the user navigates to the invoice page with name 'invoice-2351'
 When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
@@ -54,7 +55,8 @@ Meta:
 @description
 @smoke
 
-GivenStories: precondition/us-51/aPreconditionToScenarioS3.story
+GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story,
+              precondition/sprint-23/us-51/aPreconditionToScenarioS3.story
 
 Given the user navigates to the invoice page with name 'invoice-2351-1'
 When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
@@ -87,7 +89,8 @@ Meta:
 @id s23u51s4
 @description
 
-GivenStories: precondition/us-51/aPreconditionToScenarioS4.story
+GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story,
+              precondition/sprint-23/us-51/aPreconditionToScenarioS4.story
 
 Given the user navigates to the invoice page with name 'invoice-2351-2'
 When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
@@ -109,7 +112,8 @@ Meta:
 @description
 @smoke
 
-GivenStories: precondition/us-51/aPreconditionToScenarioS5.story
+GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story,
+              precondition/sprint-23/us-51/aPreconditionToScenarioS5.story
 
 Given the user navigates to the invoice page with name 'invoice-2351-3'
 When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
@@ -132,7 +136,8 @@ Meta:
 @description
 @smoke
 
-GivenStories: precondition/us-51/aPreconditionToScenarioS6.story
+GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story,
+              precondition/sprint-23/us-51/aPreconditionToScenarioS6.story
 
 Given the user navigates to the subCategory 'defaultSubCategory-s23u51', category 'defaultCategory-s23u51', group 'defaultGroup-s23u51' product list page
 When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
@@ -148,7 +153,8 @@ Meta:
 @id s23u51s7
 @description
 
-GivenStories: precondition/us-51/aPreconditionToScenarioS7.story
+GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story,
+              precondition/sprint-23/us-51/aPreconditionToScenarioS7.story
 
 Given the user navigates to the invoice page with name 'invoice-2351-6'
 When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
