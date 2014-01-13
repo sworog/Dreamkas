@@ -7,13 +7,13 @@ As a user
 I want to perform an action
 So that I can achieve a business goal
 
-GivenStories: precondition/us-48/aPreconditionToStoryUs48.story
-
 Scenario: Nothing found- WriteOff
 
 Meta:
 @id s22u48s1
 @description nothing found with non exist writeOff number
+
+GivenStories: precondition/sprint-22/us-48/aPreconditionToStoryUs48.story
 
 Given the user opens write off list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
@@ -28,7 +28,8 @@ Meta:
 @id s22u48s2
 @description writeOff with number can be found
 
-GivenStories: precondition/us-48/aPreconditionToScenarioS2.story
+GivenStories: precondition/sprint-22/us-48/aPreconditionToStoryUs48.story,
+              precondition/sprint-22/us-48/aPreconditionToScenarioS2.story
 
 Given the user opens write off list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
@@ -46,7 +47,8 @@ Meta:
 @id s22u48s3
 @description two writeOffs with equal numbers can be found
 
-GivenStories: precondition/us-48/aPreconditionToScenarioS3.story
+GivenStories: precondition/sprint-22/us-48/aPreconditionToStoryUs48.story,
+              precondition/sprint-22/us-48/aPreconditionToScenarioS3.story
 
 Given the user opens write off list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
@@ -64,7 +66,8 @@ Meta:
 @id s22u48s4
 @description writeOffs with product can be found
 
-GivenStories: precondition/us-48/aPreconditionToScenarioS4.story
+GivenStories: precondition/sprint-22/us-48/aPreconditionToStoryUs48.story,
+              precondition/sprint-22/us-48/aPreconditionToScenarioS4.story
 
 Given the user opens write off list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
@@ -98,7 +101,8 @@ Meta:
 @description writeOffs with product can be found, the result is clickable and leads to writeOff page
 @smoke
 
-GivenStories: precondition/us-48/aPreconditionToScenarioS5.story
+GivenStories: precondition/sprint-22/us-48/aPreconditionToStoryUs48.story,
+              precondition/sprint-22/us-48/aPreconditionToScenarioS5.story
 
 Given the user opens write off list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password

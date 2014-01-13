@@ -7,8 +7,6 @@ As a заведующтй отделом
 I want to просматривать остатки товаров подкатегории
 In order to понять когда и сколько едениц товара мне требуется заказать у поставщика
 
-GivenStories: precondition/us-50_1/aPreconditionToStoryUs50_1.story
-
 Scenario: Subcategory product balance checking
 
 Meta:
@@ -16,7 +14,8 @@ Meta:
 @description subcategory page have balance tab, balance table have all required data
 @smoke
 
-GivenStories: precondition/us-50_1/aPreconditionToScenarioS1.story
+GivenStories: precondition/sprint-22/us-50_1/aPreconditionToStoryUs50_1.story,
+              precondition/sprint-22/us-50_1/aPreconditionToScenarioS1.story
 
 Given the user navigates to the subCategory 'SCPBC-defaultSubCategory', category 'SCPBC-defaultCategory', group 'SCPBC-defaultGroup' product list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
@@ -31,7 +30,8 @@ Meta:
 @id s22u50.1s2
 @description balance data table render not required produt fields correctly
 
-GivenStories: precondition/us-50_1/aPreconditionToScenarioS2.story
+GivenStories: precondition/sprint-22/us-50_1/aPreconditionToStoryUs50_1.story,
+              precondition/sprint-22/us-50_1/aPreconditionToScenarioS2.story
 
 Given the user navigates to the subCategory 'SCPBC-defaultSubCategory', category 'SCPBC-defaultCategory', group 'SCPBC-defaultGroup' product list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
@@ -47,7 +47,8 @@ Meta:
 @description balance deacrese after writeOff with product is created
 @smoke
 
-GivenStories: precondition/us-50_1/aPreconditionToScenarioS3.story
+GivenStories: precondition/sprint-22/us-50_1/aPreconditionToStoryUs50_1.story,
+              precondition/sprint-22/us-50_1/aPreconditionToScenarioS3.story
 
 Given the user navigates to the subCategory 'SCPBC-defaultSubCategory', category 'SCPBC-defaultCategory', group 'SCPBC-defaultGroup' product list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
@@ -63,7 +64,8 @@ Meta:
 @description balance increase after invoice with product is created
 @smoke
 
-GivenStories: precondition/us-50_1/aPreconditionToScenarioS4.story
+GivenStories: precondition/sprint-22/us-50_1/aPreconditionToStoryUs50_1.story,
+              precondition/sprint-22/us-50_1/aPreconditionToScenarioS4.story
 
 Given the user navigates to the subCategory 'SCPBC-defaultSubCategory', category 'SCPBC-defaultCategory', group 'SCPBC-defaultGroup' product list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
@@ -78,7 +80,8 @@ Meta:
 @id s22u50.1s5
 @description balance table average price column contains product correct data
 
-GivenStories: precondition/us-50_1/aPreconditionToScenarioS5.story
+GivenStories: precondition/sprint-22/us-50_1/aPreconditionToStoryUs50_1.story,
+              precondition/sprint-22/us-50_1/aPreconditionToScenarioS5.story
 
 Given the user navigates to the subCategory 'SCPBC-defaultSubCategory', category 'SCPBC-defaultCategory', group 'SCPBC-defaultGroup' product list page
 When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' password
@@ -92,6 +95,8 @@ Scenario: No product balance tab for commercialManager
 Meta:
 @id s22u50.1s6
 @description no product balance tab availabile for commercial manager
+
+GivenStories: precondition/sprint-22/us-50_1/aPreconditionToStoryUs50_1.story
 
 Given the user navigates to the subCategory 'SCPBC-defaultSubCategory', category 'SCPBC-defaultCategory', group 'SCPBC-defaultGroup' product list page
 And the user logs in as 'commercialManager'
