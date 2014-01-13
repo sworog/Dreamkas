@@ -14,7 +14,7 @@ Meta:
 @description gross sale report page has correct data
 @smoke
 
-GivenStories: precondition/us-55_2/aPreconditionToStoryUs55.2.story
+GivenStories: precondition/sprint-24/us-55_2/aPreconditionToStoryUs55.2.story
 
 Given the user prepares data for us 55.2 story
 And the user runs the symfony:reports:recalculate command
@@ -30,7 +30,7 @@ Meta:
 @id s24u55.2s2
 @description gross sale report page has zero sales (no sales registered)
 
-GivenStories: precondition/us-55_2/aPreconditionToStoryUs55.2.story
+GivenStories: precondition/sprint-24/us-55_2/aPreconditionToStoryUs55.2.story
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
@@ -43,7 +43,7 @@ Meta:
 @id s24u55.2s3
 @description check yesterday table row name
 
-GivenStories: precondition/us-55_2/aPreconditionToStoryUs55.2.story
+GivenStories: precondition/sprint-24/us-55_2/aPreconditionToStoryUs55.2.story
 
 Given the user opens gross sale by stores report page
 And the user logs in as 'commercialManager'
@@ -55,7 +55,7 @@ Meta:
 @id s24u55.2s4
 @description check two days table row name
 
-GivenStories: precondition/us-55_2/aPreconditionToStoryUs55.2.story
+GivenStories: precondition/sprint-24/us-55_2/aPreconditionToStoryUs55.2.story
 
 Given the user opens gross sale by stores report page
 And the user logs in as 'commercialManager'
@@ -67,7 +67,7 @@ Meta:
 @id s24u55.2s5
 @description check eight days table row name
 
-GivenStories: precondition/us-55_2/aPreconditionToStoryUs55.2.story
+GivenStories: precondition/sprint-24/us-55_2/aPreconditionToStoryUs55.2.story
 
 Given the user opens gross sale by stores report page
 And the user logs in as 'commercialManager'
@@ -79,8 +79,8 @@ Meta:
 @id s24u55.2s6
 @description yesterday table row sort check
 
-GivenStories: precondition/us-55_2/aPreconditionToStoryUs55.2.story,
-              precondition/us-55_2/aPreconditionToStoryUs55.2-S.story
+GivenStories: precondition/sprint-24/us-55_2/aPreconditionToStoryUs55.2.story,
+              precondition/sprint-24/us-55_2/aPreconditionToStoryUs55.2-S.story
 
 Given the user opens gross sale by stores report page
 And the user logs in as 'commercialManager'
@@ -92,8 +92,8 @@ Meta:
 @id s24u55.2s7
 @description eight days table row sort check
 
-GivenStories: precondition/us-55_2/aPreconditionToStoryUs55.2.story,
-              precondition/us-55_2/aPreconditionToStoryUs55.2-S.story
+GivenStories: precondition/sprint-24/us-55_2/aPreconditionToStoryUs55.2.story,
+              precondition/sprint-24/us-55_2/aPreconditionToStoryUs55.2-S.story
 
 Given the user opens gross sale by stores report page
 And the user logs in as 'commercialManager'
@@ -105,8 +105,8 @@ Meta:
 @id s24u55.2s8
 @description table row sort check
 
-GivenStories: precondition/us-55_2/aPreconditionToStoryUs55.2.story,
-              precondition/us-55_2/aPreconditionToStoryUs55.2-S.story
+GivenStories: precondition/sprint-24/us-55_2/aPreconditionToStoryUs55.2.story,
+              precondition/sprint-24/us-55_2/aPreconditionToStoryUs55.2-S.story
 
 Given the user opens gross sale by stores report page
 And the user logs in as 'commercialManager'

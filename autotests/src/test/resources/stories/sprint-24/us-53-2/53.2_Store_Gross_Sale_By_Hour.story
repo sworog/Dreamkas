@@ -14,7 +14,7 @@ Meta:
 @description the store gross sale by hour report dont contain data on current hour
 @smoke
 
-GivenStories: precondition/us-53_2/aPreconditionToStoryUs53.2.story
+GivenStories: precondition/sprint-24/us-53_2/aPreconditionToStoryUs53.2.story
 
 Given the user prepares data for us 53.2 story
 And the user runs the symfony:reports:recalculate command
@@ -32,7 +32,7 @@ Meta:
 @description the user checks the store gross sale by hour report contains correct data
 @smoke
 
-GivenStories: precondition/us-53_2/aPreconditionToStoryUs53.2.story
+GivenStories: precondition/sprint-24/us-53_2/aPreconditionToStoryUs53.2.story
 
 Given the user prepares data for us 53.2 story
 And the user runs the symfony:reports:recalculate command
@@ -69,7 +69,7 @@ Meta:
 @id s24us532s5
 @description get 403 navigating directly to reports page for watchman
 
-GivenStories: precondition/us-53_2/aPreconditionToStoryUs53.2.story
+GivenStories: precondition/sprint-24/us-53_2/aPreconditionToStoryUs53.2.story
 
 Given the user opens gross sale by hours report page of store number '24531'
 And the user logs in as 'watchman'
@@ -81,7 +81,7 @@ Meta:
 @id s24us532s6
 @description get 403 navigating directly to reports page for departmentManager
 
-GivenStories: precondition/us-53_2/aPreconditionToStoryUs53.2.story
+GivenStories: precondition/sprint-24/us-53_2/aPreconditionToStoryUs53.2.story
 
 Given the user opens gross sale by hours report page of store number '24531'
 And the user logs in as 'departmentManager'

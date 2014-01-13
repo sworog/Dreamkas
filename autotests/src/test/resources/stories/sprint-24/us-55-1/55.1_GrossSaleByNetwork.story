@@ -14,7 +14,7 @@ Meta:
 @description gross sale by network yesterday value check
 @smoke
 
-GivenStories: precondition/us-55_1/aPreconditionToStoryUs55.1.story
+GivenStories: precondition/sprint-24/us-55_1/aPreconditionToStoryUs55.1.story
 
 Given the user prepares data for us 55.1 story
 And the user runs the symfony:reports:recalculate command
@@ -30,7 +30,7 @@ Meta:
 @description gross sale by network two days ago value check
 @smoke
 
-GivenStories: precondition/us-55_1/aPreconditionToStoryUs55.1.story
+GivenStories: precondition/sprint-24/us-55_1/aPreconditionToStoryUs55.1.story
 
 Given the user prepares data for us 55.1 story
 And the user runs the symfony:reports:recalculate command
@@ -46,7 +46,7 @@ Meta:
 @description gross sale by network eight days ago value check
 @smoke
 
-GivenStories: precondition/us-55_1/aPreconditionToStoryUs55.1.story
+GivenStories: precondition/sprint-24/us-55_1/aPreconditionToStoryUs55.1.story
 
 Given the user prepares data for us 55.1 story
 And the user runs the symfony:reports:recalculate command
@@ -61,7 +61,7 @@ Meta:
 @id s24u55.1s4
 @description gross sale by network yesterday value is zero (no sales registered)
 
-GivenStories: precondition/us-55_1/aPreconditionToStoryUs55.1.story
+GivenStories: precondition/sprint-24/us-55_1/aPreconditionToStoryUs55.1.story
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
@@ -73,7 +73,7 @@ Meta:
 @id s24u55.1s5
 @description gross sale by network two days ago value is zero (no sales registered)
 
-GivenStories: precondition/us-55_1/aPreconditionToStoryUs55.1.story
+GivenStories: precondition/sprint-24/us-55_1/aPreconditionToStoryUs55.1.story
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
@@ -85,7 +85,7 @@ Meta:
 @id s24u55.1s6
 @description gross sale by network eight days ago value is zero (no sales registered)
 
-GivenStories: precondition/us-55_1/aPreconditionToStoryUs55.1.story
+GivenStories: precondition/sprint-24/us-55_1/aPreconditionToStoryUs55.1.story
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
