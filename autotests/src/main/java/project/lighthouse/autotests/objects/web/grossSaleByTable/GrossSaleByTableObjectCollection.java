@@ -3,7 +3,11 @@ package project.lighthouse.autotests.objects.web.grossSaleByTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import project.lighthouse.autotests.Waiter;
+import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
+
+import java.util.List;
 
 public class GrossSaleByTableObjectCollection extends AbstractObjectCollection {
 
@@ -14,5 +18,14 @@ public class GrossSaleByTableObjectCollection extends AbstractObjectCollection {
     @Override
     public GrossSaleByTableObject createNode(WebElement element) {
         return new GrossSaleByTableObject(element);
+    }
+
+    @Override
+    public void init(WebDriver webDriver, By findBy) {
+        List<WebElement> webElementList = new Waiter(webDriver).getVisibleWebElements(findBy);
+        for (WebElement element : webElementList) {
+            AbstractObject abstractObject = new GrossSaleByTableObject(element, findBy, webDriver);
+            add(abstractObject);
+        }
     }
 }

@@ -78,7 +78,7 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
     }
 
     private Boolean locateObject(AbstractObject abstractObject, String objectLocator) {
-        return abstractObject instanceof ObjectLocatable && ((ObjectLocatable) abstractObject).getObjectLocator().equals(objectLocator);
+        return ((ObjectLocatable) abstractObject).getObjectLocator().equals(objectLocator);
     }
 
     public AbstractObject getAbstractObjectByLocator(String locator) {

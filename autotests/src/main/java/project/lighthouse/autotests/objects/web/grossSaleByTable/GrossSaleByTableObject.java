@@ -1,6 +1,8 @@
 package project.lighthouse.autotests.objects.web.grossSaleByTable;
 
-import net.thucydides.core.annotations.findby.By;
+import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectClickable;
@@ -20,6 +22,10 @@ public class GrossSaleByTableObject extends AbstractObject implements ObjectLoca
 
     public GrossSaleByTableObject(WebElement element) {
         super(element);
+    }
+
+    public GrossSaleByTableObject(WebElement element, By findBy, WebDriver webDriver) {
+        super(element, findBy, webDriver);
     }
 
     @Override
@@ -46,7 +52,11 @@ public class GrossSaleByTableObject extends AbstractObject implements ObjectLoca
 
     @Override
     public void click() {
-        getElement().click();
+        try {
+            getElement().click();
+        } catch (StaleElementReferenceException e) {
+            getWebDriver().findElement(getFindBy()).click();
+        }
     }
 
     public Boolean isValueColor() {

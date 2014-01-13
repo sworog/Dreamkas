@@ -11,6 +11,7 @@ import java.util.Map;
 abstract public class AbstractObject {
 
     private WebElement element;
+    private By findBy;
     private WebDriver webDriver;
     public Map<String, ObjectProperty> objectPropertyMap = new HashMap<>();
 
@@ -25,12 +26,23 @@ abstract public class AbstractObject {
         setProperties();
     }
 
+    public AbstractObject(WebElement element, By findBy, WebDriver webDriver) {
+        this.element = element;
+        this.findBy = findBy;
+        this.webDriver = webDriver;
+        setProperties();
+    }
+
     public WebDriver getWebDriver() {
         return webDriver;
     }
 
     public WebElement getElement() {
         return element;
+    }
+
+    public By getFindBy() {
+        return findBy;
     }
 
     abstract public void setProperties();
