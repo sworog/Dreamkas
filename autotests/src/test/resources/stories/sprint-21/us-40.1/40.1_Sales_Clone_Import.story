@@ -52,8 +52,7 @@ And the user checks the 'retailPrice' value is '25,50'
 Given the user opens amount list page
 Then the user checks the product with '46079770' sku has 'amounts amount' element equal to '0' on amounts page
 When the user logs out
-Given the robot prepares import clone data
-And the robot waits the import folder become empty
+Given the user prepares import clone data for us 40.1 story
 And the user opens amount list page
 When the user logs in using 'ProductsExportStoreManager' userName and 'lighthouse' password
 Then the user checks the product with '46079770' sku has 'amounts amount' element equal to '-2' on amounts page
@@ -62,8 +61,7 @@ Given the user opens amount list page
 When the user logs in using 'ProductsExportStoreManager2' userName and 'lighthouse' password
 Then the user checks the product with '46079770' sku has 'amounts amount' element equal to '-3' on amounts page
 When the user logs out
-Given the robot prepares import clone data
-And the robot waits the import folder become empty
+Given the user prepares import clone data for us 40.1 story
 Given the user logs in as 'commercialManager'
 And the user opens the log page
 Then the user checks log messages

@@ -1,8 +1,10 @@
 package project.lighthouse.autotests.fixtures.sprint_20;
 
+import project.lighthouse.autotests.fixtures.OldFixture;
+
 import java.io.File;
 
-public class Us_40_Fixture {
+public class Us_40_Fixture extends OldFixture {
 
     public File getFixtureFile() {
         return getFileFixture("purchases-data.xml");
@@ -18,10 +20,5 @@ public class Us_40_Fixture {
 
     public File getFixtureFileWithCorruptedData() {
         return getFileFixture("purchases-data-corrupted.xml");
-    }
-
-    public File getFileFixture(String fileName) {
-        return new File(
-                String.format("%s/xml/purchases/%s", System.getProperty("user.dir").replace("\\", "/"), fileName));
     }
 }
