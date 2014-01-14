@@ -66,13 +66,15 @@ class ProductsXmlMerger extends Command
         $filesCount = count($files);
         foreach ($files as $i => $file) {
             $output->writeln('');
+            $pos = $i + 1;
+            $percent = ($pos / $filesCount) * 100;
             $output->writeln(
                 sprintf(
                     'Processing %s %d of %d %5.1f%%',
                     $file->getFilename(),
-                    $i + 1,
+                    $pos,
                     $filesCount,
-                    (($i + 1) / $filesCount) * 100
+                    $percent
                 )
             );
             $this->readXmlFile($file, $output);
