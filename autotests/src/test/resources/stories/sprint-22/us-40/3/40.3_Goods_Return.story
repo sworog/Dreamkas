@@ -30,8 +30,7 @@ Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
 | Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 1008577061437 | 0,0 | 0,0 | 0,0 | 20,80 р. | — |
 When the user logs out
-Given the robot prepares import return data
-And the robot waits the import folder become empty
+Given the user prepares import return data for us 40.3 story
 Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
 When the user logs in using 'ReturnDepartmentManager' userName and 'lighthouse' password
 When the user opens product balance tab

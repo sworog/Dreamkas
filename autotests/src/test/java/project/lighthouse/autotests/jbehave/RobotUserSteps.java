@@ -36,12 +36,6 @@ public class RobotUserSteps {
         robotSteps.checkImportIsDone();
     }
 
-    @Given("the robot prepares import return data")
-    public void givenTheRoborPreparesImportReturnData() throws IOException, InterruptedException {
-        final String fileName = "purchases-return-data.xml";
-        robotSteps.prepareData(fileName);
-    }
-
     @Given("the robot prepares import sales data for story 52")
     public void givenTheRobotPreparesImportSalesData() throws IOException, InterruptedException {
         final String fileName = "purchases-data-us52.xml";
