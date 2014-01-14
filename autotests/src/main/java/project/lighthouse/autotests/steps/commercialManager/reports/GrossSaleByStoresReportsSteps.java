@@ -5,7 +5,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.joda.time.DateTime;
-import project.lighthouse.autotests.fixtures.Us_55_2_Fixture;
+import project.lighthouse.autotests.fixtures.sprint_24.Us_55_2_Fixture;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectLocatable;
 import project.lighthouse.autotests.objects.web.reports.grossSaleByStores.GrossSalesByStoresCollection;
 import project.lighthouse.autotests.pages.commercialManager.reports.GrossSaleByStoresReportsPage;

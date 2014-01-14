@@ -1,5 +1,6 @@
-package project.lighthouse.autotests.fixtures;
+package project.lighthouse.autotests.fixtures.sprint_25;
 
+import project.lighthouse.autotests.fixtures.AbstractFixture;
 import project.lighthouse.autotests.xml.PurchaseXmlBuilder;
 
 import javax.xml.parsers.ParserConfigurationException;

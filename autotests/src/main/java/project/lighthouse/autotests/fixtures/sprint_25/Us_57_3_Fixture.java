@@ -1,7 +1,8 @@
-package project.lighthouse.autotests.fixtures;
+package project.lighthouse.autotests.fixtures.sprint_25;
 
 import org.jbehave.core.model.ExamplesTable;
 import org.joda.time.DateTime;
+import project.lighthouse.autotests.fixtures.AbstractFixture;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.fixtures;
+package project.lighthouse.autotests.fixtures.sprint_24;
 
 import org.jbehave.core.model.ExamplesTable;
 import org.joda.time.DateTime;

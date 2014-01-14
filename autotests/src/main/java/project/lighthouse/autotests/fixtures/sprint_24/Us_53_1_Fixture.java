@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.fixtures;
+package project.lighthouse.autotests.fixtures.sprint_24;
 
 import org.apache.commons.io.FileUtils;
 import project.lighthouse.autotests.helper.DateTimeHelper;

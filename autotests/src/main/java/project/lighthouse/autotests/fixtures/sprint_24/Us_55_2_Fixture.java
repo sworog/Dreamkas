@@ -1,6 +1,7 @@
-package project.lighthouse.autotests.fixtures;
+package project.lighthouse.autotests.fixtures.sprint_24;
 
 import org.jbehave.core.model.ExamplesTable;
+import project.lighthouse.autotests.fixtures.AbstractFixture;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.xml.PurchaseXmlBuilder;
 

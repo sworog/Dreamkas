@@ -26,30 +26,6 @@ public class RobotUserSteps {
         robotSteps.waitForStatus(uuid);
     }
 
-    @Given("the robot prepares import purchase data")
-    public void givenTheRobotPreparesData() throws IOException, InterruptedException {
-        final String fileName = "purchases-data.xml";
-        robotSteps.prepareData(fileName);
-    }
-
-    @Given("the robot prepares import purchase data with currupted data")
-    public void givenTheRobotPreparesCurruptedData() throws IOException, InterruptedException {
-        final String fileName = "purchases-data-corrupted.xml";
-        robotSteps.prepareData(fileName);
-    }
-
-    @Given("the robot prepares import purchase data with no such product")
-    public void givenTheRobotPreparesDataWithNoSuchProduct() throws IOException, InterruptedException {
-        final String fileName = "purchases-data-no-product.xml";
-        robotSteps.prepareData(fileName);
-    }
-
-    @Given("the robot prepares import purchase data with no exist store")
-    public void givenTheRobotPreparesDataNoStore() throws IOException, InterruptedException {
-        final String fileName = "purchases-data-no-store.xml";
-        robotSteps.prepareData(fileName);
-    }
-
     @Given("the robot waits for complete export")
     public void givenTheRobotWaitsForCompleteExport() throws InterruptedException {
         robotSteps.checkExportIsDone();

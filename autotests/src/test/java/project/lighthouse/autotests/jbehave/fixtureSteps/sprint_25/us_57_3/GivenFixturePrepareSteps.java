@@ -2,7 +2,7 @@ package project.lighthouse.autotests.jbehave.fixtureSteps.sprint_25.us_57_3;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
-import project.lighthouse.autotests.fixtures.Us_57_3_Fixture;
+import project.lighthouse.autotests.fixtures.sprint_25.Us_57_3_Fixture;
 import project.lighthouse.autotests.steps.ConsoleCommandSteps;
 
 import javax.xml.parsers.ParserConfigurationException;
