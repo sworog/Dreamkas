@@ -12,8 +12,8 @@
     <properties>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <thucydides.version>0.9.224</thucydides.version>
-        <thucydides.jbehave.version>0.9.222</thucydides.jbehave.version>
+        <thucydides.version>0.9.229</thucydides.version>
+        <thucydides.jbehave.version>0.9.229</thucydides.jbehave.version>
         <thucydides.maven.version>0.9.224</thucydides.maven.version>
         <thucydides.browser.width>1280</thucydides.browser.width>
         <thucydides.browser.height>1024</thucydides.browser.height>
@@ -49,7 +49,7 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
-            <version>1.6.1</version>
+            <version>1.7.5</version>
         </dependency>
         <dependency>
             <groupId>org.easytesting</groupId>
@@ -70,7 +70,7 @@
         <dependency>
             <groupId>postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>9.1-901.jdbc4</version>
+            <version>9.1-901-1.jdbc4</version>
         </dependency>
         <dependency>
             <groupId>joda-time</groupId>
