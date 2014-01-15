@@ -29,6 +29,10 @@ define(function(require, exports, module) {
                     allowedReports.push(key);
                 }
             });
+
+            if (!allowedReports.length){
+                allowedReports = false;
+            }
         }
 
         return allowedReports;
