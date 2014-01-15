@@ -131,7 +131,7 @@ class TrialBalanceRepository extends DocumentRepository
                             this.storeProduct,
                             {
                                 totalPrice: this.totalPrice,
-                                quantity: this.quantity
+                                quantity: this.quantity.count
                             }
                         )
                     }"
@@ -149,18 +149,18 @@ class TrialBalanceRepository extends DocumentRepository
                     }"
                 )
             )
-            ->finalize(
-                new MongoCode(
-                    "function(storeProductId, obj) {
-                        if (obj.quantity > 0) {
-                            obj.averagePrice = obj.totalPrice / obj.quantity;
-                        } else {
-                            obj.averagePrice = null;
-                        }
-                        return obj;
-                    }"
-                )
-            )
+//            ->finalize(
+//                new MongoCode(
+//                    "function(storeProductId, obj) {
+//                        if (obj.quantity > 0) {
+//                            obj.averagePrice = obj.totalPrice / obj.quantity;
+//                        } else {
+//                            obj.averagePrice = null;
+//                        }
+//                        return obj;
+//                    }"
+//                )
+//            )
             ->out(array('inline' => true));
 
         return $query->getQuery()->execute();
@@ -193,19 +193,23 @@ class TrialBalanceRepository extends DocumentRepository
             array(
                 '$group' => array(
                     '_id' => '$storeProduct',
-                    'total' => array('$sum' => '$quantity')
+                    'total' => array('$sum' => '$quantity.count')
                 )
             ),
-            array(
-                '$project' => array(
-                    'value' => array(
-                        'dailyAverageSales' => array('$divide' => array('$total', $days))
-                    )
-                )
-            )
+//            array(
+//                '$project' => array(
+//                    'value' => array(
+//                        'dailyAverageSales' => array('$divide' => array('$total', $days))
+//                    )
+//                )
+//            )
         );
         $result = $collection->getMongoCollection()->aggregate($ops);
-        return $result['result'];
+        $results = array(
+            'results' => $result['result'],
+            'days' => $days
+        );
+        return $results;
     }
 
     /**
@@ -231,7 +235,7 @@ class TrialBalanceRepository extends DocumentRepository
                         emit(
                             this.storeProduct,
                             {
-                                quantity: this.quantity
+                                quantity: this.quantity.count
                             }
                         )
                     }"

@@ -125,6 +125,7 @@ services:
             calls:
                 - [setProductRepository, ["@lighthouse.core.document.repository.product"]]
                 - [setStoreRepository, ["@lighthouse.core.document.repository.store"]]
+                - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
 
     lighthouse.core.job.repository:
             parent: doctrine_mongodb.odm.repository

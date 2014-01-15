@@ -48,7 +48,8 @@ class StoreProductMetricsCalculator
         foreach ($results as $result) {
             $this->storeProductRepository->updateAveragePurchasePrice(
                 $result['_id'],
-                $result['value']['averagePrice']
+                $result['value']['totalPrice'],
+                $result['value']['quantity']
             );
         }
 
@@ -64,10 +65,12 @@ class StoreProductMetricsCalculator
     {
         $this->storeProductRepository->setFieldToNotCalculate('dailyAverageSales', 0);
         $results = $this->trialBalanceRepository->calculateDailyAverageSalesAggregate();
-        foreach ($results as $result) {
+        $days = $results['days'];
+        foreach ($results['results'] as $result) {
             $this->storeProductRepository->updateAverageDailySales(
                 $result['_id'],
-                $result['value']['dailyAverageSales']
+                $days,
+                $result['total']
             );
         }
         $this->storeProductRepository->resetFieldNotCalculate('dailyAverageSales', 0);

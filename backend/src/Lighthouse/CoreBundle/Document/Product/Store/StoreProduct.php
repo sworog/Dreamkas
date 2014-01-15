@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Lighthouse\CoreBundle\Validator\Constraints\StoreProduct\RetailPrice as AssertRetailPrice;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
@@ -21,7 +22,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @property float      $retailMarkup
  * @property string     $retailPricePreference
  * @property Money      $roundedRetailPrice
- * @property float      $inventory
+ * @property Quantity   $inventory
  * @property float      $averageDailySales
  * @property Money      $lastPurchasePrice
  * @property Money      $averagePurchasePrice
@@ -105,7 +106,7 @@ class StoreProduct extends AbstractDocument
     /**
      * Остаток
      * @MongoDB\Increment
-     * @Serializer\Accessor(getter="getInventoryDecimal")
+     * @Serializer\Accessor(getter="getInventory")
      * @var int
      * @Serializer\Groups({"Default", "Collection"})
      */
@@ -113,7 +114,7 @@ class StoreProduct extends AbstractDocument
 
     /**
      * @MongoDB\Float
-     * @Serializer\Accessor(getter="getAverageDailySalesDecimal")
+     * @Serializer\Accessor(getter="getAverageDailySalesFloat")
      * @var float
      * @Serializer\Groups({"Default", "Collection"})
      */
@@ -141,7 +142,7 @@ class StoreProduct extends AbstractDocument
      */
     public function getAmount()
     {
-        return $this->inventory;
+        return $this->getInventory();
     }
 
     /**
@@ -150,7 +151,7 @@ class StoreProduct extends AbstractDocument
     public function getInventoryDays()
     {
         if ($this->inventory > 0 && $this->averageDailySales > 0) {
-            return $this->inventory / $this->averageDailySales;
+            return $this->getInventory()->div($this->getAverageDailySalesDecimal())->toNumber();
         } else {
             return 0;
         }
@@ -172,18 +173,31 @@ class StoreProduct extends AbstractDocument
     }
 
     /**
-     * @return string
+     * @return float
      */
-    public function getAverageDailySalesDecimal()
+    public function getAverageDailySalesFloat()
     {
         return Decimal::createFromNumeric($this->averageDailySales, 2)->toNumber();
     }
 
-    /**
-     * @return string
-     */
-    public function getInventoryDecimal()
+    public function getAverageDailySalesDecimal()
     {
-        return Decimal::createFromNumeric($this->inventory, 3)->toNumber();
+        return Decimal::createFromNumeric($this->averageDailySales, 2);
+    }
+
+    /**
+     * @return Quantity
+     */
+    public function getInventory()
+    {
+        return new Quantity($this->inventory, 3);
+    }
+
+    /**
+     * @param Quantity $value
+     */
+    public function setInventory(Quantity $value)
+    {
+        $this->inventory = $value->getCount();
     }
 }

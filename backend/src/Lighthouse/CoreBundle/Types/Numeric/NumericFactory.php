@@ -43,9 +43,18 @@ class NumericFactory
     }
 
     /**
+     * @param int $value
+     * @return Quantity
+     */
+    public function createQuantityFromCount($value)
+    {
+        return new Quantity($value, $this->quantityPrecision);
+    }
+
+    /**
      * @param string|float|int $value
      * @param bool $setRaw
-     * @return Decimal
+     * @return Money
      */
     public function createMoney($value, $setRaw = true)
     {
@@ -54,5 +63,14 @@ class NumericFactory
             $money->setRaw($value);
         }
         return $money;
+    }
+
+    /**
+     * @param int $value
+     * @return Money
+     */
+    public function createMoneyFromCount($value)
+    {
+        return new Money($value, $this->moneyPrecision);
     }
 }

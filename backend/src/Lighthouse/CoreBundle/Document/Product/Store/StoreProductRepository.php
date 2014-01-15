@@ -14,6 +14,8 @@ use Lighthouse\CoreBundle\Exception\InvalidArgumentException;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
 class StoreProductRepository extends DocumentRepository
 {
@@ -26,6 +28,11 @@ class StoreProductRepository extends DocumentRepository
      * @var StoreRepository
      */
     protected $storeRepository;
+
+    /**
+     * @var NumericFactory
+     */
+    protected $numericFactory;
 
     /**
      * @param ProductRepository $productRepository
@@ -41,6 +48,11 @@ class StoreProductRepository extends DocumentRepository
     public function setStoreRepository(StoreRepository $storeRepository)
     {
         $this->storeRepository = $storeRepository;
+    }
+
+    public function setNumericFactory(NumericFactory $numericFactory)
+    {
+        $this->numericFactory = $numericFactory;
     }
 
     /**
@@ -354,11 +366,15 @@ class StoreProductRepository extends DocumentRepository
 
     /**
      * @param string $storeProductId
-     * @param int $averagePurchasePrice
+     * @param int $totalPrice
+     * @param int $quantity
      */
-    public function updateAveragePurchasePrice($storeProductId, $averagePurchasePrice)
+    public function updateAveragePurchasePrice($storeProductId, $totalPrice, $quantity)
     {
-        $roundedAveragePurchasePrice = Decimal::createFromNumeric($averagePurchasePrice, 0)->toNumber();
+        $totalPriceObject = $this->numericFactory->createMoneyFromCount($totalPrice);
+        $quantityObject = $this->numericFactory->createQuantityFromCount($quantity);
+        $roundedAveragePurchasePrice = $totalPriceObject->div($quantityObject)->getCount();
+//        $roundedAveragePurchasePrice = Decimal::createFromNumeric($averagePurchasePrice, 0)->toNumber();
 
         $query = $this
             ->createQueryBuilder()
@@ -382,15 +398,19 @@ class StoreProductRepository extends DocumentRepository
 
     /**
      * @param string $storeProductId
-     * @param float  $averageDailySales
+     * @param int    $days
+     * @param int    $totalQuantity
      */
-    public function updateAverageDailySales($storeProductId, $averageDailySales = null)
+    public function updateAverageDailySales($storeProductId, $days, $totalQuantity = null)
     {
+        $totalQuantityObject = $this->numericFactory->createQuantityFromCount($totalQuantity);
+        $roundedAverageDailySales = $totalQuantityObject->div($days)->toNumber();
+
         $query = $this
             ->createQueryBuilder()
             ->update()
             ->field('id')->equals($storeProductId)
-            ->field('averageDailySales')->set($averageDailySales, true)
+            ->field('averageDailySales')->set($roundedAverageDailySales, true)
             ->field('inventoryRatioNotCalculate')->unsetField();
 
         $query->getQuery()->execute();

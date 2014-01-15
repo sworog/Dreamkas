@@ -10,8 +10,10 @@ class StoreProductTest extends ContainerAwareTestCase
 {
     public function testInventoryRoundings()
     {
+        $numericFactory = $this->getContainer()->get('lighthouse.core.types.numeric.factory');
+
         $storeProduct = new StoreProduct();
-        $storeProduct->inventory = 152.1445;
+        $storeProduct->inventory = $numericFactory->createQuantity(152.1445);
         $storeProduct->averageDailySales = 12.3455;
 
         /* @var Serializer $serializer */
