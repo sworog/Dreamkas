@@ -1,13 +1,13 @@
 package project.lighthouse.autotests.steps;
 
-import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.xml.sax.SAXException;
-import project.lighthouse.autotests.StaticData;
-import project.lighthouse.autotests.console.ConsoleCommand;
-import project.lighthouse.autotests.console.ConsoleCommandResult;
+import project.lighthouse.autotests.console.backend.SymfonyEnvInitCommand;
+import project.lighthouse.autotests.console.backend.SymfonyImportSalesLocalCommand;
+import project.lighthouse.autotests.console.backend.SymfonyProductsRecalculateMetricsCommand;
+import project.lighthouse.autotests.console.backend.SymfonyReportsRecalculateCommand;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.helper.XmlReplacement;
 
@@ -22,7 +22,6 @@ public class ConsoleCommandSteps extends ScenarioSteps {
         super(pages);
     }
 
-
     @Step
     public void runFixtureCommand() throws IOException, InterruptedException, TransformerException, ParserConfigurationException, SAXException {
         //TODO refactor
@@ -30,8 +29,7 @@ public class ConsoleCommandSteps extends ScenarioSteps {
         File patternFile = new File(directoryPath + "/salesPattern.xml");
         String filePath = directoryPath + "/sales.xml";
         new XmlReplacement(patternFile).createFile(new DateTimeHelper("today-5days").convertDate(), new File(filePath));
-        String consoleCommand = String.format("symfony:import:sales:local -S file=%s", filePath);
-        runConsoleCommand(consoleCommand, "backend");
+        new SymfonyImportSalesLocalCommand(filePath).run();
     }
 
     @Step
@@ -41,8 +39,7 @@ public class ConsoleCommandSteps extends ScenarioSteps {
         File patternFile = new File(directoryPath + "/negativeSalesPattern.xml");
         String filePath = directoryPath + "/negativeSales.xml";
         new XmlReplacement(patternFile).createFile(new DateTimeHelper("today-" + days + "days").convertDate(), new File(filePath));
-        String consoleCommand = String.format("symfony:import:sales:local -S file=%s", filePath);
-        runConsoleCommand(consoleCommand, "backend");
+        new SymfonyImportSalesLocalCommand(filePath).run();
     }
 
     @Step
@@ -52,42 +49,26 @@ public class ConsoleCommandSteps extends ScenarioSteps {
         File patternFile = new File(directoryPath + "/negativeSalesPattern1.xml");
         String filePath = directoryPath + "/negativeSales.xml";
         new XmlReplacement(patternFile).createFile(new DateTimeHelper("today-" + days + "days").convertDate(), new File(filePath));
-        String consoleCommand = String.format("symfony:import:sales:local -S file=%s", filePath);
-        runConsoleCommand(consoleCommand, "backend");
+        new SymfonyImportSalesLocalCommand(filePath).run();
     }
 
     @Step
     public void runCapAutoTestsSymfonyImportSalesLocalCommand(String filePath) throws IOException, InterruptedException {
-        String consoleCommand = String.format("symfony:import:sales:local -S file=%s", filePath);
-        runConsoleCommand(consoleCommand, "backend");
+        new SymfonyImportSalesLocalCommand(filePath).run();
     }
 
     @Step
     public void runCapAutoTestsSymfonyProductsRecalculateMetricsCommand() throws IOException, InterruptedException {
-        String consoleCommand = "symfony:products:recalculate_metrics";
-        runConsoleCommand(consoleCommand, "backend");
+        new SymfonyProductsRecalculateMetricsCommand().run();
     }
 
     @Step
     public void runCapAutoTestSymfonyEnvInitCommand() throws IOException, InterruptedException {
-        String consoleCommand = "symfony:env:init";
-        runConsoleCommand(consoleCommand, "backend");
+        new SymfonyEnvInitCommand().run();
     }
 
     @Step
     public void runCapAutoTestsSymfonyReportsRecalculateCommand() throws IOException, InterruptedException {
-        String consoleCommand = "symfony:reports:recalculate";
-        runConsoleCommand(consoleCommand, "backend");
-    }
-
-    @Step
-    public void runConsoleCommand(String command, String folder) throws IOException, InterruptedException {
-        String host = StaticData.WEB_DRIVER_BASE_URL.replaceAll("http://(.*).autotests.webfront.lighthouse.cs", "$1");
-        String commandToExecute = String.format("bundle exec cap autotests %s", command);
-        ConsoleCommandResult consoleCommandResult = new ConsoleCommand(folder, host).exec(commandToExecute);
-        if (!consoleCommandResult.isOk()) {
-            String errorMessage = String.format("Output: '%s'. Command: '%s'. Host: '%s'.", consoleCommandResult.getOutput(), commandToExecute, host);
-            Assert.fail(errorMessage);
-        }
+        new SymfonyReportsRecalculateCommand().run();
     }
 }

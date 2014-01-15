@@ -27,6 +27,10 @@ public class DateTimeHelper {
         return getTodayDate(DATE_PATTERN, days);
     }
 
+    public String convertDateByPattern(String pattern) {
+        return getTodayDate(pattern, days);
+    }
+
     private int getDays(String value) {
         String replacedValue = value.replaceFirst(".+-([0-3]?[0-9]).*", "$1");
         return Integer.parseInt(replacedValue);
