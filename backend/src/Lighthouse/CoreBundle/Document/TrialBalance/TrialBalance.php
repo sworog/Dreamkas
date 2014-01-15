@@ -9,6 +9,7 @@ use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use DateTime;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
 /**
  * Сальдовая ведомость
@@ -31,6 +32,9 @@ use DateTime;
  */
 class TrialBalance extends AbstractDocument
 {
+    const PROCESSING_STATUS_OK = 0;
+    const PROCESSING_STATUS_DIRTY = 1;
+
     /**
      * @MongoDB\Id
      * @var string
@@ -64,8 +68,26 @@ class TrialBalance extends AbstractDocument
     protected $endingBalanceMoney;
 
     /**
+     * @MongoDB\Field(type="quantity")
+     * @var Quantity
+     */
+    protected $startIndex;
+
+    /**
+     * @MongoDB\Field(type="quantity")
+     * @var Quantity
+     */
+    protected $endIndex;
+
+    /**
+     * @MongoDB\Float
+     * @var integer
+     */
+    protected $processingStatus = self::PROCESSING_STATUS_DIRTY;
+
+    /**
      * Количество
-     * @MongoDB\Int
+     * @MongoDB\Float
      * @var float
      */
     protected $quantity;
