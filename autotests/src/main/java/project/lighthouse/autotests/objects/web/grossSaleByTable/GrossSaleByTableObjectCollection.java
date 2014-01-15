@@ -17,7 +17,7 @@ public class GrossSaleByTableObjectCollection extends AbstractObjectCollection {
 
     @Override
     public GrossSaleByTableObject createNode(WebElement element) {
-        return new GrossSaleByTableObject(element);
+        return null;
     }
 
     @Override

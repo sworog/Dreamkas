@@ -20,10 +20,6 @@ public class GrossSaleByTableObject extends AbstractObject implements ObjectLoca
     private String yesterdayValue;
     private String weekAgoValue;
 
-    public GrossSaleByTableObject(WebElement element) {
-        super(element);
-    }
-
     public GrossSaleByTableObject(WebElement element, By findBy, WebDriver webDriver) {
         super(element, findBy, webDriver);
     }
