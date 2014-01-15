@@ -1,47 +1,59 @@
-<h2>Продажи по товарам. Магазин №<%- models.store.get('number') %></h2>
+<% var templates = {
+    localNavigation_reports: require('tpl!blocks/localNavigation/localNavigation_reports.html')
+} %>
+<%= templates.localNavigation_reports({
+    models: _.pick(models, 'store'),
+    active: 'grossSalesByProducts'
+}) %>
 
-<% if (collections.grossSalesByProducts.length) { %>
-<table class="table">
-    <thead>
-    <tr>
-        <th>Продукт</th>
-        <th>Сегодня</th>
-        <th>Вчера</th>
-        <th>Неделю назад</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% collections.grossSalesByProducts.forEach(function(productGrossSalesModel){ %>
+<div class="page__data">
 
-    <% var todaySum = productGrossSalesModel.get('today.runningSum') %>
-    <% var yesterdaySum = productGrossSalesModel.get('yesterday.runningSum') %>
-    <% var weekAgoSum = productGrossSalesModel.get('weekAgo.runningSum') %>
+    <h2>Продажи по товарам. Магазин №<%- models.store.get('number') %></h2>
 
-    <tr name="productGrossSales">
-        <td>
-            <div name="product.name">
-                <%- productGrossSalesModel.get('storeProduct.product.name') %>
-            </div>
-            <div name="product.barcode" style="font-size: 11px; float: right">
-                <%- productGrossSalesModel.get('storeProduct.product.barcode') %>
-            </div>
-            <div name="product.sku" style="font-size: 11px;">
-                <%- productGrossSalesModel.get('storeProduct.product.sku') %>
-            </div>
-        </td>
-        <td style="<%- (todaySum < yesterdaySum && todaySum < weekAgoSum) ? 'color: red' : '' %>" name="today.runningSum">
-            <%- LH.formatMoney(productGrossSalesModel.get('today.runningSum')) %> р.
-        </td>
-        <td name="yesterday.runningSum">
-            <%- LH.formatMoney(productGrossSalesModel.get('yesterday.runningSum')) %> р.
-        </td>
-        <td name="weekAgo.runningSum">
-            <%- LH.formatMoney(productGrossSalesModel.get('weekAgo.runningSum')) %> р.
-        </td>
-    </tr>
-    <% }) %>
-    </tbody>
-</table>
-<% } else { %>
-<p>Нет данных</p>
-<% } %>
+    <% if (collections.grossSalesByProducts.length) { %>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Продукт</th>
+            <th>Сегодня</th>
+            <th>Вчера</th>
+            <th>Неделю назад</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% collections.grossSalesByProducts.forEach(function(productGrossSalesModel){ %>
+
+        <% var todaySum = productGrossSalesModel.get('today.runningSum') %>
+        <% var yesterdaySum = productGrossSalesModel.get('yesterday.runningSum') %>
+        <% var weekAgoSum = productGrossSalesModel.get('weekAgo.runningSum') %>
+
+        <tr name="productGrossSales">
+            <td>
+                <div name="product.name">
+                    <%- productGrossSalesModel.get('storeProduct.product.name') %>
+                </div>
+                <div name="product.barcode" style="font-size: 11px; float: right">
+                    <%- productGrossSalesModel.get('storeProduct.product.barcode') %>
+                </div>
+                <div name="product.sku" style="font-size: 11px;">
+                    <%- productGrossSalesModel.get('storeProduct.product.sku') %>
+                </div>
+            </td>
+            <td style="<%- (todaySum < yesterdaySum && todaySum < weekAgoSum) ? 'color: red' : '' %>"
+                name="today.runningSum">
+                <%- LH.formatMoney(productGrossSalesModel.get('today.runningSum')) %> р.
+            </td>
+            <td name="yesterday.runningSum">
+                <%- LH.formatMoney(productGrossSalesModel.get('yesterday.runningSum')) %> р.
+            </td>
+            <td name="weekAgo.runningSum">
+                <%- LH.formatMoney(productGrossSalesModel.get('weekAgo.runningSum')) %> р.
+            </td>
+        </tr>
+        <% }) %>
+        </tbody>
+    </table>
+    <% } else { %>
+    <p>Нет данных</p>
+    <% } %>
+</div>

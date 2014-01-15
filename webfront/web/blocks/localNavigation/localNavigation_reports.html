@@ -1,0 +1,36 @@
+<%
+/**
+ *
+ * @models.store
+ */
+%>
+
+<% var active = active || null %>
+
+<% var dashboardReportsList = require('utils/dashboardReportsList') %>
+
+<% var allowedReports = _.difference(LH.isReportsAllow(), dashboardReportsList); %>
+
+<% if (allowedReports.length > 1){ %>
+<div class="localNavigation localNavigation_reports">
+
+    <h1>Отчеты</h1>
+
+    <% if (LH.isReportsAllow(['storeGrossSalesByHours'])) { %>
+
+    <a class="localNavigation__link <%- active === 'grossSalesByHours' ? 'localNavigation__link_active' : '' %>" href="stores/<%- models.store.id %>/reports/grossSalesByHours">
+        Продажи по часам
+    </a>
+
+    <% } %>
+
+    <% if (LH.isReportsAllow(['grossSalesByGroups'])) { %>
+
+    <a class="localNavigation__link <%- active === 'grossSalesByGroups' ? 'localNavigation__link_active' : '' %>" href="stores/<%- models.store.id %>/reports/grossSalesByGroups">
+        Продажи по группам
+    </a>
+
+    <% } %>
+
+</div>
+<% } %>

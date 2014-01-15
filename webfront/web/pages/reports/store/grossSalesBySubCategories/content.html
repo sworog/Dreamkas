@@ -1,39 +1,52 @@
-<h2>Продажи по подкатегориям. Магазин №<%- models.store.get('number') %></h2>
+<% var templates = {
+    localNavigation_reports: require('tpl!blocks/localNavigation/localNavigation_reports.html')
+} %>
+<%= templates.localNavigation_reports({
+    models: _.pick(models, 'store'),
+    active: 'grossSalesBySubCategories'
+}) %>
 
-<% if (collections.grossSalesBySubCategories.length) { %>
-<table class="table">
-    <thead>
-    <tr>
-        <th>Подкатегория</th>
-        <th>Сегодня</th>
-        <th>Вчера</th>
-        <th>Неделю назад</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% collections.grossSalesBySubCategories.forEach(function(subCategoryGrossSalesModel){ %>
+<div class="page__data">
 
-    <% var todaySum = subCategoryGrossSalesModel.get('today.runningSum') %>
-    <% var yesterdaySum = subCategoryGrossSalesModel.get('yesterday.runningSum') %>
-    <% var weekAgoSum = subCategoryGrossSalesModel.get('weekAgo.runningSum') %>
+    <h2>Продажи по подкатегориям. Магазин №<%- models.store.get('number') %></h2>
 
-    <tr name="subCategoryGrossSales" href="stores/<%- models.store.id %>/groups/<%- groupId %>/categories/<%- categoryId %>/subCategories/<%- subCategoryGrossSalesModel.get('subCategory.id') %>/grossSalesByProducts">
-        <td name="subCategory.name">
-            <%- subCategoryGrossSalesModel.get('subCategory.name') %>
-        </td>
-        <td style="<%- (todaySum < yesterdaySum && todaySum < weekAgoSum) ? 'color: red' : '' %>" name="today.runningSum">
-            <%- LH.formatMoney(subCategoryGrossSalesModel.get('today.runningSum')) %> р.
-        </td>
-        <td name="yesterday.runningSum">
-            <%- LH.formatMoney(subCategoryGrossSalesModel.get('yesterday.runningSum')) %> р.
-        </td>
-        <td name="weekAgo.runningSum">
-            <%- LH.formatMoney(subCategoryGrossSalesModel.get('weekAgo.runningSum')) %> р.
-        </td>
-    </tr>
-    <% }) %>
-    </tbody>
-</table>
-<% } else { %>
-<p>Нет данных</p>
-<% } %>
+    <% if (collections.grossSalesBySubCategories.length) { %>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Подкатегория</th>
+            <th>Сегодня</th>
+            <th>Вчера</th>
+            <th>Неделю назад</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% collections.grossSalesBySubCategories.forEach(function(subCategoryGrossSalesModel){ %>
+
+        <% var todaySum = subCategoryGrossSalesModel.get('today.runningSum') %>
+        <% var yesterdaySum = subCategoryGrossSalesModel.get('yesterday.runningSum') %>
+        <% var weekAgoSum = subCategoryGrossSalesModel.get('weekAgo.runningSum') %>
+
+        <tr name="subCategoryGrossSales"
+            href="stores/<%- models.store.id %>/groups/<%- groupId %>/categories/<%- categoryId %>/subCategories/<%- subCategoryGrossSalesModel.get('subCategory.id') %>/grossSalesByProducts">
+            <td name="subCategory.name">
+                <%- subCategoryGrossSalesModel.get('subCategory.name') %>
+            </td>
+            <td style="<%- (todaySum < yesterdaySum && todaySum < weekAgoSum) ? 'color: red' : '' %>"
+                name="today.runningSum">
+                <%- LH.formatMoney(subCategoryGrossSalesModel.get('today.runningSum')) %> р.
+            </td>
+            <td name="yesterday.runningSum">
+                <%- LH.formatMoney(subCategoryGrossSalesModel.get('yesterday.runningSum')) %> р.
+            </td>
+            <td name="weekAgo.runningSum">
+                <%- LH.formatMoney(subCategoryGrossSalesModel.get('weekAgo.runningSum')) %> р.
+            </td>
+        </tr>
+        <% }) %>
+        </tbody>
+    </table>
+    <% } else { %>
+    <p>Нет данных</p>
+    <% } %>
+</div>

@@ -100,3 +100,25 @@
 .page__highlighted{
     background: #ffff99;
 }
+
+[page^="pages/reports"] .page__content {
+    height: 100%;
+    padding: 0;
+}
+
+[page^="pages/reports"] .localNavigation {
+    position: relative;
+    top: 0;
+    left: 0;
+    float: left;
+}
+
+.page__data {
+    height: 100%;
+    padding: 60px;
+    position: relative;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}

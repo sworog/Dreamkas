@@ -73,7 +73,8 @@ define(function(require) {
 
             page.$el
                 .removeClass(page.referrer.__name__)
-                .addClass(page.__name__);
+                .addClass(page.__name__)
+                .attr('page', page.__name__);
 
             page.set('loading', true);
         },

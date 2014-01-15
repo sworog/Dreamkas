@@ -1,39 +1,52 @@
-<h2>Продажи по категориям. Магазин №<%- models.store.get('number') %></h2>
+<% var templates = {
+    localNavigation_reports: require('tpl!blocks/localNavigation/localNavigation_reports.html')
+} %>
+<%= templates.localNavigation_reports({
+    models: _.pick(models, 'store'),
+    active: 'grossSalesByCategories'
+}) %>
 
-<% if (collections.grossSalesByCategories.length) { %>
-<table class="table">
-    <thead>
-    <tr>
-        <th>Категория</th>
-        <th>Сегодня</th>
-        <th>Вчера</th>
-        <th>Неделю назад</th>
-    </tr>
-    </thead>
-    <tbody>
-    <% collections.grossSalesByCategories.forEach(function(categoryGrossSalesModel){ %>
+<div class="page__data">
 
-    <% var todaySum = categoryGrossSalesModel.get('today.runningSum') %>
-    <% var yesterdaySum = categoryGrossSalesModel.get('yesterday.runningSum') %>
-    <% var weekAgoSum = categoryGrossSalesModel.get('weekAgo.runningSum') %>
+    <h2>Продажи по категориям. Магазин №<%- models.store.get('number') %></h2>
 
-    <tr name="categoryGrossSales" href="stores/<%- models.store.id %>/groups/<%- groupId %>/categories/<%- categoryGrossSalesModel.get('category.id') %>/grossSalesBySubCategories">
-        <td name="category.name">
-            <%- categoryGrossSalesModel.get('category.name') %>
-        </td>
-        <td style="<%- (todaySum < yesterdaySum && todaySum < weekAgoSum) ? 'color: red' : '' %>" name="today.runningSum">
-            <%- LH.formatMoney(categoryGrossSalesModel.get('today.runningSum')) %> р.
-        </td>
-        <td name="yesterday.runningSum">
-            <%- LH.formatMoney(categoryGrossSalesModel.get('yesterday.runningSum')) %> р.
-        </td>
-        <td name="weekAgo.runningSum">
-            <%- LH.formatMoney(categoryGrossSalesModel.get('weekAgo.runningSum')) %> р.
-        </td>
-    </tr>
-    <% }) %>
-    </tbody>
-</table>
-<% } else { %>
-<p>Нет данных</p>
-<% } %>
+    <% if (collections.grossSalesByCategories.length) { %>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Категория</th>
+            <th>Сегодня</th>
+            <th>Вчера</th>
+            <th>Неделю назад</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% collections.grossSalesByCategories.forEach(function(categoryGrossSalesModel){ %>
+
+        <% var todaySum = categoryGrossSalesModel.get('today.runningSum') %>
+        <% var yesterdaySum = categoryGrossSalesModel.get('yesterday.runningSum') %>
+        <% var weekAgoSum = categoryGrossSalesModel.get('weekAgo.runningSum') %>
+
+        <tr name="categoryGrossSales"
+            href="stores/<%- models.store.id %>/groups/<%- groupId %>/categories/<%- categoryGrossSalesModel.get('category.id') %>/grossSalesBySubCategories">
+            <td name="category.name">
+                <%- categoryGrossSalesModel.get('category.name') %>
+            </td>
+            <td style="<%- (todaySum < yesterdaySum && todaySum < weekAgoSum) ? 'color: red' : '' %>"
+                name="today.runningSum">
+                <%- LH.formatMoney(categoryGrossSalesModel.get('today.runningSum')) %> р.
+            </td>
+            <td name="yesterday.runningSum">
+                <%- LH.formatMoney(categoryGrossSalesModel.get('yesterday.runningSum')) %> р.
+            </td>
+            <td name="weekAgo.runningSum">
+                <%- LH.formatMoney(categoryGrossSalesModel.get('weekAgo.runningSum')) %> р.
+            </td>
+        </tr>
+        <% }) %>
+        </tbody>
+    </table>
+    <% } else { %>
+    <p>Нет данных</p>
+    <% } %>
+</div>

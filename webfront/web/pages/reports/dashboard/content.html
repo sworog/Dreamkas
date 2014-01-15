@@ -1,34 +1,25 @@
 <% var templates = {
-    table_grossSalesByStores: require('tpl!blocks/table/table_grossSalesByStores/table_grossSalesByStores.html')
+    table_grossSalesByStores: require('tpl!blocks/table/table_grossSalesByStores/table_grossSalesByStores.html'),
+    localNavigation_reports: require('tpl!blocks/localNavigation/localNavigation_reports.html')
 } %>
 
-<h1>Отчеты</h1>
+<%= templates.localNavigation_reports({
+    models: _.pick(models, 'store')
+}) %>
 
-<% if (LH.isReportsAllow(['storeGrossSalesByHours'])) { %>
+<div class="page__data">
+    <% if (collections.grossSalesByStores) { %>
 
-<h2>
-    <a href="stores/<%- models.store.id %>/reports/grossSalesByHours">Продажи по часам. Магазин № <%- models.store.get('number') %></a>
-</h2>
+    <h2>Продажи по магазинам</h2>
 
-<% } %>
-<% if (collections.grossSalesByStores) { %>
-
-<h2>Продажи по магазинам</h2>
-
-<% if (collections.grossSalesByStores.length) { %>
-<table id="table_grossSalesByStores" style="margin-bottom: 40px;" class="table table_grossSalesByStores">
-    <%= templates.table_grossSalesByStores({
-        collections: _.pick(collections, 'grossSalesByStores')
-    }) %>
-</table>
-<% } else { %>
-<p>Нет данных</p>
-<% } %>
-<% } %>
-<% if (LH.isReportsAllow(['grossSalesByGroups'])) { %>
-
-<h2>
-    <a href="stores/<%- models.store.id %>/reports/grossSalesByGroups">Продажи по группам товаров. Магазин № <%- models.store.get('number') %></a>
-</h2>
-
-<% } %>
+    <% if (collections.grossSalesByStores.length) { %>
+    <table id="table_grossSalesByStores" style="margin-bottom: 40px;" class="table table_grossSalesByStores">
+        <%= templates.table_grossSalesByStores({
+            collections: _.pick(collections, 'grossSalesByStores')
+        }) %>
+    </table>
+    <% } else { %>
+    <p>Нет данных</p>
+    <% } %>
+    <% } %>
+</div>
