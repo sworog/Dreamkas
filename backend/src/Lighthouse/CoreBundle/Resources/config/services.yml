@@ -120,6 +120,7 @@ services:
 
     lighthouse.core.document.repository.store_product:
             parent: doctrine_mongodb.odm.repository
+            class: Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository
             arguments:
                 - LighthouseCoreBundle:Product\Store\StoreProduct
             calls:

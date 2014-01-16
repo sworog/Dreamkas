@@ -25,7 +25,28 @@ class TrialBalanceRepository extends DocumentRepository
      */
     public function findByStoreProduct($storeProductId)
     {
-        return $this->findBy(array('storeProduct' => $storeProductId), array('createdDate' => 1, '_id' => 1));
+        return $this->findBy(
+            array('storeProduct' => $storeProductId),
+            array('createdDate' => self::SORT_ASC, '_id' => self::SORT_ASC)
+        );
+    }
+
+    /**
+     * @param string $storeProductId
+     * @param string $reasonType
+     * @return Cursor|TrialBalance[]
+     */
+    public function findByStoreProductIdAndReasonType($storeProductId, $reasonType)
+    {
+        $criteria = array(
+            'storeProduct' => $storeProductId,
+            'reason.$ref' => $reasonType
+        );
+        $sort = array(
+            'createdDate' => self::SORT_ASC,
+            '_id' => self::SORT_ASC
+        );
+        return $this->findBy($criteria, $sort);
     }
 
     /**

@@ -9,8 +9,13 @@ use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use SplQueue;
 
 /**
@@ -36,9 +41,19 @@ class TrialBalanceListener extends AbstractMongoDBListener
     protected $storeProductRepository;
 
     /**
+     * @var NumericFactory
+     */
+    protected $numericFactory;
+
+    /**
      * @var SplQueue|TrialBalance[]
      */
     protected $trialBalanceQueue;
+
+    /**
+     * @var array
+     */
+    protected $persistedIndexes = array();
 
     /**
      * @var int
@@ -49,20 +64,24 @@ class TrialBalanceListener extends AbstractMongoDBListener
      * @DI\InjectParams({
      *      "trialBalanceRepository" = @DI\Inject("lighthouse.core.document.repository.trial_balance"),
      *      "invoiceProductRepository" = @DI\Inject("lighthouse.core.document.repository.invoice_product"),
-     *      "storeProductRepository" = @DI\Inject("lighthouse.core.document.repository.store_product")
+     *      "storeProductRepository" = @DI\Inject("lighthouse.core.document.repository.store_product"),
+     *      "numericFactory" = @DI\Inject("lighthouse.core.types.numeric.factory")
      * })
      * @param TrialBalanceRepository $trialBalanceRepository
      * @param InvoiceProductRepository $invoiceProductRepository
      * @param StoreProductRepository $storeProductRepository
+     * @param NumericFactory $numericFactory
      */
     public function __construct(
         TrialBalanceRepository $trialBalanceRepository,
         InvoiceProductRepository $invoiceProductRepository,
-        StoreProductRepository $storeProductRepository
+        StoreProductRepository $storeProductRepository,
+        NumericFactory $numericFactory
     ) {
         $this->trialBalanceRepository = $trialBalanceRepository;
         $this->invoiceProductRepository = $invoiceProductRepository;
         $this->storeProductRepository = $storeProductRepository;
+        $this->numericFactory = $numericFactory;
 
         $this->trialBalanceQueue = new SplQueue();
         $this->trialBalanceQueue->setIteratorMode(SplQueue::IT_MODE_DELETE);
@@ -106,18 +125,42 @@ class TrialBalanceListener extends AbstractMongoDBListener
      */
     protected function onReasonablePersist(Reasonable $document, DocumentManager $dm)
     {
+        $storeProduct = $this->createStoreProduct($document, $dm);
+        $this->createTrialBalance($document, $storeProduct);
+    }
+
+    /**
+     * @param Reasonable $document
+     * @param DocumentManager $dm
+     * @return StoreProduct
+     */
+    protected function createStoreProduct(Reasonable $document, DocumentManager $dm)
+    {
         $storeProduct = $this->storeProductRepository->findOrCreateByReason($document);
+
         $dm->persist($storeProduct);
         $this->computeChangeSet($dm, $storeProduct);
 
+        return $storeProduct;
+    }
+
+    /**
+     * @param Reasonable $reason
+     * @param StoreProduct $storeProduct
+     * @return TrialBalance
+     */
+    protected function createTrialBalance(Reasonable $reason, StoreProduct $storeProduct)
+    {
         $trialBalance = new TrialBalance();
-        $trialBalance->price = $document->getProductPrice();
-        $trialBalance->quantity = $document->getProductQuantity();
+        $trialBalance->price = $reason->getProductPrice();
+        $trialBalance->quantity = $reason->getProductQuantity();
         $trialBalance->storeProduct = $storeProduct;
-        $trialBalance->reason = $document;
-        $trialBalance->createdDate = $document->getReasonDate();
+        $trialBalance->reason = $reason;
+        $trialBalance->createdDate = $reason->getReasonDate();
 
         $this->trialBalanceQueue[] = $trialBalance;
+
+        return $trialBalance;
     }
     
     /**
@@ -184,10 +227,80 @@ class TrialBalanceListener extends AbstractMongoDBListener
             $this->postFlushCounter++;
             $dm = $eventArgs->getDocumentManager();
             foreach ($this->trialBalanceQueue as $trialBalance) {
+                if ($this->supportsRangeIndex($trialBalance)) {
+                    $this->setTrialBalanceIndexRange($trialBalance, $dm);
+                }
                 $dm->persist($trialBalance);
             }
             $dm->flush();
             $this->postFlushCounter--;
         }
+        $this->clearPersistedIndex();
+    }
+
+    /**
+     * @param TrialBalance $trialBalance
+     * @param DocumentManager $dm
+     */
+    protected function setTrialBalanceIndexRange(TrialBalance $trialBalance, DocumentManager $dm)
+    {
+        $startIndex = $this->pullPersistedIndex($trialBalance);
+        if (!$startIndex) {
+            $previousTrialBalance = $this->trialBalanceRepository->findOnePrevious($trialBalance);
+            if ($previousTrialBalance) {
+                $startIndex = clone $previousTrialBalance->endIndex;
+            } else {
+                $startIndex = $this->numericFactory->createQuantity(0);
+            }
+        }
+
+        $trialBalance->startIndex = $startIndex;
+        $trialBalance->endIndex = $trialBalance->startIndex->add($trialBalance->quantity);
+
+        $this->pushPersistedIndex($trialBalance);
+    }
+
+    /**
+     * @param TrialBalance $trialBalance
+     * @return bool
+     */
+    protected function supportsRangeIndex(TrialBalance $trialBalance)
+    {
+        return in_array(
+            $trialBalance->reason->getReasonType(),
+            array(InvoiceProduct::REASON_TYPE, SaleProduct::REASON_TYPE)
+        );
+    }
+
+    /**
+     * @param TrialBalance $trialBalance
+     */
+    protected function pushPersistedIndex(TrialBalance $trialBalance)
+    {
+        $reasonType = $trialBalance->reason->getReasonType();
+        $storeProductId = $trialBalance->storeProduct->id;
+        $this->persistedIndexes[$reasonType][$storeProductId] = $trialBalance->endIndex;
+    }
+
+    /**
+     * @param TrialBalance $trialBalance
+     * @return Quantity
+     */
+    protected function pullPersistedIndex(TrialBalance $trialBalance)
+    {
+        $reasonType = $trialBalance->reason->getReasonType();
+        $storeProductId = $trialBalance->storeProduct->id;
+        if (isset($this->persistedIndexes[$reasonType][$storeProductId])) {
+            $index = $this->persistedIndexes[$reasonType][$storeProductId];
+            unset($this->persistedIndexes[$reasonType][$storeProductId]);
+            return $index;
+        } else {
+            return null;
+        }
+    }
+
+    protected function clearPersistedIndex()
+    {
+        $this->persistedIndexes = array();
     }
 }
