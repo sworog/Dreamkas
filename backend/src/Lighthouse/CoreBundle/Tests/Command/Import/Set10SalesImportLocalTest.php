@@ -111,7 +111,7 @@ class Set10SalesImportLocalTest extends WebTestCase
         $display = $commandTester->getDisplay();
 
         $this->assertContains(".E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E             40\nFlushing", $display);
-        $this->assertContains('| Persist |  0 |   0.00 |  0.000 |   0.00 |', $display);
+        $this->assertContains('| Persist |', $display);
 
         /* @var ConfigRepository $configRepository */
         $configRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');

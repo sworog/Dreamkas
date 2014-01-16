@@ -141,7 +141,7 @@ class Set10SalesImportLocal extends Command
         /* @var TableHelper $tableHelper */
         $tableHelper = $this->getHelper('table');
         $tableHelper->setPadType(STR_PAD_LEFT);
-        $tableHelper->setHeaders(array('', 'ms', 'pos/ms', 'ms/pos', '%'));
+        $tableHelper->setHeaders(array('', 'count', 'ms', 'pos/ms', 'ms/pos', '%'));
 
         $tableHelper->addRow($this->getEventStats('Parse', $events, 'parse'));
         $tableHelper->addRow($this->getEventStats('Pos', $events, 'position'));
@@ -164,17 +164,15 @@ class Set10SalesImportLocal extends Command
         array $events,
         $key
     ) {
-        $event = (isset($events[$key])) ? $events[$key] : null;
-        $ms       = ($event) ? $event->getDuration() : 0;
-        $posPerMs = ($event) ? $this->div(count($events['position']->getPeriods()), $events[$key]->getDuration()) : 0;
-        $msPerPos = ($event) ? $this->div($event->getDuration(), count($events['position']->getPeriods())) : 0;
-        $percent  = ($event) ? $this->div($events[$key]->getDuration(), $events['all']->getDuration()) * 100 : 0;
+        $duration = (isset($events[$key])) ? $events[$key]->getDuration() : 0;
+        $count = (isset($events[$key])) ? count($events[$key]->getPeriods()) : 0;
         return array(
             $title,
-            sprintf('%d', $ms),
-            sprintf('%.02f', $posPerMs),
-            sprintf('%.03f', $msPerPos),
-            sprintf('%.02f', $percent)
+            sprintf('%d', $duration),
+            sprintf('%d', $count),
+            sprintf('%.02f', $this->div(count($events['position']->getPeriods()), $duration)),
+            sprintf('%.03f', $this->div($duration, count($events['position']->getPeriods()))),
+            sprintf('%.02f', $this->div($duration, $events['all']->getDuration()) * 100)
         );
     }
 

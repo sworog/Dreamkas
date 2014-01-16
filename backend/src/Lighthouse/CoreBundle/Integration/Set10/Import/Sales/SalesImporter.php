@@ -310,8 +310,13 @@ class SalesImporter
         $i = 0;
         foreach ($purchaseElement->getPositions() as $positionElement) {
             $e = $this->stopwatch->start('position');
-            $sale->products->add($this->createSaleProduct($positionElement));
-            $e->stop();
+            try {
+                $sale->products->add($this->createSaleProduct($positionElement));
+                $e->stop();
+            } catch (\Exception $exception) {
+                $e->stop();
+                throw $exception;
+            }
             if ($i++ > 0) {
                 $this->dotHelper->writeComment('.');
             }
