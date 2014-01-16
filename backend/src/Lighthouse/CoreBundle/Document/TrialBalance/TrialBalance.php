@@ -19,6 +19,8 @@ use Lighthouse\CoreBundle\Types\Numeric\Quantity;
  * @property Money          $beginningBalanceMoney
  * @property float          $endingBalance
  * @property Money          $endingBalanceMoney
+ * @property Quantity       $startIndex
+ * @property Quantity       $endIndex
  * @property float          $quantity
  * @property Money          $totalPrice
  * @property Money          $price

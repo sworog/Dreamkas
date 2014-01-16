@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document;
 
 use Doctrine\MongoDB\Cursor;
 use Doctrine\ODM\MongoDB\DocumentRepository as BaseRepository;
+use Doctrine\ODM\MongoDB\LockMode;
 use Doctrine\ODM\MongoDB\MongoDBException;
 use Doctrine\ODM\MongoDB\Proxy\Proxy;
 use Doctrine\MongoDB\Collection;
@@ -57,6 +58,23 @@ class DocumentRepository extends BaseRepository
             $ids[] = $row['_id'];
         }
         return $ids;
+    }
+
+    /**
+     * @param array $criteria
+     * @param array $sort
+     * @param array $hints
+     * @return null|object
+     */
+    public function findOneBy(array $criteria, array $sort = array(), array $hints = array())
+    {
+        return $this->uow->getDocumentPersister($this->documentName)->load(
+            $criteria,
+            null,
+            $hints,
+            LockMode::NONE,
+            $sort
+        );
     }
 
     /**

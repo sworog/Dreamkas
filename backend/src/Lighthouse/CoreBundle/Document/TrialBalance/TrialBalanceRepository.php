@@ -42,6 +42,22 @@ class TrialBalanceRepository extends DocumentRepository
     }
 
     /**
+     * @param Reasonable $reason
+     * @return TrialBalance
+     */
+    public function findOnePreviousByReason(Reasonable $reason)
+    {
+        $criteria = array(
+            'reason.$id' => new MongoId($reason->getReasonId()),
+            'reason.$ref' => $reason->getReasonType(),
+            'storeProduct' => $reason->getReasonProduct()->id,
+            'createdDate' => array('$lt' => $reason->getReasonDate())
+        );
+        $sort = array('createdDate' => self::SORT_DESC, '_id' => self::SORT_DESC);
+        return $this->findOneBy($criteria, $sort);
+    }
+
+    /**
      * @param Reasonable[] $reasons
      * @return TrialBalance[]|Cursor
      */
