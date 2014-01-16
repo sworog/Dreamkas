@@ -21,11 +21,11 @@ class TrialBalanceRepository extends DocumentRepository
 
     /**
      * @param $storeProductId
-     * @return Cursor
+     * @return Cursor|TrialBalance[]
      */
     public function findByStoreProduct($storeProductId)
     {
-        return $this->findBy(array('storeProduct' => $storeProductId));
+        return $this->findBy(array('storeProduct' => $storeProductId), array('createdDate' => 1, '_id' => 1));
     }
 
     /**
@@ -42,18 +42,20 @@ class TrialBalanceRepository extends DocumentRepository
     }
 
     /**
-     * @param Reasonable $reason
+     * @param TrialBalance $trialBalance
      * @return TrialBalance
      */
-    public function findOnePreviousByReason(Reasonable $reason)
+    public function findOnePrevious(TrialBalance $trialBalance)
     {
         $criteria = array(
-            'reason.$id' => new MongoId($reason->getReasonId()),
-            'reason.$ref' => $reason->getReasonType(),
-            'storeProduct' => $reason->getReasonProduct()->id,
-            'createdDate' => array('$lt' => $reason->getReasonDate())
+            'reason.$ref' => $trialBalance->reason->getReasonType(),
+            'storeProduct' => $trialBalance->storeProduct->id,
+            'createdDate' => array('$lt' => $trialBalance->createdDate)
         );
-        $sort = array('createdDate' => self::SORT_DESC, '_id' => self::SORT_DESC);
+        $sort = array(
+            'createdDate' => self::SORT_DESC,
+            '_id' => self::SORT_DESC
+        );
         return $this->findOneBy($criteria, $sort);
     }
 

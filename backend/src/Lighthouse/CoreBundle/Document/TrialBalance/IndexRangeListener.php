@@ -52,9 +52,9 @@ class IndexRangeListener extends AbstractMongoDBListener
      */
     protected function setIndexRange(TrialBalance $trialBalance, DocumentManager $dm)
     {
-        $previousTrialBalance = $this->trialBalanceRepository->findOnePreviousByReason($trialBalance->reason);
+        $previousTrialBalance = $this->trialBalanceRepository->findOnePrevious($trialBalance);
         if ($previousTrialBalance) {
-            $trialBalance->startIndex = $previousTrialBalance->endIndex;
+            $trialBalance->startIndex = clone $previousTrialBalance->endIndex;
         } else {
             $trialBalance->startIndex = $this->numericFactory->createQuantity(0);
         }
