@@ -33,6 +33,38 @@ service "teamcity-server" do
   action :restart
 end
 
+directory "/home/teamcity/.BuildServer/lib/jdbc" do
+  action :create
+  owner "teamcity"
+  group "teamcity"
+  recursive true
+end
+
+execute "change_rights2" do
+  command "chown teamcity:teamcity /home/teamcity/.BuildServer -R"
+  action :run
+end
+
+cookbook_file "/home/teamcity/.BuildServer/lib/jdbc/postgresql-9.3-1100.jdbc4.jar" do
+  source "postgresql-9.3-1100.jdbc4.jar"
+  action :create
+  owner "teamcity"
+  group "teamcity"
+end
+
+directory "/home/teamcity/.ssh" do
+  action :create
+  owner "teamcity"
+  group "teamcity"
+end
+
+cookbook_file "ssh_rsa_privite_key" do
+  path "/home/teamcity/.ssh/id_rsa"
+  owner "teamcity"
+  group "teamcity"
+  mode "0600"
+end
+
 #############################################
 # nginx
 #############################################
