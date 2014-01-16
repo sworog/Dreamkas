@@ -7,8 +7,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
@@ -57,8 +55,7 @@ public class HttpExecutor {
     }
 
     public String executeHttpMethod(HttpEntityEnclosingRequestBase httpEntityEnclosingRequestBase) throws IOException {
-        CloseableHttpClient closeableHttpClient = HttpClientBuilder.create().useSystemProperties().build();
-        HttpResponse response = closeableHttpClient.execute(httpEntityEnclosingRequestBase);
+        HttpResponse response = new HttpClientFacade().build().execute(httpEntityEnclosingRequestBase);
 
         HttpEntity httpEntity = response.getEntity();
         if (httpEntity != null) {
@@ -163,8 +160,7 @@ public class HttpExecutor {
             request.setHeader("Authorization", "Bearer " + accessToken);
         }
 
-        CloseableHttpClient closeableHttpClient = HttpClientBuilder.create().useSystemProperties().build();
-        HttpResponse response = closeableHttpClient.execute(request);
+        HttpResponse response = new HttpClientFacade().build().execute(request);
 
         HttpEntity httpEntity = response.getEntity();
         String responseMessage = EntityUtils.toString(httpEntity, "UTF-8");
