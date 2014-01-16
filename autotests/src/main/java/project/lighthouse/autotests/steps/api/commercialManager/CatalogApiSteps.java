@@ -15,7 +15,7 @@ public class CatalogApiSteps extends CommercialManagerApi {
     private static final String STORE_MANAGERS_REL_VALUE = "storeManagers";
     private static final String DEPARTMENT_MANAGERS_REL_VALUE = "departmentManagers";
 
-    public CatalogApiSteps() throws JSONException {
+    public CatalogApiSteps() throws JSONException, IOException {
     }
 
     @Step

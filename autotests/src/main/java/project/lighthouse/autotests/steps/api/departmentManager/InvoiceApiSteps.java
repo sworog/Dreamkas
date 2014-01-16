@@ -2,15 +2,15 @@ package project.lighthouse.autotests.steps.api.departmentManager;
 
 import net.thucydides.core.annotations.Step;
 import org.json.JSONException;
-import project.lighthouse.autotests.ApiConnect;
 import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.api.ApiConnect;
 import project.lighthouse.autotests.objects.api.Invoice;
 
 import java.io.IOException;
 
 public class InvoiceApiSteps extends DepartmentManagerApi {
 
-    public InvoiceApiSteps() throws JSONException {
+    public InvoiceApiSteps() throws JSONException, IOException {
     }
 
     @Step

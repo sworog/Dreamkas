@@ -16,7 +16,7 @@ public class StaticData {
     public static HashMap<String, User> users = new HashMap<>();
     public static HashMap<String, Store> stores = new HashMap<>();
     public static HashMap<String, Department> departments = new HashMap<>();
-    public static HashMap<String, OauthAuthorizeData> userTokens = new HashMap<>();
+    public static HashMap<String, String> userTokens = new HashMap<>();
     public static HashMap<String, ArrayList<Product>> subCategoryProducts = new HashMap<>();
 
     public static Integer DEFAULT_TIMEOUT = 10;

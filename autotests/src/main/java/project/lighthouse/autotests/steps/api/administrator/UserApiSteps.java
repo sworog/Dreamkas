@@ -3,8 +3,8 @@ package project.lighthouse.autotests.steps.api.administrator;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
-import project.lighthouse.autotests.ApiConnect;
 import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.api.ApiConnect;
 import project.lighthouse.autotests.objects.api.User;
 import project.lighthouse.autotests.pages.administrator.users.UserCreatePage;
 
@@ -16,7 +16,7 @@ public class UserApiSteps extends ScenarioSteps {
 
     UserCreatePage userCreatePage;
 
-    public UserApiSteps() throws JSONException {
+    public UserApiSteps() throws JSONException, IOException {
         apiConnect = new ApiConnect("administrator", "lighthouse");
     }
 

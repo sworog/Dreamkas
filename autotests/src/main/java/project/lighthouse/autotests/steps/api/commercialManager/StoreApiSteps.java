@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class StoreApiSteps extends CommercialManagerApi {
 
-    public StoreApiSteps() throws JSONException {
+    public StoreApiSteps() throws JSONException, IOException {
     }
 
     @Step

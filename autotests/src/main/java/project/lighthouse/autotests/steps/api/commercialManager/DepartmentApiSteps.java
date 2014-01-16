@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class DepartmentApiSteps extends CommercialManagerApi {
 
-    public DepartmentApiSteps() throws JSONException {
+    public DepartmentApiSteps() throws JSONException, IOException {
     }
 
     @Step

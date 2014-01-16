@@ -2,15 +2,15 @@ package project.lighthouse.autotests.steps.api.departmentManager;
 
 import net.thucydides.core.annotations.Step;
 import org.json.JSONException;
-import project.lighthouse.autotests.ApiConnect;
 import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.api.ApiConnect;
 import project.lighthouse.autotests.objects.api.WriteOff;
 
 import java.io.IOException;
 
 public class WriteOffApiSteps extends DepartmentManagerApi {
 
-    public WriteOffApiSteps() throws JSONException {
+    public WriteOffApiSteps() throws JSONException, IOException {
     }
 
     @Step
