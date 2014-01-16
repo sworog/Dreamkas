@@ -197,7 +197,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
         /** @var TrialBalance $endTrialBalanceItem */
         $endTrialBalanceItem = $endTrialBalance->current();
-        $this->assertEquals(9, $endTrialBalanceItem->quantity);
+        $this->assertEquals(9000, $endTrialBalanceItem->quantity->getCount());
         $this->assertEquals(99, $endTrialBalanceItem->price->getCount());
         $this->assertEquals(891, $endTrialBalanceItem->totalPrice->getCount());
 
@@ -207,7 +207,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
         $trialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
 
-        $this->assertEquals(10, $trialBalance->quantity);
+        $this->assertEquals(10000, $trialBalance->quantity->getCount());
         $this->assertEquals(99, $trialBalance->price->getCount());
         $this->assertEquals(990, $trialBalance->totalPrice->getCount());
 
@@ -258,7 +258,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $trialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
 
         $this->assertEquals(7999, $trialBalance->price->getCount());
-        $this->assertEquals(3, $trialBalance->quantity);
+        $this->assertEquals(3000, $trialBalance->quantity->getCount());
         $this->assertEquals(23997, $trialBalance->totalPrice->getCount());
     }
 
@@ -302,7 +302,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $trialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
 
         $this->assertEquals(7999, $trialBalance->price->getCount());
-        $this->assertEquals(3, $trialBalance->quantity);
+        $this->assertEquals(3000, $trialBalance->quantity->getCount());
         $this->assertEquals(23997, $trialBalance->totalPrice->getCount());
 
         // Edit
@@ -313,11 +313,11 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $afterEditTrialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
 
         $this->assertEquals(7799, $afterEditTrialBalance->price->getCount());
-        $this->assertEquals(7, $afterEditTrialBalance->quantity);
+        $this->assertEquals(7000, $afterEditTrialBalance->quantity->getCount());
         $this->assertEquals(54593, $afterEditTrialBalance->totalPrice->getCount());
 
         $this->assertEquals(7799, $trialBalance->price->getCount());
-        $this->assertEquals(7, $trialBalance->quantity);
+        $this->assertEquals(7000, $trialBalance->quantity->getCount());
         $this->assertEquals(54593, $trialBalance->totalPrice->getCount());
 
         // Delete

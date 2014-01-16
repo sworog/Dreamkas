@@ -112,14 +112,14 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
                 'sold' => 10,
                 'accepted' => 20,
                 'inventory' => 10,
-                'inventoryDays' => '30.0',
+                'inventoryDays' => '30.3',
                 'averageDailySales' => '0.33',
             ),
             '7' => array(
                 'sold' => 1,
                 'accepted' => 3,
                 'inventory' => 2,
-                'inventoryDays' => '60.0',
+                'inventoryDays' => '66.7',
                 'averageDailySales' => '0.03',
             ),
             '8594403916157' => array(
@@ -154,7 +154,7 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
                 'sold' => 1,
                 'accepted' => 11,
                 'inventory' => 10,
-                'inventoryDays' => '300.0',
+                'inventoryDays' => '333.3',
                 'averageDailySales' => '0.03',
             ),
             '8594403110111' => array(

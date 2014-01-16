@@ -21,7 +21,7 @@ use Lighthouse\CoreBundle\Types\Numeric\Quantity;
  * @property Money          $endingBalanceMoney
  * @property Quantity       $startIndex
  * @property Quantity       $endIndex
- * @property float          $quantity
+ * @property Quantity       $quantity
  * @property Money          $totalPrice
  * @property Money          $price
  * @property DateTime       $createdDate
@@ -89,7 +89,7 @@ class TrialBalance extends AbstractDocument
 
     /**
      * Количество
-     * @MongoDB\Float
+     * @MongoDB\Field(type="quantity")
      * @var float
      */
     protected $quantity;

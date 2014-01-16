@@ -21,7 +21,9 @@ abstract class AbstractDocument
      */
     public function __get($name)
     {
-        if (property_exists($this, $name)) {
+        if (method_exists($this, 'get' . $name)) {
+            return $this->{'get' . $name}();
+        } elseif (property_exists($this, $name)) {
             return $this->$name;
         }
         throw new \Exception("Property '$name' does not exist");

@@ -42,8 +42,8 @@ class InventoryListener extends AbstractMongoDBListener
 
         if ($document instanceof Reasonable) {
             $storeProduct = $this->getStoreProduct($document);
-            $inventoryDiff = $document->getProductQuantity()->sign($document->increaseAmount())->toNumber();
-            $storeProduct->inventory = $storeProduct->inventory + $inventoryDiff;
+            $inventoryDiff = $document->getProductQuantity()->sign($document->increaseAmount());
+            $storeProduct->inventory = $storeProduct->inventory->add($inventoryDiff);
             $eventArgs->getDocumentManager()->persist($storeProduct);
         }
     }
@@ -57,8 +57,8 @@ class InventoryListener extends AbstractMongoDBListener
 
         if ($document instanceof Reasonable) {
             $storeProduct = $this->getStoreProduct($document);
-            $inventoryDiff = $document->getProductQuantity()->sign($document->increaseAmount())->toNumber();
-            $storeProduct->inventory = $storeProduct->inventory - $inventoryDiff;
+            $inventoryDiff = $document->getProductQuantity()->sign($document->increaseAmount());
+            $storeProduct->inventory = $storeProduct->inventory->sub($inventoryDiff);
             $eventArgs->getDocumentManager()->persist($storeProduct);
         }
     }
@@ -96,12 +96,12 @@ class InventoryListener extends AbstractMongoDBListener
             $oldQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][0] : $document->getProductQuantity();
             $newQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][1] : $document->getProductQuantity();
 
-            $oldInventoryDiff = $oldQuantity->sign(!$document->increaseAmount())->toNumber();
-            $oldStoreProduct->inventory = $oldStoreProduct->inventory + $oldInventoryDiff;
+            $oldInventoryDiff = $oldQuantity->sign(!$document->increaseAmount());
+            $oldStoreProduct->inventory = $oldStoreProduct->inventory->add($oldInventoryDiff);
             $this->computeChangeSet($dm, $oldStoreProduct);
 
-            $newInventoryDiff = $newQuantity->sign(!$document->increaseAmount())->toNumber();
-            $newStoreProduct->inventory = $newStoreProduct->inventory - $newInventoryDiff;
+            $newInventoryDiff = $newQuantity->sign(!$document->increaseAmount());
+            $newStoreProduct->inventory = $newStoreProduct->inventory->sub($newInventoryDiff);
             $dm->persist($newStoreProduct);
             $this->computeChangeSet($dm, $newStoreProduct);
         } else {
@@ -110,13 +110,13 @@ class InventoryListener extends AbstractMongoDBListener
                 $quantity0 = $changeSet['quantity'][0];
                 /* @var Quantity $quantity1 */
                 $quantity1 = $changeSet['quantity'][1];
-                $quantityDiff = $quantity1->sub($quantity0)->sign($document->increaseAmount())->toNumber();
+                $quantityDiff = $quantity1->sub($quantity0)->sign($document->increaseAmount());
             } else {
                 $quantityDiff = 0;
             }
 
             $storeProduct = $this->getStoreProduct($document);
-            $storeProduct->inventory = $storeProduct->inventory + $quantityDiff;
+            $storeProduct->inventory = $storeProduct->inventory->add($quantityDiff);
             $this->computeChangeSet($dm, $storeProduct);
         }
     }
