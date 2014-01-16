@@ -102,6 +102,23 @@ class Set10SalesImportLocalTest extends WebTestCase
         $this->assertCount(5, $cursor);
     }
 
+    public function testExecuteWithAllErrors()
+    {
+        $this->factory->getStore('197');
+
+        $commandTester = $this->execute('purchases-14-05-2012_9-18-29.xml');
+
+        $display = $commandTester->getDisplay();
+
+        $this->assertContains(".E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E             40\nFlushing", $display);
+        $this->assertContains('| Persist |  0 |   0.00 |  0.000 |   0.00 |', $display);
+
+        /* @var ConfigRepository $configRepository */
+        $configRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
+        $cursor = $configRepository->findAll();
+        $this->assertCount(20, $cursor);
+    }
+
     /**
      * @return array
      */

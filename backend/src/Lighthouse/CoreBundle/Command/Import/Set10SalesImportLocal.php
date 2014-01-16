@@ -143,35 +143,38 @@ class Set10SalesImportLocal extends Command
         $tableHelper->setPadType(STR_PAD_LEFT);
         $tableHelper->setHeaders(array('', 'ms', 'pos/ms', 'ms/pos', '%'));
 
-        $tableHelper->addRow($this->getEventStats('Parse', $events['parse'], $events['all'], $events['position']));
-        $tableHelper->addRow($this->getEventStats('Pos', $events['position'], $events['all'], $events['position']));
-        $tableHelper->addRow($this->getEventStats('Receipt', $events['receipt'], $events['all'], $events['position']));
-        $tableHelper->addRow($this->getEventStats('Persist', $events['persist'], $events['all'], $events['position']));
-        $tableHelper->addRow($this->getEventStats('Flush', $events['flush'], $events['all'], $events['position']));
-        $tableHelper->addRow($this->getEventStats('All', $events['all'], $events['all'], $events['position']));
+        $tableHelper->addRow($this->getEventStats('Parse', $events, 'parse'));
+        $tableHelper->addRow($this->getEventStats('Pos', $events, 'position'));
+        $tableHelper->addRow($this->getEventStats('Receipt', $events, 'receipt'));
+        $tableHelper->addRow($this->getEventStats('Persist', $events, 'persist'));
+        $tableHelper->addRow($this->getEventStats('Flush', $events, 'flush'));
+        $tableHelper->addRow($this->getEventStats('All', $events, 'all'));
 
         $tableHelper->render($output);
     }
 
     /**
      * @param string $title
-     * @param StopwatchEvent $event
-     * @param StopwatchEvent $allEvent
-     * @param StopwatchEvent $positionsEvent
-     * @return string
+     * @param StopwatchEvent[] $events
+     * @param string $key
+     * @return array
      */
     protected function getEventStats(
         $title,
-        StopwatchEvent $event,
-        StopwatchEvent $allEvent,
-        StopwatchEvent $positionsEvent
+        array $events,
+        $key
     ) {
+        $event = (isset($events[$key])) ? $events[$key] : null;
+        $ms       = ($event) ? $event->getDuration() : 0;
+        $posPerMs = ($event) ? $this->div(count($events['position']->getPeriods()), $events[$key]->getDuration()) : 0;
+        $msPerPos = ($event) ? $this->div($event->getDuration(), count($events['position']->getPeriods())) : 0;
+        $percent  = ($event) ? $this->div($events[$key]->getDuration(), $events['all']->getDuration()) * 100 : 0;
         return array(
             $title,
-            sprintf('%d', $event->getDuration()),
-            sprintf('%.02f', $this->div(count($positionsEvent->getPeriods()), $event->getDuration())),
-            sprintf('%.03f', $this->div($event->getDuration(), count($positionsEvent->getPeriods()))),
-            sprintf('%.02f', $this->div($event->getDuration(), $allEvent->getDuration()) * 100)
+            sprintf('%d', $ms),
+            sprintf('%.02f', $posPerMs),
+            sprintf('%.03f', $msPerPos),
+            sprintf('%.02f', $percent)
         );
     }
 
