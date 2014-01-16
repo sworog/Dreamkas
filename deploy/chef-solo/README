@@ -1,0 +1,6 @@
+Краткий набор необходимых команд:
+librarian-chef update - Обновление зависимостей
+librarian-chef install - Установка зависимостей
+
+knife solo prepare _address_ nodes/type.json - Подготовка машины для работы с chef (установка самого chef на сервер)
+knife solo cook _address_ nodes/type.json - Настройка сервера в соответствии с типом ноды (как раз самое важное установка и настрока сервера)

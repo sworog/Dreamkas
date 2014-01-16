@@ -1,0 +1,46 @@
+{
+    "run_list": [
+        "recipe[apt::default]",
+        "recipe[java]",
+        "recipe[postgresql]",
+        "recipe[postgresql::server]",
+        "recipe[postgresql::pg_database]",
+        "recipe[postgresql::pg_user]",
+
+        "recipe[nginx]",
+
+        "recipe[lighthouse]",
+        "recipe[lighthouse::vpn]",
+        "recipe[teamcity_server::server]",
+        "recipe[lighthouse::teamcity]"
+    ],
+    "java": {
+        "oracle": {
+            "accept_oracle_download_terms": true
+        },
+        "install_flavor": "oracle"
+    },
+    "teamcity_server": {
+        "version": "8.0.5"
+    },
+    "postgresql": {
+        "users": [
+            {
+                "username": "teamcity",
+                "password": "watchmanteamcity",
+                "superuser": true,
+                "createdb": true,
+                "login": true
+            }
+        ],
+        "databases": [
+            {
+                "name": "teamcity",
+                "owner": "teamcity",
+                "template": "template0",
+                "encoding": "utf8",
+                "locale": "en_US.UTF8"
+            }
+        ]
+    }
+}

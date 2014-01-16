@@ -9,6 +9,7 @@
         "recipe[beanstalkd]",
 
         "recipe[lighthouse]",
+        "recipe[lighthouse::php]",
         "recipe[lighthouse::hosts]"
     ],
     "php": {

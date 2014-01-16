@@ -9,6 +9,7 @@
         "recipe[java]",
 
         "recipe[lighthouse]",
+        "recipe[lighthouse::php]",
         "recipe[lighthouse::tests]",
         "recipe[lighthouse::vpn]",
         "recipe[teamcity::agent]",

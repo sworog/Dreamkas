@@ -69,4 +69,25 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       chef.json = AGENT_VAGRANT_JSON
     end
   end
+  
+  config.vm.define "teamcity" do |agent|
+    agent.vm.box = "precise64"
+    agent.vm.network :private_network, ip: "192.168.33.20"
+
+    agent.vm.provider :virtualbox do |vb|
+      vb.customize ["modifyvm", :id, "--memory", "1024"]
+    end
+
+    TEAMCITY_VAGRANT_JSON = JSON.parse(Pathname(__FILE__).dirname.join('nodes', 'teamcity.json').read)
+
+    agent.vm.provision :chef_solo do |chef|
+      chef.cookbooks_path = ["site-cookbooks", "cookbooks"]
+      chef.roles_path = "roles"
+      chef.data_bags_path = "data_bags"
+      chef.provisioning_path = "/tmp/vagrant-chef"
+
+      chef.run_list = TEAMCITY_VAGRANT_JSON.delete('run_list')
+      chef.json = TEAMCITY_VAGRANT_JSON
+    end
+  end
 end
