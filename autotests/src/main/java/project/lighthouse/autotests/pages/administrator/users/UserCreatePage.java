@@ -20,7 +20,7 @@ public class UserCreatePage extends ProductCreatePage {
         super(driver);
     }
 
-    public static final HashMap<String, String> roles = new HashMap<String, String>() {
+    private static final HashMap<String, String> roles = new HashMap<String, String>() {
         {
             put("commercialManager", "ROLE_COMMERCIAL_MANAGER");
             put("storeManager", "ROLE_STORE_MANAGER");

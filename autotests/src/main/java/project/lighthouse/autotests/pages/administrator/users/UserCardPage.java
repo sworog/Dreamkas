@@ -3,9 +3,10 @@ package project.lighthouse.autotests.pages.administrator.users;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.NonType;
 
-public class UserCardPage extends UserCreatePage {
+public class UserCardPage extends CommonPageObject {
 
     public UserCardPage(WebDriver driver) {
         super(driver);
