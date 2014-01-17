@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.pages.commercialManager.product;
 
 import net.thucydides.core.annotations.DefaultUrl;
-import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,8 +10,6 @@ import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.*;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
-
-import java.util.Map;
 
 import static junit.framework.Assert.*;
 
@@ -53,14 +50,6 @@ public class ProductCreatePage extends CommonPageObject {
         items.put("averageDailySales", new NonType(this, By.xpath("//*[@model-attribute='averageDailySalesElement']")));
         items.put("inventoryDays", new NonType(this, By.xpath("//*[@model-attribute='inventoryDaysElement']")));
 
-    }
-
-    public void fieldInput(ExamplesTable fieldInputTable) {
-        for (Map<String, String> row : fieldInputTable.getRows()) {
-            String elementName = row.get("elementName");
-            String inputText = row.get("value");
-            input(elementName, inputText);
-        }
     }
 
     public void selectByValue(String elementName, String value) {
@@ -109,13 +98,6 @@ public class ProductCreatePage extends CommonPageObject {
         if (waiter.isElementVisible(retailPriceHintFindBy) && !waiter.isElementVisible(retailMarkupHintFindBy)) {
             findVisibleElement(retailPriceHintFindBy).click();
         }
-    }
-
-    public void roundingPreloaderSpinnerWait() {
-        //TODO preloader common object
-        waiter.waitUntilIsNotVisible(
-                By.xpath("//*[@class='productForm__rounding preloader_spinner']")
-        );
     }
 
     public void checkElementIsDisabled(String elementName) {
