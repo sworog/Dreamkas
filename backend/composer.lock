@@ -571,16 +571,16 @@
         },
         {
             "name": "doctrine/mongodb",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/mongodb.git",
-                "reference": "401796e7a5ec3cea099d993fd0034235b917f1a8"
+                "reference": "cb0253987458dfb2fd3950c28163a4a5eabdaec2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/mongodb/zipball/401796e7a5ec3cea099d993fd0034235b917f1a8",
-                "reference": "401796e7a5ec3cea099d993fd0034235b917f1a8",
+                "url": "https://api.github.com/repos/doctrine/mongodb/zipball/cb0253987458dfb2fd3950c28163a4a5eabdaec2",
+                "reference": "cb0253987458dfb2fd3950c28163a4a5eabdaec2",
                 "shasum": ""
             },
             "require": {
@@ -605,7 +605,7 @@
                     "homepage": "http://avalanche123.com"
                 },
                 {
-                    "name": "Jonathan H. Wage",
+                    "name": "Jonathan Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -628,7 +628,7 @@
                 "mongodb",
                 "persistence"
             ],
-            "time": "2013-11-01 17:12:21"
+            "time": "2014-01-09 21:16:38"
         },
         {
             "name": "doctrine/mongodb-odm",
@@ -710,12 +710,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineMongoDBBundle.git",
-                "reference": "739b30c15347b3e049a8d7189973566ac3adb22e"
+                "reference": "5b1d939c6fb6c0ef5a5bb0819ac3df75862786b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineMongoDBBundle/zipball/739b30c15347b3e049a8d7189973566ac3adb22e",
-                "reference": "739b30c15347b3e049a8d7189973566ac3adb22e",
+                "url": "https://api.github.com/repos/doctrine/DoctrineMongoDBBundle/zipball/5b1d939c6fb6c0ef5a5bb0819ac3df75862786b4",
+                "reference": "5b1d939c6fb6c0ef5a5bb0819ac3df75862786b4",
                 "shasum": ""
             },
             "require": {
@@ -755,7 +755,7 @@
                     "homepage": "http://avalanche123.com"
                 },
                 {
-                    "name": "Jonathan Wage",
+                    "name": "Jonathan H. Wage",
                     "email": "jonwage@gmail.com",
                     "homepage": "http://www.jwage.com/",
                     "role": "Creator"
@@ -772,30 +772,32 @@
                 "persistence",
                 "symfony"
             ],
-            "time": "2013-12-31 08:56:40"
+            "time": "2014-01-15 04:43:53"
         },
         {
             "name": "ekino/newrelic-bundle",
-            "version": "1.1.0",
+            "version": "1.2",
             "target-dir": "Ekino/Bundle/NewRelicBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ekino/EkinoNewRelicBundle.git",
-                "reference": "f00c533b81317505100796a00076321274e54c7b"
+                "reference": "317242f64129b87022c81e744eba5e9c4db4e754"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ekino/EkinoNewRelicBundle/zipball/f00c533b81317505100796a00076321274e54c7b",
-                "reference": "f00c533b81317505100796a00076321274e54c7b",
+                "url": "https://api.github.com/repos/ekino/EkinoNewRelicBundle/zipball/317242f64129b87022c81e744eba5e9c4db4e754",
+                "reference": "317242f64129b87022c81e744eba5e9c4db4e754",
                 "shasum": ""
             },
-            "require": {
-                "symfony/symfony": "*"
+            "require-dev": {
+                "silex/silex": "~1.0",
+                "symfony/console": "~2.2",
+                "symfony/framework-bundle": "~2.2"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev"
+                    "dev-master": "1.2-dev"
                 }
             },
             "autoload": {
@@ -821,7 +823,7 @@
                 "monitoring",
                 "performance"
             ],
-            "time": "2013-07-09 22:31:25"
+            "time": "2014-01-02 09:20:08"
         },
         {
             "name": "friendsofsymfony/oauth-server-bundle",
@@ -940,17 +942,17 @@
         },
         {
             "name": "friendsofsymfony/rest-bundle",
-            "version": "1.2.1",
+            "version": "1.2.2",
             "target-dir": "FOS/RestBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSRestBundle.git",
-                "reference": "5218769bda3de4c3ee35acf53518e2285b953ab4"
+                "reference": "7c81a1879c5d8a3727932674509e96b2bb7a796e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/5218769bda3de4c3ee35acf53518e2285b953ab4",
-                "reference": "5218769bda3de4c3ee35acf53518e2285b953ab4",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/7c81a1879c5d8a3727932674509e96b2bb7a796e",
+                "reference": "7c81a1879c5d8a3727932674509e96b2bb7a796e",
                 "shasum": ""
             },
             "require": {
@@ -1013,7 +1015,7 @@
             "keywords": [
                 "rest"
             ],
-            "time": "2014-01-06 08:07:25"
+            "time": "2014-01-16 12:08:55"
         },
         {
             "name": "jms/aop-bundle",
@@ -1706,17 +1708,17 @@
         },
         {
             "name": "nelmio/api-doc-bundle",
-            "version": "2.4.4",
+            "version": "2.4.5",
             "target-dir": "Nelmio/ApiDocBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/NelmioApiDocBundle.git",
-                "reference": "4b6efc6631161f9ddb64aecfbcbc8d117a77df52"
+                "reference": "f45cc2565e3d0debbb8fadec104561101103bdc9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/4b6efc6631161f9ddb64aecfbcbc8d117a77df52",
-                "reference": "4b6efc6631161f9ddb64aecfbcbc8d117a77df52",
+                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/f45cc2565e3d0debbb8fadec104561101103bdc9",
+                "reference": "f45cc2565e3d0debbb8fadec104561101103bdc9",
                 "shasum": ""
             },
             "require": {
@@ -1777,7 +1779,7 @@
                 "documentation",
                 "rest"
             ],
-            "time": "2013-12-16 15:47:21"
+            "time": "2014-01-13 21:35:37"
         },
         {
             "name": "nelmio/cors-bundle",
@@ -2220,16 +2222,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "3.7.28",
+            "version": "3.7.29",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d"
+                "reference": "faeb2d9f15dc83830d2db5e4c67acf1d68c9b5ac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d",
-                "reference": "3b97c8492bcafbabe6b6fbd2ab35f2f04d932a8d",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/faeb2d9f15dc83830d2db5e4c67acf1d68c9b5ac",
+                "reference": "faeb2d9f15dc83830d2db5e4c67acf1d68c9b5ac",
                 "shasum": ""
             },
             "require": {
@@ -2290,7 +2292,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-10-17 07:27:40"
+            "time": "2014-01-15 06:46:38"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3046,16 +3048,16 @@
         },
         {
             "name": "willdurand/negotiation",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/willdurand/Negotiation.git",
-                "reference": "1757fc48a77a85df6f7659a16b4522bf8da14e99"
+                "reference": "8b32a05c2cfd41c0b350de5ea03aba8b35dfc13c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/willdurand/Negotiation/zipball/1757fc48a77a85df6f7659a16b4522bf8da14e99",
-                "reference": "1757fc48a77a85df6f7659a16b4522bf8da14e99",
+                "url": "https://api.github.com/repos/willdurand/Negotiation/zipball/8b32a05c2cfd41c0b350de5ea03aba8b35dfc13c",
+                "reference": "8b32a05c2cfd41c0b350de5ea03aba8b35dfc13c",
                 "shasum": ""
             },
             "require": {
@@ -3092,7 +3094,7 @@
                 "header",
                 "negotiation"
             ],
-            "time": "2013-12-14 14:09:01"
+            "time": "2014-01-09 22:50:05"
         }
     ],
     "packages-dev": [
