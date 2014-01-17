@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\Document\TrialBalance;
 
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class CostOfGoodsTest extends WebTestCase
@@ -132,5 +133,118 @@ class CostOfGoodsTest extends WebTestCase
             $prevEndIndex = $trailBalance->endIndex->toString();
             $this->assertNotSame('0.000', $prevEndIndex);
         }
+    }
+
+    /**
+     * @param float $start
+     * @param float $end
+     * @param array $expectedSkus
+     * @dataProvider findInvoiceByRangeIndexProvider
+     */
+    public function testFindInvoiceByRangeIndex($start, $end, array $expectedSkus)
+    {
+        $productId = $this->createProduct('1');
+        $store = $this->createStore('701');
+        $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
+        $storeProductId = $storeProductRepository->getIdByStoreIdAndProductId($store, $productId);
+
+        $invoiceId1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-12 12:23:12'), $store);
+        $this->createInvoiceProduct($invoiceId1, $productId, 5, 10.09, $store);
+        $invoiceId2 = $this->createInvoice(array('sku' => 2, 'acceptanceDate' => '2014-01-12 13:23:12'), $store);
+        $this->createInvoiceProduct($invoiceId2, $productId, 3, 10.09, $store);
+        $invoiceId3 = $this->createInvoice(array('sku' => 3, 'acceptanceDate' => '2014-01-12 14:23:12'), $store);
+        $this->createInvoiceProduct($invoiceId3, $productId, 2, 10.09, $store);
+
+        $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
+        $numericFactory = $this->getContainer()->get('lighthouse.core.types.numeric.factory');
+        $startIndex = $numericFactory->createQuantity($start);
+        $endIndex = $numericFactory->createQuantity($end);
+        $cursor = $trialBalanceRepository->findByIndexRange(
+            InvoiceProduct::REASON_TYPE,
+            $storeProductId,
+            $startIndex,
+            $endIndex
+        );
+        $this->assertEquals(count($expectedSkus), $cursor->count(true));
+        foreach ($expectedSkus as $expectedSku) {
+            /* @var TrialBalance $trialBalance */
+            $trialBalance = $cursor->getNext();
+            $this->assertNotNull($trialBalance);
+            $this->assertEquals($expectedSku, $trialBalance->reason->getReasonParent()->sku);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function findInvoiceByRangeIndexProvider()
+    {
+        return array(
+            '0,5 - exact range #1' => array(
+                0,
+                5,
+                array(1)
+            ),
+            '5,8 - exact range #2' => array(
+                5,
+                8,
+                array(2)
+            ),
+            '8,10 - exact range #3' => array(
+                8,
+                10,
+                array(3),
+            ),
+            '0,1 - start/inside #1' => array(
+                0,
+                1,
+                array(1)
+            ),
+            '1,3 - inside #1' => array(
+                1,
+                3,
+                array(1)
+            ),
+            '0,6' => array(
+                0,
+                6,
+                array(1,2)
+            ),
+            '4,6' => array(
+                4,
+                6,
+                array(1,2)
+            ),
+            '5,6' => array(
+                5,
+                6,
+                array(2)
+            ),
+            '6,8' => array(
+                6,
+                8,
+                array(2)
+            ),
+            '10,11' => array(
+                10,
+                11,
+                array()
+            ),
+            '1,9' => array(
+                1,
+                9,
+                array(1,2,3)
+            ),
+            '0,11' => array(
+                1,
+                9,
+                array(1,2,3)
+            ),
+            '11,14' => array(
+                11,
+                14,
+                array()
+            )
+        );
     }
 }

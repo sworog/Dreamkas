@@ -12,6 +12,7 @@ use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use MongoId;
 use MongoCode;
 
@@ -502,5 +503,27 @@ class TrialBalanceRepository extends DocumentRepository
 
 
         return $this->aggregate($ops);
+    }
+
+    /**
+     * @param string $reasonType
+     * @param string $storeProductId
+     * @param Quantity $startIndex
+     * @param Quantity $endIndex
+     * @return Cursor|TrialBalance[]
+     */
+    public function findByIndexRange($reasonType, $storeProductId, Quantity $startIndex, Quantity $endIndex)
+    {
+        $criteria = array(
+            'reason.$ref' => $reasonType,
+            'storeProduct' => $storeProductId,
+            'endIndex.count' => array('$gt' => $startIndex->getCount()),
+            'startIndex.count' => array('$lt' => $endIndex->getCount()),
+        );
+        $sort = array(
+            'createdDate' => self::SORT_ASC,
+            '_id' => self::SORT_ASC,
+        );
+        return $this->findBy($criteria, $sort);
     }
 }
