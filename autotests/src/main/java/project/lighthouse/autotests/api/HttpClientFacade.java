@@ -6,12 +6,14 @@ import org.apache.http.impl.client.HttpClientBuilder;
 
 public class HttpClientFacade {
 
+    private static final Integer CONNECTION_TIMEOUT = Integer.getInteger("api.timeout", 60000);
+
     public CloseableHttpClient build() {
         RequestConfig requestConfig = RequestConfig
                 .custom()
-                .setConnectTimeout(15000)
-                .setConnectionRequestTimeout(15000)
-                .setSocketTimeout(15000)
+                .setConnectTimeout(CONNECTION_TIMEOUT)
+                .setConnectionRequestTimeout(CONNECTION_TIMEOUT)
+                .setSocketTimeout(CONNECTION_TIMEOUT)
                 .build();
         return HttpClientBuilder
                 .create()

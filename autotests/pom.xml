@@ -28,6 +28,7 @@
         <robot.target.namespace>http://ws.hub.setrobot.crystals.ru/</robot.target.namespace>
         <centrum.server.url>//faro.lighthouse.cs</centrum.server.url>
         <centrum.import.folder.path>/centrum/reports</centrum.import.folder.path>
+        <api.timeout>60000</api.timeout>
     </properties>
 
     <dependencies>
@@ -121,6 +122,7 @@
                         <robot.target.namespace>${robot.target.namespace}</robot.target.namespace>
                         <centrum.server.url>${centrum.server.url}</centrum.server.url>
                         <centrum.import.folder.path>${centrum.import.folder.path}</centrum.import.folder.path>
+                        <api.timeout>${api.timeout}</api.timeout>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>
