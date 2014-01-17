@@ -16,8 +16,7 @@ public class ApiConnect {
     private final HttpExecutor httpExecutor;
 
     public ApiConnect(String userName, String password) throws IOException, JSONException {
-        String accessToken = new AccessToken(userName, password).get();
-        httpExecutor = new HttpExecutor(accessToken);
+        httpExecutor = new HttpExecutor(userName, password);
     }
 
     public Department createStoreDepartmentThroughPost(Department department) throws JSONException, IOException {

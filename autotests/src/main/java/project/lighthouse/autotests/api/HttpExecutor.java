@@ -24,15 +24,17 @@ import static junit.framework.Assert.fail;
 
 public class HttpExecutor {
 
-    private final String accessToken;
+    private String userName;
+    private String password;
 
-    public HttpExecutor(String accessToken) {
-        this.accessToken = accessToken;
+    public HttpExecutor(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
     }
 
     private void setHeaders(HttpEntityEnclosingRequestBase httpEntityEnclosingRequestBase) {
         httpEntityEnclosingRequestBase.setHeader("Accept", "application/json");
-        httpEntityEnclosingRequestBase.setHeader("Authorization", "Bearer " + accessToken);
+        httpEntityEnclosingRequestBase.setHeader("Authorization", "Bearer " + new AccessToken(userName, password).get());
     }
 
     public HttpPost getHttpPost(String url) {
@@ -56,7 +58,6 @@ public class HttpExecutor {
 
     public String executeHttpMethod(HttpEntityEnclosingRequestBase httpEntityEnclosingRequestBase) throws IOException {
         HttpResponse response = new HttpClientFacade().build().execute(httpEntityEnclosingRequestBase);
-
         HttpEntity httpEntity = response.getEntity();
         if (httpEntity != null) {
             String responseMessage = EntityUtils.toString(httpEntity, "UTF-8");
@@ -157,11 +158,9 @@ public class HttpExecutor {
         HttpGet request = new HttpGet(targetUrl);
         request.setHeader("Accept", "application/json");
         if (forAccessToken) {
-            request.setHeader("Authorization", "Bearer " + accessToken);
+            request.setHeader("Authorization", "Bearer " + new AccessToken(userName, password).get());
         }
-
         HttpResponse response = new HttpClientFacade().build().execute(request);
-
         HttpEntity httpEntity = response.getEntity();
         String responseMessage = EntityUtils.toString(httpEntity, "UTF-8");
         validateResponseMessage(targetUrl, response, responseMessage);
