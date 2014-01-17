@@ -88,11 +88,6 @@ public class ProductUserSteps {
         productSteps.createButtonClick();
     }
 
-    @When("the user clicks the cancel button")
-    public void whenTheUserClickCancelEditButton() {
-        productSteps.cancelButtonClick();
-    }
-
     @When("the user creates new product from product list page")
     public void whenTheUSerCreatesNewProduct() {
         productSteps.createNewProductButtonClick();

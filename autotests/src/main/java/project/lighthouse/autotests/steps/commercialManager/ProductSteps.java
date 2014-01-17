@@ -48,11 +48,6 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
-    public void cancelButtonClick() {
-        productEditPage.cancelButtonClick();
-    }
-
-    @Step
     public void checkCardValue(String elementName, String expectedValue) {
         productCardView.checkCardValue(elementName, expectedValue);
     }
