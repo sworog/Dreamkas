@@ -7,7 +7,7 @@ import project.lighthouse.autotests.CommonActions;
 public class NavigationLinkFacade {
 
     private String xpath;
-    private static final String xpathPattern = "//*[@class='localNavigation__link' and normalize-space(text())='%s']";
+    private static final String xpathPattern = "//*[contains(@class, 'localNavigation__link') and normalize-space(text())='%s']";
 
     CommonActions commonActions;
 
