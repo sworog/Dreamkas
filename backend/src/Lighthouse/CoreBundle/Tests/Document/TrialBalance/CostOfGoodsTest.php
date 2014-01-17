@@ -247,4 +247,55 @@ class CostOfGoodsTest extends WebTestCase
             )
         );
     }
+
+    public function testCostOfGoodsCalculate()
+    {
+        $store = $this->factory->getStore("1");
+        $product1 = $this->createProduct("1");
+        $product2 = $this->createProduct("2");
+        $storeProduct1 = $this->factory->getStoreProduct($store, $product1);
+        $storeProduct2 = $this->factory->getStoreProduct($store, $product2);
+
+        $invoice1 = $this->createInvoice(array('sku' => '1'), $store);
+        $invoice2 = $this->createInvoice(array('sku' => '2'), $store);
+        $invoiceProduct1 = $this->createInvoiceProduct($invoice1, $product1, 1.345, 23.77, $store);
+        $invoiceProduct2 = $this->createInvoiceProduct($invoice1, $product1, 2.332, 0.1, $store);
+        $invoiceProduct3 = $this->createInvoiceProduct($invoice1, $product1, 3, 13.3, $store);
+        $invoiceProduct4 = $this->createInvoiceProduct($invoice1, $product1, 4.23, 14, $store);
+        $invoiceProduct5 = $this->createInvoiceProduct($invoice2, $product1, 5.7, 17.99, $store);
+        // Total quantity = 16.607
+
+        $sale1 = $this->factory->createSale($store, "-1 hour", 10.533495);
+        $sale2 = $this->factory->createSale($store, "now", 6.2991);
+        $saleProduct1 = $this->factory->createSaleProduct(2.333, 2.435, $product1, $sale1);
+        $saleProduct2 = $this->factory->createSaleProduct(2.333, 1.32, $product1, $sale1);
+        $saleProduct3 = $this->factory->createSaleProduct(2.333, 0.76, $product1, $sale1);
+        $saleProduct4 = $this->factory->createSaleProduct(2.333, 1, $product1, $sale2);
+        $saleProduct5 = $this->factory->createSaleProduct(2.333, 1.7, $product1, $sale2);
+        // Total quantity = 7.215
+
+        $this->factory->flush();
+
+
+        // Calculate CostOfGoods
+
+
+        $trialBalanceRepository = $this->getContainer()->get("lighthouse.core.document.repository.trial_balance");
+
+        $trialBalanceSaleProduct1 = $trialBalanceRepository
+            ->findOneByReasonTypeReasonId((string) $saleProduct1->id, SaleProduct::REASON_TYPE);
+        $this->assertEquals(32.08, $trialBalanceSaleProduct1->costOfGoods);
+        $trialBalanceSaleProduct2 = $trialBalanceRepository
+            ->findOneByReasonTypeReasonId((string) $saleProduct2->id, SaleProduct::REASON_TYPE);
+        $this->assertEquals(3.17, $trialBalanceSaleProduct2->costOfGoods);
+        $trialBalanceSaleProduct3 = $trialBalanceRepository
+            ->findOneByReasonTypeReasonId((string) $saleProduct3->id, SaleProduct::REASON_TYPE);
+        $this->assertEquals(10.11, $trialBalanceSaleProduct3->costOfGoods);
+        $trialBalanceSaleProduct4 = $trialBalanceRepository
+            ->findOneByReasonTypeReasonId((string) $saleProduct4->id, SaleProduct::REASON_TYPE);
+        $this->assertEquals(13.3, $trialBalanceSaleProduct4->costOfGoods);
+        $trialBalanceSaleProduct5 = $trialBalanceRepository
+            ->findOneByReasonTypeReasonId((string) $saleProduct5->id, SaleProduct::REASON_TYPE);
+        $this->assertEquals(23.09, $trialBalanceSaleProduct5->costOfGoods);
+    }
 }

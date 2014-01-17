@@ -148,6 +148,20 @@ class TrialBalanceRepository extends DocumentRepository
     }
 
     /**
+     * @param string $reasonId
+     * @param string $reasonType
+     * @return null|TrialBalance
+     */
+    public function findOneByReasonTypeReasonId($reasonId, $reasonType)
+    {
+        $criteria = array(
+            'reason.$id' => new MongoId($reasonId),
+            'reason.$ref' => $reasonType,
+        );
+        return $this->findOneBy($criteria);
+    }
+
+    /**
      * @return array
      */
     public function calculateAveragePurchasePrice()

@@ -143,7 +143,7 @@ class WebTestCase extends ContainerAwareTestCase
     /**
      * @param string $invoiceId
      * @param string $productId
-     * @param int $quantity
+     * @param float $quantity
      * @param float $price
      * @param string $storeId
      * @param User $manager
