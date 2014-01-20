@@ -37,9 +37,6 @@ class PermissionExtractorTest extends ContainerAwareTestCase
                 'GET::current',
                 'GET::permissions'
             ),
-            'others' => array(
-                '::api/1/service/permissions',
-            ),
         );
         $this->assertEquals($expected, $notSecuredResources, 'There are unexpected not secured methods');
     }
