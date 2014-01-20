@@ -3,6 +3,11 @@ lighthouse.core:
     resource: "@LighthouseCoreBundle/Resources/config/routing.yml"
     prefix: /api/1
 
+lighthouse.reports:
+    type: rest
+    resource: "@LighthouseReportsBundle/Resources/config/routing.yml"
+    prefix: /api/1
+
 fos_oauth_server_token:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
 

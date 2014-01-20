@@ -1,0 +1,26 @@
+services:
+
+    lighthouse.reports.document.gross_sales.store.repository:
+        parent: doctrine_mongodb.odm.repository
+        arguments:
+            - LighthouseReportsBundle:GrossSales\Store\GrossSalesStoreReport
+
+    lighthouse.reports.document.gross_sales.product.repository:
+        parent: doctrine_mongodb.odm.repository
+        arguments:
+            - LighthouseReportsBundle:GrossSales\Product\GrossSalesProductReport
+
+    lighthouse.reports.document.gross_sales.subcategory.repository:
+        parent: doctrine_mongodb.odm.repository
+        arguments:
+            - LighthouseReportsBundle:GrossSales\Classifier\SubCategory\GrossSalesSubCategoryReport
+
+    lighthouse.reports.document.gross_sales.category.repository:
+        parent: doctrine_mongodb.odm.repository
+        arguments:
+            - LighthouseReportsBundle:GrossSales\Classifier\Category\GrossSalesCategoryReport
+
+    lighthouse.reports.document.gross_sales.group.repository:
+        parent: doctrine_mongodb.odm.repository
+        arguments:
+            - LighthouseReportsBundle:GrossSales\Classifier\Group\GrossSalesGroupReport

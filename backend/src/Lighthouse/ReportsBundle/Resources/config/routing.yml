@@ -1,0 +1,3 @@
+lighthouse.reports.gross_sales:
+    resource: Lighthouse\ReportsBundle\Controller\GrossSalesController
+    type:     rest

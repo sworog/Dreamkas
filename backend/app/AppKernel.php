@@ -24,15 +24,16 @@ class AppKernel extends Kernel
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
-            new Lighthouse\CoreBundle\LighthouseCoreBundle(),
             new FOS\RestBundle\FOSRestBundle(),
+            new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
-            new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
             new Ekino\Bundle\NewRelicBundle\EkinoNewRelicBundle(),
             new Leezy\PheanstalkBundle\LeezyPheanstalkBundle(),
             new Clamidity\ProfilerBundle\ClamidityProfilerBundle(),
+            new Lighthouse\CoreBundle\LighthouseCoreBundle(),
+            new Lighthouse\ReportsBundle\LighthouseReportsBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -44,6 +45,9 @@ class AppKernel extends Kernel
         return $bundles;
     }
 
+    /**
+     * @param LoaderInterface $loader
+     */
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
