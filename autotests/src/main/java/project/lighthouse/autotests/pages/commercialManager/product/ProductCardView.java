@@ -3,16 +3,11 @@ package project.lighthouse.autotests.pages.commercialManager.product;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.common.CommonPageObject;
 
-public class ProductCardView extends CommonPageObject {
+public class ProductCardView extends ProductCreatePage {
 
     public ProductCardView(WebDriver driver) {
         super(driver);
-    }
-
-    @Override
-    public void createElements() {
     }
 
     public void checkCardValue(String elementName, String expectedValue) {
