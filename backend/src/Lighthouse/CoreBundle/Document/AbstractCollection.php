@@ -70,6 +70,18 @@ class AbstractCollection extends ArrayCollection
     }
 
     /**
+     * Sort by keys
+     * @return $this
+     */
+    public function ksort()
+    {
+        $values = $this->toArray();
+        ksort($values);
+        $this->setValues($values);
+        return $this;
+    }
+
+    /**
      * @param array|\Traversable $values
      * @return $this
      */

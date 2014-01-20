@@ -38,7 +38,7 @@ class TodayHoursGrossSales extends AbstractDocument
     public function normalize(array $dates)
     {
         foreach (array_keys($dates) as $key) {
-            $this->$key->keySort();
+            $this->$key->ksort();
         }
 
         return $this;
