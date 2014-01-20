@@ -24,3 +24,11 @@ services:
         parent: doctrine_mongodb.odm.repository
         arguments:
             - LighthouseReportsBundle:GrossSales\Classifier\Group\GrossSalesGroupReport
+
+    lighthouse.reports.document.gross_margin.store.repository:
+        parent: doctrine_mongodb.odm.repository
+        arguments:
+            - LighthouseReportsBundle:GrossMargin\Store\StoreDayGrossMargin
+        calls:
+            - [setTrialBalanceRepository, ["@lighthouse.core.document.repository.trial_balance"]]
+            - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
