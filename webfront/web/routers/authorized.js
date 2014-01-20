@@ -20,6 +20,7 @@ define(function(require) {
             'stores/:storeId/groups/:groupId/grossSalesByCategories(/)': require('pages/reports/store/grossSalesByCategories/grossSalesByCategories'),
             'stores/:storeId/groups/:groupId/categories/:categoryId/grossSalesBySubCategories(/)': require('pages/reports/store/grossSalesBySubCategories/grossSalesBySubCategories'),
             'stores/:storeId/groups/:groupId/categories/:categoryId/subCategories/:subCategoryId/grossSalesByProducts(/)': require('pages/reports/store/grossSalesByProducts/grossSalesByProducts'),
+            'stores/:storeId/reports/grossMargin(/)': require('pages/reports/store/grossMargin/grossMargin'),
 
             //invoices
             'invoices(/)': require('pages/invoice/list'),

@@ -1,0 +1,31 @@
+<% var moment = require('moment') %>
+
+<% var templates = {
+    localNavigation_reports: require('tpl!blocks/localNavigation/localNavigation_reports.html')
+} %>
+<%= templates.localNavigation_reports({
+    models: _.pick(models, 'store'),
+    active: 'grossMargin'
+}) %>
+
+<div class="page__data">
+
+    <h2>Валовая прибыль. Магазин №<%- models.store.get('number') %></h2>
+
+    <% if (collections.grossMargin.length) { %>
+    <table class="table table_grossMargin">
+        <% collections.grossMargin.forEach(function(grossMarginModel){ %>
+        <tr name="grossMarginRow">
+            <td class="grossMarginDate">
+                <%- moment(grossMarginModel.get('date')).format('DD.MM') %>
+            </td>
+            <td name="grossMarginSum">
+                <%- LH.formatMoney(grossMarginModel.get('sum')) %> р.
+            </td>
+        </tr>
+        <% }) %>
+    </table>
+    <% } else { %>
+    <p>Нет данных</p>
+    <% } %>
+</div>

@@ -14,6 +14,7 @@ define(function(require, exports, module) {
             grossSalesByStores: LH.isAllow('others', 'GET::api/1/reports/grossSalesByStores'),
             grossSales: LH.isAllow('others', 'GET::api/1/reports/grossSales'),
             grossSalesByGroups: LH.isAllow('stores', 'GET::{store}/reports/grossSalesByGroups') && hasStores,
+            grossMargin: LH.isAllow('stores', 'GET::{store}/reports/grossSalesByGroups') && hasStores,
             grossSalesByCategories: LH.isAllow('stores/{store}/groups', 'GET::{group}/reports/grossSalesByCategories') && hasStores,
             grossSalesBySubCategories: LH.isAllow('stores/{store}/categories/{category}', 'GET::reports/grossSalesBySubCategories') && hasStores,
             grossSalesByProducts: LH.isAllow('stores/{store}/subcategories/{subCategory}', 'GET::reports/grossSalesByProducts') && hasStores
