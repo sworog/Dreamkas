@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\TrialBalance;
 
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -80,5 +81,28 @@ class CostOfGoodCalculator
             $index = $index->add($indexQuantity);
         }
         return $totalCostOfGoods;
+    }
+
+    /**
+     * @param int $limit
+     * @return int number of items calculated
+     */
+    public function calculateUnprocessedTrialBalances($limit = 1000)
+    {
+        $dm = $this->trialBalanceRepository->getDocumentManager();
+        $cursor = $this->trialBalanceRepository->findByProcessingStatus(
+            TrialBalance::PROCESSING_STATUS_UNPROCESSED,
+            SaleProduct::REASON_TYPE,
+            $limit
+        );
+        $count = 0;
+        foreach ($cursor as $trialBalance) {
+            $trialBalance->costOfGoods = $this->calculateByTrialBalance($trialBalance);
+            $trialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_OK;
+            $dm->persist($trialBalance);
+            $count++;
+        }
+        $dm->flush();
+        return $count;
     }
 }

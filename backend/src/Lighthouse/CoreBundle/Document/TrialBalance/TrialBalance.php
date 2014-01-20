@@ -21,7 +21,9 @@ use Lighthouse\CoreBundle\Types\Numeric\Quantity;
  * @property Money          $endingBalanceMoney
  * @property Quantity       $startIndex
  * @property Quantity       $endIndex
+ * @property int            $processingStatus
  * @property Quantity       $quantity
+ * @property Money          $costOfGoods
  * @property Money          $totalPrice
  * @property Money          $price
  * @property DateTime       $createdDate
@@ -35,7 +37,7 @@ use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 class TrialBalance extends AbstractDocument
 {
     const PROCESSING_STATUS_OK = 0;
-    const PROCESSING_STATUS_DIRTY = 1;
+    const PROCESSING_STATUS_UNPROCESSED = 1;
 
     /**
      * @MongoDB\Id
@@ -85,7 +87,7 @@ class TrialBalance extends AbstractDocument
      * @MongoDB\Float
      * @var integer
      */
-    protected $processingStatus = self::PROCESSING_STATUS_DIRTY;
+    protected $processingStatus = self::PROCESSING_STATUS_UNPROCESSED;
 
     /**
      * Количество
@@ -93,6 +95,12 @@ class TrialBalance extends AbstractDocument
      * @var float
      */
     protected $quantity;
+
+    /**
+     * @MongoDB\Field(type="money")
+     * @var Money::
+     */
+    protected $costOfGoods;
 
     /**
      * @MongoDB\Field(type="money")

@@ -72,7 +72,7 @@ class TrialBalanceRepository extends DocumentRepository
         $criteria = array(
             'reason.$ref' => $trialBalance->reason->getReasonType(),
             'storeProduct' => $trialBalance->storeProduct->id,
-            'createdDate' => array('$lt' => $trialBalance->createdDate)
+            'createdDate' => array('$lte' => $trialBalance->createdDate)
         );
         $sort = array(
             'createdDate' => self::SORT_DESC,
@@ -539,5 +539,25 @@ class TrialBalanceRepository extends DocumentRepository
             '_id' => self::SORT_ASC,
         );
         return $this->findBy($criteria, $sort);
+    }
+
+    /**
+     * @param string $status
+     * @param string $reasonType
+     * @param int $limit
+     * @return Cursor|TrialBalance[]
+     */
+    public function findByProcessingStatus($status, $reasonType, $limit = null)
+    {
+        $criteria = array(
+            'processingStatus' => $status,
+            'reason.$ref' => $reasonType,
+        );
+        $sort = array(
+            'storeProduct' => self::SORT_ASC,
+            'createdDate' => self::SORT_ASC,
+            'id' => self::SORT_ASC
+        );
+        return $this->findBy($criteria, $sort, $limit);
     }
 }
