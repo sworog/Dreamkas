@@ -16,7 +16,7 @@
     <table class="table table_grossMargin">
         <% collections.grossMargin.forEach(function(grossMarginModel){ %>
         <tr name="grossMarginRow">
-            <td class="grossMarginDate">
+            <td name="grossMarginDate">
                 <%- moment(grossMarginModel.get('date')).format('DD.MM') %>
             </td>
             <td name="grossMarginSum">
