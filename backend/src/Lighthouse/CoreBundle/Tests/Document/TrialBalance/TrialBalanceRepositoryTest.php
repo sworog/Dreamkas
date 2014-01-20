@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Tests\Document\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 
-class TrailBalanceRepositoryTest extends ContainerAwareTestCase
+class TrialBalanceRepositoryTest extends ContainerAwareTestCase
 {
     protected function setUp()
     {

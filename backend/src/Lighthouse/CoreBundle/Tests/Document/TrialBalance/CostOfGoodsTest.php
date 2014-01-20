@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\Document\TrialBalance;
 
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoodCalculator;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
@@ -244,6 +245,109 @@ class CostOfGoodsTest extends WebTestCase
                 11,
                 14,
                 array()
+            )
+        );
+    }
+
+    /**
+     * @param float $start
+     * @param float $end
+     * @param string $expectedCostOfGoods
+     * @dataProvider findCostOfGoodsCalculation
+     */
+    public function testCostOfGoodsCalculation($start, $end, $expectedCostOfGoods)
+    {
+        $productId = $this->createProduct('1');
+        $store = $this->createStore('701');
+        $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
+        $storeProductId = $storeProductRepository->getIdByStoreIdAndProductId($store, $productId);
+
+        $invoiceId1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-12 12:23:12'), $store);
+        $this->createInvoiceProduct($invoiceId1, $productId, 5, 11.09, $store);
+        $invoiceId2 = $this->createInvoice(array('sku' => 2, 'acceptanceDate' => '2014-01-12 13:23:12'), $store);
+        $this->createInvoiceProduct($invoiceId2, $productId, 3, 12.13, $store);
+        $invoiceId3 = $this->createInvoice(array('sku' => 3, 'acceptanceDate' => '2014-01-12 14:23:12'), $store);
+        $this->createInvoiceProduct($invoiceId3, $productId, 2, 10.09, $store);
+
+        $numericFactory = $this->getContainer()->get('lighthouse.core.types.numeric.factory');
+        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
+        $startIndex = $numericFactory->createQuantity($start);
+        $endIndex = $numericFactory->createQuantity($end);
+        $costOfGoods = $costOfGoodsCalculator->calculateByIndexRange($storeProductId, $startIndex, $endIndex);
+        $this->assertSame($expectedCostOfGoods, $costOfGoods->toNumber());
+    }
+
+    /**
+     * @return array
+     */
+    public function findCostOfGoodsCalculation()
+    {
+        return array(
+            '0,5 - exact range #1' => array(
+                0,
+                5,
+                55.45
+            ),
+            '5,8 - exact range #2' => array(
+                5,
+                8,
+                36.39
+            ),
+            '8,10 - exact range #3' => array(
+                8,
+                10,
+                20.18,
+            ),
+            '0,1 - start/inside #1' => array(
+                0,
+                1,
+                11.09
+            ),
+            '1,3 - inside #1' => array(
+                1,
+                3,
+                22.18
+            ),
+            '0,6' => array(
+                0,
+                6,
+                67.58
+            ),
+            '4,6' => array(
+                4,
+                6,
+                23.22
+            ),
+            '5,6' => array(
+                5,
+                6,
+                12.13
+            ),
+            '6,8' => array(
+                6,
+                8,
+                24.26
+            ),
+            '10,11' => array(
+                10,
+                11,
+                0.0
+            ),
+            '1,9' => array(
+                1,
+                9,
+                90.84
+            ),
+            '0,11' => array(
+                1,
+                9,
+                90.84
+            ),
+            '11,14' => array(
+                11,
+                14,
+                0.0
             )
         );
     }
