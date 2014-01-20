@@ -15,7 +15,6 @@ use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
-use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
 class StoreProductRepository extends DocumentRepository
 {

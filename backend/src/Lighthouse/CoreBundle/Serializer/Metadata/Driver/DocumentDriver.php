@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Serializer\Metadata\Driver;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use FOS\RestBundle\Util\Inflector\DoctrineInflector;
 use JMS\Serializer\Metadata\Driver\AbstractDoctrineTypeDriver;
-use JMS\Serializer\Metadata\Driver\DoctrineTypeDriver;
 use Metadata\Driver\DriverInterface;
 use JMS\Serializer\Metadata\ClassMetadata;
 use JMS\DiExtraBundle\Annotation as DI;

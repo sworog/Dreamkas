@@ -3,9 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\Receipt;
 
 use Doctrine\ODM\MongoDB\Cursor;
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Mapping;
-use Doctrine\ODM\MongoDB\UnitOfWork;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 
 class ReceiptRepository extends DocumentRepository

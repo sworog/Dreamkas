@@ -295,6 +295,7 @@ class SalesImporter
     /**
      * @param PurchaseElement $purchaseElement
      * @param DatePeriod $datePeriod
+     * @throws \Exception
      * @return Sale
      */
     public function createSale(PurchaseElement $purchaseElement, DatePeriod $datePeriod = null)
@@ -386,7 +387,6 @@ class SalesImporter
             'tabNumber'
         );
         $attributes = array();
-        /* @var \SimpleXMLElement $attr */
         foreach ($hashAttributeNames as $attr) {
             $attributes[$attr] = (string) $purchaseElement[$attr];
         }

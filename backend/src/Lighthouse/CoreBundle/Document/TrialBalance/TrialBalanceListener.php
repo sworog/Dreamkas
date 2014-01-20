@@ -228,7 +228,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
             $dm = $eventArgs->getDocumentManager();
             foreach ($this->trialBalanceQueue as $trialBalance) {
                 if ($this->supportsRangeIndex($trialBalance)) {
-                    $this->setTrialBalanceIndexRange($trialBalance, $dm);
+                    $this->setTrialBalanceIndexRange($trialBalance);
                 }
                 $dm->persist($trialBalance);
             }
@@ -240,9 +240,8 @@ class TrialBalanceListener extends AbstractMongoDBListener
 
     /**
      * @param TrialBalance $trialBalance
-     * @param DocumentManager $dm
      */
-    protected function setTrialBalanceIndexRange(TrialBalance $trialBalance, DocumentManager $dm)
+    protected function setTrialBalanceIndexRange(TrialBalance $trialBalance)
     {
         $startIndex = $this->pullPersistedIndex($trialBalance);
         if (!$startIndex) {
