@@ -180,4 +180,19 @@ class DateTimestamp extends DateTime
 
         return $new;
     }
+
+    /**
+     * @param int $year
+     * @param int $month
+     * @param int $day
+     * @param int $hour
+     * @param int $minute
+     * @param int $second
+     * @return static
+     */
+    public static function createUTCFromParts($year, $month = 1, $day = 1, $hour = 0, $minute = 0, $second = 0)
+    {
+        $dateString = sprintf('%04d-%02d-%02dT%02d:%02d:%02dZ', $year, $month, $day, $hour, $minute, $second);
+        return new static($dateString);
+    }
 }

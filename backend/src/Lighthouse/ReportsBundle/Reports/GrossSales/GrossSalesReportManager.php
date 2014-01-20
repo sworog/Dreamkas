@@ -651,15 +651,7 @@ class GrossSalesReportManager
      */
     protected function createUTCDateByYMDH($year, $month, $day, $hour)
     {
-        $dateString = sprintf(
-            "%d-%d-%dT%d:00:00Z",
-            $year,
-            $month,
-            $day,
-            $hour
-        );
-
-        return new DateTimestamp($dateString);
+        return DateTimestamp::createUTCFromParts($year, $month, $day, $hour);
     }
 
     /**
