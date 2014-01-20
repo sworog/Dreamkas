@@ -253,9 +253,9 @@ class CostOfGoodsTest extends WebTestCase
      * @param float $start
      * @param float $end
      * @param string $expectedCostOfGoods
-     * @dataProvider findCostOfGoodsCalculation
+     * @dataProvider costOfGoodsCalculateByIndexRangeProvider
      */
-    public function testCostOfGoodsCalculation($start, $end, $expectedCostOfGoods)
+    public function testCostOfGoodsCalculateByIndexRange($start, $end, $expectedCostOfGoods)
     {
         $productId = $this->createProduct('1');
         $store = $this->createStore('701');
@@ -281,7 +281,7 @@ class CostOfGoodsTest extends WebTestCase
     /**
      * @return array
      */
-    public function findCostOfGoodsCalculation()
+    public function costOfGoodsCalculateByIndexRangeProvider()
     {
         return array(
             '0,5 - exact range #1' => array(
@@ -354,6 +354,8 @@ class CostOfGoodsTest extends WebTestCase
 
     public function testCostOfGoodsCalculate()
     {
+        $this->markTestIncomplete();
+        
         $store = $this->factory->getStore("1");
         $product1 = $this->createProduct("1");
         $product2 = $this->createProduct("2");
