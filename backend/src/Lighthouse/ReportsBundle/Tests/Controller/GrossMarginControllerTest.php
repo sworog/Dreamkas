@@ -64,7 +64,7 @@ class GrossMarginControllerTest extends WebTestCase
         $this->factory->createSaleProduct(250, 6, $product2, $sale5);  // 1500 - (1 x 200 + 5 x 205 = 1225) = 275
         $this->factory->createSaleProduct(150, 2, $product3, $sale5);  // 300 - (2 x 130 = 260) = 40
         $sale6 = $this->factory->createSale($store, "2014-01-07 12:23:12", 222);
-        $this->factory->createSaleProduct(150, 6, $product1, $sale6);  // 900 - (5 x 101 = 505) = 395
+        $this->factory->createSaleProduct(150, 6, $product1, $sale6);  // 900 - (6 x 101 = 606) = 294
         $this->factory->createSaleProduct(250, 3, $product2, $sale6);  // 750 - (3 x 200 = 600) = 150
         $this->factory->createSaleProduct(150, 15, $product3, $sale6); // 2250 - (1x130 + 10x135 + 4x130 = 2000) = 250
         $sale7 = $this->factory->createSale($store, "2014-01-08 12:23:12", 222);
@@ -107,11 +107,11 @@ class GrossMarginControllerTest extends WebTestCase
             ),
             array(
                 'date' => '2014-01-07T00:00:00+0400',
-                'sum' => 795,
+                'sum' => 694,
             ),
             array(
                 'date' => '2014-01-06T00:00:00+0400',
-                'sum' => 539,
+                'sum' => 559,
             ),
             array(
                 'date' => '2014-01-05T00:00:00+0400',
