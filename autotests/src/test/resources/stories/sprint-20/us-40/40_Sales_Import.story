@@ -68,8 +68,8 @@ Scenario: Import no store exist data (xml)
 
 Given the user prepares import purchase data with no such store for us 40 story
 
-Given the user logs in as 'commercialManager'
-And the user opens the log page
+Given the user opens the log page
+And the user logs in as 'commercialManager'
 Then the user checks the last simple log message
 | logMessage |
 | Sales import fail: Store with number "3455453453" not found |
