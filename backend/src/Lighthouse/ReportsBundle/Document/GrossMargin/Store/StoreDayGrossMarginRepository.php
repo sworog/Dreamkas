@@ -64,7 +64,7 @@ class StoreDayGrossMarginRepository extends DocumentRepository
             array(
                 '$sort' => array(
                     'store' => 1,
-                    'createdDate' => 1,
+                    'createdDate.date' => 1,
                 )
             ),
             array(
@@ -177,6 +177,6 @@ class StoreDayGrossMarginRepository extends DocumentRepository
      */
     public function findByStoreId($storeId)
     {
-        return $this->findBy(array('store' => $storeId), array('day' => self::SORT_DESC));
+        return $this->findBy(array('store' => $storeId), array('date.date' => self::SORT_DESC));
     }
 }
