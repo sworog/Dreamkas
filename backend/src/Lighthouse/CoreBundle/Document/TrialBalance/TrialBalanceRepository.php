@@ -28,7 +28,7 @@ class TrialBalanceRepository extends DocumentRepository
     {
         return $this->findBy(
             array('storeProduct' => $storeProductId),
-            array('createdDate' => self::SORT_ASC, '_id' => self::SORT_ASC)
+            array('createdDate.date' => self::SORT_ASC, '_id' => self::SORT_ASC)
         );
     }
 
@@ -44,7 +44,7 @@ class TrialBalanceRepository extends DocumentRepository
             'reason.$ref' => $reasonType
         );
         $sort = array(
-            'createdDate' => self::SORT_ASC,
+            'createdDate.date' => self::SORT_ASC,
             '_id' => self::SORT_ASC
         );
         return $this->findBy($criteria, $sort);
@@ -72,10 +72,10 @@ class TrialBalanceRepository extends DocumentRepository
         $criteria = array(
             'reason.$ref' => $trialBalance->reason->getReasonType(),
             'storeProduct' => $trialBalance->storeProduct->id,
-            'createdDate' => array('$lte' => $trialBalance->createdDate)
+            'createdDate.date' => array('$lte' => $trialBalance->createdDate)
         );
         $sort = array(
-            'createdDate' => self::SORT_DESC,
+            'createdDate.date' => self::SORT_DESC,
             '_id' => self::SORT_DESC
         );
         return $this->findOneBy($criteria, $sort);
@@ -124,7 +124,7 @@ class TrialBalanceRepository extends DocumentRepository
         // Ugly hack to force document refresh
         $hints = array(Query::HINT_REFRESH => true);
         $sort = array(
-            'createdDate' => self::SORT_DESC,
+            'createdDate.date' => self::SORT_DESC,
             '_id' => self::SORT_DESC,
         );
         return $this->uow->getDocumentPersister($this->documentName)->load($criteria, null, $hints, 0, $sort);
@@ -141,7 +141,7 @@ class TrialBalanceRepository extends DocumentRepository
         // Ugly hack to force document refresh
         $hints = array(Query::HINT_REFRESH => true);
         $sort = array(
-            'createdDate' => self::SORT_DESC,
+            'createdDate.date' => self::SORT_DESC,
             '_id' => self::SORT_DESC,
         );
         return $this->uow->getDocumentPersister($this->documentName)->load($criteria, null, $hints, 0, $sort);
@@ -174,8 +174,8 @@ class TrialBalanceRepository extends DocumentRepository
 
         $query = $this
             ->createQueryBuilder()
-            ->field('createdDate')->gte($datePeriod->getStartDate()->getMongoDate())
-            ->field('createdDate')->lt($datePeriod->getEndDate()->getMongoDate())
+            ->field('createdDate.date')->gte($datePeriod->getStartDate()->getMongoDate())
+            ->field('createdDate.date')->lt($datePeriod->getEndDate()->getMongoDate())
             ->field('reason.$ref')->equals(InvoiceProduct::REASON_TYPE)
             ->sort(array('storeProduct' => 1))
             ->map(
@@ -232,7 +232,7 @@ class TrialBalanceRepository extends DocumentRepository
         $ops = array(
             array(
                 '$match' => array(
-                    'createdDate' => array(
+                    'createdDate.date' => array(
                         '$gte' => $datePeriod->getStartDate()->getMongoDate(),
                         '$lt' => $datePeriod->getEndDate()->getMongoDate(),
                     ),
@@ -279,8 +279,8 @@ class TrialBalanceRepository extends DocumentRepository
         $days = $datePeriod->diff()->days;
         $query = $this
             ->createQueryBuilder()
-            ->field('createdDate')->gt($datePeriod->getStartDate()->getMongoDate())
-            ->field('createdDate')->lt($datePeriod->getEndDate()->getMongoDate())
+            ->field('createdDate.date')->gt($datePeriod->getStartDate()->getMongoDate())
+            ->field('createdDate.date')->lt($datePeriod->getEndDate()->getMongoDate())
             ->field('reason.$ref')->equals(SaleProduct::REASON_TYPE)
             ->sort(array('storeProduct' => 1))
             ->map(
@@ -340,7 +340,7 @@ class TrialBalanceRepository extends DocumentRepository
         $ops = array(
             array(
                 '$match' => array(
-                    'createdDate' => array(
+                    'createdDate.date' => array(
                         '$gte' => $datePeriod->getStartDate()->getMongoDate(),
                         '$lt' => $datePeriod->getEndDate()->getMongoDate(),
                     ),
@@ -349,17 +349,17 @@ class TrialBalanceRepository extends DocumentRepository
             ),
             array(
                 '$sort' => array(
-                    'createdDate' => 1,
+                    'createdDate.date' => self::SORT_ASC,
                 )
             ),
             array(
                 '$project' => array(
                     'store' => 1,
                     'totalPrice' => 1,
-                    'year' => array('$year' => '$createdDate'),
-                    'month' => array('$month' => '$createdDate'),
-                    'day' => array('$dayOfMonth' => '$createdDate'),
-                    'hour' => array('$hour' => '$createdDate'),
+                    'year' => array('$year' => '$createdDate.date'),
+                    'month' => array('$month' => '$createdDate.date'),
+                    'day' => array('$dayOfMonth' => '$createdDate.date'),
+                    'hour' => array('$hour' => '$createdDate.date'),
                 ),
             ),
             array(
@@ -478,7 +478,7 @@ class TrialBalanceRepository extends DocumentRepository
         $ops = array(
             array(
                 '$match' => array(
-                    'createdDate' => array(
+                    'createdDate.date' => array(
                         '$gte' => $startDate->getMongoDate(),
                         '$lt' => $endDate->getMongoDate(),
                     ),
@@ -488,17 +488,17 @@ class TrialBalanceRepository extends DocumentRepository
             ),
             array(
                 '$sort' => array(
-                    'createdDate' => 1,
+                    'createdDate.date' => 1,
                 )
             ),
             array(
                 '$project' => array(
                     'storeProduct' => 1,
                     'totalPrice' => 1,
-                    'year' => array('$year' => '$createdDate'),
-                    'month' => array('$month' => '$createdDate'),
-                    'day' => array('$dayOfMonth' => '$createdDate'),
-                    'hour' => array('$hour' => '$createdDate'),
+                    'year' => array('$year' => '$createdDate.date'),
+                    'month' => array('$month' => '$createdDate.date'),
+                    'day' => array('$dayOfMonth' => '$createdDate.date'),
+                    'hour' => array('$hour' => '$createdDate.date'),
                 ),
             ),
             array(
@@ -535,7 +535,7 @@ class TrialBalanceRepository extends DocumentRepository
             'startIndex.count' => array('$lt' => $endIndex->getCount()),
         );
         $sort = array(
-            'createdDate' => self::SORT_ASC,
+            'createdDate.date' => self::SORT_ASC,
             '_id' => self::SORT_ASC,
         );
         return $this->findBy($criteria, $sort);
@@ -555,7 +555,7 @@ class TrialBalanceRepository extends DocumentRepository
         );
         $sort = array(
             'storeProduct' => self::SORT_ASC,
-            'createdDate' => self::SORT_ASC,
+            'createdDate.date' => self::SORT_ASC,
             'id' => self::SORT_ASC
         );
         return $this->findBy($criteria, $sort, $limit);
