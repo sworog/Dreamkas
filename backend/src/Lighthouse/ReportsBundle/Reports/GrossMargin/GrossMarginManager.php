@@ -75,8 +75,8 @@ class GrossMarginManager
     ) {
         $missingDays = array();
         if ($previousDay) {
-            $day = clone $previousDay->day;
-            while ($day->modify('+1 day') < $currentDay) {
+            $day = clone $previousDay->date;
+            while ($day->modify('-1 day') > $currentDay->date) {
                 $missingDays[] = $this->storeDayGrossMarginRepository->createByStore($currentDay->store, $day);
                 $day = clone $day;
             }

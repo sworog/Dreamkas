@@ -134,7 +134,7 @@ class StoreDayGrossMarginRepository extends DocumentRepository
         $report = new StoreDayGrossMargin();
         $report->id = $this->getIdByStoreIdAndDay($this->getDocumentIdentifierValue($store), $day);
         $report->store = $store;
-        $report->day = $day;
+        $report->date = $day;
         $report->sum = ($sum) ? $sum : $this->numericFactory->createMoney(0);
 
         return $report;

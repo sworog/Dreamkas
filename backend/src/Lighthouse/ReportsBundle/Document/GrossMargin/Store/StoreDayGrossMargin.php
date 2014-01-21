@@ -13,7 +13,7 @@ use DateTime;
  * @property string     $id
  * @property Store      $store
  * @property Money      $sum
- * @property DateTime   $day
+ * @property DateTime   $date
  *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMarginRepository"
@@ -32,7 +32,7 @@ class StoreDayGrossMargin extends AbstractDocument
      * @MongoDB\Field(type="datetime_tz")
      * @var DateTime
      */
-    protected $day;
+    protected $date;
 
     /**
      * @MongoDB\Field(type="money")
