@@ -11,7 +11,7 @@ import java.util.Map;
 public class GrossMarginTableObject extends AbstractObject implements ResultComparable {
 
     private String date;
-    private String grossMarginValue;
+    private String sum;
 
     public GrossMarginTableObject(WebElement element) {
         super(element);
@@ -19,14 +19,14 @@ public class GrossMarginTableObject extends AbstractObject implements ResultComp
 
     @Override
     public void setProperties() {
-        date = getElement().findElement(By.name("")).getText();
-        grossMarginValue = getElement().findElement(By.name("")).getText();
+        date = getElement().findElement(By.name("grossMarginDate")).getText();
+        sum = getElement().findElement(By.name("grossMarginSum")).getText();
     }
 
     @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
-                .compare("date", date, row.get("name"))
-                .compare("grossMarginValue", grossMarginValue, row.get("grossMarginValue"));
+                .compare("grossMarginDate", date, row.get("grossMarginDate"))
+                .compare("grossMarginSum", sum, row.get("grossMarginSum"));
     }
 }

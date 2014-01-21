@@ -12,11 +12,11 @@ public class StoreGrossSaleMarginReportPage extends CommonPageObject {
     }
 
     public GrossMarginTableObjectCollection getGrossMarginTableObjectCollection() {
-        return new GrossMarginTableObjectCollection(getDriver(), By.name(""));
+        return new GrossMarginTableObjectCollection(getDriver(), By.name("grossMarginRow"));
     }
 
     public String getReportName() {
-        return findVisibleElement(By.name("")).getText();
+        return findVisibleElement(By.xpath("//*[@class='page__data']/h2")).getText();
     }
 
     @Override

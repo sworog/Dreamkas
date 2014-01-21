@@ -29,13 +29,13 @@ public class Us_54_1_Fixture extends AbstractFixture {
     public ExamplesTable prepareFixtureExampleTable() {
         List<Map<String, String>> mapList = new ArrayList<>();
         Map<String, String> stringMap = new HashMap<>();
-        stringMap.put("date", YESTERDAY_DATE);
-        stringMap.put("grossMargin", "11,23 р.");
+        stringMap.put("grossMarginDate", YESTERDAY_DATE);
+        stringMap.put("grossMarginSum", "875,00 р.");
         mapList.add(stringMap);
-        stringMap.clear();
-        stringMap.put("date", TWO_DAYS_AGO_DATE);
-        stringMap.put("grossMargin", "33 333,33 р.");
-        mapList.add(stringMap);
+        Map<String, String> stringMap1 = new HashMap<>();
+        stringMap1.put("grossMarginDate", TWO_DAYS_AGO_DATE);
+        stringMap1.put("grossMarginSum", "600,00 р.");
+        mapList.add(stringMap1);
         return new ExamplesTable("").withRows(mapList);
     }
 
