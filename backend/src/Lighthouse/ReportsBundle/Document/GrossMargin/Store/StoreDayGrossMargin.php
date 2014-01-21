@@ -29,7 +29,7 @@ class StoreDayGrossMargin extends AbstractDocument
     protected $id;
 
     /**
-     * @MongoDB\Date
+     * @MongoDB\Field(type="datetime_tz")
      * @var DateTime
      */
     protected $day;

@@ -72,9 +72,9 @@ class StoreDayGrossMarginRepository extends DocumentRepository
                     'store' => 1,
                     'totalPrice' => 1,
                     'costOfGoods' => 1,
-                    'year' => array('$year' => '$createdDate'),
-                    'month' => array('$month' => '$createdDate'),
-                    'day' => array('$dayOfMonth' => '$createdDate'),
+                    'year' => '$createdDate.year',
+                    'month' => '$createdDate.month',
+                    'day' => '$createdDate.day'
                 ),
             ),
             array(
