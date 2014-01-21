@@ -27,15 +27,22 @@ public class Us_54_1_Fixture extends AbstractFixture {
     private static final Double PRODUCT_PRICE_2 = 125.0;
 
     public ExamplesTable prepareFixtureExampleTable() {
-        List<Map<String, String>> mapList = new ArrayList<>();
-        Map<String, String> stringMap = new HashMap<>();
-        stringMap.put("grossMarginDate", YESTERDAY_DATE);
-        stringMap.put("grossMarginSum", "875,00 р.");
-        mapList.add(stringMap);
-        Map<String, String> stringMap1 = new HashMap<>();
-        stringMap1.put("grossMarginDate", TWO_DAYS_AGO_DATE);
-        stringMap1.put("grossMarginSum", "600,00 р.");
-        mapList.add(stringMap1);
+        List<Map<String, String>> mapList = new ArrayList<Map<String, String>>() {
+            {
+                add(new HashMap<String, String>() {
+                    {
+                        put("grossMarginDate", YESTERDAY_DATE);
+                        put("grossMarginSum", "875,00 р.");
+                    }
+                });
+                add(new HashMap<String, String>() {
+                    {
+                        put("grossMarginDate", TWO_DAYS_AGO_DATE);
+                        put("grossMarginSum", "600,00 р.");
+                    }
+                });
+            }
+        };
         return new ExamplesTable("").withRows(mapList);
     }
 
