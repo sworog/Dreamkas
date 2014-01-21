@@ -190,7 +190,7 @@ class StoreProduct extends AbstractDocument
      */
     public function getInventory()
     {
-        return new Quantity($this->inventory->toNumber(), 3);
+        return new Quantity($this->inventory, 3);
     }
 
     /**
