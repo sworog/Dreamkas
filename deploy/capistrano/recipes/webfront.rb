@@ -16,7 +16,7 @@ namespace :webfront do
     end
 
     task :rename_api, :roles => :app, :except => { :no_release => true } do
-        set :api_url, "#{host}.#{stage}.api.lighthouse.cs" unless exists?(:api_url)
+        set :api_url, "#{host}.#{stage}.api.lighthouse.pro" unless exists?(:api_url)
         puts "--> API url name in ".yellow + "config.js".bold.yellow + " will be set to ".yellow + "#{api_url}".red
         run "sed -i 's/%api_url%/#{api_url.gsub('/', '\\/')}/g' #{latest_release}/config.js"
     end

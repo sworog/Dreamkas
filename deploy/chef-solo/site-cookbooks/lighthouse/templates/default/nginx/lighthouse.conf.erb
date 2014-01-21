@@ -1,6 +1,6 @@
 # api
 server {
-    server_name ~^(?<apihost>.+)\.(?<env>.+?)\.api\.(lighthouse|lh)\.cs$;
+    server_name ~^(?<apihost>.+)\.(?<env>.+?)\.api\.(lighthouse|lh)\.(cs|pro)$;
     root /var/www/$apihost.$env.api/current/web;
 
     access_log /var/log/nginx/$apihost.$env.api.access.log;
@@ -45,8 +45,8 @@ server {
 
 # webfront
 server {
-    server_name ~^(?<webfronthost>.+)\.(?<env>.+?)\.webfront\.(lighthouse|lh)\.cs$;
-    server_name ~^(?<webfronthost>.+(?!\.(webfront|api)))\.(lighthouse|lh)\.cs$;
+    server_name ~^(?<webfronthost>.+)\.(?<env>.+?)\.webfront\.(lighthouse|lh)\.(cs|pro)$;
+    server_name ~^(?<webfronthost>.+(?!\.(webfront|api)))\.(lighthouse|lh)\.(cs|pro)$;
 
     if ($env = "") {
         set $env "staging";

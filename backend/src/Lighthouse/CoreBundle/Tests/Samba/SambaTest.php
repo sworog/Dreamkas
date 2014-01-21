@@ -440,7 +440,7 @@ EOF;
             ->method('fgets')
             ->will(
                 $this->onConsecutiveCalls(
-                    "Connection to faro.lighthouse.cs failed (Error NT_STATUS_BAD_NETWORK_NAME)",
+                    "Connection to faro.lighthouse.pro failed (Error NT_STATUS_BAD_NETWORK_NAME)",
                     false
                 )
             );

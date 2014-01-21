@@ -104,7 +104,7 @@ namespace :deploy do
         set :application, "#{host}.#{stage}.#{app_end}"
         set :deploy_to,   "/var/www/#{application}"
         set :symfony_env_prod, exists?(:symfony_env) ? symfony_env : stage
-        set :application_url, "http://#{application}.lighthouse.cs"
+        set :application_url, "http://#{application}.lighthouse.pro"
 
         puts "--> Branch ".yellow + "#{branch}".red + " will be used for deploy".yellow
         puts "--> Application will be deployed to ".yellow + application_url.red
