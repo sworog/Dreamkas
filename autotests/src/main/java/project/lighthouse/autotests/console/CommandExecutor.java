@@ -16,7 +16,7 @@ public class CommandExecutor {
     }
 
     public void run() throws IOException, InterruptedException {
-        String host = StaticData.WEB_DRIVER_BASE_URL.replaceAll("http://(.*).autotests.webfront.lighthouse.cs", "$1");
+        String host = StaticData.WEB_DRIVER_BASE_URL.replaceAll("http://(.*).autotests.webfront.lighthouse.pro", "$1");
         String commandToExecute = String.format("bundle exec cap autotests %s", command);
         ConsoleCommandResult consoleCommandResult = new ConsoleCommand(folder, host).exec(commandToExecute);
         if (!consoleCommandResult.isOk()) {

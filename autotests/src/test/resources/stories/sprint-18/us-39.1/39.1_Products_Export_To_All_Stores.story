@@ -13,7 +13,7 @@ Given the user opens the settings page
 And the user logs in as 'watchman'
 When the user input values on the setting page
 | elementName | value |
-| set10-integration-url | smb://faro.lighthouse.cs/centrum/products |
+| set10-integration-url | smb://faro.lighthouse.pro/centrum/products |
 | set10-integration-login | erp |
 | set10-integration-password | erp |
 And the user clicks save button on the setting page

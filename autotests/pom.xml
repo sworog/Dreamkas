@@ -20,13 +20,13 @@
         <thucydides.outputDirectory>${project.reporting.outputDirectory}/thucydides</thucydides.outputDirectory>
         <thucydides.sourceDirectory>${thucydides.outputDirectory}</thucydides.sourceDirectory>
         <init>test</init>
-        <webdriver.base.url>http://${init}.autotests.webfront.lighthouse.cs</webdriver.base.url>
+        <webdriver.base.url>http://${init}.autotests.webfront.lighthouse.pro</webdriver.base.url>
         <webdriver.driver>firefox</webdriver.driver>
         <thucydides.take.screenshots>FOR_FAILURES</thucydides.take.screenshots>
         <robot.ip>172.16.2.23</robot.ip>
         <robot.wsdl.url>http://${robot.ip}:8086/WS/robot?WSDL</robot.wsdl.url>
         <robot.target.namespace>http://ws.hub.setrobot.crystals.ru/</robot.target.namespace>
-        <centrum.server.url>//faro.lighthouse.cs</centrum.server.url>
+        <centrum.server.url>//faro.lighthouse.pro</centrum.server.url>
         <centrum.import.folder.path>/centrum/reports</centrum.import.folder.path>
         <api.timeout>60000</api.timeout>
     </properties>

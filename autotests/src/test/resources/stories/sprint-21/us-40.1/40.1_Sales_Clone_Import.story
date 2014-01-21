@@ -16,7 +16,7 @@ Given the user opens the settings page
 And the user logs in as 'watchman'
 When the user input values on the setting page
 | elementName | value |
-| set10-import-url | smb://faro.lighthouse.cs/centrum/reports |
+| set10-import-url | smb://faro.lighthouse.pro/centrum/reports |
 | set10-import-login | erp |
 | set10-import-interval | 60 |
 | set10-import-password | erp |
