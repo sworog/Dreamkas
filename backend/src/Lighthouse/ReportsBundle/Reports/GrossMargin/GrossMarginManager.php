@@ -21,6 +21,11 @@ class GrossMarginManager
     protected $storeDayGrossMarginRepository;
 
     /**
+     * @DI\InjectParams({
+     *     "storeDayGrossMarginRepository" = @DI\Inject(
+     *          "lighthouse.reports.document.gross_margin.store.repository"
+     *      )
+     * })
      *
      * @param StoreDayGrossMarginRepository $storeDayGrossMarginRepository
      */

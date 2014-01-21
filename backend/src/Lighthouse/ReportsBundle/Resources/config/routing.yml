@@ -1,3 +1,7 @@
 lighthouse.reports.gross_sales:
     resource: Lighthouse\ReportsBundle\Controller\GrossSalesController
     type:     rest
+
+lighthouse.reports.gross_margin:
+    resource: Lighthouse\ReportsBundle\Controller\GrossMarginController
+    type:     rest
