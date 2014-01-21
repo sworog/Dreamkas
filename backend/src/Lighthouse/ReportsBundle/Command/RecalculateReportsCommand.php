@@ -2,6 +2,7 @@
 
 namespace Lighthouse\ReportsBundle\Command;
 
+use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
 use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesReportManager;
 use Symfony\Component\Console\Command\Command;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -17,19 +18,29 @@ class RecalculateReportsCommand extends Command
     /**
      * @var GrossSalesReportManager
      */
-    protected $grossSalesReportManager;
+    protected $grossSalesManager;
+
+    /**
+     * @var GrossMarginManager
+     */
+    protected $grossMarginManager;
 
     /**
      * @DI\InjectParams({
-     *      "grossSalesReportManager" = @DI\Inject("lighthouse.reports.gross_sales.manager")
+     *      "grossSalesManager" = @DI\Inject("lighthouse.reports.gross_sales.manager"),
+     *      "grossMarginManager" = @DI\Inject("lighthouse.reports.gross_margin.manager")
      * })
-     * @param GrossSalesReportManager $grossSalesReportManager
+     * @param GrossSalesReportManager $grossSalesManager
+     * @param GrossMarginManager $grossMarginManager
      */
-    public function __construct(GrossSalesReportManager $grossSalesReportManager)
-    {
+    public function __construct(
+        GrossSalesReportManager $grossSalesManager,
+        GrossMarginManager $grossMarginManager
+    ) {
         parent::__construct('lighthouse:reports:recalculate');
 
-        $this->grossSalesReportManager = $grossSalesReportManager;
+        $this->grossSalesManager = $grossSalesManager;
+        $this->grossMarginManager = $grossMarginManager;
     }
 
     /**
@@ -50,19 +61,23 @@ class RecalculateReportsCommand extends Command
         $output->writeln("<info>Recalculate reports started</info>");
 
         $output->writeln("<info>Store Gross Sales</info>");
-        $this->grossSalesReportManager->recalculateStoreGrossSalesReport();
+        $this->grossSalesManager->recalculateStoreGrossSalesReport();
 
         $output->writeln("<info>Product Gross Sales</info>");
-        $this->grossSalesReportManager->recalculateGrossSalesProductReport(5000);
+        $this->grossSalesManager->recalculateGrossSalesProductReport(5000);
 
         $output->writeln("<info>SubCategory Gross Sales</info>");
-        $this->grossSalesReportManager->recalculateGrossSalesBySubCategories($output);
+        $this->grossSalesManager->recalculateGrossSalesBySubCategories($output);
 
         $output->writeln("<info>Category Gross Sales</info>");
-        $this->grossSalesReportManager->recalculateGrossSalesByCategories($output);
+        $this->grossSalesManager->recalculateGrossSalesByCategories($output);
 
         $output->writeln("<info>Group Gross Sales</info>");
-        $this->grossSalesReportManager->recalculateGrossSalesByGroups($output);
+        $this->grossSalesManager->recalculateGrossSalesByGroups($output);
+
+        $output->writeln("<info>Store Gross Margin</info>");
+        $this->grossMarginManager->calculateUnprocessedTrialBalances();
+        $this->grossMarginManager->recalculateStoreGrossMargin();
 
         $output->writeln("<info>Recalculate reports finished</info>");
 

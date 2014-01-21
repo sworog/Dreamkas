@@ -4,6 +4,9 @@ namespace Lighthouse\ReportsBundle\Reports\GrossMargin;
 
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoodCalculator;
+use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
+use Lighthouse\CoreBundle\Tests\Document\TrialBalance\CostOfGoodsTest;
 use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMargin;
 use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMarginRepository;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -21,17 +24,29 @@ class GrossMarginManager
     protected $storeDayGrossMarginRepository;
 
     /**
+     * @var CostOfGoodCalculator
+     */
+    protected $costOfGoodCalculator;
+
+    /**
      * @DI\InjectParams({
      *     "storeDayGrossMarginRepository" = @DI\Inject(
      *          "lighthouse.reports.document.gross_margin.store.repository"
-     *      )
+     *      ),
+     *      "costOfGoodCalculator" = @DI\Inject(
+     *          "lighthouse.core.document.trial_balance.calculator"
+     *      ),
      * })
      *
      * @param StoreDayGrossMarginRepository $storeDayGrossMarginRepository
+     * @param CostOfGoodCalculator $costOfGoodCalculator
      */
-    public function __construct(StoreDayGrossMarginRepository $storeDayGrossMarginRepository)
-    {
+    public function __construct(
+        StoreDayGrossMarginRepository $storeDayGrossMarginRepository,
+        CostOfGoodCalculator $costOfGoodCalculator
+    ) {
         $this->storeDayGrossMarginRepository = $storeDayGrossMarginRepository;
+        $this->costOfGoodCalculator = $costOfGoodCalculator;
     }
 
     /**
@@ -90,5 +105,14 @@ class GrossMarginManager
     public function recalculateStoreGrossMargin()
     {
         return $this->storeDayGrossMarginRepository->recalculate();
+    }
+
+    /**
+     * @param int $limit
+     * @return int
+     */
+    public function calculateUnprocessedTrialBalances($limit = null)
+    {
+        return $this->costOfGoodCalculator->calculateUnprocessedTrialBalances($limit);
     }
 }
