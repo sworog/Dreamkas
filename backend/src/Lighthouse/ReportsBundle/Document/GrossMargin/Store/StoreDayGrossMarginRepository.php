@@ -85,14 +85,24 @@ class StoreDayGrossMarginRepository extends DocumentRepository
                         'month' => '$month',
                         'day' => '$day',
                     ),
-                    'sum' => array(
-                        '$subtract' => array(
-                            array('$sum' => '$totalPrice'),
-                            array('$sum' => '$costOfGoods'),
-                        ),
-                    )
+                    'totalPriceSum' => array(
+                        '$sum' => '$totalPrice'
+                    ),
+                    'costOfGoodsSum' => array(
+                        '$sum' => '$costOfGoods'
+                    ),
                 ),
             ),
+            array(
+                '$project' => array(
+                    '_id' => 1,
+                    'totalPriceSum' => 1,
+                    'costOfGoodsSum' => 1,
+                    'sum' => array(
+                        '$subtract' => array('$totalPriceSum', '$costOfGoodsSum')
+                    )
+                )
+            )
         );
 
         return $this->trialBalanceRepository->aggregate($ops);
@@ -122,6 +132,7 @@ class StoreDayGrossMarginRepository extends DocumentRepository
     public function createByStore(Store $store, DateTime $day, Money $sum = null)
     {
         $report = new StoreDayGrossMargin();
+        $report->id = $this->getIdByStoreIdAndDay($this->getDocumentIdentifierValue($store), $day);
         $report->store = $store;
         $report->day = $day;
         $report->sum = ($sum) ? $sum : $this->numericFactory->createMoney(0);
@@ -157,7 +168,7 @@ class StoreDayGrossMarginRepository extends DocumentRepository
      */
     protected function createDay($year, $month, $day)
     {
-        return DateTimestamp::createUTCFromParts($year, $month, $day);
+        return DateTimestamp::createFromParts($year, $month, $day);
     }
 
     /**

@@ -116,7 +116,7 @@ class TrialBalance extends AbstractDocument
     protected $price;
 
     /**
-     * @MongoDB\Date
+     * @MongoDB\Field(type="datetime_tz")
      * @var DateTime
      */
     protected $createdDate;
