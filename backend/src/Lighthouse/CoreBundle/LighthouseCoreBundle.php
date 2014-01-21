@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddCommandAsServicePass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddJobWorkersPass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddReferenceProvidersPass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddRoundingsToManagerPass;
+use Lighthouse\CoreBundle\MongoDB\Types\DateTimeTZType;
 use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -25,6 +26,7 @@ class LighthouseCoreBundle extends Bundle
         Type::registerType('quantity', 'Lighthouse\\CoreBundle\\MongoDB\\Types\\QuantityType');
         Type::registerType('money', 'Lighthouse\\CoreBundle\\MongoDB\\Types\\MoneyType');
         Type::registerType('timestamp', 'Lighthouse\\CoreBundle\\MongoDB\\Types\\TimestampType');
+        Type::registerType(DateTimeTZType::DATETIMETZ, DateTimeTZType::getClassName());
     }
 
     protected function addStreamWrappers()
