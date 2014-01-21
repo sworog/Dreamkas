@@ -6,7 +6,7 @@ define(function(require, exports, module) {
         model: require('kit/core/model'),
         storeId: null,
         url: function(){
-            return LH.mockApiUrl + '/stores/' + this.storeId + '/reports/grossMargin';
+            return LH.baseApiUrl + '/stores/' + this.storeId + '/reports/grossMargin';
         }
     });
 });
