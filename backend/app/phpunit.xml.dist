@@ -13,8 +13,11 @@
     bootstrap                   = "bootstrap.php.cache" >
 
     <testsuites>
-        <testsuite name="Project Test Suite">
+        <testsuite name="Core bundle">
             <directory>../src/Lighthouse/CoreBundle/Tests</directory>
+        </testsuite>
+        <testsuite name="Reports bundle">
+            <directory>../src/Lighthouse/ReportsBundle/Tests</directory>
         </testsuite>
     </testsuites>
 
@@ -24,6 +27,7 @@
             <exclude>
                 <directory>../src/Lighthouse/CoreBundle/Test</directory>
                 <directory>../src/Lighthouse/CoreBundle/Tests</directory>
+                <directory>../src/Lighthouse/ReportsBundle/Tests</directory>
             </exclude>
         </whitelist>
     </filter>
