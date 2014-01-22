@@ -78,13 +78,10 @@ class GrossMarginControllerTest extends WebTestCase
 
         $this->factory->flush();
 
-
         // Calculate CostOfGoods
-        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
-        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        $costOfGoodsCalculator->calculateUnprocessedTrialBalances();
         /* @var GrossMarginManager $grossMarginReportManager */
         $grossMarginReportManager = $this->getContainer()->get('lighthouse.reports.gross_margin.manager');
+        $grossMarginReportManager->calculateUnprocessedTrialBalances();
         $grossMarginReportManager->recalculateStoreGrossMargin();
 
         return $store;
