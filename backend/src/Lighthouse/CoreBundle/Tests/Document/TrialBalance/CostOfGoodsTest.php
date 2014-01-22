@@ -449,5 +449,25 @@ class CostOfGoodsTest extends WebTestCase
         $trialBalanceSaleProduct1 = $trialBalanceRepository
             ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
         $this->assertEquals(1050, $trialBalanceSaleProduct1->costOfGoods->toNumber());
+
+
+        $saleBehindhand2 = $this->factory->createSale($store, "2014-01-09 16:23:12", 500);
+        $saleProductBehindhand2 = $this->factory->createSaleProduct(250, 2, $product, $saleBehindhand2);
+        $this->factory->flush();
+
+        $costOfGoodsCalculator->calculateUnprocessedTrialBalances();
+
+
+        $trialBalanceSaleProductBehindhand = $trialBalanceRepository
+            ->findOneByReasonTypeReasonId($saleProductBehindhand->id, SaleProduct::REASON_TYPE);
+        $this->assertEquals(800, $trialBalanceSaleProductBehindhand->costOfGoods->toNumber());
+
+        $trialBalanceSaleProductBehindhand2 = $trialBalanceRepository
+            ->findOneByReasonTypeReasonId($saleProductBehindhand2->id, SaleProduct::REASON_TYPE);
+        $this->assertEquals(300, $trialBalanceSaleProductBehindhand2->costOfGoods->toNumber());
+
+        $trialBalanceSaleProduct1 = $trialBalanceRepository
+            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
+        $this->assertEquals(1150, $trialBalanceSaleProduct1->costOfGoods->toNumber());
     }
 }
