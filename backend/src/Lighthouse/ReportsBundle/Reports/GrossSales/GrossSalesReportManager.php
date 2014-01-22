@@ -488,7 +488,11 @@ class GrossSalesReportManager
         foreach ($datesKeys as $secondKey) {
             /** @var Money $secondNowValue */
             $secondNowValue = $grossSalesStoreTodayReport->$secondKey->now->value;
-            $diff = ($primaryNowValue->toNumber() / $secondNowValue->toNumber() - 1) * 100;
+            if (0 == $secondNowValue->toNumber()) {
+                $diff = 0;
+            } else {
+                $diff = ($primaryNowValue->toNumber() / $secondNowValue->toNumber() - 1) * 100;
+            }
             $grossSalesStoreTodayReport->$secondKey->now->diff = Decimal::createFromNumeric($diff, 2);
         }
     }
