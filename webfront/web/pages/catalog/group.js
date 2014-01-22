@@ -18,10 +18,10 @@ define(function(require) {
             var page = this;
 
             if (page.referrer.__name__ && page.referrer.__name__.indexOf('page_catalog') >= 0){
-                _.extend(pageParams, params);
+                _.extend(params, pageParams);
             } else {
                 _.extend(pageParams, {
-                    editMode: false
+                    editMode: 'false'
                 }, params)
             }
 
@@ -40,7 +40,7 @@ define(function(require) {
             }
 
             if (!LH.isAllow('groups', 'POST')) {
-                pageParams.editMode = false;
+                pageParams.editMode = 'false';
             }
 
             var route = router.toFragment(document.location.pathname, {

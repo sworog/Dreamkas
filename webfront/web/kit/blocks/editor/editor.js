@@ -14,13 +14,13 @@ define(function(require) {
                     e.preventDefault();
                     var block = this;
 
-                    block.set('editMode', true);
+                    block.set('editMode', 'true');
                 },
                 'click .editor__off': function(e) {
                     e.preventDefault();
                     var block = this;
 
-                    block.set('editMode', false);
+                    block.set('editMode', 'false');
                 }
             },
             initialize: function() {
@@ -32,13 +32,21 @@ define(function(require) {
                 var block = this,
                     url;
 
-                if (editMode) {
+                if (editMode === 'true') {
                     block.$el.addClass('editor_editMode_on');
                     block.$el.removeClass('editor_editMode_off');
                 } else {
                     block.$el.addClass('editor_editMode_off');
                     block.$el.removeClass('editor_editMode_on');
                 }
+
+                var route = router.toFragment(document.location.pathname, {
+                    editMode: editMode
+                });
+
+                router.navigate(route, {
+                    replace: true
+                });
             }
         });
     }
