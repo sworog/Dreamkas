@@ -322,4 +322,63 @@ class GrossMarginControllerTest extends WebTestCase
 
         $this->assertEquals($expectedResponse, $actualResponse);
     }
+
+    public function testGetStoreGrossMarginReportsWithDataFromBoardTwo()
+    {
+        $store = $this->factory->getStore("1");
+        $accessToken = $this->factory->authAsStoreManager($store);
+        $product = $this->createProduct("1");
+
+        // Begin inventory
+        $invoice1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-01 12:23:12'), $store);
+        $this->createInvoiceProduct($invoice1, $product, 3, 1, $store);
+        $this->createInvoiceProduct($invoice1, $product, 2, 2, $store);
+
+        // Day one
+        $invoice1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-02 12:23:12'), $store);
+        $this->createInvoiceProduct($invoice1, $product, 3, 3, $store);
+
+        $sale1 = $this->factory->createSale($store, "2014-01-02 12:23:12", 233);
+        $this->factory->createSaleProduct(5, 4, $product, $sale1);
+        $this->factory->flush();
+
+        // Day two
+        $invoice1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-03 12:23:12'), $store);
+        $this->createInvoiceProduct($invoice1, $product, 2, 2, $store);
+
+        $sale1 = $this->factory->createSale($store, "2014-01-03 12:23:12", 233);
+        $this->factory->createSaleProduct(5, 3, $product, $sale1);
+        $this->factory->flush();
+
+
+        // Calculate CostOfGoods
+        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
+        $costOfGoodsCalculator->calculateUnprocessedTrialBalances();
+        /* @var GrossMarginManager $grossMarginReportManager */
+        $grossMarginReportManager = $this->getContainer()->get('lighthouse.reports.gross_margin.manager');
+        $grossMarginReportManager->recalculateStoreGrossMargin();
+
+
+        $actualResponse = $this->clientJsonRequest(
+            $accessToken,
+            "GET",
+            "/api/1/stores/" . $store . "/reports/grossMargin",
+            null,
+            array('time' => date('c', strtotime("2014-01-04 10:35:47")))
+        );
+
+        $expectedResponse = array(
+            array(
+                'date' => '2014-01-03T00:00:00+0400',
+                'sum' => 7,
+            ),
+            array(
+                'date' => '2014-01-02T00:00:00+0400',
+                'sum' => 15,
+            ),
+        );
+
+        $this->assertEquals($expectedResponse, $actualResponse);
+    }
 }
