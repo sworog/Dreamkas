@@ -62,6 +62,17 @@ public class EndInvoiceApiSteps {
         invoiceApiSteps.createInvoiceThroughPost(sku, new DateTimeHelper(date).convertDateTime(), "supplier", "accepter", "legalEntity", "", "", number, userName);
     }
 
+    @Given("there is the date invoice with sku '$sku' and date '$date' and time set to '$time' in the store with number '$number' ruled by department manager with name '$userName'")
+    public void givenThereIsTheInvoiceInTheStore(String sku, String date, String time, String number, String userName) throws IOException, JSONException {
+        String[] timeArrayValues = time.split(":");
+        String dateTime = new DateTimeHelper(date).convertDateTime(
+                Integer.parseInt(timeArrayValues[0]),
+                Integer.parseInt(timeArrayValues[1]),
+                Integer.parseInt(timeArrayValues[2])
+        );
+        invoiceApiSteps.createInvoiceThroughPost(sku, dateTime, "supplier", "accepter", "legalEntity", "", "", number, userName);
+    }
+
     @Given("there is the invoice in the store with number '$number' ruled by department manager with name '$userName' with values $exampleTable")
     public void givenThereIsTheInvoiceInTheStoreWithValues(String number, String userName, ExamplesTable examplesTable) throws IOException, JSONException {
         String sku = "", acceptanceDate = "", supplier = "", accepter = "", legalEntity = "", supplierInvoiceSku = "", supplierInvoiceDate = "";

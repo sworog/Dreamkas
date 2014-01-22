@@ -19,15 +19,15 @@ And the user sets subCategory 'defaultSubCategory-s27u541' mark up with max '10'
 
 Given there is the product with 'name-27541' name, '27541' sku, '27541' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s27u541', category named 'defaultCategory-s27u541', subcategory named 'defaultSubCategory-s27u541'
 
-Given there is the date invoice with sku 'Invoice-27541' and date 'today-2days' in the store with number '27541' ruled by department manager with name 'departmentManager-s27u541'
+Given there is the date invoice with sku 'Invoice-27541' and date 'today-2days' and time set to '8:00:00' in the store with number '27541' ruled by department manager with name 'departmentManager-s27u541'
 And the user adds the product to the invoice with name 'Invoice-27541' with sku '27541', quantity '50', price '90' in the store ruled by 'departmentManager-s27u541'
 
-Given there is the date invoice with sku 'Invoice-27541' and date 'today-1days' in the store with number '27541' ruled by department manager with name 'departmentManager-s27u541'
-And the user adds the product to the invoice with name 'Invoice-27541' with sku '27541', quantity '35', price '100' in the store ruled by 'departmentManager-s27u541'
-
-Given the user prepares yesterday purchases for us 54.1 story
+Given there is the date invoice with sku 'Invoice-27541-1' and date 'today-1days' and time set to '8:00:00' in the store with number '27541' ruled by department manager with name 'departmentManager-s27u541'
+And the user adds the product to the invoice with name 'Invoice-27541-1' with sku '27541', quantity '35', price '100' in the store ruled by 'departmentManager-s27u541'
 
 Given the user prepares two days ago purchases for us 54.1 story
+
+Given the user prepares yesterday purchases for us 54.1 story
 
 Given the user runs the symfony:reports:recalculate command
 

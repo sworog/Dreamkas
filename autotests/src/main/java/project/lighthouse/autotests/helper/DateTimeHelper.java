@@ -23,6 +23,14 @@ public class DateTimeHelper {
         return getTodayDate(DATE_TIME_PATTERN, days);
     }
 
+    public String convertDateTime(int hour, int minute, int second) {
+        return getTodayDate(DATE_TIME_PATTERN, days, hour, minute, second);
+    }
+
+    public static void main(String Args[]) {
+        new DateTimeHelper(2).convertDateTime();
+    }
+
     public String convertDate() {
         return getTodayDate(DATE_PATTERN, days);
     }
@@ -38,6 +46,16 @@ public class DateTimeHelper {
 
     private String getTodayDate(String pattern, int day) {
         return new SimpleDateFormat(pattern).format(new org.joda.time.DateTime().minusDays(day).toDate());
+    }
+
+    private String getTodayDate(String pattern, int days, int hour, int minute, int second) {
+        return new SimpleDateFormat(pattern).format(new org.joda.time.DateTime()
+                .withHourOfDay(hour)
+                .withMinuteOfHour(minute)
+                .withSecondOfMinute(second)
+                .minusDays(days)
+                .toDate()
+        );
     }
 
     public static String getDate() {
