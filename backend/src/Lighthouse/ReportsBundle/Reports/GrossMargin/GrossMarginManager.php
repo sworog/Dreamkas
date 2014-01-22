@@ -70,7 +70,7 @@ class GrossMarginManager
     protected function fillStoreDayGrossMarginCollection(Cursor $cursor, DateTime $date)
     {
         $collection = new StoreDayGrossMarginCollection();
-        $previousDay = null;
+        $previousDay = $date;
         foreach ($cursor as $storeDayGrossMargin) {
             $missingDays = $this->getMissingStoreGrossMarginDays(
                 $storeDayGrossMargin->store,

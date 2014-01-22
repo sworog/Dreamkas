@@ -8,10 +8,10 @@ use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
 
 class GrossMarginControllerTest extends WebTestCase
 {
-    public function testGetStoreGrossMarginReports()
+    protected function prepareData()
     {
-        $store = $this->factory->getStore("1");
-        $accessToken = $this->factory->authAsStoreManager($store);
+        $store = $this->factory->getStore();
+
         $product1 = $this->createProduct("1");
         $product2 = $this->createProduct("2");
         $product3 = $this->createProduct("3");
@@ -87,16 +87,84 @@ class GrossMarginControllerTest extends WebTestCase
         $grossMarginReportManager = $this->getContainer()->get('lighthouse.reports.gross_margin.manager');
         $grossMarginReportManager->recalculateStoreGrossMargin();
 
+        return $store;
+    }
+
+    public function testGetStoreGrossMarginReports()
+    {
+        $storeId = $this->prepareData();
+
+        $accessToken = $this->factory->authAsStoreManager($storeId);
 
         $actualResponse = $this->clientJsonRequest(
             $accessToken,
             "GET",
-            "/api/1/stores/" . $store . "/reports/grossMargin",
+            "/api/1/stores/" . $storeId . "/reports/grossMargin",
             null,
             array('time' => date('c', strtotime("2014-01-10 10:35:47")))
         );
 
         $expectedResponse = array(
+            array(
+                'date' => '2014-01-09T00:00:00+0400',
+                'sum' => 517,
+            ),
+            array(
+                'date' => '2014-01-08T00:00:00+0400',
+                'sum' => 742,
+            ),
+            array(
+                'date' => '2014-01-07T00:00:00+0400',
+                'sum' => 694,
+            ),
+            array(
+                'date' => '2014-01-06T00:00:00+0400',
+                'sum' => 559,
+            ),
+            array(
+                'date' => '2014-01-05T00:00:00+0400',
+                'sum' => 658,
+            ),
+            array(
+                'date' => '2014-01-04T00:00:00+0400',
+                'sum' => 0,
+            ),
+            array(
+                'date' => '2014-01-03T00:00:00+0400',
+                'sum' => 622,
+            ),
+            array(
+                'date' => '2014-01-02T00:00:00+0400',
+                'sum' => 387,
+            ),
+        );
+
+        $this->assertEquals($expectedResponse, $actualResponse);
+    }
+
+    public function testGetStoreGrossMarginReportsWithMissingDaysAtTheBeginning()
+    {
+        $storeId = $this->prepareData();
+
+        $accessToken = $this->factory->authAsStoreManager($storeId);
+
+        $actualResponse = $this->clientJsonRequest(
+            $accessToken,
+            "GET",
+            "/api/1/stores/" . $storeId . "/reports/grossMargin",
+            null,
+            array('time' => date('c', strtotime("2014-01-12 10:35:47")))
+        );
+
+        $expectedResponse = array(
+            array(
+                'date' => '2014-01-11T00:00:00+0400',
+                'sum' => 0,
+            ),
+            array(
+                'date' => '2014-01-10T00:00:00+0400',
+                'sum' => 0,
+            ),
             array(
                 'date' => '2014-01-09T00:00:00+0400',
                 'sum' => 517,
