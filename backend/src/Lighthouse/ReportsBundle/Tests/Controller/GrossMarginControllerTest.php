@@ -261,7 +261,7 @@ class GrossMarginControllerTest extends WebTestCase
         $expectedResponse = array(
             array(
                 'date' => $date->copy()->modify('-1 day 00:00')->format(DateTime::ISO8601),
-                'sum' => 600,
+                'sum' => 850,
             ),
             array(
                 'date' => $date->copy()->modify('-2 days 00:00')->format(DateTime::ISO8601),
