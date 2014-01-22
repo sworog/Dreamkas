@@ -26,4 +26,14 @@ public class GivenFixturePrepareSteps {
     public void givenTheUserPreparesTwoDaysAgoPurchasesForStory541() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException, InterruptedException {
         consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(us_54_1_fixture.getTwoDaysAgoPurchasesFixture().getPath());
     }
+
+    @Given("the user prepares today purchases for us 54.1 story")
+    public void givenTheUserPreparesTodayPurchasesForStory541() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException, InterruptedException {
+        consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(us_54_1_fixture.getTodayPurchasesFixture().getPath());
+    }
+
+    @Given("the user prepares five days ago purchases for us 54.1 story")
+    public void givenTheUserPreparesfiveDaysAgoPurchasesForStory541() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException, InterruptedException {
+        consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(us_54_1_fixture.getFiveDaysAgoPurchasesFixture().getPath());
+    }
 }

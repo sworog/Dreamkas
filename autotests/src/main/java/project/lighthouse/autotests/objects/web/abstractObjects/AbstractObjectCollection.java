@@ -90,6 +90,18 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
         getAbstractObjectByLocator(locator);
     }
 
+    public void notContains(String locator) {
+        String errorMessage = String.format("There is the object with locator '%s'", locator);
+        try {
+            getAbstractObjectByLocator(locator);
+            Assert.fail(errorMessage);
+        } catch (AssertionFailedError e) {
+            if (!e.getMessage().contains("There is no object with locator")) {
+                Assert.fail(errorMessage);
+            }
+        }
+    }
+
     private Boolean locateObject(AbstractObject abstractObject, String objectLocator) {
         return ((ObjectLocatable) abstractObject).getObjectLocator().equals(objectLocator);
     }

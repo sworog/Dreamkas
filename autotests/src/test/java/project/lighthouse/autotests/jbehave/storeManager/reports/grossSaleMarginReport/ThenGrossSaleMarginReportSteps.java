@@ -18,4 +18,14 @@ public class ThenGrossSaleMarginReportSteps {
     public void thenTheUserChecksTheReportName(String reportName) {
         storeGrossSaleMarginReportSteps.assertReportName(reportName);
     }
+
+    @Then("the user checks there is no gross sale margin table with today date")
+    public void thenTheUserChecksThereIsNoGrossSaleMarginTableWithTodayDate() {
+        storeGrossSaleMarginReportSteps.notContainsValue();
+    }
+
+    @Then("the user checks the gross sale margin table contains expected five days ago entries")
+    public void thenTheUserChecksTheGrossSaleMarginTableContainsFiveDaysAgo() {
+        storeGrossSaleMarginReportSteps.compareWithExampleForFiveDaysAgo();
+    }
 }
