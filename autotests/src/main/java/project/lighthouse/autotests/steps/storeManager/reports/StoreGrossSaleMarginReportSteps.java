@@ -12,7 +12,7 @@ public class StoreGrossSaleMarginReportSteps extends ScenarioSteps {
 
     @Step
     public void compareWithExampleFixture() {
-        storeGrossSaleMarginReportPage.getGrossMarginTableObjectCollection().compareWithExampleTable(
+        storeGrossSaleMarginReportPage.getGrossMarginTableObjectCollection().exactCompareExampleTable(
                 new Us_54_1_Fixture().prepareFixtureExampleTable()
         );
     }
