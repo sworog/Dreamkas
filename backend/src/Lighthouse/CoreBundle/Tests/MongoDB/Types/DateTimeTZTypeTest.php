@@ -140,6 +140,10 @@ class DateTimeTZTypeTest extends TestCase
                 array(),
                 null
             ),
+            'invalid MongoDate' => array(
+                new MongoDate(),
+                null
+            )
         );
     }
 
