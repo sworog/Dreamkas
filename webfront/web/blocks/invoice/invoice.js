@@ -145,8 +145,7 @@ define(function(require) {
                         error: function(data, res) {
                             block.showInlineErrors(JSON.parse(res.responseText));
                             $submitButton.removeClass('preloader');
-                        },
-                        wait: true
+                        }
                     });
                 },
                 'click .invoice__dataInputCancel': function(e) {
