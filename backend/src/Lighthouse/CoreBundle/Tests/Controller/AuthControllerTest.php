@@ -132,4 +132,23 @@ class AuthControllerTest extends WebTestCase
         $this->assertArrayHasKey('error', $response);
         $this->assertEquals('invalid_grant', $response['error']);
     }
+
+    public function testOriginOptions()
+    {
+        $header = array(
+            'Content-Type' => 'application/x-www-form-urlencoded',
+            'HTTP_Origin' => 'http://webfront.lighthouse.dev',
+            'HTTP_Access_Control_Request_Headers' => 'accept, authorization, content-type',
+            'HTTP_Access_Control_Request_Method' => 'POST'
+        );
+        $this->client->request(
+            'OPTIONS',
+            'http://demo.staging.api.lighthouse.pro/oauth/v2/token',
+            array(),
+            array(),
+            $header
+        );
+
+        $this->assertResponseCode(200);
+    }
 }
