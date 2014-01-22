@@ -173,10 +173,18 @@ class StoreDayGrossMarginRepository extends DocumentRepository
 
     /**
      * @param string $storeId
+     * @param DateTime $date
      * @return Cursor|StoreDayGrossMargin[]
      */
-    public function findByStoreId($storeId)
+    public function findByStoreId($storeId, DateTime $date)
     {
-        return $this->findBy(array('store' => $storeId), array('date.date' => self::SORT_DESC));
+        $criteria = array(
+            'store' => $storeId,
+            'date.date' => array('$lt' => $date),
+        );
+        $sort = array(
+            'date.date' => self::SORT_DESC
+        );
+        return $this->findBy($criteria, $sort);
     }
 }

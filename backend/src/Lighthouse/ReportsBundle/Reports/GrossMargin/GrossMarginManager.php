@@ -56,43 +56,50 @@ class GrossMarginManager
      */
     public function getStoreGrossMarginReport(Store $store, DateTime $date)
     {
-        $cursor = $this->storeDayGrossMarginRepository->findByStoreId($store->id);
-        $collection = $this->fillStoreDayGrossMarginCollection($cursor);
+        $date->setTime(0, 0, 0);
+        $cursor = $this->storeDayGrossMarginRepository->findByStoreId($store->id, $date);
+        $collection = $this->fillStoreDayGrossMarginCollection($cursor, $date);
         return $collection;
     }
 
     /**
      * @param Cursor|StoreDayGrossMargin[] $cursor
+     * @param DateTime $date
      * @return StoreDayGrossMarginCollection::
      */
-    protected function fillStoreDayGrossMarginCollection(Cursor $cursor)
+    protected function fillStoreDayGrossMarginCollection(Cursor $cursor, DateTime $date)
     {
         $collection = new StoreDayGrossMarginCollection();
-        $previousDay = null;
+        $previousDay = $date;
         foreach ($cursor as $storeDayGrossMargin) {
-            foreach ($this->getMissingStoreGrossMarginDays($storeDayGrossMargin, $previousDay) as $missingDay) {
-                $collection->add($missingDay);
-            }
+            $missingDays = $this->getMissingStoreGrossMarginDays(
+                $storeDayGrossMargin->store,
+                $storeDayGrossMargin->date,
+                $previousDay
+            );
+            $collection->append($missingDays);
             $collection->add($storeDayGrossMargin);
-            $previousDay = $storeDayGrossMargin;
+            $previousDay = $storeDayGrossMargin->date;
         }
         return $collection;
     }
 
     /**
-     * @param StoreDayGrossMargin $currentDay
-     * @param StoreDayGrossMargin $previousDay
+     * @param Store $store
+     * @param DateTime $currentDay
+     * @param DateTime $previousDay
      * @return StoreDayGrossMargin[]
      */
     protected function getMissingStoreGrossMarginDays(
-        StoreDayGrossMargin $currentDay,
-        StoreDayGrossMargin $previousDay = null
+        Store $store,
+        DateTime $currentDay,
+        DateTime $previousDay = null
     ) {
         $missingDays = array();
         if ($previousDay) {
-            $day = clone $previousDay->date;
-            while ($day->modify('-1 day') > $currentDay->date) {
-                $missingDays[] = $this->storeDayGrossMarginRepository->createByStore($currentDay->store, $day);
+            $day = clone $previousDay;
+            while ($day->modify('-1 day') > $currentDay) {
+                $missingDays[] = $this->storeDayGrossMarginRepository->createByStore($store, $day);
                 $day = clone $day;
             }
         }
