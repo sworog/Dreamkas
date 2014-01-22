@@ -141,6 +141,14 @@ class DateTimestamp extends DateTime
     }
 
     /**
+     * @return DateTimestamp
+     */
+    public function copy()
+    {
+        return clone $this;
+    }
+
+    /**
      * @param MongoTimestamp $mongoTimestamp
      * @return static|DateTimestamp
      */
