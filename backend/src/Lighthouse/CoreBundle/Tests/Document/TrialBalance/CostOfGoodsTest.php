@@ -32,6 +32,10 @@ class CostOfGoodsTest extends WebTestCase
         $invoice14 = $this->createInvoice(array('sku' => 4, 'acceptanceDate' => '2014-01-14 08:15:31'), $store1);
         $this->createInvoiceProduct($invoice14, $productIds['1'], 300.01, 201.15, $store1);
 
+        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
+        $costOfGoodsCalculator->checkAndFixRangeIndexes();
+
         $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
 
         $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
@@ -79,6 +83,10 @@ class CostOfGoodsTest extends WebTestCase
         $this->factory->createSaleProduct(35.15, 2, $productIds['3'], $sale3);
         $this->factory->flush();
 
+        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
+        $costOfGoodsCalculator->checkAndFixRangeIndexes();
+
         $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
 
         $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
@@ -118,6 +126,10 @@ class CostOfGoodsTest extends WebTestCase
         $this->factory->createSaleProduct(34.12, 1, $productId, $sale);
         $this->factory->flush();
 
+        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
+        $costOfGoodsCalculator->checkAndFixRangeIndexes();
+
         $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
 
         $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
@@ -156,6 +168,10 @@ class CostOfGoodsTest extends WebTestCase
         $this->createInvoiceProduct($invoiceId2, $productId, 3, 10.09, $store);
         $invoiceId3 = $this->createInvoice(array('sku' => 3, 'acceptanceDate' => '2014-01-12 14:23:12'), $store);
         $this->createInvoiceProduct($invoiceId3, $productId, 2, 10.09, $store);
+
+        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
+        $costOfGoodsCalculator->checkAndFixRangeIndexes();
 
         $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
         $numericFactory = $this->getContainer()->get('lighthouse.core.types.numeric.factory');
@@ -269,6 +285,10 @@ class CostOfGoodsTest extends WebTestCase
         $this->createInvoiceProduct($invoiceId2, $productId, 3, 12.13, $store);
         $invoiceId3 = $this->createInvoice(array('sku' => 3, 'acceptanceDate' => '2014-01-12 14:23:12'), $store);
         $this->createInvoiceProduct($invoiceId3, $productId, 2, 10.09, $store);
+
+        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
+        $costOfGoodsCalculator->checkAndFixRangeIndexes();
 
         $numericFactory = $this->getContainer()->get('lighthouse.core.types.numeric.factory');
         /* @var CostOfGoodCalculator $costOfGoodsCalculator */
@@ -385,6 +405,7 @@ class CostOfGoodsTest extends WebTestCase
 
         /* @var CostOfGoodCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
+        $costOfGoodsCalculator->checkAndFixRangeIndexes();
         $count = $costOfGoodsCalculator->calculateUnprocessedTrialBalances();
         $this->assertEquals(5, $count);
 
@@ -427,6 +448,7 @@ class CostOfGoodsTest extends WebTestCase
         $saleProduct1 = $this->factory->createSaleProduct(250, 6, $product, $sale1);
         $this->factory->flush();
 
+        $costOfGoodsCalculator->checkAndFixRangeIndexes();
         $costOfGoodsCalculator->calculateUnprocessedTrialBalances();
 
 
@@ -439,6 +461,7 @@ class CostOfGoodsTest extends WebTestCase
         $saleProductBehindhand = $this->factory->createSaleProduct(250, 7, $product, $saleBehindhand);
         $this->factory->flush();
 
+        $costOfGoodsCalculator->checkAndFixRangeIndexes();
         $costOfGoodsCalculator->calculateUnprocessedTrialBalances();
 
 
@@ -455,6 +478,7 @@ class CostOfGoodsTest extends WebTestCase
         $saleProductBehindhand2 = $this->factory->createSaleProduct(250, 2, $product, $saleBehindhand2);
         $this->factory->flush();
 
+        $costOfGoodsCalculator->checkAndFixRangeIndexes();
         $costOfGoodsCalculator->calculateUnprocessedTrialBalances();
 
 

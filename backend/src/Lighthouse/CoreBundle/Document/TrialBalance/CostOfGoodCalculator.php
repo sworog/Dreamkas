@@ -91,7 +91,7 @@ class CostOfGoodCalculator
     {
         $dm = $this->trialBalanceRepository->getDocumentManager();
         $cursor = $this->trialBalanceRepository->findByProcessingStatus(
-            TrialBalance::PROCESSING_STATUS_UNPROCESSED,
+            TrialBalance::PROCESSING_STATUS_NEED_CALC_COST_OF_GOODS,
             SaleProduct::REASON_TYPE,
             $limit
         );
@@ -104,5 +104,88 @@ class CostOfGoodCalculator
         }
         $dm->flush();
         return $count;
+    }
+
+    /**
+     * @return void
+     */
+    public function checkAndFixRangeIndexes()
+    {
+        $results = $this->trialBalanceRepository->getAllFirstUnprocessedTrialBalance();
+        foreach ($results as $result) {
+            $this->fixRangeIndexes(
+                $result['minCreatedDate'],
+                $result['_id']['storeProduct'],
+                $result['_id']['reasonType']
+            );
+        }
+    }
+
+    /**
+     * @param \MongoDate $startDate
+     * @param string $storeProduct
+     * @param string $reasonType
+     * @param int $batch
+     */
+    public function fixRangeIndexes($startDate, $storeProduct, $reasonType, $batch = 1000)
+    {
+        /** @var TrialBalance $trialBalance */
+        $trialBalance = $this->trialBalanceRepository->findOneByStoreProductIdDateReasonType(
+            $startDate,
+            $reasonType,
+            $storeProduct
+        );
+        if ($this->supportsRangeIndex($trialBalance)) {
+            $allNeedRecalculateTrialBalance = $this->trialBalanceRepository->findBy(
+                array(
+                    'createdDate.date' => array('$gte' => $trialBalance->createdDate),
+                    'reason.$ref' => $trialBalance->reason->getReasonType(),
+                    'storeProduct' => $trialBalance->storeProduct->id
+                ),
+                array(
+                    'createdDate.date' => 1,
+                    '_id' => 1
+                )
+            );
+            $count = 0;
+            $previousQuantity = null;
+            $dm = $this->trialBalanceRepository->getDocumentManager();
+            foreach ($allNeedRecalculateTrialBalance as $nextTrialBalance) {
+                if (null == $previousQuantity) {
+                    $previousTrialBalance = $this->trialBalanceRepository->findOnePreviousDate($trialBalance);
+                    if (null != $previousTrialBalance) {
+                        $previousQuantity = $previousTrialBalance->endIndex;
+                    } else {
+                        $previousQuantity = $this->numericFactory->createQuantity(0);
+                    }
+                }
+
+                /** @var TrialBalance $nextTrialBalance */
+                $nextTrialBalance->startIndex = $previousQuantity;
+                $nextTrialBalance->endIndex = $nextTrialBalance->startIndex->add($nextTrialBalance->quantity);
+                $nextTrialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_NEED_CALC_COST_OF_GOODS;
+                $previousQuantity = $nextTrialBalance->endIndex;
+                $dm->persist($nextTrialBalance);
+                $count++;
+                if (1 == $batch / $count) {
+                    $count = 0;
+                    $dm->flush();
+                }
+            }
+
+            $dm->flush();
+        }
+    }
+
+    /**
+     * @param TrialBalance $trialBalance
+     * @return bool
+     */
+    protected function supportsRangeIndex(TrialBalance $trialBalance)
+    {
+        return in_array(
+            $trialBalance->reason->getReasonType(),
+            array(InvoiceProduct::REASON_TYPE, SaleProduct::REASON_TYPE)
+        );
     }
 }

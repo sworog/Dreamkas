@@ -70,6 +70,7 @@ class StoreDayGrossMarginTest extends WebTestCase
     {
         $this->prepareData();
 
+        $this->getCostOfGoodsCalculator()->checkAndFixRangeIndexes();
         $count = $this->getCostOfGoodsCalculator()->calculateUnprocessedTrialBalances(null);
         $this->assertEquals(8, $count);
 
@@ -81,6 +82,7 @@ class StoreDayGrossMarginTest extends WebTestCase
     {
         $this->prepareData();
 
+        $this->getCostOfGoodsCalculator()->checkAndFixRangeIndexes();
         $count = $this->getCostOfGoodsCalculator()->calculateUnprocessedTrialBalances(null);
         $this->assertEquals(8, $count);
 

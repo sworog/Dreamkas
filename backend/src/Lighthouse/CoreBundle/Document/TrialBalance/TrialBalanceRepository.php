@@ -82,6 +82,24 @@ class TrialBalanceRepository extends DocumentRepository
     }
 
     /**
+     * @param TrialBalance $trialBalance
+     * @return TrialBalance
+     */
+    public function findOnePreviousDate(TrialBalance $trialBalance)
+    {
+        $criteria = array(
+            'reason.$ref' => $trialBalance->reason->getReasonType(),
+            'storeProduct' => $trialBalance->storeProduct->id,
+            'createdDate.date' => array('$lt' => $trialBalance->createdDate),
+        );
+        $sort = array(
+            'createdDate.date' => self::SORT_DESC,
+            '_id' => self::SORT_DESC
+        );
+        return $this->findOneBy($criteria, $sort);
+    }
+
+    /**
      * @param Reasonable[] $reasons
      * @return TrialBalance[]|Cursor
      */
@@ -559,5 +577,53 @@ class TrialBalanceRepository extends DocumentRepository
             'id' => self::SORT_ASC
         );
         return $this->findBy($criteria, $sort, $limit);
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getAllFirstUnprocessedTrialBalance()
+    {
+        $ops = array(
+            array(
+                '$match' => array(
+                    'processingStatus' => TrialBalance::PROCESSING_STATUS_UNPROCESSED
+                ),
+            ),
+            array(
+                '$group' => array(
+                    '_id' => array(
+                        'storeProduct' => '$storeProduct',
+                        'reasonType' => '$reason.reasonType',
+                    ),
+                    'minCreatedDate' => array('$min' => '$createdDate.date'),
+                    'minId' => array('$min' => '$_id'),
+                )
+            )
+        );
+
+        return $this->aggregate($ops);
+    }
+
+    /**
+     * @param \MongoDate $date
+     * @param string $reasonType
+     * @param string $storeProductId
+     * @return null|TrialBalance
+     */
+    public function findOneByStoreProductIdDateReasonType($date, $reasonType, $storeProductId)
+    {
+        return $this->findOneBy(
+            array(
+                'createdDate.date' => $date,
+                'reason.reasonType' => $reasonType,
+                'storeProduct' => $storeProductId,
+            ),
+            array(
+                'createdDate.date' => 1,
+                '_id' => 1
+            )
+        );
     }
 }

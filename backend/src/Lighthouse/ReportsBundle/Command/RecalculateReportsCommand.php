@@ -76,6 +76,7 @@ class RecalculateReportsCommand extends Command
         $this->grossSalesManager->recalculateGrossSalesByGroups($output);
 
         $output->writeln("<info>Store Gross Margin</info>");
+        $this->grossMarginManager->checkAndFixRangeIndexes();
         $this->grossMarginManager->calculateUnprocessedTrialBalances();
         $this->grossMarginManager->recalculateStoreGrossMargin();
 

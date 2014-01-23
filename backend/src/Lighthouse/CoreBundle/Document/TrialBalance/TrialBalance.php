@@ -38,6 +38,7 @@ class TrialBalance extends AbstractDocument
 {
     const PROCESSING_STATUS_OK = 0;
     const PROCESSING_STATUS_UNPROCESSED = 1;
+    const PROCESSING_STATUS_NEED_CALC_COST_OF_GOODS = 2;
 
     /**
      * @MongoDB\Id

@@ -122,4 +122,9 @@ class GrossMarginManager
     {
         return $this->costOfGoodCalculator->calculateUnprocessedTrialBalances($limit);
     }
+
+    public function checkAndFixRangeIndexes()
+    {
+        $this->costOfGoodCalculator->checkAndFixRangeIndexes();
+    }
 }
