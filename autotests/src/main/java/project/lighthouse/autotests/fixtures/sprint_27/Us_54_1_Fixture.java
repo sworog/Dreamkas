@@ -56,7 +56,7 @@ public class Us_54_1_Fixture extends AbstractFixture {
                 add(new HashMap<String, String>() {
                     {
                         put("grossMarginDate", YESTERDAY_DATE);
-                        put("grossMarginSum", "1050,00 р.");
+                        put("grossMarginSum", "1 050,00 р.");
                     }
                 });
                 add(new HashMap<String, String>() {
