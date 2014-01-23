@@ -10,7 +10,7 @@ So that I can achieve a business goal
 Scenario: Store gross sale margin verification scenario
 
 Meta:
-@id s21us54.1s1
+@id s27u54.1s1
 @description
 @smoke
 
@@ -28,7 +28,7 @@ And the user checks the gross sale margin table contains expected value entries
 Scenario: Store today gross margin is not shown if sales are registered today
 
 Meta:
-@id s21us54.1s2
+@id s27u54.1s2
 @description
 
 GivenStories: precondition/sprint-27/us-54_1/aPreconditionToScenarioS2.story
@@ -44,7 +44,7 @@ Then the user checks there is no gross sale margin table with today date
 Scenario: No sales - show null gross sale margin values
 
 Meta:
-@id s21us54.1s3
+@id s27u54.1s3
 @description
 
 GivenStories: precondition/sprint-27/us-54_1/aPreconditionToScenarioS3.story
@@ -60,7 +60,7 @@ Then the user checks the gross sale margin table contains expected five days ago
 Scenario: No data shown if there is no data at all
 
 Meta:
-@id s21us54.1s4
+@id s27u54.1s4
 @description
 
 GivenStories: precondition/sprint-27/us-54_1/aPreconditionToScenarioS4.story
