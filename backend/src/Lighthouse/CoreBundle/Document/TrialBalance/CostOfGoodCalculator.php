@@ -163,7 +163,11 @@ class CostOfGoodCalculator
                 /** @var TrialBalance $nextTrialBalance */
                 $nextTrialBalance->startIndex = $previousQuantity;
                 $nextTrialBalance->endIndex = $nextTrialBalance->startIndex->add($nextTrialBalance->quantity);
-                $nextTrialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_NEED_CALC_COST_OF_GOODS;
+                if ($this->supportsCostOfGoods($nextTrialBalance)) {
+                    $nextTrialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_NEED_CALC_COST_OF_GOODS;
+                } else {
+                    $nextTrialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_OK;
+                }
                 $previousQuantity = $nextTrialBalance->endIndex;
                 $dm->persist($nextTrialBalance);
                 $count++;
@@ -186,6 +190,14 @@ class CostOfGoodCalculator
         return in_array(
             $trialBalance->reason->getReasonType(),
             array(InvoiceProduct::REASON_TYPE, SaleProduct::REASON_TYPE)
+        );
+    }
+
+    protected function supportsCostOfGoods(TrialBalance $trialBalance)
+    {
+        return in_array(
+            $trialBalance->reason->getReasonType(),
+            array(SaleProduct::REASON_TYPE)
         );
     }
 }
