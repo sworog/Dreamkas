@@ -10,10 +10,10 @@ import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectClickable;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectLocatable;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ResultComparable;
-import project.lighthouse.autotests.objects.web.compare.CompareResults;
+import project.lighthouse.autotests.objects.web.compare.CompareResultHashMap;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -33,32 +33,45 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
 
     abstract public AbstractObject createNode(WebElement element);
 
+    public void exactCompareExampleTable(ExamplesTable examplesTable) {
+        CompareResultHashMap compareResultHashMap = new CompareResultHashMap();
+
+        Iterator<Map<String, String>> mapIterator = examplesTable.getRows().iterator();
+        Iterator<AbstractObject> abstractObjectIterator = this.iterator();
+
+        while (mapIterator.hasNext()) {
+            Map<String, String> row = mapIterator.next();
+            if (!abstractObjectIterator.hasNext()) {
+                Assert.fail();
+            }
+            ResultComparable resultComparable = (ResultComparable) abstractObjectIterator.next();
+            if (!resultComparable.getCompareResults(row).isEmpty()) {
+                compareResultHashMap.put(row, resultComparable.getCompareResults(row));
+            }
+        }
+
+        compareResultHashMap.failIfHasAnyErrors();
+    }
+
     public void compareWithExampleTable(ExamplesTable examplesTable) {
-        Map<Map<String, String>, CompareResults> mapCompareResultsMap = new HashMap<>();
-        for (Map<String, String> row : examplesTable.getRows()) {
-            Boolean found = false;
-            for (AbstractObject abstractObject : this) {
-                ResultComparable resultComparable = (ResultComparable) abstractObject;
+        CompareResultHashMap compareResultHashMap = new CompareResultHashMap();
+
+        for (Iterator<Map<String, String>> mapIterator = examplesTable.getRows().iterator(); mapIterator.hasNext(); ) {
+            Map<String, String> row = mapIterator.next();
+
+            for (Iterator<AbstractObject> abstractObjectIterator = this.iterator(); abstractObjectIterator.hasNext(); ) {
+                ResultComparable resultComparable = (ResultComparable) abstractObjectIterator.next();
                 if (resultComparable.getCompareResults(row).isEmpty()) {
-                    this.remove(abstractObject);
-                    found = true;
+                    abstractObjectIterator.remove();
+                    mapIterator.remove();
                     break;
                 } else {
-                    mapCompareResultsMap.put(row, resultComparable.getCompareResults(row));
+                    compareResultHashMap.put(row, resultComparable.getCompareResults(row));
                 }
             }
-            if (found) {
-                mapCompareResultsMap.clear();
-            }
         }
-        if (!mapCompareResultsMap.isEmpty()) {
-            StringBuilder builder = new StringBuilder("Not found rows: \n");
-            for (Map.Entry<Map<String, String>, CompareResults> entry : mapCompareResultsMap.entrySet()) {
-                String message = String.format("- row: '%s'\n%s", entry.getKey(), entry.getValue().getCompareRowStringResult());
-                builder.append(message);
-            }
-            Assert.fail(builder.toString());
-        }
+
+        compareResultHashMap.failIfHasAnyErrors();
     }
 
     public void clickByLocator(String locator) {
@@ -75,6 +88,18 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
 
     public void contains(String locator) {
         getAbstractObjectByLocator(locator);
+    }
+
+    public void notContains(String locator) {
+        String errorMessage = String.format("There is the object with locator '%s'", locator);
+        try {
+            getAbstractObjectByLocator(locator);
+            Assert.fail(errorMessage);
+        } catch (AssertionFailedError e) {
+            if (!e.getMessage().contains("There is no object with locator")) {
+                Assert.fail(errorMessage);
+            }
+        }
     }
 
     private Boolean locateObject(AbstractObject abstractObject, String objectLocator) {

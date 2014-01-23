@@ -40,7 +40,7 @@ class DateTimeTZType extends BaseType
      */
     public static function convertToPhp($value)
     {
-        if (isset($value['iso'])) {
+        if (is_array($value) && isset($value['iso'])) {
             $date = new DateTime($value['iso']);
         } else {
             $date = null;

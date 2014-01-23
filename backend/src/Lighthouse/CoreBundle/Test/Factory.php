@@ -14,6 +14,7 @@ use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Lighthouse\CoreBundle\Test\Client\Client;
 use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
+use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
@@ -469,7 +470,7 @@ class Factory
     public function createSale($storeId, $createdDate, $sumTotal)
     {
         $saleModel = new Sale();
-        $saleModel->createdDate = new DateTime($createdDate);
+        $saleModel->createdDate = new DateTimestamp($createdDate);
         $saleModel->store = $this->dm->getReference(Store::getClassName(), $storeId);
         $saleModel->hash = md5(rand() . $storeId);
         $saleModel->sumTotal = $this->getNumericFactory()->createMoney($sumTotal);

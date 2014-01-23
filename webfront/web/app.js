@@ -2,13 +2,13 @@ define(function(require) {
     //requirements
     var app = require('kit/core/app'),
         Block = require('kit/core/block'),
-        Backbone = require('backbone'),
         currentUserModel = require('models/currentUser'),
         cookie = require('kit/libs/cookie'),
         numeral = require('libs/numeral');
 
     require('jquery');
     require('lodash');
+    require('backbone');
 
     app.locale = 'root';
 

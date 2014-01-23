@@ -4,14 +4,16 @@ namespace Lighthouse\ReportsBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoodCalculator;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
+use DateTime;
 
 class GrossMarginControllerTest extends WebTestCase
 {
-    public function testGetStoreGrossMarginReports()
+    protected function prepareData()
     {
-        $store = $this->factory->getStore("1");
-        $accessToken = $this->factory->authAsStoreManager($store);
+        $store = $this->factory->getStore();
+
         $product1 = $this->createProduct("1");
         $product2 = $this->createProduct("2");
         $product3 = $this->createProduct("3");
@@ -78,20 +80,31 @@ class GrossMarginControllerTest extends WebTestCase
 
         $this->factory->flush();
 
-
         // Calculate CostOfGoods
-        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
-        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        $costOfGoodsCalculator->calculateUnprocessedTrialBalances();
-        /* @var GrossMarginManager $grossMarginReportManager */
-        $grossMarginReportManager = $this->getContainer()->get('lighthouse.reports.gross_margin.manager');
-        $grossMarginReportManager->recalculateStoreGrossMargin();
+        $this->getGrossMarginManager()->calculateUnprocessedTrialBalances();
+        $this->getGrossMarginManager()->recalculateStoreGrossMargin();
 
+        return $store;
+    }
+
+    /**
+     * @return GrossMarginManager
+     */
+    protected function getGrossMarginManager()
+    {
+        return $this->getContainer()->get('lighthouse.reports.gross_margin.manager');
+    }
+
+    public function testGetStoreGrossMarginReports()
+    {
+        $storeId = $this->prepareData();
+
+        $accessToken = $this->factory->authAsStoreManager($storeId);
 
         $actualResponse = $this->clientJsonRequest(
             $accessToken,
             "GET",
-            "/api/1/stores/" . $store . "/reports/grossMargin",
+            "/api/1/stores/" . $storeId . "/reports/grossMargin",
             null,
             array('time' => date('c', strtotime("2014-01-10 10:35:47")))
         );
@@ -128,6 +141,131 @@ class GrossMarginControllerTest extends WebTestCase
             array(
                 'date' => '2014-01-02T00:00:00+0400',
                 'sum' => 387,
+            ),
+        );
+
+        $this->assertEquals($expectedResponse, $actualResponse);
+    }
+
+    public function testGetStoreGrossMarginReportsWithMissingDaysAtTheBeginning()
+    {
+        $storeId = $this->prepareData();
+
+        $accessToken = $this->factory->authAsStoreManager($storeId);
+
+        $actualResponse = $this->clientJsonRequest(
+            $accessToken,
+            "GET",
+            "/api/1/stores/" . $storeId . "/reports/grossMargin",
+            null,
+            array('time' => date('c', strtotime("2014-01-12 10:35:47")))
+        );
+
+        $expectedResponse = array(
+            array(
+                'date' => '2014-01-11T00:00:00+0400',
+                'sum' => 0,
+            ),
+            array(
+                'date' => '2014-01-10T00:00:00+0400',
+                'sum' => 0,
+            ),
+            array(
+                'date' => '2014-01-09T00:00:00+0400',
+                'sum' => 517,
+            ),
+            array(
+                'date' => '2014-01-08T00:00:00+0400',
+                'sum' => 742,
+            ),
+            array(
+                'date' => '2014-01-07T00:00:00+0400',
+                'sum' => 694,
+            ),
+            array(
+                'date' => '2014-01-06T00:00:00+0400',
+                'sum' => 559,
+            ),
+            array(
+                'date' => '2014-01-05T00:00:00+0400',
+                'sum' => 658,
+            ),
+            array(
+                'date' => '2014-01-04T00:00:00+0400',
+                'sum' => 0,
+            ),
+            array(
+                'date' => '2014-01-03T00:00:00+0400',
+                'sum' => 622,
+            ),
+            array(
+                'date' => '2014-01-02T00:00:00+0400',
+                'sum' => 387,
+            ),
+        );
+
+        $this->assertEquals($expectedResponse, $actualResponse);
+    }
+
+    public function testGetStoreGrossMarginReportsWithDataFromAutotests()
+    {
+        $store = $this->factory->getStore('1');
+        $product = $this->createProduct('1');
+
+        $date = new DateTimestamp();
+
+        $invoice1 = $this->createInvoice(
+            array(
+                'sku' => 1,
+                'acceptanceDate' => $date->copy()->modify('-2 days 08:00')->format(DateTime::ISO8601)
+            ),
+            $store
+        );
+        $this->createInvoiceProduct($invoice1, $product, 50, 90, $store);
+
+        $invoice2 = $this->createInvoice(
+            array(
+                'sku' => 2,
+                'acceptanceDate' => $date->copy()->modify('-1 day 08:00')->format(DateTime::ISO8601)
+            ),
+            $store
+        );
+        $this->createInvoiceProduct($invoice2, $product, 35, 100, $store);
+
+        $sale1 = $this->factory->createSale(
+            $store,
+            $date->copy()->modify('-2 days 10:00'),
+            3125
+        );
+        $this->factory->createSaleProduct(125, 25, $product, $sale1);
+
+        $sale2 = $this->factory->createSale(
+            $store,
+            $date->copy()->modify('-1 day 10:00'),
+            3600
+        );
+        $this->factory->createSaleProduct(120, 30, $product, $sale2);
+        $this->factory->flush();
+
+        $this->getGrossMarginManager()->calculateUnprocessedTrialBalances();
+        $this->getGrossMarginManager()->recalculateStoreGrossMargin();
+
+        $accessToken = $this->factory->authAsStoreManager($store);
+
+        $actualResponse = $this->clientJsonRequest(
+            $accessToken,
+            "GET",
+            "/api/1/stores/" . $store . "/reports/grossMargin"
+        );
+
+        $expectedResponse = array(
+            array(
+                'date' => $date->copy()->modify('-1 day 00:00')->format(DateTime::ISO8601),
+                'sum' => 850,
+            ),
+            array(
+                'date' => $date->copy()->modify('-2 days 00:00')->format(DateTime::ISO8601),
+                'sum' => 875,
             ),
         );
 
@@ -180,6 +318,65 @@ class GrossMarginControllerTest extends WebTestCase
                 'date' => '2014-01-02T00:00:00+0400',
                 'sum' => 344.00,
             )
+        );
+
+        $this->assertEquals($expectedResponse, $actualResponse);
+    }
+
+    public function testGetStoreGrossMarginReportsWithDataFromBoardTwo()
+    {
+        $store = $this->factory->getStore("1");
+        $accessToken = $this->factory->authAsStoreManager($store);
+        $product = $this->createProduct("1");
+
+        // Begin inventory
+        $invoice1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-01 12:23:12'), $store);
+        $this->createInvoiceProduct($invoice1, $product, 3, 1, $store);
+        $this->createInvoiceProduct($invoice1, $product, 2, 2, $store);
+
+        // Day one
+        $invoice1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-02 12:23:12'), $store);
+        $this->createInvoiceProduct($invoice1, $product, 3, 3, $store);
+
+        $sale1 = $this->factory->createSale($store, "2014-01-02 12:23:12", 233);
+        $this->factory->createSaleProduct(5, 4, $product, $sale1);
+        $this->factory->flush();
+
+        // Day two
+        $invoice1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-03 12:23:12'), $store);
+        $this->createInvoiceProduct($invoice1, $product, 2, 2, $store);
+
+        $sale1 = $this->factory->createSale($store, "2014-01-03 12:23:12", 233);
+        $this->factory->createSaleProduct(5, 3, $product, $sale1);
+        $this->factory->flush();
+
+
+        // Calculate CostOfGoods
+        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
+        $costOfGoodsCalculator->calculateUnprocessedTrialBalances();
+        /* @var GrossMarginManager $grossMarginReportManager */
+        $grossMarginReportManager = $this->getContainer()->get('lighthouse.reports.gross_margin.manager');
+        $grossMarginReportManager->recalculateStoreGrossMargin();
+
+
+        $actualResponse = $this->clientJsonRequest(
+            $accessToken,
+            "GET",
+            "/api/1/stores/" . $store . "/reports/grossMargin",
+            null,
+            array('time' => date('c', strtotime("2014-01-04 10:35:47")))
+        );
+
+        $expectedResponse = array(
+            array(
+                'date' => '2014-01-03T00:00:00+0400',
+                'sum' => 7,
+            ),
+            array(
+                'date' => '2014-01-02T00:00:00+0400',
+                'sum' => 15,
+            ),
         );
 
         $this->assertEquals($expectedResponse, $actualResponse);

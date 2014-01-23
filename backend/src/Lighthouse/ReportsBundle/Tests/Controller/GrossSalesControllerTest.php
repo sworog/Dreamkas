@@ -409,10 +409,12 @@ class GrossSalesControllerTest extends WebTestCase
         $this->assertResponseCode(403);
     }
 
-    public function testGetStoreGrossSalesReportsDiffs()
+    /**
+     * @return string
+     */
+    protected function prepareStoreGrossSalesReportData()
     {
         $storeId = $this->factory->getStore();
-        $accessToken = $this->factory->authAsStoreManager($storeId);
 
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
@@ -492,6 +494,14 @@ class GrossSalesControllerTest extends WebTestCase
 
         $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
 
+        return $storeId;
+    }
+
+    public function testGetStoreGrossSalesReportsDiffs()
+    {
+        $storeId = $this->prepareStoreGrossSalesReportData();
+        $accessToken = $this->factory->authAsStoreManager($storeId);
+
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -534,6 +544,55 @@ class GrossSalesControllerTest extends WebTestCase
         );
 
         $this->assertSame($expected, $response);
+    }
+
+    public function testGetStoreGrossSalesReportsDiffsPreviousDateIsZero()
+    {
+        $storeId = $this->prepareStoreGrossSalesReportData();
+        $accessToken = $this->factory->authAsStoreManager($storeId);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/reports/grossSales',
+            null,
+            array('time' => date('c', strtotime("-7 day 10:35:47")))
+        );
+
+        $this->assertResponseCode(200);
+
+        $expected = array(
+            'today' => array(
+                'now' => array(
+                    'date' => date(DateTime::ISO8601, strtotime("-7 days 10:00")),
+                    'value' => 846.92,
+                )
+            ),
+            'yesterday' => array(
+                'now' => array(
+                    'date' => date(DateTime::ISO8601, strtotime("-8 day 10:00")),
+                    'value' => 0,
+                    'diff' => 0,
+                ),
+                'dayEnd' => array(
+                    'date' => date(DateTime::ISO8601, strtotime("-8 day 23:59:59")),
+                    'value' => 0,
+                ),
+            ),
+            'weekAgo' => array(
+                'now' => array(
+                    'date' => date(DateTime::ISO8601, strtotime("-14 day 10:00")),
+                    'value' => 0,
+                    'diff' => 0,
+                ),
+                'dayEnd' => array(
+                    'date' => date(DateTime::ISO8601, strtotime("-14 day 23:59:59")),
+                    'value' => 0,
+                ),
+            ),
+        );
+
+        $this->assertEquals($expected, $response);
     }
 
     public function testGetStoreGrossSalesByHour()
@@ -2239,7 +2298,7 @@ class GrossSalesControllerTest extends WebTestCase
         list($storeIds,, $catalogIds) = $this->createSales();
 
         $output = new NullOutput();
-        $this->getGrossSalesReportService()->recalculateGrossSalesProductReport();
+        $this->getGrossSalesReportService()->recalculateGrossSalesProductReport(1);
         $this->getGrossSalesReportService()->recalculateGrossSalesBySubCategories($output);
 
         $accessToken = $this->factory->authAsStoreManager($storeIds['1']);

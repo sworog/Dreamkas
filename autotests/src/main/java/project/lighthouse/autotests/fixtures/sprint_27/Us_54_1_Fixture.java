@@ -18,8 +18,12 @@ import java.util.Map;
 public class Us_54_1_Fixture extends AbstractFixture {
 
     private static final String DATE_PATTERN = "dd.MM";
+    private static final String TODAY_DATE = new DateTimeHelper(0).convertDateByPattern(DATE_PATTERN);
+    private static final String TODAY_DATE_PURCHASE = new DateTimeHelper(0).convertDate();
     private static final String YESTERDAY_DATE = new DateTimeHelper(1).convertDateByPattern(DATE_PATTERN);
+    private static final String YESTERDAY_DATE_PURCHASE = new DateTimeHelper(1).convertDate();
     private static final String TWO_DAYS_AGO_DATE = new DateTimeHelper(2).convertDateByPattern(DATE_PATTERN);
+    private static final String TWO_DAYS_AGO_DATE_PURCHASE = new DateTimeHelper(2).convertDate();
 
     private static final String SHOP_NUMBER = "27541";
     private static final String PRODUCT_ID = "27541";
@@ -32,13 +36,51 @@ public class Us_54_1_Fixture extends AbstractFixture {
                 add(new HashMap<String, String>() {
                     {
                         put("grossMarginDate", YESTERDAY_DATE);
-                        put("grossMarginSum", "875,00 р.");
+                        put("grossMarginSum", "850,00 р.");
                     }
                 });
                 add(new HashMap<String, String>() {
                     {
                         put("grossMarginDate", TWO_DAYS_AGO_DATE);
-                        put("grossMarginSum", "600,00 р.");
+                        put("grossMarginSum", "875,00 р.");
+                    }
+                });
+            }
+        };
+        return new ExamplesTable("").withRows(mapList);
+    }
+
+    public ExamplesTable prepareFixtureExampleTableForFiveDaysAgo() {
+        List<Map<String, String>> mapList = new ArrayList<Map<String, String>>() {
+            {
+                add(new HashMap<String, String>() {
+                    {
+                        put("grossMarginDate", YESTERDAY_DATE);
+                        put("grossMarginSum", "0,00 р.");
+                    }
+                });
+                add(new HashMap<String, String>() {
+                    {
+                        put("grossMarginDate", TWO_DAYS_AGO_DATE);
+                        put("grossMarginSum", "0,00 р.");
+                    }
+                });
+                add(new HashMap<String, String>() {
+                    {
+                        put("grossMarginDate", new DateTimeHelper(3).convertDateByPattern(DATE_PATTERN));
+                        put("grossMarginSum", "0,00 р.");
+                    }
+                });
+                add(new HashMap<String, String>() {
+                    {
+                        put("grossMarginDate", new DateTimeHelper(4).convertDateByPattern(DATE_PATTERN));
+                        put("grossMarginSum", "0,00 р.");
+                    }
+                });
+                add(new HashMap<String, String>() {
+                    {
+                        put("grossMarginDate", new DateTimeHelper(5).convertDateByPattern(DATE_PATTERN));
+                        put("grossMarginSum", "875,00 р.");
                     }
                 });
             }
@@ -54,30 +96,64 @@ public class Us_54_1_Fixture extends AbstractFixture {
         return prepareDataFile(getTwoDaysAgoPurchases());
     }
 
+    public File getTodayPurchasesFixture() throws XPathExpressionException, ParserConfigurationException, TransformerException, IOException {
+        return prepareDataFile(getTodayAgoPurchases());
+    }
+
+    public File getFiveDaysAgoPurchasesFixture() throws XPathExpressionException, ParserConfigurationException, TransformerException, IOException {
+        return prepareDataFile(getFiveDaysAgoAgoPurchases());
+    }
+
     private PurchaseXmlBuilder getYesterdayPurchases() throws ParserConfigurationException, XPathExpressionException {
         return PurchaseXmlBuilder.create("1")
                 .addXmlPurchase(
-                        getDate(YESTERDAY_DATE, "00"),
-                        YESTERDAY_DATE, SHOP_NUMBER,
+                        getDate(YESTERDAY_DATE_PURCHASE, "10"),
+                        YESTERDAY_DATE_PURCHASE, SHOP_NUMBER,
                         Double.toString(PRODUCT_PRICE_1 * 30),
                         Double.toString(PRODUCT_PRICE_1),
-                        "1",
+                        "30",
                         PRODUCT_ID);
     }
 
     private PurchaseXmlBuilder getTwoDaysAgoPurchases() throws ParserConfigurationException, XPathExpressionException {
         return PurchaseXmlBuilder.create("1")
                 .addXmlPurchase(
-                        getDate(YESTERDAY_DATE, "00"),
-                        YESTERDAY_DATE, SHOP_NUMBER,
+                        getDate(TWO_DAYS_AGO_DATE_PURCHASE, "10"),
+                        TWO_DAYS_AGO_DATE_PURCHASE, SHOP_NUMBER,
                         Double.toString(PRODUCT_PRICE_2 * 25),
                         Double.toString(PRODUCT_PRICE_2),
-                        "1",
+                        "25",
+                        PRODUCT_ID);
+    }
+
+    private PurchaseXmlBuilder getTodayAgoPurchases() throws ParserConfigurationException, XPathExpressionException {
+        return PurchaseXmlBuilder.create("1")
+                .addXmlPurchase(
+                        getDate(TODAY_DATE_PURCHASE, "00"),
+                        TODAY_DATE_PURCHASE, SHOP_NUMBER,
+                        Double.toString(PRODUCT_PRICE_2 * 25),
+                        Double.toString(PRODUCT_PRICE_2),
+                        "25",
+                        PRODUCT_ID);
+    }
+
+    private PurchaseXmlBuilder getFiveDaysAgoAgoPurchases() throws ParserConfigurationException, XPathExpressionException {
+        return PurchaseXmlBuilder.create("1")
+                .addXmlPurchase(
+                        getDate(new DateTimeHelper(5).convertDate(), "10"),
+                        new DateTimeHelper(5).convertDate(), SHOP_NUMBER,
+                        Double.toString(PRODUCT_PRICE_2 * 25),
+                        Double.toString(PRODUCT_PRICE_2),
+                        "25",
                         PRODUCT_ID);
     }
 
     @Override
     public String getFixtureFileName() {
         return "s27u541";
+    }
+
+    public String getTodayDate() {
+        return TODAY_DATE;
     }
 }

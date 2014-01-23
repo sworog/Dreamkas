@@ -1,6 +1,7 @@
 define(function(require) {
         //requirements
         var Block = require('../../core/block'),
+            moment = require('moment'),
             Datepicker = require('../datepicker/datepicker'),
             Tooltip = require('../tooltip/tooltip');
 
@@ -17,13 +18,12 @@ define(function(require) {
             },
 
             initialize: function() {
-                var block = this;
+                var block = this,
+                    date = moment(block.$el.val(), block.dateFormat);
 
                 if (block.noTime){
-                    block.$el.mask('99.99.9999');
                     block.dateFormat = 'DD.MM.YYYY';
                 } else {
-                    block.$el.mask('99.99.9999 99:99');
                     block.dateFormat = 'DD.MM.YYYY HH:mm'
                 }
 
@@ -42,7 +42,15 @@ define(function(require) {
                 block.datepicker.$el.attr({rel: block.$el.attr('name')});
                 block.tooltip.$content.html(block.datepicker.$el);
 
-                block.$el.change();
+                if (date){
+                    block.set('date', date.valueOf());
+                }
+
+                if (block.noTime){
+                    block.$el.mask('99.99.9999');
+                } else {
+                    block.$el.mask('99.99.9999 99:99');
+                }
 
                 block.listenTo(block.datepicker, {
                     'set:selectedDate': function(date){

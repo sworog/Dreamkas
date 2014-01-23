@@ -320,42 +320,6 @@ class ProductControllerTest extends WebTestCase
         $this->assertResponseCode(200);
     }
 
-    public function testCorsHeader()
-    {
-        $postArray = array(
-            'name' => 'Кефир',
-        );
-
-        $headers = array(
-            'HTTP_Origin' => 'www.a.com',
-        );
-
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-
-        $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/products',
-            $postArray,
-            array(),
-            $headers
-        );
-
-        /* @var $response Response */
-        $response = $this->client->getResponse();
-        $this->assertTrue($response->headers->has('Access-Control-Allow-Origin'));
-
-        $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/products',
-            $postArray
-        );
-        /* @var $response Response */
-        $response = $this->client->getResponse();
-        $this->assertFalse($response->headers->has('Access-Control-Allow-Origin'));
-    }
-
     /**
      * @dataProvider productProvider
      */

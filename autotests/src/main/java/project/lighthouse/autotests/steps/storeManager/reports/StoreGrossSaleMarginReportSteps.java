@@ -12,13 +12,27 @@ public class StoreGrossSaleMarginReportSteps extends ScenarioSteps {
 
     @Step
     public void compareWithExampleFixture() {
-        storeGrossSaleMarginReportPage.getGrossMarginTableObjectCollection().compareWithExampleTable(
+        storeGrossSaleMarginReportPage.getGrossMarginTableObjectCollection().exactCompareExampleTable(
                 new Us_54_1_Fixture().prepareFixtureExampleTable()
+        );
+    }
+
+    @Step
+    public void compareWithExampleForFiveDaysAgo() {
+        storeGrossSaleMarginReportPage.getGrossMarginTableObjectCollection().exactCompareExampleTable(
+                new Us_54_1_Fixture().prepareFixtureExampleTableForFiveDaysAgo()
         );
     }
 
     @Step
     public void assertReportName(String reportName) {
         Assert.assertEquals(reportName, storeGrossSaleMarginReportPage.getReportName());
+    }
+
+    @Step
+    public void notContainsValue() {
+        storeGrossSaleMarginReportPage.getGrossMarginTableObjectCollection().notContains(
+                new Us_54_1_Fixture().getTodayDate()
+        );
     }
 }

@@ -1,9 +1,9 @@
 define(function(require) {
     //requirements
-    var Backbone = require('backbone'),
-        get = require('../utils/get');
+    var get = require('../utils/get');
 
     require('lodash');
+    require('backbone');
 
     /**
      * Расширение <a target="blank" href="http://backbonejs.org/#Model">Backbone.Model</a><br />

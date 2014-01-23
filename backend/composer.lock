@@ -1545,17 +1545,17 @@
         },
         {
             "name": "leezy/pheanstalk-bundle",
-            "version": "2.1.5",
+            "version": "2.1.6",
             "target-dir": "Leezy/PheanstalkBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/armetiz/LeezyPheanstalkBundle.git",
-                "reference": "8412b9a7b97d1e8bab0d931cb739616ea1253233"
+                "reference": "618a11697a9f46c5535cd7e78eafaf462375c083"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/armetiz/LeezyPheanstalkBundle/zipball/8412b9a7b97d1e8bab0d931cb739616ea1253233",
-                "reference": "8412b9a7b97d1e8bab0d931cb739616ea1253233",
+                "url": "https://api.github.com/repos/armetiz/LeezyPheanstalkBundle/zipball/618a11697a9f46c5535cd7e78eafaf462375c083",
+                "reference": "618a11697a9f46c5535cd7e78eafaf462375c083",
                 "shasum": ""
             },
             "require": {
@@ -1588,12 +1588,15 @@
             "description": "The LeezyPheanstalkBundle is a Symfony2 Bundle that provides a command line interface for manage the Beanstalkd workqueue server & a pheanstalk integration.",
             "homepage": "https://github.com/armetiz/LeezyPheanstalkBundle",
             "keywords": [
-                "Symfony2",
+                "asynchronous",
                 "beanstalkd",
                 "bundle",
-                "pheanstalk"
+                "messaging",
+                "pheanstalk",
+                "queueing",
+                "symfony"
             ],
-            "time": "2013-11-05 09:16:50"
+            "time": "2014-01-20 11:43:28"
         },
         {
             "name": "monolog/monolog",
