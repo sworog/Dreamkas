@@ -56,7 +56,7 @@ public class Us_54_1_Fixture extends AbstractFixture {
                 add(new HashMap<String, String>() {
                     {
                         put("grossMarginDate", YESTERDAY_DATE);
-                        put("grossMarginSum", "1090,00 р.");
+                        put("grossMarginSum", "1050,00 р.");
                     }
                 });
                 add(new HashMap<String, String>() {
@@ -142,7 +142,7 @@ public class Us_54_1_Fixture extends AbstractFixture {
     private PurchaseXmlBuilder getYesterdayDelayedPurchases() throws ParserConfigurationException, XPathExpressionException {
         return PurchaseXmlBuilder.create("1")
                 .addXmlPurchase(
-                        getDate(YESTERDAY_DATE_PURCHASE, "10"),
+                        getDate(YESTERDAY_DATE_PURCHASE, "18"),
                         YESTERDAY_DATE_PURCHASE, SHOP_NUMBER,
                         Double.toString(PRODUCT_PRICE_1 * 10),
                         Double.toString(PRODUCT_PRICE_1),
