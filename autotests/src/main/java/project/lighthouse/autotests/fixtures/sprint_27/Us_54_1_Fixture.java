@@ -50,6 +50,26 @@ public class Us_54_1_Fixture extends AbstractFixture {
         return new ExamplesTable("").withRows(mapList);
     }
 
+    public ExamplesTable prepareFixtureExampleTableWithDelayedPurchase() {
+        List<Map<String, String>> mapList = new ArrayList<Map<String, String>>() {
+            {
+                add(new HashMap<String, String>() {
+                    {
+                        put("grossMarginDate", YESTERDAY_DATE);
+                        put("grossMarginSum", "1090,00 р.");
+                    }
+                });
+                add(new HashMap<String, String>() {
+                    {
+                        put("grossMarginDate", TWO_DAYS_AGO_DATE);
+                        put("grossMarginSum", "875,00 р.");
+                    }
+                });
+            }
+        };
+        return new ExamplesTable("").withRows(mapList);
+    }
+
     public ExamplesTable prepareFixtureExampleTableForFiveDaysAgo() {
         List<Map<String, String>> mapList = new ArrayList<Map<String, String>>() {
             {
@@ -104,6 +124,10 @@ public class Us_54_1_Fixture extends AbstractFixture {
         return prepareDataFile(getFiveDaysAgoAgoPurchases());
     }
 
+    public File getYesterdayDelayedPurchaseFixture() throws XPathExpressionException, ParserConfigurationException, TransformerException, IOException {
+        return prepareDataFile(getYesterdayDelayedPurchases());
+    }
+
     private PurchaseXmlBuilder getYesterdayPurchases() throws ParserConfigurationException, XPathExpressionException {
         return PurchaseXmlBuilder.create("1")
                 .addXmlPurchase(
@@ -112,6 +136,17 @@ public class Us_54_1_Fixture extends AbstractFixture {
                         Double.toString(PRODUCT_PRICE_1 * 30),
                         Double.toString(PRODUCT_PRICE_1),
                         "30",
+                        PRODUCT_ID);
+    }
+
+    private PurchaseXmlBuilder getYesterdayDelayedPurchases() throws ParserConfigurationException, XPathExpressionException {
+        return PurchaseXmlBuilder.create("1")
+                .addXmlPurchase(
+                        getDate(YESTERDAY_DATE_PURCHASE, "10"),
+                        YESTERDAY_DATE_PURCHASE, SHOP_NUMBER,
+                        Double.toString(PRODUCT_PRICE_1 * 10),
+                        Double.toString(PRODUCT_PRICE_1),
+                        "10",
                         PRODUCT_ID);
     }
 

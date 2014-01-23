@@ -35,4 +35,11 @@ public class StoreGrossSaleMarginReportSteps extends ScenarioSteps {
                 new Us_54_1_Fixture().getTodayDate()
         );
     }
+
+    @Step
+    public void exactCompareWithExampleTableForDelayedPurchases() {
+        storeGrossSaleMarginReportPage.getGrossMarginTableObjectCollection().exactCompareExampleTable(
+                new Us_54_1_Fixture().prepareFixtureExampleTableWithDelayedPurchase()
+        );
+    }
 }

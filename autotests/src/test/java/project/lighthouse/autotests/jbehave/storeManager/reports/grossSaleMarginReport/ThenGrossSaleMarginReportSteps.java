@@ -28,4 +28,10 @@ public class ThenGrossSaleMarginReportSteps {
     public void thenTheUserChecksTheGrossSaleMarginTableContainsFiveDaysAgo() {
         storeGrossSaleMarginReportSteps.compareWithExampleForFiveDaysAgo();
     }
+
+    @Then("the user checks the gross sale margin table with delayed purchase contains expected value entries")
+    public void thenTheUserChecksTheGrossSaleMarginTableWithDelayedPurchaseContainsExpectedValueEntries() {
+        storeGrossSaleMarginReportSteps.exactCompareWithExampleTableForDelayedPurchases();
+    }
+
 }
