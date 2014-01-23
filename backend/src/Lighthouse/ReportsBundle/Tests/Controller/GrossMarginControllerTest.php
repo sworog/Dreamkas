@@ -81,6 +81,7 @@ class GrossMarginControllerTest extends WebTestCase
         $this->factory->flush();
 
         // Calculate CostOfGoods
+        $this->getGrossMarginManager()->checkAndFixRangeIndexes();
         $this->getGrossMarginManager()->calculateUnprocessedTrialBalances();
         $this->getGrossMarginManager()->recalculateStoreGrossMargin();
 
@@ -98,6 +99,8 @@ class GrossMarginControllerTest extends WebTestCase
     public function testGetStoreGrossMarginReports()
     {
         $storeId = $this->prepareData();
+
+        $this->getGrossMarginManager()->checkAndFixRangeIndexes();
 
         $accessToken = $this->factory->authAsStoreManager($storeId);
 
@@ -247,6 +250,7 @@ class GrossMarginControllerTest extends WebTestCase
         $this->factory->createSaleProduct(120, 30, $product, $sale2);
         $this->factory->flush();
 
+        $this->getGrossMarginManager()->checkAndFixRangeIndexes();
         $this->getGrossMarginManager()->calculateUnprocessedTrialBalances();
         $this->getGrossMarginManager()->recalculateStoreGrossMargin();
 
