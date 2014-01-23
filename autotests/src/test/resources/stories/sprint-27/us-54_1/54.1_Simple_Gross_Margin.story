@@ -41,7 +41,7 @@ And the user clicks on store gross sale margin report link
 
 Then the user checks there is no gross sale margin table with today date
 
-Scenario: No sales - show null gross sale margin
+Scenario: No sales - show null gross sale margin values
 
 Meta:
 @id s21us54.1s3
@@ -56,4 +56,20 @@ And the user clicks the menu report item
 And the user clicks on store gross sale margin report link
 
 Then the user checks the gross sale margin table contains expected five days ago entries
+
+Scenario: No data shown if there is no data at all
+
+Meta:
+@id s21us54.1s4
+@description
+
+GivenStories: precondition/sprint-27/us-54_1/aPreconditionToScenarioS4.story
+
+Given the user opens the authorization page
+
+When the user logs in using 'storeManager-s27u541' userName and 'lighthouse' password
+And the user clicks the menu report item
+And the user clicks on store gross sale margin report link
+
+Then the user checks page contains text 'Нет данных'
 
