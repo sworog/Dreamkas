@@ -75,6 +75,7 @@ class ProductController extends AbstractRestController
      * @return ProductCollection
      * @ApiDoc
      * @Secure(roles="ROLE_DEPARTMENT_MANAGER,ROLE_COMMERCIAL_MANAGER")
+     * @Rest\View(serializerGroups={"Collection"})
      */
     public function getProductsSearchAction(Request $request, $property)
     {
