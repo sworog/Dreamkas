@@ -25,6 +25,18 @@ class CostOfGoodCalculator
     protected $numericFactory;
 
     /**
+     * @var array
+     */
+    protected $supportRangeIndex = array(
+        InvoiceProduct::REASON_TYPE,
+        SaleProduct::REASON_TYPE,
+    );
+
+    protected $supportCostOfGoods = array(
+        SaleProduct::REASON_TYPE,
+    );
+
+    /**
      * @DI\InjectParams({
      *      "trialBalanceRepository" = @DI\Inject("lighthouse.core.document.repository.trial_balance"),
      *      "numericFactory" = @DI\Inject("lighthouse.core.types.numeric.factory")
@@ -111,30 +123,75 @@ class CostOfGoodCalculator
      */
     public function checkAndFixRangeIndexes()
     {
-        $results = $this->trialBalanceRepository->getAllFirstUnprocessedTrialBalance();
+        $results = $this->trialBalanceRepository->getUnprocessedTrialBalanceGroupStoreProduct();
         foreach ($results as $result) {
-            $this->fixRangeIndexes(
-                $result['minCreatedDate'],
-                $result['_id']['storeProduct'],
-                $result['_id']['reasonType']
-            );
+            $this->fixRangeIndexesByStoreProduct($result['_id']['storeProduct']);
         }
     }
 
     /**
-     * @param \MongoDate $startDate
-     * @param string $storeProduct
+     * @param string $storeProductId
+     */
+    public function fixRangeIndexesByStoreProduct($storeProductId)
+    {
+        foreach ($this->getSupportRangeIndex() as $reasonType) {
+            $this->fixRangeIndexesByStoreProductReasonType($storeProductId, $reasonType);
+        }
+    }
+
+    /**
+     *
+     * @param string $storeProductId
      * @param string $reasonType
+     */
+    public function fixRangeIndexesByStoreProductReasonType($storeProductId, $reasonType)
+    {
+        $trialBalance = $this->trialBalanceRepository->findOneFirstUnprocessedByStoreProductIdReasonType(
+            $storeProductId,
+            $reasonType
+        );
+
+        if (null != $trialBalance) {
+            $this->fixRangeIndexesByTrialBalance($trialBalance);
+        }
+    }
+
+    protected function getSupportRangeIndex()
+    {
+        return $this->supportRangeIndex;
+    }
+
+    protected function getSupportCostOfGoods()
+    {
+        return $this->supportCostOfGoods;
+    }
+
+    /**
+     * @param TrialBalance $trialBalance
+     * @return bool
+     */
+    protected function supportsRangeIndex(TrialBalance $trialBalance)
+    {
+        return in_array(
+            $trialBalance->reason->getReasonType(),
+            $this->getSupportRangeIndex()
+        );
+    }
+
+    protected function supportsCostOfGoods(TrialBalance $trialBalance)
+    {
+        return in_array(
+            $trialBalance->reason->getReasonType(),
+            $this->getSupportCostOfGoods()
+        );
+    }
+
+    /**
+     * @param TrialBalance $trialBalance
      * @param int $batch
      */
-    public function fixRangeIndexes($startDate, $storeProduct, $reasonType, $batch = 1000)
+    protected function fixRangeIndexesByTrialBalance(TrialBalance $trialBalance, $batch = 1000)
     {
-        /** @var TrialBalance $trialBalance */
-        $trialBalance = $this->trialBalanceRepository->findOneByStoreProductIdDateReasonType(
-            $startDate,
-            $reasonType,
-            $storeProduct
-        );
         if ($this->supportsRangeIndex($trialBalance)) {
             $allNeedRecalculateTrialBalance = $this
                 ->trialBalanceRepository
@@ -171,25 +228,5 @@ class CostOfGoodCalculator
 
             $dm->flush();
         }
-    }
-
-    /**
-     * @param TrialBalance $trialBalance
-     * @return bool
-     */
-    protected function supportsRangeIndex(TrialBalance $trialBalance)
-    {
-        return in_array(
-            $trialBalance->reason->getReasonType(),
-            array(InvoiceProduct::REASON_TYPE, SaleProduct::REASON_TYPE)
-        );
-    }
-
-    protected function supportsCostOfGoods(TrialBalance $trialBalance)
-    {
-        return in_array(
-            $trialBalance->reason->getReasonType(),
-            array(SaleProduct::REASON_TYPE)
-        );
     }
 }

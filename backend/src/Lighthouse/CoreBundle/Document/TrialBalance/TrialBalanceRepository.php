@@ -579,11 +579,10 @@ class TrialBalanceRepository extends DocumentRepository
         return $this->findBy($criteria, $sort, $limit);
     }
 
-
     /**
      * @return array
      */
-    public function getAllFirstUnprocessedTrialBalance()
+    public function getUnprocessedTrialBalanceGroupStoreProduct()
     {
         $ops = array(
             array(
@@ -595,10 +594,7 @@ class TrialBalanceRepository extends DocumentRepository
                 '$group' => array(
                     '_id' => array(
                         'storeProduct' => '$storeProduct',
-                        'reasonType' => '$reason.reasonType',
-                    ),
-                    'minCreatedDate' => array('$min' => '$createdDate.date'),
-                    'minId' => array('$min' => '$_id'),
+                    )
                 )
             )
         );
@@ -607,22 +603,21 @@ class TrialBalanceRepository extends DocumentRepository
     }
 
     /**
-     * @param \MongoDate $date
-     * @param string $reasonType
      * @param string $storeProductId
+     * @param string $reasonType
      * @return null|TrialBalance
      */
-    public function findOneByStoreProductIdDateReasonType($date, $reasonType, $storeProductId)
+    public function findOneFirstUnprocessedByStoreProductIdReasonType($storeProductId, $reasonType)
     {
         return $this->findOneBy(
             array(
-                'createdDate.date' => $date,
-                'reason.reasonType' => $reasonType,
                 'storeProduct' => $storeProductId,
+                'reason.$ref' => $reasonType,
+                'processingStatus' => TrialBalance::PROCESSING_STATUS_UNPROCESSED,
             ),
             array(
-                'createdDate.date' => 1,
-                '_id' => 1
+                'createdDate.date' => self::SORT_ASC,
+                '_id' => self::SORT_ASC,
             )
         );
     }
@@ -640,8 +635,8 @@ class TrialBalanceRepository extends DocumentRepository
                 'storeProduct' => $trialBalance->storeProduct->id
             ),
             array(
-                'createdDate.date' => 1,
-                '_id' => 1
+                'createdDate.date' => self::SORT_ASC,
+                '_id' => self::SORT_ASC,
             )
         );
     }
