@@ -36,7 +36,7 @@ class RecalculateReportsCommandTest extends TestCase
             false
         );
         $grossMarginManagerMock
-            ->expects($this->exactly(3))
+            ->expects($this->exactly(2))
             ->method($this->anything());
 
         $command = new RecalculateReportsCommand($grossSalesManagerMock, $grossMarginManagerMock);

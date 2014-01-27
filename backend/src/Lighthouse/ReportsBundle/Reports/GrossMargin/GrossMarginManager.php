@@ -114,17 +114,8 @@ class GrossMarginManager
         return $this->storeDayGrossMarginRepository->recalculate();
     }
 
-    /**
-     * @param int $limit
-     * @return int
-     */
-    public function calculateUnprocessedTrialBalances($limit = null)
+    public function calculateGrossMarginUnprocessedTrialBalance()
     {
-        return $this->costOfGoodCalculator->calculateUnprocessedTrialBalances($limit);
-    }
-
-    public function checkAndFixRangeIndexes()
-    {
-        $this->costOfGoodCalculator->checkAndFixRangeIndexes();
+        $this->costOfGoodCalculator->calculateUnprocessed();
     }
 }

@@ -34,7 +34,7 @@ class CostOfGoodsTest extends WebTestCase
 
         /* @var CostOfGoodCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        $costOfGoodsCalculator->checkAndFixRangeIndexes();
+        $costOfGoodsCalculator->calculateUnprocessed();
 
         $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
 
@@ -85,7 +85,7 @@ class CostOfGoodsTest extends WebTestCase
 
         /* @var CostOfGoodCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        $costOfGoodsCalculator->checkAndFixRangeIndexes();
+        $costOfGoodsCalculator->calculateUnprocessed();
 
         $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
 
@@ -128,7 +128,7 @@ class CostOfGoodsTest extends WebTestCase
 
         /* @var CostOfGoodCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        $costOfGoodsCalculator->checkAndFixRangeIndexes();
+        $costOfGoodsCalculator->calculateUnprocessed();
 
         $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
 
@@ -171,7 +171,7 @@ class CostOfGoodsTest extends WebTestCase
 
         /* @var CostOfGoodCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        $costOfGoodsCalculator->checkAndFixRangeIndexes();
+        $costOfGoodsCalculator->calculateUnprocessed();
 
         $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
         $numericFactory = $this->getContainer()->get('lighthouse.core.types.numeric.factory');
@@ -288,7 +288,7 @@ class CostOfGoodsTest extends WebTestCase
 
         /* @var CostOfGoodCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        $costOfGoodsCalculator->checkAndFixRangeIndexes();
+        $costOfGoodsCalculator->calculateUnprocessed();
 
         $numericFactory = $this->getContainer()->get('lighthouse.core.types.numeric.factory');
         /* @var CostOfGoodCalculator $costOfGoodsCalculator */
@@ -405,9 +405,7 @@ class CostOfGoodsTest extends WebTestCase
 
         /* @var CostOfGoodCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        $costOfGoodsCalculator->checkAndFixRangeIndexes();
-        $count = $costOfGoodsCalculator->calculateUnprocessedTrialBalances();
-        $this->assertEquals(5, $count);
+        $costOfGoodsCalculator->calculateUnprocessed();
 
         $trialBalanceRepository = $this->getContainer()->get("lighthouse.core.document.repository.trial_balance");
 
@@ -448,8 +446,7 @@ class CostOfGoodsTest extends WebTestCase
         $saleProduct1 = $this->factory->createSaleProduct(250, 6, $product, $sale1);
         $this->factory->flush();
 
-        $costOfGoodsCalculator->checkAndFixRangeIndexes();
-        $costOfGoodsCalculator->calculateUnprocessedTrialBalances();
+        $costOfGoodsCalculator->calculateUnprocessed();
 
 
         $trialBalanceSaleProduct1 = $trialBalanceRepository
@@ -461,8 +458,7 @@ class CostOfGoodsTest extends WebTestCase
         $saleProductBehindhand = $this->factory->createSaleProduct(250, 7, $product, $saleBehindhand);
         $this->factory->flush();
 
-        $costOfGoodsCalculator->checkAndFixRangeIndexes();
-        $costOfGoodsCalculator->calculateUnprocessedTrialBalances();
+        $costOfGoodsCalculator->calculateUnprocessed();
 
 
         $trialBalanceSaleProductBehindhand = $trialBalanceRepository
@@ -478,8 +474,7 @@ class CostOfGoodsTest extends WebTestCase
         $saleProductBehindhand2 = $this->factory->createSaleProduct(250, 2, $product, $saleBehindhand2);
         $this->factory->flush();
 
-        $costOfGoodsCalculator->checkAndFixRangeIndexes();
-        $costOfGoodsCalculator->calculateUnprocessedTrialBalances();
+        $costOfGoodsCalculator->calculateUnprocessed();
 
 
         $trialBalanceSaleProductBehindhand = $trialBalanceRepository

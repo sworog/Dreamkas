@@ -96,46 +96,23 @@ class CostOfGoodCalculator
     }
 
     /**
-     * @param int $limit
-     * @return int number of items calculated
-     */
-    public function calculateUnprocessedTrialBalances($limit = 1000)
-    {
-        $dm = $this->trialBalanceRepository->getDocumentManager();
-        $cursor = $this->trialBalanceRepository->findByProcessingStatus(
-            TrialBalance::PROCESSING_STATUS_NEED_CALC_COST_OF_GOODS,
-            SaleProduct::REASON_TYPE,
-            $limit
-        );
-        $count = 0;
-        foreach ($cursor as $trialBalance) {
-            $trialBalance->costOfGoods = $this->calculateByTrialBalance($trialBalance);
-            $trialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_OK;
-            $dm->persist($trialBalance);
-            $count++;
-        }
-        $dm->flush();
-        return $count;
-    }
-
-    /**
      * @return void
      */
-    public function checkAndFixRangeIndexes()
+    public function calculateUnprocessed()
     {
         $results = $this->trialBalanceRepository->getUnprocessedTrialBalanceGroupStoreProduct();
         foreach ($results as $result) {
-            $this->fixRangeIndexesByStoreProduct($result['_id']['storeProduct']);
+            $this->calculateByStoreProduct($result['_id']['storeProduct']);
         }
     }
 
     /**
      * @param string $storeProductId
      */
-    public function fixRangeIndexesByStoreProduct($storeProductId)
+    public function calculateByStoreProduct($storeProductId)
     {
         foreach ($this->getSupportRangeIndex() as $reasonType) {
-            $this->fixRangeIndexesByStoreProductReasonType($storeProductId, $reasonType);
+            $this->calculateByStoreProductReasonType($storeProductId, $reasonType);
         }
     }
 
@@ -144,7 +121,7 @@ class CostOfGoodCalculator
      * @param string $storeProductId
      * @param string $reasonType
      */
-    public function fixRangeIndexesByStoreProductReasonType($storeProductId, $reasonType)
+    public function calculateByStoreProductReasonType($storeProductId, $reasonType)
     {
         $trialBalance = $this->trialBalanceRepository->findOneFirstUnprocessedByStoreProductIdReasonType(
             $storeProductId,
@@ -152,7 +129,7 @@ class CostOfGoodCalculator
         );
 
         if (null != $trialBalance) {
-            $this->fixRangeIndexesByTrialBalance($trialBalance);
+            $this->calculateAndFixRangeIndexesByTrialBalance($trialBalance);
         }
     }
 
@@ -190,7 +167,7 @@ class CostOfGoodCalculator
      * @param TrialBalance $trialBalance
      * @param int $batch
      */
-    protected function fixRangeIndexesByTrialBalance(TrialBalance $trialBalance, $batch = 1000)
+    protected function calculateAndFixRangeIndexesByTrialBalance(TrialBalance $trialBalance, $batch = 1000)
     {
         if ($this->supportsRangeIndex($trialBalance)) {
             $allNeedRecalculateTrialBalance = $this
@@ -212,11 +189,10 @@ class CostOfGoodCalculator
                 /** @var TrialBalance $nextTrialBalance */
                 $nextTrialBalance->startIndex = $previousQuantity;
                 $nextTrialBalance->endIndex = $nextTrialBalance->startIndex->add($nextTrialBalance->quantity);
-                if ($this->supportsCostOfGoods($nextTrialBalance)) {
-                    $nextTrialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_NEED_CALC_COST_OF_GOODS;
-                } else {
-                    $nextTrialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_OK;
-                }
+
+                $this->calculateCostOfGoodsIfNeeded($nextTrialBalance);
+
+                $nextTrialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_OK;
                 $previousQuantity = $nextTrialBalance->endIndex;
                 $dm->persist($nextTrialBalance);
                 $count++;
@@ -227,6 +203,16 @@ class CostOfGoodCalculator
             }
 
             $dm->flush();
+        }
+    }
+
+    /**
+     * @param TrialBalance $trialBalance
+     */
+    protected function calculateCostOfGoodsIfNeeded(TrialBalance $trialBalance)
+    {
+        if ($this->supportsCostOfGoods($trialBalance)) {
+            $trialBalance->costOfGoods = $this->calculateByTrialBalance($trialBalance);
         }
     }
 }
