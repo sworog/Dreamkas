@@ -2,7 +2,9 @@
 
 namespace Lighthouse\ReportsBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoodCalculator;
+use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodCalculator;
+use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsManager;
+use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
@@ -80,10 +82,6 @@ class GrossMarginControllerTest extends WebTestCase
 
         $this->factory->flush();
 
-        // Calculate CostOfGoods
-        $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
-        $this->getGrossMarginManager()->recalculateStoreGrossMargin();
-
         return $store;
     }
 
@@ -98,6 +96,10 @@ class GrossMarginControllerTest extends WebTestCase
     public function testGetStoreGrossMarginReports()
     {
         $storeId = $this->prepareData();
+
+        // Calculate CostOfGoods
+        $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
+        $this->getGrossMarginManager()->recalculateStoreGrossMargin();
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
 
@@ -152,6 +154,10 @@ class GrossMarginControllerTest extends WebTestCase
     public function testGetStoreGrossMarginReportsWithMissingDaysAtTheBeginning()
     {
         $storeId = $this->prepareData();
+
+        // Calculate CostOfGoods
+        $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
+        $this->getGrossMarginManager()->recalculateStoreGrossMargin();
 
         $accessToken = $this->factory->authAsStoreManager($storeId);
 
@@ -300,7 +306,7 @@ class GrossMarginControllerTest extends WebTestCase
 
 
         // Calculate CostOfGoods
-        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        /* @var \Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
         $costOfGoodsCalculator->calculateUnprocessed();
         /* @var GrossMarginManager $grossMarginReportManager */
@@ -378,6 +384,91 @@ class GrossMarginControllerTest extends WebTestCase
             array(
                 'date' => '2014-01-02T00:00:00+0400',
                 'sum' => 15,
+            ),
+        );
+
+        $this->assertEquals($expectedResponse, $actualResponse);
+    }
+
+    public function testGetStoreGrossMarginReportsWithMissingDaysAtTheBeginningCalculateOnJobs()
+    {
+        $this->clearJobs();
+
+        $storeId = $this->prepareData();
+
+        // Calculate CostOfGoods
+        /* @var CostOfGoodsManager $costOfGoodsManager */
+        $costOfGoodsManager = $this
+            ->getContainer()
+            ->get('lighthouse.core.document.trial_balance.cost_of_goods.manager');
+        $costOfGoodsManager->createCalculateJobsForUnprocessed();
+
+        /* @var JobManager $jobManager */
+        $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
+        $jobManager->startWatchingTubes();
+        while (1) {
+            $job = $jobManager->reserveJob(0);
+            if (null == $job) {
+                break;
+            }
+
+            $jobManager->processJob($job);
+        }
+        $jobManager->stopWatchingTubes();
+
+
+        $this->getGrossMarginManager()->recalculateStoreGrossMargin();
+
+        $accessToken = $this->factory->authAsStoreManager($storeId);
+
+        $actualResponse = $this->clientJsonRequest(
+            $accessToken,
+            "GET",
+            "/api/1/stores/" . $storeId . "/reports/grossMargin",
+            null,
+            array('time' => date('c', strtotime("2014-01-12 10:35:47")))
+        );
+
+        $expectedResponse = array(
+            array(
+                'date' => '2014-01-11T00:00:00+0400',
+                'sum' => 0,
+            ),
+            array(
+                'date' => '2014-01-10T00:00:00+0400',
+                'sum' => 0,
+            ),
+            array(
+                'date' => '2014-01-09T00:00:00+0400',
+                'sum' => 517,
+            ),
+            array(
+                'date' => '2014-01-08T00:00:00+0400',
+                'sum' => 742,
+            ),
+            array(
+                'date' => '2014-01-07T00:00:00+0400',
+                'sum' => 694,
+            ),
+            array(
+                'date' => '2014-01-06T00:00:00+0400',
+                'sum' => 559,
+            ),
+            array(
+                'date' => '2014-01-05T00:00:00+0400',
+                'sum' => 658,
+            ),
+            array(
+                'date' => '2014-01-04T00:00:00+0400',
+                'sum' => 0,
+            ),
+            array(
+                'date' => '2014-01-03T00:00:00+0400',
+                'sum' => 622,
+            ),
+            array(
+                'date' => '2014-01-02T00:00:00+0400',
+                'sum' => 387,
             ),
         );
 

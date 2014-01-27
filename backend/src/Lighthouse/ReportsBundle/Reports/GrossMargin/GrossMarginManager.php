@@ -4,9 +4,7 @@ namespace Lighthouse\ReportsBundle\Reports\GrossMargin;
 
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoodCalculator;
-use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
-use Lighthouse\CoreBundle\Tests\Document\TrialBalance\CostOfGoodsTest;
+use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodCalculator;
 use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMargin;
 use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMarginRepository;
 use JMS\DiExtraBundle\Annotation as DI;

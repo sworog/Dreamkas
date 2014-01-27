@@ -28,6 +28,7 @@ use DateTime;
  * @MongoDB\DiscriminatorMap({
  *      "recalcProductPrice"="Lighthouse\CoreBundle\Document\Product\RecalcProductPrice\RecalcProductPriceJob",
  *      "exportProductsJob"="Lighthouse\CoreBundle\Document\Job\Integration\Set10\ExportProductsJob",
+ *      "costOfGoodsCalculateJob"="Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculateJob",
  * })
  */
 class Job extends AbstractDocument

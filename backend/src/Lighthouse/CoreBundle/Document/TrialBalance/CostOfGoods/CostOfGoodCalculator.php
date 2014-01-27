@@ -1,9 +1,11 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\TrialBalance;
+namespace Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods;
 
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
+use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -39,7 +41,7 @@ class CostOfGoodCalculator
     /**
      * @DI\InjectParams({
      *      "trialBalanceRepository" = @DI\Inject("lighthouse.core.document.repository.trial_balance"),
-     *      "numericFactory" = @DI\Inject("lighthouse.core.types.numeric.factory")
+     *      "numericFactory" = @DI\Inject("lighthouse.core.types.numeric.factory"),
      * })
      * @param TrialBalanceRepository $trialBalanceRepository
      * @param NumericFactory $numericFactory
@@ -102,14 +104,14 @@ class CostOfGoodCalculator
     {
         $results = $this->trialBalanceRepository->getUnprocessedTrialBalanceGroupStoreProduct();
         foreach ($results as $result) {
-            $this->calculateByStoreProduct($result['_id']['storeProduct']);
+            $this->calculateByStoreProductId($result['_id']['storeProduct']);
         }
     }
 
     /**
      * @param string $storeProductId
      */
-    public function calculateByStoreProduct($storeProductId)
+    public function calculateByStoreProductId($storeProductId)
     {
         foreach ($this->getSupportRangeIndex() as $reasonType) {
             $this->calculateByStoreProductReasonType($storeProductId, $reasonType);
@@ -133,11 +135,17 @@ class CostOfGoodCalculator
         }
     }
 
+    /**
+     * @return array
+     */
     protected function getSupportRangeIndex()
     {
         return $this->supportRangeIndex;
     }
 
+    /**
+     * @return array
+     */
     protected function getSupportCostOfGoods()
     {
         return $this->supportCostOfGoods;
@@ -155,6 +163,10 @@ class CostOfGoodCalculator
         );
     }
 
+    /**
+     * @param TrialBalance $trialBalance
+     * @return bool
+     */
     protected function supportsCostOfGoods(TrialBalance $trialBalance)
     {
         return in_array(

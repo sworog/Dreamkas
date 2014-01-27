@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\Document\TrialBalance;
 
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
-use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoodCalculator;
+use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodCalculator;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Test\WebTestCase;
@@ -126,7 +126,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->factory->createSaleProduct(34.12, 1, $productId, $sale);
         $this->factory->flush();
 
-        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        /* @var \Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
         $costOfGoodsCalculator->calculateUnprocessed();
 
@@ -403,7 +403,7 @@ class CostOfGoodsTest extends WebTestCase
 
         // Calculate CostOfGoods
 
-        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        /* @var \Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
         $costOfGoodsCalculator->calculateUnprocessed();
 
