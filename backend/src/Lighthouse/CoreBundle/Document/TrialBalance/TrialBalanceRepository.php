@@ -626,4 +626,23 @@ class TrialBalanceRepository extends DocumentRepository
             )
         );
     }
+
+    /**
+     * @param TrialBalance $trialBalance
+     * @return Cursor
+     */
+    public function findByStartTrialBalanceDateStoreProductReasonType(TrialBalance $trialBalance)
+    {
+        return $this->findBy(
+            array(
+                'createdDate.date' => array('$gte' => $trialBalance->createdDate),
+                'reason.$ref' => $trialBalance->reason->getReasonType(),
+                'storeProduct' => $trialBalance->storeProduct->id
+            ),
+            array(
+                'createdDate.date' => 1,
+                '_id' => 1
+            )
+        );
+    }
 }

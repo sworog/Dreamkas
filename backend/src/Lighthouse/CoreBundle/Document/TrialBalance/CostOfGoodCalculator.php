@@ -136,17 +136,9 @@ class CostOfGoodCalculator
             $storeProduct
         );
         if ($this->supportsRangeIndex($trialBalance)) {
-            $allNeedRecalculateTrialBalance = $this->trialBalanceRepository->findBy(
-                array(
-                    'createdDate.date' => array('$gte' => $trialBalance->createdDate),
-                    'reason.$ref' => $trialBalance->reason->getReasonType(),
-                    'storeProduct' => $trialBalance->storeProduct->id
-                ),
-                array(
-                    'createdDate.date' => 1,
-                    '_id' => 1
-                )
-            );
+            $allNeedRecalculateTrialBalance = $this
+                ->trialBalanceRepository
+                ->findByStartTrialBalanceDateStoreProductReasonType($trialBalance);
             $count = 0;
             $previousQuantity = null;
             $dm = $this->trialBalanceRepository->getDocumentManager();
