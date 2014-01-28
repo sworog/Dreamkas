@@ -33,6 +33,14 @@ use Lighthouse\CoreBundle\Types\Numeric\Quantity;
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository"
  * )
+ *
+ * @MongoDB\Indexes({
+ *      @MongoDB\Index(keys={
+ *          "reason.$ref"="asc",
+ *          "createdDate.date"="asc",
+ *          "storeProduct"="asc"
+ *      })
+ * })
  */
 class TrialBalance extends AbstractDocument
 {
