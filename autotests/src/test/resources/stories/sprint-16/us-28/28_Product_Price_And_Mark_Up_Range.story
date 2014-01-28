@@ -152,6 +152,9 @@ Then the user checks the elements values
 
 Scenario: Retail mark up range inheritance
 
+Meta:
+@id s16u28s9
+
 Given there is the subCategory with name 'subCategorymarkUp-777' related to group named 'groupMarkUp-777' and category named 'categoryMarkUp-777'
 And the user navigates to the subCategory 'subCategorymarkUp-777', category 'categoryMarkUp-777', group 'groupMarkUp-777' product list page
 And the user logs in as 'commercialManager'
