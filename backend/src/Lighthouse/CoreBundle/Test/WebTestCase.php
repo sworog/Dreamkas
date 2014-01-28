@@ -182,6 +182,72 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @param string $invoiceProductId
+     * @param string $invoiceId
+     * @param string $productId
+     * @param float $quantity
+     * @param float $price
+     * @param string $storeId
+     * @param User $manager
+     * @return string
+     */
+    public function editInvoiceProduct(
+        $invoiceProductId,
+        $invoiceId,
+        $productId,
+        $quantity,
+        $price,
+        $storeId = null,
+        $manager = null
+    ) {
+        $manager = ($manager) ?: $this->departmentManager;
+        $storeId = ($storeId) ?: $this->storeId;
+        $manager = ($manager) ?: $this->factory->getDepartmentManager($storeId);
+
+        $accessToken = $this->auth($manager);
+
+        $invoiceProductData = array(
+            'product' => $productId,
+            'quantity' => $quantity,
+            'priceEntered' => $price,
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products/' . $invoiceProductId,
+            $invoiceProductData
+        );
+
+        $this->assertResponseCode(200);
+
+        return $postResponse['id'];
+    }
+
+    public function deleteInvoiceProduct(
+        $invoiceProductId,
+        $invoiceId,
+        $storeId = null,
+        $manager = null
+    ) {
+        $manager = ($manager) ?: $this->departmentManager;
+        $storeId = ($storeId) ?: $this->storeId;
+        $manager = ($manager) ?: $this->factory->getDepartmentManager($storeId);
+
+        $accessToken = $this->auth($manager);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products/' . $invoiceProductId
+        );
+
+        $this->assertResponseCode(204);
+
+        return $postResponse['id'];
+    }
+
+    /**
      * @param $productId
      * @param $sellingPrice
      * @param $quantity
