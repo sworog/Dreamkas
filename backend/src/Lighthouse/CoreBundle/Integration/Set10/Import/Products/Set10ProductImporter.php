@@ -445,8 +445,9 @@ class Set10ProductImporter
         $groups = $good->getGroups();
         $groupsCount = count($groups);
         if ($groupsCount == 0) {
-            return $groups;
-        } elseif ($groupsCount > 3) {
+            $groups = array(0 => array('id' => 'Unknown', 'name' => 'Unknown'));
+        }
+        if ($groupsCount > 3) {
             $groups = array_slice($groups, 0, 3);
         } elseif ($groupsCount < 3) {
             $lastGroup = end($groups);
