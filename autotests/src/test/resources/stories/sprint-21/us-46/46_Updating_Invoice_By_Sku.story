@@ -192,6 +192,9 @@ Then the user checks the invoice with sku 'Invoice-UIBS-NF-8' in search results
 
 Scenario: Invoice full scenario edition from search result page
 
+Meta:
+@id s21u46s8
+
 Given there is the user with name 'departmentManager-UIBS-NF', position 'departmentManager-UIBS-NF', username 'departmentManager-UIBS-NF', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'UIBS-NF' managed by department manager named 'departmentManager-UIBS-NF'
 And there is the invoice in the store with number 'UIBS-NF' ruled by department manager with name 'departmentManager-UIBS-NF' with values
