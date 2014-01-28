@@ -211,10 +211,12 @@ class CostOfGoodCalculator
                 if (1 == $batch / $count) {
                     $count = 0;
                     $dm->flush();
+                    $dm->clear();
                 }
             }
 
             $dm->flush();
+            $dm->clear();
         }
     }
 
