@@ -56,5 +56,4 @@ class CostOfGoodsWorker implements WorkerInterface
     {
         return 'cost_of_goods_calculate';
     }
-
 }
