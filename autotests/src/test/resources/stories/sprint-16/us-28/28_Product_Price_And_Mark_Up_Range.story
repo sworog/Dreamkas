@@ -154,6 +154,7 @@ Scenario: Retail mark up range inheritance
 
 Meta:
 @id s16u28s9
+@smoke
 
 Given there is the subCategory with name 'subCategorymarkUp-777' related to group named 'groupMarkUp-777' and category named 'categoryMarkUp-777'
 And the user navigates to the subCategory 'subCategorymarkUp-777', category 'categoryMarkUp-777', group 'groupMarkUp-777' product list page
@@ -165,7 +166,7 @@ And the user sets max mark up value to '1'
 And the user clicks save mark up button
 Then the user sees success message 'Свойства успешно сохранены'
 When the user creates new product from product list page
-And the user inputs '1' in 'purchasePrice' field
+And the user inputs '1' in 'purchasePrice' field by sendKeys method
 Then the user checks the elements values
 | elementName | value |
 | retailMarkupMin | 1 |
