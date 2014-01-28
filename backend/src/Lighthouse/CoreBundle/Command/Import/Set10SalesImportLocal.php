@@ -72,10 +72,11 @@ class Set10SalesImportLocal extends Command
             ->setDescription('Import local Set10 purchases xml')
             ->addArgument('file', InputArgument::REQUIRED, 'Path to xml file or directory')
             ->addOption('batch-size', null, InputOption::VALUE_OPTIONAL, 'Batch size', 1000)
-            ->addOption('start-date', null, InputOption::VALUE_OPTIONAL, 'Date of first check')
-            ->addOption('end-date', null, InputOption::VALUE_OPTIONAL, 'End date')
+            ->addOption('check-date', null, InputOption::VALUE_OPTIONAL, 'Date of first check')
+            ->addOption('import-date', null, InputOption::VALUE_OPTIONAL, 'End date')
             ->addOption('dry-run', null, InputOption::VALUE_NONE, 'End date')
             ->addOption('profile', null, InputOption::VALUE_NONE, 'Save xhprof profile data')
+            ->addOption('sort', null, InputOption::VALUE_OPTIONAL, 'Sort files by: filename, filedate', 'filename')
         ;
     }
 
@@ -89,13 +90,14 @@ class Set10SalesImportLocal extends Command
     {
         $filePath = $input->getArgument('file');
         $batchSize = $input->getOption('batch-size');
-        $startDate = $input->getOption('start-date');
-        $endDate = $input->getOption('end-date');
+        $checkDate = $input->getOption('check-date');
+        $importDate = $input->getOption('import-date');
         $dryRun = $input->getOption('dry-run');
         $profile = $input->getOption('profile');
+        $sort = $input->getOption('sort');
 
-        $datePeriod = $this->getDatePeriod($startDate, $endDate);
-        $files = $this->getXmlFiles($filePath);
+        $datePeriod = $this->getDatePeriod($checkDate, $importDate);
+        $files = $this->getXmlFiles($filePath, $sort);
         $filesCount = count($files);
 
         $output->writeln(sprintf('Found %d files', $filesCount));
@@ -269,13 +271,21 @@ class Set10SalesImportLocal extends Command
 
     /**
      * @param string $dir
-     * @throws \UnexpectedValueException
+     * @param string $sort
      * @return SplFileInfo[]|SortableDirectoryIterator
      */
-    protected function getXmlFiles($dir)
+    protected function getXmlFiles($dir, $sort)
     {
         $files = new SortableDirectoryIterator($dir);
-        $files->sortByFilename(SortableDirectoryIterator::SORT_ASC);
+        switch ($sort) {
+            case 'filedate':
+                $files->sortByDateFilename(SortableDirectoryIterator::SORT_ASC);
+                break;
+            case 'filename':
+            default:
+                $files->sortByFilename(SortableDirectoryIterator::SORT_ASC);
+                break;
+        }
         return $files;
     }
 

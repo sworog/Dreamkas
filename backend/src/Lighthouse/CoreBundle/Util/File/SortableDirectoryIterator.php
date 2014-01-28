@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Util\File;
 
 use Lighthouse\CoreBundle\Util\Iterator\ArrayIterator;
+use DateTime;
 use Traversable;
 use SplFileInfo;
 use IteratorAggregate;
@@ -67,13 +68,28 @@ class SortableDirectoryIterator implements IteratorAggregate, ArrayAccess, Count
             if ($this->fileInfo->isDir()) {
                 $iterator = new FilesystemIterator($this->fileInfo->getPathname(), FilesystemIterator::SKIP_DOTS);
                 foreach ($iterator as $file) {
-                    $this->files->append($file);
+                    if ($this->validateFilename($file)) {
+                        $this->files->append($file);
+                    }
                 }
             } else {
                 $this->files->append($this->fileInfo);
             }
         }
         return $this->files;
+    }
+
+    /**
+     * @param SplFileInfo $file
+     * @return bool
+     */
+    public function validateFilename(SplFileInfo $file)
+    {
+        if (0 === strpos($file->getFilename(), 'purchases-')) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -112,6 +128,40 @@ class SortableDirectoryIterator implements IteratorAggregate, ArrayAccess, Count
             },
             $direction
         );
+    }
+
+    /**
+     * @param bool $direction
+     * @return $this
+     */
+    public function sortByDateFilename($direction = self::DEFAULT_SORT)
+    {
+        $self = $this;
+        return $this->sort(
+            function (SplFileInfo $a, SplFileInfo $b) use ($self, $direction) {
+                $timestampA = $self->stripTimestampFromFilename($a->getFilename(), $direction);
+                $timestampB = $self->stripTimestampFromFilename($b->getFilename(), $direction);
+                return $timestampA - $timestampB;
+            },
+            $direction
+        );
+    }
+
+    /**
+     * @param string $filename
+     * @param bool $direction
+     * @return int
+     */
+    public function stripTimestampFromFilename($filename, $direction)
+    {
+        $matches = null;
+        if (preg_match('/(\d{2}-\d{2}-\d{4}_\d{2}-\d{2}-\d{2})/iu', $filename, $matches)) {
+            $date = DateTime::createFromFormat('d-m-Y_H-i-s', $matches[1]);
+            if ($date instanceof DateTime) {
+                return $date->getTimestamp();
+            }
+        }
+        return ($direction == self::SORT_DESC) ? 0 : INF;
     }
 
     /**

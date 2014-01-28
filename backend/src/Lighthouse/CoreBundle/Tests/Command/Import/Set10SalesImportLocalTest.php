@@ -275,4 +275,76 @@ EOF;
         $this->assertEquals(0, $commandTester->getStatusCode());
         $this->assertContains('Run:', $commandTester->getDisplay());
     }
+
+    public function testSortByFileDate()
+    {
+        $this->factory->getStores(array('1', '2', '3', '4', '5'));
+        $this->createProductsBySku(
+            array(
+                'ЦБ000003263',
+                'ЦБ000003338',
+                'ЦБ000003986',
+                'ЦБ000003369',
+                'ЦБ000003370',
+                'ЦБ000004052',
+                'ЦБ000004127'
+            )
+        );
+
+        $commandTester = $this->execute(
+            array(
+                'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/ADM'),
+                '--sort' => 'filedate'
+            )
+        );
+        $this->assertEquals(0, $commandTester->getStatusCode());
+        $display = $commandTester->getDisplay();
+        $this->assertContains('Found 5 files', $display);
+        Assert::assertStringsOrder(
+            array(
+                'purchases-21-06-2013_22-20-22.xml',
+                'purchases-04-07-2013_19-51-54.xml',
+                'purchases-30-07-2013_17-31-24.xml',
+                'purchases-10-08-2013_20-41-55.xml',
+                'purchases-30-08-2013_17-55-55.xml'
+            ),
+            $display
+        );
+    }
+
+    public function testSortByFileName()
+    {
+        $this->factory->getStores(array('1', '2', '3', '4', '5'));
+        $this->createProductsBySku(
+            array(
+                'ЦБ000003263',
+                'ЦБ000003338',
+                'ЦБ000003986',
+                'ЦБ000003369',
+                'ЦБ000003370',
+                'ЦБ000004052',
+                'ЦБ000004127'
+            )
+        );
+
+        $commandTester = $this->execute(
+            array(
+                'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/ADM'),
+                '--sort' => 'filename'
+            )
+        );
+        $this->assertEquals(0, $commandTester->getStatusCode());
+        $display = $commandTester->getDisplay();
+        $this->assertContains('Found 5 files', $display);
+        Assert::assertStringsOrder(
+            array(
+                'purchases-04-07-2013_19-51-54.xml',
+                'purchases-10-08-2013_20-41-55.xml',
+                'purchases-21-06-2013_22-20-22.xml',
+                'purchases-30-07-2013_17-31-24.xml',
+                'purchases-30-08-2013_17-55-55.xml',
+            ),
+            $display
+        );
+    }
 }
