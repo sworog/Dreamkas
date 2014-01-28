@@ -10,6 +10,7 @@ use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMarginRepos
 use JMS\DiExtraBundle\Annotation as DI;
 use DateTime;
 use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMarginCollection;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @DI\Service("lighthouse.reports.gross_margin.manager")
@@ -112,8 +113,11 @@ class GrossMarginManager
         return $this->storeDayGrossMarginRepository->recalculate();
     }
 
-    public function calculateGrossMarginUnprocessedTrialBalance()
+    /**
+     * @param OutputInterface|null $output
+     */
+    public function calculateGrossMarginUnprocessedTrialBalance(OutputInterface $output = null)
     {
-        $this->costOfGoodCalculator->calculateUnprocessed();
+        $this->costOfGoodCalculator->calculateUnprocessed($output);
     }
 }

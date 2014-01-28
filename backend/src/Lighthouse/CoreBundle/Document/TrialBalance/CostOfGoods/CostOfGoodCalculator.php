@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods;
 
+use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
@@ -10,6 +11,8 @@ use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
+use Symfony\Component\Console\Output\NullOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @DI\Service("lighthouse.core.document.trial_balance.calculator")
@@ -98,14 +101,24 @@ class CostOfGoodCalculator
     }
 
     /**
+     * @param OutputInterface|null $output
      * @return void
      */
-    public function calculateUnprocessed()
+    public function calculateUnprocessed(OutputInterface $output = null)
     {
+        if (null == $output) {
+            $output = new NullOutput();
+        }
+        $dotHelper = new DotHelper($output);
+
         $results = $this->trialBalanceRepository->getUnprocessedTrialBalanceGroupStoreProduct();
         foreach ($results as $result) {
             $this->calculateByStoreProductId($result['_id']['storeProduct']);
+
+            $dotHelper->write();
         }
+
+        $dotHelper->end();
     }
 
     /**
