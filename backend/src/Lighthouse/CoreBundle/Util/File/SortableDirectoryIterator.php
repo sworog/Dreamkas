@@ -68,28 +68,13 @@ class SortableDirectoryIterator implements IteratorAggregate, ArrayAccess, Count
             if ($this->fileInfo->isDir()) {
                 $iterator = new FilesystemIterator($this->fileInfo->getPathname(), FilesystemIterator::SKIP_DOTS);
                 foreach ($iterator as $file) {
-                    if ($this->validateFilename($file)) {
-                        $this->files->append($file);
-                    }
+                    $this->files->append($file);
                 }
             } else {
                 $this->files->append($this->fileInfo);
             }
         }
         return $this->files;
-    }
-
-    /**
-     * @param SplFileInfo $file
-     * @return bool
-     */
-    public function validateFilename(SplFileInfo $file)
-    {
-        if (0 === strpos($file->getFilename(), 'purchases-')) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     /**
@@ -162,6 +147,16 @@ class SortableDirectoryIterator implements IteratorAggregate, ArrayAccess, Count
             }
         }
         return ($direction == self::SORT_DESC) ? 0 : INF;
+    }
+
+    public function filterPurchaseFiles()
+    {
+        $this->initialize();
+        foreach ($this->files as $i => $file) {
+            if (!preg_match('/^purchases-(\d{2}-\d{2}-\d{4}_\d{2}-\d{2}-\d{2})/iu', $file->getFilename())) {
+                $this->files->offsetUnset($i);
+            }
+        }
     }
 
     /**

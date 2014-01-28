@@ -195,8 +195,8 @@ EOF;
             array(
                 'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/Kesko'),
                 '--dry-run' => true,
-                '--start-date' => '2013-12-01',
-                '--end-date' => '2013-11-04'
+                '--import-date' => '2013-12-01',
+                '--receipt-date' => '2013-11-04'
             )
         );
         $this->assertEquals(0, $commandTester->getStatusCode());
@@ -216,8 +216,8 @@ EOF;
             array(
                 'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/purchases-invalid.xml'),
                 '--dry-run' => true,
-                '--start-date' => '2013-12-01',
-                '--end-date' => '2013-11-04'
+                '--import-date' => '2013-12-01',
+                '--receipt-date' => '2013-11-04'
             )
         );
         $this->assertEquals(0, $commandTester->getStatusCode());
@@ -235,8 +235,8 @@ EOF;
             array(
                 'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/purchases-empty.xml'),
                 '--dry-run' => true,
-                '--start-date' => '2013-12-01',
-                '--end-date' => '2013-11-04'
+                '--import-date' => '2013-12-01',
+                '--receipt-date' => '2013-11-04'
             )
         );
         $this->assertEquals(0, $commandTester->getStatusCode());

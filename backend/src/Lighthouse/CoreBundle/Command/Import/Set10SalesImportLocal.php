@@ -72,8 +72,8 @@ class Set10SalesImportLocal extends Command
             ->setDescription('Import local Set10 purchases xml')
             ->addArgument('file', InputArgument::REQUIRED, 'Path to xml file or directory')
             ->addOption('batch-size', null, InputOption::VALUE_OPTIONAL, 'Batch size', 1000)
-            ->addOption('check-date', null, InputOption::VALUE_OPTIONAL, 'Date of first check')
-            ->addOption('import-date', null, InputOption::VALUE_OPTIONAL, 'End date')
+            ->addOption('import-date', null, InputOption::VALUE_OPTIONAL, 'Date to import to')
+            ->addOption('receipt-date', null, InputOption::VALUE_OPTIONAL, 'Date of first receipt')
             ->addOption('dry-run', null, InputOption::VALUE_NONE, 'End date')
             ->addOption('profile', null, InputOption::VALUE_NONE, 'Save xhprof profile data')
             ->addOption('sort', null, InputOption::VALUE_OPTIONAL, 'Sort files by: filename, filedate', 'filename')
@@ -90,13 +90,13 @@ class Set10SalesImportLocal extends Command
     {
         $filePath = $input->getArgument('file');
         $batchSize = $input->getOption('batch-size');
-        $checkDate = $input->getOption('check-date');
         $importDate = $input->getOption('import-date');
+        $receiptDate = $input->getOption('receipt-date');
         $dryRun = $input->getOption('dry-run');
         $profile = $input->getOption('profile');
         $sort = $input->getOption('sort');
 
-        $datePeriod = $this->getDatePeriod($checkDate, $importDate);
+        $datePeriod = $this->getDatePeriod($importDate, $receiptDate);
         $files = $this->getXmlFiles($filePath, $sort);
         $filesCount = count($files);
 
@@ -279,6 +279,7 @@ class Set10SalesImportLocal extends Command
         $files = new SortableDirectoryIterator($dir);
         switch ($sort) {
             case 'filedate':
+                $files->filterPurchaseFiles();
                 $files->sortByDateFilename(SortableDirectoryIterator::SORT_ASC);
                 break;
             case 'filename':
