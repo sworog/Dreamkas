@@ -63,6 +63,21 @@ class TrialBalanceRepository extends DocumentRepository
         return $this->findOneBy($criteria);
     }
 
+    public function findOneNext(TrialBalance $trialBalance)
+    {
+        $criteria = array(
+            'reason.$ref' => $trialBalance->reason->getReasonType(),
+            'storeProduct' => $trialBalance->storeProduct->id,
+            'createdDate.date' => array('$gte' => $trialBalance->createdDate),
+            '_id' => array('$ne' => $trialBalance->id),
+        );
+        $sort = array(
+            'createdDate.date' => self::SORT_ASC,
+            '_id' => self::SORT_ASC,
+        );
+        return $this->findOneBy($criteria, $sort);
+    }
+
     /**
      * @param TrialBalance $trialBalance
      * @return TrialBalance
@@ -72,7 +87,8 @@ class TrialBalanceRepository extends DocumentRepository
         $criteria = array(
             'reason.$ref' => $trialBalance->reason->getReasonType(),
             'storeProduct' => $trialBalance->storeProduct->id,
-            'createdDate.date' => array('$lte' => $trialBalance->createdDate)
+            'createdDate.date' => array('$lte' => $trialBalance->createdDate),
+            '_id' => array('$ne' => $trialBalance->id),
         );
         $sort = array(
             'createdDate.date' => self::SORT_DESC,

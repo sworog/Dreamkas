@@ -11,6 +11,7 @@ use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use SplQueue;
 
 /**
@@ -97,6 +98,25 @@ class TrialBalanceListener extends AbstractMongoDBListener
             if ($document instanceof Reasonable) {
                 $this->onReasonableRemove($document, $dm);
             }
+
+            // TODO: Need refactoring to all reason supports range indexes
+            if ($document instanceof SaleProduct) {
+                $this->onSaleProductRemove($document, $dm);
+            }
+        }
+    }
+
+    protected function onSaleProductRemove(SaleProduct $document, DocumentManager $dm)
+    {
+        $trialBalance = $this->trialBalanceRepository->findOneByReason($document);
+        $needProcessedTrialBalance = $this->trialBalanceRepository->findOnePrevious($trialBalance);
+        if (null == $needProcessedTrialBalance) {
+            $needProcessedTrialBalance = $this->trialBalanceRepository->findOneNext($trialBalance);
+        }
+        if (null != $needProcessedTrialBalance) {
+            $needProcessedTrialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
+            $dm->persist($needProcessedTrialBalance);
+            $this->computeChangeSet($dm, $needProcessedTrialBalance);
         }
     }
 
