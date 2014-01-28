@@ -167,9 +167,10 @@ class TrialBalanceListener extends AbstractMongoDBListener
     protected function onReasonableRemove(Reasonable $document, DocumentManager $dm)
     {
         $trialBalance = $this->trialBalanceRepository->findOneByReason($document);
-        $dm->remove($trialBalance);
-
-        $this->computeChangeSet($dm, $trialBalance);
+        if ($trialBalance) {
+            $dm->remove($trialBalance);
+            $this->computeChangeSet($dm, $trialBalance);
+        }
     }
 
     /**
