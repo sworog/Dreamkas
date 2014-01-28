@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Test;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
+use Lighthouse\CoreBundle\Document\Receipt\ReceiptRepository;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Sale\Sale;
 use Lighthouse\CoreBundle\Document\User\User;
@@ -479,6 +480,15 @@ class Factory
 
         return $saleModel;
     }
+
+    /**
+     * @param Sale $sale
+     */
+    public function deleteSale(Sale $sale)
+    {
+        $this->getReceiptRepository()->rollbackByHash($sale->hash);
+    }
+
     /**
      * @param Money|string $price
      * @param Decimal|float $quantity
@@ -533,5 +543,13 @@ class Factory
     protected function getStoreProductRepository()
     {
         return $this->container->get('lighthouse.core.document.repository.store_product');
+    }
+
+    /**
+     * @return ReceiptRepository
+     */
+    protected function getReceiptRepository()
+    {
+        return $this->container->get('lighthouse.core.document.repository.receipt');
     }
 }
