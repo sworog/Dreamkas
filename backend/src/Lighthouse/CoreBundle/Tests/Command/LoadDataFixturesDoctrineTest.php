@@ -71,7 +71,7 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
         $expected = '  > purging database
   > loading [10] Lighthouse\\CoreBundle\\DataFixtures\\MongoDB\\LoadApiClientData
   > loading [20] Lighthouse\\CoreBundle\\DataFixtures\\MongoDB\\LoadUserData
-  > loading Lighthouse\CoreBundle\DataFixtures\Kesko\LoadStoresData
+  > loading Lighthouse\\CoreBundle\\DataFixtures\\Kesko\\KeskoLoadStoresData
 ';
         error_reporting($errorReporting);
         PHPUnit_Framework_Error_Notice::$enabled = $errorNoticeBackup;

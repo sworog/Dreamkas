@@ -1,15 +1,16 @@
 <?php
 
-namespace Lighthouse\CoreBundle\DataFixtures\Kesko;
+namespace Lighthouse\CoreBundle\DataFixtures;
 
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
-class LoadStoresData extends ContainerAware implements DependentFixtureInterface, FixtureInterface
+abstract class AbstractLoadStoresData extends ContainerAware implements DependentFixtureInterface, FixtureInterface
 {
     /**
      * @param ObjectManager $manager
@@ -18,11 +19,11 @@ class LoadStoresData extends ContainerAware implements DependentFixtureInterface
     {
         $userProvider = $this->container->get('lighthouse.core.user.provider');
 
-        foreach (array(701, 702, 703, 704) as $storeNumber) {
+        foreach ($this->getStoresData() as $storeNumber => $storeData) {
             $store = new Store();
             $store->number = $storeNumber;
-            $store->address = 'Ул. Кеско, д. ' . $storeNumber;
-            $store->contacts = '911-888-7-' . $storeNumber;
+            $store->address = (isset($storeData['address'])) ? $storeData['address'] : 'Ул. Кеско, д. ' . $storeNumber;
+            $store->contacts = (isset($storeData['contacts'])) ? $storeData['contacts'] : '911-888-7-' . $storeNumber;
 
             $storeManager = $userProvider->createNewUser(
                 'storeManager' . $storeNumber,
@@ -46,7 +47,22 @@ class LoadStoresData extends ContainerAware implements DependentFixtureInterface
         }
 
         $manager->flush();
+
+        $this->updateIndexes($manager);
     }
+
+    /**
+     * @param DocumentManager|ObjectManager $dm
+     */
+    protected function updateIndexes(ObjectManager $dm)
+    {
+        $dm->getSchemaManager()->updateIndexes();
+    }
+
+    /**
+     * @return array
+     */
+    abstract public function getStoresData();
 
     /**
      * @return array
