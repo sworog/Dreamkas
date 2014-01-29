@@ -56,19 +56,26 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
     public void compareWithExampleTable(ExamplesTable examplesTable) {
         CompareResultHashMap compareResultHashMap = new CompareResultHashMap();
 
-        for (Iterator<Map<String, String>> mapIterator = examplesTable.getRows().iterator(); mapIterator.hasNext(); ) {
-            Map<String, String> row = mapIterator.next();
+        Iterator<Map<String, String>> mapIterator = examplesTable.getRows().iterator();
+        Iterator<AbstractObject> abstractObjectIterator = this.iterator();
 
-            for (Iterator<AbstractObject> abstractObjectIterator = this.iterator(); abstractObjectIterator.hasNext(); ) {
+        while (mapIterator.hasNext()) {
+            Map<String, String> row = mapIterator.next();
+            CompareResultHashMap abstractObjectCompareResultHashMap = new CompareResultHashMap();
+
+            while (abstractObjectIterator.hasNext()) {
                 ResultComparable resultComparable = (ResultComparable) abstractObjectIterator.next();
                 if (resultComparable.getCompareResults(row).isEmpty()) {
                     abstractObjectIterator.remove();
                     mapIterator.remove();
+                    abstractObjectCompareResultHashMap.clear();
                     break;
                 } else {
-                    compareResultHashMap.put(row, resultComparable.getCompareResults(row));
+                    abstractObjectCompareResultHashMap.put(row, resultComparable.getCompareResults(row));
                 }
             }
+            compareResultHashMap.putAll(abstractObjectCompareResultHashMap);
+            abstractObjectCompareResultHashMap.clear();
         }
 
         compareResultHashMap.failIfHasAnyErrors();
