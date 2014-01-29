@@ -69,15 +69,18 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
                 if (resultComparable.getCompareResults(row).isEmpty()) {
                     abstractObjectIterator.remove();
                     mapIterator.remove();
+                    compareResultList.clear();
                     break;
                 } else {
                     compareResultList.add(resultComparable.getCompareResults(row));
                 }
             }
-            compareResultHashMap.put(
-                    row,
-                    getCompareResultsCollectionWithMinimumSize(compareResultList)
-            );
+            if (!compareResultList.isEmpty()) {
+                compareResultHashMap.put(
+                        row,
+                        getCompareResultsCollectionWithMinimumSize(compareResultList)
+                );
+            }
         }
 
         compareResultHashMap.failIfHasAnyErrors();
