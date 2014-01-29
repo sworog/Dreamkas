@@ -39,7 +39,7 @@ public class LogSteps extends ScenarioSteps {
     public void waitStatusForSuccess(String logType) {
         String status = getStatusByType(logType);
         int retriesCount = 0;
-        while (!status.equals(JobsPage.SUCCESS_STATUS) && retriesCount < 10) {
+        while (!status.equals(JobsPage.SUCCESS_STATUS) && retriesCount < 15) {
             status = getStatusByType(logType);
             getDriver().navigate().refresh();
             retriesCount++;
