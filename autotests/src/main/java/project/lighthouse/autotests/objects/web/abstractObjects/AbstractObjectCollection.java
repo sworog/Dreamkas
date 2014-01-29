@@ -11,6 +11,7 @@ import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectLocatable;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ResultComparable;
 import project.lighthouse.autotests.objects.web.compare.CompareResultHashMap;
+import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -57,28 +58,39 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
         CompareResultHashMap compareResultHashMap = new CompareResultHashMap();
 
         Iterator<Map<String, String>> mapIterator = examplesTable.getRows().iterator();
-        Iterator<AbstractObject> abstractObjectIterator = this.iterator();
 
         while (mapIterator.hasNext()) {
             Map<String, String> row = mapIterator.next();
-            CompareResultHashMap abstractObjectCompareResultHashMap = new CompareResultHashMap();
+            Iterator<AbstractObject> abstractObjectIterator = this.iterator();
+            List<CompareResults> compareResultList = new ArrayList<>();
 
             while (abstractObjectIterator.hasNext()) {
                 ResultComparable resultComparable = (ResultComparable) abstractObjectIterator.next();
                 if (resultComparable.getCompareResults(row).isEmpty()) {
                     abstractObjectIterator.remove();
                     mapIterator.remove();
-                    abstractObjectCompareResultHashMap.clear();
                     break;
                 } else {
-                    abstractObjectCompareResultHashMap.put(row, resultComparable.getCompareResults(row));
+                    compareResultList.add(resultComparable.getCompareResults(row));
                 }
             }
-            compareResultHashMap.putAll(abstractObjectCompareResultHashMap);
-            abstractObjectCompareResultHashMap.clear();
+            compareResultHashMap.put(
+                    row,
+                    getCompareResultsCollectionWithMinimumSize(compareResultList)
+            );
         }
 
         compareResultHashMap.failIfHasAnyErrors();
+    }
+
+    private CompareResults getCompareResultsCollectionWithMinimumSize(List<CompareResults> compareResultList) {
+        CompareResults compareResultsWithMinSize = null;
+        for (CompareResults compareResults : compareResultList) {
+            if (compareResultsWithMinSize == null || compareResultsWithMinSize.size() > compareResults.size()) {
+                compareResultsWithMinSize = compareResults;
+            }
+        }
+        return compareResultsWithMinSize;
     }
 
     public void clickByLocator(String locator) {
