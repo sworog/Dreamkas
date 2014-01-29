@@ -9,6 +9,10 @@ So that I can achieve a business goal
 
 Scenario: Products export
 
+Meta:
+@id s19u39.1s1
+@smoke
+
 Given the user opens the settings page
 And the user logs in as 'watchman'
 When the user input values on the setting page

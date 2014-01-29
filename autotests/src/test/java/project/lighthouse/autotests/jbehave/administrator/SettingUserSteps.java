@@ -11,6 +11,8 @@ import project.lighthouse.autotests.api.ApiConnect;
 import project.lighthouse.autotests.steps.administrator.SettingSteps;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.Map;
 
 public class SettingUserSteps {
 
@@ -37,7 +39,7 @@ public class SettingUserSteps {
     public void whenTheUserInputsValues(ExamplesTable fieldInputTable) {
         settingSteps.input(fieldInputTable);
         valuesTable = fieldInputTable;
-        isSet10ImportUrlSet = true;
+        isSet10ImportUrlSet = tableContainsSet10ImportUrl(fieldInputTable);
     }
 
     @When("the user clicks save button on the setting page")
@@ -53,5 +55,15 @@ public class SettingUserSteps {
     @Then("the user checks the stored values on the setting page")
     public void thenTheUserChecksTheStoreValues() {
         settingSteps.check(valuesTable);
+    }
+
+    private Boolean tableContainsSet10ImportUrl(ExamplesTable examplesTable) {
+        Iterator<Map<String, String>> iterator = examplesTable.getRows().iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next().containsKey("set10-import-url")) {
+                return true;
+            }
+        }
+        return false;
     }
 }
