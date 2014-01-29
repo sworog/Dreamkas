@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.pages.departmentManager.invoice;
 
-import junit.framework.Assert;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -125,15 +124,6 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     public void childrenItemNavigateAndClickByFindByLocator(String elementName) {
         commonViewInterface.childrenItemNavigateAndClickByFindByLocator(elementName, By.xpath(deleteButtonXpath));
-    }
-
-    public void tryTochildrenItemNavigateAndClickByFindByLocator(String elementName) {
-        try {
-            childrenItemNavigateAndClickByFindByLocator(elementName);
-            String errorMessage = String.format("The element '%s' is deleted!", elementName);
-            Assert.fail(errorMessage);
-        } catch (Exception ignored) {
-        }
     }
 
     @Deprecated
