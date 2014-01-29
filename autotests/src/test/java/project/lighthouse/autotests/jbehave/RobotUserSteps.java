@@ -7,6 +7,8 @@ import org.jbehave.core.annotations.When;
 import project.lighthouse.autotests.robotClient.InterruptedException_Exception;
 import project.lighthouse.autotests.steps.RobotSteps;
 
+import java.io.IOException;
+
 public class RobotUserSteps {
 
     @Steps
@@ -32,5 +34,11 @@ public class RobotUserSteps {
     @Given("the robot waits the import folder become empty")
     public void givenTheRobotWaitsTheImportFolderBecomeEmpty() throws InterruptedException {
         robotSteps.checkImportIsDone();
+    }
+
+    @Given("the robot prepares import purchase data")
+    public void givenTheRobotPreparesData() throws InterruptedException, IOException {
+        final String fileName = "purchases-data.xml";
+        robotSteps.prepareData(fileName);
     }
 }

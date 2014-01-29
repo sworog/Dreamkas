@@ -60,7 +60,7 @@ public class SettingUserSteps {
     private Boolean tableContainsSet10ImportUrl(ExamplesTable examplesTable) {
         Iterator<Map<String, String>> iterator = examplesTable.getRows().iterator();
         while (iterator.hasNext()) {
-            if (iterator.next().containsKey("set10-import-url")) {
+            if (iterator.next().containsValue("set10-import-url")) {
                 return true;
             }
         }
