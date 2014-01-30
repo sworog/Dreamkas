@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods;
 use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
@@ -17,7 +18,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * @DI\Service("lighthouse.core.document.trial_balance.calculator")
  */
-class CostOfGoodCalculator
+class CostOfGoodsCalculator
 {
     /**
      * @var TrialBalanceRepository
@@ -151,7 +152,7 @@ class CostOfGoodCalculator
     /**
      * @return array
      */
-    protected function getSupportRangeIndex()
+    public function getSupportRangeIndex()
     {
         return $this->supportRangeIndex;
     }
@@ -159,7 +160,7 @@ class CostOfGoodCalculator
     /**
      * @return array
      */
-    protected function getSupportCostOfGoods()
+    public function getSupportCostOfGoods()
     {
         return $this->supportCostOfGoods;
     }
@@ -168,10 +169,19 @@ class CostOfGoodCalculator
      * @param TrialBalance $trialBalance
      * @return bool
      */
-    protected function supportsRangeIndex(TrialBalance $trialBalance)
+    public function supportsRangeIndexByTrialBalance(TrialBalance $trialBalance)
+    {
+        return $this->supportsRangeIndex($trialBalance->reason);
+    }
+
+    /**
+     * @param Reasonable $reason
+     * @return bool
+     */
+    public function supportsRangeIndex(Reasonable $reason)
     {
         return in_array(
-            $trialBalance->reason->getReasonType(),
+            $reason->getReasonType(),
             $this->getSupportRangeIndex()
         );
     }
@@ -180,10 +190,15 @@ class CostOfGoodCalculator
      * @param TrialBalance $trialBalance
      * @return bool
      */
-    protected function supportsCostOfGoods(TrialBalance $trialBalance)
+    public function supportsCostOfGoodsByTrialBalance(TrialBalance $trialBalance)
+    {
+        return $this->supportsCostOfGoods($trialBalance->reason);
+    }
+
+    public function supportsCostOfGoods(Reasonable $reason)
     {
         return in_array(
-            $trialBalance->reason->getReasonType(),
+            $reason->getReasonType(),
             $this->getSupportCostOfGoods()
         );
     }
@@ -194,7 +209,7 @@ class CostOfGoodCalculator
      */
     protected function calculateAndFixRangeIndexesByTrialBalance(TrialBalance $trialBalance, $batch = 1000)
     {
-        if ($this->supportsRangeIndex($trialBalance)) {
+        if ($this->supportsRangeIndexByTrialBalance($trialBalance)) {
             $allNeedRecalculateTrialBalance = $this
                 ->trialBalanceRepository
                 ->findByStartTrialBalanceDateStoreProductReasonType($trialBalance);
@@ -238,7 +253,7 @@ class CostOfGoodCalculator
      */
     protected function calculateCostOfGoodsIfNeeded(TrialBalance $trialBalance)
     {
-        if ($this->supportsCostOfGoods($trialBalance)) {
+        if ($this->supportsCostOfGoodsByTrialBalance($trialBalance)) {
             $trialBalance->costOfGoods = $this->calculateByTrialBalance($trialBalance);
         }
     }

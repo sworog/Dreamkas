@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\Document\TrialBalance;
 
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
-use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodCalculator;
+use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Test\WebTestCase;
@@ -32,7 +32,7 @@ class CostOfGoodsTest extends WebTestCase
         $invoice14 = $this->createInvoice(array('sku' => 4, 'acceptanceDate' => '2014-01-14 08:15:31'), $store1);
         $this->createInvoiceProduct($invoice14, $productIds['1'], 300.01, 201.15, $store1);
 
-        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
         $costOfGoodsCalculator->calculateUnprocessed();
 
@@ -83,7 +83,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->factory->createSaleProduct(35.15, 2, $productIds['3'], $sale3);
         $this->factory->flush();
 
-        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
         $costOfGoodsCalculator->calculateUnprocessed();
 
@@ -126,7 +126,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->factory->createSaleProduct(34.12, 1, $productId, $sale);
         $this->factory->flush();
 
-        /* @var \Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodCalculator $costOfGoodsCalculator */
+        /* @var \Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
         $costOfGoodsCalculator->calculateUnprocessed();
 
@@ -169,7 +169,7 @@ class CostOfGoodsTest extends WebTestCase
         $invoiceId3 = $this->createInvoice(array('sku' => 3, 'acceptanceDate' => '2014-01-12 14:23:12'), $store);
         $this->createInvoiceProduct($invoiceId3, $productId, 2, 10.09, $store);
 
-        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
         $costOfGoodsCalculator->calculateUnprocessed();
 
@@ -286,12 +286,12 @@ class CostOfGoodsTest extends WebTestCase
         $invoiceId3 = $this->createInvoice(array('sku' => 3, 'acceptanceDate' => '2014-01-12 14:23:12'), $store);
         $this->createInvoiceProduct($invoiceId3, $productId, 2, 10.09, $store);
 
-        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
         $costOfGoodsCalculator->calculateUnprocessed();
 
         $numericFactory = $this->getContainer()->get('lighthouse.core.types.numeric.factory');
-        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
         $startIndex = $numericFactory->createQuantity($start);
         $endIndex = $numericFactory->createQuantity($end);
@@ -403,7 +403,7 @@ class CostOfGoodsTest extends WebTestCase
 
         // Calculate CostOfGoods
 
-        /* @var \Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodCalculator $costOfGoodsCalculator */
+        /* @var \Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
         $costOfGoodsCalculator->calculateUnprocessed();
 
@@ -428,7 +428,7 @@ class CostOfGoodsTest extends WebTestCase
 
     public function testCostOfGoodsCalculateAfterInsertOldReceipts()
     {
-        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
         /** @var TrialBalanceRepository $trialBalanceRepository */
         $trialBalanceRepository = $this->getContainer()->get("lighthouse.core.document.repository.trial_balance");
@@ -492,7 +492,7 @@ class CostOfGoodsTest extends WebTestCase
 
     public function testCostOfGoodsCalculateDuplicateReceipt()
     {
-        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
         /** @var TrialBalanceRepository $trialBalanceRepository */
         $trialBalanceRepository = $this->getContainer()->get("lighthouse.core.document.repository.trial_balance");
@@ -579,7 +579,7 @@ class CostOfGoodsTest extends WebTestCase
 
     public function testCostOfGoodsCalculateEditInvoice()
     {
-        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
         /** @var TrialBalanceRepository $trialBalanceRepository */
         $trialBalanceRepository = $this->getContainer()->get("lighthouse.core.document.repository.trial_balance");
@@ -589,10 +589,12 @@ class CostOfGoodsTest extends WebTestCase
         $productOther = $this->createProduct("Other");
 
 
-        $invoice1 = $this->createInvoice(array('sku' => '1'), $store);
+        $invoice1 = $this->createInvoice(array('sku' => '1', 'acceptanceDate' => '2014-01-01 12:56'), $store);
         $invoiceProduct1 = $this->createInvoiceProduct($invoice1, $product, 5, 100, $store);
-        $invoiceProduct2 = $this->createInvoiceProduct($invoice1, $product, 5, 150, $store);
-        $invoiceProduct3 = $this->createInvoiceProduct($invoice1, $product, 10, 200, $store);
+        $invoice2 = $this->createInvoice(array('sku' => '2', 'acceptanceDate' => '2014-01-02 12:56'), $store);
+        $invoiceProduct2 = $this->createInvoiceProduct($invoice2, $product, 5, 150, $store);
+        $invoice3 = $this->createInvoice(array('sku' => '3', 'acceptanceDate' => '2014-01-03 12:56'), $store);
+        $invoiceProduct3 = $this->createInvoiceProduct($invoice3, $product, 10, 200, $store);
 
 
         $sale1 = $this->factory->createSale($store, "2014-01-09 12:23:12", 1750);
@@ -662,7 +664,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->editInvoiceProduct($invoiceProduct1, $invoice1, $product, 5, 100, $store);
         $costOfGoodsCalculator->calculateUnprocessed();
 
-        $this->deleteInvoiceProduct($invoiceProduct2, $invoice1, $store);
+        $this->deleteInvoiceProduct($invoiceProduct2, $invoice2, $store);
         $costOfGoodsCalculator->calculateUnprocessed();
 
         $trialBalanceSaleProduct1 = $trialBalanceRepository
@@ -679,7 +681,7 @@ class CostOfGoodsTest extends WebTestCase
 
 
         // Edit invoice product delete first
-        $invoiceProduct2 = $this->createInvoiceProduct($invoice1, $product, 5, 150, $store);
+        $invoiceProduct2 = $this->createInvoiceProduct($invoice2, $product, 5, 150, $store);
         $costOfGoodsCalculator->calculateUnprocessed();
 
         $this->deleteInvoiceProduct($invoiceProduct1, $invoice1, $store);
@@ -687,7 +689,7 @@ class CostOfGoodsTest extends WebTestCase
 
         $trialBalanceSaleProduct1 = $trialBalanceRepository
             ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(950, $trialBalanceSaleProduct1->costOfGoods->toNumber());
+        $this->assertEquals(1150, $trialBalanceSaleProduct1->costOfGoods->toNumber());
 
         $trialBalanceSaleProduct2 = $trialBalanceRepository
             ->findOneByReasonTypeReasonId($saleProduct2->id, SaleProduct::REASON_TYPE);

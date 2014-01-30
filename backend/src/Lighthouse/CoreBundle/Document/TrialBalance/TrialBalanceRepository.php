@@ -554,16 +554,19 @@ class TrialBalanceRepository extends DocumentRepository
     }
 
     /**
-     * @param string $reasonType
+     * @param string|string[] $reasonTypes
      * @param string $storeProductId
      * @param Quantity $startIndex
      * @param Quantity $endIndex
      * @return Cursor|TrialBalance[]
      */
-    public function findByIndexRange($reasonType, $storeProductId, Quantity $startIndex, Quantity $endIndex)
+    public function findByIndexRange($reasonTypes, $storeProductId, Quantity $startIndex, Quantity $endIndex)
     {
+        if (!is_array($reasonTypes)) {
+            $reasonTypes = array($reasonTypes);
+        }
         $criteria = array(
-            'reason.$ref' => $reasonType,
+            'reason.$ref' => array('$in' => $reasonTypes),
             'storeProduct' => $storeProductId,
             'endIndex.count' => array('$gt' => $startIndex->getCount()),
             'startIndex.count' => array('$lt' => $endIndex->getCount()),
@@ -573,6 +576,31 @@ class TrialBalanceRepository extends DocumentRepository
             '_id' => self::SORT_ASC,
         );
         return $this->findBy($criteria, $sort);
+    }
+
+    /**
+     * @param string|string[] $reasonTypes
+     * @param string $storeProductId
+     * @param Quantity $startIndex
+     * @param Quantity $endIndex
+     * @return TrialBalance|null
+     */
+    public function findOneByIndexRange($reasonTypes, $storeProductId, Quantity $startIndex, Quantity $endIndex)
+    {
+        if (!is_array($reasonTypes)) {
+            $reasonTypes = array($reasonTypes);
+        }
+        $criteria = array(
+            'reason.$ref' => array('$in' => $reasonTypes),
+            'storeProduct' => $storeProductId,
+            'endIndex.count' => array('$gt' => $startIndex->getCount()),
+            'startIndex.count' => array('$lt' => $endIndex->getCount()),
+        );
+        $sort = array(
+            'createdDate.date' => self::SORT_ASC,
+            '_id' => self::SORT_ASC,
+        );
+        return $this->findOneBy($criteria, $sort);
     }
 
     /**

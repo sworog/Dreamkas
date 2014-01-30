@@ -2,7 +2,7 @@
 
 namespace Lighthouse\ReportsBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodCalculator;
+use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsManager;
 use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\WebTestCase;
@@ -306,7 +306,7 @@ class GrossMarginControllerTest extends WebTestCase
 
 
         // Calculate CostOfGoods
-        /* @var \Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodCalculator $costOfGoodsCalculator */
+        /* @var \Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
         $costOfGoodsCalculator->calculateUnprocessed();
         /* @var GrossMarginManager $grossMarginReportManager */
@@ -360,7 +360,7 @@ class GrossMarginControllerTest extends WebTestCase
 
 
         // Calculate CostOfGoods
-        /* @var CostOfGoodCalculator $costOfGoodsCalculator */
+        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
         $costOfGoodsCalculator->calculateUnprocessed();
         /* @var GrossMarginManager $grossMarginReportManager */

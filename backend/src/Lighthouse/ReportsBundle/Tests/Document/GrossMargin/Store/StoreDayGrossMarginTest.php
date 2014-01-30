@@ -2,7 +2,7 @@
 
 namespace Lighthouse\ReportsBundle\Tests\Document\GrossMargin\Store;
 
-use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodCalculator;
+use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMarginRepository;
 
@@ -51,7 +51,7 @@ class StoreDayGrossMarginTest extends WebTestCase
     }
 
     /**
-     * @return \Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodCalculator
+     * @return \Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator
      */
     public function getCostOfGoodsCalculator()
     {

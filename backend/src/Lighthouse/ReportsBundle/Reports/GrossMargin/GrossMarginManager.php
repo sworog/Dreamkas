@@ -4,7 +4,7 @@ namespace Lighthouse\ReportsBundle\Reports\GrossMargin;
 
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodCalculator;
+use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMargin;
 use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMarginRepository;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -23,7 +23,7 @@ class GrossMarginManager
     protected $storeDayGrossMarginRepository;
 
     /**
-     * @var CostOfGoodCalculator
+     * @var CostOfGoodsCalculator
      */
     protected $costOfGoodCalculator;
 
@@ -38,11 +38,11 @@ class GrossMarginManager
      * })
      *
      * @param StoreDayGrossMarginRepository $storeDayGrossMarginRepository
-     * @param CostOfGoodCalculator $costOfGoodCalculator
+     * @param CostOfGoodsCalculator $costOfGoodCalculator
      */
     public function __construct(
         StoreDayGrossMarginRepository $storeDayGrossMarginRepository,
-        CostOfGoodCalculator $costOfGoodCalculator
+        CostOfGoodsCalculator $costOfGoodCalculator
     ) {
         $this->storeDayGrossMarginRepository = $storeDayGrossMarginRepository;
         $this->costOfGoodCalculator = $costOfGoodCalculator;

@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods;
 
 use Lighthouse\CoreBundle\Document\Job\Job;
-use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodCalculator;
+use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 use Lighthouse\CoreBundle\Job\Worker\WorkerInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 
@@ -14,7 +14,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 class CostOfGoodsWorker implements WorkerInterface
 {
     /**
-     * @var CostOfGoodCalculator
+     * @var CostOfGoodsCalculator
      */
     protected $costOfGoodCalculator;
 
@@ -23,9 +23,9 @@ class CostOfGoodsWorker implements WorkerInterface
      *      "costOfGoodCalculator" = @DI\Inject("lighthouse.core.document.trial_balance.calculator")
      * })
      *
-     * @param CostOfGoodCalculator $costOfGoodCalculator
+     * @param CostOfGoodsCalculator $costOfGoodCalculator
      */
-    public function __construct(CostOfGoodCalculator $costOfGoodCalculator)
+    public function __construct(CostOfGoodsCalculator $costOfGoodCalculator)
     {
         $this->costOfGoodCalculator = $costOfGoodCalculator;
     }
