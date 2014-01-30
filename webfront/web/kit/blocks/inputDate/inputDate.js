@@ -20,15 +20,13 @@ define(function(require) {
             initialize: function() {
 
                 var block = this,
-                    date;
+                    date = block.$el.val();
 
                 if (block.noTime){
                     block.dateFormat = 'DD.MM.YYYY';
                 } else {
                     block.dateFormat = 'DD.MM.YYYY HH:mm'
                 }
-
-                date = moment(block.$el.val(), block.dateFormat);
 
                 block.tooltip = new Tooltip({
                     $trigger: block.$el
@@ -46,7 +44,7 @@ define(function(require) {
                 block.tooltip.$content.html(block.datepicker.$el);
 
                 if (date){
-                    block.set('date', date.valueOf());
+                    block.set('date', parseInt(date));
                 }
 
                 if (block.noTime){
@@ -72,6 +70,7 @@ define(function(require) {
                 }, extra);
 
                 if (extra.updateInput){
+                    console.log(moment(date).format(block.dateFormat));
                     block.$el.val(date ? moment(date).format(block.dateFormat) : '');
                 }
 
