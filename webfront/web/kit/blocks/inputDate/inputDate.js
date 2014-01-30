@@ -18,14 +18,17 @@ define(function(require) {
             },
 
             initialize: function() {
+
                 var block = this,
-                    date = moment(block.$el.val(), block.dateFormat);
+                    date;
 
                 if (block.noTime){
                     block.dateFormat = 'DD.MM.YYYY';
                 } else {
                     block.dateFormat = 'DD.MM.YYYY HH:mm'
                 }
+
+                date = moment(block.$el.val(), block.dateFormat);
 
                 block.tooltip = new Tooltip({
                     $trigger: block.$el
