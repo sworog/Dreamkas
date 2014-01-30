@@ -44,13 +44,28 @@ public class AuthorizationPage extends UserCreatePage {
     }
 
     public void authorization(String userName, String password, Boolean isFalse) {
-        type(By.name("username"), userName);
+        workAroundTypeForUserName(userName);
         type(By.name("password"), password);
         new ButtonFacade(getDriver(), "Войти").click();
         if (!isFalse) {
             checkUser(userName);
         }
         isAuthorized = true;
+    }
+
+    // TODO fix this in future
+
+    /**
+     * This is actually bad type workaround for failing logging in.
+     * For some reasons the type method is disturbed and the userName is not typed fully.
+     *
+     * @param inputText
+     */
+    private void workAroundTypeForUserName(String inputText) {
+        type(By.name("username"), inputText);
+        if (!$(findVisibleElement(By.name("username"))).getValue().equals(inputText)) {
+            workAroundTypeForUserName(inputText);
+        }
     }
 
     public void logOut() {

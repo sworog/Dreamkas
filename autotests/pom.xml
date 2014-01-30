@@ -29,6 +29,7 @@
         <centrum.server.url>//faro.lighthouse.pro</centrum.server.url>
         <centrum.import.folder.path>/centrum/reports</centrum.import.folder.path>
         <api.timeout>60000</api.timeout>
+        <lighthouse.timeouts.validationerrorwait>10</lighthouse.timeouts.validationerrorwait>
     </properties>
 
     <dependencies>
@@ -123,6 +124,8 @@
                         <centrum.server.url>${centrum.server.url}</centrum.server.url>
                         <centrum.import.folder.path>${centrum.import.folder.path}</centrum.import.folder.path>
                         <api.timeout>${api.timeout}</api.timeout>
+                        <lighthouse.timeouts.validationerrorwait>${lighthouse.timeouts.validationerrorwait}
+                        </lighthouse.timeouts.validationerrorwait>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>

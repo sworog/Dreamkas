@@ -19,8 +19,9 @@ public class StaticData {
     public static HashMap<String, String> userTokens = new HashMap<>();
     public static HashMap<String, ArrayList<Product>> subCategoryProducts = new HashMap<>();
 
-    public static Integer DEFAULT_TIMEOUT = 10;
+    public static Integer DEFAULT_TIMEOUT = 30;
     public static Integer DEFAULT_PRE_LOADER_TIMEOUT = 5;
+    public static Integer DEFAULT_VALIDATION_ERROR_TIMEOUT = 10;
 
     public static String WEB_DRIVER_BASE_URL;
 

@@ -5,6 +5,7 @@ import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.Waiter;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.Map;
 public class ValidationErrorsCollection extends ArrayList<ValidationError> {
 
     public ValidationErrorsCollection(WebDriver webDriver) {
-        Waiter waiter = new Waiter(webDriver);
+        Waiter waiter = new Waiter(webDriver, StaticData.DEFAULT_VALIDATION_ERROR_TIMEOUT);
         List<WebElement> webElementList = waiter.getVisibleWebElements(By.xpath("//*[@data-error]"));
         for (WebElement element : webElementList) {
             ValidationError validationError = new ValidationError(element);
