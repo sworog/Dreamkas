@@ -3,20 +3,15 @@
 namespace Lighthouse\CoreBundle\Document\TrialBalance;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
 use Doctrine\ODM\MongoDB\Event\PostFlushEventArgs;
-use Doctrine\ODM\MongoDB\Event\PreFlushEventArgs;
 use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
-use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
-use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
-use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use SplQueue;
 
 /**
@@ -115,6 +110,11 @@ class TrialBalanceListener extends AbstractMongoDBListener
         }
     }
 
+    /**
+     * @param Reasonable $document
+     * @param TrialBalance $trialBalance
+     * @param DocumentManager $dm
+     */
     protected function processSupportsRangeIndexRemove(
         Reasonable $document,
         TrialBalance $trialBalance,
@@ -126,31 +126,6 @@ class TrialBalanceListener extends AbstractMongoDBListener
             $nextProcessedTrialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
             $dm->persist($nextProcessedTrialBalance);
             $this->computeChangeSet($dm, $nextProcessedTrialBalance);
-        }
-
-        if ($document->increaseAmount()) {
-            $this->processIncreaseSupportsRangeIndexReferenceSetNeedProcessing($trialBalance, $dm);
-        }
-    }
-
-    protected function processIncreaseSupportsRangeIndexReferenceSetNeedProcessing(
-        TrialBalance $trialBalance,
-        DocumentManager $dm
-    ) {
-        if (null != $trialBalance->startIndex && null != $trialBalance->endIndex) {
-            $referenceTrialBalance = $this
-                ->trialBalanceRepository
-                ->findOneByIndexRange(
-                    $this->costOfGoodsCalculator->getSupportCostOfGoods(),
-                    $trialBalance->storeProduct->id,
-                    $trialBalance->startIndex,
-                    $trialBalance->endIndex
-                );
-            if (null != $referenceTrialBalance) {
-                $referenceTrialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
-                $dm->persist($referenceTrialBalance);
-                $this->computeChangeSet($dm, $referenceTrialBalance);
-            }
         }
     }
 
@@ -175,18 +150,10 @@ class TrialBalanceListener extends AbstractMongoDBListener
                 $needProcessedTrialProduct->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
                 $dm->persist($needProcessedTrialProduct);
                 $this->computeChangeSet($dm, $needProcessedTrialProduct);
-
-                if ($document->increaseAmount()) {
-                    $this->processIncreaseSupportsRangeIndexReferenceSetNeedProcessing($needProcessedTrialProduct, $dm);
-                }
             }
         }
 
         $trialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
-
-        if ($document->increaseAmount()) {
-            $this->processIncreaseSupportsRangeIndexReferenceSetNeedProcessing($trialBalance, $dm);
-        }
     }
 
     /**

@@ -2,15 +2,17 @@
 
 namespace Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods;
 
+use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
-use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -31,6 +33,11 @@ class CostOfGoodsCalculator
     protected $numericFactory;
 
     /**
+     * @var StoreProductRepository
+     */
+    protected $storeProductRepository;
+
+    /**
      * @var array
      */
     protected $supportRangeIndex = array(
@@ -46,16 +53,20 @@ class CostOfGoodsCalculator
      * @DI\InjectParams({
      *      "trialBalanceRepository" = @DI\Inject("lighthouse.core.document.repository.trial_balance"),
      *      "numericFactory" = @DI\Inject("lighthouse.core.types.numeric.factory"),
+     *      "storeProductRepository" = @DI\Inject("lighthouse.core.document.repository.store_product"),
      * })
      * @param TrialBalanceRepository $trialBalanceRepository
      * @param NumericFactory $numericFactory
+     * @param StoreProductRepository $storeProductRepository
      */
     public function __construct(
         TrialBalanceRepository $trialBalanceRepository,
-        NumericFactory $numericFactory
+        NumericFactory $numericFactory,
+        StoreProductRepository $storeProductRepository
     ) {
         $this->trialBalanceRepository = $trialBalanceRepository;
         $this->numericFactory = $numericFactory;
+        $this->storeProductRepository = $storeProductRepository;
     }
 
     /**
@@ -86,6 +97,7 @@ class CostOfGoodsCalculator
             $endIndex
         );
         $index = $startIndex;
+        $currentEndIndex = null;
         $totalCostOfGoods = $this->numericFactory->createMoney(0);
         foreach ($invoiceProductTrials as $invoiceProductTrial) {
             if ($endIndex->toNumber() > $invoiceProductTrial->endIndex->toNumber()) {
@@ -98,6 +110,16 @@ class CostOfGoodsCalculator
             $totalCostOfGoods = $totalCostOfGoods->add($costOfGoods);
             $index = $index->add($indexQuantity);
         }
+
+        if ($index->toNumber() < $endIndex->toNumber()) {
+            /** @var StoreProduct $storeProduct */
+            $storeProduct = $this->storeProductRepository->find($storeProductId);
+            $purchasePrice = $storeProduct->lastPurchasePrice?:$storeProduct->product->purchasePrice;
+            $indexQuantity = $endIndex->sub($index);
+            $costOfGoods = $purchasePrice->mul($indexQuantity);
+            $totalCostOfGoods = $totalCostOfGoods->add($costOfGoods);
+        }
+
         return $totalCostOfGoods;
     }
 
@@ -214,18 +236,28 @@ class CostOfGoodsCalculator
                 ->trialBalanceRepository
                 ->findByStartTrialBalanceDateStoreProductReasonType($trialBalance);
             $count = 0;
-            $previousQuantity = null;
             $dm = $this->trialBalanceRepository->getDocumentManager();
-            foreach ($allNeedRecalculateTrialBalance as $nextTrialBalance) {
-                if (null == $previousQuantity) {
-                    $previousTrialBalance = $this->trialBalanceRepository->findOnePreviousDate($trialBalance);
-                    if (null != $previousTrialBalance) {
-                        $previousQuantity = $previousTrialBalance->endIndex;
-                    } else {
-                        $previousQuantity = $this->numericFactory->createQuantity(0);
-                    }
-                }
 
+            $previousTrialBalance = $this->trialBalanceRepository->findOnePreviousDate($trialBalance);
+            if (null != $previousTrialBalance) {
+                $previousQuantity = $previousTrialBalance->endIndex;
+            } else {
+                $previousQuantity = $this->numericFactory->createQuantity(0);
+            }
+
+            if ($trialBalance->reason->increaseAmount()) {
+                $referenceTrialBalance = $this->trialBalanceRepository->findOneByPreviousEndIndex(
+                    $this->getSupportCostOfGoods(),
+                    $trialBalance->storeProduct->id,
+                    $previousQuantity
+                );
+                if (null != $referenceTrialBalance) {
+                    $referenceTrialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
+                    $dm->persist($referenceTrialBalance);
+                }
+            }
+
+            foreach ($allNeedRecalculateTrialBalance as $nextTrialBalance) {
                 /** @var TrialBalance $nextTrialBalance */
                 $nextTrialBalance->startIndex = $previousQuantity;
                 $nextTrialBalance->endIndex = $nextTrialBalance->startIndex->add($nextTrialBalance->quantity);
