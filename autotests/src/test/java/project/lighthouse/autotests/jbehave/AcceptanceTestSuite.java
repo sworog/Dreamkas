@@ -10,6 +10,7 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
     private static final String DEMO_MODE = "lighthouse.demo";
     private static final String TIMEOUT = "lighthouse.timeouts.implicitlywait";
     private static final String PRE_LOADER_TIMEOUT = "lighthouse.timeouts.preloaderwait";
+    private static final String VALIDATION_ERROR_TIMEOUT = "lighthouse.timeouts.validationerrorwait";
 
     public AcceptanceTestSuite() {
         setWaitTimeOuts();
@@ -24,6 +25,8 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
                 .getPropertyAsInteger(TIMEOUT, StaticData.DEFAULT_TIMEOUT);
         StaticData.DEFAULT_PRE_LOADER_TIMEOUT = getEnvironmentVariables()
                 .getPropertyAsInteger(PRE_LOADER_TIMEOUT, StaticData.DEFAULT_PRE_LOADER_TIMEOUT);
+        StaticData.DEFAULT_VALIDATION_ERROR_TIMEOUT = getEnvironmentVariables()
+                .getPropertyAsInteger(VALIDATION_ERROR_TIMEOUT, StaticData.DEFAULT_VALIDATION_ERROR_TIMEOUT);
     }
 
     private void setWebDriverBaseUrl() {

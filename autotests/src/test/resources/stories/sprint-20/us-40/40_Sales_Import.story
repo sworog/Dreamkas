@@ -9,6 +9,21 @@ So that I can achieve a business goal
 
 Scenario: Import products purchases (xml)
 
+Meta:
+@id s20u40s1
+@smoke
+
+Given the user opens the settings page
+And the user logs in as 'watchman'
+When the user input values on the setting page
+| elementName | value |
+| set10-import-url | smb://faro.lighthouse.cs/centrum/reports |
+| set10-import-login | erp |
+| set10-import-interval | 60 |
+| set10-import-password | erp |
+And the user clicks import save button on the setting page
+Then the user sees success message 'Настройки успешно сохранены'
+When the user logs out
 Given there is the subCategory with name 'ProductsExportSubCategory' related to group named 'ProductsExportGroup' and category named 'ProductsExportCategory'
 And the user sets subCategory 'ProductsExportSubCategory' mark up with max '30' and min '0' values
 And there is the product with 'Конф.жев.Фруттелла 4 вкуса 42.5г' name, '87108521 ' sku, '87108521 ' barcode, 'unit' units, '20,80' purchasePrice of group named 'ProductsExportGroup', category named 'ProductsExportCategory', subcategory named 'ProductsExportSubCategory'
@@ -38,7 +53,8 @@ And the user checks the 'retailPrice' value is '25,50'
 Given the user opens amount list page
 Then the user checks the product with '87108521' sku has 'amounts amount' element equal to '0' on amounts page
 When the user logs out
-Given the user prepares import purchase data for us 40 story
+Given the robot prepares import purchase data
+And the robot waits the import folder become empty
 And the user opens amount list page
 When the user logs in using 'ProductsExportStoreManager' userName and 'lighthouse' password
 Then the user checks the product with '87108521' sku has 'amounts amount' element equal to '-12' on amounts page
@@ -46,7 +62,6 @@ When the user logs out
 Given the user opens amount list page
 When the user logs in using 'ProductsExportStoreManager2' userName and 'lighthouse' password
 Then the user checks the product with '87108521' sku has 'amounts amount' element equal to '-6' on amounts page
-When the user logs out
 
 Scenario: Import no such product data (xml)
 

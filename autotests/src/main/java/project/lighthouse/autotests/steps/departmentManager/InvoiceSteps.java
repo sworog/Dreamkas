@@ -183,10 +183,6 @@ public class InvoiceSteps extends ScenarioSteps {
         invoiceBrowsing.childrenItemNavigateAndClickByFindByLocator(elementName);
     }
 
-    public void tryTochildrenItemNavigateAndClickByFindByLocator(String elementName) {
-        invoiceBrowsing.tryTochildrenItemNavigateAndClickByFindByLocator(elementName);
-    }
-
     @Step
     public void checkItemIsNotPresent(String elementName) {
         invoiceBrowsing.checkItemIsNotPresent(elementName);

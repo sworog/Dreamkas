@@ -161,6 +161,11 @@ public class HttpExecutor {
             request.setHeader("Authorization", "Bearer " + new AccessToken(userName, password).get());
         }
         HttpResponse response = new HttpClientFacade().build().execute(request);
+
+        // TODO
+        // response.getStatusLine().getStatusCode() != 204
+        // if status code == 204, entity will be null - > Exception
+
         HttpEntity httpEntity = response.getEntity();
         String responseMessage = EntityUtils.toString(httpEntity, "UTF-8");
         validateResponseMessage(targetUrl, response, responseMessage);
