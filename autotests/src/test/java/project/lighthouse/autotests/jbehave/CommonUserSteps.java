@@ -67,6 +67,7 @@ public class CommonUserSteps {
     }
 
     @When("the user refreshes the current page")
+    @Given("the user refreshes the current page")
     public void whenTheUserRefreshesTheCurrentPage() {
         commonSteps.pageRefresh();
     }
