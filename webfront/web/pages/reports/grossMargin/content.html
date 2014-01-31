@@ -1,26 +1,28 @@
 <% var templates = {
-    table_grossSalesByStores: require('tpl!blocks/table/table_grossSalesByStores/table_grossSalesByStores.html'),
     localNavigation_reports: require('tpl!blocks/localNavigation/localNavigation_reports.html')
 } %>
 
 <%= templates.localNavigation_reports({
-    models: _.pick(models, 'store'),
-    active: 'grossSalesByStores'
+    active: 'grossMargin'
 }) %>
 
 <div class="page__data">
-    <% if (collections.grossSalesByStores) { %>
+    <h2>Валовая прибыль сети</h2>
 
-    <h2>Продажи по магазинам</h2>
-
-    <% if (collections.grossSalesByStores.length) { %>
-    <table id="table_grossSalesByStores" style="margin-bottom: 40px;" class="table table_grossSalesByStores">
-        <%= templates.table_grossSalesByStores({
-            collections: _.pick(collections, 'grossSalesByStores')
-        }) %>
+    <% if (collections.grossMargin.length) { %>
+    <table class="table table_grossMargin">
+        <% collections.grossMargin.forEach(function(grossMarginModel){ %>
+        <tr name="grossMarginRow">
+            <td name="grossMarginDate">
+                <%- moment(grossMarginModel.get('date')).format('DD.MM') %>
+            </td>
+            <td name="grossMarginSum">
+                <%- LH.formatMoney(grossMarginModel.get('sum')) %> р.
+            </td>
+        </tr>
+        <% }) %>
     </table>
     <% } else { %>
     <p>Нет данных</p>
-    <% } %>
     <% } %>
 </div>

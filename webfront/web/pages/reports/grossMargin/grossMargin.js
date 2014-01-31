@@ -1,10 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Page = require('kit/core/page'),
-        GrossSalesByStoresCollection = require('collections/grossSalesByStores'),
-        currentUserModel = require('models/currentUser'),
-
-        Table_grossSalesByStores = require('blocks/table/table_grossSalesByStores/table_grossSalesByStores');
+        GrossMarginCollection = require('collections/grossMargin');
 
     require('jquery');
 
@@ -14,20 +11,10 @@ define(function(require, exports, module) {
             '#content': require('tpl!./content.html')
         },
         permissions: function() {
-            return !LH.isReportsAllow('grossSalesByStores');
+            return !LH.isReportsAllow('grossMargin');
         },
         collections: {
-            grossSalesByStores: new GrossSalesByStoresCollection()
-        },
-        blocks: {
-            table_grossSalesByStores: function() {
-                var page = this;
-
-                return new Table_grossSalesByStores({
-                    el: document.getElementById('table_grossSalesByStores'),
-                    collections: _.pick(page.collections, 'grossSalesByStores')
-                });
-            }
+            grossMargin: new GrossMarginCollection()
         },
         initialize: function() {
             var page = this;
@@ -36,13 +23,10 @@ define(function(require, exports, module) {
                 result[collectionName] = typeof collection === 'function' ? collection.call(page) : collection
             });
 
-            $.when(page.collections.grossSalesByStores.fetch()).done(function() {
+            $.when(page.collections.grossMargin.fetch()).done(function() {
 
                 page.render();
 
-                page.blocks = {
-                    table_grossSalesByStores: page.blocks.table_grossSalesByStores.call(page)
-                }
             });
         }
     });
