@@ -18,7 +18,7 @@
 
     <% if (LH.isReportsAllow(['storeGrossSalesByHours'])) { %>
 
-    <a class="localNavigation__link <%- active === 'grossSalesByHours' ? 'localNavigation__link_active' : '' %>" href="stores/<%- models.store.id %>/reports/grossSalesByHours">
+    <a class="localNavigation__link <%- active === 'grossSalesByHours' ? 'localNavigation__link_active' : '' %>" href="/stores/<%- models.store.id %>/reports/grossSalesByHours">
         Продажи по часам
     </a>
 
@@ -26,15 +26,35 @@
 
     <% if (LH.isReportsAllow(['grossSalesByGroups'])) { %>
 
-    <a class="localNavigation__link <%- active === 'grossSalesByGroups' ? 'localNavigation__link_active' : '' %>" href="stores/<%- models.store.id %>/reports/grossSalesByGroups">
+    <a class="localNavigation__link <%- active === 'grossSalesByGroups' ? 'localNavigation__link_active' : '' %>" href="/stores/<%- models.store.id %>/reports/grossSalesByGroups">
         Продажи по группам
     </a>
 
     <% } %>
 
-    <a class="localNavigation__link <%- active === 'grossMargin' ? 'localNavigation__link_active' : '' %>" href="stores/<%- models.store.id %>/reports/grossMargin">
+    <% if (LH.isReportsAllow(['storeGrossMargin'])) { %>
+
+    <a class="localNavigation__link <%- active === 'storeGrossMargin' ? 'localNavigation__link_active' : '' %>" href="/stores/<%- models.store.id %>/reports/grossMargin">
         Валовая прибыль
     </a>
+
+    <% } %>
+
+    <% if (LH.isReportsAllow(['grossSalesByStores'])) { %>
+
+    <a class="localNavigation__link <%- active === 'grossSalesByStores' ? 'localNavigation__link_active' : '' %>" href="/reports/grossSalesByStores">
+        Продажи по магазинам
+    </a>
+
+    <% } %>
+
+    <% if (LH.isReportsAllow(['grossMargin'])) { %>
+
+    <a class="localNavigation__link <%- active === 'grossMargin' ? 'localNavigation__link_active' : '' %>" href="/reports/grossMargin">
+        Валовая прибыль
+    </a>
+
+    <% } %>
 
 </div>
 <% } %>

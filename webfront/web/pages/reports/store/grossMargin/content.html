@@ -5,22 +5,22 @@
 } %>
 <%= templates.localNavigation_reports({
     models: _.pick(models, 'store'),
-    active: 'grossMargin'
+    active: 'storeGrossMargin'
 }) %>
 
 <div class="page__data">
 
     <h2>Валовая прибыль. Магазин №<%- models.store.get('number') %></h2>
 
-    <% if (collections.grossMargin.length) { %>
+    <% if (collections.storeGrossMargin.length) { %>
     <table class="table table_grossMargin">
-        <% collections.grossMargin.forEach(function(grossMarginModel){ %>
+        <% collections.storeGrossMargin.forEach(function(storeGrossMarginModel){ %>
         <tr name="grossMarginRow">
             <td name="grossMarginDate">
-                <%- moment(grossMarginModel.get('date')).format('DD.MM') %>
+                <%- moment(storeGrossMarginModel.get('date')).format('DD.MM') %>
             </td>
             <td name="grossMarginSum">
-                <%- LH.formatMoney(grossMarginModel.get('sum')) %> р.
+                <%- LH.formatMoney(storeGrossMarginModel.get('sum')) %> р.
             </td>
         </tr>
         <% }) %>

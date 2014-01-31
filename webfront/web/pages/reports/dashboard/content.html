@@ -8,18 +8,4 @@
 }) %>
 
 <div class="page__data">
-    <% if (collections.grossSalesByStores) { %>
-
-    <h2>Продажи по магазинам</h2>
-
-    <% if (collections.grossSalesByStores.length) { %>
-    <table id="table_grossSalesByStores" style="margin-bottom: 40px;" class="table table_grossSalesByStores">
-        <%= templates.table_grossSalesByStores({
-            collections: _.pick(collections, 'grossSalesByStores')
-        }) %>
-    </table>
-    <% } else { %>
-    <p>Нет данных</p>
-    <% } %>
-    <% } %>
 </div>

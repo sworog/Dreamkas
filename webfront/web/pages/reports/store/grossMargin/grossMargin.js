@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Page = require('kit/core/page'),
         currentUserModel = require('models/currentUser'),
-        GrossMarginCollection = require('collections/grossMargin');
+        StoreGrossMarginCollection = require('collections/storeGrossMargin');
 
     require('jquery');
 
@@ -14,20 +14,20 @@ define(function(require, exports, module) {
             '#content': require('tpl!./content.html')
         },
         permissions: function(){
-            return !LH.isReportsAllow(['grossSalesByCategories']);
+            return !LH.isReportsAllow(['storeGrossMargin']);
         },
         models: {
             store: currentUserModel.stores.length ? currentUserModel.stores.at(0) : null
         },
         collections: {
-            grossMargin: function() {
+            storeGrossMargin: function() {
                 var page = this;
 
-                var grossMargin = new GrossMarginCollection();
+                var storeGrossMargin = new StoreGrossMarginCollection();
 
-                grossMargin.storeId = page.storeId;
+                storeGrossMargin.storeId = page.storeId;
 
-                return grossMargin;
+                return storeGrossMargin;
             }
         },
         initialize: function() {
@@ -37,7 +37,7 @@ define(function(require, exports, module) {
                 result[collectionName] = typeof collection === 'function' ? collection.call(page) : collection
             });
 
-            $.when(page.collections.grossMargin.fetch()).done(function() {
+            $.when(page.collections.storeGrossMargin.fetch()).done(function() {
                 page.render();
             });
         }

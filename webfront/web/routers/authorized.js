@@ -15,6 +15,8 @@ define(function(require) {
 
             //reports
             'reports(/)': require('pages/reports/dashboard/dashboard'),
+            'reports/grossMargin': require('pages/reports/grossMargin/grossMargin'),
+            'reports/grossSalesByStores': require('pages/reports/grossSalesByStores/grossSalesByStores'),
             'stores/:storeId/reports/grossSalesByHours': require('pages/reports/store/grossSalesByHours/grossSalesByHours'),
             'stores/:storeId/reports/grossSalesByGroups(/)': require('pages/reports/store/grossSalesByGroups/grossSalesByGroups'),
             'stores/:storeId/groups/:groupId/grossSalesByCategories(/)': require('pages/reports/store/grossSalesByCategories/grossSalesByCategories'),
