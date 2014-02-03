@@ -12,6 +12,7 @@ use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
+use Lighthouse\CoreBundle\Exception\ValidationFailedException;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Lighthouse\CoreBundle\Versionable\VersionFactory;
@@ -20,6 +21,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use SplFileObject;
 use DateTime;
+use Symfony\Component\Security\Acl\Exception\Exception;
 
 /**
  * @DI\Service("lighthouse.core.integration.onec.import.invoices.importer")
@@ -60,6 +62,11 @@ class InvoicesImporter
      * @var NumericFactory
      */
     protected $numericFactory;
+
+    /**
+     * @var Store[]
+     */
+    protected $stores = array();
 
     /**
      * @DI\InjectParams({
@@ -109,34 +116,65 @@ class InvoicesImporter
 
         $i = 0;
         $currentInvoice = null;
+        /* @var \Exception[] $errors */
+        $errors = array();
         foreach ($file as $row) {
-            $invoice = $this->createInvoice($row);
-            if ($invoice) {
-                $dotHelper->writeQuestion('I');
-                if ($currentInvoice) {
-                    $this->documentManager->persist($currentInvoice);
+            try {
+                $invoice = $this->createInvoice($row);
+                if ($invoice) {
+                    $dotHelper->writeQuestion('I');
+                    if ($currentInvoice) {
+                        $this->documentManager->persist($currentInvoice);
+                    }
+                    $currentInvoice = $invoice;
+                    $this->validator->validate($currentInvoice);
+                    if (++$i % $batchSize == 0) {
+                        $dotHelper->writeInfo('F');
+                        $this->documentManager->flush();
+                    }
                 }
-                $currentInvoice = $invoice;
-                $this->validator->validate($currentInvoice);
-                if (++$i % $batchSize) {
-                    $this->documentManager->flush();
-                    $dotHelper->writeInfo('F');
-                }
+            } catch (\Exception $e) {
+                $dotHelper->writeError('E');
+                $errors[] = $e;
+                $currentInvoice = null;
             }
             if ($currentInvoice) {
-                $invoiceProduct = $this->createInvoiceProduct($row, $currentInvoice);
-                if ($invoiceProduct) {
-                    $this->validator->validate($invoiceProduct);
-                    $currentInvoice->products->add($invoiceProduct);
-                    $dotHelper->write();
+                try {
+                    $invoiceProduct = $this->createInvoiceProduct($row, $currentInvoice);
+                    if ($invoiceProduct) {
+                        $this->validator->validate($invoiceProduct);
+                        $currentInvoice->products->add($invoiceProduct);
+                        $dotHelper->write();
+                    }
+                } catch (\Exception $e) {
+                    $dotHelper->writeError('E');
+                    $errors[] = $e;
+                    $currentInvoice = null;
                 }
             }
         }
         if ($currentInvoice) {
             $this->documentManager->persist($currentInvoice);
         }
-        $this->documentManager->flush();
         $dotHelper->writeInfo('F');
+        $this->documentManager->flush();
+        $output->writeln('');
+
+        $this->outputErrors($errors, $output);
+    }
+
+    /**
+     * @param array $errors
+     * @param OutputInterface $output
+     */
+    protected function outputErrors(array $errors, OutputInterface $output)
+    {
+        if (count($errors) > 0) {
+            $output->writeln('<error>Errors</error>');
+            foreach ($errors as $error) {
+                $output->writeln(sprintf('<error>[%s] %s</error>', get_class($error), $error->getMessage()));
+            }
+        }
     }
 
     /**
@@ -152,6 +190,7 @@ class InvoicesImporter
             $date = DateTime::createFromFormat('d.m.Y H:i:s', trim($row[6]));
             $storeName = trim($row[5]);
             $supplier = trim($row[8]);
+            $supplier = ($supplier) ?: 'Не указан';
 
             $invoice = new Invoice();
             $invoice->acceptanceDate = $date;
@@ -171,11 +210,16 @@ class InvoicesImporter
      */
     protected function getStore($address)
     {
-        $store = $this->storeRepository->findOneByAddress($address);
-        if (!$store) {
-            throw new RuntimeException(sprintf('Store with address %s not found', $address));
+        if (!isset($this->stores[$address])) {
+            $store = $this->storeRepository->findOneByAddress($address);
+            if (!$store) {
+                throw new RuntimeException(sprintf('Store with address %s not found', $address));
+            }
+            $storeReference = $this->storeRepository->getReference($store->id);
+            $this->stores[$address] = $storeReference;
         }
-        return $store;
+
+        return $this->stores[$address];
     }
 
     /**
@@ -187,13 +231,14 @@ class InvoicesImporter
     {
         $invoiceProduct = null;
         if (isset($row[0], $row[2], $row[3])
-            && is_numeric($row[2])
-            && is_numeric($row[3])
+            && '' != $row[0]
+            && '' != $row[2]
+            && '' != $row[3]
         ) {
             $sku = $this->getProductSku($row[0]);
             $productVersion = $this->getProductVersion($sku);
-            $quantity = trim($row[2]);
-            $price = trim($row[3]);
+            $quantity = $this->normalizeQuantity($row[2]);
+            $price = $this->normalizeQuantity($row[3]);
 
             $invoiceProduct = new InvoiceProduct();
             $invoiceProduct->invoice = $invoice;
@@ -202,6 +247,15 @@ class InvoicesImporter
             $invoiceProduct->priceEntered = $this->numericFactory->createMoney($price);
         }
         return $invoiceProduct;
+    }
+
+    /**
+     * @param string $value
+     * @return string
+     */
+    protected function normalizeQuantity($value)
+    {
+        return strtr(trim($value), array(',' => ''));
     }
 
     /**
