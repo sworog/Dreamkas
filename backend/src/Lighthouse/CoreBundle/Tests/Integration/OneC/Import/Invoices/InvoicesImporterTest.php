@@ -153,7 +153,6 @@ class InvoicesImporterTest extends WebTestCase
     }
 
     /**
-     * @expectedException RuntimeException
      * @expectedExceptionMessage Store with address
      */
     public function testImportStoreNotFound()
@@ -164,16 +163,39 @@ class InvoicesImporterTest extends WebTestCase
         $importer = $this->getContainer()->get('lighthouse.core.integration.onec.import.invoices.importer');
         $output = new TestOutput();
         $importer->import($filePath, 5, $output);
+
+        $display = $output->getDisplay();
+        $this->assertContains(
+            "[Lighthouse\\CoreBundle\\Exception\\RuntimeException] Store with address 'Магазин Галерея' not found",
+            $display
+        );
+        $this->assertContains(
+            "[Lighthouse\\CoreBundle\\Exception\\RuntimeException] Store with address 'СитиМолл' not found",
+            $display
+        );
+        $this->assertContains(
+            "[Lighthouse\\CoreBundle\\Exception\\RuntimeException] Store with address 'ТК Невский 104' not found",
+            $display
+        );
+        $this->assertContains(
+            "[Lighthouse\\CoreBundle\\Exception\\RuntimeException] Store with address 'ТК НОРД 1-44' not found",
+            $display
+        );
+        $this->assertContains(
+            "[Lighthouse\\CoreBundle\\Exception\\RuntimeException] Store with address 'ТК Пик' not found",
+            $display
+        );
     }
 
-
-    /**
-     * @expectedException RuntimeException
-     * @expectedExceptionMessage Product with sku
-     */
     public function testImportProductNotFound()
     {
         $this->factory->createStore(1, 'Магазин Галерея');
+
+        $this->createProductsBySku(
+            array(
+                'ЦБ000003386',
+            )
+        );
 
         $filePath = $this->getFixtureFilePath('Integration/OneC/Import/Invoices/amn.csv');
 
@@ -181,5 +203,25 @@ class InvoicesImporterTest extends WebTestCase
         $importer = $this->getContainer()->get('lighthouse.core.integration.onec.import.invoices.importer');
         $output = new TestOutput();
         $importer->import($filePath, 5, $output);
+
+        $display = $output->getDisplay();
+
+        $this->assertContains(
+            "[Lighthouse\\CoreBundle\\Exception\\RuntimeException] Product with sku 'ЦБ000003395' not found",
+            $display
+        );
+        $this->assertContains(
+            "[Lighthouse\\CoreBundle\\Exception\\RuntimeException] Product with sku 'ЦБ000003382' not found",
+            $display
+        );
+        $this->assertContains(
+            "[Lighthouse\\CoreBundle\\Exception\\RuntimeException] Product with sku 'ЦБ000003328' not found",
+            $display
+        );
+
+        $this->assertNotContains(
+            "[Lighthouse\\CoreBundle\\Exception\\RuntimeException] Product with sku 'ЦБ000003386' not found",
+            $display
+        );
     }
 }

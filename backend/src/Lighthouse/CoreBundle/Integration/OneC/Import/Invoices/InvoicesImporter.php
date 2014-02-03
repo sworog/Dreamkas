@@ -213,7 +213,7 @@ class InvoicesImporter
         if (!isset($this->stores[$address])) {
             $store = $this->storeRepository->findOneByAddress($address);
             if (!$store) {
-                throw new RuntimeException(sprintf('Store with address %s not found', $address));
+                throw new RuntimeException(sprintf("Store with address '%s' not found", $address));
             }
             $storeReference = $this->storeRepository->getReference($store->id);
             $this->stores[$address] = $storeReference;
@@ -283,7 +283,7 @@ class InvoicesImporter
         if ($product) {
             return $this->versionFactory->createDocumentVersion($product);
         } else {
-            throw new RuntimeException(sprintf('Product with sku %s not found', $sku));
+            throw new RuntimeException(sprintf("Product with sku '%s' not found", $sku));
         }
     }
 }
