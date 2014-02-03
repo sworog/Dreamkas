@@ -52,4 +52,3 @@ class OneCInvoicesImport extends Command
         $this->importer->import($filePath, $batchSize, $output);
     }
 }
- 
