@@ -151,4 +151,35 @@ class InvoicesImporterTest extends WebTestCase
             $this->assertEquals($count, $invoiceProducts->count());
         }
     }
+
+    /**
+     * @expectedException RuntimeException
+     * @expectedExceptionMessage Store with address
+     */
+    public function testImportStoreNotFound()
+    {
+        $filePath = $this->getFixtureFilePath('Integration/OneC/Import/Invoices/amn.csv');
+
+        /* @var InvoicesImporter $importer */
+        $importer = $this->getContainer()->get('lighthouse.core.integration.onec.import.invoices.importer');
+        $output = new TestOutput();
+        $importer->import($filePath, 5, $output);
+    }
+
+
+    /**
+     * @expectedException RuntimeException
+     * @expectedExceptionMessage Product with sku
+     */
+    public function testImportProductNotFound()
+    {
+        $this->factory->createStore(1, 'Магазин Галерея');
+
+        $filePath = $this->getFixtureFilePath('Integration/OneC/Import/Invoices/amn.csv');
+
+        /* @var InvoicesImporter $importer */
+        $importer = $this->getContainer()->get('lighthouse.core.integration.onec.import.invoices.importer');
+        $output = new TestOutput();
+        $importer->import($filePath, 5, $output);
+    }
 }
