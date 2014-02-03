@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return Collection.extend({
         model: require('kit/core/model'),
         url: function(){
-            return LH.mockApiUrl + '/reports/grossMargin';
+            return LH.baseApiUrl + '/reports/grossMargin';
         }
     });
 });
