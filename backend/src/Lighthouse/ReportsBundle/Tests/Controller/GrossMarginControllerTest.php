@@ -4,6 +4,7 @@ namespace Lighthouse\ReportsBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsManager;
+use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
@@ -469,6 +470,83 @@ class GrossMarginControllerTest extends WebTestCase
             array(
                 'date' => '2014-01-02T00:00:00+0400',
                 'sum' => 387,
+            ),
+        );
+
+        $this->assertEquals($expectedResponse, $actualResponse);
+    }
+
+    public function testGetDayGrossMarginReport()
+    {
+        $store = $this->factory->getStore("1");
+        $store2 = $this->factory->getStore("2");
+        $product = $this->createProduct("1");
+        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+
+        $invoice1 = $this->createInvoice(array('sku' => '1', 'acceptanceDate' => '2014-01-01 12:56'), $store);
+        $this->createInvoiceProduct($invoice1, $product, 5, 100, $store);
+        $invoice2 = $this->createInvoice(array('sku' => '2', 'acceptanceDate' => '2014-01-02 12:56'), $store);
+        $this->createInvoiceProduct($invoice2, $product, 5, 150, $store);
+        $invoice3 = $this->createInvoice(array('sku' => '3', 'acceptanceDate' => '2014-01-03 12:56'), $store);
+        $this->createInvoiceProduct($invoice3, $product, 10, 200, $store);
+
+        $invoice4 = $this->createInvoice(array('sku' => '4', 'acceptanceDate' => '2014-01-01 12:00'), $store2);
+        $this->createInvoiceProduct($invoice4, $product, 5, 100, $store2);
+        $invoice5 = $this->createInvoice(array('sku' => '5', 'acceptanceDate' => '2014-01-02 12:00'), $store2);
+        $this->createInvoiceProduct($invoice5, $product, 5, 150, $store2);
+        $invoice6 = $this->createInvoice(array('sku' => '6', 'acceptanceDate' => '2014-01-03 12:00'), $store2);
+        $this->createInvoiceProduct($invoice6, $product, 10, 200, $store2);
+
+
+        $sale1 = $this->factory->createSale($store, "2014-01-08 12:23:12", 1750);
+        $this->factory->createSaleProduct(250, 7, $product, $sale1);  // CoG: 800
+
+        $sale2 = $this->factory->createSale($store, "2014-01-08 16:23:12", 500);
+        $this->factory->createSaleProduct(250, 2, $product, $sale2);  // CoG: 300
+
+        $sale3 = $this->factory->createSale($store, "2014-01-10 12:23:12", 1500);
+        $this->factory->createSaleProduct(250, 6, $product, $sale3);  // CoG: 1150
+
+        $sale4 = $this->factory->createSale($store2, "2014-01-08 12:30:12", 2100);
+        $this->factory->createSaleProduct(300, 7, $product, $sale4);  // CoG: 800
+
+        $sale5 = $this->factory->createSale($store2, "2014-01-08 16:30:12", 600);
+        $this->factory->createSaleProduct(300, 2, $product, $sale5);  // CoG: 300
+
+        $sale6 = $this->factory->createSale($store2, "2014-01-10 12:30:12", 1800);
+        $this->factory->createSaleProduct(300, 6, $product, $sale6);  // CoG: 1150
+        $this->factory->flush();
+
+
+        $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
+        $this->getGrossMarginManager()->recalculateDayGrossMargin();
+
+
+        $actualResponse = $this->clientJsonRequest(
+            $accessToken,
+            "GET",
+            "/api/1/reports/grossMargin",
+            null,
+            array('time' => date('c', strtotime("2014-01-12 10:35:47")))
+        );
+
+        $expectedResponse = array(
+            array(
+                'date' => '2014-01-11T00:00:00+0400',
+                'sum' => 0,
+            ),
+            array(
+                'date' => '2014-01-10T00:00:00+0400',
+                'sum' => 1000,
+            ),
+            array(
+                'date' => '2014-01-09T00:00:00+0400',
+                'sum' => 0,
+            ),
+            array(
+                'date' => '2014-01-08T00:00:00+0400',
+                'sum' => 2750,
             ),
         );
 

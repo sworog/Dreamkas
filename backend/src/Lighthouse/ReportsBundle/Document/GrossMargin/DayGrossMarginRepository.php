@@ -2,6 +2,7 @@
 
 namespace Lighthouse\ReportsBundle\Document\GrossMargin;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use DateTime;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
@@ -133,16 +134,31 @@ class DayGrossMarginRepository extends DocumentRepository
     }
 
     /**
-     * @param DateTimestamp $day
+     * @param DateTime $day
      * @param Money $sum
      * @return DayGrossMargin
      */
-    protected function createByDay(DateTimestamp $day, Money $sum)
+    public function createByDay(DateTime $day, Money $sum = null)
     {
         $dayGrossMargin = new DayGrossMargin();
         $dayGrossMargin->date = $day;
-        $dayGrossMargin->sum = $sum;
+        $dayGrossMargin->sum = ($sum) ? $sum : $this->numericFactory->createMoney(0);
 
         return $dayGrossMargin;
+    }
+
+    /**
+     * @param DateTime $date
+     * @return Cursor|DayGrossMargin[]
+     */
+    public function findByDate(DateTime $date)
+    {
+        $criteria = array(
+            'date.date' => array('$lt' => $date),
+        );
+        $sort = array(
+            'date.date' => self::SORT_DESC
+        );
+        return $this->findBy($criteria, $sort);
     }
 }

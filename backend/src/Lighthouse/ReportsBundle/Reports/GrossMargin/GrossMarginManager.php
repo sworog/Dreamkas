@@ -5,11 +5,12 @@ namespace Lighthouse\ReportsBundle\Reports\GrossMargin;
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
+use Lighthouse\ReportsBundle\Document\GrossMargin\DayGrossMarginRepository;
 use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMargin;
 use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMarginRepository;
 use JMS\DiExtraBundle\Annotation as DI;
 use DateTime;
-use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMarginCollection;
+use Lighthouse\ReportsBundle\Document\GrossMargin\Store\DayGrossMarginCollection;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -28,6 +29,11 @@ class GrossMarginManager
     protected $costOfGoodCalculator;
 
     /**
+     * @var DayGrossMarginRepository
+     */
+    protected $dayGrossMarginRepository;
+
+    /**
      * @DI\InjectParams({
      *     "storeDayGrossMarginRepository" = @DI\Inject(
      *          "lighthouse.reports.document.gross_margin.store.repository"
@@ -35,17 +41,23 @@ class GrossMarginManager
      *      "costOfGoodCalculator" = @DI\Inject(
      *          "lighthouse.core.document.trial_balance.calculator"
      *      ),
+     *      "dayGrossMarginRepository" = @DI\Inject(
+     *          "lighthouse.reports.document.gross_margin.repository"
+     *      ),
      * })
      *
      * @param StoreDayGrossMarginRepository $storeDayGrossMarginRepository
      * @param CostOfGoodsCalculator $costOfGoodCalculator
+     * @param DayGrossMarginRepository $dayGrossMarginRepository
      */
     public function __construct(
         StoreDayGrossMarginRepository $storeDayGrossMarginRepository,
-        CostOfGoodsCalculator $costOfGoodCalculator
+        CostOfGoodsCalculator $costOfGoodCalculator,
+        DayGrossMarginRepository $dayGrossMarginRepository
     ) {
         $this->storeDayGrossMarginRepository = $storeDayGrossMarginRepository;
         $this->costOfGoodCalculator = $costOfGoodCalculator;
+        $this->dayGrossMarginRepository = $dayGrossMarginRepository;
     }
 
     /**
@@ -68,7 +80,7 @@ class GrossMarginManager
      */
     protected function fillStoreDayGrossMarginCollection(Cursor $cursor, DateTime $date)
     {
-        $collection = new StoreDayGrossMarginCollection();
+        $collection = new DayGrossMarginCollection();
         $previousDay = $date;
         foreach ($cursor as $storeDayGrossMargin) {
             $missingDays = $this->getMissingStoreGrossMarginDays(
@@ -106,6 +118,59 @@ class GrossMarginManager
     }
 
     /**
+     * @param DateTime $date
+     * @return DayGrossMarginCollection
+     */
+    public function getGrossMarginReport(DateTime $date)
+    {
+        $date->setTime(0, 0, 0);
+        $cursor = $this->dayGrossMarginRepository->findByDate($date);
+        $collection = $this->fillDayGrossMarginCollection($cursor, $date);
+        return $collection;
+    }
+
+    /**
+     * @param Cursor|StoreDayGrossMargin[] $cursor
+     * @param DateTime $date
+     * @return DayGrossMarginCollection
+     */
+    protected function fillDayGrossMarginCollection(Cursor $cursor, DateTime $date)
+    {
+        $collection = new DayGrossMarginCollection();
+        $previousDay = $date;
+        foreach ($cursor as $storeDayGrossMargin) {
+            $missingDays = $this->getMissingGrossMarginDays(
+                $storeDayGrossMargin->date,
+                $previousDay
+            );
+            $collection->append($missingDays);
+            $collection->add($storeDayGrossMargin);
+            $previousDay = $storeDayGrossMargin->date;
+        }
+        return $collection;
+    }
+
+    /**
+     * @param DateTime $currentDay
+     * @param DateTime $previousDay
+     * @return StoreDayGrossMargin[]
+     */
+    protected function getMissingGrossMarginDays(
+        DateTime $currentDay,
+        DateTime $previousDay = null
+    ) {
+        $missingDays = array();
+        if ($previousDay) {
+            $day = clone $previousDay;
+            while ($day->modify('-1 day') > $currentDay) {
+                $missingDays[] = $this->dayGrossMarginRepository->createByDay($day);
+                $day = clone $day;
+            }
+        }
+        return $missingDays;
+    }
+
+    /**
      * @return int
      */
     public function recalculateStoreGrossMargin()
@@ -119,5 +184,10 @@ class GrossMarginManager
     public function calculateGrossMarginUnprocessedTrialBalance(OutputInterface $output = null)
     {
         $this->costOfGoodCalculator->calculateUnprocessed($output);
+    }
+
+    public function recalculateDayGrossMargin()
+    {
+        return $this->dayGrossMarginRepository->recalculate();
     }
 }
