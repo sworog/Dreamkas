@@ -228,4 +228,20 @@ class Assert
         }
         PHPUnit_Framework_Assert::assertLessThan($laterPosition, $beforePosition, $message);
     }
+
+    /**
+     * @param array|string[] $strings
+     * @param string $haystack
+     * @param string $message
+     */
+    public static function assertStringsOrder(array $strings, $haystack, $message = '')
+    {
+        $prevString = '';
+        foreach ($strings as $string) {
+            if ($prevString) {
+                static::assertStringOccursBefore($prevString, $string, $haystack, $message);
+            }
+            $prevString = $string;
+        }
+    }
 }

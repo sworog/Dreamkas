@@ -126,13 +126,6 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
         commonViewInterface.childrenItemNavigateAndClickByFindByLocator(elementName, By.xpath(deleteButtonXpath));
     }
 
-    public void tryTochildrenItemNavigateAndClickByFindByLocator(String elementName) {
-        try {
-            childrenItemNavigateAndClickByFindByLocator(elementName);
-        } catch (Exception ignored) {
-        }
-    }
-
     @Deprecated
     public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
         By findBy = items.get(parentElementName).getFindBy();

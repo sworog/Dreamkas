@@ -90,4 +90,5 @@ Given there is the invoice 'InvoiceProductdeletion-6' with product 'IE-IPD' name
 And the user is on the invoice list page
 And the user logs in as 'departmentManager'
 When the user open the invoice card with 'InvoiceProductdeletion-6' sku
-And the user try to delete the invoice product with 'IE-IPD' sku
+And the user deletes the invoice product with 'IE-IPD' sku
+Then the user checks the invoice product with 'IE-IPD' sku is present

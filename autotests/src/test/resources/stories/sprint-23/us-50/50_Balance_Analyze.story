@@ -22,9 +22,9 @@ When the user logs in using 'departmentManager-s23u50' userName and 'lighthouse'
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Балык свиной в/с в/об Матера | 2800465 | 2800465 | 39,0 | 0,17 | 234,0 | 312,80 р. | 298,64 р. |
-| Балык Ломберный с/к в/с ТД Рублевский | 2805223 | 2805223 | 32,0 | 0,37 | 87,3 | 678,40 р. | 682,59 р. |
-| Ассорти Читтерио мясное нар.140г | 80469353 | 80469353 | 33,0 | 1,13 | 29,1 | 449,60 р. | 459,81 р. |
+| Балык свиной в/с в/об Матера | 2800465 | 2800465 | 39,0 | 0,17 | 229,4 | 312,80 р. | 298,64 р. |
+| Балык Ломберный с/к в/с ТД Рублевский | 2805223 | 2805223 | 32,0 | 0,37 | 86,5 | 678,40 р. | 682,59 р. |
+| Ассорти Читтерио мясное нар.140г | 80469353 | 80469353 | 33,0 | 1,13 | 29,2 | 449,60 р. | 459,81 р. |
 
 Scenario: Inventory item productName is a link and its clickable
 

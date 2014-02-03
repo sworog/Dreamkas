@@ -26,7 +26,6 @@ define(function(require) {
                     change: function(){
                         var block = this;
 
-                        block.renderHead();
                         block.renderFooter();
                     }
                 },
@@ -131,20 +130,22 @@ define(function(require) {
                 'submit .invoice__head .invoice__dataInput': function(e) {
                     e.preventDefault();
                     var block = this,
+                        $form = $(e.target),
                         data = form2js(e.target, '.', false),
-                        $submitButton = $(e.target).find('[type="submit"]').closest('.button');
+                        $submitButton = $('[form*="' + $form.attr('id') + '"]').closest('.button').add($form.find('[type="submit"]').closest('.button'));
 
                     block.removeInlineErrors();
-                    $submitButton.addClass('preloader');
+                    $submitButton.addClass('preloader_rows');
 
                     block.invoiceModel.save(data, {
                         success: function() {
+                            block.renderHead();
                             block.set('dataEditing', false);
-                            $submitButton.removeClass('preloader');
+                            $submitButton.removeClass('preloader_rows');
                         },
                         error: function(data, res) {
                             block.showInlineErrors(JSON.parse(res.responseText));
-                            $submitButton.removeClass('preloader');
+                            $submitButton.removeClass('preloader_rows');
                         }
                     });
                 },

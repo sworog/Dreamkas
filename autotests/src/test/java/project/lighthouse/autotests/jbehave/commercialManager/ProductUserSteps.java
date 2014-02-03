@@ -47,6 +47,11 @@ public class ProductUserSteps {
         productSteps.fieldInput(elementName, value);
     }
 
+    @When("the user inputs '$value' in '$elementName' field by sendKeys method")
+    public void whenTheUserInputsTextInTheFieldBySendKeysMethods(String value, String elementName) {
+        productSteps.fieldInputBySendKeysMethod(elementName, value);
+    }
+
     @When("the user inputs <inputText> in <elementName> field")
     public void aliasTheUserInputsTextInTheField(String inputText, String elementName) {
         productSteps.fieldInput(elementName, inputText);

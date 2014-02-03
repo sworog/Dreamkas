@@ -11,6 +11,7 @@ import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectLocatable;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ResultComparable;
 import project.lighthouse.autotests.objects.web.compare.CompareResultHashMap;
+import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -56,22 +57,43 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
     public void compareWithExampleTable(ExamplesTable examplesTable) {
         CompareResultHashMap compareResultHashMap = new CompareResultHashMap();
 
-        for (Iterator<Map<String, String>> mapIterator = examplesTable.getRows().iterator(); mapIterator.hasNext(); ) {
-            Map<String, String> row = mapIterator.next();
+        Iterator<Map<String, String>> mapIterator = examplesTable.getRows().iterator();
 
-            for (Iterator<AbstractObject> abstractObjectIterator = this.iterator(); abstractObjectIterator.hasNext(); ) {
+        while (mapIterator.hasNext()) {
+            Map<String, String> row = mapIterator.next();
+            Iterator<AbstractObject> abstractObjectIterator = this.iterator();
+            List<CompareResults> compareResultList = new ArrayList<>();
+
+            while (abstractObjectIterator.hasNext()) {
                 ResultComparable resultComparable = (ResultComparable) abstractObjectIterator.next();
                 if (resultComparable.getCompareResults(row).isEmpty()) {
                     abstractObjectIterator.remove();
                     mapIterator.remove();
+                    compareResultList.clear();
                     break;
                 } else {
-                    compareResultHashMap.put(row, resultComparable.getCompareResults(row));
+                    compareResultList.add(resultComparable.getCompareResults(row));
                 }
+            }
+            if (!compareResultList.isEmpty()) {
+                compareResultHashMap.put(
+                        row,
+                        getCompareResultsCollectionWithMinimumSize(compareResultList)
+                );
             }
         }
 
         compareResultHashMap.failIfHasAnyErrors();
+    }
+
+    private CompareResults getCompareResultsCollectionWithMinimumSize(List<CompareResults> compareResultList) {
+        CompareResults compareResultsWithMinSize = null;
+        for (CompareResults compareResults : compareResultList) {
+            if (compareResultsWithMinSize == null || compareResultsWithMinSize.size() > compareResults.size()) {
+                compareResultsWithMinSize = compareResults;
+            }
+        }
+        return compareResultsWithMinSize;
     }
 
     public void clickByLocator(String locator) {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Classifier\SubCategory;
+namespace Lighthouse\CoreBundle\Document\Classifier;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
@@ -43,7 +43,7 @@ class NotEmptyListener
 
     /**
      * @param AbstractNode $node
-     * @throws \Lighthouse\CoreBundle\Exception\NotEmptyException
+     * @throws NotEmptyException
      */
     protected function checkNodeHasChildrenIsEmpty(AbstractNode $node)
     {
