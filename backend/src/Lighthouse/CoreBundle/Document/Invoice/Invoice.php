@@ -56,6 +56,7 @@ class Invoice extends AbstractDocument implements Storeable
      *     simple=true
      * )
      * @Assert\NotBlank
+     * @Serializer\MaxDepth(2)
      * @var Store
      */
     protected $store;
@@ -169,6 +170,7 @@ class Invoice extends AbstractDocument implements Storeable
      * )
      *
      * @Assert\Valid(traverse=true)
+     * @Serializer\MaxDepth(4)
      * @var InvoiceProduct[]
      */
     protected $products;

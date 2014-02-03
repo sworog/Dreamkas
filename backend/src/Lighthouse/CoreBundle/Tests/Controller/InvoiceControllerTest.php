@@ -59,6 +59,40 @@ class InvoiceControllerTest extends WebTestCase
     /**
      * @dataProvider postInvoiceDataProvider
      */
+    public function testGetInvoicesActionMaxDepth(array $invoiceData)
+    {
+        $storeId = $this->factory->getStore('1');
+        $products = $this->createProductsBySku(array('1', '2', '3'));
+
+        $invoiceId1 = $this->createInvoice(array('sku' => 1), $storeId);
+        $this->createInvoiceProduct($invoiceId1, $products['1'], 9, 9.99, $storeId);
+        $this->createInvoiceProduct($invoiceId1, $products['2'], 19, 19.99, $storeId);
+
+        $invoiceId2 = $this->createInvoice(array('sku' => 2), $storeId);
+        $this->createInvoiceProduct($invoiceId2, $products['1'], 119, 9.99, $storeId);
+        $this->createInvoiceProduct($invoiceId2, $products['2'], 129, 19.99, $storeId);
+        $this->createInvoiceProduct($invoiceId2, $products['3'], 139, 19.99, $storeId);
+
+        $accessToken = $this->auth($this->departmentManager);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/invoices'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(0, '0.store.departmentManagers.*', $getResponse);
+        Assert::assertJsonPathCount(0, '0.store.storeManagers.*', $getResponse);
+        Assert::assertJsonHasPath('0.products.0.product', $getResponse);
+        Assert::assertJsonHasPath('0.products.1.product', $getResponse);
+        Assert::assertNotJsonHasPath('0.products.0.product.subCategory', $getResponse);
+        Assert::assertNotJsonHasPath('0.products.1.product.subCategory', $getResponse);
+    }
+
+    /**
+     * @dataProvider postInvoiceDataProvider
+     */
     public function testGetInvoice(array $invoiceData, array $assertions)
     {
         $assertions['createdDate'] = $this->getNowDate();
