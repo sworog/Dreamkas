@@ -80,8 +80,6 @@ fos_rest:
         templating_formats:
             html: false
         exception_wrapper_handler: Lighthouse\CoreBundle\Util\Rest\ExceptionWrapperHandler
-    service:
-        view_handler: lighthouse.core.rest.view_handler
     exception:
         codes:
             'Lighthouse\CoreBundle\Exception\NotEmptyException': 409
