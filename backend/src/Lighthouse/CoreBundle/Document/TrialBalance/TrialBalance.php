@@ -93,6 +93,7 @@ class TrialBalance extends AbstractDocument
 
     /**
      * @MongoDB\Float
+     * @MongoDB\Index
      * @var integer
      */
     protected $processingStatus = self::PROCESSING_STATUS_UNPROCESSED;

@@ -39,6 +39,18 @@ public class ProductSteps extends ScenarioSteps {
         productCreatePage.input(elementName, inputText);
     }
 
+    /**
+     * The method is workaround for {@link #fieldInput(String, String)} method in 'Retail mark up range inheritance' scenario.
+     * The test fails if {@link #fieldInput(String, String)} method in use.
+     *
+     * @param elementName
+     * @param inputText
+     */
+    @Step
+    public void fieldInputBySendKeysMethod(String elementName, String inputText) {
+        productCreatePage.items.get(elementName).getVisibleWebElement().sendKeys(inputText);
+    }
+
     @Step
     public void selectDropDown(String elementName, String value) {
         productCreatePage.selectByValue(elementName, value);

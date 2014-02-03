@@ -25,12 +25,12 @@ public class PostgreSQLJDBCSteps extends ScenarioSteps {
         PostgreSQLJDBC postgreSQLJDBC = new PostgreSQLJDBC(ip);
         Boolean tableHasEmptyRows = postgreSQLJDBC.tableHasEmptyRows();
         int count = 0;
-        while (!tableHasEmptyRows && count < 50) {
+        while (!tableHasEmptyRows && count < 100) {
             Thread.sleep(1000);
             tableHasEmptyRows = postgreSQLJDBC.tableHasEmptyRows();
             count++;
         }
-        if (!tableHasEmptyRows && count == 50) {
+        if (!tableHasEmptyRows && count == 100) {
             fail("The table is still empty after timeout!");
         }
     }

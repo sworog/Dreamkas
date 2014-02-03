@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<purchases xmlns="http://www.crystals.ru" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  count="1">
+    <purchase discountAmount="0.0" amount="2800.0" saletime="2013-07-30T17:29:32.160+04:00" number="6" shift="41" cash="1" shop="2" operDay="2013-07-30+04:00" operationType="true" userName="Лавруть_Русакова 1 " tabNumber="5">
+        <positions>
+            <position amount="2800.0" costWithDiscount="2800.0" discountValue="0.0" ndsSum="0.0" nds="0.0" cost="2800.0" count="1.0" barCode="2000000051376" goodsCode="ЦБ000003986" departNumber="2" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="2800.0" typeClass="ExternalBankTerminalPaymentEntity">
+                <plugin-property value="3638" key="purchase.number"/>
+                <plugin-property value="1853" key="card.number"/>
+                <plugin-property value="586879" key="auth.code"/>
+            </payment>
+        </payments>
+    </purchase>
+</purchases>

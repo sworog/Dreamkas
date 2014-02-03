@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<purchases xmlns="http://www.crystals.ru" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  count="2">
+    <purchase discountAmount="0.0" amount="2300.0" saletime="2013-07-04T19:50:57.446+04:00" number="17" shift="15" cash="1" shop="1" operDay="2013-07-04+04:00" operationType="true" userName="Кассир 1 " tabNumber="4">
+        <positions>
+            <position amount="2300.0" costWithDiscount="2300.0" discountValue="0.0" ndsSum="0.0" nds="0.0" cost="2300.0" count="1.0" barCode="0006" goodsCode="ЦБ000003263" departNumber="1" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="2300.0" typeClass="CashPaymentEntity"/>
+        </payments>
+    </purchase>
+    <purchase discountAmount="0.0" amount="2400.0" saletime="2013-07-04T19:51:07.038+04:00" number="4" shift="15" cash="1" shop="2" operDay="2013-07-04+04:00" operationType="true" userName="Болотова_Кнапсберг 1 " tabNumber="6">
+        <positions>
+            <position amount="2400.0" costWithDiscount="2400.0" discountValue="0.0" ndsSum="0.0" nds="0.0" cost="2400.0" count="1.0" barCode="2000000044774" goodsCode="ЦБ000003338" departNumber="2" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="2400.0" typeClass="CashPaymentEntity"/>
+        </payments>
+    </purchase>
+</purchases>

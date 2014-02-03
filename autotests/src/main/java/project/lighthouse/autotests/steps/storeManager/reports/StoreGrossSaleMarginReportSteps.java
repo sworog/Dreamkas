@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.junit.Assert;
 import project.lighthouse.autotests.fixtures.sprint_27.Us_54_1_Fixture;
+import project.lighthouse.autotests.fixtures.sprint_28.Us_54_4_Fixture;
 import project.lighthouse.autotests.pages.storeManager.reports.StoreGrossSaleMarginReportPage;
 
 public class StoreGrossSaleMarginReportSteps extends ScenarioSteps {
@@ -40,6 +41,27 @@ public class StoreGrossSaleMarginReportSteps extends ScenarioSteps {
     public void exactCompareWithExampleTableForDelayedPurchases() {
         storeGrossSaleMarginReportPage.getGrossMarginTableObjectCollection().exactCompareExampleTable(
                 new Us_54_1_Fixture().prepareFixtureExampleTableWithDelayedPurchase()
+        );
+    }
+
+    @Step
+    public void exactCompareWithExampleTableForStory544() {
+        storeGrossSaleMarginReportPage.getGrossMarginTableObjectCollection().exactCompareExampleTable(
+                new Us_54_4_Fixture().prepareFixtureExampleTable()
+        );
+    }
+
+    @Step
+    public void exactCompareWithExampleTableSaleDuplicationWithUpdatedProductForStory544() {
+        storeGrossSaleMarginReportPage.getGrossMarginTableObjectCollection().exactCompareExampleTable(
+                new Us_54_4_Fixture().prepareFixtureExampleTableForSaleDuplicationWithUpdatedProductChecking()
+        );
+    }
+
+    @Step
+    public void exactCompareWithExampleTableSaleDuplicationWithUpdatedPriceForStory544() {
+        storeGrossSaleMarginReportPage.getGrossMarginTableObjectCollection().exactCompareExampleTable(
+                new Us_54_4_Fixture().prepareFixtureExampleTableForSaleDuplicationWithUpdatedPriceChecking()
         );
     }
 }

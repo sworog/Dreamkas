@@ -24,7 +24,7 @@ class ProductsXmlMerger extends Command
     /**
      * @var array
      */
-    protected $skus;
+    protected $skus = array();
 
     /**
      * @var SplFileObject
