@@ -9,6 +9,7 @@ use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
@@ -230,13 +231,19 @@ class TrialBalanceListener extends AbstractMongoDBListener
         }
         $newAcceptanceDate = $changeSet['acceptanceDate'][1];
 
-        /* @var Reasonable[] $invoiceProducts */
+        /* @var InvoiceProduct[] $invoiceProducts */
         $invoiceProducts = $this->invoiceProductRepository->findByInvoice($invoice->id);
-        $trailBalances = $this->trialBalanceRepository->findByReasons($invoiceProducts);
+        $trialBalances = $this->trialBalanceRepository->findByReasons($invoiceProducts);
 
-        foreach ($trailBalances as $trailBalance) {
-            $trailBalance->createdDate = $newAcceptanceDate;
-            $this->computeChangeSet($dm, $trailBalance);
+        foreach ($invoiceProducts as $invoiceProduct) {
+            $invoiceProduct->beforeSave();
+            $this->computeChangeSet($dm, $invoiceProduct);
+        }
+
+        foreach ($trialBalances as $trialBalance) {
+            $trialBalance->createdDate = $newAcceptanceDate;
+            $trialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
+            $this->computeChangeSet($dm, $trialBalance);
         }
     }
 

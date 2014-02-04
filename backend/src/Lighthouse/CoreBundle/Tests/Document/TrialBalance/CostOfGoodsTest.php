@@ -700,6 +700,70 @@ class CostOfGoodsTest extends WebTestCase
         $this->assertEquals(1200, $trialBalanceSaleProduct3->costOfGoods->toNumber());
     }
 
+    public function testCostOfGoodsCalculateEditInvoiceDate()
+    {
+        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
+        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
+        /** @var TrialBalanceRepository $trialBalanceRepository */
+        $trialBalanceRepository = $this->getContainer()->get("lighthouse.core.document.repository.trial_balance");
+
+        $store = $this->factory->getStore("1");
+        $product = $this->createProduct("1");
+        $productOther = $this->createProduct("Other");
+
+
+        $invoice1 = $this->createInvoice(array('sku' => '1', 'acceptanceDate' => '2014-01-01 12:56'), $store);
+        $invoiceProduct1 = $this->createInvoiceProduct($invoice1, $product, 5, 100, $store);
+        $invoice2 = $this->createInvoice(array('sku' => '2', 'acceptanceDate' => '2014-01-02 12:56'), $store);
+        $invoiceProduct2 = $this->createInvoiceProduct($invoice2, $product, 5, 150, $store);
+        $invoice3 = $this->createInvoice(array('sku' => '3', 'acceptanceDate' => '2014-01-03 12:56'), $store);
+        $invoiceProduct3 = $this->createInvoiceProduct($invoice3, $product, 10, 200, $store);
+
+
+        $sale1 = $this->factory->createSale($store, "2014-01-09 12:23:12", 1750);
+        $saleProduct1 = $this->factory->createSaleProduct(250, 7, $product, $sale1);
+        $this->factory->flush();
+
+        $sale2 = $this->factory->createSale($store, "2014-01-09 16:23:12", 500);
+        $saleProduct2 = $this->factory->createSaleProduct(250, 2, $product, $sale2);
+        $this->factory->flush();
+
+        $sale3 = $this->factory->createSale($store, "2014-01-10 12:23:12", 1500);
+        $saleProduct3 = $this->factory->createSaleProduct(250, 6, $product, $sale3);
+        $this->factory->flush();
+
+        $costOfGoodsCalculator->calculateUnprocessed();
+
+        $trialBalanceSaleProduct1 = $trialBalanceRepository
+            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
+        $this->assertEquals(800, $trialBalanceSaleProduct1->costOfGoods->toNumber());
+
+        $trialBalanceSaleProduct2 = $trialBalanceRepository
+            ->findOneByReasonTypeReasonId($saleProduct2->id, SaleProduct::REASON_TYPE);
+        $this->assertEquals(300, $trialBalanceSaleProduct2->costOfGoods->toNumber());
+
+        $trialBalanceSaleProduct3 = $trialBalanceRepository
+            ->findOneByReasonTypeReasonId($saleProduct3->id, SaleProduct::REASON_TYPE);
+        $this->assertEquals(1150, $trialBalanceSaleProduct3->costOfGoods->toNumber());
+
+
+        $this->editInvoice(array('sku' => '2', 'acceptanceDate' => '2014-01-01 10:00'), $invoice2, $store);
+
+        $costOfGoodsCalculator->calculateUnprocessed();
+
+        $trialBalanceSaleProduct1 = $trialBalanceRepository
+            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
+        $this->assertEquals(950, $trialBalanceSaleProduct1->costOfGoods->toNumber());
+
+        $trialBalanceSaleProduct2 = $trialBalanceRepository
+            ->findOneByReasonTypeReasonId($saleProduct2->id, SaleProduct::REASON_TYPE);
+        $this->assertEquals(200, $trialBalanceSaleProduct2->costOfGoods->toNumber());
+
+        $trialBalanceSaleProduct3 = $trialBalanceRepository
+            ->findOneByReasonTypeReasonId($saleProduct3->id, SaleProduct::REASON_TYPE);
+        $this->assertEquals(1100, $trialBalanceSaleProduct3->costOfGoods->toNumber());
+    }
+
     public function testCostOfGoodsCalculateOutOfStock()
     {
         /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
