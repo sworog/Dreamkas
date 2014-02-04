@@ -141,6 +141,42 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @param array $modifiedData
+     * @param string $invoiceId
+     * @param string $storeId
+     * @param User $departmentManager
+     * @return mixed
+     */
+    protected function editInvoice(array $modifiedData, $invoiceId, $storeId, User $departmentManager = null)
+    {
+        $departmentManager = ($departmentManager) ?: $this->factory->getDepartmentManager($storeId);
+        $accessToken = $this->auth($departmentManager);
+
+        $invoiceData = $modifiedData + array(
+            'sku' => 'sku232',
+            'supplier' => 'ООО "Поставщик"',
+            'acceptanceDate' => '2013-03-18 12:56',
+            'accepter' => 'Приемных Н.П.',
+            'legalEntity' => 'ООО "Магазин"',
+            'supplierInvoiceSku' => '1248373',
+            'supplierInvoiceDate' => '17.03.2013',
+            'includesVAT' => true,
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId,
+            $invoiceData
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonHasPath('id', $postResponse);
+
+        return $postResponse['id'];
+    }
+
+    /**
      * @param string $invoiceId
      * @param string $productId
      * @param float $quantity

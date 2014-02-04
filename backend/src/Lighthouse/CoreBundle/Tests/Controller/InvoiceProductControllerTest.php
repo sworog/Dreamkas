@@ -1720,4 +1720,33 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals('Заполните это поле', 'children.quantity.errors.0', $response);
     }
+
+    public function testGetInvoiceProductAfterEditInvoiceAcceptanceDate()
+    {
+        $storeId = $this->factory->getStore();
+        $productId = $this->createProduct();
+        $invoiceId = $this->createInvoice(array('acceptanceDate' => '2014-01-10T12:33:33+0400'), $storeId);
+        $invoiceProductId = $this->createInvoiceProduct($invoiceId, $productId, 1, 9.99, $storeId);
+
+        $accessToken = $this->factory->authAsDepartmentManager($storeId);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products'
+        );
+
+        Assert::assertJsonPathEquals('2014-01-10T12:33:33+0400', '0.acceptanceDate', $response);
+
+
+        $this->editInvoice(array('acceptanceDate' => '2014-01-03T10:11:10+0400'), $invoiceId, $storeId);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products'
+        );
+
+        Assert::assertJsonPathEquals('2014-01-03T10:11:10+0400', '0.acceptanceDate', $response);
+    }
 }
