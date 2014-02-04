@@ -117,7 +117,7 @@ And the user clicks on store gross sale margin report link
 
 Then the user checks the gross sale margin table contains expected value entries after invoice product deletion for story 54.2
 
-Scenario: Gross sale margin update due invoice date update
+Scenario: Gross sale margin update due invoice date update to the past
 
 Meta:
 @id s28u54.2s4
@@ -153,3 +153,43 @@ And the user clicks the menu report item
 And the user clicks on store gross sale margin report link
 
 Then the user checks the gross sale margin table contains expected value entries after invoice date is updated for story 54.2
+
+Scenario: Gross sale margin update due invoice date update to the future
+
+Meta:
+@id s28u54.2s5
+@description
+@smoke
+
+GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story
+
+Given the user opens the authorization page
+
+When the user logs in using 'storeManager-s28u544' userName and 'lighthouse' password
+And the user clicks the menu report item
+And the user clicks on store gross sale margin report link
+
+Then the user checks the gross sale margin table contains expected value entries for story 54.4
+
+When the user logs out
+
+Given the user navigates to the invoice page with name 'Invoice-28544-1'
+When the user logs in using 'departmentManager-s28u544' userName and 'lighthouse' password
+
+And the user clicks on 'acceptanceDate' element to edit it
+And the user inputs 'todayDateAndTime' in the invoice 'inline acceptanceDate' field
+When the user clicks OK and accepts changes
+
+When the user logs out
+
+Given the user runs the symfony:reports:recalculate command
+Given the user opens the authorization page
+
+When the user logs in using 'storeManager-s28u544' userName and 'lighthouse' password
+And the user clicks the menu report item
+And the user clicks on store gross sale margin report link
+
+Then the user checks the gross sale margin table contains expected value entries for story 54.4
+
+
+
