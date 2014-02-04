@@ -13,8 +13,8 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
-use MongoId;
 use MongoCode;
+use MongoId;
 
 class TrialBalanceRepository extends DocumentRepository
 {
@@ -595,6 +595,30 @@ class TrialBalanceRepository extends DocumentRepository
             'storeProduct' => $storeProductId,
             'endIndex.count' => array('$gt' => $startIndex->getCount()),
             'startIndex.count' => array('$lt' => $endIndex->getCount()),
+        );
+        $sort = array(
+            'createdDate.date' => self::SORT_ASC,
+            '_id' => self::SORT_ASC,
+        );
+        return $this->findOneBy($criteria, $sort);
+    }
+
+    /**
+     * @param string $reasonTypes
+     * @param string $storeProductId
+     * @param Quantity $startIndex
+     * @return null|TrialBalance
+     */
+    public function findOneByPreviousEndIndex($reasonTypes, $storeProductId, Quantity $startIndex)
+    {
+        if (!is_array($reasonTypes)) {
+            $reasonTypes = array($reasonTypes);
+        }
+        $criteria = array(
+            'reason.$ref' => array('$in' => $reasonTypes),
+            'storeProduct' => $storeProductId,
+            'startIndex.count' => array('$lte' => $startIndex->getCount()),
+            'endIndex.count' => array('$gt' => $startIndex->getCount()),
         );
         $sort = array(
             'createdDate.date' => self::SORT_ASC,

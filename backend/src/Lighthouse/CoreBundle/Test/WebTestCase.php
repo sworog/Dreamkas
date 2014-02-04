@@ -373,6 +373,7 @@ class WebTestCase extends ContainerAwareTestCase
     /**
      * @param array $skus
      * @param bool $unique
+     * @throws \PHPUnit_Framework_AssertionFailedError
      * @return array
      */
     protected function createProductsBySku(array $skus, $unique = false)
@@ -381,8 +382,18 @@ class WebTestCase extends ContainerAwareTestCase
             $skus = array_unique($skus);
         }
         $products = array();
+        $failedSkus = array();
         foreach ($skus as $sku) {
-            $products[$sku] = $this->createProduct(array('sku' => $sku));
+            try {
+                $products[$sku] = $this->createProduct(array('sku' => $sku));
+            } catch (\PHPUnit_Framework_AssertionFailedError $e) {
+                $failedSkus[] = $sku;
+            }
+        }
+        if (count($failedSkus) > 0) {
+            throw new \PHPUnit_Framework_AssertionFailedError(
+                sprintf('Failed to create products with following skus: %s', implode(', ', $failedSkus))
+            );
         }
         return $products;
     }

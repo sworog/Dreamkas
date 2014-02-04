@@ -2237,6 +2237,61 @@ class GrossSalesControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($expectedProduct2WeekAgo, '*.weekAgo', $response);
     }
 
+    public function testGrossSalesByProductsMaxDepth()
+    {
+        $storeId = $this->factory->getStore('1');
+        $storeOtherId = $this->factory->getStore('Other');
+        $subCategoryId = $this->createSubCategory();
+        $subCategoryOtherId = $this->createSubCategory(null, 'Other');
+        $product1Id = $this->createProduct('1', $subCategoryId);
+        $product2Id = $this->createProduct('2', $subCategoryId);
+        $product3Id = $this->createProduct('3', $subCategoryOtherId);
+
+        $salesInOtherStore = array(
+            array(
+                'storeId' => $storeOtherId,
+                'createdDate' => "8:01",
+                'sumTotal' => 603.53,
+                'positions' => array(
+                    array(
+                        'productId' => $product1Id,
+                        'quantity' => 3,
+                        'price' => 34.77
+                    ),
+                    array(
+                        'productId' => $product2Id,
+                        'quantity' => 3,
+                        'price' => 64.79
+                    ),
+                    array(
+                        'productId' => $product3Id,
+                        'quantity' => 7,
+                        'price' => 43.55,
+                    ),
+                ),
+            ),
+        );
+        $this->factory->createSales($salesInOtherStore);
+
+        $grossSalesReportManager = $this->getGrossSalesReportService();
+        $grossSalesReportManager->recalculateGrossSalesProductReport();
+
+        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/subcategories/' . $subCategoryId . '/reports/grossSalesByProducts',
+            null,
+            array('time' => date('c', strtotime("10:35:47")))
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(0, '0.storeProduct.store.departmentManagers.*', $response);
+        Assert::assertJsonPathCount(0, '0.storeProduct.store.storeManagers.*', $response);
+        Assert::assertNotJsonHasPath('0.storeProduct.product.subCategories', $response);
+    }
+
     public function testAccessGetGrossSalesByProductReport()
     {
         $storeId = $this->factory->getStore();
@@ -2402,6 +2457,28 @@ class GrossSalesControllerTest extends WebTestCase
         $this->assertEquals($expectedResponse, $filteredResponse);
     }
 
+    public function testGrossSalesBySubCategoriesMaxDepth()
+    {
+        list($storeIds,, $catalogIds) = $this->createSalesProducts();
+
+        $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$storeIds['1']}/categories/{$catalogIds['1.1']}/reports/grossSalesBySubCategories",
+            null,
+            array('time' => date('c', strtotime("10:35:47")))
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($catalogIds['1.1.1'], '0.subCategory.id', $response);
+        Assert::assertJsonPathEquals($catalogIds['1.1.2'], '1.subCategory.id', $response);
+
+        Assert::assertNotJsonHasPath('0.subCategory.category', $response);
+        Assert::assertNotJsonHasPath('1.subCategory.category', $response);
+    }
+
     public function testGrossSalesByCategoriesReport()
     {
         list($storeIds,, $catalogIds) = $this->createSales();
@@ -2464,6 +2541,26 @@ class GrossSalesControllerTest extends WebTestCase
         );
         $this->assertEquals($expectedResponse, $filteredResponse);
         $this->assertSame($expectedResponse, $filteredResponse);
+    }
+
+    public function testGrossSalesByCategoriesCategoryMaxDepth()
+    {
+        list($storeIds,, $catalogIds) = $this->createSalesProducts();
+
+        $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$storeIds['1']}/groups/{$catalogIds['1']}/reports/grossSalesByCategories",
+            null,
+            array('time' => date('c', strtotime("10:35:47")))
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($catalogIds['1.1'], '0.category.id', $response);
+        Assert::assertNotJsonHasPath('0.category.group', $response);
+        Assert::assertJsonPathCount(0, '0.category.subCategories.*', $response);
     }
 
     public function testGrossSalesByCategoriesEmpty()
@@ -2628,5 +2725,27 @@ class GrossSalesControllerTest extends WebTestCase
             )
         );
         $this->assertEquals($expectedResponse, $filteredResponse);
+    }
+
+    public function testGrossSalesByGroupsMaxDepth()
+    {
+        list($storeIds,, $catalogIds) = $this->createSalesProducts();
+
+        $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$storeIds['1']}/reports/grossSalesByGroups",
+            null,
+            array('time' => date('c', strtotime("10:35:47")))
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($catalogIds['1'], '0.group.id', $response);
+        Assert::assertJsonPathEquals($catalogIds['2'], '1.group.id', $response);
+
+        Assert::assertJsonPathCount(0, '0.group.categories.*', $response);
+        Assert::assertJsonPathCount(0, '1.group.categories.*', $response);
     }
 }

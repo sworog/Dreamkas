@@ -4,8 +4,9 @@ define(function(require, exports, module) {
 
     return Collection.extend({
         model: require('kit/core/model'),
+        storeId: null,
         url: function(){
-            return LH.baseApiUrl + '/reports/grossMargin';
+            return LH.baseApiUrl + '/stores/' + this.storeId + '/reports/grossMargin';
         }
     });
 });

@@ -353,7 +353,7 @@ class CostOfGoodsTest extends WebTestCase
             '10,11' => array(
                 10,
                 11,
-                0.0
+                10.09
             ),
             '1,9' => array(
                 1,
@@ -368,7 +368,7 @@ class CostOfGoodsTest extends WebTestCase
             '11,14' => array(
                 11,
                 14,
-                0.0
+                30.27
             )
         );
     }

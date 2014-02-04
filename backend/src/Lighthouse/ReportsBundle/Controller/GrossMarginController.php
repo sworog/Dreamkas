@@ -2,28 +2,18 @@
 
 namespace Lighthouse\ReportsBundle\Controller;
 
-use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
-use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
-use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
-use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
-use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSales\GrossSales;
-use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesByCategories\GrossSalesByCategoriesCollection;
-use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesByGroups\GrossSalesByGroupsCollection;
-use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesByProducts\GrossSalesByProductsCollection;
-use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesBySubCategories\GrossSalesBySubCategoriesCollection;
-use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesByStores\GrossSalesByStoresCollection;
-use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesReportManager;
-use Lighthouse\ReportsBundle\Reports\GrossSales\TodayHoursGrossSales;
-use Lighthouse\CoreBundle\Document\Store\Store;
-use Symfony\Component\HttpFoundation\Request;
+use DateTime;
 use Doctrine\ODM\MongoDB\Cursor;
-use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use FOS\RestBundle\Controller\FOSRestController;
 use JMS\DiExtraBundle\Annotation as DI;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
+use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\ReportsBundle\Document\GrossMargin\Store\DayGrossMarginCollection;
+use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use DateTime;
+use Symfony\Component\HttpFoundation\Request;
 
 class GrossMarginController extends FOSRestController
 {
@@ -46,5 +36,19 @@ class GrossMarginController extends FOSRestController
     {
         $time = new DateTime($request->get('time', 'now'));
         return $this->grossMarginManager->getStoreGrossMarginReport($store, $time);
+    }
+
+    /**
+     * @param Request $request
+     * @return DayGrossMarginCollection
+     *
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @Rest\Route("reports/grossMargin")
+     * @ApiDoc
+     */
+    public function getReportsGrossMarginAction(Request $request)
+    {
+        $time = new DateTime($request->get('time', 'now'));
+        return $this->grossMarginManager->getGrossMarginReport($time);
     }
 }

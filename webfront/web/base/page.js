@@ -6,7 +6,7 @@ define(function(require) {
 
     return Page.extend({
         partials: {
-            '#globalNavigation': function(){
+            '#globalNavigation': function() {
                 return globalNavigation({currentUserModel: currentUserModel});
             },
             '#localNavigation': null,

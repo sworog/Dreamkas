@@ -68,6 +68,7 @@ class GrossSalesController extends FOSRestController
      *
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @Rest\Route("reports/grossSalesByStores")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc
      */
     public function getReportsGrossSalesByStoresAction(Request $request)
@@ -98,6 +99,7 @@ class GrossSalesController extends FOSRestController
      *
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
      * @Rest\Route("stores/{store}/subcategories/{subCategory}/reports/grossSalesByProducts")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc
      */
     public function getReportsGrossSalesByProductsAction(Store $store, SubCategory $subCategory, Request $request)
@@ -114,6 +116,7 @@ class GrossSalesController extends FOSRestController
      *
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
      * @Rest\Route("stores/{store}/categories/{category}/reports/grossSalesBySubCategories")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc
      */
     public function getReportsGrossSalesBySubCategoriesAction(Store $store, Category $category, Request $request)
@@ -130,6 +133,7 @@ class GrossSalesController extends FOSRestController
      *
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
      * @Rest\Route("stores/{store}/groups/{group}/reports/grossSalesByCategories")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc
      */
     public function getReportsGrossSalesByCategoriesAction(Store $store, Group $group, Request $request)
@@ -145,6 +149,7 @@ class GrossSalesController extends FOSRestController
      *
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
      * @Rest\Route("stores/{store}/reports/grossSalesByGroups")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc
      */
     public function getReportsGrossSalesByGroupsAction(Store $store, Request $request)

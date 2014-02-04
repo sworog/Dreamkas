@@ -16,6 +16,9 @@ define(function(require) {
         referrer: {},
         loading: false,
         partials: {},
+        models: {},
+        collections: {},
+        blocks: {},
         constructor: function(){
 
             var page = this,

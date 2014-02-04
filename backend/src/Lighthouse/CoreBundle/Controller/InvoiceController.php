@@ -75,6 +75,7 @@ class InvoiceController extends AbstractRestController
      *      resource=true
      * )
      * @Rest\Route("stores/{store}/invoices")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      */
     public function getInvoicesAction(Store $store, InvoicesFilter $filter)
     {
