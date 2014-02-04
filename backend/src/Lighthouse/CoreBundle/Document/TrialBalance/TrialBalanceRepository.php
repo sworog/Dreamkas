@@ -63,6 +63,10 @@ class TrialBalanceRepository extends DocumentRepository
         return $this->findOneBy($criteria);
     }
 
+    /**
+     * @param TrialBalance $trialBalance
+     * @return null|TrialBalance
+     */
     public function findOneNext(TrialBalance $trialBalance)
     {
         $criteria = array(

@@ -229,6 +229,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
         if (!isset($changeSet['acceptanceDate'])) {
             return;
         }
+        $oldAcceptanceDate = $changeSet['acceptanceDate'][0];
         $newAcceptanceDate = $changeSet['acceptanceDate'][1];
 
         /* @var InvoiceProduct[] $invoiceProducts */
@@ -241,6 +242,14 @@ class TrialBalanceListener extends AbstractMongoDBListener
         }
 
         foreach ($trialBalances as $trialBalance) {
+            if ($newAcceptanceDate > $oldAcceptanceDate) {
+                $nextTrialBalance = $this->trialBalanceRepository->findOneNext($trialBalance);
+                if (null != $nextTrialBalance) {
+                    $nextTrialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
+                    $this->computeChangeSet($dm, $nextTrialBalance);
+                }
+            }
+
             $trialBalance->createdDate = $newAcceptanceDate;
             $trialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
             $this->computeChangeSet($dm, $trialBalance);
