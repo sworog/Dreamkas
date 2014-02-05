@@ -78,6 +78,7 @@ class RecalculateReportsCommand extends Command
         $output->writeln("<info>Store Gross Margin</info>");
         $this->grossMarginManager->calculateGrossMarginUnprocessedTrialBalance($output);
         $this->grossMarginManager->recalculateStoreGrossMargin();
+        $this->grossMarginManager->recalculateDayGrossMargin();
 
         $output->writeln("<info>Recalculate reports finished</info>");
 
