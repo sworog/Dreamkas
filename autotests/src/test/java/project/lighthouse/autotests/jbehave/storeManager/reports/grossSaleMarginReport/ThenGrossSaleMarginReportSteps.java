@@ -65,4 +65,14 @@ public class ThenGrossSaleMarginReportSteps {
     public void thenTheUserChecksTheGrossSaleMarginTableContainsExpectedValueEntriesAfterDatePriceIsUpdatedForStories544() {
         storeGrossSaleMarginReportSteps.exactCompareWithExampleTableForStory542IfInvoiceDateIsUpdated();
     }
+
+    @Then("the user checks the gross sale margin table contains expected value entries if there were no invoices and resort happened")
+    public void thenTheUserChecksTheGrossSaleMarginTableContainsExpectedValueEntriesIfThereWereNoInvoicesAndResortHappened() {
+        storeGrossSaleMarginReportSteps.exactCompareWithExampleTableForStory545IfThereWereNoInvoices();
+    }
+
+    @Then("the user checks the gross sale margin table contains expected value entries if there were invoices and resort happened")
+    public void thenTheUserChecksTheGrossSaleMarginTableContainsExpectedValueEntriesIfThereWereInvoicesAndResortHappened() {
+        storeGrossSaleMarginReportSteps.exactCompareWithExampleTableForStory545IfThereWereInvoices();
+    }
 }
