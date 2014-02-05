@@ -13,6 +13,7 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Exception\ValidationFailedException;
+use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Lighthouse\CoreBundle\Versionable\VersionFactory;
@@ -105,8 +106,9 @@ class InvoicesImporter
      * @param string $fileName
      * @param int $batchSize
      * @param OutputInterface $output
+     * @param DatePeriod $datePeriod
      */
-    public function import($fileName, $batchSize = 100, OutputInterface $output = null)
+    public function import($fileName, $batchSize = 100, OutputInterface $output = null, DatePeriod $datePeriod = null)
     {
         $output = ($output) ?: new NullOutput();
         $dotHelper = new DotHelper($output);
@@ -122,16 +124,30 @@ class InvoicesImporter
             try {
                 $invoice = $this->createInvoice($row);
                 if ($invoice) {
-                    $dotHelper->writeQuestion('I');
+                    $dotHelper->end(false);
+                    $output->writeln('');
+                    if (++$i % $batchSize == 0) {
+                        $output->writeln('<info>Flushing</info>');
+                        $this->documentManager->flush();
+                    }
+
+                    $output->writeln(sprintf('Invoice <comment>%s</comment>', $invoice->sku));
+                    if ($datePeriod) {
+                        $originalDate = clone $invoice->acceptanceDate;
+                        $invoice->acceptanceDate->add($datePeriod->diff());
+                        $output->writeln(
+                            sprintf(
+                                'Original date <comment>%s</comment> will be transformed to <comment>%s</comment>',
+                                $originalDate->format(DateTime::ISO8601),
+                                $invoice->acceptanceDate->format(DateTime::ISO8601)
+                            )
+                        );
+                    }
                     if ($currentInvoice) {
                         $this->documentManager->persist($currentInvoice);
                     }
                     $currentInvoice = $invoice;
                     $this->validator->validate($currentInvoice);
-                    if (++$i % $batchSize == 0) {
-                        $dotHelper->writeInfo('F');
-                        $this->documentManager->flush();
-                    }
                 }
             } catch (\Exception $e) {
                 $dotHelper->writeError('E');
@@ -156,7 +172,8 @@ class InvoicesImporter
         if ($currentInvoice) {
             $this->documentManager->persist($currentInvoice);
         }
-        $dotHelper->writeInfo('F');
+        $output->writeln('');
+        $output->writeln('<info>Flushing</info>');
         $this->documentManager->flush();
         $output->writeln('');
 

@@ -652,14 +652,16 @@ class TrialBalanceRepository extends DocumentRepository
     }
 
     /**
+     * @param string[] $reasonTypes
      * @return array
      */
-    public function getUnprocessedTrialBalanceGroupStoreProduct()
+    public function getUnprocessedTrialBalanceGroupStoreProduct(array $reasonTypes)
     {
         $ops = array(
             array(
                 '$match' => array(
-                    'processingStatus' => TrialBalance::PROCESSING_STATUS_UNPROCESSED
+                    'processingStatus' => TrialBalance::PROCESSING_STATUS_UNPROCESSED,
+                    'reason.$ref' => array('$in' => $reasonTypes),
                 ),
             ),
             array(

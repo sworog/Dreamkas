@@ -98,7 +98,6 @@ public class Us_54_4_Fixture extends AbstractFixture {
         return prepareDataFile(getYesterdayPurchasesDuplicationWithUpdatedProduct());
     }
 
-
     public File getYesterdayPurchasesFixture() throws ParserConfigurationException, TransformerException, IOException, XPathExpressionException {
         return prepareDataFile(getYesterdayPurchases());
     }
@@ -170,5 +169,9 @@ public class Us_54_4_Fixture extends AbstractFixture {
 
     public static String getTwoDaysAgoDate() {
         return TWO_DAYS_AGO_DATE;
+    }
+
+    public static String getYesterdayDatePurchase() {
+        return YESTERDAY_DATE_PURCHASE;
     }
 }

@@ -75,4 +75,9 @@ public class ThenGrossSaleMarginReportSteps {
     public void thenTheUserChecksTheGrossSaleMarginTableContainsExpectedValueEntriesIfThereWereInvoicesAndResortHappened() {
         storeGrossSaleMarginReportSteps.exactCompareWithExampleTableForStory545IfThereWereInvoices();
     }
+
+    @Then("the user checks the gross sale margin table contains expected value entries for story 56")
+    public void thenTheUserChecksTheGrossSaleMarginTableContainsExpectedValueEntriesForStory56() {
+        storeGrossSaleMarginReportSteps.exactCompareWithExampleTableForStory56();
+    }
 }

@@ -22,6 +22,11 @@ class CostOfGoodsManager
     protected $trialBalanceRepository;
 
     /**
+     * @var CostOfGoodsCalculator
+     */
+    protected $costOfGoodsCalculator;
+
+    /**
      * @DI\InjectParams({
      *      "jobManager" = @DI\Inject(
      *          "lighthouse.core.job.manager"
@@ -29,22 +34,33 @@ class CostOfGoodsManager
      *      "trialBalanceRepository" = @DI\Inject(
      *          "lighthouse.core.document.repository.trial_balance"
      *      ),
+     *      "costOfGoodsCalculator" = @DI\Inject(
+     *          "lighthouse.core.document.trial_balance.calculator"
+     *      )
      * })
      *
      * @param JobManager $jobManager
      * @param TrialBalanceRepository $trialBalanceRepository
+     * @param CostOfGoodsCalculator $costOfGoodsCalculator
      */
     public function __construct(
         JobManager $jobManager,
-        TrialBalanceRepository $trialBalanceRepository
+        TrialBalanceRepository $trialBalanceRepository,
+        CostOfGoodsCalculator $costOfGoodsCalculator
     ) {
         $this->jobManager = $jobManager;
         $this->trialBalanceRepository = $trialBalanceRepository;
+        $this->costOfGoodsCalculator = $costOfGoodsCalculator;
     }
 
+    /**
+     * @return int
+     */
     public function createCalculateJobsForUnprocessed()
     {
-        $results = $this->trialBalanceRepository->getUnprocessedTrialBalanceGroupStoreProduct();
+        $results = $this->trialBalanceRepository->getUnprocessedTrialBalanceGroupStoreProduct(
+            $this->costOfGoodsCalculator->getSupportRangeIndex()
+        );
         $count = 0;
         foreach ($results as $result) {
             $this->createJobByStoreProductId($result['_id']['storeProduct']);

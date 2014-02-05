@@ -2,6 +2,7 @@ Meta:
 @sprint 28
 @us 54.4
 @us 54.2
+@us 56
 @smoke
 @id s28u54.4s1
 @id s28u54.4s2
@@ -10,6 +11,8 @@ Meta:
 @id s28u54.2s3
 @id s28u54.2s4
 @id s28u54.2s5
+@id s28u56s1
+@id s28u56s2
 
 Scenario: A scenario that prepares data
 
