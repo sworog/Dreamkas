@@ -22,6 +22,7 @@ And the user runs the symfony:reports:recalculate command
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 When the user clicks the menu report item
+And the user clicks on gross sale by stores report link
 Then the user checks the gross sale by stores report has correct data
 
 Scenario: Gross sale report page has zero sales (no sales registered)
@@ -35,6 +36,7 @@ GivenStories: precondition/sprint-24/us-55_2/aPreconditionToStoryUs55.2.story
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 When the user clicks the menu report item
+And the user clicks on gross sale by stores report link
 Then the user checks the gross sale by stores report has zero sales
 
 Scenario: Gross sale by stores yesterday table row name check

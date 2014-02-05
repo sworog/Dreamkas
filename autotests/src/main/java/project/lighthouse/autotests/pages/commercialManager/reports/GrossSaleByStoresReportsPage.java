@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.objects.web.reports.grossSaleByStores.GrossSalesByStoresCollection;
 
-@DefaultUrl("/reports")
+@DefaultUrl("/reports/grossSalesByStores")
 public class GrossSaleByStoresReportsPage extends CommonPageObject {
 
     public GrossSaleByStoresReportsPage(WebDriver driver) {
