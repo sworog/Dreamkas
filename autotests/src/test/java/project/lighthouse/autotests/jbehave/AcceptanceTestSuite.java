@@ -64,26 +64,29 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
                 = Integer.parseInt(System.getProperty("parallel.agent.number"));
         Integer agentCount
                 = Integer.parseInt(System.getProperty("parallel.agent.total"));
-        List<String> storyPaths = storyPaths();
 
-        failIfAgentIsNotConfiguredCorrectly(agentPosition, agentCount);
-        failIfThereAreMoreAgentsThanStories(agentCount, storyPaths.size());
+        if (!(agentPosition == 1 && agentCount == 1)) {
+            List<String> storyPaths = storyPaths();
 
-        // The reminder should work out to be either be zero or one.
-        int reminder = storyPaths.size() % agentCount;
-        int storiesPerAgent = storyPaths.size() / agentCount;
+            failIfAgentIsNotConfiguredCorrectly(agentPosition, agentCount);
+            failIfThereAreMoreAgentsThanStories(agentCount, storyPaths.size());
 
-        int startPos = storiesPerAgent * (agentPosition - 1);
-        int endPos = startPos + storiesPerAgent;
-        if (agentPosition == agentCount) {
-            // In the case of an uneven number the last agent
-            // picks up the extra story file.
-            endPos += reminder;
+            // The reminder should work out to be either be zero or one.
+            int reminder = storyPaths.size() % agentCount;
+            int storiesPerAgent = storyPaths.size() / agentCount;
+
+            int startPos = storiesPerAgent * (agentPosition - 1);
+            int endPos = startPos + storiesPerAgent;
+            if (agentPosition.equals(agentCount)) {
+                // In the case of an uneven number the last agent
+                // picks up the extra story file.
+                endPos += reminder;
+            }
+            List<String> stories = storyPaths.subList(startPos, endPos);
+
+            outputWhichStoriesAreBeingRun(stories);
+            findStoriesCalled(Lambda.join(stories, ";"));
         }
-        List<String> stories = storyPaths.subList(startPos, endPos);
-
-        outputWhichStoriesAreBeingRun(stories);
-        findStoriesCalled(Lambda.join(stories, ";"));
     }
 
     private void failIfAgentIsNotConfiguredCorrectly(Integer agentPosition,
