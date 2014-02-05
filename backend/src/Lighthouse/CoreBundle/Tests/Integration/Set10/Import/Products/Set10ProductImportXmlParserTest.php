@@ -114,4 +114,39 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
             $good = $parser->readNextElement();
         } while ($good);
     }
+
+    public function testGroupsParsingWithDifferentGroupCount()
+    {
+        $parser = $this->createXmlParser('Integration/Set10/Import/Products/goods-groups.xml');
+
+        $element = $parser->readNextElement();
+        $groups = $element->getGroups();
+
+        $this->assertCount(2, $groups);
+        $this->assertEquals('Ц0000000454', $groups[0]['id']);
+        $this->assertEquals('Безалкогольные напитки ', $groups[0]['name']);
+        $this->assertEquals('Ц0000000530', $groups[1]['id']);
+        $this->assertEquals('Соки', $groups[1]['name']);
+
+        $element = $parser->readNextElement();
+        $groups = $element->getGroups();
+        $this->assertCount(1, $groups);
+        $this->assertEquals('Ц0000000454', $groups[0]['id']);
+        $this->assertEquals('Безалкогольные напитки ', $groups[0]['name']);
+
+        $element = $parser->readNextElement();
+        $groups = $element->getGroups();
+        $this->assertCount(1, $groups);
+        $this->assertEquals('Ц0000001506', $groups[0]['id']);
+        $this->assertEquals('Сыры', $groups[0]['name']);
+
+        $element = $parser->readNextElement();
+        $groups = $element->getGroups();
+        $this->assertCount(1, $groups);
+        $this->assertEquals('Ц0000001919', $groups[0]['id']);
+        $this->assertEquals('Красный ценник Водка', $groups[0]['name']);
+
+        $element = $parser->readNextElement();
+        $this->assertFalse($element);
+    }
 }

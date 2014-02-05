@@ -96,7 +96,7 @@ class GoodElement extends SimpleXMLElement
                 )
             );
             $parentGroup = $this->group;
-            do {
+            while (isset($parentGroup->{'parent-group'})) {
                 $parentGroup = $parentGroup->{'parent-group'};
                 array_unshift(
                     $groups,
@@ -105,7 +105,7 @@ class GoodElement extends SimpleXMLElement
                         'name' => (string) $parentGroup->name,
                     )
                 );
-            } while (isset($parentGroup->{'parent-group'}));
+            }
         }
         return $groups;
     }

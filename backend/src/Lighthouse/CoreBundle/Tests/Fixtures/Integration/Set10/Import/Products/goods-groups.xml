@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<goods-catalog>
+    <good marking-of-the-good="&#x410;&#x412;000000195">
+        <shop-indices>3</shop-indices>
+        <name>Сок Доле ананасовый 0,25л.</name>
+        <bar-code code="038900779245">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="35">
+            <begin-date>2014-01-31T00:00:00</begin-date>
+            <end-date>2034-01-31T00:00:00</end-date>
+            <number>1</number>
+            <department number="3">
+                <name>Авиаконструкторов 2</name>
+            </department>
+        </price-entry>
+        <vat>0</vat>
+        <group id="&#x426;0000000530">
+            <name>Соки</name>
+            <parent-group id="&#x426;0000000454">
+                <name>Безалкогольные напитки </name>
+            </parent-group>
+        </group>
+        <measure-type id="&#x410;&#x412;0000195">
+            <name>шт</name>
+        </measure-type>
+        <plugin-property key="precision" value="1"/>
+    </good>
+    <good marking-of-the-good="&#x420;&#x422;000000010">
+        <shop-indices>3</shop-indices>
+        <name>Лимонад Миринда апельсин 1,25л.</name>
+        <bar-code code="4600494505690">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="49">
+            <begin-date>2014-01-31T00:00:00</begin-date>
+            <end-date>2034-01-31T00:00:00</end-date>
+            <number>1</number>
+            <department number="3">
+                <name>Авиаконструкторов 2</name>
+            </department>
+        </price-entry>
+        <vat>0</vat>
+        <group id="&#x426;0000000454">
+            <name>Безалкогольные напитки </name>
+        </group>
+        <measure-type id="&#x420;&#x422;0000010">
+            <name>шт</name>
+        </measure-type>
+        <plugin-property key="precision" value="1"/>
+    </good>
+    <good marking-of-the-good="&#x41C;&#x415;000000309">
+        <shop-indices>3</shop-indices>
+        <name>Сыр копчено-вяленый Джентри 70г.</name>
+        <bar-code code="4680003840276">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="89">
+            <begin-date>2014-01-31T00:00:00</begin-date>
+            <end-date>2034-01-31T00:00:00</end-date>
+            <number>1</number>
+            <department number="3">
+                <name>Авиаконструкторов 2</name>
+            </department>
+        </price-entry>
+        <vat>0</vat>
+        <group id="&#x426;0000001506">
+            <name>Сыры</name>
+        </group>
+        <measure-type id="&#x41C;&#x415;0000308">
+            <name>шт</name>
+        </measure-type>
+        <plugin-property key="precision" value="1"/>
+    </good>
+    <good marking-of-the-good="&#x426;0000001877">
+        <shop-indices>3</shop-indices>
+        <name>Водка Смирновь Титуль 40% 0,5л.</name>
+        <bar-code code="5410316993852">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductPieceEntity</product-type>
+        <price-entry price="460">
+            <begin-date>2014-01-31T00:00:00</begin-date>
+            <end-date>2034-01-31T00:00:00</end-date>
+            <number>1</number>
+            <department number="3">
+                <name>Авиаконструкторов 2</name>
+            </department>
+        </price-entry>
+        <vat>0</vat>
+        <group id="&#x426;0000001919">
+            <name>Красный ценник Водка</name>
+        </group>
+        <measure-type id="000001825">
+            <name>шт</name>
+        </measure-type>
+        <plugin-property key="precision" value="1"/>
+    </good>
+</goods-catalog>
