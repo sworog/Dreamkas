@@ -762,6 +762,23 @@ class CostOfGoodsTest extends WebTestCase
         $trialBalanceSaleProduct3 = $trialBalanceRepository
             ->findOneByReasonTypeReasonId($saleProduct3->id, SaleProduct::REASON_TYPE);
         $this->assertEquals(1100, $trialBalanceSaleProduct3->costOfGoods->toNumber());
+
+
+        $this->editInvoice(array('sku' => '2', 'acceptanceDate' => '2014-01-02 12:56'), $invoice2, $store);
+
+        $costOfGoodsCalculator->calculateUnprocessed();
+
+        $trialBalanceSaleProduct1 = $trialBalanceRepository
+            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
+        $this->assertEquals(800, $trialBalanceSaleProduct1->costOfGoods->toNumber());
+
+        $trialBalanceSaleProduct2 = $trialBalanceRepository
+            ->findOneByReasonTypeReasonId($saleProduct2->id, SaleProduct::REASON_TYPE);
+        $this->assertEquals(300, $trialBalanceSaleProduct2->costOfGoods->toNumber());
+
+        $trialBalanceSaleProduct3 = $trialBalanceRepository
+            ->findOneByReasonTypeReasonId($saleProduct3->id, SaleProduct::REASON_TYPE);
+        $this->assertEquals(1150, $trialBalanceSaleProduct3->costOfGoods->toNumber());
     }
 
     public function testCostOfGoodsCalculateOutOfStock()

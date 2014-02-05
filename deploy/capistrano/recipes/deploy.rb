@@ -156,7 +156,7 @@ namespace :deploy do
 
             host = revision[:host].sub(/^(.+)\..+?\.#{app_end}$/, '\1')
             stage = revision[:host].sub(/^.+\.(.+)?\.#{app_end}$/, '\1')
-            puts "Cleanup command: " + "cap #{stage} deploy:cleanup -S host=#{host}".red
+            puts "Remove command: " + "cap #{stage} deploy:remove -S host=#{host}".red
 
         end
     end

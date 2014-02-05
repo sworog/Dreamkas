@@ -163,4 +163,12 @@ public class Us_54_4_Fixture extends AbstractFixture {
     public String getFixtureFileName() {
         return "s28u544";
     }
+
+    public static String getYesterdayDate() {
+        return YESTERDAY_DATE;
+    }
+
+    public static String getTwoDaysAgoDate() {
+        return TWO_DAYS_AGO_DATE;
+    }
 }

@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave.storeManager.reports.grossSaleMarginReport;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Then;
 import project.lighthouse.autotests.steps.storeManager.reports.StoreGrossSaleMarginReportSteps;
 
@@ -47,5 +48,31 @@ public class ThenGrossSaleMarginReportSteps {
     @Then("the user checks the gross sale margin table contains expected value entries after sale duplication with updated price is registered for story 54.4")
     public void thenTheUserChecksTheGrossSaleMarginTableContainsExpectedValueEntriesAfterSaleDuplicationWithUpdatedPriceRegisteredForStories544() {
         storeGrossSaleMarginReportSteps.exactCompareWithExampleTableSaleDuplicationWithUpdatedPriceForStory544();
+    }
+
+    @Then("the user checks the gross sale margin table contains expected value entries after invoice product quantity is updated for story 54.2")
+    @Alias("the user checks the gross sale margin table contains expected value entries after invoice product deletion for story 54.2")
+    public void thenTheUserChecksTheGrossSaleMarginTableContainsExpectedValueEntriesAfterInvoiceProductQuantityIsUpdatedForStories544() {
+        storeGrossSaleMarginReportSteps.exactCompareWithExampleTableForStory542IfInvoiceQuantityIsUpdated();
+    }
+
+    @Then("the user checks the gross sale margin table contains expected value entries after invoice product price is updated for story 54.2")
+    public void thenTheUserChecksTheGrossSaleMarginTableContainsExpectedValueEntriesAfterInvoiceProductPriceIsUpdatedForStories544() {
+        storeGrossSaleMarginReportSteps.exactCompareWithExampleTableForStory542IfInvoicePriceIsUpdated();
+    }
+
+    @Then("the user checks the gross sale margin table contains expected value entries after invoice date is updated for story 54.2")
+    public void thenTheUserChecksTheGrossSaleMarginTableContainsExpectedValueEntriesAfterDatePriceIsUpdatedForStories544() {
+        storeGrossSaleMarginReportSteps.exactCompareWithExampleTableForStory542IfInvoiceDateIsUpdated();
+    }
+
+    @Then("the user checks the gross sale margin table contains expected value entries if there were no invoices and resort happened")
+    public void thenTheUserChecksTheGrossSaleMarginTableContainsExpectedValueEntriesIfThereWereNoInvoicesAndResortHappened() {
+        storeGrossSaleMarginReportSteps.exactCompareWithExampleTableForStory545IfThereWereNoInvoices();
+    }
+
+    @Then("the user checks the gross sale margin table contains expected value entries if there were invoices and resort happened")
+    public void thenTheUserChecksTheGrossSaleMarginTableContainsExpectedValueEntriesIfThereWereInvoicesAndResortHappened() {
+        storeGrossSaleMarginReportSteps.exactCompareWithExampleTableForStory545IfThereWereInvoices();
     }
 }

@@ -7,6 +7,7 @@ Meta:
 Scenario: Write off creation
 
 Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductSku' sku, 'WriteOff-ProductBarCode' barcode, 'liter' units, '15' purchasePrice
+And the user opens the write off create page
 And the user opens amount list page
 And the user logs in as 'departmentManager'
 Then the user checks the product with 'WriteOff-ProductSku' sku has 'amounts amount' element equal to '0' on amounts page

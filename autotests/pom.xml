@@ -30,6 +30,8 @@
         <centrum.import.folder.path>/centrum/reports</centrum.import.folder.path>
         <api.timeout>60000</api.timeout>
         <lighthouse.timeouts.validationerrorwait>10</lighthouse.timeouts.validationerrorwait>
+        <project.parallel.agent.total>1</project.parallel.agent.total>
+        <project.parallel.agent.number>1</project.parallel.agent.number>
     </properties>
 
     <dependencies>
@@ -126,6 +128,8 @@
                         <api.timeout>${api.timeout}</api.timeout>
                         <lighthouse.timeouts.validationerrorwait>${lighthouse.timeouts.validationerrorwait}
                         </lighthouse.timeouts.validationerrorwait>
+                        <parallel.agent.number>${project.parallel.agent.number}</parallel.agent.number>
+                        <parallel.agent.total>${project.parallel.agent.total}</parallel.agent.total>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>

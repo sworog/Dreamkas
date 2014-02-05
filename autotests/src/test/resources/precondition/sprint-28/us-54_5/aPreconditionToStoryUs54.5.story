@@ -1,15 +1,9 @@
 Meta:
 @sprint 28
-@us 54.4
-@us 54.2
+@us 54.5
 @smoke
-@id s28u54.4s1
-@id s28u54.4s2
-@id s28u54.2s1
-@id s28u54.2s2
-@id s28u54.2s3
-@id s28u54.2s4
-@id s28u54.2s5
+@id s28u54.5s1
+@id s28u54.5s2
 
 Scenario: A scenario that prepares data
 
@@ -25,17 +19,5 @@ And there is the subCategory with name 'defaultSubCategory-s28u544' related to g
 And the user sets subCategory 'defaultSubCategory-s28u544' mark up with max '10' and min '0' values
 
 Given there is the product with 'name-28544' name, '28544' sku, '28544' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s28u544', category named 'defaultCategory-s28u544', subcategory named 'defaultSubCategory-s28u544'
-
-Given there is the date invoice with sku 'Invoice-28544' and date 'today-2days' and time set to '8:00:00' in the store with number '28544' ruled by department manager with name 'departmentManager-s28u544'
-And the user adds the product to the invoice with name 'Invoice-28544' with sku '28544', quantity '8', price '90' in the store ruled by 'departmentManager-s28u544'
-
-Given there is the date invoice with sku 'Invoice-28544-1' and date 'today-1days' and time set to '8:00:00' in the store with number '28544' ruled by department manager with name 'departmentManager-s28u544'
-And the user adds the product to the invoice with name 'Invoice-28544-1' with sku '28544', quantity '6', price '100' in the store ruled by 'departmentManager-s28u544'
-
-Given the user prepares two days ago purchases for us 54.4 story
-
-Given the user prepares yesterday purchases for us 54.4 story
-
-Given the user runs the symfony:reports:recalculate command
 
 
