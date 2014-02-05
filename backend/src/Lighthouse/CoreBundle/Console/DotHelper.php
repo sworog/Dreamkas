@@ -33,6 +33,11 @@ class DotHelper extends Helper
     protected $currentWidth = 0;
 
     /**
+     * @var null|int
+     */
+    protected $totalPositions = null;
+
+    /**
      * @param OutputInterface $output
      */
     public function __construct(OutputInterface $output = null)
@@ -59,6 +64,14 @@ class DotHelper extends Helper
     }
 
     /**
+     * @param int $totalPositions
+     */
+    public function setTotalPositions($totalPositions)
+    {
+        $this->totalPositions = $totalPositions;
+    }
+
+    /**
      * @param string|null $dot
      * @param string|null $style
      */
@@ -77,7 +90,15 @@ class DotHelper extends Helper
 
     protected function writePosition()
     {
-        $this->output->writeln('   ' . $this->position);
+        $positionText = '   ';
+        if ($this->totalPositions !== null) {
+            $totalPositionsLength = strlen($this->totalPositions);
+            $positionText .= sprintf('%' . $totalPositionsLength . 'd / %d', $this->position, $this->totalPositions);
+        } else {
+            $positionText .= $this->position;
+        }
+
+        $this->output->writeln($positionText);
     }
 
     /**

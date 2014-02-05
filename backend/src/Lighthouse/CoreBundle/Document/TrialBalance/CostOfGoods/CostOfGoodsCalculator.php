@@ -134,7 +134,12 @@ class CostOfGoodsCalculator
         }
         $dotHelper = new DotHelper($output);
 
-        $results = $this->trialBalanceRepository->getUnprocessedTrialBalanceGroupStoreProduct();
+        $results = $this->trialBalanceRepository->getUnprocessedTrialBalanceGroupStoreProduct(
+            $this->getSupportRangeIndex()
+        );
+
+        $dotHelper->setTotalPositions(count($results));
+
         foreach ($results as $result) {
             $this->calculateByStoreProductId($result['_id']['storeProduct']);
 
