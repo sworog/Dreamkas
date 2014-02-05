@@ -70,6 +70,11 @@ class InvoicesImporter
     protected $stores = array();
 
     /**
+     * @var Store
+     */
+    protected $lastStore;
+
+    /**
      * @DI\InjectParams({
      *      "storeRepository" = @DI\Inject("lighthouse.core.document.repository.store"),
      *      "invoiceRepository" = @DI\Inject("lighthouse.core.document.repository.invoice"),
@@ -154,7 +159,7 @@ class InvoicesImporter
                 $errors[] = $e;
                 $currentInvoice = null;
             }
-            if ($currentInvoice) {
+            if ($currentInvoice && null === $invoice) {
                 try {
                     $invoiceProduct = $this->createInvoiceProduct($row, $currentInvoice);
                     if ($invoiceProduct) {
@@ -202,35 +207,65 @@ class InvoicesImporter
     {
         $invoice = null;
         $matches = null;
-        if (preg_match('/^Поступление товаров ЦБ\d+/u', $row[0], $matches)) {
+        if (preg_match('/^Поступление\s+товаров\s+\S+/u', $row[0], $matches)) {
             $sku = $row[7];
             $date = DateTime::createFromFormat('d.m.Y H:i:s', trim($row[6]));
             $storeName = trim($row[5]);
+            if ($storeName) {
+                $store = $this->getStore($storeName);
+            } elseif ($this->lastStore) {
+                $store = $this->lastStore;
+            }
             $supplier = trim($row[8]);
             $supplier = ($supplier) ?: 'Не указан';
 
             $invoice = new Invoice();
             $invoice->acceptanceDate = $date;
             $invoice->sku = $sku;
-            $invoice->store = $this->getStore($storeName);
+            $invoice->store = $store;
             $invoice->supplier = $supplier;
-            $invoice->accepter = 'Импорт накладных';
-            $invoice->legalEntity = 'AMN';
+            $invoice->accepter = 'Накладных Импорт';
+            $invoice->legalEntity = 'Магазин';
+        } else {
+            $this->checkStoreRow($row);
         }
         return $invoice;
     }
 
     /**
+     * @param array $row
+     * @return bool
+     */
+    protected function checkStoreRow(array $row)
+    {
+        $filteredRow = array_filter($row);
+        if (count($filteredRow) == 1) {
+            $storeName = reset($filteredRow);
+            $store = $this->getStore($storeName, false);
+            if ($store) {
+                $this->lastStore = $store;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * @param string $address
-     * @throws \Lighthouse\CoreBundle\Exception\RuntimeException
+     * @param bool $throwException
+     * @throws RuntimeException
      * @return Store
      */
-    protected function getStore($address)
+    protected function getStore($address, $throwException = true)
     {
         if (!isset($this->stores[$address])) {
             $store = $this->storeRepository->findOneByAddress($address);
             if (!$store) {
-                throw new RuntimeException(sprintf("Store with address '%s' not found", $address));
+                if ($throwException) {
+                    throw new RuntimeException(sprintf("Store with address '%s' not found", $address));
+                } else {
+                    return false;
+                }
             }
             $storeReference = $this->storeRepository->getReference($store->id);
             $this->stores[$address] = $storeReference;
@@ -247,15 +282,15 @@ class InvoicesImporter
     protected function createInvoiceProduct(array $row, Invoice $invoice)
     {
         $invoiceProduct = null;
-        if (isset($row[0], $row[2], $row[3])
+        if (isset($row[0], $row[1], $row[4])
             && '' != $row[0]
-            && '' != $row[2]
-            && '' != $row[3]
+            && '' != $row[1]
+            && '' != $row[4]
         ) {
             $sku = $this->getProductSku($row[0]);
             $productVersion = $this->getProductVersion($sku);
-            $quantity = $this->normalizeQuantity($row[2]);
-            $price = $this->normalizeQuantity($row[3]);
+            $quantity = $this->normalizeQuantity($row[1]);
+            $price = $this->normalizeQuantity($row[4]);
 
             $invoiceProduct = new InvoiceProduct();
             $invoiceProduct->invoice = $invoice;
@@ -283,7 +318,7 @@ class InvoicesImporter
     {
         $sku = null;
         $matches = null;
-        if (preg_match('/\s+((ЦБ)?\d+)$/u', $value, $matches)) {
+        if (preg_match('/,\s+(\S+)$/u', $value, $matches)) {
             $sku = $matches[1];
         }
         return $sku;
