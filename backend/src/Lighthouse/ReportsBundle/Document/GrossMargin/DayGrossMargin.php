@@ -21,7 +21,7 @@ use DateTime;
 class DayGrossMargin extends AbstractDocument
 {
     /**
-     * @MongoDB\Id
+     * @MongoDB\Id(strategy="NONE")
      * @Exclude
      * @var string
      */

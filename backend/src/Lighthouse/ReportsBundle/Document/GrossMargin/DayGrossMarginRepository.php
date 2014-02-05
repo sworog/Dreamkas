@@ -141,6 +141,7 @@ class DayGrossMarginRepository extends DocumentRepository
     public function createByDay(DateTime $day, Money $sum = null)
     {
         $dayGrossMargin = new DayGrossMargin();
+        $dayGrossMargin->id = $this->getIdByDay($day);
         $dayGrossMargin->date = $day;
         $dayGrossMargin->sum = ($sum) ? $sum : $this->numericFactory->createMoney(0);
 
@@ -160,5 +161,14 @@ class DayGrossMarginRepository extends DocumentRepository
             'date.date' => self::SORT_DESC
         );
         return $this->findBy($criteria, $sort);
+    }
+
+    /**
+     * @param DateTime $date
+     * @return string
+     */
+    public function getIdByDay(DateTime $date)
+    {
+        return md5($date->getTimestamp());
     }
 }
