@@ -285,7 +285,6 @@ class Set10SalesImportLocal extends Command
             case 'filename':
             default:
                 $files->sortByFilename(SortableDirectoryIterator::SORT_ASC);
-                break;
         }
         return $files;
     }

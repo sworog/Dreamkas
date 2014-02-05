@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<purchases xmlns="http://www.crystals.ru" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  count="3">
+    <purchase discountAmount="6.0" amount="161.0" saletime="2014-01-31T21:53:30.686+04:00" number="69" shift="248" cash="1" shop="2" operDay="2014-01-31+04:00" operationType="true" userName="Кассир К  " tabNumber="2">
+        <positions>
+            <position amount="114.0" costWithDiscount="57.0" discountValue="6.0" ndsSum="17.0" nds="18.0" cost="60.0" count="2.0" barCode="4650058310116" goodsCode="АВ000000221" departNumber="2" order="1"/>
+            <position amount="47.0" costWithDiscount="47.0" discountValue="0.0" ndsSum="0.0" nds="0.0" cost="47.0" count="1.0" barCode="46126863" goodsCode="Ц0000000133" departNumber="2" order="2"/>
+        </positions>
+        <payments>
+            <payment description="" amount="161.0" typeClass="CashPaymentEntity"/>
+        </payments>
+        <discountCards>
+            <discountCard>2000000000244</discountCard>
+        </discountCards>
+        <card number="2000000000244" type="INTERNAL"/>
+    </purchase>
+    <purchase discountAmount="17.6" amount="653.4" saletime="2014-01-31T21:55:28.327+04:00" number="70" shift="248" cash="1" shop="2" operDay="2014-01-31+04:00" operationType="true" userName="Кассир К  " tabNumber="2">
+        <positions>
+            <position amount="334.4" costWithDiscount="334.4" discountValue="17.6" ndsSum="0.0" nds="0.0" cost="352.0" count="1.0" barCode="8421825900061" goodsCode="Ц0000001366" departNumber="2" order="2"/>
+            <position amount="319.0" costWithDiscount="319.0" discountValue="0.0" ndsSum="0.0" nds="0.0" cost="319.0" count="1.0" barCode="3303292011523" goodsCode="Ц0000000101" departNumber="2" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="655.0" typeClass="CashPaymentEntity"/>
+            <payment description="" amount="1.6" typeClass="CashChangePaymentEntity"/>
+        </payments>
+        <discountCards>
+            <discountCard>2000000000244</discountCard>
+        </discountCards>
+        <card number="2000000000244" type="INTERNAL"/>
+    </purchase>
+    <purchase discountAmount="0.0" amount="295.0" saletime="2014-01-31T21:57:40.970+04:00" number="71" shift="248" cash="1" shop="2" operDay="2014-01-31+04:00" operationType="true" userName="Кассир К  " tabNumber="2">
+        <positions>
+            <position amount="295.0" costWithDiscount="295.0" discountValue="0.0" ndsSum="0.0" nds="0.0" cost="295.0" count="1.0" barCode="8021376200414" goodsCode="Ц0000002100" departNumber="2" order="1"/>
+        </positions>
+        <payments>
+            <payment description="" amount="300.0" typeClass="CashPaymentEntity"/>
+            <payment description="" amount="5.0" typeClass="CashChangePaymentEntity"/>
+        </payments>
+    </purchase>
+</purchases>

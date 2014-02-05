@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<purchases count="1">
+    <purchase discountValueTotal="18.0" number="3" transactionTime="2014-02-01T11:26:10.411" saletime="2014-02-01T11:26:32.648" shift="249" cash="1" operationType="true" shop="2">
+        <discount card-number="2013800078009" quantity="1.0" advertType="DISCOUNT_GOODS" AdvertActExternalCode="SR10_16051" AdvertActGUID="16051" isDiscountPurchase="false" amount="9.0" goodCode="Ц0000001909" positionId="1"/>
+        <discount card-number="2013800078009" quantity="1.0" advertType="DISCOUNT_GOODS" AdvertActExternalCode="SR10_16051" AdvertActGUID="16051" isDiscountPurchase="false" amount="9.0" goodCode="Ц0000001911" positionId="2"/>
+        <discountCard>2013800078009</discountCard>
+    </purchase>
+</purchases>

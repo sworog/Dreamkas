@@ -57,7 +57,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
      *      "trialBalanceRepository" = @DI\Inject("lighthouse.core.document.repository.trial_balance"),
      *      "invoiceProductRepository" = @DI\Inject("lighthouse.core.document.repository.invoice_product"),
      *      "storeProductRepository" = @DI\Inject("lighthouse.core.document.repository.store_product"),
-     *      "costOfGoodsCalculator" = @DI\Inject("lighthouse.core.document.trial_balance.calculator"),
+     *      "costOfGoodsCalculator" = @DI\Inject("lighthouse.core.document.trial_balance.calculator")
      * })
      * @param TrialBalanceRepository $trialBalanceRepository
      * @param InvoiceProductRepository $invoiceProductRepository

@@ -157,6 +157,7 @@ class SortableDirectoryIterator implements IteratorAggregate, ArrayAccess, Count
                 $this->files->offsetUnset($i);
             }
         }
+        $this->files = new ArrayIterator(array_values($this->files->getArrayCopy()));
     }
 
     /**

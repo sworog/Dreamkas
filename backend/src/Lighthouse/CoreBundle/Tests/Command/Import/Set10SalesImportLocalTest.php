@@ -347,4 +347,42 @@ EOF;
             $display
         );
     }
+
+    public function testOnlyPurchaseFilesAreImportedOnFileDateSort()
+    {
+        $this->factory->getStores(array('1', '2', '3'));
+        $this->createProductsBySku(
+            array(
+                'АВ000000221',
+                'Ц0000001366',
+                'Ц0000002100',
+                'Ц0000001289',
+                'Ц0000000937',
+                'Ц0000000133',
+                'Ц0000000101',
+                'МЕ000000327'
+            )
+        );
+
+        $commandTester = $this->execute(
+            array(
+                'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/PurchasesDiscounts'),
+                '--sort' => 'filedate'
+            )
+        );
+        $this->assertEquals(0, $commandTester->getStatusCode());
+        $display = $commandTester->getDisplay();
+        $this->assertContains('Found 3 files', $display);
+        Assert::assertStringsOrder(
+            array(
+                'purchases-07-01-2014_11-20-01.xml',
+                'purchases-01-02-2014_10-31-19.xml',
+                'purchases-02-02-2014_21-50-20.xml',
+            ),
+            $display
+        );
+
+        $this->assertNotContains('discounts-01-02-2014_11-11-22.xml', $display);
+        $this->assertNotContains('discounts-01-02-2014_11-27-22.xml', $display);
+    }
 }
