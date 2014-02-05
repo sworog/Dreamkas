@@ -520,6 +520,8 @@ class GrossMarginControllerTest extends WebTestCase
 
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
+        $this->getGrossMarginManager()->recalculateStoreGrossMargin();
+        $this->getGrossMarginManager()->recalculateDayGrossMargin();
         $this->getGrossMarginManager()->recalculateDayGrossMargin();
 
 
