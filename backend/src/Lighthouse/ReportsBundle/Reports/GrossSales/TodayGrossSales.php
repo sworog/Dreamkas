@@ -4,7 +4,6 @@ namespace Lighthouse\ReportsBundle\Reports\GrossSales;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use DateTime;
-use Lighthouse\ReportsBundle\Reports\GrossSales\DayHourGrossSales;
 
 abstract class TodayGrossSales extends AbstractDocument
 {

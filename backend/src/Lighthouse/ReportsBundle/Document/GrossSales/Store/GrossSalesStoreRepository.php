@@ -7,7 +7,6 @@ use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use DateTime;
-use Lighthouse\ReportsBundle\Document\GrossSales\Store\GrossSalesStoreReport;
 
 class GrossSalesStoreRepository extends DocumentRepository
 {
@@ -36,7 +35,7 @@ class GrossSalesStoreRepository extends DocumentRepository
      * @param DateTime $dayHour
      * @param Store $store
      * @param Money $hourSum
-     * @return \Lighthouse\ReportsBundle\Document\GrossSales\Store\GrossSalesStoreReport
+     * @return GrossSalesStoreReport
      */
     public function createByDayHourAndStore(
         DateTime $dayHour,
@@ -56,7 +55,7 @@ class GrossSalesStoreRepository extends DocumentRepository
      * @param DateTime $dayHour
      * @param string $storeId
      * @param Money $hourSum
-     * @return \Lighthouse\ReportsBundle\Document\GrossSales\Store\GrossSalesStoreReport
+     * @return GrossSalesStoreReport
      */
     public function createByDayHourAndStoreId(
         DateTime $dayHour,
@@ -70,7 +69,7 @@ class GrossSalesStoreRepository extends DocumentRepository
     /**
      * @param Store $store
      * @param array $dates
-     * @return Cursor|\Lighthouse\ReportsBundle\Document\GrossSales\Store\GrossSalesStoreReport[]
+     * @return Cursor|GrossSalesStoreReport[]
      */
     public function findByStoreDayHours(Store $store, array $dates)
     {
@@ -95,7 +94,7 @@ class GrossSalesStoreRepository extends DocumentRepository
     /**
      * @param string $storeId
      * @param string|DateTime $dayHour
-     * @return null|\Lighthouse\ReportsBundle\Document\GrossSales\Store\GrossSalesStoreReport
+     * @return null|GrossSalesStoreReport
      */
     public function findOneByStoreIdAndDayHour($storeId, $dayHour)
     {
@@ -110,7 +109,7 @@ class GrossSalesStoreRepository extends DocumentRepository
 
     /**
      * @param DateTime[]|array $dates
-     * @return \Lighthouse\ReportsBundle\Document\GrossSales\Store\GrossSalesStoreReport[]|Cursor
+     * @return GrossSalesStoreReport[]|Cursor
      */
     public function findByDates(array $dates)
     {

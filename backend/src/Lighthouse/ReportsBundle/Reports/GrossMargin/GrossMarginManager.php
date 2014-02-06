@@ -76,7 +76,7 @@ class GrossMarginManager
     /**
      * @param Cursor|StoreDayGrossMargin[] $cursor
      * @param DateTime $date
-     * @return StoreDayGrossMarginCollection::
+     * @return DayGrossMarginCollection
      */
     protected function fillStoreDayGrossMarginCollection(Cursor $cursor, DateTime $date)
     {

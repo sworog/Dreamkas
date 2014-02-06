@@ -6,7 +6,6 @@ use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesCalculatable;
-use Lighthouse\ReportsBundle\Document\GrossSales\Product\GrossSalesProductReport;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use DateTime;
@@ -60,7 +59,7 @@ class GrossSalesProductRepository extends DocumentRepository implements GrossSal
         Money $hourSum = null
     ) {
         $storeProductId = $this->getDocumentIdentifierValue($storeProduct);
-        $report = new \Lighthouse\ReportsBundle\Document\GrossSales\Product\GrossSalesProductReport();
+        $report = new GrossSalesProductReport();
         $report->id = $this->getIdByStoreProductIdAndDayHour($storeProductId, $dayHour);
         $report->dayHour = $dayHour;
         $report->product = $storeProduct;

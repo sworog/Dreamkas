@@ -4,7 +4,6 @@ namespace Lighthouse\ReportsBundle\Tests\Document\GrossSales;
 
 use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesReportManager;
 use Lighthouse\ReportsBundle\Document\GrossSales\Store\GrossSalesStoreRepository;
-use Lighthouse\CoreBundle\Document\Report\Store\StoreGrossSalesRepository;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class StoreGrossSalesTest extends WebTestCase
