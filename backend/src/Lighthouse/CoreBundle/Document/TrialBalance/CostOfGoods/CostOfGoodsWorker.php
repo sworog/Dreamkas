@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods;
 
 use Lighthouse\CoreBundle\Document\Job\Job;
-use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 use Lighthouse\CoreBundle\Job\Worker\WorkerInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 

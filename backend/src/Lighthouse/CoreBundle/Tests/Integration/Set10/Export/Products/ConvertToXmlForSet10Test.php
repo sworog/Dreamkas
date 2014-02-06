@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Export\Products;
 
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Integration\Set10\Export\Products\ExportProductsWorker;

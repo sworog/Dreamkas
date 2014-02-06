@@ -20,6 +20,7 @@ class SortableDirectoryTest extends TestCase
         $tmpDir = $this->createDirectory();
         $files = $this->createFiles($tmpDir);
 
+        /* @var SortableDirectoryIterator|\SplFileInfo[] $dir */
         $dir = new SortableDirectoryIterator($tmpDir);
         $dir->sortByTime();
 
@@ -35,6 +36,7 @@ class SortableDirectoryTest extends TestCase
         $tmpDir = $this->createDirectory();
         $files = $this->createFiles($tmpDir);
 
+        /* @var SortableDirectoryIterator|\SplFileInfo[] $dir */
         $dir = new SortableDirectoryIterator($tmpDir);
         $dir->sortByTime(SortableDirectoryIterator::SORT_ASC);
 
@@ -50,6 +52,7 @@ class SortableDirectoryTest extends TestCase
         $tmpDir = $this->createDirectory();
         $files = $this->createFiles($tmpDir);
 
+        /* @var SortableDirectoryIterator|\SplFileInfo[] $dir */
         $dir = new SortableDirectoryIterator($tmpDir);
         $dir->sortByTime(SortableDirectoryIterator::SORT_DESC);
 
@@ -65,6 +68,7 @@ class SortableDirectoryTest extends TestCase
         $tmpDir = $this->createDirectory();
         $files = $this->createFiles($tmpDir);
 
+        /* @var SortableDirectoryIterator|\SplFileInfo[] $dir */
         $dir = new SortableDirectoryIterator($tmpDir);
         $dir->sortByFilename(SortableDirectoryIterator::SORT_ASC);
 
@@ -80,6 +84,7 @@ class SortableDirectoryTest extends TestCase
         $tmpDir = $this->createDirectory();
         $files = $this->createFiles($tmpDir);
 
+        /* @var SortableDirectoryIterator|\SplFileInfo[] $dir */
         $dir = new SortableDirectoryIterator($tmpDir);
         $dir->sortByFilename(SortableDirectoryIterator::SORT_ASC);
 
@@ -95,6 +100,7 @@ class SortableDirectoryTest extends TestCase
         $tmpDir = $this->createDirectory();
         $files = $this->createFiles($tmpDir);
 
+        /* @var SortableDirectoryIterator|\SplFileInfo[] $dir */
         $dir = new SortableDirectoryIterator($tmpDir);
         $dir->sortByFilename(SortableDirectoryIterator::SORT_DESC);
 
@@ -132,6 +138,7 @@ class SortableDirectoryTest extends TestCase
         $tmpDir = $this->createDirectory();
         $files = $this->createFiles($tmpDir);
 
+        /* @var SortableDirectoryIterator|\SplFileInfo[] $dir */
         $dir = new SortableDirectoryIterator($tmpDir);
         $dir->sortByFilename();
 
@@ -145,6 +152,7 @@ class SortableDirectoryTest extends TestCase
         $tmpDir = $this->createDirectory();
         $this->createFiles($tmpDir);
 
+        /* @var SortableDirectoryIterator|\SplFileInfo[] $dir */
         $dir = new SortableDirectoryIterator($tmpDir);
         $dir->sortByFilename();
 
@@ -160,6 +168,7 @@ class SortableDirectoryTest extends TestCase
         $tmpDir = $this->createDirectory();
         $this->createFiles($tmpDir);
 
+        /* @var SortableDirectoryIterator|\SplFileInfo[] $dir */
         $dir = new SortableDirectoryIterator($tmpDir);
         $dir->sortByFilename();
 
@@ -174,6 +183,7 @@ class SortableDirectoryTest extends TestCase
         $tmpDir = $this->createDirectory();
         $this->createFiles($tmpDir);
 
+        /* @var SortableDirectoryIterator|\SplFileInfo[] $dir */
         $dir = new SortableDirectoryIterator($tmpDir);
         $dir->sortByFilename();
 

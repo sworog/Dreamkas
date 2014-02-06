@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Rounding\Nearest10;
