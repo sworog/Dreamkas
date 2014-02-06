@@ -12,6 +12,7 @@ public class ThucydidesControl extends JFrame {
 
     JPanel mainPanel;
     JPanel controlPanel;
+    JScrollPane jScrollPane;
     JPanel stepsPanel;
     JLabel currentStep;
     JLabel currentScenarioName;
@@ -62,13 +63,18 @@ public class ThucydidesControl extends JFrame {
         controlPanel.add(controlButton, BOTTOM_ALIGNMENT);
 
         stepsPanel = new JPanel();
+        jScrollPane = new JScrollPane(stepsPanel);
         stepsPanel.setOpaque(true);
         stepsPanel.setBackground(Color.WHITE);
         stepsPanel.setBorder(BorderFactory.createTitledBorder("Steps"));
         stepsPanel.setLayout(new BoxLayout(stepsPanel, BoxLayout.PAGE_AXIS));
+        stepsPanel.setAutoscrolls(true);
+        jScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        jScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         mainPanel.add(controlPanel, BorderLayout.PAGE_START);
-        mainPanel.add(stepsPanel, BorderLayout.PAGE_END);
+        mainPanel.add(jScrollPane, BorderLayout.PAGE_END);
+        mainPanel.add(jScrollPane);
         setContentPane(mainPanel);
         pack();
         setTitle("Thucydides");

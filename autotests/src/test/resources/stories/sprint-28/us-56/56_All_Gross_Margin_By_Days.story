@@ -30,7 +30,6 @@ Scenario: Gross margin by days no data
 Meta:
 @id s28u56s2
 @description
-@smoke
 
 Given the user runs the symfony:env:init command
 
