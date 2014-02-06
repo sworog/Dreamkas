@@ -20,9 +20,7 @@ define(function(require) {
             if (page.referrer.__name__ && page.referrer.__name__.indexOf('page_catalog') >= 0){
                 _.extend(params, pageParams);
             } else {
-                _.extend(pageParams, {
-                    editMode: 'false'
-                }, params)
+                pageParams.editMode = params.editMode || pageParams.editMode || 'false'
             }
 
             if (currentUserModel.stores.length){
