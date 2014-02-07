@@ -134,6 +134,7 @@ namespace :symfony do
 
         desc "Add worker"
         task :add, :roles => :app, :except => { :no_release => true } do
+            run "#{sudo} supervisorctl reread"
             run "#{sudo} supervisorctl add #{application}"
         end
 
