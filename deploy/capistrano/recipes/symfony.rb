@@ -78,8 +78,11 @@ namespace :symfony do
     namespace :worker do
 
         after "deploy:setup", "symfony:worker:setup"
+        after "deploy:setup", "symfony:worker:add"
         after "deploy:update", "symfony:worker:symlink"
+        after "deploy:update", "symfony:worker:restart"
         after "deploy:remove", "symfony:worker:symlink:remove"
+        after "deploy:remove", "symfony:worker:stop"
 
         set(:worker_conf_file) {"#{shared_path}/app/shared/supervisor/worker.conf"}
         set(:worker_symlink_file) {"/etc/supervisor/conf.d/#{application}.conf"}
@@ -113,6 +116,25 @@ namespace :symfony do
               puts "#{channel[:host]}: #{data}"
               break if stream == :err
             end
+        end
+
+        desc "Restart worker"
+        task :restart, :roles => :app, :except => { :no_release => true } do
+            run "#{sudo} supervisorctl restart #{application}"
+        end
+        desc "Start worker"
+        task :stop, :roles => :app, :except => { :no_release => true } do
+            run "#{sudo} supervisorctl restart #{application}"
+        end
+
+        desc "stop worker"
+        task :stop, :roles => :app, :except => { :no_release => true } do
+            run "#{sudo} supervisorctl restart #{application}"
+        end
+
+        desc "Add worker"
+        task :add, :roles => :app, :except => { :no_release => true } do
+            run "#{sudo} supervisorctl add #{application}"
         end
 
         namespace :symlink do
