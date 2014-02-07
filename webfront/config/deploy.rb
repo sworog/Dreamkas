@@ -38,7 +38,7 @@ after "deploy:finalize_update", "webfront"
 namespace :deploy do
     namespace :remove do
         task :default, :roles => :app, :except => { :no_release => true } do
-            if Capistrano::CLI.ui.ask("Are you sure drop " + application_url.yellow + " (y/n)") == 'y'
+            if force || Capistrano::CLI.ui.ask("Are you sure drop " + application_url.yellow + " (y/n)") == 'y'
                 host
             end
         end
