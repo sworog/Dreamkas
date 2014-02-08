@@ -1,7 +1,6 @@
 source "http://rubygems.org"
 
-gem "capifony"
-gem "capistrano"
+gem "capifony", "~> 2.4"
 gem "capistrano-ext"
 gem "capistrano_colors"
 gem "time_diff"
