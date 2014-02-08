@@ -140,24 +140,27 @@ namespace :deploy do
                 x[:last_release] <=> y[:last_release]
             end
         end .each do |revision|
-            print "Host: " + revision[:host].yellow
-            print_shift(30, revision[:host].length)
-            print " *" + revision[:releases].to_s.green
-            print_shift(4, revision[:releases].to_s.length)
-
-            unless (revision[:last_release].nil?)
-                time_diff = Time.diff(revision[:last_release], Time.new);
-                print " " + revision[:last_release].to_s.yellow + " (" + time_diff[:diff].green + ")"
-                print_shift(30, time_diff[:diff].length)
-            else
-                print " never".red
-                print_shift(58, 0)
-            end
-
             host = revision[:host].sub(/^(.+)\..+?\.#{app_end}$/, '\1')
             stage = revision[:host].sub(/^.+\.(.+)?\.#{app_end}$/, '\1')
-            puts "Remove command: " + "cap #{stage} deploy:remove -S host=#{host}".red
+            unless force then
+                print "Host: " + revision[:host].yellow
+                print_shift(30, revision[:host].length)
+                print " *" + revision[:releases].to_s.green
+                print_shift(4, revision[:releases].to_s.length)
 
+                unless (revision[:last_release].nil?)
+                    time_diff = Time.diff(revision[:last_release], Time.new);
+                    print " " + revision[:last_release].to_s.yellow + " (" + time_diff[:diff].green + ")"
+                    print_shift(30, time_diff[:diff].length)
+                else
+                    print " never".red
+                    print_shift(58, 0)
+                end
+
+                puts "Remove command: " + "cap #{stage} deploy:remove -S host=#{host}".red
+            else
+                puts "cap #{stage} deploy:remove -S host=#{host} -S force"
+            end
         end
     end
 
