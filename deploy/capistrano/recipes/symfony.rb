@@ -80,6 +80,7 @@ namespace :symfony do
         after "deploy:setup", "symfony:worker:setup"
         after "deploy:update", "symfony:worker:symlink:create"
         after "deploy:update", "symfony:worker:update"
+        after "deploy:update", "symfony:worker:restart"
         after "deploy:remove", "symfony:worker:symlink:remove"
         after "deploy:remove", "symfony:worker:update"
 
@@ -122,6 +123,13 @@ namespace :symfony do
             capifony_pretty_print "--> Update workers"
             run "#{sudo} supervisorctl reread"
             run "#{sudo} supervisorctl update"
+            capifony_puts_ok
+        end
+
+        desc "Update workers"
+        task :restart, :roles => :app, :except => { :no_release => true } do
+            capifony_pretty_print "--> Restart worker"
+            run "#{sudo} supervisorctl restart #{application}"
             capifony_puts_ok
         end
 
