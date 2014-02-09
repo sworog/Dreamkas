@@ -57,7 +57,7 @@ logger.level = Logger::IMPORTANT
 #before "deploy", "deploy:vpn"
 
 before "deploy:restart", "deploy:php:reload"
-before "deploy:restart", "deploy:supervisor:restart"
+#before "deploy:restart", "deploy:supervisor:restart"
 
 after "deploy:restart" do
     puts "--> API was successfully deployed to ".green + "#{application_url}".yellow

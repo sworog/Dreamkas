@@ -78,8 +78,11 @@ namespace :symfony do
     namespace :worker do
 
         after "deploy:setup", "symfony:worker:setup"
-        after "deploy:update", "symfony:worker:symlink"
+        after "deploy:update", "symfony:worker:symlink:create"
+        after "deploy:update", "symfony:worker:update"
+        after "deploy:update", "symfony:worker:restart"
         after "deploy:remove", "symfony:worker:symlink:remove"
+        after "deploy:remove", "symfony:worker:update"
 
         set(:worker_conf_file) {"#{shared_path}/app/shared/supervisor/worker.conf"}
         set(:worker_symlink_file) {"/etc/supervisor/conf.d/#{application}.conf"}
@@ -115,18 +118,27 @@ namespace :symfony do
             end
         end
 
-        namespace :symlink do
+        desc "Update workers"
+        task :update, :roles => :app, :except => { :no_release => true } do
+            capifony_pretty_print "--> Update workers"
+            run "#{sudo} supervisorctl reread"
+            run "#{sudo} supervisorctl update"
+            capifony_puts_ok
+        end
 
-            desc "Symlink worker conf to supervisor conf.d"
-            task :default, :roles => :app, :except => { :no_release => true } do
-                remove
-                create
-            end
+        desc "Update workers"
+        task :restart, :roles => :app, :except => { :no_release => true } do
+            capifony_pretty_print "--> Restart worker"
+            run "#{sudo} supervisorctl restart #{application}"
+            capifony_puts_ok
+        end
+
+        namespace :symlink do
 
             desc "Create worker symlink in supervisor conf.d"
             task :create, :roles => :app, :except => { :no_release => true } do
                 puts "--> Symlink worker conf to supervisor conf.d".yellow
-                run "sudo ln -s #{worker_conf_file} #{worker_symlink_file}"
+                run "sudo ln -snf #{worker_conf_file} #{worker_symlink_file}"
             end
 
             desc "Remove worker symlink from supervisor conf.d"
