@@ -167,7 +167,7 @@ class RoundingControllerTest extends WebTestCase
             'invalid string' => array(
                 'aaaa',
                 array(
-                    'children.price.errors.0' => 'Цена не должна быть меньше или равна нулю'
+                    'children.price.errors.0' => 'Значение должно быть числом'
                 )
             ),
         );

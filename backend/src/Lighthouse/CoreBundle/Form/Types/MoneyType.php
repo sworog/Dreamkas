@@ -59,7 +59,7 @@ class MoneyType extends BaseMoneyType
         parent::setDefaultOptions($resolver);
         $resolver->setDefaults(
             array(
-                'invalid_message' => 'lighthouse.validation.errors.money.negative'
+                'invalid_message' => 'lighthouse.validation.errors.money.invalid'
             )
         );
     }

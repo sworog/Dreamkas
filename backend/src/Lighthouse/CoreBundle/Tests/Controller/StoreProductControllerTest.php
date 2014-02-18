@@ -293,7 +293,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPrice.errors.0' => 'Цена не должна быть меньше или равна нулю',
+                    'children.retailPrice.errors.0' => 'Значение должно быть числом',
                     'children.retailMarkup.errors.1' => null,
                     'children.retailMarkup.errors' => null,
                 )

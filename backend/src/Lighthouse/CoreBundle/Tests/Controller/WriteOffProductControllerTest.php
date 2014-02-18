@@ -197,7 +197,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 array(
                     'children.price.errors.0'
                     =>
-                    'Цена не должна быть меньше или равна нулю',
+                    'Значение должно быть числом',
                 ),
             ),
             'not valid price zero' => array(

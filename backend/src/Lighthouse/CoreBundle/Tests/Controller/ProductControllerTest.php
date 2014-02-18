@@ -579,7 +579,7 @@ class ProductControllerTest extends WebTestCase
                 array(
                     'children.purchasePrice.errors.0'
                     =>
-                    'Цена не должна быть меньше или равна нулю',
+                    'Значение должно быть числом',
                 ),
             ),
             'not valid price zero' => array(
@@ -910,7 +910,7 @@ class ProductControllerTest extends WebTestCase
     {
         $postData = $this->getProductData();
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -1292,7 +1292,7 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPriceMin.errors.0' => 'Цена не должна быть меньше или равна нулю',
+                    'children.retailPriceMin.errors.0' => 'Значение должно быть числом',
                     'children.retailPriceMin.errors.1' => null,
                 ),
             ),
@@ -1304,8 +1304,22 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPriceMin.errors.0' => 'Цена не должна быть меньше или равна нулю',
+                    'children.retailPriceMin.errors.0' => 'Значение должно быть числом',
                     'children.purchasePrice.errors.0' => null,
+                ),
+            ),
+            'prefer price, empty markup, prices with space' => array(
+                array(
+                    'purchasePrice' => '1112',
+                    'retailMarkupMax' =>  '20',
+                    'retailMarkupMin' => '15',
+                    'retailPriceMax' =>  '1 334,40',
+                    'retailPriceMin' => '1 278,80',
+                    'retailPricePreference' => 'retailPrice'
+                ),
+                array(
+                    'children.retailPriceMin.errors.0' => 'Значение должно быть числом',
+                    'children.retailPriceMax.errors.0' => 'Значение должно быть числом',
                 ),
             ),
             'prefer markup, empty price, invalid markup' => array(
