@@ -9,8 +9,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.elements.Autocomplete;
-import project.lighthouse.autotests.pages.commercialManager.product.ProductListPage;
-import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceListPage;
 
 import java.util.Map;
 
@@ -25,27 +23,6 @@ public class CommonPage extends PageObject {
 
     public CommonPage(WebDriver driver) {
         super(driver);
-    }
-
-    public void isRequiredPageOpen(String pageObjectName) {
-        String defaultUrl = getPageObjectDefaultUrl(pageObjectName).replaceFirst(".*\\(value=(.*)\\)", "$1");
-        String actualUrl = getDriver().getCurrentUrl();
-        assertTrue(
-                String.format("The %s is not open!\nActual url: %s\nExpected url: %s", pageObjectName, actualUrl, defaultUrl),
-                actualUrl.contains(defaultUrl)
-        );
-    }
-
-    public String getPageObjectDefaultUrl(String pageObjectName) {
-        switch (pageObjectName) {
-            case "ProductListPage":
-                return ProductListPage.class.getAnnotations()[0].toString();
-            case "InvoiceListPage":
-                return InvoiceListPage.class.getAnnotations()[0].toString();
-            default:
-                fail("dfdfdf");
-        }
-        return null;
     }
 
     public String generateTestData(int n) {

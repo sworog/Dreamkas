@@ -161,7 +161,6 @@ public class ProductUserSteps {
         productSteps.checkCardValue(elementNameToCheck, expectedValue);
     }
 
-
     @Then("the user checks the elements values $checkValuesTable")
     public void thenTheUserChecksTheElementValues(ExamplesTable checkValuesTable) {
         productSteps.checkCardValue(checkValuesTable);

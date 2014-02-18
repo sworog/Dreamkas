@@ -46,16 +46,6 @@ public class WriteOffSteps extends ScenarioSteps {
     }
 
     @Step
-    public void checkCardValue(String elementName, String expectedValue) {
-        writeOffPage.checkCardValue(elementName, expectedValue);
-    }
-
-    @Step
-    public void checkCardValue(String checkType, String elementName, String expectedValue) {
-        writeOffPage.checkCardValue(checkType, elementName, expectedValue);
-    }
-
-    @Step
     public void checkCardValue(String checkType, ExamplesTable checkValuesTable) {
         writeOffPage.checkCardValue(checkType, checkValuesTable);
     }
@@ -137,11 +127,6 @@ public class WriteOffSteps extends ScenarioSteps {
     @Step
     public void listItemCheck(String value) {
         writeOffListPage.listItemCheck(value);
-    }
-
-    @Step
-    public void writeOffItemListCreate() {
-        writeOffListPage.writeOffItemListCreate();
     }
 
     @Step
