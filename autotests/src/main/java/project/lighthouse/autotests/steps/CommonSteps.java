@@ -17,11 +17,6 @@ public class CommonSteps extends ScenarioSteps {
     }
 
     @Step
-    public void checkTheRequiredPageIsOpen(String pageObjectName) {
-        commonPage.isRequiredPageOpen(pageObjectName);
-    }
-
-    @Step
     public void checkErrorMessages(ExamplesTable errorMessageTable) {
         new ValidationErrorsCollection(getDriver()).matchesWithExampleTable(errorMessageTable);
     }

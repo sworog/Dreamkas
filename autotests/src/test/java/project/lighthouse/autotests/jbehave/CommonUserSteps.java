@@ -15,11 +15,6 @@ public class CommonUserSteps {
 
     String storedUrl;
 
-    @Then("the user checks that he is on the '$pageObjectName'")
-    public void TheTheUserChecksThatHeIsOnTheProductListPage(String pageObjectName) {
-        commonSteps.checkTheRequiredPageIsOpen(pageObjectName);
-    }
-
     @Then("the user sees error messages $errorMessageTable")
     public void ThenTheUserSeesErrorMessages(ExamplesTable errorMessageTable) {
         commonSteps.checkErrorMessages(errorMessageTable);

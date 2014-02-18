@@ -88,11 +88,6 @@ public class ProductUserSteps {
         productSteps.createButtonClick();
     }
 
-    @When("the user clicks the cancel button")
-    public void whenTheUserClickCancelEditButton() {
-        productSteps.cancelButtonClick();
-    }
-
     @When("the user creates new product from product list page")
     public void whenTheUSerCreatesNewProduct() {
         productSteps.createNewProductButtonClick();
@@ -160,7 +155,6 @@ public class ProductUserSteps {
     public void AliastTheUserChecksValue(String elementNameToCheck, String expectedValue) {
         productSteps.checkCardValue(elementNameToCheck, expectedValue);
     }
-
 
     @Then("the user checks the elements values $checkValuesTable")
     public void thenTheUserChecksTheElementValues(ExamplesTable checkValuesTable) {

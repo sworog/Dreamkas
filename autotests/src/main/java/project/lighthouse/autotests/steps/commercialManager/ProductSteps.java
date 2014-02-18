@@ -6,7 +6,10 @@ import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.common.CommonPage;
-import project.lighthouse.autotests.pages.commercialManager.product.*;
+import project.lighthouse.autotests.pages.commercialManager.product.ProductCardView;
+import project.lighthouse.autotests.pages.commercialManager.product.ProductCreatePage;
+import project.lighthouse.autotests.pages.commercialManager.product.ProductListPage;
+import project.lighthouse.autotests.pages.commercialManager.product.ProductLocalNavigation;
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductInvoicesList;
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductReturnList;
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductWriteOffList;
@@ -14,7 +17,6 @@ import project.lighthouse.autotests.pages.departmentManager.catalog.product.Prod
 public class ProductSteps extends ScenarioSteps {
 
     ProductCreatePage productCreatePage;
-    ProductEditPage productEditPage;
     ProductCardView productCardView;
     ProductListPage productListPage;
     CommonPage commonPage;
@@ -45,11 +47,6 @@ public class ProductSteps extends ScenarioSteps {
     @Step
     public void createButtonClick() {
         productCreatePage.createButtonClick();
-    }
-
-    @Step
-    public void cancelButtonClick() {
-        productEditPage.cancelButtonClick();
     }
 
     @Step

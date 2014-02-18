@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.common.CommonView;
-import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.NonType;
 
 @DefaultUrl("/writeOffs")
@@ -26,10 +25,6 @@ public class WriteOffListPage extends CommonPageObject {
         items.put("writeOff list page date", new NonType(this, "date"));
         items.put("writeOff list page number", new NonType(this, "number"));
         items.put("writeOff list page sumTotal", new NonType(this, "sumTotal"));
-    }
-
-    public void writeOffItemListCreate() {
-        new ButtonFacade(getDriver(), "Новое списание").click();
     }
 
     public void listItemCheck(String skuValue) {
