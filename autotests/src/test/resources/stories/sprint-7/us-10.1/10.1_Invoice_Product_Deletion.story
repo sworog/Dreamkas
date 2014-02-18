@@ -7,8 +7,8 @@ Narrative:
 Чтобы исправлять в ней ошибки
 
 Meta:
-@sprint 7
-@us 10.1
+@sprint_7
+@us_10.1
 
 Scenario: Invoice product deletion
 

@@ -6,8 +6,8 @@ Narrative:
 Чтобы управлять ассортиментом по классам и группам
 
 Meta:
-@sprint 11
-@us 16
+@sprint_11
+@us_16
 
 Scenario: Group create from catalog page
 

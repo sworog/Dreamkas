@@ -1,6 +1,6 @@
 Meta:
-@sprint 23
-@us 50
+@sprint_23
+@us_50
 
 Narrative:
 As a заведующий отделом,
@@ -10,7 +10,7 @@ In order to понять когда и сколько едениц товара 
 Scenario: Primary Inventory Analysis
 
 Meta:
-@id s23u50s1
+@id_s23u50s1
 @description primary inventory analysis (all inventory items)
 @smoke
 
@@ -29,7 +29,7 @@ Then the user checks the product balance list contains entry
 Scenario: Inventory item productName is a link and its clickable
 
 Meta:
-@id s23u50s2
+@id_s23u50s2
 @description the inventory item product name is clickable and opens the product card
 @smoke
 
@@ -57,7 +57,7 @@ Then the user checks the elements values
 Scenario: Inventory table has got the product with no price
 
 Meta:
-@id s23u50s3
+@id_s23u50s3
 @description inventory table has got the product with no price
 
 GivenStories: precondition/sprint-23/us-50/aPreconditionToStoryUs50.story,
@@ -73,7 +73,7 @@ Then the user checks the product balance list contains entry
 Scenario: Inventory table has got the product with no sales (0)
 
 Meta:
-@id s23u50s4
+@id_s23u50s4
 @description inventory table has got the product with no sales (0)
 
 GivenStories: precondition/sprint-23/us-50/aPreconditionToStoryUs50.story,
@@ -89,7 +89,7 @@ Then the user checks the product balance list contains entry
 Scenario: Inventory table has got the product with no inventory (0)
 
 Meta:
-@id s23u50s5
+@id_s23u50s5
 @description inventory table has got the product with no inventory (0)
 
 GivenStories: precondition/sprint-23/us-50/aPreconditionToStoryUs50.story,
@@ -105,7 +105,7 @@ Then the user checks the product balance list contains entry
 Scenario: Inventory ratio dosnt evaluate for today transactions
 
 Meta:
-@id s23u50s6
+@id_s23u50s6
 @description inventory ratio dosnt evaluate for today transactions
 
 GivenStories: precondition/sprint-23/us-50/aPreconditionToStoryUs50.story,
@@ -121,7 +121,7 @@ Then the user checks the product balance list contains entry
 Scenario: Inventory ratio dosnt evaluate for older than 31 days transactions
 
 Meta:
-@id s23u50s7
+@id_s23u50s7
 @description inventory ratio dosnt evaluate for older than 31 days transactions
 
 GivenStories: precondition/sprint-23/us-50/aPreconditionToStoryUs50.story,
@@ -137,7 +137,7 @@ Then the user checks the product balance list contains entry
 Scenario: Mouse hover over inventory items
 
 Meta:
-@id s23u50s8
+@id_s23u50s8
 @description while hovering the inventory item there will be some details
 
 GivenStories: precondition/sprint-23/us-50/aPreconditionToStoryUs50.story,
@@ -158,7 +158,7 @@ Then the user checks the balance list item by sku 'sku-s23u50-1' has items becom
 Scenario: Check the product card have inventory, averageDailySales, inventoryDays values
 
 Meta:
-@id s23u50s9
+@id_s23u50s9
 @description check the product card have inventory, averageDailySales, inventoryDays values
 
 GivenStories: precondition/sprint-23/us-50/aPreconditionToStoryUs50.story,

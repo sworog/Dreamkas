@@ -1,6 +1,6 @@
 Meta:
-@sprint 24
-@us 53.2
+@sprint_24
+@us_53.2
 
 Narrative:
 As a директор магазина
@@ -10,7 +10,7 @@ In order to понять в каком часу произошел провал 
 Scenario: The store gross sale by hour report dont contain data on current hour
 
 Meta:
-@id s24us532s1
+@id_s24us532s1
 @description the store gross sale by hour report dont contain data on current hour
 @smoke
 
@@ -28,7 +28,7 @@ Then the user checks the store gross sale by hour report dont contain data on cu
 Scenario: The user checks the store gross sale by hour report contains correct data
 
 Meta:
-@id s24us532s2
+@id_s24us532s2
 @description the user checks the store gross sale by hour report contains correct data
 @smoke
 
@@ -46,7 +46,7 @@ Then the user checks the store gross sale by hour report contains correct data
 Scenario: Can't see reports navigation menu link for watchman
 
 Meta:
-@id s24us532s3
+@id_s24us532s3
 @description no reports navigation menu link for admin
 
 Given the user opens the authorization page
@@ -56,7 +56,7 @@ Then the user checks the reports navigation menu item is not visible
 Scenario: Can't see reports navigation menu link for departmentManager
 
 Meta:
-@id s24us532s4
+@id_s24us532s4
 @description no reports navigation menu link for departmentManager
 
 Given the user opens the authorization page
@@ -66,7 +66,7 @@ Then the user checks the reports navigation menu item is not visible
 Scenario: Can't navigate directly to reports page for watchman
 
 Meta:
-@id s24us532s5
+@id_s24us532s5
 @description get 403 navigating directly to reports page for watchman
 
 GivenStories: precondition/sprint-24/us-53_2/aPreconditionToStoryUs53.2.story
@@ -78,7 +78,7 @@ Then the user sees the 403 error
 Scenario: Can't navigate directly to reports page for departmentManager
 
 Meta:
-@id s24us532s6
+@id_s24us532s6
 @description get 403 navigating directly to reports page for departmentManager
 
 GivenStories: precondition/sprint-24/us-53_2/aPreconditionToStoryUs53.2.story

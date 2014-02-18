@@ -1,15 +1,15 @@
 Meta:
-@sprint 24
-@us 55.2
+@sprint_24
+@us_55.2
 @smoke
-@id s24u55.2s1
-@id s24u55.2s2
-@id s24u55.2s3
-@id s24u55.2s4
-@id s24u55.2s5
-@id s24u55.2s6
-@id s24u55.2s7
-@id s24u55.2s8
+@id_s24u55.2s1
+@id_s24u55.2s2
+@id_s24u55.2s3
+@id_s24u55.2s4
+@id_s24u55.2s5
+@id_s24u55.2s6
+@id_s24u55.2s7
+@id_s24u55.2s8
 
 Scenario: A scenario that prepares data
 

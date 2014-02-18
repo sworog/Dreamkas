@@ -1,6 +1,6 @@
 Meta:
-@sprint 28
-@us 56
+@sprint_28
+@us_56
 
 Narrative:
 As a коммерческий директор
@@ -10,9 +10,8 @@ In order to чтобы понимать выполняет ли сеть нор�
 Scenario: Gross margin by days
 
 Meta:
-@id s28u56s1
-@description
-@smoke
+@id_s28u56s1
+@description_@smoke
 
 GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story,
               precondition/sprint-28/us-56/aPreconditionToStoryUs56.story
@@ -28,7 +27,7 @@ Then the user checks the gross sale margin table contains expected value entries
 Scenario: Gross margin by days no data
 
 Meta:
-@id s28u56s2
+@id_s28u56s2
 @description
 
 Given the user runs the symfony:env:init command

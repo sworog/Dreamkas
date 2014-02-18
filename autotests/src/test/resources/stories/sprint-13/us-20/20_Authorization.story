@@ -6,8 +6,8 @@ As a пользователь
 I want to авторизироваться в системе
 
 Meta:
-@sprint 13
-@us 20
+@sprint_13
+@us_20
 
 Scenario: Authorization invalid password
 

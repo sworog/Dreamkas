@@ -6,8 +6,8 @@ Narrative:
 Чтобы определять когда и какого объема требуется размещать заказ у поставщика
 
 Meta:
-@sprint 6
-@us 11
+@sprint_6
+@us_11
 
 Scenario: Amounts increase kg
 

@@ -1,21 +1,21 @@
 Meta:
-@sprint 24
-@us 53.1
+@sprint_24
+@us_53.1
 @smoke
-@id s24u53.1s1
-@id s24u53.1s2
-@id s24u53.1s3
-@id s24u53.1s4
-@id s24u53.1s5
-@id s24u53.1s6
-@id s24u53.1s7
-@id s24u53.1s8
-@id s24u53.1s9
-@id s24u53.1s10
-@id s24u53.1s11
-@id s24u53.1s12
-@id s24u53.1s13
-@id s24u53.1s14
+@id_s24u53.1s1
+@id_s24u53.1s2
+@id_s24u53.1s3
+@id_s24u53.1s4
+@id_s24u53.1s5
+@id_s24u53.1s6
+@id_s24u53.1s7
+@id_s24u53.1s8
+@id_s24u53.1s9
+@id_s24u53.1s10
+@id_s24u53.1s11
+@id_s24u53.1s12
+@id_s24u53.1s13
+@id_s24u53.1s14
 
 Scenario: A scenario that prepares data
 

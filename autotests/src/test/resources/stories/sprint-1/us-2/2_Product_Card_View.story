@@ -6,8 +6,8 @@ Narrative:
 Чтобы определять насколько верные и полные данные там содержатся.
 
 Meta:
-@sprint 1
-@us 2
+@sprint_1
+@us_2
 
 Scenario: Viewing product card after creation 1
 

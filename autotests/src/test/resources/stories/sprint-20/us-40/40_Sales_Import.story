@@ -1,6 +1,6 @@
 Meta:
-@us 40
-@sprint 20
+@us_40
+@sprint_20
 
 Narrative:
 As a user
@@ -10,7 +10,7 @@ So that I can achieve a business goal
 Scenario: Import products purchases (xml)
 
 Meta:
-@id s20u40s1
+@id_s20u40s1
 @smoke
 
 Given the user opens the settings page

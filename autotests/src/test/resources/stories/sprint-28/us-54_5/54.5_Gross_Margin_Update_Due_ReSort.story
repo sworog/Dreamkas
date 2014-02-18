@@ -1,6 +1,6 @@
 Meta:
-@sprint 28
-@us 54.5
+@sprint_28
+@us_54.5
 
 Narrative:
 As a директор магазина
@@ -10,9 +10,8 @@ In order to чтобы ситуация с пересортом оказала �
 Scenario: Gross sale margin update due reSort if earlier there were invoices
 
 Meta:
-@id s28u54.5s1
-@description
-@smoke
+@id_s28u54.5s1
+@description_@smoke
 
 GivenStories: precondition/sprint-28/us-54_5/aPreconditionToStoryUs54.5.story,
               precondition/sprint-28/us-54_5/aPreconditionToScenario1.story
@@ -28,9 +27,8 @@ Then the user checks the gross sale margin table contains expected value entries
 Scenario: Gross sale margin update due reSort if earlier there were no invoices
 
 Meta:
-@id s28u54.5s2
-@description
-@smoke
+@id_s28u54.5s2
+@description_@smoke
 
 GivenStories: precondition/sprint-28/us-54_5/aPreconditionToStoryUs54.5.story,
               precondition/sprint-28/us-54_5/aPreconditionToScenario2.story

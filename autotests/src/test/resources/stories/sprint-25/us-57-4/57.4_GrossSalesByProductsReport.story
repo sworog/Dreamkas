@@ -1,6 +1,6 @@
 Meta:
-@sprint 25
-@us 57.4
+@sprint_25
+@us_57.4
 
 Narrative:
 As a директор магазина
@@ -10,7 +10,7 @@ In order to вовремя понять какой товар подкатего
 Scenario: Gross sale by products contains zero sales
 
 Meta:
-@id s25u57.4s1
+@id_s25u57.4s1
 @description check of no sales registered there are zero sales
 
 GivenStories: precondition/sprint-25/us-57_4/aPreconditionToStoryUs57.4.story
@@ -29,7 +29,7 @@ Then the user checks the gross sale by products report contains zero sales
 Scenario: Gross sale by products can contains table product entry without barcode
 
 Meta:
-@id s25u57.4s2
+@id_s25u57.4s2
 @description the product entry can be without barcode
 
 GivenStories: precondition/sprint-25/us-57_4/aPreconditionToStoryUs57.4.story
@@ -48,7 +48,7 @@ Then the user checks the gross sale by products report contains correct data if 
 Scenario: Gross sale by products contains correct data
 
 Meta:
-@id s25u57.4s3
+@id_s25u57.4s3
 @description check the gross sale by products contains correct data
 @smoke
 
@@ -89,7 +89,7 @@ Then the user checks the gross sale by products report contains correct data for
 Scenario: Gross sale by products contains data not red highlighted (todayValue is bigger than yesterday/weekAgo)
 
 Meta:
-@id s25u57.4s4
+@id_s25u57.4s4
 @description
 
 GivenStories: precondition/sprint-25/us-57_4/aPreconditionToScenarioS4.story
@@ -109,7 +109,7 @@ Then the user checks the table today value by locator '255742' is not red highli
 Scenario: Gross sale by products contains data not red highlighted (todayValue is equal yesterday/weekAgo)
 
 Meta:
-@id s25u57.4s5
+@id_s25u57.4s5
 @description
 
 GivenStories: precondition/sprint-25/us-57_4/aPreconditionToScenarioS4.story
@@ -129,7 +129,7 @@ Then the user checks the table today value by locator '255742' is not red highli
 Scenario: Gross sale by products contains data not red highlighted (todayValue is smaller than yesterday and bigger than weekAgo)
 
 Meta:
-@id s25u57.4s6
+@id_s25u57.4s6
 @description
 
 GivenStories: precondition/sprint-25/us-57_4/aPreconditionToScenarioS4.story
@@ -149,7 +149,7 @@ Then the user checks the table today value by locator '255742' is not red highli
 Scenario: Gross sale by products contains data not red highlighted (todayValue is bigger than yesterday and smaller than weekAgo)
 
 Meta:
-@id s25u57.4s7
+@id_s25u57.4s7
 @description
 
 GivenStories: precondition/sprint-25/us-57_4/aPreconditionToScenarioS4.story
@@ -169,9 +169,8 @@ Then the user checks the table today value by locator '255742' is not red highli
 Scenario: Gross sale by products contains data red highlighted (todayValue is smaller than yesterday/weekAgo)
 
 Meta:
-@id s25u57.4s8
-@description
-@smoke
+@id_s25u57.4s8
+@description_@smoke
 
 GivenStories: precondition/sprint-25/us-57_4/aPreconditionToScenarioS4.story
 

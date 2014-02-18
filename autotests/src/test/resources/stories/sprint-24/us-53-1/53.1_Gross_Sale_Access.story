@@ -1,6 +1,6 @@
 Meta:
-@sprint 24
-@us 53.1
+@sprint_24
+@us_53.1
 
 Narrative:
 As a директор магазина
@@ -10,7 +10,7 @@ In order to оперативно отследить провалы в прода
 Scenario: No store gross sale for administrator
 
 Meta:
-@id s24u53.1s15
+@id_s24u53.1s15
 @description checks the store gross sale is not available for administrator
 
 Given the user opens the authorization page
@@ -20,7 +20,7 @@ Then the user checks the gross sale is not available
 Scenario: No store gross sale for commercialManager
 
 Meta:
-@id s24u53.1s16
+@id_s24u53.1s16
 @description checks the store gross sale is not available for commercialManager
 
 Given the user opens the authorization page
@@ -30,7 +30,7 @@ Then the user checks the gross sale is not available
 Scenario: No store gross sale for departmentManager
 
 Meta:
-@id s24u53.1s17
+@id_s24u53.1s17
 @description checks the store gross sale is not available for departmentManager
 
 Given the user opens the authorization page

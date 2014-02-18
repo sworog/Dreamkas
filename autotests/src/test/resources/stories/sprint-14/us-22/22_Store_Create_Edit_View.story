@@ -6,8 +6,8 @@ As a коммерческий директор
 I want to создавать, редактировать и просмотривать магазины торговой сети
 
 Meta:
-@sprint 14
-@us 22
+@sprint_14
+@us_22
 
 Scenario: Create new store from stores list page
 
@@ -39,9 +39,6 @@ When user clicks on store row in list
 Then user checks store card data
 
 Scenario: Edit store
-
-Meta:
-@debug us:22:edit
 
 Given there is created store with number 'store222', address 'ул. Профессора Попова д.37б, 5 этаж', contacts 'тел.: +7 (812) 331-2255'
 And user navigates to created store page

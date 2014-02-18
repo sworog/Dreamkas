@@ -6,8 +6,8 @@ Narrative:
 Чтобы знать из каких товаров состоит ассортимент магазина
 
 Meta:
-@sprint 1
-@us 2.1
+@sprint_1
+@us_2.1
 
 Scenario: Creating new product from product list
 

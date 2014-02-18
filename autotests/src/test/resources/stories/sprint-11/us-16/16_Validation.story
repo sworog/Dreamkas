@@ -1,6 +1,6 @@
 Meta:
-@sprint 11
-@us 16
+@sprint_11
+@us_16
 
 Scenario: Can't delete not empty group from catalog page
 

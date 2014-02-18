@@ -1,8 +1,8 @@
 Meta:
-@sprint 26
-@us 40.4
+@sprint_26
+@us_40.4
 @smoke
-@id s26u40.4.s1
+@id_s26u40.4.s1
 
 Scenario: A scenario that prepares data
 

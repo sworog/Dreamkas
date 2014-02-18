@@ -1,6 +1,6 @@
 Meta:
-@sprint 21
-@us 46
+@sprint_21
+@us_46
 
 Narrative:
 As a Когда накладная в LH не соответствует реальной,
@@ -193,7 +193,7 @@ Then the user checks the invoice with sku 'Invoice-UIBS-NF-8' in search results
 Scenario: Invoice full scenario edition from search result page
 
 Meta:
-@id s21u46s8
+@id_s21u46s8
 @skipped
 
 Given skipped. Info: 'Test fails on CI', Details: 'Cant be reproduced locally, but permanently fails on CI. Will be investigated in future.'

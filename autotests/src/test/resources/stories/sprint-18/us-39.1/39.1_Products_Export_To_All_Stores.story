@@ -1,6 +1,6 @@
 Meta:
-@sprint 19
-@us 39.1
+@sprint_19
+@us_39.1
 
 Narrative:
 As a user
@@ -10,7 +10,7 @@ So that I can achieve a business goal
 Scenario: Products export
 
 Meta:
-@id s19u39.1s1
+@id_s19u39.1s1
 @smoke
 
 Given the user opens the settings page

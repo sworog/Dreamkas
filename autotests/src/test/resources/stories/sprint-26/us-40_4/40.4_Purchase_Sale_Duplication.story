@@ -1,6 +1,6 @@
 Meta:
-@sprint 26
-@us 40.4
+@sprint_26
+@us_40.4
 
 Narrative:
 As a user
@@ -10,7 +10,7 @@ So that I can achieve a business goal
 Scenario: Sale purchase duplication import
 
 Meta:
-@id s26u40.4.s1
+@id_s26u40.4.s1
 @description sale purchase duplication import
 @smoke
 
@@ -35,7 +35,7 @@ Then the user checks the product balance list contains entry
 Scenario: Return purchase duplication import
 
 Meta:
-@id s26u40.4.s2
+@id_s26u40.4.s2
 @description return purchase duplication import
 @smoke
 

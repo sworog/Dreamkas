@@ -4,9 +4,8 @@ I want to perform an action
 So that I can achieve a business goal
 
 Meta:
-@us 17
-@sprint 14
-@debug us:17:validation
+@us_17
+@sprint_14
 
 Scenario: Can't delete not empty category from group page
 

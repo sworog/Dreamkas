@@ -1,6 +1,6 @@
 Meta:
-@sprint 12
-@us 19
+@sprint_12
+@us_19
 
 Scenario: Edit mode name field length validation 100 symbols
 

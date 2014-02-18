@@ -1,6 +1,6 @@
 Meta:
-@sprint 28
-@us 54.4
+@sprint_28
+@us_54.4
 
 Narrative:
 As a директор магазина
@@ -10,9 +10,8 @@ In order to чтобы данные о валовой прибыли были п
 Scenario: Gross sale margin recalculation with sale duplication product
 
 Meta:
-@id s28u54.4s1
-@description
-@smoke
+@id_s28u54.4s1
+@description_@smoke
 
 GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story
 
@@ -37,9 +36,8 @@ Then the user checks the gross sale margin table contains expected value entries
 Scenario: Gross sale margin recalculation with sale duplication price
 
 Meta:
-@id s28u54.4s2
-@description
-@smoke
+@id_s28u54.4s2
+@description_@smoke
 
 GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story
 

@@ -1,6 +1,6 @@
 Meta:
-@sprint 17
-@us 37
+@sprint_17
+@us_37
 
 Narrative:
 As a user

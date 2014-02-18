@@ -6,9 +6,8 @@ Narrative:
 Что бы управлять ассортиментом магазинов
 
 Meta:
-@sprint 14
-@us 23
-@debug us:23:validation
+@sprint_14
+@us_23
 
 Scenario: Invalid department number
 

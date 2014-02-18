@@ -6,8 +6,8 @@ Narrative:
 Чтобы найти прежде оформленное списание
 
 Meta:
-@sprint 10
-@us 15
+@sprint_10
+@us_15
 
 Scenario: Write off list create
 

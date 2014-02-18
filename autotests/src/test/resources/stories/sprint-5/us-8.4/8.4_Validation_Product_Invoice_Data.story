@@ -10,8 +10,8 @@ Narrative:
 4. Цена приёмки - положительное, больше нуля.
 
 Meta:
-@sprint 5
-@us 8.4
+@sprint_5
+@us_8.4
 
 Scenario: Invoice product name is required
 

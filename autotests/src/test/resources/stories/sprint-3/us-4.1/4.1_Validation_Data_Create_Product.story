@@ -7,8 +7,8 @@ Narrative:
 Чтобы исключить возможность создать товар с заведомо некорректными данными.
 
 Meta:
-@sprint 3
-@us 4.1
+@sprint_3
+@us_4.1
 
 Scenario: Create product validation - Name field length validation
 

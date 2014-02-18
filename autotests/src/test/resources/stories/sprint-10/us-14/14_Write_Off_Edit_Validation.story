@@ -1,6 +1,6 @@
 ﻿Meta:
-@sprint 10
-@us 14
+@sprint_10
+@us_14
 
 Scenario: Write off Edit Validation - number is required
 

@@ -1,7 +1,7 @@
 Meta:
-@sprint 23
-@us 50
-@id s23u50s2
+@sprint_23
+@us_50
+@id_s23u50s2
 @smoke
 
 Scenario: A scenario that prepares data

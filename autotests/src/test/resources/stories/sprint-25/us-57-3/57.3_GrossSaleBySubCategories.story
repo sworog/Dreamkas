@@ -1,6 +1,6 @@
 Meta:
-@sprint 25
-@us 57.3
+@sprint_25
+@us_57.3
 
 Narrative:
 As a user
@@ -10,7 +10,7 @@ So that I can achieve a business goal
 Scenario: Gross sale by subCategories contains Zero sales
 
 Meta:
-@id s25u57.3s1
+@id_s25u57.3s1
 @description checks the gross sale by subCategories contains zero sales(0,00 р.)if no sales are registered
 
 GivenStories: precondition/sprint-25/us-57_3/aPreconditionToScenarioS1.story
@@ -26,7 +26,7 @@ Then the user checks the gross sale by subCategory report contains zero sales va
 Scenario: Gross sale by groups/Categories/subCategories contains data not red highlighted (todayValue is bigger than yesterdaya and weekAgo)
 
 Meta:
-@id s25u57.3s2
+@id_s25u57.3s2
 @description gross sale by groups/Categories/subCategories contains data not red highlighted (todayValue is bigger than yesterday and weekAgo)
 
 GivenStories: precondition/sprint-25/us-57_3/aPreconditionToScenarioS1.story
@@ -47,7 +47,7 @@ Then the user checks the subCategory today entry value by locator 'defaultSubCat
 Scenario: Gross sale by groups/Categories/subCategories contains data not red highlighted (todayValue is equal yesterday and weekAgo)
 
 Meta:
-@id s25u57.3s3
+@id_s25u57.3s3
 @description gross sale by groups/Categories/subCategories contains data not red highlighted (todayValue is equal yesterday and weekAgo)
 
 GivenStories: precondition/sprint-25/us-57_3/aPreconditionToScenarioS1.story
@@ -68,7 +68,7 @@ Then the user checks the subCategory today entry value by locator 'defaultSubCat
 Scenario: Gross sale by groups/Categories/subCategories contains data not red highlighted (todayValue is smaller than yesterday and bigger than weekAgo)
 
 Meta:
-@id s25u57.3s4
+@id_s25u57.3s4
 @description gross sale by groups/Categories/subCategories contains data not red highlighted (todayValue is smaller than yesterday and bigger than weekAgo)
 
 GivenStories: precondition/sprint-25/us-57_3/aPreconditionToScenarioS1.story
@@ -89,7 +89,7 @@ Then the user checks the subCategory today entry value by locator 'defaultSubCat
 Scenario: Gross sale by groups/Categories/subCategories contains data not red highlighted (todayValue is bigger than yesterday and smaller than weekAgo)
 
 Meta:
-@id s25u57.3s5
+@id_s25u57.3s5
 @description gross sale by groups/Categories/subCategories contains data not red highlighted (todayValue is bigger than yesterday and smaller than weekAgo)
 
 GivenStories: precondition/sprint-25/us-57_3/aPreconditionToScenarioS1.story
@@ -110,7 +110,7 @@ Then the user checks the subCategory today entry value by locator 'defaultSubCat
 Scenario: Gross sale by groups/Categories/subCategories contains data red highlighted (todayValue is smaller than yesterday/weekAgo)
 
 Meta:
-@id s25u57.3s6
+@id_s25u57.3s6
 @description gross sale by groups/Categories/subCategories contains data red highlighted (todayValue is smaller than yesterday/weekAgo)
 @smoke
 
@@ -132,7 +132,7 @@ Then the user checks the subCategory today entry value by locator 'defaultSubCat
 Scenario: Main Gross sale by subCategories testing scenario
 
 Meta:
-@id s25u57.3s7
+@id_s25u57.3s7
 @description main gross sale by subCategories testing scenario
 @smoke
 

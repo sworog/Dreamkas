@@ -1,7 +1,7 @@
 Meta:
 Meta:
-@sprint 27
-@us 54.3
+@sprint_27
+@us_54.3
 
 Narrative:
 As a user
@@ -11,9 +11,8 @@ So that I can achieve a business goal
 Scenario: Gross Sale margin values checking if delayed late purchase is come
 
 Meta:
-@id s27u54.3s1
-@description
-@smoke
+@id_s27u54.3s1
+@description_@smoke
 
 GivenStories: precondition/sprint-27/us-54_1/aPreconditionToStoryUs54.1.story
 

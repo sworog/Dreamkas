@@ -6,8 +6,8 @@ Narrative:
 Чтобы актуализировать эти данные и исправлять в них ошибки
 
 Meta:
-@sprint 2
-@us 3
+@sprint_2
+@us_3
 
 Scenario: Product edit main
 

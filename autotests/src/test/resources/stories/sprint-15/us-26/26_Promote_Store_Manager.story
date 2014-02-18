@@ -1,6 +1,6 @@
 Meta:
-@sprint 15
-@us 26
+@sprint_15
+@us_26
 
 Narrative:
 As Коммерческий директор

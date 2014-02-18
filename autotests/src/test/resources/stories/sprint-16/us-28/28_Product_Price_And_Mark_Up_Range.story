@@ -1,6 +1,6 @@
 Meta:
-@sprint 16
-@us 28
+@sprint_16
+@us_28
 
 Narrative:
 As a коммерческий директор
@@ -153,7 +153,7 @@ Then the user checks the elements values
 Scenario: Retail mark up range inheritance
 
 Meta:
-@id s16u28s9
+@id_s16u28s9
 @smoke
 
 Given there is the subCategory with name 'subCategorymarkUp-777' related to group named 'groupMarkUp-777' and category named 'categoryMarkUp-777'

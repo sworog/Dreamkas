@@ -1,6 +1,6 @@
 Meta:
-@sprint 16
-@us 28
+@sprint_16
+@us_28
 
 Scenario: Create product mark up validation negative
 

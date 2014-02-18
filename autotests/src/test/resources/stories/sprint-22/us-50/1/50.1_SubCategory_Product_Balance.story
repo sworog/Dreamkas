@@ -1,6 +1,6 @@
 Meta:
-@sprint 22
-@us 50.1
+@sprint_22
+@us_50.1
 
 Narrative:
 As a заведующтй отделом
@@ -10,7 +10,7 @@ In order to понять когда и сколько едениц товара 
 Scenario: Subcategory product balance checking
 
 Meta:
-@id s22u50.1s1
+@id_s22u50.1s1
 @description subcategory page have balance tab, balance table have all required data
 @smoke
 
@@ -27,7 +27,7 @@ Then the user checks the product balance list contains entry
 Scenario: Subcategory product balance not required fields checking
 
 Meta:
-@id s22u50.1s2
+@id_s22u50.1s2
 @description balance data table render not required produt fields correctly
 
 GivenStories: precondition/sprint-22/us-50_1/aPreconditionToStoryUs50_1.story,
@@ -43,7 +43,7 @@ Then the user checks the product balance list contains entry
 Scenario: Subcategory product balance after writeOff
 
 Meta:
-@id s22u50.1s3
+@id_s22u50.1s3
 @description balance deacrese after writeOff with product is created
 @smoke
 
@@ -60,7 +60,7 @@ Then the user checks the product balance list contains entry
 Scenario: Subcategory product balance after invoice
 
 Meta:
-@id s22u50.1s4
+@id_s22u50.1s4
 @description balance increase after invoice with product is created
 @smoke
 
@@ -77,7 +77,7 @@ Then the user checks the product balance list contains entry
 Scenario: Subcategory product balance with average price checking
 
 Meta:
-@id s22u50.1s5
+@id_s22u50.1s5
 @description balance table average price column contains product correct data
 
 GivenStories: precondition/sprint-22/us-50_1/aPreconditionToStoryUs50_1.story,
@@ -93,7 +93,7 @@ Then the user checks the product balance list contains entry
 Scenario: No product balance tab for commercialManager
 
 Meta:
-@id s22u50.1s6
+@id_s22u50.1s6
 @description no product balance tab availabile for commercial manager
 
 GivenStories: precondition/sprint-22/us-50_1/aPreconditionToStoryUs50_1.story

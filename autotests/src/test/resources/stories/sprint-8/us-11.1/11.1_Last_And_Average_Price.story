@@ -7,8 +7,8 @@ Narrative:
 Чтобы отталкиваться от нее при заказе товара и переговорах с поставщиками
 
 Meta:
-@sprint 8
-@us 11.1
+@sprint_8
+@us_11.1
 
 Scenario: Average price is not changed in current day
 

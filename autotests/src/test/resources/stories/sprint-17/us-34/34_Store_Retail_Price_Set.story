@@ -1,6 +1,6 @@
 Meta:
-@sprint 17
-@us 34
+@sprint_17
+@us_34
 
 Narrative:
 As a директор магазина

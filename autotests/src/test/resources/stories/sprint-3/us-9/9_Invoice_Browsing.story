@@ -6,8 +6,8 @@ Narrative:
 Чтобы определять верно ли завфиксирована приемка
 
 Meta:
-@sprint 3
-@us 9
+@sprint_3
+@us_9
 
 Scenario: Invoice browsing verification
 

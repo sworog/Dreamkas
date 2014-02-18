@@ -1,6 +1,6 @@
 Meta:
-@sprint 23
-@us 51
+@sprint_23
+@us_51
 
 Narrative:
 As a заведующий отделом,
@@ -10,9 +10,8 @@ In order to не допустить ошибок в учете налогов п
 Scenario: The checkbox is active by default
 
 Meta:
-@id s23u51s1
-@description
-@smoke
+@id_s23u51s1
+@description_@smoke
 
 GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story
 
@@ -34,7 +33,7 @@ Then the user checks the checkbox 'includesVAT' is 'checked'
 Scenario: Checkbox text
 
 Meta:
-@id s23u51s2
+@id_s23u51s2
 @description
 
 GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story,
@@ -51,9 +50,8 @@ And the user checks the checkbox 'includesVAT' text is 'Цена включае�
 Scenario: The invoice with/without vat 10%
 
 Meta:
-@id s23u51s3
-@description
-@smoke
+@id_s23u51s3
+@description_@smoke
 
 GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story,
               precondition/sprint-23/us-51/aPreconditionToScenarioS3.story
@@ -86,7 +84,7 @@ And the user checks invoice elements values
 Scenario: The invoice with/without vat 0%
 
 Meta:
-@id s23u51s4
+@id_s23u51s4
 @description
 
 GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story,
@@ -108,9 +106,8 @@ Then the user checks the invoice products list contains entry
 Scenario: The checkbox is not clickable in view mode
 
 Meta:
-@id s23u51s5
-@description
-@smoke
+@id_s23u51s5
+@description_@smoke
 
 GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story,
               precondition/sprint-23/us-51/aPreconditionToScenarioS5.story
@@ -132,9 +129,8 @@ Then the user checks the invoice products list contains entry
 Scenario: Average and last price are not changed if the price with/without vat
 
 Meta:
-@id s23u51s6
-@description
-@smoke
+@id_s23u51s6
+@description_@smoke
 
 GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story,
               precondition/sprint-23/us-51/aPreconditionToScenarioS6.story
@@ -150,7 +146,7 @@ Then the user checks the product balance list contains entry
 Scenario: Vat is not changed in already invoiceProduct if product have new vat
 
 Meta:
-@id s23u51s7
+@id_s23u51s7
 @description
 
 GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story,

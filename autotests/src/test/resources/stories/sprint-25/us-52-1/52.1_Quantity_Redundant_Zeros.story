@@ -1,6 +1,6 @@
 Meta:
-@sprint 25
-@us 52.1
+@sprint_25
+@us_52.1
 
 Narrative:
 As a заведущий отделом
@@ -15,7 +15,7 @@ actual -> expected
 Scenario: Product card precision check (12,000)
 
 Meta:
-@id s25u52.1s1
+@id_s25u52.1s1
 @description 12,000 -> 12,0
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -32,7 +32,7 @@ Then the user checks the elements values
 Scenario: Product card precision check (85,560)
 
 Meta:
-@id s25u52.1s2
+@id_s25u52.1s2
 @description 85,560 -> 85,56
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -49,7 +49,7 @@ Then the user checks the elements values
 Scenario: Product card precision check (43,196)
 
 Meta:
-@id s25u52.1s3
+@id_s25u52.1s3
 @description 43,196 -> 43,196
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -66,7 +66,7 @@ Then the user checks the elements values
 Scenario: Balance product precision check (12,000)
 
 Meta:
-@id s25u52.1s4
+@id_s25u52.1s4
 @description 12,000 -> 12,0
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -84,7 +84,7 @@ Then the user checks the product balance list contains entry
 Scenario: Balance product precision check (85,560)
 
 Meta:
-@id s25u52.1s5
+@id_s25u52.1s5
 @description 85,560 -> 85,56
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -102,7 +102,7 @@ Then the user checks the product balance list contains entry
 Scenario: Balance product precision check (43,196)
 
 Meta:
-@id s25u52.1s6
+@id_s25u52.1s6
 @description 43,196 -> 43,196
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -120,7 +120,7 @@ Then the user checks the product balance list contains entry
 Scenario: Invoice product precision check (12,000)
 
 Meta:
-@id s25u52.1s7
+@id_s25u52.1s7
 @description 12,000 -> 12,0
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -137,7 +137,7 @@ Then the user checks the invoice products list contains entry
 Scenario: Invoice product precision check (85,560)
 
 Meta:
-@id s25u52.1s8
+@id_s25u52.1s8
 @description 85,560 -> 85,56
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -154,7 +154,7 @@ Then the user checks the invoice products list contains entry
 Scenario: Invoice product precision check (43,196)
 
 Meta:
-@id s25u52.1s9
+@id_s25u52.1s9
 @description 43,196 -> 43,196
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -171,7 +171,7 @@ Then the user checks the invoice products list contains entry
 Scenario: Product invoices precision check (12,000)
 
 Meta:
-@id s25u52.1s10
+@id_s25u52.1s10
 @description 12,000 -> 12,0
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -189,7 +189,7 @@ Then the user checks the product invoices list contains entry
 Scenario: Product invoices precision check (85,560)
 
 Meta:
-@id s25u52.1s11
+@id_s25u52.1s11
 @description 85,560 -> 85,56
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -207,7 +207,7 @@ Then the user checks the product invoices list contains entry
 Scenario: Product invoices precision check (43,196)
 
 Meta:
-@id s25u52.1s12
+@id_s25u52.1s12
 @description 43,196 -> 43,196
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -225,7 +225,7 @@ Then the user checks the product invoices list contains entry
 Scenario: WriteOff product precision check (12,000)
 
 Meta:
-@id s25u52.1s13
+@id_s25u52.1s13
 @description 12,000 -> 12,0
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -243,7 +243,7 @@ Then the user checks the writeOff products list contains entry
 Scenario: WriteOff product precision check (85,560)
 
 Meta:
-@id s25u52.1s14
+@id_s25u52.1s14
 @description 85,560 -> 85,56
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -260,7 +260,7 @@ Then the user checks the writeOff products list contains entry
 Scenario: WriteOff product precision check (43,196)
 
 Meta:
-@id s25u52.1s15
+@id_s25u52.1s15
 @description 43,196 -> 43,196
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -277,7 +277,7 @@ Then the user checks the writeOff products list contains entry
 Scenario: Product writeoff list precision check (12,000)
 
 Meta:
-@id s25u52.1s16
+@id_s25u52.1s16
 @description 12,000 -> 12,0
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -295,7 +295,7 @@ Then the user checks the product writeOff list contains entry
 Scenario: Product writeoff list precision check (85,560)
 
 Meta:
-@id s25u52.1s17
+@id_s25u52.1s17
 @description 85,560 -> 85,56
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -313,7 +313,7 @@ Then the user checks the product writeOff list contains entry
 Scenario: Product writeoff list precision check (43,196)
 
 Meta:
-@id s25u52.1s18
+@id_s25u52.1s18
 @description 43,196 -> 43,196
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -332,7 +332,7 @@ Then the user checks the product writeOff list contains entry
 Scenario: Product return list precision check (12,000)
 
 Meta:
-@id s25u52.1s19
+@id_s25u52.1s19
 @description 12,000 -> 12,0
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -351,7 +351,7 @@ Then the user checks the product return list contains entry
 Scenario: Product return list precision check (85,560)
 
 Meta:
-@id s25u52.1s20
+@id_s25u52.1s20
 @description 85,560 -> 85,56
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
@@ -369,7 +369,7 @@ Then the user checks the product return list contains entry
 Scenario: Product return list precision check (43,196)
 
 Meta:
-@id s25u52.1s21
+@id_s25u52.1s21
 @description 43,196 -> 43,196
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story

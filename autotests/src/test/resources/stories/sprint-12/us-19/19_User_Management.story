@@ -4,8 +4,8 @@ Narrative:
 Чтобы они могли работать с системой
 
 Meta:
-@sprint 12
-@us 19
+@sprint_12
+@us_19
 
 Scenario: Create user Commercial Manager type
 

@@ -1,6 +1,6 @@
 Meta:
-@sprint 15
-@us 27
+@sprint_15
+@us_27
 
 Scenario: Group - mark up validation good
 

@@ -6,8 +6,8 @@ Narrative:
 Чтобы определять верно ли зафиксирвоана приемка
 
 Meta:
-@sprint 6
-@us 9.1
+@sprint_6
+@us_9.1
 
 Scenario: Invoice full browsing kg
 

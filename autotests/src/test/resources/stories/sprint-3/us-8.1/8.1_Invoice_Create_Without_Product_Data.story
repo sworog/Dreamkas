@@ -6,8 +6,8 @@ Narrative:
 Чтобы зафиксировать в системе факт начала приемки
 
 Meta:
-@sprint 3
-@us 8.1
+@sprint_3
+@us_8.1
 
 Scenario: Invoice Create
 

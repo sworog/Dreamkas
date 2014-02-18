@@ -1,6 +1,6 @@
 Meta:
-@sprint 22
-@us 40.3
+@sprint_22
+@us_40.3
 
 Narrative:
 As a user
@@ -10,7 +10,7 @@ So that I can achieve a business goal
 Scenario: Returns checking
 
 Meta:
-@id s22u40.3s1
+@id_s22u40.3s1
 @description the balance of two products increase after product return is processed by system (subCategory product balance page, product returns page).
 @smoke
 
@@ -58,7 +58,7 @@ Then the user checks the product return list contains entry
 Scenario: No returns tab for storeManager
 
 Meta:
-@id s22u40.3s2
+@id_s22u40.3s2
 @description no product balance tab availabile for store manager
 
 GivenStories: precondition/sprint-22/us-40.3/aPreconditionToScenarioS23.story
@@ -70,7 +70,7 @@ Then the user checks the local navigation return link is not visible
 Scenario: No returns tab for commercialManager
 
 Meta:
-@id s22u40.3s3
+@id_s22u40.3s3
 @description no product balance tab availabile for commercial manager
 
 GivenStories: precondition/sprint-22/us-40.3/aPreconditionToScenarioS23.story

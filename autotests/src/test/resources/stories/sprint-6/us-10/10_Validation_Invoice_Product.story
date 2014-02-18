@@ -1,6 +1,6 @@
 Meta:
-@sprint 6
-@us 10
+@sprint_6
+@us_10
 
 Scenario: Invoice product edition - Invoice product amount is required
 

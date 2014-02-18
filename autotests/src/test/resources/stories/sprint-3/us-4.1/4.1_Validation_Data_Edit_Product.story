@@ -1,6 +1,6 @@
 Meta:
-@sprint 3
-@us 4.1
+@sprint_3
+@us_4.1
 
 Scenario: Edit product validation - Field length validation
 

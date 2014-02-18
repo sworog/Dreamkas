@@ -6,8 +6,8 @@ Narrative:
 Чтобы зафиксировать в системе факт прихода товара
 
 Meta:
-@sprint 5
-@us 8.3
+@sprint_5
+@us_8.3
 
 Scenario: Adding invoice products - 1 product with name autocomplete
 

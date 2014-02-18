@@ -1,6 +1,6 @@
 Meta:
-@us 41.1
-@sprint 20
+@us_41.1
+@sprint_20
 
 Narrative:
 As a администратор

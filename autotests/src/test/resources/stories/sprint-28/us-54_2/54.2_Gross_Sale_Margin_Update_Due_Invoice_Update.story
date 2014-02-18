@@ -1,6 +1,6 @@
 Meta:
-@sprint 28
-@us 54.2
+@sprint_28
+@us_54.2
 
 Narrative:
 As a директор магазина
@@ -10,9 +10,8 @@ In order to чтобы данные о валовой прибыли были п
 Scenario: Gross sale margin update due invoice product quantity update
 
 Meta:
-@id s28u54.2s1
-@description
-@smoke
+@id_s28u54.2s1
+@description_@smoke
 
 GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story
 
@@ -47,9 +46,8 @@ Then the user checks the gross sale margin table contains expected value entries
 Scenario: Gross sale margin update due invoice product price update
 
 Meta:
-@id s28u54.2s2
-@description
-@smoke
+@id_s28u54.2s2
+@description_@smoke
 
 GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story
 
@@ -84,9 +82,8 @@ Then the user checks the gross sale margin table contains expected value entries
 Scenario: Gross sale margin update due invoice product deletion
 
 Meta:
-@id s28u54.2s3
-@description
-@smoke
+@id_s28u54.2s3
+@description_@smoke
 
 GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story
 
@@ -120,9 +117,8 @@ Then the user checks the gross sale margin table contains expected value entries
 Scenario: Gross sale margin update due invoice date update to the past
 
 Meta:
-@id s28u54.2s4
-@description
-@smoke
+@id_s28u54.2s4
+@description_@smoke
 
 GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story
 
@@ -157,9 +153,8 @@ Then the user checks the gross sale margin table contains expected value entries
 Scenario: Gross sale margin update due invoice date update to the future
 
 Meta:
-@id s28u54.2s5
-@description
-@smoke
+@id_s28u54.2s5
+@description_@smoke
 
 GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story
 

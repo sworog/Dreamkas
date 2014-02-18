@@ -1,6 +1,6 @@
 Meta:
-@sprint 24
-@us 55.1
+@sprint_24
+@us_55.1
 
 Narrative:
 As a коммерческий директор сети
@@ -10,7 +10,7 @@ In order to понять динамику изменения продаж
 Scenario: Gross sale by network yesterday value check
 
 Meta:
-@id s24u55.1s1
+@id_s24u55.1s1
 @description gross sale by network yesterday value check
 @smoke
 
@@ -26,7 +26,7 @@ Then the user checks the gross sale by network yesterday value
 Scenario: Gross sale by network two days ago value check
 
 Meta:
-@id s24u55.1s2
+@id_s24u55.1s2
 @description gross sale by network two days ago value check
 @smoke
 
@@ -42,7 +42,7 @@ Then the user checks the gross sale by network two days value
 Scenario: Gross sale by network eight days ago value check
 
 Meta:
-@id s24u55.1s3
+@id_s24u55.1s3
 @description gross sale by network eight days ago value check
 @smoke
 
@@ -58,7 +58,7 @@ Then the user checks the gross sale by network eight days value
 Scenario: Gross sale by network yesterday value is zero (no sales registered)
 
 Meta:
-@id s24u55.1s4
+@id_s24u55.1s4
 @description gross sale by network yesterday value is zero (no sales registered)
 
 GivenStories: precondition/sprint-24/us-55_1/aPreconditionToStoryUs55.1.story
@@ -70,7 +70,7 @@ Then the user checks the gross sale by network yesterday value is zero
 Scenario: Gross sale by network two days ago value is zero (no sales registered)
 
 Meta:
-@id s24u55.1s5
+@id_s24u55.1s5
 @description gross sale by network two days ago value is zero (no sales registered)
 
 GivenStories: precondition/sprint-24/us-55_1/aPreconditionToStoryUs55.1.story
@@ -82,7 +82,7 @@ Then the user checks the gross sale by network two days value is zero
 Scenario: Gross sale by network eight days ago value is zero (no sales registered)
 
 Meta:
-@id s24u55.1s6
+@id_s24u55.1s6
 @description gross sale by network eight days ago value is zero (no sales registered)
 
 GivenStories: precondition/sprint-24/us-55_1/aPreconditionToStoryUs55.1.story

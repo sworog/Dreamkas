@@ -1,6 +1,6 @@
 Meta:
-@sprint 18
-@us 41
+@sprint_18
+@us_41
 
 Narrative:
 As a администратор

@@ -6,8 +6,8 @@ Narrative:
 Чтобы исправлять в ней ошибки
 
 Meta:
-@sprint 6
-@us 10
+@sprint_6
+@us_10
 
 Scenario: Invoice head edition
 

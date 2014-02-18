@@ -1,6 +1,6 @@
 Meta:
-@sprint 23
-@us 52
+@sprint_23
+@us_52
 
 Narrative:
 As a заведующий отделом
@@ -10,7 +10,7 @@ In order была возможность работать с реальными 
 Scenario: Adding invoice product with fractional quantity
 
 Meta:
-@id s23u52s1
+@id_s23u52s1
 @description invoice have product with fractional quantity
 @smoke
 
@@ -27,7 +27,7 @@ Then the user checks the product balance list contains entry
 Scenario: Adding writeOff product with fractional quantity
 
 Meta:
-@id s23u52s2
+@id_s23u52s2
 @description writeOff have product with fractional quantity
 @smoke
 
@@ -44,7 +44,7 @@ Then the user checks the product balance list contains entry
 Scenario: Making sale product with fractional quantity
 
 Meta:
-@id s23u52s3
+@id_s23u52s3
 @description import sale with fractional quantity
 @smoke
 
@@ -61,7 +61,7 @@ Then the user checks the product balance list contains entry
 Scenario: Invoice quantity validation negative - 0,0003
 
 Meta:
-@id s23u52s4
+@id_s23u52s4
 @description negative product quantity input 0,0003, see the validation message
 
 GivenStories: precondition/sprint-23/us-52/aPreconditionToStoryUs52.story,
@@ -78,7 +78,7 @@ Then the user sees error messages
 Scenario: Invoice edit quantity validation negative - 6,7689
 
 Meta:
-@id s23u52s5
+@id_s23u52s5
 @description negative product quantity input 6,7689, see the validation message
 
 GivenStories: precondition/sprint-23/us-52/aPreconditionToStoryUs52.story,
@@ -96,7 +96,7 @@ Then the user sees error messages
 Scenario: WriteOff quantity validation negative - 0,6789
 
 Meta:
-@id s23u52s6
+@id_s23u52s6
 @description negative product quantity input 0,6789, see the validation message
 
 GivenStories: precondition/sprint-23/us-52/aPreconditionToStoryUs52.story,
@@ -115,7 +115,7 @@ Then the user sees error messages
 Scenario: WriteOff edit quantity validation negative - 0,0003
 
 Meta:
-@id s23u52s7
+@id_s23u52s7
 @description negative product quantity input 0,6789, see the validation message
 
 GivenStories: precondition/sprint-23/us-52/aPreconditionToStoryUs52.story,

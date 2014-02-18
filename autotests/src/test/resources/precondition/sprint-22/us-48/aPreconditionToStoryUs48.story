@@ -1,12 +1,12 @@
 Meta:
-@sprint 22
+@sprint_22
 @smoke
-@us 48
-@id s22u48s1
-@id s22u48s2
-@id s22u48s3
-@id s22u48s4
-@id s22u48s5
+@us_48
+@id_s22u48s1
+@id_s22u48s2
+@id_s22u48s3
+@id_s22u48s4
+@id_s22u48s5
 
 Scenario: A step that prepares data
 

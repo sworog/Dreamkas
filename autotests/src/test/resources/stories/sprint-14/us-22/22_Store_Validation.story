@@ -6,9 +6,8 @@ As a коммерческий директор
 I want to создавать, редактировать и просмотривать магазины торговой сети
 
 Meta:
-@sprint 14
-@us 22
-@debug us:22:validation
+@sprint_14
+@us_22
 
 Scenario: Invalid store number
 

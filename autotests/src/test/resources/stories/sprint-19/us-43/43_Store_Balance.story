@@ -1,6 +1,6 @@
 Meta:
-@sprint 19
-@us 43
+@sprint_19
+@us_43
 
 Narrative:
 As a заведующим отделом

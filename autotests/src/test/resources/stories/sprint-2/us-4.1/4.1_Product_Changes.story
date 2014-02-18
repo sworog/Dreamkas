@@ -1,8 +1,8 @@
 Изменения в истории создании продукта
 
 Meta:
-@sprint 2
-@us 4.1
+@sprint_2
+@us_4.1
 
 Scenario: Verifying that there is no default values for units
 

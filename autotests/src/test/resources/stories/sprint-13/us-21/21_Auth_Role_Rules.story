@@ -6,8 +6,8 @@ As a пользователь
 I want to после авторизациии в системе работать только со своими данными и функционалом,
 
 Meta:
-@sprint 13
-@us 21
+@sprint_13
+@us_21
 
 Scenario: Administrator role username checking
 

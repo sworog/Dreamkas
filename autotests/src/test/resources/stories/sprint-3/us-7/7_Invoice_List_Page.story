@@ -6,8 +6,8 @@ Narrative:
 Чтобы контролировать процесс приемки
 
 Meta:
-@sprint 3
-@us 7
+@sprint_3
+@us_7
 
 Scenario: Invoice list item check
 

@@ -13,8 +13,8 @@ Narrative:
 7. Дата входящей накладной - необязательное поле. При клике на поле появляется дата пикер.
 
 Meta:
-@sprint 4
-@us 8.2
+@sprint_4
+@us_8.2
 
 Scenario: Invoice sku validation is required
 

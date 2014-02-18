@@ -1,6 +1,6 @@
 Meta:
-@sprint 6
-@us 10
+@sprint_6
+@us_10
 
 Scenario: Invoice edition - Invoice sku validation is required
 

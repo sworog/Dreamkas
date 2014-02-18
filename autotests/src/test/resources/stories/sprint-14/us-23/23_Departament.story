@@ -6,8 +6,8 @@ Narrative:
 Что бы управлять ассортиментом магазинов
 
 Meta:
-@sprint 14
-@us 23
+@sprint_14
+@us_23
 
 Scenario: Create a new department in store
 

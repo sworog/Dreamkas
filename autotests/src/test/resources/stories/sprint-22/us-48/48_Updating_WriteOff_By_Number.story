@@ -1,6 +1,6 @@
 Meta:
-@sprint 22
-@us 48
+@sprint_22
+@us_48
 
 Narrative:
 As a user
@@ -10,7 +10,7 @@ So that I can achieve a business goal
 Scenario: Nothing found- WriteOff
 
 Meta:
-@id s22u48s1
+@id_s22u48s1
 @description nothing found with non exist writeOff number
 
 GivenStories: precondition/sprint-22/us-48/aPreconditionToStoryUs48.story
@@ -25,7 +25,7 @@ Then the user checks the form results text is 'Мы не смогли найти
 Scenario: WriteOff found by number
 
 Meta:
-@id s22u48s2
+@id_s22u48s2
 @description writeOff with number can be found
 
 GivenStories: precondition/sprint-22/us-48/aPreconditionToStoryUs48.story,
@@ -44,7 +44,7 @@ And the user checks writeOff highlighted text is 'Списание № SCPBC-10 
 Scenario: Two writeOffs found by number
 
 Meta:
-@id s22u48s3
+@id_s22u48s3
 @description two writeOffs with equal numbers can be found
 
 GivenStories: precondition/sprint-22/us-48/aPreconditionToStoryUs48.story,
@@ -63,7 +63,7 @@ And the user checks writeOff highlighted text is 'Списание № SCPBC-10 
 Scenario: WriteOff with product found by number
 
 Meta:
-@id s22u48s4
+@id_s22u48s4
 @description writeOffs with product can be found
 
 GivenStories: precondition/sprint-22/us-48/aPreconditionToStoryUs48.story,
@@ -97,7 +97,7 @@ Then the user checks write off elements values
 Scenario: WriteOff with product found by number click
 
 Meta:
-@id s22u48s5
+@id_s22u48s5
 @description writeOffs with product can be found, the result is clickable and leads to writeOff page
 @smoke
 

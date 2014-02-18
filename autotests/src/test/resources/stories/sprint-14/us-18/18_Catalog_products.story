@@ -6,8 +6,8 @@ As a комммерческий директор,
 I want to создать товар в крайнем узле классификатора,
 
 Meta:
-@sprint 14
-@us 18
+@sprint_14
+@us_18
 
 Scenario: SubCategory page full product create/edit
 
