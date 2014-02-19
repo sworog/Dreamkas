@@ -93,4 +93,14 @@ class AbstractCollection extends ArrayCollection
         }
         return $this;
     }
+
+    /**
+     * @param array $elements
+     */
+    public function append(array $elements)
+    {
+        foreach ($elements as $element) {
+            $this->add($element);
+        }
+    }
 }

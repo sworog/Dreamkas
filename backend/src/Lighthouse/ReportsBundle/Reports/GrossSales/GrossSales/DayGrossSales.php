@@ -6,6 +6,11 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use DateTime;
 
+/**
+ * @property DateTime $dayHour
+ * @property Money $runningSum
+ * @property Money $hourSum
+ */
 class DayGrossSales extends AbstractDocument
 {
     /**
@@ -39,13 +44,5 @@ class DayGrossSales extends AbstractDocument
     public function addRunningSum(Money $runningSum)
     {
         $this->runningSum = $this->runningSum->add($runningSum);
-    }
-
-    /**
-     * @param Money $hourSum
-     */
-    public function addHourSum(Money $hourSum)
-    {
-        $this->hourSum = $this->hourSum->add($hourSum);
     }
 }
