@@ -2,9 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Document\Classifier\SubCategory;
 
-use Lighthouse\CoreBundle\Document\Classifier\ClassifierRepository;
+use Lighthouse\CoreBundle\Document\Classifier\ParentableClassifierRepository;
 
-class SubCategoryRepository extends ClassifierRepository
+class SubCategoryRepository extends ParentableClassifierRepository
 {
     /**
      * @return mixed

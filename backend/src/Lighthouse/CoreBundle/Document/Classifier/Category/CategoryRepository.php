@@ -2,9 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Document\Classifier\Category;
 
-use Lighthouse\CoreBundle\Document\Classifier\ClassifierRepository;
+use Lighthouse\CoreBundle\Document\Classifier\ParentableClassifierRepository;
 
-class CategoryRepository extends ClassifierRepository
+class CategoryRepository extends ParentableClassifierRepository
 {
     /**
      * @return string

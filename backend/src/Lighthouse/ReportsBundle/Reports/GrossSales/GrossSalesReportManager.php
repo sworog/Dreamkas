@@ -9,7 +9,7 @@ use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
-use Lighthouse\CoreBundle\Document\Classifier\ClassifierRepository;
+use Lighthouse\CoreBundle\Document\Classifier\ParentableClassifierRepository;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupCollection;
 use Lighthouse\CoreBundle\Document\Classifier\ParentableRepository;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
@@ -17,6 +17,7 @@ use Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryCollection;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
+use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductCollection;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
@@ -975,7 +976,7 @@ class GrossSalesReportManager
     }
 
     /**
-     * @param ClassifierRepository $nodeRepository
+     * @param DocumentRepository $nodeRepository
      * @param ParentableRepository $childNodeRepository
      * @param GrossSalesNodeRepository $nodeReportRepository
      * @param GrossSalesCalculatable $childNodeReportRepository
@@ -985,7 +986,7 @@ class GrossSalesReportManager
      * @return int
      */
     protected function recalculateGrossSalesByNode(
-        ClassifierRepository $nodeRepository,
+        DocumentRepository $nodeRepository,
         ParentableRepository $childNodeRepository,
         GrossSalesNodeRepository $nodeReportRepository,
         GrossSalesCalculatable $childNodeReportRepository,
