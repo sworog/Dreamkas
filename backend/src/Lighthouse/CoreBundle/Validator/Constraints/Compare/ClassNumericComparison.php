@@ -46,7 +46,7 @@ class ClassNumericComparison extends Comparison
      * @param string $field
      * @throws \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @throws NullValueException
-     * @return Money|null
+     * @return float|int|null
      */
     public function getObjectValue($field)
     {
