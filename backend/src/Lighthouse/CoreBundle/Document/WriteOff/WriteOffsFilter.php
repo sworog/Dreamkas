@@ -20,7 +20,7 @@ class WriteOffsFilter implements FilterInterface
     }
 
     /**
-     * @param $number
+     * @param string $number
      */
     public function setNumber($number)
     {
@@ -42,7 +42,7 @@ class WriteOffsFilter implements FilterInterface
     public function populate(array $data)
     {
         if (isset($data['number'])) {
-            $this->number = $data['number'];
+            $this->setNumber($data['number']);
         }
     }
 }
