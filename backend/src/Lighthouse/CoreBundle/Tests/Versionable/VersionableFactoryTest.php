@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Versionable;
 
+use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use Doctrine\ODM\MongoDB\UnitOfWork;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\Product;
@@ -10,6 +11,7 @@ use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Versionable\VersionFactory;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
+use Stubs\DocumentManager;
 
 class VersionableFactoryTest extends ContainerAwareTestCase
 {
@@ -94,5 +96,43 @@ class VersionableFactoryTest extends ContainerAwareTestCase
 
         $product->subCategory = $subCategory;
         return $product;
+    }
+
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Exception\RuntimeException
+     * @expectedExceptionMessage Document 'ProductMock' is not versionable
+     */
+    public function testGetDocumentNotVersionable()
+    {
+        $versionableDocument = $this->getMock(
+            'Lighthouse\CoreBundle\Versionable\VersionableInterface',
+            array('getVersionClass'),
+            array(),
+            'ProductMock'
+        );
+        $versionableDocument->expects($this->once())
+            ->method('getVersionClass')
+            ->will($this->returnValue('Lighthouse\CoreBundle\Document\User\User'));
+
+        $dm = $this->getMock(
+            'Doctrine\ODM\MongoDB\DocumentManager',
+            array(),
+            array(),
+            '',
+            false
+        );
+
+        $dm->expects($this->at(0))
+           ->method('getClassMetadata')
+           ->with($this->equalTo('ProductMock'))
+           ->will($this->returnValue(new ClassMetadata('ProductMock')));
+        $dm->expects($this->at(1))
+            ->method('getClassMetadata')
+            ->with($this->equalTo('Lighthouse\CoreBundle\Document\User\User'))
+            ->will($this->returnValue(new ClassMetadata('Lighthouse\CoreBundle\Document\User\User')));
+
+        $versionFactory = new VersionFactory($dm);
+
+        $versionFactory->createDocumentVersion($versionableDocument);
     }
 }
