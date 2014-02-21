@@ -211,7 +211,7 @@ class InvoicesImporter
             $storeName = trim($row[5]);
             if ($storeName) {
                 $store = $this->getStore($storeName);
-            } elseif ($this->lastStore) {
+            } else {
                 $store = $this->lastStore;
             }
             $supplier = trim($row[8]);
