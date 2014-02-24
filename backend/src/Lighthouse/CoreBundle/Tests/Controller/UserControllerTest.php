@@ -741,6 +741,9 @@ class UserControllerTest extends WebTestCase
                         'GET::current',
                         'GET::permissions',
                         'GET::{user}'
+                    ),
+                    'suppliers.*' => array(
+                        'POST',
                     )
                 )
             ),
