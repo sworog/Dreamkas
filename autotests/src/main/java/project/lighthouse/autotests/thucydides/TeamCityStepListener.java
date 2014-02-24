@@ -10,10 +10,11 @@ import net.thucydides.core.steps.StepListener;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import static ch.lambdaj.Lambda.on;
-import static ch.lambdaj.Lambda.sum;
 
 import java.util.*;
+
+import static ch.lambdaj.Lambda.on;
+import static ch.lambdaj.Lambda.sum;
 
 public class TeamCityStepListener implements StepListener {
 
@@ -35,7 +36,6 @@ public class TeamCityStepListener implements StepListener {
 
     private Stack<String> suiteStack = new Stack<>();
 
-    private String description;
     private Integer examplesTestCount = 0;
     private HashMap<Integer, String> exampleTestNames = new HashMap<>();
 
@@ -102,7 +102,6 @@ public class TeamCityStepListener implements StepListener {
 
     @Override
     public void testStarted(String description) {
-        this.description = description;
     }
 
     @Override
@@ -204,13 +203,13 @@ public class TeamCityStepListener implements StepListener {
         if (path.endsWith(".story")) {
             path = path.substring(0, path.length() - 6);
         }
-        String title = path.replace(".", "_").replace("/", ".");
-        return title + "." + result.getMethodName().replace(".", "_");
+        String title = path.replaceAll(".", "_").replaceAll("/", ".");
+        return title + "." + result.getMethodName().replaceAll(".", "_");
     }
 
     private String getResultTitle(TestOutcome result, String name) {
         String title = getResultTitle(result);
-        title = title + "." + name.replace(".", "_");
+        title = title + "." + name.replaceAll(".", "_");
         return title;
     }
 
@@ -232,10 +231,6 @@ public class TeamCityStepListener implements StepListener {
 
     private void printTestFinished(TestOutcome result) {
         printMessage("testFinished", getResultTitle(result), result.getDuration());
-    }
-
-    private void printTestFinished(String name) {
-        printMessage("testFinished", name);
     }
 
     private void printTestFinished(String name, Long duration) {
