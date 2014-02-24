@@ -33,32 +33,6 @@ public class CommonPage extends PageObject {
         }
     }
 
-    public void checkFieldLength(String elementName, int fieldLength, int actualLength) {
-        assertEquals(
-                String.format("The '%s' field doesn't contains '%s' symbols. It actually contains '%s' symbols.", elementName, fieldLength, actualLength),
-                actualLength, fieldLength);
-    }
-
-    public void checkFieldLength(String elementName, int fieldLength, CommonItem item) {
-        checkFieldLength(elementName, fieldLength, item.length());
-    }
-
-    public void checkFieldLength(String elementName, int fieldLength, WebElement element) {
-        int length;
-        switch (element.getTagName()) {
-            case "input":
-                length = $(element).getTextValue().length();
-                break;
-            case "textarea":
-                length = $(element).getValue().length();
-                break;
-            default:
-                length = $(element).getText().length();
-                break;
-        }
-        checkFieldLength(elementName, fieldLength, length);
-    }
-
     public void setValue(CommonItem item, String value) {
         item.setValue(value);
     }

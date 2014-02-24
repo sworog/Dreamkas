@@ -3,7 +3,11 @@ package project.lighthouse.autotests.common;
 import net.thucydides.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import project.lighthouse.autotests.helper.FieldLengthChecker;
 
+/**
+ * Abstract class representing single page element type (input and etc)
+ */
 abstract public class CommonItem {
 
     protected By findBy;
@@ -16,6 +20,10 @@ abstract public class CommonItem {
 
     public CommonItem(CommonPageObject pageObject, String name) {
         this(pageObject, By.name(name));
+    }
+
+    public FieldLengthChecker getFieldLengthChecker() {
+        return new FieldLengthChecker($());
     }
 
     public WebElement getWebElement() {

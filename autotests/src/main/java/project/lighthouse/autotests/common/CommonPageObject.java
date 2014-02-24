@@ -10,6 +10,9 @@ import project.lighthouse.autotests.Waiter;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Page object facade
+ */
 abstract public class CommonPageObject extends PageObject {
 
     protected CommonPage commonPage = new CommonPage(getDriver());
@@ -96,8 +99,7 @@ abstract public class CommonPageObject extends PageObject {
     }
 
     public void checkFieldLength(String elementName, int fieldLength) {
-        CommonItem item = items.get(elementName);
-        commonPage.checkFieldLength(elementName, fieldLength, item.getWebElement());
+        items.get(elementName).getFieldLengthChecker().check(elementName, fieldLength);
     }
 
     public WebElement findOnlyVisibleWebElementFromTheWebElementsList(By findBy) {

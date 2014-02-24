@@ -132,11 +132,6 @@ public class GroupPage extends CommonPageObject {
         findVisibleElement(By.xpath(xpath));
     }
 
-    public void checkFieldLength(String elementName, int fieldLength) {
-        CommonItem item = items.get(elementName);
-        commonPage.checkFieldLength(elementName, fieldLength, item.getOnlyVisibleWebElement());
-    }
-
     public WebElement mainTab(String mainTabType) {
         switch (mainTabType) {
             case GROUP:
