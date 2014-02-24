@@ -4,10 +4,7 @@ import net.thucydides.core.pages.PageObject;
 import net.thucydides.core.webdriver.WebDriverFacade;
 import org.hamcrest.Matchers;
 import org.jbehave.core.model.ExamplesTable;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.helper.StringGenerator;
@@ -15,6 +12,7 @@ import project.lighthouse.autotests.helper.StringGenerator;
 import java.util.List;
 import java.util.Map;
 
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertThat;
 
@@ -279,5 +277,14 @@ public class CommonActions extends PageObject {
                 "The dropDawn value:",
                 selectedValue, Matchers.containsString(expectedValue)
         );
+    }
+
+    public void checkAlertText(String expectedText) {
+        Alert alert = waiter.getAlert();
+        String alertText = alert.getText();
+        alert.accept();
+        assertEquals(
+                String.format("Alert text is '%s'. Should be '%s'.", alertText, expectedText),
+                alertText, expectedText);
     }
 }

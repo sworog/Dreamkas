@@ -1,28 +1,26 @@
 package project.lighthouse.autotests.common;
 
-import net.thucydides.core.pages.PageObject;
-import org.hamcrest.Matchers;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.elements.Autocomplete;
 
 import java.util.Map;
 
-import static junit.framework.Assert.*;
-import static org.junit.Assert.assertThat;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.fail;
 
-public class CommonPage extends PageObject {
+public class CommonPage extends CommonPageObject {
 
     public static final String ERROR_MESSAGE = "No such option for '%s'";
 
-    protected Waiter waiter = new Waiter(getDriver());
-
     public CommonPage(WebDriver driver) {
         super(driver);
+    }
+
+    @Override
+    public void createElements() {
     }
 
     public boolean isPresent(String xpath) {
@@ -47,21 +45,12 @@ public class CommonPage extends PageObject {
 
     public void checkAutoCompleteResult(String autoCompleteValue) {
         String xpathPattern = String.format(Autocomplete.AUTOCOMPLETE_XPATH_PATTERN, autoCompleteValue);
-        waiter.getVisibleWebElement(By.xpath(xpathPattern));
-    }
-
-    public void checkAlertText(String expectedText) {
-        Alert alert = waiter.getAlert();
-        String alertText = alert.getText();
-        alert.accept();
-        assertEquals(
-                String.format("Alert text is '%s'. Should be '%s'.", alertText, expectedText),
-                alertText, expectedText);
+        getWaiter().getVisibleWebElement(By.xpath(xpathPattern));
     }
 
     public void NoAlertIsPresent() {
         try {
-            Alert alert = waiter.getAlert();
+            Alert alert = getWaiter().getAlert();
             fail(
                     String.format("Alert is present! Alert text: '%s'", alert.getText())
             );
@@ -69,16 +58,8 @@ public class CommonPage extends PageObject {
         }
     }
 
-    public void checkDropDownDefaultValue(WebElement dropDownElement, String expectedValue) {
-        String selectedValue = $(dropDownElement).getSelectedVisibleTextValue();
-        assertThat(
-                "The dropDawn value:",
-                selectedValue, Matchers.containsString(expectedValue)
-        );
-    }
-
     public void pageContainsText(String text) {
-        waiter.getVisibleWebElement(
+        getWaiter().getVisibleWebElement(
                 By.xpath(
                         String.format("//*[contains(normalize-space(text()), '%s')]", text)
                 )

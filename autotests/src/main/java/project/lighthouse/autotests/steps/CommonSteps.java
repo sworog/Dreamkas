@@ -55,7 +55,7 @@ public class CommonSteps extends ScenarioSteps {
 
     @Step
     public void checkAlertText(String expectedText) {
-        commonPage.checkAlertText(expectedText);
+        commonPage.getCommonActions().checkAlertText(expectedText);
     }
 
     @Step

@@ -178,7 +178,7 @@ public class GroupPage extends CommonPageObject {
 
     public void productsExportLinkClick() {
         findVisibleElement(By.xpath("//*[@class='page__controlsLink catalog__exportLink']")).click();
-        commonPage.checkAlertText("Выгрузка началась");
+        getCommonActions().checkAlertText("Выгрузка началась");
     }
 
     public void productsExportLinkIsNotPresent() {
