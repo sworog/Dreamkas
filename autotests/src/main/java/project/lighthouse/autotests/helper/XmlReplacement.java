@@ -18,6 +18,11 @@ import java.io.StringWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The class is used for xml replacement/create purposes
+ * It's deprecated. Use {@link project.lighthouse.autotests.xml.PurchaseXmlBuilder}
+ */
+@Deprecated
 public class XmlReplacement {
 
     private File file;
