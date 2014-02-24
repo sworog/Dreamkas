@@ -4,8 +4,9 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
-import project.lighthouse.autotests.pages.administrator.users.UserCreatePage;
+import project.lighthouse.autotests.elements.Input;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,17 +14,17 @@ import java.util.Map;
 import static junit.framework.Assert.*;
 
 @DefaultUrl("/")
-public class AuthorizationPage extends UserCreatePage {
+public class AuthorizationPage extends CommonPageObject {
 
-    public Map<String, String> users = new HashMap<>();
-    Boolean isAuthorized = false;
+    private Map<String, String> users = new HashMap<>();
+    private Boolean isAuthorized = false;
 
     public AuthorizationPage(WebDriver driver) {
         super(driver);
         users();
     }
 
-    public void users() {
+    private void users() {
         users.put("watchman", "lighthouse");
         users.put("commercialManager", "lighthouse");
         users.put("storeManager", "lighthouse");
@@ -32,6 +33,8 @@ public class AuthorizationPage extends UserCreatePage {
 
     @Override
     public void createElements() {
+        items.put("userName", new Input(this, "username"));
+        items.put("password", new Input(this, "password"));
     }
 
     public void authorization(String userName) {
@@ -45,7 +48,7 @@ public class AuthorizationPage extends UserCreatePage {
 
     public void authorization(String userName, String password, Boolean isFalse) {
         workAroundTypeForUserName(userName);
-        type(By.name("password"), password);
+        input("password", password);
         new ButtonFacade(getDriver(), "Войти").click();
         if (!isFalse) {
             checkUser(userName);
@@ -62,7 +65,7 @@ public class AuthorizationPage extends UserCreatePage {
      * @param inputText
      */
     private void workAroundTypeForUserName(String inputText) {
-        type(By.name("username"), inputText);
+        input("userName", inputText);
         if (!$(findVisibleElement(By.name("username"))).getValue().equals(inputText)) {
             workAroundTypeForUserName(inputText);
         }

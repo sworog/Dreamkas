@@ -48,10 +48,6 @@ abstract public class CommonPageObject extends PageObject {
         commonActions.checkElementValue("", checkValuesTable);
     }
 
-    public void type(By findBy, String inputText) {
-        commonActions.type(findBy, inputText);
-    }
-
     public void fieldInput(ExamplesTable fieldInputTable) {
         for (Map<String, String> row : fieldInputTable.getRows()) {
             String elementName = row.get("elementName");

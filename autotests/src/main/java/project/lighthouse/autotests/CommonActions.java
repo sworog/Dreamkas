@@ -49,20 +49,8 @@ public class CommonActions extends PageObject {
         }
     }
 
-    public void defaultInput(String elementName, String inputText) {
+    private void defaultInput(String elementName, String inputText) {
         items.get(elementName).setValue(inputText);
-    }
-
-    public void type(By findBy, String inputText) {
-        try {
-            $(waiter.getVisibleWebElement(findBy)).type(inputText);
-        } catch (Exception e) {
-            if (isSkippableException(e)) {
-                type(findBy, inputText);
-            } else {
-                throw e;
-            }
-        }
     }
 
     public void inputTable(ExamplesTable fieldInputTable) {
@@ -95,7 +83,7 @@ public class CommonActions extends PageObject {
         }
     }
 
-    public void defaultCheckElementValue(String checkType, String elementName, String expectedValue) {
+    private void defaultCheckElementValue(String checkType, String elementName, String expectedValue) {
         WebElement element;
         By findBy;
         if (checkType.isEmpty()) {
@@ -233,7 +221,7 @@ public class CommonActions extends PageObject {
         }
     }
 
-    public void defaultSelectByVisibleText(String label, By findBy) {
+    private void defaultSelectByVisibleText(String label, By findBy) {
         WebElement element = waiter.getVisibleWebElement(findBy);
         $(element).selectByVisibleText(label);
     }
