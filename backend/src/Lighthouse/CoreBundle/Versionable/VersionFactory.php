@@ -110,6 +110,6 @@ class VersionFactory
         )) {
             return $versionClassMetadata;
         }
-        throw new RuntimeException('Document is not versionable');
+        throw new RuntimeException(sprintf("Document '%s' is not versionable", get_class($object)));
     }
 }

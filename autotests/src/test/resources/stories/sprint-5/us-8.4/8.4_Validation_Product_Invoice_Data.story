@@ -318,7 +318,7 @@ And the user inputs 'harry' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю |
+| Значение должно быть числом |
 
 Scenario: Invoice product price validation String en big register
 
@@ -332,7 +332,7 @@ And the user inputs 'HARRY' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю |
+| Значение должно быть числом |
 
 Scenario: Invoice product price validation String rus small register
 
@@ -346,7 +346,7 @@ And the user inputs 'цена' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю |
+| Значение должно быть числом |
 
 Scenario: Invoice product price validation String rus big register
 
@@ -360,7 +360,7 @@ And the user inputs 'Цена' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю |
+| Значение должно быть числом |
 
 Scenario: Invoice product price validation symbols
 
@@ -374,7 +374,7 @@ And the user inputs '@#$#$#' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю |
+| Значение должно быть числом |
 
 Scenario: Invoice product price validation length good
 

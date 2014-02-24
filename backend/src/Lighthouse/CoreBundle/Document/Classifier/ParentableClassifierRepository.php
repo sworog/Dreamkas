@@ -6,7 +6,7 @@ use Doctrine\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use MongoId;
 
-abstract class ClassifierRepository extends DocumentRepository implements ParentableRepository
+abstract class ParentableClassifierRepository extends DocumentRepository implements ParentableRepository
 {
     /**
      * @return mixed

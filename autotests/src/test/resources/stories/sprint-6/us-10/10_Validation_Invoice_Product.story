@@ -308,7 +308,7 @@ And the user inputs 'harry' in the invoice 'inline price' field
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю |
+| Значение должно быть числом |
 
 Scenario: Invoice product price validation String en big register
 
@@ -322,7 +322,7 @@ And the user inputs 'HARRY' in the invoice 'inline price' field
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю |
+| Значение должно быть числом |
 
 Scenario: Invoice product price validation String rus small register
 
@@ -336,7 +336,7 @@ And the user inputs 'цена' in the invoice 'inline price' field
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю |
+| Значение должно быть числом |
 
 Scenario: Invoice product price validation String rus big register
 
@@ -350,7 +350,7 @@ And the user inputs 'ЦЕНА' in the invoice 'inline price' field
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю |
+| Значение должно быть числом |
 
 Scenario: Invoice product price validation symbols
 
@@ -364,7 +364,7 @@ And the user inputs '"#$#$#' in the invoice 'inline price' field
 And the user clicks OK and accepts changes
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю |
+| Значение должно быть числом |
 
 Scenario: Invoice product price validation length good
 

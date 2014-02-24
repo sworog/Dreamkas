@@ -2,24 +2,15 @@
 
 namespace Lighthouse\CoreBundle\Document\Classifier\Group;
 
-use Lighthouse\CoreBundle\Document\Classifier\ClassifierRepository;
+use Lighthouse\CoreBundle\Document\DocumentRepository;
 
-class GroupRepository extends ClassifierRepository
+class GroupRepository extends DocumentRepository
 {
     /**
-     * @return mixed
-     */
-    protected function getParentFieldName()
-    {
-        return '';
-    }
-
-    /**
      * @param string $name
-     * @param string $parentId
      * @return Group
      */
-    public function findOneByName($name, $parentId = null)
+    public function findOneByName($name)
     {
         return $this->findOneBy(array('name' => $name));
     }

@@ -6,7 +6,7 @@ Narrative:
 Чтобы ввести товар в ассортимент
 
 Meta:
-@sprint_0_@us_4
+@sprint_0
 @us_4
 
 Scenario: Creating new product 1

@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\MongoDB\Cursor;
 use Closure;
+use Traversable;
 
 class AbstractCollection extends ArrayCollection
 {
@@ -20,16 +21,6 @@ class AbstractCollection extends ArrayCollection
             $elements = $elements->toArray();
         }
         parent::__construct($elements);
-    }
-
-    /**
-     * @return AbstractCollection
-     */
-    public function normalizeKeys()
-    {
-        $values = $this->getValues();
-        $this->setValues($values);
-        return $this;
     }
 
     /**
@@ -82,7 +73,7 @@ class AbstractCollection extends ArrayCollection
     }
 
     /**
-     * @param array|\Traversable $values
+     * @param array|Traversable $values
      * @return $this
      */
     public function setValues($values)
@@ -92,5 +83,15 @@ class AbstractCollection extends ArrayCollection
             $this->set($key, $value);
         }
         return $this;
+    }
+
+    /**
+     * @param array $elements
+     */
+    public function append(array $elements)
+    {
+        foreach ($elements as $element) {
+            $this->add($element);
+        }
     }
 }

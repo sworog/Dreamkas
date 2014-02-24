@@ -69,8 +69,9 @@ class RoundingReferenceProvider implements ReferenceProviderInterface
     {
         if (null === $refObject) {
             return null;
+        } else {
+            return $refObject->getName();
         }
-        return $refObject->getName();
     }
 
     /**
@@ -81,7 +82,8 @@ class RoundingReferenceProvider implements ReferenceProviderInterface
     {
         if (null === $refObjectId) {
             return null;
+        } else {
+            return $this->roundingManager->findByName($refObjectId);
         }
-        return $this->roundingManager->findByName($refObjectId);
     }
 }

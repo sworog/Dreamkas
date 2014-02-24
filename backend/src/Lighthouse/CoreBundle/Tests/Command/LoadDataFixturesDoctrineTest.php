@@ -51,7 +51,10 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
         $this->assertEquals($expected, $output->getDisplay());
     }
 
-    public function testKeskoFixtures()
+    /**
+     * @dataProvider fixturesProvider
+     */
+    public function testCustomFixtures($folder, $expectedOutput)
     {
         // :TODO: doctrine command produces notice so will suppress it in this test
         $errorNoticeBackup = PHPUnit_Framework_Error_Notice::$enabled;
@@ -60,21 +63,48 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
         error_reporting($errorReporting ^ E_NOTICE);
 
         $fixturesPath = $this->getContainer()->getParameter('kernel.root_dir');
-        $fixturesPath.= '/../src/Lighthouse/CoreBundle/DataFixtures/Kesko';
+        $fixturesPath.= '/../src/Lighthouse/CoreBundle/DataFixtures/' . $folder;
         $output = $this->runConsole(
             array(
                 'doctrine:mongodb:fixtures:load',
                 '--fixtures=' . $fixturesPath
             )
         );
+        error_reporting($errorReporting);
+        PHPUnit_Framework_Error_Notice::$enabled = $errorNoticeBackup;
+        $this->assertEquals($expectedOutput, $output->getDisplay());
+    }
 
-        $expected = '  > purging database
+    /**
+     * @return array
+     */
+    public function fixturesProvider()
+    {
+        return array(
+            'kesko' => array(
+                'Kesko',
+                '  > purging database
   > loading [10] Lighthouse\\CoreBundle\\DataFixtures\\MongoDB\\LoadApiClientData
   > loading [20] Lighthouse\\CoreBundle\\DataFixtures\\MongoDB\\LoadUserData
   > loading Lighthouse\\CoreBundle\\DataFixtures\\Kesko\\KeskoLoadStoresData
-';
-        error_reporting($errorReporting);
-        PHPUnit_Framework_Error_Notice::$enabled = $errorNoticeBackup;
-        $this->assertEquals($expected, $output->getDisplay());
+'
+            ),
+            'amn' => array(
+                'AMN',
+                '  > purging database
+  > loading [10] Lighthouse\\CoreBundle\\DataFixtures\\MongoDB\\LoadApiClientData
+  > loading [20] Lighthouse\\CoreBundle\\DataFixtures\\MongoDB\\LoadUserData
+  > loading Lighthouse\\CoreBundle\\DataFixtures\\AMN\\AmnLoadStoresData
+'
+            ),
+            'food' => array(
+                'Food',
+                '  > purging database
+  > loading [10] Lighthouse\\CoreBundle\\DataFixtures\\MongoDB\\LoadApiClientData
+  > loading [20] Lighthouse\\CoreBundle\\DataFixtures\\MongoDB\\LoadUserData
+  > loading Lighthouse\\CoreBundle\\DataFixtures\\Food\\FoodLoadStoresData
+'
+            ),
+        );
     }
 }

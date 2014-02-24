@@ -57,4 +57,13 @@ class StoreRepository extends DocumentRepository
 
         return $query->getQuery()->execute();
     }
+
+    /**
+     * @param string $address
+     * @return Store
+     */
+    public function findOneByAddress($address)
+    {
+        return $this->findOneBy(array('address' => $address));
+    }
 }

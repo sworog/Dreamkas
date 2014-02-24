@@ -1,6 +1,7 @@
 Meta:
 @sprint_3
 @us_4.1
+@test
 
 Scenario: Edit product validation - Field length validation
 
@@ -137,10 +138,10 @@ Examples:
 | -152 | purchasePrice | Цена не должна быть меньше или равна нулю |
 | -1 | purchasePrice | Цена не должна быть меньше или равна нулю |
 | 0 | purchasePrice | Цена не должна быть меньше или равна нулю |
-| BIG PRICE | purchasePrice | Цена не должна быть меньше или равна нулю |
-| big price | purchasePrice | Цена не должна быть меньше или равна нулю |
-| БОЛЬШАЯ ЦЕНА | purchasePrice | Цена не должна быть меньше или равна нулю |
-| большая цена | purchasePrice | Цена не должна быть меньше или равна нулю |
-| !@#$%^&*() | purchasePrice | Цена не должна быть меньше или равна нулю |
-| %^#$Fgbdf345) | purchasePrice | Цена не должна быть меньше или равна нулю |
+| BIG PRICE | purchasePrice | Значение должно быть числом |
+| big price | purchasePrice | Значение должно быть числом |
+| БОЛЬШАЯ ЦЕНА | purchasePrice | Значение должно быть числом |
+| большая цена | purchasePrice | Значение должно быть числом |
+| !@#$%^&*() | purchasePrice | Значение должно быть числом |
+| %^#$Fgbdf345) | purchasePrice | Значение должно быть числом |
 | 10000001 | purchasePrice | Цена не должна быть больше 10000000 |

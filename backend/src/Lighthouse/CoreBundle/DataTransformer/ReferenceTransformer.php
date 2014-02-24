@@ -27,11 +27,7 @@ class ReferenceTransformer implements DataTransformerInterface
      */
     public function transform($value)
     {
-        if (null === $value) {
-            return $value;
-        } else {
-            return $this->referenceProvider->getRefObjectId($value);
-        }
+        return $this->referenceProvider->getRefObjectId($value);
     }
 
     /**

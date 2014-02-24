@@ -330,7 +330,7 @@ And the user inputs '%^#$Fgbdf345)' in 'purchasePrice' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю |
+| Значение должно быть числом |
 
 Scenario: Create product validation - Purchase price validation commma
 
@@ -472,7 +472,7 @@ And the user inputs 'Big price' in 'purchasePrice' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю |
+| Значение должно быть числом |
 
 Scenario: Create product validation - Purchase price validation String rus
 
@@ -487,7 +487,7 @@ And the user inputs 'Большая цена' in 'purchasePrice' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю |
+| Значение должно быть числом |
 
 Scenario: Create product validation - Purchase price validation symbols
 
@@ -502,7 +502,7 @@ And the user inputs '!@#$%^&*()' in 'purchasePrice' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Цена не должна быть меньше или равна нулю |
+| Значение должно быть числом |
 
 Scenario: Create product validation - Purchase price validation length good
 
