@@ -6,28 +6,21 @@ import project.lighthouse.autotests.CommonActions;
 
 public class ButtonFacade {
 
-    WebDriver webDriver;
-    String xpath = "//*[@class='button']";
-    String browserName;
+    private String xpath = "//*[@class='button']";
+    private String browserName;
 
     private static final String BUTTON_XPATH_PATTERN = "//*[contains(@class, 'button') and normalize-space(text())='%s']";
 
-    CommonActions commonActions;
+    private CommonActions commonActions;
 
     public ButtonFacade(WebDriver webDriver) {
-        this.webDriver = webDriver;
         commonActions = new CommonActions(webDriver);
         browserName = commonActions.getCapabilities().getBrowserName();
     }
 
     public ButtonFacade(WebDriver driver, String buttonTextName) {
         this(driver);
-        setXpath(
-                getButtonXpath(buttonTextName));
-    }
-
-    private void setXpath(String xpath) {
-        this.xpath = xpath;
+        this.xpath = getButtonXpath(buttonTextName);
     }
 
     private String getButtonXpath(String buttonTextName) {

@@ -9,7 +9,7 @@ public class NavigationLinkFacade {
     private String xpath;
     private static final String xpathPattern = "//*[contains(@class, 'localNavigation__link') and normalize-space(text())='%s']";
 
-    CommonActions commonActions;
+    private CommonActions commonActions;
 
     public NavigationLinkFacade(WebDriver driver, String linkText) {
         xpath = String.format(xpathPattern, linkText);
