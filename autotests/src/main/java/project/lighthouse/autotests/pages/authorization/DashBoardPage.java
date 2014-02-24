@@ -14,7 +14,6 @@ public class DashBoardPage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        //To change body of implemented methods use File | Settings | File Templates.
     }
 
     private String getButtonXpath(String name) {
