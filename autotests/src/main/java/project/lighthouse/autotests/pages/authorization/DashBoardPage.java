@@ -33,7 +33,7 @@ public class DashBoardPage extends CommonPageObject {
     public void shouldNotBeVisible(String name) {
         try {
             String buttonXpath = getButtonXpath(name);
-            waiter.waitUntilIsNotVisible(By.xpath(buttonXpath));
+            getWaiter().waitUntilIsNotVisible(By.xpath(buttonXpath));
         } catch (Exception e) {
             fail(
                     String.format("The dashboard '%s' link is present on the page", name)
@@ -44,7 +44,7 @@ public class DashBoardPage extends CommonPageObject {
     public void shouldBeVisible(String name) {
         try {
             String buttonXpath = getButtonXpath(name);
-            waiter.getVisibleWebElement(By.xpath(buttonXpath));
+            findVisibleElement(By.xpath(buttonXpath));
         } catch (Exception e) {
             fail(
                     String.format("The dashboard '%s' link is not present on the page", name)

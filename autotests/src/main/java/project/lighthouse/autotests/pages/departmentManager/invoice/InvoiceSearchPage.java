@@ -29,6 +29,6 @@ public class InvoiceSearchPage extends CommonPageObject {
     }
 
     public String getFormResultsText() {
-        return waiter.getVisibleWebElement(By.xpath("//*[@class='form__results']//h3")).getText();
+        return findVisibleElement(By.xpath("//*[@class='form__results']//h3")).getText();
     }
 }

@@ -100,7 +100,7 @@ public class AuthorizationPage extends CommonPageObject {
     }
 
     public boolean loginFormIsVisible() {
-        return waiter.isElementVisible(By.id("form_login"));
+        return getWaiter().isElementVisible(By.id("form_login"));
     }
 
     public void loginFormIsPresent() {
@@ -137,7 +137,7 @@ public class AuthorizationPage extends CommonPageObject {
     public void error403IsNotPresent() {
         try {
             String error404Xpath = getError403Xpath();
-            waiter.waitUntilIsNotVisible(By.xpath(error404Xpath));
+            getWaiter().waitUntilIsNotVisible(By.xpath(error404Xpath));
         } catch (Exception e) {
             fail("The error 403 is present on the page!");
         }

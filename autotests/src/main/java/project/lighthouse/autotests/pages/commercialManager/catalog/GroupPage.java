@@ -117,7 +117,7 @@ public class GroupPage extends CommonPageObject {
 
     public void checkIsNotPresent(String name) {
         String itemXpath = getItemXpath(name);
-        waiter.waitUntilIsNotVisible(By.xpath(itemXpath));
+        getWaiter().waitUntilIsNotVisible(By.xpath(itemXpath));
     }
 
     public void itemClick(String name) {

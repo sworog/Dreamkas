@@ -14,7 +14,7 @@ abstract public class CommonPageObject extends PageObject {
 
     protected CommonPage commonPage = new CommonPage(getDriver());
 
-    protected Waiter waiter = new Waiter(getDriver());
+    private Waiter waiter = new Waiter(getDriver());
 
     public Map<String, CommonItem> items = new HashMap<>();
 
@@ -27,6 +27,10 @@ abstract public class CommonPageObject extends PageObject {
 
     public CommonActions getCommonActions() {
         return commonActions;
+    }
+
+    public Waiter getWaiter() {
+        return waiter;
     }
 
     abstract public void createElements();
