@@ -44,6 +44,6 @@ public class MarkUpTab extends CommonPageObject {
 
     public void checkDropDownDefaultValue(String expectedValue) {
         WebElement element = items.get("rounding").getVisibleWebElement();
-        commonPage.checkDropDownDefaultValue(element, expectedValue);
+        getCommonActions().checkDropDownDefaultValue(element, expectedValue);
     }
 }

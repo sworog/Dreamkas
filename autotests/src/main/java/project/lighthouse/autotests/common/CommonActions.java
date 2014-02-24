@@ -2,6 +2,7 @@ package project.lighthouse.autotests.common;
 
 import net.thucydides.core.pages.PageObject;
 import net.thucydides.core.webdriver.WebDriverFacade;
+import org.hamcrest.Matchers;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import static junit.framework.Assert.assertTrue;
+import static org.junit.Assert.assertThat;
 
 public class CommonActions extends PageObject {
 
@@ -268,6 +270,14 @@ public class CommonActions extends PageObject {
         assertTrue(
                 String.format("Element '%s' doesnt contain '%s'. It contains '%s'", elementName, expectedValue, actualValue),
                 actualValue.contains(expectedValue)
+        );
+    }
+
+    public void checkDropDownDefaultValue(WebElement dropDownElement, String expectedValue) {
+        String selectedValue = $(dropDownElement).getSelectedVisibleTextValue();
+        assertThat(
+                "The dropDawn value:",
+                selectedValue, Matchers.containsString(expectedValue)
         );
     }
 }
