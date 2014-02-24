@@ -2,10 +2,11 @@ package project.lighthouse.autotests.steps.commercialManager.reports;
 
 import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
+import net.thucydides.core.steps.ScenarioSteps;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.pages.commercialManager.reports.GrossSalesByNetworkPage;
 
-public class GrossSaleByNetworkSteps {
+public class GrossSaleByNetworkSteps extends ScenarioSteps {
 
     GrossSalesByNetworkPage grossSalesByNetworkPage;
 

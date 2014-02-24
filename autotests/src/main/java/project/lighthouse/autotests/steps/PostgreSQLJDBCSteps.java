@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.steps;
 
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import project.lighthouse.autotests.PostgreSQLJDBC;
 
@@ -10,10 +9,6 @@ import java.sql.SQLException;
 import static junit.framework.Assert.fail;
 
 public class PostgreSQLJDBCSteps extends ScenarioSteps {
-
-    public PostgreSQLJDBCSteps(Pages pages) {
-        super(pages);
-    }
 
     @Step
     public void truncateProductsTable(String ip) throws SQLException {

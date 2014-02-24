@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.steps.commercialManager;
 
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.pages.commercialManager.catalog.CategoryPage;
@@ -16,10 +15,6 @@ public class CatalogSteps extends ScenarioSteps {
     CommonPage commonPage;
     SubCategoryPage subCategoryPage;
     MarkUpTab markUpTab;
-
-    public CatalogSteps(Pages pages) {
-        super(pages);
-    }
 
     @Step
     public void openPage() {

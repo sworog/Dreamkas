@@ -1,13 +1,14 @@
 package project.lighthouse.autotests.steps.storeManager.reports.grossSaleByCatalogItems;
 
 import net.thucydides.core.annotations.Step;
+import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.junit.Assert;
 import project.lighthouse.autotests.fixtures.sprint_25.Us_57_3_Fixture;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectValueColorable;
 import project.lighthouse.autotests.pages.storeManager.reports.grossSaleByCatalogItems.CommonGrossSaleByCatalogItemPage;
 
-public class CommonGrossSaleByCatalogItemSteps {
+public class CommonGrossSaleByCatalogItemSteps extends ScenarioSteps {
 
     CommonGrossSaleByCatalogItemPage commonGrossSaleByCatalogItemPage;
 

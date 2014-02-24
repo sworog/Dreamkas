@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.steps.commercialManager;
 
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.pages.commercialManager.department.DepartmentCardPage;
@@ -14,10 +13,6 @@ public class DepartmentSteps extends ScenarioSteps {
     StoreCardPage storeCardPage;
     DepartmentCreatePage departmentCreatePage;
     DepartmentCardPage departmentCardPage;
-
-    public DepartmentSteps(Pages pages) {
-        super(pages);
-    }
 
     @Step
     public void clickCreateNewDepartmentButton() {

@@ -2,7 +2,7 @@ package project.lighthouse.autotests.elements.Buttons.localNavigation;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.CommonActions;
+import project.lighthouse.autotests.common.CommonActions;
 
 public class NavigationLinkFacade {
 

@@ -2,7 +2,6 @@ package project.lighthouse.autotests.steps;
 
 import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
@@ -23,10 +22,6 @@ public class RobotSteps extends ScenarioSteps {
 
     private static final String SERVER_URL = System.getProperty("centrum.server.url");
     private static final String IMPORT_FOLDER_PATH = System.getProperty("centrum.import.folder.path");
-
-    public RobotSteps(Pages pages) {
-        super(pages);
-    }
 
     @Step
     public void prepareData(String fileName) throws IOException, InterruptedException {

@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.steps;
 
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.xml.sax.SAXException;
 import project.lighthouse.autotests.console.backend.SymfonyEnvInitCommand;
@@ -17,10 +16,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class ConsoleCommandSteps extends ScenarioSteps {
-
-    public ConsoleCommandSteps(Pages pages) {
-        super(pages);
-    }
 
     @Step
     public void runFixtureCommand() throws IOException, InterruptedException, TransformerException, ParserConfigurationException, SAXException {

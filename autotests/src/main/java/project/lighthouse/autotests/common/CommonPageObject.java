@@ -5,7 +5,6 @@ import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.CommonActions;
 import project.lighthouse.autotests.Waiter;
 
 import java.util.HashMap;

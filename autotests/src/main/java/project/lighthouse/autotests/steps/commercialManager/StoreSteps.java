@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.steps.commercialManager;
 
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
@@ -19,10 +18,6 @@ public class StoreSteps extends ScenarioSteps {
     StoreCreatePage storeCreatePage;
     StoreListPage storeListPage;
     StoreCardPage storeCardPage;
-
-    public StoreSteps(Pages pages) {
-        super(pages);
-    }
 
     @Step
     public void navigateToCreateStorePage() {

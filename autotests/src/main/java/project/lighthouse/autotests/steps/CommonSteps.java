@@ -2,7 +2,6 @@ package project.lighthouse.autotests.steps;
 
 import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.common.CommonPage;
@@ -11,10 +10,6 @@ import project.lighthouse.autotests.objects.web.error.ValidationErrorsCollection
 public class CommonSteps extends ScenarioSteps {
 
     CommonPage commonPage;
-
-    public CommonSteps(Pages pages) {
-        super(pages);
-    }
 
     @Step
     public void checkErrorMessages(ExamplesTable errorMessageTable) {

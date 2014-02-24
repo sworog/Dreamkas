@@ -2,7 +2,6 @@ package project.lighthouse.autotests.steps.commercialManager;
 
 import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.common.CommonPage;
@@ -24,10 +23,6 @@ public class ProductSteps extends ScenarioSteps {
     ProductInvoicesList productInvoicesList;
     ProductWriteOffList productWriteOffList;
     ProductReturnList productReturnList;
-
-    public ProductSteps(Pages pages) {
-        super(pages);
-    }
 
     @Step
     public void isTheProductCardOpen() {

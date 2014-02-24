@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.steps.logSteps;
 
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.pages.logPages.JobsPage;
@@ -14,11 +13,6 @@ public class LogSteps extends ScenarioSteps {
 
     JobsPage jobsPage;
     LogPage logPage;
-
-
-    public LogSteps(Pages pages) {
-        super(pages);
-    }
 
     @Step
     public void open() {

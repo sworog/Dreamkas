@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.steps.administrator;
 
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.common.CommonPage;
@@ -15,10 +14,6 @@ public class UserSteps extends ScenarioSteps {
     UserCardPage userCardPage;
     UsersListPage usersListPage;
     CommonPage commonPage;
-
-    public UserSteps(Pages pages) {
-        super(pages);
-    }
 
     @Step
     public void userCreatePageOpen() {

@@ -1,4 +1,4 @@
-package project.lighthouse.autotests;
+package project.lighthouse.autotests.common;
 
 import net.thucydides.core.pages.PageObject;
 import net.thucydides.core.webdriver.WebDriverFacade;
@@ -8,9 +8,7 @@ import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
-import project.lighthouse.autotests.common.CommonItem;
-import project.lighthouse.autotests.common.CommonPage;
-import project.lighthouse.autotests.common.CommonView;
+import project.lighthouse.autotests.Waiter;
 
 import java.util.List;
 import java.util.Map;

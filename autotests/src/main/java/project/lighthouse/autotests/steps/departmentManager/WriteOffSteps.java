@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.steps.departmentManager;
 
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.common.CommonPage;
@@ -20,10 +19,6 @@ public class WriteOffSteps extends ScenarioSteps {
     WriteOffLocalNavigation writeOffLocalNavigation;
 
     public static ExamplesTable examplesTable;
-
-    public WriteOffSteps(Pages pages) {
-        super(pages);
-    }
 
     @Step
     public void openPage() {

@@ -2,7 +2,6 @@ package project.lighthouse.autotests.steps.departmentManager;
 
 import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
@@ -18,10 +17,6 @@ import java.util.Map;
 public class BalanceSteps extends ScenarioSteps {
 
     BalanceListPage balanceListPage;
-
-    public BalanceSteps(Pages pages) {
-        super(pages);
-    }
 
     @Step
     public void compareWithExampleTable(ExamplesTable examplesTable) {

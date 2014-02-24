@@ -2,7 +2,6 @@ package project.lighthouse.autotests.steps.departmentManager;
 
 import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
@@ -20,10 +19,6 @@ public class InvoiceSteps extends ScenarioSteps {
 
     InvoiceSearchPage invoiceSearchPage;
     InvoiceLocalNavigation invoiceLocalNavigation;
-
-    public InvoiceSteps(Pages pages) {
-        super(pages);
-    }
 
     @Step
     public void openInvoiceCreatePage() {
