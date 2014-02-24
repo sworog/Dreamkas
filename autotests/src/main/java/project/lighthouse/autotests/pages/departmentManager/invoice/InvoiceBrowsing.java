@@ -55,10 +55,6 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
         commonActions.checkElementValue(checkType, checkValuesTable);
     }
 
-    public void checkCardValue(ExamplesTable checkValuesTable) {
-        checkCardValue("", checkValuesTable);
-    }
-
     public void editButtonClick() {
         findVisibleElement(
                 By.xpath("//*[@class='page__controlsLink invoice__editLink']"));
