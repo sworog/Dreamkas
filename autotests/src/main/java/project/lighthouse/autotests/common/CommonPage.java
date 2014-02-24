@@ -25,34 +25,6 @@ public class CommonPage extends PageObject {
         super(driver);
     }
 
-    public String generateTestData(int n) {
-        return generateTestData(n, "a");
-    }
-
-    public String generateTestDataWithoutWhiteSpaces(int n) {
-        return generateString(n, "a");
-    }
-
-    public String generateTestDataWithoutWhiteSpaces(int n, String str) {
-        return generateString(n, str);
-    }
-
-    public String generateTestData(int n, String str) {
-        String testData = generateString(n, str);
-        StringBuilder formattedData = new StringBuilder(testData);
-        for (int i = 0; i < formattedData.length(); i++) {
-            if (i % 26 == 1) {
-                formattedData.setCharAt(i, ' ');
-            }
-        }
-        return formattedData.toString();
-    }
-
-    public String generateString(int n, String str) {
-        return new String(new char[n]).replace("\0", str);
-    }
-
-
     public boolean isPresent(String xpath) {
         try {
             return findBy(xpath).isPresent();

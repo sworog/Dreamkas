@@ -5,9 +5,9 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
-import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.elements.DateTime;
 import project.lighthouse.autotests.elements.preLoader.CheckBoxPreloader;
+import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.pages.departmentManager.invoice.*;
 
 public class InvoiceSteps extends ScenarioSteps {
@@ -15,7 +15,6 @@ public class InvoiceSteps extends ScenarioSteps {
     InvoiceCreatePage invoiceCreatePage;
     InvoiceListPage invoiceListPage;
     InvoiceBrowsing invoiceBrowsing;
-    CommonPage commonPage;
 
     InvoiceSearchPage invoiceSearchPage;
     InvoiceLocalNavigation invoiceLocalNavigation;
@@ -82,7 +81,7 @@ public class InvoiceSteps extends ScenarioSteps {
 
     @Step
     public void generateTestCharData(String elementName, int charNumber) {
-        String generatedData = commonPage.generateTestData(charNumber);
+        String generatedData = new StringGenerator(charNumber).generateTestData();
         input(elementName, generatedData);
     }
 

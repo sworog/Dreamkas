@@ -4,7 +4,7 @@ import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.common.CommonPage;
+import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductCardView;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductCreatePage;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductListPage;
@@ -18,7 +18,6 @@ public class ProductSteps extends ScenarioSteps {
     ProductCreatePage productCreatePage;
     ProductCardView productCardView;
     ProductListPage productListPage;
-    CommonPage commonPage;
     ProductLocalNavigation productLocalNavigation;
     ProductInvoicesList productInvoicesList;
     ProductWriteOffList productWriteOffList;
@@ -127,7 +126,7 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void generateTestCharData(String elementName, int charNumber) {
-        String generatedData = commonPage.generateTestData(charNumber);
+        String generatedData = new StringGenerator(charNumber).generateTestData();
         fieldInput(elementName, generatedData);
     }
 

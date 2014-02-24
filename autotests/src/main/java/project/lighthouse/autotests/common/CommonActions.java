@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import project.lighthouse.autotests.Waiter;
+import project.lighthouse.autotests.helper.StringGenerator;
 
 import java.util.List;
 import java.util.Map;
@@ -57,7 +58,7 @@ public class CommonActions extends PageObject {
             String inputText = row.get("value");
             if (row.containsKey("repeat")) {
                 Integer count = Integer.parseInt(row.get("repeat"));
-                inputText = commonPage.generateString(count, inputText);
+                inputText = new StringGenerator(count).generateString(inputText);
             }
             input(elementName, inputText);
         }

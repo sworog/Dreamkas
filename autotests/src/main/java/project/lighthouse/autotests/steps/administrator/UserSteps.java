@@ -3,7 +3,7 @@ package project.lighthouse.autotests.steps.administrator;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.common.CommonPage;
+import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.pages.administrator.users.UserCardPage;
 import project.lighthouse.autotests.pages.administrator.users.UserCreatePage;
 import project.lighthouse.autotests.pages.administrator.users.UsersListPage;
@@ -13,7 +13,6 @@ public class UserSteps extends ScenarioSteps {
     UserCreatePage userCreatePage;
     UserCardPage userCardPage;
     UsersListPage usersListPage;
-    CommonPage commonPage;
 
     @Step
     public void userCreatePageOpen() {
@@ -92,19 +91,19 @@ public class UserSteps extends ScenarioSteps {
 
     @Step
     public void generateTestCharData(String elementName, int charNumber) {
-        String generatedData = commonPage.generateTestData(charNumber);
+        String generatedData = new StringGenerator(charNumber).generateTestData();
         input(elementName, generatedData);
     }
 
     @Step
     public void generateTestCharDataWithoutSpaces(String elementName, int charNumber, String str) {
-        String generatedData = commonPage.generateTestDataWithoutWhiteSpaces(charNumber, str);
+        String generatedData = new StringGenerator(charNumber).generateTestDataWithoutWhiteSpaces(str);
         input(elementName, generatedData);
     }
 
     @Step
     public void generateTestCharDataWithoutSpaces(String elementName, int charNumber) {
-        String generatedData = commonPage.generateTestDataWithoutWhiteSpaces(charNumber);
+        String generatedData = new StringGenerator(charNumber).generateTestDataWithoutWhiteSpaces();
         input(elementName, generatedData);
     }
 

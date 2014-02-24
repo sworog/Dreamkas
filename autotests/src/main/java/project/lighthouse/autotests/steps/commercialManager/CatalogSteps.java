@@ -2,7 +2,7 @@ package project.lighthouse.autotests.steps.commercialManager;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
-import project.lighthouse.autotests.common.CommonPage;
+import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.pages.commercialManager.catalog.CategoryPage;
 import project.lighthouse.autotests.pages.commercialManager.catalog.GroupPage;
 import project.lighthouse.autotests.pages.commercialManager.catalog.MarkUpTab;
@@ -12,7 +12,6 @@ public class CatalogSteps extends ScenarioSteps {
 
     GroupPage groupPage;
     CategoryPage categoryPage;
-    CommonPage commonPage;
     SubCategoryPage subCategoryPage;
     MarkUpTab markUpTab;
 
@@ -148,13 +147,13 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void generateTestCharData(String elementName, int charNumber) {
-        String generatedData = commonPage.generateTestData(charNumber);
+        String generatedData = new StringGenerator(charNumber).generateTestData();
         input(elementName, generatedData);
     }
 
     @Step
     public void generateTestCharData(String elementName, int charNumber, String str) {
-        String generatedData = commonPage.generateTestData(charNumber, str);
+        String generatedData = new StringGenerator(charNumber).generateTestData(str);
         input(elementName, generatedData);
     }
 
