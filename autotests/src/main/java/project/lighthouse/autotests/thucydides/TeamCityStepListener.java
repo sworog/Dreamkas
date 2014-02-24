@@ -133,10 +133,11 @@ public class TeamCityStepListener implements StepListener {
 
     private void printExampleResults(TestOutcome result) {
         List<TestStep> testSteps = result.getTestSteps();
+        int number = 0;
         for (int i = 0; i < testSteps.size(); i++) {
             if (!testSteps.get(i).getChildren().isEmpty()) {
                 List<TestStep> childrenTestSteps = result.getTestSteps().get(i).getChildren();
-                String testName = getResultTitle(result, exampleTestNames.get(i - 1));
+                String testName = getResultTitle(result, exampleTestNames.get(number));
                 Long duration = sum(childrenTestSteps, on(TestStep.class).getDuration());
                 printTestStarted(testName);
                 if (hasFailureStep(childrenTestSteps)) {
@@ -149,6 +150,7 @@ public class TeamCityStepListener implements StepListener {
                     printTestIgnored(testName);
                 }
                 printTestFinished(testName, duration);
+                number++;
             }
         }
         examplesTestCount = 0;
