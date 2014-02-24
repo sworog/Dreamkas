@@ -26,6 +26,7 @@
     -moz-transition: border-color 0.25s;
     -o-transition: border-color 0.25s;
     transition: border-color 0.25s;
+    background-color: #fff;
 }
 
 .button:hover {

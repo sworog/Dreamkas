@@ -13,6 +13,10 @@ define(function(require) {
             'logs(/)': require('pages/common/log'),
             'settings(/)': require('pages/common/settings'),
 
+            //suppliers
+            'suppliers(/)': require('pages/suppliers/dashboard/dashboard'),
+            'suppliers/create(/)': require('pages/suppliers/create/create'),
+
             //reports
             'reports(/)': require('pages/reports/dashboard/dashboard'),
             'reports/grossMargin': require('pages/reports/grossMargin/grossMargin'),

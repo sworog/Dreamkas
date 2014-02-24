@@ -101,12 +101,14 @@
     background: #ffff99;
 }
 
-[page^="pages/reports"] .page__content {
+[page^="pages/reports"] .page__content,
+[page^="pages/suppliers"] .page__content{
     height: 100%;
     padding: 0;
 }
 
-[page^="pages/reports"] .localNavigation {
+[page^="pages/reports"] .localNavigation,
+[page^="pages/suppliers"] .localNavigation{
     position: relative;
     top: 0;
     left: 0;

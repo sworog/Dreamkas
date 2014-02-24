@@ -29,6 +29,8 @@
     <a href="/reports">Отчеты</a>
     <% } %>
 
+    <a href="/suppliers">Поставщики</a>
+
     <% if(currentUserModel.stores && currentUserModel.stores.length) { %>
     <a href="/stores/<%- currentUserModel.stores.at(0).id %>">Мой магазин</a>
     <% } %>
