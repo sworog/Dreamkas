@@ -22,7 +22,7 @@ public class UserCardPage extends CommonPageObject {
 
     public void editButtonClick() {
         String editButtonXpath = "//*[@class='user__editLink']";
-        commonActions.elementClick(By.xpath(editButtonXpath));
+        click(By.xpath(editButtonXpath));
     }
 
     public void pageBackLink() {

@@ -53,7 +53,7 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
         } catch (InterruptedException ignored) {
         }
         try {
-            commonActions.elementShouldBeVisible(value, this);
+            elementShouldBeVisible(value, this);
         } catch (AssertionError e) {
             fail(
                     String.format("The element with value '%s' is not present\nException message: %s", value, e.getMessage())

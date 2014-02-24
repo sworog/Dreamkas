@@ -57,14 +57,14 @@ abstract public class CommonItem {
     }
 
     public void click() {
-        pageObject.commonActions.elementClick(findBy);
+        pageObject.getCommonActions().elementClick(findBy);
     }
 
     public void selectByValue(String value) {
-        pageObject.commonActions.selectByValue(value, findBy);
+        pageObject.getCommonActions().selectByValue(value, findBy);
     }
 
     public void selectByVisibleText(String label) {
-        pageObject.commonActions.selectByVisibleText(label, findBy);
+        pageObject.getCommonActions().selectByVisibleText(label, findBy);
     }
 }

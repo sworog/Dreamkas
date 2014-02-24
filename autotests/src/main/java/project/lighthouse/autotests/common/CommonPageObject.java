@@ -18,11 +18,15 @@ abstract public class CommonPageObject extends PageObject {
 
     public Map<String, CommonItem> items = new HashMap<>();
 
-    protected CommonActions commonActions = new CommonActions(getDriver(), items);
+    private CommonActions commonActions = new CommonActions(getDriver(), items);
 
     public CommonPageObject(WebDriver driver) {
         super(driver);
         createElements();
+    }
+
+    public CommonActions getCommonActions() {
+        return commonActions;
     }
 
     abstract public void createElements();
@@ -104,5 +108,9 @@ abstract public class CommonPageObject extends PageObject {
     public void shouldContainsText(String elementName, String expectedValue) {
         WebElement element = items.get(elementName).getWebElement();
         commonPage.shouldContainsText(elementName, element, expectedValue);
+    }
+
+    public void elementShouldBeVisible(String value, CommonView commonView) {
+        commonActions.elementShouldBeVisible(value, commonView);
     }
 }

@@ -129,7 +129,7 @@ public class WriteOffPage extends InvoiceBrowsing {
 
     @Override
     public void elementClick(String elementName) {
-        commonActions.elementClick(elementName);
+        itemClick(elementName);
     }
 
     @Override
