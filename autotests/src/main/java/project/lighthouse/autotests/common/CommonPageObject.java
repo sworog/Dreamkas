@@ -11,13 +11,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Page object facade
+ * Page object facade for page object pages
  */
 abstract public class CommonPageObject extends PageObject {
-
-    protected CommonPage commonPage = new CommonPage(getDriver());
-
-    private Waiter waiter = new Waiter(getDriver());
 
     public Map<String, CommonItem> items = new HashMap<>();
 
@@ -33,17 +29,17 @@ abstract public class CommonPageObject extends PageObject {
     }
 
     public Waiter getWaiter() {
-        return waiter;
+        return commonActions.getWaiter();
     }
 
     abstract public void createElements();
 
     public WebElement findElement(By by) {
-        return waiter.getPresentWebElement(by);
+        return getWaiter().getPresentWebElement(by);
     }
 
     public WebElement findVisibleElement(By by) {
-        return waiter.getVisibleWebElement(by);
+        return getWaiter().getVisibleWebElement(by);
     }
 
     public void input(String elementName, String inputText) {
@@ -103,7 +99,7 @@ abstract public class CommonPageObject extends PageObject {
     }
 
     public WebElement findOnlyVisibleWebElementFromTheWebElementsList(By findBy) {
-        return waiter.getOnlyVisibleElementFromTheList(findBy);
+        return getWaiter().getOnlyVisibleElementFromTheList(findBy);
     }
 
     public WebElement findModelFieldContaining(String modelName, String fieldName, String expectedValue) {

@@ -24,7 +24,7 @@ public class CommonActions extends PageObject {
     private static final String ERROR_MESSAGE_2 = "Element is no longer attached to the DOM";
     private static final String ERROR_MESSAGE_3 = "Element does not exist in cache";
 
-    protected Waiter waiter = new Waiter(getDriver());
+    private Waiter waiter = new Waiter(getDriver());
 
     public CommonActions(WebDriver driver, Map<String, CommonItem> items) {
         super(driver);
@@ -33,6 +33,10 @@ public class CommonActions extends PageObject {
 
     public CommonActions(WebDriver driver) {
         super(driver);
+    }
+
+    public Waiter getWaiter() {
+        return waiter;
     }
 
     public void input(String elementName, String inputText) {
