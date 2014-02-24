@@ -2,17 +2,12 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
-use Lighthouse\CoreBundle\Document\User\User;
+use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use JMS\DiExtraBundle\Annotation as DI;
 
-/**
- * Class InvoiceType
- * @DI\Service("lighthouse_core.form.user")
- */
-class UserType extends AbstractType
+class SupplierType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -21,11 +16,8 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', 'text')
             ->add('name', 'text')
-            ->add('role', 'text')
-            ->add('password', 'password')
-            ->add('position', 'text');
+        ;
     }
 
     /**
@@ -35,7 +27,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => User::getClassName(),
+                'data_class' => Supplier::getClassName(),
                 'csrf_protection' => false
             )
         );

@@ -138,3 +138,8 @@ services:
         parent: doctrine_mongodb.odm.repository
         arguments:
             - LighthouseCoreBundle:Log\Log
+
+    lighthouse.core.document.repository.supplier:
+        parent: doctrine_mongodb.odm.repository
+        arguments:
+            - LighthouseCoreBundle:Supplier\Supplier

@@ -73,3 +73,7 @@ lighthouse.core.config:
 lighthouse.core.integration:
     resource: Lighthouse\CoreBundle\Controller\IntegrationController
     type:     rest
+
+lighthouse.core.supplier:
+    resource: Lighthouse\CoreBundle\Controller\SupplierController
+    type:     rest
