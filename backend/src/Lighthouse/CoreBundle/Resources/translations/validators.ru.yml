@@ -89,6 +89,9 @@ lighthouse:
                     forbidden: Нельзя установить цену продажи, если не установлен диапозон цены продажи
                 rounded_retail_price:
                     invalid: Цена после округления должна быть больше 0
+            supplier:
+                name:
+                    unique: Поставщик с таким названием уже существует
 
 This value should not be blank.: Заполните это поле
 This value should be {{ limit }} or less.: Не более {{ limit }} символов
