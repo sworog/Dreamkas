@@ -14,6 +14,8 @@ import project.lighthouse.autotests.helper.StringGenerator;
 import java.util.List;
 import java.util.Map;
 
+import static junit.framework.Assert.assertTrue;
+
 public class CommonActions extends PageObject {
 
     Map<String, CommonItem> items;
@@ -22,7 +24,6 @@ public class CommonActions extends PageObject {
     private static final String ERROR_MESSAGE_2 = "Element is no longer attached to the DOM";
     private static final String ERROR_MESSAGE_3 = "Element does not exist in cache";
 
-    protected CommonPage commonPage = new CommonPage(getDriver());
     protected Waiter waiter = new Waiter(getDriver());
 
     public CommonActions(WebDriver driver, Map<String, CommonItem> items) {
@@ -93,13 +94,13 @@ public class CommonActions extends PageObject {
             WebElement parent = waiter.getVisibleWebElement(parentFindBy);
             element = items.get(elementName).getWebElement(parent);
         }
-        commonPage.shouldContainsText(elementName, element, expectedValue);
+        shouldContainsText(elementName, element, expectedValue);
     }
 
     public void checkElementText(String elementName, String expectedValue) {
         try {
             WebElement element = items.get(elementName).getOnlyVisibleWebElement();
-            commonPage.shouldContainsText(elementName, element, expectedValue);
+            shouldContainsText(elementName, element, expectedValue);
         } catch (Exception e) {
             if (isSkippableException(e, false)) {
                 checkElementText(elementName, expectedValue);
@@ -252,5 +253,21 @@ public class CommonActions extends PageObject {
 
     public Boolean webElementHasTagName(String xpath, String expectedTagName) {
         return waiter.getOnlyVisibleElementFromTheList(By.xpath(xpath)).getTagName().equals(expectedTagName);
+    }
+
+    public void shouldContainsText(String elementName, WebElement element, String expectedValue) {
+        String actualValue;
+        switch (element.getTagName()) {
+            case "input":
+                actualValue = $(element).getTextValue();
+                break;
+            default:
+                actualValue = $(element).getText();
+                break;
+        }
+        assertTrue(
+                String.format("Element '%s' doesnt contain '%s'. It contains '%s'", elementName, expectedValue, actualValue),
+                actualValue.contains(expectedValue)
+        );
     }
 }

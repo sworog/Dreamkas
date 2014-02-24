@@ -91,7 +91,7 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
     public void checkListItemWithSkuHasExpectedValue(String value, String elementName, String expectedValue) {
         itemCheck(value);
         WebElement listItem = getWebElementItem(value).findElement(By.name(elementName));
-        commonPage.shouldContainsText(elementName, listItem, expectedValue);
+        getCommonActions().shouldContainsText(elementName, listItem, expectedValue);
     }
 
     public void checkListItemWithSkuHasExpectedValue(String value, ExamplesTable checkValuesTable) {
@@ -105,7 +105,7 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
     public void checkListItemHasExpectedValueByFindByLocator(String value, String elementName, By findBy, String expectedValue) {
         itemCheck(value);
         WebElement listItem = getWebElementItem(value).findElement(findBy);
-        commonPage.shouldContainsText(elementName, listItem, expectedValue);
+        getCommonActions().shouldContainsText(elementName, listItem, expectedValue);
     }
 
     @Override

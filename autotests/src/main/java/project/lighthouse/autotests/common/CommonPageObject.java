@@ -113,7 +113,7 @@ abstract public class CommonPageObject extends PageObject {
 
     public void shouldContainsText(String elementName, String expectedValue) {
         WebElement element = items.get(elementName).getWebElement();
-        commonPage.shouldContainsText(elementName, element, expectedValue);
+        commonActions.shouldContainsText(elementName, element, expectedValue);
     }
 
     public void elementShouldBeVisible(String value, CommonView commonView) {

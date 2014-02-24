@@ -33,10 +33,6 @@ public class CommonPage extends PageObject {
         }
     }
 
-    public void setValue(CommonItem item, String value) {
-        item.setValue(value);
-    }
-
     public void checkAutoCompleteNoResults() {
         String xpath = "//*[@role='presentation']/*[text()]";
         assertFalse("There are autocomplete results on the page", isPresent(xpath));
@@ -52,22 +48,6 @@ public class CommonPage extends PageObject {
     public void checkAutoCompleteResult(String autoCompleteValue) {
         String xpathPattern = String.format(Autocomplete.AUTOCOMPLETE_XPATH_PATTERN, autoCompleteValue);
         waiter.getVisibleWebElement(By.xpath(xpathPattern));
-    }
-
-    public void shouldContainsText(String elementName, WebElement element, String expectedValue) {
-        String actualValue;
-        switch (element.getTagName()) {
-            case "input":
-                actualValue = $(element).getTextValue();
-                break;
-            default:
-                actualValue = $(element).getText();
-                break;
-        }
-        assertTrue(
-                String.format("Element '%s' doesnt contain '%s'. It contains '%s'", elementName, expectedValue, actualValue),
-                actualValue.contains(expectedValue)
-        );
     }
 
     public void checkAlertText(String expectedText) {
