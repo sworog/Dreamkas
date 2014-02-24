@@ -4,17 +4,17 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Input;
 import project.lighthouse.autotests.elements.SelectByValue;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
-import project.lighthouse.autotests.pages.commercialManager.product.ProductCreatePage;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @DefaultUrl("/users/create")
-public class UserCreatePage extends ProductCreatePage {
+public class UserCreatePage extends CommonPageObject {
 
     public UserCreatePage(WebDriver driver) {
         super(driver);

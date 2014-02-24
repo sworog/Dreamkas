@@ -20,10 +20,6 @@ public class UserCardPage extends CommonPageObject {
         items.put("role", new NonType(this, "role"));
     }
 
-    public void checkCardValue(String elementName, String expectedValue) {
-        commonActions.checkElementValue("", elementName, expectedValue);
-    }
-
     public void editButtonClick() {
         String editButtonXpath = "//*[@class='user__editLink']";
         commonActions.elementClick(By.xpath(editButtonXpath));

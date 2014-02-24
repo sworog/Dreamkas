@@ -44,6 +44,18 @@ abstract public class CommonPageObject extends PageObject {
         commonActions.checkElementText(elementName, expectedValue);
     }
 
+    public void checkCardValue(String checkType, String elementName, String expectedValue) {
+        commonActions.checkElementValue(checkType, elementName, expectedValue);
+    }
+
+    public void checkCardValue(String elementName, String expectedValue) {
+        commonActions.checkElementValue("", elementName, expectedValue);
+    }
+
+    public void checkCardValue(String checkType, ExamplesTable checkValuesTable) {
+        commonActions.checkElementValue(checkType, checkValuesTable);
+    }
+
     public void checkCardValue(ExamplesTable checkValuesTable) {
         commonActions.checkElementValue("", checkValuesTable);
     }
@@ -72,6 +84,15 @@ abstract public class CommonPageObject extends PageObject {
         commonActions.inputTable(inputTable);
     }
 
+    public void selectByValue(String elementName, String value) {
+        items.get(elementName).setValue(value);
+    }
+
+    public void checkFieldLength(String elementName, int fieldLength) {
+        CommonItem item = items.get(elementName);
+        commonPage.checkFieldLength(elementName, fieldLength, item.getWebElement());
+    }
+
     public WebElement findOnlyVisibleWebElementFromTheWebElementsList(By findBy) {
         return waiter.getOnlyVisibleElementFromTheList(findBy);
     }
@@ -79,5 +100,10 @@ abstract public class CommonPageObject extends PageObject {
     public WebElement findModelFieldContaining(String modelName, String fieldName, String expectedValue) {
         By by = By.xpath(String.format("//span[@model='%s' and @model-attribute='%s' and contains(text(), '%s')]", modelName, fieldName, expectedValue));
         return findVisibleElement(by);
+    }
+
+    public void shouldContainsText(String elementName, String expectedValue) {
+        WebElement element = items.get(elementName).getWebElement();
+        commonPage.shouldContainsText(elementName, element, expectedValue);
     }
 }

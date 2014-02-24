@@ -38,23 +38,6 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
         super(driver);
     }
 
-    public void checkCardValue(String checkType, String elementName, String expectedValue) {
-        commonActions.checkElementValue(checkType, elementName, expectedValue);
-    }
-
-    public void checkCardValue(String elementName, String expectedValue) {
-        checkCardValue("", elementName, expectedValue);
-    }
-
-    public void shouldContainsText(String elementName, String expectedValue) {
-        WebElement element = items.get(elementName).getWebElement();
-        commonPage.shouldContainsText(elementName, element, expectedValue);
-    }
-
-    public void checkCardValue(String checkType, ExamplesTable checkValuesTable) {
-        commonActions.checkElementValue(checkType, checkValuesTable);
-    }
-
     public void editButtonClick() {
         findVisibleElement(
                 By.xpath("//*[@class='page__controlsLink invoice__editLink']"));

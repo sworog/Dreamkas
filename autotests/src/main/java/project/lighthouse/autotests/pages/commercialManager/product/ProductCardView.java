@@ -9,10 +9,6 @@ public class ProductCardView extends ProductCreatePage {
         super(driver);
     }
 
-    public void checkCardValue(String elementName, String expectedValue) {
-        commonActions.checkElementValue("", elementName, expectedValue);
-    }
-
     public void editButtonClick() {
         String editButtonXpath = "//*[@class='user__editLink']";
         findVisibleElement(By.xpath(editButtonXpath)).click();

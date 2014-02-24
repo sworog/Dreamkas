@@ -138,7 +138,7 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void elementClick(String elementName) {
-        productCreatePage.elementClick(elementName);
+        productCreatePage.itemClick(elementName);
     }
 
     @Step
