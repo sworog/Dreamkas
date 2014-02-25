@@ -1726,7 +1726,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $storeId = $this->factory->getStore();
         $productId = $this->createProduct();
         $invoiceId = $this->createInvoice(array('acceptanceDate' => '2014-01-10T12:33:33+0400'), $storeId);
-        $invoiceProductId = $this->createInvoiceProduct($invoiceId, $productId, 1, 9.99, $storeId);
+        $this->createInvoiceProduct($invoiceId, $productId, 1, 9.99, $storeId);
 
         $accessToken = $this->factory->authAsDepartmentManager($storeId);
 

@@ -3,15 +3,17 @@
 namespace Lighthouse\CoreBundle\Document\Product\RecalcProductPrice;
 
 use Lighthouse\CoreBundle\Document\Job\Integration\Set10\ExportProductsJob;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Test\TestCase;
 
 class RecalcProductPriceWorkerTest extends TestCase
 {
     /**
-     * @return RecalcProductPriceWorker|\PHPUnit_Framework_MockObject_MockObject
+     * @return RecalcProductPriceWorker
      */
     protected function getWorker()
     {
+        /* @var StoreProductRepository|\PHPUnit_Framework_MockObject_MockObject $repositoryMock */
         $repositoryMock = $this->getMock(
             'Lighthouse\\CoreBundle\\Document\\Product\\Store\\StoreProductRepository',
             array(),

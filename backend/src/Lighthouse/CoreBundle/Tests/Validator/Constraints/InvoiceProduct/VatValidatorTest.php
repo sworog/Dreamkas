@@ -34,7 +34,7 @@ class VatValidatorTest extends ContainerAwareTestCase
         $expectedViolationsCount,
         array $expectedMessages = array()
     ) {
-        /* @var ValidatorInterface */
+        /* @var ValidatorInterface $validator */
         $validator = $this->getContainer()->get('validator');
         $constraint = new Vat();
 

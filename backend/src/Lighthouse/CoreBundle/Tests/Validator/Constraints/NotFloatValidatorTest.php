@@ -43,9 +43,9 @@ class NotFloatValidatorTest extends TestCase
              ->expects($this->once())
              ->method('addViolation')
              ->with(
-                $this->equalTo('lighthouse.validation.errors.not_float.invalid'),
-                $this->equalTo(array('{{ value }}' => $value))
-            );
+                 $this->equalTo('lighthouse.validation.errors.not_float.invalid'),
+                 $this->equalTo(array('{{ value }}' => $value))
+             );
 
         $this->validator->validate($value, $constraint);
     }

@@ -219,7 +219,7 @@ class SupplierControllerTest extends WebTestCase
         $this->factory->flush();
 
         $accessToken = $this->factory->authAsRole($role);
-        $getResponse = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'GET',
             '/api/1/suppliers/' . $supplier1->id

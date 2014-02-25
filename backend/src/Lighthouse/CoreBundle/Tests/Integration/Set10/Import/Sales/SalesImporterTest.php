@@ -118,7 +118,6 @@ class SalesImporterTest extends WebTestCase
 
         $display = $output->getDisplay();
         $this->assertStringStartsWith(".R.R.R                                               6\nFlushing", $display);
-        $lines = $output->getLines();
 
         $this->assertStoreProductTotals($storeIds['666'], $productIds['Кит-Кат-343424'], -1);
         $this->assertStoreProductTotals($storeIds['777'], $productIds['Кит-Кат-343424'], -2);
@@ -148,7 +147,6 @@ class SalesImporterTest extends WebTestCase
 
         $display = $output->getDisplay();
         $this->assertStringStartsWith(".R.R.R                                               6\nFlushing", $display);
-        $lines = $output->getLines();
 
         $this->assertStoreProductTotals($storeIds['666'], $productIds['Кит-Кат-343424'], -1);
         $this->assertStoreProductTotals($storeIds['777'], $productIds['Кит-Кат-343424'], -2);

@@ -11,7 +11,6 @@ use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Versionable\VersionFactory;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
-use Stubs\DocumentManager;
 
 class VersionableFactoryTest extends ContainerAwareTestCase
 {
