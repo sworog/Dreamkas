@@ -2,10 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Tests\Util\File;
 
-use Karzer\Framework\TestCase\TestCase;
+use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Util\File\SortableDirectoryIterator;
 
-class SortableDirectoryTest extends TestCase
+class SortableDirectoryTest extends ContainerAwareTestCase
 {
     /**
      * @expectedException \UnexpectedValueException
@@ -109,6 +109,42 @@ class SortableDirectoryTest extends TestCase
         $this->assertEquals($files[2]['filename'], $dir[2]->getFilename());
         $this->assertEquals($files[1]['filename'], $dir[3]->getFilename());
         $this->assertEquals($files[0]['filename'], $dir[4]->getFilename());
+    }
+
+    public function testSortByDateFilename()
+    {
+        $path = $this->getFixtureFilePath('Integration/Set10/Import/Sales/Sort');
+        /* @var SortableDirectoryIterator|\SplFileInfo[] $dir */
+        $dir = new SortableDirectoryIterator($path);
+        $dir->sortByDateFilename(SortableDirectoryIterator::SORT_DESC);
+
+        $this->assertCount(5, $dir);
+        $this->assertEquals('purchases-99-99-9999_99-99-99.xml', $dir[0]->getFilename());
+        $this->assertEquals('purchases-13-09-2013_15-09-26.xml', $dir[1]->getFilename());
+        $this->assertEquals('purchases-13-09-2013_15-09-26-double.xml', $dir[2]->getFilename());
+
+        $dir->sortByDateFilename(SortableDirectoryIterator::SORT_ASC);
+
+        $this->assertEquals('purchases-13-09-2013_15-09-26-double.xml', $dir[2]->getFilename());
+        $this->assertEquals('purchases-13-09-2013_15-09-26.xml', $dir[3]->getFilename());
+        $this->assertEquals('purchases-99-99-9999_99-99-99.xml', $dir[4]->getFilename());
+    }
+
+    public function testFilterPurchaseFiles()
+    {
+        $path = $this->getFixtureFilePath('Integration/Set10/Import/Sales/Sort');
+        /* @var SortableDirectoryIterator|\SplFileInfo[] $dir */
+        $dir = new SortableDirectoryIterator($path);
+
+        $this->assertCount(5, $dir);
+        $this->assertArrayHasKey(3, $dir);
+        $this->assertArrayHasKey(4, $dir);
+
+        $dir->filterPurchaseFiles();
+
+        $this->assertCount(3, $dir);
+        $this->assertArrayNotHasKey(3, $dir);
+        $this->assertArrayNotHasKey(4, $dir);
     }
 
     public function testGetFileInfo()

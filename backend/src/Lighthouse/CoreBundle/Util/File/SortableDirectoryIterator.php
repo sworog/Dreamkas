@@ -142,9 +142,7 @@ class SortableDirectoryIterator implements IteratorAggregate, ArrayAccess, Count
         $matches = null;
         if (preg_match('/(\d{2}-\d{2}-\d{4}_\d{2}-\d{2}-\d{2})/iu', $filename, $matches)) {
             $date = DateTime::createFromFormat('d-m-Y_H-i-s', $matches[1]);
-            if ($date instanceof DateTime) {
-                return $date->getTimestamp();
-            }
+            return $date->getTimestamp();
         }
         return ($direction == self::SORT_DESC) ? 0 : INF;
     }
