@@ -25,7 +25,7 @@ public class MarkUpTab extends CommonPageObject {
     }
 
     public void saveMarkUpButtonClick() {
-        new ButtonFacade(getDriver(), "Сохранить").catalogClick();
+        new ButtonFacade(this, "Сохранить").catalogClick();
         new PreLoader(getDriver()).await();
     }
 
@@ -44,6 +44,6 @@ public class MarkUpTab extends CommonPageObject {
 
     public void checkDropDownDefaultValue(String expectedValue) {
         WebElement element = items.get("rounding").getVisibleWebElement();
-        commonPage.checkDropDownDefaultValue(element, expectedValue);
+        getCommonActions().checkDropDownDefaultValue(element, expectedValue);
     }
 }

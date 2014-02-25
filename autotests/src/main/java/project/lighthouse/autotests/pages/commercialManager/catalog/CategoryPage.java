@@ -13,7 +13,7 @@ public class CategoryPage extends GroupPage {
 
     @Override
     public void addNewButtonClick() {
-        new ButtonFacade(getDriver(), "Добавить категорию").click();
+        new ButtonFacade(this, "Добавить категорию").click();
     }
 
     @Override

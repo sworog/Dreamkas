@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.steps;
 
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import project.lighthouse.autotests.pages.administrator.users.UserCardPage;
 import project.lighthouse.autotests.pages.authorization.AuthorizationPage;
@@ -16,10 +15,6 @@ public class AuthorizationSteps extends ScenarioSteps {
     ProductCardView productCardView;
     ProductListPage productListPage;
     UserCardPage userCardPage;
-
-    public AuthorizationSteps(Pages pages) {
-        super(pages);
-    }
 
     @Step
     public void authorization(String userName) {

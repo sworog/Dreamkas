@@ -72,12 +72,12 @@ public class WriteOffPage extends InvoiceBrowsing {
     }
 
     public void continueWriteOffCreation() {
-        new ButtonFacade(getDriver(), "Сохранить и перейти к добавлению товаров").click();
+        new ButtonFacade(this, "Сохранить и перейти к добавлению товаров").click();
         new PreLoader(getDriver()).await();
     }
 
     public void addProductToWriteOff() {
-        new ButtonFacade(getDriver(), "Добавить товар").click();
+        new ButtonFacade(this, "Добавить товар").click();
         new PreLoader(getDriver()).await();
     }
 
@@ -129,7 +129,7 @@ public class WriteOffPage extends InvoiceBrowsing {
 
     @Override
     public void elementClick(String elementName) {
-        commonActions.elementClick(elementName);
+        itemClick(elementName);
     }
 
     @Override

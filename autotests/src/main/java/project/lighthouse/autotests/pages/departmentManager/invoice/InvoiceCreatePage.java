@@ -3,7 +3,6 @@ package project.lighthouse.autotests.pages.departmentManager.invoice;
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Autocomplete;
 import project.lighthouse.autotests.elements.DateTime;
@@ -69,10 +68,5 @@ public class InvoiceCreatePage extends CommonPageObject {
         items.put("inline totalSum", new Input(this, By.xpath(String.format(XPATH_PATTERN, "totalSum"))));
 
         items.put("includesVAT", new NonType(this, By.name("includesVAT")));
-    }
-
-    public void checkFieldLength(String elementName, int fieldLength) {
-        CommonItem item = items.get(elementName);
-        commonPage.checkFieldLength(elementName, fieldLength, item.getWebElement());
     }
 }

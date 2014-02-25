@@ -1,57 +1,27 @@
 package project.lighthouse.autotests.common;
 
-import net.thucydides.core.pages.PageObject;
-import org.hamcrest.Matchers;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.elements.Autocomplete;
 
 import java.util.Map;
 
-import static junit.framework.Assert.*;
-import static org.junit.Assert.assertThat;
+import static junit.framework.Assert.assertFalse;
+import static junit.framework.Assert.fail;
 
-public class CommonPage extends PageObject {
+public class CommonPage extends CommonPageObject {
 
     public static final String ERROR_MESSAGE = "No such option for '%s'";
-
-    protected Waiter waiter = new Waiter(getDriver());
 
     public CommonPage(WebDriver driver) {
         super(driver);
     }
 
-    public String generateTestData(int n) {
-        return generateTestData(n, "a");
+    @Override
+    public void createElements() {
     }
-
-    public String generateTestDataWithoutWhiteSpaces(int n) {
-        return generateString(n, "a");
-    }
-
-    public String generateTestDataWithoutWhiteSpaces(int n, String str) {
-        return generateString(n, str);
-    }
-
-    public String generateTestData(int n, String str) {
-        String testData = generateString(n, str);
-        StringBuilder formattedData = new StringBuilder(testData);
-        for (int i = 0; i < formattedData.length(); i++) {
-            if (i % 26 == 1) {
-                formattedData.setCharAt(i, ' ');
-            }
-        }
-        return formattedData.toString();
-    }
-
-    public String generateString(int n, String str) {
-        return new String(new char[n]).replace("\0", str);
-    }
-
 
     public boolean isPresent(String xpath) {
         try {
@@ -59,36 +29,6 @@ public class CommonPage extends PageObject {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    public void checkFieldLength(String elementName, int fieldLength, int actualLength) {
-        assertEquals(
-                String.format("The '%s' field doesn't contains '%s' symbols. It actually contains '%s' symbols.", elementName, fieldLength, actualLength),
-                actualLength, fieldLength);
-    }
-
-    public void checkFieldLength(String elementName, int fieldLength, CommonItem item) {
-        checkFieldLength(elementName, fieldLength, item.length());
-    }
-
-    public void checkFieldLength(String elementName, int fieldLength, WebElement element) {
-        int length;
-        switch (element.getTagName()) {
-            case "input":
-                length = $(element).getTextValue().length();
-                break;
-            case "textarea":
-                length = $(element).getValue().length();
-                break;
-            default:
-                length = $(element).getText().length();
-                break;
-        }
-        checkFieldLength(elementName, fieldLength, length);
-    }
-
-    public void setValue(CommonItem item, String value) {
-        item.setValue(value);
     }
 
     public void checkAutoCompleteNoResults() {
@@ -105,37 +45,12 @@ public class CommonPage extends PageObject {
 
     public void checkAutoCompleteResult(String autoCompleteValue) {
         String xpathPattern = String.format(Autocomplete.AUTOCOMPLETE_XPATH_PATTERN, autoCompleteValue);
-        waiter.getVisibleWebElement(By.xpath(xpathPattern));
-    }
-
-    public void shouldContainsText(String elementName, WebElement element, String expectedValue) {
-        String actualValue;
-        switch (element.getTagName()) {
-            case "input":
-                actualValue = $(element).getTextValue();
-                break;
-            default:
-                actualValue = $(element).getText();
-                break;
-        }
-        assertTrue(
-                String.format("Element '%s' doesnt contain '%s'. It contains '%s'", elementName, expectedValue, actualValue),
-                actualValue.contains(expectedValue)
-        );
-    }
-
-    public void checkAlertText(String expectedText) {
-        Alert alert = waiter.getAlert();
-        String alertText = alert.getText();
-        alert.accept();
-        assertEquals(
-                String.format("Alert text is '%s'. Should be '%s'.", alertText, expectedText),
-                alertText, expectedText);
+        getWaiter().getVisibleWebElement(By.xpath(xpathPattern));
     }
 
     public void NoAlertIsPresent() {
         try {
-            Alert alert = waiter.getAlert();
+            Alert alert = getWaiter().getAlert();
             fail(
                     String.format("Alert is present! Alert text: '%s'", alert.getText())
             );
@@ -143,16 +58,8 @@ public class CommonPage extends PageObject {
         }
     }
 
-    public void checkDropDownDefaultValue(WebElement dropDownElement, String expectedValue) {
-        String selectedValue = $(dropDownElement).getSelectedVisibleTextValue();
-        assertThat(
-                "The dropDawn value:",
-                selectedValue, Matchers.containsString(expectedValue)
-        );
-    }
-
     public void pageContainsText(String text) {
-        waiter.getVisibleWebElement(
+        getWaiter().getVisibleWebElement(
                 By.xpath(
                         String.format("//*[contains(normalize-space(text()), '%s')]", text)
                 )

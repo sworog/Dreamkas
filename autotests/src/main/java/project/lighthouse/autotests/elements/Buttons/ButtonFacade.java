@@ -1,33 +1,26 @@
 package project.lighthouse.autotests.elements.Buttons;
 
+import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.CommonActions;
+import project.lighthouse.autotests.common.CommonActions;
 
 public class ButtonFacade {
 
-    WebDriver webDriver;
-    String xpath = "//*[@class='button']";
-    String browserName;
+    private String xpath = "//*[@class='button']";
+    private String browserName;
 
     private static final String BUTTON_XPATH_PATTERN = "//*[contains(@class, 'button') and normalize-space(text())='%s']";
 
-    CommonActions commonActions;
+    private CommonActions commonActions;
 
-    public ButtonFacade(WebDriver webDriver) {
-        this.webDriver = webDriver;
-        commonActions = new CommonActions(webDriver);
+    public ButtonFacade(PageObject pageObject) {
+        commonActions = new CommonActions(pageObject);
         browserName = commonActions.getCapabilities().getBrowserName();
     }
 
-    public ButtonFacade(WebDriver driver, String buttonTextName) {
-        this(driver);
-        setXpath(
-                getButtonXpath(buttonTextName));
-    }
-
-    private void setXpath(String xpath) {
-        this.xpath = xpath;
+    public ButtonFacade(PageObject pageObject, String buttonTextName) {
+        this(pageObject);
+        this.xpath = getButtonXpath(buttonTextName);
     }
 
     private String getButtonXpath(String buttonTextName) {

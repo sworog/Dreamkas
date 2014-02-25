@@ -30,7 +30,7 @@ public class UsersListPage extends CommonPageObject {
     }
 
     public void createNewUserButtonClick() {
-        new ButtonFacade(getDriver(), "Добавить пользователя").click();
+        new ButtonFacade(this, "Добавить пользователя").click();
     }
 
     public void listItemClick(String skuValue) {

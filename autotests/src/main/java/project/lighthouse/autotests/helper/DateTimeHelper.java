@@ -4,6 +4,9 @@ import org.joda.time.DateTime;
 
 import java.text.SimpleDateFormat;
 
+/**
+ * The helper is used for formatting and getting date and time values
+ */
 public class DateTimeHelper {
 
     private int days;
@@ -25,10 +28,6 @@ public class DateTimeHelper {
 
     public String convertDateTime(int hour, int minute, int second) {
         return getTodayDate(DATE_TIME_PATTERN, days, hour, minute, second);
-    }
-
-    public static void main(String Args[]) {
-        new DateTimeHelper(2).convertDateTime();
     }
 
     public String convertDate() {

@@ -1,11 +1,10 @@
 package project.lighthouse.autotests.steps.departmentManager;
 
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.helper.ExampleTableConverter;
+import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffListPage;
 import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffLocalNavigation;
 import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffPage;
@@ -14,16 +13,11 @@ import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffSea
 public class WriteOffSteps extends ScenarioSteps {
 
     WriteOffPage writeOffPage;
-    CommonPage commonPage;
     WriteOffListPage writeOffListPage;
     WriteOffSearchPage writeOffSearchPage;
     WriteOffLocalNavigation writeOffLocalNavigation;
 
     public static ExamplesTable examplesTable;
-
-    public WriteOffSteps(Pages pages) {
-        super(pages);
-    }
 
     @Step
     public void openPage() {
@@ -79,7 +73,7 @@ public class WriteOffSteps extends ScenarioSteps {
 
     @Step
     public void generateTestCharData(String elementName, int charNumber) {
-        String generatedData = commonPage.generateTestData(charNumber);
+        String generatedData = new StringGenerator(charNumber).generateTestData();
         input(elementName, generatedData);
     }
 

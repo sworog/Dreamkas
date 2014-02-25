@@ -29,7 +29,7 @@ public class SalesEmulatorManagerPage extends CommonPageObject {
     public void makePurchase() {
         String makePurchaseButtonXpath = "//*[@class='button button_color_blue']/input";
         findBy(makePurchaseButtonXpath).click();
-        commonPage.checkAlertText("Продано!");
+        getCommonActions().checkAlertText("Продано!");
     }
 }
 

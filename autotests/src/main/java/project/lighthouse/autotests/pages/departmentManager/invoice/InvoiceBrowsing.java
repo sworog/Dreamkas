@@ -38,27 +38,6 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
         super(driver);
     }
 
-    public void checkCardValue(String checkType, String elementName, String expectedValue) {
-        commonActions.checkElementValue(checkType, elementName, expectedValue);
-    }
-
-    public void checkCardValue(String elementName, String expectedValue) {
-        checkCardValue("", elementName, expectedValue);
-    }
-
-    public void shouldContainsText(String elementName, String expectedValue) {
-        WebElement element = items.get(elementName).getWebElement();
-        commonPage.shouldContainsText(elementName, element, expectedValue);
-    }
-
-    public void checkCardValue(String checkType, ExamplesTable checkValuesTable) {
-        commonActions.checkElementValue(checkType, checkValuesTable);
-    }
-
-    public void checkCardValue(ExamplesTable checkValuesTable) {
-        checkCardValue("", checkValuesTable);
-    }
-
     public void editButtonClick() {
         findVisibleElement(
                 By.xpath("//*[@class='page__controlsLink invoice__editLink']"));
@@ -66,7 +45,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void goToTheaAdditionOfProductsLinkClick() {
-        new ButtonFacade(getDriver(), "Сохранить и перейти к добавлению товаров").click();
+        new ButtonFacade(this, "Сохранить и перейти к добавлению товаров").click();
         new PreLoader(getDriver()).await();
     }
 
@@ -109,7 +88,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void writeOffStopEditButtonClick() {
-        new ButtonFacade(getDriver(), "Завершить редактирование").click();
+        new ButtonFacade(this, "Завершить редактирование").click();
     }
 
     public void writeOffStopEditlinkClick() {
@@ -133,7 +112,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void addNewInvoiceProductButtonClick() {
-        new ButtonFacade(getDriver(), "Добавить товар").click();
+        new ButtonFacade(this, "Добавить товар").click();
         new PreLoader(getDriver()).await();
     }
 

@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The class is used for example table conversion. It reverts the example table data
+ */
 public class ExampleTableConverter {
 
     public static ExamplesTable convert(ExamplesTable examplesTable) {

@@ -15,10 +15,10 @@ public class ReportsMenuLocalNavigationPage extends CommonPageObject {
     }
 
     public void grossSalesByStoresLinkClick() {
-        new NavigationLinkFacade(getDriver(), "Продажи по магазинам").click();
+        new NavigationLinkFacade(this, "Продажи по магазинам").click();
     }
 
     public void grossSaleMarginLinkClick() {
-        new NavigationLinkFacade(getDriver(), "Валовая прибыль").click();
+        new NavigationLinkFacade(this, "Валовая прибыль").click();
     }
 }

@@ -23,7 +23,7 @@ public class StoreListPage extends CommonPageObject {
     }
 
     public void createNewStoreButtonClick() {
-        new ButtonFacade(getDriver(), "Новый магазин").click();
+        new ButtonFacade(this, "Новый магазин").click();
     }
 
     public void checkStoreListItem(String columnName, String expectedValue) {

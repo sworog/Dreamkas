@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.pages.administrator.users;
 
-import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
@@ -21,17 +20,9 @@ public class UserCardPage extends CommonPageObject {
         items.put("role", new NonType(this, "role"));
     }
 
-    public void checkCardValue(String elementName, String expectedValue) {
-        commonActions.checkElementValue("", elementName, expectedValue);
-    }
-
-    public void checkCardValue(ExamplesTable checkValuesTable) {
-        commonActions.checkElementValue("", checkValuesTable);
-    }
-
     public void editButtonClick() {
         String editButtonXpath = "//*[@class='user__editLink']";
-        commonActions.elementClick(By.xpath(editButtonXpath));
+        click(By.xpath(editButtonXpath));
     }
 
     public void pageBackLink() {

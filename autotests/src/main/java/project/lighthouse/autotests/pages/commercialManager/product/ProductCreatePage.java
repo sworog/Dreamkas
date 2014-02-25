@@ -4,7 +4,6 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
@@ -52,12 +51,8 @@ public class ProductCreatePage extends CommonPageObject {
 
     }
 
-    public void selectByValue(String elementName, String value) {
-        items.get(elementName).setValue(value);
-    }
-
     public void createButtonClick() {
-        new ButtonFacade(getDriver()).click();
+        new ButtonFacade(this).click();
         new PreLoader(getDriver()).await();
     }
 
@@ -68,15 +63,6 @@ public class ProductCreatePage extends CommonPageObject {
                 String.format("The default value for '%s' dropDown is not '%s'. The selected value is '%s'", dropDownType, expectedValue, selectedValue),
                 selectedValue, expectedValue
         );
-    }
-
-    public void checkFieldLength(String elementName, int fieldLength) {
-        CommonItem item = items.get(elementName);
-        commonPage.checkFieldLength(elementName, fieldLength, item.getWebElement());
-    }
-
-    public void elementClick(String elementName) {
-        items.get(elementName).click();
     }
 
     public void checkElementPresence(String elementName, String action) {
@@ -95,7 +81,7 @@ public class ProductCreatePage extends CommonPageObject {
     public void retailPriceHintClick() {
         By retailPriceHintFindBy = items.get("retailPriceHint").getFindBy();
         By retailMarkupHintFindBy = items.get("retailMarkupHint").getFindBy();
-        if (waiter.isElementVisible(retailPriceHintFindBy) && !waiter.isElementVisible(retailMarkupHintFindBy)) {
+        if (getWaiter().isElementVisible(retailPriceHintFindBy) && !getWaiter().isElementVisible(retailMarkupHintFindBy)) {
             findVisibleElement(retailPriceHintFindBy).click();
         }
     }
@@ -106,6 +92,6 @@ public class ProductCreatePage extends CommonPageObject {
 
     public void checkDropDownDefaultValue(String expectedValue) {
         WebElement element = items.get("rounding").getVisibleWebElement();
-        commonPage.checkDropDownDefaultValue(element, expectedValue);
+        getCommonActions().checkDropDownDefaultValue(element, expectedValue);
     }
 }

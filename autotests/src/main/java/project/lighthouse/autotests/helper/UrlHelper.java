@@ -2,6 +2,9 @@ package project.lighthouse.autotests.helper;
 
 import project.lighthouse.autotests.StaticData;
 
+/**
+ * The helper is used for getting required url for api mechanism
+ */
 public class UrlHelper {
 
     public static String getApiUrl() {

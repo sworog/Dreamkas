@@ -26,7 +26,7 @@ public class GroupPage extends CommonPageObject {
     }
 
     public void addNewButtonClick() {
-        new ButtonFacade(getDriver(), "Добавить группу").click();
+        new ButtonFacade(this, "Добавить группу").click();
     }
 
     public void startEditionButtonLinkClick() {
@@ -61,7 +61,7 @@ public class GroupPage extends CommonPageObject {
     }
 
     public void addNewButtonConfirmClick() {
-        new ButtonFacade(getDriver(), "Подтвердить").catalogClick();
+        new ButtonFacade(this, "Подтвердить").catalogClick();
         new PreLoader(getDriver()).await();
     }
 
@@ -92,7 +92,7 @@ public class GroupPage extends CommonPageObject {
 
     public void popUpMenuInteraction(String name) {
         String triangleItemXpath = getItemXpath(name) + "/../../*[contains(@class, 'editor__editLink')]";
-        commonActions.elementClick(By.xpath(triangleItemXpath));
+        click(By.xpath(triangleItemXpath));
     }
 
     public void popUpMenuDelete() {
@@ -117,7 +117,7 @@ public class GroupPage extends CommonPageObject {
 
     public void checkIsNotPresent(String name) {
         String itemXpath = getItemXpath(name);
-        waiter.waitUntilIsNotVisible(By.xpath(itemXpath));
+        getWaiter().waitUntilIsNotVisible(By.xpath(itemXpath));
     }
 
     public void itemClick(String name) {
@@ -130,11 +130,6 @@ public class GroupPage extends CommonPageObject {
                 "//*[@class='catalog__groupItem' and *[@class='catalog__groupTitle']//*[@model='catalogGroup' and text()='%s'] and *[@class='catalog__categoryList']//*[@model='catalogCategory' and text()='%s']]",
                 parent, item);
         findVisibleElement(By.xpath(xpath));
-    }
-
-    public void checkFieldLength(String elementName, int fieldLength) {
-        CommonItem item = items.get(elementName);
-        commonPage.checkFieldLength(elementName, fieldLength, item.getOnlyVisibleWebElement());
     }
 
     public WebElement mainTab(String mainTabType) {
@@ -183,7 +178,7 @@ public class GroupPage extends CommonPageObject {
 
     public void productsExportLinkClick() {
         findVisibleElement(By.xpath("//*[@class='page__controlsLink catalog__exportLink']")).click();
-        commonPage.checkAlertText("Выгрузка началась");
+        getCommonActions().checkAlertText("Выгрузка началась");
     }
 
     public void productsExportLinkIsNotPresent() {

@@ -19,7 +19,7 @@ public class ProductListPage extends ProductCreatePage {
     }
 
     public void createNewProductButtonClick() {
-        new ButtonFacade(getDriver(), "Добавить товар").click();
+        new ButtonFacade(this, "Добавить товар").click();
     }
 
     public void listItemClick(String skuValue) {

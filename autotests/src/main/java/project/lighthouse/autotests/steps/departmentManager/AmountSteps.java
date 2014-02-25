@@ -1,17 +1,12 @@
 package project.lighthouse.autotests.steps.departmentManager;
 
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.pages.Pages;
 import net.thucydides.core.steps.ScenarioSteps;
 import project.lighthouse.autotests.pages.departmentManager.amount.AmountListPage;
 
 public class AmountSteps extends ScenarioSteps {
 
     AmountListPage amountListPage;
-
-    public AmountSteps(Pages pages) {
-        super(pages);
-    }
 
     @Step
     public void AmountListPageOpen() {
