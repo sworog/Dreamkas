@@ -23,7 +23,8 @@ abstract public class CommonItem {
     }
 
     public FieldLengthChecker getFieldLengthChecker() {
-        return new FieldLengthChecker($());
+        return new FieldLengthChecker(
+                getOnlyVisibleWebElementFacade());
     }
 
     public WebElement getWebElement() {
