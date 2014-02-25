@@ -35,8 +35,8 @@ public class FieldLengthChecker {
         assertEquals(
                 String.format("The '%s' field doesn't contains '%s' symbols. It actually contains '%s' symbols.",
                         elementName,
-                        actualLength,
-                        fieldLength),
+                        fieldLength,
+                        actualLength),
                 actualLength, fieldLength);
     }
 }
