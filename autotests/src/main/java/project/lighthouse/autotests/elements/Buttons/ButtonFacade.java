@@ -3,6 +3,9 @@ package project.lighthouse.autotests.elements.Buttons;
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonPageObject;
 
+/**
+ * Facade to handle buttons interactions
+ */
 public class ButtonFacade {
 
     private String xpath = "//*[@class='button']";

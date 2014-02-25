@@ -2,7 +2,7 @@ package project.lighthouse.autotests.pages;
 
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.elements.Buttons.navigationBar.NavigationBarLink;
+import project.lighthouse.autotests.elements.Buttons.navigationBar.NavigationBarLinkFacade;
 
 public class MenuNavigation extends CommonPageObject {
 
@@ -15,10 +15,10 @@ public class MenuNavigation extends CommonPageObject {
     }
 
     public void reportMenuItemClick() {
-        new NavigationBarLink(this, "Отчеты").click();
+        new NavigationBarLinkFacade(this, "Отчеты").click();
     }
 
     public void suppliersMenuItemClick() {
-        new NavigationBarLink(this, "Поставщики").click();
+        new NavigationBarLinkFacade(this, "Поставщики").click();
     }
 }

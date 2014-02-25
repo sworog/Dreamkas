@@ -3,14 +3,17 @@ package project.lighthouse.autotests.elements.Buttons.navigationBar;
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonPageObject;
 
-public class NavigationBarLink {
+/**
+ * Facade to handle global navigation bar link items
+ */
+public class NavigationBarLinkFacade {
 
     private CommonPageObject pageObject;
     private String linkText;
 
     private static final String XPATH = "//*[@class='navigationBar__links']/a[text()='%s']";
 
-    public NavigationBarLink(CommonPageObject pageObject, String linkText) {
+    public NavigationBarLinkFacade(CommonPageObject pageObject, String linkText) {
         this.pageObject = pageObject;
         this.linkText = linkText;
     }

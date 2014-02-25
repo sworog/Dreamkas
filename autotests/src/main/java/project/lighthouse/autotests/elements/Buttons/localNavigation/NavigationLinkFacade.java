@@ -3,6 +3,9 @@ package project.lighthouse.autotests.elements.Buttons.localNavigation;
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonPageObject;
 
+/**
+ * Facade to handle navigation link elements
+ */
 public class NavigationLinkFacade {
 
     private String xpath;
