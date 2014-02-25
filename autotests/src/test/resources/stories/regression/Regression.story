@@ -19,7 +19,7 @@ Meta:
 @regression
 @r_id2
 
-Given there is the product with 'Regress-name' name, 'Regress-name' sku, 'Regress-barcode' barcode, 'unit' units, '123,56' purchasePrice
+Given there is the product with 'Regress-name' name, 'Regress-sku' sku, 'Regress-barcode' barcode, 'unit' units, '123,56' purchasePrice
 And the user navigates to the product with sku 'Regress-sku'
 And the user logs in as 'commercialManager'
 
@@ -46,5 +46,5 @@ And the user clicks the create button
 
 Then the user sees no error messages
 | error message |
-| Цена не должна быть меньше или равна нулю |
+| Значение должно быть числом |
 Then the user sees no error messages
