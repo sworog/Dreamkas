@@ -3,6 +3,8 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\View;
+use Lighthouse\CoreBundle\Document\Supplier\Supplier;
+use Lighthouse\CoreBundle\Document\Supplier\SupplierCollection;
 use Lighthouse\CoreBundle\Document\Supplier\SupplierRepository;
 use Lighthouse\CoreBundle\Form\SupplierType;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -39,5 +41,27 @@ class SupplierController extends AbstractRestController
     public function postSuppliersAction(Request $request)
     {
         return $this->processPost($request);
+    }
+
+    /**
+     * @return SupplierCollection
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER,ROLE_STORE_MANAGER")
+     * @ApiDoc
+     */
+    public function getSuppliersAction()
+    {
+        $cursor = $this->documentRepository->findAll();
+        return new SupplierCollection($cursor);
+    }
+
+    /**
+     * @param Supplier $supplier
+     * @return Supplier
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER,ROLE_STORE_MANAGER")
+     * @ApiDoc
+     */
+    public function getSupplierAction(Supplier $supplier)
+    {
+        return $supplier;
     }
 }

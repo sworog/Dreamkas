@@ -8,6 +8,9 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @property string $id
+ * @property string $name
+ *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\Supplier\SupplierRepository"
  * )

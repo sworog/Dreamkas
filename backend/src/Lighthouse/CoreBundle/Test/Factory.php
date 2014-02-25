@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Receipt\ReceiptRepository;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Sale\Sale;
+use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
@@ -550,5 +551,18 @@ class Factory
     protected function getReceiptRepository()
     {
         return $this->container->get('lighthouse.core.document.repository.receipt');
+    }
+
+    /**
+     * @param string $name
+     * @return Supplier
+     */
+    public function createSupplier($name = 'default')
+    {
+        $supplier = new Supplier();
+        $supplier->name = $name;
+        $this->dm->persist($supplier);
+
+        return $supplier;
     }
 }

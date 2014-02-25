@@ -133,4 +133,98 @@ class SupplierControllerTest extends WebTestCase
             'many spaces' => array('OOO "ЕвроАрт"', '    OOO "ЕвроАрт"  '),
         );
     }
+
+    public function testGetAction()
+    {
+        $this->factory->createSupplier('1');
+        $this->factory->createSupplier('2');
+        $this->factory->createSupplier('3');
+        $this->factory->flush();
+
+        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/suppliers'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(3, '*.id', $getResponse);
+        Assert::assertJsonPathEquals('1', '*.name', $getResponse, 1);
+        Assert::assertJsonPathEquals('2', '*.name', $getResponse, 1);
+        Assert::assertJsonPathEquals('3', '*.name', $getResponse, 1);
+    }
+
+    /**
+     * @dataProvider getActionPermissionsProvider
+     * @param string $role
+     * @param int $expectedCode
+     */
+    public function testGetActionPermissions($role, $expectedCode)
+    {
+        $this->factory->createSupplier('1');
+        $this->factory->createSupplier('2');
+        $this->factory->createSupplier('3');
+        $this->factory->flush();
+
+        $accessToken = $this->factory->authAsRole($role);
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/suppliers'
+        );
+
+        $this->assertResponseCode($expectedCode);
+    }
+
+    /**
+     * @return array
+     */
+    public function getActionPermissionsProvider()
+    {
+        return array(
+            User::ROLE_COMMERCIAL_MANAGER => array(User::ROLE_COMMERCIAL_MANAGER, 200),
+            User::ROLE_DEPARTMENT_MANAGER => array(User::ROLE_DEPARTMENT_MANAGER, 200),
+            User::ROLE_STORE_MANAGER => array(User::ROLE_STORE_MANAGER, 200),
+            User::ROLE_ADMINISTRATOR => array(User::ROLE_ADMINISTRATOR, 403),
+        );
+    }
+
+    public function testGetSupplierAction()
+    {
+        $supplier1 = $this->factory->createSupplier('1');
+        $this->factory->createSupplier('2');
+        $this->factory->flush();
+
+        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/suppliers/' . $supplier1->id
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals('1', 'name', $getResponse);
+    }
+
+    /**
+     * @dataProvider getActionPermissionsProvider
+     */
+    public function testGetSupplierActionPermissions($role, $expectedResponseCode)
+    {
+        $supplier1 = $this->factory->createSupplier('1');
+        $this->factory->createSupplier('2');
+        $this->factory->flush();
+
+        $accessToken = $this->factory->authAsRole($role);
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/suppliers/' . $supplier1->id
+        );
+
+        $this->assertResponseCode($expectedResponseCode);
+    }
 }
