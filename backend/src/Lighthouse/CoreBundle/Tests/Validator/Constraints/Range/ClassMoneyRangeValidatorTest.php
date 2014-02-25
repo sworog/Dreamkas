@@ -223,4 +223,22 @@ class ClassMoneyRangeValidatorTest extends TestCase
 
         $this->assertNotContains('Validator', $constraint->validatedBy());
     }
+
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Exception\NullValueException
+     * @expectedExceptionMessage field is null
+     */
+    public function testFieldNull()
+    {
+        $value = new stdClass;
+        $value->price = new Money(1011);
+        $value->minPrice = new Money(1509);
+
+        $options = array(
+            'field' => null,
+            'lt' => 'minPrice',
+        );
+        $constraint = new ClassMoneyRange($options);
+        $this->validator->validate($value, $constraint);
+    }
 }
