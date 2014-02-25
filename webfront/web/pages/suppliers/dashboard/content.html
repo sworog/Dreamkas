@@ -2,7 +2,9 @@
     localNavigation: require('tpl!blocks/localNavigation/localNavigation_suppliers.html')
 } %>
 
-<%= templates.localNavigation(obj) %>
+<% if (LH.isAllow('suppliers', 'POST')) {%>
+    <%= templates.localNavigation(obj) %>
+<% } %>
 
 <div class="page__data">
 </div>
