@@ -4,6 +4,8 @@ namespace Lighthouse\CoreBundle\Tests\Types\Date;
 
 use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
+use MongoTimestamp;
+use MongoDate;
 
 class DateTimestampTest extends TestCase
 {
@@ -65,5 +67,35 @@ class DateTimestampTest extends TestCase
 
         $this->assertTrue($dateOne->equalsDate($dateThree));
         $this->assertFalse($dateOne->equalsDate($dateTwo));
+    }
+
+    public function testMongoTimestamp()
+    {
+        $firstMongoTimestamp = new MongoTimestamp(1212, 2);
+
+        $date = DateTimestamp::createFromMongoTimestamp($firstMongoTimestamp);
+        $secondMongoTimestamp = $date->getMongoTimestamp();
+        $this->assertNotSame($firstMongoTimestamp, $secondMongoTimestamp);
+        $this->assertEquals($firstMongoTimestamp, $secondMongoTimestamp);
+
+        $notMongoTimestampDate = DateTimestamp::createFromTimestamp(1212);
+        $thirdMongoTimestamp = $notMongoTimestampDate->getMongoTimestamp();
+        $this->assertNotEquals($thirdMongoTimestamp, $secondMongoTimestamp);
+        $this->assertEquals(0, $thirdMongoTimestamp->inc);
+    }
+
+    public function testMongoDate()
+    {
+        $firstMongoDate = new MongoDate(1212, 34);
+        $date = DateTimestamp::createFromMongoDate($firstMongoDate);
+        $secondMongoDate = $date->getMongoDate();
+        $this->assertNotSame($firstMongoDate, $secondMongoDate);
+        $this->assertSame($firstMongoDate->sec, $secondMongoDate->sec);
+        $this->assertSame($firstMongoDate->usec, $secondMongoDate->usec);
+        $this->assertEquals($firstMongoDate, $secondMongoDate);
+
+        $notMongoDateDate = DateTimestamp::createFromTimestamp(1212);
+        $thirdMongoDate = $notMongoDateDate->getMongoDate();
+        $this->assertEquals(0, $thirdMongoDate->usec);
     }
 }
