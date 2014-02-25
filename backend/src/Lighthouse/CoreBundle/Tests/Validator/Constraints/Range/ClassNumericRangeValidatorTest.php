@@ -124,9 +124,9 @@ class ClassNumericRangeValidatorTest extends TestCase
              ->expects($this->once())
              ->method('addViolationAt')
              ->with(
-                $this->equalTo('max'),
-                $this->equalTo('lighthouse.validation.errors.range.invalid')
-            );
+                 $this->equalTo('max'),
+                 $this->equalTo('lighthouse.validation.errors.range.invalid')
+             );
 
         $this->validator->validate($value, $constraint);
     }
