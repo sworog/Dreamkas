@@ -672,6 +672,10 @@ class UserControllerTest extends WebTestCase
                         'GET::current',
                         'GET::permissions',
                         'GET::{user}/stores'
+                    ),
+                    'suppliers.*' => array(
+                        'GET',
+                        'GET::{supplier}',
                     )
                 )
             ),
@@ -712,6 +716,10 @@ class UserControllerTest extends WebTestCase
                         'GET::current',
                         'GET::permissions',
                         'GET::{user}/stores'
+                    ),
+                    'suppliers.*' => array(
+                        'GET',
+                        'GET::{supplier}',
                     )
                 )
             ),
@@ -743,6 +751,8 @@ class UserControllerTest extends WebTestCase
                         'GET::{user}'
                     ),
                     'suppliers.*' => array(
+                        'GET',
+                        'GET::{supplier}',
                         'POST',
                     )
                 )
