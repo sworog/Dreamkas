@@ -159,7 +159,7 @@ class MoneyRangeValidatorTest extends TestCase
                 array('gt' => '123.23')
             ),
             array(
-                array('gt' => 'aaaa')
+                array('gt' => 'string')
             ),
             array(
                 array('gt' => new \stdClass())
@@ -217,7 +217,7 @@ class MoneyRangeValidatorTest extends TestCase
                 '123.23'
             ),
             array(
-                'aaaa'
+                'string'
             ),
             array(
                 new \stdClass()

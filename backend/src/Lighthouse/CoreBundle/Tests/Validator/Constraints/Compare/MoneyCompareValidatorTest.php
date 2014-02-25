@@ -17,7 +17,7 @@ class MoneyCompareValidatorTest extends TestCase
     protected $context;
 
     /**
-     * @var MoneyCompareValidatorTest
+     * @var MoneyCompareValidator
      */
     protected $validator;
 
