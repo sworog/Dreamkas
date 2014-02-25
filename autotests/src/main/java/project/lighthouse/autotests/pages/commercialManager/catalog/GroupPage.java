@@ -26,7 +26,7 @@ public class GroupPage extends CommonPageObject {
     }
 
     public void addNewButtonClick() {
-        new ButtonFacade(getDriver(), "Добавить группу").click();
+        new ButtonFacade(this, "Добавить группу").click();
     }
 
     public void startEditionButtonLinkClick() {
@@ -61,7 +61,7 @@ public class GroupPage extends CommonPageObject {
     }
 
     public void addNewButtonConfirmClick() {
-        new ButtonFacade(getDriver(), "Подтвердить").catalogClick();
+        new ButtonFacade(this, "Подтвердить").catalogClick();
         new PreLoader(getDriver()).await();
     }
 

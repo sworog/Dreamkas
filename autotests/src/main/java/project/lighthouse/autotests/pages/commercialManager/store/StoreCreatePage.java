@@ -23,12 +23,12 @@ public class StoreCreatePage extends CommonPageObject {
     }
 
     public void createButtonClick() {
-        new ButtonFacade(getDriver(), "Добавить").click();
+        new ButtonFacade(this, "Добавить").click();
         new PreLoader(getDriver()).await();
     }
 
     public void saveButtonClick() {
-        new ButtonFacade(getDriver(), "Сохранить").click();
+        new ButtonFacade(this, "Сохранить").click();
         new PreLoader(getDriver()).await();
     }
 }

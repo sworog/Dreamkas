@@ -49,7 +49,7 @@ public class AuthorizationPage extends CommonPageObject {
     public void authorization(String userName, String password, Boolean isFalse) {
         workAroundTypeForUserName(userName);
         input("password", password);
-        new ButtonFacade(getDriver(), "Войти").click();
+        new ButtonFacade(this, "Войти").click();
         if (!isFalse) {
             checkUser(userName);
         }
@@ -78,7 +78,7 @@ public class AuthorizationPage extends CommonPageObject {
 
     public void logOutButtonClick() {
         findVisibleElement(By.xpath("//*[@class='navigationBar__userName']")).click();
-        new ButtonFacade(getDriver(), "Выйти").click();
+        new ButtonFacade(this, "Выйти").click();
     }
 
     public void beforeScenario() {

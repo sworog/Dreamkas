@@ -18,7 +18,7 @@ public class SubCategoryPage extends GroupPage {
 
     @Override
     public void addNewButtonClick() {
-        new ButtonFacade(getDriver(), "Добавить подкатегорию").click();
+        new ButtonFacade(this, "Добавить подкатегорию").click();
     }
 
     @Override

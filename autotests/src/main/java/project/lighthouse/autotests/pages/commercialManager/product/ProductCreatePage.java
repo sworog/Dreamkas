@@ -52,7 +52,7 @@ public class ProductCreatePage extends CommonPageObject {
     }
 
     public void createButtonClick() {
-        new ButtonFacade(getDriver()).click();
+        new ButtonFacade(this).click();
         new PreLoader(getDriver()).await();
     }
 

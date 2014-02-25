@@ -1,7 +1,7 @@
 package project.lighthouse.autotests.elements.Buttons;
 
+import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonActions;
 
 public class ButtonFacade {
@@ -13,13 +13,13 @@ public class ButtonFacade {
 
     private CommonActions commonActions;
 
-    public ButtonFacade(WebDriver webDriver) {
-        commonActions = new CommonActions(webDriver);
+    public ButtonFacade(PageObject pageObject) {
+        commonActions = new CommonActions(pageObject);
         browserName = commonActions.getCapabilities().getBrowserName();
     }
 
-    public ButtonFacade(WebDriver driver, String buttonTextName) {
-        this(driver);
+    public ButtonFacade(PageObject pageObject, String buttonTextName) {
+        this(pageObject);
         this.xpath = getButtonXpath(buttonTextName);
     }
 

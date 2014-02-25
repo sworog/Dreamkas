@@ -20,7 +20,7 @@ public class InvoiceSearchPage extends CommonPageObject {
     }
 
     public void searchButtonClick() {
-        new ButtonFacade(getDriver(), "Найти").click();
+        new ButtonFacade(this, "Найти").click();
         new PreLoader(getDriver()).await();
     }
 

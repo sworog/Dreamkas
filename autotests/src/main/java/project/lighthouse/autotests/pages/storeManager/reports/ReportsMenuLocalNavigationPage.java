@@ -17,14 +17,14 @@ public class ReportsMenuLocalNavigationPage extends CommonPageObject {
     }
 
     public void grossSalePerHourLinkClick() {
-        new NavigationLinkFacade(getDriver(), "Продажи по часам").click();
+        new NavigationLinkFacade(this, "Продажи по часам").click();
     }
 
     public void grossSaleByProductsLinkClick() {
-        new NavigationLinkFacade(getDriver(), "Продажи по группам").click();
+        new NavigationLinkFacade(this, "Продажи по группам").click();
     }
 
     public void storeGrossSaleMarginLinkClick() {
-        new NavigationLinkFacade(getDriver(), "Валовая прибыль").click();
+        new NavigationLinkFacade(this, "Валовая прибыль").click();
     }
 }

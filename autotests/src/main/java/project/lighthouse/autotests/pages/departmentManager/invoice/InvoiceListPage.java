@@ -19,7 +19,7 @@ public class InvoiceListPage extends InvoiceCreatePage {
     }
 
     public void invoiceListItemCreate() {
-        new NavigationLinkFacade(getDriver(), "Создать накладную").click();
+        new NavigationLinkFacade(this, "Создать накладную").click();
     }
 
     public void listItemClick(String skuValue) {

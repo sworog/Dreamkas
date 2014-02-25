@@ -45,7 +45,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void goToTheaAdditionOfProductsLinkClick() {
-        new ButtonFacade(getDriver(), "Сохранить и перейти к добавлению товаров").click();
+        new ButtonFacade(this, "Сохранить и перейти к добавлению товаров").click();
         new PreLoader(getDriver()).await();
     }
 
@@ -88,7 +88,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void writeOffStopEditButtonClick() {
-        new ButtonFacade(getDriver(), "Завершить редактирование").click();
+        new ButtonFacade(this, "Завершить редактирование").click();
     }
 
     public void writeOffStopEditlinkClick() {
@@ -112,7 +112,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void addNewInvoiceProductButtonClick() {
-        new ButtonFacade(getDriver(), "Добавить товар").click();
+        new ButtonFacade(this, "Добавить товар").click();
         new PreLoader(getDriver()).await();
     }
 

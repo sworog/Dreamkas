@@ -27,12 +27,12 @@ public class SettingsPage extends CommonPageObject {
     }
 
     public void saveSettingButtonClick() {
-        new ButtonFacade(getDriver(), "Сохранить настройки экспорта").click();
+        new ButtonFacade(this, "Сохранить настройки экспорта").click();
         new PreLoader(getDriver()).await();
     }
 
     public void saveImportSettingsClick() {
-        new ButtonFacade(getDriver(), "Сохранить настройки импорта").click();
+        new ButtonFacade(this, "Сохранить настройки импорта").click();
         new PreLoader(getDriver()).await();
     }
 }

@@ -39,7 +39,7 @@ public class UserCreatePage extends CommonPageObject {
     }
 
     public void userCreateButtonClick() {
-        new ButtonFacade(getDriver()).click();
+        new ButtonFacade(this).click();
         new PreLoader(getDriver()).await();
     }
 

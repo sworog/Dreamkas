@@ -15,6 +15,6 @@ public class InvoiceLocalNavigation extends CommonPageObject {
     }
 
     public void searchLinkClick() {
-        new NavigationLinkFacade(getDriver(), "Поиск накладной").click();
+        new NavigationLinkFacade(this, "Поиск накладной").click();
     }
 }

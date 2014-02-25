@@ -17,7 +17,7 @@ abstract public class CommonPageObject extends PageObject {
 
     public Map<String, CommonItem> items = new HashMap<>();
 
-    private CommonActions commonActions = new CommonActions(getDriver(), items);
+    private CommonActions commonActions = new CommonActions(this, items);
 
     public CommonPageObject(WebDriver driver) {
         super(driver);

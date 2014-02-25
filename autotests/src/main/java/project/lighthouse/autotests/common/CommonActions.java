@@ -4,7 +4,10 @@ import net.thucydides.core.pages.PageObject;
 import net.thucydides.core.webdriver.WebDriverFacade;
 import org.hamcrest.Matchers;
 import org.jbehave.core.model.ExamplesTable;
-import org.openqa.selenium.*;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Capabilities;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.helper.StringGenerator;
@@ -16,7 +19,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertThat;
 
-public class CommonActions extends PageObject {
+public class CommonActions {
 
     Map<String, CommonItem> items;
 
@@ -24,15 +27,19 @@ public class CommonActions extends PageObject {
     private static final String ERROR_MESSAGE_2 = "Element is no longer attached to the DOM";
     private static final String ERROR_MESSAGE_3 = "Element does not exist in cache";
 
-    private Waiter waiter = new Waiter(getDriver());
+    private Waiter waiter;
 
-    public CommonActions(WebDriver driver, Map<String, CommonItem> items) {
-        super(driver);
-        this.items = items;
+    private PageObject pageObject;
+
+    public CommonActions(PageObject pageObject) {
+        this.pageObject = pageObject;
+        waiter = new Waiter(pageObject.getDriver());
     }
 
-    public CommonActions(WebDriver driver) {
-        super(driver);
+    public CommonActions(PageObject pageObject, Map<String, CommonItem> items) {
+        this.pageObject = pageObject;
+        this.items = items;
+        waiter = new Waiter(pageObject.getDriver());
     }
 
     public Waiter getWaiter() {
@@ -145,7 +152,7 @@ public class CommonActions extends PageObject {
     }
 
     public Capabilities getCapabilities() {
-        WebDriverFacade webDriverFacade = (WebDriverFacade) getDriver();
+        WebDriverFacade webDriverFacade = (WebDriverFacade) pageObject.getDriver();
         RemoteWebDriver remoteWebDriver = (RemoteWebDriver) webDriverFacade.getProxiedDriver();
         return remoteWebDriver.getCapabilities();
     }
@@ -201,7 +208,7 @@ public class CommonActions extends PageObject {
     public void selectByValue(String value, By findBy) {
         try {
             WebElement element = waiter.getVisibleWebElement(findBy);
-            $(element).selectByValue(value);
+            pageObject.$(element).selectByValue(value);
         } catch (Exception e) {
             if (isSkippableException(e)) {
                 selectByValue(value, findBy);
@@ -227,7 +234,7 @@ public class CommonActions extends PageObject {
 
     private void defaultSelectByVisibleText(String label, By findBy) {
         WebElement element = waiter.getVisibleWebElement(findBy);
-        $(element).selectByVisibleText(label);
+        pageObject.$(element).selectByVisibleText(label);
     }
 
     private String getExceptionMessage(Exception e) {
@@ -263,10 +270,10 @@ public class CommonActions extends PageObject {
         String actualValue;
         switch (element.getTagName()) {
             case "input":
-                actualValue = $(element).getTextValue();
+                actualValue = pageObject.$(element).getTextValue();
                 break;
             default:
-                actualValue = $(element).getText();
+                actualValue = pageObject.$(element).getText();
                 break;
         }
         assertTrue(
@@ -276,7 +283,7 @@ public class CommonActions extends PageObject {
     }
 
     public void checkDropDownDefaultValue(WebElement dropDownElement, String expectedValue) {
-        String selectedValue = $(dropDownElement).getSelectedVisibleTextValue();
+        String selectedValue = pageObject.$(dropDownElement).getSelectedVisibleTextValue();
         assertThat(
                 "The dropDawn value:",
                 selectedValue, Matchers.containsString(expectedValue)
