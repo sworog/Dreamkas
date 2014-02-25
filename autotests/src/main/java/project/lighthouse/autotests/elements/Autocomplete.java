@@ -23,7 +23,7 @@ public class Autocomplete extends CommonItem {
             getVisibleWebElementFacade().type(value);
             String xpath = String.format(AUTOCOMPLETE_XPATH_PATTERN, value);
             try {
-                pageObject.findVisibleElement(By.xpath(xpath)).click();
+                getPageObject().findVisibleElement(By.xpath(xpath)).click();
             } catch (Exception e) {
                 fail(
                         String.format("Can't find '%s' value in autoComplete results", value)

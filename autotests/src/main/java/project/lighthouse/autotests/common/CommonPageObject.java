@@ -95,7 +95,11 @@ abstract public class CommonPageObject extends PageObject {
     }
 
     public void checkFieldLength(String elementName, int fieldLength) {
-        items.get(elementName).getFieldLengthChecker().check(elementName, fieldLength);
+        items.get(elementName).getFieldChecker().assertFieldLength(elementName, fieldLength);
+    }
+
+    public void checkFieldLabel(String elementName) {
+        items.get(elementName).getFieldChecker().assertLabelTitle();
     }
 
     public WebElement findOnlyVisibleWebElementFromTheWebElementsList(By findBy) {
