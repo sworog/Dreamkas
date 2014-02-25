@@ -21,7 +21,11 @@ public class SupplierPage extends CommonPageObject {
         items.put("supplierName", new Input(this, "name", "Юридическое лицо"));
     }
 
-    public void supplierCreateButtonClick() {
-        new ButtonFacade(this, "Создать поставщика").click();
+    public void createButtonClick() {
+        new ButtonFacade(this, "Сохранить").click();
+    }
+
+    public void cancelButtonClick() {
+        new ButtonFacade(this, "Отменить").click();
     }
 }

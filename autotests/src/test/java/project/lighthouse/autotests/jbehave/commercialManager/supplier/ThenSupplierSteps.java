@@ -11,6 +11,6 @@ public class ThenSupplierSteps {
 
     @Then("The user asserts label of field with name '$elementName'")
     public void thenTheUserAssertsLabelOfFieldWithName(String elementName) {
-        supplierSteps.supplierLabelsCheck(elementName);
+        supplierSteps.labelsCheck(elementName);
     }
 }

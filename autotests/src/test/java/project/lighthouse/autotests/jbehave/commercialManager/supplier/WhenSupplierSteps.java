@@ -17,6 +17,11 @@ public class WhenSupplierSteps {
 
     @When("the user clicks on the supplier create button")
     public void whenTheUserClicksOnTheSupplierCreateButton() {
-        supplierSteps.supplierCreateButtonClick();
+        supplierSteps.createButtonClick();
+    }
+
+    @When("the user clicks on the supplier cancel button")
+    public void whenTheUserClicksOnTheSupplierCancelButton() {
+        supplierSteps.cancelButtonClick();
     }
 }

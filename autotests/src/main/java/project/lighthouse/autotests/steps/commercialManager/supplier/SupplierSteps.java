@@ -15,12 +15,17 @@ public class SupplierSteps extends ScenarioSteps {
     }
 
     @Step
-    public void supplierCreateButtonClick() {
-        supplierPage.supplierCreateButtonClick();
+    public void createButtonClick() {
+        supplierPage.createButtonClick();
     }
 
     @Step
-    public void supplierLabelsCheck(String elementName) {
+    public void cancelButtonClick() {
+        supplierPage.cancelButtonClick();
+    }
+
+    @Step
+    public void labelsCheck(String elementName) {
         supplierPage.checkFieldLabel(elementName);
     }
 
