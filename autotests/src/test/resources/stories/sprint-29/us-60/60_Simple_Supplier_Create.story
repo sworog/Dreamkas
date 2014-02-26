@@ -96,7 +96,6 @@ Scenario: Check supplier field unique attribute
 
 Meta:
 @id_s29u60s6
-@test
 
 Given there is the supplier with name 'supplier-test'
 
