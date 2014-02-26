@@ -1,9 +1,9 @@
 define(function(require) {
     //requirements
-    var deepExtend = require('./deepExtend'),
-        makeClass = require('./makeClass'),
-        get = require('./get'),
-        set = require('./set');
+    var deepExtend = require('bower_components/deepExtend/deepExtend'),
+        makeClass = require('bower_components/makeClass/makeClass'),
+        get = require('bower_components/get/get'),
+        set = require('bower_components/set/set');
 
     require('lodash');
 
@@ -20,5 +20,5 @@ define(function(require) {
             var args = [this].concat([].slice.call(arguments));
             return set.apply(null, args);
         }
-    }, require('./events'));
+    }, require('bower_components/events/events'));
 });
