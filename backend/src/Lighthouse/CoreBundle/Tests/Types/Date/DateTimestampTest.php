@@ -86,7 +86,8 @@ class DateTimestampTest extends TestCase
 
     public function testMongoDate()
     {
-        $firstMongoDate = new MongoDate(1212, 34);
+        $firstMongoDate = new MongoDate();
+        $this->assertNotEquals(0, $firstMongoDate->usec);
         $date = DateTimestamp::createFromMongoDate($firstMongoDate);
         $secondMongoDate = $date->getMongoDate();
         $this->assertNotSame($firstMongoDate, $secondMongoDate);
@@ -97,5 +98,13 @@ class DateTimestampTest extends TestCase
         $notMongoDateDate = DateTimestamp::createFromTimestamp(1212);
         $thirdMongoDate = $notMongoDateDate->getMongoDate();
         $this->assertEquals(0, $thirdMongoDate->usec);
+    }
+
+    public function testCopy()
+    {
+        $timestamp = new DateTimestamp();
+        $timestampCopy = $timestamp->copy();
+        $this->assertNotSame($timestampCopy, $timestamp);
+        $this->assertEquals($timestampCopy, $timestamp);
     }
 }

@@ -3,9 +3,9 @@
 namespace Lighthouse\CoreBundle\Types\Date;
 
 use DateTime;
-use MongoTimestamp;
-use MongoDate;
 use DateTimeZone;
+use MongoDate;
+use MongoTimestamp;
 
 class DateTimestamp extends DateTime
 {
@@ -24,7 +24,7 @@ class DateTimestamp extends DateTime
     {
         if ($time instanceof DateTime) {
             $timezone = ($timezone) ?: $time->getTimezone();
-            $time = $time->format('c');
+            $time = $time->format(self::RFC3339_USEC);
         }
         parent::__construct($time, $timezone);
     }
@@ -180,9 +180,9 @@ class DateTimestamp extends DateTime
         $timezone = $timezone ?: new DateTimeZone(date_default_timezone_get());
 
         if (null !== $usec) {
-            $new = new self(static::createFromFormat('U.u', $timestamp . '.' . $usec));
+            $new = new static(static::createFromFormat('U.u', $timestamp . '.' . $usec));
         } else {
-            $new = new self(static::createFromFormat('U', $timestamp));
+            $new = new static(static::createFromFormat('U', $timestamp));
         }
         $new->setTimezone($timezone);
 
