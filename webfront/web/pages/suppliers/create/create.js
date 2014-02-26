@@ -1,8 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Page = require('kit/core/page'),
-        Form_supplier = require('blocks/form/form_supplier/form_supplier'),
-        currentUserModel = require('models/currentUser');
+        Form_supplier = require('blocks/form/form_supplier/form_supplier');
 
     require('jquery');
 
@@ -18,8 +17,15 @@ define(function(require, exports, module) {
             var page = this;
 
             page.render();
+        },
+        render: function(){
+            var page = this;
 
-            new Form_supplier();
+            Page.prototype.render.apply(page, arguments);
+
+            page.blocks = {
+                form_supplier: new Form_supplier()
+            }
         }
     });
 });
