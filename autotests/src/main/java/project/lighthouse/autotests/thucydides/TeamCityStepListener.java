@@ -29,6 +29,8 @@ public class TeamCityStepListener implements StepListener {
             put("\r", "|r");
             put("\\[", "|[");
             put("\\]", "|]");
+            put("[", "|[");
+            put("]", "|]");
         }
     };
 
