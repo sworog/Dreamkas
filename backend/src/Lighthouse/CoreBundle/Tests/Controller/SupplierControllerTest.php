@@ -33,6 +33,9 @@ class SupplierControllerTest extends WebTestCase
      */
     public function testPostValidation(array $postData, $expectedResponseCode, array $assertions)
     {
+        $this->factory->createSupplier('ООО "Повтор"');
+        $this->factory->flush();
+
         $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -76,6 +79,16 @@ class SupplierControllerTest extends WebTestCase
                 400,
                 array(
                     'children.name.errors.0' => 'Заполните это поле',
+                    'children.name.errors.1' => null
+                )
+            ),
+            'duplicate' => array(
+                array(
+                    'name' => 'ООО "Повтор"'
+                ),
+                400,
+                array(
+                    'children.name.errors.0' => 'Поставщик с таким названием уже существует',
                     'children.name.errors.1' => null
                 )
             )
@@ -156,13 +169,14 @@ class SupplierControllerTest extends WebTestCase
 
     /**
      * @dataProvider postValidationProvider
-     * @param $name
-     * @param $expectedResponseCode
-     * @param $assertions
+     * @param array $data
+     * @param int $expectedResponseCode
+     * @param array $assertions
      */
     public function testPutValidation($data, $expectedResponseCode, $assertions)
     {
         $supplier = $this->factory->createSupplier('ООО "ЕврейАрт"');
+        $this->factory->createSupplier('ООО "Повтор"');
         $this->factory->flush();
 
         $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
