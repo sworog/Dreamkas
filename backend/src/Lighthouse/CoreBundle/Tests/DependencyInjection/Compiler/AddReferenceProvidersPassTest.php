@@ -80,18 +80,13 @@ class AddReferenceProvidersPassTest extends ContainerAwareTestCase
         $compilerPass = new AddReferenceProvidersPass();
         $compilerPass->process($builder);
 
-        $methodCalls = $referenceManagerDefinition->getMethodCalls();
-        $this->assertCount(3, $methodCalls);
-        $this->assertEquals('addReferenceProvider', $methodCalls[0][0]);
-        $this->assertEquals('alias1', $methodCalls[0][1][0]);
-        $this->assertInstanceOf('Symfony\\Component\\DependencyInjection\\Reference', $methodCalls[0][1][1]);
-
-        $this->assertEquals('addReferenceProvider', $methodCalls[1][0]);
-        $this->assertEquals('alias2', $methodCalls[1][1][0]);
-        $this->assertInstanceOf('Symfony\\Component\\DependencyInjection\\Reference', $methodCalls[1][1][1]);
-
-        $this->assertEquals('addReferenceProvider', $methodCalls[2][0]);
-        $this->assertEquals('alias3', $methodCalls[2][1][0]);
-        $this->assertInstanceOf('Symfony\\Component\\DependencyInjection\\Reference', $methodCalls[2][1][1]);
+        $providers = $referenceManagerDefinition->getArgument(0);
+        $this->assertCount(3, $providers);
+        $this->assertArrayHasKey('alias1', $providers);
+        $this->assertInstanceOf('Symfony\\Component\\DependencyInjection\\Reference', $providers['alias1']);
+        $this->assertArrayHasKey('alias2', $providers);
+        $this->assertInstanceOf('Symfony\\Component\\DependencyInjection\\Reference', $providers['alias2']);
+        $this->assertArrayHasKey('alias3', $providers);
+        $this->assertInstanceOf('Symfony\\Component\\DependencyInjection\\Reference', $providers['alias3']);
     }
 }

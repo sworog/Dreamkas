@@ -23,11 +23,13 @@ class AddReferenceProvidersPass implements CompilerPassInterface
 
         $definition = $container->getDefinition('lighthouse.core.mongodb.reference.manager');
 
+        $providers = array();
         foreach ($container->findTaggedServiceIds('reference.provider') as $id => $tagAttributes) {
             if (!isset($tagAttributes[0]['alias'])) {
                 throw new ParameterNotFoundException('alias');
             }
-            $definition->addMethodCall('addReferenceProvider', array($tagAttributes[0]['alias'], new Reference($id)));
+            $providers[$tagAttributes[0]['alias']] = new Reference($id);
         }
+        $definition->setArguments(array($providers));
     }
 }
