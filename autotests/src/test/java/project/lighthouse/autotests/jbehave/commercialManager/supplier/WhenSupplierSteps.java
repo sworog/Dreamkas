@@ -24,4 +24,9 @@ public class WhenSupplierSteps {
     public void whenTheUserClicksOnTheSupplierCancelButton() {
         supplierSteps.cancelButtonClick();
     }
+
+    @When("the user generate test data with char number '$number' to the supplier field name '$elementName'")
+    public void whenTheUserGeneratesTestDataWithNumberToTheField(int number, String elementName) {
+        supplierSteps.generateString(elementName, number);
+    }
 }

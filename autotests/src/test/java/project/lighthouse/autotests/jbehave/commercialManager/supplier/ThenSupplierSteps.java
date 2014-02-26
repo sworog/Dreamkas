@@ -9,8 +9,13 @@ public class ThenSupplierSteps {
     @Steps
     SupplierSteps supplierSteps;
 
-    @Then("The user asserts label of field with name '$elementName'")
+    @Then("the user asserts label of supplier field with name '$elementName'")
     public void thenTheUserAssertsLabelOfFieldWithName(String elementName) {
         supplierSteps.labelsCheck(elementName);
+    }
+
+    @Then("the user asserts the supplier field length with name '$elementName' is '$number'")
+    public void thenTheUserAssertsTheFieldLengthWithName(String elementName, int number) {
+        supplierSteps.checkFieldLength(elementName, number);
     }
 }
