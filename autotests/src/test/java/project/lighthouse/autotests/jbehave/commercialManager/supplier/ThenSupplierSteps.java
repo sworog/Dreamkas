@@ -18,4 +18,9 @@ public class ThenSupplierSteps {
     public void thenTheUserAssertsTheFieldLengthWithName(String elementName, int number) {
         supplierSteps.checkFieldLength(elementName, number);
     }
+
+    @Then("the user checks the supplier list contains element with value")
+    public void thenTheUserChecksTheSupplierListContainsElementWithValue(String value) {
+        supplierSteps.contains(value);
+    }
 }

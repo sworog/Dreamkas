@@ -21,6 +21,11 @@ public class SupplierSteps extends ScenarioSteps {
     }
 
     @Step
+    public void input(String elementName, String value) {
+        supplierPage.input(elementName, value);
+    }
+
+    @Step
     public void createButtonClick() {
         supplierPage.createButtonClick();
     }
@@ -44,5 +49,10 @@ public class SupplierSteps extends ScenarioSteps {
     public void generateString(String elementName, int number) {
         String generatedData = new StringGenerator(number).generateTestData();
         supplierPage.input(elementName, generatedData);
+    }
+
+    @Step
+    public void contains(String locator) {
+        supplierPage.getSupplierObjectCollection().contains(locator);
     }
 }

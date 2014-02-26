@@ -15,6 +15,11 @@ public class WhenSupplierSteps {
         supplierSteps.input(examplesTable);
     }
 
+    @When("the user inputs value in supplierName field on supplier page")
+    public void whenTheUserInputsValueOnSupplierPage(String value) {
+        supplierSteps.input("supplierName", value);
+    }
+
     @When("the user clicks on the supplier create button")
     public void whenTheUserClicksOnTheSupplierCreateButton() {
         supplierSteps.createButtonClick();
