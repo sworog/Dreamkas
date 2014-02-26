@@ -8,9 +8,6 @@ import java.io.IOException;
 
 public class StoreApiSteps extends CommercialManagerApi {
 
-    public StoreApiSteps() throws JSONException, IOException {
-    }
-
     @Step
     public Store createStoreThroughPost() throws IOException, JSONException {
         return apiConnect.createStoreThroughPost(new Store());

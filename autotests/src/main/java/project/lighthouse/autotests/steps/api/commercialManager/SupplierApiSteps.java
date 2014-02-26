@@ -8,9 +8,6 @@ import java.io.IOException;
 
 public class SupplierApiSteps extends CommercialManagerApi {
 
-    public SupplierApiSteps() throws IOException, JSONException {
-    }
-
     @Step
     public Supplier createSupplier(String name) throws IOException, JSONException {
         return apiConnect.createSupplier(name);

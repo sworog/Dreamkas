@@ -12,9 +12,6 @@ import java.io.IOException;
 //TODO move all logic to high-level class
 public class ProductApiSteps extends CommercialManagerApi {
 
-    public ProductApiSteps() throws JSONException, IOException {
-    }
-
     public Product createProductThroughPost(Product product, SubCategory subCategory) throws IOException, JSONException {
         return apiConnect.createProductThroughPost(product, subCategory);
     }

@@ -10,9 +10,6 @@ import java.io.IOException;
 
 public class DepartmentApiSteps extends CommercialManagerApi {
 
-    public DepartmentApiSteps() throws JSONException, IOException {
-    }
-
     @Step
     public Department createStoreDepartmentThroughPost(String number, String name, String storeName) throws IOException, JSONException {
         String storeId = StaticData.stores.get(storeName).getId();

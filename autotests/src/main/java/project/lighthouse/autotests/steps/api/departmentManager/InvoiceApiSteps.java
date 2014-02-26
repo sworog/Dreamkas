@@ -10,9 +10,6 @@ import java.io.IOException;
 
 public class InvoiceApiSteps extends DepartmentManagerApi {
 
-    public InvoiceApiSteps() throws JSONException, IOException {
-    }
-
     @Step
     public Invoice createInvoiceThroughPost(String invoiceName, String date, String supplier, String accepter, String legalEntity, String supplierInvoiceSku, String supplierInvoiceDate, String storeName, String userName) throws JSONException, IOException {
         Invoice invoice = new Invoice(invoiceName, supplier, date, accepter, legalEntity, supplierInvoiceSku, supplierInvoiceDate);
