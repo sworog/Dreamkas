@@ -80,14 +80,12 @@ class DateTimestampTest extends TestCase
 
         $notMongoTimestampDate = DateTimestamp::createFromTimestamp(1212);
         $thirdMongoTimestamp = $notMongoTimestampDate->getMongoTimestamp();
-        $this->assertNotEquals($thirdMongoTimestamp, $secondMongoTimestamp);
-        $this->assertEquals(0, $thirdMongoTimestamp->inc);
+        $this->assertEquals(1212, $thirdMongoTimestamp->sec);
     }
 
     public function testMongoDate()
     {
         $firstMongoDate = new MongoDate();
-        $this->assertNotEquals(0, $firstMongoDate->usec);
         $date = DateTimestamp::createFromMongoDate($firstMongoDate);
         $secondMongoDate = $date->getMongoDate();
         $this->assertNotSame($firstMongoDate, $secondMongoDate);
@@ -106,5 +104,35 @@ class DateTimestampTest extends TestCase
         $timestampCopy = $timestamp->copy();
         $this->assertNotSame($timestampCopy, $timestamp);
         $this->assertEquals($timestampCopy, $timestamp);
+    }
+
+    /**
+     * @dataProvider createFromTimestampUsecProvider
+     * @param int $usec
+     */
+    public function testCreateFromTimestampUsec($usec)
+    {
+        $timestamp = DateTimestamp::createFromTimestamp(1212, $usec);
+        $this->assertSame($usec, $timestamp->getUsec());
+    }
+
+    /**
+     * @return array
+     */
+    public function createFromTimestampUsecProvider()
+    {
+        return array(
+            1 => array(1),
+            10 => array(10),
+            100 => array(100),
+            1000 => array(1000),
+            10000 => array(10000),
+            100000 => array(100000),
+            11 => array(11),
+            111 => array(111),
+            1111 => array(1111),
+            11111 => array(11111),
+            111111 => array(111111),
+        );
     }
 }

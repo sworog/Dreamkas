@@ -2,8 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Types\Date;
 
-use DateInterval;
-
 class DatePeriod
 {
     /**
@@ -56,7 +54,7 @@ class DatePeriod
     }
 
     /**
-     * @return DateInterval
+     * @return \DateInterval
      */
     public function diff()
     {

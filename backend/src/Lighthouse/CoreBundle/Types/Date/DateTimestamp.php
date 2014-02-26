@@ -180,13 +180,14 @@ class DateTimestamp extends DateTime
         $timezone = $timezone ?: new DateTimeZone(date_default_timezone_get());
 
         if (null !== $usec) {
-            $new = new static(static::createFromFormat('U.u', $timestamp . '.' . $usec));
+            $date = new static(static::createFromFormat('U.u', sprintf('%d.%06d', $timestamp, $usec)));
         } else {
-            $new = new static(static::createFromFormat('U', $timestamp));
+            $date = new static(static::createFromFormat('U', $timestamp));
         }
-        $new->setTimezone($timezone);
+        /* @var DateTimestamp $date */
+        $date->setTimezone($timezone);
 
-        return $new;
+        return $date;
     }
 
     /**
