@@ -2,7 +2,6 @@ define(function(require, exports, module) {
     //requirements
     var Page = require('kit/core/page'),
         Form_supplier = require('blocks/form/form_supplier/form_supplier'),
-        SupplierModel = require('models/supplier'),
         currentUserModel = require('models/currentUser');
 
     require('jquery');

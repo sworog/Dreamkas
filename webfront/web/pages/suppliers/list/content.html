@@ -15,7 +15,7 @@
     <% if (collections.suppliers.length) { %>
     <table class="table">
         <% collections.suppliers.forEach(function(supplierModel){ %>
-            <tr>
+            <tr href="/suppliers/<%- supplierModel.id %>">
                 <td>
                     <%- supplierModel.get('name') %>
                 </td>

@@ -1,19 +1,18 @@
-<% var SupplierModel = require('models/supplier') %>
-<% var supplierModel = supplierModel || new SupplierModel() %>
+<% var model = model || new Backbone.Model() %>
 
 <form class="form form_supplier">
     <div class="form__field">
         <label class="form__label">Юридическое лицо</label>
-        <input value="<%- supplierModel.get('name') %>" name="name" type="text" class="inputText" />
+        <input value="<%- model.get('name') %>" name="name" type="text" class="inputText" />
     </div>
     <div class="form__controls">
         <button type="submit" class="button">
             Сохранить
         </button>
-            <span style="vertical-align: middle; margin-right: 10px;">
+            <span style="margin-right: 10px;">
                 или
             </span>
-        <a href="/suppliers" class="button">
+        <a href="/suppliers">
             Отменить
         </a>
     </div>
