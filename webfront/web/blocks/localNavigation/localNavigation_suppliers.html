@@ -1,9 +1,9 @@
 <div class="localNavigation localNavigation_suppliers">
 
-    <h1>Поставщики</h1>
+    <a class="localNavigation__header localNavigation__link <%- __name__ === 'pages/suppliers/list/list' ? 'localNavigation__link_active' : '' %>" href="/suppliers">Поставщики</a>
 
     <% if (LH.isAllow('suppliers', 'POST')) {%>
-    <a class="localNavigation__link <%- __name__ === 'pages/suppliers/create/create' ? 'localNavigation__link_active' : '' %>"" href="/suppliers/create">
+    <a class="localNavigation__link <%- __name__ === 'pages/suppliers/create/create' ? 'localNavigation__link_active' : '' %>" href="/suppliers/create">
         Добавить поставщика
     </a>
     <% } %>

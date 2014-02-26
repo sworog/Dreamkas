@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Page = require('kit/core/page'),
+        SuppliersCollection = require('collections/suppliers'),
         currentUserModel = require('models/currentUser');
 
     require('jquery');
@@ -11,12 +12,18 @@ define(function(require, exports, module) {
             '#content': require('tpl!./content.html')
         },
         permissions: function() {
-            return false;
+            return !LH.isAllow('suppliers', 'GET');
         },
         initialize: function() {
             var page = this;
 
-            page.render();
+            page.collections = {
+                suppliers: new SuppliersCollection()
+            };
+
+            $.when(page.collections.suppliers.fetch()).done(function() {
+                page.render();
+            });
         }
     });
 });

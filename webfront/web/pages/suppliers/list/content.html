@@ -1,0 +1,30 @@
+<% var templates = {
+    localNavigation: require('tpl!blocks/localNavigation/localNavigation_suppliers.html')
+} %>
+
+<% var collections = _.extend({
+    suppliers: new Backbone.Collection
+}, obj.collections) %>
+
+<% if (LH.isAllow('suppliers', 'POST')) {%>
+    <%= templates.localNavigation(obj) %>
+<% } %>
+
+<div class="page__data">
+    <h2>Поставщики</h2>
+    <% if (collections.suppliers.length) { %>
+    <table class="table">
+        <% collections.suppliers.forEach(function(supplierModel){ %>
+            <tr>
+                <td>
+                    <%- supplierModel.get('name') %>
+                </td>
+            </tr>
+        <% }) %>
+    </table>
+    <% } else { %>
+        <p>
+            Нет поставщиков
+        </p>
+    <% } %>
+</div>

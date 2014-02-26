@@ -14,7 +14,7 @@ define(function(require) {
             'settings(/)': require('pages/common/settings'),
 
             //suppliers
-            'suppliers(/)': require('pages/suppliers/dashboard/dashboard'),
+            'suppliers(/)': require('pages/suppliers/list/list'),
             'suppliers/create(/)': require('pages/suppliers/create/create'),
 
             //reports
