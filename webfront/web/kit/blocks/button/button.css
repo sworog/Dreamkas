@@ -27,6 +27,7 @@
     -o-transition: border-color 0.25s;
     transition: border-color 0.25s;
     background-color: #fff;
+    outline: none;
 }
 
 .button:hover {
