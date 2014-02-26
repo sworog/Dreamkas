@@ -1,10 +1,10 @@
 define(function(require, exports, module) {
     //requirements
-    var BaseClass = require('utils/baseClass'),
-        getText = require('utils/getText'),
-        delegateEvent = require('utils/delegateEvent'),
-        undelegateEvents = require('utils/undelegateEvents'),
-        stringToElement = require('utils/stringToElement');
+    var BaseClass = require('bower_components/baseClass/baseClass'),
+        getText = require('bower_components/getText/getText'),
+        delegateEvent = require('bower_components/delegateEvent/delegateEvent'),
+        undelegateEvents = require('bower_components/undelegateEvents/undelegateEvents'),
+        stringToFragment = require('bower_components/stringToFragment/stringToFragment');
 
     require('lodash');
 
@@ -59,7 +59,7 @@ define(function(require, exports, module) {
         templateToElement: function(){
             var block = this;
 
-            return stringToElement(block.template(block));
+            return stringToFragment(block.template(block));
         },
 
         render: function() {

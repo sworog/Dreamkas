@@ -16,7 +16,7 @@
     <table class="table">
         <% collections.suppliers.forEach(function(supplierModel){ %>
             <tr name="supplierData" <%- LH.isAllow('suppliers', 'PUT::{supplier}') ? 'href=/suppliers/' + supplierModel.id : '' %>>
-                <td>
+                <td name="supplierName">
                     <%- supplierModel.get('name') %>
                 </td>
             </tr>

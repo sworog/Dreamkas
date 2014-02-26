@@ -1,9 +1,9 @@
 define(function(require) {
     //requirements
-    var deepExtend = require('./deepExtend'),
-        get = require('./get'),
-        pathToObject = require('./pathToObject'),
-        getChanges = require('./getChanges');
+    var deepExtend = require('bower_components/deepExtend/deepExtend'),
+        get = require('bower_components/get/get'),
+        pathToObject = require('bower_components/pathToObject/pathToObject'),
+        getChanges = require('bower_components/getChanges/getChanges');
 
     require('lodash');
 
