@@ -8,6 +8,9 @@ use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddJobWorkersPass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddReferenceProvidersPass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddRoundingsToManagerPass;
 use Lighthouse\CoreBundle\MongoDB\Types\DateTimeTZType;
+use Lighthouse\CoreBundle\MongoDB\Types\MoneyType;
+use Lighthouse\CoreBundle\MongoDB\Types\QuantityType;
+use Lighthouse\CoreBundle\MongoDB\Types\TimestampType;
 use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -23,9 +26,9 @@ class LighthouseCoreBundle extends Bundle
 
     protected function registerMongoTypes()
     {
-        Type::registerType('quantity', 'Lighthouse\\CoreBundle\\MongoDB\\Types\\QuantityType');
-        Type::registerType('money', 'Lighthouse\\CoreBundle\\MongoDB\\Types\\MoneyType');
-        Type::registerType('timestamp', 'Lighthouse\\CoreBundle\\MongoDB\\Types\\TimestampType');
+        Type::registerType(QuantityType::QUANTITY, QuantityType::getClassName());
+        Type::registerType(MoneyType::MONEY, MoneyType::getClassName());
+        Type::registerType(TimestampType::TIMESTAMP, TimestampType::getClassName());
         Type::registerType(DateTimeTZType::DATETIMETZ, DateTimeTZType::getClassName());
     }
 

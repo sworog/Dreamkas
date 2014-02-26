@@ -2,50 +2,31 @@
 
 namespace Lighthouse\CoreBundle\MongoDB\Types;
 
-use Doctrine\ODM\MongoDB\Types\Type;
-use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
-class QuantityType extends Type
+class QuantityType extends BaseType
 {
+    const QUANTITY = 'quantity';
+
     /**
      * @param Quantity $value
      * @return array|mixed
      */
-    public function convertToDatabaseValue($value)
+    public static function convertToMongo($value)
     {
         return array('count' => $value->getCount(), 'precision' => $value->getPrecision());
     }
 
     /**
      * @param null|\stdClass $value
-     * @return Decimal|null
+     * @return Quantity|null
      */
-    public function convertToPHPValue($value)
+    public static function convertToPHP($value)
     {
-        return null !== $value ? new Quantity($value->count, $value->precision) : null;
-    }
-
-    /**
-     * @return string
-     */
-    public function closureToMongo()
-    {
-        return '$return = array("count" => $value->getCount(), "precision" => $value->getPrecision())';
-    }
-
-    /**
-     * @return string
-     */
-    public function closureToPHP()
-    {
-        return <<<EOS
-if (null !== \$value) {
-    \$return = new \\Lighthouse\\CoreBundle\\Types\\Numeric\\Quantity(\$value['count'], \$value['precision']);
-} else {
-    \$return = null;
-}
-EOS;
-
+        if (null !== $value && isset($value['count'], $value['precision'])) {
+            return new Quantity($value['count'], $value['precision']);
+        } else {
+            return null;
+        }
     }
 }

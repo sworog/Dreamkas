@@ -2,16 +2,17 @@
 
 namespace Lighthouse\CoreBundle\MongoDB\Types;
 
-use Doctrine\ODM\MongoDB\Types\Type;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 
-class MoneyType extends Type
+class MoneyType extends BaseType
 {
+    const MONEY = 'money';
+
     /**
      * @param Money $value
      * @return int
      */
-    public function convertToDatabaseValue($value)
+    public static function convertToMongo($value)
     {
         return $value->getCount();
     }
@@ -20,24 +21,8 @@ class MoneyType extends Type
      * @param int $value
      * @return Money
      */
-    public function convertToPHPValue($value)
+    public static function convertToPHP($value)
     {
         return new Money($value);
-    }
-
-    /**
-     * @return string
-     */
-    public function closureToPHP()
-    {
-        return '$return = new \\Lighthouse\\CoreBundle\\Types\\Numeric\\Money($value);';
-    }
-
-    /**
-     * @return string
-     */
-    public function closureToMongo()
-    {
-        return '$return = (int) $value;';
     }
 }

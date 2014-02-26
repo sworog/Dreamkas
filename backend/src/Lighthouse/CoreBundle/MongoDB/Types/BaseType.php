@@ -28,7 +28,7 @@ class BaseType extends Type
      * @param mixed $value
      * @return mixed
      */
-    public function convertToDatabaseValue($value)
+    final public function convertToDatabaseValue($value)
     {
         return static::convertToMongo($value);
     }
