@@ -134,6 +134,51 @@ class SupplierControllerTest extends WebTestCase
         );
     }
 
+    public function testPut()
+    {
+        $supplier = $this->factory->createSupplier('ООО "ЕврейАрт"');
+        $this->factory->flush();
+
+        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $putData = array(
+            'name' => 'ООО "ЕвроАрт"'
+        );
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/suppliers/' . $supplier->id,
+            $putData
+        );
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals($supplier->id, 'id', $putResponse);
+        Assert::assertJsonPathEquals($putData['name'], 'name', $putResponse);
+    }
+
+    /**
+     * @dataProvider postValidationProvider
+     * @param $name
+     * @param $expectedResponseCode
+     * @param $assertions
+     */
+    public function testPutValidation($data, $expectedResponseCode, $assertions)
+    {
+        $supplier = $this->factory->createSupplier('ООО "ЕврейАрт"');
+        $this->factory->flush();
+
+        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $putData = $data;
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/suppliers/' . $supplier->id,
+            $putData
+        );
+        $expectedResponseCode = ($expectedResponseCode == 201) ? 200 : $expectedResponseCode;
+        $this->assertResponseCode($expectedResponseCode);
+
+        $this->performJsonAssertions($putResponse, $assertions);
+    }
+
     public function testGetAction()
     {
         $this->factory->createSupplier('1');

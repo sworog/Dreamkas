@@ -31,7 +31,7 @@ class SupplierController extends AbstractRestController
 
     /**
      * @param Request $request
-     * @return View|\Lighthouse\CoreBundle\Document\AbstractDocument
+     * @return View|Supplier
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc(
@@ -41,6 +41,18 @@ class SupplierController extends AbstractRestController
     public function postSuppliersAction(Request $request)
     {
         return $this->processPost($request);
+    }
+
+    /**
+     * @param Request $request
+     * @param Supplier $supplier
+     * @return View|Supplier
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function putSupplierAction(Request $request, Supplier $supplier)
+    {
+        return $this->processForm($request, $supplier);
     }
 
     /**

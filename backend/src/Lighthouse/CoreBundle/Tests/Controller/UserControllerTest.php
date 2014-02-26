@@ -754,6 +754,7 @@ class UserControllerTest extends WebTestCase
                         'GET',
                         'GET::{supplier}',
                         'POST',
+                        'PUT::{supplier}',
                     )
                 )
             ),
