@@ -15,9 +15,28 @@ define(function(require) {
         dictionary: require('i18n!./nls/errors'),
         className: 'form',
         tagName: 'form',
-        model: new Backbone.Model,
+        model: function(){
+            return new Backbone.Model;
+        },
         collection: null,
         redirectUrl: null,
+        initialize: function(){
+            var block = this;
+
+            Block.prototype.initialize.apply(block, arguments);
+
+            if (!block.__model){
+                block.__model = block.model;
+            }
+
+            block.model = block.get('__model');
+
+            if (!block.__collection){
+                block.__collection = block.collection;
+            }
+
+            block.collection = block.get('__collection');
+        },
         events: {
             'change :input': function() {
                 var block = this;

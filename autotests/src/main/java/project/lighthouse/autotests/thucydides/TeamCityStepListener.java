@@ -49,7 +49,7 @@ public class TeamCityStepListener implements StepListener {
 
     private String escapeProperty(String value) {
         for (Map.Entry<String, String> escapeChar : escapeChars.entrySet()) {
-            value = value.replaceAll(escapeChar.getKey(), escapeChar.getValue());
+            value = value.replace(escapeChar.getKey(), escapeChar.getValue());
         }
         return value;
     }
@@ -205,13 +205,13 @@ public class TeamCityStepListener implements StepListener {
         if (path.endsWith(".story")) {
             path = path.substring(0, path.length() - 6);
         }
-        String title = path.replaceAll(".", "_").replaceAll("/", ".");
-        return title + "." + result.getMethodName().replaceAll(".", "_");
+        String title = path.replace(".", "_").replace("/", ".");
+        return title + "." + result.getMethodName().replace(".", "_");
     }
 
     private String getResultTitle(TestOutcome result, String name) {
         String title = getResultTitle(result);
-        title = title + "." + name.replaceAll(".", "_");
+        title = title + "." + name.replace(".", "_");
         return title;
     }
 

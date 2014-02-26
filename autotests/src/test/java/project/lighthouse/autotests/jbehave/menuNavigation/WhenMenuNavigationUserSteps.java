@@ -13,4 +13,9 @@ public class WhenMenuNavigationUserSteps {
     public void whenTheUserClicksTheMenuReportItemClick() {
         menuNavigationSteps.reportMenuItemClick();
     }
+
+    @When("the user clicks the menu suppliers item")
+    public void whenTheUserClicksTheMenuSuppliersItemClick() {
+        menuNavigationSteps.supplierMenuItemClick();
+    }
 }

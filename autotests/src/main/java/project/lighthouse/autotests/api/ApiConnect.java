@@ -290,4 +290,19 @@ public class ApiConnect {
                 .put("name", "set10-import-url")
                 .put("value", value));
     }
+
+    public Supplier createSupplier(String name) throws JSONException, IOException {
+        Supplier supplier = new Supplier(name);
+        return createSupplier(supplier);
+    }
+
+    public Supplier createSupplier(Supplier supplier) throws IOException, JSONException {
+        if (!StaticData.users.containsKey(supplier.getName())) {
+            httpExecutor.executePostRequest(supplier);
+            StaticData.suppliers.put(supplier.getName(), supplier);
+            return supplier;
+        } else {
+            return StaticData.suppliers.get(supplier.getName());
+        }
+    }
 }

@@ -10,9 +10,6 @@ import java.io.IOException;
 
 public class WriteOffApiSteps extends DepartmentManagerApi {
 
-    public WriteOffApiSteps() throws JSONException, IOException {
-    }
-
     @Step
     public WriteOff createWriteOffThroughPost(String writeOffNumber, String date, String storeName, String userName) throws JSONException, IOException {
         WriteOff writeOff = new WriteOff(writeOffNumber, date);

@@ -1,9 +1,11 @@
 package project.lighthouse.autotests.elements.Buttons;
 
-import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
-import project.lighthouse.autotests.common.CommonActions;
+import project.lighthouse.autotests.common.CommonPageObject;
 
+/**
+ * Facade to handle buttons interactions
+ */
 public class ButtonFacade {
 
     private String xpath = "//*[@class='button']";
@@ -11,14 +13,14 @@ public class ButtonFacade {
 
     private static final String BUTTON_XPATH_PATTERN = "//*[contains(@class, 'button') and normalize-space(text())='%s']";
 
-    private CommonActions commonActions;
+    CommonPageObject pageObject;
 
-    public ButtonFacade(PageObject pageObject) {
-        commonActions = new CommonActions(pageObject);
-        browserName = commonActions.getCapabilities().getBrowserName();
+    public ButtonFacade(CommonPageObject pageObject) {
+        this.pageObject = pageObject;
+        browserName = pageObject.getCommonActions().getCapabilities().getBrowserName();
     }
 
-    public ButtonFacade(PageObject pageObject, String buttonTextName) {
+    public ButtonFacade(CommonPageObject pageObject, String buttonTextName) {
         this(pageObject);
         this.xpath = getButtonXpath(buttonTextName);
     }
@@ -28,18 +30,18 @@ public class ButtonFacade {
     }
 
     public void click() {
-        if (browserName.equals("firefox") && commonActions.visibleWebElementHasTagName(xpath, "span")) {
-            commonActions.elementSubmit(By.xpath(xpath));
+        if (browserName.equals("firefox") && pageObject.getCommonActions().visibleWebElementHasTagName(xpath, "span")) {
+            pageObject.getCommonActions().elementSubmit(By.xpath(xpath));
         } else {
-            commonActions.elementClick(By.xpath(xpath));
+            pageObject.getCommonActions().elementClick(By.xpath(xpath));
         }
     }
 
     public void catalogClick() {
-        if (browserName.equals("firefox") && commonActions.webElementHasTagName(xpath, "span")) {
-            commonActions.catalogElementSubmit(By.xpath(xpath));
+        if (browserName.equals("firefox") && pageObject.getCommonActions().webElementHasTagName(xpath, "span")) {
+            pageObject.getCommonActions().catalogElementSubmit(By.xpath(xpath));
         } else {
-            commonActions.catalogElementClick(By.xpath(xpath));
+            pageObject.getCommonActions().catalogElementClick(By.xpath(xpath));
         }
     }
 }

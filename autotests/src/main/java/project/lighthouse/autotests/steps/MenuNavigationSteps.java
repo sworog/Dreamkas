@@ -24,4 +24,10 @@ public class MenuNavigationSteps extends ScenarioSteps {
         } catch (Exception ignored) {
         }
     }
+
+    @Step
+    public void supplierMenuItemClick() {
+        new BodyPreLoader(getDriver()).await();
+        menuNavigation.suppliersMenuItemClick();
+    }
 }

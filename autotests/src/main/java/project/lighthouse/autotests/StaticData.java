@@ -18,6 +18,7 @@ public class StaticData {
     public static HashMap<String, Department> departments = new HashMap<>();
     public static HashMap<String, String> userTokens = new HashMap<>();
     public static HashMap<String, ArrayList<Product>> subCategoryProducts = new HashMap<>();
+    public static HashMap<String, Supplier> suppliers = new HashMap<>();
 
     public static Integer DEFAULT_TIMEOUT = 15;
     public static Integer DEFAULT_PRE_LOADER_TIMEOUT = 5;
@@ -62,5 +63,6 @@ public class StaticData {
         departments.clear();
         userTokens.clear();
         subCategoryProducts.clear();
+        suppliers.clear();
     }
 }

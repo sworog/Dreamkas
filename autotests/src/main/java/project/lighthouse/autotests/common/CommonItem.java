@@ -3,15 +3,16 @@ package project.lighthouse.autotests.common;
 import net.thucydides.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.helper.FieldLengthChecker;
+import project.lighthouse.autotests.helper.FieldChecker;
 
 /**
  * Abstract class representing single page element type (input and etc)
  */
 abstract public class CommonItem {
 
-    protected By findBy;
-    protected CommonPageObject pageObject;
+    private By findBy;
+    private CommonPageObject pageObject;
+    private String label;
 
     public CommonItem(CommonPageObject pageObject, By findBy) {
         this.pageObject = pageObject;
@@ -22,9 +23,21 @@ abstract public class CommonItem {
         this(pageObject, By.name(name));
     }
 
-    public FieldLengthChecker getFieldLengthChecker() {
-        return new FieldLengthChecker(
-                getOnlyVisibleWebElementFacade());
+    public CommonItem(CommonPageObject pageObject, String name, String label) {
+        this(pageObject, By.name(name));
+        this.label = label;
+    }
+
+    public FieldChecker getFieldChecker() {
+        return new FieldChecker(this);
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public CommonPageObject getPageObject() {
+        return pageObject;
     }
 
     public WebElement getWebElement() {

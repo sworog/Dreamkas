@@ -101,17 +101,17 @@ public class DateTime extends CommonItem {
     //TODO refactor to ButtonFacade() class
     public void dateTimePickerClose() {
         String dateTimePickerCloseButtonXpath = getDatePickerXpath() + "//*[@class='button datepicker__saveLink tooltip__closeLink']";
-        pageObject.findElement(By.xpath(dateTimePickerCloseButtonXpath)).click();
+        getPageObject().findElement(By.xpath(dateTimePickerCloseButtonXpath)).click();
     }
 
     public String getActualDatePickerMonth() {
         String actualDatePickerMonthXpath = getDatePickerXpath() + "//*[@class='datepicker__monthName']";
-        return pageObject.find(By.xpath(actualDatePickerMonthXpath)).getText();
+        return getPageObject().find(By.xpath(actualDatePickerMonthXpath)).getText();
     }
 
     public int getActualDatePickerYear() {
         String actualDatePickerYearXpath = getDatePickerXpath() + "//*[@class='datepicker__yearNum']";
-        String actualDatePickerYear = pageObject.find(By.xpath(actualDatePickerYearXpath)).getText();
+        String actualDatePickerYear = getPageObject().find(By.xpath(actualDatePickerYearXpath)).getText();
         return Integer.parseInt(actualDatePickerYear);
     }
 
@@ -119,8 +119,8 @@ public class DateTime extends CommonItem {
         String[] time = timeString.split(":");
         String hoursXpath = getDatePickerXpath() + "//*[@name='hours']";
         String minutesXpath = getDatePickerXpath() + "//*[@name='minutes']";
-        pageObject.find(By.xpath(hoursXpath)).type(time[0]);
-        pageObject.find(By.xpath(minutesXpath)).type(time[1]);
+        getPageObject().find(By.xpath(hoursXpath)).type(time[0]);
+        getPageObject().find(By.xpath(minutesXpath)).type(time[1]);
     }
 
     public void setDay(String dayString) {
@@ -129,7 +129,7 @@ public class DateTime extends CommonItem {
                         "//*[@class='datepicker__dateList']/*[normalize-space(@class='datepicker__dateItem') and normalize-space(text())='%s' " +
                         "and not(contains(@class, 'datepicker__dateItem datepicker__dateItem_otherMonth'))]",
                         dayString);
-        pageObject.findElement(By.xpath(timePickerDayXpath)).click();
+        getPageObject().findElement(By.xpath(timePickerDayXpath)).click();
     }
 
     public void setMonth(int monthValue) {
@@ -138,13 +138,13 @@ public class DateTime extends CommonItem {
         if (monthValue < getActualMonth) {
             actualMonthValue = 0;
             while (!(monthValue == actualMonthValue)) {
-                pageObject.findElement(By.xpath(getDatePickerXpath() + prevMonthLinkXpath)).click();
+                getPageObject().findElement(By.xpath(getDatePickerXpath() + prevMonthLinkXpath)).click();
                 actualMonthValue = getMonthNumber(getActualDatePickerMonth());
             }
         } else if (monthValue > actualMonthValue) {
             actualMonthValue = 0;
             while (!(monthValue == actualMonthValue)) {
-                pageObject.findElement(By.xpath(getDatePickerXpath() + nextMonthLinkXpath)).click();
+                getPageObject().findElement(By.xpath(getDatePickerXpath() + nextMonthLinkXpath)).click();
                 actualMonthValue = getMonthNumber(getActualDatePickerMonth());
             }
         }
@@ -155,7 +155,7 @@ public class DateTime extends CommonItem {
         if (yearValue < getActualDatePickerYear()) {
             int actualYearValue = 0;
             while (!(yearValue == actualYearValue)) {
-                pageObject.findElement(By.xpath(getDatePickerXpath() + prevMonthLinkXpath)).click();
+                getPageObject().findElement(By.xpath(getDatePickerXpath() + prevMonthLinkXpath)).click();
                 actualYearValue = getActualDatePickerYear();
             }
         } else if (yearValue > actualYear) {
