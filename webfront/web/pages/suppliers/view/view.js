@@ -14,7 +14,7 @@ define(function(require, exports, module) {
             '#content': require('tpl!./content.html')
         },
         permissions: function() {
-            return !LH.isAllow('suppliers', 'GET::{supplier}');
+            return !LH.isAllow('suppliers', 'PUT::{supplier}');
         },
         initialize: function() {
             var page = this;

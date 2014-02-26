@@ -15,8 +15,8 @@ define(function(require) {
 
             //suppliers
             'suppliers(/)': require('pages/suppliers/list/list'),
-            'suppliers/:supplierId(/)': require('pages/suppliers/view/view'),
             'suppliers/create(/)': require('pages/suppliers/create/create'),
+            'suppliers/:supplierId(/)': require('pages/suppliers/view/view'),
 
             //reports
             'reports(/)': require('pages/reports/dashboard/dashboard'),

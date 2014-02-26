@@ -15,7 +15,8 @@
     <% if (collections.suppliers.length) { %>
     <table class="table">
         <% collections.suppliers.forEach(function(supplierModel){ %>
-            <tr href="/suppliers/<%- supplierModel.id %>">
+
+            <tr <%- LH.isAllow('suppliers', 'PUT::{supplier}') ? 'href=/suppliers/' + supplierModel.id : '' %>>
                 <td>
                     <%- supplierModel.get('name') %>
                 </td>
