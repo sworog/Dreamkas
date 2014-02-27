@@ -12,6 +12,8 @@ public class SupplierSteps extends ScenarioSteps {
     SupplierPage supplierPage;
     SupplierListPage supplierListPage;
 
+    private String supplierName;
+
     @Step
     public void openSupplierCreatePage() {
         supplierPage.open();
@@ -56,6 +58,7 @@ public class SupplierSteps extends ScenarioSteps {
     public void generateString(String elementName, int number) {
         String generatedData = new StringGenerator(number).generateTestData();
         supplierPage.input(elementName, generatedData);
+        supplierName = generatedData;
     }
 
     @Step
@@ -66,5 +69,15 @@ public class SupplierSteps extends ScenarioSteps {
     @Step
     public void supplierObjectCollectionNotContains(String locator) {
         supplierListPage.getSupplierObjectCollection().notContains(locator);
+    }
+
+    @Step
+    public void supplierCollectionObjectClickByLocator(String locator) {
+        supplierListPage.getSupplierObjectCollection().clickByLocator(locator);
+    }
+
+    @Step
+    public void supplierObjectCollectionContainsStoredValue() {
+        supplierListPage.getSupplierObjectCollection().contains(supplierName);
     }
 }

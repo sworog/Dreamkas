@@ -34,4 +34,9 @@ public class WhenSupplierSteps {
     public void whenTheUserGeneratesTestDataWithNumberToTheField(int number, String elementName) {
         supplierSteps.generateString(elementName, number);
     }
+
+    @When("the user clicks on supplier list table element with name '$supplierName'")
+    public void whenTheUserClicksOnSupplierTableElementWithName(String supplierName) {
+        supplierSteps.supplierCollectionObjectClickByLocator(supplierName);
+    }
 }

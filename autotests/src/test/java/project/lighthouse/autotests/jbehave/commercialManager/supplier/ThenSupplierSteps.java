@@ -30,4 +30,9 @@ public class ThenSupplierSteps {
     public void thenTheUserChecksTheSupplierListNotContainsElementValue(String value) {
         supplierSteps.supplierObjectCollectionNotContains(value);
     }
+
+    @Then("the user checks the supplier list contains stored element")
+    public void thenTheUserChecksTheSupplierListContainsStoredElement() {
+        supplierSteps.supplierObjectCollectionContainsStoredValue();
+    }
 }

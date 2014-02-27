@@ -297,7 +297,7 @@ public class ApiConnect {
     }
 
     public Supplier createSupplier(Supplier supplier) throws IOException, JSONException {
-        if (!StaticData.users.containsKey(supplier.getName())) {
+        if (!StaticData.suppliers.containsKey(supplier.getName())) {
             httpExecutor.executePostRequest(supplier);
             StaticData.suppliers.put(supplier.getName(), supplier);
             return supplier;
