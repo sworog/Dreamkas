@@ -1,6 +1,7 @@
 Meta:
 @sprint_29
 @us_60
+@supplier
 
 Narrative:
 As a категорийный менеджер
