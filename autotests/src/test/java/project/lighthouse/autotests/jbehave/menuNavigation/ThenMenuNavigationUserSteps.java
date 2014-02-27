@@ -13,4 +13,9 @@ public class ThenMenuNavigationUserSteps {
     public void thenTheUserChecksTheReportsNavigationMenuItemIsNotVisible() {
         menuNavigationSteps.reportMenuItemIsNotVisible();
     }
+
+    @Then("the user checks the suppliers navigation menu item is not visible")
+    public void thenTheUserChecksTheSuppliersNavigationMenuItemIsNotVisible() {
+        menuNavigationSteps.supplierMenuItemIsNotVisible();
+    }
 }
