@@ -64,6 +64,8 @@ Scenario: Check maximum positive supplier field range
 Meta:
 @id_s29u60s4
 
+Given the user runs the symfony:env:init command
+
 Given the user opens supplier create page
 And the user logs in as 'commercialManager'
 
