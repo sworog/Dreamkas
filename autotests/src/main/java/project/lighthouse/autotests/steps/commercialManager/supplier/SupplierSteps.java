@@ -4,15 +4,22 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.helper.StringGenerator;
+import project.lighthouse.autotests.pages.commercialManager.supplier.SupplierListPage;
 import project.lighthouse.autotests.pages.commercialManager.supplier.SupplierPage;
 
 public class SupplierSteps extends ScenarioSteps {
 
     SupplierPage supplierPage;
+    SupplierListPage supplierListPage;
 
     @Step
     public void openSupplierCreatePage() {
         supplierPage.open();
+    }
+
+    @Step
+    public void openSupplierListPage() {
+        supplierListPage.open();
     }
 
     @Step
@@ -53,6 +60,11 @@ public class SupplierSteps extends ScenarioSteps {
 
     @Step
     public void contains(String locator) {
-        supplierPage.getSupplierObjectCollection().contains(locator);
+        supplierListPage.getSupplierObjectCollection().contains(locator);
+    }
+
+    @Step
+    public void supplierObjectCollectionNotContains(String locator) {
+        supplierListPage.getSupplierObjectCollection().notContains(locator);
     }
 }

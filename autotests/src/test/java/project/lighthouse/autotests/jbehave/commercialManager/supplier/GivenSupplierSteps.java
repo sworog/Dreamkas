@@ -13,4 +13,9 @@ public class GivenSupplierSteps {
     public void givenTheUserOpensSupplierCreatePage() {
         supplierSteps.openSupplierCreatePage();
     }
+
+    @Given("the user opens supplier list page")
+    public void givenTheUserOpensSupplierListPage() {
+        supplierSteps.openSupplierListPage();
+    }
 }
