@@ -26,6 +26,7 @@
         "ekino/newrelic-bundle": "~1.0",
         "doctrine/data-fixtures": "~1.0@dev",
         "leezy/pheanstalk-bundle": "~2.1",
+        "rackspace/php-opencloud": "~1.9",
         "munkie/karzer": "dev-master",
         "clamidity/profiler-bundle": "dev-master"
     },
