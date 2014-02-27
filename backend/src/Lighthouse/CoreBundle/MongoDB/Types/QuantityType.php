@@ -14,7 +14,14 @@ class QuantityType extends BaseType
      */
     public static function convertToMongo($value)
     {
-        return array('count' => $value->getCount(), 'precision' => $value->getPrecision());
+        if ($value instanceof Quantity) {
+            return array(
+                'count' => $value->getCount(),
+                'precision' => $value->getPrecision()
+            );
+        } else {
+            return null;
+        }
     }
 
     /**
