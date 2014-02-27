@@ -15,6 +15,7 @@ Meta:
 @smoke
 
 Given the user opens supplier create page
+And there is the supplier with name 'supplier-s29u61s0'
 And the user logs in as 'commercialManager'
 
 When the user inputs values on supplier page
