@@ -6,7 +6,7 @@ use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
 class QuantityType extends BaseType
 {
-    const QUANTITY = 'quantity';
+    const NAME = 'quantity';
 
     /**
      * @param Quantity $value

@@ -6,7 +6,7 @@ use Lighthouse\CoreBundle\Types\Numeric\Money;
 
 class MoneyType extends BaseType
 {
-    const MONEY = 'money';
+    const NAME = 'money';
 
     /**
      * @param Money $value

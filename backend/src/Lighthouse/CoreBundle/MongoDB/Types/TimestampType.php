@@ -7,7 +7,7 @@ use MongoTimestamp;
 
 class TimestampType extends BaseType
 {
-    const TIMESTAMP = 'timestamp';
+    const NAME = 'timestamp';
 
     /**
      * @param mixed $value
@@ -19,7 +19,7 @@ class TimestampType extends BaseType
             return $value->getMongoTimestamp();
         } elseif ($value instanceof MongoTimestamp) {
             return $value;
-        } elseif (null !== $value) {
+        } elseif (is_numeric($value)) {
             return new MongoTimestamp($value);
         } else {
             return null;
@@ -34,8 +34,6 @@ class TimestampType extends BaseType
     {
         if ($value instanceof MongoTimestamp) {
             return DateTimestamp::createFromMongoTimestamp($value);
-        } elseif (null !== $value) {
-            return (string) $value;
         } else {
             return null;
         }

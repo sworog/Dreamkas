@@ -7,7 +7,7 @@ use MongoDate;
 
 class DateTimeTZType extends BaseType
 {
-    const DATETIMETZ = 'datetime_tz';
+    const NAME = 'datetime_tz';
 
     /**
      * @param DateTime|null $value

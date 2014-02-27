@@ -15,9 +15,7 @@ class BaseTypeTest extends TestCase
 
     protected function setUp()
     {
-        if (!Type::hasType('base')) {
-            Type::addType('base', BaseType::getClassName());
-        }
+        Type::registerType('base', BaseType::getClassName());
         $this->type = Type::getType('base');
     }
 

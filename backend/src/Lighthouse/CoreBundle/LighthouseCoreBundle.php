@@ -26,10 +26,10 @@ class LighthouseCoreBundle extends Bundle
 
     protected function registerMongoTypes()
     {
-        Type::registerType(QuantityType::QUANTITY, QuantityType::getClassName());
-        Type::registerType(MoneyType::MONEY, MoneyType::getClassName());
-        Type::registerType(TimestampType::TIMESTAMP, TimestampType::getClassName());
-        Type::registerType(DateTimeTZType::DATETIMETZ, DateTimeTZType::getClassName());
+        Type::registerType(QuantityType::NAME, QuantityType::getClassName());
+        Type::registerType(MoneyType::NAME, MoneyType::getClassName());
+        Type::registerType(TimestampType::NAME, TimestampType::getClassName());
+        Type::registerType(DateTimeTZType::NAME, DateTimeTZType::getClassName());
     }
 
     protected function addStreamWrappers()

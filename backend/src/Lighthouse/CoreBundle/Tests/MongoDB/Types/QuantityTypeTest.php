@@ -16,8 +16,8 @@ class QuantityTypeTest extends TestCase
 
     protected function setUp()
     {
-        Type::registerType(QuantityType::QUANTITY, QuantityType::getClassName());
-        $this->type = Type::getType(QuantityType::QUANTITY);
+        Type::registerType(QuantityType::NAME, QuantityType::getClassName());
+        $this->type = Type::getType(QuantityType::NAME);
     }
 
     /**
@@ -27,7 +27,7 @@ class QuantityTypeTest extends TestCase
      */
     public function testConvertToPHP($value, $expected)
     {
-        $this->assertEquals($expected, $this->type->convertToPHP($value));
+        $this->assertEquals($expected, $this->type->convertToPHPValue($value));
     }
 
     /**
@@ -58,7 +58,7 @@ class QuantityTypeTest extends TestCase
      */
     public function testConvertToMongo($value, $expected)
     {
-        $this->assertEquals($expected, $this->type->convertToMongo($value));
+        $this->assertEquals($expected, $this->type->convertToDatabaseValue($value));
     }
 
     /**

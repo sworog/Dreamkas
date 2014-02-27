@@ -17,8 +17,8 @@ class DateTimeTZTypeTest extends TestCase
 
     protected function setUp()
     {
-        Type::registerType(DateTimeTZType::DATETIMETZ, DateTimeTZType::getClassName());
-        $this->type = Type::getType(DateTimeTZType::DATETIMETZ);
+        Type::registerType(DateTimeTZType::NAME, DateTimeTZType::getClassName());
+        $this->type = Type::getType(DateTimeTZType::NAME);
     }
 
     /**
