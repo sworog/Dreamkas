@@ -17,9 +17,9 @@ class TimestampType extends BaseType
     {
         if ($value instanceof DateTimestamp) {
             return $value->getMongoTimestamp();
-        } else if ($value instanceof MongoTimestamp) {
+        } elseif ($value instanceof MongoTimestamp) {
             return $value;
-        } else if (null !== $value) {
+        } elseif (null !== $value) {
             return new MongoTimestamp($value);
         } else {
             return null;
@@ -34,7 +34,7 @@ class TimestampType extends BaseType
     {
         if ($value instanceof MongoTimestamp) {
             return DateTimestamp::createFromMongoTimestamp($value);
-        } else if (null !== $value) {
+        } elseif (null !== $value) {
             return (string) $value;
         } else {
             return null;
