@@ -36,4 +36,16 @@ class BaseTypeTest extends TestCase
             $this->type->closureToMongo()
         );
     }
+
+    public function testConvertToPHPValue()
+    {
+        $value = new \stdClass();
+        $this->assertSame($value, $this->type->convertToPHPValue($value));
+    }
+
+    public function testConvertToDatabaseValue()
+    {
+        $value = new \stdClass();
+        $this->assertSame($value, $this->type->convertToDatabaseValue($value));
+    }
 }
