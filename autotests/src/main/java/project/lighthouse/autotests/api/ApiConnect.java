@@ -305,4 +305,9 @@ public class ApiConnect {
             return StaticData.suppliers.get(supplier.getName());
         }
     }
+
+    public String getSupplierPageUrl(String supplierName) throws JSONException {
+        String groupId = StaticData.suppliers.get(supplierName).getId();
+        return String.format("%s/suppliers/%s", UrlHelper.getWebFrontUrl(), groupId);
+    }
 }

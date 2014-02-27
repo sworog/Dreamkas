@@ -16,4 +16,14 @@ public class EndSupplierApiSteps {
     public void givenThereIsTheSupplierWithName(String name) throws IOException, JSONException {
         supplierApiSteps.createSupplier(name);
     }
+
+    @Given("the user navigates to supplier page with name '$supplierName'")
+    public void givenTheUserNavigatesToSupplierPageWithName(String supplierName) throws JSONException {
+        supplierApiSteps.navigateToSupplierPage(supplierName);
+    }
+
+    @Given("the user opens supplier page with random name")
+    public void givenTheUserOpensSupplierPageWithRandomName() throws IOException, JSONException {
+        supplierApiSteps.navigateToSupplierPageWithRandomName();
+    }
 }
