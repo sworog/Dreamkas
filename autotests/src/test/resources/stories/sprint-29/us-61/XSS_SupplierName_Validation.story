@@ -1,8 +1,11 @@
 Meta:
 @sprint_29
 @xss
+@supplier
 
-Scenario: XSS
+GivenStories: precondition/xxsPrecondition/aPreconditionToXSS.story
+
+Scenario: XSS supplier name validation
 
 Given the user opens supplier create page
 And the user logs in as 'commercialManager'
