@@ -1,5 +1,13 @@
 parameters:
     test.client.class: Lighthouse\CoreBundle\Test\Client\Client
+    openstack.selectel.auth_url: https://auth.selcdn.ru
+    openstack.selectel.secret.username: 18487
+    openstack.selectel.secret.password: 4hSmzgdljt
+    openstack.selectel.secret:
+        username: %openstack.selectel.secret.username%
+        password: %openstack.selectel.secret.password%
+    openstack.selectel.options: []
+    openstack.selectel.storage.container.name: lighthouse
 
 services:
     jms_serializer.serialized_name_annotation_strategy:
@@ -15,6 +23,25 @@ services:
         arguments: ["@doctrine_mongodb"]
         tags:
             - { name: request.param_converter, converter: doctrine.orm }
+
+    # openstack
+    openstack.selectel:
+        class: Lighthouse\CoreBundle\OpenStack\SelectelStorage
+        arguments:
+            - "%openstack.selectel.auth_url%"
+            - "%openstack.selectel.secret%"
+            - "%openstack.selectel.options%"
+
+    openstack.selectel.storage:
+        class: OpenCloud\ObjectStore\Service
+        factory_service: openstack.selectel
+        factory_method: objectStoreService
+
+    openstack.selectel.storage.container:
+        class: Lighthouse\CoreBundle\OpenStack\ObjectStore\Resource\Container
+        arguments:
+            - "@openstack.selectel.storage"
+            - "%openstack.selectel.storage.container.name%"
 
     doctrine:
         alias: doctrine_mongodb

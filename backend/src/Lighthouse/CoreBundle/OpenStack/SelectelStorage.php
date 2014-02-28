@@ -7,9 +7,14 @@ use OpenCloud\Common\Exceptions\CredentialError;
 use OpenCloud\Common\Service\Catalog;
 use OpenCloud\Common\Service\CatalogItem;
 use OpenCloud\Common\Service\Endpoint;
+use OpenCloud\Identity\Resource\Token;
 use OpenCloud\ObjectStore\Service as ObjectStoreService;
 use OpenCloud\OpenStack;
 
+/**
+ * @method Token getTokenObject
+ * @method Catalog getCatalog
+ */
 class SelectelStorage extends OpenStack
 {
     const DEFAULT_REGION = 'SPB';
@@ -47,7 +52,7 @@ class SelectelStorage extends OpenStack
 
         $catalog  = $this->createCatalog($storageUrl);
 
-        $this->exportCredentials(
+        $this->importCredentials(
             array(
                 'token'      => $token,
                 'expiration' => $expires,
@@ -74,14 +79,14 @@ class SelectelStorage extends OpenStack
      */
     protected function createStorageCatalogItem($storageUrl)
     {
-        $catalog = new CatalogItem();
-        $catalog->setName(self::DEFAULT_NAME);
-        $catalog->setType(ObjectStoreService::DEFAULT_TYPE);
-        $catalog->setEndpoints(array(
+        $catalogItem = new CatalogItem();
+        $catalogItem->setName(self::DEFAULT_NAME);
+        $catalogItem->setType(ObjectStoreService::DEFAULT_TYPE);
+        $catalogItem->setEndpoints(array(
             $this->createStorageEndPoint($storageUrl)
         ));
 
-        return $catalog;
+        return $catalogItem;
     }
 
     /**
@@ -90,9 +95,9 @@ class SelectelStorage extends OpenStack
      */
     protected function createStorageEndPoint($publicUrl)
     {
-        $endPoint = new Endpoint();
-        $endPoint->setPublicUrl($publicUrl);
-        $endPoint->setRegion(self::DEFAULT_REGION);
+        $endPoint = new \stdClass();
+        $endPoint->publicURL = $publicUrl;
+        $endPoint->region = self::DEFAULT_REGION;
 
         return $endPoint;
     }

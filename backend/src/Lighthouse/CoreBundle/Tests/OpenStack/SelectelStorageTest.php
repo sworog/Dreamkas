@@ -6,11 +6,14 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Message\EntityEnclosingRequestInterface;
 use Guzzle\Plugin\Mock\MockPlugin;
 use Lighthouse\CoreBundle\OpenStack\SelectelStorage;
+use Lighthouse\CoreBundle\OpenStack\ObjectStore\Resource\Container;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
+use OpenCloud\Common\Service\CatalogItem;
+use OpenCloud\ObjectStore\Service;
 
 class SelectelStorageTest extends ContainerAwareTestCase
 {
-    public function testAuthentication()
+    public function testAuthenticationRequest()
     {
         $user = 'user';
         $key = 'password';
@@ -37,6 +40,60 @@ class SelectelStorageTest extends ContainerAwareTestCase
         $this->assertEquals('user', $authRequest->getHeader('x-auth-user'));
         $this->assertTrue($authRequest->hasHeader('X-auth-key'));
         $this->assertEquals('password', $authRequest->getHeader('x-auth-key'));
+    }
+
+    public function testAuthenticationToken()
+    {
+        $client = new SelectelStorage(
+            'https://localhost',
+            array(
+                'username' => 'user',
+                'password' => 'password',
+            )
+        );
+        $this->mockRequests(
+            $client,
+            $this->getFixtureFilePath('OpenStack/auth.response.ok')
+        );
+
+        $client->authenticate();
+
+        $token = $client->getTokenObject();
+        $this->assertInstanceOf('OpenCloud\\Identity\\Resource\\Token', $token);
+        $this->assertEquals('285a05936fe0817beac78e84ad2c5f12', $token->getId());
+        $this->assertEquals('86029', $token->getExpires());
+    }
+
+    public function testAuthenticationCatalog()
+    {
+        $client = new SelectelStorage(
+            'https://localhost',
+            array(
+                'username' => 'user',
+                'password' => 'password',
+            )
+        );
+        $this->mockRequests(
+            $client,
+            $this->getFixtureFilePath('OpenStack/auth.response.ok')
+        );
+
+        $client->authenticate();
+
+        $catalog = $client->getCatalog();
+        $this->assertInstanceOf('OpenCloud\\Common\\Service\\Catalog', $catalog);
+        $items = $catalog->getItems();
+        $this->assertCount(1, $items);
+        /* @var CatalogItem $catalogItem */
+        $catalogItem = reset($items);
+        $this->assertInstanceOf('OpenCloud\\Common\\Service\\CatalogItem', $catalogItem);
+        $this->assertEquals(SelectelStorage::DEFAULT_NAME, $catalogItem->getName());
+        $this->assertEquals(Service::DEFAULT_TYPE, $catalogItem->getType());
+        $endPoint = $catalogItem->getEndpointFromRegion(SelectelStorage::DEFAULT_REGION);
+        $this->assertObjectHasAttribute('publicURL', $endPoint);
+        $this->assertEquals('https://xxx.selcdn.ru/', $endPoint->publicURL);
+        $this->assertObjectHasAttribute('region', $endPoint);
+        $this->assertEquals(SelectelStorage::DEFAULT_REGION, $endPoint->region);
     }
 
     /**
@@ -84,5 +141,16 @@ class SelectelStorageTest extends ContainerAwareTestCase
         }
         $client->addSubscriber($mockPlugin);
         return $mockPlugin;
+    }
+
+    /**
+     * @group Functional
+     */
+    public function testContainerDI()
+    {
+        /* @var Container $container */
+        $container = $this->getContainer()->get('openstack.selectel.storage.container');
+        $container->retrieveMetadata();
+        $this->assertEquals('cdn.lighthouse.pro', $container->getMetadata()->getProperty('domains'));
     }
 }
