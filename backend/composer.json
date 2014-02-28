@@ -67,6 +67,7 @@
         "phpmd/phpmd": "~1.4",
         "squizlabs/php_codesniffer": "~1.5",
         "pdepend/pdepend": "~1.1",
-        "munkie/phpunit-teamcity-testlistener": "dev-master"
+        "munkie/phpunit-teamcity-testlistener": "dev-master",
+        "guzzle/plugin": "~3.8"
     }
 }
