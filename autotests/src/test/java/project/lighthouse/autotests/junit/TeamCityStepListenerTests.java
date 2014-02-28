@@ -1,15 +1,88 @@
 package project.lighthouse.autotests.junit;
 
 import net.thucydides.core.model.TestOutcome;
+import net.thucydides.core.model.TestResult;
+import net.thucydides.core.model.TestStep;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.slf4j.Logger;
 import project.lighthouse.autotests.thucydides.TeamCityStepListener;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import static org.mockito.Mockito.*;
 
+/**
+ * Test class to test implemented team city thucydides step listener
+ */
 public class TeamCityStepListenerTests extends Assert {
+
+    @Test
+    public void testParametrisedWithExampleTableCausesNpeIfGivenStoriesExistInStory() {
+
+        TeamCityStepListener teamCityStepListener = new TeamCityStepListener();
+
+        teamCityStepListener.exampleStarted(new HashMap<String, String>() {{
+            put("value", "'';!--\"<XSS>=&{()}");
+        }});
+
+        TestOutcome testOutcome = getTestOutcome();
+
+        teamCityStepListener.testFinished(testOutcome);
+    }
+
+    private TestOutcome getTestOutcome() {
+
+        TestOutcome testOutcome = mock(TestOutcome.class);
+        when(testOutcome.isDataDriven()).thenReturn(true);
+        when(testOutcome.getPath()).thenReturn("stories/sprint-29/us-61/XSS_SupplierName_Validation.story");
+        when(testOutcome.getMethodName()).thenReturn("XSS supplier name validation");
+        when(testOutcome.getTestSteps()).thenReturn(new ArrayList<TestStep>() {{
+            add(0, new TestStep() {{
+                setNumber(1);
+                setDescription("A scenario that prepares data");
+                setResult(TestResult.SUCCESS);
+                addChildStep(new TestStep() {{
+                    setNumber(2);
+                    setDescription("Before scenario");
+                    setResult(TestResult.SUCCESS);
+                }});
+                addChildStep(new TestStep() {{
+                    setNumber(3);
+                    setDescription("Given the user runs the symfony:env:init command");
+                    setResult(TestResult.SUCCESS);
+                    addChildStep(new TestStep() {{
+                        setNumber(4);
+                        setDescription("Run cap auto test symfony env init command");
+                        setResult(TestResult.SUCCESS);
+                    }});
+                }});
+            }});
+            add(1, new TestStep() {{
+                setNumber(5);
+                setDescription("Before scenario");
+                setResult(TestResult.SUCCESS);
+            }});
+            add(2, new TestStep() {{
+                setNumber(6);
+                setDescription("[1] {value='';!--\"<XSS>=&{()}}");
+                addChildStep(new TestStep() {{
+                    setNumber(7);
+                    setDescription("Before scenario");
+                    setResult(TestResult.SUCCESS);
+                }});
+                addChildStep(new TestStep() {{
+                    setNumber(8);
+                    setDescription("Given the user opens supplier create page [Open supplier create page]");
+                    setResult(TestResult.SUCCESS);
+                }});
+
+            }});
+        }});
+        return testOutcome;
+    }
 
     @Test
     public void testEscapingProperty() {
@@ -19,7 +92,7 @@ public class TeamCityStepListenerTests extends Assert {
         Logger logger = mock(Logger.class);
         TeamCityStepListener teamCityStepListener = new TeamCityStepListener(logger);
 
-        TestOutcome testOutcome = getTestOutCome();
+        TestOutcome testOutcome = getTestOutComeForEscapingPropertyTest();
         teamCityStepListener.testFinished(testOutcome);
 
         ArgumentCaptor<String> outPutCaptor = ArgumentCaptor.forClass(String.class);
@@ -27,7 +100,7 @@ public class TeamCityStepListenerTests extends Assert {
         assertEquals(expectedMessage, outPutCaptor.getAllValues().get(1));
     }
 
-    private TestOutcome getTestOutCome() {
+    private TestOutcome getTestOutComeForEscapingPropertyTest() {
         TestOutcome testOutcome = mock(TestOutcome.class);
         when(testOutcome.getPath()).thenReturn("stories/sprint-29/us-60/60_Simple_Supplier_Create.story");
         when(testOutcome.getMethodName()).thenReturn("test");
