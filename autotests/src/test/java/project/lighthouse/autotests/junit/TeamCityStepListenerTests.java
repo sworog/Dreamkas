@@ -22,7 +22,9 @@ public class TeamCityStepListenerTests extends Assert {
     @Test
     public void testParametrisedWithExampleTableCausesNpeIfGivenStoriesExistInStory() {
 
-        TeamCityStepListener teamCityStepListener = new TeamCityStepListener();
+        Logger logger = mock(Logger.class);
+
+        TeamCityStepListener teamCityStepListener = new TeamCityStepListener(logger);
 
         teamCityStepListener.exampleStarted(new HashMap<String, String>() {{
             put("value", "'';!--\"<XSS>=&{()}");
@@ -31,6 +33,15 @@ public class TeamCityStepListenerTests extends Assert {
         TestOutcome testOutcome = getTestOutcome();
 
         teamCityStepListener.testFinished(testOutcome);
+
+        String testStartedExpectedMessage = "##teamcity[testStarted  name='sprint-29.us-61.XSS_SupplierName_Validation.XSS supplier name validation.{value=|'|';!--\"<XSS>=&{()}}']";
+        String testFinishedExpectedMessage = "##teamcity[testFinished  duration='0' name='sprint-29.us-61.XSS_SupplierName_Validation.XSS supplier name validation.{value=|'|';!--\"<XSS>=&{()}}']";
+
+        ArgumentCaptor<String> stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
+        verify(logger, times(2)).info(stringArgumentCaptor.capture());
+        assertEquals(testStartedExpectedMessage, stringArgumentCaptor.getAllValues().get(0));
+        assertEquals(testFinishedExpectedMessage, stringArgumentCaptor.getAllValues().get(1));
+
     }
 
     private TestOutcome getTestOutcome() {

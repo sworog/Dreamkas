@@ -160,7 +160,7 @@ public class TeamCityStepListener implements StepListener {
     }
 
     private boolean isExample(TestStep testStep) {
-        return testStep.getChildren().isEmpty() && testStep.getDescription().startsWith("[");
+        return !testStep.getChildren().isEmpty() && testStep.getDescription().startsWith("[");
     }
 
     private String getStepsInfo(List<TestStep> testSteps) {
