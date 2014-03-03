@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Test;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Lighthouse\CoreBundle\Document\File\File;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Receipt\ReceiptRepository;
@@ -564,5 +565,22 @@ class Factory
         $this->dm->persist($supplier);
 
         return $supplier;
+    }
+
+    /**
+     * @param string $name
+     * @param string $url
+     * @param int $size
+     * @return File
+     */
+    public function createFile($name = 'default.txt', $url = 'http://cdn.lighthouse.pro/123', $size = 123)
+    {
+        $file = new File();
+        $file->name = $name;
+        $file->url = $url;
+        $file->size = $size;
+        $this->dm->persist($file);
+
+        return $file;
     }
 }
