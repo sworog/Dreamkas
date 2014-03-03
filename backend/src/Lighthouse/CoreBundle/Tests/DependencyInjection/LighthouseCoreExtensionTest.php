@@ -16,42 +16,34 @@ class LighthouseCoreExtensionTest extends TestCase
             array('setParameter')
         );
 
-        $containerMock
-            ->expects($this->at(0))
-            ->method('setParameter')
-            ->with($this->equalTo('test.client.class'));
+        $capturedArguments = array();
+        $capture = function ($argument) use (&$capturedArguments) {
+            $capturedArguments[] = $argument;
+        };
 
         $containerMock
-            ->expects($this->at(1))
+            ->expects($this->any())
             ->method('setParameter')
-            ->with($this->equalTo('lighthouse.core.job.tube.prefix'));
-
-        $containerMock
-            ->expects($this->at(2))
-            ->method('setParameter')
-            ->with($this->equalTo('lighthouse.core.job.worker.max_runtime'));
-
-        $containerMock
-            ->expects($this->at(3))
-            ->method('setParameter')
-            ->with($this->equalTo('lighthouse.core.job.worker.reserve_timeout'));
-
-        $containerMock
-            ->expects($this->at(4))
-            ->method('setParameter')
-            ->with($this->equalTo('lighthouse.core.precision.money'));
-
-        $containerMock
-            ->expects($this->at(5))
-            ->method('setParameter')
-            ->with($this->equalTo('lighthouse.core.precision.quantity'));
-
-        $containerMock
-            ->expects($this->at(6))
-            ->method('setParameter')
-            ->with($this->equalTo('lighthouse.core.rounding.default'));
+            ->will($this->returnCallback($capture));
 
         $extension = new LighthouseCoreExtension();
         $extension->load(array(), $containerMock);
+
+        $expectedValues = array(
+            'test.client.class',
+            'lighthouse.core.job.tube.prefix',
+            'lighthouse.core.job.worker.max_runtime',
+            'lighthouse.core.job.worker.reserve_timeout',
+            'lighthouse.core.precision.money',
+            'lighthouse.core.precision.quantity',
+            'lighthouse.core.rounding.default',
+            'openstack.selectel.auth_url',
+            'openstack.selectel.secret.username',
+            'openstack.selectel.secret.password',
+            'openstack.selectel.secret',
+            'openstack.selectel.options',
+            'openstack.selectel.storage.container.name',
+        );
+        $this->assertEquals($capturedArguments, $expectedValues, '', 0, 10, true);
     }
 }
