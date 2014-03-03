@@ -7,7 +7,8 @@ define(function(require, exports, module) {
         urlRoot: LH.baseApiUrl + '/suppliers',
         name: null,
         saveData: [
-            'name'
+            'name',
+            'agreement'
         ]
     });
 });
