@@ -7,6 +7,11 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use MongoId;
 
 /**
+ * @property string $id
+ * @property string $url
+ * @property string $name
+ * @property int $size
+ *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\File\FileRepository"
  * )
