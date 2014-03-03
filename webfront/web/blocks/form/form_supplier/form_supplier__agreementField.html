@@ -10,22 +10,23 @@
 } %>
 
 <div class="form__field form_supplier__fileField">
-    <input name="agreement" type="hidden" value="<%- agreement.id || '' %>"/>
     <label class="form__label">Файл договора</label>
+    <input name="agreement" type="hidden" value="<%- agreement.id || '' %>"/>
     <% if(agreement.id) { %>
-    <p>
-        <% if (successMessage) {%>
+    <div class="form_supplier__fileBox">
+        <p>
+            <% if (successMessage) {%>
             <span style="float: right" class="form__successMessage">Файл успешно загружен</span>
-        <% } %>
-        <a name="agreementLink" data-navigate="false" href="<%- agreement.url %>"><%- agreement.name %></a>
-    </p>
+            <% } %>
+            <a name="agreementLink" data-navigate="false" href="<%- agreement.url %>"><%- agreement.name %></a>
+        </p>
     <span class="button">
         Заменить
         <input name="file" type="file"/>
     </span>
-    <span style="vertical-align: middle; margin-right: 10px;">или</span>
-    <a href="#" class="form_supplier__removeFile" style="vertical-align: middle;">удалить</a>
-
+        <span style="vertical-align: middle; margin-right: 10px;">или</span>
+        <a href="#" class="form_supplier__removeFile" style="vertical-align: middle;">удалить</a>
+    </div>
     <% } else { %>
     <span class="button">
         Загрузить
