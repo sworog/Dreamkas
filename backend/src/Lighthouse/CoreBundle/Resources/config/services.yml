@@ -170,3 +170,8 @@ services:
         parent: doctrine_mongodb.odm.repository
         arguments:
             - LighthouseCoreBundle:Supplier\Supplier
+
+    lighthouse.core.document.repository.file:
+        parent: doctrine_mongodb.odm.repository
+        arguments:
+            - LighthouseCoreBundle:File\File

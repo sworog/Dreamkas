@@ -77,3 +77,7 @@ lighthouse.core.integration:
 lighthouse.core.supplier:
     resource: Lighthouse\CoreBundle\Controller\SupplierController
     type:     rest
+
+lighthouse.core.file:
+    resource: Lighthouse\CoreBundle\Controller\FileController
+    type:     rest
