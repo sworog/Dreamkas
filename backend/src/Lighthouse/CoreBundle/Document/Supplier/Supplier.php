@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document\Supplier;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Lighthouse\CoreBundle\Document\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -31,4 +32,13 @@ class Supplier extends AbstractDocument
      * @var string
      */
     protected $name;
+
+    /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\File\File",
+     *     simple=true
+     * )
+     * @var File
+     */
+    protected $agreement;
 }
