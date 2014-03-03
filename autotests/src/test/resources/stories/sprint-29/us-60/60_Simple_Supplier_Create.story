@@ -64,6 +64,8 @@ Scenario: Check maximum positive supplier field range
 Meta:
 @id_s29u60s4
 
+Given the user runs the symfony:env:init command
+
 Given the user opens supplier create page
 And the user logs in as 'commercialManager'
 
@@ -141,7 +143,7 @@ When the user clicks the menu suppliers item
 
 Then the user asserts the create supplier link on supplier page menu navigation is not visible
 
-Scenario: The create supplier link on supplier page menu navigation is not visible for administrator
+Scenario: The navigation bar suppliers link is not visible for administrator
 
 Meta:
 @id_s29u60s9
@@ -149,9 +151,7 @@ Meta:
 Given the user opens the authorization page
 And the user logs in as 'watchman'
 
-When the user clicks the menu suppliers item
-
-Then the user asserts the create supplier link on supplier page menu navigation is not visible
+Then the user checks the suppliers navigation menu item is not visible
 
 Scenario: The create supplier link on supplier page menu navigation is not visible for storeManager
 

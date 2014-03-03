@@ -30,4 +30,14 @@ public class MenuNavigationSteps extends ScenarioSteps {
         new BodyPreLoader(getDriver()).await();
         menuNavigation.suppliersMenuItemClick();
     }
+
+    @Step
+    public void supplierMenuItemIsNotVisible() {
+        try {
+            new BodyPreLoader(getDriver()).await();
+            menuNavigation.suppliersMenuItemClick();
+            Assert.fail("The menu bar navigation suppliers item link is visible!");
+        } catch (Exception ignored) {
+        }
+    }
 }

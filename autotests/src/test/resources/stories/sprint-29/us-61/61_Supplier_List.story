@@ -15,6 +15,7 @@ Meta:
 @smoke
 
 Given the user opens supplier create page
+And there is the supplier with name 'supplier-s29u61s0'
 And the user logs in as 'commercialManager'
 
 When the user inputs values on supplier page
@@ -37,7 +38,7 @@ When the user inputs values on supplier page
 | supplierName | supplier-s29u61s1-1 |
 When the user clicks on the supplier cancel button
 
-Then the user checks the supplier list not contains element with value '$value'
+Then the user checks the supplier list not contains element with value 'supplier-s29u61s1-1'
 
 Scenario: Check the text if there is no suppliers data
 
