@@ -1,0 +1,13 @@
+HTTP/1.1 204 No Content
+X-Expire-Auth-Token: 86029
+X-Storage-Url: https://xxx.selcdn.ru/
+X-Auth-Token: 285a05936fe0817beac78e84ad2c5f1HTTP/1.1 201 Created
+Date: Mon, 03 Mar 2014 16:16:53 GMT
+Server: Selectel_Storage/1.0
+last-modified: Mon, 03 Mar 2014 16:16:53 GMT
+content-length: 0
+etag: f2273949854794963af56041d69f0cb3
+content-type: text/html; charset=UTF-8
+Access-Control-Allow-Origin: *
+Access-Control-Expose-Headers: last-modified, etag
+

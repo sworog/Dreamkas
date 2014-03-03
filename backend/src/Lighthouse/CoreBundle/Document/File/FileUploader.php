@@ -24,6 +24,11 @@ class FileUploader
     protected $fileNameHeaderName = 'x-file-name';
 
     /**
+     * @var resource
+     */
+    protected $fileResource;
+
+    /**
      * @DI\InjectParams({
      *      "storageContainer" = @DI\Inject("openstack.selectel.storage.container")
      * })
@@ -38,9 +43,20 @@ class FileUploader
      * @param Request $request
      * @return mixed
      */
-    protected function getFileResource(Request $request)
+    public function getFileResource(Request $request)
     {
-        return $request->getContent(true);
+        if (!$this->fileResource) {
+            $this->setFileResource($request->getContent(true));
+        }
+        return $this->fileResource;
+    }
+
+    /**
+     * @param $fileResource
+     */
+    public function setFileResource($fileResource)
+    {
+        $this->fileResource = $fileResource;
     }
 
     /**
