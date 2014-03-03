@@ -48,8 +48,8 @@ class FileController extends FOSRestController
         );
         //$headers = Container::stockHeaders($meta);
         $dataObject = $this->storageContainer->uploadObject($file->id, $fileResource, $headers);
+        $dataObject->retrieveMetadata();
 
-        $dataObject->refresh();
         $file->name = $fileName;
         $file->url = (string) $dataObject->getUrl();
         $file->size = $dataObject->getContentLength();
