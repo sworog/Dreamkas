@@ -2,11 +2,12 @@ package project.lighthouse.autotests.elements.Buttons;
 
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.elements.Buttons.interfaces.Disableable;
 
 /**
  * Facade to handle buttons interactions
  */
-public class ButtonFacade {
+public class ButtonFacade implements Disableable {
 
     private String xpath = "//*[@class='button']";
     private String browserName;
@@ -43,5 +44,11 @@ public class ButtonFacade {
         } else {
             pageObject.getCommonActions().catalogElementClick(By.xpath(xpath));
         }
+    }
+
+    @Override
+    public Boolean isDisable() {
+        // TODO implement
+        return null;
     }
 }
