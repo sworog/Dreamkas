@@ -1,0 +1,33 @@
+<%
+/**
+ *
+ * @agreement
+ */
+%>
+<% var agreement = agreement || {
+    id: null,
+    fileName: null
+} %>
+
+<div class="form__field form_supplier__fileField">
+    <input name="agreement" type="hidden" value="<%- agreement.id || '' %>"/>
+    <label class="form__label">Файл договора</label>
+    <% if(agreement.id) { %>
+    <p>
+        <a href="<%- agreement.url %>"><%- agreement.name %></a>
+    </p>
+    <span class="button">
+        Заменить
+        <input name="file" type="file"/>
+    </span>
+    <span style="vertical-align: middle; margin-right: 10px;">или</span>
+    <a href="#" class="form_supplier__removeFile" style="vertical-align: middle;">удалить</a>
+
+    <% } else { %>
+    <span class="button">
+        Загрузить
+        <input name="file" type="file"/>
+    </span>
+    <% } %>
+
+</div>
