@@ -12,7 +12,8 @@ class SupplierControllerTest extends WebTestCase
     {
         $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $postData = array(
-            'name' => 'ООО "ЕвроАрт"'
+            'name' => 'ООО "ЕвроАрт"',
+            'agreement' => null,
         );
         $postResponse = $this->clientJsonRequest(
             $accessToken,

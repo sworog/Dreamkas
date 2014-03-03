@@ -63,7 +63,9 @@ class DocumentToIdTransformer implements DataTransformerInterface
      */
     public function reverseTransform($value)
     {
-        if ($this->repository instanceof VersionRepository) {
+        if (null === $value || '' === $value) {
+            return null;
+        } elseif ($this->repository instanceof VersionRepository) {
             $document = $this->repository->findOrCreateByDocumentId($value);
         } else {
             $document = $this->repository->find($value);
