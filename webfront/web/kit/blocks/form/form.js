@@ -3,7 +3,8 @@ define(function(require) {
     var Block = require('../../core/block'),
         setter = require('../../utils/setter'),
         form2js = require('../../libs/form2js'),
-        translate = require('../../utils/translate');
+        translate = require('../../utils/translate'),
+        FileModel = require('models/file');
 
     require('lodash');
     require('backbone');
@@ -15,33 +16,63 @@ define(function(require) {
         dictionary: require('i18n!./nls/errors'),
         className: 'form',
         tagName: 'form',
-        model: function(){
+        model: function() {
             return new Backbone.Model;
         },
         collection: null,
         redirectUrl: null,
-        initialize: function(){
+        initialize: function() {
             var block = this;
 
             Block.prototype.initialize.apply(block, arguments);
 
-            if (!block.__model){
+            if (!block.__model) {
                 block.__model = block.model;
             }
 
             block.model = block.get('__model');
 
-            if (!block.__collection){
+            if (!block.__collection) {
                 block.__collection = block.collection;
             }
 
             block.collection = block.get('__collection');
         },
         events: {
-            'change :input': function() {
+            'change input, checkbox, textarea': function() {
                 var block = this;
 
                 block.removeSuccessMessage();
+            },
+            'change [type="file"]': function(e) {
+                var block = this,
+                    reader = new FileReader(),
+                    file = e.target.files[0],
+                    button = e.target.parentElement,
+                    agreementInput = button.querySelector('[name="agreement"]'),
+                    fileModel = new FileModel();
+
+                button.classList.add('preloader_rows');
+                block.disable(true);
+
+                reader.onload = function(evt) {
+                    fileModel.save({
+                        file: evt.target.result
+                    }, {
+                        success: function() {
+                            agreementInput.value = fileModel.id;
+                            button.classList.remove('preloader_rows');
+                            block.disable(false);
+                        },
+                        error: function(error) {
+                            agreementInput.value = '';
+                            button.classList.remove('preloader_rows');
+                            block.disable(false);
+                        }
+                    });
+                };
+
+                reader.readAsBinaryString(file);
             },
             submit: function(e) {
                 e.preventDefault();

@@ -5,6 +5,14 @@
         <label class="form__label">Юридическое лицо</label>
         <input value="<%- model.get('name') %>" name="name" type="text" class="inputText" />
     </div>
+    <div class="form__field">
+        <label class="form__label">Файл договора</label>
+        <span class="button">
+            Загрузить
+            <input name="file" type="file" />
+            <input name="agreement" type="hidden" />
+        </span>
+    </div>
     <div class="form__controls">
         <button type="submit" class="button">
             Сохранить
