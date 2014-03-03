@@ -47,7 +47,7 @@ class FileController extends FOSRestController
             'Content-Disposition' => 'attachment; filename="'. $fileName . '"'
         );
         //$headers = Container::stockHeaders($meta);
-        $dataObject = $this->storageContainer->uploadObject((string) $file->id, $fileResource, $headers);
+        $dataObject = $this->storageContainer->uploadObject($file->id, $fileResource, $headers);
 
         $dataObject->refresh();
         $file->name = $fileName;

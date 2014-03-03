@@ -16,4 +16,13 @@ class Container extends BaseContainer
         $metadata = (null === $metadata) ? $this->metadata->toArray() : $metadata;
         return parent::saveMetadata($metadata, $stockPrefix);
     }
+
+    /**
+     * @param null $info
+     * @return DataObject
+     */
+    public function dataObject($info = null)
+    {
+        return new DataObject($this, $info);
+    }
 }

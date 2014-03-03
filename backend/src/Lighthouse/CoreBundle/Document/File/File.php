@@ -39,6 +39,6 @@ class File extends AbstractDocument
 
     public function __construct()
     {
-        $this->id = new MongoId();
+        $this->id = (string) new MongoId();
     }
 }
