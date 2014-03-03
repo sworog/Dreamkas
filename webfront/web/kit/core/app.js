@@ -9,13 +9,16 @@ define(function(require) {
 
     var router = new Backbone.Router();
 
-    $(document).on('click', '[href]', function(e){
-        e.preventDefault();
+    $(document).on('click', '[href]', function(e) {
         var $target = $(e.currentTarget);
 
-        router.navigate($target.attr('href'), {
-            trigger: true
-        });
+        if ($target.data('navigate') !== false) {
+            e.preventDefault();
+
+            router.navigate($target.attr('href'), {
+                trigger: true
+            });
+        }
     });
 
     return _.extend({
