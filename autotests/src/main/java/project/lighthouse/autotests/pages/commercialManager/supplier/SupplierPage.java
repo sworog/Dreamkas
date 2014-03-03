@@ -6,6 +6,7 @@ import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Buttons.LinkFacade;
 import project.lighthouse.autotests.elements.Input;
+import project.lighthouse.autotests.pageElements.supplier.UploadForm;
 
 /**
  * Page object representing supplier create/edit page
@@ -13,8 +14,15 @@ import project.lighthouse.autotests.elements.Input;
 @DefaultUrl("/suppliers/create")
 public class SupplierPage extends CommonPageObject {
 
+
+    private UploadForm uploadForm;
+
     public SupplierPage(WebDriver driver) {
         super(driver);
+    }
+
+    public UploadForm getUploadForm() {
+        return uploadForm;
     }
 
     @Override
@@ -22,11 +30,11 @@ public class SupplierPage extends CommonPageObject {
         items.put("supplierName", new Input(this, "name", "Юридическое лицо"));
     }
 
-    public void createButtonClick() {
-        new ButtonFacade(this, "Сохранить").click();
+    public ButtonFacade getCreateButtonFacade() {
+        return new ButtonFacade(this, "Сохранить");
     }
 
-    public void cancelButtonClick() {
-        new LinkFacade(this, "Отменить").click();
+    public LinkFacade getCancelButtonLinkFacade() {
+        return new LinkFacade(this, "Отменить");
     }
 }

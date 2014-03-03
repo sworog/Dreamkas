@@ -3,9 +3,13 @@ package project.lighthouse.autotests.steps.commercialManager.supplier;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import org.junit.Assert;
+import project.lighthouse.autotests.helper.FileCreator;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.pages.commercialManager.supplier.SupplierListPage;
 import project.lighthouse.autotests.pages.commercialManager.supplier.SupplierPage;
+
+import java.io.File;
 
 public class SupplierSteps extends ScenarioSteps {
 
@@ -36,12 +40,12 @@ public class SupplierSteps extends ScenarioSteps {
 
     @Step
     public void createButtonClick() {
-        supplierPage.createButtonClick();
+        supplierPage.getCreateButtonFacade().click();
     }
 
     @Step
     public void cancelButtonClick() {
-        supplierPage.cancelButtonClick();
+        supplierPage.getCancelButtonLinkFacade().click();
     }
 
     @Step
@@ -79,5 +83,40 @@ public class SupplierSteps extends ScenarioSteps {
     @Step
     public void supplierObjectCollectionContainsStoredValue() {
         supplierListPage.getSupplierObjectCollection().contains(supplierName);
+    }
+
+    @Step
+    public void uploadFileButtonClick() {
+        supplierPage.getUploadForm().uploadButtonClick();
+    }
+
+    @Step
+    public void replaceFileButtonClick() {
+        supplierPage.getUploadForm().replaceFileButtonClick();
+    }
+
+    @Step
+    public void uploadFile(String fileName, int size) {
+        File file = new FileCreator(fileName, size).create();
+        supplierPage.getUploadForm().uploadFile(file);
+    }
+
+    @Step
+    public void assertCreateButtonIsDisabled() {
+        if (!supplierPage.getCreateButtonFacade().isDisable()) {
+            Assert.fail("The supplier create button is not disabled");
+        }
+    }
+
+    @Step
+    public void assertCancelButtonIsDisabled() {
+        if (!supplierPage.getCancelButtonLinkFacade().isDisable()) {
+            Assert.fail("The supplier cancel button is not disabled");
+        }
+    }
+
+    @Step
+    public void waitForUploadComplete() {
+        supplierPage.getUploadForm().waitForUploadComplete();
     }
 }

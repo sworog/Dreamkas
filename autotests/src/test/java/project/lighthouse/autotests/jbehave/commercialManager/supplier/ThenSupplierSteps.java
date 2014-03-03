@@ -35,4 +35,29 @@ public class ThenSupplierSteps {
     public void thenTheUserChecksTheSupplierListContainsStoredElement() {
         supplierSteps.supplierObjectCollectionContainsStoredValue();
     }
+
+    @Then("the user checks the upload agreement file buttton is clickable")
+    public void thenTheUserChecksTheUploadAgreementFileButtonIsClickable() {
+        supplierSteps.uploadFileButtonClick();
+    }
+
+    @Then("the user checks the replace agreement file buttton is clickable")
+    public void thenTheUserChecksTheReplaceAgreementFileButtonIsClickable() {
+        supplierSteps.replaceFileButtonClick();
+    }
+
+    @Then("the user checks the supplier create button is disabled")
+    public void thenTheUserChecksTheSupplierCreateButtonIsDisabled() {
+        supplierSteps.assertCreateButtonIsDisabled();
+    }
+
+    @Then("the user checks the supplier cancel button is disabled")
+    public void thenTheUserChecksTheSupplierCancelButtonIsDisabled() {
+        supplierSteps.assertCancelButtonIsDisabled();
+    }
+
+    @Then("the user waits for upload complete")
+    public void thenTheUserWaitsForUploadComplete() {
+        supplierSteps.waitForUploadComplete();
+    }
 }
