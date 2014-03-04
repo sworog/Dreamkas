@@ -49,6 +49,6 @@ public class UploadForm extends CommonPageObject {
     }
 
     public void waitForUploadComplete() {
-        new PreLoader(getDriver(), 60).await();
+        new PreLoader(getDriver(), 15).await();
     }
 }
