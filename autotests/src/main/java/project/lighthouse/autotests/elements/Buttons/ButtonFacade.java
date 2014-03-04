@@ -11,6 +11,8 @@ public class ButtonFacade implements Disableable {
 
     private String xpath = "//*[@class='button']";
     private String browserName;
+    private String buttonTextName;
+    private By findBy;
 
     private static final String BUTTON_XPATH_PATTERN = "//*[contains(@class, 'button') and normalize-space(text())='%s']";
 
@@ -23,7 +25,14 @@ public class ButtonFacade implements Disableable {
 
     public ButtonFacade(CommonPageObject pageObject, String buttonTextName) {
         this(pageObject);
+        this.buttonTextName = buttonTextName;
         this.xpath = getButtonXpath(buttonTextName);
+        setFindBy();
+    }
+
+    private void setFindBy() {
+        this.findBy = By.xpath(
+                getButtonXpath(buttonTextName));
     }
 
     private String getButtonXpath(String buttonTextName) {
@@ -48,7 +57,10 @@ public class ButtonFacade implements Disableable {
 
     @Override
     public Boolean isDisable() {
-        // TODO implement
-        return null;
+        return null != pageObject.findElement(findBy).getAttribute("disabled");
+    }
+
+    public By getFindBy() {
+        return findBy;
     }
 }
