@@ -10,13 +10,13 @@ import java.io.RandomAccessFile;
 public class FileCreator {
 
     private String fileName;
-    private int megaByteSize;
+    private int size;
 
     private static final String PATH = System.getProperty("user.dir") + "/upload/";
 
-    public FileCreator(String fileName, int mBSize) {
+    public FileCreator(String fileName, int size) {
         this.fileName = fileName;
-        this.megaByteSize = mBSize * 1024;
+        this.size = size * 1024;
     }
 
     private File createNewFile() throws IOException {
@@ -30,7 +30,7 @@ public class FileCreator {
         try {
             file = createNewFile();
             randomAccessFile = new RandomAccessFile(file, "rw");
-            randomAccessFile.setLength(megaByteSize);
+            randomAccessFile.setLength(size);
             randomAccessFile.close();
             return file;
         } catch (IOException e) {
