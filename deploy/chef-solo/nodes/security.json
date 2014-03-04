@@ -23,7 +23,11 @@
             "rhosts_r_s_a_authentication": "no",
             "host_based_authentication": "no",
             "permit_empty_passwords": "no",
-            "password_authentication": "no"
+            "password_authentication": "no",
+            "print_motd": "no",
+            "print_lastlog": "yes",
+            "use_dns": "no",
+            "use_p_a_m": "yes"
         }
     },
 
