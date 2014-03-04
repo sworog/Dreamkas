@@ -3,14 +3,14 @@ define(function(require) {
     var app = require('kit/core/app'),
         Block = require('kit/core/block'),
         currentUserModel = require('models/currentUser'),
-        cookie = require('kit/libs/cookie'),
+        cookie = require('cookies'),
         numeral = require('libs/numeral'),
         moment = require('moment');
 
     require('jquery');
     require('lodash');
     require('backbone');
-    require('kit/libs/moment/ru');
+    require('bower_components/momentjs/lang/ru');
 
     app.locale = 'root';
 

@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Form = require('kit/blocks/form/form'),
         SupplierModel = require('models/supplier'),
-        cookie = require('kit/libs/cookie');
+        cookie = require('cookies');
 
     var templates = {
         form_supplier__agreementField: require('tpl!./form_supplier__agreementField.html')

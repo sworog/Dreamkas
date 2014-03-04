@@ -3,15 +3,17 @@ require.config({
     paths: {
 
         //deprecated libs
-        'backbone.syphon': 'libs/backbone/backbone.syphon',
+        'backbone.syphon': 'libs/backbone.syphon',
         'jquery.ui': 'libs/jquery-ui/ui/minified/jquery-ui.min',
-        'backbone.queryparams': 'kit/libs/backbone/backbone.queryparams',
-        'jquery.require': 'kit/libs/jquery/jquery.require',
-        'jquery.maskedinput': 'kit/libs/jquery/jquery.maskedinput',
+        'backbone.queryparams': 'libs/backbone.queryparams',
+        'jquery.require': 'libs/jquery.require',
+        'jquery.maskedinput': 'libs/jquery.maskedinput',
 
         //libs
         'backbone': 'bower_components/backbone/backbone',
         'moment': 'bower_components/momentjs/moment',
+        'cookies': 'bower_components/cookies-js/src/cookies',
+        'form2js': 'bower_components/form2js/src/form2js',
         'numeral': 'bower_components/numeral/numeral',
         'sortable': 'bower_components/sortable/js/sortable',
         'uri': 'bower_components/uri.js/src',

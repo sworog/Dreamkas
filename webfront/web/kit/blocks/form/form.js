@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Block = require('../../core/block'),
         setter = require('../../utils/setter'),
-        form2js = require('../../libs/form2js'),
+        form2js = require('form2js'),
         translate = require('../../utils/translate');
 
     require('lodash');
