@@ -62,6 +62,10 @@
     height: auto;
 }
 
+.button[disabled] input[type=file]{
+    display: none;
+}
+
 .button .icon {
     top: -2px;
     left: -7px;
@@ -73,9 +77,11 @@
     cursor: default;
 }
 
-.button_disabled{
+.button_disabled, .button[disabled]{
     opacity: 0.5;
     cursor: default;
+    border-color: #555;
+    color: #555;
 }
 
 .button_disabled [type="submit"]{

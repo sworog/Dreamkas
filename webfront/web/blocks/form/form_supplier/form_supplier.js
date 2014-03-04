@@ -64,6 +64,17 @@ define(function(require, exports, module) {
                 agreement: agreement,
                 successMessage: true
             }));
+        },
+        disable: function(disabled){
+            var block = this;
+
+            Form.prototype.disable.apply(block, arguments);
+
+            if (disabled) {
+                $(block.el).find('[type="file"]').closest('.button').attr('disabled', true);
+            } else {
+                $(block.el).find('[type="file"]').closest('.button').removeAttr('disabled');
+            }
         }
     });
 });

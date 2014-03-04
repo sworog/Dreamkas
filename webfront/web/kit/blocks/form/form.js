@@ -141,7 +141,7 @@ define(function(require) {
             }
 
             if (errors.error) {
-                block.$controls.attr('data-error', block.translate(errors.error));
+                block.$controls.attr('data-error', typeof errors.error === 'string' ? block.translate(errors.error) : 'неизвестная ошибка');
             }
 
             if (errors.description) {
@@ -169,9 +169,9 @@ define(function(require) {
         disable: function(disabled) {
             var block = this;
             if (disabled) {
-                block.$el.find('[type=submit]').closest('.button').addClass('button_disabled');
+                block.$el.find('[type=submit]').closest('.button').attr('disabled', true);
             } else {
-                block.$el.find('[type=submit]').closest('.button').removeClass('button_disabled');
+                block.$el.find('[type=submit]').closest('.button').removeAttr('disabled');
             }
         },
         clear: function() {
