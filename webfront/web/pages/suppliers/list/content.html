@@ -19,6 +19,13 @@
                 <td name="supplierName">
                     <%- supplierModel.get('name') %>
                 </td>
+                <td style="text-align: right">
+                    <% if (supplierModel.get('agreement')){ %>
+                        <a data-navigate="false" class="button" href="<%- supplierModel.get('agreement.url')%>">
+                            Скачать договор
+                        </a>
+                    <% } %>
+                </td>
             </tr>
         <% }) %>
     </table>

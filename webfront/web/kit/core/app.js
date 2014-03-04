@@ -10,6 +10,8 @@ define(function(require) {
     var router = new Backbone.Router();
 
     $(document).on('click', '[href]', function(e) {
+        e.stopPropagation();
+
         var $target = $(e.currentTarget);
 
         if ($target.data('navigate') !== false) {
