@@ -5,6 +5,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.apache.commons.io.FileUtils;
 import org.jbehave.core.model.ExamplesTable;
 import org.junit.Assert;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.helper.FileCreator;
 import project.lighthouse.autotests.helper.FilesCompare;
@@ -115,14 +116,21 @@ public class SupplierSteps extends ScenarioSteps {
 
     @Step
     public void assertCreateButtonIsDisabled() {
-        if (!supplierPage.getCreateButtonFacade().isDisable()) {
+        if (!supplierPage.getCreateButtonFacade().isDisabled()) {
             Assert.fail("The supplier create button is not disabled");
         }
     }
 
     @Step
-    public void assertCancelButtonIsDisabled() {
-        if (!supplierPage.getCancelButtonLinkFacade().isDisable()) {
+    public void assertUploadButtonIsDisabled() {
+        if (!supplierPage.getUploadForm().getUploadButton().isDisabled()) {
+            Assert.fail("The upload button is not disabled");
+        }
+    }
+
+    @Step
+    public void assertReplaceButtonIsDisabled() {
+        if (!supplierPage.getUploadForm().getReplaceFileButton().isDisabled()) {
             Assert.fail("The supplier cancel button is not disabled");
         }
     }
@@ -138,8 +146,14 @@ public class SupplierSteps extends ScenarioSteps {
     }
 
     @Step
-    public void assertDownloadedFileEqualsToUploadedFile() throws Exception {
-        String downloadLocation = supplierPage.getUploadForm().getUploadedFileNameLinkWebElement().getAttribute("href");
+    public void assertDownloadedFileEqualsToUploadedFileOnTheSupplierPage() throws Exception {
+        assertDownloadedFileEqualsToUploadedFile(
+                supplierPage.getUploadForm().getUploadedFileNameLinkWebElement());
+    }
+
+    @Step
+    private void assertDownloadedFileEqualsToUploadedFile(WebElement element) throws Exception {
+        String downloadLocation = element.getAttribute("href");
         if (downloadLocation.trim().equals("")) {
             throw new Exception("The element you have specified does not link to anything!");
         }
@@ -154,6 +168,12 @@ public class SupplierSteps extends ScenarioSteps {
     }
 
     @Step
+    public void assertDownLoadedAgreementFileIsEqualsToUploadedFileOnTheSupplierList(String locator) throws Exception {
+        assertDownloadedFileEqualsToUploadedFile(
+                getDownloadAgreementButtonFromSupplierObjectByLocator(locator));
+    }
+
+    @Step
     public void assertDownloadAgreementButtonIsVisibleFromSupplierObjectByLocator(String locator) {
         supplierListPage.getWaiter().getVisibleWebElement(
                 getDownloadAgreementButtonFromSupplierObjectByLocator(locator));
@@ -161,14 +181,32 @@ public class SupplierSteps extends ScenarioSteps {
 
     @Step
     public void assertDownloadAgreementButtonIsNotVisibleFromSupplierObjectByLocator(String locator) {
-        supplierListPage.getWaiter().invisibilityOfElementLocated(
+        try {
+            supplierListPage.getWaiter().invisibilityOfElementLocated(
+                    getDownloadAgreementButtonFromSupplierObjectByLocator(locator));
+        } catch (org.openqa.selenium.NoSuchElementException ignored) {
+        }
+    }
+
+    @Step
+    public void assertDownLoadAgreementButtonIsClickable(String locator) {
+        supplierListPage.getWaiter().elementToBeClickable(
                 getDownloadAgreementButtonFromSupplierObjectByLocator(locator));
     }
 
+    @Step
     private WebElement getDownloadAgreementButtonFromSupplierObjectByLocator(String locator) {
         return ((SupplierObject) supplierListPage
                 .getSupplierObjectCollection()
                 .getAbstractObjectByLocator(locator))
                 .getDownloadAgreementButtonWebElement();
+    }
+
+    @Step
+    public void assertThereIsNoFileAttached() {
+        try {
+            supplierPage.getUploadForm().getUploadedFileNameLinkWebElement();
+        } catch (TimeoutException ignored) {
+        }
     }
 }

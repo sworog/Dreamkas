@@ -51,9 +51,14 @@ public class ThenSupplierSteps {
         supplierSteps.assertCreateButtonIsDisabled();
     }
 
-    @Then("the user checks the supplier cancel button is disabled")
-    public void thenTheUserChecksTheSupplierCancelButtonIsDisabled() {
-        supplierSteps.assertCancelButtonIsDisabled();
+    @Then("the user checks the upload button is disabled")
+    public void thenTheUserChecksTheUploadButtonIsDisabled() {
+        supplierSteps.assertUploadButtonIsDisabled();
+    }
+
+    @Then("the user checks the replace upload button is disabled")
+    public void thenTheUserChecksTheReplaceButtonIsDisabled() {
+        supplierSteps.assertReplaceButtonIsDisabled();
     }
 
     @Then("the user waits for upload complete")
@@ -68,6 +73,31 @@ public class ThenSupplierSteps {
 
     @Then("the user asserts downloaded file is equals to uploaded file")
     public void thenTheUserAssertsDownloadedFileIsequalsUploadedFile() throws Exception {
-        supplierSteps.assertDownloadedFileEqualsToUploadedFile();
+        supplierSteps.assertDownloadedFileEqualsToUploadedFileOnTheSupplierPage();
+    }
+
+    @Then("the user asserts downloaded file is equals to uploaded file of supplier list item found by locator '$locator'")
+    public void thenTheUserAssertsDownloadedFileIsequalsUploadedFileOnTheSupplierListPage(String locator) throws Exception {
+        supplierSteps.assertDownLoadedAgreementFileIsEqualsToUploadedFileOnTheSupplierList(locator);
+    }
+
+    @Then("the user asserts the download agreement button is clickable of supplier list item found by locator '$locator'")
+    public void thenTheUserAssertsTheDownloadAgreementButtonIsClickableOfSupplierListItemFoundByLocator(String locator) {
+        supplierSteps.assertDownLoadAgreementButtonIsClickable(locator);
+    }
+
+    @Then("the user asserts the download agreement button is not visible of supplier list item found by locator '$locator'")
+    public void thenTheUserassertsTheDownloadAgreementButtonIsNotVisibleOfSupplierListItemFoundByLocator(String locator) {
+        supplierSteps.assertDownloadAgreementButtonIsNotVisibleFromSupplierObjectByLocator(locator);
+    }
+
+    @Then("the user asserts the download agreement button is visible of supplier list item found by locator '$locator'")
+    public void thenTheUserassertsTheDownloadAgreementButtonIsVisibleOfSupplierListItemFoundByLocator(String locator) {
+        supplierSteps.assertDownloadAgreementButtonIsVisibleFromSupplierObjectByLocator(locator);
+    }
+
+    @Then("the user asserts there is no file attached in supplier")
+    public void thenTheUserAssertsThereIsNoFileAttached() {
+        supplierSteps.assertThereIsNoFileAttached();
     }
 }

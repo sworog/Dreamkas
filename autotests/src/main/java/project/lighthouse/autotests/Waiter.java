@@ -108,4 +108,8 @@ public class Waiter {
     public WebElement elementToBeClickable(By findBy) {
         return waiter.until(ExpectedConditions.elementToBeClickable(findBy));
     }
+
+    public WebElement elementToBeClickable(WebElement element) {
+        return waiter.until(ExpectedConditions.elementToBeClickable(element));
+    }
 }

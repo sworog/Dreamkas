@@ -40,7 +40,7 @@ public class WhenSupplierSteps {
         supplierSteps.supplierCollectionObjectClickByLocator(supplierName);
     }
 
-    @When("the user uploads file with name '$fileName' and with size of '$size' megabytes")
+    @When("the user uploads file with name '$fileName' and with size of '$size' kilobytes")
     public void whenTheUserUploadsFileWithNameAndWithSize(String fileName, int size) {
         supplierSteps.uploadFile(fileName, size);
     }

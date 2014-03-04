@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.pageElements.supplier;
+package project.lighthouse.autotests.pages.commercialManager.supplier.pageElements;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -49,6 +49,6 @@ public class UploadForm extends CommonPageObject {
     }
 
     public void waitForUploadComplete() {
-        new PreLoader(getDriver(), 50).await();
+        new PreLoader(getDriver(), 60).await();
     }
 }
