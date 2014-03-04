@@ -90,6 +90,7 @@ define(function(require) {
             var block = this;
 
             block.$submitButton.addClass('preloader_rows');
+            block.disable(true);
             block.removeErrors();
             block.removeSuccessMessage();
         },
@@ -97,6 +98,7 @@ define(function(require) {
             var block = this;
 
             block.$submitButton.removeClass('preloader_rows');
+            block.disable(false);
         },
         submitSuccess: function(response) {
             var block = this;
