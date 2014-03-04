@@ -4,13 +4,17 @@ define(function(require) {
         Block = require('kit/core/block'),
         currentUserModel = require('models/currentUser'),
         cookie = require('kit/libs/cookie'),
-        numeral = require('libs/numeral');
+        numeral = require('libs/numeral'),
+        moment = require('moment');
 
     require('jquery');
     require('lodash');
     require('backbone');
+    require('kit/libs/moment/ru');
 
     app.locale = 'root';
+
+    moment.lang('ru');
 
     Block.prototype.dictionary = require('dictionary');
 

@@ -70,7 +70,6 @@ define(function(require) {
                 }, extra);
 
                 if (extra.updateInput){
-                    console.log(moment(date).format(block.dateFormat));
                     block.$el.val(date ? moment(date).format(block.dateFormat) : '');
                 }
 

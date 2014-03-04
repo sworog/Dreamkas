@@ -3,10 +3,6 @@ define(function(require) {
         var Block = require('../../core/block'),
             moment = require('moment');
 
-        require('moment/ru');
-
-        moment.lang('ru');
-
         return Block.extend({
             __name__: 'datepicker',
             className: 'datepicker',

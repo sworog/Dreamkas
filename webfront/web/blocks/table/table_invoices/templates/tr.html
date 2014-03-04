@@ -1,3 +1,5 @@
+<% var moment = require('moment') %>
+
 <tr name="invoice" href="/invoices/<%- model.id %>">
     <td name="acceptanceDate">
         <%- moment(model.get('acceptanceDate')).format('DD.MM.YYYY HH:mm') %>
