@@ -46,7 +46,7 @@ server {
 # webfront
 server {
     server_name ~^(?<webfronthost>.+)\.(?<env>.+?)\.webfront\.(lighthouse|lh)\.(cs|pro)$;
-    server_name ~^(?<webfronthost>.+(?!\.(webfront|api)))\.(lighthouse|lh)\.(cs|pro)$;
+    server_name ~^(?<webfronthost>.+(?!\.webfront))\.(lighthouse|lh)\.(cs|pro)$;
 
     if ($env = "") {
         set $env "staging";

@@ -1,0 +1,45 @@
+{
+    "run_list": [
+        "recipe[apt::default]",
+        "recipe[openssh]",
+        "recipe[iptables-ng]",
+
+        "recipe[lighthouse]"
+    ],
+
+    "openssh": {
+        "server": {
+            "port": 22,
+            "protocol": 2,
+            "key_regeneration_interval": 3600,
+            "syslog_facility": "AUTH",
+            "log_level": "INFO",
+            "login_grace_time": 120,
+            "permit_root_login": "no",
+            "strict_modes": "yes",
+            "r_s_a_authentication": "yes",
+            "pubkey_authentication": "yes",
+            "ignore_rhosts": "yes",
+            "rhosts_r_s_a_authentication": "no",
+            "host_based_authentication": "no",
+            "permit_empty_passwords": "no",
+            "password_authentication": "no"
+        }
+    },
+
+    "iptables-ng": {
+        "rules": {
+            "filter": {
+                "INPUT": {
+                    "01-mongodb-local": {
+                        "rule": "-p tcp -s 127.0.0.1 --dport 27017 -j ACCEPT",
+                        "ip_version": 4
+                    },
+                    "10-mongodb": {
+                        "rule": "-p tcp --dport 27017 -j DROP"
+                    }
+                }
+            }
+        }
+    }
+}
