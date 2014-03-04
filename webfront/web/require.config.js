@@ -1,5 +1,4 @@
 require.config({
-    baseUrl: '/',
     paths: {
 
         //deprecated libs
