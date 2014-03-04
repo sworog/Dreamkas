@@ -26,7 +26,7 @@ public class LinkFacade implements Disableable {
     }
 
     @Override
-    public Boolean isDisable() {
+    public Boolean isDisabled() {
         return null != pageObject.findElement(findBy).getAttribute("disabled");
     }
 }
