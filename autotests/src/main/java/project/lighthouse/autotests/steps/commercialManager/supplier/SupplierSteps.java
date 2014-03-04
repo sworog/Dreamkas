@@ -2,19 +2,27 @@ package project.lighthouse.autotests.steps.commercialManager.supplier;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
+import org.apache.commons.io.FileUtils;
 import org.jbehave.core.model.ExamplesTable;
 import org.junit.Assert;
+import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.helper.FileCreator;
+import project.lighthouse.autotests.helper.FilesCompare;
 import project.lighthouse.autotests.helper.StringGenerator;
+import project.lighthouse.autotests.objects.web.supplier.SupplierObject;
 import project.lighthouse.autotests.pages.commercialManager.supplier.SupplierListPage;
 import project.lighthouse.autotests.pages.commercialManager.supplier.SupplierPage;
 
 import java.io.File;
+import java.net.URL;
 
 public class SupplierSteps extends ScenarioSteps {
 
     SupplierPage supplierPage;
     SupplierListPage supplierListPage;
+
+    private File file;
+    private String fileName;
 
     private String supplierName;
 
@@ -86,19 +94,23 @@ public class SupplierSteps extends ScenarioSteps {
     }
 
     @Step
-    public void uploadFileButtonClick() {
-        supplierPage.getUploadForm().uploadButtonClick();
+    public void assertUploadFileButtonIsClickable() {
+        supplierPage.getWaiter().elementToBeClickable(
+                supplierPage.getUploadForm().getUploadButton().getFindBy());
     }
 
     @Step
-    public void replaceFileButtonClick() {
-        supplierPage.getUploadForm().replaceFileButtonClick();
+    public void assertReplaceFileButtonIsClickable() {
+        supplierPage.getWaiter().elementToBeClickable(
+                supplierPage.getUploadForm().getReplaceFileButton().getFindBy());
     }
 
     @Step
     public void uploadFile(String fileName, int size) {
         File file = new FileCreator(fileName, size).create();
         supplierPage.getUploadForm().uploadFile(file);
+        this.file = file;
+        this.fileName = fileName;
     }
 
     @Step
@@ -118,5 +130,45 @@ public class SupplierSteps extends ScenarioSteps {
     @Step
     public void waitForUploadComplete() {
         supplierPage.getUploadForm().waitForUploadComplete();
+    }
+
+    @Step
+    public void assertUploadedFileName() {
+        Assert.assertEquals(fileName, supplierPage.getUploadForm().getUploadedFileName());
+    }
+
+    @Step
+    public void assertDownloadedFileEqualsToUploadedFile() throws Exception {
+        String downloadLocation = supplierPage.getUploadForm().getUploadedFileNameLinkWebElement().getAttribute("href");
+        if (downloadLocation.trim().equals("")) {
+            throw new Exception("The element you have specified does not link to anything!");
+        }
+        String downloadPath = System.getProperty("java.io.tmpdir");
+        URL downloadURL = new URL(downloadLocation);
+        File downloadedFile = new File(downloadPath + "/" + fileName);
+        FileUtils.copyURLToFile(downloadURL, new File(downloadPath + "/" + fileName));
+        Boolean compareResult = new FilesCompare(file, downloadedFile).compare();
+        if (!compareResult) {
+            Assert.fail("md5 sum is not equals!");
+        }
+    }
+
+    @Step
+    public void assertDownloadAgreementButtonIsVisibleFromSupplierObjectByLocator(String locator) {
+        supplierListPage.getWaiter().getVisibleWebElement(
+                getDownloadAgreementButtonFromSupplierObjectByLocator(locator));
+    }
+
+    @Step
+    public void assertDownloadAgreementButtonIsNotVisibleFromSupplierObjectByLocator(String locator) {
+        supplierListPage.getWaiter().invisibilityOfElementLocated(
+                getDownloadAgreementButtonFromSupplierObjectByLocator(locator));
+    }
+
+    private WebElement getDownloadAgreementButtonFromSupplierObjectByLocator(String locator) {
+        return ((SupplierObject) supplierListPage
+                .getSupplierObjectCollection()
+                .getAbstractObjectByLocator(locator))
+                .getDownloadAgreementButtonWebElement();
     }
 }

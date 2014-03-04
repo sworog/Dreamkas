@@ -28,23 +28,27 @@ public class UploadForm extends CommonPageObject {
         upload(file.getPath()).to(uploadFieldWebElement);
     }
 
-    public void uploadButtonClick() {
-        new ButtonFacade(this, "Загрузить").click();
+    public ButtonFacade getUploadButton() {
+        return new ButtonFacade(this, "Загрузить");
     }
 
-    public void replaceFileButtonClick() {
-        new ButtonFacade(this, "Заменить").click();
+    public ButtonFacade getReplaceFileButton() {
+        return new ButtonFacade(this, "Заменить");
     }
 
     public void deleteFileButtonClick() {
         new LinkFacade(this, "Удалить").click();
     }
 
+    public WebElement getUploadedFileNameLinkWebElement() {
+        return findVisibleElement(By.name("agreementLink"));
+    }
+
     public String getUploadedFileName() {
-        return findVisibleElement(By.name("")).getText();
+        return getUploadedFileNameLinkWebElement().getText();
     }
 
     public void waitForUploadComplete() {
-        new PreLoader(getDriver()).await();
+        new PreLoader(getDriver(), 50).await();
     }
 }

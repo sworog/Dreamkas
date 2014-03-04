@@ -65,6 +65,14 @@ public class Waiter {
         }
     }
 
+    public Boolean invisibilityOfElementLocated(WebElement element) {
+        try {
+            return waiter.until(ExpectedConditions.not(ExpectedConditions.visibilityOf(element)));
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public Boolean isElementVisible(By findBy) {
         try {
             return getPresentWebElement(findBy).isDisplayed();
@@ -95,5 +103,9 @@ public class Waiter {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public WebElement elementToBeClickable(By findBy) {
+        return waiter.until(ExpectedConditions.elementToBeClickable(findBy));
     }
 }

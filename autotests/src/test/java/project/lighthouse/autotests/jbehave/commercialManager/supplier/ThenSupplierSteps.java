@@ -38,12 +38,12 @@ public class ThenSupplierSteps {
 
     @Then("the user checks the upload agreement file buttton is clickable")
     public void thenTheUserChecksTheUploadAgreementFileButtonIsClickable() {
-        supplierSteps.uploadFileButtonClick();
+        supplierSteps.assertUploadFileButtonIsClickable();
     }
 
     @Then("the user checks the replace agreement file buttton is clickable")
     public void thenTheUserChecksTheReplaceAgreementFileButtonIsClickable() {
-        supplierSteps.replaceFileButtonClick();
+        supplierSteps.assertReplaceFileButtonIsClickable();
     }
 
     @Then("the user checks the supplier create button is disabled")
@@ -59,5 +59,15 @@ public class ThenSupplierSteps {
     @Then("the user waits for upload complete")
     public void thenTheUserWaitsForUploadComplete() {
         supplierSteps.waitForUploadComplete();
+    }
+
+    @Then("the user asserts uploaded file name is expected")
+    public void thenTheUserAssertsUploadedFileName() {
+        supplierSteps.assertUploadedFileName();
+    }
+
+    @Then("the user asserts downloaded file is equals to uploaded file")
+    public void thenTheUserAssertsDownloadedFileIsequalsUploadedFile() throws Exception {
+        supplierSteps.assertDownloadedFileEqualsToUploadedFile();
     }
 }
