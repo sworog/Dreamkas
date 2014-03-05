@@ -47,13 +47,23 @@ define(function(require, exports, module) {
                         button.classList.remove('preloader_rows');
                         block.disable(false);
                     },
-                    error: function(errors) {
+                    error: function(error) {
                         agreementInput.value = '';
-                        block.showErrors(errors);
+                        block.showFileErrors(error.responseJSON);
                         button.classList.remove('preloader_rows');
                         block.disable(false);
                     }
                 });
+            }
+        },
+        showFileErrors: function(error){
+            var block = this,
+                form_supplier__fileField = block.el.querySelector('.form_supplier__fileField');
+
+            if (error && error.errors){
+                form_supplier__fileField.dataset.error = error.errors.join(', ');
+            } else {
+                form_supplier__fileField.dataset.error = 'Неизвестная ошибка';
             }
         },
         renderAgreementField: function(agreement) {
