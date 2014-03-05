@@ -142,15 +142,4 @@ class SelectelStorageTest extends ContainerAwareTestCase
         $client->addSubscriber($mockPlugin);
         return $mockPlugin;
     }
-
-    /**
-     * @group Functional
-     */
-    public function testContainerDI()
-    {
-        /* @var Container $container */
-        $container = $this->getContainer()->get('openstack.selectel.storage.container');
-        $container->retrieveMetadata();
-        $this->assertEquals('cdn.lighthouse.pro', $container->getMetadata()->getProperty('domains'));
-    }
 }
