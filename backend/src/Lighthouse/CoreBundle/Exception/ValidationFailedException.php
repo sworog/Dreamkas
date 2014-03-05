@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Exception;
 
+use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 
@@ -39,7 +40,7 @@ class ValidationFailedException extends RuntimeException
     }
 
     /**
-     * @return ConstraintViolationListInterface
+     * @return ConstraintViolationListInterface|ConstraintViolationInterface[]
      */
     public function getConstraintViolationList()
     {

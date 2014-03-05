@@ -20,13 +20,9 @@ class FileControllerTest extends WebTestCase
         $jsonRequest->addHttpHeader('X-File-Name', 'test.txt');
         $jsonRequest->setAccessToken($accessToken);
 
-        $mockFile = $this->getFixtureFilePath('OpenStack/auth.response.ok');
-        $requestGetContentMock = function (ContainerInterface $container) use ($mockFile) {
-            /* @var FileUploader $uploader */
-            $uploader = $container->get('lighthouse.core.document.repository.file.uploader');
-            $uploader->setFileResource(fopen($mockFile, 'rb'));
-        };
         $mockPlugin = new MockPlugin();
+        $mockPlugin->addResponse($this->getFixtureFilePath('OpenStack/auth.response.ok'));
+        $mockPlugin->addResponse($this->getFixtureFilePath('OpenStack/container.response.ok'));
         $mockPlugin->addResponse($this->getFixtureFilePath('OpenStack/upload.response.ok'));
         $mockPlugin->addResponse($this->getFixtureFilePath('OpenStack/head.response.ok'));
 
@@ -35,8 +31,15 @@ class FileControllerTest extends WebTestCase
             $client->addSubscriber($mockPlugin);
         };
 
-        $this->client->addTweaker($requestGetContentMock);
+        $mockFile = $this->getFixtureFilePath('OpenStack/auth.response.ok');
+        $requestGetContentMock = function (ContainerInterface $container) use ($mockFile) {
+            /* @var FileUploader $uploader */
+            $uploader = $container->get('lighthouse.core.document.repository.file.uploader');
+            $uploader->setFileResource(fopen($mockFile, 'rb'));
+        };
+
         $this->client->addTweaker($mockGuzzle);
+        $this->client->addTweaker($requestGetContentMock);
 
         $postResponse = $this->client->jsonRequest($jsonRequest);
 
@@ -47,5 +50,106 @@ class FileControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(135, 'size', $postResponse);
         Assert::assertJsonPathContains('https', 'url', $postResponse);
         Assert::assertJsonPathContains('selcdn.ru', 'url', $postResponse);
+    }
+
+    /**
+     * @dataProvider providerPostValidation
+     * @param array $headers
+     * @param int $expectedCode
+     * @param array $assertions
+     * @param int $expectedRequestsCount
+     */
+    public function testPostActionValidation(
+        array $headers,
+        $expectedCode,
+        array $assertions = array(),
+        $expectedRequestsCount
+    ) {
+        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $jsonRequest = new JsonRequest('/api/1/files', 'POST');
+        $mockFile = $this->getFixtureFilePath('OpenStack/auth.response.ok');
+
+        $headers += array(
+            'X-File-Name' => 'test.txt',
+            'Content-Length' => filesize($mockFile),
+        );
+        foreach ($headers as $name => $value) {
+            $jsonRequest->addHttpHeader($name, $value);
+        }
+        $jsonRequest->setAccessToken($accessToken);
+
+        $mockPlugin = new MockPlugin();
+        $mockPlugin->addResponse($this->getFixtureFilePath('OpenStack/auth.response.ok'));
+        $mockPlugin->addResponse($this->getFixtureFilePath('OpenStack/container.response.ok'));
+        $mockPlugin->addResponse($this->getFixtureFilePath('OpenStack/upload.response.ok'));
+        $mockPlugin->addResponse($this->getFixtureFilePath('OpenStack/head.response.ok'));
+
+        $mockGuzzle = function (ContainerInterface $container) use ($mockPlugin) {
+            $client = $container->get('openstack.selectel');
+            $client->addSubscriber($mockPlugin);
+        };
+
+        $requestGetContentMock = function (ContainerInterface $container) use ($mockFile) {
+            /* @var FileUploader $uploader */
+            $uploader = $container->get('lighthouse.core.document.repository.file.uploader');
+            $uploader->setFileResource(fopen($mockFile, 'rb'));
+        };
+
+        $this->client->addTweaker($mockGuzzle);
+        $this->client->addTweaker($requestGetContentMock);
+
+        $postResponse = $this->client->jsonRequest($jsonRequest);
+        $this->assertResponseCode($expectedCode);
+
+        $this->performJsonAssertions($postResponse, $assertions);
+
+        $this->assertCount($expectedRequestsCount, $mockPlugin->getReceivedRequests());
+    }
+
+    /**
+     * @return array
+     */
+    public function providerPostValidation()
+    {
+        return array(
+            'Content-Length 10Mb + 1' => array(
+                array(
+                    'Content-Length' => 10485761,
+                ),
+                400,
+                array(
+                    'errors.0' => 'Размер файла должен быть меньше 10Мб',
+                    'errors.1' => null,
+                ),
+                2
+            ),
+            'Content-Length 10Mb' => array(
+                array(
+                    'Content-Length' => 10485760,
+                ),
+                201,
+                array(),
+                4
+            ),
+            'Content-Length 1Kb' => array(
+                array(
+                    'Content-Length' => 1024,
+                ),
+                201,
+                array(),
+                4
+            ),
+            'Missing X-File-Name' => array(
+                array(
+                    'X-File-Name' => null,
+                ),
+                400,
+                array(
+                    'errors.0' => 'Отсутствует заголовок X-File-Name',
+                ),
+                2
+            ),
+        );
     }
 }

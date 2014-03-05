@@ -2,7 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Document\File;
 
+use Lighthouse\CoreBundle\Exception\ValidationFailedException;
 use Lighthouse\CoreBundle\OpenStack\ObjectStore\Resource\Container;
+use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use OpenCloud\ObjectStore\Resource\DataObject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -19,9 +21,9 @@ class FileUploader
     protected $storageContainer;
 
     /**
-     * @var string
+     * @var ExceptionalValidator
      */
-    protected $fileNameHeaderName = 'x-file-name';
+    protected $validator;
 
     /**
      * @var resource
@@ -30,23 +32,26 @@ class FileUploader
 
     /**
      * @DI\InjectParams({
-     *      "storageContainer" = @DI\Inject("openstack.selectel.storage.container")
+     *      "storageContainer" = @DI\Inject("openstack.selectel.storage.container"),
+     *      "validator" = @DI\Inject("lighthouse.core.validator")
      * })
      * @param Container $storageContainer
+     * @param ExceptionalValidator $validator
      */
-    public function __construct(Container $storageContainer)
+    public function __construct(Container $storageContainer, ExceptionalValidator $validator)
     {
         $this->storageContainer = $storageContainer;
+        $this->validator = $validator;
     }
 
     /**
-     * @param Request $request
+     * @param FileUploadRequest $fileUploadRequest
      * @return mixed
      */
-    public function getFileResource(Request $request)
+    public function getFileResource(FileUploadRequest $fileUploadRequest)
     {
         if (!$this->fileResource) {
-            $this->setFileResource($request->getContent(true));
+            $this->setFileResource($fileUploadRequest->getFileResource());
         }
         return $this->fileResource;
     }
@@ -60,15 +65,6 @@ class FileUploader
     }
 
     /**
-     * @param Request $request
-     * @return string
-     */
-    protected function getFileName(Request $request)
-    {
-        return $request->headers->get($this->fileNameHeaderName);
-    }
-
-    /**
      * @param File $file
      * @param DataObject $dataObject
      */
@@ -79,17 +75,29 @@ class FileUploader
     }
 
     /**
+     * @param FileUploadRequest $fileUploadRequest
+     * @throws ValidationFailedException
+     */
+    public function validateRequest(FileUploadRequest $fileUploadRequest)
+    {
+        $this->validator->validate($fileUploadRequest);
+    }
+
+    /**
      * @param Request $request
      * @return File
+     * @throws ValidationFailedException
      */
     public function processRequest(Request $request)
     {
-        $fileResource = $this->getFileResource($request);
+        $fileUploadRequest = new FileUploadRequest($request);
 
-        $fileName = $this->getFileName($request);
+        $this->validateRequest($fileUploadRequest);
+
+        $fileResource = $this->getFileResource($fileUploadRequest);
 
         $file = new File();
-        $file->name = $fileName;
+        $file->name = $fileUploadRequest->getName();
 
         $headers = new ResponseHeaderBag();
         $headers->set(
