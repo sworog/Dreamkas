@@ -91,7 +91,7 @@ class SelectelStorageTest extends ContainerAwareTestCase
         $this->assertEquals(Service::DEFAULT_TYPE, $catalogItem->getType());
         $endPoint = $catalogItem->getEndpointFromRegion(SelectelStorage::DEFAULT_REGION);
         $this->assertObjectHasAttribute('publicURL', $endPoint);
-        $this->assertEquals('https://xxx.selcdn.ru/', $endPoint->publicURL);
+        $this->assertEquals('https://18487.selcdn.ru/', $endPoint->publicURL);
         $this->assertObjectHasAttribute('region', $endPoint);
         $this->assertEquals(SelectelStorage::DEFAULT_REGION, $endPoint->region);
     }
