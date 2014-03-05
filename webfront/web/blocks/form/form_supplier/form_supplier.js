@@ -55,13 +55,17 @@ define(function(require, exports, module) {
                     }
                 });
             },
-            'click .form_supplier__removeFile': function(e){
+            'click .form_supplier__removeFile': function(e) {
                 e.preventDefault();
                 e.stopPropagation();
 
                 var block = this;
 
-                if (confirm('Вы уверены, что хотите удалить файл?')){
+                if (e.target.getAttribute('disabled')) {
+                    return;
+                }
+
+                if (confirm('Вы уверены, что хотите удалить файл?')) {
                     block.renderAgreementField();
                 }
             }
@@ -75,15 +79,17 @@ define(function(require, exports, module) {
                 successMessage: true
             }));
         },
-        disable: function(disabled){
+        disable: function(disabled) {
             var block = this;
 
             Form.prototype.disable.apply(block, arguments);
 
             if (disabled) {
                 $(block.el).find('[type="file"]').closest('.button').attr('disabled', true);
+                $(block.el).find('.form_supplier__removeFile').attr('disabled', true);
             } else {
                 $(block.el).find('[type="file"]').closest('.button').removeAttr('disabled');
+                $(block.el).find('.form_supplier__removeFile').removeAttr('disabled');
             }
         }
     });
