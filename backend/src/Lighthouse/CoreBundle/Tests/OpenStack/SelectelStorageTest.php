@@ -6,7 +6,6 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Message\EntityEnclosingRequestInterface;
 use Guzzle\Plugin\Mock\MockPlugin;
 use Lighthouse\CoreBundle\OpenStack\SelectelStorage;
-use Lighthouse\CoreBundle\OpenStack\ObjectStore\Resource\Container;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use OpenCloud\Common\Service\CatalogItem;
 use OpenCloud\ObjectStore\Service;

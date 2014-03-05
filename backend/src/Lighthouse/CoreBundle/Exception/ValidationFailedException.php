@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Exception;
 
-use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\ConstraintViolationInterface;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 

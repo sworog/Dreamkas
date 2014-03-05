@@ -62,7 +62,7 @@ class FileControllerTest extends WebTestCase
     public function testPostActionValidation(
         array $headers,
         $expectedCode,
-        array $assertions = array(),
+        array $assertions,
         $expectedRequestsCount
     ) {
         $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
