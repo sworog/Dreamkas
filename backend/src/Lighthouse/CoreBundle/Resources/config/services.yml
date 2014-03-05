@@ -21,8 +21,7 @@ services:
         class: Lighthouse\CoreBundle\OpenStack\SelectelStorage
         arguments:
             - "%openstack.selectel.auth_url%"
-            - username: %openstack.selectel.secret.username%,
-              password: %openstack.selectel.secret.password%
+            - { username: %openstack.selectel.secret.username%, password: %openstack.selectel.secret.password% }
             - "%openstack.selectel.options%"
 
     openstack.selectel.storage:

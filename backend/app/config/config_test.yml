@@ -27,3 +27,5 @@ lighthouse_core:
     selectel:
         auth:
             url: 'http://unknown.host'
+            username: test
+            password: password

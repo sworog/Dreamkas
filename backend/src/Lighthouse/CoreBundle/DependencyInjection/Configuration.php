@@ -105,7 +105,7 @@ class Configuration implements ConfigurationInterface
                         ->addDefaultsIfNotSet()
                         ->children()
                             ->scalarNode('url')
-                                ->defaultValue('https://auth.selcdn.ru')
+                                ->defaultValue('https://auth.selcdn.ru/')
                             ->end()
                             ->scalarNode('username')
                                 ->isRequired()

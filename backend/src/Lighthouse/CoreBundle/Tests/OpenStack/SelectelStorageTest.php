@@ -128,6 +128,26 @@ class SelectelStorageTest extends ContainerAwareTestCase
         $client->authenticate();
     }
 
+    public function testGetFromContainer()
+    {
+        $mockPlugin = new MockPlugin();
+        $mockPlugin->addResponse($this->getFixtureFilePath('OpenStack/auth.response.ok'));
+
+        $client = $this->getContainer()->get('openstack.selectel');
+        $client->addSubscriber($mockPlugin);
+
+        $client->authenticate();
+
+        $requests = $mockPlugin->getReceivedRequests();
+        $this->assertCount(1, $requests);
+
+        /* @var EntityEnclosingRequestInterface $authRequest */
+        $authRequest = $requests[0];
+
+        $this->assertEquals('test', (string) $authRequest->getHeader('x-auth-user'));
+        $this->assertEquals('password', (string) $authRequest->getHeader('x-auth-key'));
+    }
+
     /**
      * @param Client $client
      * @param array|string $responses
