@@ -1,13 +1,5 @@
 parameters:
     test.client.class: Lighthouse\CoreBundle\Test\Client\Client
-    openstack.selectel.auth_url: https://auth.selcdn.ru
-    openstack.selectel.secret.username: 18487
-    openstack.selectel.secret.password: 4hSmzgdljt
-    openstack.selectel.secret:
-        username: %openstack.selectel.secret.username%
-        password: %openstack.selectel.secret.password%
-    openstack.selectel.options: []
-    openstack.selectel.storage.container.name: lighthouse
 
 services:
     jms_serializer.serialized_name_annotation_strategy:
@@ -29,7 +21,8 @@ services:
         class: Lighthouse\CoreBundle\OpenStack\SelectelStorage
         arguments:
             - "%openstack.selectel.auth_url%"
-            - "%openstack.selectel.secret%"
+            - username: %openstack.selectel.secret.username%,
+              password: %openstack.selectel.secret.password%
             - "%openstack.selectel.options%"
 
     openstack.selectel.storage:

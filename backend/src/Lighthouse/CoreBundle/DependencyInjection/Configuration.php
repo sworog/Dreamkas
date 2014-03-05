@@ -21,6 +21,7 @@ class Configuration implements ConfigurationInterface
         $this->addJobConfig($nodeBuilder);
         $this->addPrecisionConfig($nodeBuilder);
         $this->addRoundingConfig($nodeBuilder);
+        $this->addSelectelConfig($nodeBuilder);
 
         return $treeBuilder;
     }
@@ -89,5 +90,40 @@ class Configuration implements ConfigurationInterface
                         ->info('Default rounding used in system')
                         ->defaultValue('nearest1')
         ;
+    }
+
+    /**
+     * @param NodeBuilder $nodeBuilder
+     */
+    protected function addSelectelConfig(NodeBuilder $nodeBuilder)
+    {
+        $nodeBuilder
+            ->arrayNode('selectel')
+                ->isRequired()
+                ->children()
+                    ->arrayNode('auth')
+                        ->addDefaultsIfNotSet()
+                        ->children()
+                            ->scalarNode('url')
+                                ->defaultValue('https://auth.selcdn.ru')
+                            ->end()
+                            ->scalarNode('username')
+                                ->isRequired()
+                                ->cannotBeEmpty()
+                            ->end()
+                            ->scalarNode('password')
+                                ->isRequired()
+                                ->cannotBeEmpty()
+                            ->end()
+                        ->end()
+                    ->end()
+                    ->scalarNode('container')
+                        ->isRequired()
+                    ->end()
+                    ->variableNode('options')
+                        ->defaultValue(array())
+                    ->end()
+                ->end();
+
     }
 }

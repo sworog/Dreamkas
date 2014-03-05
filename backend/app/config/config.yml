@@ -137,3 +137,8 @@ clamidity_profiler:
 lighthouse_core:
     job:
         tube_prefix: "%database_name%_%kernel.environment%"
+    selectel:
+        auth:
+            username: 18487
+            password: 4hSmzgdljt
+        container: lighthouse
