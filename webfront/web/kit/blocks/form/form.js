@@ -25,17 +25,12 @@ define(function(require) {
 
             Block.prototype.initialize.apply(block, arguments);
 
-            if (!block.__model) {
-                block.__model = block.model;
-            }
-
+            block.__model = block.__model || block.model;
             block.model = block.get('__model');
 
-            if (!block.__collection) {
-                block.__collection = block.collection;
-            }
-
+            block.__collection = block.__collection || block.collection;
             block.collection = block.get('__collection');
+            
         },
         events: {
             'change input, checkbox, textarea': function() {
