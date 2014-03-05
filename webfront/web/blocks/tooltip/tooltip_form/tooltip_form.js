@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Tooltip = require('kit/blocks/tooltip/tooltip');
+    var Tooltip = require('blocks/tooltip/tooltip');
 
     return Tooltip.extend({
         className: 'tooltip tooltip_form',

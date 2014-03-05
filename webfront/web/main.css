@@ -1,23 +1,22 @@
-/* fonts */
 @import "fonts/proxima/proxima.css";
-/* libs */
 @import "libs/jquery-ui/themes/base/minified/jquery-ui.min.css";
 @import "icons/font-awesome/font-awesome.css";
 @import "icons/michalych/style.css";
-/* blocks */
-@import "kit/common.css";
 
-@import "kit/blocks/button/button.css";
-@import "kit/blocks/table/table.css";
-@import "kit/blocks/inputText/inputText.css";
-@import "kit/blocks/checkbox/checkbox.css";
-@import "kit/blocks/form/form.css";
-@import "kit/blocks/select/select.css";
-@import "kit/blocks/preloader/preloader.css";
-@import "kit/blocks/tooltip/tooltip.css";
-@import "kit/blocks/datepicker/datepicker.css";
-@import "kit/blocks/inputDate/inputDate.css";
-@import "kit/blocks/editor/editor.css";
+@import "kit/default.css";
+@import "kit/animation.css";
+
+/* blocks */
+@import "blocks/button/button.css";
+@import "blocks/table/table.css";
+@import "blocks/inputText/inputText.css";
+@import "blocks/checkbox/checkbox.css";
+@import "blocks/select/select.css";
+@import "blocks/preloader/preloader.css";
+@import "blocks/tooltip/tooltip.css";
+@import "blocks/datepicker/datepicker.css";
+@import "blocks/inputDate/inputDate.css";
+@import "blocks/editor/editor.css";
 
 @import "blocks/page/page.css";
 @import "blocks/invoice/invoice.css";

@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
         var Block = require('kit/core/block'),
-            InputDate = require('kit/blocks/inputDate/inputDate'),
+            InputDate = require('blocks/inputDate/inputDate'),
             Form_writeOffProduct = require('blocks/form/form_writeOffProduct/form_writeOffProduct'),
             Table_writeOffProducts = require('blocks/table/table_writeOffProducts/table_writeOffProducts'),
             cookie = require('cookies'),

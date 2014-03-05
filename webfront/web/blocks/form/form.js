@@ -1,9 +1,9 @@
 define(function(require) {
     //requirements
-    var Block = require('../../core/block'),
-        setter = require('../../utils/setter'),
+    var Block = require('kit/core/block'),
+        setter = require('kit/utils/setter'),
         form2js = require('form2js'),
-        translate = require('../../utils/translate');
+        translate = require('kit/utils/translate');
 
     require('lodash');
     require('backbone');
@@ -12,7 +12,6 @@ define(function(require) {
 
     return Block.extend({
         __name__: 'form',
-        dictionary: require('i18n!./nls/errors'),
         className: 'form',
         tagName: 'form',
         model: function() {
