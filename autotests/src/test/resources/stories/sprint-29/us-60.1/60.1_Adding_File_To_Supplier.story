@@ -94,8 +94,8 @@ Scenario: Adding agreement file to the supplier created page and not save it
 Meta:
 @id_s29u60.1s6
 
-Given there is the supplier with name 'supplier-s29u60.1s17'
-And the user navigates to supplier page with name 'supplier-s29u60.1s17'
+Given there is the supplier with name 'supplier-s29u60.1s4'
+And the user navigates to supplier page with name 'supplier-s29u60.1s4'
 And the user logs in as 'commercialManager'
 
 When the user uploads file with name 'uploadFile123.avi' and with size of '1600' kilobytes
@@ -107,9 +107,9 @@ Then the user asserts uploaded file name is expected
 
 When the user clicks on the supplier cancel button
 
-Then the user asserts the download agreement button is not visible of supplier list item found by locator 'supplier-s29u60.1s17'
+Then the user asserts the download agreement button is not visible of supplier list item found by locator 'supplier-s29u60.1s4'
 
-When the user clicks on supplier list table element with name 'supplier-s29u60.1s17'
+When the user clicks on supplier list table element with name 'supplier-s29u60.1s4'
 
 Then the user asserts there is no file attached in supplier
 
@@ -118,11 +118,11 @@ Scenario: No agreement button for supplier with no attached file on the supplier
 Meta:
 @id_s29u60.1s7
 
-Given there is the supplier with name 'supplier-s29u60.1s10'
+Given there is the supplier with name 'supplier-s29u60.1s5'
 And the user opens supplier list page
 And the user logs in as 'commercialManager'
 
-Then the user asserts the download agreement button is not visible of supplier list item found by locator 'supplier-s29u60.1s10'
+Then the user asserts the download agreement button is not visible of supplier list item found by locator 'supplier-s29u60.1s5'
 
 Scenario: Supplier list Agreement button download is clickable
 
@@ -134,7 +134,7 @@ And the user logs in as 'commercialManager'
 
 When the user inputs values on supplier page
 | elementName | value |
-| supplierName | supplier-s29u60.1s12 |
+| supplierName | supplier-s29u60.1s6 |
 
 When the user uploads file with name 'uploadFile123.doc' and with size of '252' kilobytes
 
@@ -145,7 +145,7 @@ Then the user asserts uploaded file name is expected
 
 When the user clicks on the supplier create button
 
-Then the user asserts the download agreement button is clickable of supplier list item found by locator 'supplier-s29u60.1s12'
+Then the user asserts the download agreement button is clickable of supplier list item found by locator 'supplier-s29u60.1s6'
 
 Scenario: Supplier list Agreement button download is visible for supplier list item with file attached
 
@@ -157,7 +157,7 @@ And the user logs in as 'commercialManager'
 
 When the user inputs values on supplier page
 | elementName | value |
-| supplierName | supplier-s29u60.1s13 |
+| supplierName | supplier-s29u60.1s7 |
 
 When the user uploads file with name 'uploadFile123.doc' and with size of '252' kilobytes
 
@@ -168,7 +168,7 @@ Then the user asserts uploaded file name is expected
 
 When the user clicks on the supplier create button
 
-Then the user asserts the download agreement button is visible of supplier list item found by locator 'supplier-s29u60.1s13'
+Then the user asserts the download agreement button is visible of supplier list item found by locator 'supplier-s29u60.1s7'
 
 Scenario: Adding file with the size more then 10 mb
 
@@ -180,14 +180,14 @@ And the user logs in as 'commercialManager'
 
 When the user inputs values on supplier page
 | elementName | value |
-| supplierName | supplier-s29u60.1s100 |
+| supplierName | supplier-s29u60.1s8 |
 
 When the user uploads file with name 'uploadFile123.doc' and with size of '12200' kilobytes
 
 Then the user waits for upload complete
 And the user sees error messages
 | error message |
-| Вы превысили размер загружаемого файла |
+| Размер файла должен быть меньше 10Мб |
 
 Scenario: Adding empty file
 
@@ -199,7 +199,7 @@ And the user logs in as 'commercialManager'
 
 When the user inputs values on supplier page
 | elementName | value |
-| supplierName | supplier-s29u60.1s100 |
+| supplierName | supplier-s29u60.1s9 |
 
 When the user uploads file with name 'uploadFile123.doc' and with size of '0' kilobytes
 
@@ -219,7 +219,7 @@ And the user logs in as 'commercialManager'
 
 When the user inputs values on supplier page
 | elementName | value |
-| supplierName | OOO простой поставщик |
+| supplierName | supplier-s29u60.1s10 |
 
 When the user uploads file with name 'uploadFile12.jpeg' and with size of '1456' kilobytes
 
