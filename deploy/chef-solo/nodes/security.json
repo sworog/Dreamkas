@@ -27,6 +27,7 @@
             "print_motd": "no",
             "print_lastlog": "yes",
             "use_dns": "no",
+            "subsystem": "sftp internal-sftp",
             "use_p_a_m": "yes"
         }
     },
