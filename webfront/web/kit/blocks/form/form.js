@@ -30,7 +30,7 @@ define(function(require) {
 
             block.__collection = block.__collection || block.collection;
             block.collection = block.get('__collection');
-            
+
         },
         events: {
             'change input, checkbox, textarea': function() {

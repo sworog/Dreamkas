@@ -54,6 +54,16 @@ define(function(require, exports, module) {
                         block.disable(false);
                     }
                 });
+            },
+            'click .form_supplier__removeFile': function(e){
+                e.preventDefault();
+                e.stopPropagation();
+
+                var block = this;
+
+                if (confirm('Вы уверены, что хотите удалить файл?')){
+                    block.renderAgreementField();
+                }
             }
         },
         renderAgreementField: function(agreement) {
