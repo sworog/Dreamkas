@@ -36,8 +36,8 @@ public class UploadForm extends CommonPageObject {
         return new ButtonFacade(this, "Заменить");
     }
 
-    public void deleteFileButtonClick() {
-        new LinkFacade(this, "Удалить").click();
+    public LinkFacade getDeleteFileButton() {
+        return new LinkFacade(this, "Удалить");
     }
 
     public WebElement getUploadedFileNameLinkWebElement() {

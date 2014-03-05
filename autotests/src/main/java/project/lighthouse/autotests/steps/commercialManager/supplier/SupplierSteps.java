@@ -136,6 +136,18 @@ public class SupplierSteps extends ScenarioSteps {
     }
 
     @Step
+    public void assertDeleteButtonIsDisabled() {
+        if (!supplierPage.getUploadForm().getDeleteFileButton().isDisabled()) {
+            Assert.fail("The supplier upload delete button is not disabled");
+        }
+    }
+
+    @Step
+    public void uploadDeleteButtonClick() {
+        supplierPage.getUploadForm().getDeleteFileButton().click();
+    }
+
+    @Step
     public void waitForUploadComplete() {
         supplierPage.getUploadForm().waitForUploadComplete();
     }
