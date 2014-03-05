@@ -2,7 +2,7 @@ define(function(require) {
         //requirements
         var Form = require('blocks/form/form'),
             roundPrice = require('utils/roundPrice'),
-            numeral = require('libs/numeral');
+            numeral = require('numeral');
 
         return Form.extend({
             __name__: 'form_storeProduct',

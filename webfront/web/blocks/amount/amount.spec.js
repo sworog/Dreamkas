@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var numeral = require('libs/numeral');
+    var numeral = require('numeral');
 
     var templates = {
         amount: require('tpl!./amount.html')
