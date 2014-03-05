@@ -142,7 +142,12 @@ public class SupplierSteps extends ScenarioSteps {
 
     @Step
     public void assertUploadedFileName() {
-        Assert.assertEquals(fileName, supplierPage.getUploadForm().getUploadedFileName());
+        assertUploadedFileName(supplierPage.getUploadForm().getUploadedFileName());
+    }
+
+    @Step
+    public void assertUploadedFileName(String fileName) {
+        Assert.assertEquals(this.fileName, fileName);
     }
 
     @Step

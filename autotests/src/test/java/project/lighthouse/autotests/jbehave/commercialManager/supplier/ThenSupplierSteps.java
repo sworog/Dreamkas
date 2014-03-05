@@ -71,6 +71,11 @@ public class ThenSupplierSteps {
         supplierSteps.assertUploadedFileName();
     }
 
+    @Then("the user asserts uploaded file name is '$fileName'")
+    public void thenTheUserAssertsUploadedFileName(String fileName) {
+        supplierSteps.assertUploadedFileName(fileName);
+    }
+
     @Then("the user asserts downloaded file is equals to uploaded file")
     public void thenTheUserAssertsDownloadedFileIsequalsUploadedFile() throws Exception {
         supplierSteps.assertDownloadedFileEqualsToUploadedFileOnTheSupplierPage();
