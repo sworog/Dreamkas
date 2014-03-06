@@ -19,7 +19,7 @@
             <% if (successMessage) { %>
             <span style="float: right" class="form__successMessage">Файл успешно загружен</span>
             <% } %>
-            <a name="agreementLink" data-navigate="false" href="<%- agreement.url %>"><%- agreement.name %></a>
+            <a name="agreementLink" data-navigate="false" href="<%- agreement.url %>"><%- decodeURIComponent(agreement.name) %></a>
         </p>
     <span class="button">
         Заменить
