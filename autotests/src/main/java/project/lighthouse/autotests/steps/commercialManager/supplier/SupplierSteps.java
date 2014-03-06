@@ -12,6 +12,7 @@ import project.lighthouse.autotests.helper.FileCreator;
 import project.lighthouse.autotests.helper.FilesCompare;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.supplier.SupplierObject;
+import project.lighthouse.autotests.objects.web.supplier.SupplierObjectCollection;
 import project.lighthouse.autotests.pages.commercialManager.supplier.SupplierListPage;
 import project.lighthouse.autotests.pages.commercialManager.supplier.SupplierPage;
 
@@ -82,7 +83,16 @@ public class SupplierSteps extends ScenarioSteps {
 
     @Step
     public void supplierObjectCollectionNotContains(String locator) {
-        supplierListPage.getSupplierObjectCollection().notContains(locator);
+        SupplierObjectCollection supplierObjectCollection = null;
+        try {
+            supplierObjectCollection = supplierListPage.getSupplierObjectCollection();
+        } catch (TimeoutException ignored) {
+            supplierPage.containsText("Нет поставщиков");
+        } finally {
+            if (supplierObjectCollection != null) {
+                supplierObjectCollection.notContains(locator);
+            }
+        }
     }
 
     @Step

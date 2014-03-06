@@ -342,5 +342,42 @@ Then the user asserts the download agreement button is clickable of supplier lis
 
 Then the user asserts downloaded file is equals to uploaded file of supplier list item found by locator 'supplier-s29u60.1s14'
 
+Scenario: Adding file with cyrillic name
+
+Meta:
+@id_s29u60.1s17
+
+Given the user opens supplier create page
+And the user logs in as 'commercialManager'
+
+When the user inputs values on supplier page
+| elementName | value |
+| supplierName | supplier-s29u60.1s17 |
+
+When the user uploads file with name 'ФайлСРуссимИменем.doc' and with size of '1234' kilobytes
+
+Then the user waits for upload complete
+And the user sees success message 'Файл успешно загружен'
+
+Then the user asserts uploaded file name is expected
+
+Scenario: Adding file with empty spaces
+
+Meta:
+@id_s29u60.1s18
+
+Given the user opens supplier create page
+And the user logs in as 'commercialManager'
+
+When the user inputs values on supplier page
+| elementName | value |
+| supplierName | supplier-s29u60.1s18 |
+
+When the user uploads file with name 'file with empty space.doc' and with size of '1234' kilobytes
+
+Then the user waits for upload complete
+And the user sees success message 'Файл успешно загружен'
+
+Then the user asserts uploaded file name is expected
 
 
