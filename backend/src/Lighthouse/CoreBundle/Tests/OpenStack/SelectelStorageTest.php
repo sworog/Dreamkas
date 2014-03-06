@@ -6,7 +6,6 @@ use Guzzle\Http\Client;
 use Guzzle\Http\Message\EntityEnclosingRequestInterface;
 use Guzzle\Plugin\Mock\MockPlugin;
 use Lighthouse\CoreBundle\OpenStack\SelectelStorage;
-use Lighthouse\CoreBundle\OpenStack\ObjectStore\Resource\Container;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use OpenCloud\Common\Service\CatalogItem;
 use OpenCloud\ObjectStore\Service;
@@ -91,7 +90,7 @@ class SelectelStorageTest extends ContainerAwareTestCase
         $this->assertEquals(Service::DEFAULT_TYPE, $catalogItem->getType());
         $endPoint = $catalogItem->getEndpointFromRegion(SelectelStorage::DEFAULT_REGION);
         $this->assertObjectHasAttribute('publicURL', $endPoint);
-        $this->assertEquals('https://xxx.selcdn.ru/', $endPoint->publicURL);
+        $this->assertEquals('https://18487.selcdn.ru/', $endPoint->publicURL);
         $this->assertObjectHasAttribute('region', $endPoint);
         $this->assertEquals(SelectelStorage::DEFAULT_REGION, $endPoint->region);
     }
@@ -126,6 +125,26 @@ class SelectelStorageTest extends ContainerAwareTestCase
         );
 
         $client->authenticate();
+    }
+
+    public function testGetFromContainer()
+    {
+        $mockPlugin = new MockPlugin();
+        $mockPlugin->addResponse($this->getFixtureFilePath('OpenStack/auth.response.ok'));
+
+        $client = $this->getContainer()->get('openstack.selectel');
+        $client->addSubscriber($mockPlugin);
+
+        $client->authenticate();
+
+        $requests = $mockPlugin->getReceivedRequests();
+        $this->assertCount(1, $requests);
+
+        /* @var EntityEnclosingRequestInterface $authRequest */
+        $authRequest = $requests[0];
+
+        $this->assertEquals('test', (string) $authRequest->getHeader('x-auth-user'));
+        $this->assertEquals('password', (string) $authRequest->getHeader('x-auth-key'));
     }
 
     /**

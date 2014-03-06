@@ -26,8 +26,20 @@ class LighthouseCoreExtensionTest extends TestCase
             ->method('setParameter')
             ->will($this->returnCallback($capture));
 
+        $config = array(
+            'lighthouse_core' => array(
+                'selectel' => array(
+                    'auth' => array(
+                        'username' => 'username',
+                        'password' => 'password',
+                    ),
+                    'container' => 'container'
+                )
+            )
+        );
+
         $extension = new LighthouseCoreExtension();
-        $extension->load(array(), $containerMock);
+        $extension->load($config, $containerMock);
 
         $expectedValues = array(
             'test.client.class',
@@ -40,10 +52,29 @@ class LighthouseCoreExtensionTest extends TestCase
             'openstack.selectel.auth_url',
             'openstack.selectel.secret.username',
             'openstack.selectel.secret.password',
-            'openstack.selectel.secret',
             'openstack.selectel.options',
             'openstack.selectel.storage.container.name',
         );
         $this->assertEquals($capturedArguments, $expectedValues, '', 0, 10, true);
+    }
+
+    /**
+     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
+     * @expectedExceptionMessage The child node "selectel" at path "lighthouse_core" must be configured.
+     */
+    public function testLoadMissingConfigValue()
+    {
+        /* @var ContainerBuilder|\PHPUnit_Framework_MockObject_MockObject $containerMock */
+        $containerMock = $this->getMock(
+            'Symfony\\Component\\DependencyInjection\\ContainerBuilder',
+            array('setParameter')
+        );
+
+        $containerMock
+            ->expects($this->any())
+            ->method('setParameter');
+
+        $extension = new LighthouseCoreExtension();
+        $extension->load(array(), $containerMock);
     }
 }

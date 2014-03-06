@@ -1,0 +1,22 @@
+HTTP/1.1 204 No Content
+Date: Wed, 05 Mar 2014 12:47:36 GMT
+Server: Selectel_Storage/1.0
+x-container-meta-transfered-bytes: 81
+content-length: 0
+x-container-object-count: 306
+x-container-meta-content-disposition: attachment; filename=""
+x-container-meta-domains: cdn.lighthouse.pro
+x-container-meta-received-bytes: 237
+accept-ranges: bytes
+x-container-meta-bytes-used: 75
+x-container-bytes-used: 372702961
+x-timestamp: 1393333709.79866
+x-container-meta-timestamp: 1393333709.79866
+x-container-meta-type: public
+x-container-meta-object-count: 3
+content-type: text/plain; charset=utf-8
+X-Container-Domains: cdn.lighthouse.pro
+X-Transfered-Bytes: 17233463
+X-Received-Bytes: 372723493
+Access-Control-Allow-Origin: *
+Access-Control-Expose-Headers: x-container-meta-transfered-bytes, x-container-object-count, x-container-meta-content-disposition, x-container-meta-domains, x-container-meta-received-bytes, x-container-meta-bytes-used, x-container-bytes-used, x-timestamp, x-container-meta-timestamp, x-container-meta-type, x-container-meta-object-count, x-container-domains, x-transfered-bytes, x-received-bytes
