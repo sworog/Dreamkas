@@ -9,6 +9,7 @@ define(function(require, exports, module) {
     };
 
     require('jquery');
+    require('lodash');
 
     var authorizationHeader = 'Bearer ' + cookie.get('token');
 
@@ -38,7 +39,7 @@ define(function(require, exports, module) {
                     type: 'POST',
                     headers: {
                         Authorization: authorizationHeader,
-                        'x-file-name': file.name
+                        'x-file-name': encodeURIComponent(file.name)
                     },
                     data: file,
                     processData: false,
