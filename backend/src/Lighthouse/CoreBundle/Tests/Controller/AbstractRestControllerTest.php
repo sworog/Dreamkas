@@ -7,7 +7,7 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class AbstractRestControllerTest extends WebTestCase
 {
-    public function testCorsHeader()
+    public function testCORSHeader()
     {
         $postArray = array(
             'name' => 'Кефир',

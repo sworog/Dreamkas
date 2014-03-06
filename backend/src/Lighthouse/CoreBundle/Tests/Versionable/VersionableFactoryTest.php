@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Versionable;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use Doctrine\ODM\MongoDB\UnitOfWork;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
@@ -9,6 +10,7 @@ use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
+use Lighthouse\CoreBundle\Versionable\VersionableInterface;
 use Lighthouse\CoreBundle\Versionable\VersionFactory;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
 
@@ -103,6 +105,7 @@ class VersionableFactoryTest extends ContainerAwareTestCase
      */
     public function testGetDocumentNotVersionable()
     {
+        /* @var VersionableInterface|\PHPUnit_Framework_MockObject_MockObject $versionableDocument */
         $versionableDocument = $this->getMock(
             'Lighthouse\CoreBundle\Versionable\VersionableInterface',
             array('getVersionClass'),
@@ -113,6 +116,7 @@ class VersionableFactoryTest extends ContainerAwareTestCase
             ->method('getVersionClass')
             ->will($this->returnValue('Lighthouse\CoreBundle\Document\User\User'));
 
+        /* @var DocumentManager|\PHPUnit_Framework_MockObject_MockObject $dm */
         $dm = $this->getMock(
             'Doctrine\ODM\MongoDB\DocumentManager',
             array(),

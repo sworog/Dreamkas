@@ -8,10 +8,12 @@ use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\File\File;
 use Lighthouse\CoreBundle\Document\File\FileRepository;
 use Lighthouse\CoreBundle\Document\File\FileUploader;
+use Lighthouse\CoreBundle\Exception\ValidationFailedException;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\HttpFoundation\Response;
 
 class FileController extends FOSRestController
 {
@@ -37,9 +39,29 @@ class FileController extends FOSRestController
      */
     public function postFileAction(Request $request)
     {
-        $file = $this->fileUploader->processRequest($request);
-        $this->documentRepository->save($file);
+        try {
+            $file = $this->fileUploader->processRequest($request);
+            $this->documentRepository->save($file);
+            return $file;
+        } catch (ValidationFailedException $e) {
+            return $this->createFailedValidationView($e);
+        }
+    }
 
-        return $file;
+    /**
+     * @param ValidationFailedException $e
+     * @return View
+     */
+    protected function createFailedValidationView(ValidationFailedException $e)
+    {
+        $data = array(
+            'code' => Response::HTTP_BAD_REQUEST,
+            'message' => 'Validation failed',
+            'errors' => array(),
+        );
+        foreach ($e->getConstraintViolationList() as $violationList) {
+            $data['errors'][] = $violationList->getMessage();
+        }
+        return $this->view($data, Response::HTTP_BAD_REQUEST);
     }
 }
