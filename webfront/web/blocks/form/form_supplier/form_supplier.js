@@ -50,7 +50,7 @@ define(function(require, exports, module) {
                     },
                     error: function(error) {
                         agreementInput.value = '';
-                        block.showFileErrors(error.responseJSON);
+                        block.showFileErrors(error.responseJSON, error);
                         button.classList.remove('preloader_rows');
                         block.disable(false);
                     }
@@ -71,14 +71,14 @@ define(function(require, exports, module) {
                 }
             }
         },
-        showFileErrors: function(error){
+        showFileErrors: function(errorJson, error){
             var block = this,
                 form_supplier__fileField = block.el.querySelector('.form_supplier__fileField');
 
-            if (error && error.errors){
-                form_supplier__fileField.dataset.error = error.errors.join(', ');
+            if (errorJson && errorJson.errors){
+                form_supplier__fileField.dataset.error = errorJson.errors.join(', ');
             } else {
-                form_supplier__fileField.dataset.error = 'Неизвестная ошибка';
+                form_supplier__fileField.dataset.error = 'Неизвестная ошибка: ' + error.status + ', '+ error.statusText;
             }
         },
         renderAgreementField: function(agreement) {

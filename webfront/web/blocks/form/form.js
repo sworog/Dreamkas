@@ -113,12 +113,12 @@ define(function(require) {
         },
         submitError: function(response) {
             var block = this;
-            block.showErrors(block.parseErrors(response.responseText));
+            block.showErrors(block.parseErrors(response.responseText), response);
         },
         parseErrors: function(data) {
             return JSON.parse(data);
         },
-        showErrors: function(errors) {
+        showErrors: function(errors, error) {
             var block = this;
 
             block.removeErrors();
@@ -137,7 +137,7 @@ define(function(require) {
             }
 
             if (errors.error) {
-                block.$controls.attr('data-error', typeof errors.error === 'string' ? block.translate(errors.error) : 'неизвестная ошибка');
+                block.$controls.attr('data-error', typeof errors.error === 'string' ? block.translate(errors.error) : 'неизвестная ошибка: ' + error.statusText);
             }
 
             if (errors.description) {
