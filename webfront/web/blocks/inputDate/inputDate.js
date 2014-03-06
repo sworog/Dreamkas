@@ -1,9 +1,9 @@
 define(function(require) {
         //requirements
-        var Block = require('../../core/block'),
+        var Block = require('kit/core/block'),
             moment = require('moment'),
-            Datepicker = require('../datepicker/datepicker'),
-            Tooltip = require('../tooltip/tooltip');
+            Datepicker = require('blocks/datepicker/datepicker'),
+            Tooltip = require('blocks/tooltip/tooltip');
 
         require('jquery.maskedinput');
 
@@ -14,7 +14,7 @@ define(function(require) {
             date: null,
             noTime: false,
             templates: {
-                datepicker__controls: require('tpl!kit/blocks/inputDate/templates/datepicker__controls.html')
+                datepicker__controls: require('tpl!blocks/inputDate/templates/datepicker__controls.html')
             },
 
             initialize: function() {

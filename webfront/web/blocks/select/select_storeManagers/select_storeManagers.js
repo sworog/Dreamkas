@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Select = require('kit/blocks/select/select');
+    var Select = require('blocks/select/select');
 
     return Select.extend({
         __name__: 'select_storeManagers',

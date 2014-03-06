@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Form = require('kit/blocks/form/form'),
+    var Form = require('blocks/form/form'),
         writeOffList_search = require('tpl!blocks/writeOffList/writeOffList_search.html'),
         WriteOffProductsCollection = require('collections/writeOffProducts'),
         Table_writeOffProducts = require('blocks/table/table_writeOffProducts/table_writeOffProducts');

@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Block = require('../../core/block'),
+        var Block = require('kit/core/block'),
             moment = require('moment');
 
         return Block.extend({
@@ -10,12 +10,12 @@ define(function(require) {
             selectedDate: null,
             noTime: false,
             dateList: [],
-            template: require('tpl!kit/blocks/datepicker/templates/index.html'),
+            template: require('tpl!blocks/datepicker/templates/index.html'),
             templates: {
-                index: require('tpl!kit/blocks/datepicker/templates/index.html'),
-                controls: require('tpl!kit/blocks/datepicker/templates/controls.html'),
-                dateList: require('tpl!kit/blocks/datepicker/templates/dateList.html'),
-                header: require('tpl!kit/blocks/datepicker/templates/header.html')
+                index: require('tpl!blocks/datepicker/templates/index.html'),
+                controls: require('tpl!blocks/datepicker/templates/controls.html'),
+                dateList: require('tpl!blocks/datepicker/templates/dateList.html'),
+                header: require('tpl!blocks/datepicker/templates/header.html')
             },
 
             initialize: function() {

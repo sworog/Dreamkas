@@ -1,3 +1,3 @@
-require(['/require.config.js'], function() {
+require(['config', 'require.config'], function() {
     require(['app']);
 });

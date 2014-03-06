@@ -1,6 +1,8 @@
+// DEPRECATED
+
 define(function(require) {
         //requirements
-        var Block = require('../../core/block'),
+        var Block = require('kit/core/block'),
             DataCollection = require('./collections/data'),
             columnsCollection = require('./collections/columns');
 
@@ -11,13 +13,13 @@ define(function(require) {
             collection: [],
             tagName: 'table',
             className: 'table',
-            template: require('tpl!kit/blocks/table/templates/index.html'),
+            template: require('tpl!blocks/table/templates/index.html'),
             templates: {
-                index: require('tpl!kit/blocks/table/templates/index.html'),
-                head: require('tpl!kit/blocks/table/templates/head.html'),
-                body: require('tpl!kit/blocks/table/templates/body.html'),
-                tr: require('tpl!kit/blocks/table/templates/tr.html'),
-                td: require('tpl!kit/blocks/table/templates/td.html')
+                index: require('tpl!blocks/table/templates/index.html'),
+                head: require('tpl!blocks/table/templates/head.html'),
+                body: require('tpl!blocks/table/templates/body.html'),
+                tr: require('tpl!blocks/table/templates/tr.html'),
+                td: require('tpl!blocks/table/templates/td.html')
             },
             listeners: {
                 collection: {

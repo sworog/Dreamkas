@@ -1,9 +1,9 @@
 define(function(require) {
     //requirements
-    var Block = require('../../core/block'),
-        setter = require('../../utils/setter'),
+    var Block = require('kit/core/block'),
+        setter = require('kit/utils/setter'),
         form2js = require('form2js'),
-        translate = require('../../utils/translate');
+        translate = require('kit/utils/translate');
 
     require('lodash');
     require('backbone');
@@ -12,7 +12,6 @@ define(function(require) {
 
     return Block.extend({
         __name__: 'form',
-        dictionary: require('i18n!./nls/errors'),
         className: 'form',
         tagName: 'form',
         model: function() {
@@ -25,17 +24,12 @@ define(function(require) {
 
             Block.prototype.initialize.apply(block, arguments);
 
-            if (!block.__model) {
-                block.__model = block.model;
-            }
-
+            block.__model = block.__model || block.model;
             block.model = block.get('__model');
 
-            if (!block.__collection) {
-                block.__collection = block.collection;
-            }
-
+            block.__collection = block.__collection || block.collection;
             block.collection = block.get('__collection');
+
         },
         events: {
             'change input, checkbox, textarea': function() {

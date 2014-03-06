@@ -1,7 +1,7 @@
 define(function(require) {
 
         //requirements
-        var Editor = require('kit/blocks/editor/editor'),
+        var Editor = require('blocks/editor/editor'),
             CatalogGroupModel = require('models/catalogGroup'),
             Catalog__groupList = require('blocks/catalog/catalog__groupList'),
             Tooltip_catalogGroupForm = require('blocks/tooltip/tooltip_catalogGroupForm/tooltip_catalogGroupForm'),

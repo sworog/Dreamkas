@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Form = require('kit/blocks/form/form'),
+    var Form = require('blocks/form/form'),
         invoiceList_search = require('tpl!blocks/invoiceList/invoiceList_search.html'),
         InvoiceProductsCollection = require('collections/invoiceProducts'),
         Table_invoiceProducts = require('blocks/table/table_invoiceProducts/table_invoiceProducts');

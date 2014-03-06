@@ -4,7 +4,7 @@ define(function(require) {
         Block = require('kit/core/block'),
         currentUserModel = require('models/currentUser'),
         cookie = require('cookies'),
-        numeral = require('libs/numeral'),
+        numeral = require('numeral'),
         moment = require('moment');
 
     require('jquery');

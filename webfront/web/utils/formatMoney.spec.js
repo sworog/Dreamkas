@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var formatMoney = require('./formatMoney'),
-        numeral = require('libs/numeral');
+        numeral = require('numeral');
 
     numeral.language('root', require('nls/root/numeral'));
 

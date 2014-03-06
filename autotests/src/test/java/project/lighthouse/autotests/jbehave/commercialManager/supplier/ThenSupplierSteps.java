@@ -61,6 +61,11 @@ public class ThenSupplierSteps {
         supplierSteps.assertReplaceButtonIsDisabled();
     }
 
+    @Then("the user checks the upload delete button is disabled")
+    public void thenTheUserChecksTheUploadDeleteButtonIsDisabled() {
+        supplierSteps.assertDeleteButtonIsDisabled();
+    }
+
     @Then("the user waits for upload complete")
     public void thenTheUserWaitsForUploadComplete() {
         supplierSteps.waitForUploadComplete();

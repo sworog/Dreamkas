@@ -5,7 +5,7 @@
  */
 %>
 
-<% var numeral = require('libs/numeral') %>
+<% var numeral = require('numeral') %>
 
 <span class="amount">
     <%- numeral(parseInt(value)).format('0,0') %><span class="layout__precision"><%- numeral(Math.abs(value)).format('.0[00]') %></span>

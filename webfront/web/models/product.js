@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Model = require('kit/core/model'),
         compute = require('kit/utils/computeAttr'),
-        numeral = require('libs/numeral');
+        numeral = require('numeral');
 
     return Model.extend({
         modelName: 'product',

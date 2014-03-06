@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/blocks/form/form'),
+    var Form = require('blocks/form/form'),
         SupplierModel = require('models/supplier'),
         cookie = require('cookies');
 
@@ -54,6 +54,20 @@ define(function(require, exports, module) {
                         block.disable(false);
                     }
                 });
+            },
+            'click .form_supplier__removeFile': function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                var block = this;
+
+                if (e.target.getAttribute('disabled')) {
+                    return;
+                }
+
+                if (confirm('Вы уверены, что хотите удалить файл?')) {
+                    block.renderAgreementField();
+                }
             }
         },
         showFileErrors: function(error){
@@ -75,15 +89,17 @@ define(function(require, exports, module) {
                 successMessage: true
             }));
         },
-        disable: function(disabled){
+        disable: function(disabled) {
             var block = this;
 
             Form.prototype.disable.apply(block, arguments);
 
             if (disabled) {
                 $(block.el).find('[type="file"]').closest('.button').attr('disabled', true);
+                $(block.el).find('.form_supplier__removeFile').attr('disabled', true);
             } else {
                 $(block.el).find('[type="file"]').closest('.button').removeAttr('disabled');
+                $(block.el).find('.form_supplier__removeFile').removeAttr('disabled');
             }
         }
     });
