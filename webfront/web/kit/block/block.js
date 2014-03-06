@@ -85,9 +85,7 @@ define(function(require, exports, module) {
         initBlocks: function() {
             var block = this;
 
-            if (!block.__blocks) {
-                block.__blocks = block.blocks;
-            }
+            block.__blocks = block.__blocks || block.blocks;
 
             block.blocks = _.transform(block.get('__blocks'), function(result, blockInitializer, key) {
                 result[key] = block.get('__blocks.' + key);
