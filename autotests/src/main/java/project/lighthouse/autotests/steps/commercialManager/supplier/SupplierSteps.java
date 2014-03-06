@@ -5,6 +5,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.apache.commons.io.FileUtils;
 import org.jbehave.core.model.ExamplesTable;
 import org.junit.Assert;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.helper.FileCreator;
@@ -145,6 +146,10 @@ public class SupplierSteps extends ScenarioSteps {
     @Step
     public void uploadDeleteButtonClick() {
         supplierPage.getUploadForm().getDeleteFileButton().click();
+        Alert alert = supplierPage.getAlert();
+        String alertMessage = "Вы уверены, что хотите удалить файл?";
+        Assert.assertEquals(alertMessage, alert.getText());
+        alert.accept();
     }
 
     @Step
