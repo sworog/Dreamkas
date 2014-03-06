@@ -14,11 +14,12 @@
     ],
     "php": {
         "directives": {
-            "date.timezone": "Europe/Moscow"
+            "date.timezone": "Europe/Moscow",
+            "post_max_size": "100M"
         }
     },
     "php-fpm": {
-        "pools": ["www"],
+        "pools": [{":name": "www"}],
         "pool": {
             "www": {
                 "user": "watchman",
