@@ -3,6 +3,8 @@ Meta:
 @us_60.3
 @supplier
 
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
+
 Narrative:
 As a категорийный менеджер
 I want to удалить файл с текстом договора поставщика,

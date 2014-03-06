@@ -3,6 +3,8 @@ Meta:
 @us_61
 @supplier
 
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
+
 Narrative:
 As a категорийный менеджер
 I want to видеть список поставщиков

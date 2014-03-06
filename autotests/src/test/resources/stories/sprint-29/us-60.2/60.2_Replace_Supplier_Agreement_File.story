@@ -3,6 +3,8 @@ Meta:
 @us_60.2
 @supplier
 
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
+
 Narrative:
 As a категорийный менеджер
 I want to заменить файл с текстом договора поставщика,

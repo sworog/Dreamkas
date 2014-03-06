@@ -3,7 +3,7 @@ Meta:
 @xss
 @supplier
 
-GivenStories: precondition/xxsPrecondition/aPreconditionToXSS.story
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
 
 Scenario: Xss supplier name validation in edit mode
 
