@@ -3,12 +3,12 @@ Meta:
 @us_61
 @supplier
 
-GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
-
 Narrative:
 As a категорийный менеджер
 I want to видеть список поставщиков
 In order to найти поставщика, просмотреть, отредактировать, скачать договор
+
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
 
 Scenario: Supplier create from supplier list page
 

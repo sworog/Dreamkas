@@ -3,12 +3,12 @@ Meta:
 @us_60.2
 @supplier
 
-GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
-
 Narrative:
 As a категорийный менеджер
 I want to заменить файл с текстом договора поставщика,
 In order to в системы всегда был актуальный договор с поставщиком
+
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
 
 Scenario: Check replacing agreement button is clickable
 

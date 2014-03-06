@@ -3,12 +3,12 @@ Meta:
 @us_60.1
 @supplier
 
-GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
-
 Narrative:
 As a категорийный менеджер
 I want to прикрепить файл с текстом договора к поставщику,
 In order to в ЦО и в магазинах было возможно выяснить особенности работы с этим поставщиком
+
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
 
 Scenario: Check adding agreement button is clickable
 

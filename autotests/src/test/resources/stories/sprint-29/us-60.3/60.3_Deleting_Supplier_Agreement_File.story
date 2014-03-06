@@ -3,12 +3,12 @@ Meta:
 @us_60.3
 @supplier
 
-GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
-
 Narrative:
 As a категорийный менеджер
 I want to удалить файл с текстом договора поставщика,
 In order to не вводить в заблуждение сотрудников торговой сети, если договор потерял актуальность
+
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
 
 Scenario: Deleting file
 
