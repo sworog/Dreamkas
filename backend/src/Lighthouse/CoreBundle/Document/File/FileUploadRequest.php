@@ -26,7 +26,7 @@ class FileUploadRequest
      */
     public function getName()
     {
-        return $this->request->headers->get('x-file-name');
+        return rawurldecode($this->request->headers->get('x-file-name'));
     }
 
     /**

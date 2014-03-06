@@ -160,6 +160,16 @@ class FileControllerTest extends WebTestCase
                 ),
                 4
             ),
+            'X-File-Name with UTF-8 encoded' => array(
+                array(
+                    'X-File-Name' => rawurlencode('Договор с ООО "ЕВРОАРТ" от 2014.02.03.docx'),
+                ),
+                201,
+                array(
+                    'name' => 'Договор с ООО "ЕВРОАРТ" от 2014.02.03.docx',
+                ),
+                4
+            ),
         );
     }
 }
