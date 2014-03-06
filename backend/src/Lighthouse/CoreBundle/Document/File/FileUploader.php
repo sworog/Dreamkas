@@ -102,7 +102,7 @@ class FileUploader
         $headers = new ResponseHeaderBag();
         $headers->set(
             'Content-Disposition',
-            $headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $file->name)
+            $headers->makeDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $file->name, $file->id)
         );
 
         $dataObject = $this->storageContainer->uploadObject($file->id, $fileResource, $headers->all());
