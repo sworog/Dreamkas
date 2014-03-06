@@ -20,7 +20,7 @@ define(function(require) {
             initialize: function() {
 
                 var block = this,
-                    date = block.$el.val();
+                    date = +block.$el.val() || block.$el.val();
 
                 if (block.noTime){
                     block.dateFormat = 'DD.MM.YYYY';
@@ -44,7 +44,7 @@ define(function(require) {
                 block.tooltip.$content.html(block.datepicker.$el);
 
                 if (date){
-                    block.set('date', parseInt(date));
+                    block.set('date', date);
                 }
 
                 if (block.noTime){

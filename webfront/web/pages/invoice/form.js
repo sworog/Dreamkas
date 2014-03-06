@@ -4,6 +4,8 @@ define(function(require) {
         InvoiceModel = require('models/invoice'),
         Form_invoice = require('blocks/form/form_invoice/form_invoice'),
         currentUserModel = require('models/currentUser'),
+        InputDate = require('blocks/inputDate/inputDate'),
+        InputDate_noTime = require('blocks/inputDate/inputDate_noTime'),
         Page403 = require('pages/errors/403');
 
     return Page.extend({
@@ -37,6 +39,14 @@ define(function(require) {
             new Form_invoice({
                 model: page.invoiceModel,
                 el: document.getElementById('form_invoice')
+            });
+
+            new InputDate({
+                el: page.el.querySelector('[name="acceptanceDate"]')
+            });
+
+            new InputDate_noTime({
+                el: page.el.querySelector('[name="supplierInvoiceDate"]')
             });
         }
     });
