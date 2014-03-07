@@ -47,10 +47,10 @@ define(function(require) {
                 pageParams.editMode = 'false';
             }
 
-            router.navigate(router.toFragment(document.location.pathname, {
-                editMode: pageParams.editMode,
-                storeId: pageParams.storeId
-            }));
+            router.navigate(document.location.pathname + '?editMode=' + pageParams.editMode + '&storeId=' + pageParams.storeId, {
+                replace: true,
+                trigger: false
+            });
 
             page.catalogGroupModel = new СatalogGroupModel({
                 id: params.catalogGroupId,

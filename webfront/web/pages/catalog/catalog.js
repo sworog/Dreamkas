@@ -40,12 +40,7 @@ define(function(require) {
                 pageParams.editMode = 'false';
             }
 
-            var route = router.toFragment(document.location.pathname, {
-                editMode: pageParams.editMode,
-                storeId: pageParams.storeId
-            });
-
-            router.navigate(route, {
+            router.navigate(document.location.pathname + '?editMode=' + pageParams.editMode + '&storeId=' + pageParams.storeId, {
                 replace: true,
                 trigger: false
             });

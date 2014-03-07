@@ -39,11 +39,10 @@ define(function(require) {
                     block.$el.removeClass('editor_editMode_on');
                 }
 
-                var route = router.toFragment(document.location.pathname, {
-                    editMode: editMode
+                router.navigate(document.location.pathname + '?editMode=' + editMode, {
+                    replace: true,
+                    trigger: false
                 });
-
-                router.navigate(route);
             }
         });
     }
