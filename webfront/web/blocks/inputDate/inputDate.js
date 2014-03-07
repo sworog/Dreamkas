@@ -85,7 +85,7 @@ define(function(require) {
                 },
                 'change': function(e){
                     var block = this,
-                        date = moment(block.$el.val(), block.dateFormat);
+                        date = moment(block.$el.val() || null, block.dateFormat);
 
                     if (date){
                         block.set('date', date.valueOf(), {
