@@ -129,12 +129,12 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     protected $invoice;
 
     /**
+     * @Assert\NotBlank
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Product\Version\ProductVersion",
      *     simple=true,
      *     cascade={"persist"}
      * )
-     * @Assert\NotBlank
      * @var ProductVersion
      */
     protected $product;

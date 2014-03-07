@@ -262,7 +262,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 array(
                     'children.product.errors.0'
                     =>
-                        'Такого товара не существует'
+                    'Заполните это поле'
                 ),
             ),
             /***********************************************************************************************
