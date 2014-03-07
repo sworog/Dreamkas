@@ -1,8 +1,7 @@
 define(function(require) {
     //requirements
-    var router = require('router');
 
-    router.routes = {
+    return {
         //common
         '(/)': require('pages/common/dashboard'),
         'logout(/)': require('utils/logout'),
@@ -76,5 +75,5 @@ define(function(require) {
         //errors
         '403(/)': require('pages/errors/403'),
         '*path': require('pages/errors/404')
-    }
+    };
 });

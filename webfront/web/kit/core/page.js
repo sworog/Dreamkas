@@ -1,14 +1,12 @@
 define(function(require) {
     //requirements
-    var app = require('./app'),
+    var app = require('app'),
         Block = require('./block'),
         Backbone = require('backbone'),
-        Router = require('./router'),
+        router = require('router'),
         isAllow = require('../utils/isAllow');
 
     require('lodash');
-
-    var router = new Router();
 
     var Page = Block.extend({
         el: document.body,
