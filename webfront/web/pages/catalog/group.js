@@ -5,9 +5,8 @@ define(function(require) {
         СatalogGroupModel = require('models/catalogGroup'),
         CatalogGroup = require('blocks/catalogGroup/catalogGroup'),
         currentUserModel = require('models/currentUser'),
-        Page403 = require('pages/errors/403');
-
-    var router = new Backbone.Router();
+        Page403 = require('pages/errors/403'),
+        router = require('router');
 
     return Page.extend({
         __name__: 'page_catalog_group',
@@ -46,9 +45,7 @@ define(function(require) {
                 storeId: pageParams.storeId
             });
 
-            router.navigate(route, {
-                replace: true
-            });
+            router.navigate(route);
 
             page.catalogGroupModel = new СatalogGroupModel({
                 id: params.catalogGroupId,

@@ -7,9 +7,8 @@ define(function(require) {
         StoreProductsCollection = require('collections/storeProducts'),
         СatalogGroupModel = require('models/catalogGroup'),
         currentUserModel = require('models/currentUser'),
-        Page403 = require('pages/errors/403');
-
-    var router = new Backbone.Router();
+        Page403 = require('pages/errors/403'),
+        router = require('router');
 
     return Page.extend({
         __name__: 'page_catalog_category',
@@ -51,9 +50,7 @@ define(function(require) {
             router.navigate(router.toFragment(document.location.pathname, {
                 editMode: pageParams.editMode,
                 storeId: pageParams.storeId
-            }), {
-                replace: true
-            });
+            }));
 
             page.catalogGroupModel = new СatalogGroupModel({
                 id: params.catalogGroupId,

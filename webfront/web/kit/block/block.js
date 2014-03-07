@@ -29,17 +29,7 @@ define(function(require, exports, module) {
         blocks: {},
 
         el: function() {
-            var block = this;
-
-            //TODO: multiple elements
-
-            return document.querySelector(block.get('selector'));
-        },
-
-        selector: function() {
-            var block = this;
-
-            return '.' + block.get('cid').split('/').pop();
+            return '.' + this.get('cid').split('/').pop();
         },
 
         template: function() {

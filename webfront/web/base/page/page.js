@@ -44,7 +44,6 @@ define(function(require) {
                     page.startListening();
                 } else {
                     router.navigate('/errors/403', {
-                        trigger: true,
                         replace: true
                     });
                 }
@@ -129,9 +128,7 @@ define(function(require) {
         'set:error': function(error, extra) {
             var page = this;
 
-            router.navigate('/errors/' + error.status, {
-                trigger: true
-            });
+            router.navigate('/errors/' + error.status);
         },
         'set:status': function(status){
             var page = this;

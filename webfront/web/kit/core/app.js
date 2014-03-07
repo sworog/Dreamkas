@@ -2,12 +2,11 @@ define(function(require) {
     //requirements
     var setter = require('../utils/setter'),
         getter = require('../utils/getter'),
+        router = require('router'),
         cookie = require('cookies');
 
     require('lodash');
     require('backbone');
-
-    var router = new Backbone.Router();
 
     $(document).on('click', '[href]', function(e) {
         e.stopPropagation();
@@ -17,9 +16,7 @@ define(function(require) {
         if ($target.data('navigate') !== false) {
             e.preventDefault();
 
-            router.navigate($target.attr('href'), {
-                trigger: true
-            });
+            router.navigate($target.attr('href'));
         }
     });
 
@@ -37,9 +34,7 @@ define(function(require) {
                     locale: app.locale
                 }, deps, function() {
 
-                    Backbone.history.start({
-                        pushState: true
-                    });
+                    router.start();
 
                     app.set('isStarted', true);
                 });

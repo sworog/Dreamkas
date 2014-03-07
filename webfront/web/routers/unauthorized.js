@@ -1,11 +1,11 @@
 define(function(require) {
     //requirements
-    var Router = require('routers/base');
+    var router = require('router');
 
-    return new Router({
-        routes: {
-            //common
-            '*path': require('pages/common/login')
-        }
-    });
+    router.routes = {
+        //common
+        '*path': require('pages/common/login')
+    };
+
+    return router;
 });

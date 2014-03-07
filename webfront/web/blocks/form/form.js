@@ -3,12 +3,11 @@ define(function(require) {
     var Block = require('kit/core/block'),
         setter = require('kit/utils/setter'),
         form2js = require('form2js'),
-        translate = require('kit/utils/translate');
+        translate = require('kit/utils/translate'),
+        router = require('router');
 
     require('lodash');
     require('backbone');
-
-    var router = new Backbone.Router();
 
     return Block.extend({
         __name__: 'form',
@@ -102,9 +101,7 @@ define(function(require) {
             }
 
             if (block.redirectUrl) {
-                router.navigate(_.result(block, 'redirectUrl'), {
-                    trigger: true
-                });
+                router.navigate(_.result(block, 'redirectUrl'));
             }
 
             if (block.successMessage) {

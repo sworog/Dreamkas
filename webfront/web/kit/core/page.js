@@ -42,9 +42,7 @@ define(function(require) {
             }
 
             if (accessDenied) {
-                router.navigate('/403', {
-                    trigger: true
-                });
+                router.navigate('/403');
 
                 return;
             }

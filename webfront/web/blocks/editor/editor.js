@@ -1,8 +1,7 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/core/block');
-
-        var router = new Backbone.Router();
+        var Block = require('kit/core/block'),
+            router = require('router');
 
         return Block.extend({
             __name__: 'editor',
@@ -44,9 +43,7 @@ define(function(require) {
                     editMode: editMode
                 });
 
-                router.navigate(route, {
-                    replace: true
-                });
+                router.navigate(route);
             }
         });
     }

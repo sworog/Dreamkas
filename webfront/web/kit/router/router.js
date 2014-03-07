@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Events = require('utils/events'),
+    var Events = require('kit/events/events'),
         Uri = require('uri/URI');
 
     require('lodash');
@@ -191,7 +191,9 @@ define(function(require, exports, module) {
 
             fragment = new Uri(fragment).setQuery(params).toString();
 
-            router.navigate(fragment);
+            router.navigate(fragment, {
+                trigger: false
+            });
         },
 
         // Bind all defined routes to router. We have to reverse the
