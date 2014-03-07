@@ -304,4 +304,19 @@ namespace :symfony do
         end
     end
 
+    namespace :openstack do
+        namespace :container do
+
+            after "deploy:setup", "symfony:openstack:container:create"
+            after "deploy:remove", "symfony:openstack:container:delete"
+
+            task :create, :roles => :app, :except => { :no_release => true } do
+                stream console_command("openstack:container:create"), :once => true
+            end
+            task :delete, :roles => :app, :except => { :no_release => true } do
+                stream console_command("openstack:container:delete"), :once => true
+            end
+        end
+    end
+
 end
