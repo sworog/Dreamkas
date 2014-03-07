@@ -512,6 +512,15 @@ class InvoiceControllerTest extends WebTestCase
                     'Вы ввели неверную дату',
                 ),
             ),
+            'not valid acceptanceDate __.__.____ __:__' => array(
+                400,
+                array('acceptanceDate' => '__.__.____ __:__'),
+                array(
+                    'children.acceptanceDate.errors.0'
+                    =>
+                        'Вы ввели неверную дату',
+                ),
+            ),
             /***********************************************************************************************
              * 'supplierInvoiceDate'
              ***********************************************************************************************/
