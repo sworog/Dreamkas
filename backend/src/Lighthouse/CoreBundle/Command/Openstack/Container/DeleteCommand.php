@@ -25,7 +25,7 @@ class DeleteCommand extends AbstractContainerCommand
         $containerName = $input->getOption('name');
         try {
             $output->write(sprintf('Deleting container "%s" ... ', $containerName));
-            $container = $this->storageService->getContainer($containerName);
+            $container = $this->getStorageService()->getContainer($containerName);
             $container->delete(true);
             $output->writeln('Done');
         } catch (ClientErrorResponseException $e) {

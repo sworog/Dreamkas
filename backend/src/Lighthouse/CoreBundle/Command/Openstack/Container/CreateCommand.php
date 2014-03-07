@@ -24,13 +24,13 @@ class CreateCommand extends AbstractContainerCommand
     {
         $containerName = $input->getOption('name');
         try {
-            $this->storageService->getContainer($containerName);
+            $this->getStorageService()->getContainer($containerName);
             $output->writeln(sprintf('Container "%s" already exists', $containerName));
         } catch (ClientErrorResponseException $e) {
             if (404 == $e->getResponse()->getStatusCode()) {
                 $output->writeln(sprintf('Container "%s" does not exist', $containerName));
                 $output->write('Trying to create it ... ');
-                $container = $this->storageService->createContainer($containerName, $this->defaultMetaData);
+                $container = $this->getStorageService()->createContainer($containerName, $this->defaultMetaData);
                 if ($container) {
                     $output->writeln('Done');
                 } else {
