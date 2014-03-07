@@ -30,7 +30,7 @@ class DeleteCommand extends AbstractContainerCommand
             $output->writeln('Done');
         } catch (ClientErrorResponseException $e) {
             if (404 == $e->getResponse()->getStatusCode()) {
-                $output->writeln(sprintf('Container "%s" does not exist', $containerName));
+                $output->writeln(sprintf('Failed - Does not exist', $containerName));
             } else {
                 throw $e;
             }
