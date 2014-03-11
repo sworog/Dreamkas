@@ -1,8 +1,8 @@
 <% var templates = {
-    localNavigation: require('tpl!blocks/localNavigation/localNavigation_suppliers.html'),
+    localNavigation: require('tpl!blocks/localNavigation/localNavigation_orders.html'),
     form_order: require('tpl!blocks/form/form_order/template.html')
 } %>
-<% if (LH.isAllow('suppliers', 'POST')) { %>
+<% if (LH.isAllow('orders', 'POST')) { %>
 <%= templates.localNavigation(obj) %>
 <% } %>
 
