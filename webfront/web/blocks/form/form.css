@@ -24,6 +24,12 @@
     padding-bottom: 16px;
 }
 
+.form__field_inline{
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 10px;
+}
+
 .form__field .inputText, .form__field .select{
     width: 300px;
     vertical-align: middle;
@@ -79,4 +85,16 @@
     border-radius: 3px;
     padding: 10px;
     margin-bottom: 16px;
+}
+
+.form_order__productForm{
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 3px;
+    margin-bottom: 30px;
+}
+
+.form_order__totalSum{
+    font-size: 20px;
+    margin-bottom: 10px;
 }

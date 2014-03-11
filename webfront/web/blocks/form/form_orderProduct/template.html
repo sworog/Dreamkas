@@ -1,0 +1,29 @@
+<% var model = model || new Backbone.Model() %>
+
+<form class="form">
+    <div class="form__field form__field_inline">
+        <label class="form__label">Наименование</label>
+        <input type="text" class="inputText" name="name" />
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Количество, шт</label>
+        <input style="width: 100px;" type="text" class="inputText" name="amount" />
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Цена, руб</label>
+        <div style="height: 35px; line-height: 35px;">91,20</div>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Сумма, руб</label>
+        <div style="height: 35px; line-height: 35px;">912,0</div>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Остаток, шт</label>
+        <div style="height: 35px; line-height: 35px;">23</div>
+    </div>
+    <div class="form__controls">
+        <button type="submit" class="button">
+            Добавить в заказ
+        </button>
+    </div>
+</form>
