@@ -1770,4 +1770,33 @@ class InvoiceProductControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals('2014-01-03T10:11:10+0400', '0.acceptanceDate', $response);
     }
+
+    public function testProductsActionProductCategoryIsNotExposed()
+    {
+        $storeId = $this->factory->getStore();
+
+        $productId1 = $this->createProduct('1');
+        $productId2 = $this->createProduct('2');
+        $productId3 = $this->createProduct('3');
+
+        $invoiceId = $this->createInvoice(array(), $storeId);
+
+        $this->createInvoiceProduct($invoiceId, $productId1, 2, 9.99, $storeId);
+        $this->createInvoiceProduct($invoiceId, $productId2, 3, 4.99, $storeId);
+        $this->createInvoiceProduct($invoiceId, $productId3, 2, 1.95, $storeId);
+
+        $accessToken = $this->factory->authAsDepartmentManager($storeId);
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId .'/invoices/' . $invoiceId . '/products'
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonHasPath('*.product.subCategory', $getResponse);
+        Assert::assertJsonHasPath('*.invoice', $getResponse);
+        Assert::assertNotJsonHasPath('*.product.subCategory.category.group', $getResponse);
+        Assert::assertJsonPathCount(0, '*.invoice.products.*.id', $getResponse);
+        Assert::assertNotJsonHasPath('*.product.subCategory.category', $getResponse);
+    }
 }
