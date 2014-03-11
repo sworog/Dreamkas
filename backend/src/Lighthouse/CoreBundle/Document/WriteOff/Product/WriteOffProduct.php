@@ -87,6 +87,7 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
      *     simple=true,
      *     cascade="persist"
      * )
+     * @Serializer\MaxDepth(3)
      * @var ProductVersion
      */
     protected $product;
@@ -98,6 +99,7 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
      *     cascade="persist",
      *     inversedBy="products"
      * )
+     * @Serializer\MaxDepth(2)
      * @var WriteOff
      */
     protected $writeOff;

@@ -1087,4 +1087,29 @@ class WriteOffProductControllerTest extends WebTestCase
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals('Заполните это поле', 'children.quantity.errors.0', $response);
     }
+
+    public function testProductsActionCategoryIsNotExposed()
+    {
+        $storeId = $this->factory->getStore();
+        $productId1 = $this->createProduct('1');
+        $productId2 = $this->createProduct('2');
+        $productId3 = $this->createProduct('3');
+        $writeOffId = $this->createWriteOff('1', null, $storeId);
+        $this->createWriteOffProduct($writeOffId, $productId1, 2, 5.99, 'Порча', $storeId);
+        $this->createWriteOffProduct($writeOffId, $productId2, 1, 6.99, 'Порча', $storeId);
+        $this->createWriteOffProduct($writeOffId, $productId3, 3, 2.59, 'Порча', $storeId);
+
+        $accessToken = $this->factory->authAsDepartmentManager($storeId);
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/writeoffs/' . $writeOffId . '/products'
+        );
+        $this->assertResponseCode(200);
+        Assert::assertJsonHasPath('*.product.subCategory', $getResponse);
+        Assert::assertJsonHasPath('*.writeOff', $getResponse);
+        Assert::assertNotJsonHasPath('*.product.subCategory.category.group', $getResponse);
+        Assert::assertJsonPathCount(0, '*.writeOff.products.*.id', $getResponse);
+        Assert::assertNotJsonHasPath('*.product.subCategory.category', $getResponse);
+    }
 }
