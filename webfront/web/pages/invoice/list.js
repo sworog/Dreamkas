@@ -11,14 +11,14 @@ define(function(require) {
         partials: {
             '#content': require('tpl!./templates/list.html')
         },
-        initialize: function(pageParams){
+        initialize: function(pageParams) {
             var page = this;
 
-            if (currentUserModel.stores.length){
+            if (currentUserModel.stores.length) {
                 pageParams.storeId = currentUserModel.stores.at(0).id;
             }
 
-            if (!pageParams.storeId){
+            if (!pageParams.storeId) {
                 new Page403();
                 return;
             }
@@ -27,7 +27,7 @@ define(function(require) {
                 storeId: pageParams.storeId
             });
 
-            $.when(page.invoicesCollection.fetch()).then(function(){
+            $.when(page.invoicesCollection.fetch()).then(function() {
                 page.render();
 
                 new Table_invoices({

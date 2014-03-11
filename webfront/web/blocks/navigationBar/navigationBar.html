@@ -33,6 +33,8 @@
     <a href="/suppliers">Поставщики</a>
     <% } %>
 
+    <a href="/orders">Заказы</a>
+
     <% if(currentUserModel.stores && currentUserModel.stores.length) { %>
     <a href="/stores/<%- currentUserModel.stores.at(0).id %>">Мой магазин</a>
     <% } %>
