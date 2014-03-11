@@ -1,6 +1,7 @@
 define(function(require) {
     //requirements
-    var cookie = require('cookies');
+    var cookie = require('cookies'),
+        numeral = require('numeral');
 
     return function(price, rounding){
         return $.ajax({
@@ -11,7 +12,7 @@ define(function(require) {
                 Authorization: 'Bearer ' + cookie.get('token')
             },
             data: {
-                price: price
+                price: numeral().unformat(price)
             }
         });
     }
