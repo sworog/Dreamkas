@@ -18,6 +18,7 @@ define(function(require) {
 
         //orders
         'orders(/)': require('pages/orders/list/list'),
+        'orders/create(/)': require('pages/orders/create/create'),
 
         //reports
         'reports(/)': require('pages/reports/dashboard/dashboard'),

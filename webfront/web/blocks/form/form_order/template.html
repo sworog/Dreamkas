@@ -1,0 +1,21 @@
+<% var model = model || new Backbone.Model() %>
+
+<form class="form form_supplier">
+    <div class="form__field">
+        <label class="form__label">Поставщик</label>
+        <select class="select" name="supplier">
+            <option selected disabled>Выберите поставщика</option>
+        </select>
+    </div>
+    <div class="form__controls">
+        <button type="submit" class="button">
+            Сохранить
+        </button>
+            <span style="margin-right: 10px;">
+                или
+            </span>
+        <a style="margin-right: 20px;" href="/suppliers">
+            Отменить
+        </a>
+    </div>
+</form>

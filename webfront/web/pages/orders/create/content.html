@@ -1,0 +1,13 @@
+<% var templates = {
+    localNavigation: require('tpl!blocks/localNavigation/localNavigation_suppliers.html'),
+    form_order: require('tpl!blocks/form/form_order/template.html')
+} %>
+<% if (LH.isAllow('suppliers', 'POST')) { %>
+<%= templates.localNavigation(obj) %>
+<% } %>
+
+<div class="page__data">
+    <h2>Добавить заказ</h2>
+
+    <%= templates.form_order() %>
+</div>
