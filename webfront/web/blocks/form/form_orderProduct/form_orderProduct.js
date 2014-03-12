@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Form = require('blocks/form/form'),
-        OrderModel = require('models/order'),
+        OrderProductModel = require('models/orderProduct'),
         Autocomplete = require('blocks/autocomplete/autocomplete'),
         cookies = require('cookies');
 
@@ -13,22 +13,50 @@ define(function(require, exports, module) {
         redirectUrl: '/orders',
         el: '.form_orderProduct',
         template: require('tpl!blocks/form/form_orderProduct/template.html'),
-        model: new OrderModel(),
-        storeProduct: null,
+        model: new OrderProductModel(),
+        storeProduct: {
+            product: {}
+        },
         events: {
-            'keyup [name="amount"]': function(e){
+            'keyup [name="quantity"]': function(e) {
                 var block = this;
 
-                block.model.set('amount', e.target.value);
+                block.model.set('quantity', e.target.value);
                 block.render();
+            },
+            'keyup .autocomplete_storeProduct': function(e) {
+                var block = this,
+                    keyCode = $.ui.keyCode;
+                switch (e.keyCode) {
+                    case keyCode.PAGE_UP:
+                    case keyCode.PAGE_DOWN:
+                    case keyCode.UP:
+                    case keyCode.DOWN:
+                    case keyCode.ENTER:
+                    case keyCode.NUMPAD_ENTER:
+                    case keyCode.TAB:
+                    case keyCode.LEFT:
+                    case keyCode.RIGHT:
+                    case keyCode.ESCAPE:
+                        return;
+                        break;
+                    default:
+                        if (block.storeProduct) {
+                            block.model.set('product', null);
+                            block.storeProduct = {
+                                product: {}
+                            };
+                            block.render();
+                        }
+                }
             }
         },
-        initialize: function(){
+        initialize: function() {
             var block = this;
 
             block.initBlocks();
         },
-        initBlocks: function(){
+        initBlocks: function() {
             var block = this,
                 autocomplete_storeProduct = block.el.querySelector('.autocomplete_storeProduct');
 
@@ -63,11 +91,11 @@ define(function(require, exports, module) {
                 })
             }
         },
-        render: function(){
+        render: function() {
             var block = this;
 
             $(block.el).find('.form_orderProduct__retailPrice').html(LH.formatMoney(block.storeProduct.product.purchasePrice));
-            $(block.el).find('.form_orderProduct__totalSum').html(LH.formatMoney(_.escape(block.model.get('amount')) * _.escape(block.storeProduct.retailPrice) || ''));
+            $(block.el).find('.form_orderProduct__totalSum').html(LH.formatMoney(_.escape(block.model.get('quantity')) * _.escape(block.storeProduct.product.purchasePrice) || ''));
             $(block.el).find('.form_orderProduct__inventory').html(_.escape(block.storeProduct.inventory));
         }
     });
