@@ -24,12 +24,6 @@
     padding-bottom: 16px;
 }
 
-.form__field_inline{
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 10px;
-}
-
 .form__field .inputText, .form__field .select{
     width: 300px;
     vertical-align: middle;
