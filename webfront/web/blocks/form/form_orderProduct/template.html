@@ -1,4 +1,5 @@
 <% var model = model || new Backbone.Model() %>
+<% var currentUserModel = require('models/currentUser') %>
 
 <form class="form">
     <div class="form__field">
@@ -6,7 +7,7 @@
             <tr>
                 <td style="padding-right: 10px;">
                     <label class="form__label">Наименование</label>
-                    <input type="text" class="inputText" name="name" />
+                    <input id="autocomplete_storeProduct" data-url="/stores/<%- currentUserModel.stores.at(0).id %>/products/search" type="text" class="inputText autocomplete" name="name" />
                 </td>
                 <td style="padding-right: 20px;">
                     <label class="form__label">Количество, шт</label>
