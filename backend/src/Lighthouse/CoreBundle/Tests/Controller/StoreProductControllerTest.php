@@ -1031,4 +1031,43 @@ class StoreProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(7, 'amount', $getResponse);
         Assert::assertJsonPathEquals(7, 'inventory', $getResponse);
     }
+
+    public function testSearchStoreProductsAction()
+    {
+        $storeId = $this->createStore();
+        $departmentManager = $this->factory->getDepartmentManager($storeId);
+        $accessToken = $this->auth($departmentManager);
+
+        for ($i = 0; $i < 5; $i++) {
+            $this->createProduct(array('name' => 'Название' . $i, 'sku' => 'sku' . $i));
+        }
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/products/name/search' . '?query=Название3'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals(0, '*.inventory', $response);
+        Assert::assertJsonPathCount(1, '*.inventory', $response);
+        Assert::assertJsonPathCount(1, '*.product.name', $response);
+        Assert::assertJsonPathEquals('Название3', '*.product.name', $response);
+
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/products/name/search' . '?query=Назван'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(5, '*.inventory', $response);
+        Assert::assertJsonPathCount(5, '*.product.name', $response);
+        for ($i = 0; $i < 5; $i++) {
+            Assert::assertJsonPathEquals('Название' . $i, '*.product.name', $response);
+        }
+    }
 }

@@ -496,60 +496,6 @@ class ProductControllerTest extends WebTestCase
         $this->assertCount(0, $response);
     }
 
-    /**
-     * @dataProvider productProvider
-     */
-    public function testSearchStoreProductsAction(array $postData)
-    {
-        $storeId = $this->createStore();
-        $departmentManager = $this->factory->getDepartmentManager($storeId);
-        $accessToken = $this->auth($departmentManager);
-
-        $accessTokenCommercial = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
-
-        $postData['subCategory'] = $this->createSubCategory();
-
-        for ($i = 0; $i < 5; $i++) {
-            $postData['name'] = 'Кефир' . $i;
-            $postData['sku'] = 'sku' . $i;
-            $this->clientJsonRequest(
-                $accessTokenCommercial,
-                'POST',
-                '/api/1/products',
-                $postData
-            );
-            $this->assertResponseCode(201);
-        }
-
-        $response = $this->clientJsonRequest(
-            $accessToken,
-            'GET',
-            '/api/1/stores/' . $storeId . '/products/name/search' . '?query=кефир3'
-        );
-
-        $this->assertResponseCode(200);
-
-        Assert::assertJsonPathEquals(0, '*.inventory', $response);
-        Assert::assertJsonPathCount(1, '*.inventory', $response);
-        Assert::assertJsonPathCount(1, '*.product.name', $response);
-        Assert::assertJsonPathEquals('Кефир3', '*.product.name', $response);
-
-
-        $response = $this->clientJsonRequest(
-            $accessToken,
-            'GET',
-            '/api/1/stores/' . $storeId . '/products/name/search' . '?query=кефи'
-        );
-
-        $this->assertResponseCode(200);
-
-        Assert::assertJsonPathCount(5, '*.inventory', $response);
-        Assert::assertJsonPathCount(5, '*.product.name', $response);
-        for ($i = 0; $i < 5; $i++) {
-            Assert::assertJsonPathEquals('Кефир' . $i, '*.product.name', $response);
-        }
-    }
-
     public function validateProvider()
     {
         return array(
