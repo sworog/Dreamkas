@@ -14,19 +14,19 @@ define(function(require) {
         },
         saveData: function(){
 
-            var purchasePrice = parseFloat(this.get('purchasePrice')
+            var purchasePrice = parseFloat((this.get('purchasePrice') || '')
                     .replace(' ', '', 'gi')
                     .replace(',', '.', 'gi')),
-                retailPriceMin = parseFloat(this.get('retailPriceMin')
+                retailPriceMin = parseFloat((this.get('retailPriceMin') || '')
                     .replace(' ', '', 'gi')
                     .replace(',', '.', 'gi')),
-                retailPriceMax = parseFloat(this.get('retailPriceMax')
+                retailPriceMax = parseFloat((this.get('retailPriceMax') || '')
                     .replace(' ', '', 'gi')
                     .replace(',', '.', 'gi')),
-                retailMarkupMax = parseFloat(this.get('retailMarkupMax')
+                retailMarkupMax = parseFloat((this.get('retailMarkupMax') || '')
                     .replace(' ', '', 'gi')
                     .replace(',', '.', 'gi')),
-                retailMarkupMin = parseFloat(this.get('retailMarkupMin')
+                retailMarkupMin = parseFloat((this.get('retailMarkupMin') || '')
                     .replace(' ', '', 'gi')
                     .replace(',', '.', 'gi'));
 
