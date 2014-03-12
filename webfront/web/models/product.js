@@ -17,7 +17,7 @@ define(function(require) {
             var purchasePrice = numeral().unformat(this.get('purchasePrice')),
                 retailPriceMin = numeral().unformat(this.get('retailPriceMin')),
                 retailPriceMax = numeral().unformat(this.get('retailPriceMax')),
-                retailMarkupMax = numeral().unformat(this.get('retailPriceMax')),
+                retailMarkupMax = numeral().unformat(this.get('retailMarkupMax')),
                 retailMarkupMin = numeral().unformat(this.get('retailMarkupMin'));
 
             if (!purchasePrice && this.get('purchasePrice') !== '0'){
