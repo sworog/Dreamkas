@@ -70,7 +70,7 @@ define(function(require) {
 
             Block.prototype.findElements.apply(block, arguments);
 
-            block.$submitButton = block.$('[type="submit"]').closest('.button').add('input[form="' + block.$el.attr('id') + '"]');
+            block.$submitButton = block.$('[type="submit"]').closest('.button').add('[form="' + block.$el.attr('id') + '"]');
             block.$results = block.$('.form__results');
             block.$controls = block.$submitButton.closest('.form__controls');
         },

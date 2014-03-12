@@ -11,9 +11,7 @@ define(function(require, exports, module) {
         __name__: module.id,
         redirectUrl: '/orders',
         el: '.form_order',
-        model: function() {
-            return new OrderModel();
-        },
+        model: new OrderModel(),
         initialize: function(){
             var block = this;
 

@@ -1,14 +1,16 @@
 <% var model = model || new Backbone.Model() %>
-
 <% var templates = {
     form_orderProduct: require('tpl!blocks/form/form_orderProduct/template.html')
 } %>
 
-<form class="form form_order">
+<form id="form_order" class="form form_order">
     <div class="form__field">
         <label class="form__label">Поставщик</label>
         <select class="select" name="supplier">
-            <option selected disabled>Выберите поставщика</option>
+            <option value="" selected disabled>Выберите поставщика</option>
+            <% collections.suppliers.forEach(function(supplierModel){ %>
+            <option value="<%- supplierModel.id %>"><%- supplierModel.get('name') %></option>
+            <% }) %>
         </select>
     </div>
 </form>

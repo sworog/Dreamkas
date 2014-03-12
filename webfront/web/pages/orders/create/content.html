@@ -10,6 +10,6 @@
     <h2>Добавить заказ</h2>
 
     <%= templates.form_order({
-        collections: _.pick('collections', collections.suppliers)
+        collections: _.pick(collections, 'suppliers')
     }) %>
 </div>

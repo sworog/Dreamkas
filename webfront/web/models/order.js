@@ -6,6 +6,9 @@ define(function(require, exports, module) {
         __name__: module.id,
         urlRoot: LH.baseApiUrl + '/orders',
         name: null,
+        defaults: {
+            products: []
+        },
         saveData: [
             'supplier',
             'products'
