@@ -258,12 +258,12 @@ public class CommonActions {
                 && exceptionMessage.contains("Timed out after");
     }
 
-    public Boolean visibleWebElementHasTagName(String xpath, String expectedTagName) {
-        return waiter.getVisibleWebElement(By.xpath(xpath)).getTagName().equals(expectedTagName);
+    public Boolean visibleWebElementHasTagName(By findBy, String expectedTagName) {
+        return waiter.getVisibleWebElement(findBy).getTagName().equals(expectedTagName);
     }
 
-    public Boolean webElementHasTagName(String xpath, String expectedTagName) {
-        return waiter.getOnlyVisibleElementFromTheList(By.xpath(xpath)).getTagName().equals(expectedTagName);
+    public Boolean webElementHasTagName(By findBy, String expectedTagName) {
+        return waiter.getOnlyVisibleElementFromTheList(findBy).getTagName().equals(expectedTagName);
     }
 
     public void shouldContainsText(String elementName, WebElement element, String expectedValue) {
