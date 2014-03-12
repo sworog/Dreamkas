@@ -55,6 +55,7 @@ define(function(require, exports, module) {
             var block = this;
 
             block.initBlocks();
+            block.render();
         },
         initBlocks: function() {
             var block = this,
@@ -96,7 +97,7 @@ define(function(require, exports, module) {
 
             $(block.el).find('.form_orderProduct__retailPrice').html(LH.formatMoney(block.storeProduct.product.purchasePrice));
             $(block.el).find('.form_orderProduct__totalSum').html(LH.formatMoney(_.escape(block.model.get('quantity')) * _.escape(block.storeProduct.product.purchasePrice) || ''));
-            $(block.el).find('.form_orderProduct__inventory').html(_.escape(block.storeProduct.inventory));
+            $(block.el).find('.form_orderProduct__inventory').html(_.escape(block.storeProduct.inventory) || '&mdash;');
         }
     });
 });
