@@ -66,9 +66,9 @@ define(function(require, exports, module) {
         render: function(){
             var block = this;
 
-            $(block.el).find('.form_orderProduct__retailPrice').html(_.escape(block.storeProduct.retailPrice) || '');
-            $(block.el).find('.form_orderProduct__totalSum').html(_.escape(block.model.get('amount')) * _.escape(block.storeProduct.retailPrice) || '');
-            $(block.el).find('.form_orderProduct__inventory').html(_.escape(block.storeProduct.inventory) || '');
+            $(block.el).find('.form_orderProduct__retailPrice').html(LH.formatMoney(block.storeProduct.retailPrice));
+            $(block.el).find('.form_orderProduct__totalSum').html(LH.formatMoney(_.escape(block.model.get('amount')) * _.escape(block.storeProduct.retailPrice) || ''));
+            $(block.el).find('.form_orderProduct__inventory').html(_.escape(block.storeProduct.inventory));
         }
     });
 });
