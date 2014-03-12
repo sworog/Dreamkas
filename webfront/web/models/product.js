@@ -14,15 +14,41 @@ define(function(require) {
         },
         saveData: function(){
 
+            var purchasePrice = numeral().unformat(this.get('purchasePrice')),
+                retailPriceMin = numeral().unformat(this.get('retailPriceMin')),
+                retailPriceMax = numeral().unformat(this.get('retailPriceMax')),
+                retailMarkupMax = numeral().unformat(this.get('retailPriceMax')),
+                retailMarkupMin = numeral().unformat(this.get('retailMarkupMin'));
+
+            if (!purchasePrice && this.get('purchasePrice') !== '0'){
+                purchasePrice = this.get('purchasePrice');
+            }
+
+            if (!retailPriceMin && this.get('retailPriceMin') !== '0'){
+                retailPriceMin = this.get('retailPriceMin');
+            }
+
+            if (!retailPriceMax && this.get('retailPriceMax') !== '0'){
+                retailPriceMax = this.get('retailPriceMax');
+            }
+
+            if (!retailMarkupMax && this.get('retailMarkupMax') !== '0'){
+                retailMarkupMax = this.get('retailMarkupMax');
+            }
+
+            if (!retailMarkupMin && this.get('retailMarkupMin') !== '0'){
+                retailMarkupMin = this.get('retailMarkupMin');
+            }
+
             return {
                 name: this.get('name'),
                 units: this.get('units'),
                 vat: this.get('vat'),
-                purchasePrice: numeral().unformat(this.get('purchasePrice')),
-                retailPriceMin: numeral().unformat(this.get('retailPriceMin')),
-                retailPriceMax: numeral().unformat(this.get('retailPriceMax')),
-                retailMarkupMax: numeral().unformat(this.get('retailMarkupMax')),
-                retailMarkupMin: numeral().unformat(this.get('retailMarkupMin')),
+                purchasePrice: purchasePrice,
+                retailPriceMin: retailPriceMin,
+                retailPriceMax: retailPriceMax,
+                retailMarkupMax: retailMarkupMax,
+                retailMarkupMin: retailMarkupMin,
                 retailPricePreference: this.get('retailPricePreference'),
                 barcode: this.get('barcode'),
                 sku: this.get('sku'),
