@@ -1,29 +1,41 @@
 <% var model = model || new Backbone.Model() %>
 <% var currentUserModel = require('models/currentUser') %>
+<% var storeProduct = storeProduct || {
+    product: {}
+} %>
 
-<form class="form">
+<form class="form form_orderProduct">
     <div class="form__field">
         <table>
             <tr>
                 <td style="padding-right: 10px;">
                     <label class="form__label">Наименование</label>
-                    <input id="autocomplete_storeProduct" data-url="/stores/<%- currentUserModel.stores.at(0).id %>/products/search" type="text" class="inputText autocomplete" name="name" />
+                    <input data-url="/stores/<%- currentUserModel.stores.at(0).id %>/products/name/search"
+                           type="text" class="autocomplete_storeProduct inputText autocomplete"
+                           name="name"
+                           value="<%- storeProduct.product.name %>" />
                 </td>
                 <td style="padding-right: 20px;">
                     <label class="form__label">Количество, шт</label>
-                    <input style="width: 100px;" type="text" class="inputText" name="amount" />
+                    <input style="width: 100px;"
+                           type="text" class="inputText"
+                           name="amount"
+                           value="<%- model.get('amount') %>"/>
                 </td>
                 <td style="padding-right: 20px;">
                     <label class="form__label">Цена, руб</label>
-                    <div style="height: 35px; line-height: 35px;">91,20</div>
+                    <div class="form_orderProduct__retailPrice" style="height: 35px; line-height: 35px;">
+                    </div>
                 </td>
                 <td style="padding-right: 20px;">
                     <label class="form__label">Сумма, руб</label>
-                    <div style="height: 35px; line-height: 35px;">912,0</div>
+                    <div class="form_orderProduct__totalSum" style="height: 35px; line-height: 35px;">
+                    </div>
                 </td>
                 <td>
                     <label class="form__label">Остаток, шт</label>
-                    <div style="height: 35px; line-height: 35px;">23</div>
+                    <div class="form_orderProduct__inventory" style="height: 35px; line-height: 35px;">
+                    </div>
                 </td>
             </tr>
         </table>

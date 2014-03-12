@@ -2,8 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Form = require('blocks/form/form'),
         OrderModel = require('models/order'),
-        Autocomplete = require('blocks/autocomplete/autocomplete'),
-        cookie = require('cookies');
+        Form_orderProduct = require('blocks/form/form_orderProduct/form_orderProduct');
 
     require('jquery');
     require('lodash');
@@ -19,9 +18,7 @@ define(function(require, exports, module) {
             var block = this;
 
             block.blocks = {
-                autocomplete: new Autocomplete({
-                    el: document.getElementById('autocomplete_storeProduct')
-                })
+                form_orderProduct: new Form_orderProduct()
             }
         }
     });

@@ -1,7 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Block = require('block'),
-        cookies = require('cookies');
+    var Block = require('block');
 
     return Block.extend({
         cid: module.id,
@@ -9,28 +8,12 @@ define(function(require, exports, module) {
             var block = this;
 
             $(block.el).autocomplete({
-                source: function(request, response) {
-                    $.ajax({
-                        url: LH.baseApiUrl + block.el.dataset.url,
-                        dataType: "json",
-                        headers: {
-                            Authorization: 'Bearer ' + cookies.get('token')
-                        },
-                        data: {
-                            query: request.term
-                        },
-                        success: function(data) {
-                            response($.map(data, function(item) {
-                                return {
-                                    label: item[name],
-                                    product: item
-                                }
-                            }));
-                        }
-                    })
-                },
-                minLength: 3
+                source: block.source,
+                minLength: 3,
+                select: block.select
             });
-        }
+        },
+        select: function(){},
+        suorce : function(request, response){}
     });
 });
