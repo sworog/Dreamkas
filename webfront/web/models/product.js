@@ -14,11 +14,11 @@ define(function(require) {
         },
         saveData: function(){
 
-            var purchasePrice = numeral().unformat(this.get('purchasePrice').replace('.', ',')),
-                retailPriceMin = numeral().unformat(this.get('retailPriceMin').replace('.', ',')),
-                retailPriceMax = numeral().unformat(this.get('retailPriceMax').replace('.', ',')),
-                retailMarkupMax = numeral().unformat(this.get('retailMarkupMax').replace('.', ',')),
-                retailMarkupMin = numeral().unformat(this.get('retailMarkupMin').replace('.', ','));
+            var purchasePrice = numeral().unformat((this.get('purchasePrice') || '').replace('.', ',')),
+                retailPriceMin = numeral().unformat((this.get('retailPriceMin') || '').replace('.', ',')),
+                retailPriceMax = numeral().unformat((this.get('retailPriceMax') || '').replace('.', ',')),
+                retailMarkupMax = numeral().unformat((this.get('retailMarkupMax') || '').replace('.', ',')),
+                retailMarkupMin = numeral().unformat((this.get('retailMarkupMin') || '').replace('.', ','));
 
             if (!purchasePrice && this.get('purchasePrice') !== '0'){
                 purchasePrice = this.get('purchasePrice');
