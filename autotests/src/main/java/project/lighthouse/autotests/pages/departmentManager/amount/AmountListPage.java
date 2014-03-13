@@ -23,15 +23,15 @@ public class AmountListPage extends ProductListPage {
     @Override
     public void createElements() {
         super.createElements();
-        items.put("amount", new NonType(this, "inventory"));
-        items.put("amounts sku", new NonType(this, "sku"));
-        items.put("amounts name", new NonType(this, "name"));
-        items.put("amounts vendor", new NonType(this, "vendor"));
-        items.put("amounts vendorCountry", new NonType(this, "vendorCountry"));
-        items.put("amounts purchasePrice", new NonType(this, "lastPurchasePrice"));
-        items.put("amounts averagePrice", new NonType(this, "averagePurchasePrice"));
-        items.put("amounts amount", new NonType(this, "inventory"));
-        items.put("amounts units", new NonType(this, "units"));
+        put("amount", new NonType(this, "inventory"));
+        put("amounts sku", new NonType(this, "sku"));
+        put("amounts name", new NonType(this, "name"));
+        put("amounts vendor", new NonType(this, "vendor"));
+        put("amounts vendorCountry", new NonType(this, "vendorCountry"));
+        put("amounts purchasePrice", new NonType(this, "lastPurchasePrice"));
+        put("amounts averagePrice", new NonType(this, "averagePurchasePrice"));
+        put("amounts amount", new NonType(this, "inventory"));
+        put("amounts units", new NonType(this, "units"));
     }
 
     @Deprecated
@@ -40,7 +40,7 @@ public class AmountListPage extends ProductListPage {
     }
 
     public void checkListItemHasExpectedValueByFindByLocator(String value, String elementName, String expectedValue) {
-        By findBy = items.get(elementName).getFindBy();
+        By findBy = getItems().get(elementName).getFindBy();
         commonViewInterface.checkListItemHasExpectedValueByFindByLocator(value, elementName, findBy, expectedValue);
     }
 }

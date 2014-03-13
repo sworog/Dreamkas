@@ -14,10 +14,10 @@ public class ProductWriteOffList extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("createdDateFormatted", new NonType(this, "createdDateFormatted"));
-        items.put("quantity", new NonType(this, "quantity"));
-        items.put("priceFormatted", new NonType(this, "priceFormatted"));
-        items.put("totalPriceFormatted", new NonType(this, "totalPriceFormatted"));
+        put("createdDateFormatted", new NonType(this, "createdDateFormatted"));
+        put("quantity", new NonType(this, "quantity"));
+        put("priceFormatted", new NonType(this, "priceFormatted"));
+        put("totalPriceFormatted", new NonType(this, "totalPriceFormatted"));
     }
 
     public WriteOffListObjectList getProductInvoiceListObjects() {
