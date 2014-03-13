@@ -27,7 +27,7 @@ public class SupplierPage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("supplierName", new Input(this, "name", "Юридическое лицо"));
+        put("supplierName", new Input(this, "name", "Юридическое лицо"));
     }
 
     public ButtonFacade getCreateButtonFacade() {

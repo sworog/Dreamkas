@@ -14,8 +14,8 @@ public class DepartmentCreatePage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("number", new Input(this, "number"));
-        items.put("name", new Input(this, "name"));
+        put("number", new Input(this, "number"));
+        put("name", new Input(this, "name"));
     }
 
     public WebElement submitButton() {

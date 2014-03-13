@@ -21,8 +21,8 @@ public class StoreCardPage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("store manager select", new SelectByVisibleText(this, By.id("select_storeManagers")));
-        items.put("department manager select", new SelectByVisibleText(this, By.id("select_departmentManagers")));
+        put("store manager select", new SelectByVisibleText(this, By.id("select_storeManagers")));
+        put("department manager select", new SelectByVisibleText(this, By.id("select_departmentManagers")));
     }
 
     public void checkStoreCardValue(String fieldName, String value) {
@@ -90,7 +90,7 @@ public class StoreCardPage extends CommonPageObject {
     }
 
     public void setStoreManager(String storeManager) {
-        items.get("store manager select").setValue(storeManager);
+        getItems().get("store manager select").setValue(storeManager);
     }
 
     public void promoteNotStoreManager(String notStoreManager) {
@@ -129,7 +129,7 @@ public class StoreCardPage extends CommonPageObject {
     }
 
     public void setDepartmentManager(String departmentManager) {
-        items.get("department manager select").setValue(departmentManager);
+        getItems().get("department manager select").setValue(departmentManager);
     }
 
     public void promoteDepartmentManager(String departmentManager) {
