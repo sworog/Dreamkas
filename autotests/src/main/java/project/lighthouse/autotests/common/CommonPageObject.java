@@ -38,6 +38,16 @@ abstract public class CommonPageObject extends PageObject {
         return items;
     }
 
+    /**
+     * put items to CommonItemMap {@link #items}
+     *
+     * @param elementName
+     * @param commonItem
+     */
+    public void put(String elementName, CommonItem commonItem) {
+        items.put(elementName, commonItem);
+    }
+
     abstract public void createElements();
 
     public WebElement findElement(By by) {

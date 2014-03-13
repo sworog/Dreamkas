@@ -31,11 +31,11 @@ public class UserCreatePage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("name", new Input(this, By.xpath("//input[@name='name']")));
-        items.put("position", new Input(this, By.xpath("//input[@name='position']")));
-        items.put("username", new Input(this, By.xpath("//input[@name='username']")));
-        items.put("password", new Input(this, By.xpath("//input[@name='password']")));
-        items.put("role", new SelectByValue(this, By.xpath("//select[@name='role']")));
+        put("name", new Input(this, By.xpath("//input[@name='name']")));
+        put("position", new Input(this, By.xpath("//input[@name='position']")));
+        put("username", new Input(this, By.xpath("//input[@name='username']")));
+        put("password", new Input(this, By.xpath("//input[@name='password']")));
+        put("role", new SelectByValue(this, By.xpath("//select[@name='role']")));
     }
 
     public void userCreateButtonClick() {
