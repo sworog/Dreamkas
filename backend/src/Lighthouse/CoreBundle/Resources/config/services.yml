@@ -173,3 +173,15 @@ services:
         parent: doctrine_mongodb.odm.repository
         arguments:
             - LighthouseCoreBundle:File\File
+            
+    lighthouse.core.document.repository.order:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\Order\OrderRepository
+        arguments:
+            - LighthouseCoreBundle:Order\Order
+
+    lighthouse.core.document.repository.order_product:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\Order\Product\OrderProductRepository
+        arguments:
+            - LighthouseCoreBundle:Order\Product\OrderProduct
