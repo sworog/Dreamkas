@@ -39,12 +39,6 @@ class OrderListener extends AbstractMongoDBListener
     {
         $document = $eventArgs->getDocument();
 
-        if ($document instanceof Order) {
-            foreach ($document->products as $orderProduct) {
-                $orderProduct->order = $document;
-            }
-        }
-
         if ($document instanceof OrderProduct) {
             $document->storeProduct = $this
                 ->storeProductRepository
@@ -58,12 +52,6 @@ class OrderListener extends AbstractMongoDBListener
     public function preUpdate(LifecycleEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();
-
-        if ($document instanceof Order) {
-            foreach ($document->products as $orderProduct) {
-                $orderProduct->order = $document;
-            }
-        }
 
         if ($document instanceof OrderProduct) {
             $document->storeProduct = $this
