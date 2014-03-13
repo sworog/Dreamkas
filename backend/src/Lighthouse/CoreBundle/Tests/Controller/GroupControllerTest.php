@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
+use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class GroupControllerTest extends WebTestCase
@@ -748,5 +749,28 @@ class GroupControllerTest extends WebTestCase
             'store manager' => array(User::ROLE_STORE_MANAGER, Store::REL_STORE_MANAGERS),
             'department manager' => array(User::ROLE_DEPARTMENT_MANAGER, Store::REL_DEPARTMENT_MANAGERS),
         );
+    }
+
+    public function testUniqueNameInParallel()
+    {
+        $groupData = array(
+            'name' => 'Продовольственные товары',
+            'rounding' => 'nearest1'
+        );
+
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $jsonRequest = new JsonRequest('/api/1/groups', 'POST', $groupData);
+        $jsonRequest->setAccessToken($accessToken);
+
+        $responses = $this->client->parallelJsonRequest($jsonRequest, 3);
+        $statusCodes = array();
+        $jsons = array();
+        foreach ($responses as $response) {
+            $statusCodes[] = $response->getStatusCode();
+            $jsons[] = $response->getContent();
+        }
+        $this->assertCount(1, array_keys($statusCodes, 201));
+
     }
 }
