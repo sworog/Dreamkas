@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.helper;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonItem;
 
@@ -18,9 +17,22 @@ public class FieldChecker {
     }
 
     public void assertLabelTitle() {
-        Assert.assertEquals(
+        assertEquals(
                 commonItem.getLabel(),
                 commonItem.getVisibleWebElement().findElement(By.xpath("./../label")).getText());
+    }
+
+    public void assertValueEqual(String expectedValue) {
+        String actualValue;
+        switch (commonItem.getVisibleWebElement().getTagName()) {
+            case "input":
+                actualValue = commonItem.getVisibleWebElementFacade().getValue();
+                break;
+            default:
+                actualValue = commonItem.getVisibleWebElementFacade().getText();
+                break;
+        }
+        assertEquals(expectedValue, actualValue);
     }
 
     public void assertFieldLength(String elementName, int fieldLength) {
