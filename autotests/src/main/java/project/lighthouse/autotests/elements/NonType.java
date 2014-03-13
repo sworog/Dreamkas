@@ -18,6 +18,10 @@ public class NonType extends CommonItem {
         super(pageObject, name);
     }
 
+    public NonType(CommonPageObject pageObject, String name, String label) {
+        super(pageObject, name, label);
+    }
+
     @Override
     public void setValue(String value) {
         fail(
