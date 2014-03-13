@@ -56,7 +56,7 @@ class Order extends AbstractDocument implements Storeable
      *     targetDocument="Lighthouse\CoreBundle\Document\Supplier\Supplier",
      *     simple=true
      * )
-     * @Assert\NotBlank
+     * @Assert\NotBlank(message="lighthouse.validation.errors.order.supplier.empty")
      * @var Supplier
      */
     protected $supplier;

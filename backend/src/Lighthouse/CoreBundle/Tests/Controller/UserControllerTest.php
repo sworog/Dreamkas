@@ -623,7 +623,8 @@ class UserControllerTest extends WebTestCase
                 array(
                     'stores.*' => array(
                         'GET::{store}/products',
-                        'GET::{store}/products/{property}/search'
+                        'GET::{store}/products/{property}/search',
+                        'POST::{store}/orders',
                     ),
                     'stores/{store}/products/{product}.*' => array(
                         'GET',
