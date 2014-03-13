@@ -2,6 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
+use Lighthouse\CoreBundle\Document\Department\Department;
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -21,7 +23,7 @@ class DepartmentType extends AbstractType
                 'store',
                 'reference',
                 array(
-                    'class' => 'Lighthouse\\CoreBundle\\Document\\Store\\Store',
+                    'class' => Store::getClassName(),
                     'invalid_message' => 'lighthouse.validation.errors.department.store.does_not_exists'
                 )
             );
@@ -34,7 +36,7 @@ class DepartmentType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Department\\Department',
+                'data_class' => Department::getClassName(),
                 'csrf_protection' => false
             )
         );
