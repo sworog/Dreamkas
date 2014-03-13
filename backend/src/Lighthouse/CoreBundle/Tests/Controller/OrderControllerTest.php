@@ -56,6 +56,7 @@ class OrderControllerTest extends WebTestCase
         $this->assertResponseCode(201);
 
         Assert::assertJsonPathEquals($supplier->id, 'supplier.id', $response);
+        Assert::assertJsonPathEquals(1, 'number', $response);
         foreach ($orderProducts as $orderProduct) {
             Assert::assertJsonPathEquals($orderProduct['quantity'], 'products.*.quantity', $response);
             Assert::assertJsonPathEquals($orderProduct['product'], 'products.*.product.product.id', $response);
