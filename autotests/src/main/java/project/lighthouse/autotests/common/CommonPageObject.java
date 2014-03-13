@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.Waiter;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -15,7 +14,10 @@ import java.util.Map;
  */
 abstract public class CommonPageObject extends PageObject {
 
-    public Map<String, CommonItem> items = new HashMap<>();
+    /**
+     * Map to store common items user can interact with
+     */
+    private CommonItemMap items = new CommonItemMap();
 
     private CommonActions commonActions = new CommonActions(this, items);
 
@@ -30,6 +32,10 @@ abstract public class CommonPageObject extends PageObject {
 
     public Waiter getWaiter() {
         return commonActions.getWaiter();
+    }
+
+    public CommonItemMap getItems() {
+        return items;
     }
 
     abstract public void createElements();
