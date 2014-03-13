@@ -63,6 +63,29 @@ class OrderControllerTest extends WebTestCase
         }
     }
 
+    public function testPostOrderEmptyProductsValidation()
+    {
+        $product = $this->createProduct();
+        $supplier = $this->factory->createSupplier();
+        $this->factory->flush();
+
+        $postData = array(
+            'supplier' => $supplier->id,
+            'products' => array(),
+        );
+
+        $accessToken = $this->auth($this->departmentManager);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $this->storeId . '/orders',
+            $postData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals('Нужно добавить минимум один товар', 'errors.0', $response);
+    }
+
     /**
      * @param $expectedCode
      * @param array $data

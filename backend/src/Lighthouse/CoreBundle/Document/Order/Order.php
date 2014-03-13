@@ -70,6 +70,7 @@ class Order extends AbstractDocument implements Storeable
      * )
      *
      * @Assert\Valid(traverse=true)
+     * @Assert\Count(min=1, minMessage="lighthouse.validation.errors.order.products.empty")
      * @Serializer\MaxDepth(4)
      * @var OrderProduct[]
      */
