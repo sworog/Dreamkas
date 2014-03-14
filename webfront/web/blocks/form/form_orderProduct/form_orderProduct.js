@@ -10,7 +10,6 @@ define(function(require, exports, module) {
 
     return Form.extend({
         __name__: module.id,
-        redirectUrl: '/orders',
         el: '.form_orderProduct',
         template: require('tpl!blocks/form/form_orderProduct/template.html'),
         model: new OrderProductModel(),

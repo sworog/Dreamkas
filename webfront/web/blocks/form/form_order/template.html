@@ -1,6 +1,8 @@
 <% var model = model || new Backbone.Model() %>
 <% var templates = {
-    form_orderProduct: require('tpl!blocks/form/form_orderProduct/template.html')
+    form_orderProduct: require('tpl!blocks/form/form_orderProduct/template.html'),
+    table_orderProduct_head: require('tpl!blocks/table/table_orderProducts/templates/head.html'),
+    table_orderProduct_tr: require('tpl!blocks/table/table_orderProducts/templates/tr.html'),
 } %>
 
 <form id="form_order" class="form form_order">
@@ -14,6 +16,10 @@
         </select>
     </div>
 </form>
+
+<table class="table order__productsTable">
+
+</table>
 
 <div class="form_order__productForm">
     <h2>Добавить товар в заказ</h2>
@@ -31,7 +37,7 @@
     <span style="margin-right: 10px;">
         или
     </span>
-    <a style="margin-right: 20px;" href="/suppliers">
+    <a style="margin-right: 20px;" href="/orders">
         Отменить
     </a>
 </div>
