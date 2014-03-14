@@ -667,7 +667,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function assertStoreProduct($storeId, $productId, array $assertions, $message = '')
     {
-        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
         $storeProductJson = $this->clientJsonRequest(
             $accessToken,
@@ -809,19 +809,6 @@ class WebTestCase extends ContainerAwareTestCase
         return $postResponse['id'];
     }
 
-    /**
-     * @param array $numbers
-     * @return array
-     */
-    public function getStores(array $numbers)
-    {
-        $storeIds = array();
-        foreach ($numbers as $number) {
-            $storeIds[$number] = $this->factory->store()->getStore($number);
-        }
-        return $storeIds;
-    }
-
     public function createDepartment(
         $storeId = null,
         $number = 'отдел_42',
@@ -832,7 +819,7 @@ class WebTestCase extends ContainerAwareTestCase
             $storeId = $this->factory->store()->getStore();
         }
 
-        $storeData = array(
+        $departmentData = array(
             'number' => $number,
             'name' => $name,
             'store' => $storeId,
@@ -860,14 +847,14 @@ class WebTestCase extends ContainerAwareTestCase
             $accessToken,
             'POST',
             '/api/1/departments',
-            $storeData
+            $departmentData
         );
 
         $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $response);
-        Assert::assertJsonPathEquals($storeData['number'], 'number', $response);
-        Assert::assertJsonPathEquals($storeData['name'], 'name', $response);
+        Assert::assertJsonPathEquals($departmentData['number'], 'number', $response);
+        Assert::assertJsonPathEquals($departmentData['name'], 'name', $response);
 
         return $response['id'];
     }

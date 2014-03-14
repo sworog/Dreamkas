@@ -9,7 +9,7 @@ class StoreDayGrossMarginTest extends WebTestCase
 {
     public function prepareData()
     {
-        $storeId = $this->factory->getStore('1');
+        $storeId = $this->factory->store()->getStore('1');
         $productId = $this->createProduct('1');
         $storeProductId = $this->factory->getStoreProduct($storeId, $productId);
 

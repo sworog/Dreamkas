@@ -408,7 +408,7 @@ class WriteOffControllerTest extends WebTestCase
             'password',
             User::ROLE_DEPARTMENT_MANAGER
         );
-        $this->factory->linkDepartmentManagers($departmentManager2->id, $storeId2);
+        $this->factory->store()->linkDepartmentManagers($departmentManager2->id, $storeId2);
 
         $accessToken1 = $this->factory->oauth()->auth($this->departmentManager);
         $accessToken2 = $this->factory->oauth()->auth($departmentManager2);
@@ -451,8 +451,8 @@ class WriteOffControllerTest extends WebTestCase
 
     public function testGetWriteOffNotFoundInAnotherStore()
     {
-        $storeId2 = $this->factory->getStore('43');
-        $this->factory->linkDepartmentManagers($this->departmentManager->id, $storeId2);
+        $storeId2 = $this->factory->store()->getStore('43');
+        $this->factory->store()->linkDepartmentManagers($this->departmentManager->id, $storeId2);
 
         $writeOffId = $this->createWriteOff('444', null, $this->storeId, $this->departmentManager);
 

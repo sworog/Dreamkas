@@ -9,7 +9,7 @@ class DepartmentControllerTest extends WebTestCase
 {
     public function testPostDepartmentsAction()
     {
-        $storeId = $this->factory->getStore('магазин_номер_42');
+        $storeId = $this->factory->store()->getStore('магазин_номер_42');
 
         $departmentData = array(
             'number' => '42',
@@ -37,8 +37,8 @@ class DepartmentControllerTest extends WebTestCase
 
     public function testUniqueDepartmentNumber()
     {
-        $storeId1 = $this->factory->getStore('Алкоголь');
-        $storeId2 = $this->factory->getStore('магазин_номер_42');
+        $storeId1 = $this->factory->store()->getStore('Алкоголь');
+        $storeId2 = $this->factory->store()->getStore('магазин_номер_42');
 
         $departmentData = array(
             'number' => 'номер_1',
@@ -111,7 +111,7 @@ class DepartmentControllerTest extends WebTestCase
      */
     public function testPostDepartmentsValidation($expectedCode, array $data, array $assertions = array())
     {
-        $storeId = $this->factory->getStore('магазин_номер_42');
+        $storeId = $this->factory->store()->getStore('магазин_номер_42');
 
         $categoryData = $data + array(
                 'number' => 'номер-1',
@@ -220,7 +220,7 @@ class DepartmentControllerTest extends WebTestCase
      */
     public function testPutDepartmentsValidation($expectedCode, array $data, array $assertions = array())
     {
-        $storeId = $this->factory->getStore('магазин_номер_42');
+        $storeId = $this->factory->store()->getStore('магазин_номер_42');
 
         $departmentId = $this->createDepartment($storeId);
 
@@ -247,7 +247,7 @@ class DepartmentControllerTest extends WebTestCase
 
     public function testGetDepartment()
     {
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
         $departmentId = $this->createDepartment($storeId);
 
         $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -265,7 +265,7 @@ class DepartmentControllerTest extends WebTestCase
 
     public function testGetDepartmentNotFound()
     {
-        $storeId1 = $this->factory->getStore('1');
+        $storeId1 = $this->factory->store()->getStore('1');
         $this->createDepartment($storeId1, '1-1');
 
         $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
@@ -280,8 +280,8 @@ class DepartmentControllerTest extends WebTestCase
 
     public function testGetDepartments()
     {
-        $storeId1 = $this->factory->getStore('1');
-        $storeId2 = $this->factory->getStore('2');
+        $storeId1 = $this->factory->store()->getStore('1');
+        $storeId2 = $this->factory->store()->getStore('2');
 
         $departmentId1 = $this->createDepartment($storeId1, '1-1');
         $departmentId2 = $this->createDepartment($storeId1, '1-2');
@@ -337,7 +337,7 @@ class DepartmentControllerTest extends WebTestCase
 
     public function testGetDepartmentsEmptyCollection()
     {
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
 
         $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $response = $this->clientJsonRequest(
@@ -362,7 +362,7 @@ class DepartmentControllerTest extends WebTestCase
      */
     public function testAccessDepartments($url, $method, $role, $responseCode, $requestData = null)
     {
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
         $departmentId = $this->createDepartment($storeId);
 
         $url = str_replace(

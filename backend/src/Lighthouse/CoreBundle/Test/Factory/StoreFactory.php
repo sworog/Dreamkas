@@ -33,7 +33,7 @@ class StoreFactory extends AbstractFactoryFactory
      * @param string $number
      * @param string $address
      * @param string $contacts
-     * @return string
+     * @return Store
      */
     public function createStore(
         $number = self::STORE_DEFAULT_NUMBER,

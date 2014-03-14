@@ -938,7 +938,7 @@ class SubCategoryControllerTest extends WebTestCase
         $storeManager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
 
         $subCategoryId = $this->createSubCategory();
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
 
         $this->factory->store()->linkManagers($storeId, $storeManager->id, $rel);
 
@@ -964,8 +964,8 @@ class SubCategoryControllerTest extends WebTestCase
         $storeManager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
 
         $subCategoryId = $this->createSubCategory();
-        $storeId1 = $this->factory->getStore('42');
-        $storeId2 = $this->factory->getStore('43');
+        $storeId1 = $this->factory->store()->getStore('42');
+        $storeId2 = $this->factory->store()->getStore('43');
 
         $this->factory->store()->linkManagers($storeId1, $storeManager->id, $rel);
 
@@ -991,7 +991,7 @@ class SubCategoryControllerTest extends WebTestCase
         $storeManager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
 
         $subCategoryId = $this->createSubCategory();
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
 
         $accessToken = $this->factory->oauth()->auth($storeManager, 'password');
 
@@ -1015,7 +1015,7 @@ class SubCategoryControllerTest extends WebTestCase
     {
         $storeManager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
 
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
 
         $this->factory->store()->linkManagers($storeId, $storeManager->id, $rel);
 

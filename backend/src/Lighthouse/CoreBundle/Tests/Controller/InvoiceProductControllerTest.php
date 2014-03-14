@@ -682,8 +682,8 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testGetInvoiceProductNotFoundFromAnotherStore()
     {
-        $storeId2 = $this->factory->getStore('43');
-        $this->factory->linkDepartmentManagers($this->departmentManager->id, $storeId2);
+        $storeId2 = $this->factory->store()->getStore('43');
+        $this->factory->store()->linkDepartmentManagers($this->departmentManager->id, $storeId2);
 
         $productId = $this->createProduct();
         $invoiceId = $this->createInvoice(array(), $this->storeId, $this->departmentManager);
@@ -1720,12 +1720,12 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testPutWithEmptyQuantity()
     {
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
         $productId = $this->createProduct();
         $invoiceId = $this->createInvoice(array(), $storeId);
         $invoiceProductId = $this->createInvoiceProduct($invoiceId, $productId, 1, 9.99, $storeId);
 
-        $accessToken = $this->factory->authAsDepartmentManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -1744,12 +1744,12 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testGetInvoiceProductAfterEditInvoiceAcceptanceDate()
     {
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
         $productId = $this->createProduct();
         $invoiceId = $this->createInvoice(array('acceptanceDate' => '2014-01-10T12:33:33+0400'), $storeId);
         $this->createInvoiceProduct($invoiceId, $productId, 1, 9.99, $storeId);
 
-        $accessToken = $this->factory->authAsDepartmentManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
 
         $response = $this->clientJsonRequest(
             $accessToken,

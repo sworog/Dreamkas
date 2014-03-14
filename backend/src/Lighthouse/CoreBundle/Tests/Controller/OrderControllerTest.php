@@ -65,7 +65,7 @@ class OrderControllerTest extends WebTestCase
 
     public function testPostOrderEmptyProductsValidation()
     {
-        $product = $this->createProduct();
+        $this->createProduct();
         $supplier = $this->factory->createSupplier();
         $this->factory->flush();
 
@@ -425,8 +425,8 @@ class OrderControllerTest extends WebTestCase
                 )
             ),
         );
-        $storeId = $this->factory->getStore();
-        $accessToken = $this->factory->authAsDepartmentManager($storeId);
+        $storeId = $this->factory->store()->getStore();
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',

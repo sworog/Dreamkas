@@ -21,8 +21,8 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesReportsByTime()
     {
-        $storeId = $this->factory->getStore();
-        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $storeId = $this->factory->store()->getStore();
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
@@ -310,8 +310,8 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesReportsByTimeEmptyReports()
     {
-        $storeId = $this->factory->getStore();
-        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $storeId = $this->factory->store()->getStore();
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -357,9 +357,9 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testAccessGetStoreGrossSalesReport()
     {
-        $storeId = $this->factory->getStore();
-        $storeManagerToken = $this->factory->authAsStoreManager($storeId);
-        $departmentManagerToken = $this->factory->authAsDepartmentManager($storeId);
+        $storeId = $this->factory->store()->getStore();
+        $storeManagerToken = $this->factory->oauth()->authAsStoreManager($storeId);
+        $departmentManagerToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
         $storeManagerOtherStoreToken = $this->factory->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
         $commercialManagerToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $departmentManagerOtherStoreToken = $this->factory->oauth()->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
@@ -414,7 +414,7 @@ class GrossSalesControllerTest extends WebTestCase
      */
     protected function prepareStoreGrossSalesReportData()
     {
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
 
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
@@ -500,7 +500,7 @@ class GrossSalesControllerTest extends WebTestCase
     public function testGetStoreGrossSalesReportsDiffs()
     {
         $storeId = $this->prepareStoreGrossSalesReportData();
-        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -549,7 +549,7 @@ class GrossSalesControllerTest extends WebTestCase
     public function testGetStoreGrossSalesReportsDiffsPreviousDateIsZero()
     {
         $storeId = $this->prepareStoreGrossSalesReportData();
-        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -597,10 +597,10 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByHour()
     {
-        $storeId = $this->factory->getStore();
-        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $storeId = $this->factory->store()->getStore();
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
-        $storeOtherId = $this->factory->getStore("other");
+        $storeOtherId = $this->factory->store()->getStore("other");
 
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
@@ -966,9 +966,9 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testAccessGetStoreGrossSalesReportByHours()
     {
-        $storeId = $this->factory->getStore();
-        $storeManagerToken = $this->factory->authAsStoreManager($storeId);
-        $departmentManagerToken = $this->factory->authAsDepartmentManager($storeId);
+        $storeId = $this->factory->store()->getStore();
+        $storeManagerToken = $this->factory->oauth()->authAsStoreManager($storeId);
+        $departmentManagerToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
         $storeManagerOtherStoreToken = $this->factory->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
         $commercialManagerToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $departmentManagerOtherStoreToken = $this->factory->oauth()->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
@@ -1020,10 +1020,10 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByHourEmptyYesterday()
     {
-        $storeId = $this->factory->getStore();
-        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $storeId = $this->factory->store()->getStore();
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
-        $storeOtherId = $this->factory->getStore("other");
+        $storeOtherId = $this->factory->store()->getStore("other");
 
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
@@ -1322,10 +1322,10 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByHourEmptyAll()
     {
-        $storeId = $this->factory->getStore();
-        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $storeId = $this->factory->store()->getStore();
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
-        $storeOtherId = $this->factory->getStore("other");
+        $storeOtherId = $this->factory->store()->getStore("other");
 
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
@@ -1810,8 +1810,8 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesByProducts()
     {
-        $storeId = $this->factory->getStore('1');
-        $storeOtherId = $this->factory->getStore('Other');
+        $storeId = $this->factory->store()->getStore('1');
+        $storeOtherId = $this->factory->store()->getStore('Other');
         $subCategoryId = $this->createSubCategory();
         $subCategoryOtherId = $this->createSubCategory(null, 'Other');
         $product1Id = $this->createProduct('1', $subCategoryId);
@@ -2078,7 +2078,7 @@ class GrossSalesControllerTest extends WebTestCase
         $grossSalesReportManager = $this->getGrossSalesReportService();
         $grossSalesReportManager->recalculateGrossSalesProductReport();
 
-        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2150,8 +2150,8 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesByProductsEmpty()
     {
-        $storeId = $this->factory->getStore('1');
-        $storeOtherId = $this->factory->getStore('Other');
+        $storeId = $this->factory->store()->getStore('1');
+        $storeOtherId = $this->factory->store()->getStore('Other');
         $subCategoryId = $this->createSubCategory();
         $subCategoryOtherId = $this->createSubCategory(null, 'Other');
         $product1Id = $this->createProduct('1', $subCategoryId);
@@ -2187,7 +2187,7 @@ class GrossSalesControllerTest extends WebTestCase
         $grossSalesReportManager = $this->getGrossSalesReportService();
         $grossSalesReportManager->recalculateGrossSalesProductReport();
 
-        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2239,8 +2239,8 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesByProductsMaxDepth()
     {
-        $storeId = $this->factory->getStore('1');
-        $storeOtherId = $this->factory->getStore('Other');
+        $storeId = $this->factory->store()->getStore('1');
+        $storeOtherId = $this->factory->store()->getStore('Other');
         $subCategoryId = $this->createSubCategory();
         $subCategoryOtherId = $this->createSubCategory(null, 'Other');
         $product1Id = $this->createProduct('1', $subCategoryId);
@@ -2276,7 +2276,7 @@ class GrossSalesControllerTest extends WebTestCase
         $grossSalesReportManager = $this->getGrossSalesReportService();
         $grossSalesReportManager->recalculateGrossSalesProductReport();
 
-        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2294,9 +2294,9 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testAccessGetGrossSalesByProductReport()
     {
-        $storeId = $this->factory->getStore();
-        $storeManagerToken = $this->factory->authAsStoreManager($storeId);
-        $departmentManagerToken = $this->factory->authAsDepartmentManager($storeId);
+        $storeId = $this->factory->store()->getStore();
+        $storeManagerToken = $this->factory->oauth()->authAsStoreManager($storeId);
+        $departmentManagerToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
         $storeManagerOtherStoreToken = $this->factory->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
         $commercialManagerToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $departmentManagerOtherStoreToken = $this->factory->oauth()->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
@@ -2356,7 +2356,7 @@ class GrossSalesControllerTest extends WebTestCase
         $this->getGrossSalesReportService()->recalculateGrossSalesProductReport(1);
         $this->getGrossSalesReportService()->recalculateGrossSalesBySubCategories($output);
 
-        $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2418,7 +2418,7 @@ class GrossSalesControllerTest extends WebTestCase
     {
         list($storeIds,, $catalogIds) = $this->createSalesProducts();
 
-        $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2461,7 +2461,7 @@ class GrossSalesControllerTest extends WebTestCase
     {
         list($storeIds,, $catalogIds) = $this->createSalesProducts();
 
-        $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2489,7 +2489,7 @@ class GrossSalesControllerTest extends WebTestCase
         $this->getGrossSalesReportService()->recalculateGrossSalesByCategories($output);
         $this->getGrossSalesReportService()->recalculateGrossSalesByGroups($output);
 
-        $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2547,7 +2547,7 @@ class GrossSalesControllerTest extends WebTestCase
     {
         list($storeIds,, $catalogIds) = $this->createSalesProducts();
 
-        $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2567,7 +2567,7 @@ class GrossSalesControllerTest extends WebTestCase
     {
         list($storeIds,, $catalogIds) = $this->createSalesProducts();
 
-        $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2616,7 +2616,7 @@ class GrossSalesControllerTest extends WebTestCase
         $this->getGrossSalesReportService()->recalculateGrossSalesByCategories($output, 1);
         $this->getGrossSalesReportService()->recalculateGrossSalesByGroups($output, 1);
 
-        $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2674,7 +2674,7 @@ class GrossSalesControllerTest extends WebTestCase
     {
         list($storeIds,, $catalogIds) = $this->createSalesProducts();
 
-        $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2731,7 +2731,7 @@ class GrossSalesControllerTest extends WebTestCase
     {
         list($storeIds,, $catalogIds) = $this->createSalesProducts();
 
-        $accessToken = $this->factory->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',

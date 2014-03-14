@@ -4,8 +4,6 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
-use Lighthouse\CoreBundle\Test\Factory\Factory;
-use Lighthouse\CoreBundle\Test\Factory\OAuthFactory;
 use Lighthouse\CoreBundle\Test\Factory\UserFactory;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Document\User\User;
@@ -517,7 +515,7 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testProductAmountChangeOnWriteOf()
     {
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
 
         $productId1 = $this->createProduct(1);
         $productId2 = $this->createProduct(2);
@@ -543,7 +541,7 @@ class WriteOffProductControllerTest extends WebTestCase
             'cause' => 'Порча',
         );
 
-        $accessToken = $this->factory->authAsDepartmentManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -813,13 +811,13 @@ class WriteOffProductControllerTest extends WebTestCase
         $expectedCode,
         array $data = null
     ) {
-        $storeId2 = $this->factory->getStore('43');
+        $storeId2 = $this->factory->store()->getStore('43');
         $departmentManager2 = $this->factory->user()->getUser(
             'depUser2',
             UserFactory::USER_DEFAULT_PASSWORD,
             User::ROLE_DEPARTMENT_MANAGER
         );
-        $this->factory->linkDepartmentManagers($departmentManager2->id, $storeId2);
+        $this->factory->store()->linkDepartmentManagers($departmentManager2->id, $storeId2);
 
         $productId = $this->createProduct();
 
@@ -927,8 +925,8 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testGetWriteOffProductNotFoundFromAnotherStore()
     {
-        $storeId2 = $this->factory->getStore('43');
-        $this->factory->linkDepartmentManagers($this->departmentManager->id, $storeId2);
+        $storeId2 = $this->factory->store()->getStore('43');
+        $this->factory->store()->linkDepartmentManagers($this->departmentManager->id, $storeId2);
 
         $productId = $this->createProduct();
         $writeOffId = $this->createWriteOff('431', null, $this->storeId, $this->departmentManager);
@@ -1065,12 +1063,12 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testPutWithEmptyQuantity()
     {
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
         $productId = $this->createProduct();
         $writeOffId = $this->createWriteOff('111', null, $storeId);
         $writeOffProductId = $this->createWriteOffProduct($writeOffId, $productId, 1, 9.99, 'Порча', $storeId);
 
-        $accessToken = $this->factory->authAsDepartmentManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
 
         $response = $this->clientJsonRequest(
             $accessToken,

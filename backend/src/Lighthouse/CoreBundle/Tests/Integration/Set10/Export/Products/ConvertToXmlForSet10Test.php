@@ -65,20 +65,20 @@ class ConvertToXmlForSet10Test extends WebTestCase
         $storesData = array(
             1 => array(
                 'number' => '1',
-                'id' => $this->factory->getStore('1'),
+                'id' => $this->factory->store()->getStore('1'),
             ),
             2 => array(
                 'number' => '2',
-                'id' => $this->factory->getStore('2'),
+                'id' => $this->factory->store()->getStore('2'),
             ),
             3 => array(
                 'number' => '3',
-                'id' => $this->factory->getStore('3'),
+                'id' => $this->factory->store()->getStore('3'),
             ),
         );
-        $this->factory->linkStoreManagers($storeManager1User->id, $storesData[1]['id']);
-        $this->factory->linkStoreManagers($storeManager2User->id, $storesData[2]['id']);
-        $this->factory->linkStoreManagers($storeManager3User->id, $storesData[3]['id']);
+        $this->factory->store()->linkStoreManagers($storeManager1User->id, $storesData[1]['id']);
+        $this->factory->store()->linkStoreManagers($storeManager2User->id, $storesData[2]['id']);
+        $this->factory->store()->linkStoreManagers($storeManager3User->id, $storesData[3]['id']);
 
         $productsData = array(
             1 => array(

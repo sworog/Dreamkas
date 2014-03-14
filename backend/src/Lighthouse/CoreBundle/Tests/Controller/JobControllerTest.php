@@ -33,9 +33,9 @@ class JobControllerTest extends WebTestCase
 
         Assert::assertJsonPathCount(0, '*.id', $getResponse);
 
-        $storeId1 = $this->factory->getStore('1');
-        $storeId2 = $this->factory->getStore('2');
-        $storeId3 = $this->factory->getStore('3');
+        $storeId1 = $this->factory->store()->getStore('1');
+        $storeId2 = $this->factory->store()->getStore('2');
+        $storeId3 = $this->factory->store()->getStore('3');
 
         $productData = array(
             'sku' => 'Печенье Юбилейное',
@@ -172,9 +172,9 @@ class JobControllerTest extends WebTestCase
 
         Assert::assertJsonPathCount(0, '*.id', $getResponse);
 
-        $storeId1 = $this->factory->getStore('1');
-        $storeId2 = $this->factory->getStore('2');
-        $storeId3 = $this->factory->getStore('3');
+        $storeId1 = $this->factory->store()->getStore('1');
+        $storeId2 = $this->factory->store()->getStore('2');
+        $storeId3 = $this->factory->store()->getStore('3');
 
         $productData = array(
             'sku' => 'Печенье Юбилейное',
@@ -337,7 +337,7 @@ class JobControllerTest extends WebTestCase
 
         Assert::assertJsonPathCount(0, '*.id', $getResponse);
 
-        $storeId = $this->factory->getStore('1');
+        $storeId = $this->factory->store()->getStore('1');
 
         $productData = array(
             'sku' => 'Печенье Юбилейное',

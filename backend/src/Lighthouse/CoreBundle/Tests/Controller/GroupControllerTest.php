@@ -640,7 +640,7 @@ class GroupControllerTest extends WebTestCase
         $manager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
 
         $groupId = $this->createGroup();
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
 
         $this->factory->store()->linkManagers($storeId, $manager->id, $rel);
 
@@ -667,8 +667,8 @@ class GroupControllerTest extends WebTestCase
         $manager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
 
         $groupId = $this->createGroup();
-        $storeId1 = $this->factory->getStore('42');
-        $storeId2 = $this->factory->getStore('43');
+        $storeId1 = $this->factory->store()->getStore('42');
+        $storeId2 = $this->factory->store()->getStore('43');
 
         $this->factory->store()->linkManagers($storeId1, $manager->id, $rel);
 
@@ -694,7 +694,7 @@ class GroupControllerTest extends WebTestCase
         $manager = $this->factory->user()->getRoleUser($role);
 
         $groupId = $this->createGroup();
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
 
         $accessToken = $this->factory->oauth()->auth($manager, 'password');
 
@@ -722,7 +722,7 @@ class GroupControllerTest extends WebTestCase
         $groupId2 = $this->createGroup('2');
         $groupId3 = $this->createGroup('3');
 
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
 
         $this->factory->store()->linkManagers($storeId, $manager->id, $rel);
 

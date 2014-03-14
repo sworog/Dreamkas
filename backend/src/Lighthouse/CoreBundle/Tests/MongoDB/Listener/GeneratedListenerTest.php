@@ -25,6 +25,7 @@ class GeneratedListenerTest extends ContainerAwareTestCase
     {
         $this->clearMongoDb();
 
+        /* @var GeneratedDocument[] $documents */
         $documents = array();
         for ($i = 1; $i < 10; $i++) {
             $documents[$i] = new GeneratedDocument();

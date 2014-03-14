@@ -60,6 +60,7 @@ class UserFactory extends AbstractFactoryFactory
                 return $user;
             }
         }
+        return null;
     }
 
     /**

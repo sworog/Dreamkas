@@ -35,7 +35,7 @@ class StoreControllerTest extends WebTestCase
 
     public function testStoreUnique()
     {
-        $this->factory->getStore("42");
+        $this->factory->store()->getStore("42");
 
         $storeData = array(
             'number' => '42',
@@ -96,7 +96,7 @@ class StoreControllerTest extends WebTestCase
      */
     public function testPutStoreValidation($expectedCode, array $data, array $assertions = array())
     {
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
 
         $storeData = $data + array(
                 'number' => 'магазин_номер-32',
@@ -228,7 +228,7 @@ class StoreControllerTest extends WebTestCase
 
     public function testGetStores()
     {
-        $storesIds = $this->getStores(array(0, 1, 2, 3, 4));
+        $storesIds = $this->factory->store()->getStores(array(0, 1, 2, 3, 4));
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -287,7 +287,7 @@ class StoreControllerTest extends WebTestCase
 
     public function testRolesPropertyIsNotExposed()
     {
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
@@ -302,7 +302,7 @@ class StoreControllerTest extends WebTestCase
 
     public function testGetStoreWithDepartments()
     {
-        $storeId = $this->factory->getStore('1');
+        $storeId = $this->factory->store()->getStore('1');
 
         $departmentId1 = $this->createDepartment($storeId, '1-1');
         $departmentId2 = $this->createDepartment($storeId, '1-2');
@@ -335,7 +335,7 @@ class StoreControllerTest extends WebTestCase
      */
     public function testAccessStore($url, $method, $role, $responseCode, $requestData = null)
     {
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
 
         $url = str_replace(
             array(

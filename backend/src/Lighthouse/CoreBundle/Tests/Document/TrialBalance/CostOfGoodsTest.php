@@ -375,7 +375,7 @@ class CostOfGoodsTest extends WebTestCase
 
     public function testCostOfGoodsCalculate()
     {
-        $store = $this->factory->getStore("1");
+        $store = $this->factory->store()->getStore("1");
         $product1 = $this->createProduct("1");
         $this->createProduct("2");
 
@@ -433,7 +433,7 @@ class CostOfGoodsTest extends WebTestCase
         /** @var TrialBalanceRepository $trialBalanceRepository */
         $trialBalanceRepository = $this->getContainer()->get("lighthouse.core.document.repository.trial_balance");
 
-        $store = $this->factory->getStore("1");
+        $store = $this->factory->store()->getStore("1");
         $product = $this->createProduct("1");
 
         $invoice1 = $this->createInvoice(array('sku' => '1'), $store);
@@ -497,7 +497,7 @@ class CostOfGoodsTest extends WebTestCase
         /** @var TrialBalanceRepository $trialBalanceRepository */
         $trialBalanceRepository = $this->getContainer()->get("lighthouse.core.document.repository.trial_balance");
 
-        $store = $this->factory->getStore("1");
+        $store = $this->factory->store()->getStore("1");
         $product = $this->createProduct("1");
 
         $invoice1 = $this->createInvoice(array('sku' => '1'), $store);
@@ -584,7 +584,7 @@ class CostOfGoodsTest extends WebTestCase
         /** @var TrialBalanceRepository $trialBalanceRepository */
         $trialBalanceRepository = $this->getContainer()->get("lighthouse.core.document.repository.trial_balance");
 
-        $store = $this->factory->getStore("1");
+        $store = $this->factory->store()->getStore("1");
         $product = $this->createProduct("1");
         $productOther = $this->createProduct("Other");
 
@@ -707,7 +707,7 @@ class CostOfGoodsTest extends WebTestCase
         /** @var TrialBalanceRepository $trialBalanceRepository */
         $trialBalanceRepository = $this->getContainer()->get("lighthouse.core.document.repository.trial_balance");
 
-        $store = $this->factory->getStore("1");
+        $store = $this->factory->store()->getStore("1");
         $product = $this->createProduct("1");
         $this->createProduct("Other");
 
@@ -788,7 +788,7 @@ class CostOfGoodsTest extends WebTestCase
         /** @var TrialBalanceRepository $trialBalanceRepository */
         $trialBalanceRepository = $this->getContainer()->get("lighthouse.core.document.repository.trial_balance");
 
-        $store = $this->factory->getStore("1");
+        $store = $this->factory->store()->getStore("1");
         $product = $this->createProduct(array("purchasePrice" => 100));
         $this->createProduct("Other");
 

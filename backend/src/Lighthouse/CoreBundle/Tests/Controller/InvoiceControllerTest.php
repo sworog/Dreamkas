@@ -61,7 +61,7 @@ class InvoiceControllerTest extends WebTestCase
      */
     public function testGetInvoicesActionMaxDepth(array $invoiceData)
     {
-        $storeId = $this->factory->getStore('1');
+        $storeId = $this->factory->store()->getStore('1');
         $products = $this->createProductsBySku(array('1', '2', '3'));
 
         $invoiceId1 = $this->createInvoice(array('sku' => 1), $storeId);
@@ -156,8 +156,8 @@ class InvoiceControllerTest extends WebTestCase
 
     public function testGetInvoiceNotFoundInAnotherStore()
     {
-        $storeId2 = $this->factory->getStore('43');
-        $this->factory->linkDepartmentManagers($this->departmentManager->id, $storeId2);
+        $storeId2 = $this->factory->store()->getStore('43');
+        $this->factory->store()->linkDepartmentManagers($this->departmentManager->id, $storeId2);
 
         $invoiceId = $this->createInvoice(array(), $this->storeId, $this->departmentManager);
 
@@ -608,7 +608,7 @@ class InvoiceControllerTest extends WebTestCase
             'password',
             User::ROLE_DEPARTMENT_MANAGER
         );
-        $this->factory->linkDepartmentManagers($departmentManager2->id, $storeId2);
+        $this->factory->store()->linkDepartmentManagers($departmentManager2->id, $storeId2);
 
         $accessToken1 = $this->factory->oauth()->auth($this->departmentManager);
         $accessToken2 = $this->factory->oauth()->auth($departmentManager2);

@@ -25,7 +25,7 @@ class MetaDocumentTest extends WebTestCase
     {
         $productId1 = $this->createProduct('1');
         $productId2 = $this->createProduct('2');
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
         $manager = $this->factory->store()->getDepartmentManager($storeId);
         $invoiceId = $this->createInvoice(array(), $storeId, $manager);
         $invoiceProductId1 = $this->createInvoiceProduct($invoiceId, $productId1, 10, 12.80, $storeId, $manager);
@@ -51,7 +51,7 @@ class MetaDocumentTest extends WebTestCase
     {
         $productId1 = $this->createProduct('1');
         $productId2 = $this->createProduct('2');
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
         $manager = $this->factory->store()->getDepartmentManager($storeId);
         $writeOffId = $this->createWriteOff('431-789', null, $storeId, $manager);
         $writeOffProductId1 = $this->createWriteOffProduct($writeOffId, $productId1, 10, 12.8, '*', $storeId, $manager);

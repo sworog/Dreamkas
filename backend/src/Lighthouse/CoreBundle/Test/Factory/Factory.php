@@ -9,11 +9,7 @@ use Lighthouse\CoreBundle\Document\Receipt\ReceiptRepository;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
-use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Test\Assert;
-use Lighthouse\CoreBundle\Test\Client\Client;
-use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
@@ -36,21 +32,6 @@ class Factory extends AbstractFactory
      * @var StoreFactory
      */
     protected $store;
-
-    /**
-     * @var Client
-     */
-    protected $client;
-
-    /**
-     * @var array
-     */
-    protected $storeManagers;
-
-    /**
-     * @var array
-     */
-    protected $departmentManagers;
 
     /**
      * @var array
@@ -88,67 +69,6 @@ class Factory extends AbstractFactory
             $this->store = new StoreFactory($this->container, $this);
         }
         return $this->store;
-    }
-
-    /**
-     * @return Client
-     */
-    protected function getClient()
-    {
-        if (null === $this->client) {
-            $this->client = $this->container->get('test.client');
-        }
-        return $this->client;
-    }
-
-    /**
-     * @deprecated
-     * @param string $storeId
-     * @return \stdClass
-     */
-    public function authAsStoreManager($storeId = null)
-    {
-        return $this->oauth()->authAsStoreManager($storeId);
-    }
-
-    /**
-     * @deprecated
-     * @param string $storeId
-     * @return \stdClass
-     */
-    public function authAsDepartmentManager($storeId = null)
-    {
-        return $this->oauth()->authAsDepartmentManager($storeId);
-    }
-
-    /**
-     * @deprecated
-     * @param array $userIds
-     * @param string $storeId
-     */
-    public function linkStoreManagers($userIds, $storeId = null)
-    {
-        $this->store()->linkStoreManagers($userIds, $storeId);
-    }
-
-    /**
-     * @deprecated
-     * @param array $userIds
-     * @param string $storeId
-     */
-    public function linkDepartmentManagers($userIds, $storeId = null)
-    {
-        $this->store()->linkDepartmentManagers($userIds, $storeId);
-    }
-
-    /**
-     * @deprecated
-     * @param string $number
-     * @return mixed
-     */
-    public function getStore($number = StoreFactory::STORE_DEFAULT_NUMBER)
-    {
-        return $this->store()->getStore($number);
     }
 
     /**
