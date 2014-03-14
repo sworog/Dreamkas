@@ -22,7 +22,9 @@ use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
+use OAuth2\OAuth2;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 class Factory
 {
@@ -119,6 +121,14 @@ class Factory
     }
 
     /**
+     * @return OAuth2
+     */
+    protected function getOAuth2Server()
+    {
+        return $this->container->get('fos_oauth_server.server');
+    }
+
+    /**
      * @param User $oauthUser
      * @param string $password
      * @param AuthClient $oauthClient
@@ -128,23 +138,17 @@ class Factory
     {
         $oauthClient = ($oauthClient) ?: $this->getAuthClient();
 
-        $authParams = array(
-            'grant_type' => 'password',
-            'username' => $oauthUser->username,
-            'password' => $password,
-            'client_id' => $oauthClient->getPublicId(),
-            'client_secret' => $oauthClient->getSecret()
-        );
+        $request = new Request();
+        $request->setMethod('POST');
+        $request->request->set('grant_type', OAuth2::GRANT_TYPE_USER_CREDENTIALS);
+        $request->request->set('username', $oauthUser->username);
+        $request->request->set('password', $password);
+        $request->request->set('client_id', $oauthClient->getPublicId());
+        $request->request->set('client_secret', $oauthClient->getSecret());
 
-        $this->client->request(
-            'POST',
-            '/oauth/v2/token',
-            $authParams,
-            array(),
-            array('Content-Type' => 'application/x-www-form-urlencoded')
-        );
+        $response = $this->getOAuth2Server()->grantAccessToken($request);
 
-        $content = $this->client->getResponse()->getContent();
+        $content = $response->getContent();
         $token = json_decode($content);
 
         return $token;
