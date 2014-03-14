@@ -2,13 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Test;
 
-use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\Client\Client;
 use Lighthouse\CoreBundle\Test\Factory\Factory;
-use Lighthouse\CoreBundle\Test\Factory\OAuthFactory;
-use Lighthouse\CoreBundle\Test\Factory\UserFactory;
 use PHPUnit_Framework_ExpectationFailedException;
 
 /**

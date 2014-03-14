@@ -14,7 +14,7 @@ use Symfony\Component\Process\PhpProcess;
 class Client extends BaseClient
 {
     /**
-     * @var KernelInterface
+     * @var KernelInterface|TerminableInterface
      */
     protected $kernel;
 

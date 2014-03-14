@@ -19,7 +19,6 @@ use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Factory extends AbstractFactory
 {
