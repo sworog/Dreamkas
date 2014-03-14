@@ -12,6 +12,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class OrderController extends AbstractRestController
 {
@@ -43,5 +44,30 @@ class OrderController extends AbstractRestController
         $order = new Order;
         $order->store = $store;
         return $this->processForm($request, $order);
+    }
+
+    /**
+     * @param Store $store
+     * @param Order $order
+     * @return Order
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @ApiDoc
+     */
+    public function getOrderAction(Store $store, Order $order)
+    {
+        $this->checkOrderStore($store, $order);
+        return $order;
+    }
+
+    /**
+     * @param Store $store
+     * @param Order $order
+     * @throws NotFoundHttpException
+     */
+    protected function checkOrderStore(Store $store, Order $order)
+    {
+        if ($order->store !== $store) {
+            throw new NotFoundHttpException(sprintf("%s object not found", get_class($order)));
+        }
     }
 }

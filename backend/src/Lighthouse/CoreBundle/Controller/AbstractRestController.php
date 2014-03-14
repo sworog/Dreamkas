@@ -32,17 +32,21 @@ abstract class AbstractRestController extends FOSRestController
     /**
      * @param Request $request
      * @param AbstractDocument $document
+     * @param bool $save
      * @return View|AbstractDocument
      */
-    protected function processForm(Request $request, AbstractDocument $document)
+    protected function processForm(Request $request, AbstractDocument $document, $save = true)
     {
+        $validation = $request->get('validation', false);
         $type = $this->getDocumentFormType();
         $form = $this->createForm($type, $document);
         $form->submit($request);
 
         if ($form->isValid()) {
-            $this->getDocumentRepository()->getDocumentManager()->persist($document);
-            $this->getDocumentRepository()->getDocumentManager()->flush();
+            if (true == $save && false == $validation) {
+                $this->getDocumentRepository()->getDocumentManager()->persist($document);
+                $this->getDocumentRepository()->getDocumentManager()->flush();
+            }
             return $document;
         } else {
             return $form;
