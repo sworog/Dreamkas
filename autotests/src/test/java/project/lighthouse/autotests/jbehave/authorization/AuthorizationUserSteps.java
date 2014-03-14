@@ -29,6 +29,11 @@ public class AuthorizationUserSteps {
         authorizationSteps.openPage();
     }
 
+    @Given("the user logs in using '$userName' userName and '$password' password")
+    public void givenTheUserLogsInUsingCredentials(String userName, String password) {
+        authorizationSteps.authorization(userName, password);
+    }
+
     @When("the user logs in using '$userName' userName and '$password' password")
     @Alias("the user logs in using <userName> and '$password' password")
     public void givenTheUserLogsInUsingUserNameAndPassword(String userName, String password) {
