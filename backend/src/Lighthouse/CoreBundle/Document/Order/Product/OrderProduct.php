@@ -52,14 +52,14 @@ class OrderProduct extends AbstractDocument
 
     /**
      * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Product",
+     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Version\ProductVersion",
      *     simple=true,
      *     cascade={"persist"}
      * )
      *
      * @Serializer\Exclude
      * @Assert\NotBlank
-     * @var Product
+     * @var ProductVersion
      */
     protected $product;
 
@@ -70,6 +70,7 @@ class OrderProduct extends AbstractDocument
      *     cascade={"persist"}
      * )
      * @Serializer\SerializedName("product")
+     * @Serializer\Accessor(getter="getStoreProductVersion")
      * @var StoreProduct
      */
     protected $storeProduct;
@@ -85,4 +86,18 @@ class OrderProduct extends AbstractDocument
      * @var Order
      */
     protected $order;
+
+    /**
+     * @return StoreProduct
+     */
+    public function getStoreProductVersion()
+    {
+        if ($this->storeProduct) {
+            $storeProduct = clone $this->storeProduct;
+            $storeProduct->product = $this->product;
+        } else {
+            $storeProduct = null;
+        }
+        return $storeProduct;
+    }
 }

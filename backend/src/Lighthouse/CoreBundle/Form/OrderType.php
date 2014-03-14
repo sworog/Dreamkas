@@ -27,7 +27,6 @@ class OrderType extends AbstractType
                 'reference',
                 array(
                     'class' => Supplier::getClassName(),
-                    'csrf_protection' => false,
                     'invalid_message' => 'lighthouse.validation.errors.order.supplier.does_not_exists'
                 )
             )

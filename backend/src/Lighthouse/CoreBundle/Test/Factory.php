@@ -296,8 +296,8 @@ class Factory
     public function authAsDepartmentManager($storeId = null)
     {
         $storeId = $this->getStoreById($storeId);
-        $storeManager = $this->getDepartmentManager($storeId);
-        return $this->auth($storeManager);
+        $departmentManager = $this->getDepartmentManager($storeId);
+        return $this->auth($departmentManager);
     }
 
     /**

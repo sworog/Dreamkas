@@ -313,7 +313,7 @@ class OrderControllerTest extends WebTestCase
                 array(
                     'children.quantity.errors.0'
                     =>
-                        'Заполните это поле'
+                    'Заполните это поле'
                 )
             ),
             'negative quantity -10' => array(
@@ -322,7 +322,7 @@ class OrderControllerTest extends WebTestCase
                 array(
                     'children.quantity.errors.0'
                     =>
-                        'Значение должно быть больше 0'
+                    'Значение должно быть больше 0'
                 )
             ),
             'negative quantity -1' => array(
@@ -331,7 +331,7 @@ class OrderControllerTest extends WebTestCase
                 array(
                     'children.quantity.errors.0'
                     =>
-                        'Значение должно быть больше 0'
+                    'Значение должно быть больше 0'
                 )
             ),
             'zero quantity' => array(
@@ -340,7 +340,7 @@ class OrderControllerTest extends WebTestCase
                 array(
                     'children.quantity.errors.0'
                     =>
-                        'Значение должно быть больше 0'
+                    'Значение должно быть больше 0'
                 )
             ),
             'float quantity' => array(
@@ -357,7 +357,7 @@ class OrderControllerTest extends WebTestCase
                 array(
                     'children.quantity.errors.0'
                     =>
-                        'Значение не должно содержать больше 3 цифр после запятой'
+                    'Значение не должно содержать больше 3 цифр после запятой'
                 )
             ),
             'float quantity very float with coma' => array(
@@ -366,19 +366,15 @@ class OrderControllerTest extends WebTestCase
                 array(
                     'children.quantity.errors.0'
                     =>
-                        'Значение не должно содержать больше 3 цифр после запятой',
+                    'Значение не должно содержать больше 3 цифр после запятой',
                 )
             ),
             'float quantity very float only one message' => array(
                 400,
                 array('quantity' => '2,5555'),
                 array(
-                    'children.quantity.errors.0'
-                    =>
-                        'Значение не должно содержать больше 3 цифр после запятой',
-                    'children.quantity.errors.1'
-                    =>
-                        null
+                    'children.quantity.errors.0' => 'Значение не должно содержать больше 3 цифр после запятой',
+                    'children.quantity.errors.1' => null
                 )
             ),
             'not numeric quantity' => array(
@@ -387,7 +383,7 @@ class OrderControllerTest extends WebTestCase
                 array(
                     'children.quantity.errors.0'
                     =>
-                        'Значение должно быть числом'
+                    'Значение должно быть числом'
                 )
             ),
             /***********************************************************************************************
@@ -412,5 +408,56 @@ class OrderControllerTest extends WebTestCase
                 ),
             ),
         );
+    }
+
+    public function testOrderProductVersion()
+    {
+        $productId = $this->createProduct(array('name' => 'original'));
+        $supplier = $this->factory->createSupplier();
+        $this->factory->flush();
+
+        $postData = array(
+            'supplier' => $supplier->id,
+            'products' => array(
+                array(
+                    'product' => $productId,
+                    'quantity' => 1.11,
+                )
+            ),
+        );
+        $storeId = $this->factory->getStore();
+        $accessToken = $this->factory->authAsDepartmentManager($storeId);
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $storeId . '/orders',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+        Assert::assertJsonPathEquals('original', 'products.0.product.product.name', $postResponse);
+        Assert::assertJsonHasPath('id', $postResponse);
+
+        $orderId = $postResponse['id'];
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/orders/' . $orderId
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals('original', 'products.0.product.product.name', $getResponse);
+
+        $this->updateProduct($productId, array('name' => 'modified'));
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/orders/' . $orderId
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals('original', 'products.0.product.product.name', $getResponse);
     }
 }
