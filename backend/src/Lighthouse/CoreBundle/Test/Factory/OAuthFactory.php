@@ -2,14 +2,12 @@
 
 namespace Lighthouse\CoreBundle\Test\Factory;
 
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Document\User\User;
 use OAuth2\OAuth2;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
 use Symfony\Component\HttpFoundation\Request;
 
-class OAuth extends AbstractFactory
+class OAuthFactory extends AbstractFactoryFactory
 {
     const CLIENT_DEFAULT_SECRET = 'secret';
     const USER_DEFAULT_PASSWORD = 'password';
@@ -64,8 +62,11 @@ class OAuth extends AbstractFactory
      * @param AuthClient $oauthClient
      * @return \stdClass access token
      */
-    public function doAuth(User $oauthUser, $password = self::USER_DEFAULT_PASSWORD, AuthClient $oauthClient = null)
-    {
+    public function doAuth(
+        User $oauthUser,
+        $password = UserFactory::USER_DEFAULT_PASSWORD,
+        AuthClient $oauthClient = null
+    ) {
         $oauthClient = ($oauthClient) ?: $this->getAuthClient();
 
         $request = new Request();
@@ -90,9 +91,12 @@ class OAuth extends AbstractFactory
      * @param AuthClient $oauthClient
      * @return \stdClass
      */
-    public function auth(User $oauthUser, $password = self::USER_DEFAULT_PASSWORD, AuthClient $oauthClient = null)
-    {
-        if (self::USER_DEFAULT_PASSWORD === $password && null === $oauthClient) {
+    public function auth(
+        User $oauthUser,
+        $password = UserFactory::USER_DEFAULT_PASSWORD,
+        AuthClient $oauthClient = null
+    ) {
+        if (UserFactory::USER_DEFAULT_PASSWORD === $password && null === $oauthClient) {
             if (!isset($this->accessTokens[$oauthUser->id])) {
                 $this->accessTokens[$oauthUser->id] = $this->doAuth($oauthUser, $password, $oauthClient);
             }
@@ -100,5 +104,15 @@ class OAuth extends AbstractFactory
         } else {
             return $this->doAuth($oauthUser, $password, $oauthClient);
         }
+    }
+
+    /**
+     * @param string $role
+     * @return \stdClass
+     */
+    public function authAsRole($role)
+    {
+        $user = $this->factory->user()->getRoleUser($role);
+        return $this->auth($user);
     }
 }

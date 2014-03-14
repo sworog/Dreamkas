@@ -7,7 +7,8 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\Client\Client;
 use Lighthouse\CoreBundle\Test\Factory\Factory;
-use Lighthouse\CoreBundle\Test\Factory\OAuth;
+use Lighthouse\CoreBundle\Test\Factory\OAuthFactory;
+use Lighthouse\CoreBundle\Test\Factory\UserFactory;
 use PHPUnit_Framework_ExpectationFailedException;
 
 /**
@@ -116,7 +117,7 @@ class WebTestCase extends ContainerAwareTestCase
     protected function createInvoice(array $modifiedData, $storeId, User $departmentManager = null)
     {
         $departmentManager = ($departmentManager) ?: $this->factory->getDepartmentManager($storeId);
-        $accessToken = $this->auth($departmentManager);
+        $accessToken = $this->factory->oauth()->auth($departmentManager);
 
         $invoiceData = $modifiedData + array(
             'sku' => 'sku232',
@@ -967,13 +968,13 @@ class WebTestCase extends ContainerAwareTestCase
      * @return User
      */
     protected function createUser(
-        $username = 'admin',
-        $password = OAuth::USER_DEFAULT_PASSWORD,
+        $username = UserFactory::USER_DEFAULT_USERNAME,
+        $password = UserFactory::USER_DEFAULT_PASSWORD,
         $role = User::ROLE_ADMINISTRATOR,
-        $name = 'Админ Админыч',
-        $position = 'Администратор'
+        $name = UserFactory::USER_DEFAULT_NAME,
+        $position = UserFactory::USER_DEFAULT_POSITION
     ) {
-        return $this->factory->getUser($username, $password, $role, $name, $position);
+        return $this->factory->user()->getUser($username, $password, $role, $name, $position);
     }
 
     /**
@@ -982,16 +983,17 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function authAsRole($role)
     {
-        return $this->factory->authAsRole($role);
+        return $this->factory->oauth()->authAsRole($role);
     }
 
     /**
+     * @deprecated
      * @param string $role
      * @return User
      */
     protected function getRoleUser($role)
     {
-        return $this->factory->getRoleUser($role);
+        return $this->factory->user()->getRoleUser($role);
     }
 
     /**
@@ -1012,10 +1014,10 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function auth(
         User $user,
-        $password = OAuth::USER_DEFAULT_PASSWORD,
+        $password = UserFactory::USER_DEFAULT_PASSWORD,
         AuthClient $oauthClient = null
     ) {
-        return $this->factory->auth($user, $password, $oauthClient);
+        return $this->factory->oauth()->auth($user, $password, $oauthClient);
     }
 
     /**

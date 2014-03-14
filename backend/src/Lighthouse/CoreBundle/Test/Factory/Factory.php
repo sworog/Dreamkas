@@ -35,19 +35,19 @@ class Factory extends AbstractFactory
     protected $container;
 
     /**
-     * @var OAuth
+     * @var OAuthFactory
      */
     protected $oauth;
+
+    /**
+     * @var UserFactory
+     */
+    protected $user;
 
     /**
      * @var Client
      */
     protected $client;
-
-    /**
-     * @var User[]
-     */
-    protected $users = array();
 
     /**
      * @var array
@@ -79,14 +79,25 @@ class Factory extends AbstractFactory
     }
 
     /**
-     * @return OAuth
+     * @return OAuthFactory
      */
     public function oauth()
     {
         if (null === $this->oauth) {
-            $this->oauth = new OAuth($this->container);
+            $this->oauth = new OAuthFactory($this->container, $this);
         }
         return $this->oauth;
+    }
+
+    /**
+     * @return UserFactory
+     */
+    public function user()
+    {
+        if (null === $this->user) {
+            $this->user = new UserFactory($this->container, $this);
+        }
+        return $this->user;
     }
 
     /**
@@ -96,85 +107,22 @@ class Factory extends AbstractFactory
      * @param AuthClient $oauthClient
      * @return \stdClass
      */
-    public function auth(User $oauthUser, $password = OAuth::USER_DEFAULT_PASSWORD, AuthClient $oauthClient = null)
-    {
+    public function auth(
+        User $oauthUser,
+        $password = UserFactory::USER_DEFAULT_PASSWORD,
+        AuthClient $oauthClient = null
+    ) {
         return $this->oauth()->auth($oauthUser, $password, $oauthClient);
     }
 
     /**
+     * @deprecated
      * @param string $role
      * @return \stdClass
      */
     public function authAsRole($role)
     {
-        $user = $this->getRoleUser($role);
-        return $this->oauth()->auth($user);
-    }
-
-    /**
-     * @param string $role
-     * @return User
-     */
-    public function getRoleUser($role)
-    {
-        return $this->getUser($role, OAuth::USER_DEFAULT_PASSWORD, $role, $role, $role);
-    }
-
-    /**
-     * @param string $username
-     * @param string $password
-     * @param string $role
-     * @param string $name
-     * @param string $position
-     *
-     * @return User
-     */
-    public function getUser(
-        $username = 'admin',
-        $password = OAuth::USER_DEFAULT_PASSWORD,
-        $role = User::ROLE_ADMINISTRATOR,
-        $name = 'Админ Админыч',
-        $position = 'Администратор'
-    ) {
-        $hash = md5(implode(',', func_get_args()));
-        if (!isset($this->users[$hash])) {
-            $this->users[$hash] = $this->createUser($username, $password, $role, $name, $position);
-        }
-        return $this->users[$hash];
-    }
-
-    /**
-     * @param string $username
-     * @param string $password
-     * @param string $role
-     * @param string $name
-     * @param string $position
-     * @return User
-     */
-    public function createUser(
-        $username = 'admin',
-        $password = OAuth::USER_DEFAULT_PASSWORD,
-        $role = User::ROLE_ADMINISTRATOR,
-        $name = 'Админ Админыч',
-        $position = 'Администратор'
-    ) {
-        /* @var UserRepository $userRepository */
-        $userRepository = $this->container->get('lighthouse.core.document.repository.user');
-        /* @var UserProvider $userProvider */
-        $userProvider = $this->container->get('lighthouse.core.user.provider');
-
-        $user = new User();
-        $user->name = $name;
-        $user->username = $username;
-        $user->role = $role;
-        $user->position = $position;
-
-        $userProvider->setPassword($user, $password);
-
-        $userRepository->getDocumentManager()->persist($user);
-        $userRepository->getDocumentManager()->flush();
-
-        return $user;
+        return $this->oauth()->authAsRole($role);
     }
 
     /**
@@ -186,7 +134,7 @@ class Factory extends AbstractFactory
         $storeId = $this->getStoreById($storeId);
         if (!isset($this->storeManagers[$storeId])) {
             $username = 'storeManagerStore' . $storeId;
-            $manager = $this->getUser($username, OAuth::USER_DEFAULT_PASSWORD, User::ROLE_STORE_MANAGER);
+            $manager = $this->user()->getUser($username, UserFactory::USER_DEFAULT_PASSWORD, User::ROLE_STORE_MANAGER);
             $this->linkStoreManagers($manager->id, $storeId);
 
             $this->storeManagers[$storeId] = $manager;
@@ -202,7 +150,7 @@ class Factory extends AbstractFactory
     {
         $storeId = $this->getStoreById($storeId);
         $storeManager = $this->getStoreManager($storeId);
-        return $this->auth($storeManager);
+        return $this->oauth()->auth($storeManager);
     }
 
     /**
@@ -214,7 +162,11 @@ class Factory extends AbstractFactory
         $storeId = $this->getStoreById($storeId);
         if (!isset($this->departmentManagers[$storeId])) {
             $username = 'departmentManagerStore' . $storeId;
-            $manager = $this->getUser($username, OAuth::USER_DEFAULT_PASSWORD, User::ROLE_DEPARTMENT_MANAGER);
+            $manager = $this->user()->getUser(
+                $username,
+                UserFactory::USER_DEFAULT_PASSWORD,
+                User::ROLE_DEPARTMENT_MANAGER
+            );
             $this->linkDepartmentManagers($manager->id, $storeId);
 
             $this->departmentManagers[$storeId] = $manager;
@@ -230,7 +182,7 @@ class Factory extends AbstractFactory
     {
         $storeId = $this->getStoreById($storeId);
         $departmentManager = $this->getDepartmentManager($storeId);
-        return $this->auth($departmentManager);
+        return $this->oauth()->auth($departmentManager);
     }
 
     /**
@@ -247,7 +199,7 @@ class Factory extends AbstractFactory
             $request->addLinkHeader($this->getUserResourceUri($userId), $rel);
         }
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $this->client->jsonRequest($request, $accessToken);
 
         Assert::assertResponseCode(204, $this->client);
@@ -290,7 +242,7 @@ class Factory extends AbstractFactory
             'contacts' => $contacts,
         );
         $jsonRequest = new JsonRequest('/api/1/stores', 'POST', $storeData);
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $response = $this->client->jsonRequest($jsonRequest, $accessToken);
 

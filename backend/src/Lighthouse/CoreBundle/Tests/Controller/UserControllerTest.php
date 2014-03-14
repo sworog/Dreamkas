@@ -595,9 +595,7 @@ class UserControllerTest extends WebTestCase
      */
     public function testRolePermissions($role, array $assertions)
     {
-        $user = $this->getRoleUser($role);
-
-        $accessToken = $this->auth($user);
+        $accessToken = $this->factory->authAsRole($role);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,

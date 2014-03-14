@@ -691,7 +691,7 @@ class GroupControllerTest extends WebTestCase
      */
     public function testGetStoreGroupStoreManagerHasNoStore($role)
     {
-        $manager = $this->getRoleUser($role);
+        $manager = $this->factory->user()->getRoleUser($role);
 
         $groupId = $this->createGroup();
         $storeId = $this->factory->getStore();
@@ -715,7 +715,8 @@ class GroupControllerTest extends WebTestCase
      * @dataProvider storeRolesProvider
      */
     public function testGetStoreGroupsStoreManagerHasStore($role, $rel)
-    {        $manager = $this->getRoleUser($role);
+    {
+        $manager = $this->factory->user()->getRoleUser($role);
 
         $groupId1 = $this->createGroup('1');
         $groupId2 = $this->createGroup('2');
@@ -725,7 +726,7 @@ class GroupControllerTest extends WebTestCase
 
         $this->factory->linkManagers($storeId, $manager->id, $rel);
 
-        $accessToken = $this->auth($manager, 'password');
+        $accessToken = $this->factory->oauth()->auth($manager);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
