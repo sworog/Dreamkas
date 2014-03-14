@@ -19,7 +19,7 @@ abstract public class CommonPageObject extends PageObject {
      */
     private CommonItemMap items = new CommonItemMap();
 
-    private CommonActions commonActions = new CommonActions(this, items);
+    private CommonActions commonActions = new CommonActions(this);
 
     public CommonPageObject(WebDriver driver) {
         super(driver);

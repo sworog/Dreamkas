@@ -1,5 +1,8 @@
 package project.lighthouse.autotests.common;
 
+import org.hamcrest.Matchers;
+import org.junit.Assert;
+
 import java.util.HashMap;
 
 /**
@@ -9,11 +12,11 @@ public class CommonItemMap extends HashMap<String, CommonItem> {
 
     @Override
     public CommonItem get(Object key) {
-        try {
-            return super.get(key);
-        } catch (NullPointerException e) {
-            String errorMessage = String.format("There is no element with name '%s'", key);
-            throw new AssertionError(errorMessage);
-        }
+        Assert.assertThat(
+                String.format("There is no element with name '%s'. Available elements: %s", key, this.keySet()),
+                super.get(key),
+                Matchers.notNullValue());
+
+        return super.get(key);
     }
 }
