@@ -770,8 +770,9 @@ class GroupControllerTest extends WebTestCase
             $statusCodes[] = $response->getStatusCode();
             $jsonResponses[] = $this->client->decodeJsonResponse($response);
         }
-        $this->assertCount(1, array_keys($statusCodes, 201), \PHPUnit_Util_Type::export($jsonResponses));
-        $this->assertCount(2, array_keys($statusCodes, 400));
+        $responseBody = \PHPUnit_Util_Type::export($jsonResponses);
+        $this->assertCount(1, array_keys($statusCodes, 201), $responseBody);
+        $this->assertCount(2, array_keys($statusCodes, 400), $responseBody);
         Assert::assertJsonPathEquals('Продовольственные товары', '*.name', $jsonResponses, 1);
         Assert::assertJsonPathEquals('Такая группа уже есть', '*.children.name.errors.0', $jsonResponses, 2);
     }
