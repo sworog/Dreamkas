@@ -4,7 +4,8 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
-use Lighthouse\CoreBundle\Test\Factory;
+use Lighthouse\CoreBundle\Test\Factory\Factory;
+use Lighthouse\CoreBundle\Test\Factory\OAuth;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
@@ -816,7 +817,7 @@ class WriteOffProductControllerTest extends WebTestCase
         $storeId2 = $this->factory->getStore('43');
         $departmentManager2 = $this->createUser(
             'depUser2',
-            Factory::USER_DEFAULT_PASSWORD,
+            OAuth::USER_DEFAULT_PASSWORD,
             User::ROLE_DEPARTMENT_MANAGER
         );
         $this->factory->linkDepartmentManagers($departmentManager2->id, $storeId2);

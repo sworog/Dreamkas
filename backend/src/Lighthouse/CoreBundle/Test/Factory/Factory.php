@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Test;
+namespace Lighthouse\CoreBundle\Test\Factory;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Document\File\File;
@@ -14,6 +14,7 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
+use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\Client;
 use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
@@ -22,15 +23,10 @@ use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
-use OAuth2\OAuth2;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
 
-class Factory
+class Factory extends AbstractFactory
 {
-    const CLIENT_DEFAULT_SECRET = 'secret';
-
-    const USER_DEFAULT_PASSWORD = 'password';
     const STORE_DEFAULT_NUMBER = '1';
 
     /**
@@ -39,19 +35,14 @@ class Factory
     protected $container;
 
     /**
+     * @var OAuth
+     */
+    protected $oauth;
+
+    /**
      * @var Client
      */
     protected $client;
-
-    /**
-     * @var DocumentManager
-     */
-    protected $dm;
-
-    /**
-     * @var AuthClient
-     */
-    protected $authClient;
 
     /**
      * @var User[]
@@ -71,11 +62,6 @@ class Factory
     /**
      * @var array
      */
-    protected $accessTokens = array();
-
-    /**
-     * @var array
-     */
     protected $stores = array();
 
     /**
@@ -89,87 +75,30 @@ class Factory
     public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
-
         $this->client = $this->container->get('test.client');
-        $this->dm = $this->container->get('doctrine_mongodb.odm.document_manager');
     }
 
     /**
-     * @return AuthClient
+     * @return OAuth
      */
-    public function getAuthClient()
+    public function oauth()
     {
-        if (null === $this->authClient) {
-            $this->authClient = $this->createAuthClient();
+        if (null === $this->oauth) {
+            $this->oauth = new OAuth($this->container);
         }
-        return $this->authClient;
+        return $this->oauth;
     }
 
     /**
-     * @param string $secret
-     * @return AuthClient
-     */
-    public function createAuthClient($secret = self::CLIENT_DEFAULT_SECRET)
-    {
-        $client = new AuthClient;
-        $client->setSecret($secret);
-
-        $this->dm->persist($client);
-        $this->dm->flush();
-
-        return $client;
-    }
-
-    /**
-     * @return OAuth2
-     */
-    protected function getOAuth2Server()
-    {
-        return $this->container->get('fos_oauth_server.server');
-    }
-
-    /**
-     * @param User $oauthUser
-     * @param string $password
-     * @param AuthClient $oauthClient
-     * @return \stdClass access token
-     */
-    public function doAuth(User $oauthUser, $password = self::USER_DEFAULT_PASSWORD, AuthClient $oauthClient = null)
-    {
-        $oauthClient = ($oauthClient) ?: $this->getAuthClient();
-
-        $request = new Request();
-        $request->setMethod('POST');
-        $request->request->set('grant_type', OAuth2::GRANT_TYPE_USER_CREDENTIALS);
-        $request->request->set('username', $oauthUser->username);
-        $request->request->set('password', $password);
-        $request->request->set('client_id', $oauthClient->getPublicId());
-        $request->request->set('client_secret', $oauthClient->getSecret());
-
-        $response = $this->getOAuth2Server()->grantAccessToken($request);
-
-        $content = $response->getContent();
-        $token = json_decode($content);
-
-        return $token;
-    }
-
-    /**
+     * @deprecated
      * @param User $oauthUser
      * @param string $password
      * @param AuthClient $oauthClient
      * @return \stdClass
      */
-    public function auth(User $oauthUser, $password = self::USER_DEFAULT_PASSWORD, AuthClient $oauthClient = null)
+    public function auth(User $oauthUser, $password = OAuth::USER_DEFAULT_PASSWORD, AuthClient $oauthClient = null)
     {
-        if (self::USER_DEFAULT_PASSWORD === $password && null === $oauthClient) {
-            if (!isset($this->accessTokens[$oauthUser->id])) {
-                $this->accessTokens[$oauthUser->id] = $this->doAuth($oauthUser, $password, $oauthClient);
-            }
-            return $this->accessTokens[$oauthUser->id];
-        } else {
-            return $this->doAuth($oauthUser, $password, $oauthClient);
-        }
+        return $this->oauth()->auth($oauthUser, $password, $oauthClient);
     }
 
     /**
@@ -179,7 +108,7 @@ class Factory
     public function authAsRole($role)
     {
         $user = $this->getRoleUser($role);
-        return $this->auth($user);
+        return $this->oauth()->auth($user);
     }
 
     /**
@@ -188,7 +117,7 @@ class Factory
      */
     public function getRoleUser($role)
     {
-        return $this->getUser($role, self::USER_DEFAULT_PASSWORD, $role, $role, $role);
+        return $this->getUser($role, OAuth::USER_DEFAULT_PASSWORD, $role, $role, $role);
     }
 
     /**
@@ -202,7 +131,7 @@ class Factory
      */
     public function getUser(
         $username = 'admin',
-        $password = self::USER_DEFAULT_PASSWORD,
+        $password = OAuth::USER_DEFAULT_PASSWORD,
         $role = User::ROLE_ADMINISTRATOR,
         $name = 'Админ Админыч',
         $position = 'Администратор'
@@ -224,7 +153,7 @@ class Factory
      */
     public function createUser(
         $username = 'admin',
-        $password = self::USER_DEFAULT_PASSWORD,
+        $password = OAuth::USER_DEFAULT_PASSWORD,
         $role = User::ROLE_ADMINISTRATOR,
         $name = 'Админ Админыч',
         $position = 'Администратор'
@@ -257,7 +186,7 @@ class Factory
         $storeId = $this->getStoreById($storeId);
         if (!isset($this->storeManagers[$storeId])) {
             $username = 'storeManagerStore' . $storeId;
-            $manager = $this->getUser($username, self::USER_DEFAULT_PASSWORD, User::ROLE_STORE_MANAGER);
+            $manager = $this->getUser($username, OAuth::USER_DEFAULT_PASSWORD, User::ROLE_STORE_MANAGER);
             $this->linkStoreManagers($manager->id, $storeId);
 
             $this->storeManagers[$storeId] = $manager;
@@ -285,7 +214,7 @@ class Factory
         $storeId = $this->getStoreById($storeId);
         if (!isset($this->departmentManagers[$storeId])) {
             $username = 'departmentManagerStore' . $storeId;
-            $manager = $this->getUser($username, self::USER_DEFAULT_PASSWORD, User::ROLE_DEPARTMENT_MANAGER);
+            $manager = $this->getUser($username, OAuth::USER_DEFAULT_PASSWORD, User::ROLE_DEPARTMENT_MANAGER);
             $this->linkDepartmentManagers($manager->id, $storeId);
 
             $this->departmentManagers[$storeId] = $manager;
@@ -464,7 +393,7 @@ class Factory
 
     public function flush()
     {
-        $this->dm->flush();
+        $this->getDocumentManager()->flush();
     }
 
     /**
@@ -477,11 +406,11 @@ class Factory
     {
         $saleModel = new Sale();
         $saleModel->createdDate = new DateTimestamp($createdDate);
-        $saleModel->store = $this->dm->getReference(Store::getClassName(), $storeId);
+        $saleModel->store = $this->getDocumentManager()->getReference(Store::getClassName(), $storeId);
         $saleModel->hash = md5(rand() . $storeId);
         $saleModel->sumTotal = $this->getNumericFactory()->createMoney($sumTotal);
 
-        $this->dm->persist($saleModel);
+        $this->getDocumentManager()->persist($saleModel);
 
         return $saleModel;
     }
@@ -512,7 +441,7 @@ class Factory
             $sale->products->add($saleProduct);
         }
 
-        $this->dm->persist($saleProduct);
+        $this->getDocumentManager()->persist($saleProduct);
 
         return $saleProduct;
     }
@@ -566,7 +495,7 @@ class Factory
     {
         $supplier = new Supplier();
         $supplier->name = $name;
-        $this->dm->persist($supplier);
+        $this->getDocumentManager()->persist($supplier);
 
         return $supplier;
     }
@@ -583,7 +512,7 @@ class Factory
         $file->name = $name;
         $file->url = $url;
         $file->size = $size;
-        $this->dm->persist($file);
+        $this->getDocumentManager()->persist($file);
 
         return $file;
     }

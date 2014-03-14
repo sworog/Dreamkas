@@ -543,7 +543,7 @@ class UserControllerTest extends WebTestCase
 
     public function testGetUsersCurrentAction()
     {
-        $authClient = $this->createAuthClient();
+        $authClient = $this->factory->oauth()->getAuthClient();
         $user = $this->createUser('user', 'qwerty123');
 
         $token = $this->auth($user, 'qwerty123', $authClient);

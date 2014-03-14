@@ -6,6 +6,8 @@ use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\Client\Client;
+use Lighthouse\CoreBundle\Test\Factory\Factory;
+use Lighthouse\CoreBundle\Test\Factory\OAuth;
 use PHPUnit_Framework_ExpectationFailedException;
 
 /**
@@ -667,8 +669,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function assertStoreProduct($storeId, $productId, array $assertions, $message = '')
     {
-        $storeManager = $this->factory->getStoreManager($storeId);
-        $accessToken = $this->factory->auth($storeManager);
+        $accessToken = $this->factory->authAsStoreManager($storeId);
 
         $storeProductJson = $this->clientJsonRequest(
             $accessToken,
@@ -958,14 +959,6 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @return AuthClient
-     */
-    protected function createAuthClient()
-    {
-        return $this->factory->getAuthClient();
-    }
-
-    /**
      * @param string $username
      * @param string $password
      * @param string $role
@@ -975,7 +968,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function createUser(
         $username = 'admin',
-        $password = Factory::USER_DEFAULT_PASSWORD,
+        $password = OAuth::USER_DEFAULT_PASSWORD,
         $role = User::ROLE_ADMINISTRATOR,
         $name = 'Админ Админыч',
         $position = 'Администратор'
@@ -1011,6 +1004,7 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @deprecated
      * @param User $user
      * @param string $password
      * @param AuthClient $oauthClient
@@ -1018,7 +1012,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function auth(
         User $user,
-        $password = Factory::USER_DEFAULT_PASSWORD,
+        $password = OAuth::USER_DEFAULT_PASSWORD,
         AuthClient $oauthClient = null
     ) {
         return $this->factory->auth($user, $password, $oauthClient);
