@@ -6,8 +6,13 @@ use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
+use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Validator\ViolationMapper\ViolationMapper;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\ConstraintViolation;
 
 abstract class AbstractRestController extends FOSRestController
 {
@@ -32,6 +37,7 @@ abstract class AbstractRestController extends FOSRestController
     /**
      * @param Request $request
      * @param AbstractDocument $document
+     * @throws FlushFailedException
      * @param bool $save
      * @return View|AbstractDocument
      */
@@ -43,9 +49,14 @@ abstract class AbstractRestController extends FOSRestController
         $form->submit($request);
 
         if ($form->isValid()) {
-            if (true == $save && false == $validation) {
-                $this->getDocumentRepository()->getDocumentManager()->persist($document);
-                $this->getDocumentRepository()->getDocumentManager()->flush();
+            try {
+                if (true == $save && false == $validation) {
+                    $this->getDocumentRepository()->getDocumentManager()->persist($document);
+                    $this->getDocumentRepository()->getDocumentManager()->flush();
+                }
+                return $document;
+            } catch (\Exception $e) {
+                throw new FlushFailedException($e, $form);
             }
             return $document;
         } else {
@@ -72,5 +83,31 @@ abstract class AbstractRestController extends FOSRestController
         $this->getDocumentRepository()->getDocumentManager()->remove($document);
         $this->getDocumentRepository()->getDocumentManager()->flush();
         return null;
+    }
+
+    /**
+     * @param FormInterface $form
+     * @param string $field
+     * @param $messageTemplate
+     * @param array $messageParameters
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    protected function addFormError(
+        FormInterface $form,
+        $field,
+        $messageTemplate,
+        array $messageParameters = array()
+    ) {
+        $violation = new ConstraintViolation(
+            $messageTemplate,
+            $messageTemplate,
+            $messageParameters,
+            $form->get($field),
+            'data.' . $field,
+            null
+        );
+        $violationMapper = new ViolationMapper();
+        $violationMapper->mapViolation($violation, $form);
+        return $form;
     }
 }

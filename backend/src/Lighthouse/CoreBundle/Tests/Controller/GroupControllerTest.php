@@ -765,12 +765,14 @@ class GroupControllerTest extends WebTestCase
 
         $responses = $this->client->parallelJsonRequest($jsonRequest, 3);
         $statusCodes = array();
-        $jsons = array();
+        $jsonResponses = array();
         foreach ($responses as $response) {
             $statusCodes[] = $response->getStatusCode();
-            $jsons[] = $response->getContent();
+            $jsonResponses[] = $this->client->decodeJsonResponse($response);
         }
         $this->assertCount(1, array_keys($statusCodes, 201));
-
+        $this->assertCount(2, array_keys($statusCodes, 400));
+        Assert::assertJsonPathEquals('Продовольственные товары', '*.name', $jsonResponses, 1);
+        Assert::assertJsonPathEquals('Такая группа уже есть', '*.children.name.errors.0', $jsonResponses, 2);
     }
 }
