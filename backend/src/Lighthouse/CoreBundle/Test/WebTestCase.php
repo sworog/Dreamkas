@@ -58,7 +58,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function setUpStoreDepartmentManager()
     {
-        $this->storeId = $this->factory->getStore();
+        $this->storeId = $this->factory->store()->getStore();
         $this->departmentManager = $this->factory->getDepartmentManager($this->storeId);
     }
 
@@ -874,7 +874,7 @@ class WebTestCase extends ContainerAwareTestCase
     {
         $storeIds = array();
         foreach ($numbers as $number) {
-            $storeIds[$number] = $this->factory->getStore($number);
+            $storeIds[$number] = $this->factory->store()->getStore($number);
         }
         return $storeIds;
     }
@@ -886,7 +886,7 @@ class WebTestCase extends ContainerAwareTestCase
         $ifNotExists = true
     ) {
         if ($storeId == null) {
-            $storeId = $this->factory->getStore();
+            $storeId = $this->factory->store()->getStore();
         }
 
         $storeData = array(

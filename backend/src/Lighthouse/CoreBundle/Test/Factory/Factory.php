@@ -23,13 +23,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Factory extends AbstractFactory
 {
-    const STORE_DEFAULT_NUMBER = '1';
-
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
-
     /**
      * @var OAuthFactory
      */
@@ -39,6 +32,11 @@ class Factory extends AbstractFactory
      * @var UserFactory
      */
     protected $user;
+
+    /**
+     * @var StoreFactory
+     */
+    protected $store;
 
     /**
      * @var Client
@@ -58,21 +56,7 @@ class Factory extends AbstractFactory
     /**
      * @var array
      */
-    protected $stores = array();
-
-    /**
-     * @var array
-     */
     protected $storeProducts = array();
-
-    /**
-     * @param ContainerInterface $container
-     */
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-        $this->client = $this->container->get('test.client');
-    }
 
     /**
      * @return OAuthFactory
@@ -97,12 +81,34 @@ class Factory extends AbstractFactory
     }
 
     /**
+     * @return StoreFactory
+     */
+    public function store()
+    {
+        if (null === $this->store) {
+            $this->store = new StoreFactory($this->container, $this);
+        }
+        return $this->store;
+    }
+
+    /**
+     * @return Client
+     */
+    protected function getClient()
+    {
+        if (null === $this->client) {
+            $this->client = $this->container->get('test.client');
+        }
+        return $this->client;
+    }
+
+    /**
      * @param string $storeId
      * @return User
      */
     public function getStoreManager($storeId = null)
     {
-        $storeId = $this->getStoreById($storeId);
+        $storeId = $this->store()->getStoreById($storeId);
         if (!isset($this->storeManagers[$storeId])) {
             $username = 'storeManagerStore' . $storeId;
             $manager = $this->user()->getUser($username, UserFactory::USER_DEFAULT_PASSWORD, User::ROLE_STORE_MANAGER);
@@ -119,7 +125,7 @@ class Factory extends AbstractFactory
      */
     public function authAsStoreManager($storeId = null)
     {
-        $storeId = $this->getStoreById($storeId);
+        $storeId = $this->store()->getStoreById($storeId);
         $storeManager = $this->getStoreManager($storeId);
         return $this->oauth()->auth($storeManager);
     }
@@ -130,7 +136,7 @@ class Factory extends AbstractFactory
      */
     public function getDepartmentManager($storeId = null)
     {
-        $storeId = $this->getStoreById($storeId);
+        $storeId = $this->store()->getStoreById($storeId);
         if (!isset($this->departmentManagers[$storeId])) {
             $username = 'departmentManagerStore' . $storeId;
             $manager = $this->user()->getUser(
@@ -151,7 +157,7 @@ class Factory extends AbstractFactory
      */
     public function authAsDepartmentManager($storeId = null)
     {
-        $storeId = $this->getStoreById($storeId);
+        $storeId = $this->store()->getStoreById($storeId);
         $departmentManager = $this->getDepartmentManager($storeId);
         return $this->oauth()->auth($departmentManager);
     }
@@ -171,9 +177,9 @@ class Factory extends AbstractFactory
         }
 
         $accessToken = $this->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-        $this->client->jsonRequest($request, $accessToken);
+        $this->getClient()->jsonRequest($request, $accessToken);
 
-        Assert::assertResponseCode(204, $this->client);
+        Assert::assertResponseCode(204, $this->getClient());
     }
 
     /**
@@ -182,7 +188,7 @@ class Factory extends AbstractFactory
      */
     public function linkStoreManagers($userIds, $storeId = null)
     {
-        $storeId = $this->getStoreById($storeId);
+        $storeId = $this->store()->getStoreById($storeId);
         $this->linkManagers($storeId, $userIds, Store::REL_STORE_MANAGERS);
     }
 
@@ -192,69 +198,18 @@ class Factory extends AbstractFactory
      */
     public function linkDepartmentManagers($userIds, $storeId = null)
     {
-        $storeId = $this->getStoreById($storeId);
+        $storeId = $this->store()->getStoreById($storeId);
         $this->linkManagers($storeId, $userIds, Store::REL_DEPARTMENT_MANAGERS);
     }
 
     /**
-     * @param string $number
-     * @param string $address
-     * @param string $contacts
-     * @return mixed
-     */
-    public function createStore(
-        $number = self::STORE_DEFAULT_NUMBER,
-        $address = self::STORE_DEFAULT_NUMBER,
-        $contacts = self::STORE_DEFAULT_NUMBER
-    ) {
-        $storeData = array(
-            'number' => $number,
-            'address' => $address,
-            'contacts' => $contacts,
-        );
-        $jsonRequest = new JsonRequest('/api/1/stores', 'POST', $storeData);
-        $accessToken = $this->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-
-        $response = $this->client->jsonRequest($jsonRequest, $accessToken);
-
-        Assert::assertResponseCode(201, $this->client);
-        Assert::assertJsonHasPath('id', $response);
-
-        return $response['id'];
-    }
-
-    /**
+     * @deprecated
      * @param string $number
      * @return mixed
      */
-    public function getStore($number = self::STORE_DEFAULT_NUMBER)
+    public function getStore($number = StoreFactory::STORE_DEFAULT_NUMBER)
     {
-        if (!isset($this->stores[$number])) {
-            $this->stores[$number] = $this->createStore($number, $number, $number);
-        }
-        return $this->stores[$number];
-    }
-
-    /**
-     * @param array $numbers
-     * @return array number => storeId
-     */
-    public function getStores(array $numbers)
-    {
-        $storeIds = array();
-        foreach ($numbers as $number) {
-            $storeIds[$number] = $this->getStore($number);
-        }
-        return $storeIds;
-    }
-
-    /**
-     * @param string $storeId
-     * @return string
-     */
-    public function getStoreById($storeId = null)
-    {
-        return $storeId ?: $this->getStore();
+        return $this->store()->getStore($number);
     }
 
     /**

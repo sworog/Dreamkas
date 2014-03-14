@@ -892,7 +892,7 @@ class CategoryControllerTest extends WebTestCase
         $storeManager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
 
         $categoryId = $this->createCategory();
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
 
         $this->factory->linkManagers($storeId, $storeManager->id, $rel);
 

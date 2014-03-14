@@ -32,10 +32,14 @@ class StoreProductControllerTest extends WebTestCase
 
     protected function initStoreProduct()
     {
-        $this->storeManager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+        $this->storeManager = $this->factory->user()->getUser(
+            'Василий Петрович Краузе',
+            'password',
+            User::ROLE_STORE_MANAGER
+        );
 
         $this->productId = $this->createProduct();
-        $this->storeId = $this->factory->getStore();
+        $this->storeId = $this->factory->store()->getStore();
 
         $this->factory->linkStoreManagers($this->storeManager->id, $this->storeId);
     }
@@ -457,7 +461,11 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testDepartmentManagerAccessHasStore()
     {
-        $departmentManager = $this->factory->user()->getUser('Василиса Петровна Бздых', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $departmentManager = $this->factory->user()->getUser(
+            'Василиса Петровна Бздых',
+            'password',
+            User::ROLE_DEPARTMENT_MANAGER
+        );
         $this->factory->linkDepartmentManagers($departmentManager->id, $this->storeId);
 
         $accessToken = $this->factory->oauth()->auth($departmentManager, 'password');

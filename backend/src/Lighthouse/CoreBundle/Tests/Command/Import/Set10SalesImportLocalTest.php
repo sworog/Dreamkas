@@ -278,7 +278,7 @@ EOF;
 
     public function testSortByFileDate()
     {
-        $this->factory->getStores(array('1', '2', '3', '4', '5'));
+        $this->factory->store()->getStores(array('1', '2', '3', '4', '5'));
         $this->createProductsBySku(
             array(
                 'ЦБ000003263',
@@ -314,7 +314,7 @@ EOF;
 
     public function testSortByFileName()
     {
-        $this->factory->getStores(array('1', '2', '3', '4', '5'));
+        $this->factory->store()->getStores(array('1', '2', '3', '4', '5'));
         $this->createProductsBySku(
             array(
                 'ЦБ000003263',
@@ -350,7 +350,7 @@ EOF;
 
     public function testOnlyPurchaseFilesAreImportedOnFileDateSort()
     {
-        $this->factory->getStores(array('1', '2', '3'));
+        $this->factory->store()->getStores(array('1', '2', '3'));
         $this->createProductsBySku(
             array(
                 'АВ000000221',

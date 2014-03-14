@@ -402,8 +402,12 @@ class WriteOffControllerTest extends WebTestCase
 
     public function testDepartmentManagerCantGetWriteOffsFromAnotherStore()
     {
-        $storeId2 = $this->factory->getStore('43');
-        $departmentManager2 = $this->factory->user()->getUser('Депардье Ж.К.М.', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $storeId2 = $this->factory->store()->getStore('43');
+        $departmentManager2 = $this->factory->user()->getUser(
+            'Депардье Ж.К.М.',
+            'password',
+            User::ROLE_DEPARTMENT_MANAGER
+        );
         $this->factory->linkDepartmentManagers($departmentManager2->id, $storeId2);
 
         $accessToken1 = $this->factory->oauth()->auth($this->departmentManager);

@@ -180,7 +180,7 @@ class SalesImporterTest extends WebTestCase
 
     public function testImportSamePurchaseWithDifferentStoreNumber()
     {
-        $this->factory->getStores(array('25573', '255731'));
+        $this->factory->store()->getStores(array('25573', '255731'));
         $this->createProductsBySku(array('25573', '255731'));
 
         $output = new TestOutput();

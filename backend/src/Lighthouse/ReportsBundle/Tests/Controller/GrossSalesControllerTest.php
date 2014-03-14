@@ -1496,7 +1496,7 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByStoreEmpty()
     {
-        $storeIds = $this->factory->getStores(array('1', '2', '3'));
+        $storeIds = $this->factory->store()->getStores(array('1', '2', '3'));
         // create store managers to be sure they would not get in serialization
         $this->factory->getStoreManager($storeIds['1']);
         $this->factory->getDepartmentManager($storeIds['1']);
@@ -1671,7 +1671,7 @@ class GrossSalesControllerTest extends WebTestCase
      */
     protected function createSalesProducts()
     {
-        $storeIds = $this->factory->getStores(array('1', '2', '3'));
+        $storeIds = $this->factory->store()->getStores(array('1', '2', '3'));
         // create store managers to be sure they would not get in serialization
         $this->factory->getStoreManager($storeIds['1']);
         $this->factory->getDepartmentManager($storeIds['1']);
