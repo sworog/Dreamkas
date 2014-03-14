@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.When;
 import project.lighthouse.autotests.steps.departmentManager.order.OrderMenuNavigationSteps;
 
-public class WhenOrderMenuNavigationSteps {
+public class WhenOrderMenuNavigationUserSteps {
 
     @Steps
     OrderMenuNavigationSteps orderMenuNavigationSteps;

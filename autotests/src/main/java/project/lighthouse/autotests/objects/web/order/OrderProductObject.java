@@ -39,8 +39,8 @@ public class OrderProductObject extends AbstractObject implements ResultComparab
         return new CompareResults()
                 .compare("name", name, row.get("name"))
                 .compare("quantity", quantity, row.get("quantity"))
-                .compare("price", price, row.get("price"))
-                .compare("sum", sum, row.get("sum"))
+                .compare("retailPrice", price, row.get("retailPrice"))
+                .compare("totalSum", sum, row.get("totalSum"))
                 .compare("inventory", inventory, row.get("inventory"));
     }
 
