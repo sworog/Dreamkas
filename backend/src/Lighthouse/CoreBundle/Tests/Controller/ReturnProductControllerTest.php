@@ -28,7 +28,7 @@ class ReturnProductControllerTest extends WebTestCase
     public function testGetProductReturnProducts()
     {
         $storeId = $this->factory->getStore('197');
-        $departmentManager = $this->factory->getDepartmentManager($storeId);
+        $departmentManager = $this->factory->store()->getDepartmentManager($storeId);
 
         $products = $this->createProductsBySku(array('1', '2', '3', '4'));
 

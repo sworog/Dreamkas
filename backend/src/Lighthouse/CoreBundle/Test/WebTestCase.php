@@ -56,7 +56,7 @@ class WebTestCase extends ContainerAwareTestCase
     protected function setUpStoreDepartmentManager()
     {
         $this->storeId = $this->factory->store()->getStore();
-        $this->departmentManager = $this->factory->getDepartmentManager($this->storeId);
+        $this->departmentManager = $this->factory->store()->getDepartmentManager($this->storeId);
     }
 
     /**
@@ -113,7 +113,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function createInvoice(array $modifiedData, $storeId, User $departmentManager = null)
     {
-        $departmentManager = ($departmentManager) ?: $this->factory->getDepartmentManager($storeId);
+        $departmentManager = ($departmentManager) ?: $this->factory->store()->getDepartmentManager($storeId);
         $accessToken = $this->factory->oauth()->auth($departmentManager);
 
         $invoiceData = $modifiedData + array(
@@ -149,7 +149,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function editInvoice(array $modifiedData, $invoiceId, $storeId, User $departmentManager = null)
     {
-        $departmentManager = ($departmentManager) ?: $this->factory->getDepartmentManager($storeId);
+        $departmentManager = ($departmentManager) ?: $this->factory->store()->getDepartmentManager($storeId);
         $accessToken = $this->factory->oauth()->auth($departmentManager);
 
         $invoiceData = $modifiedData + array(
@@ -195,7 +195,7 @@ class WebTestCase extends ContainerAwareTestCase
     ) {
         $manager = ($manager) ?: $this->departmentManager;
         $storeId = ($storeId) ?: $this->storeId;
-        $manager = ($manager) ?: $this->factory->getDepartmentManager($storeId);
+        $manager = ($manager) ?: $this->factory->store()->getDepartmentManager($storeId);
 
         $accessToken = $this->factory->oauth()->auth($manager);
 
@@ -238,7 +238,7 @@ class WebTestCase extends ContainerAwareTestCase
     ) {
         $manager = ($manager) ?: $this->departmentManager;
         $storeId = ($storeId) ?: $this->storeId;
-        $manager = ($manager) ?: $this->factory->getDepartmentManager($storeId);
+        $manager = ($manager) ?: $this->factory->store()->getDepartmentManager($storeId);
 
         $accessToken = $this->factory->oauth()->auth($manager);
 
@@ -268,7 +268,7 @@ class WebTestCase extends ContainerAwareTestCase
     ) {
         $manager = ($manager) ?: $this->departmentManager;
         $storeId = ($storeId) ?: $this->storeId;
-        $manager = ($manager) ?: $this->factory->getDepartmentManager($storeId);
+        $manager = ($manager) ?: $this->factory->store()->getDepartmentManager($storeId);
 
         $accessToken = $this->factory->oauth()->auth($manager);
 
@@ -473,7 +473,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function createWriteOff($number, $date, $storeId, User $departmentManager = null)
     {
-        $departmentManager = ($departmentManager) ?: $this->factory->getDepartmentManager($storeId);
+        $departmentManager = ($departmentManager) ?: $this->factory->store()->getDepartmentManager($storeId);
         $accessToken = $this->factory->oauth()->auth($departmentManager);
 
         $date = $date ? : date('c', strtotime('-1 day'));
@@ -810,60 +810,6 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @param string $number
-     * @param string $address
-     * @param string $contacts
-     * @param bool $ifNotExists
-     * @return string
-     */
-    public function createStore(
-        $number = 'номер_42',
-        $address = 'адрес 42',
-        $contacts = 'телефон 42',
-        $ifNotExists = false
-    ) {
-        $storeData = array(
-            'number' => $number,
-            'address' => $address,
-            'contacts' => $contacts,
-        );
-
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-
-        if ($ifNotExists) {
-            $postResponse = $this->clientJsonRequest(
-                $accessToken,
-                'GET',
-                '/api/1/stores'
-            );
-
-            if (is_array($postResponse)) {
-                foreach ($postResponse as $value) {
-                    if (is_array($value) && array_key_exists('number', $value) && $value['number'] == $number) {
-                        return $value['id'];
-                    }
-                }
-            }
-        }
-
-        $response = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/stores',
-            $storeData
-        );
-
-        $this->assertResponseCode(201);
-
-        Assert::assertJsonHasPath('id', $response);
-        foreach ($storeData as $name => $value) {
-            Assert::assertJsonPathEquals($value, $name, $response);
-        }
-
-        return $response['id'];
-    }
-
-    /**
      * @param array $numbers
      * @return array
      */
@@ -930,21 +876,13 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $storeId
      * @param string $productId
      * @param array $productData
-     * @param User $storeManager
-     * @param string $password
      */
     public function updateStoreProduct(
         $storeId,
         $productId,
-        array $productData = array(),
-        User $storeManager = null,
-        $password = 'password'
+        array $productData = array()
     ) {
-        if (null === $storeManager) {
-            $storeManager = $this->getStoreManager($storeId);
-        }
-
-        $accessToken = $this->factory->oauth()->auth($storeManager, $password);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -954,15 +892,6 @@ class WebTestCase extends ContainerAwareTestCase
         );
 
         $this->assertResponseCode(200);
-    }
-
-    /**
-     * @param string $storeId
-     * @return User
-     */
-    protected function getStoreManager($storeId)
-    {
-        return $this->factory->getStoreManager($storeId);
     }
 
     /**
@@ -1043,14 +972,5 @@ class WebTestCase extends ContainerAwareTestCase
         Assert::assertJsonPathEquals($configId, 'id', $postResponse);
 
         return $postResponse['id'];
-    }
-
-    /**
-     * @param string $userId
-     * @return string
-     */
-    protected function getUserResourceUri($userId)
-    {
-        return $this->factory->getUserResourceUri($userId);
     }
 }

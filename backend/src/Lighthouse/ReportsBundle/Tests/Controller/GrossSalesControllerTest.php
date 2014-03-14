@@ -1458,8 +1458,8 @@ class GrossSalesControllerTest extends WebTestCase
                 'store' => array(
                     'id' => $storeIds['2'],
                     'number' => '2',
-                    'address' => '2',
-                    'contacts' => '2',
+                    'address' => '1',
+                    'contacts' => '1',
                     'departments' => array(),
                     'storeManagers' => array(),
                     'departmentManagers' => array(),
@@ -1481,8 +1481,8 @@ class GrossSalesControllerTest extends WebTestCase
                 'store' => array(
                     'id' => $storeIds['3'],
                     'number' => '3',
-                    'address' => '3',
-                    'contacts' => '3',
+                    'address' => '1',
+                    'contacts' => '1',
                     'departments' => array(),
                     'storeManagers' => array(),
                     'departmentManagers' => array(),
@@ -1498,8 +1498,8 @@ class GrossSalesControllerTest extends WebTestCase
     {
         $storeIds = $this->factory->store()->getStores(array('1', '2', '3'));
         // create store managers to be sure they would not get in serialization
-        $this->factory->getStoreManager($storeIds['1']);
-        $this->factory->getDepartmentManager($storeIds['1']);
+        $this->factory->store()->getStoreManager($storeIds['1']);
+        $this->factory->store()->getDepartmentManager($storeIds['1']);
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
@@ -1552,8 +1552,8 @@ class GrossSalesControllerTest extends WebTestCase
                 'store' => array(
                     'id' => $storeIds['2'],
                     'number' => '2',
-                    'address' => '2',
-                    'contacts' => '2',
+                    'address' => '1',
+                    'contacts' => '1',
                     'departments' => array(),
                     'storeManagers' => array(),
                     'departmentManagers' => array(),
@@ -1575,8 +1575,8 @@ class GrossSalesControllerTest extends WebTestCase
                 'store' => array(
                     'id' => $storeIds['3'],
                     'number' => '3',
-                    'address' => '3',
-                    'contacts' => '3',
+                    'address' => '1',
+                    'contacts' => '1',
                     'departments' => array(),
                     'storeManagers' => array(),
                     'departmentManagers' => array(),
@@ -1673,8 +1673,8 @@ class GrossSalesControllerTest extends WebTestCase
     {
         $storeIds = $this->factory->store()->getStores(array('1', '2', '3'));
         // create store managers to be sure they would not get in serialization
-        $this->factory->getStoreManager($storeIds['1']);
-        $this->factory->getDepartmentManager($storeIds['1']);
+        $this->factory->store()->getStoreManager($storeIds['1']);
+        $this->factory->store()->getDepartmentManager($storeIds['1']);
 
         $catalogIds = $this->createCatalog(
             array(

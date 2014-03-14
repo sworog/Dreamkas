@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\User\User;
 use OAuth2\OAuth2;
 use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
 use Symfony\Component\HttpFoundation\Request;
+use stdClass;
 
 class OAuthFactory extends AbstractFactoryFactory
 {
@@ -114,5 +115,27 @@ class OAuthFactory extends AbstractFactoryFactory
     {
         $user = $this->factory->user()->getRoleUser($role);
         return $this->auth($user);
+    }
+
+    /**
+     * @param string $storeId
+     * @return stdClass
+     */
+    public function authAsStoreManager($storeId = null)
+    {
+        $storeId = $this->factory->store()->getStoreById($storeId);
+        $storeManager = $this->factory->store()->getStoreManager($storeId);
+        return $this->auth($storeManager);
+    }
+
+    /**
+     * @param string $storeId
+     * @return stdClass
+     */
+    public function authAsDepartmentManager($storeId = null)
+    {
+        $storeId = $this->factory->store()->getStoreById($storeId);
+        $departmentManager = $this->factory->store()->getDepartmentManager($storeId);
+        return $this->auth($departmentManager);
     }
 }

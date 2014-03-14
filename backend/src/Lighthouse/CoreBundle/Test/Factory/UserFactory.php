@@ -50,6 +50,19 @@ class UserFactory extends AbstractFactoryFactory
     }
 
     /**
+     * @param string $userId
+     * @return User
+     */
+    public function getUserById($userId)
+    {
+        foreach ($this->users as $user) {
+            if ($user->id == $userId) {
+                return $user;
+            }
+        }
+    }
+
+    /**
      * @param string $username
      * @param string $password
      * @param string $role

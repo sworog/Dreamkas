@@ -940,7 +940,7 @@ class SubCategoryControllerTest extends WebTestCase
         $subCategoryId = $this->createSubCategory();
         $storeId = $this->factory->getStore();
 
-        $this->factory->linkManagers($storeId, $storeManager->id, $rel);
+        $this->factory->store()->linkManagers($storeId, $storeManager->id, $rel);
 
         $accessToken = $this->factory->oauth()->auth($storeManager, 'password');
 
@@ -967,7 +967,7 @@ class SubCategoryControllerTest extends WebTestCase
         $storeId1 = $this->factory->getStore('42');
         $storeId2 = $this->factory->getStore('43');
 
-        $this->factory->linkManagers($storeId1, $storeManager->id, $rel);
+        $this->factory->store()->linkManagers($storeId1, $storeManager->id, $rel);
 
         $accessToken = $this->factory->oauth()->auth($storeManager, 'password');
 
@@ -1017,7 +1017,7 @@ class SubCategoryControllerTest extends WebTestCase
 
         $storeId = $this->factory->getStore();
 
-        $this->factory->linkManagers($storeId, $storeManager->id, $rel);
+        $this->factory->store()->linkManagers($storeId, $storeManager->id, $rel);
 
         $groupId1 = $this->createGroup('1');
         $groupId2 = $this->createGroup('2');

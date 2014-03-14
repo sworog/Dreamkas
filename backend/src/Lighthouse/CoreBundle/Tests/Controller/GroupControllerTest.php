@@ -642,7 +642,7 @@ class GroupControllerTest extends WebTestCase
         $groupId = $this->createGroup();
         $storeId = $this->factory->getStore();
 
-        $this->factory->linkManagers($storeId, $manager->id, $rel);
+        $this->factory->store()->linkManagers($storeId, $manager->id, $rel);
 
         $accessToken = $this->factory->oauth()->auth($manager, 'password');
 
@@ -670,7 +670,7 @@ class GroupControllerTest extends WebTestCase
         $storeId1 = $this->factory->getStore('42');
         $storeId2 = $this->factory->getStore('43');
 
-        $this->factory->linkManagers($storeId1, $manager->id, $rel);
+        $this->factory->store()->linkManagers($storeId1, $manager->id, $rel);
 
         $accessToken = $this->factory->oauth()->auth($manager, 'password');
 
@@ -724,7 +724,7 @@ class GroupControllerTest extends WebTestCase
 
         $storeId = $this->factory->getStore();
 
-        $this->factory->linkManagers($storeId, $manager->id, $rel);
+        $this->factory->store()->linkManagers($storeId, $manager->id, $rel);
 
         $accessToken = $this->factory->oauth()->auth($manager);
 

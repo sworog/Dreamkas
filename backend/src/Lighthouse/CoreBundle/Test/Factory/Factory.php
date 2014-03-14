@@ -102,103 +102,43 @@ class Factory extends AbstractFactory
     }
 
     /**
-     * @param string $storeId
-     * @return User
-     */
-    public function getStoreManager($storeId = null)
-    {
-        $storeId = $this->store()->getStoreById($storeId);
-        if (!isset($this->storeManagers[$storeId])) {
-            $username = 'storeManagerStore' . $storeId;
-            $manager = $this->user()->getUser($username, UserFactory::USER_DEFAULT_PASSWORD, User::ROLE_STORE_MANAGER);
-            $this->linkStoreManagers($manager->id, $storeId);
-
-            $this->storeManagers[$storeId] = $manager;
-        }
-        return $this->storeManagers[$storeId];
-    }
-
-    /**
+     * @deprecated
      * @param string $storeId
      * @return \stdClass
      */
     public function authAsStoreManager($storeId = null)
     {
-        $storeId = $this->store()->getStoreById($storeId);
-        $storeManager = $this->getStoreManager($storeId);
-        return $this->oauth()->auth($storeManager);
+        return $this->oauth()->authAsStoreManager($storeId);
     }
 
     /**
-     * @param string $storeId
-     * @return User
-     */
-    public function getDepartmentManager($storeId = null)
-    {
-        $storeId = $this->store()->getStoreById($storeId);
-        if (!isset($this->departmentManagers[$storeId])) {
-            $username = 'departmentManagerStore' . $storeId;
-            $manager = $this->user()->getUser(
-                $username,
-                UserFactory::USER_DEFAULT_PASSWORD,
-                User::ROLE_DEPARTMENT_MANAGER
-            );
-            $this->linkDepartmentManagers($manager->id, $storeId);
-
-            $this->departmentManagers[$storeId] = $manager;
-        }
-        return $this->departmentManagers[$storeId];
-    }
-
-    /**
+     * @deprecated
      * @param string $storeId
      * @return \stdClass
      */
     public function authAsDepartmentManager($storeId = null)
     {
-        $storeId = $this->store()->getStoreById($storeId);
-        $departmentManager = $this->getDepartmentManager($storeId);
-        return $this->oauth()->auth($departmentManager);
+        return $this->oauth()->authAsDepartmentManager($storeId);
     }
 
     /**
-     * @param string $storeId
-     * @param array $userIds
-     * @param string $rel
-     */
-    public function linkManagers($storeId, $userIds, $rel)
-    {
-        $userIds = (array) $userIds;
-
-        $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
-        foreach ($userIds as $userId) {
-            $request->addLinkHeader($this->getUserResourceUri($userId), $rel);
-        }
-
-        $accessToken = $this->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-        $this->getClient()->jsonRequest($request, $accessToken);
-
-        Assert::assertResponseCode(204, $this->getClient());
-    }
-
-    /**
+     * @deprecated
      * @param array $userIds
      * @param string $storeId
      */
     public function linkStoreManagers($userIds, $storeId = null)
     {
-        $storeId = $this->store()->getStoreById($storeId);
-        $this->linkManagers($storeId, $userIds, Store::REL_STORE_MANAGERS);
+        $this->store()->linkStoreManagers($userIds, $storeId);
     }
 
     /**
+     * @deprecated
      * @param array $userIds
      * @param string $storeId
      */
     public function linkDepartmentManagers($userIds, $storeId = null)
     {
-        $storeId = $this->store()->getStoreById($storeId);
-        $this->linkManagers($storeId, $userIds, Store::REL_DEPARTMENT_MANAGERS);
+        $this->store()->linkDepartmentManagers($userIds, $storeId);
     }
 
     /**
@@ -209,15 +149,6 @@ class Factory extends AbstractFactory
     public function getStore($number = StoreFactory::STORE_DEFAULT_NUMBER)
     {
         return $this->store()->getStore($number);
-    }
-
-    /**
-     * @param string $userId
-     * @return string
-     */
-    public function getUserResourceUri($userId)
-    {
-        return sprintf('http://localhost/api/1/users/%s', $userId);
     }
 
     /**

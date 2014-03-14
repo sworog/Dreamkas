@@ -10,6 +10,15 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class StoreControllerManagementTest extends WebTestCase
 {
+    /**
+     * @param string $userId
+     * @return string
+     */
+    protected function getUserResourceUri($userId)
+    {
+        return sprintf('http://localhost/api/1/users/%s', $userId);
+    }
+
     public function testLinkStoreManager()
     {
         $commUser = $this->factory->user()->getUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);

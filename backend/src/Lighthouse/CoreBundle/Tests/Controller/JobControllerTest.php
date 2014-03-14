@@ -311,9 +311,7 @@ class JobControllerTest extends WebTestCase
      */
     protected function assertStoreProduct($storeId, $productId, array $assertions, $message = '')
     {
-        $storeManager = $this->getStoreManager($storeId);
-
-        $accessToken = $this->factory->oauth()->auth($storeManager, 'password');
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,

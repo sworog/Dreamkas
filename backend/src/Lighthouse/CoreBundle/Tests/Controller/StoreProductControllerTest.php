@@ -919,7 +919,7 @@ class StoreProductControllerTest extends WebTestCase
         $productId1 = $this->createProduct('1', $subCategoryId1);
         $productId2 = $this->createProduct('2', $subCategoryId2);
         $storeId = $this->factory->getStore('666');
-        $departmentManager = $this->factory->getDepartmentManager($storeId);
+        $departmentManager = $this->factory->store()->getDepartmentManager($storeId);
 
         $invoiceId0 = $this->createInvoice(
             array(
@@ -1020,7 +1020,7 @@ class StoreProductControllerTest extends WebTestCase
     public function testAmountAndInventoryFieldsPresentAndHaveSameValues()
     {
         $storeId = $this->factory->getStore('1');
-        $departmentManager = $this->factory->getDepartmentManager($storeId);
+        $departmentManager = $this->factory->store()->getDepartmentManager($storeId);
         $productId = $this->createProduct('1');
         $invoiceStoreId1 = $this->createInvoice(array('sku' => 'invoice1'), $storeId, $departmentManager);
         $this->createInvoiceProduct($invoiceStoreId1, $productId, 3, 19.99, $storeId, $departmentManager);
@@ -1042,9 +1042,8 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testSearchStoreProductsAction()
     {
-        $storeId = $this->createStore();
-        $departmentManager = $this->factory->getDepartmentManager($storeId);
-        $accessToken = $this->factory->oauth()->auth($departmentManager);
+        $storeId = $this->factory->store()->getStore();
+        $accessToken = $this->factory->authAsDepartmentManager($storeId);
 
         for ($i = 0; $i < 5; $i++) {
             $this->createProduct(array('name' => 'Название' . $i, 'sku' => 'sku' . $i));
