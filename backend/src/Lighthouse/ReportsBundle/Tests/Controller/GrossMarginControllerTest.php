@@ -481,7 +481,7 @@ class GrossMarginControllerTest extends WebTestCase
         $store = $this->factory->getStore("1");
         $store2 = $this->factory->getStore("2");
         $product = $this->createProduct("1");
-        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
 
         $invoice1 = $this->createInvoice(array('sku' => '1', 'acceptanceDate' => '2014-01-01 12:56'), $store);

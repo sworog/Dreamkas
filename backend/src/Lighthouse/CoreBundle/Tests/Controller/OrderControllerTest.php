@@ -45,7 +45,7 @@ class OrderControllerTest extends WebTestCase
             'products' => $orderProducts,
         );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -74,7 +74,7 @@ class OrderControllerTest extends WebTestCase
             'products' => array(),
         );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -116,7 +116,7 @@ class OrderControllerTest extends WebTestCase
 
         $postData = $data + $postData;
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -285,7 +285,7 @@ class OrderControllerTest extends WebTestCase
             'quantity' => 1.11,
         );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',

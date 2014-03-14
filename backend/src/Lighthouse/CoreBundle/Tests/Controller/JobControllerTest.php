@@ -21,7 +21,7 @@ class JobControllerTest extends WebTestCase
 
     public function testRecalcProductProductPriceOnRetailsChange()
     {
-        $commercialAccessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $commercialAccessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $commercialAccessToken,
@@ -160,7 +160,7 @@ class JobControllerTest extends WebTestCase
      */
     public function testRecalcProductProductPriceOnMarkupChange($rounding, $retailPrice1, $retailPrice2, $retailPrice3)
     {
-        $commercialAccessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $commercialAccessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $commercialAccessToken,
@@ -313,7 +313,7 @@ class JobControllerTest extends WebTestCase
     {
         $storeManager = $this->getStoreManager($storeId);
 
-        $accessToken = $this->auth($storeManager, 'password');
+        $accessToken = $this->factory->oauth()->auth($storeManager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -327,7 +327,7 @@ class JobControllerTest extends WebTestCase
 
     public function testNoJobCreatedOnProductUpdateWithoutRetailsAndRounding()
     {
-        $commercialAccessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $commercialAccessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $commercialAccessToken,

@@ -35,7 +35,7 @@ class ReturnProductControllerTest extends WebTestCase
         $importer = $this->importSales('Integration/Set10/Import/Sales/purchases-with-returns.xml');
         $this->assertCount(0, $importer->getErrors(), 'Failed asserting no import errors');
 
-        $accessToken = $this->factory->auth($departmentManager);
+        $accessToken = $this->factory->oauth()->auth($departmentManager);
 
         // Check product '1' returns
         $getResponse1 = $this->clientJsonRequest(

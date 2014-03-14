@@ -23,7 +23,7 @@ class WriteOffControllerTest extends WebTestCase
             'date' => date('c', $date),
         );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -54,7 +54,7 @@ class WriteOffControllerTest extends WebTestCase
             'number' => '1234567',
         );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -84,7 +84,7 @@ class WriteOffControllerTest extends WebTestCase
             'number' => '1234567',
         );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -174,7 +174,7 @@ class WriteOffControllerTest extends WebTestCase
 
         $writeOfId = $this->createWriteOff($number, $date, $this->storeId, $this->departmentManager);
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -193,7 +193,7 @@ class WriteOffControllerTest extends WebTestCase
     {
         $this->createWriteOff('431', null, $this->storeId, $this->departmentManager);
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -265,7 +265,7 @@ class WriteOffControllerTest extends WebTestCase
             'cause' => 'because',
         );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -317,7 +317,7 @@ class WriteOffControllerTest extends WebTestCase
      */
     protected function assertWriteOff($writeOffId, array $assertions = array())
     {
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $writeOffJson = $this->clientJsonRequest(
             $accessToken,
@@ -385,7 +385,7 @@ class WriteOffControllerTest extends WebTestCase
             $this->departmentManager
         );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -403,11 +403,11 @@ class WriteOffControllerTest extends WebTestCase
     public function testDepartmentManagerCantGetWriteOffsFromAnotherStore()
     {
         $storeId2 = $this->factory->getStore('43');
-        $departmentManager2 = $this->createUser('Депардье Ж.К.М.', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $departmentManager2 = $this->factory->user()->getUser('Депардье Ж.К.М.', 'password', User::ROLE_DEPARTMENT_MANAGER);
         $this->factory->linkDepartmentManagers($departmentManager2->id, $storeId2);
 
-        $accessToken1 = $this->auth($this->departmentManager);
-        $accessToken2 = $this->auth($departmentManager2);
+        $accessToken1 = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken2 = $this->factory->oauth()->auth($departmentManager2);
 
         $writeOffId1 = $this->createWriteOff('4313', null, $this->storeId, $this->departmentManager);
         $writeOffId2 = $this->createWriteOff('4314', null, $storeId2, $departmentManager2);
@@ -452,7 +452,7 @@ class WriteOffControllerTest extends WebTestCase
 
         $writeOffId = $this->createWriteOff('444', null, $this->storeId, $this->departmentManager);
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -529,7 +529,7 @@ class WriteOffControllerTest extends WebTestCase
             $this->departmentManager
         );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -606,7 +606,7 @@ class WriteOffControllerTest extends WebTestCase
             $this->departmentManager
         );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -654,7 +654,7 @@ class WriteOffControllerTest extends WebTestCase
             $this->departmentManager
         );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',

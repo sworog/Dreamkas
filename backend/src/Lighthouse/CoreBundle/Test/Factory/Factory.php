@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Test\Factory;
 
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Document\File\File;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
@@ -12,11 +11,8 @@ use Lighthouse\CoreBundle\Document\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Document\User\UserRepository;
-use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\Client;
-use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
@@ -98,31 +94,6 @@ class Factory extends AbstractFactory
             $this->user = new UserFactory($this->container, $this);
         }
         return $this->user;
-    }
-
-    /**
-     * @deprecated
-     * @param User $oauthUser
-     * @param string $password
-     * @param AuthClient $oauthClient
-     * @return \stdClass
-     */
-    public function auth(
-        User $oauthUser,
-        $password = UserFactory::USER_DEFAULT_PASSWORD,
-        AuthClient $oauthClient = null
-    ) {
-        return $this->oauth()->auth($oauthUser, $password, $oauthClient);
-    }
-
-    /**
-     * @deprecated
-     * @param string $role
-     * @return \stdClass
-     */
-    public function authAsRole($role)
-    {
-        return $this->oauth()->authAsRole($role);
     }
 
     /**

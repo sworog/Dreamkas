@@ -153,7 +153,7 @@ class WebTestCase extends ContainerAwareTestCase
     protected function editInvoice(array $modifiedData, $invoiceId, $storeId, User $departmentManager = null)
     {
         $departmentManager = ($departmentManager) ?: $this->factory->getDepartmentManager($storeId);
-        $accessToken = $this->auth($departmentManager);
+        $accessToken = $this->factory->oauth()->auth($departmentManager);
 
         $invoiceData = $modifiedData + array(
             'sku' => 'sku232',
@@ -200,7 +200,7 @@ class WebTestCase extends ContainerAwareTestCase
         $storeId = ($storeId) ?: $this->storeId;
         $manager = ($manager) ?: $this->factory->getDepartmentManager($storeId);
 
-        $accessToken = $this->auth($manager);
+        $accessToken = $this->factory->oauth()->auth($manager);
 
         $invoiceProductData = array(
             'product' => $productId,
@@ -243,7 +243,7 @@ class WebTestCase extends ContainerAwareTestCase
         $storeId = ($storeId) ?: $this->storeId;
         $manager = ($manager) ?: $this->factory->getDepartmentManager($storeId);
 
-        $accessToken = $this->auth($manager);
+        $accessToken = $this->factory->oauth()->auth($manager);
 
         $invoiceProductData = array(
             'product' => $productId,
@@ -273,7 +273,7 @@ class WebTestCase extends ContainerAwareTestCase
         $storeId = ($storeId) ?: $this->storeId;
         $manager = ($manager) ?: $this->factory->getDepartmentManager($storeId);
 
-        $accessToken = $this->auth($manager);
+        $accessToken = $this->factory->oauth()->auth($manager);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -301,7 +301,7 @@ class WebTestCase extends ContainerAwareTestCase
             'quantity' => $quantity,
         );
 
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_DEPARTMENT_MANAGER');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -351,7 +351,7 @@ class WebTestCase extends ContainerAwareTestCase
             $productData['sku'].= $extra;
         }
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $method = ($putProductId) ? 'PUT' : 'POST';
         $url = '/api/1/products' . (($putProductId) ? '/' . $putProductId : '');
         $request = new JsonRequest($url, $method, $productData);
@@ -429,7 +429,7 @@ class WebTestCase extends ContainerAwareTestCase
             ),
         );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         foreach ($productsData as $i => $row) {
 
@@ -477,7 +477,7 @@ class WebTestCase extends ContainerAwareTestCase
     protected function createWriteOff($number, $date, $storeId, User $departmentManager = null)
     {
         $departmentManager = ($departmentManager) ?: $this->factory->getDepartmentManager($storeId);
-        $accessToken = $this->auth($departmentManager);
+        $accessToken = $this->factory->oauth()->auth($departmentManager);
 
         $date = $date ? : date('c', strtotime('-1 day'));
 
@@ -525,7 +525,7 @@ class WebTestCase extends ContainerAwareTestCase
         $quantity = ($quantity) ?: 10;
         $cause = ($cause) ?: 'Порча';
 
-        $accessToken = $this->auth($manager);
+        $accessToken = $this->factory->oauth()->auth($manager);
 
         $postData = array(
             'product' => $productId,
@@ -593,7 +593,7 @@ class WebTestCase extends ContainerAwareTestCase
             'rounding' => $rounding,
         );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         if ($ifNotExists) {
             $postResponse = $this->clientJsonRequest(
@@ -649,7 +649,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function assertProduct($productId, array $assertions)
     {
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $request = new JsonRequest('/api/1/products/' . $productId);
         $request->setAccessToken($accessToken);
@@ -730,7 +730,7 @@ class WebTestCase extends ContainerAwareTestCase
             'rounding' => $rounding,
         );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         if ($ifNotExists) {
             $postResponse = $this->clientJsonRequest(
@@ -779,7 +779,7 @@ class WebTestCase extends ContainerAwareTestCase
             'rounding' => 'nearest1',
         );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         if ($ifNotExists) {
             $postResponse = $this->clientJsonRequest(
@@ -831,7 +831,7 @@ class WebTestCase extends ContainerAwareTestCase
             'contacts' => $contacts,
         );
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         if ($ifNotExists) {
             $postResponse = $this->clientJsonRequest(
@@ -895,7 +895,7 @@ class WebTestCase extends ContainerAwareTestCase
             'store' => $storeId,
         );
 
-        $accessToken = $this->authAsRole("ROLE_COMMERCIAL_MANAGER");
+        $accessToken = $this->factory->oauth()->authAsRole("ROLE_COMMERCIAL_MANAGER");
 
         if ($ifNotExists) {
             $postResponse = $this->clientJsonRequest(
@@ -947,7 +947,7 @@ class WebTestCase extends ContainerAwareTestCase
             $storeManager = $this->getStoreManager($storeId);
         }
 
-        $accessToken = $this->auth($storeManager, $password);
+        $accessToken = $this->factory->oauth()->auth($storeManager, $password);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -960,64 +960,12 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @param string $username
-     * @param string $password
-     * @param string $role
-     * @param string $name
-     * @param string $position
-     * @return User
-     */
-    protected function createUser(
-        $username = UserFactory::USER_DEFAULT_USERNAME,
-        $password = UserFactory::USER_DEFAULT_PASSWORD,
-        $role = User::ROLE_ADMINISTRATOR,
-        $name = UserFactory::USER_DEFAULT_NAME,
-        $position = UserFactory::USER_DEFAULT_POSITION
-    ) {
-        return $this->factory->user()->getUser($username, $password, $role, $name, $position);
-    }
-
-    /**
-     * @param string $role
-     * @return \stdClass accessToken
-     */
-    protected function authAsRole($role)
-    {
-        return $this->factory->oauth()->authAsRole($role);
-    }
-
-    /**
-     * @deprecated
-     * @param string $role
-     * @return User
-     */
-    protected function getRoleUser($role)
-    {
-        return $this->factory->user()->getRoleUser($role);
-    }
-
-    /**
      * @param string $storeId
      * @return User
      */
     protected function getStoreManager($storeId)
     {
         return $this->factory->getStoreManager($storeId);
-    }
-
-    /**
-     * @deprecated
-     * @param User $user
-     * @param string $password
-     * @param AuthClient $oauthClient
-     * @return \stdClass access token
-     */
-    protected function auth(
-        User $user,
-        $password = UserFactory::USER_DEFAULT_PASSWORD,
-        AuthClient $oauthClient = null
-    ) {
-        return $this->factory->oauth()->auth($user, $password, $oauthClient);
     }
 
     /**
@@ -1049,7 +997,7 @@ class WebTestCase extends ContainerAwareTestCase
             'value' => $value,
         );
 
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -1080,7 +1028,7 @@ class WebTestCase extends ContainerAwareTestCase
             'value' => $value,
         );
 
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,

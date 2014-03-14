@@ -17,7 +17,7 @@ class DepartmentControllerTest extends WebTestCase
             'store' => $storeId,
         );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -46,7 +46,7 @@ class DepartmentControllerTest extends WebTestCase
             'store' => $storeId1,
         );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
         // Create first department
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -119,7 +119,7 @@ class DepartmentControllerTest extends WebTestCase
                 'store' => $storeId,
             );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -230,7 +230,7 @@ class DepartmentControllerTest extends WebTestCase
             'store' => $storeId,
         );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
@@ -250,7 +250,7 @@ class DepartmentControllerTest extends WebTestCase
         $storeId = $this->factory->getStore();
         $departmentId = $this->createDepartment($storeId);
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -268,7 +268,7 @@ class DepartmentControllerTest extends WebTestCase
         $storeId1 = $this->factory->getStore('1');
         $this->createDepartment($storeId1, '1-1');
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -290,7 +290,7 @@ class DepartmentControllerTest extends WebTestCase
         $departmentId4 = $this->createDepartment($storeId2, '2-4');
         $departmentId5 = $this->createDepartment($storeId2, '2-5');
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -325,7 +325,7 @@ class DepartmentControllerTest extends WebTestCase
 
     public function testGetDepartmentsNotFound()
     {
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -339,7 +339,7 @@ class DepartmentControllerTest extends WebTestCase
     {
         $storeId = $this->factory->getStore();
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -376,7 +376,7 @@ class DepartmentControllerTest extends WebTestCase
             ),
             $url
         );
-        $accessToken = $this->authAsRole($role);
+        $accessToken = $this->factory->oauth()->authAsRole($role);
         if (is_array($requestData)) {
             $requestData = $requestData + array(
                     'number' => 'отдел-33',

@@ -360,10 +360,10 @@ class GrossSalesControllerTest extends WebTestCase
         $storeId = $this->factory->getStore();
         $storeManagerToken = $this->factory->authAsStoreManager($storeId);
         $departmentManagerToken = $this->factory->authAsDepartmentManager($storeId);
-        $storeManagerOtherStoreToken = $this->factory->authAsRole(User::ROLE_STORE_MANAGER);
-        $commercialManagerToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-        $departmentManagerOtherStoreToken = $this->factory->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
-        $administratorToken = $this->factory->authAsRole(User::ROLE_ADMINISTRATOR);
+        $storeManagerOtherStoreToken = $this->factory->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
+        $commercialManagerToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $departmentManagerOtherStoreToken = $this->factory->oauth()->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
+        $administratorToken = $this->factory->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
 
 
         $this->clientJsonRequest(
@@ -969,10 +969,10 @@ class GrossSalesControllerTest extends WebTestCase
         $storeId = $this->factory->getStore();
         $storeManagerToken = $this->factory->authAsStoreManager($storeId);
         $departmentManagerToken = $this->factory->authAsDepartmentManager($storeId);
-        $storeManagerOtherStoreToken = $this->factory->authAsRole(User::ROLE_STORE_MANAGER);
-        $commercialManagerToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-        $departmentManagerOtherStoreToken = $this->factory->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
-        $administratorToken = $this->factory->authAsRole(User::ROLE_ADMINISTRATOR);
+        $storeManagerOtherStoreToken = $this->factory->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
+        $commercialManagerToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $departmentManagerOtherStoreToken = $this->factory->oauth()->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
+        $administratorToken = $this->factory->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
 
 
         $this->clientJsonRequest(
@@ -1407,7 +1407,7 @@ class GrossSalesControllerTest extends WebTestCase
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
         $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
 
-        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -1501,7 +1501,7 @@ class GrossSalesControllerTest extends WebTestCase
         $this->factory->getStoreManager($storeIds['1']);
         $this->factory->getDepartmentManager($storeIds['1']);
 
-        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -1595,7 +1595,7 @@ class GrossSalesControllerTest extends WebTestCase
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
         $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
 
-        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -1633,7 +1633,7 @@ class GrossSalesControllerTest extends WebTestCase
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
         $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
 
-        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2297,10 +2297,10 @@ class GrossSalesControllerTest extends WebTestCase
         $storeId = $this->factory->getStore();
         $storeManagerToken = $this->factory->authAsStoreManager($storeId);
         $departmentManagerToken = $this->factory->authAsDepartmentManager($storeId);
-        $storeManagerOtherStoreToken = $this->factory->authAsRole(User::ROLE_STORE_MANAGER);
-        $commercialManagerToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-        $departmentManagerOtherStoreToken = $this->factory->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
-        $administratorToken = $this->factory->authAsRole(User::ROLE_ADMINISTRATOR);
+        $storeManagerOtherStoreToken = $this->factory->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
+        $commercialManagerToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $departmentManagerOtherStoreToken = $this->factory->oauth()->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
+        $administratorToken = $this->factory->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
 
         $subCategoryId = $this->createSubCategory();
 

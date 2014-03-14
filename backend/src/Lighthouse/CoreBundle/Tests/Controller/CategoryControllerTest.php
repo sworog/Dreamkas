@@ -20,7 +20,7 @@ class CategoryControllerTest extends WebTestCase
             'rounding' => 'nearest1',
         );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -48,7 +48,7 @@ class CategoryControllerTest extends WebTestCase
             'rounding' => 'nearest1',
         );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
         // Create first category
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -109,7 +109,7 @@ class CategoryControllerTest extends WebTestCase
         $groupId = $this->createGroup('Алкоголь');
         $categoryId = $this->createCategory($groupId, 'Водка');
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -176,7 +176,7 @@ class CategoryControllerTest extends WebTestCase
             'rounding' => 'nearest1',
         );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -334,7 +334,7 @@ class CategoryControllerTest extends WebTestCase
             'rounding' => 'nearest1',
         );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
@@ -354,7 +354,7 @@ class CategoryControllerTest extends WebTestCase
         $groupId = $this->createGroup();
         $categoryId = $this->createCategory($groupId);
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -372,7 +372,7 @@ class CategoryControllerTest extends WebTestCase
         $groupId1 = $this->createGroup('1');
         $this->createCategory($groupId1, '1.1');
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -390,7 +390,7 @@ class CategoryControllerTest extends WebTestCase
         $this->createSubCategory($categoryId, '1');
         $this->createSubCategory($categoryId, '2');
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -418,7 +418,7 @@ class CategoryControllerTest extends WebTestCase
         $categoryId4 = $this->createCategory($groupId2, '2.4');
         $categoryId5 = $this->createCategory($groupId2, '2.5');
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -453,7 +453,7 @@ class CategoryControllerTest extends WebTestCase
 
     public function testGetCategoriesNotFound()
     {
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -467,7 +467,7 @@ class CategoryControllerTest extends WebTestCase
     {
         $groupId = $this->createGroup();
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -484,7 +484,7 @@ class CategoryControllerTest extends WebTestCase
         $groupId = $this->createGroup();
         $categoryId = $this->createCategory($groupId);
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -510,7 +510,7 @@ class CategoryControllerTest extends WebTestCase
         $this->createSubCategory($categoryId, '1');
         $this->createSubCategory($categoryId, '2');
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $this->clientJsonRequest(
             $accessToken,
@@ -556,7 +556,7 @@ class CategoryControllerTest extends WebTestCase
             $url
         );
 
-        $accessToken = $this->authAsRole($role);
+        $accessToken = $this->factory->oauth()->authAsRole($role);
 
         $requestData += array(
             'name' => 'Пиво',
@@ -724,7 +724,7 @@ class CategoryControllerTest extends WebTestCase
         $groupId = $this->createGroup('Алкоголь', false, 10, 20);
         $categoryId = $this->createCategory($groupId, 'Вино', false);
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $categoryResponse = $this->clientJsonRequest(
             $accessToken,
@@ -744,7 +744,7 @@ class CategoryControllerTest extends WebTestCase
         $groupId = $this->createGroup('Алкоголь', false, 10, 20);
         $categoryId = $this->createCategory($groupId, 'Вино', false);
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $categoryResponse = $this->clientJsonRequest(
             $accessToken,
@@ -789,7 +789,7 @@ class CategoryControllerTest extends WebTestCase
     {
         $groupId = $this->createGroup('Алкоголь', false, 10, 20);
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postData = array(
             'name' => 'Сухое вино',
@@ -839,7 +839,7 @@ class CategoryControllerTest extends WebTestCase
     {
         $groupId = $this->createGroup('Алкоголь', false, 10, 20);
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postData = array(
             'name' => 'Божоле нуво',
@@ -889,14 +889,14 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testGetStoreCategoryStoreManagerHasStore($role, $rel)
     {
-        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
+        $storeManager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
 
         $categoryId = $this->createCategory();
         $storeId = $this->factory->getStore();
 
         $this->factory->linkManagers($storeId, $storeManager->id, $rel);
 
-        $accessToken = $this->auth($storeManager, 'password');
+        $accessToken = $this->factory->oauth()->auth($storeManager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -915,7 +915,7 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testGetStoreCategoryStoreManagerFromAnotherStore($role, $rel)
     {
-        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
+        $storeManager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
 
         $categoryId = $this->createCategory();
         $storeId1 = $this->factory->getStore('42');
@@ -923,7 +923,7 @@ class CategoryControllerTest extends WebTestCase
 
         $this->factory->linkManagers($storeId1, $storeManager->id, $rel);
 
-        $accessToken = $this->auth($storeManager, 'password');
+        $accessToken = $this->factory->oauth()->auth($storeManager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -942,12 +942,12 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testGetStoreCategoryStoreManagerHasNoStore($role)
     {
-        $storeManager = $this->createUser('Василий Петрович Краузе', 'password', $role);
+        $storeManager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
 
         $categoryId = $this->createCategory();
         $storeId = $this->factory->getStore();
 
-        $accessToken = $this->auth($storeManager, 'password');
+        $accessToken = $this->factory->oauth()->auth($storeManager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -967,7 +967,7 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testGetStoreGroupCategoriesStoreManagerHasStore($role, $rel)
     {
-        $manager = $this->createUser('Василий Петрович Краузе', 'password', $role);
+        $manager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
 
         $storeId = $this->factory->getStore();
 
@@ -983,7 +983,7 @@ class CategoryControllerTest extends WebTestCase
         $categoryId5 = $this->createCategory($groupId2, '2.1');
         $categoryId6 = $this->createCategory($groupId2, '2.2');
 
-        $accessToken = $this->auth($manager, 'password');
+        $accessToken = $this->factory->oauth()->auth($manager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -1029,7 +1029,7 @@ class CategoryControllerTest extends WebTestCase
     {
         $groupId = $this->createGroup('Алкоголь', true, null, null, 'nearest50');
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postData = array(
             'name' => 'Водка',

@@ -41,11 +41,11 @@ class ConvertToXmlForSet10Test extends WebTestCase
      */
     public function initBase()
     {
-        $storeManager1User = $this->createUser('storeManager1', 'password', 'ROLE_STORE_MANAGER');
-        $storeManager1AccessToken = $this->auth($storeManager1User);
-        $storeManager2User = $this->createUser('storeManager2', 'password', 'ROLE_STORE_MANAGER');
-        $storeManager2AccessToken = $this->auth($storeManager2User);
-        $storeManager3User = $this->createUser('storeManager3', 'password', 'ROLE_STORE_MANAGER');
+        $storeManager1User = $this->factory->user()->getUser('storeManager1', 'password', 'ROLE_STORE_MANAGER');
+        $storeManager1AccessToken = $this->factory->oauth()->auth($storeManager1User);
+        $storeManager2User = $this->factory->user()->getUser('storeManager2', 'password', 'ROLE_STORE_MANAGER');
+        $storeManager2AccessToken = $this->factory->oauth()->auth($storeManager2User);
+        $storeManager3User = $this->factory->user()->getUser('storeManager3', 'password', 'ROLE_STORE_MANAGER');
 
         $groupData = array(
             'name' => 'Группа',
@@ -437,7 +437,7 @@ EOF;
 
         $this->createConfig(Set10Export::URL_CONFIG_NAME, $xmlFileUrl);
 
-        $commercialAccessToken = $this->authAsRole("ROLE_COMMERCIAL_MANAGER");
+        $commercialAccessToken = $this->factory->oauth()->authAsRole("ROLE_COMMERCIAL_MANAGER");
         $this->clientJsonRequest(
             $commercialAccessToken,
             "GET",
