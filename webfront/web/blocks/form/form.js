@@ -122,13 +122,15 @@ define(function(require) {
 
             if (errors.children) {
                 _.each(errors.children, function(data, field) {
-                    var fieldErrors;
+                    var fieldErrors,
+                        $input = block.$('[name="' + field + '"]'),
+                        $field = $input.closest('.form__field');
+
+                    $input.addClass('inputText_error');
 
                     if (data.errors) {
                         fieldErrors = data.errors.join('. ');
-                        block.$('[name="' + field + '"]')
-                            .closest('.form__field')
-                            .attr('data-error', block.translate(fieldErrors));
+                        $field.attr('data-error', ($field.attr('data-error') ? $field.attr('data-error') + ', ' : '') + block.translate(fieldErrors));
                     }
                 });
             }
@@ -152,6 +154,7 @@ define(function(require) {
         removeErrors: function() {
             var block = this;
             block.$el.find('[data-error]').removeAttr('data-error');
+            block.$el.find('.inputText_error').removeClass('inputText_error');
         },
         showSuccessMessage: function() {
             var block = this;

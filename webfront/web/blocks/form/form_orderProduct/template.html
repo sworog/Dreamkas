@@ -11,6 +11,7 @@
                 <td style="padding-right: 10px;">
                     <div style="position: relative; white-space: nowrap;">
                         <label class="form__label">Наименование</label>
+                        <input value="<%- storeProduct.product.id %>" type="hidden" name="product" />
                         <input data-url="/stores/<%- currentUserModel.stores.at(0).id %>/products/name/search"
                                type="text" class="autocomplete_storeProduct inputText autocomplete"
                                name="name"
