@@ -48,7 +48,7 @@
         <td>
             <div style="white-space: nowrap">
             <span name="productSum">
-                <%- LH.formatMoney(orderProductModel.get('product.product.purchasePrice') * orderProductModel.get('quantity')) %>
+                <%- LH.formatMoney(orderProductModel.get('product.product.purchasePrice') * orderProductModel.get('quantity') || '') %>
             </span>
             <span>
                 руб.
