@@ -13,7 +13,7 @@ Meta:
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
-Given The user opens order create page
+Given the user opens order create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 Then the user asserts the order field label with name 'supplier'
@@ -25,7 +25,7 @@ Meta:
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
-Given The user opens order create page
+Given the user opens order create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 Then the user asserts the order field label with name 'name' of product addition form
@@ -37,7 +37,7 @@ Meta:
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
-Given The user opens order create page
+Given the user opens order create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 Then the user asserts the order field label with name 'quantity' of product addition form
@@ -49,7 +49,7 @@ Meta:
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
-Given The user opens order create page
+Given the user opens order create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 Then the user asserts the order field label with name 'retailPrice' of product addition form
@@ -61,7 +61,7 @@ Meta:
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
-Given The user opens order create page
+Given the user opens order create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 Then the user asserts the order field label with name 'totalSum' of product addition form
@@ -73,7 +73,7 @@ Meta:
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
-Given The user opens order create page
+Given the user opens order create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 Then the user asserts the order field label with name 'inventory' of product addition form

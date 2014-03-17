@@ -9,7 +9,7 @@ public class GivenOrderUserSteps {
     @Steps
     OrderSteps orderSteps;
 
-    @Given("The user opens order create page")
+    @Given("the user opens order create page")
     public void givenTheUserOpensOrderCreatePage() {
         orderSteps.openPage();
     }
