@@ -20,7 +20,7 @@ define(function(require, exports, module) {
                 supplier: this.get('supplier'),
                 products: this.get('collections.products').map(function(productModel){
                     return {
-                        id: productModel.get('product.product.id'),
+                        product: productModel.get('product.product.id'),
                         quantity: productModel.get('quantity')
                     }
                 })
