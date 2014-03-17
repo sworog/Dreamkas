@@ -31,6 +31,8 @@ When the user inputs values in addition new product form on the order page
 | name | name-3063 |
 | quantity | 5 |
 
+When the user clicks the add order product button
+
 Then the user checks the order products list contains entry
 | name | quantity | retailPrice | totalSum | inventory |
 
