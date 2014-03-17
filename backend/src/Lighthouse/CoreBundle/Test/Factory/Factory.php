@@ -34,6 +34,11 @@ class Factory extends ContainerAwareFactory
     protected $store;
 
     /**
+     * @var CatalogFactory
+     */
+    protected $catalog;
+
+    /**
      * @var array
      */
     protected $storeProducts = array();
@@ -69,6 +74,17 @@ class Factory extends ContainerAwareFactory
             $this->store = new StoreFactory($this->container, $this);
         }
         return $this->store;
+    }
+
+    /**
+     * @return CatalogFactory
+     */
+    public function catalog()
+    {
+        if (null === $this->catalog) {
+            $this->catalog = new CatalogFactory($this->container, $this);
+        }
+        return $this->catalog;
     }
 
     /**

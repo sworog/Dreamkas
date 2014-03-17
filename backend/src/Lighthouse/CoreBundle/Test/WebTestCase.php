@@ -719,7 +719,7 @@ class WebTestCase extends ContainerAwareTestCase
         $rounding = 'nearest1'
     ) {
         if ($groupId == null) {
-            $groupId = $this->createGroup();
+            $groupId = $this->factory->catalog()->getGroup()->id;
         }
         $categoryData = array(
             'name' => $name,
