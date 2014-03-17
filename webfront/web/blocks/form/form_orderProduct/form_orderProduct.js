@@ -22,7 +22,7 @@ define(function(require, exports, module) {
             'keyup [name="quantity"]': function(e) {
                 var block = this;
 
-                block.model.set('quantity', e.target.value);
+                block.model.set('quantity', e.target.value.replace(',', '.', 'gi'));
                 block.render();
             },
             'keyup .autocomplete_storeProduct': function(e) {
