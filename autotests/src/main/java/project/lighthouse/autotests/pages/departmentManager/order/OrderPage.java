@@ -1,21 +1,26 @@
 package project.lighthouse.autotests.pages.departmentManager.order;
 
+import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Buttons.LinkFacade;
 import project.lighthouse.autotests.elements.SelectByVisibleText;
+import project.lighthouse.autotests.elements.preLoader.PreLoader;
+import project.lighthouse.autotests.objects.web.order.OrderProductObjectCollection;
 import project.lighthouse.autotests.pages.departmentManager.order.pageElements.ProductAdditionForm;
 
 /**
  * Page object class representing create/edit/view order page
  */
+@DefaultUrl("/orders/create")
 public class OrderPage extends CommonPageObject {
 
     /**
-     * Page element representing product add form controls in order page
+     * Page element representing product addition form controls in order page
      */
+    @SuppressWarnings("unused")
     private ProductAdditionForm productAdditionForm;
 
     public OrderPage(WebDriver driver) {
@@ -37,9 +42,14 @@ public class OrderPage extends CommonPageObject {
 
     public void saveButtonClick() {
         new ButtonFacade(this, "Сохранить").click();
+        new PreLoader(getDriver()).await();
     }
 
     public void cancelLinkClick() {
         new LinkFacade(this, "Отменить").click();
+    }
+
+    public OrderProductObjectCollection getOrderProductObjectCollection() {
+        return new OrderProductObjectCollection(getDriver(), By.name("orderProduct"));
     }
 }

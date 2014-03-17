@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.steps;
+package project.lighthouse.autotests.steps.menu;
 
 import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
@@ -39,5 +39,11 @@ public class MenuNavigationSteps extends ScenarioSteps {
             Assert.fail("The menu bar navigation suppliers item link is visible!");
         } catch (Exception ignored) {
         }
+    }
+
+    @Step
+    public void ordersMenuItemClick() {
+        new BodyPreLoader(getDriver()).await();
+        menuNavigation.ordersMenuItemClick();
     }
 }

@@ -21,4 +21,8 @@ public class MenuNavigation extends CommonPageObject {
     public void suppliersMenuItemClick() {
         new NavigationBarLinkFacade(this, "Поставщики").click();
     }
+
+    public void ordersMenuItemClick() {
+        new NavigationBarLinkFacade(this, "Заказы").click();
+    }
 }

@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use Lighthouse\CoreBundle\Document\Order\Product\OrderProduct;
 use Lighthouse\CoreBundle\Document\Order\Product\OrderProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Form\OrderProductType;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use FOS\RestBundle\View\View;
@@ -20,6 +21,12 @@ class OrderProductController extends AbstractRestController
      * @var OrderProductRepository
      */
     protected $documentRepository;
+
+    /**
+     * @DI\Inject("lighthouse.core.document.repository.store_product")
+     * @var StoreProductRepository
+     */
+    protected $storeProductRepository;
 
     /**
      * @return OrderProductType
@@ -41,6 +48,13 @@ class OrderProductController extends AbstractRestController
     public function postProductsAction(Store $store, Request $request)
     {
         $orderProduct = new OrderProduct();
-        return $this->processForm($request, $orderProduct, false);
+        $result = $this->processForm($request, $orderProduct, false);
+        if ($result instanceof OrderProduct) {
+            $result->storeProduct = $this
+                ->storeProductRepository
+                ->findOrCreateByStoreProduct($store, $result->product);
+        }
+
+        return $result;
     }
 }

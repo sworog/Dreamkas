@@ -17,8 +17,8 @@ public class ProductAdditionForm extends CommonPageObject {
     public void createElements() {
         put("name", new Autocomplete(this, "name", "Наименование"));
         put("quantity", new Input(this, "quantity", "Количество, шт"));
-        put("price", new NonType(this, "retailPrice", "Цена, руб"));
-        put("sum", new NonType(this, "sum", "Сумма, руб"));
+        put("retailPrice", new NonType(this, "retailPrice", "Цена, руб"));
+        put("totalSum", new NonType(this, "totalSum", "Сумма, руб"));
         put("inventory", new NonType(this, "inventory", "Остаток, шт"));
     }
 
