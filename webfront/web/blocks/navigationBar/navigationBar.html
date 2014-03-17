@@ -33,7 +33,9 @@
     <a href="/suppliers">Поставщики</a>
     <% } %>
 
+    <% if(LH.isAllow('stores', 'GET::{store}/orders/{order}')){ %>
     <a href="/orders">Заказы</a>
+    <% } %>
 
     <% if(currentUserModel.stores && currentUserModel.stores.length) { %>
     <a href="/stores/<%- currentUserModel.stores.at(0).id %>">Мой магазин</a>

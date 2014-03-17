@@ -43,10 +43,16 @@ define(function(require, exports, module) {
                         break;
                     default:
                         if (block.storeProduct) {
-                            block.model.set('product', null);
+                            block.model.set('product', block.el.querySelector('.autocomplete_storeProduct').value ? {
+                                product: {
+                                    id: 'xxx'
+                                }
+                            } : null);
+
                             block.storeProduct = {
                                 product: {}
                             };
+
                             block.render();
                         }
                 }

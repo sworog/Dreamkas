@@ -1,0 +1,13 @@
+<% var collections = _.extend({
+    orderProducts: new Backbone.Collection
+}, collections) %>
+
+<% var totalSum = 0 %>
+
+<% collections.orderProducts.forEach(function(orderModel){
+    totalSum += orderModel.get('quantity') * orderModel.get('product.product.purchasePrice');
+}) %>
+
+<span>
+    <%- LH.formatMoney(totalSum) + ' руб' %>
+</span>

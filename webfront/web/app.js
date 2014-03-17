@@ -63,7 +63,6 @@ define(function(require) {
 
     loading.done(function() {
         app.permissions = _.extend(currentUserModel.permissions.toJSON(), {
-            orders: ['GET', 'POST']
         });
         routes = 'routes/authorized';
     });

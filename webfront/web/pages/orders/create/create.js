@@ -2,6 +2,8 @@ define(function(require, exports, module) {
     //requirements
     var Page = require('kit/core/page'),
         SuppliersCollection = require('collections/suppliers'),
+        OrderModel = require('models/order'),
+        OrderProductsCollection = require('collections/orderProducts'),
         Form_order = require('blocks/form/form_order/form_order');
 
     require('jquery');
@@ -12,7 +14,7 @@ define(function(require, exports, module) {
             '#content': require('tpl!./content.html')
         },
         permissions: function() {
-            return !LH.isAllow('orders', 'POST');
+            return !LH.isAllow('stores', 'POST::{store}/orders');
         },
         initialize: function() {
             var page = this;
@@ -21,17 +23,27 @@ define(function(require, exports, module) {
                 suppliers: new SuppliersCollection()
             };
 
+            page.models = {
+                order: new OrderModel({
+                    collections: {
+                        products: new OrderProductsCollection()
+                    }
+                })
+            };
+
             $.when(page.collections.suppliers.fetch()).done(function() {
                 page.render();
             });
         },
-        render: function(){
+        render: function() {
             var page = this;
 
             Page.prototype.render.apply(page, arguments);
 
             page.blocks = {
-                form_order: new Form_order()
+                form_order: new Form_order({
+                    model: page.models.order
+                })
             }
         }
     });

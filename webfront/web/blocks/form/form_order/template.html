@@ -32,7 +32,12 @@
 </div>
 
 <div class="form_order__totalSum">
-    Итого: 2 331,00 руб.
+    Итого:
+    <%= model.get('collections.products').element(require('tpl!blocks/form/form_order/form_order__totalSum.html'), {
+        collections: {
+            orderProducts: model.get('collections.products')
+        }
+    }) %>
 </div>
 
 <div class="form__controls">
