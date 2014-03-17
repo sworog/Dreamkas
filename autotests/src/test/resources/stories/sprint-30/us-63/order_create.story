@@ -14,6 +14,7 @@ Meta:
 @id_s30u63s1
 @order
 @smoke
+@description simple order create with one product
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
@@ -47,6 +48,7 @@ Scenario: Verify product all data found by autocomplete in addittion form
 Meta:
 @id_s30u63s2
 @smoke
+@description verifying product data when the product is choosen by autocomplete
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
@@ -70,6 +72,7 @@ Scenario: Verify product inventory found by autocomplete in addittion form if th
 
 Meta:
 @id_s30u63s3
+@description verifying product inventory if there is invoice already when the product is choosen by autocomplete
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story,
               precondition/sprint-30/us-63/aPreconditionToScenario3.story
@@ -89,6 +92,7 @@ Scenario: Verify product inventory found by autocomplete in addittion form if th
 
 Meta:
 @id_s30u63s4
+@description verifying product inventory if there is writeOff already when the product is choosen by autocomplete
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story,
               precondition/sprint-30/us-63/aPreconditionToScenario4.story
