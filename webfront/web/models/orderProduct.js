@@ -5,7 +5,7 @@ define(function(require, exports, module) {
 
     return Model.extend({
         __name__: module.id,
-        urlRoot: function() {
+        url: function() {
             return LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/orders/products?validate=true'
         },
         saveData: [

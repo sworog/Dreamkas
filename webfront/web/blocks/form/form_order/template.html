@@ -1,8 +1,10 @@
 <% var model = model || new Backbone.Model() %>
+<% var OrderProductsCollection = require('collections/orderProducts') %>
+<% var collections = _.extend({
+    orderProducts: new OrderProductsCollection()
+}, collections); %>
 <% var templates = {
-    form_orderProduct: require('tpl!blocks/form/form_orderProduct/template.html'),
-    table_orderProduct_head: require('tpl!blocks/table/table_orderProducts/templates/head.html'),
-    table_orderProduct_tr: require('tpl!blocks/table/table_orderProducts/templates/tr.html'),
+    form_orderProduct: require('tpl!blocks/form/form_orderProduct/template.html')
 } %>
 
 <form id="form_order" class="form form_order">
@@ -17,9 +19,44 @@
     </div>
 </form>
 
-<table class="table order__productsTable">
+<% if (collections.orderProducts.length) { %>
+<table class="table table__orderProducts">
+    <thead>
+    <tr>
+        <th>
+            Товар
+        </th>
+        <th>
+            Кол-во
+        </th>
+        <th>
+            Цена
+        </th>
+        <th>
+            Сумма
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <% collections.orderProducts.forEach(function(orderProductModel) { %>
+    <tr>
+        <td>
 
+        </td>
+        <td>
+
+        </td>
+        <td>
+
+        </td>
+        <td>
+
+        </td>
+    </tr>
+    <% }) %>
+    </tbody>
 </table>
+<% } %>
 
 <div class="form_order__productForm">
     <h2>Добавить товар в заказ</h2>

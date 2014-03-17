@@ -4,7 +4,6 @@ define(function(require, exports, module) {
 
     return Collection.extend({
         cid: module.id,
-        model: require('models/order'),
-        url: LH.baseApiUrl + '/orders'
+        model: require('models/orderProduct')
     });
 });
