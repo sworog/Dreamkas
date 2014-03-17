@@ -4,6 +4,8 @@ namespace Lighthouse\CoreBundle\Test;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Document\File\File;
+use Lighthouse\CoreBundle\Document\Order\Order;
+use Lighthouse\CoreBundle\Document\Order\Product\OrderProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Receipt\ReceiptRepository;
@@ -586,5 +588,33 @@ class Factory
         $this->dm->persist($file);
 
         return $file;
+    }
+
+    /**
+     * @param null|string|Store $store
+     * @param null|Supplier $supplier
+     * @param null|OrderProduct[] $orderProducts
+     * @return Order
+     */
+    public function createOrder($store = null, $supplier = null, $orderProducts = null)
+    {
+        if (null == $store) {
+            $store = $this->createStore();
+        } elseif (is_string($store)) {
+            $store = $this->dm->getProxyFactory()->getProxy(Store::getClassName(), $store);
+        }
+
+        if (null == $supplier) {
+            $supplier = $this->createSupplier();
+        }
+
+        $order = new Order();
+        $order->store = $store;
+        $order->supplier = $supplier;
+        $order->products = $orderProducts;
+
+        $this->dm->persist($order);
+
+        return $order;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
@@ -267,5 +268,32 @@ class OrderControllerTest extends WebTestCase
                 ),
             ),
         );
+    }
+
+    public function testGerOrdersAction()
+    {
+        /** @var Order[] $orders */
+        $orders = array();
+        $suppliers = array();
+        for ($i = 0; $i < 5; $i++) {
+            $suppliers[$i] = $this->factory->createSupplier('Перевоз' . $i);
+            $orders[$i] = $this->factory->createOrder($this->storeId, $suppliers[$i]);
+        }
+        $this->factory->flush();
+
+        $accessToken = $this->auth($this->departmentManager);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/orders'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(5, '*.id', $response);
+
+        foreach ($orders as $order) {
+            Assert::assertJsonPathEquals($order->supplier->name, '*.supplier.name', $response);
+        }
     }
 }
