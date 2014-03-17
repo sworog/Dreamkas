@@ -17,7 +17,7 @@ class ProductRepository extends DocumentRepository implements ParentableReposito
     /**
      * @param string $property
      * @param string $entry
-     * @return LoggableCursor
+     * @return Cursor
      */
     public function searchEntry($property, $entry)
     {

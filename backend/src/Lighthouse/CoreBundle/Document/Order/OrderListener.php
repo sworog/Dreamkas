@@ -42,7 +42,7 @@ class OrderListener extends AbstractMongoDBListener
         if ($document instanceof OrderProduct) {
             $document->storeProduct = $this
                 ->storeProductRepository
-                ->findOrCreateByStoreProduct($document->order->store, $document->product);
+                ->findOrCreateByStoreProduct($document->order->store, $document->product->getObject());
         }
     }
 
@@ -59,7 +59,7 @@ class OrderListener extends AbstractMongoDBListener
                 ->getReference(
                     $this
                         ->storeProductRepository
-                        ->getIdByStoreAndProduct($document->order->store, $document->product)
+                        ->getIdByStoreAndProduct($document->order->store, $document->product->getObject())
                 );
         }
     }

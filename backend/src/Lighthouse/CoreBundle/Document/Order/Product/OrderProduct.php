@@ -22,7 +22,7 @@ use DateTime;
 /**
  * @property string $id
  * @property Quantity $quantity
- * @property Product $product
+ * @property ProductVersion $product
  * @property StoreProduct $storeProduct
  * @property Order $order
  *
