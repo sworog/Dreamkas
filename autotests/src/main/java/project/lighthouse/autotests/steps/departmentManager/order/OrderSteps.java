@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.pages.departmentManager.order.OrderPage;
+import project.lighthouse.autotests.pages.departmentManager.order.OrdersListPage;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -11,9 +12,10 @@ import static org.junit.Assert.assertThat;
 public class OrderSteps extends ScenarioSteps {
 
     OrderPage orderPage;
+    OrdersListPage ordersListPage;
 
     @Step
-    public void openPage() {
+    public void openOrderCreatePage() {
         orderPage.open();
     }
 
@@ -25,6 +27,11 @@ public class OrderSteps extends ScenarioSteps {
     @Step
     public void additionFormInput(ExamplesTable examplesTable) {
         orderPage.getProductAdditionForm().fieldInput(examplesTable);
+    }
+
+    @Step
+    public void additionFormInput(String elementName, String value) {
+        orderPage.getProductAdditionForm().input(elementName, value);
     }
 
     @Step
@@ -58,5 +65,15 @@ public class OrderSteps extends ScenarioSteps {
     @Step
     public void assertAdditionProductFormLabelTitle(String elementName) {
         orderPage.getProductAdditionForm().checkFieldLabel(elementName);
+    }
+
+    @Step
+    public void addProductToOrderButtonClick() {
+        orderPage.getProductAdditionForm().addButtonClick();
+    }
+
+    @Step
+    public void openOrdersListPage() {
+        ordersListPage.open();
     }
 }

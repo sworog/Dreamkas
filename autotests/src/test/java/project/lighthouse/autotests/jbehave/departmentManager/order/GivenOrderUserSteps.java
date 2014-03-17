@@ -11,6 +11,11 @@ public class GivenOrderUserSteps {
 
     @Given("the user opens order create page")
     public void givenTheUserOpensOrderCreatePage() {
-        orderSteps.openPage();
+        orderSteps.openOrderCreatePage();
+    }
+
+    @Given("the user opens orders list page")
+    public void givenTheUserOpensOrdersListPage() {
+        orderSteps.openOrdersListPage();
     }
 }
