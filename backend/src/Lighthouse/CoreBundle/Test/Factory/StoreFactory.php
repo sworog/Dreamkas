@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Test\Factory;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
 
-class StoreFactory extends AbstractFactoryFactory
+class StoreFactory extends AbstractFactory
 {
     const STORE_DEFAULT_NUMBER = '1';
 

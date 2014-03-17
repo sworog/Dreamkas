@@ -16,7 +16,7 @@ use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
 
-class Factory extends AbstractFactory
+class Factory extends ContainerAwareFactory
 {
     /**
      * @var OAuthFactory

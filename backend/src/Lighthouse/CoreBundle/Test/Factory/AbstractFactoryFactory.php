@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Test\Factory;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-abstract class AbstractFactoryFactory extends AbstractFactory
+abstract class AbstractFactory extends ContainerAwareFactory
 {
     /**
      * @var Factory

@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Test\Factory;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
 
-class UserFactory extends AbstractFactoryFactory
+class UserFactory extends AbstractFactory
 {
     const USER_DEFAULT_USERNAME = 'admin';
     const USER_DEFAULT_PASSWORD = 'password';

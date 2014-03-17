@@ -8,7 +8,7 @@ use Lighthouse\CoreBundle\Document\Auth\Client as AuthClient;
 use Symfony\Component\HttpFoundation\Request;
 use stdClass;
 
-class OAuthFactory extends AbstractFactoryFactory
+class OAuthFactory extends AbstractFactory
 {
     const CLIENT_DEFAULT_SECRET = 'secret';
     const USER_DEFAULT_PASSWORD = 'password';
