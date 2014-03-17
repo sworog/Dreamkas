@@ -137,6 +137,10 @@ define(function(require) {
                 block.$controls.attr('data-error', typeof errors.error === 'string' ? block.translate(errors.error) : 'неизвестная ошибка: ' + error.statusText);
             }
 
+            if (errors.errors) {
+                block.$controls.attr('data-error', errors.errors.join(', '));
+            }
+
             if (errors.description) {
                 block.$controls.attr('data-error', block.translate(errors.description));
             }

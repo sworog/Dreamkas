@@ -6,7 +6,7 @@
     orders: new Backbone.Collection
 }, obj.orders) %>
 
-<% if (LH.isAllow('orders', 'POST')) {%>
+<% if (LH.isAllow('stores', 'POST::{store}/orders')) {%>
     <%= templates.localNavigation(obj) %>
 <% } %>
 
