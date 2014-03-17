@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Model = require('kit/core/model'),
+        OrderProductsCollection = require('collections/orderProducts'),
         currentUserModel = require('models/currentUser');
 
     return Model.extend({
@@ -10,11 +11,20 @@ define(function(require, exports, module) {
         },
         name: null,
         defaults: {
-            products: []
+            collections: {
+                products: new OrderProductsCollection()
+            }
         },
-        saveData: [
-            'supplier',
-            'products'
-        ]
+        saveData: function(){
+            return {
+                supplier: this.get('supplier'),
+                products: this.get('collections.products').map(function(productModel){
+                    return {
+                        id: productModel.get('product.product.id'),
+                        quantity: productModel.get('quantity')
+                    }
+                })
+            }
+        }
     });
 });

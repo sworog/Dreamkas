@@ -1,7 +1,8 @@
-<% var model = model || new Backbone.Model() %>
-<% var OrderProductsCollection = require('collections/orderProducts') %>
+<% var OrderModel = require('models/order') %>
+<% var SuppliersCollection = require('collections/suppliers') %>
+<% var model = model || new OrderModel() %>
 <% var collections = _.extend({
-    orderProducts: new OrderProductsCollection()
+    suppliers: new SuppliersCollection()
 }, collections); %>
 <% var templates = {
     form_orderProduct: require('tpl!blocks/form/form_orderProduct/template.html')
@@ -19,44 +20,11 @@
     </div>
 </form>
 
-<% if (collections.orderProducts.length) { %>
-<table class="table table__orderProducts">
-    <thead>
-    <tr>
-        <th>
-            Товар
-        </th>
-        <th>
-            Кол-во
-        </th>
-        <th>
-            Цена
-        </th>
-        <th>
-            Сумма
-        </th>
-    </tr>
-    </thead>
-    <tbody>
-    <% collections.orderProducts.forEach(function(orderProductModel) { %>
-    <tr>
-        <td>
-
-        </td>
-        <td>
-
-        </td>
-        <td>
-
-        </td>
-        <td>
-
-        </td>
-    </tr>
-    <% }) %>
-    </tbody>
-</table>
-<% } %>
+<%= model.get('collections.products').element(require('tpl!blocks/table/table_orderProducts/template.html'), {
+    collections: {
+        orderProducts: model.get('collections.products')
+    }
+}) %>
 
 <div class="form_order__productForm">
     <h2>Добавить товар в заказ</h2>

@@ -1,0 +1,64 @@
+<% var collections = _.extend({
+    orderProducts: new Backbone.Collection
+}, collections) %>
+<% if (collections.orderProducts.length) { %>
+<table style="margin-bottom: 20px;" class="table table__orderProducts">
+    <thead>
+    <tr>
+        <th>
+            Товар
+        </th>
+        <th>
+            Кол-во
+        </th>
+        <th>
+            Цена
+        </th>
+        <th>
+            Сумма
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <% collections.orderProducts.forEach(function(orderProductModel) { %>
+    <tr name="orderProduct" class="order__dataRow" product-sku="<%- orderProductModel.get('product.product.sku') %>">
+        <td name="productName" product-id="<%- orderProductModel.get('product.product.id') %>">
+            <%- orderProductModel.get('product.product.name') %>
+        </td>
+        <td>
+        <span style="white-space: nowrap">
+            <span name="productAmount">
+                <%- orderProductModel.get('quantity') %>
+            </span>
+            <span name="productUnits">
+                <%- LH.units(orderProductModel.get('product.product.units'), 'smallShort') %>
+            </span>
+        </span>
+        </td>
+        <td>
+        <span class="order__editable" style="white-space: nowrap">
+            <span name="productPrice" model-attribute="priceEntered">
+                <%- LH.formatMoney(orderProductModel.get('product.product.purchasePrice')) %>
+            </span>
+            <span>
+                руб.
+            </span>
+        </span>
+        </td>
+        <td>
+            <div style="white-space: nowrap">
+            <span name="productSum">
+                <%- LH.formatMoney(orderProductModel.get('product.product.purchasePrice') * orderProductModel.get('quantity')) %>
+            </span>
+            <span>
+                руб.
+            </span>
+            </div>
+        </td>
+    </tr>
+    <% }) %>
+    </tbody>
+</table>
+<% } else { %>
+<span></span>
+<% } %>

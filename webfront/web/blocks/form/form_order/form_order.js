@@ -12,11 +12,13 @@ define(function(require, exports, module) {
         redirectUrl: '/orders',
         el: '.form_order',
         model: new OrderModel(),
-        initialize: function(){
+        initialize: function() {
             var block = this;
 
             block.blocks = {
-                form_orderProduct: new Form_orderProduct()
+                form_orderProduct: new Form_orderProduct({
+                    collection: block.model.get('collections.products')
+                })
             }
         }
     });

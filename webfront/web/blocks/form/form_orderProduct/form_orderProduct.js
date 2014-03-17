@@ -2,6 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Form = require('blocks/form/form'),
         OrderProductModel = require('models/orderProduct'),
+        OrderProductsCollection = require('collections/orderProducts'),
         Autocomplete = require('blocks/autocomplete/autocomplete'),
         cookies = require('cookies');
 
@@ -13,6 +14,7 @@ define(function(require, exports, module) {
         el: '.form_orderProduct',
         template: require('tpl!blocks/form/form_orderProduct/template.html'),
         model: new OrderProductModel(),
+        collection: new OrderProductsCollection(),
         storeProduct: {
             product: {}
         },
@@ -65,7 +67,7 @@ define(function(require, exports, module) {
                     el: autocomplete_storeProduct,
                     select: function(event, ui) {
                         block.storeProduct = ui.item.storeProduct;
-                        block.model.set('product', ui.item.storeProduct.product.id);
+                        block.model.set('product', ui.item.storeProduct);
                         block.render();
                     },
                     source: function(request, response) {
