@@ -9,7 +9,7 @@ Narrative:
 Scenario: Supplier option is required
 
 Meta:
-@id
+@id_s30u63s11
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
@@ -25,7 +25,7 @@ Then the user sees error messages
 Scenario: Cannot create order without product
 
 Meta:
-@id
+@id_s30u63s12
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
@@ -45,7 +45,7 @@ Then the user sees error messages
 Scenario: Addition product form - autocomplete is required
 
 Meta:
-@id
+@id_s30u63s13
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
@@ -65,7 +65,7 @@ Then the user sees error messages
 Scenario: Addition product form - quantity is required
 
 Meta:
-@id
+@id_s30u63s14
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
@@ -88,7 +88,7 @@ Then the user sees error messages
 Scenario: Addition product form - autocomplete validation
 
 Meta:
-@id
+@id_s30u63s15
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
@@ -112,7 +112,7 @@ Then the user sees error messages
 Scenario: Addition product form - quantity negative validation
 
 Meta:
-@id
+@id_s30u63s16
 
 Given there is the supplier with name 'supplier-s30u63s1'
 
@@ -157,7 +157,7 @@ Examples:
 Scenario: Cannot create order if departmantManager dont have store
 
 Meta:
-@id
+@id_s30u63s17
 
 Given there is the user with name 'departmentManager-s30u63-no-store', position 'departmentManager-s30u63-no-store', username 'departmentManager-s30u63-no-store', password 'lighthouse', role 'departmentManager'
 And the user opens the authorization page
@@ -168,7 +168,7 @@ Then the user checks the orders navigation menu item is not visible
 Scenario: Cannot create order throug link if departmantManager dont have store
 
 Meta:
-@id
+@id_s30u63s18
 
 Given there is the user with name 'departmentManager-s30u63-no-store', position 'departmentManager-s30u63-no-store', username 'departmentManager-s30u63-no-store', password 'lighthouse', role 'departmentManager'
 And the user opens order create page
@@ -179,7 +179,7 @@ Then the user sees the 403 error
 Scenario: Cannot view order list throug link if departmantManager dont have store
 
 Meta:
-@id
+@id_s30u63s19
 
 Given there is the user with name 'departmentManager-s30u63-no-store', position 'departmentManager-s30u63-no-store', username 'departmentManager-s30u63-no-store', password 'lighthouse', role 'departmentManager'
 And the user opens orders list page
