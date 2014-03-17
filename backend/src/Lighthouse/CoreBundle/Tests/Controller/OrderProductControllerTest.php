@@ -180,4 +180,47 @@ class OrderProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($postData['quantity'], 'quantity', $response);
         Assert::assertJsonPathEquals($postData['product'], 'product.product.id', $response);
     }
+
+    public function testSearchStoreProductsActionWithRangeMarkup()
+    {
+        $storeId = $this->createStore('123', '123', '123');
+        $departmentManager = $this->factory->getDepartmentManager($storeId);
+        $accessToken = $this->auth($departmentManager);
+
+        $group = $this->createGroup('123');
+        $category = $this->createCategory($group, '123');
+        $subCategory = $this->createSubCategory($category, '123');
+        $productData = array(
+            'name' => '123',
+            'units' => 'gr',
+            'barcode' => '123',
+            'purchasePrice' => 123,
+            'sku' => '123',
+            'vat' => 0,
+            'vendor' => '',
+            'vendorCountry' => '',
+            'info' => '',
+            'retailMarkupMin' => 0,
+            'retailMarkupMax' => 10,
+            'subCategory' => $subCategory,
+        );
+        $product = $this->createProduct($productData, $subCategory);
+
+        $supplier = $this->factory->createSupplier('123');
+        $this->factory->flush();
+
+        $postData = array(
+            'product' => $product,
+            'quantity' => 1.11,
+        );
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $storeId . '/orders/products?validate=true',
+            $postData
+        );
+
+        $this->assertResponseCode(200);
+    }
 }
