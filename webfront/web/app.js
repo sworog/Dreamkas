@@ -64,6 +64,11 @@ define(function(require) {
     loading.done(function() {
         app.permissions = _.extend(currentUserModel.permissions.toJSON(), {
         });
+
+        if (!currentUserModel.stores.length){
+            delete app.permissions.stores;
+        }
+
         routes = 'routes/authorized';
     });
 
