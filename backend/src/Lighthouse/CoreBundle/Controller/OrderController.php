@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Order\Order;
+use Lighthouse\CoreBundle\Document\Order\OrderCollection;
 use Lighthouse\CoreBundle\Document\Order\OrderRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Form\OrderType;
@@ -69,5 +70,18 @@ class OrderController extends AbstractRestController
         if ($order->store !== $store) {
             throw new NotFoundHttpException(sprintf("%s object not found", get_class($order)));
         }
+    }
+
+    /**
+     * @param Store $store
+     * @return Order
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @ApiDoc
+     */
+    public function getOrdersAction(Store $store)
+    {
+        $orders = $this->getDocumentRepository()->findAll();
+        $orderCollection = new OrderCollection($orders);
+        return $orderCollection;
     }
 }
