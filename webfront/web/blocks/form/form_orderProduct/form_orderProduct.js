@@ -43,14 +43,10 @@ define(function(require, exports, module) {
                         break;
                     default:
                         if (block.storeProduct) {
-                            block.model.set('product', block.el.querySelector('.autocomplete_storeProduct').value ? {
-                                product: {
-                                    id: 'xxx'
-                                }
-                            } : null);
-
                             block.storeProduct = {
-                                product: {}
+                                product: {
+                                    id: block.el.querySelector('.autocomplete_storeProduct').value ? 'xxx' : null
+                                }
                             };
 
                             block.render();
@@ -73,7 +69,6 @@ define(function(require, exports, module) {
                     el: autocomplete_storeProduct,
                     select: function(event, ui) {
                         block.storeProduct = ui.item.storeProduct;
-                        block.model.set('product', ui.item.storeProduct);
                         block.render();
                     },
                     source: function(request, response) {
@@ -102,6 +97,7 @@ define(function(require, exports, module) {
         render: function() {
             var block = this;
 
+            $(block.el).find('[name="product"]').val(block.storeProduct.product.id);
             $(block.el).find('.form_orderProduct__retailPrice').html(LH.formatMoney(block.storeProduct.product.purchasePrice));
             $(block.el).find('.form_orderProduct__totalSum').html(LH.formatMoney(_.escape(block.model.get('quantity')) * _.escape(block.storeProduct.product.purchasePrice) || ''));
             $(block.el).find('.form_orderProduct__inventory').html(_.escape(block.storeProduct.inventory) || '&mdash;');

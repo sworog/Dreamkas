@@ -92,3 +92,7 @@
     font-size: 20px;
     margin-bottom: 10px;
 }
+
+.form_orderProduct [name="product"].inputText_error ~ [name="name"] {
+    border-color: #d40000;
+}
