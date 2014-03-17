@@ -20,11 +20,9 @@ define(function(require, exports, module) {
                 orders: new OrdersCollection()
             };
 
-            page.render();
-
-//            $.when(page.collections.orders.fetch()).done(function() {
-//                page.render();
-//            });
+            $.when(page.collections.orders.fetch()).done(function() {
+                page.render();
+            });
         }
     });
 });
