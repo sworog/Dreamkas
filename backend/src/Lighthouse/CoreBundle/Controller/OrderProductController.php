@@ -52,7 +52,7 @@ class OrderProductController extends AbstractRestController
         if ($result instanceof OrderProduct) {
             $result->storeProduct = $this
                 ->storeProductRepository
-                ->findOrCreateByStoreProduct($store, $result->product);
+                ->findOrCreateByStoreProduct($store, $result->product->getObject());
         }
 
         return $result;
