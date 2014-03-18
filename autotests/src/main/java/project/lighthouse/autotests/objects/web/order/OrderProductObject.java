@@ -15,10 +15,10 @@ import java.util.Map;
 public class OrderProductObject extends AbstractObject implements ResultComparable, ObjectLocatable {
 
     private String name;
+    private String units;
     private String quantity;
     private String price;
     private String sum;
-    private String inventory;
 
     public OrderProductObject(WebElement element) {
         super(element);
@@ -26,11 +26,11 @@ public class OrderProductObject extends AbstractObject implements ResultComparab
 
     @Override
     public void setProperties() {
-        name = getElement().findElement(By.name("name")).getText();
-        quantity = getElement().findElement(By.name("quantity")).getText();
-        price = getElement().findElement(By.name("price")).getText();
-        sum = getElement().findElement(By.name("sum")).getText();
-        inventory = getElement().findElement(By.name("inventory")).getText();
+        name = getElement().findElement(By.name("productName")).getText();
+        units = getElement().findElement(By.name("productUnits")).getText();
+        quantity = getElement().findElement(By.name("productAmount")).getText();
+        price = getElement().findElement(By.name("productPrice")).getText();
+        sum = getElement().findElement(By.name("productSum")).getText();
     }
 
 
@@ -38,14 +38,18 @@ public class OrderProductObject extends AbstractObject implements ResultComparab
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("name", name, row.get("name"))
+                .compare("units", units, row.get("units"))
                 .compare("quantity", quantity, row.get("quantity"))
                 .compare("retailPrice", price, row.get("retailPrice"))
-                .compare("totalSum", sum, row.get("totalSum"))
-                .compare("inventory", inventory, row.get("inventory"));
+                .compare("totalSum", sum, row.get("totalSum"));
     }
 
     @Override
     public String getObjectLocator() {
         return name;
+    }
+
+    public String getQuantity() {
+        return quantity;
     }
 }
