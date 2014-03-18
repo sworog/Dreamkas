@@ -100,7 +100,7 @@ define(function(require, exports, module) {
             $(block.el).find('[name="product"]').val(block.storeProduct.product.id);
             $(block.el).find('.form_orderProduct__retailPrice').html(LH.formatMoney(block.storeProduct.product.purchasePrice));
             $(block.el).find('.form_orderProduct__totalSum').html(LH.formatMoney(_.escape(block.model.get('quantity')) * _.escape(block.storeProduct.product.purchasePrice) || ''));
-            $(block.el).find('.form_orderProduct__inventory').html(_.escape(block.storeProduct.inventory) || '&mdash;');
+            $(block.el).find('.form_orderProduct__inventory').html((!block.storeProduct.product.id || block.storeProduct.product.id === 'xxx') ? '&mdash;' : LH.formatAmount(block.storeProduct.inventory));
         }
     });
 });

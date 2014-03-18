@@ -65,8 +65,11 @@ define(function(require) {
         app.permissions = _.extend(currentUserModel.permissions.toJSON(), {
         });
 
-        if (!currentUserModel.stores.length){
-            delete app.permissions.stores;
+        if (!currentUserModel.stores.length) {
+            app.permissions.stores = _.without(app.permissions.stores,
+                'POST::{store}/orders',
+                'POST::{store}/orders/products',
+                'GET::{store}/orders/{order}');
         }
 
         routes = 'routes/authorized';
@@ -83,7 +86,7 @@ define(function(require) {
             'blocks/navigationBar/navigationBar',
             'blocks/page/page',
             'libs/lhAutocomplete'
-        ], function(routes){
+        ], function(routes) {
             router.routes = routes;
             router.start();
         });
