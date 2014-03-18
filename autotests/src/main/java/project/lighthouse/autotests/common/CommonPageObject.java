@@ -135,4 +135,16 @@ abstract public class CommonPageObject extends PageObject {
     public void elementShouldBeVisible(String value, CommonView commonView) {
         commonActions.elementShouldBeVisible(value, commonView);
     }
+
+    public void checkValue(String elementName, String value) {
+        items.get(elementName).getFieldChecker().assertValueEqual(value);
+    }
+
+    public void checkValues(ExamplesTable examplesTable) {
+        for (Map<String, String> row : examplesTable.getRows()) {
+            String elementName = row.get("elementName");
+            String expectedValue = row.get("value");
+            checkValue(elementName, expectedValue);
+        }
+    }
 }

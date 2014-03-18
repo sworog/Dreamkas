@@ -3,10 +3,11 @@ package project.lighthouse.autotests.helper;
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonItem;
 
-import static junit.framework.Assert.assertEquals;
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
 
 /**
- * This class is used to check and assert field length
+ * This class is used to check and assert field
  */
 public class FieldChecker {
 
@@ -17,9 +18,9 @@ public class FieldChecker {
     }
 
     public void assertLabelTitle() {
-        assertEquals(
+        assertThat(
                 commonItem.getLabel(),
-                commonItem.getVisibleWebElement().findElement(By.xpath("./../label")).getText());
+                equalTo(commonItem.getVisibleWebElement().findElement(By.xpath("./../label")).getText()));
     }
 
     public void assertValueEqual(String expectedValue) {
@@ -32,7 +33,9 @@ public class FieldChecker {
                 actualValue = commonItem.getVisibleWebElementFacade().getText();
                 break;
         }
-        assertEquals(expectedValue, actualValue);
+        assertThat(
+                actualValue,
+                equalTo(expectedValue));
     }
 
     public void assertFieldLength(String elementName, int fieldLength) {
@@ -48,15 +51,12 @@ public class FieldChecker {
                 length = commonItem.getOnlyVisibleWebElementFacade().getText().length();
                 break;
         }
-        assertFieldLength(elementName, fieldLength, length);
-    }
-
-    private void assertFieldLength(String elementName, int fieldLength, int actualLength) {
-        assertEquals(
+        assertThat(
                 String.format("The '%s' field doesn't contains '%s' symbols. It actually contains '%s' symbols.",
                         elementName,
                         fieldLength,
-                        actualLength),
-                actualLength, fieldLength);
+                        length),
+                length,
+                equalTo(fieldLength));
     }
 }
