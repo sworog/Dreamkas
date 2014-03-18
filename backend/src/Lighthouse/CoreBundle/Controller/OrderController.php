@@ -92,7 +92,7 @@ class OrderController extends AbstractRestController
      * @param Store $store
      * @return Order
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
-     * @ApiDoc
+     * @ApiDoc(resource=true)
      */
     public function getOrdersAction(Store $store)
     {
