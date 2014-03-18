@@ -281,7 +281,7 @@ class OrderControllerTest extends WebTestCase
         }
         $this->factory->flush();
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
