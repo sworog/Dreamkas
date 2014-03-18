@@ -142,7 +142,7 @@ And the user sees no error messages
 
 Examples:
 | value | expectedValue |
-| 1 | 1 |
+| 1 | 1,0 |
 | 1.1 | 1,1 |
 | 1,1 | 1,1 |
 | 1,12 | 1,12 |
