@@ -37,10 +37,6 @@
     padding-left: 0;
 }
 
-.table > tbody > tr:hover {
-    background: #fffee2 !important;
-}
-
 .table__rowHiddenElement {
     visibility: hidden;
 }

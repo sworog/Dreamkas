@@ -95,3 +95,7 @@
 .form_orderProduct [name="product"].inputText_error ~ [name="name"] {
     border-color: #d40000;
 }
+
+.form_order__editor + tr {
+    display: none;
+}

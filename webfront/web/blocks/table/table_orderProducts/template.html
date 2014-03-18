@@ -1,3 +1,6 @@
+<% var templates = {
+    form_orderProduct: require('tpl!blocks/form/form_orderProduct/template.html')
+} %>
 <% var collections = _.extend({
     orderProducts: new Backbone.Collection
 }, collections) %>
@@ -21,7 +24,10 @@
     </thead>
     <tbody>
     <% collections.orderProducts.forEach(function(orderProductModel) { %>
-    <tr name="orderProduct" class="order__dataRow" product-sku="<%- orderProductModel.get('product.product.sku') %>">
+    <tr data-product_cid="<%- orderProductModel.cid %>"
+        name="orderProduct"
+        class="order__dataRow"
+        product-sku="<%- orderProductModel.get('product.product.sku') %>">
         <td name="productName" product-id="<%- orderProductModel.get('product.product.id') %>">
             <%- orderProductModel.get('product.product.name') %>
         </td>
