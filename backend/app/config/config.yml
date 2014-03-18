@@ -141,4 +141,4 @@ lighthouse_core:
         auth:
             username: 18487
             password: 4hSmzgdljt
-        container: lighthouse
+        container: "%database_name%_%kernel.environment%"
