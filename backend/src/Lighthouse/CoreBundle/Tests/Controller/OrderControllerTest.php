@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Order\Order;
+use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
@@ -612,5 +613,68 @@ class OrderControllerTest extends WebTestCase
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathEquals('10001', 'number', $putResponse);
+    }
+
+    public function testPutOrderActionInvalidStore()
+    {
+        $store1 = $this->factory->store()->getStore('1');
+        $store2 = $this->factory->store()->getStore('2');
+        $productId = $this->createProduct('1');
+        $supplier = $this->factory->createSupplier();
+        $order = $this->factory->createOrder($store1, $supplier);
+        $orderProduct = $this->factory->createOrderProduct($order, $productId, 10);
+        $this->factory->flush();
+
+        $orderData = array(
+            'supplier' => $supplier->id,
+            'products' => array(
+                array(
+                    'id' => $orderProduct->id,
+                    'product' => $productId,
+                    'quantity' => 20,
+                ),
+            )
+        );
+
+        $departmentManager = $this->factory->store()->getDepartmentManager($store1->id);
+        $this->factory->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
+
+        $accessToken = $this->factory->oauth()->auth($departmentManager);
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $store2->id . '/orders/' . $order->id,
+            $orderData
+        );
+
+        $this->assertResponseCode(404);
+
+        Assert::assertJsonPathContains('Order object not found', 'message', $putResponse);
+    }
+
+    public function testGetOrderActionInvalidStore()
+    {
+        $store1 = $this->factory->store()->getStore('1');
+        $store2 = $this->factory->store()->getStore('2');
+        $productId = $this->createProduct('1');
+        $supplier = $this->factory->createSupplier();
+        $order = $this->factory->createOrder($store1, $supplier);
+        $orderProduct = $this->factory->createOrderProduct($order, $productId, 10);
+        $this->factory->flush();
+
+
+        $departmentManager = $this->factory->store()->getDepartmentManager($store1->id);
+        $this->factory->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
+
+        $accessToken = $this->factory->oauth()->auth($departmentManager);
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $store2->id . '/orders/' . $order->id
+        );
+
+        $this->assertResponseCode(404);
+
+        Assert::assertJsonPathContains('Order object not found', 'message', $putResponse);
     }
 }
