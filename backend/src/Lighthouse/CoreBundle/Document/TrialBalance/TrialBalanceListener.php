@@ -233,7 +233,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $newAcceptanceDate = $changeSet['acceptanceDate'][1];
 
         /* @var InvoiceProduct[] $invoiceProducts */
-        $invoiceProducts = $this->invoiceProductRepository->findByInvoice($invoice->id);
+        $invoiceProducts = $invoice->products;
         $trialBalances = $this->trialBalanceRepository->findByReasons($invoiceProducts);
 
         foreach ($invoiceProducts as $invoiceProduct) {

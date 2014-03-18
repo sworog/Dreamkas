@@ -96,6 +96,7 @@ class InvoiceController extends AbstractRestController
      * @param Invoice $invoice
      * @return Invoice
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc
      */
     public function getInvoiceAction(Store $store, Invoice $invoice)
