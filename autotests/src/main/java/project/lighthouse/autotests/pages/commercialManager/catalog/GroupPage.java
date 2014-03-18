@@ -67,11 +67,11 @@ public class GroupPage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("name", new InputOnlyVisible(this, "name"));
+        put("name", new InputOnlyVisible(this, "name"));
     }
 
     public CommonItem getItem() {
-        return items.get("name");
+        return getItems().get("name");
     }
 
     public void create(String name) {

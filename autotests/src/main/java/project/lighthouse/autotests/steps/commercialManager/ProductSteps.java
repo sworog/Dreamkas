@@ -42,7 +42,7 @@ public class ProductSteps extends ScenarioSteps {
      */
     @Step
     public void fieldInputBySendKeysMethod(String elementName, String inputText) {
-        productCreatePage.items.get(elementName).getVisibleWebElement().sendKeys(inputText);
+        productCreatePage.getItems().get(elementName).getVisibleWebElement().sendKeys(inputText);
     }
 
     @Step

@@ -20,7 +20,7 @@ class InvoiceControllerTest extends WebTestCase
     public function testPostInvoiceAction(array $invoiceData, array $assertions = array())
     {
         $assertions['createdDate'] = $this->getNowDate();
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -44,7 +44,7 @@ class InvoiceControllerTest extends WebTestCase
             $this->createInvoice($invoiceData, $this->storeId, $this->departmentManager);
         }
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -61,7 +61,7 @@ class InvoiceControllerTest extends WebTestCase
      */
     public function testGetInvoicesActionMaxDepth(array $invoiceData)
     {
-        $storeId = $this->factory->getStore('1');
+        $storeId = $this->factory->store()->getStore('1');
         $products = $this->createProductsBySku(array('1', '2', '3'));
 
         $invoiceId1 = $this->createInvoice(array('sku' => 1), $storeId);
@@ -73,7 +73,7 @@ class InvoiceControllerTest extends WebTestCase
         $this->createInvoiceProduct($invoiceId2, $products['2'], 129, 19.99, $storeId);
         $this->createInvoiceProduct($invoiceId2, $products['3'], 139, 19.99, $storeId);
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -98,7 +98,7 @@ class InvoiceControllerTest extends WebTestCase
         $assertions['createdDate'] = $this->getNowDate();
         $id = $this->createInvoice($invoiceData, $this->storeId, $this->departmentManager);
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -143,7 +143,7 @@ class InvoiceControllerTest extends WebTestCase
     {
         $id = 'not_exists_id';
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -156,12 +156,12 @@ class InvoiceControllerTest extends WebTestCase
 
     public function testGetInvoiceNotFoundInAnotherStore()
     {
-        $storeId2 = $this->factory->getStore('43');
-        $this->factory->linkDepartmentManagers($this->departmentManager->id, $storeId2);
+        $storeId2 = $this->factory->store()->getStore('43');
+        $this->factory->store()->linkDepartmentManagers($this->departmentManager->id, $storeId2);
 
         $invoiceId = $this->createInvoice(array(), $this->storeId, $this->departmentManager);
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -189,7 +189,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $postData = $data + $invoiceData['invoice']['data'];
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -214,7 +214,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $postData = $data + $invoiceData['invoice']['data'];
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -266,7 +266,7 @@ class InvoiceControllerTest extends WebTestCase
             $putAssertions['createdDate'] = $this->getNowDate();
         }
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $postJson = $this->clientJsonRequest(
             $accessToken,
@@ -602,12 +602,16 @@ class InvoiceControllerTest extends WebTestCase
 
     public function testDepartmentManagerCantGetInvoiceFromAnotherStore()
     {
-        $storeId2 = $this->factory->getStore('43');
-        $departmentManager2 = $this->createUser('Депардье Ж.К.М.', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $this->factory->linkDepartmentManagers($departmentManager2->id, $storeId2);
+        $storeId2 = $this->factory->store()->getStore('43');
+        $departmentManager2 = $this->factory->user()->getUser(
+            'Депардье Ж.К.М.',
+            'password',
+            User::ROLE_DEPARTMENT_MANAGER
+        );
+        $this->factory->store()->linkDepartmentManagers($departmentManager2->id, $storeId2);
 
-        $accessToken1 = $this->auth($this->departmentManager);
-        $accessToken2 = $this->auth($departmentManager2);
+        $accessToken1 = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken2 = $this->factory->oauth()->auth($departmentManager2);
 
         $invoiceId1 = $this->createInvoice(array(), $this->storeId, $this->departmentManager);
         $invoiceId2 = $this->createInvoice(array(), $storeId2, $departmentManager2);
@@ -682,7 +686,7 @@ class InvoiceControllerTest extends WebTestCase
         $invoiceId3 = $this->createInvoice($invoiceData3, $this->storeId, $this->departmentManager);
         $this->createInvoiceProduct($invoiceId3, $productId3, 7, 67.32, $this->storeId, $this->departmentManager);
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -786,7 +790,7 @@ class InvoiceControllerTest extends WebTestCase
         $invoiceId2 = $this->createInvoice($invoiceData2, $this->storeId, $this->departmentManager);
         $this->createInvoiceProduct($invoiceId2, $productId2, 5, 10.12, $this->storeId, $this->departmentManager);
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -820,7 +824,7 @@ class InvoiceControllerTest extends WebTestCase
         $invoiceId4 = $this->createInvoice($invoiceData4, $this->storeId, $this->departmentManager);
         $this->createInvoiceProduct($invoiceId4, $productId2, 5, 10.12, $this->storeId, $this->departmentManager);
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -854,7 +858,7 @@ class InvoiceControllerTest extends WebTestCase
         $invoiceProductId2 = $this->
             createInvoiceProduct($invoiceId1, $productId2, 10.77, 6.98, $this->storeId, $this->departmentManager);
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -946,7 +950,7 @@ class InvoiceControllerTest extends WebTestCase
             false
         );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -1021,7 +1025,7 @@ class InvoiceControllerTest extends WebTestCase
         $invoiceId1 = $this->createInvoice($invoiceData1, $this->storeId, $this->departmentManager);
         $this->createInvoiceProduct($invoiceId1, $productId1, 99.99, 36.78, $this->storeId, $this->departmentManager);
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',

@@ -13,7 +13,7 @@ public class SubCategoryPage extends GroupPage {
 
     @Override
     public void createElements() {
-        items.put("name", new InputOnlyVisible(this, "name"));
+        put("name", new InputOnlyVisible(this, "name"));
     }
 
     @Override
@@ -29,6 +29,6 @@ public class SubCategoryPage extends GroupPage {
 
     @Override
     public CommonItem getItem() {
-        return items.get("name");
+        return getItems().get("name");
     }
 }

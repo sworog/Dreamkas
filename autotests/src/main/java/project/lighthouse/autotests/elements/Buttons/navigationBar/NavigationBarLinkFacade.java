@@ -1,28 +1,21 @@
 package project.lighthouse.autotests.elements.Buttons.navigationBar;
 
-import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.elements.Buttons.abstraction.AbstractFacade;
 
 /**
  * Facade to handle global navigation bar link items
  */
-public class NavigationBarLinkFacade {
+public class NavigationBarLinkFacade extends AbstractFacade {
 
-    private CommonPageObject pageObject;
-    private String linkText;
-
-    private static final String XPATH = "//*[@class='navigationBar__links']/a[text()='%s']";
+    private static final String XPATH_PATTERN = "//*[@class='navigationBar__links']/a[text()='%s']";
 
     public NavigationBarLinkFacade(CommonPageObject pageObject, String linkText) {
-        this.pageObject = pageObject;
-        this.linkText = linkText;
+        super(pageObject, linkText);
     }
 
-    public void click() {
-        pageObject.getCommonActions().elementClick(By.xpath(getXpath()));
-    }
-
-    private String getXpath() {
-        return String.format(XPATH, linkText);
+    @Override
+    public String getXpathPattern() {
+        return XPATH_PATTERN;
     }
 }

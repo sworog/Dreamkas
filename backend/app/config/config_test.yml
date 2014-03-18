@@ -20,6 +20,14 @@ ekino_new_relic:
 
 doctrine_mongodb:
     default_database: "%database_name%_%kernel.environment%%karzer.thread%"
+    document_managers:
+        default:
+            mappings:
+                LighthouseCoreBundleTest:
+                    type: annotation
+                    dir: %kernel.root_dir%/../src/Lighthouse/CoreBundle/Tests/Fixtures/Document
+                    prefix: Lighthouse\CoreBundle\Tests\Fixtures\Document
+                    is_bundle: false
 
 lighthouse_core:
     job:

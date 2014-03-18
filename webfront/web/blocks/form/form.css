@@ -80,3 +80,19 @@
     padding: 10px;
     margin-bottom: 16px;
 }
+
+.form_order__productForm{
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 3px;
+    margin-bottom: 30px;
+}
+
+.form_order__totalSum{
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.form_orderProduct [name="product"].inputText_error ~ [name="name"] {
+    border-color: #d40000;
+}

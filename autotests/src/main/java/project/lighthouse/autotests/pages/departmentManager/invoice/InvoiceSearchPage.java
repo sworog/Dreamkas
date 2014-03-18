@@ -16,7 +16,7 @@ public class InvoiceSearchPage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("skuOrSupplierInvoiceSku", new Input(this, "skuOrSupplierInvoiceSku"));
+        put("skuOrSupplierInvoiceSku", new Input(this, "skuOrSupplierInvoiceSku"));
     }
 
     public void searchButtonClick() {

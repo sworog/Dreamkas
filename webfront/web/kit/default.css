@@ -12,6 +12,7 @@ body {
     line-height: 1.4;
     background-color: #fff;
     font-family: proximanova-regular;
+    min-width: 1280px;
 }
 
 select, input, textarea, button {

@@ -40,9 +40,9 @@ class Set10SalesImportLocalTest extends WebTestCase
      */
     public function testExecute($file, $expectedDisplay, $expectedLogEntriesCount)
     {
-        $this->factory->getStore('197');
-        $this->factory->getStore('666');
-        $this->factory->getStore('777');
+        $this->factory->store()->getStore('197');
+        $this->factory->store()->getStore('666');
+        $this->factory->store()->getStore('777');
         $this->createProductsBySku(
             array(
                 '1',
@@ -73,7 +73,7 @@ class Set10SalesImportLocalTest extends WebTestCase
 
     public function testExecuteWithErrors()
     {
-        $this->factory->getStore('197');
+        $this->factory->store()->getStore('197');
         $this->createProductsBySku(
             array(
                 '8594403916157',
@@ -104,7 +104,7 @@ class Set10SalesImportLocalTest extends WebTestCase
 
     public function testExecuteWithAllErrors()
     {
-        $this->factory->getStore('197');
+        $this->factory->store()->getStore('197');
 
         $commandTester = $this->execute('purchases-14-05-2012_9-18-29.xml');
 
@@ -250,7 +250,7 @@ EOF;
 
     public function testProfile()
     {
-        $this->factory->getStore('197');
+        $this->factory->store()->getStore('197');
         $this->createProductsBySku(
             array(
                 '1',
@@ -278,7 +278,7 @@ EOF;
 
     public function testSortByFileDate()
     {
-        $this->factory->getStores(array('1', '2', '3', '4', '5'));
+        $this->factory->store()->getStores(array('1', '2', '3', '4', '5'));
         $this->createProductsBySku(
             array(
                 'ЦБ000003263',
@@ -314,7 +314,7 @@ EOF;
 
     public function testSortByFileName()
     {
-        $this->factory->getStores(array('1', '2', '3', '4', '5'));
+        $this->factory->store()->getStores(array('1', '2', '3', '4', '5'));
         $this->createProductsBySku(
             array(
                 'ЦБ000003263',
@@ -350,7 +350,7 @@ EOF;
 
     public function testOnlyPurchaseFilesAreImportedOnFileDateSort()
     {
-        $this->factory->getStores(array('1', '2', '3'));
+        $this->factory->store()->getStores(array('1', '2', '3'));
         $this->createProductsBySku(
             array(
                 'АВ000000221',

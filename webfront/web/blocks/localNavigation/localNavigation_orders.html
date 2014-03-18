@@ -1,0 +1,10 @@
+<div class="localNavigation localNavigation_suppliers">
+
+    <a class="localNavigation__header localNavigation__link <%- __name__ === 'pages/orders/list/list' ? 'localNavigation__link_active' : '' %>" href="/orders">Заказы</a>
+
+    <% if (LH.isAllow('stores', 'POST::{store}/orders')) {%>
+    <a class="localNavigation__link <%- __name__ === 'pages/orders/create/create' ? 'localNavigation__link_active' : '' %>" href="/orders/create">
+        Добавить заказ
+    </a>
+    <% } %>
+</div>

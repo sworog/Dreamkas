@@ -3,6 +3,7 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -31,7 +32,7 @@ class ProductType extends AbstractType
                 'subCategory',
                 'reference',
                 array(
-                    'class' => 'Lighthouse\\CoreBundle\\Document\\Classifier\\SubCategory\\SubCategory',
+                    'class' => SubCategory::getClassName(),
                     'invalid_message' => 'lighthouse.validation.errors.product.subCategory.does_not_exists'
                 )
             )
@@ -42,7 +43,7 @@ class ProductType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Product\\Product',
+                'data_class' => Product::getClassName(),
                 'csrf_protection' => false
             )
         );

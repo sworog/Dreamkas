@@ -9,8 +9,8 @@ class AuthControllerTest extends WebTestCase
 {
     public function testAuth()
     {
-        $authClient = $this->createAuthClient();
-        $user = $this->createUser('admin', 'qwerty123');
+        $authClient = $this->factory->oauth()->getAuthClient();
+        $user = $this->factory->user()->getUser('admin', 'qwerty123');
 
         $authParams = array(
             'grant_type' => 'password',
@@ -44,8 +44,8 @@ class AuthControllerTest extends WebTestCase
 
     public function testRefreshToken()
     {
-        $authClient = $this->createAuthClient();
-        $user = $this->createUser('admin', 'qwerty123');
+        $authClient = $this->factory->oauth()->getAuthClient();
+        $user = $this->factory->user()->getUser('admin', 'qwerty123');
 
         $authParams = array(
             'grant_type' => 'password',
@@ -105,9 +105,9 @@ class AuthControllerTest extends WebTestCase
 
     public function testInvalidPassword()
     {
-        $authClient = $this->createAuthClient();
+        $authClient = $this->factory->oauth()->getAuthClient();
 
-        $this->createUser('test', 'password');
+        $this->factory->user()->getUser('test', 'password');
 
         $authParams = array(
             'grant_type' => 'password',

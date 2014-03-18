@@ -1,10 +1,7 @@
 package project.lighthouse.autotests.jbehave;
 
 import net.thucydides.core.annotations.Steps;
-import org.jbehave.core.annotations.Given;
-import org.jbehave.core.annotations.Pending;
-import org.jbehave.core.annotations.Then;
-import org.jbehave.core.annotations.When;
+import org.jbehave.core.annotations.*;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.CommonSteps;
 
@@ -53,6 +50,12 @@ public class CommonUserSteps {
     @Then("the user checks there is no alert on the page")
     public void thenTheUserChecksNoAlertOnThePage() {
         commonSteps.NoAlertIsPresent();
+    }
+
+    @Then("the user user sees <errorMessage>")
+    @Alias("the user user sees errorMessage")
+    public void thenTheUserSeesErrorMessage(String errorMessage) {
+        commonSteps.checkErrorMessage(errorMessage);
     }
 
     @Given("skipped test")

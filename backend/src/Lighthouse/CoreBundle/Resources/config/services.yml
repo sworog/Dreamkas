@@ -1,5 +1,6 @@
 parameters:
     test.client.class: Lighthouse\CoreBundle\Test\Client\Client
+    doctrine_mongodb.odm.generator.increment.collection: IncNumbers
 
 services:
     jms_serializer.serialized_name_annotation_strategy:
@@ -43,6 +44,11 @@ services:
         class: Doctrine\ODM\MongoDB\DocumentRepository
         factory_service: doctrine_mongodb.odm.document_manager
         factory_method: getRepository
+
+    doctrine_mongodb.odm.generator.increment:
+        class: Doctrine\ODM\MongoDB\Id\IncrementGenerator
+        calls:
+            - [setCollection, ["%doctrine_mongodb.odm.generator.increment.collection%"]]
 
     lighthouse.core.document.repository.product:
         parent: doctrine_mongodb.odm.repository
@@ -167,3 +173,15 @@ services:
         parent: doctrine_mongodb.odm.repository
         arguments:
             - LighthouseCoreBundle:File\File
+            
+    lighthouse.core.document.repository.order:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\Order\OrderRepository
+        arguments:
+            - LighthouseCoreBundle:Order\Order
+
+    lighthouse.core.document.repository.order_product:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\Order\Product\OrderProductRepository
+        arguments:
+            - LighthouseCoreBundle:Order\Product\OrderProduct
