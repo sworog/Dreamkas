@@ -28,7 +28,8 @@
         "leezy/pheanstalk-bundle": "~2.1",
         "rackspace/php-opencloud": "~1.9",
         "munkie/karzer": "dev-master",
-        "clamidity/profiler-bundle": "dev-master"
+        "clamidity/profiler-bundle": "dev-master",
+        "liuggio/ExcelBundle": "*"
     },
     "repositories": [
         {

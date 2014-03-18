@@ -16,6 +16,7 @@ use DateTime;
 
 /**
  * @property string $id
+ * @property int $number
  * @property Store $store
  * @property Supplier $supplier
  * @property OrderProduct[] $products
