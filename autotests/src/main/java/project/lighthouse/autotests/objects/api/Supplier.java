@@ -2,6 +2,7 @@ package project.lighthouse.autotests.objects.api;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import project.lighthouse.autotests.objects.api.abstraction.AbstractObject;
 
 /**
  * The class representing the supplier api object
