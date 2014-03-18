@@ -3,6 +3,7 @@ package project.lighthouse.autotests.steps.menu;
 import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
+import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.preLoader.BodyPreLoader;
 import project.lighthouse.autotests.pages.MenuNavigation;
 
@@ -45,5 +46,15 @@ public class MenuNavigationSteps extends ScenarioSteps {
     public void ordersMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
         menuNavigation.ordersMenuItemClick();
+    }
+
+    @Step
+    public void ordersMenuItemIsNotVisible() {
+        try {
+            new BodyPreLoader(getDriver()).await();
+            menuNavigation.ordersMenuItemClick();
+            Assert.fail("The menu bar navigation orders item link is visible!");
+        } catch (TimeoutException ignored) {
+        }
     }
 }

@@ -20,8 +20,18 @@ public class WhenOrderUserSteps {
         orderSteps.additionFormInput(examplesTable);
     }
 
+    @When("the user inputs value in elementName '$elementName' in addition new product form on the order page")
+    public void whenTheUserInputsValuesInAdditionNewProductFormOnTheOrderPage(String value, String elementName) {
+        orderSteps.additionFormInput(elementName, value);
+    }
+
     @When("the user clicks the save order button")
     public void whenTheUserClicksTheCreateOrderButton() {
         orderSteps.saveButtonClick();
+    }
+
+    @When("the user clicks the add order product button")
+    public void whenTheUserClicksTheAddOrderProductButton() {
+        orderSteps.addProductToOrderButtonClick();
     }
 }
