@@ -21,7 +21,7 @@ class JobControllerTest extends WebTestCase
 
     public function testRecalcProductProductPriceOnRetailsChange()
     {
-        $commercialAccessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $commercialAccessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $commercialAccessToken,
@@ -33,9 +33,9 @@ class JobControllerTest extends WebTestCase
 
         Assert::assertJsonPathCount(0, '*.id', $getResponse);
 
-        $storeId1 = $this->factory->getStore('1');
-        $storeId2 = $this->factory->getStore('2');
-        $storeId3 = $this->factory->getStore('3');
+        $storeId1 = $this->factory->store()->getStore('1');
+        $storeId2 = $this->factory->store()->getStore('2');
+        $storeId3 = $this->factory->store()->getStore('3');
 
         $productData = array(
             'sku' => 'Печенье Юбилейное',
@@ -160,7 +160,7 @@ class JobControllerTest extends WebTestCase
      */
     public function testRecalcProductProductPriceOnMarkupChange($rounding, $retailPrice1, $retailPrice2, $retailPrice3)
     {
-        $commercialAccessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $commercialAccessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $commercialAccessToken,
@@ -172,9 +172,9 @@ class JobControllerTest extends WebTestCase
 
         Assert::assertJsonPathCount(0, '*.id', $getResponse);
 
-        $storeId1 = $this->factory->getStore('1');
-        $storeId2 = $this->factory->getStore('2');
-        $storeId3 = $this->factory->getStore('3');
+        $storeId1 = $this->factory->store()->getStore('1');
+        $storeId2 = $this->factory->store()->getStore('2');
+        $storeId3 = $this->factory->store()->getStore('3');
 
         $productData = array(
             'sku' => 'Печенье Юбилейное',
@@ -311,9 +311,7 @@ class JobControllerTest extends WebTestCase
      */
     protected function assertStoreProduct($storeId, $productId, array $assertions, $message = '')
     {
-        $storeManager = $this->getStoreManager($storeId);
-
-        $accessToken = $this->auth($storeManager, 'password');
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -327,7 +325,7 @@ class JobControllerTest extends WebTestCase
 
     public function testNoJobCreatedOnProductUpdateWithoutRetailsAndRounding()
     {
-        $commercialAccessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $commercialAccessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $commercialAccessToken,
@@ -339,7 +337,7 @@ class JobControllerTest extends WebTestCase
 
         Assert::assertJsonPathCount(0, '*.id', $getResponse);
 
-        $storeId = $this->factory->getStore('1');
+        $storeId = $this->factory->store()->getStore('1');
 
         $productData = array(
             'sku' => 'Печенье Юбилейное',

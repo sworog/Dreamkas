@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
-use Lighthouse\CoreBundle\Test\Factory;
+use Lighthouse\CoreBundle\Test\Factory\UserFactory;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
@@ -36,7 +36,7 @@ class WriteOffProductControllerTest extends WebTestCase
             'cause' => 'Сгнил товар'
         );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $request = new JsonRequest(
             '/api/1/stores/' . $this->storeId . '/writeoffs/' . $writeOffId . '/products',
             'POST',
@@ -309,7 +309,7 @@ class WriteOffProductControllerTest extends WebTestCase
             'cause' => 'Бой посуды',
         );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $postRequest = new JsonRequest(
             '/api/1/stores/' . $this->storeId . '/writeoffs/'. $writeOffId . '/products',
@@ -345,7 +345,7 @@ class WriteOffProductControllerTest extends WebTestCase
             'cause' => 'Бой посуды',
         );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $putRequest = new JsonRequest(
             '/api/1/stores/' . $this->storeId . '/writeoffs/'. $writeOffId . '/products/' . $writeOffProductId,
@@ -411,7 +411,7 @@ class WriteOffProductControllerTest extends WebTestCase
         $writeOffId = $this->createWriteOff('123-43432', null, $this->storeId, $this->departmentManager);
         $writeOffProductId = $this->createWriteOffProduct($writeOffId, $productId);
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $request = new JsonRequest(
             '/api/1/stores/' . $this->storeId . '/writeoffs/'. $writeOffId . '/products/invalidId',
@@ -444,7 +444,7 @@ class WriteOffProductControllerTest extends WebTestCase
         $writeOffId = $this->createWriteOff('1', null, $this->storeId, $this->departmentManager);
         $writeOffProductId = $this->createWriteOffProduct($writeOffId, $productId);
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $request = new JsonRequest(
             '/api/1/stores/' . $this->storeId . '/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId
@@ -468,7 +468,7 @@ class WriteOffProductControllerTest extends WebTestCase
         $writeOffId2 = $this->createWriteOff('2', null, $this->storeId, $this->departmentManager);
         $writeOffProductId2 = $this->createWriteOffProduct($writeOffId2, $productId);
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $request = new JsonRequest(
             '/api/1/stores/' . $this->storeId . '/writeoffs/' . $writeOffId1 . '/products/' . $writeOffProductId2
@@ -515,24 +515,22 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testProductAmountChangeOnWriteOf()
     {
-        $storeId = $this->storeId;
-        $departmentManager = $this->getRoleUser(User::ROLE_DEPARTMENT_MANAGER);
-        $this->factory->linkDepartmentManagers($departmentManager->id, $storeId);
+        $storeId = $this->factory->store()->getStore();
 
         $productId1 = $this->createProduct(1);
         $productId2 = $this->createProduct(2);
 
-        $this->assertStoreProductTotals($this->storeId, $productId1, 0);
+        $this->assertStoreProductTotals($storeId, $productId1, 0);
 
-        $invoiceId = $this->createInvoice(array(), $storeId, $departmentManager);
+        $invoiceId = $this->createInvoice(array(), $storeId);
 
-        $this->createInvoiceProduct($invoiceId, $productId1, 10, 4.99, $storeId, $departmentManager);
-        $this->createInvoiceProduct($invoiceId, $productId2, 20, 6.99, $storeId, $departmentManager);
+        $this->createInvoiceProduct($invoiceId, $productId1, 10, 4.99, $storeId);
+        $this->createInvoiceProduct($invoiceId, $productId2, 20, 6.99, $storeId);
 
-        $this->assertStoreProductTotals($this->storeId, $productId1, 10, 4.99);
-        $this->assertStoreProductTotals($this->storeId, $productId2, 20, 6.99);
+        $this->assertStoreProductTotals($storeId, $productId1, 10, 4.99);
+        $this->assertStoreProductTotals($storeId, $productId2, 20, 6.99);
 
-        $writeOffId = $this->createWriteOff('431-678', null, $this->storeId, $this->departmentManager);
+        $writeOffId = $this->createWriteOff('431-678', null, $storeId);
 
         // create product 1 write off
 
@@ -543,21 +541,21 @@ class WriteOffProductControllerTest extends WebTestCase
             'cause' => 'Порча',
         );
 
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
-        $request = new JsonRequest(
-            '/api/1/stores/' . $this->storeId . '/writeoffs/' . $writeOffId . '/products',
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
             'POST',
+            '/api/1/stores/' . $storeId . '/writeoffs/' . $writeOffId . '/products',
             $postData
         );
-        $postResponse = $this->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postResponse);
 
         $writeOffProductId1 = $postResponse['id'];
 
-        $this->assertStoreProductTotals($this->storeId, $productId1, 5, 4.99);
-        $this->assertStoreProductTotals($this->storeId, $productId2, 20, 6.99);
+        $this->assertStoreProductTotals($storeId, $productId1, 5, 4.99);
+        $this->assertStoreProductTotals($storeId, $productId2, 20, 6.99);
 
         // change product 1 write off quantity
 
@@ -569,7 +567,7 @@ class WriteOffProductControllerTest extends WebTestCase
         );
 
         $request = new JsonRequest(
-            '/api/1/stores/' . $this->storeId . '/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId1,
+            '/api/1/stores/' . $storeId . '/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId1,
             'PUT',
             $putData1
         );
@@ -578,7 +576,7 @@ class WriteOffProductControllerTest extends WebTestCase
         $this->assertResponseCode(200);
         Assert::assertJsonPathEquals($writeOffProductId1, 'id', $putResponse);
 
-        $this->assertStoreProductTotals($this->storeId, $productId1, 3, 4.99);
+        $this->assertStoreProductTotals($storeId, $productId1, 3, 4.99);
 
         // write off product 2
         $putData2 = array(
@@ -589,7 +587,7 @@ class WriteOffProductControllerTest extends WebTestCase
         );
 
         $request = new JsonRequest(
-            '/api/1/stores/' . $this->storeId . '/writeoffs/' . $writeOffId . '/products',
+            '/api/1/stores/' . $storeId . '/writeoffs/' . $writeOffId . '/products',
             'POST',
             $putData2
         );
@@ -600,7 +598,7 @@ class WriteOffProductControllerTest extends WebTestCase
 
         $writeOffProductId2 = $putResponse['id'];
 
-        $this->assertStoreProductTotals($this->storeId, $productId2, 16, 6.99);
+        $this->assertStoreProductTotals($storeId, $productId2, 16, 6.99);
 
         // Change product id
 
@@ -612,7 +610,7 @@ class WriteOffProductControllerTest extends WebTestCase
         );
 
         $request = new JsonRequest(
-            '/api/1/stores/' . $this->storeId . '/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId2,
+            '/api/1/stores/' . $storeId . '/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId2,
             'PUT',
             $putData2
         );
@@ -621,32 +619,32 @@ class WriteOffProductControllerTest extends WebTestCase
         $this->assertResponseCode(200);
         Assert::assertJsonPathEquals($productId1, 'product.id', $putResponse);
 
-        $this->assertStoreProductTotals($this->storeId, $productId1, -1, 4.99);
-        $this->assertStoreProductTotals($this->storeId, $productId2, 20, 6.99);
+        $this->assertStoreProductTotals($storeId, $productId1, -1, 4.99);
+        $this->assertStoreProductTotals($storeId, $productId2, 20, 6.99);
 
         // remove 2nd write off
         $request = new JsonRequest(
-            '/api/1/stores/' . $this->storeId . '/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId2,
+            '/api/1/stores/' . $storeId . '/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId2,
             'DELETE'
         );
         $this->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(204);
 
-        $this->assertStoreProductTotals($this->storeId, $productId1, 3, 4.99);
-        $this->assertStoreProductTotals($this->storeId, $productId2, 20, 6.99);
+        $this->assertStoreProductTotals($storeId, $productId1, 3, 4.99);
+        $this->assertStoreProductTotals($storeId, $productId2, 20, 6.99);
 
         // remove 1st write off
         $request = new JsonRequest(
-            '/api/1/stores/' . $this->storeId . '/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId1,
+            '/api/1/stores/' . $storeId . '/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId1,
             'DELETE'
         );
         $this->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(204);
 
-        $this->assertStoreProductTotals($this->storeId, $productId1, 10, 4.99);
-        $this->assertStoreProductTotals($this->storeId, $productId2, 20, 6.99);
+        $this->assertStoreProductTotals($storeId, $productId1, 10, 4.99);
+        $this->assertStoreProductTotals($storeId, $productId2, 20, 6.99);
     }
 
     public function testGetWriteOffProductsAction()
@@ -665,7 +663,7 @@ class WriteOffProductControllerTest extends WebTestCase
         $writeOffProduct4 = $this->createWriteOffProduct($writeOffId2, $product2);
         $writeOffProduct5 = $this->createWriteOffProduct($writeOffId2, $product3);
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $request = new JsonRequest('/api/1/stores/' . $this->storeId . '/writeoffs/' . $writeOffId1 . '/products');
         $getResponse = $this->jsonRequest($request, $accessToken);
@@ -694,7 +692,7 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testGetWriteOffProductsActionNotFound()
     {
-        $accessToken = $this->authAsRole('ROLE_DEPARTMENT_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_DEPARTMENT_MANAGER');
 
         $this->clientJsonRequest(
             $accessToken,
@@ -709,7 +707,7 @@ class WriteOffProductControllerTest extends WebTestCase
     {
         $writeOffId = $this->createWriteOff('1', null, $this->storeId, $this->departmentManager);
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $request = new JsonRequest('/api/1/stores/' . $this->storeId . '/writeoffs/' . $writeOffId . '/products');
         $response = $this->jsonRequest($request, $accessToken);
@@ -725,7 +723,7 @@ class WriteOffProductControllerTest extends WebTestCase
         $writeOffId = $this->createWriteOff('1', null, $this->storeId, $this->departmentManager);
         $this->createWriteOffProduct($writeOffId, $productId);
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $writeoffProducts = $this->clientJsonRequest(
             $accessToken,
@@ -764,7 +762,7 @@ class WriteOffProductControllerTest extends WebTestCase
 
         $this->createWriteOffProduct($writeOffId, $productId);
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $writeOffProductsResponse = $this->clientJsonRequest(
             $accessToken,
@@ -813,13 +811,13 @@ class WriteOffProductControllerTest extends WebTestCase
         $expectedCode,
         array $data = null
     ) {
-        $storeId2 = $this->factory->getStore('43');
-        $departmentManager2 = $this->createUser(
+        $storeId2 = $this->factory->store()->getStore('43');
+        $departmentManager2 = $this->factory->user()->getUser(
             'depUser2',
-            Factory::USER_DEFAULT_PASSWORD,
+            UserFactory::USER_DEFAULT_PASSWORD,
             User::ROLE_DEPARTMENT_MANAGER
         );
-        $this->factory->linkDepartmentManagers($departmentManager2->id, $storeId2);
+        $this->factory->store()->linkDepartmentManagers($departmentManager2->id, $storeId2);
 
         $productId = $this->createProduct();
 
@@ -846,8 +844,8 @@ class WriteOffProductControllerTest extends WebTestCase
             $departmentManager2
         );
 
-        $accessToken1 = $this->auth($this->departmentManager);
-        $accessToken2 = $this->auth($departmentManager2);
+        $accessToken1 = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken2 = $this->factory->oauth()->auth($departmentManager2);
 
         if (null !== $data) {
             $data += array(
@@ -927,8 +925,8 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testGetWriteOffProductNotFoundFromAnotherStore()
     {
-        $storeId2 = $this->factory->getStore('43');
-        $this->factory->linkDepartmentManagers($this->departmentManager->id, $storeId2);
+        $storeId2 = $this->factory->store()->getStore('43');
+        $this->factory->store()->linkDepartmentManagers($this->departmentManager->id, $storeId2);
 
         $productId = $this->createProduct();
         $writeOffId = $this->createWriteOff('431', null, $this->storeId, $this->departmentManager);
@@ -942,7 +940,7 @@ class WriteOffProductControllerTest extends WebTestCase
             $this->departmentManager
         );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -986,7 +984,7 @@ class WriteOffProductControllerTest extends WebTestCase
         $writeOffProductId21 = $this->createWriteOffProduct($writeOffId2, $productId1, 120, 37.20);
         $writeOffProductId22 = $this->createWriteOffProduct($writeOffId2, $productId2, 200, 35.80);
 
-        $accessToken = $this->factory->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -1023,7 +1021,7 @@ class WriteOffProductControllerTest extends WebTestCase
         $this->createWriteOffProduct($writeOffId1, $productId2, 0.4, 21.77);
         $this->createWriteOffProduct($writeOffId1, $productId3, 7.77, 42.99);
 
-        $accessToken = $this->factory->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -1065,12 +1063,12 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testPutWithEmptyQuantity()
     {
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
         $productId = $this->createProduct();
         $writeOffId = $this->createWriteOff('111', null, $storeId);
         $writeOffProductId = $this->createWriteOffProduct($writeOffId, $productId, 1, 9.99, 'Порча', $storeId);
 
-        $accessToken = $this->factory->authAsDepartmentManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
 
         $response = $this->clientJsonRequest(
             $accessToken,

@@ -29,7 +29,7 @@ class OrderProductControllerTest extends WebTestCase
                 'quantity' => 1.11,
             );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -167,7 +167,7 @@ class OrderProductControllerTest extends WebTestCase
                 'quantity' => 1.11,
             );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',

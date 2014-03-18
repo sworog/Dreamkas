@@ -91,8 +91,7 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
 
     public function testInventoryRatioCalculation()
     {
-        $storeId = $this->factory->getStore('197');
-        $departmentManager = $this->factory->getDepartmentManager($storeId);
+        $storeId = $this->factory->store()->getStore('197');
         $products = array(
             '12881231' => array(
                 'sold' => 12,
@@ -174,7 +173,7 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
         );
 
         $products = $this->createProducts($products);
-        $this->acceptProducts($products, $storeId, $departmentManager);
+        $this->acceptProducts($products, $storeId);
 
         foreach ($products as $product) {
             $assertions = array('inventory' => $product['accepted']);

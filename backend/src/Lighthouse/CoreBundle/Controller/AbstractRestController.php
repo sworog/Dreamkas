@@ -9,7 +9,6 @@ use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Validator\ViolationMapper\ViolationMapper;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolation;
@@ -58,7 +57,6 @@ abstract class AbstractRestController extends FOSRestController
             } catch (\Exception $e) {
                 throw new FlushFailedException($e, $form);
             }
-            return $document;
         } else {
             return $form;
         }
