@@ -50,6 +50,22 @@ class OrderController extends AbstractRestController
     /**
      * @param Store $store
      * @param Order $order
+     * @param Request $request
+     * @return View|Order
+     *
+     * @Rest\View(statusCode=200)
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @ApiDoc
+     */
+    public function putOrderAction(Store $store, Order $order, Request $request)
+    {
+        $this->checkOrderStore($store, $order);
+        return $this->processForm($request, $order);
+    }
+
+    /**
+     * @param Store $store
+     * @param Order $order
      * @return Order
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc

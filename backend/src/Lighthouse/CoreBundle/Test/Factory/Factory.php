@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Test\Factory;
 
 use Lighthouse\CoreBundle\Document\File\File;
 use Lighthouse\CoreBundle\Document\Order\Order;
+use Lighthouse\CoreBundle\Document\Order\Product\OrderProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Receipt\ReceiptRepository;
@@ -283,5 +284,26 @@ class Factory extends ContainerAwareFactory
         $this->getDocumentManager()->persist($order);
 
         return $order;
+    }
+
+    /**
+     * @param Order $order
+     * @param string $productId
+     * @param int $quantity
+     * @return OrderProduct
+     */
+    public function createOrderProduct(Order $order, $productId, $quantity = 1)
+    {
+        $orderProduct = new OrderProduct();
+        $orderProduct->order = $order;
+        $orderProduct->product = $this->createProductVersion($productId);
+        $orderProduct->quantity = $quantity;
+        $orderProduct->storeProduct = $this->getStoreProduct($order->store->id, $productId);
+
+        $this->getDocumentManager()->persist($orderProduct);
+
+        $order->products->add($orderProduct);
+
+        return $orderProduct;
     }
 }

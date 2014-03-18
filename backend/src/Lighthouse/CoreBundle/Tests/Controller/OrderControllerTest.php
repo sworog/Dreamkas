@@ -568,4 +568,49 @@ class OrderControllerTest extends WebTestCase
         $this->assertResponseCode(201);
         Assert::assertJsonPathEquals(10002, 'number', $response);
     }
+
+    public function testPutOrderAction()
+    {
+        $this->markTestIncomplete();
+
+        $productId1 = $this->createProduct('1');
+        $productId2 = $this->createProduct('2');
+        $productId3 = $this->createProduct('3');
+        $store = $this->factory->store()->getStore();
+        $supplier = $this->factory->createSupplier();
+        $order = $this->factory->createOrder($store, $supplier);
+        $orderProduct1 = $this->factory->createOrderProduct($order, $productId1, 10);
+        $orderProduct2 = $this->factory->createOrderProduct($order, $productId2, 20);
+        $orderProduct3 = $this->factory->createOrderProduct($order, $productId3, 30);
+        $this->factory->flush();
+
+        $this->assertEquals(10001, $order->number);
+
+        $orderData = array(
+            'supplier' => $supplier->id,
+            'products' => array(
+                array(
+                    'id' => $orderProduct1->id,
+                    'product' => $productId1,
+                    'quantity' => 20,
+                ),
+                array(
+                    'product' => $productId2,
+                    'quantity' => 35,
+                ),
+            )
+        );
+
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $store->id . '/orders/' . $order->id,
+            $orderData
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('10001', 'number', $putResponse);
+    }
 }

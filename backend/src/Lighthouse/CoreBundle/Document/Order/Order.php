@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Document\ReferenceCollection;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 use DateTime;
@@ -18,7 +19,7 @@ use DateTime;
  * @property string $id
  * @property Store $store
  * @property Supplier $supplier
- * @property OrderProduct[] $products
+ * @property OrderProduct[]|ArrayCollection $products
  * @property DateTime $createdDate
  *
  * @MongoDB\Document(
