@@ -912,10 +912,10 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testPurchasePriceTotalsAndAmountAreReturnedUsingGetSubcategoryProductsMethod()
     {
-        $groupId = $this->createGroup('1', false);
-        $categoryId = $this->createCategory($groupId, '1.1', false);
-        $subCategoryId1 = $this->createSubCategory($categoryId, '1.1.1', false);
-        $subCategoryId2 = $this->createSubCategory($categoryId, '1.1.2', false);
+        $groupId = $this->createGroup('1');
+        $categoryId = $this->createCategory($groupId, '1.1');
+        $subCategoryId1 = $this->createSubCategory($categoryId, '1.1.1');
+        $subCategoryId2 = $this->createSubCategory($categoryId, '1.1.2');
         $productId1 = $this->createProduct('1', $subCategoryId1);
         $productId2 = $this->createProduct('2', $subCategoryId2);
         $storeId = $this->factory->store()->getStore('666');

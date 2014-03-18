@@ -553,13 +553,13 @@ class WebTestCase extends ContainerAwareTestCase
     {
         $catalogIds = array();
         foreach ($catalog as $groupName => $categories) {
-            $groupId = $this->createGroup($groupName);
+            $groupId = $this->factory->catalog()->createGroup($groupName)->id;
             $catalogIds[$groupName] = $groupId;
             foreach ($categories as $categoryName => $subCategories) {
-                $categoryId = $this->createCategory($groupId, $categoryName);
+                $categoryId = $this->factory->catalog()->createCategory($groupId, $categoryName)->id;
                 $catalogIds[$categoryName] = $categoryId;
                 foreach ($subCategories as $subCategoryName => $void) {
-                    $subCategoryId = $this->createSubCategory($categoryId, $subCategoryName);
+                    $subCategoryId = $this->factory->catalog()->createSubCategory($categoryId, $subCategoryName)->id;
                     $catalogIds[$subCategoryName] = $subCategoryId;
                 }
             }
@@ -653,44 +653,28 @@ class WebTestCase extends ContainerAwareTestCase
     /**
      * @deprecated
      * @param string $name
-     * @param bool $ifNotExists
-     * @param mixed $retailMarkupMin
-     * @param mixed $retailMarkupMax
-     * @param string $rounding
      * @return string
      */
-    protected function createGroup(
-        $name = 'Продовольственные товары',
-        $ifNotExists = true,
-        $retailMarkupMin = null,
-        $retailMarkupMax = null,
-        $rounding = 'nearest1'
-    ) {
-        return $this->factory->catalog()->createGroup($name, $rounding, $retailMarkupMin, $retailMarkupMax)->id;
+    protected function createGroup($name = 'Продовольственные товары')
+    {
+        return $this->factory->catalog()->createGroup($name)->id;
     }
 
     /**
      * @deprecated
      * @param string $groupId
      * @param string $name
-     * @param bool $ifNotExists
-     * @param string $rounding
      * @return string
      */
-    protected function createCategory(
-        $groupId = null,
-        $name = 'Винно-водочные изделия',
-        $ifNotExists = true,
-        $rounding = 'nearest1'
-    ) {
-        return $this->factory->catalog()->createCategory($groupId, $name, $rounding)->id;
+    protected function createCategory($groupId = null, $name = 'Винно-водочные изделия')
+    {
+        return $this->factory->catalog()->createCategory($groupId, $name)->id;
     }
 
     /**
      * @deprecated
      * @param string $categoryId
      * @param string $name
-     * @param bool $ifNotExists
      * @return string
      */
     protected function createSubCategory($categoryId = null, $name = 'Водка')
