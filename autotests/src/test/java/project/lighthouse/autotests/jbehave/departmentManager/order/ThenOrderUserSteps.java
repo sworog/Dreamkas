@@ -15,6 +15,11 @@ public class ThenOrderUserSteps {
         orderSteps.productCollectionExactCompare(examplesTable);
     }
 
+    @Then("the user checks the order product found by name '$locator' has quantity equals to expectedValue")
+    public void thenTheUserChecksTheOrderProductFoundByNameHasQuantityEqualsTo(String locator, String expectedValue) {
+        orderSteps.assertOrderProductObjectQuantity(locator, expectedValue);
+    }
+
     @Then("the user checks the order total sum is '$expectedTotalSum'")
     public void thenTheUserChecksTheOrderTotalSum(String expectedTotalSum) {
         orderSteps.assertTotalSum(expectedTotalSum);
@@ -23,6 +28,11 @@ public class ThenOrderUserSteps {
     @Then("the user checks the filled autocomplete values in product addition form $examplesTable")
     public void thenTheUserChecksTheFilledAutoCompleteValues(ExamplesTable examplesTable) {
         orderSteps.checksValues(examplesTable);
+    }
+
+    @Then("the user checks the autocomplete values $examplesTable")
+    public void thenTheUserChecksTheAdditionProductFormValues(ExamplesTable examplesTable) {
+        orderSteps.additionFormCheckValues(examplesTable);
     }
 
     @Then("the user asserts the order field label with name '$elementName'")
