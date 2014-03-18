@@ -9,7 +9,7 @@ Narrative:
 Scenario: Supplier option is required
 
 Meta:
-@id_s30u63s11
+@id_s30u63s16
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
@@ -25,7 +25,7 @@ Then the user sees error messages
 Scenario: Cannot create order without product
 
 Meta:
-@id_s30u63s12
+@id_s30u63s17
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
@@ -45,7 +45,7 @@ Then the user sees error messages
 Scenario: Addition product form - autocomplete is required
 
 Meta:
-@id_s30u63s13
+@id_s30u63s18
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
@@ -68,7 +68,7 @@ Then the user sees error messages
 Scenario: Addition product form - quantity is required
 
 Meta:
-@id_s30u63s14
+@id_s30u63s19
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
@@ -91,7 +91,7 @@ Then the user sees error messages
 Scenario: Addition product form - autocomplete validation
 
 Meta:
-@id_s30u63s15
+@id_s30u63s20
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
@@ -115,7 +115,7 @@ Then the user sees error messages
 Scenario: Addition product form - quantity positive validation
 
 Meta:
-@id
+@id_s30u63s21
 
 Given there is the supplier with name 'supplier-s30u63s1'
 And there is the subCategory with name 'defaultSubCategory-s30u63' related to group named 'defaultGroup-s30u63' and category named 'defaultCategory-s30u63'
@@ -153,7 +153,7 @@ Examples:
 Scenario: Addition product form - quantity negative validation
 
 Meta:
-@id_s30u63s16
+@id_s30u63s22
 
 Given there is the supplier with name 'supplier-s30u63s1'
 And there is the subCategory with name 'defaultSubCategory-s30u63' related to group named 'defaultGroup-s30u63' and category named 'defaultCategory-s30u63'
@@ -199,7 +199,7 @@ Examples:
 Scenario: Cannot create order if departmantManager dont have store
 
 Meta:
-@id_s30u63s17
+@id_s30u63s23
 
 Given there is the user with name 'departmentManager-s30u63-no-store', position 'departmentManager-s30u63-no-store', username 'departmentManager-s30u63-no-store', password 'lighthouse', role 'departmentManager'
 And the user opens the authorization page
@@ -210,7 +210,7 @@ Then the user checks the orders navigation menu item is not visible
 Scenario: Cannot create order throug link if departmantManager dont have store
 
 Meta:
-@id_s30u63s18
+@id_s30u63s24
 
 Given there is the user with name 'departmentManager-s30u63-no-store', position 'departmentManager-s30u63-no-store', username 'departmentManager-s30u63-no-store', password 'lighthouse', role 'departmentManager'
 And the user opens order create page
@@ -221,7 +221,7 @@ Then the user sees the 403 error
 Scenario: Cannot view order list throug link if departmantManager dont have store
 
 Meta:
-@id_s30u63s19
+@id_s30u63s25
 
 Given there is the user with name 'departmentManager-s30u63-no-store', position 'departmentManager-s30u63-no-store', username 'departmentManager-s30u63-no-store', password 'lighthouse', role 'departmentManager'
 And the user opens orders list page
@@ -232,7 +232,7 @@ Then the user sees the 403 error
 Scenario: The order product addition form fields should be cleared after adding order product
 
 Meta:
-@id
+@id_s30u63s26
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 

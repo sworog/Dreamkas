@@ -46,7 +46,7 @@ Then the user sees no error messages
 Scenario: Order create with three products
 
 Meta:
-@id
+@id_s30u63s2
 @order
 @smoke
 @description simple order create with three products
@@ -110,7 +110,7 @@ Then the user sees no error messages
 Scenario: Verify product all data found by autocomplete in addittion form
 
 Meta:
-@id_s30u63s2
+@id_s30u63s3
 @smoke
 @description verifying product data when the product is choosen by autocomplete
 
@@ -135,7 +135,7 @@ Then the user checks the filled autocomplete values in product addition form
 Scenario: Verify product inventory found by autocomplete in addittion form if there is invoice already
 
 Meta:
-@id_s30u63s3
+@id_s30u63s4
 @description verifying product inventory if there is invoice already when the product is choosen by autocomplete
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story,
@@ -155,7 +155,7 @@ Then the user checks the filled autocomplete values in product addition form
 Scenario: Verify product inventory found by autocomplete in addittion form if there is writeOff already
 
 Meta:
-@id_s30u63s4
+@id_s30u63s5
 @description verifying product inventory if there is writeOff already when the product is choosen by autocomplete
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story,
@@ -175,7 +175,7 @@ Then the user checks the filled autocomplete values in product addition form
 Scenario: Verify product sum calculation with dot
 
 Meta:
-@id_s30u63s5
+@id_s30u63s6
 @smoke
 @description verifying product sum calculation
 
@@ -196,7 +196,7 @@ Then the user checks the filled autocomplete values in product addition form
 Scenario: Verify product sum calculation with comma
 
 Meta:
-@id_s30u63s6
+@id_s30u63s7
 @smoke
 @description verifying product sum calculation
 
@@ -217,7 +217,7 @@ Then the user checks the filled autocomplete values in product addition form
 Scenario: Verify product sum calculation with big amount
 
 Meta:
-@id_s30u63s6
+@id_s30u63s8
 @smoke
 @description verifying product sum calculation
 
@@ -238,7 +238,7 @@ Then the user checks the filled autocomplete values in product addition form
 Scenario: Verify autocomplete product with no price is choosen
 
 Meta:
-@id
+@id_s30u63s9
 
 Given there is the user with name 'departmentManager-s30u63', position 'departmentManager-s30u63', username 'departmentManager-s30u63', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s30u63' managed by department manager named 'departmentManager-s30u63'
@@ -263,7 +263,7 @@ Then the user checks the order products list contains entry
 Scenario: Verify autocomplete product with price with no mark up is choosen
 
 Meta:
-@id
+@id_s30u63s10
 
 Given there is the user with name 'departmentManager-s30u63', position 'departmentManager-s30u63', username 'departmentManager-s30u63', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s30u63' managed by department manager named 'departmentManager-s30u63'
