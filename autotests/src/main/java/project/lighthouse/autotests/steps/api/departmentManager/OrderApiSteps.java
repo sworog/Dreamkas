@@ -22,8 +22,11 @@ public class OrderApiSteps extends ScenarioSteps {
     }
 
     public void openOrderPage() throws JSONException {
-        String orderId = order.getId();
-        String url = String.format("%s/orders/%s", UrlHelper.getWebFrontUrl(), orderId);
+        String url = String.format(
+                "%s/stores/%s/orders/%s",
+                UrlHelper.getWebFrontUrl(),
+                order.getStoreId(),
+                order.getId());
         getDriver().navigate().to(url);
     }
 }
