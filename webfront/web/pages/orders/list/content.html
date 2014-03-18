@@ -15,14 +15,14 @@
     <% if (collections.orders.length) { %>
     <table class="table">
         <% collections.orders.forEach(function(orderModel){ %>
-            <tr href="/stores/<%- orderModel.get('store.id') %>/orders/<%- orderModel.id %>">
-                <td>
+            <tr name="order" href="/orders/<%- orderModel.id %>">
+                <td name="orderNumber">
                     <%- orderModel.get('number') %>
                 </td>
-                <td>
+                <td name="orderSupplier">
                     <%- orderModel.get('supplier.name') %>
                 </td>
-                <td>
+                <td name="orderDate">
                     <%- LH.formatDate(orderModel.get('createdDate')) %>
                 </td>
             </tr>

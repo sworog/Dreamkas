@@ -15,16 +15,24 @@ define(function(require, exports, module) {
                 products: new OrderProductsCollection()
             }
         },
-        saveData: function(){
+        saveData: function() {
             return {
                 supplier: this.get('supplier'),
-                products: this.get('collections.products').map(function(productModel){
+                products: this.get('collections.products').map(function(productModel) {
                     return {
                         product: productModel.get('product.product.id'),
                         quantity: productModel.get('quantity')
                     }
                 })
             }
+        },
+        parse: function(data) {
+
+            data.collections = {
+                products: new OrderProductsCollection(data.products)
+            };
+
+            return data;
         }
     });
 });

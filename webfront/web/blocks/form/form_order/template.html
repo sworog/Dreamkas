@@ -14,7 +14,8 @@
         <select class="select" name="supplier">
             <option value="" selected disabled>Выберите поставщика</option>
             <% collections.suppliers.forEach(function(supplierModel){ %>
-            <option value="<%- supplierModel.id %>"><%- supplierModel.get('name') %></option>
+            <% var selected = supplierModel.id === model.get('supplier.id') %>
+            <option <%- selected ? 'selected' : ''%> value="<%- supplierModel.id %>"><%- supplierModel.get('name') %></option>
             <% }) %>
         </select>
     </div>
