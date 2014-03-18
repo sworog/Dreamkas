@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.junit.Assert;
-import project.lighthouse.autotests.objects.web.order.OrderProductObject;
+import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductObject;
 import project.lighthouse.autotests.pages.departmentManager.order.OrderPage;
 import project.lighthouse.autotests.pages.departmentManager.order.OrdersListPage;
 

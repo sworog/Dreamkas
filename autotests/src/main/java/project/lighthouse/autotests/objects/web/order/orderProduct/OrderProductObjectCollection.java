@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects.web.order;
+package project.lighthouse.autotests.objects.web.order.orderProduct;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
