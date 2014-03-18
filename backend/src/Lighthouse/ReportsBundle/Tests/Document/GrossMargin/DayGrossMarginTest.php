@@ -14,8 +14,8 @@ class DayGrossMarginTest extends WebTestCase
         $costOfGoodsCalculator = $this->getCostOfGoodsCalculator();
         $dayGrossMarginRepository = $this->getDayGrossMarginRepository();
 
-        $store = $this->factory->getStore("1");
-        $store2 = $this->factory->getStore("2");
+        $store = $this->factory->store()->getStoreId("1");
+        $store2 = $this->factory->store()->getStoreId("2");
         $product = $this->createProduct("1");
 
 

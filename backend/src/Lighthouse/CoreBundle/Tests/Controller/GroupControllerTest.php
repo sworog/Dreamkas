@@ -17,7 +17,7 @@ class GroupControllerTest extends WebTestCase
             'rounding' => 'nearest1'
         );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -38,7 +38,7 @@ class GroupControllerTest extends WebTestCase
             'name' => 'Продовольственные товары',
         );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -58,7 +58,7 @@ class GroupControllerTest extends WebTestCase
     {
         $groupId = $this->createGroup('Алкоголь');
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -121,7 +121,7 @@ class GroupControllerTest extends WebTestCase
             'rounding' => 'nearest1',
         );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -267,7 +267,7 @@ class GroupControllerTest extends WebTestCase
             'rounding' => 'nearest1',
         );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -289,7 +289,7 @@ class GroupControllerTest extends WebTestCase
     {
         $groupId = $this->createGroup('Прод Тов');
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -319,7 +319,9 @@ class GroupControllerTest extends WebTestCase
         $this->createSubCategory($categoryId2, '1.2.3');
         $this->createSubCategory($categoryId2, '1.2.4');
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $this->client->shutdownKernelBeforeRequest();
+
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -346,7 +348,7 @@ class GroupControllerTest extends WebTestCase
             $groupIds[$i] = $this->createGroup('Прод Тов' . $i);
         }
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -370,7 +372,7 @@ class GroupControllerTest extends WebTestCase
             'name' => 'Прод Тов',
         );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -387,7 +389,7 @@ class GroupControllerTest extends WebTestCase
     {
         $groupId = $this->createGroup();
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $this->clientJsonRequest(
             $accessToken,
@@ -421,7 +423,7 @@ class GroupControllerTest extends WebTestCase
         $this->createCategory($groupId, '1');
         $this->createCategory($groupId, '2');
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $this->clientJsonRequest(
             $accessToken,
@@ -439,7 +441,9 @@ class GroupControllerTest extends WebTestCase
         $categoryId1 = $this->createCategory($groupId, '1');
         $categoryId2 = $this->createCategory($groupId, '2');
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $this->client->shutdownKernelBeforeRequest();
+
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -468,7 +472,7 @@ class GroupControllerTest extends WebTestCase
 
         $url = str_replace('__GROUP_ID__', $groupId, $url);
 
-        $accessToken = $this->authAsRole($role);
+        $accessToken = $this->factory->oauth()->authAsRole($role);
 
         $requestData += array(
             'name' => 'Алкоголь',
@@ -637,14 +641,14 @@ class GroupControllerTest extends WebTestCase
      */
     public function testGetStoreGroupStoreManagerHasStore($role, $rel)
     {
-        $manager = $this->createUser('Василий Петрович Краузе', 'password', $role);
+        $manager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
 
         $groupId = $this->createGroup();
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStoreId();
 
-        $this->factory->linkManagers($storeId, $manager->id, $rel);
+        $this->factory->store()->linkManagers($storeId, $manager->id, $rel);
 
-        $accessToken = $this->auth($manager, 'password');
+        $accessToken = $this->factory->oauth()->auth($manager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -664,15 +668,15 @@ class GroupControllerTest extends WebTestCase
      */
     public function testGetStoreGroupStoreManagerFromAnotherStore($role, $rel)
     {
-        $manager = $this->createUser('Василий Петрович Краузе', 'password', $role);
+        $manager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
 
         $groupId = $this->createGroup();
-        $storeId1 = $this->factory->getStore('42');
-        $storeId2 = $this->factory->getStore('43');
+        $storeId1 = $this->factory->store()->getStoreId('42');
+        $storeId2 = $this->factory->store()->getStoreId('43');
 
-        $this->factory->linkManagers($storeId1, $manager->id, $rel);
+        $this->factory->store()->linkManagers($storeId1, $manager->id, $rel);
 
-        $accessToken = $this->auth($manager, 'password');
+        $accessToken = $this->factory->oauth()->auth($manager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -691,12 +695,12 @@ class GroupControllerTest extends WebTestCase
      */
     public function testGetStoreGroupStoreManagerHasNoStore($role)
     {
-        $manager = $this->getRoleUser($role);
+        $manager = $this->factory->user()->getRoleUser($role);
 
         $groupId = $this->createGroup();
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStoreId();
 
-        $accessToken = $this->auth($manager, 'password');
+        $accessToken = $this->factory->oauth()->auth($manager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -715,17 +719,18 @@ class GroupControllerTest extends WebTestCase
      * @dataProvider storeRolesProvider
      */
     public function testGetStoreGroupsStoreManagerHasStore($role, $rel)
-    {        $manager = $this->getRoleUser($role);
+    {
+        $manager = $this->factory->user()->getRoleUser($role);
 
         $groupId1 = $this->createGroup('1');
         $groupId2 = $this->createGroup('2');
         $groupId3 = $this->createGroup('3');
 
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStoreId();
 
-        $this->factory->linkManagers($storeId, $manager->id, $rel);
+        $this->factory->store()->linkManagers($storeId, $manager->id, $rel);
 
-        $accessToken = $this->auth($manager, 'password');
+        $accessToken = $this->factory->oauth()->auth($manager);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -758,7 +763,7 @@ class GroupControllerTest extends WebTestCase
             'rounding' => 'nearest1'
         );
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $jsonRequest = new JsonRequest('/api/1/groups', 'POST', $groupData);
         $jsonRequest->setAccessToken($accessToken);

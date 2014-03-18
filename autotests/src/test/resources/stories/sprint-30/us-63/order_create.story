@@ -35,7 +35,7 @@ And the user clicks the add order product button
 
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |
-| name-3063 | шт. | 5 | 100,00 | 500,00 |
+| name-3063 | шт. | 5,0 | 100,00 | 500,00 |
 
 And the user checks the order total sum is 'Итого: 500,00 руб'
 
@@ -86,7 +86,8 @@ And the user clicks the add order product button
 
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |
-| name-306301 | литр | 5,67 | 78,90 | 447,36 |
+| name-3063 | шт. | 5,7 | 100,00 | 570,00 |
+| name-306301 | л | 5,67 | 78,90 | 447,36 |
 
 When the user inputs values on order page
 | elementName | value |
@@ -99,9 +100,11 @@ And the user clicks the add order product button
 
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |
-| name-306302 | кг | 45,789 | 56,78 | 2 599,89 |
+| name-3063 | шт. | 5,7 | 100,00 | 570,00 |
+| name-306301 | л | 5,67 | 78,90 | 447,36 |
+| name-306302 | кг | 45,789 | 56,78 | 2 599,90 |
 
-And the user checks the order total sum is 'Итого: 3 617,35 руб'
+And the user checks the order total sum is 'Итого: 3 617,26 руб'
 
 When the user clicks the save order button
 
@@ -258,7 +261,7 @@ When the user clicks the add order product button
 
 Then the user checks the order products list contains entry
 | name | units | quantity | retailPrice | totalSum |
-| name-30631 | шт. | 5 | 0,00 | 0,00 |
+| name-30631 | шт. | 5,0 | 0,00 | 0,00 |
 
 Scenario: Verify autocomplete product with price with no mark up is choosen
 
@@ -283,4 +286,4 @@ When the user clicks the add order product button
 
 Then the user checks the order products list contains entry
 | name | units | quantity | retailPrice | totalSum |
-| name-30632 | шт. | 5 | 100,00 | 500,00 |
+| name-30632 | шт. | 5,0 | 100,00 | 500,00 |

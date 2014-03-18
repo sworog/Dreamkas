@@ -7,6 +7,7 @@ use Symfony\Component\BrowserKit\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Symfony\Component\HttpKernel\Profiler\Profiler;
 use Symfony\Component\HttpKernel\TerminableInterface;
 use Closure;
 use Symfony\Component\Process\PhpProcess;
@@ -14,7 +15,7 @@ use Symfony\Component\Process\PhpProcess;
 class Client extends BaseClient
 {
     /**
-     * @var KernelInterface
+     * @var KernelInterface|TerminableInterface
      */
     protected $kernel;
 
@@ -42,6 +43,14 @@ class Client extends BaseClient
     protected function createCrawlerFromContent($uri, $content, $type)
     {
         return null;
+    }
+
+    /**
+     *
+     */
+    public function shutdownKernelBeforeRequest()
+    {
+        $this->hasPerformedRequest = true;
     }
 
     /**
@@ -114,7 +123,9 @@ class Client extends BaseClient
             $this->profiler = false;
 
             $this->kernel->boot();
-            $this->kernel->getContainer()->get('profiler')->enable();
+            /* @var Profiler $profiler */
+            $profiler = $this->kernel->getContainer()->get('profiler');
+            $profiler->enable();
         }
 
         $response = $this->kernel->handle($request, HttpKernelInterface::MASTER_REQUEST, true);

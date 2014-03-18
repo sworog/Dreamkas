@@ -54,11 +54,11 @@ class InvoicesImporterTest extends WebTestCase
     public function testImport()
     {
         $this->markTestSkipped();
-        $storeId1 = $this->factory->createStore(1, 'Магазин Галерея');
-        $storeId2 = $this->factory->createStore(2, 'СитиМолл');
-        $storeId3 = $this->factory->createStore(3, 'ТК Невский 104');
-        $storeId4 = $this->factory->createStore(4, 'ТК НОРД 1-44');
-        $storeId5 = $this->factory->createStore(5, 'ТК Пик');
+        $storeId1 = $this->factory->store()->getStoreId(1, 'Магазин Галерея');
+        $storeId2 = $this->factory->store()->getStoreId(2, 'СитиМолл');
+        $storeId3 = $this->factory->store()->getStoreId(3, 'ТК Невский 104');
+        $storeId4 = $this->factory->store()->getStoreId(4, 'ТК НОРД 1-44');
+        $storeId5 = $this->factory->store()->getStoreId(5, 'ТК Пик');
 
         $this->createProductsBySku(
             array(
@@ -213,7 +213,7 @@ class InvoicesImporterTest extends WebTestCase
     public function testImportProductNotFound()
     {
         $this->markTestSkipped();
-        $this->factory->createStore(1, 'Магазин Галерея');
+        $this->factory->store()->getStoreId(1, 'Магазин Галерея');
 
         $this->createProductsBySku(
             array(
@@ -248,9 +248,9 @@ class InvoicesImporterTest extends WebTestCase
 
     public function testImportNoStoreInInvoiceRow()
     {
-        $storeId1 = $this->factory->createStore(1, 'Авиаконструкторов 2');
-        $storeId2 = $this->factory->createStore(2, 'Есенина 1');
-        $storeId3 = $this->factory->createStore(3, 'Металлистов, 116 (МЕ)');
+        $storeId1 = $this->factory->store()->getStoreId(1, 'Авиаконструкторов 2');
+        $storeId2 = $this->factory->store()->getStoreId(2, 'Есенина 1');
+        $storeId3 = $this->factory->store()->getStoreId(3, 'Металлистов, 116 (МЕ)');
 
         $this->createProductsBySku(
             array(

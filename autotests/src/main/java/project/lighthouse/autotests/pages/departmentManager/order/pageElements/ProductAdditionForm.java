@@ -6,6 +6,7 @@ import project.lighthouse.autotests.elements.Autocomplete;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Input;
 import project.lighthouse.autotests.elements.NonType;
+import project.lighthouse.autotests.elements.preLoader.PreLoader;
 
 public class ProductAdditionForm extends CommonPageObject {
 
@@ -24,5 +25,6 @@ public class ProductAdditionForm extends CommonPageObject {
 
     public void addButtonClick() {
         new ButtonFacade(this, "Добавить в заказ").click();
+        new PreLoader(getDriver()).await();
     }
 }
