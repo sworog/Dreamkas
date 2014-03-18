@@ -66,7 +66,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     }
 
     public void elementClick(String elementName) {
-        items.get(elementName).getWebElement().click();
+        getItems().get(elementName).getWebElement().click();
     }
 
     public void acceptChangesButtonClick() throws InterruptedException {
@@ -107,7 +107,7 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
 
     @Deprecated
     public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
-        By findBy = items.get(parentElementName).getFindBy();
+        By findBy = getItems().get(parentElementName).getFindBy();
         commonViewInterface.childrenItemClickByFindByLocator(elementName, findBy);
     }
 

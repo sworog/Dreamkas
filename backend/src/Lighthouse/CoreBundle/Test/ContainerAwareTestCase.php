@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Test;
 use AppKernel;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Karzer\Framework\TestCase\SymfonyWebTestCase;
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Job\JobManager;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -80,10 +81,19 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
 
     protected function clearMongoDb()
     {
+        $this->clearIncNumberCollection();
+
         $mongoDb = $this->getDocumentManager();
         $mongoDb->getSchemaManager()->dropCollections();
         $mongoDb->getSchemaManager()->createCollections();
         $mongoDb->getSchemaManager()->ensureIndexes();
+    }
+
+    protected function clearIncNumberCollection()
+    {
+        $collection = $this->getContainer()->getParameter('doctrine_mongodb.odm.generator.increment.collection');
+        $db = $this->getDocumentManager()->getDocumentDatabase(Product::getClassName());
+        $db->dropCollection($collection);
     }
 
     protected function clearJobs()

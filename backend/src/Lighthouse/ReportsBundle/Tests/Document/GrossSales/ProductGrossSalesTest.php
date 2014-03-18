@@ -26,8 +26,8 @@ class ProductGrossSalesTest extends WebTestCase
 
     public function testCalculateProductGrossSalesHourSumCalculate()
     {
-        $storeId = $this->createStore('1');
-        $storeOtherId = $this->createStore('Other');
+        $storeId = $this->factory->store()->getStore('1');
+        $storeOtherId = $this->factory->store()->getStore('Other');
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
         $product3Id = $this->createProduct('3');

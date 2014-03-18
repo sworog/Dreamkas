@@ -2,6 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
+use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class SubCategoryType extends ClassifierNodeType
@@ -18,7 +20,7 @@ class SubCategoryType extends ClassifierNodeType
                 'category',
                 'reference',
                 array(
-                    'class' => 'Lighthouse\\CoreBundle\\Document\\Classifier\\Category\\Category',
+                    'class' => Category::getClassName(),
                     'invalid_message' => 'lighthouse.validation.errors.subCategory.category.does_not_exists'
                 )
             );
@@ -31,6 +33,6 @@ class SubCategoryType extends ClassifierNodeType
      */
     protected function getDataClass()
     {
-        return 'Lighthouse\\CoreBundle\\Document\\Classifier\\SubCategory\\SubCategory';
+        return SubCategory::getClassName();
     }
 }

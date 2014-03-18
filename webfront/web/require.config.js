@@ -1,6 +1,5 @@
 require.config({
     paths: {
-
         //deprecated libs
         'backbone.syphon': 'libs/backbone.syphon',
         'jquery.ui': 'libs/jquery-ui/ui/minified/jquery-ui.min',
@@ -8,7 +7,7 @@ require.config({
         'jquery.require': 'libs/jquery.require',
         'jquery.maskedinput': 'libs/jquery.maskedinput',
 
-        //libs
+        //bower_components
         'backbone': 'bower_components/backbone/backbone',
         'moment': 'bower_components/momentjs/moment',
         'cookies': 'bower_components/cookies-js/src/cookies',
@@ -19,7 +18,11 @@ require.config({
         'when': 'bower_components/when/when',
         'lodash': 'bower_components/lodash/dist/lodash',
         'jquery': 'bower_components/jquery/dist/jquery',
+
+        //kit
         'templateCompiler': 'kit/utils/templateCompiler',
+        'block': 'kit/block/block',
+        'router': 'kit/router/router',
 
         //requirejs plugins
         'amd-loader': 'bower_components/amd-loader/amd-loader',

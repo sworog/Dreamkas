@@ -22,9 +22,9 @@ public class WriteOffListPage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("writeOff list page date", new NonType(this, "date"));
-        items.put("writeOff list page number", new NonType(this, "number"));
-        items.put("writeOff list page sumTotal", new NonType(this, "sumTotal"));
+        put("writeOff list page date", new NonType(this, "date"));
+        put("writeOff list page number", new NonType(this, "number"));
+        put("writeOff list page sumTotal", new NonType(this, "sumTotal"));
     }
 
     public void listItemCheck(String skuValue) {
@@ -32,7 +32,7 @@ public class WriteOffListPage extends CommonPageObject {
     }
 
     public void checkListItemHasExpectedValueByFindByLocator(String value, String elementName, String expectedValue) {
-        By findBy = items.get(elementName).getFindBy();
+        By findBy = getItems().get(elementName).getFindBy();
         commonViewInterface.checkListItemHasExpectedValueByFindByLocator(value, elementName, findBy, expectedValue);
     }
 }

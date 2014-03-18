@@ -17,9 +17,9 @@ public class StoreListPage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("number", new NonType(this, "number"));
-        items.put("address", new NonType(this, "address"));
-        items.put("contacts", new NonType(this, "contacts"));
+        put("number", new NonType(this, "number"));
+        put("address", new NonType(this, "address"));
+        put("contacts", new NonType(this, "contacts"));
     }
 
     public void createNewStoreButtonClick() {

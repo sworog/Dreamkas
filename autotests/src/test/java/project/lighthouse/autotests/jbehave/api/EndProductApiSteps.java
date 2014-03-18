@@ -7,6 +7,7 @@ import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import org.junit.Assert;
 import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.helper.UUIDGenerator;
 import project.lighthouse.autotests.objects.api.Category;
 import project.lighthouse.autotests.objects.api.Group;
 import project.lighthouse.autotests.objects.api.Product;
@@ -168,5 +169,12 @@ public class EndProductApiSteps {
     public void givenTheUserNavigatesToTheProdcutWithSku(String sku) throws JSONException, IOException {
         givenThereIsCreatedProductWithSkuValue(sku, "0,01");
         givenTheUserNavigatesToTheProduct(sku);
+    }
+
+    @Given("the user navigates to the product with random name")
+    public void givenTheUserNavigatesToTheProductWithRandomName() throws IOException, JSONException {
+        String uuid = new UUIDGenerator().generate();
+        givenThereIsCreatedProductWithSkuValue(uuid, "0,01");
+        givenTheUserNavigatesToTheProduct(uuid);
     }
 }

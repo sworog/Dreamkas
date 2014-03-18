@@ -22,7 +22,7 @@ class DocumentToIdTransformer implements DataTransformerInterface
     protected $documentManager;
 
     /**
-     * @var DocumentRepository
+     * @var DocumentRepository|VersionRepository
      */
     protected $repository;
 

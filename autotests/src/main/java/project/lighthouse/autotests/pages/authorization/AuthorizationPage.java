@@ -33,8 +33,8 @@ public class AuthorizationPage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("userName", new Input(this, "username"));
-        items.put("password", new Input(this, "password"));
+        put("userName", new Input(this, "username"));
+        put("password", new Input(this, "password"));
     }
 
     public void authorization(String userName) {

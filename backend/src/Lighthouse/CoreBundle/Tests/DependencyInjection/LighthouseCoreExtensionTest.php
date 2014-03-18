@@ -42,6 +42,7 @@ class LighthouseCoreExtensionTest extends TestCase
         $extension->load($config, $containerMock);
 
         $expectedValues = array(
+            'doctrine_mongodb.odm.generator.increment.collection',
             'test.client.class',
             'lighthouse.core.job.tube.prefix',
             'lighthouse.core.job.worker.max_runtime',

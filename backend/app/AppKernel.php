@@ -2,6 +2,7 @@
 
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Karzer\Karzer;
 
 class AppKernel extends Kernel
 {
@@ -58,7 +59,7 @@ class AppKernel extends Kernel
     public function getCacheDir()
     {
         if (null === $this->cacheDir) {
-            $this->setCacheDir(parent::getCacheDir() . Karzer\Karzer::getThreadName());
+            $this->setCacheDir(parent::getCacheDir() . Karzer::getThreadName());
         }
         return $this->cacheDir;
     }
@@ -77,7 +78,26 @@ class AppKernel extends Kernel
     protected function getKernelParameters()
     {
         $parameters = parent::getKernelParameters();
-        $parameters['karzer.thread'] = Karzer\Karzer::getThreadName();
+        $parameters['karzer.thread'] = Karzer::getThreadName();
         return $parameters;
+    }
+
+    /**
+     * @return string
+     */
+    public function serialize()
+    {
+        return serialize(array($this->environment, $this->debug, Karzer::getThreadNumber()));
+    }
+
+    /**
+     * @param string $data
+     */
+    public function unserialize($data)
+    {
+        list($environment, $debug, $karzerThreadNumber) = unserialize($data);
+
+        Karzer::setThreadNumber($karzerThreadNumber);
+        $this->__construct($environment, $debug);
     }
 }

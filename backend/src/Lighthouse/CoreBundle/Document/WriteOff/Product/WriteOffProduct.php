@@ -81,7 +81,7 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
     protected $cause;
 
     /**
-     * @Assert\NotBlank(message="lighthouse.validation.errors.product.does_not_exist")
+     * @Assert\NotBlank
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Product\Version\ProductVersion",
      *     simple=true,

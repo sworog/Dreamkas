@@ -266,7 +266,7 @@ public class InvoiceSteps extends ScenarioSteps {
 
     @Step
     public void checkTheCheckBoxText(String itemName, String text) {
-        String actualText = invoiceBrowsing.items.get(itemName).getVisibleWebElement().findElement(By.xpath(".//..")).getText();
+        String actualText = invoiceBrowsing.getItems().get(itemName).getVisibleWebElement().findElement(By.xpath(".//..")).getText();
         Assert.assertEquals(text, actualText);
     }
 

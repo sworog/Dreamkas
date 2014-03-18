@@ -10,7 +10,7 @@ class SupplierControllerTest extends WebTestCase
 {
     public function testPost()
     {
-        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $postData = array(
             'name' => 'ООО "ЕвроАрт"',
             'agreement' => null,
@@ -42,7 +42,7 @@ class SupplierControllerTest extends WebTestCase
             'name' => '',
             'agreement' => $file->id
         );
-        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -127,7 +127,7 @@ class SupplierControllerTest extends WebTestCase
      */
     public function testPostDuplicateName($firstName, $secondName)
     {
-        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $postData = array(
             'name' => $firstName
         );
@@ -177,7 +177,7 @@ class SupplierControllerTest extends WebTestCase
         $supplier = $this->factory->createSupplier('ООО "ЕврейАрт"');
         $this->factory->flush();
 
-        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $putData = array(
             'name' => 'ООО "ЕвроАрт"'
         );
@@ -205,7 +205,7 @@ class SupplierControllerTest extends WebTestCase
         $file = $this->factory->createFile();
         $this->factory->flush();
 
-        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $putData = $data + array('agreement' => $file->id);
 
         $putResponse = $this->clientJsonRequest(
@@ -227,7 +227,7 @@ class SupplierControllerTest extends WebTestCase
         $this->factory->createSupplier('3');
         $this->factory->flush();
 
-        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -254,7 +254,7 @@ class SupplierControllerTest extends WebTestCase
         $this->factory->createSupplier('3');
         $this->factory->flush();
 
-        $accessToken = $this->factory->authAsRole($role);
+        $accessToken = $this->factory->oauth()->authAsRole($role);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -284,7 +284,7 @@ class SupplierControllerTest extends WebTestCase
         $this->factory->createSupplier('2');
         $this->factory->flush();
 
-        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -304,7 +304,7 @@ class SupplierControllerTest extends WebTestCase
         $this->factory->createSupplier('2');
         $this->factory->flush();
 
-        $accessToken = $this->factory->authAsRole($role);
+        $accessToken = $this->factory->oauth()->authAsRole($role);
         $this->clientJsonRequest(
             $accessToken,
             'GET',

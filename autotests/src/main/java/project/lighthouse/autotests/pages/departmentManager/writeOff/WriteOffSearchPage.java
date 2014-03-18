@@ -16,7 +16,7 @@ public class WriteOffSearchPage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("number", new Input(this, "number"));
+        put("number", new Input(this, "number"));
     }
 
     public WriteOffSearchObjectCollection getWriteOffSearchObjectCollection() {

@@ -1,9 +1,8 @@
 define(function(require) {
-    var Block = require('kit/core/block');
+    var Block = require('kit/core/block'),
+        router = require('router');
 
     require('backbone');
-
-    var router = new Backbone.Router();
 
     return new (Block.extend({
         __name__: 'page',

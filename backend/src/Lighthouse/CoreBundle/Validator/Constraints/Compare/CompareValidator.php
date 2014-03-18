@@ -18,7 +18,7 @@ abstract class CompareValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         if (!$value instanceof AbstractDocument) {
-            throw new UnexpectedTypeException($value, 'Lighthouse\\CoreBundle\\Document\\AbstractDocument');
+            throw new UnexpectedTypeException($value, AbstractDocument::getClassName());
         }
 
         $accessor = PropertyAccess::createPropertyAccessor();

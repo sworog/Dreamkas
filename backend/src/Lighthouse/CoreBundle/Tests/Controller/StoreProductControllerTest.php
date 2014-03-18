@@ -32,17 +32,21 @@ class StoreProductControllerTest extends WebTestCase
 
     protected function initStoreProduct()
     {
-        $this->storeManager = $this->createUser('Василий Петрович Краузе', 'password', User::ROLE_STORE_MANAGER);
+        $this->storeManager = $this->factory->user()->getUser(
+            'Василий Петрович Краузе',
+            'password',
+            User::ROLE_STORE_MANAGER
+        );
 
         $this->productId = $this->createProduct();
-        $this->storeId = $this->factory->getStore();
+        $this->storeId = $this->factory->store()->getStore();
 
-        $this->factory->linkStoreManagers($this->storeManager->id, $this->storeId);
+        $this->factory->store()->linkStoreManagers($this->storeManager->id, $this->storeId);
     }
 
     public function testGetActionNoStoreProductCreated()
     {
-        $accessToken = $this->auth($this->storeManager, 'password');
+        $accessToken = $this->factory->oauth()->auth($this->storeManager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -59,7 +63,7 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testGetActionProductDoesNotExist()
     {
-        $accessToken = $this->auth($this->storeManager, 'password');
+        $accessToken = $this->factory->oauth()->auth($this->storeManager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -73,7 +77,7 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testGetActionProductExistsStoreNotExists()
     {
-        $accessToken = $this->auth($this->storeManager, 'password');
+        $accessToken = $this->factory->oauth()->auth($this->storeManager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -108,7 +112,7 @@ class StoreProductControllerTest extends WebTestCase
 
         $productId = $this->createProduct($productData);
 
-        $accessToken = $this->auth($this->storeManager, 'password');
+        $accessToken = $this->factory->oauth()->auth($this->storeManager, 'password');
 
         $putData = $data;
 
@@ -414,7 +418,7 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testStoreManagerAccessHasNoStore()
     {
-        $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -429,7 +433,7 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testStoreManagerAccessHasStore()
     {
-        $accessToken = $this->auth($this->storeManager, 'password');
+        $accessToken = $this->factory->oauth()->auth($this->storeManager, 'password');
 
         $this->clientJsonRequest(
             $accessToken,
@@ -442,7 +446,7 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testDepartmentManagerAccessHasNoStore()
     {
-        $accessToken = $this->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -457,10 +461,14 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testDepartmentManagerAccessHasStore()
     {
-        $departmentManager = $this->createUser('Василиса Петровна Бздых', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $this->factory->linkDepartmentManagers($departmentManager->id, $this->storeId);
+        $departmentManager = $this->factory->user()->getUser(
+            'Василиса Петровна Бздых',
+            'password',
+            User::ROLE_DEPARTMENT_MANAGER
+        );
+        $this->factory->store()->linkDepartmentManagers($departmentManager->id, $this->storeId);
 
-        $accessToken = $this->auth($departmentManager, 'password');
+        $accessToken = $this->factory->oauth()->auth($departmentManager, 'password');
 
         $this->clientJsonRequest(
             $accessToken,
@@ -473,7 +481,7 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testGetStoreSubCategoryProductsStoreManagerHasStore()
     {
-        $accessToken = $this->auth($this->storeManager, 'password');
+        $accessToken = $this->factory->oauth()->auth($this->storeManager, 'password');
 
         $subCategoryId = $this->createSubCategory(null, 'Вино сухое');
 
@@ -497,7 +505,7 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testGetStoreSubCategoryProductsHasNoSubCategoryAndStore()
     {
-        $accessToken = $this->auth($this->storeManager, 'password');
+        $accessToken = $this->factory->oauth()->auth($this->storeManager, 'password');
 
         $subCategoryId = $this->createSubCategory(null, 'Вино сухое');
 
@@ -545,7 +553,7 @@ class StoreProductControllerTest extends WebTestCase
 
         $productId = $this->createProduct($productData);
 
-        $accessToken = $this->auth($this->storeManager, 'password');
+        $accessToken = $this->factory->oauth()->auth($this->storeManager, 'password');
 
         $putData = $data + array('retailPricePreference' => 'retailPrice');
 
@@ -747,7 +755,7 @@ class StoreProductControllerTest extends WebTestCase
 
         $productId = $this->createProduct($productData);
 
-        $accessToken = $this->auth($this->storeManager, 'password');
+        $accessToken = $this->factory->oauth()->auth($this->storeManager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -815,20 +823,20 @@ class StoreProductControllerTest extends WebTestCase
     public function testGetStoreProductsAction()
     {
         $storeId1 = $this->storeId;
-        $storeId2 = $this->factory->getStore('2', '2', '2');
+        $storeId2 = $this->factory->store()->getStore('2', '2', '2');
 
-        $departmentManager1 = $this->createUser('dm1', 'password', 'ROLE_DEPARTMENT_MANAGER');
-        $departmentManager2 = $this->createUser('dm2', 'password', 'ROLE_DEPARTMENT_MANAGER');
+        $departmentManager1 = $this->factory->user()->getUser('dm1', 'password', 'ROLE_DEPARTMENT_MANAGER');
+        $departmentManager2 = $this->factory->user()->getUser('dm2', 'password', 'ROLE_DEPARTMENT_MANAGER');
 
-        $this->factory->linkDepartmentManagers($departmentManager1->id, $storeId1);
-        $this->factory->linkDepartmentManagers($departmentManager2->id, $storeId2);
+        $this->factory->store()->linkDepartmentManagers($departmentManager1->id, $storeId1);
+        $this->factory->store()->linkDepartmentManagers($departmentManager2->id, $storeId2);
 
         $productId1 = $this->productId;
         $productId2 = $this->createProduct('2');
         $productId3 = $this->createProduct('3');
 
-        $departmentAccessToken1 = $this->auth($departmentManager1);
-        $departmentAccessToken2 = $this->auth($departmentManager2);
+        $departmentAccessToken1 = $this->factory->oauth()->auth($departmentManager1);
+        $departmentAccessToken2 = $this->factory->oauth()->auth($departmentManager2);
 
         $response = $this->clientJsonRequest(
             $departmentAccessToken1,
@@ -904,14 +912,14 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testPurchasePriceTotalsAndAmountAreReturnedUsingGetSubcategoryProductsMethod()
     {
-        $groupId = $this->createGroup('1', false);
-        $categoryId = $this->createCategory($groupId, '1.1', false);
-        $subCategoryId1 = $this->createSubCategory($categoryId, '1.1.1', false);
-        $subCategoryId2 = $this->createSubCategory($categoryId, '1.1.2', false);
+        $groupId = $this->createGroup('1');
+        $categoryId = $this->createCategory($groupId, '1.1');
+        $subCategoryId1 = $this->createSubCategory($categoryId, '1.1.1');
+        $subCategoryId2 = $this->createSubCategory($categoryId, '1.1.2');
         $productId1 = $this->createProduct('1', $subCategoryId1);
         $productId2 = $this->createProduct('2', $subCategoryId2);
-        $storeId = $this->factory->getStore('666');
-        $departmentManager = $this->factory->getDepartmentManager($storeId);
+        $storeId = $this->factory->store()->getStore('666');
+        $departmentManager = $this->factory->store()->getDepartmentManager($storeId);
 
         $invoiceId0 = $this->createInvoice(
             array(
@@ -961,7 +969,7 @@ class StoreProductControllerTest extends WebTestCase
         $averagePriceService = $this->getContainer()->get('lighthouse.core.service.product.metrics_calculator');
         $averagePriceService->recalculateAveragePrice();
 
-        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
         $allProductsResponse = $this->clientJsonRequest(
             $accessToken,
@@ -1011,15 +1019,15 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testAmountAndInventoryFieldsPresentAndHaveSameValues()
     {
-        $storeId = $this->factory->getStore('1');
-        $departmentManager = $this->factory->getDepartmentManager($storeId);
+        $storeId = $this->factory->store()->getStore('1');
+        $departmentManager = $this->factory->store()->getDepartmentManager($storeId);
         $productId = $this->createProduct('1');
         $invoiceStoreId1 = $this->createInvoice(array('sku' => 'invoice1'), $storeId, $departmentManager);
         $this->createInvoiceProduct($invoiceStoreId1, $productId, 3, 19.99, $storeId, $departmentManager);
         $invoiceStoreId2 = $this->createInvoice(array('sku' => 'invoice2'), $storeId, $departmentManager);
         $this->createInvoiceProduct($invoiceStoreId2, $productId, 4, 12.99, $storeId, $departmentManager);
 
-        $accessToken = $this->factory->auth($departmentManager);
+        $accessToken = $this->factory->oauth()->auth($departmentManager);
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -1030,5 +1038,105 @@ class StoreProductControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals(7, 'amount', $getResponse);
         Assert::assertJsonPathEquals(7, 'inventory', $getResponse);
+    }
+
+    public function testSearchStoreProductsAction()
+    {
+        $storeId = $this->factory->store()->getStore();
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
+
+        for ($i = 0; $i < 5; $i++) {
+            $this->createProduct(array('name' => 'Название' . $i, 'sku' => 'sku' . $i));
+        }
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/products/name/search' . '?query=Название3'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals(0, '*.inventory', $response);
+        Assert::assertJsonPathCount(1, '*.inventory', $response);
+        Assert::assertJsonPathCount(1, '*.product.name', $response);
+        Assert::assertJsonPathEquals('Название3', '*.product.name', $response);
+
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/products/name/search' . '?query=Назван'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(5, '*.inventory', $response);
+        Assert::assertJsonPathCount(5, '*.product.name', $response);
+        for ($i = 0; $i < 5; $i++) {
+            Assert::assertJsonPathEquals('Название' . $i, '*.product.name', $response);
+        }
+    }
+
+    public function testSearchStoreProductsActionWith123All()
+    {
+        $storeId = $this->createStore('123', '123', '123');
+        $departmentManager = $this->factory->getDepartmentManager($storeId);
+        $accessToken = $this->auth($departmentManager);
+
+        $group = $this->createGroup('123');
+        $category = $this->createCategory($group, '123');
+        $subCategory = $this->createSubCategory($category, '123');
+        $productData = array(
+            'name' => '123',
+            'units' => 'gr',
+            'barcode' => '123',
+            'purchasePrice' => 123,
+            'sku' => '123',
+            'vat' => 0,
+            'vendor' => '',
+            'vendorCountry' => '',
+            'info' => '',
+            'subCategory' => $subCategory,
+        );
+        $product = $this->createProduct($productData, $subCategory);
+
+        $supplier = $this->factory->createSupplier('123');
+        $this->factory->flush();
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/products/name/search' . '?query=123'
+        );
+
+        $this->assertResponseCode(200);
+
+        $postData = array(
+            'supplier' => $supplier->id,
+            'products' => array(
+                array(
+                    'product' => $product,
+                    'quantity' => 123,
+                )
+            ),
+        );
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $storeId . '/orders',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/products/name/search' . '?query=123'
+        );
+
+        $this->assertResponseCode(200);
     }
 }

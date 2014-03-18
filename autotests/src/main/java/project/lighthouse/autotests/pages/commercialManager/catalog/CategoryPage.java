@@ -18,7 +18,7 @@ public class CategoryPage extends GroupPage {
 
     @Override
     public void createElements() {
-        items.put("name", new InputOnlyVisible(this, "name"));
+        put("name", new InputOnlyVisible(this, "name"));
     }
 
     @Override
