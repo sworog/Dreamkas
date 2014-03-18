@@ -48,11 +48,6 @@ services:
         factory_service: doctrine_mongodb.odm.document_manager
         factory_method: getRepository
 
-    doctrine_mongodb.odm.generator.increment:
-        class: Doctrine\ODM\MongoDB\Id\IncrementGenerator
-        calls:
-            - [setCollection, ["%doctrine_mongodb.odm.generator.increment.collection%"]]
-
     lighthouse.core.document.repository.product:
         parent: doctrine_mongodb.odm.repository
         class: Lighthouse\CoreBundle\Document\Product\ProductRepository

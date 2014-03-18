@@ -11,7 +11,7 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Symfony\Component\Validator\Constraints as Assert;
-use Lighthouse\CoreBundle\MongoDB\Annotation\Generated;
+use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 use DateTime;
 
 /**
@@ -34,7 +34,7 @@ class Order extends AbstractDocument implements Storeable
     protected $id;
 
     /**
-     * @Generated
+     * @Generated(startValue=10000)
      * @var int
      */
     protected $number;

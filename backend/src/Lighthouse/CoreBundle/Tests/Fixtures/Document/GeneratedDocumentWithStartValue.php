@@ -8,7 +8,7 @@ use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 /**
  * @MongoDB\Document
  */
-class GeneratedDocument
+class GeneratedDocumentWithStartValue
 {
     /**
      * @MongoDB\Id
@@ -17,7 +17,7 @@ class GeneratedDocument
     protected $id;
 
     /**
-     * @Generated
+     * @Generated(startValue=10000)
      * @var int
      */
     protected $sku;

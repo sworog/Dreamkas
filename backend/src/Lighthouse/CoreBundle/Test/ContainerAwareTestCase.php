@@ -81,19 +81,10 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
 
     protected function clearMongoDb()
     {
-        $this->clearIncNumberCollection();
-
         $mongoDb = $this->getDocumentManager();
         $mongoDb->getSchemaManager()->dropCollections();
         $mongoDb->getSchemaManager()->createCollections();
         $mongoDb->getSchemaManager()->ensureIndexes();
-    }
-
-    protected function clearIncNumberCollection()
-    {
-        $collection = $this->getContainer()->getParameter('doctrine_mongodb.odm.generator.increment.collection');
-        $db = $this->getDocumentManager()->getDocumentDatabase(Product::getClassName());
-        $db->dropCollection($collection);
     }
 
     protected function clearJobs()

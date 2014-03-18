@@ -55,7 +55,7 @@ class OrderControllerTest extends WebTestCase
         $this->assertResponseCode(201);
 
         Assert::assertJsonPathEquals($supplier->id, 'supplier.id', $response);
-        Assert::assertJsonPathEquals(1, 'number', $response);
+        Assert::assertJsonPathEquals(10001, 'number', $response);
         foreach ($orderProducts as $orderProduct) {
             Assert::assertJsonPathEquals($orderProduct['quantity'], 'products.*.quantity', $response);
             Assert::assertJsonPathEquals($orderProduct['product'], 'products.*.product.product.id', $response);
@@ -508,5 +508,64 @@ class OrderControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
         Assert::assertJsonPathEquals('original', 'products.0.product.product.name', $getResponse);
+    }
+
+    public function testOrderNumberCreation()
+    {
+        $storeId = $this->factory->store()->getStoreId();
+
+        $product1 = $this->createProduct('1');
+        $product2 = $this->createProduct('2');
+        $product3 = $this->createProduct('3');
+
+        $supplier = $this->factory->createSupplier();
+
+        $this->factory->flush();
+
+        $orderProducts = array(
+            array(
+                'product' => $product1,
+                'quantity' => 3,
+            ),
+            array(
+                'product' => $product2,
+                'quantity' => 2,
+            ),
+            array(
+                'product' => $product3,
+                'quantity' => 5,
+            ),
+            array(
+                'product' => $product1,
+                'quantity' => 1,
+            ),
+        );
+
+        $orderData = array(
+            'supplier' => $supplier->id,
+            'products' => $orderProducts,
+        );
+
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $storeId . '/orders',
+            $orderData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonPathEquals(10001, 'number', $response);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $storeId . '/orders',
+            $orderData
+        );
+
+        $this->assertResponseCode(201);
+        Assert::assertJsonPathEquals(10002, 'number', $response);
     }
 }
