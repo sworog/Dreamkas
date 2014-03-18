@@ -126,9 +126,8 @@ define(function(require) {
                         $input = block.$('[name="' + field + '"]'),
                         $field = $input.closest('.form__field');
 
-                    $input.addClass('inputText_error');
-
                     if (data.errors) {
+                        $input.addClass('inputText_error');
                         fieldErrors = data.errors.join('. ');
                         $field.attr('data-error', ($field.attr('data-error') ? $field.attr('data-error') + ', ' : '') + block.translate(fieldErrors));
                     }

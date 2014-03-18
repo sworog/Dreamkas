@@ -8,7 +8,7 @@
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    z-index: 100;
+    z-index: 200;
     padding: 40px;
 }
 

@@ -28,7 +28,7 @@
         <td>
         <span style="white-space: nowrap">
             <span name="productAmount">
-                <%- orderProductModel.get('quantity') %>
+                <%- LH.formatAmount(orderProductModel.get('quantity')) %>
             </span>
             <span name="productUnits">
                 <%- LH.units(orderProductModel.get('product.product.units'), 'smallShort') %>
