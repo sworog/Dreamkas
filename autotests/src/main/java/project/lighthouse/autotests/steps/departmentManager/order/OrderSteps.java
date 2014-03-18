@@ -3,6 +3,8 @@ package project.lighthouse.autotests.steps.departmentManager.order;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import org.junit.Assert;
+import project.lighthouse.autotests.objects.web.order.OrderProductObject;
 import project.lighthouse.autotests.pages.departmentManager.order.OrderPage;
 import project.lighthouse.autotests.pages.departmentManager.order.OrdersListPage;
 
@@ -58,6 +60,11 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
+    public void additionFormCheckValues(ExamplesTable examplesTable) {
+        orderPage.getProductAdditionForm().checkValues(examplesTable);
+    }
+
+    @Step
     public void assertFieldLabelTitle(String elementName) {
         orderPage.checkFieldLabel(elementName);
     }
@@ -75,5 +82,12 @@ public class OrderSteps extends ScenarioSteps {
     @Step
     public void openOrdersListPage() {
         ordersListPage.open();
+    }
+
+    @Step
+    public void assertOrderProductObjectQuantity(String locator, String expectedQuantity) {
+        OrderProductObject orderProductObject =
+                (OrderProductObject) orderPage.getOrderProductObjectCollection().getAbstractObjectByLocator(locator);
+        Assert.assertThat(orderProductObject.getQuantity(), equalTo(expectedQuantity));
     }
 }
