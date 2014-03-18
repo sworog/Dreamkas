@@ -1,6 +1,9 @@
 parameters:
     test.client.class: Lighthouse\CoreBundle\Test\Client\Client
     doctrine_mongodb.odm.generator.increment.collection: IncNumbers
+    openstack.selectel.storage.container.metadata:
+        type: public
+        domains: cdn.lighthouse.pro
 
 services:
     jms_serializer.serialized_name_annotation_strategy:

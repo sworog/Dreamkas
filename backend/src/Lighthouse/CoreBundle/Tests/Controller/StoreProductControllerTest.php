@@ -1080,9 +1080,8 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testSearchStoreProductsActionWith123All()
     {
-        $storeId = $this->createStore('123', '123', '123');
-        $departmentManager = $this->factory->getDepartmentManager($storeId);
-        $accessToken = $this->auth($departmentManager);
+        $storeId = $this->factory->store()->getStore('123');
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
 
         $group = $this->createGroup('123');
         $category = $this->createCategory($group, '123');
@@ -1104,7 +1103,7 @@ class StoreProductControllerTest extends WebTestCase
         $supplier = $this->factory->createSupplier('123');
         $this->factory->flush();
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'GET',
             '/api/1/stores/' . $storeId . '/products/name/search' . '?query=123'
@@ -1122,7 +1121,7 @@ class StoreProductControllerTest extends WebTestCase
             ),
         );
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'POST',
             '/api/1/stores/' . $storeId . '/orders',
@@ -1131,7 +1130,7 @@ class StoreProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(201);
 
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'GET',
             '/api/1/stores/' . $storeId . '/products/name/search' . '?query=123'
