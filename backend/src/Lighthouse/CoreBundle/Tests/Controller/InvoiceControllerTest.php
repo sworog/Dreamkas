@@ -1064,4 +1064,29 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(3677.63, 'sumTotalWithoutVAT', $response);
         Assert::assertJsonPathEquals(367.96, 'totalAmountVAT', $response);
     }
+
+    public function testProductSubCategoryIsNotExposed()
+    {
+        $storeId = $this->factory->getStore();
+
+        $productId1 = $this->createProduct('1');
+        $productId2 = $this->createProduct('2');
+        $productId3 = $this->createProduct('3');
+
+        $invoiceId = $this->createInvoice(array(), $storeId);
+
+        $this->createInvoiceProduct($invoiceId, $productId1, 2, 9.99, $storeId);
+        $this->createInvoiceProduct($invoiceId, $productId2, 3, 4.99, $storeId);
+        $this->createInvoiceProduct($invoiceId, $productId3, 2, 1.95, $storeId);
+
+        $accessToken = $this->factory->authAsDepartmentManager($storeId);
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId .'/invoices/' . $invoiceId
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertNotJsonHasPath('products.*.product.subCategory.category', $getResponse);
+    }
 }

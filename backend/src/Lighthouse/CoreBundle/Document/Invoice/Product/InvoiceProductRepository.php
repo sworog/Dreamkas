@@ -26,27 +26,12 @@ class InvoiceProductRepository extends DocumentRepository
     }
 
     /**
-     * @param string|Invoice $invoice
-     * @return Cursor|InvoiceProduct[]
-     */
-    public function findByInvoice($invoice)
-    {
-        if ($invoice instanceof Invoice) {
-            $invoiceId = $invoice->id;
-        } else {
-            $invoiceId = $invoice;
-        }
-
-        return $this->findBy(array('invoice' => $invoiceId));
-    }
-
-    /**
-     * @param string|Invoice $invoice
+     * @param Invoice $invoice
      * @return bool
      */
-    public function recalcVATByInvoice($invoice)
+    public function recalcVATByInvoice(Invoice $invoice)
     {
-        $invoiceProducts = $this->findByInvoice($invoice);
+        $invoiceProducts = $invoice->products;
         if ($invoiceProducts->count() > 0) {
             foreach ($invoiceProducts as $invoiceProduct) {
                 $invoiceProduct->calculatePrices();
