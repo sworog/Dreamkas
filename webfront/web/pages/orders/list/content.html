@@ -4,7 +4,7 @@
 
 <% var collections = _.extend({
     orders: new Backbone.Collection
-}, obj.orders) %>
+}, obj.collections) %>
 
 <% if (LH.isAllow('stores', 'POST::{store}/orders')) {%>
     <%= templates.localNavigation(obj) %>
@@ -15,9 +15,15 @@
     <% if (collections.orders.length) { %>
     <table class="table">
         <% collections.orders.forEach(function(orderModel){ %>
-            <tr>
+            <tr href="/stores/<%- orderModel.get('store.id') %>/orders/<%- orderModel.id %>">
                 <td>
-
+                    <%- orderModel.get('number') %>
+                </td>
+                <td>
+                    <%- orderModel.get('supplier.name') %>
+                </td>
+                <td>
+                    <%- LH.formatDate(orderModel.get('createdDate')) %>
                 </td>
             </tr>
         <% }) %>
