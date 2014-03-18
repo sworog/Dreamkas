@@ -60,6 +60,16 @@ define(function(require, exports, module) {
             block.initBlocks();
             block.render();
         },
+        submitSuccess: function() {
+            var block = this;
+
+            Form.prototype.submitSuccess.apply(block, arguments);
+
+            block.clear();
+            block.render();
+
+            block.el.querySelector('[name="name"]').focus();
+        },
         initBlocks: function() {
             var block = this,
                 autocomplete_storeProduct = block.el.querySelector('.autocomplete_storeProduct');
@@ -93,6 +103,17 @@ define(function(require, exports, module) {
                     }
                 })
             }
+        },
+        clear: function() {
+            var block = this;
+
+            Form.prototype.clear.apply(block, arguments);
+
+            block.model = new OrderProductModel();
+
+            block.storeProduct = {
+                product: {}
+            };
         },
         render: function() {
             var block = this;
