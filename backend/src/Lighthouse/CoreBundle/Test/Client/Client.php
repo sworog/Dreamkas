@@ -45,6 +45,14 @@ class Client extends BaseClient
     }
 
     /**
+     *
+     */
+    public function shutdownKernelBeforeRequest()
+    {
+        $this->hasPerformedRequest = true;
+    }
+
+    /**
      * @param JsonRequest $jsonRequest
      * @param \stdClass|string $accessToken
      * @return array

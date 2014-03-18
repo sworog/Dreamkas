@@ -319,6 +319,8 @@ class GroupControllerTest extends WebTestCase
         $this->createSubCategory($categoryId2, '1.2.3');
         $this->createSubCategory($categoryId2, '1.2.4');
 
+        $this->client->shutdownKernelBeforeRequest();
+
         $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $getResponse = $this->clientJsonRequest(
@@ -438,6 +440,8 @@ class GroupControllerTest extends WebTestCase
 
         $categoryId1 = $this->createCategory($groupId, '1');
         $categoryId2 = $this->createCategory($groupId, '2');
+
+        $this->client->shutdownKernelBeforeRequest();
 
         $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 

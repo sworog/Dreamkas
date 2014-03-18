@@ -325,7 +325,7 @@ class WebTestCase extends ContainerAwareTestCase
     protected function createProduct($extra = '', $subCategoryId = null, $putProductId = false)
     {
         if ($subCategoryId == null) {
-            $subCategoryId = $this->createSubCategory();
+            $subCategoryId = $this->factory->catalog()->getSubCategory()->id;
         }
 
         $productData = array(
@@ -547,79 +547,24 @@ class WebTestCase extends ContainerAwareTestCase
 
     /**
      * @param array $catalog
-     * @param bool $ifNotExists
      * @return array
      */
-    protected function createCatalog(array $catalog, $ifNotExists = true)
+    protected function createCatalog(array $catalog)
     {
         $catalogIds = array();
         foreach ($catalog as $groupName => $categories) {
-            $groupId = $this->createGroup($groupName, $ifNotExists);
+            $groupId = $this->createGroup($groupName);
             $catalogIds[$groupName] = $groupId;
             foreach ($categories as $categoryName => $subCategories) {
-                $categoryId = $this->createCategory($groupId, $categoryName, $ifNotExists);
+                $categoryId = $this->createCategory($groupId, $categoryName);
                 $catalogIds[$categoryName] = $categoryId;
                 foreach ($subCategories as $subCategoryName => $void) {
-                    $subCategoryId = $this->createSubCategory($categoryId, $subCategoryName, $ifNotExists);
+                    $subCategoryId = $this->createSubCategory($categoryId, $subCategoryName);
                     $catalogIds[$subCategoryName] = $subCategoryId;
                 }
             }
         }
         return $catalogIds;
-    }
-
-    /**
-     * @param string $name
-     * @param bool $ifNotExists
-     * @param mixed $retailMarkupMin
-     * @param mixed $retailMarkupMax
-     * @param string $rounding
-     * @return string
-     */
-    protected function createGroup(
-        $name = 'Продовольственные товары',
-        $ifNotExists = true,
-        $retailMarkupMin = null,
-        $retailMarkupMax = null,
-        $rounding = 'nearest1'
-    ) {
-        $postData = array(
-            'name' => $name,
-            'retailMarkupMin' => $retailMarkupMin,
-            'retailMarkupMax' => $retailMarkupMax,
-            'rounding' => $rounding,
-        );
-
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
-
-        if ($ifNotExists) {
-            $postResponse = $this->clientJsonRequest(
-                $accessToken,
-                'GET',
-                '/api/1/groups'
-            );
-
-            if (is_array($postResponse)) {
-                foreach ($postResponse as $value) {
-                    if ($value['name'] == $name) {
-                        return $value['id'];
-                    }
-                }
-            }
-        }
-
-        $postResponse = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/groups',
-            $postData
-        );
-
-        $this->assertResponseCode(201);
-
-        Assert::assertJsonHasPath('id', $postResponse);
-
-        return $postResponse['id'];
     }
 
     /**
@@ -706,6 +651,26 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @deprecated
+     * @param string $name
+     * @param bool $ifNotExists
+     * @param mixed $retailMarkupMin
+     * @param mixed $retailMarkupMax
+     * @param string $rounding
+     * @return string
+     */
+    protected function createGroup(
+        $name = 'Продовольственные товары',
+        $ifNotExists = true,
+        $retailMarkupMin = null,
+        $retailMarkupMax = null,
+        $rounding = 'nearest1'
+    ) {
+        return $this->factory->catalog()->createGroup($name, $rounding, $retailMarkupMin, $retailMarkupMax)->id;
+    }
+
+    /**
+     * @deprecated
      * @param string $groupId
      * @param string $name
      * @param bool $ifNotExists
@@ -718,95 +683,19 @@ class WebTestCase extends ContainerAwareTestCase
         $ifNotExists = true,
         $rounding = 'nearest1'
     ) {
-        if ($groupId == null) {
-            $groupId = $this->factory->catalog()->getGroup()->id;
-        }
-        $categoryData = array(
-            'name' => $name,
-            'group' => $groupId,
-            'rounding' => $rounding,
-        );
-
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
-
-        if ($ifNotExists) {
-            $postResponse = $this->clientJsonRequest(
-                $accessToken,
-                'GET',
-                '/api/1/groups/'. $groupId .'/categories'
-            );
-
-            if (is_array($postResponse)) {
-                foreach ($postResponse as $value) {
-                    if ($value['name'] == $name) {
-                        return $value['id'];
-                    }
-                }
-            }
-        }
-
-        $postResponse = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/categories',
-            $categoryData
-        );
-
-        $this->assertResponseCode(201);
-        Assert::assertJsonHasPath('id', $postResponse);
-
-        return $postResponse['id'];
+        return $this->factory->catalog()->createCategory($groupId, $name, $rounding)->id;
     }
 
-
     /**
+     * @deprecated
      * @param string $categoryId
      * @param string $name
      * @param bool $ifNotExists
      * @return string
      */
-    protected function createSubCategory($categoryId = null, $name = 'Водка', $ifNotExists = true)
+    protected function createSubCategory($categoryId = null, $name = 'Водка')
     {
-        if ($categoryId == null) {
-            $categoryId = $this->createCategory();
-        }
-        $subCategoryData = array(
-            'name' => $name,
-            'category' => $categoryId,
-            'rounding' => 'nearest1',
-        );
-
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
-
-        if ($ifNotExists) {
-            $postResponse = $this->clientJsonRequest(
-                $accessToken,
-                'GET',
-                '/api/1/categories/'. $categoryId .'/subcategories'
-            );
-
-            $this->assertResponseCode(200);
-
-            if (is_array($postResponse)) {
-                foreach ($postResponse as $value) {
-                    if ($value['name'] == $name) {
-                        return $value['id'];
-                    }
-                }
-            }
-        }
-
-        $postResponse = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/subcategories',
-            $subCategoryData
-        );
-
-        $this->assertResponseCode(201);
-        Assert::assertJsonHasPath('id', $postResponse);
-
-        return $postResponse['id'];
+        return $this->factory->catalog()->createSubCategory($categoryId, $name)->id;
     }
 
     public function createDepartment(

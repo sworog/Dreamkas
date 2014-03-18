@@ -1692,8 +1692,7 @@ class GrossSalesControllerTest extends WebTestCase
                         '2.1.1' => ''
                     )
                 )
-            ),
-            false
+            )
         );
 
         $productIds = array();

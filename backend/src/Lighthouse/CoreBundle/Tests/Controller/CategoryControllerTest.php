@@ -384,11 +384,10 @@ class CategoryControllerTest extends WebTestCase
 
     public function testGetCategoryWithSubcategories()
     {
-        $groupId = $this->createGroup();
-        $categoryId = $this->createCategory($groupId);
-
+        $categoryId = $this->createCategory();
         $this->createSubCategory($categoryId, '1');
         $this->createSubCategory($categoryId, '2');
+        $this->client->shutdownKernelBeforeRequest();
 
         $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
@@ -721,8 +720,8 @@ class CategoryControllerTest extends WebTestCase
 
     public function testRetailMarkupIsNullOnCategoryCreateWithEmptyMarkup()
     {
-        $groupId = $this->createGroup('Алкоголь', false, 10, 20);
-        $categoryId = $this->createCategory($groupId, 'Вино', false);
+        $groupId = $this->factory->catalog()->createGroup('Алкоголь', null, 10, 20)->id;
+        $categoryId = $this->factory->catalog()->createCategory($groupId, 'Вино')->id;
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -741,8 +740,8 @@ class CategoryControllerTest extends WebTestCase
 
     public function testRetailMarkupIsNotInheritedFromGroupAfterGroupUpdate()
     {
-        $groupId = $this->createGroup('Алкоголь', false, 10, 20);
-        $categoryId = $this->createCategory($groupId, 'Вино', false);
+        $groupId = $this->factory->catalog()->createGroup('Алкоголь', null, 10, 20)->id;
+        $categoryId = $this->factory->catalog()->createCategory($groupId, 'Вино')->id;
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -787,7 +786,7 @@ class CategoryControllerTest extends WebTestCase
 
     public function testRetailMarkupBecomesNullIfNullMarkupPassed()
     {
-        $groupId = $this->createGroup('Алкоголь', false, 10, 20);
+        $groupId = $this->factory->catalog()->createGroup('Алкоголь', null, 10, 20)->id;
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -837,7 +836,8 @@ class CategoryControllerTest extends WebTestCase
 
     public function testRetailMarkupBecomesNullIfNoMarkupPassed()
     {
-        $groupId = $this->createGroup('Алкоголь', false, 10, 20);
+        $groupId = $this->factory->catalog()->createGroup('Алкоголь', null, 10, 20)->id;
+        $this->client->shutdownKernelBeforeRequest();
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -1027,7 +1027,7 @@ class CategoryControllerTest extends WebTestCase
 
     public function testRoundingIsInheritedFromGroup()
     {
-        $groupId = $this->createGroup('Алкоголь', true, null, null, 'nearest50');
+        $groupId = $this->factory->catalog()->createGroup('Алкоголь', 'nearest50')->id;
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
