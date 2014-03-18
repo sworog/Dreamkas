@@ -1,18 +1,19 @@
-.table{
+.table {
     width: 100%;
     border-spacing: 0;
     border-collapse: collapse;
 }
 
-.table tbody{
+.table tbody {
     border: none !important;
 }
 
-.table tr{
+.table tr {
     position: static !important;
 }
 
-.table > tbody > tr > td, .table > tbody > tr > th{
+.table > tbody > tr > td,
+.table > tbody > tr > th {
     vertical-align: middle;
     border-bottom: 1px solid #eee;
     border-top: 1px solid #eee;
@@ -20,30 +21,39 @@
     text-align: left;
 }
 
-.table > thead > tr > th{
+.table > thead > tr > th {
     border-bottom: 1px solid #ddd;
     border-top: none;
     text-align: left;
-    padding: 12px;
+    padding: 0 12px;
+    font-size: 13px;
+    font-weight: normal;
+    color: #999;
 }
 
-.table > tbody > tr:hover{
+.table > tbody > tr > td:first-child,
+.table > tbody > tr > th:first-child,
+.table > thead > tr > th:first-child {
+    padding-left: 0;
+}
+
+.table > tbody > tr:hover {
     background: #fffee2 !important;
 }
 
-.table__rowHiddenElement{
+.table__rowHiddenElement {
     visibility: hidden;
 }
 
-.table tr:hover .table__rowHiddenElement{
+.table tr:hover .table__rowHiddenElement {
     visibility: visible;
 }
 
-.table_subCategoryBalance > tbody > tr > td{
+.table_subCategoryBalance > tbody > tr > td {
     vertical-align: top;
 }
 
-.table_subCategoryBalance__value{
+.table_subCategoryBalance__value {
     text-align: right;
     overflow: hidden;
     padding-right: 5px;
@@ -57,7 +67,7 @@
 }
 
 .table_subCategoryBalance__valueHint,
-.table_subCategoryBalance .layout__currency{
+.table_subCategoryBalance .layout__currency {
     font-size: 12px;
     color: #95a5a6;
 }

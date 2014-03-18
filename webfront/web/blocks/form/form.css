@@ -2,6 +2,7 @@
     display: block;
     padding-bottom: 4px;
     font-size: 13px;
+    color: #999;
 }
 
 .form__fieldset{
@@ -82,10 +83,8 @@
 }
 
 .form_order__productForm{
-    border: 1px solid #ccc;
-    padding: 15px;
     border-radius: 3px;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
 .form_order__totalSum{
