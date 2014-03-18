@@ -1067,7 +1067,7 @@ class InvoiceControllerTest extends WebTestCase
 
     public function testProductSubCategoryIsNotExposed()
     {
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
 
         $productId1 = $this->createProduct('1');
         $productId2 = $this->createProduct('2');
@@ -1079,7 +1079,7 @@ class InvoiceControllerTest extends WebTestCase
         $this->createInvoiceProduct($invoiceId, $productId2, 3, 4.99, $storeId);
         $this->createInvoiceProduct($invoiceId, $productId3, 2, 1.95, $storeId);
 
-        $accessToken = $this->factory->authAsDepartmentManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',

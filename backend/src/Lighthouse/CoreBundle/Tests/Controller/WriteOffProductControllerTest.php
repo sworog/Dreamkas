@@ -1088,7 +1088,7 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testProductsActionCategoryIsNotExposed()
     {
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStore();
         $productId1 = $this->createProduct('1');
         $productId2 = $this->createProduct('2');
         $productId3 = $this->createProduct('3');
@@ -1097,7 +1097,7 @@ class WriteOffProductControllerTest extends WebTestCase
         $this->createWriteOffProduct($writeOffId, $productId2, 1, 6.99, 'Порча', $storeId);
         $this->createWriteOffProduct($writeOffId, $productId3, 3, 2.59, 'Порча', $storeId);
 
-        $accessToken = $this->factory->authAsDepartmentManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
