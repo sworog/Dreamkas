@@ -2,11 +2,14 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
+use Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class GroupControllerTest extends WebTestCase
 {
@@ -780,5 +783,84 @@ class GroupControllerTest extends WebTestCase
         $this->assertCount(2, array_keys($statusCodes, 400), $responseBody);
         Assert::assertJsonPathEquals('Продовольственные товары', '*.name', $jsonResponses, 1);
         Assert::assertJsonPathEquals('Такая группа уже есть', '*.children.name.errors.0', $jsonResponses, 2);
+    }
+
+    protected function doPostActionFlushFailedException(\Exception $exception)
+    {
+        $groupData = array(
+            'name' => 'Продовольственные товары',
+            'rounding' => 'nearest1'
+        );
+
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $group = new Group();
+
+        $documentManagerMock = $this->getMock(
+            'Doctrine\\ODM\\MongoDB\\DocumentManager',
+            array(),
+            array(),
+            '',
+            false
+        );
+        $documentManagerMock
+            ->expects($this->once())
+            ->method('persist');
+
+        $documentManagerMock
+            ->expects($this->once())
+            ->method('flush')
+            ->with($this->isEmpty())
+            ->will($this->throwException($exception));
+
+        $groupRepositoryMock = $this->getMock(
+            'Lighthouse\\CoreBundle\\Document\\Classifier\\Group\\GroupRepository',
+            array(),
+            array(),
+            '',
+            false
+        );
+
+        $groupRepositoryMock
+            ->expects($this->once())
+            ->method('createNew')
+            ->will($this->returnValue($group));
+        $groupRepositoryMock
+            ->expects($this->exactly(2))
+            ->method('getDocumentManager')
+            ->will($this->returnValue($documentManagerMock));
+
+        $this->client->addTweaker(
+            function(ContainerInterface $container) use ($groupRepositoryMock) {
+                $container->set('lighthouse.core.document.repository.classifier.group', $groupRepositoryMock);
+            }
+        );
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/groups',
+            $groupData
+        );
+
+        return $response;
+    }
+
+    public function testPostActionFlushFailedException()
+    {
+        $exception = new \Exception('Unknown exception');
+        $response = $this->doPostActionFlushFailedException($exception);
+
+        $this->assertResponseCode(500);
+        Assert::assertJsonPathEquals('Unknown exception', 'message', $response);
+    }
+    public function testPostActionFlushFailedMongoDuplicateKeyException()
+    {
+        $exception = new \MongoDuplicateKeyException();
+        $response = $this->doPostActionFlushFailedException($exception);
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
+        Assert::assertJsonPathEquals('Такая группа уже есть', 'children.name.errors.0', $response);
     }
 }

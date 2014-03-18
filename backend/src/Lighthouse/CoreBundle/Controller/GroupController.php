@@ -32,6 +32,11 @@ class GroupController extends AbstractRestController
      */
     protected $translator;
 
+    public function __construct()
+    {
+        $this;
+    }
+
     /**
      * @return GroupType
      */
