@@ -1067,7 +1067,7 @@ class InvoiceControllerTest extends WebTestCase
 
     public function testProductSubCategoryIsNotExposed()
     {
-        $storeId = $this->factory->store()->getStore();
+        $storeId = $this->factory->store()->getStoreId();
 
         $productId1 = $this->createProduct('1');
         $productId2 = $this->createProduct('2');

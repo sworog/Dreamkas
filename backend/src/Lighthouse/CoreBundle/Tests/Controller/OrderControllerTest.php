@@ -272,29 +272,49 @@ class OrderControllerTest extends WebTestCase
 
     public function testGerOrdersAction()
     {
-        /** @var Order[] $orders */
-        $orders = array();
-        $suppliers = array();
-        for ($i = 0; $i < 5; $i++) {
-            $suppliers[$i] = $this->factory->createSupplier('Перевоз' . $i);
-            $orders[$i] = $this->factory->createOrder($this->storeId, $suppliers[$i]);
-        }
+        $store1 = $this->factory->store()->getStore('1');
+        $store2 = $this->factory->store()->getStore('2');
+
+        $supplier1 = $this->factory->createSupplier('Перевоз1');
+        $supplier2 = $this->factory->createSupplier('Перевоз2');
+        $supplier3 = $this->factory->createSupplier('Перевоз3');
+
+        $this->factory->createOrder($store1, $supplier1, '2014-02-14 04:05:06');
+        $this->factory->createOrder($store1, $supplier2, '2014-02-13 04:05:06');
+        $this->factory->createOrder($store1, $supplier3, '2014-02-13 14:05:06');
+        $this->factory->createOrder($store2, $supplier1);
+        $this->factory->createOrder($store2, $supplier3, date('r', time() + 120));
+
         $this->factory->flush();
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store1->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/orders'
+            '/api/1/stores/' . $store1->id . '/orders'
         );
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathCount(5, '*.id', $response);
+        Assert::assertJsonPathCount(3, '*.id', $response);
+        Assert::assertJsonPathEquals($supplier1->name, '0.supplier.name', $response, 1);
+        Assert::assertJsonPathEquals($supplier2->name, '2.supplier.name', $response, 1);
+        Assert::assertJsonPathEquals($supplier3->name, '1.supplier.name', $response, 1);
 
-        foreach ($orders as $order) {
-            Assert::assertJsonPathEquals($order->supplier->name, '*.supplier.name', $response);
-        }
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store2->id);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $store2->id . '/orders'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, '*.id', $response);
+        Assert::assertJsonPathEquals($supplier1->name, '1.supplier.name', $response, 1);
+        Assert::assertJsonPathEquals($supplier3->name, '0.supplier.name', $response, 1);
+
+        Assert::assertJsonPathEquals($supplier2->name, '*.supplier.name', $response, 0);
     }
 
     /**

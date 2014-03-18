@@ -123,7 +123,6 @@ class OAuthFactory extends AbstractFactory
      */
     public function authAsStoreManager($storeId = null)
     {
-        $storeId = $this->factory->store()->getStoreById($storeId);
         $storeManager = $this->factory->store()->getStoreManager($storeId);
         return $this->auth($storeManager);
     }
@@ -134,7 +133,6 @@ class OAuthFactory extends AbstractFactory
      */
     public function authAsDepartmentManager($storeId = null)
     {
-        $storeId = $this->factory->store()->getStoreById($storeId);
         $departmentManager = $this->factory->store()->getDepartmentManager($storeId);
         return $this->auth($departmentManager);
     }

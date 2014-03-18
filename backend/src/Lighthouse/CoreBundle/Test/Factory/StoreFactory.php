@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Test\Factory;
 
 use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 
 class StoreFactory extends AbstractFactory
@@ -17,7 +18,7 @@ class StoreFactory extends AbstractFactory
     /**
      * @var array number => id
      */
-    protected $numbers = array();
+    protected $storeNumbers = array();
 
     /**
      * @var User[]
@@ -48,6 +49,8 @@ class StoreFactory extends AbstractFactory
         $this->getDocumentManager()->persist($store);
         $this->getDocumentManager()->flush();
 
+        $this->storeNumbers[$number] = $store->id;
+
         return $store;
     }
 
@@ -76,12 +79,11 @@ class StoreFactory extends AbstractFactory
         $address = self::STORE_DEFAULT_NUMBER,
         $contacts = self::STORE_DEFAULT_NUMBER
     ) {
-        if (!isset($this->numbers[$number])) {
+        if (!isset($this->storeNumbers[$number])) {
             $store = $this->createStore($number, $address, $contacts);
-            $this->stores[$store->id] = $store;
-            $this->numbers[$number] = $store->id;
+
         }
-        return $this->stores[$this->numbers[$number]];
+        return $this->getStoreById($this->storeNumbers[$number]);
     }
 
     /**
@@ -99,11 +101,24 @@ class StoreFactory extends AbstractFactory
 
     /**
      * @param string $storeId
-     * @return string
+     * @return Store
+     * @throws \RuntimeException
      */
-    public function getStoreById($storeId = null)
+    public function getStoreById($storeId)
     {
-        return $storeId ?: $this->getStoreId();
+        $store = $this->getStoreRepository()->find($storeId);
+        if (null === $store) {
+            throw new \RuntimeException(sprintf('Store id#%s not found', $storeId));
+        }
+        return $store;
+    }
+
+    /**
+     * @return StoreRepository
+     */
+    protected function getStoreRepository()
+    {
+        return $this->container->get('lighthouse.core.document.repository.store');
     }
 
     /**
@@ -113,7 +128,7 @@ class StoreFactory extends AbstractFactory
      */
     public function linkManagers($storeId, $userIds, $rel)
     {
-        $store = $this->stores[$storeId];
+        $store = $this->getStoreById($storeId);
         $managers = $store->getManagersByRel($rel);
         foreach ((array) $userIds as $userId) {
             $user = $this->factory->user()->getUserById($userId);
@@ -129,7 +144,7 @@ class StoreFactory extends AbstractFactory
      */
     public function linkStoreManagers($userIds, $storeId = null)
     {
-        $storeId = $this->getStoreById($storeId);
+        $storeId = ($storeId) ?: $this->getStoreId();
         $this->linkManagers($storeId, $userIds, Store::REL_STORE_MANAGERS);
     }
 
@@ -139,7 +154,7 @@ class StoreFactory extends AbstractFactory
      */
     public function linkDepartmentManagers($userIds, $storeId = null)
     {
-        $storeId = $this->getStoreById($storeId);
+        $storeId = ($storeId) ?: $this->getStoreId();
         $this->linkManagers($storeId, $userIds, Store::REL_DEPARTMENT_MANAGERS);
     }
 
@@ -149,7 +164,7 @@ class StoreFactory extends AbstractFactory
      */
     public function getStoreManager($storeId = null)
     {
-        $storeId = $this->getStoreById($storeId);
+        $storeId = ($storeId) ?: $this->getStoreId();
         if (!isset($this->storeManagers[$storeId])) {
             $username = 'storeManagerStore' . $storeId;
             $manager = $this->factory->user()->getUser(
@@ -170,7 +185,7 @@ class StoreFactory extends AbstractFactory
      */
     public function getDepartmentManager($storeId = null)
     {
-        $storeId = $this->getStoreById($storeId);
+        $storeId = ($storeId) ?: $this->getStoreId();
         if (!isset($this->departmentManagers[$storeId])) {
             $username = 'departmentManagerStore' . $storeId;
             $manager = $this->factory->user()->getUser(

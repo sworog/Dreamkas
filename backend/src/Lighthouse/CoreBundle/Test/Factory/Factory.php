@@ -264,21 +264,21 @@ class Factory extends ContainerAwareFactory
 
 
     /**
-     * @param string $storeId
-     * @param null|Supplier $supplier
-     * @param null|OrderProduct[] $orderProducts
+     * @param Store $store
+     * @param Supplier $supplier
+     * @param $createdDate
      * @return Order
      */
-    public function createOrder($storeId = null, $supplier = null, $orderProducts = null)
+    public function createOrder(Store $store = null, Supplier $supplier = null, $createdDate = null)
     {
         $supplier = ($supplier) ?: $this->createSupplier();
 
-        $store = $this->store()->getStore($storeId);
+        $store = ($store) ?: $this->store()->getStore();
 
         $order = new Order();
         $order->store = $store;
         $order->supplier = $supplier;
-        $order->products = $orderProducts;
+        $order->createdDate = new DateTimestamp($createdDate);
 
         $this->getDocumentManager()->persist($order);
 

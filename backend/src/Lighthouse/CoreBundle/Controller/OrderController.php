@@ -80,8 +80,7 @@ class OrderController extends AbstractRestController
      */
     public function getOrdersAction(Store $store)
     {
-        $orders = $this->getDocumentRepository()->findAll();
-        $orderCollection = new OrderCollection($orders);
-        return $orderCollection;
+        $orders = $this->documentRepository->findAllByStoreId($store->id);
+        return new OrderCollection($orders);
     }
 }
