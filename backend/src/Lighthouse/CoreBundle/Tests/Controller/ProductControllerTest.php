@@ -1806,7 +1806,6 @@ class ProductControllerTest extends WebTestCase
         );
     }
 
-
     /**
      * @group unique
      */

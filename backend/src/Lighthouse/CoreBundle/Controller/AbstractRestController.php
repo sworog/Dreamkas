@@ -49,17 +49,29 @@ abstract class AbstractRestController extends FOSRestController
         $form->submit($request);
 
         if ($form->isValid()) {
-            try {
-                if (true == $save && false == $validation) {
-                    $this->getDocumentRepository()->getDocumentManager()->persist($document);
-                    $this->getDocumentRepository()->getDocumentManager()->flush();
-                }
+            if (true == $save && false == $validation) {
+                return $this->saveDocument($document, $form);
+            } else {
                 return $document;
-            } catch (Exception $e) {
-                return $this->handleFlushFailedException(new FlushFailedException($e, $form));
             }
         } else {
             return $form;
+        }
+    }
+
+    /**
+     * @param AbstractDocument $document
+     * @param FormInterface $form
+     * @return AbstractDocument|FormInterface
+     */
+    protected function saveDocument(AbstractDocument $document, FormInterface $form)
+    {
+        try {
+            $this->getDocumentRepository()->getDocumentManager()->persist($document);
+            $this->getDocumentRepository()->getDocumentManager()->flush();
+            return $document;
+        } catch (Exception $e) {
+            return $this->handleFlushFailedException(new FlushFailedException($e, $form));
         }
     }
 
