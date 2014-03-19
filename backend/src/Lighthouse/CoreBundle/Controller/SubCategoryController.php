@@ -11,6 +11,7 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\SubCategoryType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -37,6 +38,19 @@ class SubCategoryController extends AbstractRestController
     }
 
     /**
+     * @param FlushFailedException $e
+     * @return FormInterface
+     */
+    protected function handleFlushFailedException(FlushFailedException $e)
+    {
+        if ($e->getCause() instanceof MongoDuplicateKeyException) {
+            return $this->addFormError($e->getForm(), 'name', 'lighthouse.validation.errors.subCategory.name.unique');
+        } else {
+            return parent::handleFlushFailedException($e);
+        }
+    }
+
+    /**
      * @param Request $request
      * @throws Exception
      * @throws FlushFailedException
@@ -47,19 +61,7 @@ class SubCategoryController extends AbstractRestController
      */
     public function postSubcategoriesAction(Request $request)
     {
-        try {
-            return $this->processPost($request);
-        } catch (FlushFailedException $e) {
-            if ($e->getCause() instanceof MongoDuplicateKeyException) {
-                return $this->addFormError(
-                    $e->getForm(),
-                    'name',
-                    'lighthouse.validation.errors.subCategory.name.unique'
-                );
-            } else {
-                throw $e;
-            }
-        }
+        return $this->processPost($request);
     }
 
     /**

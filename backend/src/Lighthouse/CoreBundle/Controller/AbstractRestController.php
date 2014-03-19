@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Validator\ViolationMapper\ViolationMapper;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolation;
+use Exception;
 
 abstract class AbstractRestController extends FOSRestController
 {
@@ -54,12 +55,22 @@ abstract class AbstractRestController extends FOSRestController
                     $this->getDocumentRepository()->getDocumentManager()->flush();
                 }
                 return $document;
-            } catch (\Exception $e) {
-                throw new FlushFailedException($e, $form);
+            } catch (Exception $e) {
+                return $this->handleFlushFailedException(new FlushFailedException($e, $form));
             }
         } else {
             return $form;
         }
+    }
+
+    /**
+     * @param FlushFailedException $e
+     * @throws Exception
+     * @return FormInterface|AbstractDocument
+     */
+    protected function handleFlushFailedException(FlushFailedException $e)
+    {
+        throw $e->getCause();
     }
 
     /**
