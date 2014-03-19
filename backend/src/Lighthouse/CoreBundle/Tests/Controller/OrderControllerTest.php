@@ -652,12 +652,62 @@ class OrderControllerTest extends WebTestCase
             $accessToken,
             'PUT',
             '/api/1/stores/' . $store2->id . '/orders/' . $order->id,
-            $orderData
+            $orderData,
+            array(),
+            array(
+                'HTTP_Origin' => 'http://webfront.lighthouse.dev',
+            )
         );
 
         $this->assertResponseCode(404);
 
+        $this->assertTrue($this->client->getResponse()->headers->has('access-control-allow-origin'));
+        $this->assertEquals(
+            'http://webfront.lighthouse.dev',
+            $this->client->getResponse()->headers->get('access-control-allow-origin')
+        );
         Assert::assertJsonPathContains('Order object not found', 'message', $putResponse);
+    }
+
+    public function testPutOrderActionCORSHeaders()
+    {
+        $store = $this->factory->store()->getStore();
+        $productId = $this->createProduct();
+        $supplier = $this->factory->createSupplier();
+        $order = $this->factory->createOrder($store, $supplier);
+        $orderProduct = $this->factory->createOrderProduct($order, $productId, 10);
+        $this->factory->flush();
+
+        $orderData = array(
+            'supplier' => $supplier->id,
+            'products' => array(
+                array(
+                    'id' => $orderProduct->id,
+                    'product' => $productId,
+                    'quantity' => 20,
+                ),
+            )
+        );
+
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $store->id . '/orders/' . $order->id,
+            $orderData,
+            array(),
+            array(
+                'HTTP_Origin' => 'http://webfront.lighthouse.dev',
+            )
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertTrue($this->client->getResponse()->headers->has('access-control-allow-origin'));
+        $this->assertEquals(
+            'http://webfront.lighthouse.dev',
+            $this->client->getResponse()->headers->get('access-control-allow-origin')
+        );
     }
 
     public function testGetOrderActionInvalidStore()
