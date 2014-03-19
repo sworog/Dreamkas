@@ -73,7 +73,7 @@ public class OrderSteps extends ScenarioSteps {
     @Step
     public void lastCreatedOrderProductCollectionObjectClickByLocator() throws JSONException {
         orderProductCollectionObjectClickByLocator(
-                Storage.getOrderVariableStorage().product.getName());
+                Storage.getOrderVariableStorage().getProduct().getName());
     }
 
     @Step
@@ -144,7 +144,7 @@ public class OrderSteps extends ScenarioSteps {
     @Step
     public void assertOrderProductObjectQuantity(String expectedQuantity) throws JSONException {
         assertOrderProductObjectQuantity(
-                Storage.getOrderVariableStorage().product.getName(),
+                Storage.getOrderVariableStorage().getProduct().getName(),
                 expectedQuantity);
     }
 
@@ -172,7 +172,7 @@ public class OrderSteps extends ScenarioSteps {
                 add(new HashMap<String, String>() {
                     {
                         put("number", "10001");
-                        put("supplier", Storage.getOrderVariableStorage().supplier.getName());
+                        put("supplier", Storage.getOrderVariableStorage().getSupplier().getName());
                         put("date", new DateTimeHelper(0).convertDateByPattern("dd.MM.yyyy"));
                     }
                 });
@@ -195,7 +195,7 @@ public class OrderSteps extends ScenarioSteps {
                 add(new HashMap<String, String>() {
                     {
                         put("number", "10001");
-                        put("supplier", Storage.getOrderVariableStorage().supplier.getName());
+                        put("supplier", Storage.getOrderVariableStorage().getSupplier().getName());
                         put("date", new DateTimeHelper(0).convertDateByPattern("dd.MM.yyyy"));
                     }
                 });

@@ -18,7 +18,7 @@ public class OrderExampleTableUpdater {
         return new ExampleTableUpdater(examplesTable)
                 .updateValue("number", "{number}", Storage.getOrderVariableStorage().getNumber().toString())
                 .updateValue("date", "{todayDate}", new DateTimeHelper(0).convertDateByPattern("dd.MM.yyyy"))
-                .updateValue("supplier", "{lastSupplierOrder}", Storage.getOrderVariableStorage().supplier.getName())
+                .updateValue("supplier", "{lastSupplierOrder}", Storage.getOrderVariableStorage().getSupplier().getName())
                 .getExamplesTable();
     }
 }

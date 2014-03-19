@@ -5,9 +5,25 @@ import project.lighthouse.autotests.objects.api.Supplier;
 
 public class OrderVariableStorage {
 
-    public Supplier supplier;
-    public Product product;
+    private Supplier supplier;
+    private Product product;
     private int number = 10000;
+
+    public Supplier getSupplier() {
+        return supplier;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setSupplier(Supplier supplier) {
+        this.supplier = supplier;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public Integer getNumber() {
         return number;
