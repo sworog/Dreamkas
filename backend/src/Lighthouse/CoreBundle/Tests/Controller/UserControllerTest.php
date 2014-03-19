@@ -7,7 +7,11 @@ use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use PHPUnit_Util_Type;
+use MongoDuplicateKeyException;
+use Exception;
 
 class UserControllerTest extends WebTestCase
 {
@@ -788,6 +792,136 @@ class UserControllerTest extends WebTestCase
                     )
                 )
             )
+        );
+    }
+
+    /**
+     * @group unique
+     */
+    public function testUniqueUsernameInParallel()
+    {
+        $userData = array(
+            'username'  => 'test',
+            'name'      => 'Вася пупкин',
+            'position'  => 'Комерческий директор',
+            'role'      => User::ROLE_COMMERCIAL_MANAGER,
+            'password'  => 'qwerty',
+        );
+
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
+
+        $jsonRequest = new JsonRequest('/api/1/users', 'POST', $userData);
+        $jsonRequest->setAccessToken($accessToken);
+
+        $responses = $this->client->parallelJsonRequest($jsonRequest, 3);
+        $statusCodes = array();
+        $jsonResponses = array();
+        foreach ($responses as $response) {
+            $statusCodes[] = $response->getStatusCode();
+            $jsonResponses[] = $this->client->decodeJsonResponse($response);
+        }
+        $responseBody = PHPUnit_Util_Type::export($jsonResponses);
+        $this->assertCount(1, array_keys($statusCodes, 201), $responseBody);
+        $this->assertCount(2, array_keys($statusCodes, 400), $responseBody);
+        Assert::assertJsonPathEquals('test', '*.username', $jsonResponses, 1);
+        Assert::assertJsonPathEquals(
+            'Пользователь с таким логином уже существует',
+            '*.children.username.errors.0',
+            $jsonResponses,
+            2
+        );
+    }
+
+    protected function doPostActionFlushFailedException(\Exception $exception)
+    {
+        $userData = array(
+            'username'  => 'test',
+            'name'      => 'Вася пупкин',
+            'position'  => 'Комерческий директор',
+            'role'      => User::ROLE_COMMERCIAL_MANAGER,
+            'password'  => 'qwerty',
+        );
+
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
+
+        $user = new User();
+
+        $documentManagerMock = $this->getMock(
+            'Doctrine\\ODM\\MongoDB\\DocumentManager',
+            array(),
+            array(),
+            '',
+            false
+        );
+        $documentManagerMock
+            ->expects($this->once())
+            ->method('persist');
+
+        $documentManagerMock
+            ->expects($this->once())
+            ->method('flush')
+            ->with($this->isEmpty())
+            ->will($this->throwException($exception));
+
+        $userRepoMock = $this->getMock(
+            'Lighthouse\\CoreBundle\\Document\\User\\UserRepository',
+            array(),
+            array(),
+            '',
+            false
+        );
+
+        $userRepoMock
+            ->expects($this->once())
+            ->method('createNew')
+            ->will($this->returnValue($user));
+        $userRepoMock
+            ->expects($this->exactly(2))
+            ->method('getDocumentManager')
+            ->will($this->returnValue($documentManagerMock));
+
+        $this->client->addTweaker(
+            function (ContainerInterface $container) use ($userRepoMock) {
+                $container->set('lighthouse.core.document.repository.user', $userRepoMock);
+            }
+        );
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/users',
+            $userData
+        );
+
+        return $response;
+    }
+
+    /**
+     * @group unique
+     */
+    public function testPostActionFlushFailedException()
+    {
+        $exception = new Exception('Unknown exception');
+        $response = $this->doPostActionFlushFailedException($exception);
+
+        $this->assertResponseCode(500);
+        Assert::assertJsonPathEquals('Unknown exception', 'message', $response);
+    }
+
+    /**
+     * @group unique
+     */
+    public function testPostActionFlushFailedMongoDuplicateKeyException()
+    {
+        $exception = new MongoDuplicateKeyException();
+        $response = $this->doPostActionFlushFailedException($exception);
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
+        Assert::assertJsonPathEquals(
+            'Пользователь с таким логином уже существует',
+            'children.username.errors.0',
+            $response
         );
     }
 }
