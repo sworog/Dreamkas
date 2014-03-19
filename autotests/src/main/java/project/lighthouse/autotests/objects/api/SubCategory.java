@@ -3,6 +3,7 @@ package project.lighthouse.autotests.objects.api;
 import org.json.JSONException;
 import org.json.JSONObject;
 import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.objects.api.abstraction.AbstractClassifierNode;
 
 import java.util.ArrayList;
 

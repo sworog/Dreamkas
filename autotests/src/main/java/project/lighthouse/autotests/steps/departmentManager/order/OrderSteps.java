@@ -3,10 +3,18 @@ package project.lighthouse.autotests.steps.departmentManager.order;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONException;
 import org.junit.Assert;
-import project.lighthouse.autotests.objects.web.order.OrderProductObject;
+import project.lighthouse.autotests.helper.DateTimeHelper;
+import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductObject;
 import project.lighthouse.autotests.pages.departmentManager.order.OrderPage;
 import project.lighthouse.autotests.pages.departmentManager.order.OrdersListPage;
+import project.lighthouse.autotests.storage.Storage;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -89,5 +97,50 @@ public class OrderSteps extends ScenarioSteps {
         OrderProductObject orderProductObject =
                 (OrderProductObject) orderPage.getOrderProductObjectCollection().getAbstractObjectByLocator(locator);
         Assert.assertThat(orderProductObject.getQuantity(), equalTo(expectedQuantity));
+    }
+
+    @Step
+    public void assertExactOrderCollectionValues(ExamplesTable examplesTable) {
+        ordersListPage.getOrderObjectCollection().exactCompareExampleTable(examplesTable);
+    }
+
+    @Step
+    public void assertOrderCollectionValues() throws JSONException {
+        List<Map<String, String>> mapList = new ArrayList<Map<String, String>>() {
+            {
+                add(new HashMap<String, String>() {
+                    {
+                        put("number", "10001");
+                        put("supplier", Storage.getOrderVariableStorage().supplier.getName());
+                        put("date", new DateTimeHelper(0).convertDateByPattern("dd.MM.yyyy"));
+                    }
+                });
+            }
+        };
+        assertExactOrderCollectionValues(
+                new ExamplesTable("").withRows(mapList));
+    }
+
+    public void assertAnotherOrderCollectionValues() throws JSONException {
+        List<Map<String, String>> mapList = new ArrayList<Map<String, String>>() {
+            {
+                add(new HashMap<String, String>() {
+                    {
+                        put("number", "10002");
+                        put("supplier", "supplier-s30u64s1");
+                        put("date", new DateTimeHelper(0).convertDateByPattern("dd.MM.yyyy"));
+                    }
+                });
+                add(new HashMap<String, String>() {
+                    {
+                        put("number", "10001");
+                        put("supplier", Storage.getOrderVariableStorage().supplier.getName());
+                        put("date", new DateTimeHelper(0).convertDateByPattern("dd.MM.yyyy"));
+                    }
+                });
+            }
+        };
+        assertExactOrderCollectionValues(
+                new ExamplesTable("").withRows(mapList));
     }
 }

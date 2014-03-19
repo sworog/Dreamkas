@@ -8,7 +8,7 @@ import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Buttons.LinkFacade;
 import project.lighthouse.autotests.elements.SelectByVisibleText;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
-import project.lighthouse.autotests.objects.web.order.OrderProductObjectCollection;
+import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductObjectCollection;
 import project.lighthouse.autotests.pages.departmentManager.order.pageElements.ProductAdditionForm;
 
 /**
