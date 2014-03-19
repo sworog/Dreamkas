@@ -6,6 +6,7 @@ import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import org.junit.Assert;
 import project.lighthouse.autotests.helper.DateTimeHelper;
+import project.lighthouse.autotests.helper.exampleTable.order.OrderExampleTableUpdater;
 import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductObject;
 import project.lighthouse.autotests.pages.departmentManager.order.OrderPage;
 import project.lighthouse.autotests.pages.departmentManager.order.OrdersListPage;
@@ -32,6 +33,11 @@ public class OrderSteps extends ScenarioSteps {
     @Step
     public void input(ExamplesTable examplesTable) {
         orderPage.fieldInput(examplesTable);
+    }
+
+    @Step
+    public void checkOrderPageValues(ExamplesTable examplesTable) {
+        orderPage.checkCardValue(examplesTable);
     }
 
     @Step
@@ -84,6 +90,11 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
+    public void cancelLinkClick() {
+        orderPage.cancelLinkClick();
+    }
+
+    @Step
     public void checksValues(ExamplesTable examplesTable) {
         orderPage.getProductAdditionForm().checkCardValue(examplesTable);
     }
@@ -114,6 +125,11 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
+    public void cancelOrderProductButtonClick() {
+        orderPage.getProductEditionForm().cancelLinkClick();
+    }
+
+    @Step
     public void openOrdersListPage() {
         ordersListPage.open();
     }
@@ -135,6 +151,18 @@ public class OrderSteps extends ScenarioSteps {
     @Step
     public void assertExactOrderCollectionValues(ExamplesTable examplesTable) {
         ordersListPage.getOrderObjectCollection().exactCompareExampleTable(examplesTable);
+    }
+
+    @Step
+    public void assertOrderCollectionValues(ExamplesTable examplesTable) throws JSONException {
+        ExamplesTable updatedExampleTable = new OrderExampleTableUpdater(examplesTable).updateValues();
+        ordersListPage.getOrderObjectCollection().compareWithExampleTable(updatedExampleTable);
+    }
+
+    @Step
+    public void lastCreatedOrderCollectionObjectClick() {
+        ordersListPage.getOrderObjectCollection().clickByLocator(
+                Storage.getOrderVariableStorage().getNumber().toString());
     }
 
     @Step

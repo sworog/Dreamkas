@@ -36,6 +36,11 @@ public class ThenOrderUserSteps {
         orderSteps.checksValues(examplesTable);
     }
 
+    @Then("the user checks the filled order page values $examplesTable")
+    public void thenTheUserChecksTheFilledOrderPageValues(ExamplesTable examplesTable) {
+        orderSteps.checkOrderPageValues(examplesTable);
+    }
+
     @Then("the user checks the autocomplete values $examplesTable")
     public void thenTheUserChecksTheAdditionProductFormValues(ExamplesTable examplesTable) {
         orderSteps.additionFormCheckValues(examplesTable);
@@ -59,5 +64,10 @@ public class ThenOrderUserSteps {
     @Then("the user checks the orders list contains required entries")
     public void thenTheUserChecksTheOrdersListContainsEntry() throws JSONException {
         orderSteps.assertAnotherOrderCollectionValues();
+    }
+
+    @Then("the user checks the orders list contains entry $examplesTable")
+    public void thenTheUserChecksTheOrderListContainsEntry(ExamplesTable examplesTable) throws JSONException {
+        orderSteps.assertOrderCollectionValues(examplesTable);
     }
 }

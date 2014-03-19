@@ -41,6 +41,11 @@ public class WhenOrderUserSteps {
         orderSteps.saveButtonClick();
     }
 
+    @When("the user clicks the cancel link button")
+    public void whenTheUserClicksTheCancelLinkrButton() {
+        orderSteps.cancelLinkClick();
+    }
+
     @When("the user clicks the add order product button")
     public void whenTheUserClicksTheAddOrderProductButton() {
         orderSteps.addProductToOrderButtonClick();
@@ -51,8 +56,23 @@ public class WhenOrderUserSteps {
         orderSteps.editOrderProductButtonClick();
     }
 
+    @When("the user clicks the cancel order product button")
+    public void whenTheUserClicksTheCancelOrderProductButton() {
+        orderSteps.cancelOrderProductButtonClick();
+    }
+
     @When("the user clicks on order product in last created order")
     public void whenTheUserClicksOnOrderProductInLastCreatedOrder() throws JSONException {
         orderSteps.lastCreatedOrderProductCollectionObjectClickByLocator();
+    }
+
+    @When("the user clicks on the order product by name '$name'")
+    public void whenTheUserClicksOnTheOrderProductByName(String name) {
+        orderSteps.orderProductCollectionObjectClickByLocator(name);
+    }
+
+    @When("the user clicks on last created order on the orders list page")
+    public void whenTheUserClicksOnLastCreatedOrderOnTheOrdersListPage() {
+        orderSteps.lastCreatedOrderCollectionObjectClick();
     }
 }

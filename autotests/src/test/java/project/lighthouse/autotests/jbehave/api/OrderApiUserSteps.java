@@ -46,6 +46,7 @@ public class OrderApiUserSteps {
                 new OrderProduct[]{orderProduct},
                 userName,
                 "lighthouse");
+        Storage.getOrderVariableStorage().incrementNumber();
     }
 
     @Given("the user opens last created order page")
