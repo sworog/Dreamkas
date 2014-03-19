@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects.web.order;
+package project.lighthouse.autotests.objects.web.order.order;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,16 +7,16 @@ import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
 
 /**
- * Collection representing order products
+ * Class representing orders collection from orders list page
  */
-public class OrderProductObjectCollection extends AbstractObjectCollection {
+public class OrderObjectCollection extends AbstractObjectCollection {
 
-    public OrderProductObjectCollection(WebDriver webDriver, By findBy) {
+    public OrderObjectCollection(WebDriver webDriver, By findBy) {
         super(webDriver, findBy);
     }
 
     @Override
     public AbstractObject createNode(WebElement element) {
-        return new OrderProductObject(element);
+        return new OrderObject(element);
     }
 }
