@@ -831,7 +831,7 @@ class GroupControllerTest extends WebTestCase
             ->will($this->returnValue($documentManagerMock));
 
         $this->client->addTweaker(
-            function(ContainerInterface $container) use ($groupRepositoryMock) {
+            function (ContainerInterface $container) use ($groupRepositoryMock) {
                 $container->set('lighthouse.core.document.repository.classifier.group', $groupRepositoryMock);
             }
         );
