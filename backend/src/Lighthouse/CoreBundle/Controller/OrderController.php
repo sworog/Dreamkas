@@ -129,6 +129,7 @@ class OrderController extends AbstractRestController
      * @param Order $order
      * @throws \HttpResponseException
      * @return StreamedResponse
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getOrderDownloadAction(Store $store, Order $order)
