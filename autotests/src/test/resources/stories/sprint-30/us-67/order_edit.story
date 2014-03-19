@@ -13,7 +13,8 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
 Scenario: Order edit
 
 Meta:
-@id
+@id_s30u67s1
+@smoke
 
 GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
 
@@ -60,7 +61,8 @@ Then the user checks the order products list contains entry
 Scenario: Order supplier edit - check supplier on orders list page
 
 Meta:
-@id
+@id_s30u67s2
+@smoke
 
 GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
 
@@ -83,7 +85,7 @@ Then the user checks the orders list contains entry
 Scenario: Order supplier edit - check supplier on orders list page cancel
 
 Meta:
-@id
+@id_s30u67s3
 
 GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
 
@@ -106,7 +108,8 @@ Then the user checks the orders list contains entry
 Scenario: Order product edit
 
 Meta:
-@id
+@id_s30u67s4
+@smoke
 
 GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
 
@@ -133,7 +136,7 @@ Then the user checks the order products list contains entry
 Scenario: Order product edit cancel
 
 Meta:
-@id
+@id_s30u67s5
 
 GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
 

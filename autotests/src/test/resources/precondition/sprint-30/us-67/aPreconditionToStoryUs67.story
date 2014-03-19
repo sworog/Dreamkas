@@ -2,6 +2,16 @@ Meta:
 @smoke
 @sprint_30
 @us_67
+@id_s30u67s1
+@id_s30u67s2
+@id_s30u67s3
+@id_s30u67s4
+@id_s30u67s5
+@id_s30u67s6
+@id_s30u67s7
+@id_s30u67s8
+@id_s30u67s9
+@id_s30u67s10
 
 Scenario: A scenario that prepares data
 
