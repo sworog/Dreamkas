@@ -3,16 +3,19 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\RestBundle\View\View;
+use Lighthouse\CoreBundle\Document\File\FileUploader;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\Order\OrderCollection;
 use Lighthouse\CoreBundle\Document\Order\OrderRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Form\OrderType;
+use Lighthouse\CoreBundle\Integration\Excel\Export\Orders\OrderGenerator;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class OrderController extends AbstractRestController
@@ -22,6 +25,13 @@ class OrderController extends AbstractRestController
      * @var OrderRepository
      */
     protected $documentRepository;
+
+    /**
+     * @DI\Inject("lighthouse.core.integration.excel.export.orders.generator")
+     *
+     * @var OrderGenerator
+     */
+    protected $orderGenerator;
 
     /**
      * @return OrderType
@@ -83,5 +93,30 @@ class OrderController extends AbstractRestController
         $orders = $this->getDocumentRepository()->findAll();
         $orderCollection = new OrderCollection($orders);
         return $orderCollection;
+    }
+
+    /**
+     * @param Store $store
+     * @param Order $order
+     * @throws \HttpResponseException
+     * @return StreamedResponse
+     * @ApiDoc
+     */
+    public function getOrderDownloadAction(Store $store, Order $order)
+    {
+        $this->checkOrderStore($store, $order);
+
+        $this->orderGenerator->setOrder($order);
+        $this->orderGenerator->generate();
+
+        $fileUploader = $this->container->get('lighthouse.core.document.repository.file.uploader');
+
+        $file = $fileUploader->processWriter(
+            $this->orderGenerator->getWriter(),
+            $this->orderGenerator->getFilename(),
+            'orders'
+        );
+
+        return $file;
     }
 }

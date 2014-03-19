@@ -162,19 +162,10 @@ class OrderGenerator
     }
 
     /**
-     * @return bool|StreamedResponse
+     * @return string
      */
-    public function getResponse()
+    public function getFilename()
     {
-        if (null != $this->writer) {
-            $response = $this->phpExcel->createStreamedResponse($this->writer);
-
-            $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
-            $response->headers->set('Content-Disposition', 'attachment;filename=order' . $this->order->number . '.xls');
-
-            return $response;
-        }
-
-        return false;
+        return 'order' . $this->order->number . '.xls';
     }
 }
