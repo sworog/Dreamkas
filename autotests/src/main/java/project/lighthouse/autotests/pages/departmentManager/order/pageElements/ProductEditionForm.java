@@ -1,7 +1,9 @@
 package project.lighthouse.autotests.pages.departmentManager.order.pageElements;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
+import project.lighthouse.autotests.elements.Buttons.LinkFacade;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 
 /**
@@ -14,7 +16,11 @@ public class ProductEditionForm extends ProductAdditionForm {
     }
 
     public void editButtonClick() {
-        new ButtonFacade(this, "Редактировать").click();
+        new ButtonFacade(this, "Сохранить").click();
         new PreLoader(getDriver()).await();
+    }
+
+    public void cancelLinkClick() {
+        new LinkFacade(this, By.className("form_orderProduct__cancelLink")).click();
     }
 }
