@@ -31,23 +31,25 @@ define(function(require, exports, module) {
         initialize: function() {
             var block = this;
 
-            document.getElementById('form_order__removeLink').addEventListener('click', function(e) {
-                e.preventDefault();
+            if (block.model.id){
+                document.getElementById('form_order__removeLink').addEventListener('click', function(e) {
+                    e.preventDefault();
 
-                if (e.target.classList.contains('preloader_rows')) {
-                    return;
-                }
-                
-                e.target.classList.add('preloader_rows');
-
-                block.disable();
-
-                block.model.destroy({
-                    success: function() {
-                        router.navigate('/orders');
+                    if (e.target.classList.contains('preloader_rows')) {
+                        return;
                     }
+
+                    e.target.classList.add('preloader_rows');
+
+                    block.disable();
+
+                    block.model.destroy({
+                        success: function() {
+                            router.navigate('/orders');
+                        }
+                    });
                 });
-            });
+            }
 
             block.blocks = {
                 form_orderProduct: new Form_orderProduct({
