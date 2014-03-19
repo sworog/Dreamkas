@@ -767,7 +767,7 @@ class OrderControllerTest extends WebTestCase
             )
         );
 
-        $accessToken = $this->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
