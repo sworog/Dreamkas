@@ -1128,4 +1128,21 @@ class StoreProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
     }
+
+    public function testSearchStoreProductsActionInvalidProperty()
+    {
+        $store = $this->factory->store()->getStore('1');
+        $this->createProduct(array('sku' => '123'));
+        $this->createProduct(array('sku' => '456'));
+
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $store->id . '/products/article/search' . '?query=123'
+        );
+
+        $this->assertResponseCode(200);
+        $this->assertEmpty($response);
+    }
 }
