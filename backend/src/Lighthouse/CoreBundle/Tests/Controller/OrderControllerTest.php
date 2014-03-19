@@ -2,10 +2,13 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Guzzle\Plugin\Mock\MockPlugin;
+use Lighthouse\CoreBundle\Document\File\FileUploader;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class OrderControllerTest extends WebTestCase
 {
@@ -734,5 +737,79 @@ class OrderControllerTest extends WebTestCase
         $this->assertEmpty($deleteResponse);
 
         $this->assertCount(0, $orderProductRepository->findAll());
+    }
+
+    public function testDownloadOrderAction()
+    {
+        $this->setUpStoreDepartmentManager();
+        $supplier = $this->factory->createSupplier();
+        $product1 = $this->createProduct(array('name' => 'Кефир1Назв', 'sku' => 'Кефир1Арт', 'barcode' => '1111111'));
+        $product2 = $this->createProduct(array('name' => 'Кефир2Назв', 'sku' => 'Кефир2Арт', 'barcode' => '2222222'));
+        $product3 = $this->createProduct(array('name' => 'Кефир3Назв', 'sku' => 'Кефир3Арт', 'barcode' => '3333333'));
+
+        $this->factory->flush();
+
+        $postData = array(
+            'supplier' => $supplier->id,
+            'products' => array(
+                array(
+                    'product' => $product1,
+                    'quantity' => 3.11,
+                ),
+                array(
+                    'product' => $product2,
+                    'quantity' => 2,
+                ),
+                array(
+                    'product' => $product3,
+                    'quantity' => 7.77,
+                ),
+            )
+        );
+
+        $accessToken = $this->auth($this->departmentManager);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $this->storeId . '/orders',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+
+        $orderId = $response['id'];
+        $orderNumber = $response['number'];
+
+        $mockPlugin = new MockPlugin();
+        $mockPlugin->addResponse($this->getFixtureFilePath('OpenStack/auth.response.ok'));
+        $mockPlugin->addResponse($this->getFixtureFilePath('OpenStack/container.response.ok'));
+        $mockPlugin->addResponse($this->getFixtureFilePath('OpenStack/upload.response.ok'));
+        $mockPlugin->addResponse($this->getFixtureFilePath('OpenStack/head.response.ok'));
+
+        $mockGuzzle = function (ContainerInterface $container) use ($mockPlugin) {
+            $client = $container->get('openstack.selectel');
+            $client->addSubscriber($mockPlugin);
+        };
+
+        $mockFile = $this->getFixtureFilePath('OpenStack/auth.response.ok');
+        $requestGetContentMock = function (ContainerInterface $container) use ($mockFile) {
+            /* @var FileUploader $uploader */
+            $uploader = $container->get('lighthouse.core.document.repository.file.uploader');
+            $uploader->setFileResource(fopen($mockFile, 'rb'));
+        };
+
+        $this->client->addTweaker($mockGuzzle);
+        $this->client->addTweaker($requestGetContentMock);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $this->storeId . '/orders/' . $orderId . '/download'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('order' . $orderNumber . '.xls', 'name', $response);
+        Assert::assertJsonHasPath('url', $response);
     }
 }

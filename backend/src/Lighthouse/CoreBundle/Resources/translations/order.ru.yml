@@ -1,0 +1,13 @@
+lighthouse:
+    order:
+        export:
+            generator:
+                products:
+                    title:
+                        sku: Код
+                        barcode: Штрихкод
+                        name: Наименование
+                        quantity: Кол-во
+                title:
+                    order: Заказ №{{ number }} от {{ date }}
+                    supplier: Поставщик "{{ supplier }}"
