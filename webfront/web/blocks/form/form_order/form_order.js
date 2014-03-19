@@ -57,6 +57,10 @@ define(function(require, exports, module) {
                 })
             });
 
+            form.once('submit:success', function(){
+                block.$tr.detach();
+            });
+
             block.$tr.find('td').html(form.el);
 
             block.$tr.insertBefore(block.el.querySelector('tr[data-product_cid="' + orderProductModel.cid + '"]'));
