@@ -12,6 +12,7 @@ use Lighthouse\CoreBundle\Form\CategoryType;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use JMS\DiExtraBundle\Annotation as DI;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\Secure;
@@ -36,6 +37,19 @@ class CategoryController extends AbstractRestController
     }
 
     /**
+     * @param FlushFailedException $e
+     * @return FormInterface
+     */
+    protected function handleFlushFailedException(FlushFailedException $e)
+    {
+        if ($e->getCause() instanceof MongoDuplicateKeyException) {
+            return $this->addFormError($e->getForm(), 'name', 'lighthouse.validation.errors.category.name.unique');
+        } else {
+            return parent::handleFlushFailedException($e);
+        }
+    }
+
+    /**
      * @param Request $request
      * @throws Exception
      * @throws FlushFailedException
@@ -49,11 +63,7 @@ class CategoryController extends AbstractRestController
         try {
             return $this->processPost($request);
         } catch (FlushFailedException $e) {
-            if ($e->getCause() instanceof MongoDuplicateKeyException) {
-                return $this->addFormError($e->getForm(), 'name', 'lighthouse.validation.errors.category.name.unique');
-            } else {
-                throw $e;
-            }
+
         }
     }
 
