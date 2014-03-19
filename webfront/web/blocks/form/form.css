@@ -99,3 +99,9 @@
 .form_order__editor + tr {
     display: none;
 }
+
+.form_orderProduct__removeLink{
+    font-size: 28px;
+    margin-left: 30px;
+    cursor: pointer;
+}
