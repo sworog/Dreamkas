@@ -4,7 +4,9 @@ define(function(require) {
         Block = require('./block'),
         Backbone = require('backbone'),
         router = require('router'),
-        isAllow = require('../utils/isAllow');
+        isAllow = require('../utils/isAllow'),
+        downloadUrl = require('kit/downloadUrl/downloadUrl'),
+        cookies = require('cookies');
 
     require('lodash');
 
@@ -17,6 +19,26 @@ define(function(require) {
         models: {},
         collections: {},
         blocks: {},
+        events: {
+            'click .page__downloadLink': function(e){
+                e.preventDefault();
+                e.stopImmediatePropagation();
+
+                var href = e.target.href;
+
+                $.ajax({
+                    url: href,
+                    dataType: 'json',
+                    type: 'GET',
+                    headers: {
+                        Authorization: 'Bearer ' + cookies.get('token')
+                    },
+                    success: function(res) {
+                        downloadUrl(res.url);
+                    }
+                });
+            }
+        },
         constructor: function(){
 
             var page = this,
