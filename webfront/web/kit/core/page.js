@@ -26,6 +26,12 @@ define(function(require) {
 
                 var href = e.target.href;
 
+                if (e.target.classList.contains('preloader_rows')){
+                    return;
+                }
+
+                e.target.classList.add('preloader_rows');
+
                 $.ajax({
                     url: href,
                     dataType: 'json',
@@ -35,6 +41,7 @@ define(function(require) {
                     },
                     success: function(res) {
                         downloadUrl(res.url);
+                        e.target.classList.remove('preloader_rows');
                     }
                 });
             }

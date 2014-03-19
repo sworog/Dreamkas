@@ -126,3 +126,8 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
 }
+
+.page__downloadLink{
+    display: inline-block;
+    padding: 5px 10px;
+}
