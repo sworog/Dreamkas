@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Document\TrialBalance;
 
+use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
@@ -188,7 +189,9 @@ class CostOfGoodsTest extends WebTestCase
             /* @var TrialBalance $trialBalance */
             $trialBalance = $cursor->getNext();
             $this->assertNotNull($trialBalance);
-            $this->assertEquals($expectedSku, $trialBalance->reason->getReasonParent()->sku);
+            /* @var Invoice $invoice */
+            $invoice = $trialBalance->reason->getReasonParent();
+            $this->assertEquals($expectedSku, $invoice->sku);
         }
     }
 

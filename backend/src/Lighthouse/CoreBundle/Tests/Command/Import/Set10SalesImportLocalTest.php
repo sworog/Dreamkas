@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Command\Import;
 
-use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
+use Lighthouse\CoreBundle\Document\Log\LogRepository;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -65,9 +65,9 @@ class Set10SalesImportLocalTest extends WebTestCase
         $this->assertContains($file, $display);
         $this->assertContains($expectedDisplay, $display);
 
-        /* @var ConfigRepository $configRepository */
-        $configRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
-        $cursor = $configRepository->findAll();
+        /* @var LogRepository $logRepository */
+        $logRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
+        $cursor = $logRepository->findAll();
         $this->assertCount($expectedLogEntriesCount, $cursor);
     }
 
@@ -96,9 +96,9 @@ class Set10SalesImportLocalTest extends WebTestCase
         $this->assertContains('Product with sku "7" not found', $display);
         $this->assertContains('Product with sku "3" not found', $display);
 
-        /* @var ConfigRepository $configRepository */
-        $configRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
-        $cursor = $configRepository->findAll();
+        /* @var LogRepository $logRepository */
+        $logRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
+        $cursor = $logRepository->findAll();
         $this->assertCount(5, $cursor);
     }
 
@@ -113,9 +113,9 @@ class Set10SalesImportLocalTest extends WebTestCase
         $this->assertContains(".E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E             40\nFlushing", $display);
         $this->assertContains('| Persist |', $display);
 
-        /* @var ConfigRepository $configRepository */
-        $configRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
-        $cursor = $configRepository->findAll();
+        /* @var LogRepository $logRepository */
+        $logRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
+        $cursor = $logRepository->findAll();
         $this->assertCount(20, $cursor);
     }
 
