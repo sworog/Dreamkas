@@ -15,9 +15,9 @@ import java.util.Map;
  */
 public class OrderObject extends AbstractObject implements ObjectLocatable, ObjectClickable, ResultComparable {
 
-    private static String number;
-    private static String supplier;
-    private static String date;
+    private String number;
+    private String supplier;
+    private String date;
 
     public OrderObject(WebElement element) {
         super(element);
@@ -29,7 +29,6 @@ public class OrderObject extends AbstractObject implements ObjectLocatable, Obje
         supplier = getElement().findElement(By.name("orderSupplier")).getText();
         date = getElement().findElement(By.name("orderDate")).getText();
     }
-
 
     @Override
     public void click() {
