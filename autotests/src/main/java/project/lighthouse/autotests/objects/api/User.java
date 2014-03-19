@@ -2,8 +2,11 @@ package project.lighthouse.autotests.objects.api;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import project.lighthouse.autotests.objects.api.abstraction.AbstractObject;
 
 public class User extends AbstractObject {
+
+    private Store store;
 
     private static final String API_URL = "/users";
 
@@ -28,5 +31,13 @@ public class User extends AbstractObject {
 
     public String getUserName() throws JSONException {
         return getPropertyAsString("username");
+    }
+
+    public void setStore(Store store) {
+        this.store = store;
+    }
+
+    public Store getStore() {
+        return store;
     }
 }
