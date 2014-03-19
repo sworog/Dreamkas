@@ -2,6 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Test\Factory;
 
+use Lighthouse\CoreBundle\Document\Department\Department;
+use Lighthouse\CoreBundle\Document\Department\DepartmentRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\User\User;
@@ -9,6 +11,9 @@ use Lighthouse\CoreBundle\Document\User\User;
 class StoreFactory extends AbstractFactory
 {
     const STORE_DEFAULT_NUMBER = '1';
+
+    const DEFAULT_DEPARTMENT_NUMBER = '32';
+    const DEFAULT_DEPARTMENT_NAME = '32';
 
     /**
      * @var array|Store[]
@@ -29,6 +34,11 @@ class StoreFactory extends AbstractFactory
      * @var User[]
      */
     protected $departmentManagers = array();
+
+    /**
+     * @var array storeId.number => id
+     */
+    protected $departments;
 
     /**
      * @param string $number
@@ -198,5 +208,66 @@ class StoreFactory extends AbstractFactory
             $this->departmentManagers[$storeId] = $manager;
         }
         return $this->departmentManagers[$storeId];
+    }
+
+    /**
+     * @param Store $store
+     * @param string $number
+     * @param string $name
+     * @return Department
+     */
+    public function createDepartment(
+        Store $store = null,
+        $number = self::DEFAULT_DEPARTMENT_NUMBER,
+        $name = self::DEFAULT_DEPARTMENT_NAME
+    ) {
+        $store = ($store) ?: $this->getStore();
+
+        $department = new Department();
+        $department->store = $store;
+        $department->number = $number;
+        $department->name = $name;
+
+        $this->getDocumentManager()->persist($department);
+
+        $this->departments[$store->id . $department->number] = $department->id;
+
+        return $department;
+    }
+
+    /**
+     * @param string $departmentId
+     * @return Department
+     * @throws \RuntimeException
+     */
+    public function getDepartmentById($departmentId)
+    {
+        $department = $this->getDepartmentRepository()->find($departmentId);
+        if (null === $department) {
+            throw new \RuntimeException(sprintf('Department id#%s not found', $departmentId));
+        }
+        return $department;
+    }
+
+    /**
+     * @param string $number
+     * @param Store $store
+     * @return Department
+     */
+    public function getDepartment($number = self::DEFAULT_DEPARTMENT_NUMBER, Store $store = null)
+    {
+        $store = ($store) ?: $this->getStore();
+        if (isset($this->departments[$store->id . $number])) {
+            $this->createDepartment($store, $number);
+        }
+        return $this->getDepartmentById($this->departments[$store->id . $number]);
+    }
+
+    /**
+     * @return DepartmentRepository
+     */
+    protected function getDepartmentRepository()
+    {
+        return $this->container->get('lighthouse.core.document.repository.department');
     }
 }

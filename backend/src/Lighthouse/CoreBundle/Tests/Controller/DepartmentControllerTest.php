@@ -2,8 +2,15 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Department\Department;
+use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
+use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use PHPUnit_Util_Type;
+use Exception;
+use MongoDuplicateKeyException;
 
 class DepartmentControllerTest extends WebTestCase
 {
@@ -518,5 +525,146 @@ class DepartmentControllerTest extends WebTestCase
                 '403',
             ),
         );
+    }
+
+    /**
+     * @group unique
+     */
+    public function testUniqueUsernameInParallel()
+    {
+        $storeId = $this->factory->store()->getStoreId();
+        $departmentData = array(
+            'number' => '42',
+            'name' => 'Бакалея',
+            'store' => $storeId,
+        );
+
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $jsonRequest = new JsonRequest('/api/1/departments', 'POST', $departmentData);
+        $jsonRequest->setAccessToken($accessToken);
+
+        $responses = $this->client->parallelJsonRequest($jsonRequest, 3);
+        $statusCodes = array();
+        $jsonResponses = array();
+        foreach ($responses as $response) {
+            $statusCodes[] = $response->getStatusCode();
+            $jsonResponses[] = $this->client->decodeJsonResponse($response);
+        }
+        $responseBody = PHPUnit_Util_Type::export($jsonResponses);
+        $this->assertCount(1, array_keys($statusCodes, 201), $responseBody);
+        $this->assertCount(2, array_keys($statusCodes, 400), $responseBody);
+        Assert::assertJsonPathEquals('42', '*.number', $jsonResponses, 1);
+        Assert::assertJsonPathEquals(
+            'Отдел с таким названием уже существует в этом магазине',
+            '*.children.number.errors.0',
+            $jsonResponses,
+            2
+        );
+    }
+
+    protected function doPostActionFlushFailedException(\Exception $exception)
+    {
+        $storeId = $this->factory->store()->getStoreId();
+        $departmentData = array(
+            'number' => '42',
+            'name' => 'Бакалея',
+            'store' => $storeId,
+        );
+
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $department = new Department();
+
+        $documentManagerMock = $this->getMock(
+            'Doctrine\\ODM\\MongoDB\\DocumentManager',
+            array(),
+            array(),
+            '',
+            false
+        );
+        $documentManagerMock
+            ->expects($this->once())
+            ->method('persist');
+
+        $documentManagerMock
+            ->expects($this->once())
+            ->method('flush')
+            ->with($this->isEmpty())
+            ->will($this->throwException($exception));
+
+        $storeRepoMock = $this->getMock(
+            'Lighthouse\\CoreBundle\\Document\\Department\\DepartmentRepository',
+            array(),
+            array(),
+            '',
+            false
+        );
+
+        $storeRepoMock
+            ->expects($this->once())
+            ->method('createNew')
+            ->will($this->returnValue($department));
+        $storeRepoMock
+            ->expects($this->exactly(2))
+            ->method('getDocumentManager')
+            ->will($this->returnValue($documentManagerMock));
+
+        $this->client->addTweaker(
+            function (ContainerInterface $container) use ($storeRepoMock) {
+                $container->set('lighthouse.core.document.repository.department', $storeRepoMock);
+            }
+        );
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/departments',
+            $departmentData
+        );
+
+        return $response;
+    }
+
+    /**
+     * @group unique
+     */
+    public function testPostActionFlushFailedException()
+    {
+        $exception = new Exception('Unknown exception');
+        $response = $this->doPostActionFlushFailedException($exception);
+
+        $this->assertResponseCode(500);
+        Assert::assertJsonPathEquals('Unknown exception', 'message', $response);
+    }
+
+    /**
+     * @group unique
+     */
+    public function testPostActionFlushFailedMongoDuplicateKeyException()
+    {
+        $exception = new MongoDuplicateKeyException();
+        $response = $this->doPostActionFlushFailedException($exception);
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
+        Assert::assertJsonPathEquals(
+            'Отдел с таким названием уже существует в этом магазине',
+            'children.number.errors.0',
+            $response
+        );
+    }
+
+    /**
+     * @group unique
+     * @expectedException MongoDuplicateKeyException
+     * @expectedExceptionMessage Department.$number
+     */
+    public function testDoubleCreate()
+    {
+        $this->factory->store()->createDepartment();
+        $this->factory->flush();
+        $this->factory->store()->createDepartment();
+        $this->factory->flush();
     }
 }
