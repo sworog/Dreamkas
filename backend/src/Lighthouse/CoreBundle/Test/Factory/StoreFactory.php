@@ -90,8 +90,7 @@ class StoreFactory extends AbstractFactory
         $contacts = self::STORE_DEFAULT_NUMBER
     ) {
         if (!isset($this->storeNumbers[$number])) {
-            $store = $this->createStore($number, $address, $contacts);
-
+            $this->createStore($number, $address, $contacts);
         }
         return $this->getStoreById($this->storeNumbers[$number]);
     }
@@ -216,12 +215,11 @@ class StoreFactory extends AbstractFactory
      * @param string $name
      * @return Department
      */
-    public function createDepartment(
-        Store $store = null,
-        $number = self::DEFAULT_DEPARTMENT_NUMBER,
-        $name = self::DEFAULT_DEPARTMENT_NAME
-    ) {
+    public function createDepartment(Store $store = null, $number = null, $name = null)
+    {
         $store = ($store) ?: $this->getStore();
+        $number = ($number) ?: self::DEFAULT_DEPARTMENT_NUMBER;
+        $name = ($name) ?: self::DEFAULT_DEPARTMENT_NAME;
 
         $department = new Department();
         $department->store = $store;
@@ -229,6 +227,7 @@ class StoreFactory extends AbstractFactory
         $department->name = $name;
 
         $this->getDocumentManager()->persist($department);
+        $this->getDocumentManager()->flush();
 
         $this->departments[$store->id . $department->number] = $department->id;
 
@@ -254,10 +253,11 @@ class StoreFactory extends AbstractFactory
      * @param Store $store
      * @return Department
      */
-    public function getDepartment($number = self::DEFAULT_DEPARTMENT_NUMBER, Store $store = null)
+    public function getDepartment($number = null, Store $store = null)
     {
         $store = ($store) ?: $this->getStore();
-        if (isset($this->departments[$store->id . $number])) {
+        $number = ($number) ?: self::DEFAULT_DEPARTMENT_NUMBER;
+        if (!isset($this->departments[$store->id . $number])) {
             $this->createDepartment($store, $number);
         }
         return $this->getDepartmentById($this->departments[$store->id . $number]);

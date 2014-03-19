@@ -308,17 +308,18 @@ class StoreControllerTest extends WebTestCase
 
     public function testGetStoreWithDepartments()
     {
-        $storeId = $this->factory->store()->getStoreId('1');
+        $store = $this->factory->store()->getStore('1');
 
-        $departmentId1 = $this->createDepartment($storeId, '1-1');
-        $departmentId2 = $this->createDepartment($storeId, '1-2');
+        $departmentId1 = $this->factory->store()->getDepartment('1-1', $store)->id;
+        $departmentId2 = $this->factory->store()->getDepartment('1-2', $store)->id;
+        $this->client->shutdownKernelBeforeRequest();
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId
+            '/api/1/stores/' . $store->id
         );
 
         $this->assertResponseCode(200);
