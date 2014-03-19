@@ -21,6 +21,11 @@ public class ThenOrderUserSteps {
         orderSteps.assertOrderProductObjectQuantity(locator, expectedValue);
     }
 
+    @Then("the user checks the order product in last created order has quantity equals to expectedValue")
+    public void thenTheUserChecksTheOrderProductHasQuantityEqualsTo(String expectedValue) throws JSONException {
+        orderSteps.assertOrderProductObjectQuantity(expectedValue);
+    }
+
     @Then("the user checks the order total sum is '$expectedTotalSum'")
     public void thenTheUserChecksTheOrderTotalSum(String expectedTotalSum) {
         orderSteps.assertTotalSum(expectedTotalSum);

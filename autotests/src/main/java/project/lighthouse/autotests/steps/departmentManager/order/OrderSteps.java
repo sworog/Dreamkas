@@ -40,13 +40,34 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
+    public void editionFormInput(ExamplesTable examplesTable) {
+        orderPage.getProductEditionForm().fieldInput(examplesTable);
+    }
+
+    @Step
     public void additionFormInput(String elementName, String value) {
         orderPage.getProductAdditionForm().input(elementName, value);
     }
 
     @Step
+    public void editionFormInput(String elementName, String value) {
+        orderPage.getProductEditionForm().input(elementName, value);
+    }
+
+    @Step
     public void productCollectionExactCompare(ExamplesTable examplesTable) {
         orderPage.getOrderProductObjectCollection().exactCompareExampleTable(examplesTable);
+    }
+
+    @Step
+    public void orderProductCollectionObjectClickByLocator(String locator) {
+        orderPage.getOrderProductObjectCollection().clickByLocator(locator);
+    }
+
+    @Step
+    public void lastCreatedOrderProductCollectionObjectClickByLocator() throws JSONException {
+        orderProductCollectionObjectClickByLocator(
+                Storage.getOrderVariableStorage().product.getName());
     }
 
     @Step
@@ -88,6 +109,11 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
+    public void editOrderProductButtonClick() {
+        orderPage.getProductEditionForm().editButtonClick();
+    }
+
+    @Step
     public void openOrdersListPage() {
         ordersListPage.open();
     }
@@ -97,6 +123,13 @@ public class OrderSteps extends ScenarioSteps {
         OrderProductObject orderProductObject =
                 (OrderProductObject) orderPage.getOrderProductObjectCollection().getAbstractObjectByLocator(locator);
         Assert.assertThat(orderProductObject.getQuantity(), equalTo(expectedQuantity));
+    }
+
+    @Step
+    public void assertOrderProductObjectQuantity(String expectedQuantity) throws JSONException {
+        assertOrderProductObjectQuantity(
+                Storage.getOrderVariableStorage().product.getName(),
+                expectedQuantity);
     }
 
     @Step
