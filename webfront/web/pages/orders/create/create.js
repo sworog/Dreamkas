@@ -14,7 +14,7 @@ define(function(require, exports, module) {
             '#content': require('tpl!./content.html')
         },
         permissions: function() {
-            return !LH.isAllow('stores', 'POST::{store}/orders');
+            return !LH.isAllow('stores/{store}/orders', 'POST');
         },
         initialize: function() {
             var page = this;
