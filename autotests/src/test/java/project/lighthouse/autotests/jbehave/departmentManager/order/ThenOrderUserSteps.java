@@ -3,6 +3,7 @@ package project.lighthouse.autotests.jbehave.departmentManager.order;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONException;
 import project.lighthouse.autotests.steps.departmentManager.order.OrderSteps;
 
 public class ThenOrderUserSteps {
@@ -43,5 +44,15 @@ public class ThenOrderUserSteps {
     @Then("the user asserts the order field label with name '$elementName' of product addition form")
     public void thenTheUserAssertsTheOrderFieldLabelWithNameOfProductAdditionForm(String elementName) {
         orderSteps.assertAdditionProductFormLabelTitle(elementName);
+    }
+
+    @Then("the user checks the orders list contains required entry")
+    public void thenTheUserChecksTheOrdersListContainsRequiredEntry() throws JSONException {
+        orderSteps.assertOrderCollectionValues();
+    }
+
+    @Then("the user checks the orders list contains required entries")
+    public void thenTheUserChecksTheOrdersListContainsEntry() throws JSONException {
+        orderSteps.assertAnotherOrderCollectionValues();
     }
 }
