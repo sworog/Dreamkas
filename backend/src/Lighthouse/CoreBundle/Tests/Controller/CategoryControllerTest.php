@@ -1069,6 +1069,9 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('nearest50', 'group.rounding.name', $getResponse);
     }
 
+    /**
+     * @group unique
+     */
     public function testUniqueNameInParallel()
     {
         $group = $this->factory->catalog()->getGroup();
@@ -1165,6 +1168,9 @@ class CategoryControllerTest extends WebTestCase
         return $response;
     }
 
+    /**
+     * @group unique
+     */
     public function testPostActionFlushFailedException()
     {
         $exception = new Exception('Unknown exception');
@@ -1174,6 +1180,9 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('Unknown exception', 'message', $response);
     }
 
+    /**
+     * @group unique
+     */
     public function testPostActionFlushFailedMongoDuplicateKeyException()
     {
         $exception = new MongoDuplicateKeyException();

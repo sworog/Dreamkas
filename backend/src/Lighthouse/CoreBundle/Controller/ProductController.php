@@ -10,10 +10,13 @@ use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductCollection;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
+use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\ProductType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use MongoDuplicateKeyException;
 
 class ProductController extends AbstractRestController
 {
@@ -29,6 +32,19 @@ class ProductController extends AbstractRestController
     protected function getDocumentFormType()
     {
         return new ProductType();
+    }
+
+    /**
+     * @param FlushFailedException $e
+     * @return FormInterface
+     */
+    protected function handleFlushFailedException(FlushFailedException $e)
+    {
+        if ($e->getCause() instanceof MongoDuplicateKeyException) {
+            return $this->addFormError($e->getForm(), 'sku', 'lighthouse.validation.errors.product.sku.unique');
+        } else {
+            return parent::handleFlushFailedException($e);
+        }
     }
 
     /**
