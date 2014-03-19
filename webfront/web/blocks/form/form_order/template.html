@@ -46,6 +46,11 @@
     <button form="form_order" type="submit" class="button">
         Сохранить
     </button>
+    <% if (model.id) { %>
+    <a id="form_order__removeLink" class="button form_order__removeLink">
+        Удалить
+    </a>
+    <% } %>
     <span style="margin-right: 10px;">
         или
     </span>
