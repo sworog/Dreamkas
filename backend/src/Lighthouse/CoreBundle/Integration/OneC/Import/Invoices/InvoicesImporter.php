@@ -184,7 +184,7 @@ class InvoicesImporter
     }
 
     /**
-     * @param array $errors
+     * @param array|\Exception[] $errors
      * @param OutputInterface $output
      */
     protected function outputErrors(array $errors, OutputInterface $output)

@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputOption;
 use JMS\DiExtraBundle\Annotation as DI;
 use OpenCloud\ObjectStore\Service;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @DI\Service("lighthouse.core.command.openstack.container", abstract=true)

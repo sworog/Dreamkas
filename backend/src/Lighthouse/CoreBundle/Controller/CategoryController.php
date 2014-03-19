@@ -60,11 +60,7 @@ class CategoryController extends AbstractRestController
      */
     public function postCategoriesAction(Request $request)
     {
-        try {
-            return $this->processPost($request);
-        } catch (FlushFailedException $e) {
-
-        }
+        return $this->processPost($request);
     }
 
     /**

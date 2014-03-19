@@ -12,6 +12,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Stopwatch\Stopwatch;
+use Exception;
 
 /**
  * @DI\Service("lighthouse.core.command.import.set10_sales_import")
@@ -83,7 +84,9 @@ class Set10SalesImport extends Command
                 $parser = new SalesXmlParser($file->getPathname());
                 $this->importer->import($parser, $output, null, null, $dotHelper, $stopwatch);
                 foreach ($this->importer->getErrors() as $error) {
-                    $this->logException($error['exception'], $dirUrl, $file->getPathname());
+                    /* @var Exception $exception */
+                    list(, $exception) = $error;
+                    $this->logException($exception, $dirUrl, $file->getPathname());
                 }
             } catch (\Exception $e) {
                 $this->logException($e, $dirUrl, $file->getPathname());

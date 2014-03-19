@@ -4,8 +4,6 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Guzzle\Plugin\Mock\MockPlugin;
 use Lighthouse\CoreBundle\Document\File\FileUploader;
-use Lighthouse\CoreBundle\Document\Order\Order;
-use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;

@@ -11,7 +11,7 @@ class WriteOffProductRepository extends DocumentRepository
     /**
      * @param string $storeId
      * @param string $productId
-     * @return Cursor
+     * @return Cursor|WriteOff[]
      */
     public function findByStoreAndProduct($storeId, $productId)
     {
