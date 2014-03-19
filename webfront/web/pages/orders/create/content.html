@@ -2,7 +2,7 @@
     localNavigation: require('tpl!blocks/localNavigation/localNavigation_orders.html'),
     form_order: require('tpl!blocks/form/form_order/template.html')
 } %>
-<% if (LH.isAllow('stores', 'POST::{store}/orders')) { %>
+<% if (LH.isAllow('stores/{store}/orders', 'POST')) { %>
 <%= templates.localNavigation(obj) %>
 <% } %>
 
