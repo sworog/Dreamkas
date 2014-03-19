@@ -25,6 +25,10 @@ define(function(require, exports, module) {
                     });
 
                 block.renderEditForm(orderProductModel);
+            },
+            'click .form_orderProduct__cancelLink': function(e){
+                var block = this;
+                block.$tr.detach();
             }
         },
         initialize: function() {

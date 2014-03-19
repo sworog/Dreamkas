@@ -53,7 +53,10 @@
     </div>
     <div class="form__controls">
         <button type="submit" class="button">
-            <%- model.get('product') ? 'Редактировать' : 'Добавить в заказ' %>
+            <%- model.get('product') ? 'Сохранить' : 'Добавить в заказ' %>
         </button>
+        <% if (model.get('product')) { %>
+            или <a style="margin-left: 10px;" class="form_orderProduct__cancelLink">Отменить</a>
+        <% } %>
     </div>
 </form>

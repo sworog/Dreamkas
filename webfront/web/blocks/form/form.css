@@ -1,40 +1,40 @@
-.form__label{
+.form__label {
     display: block;
     padding-bottom: 4px;
     font-size: 13px;
     color: #999;
 }
 
-.form__fieldset{
+.form__fieldset {
     border: none;
     background: none;
     padding: 0;
     margin: 0 0 20px;
 }
 
-.form__legend{
+.form__legend {
     font-style: italic;
     color: #939393;
     padding-bottom: 20px;
 }
 
-.form__controls{
+.form__controls {
 }
 
-.form__field{
+.form__field {
     padding-bottom: 16px;
 }
 
-.form__field .inputText, .form__field .select{
+.form__field .inputText, .form__field .select {
     width: 300px;
     vertical-align: middle;
 }
 
-.form__controlLink{
+.form__controlLink {
     vertical-align: middle;
 }
 
-.form__successMessage{
+.form__successMessage {
     vertical-align: middle;
     color: darkgreen;
     margin-left: 10px;
@@ -55,7 +55,7 @@
 
 .form_catalogGroupProperties .form__label,
 .form_catalogCategoryProperties .form__label,
-.form_catalogSubCategoryProperties .form__label{
+.form_catalogSubCategoryProperties .form__label {
     white-space: nowrap;
 }
 
@@ -64,15 +64,15 @@
     text-align: right;
 }
 
-.form_catalogSubCategoryProperties .form__controls{
+.form_catalogSubCategoryProperties .form__controls {
     margin: 10px 0 0;
 }
 
-.form_product [name="purchasePrice"]{
+.form_product [name="purchasePrice"] {
     text-align: right;
 }
 
-.form_supplier__fileBox{
+.form_supplier__fileBox {
     width: 600px;
     box-sizing: border-box;
     -mox-box-sizing: border-box;
@@ -82,12 +82,12 @@
     margin-bottom: 16px;
 }
 
-.form_order__productForm{
+.form_order__productForm {
     border-radius: 3px;
     margin-bottom: 50px;
 }
 
-.form_order__totalSum{
+.form_order__totalSum {
     font-size: 20px;
     margin-bottom: 10px;
 }

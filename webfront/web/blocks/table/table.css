@@ -99,3 +99,11 @@
     border-top: none;
     border-right: solid 5px transparent;
 }
+
+.table__orderProduct {
+    cursor: pointer;
+}
+
+.table__orderProduct:hover {
+    background-color: #fafafa;
+}

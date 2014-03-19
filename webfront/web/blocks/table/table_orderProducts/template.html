@@ -26,7 +26,7 @@
     <% collections.orderProducts.forEach(function(orderProductModel) { %>
     <tr data-product_cid="<%- orderProductModel.cid %>"
         name="orderProduct"
-        class="order__dataRow"
+        class="table__orderProduct"
         product-sku="<%- orderProductModel.get('product.product.sku') %>">
         <td name="productName" product-id="<%- orderProductModel.get('product.product.id') %>">
             <%- orderProductModel.get('product.product.name') %>
