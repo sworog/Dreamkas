@@ -758,6 +758,9 @@ class GroupControllerTest extends WebTestCase
         );
     }
 
+    /**
+     * @group unique
+     */
     public function testUniqueNameInParallel()
     {
         $groupData = array(
@@ -845,6 +848,9 @@ class GroupControllerTest extends WebTestCase
         return $response;
     }
 
+    /**
+     * @group unique
+     */
     public function testPostActionFlushFailedException()
     {
         $exception = new \Exception('Unknown exception');
@@ -854,6 +860,9 @@ class GroupControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('Unknown exception', 'message', $response);
     }
 
+    /**
+     * @group unique
+     */
     public function testPostActionFlushFailedMongoDuplicateKeyException()
     {
         $exception = new \MongoDuplicateKeyException();
