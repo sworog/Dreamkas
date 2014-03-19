@@ -2,10 +2,16 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
+use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use PHPUnit_Util_Type;
+use MongoDuplicateKeyException;
+use Exception;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class SubCategoryControllerTest extends WebTestCase
 {
@@ -1132,5 +1138,124 @@ class SubCategoryControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('nearest50', 'rounding.name', $getResponse);
         Assert::assertJsonPathEquals('nearest50', 'category.rounding.name', $getResponse);
         Assert::assertJsonPathEquals('nearest50', 'category.group.rounding.name', $getResponse);
+    }
+
+    public function testUniqueNameInParallel()
+    {
+        $category = $this->factory->catalog()->getCategory();
+        $subCategoryData = array(
+            'name' => 'Молочка',
+            'rounding' => 'nearest1',
+            'category' => $category->id
+        );
+
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $jsonRequest = new JsonRequest('/api/1/subcategories', 'POST', $subCategoryData);
+        $jsonRequest->setAccessToken($accessToken);
+
+        $responses = $this->client->parallelJsonRequest($jsonRequest, 3);
+        $statusCodes = array();
+        $jsonResponses = array();
+        foreach ($responses as $response) {
+            $statusCodes[] = $response->getStatusCode();
+            $jsonResponses[] = $this->client->decodeJsonResponse($response);
+        }
+        $responseBody = PHPUnit_Util_Type::export($jsonResponses);
+        $this->assertCount(1, array_keys($statusCodes, 201), $responseBody);
+        $this->assertCount(2, array_keys($statusCodes, 400), $responseBody);
+        Assert::assertJsonPathEquals('Молочка', '*.name', $jsonResponses, 1);
+        Assert::assertJsonPathEquals(
+            'Подкатегория с таким названием уже существует в этой категории',
+            '*.children.name.errors.0',
+            $jsonResponses,
+            2
+        );
+    }
+
+    protected function doPostActionFlushFailedException(\Exception $exception)
+    {
+        $category = $this->factory->catalog()->getCategory();
+        $subCategoryData = array(
+            'name' => 'Продовольственные товары',
+            'rounding' => 'nearest1',
+            'category' => $category->id
+        );
+
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $subCategory = new SubCategory();
+
+        $documentManagerMock = $this->getMock(
+            'Doctrine\\ODM\\MongoDB\\DocumentManager',
+            array(),
+            array(),
+            '',
+            false
+        );
+        $documentManagerMock
+            ->expects($this->once())
+            ->method('persist');
+
+        $documentManagerMock
+            ->expects($this->once())
+            ->method('flush')
+            ->with($this->isEmpty())
+            ->will($this->throwException($exception));
+
+        $subCategoryRepoMock = $this->getMock(
+            'Lighthouse\\CoreBundle\\Document\\Classifier\\SubCategory\\SubCategoryRepository',
+            array(),
+            array(),
+            '',
+            false
+        );
+
+        $subCategoryRepoMock
+            ->expects($this->once())
+            ->method('createNew')
+            ->will($this->returnValue($subCategory));
+        $subCategoryRepoMock
+            ->expects($this->exactly(2))
+            ->method('getDocumentManager')
+            ->will($this->returnValue($documentManagerMock));
+
+        $this->client->addTweaker(
+            function (ContainerInterface $container) use ($subCategoryRepoMock) {
+                $container->set('lighthouse.core.document.repository.classifier.subcategory', $subCategoryRepoMock);
+            }
+        );
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/subcategories',
+            $subCategoryData
+        );
+
+        return $response;
+    }
+
+    public function testPostActionFlushFailedException()
+    {
+        $exception = new Exception('Unknown exception');
+        $response = $this->doPostActionFlushFailedException($exception);
+
+        $this->assertResponseCode(500);
+        Assert::assertJsonPathEquals('Unknown exception', 'message', $response);
+    }
+
+    public function testPostActionFlushFailedMongoDuplicateKeyException()
+    {
+        $exception = new MongoDuplicateKeyException();
+        $response = $this->doPostActionFlushFailedException($exception);
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
+        Assert::assertJsonPathEquals(
+            'Подкатегория с таким названием уже существует в этой категории',
+            'children.name.errors.0',
+            $response
+        );
     }
 }
