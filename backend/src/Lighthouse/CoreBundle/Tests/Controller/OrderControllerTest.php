@@ -572,8 +572,6 @@ class OrderControllerTest extends WebTestCase
 
     public function testPutOrderAction()
     {
-        $this->markTestIncomplete();
-
         $productId1 = $this->createProduct('1');
         $productId2 = $this->createProduct('2');
         $productId3 = $this->createProduct('3');
@@ -613,6 +611,16 @@ class OrderControllerTest extends WebTestCase
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathEquals('10001', 'number', $putResponse);
+        Assert::assertJsonPathCount(2, 'products.*.id', $putResponse);
+        Assert::assertJsonPathEquals($orderProduct1->id, 'products.0.id', $putResponse);
+        Assert::assertJsonPathEquals($orderProduct2->id, 'products.1.id', $putResponse);
+        Assert::assertNotJsonPathEquals($orderProduct3->id, 'products.*.id', $putResponse, 0);
+
+        Assert::assertJsonPathEquals($productId1, 'products.0.product.product.id', $putResponse);
+        Assert::assertJsonPathEquals(20, 'products.0.quantity', $putResponse);
+
+        Assert::assertJsonPathEquals($productId2, 'products.1.product.product.id', $putResponse);
+        Assert::assertJsonPathEquals(35, 'products.1.quantity', $putResponse);
     }
 
     public function testPutOrderActionInvalidStore()
