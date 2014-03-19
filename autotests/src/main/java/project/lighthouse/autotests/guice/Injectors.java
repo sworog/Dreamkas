@@ -1,10 +1,16 @@
 package project.lighthouse.autotests.guice;
 
+import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-public class Injectors extends net.thucydides.core.guice.Injectors {
+public class Injectors {
+
+    private static Injector injector;
 
     public static synchronized Injector getInjector() {
-        return getInjector(new LighthouseModule());
+        if (injector == null) {
+            injector = Guice.createInjector(new LighthouseModule());
+        }
+        return injector;
     }
 }
