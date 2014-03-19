@@ -76,17 +76,6 @@ class OrderController extends AbstractRestController
         return $order;
     }
 
-    /**
-     * @param Store $store
-     * @param Order $order
-     * @throws NotFoundHttpException
-     */
-    protected function checkOrderStore(Store $store, Order $order)
-    {
-        if ($order->store !== $store) {
-            throw new NotFoundHttpException(sprintf("%s object not found", get_class($order)));
-        }
-    }
 
     /**
      * @param Store $store
@@ -98,5 +87,30 @@ class OrderController extends AbstractRestController
     {
         $orders = $this->documentRepository->findAllByStoreId($store->id);
         return new OrderCollection($orders);
+    }
+
+    /**
+     * @param Store $store
+     * @param Order $order
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @ApiDoc
+     * @return null
+     */
+    public function deleteOrderAction(Store $store, Order $order)
+    {
+        $this->checkOrderStore($store, $order);
+        return $this->processDelete($order);
+    }
+
+    /**
+     * @param Store $store
+     * @param Order $order
+     * @throws NotFoundHttpException
+     */
+    protected function checkOrderStore(Store $store, Order $order)
+    {
+        if ($order->store !== $store) {
+            throw new NotFoundHttpException(sprintf("%s object not found", get_class($order)));
+        }
     }
 }
