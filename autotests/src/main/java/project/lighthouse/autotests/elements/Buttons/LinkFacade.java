@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.elements.Buttons;
 
+import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.abstraction.AbstractFacade;
 import project.lighthouse.autotests.elements.Buttons.interfaces.Disableable;
@@ -10,6 +11,10 @@ public class LinkFacade extends AbstractFacade implements Disableable {
 
     public LinkFacade(CommonPageObject pageObject, String linkText) {
         super(pageObject, linkText);
+    }
+
+    public LinkFacade(CommonPageObject pageObject, By customFindBy) {
+        super(pageObject, customFindBy);
     }
 
     @Override

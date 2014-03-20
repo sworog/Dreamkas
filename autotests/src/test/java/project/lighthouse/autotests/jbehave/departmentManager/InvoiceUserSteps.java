@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.*;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
-import project.lighthouse.autotests.helper.ExampleTableConverter;
+import project.lighthouse.autotests.helper.exampleTable.ExampleTableConverter;
 import project.lighthouse.autotests.jbehave.api.EndInvoiceApiSteps;
 import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
