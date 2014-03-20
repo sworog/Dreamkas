@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.helper.exampleTable.order.OrderExampleTableUpdater;
+import project.lighthouse.autotests.objects.web.order.order.OrderObjectCollection;
 import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductObject;
 import project.lighthouse.autotests.pages.departmentManager.order.OrderPage;
 import project.lighthouse.autotests.pages.departmentManager.order.OrdersListPage;
@@ -97,6 +98,18 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
+    public void deleteButtonClickAndConfirmTheDeletion() {
+        orderPage.deleteButtonClick();
+        orderPage.getWaiter().getAlert().accept();
+    }
+
+    @Step
+    public void deleteButtonClickAndDismissTheDeletion() {
+        orderPage.deleteButtonClick();
+        orderPage.getWaiter().getAlert().dismiss();
+    }
+
+    @Step
     public void checksValues(ExamplesTable examplesTable) {
         orderPage.getProductAdditionForm().checkCardValue(examplesTable);
     }
@@ -162,9 +175,28 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
+    public void assertOrderCollectionDoNotContainOrderWithNumber(String locator) {
+        OrderObjectCollection orderObjectCollection = null;
+        try {
+            orderObjectCollection = ordersListPage.getOrderObjectCollection();
+        } catch (TimeoutException e) {
+            ordersListPage.containsText("Нет невыполненных заказов");
+        } finally {
+            if (orderObjectCollection != null) {
+                orderObjectCollection.notContains(locator);
+            }
+        }
+    }
+
+    @Step
+    public void assertOrderCollectionDoNotContainLastCreatedOrder() {
+        assertOrderCollectionDoNotContainOrderWithNumber(Storage.getOrderVariableStorage().getNumber());
+    }
+
+    @Step
     public void lastCreatedOrderCollectionObjectClick() {
         ordersListPage.getOrderObjectCollection().clickByLocator(
-                Storage.getOrderVariableStorage().getNumber().toString());
+                Storage.getOrderVariableStorage().getNumber());
     }
 
     @Step

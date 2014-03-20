@@ -41,6 +41,16 @@ public class WhenOrderUserSteps {
         orderSteps.saveButtonClick();
     }
 
+    @When("the user clicks the order delete button and confirms the deletion")
+    public void whenTheUserClicksTheOrderDeleteButtonAndConfirmsTheDeletion() {
+        orderSteps.deleteButtonClickAndConfirmTheDeletion();
+    }
+
+    @When("the user clicks the order delete button and dismisses the deletion")
+    public void whenTheUserClicksTheOrderDeleteButtonAndDismissesTheDeletion() {
+        orderSteps.deleteButtonClickAndDismissTheDeletion();
+    }
+
     @When("the user clicks the cancel link button")
     public void whenTheUserClicksTheCancelLinkrButton() {
         orderSteps.cancelLinkClick();

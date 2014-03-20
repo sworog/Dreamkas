@@ -7,7 +7,7 @@ public class OrderVariableStorage {
 
     private Supplier supplier;
     private Product product;
-    private int number = 10000;
+    private Integer number = 10000;
 
     public Supplier getSupplier() {
         return supplier;
@@ -25,8 +25,8 @@ public class OrderVariableStorage {
         this.product = product;
     }
 
-    public Integer getNumber() {
-        return number;
+    public String getNumber() {
+        return number.toString();
     }
 
     public void resetNumber() {

@@ -71,6 +71,11 @@ public class ThenOrderUserSteps {
         orderSteps.assertOrderCollectionValues(examplesTable);
     }
 
+    @Then("the user checks the orders list do not contain last created order")
+    public void thenTheUserChecksTheOrdersListDoNotContainLastCreatedOrder() {
+        orderSteps.assertOrderCollectionDoNotContainLastCreatedOrder();
+    }
+
     @Then("the user checks the last created order products list dont contains product")
     public void thenTheUserChecksTheLastCreatedOrderProductListDonContainsProduct() throws JSONException {
         orderSteps.assertOrderProductCollectionDoNotContainsProduct();

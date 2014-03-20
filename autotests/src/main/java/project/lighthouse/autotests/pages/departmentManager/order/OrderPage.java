@@ -57,6 +57,10 @@ public class OrderPage extends CommonPageObject {
         new LinkFacade(this, "Отменить").click();
     }
 
+    public void deleteButtonClick() {
+        new ButtonFacade(this, "Удалить").click();
+    }
+
     public OrderProductObjectCollection getOrderProductObjectCollection() {
         return new OrderProductObjectCollection(getDriver(), By.name("orderProduct"));
     }
