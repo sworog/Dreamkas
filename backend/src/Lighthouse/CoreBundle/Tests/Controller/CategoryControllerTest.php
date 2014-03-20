@@ -13,7 +13,6 @@ use Exception;
 use PHPUnit_Util_Type;
 use MongoDuplicateKeyException;
 
-
 class CategoryControllerTest extends WebTestCase
 {
     public function testPostCategoriesAction()
