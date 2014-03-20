@@ -41,7 +41,7 @@ define(function(require, exports, module) {
                         return;
                         break;
                     default:
-                        if (block.model.get('product.product.id') !== 'xxx') {
+                        if (block.model.get('product.product.id') !== 'xxx' || !block.el.querySelector('.autocomplete_storeProduct').value.length) {
                             block.model.set('product', {
                                 product: {
                                     id: block.el.querySelector('.autocomplete_storeProduct').value.length ? 'xxx' : ''
