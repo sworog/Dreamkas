@@ -620,12 +620,16 @@ class UserControllerTest extends WebTestCase
                 User::ROLE_DEPARTMENT_MANAGER,
                 array(
                     'stores.*' => array(
-                        'GET::{store}/orders',
-                        'GET::{store}/orders/{order}',
                         'GET::{store}/products',
                         'GET::{store}/products/{property}/search',
-                        'POST::{store}/orders',
-                        'POST::{store}/orders/products'
+                    ),
+                    'stores/{store}/orders.*' => array(
+                        'DELETE::{order}',
+                        'GET',
+                        'GET::{order}',
+                        'POST',
+                        'POST::products',
+                        'PUT::{order}',
                     ),
                     'stores/{store}/products/{product}.*' => array(
                         'GET',

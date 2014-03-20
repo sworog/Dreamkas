@@ -33,7 +33,7 @@
     <a href="/suppliers">Поставщики</a>
     <% } %>
 
-    <% if(LH.isAllow('stores', 'GET::{store}/orders/{order}')){ %>
+    <% if(LH.isAllow('stores/{store}/orders', 'GET')){ %>
     <a href="/orders">Заказы</a>
     <% } %>
 

@@ -15,6 +15,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository"
  * )
+ * @MongoDB\UniqueIndex(keys={"name"="asc", "category"="asc"})
  * @Unique(fields={"name", "category"}, message="lighthouse.validation.errors.subCategory.name.unique")
  */
 class SubCategory extends AbstractNode

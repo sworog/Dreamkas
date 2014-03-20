@@ -66,10 +66,7 @@ define(function(require) {
         });
 
         if (!currentUserModel.stores.length) {
-            app.permissions.stores = _.without(app.permissions.stores,
-                'POST::{store}/orders',
-                'POST::{store}/orders/products',
-                'GET::{store}/orders/{order}');
+            delete app.permissions['stores/{store}/orders'];
         }
 
         routes = 'routes/authorized';

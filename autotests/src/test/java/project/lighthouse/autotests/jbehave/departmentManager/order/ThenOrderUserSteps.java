@@ -12,13 +12,18 @@ public class ThenOrderUserSteps {
     OrderSteps orderSteps;
 
     @Then("the user checks the order products list contains entry $examplesTable")
-    public void thenTheUserChecksTheOrderProductListContainsEntry(ExamplesTable examplesTable) {
+    public void thenTheUserChecksTheOrderProductListContainsEntry(ExamplesTable examplesTable) throws JSONException {
         orderSteps.productCollectionExactCompare(examplesTable);
     }
 
     @Then("the user checks the order product found by name '$locator' has quantity equals to expectedValue")
     public void thenTheUserChecksTheOrderProductFoundByNameHasQuantityEqualsTo(String locator, String expectedValue) {
         orderSteps.assertOrderProductObjectQuantity(locator, expectedValue);
+    }
+
+    @Then("the user checks the order product in last created order has quantity equals to expectedValue")
+    public void thenTheUserChecksTheOrderProductHasQuantityEqualsTo(String expectedValue) throws JSONException {
+        orderSteps.assertOrderProductObjectQuantity(expectedValue);
     }
 
     @Then("the user checks the order total sum is '$expectedTotalSum'")
@@ -29,6 +34,11 @@ public class ThenOrderUserSteps {
     @Then("the user checks the filled autocomplete values in product addition form $examplesTable")
     public void thenTheUserChecksTheFilledAutoCompleteValues(ExamplesTable examplesTable) {
         orderSteps.checksValues(examplesTable);
+    }
+
+    @Then("the user checks the filled order page values $examplesTable")
+    public void thenTheUserChecksTheFilledOrderPageValues(ExamplesTable examplesTable) {
+        orderSteps.checkOrderPageValues(examplesTable);
     }
 
     @Then("the user checks the autocomplete values $examplesTable")
@@ -46,13 +56,28 @@ public class ThenOrderUserSteps {
         orderSteps.assertAdditionProductFormLabelTitle(elementName);
     }
 
-    @Then("the user checks the orders list contains required entry")
-    public void thenTheUserChecksTheOrdersListContainsRequiredEntry() throws JSONException {
-        orderSteps.assertOrderCollectionValues();
+    @Then("the user checks the orders list contains exact entries $examplesTable")
+    public void thenTheUserChecksTheOrdersListContainsExactEntries(ExamplesTable examplesTable) throws JSONException {
+        orderSteps.assertExactOrderCollectionValues(examplesTable);
     }
 
-    @Then("the user checks the orders list contains required entries")
-    public void thenTheUserChecksTheOrdersListContainsEntry() throws JSONException {
-        orderSteps.assertAnotherOrderCollectionValues();
+    @Then("the user checks the orders list contains entry $examplesTable")
+    public void thenTheUserChecksTheOrderListContainsEntry(ExamplesTable examplesTable) throws JSONException {
+        orderSteps.assertOrderCollectionValues(examplesTable);
+    }
+
+    @Then("the user checks the orders list do not contain last created order")
+    public void thenTheUserChecksTheOrdersListDoNotContainLastCreatedOrder() {
+        orderSteps.assertOrderCollectionDoNotContainLastCreatedOrder();
+    }
+
+    @Then("the user checks the last created order products list dont contains product")
+    public void thenTheUserChecksTheLastCreatedOrderProductListDonContainsProduct() throws JSONException {
+        orderSteps.assertOrderProductCollectionDoNotContainsProduct();
+    }
+
+    @Then("the user checks the order number is expected")
+    public void thenTheUserChecksTheOrderNumberIsExpected() {
+        orderSteps.assertOrderNumberHeader();
     }
 }

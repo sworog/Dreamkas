@@ -1659,9 +1659,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function testAccessProduct($url, $method, $role, $responseCode, array $requestData = array())
     {
-        $groupId = $this->factory->catalog()->getGroup()->id;
-        $categoryId = $this->createCategory($groupId);
-        $subCategoryId = $this->createSubCategory($categoryId);
+        $subCategoryId = $this->factory->catalog()->getSubCategory('Пиво')->id;
         $productId = $this->createProduct('Старый мельник', $subCategoryId);
 
         $url = str_replace(

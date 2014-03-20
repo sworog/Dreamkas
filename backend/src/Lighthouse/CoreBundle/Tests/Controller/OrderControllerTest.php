@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Order\Order;
+use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
@@ -567,5 +568,272 @@ class OrderControllerTest extends WebTestCase
 
         $this->assertResponseCode(201);
         Assert::assertJsonPathEquals(10002, 'number', $response);
+    }
+
+    public function testPutOrderAction()
+    {
+        $productId1 = $this->createProduct('1');
+        $productId2 = $this->createProduct('2');
+        $productId3 = $this->createProduct('3');
+        $store = $this->factory->store()->getStore();
+        $supplier = $this->factory->createSupplier();
+        $order = $this->factory->createOrder($store, $supplier);
+        $orderProduct1 = $this->factory->createOrderProduct($order, $productId1, 10);
+        $orderProduct2 = $this->factory->createOrderProduct($order, $productId2, 20);
+        $orderProduct3 = $this->factory->createOrderProduct($order, $productId3, 30);
+        $this->factory->flush();
+
+        $this->assertEquals(10001, $order->number);
+
+        $orderData = array(
+            'supplier' => $supplier->id,
+            'products' => array(
+                array(
+                    'id' => $orderProduct1->id,
+                    'product' => $productId1,
+                    'quantity' => 20,
+                ),
+                array(
+                    'product' => $productId2,
+                    'quantity' => 35,
+                ),
+            )
+        );
+
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $store->id . '/orders/' . $order->id,
+            $orderData
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('10001', 'number', $putResponse);
+        Assert::assertJsonPathCount(2, 'products.*.id', $putResponse);
+        Assert::assertJsonPathEquals($orderProduct1->id, 'products.0.id', $putResponse);
+        Assert::assertJsonPathEquals($orderProduct2->id, 'products.1.id', $putResponse);
+        Assert::assertNotJsonPathEquals($orderProduct3->id, 'products.*.id', $putResponse, 0);
+
+        Assert::assertJsonPathEquals($productId1, 'products.0.product.product.id', $putResponse);
+        Assert::assertJsonPathEquals(20, 'products.0.quantity', $putResponse);
+
+        Assert::assertJsonPathEquals($productId2, 'products.1.product.product.id', $putResponse);
+        Assert::assertJsonPathEquals(35, 'products.1.quantity', $putResponse);
+    }
+
+    public function testPutOrderActionInvalidStore()
+    {
+        $store1 = $this->factory->store()->getStore('1');
+        $store2 = $this->factory->store()->getStore('2');
+        $productId = $this->createProduct('1');
+        $supplier = $this->factory->createSupplier();
+        $order = $this->factory->createOrder($store1, $supplier);
+        $orderProduct = $this->factory->createOrderProduct($order, $productId, 10);
+        $this->factory->flush();
+
+        $orderData = array(
+            'supplier' => $supplier->id,
+            'products' => array(
+                array(
+                    'id' => $orderProduct->id,
+                    'product' => $productId,
+                    'quantity' => 20,
+                ),
+            )
+        );
+
+        $departmentManager = $this->factory->store()->getDepartmentManager($store1->id);
+        $this->factory->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
+
+        $accessToken = $this->factory->oauth()->auth($departmentManager);
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $store2->id . '/orders/' . $order->id,
+            $orderData,
+            array(),
+            array(
+                'HTTP_Origin' => 'http://webfront.lighthouse.dev',
+            )
+        );
+
+        $this->assertResponseCode(404);
+
+        $this->assertTrue($this->client->getResponse()->headers->has('access-control-allow-origin'));
+        $this->assertEquals(
+            'http://webfront.lighthouse.dev',
+            $this->client->getResponse()->headers->get('access-control-allow-origin')
+        );
+        Assert::assertJsonPathContains('Order object not found', 'message', $putResponse);
+    }
+
+    public function testPutOrderActionCORSHeaders()
+    {
+        $store = $this->factory->store()->getStore();
+        $productId = $this->createProduct();
+        $supplier = $this->factory->createSupplier();
+        $order = $this->factory->createOrder($store, $supplier);
+        $orderProduct = $this->factory->createOrderProduct($order, $productId, 10);
+        $this->factory->flush();
+
+        $orderData = array(
+            'supplier' => $supplier->id,
+            'products' => array(
+                array(
+                    'id' => $orderProduct->id,
+                    'product' => $productId,
+                    'quantity' => 20,
+                ),
+            )
+        );
+
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $store->id . '/orders/' . $order->id,
+            $orderData,
+            array(),
+            array(
+                'HTTP_Origin' => 'http://webfront.lighthouse.dev',
+            )
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertTrue($this->client->getResponse()->headers->has('access-control-allow-origin'));
+        $this->assertEquals(
+            'http://webfront.lighthouse.dev',
+            $this->client->getResponse()->headers->get('access-control-allow-origin')
+        );
+    }
+
+    public function testGetOrderActionInvalidStore()
+    {
+        $store1 = $this->factory->store()->getStore('1');
+        $store2 = $this->factory->store()->getStore('2');
+        $productId = $this->createProduct('1');
+        $supplier = $this->factory->createSupplier();
+        $order = $this->factory->createOrder($store1, $supplier);
+        $this->factory->createOrderProduct($order, $productId, 10);
+        $this->factory->flush();
+
+        $departmentManager = $this->factory->store()->getDepartmentManager($store1->id);
+        $this->factory->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
+
+        $accessToken = $this->factory->oauth()->auth($departmentManager);
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $store2->id . '/orders/' . $order->id
+        );
+
+        $this->assertResponseCode(404);
+
+        Assert::assertJsonPathContains('Order object not found', 'message', $putResponse);
+    }
+
+    public function testDeleteOrderActionInvalidStore()
+    {
+        $store1 = $this->factory->store()->getStore('1');
+        $store2 = $this->factory->store()->getStore('2');
+        $productId = $this->createProduct('1');
+        $supplier = $this->factory->createSupplier();
+        $order = $this->factory->createOrder($store1, $supplier);
+        $this->factory->createOrderProduct($order, $productId, 10);
+        $this->factory->flush();
+
+        $departmentManager = $this->factory->store()->getDepartmentManager($store1->id);
+        $this->factory->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
+
+        $accessToken = $this->factory->oauth()->auth($departmentManager);
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/stores/' . $store2->id . '/orders/' . $order->id
+        );
+
+        $this->assertResponseCode(404);
+
+        Assert::assertJsonPathContains('Order object not found', 'message', $putResponse);
+    }
+
+    public function testDeleteAction()
+    {
+        $store = $this->factory->store()->getStore();
+        $productId = $this->createProduct();
+        $supplier = $this->factory->createSupplier();
+        $order = $this->factory->createOrder($store, $supplier);
+        $this->factory->createOrderProduct($order, $productId, 10);
+        $this->factory->flush();
+
+        $orderProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.order_product');
+        $this->assertCount(1, $orderProductRepository->findAll());
+
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/stores/' . $store->id . '/orders/' . $order->id
+        );
+
+        $this->assertResponseCode(204);
+
+        $this->assertEmpty($deleteResponse);
+
+        $this->assertCount(0, $orderProductRepository->findAll());
+    }
+
+    public function testPutOrderActionChangeProduct()
+    {
+        $productId1 = $this->createProduct('1');
+        $productId2 = $this->createProduct('2');
+        $productId3 = $this->createProduct('3');
+        $store = $this->factory->store()->getStore();
+        $supplier = $this->factory->createSupplier();
+        $order = $this->factory->createOrder($store, $supplier);
+        $orderProduct1 = $this->factory->createOrderProduct($order, $productId1, 10);
+        $orderProduct2 = $this->factory->createOrderProduct($order, $productId2, 20);
+        $this->factory->flush();
+
+        $this->assertEquals(10001, $order->number);
+
+        $orderData = array(
+            'supplier' => $supplier->id,
+            'products' => array(
+                array(
+                    'product' => $productId1,
+                    'quantity' => 20,
+                ),
+                array(
+                    'product' => $productId3,
+                    'quantity' => 35,
+                ),
+            )
+        );
+
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $store->id . '/orders/' . $order->id,
+            $orderData
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('10001', 'number', $putResponse);
+        Assert::assertJsonPathCount(2, 'products.*.id', $putResponse);
+        Assert::assertJsonPathEquals($orderProduct1->id, 'products.0.id', $putResponse);
+        Assert::assertJsonPathEquals($orderProduct2->id, 'products.1.id', $putResponse);
+        Assert::assertNotJsonPathEquals($productId2, 'products.*.product.product.id', $putResponse);
+
+        Assert::assertJsonPathEquals($productId1, 'products.0.product.product.id', $putResponse);
+        Assert::assertJsonPathEquals(20, 'products.0.quantity', $putResponse);
+
+        Assert::assertJsonPathEquals($productId3, 'products.1.product.product.id', $putResponse);
+        Assert::assertJsonPathEquals(35, 'products.1.quantity', $putResponse);
     }
 }

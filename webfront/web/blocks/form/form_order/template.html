@@ -9,26 +9,25 @@
 } %>
 
 <form id="form_order" class="form form_order" style="margin-bottom: 20px;">
-    <div class="form__field">
+    <div class="form__field" style="padding-bottom: 30px;">
         <label class="form__label">Поставщик</label>
         <select class="select" name="supplier">
             <option value="" selected disabled>Выберите поставщика</option>
             <% collections.suppliers.forEach(function(supplierModel){ %>
             <% var selected = supplierModel.id === model.get('supplier.id') %>
-            <option <%- selected ? 'selected' : ''%> value="<%- supplierModel.id %>"><%- supplierModel.get('name') %></option>
+            <option <%- selected ? 'selected' : '' %>
+                    value="<%- supplierModel.id %>"><%- supplierModel.get('name') %></option>
             <% }) %>
         </select>
     </div>
+    <div style="margin-bottom: 30px;">
+        <%= model.get('collections.products').element(require('tpl!blocks/table/table_orderProducts/template.html'), {
+            collections: {
+                orderProducts: model.get('collections.products')
+            }
+        }) %>
+    </div>
 </form>
-
-<div style="margin-bottom: 30px;">
-    <%= model.get('collections.products').element(require('tpl!blocks/table/table_orderProducts/template.html'), {
-        collections: {
-            orderProducts: model.get('collections.products')
-        }
-    }) %>
-</div>
-
 <div class="form_order__productForm">
     <h2>Добавление товара в заказ</h2>
     <%= templates.form_orderProduct() %>
@@ -47,6 +46,11 @@
     <button form="form_order" type="submit" class="button">
         Сохранить
     </button>
+    <% if (model.id) { %>
+    <a id="form_order__removeLink" class="button form_order__removeLink">
+        Удалить
+    </a>
+    <% } %>
     <span style="margin-right: 10px;">
         или
     </span>

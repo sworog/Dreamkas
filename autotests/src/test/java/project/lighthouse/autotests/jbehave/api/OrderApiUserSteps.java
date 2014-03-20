@@ -37,7 +37,8 @@ public class OrderApiUserSteps {
         SubCategory subCategory = catalogApiSteps.createDefaultSubCategoryThroughPost();
         Product product = productApiSteps.createProductThroughPost(uuid, uuid, uuid, "unit", "100.00", subCategory.getName());
 
-        Storage.getOrderVariableStorage().supplier = supplier;
+        Storage.getOrderVariableStorage().setProduct(product);
+        Storage.getOrderVariableStorage().setSupplier(supplier);
 
         OrderProduct orderProduct = new OrderProduct(product.getId(), "1");
         orderApiSteps.createOrder(
@@ -45,6 +46,7 @@ public class OrderApiUserSteps {
                 new OrderProduct[]{orderProduct},
                 userName,
                 "lighthouse");
+        Storage.getOrderVariableStorage().incrementNumber();
     }
 
     @Given("the user opens last created order page")

@@ -17,6 +17,7 @@ class OrderProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('id', 'text', array('mapped' => false))
             ->add(
                 'product',
                 'reference',

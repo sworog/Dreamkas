@@ -35,7 +35,8 @@ class OrderType extends AbstractType
                 'collection',
                 array(
                     'type' => new OrderProductType(),
-                    'allow_add' => true
+                    'allow_add' => true,
+                    'allow_delete' => true,
                 )
             );
     }

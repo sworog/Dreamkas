@@ -10,6 +10,7 @@ import project.lighthouse.autotests.elements.SelectByVisibleText;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductObjectCollection;
 import project.lighthouse.autotests.pages.departmentManager.order.pageElements.ProductAdditionForm;
+import project.lighthouse.autotests.pages.departmentManager.order.pageElements.ProductEditionForm;
 
 /**
  * Page object class representing create/edit/view order page
@@ -23,12 +24,19 @@ public class OrderPage extends CommonPageObject {
     @SuppressWarnings("unused")
     private ProductAdditionForm productAdditionForm;
 
+    @SuppressWarnings("unused")
+    private ProductEditionForm productEditionForm;
+
     public OrderPage(WebDriver driver) {
         super(driver);
     }
 
     public ProductAdditionForm getProductAdditionForm() {
         return productAdditionForm;
+    }
+
+    public ProductEditionForm getProductEditionForm() {
+        return productEditionForm;
     }
 
     @Override
@@ -49,7 +57,15 @@ public class OrderPage extends CommonPageObject {
         new LinkFacade(this, "Отменить").click();
     }
 
+    public void deleteButtonClick() {
+        new ButtonFacade(this, "Удалить").click();
+    }
+
     public OrderProductObjectCollection getOrderProductObjectCollection() {
         return new OrderProductObjectCollection(getDriver(), By.name("orderProduct"));
+    }
+
+    public String getOrderNumberHeaderText() {
+        return findVisibleElement(By.xpath("//*[@class='page__data']/h2")).getText();
     }
 }

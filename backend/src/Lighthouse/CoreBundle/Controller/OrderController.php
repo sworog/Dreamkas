@@ -50,6 +50,22 @@ class OrderController extends AbstractRestController
     /**
      * @param Store $store
      * @param Order $order
+     * @param Request $request
+     * @return View|Order
+     *
+     * @Rest\View(statusCode=200)
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @ApiDoc
+     */
+    public function putOrderAction(Store $store, Order $order, Request $request)
+    {
+        $this->checkOrderStore($store, $order);
+        return $this->processForm($request, $order);
+    }
+
+    /**
+     * @param Store $store
+     * @param Order $order
      * @return Order
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
@@ -58,6 +74,32 @@ class OrderController extends AbstractRestController
     {
         $this->checkOrderStore($store, $order);
         return $order;
+    }
+
+
+    /**
+     * @param Store $store
+     * @return Order
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @ApiDoc(resource=true)
+     */
+    public function getOrdersAction(Store $store)
+    {
+        $orders = $this->documentRepository->findAllByStoreId($store->id);
+        return new OrderCollection($orders);
+    }
+
+    /**
+     * @param Store $store
+     * @param Order $order
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @ApiDoc
+     * @return null
+     */
+    public function deleteOrderAction(Store $store, Order $order)
+    {
+        $this->checkOrderStore($store, $order);
+        return $this->processDelete($order);
     }
 
     /**
@@ -70,17 +112,5 @@ class OrderController extends AbstractRestController
         if ($order->store !== $store) {
             throw new NotFoundHttpException(sprintf("%s object not found", get_class($order)));
         }
-    }
-
-    /**
-     * @param Store $store
-     * @return Order
-     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
-     * @ApiDoc
-     */
-    public function getOrdersAction(Store $store)
-    {
-        $orders = $this->documentRepository->findAllByStoreId($store->id);
-        return new OrderCollection($orders);
     }
 }

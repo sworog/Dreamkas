@@ -15,14 +15,13 @@ define(function(require, exports, module) {
         template: require('tpl!blocks/form/form_orderProduct/template.html'),
         model: new OrderProductModel(),
         collection: new OrderProductsCollection(),
-        storeProduct: {
-            product: {}
-        },
         events: {
             'keyup [name="quantity"]': function(e) {
                 var block = this;
 
-                block.model.set('quantity', e.target.value.replace(',', '.', 'gi'));
+                block.model.set('quantity', e.target.value.replace(',', '.', 'gi'), {
+                    silent: true
+                });
                 block.render();
             },
             'keyup .autocomplete_storeProduct': function(e) {
@@ -42,16 +41,23 @@ define(function(require, exports, module) {
                         return;
                         break;
                     default:
-                        if (block.storeProduct) {
-                            block.storeProduct = {
+                        if (block.model.get('product.product.id') !== 'xxx' || !block.el.querySelector('.autocomplete_storeProduct').value.length) {
+                            block.model.set('product', {
                                 product: {
-                                    id: block.el.querySelector('.autocomplete_storeProduct').value ? 'xxx' : null
+                                    id: block.el.querySelector('.autocomplete_storeProduct').value.length ? 'xxx' : ''
                                 }
-                            };
+                            }, {
+                                silent: true
+                            });
 
                             block.render();
                         }
                 }
+            },
+            'click .form_orderProduct__removeLink': function(){
+                var block = this;
+
+                block.model.destroy();
             }
         },
         initialize: function() {
@@ -78,7 +84,9 @@ define(function(require, exports, module) {
                 autocomplete: new Autocomplete({
                     el: autocomplete_storeProduct,
                     select: function(event, ui) {
-                        block.storeProduct = ui.item.storeProduct;
+                        block.model.set('product', ui.item.storeProduct, {
+                            silent: true
+                        });
                         block.render();
                     },
                     source: function(request, response) {
@@ -110,18 +118,14 @@ define(function(require, exports, module) {
             Form.prototype.clear.apply(block, arguments);
 
             block.model = new OrderProductModel();
-
-            block.storeProduct = {
-                product: {}
-            };
         },
         render: function() {
             var block = this;
 
-            $(block.el).find('[name="product"]').val(block.storeProduct.product.id);
-            $(block.el).find('.form_orderProduct__retailPrice').html(LH.formatMoney(block.storeProduct.product.purchasePrice));
-            $(block.el).find('.form_orderProduct__totalSum').html(LH.formatMoney(_.escape(block.model.get('quantity')) * _.escape(block.storeProduct.product.purchasePrice) || ''));
-            $(block.el).find('.form_orderProduct__inventory').html((!block.storeProduct.product.id || block.storeProduct.product.id === 'xxx') ? '&mdash;' : LH.formatAmount(block.storeProduct.inventory));
+            $(block.el).find('[name="product"]').val(block.model.get('product.product.id'));
+            $(block.el).find('.form_orderProduct__retailPrice').html(LH.formatMoney(block.model.get('product.product.purchasePrice')));
+            $(block.el).find('.form_orderProduct__totalSum').html(LH.formatMoney((block.model.get('quantity') * block.model.get('product.product.purchasePrice')) || 0));
+            $(block.el).find('.form_orderProduct__inventory').html((!block.model.get('product.product.id') || block.model.get('product.product.id') === 'xxx') ? '&mdash;' : LH.formatAmount(block.model.get('product.inventory')));
         }
     });
 });

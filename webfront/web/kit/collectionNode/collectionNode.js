@@ -17,7 +17,7 @@ define(function(require) {
             return $element.wrap('<div></div>').parent().html();
         };
 
-        collection.listenTo(collection, 'add remove reset', function(collection) {
+        collection.listenTo(collection, 'add remove reset change', function(collection) {
             $('#' + elementId).replaceWith(generateElementString());
         });
 

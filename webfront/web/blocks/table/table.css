@@ -37,10 +37,6 @@
     padding-left: 0;
 }
 
-.table > tbody > tr:hover {
-    background: #fffee2 !important;
-}
-
 .table__rowHiddenElement {
     visibility: hidden;
 }
@@ -102,4 +98,12 @@
     border-left: solid 5px transparent;
     border-top: none;
     border-right: solid 5px transparent;
+}
+
+.table__orderProduct {
+    cursor: pointer;
+}
+
+.table__orderProduct:hover {
+    background-color: #fafafa;
 }
