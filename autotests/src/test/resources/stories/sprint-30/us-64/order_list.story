@@ -34,7 +34,9 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
 Given the user opens orders list page
 And the user logs in using 'departmentManager-s30u64' userName and 'lighthouse' password
 
-Then the user checks the orders list contains required entry
+Then the user checks the orders list contains exact entries
+| number | supplier | date |
+| {lastCreatedOrderNumber} | {lastSupplierOrder} | {todayDate} |
 
 When the user clicks the create order link on order page menu navigation
 
@@ -55,4 +57,7 @@ And the user checks the order total sum is 'Итого: 500,00 руб'
 
 When the user clicks the save order button
 
-Then the user checks the orders list contains required entries
+Then the user checks the orders list contains exact entries
+| number | supplier | date |
+| 10002 | supplier-s30u64s1 | {todayDate} |
+| 10001 | {lastSupplierOrder} | {todayDate} |

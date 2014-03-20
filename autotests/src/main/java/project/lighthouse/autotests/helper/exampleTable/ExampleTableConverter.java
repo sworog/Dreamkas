@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.helper;
+package project.lighthouse.autotests.helper.exampleTable;
 
 import org.jbehave.core.model.ExamplesTable;
 

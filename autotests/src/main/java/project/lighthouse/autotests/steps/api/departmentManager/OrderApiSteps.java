@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.steps.api.departmentManager;
 
+import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
@@ -16,6 +17,7 @@ public class OrderApiSteps extends ScenarioSteps {
 
     private Order order;
 
+    @Step
     public Order createOrder(Supplier supplier, OrderProduct[] orderProducts, String userName, String password) throws IOException, JSONException {
         User user = StaticData.users.get(userName);
         Order order = new OrdersFactory(userName, password).createOrder(supplier.getId(), orderProducts, user.getStore().getId());
@@ -23,6 +25,7 @@ public class OrderApiSteps extends ScenarioSteps {
         return order;
     }
 
+    @Step
     public void openOrderPage() throws JSONException {
         String url = String.format(
                 "%s/orders/%s",

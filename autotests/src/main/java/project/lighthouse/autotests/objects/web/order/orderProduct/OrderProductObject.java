@@ -3,6 +3,7 @@ package project.lighthouse.autotests.objects.web.order.orderProduct;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
+import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectClickable;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectLocatable;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ResultComparable;
 import project.lighthouse.autotests.objects.web.compare.CompareResults;
@@ -12,7 +13,7 @@ import java.util.Map;
 /**
  * Object representing order product
  */
-public class OrderProductObject extends AbstractObject implements ResultComparable, ObjectLocatable {
+public class OrderProductObject extends AbstractObject implements ResultComparable, ObjectLocatable, ObjectClickable {
 
     private String name;
     private String units;
@@ -51,5 +52,10 @@ public class OrderProductObject extends AbstractObject implements ResultComparab
 
     public String getQuantity() {
         return quantity;
+    }
+
+    @Override
+    public void click() {
+        getElement().click();
     }
 }
