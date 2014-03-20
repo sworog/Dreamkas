@@ -44,7 +44,7 @@ define(function(require, exports, module) {
                         if (block.model.get('product.product.id') !== 'xxx') {
                             block.model.set('product', {
                                 product: {
-                                    id: block.el.querySelector('.autocomplete_storeProduct').value ? 'xxx' : null
+                                    id: block.el.querySelector('.autocomplete_storeProduct').value.length ? 'xxx' : ''
                                 }
                             }, {
                                 silent: true
