@@ -64,4 +64,8 @@ public class OrderPage extends CommonPageObject {
     public OrderProductObjectCollection getOrderProductObjectCollection() {
         return new OrderProductObjectCollection(getDriver(), By.name("orderProduct"));
     }
+
+    public String getOrderNumberHeaderText() {
+        return findVisibleElement(By.xpath("//*[@class='page__data']/h2")).getText();
+    }
 }

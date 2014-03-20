@@ -173,3 +173,17 @@ When the user clicks the cancel order product button
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |
 | name-s30u67s1 | кг | 10,0 | 123,00 | 1 230,00 |
+
+Scenario: Assert order number
+
+Meta:
+@id_s30u67s6
+
+GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
+
+Given there is the order in the store by 'departmentManager-s30u67'
+
+Given the user opens last created order page
+And the user logs in using 'departmentManager-s30u67' userName and 'lighthouse' password
+
+Then the user checks the order number is expected

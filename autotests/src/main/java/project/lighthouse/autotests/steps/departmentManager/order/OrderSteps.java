@@ -261,4 +261,12 @@ public class OrderSteps extends ScenarioSteps {
     public void deletionIconClick() {
         orderPage.getProductEditionForm().deletionIconClick();
     }
+
+    @Step
+    public void assertOrderNumberHeader() {
+        String expectedNumber = String.format("Заказ поставщику № %s", Storage.getOrderVariableStorage().getNumber());
+        assertThat(
+                orderPage.getOrderNumberHeaderText(),
+                equalTo(expectedNumber));
+    }
 }

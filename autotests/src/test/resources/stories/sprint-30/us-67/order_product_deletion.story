@@ -9,7 +9,7 @@ Narrative:
 Scenario: Order Product deletion
 
 Meta:
-@id_s30u67s11
+@id_s30u67s12
 @smoke
 
 GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
@@ -34,7 +34,7 @@ Then the user sees error messages
 Scenario: Order Product deletion cancel
 
 Meta:
-@id_s30u67s12
+@id_s30u67s13
 
 GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
 

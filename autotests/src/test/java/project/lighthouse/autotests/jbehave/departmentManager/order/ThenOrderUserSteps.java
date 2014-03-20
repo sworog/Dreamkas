@@ -80,4 +80,9 @@ public class ThenOrderUserSteps {
     public void thenTheUserChecksTheLastCreatedOrderProductListDonContainsProduct() throws JSONException {
         orderSteps.assertOrderProductCollectionDoNotContainsProduct();
     }
+
+    @Then("the user checks the order number is expected")
+    public void thenTheUserChecksTheOrderNumberIsExpected() {
+        orderSteps.assertOrderNumberHeader();
+    }
 }
