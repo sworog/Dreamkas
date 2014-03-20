@@ -807,7 +807,7 @@ class OrderControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals('order' . $orderNumber . '.xls', 'name', $response);
+        Assert::assertJsonPathEquals('order' . $orderNumber . '.xlsx', 'name', $response);
         Assert::assertJsonHasPath('url', $response);
     }
 

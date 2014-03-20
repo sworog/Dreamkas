@@ -63,7 +63,7 @@ class OrderGenerator
             $this->generateBodyTitle();
             $this->generateBody();
 
-            $this->writer = $this->phpExcel->createWriter($this->phpExcelObject);
+            $this->writer = $this->phpExcel->createWriter($this->phpExcelObject, 'Excel2007');
         }
     }
 
@@ -166,6 +166,6 @@ class OrderGenerator
      */
     public function getFilename()
     {
-        return 'order' . $this->order->number . '.xls';
+        return 'order' . $this->order->number . '.xlsx';
     }
 }

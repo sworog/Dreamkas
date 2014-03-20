@@ -121,7 +121,7 @@ class FileUploader
      */
     public function processWriter(\PHPExcel_Writer_Abstract $writer, $filename, $directory = null)
     {
-        $fileResource = tmpfile();
+        $fileResource = tempnam('/tmp', 'order_generator');
         $writer->save($fileResource);
 
         $file = new File();

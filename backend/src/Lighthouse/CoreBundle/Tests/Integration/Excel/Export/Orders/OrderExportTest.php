@@ -54,7 +54,7 @@ class OrderExportTest extends WebTestCase
         $orderExcelGenerator->setOrder($order);
         $orderExcelGenerator->generate();
         $writer = $orderExcelGenerator->getWriter();
-        $filename = '/tmp/' . __CLASS__ . '_' . __METHOD__ . '.xls';
+        $filename = '/tmp/' . __CLASS__ . '_' . __METHOD__ . '.xlsx';
         $writer->save($filename);
 
         /** @var Factory $phpExcel */
