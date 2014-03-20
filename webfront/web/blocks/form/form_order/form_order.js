@@ -27,7 +27,7 @@ define(function(require, exports, module) {
 
                 block.renderEditForm(orderProductModel);
             },
-            'click .form_orderProduct__cancelLink': function(e){
+            'click .form_orderProduct__cancelLink': function(e) {
                 var block = this;
                 block.$tr.detach();
             }
@@ -35,7 +35,7 @@ define(function(require, exports, module) {
         initialize: function() {
             var block = this;
 
-            if (block.model.id){
+            if (block.model.id) {
                 document.getElementById('form_order__removeLink').addEventListener('click', function(e) {
                     e.preventDefault();
 
@@ -43,15 +43,16 @@ define(function(require, exports, module) {
                         return;
                     }
 
-                    e.target.classList.add('preloader_rows');
+                    if (confirm('Вы уверены?')) {
+                        e.target.classList.add('preloader_rows');
+                        block.disable();
 
-                    block.disable();
-
-                    block.model.destroy({
-                        success: function() {
-                            router.navigate('/orders');
-                        }
-                    });
+                        block.model.destroy({
+                            success: function() {
+                                router.navigate('/orders');
+                            }
+                        });
+                    }
                 });
             }
 
@@ -78,7 +79,7 @@ define(function(require, exports, module) {
                 })
             });
 
-            form.once('submit:success', function(){
+            form.once('submit:success', function() {
                 block.$tr.detach();
             });
 
