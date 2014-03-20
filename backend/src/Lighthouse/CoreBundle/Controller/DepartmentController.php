@@ -5,13 +5,16 @@ namespace Lighthouse\CoreBundle\Controller;
 use Lighthouse\CoreBundle\Document\Department\Department;
 use Lighthouse\CoreBundle\Document\Department\DepartmentCollection;
 use Lighthouse\CoreBundle\Document\Department\DepartmentRepository;
+use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\DepartmentType;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use JMS\DiExtraBundle\Annotation as DI;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use MongoDuplicateKeyException;
 
 class DepartmentController extends AbstractRestController
 {
@@ -27,6 +30,23 @@ class DepartmentController extends AbstractRestController
     protected function getDocumentFormType()
     {
         return new DepartmentType();
+    }
+
+    /**
+     * @param FlushFailedException $e
+     * @return FormInterface
+     */
+    protected function handleFlushFailedException(FlushFailedException $e)
+    {
+        if ($e->getCause() instanceof MongoDuplicateKeyException) {
+            return $this->addFormError(
+                $e->getForm(),
+                'number',
+                'lighthouse.validation.errors.department.number.unique'
+            );
+        } else {
+            return parent::handleFlushFailedException($e);
+        }
     }
 
     /**

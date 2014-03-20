@@ -2,9 +2,15 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
+use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use MongoDuplicateKeyException;
+use Exception;
+use PHPUnit_Util_Type;
 
 class SupplierControllerTest extends WebTestCase
 {
@@ -312,5 +318,139 @@ class SupplierControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode($expectedResponseCode);
+    }
+
+    /**
+     * @group unique
+     */
+    public function testUniqueUsernameInParallel()
+    {
+        $supplierData = array(
+            'name' => 'Поставщик',
+        );
+
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $jsonRequest = new JsonRequest('/api/1/suppliers', 'POST', $supplierData);
+        $jsonRequest->setAccessToken($accessToken);
+
+        $responses = $this->client->parallelJsonRequest($jsonRequest, 3);
+        $statusCodes = array();
+        $jsonResponses = array();
+        foreach ($responses as $response) {
+            $statusCodes[] = $response->getStatusCode();
+            $jsonResponses[] = $this->client->decodeJsonResponse($response);
+        }
+        $responseBody = PHPUnit_Util_Type::export($jsonResponses);
+        $this->assertCount(1, array_keys($statusCodes, 201), $responseBody);
+        $this->assertCount(2, array_keys($statusCodes, 400), $responseBody);
+        Assert::assertJsonPathEquals('Поставщик', '*.name', $jsonResponses, 1);
+        Assert::assertJsonPathEquals(
+            'Поставщик с таким названием уже существует',
+            '*.children.name.errors.0',
+            $jsonResponses,
+            2
+        );
+    }
+
+    protected function doPostActionFlushFailedException(\Exception $exception)
+    {
+        $supplierData = array(
+            'name' => 'Поставщик',
+        );
+
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $supplier = new Supplier();
+
+        $documentManagerMock = $this->getMock(
+            'Doctrine\\ODM\\MongoDB\\DocumentManager',
+            array(),
+            array(),
+            '',
+            false
+        );
+        $documentManagerMock
+            ->expects($this->once())
+            ->method('persist');
+
+        $documentManagerMock
+            ->expects($this->once())
+            ->method('flush')
+            ->with($this->isEmpty())
+            ->will($this->throwException($exception));
+
+        $supplierRepoMock = $this->getMock(
+            'Lighthouse\\CoreBundle\\Document\\Supplier\\SupplierRepository',
+            array(),
+            array(),
+            '',
+            false
+        );
+
+        $supplierRepoMock
+            ->expects($this->once())
+            ->method('createNew')
+            ->will($this->returnValue($supplier));
+        $supplierRepoMock
+            ->expects($this->exactly(2))
+            ->method('getDocumentManager')
+            ->will($this->returnValue($documentManagerMock));
+
+        $this->client->addTweaker(
+            function (ContainerInterface $container) use ($supplierRepoMock) {
+                $container->set('lighthouse.core.document.repository.supplier', $supplierRepoMock);
+            }
+        );
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/suppliers',
+            $supplierData
+        );
+
+        return $response;
+    }
+
+    /**
+     * @group unique
+     */
+    public function testPostActionFlushFailedException()
+    {
+        $exception = new Exception('Unknown exception');
+        $response = $this->doPostActionFlushFailedException($exception);
+
+        $this->assertResponseCode(500);
+        Assert::assertJsonPathEquals('Unknown exception', 'message', $response);
+    }
+
+    /**
+     * @group unique
+     */
+    public function testPostActionFlushFailedMongoDuplicateKeyException()
+    {
+        $exception = new MongoDuplicateKeyException();
+        $response = $this->doPostActionFlushFailedException($exception);
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
+        Assert::assertJsonPathEquals(
+            'Поставщик с таким названием уже существует',
+            'children.name.errors.0',
+            $response
+        );
+    }
+
+    /**
+     * @group unique
+     * @expectedException MongoDuplicateKeyException
+     */
+    public function testDoubleCreate()
+    {
+        $this->factory->createSupplier();
+        $this->factory->flush();
+        $this->factory->createSupplier();
+        $this->factory->flush();
     }
 }

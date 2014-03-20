@@ -8,10 +8,12 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreCollection;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\User\User;
+use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\StoreType;
 use Lighthouse\CoreBundle\Request\ParamConverter\Links\Link;
 use Lighthouse\CoreBundle\Request\ParamConverter\Links\Links;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -21,6 +23,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 use InvalidArgumentException;
+use MongoDuplicateKeyException;
 
 class StoreController extends AbstractRestController
 {
@@ -36,6 +39,19 @@ class StoreController extends AbstractRestController
     protected function getDocumentFormType()
     {
         return new StoreType();
+    }
+
+    /**
+     * @param FlushFailedException $e
+     * @return FormInterface
+     */
+    protected function handleFlushFailedException(FlushFailedException $e)
+    {
+        if ($e->getCause() instanceof MongoDuplicateKeyException) {
+            return $this->addFormError($e->getForm(), 'number', 'lighthouse.validation.errors.store.number.unique');
+        } else {
+            return parent::handleFlushFailedException($e);
+        }
     }
 
     /**

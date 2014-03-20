@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\GroupType;
 use Symfony\Bundle\FrameworkBundle\Translation\Translator;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -41,6 +42,19 @@ class GroupController extends AbstractRestController
     }
 
     /**
+     * @param FlushFailedException $e
+     * @return FormInterface
+     */
+    protected function handleFlushFailedException(FlushFailedException $e)
+    {
+        if ($e->getCause() instanceof MongoDuplicateKeyException) {
+            return $this->addFormError($e->getForm(), 'name', 'lighthouse.validation.errors.group.name.unique');
+        } else {
+            return parent::handleFlushFailedException($e);
+        }
+    }
+
+    /**
      * @Rest\View(statusCode=201)
      *
      * @param Request $request
@@ -52,15 +66,7 @@ class GroupController extends AbstractRestController
      */
     public function postGroupsAction(Request $request)
     {
-        try {
-            return $this->processPost($request);
-        } catch (FlushFailedException $e) {
-            if ($e->getCause() instanceof MongoDuplicateKeyException) {
-                return $this->addFormError($e->getForm(), 'name', 'lighthouse.validation.errors.group.name.unique');
-            } else {
-                throw $e;
-            }
-        }
+        return $this->processPost($request);
     }
 
     /**

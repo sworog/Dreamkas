@@ -21,12 +21,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @property string $salt
  * @property string $role
  *
- * @MongoDB\Document(
- *      repositoryClass="Lighthouse\CoreBundle\Document\User\UserRepository",
- *      indexes={
- *          @MongoDB\Index(keys={"username"="desc"}, options={"unique"=true})
- *      }
- * )
+ * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\User\UserRepository")
  * @Unique(fields="username", message="lighthouse.validation.errors.user.username.unique")
  */
 class User extends AbstractDocument implements UserInterface
@@ -43,6 +38,7 @@ class User extends AbstractDocument implements UserInterface
 
     /**
      * @MongoDB\String
+     * @MongoDB\UniqueIndex
      * @Assert\NotBlank
      * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      * @Assert\Regex("/^[\w\d_\-\.\@]+$/u")

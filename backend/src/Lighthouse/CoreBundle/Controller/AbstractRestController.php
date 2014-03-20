@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Validator\ViolationMapper\ViolationMapper;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolation;
+use Exception;
 
 abstract class AbstractRestController extends FOSRestController
 {
@@ -48,18 +49,40 @@ abstract class AbstractRestController extends FOSRestController
         $form->submit($request);
 
         if ($form->isValid()) {
-            try {
-                if (true == $save && false == $validation) {
-                    $this->getDocumentRepository()->getDocumentManager()->persist($document);
-                    $this->getDocumentRepository()->getDocumentManager()->flush();
-                }
+            if (true == $save && false == $validation) {
+                return $this->saveDocument($document, $form);
+            } else {
                 return $document;
-            } catch (\Exception $e) {
-                throw new FlushFailedException($e, $form);
             }
         } else {
             return $form;
         }
+    }
+
+    /**
+     * @param AbstractDocument $document
+     * @param FormInterface $form
+     * @return AbstractDocument|FormInterface
+     */
+    protected function saveDocument(AbstractDocument $document, FormInterface $form)
+    {
+        try {
+            $this->getDocumentRepository()->getDocumentManager()->persist($document);
+            $this->getDocumentRepository()->getDocumentManager()->flush();
+            return $document;
+        } catch (Exception $e) {
+            return $this->handleFlushFailedException(new FlushFailedException($e, $form));
+        }
+    }
+
+    /**
+     * @param FlushFailedException $e
+     * @throws Exception
+     * @return FormInterface|AbstractDocument
+     */
+    protected function handleFlushFailedException(FlushFailedException $e)
+    {
+        throw $e->getCause();
     }
 
     /**

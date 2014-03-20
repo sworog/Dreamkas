@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Test;
 use AppKernel;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Karzer\Framework\TestCase\SymfonyWebTestCase;
-use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Job\JobManager;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\KernelInterface;

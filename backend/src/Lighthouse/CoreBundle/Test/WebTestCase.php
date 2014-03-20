@@ -284,39 +284,6 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @param $productId
-     * @param $sellingPrice
-     * @param $quantity
-     * @param string $date
-     * @return mixed
-     */
-    public function createSaleWithProduct($productId, $sellingPrice, $quantity, $date = 'now')
-    {
-        $saleProductData = array(
-            'product' => $productId,
-            'sellingPrice' => $sellingPrice,
-            'quantity' => $quantity,
-        );
-
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_DEPARTMENT_MANAGER');
-
-        $postResponse = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/sales',
-            array(
-                'createdDate' => date('c', strtotime($date)),
-                'products' => array($saleProductData),
-            )
-        );
-
-        $this->assertResponseCode(201);
-        Assert::assertJsonHasPath('id', $postResponse);
-
-        return $postResponse['id'];
-    }
-
-    /**
      * @param string|array $extra
      * @param null|string $subCategoryId
      * @param bool|string $putProductId string id of product to be updated
@@ -680,56 +647,6 @@ class WebTestCase extends ContainerAwareTestCase
     protected function createSubCategory($categoryId = null, $name = 'Водка')
     {
         return $this->factory->catalog()->createSubCategory($categoryId, $name)->id;
-    }
-
-    public function createDepartment(
-        $storeId = null,
-        $number = 'отдел_42',
-        $name = 'название отдела 42',
-        $ifNotExists = true
-    ) {
-        if ($storeId == null) {
-            $storeId = $this->factory->store()->getStoreId();
-        }
-
-        $departmentData = array(
-            'number' => $number,
-            'name' => $name,
-            'store' => $storeId,
-        );
-
-        $accessToken = $this->factory->oauth()->authAsRole("ROLE_COMMERCIAL_MANAGER");
-
-        if ($ifNotExists) {
-            $postResponse = $this->clientJsonRequest(
-                $accessToken,
-                'GET',
-                '/api/1/stores/' . $storeId . '/departments'
-            );
-
-            if (is_array($postResponse)) {
-                foreach ($postResponse as $value) {
-                    if (is_array($value) && array_key_exists('number', $value) && $value['number'] == $number) {
-                        return $value['id'];
-                    }
-                }
-            }
-        }
-
-        $response = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/departments',
-            $departmentData
-        );
-
-        $this->assertResponseCode(201);
-
-        Assert::assertJsonHasPath('id', $response);
-        Assert::assertJsonPathEquals($departmentData['number'], 'number', $response);
-        Assert::assertJsonPathEquals($departmentData['name'], 'name', $response);
-
-        return $response['id'];
     }
 
     /**
