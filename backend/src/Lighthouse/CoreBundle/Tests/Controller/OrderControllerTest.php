@@ -785,4 +785,55 @@ class OrderControllerTest extends WebTestCase
 
         $this->assertCount(0, $orderProductRepository->findAll());
     }
+
+    public function testPutOrderActionChangeProduct()
+    {
+        $productId1 = $this->createProduct('1');
+        $productId2 = $this->createProduct('2');
+        $productId3 = $this->createProduct('3');
+        $store = $this->factory->store()->getStore();
+        $supplier = $this->factory->createSupplier();
+        $order = $this->factory->createOrder($store, $supplier);
+        $orderProduct1 = $this->factory->createOrderProduct($order, $productId1, 10);
+        $orderProduct2 = $this->factory->createOrderProduct($order, $productId2, 20);
+        $this->factory->flush();
+
+        $this->assertEquals(10001, $order->number);
+
+        $orderData = array(
+            'supplier' => $supplier->id,
+            'products' => array(
+                array(
+                    'product' => $productId1,
+                    'quantity' => 20,
+                ),
+                array(
+                    'product' => $productId3,
+                    'quantity' => 35,
+                ),
+            )
+        );
+
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $store->id . '/orders/' . $order->id,
+            $orderData
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('10001', 'number', $putResponse);
+        Assert::assertJsonPathCount(2, 'products.*.id', $putResponse);
+        Assert::assertJsonPathEquals($orderProduct1->id, 'products.0.id', $putResponse);
+        Assert::assertJsonPathEquals($orderProduct2->id, 'products.1.id', $putResponse);
+        Assert::assertNotJsonPathEquals($productId2, 'products.*.product.product.id', $putResponse);
+
+        Assert::assertJsonPathEquals($productId1, 'products.0.product.product.id', $putResponse);
+        Assert::assertJsonPathEquals(20, 'products.0.quantity', $putResponse);
+
+        Assert::assertJsonPathEquals($productId3, 'products.1.product.product.id', $putResponse);
+        Assert::assertJsonPathEquals(35, 'products.1.quantity', $putResponse);
+    }
 }
