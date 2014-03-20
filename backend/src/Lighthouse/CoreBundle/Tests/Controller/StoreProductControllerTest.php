@@ -1083,22 +1083,12 @@ class StoreProductControllerTest extends WebTestCase
         $storeId = $this->factory->store()->getStoreId('123');
         $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
 
-        $group = $this->createGroup('123');
-        $category = $this->createCategory($group, '123');
-        $subCategory = $this->createSubCategory($category, '123');
         $productData = array(
             'name' => '123',
-            'units' => 'gr',
             'barcode' => '123',
-            'purchasePrice' => 123,
             'sku' => '123',
-            'vat' => 0,
-            'vendor' => '',
-            'vendorCountry' => '',
-            'info' => '',
-            'subCategory' => $subCategory,
         );
-        $product = $this->createProduct($productData, $subCategory);
+        $product = $this->createProduct($productData);
 
         $supplier = $this->factory->createSupplier('123');
         $this->factory->flush();

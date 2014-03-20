@@ -717,9 +717,8 @@ class OrderControllerTest extends WebTestCase
         $productId = $this->createProduct('1');
         $supplier = $this->factory->createSupplier();
         $order = $this->factory->createOrder($store1, $supplier);
-        $orderProduct = $this->factory->createOrderProduct($order, $productId, 10);
+        $this->factory->createOrderProduct($order, $productId, 10);
         $this->factory->flush();
-
 
         $departmentManager = $this->factory->store()->getDepartmentManager($store1->id);
         $this->factory->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
@@ -734,5 +733,56 @@ class OrderControllerTest extends WebTestCase
         $this->assertResponseCode(404);
 
         Assert::assertJsonPathContains('Order object not found', 'message', $putResponse);
+    }
+
+    public function testDeleteOrderActionInvalidStore()
+    {
+        $store1 = $this->factory->store()->getStore('1');
+        $store2 = $this->factory->store()->getStore('2');
+        $productId = $this->createProduct('1');
+        $supplier = $this->factory->createSupplier();
+        $order = $this->factory->createOrder($store1, $supplier);
+        $this->factory->createOrderProduct($order, $productId, 10);
+        $this->factory->flush();
+
+        $departmentManager = $this->factory->store()->getDepartmentManager($store1->id);
+        $this->factory->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
+
+        $accessToken = $this->factory->oauth()->auth($departmentManager);
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/stores/' . $store2->id . '/orders/' . $order->id
+        );
+
+        $this->assertResponseCode(404);
+
+        Assert::assertJsonPathContains('Order object not found', 'message', $putResponse);
+    }
+
+    public function testDeleteAction()
+    {
+        $store = $this->factory->store()->getStore();
+        $productId = $this->createProduct();
+        $supplier = $this->factory->createSupplier();
+        $order = $this->factory->createOrder($store, $supplier);
+        $this->factory->createOrderProduct($order, $productId, 10);
+        $this->factory->flush();
+
+        $orderProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.order_product');
+        $this->assertCount(1, $orderProductRepository->findAll());
+
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/stores/' . $store->id . '/orders/' . $order->id
+        );
+
+        $this->assertResponseCode(204);
+
+        $this->assertEmpty($deleteResponse);
+
+        $this->assertCount(0, $orderProductRepository->findAll());
     }
 }

@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Form = require('blocks/form/form'),
+        router = require('router'),
         OrderModel = require('models/order'),
         Form_orderProduct = require('blocks/form/form_orderProduct/form_orderProduct');
 
@@ -34,6 +35,26 @@ define(function(require, exports, module) {
         initialize: function() {
             var block = this;
 
+            if (block.model.id){
+                document.getElementById('form_order__removeLink').addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    if (e.target.classList.contains('preloader_rows')) {
+                        return;
+                    }
+
+                    e.target.classList.add('preloader_rows');
+
+                    block.disable();
+
+                    block.model.destroy({
+                        success: function() {
+                            router.navigate('/orders');
+                        }
+                    });
+                });
+            }
+
             block.blocks = {
                 form_orderProduct: new Form_orderProduct({
                     collection: block.model.get('collections.products')
@@ -46,7 +67,7 @@ define(function(require, exports, module) {
 
             var block = this;
 
-            if (form){
+            if (form) {
                 form.remove();
             }
 

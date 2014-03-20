@@ -53,6 +53,11 @@ define(function(require, exports, module) {
                             block.render();
                         }
                 }
+            },
+            'click .form_orderProduct__removeLink': function(){
+                var block = this;
+
+                block.model.destroy();
             }
         },
         initialize: function() {

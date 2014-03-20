@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\CategoryType;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -15,6 +16,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
+use MongoDuplicateKeyException;
+use Exception;
 
 class CategoryController extends AbstractRestController
 {
@@ -34,16 +37,24 @@ class CategoryController extends AbstractRestController
 
     /**
      * @param Request $request
+     * @throws Exception
+     * @throws FlushFailedException
      * @return View|Category
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc(
-     *      resource=true
-     * )
+     * @ApiDoc(resource=true)
      */
     public function postCategoriesAction(Request $request)
     {
-        return $this->processPost($request);
+        try {
+            return $this->processPost($request);
+        } catch (FlushFailedException $e) {
+            if ($e->getCause() instanceof MongoDuplicateKeyException) {
+                return $this->addFormError($e->getForm(), 'name', 'lighthouse.validation.errors.category.name.unique');
+            } else {
+                throw $e;
+            }
+        }
     }
 
     /**

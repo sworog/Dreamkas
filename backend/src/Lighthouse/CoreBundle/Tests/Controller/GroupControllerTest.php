@@ -853,6 +853,7 @@ class GroupControllerTest extends WebTestCase
         $this->assertResponseCode(500);
         Assert::assertJsonPathEquals('Unknown exception', 'message', $response);
     }
+
     public function testPostActionFlushFailedMongoDuplicateKeyException()
     {
         $exception = new \MongoDuplicateKeyException();
