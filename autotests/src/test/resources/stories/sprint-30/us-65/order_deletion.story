@@ -8,6 +8,8 @@ As a заведующий отделом
 I want to удалить заказ, который был создан по ошибке,
 In order в списке заказов были только действительные заказы
 
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
+
 Scenario: Order deletion
 
 Meta:
