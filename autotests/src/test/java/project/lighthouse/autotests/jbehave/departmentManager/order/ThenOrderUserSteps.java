@@ -12,7 +12,7 @@ public class ThenOrderUserSteps {
     OrderSteps orderSteps;
 
     @Then("the user checks the order products list contains entry $examplesTable")
-    public void thenTheUserChecksTheOrderProductListContainsEntry(ExamplesTable examplesTable) {
+    public void thenTheUserChecksTheOrderProductListContainsEntry(ExamplesTable examplesTable) throws JSONException {
         orderSteps.productCollectionExactCompare(examplesTable);
     }
 
@@ -69,5 +69,10 @@ public class ThenOrderUserSteps {
     @Then("the user checks the orders list contains entry $examplesTable")
     public void thenTheUserChecksTheOrderListContainsEntry(ExamplesTable examplesTable) throws JSONException {
         orderSteps.assertOrderCollectionValues(examplesTable);
+    }
+
+    @Then("the user checks the last created order products list dont contains product")
+    public void thenTheUserChecksTheLastCreatedOrderProductListDonContainsProduct() throws JSONException {
+        orderSteps.assertOrderProductCollectionDoNotContainsProduct();
     }
 }

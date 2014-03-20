@@ -75,4 +75,9 @@ public class WhenOrderUserSteps {
     public void whenTheUserClicksOnLastCreatedOrderOnTheOrdersListPage() {
         orderSteps.lastCreatedOrderCollectionObjectClick();
     }
+
+    @When("the user clicks on deletion item icon to delete edited order product")
+    public void whenTheUserClicksOnDeletionItemIconToDeleteEditedOrderProduct() {
+        orderSteps.deletionIconClick();
+    }
 }

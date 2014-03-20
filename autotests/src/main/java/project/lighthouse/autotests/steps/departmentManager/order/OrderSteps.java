@@ -5,6 +5,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import org.junit.Assert;
+import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.helper.exampleTable.order.OrderExampleTableUpdater;
 import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductObject;
@@ -61,8 +62,9 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
-    public void productCollectionExactCompare(ExamplesTable examplesTable) {
-        orderPage.getOrderProductObjectCollection().exactCompareExampleTable(examplesTable);
+    public void productCollectionExactCompare(ExamplesTable examplesTable) throws JSONException {
+        ExamplesTable updatedExampleTable = new OrderExampleTableUpdater(examplesTable).updateValues();
+        orderPage.getOrderProductObjectCollection().exactCompareExampleTable(updatedExampleTable);
     }
 
     @Step
@@ -182,6 +184,7 @@ public class OrderSteps extends ScenarioSteps {
                 new ExamplesTable("").withRows(mapList));
     }
 
+    @Step
     public void assertAnotherOrderCollectionValues() throws JSONException {
         List<Map<String, String>> mapList = new ArrayList<Map<String, String>>() {
             {
@@ -203,5 +206,27 @@ public class OrderSteps extends ScenarioSteps {
         };
         assertExactOrderCollectionValues(
                 new ExamplesTable("").withRows(mapList));
+    }
+
+    @Step
+    public void assertOrderProductCollectionDoNotContainsProduct(String locator) {
+        try {
+            orderPage.getOrderProductObjectCollection().notContains(locator);
+        } catch (TimeoutException ignored) {
+        }
+    }
+
+    @Step
+    public void assertOrderProductCollectionDoNotContainsProduct() throws JSONException {
+        try {
+            assertOrderProductCollectionDoNotContainsProduct(
+                    Storage.getOrderVariableStorage().getProduct().getName());
+        } catch (TimeoutException ignored) {
+        }
+    }
+
+    @Step
+    public void deletionIconClick() {
+        orderPage.getProductEditionForm().deletionIconClick();
     }
 }

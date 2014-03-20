@@ -23,4 +23,8 @@ public class ProductEditionForm extends ProductAdditionForm {
     public void cancelLinkClick() {
         new LinkFacade(this, By.className("form_orderProduct__cancelLink")).click();
     }
+
+    public void deletionIconClick() {
+        findVisibleElement(By.xpath("//*[@class='icon-remove-sign form_orderProduct__removeLink']")).click();
+    }
 }
