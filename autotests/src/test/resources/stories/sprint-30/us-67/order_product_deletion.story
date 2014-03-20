@@ -2,7 +2,6 @@ Meta:
 @sprint_30
 @us_67
 @order
-@test
 
 Narrative:
 Удаление продукта из заказа
