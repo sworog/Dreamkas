@@ -16,7 +16,8 @@ public class OrderExampleTableUpdater {
 
     public ExamplesTable updateValues() throws JSONException {
         return new ExampleTableUpdater(examplesTable)
-                .updateValue("number", "{number}", Storage.getOrderVariableStorage().getNumber())
+                .updateValue("number", "{lastCreatedOrderNumber}", Storage.getOrderVariableStorage().getNumber())
+                .updateValue("number", "{previousCreatedOrderNumber}", Storage.getOrderVariableStorage().getPreviousNumber())
                 .updateValue("date", "{todayDate}", new DateTimeHelper(0).convertDateByPattern("dd.MM.yyyy"))
                 .updateValue("supplier", "{lastSupplierOrder}", Storage.getOrderVariableStorage().getSupplier().getName())
                 .updateValue("name", "{lastCreatedProductName}", Storage.getOrderVariableStorage().getProduct().getName())

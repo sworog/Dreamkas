@@ -47,7 +47,7 @@ When the user clicks the cancel link button
 
 Then the user checks the orders list contains entry
 | number | supplier | date |
-| {number} | {lastSupplierOrder} | {todayDate} |
+| {lastCreatedOrderNumber} | {lastSupplierOrder} | {todayDate} |
 
 Scenario: Order deletion cancel - verify after save button click
 
@@ -69,7 +69,7 @@ When the user clicks the save order button
 
 Then the user checks the orders list contains entry
 | number | supplier | date |
-| {number} | {lastSupplierOrder} | {todayDate} |
+| {lastCreatedOrderNumber} | {lastSupplierOrder} | {todayDate} |
 
 Scenario: Order deletion cancel - verify on the order list page
 
@@ -91,4 +91,4 @@ Given the user opens orders list page
 
 Then the user checks the orders list contains entry
 | number | supplier | date |
-| {number} | {lastSupplierOrder} | {todayDate} |
+| {lastCreatedOrderNumber} | {lastSupplierOrder} | {todayDate} |

@@ -56,14 +56,9 @@ public class ThenOrderUserSteps {
         orderSteps.assertAdditionProductFormLabelTitle(elementName);
     }
 
-    @Then("the user checks the orders list contains required entry")
-    public void thenTheUserChecksTheOrdersListContainsRequiredEntry() throws JSONException {
-        orderSteps.assertOrderCollectionValues();
-    }
-
-    @Then("the user checks the orders list contains required entries")
-    public void thenTheUserChecksTheOrdersListContainsEntry() throws JSONException {
-        orderSteps.assertAnotherOrderCollectionValues();
+    @Then("the user checks the orders list contains exact entries $examplesTable")
+    public void thenTheUserChecksTheOrdersListContainsExactEntries(ExamplesTable examplesTable) throws JSONException {
+        orderSteps.assertExactOrderCollectionValues(examplesTable);
     }
 
     @Then("the user checks the orders list contains entry $examplesTable")

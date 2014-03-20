@@ -29,6 +29,10 @@ public class OrderVariableStorage {
         return number.toString();
     }
 
+    public String getPreviousNumber() {
+        return Integer.toString(number - 1);
+    }
+
     public void resetNumber() {
         number = 10000;
     }

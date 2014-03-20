@@ -46,7 +46,7 @@ When the user clicks the save order button
 
 Then the user checks the orders list contains entry
 | number | supplier | date |
-| {number} | supplier-s30u67s1 | {todayDate} |
+| {lastCreatedOrderNumber} | supplier-s30u67s1 | {todayDate} |
 
 When the user clicks on last created order on the orders list page
 
@@ -80,7 +80,7 @@ When the user clicks the save order button
 
 Then the user checks the orders list contains entry
 | number | supplier | date |
-| {number} | supplier-s30u67s1 | {todayDate} |
+| {lastCreatedOrderNumber} | supplier-s30u67s1 | {todayDate} |
 
 Scenario: Order supplier edit - check supplier on orders list page cancel
 
@@ -103,7 +103,7 @@ When the user clicks the cancel link button
 
 Then the user checks the orders list contains entry
 | number | supplier | date |
-| {number} | {lastSupplierOrder} | {todayDate} |
+| {lastCreatedOrderNumber} | {lastSupplierOrder} | {todayDate} |
 
 Scenario: Order product edit
 
