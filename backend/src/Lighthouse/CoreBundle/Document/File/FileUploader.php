@@ -121,8 +121,8 @@ class FileUploader
      */
     public function processWriter(\PHPExcel_Writer_Abstract $writer, $filename, $directory = null)
     {
-        $fileResource = tempnam('/tmp', 'order_generator');
-        $writer->save($fileResource);
+        $tmpFilename = tempnam('/tmp', 'order_generator');
+        $writer->save($tmpFilename);
 
         $file = new File();
         $file->name = $filename;
@@ -139,6 +139,7 @@ class FileUploader
             60 * 60
         );
 
+        $fileResource = fopen($tmpFilename, 'rb');
         $dataObject = $this->storageContainer->uploadObject($filePath, $fileResource, $headers->all());
         $dataObject->retrieveMetadata();
 
