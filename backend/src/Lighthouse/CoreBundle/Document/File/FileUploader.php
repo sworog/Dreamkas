@@ -112,4 +112,39 @@ class FileUploader
 
         return $file;
     }
+
+    /**
+     * @param \PHPExcel_Writer_Abstract $writer
+     * @param string $filename
+     * @param string|null $directory
+     * @return File
+     */
+    public function processWriter(\PHPExcel_Writer_Abstract $writer, $filename, $directory = null)
+    {
+        $tmpFilename = tempnam('/tmp', 'order_generator');
+        $writer->save($tmpFilename);
+
+        $file = new File();
+        $file->name = $filename;
+
+        if (null == $directory) {
+            $filePath = $filename;
+        } else {
+            $filePath = $directory . '/' . $filename;
+        }
+
+        $headers = new ResponseHeaderBag();
+        $headers->set(
+            'X-Delete-After',
+            60 * 60
+        );
+
+        $fileResource = fopen($tmpFilename, 'rb');
+        $dataObject = $this->storageContainer->uploadObject($filePath, $fileResource, $headers->all());
+        $dataObject->retrieveMetadata();
+
+        $this->populateFileByDataObject($file, $dataObject);
+
+        return $file;
+    }
 }

@@ -631,6 +631,7 @@ class UserControllerTest extends WebTestCase
                         'DELETE::{order}',
                         'GET',
                         'GET::{order}',
+                        'GET::{order}/download',
                         'POST',
                         'POST::products',
                         'PUT::{order}',

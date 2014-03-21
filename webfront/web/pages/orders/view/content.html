@@ -13,6 +13,9 @@
 <% } %>
 
 <div class="page__data">
+    <div class="page__controls">
+        <a class="page__downloadLink" href="<%- LH.baseApiUrl %>/stores/<%- models.order.get('store.id') %>/orders/<%- models.order.id %>/download">Скачать файл заказа</a>
+    </div>
     <h2>Заказ поставщику № <%- models.order.get('number') %></h2>
 
     <%= templates.form_order({

@@ -68,4 +68,8 @@ public class OrderPage extends CommonPageObject {
     public String getOrderNumberHeaderText() {
         return findVisibleElement(By.xpath("//*[@class='page__data']/h2")).getText();
     }
+
+    public LinkFacade getDownloadFileLink() {
+        return new LinkFacade(this, "Скачать файл заказа");
+    }
 }

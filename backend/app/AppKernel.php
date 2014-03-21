@@ -34,7 +34,8 @@ class AppKernel extends Kernel
             new Leezy\PheanstalkBundle\LeezyPheanstalkBundle(),
             new Clamidity\ProfilerBundle\ClamidityProfilerBundle(),
             new Lighthouse\CoreBundle\LighthouseCoreBundle(),
-            new Lighthouse\ReportsBundle\LighthouseReportsBundle()
+            new Lighthouse\ReportsBundle\LighthouseReportsBundle(),
+            new Liuggio\ExcelBundle\LiuggioExcelBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
