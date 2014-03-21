@@ -61,21 +61,6 @@ public class AuthorizationUserSteps {
         authorizationSteps.loginFormIsPresent();
     }
 
-    @Then("the user sees the 403 error")
-    public void thenTheUserSeesThe403Error() {
-        authorizationSteps.error403IsPresent();
-    }
-
-    @Then("the user sees the 404 error")
-    public void thenTheUserSeesThe404Error() {
-        authorizationSteps.error404isPresent();
-    }
-
-    @Then("the user dont see the 403 error")
-    public void thenTheUserDonseeSeeThe403Error() {
-        authorizationSteps.error403IsNotPresent();
-    }
-
     @Then("the user sees no edit product button")
     public void thenTheUserSeesNoEditProductButton() {
         authorizationSteps.editProductButtonIsNotPresent();
