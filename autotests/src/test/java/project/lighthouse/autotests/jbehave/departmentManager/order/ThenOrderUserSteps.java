@@ -80,6 +80,11 @@ public class ThenOrderUserSteps {
         orderSteps.assertOrderProductCollectionDoNotContainsProduct();
     }
 
+    @Then("the user checks the order products list do not contain product with name '$name'")
+    public void thenTheUserChecksTheOrderProductListDoNotContainProductWithName(String name) {
+        orderSteps.assertOrderProductCollectionDoNotContainsProduct(name);
+    }
+
     @Then("the user checks the order number is expected")
     public void thenTheUserChecksTheOrderNumberIsExpected() {
         orderSteps.assertOrderNumberHeader();

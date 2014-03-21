@@ -191,8 +191,13 @@ public class OrderSteps extends ScenarioSteps {
 
     @Step
     public void lastCreatedOrderCollectionObjectClick() {
-        ordersListPage.getOrderObjectCollection().clickByLocator(
+        openOrderWithNameObjectClick(
                 Storage.getOrderVariableStorage().getNumber());
+    }
+
+    @Step
+    public void openOrderWithNameObjectClick(String locator) {
+        ordersListPage.getOrderObjectCollection().clickByLocator(locator);
     }
 
     @Step

@@ -86,6 +86,11 @@ public class WhenOrderUserSteps {
         orderSteps.lastCreatedOrderCollectionObjectClick();
     }
 
+    @When("the user clicks on the order with number '$number' on the orders list page")
+    public void whenTheUserClicksOnTheOrderWithNumberOnOrdersListPage(String number) {
+        orderSteps.openOrderWithNameObjectClick(number);
+    }
+
     @When("the user clicks on deletion item icon to delete edited order product")
     public void whenTheUserClicksOnDeletionItemIconToDeleteEditedOrderProduct() {
         orderSteps.deletionIconClick();
