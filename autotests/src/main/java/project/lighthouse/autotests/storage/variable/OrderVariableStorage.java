@@ -1,5 +1,7 @@
 package project.lighthouse.autotests.storage.variable;
 
+import org.json.JSONException;
+import project.lighthouse.autotests.helper.ObjectsFactory;
 import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.Supplier;
 
@@ -8,7 +10,12 @@ public class OrderVariableStorage {
     private Supplier supplier;
     private Product product;
     private Integer number = 10000;
-    private String quantity;
+    private String quantity = "0";
+
+    public OrderVariableStorage() throws JSONException {
+        supplier = ObjectsFactory.getSupplierObject();
+        product = ObjectsFactory.getProductObject();
+    }
 
     public Supplier getSupplier() {
         return supplier;
