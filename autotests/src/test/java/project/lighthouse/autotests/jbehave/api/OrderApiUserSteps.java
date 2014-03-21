@@ -32,6 +32,7 @@ public class OrderApiUserSteps {
 
     @Given("there is the order in the store by '$userName'")
     public void createOrder(String userName) throws IOException, JSONException {
+        String quantity = "1";
         String uuid = new UUIDGenerator().generate();
         Supplier supplier = supplierApiSteps.createSupplier(uuid);
         SubCategory subCategory = catalogApiSteps.createDefaultSubCategoryThroughPost();
@@ -39,8 +40,9 @@ public class OrderApiUserSteps {
 
         Storage.getOrderVariableStorage().setProduct(product);
         Storage.getOrderVariableStorage().setSupplier(supplier);
+        Storage.getOrderVariableStorage().setQuantity(quantity);
 
-        OrderProduct orderProduct = new OrderProduct(product.getId(), "1");
+        OrderProduct orderProduct = new OrderProduct(product.getId(), quantity);
         orderApiSteps.createOrder(
                 supplier,
                 new OrderProduct[]{orderProduct},

@@ -41,4 +41,8 @@ public class Product extends AbstractObject {
     public String getSku() throws JSONException {
         return getPropertyAsString("sku");
     }
+
+    public String getBarCode() throws JSONException {
+        return getPropertyAsString("barcode");
+    }
 }

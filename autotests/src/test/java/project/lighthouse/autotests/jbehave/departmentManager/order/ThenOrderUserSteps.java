@@ -4,12 +4,16 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
+import project.lighthouse.autotests.steps.departmentManager.order.OrderFileSteps;
 import project.lighthouse.autotests.steps.departmentManager.order.OrderSteps;
 
 public class ThenOrderUserSteps {
 
     @Steps
     OrderSteps orderSteps;
+
+    @Steps
+    OrderFileSteps orderFileSteps;
 
     @Then("the user checks the order products list contains entry $examplesTable")
     public void thenTheUserChecksTheOrderProductListContainsEntry(ExamplesTable examplesTable) throws JSONException {
@@ -79,5 +83,20 @@ public class ThenOrderUserSteps {
     @Then("the user checks the order number is expected")
     public void thenTheUserChecksTheOrderNumberIsExpected() {
         orderSteps.assertOrderNumberHeader();
+    }
+
+    @Then("the user checks the download file link is clickable")
+    public void thenTheUserChecksTheDownloadFileLinkIsClickable() {
+        orderSteps.assertDownloadFileLinkIsClickable();
+    }
+
+    @Then("the user checks the download file link is not visible")
+    public void thenTheUserChecksTheDownloadFileLinkIsNotVisible() {
+        orderSteps.assertDownloadFileLinkIsNotVisible();
+    }
+
+    @Then("the user checks the downloaded file contains required data by user with name '$userName'")
+    public void thenTheUserChecksTheDownloadedFileContainsRequiredData(String userName) throws Exception {
+        orderFileSteps.assertOrderDownloadedFileData(userName, "lighthouse");
     }
 }

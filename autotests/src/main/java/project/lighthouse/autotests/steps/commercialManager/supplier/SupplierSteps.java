@@ -2,13 +2,13 @@ package project.lighthouse.autotests.steps.commercialManager.supplier;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
-import org.apache.commons.io.FileUtils;
 import org.jbehave.core.model.ExamplesTable;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.helper.FileCreator;
+import project.lighthouse.autotests.helper.FileDownloader;
 import project.lighthouse.autotests.helper.FilesCompare;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.supplier.SupplierObject;
@@ -17,7 +17,6 @@ import project.lighthouse.autotests.pages.commercialManager.supplier.SupplierLis
 import project.lighthouse.autotests.pages.commercialManager.supplier.SupplierPage;
 
 import java.io.File;
-import java.net.URL;
 
 public class SupplierSteps extends ScenarioSteps {
 
@@ -186,13 +185,7 @@ public class SupplierSteps extends ScenarioSteps {
     @Step
     private void assertDownloadedFileEqualsToUploadedFile(WebElement element) throws Exception {
         String downloadLocation = element.getAttribute("href");
-        if (downloadLocation.trim().equals("")) {
-            throw new Exception("The element you have specified does not link to anything!");
-        }
-        String downloadPath = System.getProperty("java.io.tmpdir");
-        URL downloadURL = new URL(downloadLocation);
-        File downloadedFile = new File(downloadPath + "/" + fileName);
-        FileUtils.copyURLToFile(downloadURL, new File(downloadPath + "/" + fileName));
+        File downloadedFile = new FileDownloader(downloadLocation, fileName).getFile();
         Boolean compareResult = new FilesCompare(file, downloadedFile).compare();
         if (!compareResult) {
             Assert.fail("md5 sum is not equals!");

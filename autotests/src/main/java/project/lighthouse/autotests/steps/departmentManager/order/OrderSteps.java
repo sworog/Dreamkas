@@ -6,6 +6,7 @@ import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import org.junit.Assert;
 import org.openqa.selenium.TimeoutException;
+import project.lighthouse.autotests.elements.Buttons.LinkFacade;
 import project.lighthouse.autotests.helper.exampleTable.order.OrderExampleTableUpdater;
 import project.lighthouse.autotests.objects.web.order.order.OrderObjectCollection;
 import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductObject;
@@ -222,5 +223,19 @@ public class OrderSteps extends ScenarioSteps {
         assertThat(
                 orderPage.getOrderNumberHeaderText(),
                 equalTo(expectedNumber));
+    }
+
+    @Step
+    public void assertDownloadFileLinkIsClickable() {
+        LinkFacade linkFacade = orderPage.getDownloadFileLink();
+        orderPage.getWaiter().elementToBeClickable(linkFacade.getFindBy());
+    }
+
+    @Step
+    public void assertDownloadFileLinkIsNotVisible() {
+        try {
+            orderPage.getDownloadFileLink().click();
+        } catch (TimeoutException ignored) {
+        }
     }
 }

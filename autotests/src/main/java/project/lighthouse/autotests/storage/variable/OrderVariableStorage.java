@@ -8,6 +8,7 @@ public class OrderVariableStorage {
     private Supplier supplier;
     private Product product;
     private Integer number = 10000;
+    private String quantity;
 
     public Supplier getSupplier() {
         return supplier;
@@ -39,5 +40,13 @@ public class OrderVariableStorage {
 
     public void incrementNumber() {
         number++;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 }
