@@ -6,15 +6,14 @@ Meta:
 Narrative:
 Удаление продукта из заказа
 
-GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
-
 Scenario: Order product deletion
 
 Meta:
 @id_s30u67s12
 @smoke
 
-GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
+              precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
 
 Given there is the subCategory with name 'defaultSubCategory-s30u67' related to group named 'defaultGroup-s30u67' and category named 'defaultCategory-s30u67'
 And the user sets subCategory 'defaultSubCategory-s30u67' mark up with max '10' and min '0' values
@@ -75,7 +74,8 @@ Scenario: Order Product deletion cancel
 Meta:
 @id_s30u67s13
 
-GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
+              precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
 
 Given there is the order in the store by 'departmentManager-s30u67'
 
