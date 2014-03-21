@@ -51,6 +51,10 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
             }
         }
 
+        if (abstractObjectIterator.hasNext()) {
+            Assert.fail("The collection still contains not verified objects, but should not contain any");
+        }
+
         compareResultHashMap.failIfHasAnyErrors();
     }
 
