@@ -4,10 +4,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.TimeoutException;
-import project.lighthouse.autotests.pages.administrator.users.UserCardPage;
 import project.lighthouse.autotests.pages.authorization.AuthorizationPage;
-import project.lighthouse.autotests.pages.commercialManager.product.ProductCardView;
-import project.lighthouse.autotests.pages.commercialManager.product.ProductListPage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,9 +25,6 @@ public class AuthorizationSteps extends ScenarioSteps {
     private Boolean isAuthorized = false;
 
     AuthorizationPage authorizationPage;
-    ProductCardView productCardView;
-    ProductListPage productListPage;
-    UserCardPage userCardPage;
 
     @Step
     public void authorization(String userName) {
@@ -113,51 +107,5 @@ public class AuthorizationSteps extends ScenarioSteps {
     public void authorizationFalse(String userName, String password) {
         authorization(userName, password, true);
         isAuthorized = false;
-    }
-
-    @Step
-    public void editProductButtonIsNotPresent() {
-        try {
-            productCardView.editButtonClick();
-            fail("Edit product link is present!");
-        } catch (Exception ignored) {
-        }
-    }
-
-    @Step
-    public void newProductCreateButtonIsNotPresent() {
-        try {
-            productListPage.createNewProductButtonClick();
-            fail("Create new product button is present on product list page!");
-        } catch (Exception ignored) {
-        }
-    }
-
-    @Step
-    public void userCardEditButtonIsPresent() {
-        userCardPage.editButtonClick();
-    }
-
-    @Step
-    public void userCardEditButtonIsNotPresent() {
-        try {
-            userCardPage.editButtonClick();
-            fail("User card edit link is present!");
-        } catch (Exception ignored) {
-        }
-    }
-
-    @Step
-    public void userCardListLinkIsPresent() {
-        userCardPage.pageBackLink();
-    }
-
-    @Step
-    public void userCardListLinkIsNotPresent() {
-        try {
-            userCardPage.pageBackLink();
-            fail("User card list link is present!");
-        } catch (Exception ignored) {
-        }
     }
 }

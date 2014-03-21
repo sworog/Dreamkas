@@ -8,6 +8,8 @@ import project.lighthouse.autotests.pages.administrator.users.UserCardPage;
 import project.lighthouse.autotests.pages.administrator.users.UserCreatePage;
 import project.lighthouse.autotests.pages.administrator.users.UsersListPage;
 
+import static org.junit.Assert.fail;
+
 public class UserSteps extends ScenarioSteps {
 
     UserCreatePage userCreatePage;
@@ -110,5 +112,33 @@ public class UserSteps extends ScenarioSteps {
     @Step
     public void backToTheUsersListPageLink() {
         userCreatePage.backToTheUsersListPageLink();
+    }
+
+    @Step
+    public void userCardEditButtonIsPresent() {
+        userCardPage.editButtonClick();
+    }
+
+    @Step
+    public void userCardEditButtonIsNotPresent() {
+        try {
+            userCardPage.editButtonClick();
+            fail("User card edit link is present!");
+        } catch (Exception ignored) {
+        }
+    }
+
+    @Step
+    public void userCardListLinkIsPresent() {
+        userCardPage.pageBackLink();
+    }
+
+    @Step
+    public void userCardListLinkIsNotPresent() {
+        try {
+            userCardPage.pageBackLink();
+            fail("User card list link is present!");
+        } catch (Exception ignored) {
+        }
     }
 }

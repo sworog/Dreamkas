@@ -101,4 +101,24 @@ public class EndUserSteps {
     public void thenTheUserChecksUserPageFieldContainsSymbols(String elementName, int number) {
         userSteps.checkFieldLength(elementName, number);
     }
+
+    @Then("the user sees user card edit button")
+    public void thenTheUserSeesUserCardEditButton() {
+        userSteps.userCardEditButtonIsPresent();
+    }
+
+    @Then("the user sees no user card edit button")
+    public void thenTheUserSeesNoUserCardEditButton() {
+        userSteps.userCardEditButtonIsNotPresent();
+    }
+
+    @Then("the user sees user card link to users list")
+    public void thenTheUserSeesUserCardLinkToUsersList() {
+        userSteps.userCardListLinkIsPresent();
+    }
+
+    @Then("the user sees no user card link to users list")
+    public void thenTheUserSeesNoUserCardLinkToUsersList() {
+        userSteps.userCardListLinkIsNotPresent();
+    }
 }
