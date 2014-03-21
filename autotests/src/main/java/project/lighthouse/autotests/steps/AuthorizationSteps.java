@@ -4,6 +4,8 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.TimeoutException;
+import project.lighthouse.autotests.pages.MenuNavigationBar;
+import project.lighthouse.autotests.pages.administrator.users.UserCardPage;
 import project.lighthouse.autotests.pages.authorization.AuthorizationPage;
 
 import java.util.HashMap;
@@ -25,6 +27,8 @@ public class AuthorizationSteps extends ScenarioSteps {
     private Boolean isAuthorized = false;
 
     AuthorizationPage authorizationPage;
+    MenuNavigationBar menuNavigationBar;
+    UserCardPage userCardPage;
 
     @Step
     public void authorization(String userName) {
@@ -66,7 +70,8 @@ public class AuthorizationSteps extends ScenarioSteps {
 
     @Step
     public void logOut() {
-        authorizationPage.logOutButtonClick();
+        menuNavigationBar.userNameLinkClick();
+        userCardPage.logOutButtonClick();
         isAuthorized = false;
     }
 
@@ -82,7 +87,7 @@ public class AuthorizationSteps extends ScenarioSteps {
 
     @Step
     public void checkUser(String userName) {
-        String actualUserName = authorizationPage.getUserNameText();
+        String actualUserName = menuNavigationBar.getUserNameText();
         assertThat(
                 String.format("The user name is '%s'. Should be '%s'.", actualUserName, userName),
                 actualUserName,

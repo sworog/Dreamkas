@@ -15,10 +15,6 @@ public class AuthorizationPage extends CommonPageObject {
     @SuppressWarnings("unused")
     private WebElement loginFormWebElement;
 
-    @FindBy(xpath = "//*[@class='navigationBar__userName']")
-    @SuppressWarnings("unused")
-    private WebElement userNameWebElement;
-
     public AuthorizationPage(WebDriver driver) {
         super(driver);
     }
@@ -31,17 +27,6 @@ public class AuthorizationPage extends CommonPageObject {
 
     public void loginButtonClick() {
         new ButtonFacade(this, "Войти").click();
-    }
-
-    //TODO move to MenuNavigation page object class
-    public void logOutButtonClick() {
-        findVisibleElement(userNameWebElement).click();
-        new ButtonFacade(this, "Выйти").click();
-    }
-
-    //TODO move to MenuNavigation page object class
-    public String getUserNameText() {
-        return findVisibleElement(userNameWebElement).getText();
     }
 
     public WebElement getLoginFormWebElement() {

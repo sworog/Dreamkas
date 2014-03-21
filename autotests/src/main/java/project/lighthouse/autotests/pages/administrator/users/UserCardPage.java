@@ -3,6 +3,7 @@ package project.lighthouse.autotests.pages.administrator.users;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.NonType;
 
 public class UserCardPage extends CommonPageObject {
@@ -27,5 +28,9 @@ public class UserCardPage extends CommonPageObject {
 
     public void pageBackLink() {
         findVisibleElement(By.className("page__backLink")).click();
+    }
+
+    public void logOutButtonClick() {
+        new ButtonFacade(this, "Выйти").click();
     }
 }
