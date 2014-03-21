@@ -3,11 +3,20 @@ package project.lighthouse.autotests.jbehave.authorization;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.*;
 import project.lighthouse.autotests.steps.AuthorizationSteps;
+import project.lighthouse.autotests.steps.administrator.UserSteps;
+import project.lighthouse.autotests.steps.menu.MenuNavigationSteps;
+import project.lighthouse.autotests.storage.Storage;
 
 public class AuthorizationUserSteps {
 
     @Steps
     AuthorizationSteps authorizationSteps;
+
+    @Steps
+    MenuNavigationSteps menuNavigationSteps;
+
+    @Steps
+    UserSteps userSteps;
 
     @BeforeScenario()
     public void beforeScenario() {
@@ -47,7 +56,9 @@ public class AuthorizationUserSteps {
 
     @When("the user logs out")
     public void whenTheUserLogsOut() {
-        authorizationSteps.logOut();
+        menuNavigationSteps.userNameLinkClick();
+        userSteps.logOutButtonClick();
+        Storage.getUserVariableStorage().setIsAuthorized(false);
     }
 
     @Then("the user checks that authorized is '$userName' user")

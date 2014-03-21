@@ -5,8 +5,8 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.pages.MenuNavigationBar;
-import project.lighthouse.autotests.pages.administrator.users.UserCardPage;
 import project.lighthouse.autotests.pages.authorization.AuthorizationPage;
+import project.lighthouse.autotests.storage.Storage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,17 +18,14 @@ import static org.junit.Assert.fail;
 public class AuthorizationSteps extends ScenarioSteps {
 
     private Map<String, String> users = new HashMap<String, String>() {{
-        users.put("watchman", "lighthouse");
-        users.put("commercialManager", "lighthouse");
-        users.put("storeManager", "lighthouse");
-        users.put("departmentManager", "lighthouse");
+        put("watchman", "lighthouse");
+        put("commercialManager", "lighthouse");
+        put("storeManager", "lighthouse");
+        put("departmentManager", "lighthouse");
     }};
-
-    private Boolean isAuthorized = false;
 
     AuthorizationPage authorizationPage;
     MenuNavigationBar menuNavigationBar;
-    UserCardPage userCardPage;
 
     @Step
     public void authorization(String userName) {
@@ -49,7 +46,7 @@ public class AuthorizationSteps extends ScenarioSteps {
         if (!isFalse) {
             checkUser(userName);
         }
-        isAuthorized = true;
+        Storage.getUserVariableStorage().setIsAuthorized(true);
     }
 
     // TODO fix this in future
@@ -63,21 +60,14 @@ public class AuthorizationSteps extends ScenarioSteps {
     @Step
     public void workAroundTypeForUserName(String inputText) {
         authorizationPage.input("userName", inputText);
-        if (!authorizationPage.getItems().get("userName").getVisibleWebElement().getText().equals(inputText)) {
+        if (!authorizationPage.getItems().get("userName").getVisibleWebElementFacade().getValue().equals(inputText)) {
             workAroundTypeForUserName(inputText);
         }
     }
 
     @Step
-    public void logOut() {
-        menuNavigationBar.userNameLinkClick();
-        userCardPage.logOutButtonClick();
-        isAuthorized = false;
-    }
-
-    @Step
     public void beforeScenario() {
-        if (isAuthorized) {
+        if (Storage.getUserVariableStorage().getIsAuthorized()) {
             Cookie token = getDriver().manage().getCookieNamed("token");
             if (token != null) {
                 getDriver().manage().deleteCookie(token);
@@ -111,6 +101,6 @@ public class AuthorizationSteps extends ScenarioSteps {
     @Step
     public void authorizationFalse(String userName, String password) {
         authorization(userName, password, true);
-        isAuthorized = false;
+        Storage.getUserVariableStorage().setIsAuthorized(false);
     }
 }

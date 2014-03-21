@@ -141,4 +141,9 @@ public class UserSteps extends ScenarioSteps {
         } catch (Exception ignored) {
         }
     }
+
+    @Step
+    public void logOutButtonClick() {
+        userCardPage.logOutButtonClick();
+    }
 }

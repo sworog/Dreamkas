@@ -57,4 +57,10 @@ public class MenuNavigationSteps extends ScenarioSteps {
         } catch (TimeoutException ignored) {
         }
     }
+
+    @Step
+    public void userNameLinkClick() {
+        new BodyPreLoader(getDriver()).await();
+        menuNavigationBar.userNameLinkClick();
+    }
 }
