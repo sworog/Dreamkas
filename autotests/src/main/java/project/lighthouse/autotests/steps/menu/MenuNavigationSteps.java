@@ -49,6 +49,30 @@ public class MenuNavigationSteps extends ScenarioSteps {
     }
 
     @Step
+    public void usersMenuItemClick() {
+        new BodyPreLoader(getDriver()).await();
+        menuNavigationBar.usersMenuItemClick();
+    }
+
+    @Step
+    public void catalogMenuItemClick() {
+        new BodyPreLoader(getDriver()).await();
+        menuNavigationBar.catalogMenuItemClick();
+    }
+
+    @Step
+    public void invoicesMenuItemClick() {
+        new BodyPreLoader(getDriver()).await();
+        menuNavigationBar.invoicesMenuItemClick();
+    }
+
+    @Step
+    public void writeOffsMenuItemClick() {
+        new BodyPreLoader(getDriver()).await();
+        menuNavigationBar.writeOffsMenuItemClick();
+    }
+
+    @Step
     public void ordersMenuItemIsNotVisible() {
         try {
             new BodyPreLoader(getDriver()).await();

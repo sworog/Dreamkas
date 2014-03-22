@@ -161,7 +161,7 @@ Scenario: Administrator role valid rules - simple user scenario from dashboard -
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
-When user opens the dashboard 'users' section
+When the user clicks the menu users item
 And the user clicks the create new user button from users list page
 And the user inputs values in the user page element fields
 | elementName | value |
@@ -177,7 +177,7 @@ Scenario: CommercialManager role valid rules - simple user scenario from dashboa
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
-When user opens the dashboard 'catalog' section
+When the user clicks the menu catalog item
 When the user clicks on start edition link and starts the edition
 And the user creates new group with name 'GcFcP1234567'
 Then the user checks the group with 'GcFcP1234567' name is present
@@ -187,7 +187,7 @@ And the user inputs 'First category create1234567' in 'name' field of pop up
 And the user clicks the create new category button in pop up
 And the user clicks on end edition link and ends the edition
 Then the user checks the category with 'First category create1234567' name is present
-When user opens the dashboard 'catalog' section
+When the user clicks the menu catalog item
 Then the user checks the category with 'First category create1234567' name is related to group 'GcFcP1234567'
 
 Scenario: DepartmentManager role valid rules - simple user scenario from dashboard - invoice
@@ -196,7 +196,7 @@ Given skipped. Info: 'Test is not actual', Details: 'It became not actual after 
 Given there is the product with 'IFBKG-1199' name, 'IFBKG-1199' sku, 'IFBKG-1199' barcode
 And the user opens the authorization page
 And the user logs in as 'departmentManager'
-When user opens the dashboard 'invoices' section
+When the user clicks the menu invoices item
 And the user clicks the create button on the invoice list page
 And the user inputs 'Invoice-IFBKG-1199' in the invoice 'sku' field
 And the user inputs '02.04.2013 16:23' in the invoice 'acceptanceDate' field
@@ -211,7 +211,7 @@ And the user inputs '1' in the invoice product 'productAmount' field
 And the user inputs '1' in the invoice product 'invoiceCost' field
 And the user clicks the add more product button
 When the user clicks finish edit button and ends the invoice edition
-When user opens the dashboard 'invoices' section
+When the user clicks the menu invoices item
 Then the user checks the invoice with 'Invoice-IFBKG-1199' sku is present
 When the user open the invoice card with 'Invoice-IFBKG-1199' sku
 Then the user checks invoice 'head' elements  values
@@ -240,12 +240,13 @@ And the user checks invoice elements values
 Scenario: DepartmentManager role valid rules - simple user scenario from dashboard - writeOff
 
 Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19 - us-42, us-45'
+
 Given there is the product with 'WriteOff-ProductName999' name, 'WriteOff-ProductSku999' sku, 'WriteOff-ProductBarCode999' barcode, 'liter' units, '15' purchasePrice
 And the user opens the authorization page
 And the user logs in as 'departmentManager'
 When user opens the dashboard 'balance' section
 Then the user checks the product with 'WriteOff-ProductSku999' sku has 'amounts amount' element equal to '0' on amounts page
-When user opens the dashboard 'writeOffs' section
+When the user clicks the menu writeOffs item
 And the user creates write off from write off list page
 And the user inputs 'WriteOff Number-1999' in the 'writeOff number' field on the write off page
 And the user inputs '24.10.2012' in the 'writeOff date' field on the write off page
@@ -485,14 +486,14 @@ Scenario: DepartmentManager role valid rules - authorised access to invoice list
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
-When user opens the dashboard 'invoices' section
+When the user clicks the menu invoices item
 Then the user dont see the 403 error
 
 Scenario: DepartmentManager role valid rules - authorised access to invoice create
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
-When user opens the dashboard 'invoices' section
+When the user clicks the menu invoices item
 And the user clicks the create button on the invoice list page
 Then the user dont see the 403 error
 
@@ -500,14 +501,14 @@ Scenario: DepartmentManager role valid rules - authorised access to writeOffs li
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
-When user opens the dashboard 'writeOffs' section
+When the user clicks the menu writeOffs item
 Then the user dont see the 403 error
 
 Scenario: DepartmentManager role valid rules - authorised access to writeOffs create
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
-When user opens the dashboard 'writeOffs' section
+When the user clicks the menu writeOffs item
 And the user creates write off from write off list page
 Then the user dont see the 403 error
 
@@ -515,21 +516,21 @@ Scenario: CommercialManager role valid rules - authorised access to catalog
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
-When user opens the dashboard 'catalog' section
+When the user clicks the menu catalog item
 Then the user dont see the 403 error
 
 Scenario: Administrator role valid rules - authorised access to users list
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
-When user opens the dashboard 'users' section
+When the user clicks the menu users item
 Then the user dont see the 403 error
 
 Scenario: Administrator role valid rules - authorised access to users create
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
-When user opens the dashboard 'users' section
+When the user clicks the menu users item
 And the user clicks the create new user button from users list page
 Then the user dont see the 403 error
 

@@ -39,4 +39,20 @@ public class MenuNavigationBar extends CommonPageObject {
     public void ordersMenuItemClick() {
         new NavigationBarLinkFacade(this, "Заказы").click();
     }
+
+    public void usersMenuItemClick() {
+        new NavigationBarLinkFacade(this, "Пользователи").click();
+    }
+
+    public void catalogMenuItemClick() {
+        new NavigationBarLinkFacade(this, "Товары").click();
+    }
+
+    public void invoicesMenuItemClick() {
+        new NavigationBarLinkFacade(this, "Накладные").click();
+    }
+
+    public void writeOffsMenuItemClick() {
+        new NavigationBarLinkFacade(this, "Списания").click();
+    }
 }

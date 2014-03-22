@@ -9,11 +9,6 @@ public class DashBoardSteps extends ScenarioSteps {
     DashBoardPage dashBoardPage;
 
     @Step
-    public void buttonClick(String name) {
-        dashBoardPage.buttonClick(name);
-    }
-
-    @Step
     public void shouldNotBeVisible(String name) {
         dashBoardPage.shouldNotBeVisible(name);
     }
