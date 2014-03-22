@@ -8,7 +8,6 @@ import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Input;
 import project.lighthouse.autotests.elements.SelectByValue;
-import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.helper.RoleReplacer;
 
 import java.util.Map;
@@ -31,12 +30,6 @@ public class UserCreatePage extends CommonPageObject {
 
     public void userCreateButtonClick() {
         new ButtonFacade(this).click();
-        new PreLoader(getDriver()).await();
-    }
-
-    public void backToTheUsersListPageLink() {
-        String link = "//*[@class='page__backLink']";
-        findElement(By.xpath(link)).click();
     }
 
     @Override

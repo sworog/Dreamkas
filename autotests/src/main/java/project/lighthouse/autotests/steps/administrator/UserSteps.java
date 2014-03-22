@@ -3,6 +3,7 @@ package project.lighthouse.autotests.steps.administrator;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.pages.administrator.users.UserCardPage;
 import project.lighthouse.autotests.pages.administrator.users.UserCreatePage;
@@ -44,6 +45,7 @@ public class UserSteps extends ScenarioSteps {
     @Step
     public void userCreateButtonClick() {
         userCreatePage.userCreateButtonClick();
+        new PreLoader(getDriver()).await();
     }
 
     @Step
@@ -110,8 +112,8 @@ public class UserSteps extends ScenarioSteps {
     }
 
     @Step
-    public void backToTheUsersListPageLink() {
-        userCreatePage.backToTheUsersListPageLink();
+    public void pageBackLinkClick() {
+        userCardPage.pageBackLinkClick();
     }
 
     @Step
@@ -130,13 +132,13 @@ public class UserSteps extends ScenarioSteps {
 
     @Step
     public void userCardListLinkIsPresent() {
-        userCardPage.pageBackLink();
+        userCardPage.pageBackLinkClick();
     }
 
     @Step
     public void userCardListLinkIsNotPresent() {
         try {
-            userCardPage.pageBackLink();
+            userCardPage.pageBackLinkClick();
             fail("User card list link is present!");
         } catch (Exception ignored) {
         }

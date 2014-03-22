@@ -59,7 +59,7 @@ public class EndUserSteps {
 
     @When("the user clicks on the users list page link")
     public void whenTheUserClicksOnTheUserListPageLink() {
-        userSteps.backToTheUsersListPageLink();
+        userSteps.pageBackLinkClick();
     }
 
     @When("the user generates charData with '$number' number in the '$elementName' user page field")
