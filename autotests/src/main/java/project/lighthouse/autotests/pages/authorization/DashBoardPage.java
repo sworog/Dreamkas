@@ -51,8 +51,4 @@ public class DashBoardPage extends CommonPageObject {
             );
         }
     }
-
-    public void openUserCard() {
-        findVisibleElement(By.className("navigationBar__userName")).click();
-    }
 }

@@ -9,6 +9,11 @@ public class WhenMenuNavigationUserSteps {
     @Steps
     MenuNavigationSteps menuNavigationSteps;
 
+    @When("the user opens dashboard user card")
+    public void whenTheUserOpensDashboardUserCard() {
+        menuNavigationSteps.userNameLinkClick();
+    }
+
     @When("the user clicks the menu report item")
     public void whenTheUserClicksTheMenuReportItemClick() {
         menuNavigationSteps.reportMenuItemClick();
