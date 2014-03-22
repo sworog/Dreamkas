@@ -9,7 +9,7 @@ public class WhenMenuNavigationUserSteps {
     @Steps
     MenuNavigationSteps menuNavigationSteps;
 
-    @When("the user opens dashboard user card")
+    @When("the user opens menu navigation bar user card")
     public void whenTheUserOpensDashboardUserCard() {
         menuNavigationSteps.userNameLinkClick();
     }

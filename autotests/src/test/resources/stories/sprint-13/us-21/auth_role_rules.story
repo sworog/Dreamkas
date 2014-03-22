@@ -551,7 +551,7 @@ Scenario: Administrator role - user card view from dashboard
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
-When the user opens dashboard user card
+When the user opens menu navigation bar user card
 Then the user checks the user page elements values
 | elementName | value |
 | name | watchman |
@@ -563,21 +563,21 @@ Scenario: Administrator role - user card view from dashboard - edit button is pr
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
-When the user opens dashboard user card
+When the user opens menu navigation bar user card
 Then the user sees user card edit button
 
 Scenario: Administrator role - user card view from dashboard - users list link is present
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
-When the user opens dashboard user card
+When the user opens menu navigation bar user card
 Then the user sees user card link to users list
 
 Scenario: DepartmentManager role - user card view from dashboard
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
-When the user opens dashboard user card
+When the user opens menu navigation bar user card
 Then the user checks the user page elements values
 | elementName | value |
 | name | departmentManager |
@@ -589,21 +589,21 @@ Scenario: DepartmentManager role - user card view from dashboard - edit button i
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
-When the user opens dashboard user card
+When the user opens menu navigation bar user card
 Then the user sees no user card edit button
 
 Scenario: DepartmentManager role - user card view from dashboard - users list link is not present
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
-When the user opens dashboard user card
+When the user opens menu navigation bar user card
 Then the user sees no user card link to users list
 
 Scenario: CommercialManager role - user card view from dashboard
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
-When the user opens dashboard user card
+When the user opens menu navigation bar user card
 Then the user checks the user page elements values
 | elementName | value |
 | name | commercialManager |
@@ -615,21 +615,21 @@ Scenario: CommercialManager role - user card view from dashboard - edit button i
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
-When the user opens dashboard user card
+When the user opens menu navigation bar user card
 Then the user sees no user card edit button
 
 Scenario: CommercialManager role - user card view from dashboard - users list link is not present
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
-When the user opens dashboard user card
+When the user opens menu navigation bar user card
 Then the user sees no user card link to users list
 
 Scenario: StoreManager role - user card view from dashboard
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
-When the user opens dashboard user card
+When the user opens menu navigation bar user card
 Then the user checks the user page elements values
 | elementName | value |
 | name | storeManager |
@@ -641,12 +641,12 @@ Scenario: StoreManager role - user card view from dashboard - edit button is not
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
-When the user opens dashboard user card
+When the user opens menu navigation bar user card
 Then the user sees no user card edit button
 
 Scenario: StoreManager role - user card view from dashboard - users list link is not present
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
-When the user opens dashboard user card
+When the user opens menu navigation bar user card
 Then the user sees no user card link to users list
