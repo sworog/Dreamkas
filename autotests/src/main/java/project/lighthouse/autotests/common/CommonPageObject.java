@@ -23,6 +23,7 @@ abstract public class CommonPageObject extends PageObject {
 
     public CommonPageObject(WebDriver driver) {
         super(driver);
+        setDriver(driver, 100);
         createElements();
     }
 
@@ -150,5 +151,13 @@ abstract public class CommonPageObject extends PageObject {
             String expectedValue = row.get("value");
             checkValue(elementName, expectedValue);
         }
+    }
+
+    public Boolean invisibilityOfElementLocated(WebElement element) {
+        return getWaiter().invisibilityOfElementLocated(element);
+    }
+
+    public Boolean visibilityOfElementLocated(WebElement element) {
+        return getWaiter().visibilityOfElementLocated(element);
     }
 }
