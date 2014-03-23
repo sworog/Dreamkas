@@ -5,6 +5,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.helper.StringGenerator;
@@ -207,9 +208,16 @@ public class SupplierSteps extends ScenarioSteps {
     @Step
     public void assertDownloadAgreementButtonIsNotVisibleFromSupplierObjectByLocator(String locator) {
         try {
-            supplierListPage.getWaiter().invisibilityOfElementLocated(
-                    getDownloadAgreementButtonFromSupplierObjectByLocator(locator));
-        } catch (org.openqa.selenium.NoSuchElementException ignored) {
+            WebElement downloadAgreementButtonWebElement =
+                    getDownloadAgreementButtonFromSupplierObjectByLocator(locator);
+            if (!supplierPage.invisibilityOfElementLocated(downloadAgreementButtonWebElement)) {
+                String message =
+                        String.format(
+                                "The download link should not be visible in supplier object with locator %s",
+                                locator);
+                Assert.fail(message);
+            }
+        } catch (NoSuchElementException ignored) {
         }
     }
 
