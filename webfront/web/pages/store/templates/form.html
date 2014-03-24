@@ -1,10 +1,12 @@
 <% var form_store = require('tpl!blocks/form/form_store/form_store.html') %>
 
-<div class="page__header">
-    <a href="/stores" class="page__backLink"><%- 'Список магазинов' %></a>
+<div class="page__data">
+    <div class="page__header">
+        <a href="/stores" class="page__backLink"><%- 'Список магазинов' %></a>
+    </div>
+    <form id="form_store">
+        <%= form_store({
+            model: storeModel
+        }) %>
+    </form>
 </div>
-<form id="form_store">
-    <%= form_store({
-    model: storeModel
-    }) %>
-</form>
