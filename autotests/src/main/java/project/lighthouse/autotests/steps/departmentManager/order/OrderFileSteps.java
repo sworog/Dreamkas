@@ -68,12 +68,12 @@ public class OrderFileSteps extends ScenarioSteps {
     }
 
     @Step
-    public void assertStoreData() {
+    public void assertStoreData() throws JSONException {
         String expectedStoreData = String.format(
                 "Магазин №%s. %s. %s",
-                Storage.getStoreVariableStorage().getStoreNumber(),
-                Storage.getStoreVariableStorage().getAddress(),
-                Storage.getStoreVariableStorage().getContacts());
+                Storage.getStoreVariableStorage().getStore().getNumber(),
+                Storage.getStoreVariableStorage().getStore().getAddress(),
+                Storage.getStoreVariableStorage().getStore().getContacts());
         assertThat(
                 sheet.getRow(1).getCell(0).toString(),
                 equalTo(expectedStoreData));

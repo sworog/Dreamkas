@@ -19,9 +19,7 @@ public class StoreApiSteps extends CommercialManagerApi {
         Store store = new Store(number, address, contacts);
         store = apiConnect.createStoreThroughPost(store);
 
-        Storage.getStoreVariableStorage().setStoreNumber(number);
-        Storage.getStoreVariableStorage().setAddress(address);
-        Storage.getStoreVariableStorage().setContacts(contacts);
+        Storage.getStoreVariableStorage().setStore(store);
 
         return store;
     }

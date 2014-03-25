@@ -40,7 +40,6 @@ Scenario: Order file verify data with one product
 Meta:
 @id_s30u66s3
 @smoke
-@test
 
 GivenStories: precondition/sprint-31/us-66/aPreconditionToStoryUs66.story
 

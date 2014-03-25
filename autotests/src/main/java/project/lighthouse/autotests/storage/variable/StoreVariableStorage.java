@@ -1,32 +1,16 @@
 package project.lighthouse.autotests.storage.variable;
 
+import project.lighthouse.autotests.objects.api.Store;
+
 public class StoreVariableStorage {
 
-    private String storeNumber;
-    private String address;
-    private String contacts;
+    private Store store;
 
-    public void setStoreNumber(String storeNumber) {
-        this.storeNumber = storeNumber;
+    public Store getStore() {
+        return store;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setContacts(String contacts) {
-        this.contacts = contacts;
-    }
-
-    public String getStoreNumber() {
-        return storeNumber;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getContacts() {
-        return contacts;
+    public void setStore(Store store) {
+        this.store = store;
     }
 }

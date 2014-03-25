@@ -18,9 +18,9 @@ public class Store extends AbstractObject {
 
     public Store(String number, String address, String contacts) throws JSONException {
         this(new JSONObject()
-                .put("number", number)
-                .put("address", address)
-                .put("contacts", contacts)
+                        .put("number", number)
+                        .put("address", address)
+                        .put("contacts", contacts)
         );
     }
 
@@ -35,5 +35,13 @@ public class Store extends AbstractObject {
 
     public String getNumber() throws JSONException {
         return getPropertyAsString("number");
+    }
+
+    public String getAddress() throws JSONException {
+        return getPropertyAsString("address");
+    }
+
+    public String getContacts() throws JSONException {
+        return getPropertyAsString("contacts");
     }
 }
