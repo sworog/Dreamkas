@@ -135,12 +135,21 @@ class OrderGenerator
         $this->phpExcelObject->getActiveSheet()
             ->getColumnDimension('B')
             ->setAutoSize(true);
+        // Формат для штрихкодов, что бы выглядили как обычные числа
+        $this->phpExcelObject->getActiveSheet()
+            ->getStyle('B')->getNumberFormat()->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_NUMBER);
         $this->phpExcelObject->getActiveSheet()
             ->getColumnDimension('C')
             ->setWidth(25);
+        // Формат ячеек текстовый для названия
+        $this->phpExcelObject->getActiveSheet()
+            ->getStyle('C')->getNumberFormat()->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_TEXT);
+        // Перенос строк для названия
+        $this->phpExcelObject->getActiveSheet()
+            ->getStyle('C')->getAlignment()->setWrapText(true);
         $this->phpExcelObject->getActiveSheet()
             ->getColumnDimension('D')
-            ->setAutoSize(10);
+            ->setAutoSize(true);
     }
 
     /**
@@ -158,9 +167,6 @@ class OrderGenerator
             $this->phpExcelObject->getActiveSheet()
                 ->getStyle('A' . $stringNumber . ':D' . $stringNumber)
                 ->getBorders()->getAllBorders()->setBorderStyle(\PHPExcel_Style_Border::BORDER_THIN);
-            $this->phpExcelObject->getActiveSheet()
-                ->getRowDimension($stringNumber)
-                ->setRowHeight(15);
             $stringNumber++;
         }
     }

@@ -13,7 +13,11 @@ class OrderExportTest extends WebTestCase
     {
         $this->setUpStoreDepartmentManager();
         $supplier = $this->factory->createSupplier();
-        $product1 = $this->createProduct(array('name' => 'Кефир1Назв', 'sku' => 'Кефир1Арт', 'barcode' => '1111111'));
+        $product1 = $this->createProduct(array(
+            'name' => 'Длинное название с многим количеством слов что бы проверить перенос строк',
+            'sku' => 'Кефир1Арт',
+            'barcode' => '1234567891234' // 13-и знаковый штрихкод
+        ));
         $product2 = $this->createProduct(array('name' => 'Кефир2Назв', 'sku' => 'Кефир2Арт', 'barcode' => '2222222'));
         $product3 = $this->createProduct(array('name' => 'Кефир3Назв', 'sku' => 'Кефир3Арт', 'barcode' => '3333333'));
 
@@ -97,8 +101,8 @@ class OrderExportTest extends WebTestCase
          */
         $this->assertExcelRow($fileObject, 6, array(
             'Кефир1Арт',    // sku
-            '1111111',      // barcode
-            'Кефир1Назв',   // name
+            '1234567891234',      // barcode
+            'Длинное название с многим количеством слов что бы проверить перенос строк',   // name
             3.11            // quantity
         ));
 
@@ -117,6 +121,12 @@ class OrderExportTest extends WebTestCase
         ));
     }
 
+    /**
+     * @param \PHPExcel $object
+     * @param int $row
+     * @param array $cells
+     * @param string $startCell
+     */
     protected function assertExcelRow(\PHPExcel $object, $row, array $cells, $startCell = 'A')
     {
         foreach ($cells as $cell) {
