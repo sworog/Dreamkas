@@ -1,8 +1,10 @@
-<div class="page__header">
-    <a href="/catalog" class="page__backLink"><%- 'Товарный справочник' %></a>
-    <span class="page__backLinkSeparator">/</span>
-    <a href="/catalog/<%- catalogGroupModel.id %>" class="page__backLink">
-        <%= LH.modelNode(catalogGroupModel, 'name') %>
-    </a>
+<div class="page__data">
+    <div class="page__header">
+        <a href="/catalog" class="page__backLink"><%- 'Товарный справочник' %></a>
+        <span class="page__backLinkSeparator">/</span>
+        <a href="/catalog/<%- catalogGroupModel.id %>" class="page__backLink">
+            <%= LH.modelNode(catalogGroupModel, 'name') %>
+        </a>
+    </div>
+    <div id="catalogCategory"></div>
 </div>
-<div id="catalogCategory"></div>

@@ -1,6 +1,8 @@
-<div class="page__header">
-    <a href="/stores" class="page__backLink">Список магазинов</a>
-    <span class="page__backLinkSeparator">/</span>
-    <a href="/stores/<%- storeModel.id %>" class="page__backLink"><%= LH.modelNode(storeModel, 'number') %></a>
+<div class="page__data">
+    <div class="page__header">
+        <a href="/stores" class="page__backLink">Список магазинов</a>
+        <span class="page__backLinkSeparator">/</span>
+        <a href="/stores/<%- storeModel.id %>" class="page__backLink"><%= LH.modelNode(storeModel, 'number') %></a>
+    </div>
+    <div id="department"></div>
 </div>
-<div id="department"></div>
