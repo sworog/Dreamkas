@@ -39,6 +39,7 @@ public class OrderFileSteps extends ScenarioSteps {
         sheet = new WorkBookHandler(downloadedFile).getSheet();
 
         assertFileHeader();
+        assertStoreData();
         assertFileSupplierHeader();
         assertFileColumnHeaders();
         assertSkuValue();
@@ -67,30 +68,42 @@ public class OrderFileSteps extends ScenarioSteps {
     }
 
     @Step
+    public void assertStoreData() {
+        String expectedStoreData = String.format(
+                "Магазин №%s. %s. %s",
+                Storage.getStoreVariableStorage().getStoreNumber(),
+                Storage.getStoreVariableStorage().getAddress(),
+                Storage.getStoreVariableStorage().getContacts());
+        assertThat(
+                sheet.getRow(1).getCell(0).toString(),
+                equalTo(expectedStoreData));
+    }
+
+    @Step
     public void assertFileSupplierHeader() throws JSONException {
         String expected = String.format(
                 "Поставщик \"%s\"", Storage.getOrderVariableStorage().getSupplier().getName());
         assertThat(
-                sheet.getRow(1).getCell(0).toString(),
+                sheet.getRow(2).getCell(0).toString(),
                 equalTo(expected));
     }
 
     @Step
     public void assertFileColumnHeaders() {
         assertThat(
-                sheet.getRow(3).getCell(0).toString(),
+                sheet.getRow(4).getCell(0).toString(),
                 equalTo("Код")
         );
         assertThat(
-                sheet.getRow(3).getCell(1).toString(),
+                sheet.getRow(4).getCell(1).toString(),
                 equalTo("Штрихкод")
         );
         assertThat(
-                sheet.getRow(3).getCell(2).toString(),
+                sheet.getRow(4).getCell(2).toString(),
                 equalTo("Наименование")
         );
         assertThat(
-                sheet.getRow(3).getCell(3).toString(),
+                sheet.getRow(4).getCell(3).toString(),
                 equalTo("Кол-во")
         );
     }
@@ -98,7 +111,7 @@ public class OrderFileSteps extends ScenarioSteps {
     @Step
     public void assertSkuValue() throws JSONException {
         assertThat(
-                sheet.getRow(4).getCell(0).toString(),
+                sheet.getRow(5).getCell(0).toString(),
                 equalTo(Storage.getOrderVariableStorage().getProduct().getSku())
         );
     }
@@ -106,7 +119,7 @@ public class OrderFileSteps extends ScenarioSteps {
     @Step
     public void assertBarCodeValue() throws JSONException {
         assertThat(
-                sheet.getRow(4).getCell(1).toString(),
+                sheet.getRow(5).getCell(1).toString(),
                 equalTo(Storage.getOrderVariableStorage().getProduct().getBarCode())
         );
     }
@@ -114,7 +127,7 @@ public class OrderFileSteps extends ScenarioSteps {
     @Step
     public void assertNameValue() throws JSONException {
         assertThat(
-                sheet.getRow(4).getCell(2).toString(),
+                sheet.getRow(5).getCell(2).toString(),
                 equalTo(Storage.getOrderVariableStorage().getProduct().getName())
         );
     }
@@ -122,7 +135,7 @@ public class OrderFileSteps extends ScenarioSteps {
     @Step
     public void assertQuantityValue() {
         assertThat(
-                sheet.getRow(4).getCell(3).toString(),
+                sheet.getRow(5).getCell(3).toString(),
                 containsString(Storage.getOrderVariableStorage().getQuantity())
         );
     }
