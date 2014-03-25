@@ -5,8 +5,8 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.api.ApiConnect;
+import project.lighthouse.autotests.helper.RoleReplacer;
 import project.lighthouse.autotests.objects.api.User;
-import project.lighthouse.autotests.pages.administrator.users.UserCreatePage;
 
 import java.io.IOException;
 
@@ -14,16 +14,13 @@ public class UserApiSteps extends ScenarioSteps {
 
     private ApiConnect apiConnect;
 
-    UserCreatePage userCreatePage;
-
     public UserApiSteps() throws JSONException, IOException {
         apiConnect = new ApiConnect("administrator", "lighthouse");
     }
 
     @Step
     public User createUserThroughPost(String name, String position, String login, String password, String role) throws JSONException, IOException {
-        //TODO move replaceSelectedValue in Helper class
-        String updatedRole = userCreatePage.replaceSelectedValue(role);
+        String updatedRole = RoleReplacer.replace(role);
         return apiConnect.createUserThroughPost(name, position, login, password, updatedRole);
     }
 

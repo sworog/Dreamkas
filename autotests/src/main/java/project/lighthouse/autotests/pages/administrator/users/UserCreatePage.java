@@ -8,9 +8,8 @@ import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Input;
 import project.lighthouse.autotests.elements.SelectByValue;
-import project.lighthouse.autotests.elements.preLoader.PreLoader;
+import project.lighthouse.autotests.helper.RoleReplacer;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @DefaultUrl("/users/create")
@@ -19,15 +18,6 @@ public class UserCreatePage extends CommonPageObject {
     public UserCreatePage(WebDriver driver) {
         super(driver);
     }
-
-    private static final HashMap<String, String> roles = new HashMap<String, String>() {
-        {
-            put("commercialManager", "ROLE_COMMERCIAL_MANAGER");
-            put("storeManager", "ROLE_STORE_MANAGER");
-            put("departmentManager", "ROLE_DEPARTMENT_MANAGER");
-            put("administrator", "ROLE_ADMINISTRATOR");
-        }
-    };
 
     @Override
     public void createElements() {
@@ -40,19 +30,6 @@ public class UserCreatePage extends CommonPageObject {
 
     public void userCreateButtonClick() {
         new ButtonFacade(this).click();
-        new PreLoader(getDriver()).await();
-    }
-
-    public void backToTheUsersListPageLink() {
-        String link = "//*[@class='page__backLink']";
-        findElement(By.xpath(link)).click();
-    }
-
-    public String replaceSelectedValue(String value) {
-        for (Map.Entry<String, String> role : roles.entrySet()) {
-            value = value.replaceAll(role.getKey(), role.getValue());
-        }
-        return value;
     }
 
     @Override
@@ -60,7 +37,7 @@ public class UserCreatePage extends CommonPageObject {
         for (Map<String, String> row : fieldInputTable.getRows()) {
             String elementName = row.get("elementName");
             String inputText = row.get("value");
-            String updatedText = (elementName.equals("role")) ? replaceSelectedValue(inputText) : inputText;
+            String updatedText = (elementName.equals("role")) ? RoleReplacer.replace(inputText) : inputText;
             input(elementName, updatedText);
         }
     }

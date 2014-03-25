@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.helper;
+package project.lighthouse.autotests.helper.file;
 
 import java.io.File;
 import java.io.IOException;

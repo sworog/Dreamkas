@@ -5,22 +5,22 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.preLoader.BodyPreLoader;
-import project.lighthouse.autotests.pages.MenuNavigation;
+import project.lighthouse.autotests.pages.MenuNavigationBar;
 
 public class MenuNavigationSteps extends ScenarioSteps {
 
-    MenuNavigation menuNavigation;
+    MenuNavigationBar menuNavigationBar;
 
     @Step
     public void reportMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
-        menuNavigation.reportMenuItemClick();
+        menuNavigationBar.reportMenuItemClick();
     }
 
     @Step
     public void reportMenuItemIsNotVisible() {
         try {
-            menuNavigation.reportMenuItemClick();
+            menuNavigationBar.reportMenuItemClick();
             Assert.fail("The menu navigation reports item link is visible!");
         } catch (Exception ignored) {
         }
@@ -29,14 +29,14 @@ public class MenuNavigationSteps extends ScenarioSteps {
     @Step
     public void supplierMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
-        menuNavigation.suppliersMenuItemClick();
+        menuNavigationBar.suppliersMenuItemClick();
     }
 
     @Step
     public void supplierMenuItemIsNotVisible() {
         try {
             new BodyPreLoader(getDriver()).await();
-            menuNavigation.suppliersMenuItemClick();
+            menuNavigationBar.suppliersMenuItemClick();
             Assert.fail("The menu bar navigation suppliers item link is visible!");
         } catch (Exception ignored) {
         }
@@ -45,16 +45,46 @@ public class MenuNavigationSteps extends ScenarioSteps {
     @Step
     public void ordersMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
-        menuNavigation.ordersMenuItemClick();
+        menuNavigationBar.ordersMenuItemClick();
+    }
+
+    @Step
+    public void usersMenuItemClick() {
+        new BodyPreLoader(getDriver()).await();
+        menuNavigationBar.usersMenuItemClick();
+    }
+
+    @Step
+    public void catalogMenuItemClick() {
+        new BodyPreLoader(getDriver()).await();
+        menuNavigationBar.catalogMenuItemClick();
+    }
+
+    @Step
+    public void invoicesMenuItemClick() {
+        new BodyPreLoader(getDriver()).await();
+        menuNavigationBar.invoicesMenuItemClick();
+    }
+
+    @Step
+    public void writeOffsMenuItemClick() {
+        new BodyPreLoader(getDriver()).await();
+        menuNavigationBar.writeOffsMenuItemClick();
     }
 
     @Step
     public void ordersMenuItemIsNotVisible() {
         try {
             new BodyPreLoader(getDriver()).await();
-            menuNavigation.ordersMenuItemClick();
+            menuNavigationBar.ordersMenuItemClick();
             Assert.fail("The menu bar navigation orders item link is visible!");
         } catch (TimeoutException ignored) {
         }
+    }
+
+    @Step
+    public void userNameLinkClick() {
+        new BodyPreLoader(getDriver()).await();
+        menuNavigationBar.userNameLinkClick();
     }
 }
