@@ -750,4 +750,32 @@ class WebTestCase extends ContainerAwareTestCase
 
         return $postResponse['id'];
     }
+
+
+
+    /**
+     * @param $accessToken
+     * @param string $storeId
+     * @param string $orderId
+     * @param string $supplierId
+     * @param array $orderProducts
+     */
+    protected function assertOrder($accessToken, $storeId, $orderId, $supplierId, array $orderProducts)
+    {
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/orders/' . $orderId
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($supplierId, 'supplier.id', $response);
+        Assert::assertJsonPathEquals(10001, 'number', $response);
+        Assert::assertJsonPathCount(count($orderProducts), 'products.*.id', $response);
+        foreach ($orderProducts as $orderProduct) {
+            Assert::assertJsonPathEquals($orderProduct['quantity'], 'products.*.quantity', $response);
+            Assert::assertJsonPathEquals($orderProduct['product'], 'products.*.product.product.id', $response);
+        }
+    }
 }

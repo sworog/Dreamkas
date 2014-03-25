@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\Order\Product\OrderProduct;
+use Lighthouse\CoreBundle\Document\Order\Product\OrderProductCollection;
 use Lighthouse\CoreBundle\Document\ReferenceCollection;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
@@ -67,8 +68,7 @@ class Order extends AbstractDocument implements Storeable
      * @MongoDB\ReferenceMany(
      *      targetDocument="Lighthouse\CoreBundle\Document\Order\Product\OrderProduct",
      *      simple=true,
-     *      cascade={"persist","remove"},
-     *      mappedBy="order"
+     *      cascade={"persist","remove"}
      * )
      *
      * @Assert\Valid(traverse=true)
@@ -91,7 +91,7 @@ class Order extends AbstractDocument implements Storeable
     public function __construct()
     {
         $this->createdDate = new DateTime();
-        $this->products = new ReferenceCollection($this, 'order');
+        $this->products = new OrderProductCollection();
     }
 
     /**
@@ -100,5 +100,17 @@ class Order extends AbstractDocument implements Storeable
     public function getStore()
     {
         return $this->store;
+    }
+
+    /**
+     * @param OrderProduct[] $products
+     */
+    public function setProducts($products)
+    {
+        foreach ($products as $product) {
+            $product->order = $this;
+        }
+
+        $this->products = $products;
     }
 }

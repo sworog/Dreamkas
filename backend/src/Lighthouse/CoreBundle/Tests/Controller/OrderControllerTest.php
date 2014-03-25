@@ -62,6 +62,8 @@ class OrderControllerTest extends WebTestCase
             Assert::assertJsonPathEquals($orderProduct['quantity'], 'products.*.quantity', $response);
             Assert::assertJsonPathEquals($orderProduct['product'], 'products.*.product.product.id', $response);
         }
+
+        $this->assertOrder($accessToken, $storeId, $response['id'], $supplier->id, $orderProducts);
     }
 
     public function testPostOrderEmptyProductsValidation()
@@ -622,6 +624,9 @@ class OrderControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals($productId2, 'products.1.product.product.id', $putResponse);
         Assert::assertJsonPathEquals(35, 'products.1.quantity', $putResponse);
+
+
+        $this->assertOrder($accessToken, $store->id, $order->id, $supplier->id, $orderData['products']);
     }
 
     public function testPutOrderActionInvalidStore()
@@ -860,6 +865,9 @@ class OrderControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals($productId3, 'products.1.product.product.id', $putResponse);
         Assert::assertJsonPathEquals(35, 'products.1.quantity', $putResponse);
+
+
+        $this->assertOrder($accessToken, $store->id, $order->id, $supplier->id, $orderData['products']);
     }
 
     public function testPutOrderRemoveProduct()
@@ -899,18 +907,7 @@ class OrderControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($orderProduct1->id, 'products.*.id', $putResponse);
         Assert::assertNotJsonPathEquals($productId1, 'products.*.product.product.id', $putResponse);
 
-        $getResponse = $putResponse = $this->clientJsonRequest(
-            $accessToken,
-            'GET',
-            '/api/1/stores/' . $store->id . '/orders/' . $order->id
-        );
-
-        $this->assertResponseCode(200);
-
-        Assert::assertJsonPathEquals('10001', 'number', $putResponse);
-        Assert::assertJsonPathCount(1, 'products.*.id', $putResponse);
-        Assert::assertJsonPathEquals($orderProduct1->id, 'products.*.id', $putResponse);
-        Assert::assertNotJsonPathEquals($productId1, 'products.*.product.product.id', $putResponse);
+        $this->assertOrder($accessToken, $store->id, $order->id, $supplier->id, $orderData['products']);
     }
 
     public function testPutOrderAddProduct()
@@ -950,22 +947,11 @@ class OrderControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals('10001', 'number', $putResponse);
         Assert::assertJsonPathCount(2, 'products.*.id', $putResponse);
-        Assert::assertJsonPathEquals($orderProduct1->id, 'products.*.id', $putResponse);
         Assert::assertJsonPathEquals($productId1, 'products.*.product.product.id', $putResponse);
+        Assert::assertJsonPathEquals(10, 'products.*.quantity', $putResponse);
         Assert::assertJsonPathEquals($productId2, 'products.*.product.product.id', $putResponse);
+        Assert::assertJsonPathEquals(15, 'products.*.quantity', $putResponse);
 
-        $getResponse = $putResponse = $this->clientJsonRequest(
-            $accessToken,
-            'GET',
-            '/api/1/stores/' . $store->id . '/orders/' . $order->id
-        );
-
-        $this->assertResponseCode(200);
-
-        Assert::assertJsonPathEquals('10001', 'number', $putResponse);
-        Assert::assertJsonPathCount(2, 'products.*.id', $putResponse);
-        Assert::assertJsonPathEquals($orderProduct1->id, 'products.*.id', $putResponse);
-        Assert::assertJsonPathEquals($productId1, 'products.*.product.product.id', $putResponse);
-        Assert::assertJsonPathEquals($productId2, 'products.*.product.product.id', $putResponse);
+        $this->assertOrder($accessToken, $store->id, $order->id, $supplier->id, $orderData['products']);
     }
 }

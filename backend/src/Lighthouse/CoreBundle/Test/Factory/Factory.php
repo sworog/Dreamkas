@@ -297,7 +297,7 @@ class Factory extends ContainerAwareFactory
         $orderProduct = new OrderProduct();
         $orderProduct->order = $order;
         $orderProduct->product = $this->createProductVersion($productId);
-        $orderProduct->quantity = $quantity;
+        $orderProduct->quantity = $this->getNumericFactory()->createQuantity($quantity);
         $orderProduct->storeProduct = $this->getStoreProduct($order->store->id, $productId);
 
         $this->getDocumentManager()->persist($orderProduct);

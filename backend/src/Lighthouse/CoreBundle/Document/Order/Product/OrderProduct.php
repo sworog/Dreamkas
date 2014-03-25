@@ -73,7 +73,7 @@ class OrderProduct extends AbstractDocument
      *     targetDocument="Lighthouse\CoreBundle\Document\Order\Order",
      *     simple=true,
      *     cascade="persist",
-     *     inversedBy="products"
+     *     mappedBy="products"
      * )
      *
      * @var Order

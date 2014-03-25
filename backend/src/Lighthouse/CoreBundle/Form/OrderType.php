@@ -37,6 +37,7 @@ class OrderType extends AbstractType
                     'type' => new OrderProductType(),
                     'allow_add' => true,
                     'allow_delete' => true,
+                    'by_reference' => false,
                 )
             );
     }
