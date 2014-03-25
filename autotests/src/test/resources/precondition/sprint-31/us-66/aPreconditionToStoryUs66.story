@@ -1,6 +1,6 @@
 Meta:
 @smoke
-@sprint_30
+@sprint_31
 @us_66
 @id_s30u66s1
 @id_s30u66s2
