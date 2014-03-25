@@ -87,6 +87,18 @@ class OrderGenerator
             ->setCellValue(
                 'A2',
                 $this->translator->trans(
+                    'lighthouse.order.export.generator.title.contacts',
+                    array(
+                        '{{ number }}' => $this->order->store->number,
+                        '{{ address }}' => $this->order->store->address,
+                        '{{ contacts }}' => $this->order->store->contacts,
+                    ),
+                    'order'
+                )
+            )
+            ->setCellValue(
+                'A3',
+                $this->translator->trans(
                     'lighthouse.order.export.generator.title.supplier',
                     array('{{ supplier }}' => $this->order->supplier->name),
                     'order'
@@ -101,19 +113,19 @@ class OrderGenerator
     {
         $this->phpExcelObject->setActiveSheetIndex(0)
             ->setCellValue(
-                'A4',
+                'A5',
                 $this->translator->trans('lighthouse.order.export.generator.products.title.sku', array(), 'order')
             )
             ->setCellValue(
-                'B4',
+                'B5',
                 $this->translator->trans('lighthouse.order.export.generator.products.title.barcode', array(), 'order')
             )
             ->setCellValue(
-                'C4',
+                'C5',
                 $this->translator->trans('lighthouse.order.export.generator.products.title.name', array(), 'order')
             )
             ->setCellValue(
-                'D4',
+                'D5',
                 $this->translator->trans('lighthouse.order.export.generator.products.title.quantity', array(), 'order')
             );
 
@@ -136,7 +148,7 @@ class OrderGenerator
      */
     protected function generateBody()
     {
-        $stringNumber = 5;
+        $stringNumber = 6;
         foreach ($this->order->products as $orderProduct) {
             $this->phpExcelObject->setActiveSheetIndex(0)
                 ->setCellValue('A' . $stringNumber, $orderProduct->product->sku)

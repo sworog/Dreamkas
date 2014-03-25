@@ -70,115 +70,64 @@ class OrderExportTest extends WebTestCase
                 ->getCell('A1')->getValue()
         );
         $this->assertEquals(
-            'Поставщик "' . $order->supplier->name . '"',
+            'Магазин №' . $order->store->number. '. ' . $order->store->address . '. ' . $order->store->contacts,
             $fileObject->getActiveSheet()
                 ->getCell('A2')->getValue()
+        );
+        $this->assertEquals(
+            'Поставщик "' . $order->supplier->name . '"',
+            $fileObject->getActiveSheet()
+                ->getCell('A3')->getValue()
         );
 
 
         /**
          * Table title
          */
-        $this->assertEquals(
+        $this->assertExcelRow($fileObject, 5, array(
             'Код',
-            $fileObject->getActiveSheet()
-                ->getCell('A4')->getValue()
-        );
-        $this->assertEquals(
             'Штрихкод',
-            $fileObject->getActiveSheet()
-                ->getCell('B4')->getValue()
-        );
-        $this->assertEquals(
             'Наименование',
-            $fileObject->getActiveSheet()
-                ->getCell('C4')->getValue()
-        );
-        $this->assertEquals(
-            'Кол-во',
-            $fileObject->getActiveSheet()
-                ->getCell('D4')->getValue()
-        );
+            'Кол-во'
+        ));
 
 
         /**
          * Products
          */
-        // sku
-        $this->assertEquals(
-            'Кефир1Арт',
-            $fileObject->getActiveSheet()
-                ->getCell('A5')->getValue()
-        );
-        // barcode
-        $this->assertEquals(
-            '1111111',
-            $fileObject->getActiveSheet()
-                ->getCell('B5')->getValue()
-        );
-        // name
-        $this->assertEquals(
-            'Кефир1Назв',
-            $fileObject->getActiveSheet()
-                ->getCell('C5')->getValue()
-        );
-        // quantity
-        $this->assertEquals(
-            3.11,
-            $fileObject->getActiveSheet()
-                ->getCell('D5')->getValue()
-        );
+        $this->assertExcelRow($fileObject, 6, array(
+            'Кефир1Арт',    // sku
+            '1111111',      // barcode
+            'Кефир1Назв',   // name
+            3.11            // quantity
+        ));
 
-
-        // sku
-        $this->assertEquals(
+        $this->assertExcelRow($fileObject, 7, array(
             'Кефир2Арт',
-            $fileObject->getActiveSheet()
-                ->getCell('A6')->getValue()
-        );
-        // barcode
-        $this->assertEquals(
             '2222222',
-            $fileObject->getActiveSheet()
-                ->getCell('B6')->getValue()
-        );
-        // name
-        $this->assertEquals(
             'Кефир2Назв',
-            $fileObject->getActiveSheet()
-                ->getCell('C6')->getValue()
-        );
-        // quantity
-        $this->assertEquals(
-            2,
-            $fileObject->getActiveSheet()
-                ->getCell('D6')->getValue()
-        );
+            2
+        ));
 
-
-        // sku
-        $this->assertEquals(
+        $this->assertExcelRow($fileObject, 8, array(
             'Кефир3Арт',
-            $fileObject->getActiveSheet()
-                ->getCell('A7')->getValue()
-        );
-        // barcode
-        $this->assertEquals(
             '3333333',
-            $fileObject->getActiveSheet()
-                ->getCell('B7')->getValue()
-        );
-        // name
-        $this->assertEquals(
             'Кефир3Назв',
-            $fileObject->getActiveSheet()
-                ->getCell('C7')->getValue()
-        );
-        // quantity
-        $this->assertEquals(
-            7.77,
-            $fileObject->getActiveSheet()
-                ->getCell('D7')->getValue()
-        );
+            7.77
+        ));
+    }
+
+    protected function assertExcelRow(\PHPExcel $object, $row, array $cells, $startCell = 'A')
+    {
+        foreach ($cells as $cell) {
+            $this->assertEquals(
+                $cell,
+                $object->getActiveSheet()
+                    ->getCell($startCell . $row)->getValue(),
+                "Cell " . $startCell . $row . " not equals"
+            );
+
+            $startCell++;
+        }
     }
 }

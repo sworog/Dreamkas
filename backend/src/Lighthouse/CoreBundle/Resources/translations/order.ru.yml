@@ -10,4 +10,5 @@ lighthouse:
                         quantity: Кол-во
                 title:
                     order: Заказ №{{ number }} от {{ date }}
+                    contacts: Магазин №{{ number }}. {{ address }}. {{ contacts }}
                     supplier: Поставщик "{{ supplier }}"
