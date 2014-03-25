@@ -16,7 +16,7 @@ Meta:
 @id_s30u67s1
 @smoke
 
-GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
+GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
 Given there is the supplier with name 'supplier-s30u67s1'
 And there is the order in the store by 'departmentManager-s30u67'
@@ -64,7 +64,7 @@ Meta:
 @id_s30u67s2
 @smoke
 
-GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
+GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
 Given there is the supplier with name 'supplier-s30u67s1'
 And there is the order in the store by 'departmentManager-s30u67'
@@ -87,7 +87,7 @@ Scenario: Order supplier edit - check supplier on orders list page cancel
 Meta:
 @id_s30u67s3
 
-GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
+GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
 Given there is the supplier with name 'supplier-s30u67s1'
 And there is the order in the store by 'departmentManager-s30u67'
@@ -111,7 +111,7 @@ Meta:
 @id_s30u67s4
 @smoke
 
-GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
+GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
 Given there is the supplier with name 'supplier-s30u67s1'
 And there is the order in the store by 'departmentManager-s30u67'
@@ -147,7 +147,7 @@ Meta:
 @id_s30u67s5
 @smoke
 
-GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
+GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
 Given there is the supplier with name 'supplier-s30u67s1'
 And there is the order in the store by 'departmentManager-s30u67'
@@ -181,7 +181,7 @@ Scenario: Order product edit cancel
 Meta:
 @id_s30u67s6
 
-GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
+GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
 Given there is the supplier with name 'supplier-s30u67s1'
 And there is the order in the store by 'departmentManager-s30u67'
@@ -222,7 +222,7 @@ Scenario: Assert order number
 Meta:
 @id_s30u67s7
 
-GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
+GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
 Given there is the order in the store by 'departmentManager-s30u67'
 

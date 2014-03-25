@@ -11,7 +11,7 @@ Scenario: Order edit - Edition product form - autocomplete is required
 Meta:
 @id_s30u67s8
 
-GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
+GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
 Given there is the order in the store by 'departmentManager-s30u67'
 
@@ -35,7 +35,7 @@ Scenario: Order edit - Edition product form - quantity is required
 Meta:
 @id_s30u67s9
 
-GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
+GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
 Given there is the order in the store by 'departmentManager-s30u67'
 
@@ -59,7 +59,7 @@ Scenario: Order edit - Edition product form - autocomplete validation
 Meta:
 @id_s30u67s10
 
-GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
+GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
 Given there is the order in the store by 'departmentManager-s30u67'
 
