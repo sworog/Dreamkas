@@ -9,7 +9,7 @@ Narrative:
 Scenario: Order product deletion
 
 Meta:
-@id_s30u67s12
+@id_s30u67s13
 @smoke
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
@@ -72,7 +72,7 @@ And the user checks the order total sum is 'Итого: 500,00 руб'
 Scenario: Order Product deletion cancel
 
 Meta:
-@id_s30u67s13
+@id_s30u67s14
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
