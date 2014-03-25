@@ -1,5 +1,5 @@
 Meta:
-@sprint_30
+@sprint_31
 @us_67
 @order
 
@@ -9,11 +9,11 @@ Narrative:
 Scenario: Order product deletion
 
 Meta:
-@id_s30u67s12
+@id_s30u67s13
 @smoke
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
-              precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
+              precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
 Given there is the subCategory with name 'defaultSubCategory-s30u67' related to group named 'defaultGroup-s30u67' and category named 'defaultCategory-s30u67'
 And the user sets subCategory 'defaultSubCategory-s30u67' mark up with max '10' and min '0' values
@@ -72,10 +72,10 @@ And the user checks the order total sum is 'Итого: 500,00 руб'
 Scenario: Order Product deletion cancel
 
 Meta:
-@id_s30u67s13
+@id_s30u67s14
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
-              precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
+              precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
 Given there is the order in the store by 'departmentManager-s30u67'
 

@@ -25,11 +25,6 @@ public class DashBoardPage extends CommonPageObject {
         }
     }
 
-    public void buttonClick(String name) {
-        String buttonXpath = getButtonXpath(name);
-        findVisibleElement(By.xpath(buttonXpath)).click();
-    }
-
     public void shouldNotBeVisible(String name) {
         try {
             String buttonXpath = getButtonXpath(name);
@@ -50,9 +45,5 @@ public class DashBoardPage extends CommonPageObject {
                     String.format("The dashboard '%s' link is not present on the page", name)
             );
         }
-    }
-
-    public void openUserCard() {
-        findVisibleElement(By.className("navigationBar__userName")).click();
     }
 }

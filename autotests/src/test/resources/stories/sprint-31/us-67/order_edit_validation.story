@@ -1,5 +1,5 @@
 Meta:
-@sprint_30
+@sprint_31
 @us_67
 @order
 
@@ -9,9 +9,9 @@ Narrative:
 Scenario: Order edit - Edition product form - autocomplete is required
 
 Meta:
-@id_s30u67s7
+@id_s30u67s8
 
-GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
+GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
 Given there is the order in the store by 'departmentManager-s30u67'
 
@@ -33,9 +33,9 @@ Then the user sees error messages
 Scenario: Order edit - Edition product form - quantity is required
 
 Meta:
-@id_s30u67s8
+@id_s30u67s9
 
-GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
+GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
 Given there is the order in the store by 'departmentManager-s30u67'
 
@@ -57,9 +57,9 @@ Then the user sees error messages
 Scenario: Order edit - Edition product form - autocomplete validation
 
 Meta:
-@id_s30u67s9
+@id_s30u67s10
 
-GivenStories: precondition/sprint-30/us-67/aPreconditionToStoryUs67.story
+GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
 Given there is the order in the store by 'departmentManager-s30u67'
 
@@ -82,7 +82,7 @@ Then the user sees error messages
 Scenario: Order edit - Edition product form - quantity positive validation
 
 Meta:
-@id_s30u67s10
+@id_s30u67s11
 
 Given there is the user with name 'departmentManager-s30u67', position 'departmentManager-s30u67', username 'departmentManager-s30u67', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s30u67' managed by department manager named 'departmentManager-s30u67'
@@ -114,7 +114,7 @@ Examples:
 Scenario: Order edit - Edition product form - quantity negative validation
 
 Meta:
-@id_s30u67s11
+@id_s30u67s12
 
 Given there is the user with name 'departmentManager-s30u67', position 'departmentManager-s30u67', username 'departmentManager-s30u67', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s30u67' managed by department manager named 'departmentManager-s30u67'
