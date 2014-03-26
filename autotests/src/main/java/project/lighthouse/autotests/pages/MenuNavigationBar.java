@@ -55,4 +55,8 @@ public class MenuNavigationBar extends CommonPageObject {
     public NavigationBarLinkFacade getWriteOffsMenuItem() {
         return new NavigationBarLinkFacade(this, "Списания");
     }
+
+    public NavigationBarLinkFacade getSettingsMenuItem() {
+        return new NavigationBarLinkFacade(this, "Настройки");
+    }
 }
