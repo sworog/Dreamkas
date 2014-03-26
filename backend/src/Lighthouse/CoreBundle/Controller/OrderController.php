@@ -78,6 +78,7 @@ class OrderController extends AbstractRestController
      * @param Order $order
      * @return Order
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc
      */
     public function getOrderAction(Store $store, Order $order)
