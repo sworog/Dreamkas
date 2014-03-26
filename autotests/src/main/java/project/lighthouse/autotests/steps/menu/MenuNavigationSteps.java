@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.steps.menu;
 
-import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import project.lighthouse.autotests.elements.preLoader.BodyPreLoader;
@@ -19,9 +18,7 @@ public class MenuNavigationSteps extends ScenarioSteps {
     @Step
     public void reportMenuItemIsNotVisible() {
         new BodyPreLoader(getDriver()).await();
-        if (!menuNavigationBar.getReportMenuItem().isInvisible()) {
-            Assert.fail("The menu navigation reports item link is visible!");
-        }
+        menuNavigationBar.getReportMenuItem().shouldBeNotVisible();
     }
 
     @Step
@@ -33,9 +30,7 @@ public class MenuNavigationSteps extends ScenarioSteps {
     @Step
     public void supplierMenuItemIsNotVisible() {
         new BodyPreLoader(getDriver()).await();
-        if (!menuNavigationBar.getSuppliersMenuItem().isInvisible()) {
-            Assert.fail("The menu bar navigation suppliers item link is visible!");
-        }
+        menuNavigationBar.getSuppliersMenuItem().shouldBeNotVisible();
     }
 
     @Step
@@ -53,17 +48,13 @@ public class MenuNavigationSteps extends ScenarioSteps {
     @Step
     public void usersMenuItemIsVisible() {
         new BodyPreLoader(getDriver()).await();
-        if (!menuNavigationBar.getUsersMenuItem().isVisible()) {
-            Assert.fail("The menu bar navigation users item link is not visible!");
-        }
+        menuNavigationBar.getUsersMenuItem().shouldBeVisible();
     }
 
     @Step
     public void usersMenuItemIsNotVisible() {
         new BodyPreLoader(getDriver()).await();
-        if (!menuNavigationBar.getUsersMenuItem().isInvisible()) {
-            Assert.fail("The menu bar navigation users item link is visible!");
-        }
+        menuNavigationBar.getUsersMenuItem().shouldBeNotVisible();
     }
 
     @Step
@@ -75,17 +66,13 @@ public class MenuNavigationSteps extends ScenarioSteps {
     @Step
     public void catalogMenuItemIsVisible() {
         new BodyPreLoader(getDriver()).await();
-        if (!menuNavigationBar.getCatalogMenuItem().isVisible()) {
-            Assert.fail("The menu bar navigation catalog item link is not visible!");
-        }
+        menuNavigationBar.getCatalogMenuItem().shouldBeVisible();
     }
 
     @Step
     public void catalogMenuItemIsNotVisible() {
         new BodyPreLoader(getDriver()).await();
-        if (!menuNavigationBar.getCatalogMenuItem().isInvisible()) {
-            Assert.fail("The menu bar navigation catalog item link is visible!");
-        }
+        menuNavigationBar.getCatalogMenuItem().shouldBeNotVisible();
     }
 
     @Step
@@ -97,17 +84,13 @@ public class MenuNavigationSteps extends ScenarioSteps {
     @Step
     public void invoicesMenuItemIsVisible() {
         new BodyPreLoader(getDriver()).await();
-        if (!menuNavigationBar.getInvoicesMenuItem().isVisible()) {
-            Assert.fail("The menu bar navigation invoices item link is not visible!");
-        }
+        menuNavigationBar.getInvoicesMenuItem().shouldBeVisible();
     }
 
     @Step
     public void invoicesMenuItemIsNotVisible() {
         new BodyPreLoader(getDriver()).await();
-        if (!menuNavigationBar.getInvoicesMenuItem().isInvisible()) {
-            Assert.fail("The menu bar navigation invoices item link is visible!");
-        }
+        menuNavigationBar.getInvoicesMenuItem().shouldBeNotVisible();
     }
 
     @Step
@@ -119,25 +102,19 @@ public class MenuNavigationSteps extends ScenarioSteps {
     @Step
     public void writeOffMenuItemIsVisible() {
         new BodyPreLoader(getDriver()).await();
-        if (!menuNavigationBar.getWriteOffsMenuItem().isVisible()) {
-            Assert.fail("The menu bar navigation writeOffs item link is not visible!");
-        }
+        menuNavigationBar.getWriteOffsMenuItem().shouldBeVisible();
     }
 
     @Step
     public void writeOffMenuItemIsNotVisible() {
         new BodyPreLoader(getDriver()).await();
-        if (!menuNavigationBar.getWriteOffsMenuItem().isInvisible()) {
-            Assert.fail("The menu bar navigation writeOffs item link is visible!");
-        }
+        menuNavigationBar.getWriteOffsMenuItem().shouldBeNotVisible();
     }
 
     @Step
     public void ordersMenuItemIsNotVisible() {
         new BodyPreLoader(getDriver()).await();
-        if (!menuNavigationBar.getOrdersMenuItem().isInvisible()) {
-            Assert.fail("The menu bar navigation orders item link is visible!");
-        }
+        menuNavigationBar.getOrdersMenuItem().shouldBeNotVisible();
     }
 
     @Step
@@ -149,17 +126,12 @@ public class MenuNavigationSteps extends ScenarioSteps {
     @Step
     public void settingsMenuItemIsVisible() {
         new BodyPreLoader(getDriver()).await();
-        if (!menuNavigationBar.getSettingsMenuItem().isVisible()) {
-            Assert.fail("The menu bar navigation settings item link is not visible!");
-        }
+        menuNavigationBar.getSettingsMenuItem().shouldBeVisible();
     }
 
     @Step
     public void settingsMenuItemIsNotVisible() {
         new BodyPreLoader(getDriver()).await();
-        if (!menuNavigationBar.getSettingsMenuItem().isInvisible()) {
-            Assert.fail("The menu bar navigation settings item link is visible!");
-        }
+        menuNavigationBar.getSettingsMenuItem().shouldBeNotVisible();
     }
-
 }
