@@ -28,31 +28,31 @@ public class MenuNavigationBar extends CommonPageObject {
         findVisibleElement(userNameWebElement).click();
     }
 
-    public void reportMenuItemClick() {
-        new NavigationBarLinkFacade(this, "Отчеты").click();
+    public NavigationBarLinkFacade getReportMenuItem() {
+        return new NavigationBarLinkFacade(this, "Отчеты");
     }
 
-    public void suppliersMenuItemClick() {
-        new NavigationBarLinkFacade(this, "Поставщики").click();
+    public NavigationBarLinkFacade getSuppliersMenuItem() {
+        return new NavigationBarLinkFacade(this, "Поставщики");
     }
 
-    public void ordersMenuItemClick() {
-        new NavigationBarLinkFacade(this, "Заказы").click();
+    public NavigationBarLinkFacade getOrdersMenuItem() {
+        return new NavigationBarLinkFacade(this, "Заказы");
     }
 
-    public void usersMenuItemClick() {
-        new NavigationBarLinkFacade(this, "Пользователи").click();
+    public NavigationBarLinkFacade getUsersMenuItem() {
+        return new NavigationBarLinkFacade(this, "Пользователи");
     }
 
-    public void catalogMenuItemClick() {
-        new NavigationBarLinkFacade(this, "Товары").click();
+    public NavigationBarLinkFacade getCatalogMenuItem() {
+        return new NavigationBarLinkFacade(this, "Товары");
     }
 
-    public void invoicesMenuItemClick() {
-        new NavigationBarLinkFacade(this, "Накладные").click();
+    public NavigationBarLinkFacade getInvoicesMenuItem() {
+        return new NavigationBarLinkFacade(this, "Накладные");
     }
 
-    public void writeOffsMenuItemClick() {
-        new NavigationBarLinkFacade(this, "Списания").click();
+    public NavigationBarLinkFacade getWriteOffsMenuItem() {
+        return new NavigationBarLinkFacade(this, "Списания");
     }
 }

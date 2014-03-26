@@ -14,69 +14,69 @@ public class MenuNavigationSteps extends ScenarioSteps {
     @Step
     public void reportMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
-        menuNavigationBar.reportMenuItemClick();
+        menuNavigationBar.getReportMenuItem().click();
     }
 
     @Step
     public void reportMenuItemIsNotVisible() {
         try {
-            menuNavigationBar.reportMenuItemClick();
+            menuNavigationBar.getReportMenuItem().click();
             Assert.fail("The menu navigation reports item link is visible!");
-        } catch (Exception ignored) {
+        } catch (TimeoutException ignored) {
         }
     }
 
     @Step
     public void supplierMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
-        menuNavigationBar.suppliersMenuItemClick();
+        menuNavigationBar.getSuppliersMenuItem().click();
     }
 
     @Step
     public void supplierMenuItemIsNotVisible() {
         try {
             new BodyPreLoader(getDriver()).await();
-            menuNavigationBar.suppliersMenuItemClick();
+            menuNavigationBar.getSuppliersMenuItem().click();
             Assert.fail("The menu bar navigation suppliers item link is visible!");
-        } catch (Exception ignored) {
+        } catch (TimeoutException ignored) {
         }
     }
 
     @Step
     public void ordersMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
-        menuNavigationBar.ordersMenuItemClick();
+        menuNavigationBar.getOrdersMenuItem().click();
     }
 
     @Step
     public void usersMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
-        menuNavigationBar.usersMenuItemClick();
+        menuNavigationBar.getUsersMenuItem().click();
     }
 
     @Step
     public void catalogMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
-        menuNavigationBar.catalogMenuItemClick();
+        menuNavigationBar.getCatalogMenuItem().click();
     }
 
     @Step
     public void invoicesMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
-        menuNavigationBar.invoicesMenuItemClick();
+        menuNavigationBar.getInvoicesMenuItem().click();
     }
 
     @Step
     public void writeOffsMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
-        menuNavigationBar.writeOffsMenuItemClick();
+        menuNavigationBar.getWriteOffsMenuItem().click();
     }
 
     @Step
     public void ordersMenuItemIsNotVisible() {
         try {
             new BodyPreLoader(getDriver()).await();
-            menuNavigationBar.ordersMenuItemClick();
+            menuNavigationBar.getOrdersMenuItem().click();
             Assert.fail("The menu bar navigation orders item link is visible!");
         } catch (TimeoutException ignored) {
         }
