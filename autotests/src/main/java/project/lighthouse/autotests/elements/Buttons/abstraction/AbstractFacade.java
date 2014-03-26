@@ -2,11 +2,12 @@ package project.lighthouse.autotests.elements.Buttons.abstraction;
 
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.elements.Buttons.interfaces.Conditional;
 
 /**
  * Abstract facade to handle facade objects
  */
-public abstract class AbstractFacade {
+public abstract class AbstractFacade implements Conditional {
 
     private CommonPageObject pageObject;
     private By findBy;
@@ -37,5 +38,15 @@ public abstract class AbstractFacade {
 
     private String getXpath(String facadeText) {
         return String.format(getXpathPattern(), facadeText);
+    }
+
+    @Override
+    public Boolean isVisible() {
+        return pageObject.visibilityOfElementLocated(findBy);
+    }
+
+    @Override
+    public Boolean isInvisible() {
+        return pageObject.invisibilityOfElementLocated(findBy);
     }
 }
