@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.interfaces.Conditional;
 
+import static org.junit.Assert.fail;
+
 /**
  * Abstract facade to handle facade objects
  */
@@ -11,6 +13,7 @@ public abstract class AbstractFacade implements Conditional {
 
     private CommonPageObject pageObject;
     private By findBy;
+    private String facadeText;
 
     public AbstractFacade(CommonPageObject pageObject, By customFindBy) {
         this.pageObject = pageObject;
@@ -20,6 +23,7 @@ public abstract class AbstractFacade implements Conditional {
     public AbstractFacade(CommonPageObject pageObject, String facadeText) {
         this.pageObject = pageObject;
         findBy = By.xpath(getXpath(facadeText));
+        this.facadeText = facadeText;
     }
 
     public CommonPageObject getPageObject() {
@@ -48,5 +52,21 @@ public abstract class AbstractFacade implements Conditional {
     @Override
     public Boolean isInvisible() {
         return pageObject.invisibilityOfElementLocated(findBy);
+    }
+
+    @Override
+    public void shouldBeVisible() {
+        if (!isVisible()) {
+            String message = String.format("The menu bar navigation %s item link is not visible!", facadeText);
+            fail(message);
+        }
+    }
+
+    @Override
+    public void shouldBeNotVisible() {
+        if (!isInvisible()) {
+            String message = String.format("The menu bar navigation %s item link is visible!", facadeText);
+            fail(message);
+        }
     }
 }

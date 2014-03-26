@@ -6,6 +6,9 @@ package project.lighthouse.autotests.elements.Buttons.interfaces;
 public interface Conditional {
 
     public Boolean isVisible();
-
     public Boolean isInvisible();
+
+    public void shouldBeVisible();
+
+    public void shouldBeNotVisible();
 }
