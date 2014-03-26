@@ -85,7 +85,7 @@ Scenario: Department manager dont see catalog link if has no store
 Given there is the user with name 'promotedDepartmentManager5', position 'promotedDepartmentManager5', username 'promotedDepartmentManager5', password 'lighthouse', role 'departmentManager'
 And the user opens the authorization page
 When the user logs in using 'promotedDepartmentManager5' userName and 'lighthouse' password
-Then the user checks the dashboard link to 'catalog' section is not present
+Then the user checks the catalog navigation menu item is not visible
 
 Scenario: Department manager cant get in catalog if has no store
 
@@ -100,7 +100,7 @@ Given there is the user with name 'promotedDepartmentManager6', position 'promot
 And there is the store with number 'Dmsclihs-1' managed by department manager named 'promotedDepartmentManager6'
 And the user opens the authorization page
 When the user logs in using 'promotedDepartmentManager6' userName and 'lighthouse' password
-Then the user checks the dashboard link to 'catalog' section is present
+Then the user checks the catalog navigation menu item is visible
 
 Scenario: Department manager cant edit retail product price like a store manager
 

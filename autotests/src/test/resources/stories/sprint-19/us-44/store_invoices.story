@@ -55,7 +55,7 @@ Given there is the user with name 'departmentManager-SIC', position 'departmentM
 And there is the store with number 'SIC-01' managed by department manager named 'departmentManager-SIC'
 And the user opens the authorization page
 When the user logs in using 'departmentManager-SIC' userName and 'lighthouse' password
-Then the user checks the dashboard link to 'invoices' section is present
+Then the user checks the invoices navigation menu item is visible
 
 Scenario: Invoices link navigation by departmentManager who has store
 
@@ -78,7 +78,7 @@ Scenario: Left menu invoices link is visible by departmentManager who has no sto
 Given there is the user with name 'departmentManager-SIC-3', position 'departmentManager-SIC-3', username 'departmentManager-SIC-3', password 'lighthouse', role 'departmentManager'
 And the user opens the authorization page
 When the user logs in using 'departmentManager-SIC-3' userName and 'lighthouse' password
-Then the user checks the dashboard link to 'invoices' section is not present
+Then the user checks the invoices navigation menu item is not visible
 
 Scenario: Invoices create navigation by departmentManager who has no store
 
