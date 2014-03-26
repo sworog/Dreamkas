@@ -3,7 +3,6 @@ package project.lighthouse.autotests.steps.menu;
 import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
-import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.preLoader.BodyPreLoader;
 import project.lighthouse.autotests.pages.MenuNavigationBar;
 
@@ -19,10 +18,9 @@ public class MenuNavigationSteps extends ScenarioSteps {
 
     @Step
     public void reportMenuItemIsNotVisible() {
-        try {
-            menuNavigationBar.getReportMenuItem().click();
+        new BodyPreLoader(getDriver()).await();
+        if (!menuNavigationBar.getReportMenuItem().isInvisible()) {
             Assert.fail("The menu navigation reports item link is visible!");
-        } catch (TimeoutException ignored) {
         }
     }
 
@@ -34,11 +32,9 @@ public class MenuNavigationSteps extends ScenarioSteps {
 
     @Step
     public void supplierMenuItemIsNotVisible() {
-        try {
-            new BodyPreLoader(getDriver()).await();
-            menuNavigationBar.getSuppliersMenuItem().click();
+        new BodyPreLoader(getDriver()).await();
+        if (!menuNavigationBar.getSuppliersMenuItem().isInvisible()) {
             Assert.fail("The menu bar navigation suppliers item link is visible!");
-        } catch (TimeoutException ignored) {
         }
     }
 
@@ -74,11 +70,9 @@ public class MenuNavigationSteps extends ScenarioSteps {
 
     @Step
     public void ordersMenuItemIsNotVisible() {
-        try {
-            new BodyPreLoader(getDriver()).await();
-            menuNavigationBar.getOrdersMenuItem().click();
+        new BodyPreLoader(getDriver()).await();
+        if (!menuNavigationBar.getOrdersMenuItem().isInvisible()) {
             Assert.fail("The menu bar navigation orders item link is visible!");
-        } catch (TimeoutException ignored) {
         }
     }
 
