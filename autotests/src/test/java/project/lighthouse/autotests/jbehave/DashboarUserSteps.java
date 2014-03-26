@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.jbehave;
 
 import net.thucydides.core.annotations.Steps;
-import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Then;
 import project.lighthouse.autotests.steps.DashBoardSteps;
 
@@ -11,7 +10,6 @@ public class DashboarUserSteps {
     DashBoardSteps dashBoardSteps;
 
     @Then("the user checks the dashboard link to '$sectionName' section is present")
-    @Alias("the user checks the dashboard link to <sectionName> section is present")
     public void thenTheUserChecksTheLinkToSectionIsPresent(String sectionName) {
         dashBoardSteps.shouldBeVisible(sectionName);
     }
