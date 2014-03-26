@@ -57,7 +57,7 @@ public abstract class AbstractFacade implements Conditional {
     @Override
     public void shouldBeVisible() {
         if (!isVisible()) {
-            String message = String.format("The menu bar navigation %s item link is not visible!", facadeText);
+            String message = String.format("The items '%s' is not visible!", facadeText);
             fail(message);
         }
     }
@@ -65,7 +65,7 @@ public abstract class AbstractFacade implements Conditional {
     @Override
     public void shouldBeNotVisible() {
         if (!isInvisible()) {
-            String message = String.format("The menu bar navigation %s item link is visible!", facadeText);
+            String message = String.format("The items '%s' is visible!", facadeText);
             fail(message);
         }
     }
