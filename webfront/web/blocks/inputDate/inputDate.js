@@ -3,7 +3,7 @@ define(function(require) {
         var Block = require('kit/core/block'),
             moment = require('moment'),
             Datepicker = require('blocks/datepicker/datepicker'),
-            Tooltip = require('blocks/tooltip/tooltip');
+            Tooltip = require('blocks/tooltip/tooltip.deprecated');
 
         require('jquery.maskedinput');
 

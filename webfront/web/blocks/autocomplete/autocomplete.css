@@ -1,3 +1,23 @@
 .autocomplete__item_focused{
     background-color: #eee;
 }
+
+.autocomplete__item{
+    padding: 5px 8px;
+}
+
+.autocomplete__results{
+    background-color: #fff;
+    border-radius: 0 0 3px 3px;
+    border: 2px solid #1FB18A;
+    border-top: none;
+    box-shadow: none;
+    box-sizing: border-box;
+    width: 300px;
+    padding: 0;
+}
+
+.autocomplete__hint{
+    padding: 5px 8px;
+    background-color: #fafafa;
+}

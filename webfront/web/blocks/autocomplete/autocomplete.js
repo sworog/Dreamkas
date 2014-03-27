@@ -25,9 +25,11 @@ define(function(require, exports, module) {
 
                 switch (e.keyCode) {
                     case 40: //down
+                        e.preventDefault();
                         block.nextItem();
                         break;
                     case 38: //up
+                        e.preventDefault();
                         block.prevItem();
                         break;
                     case 13: //enter
@@ -60,7 +62,7 @@ define(function(require, exports, module) {
                 var block = this;
 
                 return new Tooltip({
-                    $trigger: $(block.el),
+                    trigger: block.el,
                     template: function(){
                         return block.templates.results(block);
                     }
@@ -156,6 +158,7 @@ define(function(require, exports, module) {
                     }
                 });
             } else {
+                block.cancel();
                 block.el.classList.remove('preloader_stripes');
             }
         },
@@ -163,7 +166,6 @@ define(function(require, exports, module) {
             var block = this,
                 tooltip = block.blocks.tooltip;
 
-            tooltip.render();
             tooltip.show();
 
             block.focusItem(0);
