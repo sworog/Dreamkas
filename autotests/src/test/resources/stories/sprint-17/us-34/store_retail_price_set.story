@@ -155,7 +155,7 @@ Scenario: Store manager cant view catalog if he dont manage any store through da
 Given there is the user with name 'testName1', position 'testName1', username 'testName1', password 'lighthouse', role 'storeManager'
 And the user opens the authorization page
 When the user logs in using 'testName1' userName and 'lighthouse' password
-Then the user checks the dashboard link to 'catalog' section is not present
+Then the user checks the catalog navigation menu item is not visible
 
 Scenario: If mark up dont set - check mark up under the zero
 

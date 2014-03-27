@@ -117,6 +117,8 @@ Then the user dont see the 403 error
 
 Scenario: Department manager who has no store cant see balance link
 
+Given skipped. Info: 'skipped', Details: 'no dashboard balance link anymore'
+
 Given there is the user with name 'departmentManager-BIC-3', position 'departmentManager-BIC-3', username 'departmentManager-BIC-3', password 'lighthouse', role 'departmentManager'
 And the user opens the authorization page
 When the user logs in using 'departmentManager-BIC-3' userName and 'lighthouse' password
@@ -130,6 +132,8 @@ When the user logs in using 'departmentManager-BIC-3' userName and 'lighthouse' 
 Then the user sees the 403 error
 
 Scenario: No balance page for commercialManager on left menu link
+
+Given skipped. Info: 'skipped', Details: 'no dashboard balance link anymore'
 
 Given there is the user with name 'commercialManager-BIC-3', position 'commercialManager-BIC-3', username 'commercialManager-BIC-3', password 'lighthouse', role 'commercialManager'
 And the user opens the authorization page
@@ -162,6 +166,8 @@ When the user logs in using 'storeManager-BIC' userName and 'lighthouse' passwor
 Then the user dont see the 403 error
 
 Scenario: Balance page for storeManager who has no store on left menu link
+
+Given skipped. Info: 'skipped', Details: 'no dashboard balance link anymore'
 
 Given there is the user with name 'storeManager-BIC-3', position 'storeManager-BIC-3', username 'storeManager-BIC-3', password 'lighthouse', role 'storeManager'
 And the user opens the authorization page
