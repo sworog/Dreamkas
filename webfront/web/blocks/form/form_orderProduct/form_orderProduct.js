@@ -3,7 +3,7 @@ define(function(require, exports, module) {
     var Form = require('blocks/form/form'),
         OrderProductModel = require('models/orderProduct'),
         OrderProductsCollection = require('collections/orderProducts'),
-        Autocomplete = require('blocks/autocomplete/autocomplete'),
+        Autocomplete = require('blocks/autocomplete/autocomplete.deprecated'),
         cookies = require('cookies');
 
     require('jquery');

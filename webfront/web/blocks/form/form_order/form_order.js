@@ -3,6 +3,7 @@ define(function(require, exports, module) {
     var Form = require('blocks/form/form'),
         router = require('router'),
         OrderModel = require('models/order'),
+        Autocomplete = require('blocks/autocomplete/autocomplete'),
         Form_orderProduct = require('blocks/form/form_orderProduct/form_orderProduct');
 
     require('jquery');
@@ -32,6 +33,18 @@ define(function(require, exports, module) {
                 block.$tr.detach();
             }
         },
+        listeners: {
+            'blocks.autocomplete': {
+                select: function(product){
+                    var block = this;
+
+                    block.model.get('collections.products').push({
+                        quantity: 1,
+                        product: product
+                    });
+                }
+            }
+        },
         initialize: function() {
             var block = this;
 
@@ -57,6 +70,7 @@ define(function(require, exports, module) {
             }
 
             block.blocks = {
+                autocomplete: new Autocomplete(),
                 form_orderProduct: new Form_orderProduct({
                     collection: block.model.get('collections.products')
                 })

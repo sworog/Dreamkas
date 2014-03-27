@@ -1,0 +1,11 @@
+<div style="width: 280px;">
+    <% if (!data.length){ %>
+    <span>Нет результатов</span>
+    <% } else { %>
+    <% data.forEach(function(item){ %>
+    <div class="autocomplete__item">
+        <%- item.product.sku %> -- <%- item.product.name %>
+    </div>
+    <% }) %>
+    <% } %>
+</div>
