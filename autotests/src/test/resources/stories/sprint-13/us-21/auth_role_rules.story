@@ -37,24 +37,25 @@ Scenario: Administrator role valid rules - dashboard links - users
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
-Then the user checks the dashboard link to 'users' section is present
+Then the user checks the users navigation menu item is visible
 
 Scenario: CommercialManager role valid rules - dashboard links - catalog
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
-Then the user checks the dashboard link to 'catalog' section is present
+Then the user checks the catalog navigation menu item is visible
 
 Scenario: DepartmentManager role valid rules - dashboard links - invoices
 
 Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19 - us-42, us-44'
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
-Then the user checks the dashboard link to 'invoices' section is present
+Then the user checks the invoices navigation menu item is visible
 
 Scenario: DepartmentManager role valid rules - dashboard links - balance
 
 Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19 - us-42, us-43'
+
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 Then the user checks the dashboard link to 'balance' section is present
@@ -64,21 +65,23 @@ Scenario: DepartmentManager role valid rules - dashboard links - writeOffs
 Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19 - us-42, us-45'
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
-Then the user checks the dashboard link to 'writeOffs' section is present
+Then the user checks the writeOffs navigation menu item is visible
 
 Scenario: Administrator role invalid rules - dashboard links - catalog
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
-Then the user checks the dashboard link to 'catalog' section is not present
+Then the user checks the catalog navigation menu item is not visible
 
 Scenario: Administrator role invalid rules - dashboard links - invoices
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
-Then the user checks the dashboard link to 'invoices' section is not present
+Then the user checks the invoices navigation menu item is not visible
 
 Scenario: Administrator role invalid rules - dashboard links - balance
+
+Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19 - us-42, us-43'
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
@@ -88,17 +91,18 @@ Scenario: Administrator role invalid rules - dashboard links - writeOffs
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
-Then the user checks the dashboard link to 'writeOffs' section is not present
+Then the user checks the writeOffs navigation menu item is not visible
 
 Scenario: Commercial manager role invalid rules - dashboard links - invoices
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
-Then the user checks the dashboard link to 'invoices' section is not present
+Then the user checks the invoices navigation menu item is not visible
 
 Scenario: Commercial manager role invalid rules - dashboard links - balance
 
 Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19'
+
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 Then the user checks the dashboard link to 'balance' section is present
@@ -107,39 +111,41 @@ Scenario: Commercial manager role invalid rules - dashboard links - writeOffs
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
-Then the user checks the dashboard link to 'writeOffs' section is not present
+Then the user checks the writeOffs navigation menu item is not visible
 
 Scenario: Commercial manager role invalid rules - dashboard links - users
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
-Then the user checks the dashboard link to 'users' section is not present
+Then the user checks the users navigation menu item is not visible
 
 Scenario: StoreManager role invalid rules - dashboard links - users
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
-Then the user checks the dashboard link to 'users' section is not present
+Then the user checks the users navigation menu item is not visible
 
 Scenario: StoreManager role invalid rules - dashboard links - users
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
-Then the user checks the dashboard link to 'users' section is not present
+Then the user checks the users navigation menu item is not visible
 
 Scenario: StoreManager role invalid rules - dashboard links - catalog
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
-Then the user checks the dashboard link to 'catalog' section is not present
+Then the user checks the catalog navigation menu item is not visible
 
 Scenario: StoreManager role invalid rules - dashboard links - invoices
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
-Then the user checks the dashboard link to 'invoices' section is not present
+Then the user checks the invoices navigation menu item is not visible
 
 Scenario: StoreManager role invalid rules - dashboard links - balance
+
+Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19 - us-42, us-43'
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
@@ -149,13 +155,13 @@ Scenario: StoreManager role invalid rules - dashboard links - writeOffs
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
-Then the user checks the dashboard link to 'writeOffs' section is not present
+Then the user checks the writeOffs navigation menu item is not visible
 
 Scenario: DepartmentManager role invalid rules - dashboard links - users
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
-Then the user checks the dashboard link to 'users' section is not present
+Then the user checks the users navigation menu item is not visible
 
 Scenario: Administrator role valid rules - simple user scenario from dashboard - user creation
 

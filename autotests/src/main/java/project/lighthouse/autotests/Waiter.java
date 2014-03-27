@@ -40,6 +40,14 @@ public class Waiter {
         }
     }
 
+    public Boolean visibilityOfElementLocated(By findBy) {
+        try {
+            return getVisibleWebElement(findBy).isDisplayed();
+        } catch (TimeoutException | NoSuchElementException e) {
+            return false;
+        }
+    }
+
     public void waitUntilIsNotVisible(By findBy) {
         waiter.until(ExpectedConditions.invisibilityOfElementLocated(findBy));
     }
@@ -68,8 +76,8 @@ public class Waiter {
     public Boolean invisibilityOfElementLocated(By findBy) {
         try {
             return waiter.until(ExpectedConditions.invisibilityOfElementLocated(findBy));
-        } catch (Exception e) {
-            return false;
+        } catch (NoSuchElementException | TimeoutException e) {
+            return true;
         }
     }
 

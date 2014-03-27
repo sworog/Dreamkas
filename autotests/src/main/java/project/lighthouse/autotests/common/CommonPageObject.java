@@ -157,7 +157,15 @@ abstract public class CommonPageObject extends PageObject {
         return getWaiter().invisibilityOfElementLocated(element);
     }
 
+    public Boolean invisibilityOfElementLocated(By findBy) {
+        return getWaiter().invisibilityOfElementLocated(findBy);
+    }
+
     public Boolean visibilityOfElementLocated(WebElement element) {
         return getWaiter().visibilityOfElementLocated(element);
+    }
+
+    public Boolean visibilityOfElementLocated(By findBy) {
+        return getWaiter().visibilityOfElementLocated(findBy);
     }
 }
