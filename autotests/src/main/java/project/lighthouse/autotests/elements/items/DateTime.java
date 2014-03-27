@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.elements;
+package project.lighthouse.autotests.elements.items;
 
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonItem;
@@ -126,9 +126,10 @@ public class DateTime extends CommonItem {
     public void setDay(String dayString) {
         String timePickerDayXpath =
                 String.format(getDatePickerXpath() +
-                        "//*[@class='datepicker__dateList']/*[normalize-space(@class='datepicker__dateItem') and normalize-space(text())='%s' " +
-                        "and not(contains(@class, 'datepicker__dateItem datepicker__dateItem_otherMonth'))]",
-                        dayString);
+                                "//*[@class='datepicker__dateList']/*[normalize-space(@class='datepicker__dateItem') and normalize-space(text())='%s' " +
+                                "and not(contains(@class, 'datepicker__dateItem datepicker__dateItem_otherMonth'))]",
+                        dayString
+                );
         getPageObject().findElement(By.xpath(timePickerDayXpath)).click();
     }
 

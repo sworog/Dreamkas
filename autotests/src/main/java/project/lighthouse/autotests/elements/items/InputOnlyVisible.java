@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.elements;
+package project.lighthouse.autotests.elements.items;
 
 
 import project.lighthouse.autotests.common.CommonItem;

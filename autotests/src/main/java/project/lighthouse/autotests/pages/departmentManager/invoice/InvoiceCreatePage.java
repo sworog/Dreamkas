@@ -4,10 +4,10 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.elements.Autocomplete;
-import project.lighthouse.autotests.elements.DateTime;
-import project.lighthouse.autotests.elements.Input;
-import project.lighthouse.autotests.elements.NonType;
+import project.lighthouse.autotests.elements.items.Autocomplete;
+import project.lighthouse.autotests.elements.items.DateTime;
+import project.lighthouse.autotests.elements.items.Input;
+import project.lighthouse.autotests.elements.items.NonType;
 
 @DefaultUrl("/invoices/create")
 public class InvoiceCreatePage extends CommonPageObject {
