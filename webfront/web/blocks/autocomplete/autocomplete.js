@@ -3,7 +3,6 @@ define(function(require, exports, module) {
     var Block = require('block'),
         Tooltip = require('blocks/tooltip/tooltip'),
         when = require('when'),
-        currentUserModel = require('models/currentUser'),
         cookies = require('cookies');
 
     return Block.extend({
@@ -52,6 +51,7 @@ define(function(require, exports, module) {
                         block.cancel();
                         break;
                     default:
+                        block.set('query', block.el.value);
                         block.search();
                         break;
                 }
@@ -76,6 +76,9 @@ define(function(require, exports, module) {
         selectedItem: null,
         focusedItem: 0,
         request: null,
+        query: '',
+        minQuery: 3,
+        maxResults: 5,
         focusItem: function(index){
             var block = this,
                 tooltip = block.blocks.tooltip,
@@ -130,26 +133,24 @@ define(function(require, exports, module) {
             block.el.value = '';
             block.selectedItem = null;
         },
-        search: function(query) {
+        search: function() {
             var block = this;
-
-            query = query || block.el.value;
 
             if (block.request && block.request.abort){
                 block.request.abort();
             }
 
-            if (query.length >= 3){
+            if (block.query.length >= block.minQuery){
                 block.el.classList.add('preloader_stripes');
 
                 block.request = $.ajax({
-                    url: LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/products/name/search.json',
+                    url: block.el.dataset.url,
                     dataType: 'json',
                     headers: {
                         Authorization: 'Bearer ' + cookies.get('token')
                     },
                     data: {
-                        query: query
+                        query: block.query
                     },
                     success: function(data) {
                         block.data = data;
@@ -167,7 +168,6 @@ define(function(require, exports, module) {
                 tooltip = block.blocks.tooltip;
 
             tooltip.show();
-
             block.focusItem(0);
         }
     });

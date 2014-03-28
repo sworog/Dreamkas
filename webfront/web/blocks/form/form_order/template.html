@@ -1,5 +1,6 @@
 <% var OrderModel = require('models/order') %>
 <% var SuppliersCollection = require('collections/suppliers') %>
+<% var currentUserModel = require('models/currentUser') %>
 <% var model = model || new OrderModel() %>
 <% var collections = _.extend({
     suppliers: new SuppliersCollection()
@@ -32,7 +33,7 @@
     <h2>Добавление товара в заказ</h2>
 
     <div class="form__field">
-        <input type="text" class="inputText autocomplete" />
+        <input data-url="<%- LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/products/name/search.json' %>" type="text" class="inputText autocomplete" />
     </div>
 
     <%= templates.form_orderProduct() %>
