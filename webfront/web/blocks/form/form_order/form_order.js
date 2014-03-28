@@ -3,8 +3,7 @@ define(function(require, exports, module) {
     var Form = require('blocks/form/form'),
         router = require('router'),
         OrderModel = require('models/order'),
-        Autocomplete = require('blocks/autocomplete/autocomplete'),
-        Form_orderProduct = require('blocks/form/form_orderProduct/form_orderProduct');
+        Autocomplete = require('blocks/autocomplete/autocomplete');
 
     require('jquery');
     require('lodash');
@@ -26,7 +25,6 @@ define(function(require, exports, module) {
                         return model.cid === productCid;
                     });
 
-                block.renderEditForm(orderProductModel);
             },
             'click .form_orderProduct__cancelLink': function(e) {
                 var block = this;
@@ -70,36 +68,8 @@ define(function(require, exports, module) {
             }
 
             block.blocks = {
-                autocomplete: new Autocomplete(),
-                form_orderProduct: new Form_orderProduct({
-                    collection: block.model.get('collections.products')
-                })
+                autocomplete: new Autocomplete()
             };
-        },
-        renderEditForm: function(orderProductModel) {
-
-            delete orderProductModel.id;
-
-            var block = this;
-
-            if (form) {
-                form.remove();
-            }
-
-            form = new Form_orderProduct({
-                model: orderProductModel,
-                el: Form_orderProduct.prototype.template({
-                    model: orderProductModel
-                })
-            });
-
-            form.once('submit:success', function() {
-                block.$tr.detach();
-            });
-
-            block.$tr.find('td').html(form.el);
-
-            block.$tr.insertBefore(block.el.querySelector('tr[data-product_cid="' + orderProductModel.cid + '"]'));
         }
     });
 });

@@ -5,11 +5,8 @@
 <% var collections = _.extend({
     suppliers: new SuppliersCollection()
 }, collections); %>
-<% var templates = {
-    form_orderProduct: require('tpl!blocks/form/form_orderProduct/template.html')
-} %>
 
-<form id="form_order" class="form form_order" style="margin-bottom: 20px;">
+<form class="form form_order" style="margin-bottom: 20px;">
     <div class="form__field" style="padding-bottom: 30px;">
         <label class="form__label">Поставщик</label>
         <select class="select" name="supplier">
@@ -28,39 +25,37 @@
             }
         }) %>
     </div>
-</form>
-<div class="form_order__productForm">
+
     <h2>Добавление товара в заказ</h2>
 
-    <div class="form__field">
-        <input data-url="<%- LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/products/name/search.json' %>" type="text" class="inputText autocomplete" />
+    <div class="form__field" style="padding-bottom: 30px;">
+        <input data-url="<%- LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/products/name/search.json' %>"
+               type="text" class="inputText autocomplete"/>
     </div>
 
-    <%= templates.form_orderProduct() %>
-</div>
+    <div class="form_order__totalSum">
+        Итого:
+        <%= model.get('collections.products').element(require('tpl!blocks/form/form_order/form_order__totalSum.html'), {
+            collections: {
+                orderProducts: model.get('collections.products')
+            }
+        }) %>
+    </div>
 
-<div class="form_order__totalSum">
-    Итого:
-    <%= model.get('collections.products').element(require('tpl!blocks/form/form_order/form_order__totalSum.html'), {
-        collections: {
-            orderProducts: model.get('collections.products')
-        }
-    }) %>
-</div>
-
-<div class="form__controls">
-    <button form="form_order" type="submit" class="button">
-        Сохранить
-    </button>
-    <% if (model.id) { %>
-    <a id="form_order__removeLink" class="button form_order__removeLink">
-        Удалить
-    </a>
-    <% } %>
-    <span style="margin-right: 10px;">
+    <div class="form__controls">
+        <button type="submit" class="button">
+            Сохранить
+        </button>
+        <% if (model.id) { %>
+        <a id="form_order__removeLink" class="button form_order__removeLink">
+            Удалить
+        </a>
+        <% } %>
+        <span style="margin-right: 10px;">
         или
-    </span>
-    <a style="margin-right: 20px;" href="/orders">
-        Отменить
-    </a>
-</div>
+        </span>
+        <a style="margin-right: 20px;" href="/orders">
+            Отменить
+        </a>
+    </div>
+</form>

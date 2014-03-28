@@ -131,6 +131,7 @@ define(function(require, exports, module) {
             var block = this;
 
             block.el.value = '';
+            block.set('query', '');
             block.selectedItem = null;
         },
         search: function() {
