@@ -43,19 +43,21 @@
     </div>
 
     <div class="form__controls">
-        <button type="submit" class="button">
-            Сохранить
-        </button>
-        <% if (model.id) { %>
-        <a id="form_order__removeLink" class="button form_order__removeLink">
-            Удалить
-        </a>
-        <% } %>
+        <div class="form_order__invoiceControls">
+            <a href="/invoice/create" class="button">
+                Принять по заказу
+            </a>
+        </div>
+        <div class="form_order__saveControls">
+            <button type="submit" class="button">
+                Сохранить
+            </button>
         <span style="margin-right: 10px;">
         или
         </span>
-        <a style="margin-right: 20px;" href="/orders">
-            Отменить
-        </a>
+            <a style="margin-right: 20px;" href="/orders">
+                Отменить
+            </a>
+        </div>
     </div>
 </form>

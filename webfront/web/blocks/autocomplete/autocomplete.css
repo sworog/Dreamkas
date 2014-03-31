@@ -18,6 +18,8 @@
 }
 
 .autocomplete__hint{
-    padding: 5px 8px;
+    padding: 6px 8px 4px;
     background-color: #fafafa;
+    font-size: 13px;
+    color: #555;
 }

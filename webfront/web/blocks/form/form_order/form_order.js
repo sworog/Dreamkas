@@ -12,7 +12,7 @@ define(function(require, exports, module) {
 
     return Form.extend({
         __name__: module.id,
-        redirectUrl: '/orders',
+        template: require('tpl!./template.html'),
         el: '.form_order',
         model: new OrderModel(),
         $tr: $('<tr class="form_order__editor"><td colspan="4"></td></tr>'),
@@ -32,6 +32,11 @@ define(function(require, exports, module) {
             }
         },
         listeners: {
+            'model': {
+                change: function(){
+                    console.log(1);
+                }
+            },
             'blocks.autocomplete': {
                 select: function(product){
                     var block = this;
@@ -43,29 +48,15 @@ define(function(require, exports, module) {
                 }
             }
         },
+        submitSucess: function(){
+            document.location.reload();
+        },
         initialize: function() {
             var block = this;
 
-            if (block.model.id) {
-                document.getElementById('form_order__removeLink').addEventListener('click', function(e) {
-                    e.preventDefault();
-
-                    if (e.target.classList.contains('preloader_rows')) {
-                        return;
-                    }
-
-                    if (confirm('Вы уверены?')) {
-                        e.target.classList.add('preloader_rows');
-                        block.disable();
-
-                        block.model.destroy({
-                            success: function() {
-                                router.navigate('/orders');
-                            }
-                        });
-                    }
-                });
-            }
+            block.model.get('collections.products').on('change add remove', function(){
+                block.el.classList.add('form_changed');
+            });
 
             block.blocks = {
                 autocomplete: new Autocomplete()
