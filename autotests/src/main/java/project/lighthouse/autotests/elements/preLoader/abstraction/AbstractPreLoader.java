@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.elements.preLoader;
+package project.lighthouse.autotests.elements.preLoader.abstraction;
 
 
 import org.openqa.selenium.By;
