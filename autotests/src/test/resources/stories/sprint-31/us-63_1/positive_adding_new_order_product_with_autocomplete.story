@@ -13,18 +13,13 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
 Scenario: Adding new order product with autocomplete by name
 
 Meta:
-@id
+@id_s31u63.1s1
 @smoke
 
-GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story
-
-Given there is the supplier with name 'supplier-s30u631s1'
-
-Given there is the subCategory with name 'defaultSubCategory-s30u631' related to group named 'defaultGroup-s30u631' and category named 'defaultCategory-s30u631'
-And the user sets subCategory 'defaultSubCategory-s30u631' mark up with max '10' and min '0' values
+GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
+              precondition/sprint-31/us-63_1/aPreconditionToPositiveScenarios.story
 
 Given there is the product with 'сухое_молоко-30631' name, '30631_dry_milk' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse' password
@@ -49,15 +44,11 @@ Then the user checks the order products list contains entry
 Scenario: Adding new order product with autocomplete by sku
 
 Meta:
-@id
+@id_s31u63.1s2
 @smoke
 
-GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story
-
-Given there is the supplier with name 'supplier-s30u631s1'
-
-Given there is the subCategory with name 'defaultSubCategory-s30u631' related to group named 'defaultGroup-s30u631' and category named 'defaultCategory-s30u631'
-And the user sets subCategory 'defaultSubCategory-s30u631' mark up with max '10' and min '0' values
+GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
+              precondition/sprint-31/us-63_1/aPreconditionToPositiveScenarios.story
 
 Given there is the product with 'копыто_лошадиное_30631' name, '30631_horse_leg' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
 
