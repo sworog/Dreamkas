@@ -1,6 +1,6 @@
 <% var getText = require('kit/getText/getText') %>
 
-<div class="tooltip autocomplete__results">
+<div class="tooltip autocomplete__results" style="width: 600px;">
     <% if (query.length < minQuery){ %>
     <div class="autocomplete__hint">Для поиска введите более <%- minQuery - 1 %> символов</div>
     <% } else if (!data.length) { %>
