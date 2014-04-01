@@ -2,6 +2,10 @@ Meta:
 @smoke
 @sprint_31
 @us_63.1
+@id_s31u63.1s4
+@id_s31u63.1s5
+@id_s31u63.1s6
+@id_s31u63.1s7
 
 Scenario: A scenario that prepares data for validation scenarios
 

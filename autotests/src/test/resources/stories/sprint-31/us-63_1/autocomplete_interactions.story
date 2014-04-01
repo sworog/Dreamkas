@@ -13,7 +13,7 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
 Scenario: Adding order product by enter key press
 
 Meta:
-@id
+@id_s31u63.1s3
 @smoke
 
 GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
@@ -42,7 +42,7 @@ Then the user checks the order products list contains entry
 Scenario: Adding order product by keyboard arrow choosing result and confirming by enter key press
 
 Meta:
-@id
+@id_s31u63.1s4
 @smoke
 
 GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
@@ -78,7 +78,7 @@ Then the user checks the order products list contains entry
 Scenario: Adding order product by keyboard arrow choosing result and click on it
 
 Meta:
-@id
+@id_s31u63.1s5
 @smoke
 
 GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
@@ -114,7 +114,7 @@ Then the user checks the order products list contains entry
 Scenario: Adding order product by moving mouse cursor to autocomplete result and click on it
 
 Meta:
-@id
+@id_s31u63.1s6
 
 GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
               precondition/sprint-31/us-63_1/aPreconditionToPrepareCatalog.story,
@@ -148,7 +148,7 @@ Then the user checks the order products list contains entry
 Scenario: Adding order product by moving mouse cursor to autocomplete result and confirming it by pressing ENTER key button
 
 Meta:
-@id
+@id_s31u63.1s7
 @smoke
 
 GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
@@ -183,7 +183,7 @@ Then the user checks the order products list contains entry
 Scenario: No search autocomplete results
 
 Meta:
-@id
+@id_s31u63.1s8
 
 GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story
 
@@ -223,7 +223,7 @@ Examples:
 Scenario: autocoplete minimum search symbols validation positive
 
 Meta:
-@id
+@id_s31u63.1s9
 
 GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
               precondition/sprint-31/us-63_1/aPreconditionToPrepareCatalog.story
@@ -244,7 +244,7 @@ Then the user checks the autocomplete result list contains exact entries
 Scenario: Check that order product is adding with quantity eqauls 1 by default
 
 Meta:
-@id
+@id_s31u63.1s10
 
 GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
               precondition/sprint-31/us-63_1/aPreconditionToPrepareCatalog.story
@@ -265,7 +265,7 @@ Then the user checks the order products list contains entry
 Scenario: If Results are less than 3 no coincidencies bar is shown
 
 Meta:
-@id
+@id_s31u63.1s11
 
 GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
               precondition/sprint-31/us-63_1/aPreconditionToPrepareCatalog.story,
@@ -287,7 +287,7 @@ Then the user checks the autocomplete result list contains exact entries
 Scenario: Check there are only five results in autocomplete results
 
 Meta:
-@id
+@id_s31u63.1s12
 
 GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
               precondition/sprint-31/us-63_1/aPreconditionToPrepareCatalog.story,
@@ -312,7 +312,7 @@ Then the user checks the autocomplete result list contains exact entries
 Scenario: If Results are more than 5 coincidencies bar is shown
 
 Meta:
-@id
+@id_s31u63.1s13
 
 GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
               precondition/sprint-31/us-63_1/aPreconditionToPrepareCatalog.story,
@@ -350,7 +350,7 @@ Then the user checks the autocomplete result list contains exact entries
 Scenario: Check autocomplete result hightlight name
 
 Meta:
-@id
+@id_s31u63.1s14
 @smoke
 
 Given there is the user with name 'departmentManager-s30u631', position 'departmentManager-s30u631', username 'departmentManager-s30u631', password 'lighthouse', role 'departmentManager'
@@ -376,7 +376,7 @@ Examples:
 Scenario: Check autocomplete result hightlight sku
 
 Meta:
-@id
+@id_s31u63.1s15
 @smoke
 
 Given there is the user with name 'departmentManager-s30u631', position 'departmentManager-s30u631', username 'departmentManager-s30u631', password 'lighthouse', role 'departmentManager'
