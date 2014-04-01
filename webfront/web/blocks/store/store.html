@@ -2,8 +2,6 @@
     @storeModel
 -->
 
-<% var store__managers = require('tpl!blocks/store/store__managers.html') %>
-
 <% if(LH.isAllow('stores', 'PUT::{store}')) { %>
 <div class="page__controls">
     <a href="/stores/edit/<%- storeModel.id %>">
