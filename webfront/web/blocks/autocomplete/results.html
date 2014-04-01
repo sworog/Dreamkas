@@ -2,7 +2,7 @@
 
 <div class="tooltip autocomplete__results">
     <% if (query.length < minQuery){ %>
-    <div class="autocomplete__hint">Для поиска введите более <%- minQuery %> символов</div>
+    <div class="autocomplete__hint">Для поиска введите более <%- minQuery - 1 %> символов</div>
     <% } else if (!data.length) { %>
     <div class="autocomplete__hint">Нет результатов</div>
     <% } else { %>
