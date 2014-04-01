@@ -130,13 +130,15 @@ define(function(require, exports, module) {
 
             itemData = block.data[index] || block.data[block.focusedItem];
 
-            block.el.value = itemData.product.name;
+            if (itemData){
+                block.el.value = itemData.product.name;
 
-            block.set('selectedItem', index);
+                block.set('selectedItem', index);
 
-            block.cancel();
-            block.clear();
-            block.trigger('select', itemData);
+                block.cancel();
+                block.clear();
+                block.trigger('select', itemData);
+            }
         },
         cancel: function() {
             var block = this,
