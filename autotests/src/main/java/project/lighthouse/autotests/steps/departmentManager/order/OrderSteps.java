@@ -33,6 +33,11 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
+    public void input(String elementName, String value) {
+        orderPage.input(elementName, value);
+    }
+
+    @Step
     public void checkOrderPageValues(ExamplesTable examplesTable) {
         orderPage.checkCardValue(examplesTable);
     }
