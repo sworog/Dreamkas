@@ -192,7 +192,7 @@ And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse'
 
 When the user inputs values on order page
 | elementName | value |
-| order product autocomplete | такоготоваранесущетвуте |
+| order product autocomplete | !такоготоваранесущетвуте |
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
@@ -217,8 +217,8 @@ Then the user checks the autocomplete result list contains exact entries
 
 Examples:
 | value |
-| в |
-| вв |
+| !в |
+| !вв |
 
 Scenario: Autocomplete minimum search symbols validation positive
 
