@@ -16,10 +16,8 @@ Meta:
 @id
 @smoke
 
-GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story
-
-Given there is the subCategory with name 'defaultSubCategory-s30u631' related to group named 'defaultGroup-s30u631' and category named 'defaultCategory-s30u631'
-And the user sets subCategory 'defaultSubCategory-s30u631' mark up with max '10' and min '0' values
+GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
+              precondition/sprint-31/us-63_1/aPreconditionToPrepareCatalog.story
 
 Given there is the product with 'name-30631' name, '30631' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
 
@@ -47,15 +45,9 @@ Meta:
 @id
 @smoke
 
-GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story
-
-Given there is the subCategory with name 'defaultSubCategory-s30u631' related to group named 'defaultGroup-s30u631' and category named 'defaultCategory-s30u631'
-And the user sets subCategory 'defaultSubCategory-s30u631' mark up with max '10' and min '0' values
-
-Given there is the product with 'name-3063121' name, '3063121' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'name-3063122' name, '3063122' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'name-3063123' name, '3063123' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'name-3063124' name, '3063124' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
+GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
+              precondition/sprint-31/us-63_1/aPreconditionToPrepareCatalog.story,
+              precondition/sprint-31/us-63_1/aPreconditionForValidationScenario.story
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse' password
@@ -89,15 +81,9 @@ Meta:
 @id
 @smoke
 
-GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story
-
-Given there is the subCategory with name 'defaultSubCategory-s30u631' related to group named 'defaultGroup-s30u631' and category named 'defaultCategory-s30u631'
-And the user sets subCategory 'defaultSubCategory-s30u631' mark up with max '10' and min '0' values
-
-Given there is the product with 'name-3063121' name, '3063121' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'name-3063122' name, '3063122' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'name-3063123' name, '3063123' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'name-3063124' name, '3063124' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
+GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
+              precondition/sprint-31/us-63_1/aPreconditionToPrepareCatalog.story,
+              precondition/sprint-31/us-63_1/aPreconditionForValidationScenario.story
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse' password
@@ -130,15 +116,9 @@ Scenario: Adding order product by moving mouse cursor to autocomplete result and
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story
-
-Given there is the subCategory with name 'defaultSubCategory-s30u631' related to group named 'defaultGroup-s30u631' and category named 'defaultCategory-s30u631'
-And the user sets subCategory 'defaultSubCategory-s30u631' mark up with max '10' and min '0' values
-
-Given there is the product with 'name-3063121' name, '3063121' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'name-3063122' name, '3063122' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'name-3063123' name, '3063123' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'name-3063124' name, '3063124' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
+GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
+              precondition/sprint-31/us-63_1/aPreconditionToPrepareCatalog.story,
+              precondition/sprint-31/us-63_1/aPreconditionForValidationScenario.story
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse' password
@@ -171,15 +151,9 @@ Meta:
 @id
 @smoke
 
-GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story
-
-Given there is the subCategory with name 'defaultSubCategory-s30u631' related to group named 'defaultGroup-s30u631' and category named 'defaultCategory-s30u631'
-And the user sets subCategory 'defaultSubCategory-s30u631' mark up with max '10' and min '0' values
-
-Given there is the product with 'name-3063121' name, '3063121' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'name-3063122' name, '3063122' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'name-3063123' name, '3063123' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'name-3063124' name, '3063124' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
+GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
+              precondition/sprint-31/us-63_1/aPreconditionToPrepareCatalog.story,
+              precondition/sprint-31/us-63_1/aPreconditionForValidationScenario.story
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse' password
@@ -251,10 +225,8 @@ Scenario: autocoplete minimum search symbols validation positive
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story
-
-Given there is the subCategory with name 'defaultSubCategory-s30u631' related to group named 'defaultGroup-s30u631' and category named 'defaultCategory-s30u631'
-And the user sets subCategory 'defaultSubCategory-s30u631' mark up with max '10' and min '0' values
+GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
+              precondition/sprint-31/us-63_1/aPreconditionToPrepareCatalog.story
 
 Given there is the product with 'csme-30631' name, 'csme-30631' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
 
@@ -274,13 +246,10 @@ Scenario: Check that order product is adding with quantity eqauls 1 by default
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story
-
-Given there is the subCategory with name 'defaultSubCategory-s30u631' related to group named 'defaultGroup-s30u631' and category named 'defaultCategory-s30u631'
-And the user sets subCategory 'defaultSubCategory-s30u631' mark up with max '10' and min '0' values
+GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
+              precondition/sprint-31/us-63_1/aPreconditionToPrepareCatalog.story
 
 Given there is the product with 'name-30631' name, '30631' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse' password
@@ -298,11 +267,9 @@ Scenario: If Results are less than 3 no coincidencies bar is shown
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story
-
-Given there is the product with 'big31-30631' name, '30631-big31' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'big32-30631' name, '30631-big32' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'big33-30631' name, '30631-big33' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
+GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
+              precondition/sprint-31/us-63_1/aPreconditionToPrepareCatalog.story,
+              precondition/sprint-31/us-63_1/aPreconditionForIfResultsAreLessThan3NoCoincidenciesBarIsShownScenario.story
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse' password
@@ -322,14 +289,9 @@ Scenario: Check there are only five results in autocomplete results
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story
-
-Given there is the product with 'kog31-30631' name, '30631-kog31' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'kog32-30631' name, '30631-kog32' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'kog33-30631' name, '30631-kog33' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'kog34-30631' name, '30631-kog34' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'kog35-30631' name, '30631-kog35' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'kog36-30631' name, '30631-kog36' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
+GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
+              precondition/sprint-31/us-63_1/aPreconditionToPrepareCatalog.story,
+              precondition/sprint-31/us-63_1/aPreconditionForCgeckThereAreOnluFiveResultsInACResultsScenario.story
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse' password
@@ -352,26 +314,9 @@ Scenario: If Results are more than 5 coincidencies bar is shown
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story
-
-Given there is the product with 'log31-30631' name, '30631-log31' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'log32-30631' name, '30631-log32' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'log33-30631' name, '30631-log33' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'log34-30631' name, '30631-log34' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'log35-30631' name, '30631-log35' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'log36-30631' name, '30631-log36' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'log37-30631' name, '30631-log37' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'log38-30631' name, '30631-log38' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'log39-30631' name, '30631-log39' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'log310-30631' name, '30631-log310' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'log311-30631' name, '30631-log311' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'log312-30631' name, '30631-log312' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'log3121-30631' name, '30631-log3121' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'log3122-30631' name, '30631-log3122' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'log3123-30631' name, '30631-log3123' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'log3124-30631' name, '30631-log3124' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'log3125-30631' name, '30631-log3125' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
-And there is the product with 'log3126-30631' name, '30631-log3126' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
+GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
+              precondition/sprint-31/us-63_1/aPreconditionToPrepareCatalog.story,
+              precondition/sprint-31/us-63_1/aPreconditionForIfResultsAreMoreThan5CoincidenciesBarIsShownScenario.story
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse' password
