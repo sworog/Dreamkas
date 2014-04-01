@@ -80,7 +80,6 @@ define(function(require) {
         requirejs([
             routes,
             'LH',
-            'blocks/navigationBar/navigationBar',
             'blocks/page/page',
             'libs/lhAutocomplete'
         ], function(routes) {

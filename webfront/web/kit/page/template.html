@@ -1,0 +1,22 @@
+<% var layout = _.defaults(layout, {
+    content: function(data) {
+        return '<h1>API Gate</h1>';
+    },
+    localNavigation: null,
+    globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation.html')
+}) %>
+
+
+<div class="page">
+    <div class="page__globalNavigation">
+        <%= layout.globalNavigation(obj) %>
+    </div>
+    <% if (layout.localNavigation) { %>
+    <div class="page__localNavigation">
+        <%= layout.localNavigation(obj) %>
+    </div>
+    <% } %>
+    <div class="page__content">
+        <%= layout.content(obj) %>
+    </div>
+</div>
