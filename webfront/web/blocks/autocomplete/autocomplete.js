@@ -180,6 +180,10 @@ define(function(require, exports, module) {
                         block.el.classList.remove('preloader_stripes');
                     }
                 });
+            } else if (block.query.length >= 1) {
+                block.cancel();
+                block.showResults();
+                block.el.classList.remove('preloader_stripes');
             } else {
                 block.cancel();
                 block.el.classList.remove('preloader_stripes');
