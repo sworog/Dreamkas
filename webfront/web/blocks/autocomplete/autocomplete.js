@@ -146,14 +146,16 @@ define(function(require, exports, module) {
                 block.request.abort();
             }
 
+            block.selectedItem = null;
+            block.data = [];
             tooltip.hide();
         },
         clear: function(){
             var block = this;
 
+            block.cancel();
             block.el.value = '';
             block.set('query', '');
-            block.selectedItem = null;
         },
         search: function() {
             var block = this;
