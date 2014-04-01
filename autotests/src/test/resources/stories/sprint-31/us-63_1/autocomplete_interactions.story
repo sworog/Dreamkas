@@ -198,7 +198,7 @@ Then the user checks the autocomplete result list contains exact entries
 | result |
 | Нет результатов |
 
-Scenario: autocoplete minimum search symbols validation negative
+Scenario: Autocomplete minimum search symbols validation negative
 
 Meta:
 @id
@@ -220,7 +220,7 @@ Examples:
 | в |
 | вв |
 
-Scenario: autocoplete minimum search symbols validation positive
+Scenario: Autocomplete minimum search symbols validation positive
 
 Meta:
 @id_s31u63.1s9
