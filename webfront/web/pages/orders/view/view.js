@@ -43,7 +43,26 @@ define(function(require, exports, module) {
                 form_order: new Form_order({
                     model: page.models.order
                 })
-            }
+            };
+
+            document.getElementById('form_order__removeLink').addEventListener('click', function(e) {
+                e.preventDefault();
+
+                if (e.target.classList.contains('preloader_rows')) {
+                    return;
+                }
+
+                if (confirm('Вы уверены?')) {
+                    e.target.classList.add('preloader_rows');
+                    page.blocks.form_order.disable();
+
+                    page.models.order.destroy({
+                        success: function() {
+                            router.navigate('/orders');
+                        }
+                    });
+                }
+            });
         }
     });
 });
