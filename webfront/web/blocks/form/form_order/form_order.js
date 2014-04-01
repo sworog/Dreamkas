@@ -13,6 +13,7 @@ define(function(require, exports, module) {
     return Form.extend({
         __name__: module.id,
         template: require('tpl!./template.html'),
+        redirectUrl: '/orders',
         el: '.form_order',
         model: new OrderModel(),
         $tr: $('<tr class="form_order__editor"><td colspan="4"></td></tr>'),
