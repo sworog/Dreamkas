@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/core/block'),
+    var Block = require('kit/core/block.deprecated'),
         setter = require('kit/utils/setter'),
         form2js = require('form2js'),
         translate = require('kit/utils/translate'),

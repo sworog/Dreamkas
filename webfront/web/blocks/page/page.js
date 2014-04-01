@@ -1,5 +1,5 @@
 define(function(require) {
-    var Block = require('kit/core/block'),
+    var Block = require('kit/core/block.deprecated'),
         router = require('router');
 
     require('backbone');

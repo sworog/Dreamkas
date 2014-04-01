@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/core/block'),
+    var Block = require('kit/core/block.deprecated'),
         Catalog__categoryList = require('blocks/catalog/catalog__categoryList'),
         Tooltip_catalogGroupMenu = require('blocks/tooltip/tooltip_catalogGroupMenu/tooltip_catalogGroupMenu'),
         CatalogCategoriesCollection = require('collections/catalogCategories');
