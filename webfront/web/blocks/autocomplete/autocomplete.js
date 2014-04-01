@@ -9,11 +9,6 @@ define(function(require, exports, module) {
         moduleId: module.id,
         el: '.autocomplete',
         events: {
-            'blur': function(){
-                var block = this;
-
-                block.cancel();
-            },
             'focus': function(){
                 var block = this;
 
@@ -63,6 +58,14 @@ define(function(require, exports, module) {
 
                 return new Tooltip({
                     trigger: block.el,
+                    events: {
+                        'mouseover .autocomplete__item': function(e){
+                            block.focusItem(e.target);
+                        },
+                        'click .autocomplete__item': function(e){
+                            block.selectItem(e.target);
+                        }
+                    },
                     template: function(){
                         return block.templates.results(block);
                     }
@@ -79,18 +82,25 @@ define(function(require, exports, module) {
         query: '',
         minQuery: 3,
         maxResults: 5,
-        focusItem: function(index){
+        focusItem: function(item){
             var block = this,
                 tooltip = block.blocks.tooltip,
-                autocomplete__item = tooltip.el.querySelectorAll('.autocomplete__item');
+                autocomplete__items = tooltip.el.querySelectorAll('.autocomplete__item'),
+                index;
 
-            if (index >= 0 && autocomplete__item.length > index){
+            if (typeof item === 'number'){
+                index = item;
+            } else {
+                index = _.indexOf(autocomplete__items, item);
+            }
 
-                _.forEach(autocomplete__item, function(item){
+            if (index >= 0 && autocomplete__items.length > index){
+
+                _.forEach(autocomplete__items, function(item){
                     item.classList.remove('autocomplete__item_focused');
                 });
 
-                autocomplete__item[index].classList.add('autocomplete__item_focused');
+                autocomplete__items[index].classList.add('autocomplete__item_focused');
                 block.set('focusedItem', index);
             }
         },
@@ -105,17 +115,28 @@ define(function(require, exports, module) {
 
             block.focusItem(block.focusedItem - 1);
         },
-        selectItem: function(index) {
+        selectItem: function(item) {
             var block = this,
-                item = block.data[index] || block.data[block.focusedItem];
+                tooltip = block.blocks.tooltip,
+                autocomplete__items = tooltip.el.querySelectorAll('.autocomplete__item'),
+                index,
+                itemData;
 
-            block.el.value = item.product.name;
+            if (typeof item === 'number'){
+                index = item;
+            } else {
+                index = _.indexOf(autocomplete__items, item);
+            }
+
+            itemData = block.data[index] || block.data[block.focusedItem];
+
+            block.el.value = itemData.product.name;
 
             block.set('selectedItem', index);
 
             block.cancel();
             block.clear();
-            block.trigger('select', item);
+            block.trigger('select', itemData);
         },
         cancel: function() {
             var block = this,

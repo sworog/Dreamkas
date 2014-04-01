@@ -6,7 +6,7 @@
     suppliers: new SuppliersCollection()
 }, collections); %>
 
-<form class="form form_order" style="margin-bottom: 20px;">
+<form class="form form_order <%- model.id ? '' : 'form_changed' %>" style="margin-bottom: 20px;">
     <div class="form__field" style="padding-bottom: 30px;">
         <label class="form__label">Поставщик</label>
         <select class="select" name="supplier">

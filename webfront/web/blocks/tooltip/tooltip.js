@@ -22,6 +22,8 @@ define(function(require, exports, module) {
         initialize: function(){
             var block = this;
 
+            block.cid = _.uniqueId('tooltip');
+
             block.container = document.querySelector(block.container);
 
             block.container.appendChild(block.el);

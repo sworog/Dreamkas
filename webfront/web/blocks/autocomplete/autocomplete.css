@@ -4,6 +4,7 @@
 
 .autocomplete__item{
     padding: 5px 8px;
+    cursor: pointer;
 }
 
 .autocomplete__results{
