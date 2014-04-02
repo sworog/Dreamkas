@@ -18,6 +18,7 @@ define(function(require, exports, module) {
         el: '.form_order',
         model: new OrderModel(),
         editedProductModel: null,
+        nextEditedProductModel: null,
         events: {
             'change [name]': function(e){
                 var block = this;
@@ -32,9 +33,20 @@ define(function(require, exports, module) {
                         return model.cid === productCid;
                     });
 
-                block.editProduct(orderProductModel);
+                if (block.editedProductModel){
+                    block.nextEditedProductModel = orderProductModel;
+                } else {
+                    block.editProduct(orderProductModel);
+                }
             },
             'blur .table__orderProduct input': function(e){
+                var block = this;
+
+                if (!e.target.classList.contains('preloader_stripes')){
+                    block.finishEdit();
+                }
+            },
+            'change .table__orderProduct input': function(e){
                 var block = this;
 
                 e.target.classList.add('preloader_stripes');
@@ -107,9 +119,24 @@ define(function(require, exports, module) {
 
             block.editedProductModel.save(changes, {
                 success: function(){
-                    console.log(arguments);
+                    block.finishEdit();
+
+                    if (block.nextEditedProductModel){
+                        block.editProduct(block.nextEditedProductModel);
+                        block.nextEditedProductModel = null;
+                    }
                 }
             });
+        },
+        finishEdit: function(){
+            var block = this,
+                tr = block.el.querySelector('.table__orderProduct_edit');
+
+            block.editedProductModel = null;
+
+            if (tr){
+                tr.classList.remove('table__orderProduct_edit');
+            }
         },
         renderProductSum: function(quantity){
             var block = this,

@@ -114,6 +114,10 @@
     width: 80px;
 }
 
+.table__orderProduct td{
+    height: 35px;
+}
+
 .table__orderProduct_edit input[type="text"]{
     display: inline-block;
 }
