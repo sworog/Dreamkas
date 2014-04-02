@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.junit.Assert;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.Buttons.LinkFacade;
+import project.lighthouse.autotests.elements.preLoader.OrderProductEditionPreLoader;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.helper.exampleTable.order.OrderExampleTableUpdater;
 import project.lighthouse.autotests.objects.web.order.order.OrderObjectCollection;
@@ -301,5 +302,10 @@ public class OrderSteps extends ScenarioSteps {
             orderPage.getDownloadFileLink().click();
         } catch (TimeoutException ignored) {
         }
+    }
+
+    @Step
+    public void waitForPreLoader() {
+        new OrderProductEditionPreLoader(getDriver()).await();
     }
 }

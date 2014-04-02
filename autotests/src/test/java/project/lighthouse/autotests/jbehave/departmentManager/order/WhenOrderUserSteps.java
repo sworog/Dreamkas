@@ -86,6 +86,11 @@ public class WhenOrderUserSteps {
         orderSteps.lastCreatedOrderProductCollectionObjectQuantityType(value);
     }
 
+    @When("the user inputs quantity '$value' on the order product with name '$name'")
+    public void whenTheUserInputsQuantityValueOnTheOrderProductInLastCreatedOrder(String value, String name) throws JSONException {
+        orderSteps.orderProductCollectionObjectQuantityType(name, value);
+    }
+
     @When("the user clicks on the order product by name '$name'")
     public void whenTheUserClicksOnTheOrderProductByName(String name) {
         orderSteps.orderProductCollectionObjectClickByLocator(name);

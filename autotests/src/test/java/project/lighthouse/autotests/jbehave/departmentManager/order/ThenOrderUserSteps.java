@@ -139,4 +139,9 @@ public class ThenOrderUserSteps {
     public void thenTheUserChecksTheCancelLinkShouldBeVisible() {
         orderSteps.cancelLinkShouldBeVisible();
     }
+
+    @Then("the user waits for the order product edition preloader finish")
+    public void thenTheUserWaitsForTheOrderProductEditionPreloaderFinish() {
+        orderSteps.waitForPreLoader();
+    }
 }
