@@ -12,10 +12,12 @@ define(function(require, exports, module) {
             product: null,
             quantity: null
         },
-        saveData: function(){
+        saveData: function() {
             return {
                 product: this.get('product.product.id'),
                 quantity: this.get('quantity')
+                    .replace(' ', '', 'gi')
+                    .replace(',', '.', 'gi')
             };
         }
     });

@@ -144,10 +144,15 @@ define(function(require, exports, module) {
         },
         finishEdit: function() {
             var block = this,
-                tr = block.el.querySelector('.table__orderProduct_edit');
+                tr = block.el.querySelector('.table__orderProduct_edit'),
+                quantityInput = block.el.querySelector('.table__orderProduct_edit [data-name="quantity"]');
 
             block.editedProductModel = null;
             block.removeProductError();
+
+            if (quantityInput) {
+                quantityInput.classList.remove('preloader_stripes');
+            }
 
             if (tr) {
                 tr.classList.remove('table__orderProduct_edit');
