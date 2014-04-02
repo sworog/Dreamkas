@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('kit/core/page.deprecated'),
         pageParams = require('pages/catalog/params'),
         СatalogGroupModel = require('models/catalogGroup'),
         CatalogGroup = require('blocks/catalogGroup/catalogGroup'),

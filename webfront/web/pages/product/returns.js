@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('kit/core/page.deprecated'),
         ProductReturnsCollection = require('collections/productReturns'),
         ProductModel = require('models/product'),
         StoreProductModel = require('models/storeProduct'),

@@ -2,8 +2,6 @@ define(function(require) {
     //requirements
     var app = require('app'),
         Block = require('kit/core/block.deprecated'),
-        NewPage = require('page'),
-        NewBlock = require('block'),
         Backbone = require('backbone'),
         router = require('router'),
         isAllow = require('kit/utils/isAllow'),
@@ -17,7 +15,7 @@ define(function(require) {
         permissions: null,
         referrer: {},
         loading: false,
-        template: require('tpl!./template.html'),
+        template: require('tpl!./template.deprecated.html'),
         partials: {},
         models: {},
         collections: {},

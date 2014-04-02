@@ -137,6 +137,15 @@ define(function(require) {
         },
         'set:status': function(status){
             var page = this;
+
+            if (status == 'rendering'){
+                page.el.classList.add('preloader_spinner');
+            }
+
+            if (status == 'rendered'){
+                page.el.classList.remove('preloader_spinner');
+            }
+
             page.el.setAttribute('data-status', status);
         }
     });

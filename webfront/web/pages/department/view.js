@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('kit/core/page.deprecated'),
         Department = require('blocks/department/department'),
         getUserStore = require('utils/getUserStore'),
         StoreModel = require('models/store'),

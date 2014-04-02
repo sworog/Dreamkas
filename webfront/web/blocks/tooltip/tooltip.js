@@ -1,4 +1,4 @@
-define(function(require, exports, module) {
+define(function(require) {
     //requirements
     var Block = require('block'),
         deepExtend = require('kit/deepExtend/deepExtend');

@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('kit/core/page.deprecated'),
         SuppliersCollection = require('collections/suppliers'),
         OrderModel = require('models/order'),
         OrderProductsCollection = require('collections/orderProducts'),

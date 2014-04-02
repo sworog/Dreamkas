@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('kit/core/page.deprecated'),
         WriteOff = require('blocks/writeOff/writeOff'),
         WriteOffModel = require('models/writeOff'),
         WriteOffProductsCollection = require('collections/writeOffProducts'),
