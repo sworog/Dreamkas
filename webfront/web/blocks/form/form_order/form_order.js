@@ -26,6 +26,7 @@ define(function(require, exports, module) {
                         return model.cid === productCid;
                     });
 
+                block.editProduct(orderProductModel);
             },
             'click .form_orderProduct__cancelLink': function(e) {
                 var block = this;
@@ -59,9 +60,30 @@ define(function(require, exports, module) {
                 block.el.classList.add('form_changed');
             });
 
+            block.model.get('collections.products').on('add', function(orderProductModel){
+                block.editProduct(orderProductModel);
+            });
+
             block.blocks = {
                 autocomplete: new Autocomplete()
             };
+        },
+        editProduct: function(orderProductModel){
+            var block = this,
+                tr = block.el.querySelector('tr[data-product_cid="' + orderProductModel.cid + '"]');
+
+            block.cancelProductEditing();
+
+            tr.classList.add('table__orderProduct_edit');
+            tr.querySelector('[autofocus]').focus();
+        },
+        cancelProductEditing: function(){
+            var block = this,
+                tr = block.el.querySelector('.table__orderProduct_edit');
+
+            if (tr){
+                tr.classList.remove('table__orderProduct_edit');
+            }
         }
     });
 });

@@ -107,3 +107,17 @@
 .table__orderProduct:hover {
     background-color: #fafafa;
 }
+
+.table__orderProduct input[type="text"]{
+    display: none;
+    text-align: right;
+    width: 80px;
+}
+
+.table__orderProduct_edit input[type="text"]{
+    display: inline-block;
+}
+
+.table__orderProduct_edit .table__orderProduct__editable{
+    display: none;
+}
