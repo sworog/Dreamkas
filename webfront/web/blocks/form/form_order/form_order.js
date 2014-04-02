@@ -3,7 +3,8 @@ define(function(require, exports, module) {
     var Form = require('blocks/form/form'),
         router = require('router'),
         OrderModel = require('models/order'),
-        Autocomplete = require('blocks/autocomplete/autocomplete');
+        Autocomplete = require('blocks/autocomplete/autocomplete'),
+        table_orderProducts__productSum = require('tpl!blocks/table/table_orderProducts/table_orderProducts__productSum.html');
 
     require('jquery');
     require('lodash');
@@ -33,10 +34,25 @@ define(function(require, exports, module) {
 
                 block.editProduct(orderProductModel);
             },
-            'blur .table__orderProduct input': function(){
+            'blur .table__orderProduct input': function(e){
                 var block = this;
 
-                block.validateEditedProduct();
+                e.target.classList.add('preloader_stripes');
+                block.validateEditedProduct(e.target.dataset.name, e.target.value);
+            },
+            'keydown .table__orderProduct input': function(e){
+                var block = this;
+
+                if (e.keyCode === 13){
+                    e.preventDefault();
+                    e.target.classList.add('preloader_stripes');
+                    block.validateEditedProduct(e.target.dataset.name, e.target.value);
+                }
+            },
+            'keyup .table__orderProduct input': function(e){
+                var block = this;
+
+                block.renderProductSum(e.target.value);
             }
         },
         listeners: {
@@ -81,13 +97,27 @@ define(function(require, exports, module) {
             tr.classList.add('table__orderProduct_edit');
             tr.querySelector('[autofocus]').focus();
         },
-        validateEditedProduct: function(){
-            var block = this;
+        validateEditedProduct: function(key, value){
+            var block = this,
+                changes = {};
 
-            block.editedProductModel.save({}, {
+            changes[key] = value;
+
+            block.editedProductModel.id = null;
+
+            block.editedProductModel.save(changes, {
                 success: function(){
                     console.log(arguments);
                 }
+            });
+        },
+        renderProductSum: function(quantity){
+            var block = this,
+                productSum = block.el.querySelector('.table__orderProduct_edit .table_orderProducts__productSum');
+
+            productSum.innerHTML = table_orderProducts__productSum({
+                orderProductModel: block.editedProductModel,
+                quantity: quantity
             });
         }
     });

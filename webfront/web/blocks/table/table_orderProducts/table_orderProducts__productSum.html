@@ -1,0 +1,7 @@
+<% var OrderProductModel = require('models/orderProduct') %>
+<% var orderProductModel = orderProductModel || new OrderProductModel() %>
+<% var quantity = quantity || orderProductModel.get('quantity') || ''%>
+
+<span>
+    <%- LH.formatMoney(orderProductModel.get('product.product.purchasePrice') * quantity) %>
+</span>

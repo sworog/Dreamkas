@@ -1,6 +1,9 @@
 <% var collections = _.extend({
     orderProducts: new Backbone.Collection
 }, collections) %>
+<% var templates = {
+    table_orderProducts__productSum: require('tpl!./table_orderProducts__productSum.html')
+} %>
 <% if (collections.orderProducts.length) { %>
 <table class="table table__orderProducts">
     <thead>
@@ -30,7 +33,7 @@
         </td>
         <td>
         <span style="white-space: nowrap">
-            <input autofocus type="text" class="inputText" value="<%- LH.formatAmount(orderProductModel.get('quantity')) %>" />
+            <input data-name="quantity" autofocus type="text" class="inputText" value="<%- LH.formatAmount(orderProductModel.get('quantity')) %>" />
             <span class="table__orderProduct__editable" name="productAmount">
                 <%- LH.formatAmount(orderProductModel.get('quantity')) %>
             </span>
@@ -51,8 +54,10 @@
         </td>
         <td>
             <div style="white-space: nowrap">
-            <span name="productSum">
-                <%- LH.formatMoney(orderProductModel.get('product.product.purchasePrice') * orderProductModel.get('quantity') || '') %>
+            <span class="table_orderProducts__productSum" name="productSum">
+                <%= templates.table_orderProducts__productSum({
+                    orderProductModel: orderProductModel
+                }) %>
             </span>
             <span>
                 руб.
