@@ -58,4 +58,10 @@ public class OrderProductObject extends AbstractObject implements ResultComparab
     public void click() {
         getElement().click();
     }
+
+    public void quantityType(String value) {
+        WebElement quantityWebElement = getElement().findElement(By.xpath(".//*[@data-name='quantity']"));
+        quantityWebElement.clear();
+        quantityWebElement.sendKeys(value);
+    }
 }

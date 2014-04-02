@@ -1,14 +1,15 @@
 package project.lighthouse.autotests.pages.departmentManager.order;
 
 import net.thucydides.core.annotations.DefaultUrl;
+import net.thucydides.core.annotations.findby.FindBy;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Buttons.LinkFacade;
 import project.lighthouse.autotests.elements.items.NewAutoComplete;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
-import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductObjectCollection;
 import project.lighthouse.autotests.pages.departmentManager.order.pageElements.ProductAdditionForm;
 import project.lighthouse.autotests.pages.departmentManager.order.pageElements.ProductEditionForm;
@@ -27,6 +28,14 @@ public class OrderPage extends CommonPageObject {
 
     @SuppressWarnings("unused")
     private ProductEditionForm productEditionForm;
+
+    @FindBy(xpath = "//*[@class='page__data']/h2")
+    @SuppressWarnings("unused")
+    WebElement orderNumberHeaderTextWebElement;
+
+    @FindBy(xpath = "//*[@class='form_order__saveControls']/p")
+    @SuppressWarnings("unused")
+    WebElement saveControlsTextWebElement;
 
     public OrderPage(WebDriver driver) {
         super(driver);
@@ -50,17 +59,20 @@ public class OrderPage extends CommonPageObject {
         return findVisibleElement(By.className("form_order__totalSum")).getText();
     }
 
-    public void saveButtonClick() {
-        new ButtonFacade(this, "Сохранить").click();
-        new PreLoader(getDriver()).await();
+    public ButtonFacade getSaveButton() {
+        return new ButtonFacade(this, "Сохранить");
     }
 
-    public void cancelLinkClick() {
-        new LinkFacade(this, "Отменить").click();
+    public ButtonFacade getOrderAcceptButton() {
+        return new ButtonFacade(this, "Принять по заказу");
+    }
+
+    public LinkFacade getCancelLink() {
+        return new LinkFacade(this, "Отменить");
     }
 
     public void deleteButtonClick() {
-        new ButtonFacade(this, "Удалить").click();
+        new LinkFacade(this, "Удалить").click();
     }
 
     public OrderProductObjectCollection getOrderProductObjectCollection() {
@@ -68,10 +80,14 @@ public class OrderPage extends CommonPageObject {
     }
 
     public String getOrderNumberHeaderText() {
-        return findVisibleElement(By.xpath("//*[@class='page__data']/h2")).getText();
+        return findVisibleElement(orderNumberHeaderTextWebElement).getText();
     }
 
     public LinkFacade getDownloadFileLink() {
         return new LinkFacade(this, "Скачать файл заказа");
+    }
+
+    public String getSaveControlsText() {
+        return findVisibleElement(saveControlsTextWebElement).getText();
     }
 }

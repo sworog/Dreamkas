@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.junit.Assert;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.Buttons.LinkFacade;
+import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.helper.exampleTable.order.OrderExampleTableUpdater;
 import project.lighthouse.autotests.objects.web.order.order.OrderObjectCollection;
 import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductObject;
@@ -74,6 +75,20 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
+    public void orderProductCollectionObjectQuantityType(String locator, String value) {
+        OrderProductObject orderProductObject =
+                (OrderProductObject) orderPage.getOrderProductObjectCollection().getAbstractObjectByLocator(locator);
+        orderProductObject.quantityType(value);
+    }
+
+    @Step
+    public void lastCreatedOrderProductCollectionObjectQuantityType(String value) throws JSONException {
+        orderProductCollectionObjectQuantityType(
+                Storage.getOrderVariableStorage().getProduct().getName(),
+                value);
+    }
+
+    @Step
     public void lastCreatedOrderProductCollectionObjectClickByLocator() throws JSONException {
         orderProductCollectionObjectClickByLocator(
                 Storage.getOrderVariableStorage().getProduct().getName());
@@ -89,12 +104,43 @@ public class OrderSteps extends ScenarioSteps {
 
     @Step
     public void saveButtonClick() {
-        orderPage.saveButtonClick();
+        orderPage.getSaveButton().click();
+        new PreLoader(getDriver()).await();
+    }
+
+    @Step
+    public void saveButtonShouldBeNotVisible() {
+        orderPage.getSaveButton().shouldBeNotVisible();
+    }
+
+    @Step
+    public void saveButtonShouldBeVisible() {
+        orderPage.getSaveButton().shouldBeVisible();
+    }
+
+    @Step
+    public void orderAcceptButtonShouldBeVisible() {
+        orderPage.getOrderAcceptButton().shouldBeVisible();
+    }
+
+    @Step
+    public void orderAcceptButtonShouldBeNotVisible() {
+        orderPage.getOrderAcceptButton().shouldBeNotVisible();
     }
 
     @Step
     public void cancelLinkClick() {
-        orderPage.cancelLinkClick();
+        orderPage.getCancelLink().click();
+    }
+
+    @Step
+    public void cancelLinkShouldBeNotVisible() {
+        orderPage.getCancelLink().shouldBeNotVisible();
+    }
+
+    @Step
+    public void cancelLinkShouldBeVisible() {
+        orderPage.getCancelLink().shouldBeVisible();
     }
 
     @Step
@@ -233,6 +279,14 @@ public class OrderSteps extends ScenarioSteps {
         assertThat(
                 orderPage.getOrderNumberHeaderText(),
                 equalTo(expectedNumber));
+    }
+
+    @Step
+    public void assertSaveControlsText(String expectedText) {
+        assertThat(
+                orderPage.getSaveControlsText(),
+                equalTo(expectedText)
+        );
     }
 
     @Step
