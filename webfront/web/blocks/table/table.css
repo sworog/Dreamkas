@@ -118,10 +118,23 @@
     height: 35px;
 }
 
-.table__orderProduct_edit input[type="text"]{
+.table__orderProduct_edit input[type="text"] {
     display: inline-block;
 }
 
 .table__orderProduct_edit .table__orderProduct__editable{
     display: none;
+}
+
+.table__orderProduct .form_order__removeProductLink{
+    visibility: hidden;
+    font-size: 20px;
+}
+
+.table__orderProduct_edit .form_order__removeProductLink{
+    visibility: visible;
+}
+
+.table__orderProduct__error td{
+    color: #d40000;
 }
