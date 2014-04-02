@@ -54,6 +54,8 @@ When the user inputs values on order page
 
 When the user presses 'ENTER' key button
 
+Then the user waits for the order product edition preloader finish
+
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |
 | {lastCreatedProductName} | шт. | 1,0 | 100,00 | 100,00 |
@@ -97,6 +99,8 @@ And the user checks the cancel link button should be not visible
 When the user clicks on order product in last created order
 And the user inputs quantity '2,0' on the order product in last created order
 And the user presses 'ENTER' key button
+
+Then the user waits for the order product edition preloader finish
 
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |
