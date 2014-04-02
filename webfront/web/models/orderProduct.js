@@ -14,7 +14,7 @@ define(function(require, exports, module) {
         },
         saveData: function(){
             return {
-                product: this.get('product'),
+                product: this.get('product.product.id'),
                 quantity: this.get('quantity')
             };
         }
