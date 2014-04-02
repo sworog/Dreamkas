@@ -16,8 +16,13 @@ define(function(require, exports, module) {
         redirectUrl: '/orders',
         el: '.form_order',
         model: new OrderModel(),
-        $tr: $('<tr class="form_order__editor"><td colspan="4"></td></tr>'),
+        editedProductModel: null,
         events: {
+            'change [name]': function(e){
+                var block = this;
+
+                block.model.set(e.target.name, e.target.value);
+            },
             'click tr[data-product_cid]': function(e) {
                 var block = this,
                     tr = e.currentTarget,
@@ -28,15 +33,17 @@ define(function(require, exports, module) {
 
                 block.editProduct(orderProductModel);
             },
-            'click .form_orderProduct__cancelLink': function(e) {
+            'blur .table__orderProduct input': function(){
                 var block = this;
-                block.$tr.detach();
+
+                block.validateEditedProduct();
             }
         },
         listeners: {
             'model': {
                 change: function(){
-                    console.log(1);
+                    var block = this;
+                    block.el.classList.add('form_changed');
                 }
             },
             'blocks.autocomplete': {
@@ -49,9 +56,6 @@ define(function(require, exports, module) {
                     });
                 }
             }
-        },
-        submitSucess: function(){
-            document.location.reload();
         },
         initialize: function() {
             var block = this;
@@ -72,18 +76,19 @@ define(function(require, exports, module) {
             var block = this,
                 tr = block.el.querySelector('tr[data-product_cid="' + orderProductModel.cid + '"]');
 
-            block.cancelProductEditing();
+            block.editedProductModel = orderProductModel;
 
             tr.classList.add('table__orderProduct_edit');
             tr.querySelector('[autofocus]').focus();
         },
-        cancelProductEditing: function(){
-            var block = this,
-                tr = block.el.querySelector('.table__orderProduct_edit');
+        validateEditedProduct: function(){
+            var block = this;
 
-            if (tr){
-                tr.classList.remove('table__orderProduct_edit');
-            }
+            block.editedProductModel.save({}, {
+                success: function(){
+                    console.log(arguments);
+                }
+            });
         }
     });
 });
