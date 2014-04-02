@@ -2,7 +2,7 @@
 
 define(function(require) {
         //requirements
-        var Block = require('kit/core/block'),
+        var Block = require('kit/core/block.deprecated'),
             DataCollection = require('./collections/data'),
             columnsCollection = require('./collections/columns');
 

@@ -64,6 +64,7 @@ class OrderProduct extends AbstractDocument
      * )
      * @Serializer\SerializedName("product")
      * @Serializer\Accessor(getter="getStoreProductVersion")
+     * @Serializer\MaxDepth(3)
      * @var StoreProduct
      */
     protected $storeProduct;
@@ -75,6 +76,7 @@ class OrderProduct extends AbstractDocument
      *     cascade="persist",
      *     mappedBy="products"
      * )
+     * @Serializer\MaxDepth(2)
      *
      * @var Order
      */

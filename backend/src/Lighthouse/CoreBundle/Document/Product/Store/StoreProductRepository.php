@@ -250,13 +250,13 @@ class StoreProductRepository extends DocumentRepository
 
     /**
      * @param Store $store
-     * @param string $property
+     * @param string $properties
      * @param string $query
      * @return StoreProductCollection
      */
-    public function searchStoreProductByProductProperty(Store $store, $property, $query)
+    public function searchStoreProductByProductProperties(Store $store, $properties, $query)
     {
-        $productCollection = $this->productRepository->searchEntry($property, $query);
+        $productCollection = $this->productRepository->searchEntry($properties, $query);
 
         return $this->findByProducts($store, $productCollection);
     }

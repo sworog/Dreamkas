@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Buttons.LinkFacade;
-import project.lighthouse.autotests.elements.Input;
+import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.pages.commercialManager.supplier.pageElements.UploadForm;
 
 /**

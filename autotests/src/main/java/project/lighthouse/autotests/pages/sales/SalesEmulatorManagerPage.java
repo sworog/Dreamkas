@@ -4,8 +4,8 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.elements.Autocomplete;
-import project.lighthouse.autotests.elements.Input;
+import project.lighthouse.autotests.elements.items.Autocomplete;
+import project.lighthouse.autotests.elements.items.Input;
 
 @DefaultUrl("/sale")
 public class SalesEmulatorManagerPage extends CommonPageObject {

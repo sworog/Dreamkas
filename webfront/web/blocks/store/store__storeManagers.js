@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/core/block'),
+    var Block = require('kit/core/block.deprecated'),
         Select_storeManagers = require('blocks/select/select_storeManagers/select_storeManagers');
 
     return Block.extend({

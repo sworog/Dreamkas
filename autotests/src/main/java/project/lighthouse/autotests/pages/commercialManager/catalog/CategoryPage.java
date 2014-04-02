@@ -3,7 +3,7 @@ package project.lighthouse.autotests.pages.commercialManager.catalog;
 
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
-import project.lighthouse.autotests.elements.InputOnlyVisible;
+import project.lighthouse.autotests.elements.items.InputOnlyVisible;
 
 public class CategoryPage extends GroupPage {
 

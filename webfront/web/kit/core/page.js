@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var app = require('app'),
-        Block = require('./block'),
+        Block = require('kit/core/block.deprecated'),
         Backbone = require('backbone'),
         router = require('router'),
         isAllow = require('../utils/isAllow'),

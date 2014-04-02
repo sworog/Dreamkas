@@ -6,7 +6,8 @@ import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Buttons.LinkFacade;
-import project.lighthouse.autotests.elements.SelectByVisibleText;
+import project.lighthouse.autotests.elements.items.NewAutoComplete;
+import project.lighthouse.autotests.elements.items.SelectByVisibleText;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductObjectCollection;
 import project.lighthouse.autotests.pages.departmentManager.order.pageElements.ProductAdditionForm;
@@ -42,6 +43,7 @@ public class OrderPage extends CommonPageObject {
     @Override
     public void createElements() {
         getItems().put("supplier", new SelectByVisibleText(this, "supplier", "Поставщик"));
+        getItems().put("order product autocomplete", new NewAutoComplete(this, By.xpath("//*[@class='inputText autocomplete']")));
     }
 
     public String getOrderTotalSumText() {

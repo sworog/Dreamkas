@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.common.CommonView;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
-import project.lighthouse.autotests.elements.NonType;
+import project.lighthouse.autotests.elements.items.NonType;
 
 @DefaultUrl("/users")
 public class UsersListPage extends CommonPageObject {

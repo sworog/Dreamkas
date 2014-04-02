@@ -14,13 +14,22 @@ use MongoRegex;
 class ProductRepository extends DocumentRepository implements ParentableRepository
 {
     /**
-     * @param string $property
+     * @param string|array $properties
      * @param string $entry
      * @return Cursor
      */
-    public function searchEntry($property, $entry)
+    public function searchEntry($properties, $entry)
     {
-        return $this->findBy(array($property => new MongoRegex("/".preg_quote($entry, '/')."/i")));
+        if (!is_array($properties)) {
+            $properties = array($properties);
+        }
+
+        $or = array();
+        foreach ($properties as $property) {
+            $or[] = array($property => new MongoRegex("/".preg_quote($entry, '/')."/i"));
+        }
+
+        return $this->findBy(array('$or' => $or));
     }
 
     /**

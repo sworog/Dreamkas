@@ -2,10 +2,10 @@ package project.lighthouse.autotests.pages.departmentManager.order.pageElements;
 
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.elements.Autocomplete;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
-import project.lighthouse.autotests.elements.Input;
-import project.lighthouse.autotests.elements.NonType;
+import project.lighthouse.autotests.elements.items.Autocomplete;
+import project.lighthouse.autotests.elements.items.Input;
+import project.lighthouse.autotests.elements.items.NonType;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 
 public class ProductAdditionForm extends CommonPageObject {

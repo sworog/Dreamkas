@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.common.CommonView;
-import project.lighthouse.autotests.elements.NonType;
+import project.lighthouse.autotests.elements.items.NonType;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductListPage;
 
 @DefaultUrl("/balance")

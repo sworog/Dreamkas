@@ -4,7 +4,7 @@ import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.elements.Autocomplete;
+import project.lighthouse.autotests.elements.items.Autocomplete;
 
 import java.util.Map;
 

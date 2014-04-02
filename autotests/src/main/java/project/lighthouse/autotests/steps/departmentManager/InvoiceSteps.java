@@ -5,7 +5,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
-import project.lighthouse.autotests.elements.DateTime;
+import project.lighthouse.autotests.elements.items.DateTime;
 import project.lighthouse.autotests.elements.preLoader.CheckBoxPreloader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.pages.departmentManager.invoice.*;

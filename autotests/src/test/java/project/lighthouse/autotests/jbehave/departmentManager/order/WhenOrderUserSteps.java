@@ -16,6 +16,11 @@ public class WhenOrderUserSteps {
         orderSteps.input(examplesTable);
     }
 
+    @When("the user inputs value in element '$elementName' on order page")
+    public void whenTheUserInputsValueInElementOnOrderPage(String value, String elementName) {
+        orderSteps.input(elementName, value);
+    }
+
     @When("the user inputs values in addition new product form on the order page $examplesTable")
     public void whenTheUserInputsValuesInAdditionNewProductFormOnTheOrderPage(ExamplesTable examplesTable) {
         orderSteps.additionFormInput(examplesTable);

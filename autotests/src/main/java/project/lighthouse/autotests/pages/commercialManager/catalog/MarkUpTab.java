@@ -5,8 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
-import project.lighthouse.autotests.elements.InputOnlyVisible;
-import project.lighthouse.autotests.elements.SelectByVisibleText;
+import project.lighthouse.autotests.elements.items.InputOnlyVisible;
+import project.lighthouse.autotests.elements.items.SelectByVisibleText;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 
 import static junit.framework.Assert.assertEquals;

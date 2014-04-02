@@ -105,3 +105,15 @@
     margin-left: 30px;
     cursor: pointer;
 }
+
+.form_order__saveControls{
+    display: none;
+}
+
+.form_order.form_changed .form_order__invoiceControls{
+    display: none;
+}
+
+.form_order.form_changed .form_order__saveControls{
+    display: block;
+}
