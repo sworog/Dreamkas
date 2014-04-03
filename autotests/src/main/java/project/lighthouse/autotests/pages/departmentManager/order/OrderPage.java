@@ -11,23 +11,12 @@ import project.lighthouse.autotests.elements.Buttons.LinkFacade;
 import project.lighthouse.autotests.elements.items.NewAutoComplete;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
 import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductObjectCollection;
-import project.lighthouse.autotests.pages.departmentManager.order.pageElements.ProductAdditionForm;
-import project.lighthouse.autotests.pages.departmentManager.order.pageElements.ProductEditionForm;
 
 /**
  * Page object class representing create/edit/view order page
  */
 @DefaultUrl("/orders/create")
 public class OrderPage extends CommonPageObject {
-
-    /**
-     * Page element representing product addition form controls in order page
-     */
-    @SuppressWarnings("unused")
-    private ProductAdditionForm productAdditionForm;
-
-    @SuppressWarnings("unused")
-    private ProductEditionForm productEditionForm;
 
     @FindBy(xpath = "//*[@class='page__data']/h2")
     @SuppressWarnings("unused")
@@ -39,14 +28,6 @@ public class OrderPage extends CommonPageObject {
 
     public OrderPage(WebDriver driver) {
         super(driver);
-    }
-
-    public ProductAdditionForm getProductAdditionForm() {
-        return productAdditionForm;
-    }
-
-    public ProductEditionForm getProductEditionForm() {
-        return productEditionForm;
     }
 
     @Override

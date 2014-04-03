@@ -35,29 +35,14 @@ public class ThenOrderUserSteps {
         orderSteps.assertTotalSum(expectedTotalSum);
     }
 
-    @Then("the user checks the filled autocomplete values in product addition form $examplesTable")
-    public void thenTheUserChecksTheFilledAutoCompleteValues(ExamplesTable examplesTable) {
-        orderSteps.checksValues(examplesTable);
-    }
-
     @Then("the user checks the filled order page values $examplesTable")
     public void thenTheUserChecksTheFilledOrderPageValues(ExamplesTable examplesTable) {
         orderSteps.checkOrderPageValues(examplesTable);
     }
 
-    @Then("the user checks the autocomplete values $examplesTable")
-    public void thenTheUserChecksTheAdditionProductFormValues(ExamplesTable examplesTable) {
-        orderSteps.additionFormCheckValues(examplesTable);
-    }
-
     @Then("the user asserts the order field label with name '$elementName'")
     public void thenTheUserAssertsTheOrderFieldLabelWithName(String elementName) {
         orderSteps.assertFieldLabelTitle(elementName);
-    }
-
-    @Then("the user asserts the order field label with name '$elementName' of product addition form")
-    public void thenTheUserAssertsTheOrderFieldLabelWithNameOfProductAdditionForm(String elementName) {
-        orderSteps.assertAdditionProductFormLabelTitle(elementName);
     }
 
     @Then("the user checks the orders list contains exact entries $examplesTable")

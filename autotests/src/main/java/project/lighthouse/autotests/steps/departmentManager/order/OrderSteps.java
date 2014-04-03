@@ -45,26 +45,6 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
-    public void additionFormInput(ExamplesTable examplesTable) {
-        orderPage.getProductAdditionForm().fieldInput(examplesTable);
-    }
-
-    @Step
-    public void editionFormInput(ExamplesTable examplesTable) {
-        orderPage.getProductEditionForm().fieldInput(examplesTable);
-    }
-
-    @Step
-    public void additionFormInput(String elementName, String value) {
-        orderPage.getProductAdditionForm().input(elementName, value);
-    }
-
-    @Step
-    public void editionFormInput(String elementName, String value) {
-        orderPage.getProductEditionForm().input(elementName, value);
-    }
-
-    @Step
     public void productCollectionExactCompare(ExamplesTable examplesTable) throws JSONException {
         ExamplesTable updatedExampleTable = new OrderExampleTableUpdater(examplesTable).updateValues();
         orderPage.getOrderProductObjectCollection().exactCompareExampleTable(updatedExampleTable);
@@ -173,38 +153,8 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
-    public void checksValues(ExamplesTable examplesTable) {
-        orderPage.getProductAdditionForm().checkCardValue(examplesTable);
-    }
-
-    @Step
-    public void additionFormCheckValues(ExamplesTable examplesTable) {
-        orderPage.getProductAdditionForm().checkValues(examplesTable);
-    }
-
-    @Step
     public void assertFieldLabelTitle(String elementName) {
         orderPage.checkFieldLabel(elementName);
-    }
-
-    @Step
-    public void assertAdditionProductFormLabelTitle(String elementName) {
-        orderPage.getProductAdditionForm().checkFieldLabel(elementName);
-    }
-
-    @Step
-    public void addProductToOrderButtonClick() {
-        orderPage.getProductAdditionForm().addButtonClick();
-    }
-
-    @Step
-    public void editOrderProductButtonClick() {
-        orderPage.getProductEditionForm().editButtonClick();
-    }
-
-    @Step
-    public void cancelOrderProductButtonClick() {
-        orderPage.getProductEditionForm().cancelLinkClick();
     }
 
     @Step
@@ -283,11 +233,6 @@ public class OrderSteps extends ScenarioSteps {
                     Storage.getOrderVariableStorage().getProduct().getName());
         } catch (TimeoutException ignored) {
         }
-    }
-
-    @Step
-    public void deletionIconClick() {
-        orderPage.getProductEditionForm().deletionIconClick();
     }
 
     @Step

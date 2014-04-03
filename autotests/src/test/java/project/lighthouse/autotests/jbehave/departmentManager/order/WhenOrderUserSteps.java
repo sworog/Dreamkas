@@ -22,26 +22,6 @@ public class WhenOrderUserSteps {
         orderSteps.input(elementName, value);
     }
 
-    @When("the user inputs values in addition new product form on the order page $examplesTable")
-    public void whenTheUserInputsValuesInAdditionNewProductFormOnTheOrderPage(ExamplesTable examplesTable) {
-        orderSteps.additionFormInput(examplesTable);
-    }
-
-    @When("the user inputs values in edition new product form on the order page $examplesTable")
-    public void whenTheUserInputsValuesInEditionNewProductFormOnTheOrderPage(ExamplesTable examplesTable) {
-        orderSteps.editionFormInput(examplesTable);
-    }
-
-    @When("the user inputs value in elementName '$elementName' in addition new product form on the order page")
-    public void whenTheUserInputsValuesInAdditionNewProductFormOnTheOrderPage(String value, String elementName) {
-        orderSteps.additionFormInput(elementName, value);
-    }
-
-    @When("the user inputs value in elementName '$elementName' in edition new product form on the order page")
-    public void whenTheUserInputsValuesInEditionNewProductFormOnTheOrderPage(String value, String elementName) {
-        orderSteps.editionFormInput(elementName, value);
-    }
-
     @When("the user clicks the save order button")
     public void whenTheUserClicksTheCreateOrderButton() {
         orderSteps.saveButtonClick();
@@ -60,21 +40,6 @@ public class WhenOrderUserSteps {
     @When("the user clicks the cancel link button")
     public void whenTheUserClicksTheCancelLinkrButton() {
         orderSteps.cancelLinkClick();
-    }
-
-    @When("the user clicks the add order product button")
-    public void whenTheUserClicksTheAddOrderProductButton() {
-        orderSteps.addProductToOrderButtonClick();
-    }
-
-    @When("the user clicks the edit order product button")
-    public void whenTheUserClicksTheEditOrderProductButton() {
-        orderSteps.editOrderProductButtonClick();
-    }
-
-    @When("the user clicks the cancel order product button")
-    public void whenTheUserClicksTheCancelOrderProductButton() {
-        orderSteps.cancelOrderProductButtonClick();
     }
 
     @When("the user clicks on order product in last created order")
@@ -117,10 +82,5 @@ public class WhenOrderUserSteps {
     @When("the user clicks on the order with number '$number' on the orders list page")
     public void whenTheUserClicksOnTheOrderWithNumberOnOrdersListPage(String number) {
         orderSteps.openOrderWithNameObjectClick(number);
-    }
-
-    @When("the user clicks on deletion item icon to delete edited order product")
-    public void whenTheUserClicksOnDeletionItemIconToDeleteEditedOrderProduct() {
-        orderSteps.deletionIconClick();
     }
 }
