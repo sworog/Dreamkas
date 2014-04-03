@@ -29,16 +29,26 @@ And the user logs in using 'departmentManager-s30u67' userName and 'lighthouse' 
 When the user inputs values on order page
 | elementName | value |
 | supplier | SupplierOrderDeletionTest |
-And the user inputs values in addition new product form on the order page
+
+When the user inputs values on order page
 | elementName | value |
-| name | name-3067 |
-| quantity | 5 |
-And the user clicks the add order product button
-And the user inputs values in addition new product form on the order page
+| order product autocomplete | name-3067 |
+And the user inputs quantity '5' on the order product with name 'name-3067'
+And the user presses 'ENTER' key button
+
+Then the user waits for the order product edition preloader finish
+
+Then the user checks the order total sum is 'Итого: 500,00 руб'
+
+When the user inputs values on order page
 | elementName | value |
-| name | name-30671 |
-| quantity | 5 |
-And the user clicks the add order product button
+| order product autocomplete | name-30671 |
+And the user inputs quantity '5' on the order product with name 'name-30671'
+And the user presses 'ENTER' key button
+
+Then the user waits for the order product edition preloader finish
+
+Then the user checks the order total sum is 'Итого: 1 000,00 руб'
 
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |
@@ -51,7 +61,7 @@ When the user clicks the save order button
 When the user clicks on the order with number '10001' on the orders list page
 
 When the user clicks on the order product by name 'name-3067'
-And the user clicks on deletion item icon to delete edited order product
+And the user clicks on delete icon and deletes order product with name 'name-3067'
 
 Then the user checks the order products list do not contain product with name 'name-3067'
 And the user checks the order products list contains entry
@@ -84,7 +94,7 @@ And the user logs in using 'departmentManager-s30u67' userName and 'lighthouse' 
 
 When the user clicks on order product in last created order
 
-When the user clicks on deletion item icon to delete edited order product
+When the user clicks on delete icon and deletes last created order product
 
 Then the user checks the last created order products list dont contains product
 
