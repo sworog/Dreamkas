@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.steps.departmentManager.order;
 
 import net.thucydides.core.annotations.Step;
+import net.thucydides.core.annotations.findby.By;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
@@ -268,5 +269,10 @@ public class OrderSteps extends ScenarioSteps {
     @Step
     public void waitForPreLoader() {
         new OrderProductEditionPreLoader(getDriver()).await();
+    }
+
+    @Step
+    public void focusOutClick() {
+        orderPage.findVisibleElement(By.xpath("//h2[text()='Добавление товара в заказ']")).click();
     }
 }

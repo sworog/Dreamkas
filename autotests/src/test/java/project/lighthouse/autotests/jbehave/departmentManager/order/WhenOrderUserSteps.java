@@ -83,4 +83,9 @@ public class WhenOrderUserSteps {
     public void whenTheUserClicksOnTheOrderWithNumberOnOrdersListPage(String number) {
         orderSteps.openOrderWithNameObjectClick(number);
     }
+
+    @When("the user focuses out on the order page")
+    public void whenTheUserFocusesOutOnTheOrderPage() {
+        orderSteps.focusOutClick();
+    }
 }
