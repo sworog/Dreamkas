@@ -91,6 +91,16 @@ public class WhenOrderUserSteps {
         orderSteps.orderProductCollectionObjectQuantityType(name, value);
     }
 
+    @When("the user clicks on delete icon and deletes order product with name '$name'")
+    public void whenTheUserClicksOnDeleteIconAndDeletesOrderProductWithName(String name) {
+        orderSteps.orderProductCollectionObjectDeleteIconClick(name);
+    }
+
+    @When("the user clicks on delete icon and deletes last created order product")
+    public void whenTheUserClicksOnDeleteIconAndDeletesLastCreatedOrderProduct() throws JSONException {
+        orderSteps.lastCreatedOrderProductCollectionObjectDeleteIconClick();
+    }
+
     @When("the user clicks on the order product by name '$name'")
     public void whenTheUserClicksOnTheOrderProductByName(String name) {
         orderSteps.orderProductCollectionObjectClickByLocator(name);

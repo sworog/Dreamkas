@@ -64,4 +64,8 @@ public class OrderProductObject extends AbstractObject implements ResultComparab
         quantityWebElement.clear();
         quantityWebElement.sendKeys(value);
     }
+
+    public void deleteIconClick() {
+        getElement().findElement(By.xpath(".//*[@class='icon-remove-sign form_order__removeProductLink']")).click();
+    }
 }

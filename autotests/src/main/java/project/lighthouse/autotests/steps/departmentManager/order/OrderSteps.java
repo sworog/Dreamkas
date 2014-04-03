@@ -76,10 +76,26 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
+    public void orderProductCollectionObjectDeleteIconClick(String locator) {
+        ((OrderProductObject) orderPage.
+                getOrderProductObjectCollection().
+                getAbstractObjectByLocator(locator)).
+                deleteIconClick();
+    }
+
+    @Step
+    public void lastCreatedOrderProductCollectionObjectDeleteIconClick() throws JSONException {
+        orderProductCollectionObjectDeleteIconClick(
+                Storage.getOrderVariableStorage().getProduct().getName());
+    }
+
+
+    @Step
     public void orderProductCollectionObjectQuantityType(String locator, String value) {
-        OrderProductObject orderProductObject =
-                (OrderProductObject) orderPage.getOrderProductObjectCollection().getAbstractObjectByLocator(locator);
-        orderProductObject.quantityType(value);
+        ((OrderProductObject) orderPage.
+                getOrderProductObjectCollection().
+                getAbstractObjectByLocator(locator)).
+                quantityType(value);
     }
 
     @Step
