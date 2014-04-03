@@ -9,7 +9,7 @@ Check order create field labels text
 Scenario: Assert supllier select title
 
 Meta:
-@id_s30u63s11
+@id_s30u63s8
 @description assert order field label supplier
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story

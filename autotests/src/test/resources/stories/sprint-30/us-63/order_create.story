@@ -121,7 +121,7 @@ Then the user sees no error messages
 Scenario: Verify product sum calculation with dot
 
 Meta:
-@id_s30u63s6
+@id_s30u63s3
 @smoke
 @description verifying product sum calculation
 
@@ -145,7 +145,7 @@ Then the user checks the order products list contains entry
 Scenario: Verify product sum calculation with comma
 
 Meta:
-@id_s30u63s7
+@id_s30u63s4
 @smoke
 @description verifying product sum calculation
 
@@ -169,7 +169,7 @@ Then the user checks the order products list contains entry
 Scenario: Verify product sum calculation with big amount
 
 Meta:
-@id_s30u63s8
+@id_s30u63s5
 @smoke
 @description verifying product sum calculation
 
@@ -193,7 +193,7 @@ Then the user checks the order products list contains entry
 Scenario: Verify autocomplete product with no price is choosen
 
 Meta:
-@id_s30u63s9
+@id_s30u63s6
 
 Given there is the user with name 'departmentManager-s30u63', position 'departmentManager-s30u63', username 'departmentManager-s30u63', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s30u63' managed by department manager named 'departmentManager-s30u63'
@@ -219,7 +219,7 @@ Then the user checks the order products list contains entry
 Scenario: Verify autocomplete product with price with no mark up is choosen
 
 Meta:
-@id_s30u63s10
+@id_s30u63s7
 
 Given there is the user with name 'departmentManager-s30u63', position 'departmentManager-s30u63', username 'departmentManager-s30u63', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s30u63' managed by department manager named 'departmentManager-s30u63'
