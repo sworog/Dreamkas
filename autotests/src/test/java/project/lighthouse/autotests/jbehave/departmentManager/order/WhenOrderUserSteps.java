@@ -89,6 +89,7 @@ public class WhenOrderUserSteps {
     }
 
     @When("the user inputs quantity '$value' on the order product with name '$name'")
+    @Alias("the user inputs quantity value on the order product with name '$name'")
     public void whenTheUserInputsQuantityValueOnTheOrderProductInLastCreatedOrder(String value, String name) throws JSONException {
         orderSteps.orderProductCollectionObjectQuantityType(name, value);
     }

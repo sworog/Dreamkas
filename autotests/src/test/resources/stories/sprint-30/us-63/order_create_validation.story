@@ -42,76 +42,6 @@ Then the user sees error messages
 |error message |
 | Нужно добавить минимум один товар |
 
-Scenario: Addition product form - autocomplete is required
-
-Meta:
-@id_s30u63s18
-
-GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
-
-Given the user opens order create page
-And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
-
-When the user inputs values on order page
-| elementName | value |
-| supplier | supplier-s30u63s1 |
-When the user inputs values in addition new product form on the order page
-| elementName | value |
-| quantity | 5 |
-
-When the user clicks the add order product button
-
-Then the user sees error messages
-| error message |
-| Заполните это поле |
-
-Scenario: Addition product form - quantity is required
-
-Meta:
-@id_s30u63s19
-
-GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
-
-Given the user opens order create page
-And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
-
-When the user inputs values on order page
-| elementName | value |
-| supplier | supplier-s30u63s1 |
-When the user inputs values in addition new product form on the order page
-| elementName | value |
-| name | name-3063 |
-
-When the user clicks the add order product button
-
-Then the user sees error messages
-| error message |
-| Заполните это поле |
-
-Scenario: Addition product form - autocomplete validation
-
-Meta:
-@id_s30u63s20
-
-GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
-
-Given the user opens order create page
-And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
-
-When the user inputs values on order page
-| elementName | value |
-| supplier | supplier-s30u63s1 |
-When the user inputs values in addition new product form on the order page
-| elementName | value |
-| name | !dfdfdfdfdfdfdf |
-| quantity | 5 |
-
-When the user clicks the add order product button
-
-Then the user sees error messages
-| error message |
-| Такого товара не существует |
-
 Scenario: Addition product form - quantity positive validation
 
 Meta:
@@ -130,12 +60,14 @@ And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' 
 When the user inputs values on order page
 | elementName | value |
 | supplier | supplier-s30u63s1 |
-When the user inputs values in addition new product form on the order page
-| elementName | value |
-| name | name-3063 |
-And the user inputs value in elementName 'quantity' in addition new product form on the order page
 
-When the user clicks the add order product button
+When the user inputs values on order page
+| elementName | value |
+| order product autocomplete | name-3063 |
+And the user inputs quantity value on the order product with name 'name-3063'
+And the user presses 'ENTER' key button
+
+Then the user waits for the order product edition preloader finish
 
 Then the user checks the order product found by name 'name-3063' has quantity equals to expectedValue
 And the user sees no error messages
@@ -149,6 +81,10 @@ Examples:
 | 1.12 | 1,12 |
 | 1.123 | 1,123 |
 | 1,123 | 1,123 |
+| 1000 | 1 000,0 |
+| 1 000 | 1 000,0 |
+| 123123,123 | 123 123,123 |
+| 123 123,123 | 123 123,123 |
 
 Scenario: Addition product form - quantity negative validation
 
@@ -168,18 +104,20 @@ And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' 
 When the user inputs values on order page
 | elementName | value |
 | supplier | supplier-s30u63s1 |
-And the user inputs values in addition new product form on the order page
+
+When the user inputs values on order page
 | elementName | value |
-| name | name-3063 |
+| order product autocomplete | name-3063 |
+And the user inputs quantity value on the order product with name 'name-3063'
+And the user presses 'ENTER' key button
 
-When the user inputs value in elementName 'quantity' in addition new product form on the order page
-
-When the user clicks the add order product button
+Then the user waits for the order product edition preloader finish
 
 Then the user user sees errorMessage
 
 Examples:
 | value | errorMessage |
+|  | Заполните это поле |
 | -10 | Значение должно быть больше 0 |
 | -1 | Значение должно быть больше 0 |
 | -1,12 | Значение должно быть больше 0 |
@@ -228,29 +166,4 @@ And the user opens orders list page
 And the user logs in using 'departmentManager-s30u63-no-store' userName and 'lighthouse' password
 
 Then the user sees the 403 error
-
-Scenario: The order product addition form fields should be cleared after adding order product
-
-Meta:
-@id_s30u63s26
-
-GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
-
-Given the user opens order create page
-And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
-
-When the user inputs values in addition new product form on the order page
-| elementName | value |
-| name | name-3063 |
-| quantity | 5 |
-
-When the user clicks the add order product button
-
-Then the user checks the autocomplete values
-| elementName | value |
-| name |  |
-| quantity |  |
-| retailPrice | 0,00 |
-| totalSum | 0,00 |
-| inventory | — |
 
