@@ -123,7 +123,7 @@ Then the user checks the orders list contains entry
 Scenario: Order product edit - add new product
 
 Meta:
-@id_s30u67s5
+@id_s30u67s4
 @smoke
 
 GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
@@ -160,7 +160,7 @@ Then the user checks the order products list contains entry
 Scenario: Assert order number
 
 Meta:
-@id_s30u67s7
+@id_s30u67s5
 
 GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 

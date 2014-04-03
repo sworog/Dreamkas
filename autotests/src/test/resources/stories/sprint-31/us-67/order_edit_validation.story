@@ -9,7 +9,7 @@ Narrative:
 Scenario: Order edit - Edition product form - quantity positive validation
 
 Meta:
-@id_s30u67s11
+@id_s30u67s6
 
 Given there is the user with name 'departmentManager-s30u67', position 'departmentManager-s30u67', username 'departmentManager-s30u67', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s30u67' managed by department manager named 'departmentManager-s30u67'
@@ -46,7 +46,7 @@ Examples:
 Scenario: Order edit - Edition product form - quantity negative validation
 
 Meta:
-@id_s30u67s12
+@id_s30u67s7
 
 Given there is the user with name 'departmentManager-s30u67', position 'departmentManager-s30u67', username 'departmentManager-s30u67', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s30u67' managed by department manager named 'departmentManager-s30u67'
