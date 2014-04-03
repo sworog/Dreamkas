@@ -43,8 +43,10 @@ define(function(require, exports, module) {
             'blur .table__orderProduct input': function(e) {
                 var block = this;
 
-                e.target.classList.add('preloader_stripes');
-                block.validateEditedProduct(e.target.dataset.name, e.target.value);
+                if (block.editedProductModel) {
+                    e.target.classList.add('preloader_stripes');
+                    block.validateEditedProduct(e.target.dataset.name, e.target.value);
+                }
             },
             'keydown .table__orderProduct input': function(e) {
                 var block = this;
@@ -58,7 +60,9 @@ define(function(require, exports, module) {
             'keyup .table__orderProduct input': function(e) {
                 var block = this;
 
-                block.renderProductSum(e.target.value);
+                if (e.keyCode !== 13) {
+                    block.renderProductSum(e.target.value);
+                }
             },
             'click .form_order__removeProductLink': function(e) {
                 e.stopPropagation();
@@ -178,7 +182,11 @@ define(function(require, exports, module) {
                 quantityInput.focus();
             }
 
-            block.$errorTr.insertAfter(tr).find('td').html(error.children.quantity.errors.join(', '));
+            block.$errorTr
+                .insertAfter(tr)
+                .attr('data-error', error.children.quantity.errors.join(', '))
+                .find('td')
+                .html(error.children.quantity.errors.join(', '));
         },
         removeProductError: function() {
             var block = this;
