@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave.departmentManager.order;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
@@ -82,6 +83,7 @@ public class WhenOrderUserSteps {
     }
 
     @When("the user inputs quantity '$value' on the order product in last created order")
+    @Alias("the user inputs quantity value on the order product in last created order")
     public void whenTheUserInputsQuantityValueOnTheOrderProductInLastCreatedOrder(String value) throws JSONException {
         orderSteps.lastCreatedOrderProductCollectionObjectQuantityType(value);
     }
