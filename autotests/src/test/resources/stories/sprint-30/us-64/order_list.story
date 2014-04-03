@@ -43,11 +43,14 @@ When the user clicks the create order link on order page menu navigation
 When the user inputs values on order page
 | elementName | value |
 | supplier | supplier-s30u64s1 |
-And the user inputs values in addition new product form on the order page
+
+When the user inputs values on order page
 | elementName | value |
-| name | name-3064 |
-| quantity | 5 |
-And the user clicks the add order product button
+| order product autocomplete | name-3064 |
+And the user inputs quantity '5' on the order product with name 'name-3064'
+And the user presses 'ENTER' key button
+
+Then the user waits for the order product edition preloader finish
 
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |

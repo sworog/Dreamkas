@@ -10,5 +10,3 @@ Meta:
 Scenario: A scenario that prepares data
 
 Given the user runs the symfony:env:init command
-
-
