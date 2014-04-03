@@ -1,6 +1,9 @@
 <% var collections = _.extend({
     orderProducts: new Backbone.Collection
 }, collections) %>
+<% var templates = {
+    table_orderProducts__productSum: require('tpl!./table_orderProducts__productSum.html')
+} %>
 <% if (collections.orderProducts.length) { %>
 <table class="table table__orderProducts">
     <thead>
@@ -8,7 +11,7 @@
         <th>
             Товар
         </th>
-        <th>
+        <th style="width: 150px;">
             Кол-во
         </th>
         <th>
@@ -17,6 +20,7 @@
         <th>
             Сумма
         </th>
+        <th style="width: 1px;"></th>
     </tr>
     </thead>
     <tbody>
@@ -30,7 +34,8 @@
         </td>
         <td>
         <span style="white-space: nowrap">
-            <span name="productAmount">
+            <input data-name="quantity" autofocus type="text" class="inputText" value="<%- LH.formatAmount(orderProductModel.get('quantity')) %>" />
+            <span class="table__orderProduct__editable" name="productAmount">
                 <%- LH.formatAmount(orderProductModel.get('quantity')) %>
             </span>
             <span name="productUnits">
@@ -50,13 +55,18 @@
         </td>
         <td>
             <div style="white-space: nowrap">
-            <span name="productSum">
-                <%- LH.formatMoney(orderProductModel.get('product.product.purchasePrice') * orderProductModel.get('quantity') || '') %>
+            <span class="table_orderProducts__productSum" name="productSum">
+                <%= templates.table_orderProducts__productSum({
+                    orderProductModel: orderProductModel
+                }) %>
             </span>
             <span>
                 руб.
             </span>
             </div>
+        </td>
+        <td>
+            <i class="icon-remove-sign form_order__removeProductLink" data-product_cid="<%- orderProductModel.cid %>"></i>
         </td>
     </tr>
     <% }) %>

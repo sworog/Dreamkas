@@ -28,6 +28,9 @@ When the user inputs values on order page
 | elementName | value |
 | supplier | supplier-s30u631s1 |
 | order product autocomplete | сухое_молоко |
+And the user presses 'ENTER' key button
+
+Then the user waits for the order product edition preloader finish
 
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |
@@ -59,6 +62,9 @@ When the user inputs values on order page
 | elementName | value |
 | supplier | supplier-s30u631s1 |
 | order product autocomplete | horse_leg |
+And the user presses 'ENTER' key button
+
+Then the user waits for the order product edition preloader finish
 
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |

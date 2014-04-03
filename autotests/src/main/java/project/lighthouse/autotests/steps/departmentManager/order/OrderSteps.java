@@ -1,12 +1,15 @@
 package project.lighthouse.autotests.steps.departmentManager.order;
 
 import net.thucydides.core.annotations.Step;
+import net.thucydides.core.annotations.findby.By;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import org.junit.Assert;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.Buttons.LinkFacade;
+import project.lighthouse.autotests.elements.preLoader.OrderProductEditionPreLoader;
+import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.helper.exampleTable.order.OrderExampleTableUpdater;
 import project.lighthouse.autotests.objects.web.order.order.OrderObjectCollection;
 import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductObject;
@@ -43,26 +46,6 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
-    public void additionFormInput(ExamplesTable examplesTable) {
-        orderPage.getProductAdditionForm().fieldInput(examplesTable);
-    }
-
-    @Step
-    public void editionFormInput(ExamplesTable examplesTable) {
-        orderPage.getProductEditionForm().fieldInput(examplesTable);
-    }
-
-    @Step
-    public void additionFormInput(String elementName, String value) {
-        orderPage.getProductAdditionForm().input(elementName, value);
-    }
-
-    @Step
-    public void editionFormInput(String elementName, String value) {
-        orderPage.getProductEditionForm().input(elementName, value);
-    }
-
-    @Step
     public void productCollectionExactCompare(ExamplesTable examplesTable) throws JSONException {
         ExamplesTable updatedExampleTable = new OrderExampleTableUpdater(examplesTable).updateValues();
         orderPage.getOrderProductObjectCollection().exactCompareExampleTable(updatedExampleTable);
@@ -71,6 +54,36 @@ public class OrderSteps extends ScenarioSteps {
     @Step
     public void orderProductCollectionObjectClickByLocator(String locator) {
         orderPage.getOrderProductObjectCollection().clickByLocator(locator);
+    }
+
+    @Step
+    public void orderProductCollectionObjectDeleteIconClick(String locator) {
+        ((OrderProductObject) orderPage.
+                getOrderProductObjectCollection().
+                getAbstractObjectByLocator(locator)).
+                deleteIconClick();
+    }
+
+    @Step
+    public void lastCreatedOrderProductCollectionObjectDeleteIconClick() throws JSONException {
+        orderProductCollectionObjectDeleteIconClick(
+                Storage.getOrderVariableStorage().getProduct().getName());
+    }
+
+
+    @Step
+    public void orderProductCollectionObjectQuantityType(String locator, String value) {
+        ((OrderProductObject) orderPage.
+                getOrderProductObjectCollection().
+                getAbstractObjectByLocator(locator)).
+                quantityType(value);
+    }
+
+    @Step
+    public void lastCreatedOrderProductCollectionObjectQuantityType(String value) throws JSONException {
+        orderProductCollectionObjectQuantityType(
+                Storage.getOrderVariableStorage().getProduct().getName(),
+                value);
     }
 
     @Step
@@ -89,12 +102,43 @@ public class OrderSteps extends ScenarioSteps {
 
     @Step
     public void saveButtonClick() {
-        orderPage.saveButtonClick();
+        orderPage.getSaveButton().click();
+        new PreLoader(getDriver()).await();
+    }
+
+    @Step
+    public void saveButtonShouldBeNotVisible() {
+        orderPage.getSaveButton().shouldBeNotVisible();
+    }
+
+    @Step
+    public void saveButtonShouldBeVisible() {
+        orderPage.getSaveButton().shouldBeVisible();
+    }
+
+    @Step
+    public void orderAcceptButtonShouldBeVisible() {
+        orderPage.getOrderAcceptButton().shouldBeVisible();
+    }
+
+    @Step
+    public void orderAcceptButtonShouldBeNotVisible() {
+        orderPage.getOrderAcceptButton().shouldBeNotVisible();
     }
 
     @Step
     public void cancelLinkClick() {
-        orderPage.cancelLinkClick();
+        orderPage.getCancelLink().click();
+    }
+
+    @Step
+    public void cancelLinkShouldBeNotVisible() {
+        orderPage.getCancelLink().shouldBeNotVisible();
+    }
+
+    @Step
+    public void cancelLinkShouldBeVisible() {
+        orderPage.getCancelLink().shouldBeVisible();
     }
 
     @Step
@@ -110,38 +154,8 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
-    public void checksValues(ExamplesTable examplesTable) {
-        orderPage.getProductAdditionForm().checkCardValue(examplesTable);
-    }
-
-    @Step
-    public void additionFormCheckValues(ExamplesTable examplesTable) {
-        orderPage.getProductAdditionForm().checkValues(examplesTable);
-    }
-
-    @Step
     public void assertFieldLabelTitle(String elementName) {
         orderPage.checkFieldLabel(elementName);
-    }
-
-    @Step
-    public void assertAdditionProductFormLabelTitle(String elementName) {
-        orderPage.getProductAdditionForm().checkFieldLabel(elementName);
-    }
-
-    @Step
-    public void addProductToOrderButtonClick() {
-        orderPage.getProductAdditionForm().addButtonClick();
-    }
-
-    @Step
-    public void editOrderProductButtonClick() {
-        orderPage.getProductEditionForm().editButtonClick();
-    }
-
-    @Step
-    public void cancelOrderProductButtonClick() {
-        orderPage.getProductEditionForm().cancelLinkClick();
     }
 
     @Step
@@ -223,16 +237,19 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
-    public void deletionIconClick() {
-        orderPage.getProductEditionForm().deletionIconClick();
-    }
-
-    @Step
     public void assertOrderNumberHeader() {
         String expectedNumber = String.format("Заказ поставщику № %s", Storage.getOrderVariableStorage().getNumber());
         assertThat(
                 orderPage.getOrderNumberHeaderText(),
                 equalTo(expectedNumber));
+    }
+
+    @Step
+    public void assertSaveControlsText(String expectedText) {
+        assertThat(
+                orderPage.getSaveControlsText(),
+                equalTo(expectedText)
+        );
     }
 
     @Step
@@ -247,5 +264,15 @@ public class OrderSteps extends ScenarioSteps {
             orderPage.getDownloadFileLink().click();
         } catch (TimeoutException ignored) {
         }
+    }
+
+    @Step
+    public void waitForPreLoader() {
+        new OrderProductEditionPreLoader(getDriver()).await();
+    }
+
+    @Step
+    public void focusOutClick() {
+        orderPage.findVisibleElement(By.xpath("//h2[text()='Добавление товара в заказ']")).click();
     }
 }

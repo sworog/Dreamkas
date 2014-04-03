@@ -48,6 +48,10 @@
     font-size: 14px;
 }
 
+tr[data-error]:after {
+    display: none;
+}
+
 .form__controls[data-error]:after {
     display: inline-block;
     padding-top: 0;

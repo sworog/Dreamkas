@@ -35,29 +35,14 @@ public class ThenOrderUserSteps {
         orderSteps.assertTotalSum(expectedTotalSum);
     }
 
-    @Then("the user checks the filled autocomplete values in product addition form $examplesTable")
-    public void thenTheUserChecksTheFilledAutoCompleteValues(ExamplesTable examplesTable) {
-        orderSteps.checksValues(examplesTable);
-    }
-
     @Then("the user checks the filled order page values $examplesTable")
     public void thenTheUserChecksTheFilledOrderPageValues(ExamplesTable examplesTable) {
         orderSteps.checkOrderPageValues(examplesTable);
     }
 
-    @Then("the user checks the autocomplete values $examplesTable")
-    public void thenTheUserChecksTheAdditionProductFormValues(ExamplesTable examplesTable) {
-        orderSteps.additionFormCheckValues(examplesTable);
-    }
-
     @Then("the user asserts the order field label with name '$elementName'")
     public void thenTheUserAssertsTheOrderFieldLabelWithName(String elementName) {
         orderSteps.assertFieldLabelTitle(elementName);
-    }
-
-    @Then("the user asserts the order field label with name '$elementName' of product addition form")
-    public void thenTheUserAssertsTheOrderFieldLabelWithNameOfProductAdditionForm(String elementName) {
-        orderSteps.assertAdditionProductFormLabelTitle(elementName);
     }
 
     @Then("the user checks the orders list contains exact entries $examplesTable")
@@ -90,6 +75,11 @@ public class ThenOrderUserSteps {
         orderSteps.assertOrderNumberHeader();
     }
 
+    @Then("the user checks the save controls text is '$value'")
+    public void thenTheUserChecksTheSaveControlsText(String value) {
+        orderSteps.assertSaveControlsText(value);
+    }
+
     @Then("the user checks the download file link is clickable")
     public void thenTheUserChecksTheDownloadFileLinkIsClickable() {
         orderSteps.assertDownloadFileLinkIsClickable();
@@ -103,5 +93,40 @@ public class ThenOrderUserSteps {
     @Then("the user checks the downloaded file contains required data by user with name '$userName'")
     public void thenTheUserChecksTheDownloadedFileContainsRequiredData(String userName) throws Exception {
         orderFileSteps.assertOrderDownloadedFileData(userName, "lighthouse");
+    }
+
+    @Then("the user checks the order accept button should be visible")
+    public void thenTheUserChecksTheOrderAcceptButtonShouldBeVisible() {
+        orderSteps.orderAcceptButtonShouldBeVisible();
+    }
+
+    @Then("the user checks the order accept button should be not visible")
+    public void thenTheUserChecksTheOrderAcceptButtonShouldBeNotVisible() {
+        orderSteps.orderAcceptButtonShouldBeNotVisible();
+    }
+
+    @Then("the user checks the save order button should be not visible")
+    public void thenTheUserChecksTheOrderSaveButtonShouldBeNotVisible() {
+        orderSteps.saveButtonShouldBeNotVisible();
+    }
+
+    @Then("the user checks the save order button should be visible")
+    public void thenTheUserChecksTheOrderSaveButtonShouldBeVisible() {
+        orderSteps.saveButtonShouldBeVisible();
+    }
+
+    @Then("the user checks the cancel link button should be not visible")
+    public void thenTheUserChecksTheCancelLinkShouldBeNotVisible() {
+        orderSteps.cancelLinkShouldBeNotVisible();
+    }
+
+    @Then("the user checks the cancel link button should be visible")
+    public void thenTheUserChecksTheCancelLinkShouldBeVisible() {
+        orderSteps.cancelLinkShouldBeVisible();
+    }
+
+    @Then("the user waits for the order product edition preloader finish")
+    public void thenTheUserWaitsForTheOrderProductEditionPreloaderFinish() {
+        orderSteps.waitForPreLoader();
     }
 }
