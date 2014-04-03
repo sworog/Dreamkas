@@ -36,12 +36,17 @@ Meta:
 
 GivenStories: precondition/sprint-30/us-65/aPreconditionToStoryUs65.story
 
-Given there is the order in the store by 'departmentManager-s30u65'
+Given there is the supplier with name 'order_deletetion_cancel'
+And there is the order in the store by 'departmentManager-s30u65'
 
 Given the user opens orders list page
 And the user logs in using 'departmentManager-s30u65' userName and 'lighthouse' password
 
 When the user clicks on last created order on the orders list page
+
+When the user inputs values on order page
+| elementName | value |
+| supplier | order_deletetion_cancel |
 
 When the user clicks the order delete button and dismisses the deletion
 
@@ -58,12 +63,17 @@ Meta:
 
 GivenStories: precondition/sprint-30/us-65/aPreconditionToStoryUs65.story
 
-Given there is the order in the store by 'departmentManager-s30u65'
+Given there is the supplier with name 'order_deletetion_cancel'
+And there is the order in the store by 'departmentManager-s30u65'
 
 Given the user opens orders list page
 And the user logs in using 'departmentManager-s30u65' userName and 'lighthouse' password
 
 When the user clicks on last created order on the orders list page
+
+When the user inputs values on order page
+| elementName | value |
+| supplier | order_deletetion_cancel |
 
 When the user clicks the order delete button and dismisses the deletion
 
@@ -71,7 +81,7 @@ When the user clicks the save order button
 
 Then the user checks the orders list contains entry
 | number | supplier | date |
-| {lastCreatedOrderNumber} | {lastSupplierOrder} | {todayDate} |
+| {lastCreatedOrderNumber} | order_deletetion_cancel | {todayDate} |
 
 Scenario: Order deletion cancel - verify on the order list page
 
