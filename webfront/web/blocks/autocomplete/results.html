@@ -10,7 +10,8 @@
 
     <% var itemString = _.escape(item.product.sku) + ' &mdash; ' + _.escape(item.product.name) %>
 
-    <% itemString = itemString.replace(new RegExp(query, 'gi'), function(match) {
+    <% var queryRegexp = query.replace(new RegExp(" ", "g"), "|");
+    itemString = itemString.replace(new RegExp(queryRegexp, 'gi'), function(match) {
         return '<strong>' + match + '</strong>';
     }) %>
 
