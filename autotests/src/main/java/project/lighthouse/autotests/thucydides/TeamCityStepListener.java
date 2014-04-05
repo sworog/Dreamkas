@@ -195,12 +195,16 @@ public class TeamCityStepListener implements StepListener {
         builder.append(testStep.getResult().toString());
         if (testStep.isFailure() || testStep.isError()) {
             //TODO iterate through children to get exception
-            String exceptionCause = testStep.getException() != null ? ExceptionUtils.getStackTrace(testStep.getException().getCause()) : "";
+            String exceptionCause = testStep.getException() != null ? getStackTrace(testStep.getException().getCause()) : "";
             builder.append(
                     String.format("\r\n\n%s", exceptionCause)
             );
         }
         return builder.toString();
+    }
+
+    public String getStackTrace(Throwable throwable) {
+        return ExceptionUtils.getStackTrace(throwable);
     }
 
     private String getResultTitle(TestOutcome result) {
