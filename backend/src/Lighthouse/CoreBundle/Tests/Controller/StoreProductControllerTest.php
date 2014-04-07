@@ -1280,4 +1280,27 @@ class StoreProductControllerTest extends WebTestCase
         Assert::assertJsonPathCount(1, '*.product.name', $response);
         Assert::assertJsonPathEquals('Растишка курьёз', '*.product.name', $response);
     }
+
+    public function testAdvancedSearchStoreProductsActionMilti()
+    {
+        $storeId = $this->factory->store()->getStoreId();
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
+
+        $product1 = $this->createProduct(array('name' => 'Пиво светлое Балтика', 'sku' => '111111111'));
+        $product2 = $this->createProduct(array('name' => 'Пиво ERDINGER светлое', 'sku' => '2222222'));
+        $product3 = $this->createProduct(array('name' => 'Светлые косы', 'sku' => '33454453'));
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $storeId . '/search/products' . '?properties[]=name&properties[]=sku&query=Пиво светл'
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, '*.inventory', $response);
+        Assert::assertJsonPathCount(2, '*.product.name', $response);
+        Assert::assertJsonPathEquals('Пиво светлое Балтика', '*.product.name', $response);
+        Assert::assertJsonPathEquals('Пиво ERDINGER светлое', '*.product.name', $response);
+    }
 }

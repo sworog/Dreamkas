@@ -26,7 +26,13 @@ class ProductRepository extends DocumentRepository implements ParentableReposito
 
         $or = array();
         foreach ($properties as $property) {
-            $or[] = array($property => new MongoRegex("/".preg_quote($entry, '/')."/i"));
+            $and = array();
+            $words = explode(" ", $entry);
+            array_walk($words, 'preg_quote');
+            foreach ($words as $word) {
+                $and[] = array($property => new MongoRegex("/" . $word . "/i"));
+            }
+            $or[] = array('$and' => $and);
         }
 
         return $this->findBy(array('$or' => $or), null, 100);
