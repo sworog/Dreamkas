@@ -32,6 +32,7 @@ class SortableDirectoryIterator implements IteratorAggregate, ArrayAccess, Count
 
     /**
      * @param string $path
+     * @throws \UnexpectedValueException
      */
     public function __construct($path)
     {

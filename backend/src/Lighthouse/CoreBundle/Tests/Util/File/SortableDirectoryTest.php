@@ -26,7 +26,8 @@ class SortableDirectoryTest extends ContainerAwareTestCase
             'unknown' => array('unknown'),
             '/unknown' => array('unknown'),
             'http://unknown.host/path' => array('http://unknown.host/path'),
-            'zip://archive.zip#dir/file.txt' => array('zip://archive.zip#dir/file.txt')
+            'zip://archive.zip#dir/file.txt' => array('zip://archive.zip#dir/file.txt'),
+            '//erp:erp@' => array('//erp:erp@')
         );
     }
 
