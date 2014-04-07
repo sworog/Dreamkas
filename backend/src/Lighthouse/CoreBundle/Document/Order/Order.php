@@ -7,7 +7,6 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\Order\Product\OrderProduct;
 use Lighthouse\CoreBundle\Document\Order\Product\OrderProductCollection;
-use Lighthouse\CoreBundle\Document\ReferenceCollection;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
