@@ -21,6 +21,7 @@ require.config({
 
         //kit
         'templateCompiler': 'kit/utils/templateCompiler',
+        'block': 'kit/block/block',
         'router': 'kit/router/router',
 
         //requirejs plugins

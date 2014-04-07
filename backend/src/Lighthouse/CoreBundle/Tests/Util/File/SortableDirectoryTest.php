@@ -233,6 +233,7 @@ class SortableDirectoryTest extends ContainerAwareTestCase
         $files = $this->createFiles($tmpDir);
 
         $fileData = $files[0];
+        /* @var \SplFileInfo[]|SortableDirectoryIterator $file */
         $file = new SortableDirectoryIterator($fileData['file']);
 
         $this->assertTrue($file->getFileInfo()->isFile());

@@ -107,11 +107,12 @@ class WriteOffProductController extends AbstractRestController
      * @ApiDoc(
      *      resource=true
      * )
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      */
     public function getProductsAction(Store $store, WriteOff $writeOff)
     {
         $this->checkWriteoffStore($store, $writeOff);
-        return $this->documentRepository->findAllByWriteOff($writeOff);
+        return $writeOff->products;
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Form;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -39,7 +40,7 @@ class StoreProductType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Product\\Store\\StoreProduct',
+                'data_class' => StoreProduct::getClassName(),
                 'csrf_protection' => false
             )
         );

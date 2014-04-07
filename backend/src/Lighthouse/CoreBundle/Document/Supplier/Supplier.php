@@ -27,6 +27,7 @@ class Supplier extends AbstractDocument
 
     /**
      * @MongoDB\String
+     * @MongoDB\UniqueIndex
      * @Assert\NotBlank
      * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      * @var string

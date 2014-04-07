@@ -10,13 +10,22 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class StoreControllerManagementTest extends WebTestCase
 {
+    /**
+     * @param string $userId
+     * @return string
+     */
+    protected function getUserResourceUri($userId)
+    {
+        return sprintf('http://localhost/api/1/users/%s', $userId);
+    }
+
     public function testLinkStoreManager()
     {
-        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
-        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->factory->getStore();
+        $commUser = $this->factory->user()->getUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $storeUser1 = $this->factory->user()->getUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeId = $this->factory->store()->getStoreId();
 
-        $accessToken = $this->auth($commUser, 'password');
+        $accessToken = $this->factory->oauth()->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
         $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_STORE_MANAGERS);
@@ -35,11 +44,11 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkStoreManagerLinkMethodByQueryParam()
     {
-        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
-        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->factory->getStore();
+        $commUser = $this->factory->user()->getUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $storeUser1 = $this->factory->user()->getUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeId = $this->factory->store()->getStoreId();
 
-        $accessToken = $this->auth($commUser, 'password');
+        $accessToken = $this->factory->oauth()->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'POST');
         $request->parameters['_method'] = 'LINK';
@@ -59,12 +68,12 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkTwoStoreManagers()
     {
-        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
-        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->factory->getStore();
+        $commUser = $this->factory->user()->getUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $storeUser1 = $this->factory->user()->getUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeUser2 = $this->factory->user()->getUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
+        $storeId = $this->factory->store()->getStoreId();
 
-        $accessToken = $this->auth($commUser, 'password');
+        $accessToken = $this->factory->oauth()->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
         $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_STORE_MANAGERS);
@@ -85,11 +94,11 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkNotStoreManager()
     {
-        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
-        $depUser1 = $this->createUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $storeId = $this->factory->getStore();
+        $commUser = $this->factory->user()->getUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $depUser1 = $this->factory->user()->getUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $storeId = $this->factory->store()->getStoreId();
 
-        $accessToken = $this->auth($commUser, 'password');
+        $accessToken = $this->factory->oauth()->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
         $request->addLinkHeader($this->getUserResourceUri($depUser1->id), Store::REL_STORE_MANAGERS);
@@ -103,11 +112,11 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkStoreManagerInvalidRel()
     {
-        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
-        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->factory->getStore();
+        $commUser = $this->factory->user()->getUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $storeUser1 = $this->factory->user()->getUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeId = $this->factory->store()->getStoreId();
 
-        $accessToken = $this->auth($commUser, 'password');
+        $accessToken = $this->factory->oauth()->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
         $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), 'invalid');
@@ -121,11 +130,11 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkStoreManagerMissingRel()
     {
-        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
-        $storeUser = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->factory->getStore();
+        $commUser = $this->factory->user()->getUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $storeUser = $this->factory->user()->getUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeId = $this->factory->store()->getStoreId();
 
-        $accessToken = $this->auth($commUser, 'password');
+        $accessToken = $this->factory->oauth()->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
         $request->addHttpHeader('Link', sprintf('<%s>', $this->getUserResourceUri($storeUser->id)));
@@ -139,10 +148,10 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkStoreManagerMissingLinkHeader()
     {
-        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
-        $storeId = $this->factory->getStore();
+        $commUser = $this->factory->user()->getUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $storeId = $this->factory->store()->getStoreId();
 
-        $accessToken = $this->auth($commUser, 'password');
+        $accessToken = $this->factory->oauth()->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
 
@@ -155,11 +164,11 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkStoreManagerNotExistingUser()
     {
-        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
-        $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->factory->getStore();
+        $commUser = $this->factory->user()->getUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $this->factory->user()->getUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeId = $this->factory->store()->getStoreId();
 
-        $accessToken = $this->auth($commUser, 'password');
+        $accessToken = $this->factory->oauth()->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
         $request->addLinkHeader($this->getUserResourceUri('2143214235345345'), Store::REL_STORE_MANAGERS);
@@ -173,12 +182,12 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkStoreManagerInvalidResource()
     {
-        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
-        $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $commUser = $this->factory->user()->getUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $this->factory->user()->getUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
         $groupId = $this->createGroup();
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStoreId();
 
-        $accessToken = $this->auth($commUser, 'password');
+        $accessToken = $this->factory->oauth()->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
         $request->addLinkHeader('http://localhost/api/1/groups/'.  $groupId, Store::REL_STORE_MANAGERS);
@@ -192,11 +201,11 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkStoreManagerUserAlreadyStoreManager()
     {
-        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
-        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->factory->getStore();
+        $commUser = $this->factory->user()->getUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $storeUser1 = $this->factory->user()->getUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeId = $this->factory->store()->getStoreId();
 
-        $accessToken = $this->auth($commUser, 'password');
+        $accessToken = $this->factory->oauth()->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
         $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_STORE_MANAGERS);
@@ -214,11 +223,11 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkStoreManagerStoreNotFound()
     {
-        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
-        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->factory->getStore();
+        $commUser = $this->factory->user()->getUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $storeUser1 = $this->factory->user()->getUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeId = $this->factory->store()->getStoreId();
 
-        $accessToken = $this->auth($commUser, 'password');
+        $accessToken = $this->factory->oauth()->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/notfoundstore' . $storeId, 'LINK');
         $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_STORE_MANAGERS);
@@ -230,13 +239,13 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetStoreManagers()
     {
-        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
-        $storeId = $this->factory->getStore();
-        $this->factory->linkStoreManagers(array($storeUser1->id, $storeUser2->id), $storeId);
+        $storeUser1 = $this->factory->user()->getUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeUser2 = $this->factory->user()->getUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
+        $storeId = $this->factory->store()->getStoreId();
+        $this->factory->store()->linkStoreManagers(array($storeUser1->id, $storeUser2->id), $storeId);
 
-        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
-        $accessToken = $this->auth($commUser, 'password');
+        $commUser = $this->factory->user()->getUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->auth($commUser, 'password');
 
         $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/' . $storeId . '/storeManagers');
 
@@ -249,9 +258,9 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetStoreManagersEmptyList()
     {
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStoreId();
 
-        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/' . $storeId . '/storeManagers');
 
@@ -262,7 +271,7 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetStoreManagersNotFoundStore()
     {
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/notfoundstore/storeManagers');
 
@@ -273,15 +282,15 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetStoreManagersCandidates()
     {
-        $depUser1 = $this->createUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $depUser2 = $this->createUser('depUser2', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
-        $storeUser3 = $this->createUser('storeUser3', 'password', User::ROLE_STORE_MANAGER);
+        $depUser1 = $this->factory->user()->getUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $depUser2 = $this->factory->user()->getUser('depUser2', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $storeUser1 = $this->factory->user()->getUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeUser2 = $this->factory->user()->getUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
+        $storeUser3 = $this->factory->user()->getUser('storeUser3', 'password', User::ROLE_STORE_MANAGER);
 
-        $storeId1 = $this->factory->getStore('42');
+        $storeId1 = $this->factory->store()->getStoreId('42');
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
@@ -300,7 +309,7 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertNotJsonPathEquals($depUser1->id, '*.id', $managersJson);
         Assert::assertNotJsonPathEquals($depUser2->id, '*.id', $managersJson);
 
-        $this->factory->linkStoreManagers($storeUser1->id, $storeId1);
+        $this->factory->store()->linkStoreManagers($storeUser1->id, $storeId1);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
@@ -320,9 +329,9 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertNotJsonPathEquals($depUser2->id, '*.id', $managersJson);
 
         //
-        $storeId2 = $this->factory->getStore('43');
+        $storeId2 = $this->factory->store()->getStoreId('43');
 
-        $this->factory->linkStoreManagers($storeUser3->id, $storeId2);
+        $this->factory->store()->linkStoreManagers($storeUser3->id, $storeId2);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
@@ -360,7 +369,7 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertNotJsonPathEquals($depUser2->id, '*.id', $managersJson);
 
         //
-        $this->factory->linkStoreManagers($storeUser2->id, $storeId2);
+        $this->factory->store()->linkStoreManagers($storeUser2->id, $storeId2);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
@@ -381,16 +390,16 @@ class StoreControllerManagementTest extends WebTestCase
      */
     public function testGetStoreManagersPermissionForbidden($role)
     {
-        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeUser1 = $this->factory->user()->getUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
 
-        $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
-        $this->createUser('storeUser3', 'password', User::ROLE_STORE_MANAGER);
+        $this->factory->user()->getUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
+        $this->factory->user()->getUser('storeUser3', 'password', User::ROLE_STORE_MANAGER);
 
-        $storeId1 = $this->factory->getStore();
+        $storeId1 = $this->factory->store()->getStoreId();
 
-        $accessToken = $this->authAsRole($role);
+        $accessToken = $this->factory->oauth()->authAsRole($role);
 
-        $this->factory->linkStoreManagers($storeUser1->id, $storeId1);
+        $this->factory->store()->linkStoreManagers($storeUser1->id, $storeId1);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
@@ -430,14 +439,14 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testUnlinkStoreManager()
     {
-        $storeId1 = $this->factory->getStore();
-        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeId1 = $this->factory->store()->getStoreId();
+        $storeUser1 = $this->factory->user()->getUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
 
-        $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
+        $this->factory->user()->getUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
 
-        $this->factory->linkStoreManagers($storeUser1->id, $storeId1);
+        $this->factory->store()->linkStoreManagers($storeUser1->id, $storeId1);
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
@@ -469,10 +478,10 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testUnlinkStoreManagerNotFromStore()
     {
-        $storeId = $this->factory->getStore();
-        $storeUser = $this->createUser('storeUser', 'password', User::ROLE_STORE_MANAGER);
+        $storeId = $this->factory->store()->getStoreId();
+        $storeUser = $this->factory->user()->getUser('storeUser', 'password', User::ROLE_STORE_MANAGER);
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $jsonRequest = new JsonRequest('/api/1/stores/' . $storeId, 'UNLINK');
         $jsonRequest->addLinkHeader($this->getUserResourceUri($storeUser->id), Store::REL_STORE_MANAGERS);
@@ -485,8 +494,8 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkStoreManagerOptionsCheck()
     {
-        $storeId = $this->factory->getStore();
-        $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
+        $storeId = $this->factory->store()->getStoreId();
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
 
         $request = new JsonRequest('/api/1/stores/' . $storeId . '/storeManagers?candidates=1', 'OPTIONS');
         $request->addHttpHeader('Access-Control-Request-Method', 'LINK');
@@ -508,12 +517,12 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetUserStore()
     {
-        $storeId1 = $this->factory->getStore();
-        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeId1 = $this->factory->store()->getStoreId();
+        $storeUser1 = $this->factory->user()->getUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
 
-        $this->factory->linkStoreManagers($storeUser1->id, $storeId1);
+        $this->factory->store()->linkStoreManagers($storeUser1->id, $storeId1);
 
-        $accessToken = $this->auth($storeUser1);
+        $accessToken = $this->factory->oauth()->auth($storeUser1);
 
         $storesResponse = $this->clientJsonRequest(
             $accessToken,
@@ -529,10 +538,10 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetUserStoreNotFound()
     {
-        $this->factory->getStore();
-        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $this->factory->store()->getStoreId();
+        $storeUser1 = $this->factory->user()->getUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
 
-        $accessToken = $this->auth($storeUser1);
+        $accessToken = $this->factory->oauth()->auth($storeUser1);
 
         $storesResponse = $this->clientJsonRequest(
             $accessToken,
@@ -551,10 +560,10 @@ class StoreControllerManagementTest extends WebTestCase
      */
     public function testGetUserStoreForbidden($role)
     {
-        $this->factory->getStore();
-        $storeUser1 = $this->createUser('user1', 'password', $role);
+        $this->factory->store()->getStoreId();
+        $storeUser1 = $this->factory->user()->getUser('user1', 'password', $role);
 
-        $accessToken = $this->auth($storeUser1);
+        $accessToken = $this->factory->oauth()->auth($storeUser1);
 
         $storesResponse = $this->clientJsonRequest(
             $accessToken,
@@ -569,15 +578,15 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetUserStoreByAnotherUserForbidden()
     {
-        $storeId1 = $this->factory->getStore('1');
-        $storeId2 = $this->factory->getStore('2');
-        $storeUser1 = $this->createUser('user1', 'password', User::ROLE_STORE_MANAGER);
-        $storeUser2 = $this->createUser('user2', 'password', User::ROLE_STORE_MANAGER);
+        $storeId1 = $this->factory->store()->getStoreId('1');
+        $storeId2 = $this->factory->store()->getStoreId('2');
+        $storeUser1 = $this->factory->user()->getUser('user1', 'password', User::ROLE_STORE_MANAGER);
+        $storeUser2 = $this->factory->user()->getUser('user2', 'password', User::ROLE_STORE_MANAGER);
 
-        $this->factory->linkStoreManagers($storeUser1->id, $storeId1);
-        $this->factory->linkStoreManagers($storeUser2->id, $storeId2);
+        $this->factory->store()->linkStoreManagers($storeUser1->id, $storeId1);
+        $this->factory->store()->linkStoreManagers($storeUser2->id, $storeId2);
 
-        $accessToken = $this->auth($storeUser1);
+        $accessToken = $this->factory->oauth()->auth($storeUser1);
 
         $storesResponse = $this->clientJsonRequest(
             $accessToken,
@@ -592,11 +601,11 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testLinkDepartmentManager()
     {
-        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
-        $storeUser1 = $this->createUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $storeId = $this->factory->getStore();
+        $commUser = $this->factory->user()->getUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $storeUser1 = $this->factory->user()->getUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $storeId = $this->factory->store()->getStoreId();
 
-        $accessToken = $this->auth($commUser, 'password');
+        $accessToken = $this->factory->oauth()->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
         $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_DEPARTMENT_MANAGERS);
@@ -615,12 +624,12 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testUnlinkDepartmentManager()
     {
-        $storeUser1 = $this->createUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $storeId = $this->factory->getStore();
+        $storeUser1 = $this->factory->user()->getUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $storeId = $this->factory->store()->getStoreId();
 
-        $this->factory->linkDepartmentManagers($storeUser1->id, $storeId);
+        $this->factory->store()->linkDepartmentManagers($storeUser1->id, $storeId);
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'UNLINK');
         $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_DEPARTMENT_MANAGERS);
@@ -637,12 +646,12 @@ class StoreControllerManagementTest extends WebTestCase
     }
     public function testGetStoreDepartmentManagers()
     {
-        $depUser1 = $this->createUser('storeUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $depUser2 = $this->createUser('storeUser2', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $storeId = $this->factory->getStore();
-        $this->factory->linkDepartmentManagers(array($depUser1->id, $depUser2->id), $storeId);
+        $depUser1 = $this->factory->user()->getUser('storeUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $depUser2 = $this->factory->user()->getUser('storeUser2', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $storeId = $this->factory->store()->getStoreId();
+        $this->factory->store()->linkDepartmentManagers(array($depUser1->id, $depUser2->id), $storeId);
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
@@ -659,10 +668,10 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetDepartmentManagersEmptyList()
     {
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStoreId();
 
-        $commUser = $this->createUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
-        $accessToken = $this->auth($commUser, 'password');
+        $commUser = $this->factory->user()->getUser('commUser1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->auth($commUser, 'password');
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
@@ -677,7 +686,7 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetDepartmentManagersNotFoundStore()
     {
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/notFoundStore/departmentManagers');
 
@@ -688,15 +697,15 @@ class StoreControllerManagementTest extends WebTestCase
 
     public function testGetDepartmentManagersCandidates()
     {
-        $depUser1 = $this->createUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $depUser2 = $this->createUser('depUser2', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $depUser3 = $this->createUser('depUser3', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $storeUser1 = $this->createUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
-        $storeUser2 = $this->createUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
+        $depUser1 = $this->factory->user()->getUser('depUser1', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $depUser2 = $this->factory->user()->getUser('depUser2', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $depUser3 = $this->factory->user()->getUser('depUser3', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $storeUser1 = $this->factory->user()->getUser('storeUser1', 'password', User::ROLE_STORE_MANAGER);
+        $storeUser2 = $this->factory->user()->getUser('storeUser2', 'password', User::ROLE_STORE_MANAGER);
 
-        $storeId1 = $this->factory->getStore('42');
+        $storeId1 = $this->factory->store()->getStoreId('42');
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
@@ -715,7 +724,7 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertNotJsonPathEquals($storeUser1->id, '*.id', $managersJson);
         Assert::assertNotJsonPathEquals($storeUser2->id, '*.id', $managersJson);
 
-        $this->factory->linkDepartmentManagers($depUser1->id, $storeId1);
+        $this->factory->store()->linkDepartmentManagers($depUser1->id, $storeId1);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
@@ -735,9 +744,9 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertNotJsonPathEquals($storeUser2->id, '*.id', $managersJson);
 
         //
-        $storeId2 = $this->factory->getStore('43');
+        $storeId2 = $this->factory->store()->getStoreId('43');
 
-        $this->factory->linkDepartmentManagers($depUser2->id, $storeId2);
+        $this->factory->store()->linkDepartmentManagers($depUser2->id, $storeId2);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,
@@ -775,7 +784,7 @@ class StoreControllerManagementTest extends WebTestCase
         Assert::assertNotJsonPathEquals($storeUser2->id, '*.id', $managersJson);
 
         //
-        $this->factory->linkDepartmentManagers($depUser3->id, $storeId2);
+        $this->factory->store()->linkDepartmentManagers($depUser3->id, $storeId2);
 
         $managersJson = $this->clientJsonRequest(
             $accessToken,

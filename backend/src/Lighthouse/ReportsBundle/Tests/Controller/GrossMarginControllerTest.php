@@ -15,7 +15,7 @@ class GrossMarginControllerTest extends WebTestCase
 {
     protected function prepareData()
     {
-        $store = $this->factory->getStore();
+        $store = $this->factory->store()->getStoreId();
 
         $product1 = $this->createProduct("1");
         $product2 = $this->createProduct("2");
@@ -104,7 +104,7 @@ class GrossMarginControllerTest extends WebTestCase
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
 
-        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
         $actualResponse = $this->clientJsonRequest(
             $accessToken,
@@ -160,7 +160,7 @@ class GrossMarginControllerTest extends WebTestCase
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->getGrossMarginManager()->recalculateStoreGrossMargin();
 
-        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
         $actualResponse = $this->clientJsonRequest(
             $accessToken,
@@ -218,7 +218,7 @@ class GrossMarginControllerTest extends WebTestCase
 
     public function testGetStoreGrossMarginReportsWithDataFromAutotests()
     {
-        $store = $this->factory->getStore('1');
+        $store = $this->factory->store()->getStoreId('1');
         $product = $this->createProduct('1');
 
         $date = new DateTimestamp();
@@ -259,7 +259,7 @@ class GrossMarginControllerTest extends WebTestCase
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->getGrossMarginManager()->recalculateStoreGrossMargin();
 
-        $accessToken = $this->factory->authAsStoreManager($store);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($store);
 
         $actualResponse = $this->clientJsonRequest(
             $accessToken,
@@ -283,8 +283,8 @@ class GrossMarginControllerTest extends WebTestCase
 
     public function testGetStoreGrossMarginReportsSimpleExampleOnBoard()
     {
-        $store = $this->factory->getStore("1");
-        $accessToken = $this->factory->authAsStoreManager($store);
+        $store = $this->factory->store()->getStoreId("1");
+        $accessToken = $this->factory->oauth()->authAsStoreManager($store);
         $product = $this->createProduct("1");
 
         // Begin inventory
@@ -334,8 +334,8 @@ class GrossMarginControllerTest extends WebTestCase
 
     public function testGetStoreGrossMarginReportsWithDataFromBoardTwo()
     {
-        $store = $this->factory->getStore("1");
-        $accessToken = $this->factory->authAsStoreManager($store);
+        $store = $this->factory->store()->getStoreId("1");
+        $accessToken = $this->factory->oauth()->authAsStoreManager($store);
         $product = $this->createProduct("1");
 
         // Begin inventory
@@ -420,7 +420,7 @@ class GrossMarginControllerTest extends WebTestCase
 
         $this->getGrossMarginManager()->recalculateStoreGrossMargin();
 
-        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
         $actualResponse = $this->clientJsonRequest(
             $accessToken,
@@ -478,10 +478,10 @@ class GrossMarginControllerTest extends WebTestCase
 
     public function testGetDayGrossMarginReport()
     {
-        $store = $this->factory->getStore("1");
-        $store2 = $this->factory->getStore("2");
+        $store = $this->factory->store()->getStoreId("1");
+        $store2 = $this->factory->store()->getStoreId("2");
         $product = $this->createProduct("1");
-        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
 
         $invoice1 = $this->createInvoice(array('sku' => '1', 'acceptanceDate' => '2014-01-01 12:56'), $store);

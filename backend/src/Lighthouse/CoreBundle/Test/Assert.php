@@ -3,12 +3,12 @@
 namespace Lighthouse\CoreBundle\Test;
 
 use Lighthouse\CoreBundle\Test\Constraint\ResponseCode;
-use SebastianBergmann\Exporter\Exporter;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\HttpFoundation\Response;
 use PHPUnit_Framework_Assert;
 use DomainException;
 use PHPUnit_Framework_ExpectationFailedException;
+use PHPUnit_Util_Type;
 
 class Assert
 {
@@ -49,8 +49,7 @@ class Assert
                 PHPUnit_Framework_Assert::assertEquals($expected, $value, $message);
                 $found++;
             } catch (PHPUnit_Framework_ExpectationFailedException $e) {
-                $exporter = new Exporter();
-                $notFoundValues[] = $exporter->export($value);
+                $notFoundValues[] = PHPUnit_Util_Type::export($value);
             }
         }
 
@@ -118,8 +117,7 @@ class Assert
                 \PHPUnit_Framework_Assert::assertContains($expected, $value, $message);
                 $found++;
             } catch (\PHPUnit_Framework_ExpectationFailedException $e) {
-                $exporter = new Exporter();
-                $notFoundValues[] = $exporter->export($value);
+                $notFoundValues[] = \PHPUnit_Util_Type::export($value);
             }
         }
 

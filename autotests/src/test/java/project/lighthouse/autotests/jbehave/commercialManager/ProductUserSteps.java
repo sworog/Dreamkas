@@ -110,12 +110,12 @@ public class ProductUserSteps {
 
     @When("the user clicks the edit price button")
     public void whenTheUserClicksTheEditPriceButton() {
-        productSteps.editProductButtonClick();
+        productSteps.editProductMarkUpAndPriceButtonClick();
     }
 
     @Then("the user checks the edit price button is not present")
     public void thenUserChecksTheEditPriceButtonIsNotPresent() {
-        productSteps.editProductButtonIsNotPresent();
+        productSteps.editProductMarkUpAndPriceButtonIsNotPresent();
     }
 
     @When("the user generates charData with '$charNumber' number in the '$elementName' field")

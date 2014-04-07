@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/core/block'),
+    var Block = require('kit/core/block.deprecated'),
         Catalog__categoryItem = require('blocks/catalog/catalog__categoryItem');
 
     return Block.extend({

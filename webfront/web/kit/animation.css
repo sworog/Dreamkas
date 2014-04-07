@@ -1,3 +1,4 @@
+/*spin*/
 @-webkit-keyframes spin {
     to { -webkit-transform: rotate(360deg); }
 }
@@ -16,4 +17,35 @@
 
 @keyframes spin {
     to { transform: rotate(360deg); }
+}
+
+/*stripe*/
+@-webkit-keyframes stripe {
+    to {
+        background-position: 42px 0;
+    }
+}
+
+@-moz-keyframes stripe {
+    to {
+        background-position: 42px 0;
+    }
+}
+
+@-ms-keyframes stripe {
+    to {
+        background-position: 42px 0;
+    }
+}
+
+@-o-keyframes stripe {
+    to {
+        background-position: 42px 0;
+    }
+}
+
+@keyframes stripe {
+    to {
+        background-position: 42px 0;
+    }
 }

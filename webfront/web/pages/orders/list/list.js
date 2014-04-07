@@ -11,7 +11,7 @@ define(function(require, exports, module) {
             '#content': require('tpl!./content.html')
         },
         permissions: function() {
-            return !LH.isAllow('orders', 'GET');
+            return !LH.isAllow('stores/{store}/orders', 'GET');
         },
         initialize: function() {
             var page = this;
@@ -20,11 +20,9 @@ define(function(require, exports, module) {
                 orders: new OrdersCollection()
             };
 
-            page.render();
-
-//            $.when(page.collections.orders.fetch()).done(function() {
-//                page.render();
-//            });
+            $.when(page.collections.orders.fetch()).done(function() {
+                page.render();
+            });
         }
     });
 });

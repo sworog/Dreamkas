@@ -2,6 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
+use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
+use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class CategoryType extends ClassifierNodeType
@@ -18,7 +20,7 @@ class CategoryType extends ClassifierNodeType
                 'group',
                 'reference',
                 array(
-                    'class' => 'Lighthouse\\CoreBundle\\Document\\Classifier\\Group\\Group',
+                    'class' => Group::getClassName(),
                     'invalid_message' => 'lighthouse.validation.errors.category.group.does_not_exists'
                 )
             );
@@ -29,6 +31,6 @@ class CategoryType extends ClassifierNodeType
      */
     protected function getDataClass()
     {
-        return 'Lighthouse\\CoreBundle\\Document\\Classifier\\Category\\Category';
+        return Category::getClassName();
     }
 }

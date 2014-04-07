@@ -5,7 +5,7 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
-import project.lighthouse.autotests.elements.Input;
+import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 
 @DefaultUrl("/stores/create")
@@ -17,9 +17,9 @@ public class StoreCreatePage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("number", new Input(this, "number"));
-        items.put("address", new Input(this, "address"));
-        items.put("contacts", new Input(this, "contacts"));
+        put("number", new Input(this, "number"));
+        put("address", new Input(this, "address"));
+        put("contacts", new Input(this, "contacts"));
     }
 
     public void createButtonClick() {

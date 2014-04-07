@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/core/block'),
+    var Block = require('kit/core/block.deprecated'),
         currentUserModel = require('models/currentUser'),
         cookie = require('cookies'),
         numeral = require('numeral'),
@@ -63,8 +63,12 @@ define(function(require) {
 
     loading.done(function() {
         app.permissions = _.extend(currentUserModel.permissions.toJSON(), {
-            orders: ['GET', 'POST']
         });
+
+        if (!currentUserModel.stores.length) {
+            delete app.permissions['stores/{store}/orders'];
+        }
+
         routes = 'routes/authorized';
     });
 
@@ -79,7 +83,7 @@ define(function(require) {
             'blocks/navigationBar/navigationBar',
             'blocks/page/page',
             'libs/lhAutocomplete'
-        ], function(routes){
+        ], function(routes) {
             router.routes = routes;
             router.start();
         });

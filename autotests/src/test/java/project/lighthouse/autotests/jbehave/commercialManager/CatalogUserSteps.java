@@ -7,7 +7,6 @@ import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.json.JSONException;
 import org.junit.Assert;
-import project.lighthouse.autotests.steps.CommonSteps;
 import project.lighthouse.autotests.steps.commercialManager.CatalogSteps;
 import project.lighthouse.autotests.steps.commercialManager.StoreSteps;
 
@@ -18,9 +17,6 @@ public class CatalogUserSteps {
 
     @Steps
     StoreSteps storeSteps;
-
-    @Steps
-    CommonSteps commonSteps;
 
     String retailMarkupMinValue, retailMarkupMaxValue;
     String newRetailMarkupMinValue, newRetailMarkupMaxValue;
@@ -300,11 +296,6 @@ public class CatalogUserSteps {
     public void validateMinMarkUpValue(String value) {
         whenTheUserSetsMinMarkUpValue(value);
         whenTheUserSetsMaxMarkUpValue("100");
-    }
-
-    @Then("the user user sees <errorMessage>")
-    public void thenTheUserSeesErrorMessage(String errorMessage) {
-        commonSteps.checkErrorMessage(errorMessage);
     }
 
     @When("the user set price roundings to <value>")

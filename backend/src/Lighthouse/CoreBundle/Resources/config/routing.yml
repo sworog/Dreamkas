@@ -81,3 +81,13 @@ lighthouse.core.supplier:
 lighthouse.core.file:
     resource: Lighthouse\CoreBundle\Controller\FileController
     type:     rest
+
+lighthouse.core.order:
+    resource: Lighthouse\CoreBundle\Controller\OrderController
+    parent:   lighthouse.core.store
+    type:     rest
+
+lighthouse.core.order_product:
+    resource: Lighthouse\CoreBundle\Controller\OrderProductController
+    parent:   lighthouse.core.order
+    type:     rest

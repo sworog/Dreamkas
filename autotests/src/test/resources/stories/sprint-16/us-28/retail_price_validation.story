@@ -154,8 +154,7 @@ Examples:
 
 Scenario: Edit product retail price range validation negative
 
-Given there is the product with 'RMU12-PPV-02' name, 'RMU12-PPV-02' sku, 'RMU12-PPV-02' barcode, 'kg' units, '0,01' purchasePrice
-And the user navigates to the product with sku 'RMU12-PPV-02'
+Given the user navigates to the product with random name
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
 And the user clicks 'retailPriceHint' to make it avalaible

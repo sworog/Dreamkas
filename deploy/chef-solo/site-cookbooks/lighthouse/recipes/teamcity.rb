@@ -65,6 +65,12 @@ cookbook_file "ssh_rsa_privite_key" do
   mode "0600"
 end
 
+cookbook_file "ssh_rsa_public_key" do
+  path "/home/teamcity/.ssh/id_rsa.pub"
+  owner "teamcity"
+  group "teamcity"
+end
+
 #############################################
 # nginx
 #############################################

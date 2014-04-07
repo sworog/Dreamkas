@@ -38,25 +38,25 @@ Scenario: Setting dashboard link is visible for administrator
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
-Then the user checks the dashboard link to 'settings' section is present
+Then the user checks the settings navigation menu item is visible
 
 Scenario: Setting dashboard link is not visible for commercialManager
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
-Then the user checks the dashboard link to 'settings' section is not present
+Then the user checks the settings navigation menu item is not visible
 
 Scenario: Setting dashboard link is not visible for departmentManager
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
-Then the user checks the dashboard link to 'settings' section is not present
+Then the user checks the settings navigation menu item is not visible
 
 Scenario: Setting dashboard link is not visible for storeManager
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
-Then the user checks the dashboard link to 'settings' section is not present
+Then the user checks the settings navigation menu item is not visible
 
 Scenario: Navigate to settings through the link by administrator
 

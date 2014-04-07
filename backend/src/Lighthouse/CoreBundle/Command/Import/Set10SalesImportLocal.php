@@ -211,7 +211,9 @@ class Set10SalesImportLocal extends Command
             $this->importer->import($parser, $output, $batchSize, $datePeriod, $dotHelper, $stopwatch);
 
             foreach ($this->importer->getErrors() as $error) {
-                $this->logException($error['exception'], $file);
+                /* @var Exception $exception */
+                list(, $exception) = $error;
+                $this->logException($exception, $file);
             }
         } catch (Exception $e) {
             $this->logException($e, $file);

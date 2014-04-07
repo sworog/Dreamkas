@@ -7,7 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.Waiter;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -15,12 +14,16 @@ import java.util.Map;
  */
 abstract public class CommonPageObject extends PageObject {
 
-    public Map<String, CommonItem> items = new HashMap<>();
+    /**
+     * Map to store common items user can interact with
+     */
+    private CommonItemMap items = new CommonItemMap();
 
-    private CommonActions commonActions = new CommonActions(this, items);
+    private CommonActions commonActions = new CommonActions(this);
 
     public CommonPageObject(WebDriver driver) {
         super(driver);
+        setDriver(driver, 100);
         createElements();
     }
 
@@ -32,6 +35,20 @@ abstract public class CommonPageObject extends PageObject {
         return commonActions.getWaiter();
     }
 
+    public CommonItemMap getItems() {
+        return items;
+    }
+
+    /**
+     * put items to CommonItemMap {@link #items}
+     *
+     * @param elementName
+     * @param commonItem
+     */
+    public void put(String elementName, CommonItem commonItem) {
+        items.put(elementName, commonItem);
+    }
+
     abstract public void createElements();
 
     public WebElement findElement(By by) {
@@ -40,6 +57,10 @@ abstract public class CommonPageObject extends PageObject {
 
     public WebElement findVisibleElement(By by) {
         return getWaiter().getVisibleWebElement(by);
+    }
+
+    public WebElement findVisibleElement(WebElement element) {
+        return getWaiter().getVisibleWebElement(element);
     }
 
     public void input(String elementName, String inputText) {
@@ -118,5 +139,33 @@ abstract public class CommonPageObject extends PageObject {
 
     public void elementShouldBeVisible(String value, CommonView commonView) {
         commonActions.elementShouldBeVisible(value, commonView);
+    }
+
+    public void checkValue(String elementName, String value) {
+        items.get(elementName).getFieldChecker().assertValueEqual(value);
+    }
+
+    public void checkValues(ExamplesTable examplesTable) {
+        for (Map<String, String> row : examplesTable.getRows()) {
+            String elementName = row.get("elementName");
+            String expectedValue = row.get("value");
+            checkValue(elementName, expectedValue);
+        }
+    }
+
+    public Boolean invisibilityOfElementLocated(WebElement element) {
+        return getWaiter().invisibilityOfElementLocated(element);
+    }
+
+    public Boolean invisibilityOfElementLocated(By findBy) {
+        return getWaiter().invisibilityOfElementLocated(findBy);
+    }
+
+    public Boolean visibilityOfElementLocated(WebElement element) {
+        return getWaiter().visibilityOfElementLocated(element);
+    }
+
+    public Boolean visibilityOfElementLocated(By findBy) {
+        return getWaiter().visibilityOfElementLocated(findBy);
     }
 }

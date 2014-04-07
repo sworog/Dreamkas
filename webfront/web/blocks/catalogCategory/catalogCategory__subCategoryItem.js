@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/core/block'),
+    var Block = require('kit/core/block.deprecated'),
         Tooltip_catalogSubCategoryMenu = require('blocks/tooltip/tooltip_catalogSubCategoryMenu/tooltip_catalogSubCategoryMenu');
 
     return Block.extend({

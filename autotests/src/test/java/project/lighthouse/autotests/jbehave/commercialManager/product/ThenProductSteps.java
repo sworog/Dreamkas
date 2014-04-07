@@ -20,4 +20,13 @@ public class ThenProductSteps {
         productSteps.productWriteOffLinkIsNotPresent();
     }
 
+    @Then("the user sees no edit product button")
+    public void thenTheUserSeesNoEditProductButton() {
+        productSteps.editProductButtonIsNotPresent();
+    }
+
+    @Then("the user sees no create new product button")
+    public void thenTheUserSeesNoCreateNewProductButton() {
+        productSteps.newProductCreateButtonIsNotPresent();
+    }
 }

@@ -59,7 +59,7 @@ public class EndUserSteps {
 
     @When("the user clicks on the users list page link")
     public void whenTheUserClicksOnTheUserListPageLink() {
-        userSteps.backToTheUsersListPageLink();
+        userSteps.pageBackLinkClick();
     }
 
     @When("the user generates charData with '$number' number in the '$elementName' user page field")
@@ -100,5 +100,25 @@ public class EndUserSteps {
     @Then("the user checks '$elementName' user page field contains only '$number' symbols")
     public void thenTheUserChecksUserPageFieldContainsSymbols(String elementName, int number) {
         userSteps.checkFieldLength(elementName, number);
+    }
+
+    @Then("the user sees user card edit button")
+    public void thenTheUserSeesUserCardEditButton() {
+        userSteps.userCardEditButtonIsPresent();
+    }
+
+    @Then("the user sees no user card edit button")
+    public void thenTheUserSeesNoUserCardEditButton() {
+        userSteps.userCardEditButtonIsNotPresent();
+    }
+
+    @Then("the user sees user card link to users list")
+    public void thenTheUserSeesUserCardLinkToUsersList() {
+        userSteps.userCardListLinkIsPresent();
+    }
+
+    @Then("the user sees no user card link to users list")
+    public void thenTheUserSeesNoUserCardLinkToUsersList() {
+        userSteps.userCardListLinkIsNotPresent();
     }
 }

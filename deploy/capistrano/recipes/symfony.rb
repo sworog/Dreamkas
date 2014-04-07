@@ -81,8 +81,8 @@ namespace :symfony do
         after "deploy:update", "symfony:worker:symlink:create"
         after "deploy:update", "symfony:worker:update"
         after "deploy:update", "symfony:worker:restart"
-        after "deploy:remove", "symfony:worker:symlink:remove"
-        after "deploy:remove", "symfony:worker:update"
+        after "deploy:remove:go", "symfony:worker:symlink:remove"
+        after "deploy:remove:go", "symfony:worker:update"
 
         set(:worker_conf_file) {"#{shared_path}/app/shared/supervisor/worker.conf"}
         set(:worker_symlink_file) {"/etc/supervisor/conf.d/#{application}.conf"}
@@ -301,6 +301,32 @@ namespace :symfony do
         desc "Recalculate reports data"
         task :recalculate, :roles => :app, :except => { :no_release => true } do
             stream console_command("lighthouse:reports:recalculate"), :once => true
+        end
+    end
+
+    namespace :openstack do
+        namespace :container do
+
+            after "deploy:update", "symfony:openstack:container:create"
+            before "deploy:remove:go" do
+                begin
+                    symfony.openstack.container.delete
+                rescue Exception => error
+                    puts "✘\n".red
+                end
+            end
+
+            desc "Create OpenStack Storage container"
+            task :create, :roles => :app, :except => { :no_release => true } do
+                puts "--> Create storage container".yellow
+                stream console_command("openstack:container:create"), :once => true
+            end
+
+            desc "Delete OpenStack Storage container"
+            task :delete, :roles => :app, :except => { :no_release => true } do
+                puts "--> Delete storage container".yellow
+                stream console_command("openstack:container:delete"), :once => true
+            end
         end
     end
 

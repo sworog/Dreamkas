@@ -1,35 +1,66 @@
-<% var model = model || new Backbone.Model() %>
+<% var OrderModel = require('models/order') %>
+<% var SuppliersCollection = require('collections/suppliers') %>
+<% var currentUserModel = require('models/currentUser') %>
+<% var model = model || new OrderModel() %>
+<% var collections = _.extend({
+    suppliers: new SuppliersCollection()
+}, collections); %>
 
-<% var templates = {
-    form_orderProduct: require('tpl!blocks/form/form_orderProduct/template.html')
-} %>
-
-<form class="form" id="form_order">
-    <div class="form__field">
+<form class="form form_order <%- model.id ? '' : 'form_changed' %>" style="margin-bottom: 20px;">
+    <div class="form__field" style="padding-bottom: 30px;">
         <label class="form__label">Поставщик</label>
         <select class="select" name="supplier">
-            <option selected disabled>Выберите поставщика</option>
+            <option value="" selected disabled>Выберите поставщика</option>
+            <% collections.suppliers.forEach(function(supplierModel){ %>
+            <% var selected = supplierModel.id === model.get('supplier.id') %>
+            <option <%- selected ? 'selected' : '' %>
+                    value="<%- supplierModel.id %>"><%- supplierModel.get('name') %></option>
+            <% }) %>
         </select>
     </div>
-</form>
+    <div style="margin-bottom: 30px;">
+        <%= model.get('collections.products').element(require('tpl!blocks/table/table_orderProducts/template.html'), {
+            collections: {
+                orderProducts: model.get('collections.products')
+            }
+        }) %>
+    </div>
 
-<div class="form_order__productForm">
-    <h2>Добавить товар в заказ</h2>
-    <%= templates.form_orderProduct() %>
-</div>
+    <h2>Добавление товара в заказ</h2>
 
-<div class="form_order__totalSum">
-    Итого: 2 331,00 руб.
-</div>
+    <div class="form__field" style="padding-bottom: 30px;">
+        <input style="width: 600px;" data-url="<%- LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/search/products?properties[]=name&properties[]=sku' %>"
+               type="text" class="inputText autocomplete"/>
+    </div>
 
-<div class="form__controls">
-    <button form="form_order" type="submit" class="button">
-        Сохранить
-    </button>
-    <span style="margin-right: 10px;">
+    <div class="form_order__totalSum">
+        Итого:
+        <%= model.get('collections.products').element(require('tpl!blocks/form/form_order/form_order__totalSum.html'), {
+            collections: {
+                orderProducts: model.get('collections.products')
+            }
+        }) %>
+    </div>
+
+    <div class="form__controls">
+        <div class="form_order__invoiceControls">
+            <a href="/invoice/create" class="button">
+                Принять по заказу
+            </a>
+        </div>
+        <div class="form_order__saveControls">
+            <% if (model.id){ %>
+            <p>Заказ изменён, подтвердите изменения, пожалуйста.</p>
+            <% } %>
+            <button type="submit" class="button">
+                Сохранить
+            </button>
+        <span style="margin-right: 10px;">
         или
-    </span>
-    <a style="margin-right: 20px;" href="/suppliers">
-        Отменить
-    </a>
-</div>
+        </span>
+            <a style="margin-right: 20px;" href="/orders">
+                Отменить
+            </a>
+        </div>
+    </div>
+</form>

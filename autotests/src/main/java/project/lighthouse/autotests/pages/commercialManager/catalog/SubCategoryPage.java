@@ -3,7 +3,7 @@ package project.lighthouse.autotests.pages.commercialManager.catalog;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
-import project.lighthouse.autotests.elements.InputOnlyVisible;
+import project.lighthouse.autotests.elements.items.InputOnlyVisible;
 
 public class SubCategoryPage extends GroupPage {
 
@@ -13,7 +13,7 @@ public class SubCategoryPage extends GroupPage {
 
     @Override
     public void createElements() {
-        items.put("name", new InputOnlyVisible(this, "name"));
+        put("name", new InputOnlyVisible(this, "name"));
     }
 
     @Override
@@ -29,6 +29,6 @@ public class SubCategoryPage extends GroupPage {
 
     @Override
     public CommonItem getItem() {
-        return items.get("name");
+        return getItems().get("name");
     }
 }

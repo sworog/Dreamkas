@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
-import project.lighthouse.autotests.elements.NonType;
+import project.lighthouse.autotests.elements.items.NonType;
 
 @DefaultUrl("/stores")
 public class StoreListPage extends CommonPageObject {
@@ -17,9 +17,9 @@ public class StoreListPage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("number", new NonType(this, "number"));
-        items.put("address", new NonType(this, "address"));
-        items.put("contacts", new NonType(this, "contacts"));
+        put("number", new NonType(this, "number"));
+        put("address", new NonType(this, "address"));
+        put("contacts", new NonType(this, "contacts"));
     }
 
     public void createNewStoreButtonClick() {

@@ -41,11 +41,11 @@ class ConvertToXmlForSet10Test extends WebTestCase
      */
     public function initBase()
     {
-        $storeManager1User = $this->createUser('storeManager1', 'password', 'ROLE_STORE_MANAGER');
-        $storeManager1AccessToken = $this->auth($storeManager1User);
-        $storeManager2User = $this->createUser('storeManager2', 'password', 'ROLE_STORE_MANAGER');
-        $storeManager2AccessToken = $this->auth($storeManager2User);
-        $storeManager3User = $this->createUser('storeManager3', 'password', 'ROLE_STORE_MANAGER');
+        $storeManager1User = $this->factory->user()->getUser('storeManager1', 'password', 'ROLE_STORE_MANAGER');
+        $storeManager1AccessToken = $this->factory->oauth()->auth($storeManager1User);
+        $storeManager2User = $this->factory->user()->getUser('storeManager2', 'password', 'ROLE_STORE_MANAGER');
+        $storeManager2AccessToken = $this->factory->oauth()->auth($storeManager2User);
+        $storeManager3User = $this->factory->user()->getUser('storeManager3', 'password', 'ROLE_STORE_MANAGER');
 
         $groupData = array(
             'name' => 'Группа',
@@ -65,20 +65,20 @@ class ConvertToXmlForSet10Test extends WebTestCase
         $storesData = array(
             1 => array(
                 'number' => '1',
-                'id' => $this->factory->getStore('1'),
+                'id' => $this->factory->store()->getStoreId('1'),
             ),
             2 => array(
                 'number' => '2',
-                'id' => $this->factory->getStore('2'),
+                'id' => $this->factory->store()->getStoreId('2'),
             ),
             3 => array(
                 'number' => '3',
-                'id' => $this->factory->getStore('3'),
+                'id' => $this->factory->store()->getStoreId('3'),
             ),
         );
-        $this->factory->linkStoreManagers($storeManager1User->id, $storesData[1]['id']);
-        $this->factory->linkStoreManagers($storeManager2User->id, $storesData[2]['id']);
-        $this->factory->linkStoreManagers($storeManager3User->id, $storesData[3]['id']);
+        $this->factory->store()->linkStoreManagers($storeManager1User->id, $storesData[1]['id']);
+        $this->factory->store()->linkStoreManagers($storeManager2User->id, $storesData[2]['id']);
+        $this->factory->store()->linkStoreManagers($storeManager3User->id, $storesData[3]['id']);
 
         $productsData = array(
             1 => array(
@@ -437,7 +437,7 @@ EOF;
 
         $this->createConfig(Set10Export::URL_CONFIG_NAME, $xmlFileUrl);
 
-        $commercialAccessToken = $this->authAsRole("ROLE_COMMERCIAL_MANAGER");
+        $commercialAccessToken = $this->factory->oauth()->authAsRole("ROLE_COMMERCIAL_MANAGER");
         $this->clientJsonRequest(
             $commercialAccessToken,
             "GET",

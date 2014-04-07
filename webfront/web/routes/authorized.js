@@ -19,6 +19,7 @@ define(function(require) {
         //orders
         'orders(/)': require('pages/orders/list/list'),
         'orders/create(/)': require('pages/orders/create/create'),
+        'orders/:orderId(/)': require('pages/orders/view/view'),
 
         //reports
         'reports(/)': require('pages/reports/dashboard/dashboard'),

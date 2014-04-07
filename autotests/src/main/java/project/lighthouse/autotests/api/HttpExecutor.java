@@ -14,7 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import project.lighthouse.autotests.helper.UrlHelper;
-import project.lighthouse.autotests.objects.api.AbstractObject;
+import project.lighthouse.autotests.objects.api.abstraction.AbstractObject;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

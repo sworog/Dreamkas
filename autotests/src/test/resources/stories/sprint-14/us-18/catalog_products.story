@@ -91,20 +91,20 @@ Scenario: No products dashboard link for commercial manager
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
-Then the user checks the dashboard link to 'products' section is not present
+Then the user checks the catalog navigation menu item is not visible
 
 Scenario: No products dashboard link for department manager
 
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
-Then the user checks the dashboard link to 'products' section is not present
+Then the user checks the catalog navigation menu item is not visible
 
 Scenario: Catalog dashboard link is present for department manager
 
 Given before steps
 And the user opens the authorization page
 And the user logs in as 'departmentManager'
-Then the user checks the dashboard link to 'catalog' section is present
+Then the user checks the catalog navigation menu item is visible
 
 Scenario: Catalog - no edit link for department manager
 

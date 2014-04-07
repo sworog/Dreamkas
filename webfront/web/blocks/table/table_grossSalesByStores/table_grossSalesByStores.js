@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Block = require('kit/core/block');
+    var Block = require('kit/core/block.deprecated');
 
     return Block.extend({
         __name__: module.id,

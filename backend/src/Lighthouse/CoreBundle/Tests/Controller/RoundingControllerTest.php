@@ -10,7 +10,7 @@ class RoundingControllerTest extends WebTestCase
 {
     public function testGetRoundingsAction()
     {
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -37,7 +37,7 @@ class RoundingControllerTest extends WebTestCase
      */
     public function testGetRoundingAction($name, $title)
     {
-        $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -67,7 +67,7 @@ class RoundingControllerTest extends WebTestCase
 
     public function testGetRoundingActionNotFound()
     {
-        $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -89,7 +89,7 @@ class RoundingControllerTest extends WebTestCase
      */
     public function testPostRoundingRoundAction($name, $price, $roundedPrice)
     {
-        $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
 
         $postData = array(
             'price' => $price,
@@ -140,7 +140,7 @@ class RoundingControllerTest extends WebTestCase
      */
     public function testPostRoundingRoundActionInvalidData($price, array $assertions)
     {
-        $accessToken = $this->authAsRole(User::ROLE_STORE_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
 
         $postData = array(
             'price' => $price,

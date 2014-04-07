@@ -1,24 +1,21 @@
 package project.lighthouse.autotests.elements.Buttons.localNavigation;
 
-import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.elements.Buttons.abstraction.AbstractFacade;
 
 /**
  * Facade to handle navigation link elements
  */
-public class NavigationLinkFacade {
+public class NavigationLinkFacade extends AbstractFacade {
 
-    private String xpath;
-    private static final String xpathPattern = "//*[contains(@class, 'localNavigation__link') and normalize-space(text())='%s']";
-
-    private CommonPageObject pageObject;
+    private static final String XPATH_PATTERN = "//*[contains(@class, 'localNavigation__link') and normalize-space(text())='%s']";
 
     public NavigationLinkFacade(CommonPageObject pageObject, String linkText) {
-        this.pageObject = pageObject;
-        xpath = String.format(xpathPattern, linkText);
+        super(pageObject, linkText);
     }
 
-    public void click() {
-        pageObject.getCommonActions().elementClick(By.xpath(xpath));
+    @Override
+    public String getXpathPattern() {
+        return XPATH_PATTERN;
     }
 }
