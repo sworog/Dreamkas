@@ -29,16 +29,12 @@
         "rackspace/php-opencloud": "~1.9",
         "munkie/karzer": "dev-master",
         "clamidity/profiler-bundle": "dev-master",
-        "liuggio/ExcelBundle": "*"
+        "liuggio/ExcelBundle": "~2.0"
     },
     "repositories": [
         {
             "type": "vcs",
             "url": "https://github.com/munkie/ProfilerBundle"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/crystalservice/mongodb"
         }
     ],
     "scripts": {

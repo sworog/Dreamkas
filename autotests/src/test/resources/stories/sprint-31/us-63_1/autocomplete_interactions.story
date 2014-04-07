@@ -35,6 +35,10 @@ And the user checks the autocomplete result entry found by name '30631 — name-
 
 When the user presses 'ENTER' key button
 
+When the user presses 'ENTER' key button
+
+Then the user waits for the order product edition preloader finish
+
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |
 | name-30631 | шт. | 1,0 | 100,00 | 100,00 |
@@ -70,6 +74,10 @@ And the user presses 'ARROW_DOWN' key button
 Then the user checks the autocomplete result entry found by name '3063123 — name-3063123' is highlighted
 
 When the user presses 'ENTER' key button
+
+When the user presses 'ENTER' key button
+
+Then the user waits for the order product edition preloader finish
 
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |
@@ -107,6 +115,12 @@ Then the user checks the autocomplete result entry found by name '3063123 — na
 
 When the user clicks on the autocomplete result with name '3063123 — name-3063123'
 
+When the user presses 'ENTER' key button
+
+When the user presses 'ENTER' key button
+
+Then the user waits for the order product edition preloader finish
+
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |
 | name-3063123 | шт. | 1,0 | 100,00 | 100,00 |
@@ -140,6 +154,12 @@ When the user hovers mouse over autocomplete result entry found by name '3063123
 Then the user checks the autocomplete result entry found by name '3063123 — name-3063123' is highlighted
 
 When the user clicks on the autocomplete result with name '3063123 — name-3063123'
+
+When the user presses 'ENTER' key button
+
+When the user presses 'ENTER' key button
+
+Then the user waits for the order product edition preloader finish
 
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |
@@ -175,6 +195,10 @@ When the user hovers mouse over autocomplete result entry found by name '3063123
 Then the user checks the autocomplete result entry found by name '3063123 — name-3063123' is highlighted
 
 When the user presses 'ENTER' key button
+
+When the user presses 'ENTER' key button
+
+Then the user waits for the order product edition preloader finish
 
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |
@@ -257,6 +281,12 @@ And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse'
 When the user inputs values on order page
 | elementName | value |
 | order product autocomplete | name-30631 |
+
+When the user presses 'ENTER' key button
+
+When the user presses 'ENTER' key button
+
+Then the user waits for the order product edition preloader finish
 
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |

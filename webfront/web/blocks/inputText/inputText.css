@@ -4,7 +4,7 @@
 
 input.inputText, .inputText input, textarea.inputText, .inputText textarea{
     height: 35px;
-    background: #fff;
+    background-color: #fff;
     outline: none;
     font-size: 16px;
     border-radius: 3px;

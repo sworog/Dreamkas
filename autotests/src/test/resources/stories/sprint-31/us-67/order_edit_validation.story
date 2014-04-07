@@ -6,83 +6,10 @@ Meta:
 Narrative:
 Валидация при редактировании
 
-Scenario: Order edit - Edition product form - autocomplete is required
-
-Meta:
-@id_s30u67s8
-
-GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
-
-Given there is the order in the store by 'departmentManager-s30u67'
-
-Given the user opens last created order page
-And the user logs in using 'departmentManager-s30u67' userName and 'lighthouse' password
-
-When the user clicks on order product in last created order
-
-When the user inputs values in edition new product form on the order page
-| elementName | value |
-| name | ! |
-
-When the user clicks the edit order product button
-
-Then the user sees error messages
-| error message |
-| Заполните это поле |
-
-Scenario: Order edit - Edition product form - quantity is required
-
-Meta:
-@id_s30u67s9
-
-GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
-
-Given there is the order in the store by 'departmentManager-s30u67'
-
-Given the user opens last created order page
-And the user logs in using 'departmentManager-s30u67' userName and 'lighthouse' password
-
-When the user clicks on order product in last created order
-
-When the user inputs values in edition new product form on the order page
-| elementName | value |
-| quantity | |
-
-When the user clicks the edit order product button
-
-Then the user sees error messages
-| error message |
-| Заполните это поле |
-
-Scenario: Order edit - Edition product form - autocomplete validation
-
-Meta:
-@id_s30u67s10
-
-GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
-
-Given there is the order in the store by 'departmentManager-s30u67'
-
-Given the user opens last created order page
-And the user logs in using 'departmentManager-s30u67' userName and 'lighthouse' password
-
-When the user clicks on order product in last created order
-
-When the user inputs values in edition new product form on the order page
-| elementName | value |
-| name | !dfdfdfdfdfdfdf |
-| quantity | 5 |
-
-When the user clicks the edit order product button
-
-Then the user sees error messages
-| error message |
-| Такого товара не существует |
-
 Scenario: Order edit - Edition product form - quantity positive validation
 
 Meta:
-@id_s30u67s11
+@id_s30u67s6
 
 Given there is the user with name 'departmentManager-s30u67', position 'departmentManager-s30u67', username 'departmentManager-s30u67', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s30u67' managed by department manager named 'departmentManager-s30u67'
@@ -94,9 +21,10 @@ And the user logs in using 'departmentManager-s30u67' userName and 'lighthouse' 
 
 When the user clicks on order product in last created order
 
-When the user inputs value in elementName 'quantity' in addition new product form on the order page
+When the user inputs quantity value on the order product in last created order
+And the user presses 'ENTER' key button
 
-When the user clicks the edit order product button
+Then the user waits for the order product edition preloader finish
 
 Then the user checks the order product in last created order has quantity equals to expectedValue
 And the user sees no error messages
@@ -110,11 +38,15 @@ Examples:
 | 1.12 | 1,12 |
 | 1.123 | 1,123 |
 | 1,123 | 1,123 |
+| 1000 | 1 000,0 |
+| 1 000 | 1 000,0 |
+| 123123,123 | 123 123,123 |
+| 123 123,123 | 123 123,123 |
 
 Scenario: Order edit - Edition product form - quantity negative validation
 
 Meta:
-@id_s30u67s12
+@id_s30u67s7
 
 Given there is the user with name 'departmentManager-s30u67', position 'departmentManager-s30u67', username 'departmentManager-s30u67', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s30u67' managed by department manager named 'departmentManager-s30u67'
@@ -126,14 +58,16 @@ And the user logs in using 'departmentManager-s30u67' userName and 'lighthouse' 
 
 When the user clicks on order product in last created order
 
-When the user inputs value in elementName 'quantity' in addition new product form on the order page
+When the user inputs quantity value on the order product in last created order
+And the user presses 'ENTER' key button
 
-When the user clicks the edit order product button
+Then the user waits for the order product edition preloader finish
 
 Then the user user sees errorMessage
 
 Examples:
 | value | errorMessage |
+|  | Заполните это поле |
 | -10 | Значение должно быть больше 0 |
 | -1 | Значение должно быть больше 0 |
 | -1,12 | Значение должно быть больше 0 |
