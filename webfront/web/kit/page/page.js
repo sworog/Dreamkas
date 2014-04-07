@@ -1,4 +1,4 @@
-define(function(require) {
+define(function(require, exports, module) {
     //requirements
     var Block = require('block'),
         router = require('router'),
@@ -10,12 +10,11 @@ define(function(require) {
 
     var Page = Block.extend({
 
-        constructor: function(params) {
-            var page = this,
-                args = _.toArray(arguments);
+        constructor: function(req) {
+            var page = this;
 
-            if (Page.current && page.get('cid') === Page.current.get('cid')){
-                Page.current.set(params);
+            if (Page.current && page.get('moduleId') === Page.current.get('moduleId')) {
+                Page.current.set(req);
                 return;
             }
 
@@ -29,37 +28,36 @@ define(function(require) {
 
             Page.current = page;
 
-            deepExtend(this, params);
+            deepExtend(page, req);
 
-            when(page.get('permission')).then(function(permission){
-                if (permission){
+            when(page.get('isAllow')).then(function(isAllow) {
+                if (isAllow) {
                     page.initElement();
-                    page.initialize.apply(page, args);
+                    page.initialize.apply(page, arguments);
                     page.startListening();
                 } else {
                     router.navigate('/errors/403', {
-                        trigger: true,
                         replace: true
                     });
                 }
-            }, function(error){
+            }, function(error) {
                 page.set('error', error);
             });
         },
 
+        moduleId: module.id,
         el: document.body,
         permission: true,
-        className: 'page',
         template: require('tpl!kit/page/template.html'),
         templates: {
-            content: function(data){
-                return '<h1>API Gate</h1>';
-            },
+            content: null,
             localNavigation: null,
             globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation.html')
         },
+        collections: {},
+        models: {},
 
-        initData: function() {
+        initResources: function() {
 
             var page = this;
 
@@ -77,24 +75,28 @@ define(function(require) {
         initialize: function() {
             var page = this;
 
-            page.initData();
+            try {
+                page.initResources();
+            } catch (error) {
+                console.error(error);
+            }
 
-            when(page.fetch()).then(function(){
+            when(page.fetch()).then(function() {
                 try {
                     page.render()
-                } catch(error){
+                } catch (error) {
                     console.error(error);
                 }
             }, function(error) {
                 page.set('error', error);
             });
         },
-        render: function(){
+        render: function() {
             var page = this;
 
             page.set('status', 'rendering');
 
-            if (page.referrer){
+            if (page.referrer) {
                 page.referrer.destroyBlocks();
             }
 
@@ -105,8 +107,8 @@ define(function(require) {
         fetch: function(dataList) {
             var page = this;
 
-            var fetchList = _.map(dataList || page.get('fetchData'), function(data){
-                if (typeof data === 'string'){
+            var fetchList = _.map(dataList || page.get('fetchData'), function(data) {
+                if (typeof data === 'string') {
                     data = page.get(data);
                 }
                 return (data && typeof data.fetch === 'function') ? data.fetch() : data;
@@ -114,10 +116,10 @@ define(function(require) {
 
             return when.all(fetchList);
         },
-        fetchData: function(){
+        fetchData: function() {
             var page = this;
 
-            return _.values(page.collections).concat(_.filter(page.models, function(model){
+            return _.values(page.collections).concat(_.filter(page.models, function(model) {
                 return model && model.id;
             }));
         },
@@ -135,14 +137,14 @@ define(function(require) {
                 trigger: true
             });
         },
-        'set:status': function(status){
+        'set:status': function(status) {
             var page = this;
 
-            if (status == 'rendering'){
+            if (status == 'rendering') {
                 page.el.classList.add('preloader_spinner');
             }
 
-            if (status == 'rendered'){
+            if (status == 'rendered') {
                 page.el.classList.remove('preloader_spinner');
             }
 

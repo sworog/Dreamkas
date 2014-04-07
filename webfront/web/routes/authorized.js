@@ -33,7 +33,7 @@ define(function(require) {
         'stores/:storeId/reports/grossMargin(/)': require('pages/reports/store/grossMargin/grossMargin'),
 
         //invoices
-        'invoices(/)': require('pages/invoice/list'),
+        'invoices(/)': require('pages/invoice/list/list'),
         'invoices/create(/)': require('pages/invoice/form'),
         'invoices/search(/)': require('pages/invoice/search'),
         'invoices/:invoiceId(/)': require('pages/invoice/view'),

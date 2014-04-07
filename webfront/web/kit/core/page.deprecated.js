@@ -48,7 +48,6 @@ define(function(require) {
             }
         },
         constructor: function() {
-
             var page = this,
                 accessDenied;
 

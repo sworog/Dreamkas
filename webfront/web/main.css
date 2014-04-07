@@ -18,6 +18,7 @@
 @import "blocks/inputDate/inputDate.css";
 @import "blocks/editor/editor.css";
 @import "blocks/page/page.css";
+@import "blocks/content/content.css";
 @import "blocks/invoice/invoice.css";
 @import "blocks/form/form_product/form_product.css";
 @import "blocks/product/product.css";

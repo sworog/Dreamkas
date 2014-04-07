@@ -1,0 +1,15 @@
+<% var InvoicesCollection = require('collections/invoices') %>
+
+<% var collections = _.defaults(collections, {
+    invoices: new InvoicesCollection()
+}) %>
+
+<% var templates = _.defaults(templates, {
+    table_invoices: require('tpl!blocks/table/table_invoices/table_invoices.html')
+}) %>
+
+<div class="content">
+    <%= templates.table_invoices({
+        collections: _.pick(collections, 'invoices')
+    }) %>
+</div>

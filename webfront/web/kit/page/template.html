@@ -6,6 +6,7 @@
     globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation.html')
 }) %>
 
+<% var moduleId = moduleId || 'noname' %>
 
 <div class="page" page="<%- moduleId %>">
     <%= templates.globalNavigation(obj) %>

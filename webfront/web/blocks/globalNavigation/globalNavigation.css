@@ -1,7 +1,7 @@
 .globalNavigation{
     background: #282A2E;
     height: 100%;
-    position: fixed;
+    float: left;
     width: 200px;
     left: 0;
     top: 0;
