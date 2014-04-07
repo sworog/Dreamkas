@@ -38,7 +38,9 @@
     visibility: visible;
 }
 
-.page.preloader_spinner .page__content {
+.page.preloader_spinner .page__content,
+.page.preloader_spinner .content,
+.page.preloader_spinner .localNavigation {
     display: none;
 }
 

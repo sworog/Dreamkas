@@ -17,7 +17,7 @@ define(function(require) {
         initialize: function() {
             var page = this;
 
-            if (!(LH.isAllow('users', 'GET::{user}') || page.userId === 'current')){
+            if (!(LH.isAllow('users', 'GET::{user}') || page.params.userId === 'current')){
                 new Page403();
                 return;
             }

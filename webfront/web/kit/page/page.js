@@ -139,8 +139,7 @@ define(function(require, exports, module) {
         },
         'set:status': function(status) {
             var page = this;
-
-            if (status == 'rendering') {
+            if (status == 'starting') {
                 page.el.classList.add('preloader_spinner');
             }
 

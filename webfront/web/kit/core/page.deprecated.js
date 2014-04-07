@@ -1,4 +1,4 @@
-define(function(require) {
+define(function(require, exports, module) {
     //requirements
     var app = require('app'),
         Block = require('kit/core/block.deprecated'),
@@ -6,11 +6,13 @@ define(function(require) {
         router = require('router'),
         isAllow = require('kit/utils/isAllow'),
         downloadUrl = require('kit/downloadUrl/downloadUrl'),
-        cookies = require('cookies');
+        cookies = require('cookies'),
+        NewPage = require('page');
 
     require('lodash');
 
     var Page = Block.extend({
+        moduleId: module.id,
         el: document.body,
         permissions: null,
         referrer: {},
@@ -53,6 +55,11 @@ define(function(require) {
 
             this.cid = _.uniqueId('cid');
             this._configure.apply(this, arguments);
+
+            if (NewPage.current){
+                NewPage.current.moduleId = null;
+                NewPage.current.destroy();
+            }
 
             switch (typeof page.permissions) {
                 case 'object':
