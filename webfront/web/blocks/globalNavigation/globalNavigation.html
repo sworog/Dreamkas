@@ -13,7 +13,7 @@
         <% } %>
 
         <% if(LH.isAllow('stores/{store}/invoices') && currentUserModel.stores && currentUserModel.stores.length){ %>
-        <a href="/invoices?storeId=<%- currentUserModel.stores.at(0).id %>">Накладные</a>
+        <a href="/stores/<%- currentUserModel.stores.at(0).id %>/invoices">Накладные</a>
         <% } %>
 
         <% if(LH.isAllow('stores/{store}/writeoffs') && currentUserModel.stores && currentUserModel.stores.length){ %>

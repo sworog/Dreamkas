@@ -33,10 +33,10 @@ define(function(require) {
         'stores/:storeId/reports/grossMargin(/)': require('pages/reports/store/grossMargin/grossMargin'),
 
         //invoices
-        'invoices(/)': require('pages/invoice/list/list'),
-        'invoices/create(/)': require('pages/invoice/form'),
-        'invoices/search(/)': require('pages/invoice/search'),
-        'invoices/:invoiceId(/)': require('pages/invoice/view'),
+        'stores/:storeId/invoices(/)': require('pages/invoices/list/list'),
+        'invoices/create(/)': require('pages/invoices/form'),
+        'invoices/search(/)': require('pages/invoices/search'),
+        'invoices/:invoiceId(/)': require('pages/invoices/view'),
 
         //users
         'users(/)': require('pages/user/list'),

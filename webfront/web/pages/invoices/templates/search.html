@@ -1,7 +1,8 @@
 <% var form_invoiceSearch = require('tpl!blocks/form/form_invoiceSearch/form_invoiceSearch.html') %>
+<% var currentUserModel = require('models/currentUser') %>
 
 <div class="localNavigation">
-    <h2><a class="localNavigation__link" href="/invoices">Накладные</a></h2>
+    <h2><a class="localNavigation__link" href="/stores/<%- currentUserModel.stores.at(0).id %>/invoices">Накладные</a></h2>
     <a class="localNavigation__link localNavigation__link_active" href="/invoices/search">Поиск накладной</a>
     <a class="localNavigation__link" href="/invoices/create">Создать накладную</a>
 </div>
