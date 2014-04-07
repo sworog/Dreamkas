@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Util\File;
 
+use Lighthouse\CoreBundle\Debug\ErrorHandler;
 use Lighthouse\CoreBundle\Util\Iterator\ArrayIterator;
 use DateTime;
 use Traversable;
@@ -44,7 +45,7 @@ class SortableDirectoryIterator implements IteratorAggregate, ArrayAccess, Count
     protected function checkFileExists()
     {
         try {
-            $this->fileInfo->getType();
+            ErrorHandler::proxy($this->fileInfo)->getType();
         } catch (\RuntimeException $e) {
             throw new \UnexpectedValueException(sprintf('Path "%s" does not exist', $this->fileInfo->getPathname()));
         }

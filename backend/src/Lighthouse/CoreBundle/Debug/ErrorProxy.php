@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Debug;
 
 use ErrorException;
+use Exception;
 
 class ErrorProxy
 {
@@ -38,6 +39,9 @@ class ErrorProxy
         try {
             $result = call_user_func_array(array($this->object, $name), $args);
         } catch (ErrorException $e) {
+            $this->handler->restore();
+            throw $e;
+        } catch (Exception $e) {
             $this->handler->restore();
             throw $e;
         }

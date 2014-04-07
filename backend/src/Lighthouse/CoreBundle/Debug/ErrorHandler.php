@@ -66,7 +66,7 @@ class ErrorHandler
     /**
      * @param object $object
      * @param null $level
-     * @return ErrorProxy|\XmlReader
+     * @return ErrorProxy|\XmlReader|\SplFileInfo
      */
     public static function proxy($object, $level = null)
     {
