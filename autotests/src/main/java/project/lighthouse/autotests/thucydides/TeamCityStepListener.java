@@ -18,10 +18,10 @@ import static ch.lambdaj.Lambda.sum;
 
 public class TeamCityStepListener implements StepListener {
 
-    private static final String messageTemplate = "##teamcity[%s %s]";
-    private static final String propertyTemplate = " %s='%s'";
+    private static final String MESSAGE_TEMPLATE = "##teamcity[%s %s]";
+    private static final String PROPERTY_TEMPLATE = " %s='%s'";
 
-    private static final HashMap<String, String> escapeChars = new LinkedHashMap<String, String>() {
+    private static final HashMap<String, String> ESCAPE_CHARS = new LinkedHashMap<String, String>() {
         {
             put("\\|", "||");
             put("\'", "|\'");
@@ -50,7 +50,7 @@ public class TeamCityStepListener implements StepListener {
     }
 
     private String escapeProperty(String value) {
-        for (Map.Entry<String, String> escapeChar : escapeChars.entrySet()) {
+        for (Map.Entry<String, String> escapeChar : ESCAPE_CHARS.entrySet()) {
             value = value.replace(escapeChar.getKey(), escapeChar.getValue());
         }
         return value;
@@ -61,13 +61,13 @@ public class TeamCityStepListener implements StepListener {
         for (Map.Entry<String, String> property : properties.entrySet()) {
             propertiesBuilder.append(
                     String.format(
-                            propertyTemplate,
+                            PROPERTY_TEMPLATE,
                             property.getKey(),
                             escapeProperty(property.getValue())
                     )
             );
         }
-        String message = String.format(messageTemplate, messageName, propertiesBuilder.toString());
+        String message = String.format(MESSAGE_TEMPLATE, messageName, propertiesBuilder.toString());
         logger.info(message);
     }
 
