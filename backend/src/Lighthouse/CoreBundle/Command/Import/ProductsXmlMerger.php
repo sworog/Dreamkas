@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Command\Import;
 
 use Lighthouse\CoreBundle\Console\DotHelper;
+use Lighthouse\CoreBundle\Debug\ErrorHandler;
 use Lighthouse\CoreBundle\Util\File\SortableDirectoryIterator;
 use Symfony\Component\Console\Command\Command;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -113,19 +114,19 @@ class ProductsXmlMerger extends Command
     {
         $xmlReader = new XMLReader();
         $xmlReader->open($xmlFile->getPathname(), 'UTF-8');
-        while (@$xmlReader->read()) {
+        while (ErrorHandler::proxy($xmlReader)->read()) {
             if (XMLReader::ELEMENT === $xmlReader->nodeType && 'good' == $xmlReader->name) {
                 $sku = $xmlReader->getAttribute('marking-of-the-good');
                 if (!isset($this->skus[$sku])) {
-                    $nodeXml = @$xmlReader->readOuterXml();
-                    if ('' == $nodeXml) {
-                        $this->dotHelper->writeError('E');
-                        $this->errors[] = libxml_get_last_error();
-                        break;
-                    } else {
+                    try {
+                        $nodeXml = ErrorHandler::proxy($xmlReader)->readOuterXml();
                         $this->mergeFile->fwrite($nodeXml . PHP_EOL);
                         $this->skus[$sku] = 1;
                         $this->dotHelper->writeInfo('.');
+                    } catch (\ErrorException $e) {
+                        $this->dotHelper->writeError('E');
+                        $this->errors[] = libxml_get_last_error();
+                        break;
                     }
                 } else {
                     $this->skus[$sku]++;
