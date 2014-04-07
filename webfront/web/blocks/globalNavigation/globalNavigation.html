@@ -1,68 +1,70 @@
 <% var currentUserModel = require('models/currentUser') %>
 
-<div class="globalNavigation__links">
-    <% if(currentUserModel.get('id')) { %>
+<div class="globalNavigation">
+    <div class="globalNavigation__links">
+        <% if(currentUserModel.get('id')) { %>
 
-    <% if(LH.isAllow('groups')){ %>
-    <a href="/catalog">Товары</a>
-    <% } %>
+        <% if(LH.isAllow('groups')){ %>
+        <a href="/catalog">Товары</a>
+        <% } %>
 
-    <% if(LH.isAllow('stores/{store}/groups') && currentUserModel.stores && currentUserModel.stores.length){ %>
-    <a href="/catalog?storeId=<%- currentUserModel.stores.at(0).id %>">Товары</a>
-    <% } %>
+        <% if(LH.isAllow('stores/{store}/groups') && currentUserModel.stores && currentUserModel.stores.length){ %>
+        <a href="/catalog?storeId=<%- currentUserModel.stores.at(0).id %>">Товары</a>
+        <% } %>
 
-    <% if(LH.isAllow('stores/{store}/invoices') && currentUserModel.stores && currentUserModel.stores.length){ %>
-    <a href="/invoices?storeId=<%- currentUserModel.stores.at(0).id %>">Накладные</a>
-    <% } %>
+        <% if(LH.isAllow('stores/{store}/invoices') && currentUserModel.stores && currentUserModel.stores.length){ %>
+        <a href="/invoices?storeId=<%- currentUserModel.stores.at(0).id %>">Накладные</a>
+        <% } %>
 
-    <% if(LH.isAllow('stores/{store}/writeoffs') && currentUserModel.stores && currentUserModel.stores.length){ %>
-    <a href="/writeOffs?storeId=<%- currentUserModel.stores.at(0).id %>">Списания</a>
-    <% } %>
+        <% if(LH.isAllow('stores/{store}/writeoffs') && currentUserModel.stores && currentUserModel.stores.length){ %>
+        <a href="/writeOffs?storeId=<%- currentUserModel.stores.at(0).id %>">Списания</a>
+        <% } %>
 
-    <% if(LH.isAllow('users')){ %>
-    <a href="/users">Пользователи</a>
-    <% } %>
+        <% if(LH.isAllow('users')){ %>
+        <a href="/users">Пользователи</a>
+        <% } %>
 
-    <% if(LH.isAllow('stores')){ %>
-    <a href="/stores">Магазины</a>
-    <% } %>
+        <% if(LH.isAllow('stores')){ %>
+        <a href="/stores">Магазины</a>
+        <% } %>
 
-    <% if(LH.isReportsAllow()) { %>
-    <a href="/reports">Отчеты</a>
-    <% } %>
+        <% if(LH.isReportsAllow()) { %>
+        <a href="/reports">Отчеты</a>
+        <% } %>
 
-    <% if(LH.isAllow('suppliers')){ %>
-    <a href="/suppliers">Поставщики</a>
-    <% } %>
+        <% if(LH.isAllow('suppliers')){ %>
+        <a href="/suppliers">Поставщики</a>
+        <% } %>
 
-    <% if(LH.isAllow('stores/{store}/orders', 'GET')){ %>
-    <a href="/orders">Заказы</a>
-    <% } %>
+        <% if(LH.isAllow('stores/{store}/orders', 'GET')){ %>
+        <a href="/orders">Заказы</a>
+        <% } %>
 
-    <% if(currentUserModel.stores && currentUserModel.stores.length) { %>
-    <a href="/stores/<%- currentUserModel.stores.at(0).id %>">Мой магазин</a>
-    <% } %>
+        <% if(currentUserModel.stores && currentUserModel.stores.length) { %>
+        <a href="/stores/<%- currentUserModel.stores.at(0).id %>">Мой магазин</a>
+        <% } %>
 
-    <% if(LH.isAllow('configs')){ %>
-    <a href="/settings">Настройки</a>
-    <% } %>
+        <% if(LH.isAllow('configs')){ %>
+        <a href="/settings">Настройки</a>
+        <% } %>
 
-    <a href="/logs">Лог</a>
+        <a href="/logs">Лог</a>
 
-    <% } %>
-</div>
+        <% } %>
+    </div>
 
-<div class="globalNavigation__bottom">
+    <div class="globalNavigation__bottom">
 
-    <% if(currentUserModel.get('id')) { %>
-    <div class="globalNavigation__userControls">
-        <a href="/users/current" class="globalNavigation__userName">
-            <%- currentUserModel.get('name') %>
+        <% if(currentUserModel.get('id')) { %>
+        <div class="globalNavigation__userControls">
+            <a href="/users/current" class="globalNavigation__userName">
+                <%- currentUserModel.get('name') %>
+            </a>
+        </div>
+        <% } %>
+
+        <a href="/" class="globalNavigation__logo">
+            Lighthouse
         </a>
     </div>
-    <% } %>
-
-    <a href="/" class="globalNavigation__logo">
-        Lighthouse
-    </a>
 </div>

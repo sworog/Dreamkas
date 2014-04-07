@@ -51,7 +51,7 @@ define(function(require) {
         permission: true,
         className: 'page',
         template: require('tpl!kit/page/template.html'),
-        layout: {
+        templates: {
             content: function(data){
                 return '<h1>API Gate</h1>';
             },

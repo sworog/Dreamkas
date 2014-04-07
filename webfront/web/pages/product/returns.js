@@ -9,7 +9,9 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_product_view',
-        productId: null,
+        params: {
+            productId: null
+        },
         currentUserModel: currentUserModel,
         partials: {
             '#content': require('tpl!./templates/returns.html')
@@ -24,18 +26,18 @@ define(function(require) {
 
             if (LH.isAllow('products', 'GET::{product}')){
                 page.model = new ProductModel({
-                    id: page.productId
+                    id: page.params.productId
                 });
             }
 
             if (LH.isAllow('stores/{store}/products/{product}', 'GET::returnProducts')) {
                 page.model = new StoreProductModel({
-                    id: page.productId
+                    id: page.params.productId
                 });
             }
 
             page.productReturnsCollection = new ProductReturnsCollection({
-                productId: params.productId,
+                productId: page.params.productId,
                 storeId: currentUserModel.stores.at(0).id
             });
 

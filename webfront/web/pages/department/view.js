@@ -8,27 +8,29 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_department_view',
+        params: {
+            storeId: null,
+            departmentId: null
+        },
         partials: {
             '#content': require('tpl!./templates/view.html')
         },
         initialize: function() {
             var page = this,
-                userStoreModel = getUserStore(page.storeId);
+                userStoreModel = getUserStore(page.params.storeId);
 
             if (!(LH.isAllow('departments', 'GET::{department}') || userStoreModel)){
                 new Page403();
                 return;
             }
 
-            page.departmentId = page.departmentId;
-
             page.storeModel = userStoreModel || new StoreModel({
-                id: page.storeId
+                id: page.params.storeId
             });
 
             $.when(userStoreModel || page.storeModel.fetch()).then(function(){
 
-                page.departmentModel = page.storeModel.departments.get(page.departmentId);
+                page.departmentModel = page.storeModel.departments.get(page.params.departmentId);
 
                 page.render();
 

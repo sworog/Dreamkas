@@ -6,6 +6,9 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_user_form',
+        params: {
+            userId: null
+        },
         partials: {
             '#content': require('tpl!./templates/form.html')
         },
@@ -16,10 +19,10 @@ define(function(require) {
             var page = this;
 
             page.userModel = new UserModel({
-                id: page.userId
+                id: page.params.userId
             });
 
-            $.when(page.userId ? page.userModel.fetch() : {}).then(function(){
+            $.when(page.params.userId ? page.userModel.fetch() : {}).then(function(){
                 page.render();
 
                 new Form_user({

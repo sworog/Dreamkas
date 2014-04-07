@@ -6,22 +6,21 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_storeProduct_form',
+        params: {
+            productId: null,
+            storeId: null
+        },
         partials: {
             '#content': require('tpl!./templates/form.html')
         },
         permissions: {
             'stores/{store}/products/{product}': 'PUT'
         },
-        initialize: function(params) {
+        initialize: function() {
             var page = this;
 
-            params = params || {};
-
-            page.storeId = params.storeId;
-            page.productId = params.productId;
-
             page.storeProductModel = new StoreProduct({
-                id: page.productId
+                id: page.params.productId
             });
 
             $.when(page.storeProductModel.fetch()).then(function() {

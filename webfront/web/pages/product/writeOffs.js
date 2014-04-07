@@ -9,12 +9,14 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_product_view',
-        productId: null,
+        params: {
+            productId: null
+        },
         currentUserModel: currentUserModel,
         partials: {
             '#content': require('tpl!./templates/writeOffs.html')
         },
-        initialize: function(params) {
+        initialize: function() {
             var page = this;
 
             if (!currentUserModel.stores.length || !LH.isAllow('stores/{store}/products/{product}', 'GET::writeOffProducts')){
@@ -24,18 +26,18 @@ define(function(require) {
 
             if (LH.isAllow('products', 'GET::{product}')){
                 page.model = new ProductModel({
-                    id: page.productId
+                    id: page.params.productId
                 });
             }
 
             if (LH.isAllow('stores/{store}/products/{product}', 'GET::writeOffProducts')) {
                 page.model = new StoreProductModel({
-                    id: page.productId
+                    id: page.params.productId
                 });
             }
 
             page.productWriteOffsCollection = new ProductWriteOffsCollection({
-                productId: params.productId,
+                productId: page.params.productId,
                 storeId: currentUserModel.stores.at(0).id
             });
 

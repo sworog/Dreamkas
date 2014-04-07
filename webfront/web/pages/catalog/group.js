@@ -10,16 +10,20 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_catalog_group',
+        params: {
+            catalogGroupId: null,
+            editMode: null
+        },
         partials: {
             '#content': require('tpl!./templates/group.html')
         },
-        initialize: function(params){
+        initialize: function(){
             var page = this;
 
             if (page.referrer.__name__ && page.referrer.__name__.indexOf('page_catalog') >= 0){
-                _.extend(params, pageParams);
+                _.extend(page.params, pageParams);
             } else {
-                pageParams.editMode = params.editMode || pageParams.editMode || 'false'
+                pageParams.editMode = page.params.editMode || pageParams.editMode || 'false'
             }
 
             if (currentUserModel.stores.length){
@@ -46,7 +50,7 @@ define(function(require) {
             });
 
             page.catalogGroupModel = new СatalogGroupModel({
-                id: params.catalogGroupId,
+                id: page.params.catalogGroupId,
                 storeId: pageParams.storeId
             });
 

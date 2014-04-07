@@ -8,6 +8,9 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_user_view',
+        params: {
+            userId: null
+        },
         partials: {
             '#content': require('tpl!./templates/view.html')
         },
@@ -20,7 +23,7 @@ define(function(require) {
             }
 
             page.userModel = page.userId === 'current' ? currentUserModel : new UserModel({
-                id: page.userId
+                id: page.params.userId
             });
 
             $.when(page.userModel.fetch()).then(function(){

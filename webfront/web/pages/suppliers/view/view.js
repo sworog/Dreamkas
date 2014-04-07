@@ -9,7 +9,9 @@ define(function(require, exports, module) {
 
     return Page.extend({
         __name__: module.id,
-        supplierId: null,
+        params: {
+            supplierId: null
+        },
         partials: {
             '#content': require('tpl!./content.html')
         },
@@ -21,7 +23,7 @@ define(function(require, exports, module) {
 
             page.models = {
                 supplier: new SupplierModel({
-                    id: page.supplierId
+                    id: page.params.supplierId
                 })
             };
 

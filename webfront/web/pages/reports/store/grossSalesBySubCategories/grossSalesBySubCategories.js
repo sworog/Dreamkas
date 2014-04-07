@@ -8,9 +8,11 @@ define(function(require, exports, module) {
 
     return Page.extend({
         __name__: module.id,
-        storeId: null,
-        groupId: null,
-        categoryId: null,
+        params: {
+            storeId: null,
+            groupId: null,
+            categoryId: null
+        },
         partials: {
             '#content': require('tpl!./content.html')
         },
@@ -26,8 +28,8 @@ define(function(require, exports, module) {
 
                 var grossSalesBySubCategoriesCollection = new GrossSalesBySubCategoriesCollection();
 
-                grossSalesBySubCategoriesCollection.storeId = page.storeId;
-                grossSalesBySubCategoriesCollection.categoryId = page.categoryId;
+                grossSalesBySubCategoriesCollection.storeId = page.params.storeId;
+                grossSalesBySubCategoriesCollection.categoryId = page.params.categoryId;
 
                 return grossSalesBySubCategoriesCollection;
             }

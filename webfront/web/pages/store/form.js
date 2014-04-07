@@ -9,6 +9,10 @@ define(function(require) {
         partials: {
             '#content': require('tpl!./templates/form.html')
         },
+        params: {
+            storeId: null,
+            subCategory: null
+        },
         permissions: {
             stores: 'POST'
         },
@@ -16,11 +20,11 @@ define(function(require) {
             var page = this;
 
             page.storeModel = new StoreModel({
-                id: page.storeId,
-                subCategory: page.subCategory
+                id: page.params.storeId,
+                subCategory: page.params.subCategory
             });
 
-            $.when(page.storeId ? page.storeModel.fetch() : {}).then(function(){
+            $.when(page.params.storeId ? page.storeModel.fetch() : {}).then(function(){
                 page.render();
 
                 new Form_store({

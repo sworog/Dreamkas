@@ -10,6 +10,10 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_invoice_view',
+        params: {
+            invoiceId: null,
+            editMode: false
+        },
         partials: {
             '#content': require('tpl!./templates/view.html')
         },
@@ -31,7 +35,7 @@ define(function(require) {
             }
 
             page.invoiceModel = new InvoiceModel({
-                id: page.invoiceId
+                id: page.params.invoiceId
             });
 
             page.invoiceProductsCollection = new InvoiceProductsCollection({
@@ -45,7 +49,7 @@ define(function(require) {
                 new Invoice({
                     invoiceModel: page.invoiceModel,
                     invoiceProductsCollection: page.invoiceProductsCollection,
-                    editMode: page.editMode,
+                    editMode: page.params.editMode,
                     el: document.getElementById('invoice')
                 });
             }, function() {

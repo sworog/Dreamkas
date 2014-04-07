@@ -8,8 +8,10 @@ define(function(require, exports, module) {
 
     return Page.extend({
         __name__: module.id,
-        storeId: null,
-        groupId: null,
+        params: {
+            storeId: null,
+            groupId: null
+        },
         partials: {
             '#content': require('tpl!./content.html')
         },
@@ -25,7 +27,7 @@ define(function(require, exports, module) {
 
                 var storeGrossMargin = new StoreGrossMarginCollection();
 
-                storeGrossMargin.storeId = page.storeId;
+                storeGrossMargin.storeId = page.params.storeId;
 
                 return storeGrossMargin;
             }

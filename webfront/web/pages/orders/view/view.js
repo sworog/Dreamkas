@@ -13,7 +13,9 @@ define(function(require, exports, module) {
         partials: {
             '#content': require('tpl!./content.html')
         },
-        orderId: null,
+        params: {
+            orderId: null
+        },
         permissions: function() {
             return !LH.isAllow('stores/{store}/orders', 'GET');
         },
@@ -26,7 +28,7 @@ define(function(require, exports, module) {
 
             page.models = {
                 order: new OrderModel({
-                    id: page.orderId
+                    id: page.params.orderId
                 })
             };
 

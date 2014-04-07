@@ -7,7 +7,10 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_product_form',
-        productId: null,
+        params: {
+            productId: null,
+            subCategory: null
+        },
         partials: {
             '#content': require('tpl!./templates/form.html')
         },
@@ -18,12 +21,12 @@ define(function(require) {
             var page = this;
 
             page.productModel = new ProductModel({
-                id: page.productId,
-                subCategory: page.subCategory
+                id: page.params.productId,
+                subCategory: page.params.subCategory
             });
 
             page.subCategoryModel = new SubCategoryModel({
-                id: page.subCategory
+                id: page.params.subCategory
             });
 
             $.when(page.productId ? page.productModel.fetch() : {}, page.subCategoryModel.id ? page.subCategoryModel.fetch({parse: false}) : {}).then(function(){

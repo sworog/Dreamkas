@@ -10,6 +10,10 @@ define(function(require) {
         partials: {
             '#content': require('tpl!./templates/form.html')
         },
+        params: {
+            storeId: null,
+            departmentId: null
+        },
         permissions: {
             departments: 'POST'
         },
@@ -17,13 +21,13 @@ define(function(require) {
             var page = this;
 
             page.storeModel = new StoreModel({
-                id: page.storeId
+                id: page.params.storeId
             });
 
             $.when(page.storeModel.fetch()).then(function(){
 
-                page.departmentModel = page.storeModel.departments.get(page.departmentId) || new DepartmentModel({
-                    store: page.storeId
+                page.departmentModel = page.storeModel.departments.get(page.params.departmentId) || new DepartmentModel({
+                    store: page.params.storeId
                 });
 
                 page.render();

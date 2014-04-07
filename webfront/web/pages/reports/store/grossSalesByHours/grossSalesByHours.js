@@ -8,7 +8,9 @@ define(function(require, exports, module) {
 
     return Page.extend({
         __name__: module.id,
-        storeId: null,
+        params: {
+            storeId: null
+        },
         partials: {
             '#content': require('tpl!./content.html')
         },
@@ -21,7 +23,7 @@ define(function(require, exports, module) {
 
                 var storeGrossSalesByHoursModel = new StoreGrossSalesByHourModel();
 
-                storeGrossSalesByHoursModel.storeId = page.storeId;
+                storeGrossSalesByHoursModel.storeId = page.params.storeId;
 
                 return storeGrossSalesByHoursModel;
             },
