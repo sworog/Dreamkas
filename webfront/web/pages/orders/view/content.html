@@ -20,7 +20,7 @@
             </li>
         </ul>
     </div>
-    <h2>Заказ поставщику № <%- models.order.get('number') %></h2>
+    <h2>Заказ поставщику № <span name="orderNumber"><%- models.order.get('number') %></span></h2>
 
     <%= templates.form_order({
         collections: _.pick(collections, 'suppliers'),
