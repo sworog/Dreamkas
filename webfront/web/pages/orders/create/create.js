@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/core/page.deprecated'),
+    var Page = require('page'),
         SuppliersCollection = require('collections/suppliers'),
         OrderModel = require('models/order'),
         OrderProductsCollection = require('collections/orderProducts'),
@@ -9,41 +9,35 @@ define(function(require, exports, module) {
     require('jquery');
 
     return Page.extend({
-        __name__: module.id,
-        partials: {
-            '#content': require('tpl!./content.html')
+        moduleId: module.id,
+        templates: {
+            content: require('tpl!./content.html'),
+            localNavigation: require('tpl!../localNavigation.html')
         },
-        permissions: function() {
-            return !LH.isAllow('stores/{store}/orders', 'POST');
+        isAllow: function() {
+            return LH.isAllow('stores/{store}/orders', 'POST');
         },
-        initialize: function() {
-            var page = this;
-
-            page.collections = {
-                suppliers: new SuppliersCollection()
-            };
-
-            page.models = {
-                order: new OrderModel({
+        collections: {
+            suppliers: function(){
+                return new SuppliersCollection()
+            }
+        },
+        models: {
+            order: function(){
+                return new OrderModel({
                     collections: {
                         products: new OrderProductsCollection()
                     }
-                })
-            };
-
-            $.when(page.collections.suppliers.fetch()).done(function() {
-                page.render();
-            });
+                });
+            }
         },
-        render: function() {
-            var page = this;
+        blocks: {
+            form_order: function(){
+                var page = this;
 
-            Page.prototype.render.apply(page, arguments);
-
-            page.blocks = {
-                form_order: new Form_order({
+                return new Form_order({
                     model: page.models.order
-                })
+                });
             }
         }
     });

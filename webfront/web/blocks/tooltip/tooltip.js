@@ -8,7 +8,7 @@ define(function(require) {
     return Block.extend({
         el: null,
         trigger: null,
-        container: '.page__data',
+        container: '.content',
         template: require('tpl!./template.html'),
         events: {
             'click .tooltip__closeLink': function(e) {
