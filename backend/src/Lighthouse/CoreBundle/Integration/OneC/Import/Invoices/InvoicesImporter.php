@@ -221,7 +221,8 @@ class InvoicesImporter
             $invoice->acceptanceDate = $date;
             $invoice->number = $number;
             $invoice->store = $store;
-            $invoice->supplier = $supplier;
+            // :FIXME: :XXX:
+            //$invoice->supplier = $supplier;
             $invoice->accepter = 'Накладных Импорт';
             $invoice->legalEntity = 'Магазин';
         } else {

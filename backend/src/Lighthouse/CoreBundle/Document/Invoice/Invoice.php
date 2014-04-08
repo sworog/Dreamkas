@@ -68,7 +68,7 @@ class Invoice extends AbstractDocument implements Storeable
      *     targetDocument="Lighthouse\CoreBundle\Document\Supplier\Supplier",
      *     simple=true
      * )
-     * @Assert\NotBlank(message="lighthouse.validation.errors.invoice.supplier.empty")
+     * @@Assert\NotBlank(message="lighthouse.validation.errors.invoice.supplier.empty")
      * @var Supplier
      */
     protected $supplier;
