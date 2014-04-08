@@ -1,16 +1,8 @@
-<% var templates = {
-    localNavigation: require('tpl!blocks/localNavigation/localNavigation_orders.html')
-} %>
-
 <% var collections = _.extend({
     orders: new Backbone.Collection
 }, obj.collections) %>
 
-<% if (LH.isAllow('stores/{store}/orders', 'POST')) {%>
-    <%= templates.localNavigation(obj) %>
-<% } %>
-
-<div class="page__data">
+<div class="content">
     <h2>Заказы</h2>
     <% if (collections.orders.length) { %>
     <table class="table">

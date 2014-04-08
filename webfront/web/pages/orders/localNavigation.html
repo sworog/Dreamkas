@@ -1,0 +1,15 @@
+<% if (LH.isAllow('stores/{store}/orders', 'POST')) { %>
+<div class="localNavigation">
+
+    <a class="localNavigation__header localNavigation__link <%- moduleId === 'pages/orders/list/list' ? 'localNavigation__link_active' : '' %>"
+       href="/orders">Заказы</a>
+
+    <% if (LH.isAllow('stores/{store}/orders', 'POST')) { %>
+    <a class="localNavigation__link <%- moduleId === 'pages/orders/create/create' ? 'localNavigation__link_active' : '' %>"
+       href="/orders/create">
+        Добавить заказ
+    </a>
+    <% } %>
+</div>
+<% } %>
+

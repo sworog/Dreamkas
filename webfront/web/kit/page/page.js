@@ -47,7 +47,7 @@ define(function(require, exports, module) {
 
         moduleId: module.id,
         el: document.body,
-        permission: true,
+        isAllow: true,
         template: require('tpl!kit/page/template.html'),
         templates: {
             content: null,

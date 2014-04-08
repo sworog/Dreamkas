@@ -78,7 +78,7 @@ define(function(require) {
         'stores/:storeId/departments/:departmentId(/)': require('pages/department/view'),
 
         //errors
-        '403(/)': require('pages/errors/403'),
+        'errors/403(/)': require('pages/errors/403'),
         '*path': require('pages/errors/404')
     };
 });
