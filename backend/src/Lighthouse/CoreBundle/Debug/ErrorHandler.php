@@ -53,7 +53,7 @@ class ErrorHandler
      */
     public function restore()
     {
-        $previous = set_error_handler(function() {
+        $previous = set_error_handler(function () {
         });
         restore_error_handler();
         if (is_array($previous) && $previous[0] === $this && 'handle' === $previous[1]) {
