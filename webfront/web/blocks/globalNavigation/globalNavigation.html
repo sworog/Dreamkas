@@ -57,7 +57,7 @@
 
         <% if(currentUserModel.get('id')) { %>
         <div class="globalNavigation__userControls">
-            <a href="/users/current" class="globalNavigation__userName">
+            <a href="/users/current" name="userName" class="globalNavigation__userName">
                 <%- currentUserModel.get('name') %>
             </a>
         </div>
