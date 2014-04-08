@@ -164,6 +164,11 @@ public class InvoiceUserSteps {
         invoiceSteps.childrenItemNavigateAndClickByFindByLocator(elementName);
     }
 
+    @When("the user tries to delete the invoice product with '$elementName' sku")
+    public void whenTheUserTriesToDeleteTheInvoiceProducWithSku(String elementName) {
+        invoiceSteps.tryChildrenItemNavigateAndClickByFindByLocator(elementName);
+    }
+
     @Then("the user checks the invoice with '$skuValue' sku has '$name' equal to '$expectedValue'")
     public void whenTheUSerChecksTheInvoiceWithSkuHasNameValueEqualToExpectedValue(String skuValue, String name, String expectedValue) {
         invoiceSteps.checkInvoiceListItemWithSkuHasExpectedValue(skuValue, name, expectedValue);
