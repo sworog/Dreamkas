@@ -134,7 +134,7 @@ class InvoicesImporter
                         $this->documentManager->flush();
                     }
 
-                    $output->writeln(sprintf('Invoice <comment>%s</comment>', $invoice->sku));
+                    $output->writeln(sprintf('Invoice <comment>%s</comment>', $invoice->number));
                     if ($datePeriod) {
                         $originalDate = clone $invoice->acceptanceDate;
                         $invoice->acceptanceDate->add($datePeriod->diff());
@@ -206,7 +206,7 @@ class InvoicesImporter
         $invoice = null;
         $matches = null;
         if (preg_match('/^Поступление\s+товаров\s+\S+/u', $row[0], $matches)) {
-            $sku = $row[7];
+            $number = $row[7];
             $date = DateTime::createFromFormat('d.m.Y H:i:s', trim($row[6]));
             $storeName = trim($row[5]);
             if ($storeName) {
@@ -219,7 +219,7 @@ class InvoicesImporter
 
             $invoice = new Invoice();
             $invoice->acceptanceDate = $date;
-            $invoice->sku = $sku;
+            $invoice->number = $number;
             $invoice->store = $store;
             $invoice->supplier = $supplier;
             $invoice->accepter = 'Накладных Импорт';

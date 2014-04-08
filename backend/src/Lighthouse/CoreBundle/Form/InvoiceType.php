@@ -32,6 +32,16 @@ class InvoiceType extends AbstractType
                 'supplierInvoiceDate',
                 'datetime',
                 array('invalid_message' => 'lighthouse.validation.errors.date.invalid_value')
+            )
+            ->add(
+                'products',
+                'collection',
+                array(
+                    'type' => new OrderProductType(),
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'by_reference' => false,
+                )
             );
     }
 
