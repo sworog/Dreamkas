@@ -5,11 +5,11 @@ define(function(require, exports, module) {
         currentUserModel = require('models/currentUser');
 
     return Page.extend({
-        moduleId: module.id,
         templates: {
             content: require('tpl!./content.html'),
             localNavigation: require('tpl!../localNavigation.html')
         },
+        localNavigationActiveLink: 'list',
         params: {
             storeId: null
         },

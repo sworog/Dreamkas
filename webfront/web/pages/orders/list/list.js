@@ -6,11 +6,11 @@ define(function(require, exports, module) {
     require('jquery');
 
     return Page.extend({
-        moduleId: module.id,
         templates: {
             content: require('tpl!./content.html'),
             localNavigation: require('tpl!../localNavigation.html')
         },
+        localNavigationActiveLink: 'list',
         permissions: function() {
             return !LH.isAllow('stores/{store}/orders', 'GET');
         },

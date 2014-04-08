@@ -57,8 +57,8 @@ define(function(require, exports, module) {
             this._configure.apply(this, arguments);
 
             if (NewPage.current){
-                NewPage.current.moduleId = null;
                 NewPage.current.destroy();
+                delete NewPage.current;
             }
 
             switch (typeof page.permissions) {

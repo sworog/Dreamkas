@@ -13,7 +13,7 @@ define(function(require, exports, module) {
         constructor: function(req) {
             var page = this;
 
-            if (Page.current && page.get('moduleId') === Page.current.get('moduleId')) {
+            if (Page.current && req.route === Page.current.get('route')) {
                 Page.current.set(req);
                 return;
             }
@@ -45,7 +45,6 @@ define(function(require, exports, module) {
             });
         },
 
-        moduleId: module.id,
         el: document.body,
         isAllow: true,
         template: require('tpl!kit/page/template.html'),
@@ -54,6 +53,7 @@ define(function(require, exports, module) {
             localNavigation: null,
             globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation.html')
         },
+        localNavigationActiveLink: null,
         collections: {},
         models: {},
 

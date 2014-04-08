@@ -3,13 +3,11 @@ define(function(require, exports, module) {
     var Page = require('page'),
         SuppliersCollection = require('collections/suppliers'),
         OrderModel = require('models/order'),
-        OrderProductsCollection = require('collections/orderProducts'),
         Form_order = require('blocks/form/form_order/form_order');
 
     require('jquery');
 
     return Page.extend({
-        moduleId: module.id,
         templates: {
             content: require('tpl!./content.html'),
             localNavigation: require('tpl!../localNavigation.html')
