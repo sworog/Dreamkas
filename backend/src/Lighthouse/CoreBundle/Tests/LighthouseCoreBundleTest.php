@@ -6,6 +6,9 @@ use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 
 class LighthouseCoreBundleTest extends ContainerAwareTestCase
 {
+    /**
+     * @runInSeparateProcess
+     */
     public function testCacheWarmUp()
     {
         $filesystem = $this->getContainer()->get('filesystem');
