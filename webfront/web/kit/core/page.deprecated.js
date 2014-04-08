@@ -76,7 +76,7 @@ define(function(require, exports, module) {
             }
 
             if (accessDenied) {
-                router.navigate('/403');
+                router.navigate('/errors/403');
 
                 return;
             }
