@@ -1375,6 +1375,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->updateProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
 
+        $this->factory->clear();
         $this->createInvoiceProduct($invoiceId, $productId, 10, 10.12);
 
         $accessToken = $this->factory->oauth()->auth($this->departmentManager);
@@ -1404,6 +1405,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->updateProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
 
+        $this->factory->clear();
         $this->createInvoiceProduct($invoiceId, $productId, 10, 10.12);
 
         /* @var VersionRepository $productVersionRepository */

@@ -41,6 +41,11 @@ class Factory extends ContainerAwareFactory
     protected $catalog;
 
     /**
+     * @var InvoiceFactory
+     */
+    protected $invoice;
+
+    /**
      * @var array
      */
     protected $storeProducts = array();
@@ -87,6 +92,18 @@ class Factory extends ContainerAwareFactory
             $this->catalog = new CatalogFactory($this->container, $this);
         }
         return $this->catalog;
+    }
+
+
+    /**
+     * @return InvoiceFactory
+     */
+    public function invoice()
+    {
+        if (null === $this->invoice) {
+            $this->invoice = new InvoiceFactory($this->container, $this);
+        }
+        return $this->invoice;
     }
 
     /**
@@ -140,6 +157,11 @@ class Factory extends ContainerAwareFactory
     public function flush()
     {
         $this->getDocumentManager()->flush();
+    }
+
+    public function clear()
+    {
+        $this->getDocumentManager()->clear();
     }
 
     /**

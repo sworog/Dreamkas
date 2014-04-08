@@ -110,34 +110,12 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $storeId
      * @param User $departmentManager
      * @return mixed
+     * @deprecated
      */
-    protected function createInvoice(array $modifiedData, $storeId, User $departmentManager = null)
+    protected function createInvoice(array $modifiedData, $storeId)
     {
-        $departmentManager = ($departmentManager) ?: $this->factory->store()->getDepartmentManager($storeId);
-        $accessToken = $this->factory->oauth()->auth($departmentManager);
-
-        $invoiceData = $modifiedData + array(
-            'sku' => 'sku232',
-            'supplier' => 'ООО "Поставщик"',
-            'acceptanceDate' => '2013-03-18 12:56',
-            'accepter' => 'Приемных Н.П.',
-            'legalEntity' => 'ООО "Магазин"',
-            'supplierInvoiceSku' => '1248373',
-            'supplierInvoiceDate' => '17.03.2013',
-            'includesVAT' => true,
-        );
-
-        $postResponse = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/stores/' . $storeId . '/invoices',
-            $invoiceData
-        );
-
-        $this->assertResponseCode(201);
-        Assert::assertJsonHasPath('id', $postResponse);
-
-        return $postResponse['id'];
+        $invoice = $this->factory->invoice()->createInvoice($modifiedData, $storeId);
+        return $invoice->id;
     }
 
     /**
@@ -181,40 +159,12 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $productId
      * @param float $quantity
      * @param float $price
-     * @param string $storeId
-     * @param User $manager
      * @return string
      */
-    public function createInvoiceProduct(
-        $invoiceId,
-        $productId,
-        $quantity,
-        $price,
-        $storeId = null,
-        $manager = null
-    ) {
-        $manager = ($manager) ?: $this->departmentManager;
-        $storeId = ($storeId) ?: $this->storeId;
-        $manager = ($manager) ?: $this->factory->store()->getDepartmentManager($storeId);
-
-        $accessToken = $this->factory->oauth()->auth($manager);
-
-        $invoiceProductData = array(
-            'product' => $productId,
-            'quantity' => $quantity,
-            'priceEntered' => $price,
-        );
-
-        $postResponse = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products',
-            $invoiceProductData
-        );
-
-        $this->assertResponseCode(201);
-
-        return $postResponse['id'];
+    public function createInvoiceProduct($invoiceId, $productId, $quantity, $price)
+    {
+        $invoiceProduct = $this->factory->invoice()->createInvoiceProduct($invoiceId, $productId, $quantity, $price);
+        return $invoiceProduct->id;
     }
 
     /**
