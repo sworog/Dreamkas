@@ -11,8 +11,8 @@ define(function(require, exports, module) {
             localNavigation: require('tpl!../localNavigation.html')
         },
         localNavigationActiveLink: 'list',
-        permissions: function() {
-            return !LH.isAllow('stores/{store}/orders', 'GET');
+        isAllow: function() {
+            return LH.isAllow('stores/{store}/orders', 'GET');
         },
         initialize: function() {
             var page = this;
