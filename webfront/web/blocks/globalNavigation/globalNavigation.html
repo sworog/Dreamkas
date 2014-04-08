@@ -1,54 +1,54 @@
 <% var currentUserModel = require('models/currentUser') %>
 
 <div class="globalNavigation">
-    <div name="navigationLinks" class="globalNavigation__links">
+    <div class="globalNavigation__links">
         <% if(currentUserModel.get('id')) { %>
 
         <% if(LH.isAllow('groups')){ %>
-        <a href="/catalog">Товары</a>
+        <a name="globalNavigationLink" href="/catalog">Товары</a>
         <% } %>
 
         <% if(LH.isAllow('stores/{store}/groups') && currentUserModel.stores && currentUserModel.stores.length){ %>
-        <a href="/catalog?storeId=<%- currentUserModel.stores.at(0).id %>">Товары</a>
+        <a name="globalNavigationLink" href="/catalog?storeId=<%- currentUserModel.stores.at(0).id %>">Товары</a>
         <% } %>
 
         <% if(LH.isAllow('stores/{store}/invoices') && currentUserModel.stores && currentUserModel.stores.length){ %>
-        <a href="/stores/<%- currentUserModel.stores.at(0).id %>/invoices">Накладные</a>
+        <a name="globalNavigationLink" href="/stores/<%- currentUserModel.stores.at(0).id %>/invoices">Накладные</a>
         <% } %>
 
         <% if(LH.isAllow('stores/{store}/writeoffs') && currentUserModel.stores && currentUserModel.stores.length){ %>
-        <a href="/writeOffs?storeId=<%- currentUserModel.stores.at(0).id %>">Списания</a>
+        <a name="globalNavigationLink" href="/writeOffs?storeId=<%- currentUserModel.stores.at(0).id %>">Списания</a>
         <% } %>
 
         <% if(LH.isAllow('users')){ %>
-        <a href="/users">Пользователи</a>
+        <a name="globalNavigationLink" href="/users">Пользователи</a>
         <% } %>
 
         <% if(LH.isAllow('stores')){ %>
-        <a href="/stores">Магазины</a>
+        <a name="globalNavigationLink" href="/stores">Магазины</a>
         <% } %>
 
         <% if(LH.isReportsAllow()) { %>
-        <a href="/reports">Отчеты</a>
+        <a name="globalNavigationLink" href="/reports">Отчеты</a>
         <% } %>
 
         <% if(LH.isAllow('suppliers')){ %>
-        <a href="/suppliers">Поставщики</a>
+        <a name="globalNavigationLink" href="/suppliers">Поставщики</a>
         <% } %>
 
         <% if(LH.isAllow('stores/{store}/orders', 'GET')){ %>
-        <a href="/orders">Заказы</a>
+        <a name="globalNavigationLink" href="/orders">Заказы</a>
         <% } %>
 
         <% if(currentUserModel.stores && currentUserModel.stores.length) { %>
-        <a href="/stores/<%- currentUserModel.stores.at(0).id %>">Мой магазин</a>
+        <a name="globalNavigationLink" href="/stores/<%- currentUserModel.stores.at(0).id %>">Мой магазин</a>
         <% } %>
 
         <% if(LH.isAllow('configs')){ %>
-        <a href="/settings">Настройки</a>
+        <a name="globalNavigationLink" href="/settings">Настройки</a>
         <% } %>
 
-        <a href="/logs">Лог</a>
+        <a name="globalNavigationLink" href="/logs">Лог</a>
 
         <% } %>
     </div>
@@ -63,7 +63,7 @@
         </div>
         <% } %>
 
-        <a href="/" class="globalNavigation__logo">
+        <a name="globalNavigationLink" href="/" class="globalNavigation__logo">
             Lighthouse
         </a>
     </div>
