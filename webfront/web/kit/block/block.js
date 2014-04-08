@@ -13,7 +13,6 @@ define(function(require, exports, module) {
     var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 
     return BaseClass.extend({
-        cid: module.id,
         constructor: function(params) {
             var block = this;
 
@@ -28,9 +27,7 @@ define(function(require, exports, module) {
         elements: {},
         blocks: {},
 
-        el: function() {
-            return '.' + this.get('cid').split('/').pop();
-        },
+        el: null,
 
         template: function() {
         },

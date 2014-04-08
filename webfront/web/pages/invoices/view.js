@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('kit/core/page.deprecated'),
         Invoice = require('blocks/invoice/invoice'),
         InvoiceModel = require('models/invoice'),
         InvoiceProductsCollection = require('collections/invoiceProducts'),
@@ -10,6 +10,11 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_invoice_view',
+        params: {
+            storeId: null,
+            invoiceId: null,
+            editMode: false
+        },
         partials: {
             '#content': require('tpl!./templates/view.html')
         },
@@ -21,22 +26,13 @@ define(function(require) {
                 return;
             }
 
-            if (currentUserModel.stores.length){
-                pageParams.storeId = currentUserModel.stores.at(0).id;
-            }
-
-            if (!pageParams.storeId){
-                new Page403();
-                return;
-            }
-
             page.invoiceModel = new InvoiceModel({
-                id: page.invoiceId
+                id: page.params.invoiceId
             });
 
             page.invoiceProductsCollection = new InvoiceProductsCollection({
-                invoiceId: page.invoiceId,
-                storeId: pageParams.storeId
+                invoiceId: page.params.invoiceId,
+                storeId: page.params.storeId
             });
 
             $.when(page.invoiceModel.fetch(), page.invoiceProductsCollection.fetch()).then(function(){
@@ -45,7 +41,7 @@ define(function(require) {
                 new Invoice({
                     invoiceModel: page.invoiceModel,
                     invoiceProductsCollection: page.invoiceProductsCollection,
-                    editMode: page.editMode,
+                    editMode: page.params.editMode,
                     el: document.getElementById('invoice')
                 });
             }, function() {
