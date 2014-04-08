@@ -61,7 +61,7 @@ abstract class XmlParser
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return bool
      */
     abstract protected function supportsNodeName($name);

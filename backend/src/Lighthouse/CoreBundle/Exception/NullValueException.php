@@ -2,9 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Exception;
 
-use InvalidArgumentException;
-
-class NullValueException extends InvalidArgumentException implements LighthouseExceptionInterface
+class NullValueException extends InvalidArgumentException
 {
     /**
      * Field|param name

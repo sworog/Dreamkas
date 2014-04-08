@@ -118,10 +118,12 @@ class GoodElement extends SimpleXMLElement
         $tag = 'group';
         $groupElement = $this;
         foreach ($groups as $id => $name) {
-            $groupElement = $groupElement->addChild($tag);
-            $groupElement->addAttribute('id', $id);
-            $groupElement->addChild('name', $name);
+            $childElement = $groupElement->addChild($tag);
+            $childElement->addAttribute('id', $id);
+            $childElement->addChild('name', $name);
+
             $tag = 'parent-group';
+            $groupElement = $childElement;
         }
         return $this;
     }
