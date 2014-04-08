@@ -46,6 +46,11 @@ class Factory extends ContainerAwareFactory
     protected $invoice;
 
     /**
+     * @var SupplierFactory
+     */
+    protected $supplier;
+
+    /**
      * @var array
      */
     protected $storeProducts = array();
@@ -94,7 +99,6 @@ class Factory extends ContainerAwareFactory
         return $this->catalog;
     }
 
-
     /**
      * @return InvoiceFactory
      */
@@ -104,6 +108,17 @@ class Factory extends ContainerAwareFactory
             $this->invoice = new InvoiceFactory($this->container, $this);
         }
         return $this->invoice;
+    }
+
+    /**
+     * @return SupplierFactory
+     */
+    public function supplier()
+    {
+        if (null === $this->supplier) {
+            $this->supplier = new SupplierFactory($this->container, $this);
+        }
+        return $this->supplier;
     }
 
     /**
@@ -259,13 +274,9 @@ class Factory extends ContainerAwareFactory
      * @param string $name
      * @return Supplier
      */
-    public function createSupplier($name = 'default')
+    public function createSupplier($name = SupplierFactory::DEFAULT_SUPPLIER_NAME)
     {
-        $supplier = new Supplier();
-        $supplier->name = $name;
-        $this->getDocumentManager()->persist($supplier);
-
-        return $supplier;
+        return $this->supplier()->getSupplier($name);
     }
 
     /**
