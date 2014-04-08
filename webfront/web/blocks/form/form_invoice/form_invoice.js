@@ -6,8 +6,10 @@ define(function(require) {
     return Form.extend({
         __name__: 'form_invoice',
         template: require('tpl!blocks/form/form_invoice/templates/index.html'),
-        submitSuccess: function(model){
-            router.navigate('/invoices/' + model.id + '?editMode=true');
+        submitSuccess: function(){
+            var block = this;
+
+            router.navigate('/stores/' + block.model.get('store.id') + '/invoices/' + block.model.id + '?editMode=true');
         }
     });
 });

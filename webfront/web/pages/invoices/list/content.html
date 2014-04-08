@@ -18,7 +18,7 @@
         </thead>
         <tbody>
         <% collections.invoices.forEach(function(invoiceModel){ %>
-        <tr name="invoice" href="/invoices/<%- invoiceModel.id %>">
+        <tr name="invoice" href="/stores/<%- invoiceModel.get('store.id') %>/invoices/<%- invoiceModel.id %>">
             <td name="acceptanceDate">
                 <%- moment(invoiceModel.get('acceptanceDate')).format('DD.MM.YYYY HH:mm') %>
             </td>

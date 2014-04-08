@@ -11,6 +11,7 @@ define(function(require) {
     return Page.extend({
         __name__: 'page_invoice_view',
         params: {
+            storeId: null,
             invoiceId: null,
             editMode: false
         },
@@ -25,22 +26,13 @@ define(function(require) {
                 return;
             }
 
-            if (currentUserModel.stores.length){
-                pageParams.storeId = currentUserModel.stores.at(0).id;
-            }
-
-            if (!pageParams.storeId){
-                new Page403();
-                return;
-            }
-
             page.invoiceModel = new InvoiceModel({
                 id: page.params.invoiceId
             });
 
             page.invoiceProductsCollection = new InvoiceProductsCollection({
-                invoiceId: page.invoiceId,
-                storeId: pageParams.storeId
+                invoiceId: page.params.invoiceId,
+                storeId: page.params.storeId
             });
 
             $.when(page.invoiceModel.fetch(), page.invoiceProductsCollection.fetch()).then(function(){
