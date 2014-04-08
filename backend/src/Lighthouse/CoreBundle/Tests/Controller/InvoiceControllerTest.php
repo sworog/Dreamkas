@@ -56,10 +56,7 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertJsonPathCount(5, '*.id', $getResponse);
     }
 
-    /**
-     * @dataProvider postInvoiceDataProvider
-     */
-    public function testGetInvoicesActionMaxDepth(array $invoiceData)
+    public function testGetInvoicesActionMaxDepth()
     {
         $storeId = $this->factory->store()->getStoreId('1');
         $products = $this->createProductsBySku(array('1', '2', '3'));

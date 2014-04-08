@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\RestBundle\View\View;
-use Lighthouse\CoreBundle\Document\File\FileUploader;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\Order\OrderCollection;
 use Lighthouse\CoreBundle\Document\Order\OrderRepository;

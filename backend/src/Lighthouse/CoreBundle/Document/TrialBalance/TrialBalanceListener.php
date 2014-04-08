@@ -11,6 +11,7 @@ use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 use SplQueue;
@@ -112,15 +113,11 @@ class TrialBalanceListener extends AbstractMongoDBListener
     }
 
     /**
-     * @param Reasonable $document
      * @param TrialBalance $trialBalance
      * @param DocumentManager $dm
      */
-    protected function processSupportsRangeIndexRemove(
-        Reasonable $document,
-        TrialBalance $trialBalance,
-        DocumentManager $dm
-    ) {
+    protected function processSupportsRangeIndexRemove(TrialBalance $trialBalance, DocumentManager $dm)
+    {
         $nextProcessedTrialBalance = $this->trialBalanceRepository->findOneNext($trialBalance);
 
         if (null != $nextProcessedTrialBalance) {
@@ -131,15 +128,16 @@ class TrialBalanceListener extends AbstractMongoDBListener
     }
 
     /**
-     * @param Reasonable $document
-     * @param $trialBalance
-     * @param $storeProduct
+     * @param TrialBalance $trialBalance
+     * @param StoreProduct $storeProduct
      * @param DocumentManager $dm
+     * @throws \Doctrine\ODM\MongoDB\MongoDBException
+     * @throws \InvalidArgumentException
+     * @throws \Doctrine\ODM\MongoDB\LockException
      */
     protected function processSupportsRangeIndexUpdate(
-        Reasonable $document,
-        $trialBalance,
-        $storeProduct,
+        TrialBalance $trialBalance,
+        StoreProduct $storeProduct,
         DocumentManager $dm
     ) {
         if ($storeProduct != $trialBalance->storeProduct) {
@@ -188,7 +186,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $storeProduct = $this->storeProductRepository->findOrCreateByReason($document);
 
         if ($this->costOfGoodsCalculator->supportsRangeIndex($document)) {
-            $this->processSupportsRangeIndexUpdate($document, $trialBalance, $storeProduct, $dm);
+            $this->processSupportsRangeIndexUpdate($trialBalance, $storeProduct, $dm);
         }
 
         $trialBalance->price = $document->getProductPrice();
@@ -210,7 +208,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $trialBalance = $this->trialBalanceRepository->findOneByReason($document);
 
         if ($this->costOfGoodsCalculator->supportsRangeIndex($document)) {
-            $this->processSupportsRangeIndexRemove($document, $trialBalance, $dm);
+            $this->processSupportsRangeIndexRemove($trialBalance, $dm);
         }
 
         $dm->remove($trialBalance);

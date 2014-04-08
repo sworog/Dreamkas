@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Serializer\Handler;
 
-use JMS\Serializer\Context;
 use JMS\Serializer\EventDispatcher\PreSerializeEvent;
 use JMS\DiExtraBundle\Annotation as DI;
 use JMS\Serializer\JsonSerializationVisitor;
@@ -42,16 +41,10 @@ class RoundingHandler
     /**
      * @param VisitorInterface|JsonSerializationVisitor $visitor
      * @param AbstractRounding $value
-     * @param array $type
-     * @param Context $context
      * @return array
      */
-    public function serializeRoundingToJson(
-        VisitorInterface $visitor,
-        AbstractRounding $value,
-        array $type,
-        Context $context
-    ) {
+    public function serializeRoundingToJson(VisitorInterface $visitor, AbstractRounding $value)
+    {
         $title = $this->translator->trans($value->getTitle(), array(), 'rounding');
 
         $data = array(

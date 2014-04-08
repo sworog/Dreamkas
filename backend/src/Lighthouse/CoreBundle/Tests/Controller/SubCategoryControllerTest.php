@@ -8,9 +8,9 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
-use PHPUnit_Util_Type;
 use MongoDuplicateKeyException;
 use Exception;
+use SebastianBergmann\Exporter\Exporter;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class SubCategoryControllerTest extends WebTestCase
@@ -1164,7 +1164,8 @@ class SubCategoryControllerTest extends WebTestCase
             $statusCodes[] = $response->getStatusCode();
             $jsonResponses[] = $this->client->decodeJsonResponse($response);
         }
-        $responseBody = PHPUnit_Util_Type::export($jsonResponses);
+        $exporter = new Exporter();
+        $responseBody = $exporter->export($jsonResponses);
         $this->assertCount(1, array_keys($statusCodes, 201), $responseBody);
         $this->assertCount(2, array_keys($statusCodes, 400), $responseBody);
         Assert::assertJsonPathEquals('Молочка', '*.name', $jsonResponses, 1);

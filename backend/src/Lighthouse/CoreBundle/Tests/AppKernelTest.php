@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests;
 
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
+use Symfony\Component\Filesystem\Filesystem;
 use AppKernel;
 
 class AppKernelTest extends ContainerAwareTestCase
@@ -15,6 +16,7 @@ class AppKernelTest extends ContainerAwareTestCase
      */
     public function testBoot($env, $debug)
     {
+        /* @var Filesystem $filesystem */
         $filesystem = $this->getContainer()->get('filesystem');
 
         $tmpDir = '/tmp/' . uniqid('lighthouse-app-kernel-');

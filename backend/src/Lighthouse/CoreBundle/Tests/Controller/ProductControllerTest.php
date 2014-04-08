@@ -7,8 +7,8 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use SebastianBergmann\Exporter\Exporter;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use PHPUnit_Util_Type;
 use Exception;
 use MongoDuplicateKeyException;
 
@@ -1825,7 +1825,8 @@ class ProductControllerTest extends WebTestCase
             $statusCodes[] = $response->getStatusCode();
             $jsonResponses[] = $this->client->decodeJsonResponse($response);
         }
-        $responseBody = PHPUnit_Util_Type::export($jsonResponses);
+        $exporter = new Exporter();
+        $responseBody = $exporter->export($jsonResponses);
         $this->assertCount(1, array_keys($statusCodes, 201), $responseBody);
         $this->assertCount(2, array_keys($statusCodes, 400), $responseBody);
         Assert::assertJsonPathEquals('Кефир "Веселый Молочник" 1% 950гр', '*.name', $jsonResponses, 1);

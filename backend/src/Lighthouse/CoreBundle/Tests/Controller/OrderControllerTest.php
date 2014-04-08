@@ -918,7 +918,7 @@ class OrderControllerTest extends WebTestCase
         $store = $this->factory->store()->getStore();
         $supplier = $this->factory->createSupplier();
         $order = $this->factory->createOrder($store, $supplier);
-        $orderProduct1 = $this->factory->createOrderProduct($order, $productId1, 10);
+        $this->factory->createOrderProduct($order, $productId1, 10);
         $this->factory->flush();
 
         $orderData = array(

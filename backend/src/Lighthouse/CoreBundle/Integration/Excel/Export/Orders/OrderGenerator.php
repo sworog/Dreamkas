@@ -6,7 +6,6 @@ use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Liuggio\ExcelBundle\Factory;
 use PHPExcel;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 use Symfony\Component\Translation\Translator;
 
 /**
