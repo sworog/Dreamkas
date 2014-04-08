@@ -18,7 +18,7 @@ import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductO
 @DefaultUrl("/orders/create")
 public class OrderPage extends CommonPageObject {
 
-    @FindBy(xpath = "//*[@class='page__data']/h2")
+    @FindBy(name = "orderNumber")
     @SuppressWarnings("unused")
     WebElement orderNumberHeaderTextWebElement;
 

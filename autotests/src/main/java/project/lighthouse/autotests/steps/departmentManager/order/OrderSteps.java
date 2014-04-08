@@ -238,10 +238,9 @@ public class OrderSteps extends ScenarioSteps {
 
     @Step
     public void assertOrderNumberHeader() {
-        String expectedNumber = String.format("Заказ поставщику № %s", Storage.getOrderVariableStorage().getNumber());
         assertThat(
                 orderPage.getOrderNumberHeaderText(),
-                equalTo(expectedNumber));
+                equalTo(Storage.getOrderVariableStorage().getNumber()));
     }
 
     @Step
