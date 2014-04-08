@@ -1,12 +1,10 @@
 package project.lighthouse.autotests.pages.departmentManager.invoice;
 
-import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.common.CommonView;
 import project.lighthouse.autotests.elements.Buttons.localNavigation.NavigationLinkFacade;
 
-@DefaultUrl("/invoices")
 public class InvoiceListPage extends InvoiceCreatePage {
 
     public static final String ITEM_NAME = "invoice";

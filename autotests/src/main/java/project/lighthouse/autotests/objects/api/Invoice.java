@@ -17,14 +17,14 @@ public class Invoice extends AbstractObject {
     public Invoice(String sku, String supplier, String acceptanceDate, String accepter, String legalEntity,
                    String supplierInvoiceSku, String supplierInvoiceDate) throws JSONException {
         this(new JSONObject()
-                .put("sku", sku)
-                .put("supplier", supplier)
-                .put("acceptanceDate", acceptanceDate)
-                .put("accepter", accepter)
-                .put("legalEntity", legalEntity)
-                .put("supplierInvoiceSku", supplierInvoiceSku)
-                .put("supplierInvoiceDate", supplierInvoiceDate)
-                .put("includesVAT", true)
+                        .put("sku", sku)
+                        .put("supplier", supplier)
+                        .put("acceptanceDate", acceptanceDate)
+                        .put("accepter", accepter)
+                        .put("legalEntity", legalEntity)
+                        .put("supplierInvoiceSku", supplierInvoiceSku)
+                        .put("supplierInvoiceDate", supplierInvoiceDate)
+                        .put("includesVAT", true)
         );
     }
 
@@ -39,5 +39,9 @@ public class Invoice extends AbstractObject {
 
     public void setStoreId(String storeId) {
         this.storeId = storeId;
+    }
+
+    public String getStoreId() {
+        return storeId;
     }
 }
