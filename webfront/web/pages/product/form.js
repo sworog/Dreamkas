@@ -29,9 +29,9 @@ define(function(require) {
                 id: page.params.subCategory
             });
 
-            $.when(page.productId ? page.productModel.fetch() : {}, page.subCategoryModel.id ? page.subCategoryModel.fetch({parse: false}) : {}).then(function(){
+            $.when(page.params.productId ? page.productModel.fetch() : {}, page.subCategoryModel.id ? page.subCategoryModel.fetch({parse: false}) : {}).then(function(){
 
-                if (!page.productId){
+                if (!page.params.productId){
                     page.productModel = new ProductModel({
                         subCategory: page.subCategoryModel.toJSON(),
                         retailMarkupMin: page.subCategoryModel.get('retailMarkupMin'),

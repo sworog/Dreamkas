@@ -1,7 +1,7 @@
 <% var currentUserModel = require('models/currentUser') %>
 
 <div class="globalNavigation">
-    <div class="globalNavigation__links">
+    <div name="navigationLinks" class="globalNavigation__links">
         <% if(currentUserModel.get('id')) { %>
 
         <% if(LH.isAllow('groups')){ %>
