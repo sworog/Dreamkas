@@ -12,6 +12,7 @@ use Lighthouse\CoreBundle\Document\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
+use Lighthouse\CoreBundle\Test\Factory\Factory;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use DateTime;
 
@@ -50,21 +51,11 @@ class ProductTotalsTest extends ContainerAwareTestCase
         $manager = $this->getManager();
 
         $numericFactory = $this->getNumericFactory();
+        $factory = new Factory($this->getContainer());
 
-        $store = new Store();
-        $store->number = '42';
-        $store->address = '42';
-        $store->contacts = '42';
+        $store = $this->factory()->store()->getStore('42');
 
-        $invoice = new Invoice();
-        $invoice->sku = 'sdfwfsf232';
-        $invoice->supplier = 'ООО "Поставщик"';
-        $invoice->acceptanceDate = new \DateTime();
-        $invoice->accepter = 'Приемных Н.П.';
-        $invoice->legalEntity = 'ООО "Магазин"';
-        $invoice->supplierInvoiceSku = '1248373';
-        $invoice->supplierInvoiceDate = new DateTime('-1');
-        $invoice->store = $store;
+        $invoice = $this->factory()->invoice()->createInvoice(array(), $store->id);
 
         $product = new Product();
         $product->name = 'Кефир "Веселый Молочник" 1% 950гр';

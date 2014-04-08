@@ -191,7 +191,7 @@ class CostOfGoodsTest extends WebTestCase
             $this->assertNotNull($trialBalance);
             /* @var Invoice $invoice */
             $invoice = $trialBalance->reason->getReasonParent();
-            $this->assertEquals($expectedSku, $invoice->sku);
+            $this->assertEquals($expectedSku, $invoice->number);
         }
     }
 
@@ -204,47 +204,47 @@ class CostOfGoodsTest extends WebTestCase
             '0,5 - exact range #1' => array(
                 0,
                 5,
-                array(1)
+                array(10001)
             ),
             '5,8 - exact range #2' => array(
                 5,
                 8,
-                array(2)
+                array(10002)
             ),
             '8,10 - exact range #3' => array(
                 8,
                 10,
-                array(3),
+                array(10003),
             ),
             '0,1 - start/inside #1' => array(
                 0,
                 1,
-                array(1)
+                array(10001)
             ),
             '1,3 - inside #1' => array(
                 1,
                 3,
-                array(1)
+                array(10001)
             ),
             '0,6' => array(
                 0,
                 6,
-                array(1,2)
+                array(10001, 10002)
             ),
             '4,6' => array(
                 4,
                 6,
-                array(1,2)
+                array(10001, 10002)
             ),
             '5,6' => array(
                 5,
                 6,
-                array(2)
+                array(10002)
             ),
             '6,8' => array(
                 6,
                 8,
-                array(2)
+                array(10002)
             ),
             '10,11' => array(
                 10,
@@ -254,12 +254,12 @@ class CostOfGoodsTest extends WebTestCase
             '1,9' => array(
                 1,
                 9,
-                array(1,2,3)
+                array(10001, 10002, 10003)
             ),
             '0,11' => array(
                 1,
                 9,
-                array(1,2,3)
+                array(10001, 10002, 10003)
             ),
             '11,14' => array(
                 11,
@@ -587,29 +587,28 @@ class CostOfGoodsTest extends WebTestCase
         /** @var TrialBalanceRepository $trialBalanceRepository */
         $trialBalanceRepository = $this->getContainer()->get("lighthouse.core.document.repository.trial_balance");
 
-        $store = $this->factory->store()->getStoreId("1");
-        $product = $this->createProduct("1");
-        $productOther = $this->createProduct("Other");
+        $storeId = $this->factory->store()->getStoreId("1");
+        $productId = $this->createProduct("1");
+        $productOtherId = $this->createProduct("Other");
+
+        $invoice1Id = $this->createInvoice(array('acceptanceDate' => '2014-01-01 12:56'), $storeId);
+        $invoiceProduct1Id = $this->createInvoiceProduct($invoice1Id, $productId, 5, 100, $storeId);
+        $invoice2Id = $this->createInvoice(array('acceptanceDate' => '2014-01-02 12:56'), $storeId);
+        $invoiceProduct2Id = $this->createInvoiceProduct($invoice2Id, $productId, 5, 150, $storeId);
+        $invoice3Id = $this->createInvoice(array('acceptanceDate' => '2014-01-03 12:56'), $storeId);
+        $this->createInvoiceProduct($invoice3Id, $productId, 10, 200, $storeId);
 
 
-        $invoice1 = $this->createInvoice(array('sku' => '1', 'acceptanceDate' => '2014-01-01 12:56'), $store);
-        $invoiceProduct1 = $this->createInvoiceProduct($invoice1, $product, 5, 100, $store);
-        $invoice2 = $this->createInvoice(array('sku' => '2', 'acceptanceDate' => '2014-01-02 12:56'), $store);
-        $invoiceProduct2 = $this->createInvoiceProduct($invoice2, $product, 5, 150, $store);
-        $invoice3 = $this->createInvoice(array('sku' => '3', 'acceptanceDate' => '2014-01-03 12:56'), $store);
-        $this->createInvoiceProduct($invoice3, $product, 10, 200, $store);
-
-
-        $sale1 = $this->factory->createSale($store, "2014-01-09 12:23:12", 1750);
-        $saleProduct1 = $this->factory->createSaleProduct(250, 7, $product, $sale1);
+        $sale1 = $this->factory->createSale($storeId, "2014-01-09 12:23:12", 1750);
+        $saleProduct1 = $this->factory->createSaleProduct(250, 7, $productId, $sale1);
         $this->factory->flush();
 
-        $sale2 = $this->factory->createSale($store, "2014-01-09 16:23:12", 500);
-        $saleProduct2 = $this->factory->createSaleProduct(250, 2, $product, $sale2);
+        $sale2 = $this->factory->createSale($storeId, "2014-01-09 16:23:12", 500);
+        $saleProduct2 = $this->factory->createSaleProduct(250, 2, $productId, $sale2);
         $this->factory->flush();
 
-        $sale3 = $this->factory->createSale($store, "2014-01-10 12:23:12", 1500);
-        $saleProduct3 = $this->factory->createSaleProduct(250, 6, $product, $sale3);
+        $sale3 = $this->factory->createSale($storeId, "2014-01-10 12:23:12", 1500);
+        $saleProduct3 = $this->factory->createSaleProduct(250, 6, $productId, $sale3);
         $this->factory->flush();
 
         $costOfGoodsCalculator->calculateUnprocessed();
@@ -626,9 +625,8 @@ class CostOfGoodsTest extends WebTestCase
             ->findOneByReasonTypeReasonId($saleProduct3->id, SaleProduct::REASON_TYPE);
         $this->assertEquals(1150, $trialBalanceSaleProduct3->costOfGoods->toNumber());
 
-
         // Edit invoice product price and quantity
-        $this->editInvoiceProduct($invoiceProduct1, $invoice1, $product, 6, 50, $store);
+        $this->editInvoiceProduct($invoiceProduct1Id, $invoice1Id, $productId, 6, 50, $storeId);
 
         $costOfGoodsCalculator->calculateUnprocessed();
 
@@ -646,7 +644,7 @@ class CostOfGoodsTest extends WebTestCase
 
 
         // Edit invoice product change product
-        $this->editInvoiceProduct($invoiceProduct1, $invoice1, $productOther, 1, 11, $store);
+        $this->editInvoiceProduct($invoiceProduct1Id, $invoice1Id, $productOtherId, 1, 11, $storeId);
 
         $costOfGoodsCalculator->calculateUnprocessed();
 
@@ -664,10 +662,10 @@ class CostOfGoodsTest extends WebTestCase
 
 
         // Edit invoice product delete not first
-        $this->editInvoiceProduct($invoiceProduct1, $invoice1, $product, 5, 100, $store);
+        $this->editInvoiceProduct($invoiceProduct1Id, $invoice1Id, $productId, 5, 100, $storeId);
         $costOfGoodsCalculator->calculateUnprocessed();
 
-        $this->deleteInvoiceProduct($invoiceProduct2, $invoice2, $store);
+        $this->deleteInvoiceProduct($invoiceProduct2Id, $invoice2Id, $storeId);
         $costOfGoodsCalculator->calculateUnprocessed();
 
         $trialBalanceSaleProduct1 = $trialBalanceRepository
@@ -684,10 +682,10 @@ class CostOfGoodsTest extends WebTestCase
 
 
         // Edit invoice product delete first
-        $this->createInvoiceProduct($invoice2, $product, 5, 150, $store);
+        $this->createInvoiceProduct($invoice2Id, $productId, 5, 150, $storeId);
         $costOfGoodsCalculator->calculateUnprocessed();
 
-        $this->deleteInvoiceProduct($invoiceProduct1, $invoice1, $store);
+        $this->deleteInvoiceProduct($invoiceProduct1Id, $invoice1Id, $storeId);
         $costOfGoodsCalculator->calculateUnprocessed();
 
         $trialBalanceSaleProduct1 = $trialBalanceRepository
@@ -715,11 +713,11 @@ class CostOfGoodsTest extends WebTestCase
         $this->createProduct("Other");
 
 
-        $invoice1 = $this->createInvoice(array('sku' => '1', 'acceptanceDate' => '2014-01-01 12:56'), $store);
+        $invoice1 = $this->createInvoice(array('acceptanceDate' => '2014-01-01 12:56'), $store);
         $this->createInvoiceProduct($invoice1, $product, 5, 100, $store);
-        $invoice2 = $this->createInvoice(array('sku' => '2', 'acceptanceDate' => '2014-01-02 12:56'), $store);
+        $invoice2 = $this->createInvoice(array('acceptanceDate' => '2014-01-02 12:56'), $store);
         $this->createInvoiceProduct($invoice2, $product, 5, 150, $store);
-        $invoice3 = $this->createInvoice(array('sku' => '3', 'acceptanceDate' => '2014-01-03 12:56'), $store);
+        $invoice3 = $this->createInvoice(array('acceptanceDate' => '2014-01-03 12:56'), $store);
         $this->createInvoiceProduct($invoice3, $product, 10, 200, $store);
 
 
@@ -750,7 +748,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->assertEquals(1150, $trialBalanceSaleProduct3->costOfGoods->toNumber());
 
 
-        $this->editInvoice(array('sku' => '2', 'acceptanceDate' => '2014-01-01 10:00'), $invoice2, $store);
+        $this->editInvoice(array('acceptanceDate' => '2014-01-01 10:00'), $invoice2, $store);
 
         $costOfGoodsCalculator->calculateUnprocessed();
 

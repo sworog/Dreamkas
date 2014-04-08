@@ -1759,6 +1759,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products'
         );
 
+        $this->assertResponseCode(200);
         Assert::assertJsonPathEquals('2014-01-10T12:33:33+0400', '0.acceptanceDate', $response);
 
 
@@ -1770,6 +1771,7 @@ class InvoiceProductControllerTest extends WebTestCase
             '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products'
         );
 
+        $this->assertResponseCode(200);
         Assert::assertJsonPathEquals('2014-01-03T10:11:10+0400', '0.acceptanceDate', $response);
     }
 

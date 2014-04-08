@@ -141,13 +141,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
         $manager = $this->getManager();
 
-        $store = new Store();
-        $store->number = '42';
-        $store->address = '42';
-        $store->contacts = '42';
-
-        $manager->persist($store);
-        $manager->flush();
+        $store = $this->factory()->store()->getStore('42');
 
         $invoiceData = array(
             'sku' => 'product232',
@@ -159,17 +153,12 @@ class TrialBalanceTest extends ContainerAwareTestCase
             'supplierInvoiceDate' => '17.03.2013',
         );
 
-        $product = $this->createProduct();
+        $productId = $this->createProduct();
 
         $storeProductRepository = $this->getStoreProductRepository();
-        $storeProduct = $storeProductRepository->findOrCreateByStoreProduct($store, $product);
+        $storeProduct = $storeProductRepository->findOrCreateByStoreProduct($store, $productId);
 
-        $invoice = new Invoice();
-        $invoice->store = $store;
-        $invoice->populate($invoiceData);
-
-        $manager->persist($invoice);
-        $manager->flush();
+        $invoice = $this->factory()->invoice()->createInvoice($invoiceData, $store->id);
 
         $trialBalanceRepository = $this->getTrialBalanceRepository();
 
@@ -178,7 +167,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
         $this->assertCount(0, $startTrialBalance);
 
-        $productVersion = $this->getVersionFactory()->createDocumentVersion($product);
+        $productVersion = $this->getVersionFactory()->createDocumentVersion($productId);
         $numericFactory = $this->getNumericFactory();
 
         $invoiceProduct = new InvoiceProduct();
