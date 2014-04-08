@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
-import project.lighthouse.autotests.elements.Input;
+import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.objects.web.search.WriteOffSearchObjectCollection;
 
@@ -16,7 +16,7 @@ public class WriteOffSearchPage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("number", new Input(this, "number"));
+        put("number", new Input(this, "number"));
     }
 
     public WriteOffSearchObjectCollection getWriteOffSearchObjectCollection() {

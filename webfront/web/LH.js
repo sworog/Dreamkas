@@ -20,6 +20,7 @@ define(function(require) {
         modelNode: require('kit/utils/modelNode'),
         formatMoney: require('utils/formatMoney'),
         formatAmount: require('utils/formatAmount'),
+        formatDate: require('utils/formatDate'),
         isEmptyJSON: require('utils/isEmptyJSON'),
         prevalidateInput: require('utils/prevalidateInput'),
         units: require('utils/units')

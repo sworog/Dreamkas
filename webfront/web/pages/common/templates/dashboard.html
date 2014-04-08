@@ -2,6 +2,8 @@
     grossSales: require('tpl!blocks/grossSales/grossSales.html'),
     grossSales_store: require('tpl!blocks/grossSales/grossSales_store/grossSales_store.html')
 } %>
+
+<div class="page__data">
 <% if (_.any(models)) { %>
 <h1>Обзор</h1>
 
@@ -24,3 +26,4 @@
 <% } else { %>
 <div class="page__logo"></div>
 <% } %>
+</div>

@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.common.CommonView;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
-import project.lighthouse.autotests.elements.NonType;
+import project.lighthouse.autotests.elements.items.NonType;
 
 @DefaultUrl("/users")
 public class UsersListPage extends CommonPageObject {
@@ -22,11 +22,11 @@ public class UsersListPage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("name", new NonType(this, "name"));
-        items.put("position", new NonType(this, "position"));
-        items.put("username", new NonType(this, "username"));
-        items.put("password", new NonType(this, "password"));
-        items.put("role", new NonType(this, "role"));
+        put("name", new NonType(this, "name"));
+        put("position", new NonType(this, "position"));
+        put("username", new NonType(this, "username"));
+        put("password", new NonType(this, "password"));
+        put("role", new NonType(this, "role"));
     }
 
     public void createNewUserButtonClick() {
@@ -46,7 +46,7 @@ public class UsersListPage extends CommonPageObject {
     }
 
     public void checkListItemHasExpectedValueByFindByLocator(String value, String elementName, String expectedValue) {
-        By findBy = items.get(elementName).getFindBy();
+        By findBy = getItems().get(elementName).getFindBy();
         commonView.checkListItemHasExpectedValueByFindByLocator(value, elementName, findBy, expectedValue);
     }
 }

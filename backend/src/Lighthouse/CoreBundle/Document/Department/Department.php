@@ -9,10 +9,15 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 
 /**
+ * @property string $id
+ * @property string $number
+ * @property string $name
+ * @property Store $store
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Department\DepartmentRepository"
  * )
  * @Unique(fields={"number", "store"}, message="lighthouse.validation.errors.department.number.unique")
+ * @MongoDB\UniqueIndex(keys={"number"="asc","store"="asc"})
  */
 class Department extends AbstractDocument
 {

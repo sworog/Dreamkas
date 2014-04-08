@@ -103,6 +103,10 @@ define(function(require, exports, module) {
             expect(getText(dictionary, '%0 чертей', [8])).toBe('8 чертей');
         });
 
+        it('get text with num = 13 in ru', function(){
+            expect(getText(dictionary, '%0 чертей', [13])).toBe('13 чертей');
+        });
+
         it('get text with num = 1000 in ru', function(){
             expect(getText(dictionary, '%0 чертей', [1000])).toBe('1000 чертей');
         });

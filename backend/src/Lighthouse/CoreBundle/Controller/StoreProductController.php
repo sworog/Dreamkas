@@ -72,6 +72,24 @@ class StoreProductController extends AbstractRestController
         return $this->processForm($request, $storeProduct);
     }
 
+    /**
+     * @param \Lighthouse\CoreBundle\Document\Store\Store $store
+     * @param Request $request
+     * @return StoreProductCollection
+     * @ApiDoc
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @Rest\View(serializerGroups={"Collection"})
+     */
+    public function getStoreSearchProductsAction(Store $store, Request $request)
+    {
+        $query = $request->get('query');
+        $properties = $request->get('properties');
+
+        $collection = $this->documentRepository->searchStoreProductByProductProperties($store, $properties, $query);
+
+        return $collection;
+    }
+
 
     /**
      * @param Store $store

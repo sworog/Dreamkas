@@ -6,7 +6,7 @@ define(function(require) {
         var args = [].slice.call(arguments, 0),
             result;
 
-        if (typeof dictionary === 'string'){
+        if (typeof dictionary === 'string') {
             text = dictionary;
             dictionary = {};
             args.splice(0, 1);
@@ -27,7 +27,8 @@ define(function(require) {
 
     getText.compile = function(input, placeholders, num) {
 
-        var output = input;
+        var output = input,
+            pluralForm = 0;
 
         if (typeof placeholders === 'number') {
             num = placeholders
@@ -49,21 +50,11 @@ define(function(require) {
                 output = output.replace(re, placeholder);
             });
         } else if (_.isArray(input) && input.length === 3) {
-            if (num % 10 === 0) {
-                output = getText.compile(input[2], placeholders);
-            } else if (num % 10 === 1) {
-                output = getText.compile(input[0], placeholders);
-            } else if (num % 10 < 5) {
-                output = getText.compile(input[1], placeholders);
-            } else {
-                output = getText.compile(input[2], placeholders);
-            }
+            pluralForm = num % 10 == 1 && num % 100 != 11 ? 0 : num % 10 >= 2 && num % 10 <= 4 && (num % 100 < 10 || num % 100 >= 20) ? 1 : 2;
+            output = getText.compile(input[pluralForm], placeholders);
         } else if (_.isArray(input) && input.length === 2) {
-            if (num > 1) {
-                output = getText.compile(input[1], placeholders);
-            } else {
-                output = getText.compile(input[0], placeholders);
-            }
+            pluralForm = (num != 1) ? 1 : 0;
+            output = getText.compile(input[pluralForm], placeholders);
         }
 
         return output;

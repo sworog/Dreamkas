@@ -4,8 +4,8 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.elements.Autocomplete;
-import project.lighthouse.autotests.elements.Input;
+import project.lighthouse.autotests.elements.items.Autocomplete;
+import project.lighthouse.autotests.elements.items.Input;
 
 @DefaultUrl("/sale")
 public class SalesEmulatorManagerPage extends CommonPageObject {
@@ -16,9 +16,9 @@ public class SalesEmulatorManagerPage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("sales autocomplete field", new Autocomplete(this, By.xpath("//*[@lh_product_autocomplete='name']")));
-        items.put("sales quantity", new Input(this, "quantity[]"));
-        items.put("sales purchasePrice", new Input(this, "sellingPrice[]"));
+        put("sales autocomplete field", new Autocomplete(this, By.xpath("//*[@lh_product_autocomplete='name']")));
+        put("sales quantity", new Input(this, "quantity[]"));
+        put("sales purchasePrice", new Input(this, "sellingPrice[]"));
     }
 
     public void addToSales() {

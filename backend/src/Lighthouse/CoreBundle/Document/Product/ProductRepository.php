@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Document\Product;
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Classifier\ParentableRepository;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
-use Doctrine\MongoDB\LoggableCursor;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
@@ -15,13 +14,22 @@ use MongoRegex;
 class ProductRepository extends DocumentRepository implements ParentableRepository
 {
     /**
-     * @param string $property
+     * @param string|array $properties
      * @param string $entry
-     * @return LoggableCursor
+     * @return Cursor
      */
-    public function searchEntry($property, $entry)
+    public function searchEntry($properties, $entry)
     {
-        return $this->findBy(array($property => new MongoRegex("/".preg_quote($entry, '/')."/i")));
+        if (!is_array($properties)) {
+            $properties = array($properties);
+        }
+
+        $or = array();
+        foreach ($properties as $property) {
+            $or[] = array($property => new MongoRegex("/".preg_quote($entry, '/')."/i"));
+        }
+
+        return $this->findBy(array('$or' => $or), null, 100);
     }
 
     /**

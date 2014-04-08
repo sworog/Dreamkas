@@ -124,6 +124,7 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
      *     inversedBy="products"
      * )
      * @Assert\NotBlank
+     * @Serializer\MaxDepth(2)
      * @var Invoice
      */
     protected $invoice;
@@ -135,6 +136,7 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
      *     simple=true,
      *     cascade={"persist"}
      * )
+     * @Serializer\MaxDepth(3)
      * @var ProductVersion
      */
     protected $product;

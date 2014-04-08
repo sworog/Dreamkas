@@ -97,13 +97,13 @@ class InvoiceProductController extends AbstractRestController
      *      resource=true
      * )
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc
      */
     public function getProductsAction(Store $store, Invoice $invoice)
     {
         $this->checkInvoiceStore($invoice, $store);
-        $invoiceProducts = $this->documentRepository->findByInvoice($invoice->id);
-        return new InvoiceProductCollection($invoiceProducts);
+        return $invoice->products;
     }
 
     /**

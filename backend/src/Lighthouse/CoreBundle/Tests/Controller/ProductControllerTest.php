@@ -2,9 +2,15 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
+use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use PHPUnit_Util_Type;
+use Exception;
+use MongoDuplicateKeyException;
 
 class ProductControllerTest extends WebTestCase
 {
@@ -13,7 +19,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function testPostProductAction(array $postData)
     {
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postData['subCategory'] = $this->createSubCategory();
 
@@ -43,7 +49,7 @@ class ProductControllerTest extends WebTestCase
         $productData['retailPriceMax'] = '';
         $productData['retailPricePreference'] = 'retailMarkup';
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $responseJson = $this->clientJsonRequest(
             $accessToken,
@@ -80,7 +86,7 @@ class ProductControllerTest extends WebTestCase
     {
         $postData = $data + $this->getProductData();
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -99,7 +105,7 @@ class ProductControllerTest extends WebTestCase
         $invalidData = $this->getProductData();
         $invalidData['units'] = '';
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -115,7 +121,7 @@ class ProductControllerTest extends WebTestCase
 
     public function testPostProductActionEmptyPost()
     {
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -130,7 +136,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function testPostProductActionUniqueSku(array $postData)
     {
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postData['subCategory'] = $this->createSubCategory();
 
@@ -160,7 +166,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function testPutProductAction(array $postData)
     {
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postData['subCategory'] = $this->createSubCategory();
 
@@ -212,7 +218,7 @@ class ProductControllerTest extends WebTestCase
     {
         $id = '1234534312';
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $putData['subCategory'] = $this->createSubCategory();
 
@@ -231,7 +237,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function testPutProductActionInvalidData(array $postData)
     {
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postData['subCategory'] = $this->createSubCategory();
 
@@ -271,7 +277,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function testPutProductActionChangeId(array $postData)
     {
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postData['subCategory'] = $this->createSubCategory();
 
@@ -324,7 +330,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function testGetProductsAction(array $postData)
     {
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postData['subCategory'] = $this->createSubCategory();
 
@@ -355,7 +361,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function testGetProduct(array $postData)
     {
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postData['subCategory'] = $this->createSubCategory();
 
@@ -382,7 +388,7 @@ class ProductControllerTest extends WebTestCase
 
     public function testGetProductNotFound()
     {
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $this->clientJsonRequest(
             $accessToken,
@@ -394,7 +400,7 @@ class ProductControllerTest extends WebTestCase
 
     public function testGetSubCategoryProducts()
     {
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $subCategoryId1 = $this->createSubCategory(null, 'Пиво');
         $subCategoryId2 = $this->createSubCategory(null, 'Водка');
@@ -438,7 +444,7 @@ class ProductControllerTest extends WebTestCase
         $subCategoryId = $this->createSubCategory();
         $this->createProductsBySku(array('1', '2', '3', '4', '5'));
 
-        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -454,7 +460,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function testSearchProductsAction(array $postData)
     {
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postData['subCategory'] = $this->createSubCategory();
 
@@ -482,7 +488,7 @@ class ProductControllerTest extends WebTestCase
 
     public function testSearchProductsActionEmptyRequest()
     {
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -823,7 +829,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function testPostProductActionSetRetailsPriceValid(array $postData, array $assertions = array())
     {
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postData['subCategory'] = $this->createSubCategory();
 
@@ -844,7 +850,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function testPostProductActionSetRetailsPriceInvalid(array $postData, array $assertions = array())
     {
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postData += $this->getProductData(true);
 
@@ -867,7 +873,7 @@ class ProductControllerTest extends WebTestCase
     {
         $postData = $this->getProductData();
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -910,7 +916,7 @@ class ProductControllerTest extends WebTestCase
     {
         $postData = $this->getProductData();
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -1494,7 +1500,7 @@ class ProductControllerTest extends WebTestCase
 
         $productId = $this->createProduct($postData);
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $putData += $postData;
 
@@ -1659,9 +1665,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function testAccessProduct($url, $method, $role, $responseCode, array $requestData = array())
     {
-        $groupId = $this->createGroup();
-        $categoryId = $this->createCategory($groupId);
-        $subCategoryId = $this->createSubCategory($categoryId);
+        $subCategoryId = $this->factory->catalog()->getSubCategory('Пиво')->id;
         $productId = $this->createProduct('Старый мельник', $subCategoryId);
 
         $url = str_replace(
@@ -1675,7 +1679,7 @@ class ProductControllerTest extends WebTestCase
             ),
             $url
         );
-        $accessToken = $this->authAsRole($role);
+        $accessToken = $this->factory->oauth()->authAsRole($role);
         $requestData += $this->getProductData();
 
         $this->clientJsonRequest(
@@ -1800,5 +1804,114 @@ class ProductControllerTest extends WebTestCase
                 403,
             ),
         );
+    }
+
+    /**
+     * @group unique
+     */
+    public function testUniqueNameInParallel()
+    {
+        $productData = $this->getProductData();
+
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $jsonRequest = new JsonRequest('/api/1/products', 'POST', $productData);
+        $jsonRequest->setAccessToken($accessToken);
+
+        $responses = $this->client->parallelJsonRequest($jsonRequest, 3);
+        $statusCodes = array();
+        $jsonResponses = array();
+        foreach ($responses as $response) {
+            $statusCodes[] = $response->getStatusCode();
+            $jsonResponses[] = $this->client->decodeJsonResponse($response);
+        }
+        $responseBody = PHPUnit_Util_Type::export($jsonResponses);
+        $this->assertCount(1, array_keys($statusCodes, 201), $responseBody);
+        $this->assertCount(2, array_keys($statusCodes, 400), $responseBody);
+        Assert::assertJsonPathEquals('Кефир "Веселый Молочник" 1% 950гр', '*.name', $jsonResponses, 1);
+        Assert::assertJsonPathEquals('Такой артикул уже есть', '*.children.sku.errors.0', $jsonResponses, 2);
+    }
+
+    protected function doPostActionFlushFailedException(\Exception $exception)
+    {
+        $productData = $this->getProductData();
+
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $product = new Product();
+
+        $documentManagerMock = $this->getMock(
+            'Doctrine\\ODM\\MongoDB\\DocumentManager',
+            array(),
+            array(),
+            '',
+            false
+        );
+        $documentManagerMock
+            ->expects($this->once())
+            ->method('persist');
+
+        $documentManagerMock
+            ->expects($this->once())
+            ->method('flush')
+            ->with($this->isEmpty())
+            ->will($this->throwException($exception));
+
+        $productRepoMock = $this->getMock(
+            'Lighthouse\\CoreBundle\\Document\\Product\\ProductRepository',
+            array(),
+            array(),
+            '',
+            false
+        );
+
+        $productRepoMock
+            ->expects($this->once())
+            ->method('createNew')
+            ->will($this->returnValue($product));
+        $productRepoMock
+            ->expects($this->exactly(2))
+            ->method('getDocumentManager')
+            ->will($this->returnValue($documentManagerMock));
+
+        $this->client->addTweaker(
+            function (ContainerInterface $container) use ($productRepoMock) {
+                $container->set('lighthouse.core.document.repository.product', $productRepoMock);
+            }
+        );
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/products',
+            $productData
+        );
+
+        return $response;
+    }
+
+    /**
+     * @group unique
+     */
+    public function testPostActionFlushFailedException()
+    {
+        $exception = new Exception('Unknown exception');
+        $response = $this->doPostActionFlushFailedException($exception);
+
+        $this->assertResponseCode(500);
+        Assert::assertJsonPathEquals('Unknown exception', 'message', $response);
+    }
+
+    /**
+     * @group unique
+     */
+    public function testPostActionFlushFailedMongoDuplicateKeyException()
+    {
+        $exception = new MongoDuplicateKeyException();
+        $response = $this->doPostActionFlushFailedException($exception);
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
+        Assert::assertJsonPathEquals('Такой артикул уже есть', 'children.sku.errors.0', $response);
     }
 }

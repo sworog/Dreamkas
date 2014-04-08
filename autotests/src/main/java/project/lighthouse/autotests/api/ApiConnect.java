@@ -263,6 +263,7 @@ public class ApiConnect {
             entity.setContentType("application/x-www-form-urlencoded; charset=UTF-8");
             httpPost.setEntity(entity);
             httpExecutor.executeHttpMethod(httpPost);
+            user.setStore(store);
         }
     }
 

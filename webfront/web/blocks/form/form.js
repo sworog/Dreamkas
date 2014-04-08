@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/core/block'),
+    var Block = require('kit/core/block.deprecated'),
         setter = require('kit/utils/setter'),
         form2js = require('form2js'),
         translate = require('kit/utils/translate'),
@@ -70,7 +70,7 @@ define(function(require) {
 
             Block.prototype.findElements.apply(block, arguments);
 
-            block.$submitButton = block.$('[type="submit"]').closest('.button').add('input[form="' + block.$el.attr('id') + '"]');
+            block.$submitButton = block.$('[type="submit"]').closest('.button').add('[form="' + block.$el.attr('id') + '"]');
             block.$results = block.$('.form__results');
             block.$controls = block.$submitButton.closest('.form__controls');
         },
@@ -122,19 +122,24 @@ define(function(require) {
 
             if (errors.children) {
                 _.each(errors.children, function(data, field) {
-                    var fieldErrors;
+                    var fieldErrors,
+                        $input = block.$('[name="' + field + '"]'),
+                        $field = $input.closest('.form__field');
 
                     if (data.errors) {
+                        $input.addClass('inputText_error');
                         fieldErrors = data.errors.join('. ');
-                        block.$('[name="' + field + '"]')
-                            .closest('.form__field')
-                            .attr('data-error', block.translate(fieldErrors));
+                        $field.attr('data-error', ($field.attr('data-error') ? $field.attr('data-error') + ', ' : '') + block.translate(fieldErrors));
                     }
                 });
             }
 
             if (errors.error) {
                 block.$controls.attr('data-error', typeof errors.error === 'string' ? block.translate(errors.error) : 'неизвестная ошибка: ' + error.statusText);
+            }
+
+            if (errors.errors) {
+                block.$controls.attr('data-error', errors.errors.join(', '));
             }
 
             if (errors.description) {
@@ -148,6 +153,7 @@ define(function(require) {
         removeErrors: function() {
             var block = this;
             block.$el.find('[data-error]').removeAttr('data-error');
+            block.$el.find('.inputText_error').removeClass('inputText_error');
         },
         showSuccessMessage: function() {
             var block = this;

@@ -16,6 +16,11 @@ define(function(require) {
         'suppliers/create(/)': require('pages/suppliers/create/create'),
         'suppliers/:supplierId(/)': require('pages/suppliers/view/view'),
 
+        //orders
+        'orders(/)': require('pages/orders/list/list'),
+        'orders/create(/)': require('pages/orders/create/create'),
+        'orders/:orderId(/)': require('pages/orders/view/view'),
+
         //reports
         'reports(/)': require('pages/reports/dashboard/dashboard'),
         'reports/grossMargin': require('pages/reports/grossMargin/grossMargin'),

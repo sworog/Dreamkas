@@ -4,7 +4,7 @@
 
 input.inputText, .inputText input, textarea.inputText, .inputText textarea{
     height: 35px;
-    background: #fff;
+    background-color: #fff;
     outline: none;
     font-size: 16px;
     border-radius: 3px;
@@ -67,7 +67,6 @@ input.inputText_error, .inputText_error input, textarea.inputText_error, .inputT
 
 .inputText_error:focus, .inputText_error input:focus, .inputText_error textarea:focus {
     border-color: #d40000 !important;
-    box-shadow: 0 0 3px #d40000 !important;
 }
 
 .inputText__postfix{

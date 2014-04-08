@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
+use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -41,7 +42,7 @@ class InvoiceType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Invoice\\Invoice',
+                'data_class' => Invoice::getClassName(),
                 'csrf_protection' => false
             )
         );

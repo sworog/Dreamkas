@@ -1,0 +1,77 @@
+<% var collections = _.extend({
+    orderProducts: new Backbone.Collection
+}, collections) %>
+<% var templates = {
+    table_orderProducts__productSum: require('tpl!./table_orderProducts__productSum.html')
+} %>
+<% if (collections.orderProducts.length) { %>
+<table class="table table__orderProducts">
+    <thead>
+    <tr>
+        <th>
+            Товар
+        </th>
+        <th style="width: 150px;">
+            Кол-во
+        </th>
+        <th>
+            Цена
+        </th>
+        <th>
+            Сумма
+        </th>
+        <th style="width: 1px;"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% collections.orderProducts.forEach(function(orderProductModel) { %>
+    <tr data-product_cid="<%- orderProductModel.cid %>"
+        name="orderProduct"
+        class="table__orderProduct"
+        product-sku="<%- orderProductModel.get('product.product.sku') %>">
+        <td name="productName" product-id="<%- orderProductModel.get('product.product.id') %>">
+            <%- orderProductModel.get('product.product.name') %>
+        </td>
+        <td>
+        <span style="white-space: nowrap">
+            <input data-name="quantity" autofocus type="text" class="inputText" value="<%- LH.formatAmount(orderProductModel.get('quantity')) %>" />
+            <span class="table__orderProduct__editable" name="productAmount">
+                <%- LH.formatAmount(orderProductModel.get('quantity')) %>
+            </span>
+            <span name="productUnits">
+                <%- LH.units(orderProductModel.get('product.product.units'), 'smallShort') %>
+            </span>
+        </span>
+        </td>
+        <td>
+        <span class="order__editable" style="white-space: nowrap">
+            <span name="productPrice" model-attribute="priceEntered">
+                <%- LH.formatMoney(orderProductModel.get('product.product.purchasePrice')) %>
+            </span>
+            <span>
+                руб.
+            </span>
+        </span>
+        </td>
+        <td>
+            <div style="white-space: nowrap">
+            <span class="table_orderProducts__productSum" name="productSum">
+                <%= templates.table_orderProducts__productSum({
+                    orderProductModel: orderProductModel
+                }) %>
+            </span>
+            <span>
+                руб.
+            </span>
+            </div>
+        </td>
+        <td>
+            <i class="icon-remove-sign form_order__removeProductLink" data-product_cid="<%- orderProductModel.cid %>"></i>
+        </td>
+    </tr>
+    <% }) %>
+    </tbody>
+</table>
+<% } else { %>
+<span></span>
+<% } %>

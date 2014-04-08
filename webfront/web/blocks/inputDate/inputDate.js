@@ -1,9 +1,9 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/core/block'),
+        var Block = require('kit/core/block.deprecated'),
             moment = require('moment'),
             Datepicker = require('blocks/datepicker/datepicker'),
-            Tooltip = require('blocks/tooltip/tooltip');
+            Tooltip = require('blocks/tooltip/tooltip.deprecated');
 
         require('jquery.maskedinput');
 

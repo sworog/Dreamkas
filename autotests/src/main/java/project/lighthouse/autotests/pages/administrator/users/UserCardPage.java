@@ -1,11 +1,21 @@
 package project.lighthouse.autotests.pages.administrator.users;
 
-import org.openqa.selenium.By;
+import net.thucydides.core.annotations.findby.FindBy;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.elements.NonType;
+import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
+import project.lighthouse.autotests.elements.items.NonType;
 
 public class UserCardPage extends CommonPageObject {
+
+    @FindBy(className = "user__editLink")
+    @SuppressWarnings("unused")
+    private WebElement editButtonLinkWEbWebElement;
+
+    @FindBy(className = "page__backLink")
+    @SuppressWarnings("unused")
+    private WebElement pageBackLinkWebElement;
 
     public UserCardPage(WebDriver driver) {
         super(driver);
@@ -13,19 +23,22 @@ public class UserCardPage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("name", new NonType(this, "name"));
-        items.put("position", new NonType(this, "position"));
-        items.put("username", new NonType(this, "username"));
-        items.put("password", new NonType(this, "password"));
-        items.put("role", new NonType(this, "role"));
+        put("name", new NonType(this, "name"));
+        put("position", new NonType(this, "position"));
+        put("username", new NonType(this, "username"));
+        put("password", new NonType(this, "password"));
+        put("role", new NonType(this, "role"));
     }
 
     public void editButtonClick() {
-        String editButtonXpath = "//*[@class='user__editLink']";
-        click(By.xpath(editButtonXpath));
+        findVisibleElement(editButtonLinkWEbWebElement).click();
     }
 
-    public void pageBackLink() {
-        findVisibleElement(By.className("page__backLink")).click();
+    public void pageBackLinkClick() {
+        findVisibleElement(pageBackLinkWebElement).click();
+    }
+
+    public void logOutButtonClick() {
+        new ButtonFacade(this, "Выйти").click();
     }
 }

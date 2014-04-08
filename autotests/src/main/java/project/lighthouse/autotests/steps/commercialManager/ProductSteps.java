@@ -13,6 +13,8 @@ import project.lighthouse.autotests.pages.departmentManager.catalog.product.Prod
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductReturnList;
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductWriteOffList;
 
+import static org.junit.Assert.fail;
+
 public class ProductSteps extends ScenarioSteps {
 
     ProductCreatePage productCreatePage;
@@ -42,7 +44,7 @@ public class ProductSteps extends ScenarioSteps {
      */
     @Step
     public void fieldInputBySendKeysMethod(String elementName, String inputText) {
-        productCreatePage.items.get(elementName).getVisibleWebElement().sendKeys(inputText);
+        productCreatePage.getItems().get(elementName).getVisibleWebElement().sendKeys(inputText);
     }
 
     @Step
@@ -101,14 +103,14 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
-    public void editProductButtonClick() {
-        productCardView.editProductButtonClick();
+    public void editProductMarkUpAndPriceButtonClick() {
+        productCardView.editProductMarkUpAndPriceButtonClick();
     }
 
     @Step
-    public void editProductButtonIsNotPresent() {
+    public void editProductMarkUpAndPriceButtonIsNotPresent() {
         try {
-            productCardView.editProductButtonClick();
+            productCardView.editProductMarkUpAndPriceButtonClick();
             Assert.fail("Edit product button is clicked and present!");
         } catch (Exception ignored) {
         }
@@ -211,5 +213,23 @@ public class ProductSteps extends ScenarioSteps {
     @Step
     public void checkProductReturnListObject(ExamplesTable examplesTable) {
         productReturnList.getReturnListObjectCollection().compareWithExampleTable(examplesTable);
+    }
+
+    @Step
+    public void editProductButtonIsNotPresent() {
+        try {
+            productCardView.editButtonClick();
+            Assert.fail("Edit product link is present!");
+        } catch (Exception ignored) {
+        }
+    }
+
+    @Step
+    public void newProductCreateButtonIsNotPresent() {
+        try {
+            productListPage.createNewProductButtonClick();
+            fail("Create new product button is present on product list page!");
+        } catch (Exception ignored) {
+        }
     }
 }

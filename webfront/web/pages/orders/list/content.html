@@ -1,0 +1,36 @@
+<% var templates = {
+    localNavigation: require('tpl!blocks/localNavigation/localNavigation_orders.html')
+} %>
+
+<% var collections = _.extend({
+    orders: new Backbone.Collection
+}, obj.collections) %>
+
+<% if (LH.isAllow('stores/{store}/orders', 'POST')) {%>
+    <%= templates.localNavigation(obj) %>
+<% } %>
+
+<div class="page__data">
+    <h2>Заказы</h2>
+    <% if (collections.orders.length) { %>
+    <table class="table">
+        <% collections.orders.forEach(function(orderModel){ %>
+            <tr name="order" href="/orders/<%- orderModel.id %>">
+                <td name="orderNumber">
+                    <%- orderModel.get('number') %>
+                </td>
+                <td name="orderSupplier">
+                    <%- orderModel.get('supplier.name') %>
+                </td>
+                <td name="orderDate">
+                    <%- LH.formatDate(orderModel.get('createdDate')) %>
+                </td>
+            </tr>
+        <% }) %>
+    </table>
+    <% } else { %>
+        <p>
+            Нет невыполненных заказов
+        </p>
+    <% } %>
+</div>

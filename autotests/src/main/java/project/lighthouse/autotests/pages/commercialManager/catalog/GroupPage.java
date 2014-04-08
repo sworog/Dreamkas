@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
-import project.lighthouse.autotests.elements.InputOnlyVisible;
+import project.lighthouse.autotests.elements.items.InputOnlyVisible;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 
 import static junit.framework.Assert.fail;
@@ -67,11 +67,11 @@ public class GroupPage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("name", new InputOnlyVisible(this, "name"));
+        put("name", new InputOnlyVisible(this, "name"));
     }
 
     public CommonItem getItem() {
-        return items.get("name");
+        return getItems().get("name");
     }
 
     public void create(String name) {

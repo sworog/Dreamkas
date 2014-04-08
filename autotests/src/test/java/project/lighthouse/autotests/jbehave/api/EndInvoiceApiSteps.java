@@ -5,7 +5,7 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import org.junit.Assert;
-import project.lighthouse.autotests.elements.DateTime;
+import project.lighthouse.autotests.elements.items.DateTime;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.objects.api.*;
 import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;

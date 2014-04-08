@@ -2,6 +2,7 @@ package project.lighthouse.autotests.objects.api;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import project.lighthouse.autotests.objects.api.abstraction.AbstractObject;
 
 public class Product extends AbstractObject {
 
@@ -39,5 +40,9 @@ public class Product extends AbstractObject {
 
     public String getSku() throws JSONException {
         return getPropertyAsString("sku");
+    }
+
+    public String getBarCode() throws JSONException {
+        return getPropertyAsString("barcode");
     }
 }

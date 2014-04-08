@@ -1,0 +1,26 @@
+.autocomplete__item_focused{
+    background-color: #eee;
+}
+
+.autocomplete__item{
+    padding: 5px 8px;
+    cursor: pointer;
+}
+
+.autocomplete__results{
+    background-color: #fff;
+    border-radius: 0 0 3px 3px;
+    border: 2px solid #1FB18A;
+    border-top: none;
+    box-shadow: none;
+    box-sizing: border-box;
+    width: 300px;
+    padding: 0;
+}
+
+.autocomplete__hint{
+    padding: 6px 8px 4px;
+    background-color: #fafafa;
+    font-size: 13px;
+    color: #555;
+}

@@ -169,13 +169,17 @@ namespace :deploy do
 
         task :default, :roles => :app, :except => { :no_release => true } do
             if force || Capistrano::CLI.ui.ask("Are you sure drop " + application_url.yellow + " (y/n)") == 'y'
-                begin
-                    mongodb
-                rescue Exception => error
-                    puts "✘\n#{error}".red
-                end
-                host
+                go
             end
+        end
+
+        task :go do
+            begin
+                mongodb
+            rescue Exception => error
+                puts "✘\n#{error}".red
+            end
+            host
         end
 
         desc "Drop mongodb database"

@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.objects.api.abstraction.AbstractClassifierNode;
 
 public class Category extends AbstractClassifierNode {
 

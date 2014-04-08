@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.elements.Input;
+import project.lighthouse.autotests.elements.items.Input;
 
 public class DepartmentCreatePage extends CommonPageObject {
 
@@ -14,8 +14,8 @@ public class DepartmentCreatePage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        items.put("number", new Input(this, "number"));
-        items.put("name", new Input(this, "name"));
+        put("number", new Input(this, "number"));
+        put("name", new Input(this, "name"));
     }
 
     public WebElement submitButton() {

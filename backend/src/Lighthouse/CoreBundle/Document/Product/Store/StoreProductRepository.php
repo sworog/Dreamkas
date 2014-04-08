@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\Product\Store;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Product\Product;
@@ -175,31 +176,8 @@ class StoreProductRepository extends DocumentRepository
     public function findByStoreSubCategory(Store $store, SubCategory $subCategory)
     {
         $productsCursor = $this->productRepository->findBySubCategory($subCategory);
-        $products = array();
-        foreach ($productsCursor as $product) {
-            $products[$product->id] = $product;
-        }
 
-        $cursor = $this->findBy(
-            array(
-                'subCategory' => $subCategory->id,
-                'store' => $store->id
-            )
-        );
-
-        foreach ($cursor as $storeProduct) {
-            if (isset($products[$storeProduct->product->id])) {
-                $products[$storeProduct->product->id] = $storeProduct;
-            }
-        }
-
-        foreach ($products as $productId => $product) {
-            if ($product instanceof Product) {
-                $products[$productId] = $this->createByStoreProduct($store, $product);
-            }
-        }
-
-        return new StoreProductCollection(array_values($products));
+        return $this->findByProducts($store, $productsCursor);
     }
 
     /**
@@ -230,17 +208,19 @@ class StoreProductRepository extends DocumentRepository
 
     /**
      * @param Store $store
+     * @param Cursor|array $productCollection
      * @return StoreProductCollection
      */
-    public function findByStore(Store $store)
+    protected function findByProducts(Store $store, $productCollection)
     {
-        $productCollection = $this->productRepository->findAll();
         $products = array();
+        $storeProductIds = array();
         foreach ($productCollection as $product) {
             $products[$product->id] = $product;
+            $storeProductIds[] = $this->getIdByStoreAndProduct($store, $product);
         }
 
-        $cursor = $this->findBy(array('store' => $store->id));
+        $cursor = $this->findBy(array('id' => array('$in' => $storeProductIds)));
 
         foreach ($cursor as $storeProduct) {
             if (isset($products[$storeProduct->product->id])) {
@@ -255,6 +235,30 @@ class StoreProductRepository extends DocumentRepository
         }
 
         return new StoreProductCollection(array_values($products));
+    }
+
+    /**
+     * @param Store $store
+     * @return StoreProductCollection
+     */
+    public function findByStore(Store $store)
+    {
+        $productCollection = $this->productRepository->findAll();
+
+        return $this->findByProducts($store, $productCollection);
+    }
+
+    /**
+     * @param Store $store
+     * @param string $properties
+     * @param string $query
+     * @return StoreProductCollection
+     */
+    public function searchStoreProductByProductProperties(Store $store, $properties, $query)
+    {
+        $productCollection = $this->productRepository->searchEntry($properties, $query);
+
+        return $this->findByProducts($store, $productCollection);
     }
 
     /**

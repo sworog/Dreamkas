@@ -89,9 +89,13 @@ define(function(require, exports, module) {
 
             block.__el = block.__el || block.el;
 
-            el = el || block.get('__el') || block.templateToElement();
+            el = el || block.get('__el');
 
-            block.el = typeof el === 'string' ? document.querySelector(el) : el;
+            if (typeof el === 'string'){
+                el = document.querySelector(el);
+            }
+
+            block.el = el || block.templateToElement();
 
             block.initElements();
             block.delegateEvents();

@@ -6,8 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.common.CommonView;
-import project.lighthouse.autotests.elements.*;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
+import project.lighthouse.autotests.elements.items.*;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.objects.web.writeOff.WriteOffProductCollection;
 import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceBrowsing;
@@ -31,44 +31,44 @@ public class WriteOffPage extends InvoiceBrowsing {
 
     @Override
     public void createElements() {
-        items.put("writeOff number", new Input(this, "number"));
-        items.put("writeOff date", new DateTime(this, "date"));
+        put("writeOff number", new Input(this, "number"));
+        put("writeOff date", new DateTime(this, "date"));
 
-        items.put("writeOff number review", new NonType(this, "number"));
-        items.put("writeOff date review", new NonType(this, "date"));
+        put("writeOff number review", new NonType(this, "number"));
+        put("writeOff date review", new NonType(this, "date"));
 
-        items.put("inline writeOff number", new Input(this, By.xpath(String.format(XPATH_PATTERN, "number"))));
-        items.put("inline writeOff date", new DateTime(this, By.xpath(String.format(XPATH_PATTERN, "date")), "date"));
+        put("inline writeOff number", new Input(this, By.xpath(String.format(XPATH_PATTERN, "number"))));
+        put("inline writeOff date", new DateTime(this, By.xpath(String.format(XPATH_PATTERN, "date")), "date"));
 
-        items.put("writeOff product name autocomplete", new Autocomplete(this, By.xpath("//*[@lh_product_autocomplete='name']")));
-        items.put("writeOff product sku autocomplete", new Autocomplete(this, By.xpath("//*[@lh_product_autocomplete='sku']")));
-        items.put("writeOff product barCode autocomplete", new Autocomplete(this, By.xpath("//*[@lh_product_autocomplete='barcode']")));
+        put("writeOff product name autocomplete", new Autocomplete(this, By.xpath("//*[@lh_product_autocomplete='name']")));
+        put("writeOff product sku autocomplete", new Autocomplete(this, By.xpath("//*[@lh_product_autocomplete='sku']")));
+        put("writeOff product barCode autocomplete", new Autocomplete(this, By.xpath("//*[@lh_product_autocomplete='barcode']")));
 
-        items.put("writeOff product name review", new NonType(this, "productName"));
-        items.put("writeOff product sku review", new NonType(this, "productSku"));
-        items.put("writeOff product barCode review", new NonType(this, "productBarcode"));
+        put("writeOff product name review", new NonType(this, "productName"));
+        put("writeOff product sku review", new NonType(this, "productSku"));
+        put("writeOff product barCode review", new NonType(this, "productBarcode"));
 
-        items.put("inline writeOff product name autocomplete", new Autocomplete(this, By.xpath(String.format(XPATH_AC_PATTERN, "name"))));
-        items.put("inline writeOff product sku autocomplete", new Autocomplete(this, By.xpath(String.format(XPATH_AC_PATTERN, "sku"))));
-        items.put("inline writeOff product barCode autocomplete", new Autocomplete(this, By.xpath(String.format(XPATH_AC_PATTERN, "barcode"))));
+        put("inline writeOff product name autocomplete", new Autocomplete(this, By.xpath(String.format(XPATH_AC_PATTERN, "name"))));
+        put("inline writeOff product sku autocomplete", new Autocomplete(this, By.xpath(String.format(XPATH_AC_PATTERN, "sku"))));
+        put("inline writeOff product barCode autocomplete", new Autocomplete(this, By.xpath(String.format(XPATH_AC_PATTERN, "barcode"))));
 
-        items.put("writeOff product quantity", new Input(this, "quantity"));
-        items.put("writeOff product price", new Input(this, "price"));
-        items.put("writeOff cause", new Textarea(this, "cause"));
+        put("writeOff product quantity", new Input(this, "quantity"));
+        put("writeOff product price", new Input(this, "price"));
+        put("writeOff cause", new Textarea(this, "cause"));
 
-        items.put("writeOff product quantity review", new NonType(this, "productAmount"));
-        items.put("writeOff product price review", new NonType(this, "productPrice"));
-        items.put("writeOff cause review", new NonType(this, "productCause"));
+        put("writeOff product quantity review", new NonType(this, "productAmount"));
+        put("writeOff product price review", new NonType(this, "productPrice"));
+        put("writeOff cause review", new NonType(this, "productCause"));
 
-        items.put("inline writeOff product quantity", new Input(this, By.xpath(String.format(XPATH_PATTERN, "quantity"))));
-        items.put("inline writeOff product price", new Input(this, By.xpath(String.format(XPATH_PATTERN, "price"))));
-        items.put("inline writeOff cause", new Textarea(this, By.xpath(String.format(XPATH_PATTERN, "cause"))));
+        put("inline writeOff product quantity", new Input(this, By.xpath(String.format(XPATH_PATTERN, "quantity"))));
+        put("inline writeOff product price", new Input(this, By.xpath(String.format(XPATH_PATTERN, "price"))));
+        put("inline writeOff cause", new Textarea(this, By.xpath(String.format(XPATH_PATTERN, "cause"))));
 
-        items.put("writeOff product sum", new NonType(this, ""));
-        items.put("writeOff product units", new NonType(this, "productUnits"));
+        put("writeOff product sum", new NonType(this, ""));
+        put("writeOff product units", new NonType(this, "productUnits"));
 
-        items.put("totalProducts", new NonType(this, "totalProducts"));
-        items.put("totalSum", new NonType(this, "totalSum"));
+        put("totalProducts", new NonType(this, "totalProducts"));
+        put("totalSum", new NonType(this, "totalSum"));
     }
 
     public void continueWriteOffCreation() {
@@ -91,7 +91,7 @@ public class WriteOffPage extends InvoiceBrowsing {
 
     @Deprecated
     public void checkListItemHasExpectedValueByFindByLocator(String value, String elementName, String expectedValue) {
-        By findBy = items.get(elementName).getFindBy();
+        By findBy = getItems().get(elementName).getFindBy();
         commonViewInterface.checkListItemHasExpectedValueByFindByLocator(value, elementName, findBy, expectedValue);
     }
 
@@ -134,7 +134,7 @@ public class WriteOffPage extends InvoiceBrowsing {
 
     @Override
     public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
-        By findBy = items.get(parentElementName).getFindBy();
+        By findBy = getItems().get(parentElementName).getFindBy();
         commonViewInterface.childrenItemClickByFindByLocator(elementName, findBy);
     }
 
