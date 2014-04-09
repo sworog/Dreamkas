@@ -60,9 +60,18 @@ define(function(require, exports, module) {
             'keyup .table__orderProduct input': function(e) {
                 var block = this;
 
-                if (e.keyCode !== 13) {
-                    block.renderProductSum(e.target.value);
+                console.log(e.keyCode);
+
+                if (e.keyCode === 13) {
+                    return;
                 }
+
+                if (e.keyCode === 27){
+                    block.finishEdit();
+                    return;
+                }
+
+                block.renderProductSum(e.target.value);
             },
             'click .form_order__removeProductLink': function(e) {
                 e.stopPropagation();
@@ -192,6 +201,11 @@ define(function(require, exports, module) {
             var block = this;
 
             block.$errorTr.detach();
+        },
+        cancelEdit: function(){
+            var block = this;
+
+            block.removeProductError();
         }
     });
 });
