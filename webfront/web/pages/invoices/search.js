@@ -11,21 +11,20 @@ define(function(require) {
         partials: {
             '#content': require('tpl!./templates/search.html')
         },
-        initialize: function(pageParams){
+        initialize: function(){
             var page = this;
 
             if (currentUserModel.stores.length){
-                pageParams.storeId = currentUserModel.stores.at(0).id;
+                page.params.storeId = currentUserModel.stores.at(0).id;
             }
 
-            if (!pageParams.storeId){
+            if (!page.params.storeId){
                 new Page403();
                 return;
             }
 
-            page.invoicesCollection = new InvoicesCollection([], {
-                storeId: pageParams.storeId
-            });
+            page.invoicesCollection = new InvoicesCollection();
+            page.invoicesCollection.storeId = page.params.storeId;
 
             page.render();
 
