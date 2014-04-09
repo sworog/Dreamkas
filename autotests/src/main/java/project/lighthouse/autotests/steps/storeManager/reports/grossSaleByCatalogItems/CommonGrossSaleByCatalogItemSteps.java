@@ -41,6 +41,7 @@ public class CommonGrossSaleByCatalogItemSteps extends ScenarioSteps {
     }
 
     private Boolean getTableColorByLocator(String locator) {
+        new BodyPreLoader(getDriver()).await();
         return ((ObjectValueColorable) commonGrossSaleByCatalogItemPage.getGrossSaleByTableObjectCollection().getAbstractObjectByLocator(locator)).isValueColor();
     }
 
