@@ -116,7 +116,7 @@ class InvoiceControllerTest extends WebTestCase
                     'acceptanceDate' => '2013-03-18 12:56',
                     'accepter' => 'Приемных Н.П.',
                     'legalEntity' => 'ООО "Магазин"',
-                    'supplierInvoiceSku' => '1248373',
+                    'supplierInvoiceNumber' => '1248373',
                 ),
                 // Assertions xpath
                 'assertions' => array(
@@ -124,7 +124,7 @@ class InvoiceControllerTest extends WebTestCase
                     'acceptanceDate' => '2013-03-18T12:56:00+0400',
                     'accepter' => 'Приемных Н.П.',
                     'legalEntity' => 'ООО "Магазин"',
-                    'supplierInvoiceSku' => '1248373'
+                    'supplierInvoiceNumber' => '1248373'
                 )
             )
         );
@@ -187,7 +187,7 @@ class InvoiceControllerTest extends WebTestCase
             'acceptanceDate' => '2013-03-18 12:56',
             'accepter' => 'Приемных Н.П.',
             'legalEntity' => 'ООО "Магазин"',
-            'supplierInvoiceSku' => '1248373',
+            'supplierInvoiceNumber' => '1248373',
         );
 
         $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
@@ -311,7 +311,7 @@ class InvoiceControllerTest extends WebTestCase
             'acceptanceDate' => '2013-03-18 12:56',
             'accepter' => 'Приемных Н.П.',
             'legalEntity' => 'ООО "Магазин"',
-            'supplierInvoiceSku' => '1248373',
+            'supplierInvoiceNumber' => '1248373',
         );
         $assertions = array(
             'number' => '10001',
@@ -319,7 +319,7 @@ class InvoiceControllerTest extends WebTestCase
             'acceptanceDate' => '2013-03-18T12:56:00+0400',
             'accepter' => 'Приемных Н.П.',
             'legalEntity' => 'ООО "Магазин"',
-            'supplierInvoiceSku' => '1248373',
+            'supplierInvoiceNumber' => '1248373',
         );
 
         return array(
@@ -397,24 +397,24 @@ class InvoiceControllerTest extends WebTestCase
                 array('children.legalEntity.errors.0' => 'Не более 300 символов'),
             ),
             /***********************************************************************************************
-             * 'supplierInvoiceSku'
+             * 'supplierInvoiceNumber'
              ***********************************************************************************************/
-            'valid supplierInvoiceSku' => array(
+            'valid supplierInvoiceNumber' => array(
                 201,
-                array('supplierInvoiceSku' => 'supplierInvoiceSku'),
+                array('supplierInvoiceNumber' => 'supplierInvoiceNumber'),
             ),
-            'valid supplierInvoiceSku 100 chars' => array(
+            'valid supplierInvoiceNumber 100 chars' => array(
                 201,
-                array('supplierInvoiceSku' => str_repeat('z', 100)),
+                array('supplierInvoiceNumber' => str_repeat('z', 100)),
             ),
-            'empty supplierInvoiceSku' => array(
+            'empty supplierInvoiceNumber' => array(
                 201,
-                array('supplierInvoiceSku' => ''),
+                array('supplierInvoiceNumber' => ''),
             ),
-            'not valid supplierInvoiceSku too long' => array(
+            'not valid supplierInvoiceNumber too long' => array(
                 400,
-                array('supplierInvoiceSku' => str_repeat("z", 105)),
-                array('children.supplierInvoiceSku.errors.0' => 'Не более 100 символов'),
+                array('supplierInvoiceNumber' => str_repeat("z", 105)),
+                array('children.supplierInvoiceNumber.errors.0' => 'Не более 100 символов'),
             ),
             /***********************************************************************************************
              * 'acceptanceDate'
@@ -553,21 +553,21 @@ class InvoiceControllerTest extends WebTestCase
         $productId3 = $this->createProduct('333');
 
         $invoiceData1 = array(
-            'supplierInvoiceSku' => 'ФРГ-1945'
+            'supplierInvoiceNumber' => 'ФРГ-1945'
         );
 
         $invoiceId1 = $this->createInvoice($invoiceData1, $store->id);
         $this->createInvoiceProduct($invoiceId1, $productId1, 10, 6.98, $store->id);
 
         $invoiceData2 = array(
-            'supplierInvoiceSku' => '10001'
+            'supplierInvoiceNumber' => '10001'
         );
 
         $invoiceId2 = $this->createInvoice($invoiceData2, $store->id);
         $this->createInvoiceProduct($invoiceId2, $productId2, 5, 10.12, $store->id);
 
         $invoiceData3 = array(
-            'supplierInvoiceSku' => '10003'
+            'supplierInvoiceNumber' => '10003'
         );
 
         $invoiceId3 = $this->createInvoice($invoiceData3, $store->id);
@@ -579,7 +579,7 @@ class InvoiceControllerTest extends WebTestCase
             'GET',
             '/api/1/stores/' . $store->id . '/invoices',
             null,
-            array('skuOrSupplierInvoiceSku' => $query)
+            array('numberOrSupplierInvoiceNumber' => $query)
         );
 
         $this->assertResponseCode(200);
@@ -601,22 +601,22 @@ class InvoiceControllerTest extends WebTestCase
                     '0._meta.highlights.number' => true,
                 )
             ),
-            'one by supplierInvoiceSku' => array(
+            'one by supplierInvoiceNumber' => array(
                 'ФРГ-1945',
                 1,
                 array(
-                    '0.supplierInvoiceSku' => 'ФРГ-1945',
-                    '0._meta.highlights.supplierInvoiceSku' => true,
+                    '0.supplierInvoiceNumber' => 'ФРГ-1945',
+                    '0._meta.highlights.supplierInvoiceNumber' => true,
                 )
             ),
-            'one by both number and supplierInvoiceSku' => array(
+            'one by both number and supplierInvoiceNumber' => array(
                 '10003',
                 1,
                 array(
-                    '0.supplierInvoiceSku' => '10003',
+                    '0.supplierInvoiceNumber' => '10003',
                     '0.number' => '10003',
                     '0._meta.highlights.number' => true,
-                    '0._meta.highlights.supplierInvoiceSku' => true,
+                    '0._meta.highlights.supplierInvoiceNumber' => true,
                 )
             ),
             'none found: not existing number' => array(
@@ -631,14 +631,14 @@ class InvoiceControllerTest extends WebTestCase
                 '1000',
                 0,
             ),
-            'two: one by number and one by supplierInvoiceSku' => array(
+            'two: one by number and one by supplierInvoiceNumber' => array(
                 '10001',
                 2,
                 array(
                     '0.number' => '10001',
-                    '1.supplierInvoiceSku' => '10001',
+                    '1.supplierInvoiceNumber' => '10001',
                     '0._meta.highlights.number' => true,
-                    '1._meta.highlights.supplierInvoiceSku' => true,
+                    '1._meta.highlights.supplierInvoiceNumber' => true,
                 )
             ),
             'one by number check invoice products' => array(
@@ -659,7 +659,7 @@ class InvoiceControllerTest extends WebTestCase
         $productId2 = $this->createProduct('222');
 
         $invoiceData1 = array(
-            'supplierInvoiceSku' => 'ФРГ-1945',
+            'supplierInvoiceNumber' => 'ФРГ-1945',
             'acceptanceDate' => '2013-03-17T16:12:33+0400',
         );
 
@@ -667,7 +667,7 @@ class InvoiceControllerTest extends WebTestCase
         $this->createInvoiceProduct($invoiceId1, $productId1, 10, 6.98);
 
         $invoiceData2 = array(
-            'supplierInvoiceSku' => '10001',
+            'supplierInvoiceNumber' => '10001',
             'acceptanceDate' => '2013-03-16T14:54:23+0400'
         );
 
@@ -680,7 +680,7 @@ class InvoiceControllerTest extends WebTestCase
             'GET',
             '/api/1/stores/' . $store->id . '/invoices',
             null,
-            array('skuOrSupplierInvoiceSku' => '10001')
+            array('numberOrSupplierInvoiceNumber' => '10001')
         );
 
         $this->assertResponseCode(200);
@@ -689,7 +689,7 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('10002', '1.number', $response);
 
         $invoiceData3 = array(
-            'supplierInvoiceSku' => 'ФРГ-1945',
+            'supplierInvoiceNumber' => 'ФРГ-1945',
             'acceptanceDate' => '2013-03-15T16:12:33+0400'
         );
 
@@ -697,7 +697,7 @@ class InvoiceControllerTest extends WebTestCase
         $this->createInvoiceProduct($invoiceId3, $productId1, 10, 6.98, $store->id);
 
         $invoiceData4 = array(
-            'supplierInvoiceSku' => '10003',
+            'supplierInvoiceNumber' => '10003',
             'acceptanceDate' => '2013-03-16T14:54:23+0400'
         );
 
@@ -710,7 +710,7 @@ class InvoiceControllerTest extends WebTestCase
             'GET',
             '/api/1/stores/' . $store->id . '/invoices',
             null,
-            array('skuOrSupplierInvoiceSku' => '10003')
+            array('numberOrSupplierInvoiceNumber' => '10003')
         );
 
         $this->assertResponseCode(200);
@@ -727,7 +727,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $invoiceData1 = array(
             'sku' => '1234-89',
-            'supplierInvoiceSku' => 'ФРГ-1945',
+            'supplierInvoiceNumber' => 'ФРГ-1945',
             'supplierInvoiceDate' => '2013-03-17T09:12:33+0400',
             'acceptanceDate' => '2013-03-17T16:12:33+0400',
             'includesVAT' => true,
@@ -806,7 +806,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $invoiceData1 = array(
             'sku' => '1234-89',
-            'supplierInvoiceSku' => 'ФРГ-1945',
+            'supplierInvoiceNumber' => 'ФРГ-1945',
             'supplierInvoiceDate' => '2013-03-17T09:12:33+0400',
             'acceptanceDate' => '2013-03-17T16:12:33+0400',
             'includesVAT' => false,
@@ -884,7 +884,7 @@ class InvoiceControllerTest extends WebTestCase
             'acceptanceDate' => '2013-03-18 12:56',
             'accepter' => 'Приемных Н.П.',
             'legalEntity' => 'ООО "Магазин"',
-            'supplierInvoiceSku' => '1248373',
+            'supplierInvoiceNumber' => '1248373',
             'includesVAT' => true,
             'products' => array(
                 array(

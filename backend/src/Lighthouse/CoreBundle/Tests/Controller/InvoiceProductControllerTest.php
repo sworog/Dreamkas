@@ -1276,13 +1276,11 @@ class InvoiceProductControllerTest extends WebTestCase
         $productId = $this->createProduct();
 
         $invoiceData = array(
-            'sku' => 'now',
             'supplier' => 'ООО "Поставщик"',
             'acceptanceDate' => date('c', strtotime('now')),
             'accepter' => 'Приемных Н.П.',
             'legalEntity' => 'ООО "Магазин"',
-            'supplierInvoiceSku' => '1248373',
-            'supplierInvoiceDate' => '17.03.2013',
+            'supplierInvoiceNumber' => '1248373',
             'includesVAT' => true,
         );
 
@@ -1616,13 +1614,11 @@ class InvoiceProductControllerTest extends WebTestCase
         $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%', 'purchasePrice' => 35.24));
 
         $invoiceData = array(
-            'sku' => 'sku232',
             'supplier' => 'ООО "Поставщик"',
             'acceptanceDate' => '2013-03-18 12:56',
             'accepter' => 'Приемных Н.П.',
             'legalEntity' => 'ООО "Магазин"',
-            'supplierInvoiceSku' => '1248373',
-            'supplierInvoiceDate' => '17.03.2013',
+            'supplierInvoiceNumber' => '1248373',
             'includesVAT' => true,
         );
 

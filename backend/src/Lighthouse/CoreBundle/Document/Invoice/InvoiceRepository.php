@@ -16,10 +16,10 @@ class InvoiceRepository extends DocumentRepository
     {
         $criteria = array('store' => $storeId);
         $sort = array('acceptanceDate' => self::SORT_DESC);
-        if ($filter->hasSkuOrSupplierInvoiceSku()) {
+        if ($filter->hasNumberOrSupplierInvoiceNumber()) {
             $criteria['$or'] = array(
-                array('number' => $filter->getSkuOrSupplierInvoiceSku()),
-                array('supplierInvoiceSku' => $filter->getSkuOrSupplierInvoiceSku()),
+                array('number' => $filter->getNumberOrSupplierInvoiceNumber()),
+                array('supplierInvoiceNumber' => $filter->getNumberOrSupplierInvoiceNumber()),
             );
         }
         $cursor = $this->findBy($criteria, $sort);

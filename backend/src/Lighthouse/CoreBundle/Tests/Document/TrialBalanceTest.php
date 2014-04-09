@@ -140,21 +140,12 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $manager = $this->getManager();
 
         $store = $this->factory()->store()->getStore('42');
-
-        $invoiceData = array(
-            'supplier' => 'ООО "Поставщик"',
-            'acceptanceDate' => '2013-03-18 12:56',
-            'accepter' => 'Приемных Н.П.',
-            'legalEntity' => 'ООО "Магазин"',
-            'supplierInvoiceSku' => '1248373',
-        );
-
         $product = $this->createProduct();
 
         $storeProductRepository = $this->getStoreProductRepository();
         $storeProduct = $storeProductRepository->findOrCreateByStoreProduct($store, $product);
 
-        $invoice = $this->factory()->invoice()->createInvoice($invoiceData, $store->id);
+        $invoice = $this->factory()->invoice()->createInvoice(array(), $store->id);
 
         $trialBalanceRepository = $this->getTrialBalanceRepository();
 

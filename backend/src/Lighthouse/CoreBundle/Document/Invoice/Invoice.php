@@ -24,7 +24,7 @@ use DateTime;
  * @property DateTime   $acceptanceDate
  * @property string     $accepter
  * @property string     $legalEntity
- * @property string     $supplierInvoiceSku
+ * @property string     $supplierInvoiceNumber
  * @property Money      $sumTotal
  * @property Money      $sumTotalWithoutVAT
  * @property Money      $totalAmountVAT
@@ -105,7 +105,7 @@ class Invoice extends AbstractDocument implements Storeable
      * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
-    protected $supplierInvoiceSku;
+    protected $supplierInvoiceNumber;
 
     /**
      * @MongoDB\Field(type="money")

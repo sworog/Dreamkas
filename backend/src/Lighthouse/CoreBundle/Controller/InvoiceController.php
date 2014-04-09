@@ -81,7 +81,7 @@ class InvoiceController extends AbstractRestController
     {
         /* @var LoggableCursor $cursor */
         $cursor = $this->documentRepository->findByStore($store->id, $filter);
-        if ($filter->hasSkuOrSupplierInvoiceSku()) {
+        if ($filter->hasNumberOrSupplierInvoiceNumber()) {
             $highlightGenerator = new InvoiceHighlightGenerator($filter);
             $collection = new MetaCollection($cursor);
             $collection->addMetaGenerator($highlightGenerator);

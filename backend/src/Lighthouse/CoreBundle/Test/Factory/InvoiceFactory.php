@@ -33,7 +33,7 @@ class InvoiceFactory extends AbstractFactory
             'acceptanceDate' => '2013-03-18 12:56',
             'accepter' => 'Приемных Н.П.',
             'legalEntity' => 'ООО "Магазин"',
-            'supplierInvoiceSku' => '1248373',
+            'supplierInvoiceNumber' => '1248373',
             'includesVAT' => true,
         );
 
@@ -41,7 +41,7 @@ class InvoiceFactory extends AbstractFactory
         $invoice->acceptanceDate = new \DateTime($invoiceData['acceptanceDate']);
         $invoice->accepter = $invoiceData['accepter'];
         $invoice->legalEntity = $invoiceData['legalEntity'];
-        $invoice->supplierInvoiceSku = $invoiceData['supplierInvoiceSku'];
+        $invoice->supplierInvoiceNumber = $invoiceData['supplierInvoiceNumber'];
         $invoice->includesVAT = $invoiceData['includesVAT'];
 
         $store = ($storeId) ? $this->factory->store()->getStoreById($storeId) : $this->factory->store()->getStore();

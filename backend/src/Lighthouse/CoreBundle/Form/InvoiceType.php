@@ -50,7 +50,7 @@ class InvoiceType extends AbstractType
                 'text'
             )
             ->add(
-                'supplierInvoiceSku',
+                'supplierInvoiceNumber',
                 'text'
             )
             ->add(
