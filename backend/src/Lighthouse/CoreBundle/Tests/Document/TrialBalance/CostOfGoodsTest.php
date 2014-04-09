@@ -18,19 +18,19 @@ class CostOfGoodsTest extends WebTestCase
 
         $store1 = $this->factory->store()->getStoreId('701');
 
-        $invoice11 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-12 12:23:13'), $store1);
+        $invoice11 = $this->createInvoice(array('acceptanceDate' => '2014-01-12 12:23:13'), $store1);
         $this->createInvoiceProduct($invoice11, $productIds['1'], 105.678, 16.36, $store1);
         $this->createInvoiceProduct($invoice11, $productIds['3'], 320, 178.34, $store1);
 
-        $invoice12 = $this->createInvoice(array('sku' => 2, 'acceptanceDate' => '2014-01-13 19:56:04'), $store1);
+        $invoice12 = $this->createInvoice(array('acceptanceDate' => '2014-01-13 19:56:04'), $store1);
         $this->createInvoiceProduct($invoice12, $productIds['2'], 45.04, 189.67, $store1);
         $this->createInvoiceProduct($invoice12, $productIds['3'], 115.12, 176.51, $store1);
 
-        $invoice13 = $this->createInvoice(array('sku' => 3, 'acceptanceDate' => '2014-01-13 20:03:14'), $store1);
+        $invoice13 = $this->createInvoice(array('acceptanceDate' => '2014-01-13 20:03:14'), $store1);
         $this->createInvoiceProduct($invoice13, $productIds['1'], 111.67, 201.15, $store1);
         $this->createInvoiceProduct($invoice13, $productIds['3'], 115, 176.51, $store1);
 
-        $invoice14 = $this->createInvoice(array('sku' => 4, 'acceptanceDate' => '2014-01-14 08:15:31'), $store1);
+        $invoice14 = $this->createInvoice(array('acceptanceDate' => '2014-01-14 08:15:31'), $store1);
         $this->createInvoiceProduct($invoice14, $productIds['1'], 300.01, 201.15, $store1);
 
         /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
@@ -63,7 +63,7 @@ class CostOfGoodsTest extends WebTestCase
 
         $store1 = $this->factory->store()->getStoreId('701');
 
-        $invoice11 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-10 12:23:13'), $store1);
+        $invoice11 = $this->createInvoice(array('acceptanceDate' => '2014-01-10 12:23:13'), $store1);
         $this->createInvoiceProduct($invoice11, $productIds['1'], 16.36, 10.09, $store1);
         $this->createInvoiceProduct($invoice11, $productIds['2'], 10.067, 29.56, $store1);
         $this->createInvoiceProduct($invoice11, $productIds['3'], 20, 30.05, $store1);
@@ -163,11 +163,11 @@ class CostOfGoodsTest extends WebTestCase
         $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
         $storeProductId = $storeProductRepository->getIdByStoreIdAndProductId($store, $productId);
 
-        $invoiceId1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-12 12:23:12'), $store);
+        $invoiceId1 = $this->createInvoice(array('acceptanceDate' => '2014-01-12 12:23:12'), $store);
         $this->createInvoiceProduct($invoiceId1, $productId, 5, 10.09, $store);
-        $invoiceId2 = $this->createInvoice(array('sku' => 2, 'acceptanceDate' => '2014-01-12 13:23:12'), $store);
+        $invoiceId2 = $this->createInvoice(array('acceptanceDate' => '2014-01-12 13:23:12'), $store);
         $this->createInvoiceProduct($invoiceId2, $productId, 3, 10.09, $store);
-        $invoiceId3 = $this->createInvoice(array('sku' => 3, 'acceptanceDate' => '2014-01-12 14:23:12'), $store);
+        $invoiceId3 = $this->createInvoice(array('acceptanceDate' => '2014-01-12 14:23:12'), $store);
         $this->createInvoiceProduct($invoiceId3, $productId, 2, 10.09, $store);
 
         /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
@@ -282,11 +282,11 @@ class CostOfGoodsTest extends WebTestCase
         $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
         $storeProductId = $storeProductRepository->getIdByStoreIdAndProductId($store, $productId);
 
-        $invoiceId1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-12 12:23:12'), $store);
+        $invoiceId1 = $this->createInvoice(array('acceptanceDate' => '2014-01-12 12:23:12'), $store);
         $this->createInvoiceProduct($invoiceId1, $productId, 5, 11.09, $store);
-        $invoiceId2 = $this->createInvoice(array('sku' => 2, 'acceptanceDate' => '2014-01-12 13:23:12'), $store);
+        $invoiceId2 = $this->createInvoice(array('acceptanceDate' => '2014-01-12 13:23:12'), $store);
         $this->createInvoiceProduct($invoiceId2, $productId, 3, 12.13, $store);
-        $invoiceId3 = $this->createInvoice(array('sku' => 3, 'acceptanceDate' => '2014-01-12 14:23:12'), $store);
+        $invoiceId3 = $this->createInvoice(array('acceptanceDate' => '2014-01-12 14:23:12'), $store);
         $this->createInvoiceProduct($invoiceId3, $productId, 2, 10.09, $store);
 
         /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
@@ -382,12 +382,12 @@ class CostOfGoodsTest extends WebTestCase
         $product1 = $this->createProduct("1");
         $this->createProduct("2");
 
-        $invoice1 = $this->createInvoice(array('sku' => '1'), $store);
+        $invoice1 = $this->createInvoice(array(), $store);
         $this->createInvoiceProduct($invoice1, $product1, 1.345, 23.77, $store);
         $this->createInvoiceProduct($invoice1, $product1, 2.332, 0.1, $store);
         $this->createInvoiceProduct($invoice1, $product1, 3, 13.3, $store);
         $this->createInvoiceProduct($invoice1, $product1, 4.23, 14, $store);
-        $invoice2 = $this->createInvoice(array('sku' => '2'), $store);
+        $invoice2 = $this->createInvoice(array(), $store);
         $this->createInvoiceProduct($invoice2, $product1, 5.7, 17.99, $store);
         // Total quantity = 16.607
         $this->factory->flush();
@@ -437,9 +437,9 @@ class CostOfGoodsTest extends WebTestCase
         $trialBalanceRepository = $this->getContainer()->get("lighthouse.core.document.repository.trial_balance");
 
         $store = $this->factory->store()->getStoreId("1");
-        $product = $this->createProduct("1");
+        $product = $this->createProduct('1');
 
-        $invoice1 = $this->createInvoice(array('sku' => '1'), $store);
+        $invoice1 = $this->createInvoice(array(), $store);
         $this->createInvoiceProduct($invoice1, $product, 5, 100, $store);
         $this->createInvoiceProduct($invoice1, $product, 5, 150, $store);
         $this->createInvoiceProduct($invoice1, $product, 5, 200, $store);
@@ -503,7 +503,7 @@ class CostOfGoodsTest extends WebTestCase
         $store = $this->factory->store()->getStoreId("1");
         $product = $this->createProduct("1");
 
-        $invoice1 = $this->createInvoice(array('sku' => '1'), $store);
+        $invoice1 = $this->createInvoice(array(), $store);
         $this->createInvoiceProduct($invoice1, $product, 5, 100, $store);
         $this->createInvoiceProduct($invoice1, $product, 5, 150, $store);
         $this->createInvoiceProduct($invoice1, $product, 5, 200, $store);
@@ -765,7 +765,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->assertEquals(1100, $trialBalanceSaleProduct3->costOfGoods->toNumber());
 
 
-        $this->editInvoice(array('sku' => '2', 'acceptanceDate' => '2014-01-02 12:56'), $invoice2, $store);
+        $this->editInvoice(array('acceptanceDate' => '2014-01-02 12:56'), $invoice2, $store);
 
         $costOfGoodsCalculator->calculateUnprocessed();
 
@@ -804,7 +804,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->assertEquals(700, $trialBalanceSaleProduct1->costOfGoods->toNumber());
 
 
-        $invoice1 = $this->createInvoice(array('sku' => '1', 'acceptanceDate' => '2014-01-01 12:56'), $store);
+        $invoice1 = $this->createInvoice(array('acceptanceDate' => '2014-01-01 12:56'), $store);
         $this->createInvoiceProduct($invoice1, $product, 5, 150, $store);
 
         $costOfGoodsCalculator->calculateUnprocessed();
@@ -814,7 +814,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->assertEquals(1050, $trialBalanceSaleProduct1->costOfGoods->toNumber());
 
 
-        $invoice2 = $this->createInvoice(array('sku' => '2', 'acceptanceDate' => '2014-01-02 12:56'), $store);
+        $invoice2 = $this->createInvoice(array('acceptanceDate' => '2014-01-02 12:56'), $store);
         $this->createInvoiceProduct($invoice2, $product, 1, 200, $store);
 
         $costOfGoodsCalculator->calculateUnprocessed();

@@ -40,7 +40,6 @@ class InvoiceControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         for ($i = 0; $i < 5; $i++) {
-            $invoiceData['sku'] = '12122004' . $i;
             $this->createInvoice($invoiceData, $store->id);
         }
 
@@ -61,11 +60,11 @@ class InvoiceControllerTest extends WebTestCase
         $store = $this->factory->store()->getStore();
         $products = $this->createProductsBySku(array('1', '2', '3'));
 
-        $invoiceId1 = $this->createInvoice(array('sku' => 1), $store->id);
+        $invoiceId1 = $this->createInvoice(array(), $store->id);
         $this->createInvoiceProduct($invoiceId1, $products['1'], 9, 9.99);
         $this->createInvoiceProduct($invoiceId1, $products['2'], 19, 19.99);
 
-        $invoiceId2 = $this->createInvoice(array('sku' => 2), $store->id);
+        $invoiceId2 = $this->createInvoice(array(), $store->id);
         $this->createInvoiceProduct($invoiceId2, $products['1'], 119, 9.99);
         $this->createInvoiceProduct($invoiceId2, $products['2'], 129, 19.99);
         $this->createInvoiceProduct($invoiceId2, $products['3'], 139, 19.99);
@@ -726,9 +725,7 @@ class InvoiceControllerTest extends WebTestCase
         $productId2 = $this->createProduct(array('sku' => '222', 'vat' => '18'));
 
         $invoiceData1 = array(
-            'sku' => '1234-89',
             'supplierInvoiceNumber' => 'ФРГ-1945',
-            'supplierInvoiceDate' => '2013-03-17T09:12:33+0400',
             'acceptanceDate' => '2013-03-17T16:12:33+0400',
             'includesVAT' => true,
         );
@@ -805,9 +802,7 @@ class InvoiceControllerTest extends WebTestCase
         $productId2 = $this->createProduct(array('sku' => '222', 'vat' => '18'));
 
         $invoiceData1 = array(
-            'sku' => '1234-89',
             'supplierInvoiceNumber' => 'ФРГ-1945',
-            'supplierInvoiceDate' => '2013-03-17T09:12:33+0400',
             'acceptanceDate' => '2013-03-17T16:12:33+0400',
             'includesVAT' => false,
         );

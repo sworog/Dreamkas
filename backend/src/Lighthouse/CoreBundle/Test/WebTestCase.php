@@ -92,7 +92,12 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function createInvoice(array $modifiedData, $storeId = null)
     {
-        $invoice = $this->factory->invoice()->createInvoice($modifiedData, $storeId);
+        if (isset($modifiedData['supplier'])) {
+            $supplierId = $this->factory()->supplier()->getSupplier($modifiedData['supplier'])->id;
+        } else {
+            $supplierId = null;
+        }
+        $invoice = $this->factory()->invoice()->createInvoice($modifiedData, $storeId, $supplierId);
         return $invoice->id;
     }
 
@@ -112,7 +117,12 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function editInvoice(array $modifiedData, $invoiceId, $storeId)
     {
-        $this->factory()->invoice()->createInvoice($modifiedData, $storeId, $invoiceId);
+        if (isset($modifiedData['supplier'])) {
+            $supplierId = $this->factory()->supplier()->getSupplier($modifiedData['supplier'])->id;
+        } else {
+            $supplierId = null;
+        }
+        $this->factory()->invoice()->createInvoice($modifiedData, $storeId, $supplierId, $invoiceId);
     }
 
     /**

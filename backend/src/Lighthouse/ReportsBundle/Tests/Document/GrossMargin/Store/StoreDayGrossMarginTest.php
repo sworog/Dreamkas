@@ -13,10 +13,10 @@ class StoreDayGrossMarginTest extends WebTestCase
         $productId = $this->createProduct('1');
         $storeProductId = $this->factory->getStoreProduct($storeId, $productId);
 
-        $invoice1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-10 12:23:13'), $storeId);
+        $invoice1 = $this->createInvoice(array('acceptanceDate' => '2014-01-10 12:23:13'), $storeId);
         $this->createInvoiceProduct($invoice1, $productId, 16.36, 10.09, $storeId);
 
-        $invoice2 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-13 09:11:41'), $storeId);
+        $invoice2 = $this->createInvoice(array('acceptanceDate' => '2014-01-13 09:11:41'), $storeId);
         $this->createInvoiceProduct($invoice2, $productId, 20.501, 10.54, $storeId);
         $this->createInvoiceProduct($invoice2, $productId, 10, 10.54, $storeId);
 

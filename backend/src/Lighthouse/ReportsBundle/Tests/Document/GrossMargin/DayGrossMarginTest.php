@@ -19,18 +19,18 @@ class DayGrossMarginTest extends WebTestCase
         $product = $this->createProduct("1");
 
 
-        $invoice1 = $this->createInvoice(array('sku' => '1', 'acceptanceDate' => '2014-01-01 12:56'), $store);
+        $invoice1 = $this->createInvoice(array('acceptanceDate' => '2014-01-01 12:56'), $store);
         $this->createInvoiceProduct($invoice1, $product, 5, 100, $store);
-        $invoice2 = $this->createInvoice(array('sku' => '2', 'acceptanceDate' => '2014-01-02 12:56'), $store);
+        $invoice2 = $this->createInvoice(array('acceptanceDate' => '2014-01-02 12:56'), $store);
         $this->createInvoiceProduct($invoice2, $product, 5, 150, $store);
-        $invoice3 = $this->createInvoice(array('sku' => '3', 'acceptanceDate' => '2014-01-03 12:56'), $store);
+        $invoice3 = $this->createInvoice(array('acceptanceDate' => '2014-01-03 12:56'), $store);
         $this->createInvoiceProduct($invoice3, $product, 10, 200, $store);
 
-        $invoice4 = $this->createInvoice(array('sku' => '4', 'acceptanceDate' => '2014-01-01 12:00'), $store2);
+        $invoice4 = $this->createInvoice(array('acceptanceDate' => '2014-01-01 12:00'), $store2);
         $this->createInvoiceProduct($invoice4, $product, 5, 100, $store2);
-        $invoice5 = $this->createInvoice(array('sku' => '5', 'acceptanceDate' => '2014-01-02 12:00'), $store2);
+        $invoice5 = $this->createInvoice(array('acceptanceDate' => '2014-01-02 12:00'), $store2);
         $this->createInvoiceProduct($invoice5, $product, 5, 150, $store2);
-        $invoice6 = $this->createInvoice(array('sku' => '6', 'acceptanceDate' => '2014-01-03 12:00'), $store2);
+        $invoice6 = $this->createInvoice(array('acceptanceDate' => '2014-01-03 12:00'), $store2);
         $this->createInvoiceProduct($invoice6, $product, 10, 200, $store2);
 
 

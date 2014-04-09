@@ -24,12 +24,11 @@ class InvoiceFactory extends AbstractFactory
      * @throws \Lighthouse\CoreBundle\Exception\ValidationFailedException
      * @return Invoice
      */
-    public function createInvoice(array $data, $storeId = null, $invoiceId = null)
+    public function createInvoice(array $data, $storeId = null, $supplierId = null, $invoiceId = null)
     {
         $invoice = ($invoiceId) ? $this->getInvoiceById($invoiceId) : new Invoice();
 
         $invoiceData = $data + array(
-            'supplier' => 'ООО "Поставщик"',
             'acceptanceDate' => '2013-03-18 12:56',
             'accepter' => 'Приемных Н.П.',
             'legalEntity' => 'ООО "Магазин"',
@@ -37,7 +36,12 @@ class InvoiceFactory extends AbstractFactory
             'includesVAT' => true,
         );
 
-        $invoice->supplier = $this->factory->supplier()->getSupplier($invoiceData['supplier']);
+        if ($supplierId) {
+            $invoice->supplier = $this->factory->supplier()->getSupplierById($supplierId);
+        } else {
+            $invoice->supplier = $this->factory->supplier()->getSupplier();
+        }
+
         $invoice->acceptanceDate = new \DateTime($invoiceData['acceptanceDate']);
         $invoice->accepter = $invoiceData['accepter'];
         $invoice->legalEntity = $invoiceData['legalEntity'];

@@ -865,9 +865,9 @@ class StoreProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(0, '*.inventory', $response, 3);
 
 
-        $invoice1Store1Id = $this->createInvoice(array('sku' => 'store1'), $storeId1, $departmentManager1);
-        $this->createInvoiceProduct($invoice1Store1Id, $productId1, 1, 10.99, $storeId1, $departmentManager1);
-        $this->createInvoiceProduct($invoice1Store1Id, $productId2, 2, 11.99, $storeId1, $departmentManager1);
+        $invoice1Store1Id = $this->createInvoice(array(), $storeId1);
+        $this->createInvoiceProduct($invoice1Store1Id, $productId1, 1, 10.99, $storeId1);
+        $this->createInvoiceProduct($invoice1Store1Id, $productId2, 2, 11.99, $storeId1);
 
         $response = $this->clientJsonRequest(
             $departmentAccessToken1,
@@ -887,9 +887,9 @@ class StoreProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(10.99, '*.lastPurchasePrice', $response, 1);
         Assert::assertJsonPathEquals(11.99, '*.lastPurchasePrice', $response, 1);
 
-        $invoice2Store1Id = $this->createInvoice(array('sku' => 'store1invoice2'), $storeId1, $departmentManager1);
-        $this->createInvoiceProduct($invoice2Store1Id, $productId1, 3, 9.99, $storeId1, $departmentManager1);
-        $this->createInvoiceProduct($invoice2Store1Id, $productId2, 4, 12.99, $storeId1, $departmentManager1);
+        $invoice2Store1Id = $this->createInvoice(array(), $storeId1);
+        $this->createInvoiceProduct($invoice2Store1Id, $productId1, 3, 9.99, $storeId1);
+        $this->createInvoiceProduct($invoice2Store1Id, $productId2, 4, 12.99, $storeId1);
 
         $response = $this->clientJsonRequest(
             $departmentAccessToken1,
@@ -921,49 +921,21 @@ class StoreProductControllerTest extends WebTestCase
         $storeId = $this->factory->store()->getStoreId('666');
         $departmentManager = $this->factory->store()->getDepartmentManager($storeId);
 
-        $invoiceId0 = $this->createInvoice(
-            array(
-                'sku' => '-31 days',
-                'acceptanceDate' => date('c', strtotime('-31 days'))
-            ),
-            $storeId,
-            $departmentManager
-        );
-        $this->createInvoiceProduct($invoiceId0, $productId1, 10, 23.33, $storeId, $departmentManager);
+        $invoiceId0 = $this->createInvoice(array('acceptanceDate' => date('c', strtotime('-31 days'))), $storeId);
+        $this->createInvoiceProduct($invoiceId0, $productId1, 10, 23.33, $storeId);
 
-        $invoiceId1 = $this->createInvoice(
-            array(
-                'sku' => '-3 days',
-                'acceptanceDate' => date('c', strtotime('-3 days'))
-            ),
-            $storeId,
-            $departmentManager
-        );
+        $invoiceId1 = $this->createInvoice(array('acceptanceDate' => date('c', strtotime('-3 days'))), $storeId);
 
-        $this->createInvoiceProduct($invoiceId1, $productId1, 10, 26, $storeId, $departmentManager);
-        $this->createInvoiceProduct($invoiceId1, $productId2, 6, 34.67, $storeId, $departmentManager);
+        $this->createInvoiceProduct($invoiceId1, $productId1, 10, 26, $storeId);
+        $this->createInvoiceProduct($invoiceId1, $productId2, 6, 34.67, $storeId);
 
-        $invoiceId2 = $this->createInvoice(
-            array(
-                'sku' => '-2 days',
-                'acceptanceDate' => date('c', strtotime('-2 days'))
-            ),
-            $storeId,
-            $departmentManager
-        );
+        $invoiceId2 = $this->createInvoice(array('acceptanceDate' => date('c', strtotime('-2 days'))), $storeId);
 
-        $this->createInvoiceProduct($invoiceId2, $productId1, 5, 29, $storeId, $departmentManager);
+        $this->createInvoiceProduct($invoiceId2, $productId1, 5, 29, $storeId);
 
-        $invoiceId3 = $this->createInvoice(
-            array(
-                'sku' => '-1 days',
-                'acceptanceDate' => date('c', strtotime('-1 days'))
-            ),
-            $storeId,
-            $departmentManager
-        );
+        $invoiceId3 = $this->createInvoice(array('acceptanceDate' => date('c', strtotime('-1 days'))), $storeId);
 
-        $this->createInvoiceProduct($invoiceId3, $productId1, 10, 31, $storeId, $departmentManager);
+        $this->createInvoiceProduct($invoiceId3, $productId1, 10, 31, $storeId);
 
         /* @var $averagePriceService StoreProductMetricsCalculator */
         $averagePriceService = $this->getContainer()->get('lighthouse.core.service.product.metrics_calculator');
@@ -1022,10 +994,10 @@ class StoreProductControllerTest extends WebTestCase
         $storeId = $this->factory->store()->getStoreId('1');
         $departmentManager = $this->factory->store()->getDepartmentManager($storeId);
         $productId = $this->createProduct('1');
-        $invoiceStoreId1 = $this->createInvoice(array('sku' => 'invoice1'), $storeId, $departmentManager);
-        $this->createInvoiceProduct($invoiceStoreId1, $productId, 3, 19.99, $storeId, $departmentManager);
-        $invoiceStoreId2 = $this->createInvoice(array('sku' => 'invoice2'), $storeId, $departmentManager);
-        $this->createInvoiceProduct($invoiceStoreId2, $productId, 4, 12.99, $storeId, $departmentManager);
+        $invoiceStoreId1 = $this->createInvoice(array('number' => 'invoice1'), $storeId);
+        $this->createInvoiceProduct($invoiceStoreId1, $productId, 3, 19.99, $storeId);
+        $invoiceStoreId2 = $this->createInvoice(array('number' => 'invoice2'), $storeId);
+        $this->createInvoiceProduct($invoiceStoreId2, $productId, 4, 12.99, $storeId);
 
         $accessToken = $this->factory->oauth()->auth($departmentManager);
         $getResponse = $this->clientJsonRequest(

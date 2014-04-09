@@ -21,32 +21,32 @@ class GrossMarginControllerTest extends WebTestCase
         $product2 = $this->createProduct("2");
         $product3 = $this->createProduct("3");
 
-        $invoice1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-01 12:23:12'), $store);
+        $invoice1 = $this->createInvoice(array('acceptanceDate' => '2014-01-01 12:23:12'), $store);
         $this->createInvoiceProduct($invoice1, $product1, 5, 100, $store);
         $this->createInvoiceProduct($invoice1, $product2, 10, 201, $store);
         $this->createInvoiceProduct($invoice1, $product3, 5, 120, $store);
 
-        $invoice2 = $this->createInvoice(array('sku' => 2, 'acceptanceDate' => '2014-01-02 12:23:12'), $store);
+        $invoice2 = $this->createInvoice(array('acceptanceDate' => '2014-01-02 12:23:12'), $store);
         $this->createInvoiceProduct($invoice2, $product1, 5, 101, $store);
         $this->createInvoiceProduct($invoice2, $product2, 5, 200, $store);
         $this->createInvoiceProduct($invoice2, $product3, 10, 130, $store);
 
-        $invoice3 = $this->createInvoice(array('sku' => 3, 'acceptanceDate' => '2014-01-03 12:23:12'), $store);
+        $invoice3 = $this->createInvoice(array('acceptanceDate' => '2014-01-03 12:23:12'), $store);
         $this->createInvoiceProduct($invoice3, $product1, 5, 102, $store);
         $this->createInvoiceProduct($invoice3, $product2, 5, 205, $store);
         $this->createInvoiceProduct($invoice3, $product3, 10, 135, $store);
 
-        $invoice4 = $this->createInvoice(array('sku' => 4, 'acceptanceDate' => '2014-01-04 12:23:12'), $store);
+        $invoice4 = $this->createInvoice(array('acceptanceDate' => '2014-01-04 12:23:12'), $store);
         $this->createInvoiceProduct($invoice4, $product1, 20, 101, $store);
         $this->createInvoiceProduct($invoice4, $product2, 5, 200, $store);
         $this->createInvoiceProduct($invoice4, $product3, 10, 130, $store);
 
-        $invoice5 = $this->createInvoice(array('sku' => 5, 'acceptanceDate' => '2014-01-05 12:23:12'), $store);
+        $invoice5 = $this->createInvoice(array('acceptanceDate' => '2014-01-05 12:23:12'), $store);
         $this->createInvoiceProduct($invoice5, $product1, 5, 101, $store);
         $this->createInvoiceProduct($invoice5, $product2, 5, 200, $store);
         $this->createInvoiceProduct($invoice5, $product3, 10, 130, $store);
 
-        $invoice6 = $this->createInvoice(array('sku' => 6, 'acceptanceDate' => '2014-01-06 12:23:12'), $store);
+        $invoice6 = $this->createInvoice(array('acceptanceDate' => '2014-01-06 12:23:12'), $store);
         $this->createInvoiceProduct($invoice6, $product1, 5, 101, $store);
         $this->createInvoiceProduct($invoice6, $product2, 5, 200, $store);
         $this->createInvoiceProduct($invoice6, $product3, 10, 130, $store);
@@ -225,7 +225,6 @@ class GrossMarginControllerTest extends WebTestCase
 
         $invoice1 = $this->createInvoice(
             array(
-                'sku' => 1,
                 'acceptanceDate' => $date->copy()->modify('-2 days 08:00')->format(DateTime::ISO8601)
             ),
             $store
@@ -234,7 +233,6 @@ class GrossMarginControllerTest extends WebTestCase
 
         $invoice2 = $this->createInvoice(
             array(
-                'sku' => 2,
                 'acceptanceDate' => $date->copy()->modify('-1 day 08:00')->format(DateTime::ISO8601)
             ),
             $store
@@ -288,14 +286,14 @@ class GrossMarginControllerTest extends WebTestCase
         $product = $this->createProduct("1");
 
         // Begin inventory
-        $invoice1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-01 12:23:12'), $store);
+        $invoice1 = $this->createInvoice(array('acceptanceDate' => '2014-01-01 12:23:12'), $store);
         $this->createInvoiceProduct($invoice1, $product, 3, 100, $store);
         $this->createInvoiceProduct($invoice1, $product, 1, 101, $store);
         $this->createInvoiceProduct($invoice1, $product, 2, 102, $store);
 
 
         // Inventory purchase
-        $invoice2 = $this->createInvoice(array('sku' => 2, 'acceptanceDate' => '2014-01-02 12:23:12'), $store);
+        $invoice2 = $this->createInvoice(array('acceptanceDate' => '2014-01-02 12:23:12'), $store);
         $this->createInvoiceProduct($invoice2, $product, 1, 101, $store);
         $this->createInvoiceProduct($invoice2, $product, 2, 102, $store);
 
@@ -339,12 +337,12 @@ class GrossMarginControllerTest extends WebTestCase
         $product = $this->createProduct("1");
 
         // Begin inventory
-        $invoice1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-01 12:23:12'), $store);
+        $invoice1 = $this->createInvoice(array('acceptanceDate' => '2014-01-01 12:23:12'), $store);
         $this->createInvoiceProduct($invoice1, $product, 3, 1, $store);
         $this->createInvoiceProduct($invoice1, $product, 2, 2, $store);
 
         // Day one
-        $invoice1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-02 12:23:12'), $store);
+        $invoice1 = $this->createInvoice(array('acceptanceDate' => '2014-01-02 12:23:12'), $store);
         $this->createInvoiceProduct($invoice1, $product, 3, 3, $store);
 
         $sale1 = $this->factory->createSale($store, "2014-01-02 12:23:12", 233);
@@ -352,7 +350,7 @@ class GrossMarginControllerTest extends WebTestCase
         $this->factory->flush();
 
         // Day two
-        $invoice1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-03 12:23:12'), $store);
+        $invoice1 = $this->createInvoice(array('acceptanceDate' => '2014-01-03 12:23:12'), $store);
         $this->createInvoiceProduct($invoice1, $product, 2, 2, $store);
 
         $sale1 = $this->factory->createSale($store, "2014-01-03 12:23:12", 233);
@@ -484,18 +482,18 @@ class GrossMarginControllerTest extends WebTestCase
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
 
-        $invoice1 = $this->createInvoice(array('sku' => '1', 'acceptanceDate' => '2014-01-01 12:56'), $store);
+        $invoice1 = $this->createInvoice(array('acceptanceDate' => '2014-01-01 12:56'), $store);
         $this->createInvoiceProduct($invoice1, $product, 5, 100, $store);
-        $invoice2 = $this->createInvoice(array('sku' => '2', 'acceptanceDate' => '2014-01-02 12:56'), $store);
+        $invoice2 = $this->createInvoice(array('acceptanceDate' => '2014-01-02 12:56'), $store);
         $this->createInvoiceProduct($invoice2, $product, 5, 150, $store);
-        $invoice3 = $this->createInvoice(array('sku' => '3', 'acceptanceDate' => '2014-01-03 12:56'), $store);
+        $invoice3 = $this->createInvoice(array('acceptanceDate' => '2014-01-03 12:56'), $store);
         $this->createInvoiceProduct($invoice3, $product, 10, 200, $store);
 
-        $invoice4 = $this->createInvoice(array('sku' => '4', 'acceptanceDate' => '2014-01-01 12:00'), $store2);
+        $invoice4 = $this->createInvoice(array('acceptanceDate' => '2014-01-01 12:00'), $store2);
         $this->createInvoiceProduct($invoice4, $product, 5, 100, $store2);
-        $invoice5 = $this->createInvoice(array('sku' => '5', 'acceptanceDate' => '2014-01-02 12:00'), $store2);
+        $invoice5 = $this->createInvoice(array('acceptanceDate' => '2014-01-02 12:00'), $store2);
         $this->createInvoiceProduct($invoice5, $product, 5, 150, $store2);
-        $invoice6 = $this->createInvoice(array('sku' => '6', 'acceptanceDate' => '2014-01-03 12:00'), $store2);
+        $invoice6 = $this->createInvoice(array('acceptanceDate' => '2014-01-03 12:00'), $store2);
         $this->createInvoiceProduct($invoice6, $product, 10, 200, $store2);
 
 

@@ -1129,7 +1129,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceId1 = $this->createInvoice(
             array(
-                'sku' => '-3 days',
                 'acceptanceDate' => date('c', strtotime('-3 days'))
             ),
             $this->storeId,
@@ -1138,7 +1137,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceIdOld = $this->createInvoice(
             array(
-                'sku' => '-31 days',
                 'acceptanceDate' => date('c', strtotime('-31 days'))
             ),
             $this->storeId,
@@ -1157,7 +1155,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceId2 = $this->createInvoice(
             array(
-                'sku' => '-2 days',
                 'acceptanceDate' => date('c', strtotime('-2 days'))
             ),
             $this->storeId,
@@ -1172,7 +1169,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceId3 = $this->createInvoice(
             array(
-                'sku' => '-1 days',
                 'acceptanceDate' => date('c', strtotime('-1 days'))
             ),
             $this->storeId,
@@ -1243,7 +1239,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceId1 = $this->createInvoice(
             array(
-                'sku' => '-3 days',
                 'acceptanceDate' => date('c', strtotime('-3 days'))
             ),
             $this->storeId,
@@ -1252,7 +1247,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceIdOld = $this->createInvoice(
             array(
-                'sku' => '-15 days',
                 'acceptanceDate' => date('c', strtotime('-15 days'))
             ),
             $this->storeId,
@@ -1428,7 +1422,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceId1 = $this->createInvoice(
             array(
-                'sku' => 'MU-866',
                 'acceptanceDate' => '2013-10-18T09:39:47+0400'
             ),
             $this->storeId,
@@ -1439,7 +1432,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceId2 = $this->createInvoice(
             array(
-                'sku' => 'MU-864',
                 'acceptanceDate' => '2013-10-18T12:22:00+0400'
             ),
             $this->storeId,
@@ -1484,7 +1476,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceId1 = $this->createInvoice(
             array(
-                'sku' => 'MU-866',
                 'acceptanceDate' => '2013-10-18T09:39:47+0400'
             ),
             $this->storeId,
@@ -1541,7 +1532,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceId1 = $this->createInvoice(
             array(
-                'sku' => 'MU-866',
                 'acceptanceDate' => '2013-10-18T09:39:47+0400',
                 'includesVAT' => true,
             ),
@@ -1579,7 +1569,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceId1 = $this->createInvoice(
             array(
-                'sku' => 'MU-866',
                 'acceptanceDate' => '2013-10-18T09:39:47+0400',
                 'includesVAT' => false,
             ),
