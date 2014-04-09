@@ -5,6 +5,9 @@
 <% var collections = _.extend({
     suppliers: new SuppliersCollection()
 }, collections); %>
+<% var templates = _.extend({
+    downloadAgreementLink: require('tpl!blocks/form/form_order/downloadAgreementLink.html')
+}, templates) %>
 
 <form class="form form_order <%- model.id ? '' : 'form_changed' %>" style="margin-bottom: 20px;">
     <div class="form__field" style="padding-bottom: 30px;">
@@ -17,6 +20,9 @@
                     value="<%- supplierModel.id %>"><%- supplierModel.get('name') %></option>
             <% }) %>
         </select>
+        <%= templates.downloadAgreementLink({
+            supplierModel: collections.suppliers.get(model.get('supplier.id'))
+        }) %>
     </div>
     <div style="margin-bottom: 30px;">
         <%= model.get('collections.products').element(require('tpl!blocks/table/table_orderProducts/template.html'), {

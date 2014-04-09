@@ -36,7 +36,8 @@ define(function(require, exports, module) {
                 var page = this;
 
                 return new Form_order({
-                    model: page.models.order
+                    model: page.models.order,
+                    collections: _.pick(page.collections, 'suppliers')
                 });
             }
         }

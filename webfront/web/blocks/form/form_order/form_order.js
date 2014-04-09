@@ -4,7 +4,8 @@ define(function(require, exports, module) {
         router = require('router'),
         OrderModel = require('models/order'),
         Autocomplete = require('blocks/autocomplete/autocomplete'),
-        table_orderProducts__productSum = require('tpl!blocks/table/table_orderProducts/table_orderProducts__productSum.html');
+        table_orderProducts__productSum = require('tpl!blocks/table/table_orderProducts/table_orderProducts__productSum.html'),
+        downloadAgreementLink = require('tpl!blocks/form/form_order/downloadAgreementLink.html');
 
     require('jquery');
     require('lodash');
@@ -17,6 +18,9 @@ define(function(require, exports, module) {
         redirectUrl: '/orders',
         el: '.form_order',
         model: new OrderModel(),
+        collections: {
+            suppliers: null
+        },
         editedProductModel: null,
         nextEditedProductModel: null,
         $errorTr: $('<tr class="table__orderProduct__error"><td colspan="5"></td></tr>'),
@@ -25,6 +29,11 @@ define(function(require, exports, module) {
                 var block = this;
 
                 block.model.set(e.target.name, e.target.value);
+            },
+            'change [name="supplier"]': function(e){
+                var block = this;
+
+                block.renderDownloadAgreementLink(e.target.value);
             },
             'click tr[data-product_cid]': function(e) {
                 var block = this,
@@ -194,6 +203,13 @@ define(function(require, exports, module) {
             var block = this;
 
             block.$errorTr.detach();
+        },
+        renderDownloadAgreementLink: function(supplierId){
+            var block = this;
+
+            $(document.getElementById('downloadAgreementLink')).replaceWith(downloadAgreementLink({
+                supplierModel: block.collections.suppliers.get(supplierId)
+            }))
         }
     });
 });
