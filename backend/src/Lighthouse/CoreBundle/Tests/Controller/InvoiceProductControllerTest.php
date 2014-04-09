@@ -947,10 +947,11 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testDeleteProductsAction()
     {
+        $store = $this->factory()->store()->getStore();
         $productId = $this->createProduct();
-        $invoiceId = $this->createInvoice(array(), $this->storeId, $this->departmentManager);
+        $invoiceId = $this->createInvoice(array(), $store->id);
 
-        $productsData = $this->createInvoiceProducts($productId, $invoiceId);
+        $productsData = $this->createInvoiceProducts($productId, $invoiceId, $store->id);
 
         $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
@@ -980,10 +981,11 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testDeleteProductsActionUpdateAmountAndInvoiceTotals()
     {
+        $store = $this->factory()->store()->getStore();
         $productId = $this->createProduct();
-        $invoiceId = $this->createInvoice(array(), $this->storeId, $this->departmentManager);
+        $invoiceId = $this->createInvoice(array(), $store->id);
 
-        $productsData = $this->createInvoiceProducts($productId, $invoiceId);
+        $productsData = $this->createInvoiceProducts($productId, $invoiceId, $store->id);
 
         $accessToken = $this->factory->oauth()->auth($this->departmentManager);
 
@@ -1234,24 +1236,14 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testAveragePurchasePriceRounded()
     {
+        $store = $this->factory()->store()->getStore();
+
         $productId = $this->createProduct();
         $productId2 = $this->createProduct('2');
 
-        $invoiceId1 = $this->createInvoice(
-            array(
-                'acceptanceDate' => date('c', strtotime('-3 days'))
-            ),
-            $this->storeId,
-            $this->departmentManager
-        );
+        $invoiceId1 = $this->createInvoice(array('acceptanceDate' => date('c', strtotime('-3 days'))), $store->id);
 
-        $invoiceIdOld = $this->createInvoice(
-            array(
-                'acceptanceDate' => date('c', strtotime('-15 days'))
-            ),
-            $this->storeId,
-            $this->departmentManager
-        );
+        $invoiceIdOld = $this->createInvoice(array('acceptanceDate' => date('c', strtotime('-15 days'))), $store->id);
 
         $this->createInvoiceProduct($invoiceIdOld, $productId, 10, 23.33);
         $this->createInvoiceProduct($invoiceId1, $productId, 10, 26);
@@ -1261,15 +1253,15 @@ class InvoiceProductControllerTest extends WebTestCase
         $averagePriceService = $this->getContainer()->get('lighthouse.core.service.product.metrics_calculator');
         $averagePriceService->recalculateAveragePrice();
 
-        $this->assertStoreProduct($this->storeId, $productId, array('averagePurchasePrice' => 24.67));
+        $this->assertStoreProduct($store->id, $productId, array('averagePurchasePrice' => 24.67));
     }
 
     public function testAveragePurchasePriceChangeOnInvoiceDateChange()
     {
+        $store = $this->factory()->store()->getStore();
         $productId = $this->createProduct();
 
         $invoiceData = array(
-            'supplier' => 'ООО "Поставщик"',
             'acceptanceDate' => date('c', strtotime('now')),
             'accepter' => 'Приемных Н.П.',
             'legalEntity' => 'ООО "Магазин"',
@@ -1277,7 +1269,7 @@ class InvoiceProductControllerTest extends WebTestCase
             'includesVAT' => true,
         );
 
-        $invoiceId = $this->createInvoice($invoiceData, $this->storeId, $this->departmentManager);
+        $invoiceId = $this->createInvoice($invoiceData, $store->id);
 
         $this->createInvoiceProduct($invoiceId, $productId, 10, 26);
 
@@ -1286,7 +1278,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $averagePriceService->recalculateAveragePrice();
 
         $this->assertStoreProduct(
-            $this->storeId,
+            $store->id,
             $productId,
             array(
                 'averagePurchasePrice' => null,
@@ -1294,12 +1286,12 @@ class InvoiceProductControllerTest extends WebTestCase
             )
         );
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
 
         $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId,
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId,
             array(
                 'acceptanceDate' => date('c', strtotime('-2 days 13:00'))
             ) + $invoiceData
@@ -1310,7 +1302,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $averagePriceService->recalculateAveragePrice();
 
         $this->assertStoreProduct(
-            $this->storeId,
+            $store->id,
             $productId,
             array(
                 'averagePurchasePrice' => 26,
