@@ -17,16 +17,6 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected $client;
 
-    /**
-     * @var User
-     */
-    protected $departmentManager;
-
-    /**
-     * @var string
-     */
-    protected $storeId;
-
     protected function setUp()
     {
         $this->client = static::createClient();
@@ -38,19 +28,8 @@ class WebTestCase extends ContainerAwareTestCase
     {
         parent::tearDown();
 
-        $this->storeId = null;
-        $this->departmentManager = null;
         $this->factory = null;
         $this->client = null;
-    }
-
-    /**
-     *
-     */
-    protected function setUpStoreDepartmentManager()
-    {
-        $this->storeId = $this->factory->store()->getStoreId();
-        $this->departmentManager = $this->factory->store()->getDepartmentManager($this->storeId);
     }
 
     /**
@@ -174,17 +153,16 @@ class WebTestCase extends ContainerAwareTestCase
         $this->factory()->invoice()->createInvoiceProduct($invoiceId, $productId, $quantity, $price, $invoiceProductId);
     }
 
-    public function deleteInvoiceProduct(
-        $invoiceProductId,
-        $invoiceId,
-        $storeId = null,
-        $manager = null
-    ) {
-        $manager = ($manager) ?: $this->departmentManager;
-        $storeId = ($storeId) ?: $this->storeId;
-        $manager = ($manager) ?: $this->factory->store()->getDepartmentManager($storeId);
-
-        $accessToken = $this->factory->oauth()->auth($manager);
+    /**
+     * @param string $invoiceProductId
+     * @param string $invoiceId
+     * @param string $storeId
+     * @return string
+     * @throws \OAuth2\OAuth2ServerException
+     */
+    public function deleteInvoiceProduct($invoiceProductId, $invoiceId, $storeId)
+    {
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -284,7 +262,7 @@ class WebTestCase extends ContainerAwareTestCase
      * @param $invoiceId
      * @return array
      */
-    protected function createInvoiceProducts($productId, $invoiceId)
+    protected function createInvoiceProducts($productId, $invoiceId, $storeId)
     {
         $productsData = array(
             array(
@@ -307,7 +285,7 @@ class WebTestCase extends ContainerAwareTestCase
             ),
         );
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
 
         foreach ($productsData as $i => $row) {
 
@@ -320,7 +298,7 @@ class WebTestCase extends ContainerAwareTestCase
             $response = $this->clientJsonRequest(
                 $accessToken,
                 'POST',
-                '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId . '/products.json',
+                '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products.json',
                 $invoiceProductData
             );
 
@@ -331,7 +309,7 @@ class WebTestCase extends ContainerAwareTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId . '/products'
+            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products'
         );
 
         $this->assertResponseCode(200);
@@ -391,19 +369,12 @@ class WebTestCase extends ContainerAwareTestCase
     protected function createWriteOffProduct(
         $writeOffId,
         $productId,
-        $quantity = 10,
-        $price = 5.99,
-        $cause = 'Порча',
-        $storeId = null,
-        User $manager = null
+        $quantity,
+        $price,
+        $cause,
+        $storeId
     ) {
-        $manager = ($manager) ?: $this->departmentManager;
-        $storeId = ($storeId) ?: $this->storeId;
-        $price = ($price) ?: 5.99;
-        $quantity = ($quantity) ?: 10;
-        $cause = ($cause) ?: 'Порча';
-
-        $accessToken = $this->factory->oauth()->auth($manager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
 
         $postData = array(
             'product' => $productId,

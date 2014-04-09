@@ -51,11 +51,10 @@ class MetaDocumentTest extends WebTestCase
     {
         $productId1 = $this->createProduct('1');
         $productId2 = $this->createProduct('2');
-        $storeId = $this->factory->store()->getStoreId();
-        $manager = $this->factory->store()->getDepartmentManager($storeId);
-        $writeOffId = $this->createWriteOff('431-789', null, $storeId, $manager);
-        $writeOffProductId1 = $this->createWriteOffProduct($writeOffId, $productId1, 10, 12.8, '*', $storeId, $manager);
-        $writeOffProductId2 = $this->createWriteOffProduct($writeOffId, $productId2, 5, 18.7, '**', $storeId, $manager);
+        $storeId = $this->factory()->store()->getStoreId();
+        $writeOffId = $this->createWriteOff('431-789', null, $storeId);
+        $writeOffProductId1 = $this->createWriteOffProduct($writeOffId, $productId1, 10, 12.8, '*', $storeId);
+        $writeOffProductId2 = $this->createWriteOffProduct($writeOffId, $productId2, 5, 18.7, '**', $storeId);
 
         /* @var WriteOffRepository $writeOffRepository */
         $writeOffRepository = $this->getContainer()->get('lighthouse.core.document.repository.write_off');

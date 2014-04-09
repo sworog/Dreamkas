@@ -13,7 +13,6 @@ class InvoiceProductControllerTest extends WebTestCase
     {
         $this->markTestSkipped();
         parent::setUp();
-        $this->setUpStoreDepartmentManager();
     }
     /**
      * @dataProvider postActionProvider

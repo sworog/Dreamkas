@@ -744,44 +744,17 @@ class OrderControllerTest extends WebTestCase
 
     public function testDownloadOrderAction()
     {
-        $this->setUpStoreDepartmentManager();
-        $supplier = $this->factory->createSupplier();
-        $product1 = $this->createProduct(array('name' => 'Кефир1Назв', 'sku' => 'Кефир1Арт', 'barcode' => '1111111'));
-        $product2 = $this->createProduct(array('name' => 'Кефир2Назв', 'sku' => 'Кефир2Арт', 'barcode' => '2222222'));
-        $product3 = $this->createProduct(array('name' => 'Кефир3Назв', 'sku' => 'Кефир3Арт', 'barcode' => '3333333'));
+        $store = $this->factory()->store()->getStore();
+        $supplier = $this->factory()->createSupplier();
+        $productId1 = $this->createProduct(array('name' => 'Кефир1Назв', 'sku' => 'Кефир1Арт', 'barcode' => '1111111'));
+        $productId2 = $this->createProduct(array('name' => 'Кефир2Назв', 'sku' => 'Кефир2Арт', 'barcode' => '2222222'));
+        $productId3 = $this->createProduct(array('name' => 'Кефир3Назв', 'sku' => 'Кефир3Арт', 'barcode' => '3333333'));
 
-        $this->factory->flush();
-
-        $postData = array(
-            'supplier' => $supplier->id,
-            'products' => array(
-                array(
-                    'product' => $product1,
-                    'quantity' => 3.11,
-                ),
-                array(
-                    'product' => $product2,
-                    'quantity' => 2,
-                ),
-                array(
-                    'product' => $product3,
-                    'quantity' => 7.77,
-                ),
-            )
-        );
-
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
-        $response = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/stores/' . $this->storeId . '/orders',
-            $postData
-        );
-
-        $this->assertResponseCode(201);
-
-        $orderId = $response['id'];
-        $orderNumber = $response['number'];
+        $order = $this->factory()->createOrder($store, $supplier);
+        $this->factory()->createOrderProduct($order, $productId1, 3.11);
+        $this->factory()->createOrderProduct($order, $productId2, 2);
+        $this->factory()->createOrderProduct($order, $productId3, 7.77);
+        $this->factory()->flush();
 
         $mockPlugin = new MockPlugin();
         $mockPlugin->addResponse($this->getFixtureFilePath('OpenStack/auth.response.ok'));
@@ -804,15 +777,16 @@ class OrderControllerTest extends WebTestCase
         $this->client->addTweaker($mockGuzzle);
         $this->client->addTweaker($requestGetContentMock);
 
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/orders/' . $orderId . '/download'
+            '/api/1/stores/' . $store->id . '/orders/' . $order->id . '/download'
         );
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals('order' . $orderNumber . '.xlsx', 'name', $response);
+        Assert::assertJsonPathEquals('order' . $order->number . '.xlsx', 'name', $response);
         Assert::assertJsonHasPath('url', $response);
     }
 
