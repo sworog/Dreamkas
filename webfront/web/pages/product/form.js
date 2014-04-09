@@ -33,9 +33,7 @@ define(function(require) {
 
                 if (!page.params.productId){
                     page.productModel = new ProductModel({
-                        subCategory: page.subCategoryModel.toJSON(),
-                        retailMarkupMin: page.subCategoryModel.get('retailMarkupMin'),
-                        retailMarkupMax: page.subCategoryModel.get('retailMarkupMax')
+                        subCategory: page.subCategoryModel.toJSON()
                     }, {
                         parse: true
                     });
