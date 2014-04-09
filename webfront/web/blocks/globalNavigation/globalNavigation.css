@@ -10,6 +10,7 @@
     -webkit-box-sizing: border-box;
     z-index: 200;
     padding: 40px;
+    position: relative;
 }
 
 .globalNavigation__bottom{
