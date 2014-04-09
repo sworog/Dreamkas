@@ -1,19 +1,19 @@
 <table class="table table_productInvoices">
     <tbody>
-    <% collection.forEach(function(model){ %>
-    <tr invoice-sku="<%- model.get('invoice.sku') %>" name="invoice" href="/invoices/<%- model.get('invoice.id') %>">
+    <% collection.forEach(function(productInvoiceModel){ %>
+    <tr invoice-sku="<%- productInvoiceModel.get('invoice.sku') %>" name="invoice" href="/stores/<%- productInvoiceModel.get('invoice.store.id') %>/invoices/<%- productInvoiceModel.get('invoice.id') %>">
         <td>
-            <%= LH.modelNode(model, 'acceptanceDateFormatted') %>
+            <%= LH.modelNode(productInvoiceModel, 'acceptanceDateFormatted') %>
         </td>
         <td>
-            + <%= LH.modelNode(model, 'quantityElement') %>
-            <%- LH.units(model.get('product.units'), 'smallShort') %>
+            + <%= LH.modelNode(productInvoiceModel, 'quantityElement') %>
+            <%- LH.units(productInvoiceModel.get('product.units'), 'smallShort') %>
         </td>
         <td>
-            по <%= LH.modelNode(model, 'priceFormatted') %> р.
+            по <%= LH.modelNode(productInvoiceModel, 'priceFormatted') %> р.
         </td>
         <td>
-            = <%= LH.modelNode(model, 'totalPriceFormatted') %> р.
+            = <%= LH.modelNode(productInvoiceModel, 'totalPriceFormatted') %> р.
         </td>
     </tr>
     <% }) %>
