@@ -151,3 +151,28 @@ When the user inputs values on order page
 | supplier | supplier-s30u67s1-with-file-2 |
 
 Then the user checks the download agreement button should be visible on the order page
+
+Scenario: Cannot create product with empty price if subcategory has mark up set
+
+Meta:
+@regression
+@product
+
+Given there is the subCategory with name 'RegressionSubCategory' related to group named 'RegressionGroup' and category named 'RegressionCategory'
+And the user sets subCategory 'RegressionSubCategory' mark up with max '30' and min '0' values
+
+Given the user navigates to the subCategory 'RegressionSubCategory', category 'RegressionCategory', group 'RegressionGroup' product list page
+And the user logs in as 'commercialManager'
+
+When the user clicks on start edition link and starts the edition
+And the user creates new product from product list page
+
+When the user inputs values in element fields
+| elementName | value |
+| sku | regressionSubCategoryProductSku |
+| name | regressionSubCategoryProductName |
+| unit | unit |
+| vat | 0 |
+And the user clicks the create button
+
+Then the user checks the product with 'regressionSubCategoryProductSku' sku is present
