@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Form;
 
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -21,23 +22,46 @@ class InvoiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('sku', 'text')
-            ->add('supplier', 'text')
-            ->add('acceptanceDate', 'datetime')
-            ->add('accepter', 'text')
-            ->add('legalEntity', 'text')
-            ->add('supplierInvoiceSku', 'text')
-            ->add('includesVAT', 'checkbox')
             ->add(
-                'supplierInvoiceDate',
-                'datetime',
-                array('invalid_message' => 'lighthouse.validation.errors.date.invalid_value')
+                'number',
+                'text',
+                array(
+                    'mapped' => false
+                )
+            )
+            ->add(
+                'supplier',
+                'reference',
+                array(
+                    'class' => Supplier::getClassName(),
+                    'invalid_message' => 'lighthouse.validation.errors.invoice.supplier.does_not_exists'
+                )
+            )
+            ->add(
+                'acceptanceDate',
+                'datetime'
+            )
+            ->add(
+                'accepter',
+                'text'
+            )
+            ->add(
+                'legalEntity',
+                'text'
+            )
+            ->add(
+                'supplierInvoiceSku',
+                'text'
+            )
+            ->add(
+                'includesVAT',
+                'checkbox'
             )
             ->add(
                 'products',
                 'collection',
                 array(
-                    'type' => new OrderProductType(),
+                    'type' => new InvoiceProductType(),
                     'allow_add' => true,
                     'allow_delete' => true,
                     'by_reference' => false,

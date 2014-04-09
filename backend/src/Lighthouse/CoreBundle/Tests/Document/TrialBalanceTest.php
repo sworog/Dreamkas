@@ -144,19 +144,17 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $store = $this->factory()->store()->getStore('42');
 
         $invoiceData = array(
-            'sku' => 'product232',
             'supplier' => 'ООО "Поставщик"',
             'acceptanceDate' => '2013-03-18 12:56',
             'accepter' => 'Приемных Н.П.',
             'legalEntity' => 'ООО "Магазин"',
             'supplierInvoiceSku' => '1248373',
-            'supplierInvoiceDate' => '17.03.2013',
         );
 
-        $productId = $this->createProduct();
+        $product = $this->createProduct();
 
         $storeProductRepository = $this->getStoreProductRepository();
-        $storeProduct = $storeProductRepository->findOrCreateByStoreProduct($store, $productId);
+        $storeProduct = $storeProductRepository->findOrCreateByStoreProduct($store, $product);
 
         $invoice = $this->factory()->invoice()->createInvoice($invoiceData, $store->id);
 
@@ -167,17 +165,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
         $this->assertCount(0, $startTrialBalance);
 
-        $productVersion = $this->getVersionFactory()->createDocumentVersion($productId);
-        $numericFactory = $this->getNumericFactory();
-
-        $invoiceProduct = new InvoiceProduct();
-        $invoiceProduct->product = $productVersion;
-        $invoiceProduct->invoice = $invoice;
-        $invoiceProduct->priceEntered = $numericFactory->createMoney(0.99);
-        $invoiceProduct->quantity = $numericFactory->createQuantity(9);
-
-        $manager->persist($invoiceProduct);
-        $manager->flush();
+        $invoiceProduct = $this->factory()->invoice()->createInvoiceProduct($invoice->id, $product->id, 9, 0.99);
 
         $endTrialBalanceCursor = $trialBalanceRepository->findByStoreProduct($storeProduct->id);
         $endTrialBalance = new TrialBalanceCollection($endTrialBalanceCursor);
@@ -190,9 +178,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $this->assertEquals(99, $endTrialBalanceItem->price->getCount());
         $this->assertEquals(891, $endTrialBalanceItem->totalPrice->getCount());
 
-        $invoiceProduct->quantity = $numericFactory->createQuantity(10);
-        $manager->persist($invoiceProduct);
-        $manager->flush();
+        $this->factory()->invoice()->createInvoiceProduct($invoice->id, $product->id, 10, 0.99, $invoiceProduct->id);
 
         $trialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
 

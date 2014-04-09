@@ -18,7 +18,7 @@ class InvoiceRepository extends DocumentRepository
         $sort = array('acceptanceDate' => self::SORT_DESC);
         if ($filter->hasSkuOrSupplierInvoiceSku()) {
             $criteria['$or'] = array(
-                array('sku' => $filter->getSkuOrSupplierInvoiceSku()),
+                array('number' => $filter->getSkuOrSupplierInvoiceSku()),
                 array('supplierInvoiceSku' => $filter->getSkuOrSupplierInvoiceSku()),
             );
         }

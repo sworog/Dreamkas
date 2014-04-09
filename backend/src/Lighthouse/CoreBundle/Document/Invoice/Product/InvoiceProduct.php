@@ -251,6 +251,7 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     }
 
     /**
+     * Workaround to recalc price by VAT
      * @param Money $enteredPrice
      */
     public function setPriceEntered(Money $enteredPrice)
@@ -259,11 +260,21 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
         $this->calculatePrices();
     }
 
+    /**
+     * Workaround to recalc price by VAT
+     * @param Invoice $invoice
+     */
+    public function setInvoice(Invoice $invoice = null)
+    {
+        $this->invoice = $invoice;
+        $this->calculatePrices();
+    }
+
     public function calculatePrices()
     {
         // Если продукт не найден, то не сичтаем ничего
         // TODO: Подумать над изменением
-        if (null == $this->product) {
+        if (null === $this->product || null === $this->invoice) {
             return;
         }
 

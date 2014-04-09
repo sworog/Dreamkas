@@ -24,7 +24,7 @@ class InvoiceFactory extends AbstractFactory
      * @throws \Lighthouse\CoreBundle\Exception\ValidationFailedException
      * @return Invoice
      */
-    public function createInvoice(array $data, $storeId, $invoiceId = null)
+    public function createInvoice(array $data, $storeId = null, $invoiceId = null)
     {
         $invoice = ($invoiceId) ? $this->getInvoiceById($invoiceId) : new Invoice();
 
@@ -44,7 +44,8 @@ class InvoiceFactory extends AbstractFactory
         $invoice->supplierInvoiceSku = $invoiceData['supplierInvoiceSku'];
         $invoice->includesVAT = $invoiceData['includesVAT'];
 
-        $invoice->store = $this->factory->store()->getStoreById($storeId);
+        $store = ($storeId) ? $this->factory->store()->getStoreById($storeId) : $this->factory->store()->getStore();
+        $invoice->store = $store;
 
         $this->getValidator()->validate($invoice);
 

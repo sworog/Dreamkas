@@ -107,7 +107,7 @@ class WebTestCase extends ContainerAwareTestCase
      * @return string
      * @deprecated
      */
-    protected function createInvoice(array $modifiedData, $storeId)
+    protected function createInvoice(array $modifiedData, $storeId = null)
     {
         $invoice = $this->factory->invoice()->createInvoice($modifiedData, $storeId);
         return $invoice->id;
@@ -133,6 +133,7 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @deprecated
      * @param string $invoiceId
      * @param string $productId
      * @param float $quantity

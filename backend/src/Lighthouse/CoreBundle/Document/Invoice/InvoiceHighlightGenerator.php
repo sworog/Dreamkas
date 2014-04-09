@@ -28,7 +28,7 @@ class InvoiceHighlightGenerator implements MetaGeneratorInterface
     {
         $highlights = array();
         if ($element->number == $this->filter->getSkuOrSupplierInvoiceSku()) {
-            $highlights['sku'] = true;
+            $highlights['number'] = true;
         }
         if ($element->supplierInvoiceSku == $this->filter->getSkuOrSupplierInvoiceSku()) {
             $highlights['supplierInvoiceSku'] = true;

@@ -4,33 +4,31 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
-use Lighthouse\CoreBundle\Document\User\User;
 
 class InvoiceControllerTest extends WebTestCase
 {
-    protected function setUp()
-    {
-        $this->markTestSkipped();
-        parent::setUp();
-        $this->setUpStoreDepartmentManager();
-    }
-
     /**
      * @dataProvider postInvoiceDataProvider
      */
     public function testPostInvoiceAction(array $invoiceData, array $assertions = array())
     {
-        $assertions['createdDate'] = $this->getNowDate();
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $store = $this->factory()->store()->getStore();
+        $supplier = $this->factory()->supplier()->getSupplier('ООО "Поставщик"');
+        $invoiceData['supplier'] = $supplier->id;
+
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $this->storeId . '/invoices',
+            '/api/1/stores/' . $store->id . '/invoices',
             $invoiceData
         );
 
         $this->assertResponseCode(201);
+
+        $assertions['supplier.id'] = $supplier->id;
+        $assertions['supplier.name'] = 'ООО "Поставщик"';
 
         $this->performJsonAssertions($postResponse, $assertions, true);
     }
@@ -40,17 +38,18 @@ class InvoiceControllerTest extends WebTestCase
      */
     public function testGetInvoicesAction(array $invoiceData)
     {
+        $store = $this->factory()->store()->getStore();
         for ($i = 0; $i < 5; $i++) {
             $invoiceData['sku'] = '12122004' . $i;
-            $this->createInvoice($invoiceData, $this->storeId, $this->departmentManager);
+            $this->createInvoice($invoiceData, $store->id);
         }
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/invoices'
+            '/api/1/stores/' . $store->id . '/invoices'
         );
 
         $this->assertResponseCode(200);
@@ -59,24 +58,24 @@ class InvoiceControllerTest extends WebTestCase
 
     public function testGetInvoicesActionMaxDepth()
     {
-        $storeId = $this->factory->store()->getStoreId('1');
+        $store = $this->factory->store()->getStore();
         $products = $this->createProductsBySku(array('1', '2', '3'));
 
-        $invoiceId1 = $this->createInvoice(array('sku' => 1), $storeId);
-        $this->createInvoiceProduct($invoiceId1, $products['1'], 9, 9.99, $storeId);
-        $this->createInvoiceProduct($invoiceId1, $products['2'], 19, 19.99, $storeId);
+        $invoiceId1 = $this->createInvoice(array('sku' => 1), $store->id);
+        $this->createInvoiceProduct($invoiceId1, $products['1'], 9, 9.99);
+        $this->createInvoiceProduct($invoiceId1, $products['2'], 19, 19.99);
 
-        $invoiceId2 = $this->createInvoice(array('sku' => 2), $storeId);
-        $this->createInvoiceProduct($invoiceId2, $products['1'], 119, 9.99, $storeId);
-        $this->createInvoiceProduct($invoiceId2, $products['2'], 129, 19.99, $storeId);
-        $this->createInvoiceProduct($invoiceId2, $products['3'], 139, 19.99, $storeId);
+        $invoiceId2 = $this->createInvoice(array('sku' => 2), $store->id);
+        $this->createInvoiceProduct($invoiceId2, $products['1'], 119, 9.99);
+        $this->createInvoiceProduct($invoiceId2, $products['2'], 129, 19.99);
+        $this->createInvoiceProduct($invoiceId2, $products['3'], 139, 19.99);
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/invoices'
+            '/api/1/stores/' . $store->id . '/invoices'
         );
 
         $this->assertResponseCode(200);
@@ -93,15 +92,15 @@ class InvoiceControllerTest extends WebTestCase
      */
     public function testGetInvoice(array $invoiceData, array $assertions)
     {
-        $assertions['createdDate'] = $this->getNowDate();
-        $id = $this->createInvoice($invoiceData, $this->storeId, $this->departmentManager);
+        $store = $this->factory()->store()->getStore();
+        $invoice = $this->factory()->invoice()->createInvoice($invoiceData, $store->id);
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $id
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoice->id
         );
 
         $this->assertResponseCode(200);
@@ -114,24 +113,18 @@ class InvoiceControllerTest extends WebTestCase
         return array(
             'invoice' => array(
                 'data' => array(
-                    'sku' => 'product232',
-                    'supplier' => 'ООО "Поставщик"',
                     'acceptanceDate' => '2013-03-18 12:56',
                     'accepter' => 'Приемных Н.П.',
                     'legalEntity' => 'ООО "Магазин"',
                     'supplierInvoiceSku' => '1248373',
-                    'supplierInvoiceDate' => '17.03.2013'
                 ),
                 // Assertions xpath
                 'assertions' => array(
-                    'sku' => 'product232',
-                    'supplier' => 'ООО "Поставщик"',
+                    'number' => '10001',
                     'acceptanceDate' => '2013-03-18T12:56:00+0400',
                     'accepter' => 'Приемных Н.П.',
                     'legalEntity' => 'ООО "Магазин"',
-                    'supplierInvoiceSku' => '1248373',
-                    'supplierInvoiceDate' => '2013-03-17T00:00:00+0400',
-                    'createdDate' => '#set now date value in test to avoid test failure#',
+                    'supplierInvoiceSku' => '1248373'
                 )
             )
         );
@@ -139,14 +132,15 @@ class InvoiceControllerTest extends WebTestCase
 
     public function testGetInvoiceNotFound()
     {
+        $store = $this->factory()->store()->getStore();
         $id = 'not_exists_id';
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
 
         $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $id
+            '/api/1/stores/' . $store->id . '/invoices/' . $id
         );
 
         $this->assertResponseCode(404);
@@ -154,17 +148,19 @@ class InvoiceControllerTest extends WebTestCase
 
     public function testGetInvoiceNotFoundInAnotherStore()
     {
-        $storeId2 = $this->factory->store()->getStoreId('43');
-        $this->factory->store()->linkDepartmentManagers($this->departmentManager->id, $storeId2);
+        $store1 = $this->factory->store()->getStore('41');
+        $store2 = $this->factory->store()->getStore('43');
+        $departmentManager = $this->factory->store()->getDepartmentManager($store1->id);
+        $this->factory->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
 
-        $invoiceId = $this->createInvoice(array(), $this->storeId, $this->departmentManager);
+        $invoiceId = $this->createInvoice(array(), $store1->id);
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->auth($departmentManager);
 
         $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId2 . '/invoices/' . $invoiceId
+            '/api/1/stores/' . $store2->id . '/invoices/' . $invoiceId
         );
 
         $this->assertResponseCode(404);
@@ -172,7 +168,7 @@ class InvoiceControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId
+            '/api/1/stores/' . $store1->id . '/invoices/' . $invoiceId
         );
 
         $this->assertResponseCode(200);
@@ -183,16 +179,23 @@ class InvoiceControllerTest extends WebTestCase
      */
     public function testPostInvoiceValidation($expectedCode, array $data, array $assertions = array())
     {
-        $invoiceData = $this->postInvoiceDataProvider();
+        $store = $this->factory()->store()->getStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
 
-        $postData = $data + $invoiceData['invoice']['data'];
+        $postData = $data + array(
+            'supplier' => $supplier->id,
+            'acceptanceDate' => '2013-03-18 12:56',
+            'accepter' => 'Приемных Н.П.',
+            'legalEntity' => 'ООО "Магазин"',
+            'supplierInvoiceSku' => '1248373',
+        );
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $this->storeId . '/invoices',
+            '/api/1/stores/' . $store->id . '/invoices',
             $postData
         );
 
@@ -208,16 +211,17 @@ class InvoiceControllerTest extends WebTestCase
      */
     public function testPostInvoiceSupplierInvoiceDateIsValidAndAcceptanceDateIsInvalid(array $data)
     {
+        $store = $this->factory()->store()->getStore();
         $invoiceData = $this->postInvoiceDataProvider();
 
         $postData = $data + $invoiceData['invoice']['data'];
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $this->storeId . '/invoices',
+            '/api/1/stores/' . $store->id . '/invoices',
             $postData
         );
 
@@ -259,23 +263,28 @@ class InvoiceControllerTest extends WebTestCase
         array $putAssertions
     ) {
 
-        $postAssertions['createdDate'] = $this->getNowDate();
-        if (isset($putAssertions['createdDate'])) {
-            $putAssertions['createdDate'] = $this->getNowDate();
+        $store = $this->factory()->store()->getStore();
+        $supplier1 = $this->factory()->supplier()->getSupplier($postData['supplier']);
+        if (isset($putData['supplier'])) {
+            $supplier2 = $this->factory()->supplier()->getSupplier($putData['supplier']);
+            $putData['supplier'] = $supplier2->id;
         }
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $postData['supplier'] = $supplier1->id;
+
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
 
         $postJson = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $this->storeId . '/invoices',
+            '/api/1/stores/' . $store->id . '/invoices',
             $postData
         );
 
         $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postJson);
         $invoiceId = $postJson['id'];
+
         foreach ($postAssertions as $jsonPath => $expected) {
             Assert::assertJsonPathContains($expected, $jsonPath, $postJson);
         }
@@ -284,7 +293,7 @@ class InvoiceControllerTest extends WebTestCase
         $putJson = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId,
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId,
             $putData
         );
 
@@ -298,27 +307,23 @@ class InvoiceControllerTest extends WebTestCase
     public function putInvoiceDataProvider()
     {
         $data = array(
-            'sku' => 'product232',
             'supplier' => 'ООО "Поставщик"',
             'acceptanceDate' => '2013-03-18 12:56',
             'accepter' => 'Приемных Н.П.',
             'legalEntity' => 'ООО "Магазин"',
             'supplierInvoiceSku' => '1248373',
-            'supplierInvoiceDate' => '17.03.2013'
         );
         $assertions = array(
-            'sku' => 'product232',
-            'supplier' => 'ООО "Поставщик"',
+            'number' => '10001',
+            'supplier.name' => 'ООО "Поставщик"',
             'acceptanceDate' => '2013-03-18T12:56:00+0400',
             'accepter' => 'Приемных Н.П.',
             'legalEntity' => 'ООО "Магазин"',
             'supplierInvoiceSku' => '1248373',
-            'supplierInvoiceDate' => '2013-03-17T00:00:00+0400',
-            'createdDate' => '#set now date value in test to avoid test failure#',
         );
 
         return array(
-            array(
+            'update supplier' => array(
                 'postData' => $data,
                 'postAssertions' => $assertions,
                 'putData' => array(
@@ -326,31 +331,9 @@ class InvoiceControllerTest extends WebTestCase
                 ),
                 'expectedCode' => 200,
                 'putAssertions' => array(
-                    'supplier' => 'ООО "Подставщик"',
+                    'supplier.name' => 'ООО "Подставщик"',
                 ) + $assertions,
-            ),
-            array(
-                'postData' => $data,
-                'postAssertions' => $assertions,
-                'putData' => array(
-                    'supplierInvoiceDate' => '16.03.2013',
-                ),
-                'expectedCode' => 200,
-                'putAssertions' => array(
-                    'supplierInvoiceDate' => '2013-03-16T00:00:00+0400',
-                ),
-            ),
-            array(
-                'postData' => $data,
-                'postAssertions' => $assertions,
-                'putData' => array(
-                    'supplierInvoiceDate' => '19.03.2013',
-                ),
-                'expectedCode' => 400,
-                'putAssertions' => array(
-                    'children.supplierInvoiceDate.errors.0' => 'Дата накладной не должна быть старше даты приемки',
-                ),
-            ),
+            )
         );
     }
 
@@ -361,50 +344,15 @@ class InvoiceControllerTest extends WebTestCase
     {
         return array(
             /***********************************************************************************************
-             * 'sku'
+             * 'number'
              ***********************************************************************************************/
-            'valid sku' => array(
+            'number is skipped' => array(
                 201,
-                array('sku' => 'sku'),
+                array('number' => '10001'),
             ),
-            'valid sku 100 chars' => array(
+            'valid number 100 chars' => array(
                 201,
-                array('sku' => str_repeat('z', 100)),
-            ),
-            'empty sku' => array(
-                400,
-                array('sku' => ''),
-                array(
-                    'children.sku.errors.0'
-                    =>
-                    'Заполните это поле',
-                ),
-            ),
-            'not valid sku too long' => array(
-                400,
-                array('sku' => str_repeat("z", 105)),
-                array('children.sku.errors.0' => 'Не более 100 символов'),
-            ),
-            /***********************************************************************************************
-             * 'supplier'
-             ***********************************************************************************************/
-            'valid supplier' => array(
-                201,
-                array('supplier' => 'supplier'),
-            ),
-            'valid supplier 300 chars' => array(
-                201,
-                array('supplier' => str_repeat('z', 300)),
-            ),
-            'empty supplier' => array(
-                400,
-                array('supplier' => ''),
-                array('children.supplier.errors.0' => 'Заполните это поле'),
-            ),
-            'not valid supplier too long' => array(
-                400,
-                array('supplier' => str_repeat("z", 305)),
-                array('children.supplier.errors.0' => 'Не более 300 символов'),
+                array('number' => str_repeat('z', 100)),
             ),
             /***********************************************************************************************
              * 'accepter'
@@ -522,65 +470,13 @@ class InvoiceControllerTest extends WebTestCase
             /***********************************************************************************************
              * 'supplierInvoiceDate'
              ***********************************************************************************************/
-            'valid supplierInvoiceDate 2013-03-16T12:34:56' => array(
-                201,
-                array('supplierInvoiceDate' => '2013-03-16T12:34:56'),
-                array("supplierInvoiceDate" => '2013-03-16T12:34:56+0400')
-            ),
-            'valid supplierInvoiceDate 2013-03-16' => array(
-                201,
-                array('supplierInvoiceDate' => '2013-03-16'),
-                array("supplierInvoiceDate" => '2013-03-16T00:00:00+0400')
-            ),
-            'valid supplierInvoiceDate 2013-03-16 12:34' => array(
-                201,
-                array('supplierInvoiceDate' => '2013-03-16 12:34'),
-                array("supplierInvoiceDate" => '2013-03-16T12:34:00+0400')
-            ),
-            'valid supplierInvoiceDate 2013-03-16 12:34:45' => array(
-                201,
-                array('supplierInvoiceDate' => '2013-03-16 12:34:45'),
-                array("supplierInvoiceDate" => '2013-03-16T12:34:45+0400')
-            ),
-            'empty supplierInvoiceDate' => array(
-                201,
-                array('supplierInvoiceDate' => ''),
-            ),
-            'not valid supplierInvoiceDate 2013-02-31' => array(
+            'supplierInvoiceDate should not be present' => array(
                 400,
                 array('supplierInvoiceDate' => '2013-02-31'),
                 array(
-                    'children.supplierInvoiceDate.errors.0'
+                    'errors.0'
                     =>
-                    'Вы ввели неверную дату',
-                ),
-            ),
-            'not valid supplierInvoiceDate aaa' => array(
-                400,
-                array('supplierInvoiceDate' => 'aaa'),
-                array(
-                    'children.supplierInvoiceDate.errors.0'
-                    =>
-                    'Вы ввели неверную дату',
-                ),
-            ),
-            'valid supplierInvoiceDate is less than acceptanceDate' => array(
-                201,
-                array(
-                    'supplierInvoiceDate' => '2013-03-14',
-                    'acceptanceDate' => '2013-03-15'
-                )
-            ),
-            'not valid supplierInvoiceDate is more than acceptanceDate' => array(
-                400,
-                array(
-                    'supplierInvoiceDate' => '2013-03-15',
-                    'acceptanceDate' => '2013-03-14'
-                ),
-                array(
-                    'children.supplierInvoiceDate.errors.0'
-                    =>
-                    'Дата накладной не должна быть старше даты приемки',
+                    'Эта форма не должна содержать дополнительных полей: "supplierInvoiceDate"',
                 ),
             ),
             /***********************************************************************************************
@@ -600,24 +496,19 @@ class InvoiceControllerTest extends WebTestCase
 
     public function testDepartmentManagerCantGetInvoiceFromAnotherStore()
     {
-        $storeId2 = $this->factory->store()->getStoreId('43');
-        $departmentManager2 = $this->factory->user()->getUser(
-            'Депардье Ж.К.М.',
-            'password',
-            User::ROLE_DEPARTMENT_MANAGER
-        );
-        $this->factory->store()->linkDepartmentManagers($departmentManager2->id, $storeId2);
+        $store1 = $this->factory()->store()->getStore('41');
+        $store2 = $this->factory()->store()->getStore('43');
 
-        $accessToken1 = $this->factory->oauth()->auth($this->departmentManager);
-        $accessToken2 = $this->factory->oauth()->auth($departmentManager2);
+        $accessToken1 = $this->factory()->oauth()->authAsDepartmentManager($store1->id);
+        $accessToken2 = $this->factory()->oauth()->authAsDepartmentManager($store2->id);
 
-        $invoiceId1 = $this->createInvoice(array(), $this->storeId, $this->departmentManager);
-        $invoiceId2 = $this->createInvoice(array(), $storeId2, $departmentManager2);
+        $invoiceId1 = $this->createInvoice(array(), $store1->id);
+        $invoiceId2 = $this->createInvoice(array(), $store2->id);
 
         $this->clientJsonRequest(
             $accessToken2,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+            '/api/1/stores/' . $store1->id . '/invoices/' . $invoiceId1
         );
 
         $this->assertResponseCode(403);
@@ -625,7 +516,7 @@ class InvoiceControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $accessToken1,
             'GET',
-            '/api/1/stores/' . $storeId2 . '/invoices/' . $invoiceId2
+            '/api/1/stores/' . $store2->id . '/invoices/' . $invoiceId2
         );
 
         $this->assertResponseCode(403);
@@ -633,7 +524,7 @@ class InvoiceControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $accessToken1,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+            '/api/1/stores/' . $store1->id . '/invoices/' . $invoiceId1
         );
 
         $this->assertResponseCode(200);
@@ -641,7 +532,7 @@ class InvoiceControllerTest extends WebTestCase
         $this->clientJsonRequest(
             $accessToken2,
             'GET',
-            '/api/1/stores/' . $storeId2 . '/invoices/' . $invoiceId2
+            '/api/1/stores/' . $store2->id . '/invoices/' . $invoiceId2
         );
 
         $this->assertResponseCode(200);
@@ -656,39 +547,37 @@ class InvoiceControllerTest extends WebTestCase
      */
     public function testInvoicesFilter($query, $count, array $assertions = array())
     {
+        $store = $this->factory()->store()->getStore();
         $productId1 = $this->createProduct('111');
         $productId2 = $this->createProduct('222');
         $productId3 = $this->createProduct('333');
 
         $invoiceData1 = array(
-            'sku' => '1234-89',
             'supplierInvoiceSku' => 'ФРГ-1945'
         );
 
-        $invoiceId1 = $this->createInvoice($invoiceData1, $this->storeId, $this->departmentManager);
-        $this->createInvoiceProduct($invoiceId1, $productId1, 10, 6.98, $this->storeId, $this->departmentManager);
+        $invoiceId1 = $this->createInvoice($invoiceData1, $store->id);
+        $this->createInvoiceProduct($invoiceId1, $productId1, 10, 6.98, $store->id);
 
         $invoiceData2 = array(
-            'sku' => '866-89',
-            'supplierInvoiceSku' => '1234-89'
+            'supplierInvoiceSku' => '10001'
         );
 
-        $invoiceId2 = $this->createInvoice($invoiceData2, $this->storeId, $this->departmentManager);
-        $this->createInvoiceProduct($invoiceId2, $productId2, 5, 10.12, $this->storeId, $this->departmentManager);
+        $invoiceId2 = $this->createInvoice($invoiceData2, $store->id);
+        $this->createInvoiceProduct($invoiceId2, $productId2, 5, 10.12, $store->id);
 
         $invoiceData3 = array(
-            'sku' => '7561-89',
-            'supplierInvoiceSku' => '7561-89'
+            'supplierInvoiceSku' => '10003'
         );
 
-        $invoiceId3 = $this->createInvoice($invoiceData3, $this->storeId, $this->departmentManager);
-        $this->createInvoiceProduct($invoiceId3, $productId3, 7, 67.32, $this->storeId, $this->departmentManager);
+        $invoiceId3 = $this->createInvoice($invoiceData3, $store->id);
+        $this->createInvoiceProduct($invoiceId3, $productId3, 7, 67.32, $store->id);
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/invoices',
+            '/api/1/stores/' . $store->id . '/invoices',
             null,
             array('skuOrSupplierInvoiceSku' => $query)
         );
@@ -704,12 +593,12 @@ class InvoiceControllerTest extends WebTestCase
     public function invoiceFilterProvider()
     {
         return array(
-            'one by sku' => array(
-                '866-89',
+            'one by number' => array(
+                '10002',
                 1,
                 array(
-                    '0.sku' => '866-89',
-                    '0._meta.highlights.sku' => true,
+                    '0.number' => '10002',
+                    '0._meta.highlights.number' => true,
                 )
             ),
             'one by supplierInvoiceSku' => array(
@@ -720,44 +609,44 @@ class InvoiceControllerTest extends WebTestCase
                     '0._meta.highlights.supplierInvoiceSku' => true,
                 )
             ),
-            'one by both sku and supplierInvoiceSku' => array(
-                '7561-89',
+            'one by both number and supplierInvoiceSku' => array(
+                '10003',
                 1,
                 array(
-                    '0.supplierInvoiceSku' => '7561-89',
-                    '0.sku' => '7561-89',
-                    '0._meta.highlights.sku' => true,
+                    '0.supplierInvoiceSku' => '10003',
+                    '0.number' => '10003',
+                    '0._meta.highlights.number' => true,
                     '0._meta.highlights.supplierInvoiceSku' => true,
                 )
             ),
-            'none found: not existing sku' => array(
+            'none found: not existing number' => array(
                 '1234',
                 0,
             ),
-            'none found: empty sku' => array(
-                '7561',
-                0,
-            ),
-            'none found: partial sku' => array(
+            'none found: empty number' => array(
                 '',
                 0,
             ),
-            'two: one by sku and one by supplierInvoiceSku' => array(
-                '1234-89',
+            'none found: partial number' => array(
+                '1000',
+                0,
+            ),
+            'two: one by number and one by supplierInvoiceSku' => array(
+                '10001',
                 2,
                 array(
-                    '0.sku' => '1234-89',
-                    '1.supplierInvoiceSku' => '1234-89',
-                    '0._meta.highlights.sku' => true,
+                    '0.number' => '10001',
+                    '1.supplierInvoiceSku' => '10001',
+                    '0._meta.highlights.number' => true,
                     '1._meta.highlights.supplierInvoiceSku' => true,
                 )
             ),
-            'one by sku check invoice products' => array(
-                '866-89',
+            'one by number check invoice products' => array(
+                '10002',
                 1,
                 array(
-                    '0.sku' => '866-89',
-                    '0._meta.highlights.sku' => true,
+                    '0.number' => '10002',
+                    '0._meta.highlights.number' => true,
                 )
             ),
         );
@@ -765,80 +654,74 @@ class InvoiceControllerTest extends WebTestCase
 
     public function testInvoicesFilterOrder()
     {
+        $store = $this->factory()->store()->getStore();
         $productId1 = $this->createProduct('111');
         $productId2 = $this->createProduct('222');
 
         $invoiceData1 = array(
-            'sku' => '1234-89',
             'supplierInvoiceSku' => 'ФРГ-1945',
-            'supplierInvoiceDate' => '2013-03-17T09:12:33+0400',
             'acceptanceDate' => '2013-03-17T16:12:33+0400',
         );
 
-        $invoiceId1 = $this->createInvoice($invoiceData1, $this->storeId, $this->departmentManager);
-        $this->createInvoiceProduct($invoiceId1, $productId1, 10, 6.98, $this->storeId, $this->departmentManager);
+        $invoiceId1 = $this->createInvoice($invoiceData1, $store->id);
+        $this->createInvoiceProduct($invoiceId1, $productId1, 10, 6.98);
 
         $invoiceData2 = array(
-            'sku' => '866-89',
-            'supplierInvoiceSku' => '1234-89',
-            'supplierInvoiceDate' => '2013-03-16T11:23:45+0400',
+            'supplierInvoiceSku' => '10001',
             'acceptanceDate' => '2013-03-16T14:54:23+0400'
         );
 
-        $invoiceId2 = $this->createInvoice($invoiceData2, $this->storeId, $this->departmentManager);
-        $this->createInvoiceProduct($invoiceId2, $productId2, 5, 10.12, $this->storeId, $this->departmentManager);
+        $invoiceId2 = $this->createInvoice($invoiceData2, $store->id);
+        $this->createInvoiceProduct($invoiceId2, $productId2, 5, 10.12);
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/invoices',
+            '/api/1/stores/' . $store->id . '/invoices',
             null,
-            array('skuOrSupplierInvoiceSku' => '1234-89')
+            array('skuOrSupplierInvoiceSku' => '10001')
         );
 
         $this->assertResponseCode(200);
         Assert::assertJsonPathCount(2, '*.id', $response);
-        Assert::assertJsonPathEquals('1234-89', '0.sku', $response);
-        Assert::assertJsonPathEquals('866-89', '1.sku', $response);
+        Assert::assertJsonPathEquals('10001', '0.number', $response);
+        Assert::assertJsonPathEquals('10002', '1.number', $response);
 
         $invoiceData3 = array(
-            'sku' => '1235-89',
             'supplierInvoiceSku' => 'ФРГ-1945',
-            'supplierInvoiceDate' => '2013-03-14T19:34:13+0400',
             'acceptanceDate' => '2013-03-15T16:12:33+0400'
         );
 
-        $invoiceId3 = $this->createInvoice($invoiceData3, $this->storeId, $this->departmentManager);
-        $this->createInvoiceProduct($invoiceId3, $productId1, 10, 6.98, $this->storeId, $this->departmentManager);
+        $invoiceId3 = $this->createInvoice($invoiceData3, $store->id);
+        $this->createInvoiceProduct($invoiceId3, $productId1, 10, 6.98, $store->id);
 
         $invoiceData4 = array(
-            'sku' => '867-89',
-            'supplierInvoiceSku' => '1235-89',
-            'supplierInvoiceDate' => '2013-03-16T08:24:23+0400',
+            'supplierInvoiceSku' => '10003',
             'acceptanceDate' => '2013-03-16T14:54:23+0400'
         );
 
-        $invoiceId4 = $this->createInvoice($invoiceData4, $this->storeId, $this->departmentManager);
-        $this->createInvoiceProduct($invoiceId4, $productId2, 5, 10.12, $this->storeId, $this->departmentManager);
+        $invoiceId4 = $this->createInvoice($invoiceData4, $store->id);
+        $this->createInvoiceProduct($invoiceId4, $productId2, 5, 10.12, $store->id);
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/invoices',
+            '/api/1/stores/' . $store->id . '/invoices',
             null,
-            array('skuOrSupplierInvoiceSku' => '1235-89')
+            array('skuOrSupplierInvoiceSku' => '10003')
         );
 
         $this->assertResponseCode(200);
         Assert::assertJsonPathCount(2, '*.id', $response);
-        Assert::assertJsonPathEquals('867-89', '0.sku', $response);
-        Assert::assertJsonPathEquals('1235-89', '1.sku', $response);
+        Assert::assertJsonPathEquals('10004', '0.number', $response);
+        Assert::assertJsonPathEquals('10003', '1.number', $response);
     }
 
     public function testInvoiceWithVATFields()
     {
+        $store = $this->factory()->store()->getStore();
         $productId1 = $this->createProduct(array('sku' => '111', 'vat' => '10'));
         $productId2 = $this->createProduct(array('sku' => '222', 'vat' => '18'));
 
@@ -850,17 +733,17 @@ class InvoiceControllerTest extends WebTestCase
             'includesVAT' => true,
         );
 
-        $invoiceId1 = $this->createInvoice($invoiceData1, $this->storeId, $this->departmentManager);
+        $invoiceId1 = $this->createInvoice($invoiceData1, $store->id);
         $invoiceProductId1 = $this->
-            createInvoiceProduct($invoiceId1, $productId1, 99.99, 36.78, $this->storeId, $this->departmentManager);
+            createInvoiceProduct($invoiceId1, $productId1, 99.99, 36.78);
         $invoiceProductId2 = $this->
-            createInvoiceProduct($invoiceId1, $productId2, 10.77, 6.98, $this->storeId, $this->departmentManager);
+            createInvoiceProduct($invoiceId1, $productId2, 10.77, 6.98);
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId1
         );
 
         $this->assertResponseCode(200);
@@ -873,7 +756,7 @@ class InvoiceControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1 . '/products/' . $invoiceProductId2
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId1 . '/products/' . $invoiceProductId2
         );
         $this->assertResponseCode(204);
         $this->assertNull($response);
@@ -881,7 +764,7 @@ class InvoiceControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId1
         );
 
         $this->assertResponseCode(200);
@@ -894,7 +777,7 @@ class InvoiceControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1 . '/products/' . $invoiceProductId1
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId1 . '/products/' . $invoiceProductId1
         );
         $this->assertResponseCode(204);
         $this->assertNull($response);
@@ -902,7 +785,7 @@ class InvoiceControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId1
         );
 
         $this->assertResponseCode(200);
@@ -917,6 +800,7 @@ class InvoiceControllerTest extends WebTestCase
      */
     public function testInvoiceWithVATFieldsWithoutVAT()
     {
+        $store = $this->factory()->store()->getStore();
         $productId1 = $this->createProduct(array('sku' => '111', 'vat' => '10'));
         $productId2 = $this->createProduct(array('sku' => '222', 'vat' => '18'));
 
@@ -928,31 +812,15 @@ class InvoiceControllerTest extends WebTestCase
             'includesVAT' => false,
         );
 
-        $invoiceId1 = $this->createInvoice($invoiceData1, $this->storeId, $this->departmentManager);
-        $invoiceProductId1 = $this->createInvoiceProduct(
-            $invoiceId1,
-            $productId1,
-            99.99,
-            33.44,
-            $this->storeId,
-            $this->departmentManager,
-            false
-        );
-        $invoiceProductId2 = $this->createInvoiceProduct(
-            $invoiceId1,
-            $productId2,
-            10.77,
-            5.92,
-            $this->storeId,
-            $this->departmentManager,
-            false
-        );
+        $invoiceId1 = $this->createInvoice($invoiceData1, $store->id);
+        $invoiceProductId1 = $this->createInvoiceProduct($invoiceId1, $productId1, 99.99, 33.44);
+        $invoiceProductId2 = $this->createInvoiceProduct($invoiceId1, $productId2, 10.77, 5.92);
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId1
         );
 
         $this->assertResponseCode(200);
@@ -965,7 +833,7 @@ class InvoiceControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1 . '/products/' . $invoiceProductId2
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId1 . '/products/' . $invoiceProductId2
         );
         $this->assertResponseCode(204);
         $this->assertNull($response);
@@ -973,7 +841,7 @@ class InvoiceControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId1
         );
 
         $this->assertResponseCode(200);
@@ -986,7 +854,7 @@ class InvoiceControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1 . '/products/' . $invoiceProductId1
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId1 . '/products/' . $invoiceProductId1
         );
         $this->assertResponseCode(204);
         $this->assertNull($response);
@@ -994,7 +862,7 @@ class InvoiceControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId1
         );
 
         $this->assertResponseCode(200);
@@ -1006,28 +874,43 @@ class InvoiceControllerTest extends WebTestCase
 
     public function testInvoiceChangeIncludesVAT()
     {
+        $store = $this->factory()->store()->getStore();
         $productId1 = $this->createProduct(array('sku' => '111', 'vat' => '10'));
         $this->createProduct(array('sku' => '222', 'vat' => '18'));
+        $supplier = $this->factory()->supplier()->getSupplier();
 
         $invoiceData1 = array(
-            'sku' => 'sku232',
-            'supplier' => 'ООО "Поставщик"',
+            'supplier' => $supplier->id,
             'acceptanceDate' => '2013-03-18 12:56',
             'accepter' => 'Приемных Н.П.',
             'legalEntity' => 'ООО "Магазин"',
             'supplierInvoiceSku' => '1248373',
-            'supplierInvoiceDate' => '17.03.2013',
             'includesVAT' => true,
+            'products' => array(
+                array(
+                    'product' => $productId1,
+                    'quantity' => '99.99',
+                    'priceEntered' => '36.78'
+                )
+            )
         );
 
-        $invoiceId1 = $this->createInvoice($invoiceData1, $this->storeId, $this->departmentManager);
-        $this->createInvoiceProduct($invoiceId1, $productId1, 99.99, 36.78, $this->storeId, $this->departmentManager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData1
+        );
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $this->assertResponseCode(201);
+
+        $invoiceId1 = $response['id'];
+
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId1
         );
 
         $this->assertResponseCode(200);
@@ -1041,7 +924,7 @@ class InvoiceControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1,
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId1,
             $invoiceData1
         );
         $this->assertResponseCode(200);
@@ -1053,7 +936,7 @@ class InvoiceControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId1
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId1
         );
 
         $this->assertResponseCode(200);
