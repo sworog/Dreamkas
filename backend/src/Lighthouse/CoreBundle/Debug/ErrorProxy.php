@@ -19,7 +19,7 @@ class ErrorProxy
 
     /**
      * @param ErrorHandler $handler
-     * @param callable $object
+     * @param object $object
      */
     public function __construct(ErrorHandler $handler, $object)
     {

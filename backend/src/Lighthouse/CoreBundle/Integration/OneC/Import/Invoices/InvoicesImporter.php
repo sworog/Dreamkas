@@ -124,6 +124,7 @@ class InvoicesImporter
         /* @var \Exception[] $errors */
         $errors = array();
         foreach ($file as $row) {
+            $invoice = null;
             try {
                 $invoice = $this->createInvoice($row);
                 if ($invoice) {

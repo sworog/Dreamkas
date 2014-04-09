@@ -1286,9 +1286,9 @@ class StoreProductControllerTest extends WebTestCase
         $storeId = $this->factory->store()->getStoreId();
         $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
 
-        $product1 = $this->createProduct(array('name' => 'Пиво светлое Балтика', 'sku' => '111111111'));
-        $product2 = $this->createProduct(array('name' => 'Пиво ERDINGER светлое', 'sku' => '2222222'));
-        $product3 = $this->createProduct(array('name' => 'Светлые косы', 'sku' => '33454453'));
+        $this->createProduct(array('name' => 'Пиво светлое Балтика', 'sku' => '111111111'));
+        $this->createProduct(array('name' => 'Пиво ERDINGER светлое', 'sku' => '2222222'));
+        $this->createProduct(array('name' => 'Светлые косы', 'sku' => '33454453'));
 
         $response = $this->clientJsonRequest(
             $accessToken,

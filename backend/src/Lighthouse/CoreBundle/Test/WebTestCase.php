@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Test;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\Client\Client;
-use Lighthouse\CoreBundle\Test\Factory\Factory;
 use PHPUnit_Framework_ExpectationFailedException;
 
 /**
@@ -103,7 +102,12 @@ class WebTestCase extends ContainerAwareTestCase
     /**
      * @param array $modifiedData
      * @param string $storeId
-     * @param User $departmentManager
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
+     * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
+     * @throws \Doctrine\ODM\MongoDB\MongoDBException
+     * @throws \Doctrine\ODM\MongoDB\LockException
+     * @throws \Lighthouse\CoreBundle\Exception\ValidationFailedException
      * @return string
      * @deprecated
      */
@@ -152,8 +156,12 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $productId
      * @param float $quantity
      * @param float $price
-     * @param string $storeId
-     * @param User $manager
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
+     * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
+     * @throws \Doctrine\ODM\MongoDB\MongoDBException
+     * @throws \Doctrine\ODM\MongoDB\LockException
+     * @throws \Lighthouse\CoreBundle\Exception\ValidationFailedException
      * @return string
      */
     public function editInvoiceProduct(

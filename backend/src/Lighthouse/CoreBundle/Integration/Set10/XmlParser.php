@@ -4,7 +4,6 @@ namespace Lighthouse\CoreBundle\Integration\Set10;
 
 use Lighthouse\CoreBundle\Debug\ErrorHandler;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
-use Symfony\Component\Debug\Exception\ContextErrorException;
 use XMLReader;
 use DOMNode;
 use DOMDocument;

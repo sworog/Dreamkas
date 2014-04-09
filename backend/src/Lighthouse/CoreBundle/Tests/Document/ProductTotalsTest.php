@@ -10,11 +10,8 @@ use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
-use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
-use Lighthouse\CoreBundle\Test\Factory\Factory;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
-use DateTime;
 
 class ProductTotalsTest extends ContainerAwareTestCase
 {
@@ -51,7 +48,6 @@ class ProductTotalsTest extends ContainerAwareTestCase
         $manager = $this->getManager();
 
         $numericFactory = $this->getNumericFactory();
-        $factory = new Factory($this->getContainer());
 
         $store = $this->factory()->store()->getStore('42');
 

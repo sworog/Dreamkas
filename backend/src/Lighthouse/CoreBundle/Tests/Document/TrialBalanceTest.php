@@ -4,8 +4,6 @@ namespace Lighthouse\CoreBundle\Tests\Document;
 
 use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Lighthouse\CoreBundle\Document\Invoice\Invoice;
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Sale\Sale;

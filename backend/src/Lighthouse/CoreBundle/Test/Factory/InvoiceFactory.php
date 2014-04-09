@@ -56,11 +56,11 @@ class InvoiceFactory extends AbstractFactory
     }
 
     /**
+     * @param string $invoiceId
      * @param string $productId
      * @param float $quantity
      * @param float $price
-     * @param string $invoiceId
-     * @return InvoiceProduct
+     * @param string $id invoice product id to update
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      * @throws \LogicException
@@ -68,6 +68,7 @@ class InvoiceFactory extends AbstractFactory
      * @throws \Doctrine\ODM\MongoDB\MongoDBException
      * @throws \Doctrine\ODM\MongoDB\LockException
      * @throws \Lighthouse\CoreBundle\Exception\ValidationFailedException
+     * @return InvoiceProduct
      */
     public function createInvoiceProduct($invoiceId, $productId, $quantity, $price, $id = null)
     {
