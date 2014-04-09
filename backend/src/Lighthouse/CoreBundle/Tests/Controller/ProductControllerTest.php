@@ -1915,4 +1915,31 @@ class ProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
         Assert::assertJsonPathEquals('Такой артикул уже есть', 'children.sku.errors.0', $response);
     }
+
+    public function testPostActionToSubCategoryWithMarkup()
+    {
+        $category = $this->factory()->catalog()->getCategory();
+        $subCategory = $this
+            ->factory()
+            ->catalog()
+            ->createSubCategory($category->id, 'Подкатегория с наценкой', null, 10, 20);
+
+        $productData = $this->getProductData(false);
+        unset($productData['purchasePrice']);
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/products',
+            $productData + array(
+                'subCategory' => $subCategory->id
+            )
+        );
+
+        $this->assertResponseCode(201);
+        foreach ($productData as $prop => $value) {
+            Assert::assertJsonPathEquals($value, $prop, $response);
+        }
+    }
 }
