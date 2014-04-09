@@ -60,14 +60,7 @@ define(function(require, exports, module) {
             'keyup .table__orderProduct input': function(e) {
                 var block = this;
 
-                console.log(e.keyCode);
-
-                if (e.keyCode === 13) {
-                    return;
-                }
-
-                if (e.keyCode === 27){
-                    block.finishEdit();
+                if (e.keyCode === 13 || e.keyCode === 27) {
                     return;
                 }
 
@@ -201,11 +194,6 @@ define(function(require, exports, module) {
             var block = this;
 
             block.$errorTr.detach();
-        },
-        cancelEdit: function(){
-            var block = this;
-
-            block.removeProductError();
         }
     });
 });
