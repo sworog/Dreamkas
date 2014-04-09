@@ -282,4 +282,14 @@ public class OrderSteps extends ScenarioSteps {
                 (OrderProductObject) orderPage.getOrderProductObjectCollection().getAbstractObjectByLocator(locator);
         assertThat(orderProductObject.getSum(), is(expectedValue));
     }
+
+    @Step
+    public void agreementDownloadButtonShouldBeVisible() {
+        orderPage.getDownloadAgreementFileButton().shouldBeVisible();
+    }
+
+    @Step
+    public void agreementDownloadButtonShouldBeNotVisible() {
+        orderPage.getDownloadAgreementFileButton().shouldBeNotVisible();
+    }
 }

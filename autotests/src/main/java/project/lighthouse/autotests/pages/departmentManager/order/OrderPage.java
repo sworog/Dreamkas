@@ -71,4 +71,8 @@ public class OrderPage extends CommonPageObject {
     public String getSaveControlsText() {
         return findVisibleElement(saveControlsTextWebElement).getText();
     }
+
+    public ButtonFacade getDownloadAgreementFileButton() {
+        return new ButtonFacade(this, "Скачать договор");
+    }
 }

@@ -134,4 +134,14 @@ public class ThenOrderUserSteps {
     public void thenTheUserWaitsForTheOrderProductEditionPreloaderFinish() {
         orderSteps.waitForPreLoader();
     }
+
+    @Then("the user checks the download agreement button should be visible on the order page")
+    public void thenTheUserChecksTheDownloadAgreementButtonShouldBeVisibleOnTheOrderPage() {
+        orderSteps.agreementDownloadButtonShouldBeVisible();
+    }
+
+    @Then("the user checks the download agreement button should be not visible on the order page")
+    public void thenTheUserChecksTheDownloadAgreementButtonShouldBeNotVisibleOnTheOrderPage() {
+        orderSteps.agreementDownloadButtonShouldBeNotVisible();
+    }
 }
