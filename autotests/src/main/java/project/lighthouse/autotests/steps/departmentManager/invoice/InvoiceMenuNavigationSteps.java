@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import project.lighthouse.autotests.pages.departmentManager.invoice.menu.InvoiceLocalNavigation;
 
-public class InvoiceSteps extends ScenarioSteps {
+public class InvoiceMenuNavigationSteps extends ScenarioSteps {
 
     InvoiceLocalNavigation invoiceLocalNavigation;
 
