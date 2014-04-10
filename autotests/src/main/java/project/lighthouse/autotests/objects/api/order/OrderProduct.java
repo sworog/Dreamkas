@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects.api;
+package project.lighthouse.autotests.objects.api.order;
 
 import org.json.JSONException;
 import org.json.JSONObject;

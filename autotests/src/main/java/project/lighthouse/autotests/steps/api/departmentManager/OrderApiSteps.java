@@ -6,10 +6,10 @@ import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.api.factories.OrdersFactory;
 import project.lighthouse.autotests.helper.UrlHelper;
-import project.lighthouse.autotests.objects.api.Order;
-import project.lighthouse.autotests.objects.api.OrderProduct;
 import project.lighthouse.autotests.objects.api.Supplier;
 import project.lighthouse.autotests.objects.api.User;
+import project.lighthouse.autotests.objects.api.order.Order;
+import project.lighthouse.autotests.objects.api.order.OrderProduct;
 
 import java.io.IOException;
 
