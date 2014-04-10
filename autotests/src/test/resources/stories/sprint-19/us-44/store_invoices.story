@@ -11,7 +11,7 @@ Scenario: Store invoice creation
 
 Given there is the user with name 'departmentManager-SIC', position 'departmentManager-SIC', username 'departmentManager-SIC', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'SIC-01' managed by department manager named 'departmentManager-SIC'
-And the user is on the invoice list page
+And the user is on the store 'SIC-01' invoice list page
 When the user logs in using 'departmentManager-SIC' userName and 'lighthouse' password
 When the user clicks the create button on the invoice list page
 And the user inputs '654321' in the invoice 'sku' field
@@ -23,7 +23,7 @@ And the user inputs '799' in the invoice 'supplierInvoiceSku' field
 And the user inputs '01.04.2013' in the invoice 'supplierInvoiceDate' field
 And the user navigates to invoice product addition
 And the user clicks finish edit button and ends the invoice edition
-Given the user is on the invoice list page
+Given the user is on the store 'SIC-01' invoice list page
 Then the user checks the invoice with '654321' sku is present
 And the user checks the invoice with '654321' sku has 'acceptanceDate' equal to '02.04.2013 16:23'
 And the user checks the invoice with '654321' sku has 'supplier' equal to 'ОАЭ Поставщик'
@@ -38,12 +38,12 @@ And there is the store with number 'SIC-01' managed by department manager named 
 And there is the store with number 'SIC-02' managed by department manager named 'departmentManager-SIC-2'
 And there is the invoice with sku 'CIIDSBDU-1' in the store with number 'SIC-01' ruled by department manager with name 'departmentManager-SIC'
 And there is the invoice with sku 'CIIDSBDU-2' in the store with number 'SIC-02' ruled by department manager with name 'departmentManager-SIC-2'
-And the user is on the invoice list page
+And the user is on the store 'SIC-01' invoice list page
 When the user logs in using 'departmentManager-SIC' userName and 'lighthouse' password
 Then the user checks the invoice with 'CIIDSBDU-1' sku is present
 Then the user checks the invoice with 'CIIDSBDU-2' sku is not present
 When the user logs out
-Given the user is on the invoice list page
+Given the user is on the store 'SIC-02' invoice list page
 When the user logs in using 'departmentManager-SIC-2' userName and 'lighthouse' password
 Then the user checks the invoice with 'CIIDSBDU-2' sku is present
 Then the user checks the invoice with 'CIIDSBDU-1' sku is not present
@@ -53,7 +53,7 @@ Scenario: Left menu invoices link is visible by departmentManager who has store
 
 Given there is the user with name 'departmentManager-SIC', position 'departmentManager-SIC', username 'departmentManager-SIC', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'SIC-01' managed by department manager named 'departmentManager-SIC'
-And the user opens the authorization page
+And the user is on the store 'SIC-01' invoice list page
 When the user logs in using 'departmentManager-SIC' userName and 'lighthouse' password
 Then the user checks the invoices navigation menu item is visible
 
@@ -61,7 +61,7 @@ Scenario: Invoices link navigation by departmentManager who has store
 
 Given there is the user with name 'departmentManager-SIC', position 'departmentManager-SIC', username 'departmentManager-SIC', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'SIC-01' managed by department manager named 'departmentManager-SIC'
-And the user is on the invoice list page
+And the user is on the store 'SIC-01' invoice list page
 When the user logs in using 'departmentManager-SIC' userName and 'lighthouse' password
 Then the user dont see the 403 error
 
@@ -69,7 +69,7 @@ Scenario: Invoices create navigation by departmentManager who has store
 
 Given there is the user with name 'departmentManager-SIC', position 'departmentManager-SIC', username 'departmentManager-SIC', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'SIC-01' managed by department manager named 'departmentManager-SIC'
-And the user is on the invoice create page
+And the user is on the store 'SIC-01' invoice list page
 When the user logs in using 'departmentManager-SIC' userName and 'lighthouse' password
 Then the user dont see the 403 error
 

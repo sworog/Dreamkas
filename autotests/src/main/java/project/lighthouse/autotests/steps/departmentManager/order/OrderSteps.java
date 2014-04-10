@@ -18,6 +18,7 @@ import project.lighthouse.autotests.pages.departmentManager.order.OrdersListPage
 import project.lighthouse.autotests.storage.Storage;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 public class OrderSteps extends ScenarioSteps {
@@ -238,10 +239,9 @@ public class OrderSteps extends ScenarioSteps {
 
     @Step
     public void assertOrderNumberHeader() {
-        String expectedNumber = String.format("Заказ поставщику № %s", Storage.getOrderVariableStorage().getNumber());
         assertThat(
                 orderPage.getOrderNumberHeaderText(),
-                equalTo(expectedNumber));
+                equalTo(Storage.getOrderVariableStorage().getNumber()));
     }
 
     @Step
@@ -274,5 +274,22 @@ public class OrderSteps extends ScenarioSteps {
     @Step
     public void focusOutClick() {
         orderPage.findVisibleElement(By.xpath("//h2[text()='Добавление товара в заказ']")).click();
+    }
+
+    @Step
+    public void orderProductCollectionObjectPriceSumAssert(String locator, String expectedValue) {
+        OrderProductObject orderProductObject =
+                (OrderProductObject) orderPage.getOrderProductObjectCollection().getAbstractObjectByLocator(locator);
+        assertThat(orderProductObject.getSum(), is(expectedValue));
+    }
+
+    @Step
+    public void agreementDownloadButtonShouldBeVisible() {
+        orderPage.getDownloadAgreementFileButton().shouldBeVisible();
+    }
+
+    @Step
+    public void agreementDownloadButtonShouldBeNotVisible() {
+        orderPage.getDownloadAgreementFileButton().shouldBeNotVisible();
     }
 }

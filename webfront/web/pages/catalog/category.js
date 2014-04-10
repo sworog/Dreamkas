@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('kit/core/page.deprecated'),
         pageParams = require('pages/catalog/params'),
         CatalogCategoryBlock = require('blocks/catalogCategory/catalogCategory'),
         CatalogProductsCollection = require('collections/catalogProducts'),
@@ -12,17 +12,23 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_catalog_category',
-        section: 'products',
+        params: {
+            catalogGroupId: null,
+            catalogCategoryId: null,
+            catalogSubCategoryId: null,
+            editMode: null,
+            section: 'products'
+        },
         partials: {
             '#content': require('tpl!./templates/category.html')
         },
-        initialize: function(params) {
+        initialize: function() {
             var page = this;
 
             if (page.referrer.__name__ && page.referrer.__name__.indexOf('page_catalog') >= 0) {
-                _.extend(params, pageParams);
+                _.extend(page.params, pageParams);
             } else {
-                pageParams.editMode = params.editMode || pageParams.editMode || 'false'
+                pageParams.editMode = page.params.editMode || pageParams.editMode || 'false'
             }
 
             if (currentUserModel.stores.length) {
@@ -53,31 +59,31 @@ define(function(require) {
             });
 
             page.catalogGroupModel = new СatalogGroupModel({
-                id: params.catalogGroupId,
+                id: page.params.catalogGroupId,
                 storeId: pageParams.storeId
             });
 
             page.catalogProductsCollection = new CatalogProductsCollection([], {
-                subCategory: params.catalogSubCategoryId,
+                subCategory: page.params.catalogSubCategoryId,
                 storeId: pageParams.storeId
             });
 
             page.storeProductsCollection = new StoreProductsCollection([], {
-                subCategory: params.catalogSubCategoryId,
+                subCategory: page.params.catalogSubCategoryId,
                 storeId: pageParams.storeId
             });
 
             $.when(
                     page.catalogGroupModel.fetch(),
-                    !pageParams.storeId && params.catalogSubCategoryId ? page.catalogProductsCollection.fetch() : {},
-                    pageParams.storeId && params.catalogSubCategoryId ? page.storeProductsCollection.fetch() : {}
+                    !pageParams.storeId && page.params.catalogSubCategoryId ? page.catalogProductsCollection.fetch() : {},
+                    pageParams.storeId && page.params.catalogSubCategoryId ? page.storeProductsCollection.fetch() : {}
                 ).then(function() {
 
-                    if (pageParams.storeId && params.catalogSubCategoryId){
+                    if (pageParams.storeId && page.params.catalogSubCategoryId){
                         page.catalogProductsCollection.reset(_.map(page.storeProductsCollection.toJSON(), 'product'));
                     }
 
-                    page.catalogCategoryModel = page.catalogGroupModel.categories.get(params.catalogCategoryId);
+                    page.catalogCategoryModel = page.catalogGroupModel.categories.get(page.params.catalogCategoryId);
                     page.catalogSubCategoriesCollection = page.catalogCategoryModel.subCategories;
 
                     page.render();
@@ -86,11 +92,11 @@ define(function(require) {
                         el: document.getElementById('catalogCategory'),
                         catalogCategoryModel: page.catalogCategoryModel,
                         catalogSubCategoriesCollection: page.catalogSubCategoriesCollection,
-                        catalogSubCategoryId: params.catalogSubCategoryId,
+                        catalogSubCategoryId: page.params.catalogSubCategoryId,
                         catalogProductsCollection: page.catalogProductsCollection,
                         storeProductsCollection: page.storeProductsCollection,
                         editMode: pageParams.editMode,
-                        section: page.section,
+                        section: page.params.section,
                         storeId: pageParams.storeId
                     })
                 });

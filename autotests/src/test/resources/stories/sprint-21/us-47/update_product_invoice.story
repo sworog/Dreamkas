@@ -1,6 +1,7 @@
 Meta:
 @sprint_21
 @us_47
+@test
 
 Narrative:
 As a user
@@ -42,6 +43,9 @@ Then the user checks the product invoices list contains entry
 | 02.04.2013 | 1,0 | 100,00 | 100,00 |
 
 Scenario: Found more invoices
+
+Meta:
+@depends_on_previous_test
 
 Given there is the user with name 'departmentManager-UIBS-FF', position 'departmentManager-UIBS-FF', username 'departmentManager-UIBS-FF', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'UIBS-FF' managed by department manager named 'departmentManager-UIBS-FF'

@@ -8,6 +8,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
+import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.helper.file.FileCreator;
 import project.lighthouse.autotests.helper.file.FileDownloader;
@@ -52,6 +53,7 @@ public class SupplierSteps extends ScenarioSteps {
     @Step
     public void createButtonClick() {
         supplierPage.getCreateButtonFacade().click();
+        new PreLoader(getDriver()).await();
     }
 
     @Step

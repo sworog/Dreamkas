@@ -1,0 +1,6 @@
+<% var SupplierModel = require('models/supplier') %>
+<% var supplierModel = supplierModel || new SupplierModel() %>
+
+<a id="downloadAgreementLink" style="visibility: <%- supplierModel.get('agreement.url') ? 'visible' : 'hidden' %>" data-navigate="false" class="button" href="<%- supplierModel.get('agreement.url')%>">
+    Скачать договор
+</a>

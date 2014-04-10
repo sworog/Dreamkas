@@ -1,0 +1,12 @@
+<% var partials = _.defaults(partials, {
+    '#content': function(data) {
+        return '<h1>Lighthouse</h1>';
+    },
+    globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation.html')
+}) %>
+
+
+<%= partials.globalNavigation(obj) %>
+<div class="page__content">
+    <%= partials['#content'](obj) %>
+</div>

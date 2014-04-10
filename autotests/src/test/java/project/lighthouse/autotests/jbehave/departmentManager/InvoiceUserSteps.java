@@ -4,8 +4,10 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.*;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
+import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.helper.exampleTable.ExampleTableConverter;
 import project.lighthouse.autotests.jbehave.api.EndInvoiceApiSteps;
+import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.StoreApiSteps;
@@ -38,6 +40,12 @@ public class InvoiceUserSteps {
     public void givenTheUserIsOnTheInvoiceListPage() throws IOException, JSONException {
         beforeSteps();
         invoiceSteps.openInvoiceListPage();
+    }
+
+    @Given("the user is on the store '$storeName' invoice list page")
+    public void givenTheUserIsOnTheStoreInvoiceListPage(String storeName) throws JSONException {
+        Store store = StaticData.stores.get(storeName);
+        invoiceSteps.openStoreInvoiceListPage(store);
     }
 
     @Given("before steps")
@@ -162,6 +170,11 @@ public class InvoiceUserSteps {
     @When("the user deletes the invoice product with '$elementName' sku")
     public void whenTheUserDeletesTheInvoiceProducWithSku(String elementName) {
         invoiceSteps.childrenItemNavigateAndClickByFindByLocator(elementName);
+    }
+
+    @When("the user tries to delete the invoice product with '$elementName' sku")
+    public void whenTheUserTriesToDeleteTheInvoiceProducWithSku(String elementName) {
+        invoiceSteps.tryChildrenItemNavigateAndClickByFindByLocator(elementName);
     }
 
     @Then("the user checks the invoice with '$skuValue' sku has '$name' equal to '$expectedValue'")

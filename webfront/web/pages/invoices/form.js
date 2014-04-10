@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('kit/core/page.deprecated'),
         InvoiceModel = require('models/invoice'),
         Form_invoice = require('blocks/form/form_invoice/form_invoice'),
         currentUserModel = require('models/currentUser'),

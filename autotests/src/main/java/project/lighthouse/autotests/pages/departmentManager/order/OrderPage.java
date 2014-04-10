@@ -18,7 +18,7 @@ import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductO
 @DefaultUrl("/orders/create")
 public class OrderPage extends CommonPageObject {
 
-    @FindBy(xpath = "//*[@class='page__data']/h2")
+    @FindBy(name = "orderNumber")
     @SuppressWarnings("unused")
     WebElement orderNumberHeaderTextWebElement;
 
@@ -70,5 +70,9 @@ public class OrderPage extends CommonPageObject {
 
     public String getSaveControlsText() {
         return findVisibleElement(saveControlsTextWebElement).getText();
+    }
+
+    public ButtonFacade getDownloadAgreementFileButton() {
+        return new ButtonFacade(this, "Скачать договор");
     }
 }
