@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.CommonViewInterface;
-import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceBrowsing;
+import project.lighthouse.autotests.pages.departmentManager.invoice.deprecated.InvoiceBrowsing;
 import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffListPage;
 import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffPage;
 

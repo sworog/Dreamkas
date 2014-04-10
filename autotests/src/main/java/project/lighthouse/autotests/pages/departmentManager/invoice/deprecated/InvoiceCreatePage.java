@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.pages.departmentManager.invoice;
+package project.lighthouse.autotests.pages.departmentManager.invoice.deprecated;
 
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;

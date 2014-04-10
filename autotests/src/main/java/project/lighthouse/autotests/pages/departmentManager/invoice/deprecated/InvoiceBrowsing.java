@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.pages.departmentManager.invoice;
+package project.lighthouse.autotests.pages.departmentManager.invoice.deprecated;
 
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;

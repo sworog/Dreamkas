@@ -13,7 +13,11 @@ import project.lighthouse.autotests.elements.preLoader.CheckBoxPreloader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.Store;
-import project.lighthouse.autotests.pages.departmentManager.invoice.*;
+import project.lighthouse.autotests.pages.departmentManager.invoice.deprecated.InvoiceBrowsing;
+import project.lighthouse.autotests.pages.departmentManager.invoice.deprecated.InvoiceCreatePage;
+import project.lighthouse.autotests.pages.departmentManager.invoice.deprecated.InvoiceListPage;
+import project.lighthouse.autotests.pages.departmentManager.invoice.deprecated.InvoiceSearchPage;
+import project.lighthouse.autotests.pages.departmentManager.invoice.menu.InvoiceLocalNavigation;
 
 public class InvoiceSteps extends ScenarioSteps {
 
