@@ -6,14 +6,15 @@
     suppliers: new SuppliersCollection()
 }, collections); %>
 <% var templates = _.extend({
-    select_suppliers: require('tpl!blocks/select/select_suppliers/template.html')
+    select_suppliers: require('tpl!blocks/select/select_suppliers/template.html'),
+    downloadAgreementLink: require('tpl!blocks/downloadAgreementLink/downloadAgreementLink.html')
 }, templates) %>
 <% var moment = require('moment') %>
 
 <form class="form form_invoice">
     <div class="form__field">
         <label class="form__label">Дата</label>
-        <input value="<%- moment().valueOf() %>" type="text" class="inputText" name="date"/>
+        <input value="<%- moment().valueOf() %>" type="text" class="inputText inputDate" name="date"/>
     </div>
     <div class="form__field">
         <label class="form__label">Поставщик</label>

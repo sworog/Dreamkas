@@ -7,7 +7,7 @@
 }, collections); %>
 <% var templates = _.extend({
     select_suppliers: require('tpl!blocks/select/select_suppliers/template.html'),
-    downloadAgreementLink: require('tpl!blocks/form/form_order/downloadAgreementLink.html')
+    downloadAgreementLink: require('tpl!blocks/downloadAgreementLink/downloadAgreementLink.html')
 }, templates) %>
 
 <form class="form form_order <%- model.id ? '' : 'form_changed' %>" style="margin-bottom: 20px;">
@@ -16,9 +16,6 @@
         <%= templates.select_suppliers({
             collections: _.pick(collections, 'suppliers'),
             selected: model.get('supplier.id')
-        }) %>
-        <%= templates.downloadAgreementLink({
-            supplierModel: collections.suppliers.get(model.get('supplier.id'))
         }) %>
     </div>
     <div style="margin-bottom: 30px;">

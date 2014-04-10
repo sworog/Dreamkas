@@ -1,16 +1,22 @@
-<%
-/**
- *
- * @collections.suppliers
- * @selected [supplierModel.id]
- */
-%>
+<% var SuppliersCollection = require('collections/suppliers') %>
+<% var selected = selected || null %>
+<% var collections = _.extend({
+    suppliers: new SuppliersCollection()
+}, collections) %>
+<% var templates = _.extend({
+    agreementLink: require('tpl!blocks/select/select_suppliers/agreementLink.html')
+}, templates) %>
 
-<select class="select" name="supplier">
-    <option value="" selected disabled>Выберите поставщика</option>
-    <% collections.suppliers.forEach(function(supplierModel){ %>
-    <option <%- selected === supplierModel.id ? 'selected' : '' %>
-            value="<%- supplierModel.id %>"><%- supplierModel.get('name') %>
-    </option>
-    <% }) %>
-</select>
+<div class="select_suppliers">
+    <select class="select" name="supplier">
+        <option value="" selected disabled>Выберите поставщика</option>
+        <% collections.suppliers.forEach(function(supplierModel){ %>
+        <option <%- selected === supplierModel.id ? 'selected' : '' %>
+                value="<%- supplierModel.id %>"><%- supplierModel.get('name') %>
+        </option>
+        <% }) %>
+    </select>
+    <%= templates.agreementLink({
+        supplierModel: collections.suppliers.get(selected)
+    }) %>
+</div>

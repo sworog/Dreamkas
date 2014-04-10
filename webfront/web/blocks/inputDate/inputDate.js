@@ -16,7 +16,7 @@ define(function(require) {
             templates: {
                 datepicker__controls: require('tpl!blocks/inputDate/templates/datepicker__controls.html')
             },
-
+            el: '.inputDate',
             initialize: function() {
 
                 var block = this,
