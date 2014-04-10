@@ -243,7 +243,7 @@ class WebTestCase extends ContainerAwareTestCase
      * @param array $skus
      * @param bool $unique
      * @throws \PHPUnit_Framework_AssertionFailedError
-     * @return array
+     * @return array|string[] sku => id
      */
     protected function createProductsBySku(array $skus, $unique = false)
     {
@@ -519,7 +519,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function createGroup($name = 'Продовольственные товары')
     {
-        return $this->factory->catalog()->createGroup($name)->id;
+        return $this->factory()->catalog()->createGroup($name)->id;
     }
 
     /**
@@ -530,7 +530,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function createCategory($groupId = null, $name = 'Винно-водочные изделия')
     {
-        return $this->factory->catalog()->createCategory($groupId, $name)->id;
+        return $this->factory()->catalog()->createCategory($groupId, $name)->id;
     }
 
     /**
@@ -541,7 +541,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function createSubCategory($categoryId = null, $name = 'Водка')
     {
-        return $this->factory->catalog()->createSubCategory($categoryId, $name)->id;
+        return $this->factory()->catalog()->createSubCategory($categoryId, $name)->id;
     }
 
     /**
