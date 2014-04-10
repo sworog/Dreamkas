@@ -192,6 +192,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $trialBalance->price = $document->getProductPrice();
         $trialBalance->quantity = $document->getProductQuantity();
         $trialBalance->storeProduct = $storeProduct;
+        $trialBalance->createdDate = clone $document->getReasonDate();
 
         $dm->persist($storeProduct);
         $dm->persist($trialBalance);
@@ -248,7 +249,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
                 }
             }
 
-            $trialBalance->createdDate = $newAcceptanceDate;
+            $trialBalance->createdDate = clone $newAcceptanceDate;
             $trialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
             $this->computeChangeSet($dm, $trialBalance);
         }

@@ -248,6 +248,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $storeProduct = $storeProductRepository->findOrCreateByStoreProduct($store, $product);
 
         $writeOff = new WriteOff();
+        $writeOff->date = new \DateTime();
         $writeOff->store = $store;
 
         $writeOffProduct = new WriteOffProduct();

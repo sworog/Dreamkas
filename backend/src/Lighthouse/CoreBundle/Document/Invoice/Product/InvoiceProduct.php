@@ -281,12 +281,12 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
         $decimalVAT = Decimal::createFromNumeric($this->product->vat * 0.01, 2);
         if ($this->invoice->includesVAT) {
             // Расчёт цены без НДС из цены с НДС
-            $this->price = $this->priceEntered;
+            $this->price = clone $this->priceEntered;
             $this->priceWithoutVAT = $this->price->div($decimalVAT->add(1), Decimal::ROUND_HALF_EVEN);
             $this->amountVAT = $this->priceWithoutVAT->sub($this->price->toString())->invert();
         } else {
             // Расчёт цены с НДС из цены без НДС
-            $this->priceWithoutVAT = $this->priceEntered;
+            $this->priceWithoutVAT = clone $this->priceEntered;
             $this->price = $this->priceWithoutVAT->mul($decimalVAT->add(1), Decimal::ROUND_HALF_EVEN);
             $this->amountVAT = $this->priceWithoutVAT->mul($decimalVAT, Decimal::ROUND_HALF_EVEN);
         }
