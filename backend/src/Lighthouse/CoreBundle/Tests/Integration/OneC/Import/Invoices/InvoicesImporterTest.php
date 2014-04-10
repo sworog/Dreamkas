@@ -85,9 +85,10 @@ class InvoicesImporterTest extends WebTestCase
 
     public function testImportNoStoreInInvoiceRow()
     {
-        $storeId1 = $this->factory->store()->getStoreId(1, 'Авиаконструкторов 2');
-        $storeId2 = $this->factory->store()->getStoreId(2, 'Есенина 1');
-        $storeId3 = $this->factory->store()->getStoreId(3, 'Металлистов, 116 (МЕ)');
+        $this->markTestSkipped('Supplier create');
+        $storeId1 = $this->factory()->store()->getStoreId(1, 'Авиаконструкторов 2');
+        $storeId2 = $this->factory()->store()->getStoreId(2, 'Есенина 1');
+        $storeId3 = $this->factory()->store()->getStoreId(3, 'Металлистов, 116 (МЕ)');
 
         $this->createProductsBySku(
             array(
