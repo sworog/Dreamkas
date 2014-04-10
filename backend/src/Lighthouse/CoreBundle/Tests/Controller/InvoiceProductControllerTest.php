@@ -267,7 +267,8 @@ class InvoiceProductControllerTest extends WebTestCase
      */
     public function testPostActionValidation($expectedCode, array $data, array $assertions = array())
     {
-        $invoiceId = $this->createInvoice(array(), $this->storeId, $this->departmentManager);
+        $store = $this->factory()->store()->getStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
         $productId = $this->createProduct();
         $invoiceData = $this->getInvoiceData($supplier->id, $productId, 10, 17.68);
 
