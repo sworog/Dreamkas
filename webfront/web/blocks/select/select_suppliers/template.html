@@ -1,0 +1,16 @@
+<%
+/**
+ *
+ * @collections.suppliers
+ * @selected [supplierModel.id]
+ */
+%>
+
+<select class="select" name="supplier">
+    <option value="" selected disabled>Выберите поставщика</option>
+    <% collections.suppliers.forEach(function(supplierModel){ %>
+    <option <%- selected === supplierModel.id ? 'selected' : '' %>
+            value="<%- supplierModel.id %>"><%- supplierModel.get('name') %>
+    </option>
+    <% }) %>
+</select>

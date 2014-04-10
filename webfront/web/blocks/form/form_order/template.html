@@ -6,20 +6,17 @@
     suppliers: new SuppliersCollection()
 }, collections); %>
 <% var templates = _.extend({
+    select_suppliers: require('tpl!blocks/select/select_suppliers/template.html'),
     downloadAgreementLink: require('tpl!blocks/form/form_order/downloadAgreementLink.html')
 }, templates) %>
 
 <form class="form form_order <%- model.id ? '' : 'form_changed' %>" style="margin-bottom: 20px;">
     <div class="form__field" style="padding-bottom: 30px;">
         <label class="form__label">Поставщик</label>
-        <select class="select" name="supplier">
-            <option value="" selected disabled>Выберите поставщика</option>
-            <% collections.suppliers.forEach(function(supplierModel){ %>
-            <% var selected = supplierModel.id === model.get('supplier.id') %>
-            <option <%- selected ? 'selected' : '' %>
-                    value="<%- supplierModel.id %>"><%- supplierModel.get('name') %></option>
-            <% }) %>
-        </select>
+        <%= templates.select_suppliers({
+            collections: _.pick(collections, 'suppliers'),
+            selected: model.get('supplier.id')
+        }) %>
         <%= templates.downloadAgreementLink({
             supplierModel: collections.suppliers.get(model.get('supplier.id'))
         }) %>

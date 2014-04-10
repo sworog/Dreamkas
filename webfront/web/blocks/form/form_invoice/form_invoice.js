@@ -1,15 +1,23 @@
 define(function(require) {
     //requirements
     var Form = require('blocks/form/form'),
-        router = require('router')
+        currentUserModel = require('models/currentUser'),
+        InputDate = require('blocks/inputDate/inputDate'),
+        router = require('router');
 
     return Form.extend({
-        __name__: 'form_invoice',
-        template: require('tpl!blocks/form/form_invoice/templates/index.html'),
-        submitSuccess: function(){
+        redirectUrl: function(){
+            return '/' + currentUserModel.stores.at(0).id + '/invoices';
+        },
+        el: '.form_invoice',
+        initialize: function(){
             var block = this;
 
-            router.navigate('/stores/' + block.model.get('store.id') + '/invoices/' + block.model.id + '?editMode=true');
+            Form.prototype.initialize.apply(block, arguments);
+
+            new InputDate({
+                el: block.el.querySelector('[name="date"]')
+            });
         }
     });
 });
