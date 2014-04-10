@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.steps.departmentManager;
+package project.lighthouse.autotests.steps.departmentManager.invoice.deprecated;
 
 import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
@@ -17,7 +17,6 @@ import project.lighthouse.autotests.pages.departmentManager.invoice.deprecated.I
 import project.lighthouse.autotests.pages.departmentManager.invoice.deprecated.InvoiceCreatePage;
 import project.lighthouse.autotests.pages.departmentManager.invoice.deprecated.InvoiceListPage;
 import project.lighthouse.autotests.pages.departmentManager.invoice.deprecated.InvoiceSearchPage;
-import project.lighthouse.autotests.pages.departmentManager.invoice.menu.InvoiceLocalNavigation;
 
 public class InvoiceSteps extends ScenarioSteps {
 
@@ -25,8 +24,8 @@ public class InvoiceSteps extends ScenarioSteps {
     InvoiceListPage invoiceListPage;
     InvoiceBrowsing invoiceBrowsing;
 
+    //TODO moved invoiceSearchPage out
     InvoiceSearchPage invoiceSearchPage;
-    InvoiceLocalNavigation invoiceLocalNavigation;
 
     @Step
     public void openInvoiceCreatePage() {
@@ -219,11 +218,6 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void searchButtonClick() {
         invoiceSearchPage.searchButtonClick();
-    }
-
-    @Step
-    public void searchLinkClick() {
-        invoiceLocalNavigation.searchLinkClick();
     }
 
     @Step
