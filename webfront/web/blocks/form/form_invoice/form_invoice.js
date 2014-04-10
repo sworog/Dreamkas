@@ -1,6 +1,7 @@
 define(function(require) {
     //requirements
     var Form = require('blocks/form/form'),
+        InvoiceModel = require('models/invoice'),
         currentUserModel = require('models/currentUser'),
         SuppliersCollection = require('collections/suppliers'),
         InputDate = require('blocks/inputDate/inputDate'),
@@ -13,6 +14,20 @@ define(function(require) {
             return '/' + currentUserModel.stores.at(0).id + '/invoices';
         },
         el: '.form_invoice',
+        storeId: null,
+        listeners: {
+            'blocks.autocomplete': {
+                select: function(product) {
+                    var block = this;
+
+                    block.model.get('collections.products').push({
+                        quantity: 1,
+                        product: product
+                    });
+                }
+            }
+        },
+        model: new InvoiceModel(),
         collections: {
             suppliers: new SuppliersCollection()
         },
@@ -25,6 +40,8 @@ define(function(require) {
             var block = this;
 
             Form.prototype.initialize.apply(block, arguments);
+
+            block.model = block.get('model');
 
             block.blocks = {
                 autocomplete: new Autocomplete(),

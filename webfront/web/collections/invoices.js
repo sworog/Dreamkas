@@ -4,10 +4,9 @@ define(function(require) {
 
     return Collection.extend({
         model: require('models/invoice'),
+        storeId: null,
         url: function(){
-            if (this.storeId) {
-                return LH.baseApiUrl + '/stores/' + this.storeId + '/invoices'
-            }
+            return LH.baseApiUrl + '/stores/' + this.storeId + '/invoices';
         }
     });
 });

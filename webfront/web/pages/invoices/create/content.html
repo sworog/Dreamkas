@@ -8,6 +8,7 @@
 
 <div class="content">
     <%= templates.form_invoice({
+        model: models.invoice,
         collections: _.pick(collections, 'suppliers')
     }) %>
 </div>

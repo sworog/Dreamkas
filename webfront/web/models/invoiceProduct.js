@@ -1,33 +1,27 @@
 define(function(require) {
     //requirements
     var Model = require('kit/core/model'),
-        compute = require('kit/utils/computeAttr'),
-        currentUserModel = require('models/currentUser'),
-        numeral = require('numeral');
-
-    var templates = {
-        amount: require('tpl!blocks/amount/amount.html')
-    };
+        currentUserModel = require('models/currentUser');
 
     return Model.extend({
-        modelName: 'invoiceProduct',
         urlRoot: function() {
-            return LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/invoices/' + this.get('invoice').id + '/products';
-        },
-        saveData: function(){
-            return {
-                product: this.get('product'),
-                quantity: this.get('quantity'),
-                priceEntered: this.get('priceEntered')
-            }
+            return LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/invoices/products?validate=true';
         },
         defaults: {
-            quantityElement: compute(['quantity'], function(quantity){
-                return templates.amount({value: quantity});
-            }),
-            productTotalAmountVATFormatted: compute(['totalAmountVAT'], function(totalAmountVAT){
-                return LH.formatMoney(totalAmountVAT) + ' р.'
-            })
+            product: null,
+            priceEntered: null,
+            quantity: null
+        },
+        saveData: function() {
+            return {
+                product: this.get('product.product.id'),
+                priceEntered: this.get('priceEntered').toString()
+                    .replace(' ', '', 'gi')
+                    .replace(',', '.', 'gi'),
+                quantity: this.get('quantity').toString()
+                    .replace(' ', '', 'gi')
+                    .replace(',', '.', 'gi')
+            };
         }
     });
 });

@@ -105,6 +105,8 @@ define(function(require, exports, module) {
         initialize: function() {
             var block = this;
 
+            Form.prototype.initialize.apply(block, arguments);
+
             block.model.get('collections.products').on('change add remove', function() {
                 block.el.classList.add('form_changed');
             });
@@ -114,12 +116,11 @@ define(function(require, exports, module) {
             });
 
             block.blocks = {
-                autocomplete: new Autocomplete()
+                autocomplete: new Autocomplete(),
+                select_suppliers: new Select_suppliers({
+                    collections: _.pick(block.collections, 'suppliers')
+                })
             };
-
-            new Select_suppliers({
-                collections: _.pick(block.collections, 'suppliers')
-            });
         },
         editProduct: function(orderProductModel) {
             var block = this,

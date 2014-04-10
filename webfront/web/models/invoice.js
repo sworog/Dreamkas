@@ -1,38 +1,35 @@
 define(function(require) {
     //requirements
     var Model = require('kit/core/model'),
-        compute = require('kit/utils/computeAttr'),
-        currentUserModel = require('models/currentUser');
+        InvoiceProductsCollection = require('collections/invoiceProducts');
 
     return Model.extend({
-        modelName: 'invoice',
+        storeId: null,
         urlRoot: function() {
-            if(currentUserModel.stores.length) {
-                return LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/invoices'
-            }
+            return LH.baseApiUrl + '/stores/' + this.storeId + '/invoices'
         },
-
         defaults: {
             includesVAT: true,
-            totalAmountVATFormatted: compute(['totalAmountVAT'], function(totalAmountVAT){
-                return LH.formatMoney(totalAmountVAT)
-            })
+            collections: {
+                products: new InvoiceProductsCollection()
+            }
         },
-
-        dateFormat: 'dd.mm.yy',
-        datePrintFormat: "dd.mm.yyyy",
-        timeFormat: 'HH:mm',
-        invalidMessage: 'Вы ввели неверную дату',
-
         saveData: [
-            'sku',
             'supplier',
             'acceptanceDate',
             'accepter',
             'legalEntity',
             'includesVAT',
-            'supplierInvoiceSku',
-            'supplierInvoiceDate'
-        ]
+            'supplierInvoiceNumber',
+            'products'
+        ],
+        parse: function(data) {
+
+            data.collections = {
+                products: new InvoiceProductsCollection(data.products)
+            };
+
+            return data;
+        }
     });
 });

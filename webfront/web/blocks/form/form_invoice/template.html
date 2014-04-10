@@ -6,15 +6,14 @@
     suppliers: new SuppliersCollection()
 }, collections); %>
 <% var templates = _.extend({
-    select_suppliers: require('tpl!blocks/select/select_suppliers/template.html'),
-    downloadAgreementLink: require('tpl!blocks/downloadAgreementLink/downloadAgreementLink.html')
+    select_suppliers: require('tpl!blocks/select/select_suppliers/template.html')
 }, templates) %>
 <% var moment = require('moment') %>
 
 <form class="form form_invoice">
     <div class="form__field">
         <label class="form__label">Дата</label>
-        <input value="<%- moment().valueOf() %>" type="text" class="inputText inputDate" name="date"/>
+        <input value="<%- moment().valueOf() %>" type="text" class="inputText inputDate" name="acceptanceDate"/>
     </div>
     <div class="form__field">
         <label class="form__label">Поставщик</label>
@@ -36,6 +35,12 @@
         <input type="text" class="inputText" name="supplierInvoiceNumber"/>
     </div>
     <h2 style="padding-top: 20px;">Товары</h2>
+
+    <%= model.get('collections.products').element(require('tpl!blocks/table/table_invoiceProducts/template.html'), {
+        collections: {
+            invoiceProducts: model.get('collections.products')
+        }
+    }) %>
 
     <div class="form__field" style="padding-bottom: 30px;">
         <input placeholder="Для добавления позиции введите наименование товара или код" style="width: 600px;"
