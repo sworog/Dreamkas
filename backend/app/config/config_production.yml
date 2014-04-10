@@ -13,9 +13,9 @@ framework:
 #    document_managers:
 #        default:
 #            metadata_cache_driver: apc
-framework:
-    validation:
-        cache: apc
+#framework:
+#    validation:
+#        cache: apc
 
 monolog:
     handlers:
