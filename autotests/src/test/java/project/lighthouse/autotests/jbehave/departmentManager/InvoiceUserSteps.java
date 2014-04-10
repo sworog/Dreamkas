@@ -12,7 +12,7 @@ import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.StoreApiSteps;
 import project.lighthouse.autotests.steps.api.departmentManager.InvoiceApiSteps;
-import project.lighthouse.autotests.steps.departmentManager.InvoiceSteps;
+import project.lighthouse.autotests.steps.departmentManager.invoice.deprecated.InvoiceSteps;
 
 import java.io.IOException;
 
@@ -246,11 +246,6 @@ public class InvoiceUserSteps {
     @When("the user clicks the invoice search buttton and starts the search")
     public void whenTheUserClicksTheInvoiceSearhButton() {
         invoiceSteps.searchButtonClick();
-    }
-
-    @When("the user clicks the local navigation invoice search link")
-    public void whenTheUserClicksTheLocalNavigationInvoiceSearchLink() {
-        invoiceSteps.searchLinkClick();
     }
 
     @Then("the user checks the invoice with sku '$sku' in search results")
