@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('kit/core/page.deprecated'),
         JobsCollection = require('collections/jobs'),
         LogCollection = require('collections/log'),
         Log = require('blocks/log/log');

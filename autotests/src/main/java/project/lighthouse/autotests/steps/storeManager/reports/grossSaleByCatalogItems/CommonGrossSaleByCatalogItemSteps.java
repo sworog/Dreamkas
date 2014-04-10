@@ -15,12 +15,13 @@ public class CommonGrossSaleByCatalogItemSteps extends ScenarioSteps {
 
     @Step
     public void compareWithExampleTable(ExamplesTable examplesTable) {
+        new BodyPreLoader(getDriver()).await();
         commonGrossSaleByCatalogItemPage.getGrossSaleByTableObjectCollection().compareWithExampleTable(examplesTable);
     }
 
     @Step
     public void compareWithExampleTableIncludingZeroSales() {
-        commonGrossSaleByCatalogItemPage.getGrossSaleByTableObjectCollection().compareWithExampleTable(new Us_57_3_Fixture().getEmptyFixtureExampleTable());
+        compareWithExampleTable(new Us_57_3_Fixture().getEmptyFixtureExampleTable());
     }
 
     @Step
@@ -40,46 +41,47 @@ public class CommonGrossSaleByCatalogItemSteps extends ScenarioSteps {
     }
 
     private Boolean getTableColorByLocator(String locator) {
+        new BodyPreLoader(getDriver()).await();
         return ((ObjectValueColorable) commonGrossSaleByCatalogItemPage.getGrossSaleByTableObjectCollection().getAbstractObjectByLocator(locator)).isValueColor();
     }
 
     @Step
     public void compareWithExampleTableForSubCategory1Shop1() {
-        commonGrossSaleByCatalogItemPage.getGrossSaleByTableObjectCollection().compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop1SubCategory1());
+        compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop1SubCategory1());
     }
 
     @Step
     public void compareWithExampleTableForGroup2Shop1() {
-        commonGrossSaleByCatalogItemPage.getGrossSaleByTableObjectCollection().compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop1Group2());
+        compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop1Group2());
     }
 
     @Step
     public void compareWithExampleTableForCategory2Shop1() {
-        commonGrossSaleByCatalogItemPage.getGrossSaleByTableObjectCollection().compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop1Category2());
+        compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop1Category2());
     }
 
     @Step
     public void compareWithExampleTableForSubCategory2Shop1() {
-        commonGrossSaleByCatalogItemPage.getGrossSaleByTableObjectCollection().compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop1SubCategory2());
+        compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop1SubCategory2());
     }
 
     @Step
     public void compareWithExampleTableForGroup1Shop2() {
-        commonGrossSaleByCatalogItemPage.getGrossSaleByTableObjectCollection().compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop2Group1());
+        compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop2Group1());
     }
 
     @Step
     public void compareWithExampleTableForCategory1Shop2() {
-        commonGrossSaleByCatalogItemPage.getGrossSaleByTableObjectCollection().compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop2Category1());
+        compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop2Category1());
     }
 
     @Step
     public void compareWithExampleTableForSubCategory1Shop2() {
-        commonGrossSaleByCatalogItemPage.getGrossSaleByTableObjectCollection().compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop2SubCategory1());
+        compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop2SubCategory1());
     }
 
     @Step
     public void compareWithExampleTableForSubCategory2Shop2() {
-        commonGrossSaleByCatalogItemPage.getGrossSaleByTableObjectCollection().compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop2Product2());
+        compareWithExampleTable(new Us_57_3_Fixture().getExampleTableForShop2Product2());
     }
 }

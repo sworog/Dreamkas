@@ -79,8 +79,6 @@ define(function(require) {
     loading.always(function() {
         requirejs([
             routes,
-            'LH',
-            'blocks/navigationBar/navigationBar',
             'blocks/page/page',
             'libs/lhAutocomplete'
         ], function(routes) {

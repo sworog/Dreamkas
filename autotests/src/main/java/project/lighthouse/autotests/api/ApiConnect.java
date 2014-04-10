@@ -70,7 +70,10 @@ public class ApiConnect {
 
     public String getInvoicePageUrl(String invoiceName) throws JSONException {
         Invoice invoice = StaticData.invoices.get(invoiceName);
-        return String.format("%s/invoices/%s?editMode=true", UrlHelper.getWebFrontUrl(), invoice.getId());
+        return String.format("%s/stores/%s/invoices/%s?editMode=true",
+                UrlHelper.getWebFrontUrl(),
+                invoice.getStoreId(),
+                invoice.getId());
     }
 
     public void addProductToInvoice(String invoiceName, String productSku, String quantity, String price)

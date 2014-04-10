@@ -1,29 +1,26 @@
-<% var collections = _.extend({
+<% var collections = _.defaults(collections, {
     suppliers: new Backbone.Collection
-}, obj.collections) %>
-<% var models = _.extend({
+}) %>
+<% var models = _.defaults(models, {
     order: new Backbone.Model
-}, obj.models) %>
-<% var templates = _.extend({
-    localNavigation: require('tpl!blocks/localNavigation/localNavigation_orders.html'),
+}) %>
+<% var templates = _.defaults(templates, {
     form_order: require('tpl!blocks/form/form_order/template.html')
-}, obj.templates) %>
-<% if (LH.isAllow('stores/{store}/orders', 'POST')) { %>
-<%= templates.localNavigation(obj) %>
-<% } %>
+}) %>
 
-<div class="page__data">
+
+<div class="content">
     <div class="page__controls">
         <ul class="page__controlsList">
             <li>
                 <a class="page__controlsLink page__downloadLink" href="<%- LH.baseApiUrl %>/stores/<%- models.order.get('store.id') %>/orders/<%- models.order.id %>/download">Скачать файл заказа</a>
             </li>
             <li>
-                <a class="page__controlsLink" id="form_order__removeLink">Удалить</a>
+                <a class="page__controlsLink form_order__removeLink">Удалить</a>
             </li>
         </ul>
     </div>
-    <h2>Заказ поставщику № <%- models.order.get('number') %></h2>
+    <h2>Заказ поставщику № <span name="orderNumber"><%- models.order.get('number') %></span></h2>
 
     <%= templates.form_order({
         collections: _.pick(collections, 'suppliers'),

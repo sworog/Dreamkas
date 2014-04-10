@@ -11,7 +11,7 @@ Scenario: Nothing found - Invoice
 
 Given there is the user with name 'departmentManager-UIBS-NF', position 'departmentManager-UIBS-NF', username 'departmentManager-UIBS-NF', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'UIBS-NF' managed by department manager named 'departmentManager-UIBS-NF'
-And the user is on the invoice list page
+And the user is on the store 'UIBS-NF' invoice list page
 When the user logs in using 'departmentManager-UIBS-NF' userName and 'lighthouse' password
 And the user clicks the local navigation invoice search link
 And the user searches invoice by sku or supplier sku 'Янехочуискатьнакладныеяхочуплатье'
@@ -31,7 +31,7 @@ And there is the invoice in the store with number 'UIBS-NF' ruled by department 
 | legalEntity | legalEntity |
 | supplierInvoiceSku | supplierInvoiceSku |
 | supplierInvoiceDate | 02.04.2013 |
-And the user is on the invoice list page
+And the user is on the store 'UIBS-NF' invoice list page
 When the user logs in using 'departmentManager-UIBS-NF' userName and 'lighthouse' password
 And the user clicks the local navigation invoice search link
 And the user searches invoice by sku or supplier sku 'Invoice-UIBS-NF-1'
@@ -54,7 +54,7 @@ And there is the invoice in the store with number 'UIBS-NF' ruled by department 
 | legalEntity | legalEntity |
 | supplierInvoiceSku | Invoice-SS-UIBS-NF-2 |
 | supplierInvoiceDate | 02.04.2013 |
-And the user is on the invoice list page
+And the user is on the store 'UIBS-NF' invoice list page
 When the user logs in using 'departmentManager-UIBS-NF' userName and 'lighthouse' password
 And the user clicks the local navigation invoice search link
 And the user searches invoice by sku or supplier sku 'Invoice-SS-UIBS-NF-2'
@@ -86,7 +86,7 @@ And there is the invoice in the store with number 'UIBS-NF' ruled by department 
 | legalEntity | legalEntity |
 | supplierInvoiceSku | Invoice-UIBS-NF-2 |
 | supplierInvoiceDate | 02.04.2013 |
-And the user is on the invoice list page
+And the user is on the store 'UIBS-NF' invoice list page
 When the user logs in using 'departmentManager-UIBS-NF' userName and 'lighthouse' password
 And the user clicks the local navigation invoice search link
 And the user searches invoice by sku or supplier sku 'Invoice-UIBS-NF-2'
@@ -108,7 +108,7 @@ And there is the invoice in the store with number 'UIBS-NF' ruled by department 
 | supplier | supplier |
 | accepter | accepter |
 | legalEntity | legalEntity |
-And the user is on the invoice list page
+And the user is on the store 'UIBS-NF' invoice list page
 When the user logs in using 'departmentManager-UIBS-NF' userName and 'lighthouse' password
 When the user clicks the create button on the invoice list page
 And the user inputs 'Invoice-UIBS-NF-4' in the invoice 'sku' field
@@ -143,7 +143,7 @@ And there is the invoice in the store with number 'UIBS-NF' ruled by department 
 | accepter | accepter |
 | legalEntity | legalEntity |
 | supplierInvoiceSku | IRFBSK-supplierSku-10 |
-And the user is on the invoice list page
+And the user is on the store 'UIBS-NF' invoice list page
 When the user logs in using 'departmentManager-UIBS-NF' userName and 'lighthouse' password
 And the user clicks the local navigation invoice search link
 And the user searches invoice by sku or supplier sku 'IRFBSK-supplierSku-10'
@@ -180,7 +180,7 @@ And there is the invoice in the store with number 'UIBS-NF' ruled by department 
 | accepter | accepter |
 | legalEntity | legalEntity |
 | supplierInvoiceSku | IRFBSK-supplierSku-11 |
-And the user is on the invoice list page
+And the user is on the store 'UIBS-NF' invoice list page
 When the user logs in using 'departmentManager-UIBS-NF' userName and 'lighthouse' password
 And the user clicks the local navigation invoice search link
 And the user searches invoice by sku or supplier sku 'IRFBSK-supplierSku-11'
@@ -208,7 +208,7 @@ And there is the invoice in the store with number 'UIBS-NF' ruled by department 
 | legalEntity | legalEntity |
 | supplierInvoiceSku | IRFBSK-supplierSku-110 |
 | supplierInvoiceDate | 02.04.2013 |
-And the user is on the invoice list page
+And the user is on the store 'UIBS-NF' invoice list page
 When the user logs in using 'departmentManager-UIBS-NF' userName and 'lighthouse' password
 And the user clicks the local navigation invoice search link
 And the user searches invoice by sku or supplier sku 'Invoice-UIBS-NF-9'
@@ -252,7 +252,7 @@ And there is the invoice in the store with number 'UIBS-NF' ruled by department 
 | supplierInvoiceSku | supplierInvoiceSku |
 | supplierInvoiceDate | 02.04.2013 |
 And the user adds the product to the invoice with name 'Invoice-UIBS-NF-10' with sku '7300330094019', quantity '2', price '12,51' in the store ruled by 'departmentManager-UIBS-NF'
-And the user is on the invoice list page
+And the user is on the store 'UIBS-NF' invoice list page
 When the user logs in using 'departmentManager-UIBS-NF' userName and 'lighthouse' password
 And the user clicks the local navigation invoice search link
 And the user searches invoice by sku or supplier sku 'Invoice-UIBS-NF-10'

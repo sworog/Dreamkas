@@ -8,9 +8,6 @@ define(function(require) {
             if (this.storeId) {
                 return LH.baseApiUrl + '/stores/' + this.storeId + '/invoices'
             }
-        },
-        initialize: function(models, options){
-            this.storeId = options.storeId;
         }
     });
 });

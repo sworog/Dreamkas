@@ -1,32 +1,35 @@
-define(function(require) {
+define(function(require, exports, module) {
     //requirements
     var app = require('app'),
         Block = require('kit/core/block.deprecated'),
         Backbone = require('backbone'),
         router = require('router'),
-        isAllow = require('../utils/isAllow'),
+        isAllow = require('kit/utils/isAllow'),
         downloadUrl = require('kit/downloadUrl/downloadUrl'),
-        cookies = require('cookies');
+        cookies = require('cookies'),
+        NewPage = require('page');
 
     require('lodash');
 
     var Page = Block.extend({
+        moduleId: module.id,
         el: document.body,
         permissions: null,
         referrer: {},
         loading: false,
+        template: require('tpl!./template.deprecated.html'),
         partials: {},
         models: {},
         collections: {},
         blocks: {},
         events: {
-            'click .page__downloadLink': function(e){
+            'click .page__downloadLink': function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
 
                 var href = e.target.href;
 
-                if (e.target.classList.contains('preloader_rows')){
+                if (e.target.classList.contains('preloader_rows')) {
                     return;
                 }
 
@@ -46,13 +49,17 @@ define(function(require) {
                 });
             }
         },
-        constructor: function(){
-
+        constructor: function() {
             var page = this,
                 accessDenied;
 
             this.cid = _.uniqueId('cid');
             this._configure.apply(this, arguments);
+
+            if (NewPage.current){
+                NewPage.current.destroy();
+                delete NewPage.current;
+            }
 
             switch (typeof page.permissions) {
                 case 'object':
@@ -69,7 +76,7 @@ define(function(require) {
             }
 
             if (accessDenied) {
-                router.navigate('/403');
+                router.navigate('/errors/403');
 
                 return;
             }
@@ -95,7 +102,7 @@ define(function(require) {
         },
         _ensureElement: function() {
 
-            Backbone.View.prototype._ensureElement.apply(this, arguments);
+            Block.prototype._ensureElement.apply(this, arguments);
 
             var page = this;
 
@@ -113,29 +120,9 @@ define(function(require) {
         render: function() {
             var page = this;
 
-            _.each(page.partials, function(template, selector) {
-                var $renderContainer = $(selector);
-
-                page.removeBlocks($renderContainer);
-
-                $renderContainer.html(template(page));
-            });
+            Block.prototype.render.apply(page, arguments);
 
             page.set('loading', false);
-        },
-        removeBlocks: function($container) {
-            var blocks = [];
-
-            $container.find('[block]').each(function() {
-                var $block = $(this),
-                    __name__ = $block.attr('block');
-
-                blocks.push($block.data(__name__));
-            });
-
-            _.each(blocks, function(block) {
-                block.remove();
-            });
         },
         save: function(params) {
             var page = this,

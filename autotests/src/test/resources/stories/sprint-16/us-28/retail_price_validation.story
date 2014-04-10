@@ -40,6 +40,8 @@ Examples:
 | RP-PPV-21 | 739,67 | retailPriceMax |
 | RP-PPV-22 | 739,67 | retailPriceMax |
 | RP-PPV-23 | 10000000 | retailPriceMax |
+| RP-PPV-24 | 1 102,23 | retailPriceMax |
+| RP-PPV-25 | 1 102,23 | retailPriceMin |
 
 
 Scenario: Create product retail price range validation negative
@@ -72,7 +74,6 @@ Examples:
 | BIG PRICE | retailPriceMin | Значение должно быть числом |
 | большая цена | retailPriceMin | Значение должно быть числом |
 | БОЛЬШАЯ | retailPriceMin | Значение должно быть числом |
-| 1 102,23 | retailPriceMin | Значение должно быть числом |
 | 10000001 | retailPriceMin | Цена не должна быть больше 10000000 |
 | '%^#$Fgbdf345) | retailPriceMax | Значение должно быть числом |
 | 739,678 | retailPriceMax | Цена не должна содержать больше 2 цифр после запятой |
@@ -82,7 +83,6 @@ Examples:
 | BIG PRICE | retailPriceMax | Значение должно быть числом |
 | большая цена | retailPriceMax | Значение должно быть числом |
 | БОЛЬШАЯ | retailPriceMax | Значение должно быть числом |
-| 1 102,23 | retailPriceMax | Значение должно быть числом |
 | 10000001 | retailPriceMax | Цена не должна быть больше 10000000 |
 |  | retailPriceMax | Заполните это поле |
 |  | retailPriceMin | Заполните это поле |
@@ -151,6 +151,8 @@ Examples:
 | RP1-PPV-20 | 789,6 | retailPriceMax |
 | RP1-PPV-21 | 739,67 | retailPriceMax |
 | RP1-PPV-23 | 10000000 | retailPriceMax |
+| RP1-PPV-24 | 1 102,78 | retailPriceMin |
+| RP1-PPV-25 | 1 102,78 | retailPriceMax |
 
 Scenario: Edit product retail price range validation negative
 
@@ -176,7 +178,6 @@ Examples:
 | BIG PRICE | retailPriceMin | Значение должно быть числом |
 | большая цена | retailPriceMin | Значение должно быть числом |
 | БОЛЬШАЯ | retailPriceMin | Значение должно быть числом |
-| 1 102,78 | retailPriceMin | Значение должно быть числом |
 | 10000001 | retailPriceMin | Цена не должна быть больше 10000000 |
 | '%^#$Fgbdf345) | retailPriceMax | Значение должно быть числом |
 | 739,678 | retailPriceMax | Цена не должна содержать больше 2 цифр после запятой |
@@ -186,7 +187,6 @@ Examples:
 | BIG PRICE | retailPriceMax | Значение должно быть числом |
 | большая цена | retailPriceMax | Значение должно быть числом |
 | БОЛЬШАЯ | retailPriceMax | Значение должно быть числом |
-| 1 102,78 | retailPriceMax | Значение должно быть числом |
 | 10000001 | retailPriceMax | Цена не должна быть больше 10000000 |
 |  | retailPriceMax | Заполните это поле |
 |  | retailPriceMin | Заполните это поле |
@@ -203,4 +203,4 @@ And the user inputs '2' in 'retailPriceMin' field
 And the user clicks the create button
 Then the user sees error messages
 | error message |
-| Цена продажи должна быть больше или равна цене закупки |
+| Цена продажи должна быть больше или равна цене закупки, Цена продажи должна быть больше или равна цене закупки |

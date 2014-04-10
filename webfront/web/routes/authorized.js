@@ -33,10 +33,10 @@ define(function(require) {
         'stores/:storeId/reports/grossMargin(/)': require('pages/reports/store/grossMargin/grossMargin'),
 
         //invoices
-        'invoices(/)': require('pages/invoice/list'),
-        'invoices/create(/)': require('pages/invoice/form'),
-        'invoices/search(/)': require('pages/invoice/search'),
-        'invoices/:invoiceId(/)': require('pages/invoice/view'),
+        'stores/:storeId/invoices(/)': require('pages/invoices/list/list'),
+        'invoices/create(/)': require('pages/invoices/form'),
+        'invoices/search(/)': require('pages/invoices/search'),
+        'stores/:storeId/invoices/:invoiceId(/)': require('pages/invoices/view'),
 
         //users
         'users(/)': require('pages/user/list'),
@@ -78,7 +78,7 @@ define(function(require) {
         'stores/:storeId/departments/:departmentId(/)': require('pages/department/view'),
 
         //errors
-        '403(/)': require('pages/errors/403'),
+        'errors/403(/)': require('pages/errors/403'),
         '*path': require('pages/errors/404')
     };
 });

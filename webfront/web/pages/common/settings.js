@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('kit/core/page.deprecated'),
         Form_exportSettings = require('blocks/form/form_exportSettings/form_exportSettings'),
         Form_importSettings = require('blocks/form/form_importSettings/form_importSettings'),
         cookie = require('cookies');

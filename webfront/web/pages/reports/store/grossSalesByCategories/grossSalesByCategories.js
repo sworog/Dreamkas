@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('kit/core/page.deprecated'),
         currentUserModel = require('models/currentUser'),
         GrossSalesByCategoriesCollection = require('collections/grossSalesByCategories');
 
@@ -8,8 +8,10 @@ define(function(require, exports, module) {
 
     return Page.extend({
         __name__: module.id,
-        storeId: null,
-        groupId: null,
+        params: {
+            storeId: null,
+            groupId: null
+        },
         partials: {
             '#content': require('tpl!./content.html')
         },
@@ -25,8 +27,8 @@ define(function(require, exports, module) {
 
                 var grossSalesByCategories = new GrossSalesByCategoriesCollection();
 
-                grossSalesByCategories.storeId = page.storeId;
-                grossSalesByCategories.groupId = page.groupId;
+                grossSalesByCategories.storeId = page.params.storeId;
+                grossSalesByCategories.groupId = page.params.groupId;
 
                 return grossSalesByCategories;
             }

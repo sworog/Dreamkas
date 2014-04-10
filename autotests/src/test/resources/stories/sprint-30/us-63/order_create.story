@@ -8,6 +8,8 @@ As a заведующий отделом
 I want to зафиксировать в системе заказ поставщику
 In order to чтобы потом принимать поставку на основании заказа
 
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
+
 Scenario: Order create
 
 Meta:

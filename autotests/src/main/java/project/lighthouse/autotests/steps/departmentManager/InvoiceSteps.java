@@ -4,11 +4,15 @@ import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
+import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.elements.items.DateTime;
 import project.lighthouse.autotests.elements.preLoader.CheckBoxPreloader;
 import project.lighthouse.autotests.helper.StringGenerator;
+import project.lighthouse.autotests.helper.UrlHelper;
+import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.pages.departmentManager.invoice.*;
 
 public class InvoiceSteps extends ScenarioSteps {
@@ -26,8 +30,18 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
-    public void openInvoiceListPage() {
-        invoiceListPage.open();
+    public void openInvoiceListPage() throws JSONException {
+        Store store = StaticData.stores.get(Store.DEFAULT_NUMBER);
+        openStoreInvoiceListPage(store);
+    }
+
+    @Step
+    public void openStoreInvoiceListPage(Store store) throws JSONException {
+        String invoiceListPageUrl = String.format(
+                "%s/stores/%s/invoices",
+                UrlHelper.getWebFrontUrl(),
+                store.getId());
+        getDriver().navigate().to(invoiceListPageUrl);
     }
 
     @Step

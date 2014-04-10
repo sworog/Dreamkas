@@ -25,6 +25,11 @@ public class ThenOrderUserSteps {
         orderSteps.assertOrderProductObjectQuantity(locator, expectedValue);
     }
 
+    @Then("the user checks the order product found by name '$locator' has sum equals to '$expectedValue'")
+    public void thenTheUserChecksTheOrderProductFoundByNameHasSumEqualsTo(String locator, String expectedValue) {
+        orderSteps.orderProductCollectionObjectPriceSumAssert(locator, expectedValue);
+    }
+
     @Then("the user checks the order product in last created order has quantity equals to expectedValue")
     public void thenTheUserChecksTheOrderProductHasQuantityEqualsTo(String expectedValue) throws JSONException {
         orderSteps.assertOrderProductObjectQuantity(expectedValue);
@@ -128,5 +133,15 @@ public class ThenOrderUserSteps {
     @Then("the user waits for the order product edition preloader finish")
     public void thenTheUserWaitsForTheOrderProductEditionPreloaderFinish() {
         orderSteps.waitForPreLoader();
+    }
+
+    @Then("the user checks the download agreement button should be visible on the order page")
+    public void thenTheUserChecksTheDownloadAgreementButtonShouldBeVisibleOnTheOrderPage() {
+        orderSteps.agreementDownloadButtonShouldBeVisible();
+    }
+
+    @Then("the user checks the download agreement button should be not visible on the order page")
+    public void thenTheUserChecksTheDownloadAgreementButtonShouldBeNotVisibleOnTheOrderPage() {
+        orderSteps.agreementDownloadButtonShouldBeNotVisible();
     }
 }
