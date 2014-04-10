@@ -5,5 +5,5 @@
         <a class="localNavigation__link <%- localNavigationActiveLink === 'list' ? 'localNavigation__link_active' : '' %>" href="/stores/<%- currentUserModel.stores.at(0).id %>/invoices">Накладные</a>
     </h2>
     <a class="localNavigation__link <%- localNavigationActiveLink === 'search' ? 'localNavigation__link_active' : '' %>" href="/invoices/search">Поиск накладной</a>
-    <a class="localNavigation__link <%- localNavigationActiveLink === 'create' ? 'localNavigation__link_active' : '' %>" href="/invoices/create">Создать накладную</a>
+    <a class="localNavigation__link <%- localNavigationActiveLink === 'create' ? 'localNavigation__link_active' : '' %>" href="/stores/<%- currentUserModel.stores.at(0).id %>/invoices/create">Создать накладную</a>
 </div>

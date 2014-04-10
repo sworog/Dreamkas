@@ -1,0 +1,46 @@
+<% var currentUserModel = require('models/currentUser') %>
+
+<div class="content">
+    <form class="form form_invoice">
+        <div class="form__field">
+            <label class="form__label">Дата</label>
+            <input type="text" class="inputText" name="date"/>
+        </div>
+        <div class="form__field">
+            <label class="form__label">Поставщик</label>
+            <select name="supplier" class="select">
+                <option>Выберите поставщика</option>
+            </select>
+        </div>
+        <div class="form__field">
+            <label class="form__label">Приемщик</label>
+            <input type="text" class="inputText" name="accepter"/>
+        </div>
+        <div class="form__field">
+            <label class="form__label">Организация получатель</label>
+            <input type="text" class="inputText" name="legalEntity"/>
+        </div>
+        <div class="form__field">
+            <label class="form__label">Счет-фактура</label>
+            <input type="text" class="inputText" name="supplierInvoice"/>
+        </div>
+        <h2 style="padding-top: 20px;">Товары</h2>
+
+        <div class="form__field" style="padding-bottom: 30px;">
+            <input placeholder="Для добавления позиции введите наименование товара или код" style="width: 600px;"
+                   data-url="<%- LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/search/products?properties[]=name&properties[]=sku' %>"
+                   type="text" class="inputText autocomplete"/>
+        </div>
+        <div class="form__totalSum">
+            Итого:
+        </div>
+        <div class="form__controls">
+            <a href="/" class="button">
+                Принять товары
+            </a>
+            <a style="margin-right: 20px;" href="/stores/<%- currentUserModel.stores.at(0).id %>/invoices">
+                Отменить
+            </a>
+        </div>
+    </form>
+</div>
