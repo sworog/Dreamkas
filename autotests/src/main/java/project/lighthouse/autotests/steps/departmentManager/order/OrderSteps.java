@@ -8,8 +8,8 @@ import org.json.JSONException;
 import org.junit.Assert;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.Buttons.LinkFacade;
-import project.lighthouse.autotests.elements.preLoader.OrderProductEditionPreLoader;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
+import project.lighthouse.autotests.elements.preLoader.ProductEditionPreLoader;
 import project.lighthouse.autotests.helper.exampleTable.order.OrderExampleTableUpdater;
 import project.lighthouse.autotests.objects.web.order.order.OrderObjectCollection;
 import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductObject;
@@ -268,7 +268,7 @@ public class OrderSteps extends ScenarioSteps {
 
     @Step
     public void waitForPreLoader() {
-        new OrderProductEditionPreLoader(getDriver()).await();
+        new ProductEditionPreLoader(getDriver()).await();
     }
 
     @Step
