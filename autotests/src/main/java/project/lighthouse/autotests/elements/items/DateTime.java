@@ -34,6 +34,10 @@ public class DateTime extends CommonItem {
         this.name = name;
     }
 
+    public DateTime(CommonPageObject pageObject, String name, String label) {
+        super(pageObject, name, label);
+    }
+
     public String getDatePickerXpath() {
         String xpathTemplate = "//*[contains(@class, 'datepicker') and @rel='%s']";
         return String.format(xpathTemplate, name);
