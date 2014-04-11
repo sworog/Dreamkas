@@ -160,7 +160,6 @@ class Invoice extends AbstractDocument implements Storeable
     public function __construct()
     {
         $this->products = new InvoiceProductCollection();
-        $this->sumTotal = new Money(0);
     }
 
     /**
@@ -181,5 +180,21 @@ class Invoice extends AbstractDocument implements Storeable
         }
 
         $this->products = $products;
+    }
+
+    public function calculateTotals()
+    {
+        $this->itemsCount = count($this->products);
+
+        $this->sumTotal = $this->sumTotal->set(0);
+        $this->sumTotalWithoutVAT = $this->sumTotalWithoutVAT->set(0);
+        $this->totalAmountVAT = $this->totalAmountVAT->set(0);
+
+        foreach ($this->products as $invoiceProduct) {
+            $invoiceProduct->calculateTotals();
+            $this->sumTotal = $this->sumTotal->add($invoiceProduct->totalPrice);
+            $this->sumTotalWithoutVAT = $this->sumTotalWithoutVAT->add($invoiceProduct->totalPriceWithoutVAT);
+            $this->totalAmountVAT = $this->totalAmountVAT->add($invoiceProduct->totalAmountVAT);
+        }
     }
 }

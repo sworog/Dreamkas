@@ -4,9 +4,36 @@ namespace Lighthouse\CoreBundle\Document\Invoice;
 
 use Doctrine\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 
 class InvoiceRepository extends DocumentRepository
 {
+    /**
+     * @var NumericFactory
+     */
+    protected $numericFactory;
+
+    /**
+     * @param NumericFactory $numericFactory
+     */
+    public function setNumericFactory(NumericFactory $numericFactory)
+    {
+        $this->numericFactory = $numericFactory;
+    }
+
+    /**
+     * @return Invoice
+     */
+    public function createNew()
+    {
+        $invoice = new Invoice();
+        $invoice->sumTotal = $this->numericFactory->createMoney(null);
+        $invoice->totalAmountVAT = $this->numericFactory->createMoney(null);
+        $invoice->sumTotalWithoutVAT = $this->numericFactory->createMoney(null);
+
+        return $invoice;
+    }
+
     /**
      * @param string $storeId
      * @param InvoicesFilter $filter

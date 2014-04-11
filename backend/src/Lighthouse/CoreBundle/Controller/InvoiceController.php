@@ -46,7 +46,7 @@ class InvoiceController extends AbstractRestController
      */
     public function postInvoicesAction(Store $store, Request $request)
     {
-        $invoice = new Invoice;
+        $invoice = $this->documentRepository->createNew();
         $invoice->store = $store;
         return $this->processForm($request, $invoice);
     }
@@ -63,6 +63,10 @@ class InvoiceController extends AbstractRestController
     public function putInvoicesAction(Store $store, Invoice $invoice, Request $request)
     {
         $this->checkInvoiceStore($store, $invoice);
+        foreach ($invoice->products as $key => $invoiceProduct) {
+            unset($invoice->products[$key]);
+            $this->documentRepository->getDocumentManager()->remove($invoiceProduct);
+        }
         return $this->processForm($request, $invoice);
     }
 

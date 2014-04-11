@@ -26,7 +26,7 @@ class InvoiceFactory extends AbstractFactory
      */
     public function createInvoice(array $data, $storeId = null, $supplierId = null, $invoiceId = null)
     {
-        $invoice = ($invoiceId) ? $this->getInvoiceById($invoiceId) : new Invoice();
+        $invoice = ($invoiceId) ? $this->getInvoiceById($invoiceId) : $this->getInvoiceRepository()->createNew();
 
         $invoiceData = $data + array(
             'acceptanceDate' => '2013-03-18 12:56',
