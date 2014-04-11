@@ -169,13 +169,20 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
      */
     public function beforeSave()
     {
-        $this->totalPrice = $this->price->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
-        $this->totalPriceWithoutVAT = $this->priceWithoutVAT->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
-        $this->totalAmountVAT = $this->amountVAT->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
+        $this->calculateTotals();
 
         $this->acceptanceDate = $this->invoice->acceptanceDate;
         $this->store = $this->invoice->store;
         $this->originalProduct = $this->product->getObject();
+    }
+
+    public function calculateTotals()
+    {
+        if ($this->price && $this->priceWithoutVAT && $this->amountVAT) {
+            $this->totalPrice = $this->price->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
+            $this->totalPriceWithoutVAT = $this->priceWithoutVAT->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
+            $this->totalAmountVAT = $this->amountVAT->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
+        }
     }
 
     /**

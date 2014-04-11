@@ -7,11 +7,14 @@ use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
+use Symfony\Component\Validator\ObjectInitializerInterface;
 
 /**
+ * @DI\Service("lighthouse.core.document.product.document_initializer")
+ * @DI\Tag("validator.initializer")
  * @DI\DoctrineMongoDBListener(events={"postPersist", "postUpdate", "postRemove"})
  */
-class InvoiceTotalsListener extends AbstractMongoDBListener
+class InvoiceTotalsListener extends AbstractMongoDBListener implements ObjectInitializerInterface
 {
     /**
      * @var InvoiceRepository
@@ -25,8 +28,8 @@ class InvoiceTotalsListener extends AbstractMongoDBListener
 
     /**
      * @DI\InjectParams({
-     *     "invoiceRepository"=@DI\Inject("lighthouse.core.document.repository.invoice"),
-     *     "invoiceProductRepository"=@DI\Inject("lighthouse.core.document.repository.invoice_product")
+     *     "invoiceRepository" = @DI\Inject("lighthouse.core.document.repository.invoice"),
+     *     "invoiceProductRepository" = @DI\Inject("lighthouse.core.document.repository.invoice_product")
      * })
      *
      * @param InvoiceRepository $invoiceRepository
@@ -38,6 +41,16 @@ class InvoiceTotalsListener extends AbstractMongoDBListener
     ) {
         $this->invoiceRepository = $invoiceRepository;
         $this->invoiceProductRepository = $invoiceProductRepository;
+    }
+
+    /**
+     * @param object $object
+     */
+    public function initialize($object)
+    {
+        if ($object instanceof Invoice) {
+            $object->calculateTotals();
+        }
     }
 
     /**
