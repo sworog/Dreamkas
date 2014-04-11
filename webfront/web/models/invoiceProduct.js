@@ -10,7 +10,7 @@ define(function(require) {
         defaults: {
             product: null,
             priceEntered: null,
-            quantity: null
+            quantity: 1
         },
         saveData: function() {
             return {

@@ -36,9 +36,9 @@
     </div>
     <h2 style="padding-top: 20px;">Товары</h2>
 
-    <%= model.get('collections.products').element(require('tpl!blocks/table/table_invoiceProducts/template.html'), {
+    <%= model.get('products').element(require('tpl!blocks/table/table_invoiceProducts/template.html'), {
         collections: {
-            invoiceProducts: model.get('collections.products')
+            invoiceProducts: model.get('products')
         }
     }) %>
 

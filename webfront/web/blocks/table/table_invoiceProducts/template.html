@@ -17,7 +17,7 @@
     </thead>
     <tbody>
     <% collections.invoiceProducts.forEach(function(invoiceProductModel){ %>
-    <tr name="invoiceProduct">
+    <tr data-product_cid="<%- invoiceProductModel.cid %>" class="table__invoiceProduct" name="invoiceProduct">
         <td>
             <%- invoiceProductModel.get('product.product.name') %>
         </td>
@@ -48,7 +48,7 @@
         <td></td>
         <td></td>
         <td>
-            <i class="icon-remove-sign form_order__removeProductLink" data-product_cid="<%- invoiceProductModel.cid %>"></i>
+            <i class="icon-remove-sign form_invoice__removeProductLink" data-product_cid="<%- invoiceProductModel.cid %>"></i>
         </td>
     </tr>
     <% }) %>

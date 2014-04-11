@@ -1,6 +1,7 @@
 define(function(require) {
     //requirements
     var Model = require('kit/core/model'),
+        cookies = require('cookies'),
         InvoiceProductsCollection = require('collections/invoiceProducts');
 
     return Model.extend({
@@ -9,27 +10,50 @@ define(function(require) {
             return LH.baseApiUrl + '/stores/' + this.storeId + '/invoices'
         },
         defaults: {
+            supplier: null,
+            acceptanceDate: moment().valueOf(),
+            accepter: null,
+            legalEntity: null,
             includesVAT: true,
-            collections: {
-                products: new InvoiceProductsCollection()
+            supplierInvoiceNumber: null,
+            products: new InvoiceProductsCollection()
+        },
+        saveData: function(){
+            return {
+                supplier: this.get('supplier'),
+                acceptanceDate: this.get('acceptanceDate'),
+                accepter: this.get('accepter'),
+                legalEntity: this.get('legalEntity'),
+                includesVAT: this.get('includesVAT'),
+                supplierInvoiceNumber: this.get('supplierInvoiceNumber'),
+                products: this.get('products').map(function(productModel) {
+                    return productModel.getData();
+                })
             }
         },
-        saveData: [
-            'supplier',
-            'acceptanceDate',
-            'accepter',
-            'legalEntity',
-            'includesVAT',
-            'supplierInvoiceNumber',
-            'products'
-        ],
         parse: function(data) {
 
-            data.collections = {
-                products: new InvoiceProductsCollection(data.products)
-            };
+            this.products.reset(data.products);
+            delete data.products;
 
             return data;
+        },
+        check: function(data){
+            return $.ajax({
+                url: this.url() + '?validate=true',
+                data: data,
+                dataType: 'json',
+                type: 'POST',
+                headers: {
+                    Authorization: 'Bearer ' + cookies.get('token')
+                },
+                success: function(){
+                    console.log(arguments)
+                },
+                error: function(){
+                    console.log(arguments)
+                }
+            });
         }
     });
 });

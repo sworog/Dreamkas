@@ -2,6 +2,7 @@ define(function(require) {
     //requirements
     var Form = require('blocks/form/form'),
         InvoiceModel = require('models/invoice'),
+        InvoiceProductModel = require('models/invoiceProduct'),
         currentUserModel = require('models/currentUser'),
         SuppliersCollection = require('collections/suppliers'),
         InputDate = require('blocks/inputDate/inputDate'),
@@ -17,31 +18,29 @@ define(function(require) {
         storeId: null,
         listeners: {
             'blocks.autocomplete': {
-                select: function(product) {
-                    var block = this;
+                select: function(storeProduct) {
+                    var block = this,
+                        invoiceProductModel = new InvoiceProductModel({
+                            product: storeProduct,
+                            priceEntered: storeProduct.product.purchasePrice
+                        });
 
-                    block.model.get('collections.products').push({
-                        quantity: 1,
-                        product: product
-                    });
+                    block.model.get('products').push(invoiceProductModel);
                 }
             }
         },
-        model: new InvoiceModel(),
+        model: null,
         collections: {
             suppliers: new SuppliersCollection()
-        },
-        'change [name]': function(e) {
-            var block = this;
-
-            block.model.set(e.target.name, e.target.value);
         },
         initialize: function() {
             var block = this;
 
             Form.prototype.initialize.apply(block, arguments);
 
-            block.model = block.get('model');
+            block.model.get('products').on('add', function(orderProductModel) {
+                block.editProduct(orderProductModel);
+            });
 
             block.blocks = {
                 autocomplete: new Autocomplete(),
@@ -50,6 +49,15 @@ define(function(require) {
                     collections: _.pick(block.collections, 'suppliers')
                 })
             };
+        },
+        editProduct: function(orderProductModel) {
+            var block = this,
+                tr = block.el.querySelector('tr[data-product_cid="' + orderProductModel.cid + '"]');
+
+            block.editedProductModel = orderProductModel;
+
+            tr.classList.add('table__invoiceProduct_edit');
+            tr.querySelector('[autofocus]').focus();
         }
     });
 });
