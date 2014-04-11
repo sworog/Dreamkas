@@ -79,7 +79,7 @@ class ConfigController extends AbstractRestController
     public function getConfigsAction()
     {
         /* @var LoggableCursor $cursor */
-        $cursor = $this->getDocumentRepository()->findAll();
+        $cursor = $this->documentRepository->findAll();
         $collection = new ConfigCollection($cursor);
         return $collection;
     }
@@ -93,6 +93,6 @@ class ConfigController extends AbstractRestController
     public function getConfigsByNameAction(Request $request)
     {
         $query = $request->get('query');
-        return $this->getDocumentRepository()->findOneBy(array('name' => $query));
+        return $this->documentRepository->findOneBy(array('name' => $query));
     }
 }

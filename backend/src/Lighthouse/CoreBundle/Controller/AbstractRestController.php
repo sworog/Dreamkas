@@ -22,14 +22,6 @@ abstract class AbstractRestController extends FOSRestController
     protected $documentRepository;
 
     /**
-     * @return DocumentRepository
-     */
-    protected function getDocumentRepository()
-    {
-        return $this->documentRepository;
-    }
-
-    /**
      * @return AbstractType
      */
     abstract protected function getDocumentFormType();
@@ -67,8 +59,8 @@ abstract class AbstractRestController extends FOSRestController
     protected function saveDocument(AbstractDocument $document, FormInterface $form)
     {
         try {
-            $this->getDocumentRepository()->getDocumentManager()->persist($document);
-            $this->getDocumentRepository()->getDocumentManager()->flush();
+            $this->documentRepository->getDocumentManager()->persist($document);
+            $this->documentRepository->getDocumentManager()->flush();
             return $document;
         } catch (Exception $e) {
             return $this->handleFlushFailedException(new FlushFailedException($e, $form));
@@ -91,7 +83,7 @@ abstract class AbstractRestController extends FOSRestController
      */
     protected function processPost(Request $request)
     {
-        $document = $this->getDocumentRepository()->createNew();
+        $document = $this->documentRepository->createNew();
         return $this->processForm($request, $document);
     }
 
@@ -101,8 +93,8 @@ abstract class AbstractRestController extends FOSRestController
      */
     protected function processDelete(AbstractDocument $document)
     {
-        $this->getDocumentRepository()->getDocumentManager()->remove($document);
-        $this->getDocumentRepository()->getDocumentManager()->flush();
+        $this->documentRepository->getDocumentManager()->remove($document);
+        $this->documentRepository->getDocumentManager()->flush();
         return null;
     }
 

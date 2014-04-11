@@ -121,7 +121,7 @@ class ProductController extends AbstractRestController
     public function getProductsAction()
     {
         /* @var LoggableCursor $cursor */
-        $cursor = $this->getDocumentRepository()->findAll();
+        $cursor = $this->documentRepository->findAll();
         $collection = new ProductCollection($cursor);
         return $collection;
     }
