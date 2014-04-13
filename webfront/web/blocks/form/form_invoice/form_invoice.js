@@ -32,7 +32,7 @@ define(function(require) {
 
                 if (block.editedProductModel && block.editedProductModel !== orderProductModel) {
                     block.nextEditedProductModel = orderProductModel;
-                } else {
+                } else if (block.editedProductModel !== orderProductModel) {
                     block.editProduct(orderProductModel);
                 }
             },
@@ -42,13 +42,13 @@ define(function(require) {
                 if (e.keyCode === 13) {
                     e.preventDefault();
                     e.target.classList.add('preloader_stripes');
-                    block.validateProducts(products);
+                    block.validateProducts();
                 }
             },
             'blur .table__invoiceProduct input': function(e) {
                 var block = this;
 
-                if (block.editedProductModel && block.editedProductField === e.target) {
+                if (block.editedProductField === e.target) {
                     e.target.classList.add('preloader_stripes');
                     block.validateProducts(e.target.dataset.name, e.target.value);
                 }
@@ -56,7 +56,7 @@ define(function(require) {
             'focus .table__invoiceProduct input': function(e) {
                 var block = this;
 
-                if (!block.editedProductField){
+                if (!block.editedProductField) {
                     block.editedProductField = e.target;
                 } else if (block.editedProductField !== e.target) {
                     block.editedProductField.focus();
@@ -125,7 +125,7 @@ define(function(require) {
 
             block.removeProductError();
 
-            setTimeout(function(){
+            setTimeout(function() {
                 block.finishEdit();
             }, 2000);
 
@@ -150,34 +150,31 @@ define(function(require) {
                 trs = block.el.querySelectorAll('.table__invoiceProduct_edit'),
                 inputs = block.el.querySelectorAll('.table__invoiceProduct_edit input');
 
-            if (block.nextEditedProductModel) {
-                block.editProduct(block.nextEditedProductModel);
-                block.nextEditedProductModel = null;
-                return;
-            }
-
-            block.editedProductField = null;
             block.removeProductError();
 
             if (inputs.length) {
-                _.forEach(inputs, function(input){
+                _.forEach(inputs, function(input) {
                     input.classList.remove('preloader_stripes');
                 });
             }
 
-            if (block.nextEditedProductField){
+            if (block.nextEditedProductField) {
                 block.editedProductField = block.nextEditedProductField;
+                block.nextEditedProductField = null;
                 block.editedProductField.focus();
                 return;
             }
 
             block.editedProductModel = null;
+            block.editedProductField = null;
 
             if (trs) {
                 _.forEach(trs, function(tr) {
                     tr.classList.remove('table__invoiceProduct_edit');
                 });
             }
+
+            block.el.querySelector('.autocomplete').focus();
         },
         showProductError: function(error) {
             var block = this,

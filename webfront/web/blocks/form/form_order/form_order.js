@@ -172,6 +172,8 @@ define(function(require, exports, module) {
             if (tr) {
                 tr.classList.remove('table__orderProduct_edit');
             }
+
+            block.el.querySelector('.autocomplete').focus();
         },
         renderProductSum: function(quantity) {
             var block = this,
