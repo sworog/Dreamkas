@@ -22,18 +22,16 @@ define(function(require, exports, module) {
             return currentUserModel.stores.length && currentUserModel.stores.at(0).id === page.params.storeId;
         },
         collections: {
-            suppliers: function(){
+            suppliers: function() {
                 return new SuppliersCollection();
             }
         },
         models: {
-            invoice: function(){
+            invoice: function() {
                 var page = this,
                     invoiceModel = new InvoiceModel({
-                    collections: {
                         products: new InvoiceProductsCollection()
-                    }
-                });
+                    });
 
                 invoiceModel.storeId = page.params.storeId;
 
@@ -41,7 +39,7 @@ define(function(require, exports, module) {
             }
         },
         blocks: {
-            form_invoice: function(){
+            form_invoice: function() {
                 var page = this;
 
                 return new Form_invoice({

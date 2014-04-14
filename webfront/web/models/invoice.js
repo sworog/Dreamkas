@@ -16,7 +16,7 @@ define(function(require) {
             legalEntity: null,
             includesVAT: true,
             supplierInvoiceNumber: null,
-            products: new InvoiceProductsCollection()
+            products: null
         },
         saveData: function(){
             return {
@@ -33,7 +33,8 @@ define(function(require) {
         },
         parse: function(data) {
 
-            this.products.reset(data.products);
+            this.get('products').reset(data.products);
+
             delete data.products;
 
             return data;
