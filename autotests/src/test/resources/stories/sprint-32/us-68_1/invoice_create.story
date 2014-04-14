@@ -23,7 +23,7 @@ And the user clicks the create invoice link on order page menu navigation
 When the user inputs values on invoice page
 | elementName | value |
 | supplier | supplier-s31u681s1 |
-| acceptanceDate | date |
+| acceptanceDate | 02.04.2013 16:23 |
 | accepter | accepter |
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
 | legalEntity | legalEntity |
@@ -33,7 +33,10 @@ When the user inputs values on invoice page
 | invoice product autocomplete | name-31681 |
 And the user inputs quantity '5' on the invoice product with name 'name-31681'
 And the user presses 'TAB' key button
-And the user inputs price '110' on the invoice product with name 'name-31681'
+
+Then the user waits for the invoice product edition preloader finish
+
+When the user inputs price '110' on the invoice product with name 'name-31681'
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
@@ -85,7 +88,7 @@ And the user clicks the create invoice link on order page menu navigation
 When the user inputs values on invoice page
 | elementName | value |
 | supplier | supplier-s31u681s1 |
-| acceptanceDate | date |
+| acceptanceDate | 02.04.2013 16:23 |
 | accepter | accepter |
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
 | legalEntity | legalEntity |
@@ -95,7 +98,10 @@ When the user inputs values on invoice page
 | invoice product autocomplete | name-30681 |
 And the user inputs quantity '5,7' on the invoice product with name 'name-30681'
 And the user presses 'TAB' key button
-And the user inputs price '110' on the invoice product with name 'name-31681'
+
+Then the user waits for the invoice product edition preloader finish
+
+When the user inputs price '110' on the invoice product with name 'name-31681'
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
@@ -112,7 +118,10 @@ When the user inputs values on invoice page
 | invoice product autocomplete | name-3068101 |
 And the user inputs quantity '5,67' on the invoice product with name 'name-3068101'
 And the user presses 'TAB' key button
-And the user inputs price '123,67' on the invoice product with name 'name-31681'
+
+Then the user waits for the invoice product edition preloader finish
+
+When the user inputs price '123,67' on the invoice product with name 'name-31681'
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
@@ -199,7 +208,7 @@ Given there is the supplier with name 'supplier-s31u681s1'
 And there is the subCategory with name 'defaultSubCategory-s31u6812' related to group named 'defaultGroup-s31u6812' and category named 'defaultCategory-s31u6812'
 Given there is the product with 'name-306812' name, '306812' sku, '306812' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s31u6812', category named 'defaultCategory-s31u6812', subcategory named 'defaultSubCategory-s31u6812'
 
-Given the user opens order create page
+Given the user opens the store 'store-s31u681' invoice create page
 And the user logs in using 'departmentManager-s31u681' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
