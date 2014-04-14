@@ -47,8 +47,12 @@
                 </span>
             </div>
         </td>
-        <td></td>
-        <td></td>
+        <td style="white-space: nowrap" name="totalPrice">
+            <%- LH.formatMoney(invoiceProductModel.get('totalPrice')) %> руб.
+        </td>
+        <td style="white-space: nowrap" name="totalAmountVAT">
+            <%- LH.formatMoney(invoiceProductModel.get('totalAmountVAT')) %> руб.
+        </td>
         <td>
             <i class="icon-remove-sign form_invoice__removeProductLink" data-product_cid="<%- invoiceProductModel.cid %>"></i>
         </td>

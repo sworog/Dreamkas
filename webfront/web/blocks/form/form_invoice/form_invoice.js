@@ -7,6 +7,7 @@ define(function(require) {
         InputDate = require('blocks/inputDate/inputDate'),
         Autocomplete = require('blocks/autocomplete/autocomplete'),
         Select_suppliers = require('blocks/select/select_suppliers/select_suppliers'),
+        totalSum = require('tpl!blocks/form/form_invoice/totalSum.html'),
         router = require('router');
 
     return Form.extend({
@@ -99,6 +100,10 @@ define(function(require) {
 
             block.model.get('products').on('add', function(orderProductModel) {
                 block.editProduct(orderProductModel);
+            });
+
+            block.model.get('products').on('add remove change reset', function(orderProductModel) {
+                block.renderTotalSum();
             });
 
             block.blocks = {
@@ -195,6 +200,13 @@ define(function(require) {
             var block = this;
 
             block.$errorTr.detach();
+        },
+        renderTotalSum: function(){
+            var block = this;
+
+            $(block.el.querySelector('.form__totalSum')).replaceWith(totalSum({
+                invoiceModel: block.model
+            }));
         }
     });
 });

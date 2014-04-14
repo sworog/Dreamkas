@@ -7,7 +7,8 @@
 %>
 <% var currentUserModel = require('models/currentUser') %>
 <% var templates = _.extend({
-    select_suppliers: require('tpl!blocks/select/select_suppliers/template.html')
+    select_suppliers: require('tpl!blocks/select/select_suppliers/template.html'),
+    totalSum: require('tpl!blocks/form/form_invoice/totalSum.html')
 }, templates) %>
 <% var moment = require('moment') %>
 
@@ -48,14 +49,9 @@
                data-url="<%- LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/search/products?properties[]=name&properties[]=sku' %>"
                type="text" class="inputText autocomplete"/>
     </div>
-    <div class="form__totalSum">
-        <div>
-            Итого:
-        </div>
-        <div>
-            НДС:
-        </div>
-    </div>
+    <%= templates.totalSum({
+        invoiceModel: model
+    }) %>
     <div class="form__field">
         <label>
             <input style="vertical-align: middle" checked type="checkbox" name="includesVAT" />

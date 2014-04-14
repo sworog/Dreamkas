@@ -1,0 +1,15 @@
+<%
+/**
+ *
+ * @invoiceModel
+ */
+%>
+
+<div class="form__totalSum">
+    <div>
+        Итого: <%- LH.formatMoney(invoiceModel.get('sumTotal')) %> руб.
+    </div>
+    <div>
+        НДС: <%- LH.formatMoney(invoiceModel.get('totalAmountVAT')) %> руб.
+    </div>
+</div>
