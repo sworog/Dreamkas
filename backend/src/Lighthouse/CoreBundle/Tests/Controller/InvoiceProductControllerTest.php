@@ -525,36 +525,6 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertResponseCode(404);
     }
 
-    public function testGetInvoiceProductNotFoundFromAnotherStore()
-    {
-        $store1 = $this->factory()->store()->getStore('1');
-        $store2 = $this->factory()->store()->getStore('2');
-        $departmentManager = $this->factory()->store()->getDepartmentManager($store1->id);
-        $this->factory()->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
-
-        $productId = $this->createProduct();
-        $invoiceId = $this->createInvoice(array(), $store1->id);
-        $invoiceProductId = $this->createInvoiceProduct($invoiceId, $productId, 2, 19.25, $store1->id);
-
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store1->id);
-
-        $this->clientJsonRequest(
-            $accessToken,
-            'GET',
-            '/api/1/stores/' . $store2->id . '/invoices/' . $invoiceId . '/products/' . $invoiceProductId
-        );
-
-        $this->assertResponseCode(404);
-
-        $this->clientJsonRequest(
-            $accessToken,
-            'GET',
-            '/api/1/stores/' . $store1->id . '/invoices/' . $invoiceId . '/products/' . $invoiceProductId
-        );
-
-        $this->assertResponseCode(200);
-    }
-
     /**
      * @dataProvider putInvoiceProvider
      */
@@ -1638,6 +1608,7 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('2014-01-10T12:33:33+0400', 'acceptanceDate', $response);
         Assert::assertJsonPathEquals('2014-01-10T12:33:33+0400', 'products.0.acceptanceDate', $response);
 
+        $this->factory()->clear();
         $this->editInvoice(array('acceptanceDate' => '2014-01-03T10:11:10+0400'), $invoiceId, $storeId);
 
         $response = $this->clientJsonRequest(

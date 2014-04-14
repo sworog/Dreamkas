@@ -42,20 +42,6 @@ class InvoiceProductController extends AbstractRestController
 
     /**
      * @param Store $store
-     * @param Invoice $invoice
-     * @param InvoiceProduct $invoiceProduct
-     * @return InvoiceProductCollection
-     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
-     * @ApiDoc
-     */
-    public function getProductAction(Store $store, Invoice $invoice, InvoiceProduct $invoiceProduct)
-    {
-        $this->checkInvoiceProduct($invoiceProduct, $invoice, $store);
-        return $invoiceProduct;
-    }
-
-    /**
-     * @param Store $store
      * @param Product $product
      * @return InvoiceProductCollection
      * @Rest\Route("stores/{store}/products/{product}/invoiceProducts")
