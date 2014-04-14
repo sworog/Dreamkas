@@ -49,10 +49,22 @@ public class InvoiceProductObject extends AbstractObject implements ObjectLocata
     }
 
     public void quantityType(String value) {
-        //some code
+        WebElement quantityWebElement = getElement().findElement(By.xpath(".//*[@data-name='quantity']"));
+        quantityWebElement.clear();
+        quantityWebElement.sendKeys(value);
     }
 
     public void priceType(String value) {
-        //some code
+        WebElement quantityWebElement = getElement().findElement(By.xpath(".//*[@data-name='priceEntered']"));
+        quantityWebElement.clear();
+        quantityWebElement.sendKeys(value);
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public String getPrice() {
+        return price;
     }
 }

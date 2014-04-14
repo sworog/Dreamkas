@@ -4,7 +4,9 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
+import project.lighthouse.autotests.elements.items.DateTime;
 import project.lighthouse.autotests.elements.preLoader.ProductEditionPreLoader;
+import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.web.invoice.InvoiceProductObject;
@@ -32,6 +34,11 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
+    public void input(String elementName, String value) {
+        invoicePage.input(elementName, value);
+    }
+
+    @Step
     public void checkValues() {
         invoicePage.checkValues(examplesTable);
     }
@@ -49,6 +56,11 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void invoiceProductObjectQuantityType(String locator, String value) {
         getInvoiceProductObject(locator).quantityType(value);
+    }
+
+    @Step
+    public void assertInvoiceProductObjectQuantity(String locator, String expectedQuantity) {
+        assertThat(getInvoiceProductObject(locator).getQuantity(), is(expectedQuantity));
     }
 
     @Step
@@ -88,5 +100,27 @@ public class InvoiceSteps extends ScenarioSteps {
                 UrlHelper.getWebFrontUrl(),
                 store.getId());
         getDriver().navigate().to(url);
+    }
+
+    @Step
+    public void assertAcceptanceDateFieldContainsNowDate() {
+        String nowDate = DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN);
+        invoicePage.checkValue("acceptanceDate", nowDate);
+    }
+
+    @Step
+    public void inputGeneratedData(String elementName, int charNumber) {
+        String generatedData = new StringGenerator(charNumber).generateTestData();
+        input(elementName, generatedData);
+    }
+
+    @Step
+    public void assertFieldLength(String elementName, int fieldLength) {
+        invoicePage.checkFieldLength(elementName, fieldLength);
+    }
+
+    @Step
+    public void assertInvoiceNumber(String expectedNumber) {
+        assertThat(invoicePage.getInvoiceNumber(), is(expectedNumber));
     }
 }
