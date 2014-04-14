@@ -123,6 +123,15 @@ define(function(require, exports, module) {
                 return model && model.id;
             }));
         },
+        save: function(params) {
+            var page = this;
+
+            page.set('params', params);
+
+            router.save(page.params);
+
+            return page;
+        },
         destroy: function() {
             var page = this;
 

@@ -4,41 +4,52 @@ define(function(require) {
         InvoicesCollection = require('collections/invoices'),
         Form_invoiceSearch = require('blocks/form/form_invoiceSearch/form_invoiceSearch'),
         currentUserModel = require('models/currentUser'),
-        Page403 = require('pages/errors/403');
+        when = require('when');
 
     return Page.extend({
+        localNavigationActiveLink: 'search',
         templates: {
-            content: require('tpl!./content.html')
+            content: require('tpl!./content.html'),
+            localNavigation: require('tpl!../localNavigation.html')
         },
         params: {
-            storeId: null
+            storeId: null,
+            numberOrSupplierInvoiceNumber: null
         },
         isAllow: function() {
             var page = this;
 
             return currentUserModel.stores.length && currentUserModel.stores.at(0).id === page.params.storeId;
         },
-        initialize: function(){
+        collections: {
+            invoices: function() {
+                var page = this,
+                    invoices = new InvoicesCollection();
+
+                invoices.storeId = page.params.storeId;
+
+                return invoices;
+            }
+        },
+        fetch: function() {
             var page = this;
 
-            if (currentUserModel.stores.length){
-                page.params.storeId = currentUserModel.stores.at(0).id;
+            return when.all([
+                page.collections.invoices.fetch({
+                    data: {
+                        numberOrSupplierInvoiceNumber: page.params.numberOrSupplierInvoiceNumber
+                    }
+                })
+            ]);
+        },
+        blocks: {
+            form_invoiceSearch: function() {
+                var page = this;
+
+                return new Form_invoiceSearch({
+                    collections: _.pick(page.collections, 'invoices')
+                });
             }
-
-            if (!page.params.storeId){
-                new Page403();
-                return;
-            }
-
-            page.invoicesCollection = new InvoicesCollection();
-            page.invoicesCollection.storeId = page.params.storeId;
-
-            page.render();
-
-            new Form_invoiceSearch({
-                el: document.getElementById('form_invoiceSearch'),
-                invoicesCollection: page.invoicesCollection
-            });
         }
     });
 });
