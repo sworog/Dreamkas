@@ -15,12 +15,6 @@
     <% if (!collections.invoices.length && Page.current.params.numberOrSupplierInvoiceNumber) { %>
     <h3>Мы не смогли найти накладную с номером <%- Page.current.params.numberOrSupplierInvoiceNumber %></h3>
     <% } %>
-    <% if (collections.invoices.length === 1) { %>
-    <h3>Накладная нашлась!</h3>
-    <% } %>
-    <% if (collections.invoices.length > 1) { %>
-    <h3>Нашлось <%- collections.invoices.length %> накладных!</h3>
-    <% } %>
     <% if (collections.invoices.length) { %>
     <%= templates.table_invoices({
         collections: _.pick(collections, 'invoices')
