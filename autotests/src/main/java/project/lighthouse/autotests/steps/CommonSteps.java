@@ -17,6 +17,11 @@ public class CommonSteps extends ScenarioSteps {
     }
 
     @Step
+    public void exactCheckErrorMessages(ExamplesTable examplesTable) {
+        new ValidationErrorsCollection(getDriver()).exactCompareExampleTable(examplesTable);
+    }
+
+    @Step
     public void checkErrorMessage(String message) {
         new ValidationErrorsCollection(getDriver()).matchesWithMessage(message);
     }
