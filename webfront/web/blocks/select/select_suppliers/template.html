@@ -1,8 +1,10 @@
-<% var SuppliersCollection = require('collections/suppliers') %>
-<% var selected = selected || null %>
-<% var collections = _.extend({
-    suppliers: new SuppliersCollection()
-}, collections) %>
+<%
+/**
+ *
+ * @collections.suppliers
+ * @selected
+ */
+%>
 <% var templates = _.extend({
     agreementLink: require('tpl!blocks/select/select_suppliers/agreementLink.html')
 }, templates) %>

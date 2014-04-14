@@ -1,10 +1,11 @@
-<% var OrderModel = require('models/order') %>
-<% var SuppliersCollection = require('collections/suppliers') %>
+<%
+/**
+ *
+ * @collections.suppliers
+ * @model
+ */
+%>
 <% var currentUserModel = require('models/currentUser') %>
-<% var model = model || new OrderModel() %>
-<% var collections = _.extend({
-    suppliers: new SuppliersCollection()
-}, collections); %>
 <% var templates = _.extend({
     select_suppliers: require('tpl!blocks/select/select_suppliers/template.html')
 }, templates) %>
@@ -13,7 +14,7 @@
 <form class="form form_invoice">
     <div class="form__field">
         <label class="form__label">Дата</label>
-        <input value="<%- moment().valueOf() %>" type="text" class="inputText inputDate" name="acceptanceDate"/>
+        <input value="<%- model.get('acceptanceDate') || moment().valueOf() %>" type="text" class="inputText inputDate" name="acceptanceDate"/>
     </div>
     <div class="form__field">
         <label class="form__label">Поставщик</label>
@@ -24,15 +25,15 @@
     </div>
     <div class="form__field">
         <label class="form__label">Приемщик</label>
-        <input type="text" class="inputText" name="accepter"/>
+        <input value="<%- model.get('accepter') %>" type="text" class="inputText" name="accepter"/>
     </div>
     <div class="form__field">
         <label class="form__label">Организация получатель</label>
-        <input type="text" class="inputText" name="legalEntity"/>
+        <input value="<%- model.get('legalEntity') %>" type="text" class="inputText" name="legalEntity"/>
     </div>
     <div class="form__field">
         <label class="form__label">Счет-фактура</label>
-        <input type="text" class="inputText" name="supplierInvoiceNumber"/>
+        <input value="<%- model.get('supplierInvoiceNumber') %>" type="text" class="inputText" name="supplierInvoiceNumber"/>
     </div>
     <h2 style="padding-top: 20px;">Товары</h2>
 

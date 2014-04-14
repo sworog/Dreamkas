@@ -85,8 +85,7 @@ define(function(require) {
                 select: function(storeProduct) {
                     var block = this,
                         invoiceProductModel = new InvoiceProductModel({
-                            product: storeProduct,
-                            priceEntered: storeProduct.product.purchasePrice
+                            product: storeProduct.product
                         });
 
                     block.model.get('products').push(invoiceProductModel);

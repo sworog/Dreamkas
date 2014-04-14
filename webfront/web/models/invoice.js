@@ -11,7 +11,7 @@ define(function(require) {
         },
         defaults: {
             supplier: null,
-            acceptanceDate: moment().valueOf(),
+            acceptanceDate: null,
             accepter: null,
             legalEntity: null,
             includesVAT: true,

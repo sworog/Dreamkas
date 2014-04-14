@@ -1,7 +1,9 @@
-<% var InvoiceProductCollections = require('collections/invoiceProducts') %>
-<% var collections = _.extend({
-    invoiceProducts: new InvoiceProductCollections
-}, collections) %>
+<%
+/**
+ *
+ * @collections.invoiceProducts
+ */
+%>
 
 <% if (collections.invoiceProducts.length) { %>
 <table class="table" style="margin-bottom: 30px;">
@@ -19,7 +21,7 @@
     <% collections.invoiceProducts.forEach(function(invoiceProductModel){ %>
     <tr data-product_cid="<%- invoiceProductModel.cid %>" class="table__invoiceProduct" name="invoiceProduct">
         <td>
-            <%- invoiceProductModel.get('product.product.name') %>
+            <%- invoiceProductModel.get('product.name') %>
         </td>
         <td>
             <div style="white-space: nowrap">
@@ -29,16 +31,16 @@
                     <%- LH.formatAmount(invoiceProductModel.get('quantity')) %>
                 </span>
                 <span name="productUnits">
-                    <%- LH.units(invoiceProductModel.get('product.product.units'), 'smallShort') %>
+                    <%- LH.units(invoiceProductModel.get('product.units'), 'smallShort') %>
                 </span>
             </div>
         </td>
         <td>
             <div style="white-space: nowrap">
                 <input data-name="priceEntered" type="text" class="inputText"
-                       value="<%- LH.formatMoney(invoiceProductModel.get('product.product.purchasePrice')) %>"/>
+                       value="<%- LH.formatMoney(invoiceProductModel.get('priceEntered') || invoiceProductModel.get('product.purchasePrice')) %>"/>
                 <span class="table__invoiceProduct__editable" name="priceEntered">
-                    <%- LH.formatMoney(invoiceProductModel.get('product.product.purchasePrice')) %>
+                    <%- LH.formatMoney(invoiceProductModel.get('priceEntered') || invoiceProductModel.get('product.purchasePrice')) %>
                 </span>
                 <span>
                     руб.
