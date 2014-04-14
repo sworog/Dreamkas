@@ -21,8 +21,10 @@
         <td name="acceptanceDate">
             <%- moment(invoiceModel.get('acceptanceDate')).format('DD.MM.YYYY HH:mm') %>
         </td>
-        <td name="sku">
-            <%- invoiceModel.get('number') %>
+        <td name="number">
+            <span class="<%- invoiceModel.get('_meta.highlights.number') ? 'page__highlighted' : '' %>">
+                <%- invoiceModel.get('number') %>
+            </span>
         </td>
         <td name="supplier">
             <%- invoiceModel.get('supplier.name') %>
