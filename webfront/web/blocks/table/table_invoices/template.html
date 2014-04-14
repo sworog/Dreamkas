@@ -1,0 +1,40 @@
+<%
+/**
+ *
+ * @collections.invoices
+ */
+%>
+
+<table class="table table_invoices">
+    <thead>
+    <tr>
+        <th>Дата</th>
+        <th>Номер</th>
+        <th>Поставщик</th>
+        <th>Сумма</th>
+        <th>Принял</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% collections.invoices.forEach(function(invoiceModel){ %>
+    <tr name="invoice" href="/stores/<%- invoiceModel.get('store.id') %>/invoices/<%- invoiceModel.id %>">
+        <td name="acceptanceDate">
+            <%- moment(invoiceModel.get('acceptanceDate')).format('DD.MM.YYYY HH:mm') %>
+        </td>
+        <td name="sku">
+            <%- invoiceModel.get('number') %>
+        </td>
+        <td name="supplier">
+            <%- invoiceModel.get('supplier.name') %>
+        </td>
+        <td>
+            <span name="sumTotal"><%- LH.formatMoney(invoiceModel.get('sumTotal')) %></span>
+            <span>р.</span>
+        </td>
+        <td name="accepter">
+            <%- invoiceModel.get('accepter') %>
+        </td>
+    </tr>
+    <% }) %>
+    </tbody>
+</table>

@@ -1,7 +1,6 @@
 define(function(require) {
     //requirements
     var Form = require('blocks/form/form'),
-        InvoiceModel = require('models/invoice'),
         InvoiceProductModel = require('models/invoiceProduct'),
         currentUserModel = require('models/currentUser'),
         SuppliersCollection = require('collections/suppliers'),
@@ -12,7 +11,7 @@ define(function(require) {
 
     return Form.extend({
         redirectUrl: function() {
-            return '/' + currentUserModel.stores.at(0).id + '/invoices';
+            return '/stores/' + currentUserModel.stores.at(0).id + '/invoices';
         },
         el: '.form_invoice',
         storeId: null,
@@ -20,6 +19,10 @@ define(function(require) {
         editedProductField: null,
         nextEditedProductModel: null,
         nextEditedProductField: null,
+        model: null,
+        collections: {
+            suppliers: new SuppliersCollection()
+        },
         $errorTr: $('<tr class="table__orderProduct__error"><td colspan="6"></td></tr>'),
         events: {
             'click tr[data-product_cid]': function(e) {
@@ -89,10 +92,6 @@ define(function(require) {
                     block.model.get('products').push(invoiceProductModel);
                 }
             }
-        },
-        model: null,
-        collections: {
-            suppliers: new SuppliersCollection()
         },
         initialize: function() {
             var block = this;

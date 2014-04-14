@@ -35,7 +35,7 @@ define(function(require) {
         //invoices
         'stores/:storeId/invoices(/)': require('pages/invoices/list/list'),
         'stores/:storeId/invoices/create(/)': require('pages/invoices/create/create'),
-        //'invoices/search(/)': require('pages/invoices/search'),
+        'stores/:storeId/invoices/search(/)': require('pages/invoices/search/search'),
         //'stores/:storeId/invoices/:invoiceId(/)': require('pages/invoices/view'),
 
         //users

@@ -33,6 +33,10 @@ define(function(require) {
         },
         parse: function(data) {
 
+            if (!this.get('products')){
+                this.set('products', new InvoiceProductsCollection());
+            }
+
             this.get('products').reset(data.products);
 
             delete data.products;
