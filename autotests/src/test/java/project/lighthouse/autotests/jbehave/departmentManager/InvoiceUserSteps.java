@@ -243,7 +243,7 @@ public class InvoiceUserSteps {
         invoiceSteps.searchInput(value);
     }
 
-    @When("the user clicks the invoice search buttton and starts the search")
+    @When("the user clicks the invoice search button and starts the search")
     public void whenTheUserClicksTheInvoiceSearhButton() {
         invoiceSteps.searchButtonClick();
     }

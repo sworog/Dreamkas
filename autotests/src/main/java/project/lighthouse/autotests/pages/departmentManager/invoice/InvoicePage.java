@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.items.DateTime;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.NewAutoComplete;
@@ -39,7 +40,7 @@ public class InvoicePage extends CommonPageObject {
         put("accepter", new Input(this, "accepter", "Приемщик"));
         put("supplierInvoiceNumber", new Input(this, "supplierInvoiceNumber", "Счет-фактура"));
         put("legalEntity", new Input(this, "Организация получатель"));
-        put("invoice autocomplete", new NewAutoComplete(this, By.xpath("//*[@class='inputText autocomplete']")));
+        put("invoice product autocomplete", new NewAutoComplete(this, By.xpath("//*[@class='inputText autocomplete']")));
     }
 
     public InvoiceProductsCollection getInvoiceProductsCollection() {
@@ -56,5 +57,9 @@ public class InvoicePage extends CommonPageObject {
 
     public String getVatSum() {
         return findVisibleElement(vatSumWebElement).getText();
+    }
+
+    public void acceptProductsButtonClick() {
+        new ButtonFacade(this, "Принять товары").click();
     }
 }
