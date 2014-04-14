@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\Invoice;
 
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
+use Doctrine\ODM\MongoDB\Event\PostFlushEventArgs;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
@@ -10,9 +11,9 @@ use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
 use Symfony\Component\Validator\ObjectInitializerInterface;
 
 /**
- * @DI\Service("lighthouse.core.document.product.document_initializer")
+ * @DI\Service("lighthouse.core.document.invoice.totals_listener")
  * @DI\Tag("validator.initializer")
- * @DI\DoctrineMongoDBListener(events={"postPersist", "postUpdate", "postRemove"})
+ * @DI\DoctrineMongoDBListener(events={"postPersist", "postUpdate", "postRemove", "postFlush"})
  */
 class InvoiceTotalsListener extends AbstractMongoDBListener implements ObjectInitializerInterface
 {
@@ -25,6 +26,16 @@ class InvoiceTotalsListener extends AbstractMongoDBListener implements ObjectIni
      * @var InvoiceProductRepository
      */
     protected $invoiceProductRepository;
+
+    /**
+     * @var \SplQueue|Invoice[]
+     */
+    protected $invoicesQueue;
+
+    /**
+     * @var int
+     */
+    protected $postFlushCount = 0;
 
     /**
      * @DI\InjectParams({
@@ -41,6 +52,9 @@ class InvoiceTotalsListener extends AbstractMongoDBListener implements ObjectIni
     ) {
         $this->invoiceRepository = $invoiceRepository;
         $this->invoiceProductRepository = $invoiceProductRepository;
+
+        $this->invoicesQueue = new \SplQueue();
+        $this->invoicesQueue->setIteratorMode(\SplQueue::IT_MODE_DELETE);
     }
 
     /**
@@ -61,16 +75,7 @@ class InvoiceTotalsListener extends AbstractMongoDBListener implements ObjectIni
         $document = $eventArgs->getDocument();
 
         if ($document instanceof InvoiceProduct) {
-            $totalPriceDiff = $this->getChangeSetIntPropertyDiff($eventArgs, 'totalPrice');
-            $totalPriceWithoutVATDiff = $this->getChangeSetIntPropertyDiff($eventArgs, 'totalPriceWithoutVAT');
-            $totalAmountVATDiff = $this->getChangeSetIntPropertyDiff($eventArgs, 'totalAmountVAT');
-            $this->invoiceRepository->updateTotals(
-                $document->invoice,
-                1,
-                $totalPriceDiff,
-                $totalPriceWithoutVATDiff,
-                $totalAmountVATDiff
-            );
+            $this->invoicesQueue->enqueue($document->invoice);
         }
     }
 
@@ -82,19 +87,10 @@ class InvoiceTotalsListener extends AbstractMongoDBListener implements ObjectIni
         $document = $eventArgs->getDocument();
 
         if ($document instanceof InvoiceProduct) {
-            $totalPriceDiff = $this->getChangeSetIntPropertyDiff($eventArgs, 'totalPrice');
-            $totalPriceWithoutVATDiff = $this->getChangeSetIntPropertyDiff($eventArgs, 'totalPriceWithoutVAT');
-            $totalAmountVATDiff = $this->getChangeSetIntPropertyDiff($eventArgs, 'totalAmountVAT');
-            $this->invoiceRepository->updateTotals(
-                $document->invoice,
-                0,
-                $totalPriceDiff,
-                $totalPriceWithoutVATDiff,
-                $totalAmountVATDiff
-            );
+            $this->invoicesQueue->enqueue($document->invoice);
         }
 
-        if ($document instanceof Invoice) {
+        if ($document instanceof Invoice && false) {
             $changeSet = $this->getDocumentChangesSet($eventArgs);
             if (array_key_exists('includesVAT', $changeSet)) {
                 $this->invoiceProductRepository->recalcVATByInvoice($document);
@@ -110,13 +106,27 @@ class InvoiceTotalsListener extends AbstractMongoDBListener implements ObjectIni
         $document = $eventArgs->getDocument();
 
         if ($document instanceof InvoiceProduct) {
-            $this->invoiceRepository->updateTotals(
-                $document->invoice,
-                -1,
-                $document->totalPrice->getCount() * -1,
-                $document->totalPriceWithoutVAT->getCount() * -1,
-                $document->totalAmountVAT->getCount() * -1
-            );
+            $this->invoicesQueue->enqueue($document->invoice);
         }
+    }
+
+    /**
+     * @param PostFlushEventArgs $eventArgs
+     * @throws \InvalidArgumentException
+     */
+    public function postFlush(PostFlushEventArgs $eventArgs)
+    {
+        if (0 == $this->postFlushCount++ && !$this->invoicesQueue->isEmpty()) {
+            $dm = $eventArgs->getDocumentManager();
+
+            foreach ($this->invoicesQueue as $invoice) {
+                //$dm->refresh($invoice);
+                $invoice->calculateTotals();
+                $dm->persist($invoice);
+            }
+
+            $dm->flush();
+        }
+        $this->postFlushCount--;
     }
 }

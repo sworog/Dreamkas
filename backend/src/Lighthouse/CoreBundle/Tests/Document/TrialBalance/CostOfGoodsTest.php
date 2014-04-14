@@ -665,7 +665,8 @@ class CostOfGoodsTest extends WebTestCase
         $this->editInvoiceProduct($invoiceProduct1Id, $invoice1Id, $productId, 5, 100, $storeId);
         $costOfGoodsCalculator->calculateUnprocessed();
 
-        $this->deleteInvoiceProduct($invoiceProduct2Id, $invoice2Id, $storeId);
+        $this->factory()->clear();
+        $this->factory()->invoice()->deleteInvoiceProduct($invoiceProduct2Id);
         $costOfGoodsCalculator->calculateUnprocessed();
 
         $trialBalanceSaleProduct1 = $trialBalanceRepository
@@ -685,7 +686,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->createInvoiceProduct($invoice2Id, $productId, 5, 150, $storeId);
         $costOfGoodsCalculator->calculateUnprocessed();
 
-        $this->deleteInvoiceProduct($invoiceProduct1Id, $invoice1Id, $storeId);
+        $this->factory()->invoice()->deleteInvoiceProduct($invoiceProduct1Id);
         $costOfGoodsCalculator->calculateUnprocessed();
 
         $trialBalanceSaleProduct1 = $trialBalanceRepository

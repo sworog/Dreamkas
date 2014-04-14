@@ -88,9 +88,21 @@ class InvoiceFactory extends AbstractFactory
         $this->getValidator()->validate($invoiceProduct);
 
         $this->getDocumentManager()->persist($invoiceProduct);
-        $this->getDocumentManager()->flush($invoiceProduct);
+        $this->getDocumentManager()->flush();
 
         return $invoiceProduct;
+    }
+
+    /**
+     * @param string $id
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
+     */
+    public function deleteInvoiceProduct($id)
+    {
+        $invoiceProduct = $this->getInvoiceProductById($id);
+        $this->getDocumentManager()->remove($invoiceProduct);
+        $this->getDocumentManager()->flush($invoiceProduct);
     }
 
     /**

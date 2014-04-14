@@ -19,7 +19,7 @@ use SplQueue;
 /**
  * Class TrialBalanceListener
  *
- * @DI\DoctrineMongoDBListener(events={"onFlush", "postFlush"})
+ * @DI\DoctrineMongoDBListener(events={"onFlush", "postFlush"}, priority=128)
  */
 class TrialBalanceListener extends AbstractMongoDBListener
 {
@@ -260,14 +260,13 @@ class TrialBalanceListener extends AbstractMongoDBListener
      */
     public function postFlush(PostFlushEventArgs $eventArgs)
     {
-        if (!$this->trialBalanceQueue->isEmpty() && 0 == $this->postFlushCounter) {
-            $this->postFlushCounter++;
+        if (0 == $this->postFlushCounter++ && !$this->trialBalanceQueue->isEmpty()) {
             $dm = $eventArgs->getDocumentManager();
             foreach ($this->trialBalanceQueue as $trialBalance) {
                 $dm->persist($trialBalance);
             }
             $dm->flush();
-            $this->postFlushCounter--;
         }
+        $this->postFlushCounter--;
     }
 }

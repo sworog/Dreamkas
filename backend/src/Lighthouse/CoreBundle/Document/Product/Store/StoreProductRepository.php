@@ -361,6 +361,7 @@ class StoreProductRepository extends DocumentRepository
             ->createQueryBuilder()
             ->findAndUpdate()
             ->returnNew(true)
+            ->refresh(true)
             ->field('id')->equals($storeProduct->id)
             ->field('lastPurchasePrice')->set($lastPurchasePrice, true);
 

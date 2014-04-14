@@ -125,6 +125,10 @@ class TrialBalanceRepository extends DocumentRepository
      */
     public function findByReasons($reasons)
     {
+        if (0 == count($reasons)) {
+            return array();
+        }
+
         $reasonTypes = array();
         foreach ($reasons as $reason) {
             $reasonTypes[$reason->getReasonType()][] = new MongoId($reason->getReasonId());

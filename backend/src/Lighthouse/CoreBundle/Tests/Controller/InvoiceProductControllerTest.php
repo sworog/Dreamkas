@@ -16,7 +16,7 @@ class InvoiceProductControllerTest extends WebTestCase
      * @param string|float $price
      * @return array
      */
-    protected function getInvoiceData($supplierId, $productId, $quantity = '10', $price = '5.99')
+    public static function getInvoiceData($supplierId, $productId, $quantity = '10', $price = '5.99')
     {
         return array(
             'supplier' => $supplierId,
@@ -138,7 +138,7 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $productIds = $this->createProductsBySku(array('1', '2', '3'));
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
         // add first product
         $invoiceData = $this->getInvoiceData($supplier->id, $productIds[1], 10, '11.12');
@@ -511,30 +511,6 @@ class InvoiceProductControllerTest extends WebTestCase
         );
     }
 
-    public function testGetInvoiceProductsAction()
-    {
-        $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
-        $invoiceId = $this->createInvoice(array(), $store->id);
-        $invoiceProduct1Id = $this->createInvoiceProduct($invoiceId, $productId, 10, 11.12);
-        $invoiceProduct2Id = $this->createInvoiceProduct($invoiceId, $productId, 5, 12.76);
-        $invoiceProduct3Id = $this->createInvoiceProduct($invoiceId, $productId, 1, 5.99);
-
-        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
-
-        $response = $this->clientJsonRequest(
-            $accessToken,
-            'GET',
-            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId . '/products'
-        );
-
-        Assert::assertJsonPathCount(3, '*.id', $response);
-        Assert::assertJsonPathEquals($productId, '*.product.id', $response, 3);
-        Assert::assertJsonPathEquals($invoiceProduct1Id, '0.id', $response, 1);
-        Assert::assertJsonPathEquals($invoiceProduct2Id, '1.id', $response, 1);
-        Assert::assertJsonPathEquals($invoiceProduct3Id, '2.id', $response, 1);
-    }
-
     public function testGetInvoiceProductsActionNotFound()
     {
         $store = $this->factory()->store()->getStore();
@@ -585,61 +561,58 @@ class InvoiceProductControllerTest extends WebTestCase
     public function testPutInvoiceProductAction($quantity, $price, $totalPrice, $newQuantity, $newPrice, $newTotalPrice)
     {
         $store = $this->factory()->store()->getStore();
-        $invoiceId = $this->createInvoice(array(), $store->id);
+        $supplier = $this->factory()->supplier()->getSupplier();
         $productId = $this->createProduct();
 
-        $invoiceProductData = array(
-            'quantity' => $quantity,
-            'priceEntered'    => $price,
-            'product'  => $productId,
-        );
+        $invoiceData = $this->getInvoiceData($supplier->id, $productId, $quantity, $price);
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
         $responseJson = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId . '/products',
-            $invoiceProductData
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData
         );
 
         $this->assertResponseCode(201);
-        Assert::assertJsonPathEquals($quantity, 'quantity', $responseJson);
-        Assert::assertJsonPathEquals($price, 'price', $responseJson);
-        Assert::assertJsonPathEquals($totalPrice, 'totalPrice', $responseJson);
+        $invoiceId = $responseJson['id'];
 
-        Assert::assertJsonPathEquals($productId, 'product.id', $responseJson);
+        Assert::assertJsonPathEquals($quantity, 'products.0.quantity', $responseJson);
+        Assert::assertJsonPathEquals($price, 'products.0.price', $responseJson);
+        Assert::assertJsonPathEquals($totalPrice, 'products.0.totalPrice', $responseJson);
+
+        Assert::assertJsonPathEquals($productId, 'products.0.product.id', $responseJson);
 
         $this->assertStoreProductTotals($store->id, $productId, $quantity, $price);
 
-        Assert::assertJsonPathEquals($invoiceId, 'invoice.id', $responseJson);
-        Assert::assertJsonPathEquals(1, 'invoice.itemsCount', $responseJson);
-        Assert::assertJsonPathEquals($totalPrice, 'invoice.sumTotal', $responseJson);
+        Assert::assertJsonPathEquals(1, 'itemsCount', $responseJson);
+        Assert::assertJsonPathEquals($totalPrice, 'sumTotal', $responseJson);
 
         $this->assertInvoiceTotals($store->id, $invoiceId, $totalPrice, 1);
 
-        $invoiceProductId = $responseJson['id'];
+        $invoiceProductId = $responseJson['products'][0]['id'];
 
-        $modifiedInvoiceProductData = array(
+        $invoiceData['products'][0] = array(
+            'id' => $invoiceProductId,
             'quantity' => $newQuantity,
             'priceEntered' => $newPrice,
-        ) + $invoiceProductData;
+        ) + $invoiceData['products'][0];
 
         $responseJson = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId . '/products/' . $invoiceProductId,
-            $modifiedInvoiceProductData
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId,
+            $invoiceData
         );
 
         $this->assertResponseCode(200);
-        Assert::assertJsonPathEquals($invoiceProductId, 'id', $responseJson);
-        Assert::assertJsonPathEquals($newPrice, 'price', $responseJson);
-        Assert::assertJsonPathEquals($newQuantity, 'quantity', $responseJson);
-        Assert::assertJsonPathEquals($newTotalPrice, 'totalPrice', $responseJson);
+        Assert::assertNotJsonPathEquals($invoiceProductId, 'products.0.id', $responseJson);
+        Assert::assertJsonPathEquals($newPrice, 'products.0.price', $responseJson);
+        Assert::assertJsonPathEquals($newQuantity, 'products.0.quantity', $responseJson);
+        Assert::assertJsonPathEquals($newTotalPrice, 'products.0.totalPrice', $responseJson);
 
-        Assert::assertJsonPathEquals($productId, 'product.id', $responseJson);
-        Assert::assertJsonPathEquals($invoiceId, 'invoice.id', $responseJson);
+        Assert::assertJsonPathEquals($productId, 'products.0.product.id', $responseJson);
 
         $this->assertStoreProductTotals($store->id, $productId, $newQuantity, $newPrice);
         $this->assertInvoiceTotals($store->id, $invoiceId, $newTotalPrice, 1);
@@ -647,17 +620,16 @@ class InvoiceProductControllerTest extends WebTestCase
         $responseJson = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId . '/products/' . $invoiceProductId
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId
         );
 
         $this->assertResponseCode(200);
-        Assert::assertJsonPathEquals($invoiceProductId, 'id', $responseJson);
-        Assert::assertJsonPathEquals($newPrice, 'price', $responseJson);
-        Assert::assertJsonPathEquals($newQuantity, 'quantity', $responseJson);
-        Assert::assertJsonPathEquals($newTotalPrice, 'totalPrice', $responseJson);
+        Assert::assertJsonPathEquals($newPrice, 'products.0.price', $responseJson);
+        Assert::assertJsonPathEquals($newQuantity, 'products.0.quantity', $responseJson);
+        Assert::assertJsonPathEquals($newTotalPrice, 'products.0.totalPrice', $responseJson);
 
-        Assert::assertJsonPathEquals($productId, 'product.id', $responseJson);
-        Assert::assertJsonPathEquals($invoiceId, 'invoice.id', $responseJson);
+        Assert::assertJsonPathEquals($productId, 'products.0.product.id', $responseJson);
+        Assert::assertJsonPathEquals($invoiceId, 'id', $responseJson);
     }
 
     /**
@@ -683,65 +655,59 @@ class InvoiceProductControllerTest extends WebTestCase
         $invoiceSumTotal2
     ) {
         $store = $this->factory()->store()->getStore();
-        $invoiceId = $this->createInvoice(array(), $store->id);
+        $supplier = $this->factory()->supplier()->getSupplier();
         $product1Id = $this->createProduct('_1');
         $product2Id = $this->createProduct('_2');
 
         $this->assertStoreProductTotals($store->id, $product1Id, 0, null);
         $this->assertStoreProductTotals($store->id, $product2Id, 0, null);
 
-        // POST invoice product
-        $postData = array(
-            'quantity' => $quantity1,
-            'priceEntered'    => $price1,
-            'product'  => $product1Id,
-        );
+        $invoiceData = $this->getInvoiceData($supplier->id, $product1Id, $quantity1, $price1);
 
+        // POST invoice product
         $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
 
         $postJson = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId . '/products',
-            $postData
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData
         );
 
         $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $postJson);
-        $invoiceProductId = $postJson['id'];
+        $invoiceId = $postJson['id'];
 
         $this->assertStoreProductTotals($store->id, $product1Id, $quantity1, $price1);
 
-        Assert::assertJsonPathEquals($invoiceSumTotal1, 'invoice.sumTotal', $postJson);
-        Assert::assertJsonPathEquals(1, 'invoice.itemsCount', $postJson);
+        Assert::assertJsonPathEquals($invoiceSumTotal1, 'sumTotal', $postJson);
+        Assert::assertJsonPathEquals(1, 'itemsCount', $postJson);
 
         $this->assertStoreProductTotals($store->id, $product1Id, $quantity1, $price1);
         $this->assertStoreProductTotals($store->id, $product2Id, 0, null);
         $this->assertInvoiceTotals($store->id, $invoiceId, $invoiceSumTotal1, 1);
 
         // PUT invoice product with another product id
-        $putData = array(
+        $invoiceData['products'][0] = array(
             'quantity' => $quantity2,
             'priceEntered' => $price2,
             'product'  => $product2Id,
-        );
+        ) + $invoiceData['products'][0];
 
         $putJson = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId . '/products/' . $invoiceProductId,
-            $putData
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId,
+            $invoiceData
         );
 
         $this->assertResponseCode(200);
 
+        Assert::assertJsonPathEquals($invoiceSumTotal2, 'sumTotal', $putJson);
+        Assert::assertJsonPathEquals(1, 'itemsCount', $putJson);
+
         $this->assertStoreProductTotals($store->id, $product2Id, $quantity2, $price2);
-
-        Assert::assertJsonPathEquals($invoiceSumTotal2, 'invoice.sumTotal', $putJson);
-        Assert::assertJsonPathEquals(1, 'invoice.itemsCount', $putJson);
-
         $this->assertStoreProductTotals($store->id, $product1Id, 0, null);
-        $this->assertStoreProductTotals($store->id, $product2Id, $quantity2, $price2);
         $this->assertInvoiceTotals($store->id, $invoiceId, $invoiceSumTotal2, 1);
     }
 
@@ -817,199 +783,270 @@ class InvoiceProductControllerTest extends WebTestCase
     public function testDeleteProductsAction()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
-        $invoiceId = $this->createInvoice(array(), $store->id);
-
-        $invoiceProduct1Id = $this->createInvoiceProduct($invoiceId, $productId, 10, 1.99);
-        $invoiceProduct2Id = $this->createInvoiceProduct($invoiceId, $productId, 10, 1.99);
-        $invoiceProduct3Id = $this->createInvoiceProduct($invoiceId, $productId, 10, 1.99);
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $productIds = $this->createProductsBySku(array('1', '2', '3'));
+        $invoiceData = $this->getInvoiceData($supplier->id, $productIds['1'], 1, 1.99);
+        $invoiceData['products'][1] = array(
+            'quantity' => 2,
+            'priceEntered' => 2.99,
+            'product' => $productIds['2']
+        );
+        $invoiceData['products'][2] = array(
+            'quantity' => 3,
+            'priceEntered' => 3.99,
+            'product' => $productIds['3']
+        );
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
-        $this->clientJsonRequest(
+        $postResponse = $this->clientJsonRequest(
             $accessToken,
-            'DELETE',
-            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId . '/products/' . $invoiceProduct2Id
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData
         );
 
-        $this->assertResponseCode(204);
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('id', $postResponse);
+        Assert::assertJsonPathCount(3, 'products.*.id', $postResponse);
+        Assert::assertJsonPathEquals(19.94, 'sumTotal', $postResponse);
+        Assert::assertJsonPathEquals(3, 'itemsCount', $postResponse);
+
+        $invoiceId = $postResponse['id'];
+        $invoiceData['products'][0]['id'] = $postResponse['products'][0]['id'];
+        $invoiceData['products'][1]['id'] = $postResponse['products'][1]['id'];
+        unset($invoiceData['products'][1]);
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId,
+            $invoiceData
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(2, 'products.*.id', $putResponse);
+        Assert::assertNotJsonPathEquals($productIds['2'], 'products.*.id', $putResponse);
+        Assert::assertJsonPathEquals(13.96, 'sumTotal', $putResponse);
+        Assert::assertJsonPathEquals(2, 'itemsCount', $putResponse);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId . '/products'
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId
         );
 
         $this->assertResponseCode(200);
-
-        Assert::assertJsonPathCount(2, '*.id', $getResponse);
-
-        Assert::assertJsonPathEquals($invoiceProduct1Id, '*.id', $getResponse, 1);
-        Assert::assertJsonPathEquals($invoiceProduct3Id, '*.id', $getResponse, 1);
-
-        Assert::assertNotJsonPathEquals($invoiceProduct2Id, '*.id', $getResponse);
+        Assert::assertJsonPathCount(2, 'products.*.id', $getResponse);
+        Assert::assertJsonPathEquals(13.96, 'sumTotal', $getResponse);
+        Assert::assertJsonPathEquals(2, 'itemsCount', $getResponse);
     }
 
     public function testDeleteProductsActionUpdateAmountAndInvoiceTotals()
     {
         $store = $this->factory()->store()->getStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
         $productId = $this->createProduct();
-        $invoiceId = $this->createInvoice(array(), $store->id);
 
-        $productsData = $this->createInvoiceProducts($productId, $invoiceId, $store->id);
+        $invoiceData = $this->getInvoiceData($supplier->id, $productId, 10, 11.12);
+        $invoiceData['products'][1] = array(
+            'product' => $productId,
+            'quantity' => 5,
+            'priceEntered' => 12.76,
+        );
+        $invoiceData['products'][2] = array(
+            'product' => $productId,
+            'quantity' => 1,
+            'priceEntered' => 5.99,
+        );
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData
+        );
+        $this->assertResponseCode(201);
+        $invoiceId = $response['id'];
 
         $this->assertStoreProductTotals($store->id, $productId, 16, 5.99);
 
         $this->assertInvoiceTotals($store->id, $invoiceId, 180.99, 3);
 
+        unset($invoiceData['products'][1]);
         $this->clientJsonRequest(
             $accessToken,
-            'DELETE',
-            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId . '/products/' . $productsData[1]['id']
+            'PUT',
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId,
+            $invoiceData
         );
-
-        $this->assertResponseCode(204);
+        $this->assertResponseCode(200);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId . '/products'
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId
         );
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathCount(2, '*.id', $getResponse);
+        Assert::assertJsonPathCount(2, 'products.*.id', $getResponse);
+        Assert::assertNotJsonPathEquals(5, 'products.*.quantity', $getResponse);
 
-        Assert::assertJsonPathEquals($productsData[0]['id'], '*.id', $getResponse);
-        Assert::assertJsonPathEquals($productsData[2]['id'], '*.id', $getResponse);
-
-        Assert::assertNotJsonPathEquals($productsData[1]['id'], '*.id', $getResponse);
-
-        $this->assertStoreProductTotals($store->id, $productId, 11, $productsData[2]['priceEntered']);
+        $this->assertStoreProductTotals($store->id, $productId, 11, 5.99);
         $this->assertInvoiceTotals($store->id, $invoiceId, 117.19, 2);
     }
 
     public function testLastPurchasePriceChangeOnInvoiceProductDelete()
     {
         $store = $this->factory()->store()->getStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
         $productId = $this->createProduct();
 
-        $invoiceId = $this->createInvoice(array(), $store->id);
-
-        $invoiceProducts = $this->createInvoiceProducts($productId, $invoiceId, $store->id);
-
-        $this->assertStoreProductTotals(
-            $store->id,
-            $productId,
-            $invoiceProducts[2]['productAmount'],
-            $invoiceProducts[2]['priceEntered']
+        $invoiceData = $this->getInvoiceData($supplier->id, $productId, 10, 11.12);
+        $invoiceData['products'][1] = array(
+            'product' => $productId,
+            'quantity' => 5,
+            'priceEntered' => 12.76
+        );
+        $invoiceData['products'][2] = array(
+            'product' => $productId,
+            'quantity' => 1,
+            'priceEntered' => 5.99
+        );
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData
         );
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $this->assertResponseCode(201);
+        $invoiceId = $response['id'];
 
+        $this->assertStoreProductTotals($store->id, $productId, 16, 5.99);
+
+        unset($invoiceData['products'][2]);
         $this->clientJsonRequest(
             $accessToken,
-            'DELETE',
-            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId . '/products/' . $invoiceProducts[2]['id']
+            'PUT',
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId,
+            $invoiceData
         );
 
-        $this->assertResponseCode(204);
+        $this->assertResponseCode(200);
 
-        $this->assertStoreProductTotals($store->id, $productId, 15, $invoiceProducts[1]['priceEntered']);
+        $this->assertStoreProductTotals($store->id, $productId, 15, 12.76);
 
+        unset($invoiceData['products'][0]);
         $this->clientJsonRequest(
             $accessToken,
-            'DELETE',
-            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId . '/products/' . $invoiceProducts[0]['id']
+            'PUT',
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId,
+            $invoiceData
         );
 
-        $this->assertResponseCode(204);
+        $this->assertResponseCode(200);
 
-        $this->assertStoreProductTotals($store->id, $productId, 5, $invoiceProducts[1]['priceEntered']);
-
-        $this->clientJsonRequest(
-            $accessToken,
-            'DELETE',
-            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId . '/products/' . $invoiceProducts[1]['id']
-        );
-
-        $this->assertResponseCode(204);
-
-        $this->assertStoreProductTotals($store->id, $productId, 0, null);
+        $this->assertStoreProductTotals($store->id, $productId, 5, 12.76);
     }
 
     public function testLastPurchasePriceChangeOnInvoiceProductUpdate()
     {
+        $supplier = $this->factory()->supplier()->getSupplier();
         $store = $this->factory()->store()->getStore();
         $productId = $this->createProduct();
 
-        $invoiceId = $this->createInvoice(array(), $store->id);
-
-        $invoiceProducts = $this->createInvoiceProducts($productId, $invoiceId, $store->id);
-
-        $this->assertStoreProductTotals(
-            $store->id,
-            $productId,
-            $invoiceProducts[2]['productAmount'],
-            $invoiceProducts[2]['priceEntered']
+        $invoiceData = $this->getInvoiceData($supplier->id, $productId, 10, 11.12);
+        $invoiceData['products'][1] = array(
+            'product' => $productId,
+            'quantity' => 5,
+            'priceEntered' => 12.76
+        );
+        $invoiceData['products'][2] = array(
+            'product' => $productId,
+            'quantity' => 1,
+            'priceEntered' => 5.99
+        );
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData
         );
 
-        $newInvoiceProductData = $invoiceProducts[1];
-        $newInvoiceProductData['priceEntered'] = 13.01;
-        unset($newInvoiceProductData['productAmount'], $newInvoiceProductData['id']);
+        $this->assertResponseCode(201);
+        $invoiceId = $response['id'];
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $this->assertStoreProductTotals($store->id, $productId, 16, 5.99);
+
+        $invoiceData['products'][1]['priceEntered'] = 13.01;
 
         $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId . '/products/' . $invoiceProducts[1]['id'],
-            $newInvoiceProductData
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId,
+            $invoiceData
         );
 
         $this->assertResponseCode(200);
 
-        $this->assertStoreProductTotals($store->id, $productId, 16, $invoiceProducts[2]['priceEntered']);
+        $this->assertStoreProductTotals($store->id, $productId, 16, 5.99);
 
         $newProductId = $this->createProduct('NEW');
-        $newInvoiceProductDataNewProduct = $invoiceProducts[2];
-        $newInvoiceProductDataNewProduct['product'] = $newProductId;
-
-        unset($newInvoiceProductDataNewProduct['productAmount'], $newInvoiceProductDataNewProduct['id']);
+        $invoiceData['products'][2]['product'] = $newProductId;
 
         $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId . '/products/' . $invoiceProducts[2]['id'],
-            $newInvoiceProductDataNewProduct
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId,
+            $invoiceData
         );
 
         $this->assertResponseCode(200);
 
-        $this->assertStoreProductTotals($store->id, $productId, 15, $newInvoiceProductData['priceEntered']);
-        $this->assertStoreProductTotals(
-            $store->id,
-            $newProductId,
-            1,
-            $newInvoiceProductDataNewProduct['priceEntered']
-        );
+        $this->assertStoreProductTotals($store->id, $productId, 15, 13.01);
+        $this->assertStoreProductTotals($store->id, $newProductId, 1, 5.99);
     }
 
     public function testAveragePurchasePrice()
     {
+        $supplier = $this->factory()->supplier()->getSupplier();
         $store = $this->factory()->store()->getStore();
         $productId1 = $this->createProduct('1');
         $productId2 = $this->createProduct('2');
 
-        $invoiceId1 = $this->createInvoice(array('acceptanceDate' => date('c', strtotime('-3 days'))), $store->id);
+        $invoiceData0 = $this->getInvoiceData($supplier->id, $productId1, 10, 23.33);
+        $invoiceData0['acceptanceDate'] = date('c', strtotime('-31 days'));
 
-        $invoiceIdOld = $this->createInvoice(array('acceptanceDate' => date('c', strtotime('-31 days'))), $store->id);
-        $this->createInvoiceProduct($invoiceIdOld, $productId1, 10, 23.33);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData0
+        );
+        $this->assertResponseCode(201);
 
-        $invoiceProductId1 = $this->createInvoiceProduct($invoiceId1, $productId1, 10, 26);
-        $this->createInvoiceProduct($invoiceId1, $productId2, 6, 34.67);
+        $invoiceData1 = $this->getInvoiceData($supplier->id, $productId1, 10, 26);
+        $invoiceData1['acceptanceDate'] = date('c', strtotime('-3 days'));
+        $invoiceData1['products'][1] = array(
+            'product' => $productId2,
+            'priceEntered' => 34.67,
+            'quantity' => 6
+        );
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData1
+        );
+        $this->assertResponseCode(201);
+        $invoiceId1 = $response['id'];
 
         /* @var $averagePriceService StoreProductMetricsCalculator */
         $averagePriceService = $this->getContainer()->get('lighthouse.core.service.product.metrics_calculator');
@@ -1017,31 +1054,45 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertStoreProduct($store->id, $productId1, array('averagePurchasePrice' => 26));
 
-        $invoiceId2 = $this->createInvoice(array('acceptanceDate' => date('c', strtotime('-2 days'))), $store->id);
-
-        $invoiceProductId2 = $this->createInvoiceProduct($invoiceId2, $productId1, 5, 29);
+        $invoiceData2 = $this->getInvoiceData($supplier->id, $productId1, 5, 29);
+        $invoiceData2['acceptanceDate'] = date('c', strtotime('-2 days'));
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData2
+        );
+        $this->assertResponseCode(201);
+        $invoiceId2 = $response['id'];
 
         $averagePriceService->recalculateAveragePrice();
 
         $this->assertStoreProduct($store->id, $productId1, array('averagePurchasePrice' => 27));
 
-        $invoiceId3 = $this->createInvoice(array('acceptanceDate' => date('c', strtotime('-1 days'))), $store->id);
-
-        $invoiceProductId3 = $this->createInvoiceProduct($invoiceId3, $productId1, 10, 31);
+        $invoiceData3 = $this->getInvoiceData($supplier->id, $productId1, 10, 31);
+        $invoiceData3['acceptanceDate'] = date('c', strtotime('-1 days'));
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData3
+        );
+        $this->assertResponseCode(201);
+        $invoiceId3 = $response['id'];
 
         $averagePriceService->recalculateAveragePrice();
 
         $this->assertStoreProduct($store->id, $productId1, array('averagePurchasePrice' => 28.6));
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
-
+        unset($invoiceData3['products'][0]);
         $this->clientJsonRequest(
             $accessToken,
-            'DELETE',
-            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId3 . '/products/' . $invoiceProductId3
+            'PUT',
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId3,
+            $invoiceData3
         );
 
-        $this->assertResponseCode(204);
+        $this->assertResponseCode(200);
 
         $averagePriceService->recalculateAveragePrice();
 
@@ -1051,13 +1102,15 @@ class InvoiceProductControllerTest extends WebTestCase
             array('averagePurchasePrice' => 27, 'lastPurchasePrice' => 29)
         );
 
+        unset($invoiceData2['products'][0]);
         $this->clientJsonRequest(
             $accessToken,
-            'DELETE',
-            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId2 . '/products/' . $invoiceProductId2
+            'PUT',
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId2,
+            $invoiceData2
         );
 
-        $this->assertResponseCode(204);
+        $this->assertResponseCode(200);
 
         $averagePriceService->recalculateAveragePrice();
 
@@ -1067,13 +1120,15 @@ class InvoiceProductControllerTest extends WebTestCase
             array('averagePurchasePrice' => 26, 'lastPurchasePrice' => 26)
         );
 
+        unset($invoiceData1['products'][0]);
         $this->clientJsonRequest(
             $accessToken,
-            'DELETE',
-            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId1. '/products/' . $invoiceProductId1
+            'PUT',
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId1,
+            $invoiceData1
         );
 
-        $this->assertResponseCode(204);
+        $this->assertResponseCode(200);
 
         $averagePriceService->recalculateAveragePrice();
 
@@ -1531,26 +1586,37 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testPutWithEmptyQuantity()
     {
-        $storeId = $this->factory->store()->getStoreId();
+        $store = $this->factory()->store()->getStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
         $productId = $this->createProduct();
-        $invoiceId = $this->createInvoice(array(), $storeId);
-        $invoiceProductId = $this->createInvoiceProduct($invoiceId, $productId, 1, 9.99, $storeId);
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
+        $invoiceData = $this->getInvoiceData($supplier->id, $productId, 1, 9.99);
+
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
 
         $response = $this->clientJsonRequest(
             $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData
+        );
+        $this->assertResponseCode(201);
+        $invoiceId = $response['id'];
+
+        $invoiceData['products'][0]['quantity'] = '';
+        $response = $this->clientJsonRequest(
+            $accessToken,
             'PUT',
-            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products/' . $invoiceProductId,
-            array(
-                'product' => $productId,
-                'priceEntered' => 9.99,
-                'quantity' => ''
-            )
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId,
+            $invoiceData
         );
 
         $this->assertResponseCode(400);
-        Assert::assertJsonPathEquals('Заполните это поле', 'children.quantity.errors.0', $response);
+        Assert::assertJsonPathEquals(
+            'Заполните это поле',
+            'children.products.children.0.children.quantity.errors.0',
+            $response
+        );
     }
 
     public function testGetInvoiceProductAfterEditInvoiceAcceptanceDate()
@@ -1565,12 +1631,12 @@ class InvoiceProductControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products'
+            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId
         );
 
         $this->assertResponseCode(200);
-        Assert::assertJsonPathEquals('2014-01-10T12:33:33+0400', '0.acceptanceDate', $response);
-
+        Assert::assertJsonPathEquals('2014-01-10T12:33:33+0400', 'acceptanceDate', $response);
+        Assert::assertJsonPathEquals('2014-01-10T12:33:33+0400', 'products.0.acceptanceDate', $response);
 
         $this->editInvoice(array('acceptanceDate' => '2014-01-03T10:11:10+0400'), $invoiceId, $storeId);
 
@@ -1599,18 +1665,18 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->createInvoiceProduct($invoiceId, $productId2, 3, 4.99, $storeId);
         $this->createInvoiceProduct($invoiceId, $productId3, 2, 1.95, $storeId);
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId .'/invoices/' . $invoiceId . '/products'
+            '/api/1/stores/' . $storeId .'/invoices/' . $invoiceId
         );
 
         $this->assertResponseCode(200);
-        Assert::assertJsonHasPath('*.product.subCategory', $getResponse);
-        Assert::assertJsonHasPath('*.invoice', $getResponse);
-        Assert::assertNotJsonHasPath('*.product.subCategory.category.group', $getResponse);
-        Assert::assertJsonPathCount(0, '*.invoice.products.*.id', $getResponse);
-        Assert::assertNotJsonHasPath('*.product.subCategory.category', $getResponse);
+        Assert::assertJsonHasPath('products.*.product.subCategory', $getResponse);
+        Assert::assertNotJsonHasPath('products.*.invoice', $getResponse);
+        Assert::assertNotJsonHasPath('products.*.product.subCategory.category.group', $getResponse);
+        Assert::assertJsonPathCount(0, 'products.*.invoice.products.*.id', $getResponse);
+        Assert::assertNotJsonHasPath('products.*.product.subCategory.category', $getResponse);
     }
 }
