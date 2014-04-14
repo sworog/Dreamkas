@@ -12,7 +12,7 @@
 }, templates) %>
 
 <div class="form__results">
-    <% if (!collections.invoices.length) { %>
+    <% if (!collections.invoices.length && Page.current.params.numberOrSupplierInvoiceNumber) { %>
     <h3>Мы не смогли найти накладную с номером <%- Page.current.params.numberOrSupplierInvoiceNumber %></h3>
     <% } %>
     <% if (collections.invoices.length === 1) { %>
