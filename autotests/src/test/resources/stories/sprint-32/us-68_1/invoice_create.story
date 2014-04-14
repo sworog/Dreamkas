@@ -65,6 +65,52 @@ Then the user checks the invoice products list contains exact entries
 | name | quantity | units | price | totalSum | vatSum |
 | name-31681 | шт. | 5,0 | 110,00 | 550,00 | 56,78 |
 
+Scenario: Invoice number check
+
+Meta:
+@id_
+@invoice
+@smoke
+
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
+              precondition/sprint-31/us-68_1/aUsersPreconditionToStory.story,
+              precondition/sprint-31/us-68_1/aPreconditionWithDataToOrderCreateStory.story
+
+Given the user opens the authorization page
+And the user logs in using 'departmentManager-s31u681' userName and 'lighthouse' password
+
+When the user clicks the menu invoices item
+And the user clicks the create invoice link on order page menu navigation
+
+When the user inputs values on invoice page
+| elementName | value |
+| supplier | supplier-s31u681s1 |
+| acceptanceDate | 02.04.2013 16:23 |
+| accepter | accepter |
+| supplierInvoiceNumber | supplierInvoiceNumber-1 |
+| legalEntity | legalEntity |
+
+When the user inputs values on invoice page
+| elementName | value |
+| invoice product autocomplete | name-31681 |
+And the user inputs quantity '5' on the invoice product with name 'name-31681'
+And the user presses 'ENTER' key button
+
+Then the user waits for the invoice product edition preloader finish
+
+When the user accepts products and saves the invoice
+
+Then the user sees no error messages
+
+When the user clicks the local navigation invoice search link
+And the user searches invoice by sku or supplier sku '10001'
+And the user clicks the invoice search button and starts the search
+
+!--may be the better scenario will be click on search result and verify
+When the user clicks on the search result invoice with sku '10001'
+
+Then the user asserts the invoice number is '10001'
+
 Scenario: Invoice create with three products
 
 Meta:
