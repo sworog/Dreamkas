@@ -148,7 +148,10 @@ class Invoice extends AbstractDocument implements Storeable
      * )
      *
      * @Assert\Valid(traverse=true)
-     * @@Assert\Count(min=1, minMessage="lighthouse.validation.errors.invoice.products.empty")
+     * @@Assert\Count(
+     *      min=1,
+     *      minMessage="lighthouse.validation.errors.invoice.products.empty"
+     * )
      * @Serializer\MaxDepth(4)
      * @var InvoiceProduct[]
      */

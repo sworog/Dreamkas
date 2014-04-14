@@ -36,8 +36,12 @@ abstract class AbstractRestController extends FOSRestController
     protected function processForm(Request $request, AbstractDocument $document, $save = true)
     {
         $validation = $request->get('validation', false);
+        $options = array();
+        if ($validation && '1' !== $validation) {
+            $options['validation_groups'] = $validation;
+        }
         $type = $this->getDocumentFormType();
-        $form = $this->createForm($type, $document);
+        $form = $this->createForm($type, $document, $options);
         $form->submit($request);
 
         if ($form->isValid()) {

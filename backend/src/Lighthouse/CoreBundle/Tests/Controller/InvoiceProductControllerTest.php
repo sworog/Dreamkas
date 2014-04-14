@@ -288,6 +288,36 @@ class InvoiceProductControllerTest extends WebTestCase
     }
 
     /**
+     * @dataProvider validationProvider
+     */
+    public function testPostWithValidationGroup($expectedCode, array $data, array $assertions = array())
+    {
+        $store = $this->factory()->store()->getStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $productId = $this->createProduct();
+        $invoiceData = $this->getInvoiceData($supplier->id, $productId, 10, 17.68);
+        $invoiceData['acceptanceDate'] = '';
+        $invoiceData['products'][0] = $data + $invoiceData['products'][0];
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices?validation=products',
+            $invoiceData
+        );
+
+        $this->assertResponseCode($expectedCode);
+        $this->performJsonAssertions($response, $assertions, true);
+        if (400 == $expectedCode) {
+            Assert::assertNotJsonHasPath('children.acceptanceDate.errors.0', $response);
+        } else {
+            Assert::assertNotJsonHasPath('acceptanceDate', $response);
+        }
+    }
+
+    /**
      * @return array
      */
     public function validationProvider()

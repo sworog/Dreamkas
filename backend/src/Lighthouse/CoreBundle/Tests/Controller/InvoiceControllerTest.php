@@ -952,4 +952,65 @@ class InvoiceControllerTest extends WebTestCase
         $this->assertResponseCode(200);
         Assert::assertNotJsonHasPath('products.*.product.subCategory.category', $getResponse);
     }
+
+    public function testValidationGroup()
+    {
+        $store = $this->factory()->store()->getStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $productId = $this->createProduct('1');
+
+        $invoiceData = InvoiceProductControllerTest::getInvoiceData($supplier->id, $productId, 10, 5.99);
+        $invoiceData['acceptanceDate'] = '';
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals('Заполните это поле', 'children.acceptanceDate.errors.0', $response);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices?validation=1',
+            $invoiceData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals('Заполните это поле', 'children.acceptanceDate.errors.0', $response);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices?validation=products',
+            $invoiceData
+        );
+
+        $this->assertResponseCode(201);
+        Assert::assertNotJsonHasPath('children.acceptanceDate.errors.0', $response);
+        Assert::assertNotJsonHasPath('acceptanceData', $response);
+        Assert::assertNotJsonHasPath('id', $response);
+        Assert::assertJsonPathEquals('59.90', 'sumTotal', $response);
+
+        $invoiceData['products'][0]['quantity'] = '';
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices?validation=products',
+            $invoiceData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertNotJsonHasPath('children.acceptanceDate.errors.0', $response);
+        Assert::assertJsonPathEquals(
+            'Заполните это поле',
+            'children.products.children.0.children.quantity.errors.0',
+            $response
+        );
+    }
 }

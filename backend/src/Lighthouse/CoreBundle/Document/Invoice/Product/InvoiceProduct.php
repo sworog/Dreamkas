@@ -50,11 +50,11 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     /**
      * Количество
      * @MongoDB\Field(type="quantity")
-     * @Assert\NotBlank
-     * @LighthouseAssert\Chain({
-     *  @LighthouseAssert\Precision(3),
-     *  @LighthouseAssert\Range\Range(gt=0)
-     * })
+     * @Assert\NotBlank(groups={"Default", "products"})
+     * @LighthouseAssert\Chain(
+     *      constraints={@LighthouseAssert\Precision(3), @LighthouseAssert\Range\Range(gt=0)},
+     *      groups={"Default", "products"}
+     * )
      * @var Quantity
      */
     protected $quantity;
@@ -62,8 +62,8 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     /**
      * Введённая цена
      * @MongoDB\Field(type="money")
-     * @Assert\NotBlank
-     * @LighthouseAssert\Money(notBlank=true)
+     * @Assert\NotBlank(groups={"Default", "products"})
+     * @LighthouseAssert\Money(notBlank=true, groups={"Default", "products"})
      * @var Money
      */
     protected $priceEntered;
@@ -130,7 +130,7 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     protected $invoice;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\NotBlank(groups={"Default", "products"})
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Product\Version\ProductVersion",
      *     simple=true,
