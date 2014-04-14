@@ -660,13 +660,6 @@ class UserControllerTest extends WebTestCase
                         'GET',
                         'POST'
                     ),
-                    'stores/{store}/invoices/{invoice}/products.*' => array(
-                        'GET::{invoiceProduct}',
-                        'PUT::{invoiceProduct}',
-                        'DELETE::{invoiceProduct}',
-                        'GET',
-                        'POST'
-                    ),
                     'stores/{store}/writeoffs.*' => array(
                         'GET::{writeOff}',
                         'PUT::{writeOff}',
@@ -721,7 +714,6 @@ class UserControllerTest extends WebTestCase
                         'GET::reports/grossSalesByProducts',
                     ),
                     'stores/{store}/invoices.*' => array(),
-                    'stores/{store}/invoices/{invoice}/products.*' => array(),
                     'stores/{store}/writeoffs.*' => array(),
                     'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
                     'users.*' => array(
@@ -754,7 +746,6 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/categories/{category}.*' => array(),
                     'stores/{store}/subcategories/{subCategory}.*' => array(),
                     'stores/{store}/invoices.*' => array(),
-                    'stores/{store}/invoices/{invoice}/products.*' => array(),
                     'stores/{store}/writeoffs.*' => array(),
                     'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
                     'users.*' => array(
@@ -779,7 +770,6 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/categories/{category}.*' => array(),
                     'stores/{store}/subcategories/{subCategory}.*' => array(),
                     'stores/{store}/invoices.*' => array(),
-                    'stores/{store}/invoices/{invoice}/products.*' => array(),
                     'stores/{store}/writeoffs.*' => array(),
                     'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
                     'users.*' => array(
