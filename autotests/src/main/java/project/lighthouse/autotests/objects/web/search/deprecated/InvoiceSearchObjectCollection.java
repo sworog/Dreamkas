@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects.web.search;
+package project.lighthouse.autotests.objects.web.search.deprecated;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,6 +9,7 @@ import project.lighthouse.autotests.objects.web.abstractObjects.AbstractSearchOb
 
 import java.util.List;
 
+@Deprecated
 public class InvoiceSearchObjectCollection extends AbstractSearchObjectCollection {
 
     public InvoiceSearchObjectCollection(WebDriver webDriver, By findBy) {

@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects.web.search;
+package project.lighthouse.autotests.objects.web.search.deprecated;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,6 +11,8 @@ import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.Map;
 
+
+@Deprecated
 public class InvoiceSearchObject extends AbstractSearchObjectNode implements ObjectLocatable, ResultComparable, ObjectClickable {
 
     private String sku;
