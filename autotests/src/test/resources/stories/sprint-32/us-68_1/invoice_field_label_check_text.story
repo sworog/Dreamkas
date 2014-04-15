@@ -11,7 +11,7 @@ Meta:
 @id
 @description assert acceptanceDate field label supplier
 
-GivenStories: precondition/sprint-31/us-68_1/aPreconditionToStoryUs68.1.story
+GivenStories: precondition/sprint-32/us-68_1/aPreconditionToStoryUs68.1.story
 
 Given the user opens the authorization page
 And the user logs in using 'departmentManager-s31u681' userName and 'lighthouse' password
@@ -24,7 +24,7 @@ Meta:
 @id
 @description assert supplier field label supplier
 
-GivenStories: precondition/sprint-31/us-68_1/aPreconditionToStoryUs68.1.story
+GivenStories: precondition/sprint-32/us-68_1/aPreconditionToStoryUs68.1.story
 
 Given the user opens the authorization page
 And the user logs in using 'departmentManager-s31u681' userName and 'lighthouse' password
@@ -37,7 +37,7 @@ Meta:
 @id
 @description assert accepter field label supplier
 
-GivenStories: precondition/sprint-31/us-68_1/aPreconditionToStoryUs68.1.story
+GivenStories: precondition/sprint-32/us-68_1/aPreconditionToStoryUs68.1.story
 
 Given the user opens the authorization page
 And the user logs in using 'departmentManager-s31u681' userName and 'lighthouse' password
@@ -50,7 +50,7 @@ Meta:
 @id
 @description assert supplierInvoiceNumber field label supplier
 
-GivenStories: precondition/sprint-31/us-68_1/aPreconditionToStoryUs68.1.story
+GivenStories: precondition/sprint-32/us-68_1/aPreconditionToStoryUs68.1.story
 
 Given the user opens the authorization page
 And the user logs in using 'departmentManager-s31u681' userName and 'lighthouse' password
@@ -63,7 +63,7 @@ Meta:
 @id
 @description assert legalEntity field label supplier
 
-GivenStories: precondition/sprint-31/us-68_1/aPreconditionToStoryUs68.1.story
+GivenStories: precondition/sprint-32/us-68_1/aPreconditionToStoryUs68.1.story
 
 Given the user opens the authorization page
 And the user logs in using 'departmentManager-s31u681' userName and 'lighthouse' password

@@ -8,7 +8,7 @@ Scenario: Invoice supplier option is required
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-68_1/aUsersPreconditionToStory.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
 Given the user opens the store 'store-s31u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
@@ -32,7 +32,7 @@ Scenario: Invoice accepter is required
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-68_1/aUsersPreconditionToStory.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
 Given the user opens the store 'store-s31u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
@@ -56,7 +56,7 @@ Scenario: Invoice accepter date range negative validation
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-68_1/aUsersPreconditionToStory.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
 Given the user opens the store 'store-s31u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
@@ -82,8 +82,8 @@ Scenario: Invoice accepter date range positive validation
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-31/us-68_1/aPreconditionWithDataToOrderCreateStory.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
 
 Given the user opens the store 'store-s31u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
@@ -115,7 +115,7 @@ Scenario: Invoice supplierInvoiceNumber is required
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-68_1/aUsersPreconditionToStory.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
 Given the user opens the store 'store-s31u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
@@ -139,7 +139,7 @@ Scenario: Invoice supplierInvoiceNumber date range negative validation
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-68_1/aUsersPreconditionToStory.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
 Given the user opens the store 'store-s31u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
@@ -165,8 +165,8 @@ Scenario: Invoice supplierInvoiceNumber date range positive validation
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-31/us-68_1/aPreconditionWithDataToOrderCreateStory.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
 
 Given the user opens the store 'store-s31u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
@@ -198,7 +198,7 @@ Scenario: Invoice legalEntity is required
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-68_1/aUsersPreconditionToStory.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
 Given the user opens the store 'store-s31u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
@@ -222,7 +222,7 @@ Scenario: Invoice legalEntity date range negative validation
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-68_1/aUsersPreconditionToStory.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
 Given the user opens the store 'store-s31u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
@@ -248,8 +248,8 @@ Scenario: Invoice legalEntity date range positive validation
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-31/us-68_1/aPreconditionWithDataToOrderCreateStory.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
 
 Given the user opens the store 'store-s31u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password

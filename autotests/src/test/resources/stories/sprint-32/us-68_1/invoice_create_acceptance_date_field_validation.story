@@ -8,7 +8,7 @@ Scenario: Invoice acceptanceDate is required
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-68_1/aUsersPreconditionToStory.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
 Given the user opens the store 'store-s31u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
@@ -33,7 +33,7 @@ Scenario: Invoice acceptance date is prefilled on the first invoice create
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-68_1/aUsersPreconditionToStory.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
 Given the user opens the store 'store-s31u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
@@ -45,8 +45,8 @@ Scenario: Invoice acceptanceDate validation good manual
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-31/us-68_1/aPreconditionWithDataToOrderCreateStory.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
 
 Given the user opens the store 'store-s31u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
@@ -75,8 +75,8 @@ Scenario: Invoice acceptanceDate validation manual negative numbers
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-31/us-68_1/aPreconditionWithDataToOrderCreateStory.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
 
 Given the user opens the store 'store-s31u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
@@ -138,8 +138,8 @@ Scenario: Invoice acceptanceDate validation through datepicker good
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-31/us-68_1/aPreconditionWithDataToOrderCreateStory.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
 
 Given the user opens the store 'store-s31u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
@@ -168,8 +168,8 @@ Scenario: Invoice acceptanceDate validation through datepicker negative1
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-31/us-68_1/aPreconditionWithDataToOrderCreateStory.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
 
 Given the user opens the store 'store-s31u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
@@ -198,8 +198,8 @@ Scenario: Invoice acceptanceDate validation through datepicker negative2
 Meta:
 @id
 
-GivenStories: precondition/sprint-31/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-31/us-68_1/aPreconditionWithDataToOrderCreateStory.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
 
 Given the user opens the store 'store-s31u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
