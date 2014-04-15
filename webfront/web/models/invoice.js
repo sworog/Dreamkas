@@ -50,7 +50,7 @@ define(function(require) {
                 url: this.url() + '?validate=1&validationGroups=products',
                 data: this.getData(),
                 dataType: 'json',
-                type: 'POST',
+                type: (null == model.id)?'POST':'PUT',
                 headers: {
                     Authorization: 'Bearer ' + cookies.get('token')
                 },
