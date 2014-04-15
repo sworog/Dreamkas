@@ -18,7 +18,7 @@ Given the user opens the authorization page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 When the user clicks the menu invoices item
-And the user clicks the create invoice link on order page menu navigation
+And the user clicks the create invoice link on invoice page menu navigation
 
 When the user inputs values on invoice page
 | elementName | value |
@@ -79,7 +79,7 @@ Given the user opens the authorization page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 When the user clicks the menu invoices item
-And the user clicks the create invoice link on order page menu navigation
+And the user clicks the create invoice link on invoice page menu navigation
 
 When the user inputs values on invoice page
 | elementName | value |
@@ -127,7 +127,7 @@ Given the user opens the authorization page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 When the user clicks the menu invoices item
-And the user clicks the create invoice link on order page menu navigation
+And the user clicks the create invoice link on invoice page menu navigation
 
 When the user inputs values on invoice page
 | elementName | value |
@@ -154,7 +154,7 @@ Then the user checks the invoice products list contains exact entries
 | name | units | quantity | price | totalSum | vatSum |
 | name-32681 | шт. | 5,7 | 110,00 | 627,00 | 56,78 |
 
-Then the user checks the order total sum is 'Итого: 627,00 руб'
+Then the user checks the invoice total sum is 'Итого: 627,00 руб'
 And the user checks the invoice vat sum is 'Итого: 56,78 руб'
 
 When the user inputs values on invoice page
@@ -175,7 +175,7 @@ Then the user checks the invoice products list contains exact entries
 | name-32681 | шт. | 5,7 | 110,00 | 627,00 | 56,78 |
 | name-3068101 | л | 5,67 | 123,67 | 701,21 | 56,78 |
 
-Then the user checks the order total sum is 'Итого: 1 328,21 руб'
+Then the user checks the invoice total sum is 'Итого: 1 328,21 руб'
 And the user checks the invoice vat sum is 'Итого: 56,78 руб'
 
 When the user inputs values on invoice page
@@ -184,7 +184,7 @@ When the user inputs values on invoice page
 And the user inputs quantity '45,789' on the invoice product with name 'name-3068102'
 And the user presses 'ENTER' key button
 
-Then the user waits for the order product edition preloader finish
+Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the invoice products list contains exact entries
 | name | units | quantity | price | totalSum | vatSum |
@@ -192,10 +192,10 @@ Then the user checks the invoice products list contains exact entries
 | name-3068101 | л | 5,67 | 123,67 | 701,21 | 56,78 |
 | name-3068102 | кг | 45,789 | 56,78 | 2 599,90 | 56,78 |
 
-And the user checks the order total sum is 'Итого: 3 928,11 руб'
+And the user checks the invoice total sum is 'Итого: 3 928,11 руб'
 And the user checks the invoice vat sum is 'Итого: 56,78 руб'
 
-When the user clicks the save order button
+When the user accepts products and saves the invoice
 
 Then the user sees no error messages
 
@@ -213,7 +213,7 @@ Then the user checks the invoice products list contains exact entries
 | name-3068101 | л | 5,67 | 123,67 | 701,21 | 56,78 |
 | name-3068102 | кг | 45,789 | 56,78 | 2 599,90 | 56,78 |
 
-And the user checks the order total sum is 'Итого: 3 928,11 руб'
+And the user checks the invoice total sum is 'Итого: 3 928,11 руб'
 And the user checks the invoice vat sum is 'Итого: 56,78 руб'
 
 Scenario: Verify autocomplete invoice product with no price is choosen
@@ -257,7 +257,7 @@ And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse'
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | name-306812 |
-And the user inputs quantity '5' on the order product with name 'name-306812'
+And the user inputs quantity '5' on the invoice product with name 'name-306812'
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish

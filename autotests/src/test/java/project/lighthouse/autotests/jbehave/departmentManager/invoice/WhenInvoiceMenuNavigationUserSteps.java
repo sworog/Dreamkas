@@ -9,7 +9,7 @@ public class WhenInvoiceMenuNavigationUserSteps {
     @Steps
     InvoiceMenuNavigationSteps invoiceMenuNavigationSteps;
 
-    @When("the user clicks the create invoice link on order page menu navigation")
+    @When("the user clicks the create invoice link on invoice page menu navigation")
     public void whenTheUserClicksTheCreateInvoiceLinkOnOrderPageMenuNavigation() {
         invoiceMenuNavigationSteps.invoiceCreateLinkClick();
     }
