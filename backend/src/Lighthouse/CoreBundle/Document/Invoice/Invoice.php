@@ -14,6 +14,7 @@ use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 use Symfony\Component\Validator\Constraints as Assert;
+use Lighthouse\CoreBundle\Validator\Constraints as AssertLH;
 use DateTime;
 
 /**
@@ -68,6 +69,7 @@ class Invoice extends AbstractDocument implements Storeable
      *     simple=true
      * )
      * @Assert\NotBlank(message="lighthouse.validation.errors.invoice.supplier.empty")
+     * @AssertLH\Reference(message="lighthouse.validation.errors.invoice.supplier.does_not_exists")
      * @var Supplier
      */
     protected $supplier;

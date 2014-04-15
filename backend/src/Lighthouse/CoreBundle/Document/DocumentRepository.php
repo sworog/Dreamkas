@@ -97,6 +97,15 @@ class DocumentRepository extends BaseRepository
     }
 
     /**
+     * @param string $id
+     * @return NullObjectInterface
+     */
+    public function getNullObject($id)
+    {
+        throw new \RuntimeException('Object is not defined');
+    }
+
+    /**
      * @return Collection
      */
     protected function getDocumentCollection()

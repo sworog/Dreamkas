@@ -1013,4 +1013,108 @@ class InvoiceControllerTest extends WebTestCase
             $response
         );
     }
+
+    /**
+     * @dataProvider validationGroupDataProvider
+     * @param array $invalidData
+     * @param string $expectedErrorPath
+     * @param string $expectedErrorMessage
+     * @throws \PHPUnit_Framework_ExpectationFailedException
+     */
+    public function testValidationGroupWithInvalidSupplier(
+        array $invalidData,
+        $expectedErrorPath,
+        $expectedErrorMessage,
+        $expectedEmptyField
+    ) {
+        $store = $this->factory()->store()->getStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $productId = $this->createProduct('1');
+
+        $invoiceData = InvoiceProductControllerTest::getInvoiceData($supplier->id, $productId, 10, 5.99);
+        $invoiceData = $invalidData + $invoiceData;
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals($expectedErrorMessage, $expectedErrorPath, $response);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices?validation=1',
+            $invoiceData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals($expectedErrorMessage, $expectedErrorPath, $response);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices?validation=products',
+            $invoiceData
+        );
+
+        $this->assertResponseCode(201);
+        Assert::assertNotJsonHasPath($expectedErrorPath, $response);
+        Assert::assertNotJsonHasPath('id', $response);
+        Assert::assertJsonPathEquals('59.90', 'sumTotal', $response);
+        Assert::assertNotJsonHasPath($expectedEmptyField, $response);
+
+        $invoiceData['products'][0]['quantity'] = '';
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices?validation=products',
+            $invoiceData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertNotJsonHasPath($expectedErrorPath, $response);
+        Assert::assertJsonPathEquals(
+            'Заполните это поле',
+            'children.products.children.0.children.quantity.errors.0',
+            $response
+        );
+    }
+
+    public function validationGroupDataProvider()
+    {
+        return array(
+            'not found supplier' => array(
+                array('supplier' => 'aaaa'),
+                'children.supplier.errors.0',
+                'Такого поставщика не существует',
+                'supplier'
+            ),
+            'empty supplier' => array(
+                array('supplier' => ''),
+                'children.supplier.errors.0',
+                'Выберите поставщика',
+                'supplier'
+            ),
+            'empty acceptance date' => array(
+                array('acceptanceDate' => ''),
+                'children.acceptanceDate.errors.0',
+                'Заполните это поле',
+                'acceptanceDate'
+            ),
+            /*
+            'invalid acceptance date' => array(
+                array('acceptanceDate' => 'aaaa'),
+                'children.acceptanceDate.errors.0',
+                'Заполните это поле',
+                'acceptanceDate'
+            )
+            */
+        );
+    }
 }

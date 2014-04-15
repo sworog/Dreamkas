@@ -34,6 +34,7 @@ class InvoiceType extends AbstractType
                 'reference',
                 array(
                     'class' => Supplier::getClassName(),
+                    'return_null_object_on_not_found' => true,
                     'invalid_message' => 'lighthouse.validation.errors.invoice.supplier.does_not_exists'
                 )
             )
