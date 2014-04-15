@@ -46,7 +46,7 @@ When the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
-Then the user checks the invoice products list contains entry
+Then the user checks the invoice products list contains exact entries
 | name | units |quantity | retailPrice | totalSum |
 | name-32681 | шт. | 1,0 | 100,00 | 100,00 |
 
@@ -86,7 +86,7 @@ When the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
-Then the user checks the invoice products list contains entry
+Then the user checks the invoice products list contains exact entries
 | name | units |quantity | retailPrice | totalSum |
 | name-3268123 | шт. | 1,0 | 100,00 | 100,00 |
 
@@ -128,7 +128,7 @@ When the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
-Then the user checks the invoice products list contains entry
+Then the user checks the invoice products list contains exact entries
 | name | units |quantity | retailPrice | totalSum |
 | name-3268123 | шт. | 1,0 | 100,00 | 100,00 |
 
@@ -168,7 +168,7 @@ When the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
-Then the user checks the invoice products list contains entry
+Then the user checks the invoice products list contains exact entries
 | name | units |quantity | retailPrice | totalSum |
 | name-3268123 | шт. | 1,0 | 100,00 | 100,00 |
 
@@ -207,7 +207,7 @@ When the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
-Then the user checks the invoice products list contains entry
+Then the user checks the invoice products list contains exact entries
 | name | units |quantity | retailPrice | totalSum |
 | name-3268123 | шт. | 1,0 | 100,00 | 100,00 |
 
@@ -295,7 +295,7 @@ When the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
-Then the user checks the invoice products list contains entry
+Then the user checks the invoice products list contains exact entries
 | name | units |quantity | retailPrice | totalSum |
 | name-32681 | шт. | 1,0 | 100,00 | 100,00 |
 
