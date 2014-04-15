@@ -59,4 +59,9 @@ public class ThenInvoiceUserSteps {
     public void thenTheUserAssertsTheInvoiceNumber(String number) {
         invoiceSteps.assertInvoiceNumber(number);
     }
+
+    @Then("the user checks the autocomplete placeholder text is '$expectedPlaceHolder'")
+    public void thenTheUserChecksTheAutoCompletePlaceHolderText(String expectedPlaceHolder) {
+        invoiceSteps.assertAutoCompletePlaceHolder(expectedPlaceHolder);
+    }
 }

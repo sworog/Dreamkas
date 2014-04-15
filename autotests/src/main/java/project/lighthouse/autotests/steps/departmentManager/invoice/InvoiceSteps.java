@@ -130,4 +130,11 @@ public class InvoiceSteps extends ScenarioSteps {
     public void invoiceListSearchObjectClick(String locator) {
         invoiceSearchPage.getInvoiceListSearchObjectCollection().clickByLocator(locator);
     }
+
+    @Step
+    public void assertAutoCompletePlaceHolder(String expectedPlaceHolder) {
+        assertThat(
+                invoicePage.getItemAttribute("invoice product autocomplete", "placeholder"),
+                is(expectedPlaceHolder));
+    }
 }
