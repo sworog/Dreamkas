@@ -8,6 +8,7 @@ define(function(require) {
         Autocomplete = require('blocks/autocomplete/autocomplete'),
         Select_suppliers = require('blocks/select/select_suppliers/select_suppliers'),
         totalSum = require('tpl!blocks/form/form_invoice/totalSum.html'),
+        table_invoiceProducts = require('tpl!blocks/table/table_invoiceProducts/template.html'),
         router = require('router');
 
     return Form.extend({
@@ -34,9 +35,9 @@ define(function(require) {
                         return model.cid === productCid;
                     });
 
-                if (block.editedProductModel && block.editedProductModel !== orderProductModel) {
+                if (block.editedProductModel !== null && block.editedProductModel !== block.model.get('products').indexOf(orderProductModel)) {
                     block.nextEditedProductModel = orderProductModel;
-                } else if (block.editedProductModel !== orderProductModel) {
+                } else if (block.editedProductModel !== block.model.get('products').indexOf(orderProductModel)) {
                     block.editProduct(orderProductModel);
                 }
             },
@@ -45,7 +46,9 @@ define(function(require) {
 
                 if (e.keyCode === 13) {
                     e.preventDefault();
+
                     e.target.classList.add('preloader_stripes');
+                    block.model.get('products').at(block.editedProductModel).set(e.target.dataset.name, e.target.value);
                     block.validateProducts();
                 }
             },
@@ -54,7 +57,8 @@ define(function(require) {
 
                 if (block.editedProductField === e.target) {
                     e.target.classList.add('preloader_stripes');
-                    block.validateProducts(e.target.dataset.name, e.target.value);
+                    block.model.get('products').at(block.editedProductModel).set(e.target.dataset.name, e.target.value);
+                    block.validateProducts();
                 }
             },
             'focus .table__invoiceProduct input': function(e) {
@@ -72,34 +76,38 @@ define(function(require) {
 
                 var block = this,
                     productCid = e.target.dataset.product_cid,
-                    orderProductModel = block.model.get('products').find(function(model) {
+                    invoiceProductModel = block.model.get('products').find(function(model) {
                         return model.cid === productCid;
                     });
 
-                orderProductModel.id = null;
+                block.validationRequest.abort();
 
-                orderProductModel.destroy();
+                invoiceProductModel.id = null;
+
+                invoiceProductModel.destroy();
+
+                block.validateProducts();
             }
         },
         listeners: {
             'blocks.autocomplete': {
                 select: function(storeProduct) {
                     var block = this,
+                        products = block.model.get('products'),
                         invoiceProductModel = new InvoiceProductModel({
                             product: storeProduct.product,
                             priceEntered: storeProduct.product.purchasePrice
                         });
 
-                    block.model.get('products').push(invoiceProductModel);
+                    products.push(invoiceProductModel);
 
-                    var productRow = block.el.querySelector('[data-product_cid="' + invoiceProductModel.cid + '"]');
+                    block.blocks.autocomplete.el.classList.add('preloader_stripes');
 
-                    productRow.classList.add('preloader_stripes');
-
-                    $.when(block.model.validateProducts()).then(function(){
-                        productRow.classList.remove('preloader_stripes');
-                    }, function(){
-                        productRow.classList.remove('preloader_stripes');
+                    $.when(block.model.validateProducts()).then(function() {
+                        block.blocks.autocomplete.el.classList.remove('preloader_stripes');
+                        block.editProduct(products.at(products.length - 1));
+                    }, function() {
+                        block.blocks.autocomplete.el.classList.remove('preloader_stripes');
                         console.error(arguments);
                     });
                 }
@@ -110,11 +118,11 @@ define(function(require) {
 
             Form.prototype.initialize.apply(block, arguments);
 
-            block.model.get('products').on('add', function(orderProductModel) {
-                block.editProduct(orderProductModel);
+            block.model.get('products').on('reset', function() {
+                block.finishEdit();
             });
 
-            block.model.get('products').on('add remove change reset', function() {
+            block.model.on('change:sumTotal', function() {
                 block.renderTotalSum();
             });
 
@@ -126,29 +134,44 @@ define(function(require) {
                 })
             };
         },
-        editProduct: function(orderProductModel) {
+        editProduct: function(invoiceProductModel) {
             var block = this,
-                tr = block.el.querySelector('tr[data-product_cid="' + orderProductModel.cid + '"]');
+                tr = block.el.querySelectorAll('tr[data-product_cid]'),
+                index = block.model.get('products').indexOf(invoiceProductModel);
 
-            block.editedProductModel = orderProductModel;
+            block.editedProductModel = index;
 
-            tr.classList.add('table__invoiceProduct_edit');
-            tr.querySelector('[autofocus]').focus();
+            tr[index].classList.add('table__invoiceProduct_edit');
+            tr[index].querySelector('[autofocus]').focus();
         },
         validateProducts: function() {
             var block = this;
 
             block.removeProductError();
 
-            return $.when(block.model.validateProducts()).then(function(){
-                block.finishEdit();
-            }, function(){
-                console.log(arguments);
+            block.validationRequest = block.model.validateProducts();
+
+            block.validationRequest.fail(function(res) {
+                var errors = res.responseJSON;
+
+                _.forEach(block.el.querySelectorAll('.table__invoiceProduct_edit input'), function(input) {
+                    input.classList.remove('preloader_stripes');
+                });
+
+                if (errors) {
+                    _.forEach(errors.children.products.children, function(error) {
+                        _.find(error.children, function(field) {
+                            if (field.errors) {
+                                block.showProductError(error);
+                                return true;
+                            }
+                        })
+                    });
+                }
             });
         },
         finishEdit: function() {
             var block = this,
-                trs = block.el.querySelectorAll('.table__invoiceProduct_edit'),
                 inputs = block.el.querySelectorAll('.table__invoiceProduct_edit input');
 
             block.removeProductError();
@@ -169,42 +192,50 @@ define(function(require) {
             block.editedProductModel = null;
             block.editedProductField = null;
 
-            if (trs) {
-                _.forEach(trs, function(tr) {
-                    tr.classList.remove('table__invoiceProduct_edit');
-                });
-            }
+            block.renderInvoiceProducts();
 
             block.el.querySelector('.autocomplete').focus();
         },
         showProductError: function(error) {
             var block = this,
-                tr = block.el.querySelector('.table__invoiceProduct_edit'),
-                quantityInput = block.el.querySelector('.table__invoiceProduct_edit [data-name="quantity"]');
+                errorString = '',
+                tr = block.el.querySelector('.table__invoiceProduct_edit');
 
-            if (quantityInput) {
-                quantityInput.classList.add('inputText_error');
-                quantityInput.classList.remove('preloader_stripes');
-                quantityInput.focus();
-            }
+            _.forEach(block.el.querySelectorAll('.table__invoiceProduct_edit input'), function(input) {
+                input.classList.remove('preloader_stripes');
+            });
+
+            _.forEach(error.children, function(field, key) {
+                if (field.errors) {
+                    errorString += field.errors.join(', ')
+                    block.el.querySelector('.table__invoiceProduct_edit [data-name="' + key + '"]').classList.add('inputText_error');
+                }
+            });
 
             block.$errorTr
                 .insertAfter(tr)
-                .attr('data-error', error.children.quantity.errors.join(', '))
+                .attr('data-error', errorString)
                 .find('td')
-                .html(error.children.quantity.errors.join(', '));
+                .html(errorString);
         },
         removeProductError: function() {
             var block = this;
 
+            _.forEach(block.el.querySelectorAll('.table__invoiceProduct_edit input'), function(input) {
+                input.classList.remove('inputText_error');
+            });
+
             block.$errorTr.detach();
         },
-        renderTotalSum: function(){
+        renderTotalSum: function() {
             var block = this;
 
-            $(block.el.querySelector('.form__totalSum')).replaceWith(totalSum({
-                invoiceModel: block.model
-            }));
+            $(block.el.querySelector('.form__totalSum')).replaceWith(totalSum());
+        },
+        renderInvoiceProducts: function() {
+            var block = this;
+
+            $(block.el.querySelector('.table_invoiceProducts')).replaceWith(table_invoiceProducts());
         }
     });
 });

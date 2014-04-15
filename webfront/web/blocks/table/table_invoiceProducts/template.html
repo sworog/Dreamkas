@@ -1,5 +1,5 @@
 <% if (PAGE.models.invoice.get('products').length) { %>
-<table class="table" style="margin-bottom: 30px;">
+<table class="table table_invoiceProducts" style="margin-bottom: 30px;">
     <thead>
     <tr>
         <th>Товар</th>
@@ -47,12 +47,13 @@
             <%- LH.formatMoney(invoiceProductModel.get('totalAmountVAT')) %> руб.
         </td>
         <td>
-            <i class="icon-remove-sign form_invoice__removeProductLink" data-product_cid="<%- invoiceProductModel.cid %>"></i>
+            <i class="icon-remove-sign form_invoice__removeProductLink"
+               data-product_cid="<%- invoiceProductModel.cid %>"></i>
         </td>
     </tr>
     <% }) %>
     </tbody>
 </table>
 <% } else { %>
-<span></span>
+<span class="table_invoiceProducts"></span>
 <% } %>

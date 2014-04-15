@@ -13,6 +13,7 @@ define(function(require) {
             quantity: 1
         },
         saveData: function() {
+
             return {
                 product: this.get('product.id'),
                 priceEntered: this.get('priceEntered').toString()
