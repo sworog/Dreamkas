@@ -86,10 +86,22 @@ define(function(require) {
                 select: function(storeProduct) {
                     var block = this,
                         invoiceProductModel = new InvoiceProductModel({
-                            product: storeProduct.product
+                            product: storeProduct.product,
+                            priceEntered: storeProduct.product.purchasePrice
                         });
 
                     block.model.get('products').push(invoiceProductModel);
+
+                    var productRow = block.el.querySelector('[data-product_cid="' + invoiceProductModel.cid + '"]');
+
+                    productRow.classList.add('preloader_stripes');
+
+                    $.when(block.model.validateProducts()).then(function(){
+                        productRow.classList.remove('preloader_stripes');
+                    }, function(){
+                        productRow.classList.remove('preloader_stripes');
+                        console.error(arguments);
+                    });
                 }
             }
         },
@@ -102,7 +114,7 @@ define(function(require) {
                 block.editProduct(orderProductModel);
             });
 
-            block.model.get('products').on('add remove change reset', function(orderProductModel) {
+            block.model.get('products').on('add remove change reset', function() {
                 block.renderTotalSum();
             });
 
@@ -123,30 +135,16 @@ define(function(require) {
             tr.classList.add('table__invoiceProduct_edit');
             tr.querySelector('[autofocus]').focus();
         },
-        validateProducts: function(products) {
+        validateProducts: function() {
             var block = this;
 
             block.removeProductError();
 
-            setTimeout(function() {
+            return $.when(block.model.validateProducts()).then(function(){
                 block.finishEdit();
-            }, 2000);
-
-//            block.editedProductModel.save(changes, {
-//                success: function() {
-//                    block.finishEdit();
-//
-//                    if (block.nextEditedProductModel) {
-//                        block.editProduct(block.nextEditedProductModel);
-//                    }
-//
-//                    block.nextEditedProductModel = null;
-//                },
-//                error: function(model, res) {
-//                    block.showProductError(res.responseJSON);
-//                    block.nextEditedProductModel = null;
-//                }
-//            });
+            }, function(){
+                console.log(arguments);
+            });
         },
         finishEdit: function() {
             var block = this,

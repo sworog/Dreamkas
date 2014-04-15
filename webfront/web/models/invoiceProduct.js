@@ -14,7 +14,7 @@ define(function(require) {
         },
         saveData: function() {
             return {
-                product: this.get('product.product.id'),
+                product: this.get('product.id'),
                 priceEntered: this.get('priceEntered').toString()
                     .replace(' ', '', 'gi')
                     .replace(',', '.', 'gi'),

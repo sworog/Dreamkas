@@ -43,20 +43,19 @@ define(function(require) {
 
             return data;
         },
-        check: function(data){
+        validateProducts: function(){
+            var model = this;
+
             return $.ajax({
-                url: this.url() + '?validate=true',
-                data: data,
+                url: this.url() + '?validate=1&validationGroups=products',
+                data: this.getData(),
                 dataType: 'json',
                 type: 'POST',
                 headers: {
                     Authorization: 'Bearer ' + cookies.get('token')
                 },
-                success: function(){
-                    console.log(arguments)
-                },
-                error: function(){
-                    console.log(arguments)
+                success: function(data){
+                    model.set(model.parse(data));
                 }
             });
         }
