@@ -974,7 +974,7 @@ class InvoiceControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $store->id . '/invoices?validation=1',
+            '/api/1/stores/' . $store->id . '/invoices?validate=true',
             $invoiceData
         );
 
@@ -984,7 +984,7 @@ class InvoiceControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $store->id . '/invoices?validation=products',
+            '/api/1/stores/' . $store->id . '/invoices?validate=true&validationGroups=products',
             $invoiceData
         );
 
@@ -998,7 +998,7 @@ class InvoiceControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $store->id . '/invoices?validation=products',
+            '/api/1/stores/' . $store->id . '/invoices?validate=true&validationGroups=products',
             $invoiceData
         );
 

@@ -304,7 +304,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $store->id . '/invoices?validation=products',
+            '/api/1/stores/' . $store->id . '/invoices?validate=true&validationGroups=products',
             $invoiceData
         );
 
