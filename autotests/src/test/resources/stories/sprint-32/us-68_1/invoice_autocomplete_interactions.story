@@ -24,7 +24,7 @@ Meta:
 @smoke
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
 Given there is the product with 'name-32681' name, '32681' sku, '32681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
@@ -57,7 +57,7 @@ Meta:
 @smoke
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story,
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story,
               precondition/sprint-32/us-68_1/aPreconditionForValidationScenario.story
 
 Given the user opens the store 'store-s32u681' invoice create page
@@ -97,7 +97,7 @@ Meta:
 @smoke
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story,
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story,
               precondition/sprint-32/us-68_1/aPreconditionForValidationScenario.story
 
 Given the user opens the store 'store-s32u681' invoice create page
@@ -138,7 +138,7 @@ Meta:
 @
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story,
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story,
               precondition/sprint-32/us-68_1/aPreconditionForValidationScenario.story
 
 Given the user opens the store 'store-s32u681' invoice create page
@@ -179,7 +179,7 @@ Meta:
 @smoke
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story,
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story,
               precondition/sprint-32/us-68_1/aPreconditionForValidationScenario.story
 
 Given the user opens the store 'store-s32u681' invoice create page
@@ -257,7 +257,7 @@ Meta:
 @id_
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
 Given there is the product with 'csme-32681' name, 'csme-32681' sku, '32681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
@@ -278,7 +278,7 @@ Meta:
 @id_
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
 Given there is the product with 'name-32681' name, '32681' sku, '32681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 

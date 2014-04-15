@@ -12,7 +12,7 @@ Meta:
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
 Given the user opens the authorization page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -73,7 +73,7 @@ Meta:
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
 Given the user opens the authorization page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -118,7 +118,7 @@ Meta:
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
 Given there is the product with 'name-3068101' name, '3068101' sku, '30681' barcode, 'liter' units, '78.90' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 And there is the product with 'name-3068102' name, '3068102' sku, '30681' barcode, 'kg' units, '56.78' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'

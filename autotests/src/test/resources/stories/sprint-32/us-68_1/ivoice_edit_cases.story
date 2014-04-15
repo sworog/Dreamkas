@@ -12,7 +12,7 @@ Meta:
 @smoke
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
 Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -44,7 +44,7 @@ Meta:
 @smoke
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
 Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -70,7 +70,7 @@ Meta:
 @smoke
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
 Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -94,7 +94,7 @@ Meta:
 @smoke
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
 Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
