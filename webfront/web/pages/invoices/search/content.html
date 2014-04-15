@@ -1,18 +1,7 @@
-<%
-/**
- *
- * @params.numberOrSupplierInvoiceNumber
- * @collections.invoices
- */
-%>
-
 <% var templates = _.extend({
     form_invoiceSearch: require('tpl!blocks/form/form_invoiceSearch/template.html')
 }, templates) %>
 
 <div class="content">
-    <%= templates.form_invoiceSearch({
-        numberOrSupplierInvoiceNumber: params.numberOrSupplierInvoiceNumber,
-        collections: _.pick(collections, 'invoices')
-    }) %>
+    <%= templates.form_invoiceSearch() %>
 </div>

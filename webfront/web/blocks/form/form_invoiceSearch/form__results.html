@@ -1,23 +1,12 @@
-<%
-/**
- *
- * @collections.invoices
- */
-%>
-
-<% var Page = require('page') %>
-
 <% var templates = _.extend({
     table_invoices: require('tpl!blocks/table/table_invoices/template.html')
 }, templates) %>
 
 <div class="form__results">
-    <% if (!collections.invoices.length && Page.current.params.numberOrSupplierInvoiceNumber) { %>
-    <h3>Мы не смогли найти накладную с номером <%- Page.current.params.numberOrSupplierInvoiceNumber %></h3>
+    <% if (!PAGE.collections.invoices.length && PAGE.params.numberOrSupplierInvoiceNumber) { %>
+    <h3>Мы не смогли найти накладную с номером <%- PAGE.params.numberOrSupplierInvoiceNumber %></h3>
     <% } %>
-    <% if (collections.invoices.length) { %>
-    <%= templates.table_invoices({
-        collections: _.pick(collections, 'invoices')
-    }) %>
+    <% if (PAGE.collections.invoices.length) { %>
+    <%= templates.table_invoices() %>
     <% } %>
 </div>

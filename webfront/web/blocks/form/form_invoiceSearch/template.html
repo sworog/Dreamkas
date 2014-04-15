@@ -1,13 +1,6 @@
-<%
-/**
- *
- * @collections.invoices
- */
-%>
-
 <% var templates = _.extend({
     form__results: require('tpl!blocks/form/form_invoiceSearch/form__results.html')
-}) %>
+}, templates) %>
 
 <form class="form form_invoiceSearch">
     <h1>Поиск накладной</h1>
@@ -18,13 +11,11 @@
 
     <div class="form__field form__field_inline" style="padding-bottom: 30px;">
         <input style="width: 400px;" class="inputText" name="numberOrSupplierInvoiceNumber"
-               value="<%- numberOrSupplierInvoiceNumber %>"
+               value="<%- PAGE.params.numberOrSupplierInvoiceNumber %>"
                placeholder="Номер накладной или счет-фактура">
-    <button lh-button class="button" type="submit">
-        Найти
-    </button>
+        <button lh-button class="button" type="submit">
+            Найти
+        </button>
     </div>
-    <%= collections.invoices.element(templates.form__results, {
-        collections: _.pick(collections, 'invoices')
-    }) %>
+    <%= PAGE.collections.invoices.element(templates.form__results) %>
 </form>

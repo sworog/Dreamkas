@@ -1,11 +1,4 @@
-<%
-/**
- *
- * @collections.invoiceProducts
- */
-%>
-
-<% if (collections.invoiceProducts.length) { %>
+<% if (PAGE.models.invoice.get('products').length) { %>
 <table class="table" style="margin-bottom: 30px;">
     <thead>
     <tr>
@@ -18,7 +11,7 @@
     </tr>
     </thead>
     <tbody>
-    <% collections.invoiceProducts.forEach(function(invoiceProductModel){ %>
+    <% PAGE.models.invoice.get('products').forEach(function(invoiceProductModel){ %>
     <tr data-product_cid="<%- invoiceProductModel.cid %>" class="table__invoiceProduct" name="invoiceProduct">
         <td>
             <%- invoiceProductModel.get('product.name') %>

@@ -1,10 +1,3 @@
-<%
-/**
- *
- * @collections.suppliers
- * @model
- */
-%>
 <% var currentUserModel = require('models/currentUser') %>
 <% var templates = _.extend({
     select_suppliers: require('tpl!blocks/select/select_suppliers/template.html'),
@@ -15,46 +8,41 @@
 <form class="form form_invoice">
     <div class="form__field">
         <label class="form__label">Дата</label>
-        <input value="<%- model.get('acceptanceDate') || moment().valueOf() %>" type="text" class="inputText inputDate" name="acceptanceDate"/>
+        <input value="<%- PAGE.models.invoice.get('acceptanceDate') || moment().valueOf() %>" type="text"
+               class="inputText inputDate" name="acceptanceDate"/>
     </div>
     <div class="form__field">
         <label class="form__label">Поставщик</label>
         <%= templates.select_suppliers({
-            collections: _.pick(collections, 'suppliers'),
-            selected: model.get('supplier.id')
+            selected: PAGE.models.invoice.get('supplier.id')
         }) %>
     </div>
     <div class="form__field">
         <label class="form__label">Приемщик</label>
-        <input value="<%- model.get('accepter') %>" type="text" class="inputText" name="accepter"/>
+        <input value="<%- PAGE.models.invoice.get('accepter') %>" type="text" class="inputText" name="accepter"/>
     </div>
     <div class="form__field">
         <label class="form__label">Организация получатель</label>
-        <input value="<%- model.get('legalEntity') %>" type="text" class="inputText" name="legalEntity"/>
+        <input value="<%- PAGE.models.invoice.get('legalEntity') %>" type="text" class="inputText" name="legalEntity"/>
     </div>
     <div class="form__field">
         <label class="form__label">Счет-фактура</label>
-        <input value="<%- model.get('supplierInvoiceNumber') %>" type="text" class="inputText" name="supplierInvoiceNumber"/>
+        <input value="<%- PAGE.models.invoice.get('supplierInvoiceNumber') %>" type="text" class="inputText"
+               name="supplierInvoiceNumber"/>
     </div>
     <h2 style="padding-top: 20px;">Товары</h2>
 
-    <%= model.get('products').element(require('tpl!blocks/table/table_invoiceProducts/template.html'), {
-        collections: {
-            invoiceProducts: model.get('products')
-        }
-    }) %>
+    <%= PAGE.models.invoice.get('products').element(require('tpl!blocks/table/table_invoiceProducts/template.html')) %>
 
     <div class="form__field" style="padding-bottom: 30px;">
         <input placeholder="Для добавления позиции введите наименование товара или код" style="width: 600px;"
                data-url="<%- LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/search/products?properties[]=name&properties[]=sku' %>"
                type="text" class="inputText autocomplete"/>
     </div>
-    <%= templates.totalSum({
-        invoiceModel: model
-    }) %>
+    <%= templates.totalSum() %>
     <div class="form__field">
         <label>
-            <input style="vertical-align: middle" checked type="checkbox" name="includesVAT" />
+            <input style="vertical-align: middle" checked type="checkbox" name="includesVAT"/>
             <span style="vertical-align: middle">Включая НДС</span>
         </label>
     </div>

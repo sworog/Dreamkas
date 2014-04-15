@@ -1,17 +1,7 @@
-<%
-/**
- *
- * @models.invoice
- * @collections.suppliers
- */
-%>
 <% var templates = _.extend({
     form_invoice: require('tpl!blocks/form/form_invoice/template.html')
 }, templates) %>
 
 <div class="content">
-    <%= templates.form_invoice({
-        model: models.invoice,
-        collections: _.pick(collections, 'suppliers')
-    }) %>
+    <%= templates.form_invoice() %>
 </div>

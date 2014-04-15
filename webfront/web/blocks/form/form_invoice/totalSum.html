@@ -1,15 +1,10 @@
-<%
-/**
- *
- * @invoiceModel
- */
-%>
+<% var models = _.extend({}, PAGE.models, models) %>
 
 <div class="form__totalSum">
     <div>
-        Итого: <%- LH.formatMoney(invoiceModel.get('sumTotal')) %> руб.
+        Итого: <%- LH.formatMoney(models.invoice.get('sumTotal')) %> руб.
     </div>
     <div>
-        НДС: <%- LH.formatMoney(invoiceModel.get('totalAmountVAT')) %> руб.
+        НДС: <%- LH.formatMoney(models.invoice.get('totalAmountVAT')) %> руб.
     </div>
 </div>

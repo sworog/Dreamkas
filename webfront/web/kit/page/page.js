@@ -75,6 +75,8 @@ define(function(require, exports, module) {
         initialize: function() {
             var page = this;
 
+            window.PAGE = this;
+
             try {
                 page.initResources();
             } catch (error) {

@@ -1,19 +1,10 @@
-<%
-/**
- *
- * @collections.invoices
- */
-%>
-
 <% var templates = _.extend({
     table_invoices: require('tpl!blocks/table/table_invoices/template.html')
 }, templates) %>
 
 <div class="content">
-    <% if (collections.invoices.length) { %>
-    <%= templates.table_invoices({
-        collections: _.pick(collections, 'invoices')
-    }) %>
+    <% if (PAGE.collections.invoices.length) { %>
+    <%= templates.table_invoices() %>
     <% } else { %>
     <p>
         Нет накладных
