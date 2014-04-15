@@ -15,14 +15,14 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
 
 Given the user opens the authorization page
-And the user logs in using 'departmentManager-s31u681' userName and 'lighthouse' password
+And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 When the user clicks the menu invoices item
 And the user clicks the create invoice link on order page menu navigation
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | acceptanceDate | 02.04.2013 16:23 |
 | accepter | accepter |
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
@@ -30,20 +30,20 @@ When the user inputs values on invoice page
 
 When the user inputs values on invoice page
 | elementName | value |
-| invoice product autocomplete | name-31681 |
-And the user inputs quantity '5' on the invoice product with name 'name-31681'
+| invoice product autocomplete | name-32681 |
+And the user inputs quantity '5' on the invoice product with name 'name-32681'
 And the user presses 'TAB' key button
 
 Then the user waits for the invoice product edition preloader finish
 
-When the user inputs price '110' on the invoice product with name 'name-31681'
+When the user inputs price '110' on the invoice product with name 'name-32681'
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the invoice products list contains exact entries
 | name | units | quantity | price | totalSum | vatSum |
-| name-31681 | шт. | 5,0 | 110,00 | 550,00 | 56,78 |
+| name-32681 | шт. | 5,0 | 110,00 | 550,00 | 56,78 |
 
 And the user checks the invoice total sum is 'Итого: 550,00 руб'
 And the user checks the invoice vat sum is 'Итого: 550,00 руб'
@@ -62,7 +62,7 @@ Then the user checks stored values on invoice page
 
 Then the user checks the invoice products list contains exact entries
 | name | quantity | units | price | totalSum | vatSum |
-| name-31681 | шт. | 5,0 | 110,00 | 550,00 | 56,78 |
+| name-32681 | шт. | 5,0 | 110,00 | 550,00 | 56,78 |
 
 Scenario: Invoice number check
 
@@ -76,14 +76,14 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
 
 Given the user opens the authorization page
-And the user logs in using 'departmentManager-s31u681' userName and 'lighthouse' password
+And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 When the user clicks the menu invoices item
 And the user clicks the create invoice link on order page menu navigation
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | acceptanceDate | 02.04.2013 16:23 |
 | accepter | accepter |
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
@@ -91,8 +91,8 @@ When the user inputs values on invoice page
 
 When the user inputs values on invoice page
 | elementName | value |
-| invoice product autocomplete | name-31681 |
-And the user inputs quantity '5' on the invoice product with name 'name-31681'
+| invoice product autocomplete | name-32681 |
+And the user inputs quantity '5' on the invoice product with name 'name-32681'
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
@@ -120,18 +120,18 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
 
-Given there is the product with 'name-3068101' name, '3068101' sku, '30681' barcode, 'liter' units, '78.90' purchasePrice of group named 'defaultGroup-s31u681', category named 'defaultCategory-s31u681', subcategory named 'defaultSubCategory-s31u681'
-And there is the product with 'name-3068102' name, '3068102' sku, '30681' barcode, 'kg' units, '56.78' purchasePrice of group named 'defaultGroup-s31u681', category named 'defaultCategory-s31u681', subcategory named 'defaultSubCategory-s31u681'
+Given there is the product with 'name-3068101' name, '3068101' sku, '30681' barcode, 'liter' units, '78.90' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
+And there is the product with 'name-3068102' name, '3068102' sku, '30681' barcode, 'kg' units, '56.78' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
 Given the user opens the authorization page
-And the user logs in using 'departmentManager-s31u681' userName and 'lighthouse' password
+And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 When the user clicks the menu invoices item
 And the user clicks the create invoice link on order page menu navigation
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | acceptanceDate | 02.04.2013 16:23 |
 | accepter | accepter |
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
@@ -145,14 +145,14 @@ And the user presses 'TAB' key button
 
 Then the user waits for the invoice product edition preloader finish
 
-When the user inputs price '110' on the invoice product with name 'name-31681'
+When the user inputs price '110' on the invoice product with name 'name-32681'
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the invoice products list contains exact entries
 | name | units | quantity | price | totalSum | vatSum |
-| name-31681 | шт. | 5,7 | 110,00 | 627,00 | 56,78 |
+| name-32681 | шт. | 5,7 | 110,00 | 627,00 | 56,78 |
 
 Then the user checks the order total sum is 'Итого: 627,00 руб'
 And the user checks the invoice vat sum is 'Итого: 56,78 руб'
@@ -165,14 +165,14 @@ And the user presses 'TAB' key button
 
 Then the user waits for the invoice product edition preloader finish
 
-When the user inputs price '123,67' on the invoice product with name 'name-31681'
+When the user inputs price '123,67' on the invoice product with name 'name-32681'
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the invoice products list contains exact entries
 | name | units | quantity | price | totalSum | vatSum |
-| name-31681 | шт. | 5,7 | 110,00 | 627,00 | 56,78 |
+| name-32681 | шт. | 5,7 | 110,00 | 627,00 | 56,78 |
 | name-3068101 | л | 5,67 | 123,67 | 701,21 | 56,78 |
 
 Then the user checks the order total sum is 'Итого: 1 328,21 руб'
@@ -188,7 +188,7 @@ Then the user waits for the order product edition preloader finish
 
 Then the user checks the invoice products list contains exact entries
 | name | units | quantity | price | totalSum | vatSum |
-| name-31681 | шт. | 5,7 | 110,00 | 627,00 | 56,78 |
+| name-32681 | шт. | 5,7 | 110,00 | 627,00 | 56,78 |
 | name-3068101 | л | 5,67 | 123,67 | 701,21 | 56,78 |
 | name-3068102 | кг | 45,789 | 56,78 | 2 599,90 | 56,78 |
 
@@ -209,7 +209,7 @@ Then the user checks stored values on invoice page
 
 Then the user checks the invoice products list contains exact entries
 | name | units | quantity | price | totalSum | vatSum |
-| name-31681 | шт. | 5,7 | 110,00 | 627,00 | 56,78 |
+| name-32681 | шт. | 5,7 | 110,00 | 627,00 | 56,78 |
 | name-3068101 | л | 5,67 | 123,67 | 701,21 | 56,78 |
 | name-3068102 | кг | 45,789 | 56,78 | 2 599,90 | 56,78 |
 
@@ -221,14 +221,14 @@ Scenario: Verify autocomplete invoice product with no price is choosen
 Meta:
 @id_
 
-Given there is the user with name 'departmentManager-s31u681', position 'departmentManager-s31u681', username 'departmentManager-s31u681', password 'lighthouse', role 'departmentManager'
-And there is the store with number 'store-s31u681' managed by department manager named 'departmentManager-s31u681'
-Given there is the supplier with name 'supplier-s31u681s1'
-And there is the subCategory with name 'defaultSubCategory-s31u6811' related to group named 'defaultGroup-s31u6811' and category named 'defaultCategory-s31u6811'
-Given there is the product with 'name-306811' name, '306811' sku, '306811' barcode, 'unit' units, '' purchasePrice of group named 'defaultGroup-s31u6811', category named 'defaultCategory-s31u6811', subcategory named 'defaultSubCategory-s31u6811'
+Given there is the user with name 'departmentManager-s32u681', position 'departmentManager-s32u681', username 'departmentManager-s32u681', password 'lighthouse', role 'departmentManager'
+And there is the store with number 'store-s32u681' managed by department manager named 'departmentManager-s32u681'
+Given there is the supplier with name 'supplier-s32u681s1'
+And there is the subCategory with name 'defaultSubCategory-s32u6811' related to group named 'defaultGroup-s32u6811' and category named 'defaultCategory-s32u6811'
+Given there is the product with 'name-306811' name, '306811' sku, '306811' barcode, 'unit' units, '' purchasePrice of group named 'defaultGroup-s32u6811', category named 'defaultCategory-s32u6811', subcategory named 'defaultSubCategory-s32u6811'
 
-Given the user opens the store 'store-s31u681' invoice create page
-And the user logs in using 'departmentManager-s31u681' userName and 'lighthouse' password
+Given the user opens the store 'store-s32u681' invoice create page
+And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
@@ -245,14 +245,14 @@ Scenario: Verify autocomplete invoice product with price with no mark up is choo
 Meta:
 @id_
 
-Given there is the user with name 'departmentManager-s31u681', position 'departmentManager-s31u681', username 'departmentManager-s31u681', password 'lighthouse', role 'departmentManager'
-And there is the store with number 'store-s31u681' managed by department manager named 'departmentManager-s31u681'
-Given there is the supplier with name 'supplier-s31u681s1'
-And there is the subCategory with name 'defaultSubCategory-s31u6812' related to group named 'defaultGroup-s31u6812' and category named 'defaultCategory-s31u6812'
-Given there is the product with 'name-306812' name, '306812' sku, '306812' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s31u6812', category named 'defaultCategory-s31u6812', subcategory named 'defaultSubCategory-s31u6812'
+Given there is the user with name 'departmentManager-s32u681', position 'departmentManager-s32u681', username 'departmentManager-s32u681', password 'lighthouse', role 'departmentManager'
+And there is the store with number 'store-s32u681' managed by department manager named 'departmentManager-s32u681'
+Given there is the supplier with name 'supplier-s32u681s1'
+And there is the subCategory with name 'defaultSubCategory-s32u6812' related to group named 'defaultGroup-s32u6812' and category named 'defaultCategory-s32u6812'
+Given there is the product with 'name-306812' name, '306812' sku, '306812' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u6812', category named 'defaultCategory-s32u6812', subcategory named 'defaultSubCategory-s32u6812'
 
-Given the user opens the store 'store-s31u681' invoice create page
-And the user logs in using 'departmentManager-s31u681' userName and 'lighthouse' password
+Given the user opens the store 'store-s32u681' invoice create page
+And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |

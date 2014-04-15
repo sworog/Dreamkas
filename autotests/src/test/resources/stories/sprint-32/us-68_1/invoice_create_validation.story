@@ -10,7 +10,7 @@ Meta:
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
@@ -34,12 +34,12 @@ Meta:
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | acceptanceDate | 02.04.2013 16:23 |
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
 | legalEntity | legalEntity |
@@ -58,12 +58,12 @@ Meta:
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | acceptanceDate | 02.04.2013 16:23 |
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
 | legalEntity | legalEntity |
@@ -85,12 +85,12 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | acceptanceDate | 02.04.2013 16:23 |
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
 | legalEntity | legalEntity |
@@ -101,7 +101,7 @@ Then the user asserts 'accepter' invoice field data has '100' symbols length
 
 When the user inputs values on invoice page
 | elementName | value |
-| invoice product autocomplete | name-31681 |
+| invoice product autocomplete | name-32681 |
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
@@ -117,12 +117,12 @@ Meta:
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | acceptanceDate | 02.04.2013 16:23 |
 | accepter | accepter |
 | legalEntity | legalEntity |
@@ -141,12 +141,12 @@ Meta:
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | acceptanceDate | 02.04.2013 16:23 |
 | accepter | accepter |
 | legalEntity | legalEntity |
@@ -168,12 +168,12 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | acceptanceDate | 02.04.2013 16:23 |
 | accepter | accepter |
 | legalEntity | legalEntity |
@@ -184,7 +184,7 @@ Then the user asserts 'supplierInvoiceNumber' invoice field data has '100' symbo
 
 When the user inputs values on invoice page
 | elementName | value |
-| invoice product autocomplete | name-31681 |
+| invoice product autocomplete | name-32681 |
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
@@ -200,12 +200,12 @@ Meta:
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | acceptanceDate | 02.04.2013 16:23 |
 | accepter | accepter |
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
@@ -224,12 +224,12 @@ Meta:
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | acceptanceDate | 02.04.2013 16:23 |
 | accepter | accepter |
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
@@ -251,12 +251,12 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | acceptanceDate | 02.04.2013 16:23 |
 | accepter | accepter |
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
@@ -267,7 +267,7 @@ Then the user asserts 'legalEntity' invoice field data has '300' symbols length
 
 When the user inputs values on invoice page
 | elementName | value |
-| invoice product autocomplete | name-31681 |
+| invoice product autocomplete | name-32681 |
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
@@ -283,12 +283,12 @@ Meta:
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | acceptanceDate | 02.04.2013 16:23 |
 | accepter | accepter |
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
@@ -305,21 +305,21 @@ Scenario: Invoice product quantity positive validation
 Meta:
 @id_
 
-Given there is the user with name 'departmentManager-s31u681', position 'departmentManager-s31u681', username 'departmentManager-s31u681', password 'lighthouse', role 'departmentManager'
-And there is the store with number 'store-s31u681' managed by department manager named 'departmentManager-s31u681'
+Given there is the user with name 'departmentManager-s32u681', position 'departmentManager-s32u681', username 'departmentManager-s32u681', password 'lighthouse', role 'departmentManager'
+And there is the store with number 'store-s32u681' managed by department manager named 'departmentManager-s32u681'
 
-Given there is the subCategory with name 'defaultSubCategory-s31u681' related to group named 'defaultGroup-s31u681' and category named 'defaultCategory-s31u681'
-And the user sets subCategory 'defaultSubCategory-s31u681' mark up with max '10' and min '0' values
+Given there is the subCategory with name 'defaultSubCategory-s32u681' related to group named 'defaultGroup-s32u681' and category named 'defaultCategory-s32u681'
+And the user sets subCategory 'defaultSubCategory-s32u681' mark up with max '10' and min '0' values
 
-Given there is the product with 'name-31681' name, '31681' sku, '31681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s31u681', category named 'defaultCategory-s31u681', subcategory named 'defaultSubCategory-s31u681'
+Given there is the product with 'name-32681' name, '32681' sku, '32681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| invoice product autocomplete | name-31681 |
-And the user inputs quantity value on the invoice product with name 'name-31681'
+| invoice product autocomplete | name-32681 |
+And the user inputs quantity value on the invoice product with name 'name-32681'
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
@@ -346,21 +346,21 @@ Scenario: Invoice product quantity negative validation
 Meta:
 @id_
 
-Given there is the user with name 'departmentManager-s31u681', position 'departmentManager-s31u681', username 'departmentManager-s31u681', password 'lighthouse', role 'departmentManager'
-And there is the store with number 'store-s31u681' managed by department manager named 'departmentManager-s31u681'
+Given there is the user with name 'departmentManager-s32u681', position 'departmentManager-s32u681', username 'departmentManager-s32u681', password 'lighthouse', role 'departmentManager'
+And there is the store with number 'store-s32u681' managed by department manager named 'departmentManager-s32u681'
 
-Given there is the subCategory with name 'defaultSubCategory-s31u681' related to group named 'defaultGroup-s31u681' and category named 'defaultCategory-s31u681'
-And the user sets subCategory 'defaultSubCategory-s31u681' mark up with max '10' and min '0' values
+Given there is the subCategory with name 'defaultSubCategory-s32u681' related to group named 'defaultGroup-s32u681' and category named 'defaultCategory-s32u681'
+And the user sets subCategory 'defaultSubCategory-s32u681' mark up with max '10' and min '0' values
 
-Given there is the product with 'name-31681' name, '31681' sku, '31681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s31u681', category named 'defaultCategory-s31u681', subcategory named 'defaultSubCategory-s31u681'
+Given there is the product with 'name-32681' name, '32681' sku, '32681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| invoice product autocomplete | name-31681 |
-And the user inputs quantity value on the invoice product with name 'name-31681'
+| invoice product autocomplete | name-32681 |
+And the user inputs quantity value on the invoice product with name 'name-32681'
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
@@ -391,21 +391,21 @@ Scenario: Invoice product price positive validation
 Meta:
 @id_
 
-Given there is the user with name 'departmentManager-s31u681', position 'departmentManager-s31u681', username 'departmentManager-s31u681', password 'lighthouse', role 'departmentManager'
-And there is the store with number 'store-s31u681' managed by department manager named 'departmentManager-s31u681'
+Given there is the user with name 'departmentManager-s32u681', position 'departmentManager-s32u681', username 'departmentManager-s32u681', password 'lighthouse', role 'departmentManager'
+And there is the store with number 'store-s32u681' managed by department manager named 'departmentManager-s32u681'
 
-Given there is the subCategory with name 'defaultSubCategory-s31u681' related to group named 'defaultGroup-s31u681' and category named 'defaultCategory-s31u681'
-And the user sets subCategory 'defaultSubCategory-s31u681' mark up with max '10' and min '0' values
+Given there is the subCategory with name 'defaultSubCategory-s32u681' related to group named 'defaultGroup-s32u681' and category named 'defaultCategory-s32u681'
+And the user sets subCategory 'defaultSubCategory-s32u681' mark up with max '10' and min '0' values
 
-Given there is the product with 'name-31681' name, '31681' sku, '31681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s31u681', category named 'defaultCategory-s31u681', subcategory named 'defaultSubCategory-s31u681'
+Given there is the product with 'name-32681' name, '32681' sku, '32681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| invoice product autocomplete | name-31681 |
-And the user inputs price value on the invoice product with name 'name-31681'
+| invoice product autocomplete | name-32681 |
+And the user inputs price value on the invoice product with name 'name-32681'
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
@@ -432,21 +432,21 @@ Scenario: Invoice price product negative validation
 Meta:
 @id_
 
-Given there is the user with name 'departmentManager-s31u681', position 'departmentManager-s31u681', username 'departmentManager-s31u681', password 'lighthouse', role 'departmentManager'
-And there is the store with number 'store-s31u681' managed by department manager named 'departmentManager-s31u681'
+Given there is the user with name 'departmentManager-s32u681', position 'departmentManager-s32u681', username 'departmentManager-s32u681', password 'lighthouse', role 'departmentManager'
+And there is the store with number 'store-s32u681' managed by department manager named 'departmentManager-s32u681'
 
-Given there is the subCategory with name 'defaultSubCategory-s31u681' related to group named 'defaultGroup-s31u681' and category named 'defaultCategory-s31u681'
-And the user sets subCategory 'defaultSubCategory-s31u681' mark up with max '10' and min '0' values
+Given there is the subCategory with name 'defaultSubCategory-s32u681' related to group named 'defaultGroup-s32u681' and category named 'defaultCategory-s32u681'
+And the user sets subCategory 'defaultSubCategory-s32u681' mark up with max '10' and min '0' values
 
-Given there is the product with 'name-31681' name, '31681' sku, '31681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s31u681', category named 'defaultCategory-s31u681', subcategory named 'defaultSubCategory-s31u681'
+Given there is the product with 'name-32681' name, '32681' sku, '32681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| invoice product autocomplete | name-31681 |
-And the user inputs price value on the invoice product with name 'name-31681'
+| invoice product autocomplete | name-32681 |
+And the user inputs price value on the invoice product with name 'name-32681'
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish

@@ -10,12 +10,12 @@ Meta:
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | acceptanceDate | ! |
 | accepter | accepter |
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
@@ -35,7 +35,7 @@ Meta:
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 Then the user checks the acceptanceDate field is prefilled by nowDate
@@ -48,12 +48,12 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | acceptanceDate | !03.12.2012 10:45 |
 | accepter | accepter |
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
@@ -61,7 +61,7 @@ When the user inputs values on invoice page
 
 When the user inputs values on invoice page
 | elementName | value |
-| invoice product autocomplete | name-31681 |
+| invoice product autocomplete | name-32681 |
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
@@ -78,12 +78,12 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | acceptanceDate | !123454567890 |
 | accepter | accepter |
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
@@ -91,7 +91,7 @@ When the user inputs values on invoice page
 
 When the user inputs values on invoice page
 | elementName | value |
-| invoice product autocomplete | name-31681 |
+| invoice product autocomplete | name-32681 |
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
@@ -105,12 +105,12 @@ Scenario: Invoice acceptanceDate validation manual negative
 Meta:
 @id
 
-Given there is the user with name 'departmentManager-s31u681', position 'departmentManager-s31u681', username 'departmentManager-s31u681', password 'lighthouse', role 'departmentManager'
-And there is the store with number 'store-s31u681' managed by department manager named 'departmentManager-s31u681'
+Given there is the user with name 'departmentManager-s32u681', position 'departmentManager-s32u681', username 'departmentManager-s32u681', password 'lighthouse', role 'departmentManager'
+And there is the store with number 'store-s32u681' managed by department manager named 'departmentManager-s32u681'
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | accepter | accepter |
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
 | legalEntity | legalEntity |
@@ -141,12 +141,12 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | acceptanceDate | todayDateAndTime |
 | accepter | accepter |
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
@@ -154,7 +154,7 @@ When the user inputs values on invoice page
 
 When the user inputs values on invoice page
 | elementName | value |
-| invoice product autocomplete | name-31681 |
+| invoice product autocomplete | name-32681 |
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
@@ -171,12 +171,12 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | acceptanceDate | 27.03.2013 9999:9999 |
 | accepter | accepter |
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
@@ -184,7 +184,7 @@ When the user inputs values on invoice page
 
 When the user inputs values on invoice page
 | elementName | value |
-| invoice product autocomplete | name-31681 |
+| invoice product autocomplete | name-32681 |
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
@@ -201,12 +201,12 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToOrderCreateStory.story
 
-Given the user opens the store 'store-s31u681' invoice create page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
-| supplier | supplier-s31u681s1 |
+| supplier | supplier-s32u681s1 |
 | acceptanceDate | 27.03.2013 1155:222255 |
 | accepter | accepter |
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
@@ -214,7 +214,7 @@ When the user inputs values on invoice page
 
 When the user inputs values on invoice page
 | elementName | value |
-| invoice product autocomplete | name-31681 |
+| invoice product autocomplete | name-32681 |
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish

@@ -14,7 +14,7 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aPreconditionToStoryUs68.1.story
 
 Given the user opens the authorization page
-And the user logs in using 'departmentManager-s31u681' userName and 'lighthouse' password
+And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 Then the user asserts the invoice field label with name 'acceptanceDate'
 
@@ -27,7 +27,7 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aPreconditionToStoryUs68.1.story
 
 Given the user opens the authorization page
-And the user logs in using 'departmentManager-s31u681' userName and 'lighthouse' password
+And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 Then the user asserts the invoice field label with name 'supplier'
 
@@ -40,7 +40,7 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aPreconditionToStoryUs68.1.story
 
 Given the user opens the authorization page
-And the user logs in using 'departmentManager-s31u681' userName and 'lighthouse' password
+And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 Then the user asserts the invoice field label with name 'accepter'
 
@@ -53,7 +53,7 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aPreconditionToStoryUs68.1.story
 
 Given the user opens the authorization page
-And the user logs in using 'departmentManager-s31u681' userName and 'lighthouse' password
+And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 Then the user asserts the invoice field label with name 'supplierInvoiceNumber'
 
@@ -66,6 +66,6 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aPreconditionToStoryUs68.1.story
 
 Given the user opens the authorization page
-And the user logs in using 'departmentManager-s31u681' userName and 'lighthouse' password
+And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 Then the user asserts the invoice field label with name 'legalEntity'
