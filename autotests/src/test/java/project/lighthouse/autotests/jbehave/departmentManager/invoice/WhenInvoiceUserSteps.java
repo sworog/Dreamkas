@@ -42,4 +42,9 @@ public class WhenInvoiceUserSteps {
     public void whenTheUserGeneratesSymbolDataWithNumberInTheInvoiceField(int fieldLength, String elementName) {
         invoiceSteps.inputGeneratedData(elementName, fieldLength);
     }
+
+    @When("the user clicks on the search result invoice with number '$number'")
+    public void whenTheUserClicksOnTheSearchResultInvoiceWithNumber(String number) {
+        invoiceSteps.invoiceListSearchObjectClick(number);
+    }
 }

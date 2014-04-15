@@ -6,7 +6,8 @@ import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
-import project.lighthouse.autotests.objects.web.search.InvoiceSearchObjectCollection;
+import project.lighthouse.autotests.objects.web.search.InvoiceListSearchObjectCollection;
+import project.lighthouse.autotests.objects.web.search.deprecated.InvoiceSearchObjectCollection;
 
 public class InvoiceSearchPage extends CommonPageObject {
 
@@ -26,6 +27,10 @@ public class InvoiceSearchPage extends CommonPageObject {
 
     public InvoiceSearchObjectCollection getInvoiceSearchObjectCollection() {
         return new InvoiceSearchObjectCollection(getDriver(), By.xpath("//*[@class='invoiceList__item']"));
+    }
+
+    public InvoiceListSearchObjectCollection getInvoiceListSearchObjectCollection() {
+        return new InvoiceListSearchObjectCollection(getDriver(), By.name("invoice"));
     }
 
     public String getFormResultsText() {

@@ -12,6 +12,7 @@ import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.web.invoice.InvoiceProductObject;
 import project.lighthouse.autotests.objects.web.invoice.InvoiceProductsCollection;
 import project.lighthouse.autotests.pages.departmentManager.invoice.InvoicePage;
+import project.lighthouse.autotests.pages.departmentManager.invoice.deprecated.InvoiceSearchPage;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -19,6 +20,7 @@ import static org.junit.Assert.assertThat;
 public class InvoiceSteps extends ScenarioSteps {
 
     InvoicePage invoicePage;
+    InvoiceSearchPage invoiceSearchPage;
 
     private ExamplesTable examplesTable;
 
@@ -122,5 +124,10 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void assertInvoiceNumber(String expectedNumber) {
         assertThat(invoicePage.getInvoiceNumber(), is(expectedNumber));
+    }
+
+    @Step
+    public void invoiceListSearchObjectClick(String locator) {
+        invoiceSearchPage.getInvoiceListSearchObjectCollection().clickByLocator(locator);
     }
 }
