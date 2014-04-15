@@ -56,8 +56,7 @@ When the user clicks the local navigation invoice search link
 And the user searches invoice by sku or supplier sku '10001'
 And the user clicks the invoice search button and starts the search
 
-!--may be the better scenario will be click on search result and verify
-When the user clicks on the search result invoice with sku '10001'
+When the user clicks on the search result invoice with number '10001'
 
 Then the user checks stored values on invoice page
 
@@ -106,8 +105,7 @@ When the user clicks the local navigation invoice search link
 And the user searches invoice by sku or supplier sku '10001'
 And the user clicks the invoice search button and starts the search
 
-!--may be the better scenario will be click on search result and verify
-When the user clicks on the search result invoice with sku '10001'
+When the user clicks on the search result invoice with number '10001'
 
 Then the user asserts the invoice number is '10001'
 
@@ -205,8 +203,7 @@ When the user clicks the local navigation invoice search link
 And the user searches invoice by sku or supplier sku '10001'
 And the user clicks the invoice search button and starts the search
 
-!--may be the better scenario will be click on search result and verify
-When the user clicks on the search result invoice with sku '10001'
+When the user clicks on the search result invoice with number '10001'
 
 Then the user checks stored values on invoice page
 
