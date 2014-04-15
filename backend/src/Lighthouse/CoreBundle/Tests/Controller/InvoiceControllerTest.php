@@ -7,16 +7,14 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class InvoiceControllerTest extends WebTestCase
 {
-    /**
-     * @dataProvider postInvoiceDataProvider
-     */
-    public function testPostInvoiceAction(array $invoiceData, array $assertions = array())
+    public function testPostInvoiceAction()
     {
         $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
         $supplier = $this->factory()->supplier()->getSupplier('ООО "Поставщик"');
-        $invoiceData['supplier'] = $supplier->id;
+        $invoiceData = InvoiceProductControllerTest::getInvoiceData($supplier->id, $productId, 10, 5.99);
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -27,10 +25,13 @@ class InvoiceControllerTest extends WebTestCase
 
         $this->assertResponseCode(201);
 
-        $assertions['supplier.id'] = $supplier->id;
-        $assertions['supplier.name'] = 'ООО "Поставщик"';
-
-        $this->performJsonAssertions($postResponse, $assertions, true);
+        Assert::assertJsonPathEquals($supplier->id, 'supplier.id', $postResponse);
+        Assert::assertJsonPathEquals('ООО "Поставщик"', 'supplier.name', $postResponse);
+        Assert::assertJsonPathEquals('2013-03-18T12:56:00+0400', 'acceptanceDate', $postResponse);
+        Assert::assertJsonPathEquals('Приемных Н.П.', 'accepter', $postResponse);
+        Assert::assertJsonPathEquals('ООО "Магазин"', 'legalEntity', $postResponse);
+        Assert::assertJsonPathEquals('1248373', 'supplierInvoiceNumber', $postResponse);
+        Assert::assertJsonPathEquals(true, 'includesVAT', $postResponse);
     }
 
     /**
@@ -43,7 +44,7 @@ class InvoiceControllerTest extends WebTestCase
             $this->createInvoice($invoiceData, $store->id);
         }
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -179,15 +180,10 @@ class InvoiceControllerTest extends WebTestCase
     public function testPostInvoiceValidation($expectedCode, array $data, array $assertions = array())
     {
         $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
         $supplier = $this->factory()->supplier()->getSupplier();
 
-        $postData = $data + array(
-            'supplier' => $supplier->id,
-            'acceptanceDate' => '2013-03-18 12:56',
-            'accepter' => 'Приемных Н.П.',
-            'legalEntity' => 'ООО "Магазин"',
-            'supplierInvoiceNumber' => '1248373',
-        );
+        $postData = $data + InvoiceProductControllerTest::getInvoiceData($supplier->id, $productId, 10, 5.99);
 
         $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
 
@@ -1020,6 +1016,7 @@ class InvoiceControllerTest extends WebTestCase
      * @param array $invalidData
      * @param string $expectedErrorPath
      * @param string $expectedErrorMessage
+     * @param $expectedEmptyField
      * @throws \PHPUnit_Framework_ExpectationFailedException
      */
     public function testValidationGroupWithInvalidSupplier(
@@ -1050,7 +1047,7 @@ class InvoiceControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $store->id . '/invoices?validation=1',
+            '/api/1/stores/' . $store->id . '/invoices?validate=true',
             $invoiceData
         );
 
@@ -1060,7 +1057,7 @@ class InvoiceControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $store->id . '/invoices?validation=products',
+            '/api/1/stores/' . $store->id . '/invoices?validate=true&validationGroups=products',
             $invoiceData
         );
 
@@ -1074,7 +1071,7 @@ class InvoiceControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $store->id . '/invoices?validation=products',
+            '/api/1/stores/' . $store->id . '/invoices?validate=true&&validationGroups=products',
             $invoiceData
         );
 
