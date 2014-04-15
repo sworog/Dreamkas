@@ -25,16 +25,13 @@ class MetaDocumentTest extends WebTestCase
     {
         $productId1 = $this->createProduct('1');
         $productId2 = $this->createProduct('2');
-        $storeId = $this->factory->store()->getStoreId();
-        $manager = $this->factory->store()->getDepartmentManager($storeId);
-        $invoiceId = $this->createInvoice(array(), $storeId, $manager);
-        $invoiceProductId1 = $this->createInvoiceProduct($invoiceId, $productId1, 10, 12.80, $storeId, $manager);
-        $invoiceProductId2 = $this->createInvoiceProduct($invoiceId, $productId2, 5, 18.70, $storeId, $manager);
-
-        /* @var InvoiceRepository $invoiceRepository */
-        $invoiceRepository = $this->getContainer()->get('lighthouse.core.document.repository.invoice');
-        /* @var Invoice $invoice */
-        $invoice = $invoiceRepository->find($invoiceId);
+        $store = $this->factory()->store()->getStore();
+        $invoice = $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id)
+                ->createInvoiceProduct($productId1, 10, 12.80, $store->id)
+                ->createInvoiceProduct($productId2, 15, 18.70, $store->id)
+            ->flush();
 
         $metaDocument = new MetaDocument($invoice);
         $serializer = $this->getSerializer();
@@ -43,8 +40,8 @@ class MetaDocumentTest extends WebTestCase
         Assert::assertJsonHasPath('_meta', $json);
         Assert::assertJsonHasPath('products', $json);
         Assert::assertJsonPathCount(2, 'products.*.id', $json);
-        Assert::assertJsonPathEquals($invoiceProductId1, 'products.*.id', $json, 1);
-        Assert::assertJsonPathEquals($invoiceProductId2, 'products.*.id', $json, 1);
+        Assert::assertJsonPathEquals($invoice->products[0]->id, 'products.*.id', $json, 1);
+        Assert::assertJsonPathEquals($invoice->products[1]->id, 'products.*.id', $json, 1);
     }
 
     public function testWriteOffProductsReferenceManyIsSerialized()

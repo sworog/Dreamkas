@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Test;
 
+use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\Client\Client;
@@ -97,8 +98,7 @@ class WebTestCase extends ContainerAwareTestCase
         } else {
             $supplierId = null;
         }
-        $invoice = $this->factory()->invoice()->createInvoice($modifiedData, $storeId, $supplierId);
-        return $invoice->id;
+        return $this->factory()->invoice()->createInvoice($modifiedData, $storeId, $supplierId);
     }
 
     /**
@@ -133,10 +133,9 @@ class WebTestCase extends ContainerAwareTestCase
      * @param float $price
      * @return string
      */
-    public function createInvoiceProduct($invoiceId, $productId, $quantity, $price)
+    public function createInvoiceProduct(Invoice $invoice, $productId, $quantity, $price)
     {
-        $invoiceProduct = $this->factory->invoice()->createInvoiceProduct($invoiceId, $productId, $quantity, $price);
-        return $invoiceProduct->id;
+        return $this->factory()->invoice()->createInvoiceProduct($invoice, $productId, $quantity, $price);
     }
 
     /**

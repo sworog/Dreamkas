@@ -522,10 +522,12 @@ class WriteOffProductControllerTest extends WebTestCase
 
         $this->assertStoreProductTotals($storeId, $productId1, 0);
 
-        $invoiceId = $this->createInvoice(array(), $storeId);
-
-        $this->createInvoiceProduct($invoiceId, $productId1, 10, 4.99, $storeId);
-        $this->createInvoiceProduct($invoiceId, $productId2, 20, 6.99, $storeId);
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $storeId)
+                ->createInvoiceProduct($productId1, 10, 4.99, $storeId)
+                ->createInvoiceProduct($productId2, 20, 6.99, $storeId)
+            ->flush();
 
         $this->assertStoreProductTotals($storeId, $productId1, 10, 4.99);
         $this->assertStoreProductTotals($storeId, $productId2, 20, 6.99);

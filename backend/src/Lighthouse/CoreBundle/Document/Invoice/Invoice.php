@@ -151,7 +151,7 @@ class Invoice extends AbstractDocument implements Storeable
      * )
      *
      * @Assert\Valid(traverse=true)
-     * @@Assert\Count(
+     * @Assert\Count(
      *      min=1,
      *      minMessage="lighthouse.validation.errors.invoice.products.empty"
      * )
@@ -186,6 +186,23 @@ class Invoice extends AbstractDocument implements Storeable
         }
 
         $this->products = $products;
+    }
+
+    /**
+     * @param InvoiceProduct $product
+     */
+    public function addProduct(InvoiceProduct $product)
+    {
+        $product->invoice = $this;
+        $this->products->add($product);
+    }
+
+    /**
+     * @param InvoiceProduct $product
+     */
+    public function removeProduct(InvoiceProduct $product)
+    {
+        $this->products->remove($product);
     }
 
     public function calculateTotals()

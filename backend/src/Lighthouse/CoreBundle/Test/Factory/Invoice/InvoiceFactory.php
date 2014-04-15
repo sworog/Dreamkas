@@ -1,11 +1,13 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Test\Factory;
+namespace Lighthouse\CoreBundle\Test\Factory\Invoice;
 
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
+use Lighthouse\CoreBundle\Test\Factory\AbstractFactory;
+use Lighthouse\CoreBundle\Test\Factory\Invoice\InvoiceBuilder;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 
@@ -14,81 +16,54 @@ class InvoiceFactory extends AbstractFactory
     /**
      * @param array $data
      * @param string $storeId
+     * @param string $supplierId
      * @param string $invoiceId
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     * @throws \LogicException
-     * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
-     * @throws \Doctrine\ODM\MongoDB\MongoDBException
-     * @throws \Doctrine\ODM\MongoDB\LockException
-     * @throws \Lighthouse\CoreBundle\Exception\ValidationFailedException
-     * @return Invoice
+     * @return InvoiceBuilder
      */
     public function createInvoice(array $data, $storeId = null, $supplierId = null, $invoiceId = null)
     {
-        $invoice = ($invoiceId) ? $this->getInvoiceById($invoiceId) : $this->getInvoiceRepository()->createNew();
-
-        $invoiceData = $data + array(
-            'acceptanceDate' => '2013-03-18 12:56',
-            'accepter' => 'Приемных Н.П.',
-            'legalEntity' => 'ООО "Магазин"',
-            'supplierInvoiceNumber' => '1248373',
-            'includesVAT' => true,
+        $builder = new InvoiceBuilder(
+            $this->factory,
+            $this->getInvoiceRepository(),
+            $this->getValidator(),
+            $this->getNumericFactory()
         );
-
-        if ($supplierId) {
-            $invoice->supplier = $this->factory->supplier()->getSupplierById($supplierId);
-        } else {
-            $invoice->supplier = $this->factory->supplier()->getSupplier();
-        }
-
-        $invoice->acceptanceDate = new \DateTime($invoiceData['acceptanceDate']);
-        $invoice->accepter = $invoiceData['accepter'];
-        $invoice->legalEntity = $invoiceData['legalEntity'];
-        $invoice->supplierInvoiceNumber = $invoiceData['supplierInvoiceNumber'];
-        $invoice->includesVAT = $invoiceData['includesVAT'];
-
-        $store = ($storeId) ? $this->factory->store()->getStoreById($storeId) : $this->factory->store()->getStore();
-        $invoice->store = $store;
-
-        $this->getValidator()->validate($invoice);
-
-        $this->getDocumentManager()->persist($invoice);
-        $this->getDocumentManager()->flush($invoice);
-
-        return $invoice;
+        return $builder->createInvoice($data, $storeId, $supplierId, $invoiceId);
     }
 
     /**
-     * @param string $invoiceId
+     * @param Invoice $invoice
+     * @throws \InvalidArgumentException
+     */
+    public function flush(Invoice $invoice)
+    {
+        $this->getValidator()->validate($invoice);
+        $this->getDocumentManager()->persist($invoice);
+        $this->getDocumentManager()->flush($invoice);
+    }
+
+    /**
+     * @param Invoice $invoice
      * @param string $productId
      * @param float $quantity
      * @param float $price
      * @param string $id invoice product id to update
      * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     * @throws \LogicException
-     * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
-     * @throws \Doctrine\ODM\MongoDB\MongoDBException
-     * @throws \Doctrine\ODM\MongoDB\LockException
-     * @throws \Lighthouse\CoreBundle\Exception\ValidationFailedException
+     * @internal param string $invoiceId
      * @return InvoiceProduct
      */
-    public function createInvoiceProduct($invoiceId, $productId, $quantity, $price, $id = null)
+    public function createInvoiceProduct(Invoice $invoice, $productId, $quantity, $price, $id = null)
     {
         $invoiceProduct = ($id) ? $this->getInvoiceProductById($id) : new InvoiceProduct();
 
         $invoiceProduct->quantity = $this->getNumericFactory()->createQuantity($quantity);
         $invoiceProduct->priceEntered = $this->getNumericFactory()->createMoney($price);
         $invoiceProduct->product = $this->factory->createProductVersion($productId);
-        $invoiceProduct->invoice = $this->getInvoiceById($invoiceId);
+        $invoiceProduct->invoice = $invoice;
+
+        $invoice->addProduct($invoice);
 
         $invoiceProduct->calculatePrices();
-
-        $this->getValidator()->validate($invoiceProduct);
-
-        $this->getDocumentManager()->persist($invoiceProduct);
-        $this->getDocumentManager()->flush();
 
         return $invoiceProduct;
     }
@@ -134,14 +109,14 @@ class InvoiceFactory extends AbstractFactory
     /**
      * @return NumericFactory
      */
-    protected function getNumericFactory()
+    public function getNumericFactory()
     {
         return $this->container->get('lighthouse.core.types.numeric.factory');
     }
     /**
      * @return InvoiceRepository
      */
-    protected function getInvoiceRepository()
+    public function getInvoiceRepository()
     {
         return $this->container->get('lighthouse.core.document.repository.invoice');
     }
