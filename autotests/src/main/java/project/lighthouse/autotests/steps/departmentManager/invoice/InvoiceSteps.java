@@ -137,4 +137,14 @@ public class InvoiceSteps extends ScenarioSteps {
                 invoicePage.getItemAttribute("invoice product autocomplete", "placeholder"),
                 is(expectedPlaceHolder));
     }
+
+    @Step
+    public void downloadAgreementButtonShouldBeVisible() {
+        invoicePage.getDownloadAgreementFileButton().shouldBeVisible();
+    }
+
+    @Step
+    public void downloadAgreementButtonShouldBeNotVisible() {
+        invoicePage.getDownloadAgreementFileButton().shouldBeNotVisible();
+    }
 }

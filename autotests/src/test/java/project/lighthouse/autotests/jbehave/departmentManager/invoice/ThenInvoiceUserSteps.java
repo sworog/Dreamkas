@@ -64,4 +64,14 @@ public class ThenInvoiceUserSteps {
     public void thenTheUserChecksTheAutoCompletePlaceHolderText(String expectedPlaceHolder) {
         invoiceSteps.assertAutoCompletePlaceHolder(expectedPlaceHolder);
     }
+
+    @Then("the user checks the download agreement button should be not visible on the invoice page")
+    public void thenTheUserChecksTheDownLoadAgreementButtonShouldBeNotVisibleOnTheInvoicePage() {
+        invoiceSteps.downloadAgreementButtonShouldBeNotVisible();
+    }
+
+    @Then("the user checks the download agreement button should be visible on the invoice page")
+    public void thenTheUserChecksTheDownLoadAgreementButtonShouldBeVisibleOnTheInvoicePage() {
+        invoiceSteps.downloadAgreementButtonShouldBeVisible();
+    }
 }

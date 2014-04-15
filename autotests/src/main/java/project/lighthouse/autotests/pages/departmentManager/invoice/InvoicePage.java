@@ -62,4 +62,8 @@ public class InvoicePage extends CommonPageObject {
     public void acceptProductsButtonClick() {
         new ButtonFacade(this, "Принять товары").click();
     }
+
+    public ButtonFacade getDownloadAgreementFileButton() {
+        return new ButtonFacade(this, "Скачать договор");
+    }
 }
