@@ -9,11 +9,13 @@ import project.lighthouse.autotests.elements.items.DateTime;
 import project.lighthouse.autotests.elements.preLoader.ProductEditionPreLoader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.helper.UrlHelper;
+import project.lighthouse.autotests.helper.exampleTable.invoice.InvoiceExampleTableUpdater;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.web.invoice.InvoiceProductObject;
 import project.lighthouse.autotests.objects.web.invoice.InvoiceProductsCollection;
 import project.lighthouse.autotests.pages.departmentManager.invoice.InvoicePage;
 import project.lighthouse.autotests.pages.departmentManager.invoice.deprecated.InvoiceSearchPage;
+import project.lighthouse.autotests.storage.Storage;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -47,6 +49,12 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
+    public void checkValues(ExamplesTable examplesTable) throws JSONException {
+        ExamplesTable updatedExamplesTable = new InvoiceExampleTableUpdater(examplesTable).updateValues();
+        invoicePage.checkValues(updatedExamplesTable);
+    }
+
+    @Step
     public InvoiceProductsCollection getInvoiceProductsCollection() {
         return invoicePage.getInvoiceProductsCollection();
     }
@@ -59,6 +67,13 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void invoiceProductObjectQuantityType(String locator, String value) {
         getInvoiceProductObject(locator).quantityType(value);
+    }
+
+    @Step
+    public void lastCreatedProductObjectQuantityType(String value) throws JSONException {
+        invoiceProductObjectQuantityType(
+                Storage.getInvoiceVariableStorage().getProduct().getName(),
+                value);
     }
 
     @Step
@@ -77,8 +92,9 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
-    public void invoiceProductsCollectionExactCompare(ExamplesTable examplesTable) {
-        getInvoiceProductsCollection().exactCompareExampleTable(examplesTable);
+    public void invoiceProductsCollectionExactCompare(ExamplesTable examplesTable) throws JSONException {
+        ExamplesTable updatedExamplesTable = new InvoiceExampleTableUpdater(examplesTable).updateValues();
+        getInvoiceProductsCollection().exactCompareExampleTable(updatedExamplesTable);
     }
 
     @Step
@@ -94,6 +110,11 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void acceptProductsButtonClick() {
         invoicePage.acceptProductsButtonClick();
+    }
+
+    @Step
+    public void cancelLinkClick() {
+        invoicePage.cancelLinkClick();
     }
 
     @Step
@@ -133,6 +154,16 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
+    public void lastCreatedInvoiceListSearchObjectClick() {
+        invoiceListSearchObjectClick(Storage.getInvoiceVariableStorage().getNumber());
+    }
+
+    @Step
+    public void searchInvoiceByLastCreatedInvoiceNumber() {
+        invoiceSearchPage.input("skuOrSupplierInvoiceSku", Storage.getInvoiceVariableStorage().getNumber());
+    }
+
+    @Step
     public void assertAutoCompletePlaceHolder(String expectedPlaceHolder) {
         assertThat(
                 invoicePage.getItemAttribute("invoice product autocomplete", "placeholder"),
@@ -165,5 +196,15 @@ public class InvoiceSteps extends ScenarioSteps {
                 getDriver().switchTo().activeElement(),
                 is(invoicePage.getItems().get("invoice product autocomplete").getWebElement())
         );
+    }
+
+    @Step
+    public void invoiceProductObjectClick(String locator) {
+        getInvoiceProductsCollection().clickByLocator(locator);
+    }
+
+    @Step
+    public void lastCreatedInvoiceProductObjectClick() throws JSONException {
+        invoiceProductObjectClick(Storage.getInvoiceVariableStorage().getProduct().getName());
     }
 }

@@ -3,6 +3,7 @@ package project.lighthouse.autotests.jbehave.departmentManager.invoice;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONException;
 import project.lighthouse.autotests.steps.departmentManager.invoice.InvoiceSteps;
 
 public class ThenInvoiceUserSteps {
@@ -21,7 +22,7 @@ public class ThenInvoiceUserSteps {
     }
 
     @Then("the user checks the invoice products list contains exact entries $examplesTable")
-    public void thenTheUserChecksTheInvoiceProductsListContainsExactEntries(ExamplesTable examplesTable) {
+    public void thenTheUserChecksTheInvoiceProductsListContainsExactEntries(ExamplesTable examplesTable) throws JSONException {
         invoiceSteps.invoiceProductsCollectionExactCompare(examplesTable);
     }
 
@@ -38,6 +39,11 @@ public class ThenInvoiceUserSteps {
     @Then("the user checks stored values on invoice page")
     public void thenTheUserChecksStoredValuesOnInvoicePage() {
         invoiceSteps.checkValues();
+    }
+
+    @Then("the user checks values on the invoice page $examplesTable")
+    public void thenTheUserChecksValuesOnTheInvoicePage(ExamplesTable examplesTable) throws JSONException {
+        invoiceSteps.checkValues(examplesTable);
     }
 
     @Then("the user checks the invoice product found by name 'name-3063' has quantity equals to expectedValue")

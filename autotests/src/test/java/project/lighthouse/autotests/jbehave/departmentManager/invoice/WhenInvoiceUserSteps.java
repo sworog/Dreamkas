@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONException;
 import project.lighthouse.autotests.steps.departmentManager.invoice.InvoiceSteps;
 
 public class WhenInvoiceUserSteps {
@@ -38,6 +39,11 @@ public class WhenInvoiceUserSteps {
         invoiceSteps.acceptProductsButtonClick();
     }
 
+    @When("the user clicks the invoice cancel link button")
+    public void whenTheUserClicksTheInvoiceCancelLinkButton() {
+        invoiceSteps.cancelLinkClick();
+    }
+
     @When("the user generates symbol data with '$fieldLength' number in the '$elementName' invoice field")
     public void whenTheUserGeneratesSymbolDataWithNumberInTheInvoiceField(int fieldLength, String elementName) {
         invoiceSteps.inputGeneratedData(elementName, fieldLength);
@@ -48,6 +54,16 @@ public class WhenInvoiceUserSteps {
         invoiceSteps.invoiceListSearchObjectClick(number);
     }
 
+    @When("the user clicks on the search result invoice with last created invoice number")
+    public void whenTheUserClicksOnTheSearchResultInvoiceWithLastCreatedInvoiceNumber() {
+        invoiceSteps.lastCreatedInvoiceListSearchObjectClick();
+    }
+
+    @When("the user searches invoice by last created invoice number")
+    public void whenTheUserSearchesInvoiceByLastCreatedInvoiceNumber() {
+        invoiceSteps.searchInvoiceByLastCreatedInvoiceNumber();
+    }
+
     @When("the user focuses out on the invoice page")
     public void whenTheUserFocusesOutOnTheInvoicePage() {
         invoiceSteps.invoiceFocusOutClick();
@@ -56,5 +72,15 @@ public class WhenInvoiceUserSteps {
     @When("the user inputs '$value' into active element, which has focus on the page")
     public void whenTheUserInputsValueInToActiveElementWhichHasFocusOnTheInvoicePage(String value) {
         invoiceSteps.typeInToActiveWebElement(value);
+    }
+
+    @When("the user clicks on invoice product in last created invoice")
+    public void whenTheUserClicksOnTheInvoiceProductInLastCreatedInvoice() throws JSONException {
+        invoiceSteps.lastCreatedInvoiceProductObjectClick();
+    }
+
+    @When("the user inputs quantity '$value' on the invoice product in last created invoice")
+    public void whenTheUserInputsValueOnTheInvoiceProductInLastCreatedInvoice(String value) throws JSONException {
+        invoiceSteps.lastCreatedProductObjectQuantityType(value);
     }
 }

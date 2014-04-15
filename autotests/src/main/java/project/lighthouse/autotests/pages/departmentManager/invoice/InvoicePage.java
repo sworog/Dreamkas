@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
+import project.lighthouse.autotests.elements.Buttons.LinkFacade;
 import project.lighthouse.autotests.elements.items.DateTime;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.NewAutoComplete;
@@ -65,5 +66,9 @@ public class InvoicePage extends CommonPageObject {
 
     public ButtonFacade getDownloadAgreementFileButton() {
         return new ButtonFacade(this, "Скачать договор");
+    }
+
+    public void cancelLinkClick() {
+        new LinkFacade(this, "Отменить").click();
     }
 }
