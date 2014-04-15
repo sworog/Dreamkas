@@ -47,4 +47,14 @@ public class WhenInvoiceUserSteps {
     public void whenTheUserClicksOnTheSearchResultInvoiceWithNumber(String number) {
         invoiceSteps.invoiceListSearchObjectClick(number);
     }
+
+    @When("the user focuses out on the invoice page")
+    public void whenTheUserFocusesOutOnTheInvoicePage() {
+        invoiceSteps.invoiceFocusOutClick();
+    }
+
+    @When("the user inputs '$value' into active element, which has focus on the page")
+    public void whenTheUserInputsValueInToActiveElementWhichHasFocusOnTheInvoicePage(String value) {
+        invoiceSteps.typeInToActiveWebElement(value);
+    }
 }

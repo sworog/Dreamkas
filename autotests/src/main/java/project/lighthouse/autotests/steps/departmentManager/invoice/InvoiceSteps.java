@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
+import org.openqa.selenium.By;
 import project.lighthouse.autotests.elements.items.DateTime;
 import project.lighthouse.autotests.elements.preLoader.ProductEditionPreLoader;
 import project.lighthouse.autotests.helper.StringGenerator;
@@ -146,5 +147,23 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void downloadAgreementButtonShouldBeNotVisible() {
         invoicePage.getDownloadAgreementFileButton().shouldBeNotVisible();
+    }
+
+    @Step
+    public void invoiceFocusOutClick() {
+        invoicePage.findVisibleElement(By.className("form__totalSum")).click();
+    }
+
+    @Step
+    public void typeInToActiveWebElement(String value) {
+        invoicePage.$(getDriver().switchTo().activeElement()).type(value);
+    }
+
+    @Step
+    public void assertActiveElementIsAutoComplete() {
+        assertThat(
+                getDriver().switchTo().activeElement(),
+                is(invoicePage.getItems().get("invoice product autocomplete").getWebElement())
+        );
     }
 }

@@ -74,4 +74,9 @@ public class ThenInvoiceUserSteps {
     public void thenTheUserChecksTheDownLoadAgreementButtonShouldBeVisibleOnTheInvoicePage() {
         invoiceSteps.downloadAgreementButtonShouldBeVisible();
     }
+
+    @Then("the user asserts the autocomplete invoice field has focus")
+    public void thenTheUserAssertsTheAutocompleteInvoiceFieldHasFocus() {
+        invoiceSteps.assertActiveElementIsAutoComplete();
+    }
 }
