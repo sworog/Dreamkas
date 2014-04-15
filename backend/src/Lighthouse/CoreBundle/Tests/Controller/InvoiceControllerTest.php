@@ -420,8 +420,9 @@ class InvoiceControllerTest extends WebTestCase
                 array('supplierInvoiceNumber' => str_repeat('z', 100)),
             ),
             'empty supplierInvoiceNumber' => array(
-                201,
+                400,
                 array('supplierInvoiceNumber' => ''),
+                array('children.supplierInvoiceNumber.errors.0' => 'Заполните это поле'),
             ),
             'not valid supplierInvoiceNumber too long' => array(
                 400,

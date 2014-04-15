@@ -103,6 +103,7 @@ class Invoice extends AbstractDocument implements Storeable
 
     /**
      * Входящий номер накладной
+     * @Assert\NotBlank
      * @MongoDB\String
      * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      * @var string
