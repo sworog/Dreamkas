@@ -19,7 +19,7 @@ public class InvoiceListSearchObject extends AbstractObject implements ObjectLoc
 
     @Override
     public void setProperties() {
-        getElement().findElement(By.name("number")).getText();
+        number = getElement().findElement(By.name("number")).getText();
     }
 
     @Override
