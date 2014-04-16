@@ -205,6 +205,9 @@ define(function(require, exports, module) {
             var block = this;
 
             block.$errorTr.detach();
+        },
+        getCreateInvoiceFromOrderLink: function() {
+            var link = '/stores/' + model.get('store').id + '/invoices/create?order='+ model.id;
         }
     });
 });

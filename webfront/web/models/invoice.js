@@ -16,7 +16,8 @@ define(function(require) {
             legalEntity: null,
             includesVAT: true,
             supplierInvoiceNumber: null,
-            products: null
+            products: null,
+            order: null
         },
         saveData: function(){
             var supplier = this.get('supplier');
