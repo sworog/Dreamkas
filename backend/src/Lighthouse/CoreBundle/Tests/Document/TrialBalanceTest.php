@@ -145,8 +145,6 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $storeProductRepository = $this->getStoreProductRepository();
         $storeProduct = $storeProductRepository->findOrCreateByStoreProduct($store, $product);
 
-        $invoice = $this->factory()->invoice()->createInvoice(array(), $store->id);
-
         $trialBalanceRepository = $this->getTrialBalanceRepository();
 
         $startTrialBalanceCursor = $trialBalanceRepository->findByStoreProduct($storeProduct->id);
@@ -154,7 +152,11 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
         $this->assertCount(0, $startTrialBalance);
 
-        $invoiceProduct = $this->factory()->invoice()->createInvoiceProduct($invoice->id, $product->id, 9, 0.99);
+        $invoice = $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id)
+                ->createInvoiceProduct($product->id, 9, 0.99)
+            ->flush();
 
         $endTrialBalanceCursor = $trialBalanceRepository->findByStoreProduct($storeProduct->id);
         $endTrialBalance = new TrialBalanceCollection($endTrialBalanceCursor);
@@ -167,7 +169,9 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $this->assertEquals(99, $endTrialBalanceItem->price->getCount());
         $this->assertEquals(891, $endTrialBalanceItem->totalPrice->getCount());
 
-        $this->factory()->invoice()->createInvoiceProduct($invoice->id, $product->id, 10, 0.99, $invoiceProduct->id);
+        $invoice->products[0]->quantity = $invoice->products[0]->quantity->set(10);
+        $manager->persist($invoice);
+        $manager->flush();
 
         $trialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
 
@@ -175,7 +179,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $this->assertEquals(99, $trialBalance->price->getCount());
         $this->assertEquals(990, $trialBalance->totalPrice->getCount());
 
-        $manager->remove($invoiceProduct);
+        $manager->remove($invoice->products->remove(0));
         $manager->flush();
 
         $trialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);

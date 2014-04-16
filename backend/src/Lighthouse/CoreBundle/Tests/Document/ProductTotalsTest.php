@@ -51,8 +51,6 @@ class ProductTotalsTest extends ContainerAwareTestCase
 
         $store = $this->factory()->store()->getStore('42');
 
-        $invoice = $this->factory()->invoice()->createInvoice(array(), $store->id);
-
         $product = new Product();
         $product->name = 'Кефир "Веселый Молочник" 1% 950гр';
         $product->units = 'gr';
@@ -64,22 +62,23 @@ class ProductTotalsTest extends ContainerAwareTestCase
         $product->vendorCountry = 'Россия';
         $product->info = 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса';
 
-        $versionFactory = $this->getContainer()->get('lighthouse.core.versionable.factory');
-        $productVersion = $versionFactory->createDocumentVersion($product);
-
-        $invoiceProduct = new InvoiceProduct();
-        $invoiceProduct->invoice = $invoice;
-        $invoiceProduct->product = $productVersion;
-        $invoiceProduct->priceEntered = $numericFactory->createMoney('10.10');
-        $invoiceProduct->quantity = $numericFactory->createQuantity(10);
-
         $manager->persist($store);
         $manager->persist($product);
         $manager->flush();
 
+        $versionFactory = $this->getContainer()->get('lighthouse.core.versionable.factory');
+        $productVersion = $versionFactory->createDocumentVersion($product);
+
+        $invoice = $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id)
+                ->createInvoiceProduct($product->id, 10, '10.10')
+            ->flush();
+
         $manager->persist($invoice);
-        $manager->persist($invoiceProduct);
         $manager->flush();
+
+        $invoiceProduct = $invoice->products[0];
 
         $this->assertInstanceOf(Invoice::getClassName(), $invoiceProduct->invoice);
         $this->assertEquals($invoiceProduct->invoice->id, $invoice->id);
@@ -104,6 +103,7 @@ class ProductTotalsTest extends ContainerAwareTestCase
         $storeProductRepository->refresh($storeProduct);
         $this->assertEquals(4, $storeProduct->inventory->toNumber());
 
+        $invoice->products->remove(0);
         $manager->remove($invoiceProduct);
         $manager->flush();
 
