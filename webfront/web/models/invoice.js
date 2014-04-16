@@ -6,6 +6,7 @@ define(function(require) {
 
     return Model.extend({
         storeId: null,
+        fromOrder: null,
         urlRoot: function() {
             return LH.baseApiUrl + '/stores/' + this.storeId + '/invoices'
         },
@@ -24,7 +25,12 @@ define(function(require) {
             if (supplier instanceof Object) {
                 supplier = supplier.id;
             }
+            var order = this.get('order');
+            if (order instanceof Object) {
+                order = order.id;
+            }
             return {
+                order: order,
                 supplier: supplier,
                 acceptanceDate: this.get('acceptanceDate'),
                 accepter: this.get('accepter'),
@@ -47,6 +53,17 @@ define(function(require) {
             delete data.products;
 
             return data;
+        },
+        fetch: function(options) {
+            var model = this;
+
+            if (null != model.fromOrder) {
+                return Model.prototype.fetch.call(this, _.extend({
+                    url: LH.baseApiUrl + '/stores/' + this.storeId + '/orders/' + this.fromOrder + '/invoice'
+                }, options));
+            } else {
+                return Model.prototype.fetch.call(this, options);
+            }
         },
         validateProducts: function(){
             var model = this;

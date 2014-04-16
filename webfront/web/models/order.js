@@ -35,7 +35,7 @@ define(function(require, exports, module) {
             return data;
         },
         getCreateInvoiceFromOrderUrl: function() {
-            return '/stores/' + currentUserModel.stores.at(0).id + '/invoices/create?order=' + this.id;
+            return '/stores/' + currentUserModel.stores.at(0).id + '/invoices/create?fromOrder=' + this.id;
         }
     });
 });
