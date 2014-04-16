@@ -89,9 +89,13 @@ define(function(require) {
                 block.validateProducts();
             },
             'click label > input[name=includesVAT]': function(e) {
-                var block = this;
+                var block = this,
+                    preloaderTarget = e.target.parentElement;
+                preloaderTarget.classList.add('preloader_stripes');
                 block.model.set(e.target.name, e.target.checked);
-                block.validateProducts();
+                block.model.validateProducts().then(function() {
+                    preloaderTarget.classList.remove('preloader_stripes');
+                });
             }
         },
         listeners: {
