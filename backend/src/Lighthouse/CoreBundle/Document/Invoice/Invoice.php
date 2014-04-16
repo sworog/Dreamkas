@@ -9,6 +9,7 @@ use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection;
+use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
@@ -62,7 +63,6 @@ class Invoice extends AbstractDocument implements Storeable
      *     targetDocument="Lighthouse\CoreBundle\Document\Order\Order",
      *     simple=true
      * )
-     * @Assert\NotBlank
      * @Serializer\MaxDepth(2)
      * @var Order
      */
