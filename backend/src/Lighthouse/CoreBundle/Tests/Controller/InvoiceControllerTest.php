@@ -1077,7 +1077,7 @@ class InvoiceControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $store->id . '/invoices?validate=true&&validationGroups=products',
+            '/api/1/stores/' . $store->id . '/invoices?validate=true&validationGroups=products',
             $invoiceData
         );
 
@@ -1119,6 +1119,214 @@ class InvoiceControllerTest extends WebTestCase
                 'acceptanceDate'
             )
             */
+        );
+    }
+
+    /**
+     * @dataProvider totalsCalculationOnPostWithValidationGroupDataProvider
+     * @param int $VAT
+     * @param bool $includesVAT
+     * @param float $quantity
+     * @param float $price
+     * @param float $expectedSumTotal
+     * @param float $expectedSumTotalWithoutVAT
+     * @param float $expectedTotalAmountVAT
+     * @param float $expectedPrice
+     * @param float $expectedPriceWithoutVAT
+     * @param float $expectedAmountVAT
+     * @throws \PHPUnit_Framework_ExpectationFailedException
+     */
+    public function testTotalsCalculationOnPostWithValidationGroupOnPost(
+        $VAT,
+        $includesVAT,
+        $quantity,
+        $price,
+        $expectedSumTotal,
+        $expectedSumTotalWithoutVAT,
+        $expectedTotalAmountVAT,
+        $expectedPrice,
+        $expectedPriceWithoutVAT,
+        $expectedAmountVAT
+    ) {
+        $store = $this->factory()->store()->getStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $productId = $this->createProduct(array('vat' => $VAT));
+
+        $invoiceData = InvoiceProductControllerTest::getInvoiceData($supplier->id, $productId, $quantity, $price);
+        $invoiceData['includesVAT'] = $includesVAT;
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices?validate=true&validationGroups=products',
+            $invoiceData
+        );
+        $this->assertResponseCode(201);
+
+        Assert::assertNotJsonHasPath('id', $response);
+        Assert::assertJsonPathEquals($expectedSumTotal, 'sumTotal', $response);
+        Assert::assertJsonPathEquals($expectedSumTotalWithoutVAT, 'sumTotalWithoutVAT', $response);
+        Assert::assertJsonPathEquals($expectedTotalAmountVAT, 'totalAmountVAT', $response);
+
+        Assert::assertJsonPathEquals($expectedSumTotal, 'products.0.totalPrice', $response);
+        Assert::assertJsonPathEquals($expectedSumTotalWithoutVAT, 'products.0.totalPriceWithoutVAT', $response);
+        Assert::assertJsonPathEquals($expectedTotalAmountVAT, 'products.0.totalAmountVAT', $response);
+
+        Assert::assertJsonPathEquals($expectedPrice, 'products.0.price', $response);
+        Assert::assertJsonPathEquals($expectedPriceWithoutVAT, 'products.0.priceWithoutVAT', $response);
+        Assert::assertJsonPathEquals($expectedAmountVAT, 'products.0.amountVAT', $response);
+    }
+
+    /**
+     * @dataProvider totalsCalculationOnPostWithValidationGroupDataProvider
+     * @param int $VAT
+     * @param bool $includesVAT
+     * @param float $quantity
+     * @param float $price
+     * @param float $expectedSumTotal
+     * @param float $expectedSumTotalWithoutVAT
+     * @param float $expectedTotalAmountVAT
+     * @param $expectedPrice
+     * @param $expectedPriceWithoutVAT
+     * @param $expectedAmountVAT
+     * @throws \PHPUnit_Framework_ExpectationFailedException
+     */
+    public function testTotalsCalculationOnPostWithValidationGroupOnPut(
+        $VAT,
+        $includesVAT,
+        $quantity,
+        $price,
+        $expectedSumTotal,
+        $expectedSumTotalWithoutVAT,
+        $expectedTotalAmountVAT,
+        $expectedPrice,
+        $expectedPriceWithoutVAT,
+        $expectedAmountVAT
+    ) {
+        $store = $this->factory()->store()->getStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $productId = $this->createProduct(array('vat' => $VAT));
+
+        $invoiceData = InvoiceProductControllerTest::getInvoiceData($supplier->id, $productId, '5', '5.00');
+        $invoiceData['includesVAT'] = $includesVAT;
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData
+        );
+        $this->assertResponseCode(201);
+        $invoiceId = $response['id'];
+
+        $invoiceData['products'][0]['quantity'] = $quantity;
+        $invoiceData['products'][0]['priceEntered'] = $price;
+        $invoiceData['includesVAT'] = $includesVAT;
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId . '?validate=true&validationGroups=products',
+            $invoiceData
+        );
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($invoiceId, 'id', $response);
+        Assert::assertJsonPathEquals($expectedSumTotal, 'sumTotal', $response);
+        Assert::assertJsonPathEquals($expectedSumTotalWithoutVAT, 'sumTotalWithoutVAT', $response);
+        Assert::assertJsonPathEquals($expectedTotalAmountVAT, 'totalAmountVAT', $response);
+
+        Assert::assertJsonPathEquals($expectedSumTotal, 'products.0.totalPrice', $response);
+        Assert::assertJsonPathEquals($expectedSumTotalWithoutVAT, 'products.0.totalPriceWithoutVAT', $response);
+        Assert::assertJsonPathEquals($expectedTotalAmountVAT, 'products.0.totalAmountVAT', $response);
+
+        Assert::assertJsonPathEquals($expectedPrice, 'products.0.price', $response);
+        Assert::assertJsonPathEquals($expectedPriceWithoutVAT, 'products.0.priceWithoutVAT', $response);
+        Assert::assertJsonPathEquals($expectedAmountVAT, 'products.0.amountVAT', $response);
+    }
+
+    /**
+     * @return array
+     */
+    public function totalsCalculationOnPostWithValidationGroupDataProvider()
+    {
+        return array(
+            'with VAT 10%' => array(
+                'VAT' => 10,
+                'includesVAT' => true,
+                'quantity' => 10,
+                'priceEntered' => '5.99',
+                'expectedSumTotal' => '59.90',
+                'expectedSumTotalWithoutVAT' => '54.40',
+                'expectedTotalAmountVAT' => '5.50',
+                'expectedPrice' => '5.99',
+                'expectedPriceWithoutVAT' => '5.44',
+                'expectedAmountVAT' => '0.55',
+            ),
+            'without VAT 10%' => array(
+                'VAT' => 10,
+                'includesVAT' => false,
+                'quantity' => 10,
+                'priceEntered' => '5.99',
+                'expectedSumTotal' => '65.90',
+                'expectedSumTotalWithoutVAT' => '59.90',
+                'expectedTotalAmountVAT' => '6.00',
+                'expectedPrice' => '6.59',
+                'expectedPriceWithoutVAT' => '5.99',
+                'expectedAmountVAT' => '0.60',
+            ),
+            'with VAT 18%' => array(
+                'VAT' => 18,
+                'includesVAT' => true,
+                'quantity' => 10,
+                'priceEntered' => '5.99',
+                'expectedSumTotal' => '59.90',
+                'expectedSumTotalWithoutVAT' => '50.80',
+                'expectedTotalAmountVAT' => '9.10',
+                'expectedPrice' => '5.99',
+                'expectedPriceWithoutVAT' => '5.08',
+                'expectedAmountVAT' => '0.91',
+            ),
+            'without VAT 18%' => array(
+                'VAT' => 18,
+                'includesVAT' => false,
+                'quantity' => 10,
+                'priceEntered' => '5.99',
+                'expectedSumTotal' => '70.70',
+                'expectedSumTotalWithoutVAT' => '59.90',
+                'expectedTotalAmountVAT' => '10.80',
+                'expectedPrice' => '7.07',
+                'expectedPriceWithoutVAT' => '5.99',
+                'expectedAmountVAT' => '1.08',
+            ),
+            'with VAT 0%' => array(
+                'VAT' => 0,
+                'includesVAT' => true,
+                'quantity' => 10,
+                'priceEntered' => '5.99',
+                'expectedSumTotal' => '59.90',
+                'expectedSumTotalWithoutVAT' => '59.90',
+                'expectedTotalAmountVAT' => '0.00',
+                'expectedPrice' => '5.99',
+                'expectedPriceWithoutVAT' => '5.99',
+                'expectedAmountVAT' => '0.00',
+            ),
+            'without VAT 0%' => array(
+                'VAT' => 0,
+                'includesVAT' => false,
+                'quantity' => 10,
+                'priceEntered' => '5.99',
+                'expectedSumTotal' => '59.90',
+                'expectedSumTotalWithoutVAT' => '59.90',
+                'expectedTotalAmountVAT' => '0.00',
+                'expectedPrice' => '5.99',
+                'expectedPriceWithoutVAT' => '5.99',
+                'expectedAmountVAT' => '0.00',
+            ),
         );
     }
 }
