@@ -2,8 +2,12 @@ package project.lighthouse.autotests.helper;
 
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonItem;
+import project.lighthouse.autotests.elements.items.DateTime;
+import project.lighthouse.autotests.elements.items.Input;
+import project.lighthouse.autotests.elements.items.SelectByVisibleText;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -25,17 +29,16 @@ public class FieldChecker {
 
     public void assertValueEqual(String expectedValue) {
         String actualValue;
-        switch (commonItem.getVisibleWebElement().getTagName()) {
-            case "input":
-                actualValue = commonItem.getVisibleWebElementFacade().getValue();
-                break;
-            default:
-                actualValue = commonItem.getVisibleWebElementFacade().getText();
-                break;
+
+        if (commonItem instanceof SelectByVisibleText) {
+            actualValue = commonItem.getOnlyVisibleWebElementFacade().getSelectedVisibleTextValue().trim();
+        } else if (commonItem instanceof Input || commonItem instanceof DateTime) {
+            actualValue = commonItem.getVisibleWebElementFacade().getValue();
+        } else {
+            actualValue = commonItem.getVisibleWebElementFacade().getText();
         }
-        assertThat(
-                actualValue,
-                equalTo(expectedValue));
+
+        assertThat(actualValue, is(expectedValue));
     }
 
     public void assertFieldLength(String elementName, int fieldLength) {
@@ -57,6 +60,7 @@ public class FieldChecker {
                         fieldLength,
                         length),
                 length,
-                equalTo(fieldLength));
+                is(fieldLength)
+        );
     }
 }
