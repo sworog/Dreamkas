@@ -346,6 +346,11 @@ class InvoiceControllerTest extends WebTestCase
                 array('supplier' => 'aaaa'),
                 array('children.supplier.errors.0' => 'Такого поставщика не существует'),
             ),
+            'supplier is invalid object' => array(
+                400,
+                array('supplier' => array('id' => 'aaaa', 'name' => 'ООО "Поставщик"')),
+                array('children.supplier.errors.0' => 'Такого поставщика не существует'),
+            ),
             /***********************************************************************************************
              * 'accepter'
              ***********************************************************************************************/
@@ -773,7 +778,7 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(345.39, 'totalAmountVAT', $response);
 
         unset($invoiceData['products'][1]);
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'PUT',
             '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId,
@@ -1328,5 +1333,46 @@ class InvoiceControllerTest extends WebTestCase
                 'expectedAmountVAT' => '0.00',
             ),
         );
+    }
+
+    public function testProductsBecomeEmptyOnPutOnAcceptanceDateChange()
+    {
+        $store = $this->factory()->store()->createStore();
+        $productId = $this->createProduct();
+        $supplier = $this->factory()->supplier()->getSupplier();
+
+        $invoiceData = InvoiceProductControllerTest::getInvoiceData($supplier->id, $productId, 10, 5.99);
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData
+        );
+
+        $this->assertResponseCode(201);
+        Assert::assertJsonPathCount(1, 'products.*', $postResponse);
+        $invoiceId = $postResponse['id'];
+
+        $invoiceData['acceptanceDate'] = '16.04.2014 15:09';
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId,
+            $invoiceData
+        );
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(1, 'products.*', $putResponse);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId
+        );
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(1, 'products.*', $getResponse);
+        $this->assertSame($putResponse['products'][0], $getResponse['products'][0]);
     }
 }

@@ -120,7 +120,7 @@ class InvoiceBuilder
         $invoiceProduct->product = $this->factory->createProductVersion($productId);
         $invoiceProduct->invoice = $this->invoice;
 
-        $this->invoice->addProduct($invoiceProduct);
+        $this->invoice->products[] = $invoiceProduct;
 
         $invoiceProduct->calculatePrices();
 

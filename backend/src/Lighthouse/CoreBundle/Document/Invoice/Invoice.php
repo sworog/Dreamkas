@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document\Invoice;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\ODM\MongoDB\PersistentCollection;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
@@ -31,7 +32,7 @@ use DateTime;
  * @property Money      $totalAmountVAT
  * @property int        $itemsCount
  * @property boolean    $includesVAT
- * @property Collection|InvoiceProduct[] $products
+ * @property Collection|InvoiceProduct[]|PersistentCollection $products
  *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository"
@@ -186,23 +187,6 @@ class Invoice extends AbstractDocument implements Storeable
         }
 
         $this->products = $products;
-    }
-
-    /**
-     * @param InvoiceProduct $product
-     */
-    public function addProduct(InvoiceProduct $product)
-    {
-        $product->invoice = $this;
-        $this->products->add($product);
-    }
-
-    /**
-     * @param InvoiceProduct $product
-     */
-    public function removeProduct(InvoiceProduct $product)
-    {
-        $this->products->remove($product);
     }
 
     public function calculateTotals()

@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document\TrialBalance;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
 use Doctrine\ODM\MongoDB\Event\PostFlushEventArgs;
+use Doctrine\ODM\MongoDB\Event\PreFlushEventArgs;
 use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
@@ -19,7 +20,7 @@ use SplQueue;
 /**
  * Class TrialBalanceListener
  *
- * @DI\DoctrineMongoDBListener(events={"onFlush", "postFlush"}, priority=128)
+ * @DI\DoctrineMongoDBListener(events={"onFlush", "preFlush", "postFlush"}, priority=128)
  */
 class TrialBalanceListener extends AbstractMongoDBListener
 {
@@ -81,11 +82,24 @@ class TrialBalanceListener extends AbstractMongoDBListener
     }
 
     /**
+     * @param PreFlushEventArgs $eventArgs
+     */
+    public function preFlush(PreFlushEventArgs $eventArgs)
+    {
+        $dm = $eventArgs->getDocumentManager();
+        $uow = $dm->getUnitOfWork();
+
+        foreach ($uow->getScheduledDocumentUpdates() as $document) {
+            if ($document instanceof Invoice) {
+                $this->processInvoiceOnAcceptanceDateUpdate($document, $dm, $uow);
+            }
+        }
+    }
+    /**
      * @param OnFlushEventArgs $eventArgs
      */
     public function onFlush(OnFlushEventArgs $eventArgs)
     {
-        /* @var DocumentManager $dm */
         $dm = $eventArgs->getDocumentManager();
         $uow = $dm->getUnitOfWork();
 
@@ -183,6 +197,11 @@ class TrialBalanceListener extends AbstractMongoDBListener
     {
         $trialBalance = $this->trialBalanceRepository->findOneByReason($document);
 
+        // :TODO: :XXX: :FIXME: Something wrong here, TrialBalance should be found
+        if (!$trialBalance) {
+            return;
+        }
+
         $storeProduct = $this->storeProductRepository->findOrCreateByReason($document);
 
         if ($this->costOfGoodsCalculator->supportsRangeIndex($document)) {
@@ -237,7 +256,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
 
         foreach ($invoiceProducts as $invoiceProduct) {
             $invoiceProduct->beforeSave();
-            $this->computeChangeSet($dm, $invoiceProduct);
+            //$this->computeChangeSet($dm, $invoiceProduct);
         }
 
         foreach ($trialBalances as $trialBalance) {
