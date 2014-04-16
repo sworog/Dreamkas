@@ -61,7 +61,7 @@ class InvoiceFactory extends AbstractFactory
         $invoiceProduct->product = $this->factory->createProductVersion($productId);
         $invoiceProduct->invoice = $invoice;
 
-        $invoice->addProduct($invoice);
+        $invoice->addProduct($invoiceProduct);
 
         $invoiceProduct->calculatePrices();
 

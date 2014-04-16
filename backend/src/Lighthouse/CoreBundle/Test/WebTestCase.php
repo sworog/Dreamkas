@@ -80,28 +80,6 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @param array $modifiedData
-     * @param string $storeId
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
-     * @throws \Doctrine\ODM\MongoDB\MongoDBException
-     * @throws \Doctrine\ODM\MongoDB\LockException
-     * @throws \Lighthouse\CoreBundle\Exception\ValidationFailedException
-     * @return string
-     * @deprecated
-     */
-    protected function createInvoice(array $modifiedData, $storeId = null)
-    {
-        if (isset($modifiedData['supplier'])) {
-            $supplierId = $this->factory()->supplier()->getSupplier($modifiedData['supplier'])->id;
-        } else {
-            $supplierId = null;
-        }
-        return $this->factory()->invoice()->createInvoice($modifiedData, $storeId, $supplierId);
-    }
-
-    /**
      * @deprecated
      *
      * @param array $modifiedData
@@ -160,28 +138,6 @@ class WebTestCase extends ContainerAwareTestCase
         $price
     ) {
         $this->factory()->invoice()->createInvoiceProduct($invoiceId, $productId, $quantity, $price, $invoiceProductId);
-    }
-
-    /**
-     * @param string $invoiceProductId
-     * @param string $invoiceId
-     * @param string $storeId
-     * @return string
-     * @throws \OAuth2\OAuth2ServerException
-     */
-    public function deleteInvoiceProduct($invoiceProductId, $invoiceId, $storeId)
-    {
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
-
-        $postResponse = $this->clientJsonRequest(
-            $accessToken,
-            'DELETE',
-            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products/' . $invoiceProductId
-        );
-
-        $this->assertResponseCode(204);
-
-        return $postResponse['id'];
     }
 
     /**

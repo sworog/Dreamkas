@@ -133,9 +133,19 @@ class InvoiceBuilder
      */
     public function flush()
     {
-        $this->validator->validate($this->invoice);
-        $this->invoiceRepository->getDocumentManager()->persist($this->invoice);
+        $this->persist();
         $this->invoiceRepository->getDocumentManager()->flush();
         return $this->invoice;
+    }
+
+    /**
+     * @return InvoiceFactory
+     * @throws \InvalidArgumentException
+     */
+    public function persist()
+    {
+        $this->validator->validate($this->invoice);
+        $this->invoiceRepository->getDocumentManager()->persist($this->invoice);
+        return $this->factory->invoice();
     }
 }
