@@ -19,8 +19,12 @@ define(function(require) {
             products: null
         },
         saveData: function(){
+            var supplier = this.get('supplier');
+            if (supplier instanceof Object) {
+                supplier = supplier.id;
+            }
             return {
-                supplier: this.get('supplier'),
+                supplier: supplier,
                 acceptanceDate: this.get('acceptanceDate'),
                 accepter: this.get('accepter'),
                 legalEntity: this.get('legalEntity'),
@@ -46,17 +50,8 @@ define(function(require) {
         validateProducts: function(){
             var model = this;
 
-            return $.ajax({
-                url: this.url() + '?validate=1&validationGroups=products',
-                data: this.getData(),
-                dataType: 'json',
-                type: (null == model.id)?'POST':'PUT',
-                headers: {
-                    Authorization: 'Bearer ' + cookies.get('token')
-                },
-                success: function(data){
-                    model.set(model.parse(data));
-                }
+            return model.save(null, {
+                url: this.url() + '?validate=1&validationGroups=products'
             });
         }
     });
