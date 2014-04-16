@@ -36,6 +36,7 @@ public class DateTime extends CommonItem {
 
     public DateTime(CommonPageObject pageObject, String name, String label) {
         super(pageObject, name, label);
+        this.name = name;
     }
 
     public String getDatePickerXpath() {
