@@ -13,7 +13,7 @@
     <tbody>
     <% PAGE.models.invoice.get('products').forEach(function(invoiceProductModel){ %>
     <tr data-product_cid="<%- invoiceProductModel.cid %>" class="table__invoiceProduct" name="invoiceProduct">
-        <td>
+        <td name="productName">
             <%- invoiceProductModel.get('product.name') %>
         </td>
         <td>
