@@ -13,11 +13,22 @@ public class ExampleTableUpdater {
         this.examplesTable = examplesTable;
     }
 
-    public ExampleTableUpdater updateValue(String key, String pattern, String newValue) {
+    public ExampleTableUpdater updateValueStoredHorizontally(String key, String pattern, String newValue) {
         List<Map<String, String>> rows = examplesTable.getRows();
         for (Map<String, String> row : rows) {
             if (row.containsValue(pattern)) {
                 row.put(key, newValue);
+            }
+        }
+        this.examplesTable = new ExamplesTable("").withRows(rows);
+        return this;
+    }
+
+    public ExampleTableUpdater updateValueStoredVertically(String key, String pattern, String newValue) {
+        List<Map<String, String>> rows = examplesTable.getRows();
+        for (Map<String, String> row : rows) {
+            if (row.containsValue(key) && row.containsValue(pattern)) {
+                row.put("value", newValue);
             }
         }
         this.examplesTable = new ExamplesTable("").withRows(rows);

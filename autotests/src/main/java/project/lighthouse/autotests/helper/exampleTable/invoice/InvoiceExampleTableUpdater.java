@@ -13,10 +13,16 @@ public class InvoiceExampleTableUpdater {
         this.examplesTable = examplesTable;
     }
 
-    public ExamplesTable updateValues() throws JSONException {
+    public ExamplesTable updateValuesStoredHorizontally() throws JSONException {
         return new ExampleTableUpdater(examplesTable)
-                .updateValue("supplier", "{lastCreatedSupplierName}", Storage.getOrderVariableStorage().getSupplier().getName())
-                .updateValue("name", "{lastCreatedProductName}", Storage.getInvoiceVariableStorage().getProduct().getName())
+                .updateValueStoredHorizontally("supplier", "{lastCreatedSupplierName}", Storage.getInvoiceVariableStorage().getSupplier().getName())
+                .updateValueStoredHorizontally("name", "{lastCreatedProductName}", Storage.getInvoiceVariableStorage().getProduct().getName())
+                .getExamplesTable();
+    }
+
+    public ExamplesTable updateValuesStoredVertically() throws JSONException {
+        return new ExampleTableUpdater(examplesTable)
+                .updateValueStoredVertically("supplier", "{lastCreatedSupplierName}", Storage.getInvoiceVariableStorage().getSupplier().getName())
                 .getExamplesTable();
     }
 }
