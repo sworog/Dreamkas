@@ -63,10 +63,11 @@ class Invoice extends AbstractDocument implements Storeable
     /**
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Order\Order",
+     *     cascade="persist",
      *     simple=true
      * )
      *
-     * @MongoDB\UniqueIndex
+     * @MongoDB\UniqueIndex(sparse=true)
      * @AssertLH\Reference(message="lighthouse.validation.errors.invoice.order.does_not_exists")
      * @Serializer\MaxDepth(2)
      * @var Order
@@ -191,6 +192,17 @@ class Invoice extends AbstractDocument implements Storeable
     public function getStore()
     {
         return $this->store;
+    }
+
+    /**
+     * @param Order $order
+     */
+    public function setOrder(Order $order = null)
+    {
+        if ($order) {
+            $order->invoice = $this;
+        }
+        $this->order = $order;
     }
 
     /**

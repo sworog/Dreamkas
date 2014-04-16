@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document\Order;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
+use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Order\Product\OrderProduct;
 use Lighthouse\CoreBundle\Document\Order\Product\OrderProductCollection;
 use Lighthouse\CoreBundle\Document\Store\Store;
@@ -62,6 +63,17 @@ class Order extends AbstractDocument implements Storeable
      * @var Supplier
      */
     protected $supplier;
+
+
+    /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Invoice\Invoice",
+     *     simple=true
+     * )
+     * @Serializer\MaxDepth(3)
+     * @var Invoice
+     */
+    protected $invoice;
 
     /**
      * @MongoDB\ReferenceMany(

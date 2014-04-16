@@ -1532,6 +1532,41 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('Накладная по этому заказу уже существует', 'children.order.errors.0', $response);
     }
 
+    public function testInvoiceIsExposedInOrder()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct(array('purchasePrice' => '11.11', 'name' => 'Продукт 1', 'sku' => '10001'));
+
+        $supplier = $this->factory()->supplier()->getSupplier();
+
+        $order = $this->factory()->createOrder($store, $supplier, '2014-04-16 17:39');
+        $this->factory()->createOrderProduct($order, $productId, 11);
+        $this->factory()->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+        $invoiceData = $this->getInvoiceDataByOrder($order);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData
+        );
+        $this->assertResponseCode(201);
+        Assert::assertJsonHasPath('id', $response);
+        Assert::assertJsonPathEquals($order->id, 'order.id', $response);
+        $invoiceId = $response['id'];
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $store->id . '/orders/' . $order->id
+        );
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals($invoiceId, 'invoice.id', $response);
+        Assert::assertJsonPathCount(1, 'invoice.products.*', $response);
+    }
+
     /**
      * @param Order $order
      * @return array
