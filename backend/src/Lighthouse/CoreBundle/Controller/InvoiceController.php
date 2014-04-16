@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Document\Invoice\InvoiceCollection;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceHighlightGenerator;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Document\Invoice\InvoicesFilter;
+use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Form\InvoiceType;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -67,6 +68,7 @@ class InvoiceController extends AbstractRestController
             unset($invoice->products[$key]);
             $this->documentRepository->getDocumentManager()->remove($invoiceProduct);
         }
+        $invoice->products = new InvoiceProductCollection();
         return $this->processForm($request, $invoice);
     }
 
