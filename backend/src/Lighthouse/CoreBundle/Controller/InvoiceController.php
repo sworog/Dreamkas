@@ -41,7 +41,7 @@ class InvoiceController extends AbstractRestController
      * @param Request $request
      * @return View|Invoice
      *
-     * @Rest\View(statusCode=201)
+     * @Rest\View(statusCode=201, serializerEnableMaxDepthChecks=true)
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
@@ -59,6 +59,7 @@ class InvoiceController extends AbstractRestController
      * @return View|Invoice
      *
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc
      */
     public function putInvoicesAction(Store $store, Invoice $invoice, Request $request)
