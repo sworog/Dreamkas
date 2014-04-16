@@ -87,6 +87,11 @@ define(function(require) {
                 invoiceProductModel.destroy();
 
                 block.validateProducts();
+            },
+            'click label > input[name=includesVAT]': function(e) {
+                var block = this;
+                block.model.set(e.target.name, e.target.checked);
+                block.validateProducts();
             }
         },
         listeners: {
