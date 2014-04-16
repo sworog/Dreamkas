@@ -50,7 +50,7 @@ public class InvoiceSteps extends ScenarioSteps {
 
     @Step
     public void checkValues(ExamplesTable examplesTable) throws JSONException {
-        ExamplesTable updatedExamplesTable = new InvoiceExampleTableUpdater(examplesTable).updateValues();
+        ExamplesTable updatedExamplesTable = new InvoiceExampleTableUpdater(examplesTable).updateValuesStoredVertically();
         invoicePage.checkValues(updatedExamplesTable);
     }
 
@@ -82,13 +82,18 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
+    public void invoiceProductObjectPriceType(String value) throws JSONException {
+        invoiceProductObjectPriceType(Storage.getInvoiceVariableStorage().getProduct().getName(), value);
+    }
+
+    @Step
     public void invoiceProductEditionPreLoaderWait() {
         new ProductEditionPreLoader(getDriver()).await();
     }
 
     @Step
     public void invoiceProductsCollectionExactCompare(ExamplesTable examplesTable) throws JSONException {
-        ExamplesTable updatedExamplesTable = new InvoiceExampleTableUpdater(examplesTable).updateValues();
+        ExamplesTable updatedExamplesTable = new InvoiceExampleTableUpdater(examplesTable).updateValuesStoredHorizontally();
         invoicePage.getInvoiceProductsCollection().exactCompareExampleTable(updatedExamplesTable);
     }
 

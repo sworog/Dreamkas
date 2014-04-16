@@ -84,6 +84,11 @@ public class WhenInvoiceUserSteps {
         invoiceSteps.lastCreatedProductObjectQuantityType(value);
     }
 
+    @When("the user inputs price '$value' on the invoice product in last created invoice")
+    public void whenTheUserInputsPriceValueOnTheInvoiceProductInLastCreatedInvoice(String value) throws JSONException {
+        invoiceSteps.invoiceProductObjectPriceType(value);
+    }
+
     @When("the user clicks on the invoice product by name '$name'")
     public void whenTheUserClicksOnTheInvoiceProductByName(String name) {
         invoiceSteps.invoiceProductObjectClick(name);
