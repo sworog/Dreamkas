@@ -85,4 +85,14 @@ public class ThenInvoiceUserSteps {
     public void thenTheUserAssertsTheAutocompleteInvoiceFieldHasFocus() {
         invoiceSteps.assertActiveElementIsAutoComplete();
     }
+
+    @Then("the user checks the invoice products list do not contain product with name '$name'")
+    public void thenTheUserChecksTheInvoiceProductsListDoNotContainProductWithName(String name) {
+        invoiceSteps.collectionDoNotContainInvoiceProductObjectByLocator(name);
+    }
+
+    @Then("the user checks the invoice products list do not contain last added product")
+    public void thenTheUserChecksTheInvoiceProductsListDoNotContainProductWithName() throws JSONException {
+        invoiceSteps.collectionDoNotContainlastAddedInvoiceProductObject();
+    }
 }

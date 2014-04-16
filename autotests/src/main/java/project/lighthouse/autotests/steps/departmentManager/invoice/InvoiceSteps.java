@@ -5,6 +5,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.items.DateTime;
 import project.lighthouse.autotests.elements.preLoader.ProductEditionPreLoader;
 import project.lighthouse.autotests.helper.StringGenerator;
@@ -12,7 +13,6 @@ import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.helper.exampleTable.invoice.InvoiceExampleTableUpdater;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.web.invoice.InvoiceProductObject;
-import project.lighthouse.autotests.objects.web.invoice.InvoiceProductsCollection;
 import project.lighthouse.autotests.pages.departmentManager.invoice.InvoicePage;
 import project.lighthouse.autotests.pages.departmentManager.invoice.deprecated.InvoiceSearchPage;
 import project.lighthouse.autotests.storage.Storage;
@@ -55,13 +55,8 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
-    public InvoiceProductsCollection getInvoiceProductsCollection() {
-        return invoicePage.getInvoiceProductsCollection();
-    }
-
-    @Step
     public InvoiceProductObject getInvoiceProductObject(String locator) {
-        return (InvoiceProductObject) getInvoiceProductsCollection().getAbstractObjectByLocator(locator);
+        return (InvoiceProductObject) invoicePage.getInvoiceProductsCollection().getAbstractObjectByLocator(locator);
     }
 
     @Step
@@ -94,17 +89,17 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void invoiceProductsCollectionExactCompare(ExamplesTable examplesTable) throws JSONException {
         ExamplesTable updatedExamplesTable = new InvoiceExampleTableUpdater(examplesTable).updateValues();
-        getInvoiceProductsCollection().exactCompareExampleTable(updatedExamplesTable);
+        invoicePage.getInvoiceProductsCollection().exactCompareExampleTable(updatedExamplesTable);
     }
 
     @Step
     public void assertInvoiceTotalSum(String expected) {
-        assertThat(expected, is(invoicePage.getTotalSum()));
+        assertThat(invoicePage.getTotalSum(), is(expected));
     }
 
     @Step
     public void assertInvoiceVatSum(String expected) {
-        assertThat(expected, is(invoicePage.getVatSum()));
+        assertThat(invoicePage.getVatSum(), is(expected));
     }
 
     @Step
@@ -200,11 +195,37 @@ public class InvoiceSteps extends ScenarioSteps {
 
     @Step
     public void invoiceProductObjectClick(String locator) {
-        getInvoiceProductsCollection().clickByLocator(locator);
+        invoicePage.getInvoiceProductsCollection().clickByLocator(locator);
     }
 
     @Step
     public void lastCreatedInvoiceProductObjectClick() throws JSONException {
-        invoiceProductObjectClick(Storage.getInvoiceVariableStorage().getProduct().getName());
+        invoiceProductObjectClick(
+                Storage.getInvoiceVariableStorage().getProduct().getName());
+    }
+
+    @Step
+    public void invoiceProductObjectDeleteIconClick(String locator) {
+        getInvoiceProductObject(locator).deleteIconClick();
+    }
+
+    @Step
+    public void lastAddedInvoiceProductObjectDeleteIconClick() throws JSONException {
+        invoiceProductObjectDeleteIconClick(
+                Storage.getInvoiceVariableStorage().getProduct().getName());
+    }
+
+    @Step
+    public void collectionDoNotContainInvoiceProductObjectByLocator(String locator) {
+        try {
+            invoicePage.getInvoiceProductsCollection().notContains(locator);
+        } catch (TimeoutException ignored) {
+        }
+    }
+
+    @Step
+    public void collectionDoNotContainlastAddedInvoiceProductObject() throws JSONException {
+        collectionDoNotContainInvoiceProductObjectByLocator(
+                Storage.getInvoiceVariableStorage().getProduct().getName());
     }
 }

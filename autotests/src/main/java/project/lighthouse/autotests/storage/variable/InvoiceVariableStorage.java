@@ -1,5 +1,7 @@
 package project.lighthouse.autotests.storage.variable;
 
+import org.json.JSONException;
+import project.lighthouse.autotests.helper.ObjectsFactory;
 import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.Supplier;
 
@@ -15,6 +17,11 @@ public class InvoiceVariableStorage {
     private String supplierInvoiceNumber;
 
     private Integer number = 10000;
+
+    public InvoiceVariableStorage() throws JSONException {
+        supplier = ObjectsFactory.getSupplierObject();
+        product = ObjectsFactory.getProductObject();
+    }
 
     public String getNumber() {
         return number.toString();

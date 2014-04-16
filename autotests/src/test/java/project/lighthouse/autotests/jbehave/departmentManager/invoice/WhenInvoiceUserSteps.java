@@ -83,4 +83,19 @@ public class WhenInvoiceUserSteps {
     public void whenTheUserInputsValueOnTheInvoiceProductInLastCreatedInvoice(String value) throws JSONException {
         invoiceSteps.lastCreatedProductObjectQuantityType(value);
     }
+
+    @When("the user clicks on the invoice product by name '$name'")
+    public void whenTheUserClicksOnTheInvoiceProductByName(String name) {
+        invoiceSteps.invoiceProductObjectClick(name);
+    }
+
+    @When("the user clicks on delete icon and deletes invoice product with name '$name'")
+    public void whenTheUserClikcsOnDeleteIconAndDeletesInvoiceProductWithName(String name) {
+        invoiceSteps.invoiceProductObjectDeleteIconClick(name);
+    }
+
+    @When("the user clicks on delete icon and deletes last added invoice product")
+    public void whenTheUserClikcsOnDeleteIconAndDeletesLastAddedInvoiceProduct() throws JSONException {
+        invoiceSteps.lastAddedInvoiceProductObjectDeleteIconClick();
+    }
 }
