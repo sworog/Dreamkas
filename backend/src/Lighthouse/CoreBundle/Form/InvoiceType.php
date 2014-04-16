@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Form;
 
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,6 +28,14 @@ class InvoiceType extends AbstractType
                 'text',
                 array(
                     'mapped' => false
+                )
+            )
+            ->add(
+                'order',
+                'reference',
+                array(
+                    'class' => Order::getClassName(),
+                    'return_null_object_on_not_found' => true,
                 )
             )
             ->add(

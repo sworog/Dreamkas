@@ -11,6 +11,7 @@ use Lighthouse\CoreBundle\Document\Invoice\InvoicesFilter;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\InvoiceType;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
@@ -20,6 +21,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use JMS\DiExtraBundle\Annotation as DI;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
+use MongoDuplicateKeyException;
 
 class InvoiceController extends AbstractRestController
 {
@@ -35,6 +37,19 @@ class InvoiceController extends AbstractRestController
     protected function getDocumentFormType()
     {
         return new InvoiceType();
+    }
+
+    protected function handleFlushFailedException(FlushFailedException $e)
+    {
+        if ($e->getCause() instanceof MongoDuplicateKeyException) {
+            return $this->addFormError(
+                $e->getForm(),
+                'order',
+                'lighthouse.validation.errors.invoice.order.unique'
+            );
+        } else {
+            return parent::handleFlushFailedException($e);
+        }
     }
 
     /**

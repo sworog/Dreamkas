@@ -17,6 +17,7 @@ use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as AssertLH;
+use Doctrine\Bundle\MongoDBBundle\Validator\Constraints as AssertMongoDB;
 use DateTime;
 
 /**
@@ -38,6 +39,7 @@ use DateTime;
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository"
  * )
+ * @AssertMongoDB\Unique(message="lighthouse.validation.errors.invoice.order.unique", fields={"order"})
  */
 class Invoice extends AbstractDocument implements Storeable
 {
@@ -63,6 +65,9 @@ class Invoice extends AbstractDocument implements Storeable
      *     targetDocument="Lighthouse\CoreBundle\Document\Order\Order",
      *     simple=true
      * )
+     *
+     * @MongoDB\UniqueIndex
+     * @AssertLH\Reference(message="lighthouse.validation.errors.invoice.order.does_not_exists")
      * @Serializer\MaxDepth(2)
      * @var Order
      */
