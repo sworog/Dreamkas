@@ -18,7 +18,7 @@ class OrderControllerTest extends WebTestCase
         $product2 = $this->createProduct('2');
         $product3 = $this->createProduct('3');
 
-        $supplier = $this->factory->createSupplier();
+        $supplier = $this->factory->supplier()->getSupplier();
 
         $this->factory->flush();
 
@@ -70,7 +70,7 @@ class OrderControllerTest extends WebTestCase
     {
         $storeId = $this->factory->store()->getStoreId();
         $this->createProduct();
-        $supplier = $this->factory->createSupplier();
+        $supplier = $this->factory()->supplier()->getSupplier();
         $this->factory->flush();
 
         $postData = array(
@@ -101,7 +101,7 @@ class OrderControllerTest extends WebTestCase
     {
         $storeId = $this->factory->store()->getStoreId();
         $product = $this->createProduct();
-        $supplier = $this->factory->createSupplier();
+        $supplier = $this->factory()->supplier()->getSupplier();
         $this->factory->flush();
 
         $postData = array(
@@ -279,9 +279,9 @@ class OrderControllerTest extends WebTestCase
         $store1 = $this->factory->store()->getStore('1');
         $store2 = $this->factory->store()->getStore('2');
 
-        $supplier1 = $this->factory->createSupplier('Перевоз1');
-        $supplier2 = $this->factory->createSupplier('Перевоз2');
-        $supplier3 = $this->factory->createSupplier('Перевоз3');
+        $supplier1 = $this->factory()->supplier()->getSupplier('Перевоз1');
+        $supplier2 = $this->factory()->supplier()->getSupplier('Перевоз2');
+        $supplier3 = $this->factory()->supplier()->getSupplier('Перевоз3');
 
         $this->factory->createOrder($store1, $supplier1, '2014-02-14 04:05:06');
         $this->factory->createOrder($store1, $supplier2, '2014-02-13 04:05:06');
@@ -466,7 +466,7 @@ class OrderControllerTest extends WebTestCase
     public function testOrderProductVersion()
     {
         $productId = $this->createProduct(array('name' => 'original'));
-        $supplier = $this->factory->createSupplier();
+        $supplier = $this->factory()->supplier()->getSupplier();
         $this->factory->flush();
 
         $postData = array(
@@ -522,7 +522,7 @@ class OrderControllerTest extends WebTestCase
         $product2 = $this->createProduct('2');
         $product3 = $this->createProduct('3');
 
-        $supplier = $this->factory->createSupplier();
+        $supplier = $this->factory()->supplier()->getSupplier();
 
         $this->factory->flush();
 
@@ -579,7 +579,7 @@ class OrderControllerTest extends WebTestCase
         $productId2 = $this->createProduct('2');
         $productId3 = $this->createProduct('3');
         $store = $this->factory->store()->getStore();
-        $supplier = $this->factory->createSupplier();
+        $supplier = $this->factory()->supplier()->getSupplier();
         $order = $this->factory->createOrder($store, $supplier);
         $orderProduct1 = $this->factory->createOrderProduct($order, $productId1, 10);
         $orderProduct2 = $this->factory->createOrderProduct($order, $productId2, 20);
@@ -634,7 +634,7 @@ class OrderControllerTest extends WebTestCase
         $store1 = $this->factory->store()->getStore('1');
         $store2 = $this->factory->store()->getStore('2');
         $productId = $this->createProduct('1');
-        $supplier = $this->factory->createSupplier();
+        $supplier = $this->factory()->supplier()->getSupplier();
         $order = $this->factory->createOrder($store1, $supplier);
         $orderProduct = $this->factory->createOrderProduct($order, $productId, 10);
         $this->factory->flush();
@@ -671,7 +671,7 @@ class OrderControllerTest extends WebTestCase
         $store1 = $this->factory->store()->getStore('1');
         $store2 = $this->factory->store()->getStore('2');
         $productId = $this->createProduct('1');
-        $supplier = $this->factory->createSupplier();
+        $supplier = $this->factory()->supplier()->getSupplier();
         $order = $this->factory->createOrder($store1, $supplier);
         $this->factory->createOrderProduct($order, $productId, 10);
         $this->factory->flush();
@@ -696,7 +696,7 @@ class OrderControllerTest extends WebTestCase
         $store1 = $this->factory->store()->getStore('1');
         $store2 = $this->factory->store()->getStore('2');
         $productId = $this->createProduct('1');
-        $supplier = $this->factory->createSupplier();
+        $supplier = $this->factory()->supplier()->getSupplier();
         $order = $this->factory->createOrder($store1, $supplier);
         $this->factory->createOrderProduct($order, $productId, 10);
         $this->factory->flush();
@@ -720,7 +720,7 @@ class OrderControllerTest extends WebTestCase
     {
         $store = $this->factory->store()->getStore();
         $productId = $this->createProduct();
-        $supplier = $this->factory->createSupplier();
+        $supplier = $this->factory()->supplier()->getSupplier();
         $order = $this->factory->createOrder($store, $supplier);
         $this->factory->createOrderProduct($order, $productId, 10);
         $this->factory->flush();
@@ -745,7 +745,7 @@ class OrderControllerTest extends WebTestCase
     public function testDownloadOrderAction()
     {
         $store = $this->factory()->store()->getStore();
-        $supplier = $this->factory()->createSupplier();
+        $supplier = $this->factory()->supplier()->getSupplier();
         $productId1 = $this->createProduct(array('name' => 'Кефир1Назв', 'sku' => 'Кефир1Арт', 'barcode' => '1111111'));
         $productId2 = $this->createProduct(array('name' => 'Кефир2Назв', 'sku' => 'Кефир2Арт', 'barcode' => '2222222'));
         $productId3 = $this->createProduct(array('name' => 'Кефир3Назв', 'sku' => 'Кефир3Арт', 'barcode' => '3333333'));
@@ -796,7 +796,7 @@ class OrderControllerTest extends WebTestCase
         $productId2 = $this->createProduct('2');
         $productId3 = $this->createProduct('3');
         $store = $this->factory->store()->getStore();
-        $supplier = $this->factory->createSupplier();
+        $supplier = $this->factory()->supplier()->getSupplier();
         $order = $this->factory->createOrder($store, $supplier);
         $orderProduct1 = $this->factory->createOrderProduct($order, $productId1, 10);
         $orderProduct2 = $this->factory->createOrderProduct($order, $productId2, 20);
@@ -850,7 +850,7 @@ class OrderControllerTest extends WebTestCase
         $productId2 = $this->createProduct('2');
 
         $store = $this->factory->store()->getStore();
-        $supplier = $this->factory->createSupplier();
+        $supplier = $this->factory()->supplier()->getSupplier();
         $order = $this->factory->createOrder($store, $supplier);
         $orderProduct1 = $this->factory->createOrderProduct($order, $productId1, 10);
         $orderProduct2 = $this->factory->createOrderProduct($order, $productId2, 20);
@@ -890,7 +890,7 @@ class OrderControllerTest extends WebTestCase
         $productId2 = $this->createProduct('2');
 
         $store = $this->factory->store()->getStore();
-        $supplier = $this->factory->createSupplier();
+        $supplier = $this->factory()->supplier()->getSupplier();
         $order = $this->factory->createOrder($store, $supplier);
         $this->factory->createOrderProduct($order, $productId1, 10);
         $this->factory->flush();

@@ -12,7 +12,7 @@ class OrderExportTest extends WebTestCase
     public function testExportOrderGeneration()
     {
         $store = $this->factory()->store()->getStore();
-        $supplier = $this->factory->createSupplier();
+        $supplier = $this->factory()->supplier()->getSupplier();
         $product1 = $this->createProduct(array(
             'name' => 'Длинное название с многим количеством слов что бы проверить перенос строк',
             'sku' => 'Кефир1Арт',

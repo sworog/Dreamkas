@@ -273,15 +273,6 @@ class Factory extends ContainerAwareFactory
 
     /**
      * @param string $name
-     * @return Supplier
-     */
-    public function createSupplier($name = SupplierFactory::DEFAULT_SUPPLIER_NAME)
-    {
-        return $this->supplier()->getSupplier($name);
-    }
-
-    /**
-     * @param string $name
      * @param string $url
      * @param int $size
      * @return File
@@ -306,7 +297,7 @@ class Factory extends ContainerAwareFactory
      */
     public function createOrder(Store $store = null, Supplier $supplier = null, $createdDate = null)
     {
-        $supplier = ($supplier) ?: $this->createSupplier();
+        $supplier = ($supplier) ?: $this->supplier()->getSupplier();
 
         $store = ($store) ?: $this->store()->getStore();
 
