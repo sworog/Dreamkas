@@ -58,6 +58,17 @@ class Invoice extends AbstractDocument implements Storeable
     protected $store;
 
     /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Order\Order",
+     *     simple=true
+     * )
+     * @Assert\NotBlank
+     * @Serializer\MaxDepth(2)
+     * @var Order
+     */
+    protected $order;
+
+    /**
      * @Generated(startValue=10000)
      * @var int
      */

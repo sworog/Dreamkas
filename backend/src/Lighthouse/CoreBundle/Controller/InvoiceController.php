@@ -9,6 +9,7 @@ use Lighthouse\CoreBundle\Document\Invoice\InvoiceHighlightGenerator;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Document\Invoice\InvoicesFilter;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection;
+use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Form\InvoiceType;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -109,6 +110,23 @@ class InvoiceController extends AbstractRestController
     public function getInvoiceAction(Store $store, Invoice $invoice)
     {
         $this->checkInvoiceStore($store, $invoice);
+        return $invoice;
+    }
+
+    /**
+     * @param Store $store
+     * @param Order $order
+     * @throws NotFoundHttpException
+     * @return Invoice
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
+     */
+    public function getOrderInvoiceAction(Store $store, Order $order)
+    {
+        if ($order->store !== $store) {
+            throw new NotFoundHttpException(sprintf("%s object not found", Order::getClassName()));
+        }
+        $invoice = $this->documentRepository->createByOrder($order);
         return $invoice;
     }
 
