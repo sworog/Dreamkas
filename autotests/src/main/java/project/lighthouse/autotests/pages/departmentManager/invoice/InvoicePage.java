@@ -22,11 +22,11 @@ public class InvoicePage extends CommonPageObject {
     @SuppressWarnings("unused")
     private WebElement invoiceNumberWebElement;
 
-    @FindBy(name = "")
+    @FindBy(name = "sumTotal")
     @SuppressWarnings("unused")
     private WebElement totalSumWebElement;
 
-    @FindBy(name = "")
+    @FindBy(name = "sumTotalAmountVAT")
     @SuppressWarnings("unused")
     private WebElement vatSumWebElement;
 
@@ -40,7 +40,7 @@ public class InvoicePage extends CommonPageObject {
         put("supplier", new SelectByVisibleText(this, "supplier", "Поставщик"));
         put("accepter", new Input(this, "accepter", "Приемщик"));
         put("supplierInvoiceNumber", new Input(this, "supplierInvoiceNumber", "Счет-фактура"));
-        put("legalEntity", new Input(this, "Организация получатель"));
+        put("legalEntity", new Input(this, "legalEntity", "Организация получатель"));
         put("invoice product autocomplete", new NewAutoComplete(this, By.xpath("//*[@class='inputText autocomplete']")));
     }
 
