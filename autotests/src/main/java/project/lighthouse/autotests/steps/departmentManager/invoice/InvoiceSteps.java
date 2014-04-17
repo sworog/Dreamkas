@@ -77,8 +77,22 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
+    public void assertLastCreatedInvoiceProductObjectQuantity(String expectedQuantity) throws JSONException {
+        assertInvoiceProductObjectQuantity(
+                Storage.getInvoiceVariableStorage().getProduct().getName(),
+                expectedQuantity);
+    }
+
+    @Step
     public void assertInvoiceProductObjectPrice(String locator, String expectedPrice) {
         assertThat(getInvoiceProductObject(locator).getPrice(), is(expectedPrice));
+    }
+
+    @Step
+    public void assertLastCreatedInvoiceProductObjectPrice(String expectedPrice) throws JSONException {
+        assertInvoiceProductObjectPrice(
+                Storage.getInvoiceVariableStorage().getProduct().getName(),
+                expectedPrice);
     }
 
     @Step
