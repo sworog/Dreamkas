@@ -17,6 +17,11 @@ class ProductFilter implements  FilterInterface
     protected $properties;
 
     /**
+     * @var bool
+     */
+    protected $purchasePriceNotEmpty;
+
+    /**
      * @return array
      */
     public function getProperties()
@@ -92,6 +97,22 @@ class ProductFilter implements  FilterInterface
     }
 
     /**
+     * @return boolean
+     */
+    public function isPurchasePriceNotEmpty()
+    {
+        return $this->purchasePriceNotEmpty;
+    }
+
+    /**
+     * @param boolean $purchasePriceNotEmpty
+     */
+    public function setPurchasePriceNotEmpty($purchasePriceNotEmpty)
+    {
+        $this->purchasePriceNotEmpty = (bool) $purchasePriceNotEmpty;
+    }
+
+    /**
      * @return bool
      */
     public function isEmpty()
@@ -110,6 +131,9 @@ class ProductFilter implements  FilterInterface
         }
         if (isset($data['properties'])) {
             $this->setProperties($data['properties']);
+        }
+        if (isset($data['purchasePriceNotEmpty'])) {
+            $this->setPurchasePriceNotEmpty($data['purchasePriceNotEmpty']);
         }
     }
 }

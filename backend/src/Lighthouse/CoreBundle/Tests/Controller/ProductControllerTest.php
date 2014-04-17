@@ -466,7 +466,7 @@ class ProductControllerTest extends WebTestCase
     {
         $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
-        $this->createProduct(array('name' => 'Кефир3', 'sku' => '10001'));
+        $this->createProduct(array('name' => 'Кефир3', 'sku' => '10001', 'purchasePrice' => ''));
         $this->createProduct(array('name' => 'кефир веселый молочник', 'sku' => '10002'));
         $this->createProduct(array('name' => 'Батон /Россия/ .12', 'sku' => '10003', 'vendor' => 'Россия'));
         $this->createProduct(array('name' => 'Кефир грустный дойщик', 'sku' => '10004'));
@@ -475,7 +475,7 @@ class ProductControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/products/' . $property . '/search' . '?query=' . $query
+            '/api/1/products/' . $property . '/search?' . $query
         );
 
         Assert::assertJsonPathCount(count($expectedSkus), '*.sku', $response);
@@ -492,59 +492,84 @@ class ProductControllerTest extends WebTestCase
         return array(
             'by sku' => array(
                 'sku',
-                '10002',
+                'query=10002',
                 array('10002')
             ),
             'by name' => array(
                 'name',
-                'Кефир3',
+                'query=Кефир3',
                 array('10001')
             ),
             'by barcode' => array(
                 'barcode',
-                '00127463212',
+                'query=00127463212',
                 array('10005')
             ),
             'by name lowercase' => array(
                 'name',
-                'кефир3',
+                'query=кефир3',
                 array('10001')
             ),
             'by name two words' => array(
                 'name',
-                'молочник кефир',
+                'query=молочник кефир',
                 array('10002')
             ),
             'by name not exact match' => array(
                 'name',
-                'кефир',
+                'query=кефир',
                 array('10001', '10002', '10004', '10005')
             ),
             'by name regex char /' => array(
                 'name',
-                '/россия/',
+                'query=/россия/',
                 array('10003')
             ),
             'by name regex char . does not match any char' => array(
                 'name',
-                '.ефир',
+                'query=.ефир',
                 array()
             ),
             'by name with .' => array(
                 'name',
-                '.12',
+                'query=.12',
                 array('10003')
             ),
             'field not intended for search but present in product' => array(
                 'vendor',
-                'Россия',
+                'query=Россия',
                 array()
             ),
             'invalid field' => array(
                 'invalid',
-                'Россия',
+                'query=Россия',
                 array()
-            )
+            ),
+            'not empty purchase price' => array(
+                'name',
+                'query=кефир&purchasePriceNotEmpty=1',
+                array('10002', '10004', '10005')
+            ),
+            '1 letters' => array(
+                'name',
+                'query=к',
+                array()
+            ),
+            '2 letters' => array(
+                'name',
+                'query=ке',
+                array()
+            ),
+            '3 letters' => array(
+                'name',
+                'query=дой',
+                array('10004')
+            ),
+            'lot of spaces' => array(
+                'name',
+                'query=кеф               мол',
+                array('10002')
+            ),
         );
     }
 

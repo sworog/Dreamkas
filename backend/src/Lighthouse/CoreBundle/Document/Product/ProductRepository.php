@@ -19,21 +19,34 @@ class ProductRepository extends DocumentRepository implements ParentableReposito
      */
     public function search(ProductFilter $filter)
     {
-        $or = array();
+        $criteria = array('$or' => array());
         foreach ($filter->getPropertiesWithQuery() as $property => $query) {
             $and = array();
-            $words = explode(' ', $query);
+            $words = preg_split('/\s+/u', $query);
             foreach ($words as $word) {
-                $and[] = array($property => new MongoRegex('/' . preg_quote($word, '/') . '/i'));
+                if (mb_strlen($word, 'UTF-8') > 2) {
+                    $and[] = array($property => new MongoRegex('/' . preg_quote($word, '/') . '/i'));
+                }
             }
-            $or[] = array('$and' => $and);
+            if (!empty($and)) {
+                $criteria['$or'][] = (1 == count($and)) ? reset($and) : array('$and' => $and);
+            }
         }
 
-        if (!empty($or)) {
-            return $this->findBy(array('$or' => $or), null, 100);
-        } else {
+        if (empty($criteria['$or'])) {
             return array();
         }
+
+        if ($filter->isPurchasePriceNotEmpty()) {
+            $criteria = array(
+                '$and' => array(
+                    $criteria,
+                    array('purchasePrice' => array('$ne' => null, '$exists' => true))
+                )
+            );
+        }
+
+        return $this->findBy($criteria, null, 100);
     }
 
     /**
