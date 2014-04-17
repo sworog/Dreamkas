@@ -8,10 +8,11 @@ Scenario: Invoice acceptanceDate is required
 Meta:
 @id
 
-GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
 Given the user opens the store 'store-s32u681' invoice create page
-And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
+And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
@@ -21,12 +22,19 @@ When the user inputs values on invoice page
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
 | legalEntity | legalEntity |
 
+When the user inputs values on invoice page
+| elementName | value |
+| invoice product autocomplete | name-32681 |
+Then the user waits for the invoice product edition preloader finish
+When the user presses 'ENTER' key button
+
+Then the user waits for the invoice product edition preloader finish
+
 When the user accepts products and saves the invoice
 
 Then the user sees exact error messages
 | error message |
-| Заполните поле |
-| Нужно добавить минимум один товар |
+| Заполните это поле |
 
 Scenario: Invoice acceptance date is prefilled on the first invoice create
 
@@ -36,7 +44,7 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
 Given the user opens the store 'store-s32u681' invoice create page
-And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
+And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 Then the user checks the acceptanceDate field is prefilled by nowDate
 
@@ -49,7 +57,7 @@ GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
 Given the user opens the store 'store-s32u681' invoice create page
-And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
+And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
@@ -62,7 +70,8 @@ When the user inputs values on invoice page
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | name-32681 |
-And the user presses 'ENTER' key button
+Then the user waits for the invoice product edition preloader finish
+When the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
@@ -79,7 +88,7 @@ GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
 Given the user opens the store 'store-s32u681' invoice create page
-And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
+And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
@@ -92,7 +101,8 @@ When the user inputs values on invoice page
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | name-32681 |
-And the user presses 'ENTER' key button
+Then the user waits for the invoice product edition preloader finish
+When the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
@@ -108,6 +118,14 @@ Meta:
 Given there is the user with name 'departmentManager-s32u681', position 'departmentManager-s32u681', username 'departmentManager-s32u681', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s32u681' managed by department manager named 'departmentManager-s32u681'
 
+Given there is the subCategory with name 'defaultSubCategory-s32u681' related to group named 'defaultGroup-s32u681' and category named 'defaultCategory-s32u681'
+And the user sets subCategory 'defaultSubCategory-s32u681' mark up with max '10' and min '0' values
+
+Given there is the product with 'name-32681' name, '32681' sku, '32681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
+
+Given the user opens the store 'store-s32u681' invoice create page
+And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
+
 When the user inputs values on invoice page
 | elementName | value |
 | supplier | supplier-s32u681s1 |
@@ -115,12 +133,21 @@ When the user inputs values on invoice page
 | supplierInvoiceNumber | supplierInvoiceNumber-1 |
 | legalEntity | legalEntity |
 
+When the user inputs values on invoice page
+| elementName | value |
+| invoice product autocomplete | name-32681 |
+Then the user waits for the invoice product edition preloader finish
+When the user presses 'ENTER' key button
+
+Then the user waits for the invoice product edition preloader finish
+
 When the user inputs value in the 'acceptanceDate' invoice field
+
+When the user accepts products and saves the invoice
 
 Then the user sees exact error messages
 | error message |
 | Заполните это поле |
-| Нужно добавить минимум один товар |
 
 Examples:
 | value |
@@ -142,7 +169,7 @@ GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
 Given the user opens the store 'store-s32u681' invoice create page
-And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
+And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
@@ -155,7 +182,8 @@ When the user inputs values on invoice page
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | name-32681 |
-And the user presses 'ENTER' key button
+Then the user waits for the invoice product edition preloader finish
+When the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
@@ -172,7 +200,7 @@ GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
 Given the user opens the store 'store-s32u681' invoice create page
-And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
+And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
@@ -185,7 +213,8 @@ When the user inputs values on invoice page
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | name-32681 |
-And the user presses 'ENTER' key button
+Then the user waits for the invoice product edition preloader finish
+When the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
@@ -202,7 +231,7 @@ GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
 Given the user opens the store 'store-s32u681' invoice create page
-And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
+And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 When the user inputs values on invoice page
 | elementName | value |
@@ -215,7 +244,8 @@ When the user inputs values on invoice page
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | name-32681 |
-And the user presses 'ENTER' key button
+Then the user waits for the invoice product edition preloader finish
+When the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
