@@ -17,7 +17,8 @@ import java.util.Map;
 public class ValidationErrorsCollection extends AbstractObjectCollection {
 
     public ValidationErrorsCollection(WebDriver webDriver) {
-        super(webDriver, By.xpath("//*[@data-error]"));
+        //TODO investigate with BO about empty data-error attribute in invoice validation
+        super(webDriver, By.xpath("//*[@data-error and not(@data-error='')]"));
     }
 
     @Override
