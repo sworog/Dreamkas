@@ -27,6 +27,8 @@ When the user inputs values on invoice page
 Then the user waits for the invoice product edition preloader finish
 When the user presses 'ENTER' key button
 
+Then the user waits for the invoice product edition preloader finish
+
 When the user accepts products and saves the invoice
 
 Then the user sees exact error messages
@@ -57,6 +59,8 @@ When the user inputs values on invoice page
 Then the user waits for the invoice product edition preloader finish
 When the user presses 'ENTER' key button
 
+Then the user waits for the invoice product edition preloader finish
+
 When the user accepts products and saves the invoice
 
 Then the user sees exact error messages
@@ -86,6 +90,8 @@ When the user inputs values on invoice page
 | invoice product autocomplete | name-32681 |
 Then the user waits for the invoice product edition preloader finish
 When the user presses 'ENTER' key button
+
+Then the user waits for the invoice product edition preloader finish
 
 When the user generates symbol data with '101' number in the 'accepter' invoice field
 
@@ -127,6 +133,8 @@ When the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
+Then the user waits for the invoice product edition preloader finish
+
 When the user accepts products and saves the invoice
 
 Then the user sees no error messages
@@ -154,6 +162,8 @@ When the user inputs values on invoice page
 | invoice product autocomplete | name-32681 |
 Then the user waits for the invoice product edition preloader finish
 When the user presses 'ENTER' key button
+
+Then the user waits for the invoice product edition preloader finish
 
 When the user accepts products and saves the invoice
 
@@ -184,6 +194,8 @@ When the user inputs values on invoice page
 | invoice product autocomplete | name-32681 |
 Then the user waits for the invoice product edition preloader finish
 When the user presses 'ENTER' key button
+
+Then the user waits for the invoice product edition preloader finish
 
 When the user generates symbol data with '101' number in the 'supplierInvoiceNumber' invoice field
 
@@ -253,6 +265,8 @@ When the user inputs values on invoice page
 Then the user waits for the invoice product edition preloader finish
 When the user presses 'ENTER' key button
 
+Then the user waits for the invoice product edition preloader finish
+
 When the user accepts products and saves the invoice
 
 Then the user sees exact error messages
@@ -282,6 +296,8 @@ When the user inputs values on invoice page
 | invoice product autocomplete | name-32681 |
 Then the user waits for the invoice product edition preloader finish
 When the user presses 'ENTER' key button
+
+Then the user waits for the invoice product edition preloader finish
 
 When the user generates symbol data with '301' number in the 'legalEntity' invoice field
 
