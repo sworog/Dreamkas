@@ -12,6 +12,7 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Doctrine\Common\Collections\ArrayCollection;
+use Lighthouse\CoreBundle\Exception\NotEmptyException;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 use DateTime;
@@ -123,5 +124,16 @@ class Order extends AbstractDocument implements Storeable
         }
 
         $this->products = $products;
+    }
+
+    /**
+     * @MongoDB\PreRemove
+     * @throws \Lighthouse\CoreBundle\Exception\NotEmptyException
+     */
+    public function preRemove()
+    {
+        if ($this->invoice) {
+            throw new NotEmptyException(sprintf('Order #%s has invoice #%s', $this->id, $this->invoice->id));
+        }
     }
 }

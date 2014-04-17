@@ -843,6 +843,35 @@ class OrderControllerTest extends WebTestCase
         $this->assertCount(0, $orderProductRepository->findAll());
     }
 
+    public function testDeleteWithInvoice()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $order = $this->factory()
+            ->order()
+                ->createOrder($store, $supplier)
+                ->createOrderProduct($productId, 10)
+            ->flush();
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id, $supplier->id, $order->id)
+                ->createInvoiceProduct($productId, 10, 5.99)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/stores/' . $store->id . '/orders/' . $order->id
+        );
+
+        $this->assertResponseCode(409);
+
+        Assert::assertJsonHasPath('message', $deleteResponse);
+    }
+
     public function testDownloadOrderAction()
     {
         $store = $this->factory()->store()->getStore();
