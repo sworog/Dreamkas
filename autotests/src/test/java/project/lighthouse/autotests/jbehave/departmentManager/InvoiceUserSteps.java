@@ -30,12 +30,6 @@ public class InvoiceUserSteps {
     @Steps
     StoreApiSteps storeApiSteps;
 
-    @Given("the user is on the invoice create page")
-    public void givenTheUserIsOnTheInvoiceCreatePage() throws IOException, JSONException {
-        beforeSteps();
-        invoiceSteps.openInvoiceCreatePage();
-    }
-
     @Given("the user is on the invoice list page")
     public void givenTheUserIsOnTheInvoiceListPage() throws IOException, JSONException {
         beforeSteps();
