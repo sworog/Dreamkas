@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Document\Product;
 
 use Lighthouse\CoreBundle\Request\ParamConverter\Filter\FilterInterface;
 
-class ProductFilter implements  FilterInterface
+class ProductFilter implements FilterInterface
 {
     /**
      * @var string
