@@ -3,6 +3,8 @@ Meta:
 @us_68.1
 @invoice
 
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
+
 Scenario: Invoice supplier option is required
 
 Meta:
