@@ -98,11 +98,12 @@ class DocumentRepository extends BaseRepository
 
     /**
      * @param string $id
+     * @throws \RuntimeException
      * @return NullObjectInterface
      */
     public function getNullObject($id)
     {
-        throw new \RuntimeException('Object is not defined');
+        throw new \RuntimeException('Null Object method is not implemented');
     }
 
     /**

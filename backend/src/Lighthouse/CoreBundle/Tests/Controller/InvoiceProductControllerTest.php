@@ -1025,7 +1025,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $invoiceData0['acceptanceDate'] = date('c', strtotime('-31 days'));
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
-        $response = $this->clientJsonRequest(
+        $this->clientJsonRequest(
             $accessToken,
             'POST',
             '/api/1/stores/' . $store->id . '/invoices',

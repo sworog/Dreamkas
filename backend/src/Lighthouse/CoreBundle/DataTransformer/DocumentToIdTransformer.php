@@ -6,7 +6,6 @@ use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\DocumentRepository;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\NullObjectInterface;
-use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Lighthouse\CoreBundle\Versionable\VersionFactory;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
 use Symfony\Component\Form\DataTransformerInterface;

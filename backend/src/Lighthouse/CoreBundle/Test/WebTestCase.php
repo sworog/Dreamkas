@@ -100,7 +100,7 @@ class WebTestCase extends ContainerAwareTestCase
         } else {
             $supplierId = null;
         }
-        $this->factory()->invoice()->createInvoice($modifiedData, $storeId, $supplierId, $invoiceId);
+        $this->factory()->invoice()->createInvoice($modifiedData, $storeId, $supplierId);
     }
 
     /**
