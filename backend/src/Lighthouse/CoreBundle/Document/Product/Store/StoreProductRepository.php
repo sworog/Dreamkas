@@ -6,6 +6,7 @@ use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\ProductFilter;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreCollection;
@@ -250,13 +251,12 @@ class StoreProductRepository extends DocumentRepository
 
     /**
      * @param Store $store
-     * @param string $properties
-     * @param string $query
+     * @param ProductFilter $filter
      * @return StoreProductCollection
      */
-    public function searchStoreProductByProductProperties(Store $store, $properties, $query)
+    public function search(Store $store, ProductFilter $filter)
     {
-        $productCollection = $this->productRepository->searchEntry($properties, $query);
+        $productCollection = $this->productRepository->search($filter);
 
         return $this->findByProducts($store, $productCollection);
     }

@@ -14,28 +14,26 @@ use MongoRegex;
 class ProductRepository extends DocumentRepository implements ParentableRepository
 {
     /**
-     * @param string|array $properties
-     * @param string $entry
-     * @return Cursor
+     * @param ProductFilter $filter
+     * @return Cursor|Product[]|array
      */
-    public function searchEntry($properties, $entry)
+    public function search(ProductFilter $filter)
     {
-        if (!is_array($properties)) {
-            $properties = array($properties);
-        }
-
         $or = array();
-        foreach ($properties as $property) {
+        foreach ($filter->getPropertiesWithQuery() as $property => $query) {
             $and = array();
-            $words = explode(" ", $entry);
-            array_walk($words, 'preg_quote');
+            $words = explode(' ', $query);
             foreach ($words as $word) {
-                $and[] = array($property => new MongoRegex("/" . $word . "/i"));
+                $and[] = array($property => new MongoRegex('/' . preg_quote($word, '/') . '/i'));
             }
             $or[] = array('$and' => $and);
         }
 
-        return $this->findBy(array('$or' => $or), null, 100);
+        if (!empty($or)) {
+            return $this->findBy(array('$or' => $or), null, 100);
+        } else {
+            return array();
+        }
     }
 
     /**

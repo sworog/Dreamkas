@@ -456,50 +456,96 @@ class ProductControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider productProvider
+     * @dataProvider searchProductsProvider
+     * @param string $property
+     * @param string $query
+     * @param array $expectedSkus
+     * @throws \PHPUnit_Framework_ExpectationFailedException
      */
-    public function testSearchProductsAction(array $postData)
+    public function testSearchProductsAction($property, $query, array $expectedSkus)
     {
         $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
-        $postData['subCategory'] = $this->createSubCategory();
-
-        for ($i = 0; $i < 5; $i++) {
-            $postData['name'] = 'Кефир' . $i;
-            $postData['sku'] = 'sku' . $i;
-            $this->clientJsonRequest(
-                $accessToken,
-                'POST',
-                '/api/1/products',
-                $postData
-            );
-            $this->assertResponseCode(201);
-        }
+        $this->createProduct(array('name' => 'Кефир3', 'sku' => '10001'));
+        $this->createProduct(array('name' => 'кефир веселый молочник', 'sku' => '10002'));
+        $this->createProduct(array('name' => 'Батон /Россия/ .12', 'sku' => '10003', 'vendor' => 'Россия'));
+        $this->createProduct(array('name' => 'Кефир грустный дойщик', 'sku' => '10004'));
+        $this->createProduct(array('name' => 'кефир5', 'sku' => '10005', 'barcode' => '00127463212'));
 
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/products/name/search' . '?query=кефир3'
+            '/api/1/products/' . $property . '/search' . '?query=' . $query
         );
 
-        Assert::assertJsonPathCount(1, '*.name', $response);
-        Assert::assertJsonPathEquals('Кефир3', '*.name', $response);
+        Assert::assertJsonPathCount(count($expectedSkus), '*.sku', $response);
+        foreach ($expectedSkus as $expectedSku) {
+            Assert::assertJsonPathEquals($expectedSku, '*.sku', $response, 1);
+        }
     }
 
-    public function testSearchProductsActionEmptyRequest()
+    /**
+     * @return array
+     */
+    public function searchProductsProvider()
     {
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
-
-        $response = $this->clientJsonRequest(
-            $accessToken,
-            'GET',
-            '/api/1/products/invalid/search'
+        return array(
+            'by sku' => array(
+                'sku',
+                '10002',
+                array('10002')
+            ),
+            'by name' => array(
+                'name',
+                'Кефир3',
+                array('10001')
+            ),
+            'by barcode' => array(
+                'barcode',
+                '00127463212',
+                array('10005')
+            ),
+            'by name lowercase' => array(
+                'name',
+                'кефир3',
+                array('10001')
+            ),
+            'by name two words' => array(
+                'name',
+                'молочник кефир',
+                array('10002')
+            ),
+            'by name not exact match' => array(
+                'name',
+                'кефир',
+                array('10001', '10002', '10004', '10005')
+            ),
+            'by name regex char /' => array(
+                'name',
+                '/россия/',
+                array('10003')
+            ),
+            'by name regex char . does not match any char' => array(
+                'name',
+                '.ефир',
+                array()
+            ),
+            'by name with .' => array(
+                'name',
+                '.12',
+                array('10003')
+            ),
+            'field not intended for search but present in product' => array(
+                'vendor',
+                'Россия',
+                array()
+            ),
+            'invalid field' => array(
+                'invalid',
+                'Россия',
+                array()
+            )
         );
-
-        $this->assertResponseCode(200);
-
-        $this->assertInternalType('array', $response);
-        $this->assertCount(0, $response);
     }
 
     public function validateProvider()

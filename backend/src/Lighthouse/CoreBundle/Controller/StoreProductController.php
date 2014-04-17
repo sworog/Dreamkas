@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Controller;
 use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\ProductFilter;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductCollection;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
@@ -73,21 +74,17 @@ class StoreProductController extends AbstractRestController
     }
 
     /**
-     * @param \Lighthouse\CoreBundle\Document\Store\Store $store
-     * @param Request $request
+     * @param Store $store
+     * @param ProductFilter $filter
      * @return StoreProductCollection
      * @ApiDoc
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @Rest\View(serializerGroups={"Collection"})
+     * @Rest\Route("stores/{store}/search/products")
      */
-    public function getStoreSearchProductsAction(Store $store, Request $request)
+    public function getStoreSearchProductsAction(Store $store, ProductFilter $filter)
     {
-        $query = $request->get('query');
-        $properties = $request->get('properties');
-
-        $collection = $this->documentRepository->searchStoreProductByProductProperties($store, $properties, $query);
-
-        return $collection;
+        return $this->documentRepository->search($store, $filter);
     }
 
 
