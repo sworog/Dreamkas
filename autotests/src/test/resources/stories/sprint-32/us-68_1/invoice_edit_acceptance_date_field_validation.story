@@ -5,7 +5,7 @@ Meta:
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
 
-Scenario: Invoice acceptanceDate is required
+Scenario: Invoice edit acceptanceDate is required
 
 Meta:
 @id
@@ -27,7 +27,7 @@ Then the user sees exact error messages
 | error message |
 | Заполните это поле |
 
-Scenario: Invoice acceptanceDate validation good manual
+Scenario: Invoice edit acceptanceDate validation good manual
 
 Meta:
 @id
@@ -47,7 +47,7 @@ When the user accepts products and saves the invoice
 
 Then the user sees no error messages
 
-Scenario: Invoice acceptanceDate validation manual negative numbers
+Scenario: Invoice edit acceptanceDate validation manual negative numbers
 
 Meta:
 @id
@@ -67,7 +67,7 @@ When the user accepts products and saves the invoice
 
 Then the user sees no error messages
 
-Scenario: Invoice acceptanceDate validation manual negative
+Scenario: Invoice edit acceptanceDate validation manual negative
 
 Meta:
 @id
@@ -99,7 +99,7 @@ Examples:
 | !"№;%:?*()_+ |
 | !"56gfЛВ |
 
-Scenario: Invoice acceptanceDate validation through datepicker good
+Scenario: Invoice edit acceptanceDate validation through datepicker good
 
 Meta:
 @id
@@ -119,7 +119,7 @@ When the user accepts products and saves the invoice
 
 Then the user sees no error messages
 
-Scenario: Invoice acceptanceDate validation through datepicker negative1
+Scenario: Invoice edit acceptanceDate validation through datepicker negative1
 
 Meta:
 @id
@@ -139,7 +139,7 @@ When the user accepts products and saves the invoice
 
 Then the user sees no error messages
 
-Scenario: Invoice acceptanceDate validation through datepicker negative2
+Scenario: Invoice edit acceptanceDate validation through datepicker negative2
 
 Meta:
 @id
