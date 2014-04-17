@@ -5,6 +5,6 @@ define(function(require, exports, module) {
 
     return Collection.extend({
         model: require('models/order'),
-        url: LH.baseApiUrl + '/stores/' + (currentUserModel.stores.length ? currentUserModel.stores.at(0).id : '') + '/orders'
+        url: LH.baseApiUrl + '/stores/' + (currentUserModel.stores.length ? currentUserModel.stores.at(0).id : '') + '/orders?incomplete=1'
     });
 });
