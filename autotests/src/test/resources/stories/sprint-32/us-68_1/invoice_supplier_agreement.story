@@ -13,7 +13,7 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
 Given there is the supplier with name 'supplier-s32u681s1'
-And there is the invoice in the store by 'departmentManager-s30u67'
+And there is the invoice in the store by 'departmentManager-s32u681'
 
 Given the user opens last created invoice page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
