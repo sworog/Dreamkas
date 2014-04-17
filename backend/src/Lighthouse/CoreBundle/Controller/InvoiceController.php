@@ -39,6 +39,11 @@ class InvoiceController extends AbstractRestController
         return new InvoiceType();
     }
 
+    /**
+     * @param FlushFailedException $e
+     * @return Invoice|InvoiceType
+     * @throws \Exception
+     */
     protected function handleFlushFailedException(FlushFailedException $e)
     {
         if ($e->getCause() instanceof MongoDuplicateKeyException) {

@@ -23,8 +23,9 @@ use DateTime;
 /**
  * @property string     $id
  * @property Store      $store
+ * @property Supplier   $supplier
+ * @property Order      $order
  * @property string     $number
- * @property string     $supplier
  * @property DateTime   $acceptanceDate
  * @property string     $accepter
  * @property string     $legalEntity

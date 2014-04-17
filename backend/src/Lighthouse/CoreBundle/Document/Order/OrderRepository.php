@@ -9,11 +9,17 @@ class OrderRepository extends DocumentRepository
 {
     /**
      * @param string $storeId
+     * @param OrdersFilter $ordersFilter
      * @return Cursor
      */
-    public function findAllByStoreId($storeId)
+    public function findAllByStoreId($storeId, OrdersFilter $ordersFilter)
     {
-        return $this->findBy(array('store' => $storeId), array('createdDate' => self::SORT_DESC));
+        $criteria = array('store' => $storeId);
+        $sort = array('createdDate' => self::SORT_DESC);
+        if ($ordersFilter->hasIncomplete()) {
+            $criteria['invoice'] = null;
+        }
+        return $this->findBy($criteria, $sort);
     }
 
     /**
