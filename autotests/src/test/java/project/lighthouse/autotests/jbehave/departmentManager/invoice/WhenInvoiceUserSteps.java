@@ -80,11 +80,13 @@ public class WhenInvoiceUserSteps {
     }
 
     @When("the user inputs quantity '$value' on the invoice product in last created invoice")
+    @Alias("the user inputs quantity value on the invoice product in last created invoice")
     public void whenTheUserInputsValueOnTheInvoiceProductInLastCreatedInvoice(String value) throws JSONException {
         invoiceSteps.lastCreatedProductObjectQuantityType(value);
     }
 
     @When("the user inputs price '$value' on the invoice product in last created invoice")
+    @Alias("the user inputs price value on the invoice product in last created invoice")
     public void whenTheUserInputsPriceValueOnTheInvoiceProductInLastCreatedInvoice(String value) throws JSONException {
         invoiceSteps.invoiceProductObjectPriceType(value);
     }

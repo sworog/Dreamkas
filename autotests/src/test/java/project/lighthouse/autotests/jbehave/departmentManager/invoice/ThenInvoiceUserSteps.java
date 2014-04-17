@@ -46,9 +46,24 @@ public class ThenInvoiceUserSteps {
         invoiceSteps.checkValues(examplesTable);
     }
 
-    @Then("the user checks the invoice product found by name 'name-3063' has quantity equals to expectedValue")
+    @Then("the user checks the invoice product found by name '$locator' has quantity equals to expectedValue")
     public void thenTheUserChecksTheInvoiceProductFoundByNameHasQuantity(String locator, String expectedValue) {
         invoiceSteps.assertInvoiceProductObjectQuantity(locator, expectedValue);
+    }
+
+    @Then("the user checks the last created invoice product found has quantity equals to expectedValue")
+    public void thenTheUserChecksTheInvoiceProductFoundByNameHasQuantity(String expectedValue) throws JSONException {
+        invoiceSteps.assertLastCreatedInvoiceProductObjectQuantity(expectedValue);
+    }
+
+    @Then("the user checks the invoice product found by name '$locator' has price equals to expectedValue")
+    public void thenTheUserChecksTheInvoiceProductFoundByNameHasPrice(String locator, String expectedValue) {
+        invoiceSteps.assertInvoiceProductObjectPrice(locator, expectedValue);
+    }
+
+    @Then("the user checks the last created invoice product has price equals to expectedValue")
+    public void thenTheUserChecksTheInvoiceProductFoundByNameHasPrice(String expectedValue) throws JSONException {
+        invoiceSteps.assertLastCreatedInvoiceProductObjectPrice(expectedValue);
     }
 
     @Then("the user checks the acceptanceDate field is prefilled by nowDate")

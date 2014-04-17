@@ -6,7 +6,6 @@ import project.lighthouse.autotests.elements.items.DateTime;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -22,16 +21,22 @@ public class FieldChecker {
     }
 
     public void assertLabelTitle() {
-        assertThat(
-                commonItem.getLabel(),
-                equalTo(commonItem.getVisibleWebElement().findElement(By.xpath("./../label")).getText()));
+        String actualValue;
+
+        if (commonItem instanceof SelectByVisibleText) {
+            actualValue = commonItem.getVisibleWebElement().findElement(By.xpath("./../../label")).getText();
+        } else {
+            actualValue = commonItem.getVisibleWebElement().findElement(By.xpath("./../label")).getText();
+        }
+
+        assertThat(actualValue, is(commonItem.getLabel()));
     }
 
     public void assertValueEqual(String expectedValue) {
         String actualValue;
 
         if (commonItem instanceof SelectByVisibleText) {
-            actualValue = commonItem.getOnlyVisibleWebElementFacade().getSelectedVisibleTextValue().trim();
+            actualValue = commonItem.getVisibleWebElementFacade().getSelectedVisibleTextValue().trim();
         } else if (commonItem instanceof Input || commonItem instanceof DateTime) {
             actualValue = commonItem.getVisibleWebElementFacade().getValue();
         } else {

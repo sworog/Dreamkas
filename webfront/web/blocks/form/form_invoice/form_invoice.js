@@ -216,7 +216,7 @@ define(function(require) {
 
             _.forEach(error.children, function(field, key) {
                 if (field.errors) {
-                    errorString += field.errors.join(', ')
+                    errorString += field.errors.join(', ');
                     block.el.querySelector('.table__invoiceProduct_edit [data-name="' + key + '"]').classList.add('inputText_error');
                 }
             });

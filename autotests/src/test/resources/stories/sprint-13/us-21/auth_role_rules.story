@@ -314,7 +314,7 @@ Scenario: Administrator role invalid rules - unauthorised access from ivoice cre
 
 Given the user opens the authorization page
 And the user logs in as 'watchman'
-And the user is on the invoice create page
+And the user opens the default store invoice create page
 Then the user sees the 403 error
 
 Scenario: Administrator role invalid rules - unauthorised access from amount list page link
@@ -363,7 +363,7 @@ Scenario: CommercialManager role invalid rules - unauthorised access from invoic
 
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
-And the user is on the invoice create page
+And the user opens the default store invoice create page
 Then the user sees the 403 error
 
 Scenario: CommercialManager role invalid rules - unauthorised access from balance link
@@ -427,7 +427,7 @@ Scenario: StoreManager role invalid rules - unauthorised access from invoices cr
 
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
-And the user is on the invoice create page
+And the user opens the default store invoice create page
 Then the user sees the 403 error
 
 Scenario: StoreManager role invalid rules - unauthorised access from balance link

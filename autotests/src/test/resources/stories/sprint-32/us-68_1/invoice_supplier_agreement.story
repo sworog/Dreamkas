@@ -3,6 +3,8 @@ Meta:
 @us_68.1
 @invoice
 
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
+
 Scenario: Invoice download agreement button is not visible on invoice edit page if supplier doesnt have an agreement
 
 Meta:

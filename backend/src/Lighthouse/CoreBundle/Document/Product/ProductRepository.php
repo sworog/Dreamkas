@@ -14,28 +14,39 @@ use MongoRegex;
 class ProductRepository extends DocumentRepository implements ParentableRepository
 {
     /**
-     * @param string|array $properties
-     * @param string $entry
-     * @return Cursor
+     * @param ProductFilter $filter
+     * @return Cursor|Product[]|array
      */
-    public function searchEntry($properties, $entry)
+    public function search(ProductFilter $filter)
     {
-        if (!is_array($properties)) {
-            $properties = array($properties);
-        }
-
-        $or = array();
-        foreach ($properties as $property) {
+        $criteria = array('$or' => array());
+        foreach ($filter->getPropertiesWithQuery() as $property => $query) {
             $and = array();
-            $words = explode(" ", $entry);
-            array_walk($words, 'preg_quote');
+            $words = preg_split('/\s+/u', $query);
             foreach ($words as $word) {
-                $and[] = array($property => new MongoRegex("/" . $word . "/i"));
+                if (mb_strlen($word, 'UTF-8') > 2) {
+                    $and[] = array($property => new MongoRegex('/' . preg_quote($word, '/') . '/i'));
+                }
             }
-            $or[] = array('$and' => $and);
+            if (!empty($and)) {
+                $criteria['$or'][] = (1 == count($and)) ? reset($and) : array('$and' => $and);
+            }
         }
 
-        return $this->findBy(array('$or' => $or), null, 100);
+        if (empty($criteria['$or'])) {
+            return array();
+        }
+
+        if ($filter->isPurchasePriceNotEmpty()) {
+            $criteria = array(
+                '$and' => array(
+                    $criteria,
+                    array('purchasePrice' => array('$ne' => null, '$exists' => true))
+                )
+            );
+        }
+
+        return $this->findBy($criteria, null, 100);
     }
 
     /**

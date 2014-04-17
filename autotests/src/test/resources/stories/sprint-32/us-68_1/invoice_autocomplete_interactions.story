@@ -5,7 +5,7 @@ Meta:
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
 
-Scenario: Check place holder title
+Scenario: Check invoice place holder title
 
 Meta:
 @id
@@ -34,6 +34,7 @@ And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse'
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | !name-32681 |
+Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
@@ -42,13 +43,15 @@ And the user checks the autocomplete result entry found by name '32681 — name-
 
 When the user presses 'ENTER' key button
 
+Then the user waits for the invoice product edition preloader finish
+
 When the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the invoice products list contains exact entries
-| name | units |quantity | retailPrice | totalSum |
-| name-32681 | шт. | 1,0 | 100,00 | 100,00 |
+| name | units | quantity | price | totalSum | vatSum |
+| name-32681 | шт. | 1,0 | 100,00 | 100,00 руб. | 0,00 руб. |
 
 Scenario: Adding invoice product by keyboard arrow choosing result and confirming by enter key press
 
@@ -66,6 +69,7 @@ And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse'
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | !name-326812 |
+Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
@@ -82,13 +86,15 @@ Then the user checks the autocomplete result entry found by name '3268123 — na
 
 When the user presses 'ENTER' key button
 
+Then the user waits for the invoice product edition preloader finish
+
 When the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the invoice products list contains exact entries
-| name | units |quantity | retailPrice | totalSum |
-| name-3268123 | шт. | 1,0 | 100,00 | 100,00 |
+| name | units | quantity | price | totalSum | vatSum |
+| name-3268123 | шт. | 1,0 | 100,00 | 100,00 руб. | 0,00 руб. |
 
 Scenario: Adding invoice product by keyboard arrow choosing result and click on it
 
@@ -106,6 +112,7 @@ And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse'
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | !name-326812 |
+Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
@@ -124,13 +131,15 @@ When the user clicks on the autocomplete result with name '3268123 — name-3268
 
 When the user presses 'ENTER' key button
 
+Then the user waits for the invoice product edition preloader finish
+
 When the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the invoice products list contains exact entries
-| name | units |quantity | retailPrice | totalSum |
-| name-3268123 | шт. | 1,0 | 100,00 | 100,00 |
+| name | units | quantity | price | totalSum | vatSum |
+| name-3268123 | шт. | 1,0 | 100,00 | 100,00 руб. | 0,00 руб. |
 
 Scenario: Adding invoice product by moving mouse cursor to autocomplete result and click on it
 
@@ -147,6 +156,7 @@ And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse'
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | !name-326812 |
+Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
@@ -164,13 +174,15 @@ When the user clicks on the autocomplete result with name '3268123 — name-3268
 
 When the user presses 'ENTER' key button
 
+Then the user waits for the invoice product edition preloader finish
+
 When the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the invoice products list contains exact entries
-| name | units |quantity | retailPrice | totalSum |
-| name-3268123 | шт. | 1,0 | 100,00 | 100,00 |
+| name | units | quantity | price | totalSum | vatSum |
+| name-3268123 | шт. | 1,0 | 100,00 | 100,00 руб. | 0,00 руб. |
 
 Scenario: Adding invoice product by moving mouse cursor to autocomplete result and confirming it by pressing ENTER key button
 
@@ -188,6 +200,7 @@ And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse'
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | !name-326812 |
+Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
@@ -203,15 +216,17 @@ Then the user checks the autocomplete result entry found by name '3268123 — na
 
 When the user presses 'ENTER' key button
 
+Then the user waits for the invoice product edition preloader finish
+
 When the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the invoice products list contains exact entries
-| name | units |quantity | retailPrice | totalSum |
-| name-3268123 | шт. | 1,0 | 100,00 | 100,00 |
+| name | units | quantity | price | totalSum | vatSum |
+| name-3268123 | шт. | 1,0 | 100,00 | 100,00 руб. | 0,00 руб. |
 
-Scenario: No search autocomplete results
+Scenario: No search invoice autocomplete results
 
 Meta:
 @
@@ -225,11 +240,13 @@ When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | !такоготоваранесущетвуте |
 
+Then the user waits for the invoice product edition preloader finish
+
 Then the user checks the autocomplete result list contains exact entries
 | result |
 | Нет результатов |
 
-Scenario: Autocomplete minimum search symbols validation negative
+Scenario: Invoice autocomplete minimum search symbols validation negative
 
 Meta:
 @id
@@ -251,7 +268,7 @@ Examples:
 | !в |
 | !вв |
 
-Scenario: Autocomplete minimum search symbols validation positive
+Scenario: Invoice autocomplete minimum search symbols validation positive
 
 Meta:
 @id_
@@ -267,6 +284,7 @@ And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse'
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | !csm |
+Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
@@ -288,25 +306,28 @@ And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse'
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | name-32681 |
+Then the user waits for the invoice product edition preloader finish
 
 When the user presses 'ENTER' key button
+
+Then the user waits for the invoice product edition preloader finish
 
 When the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the invoice products list contains exact entries
-| name | units |quantity | retailPrice | totalSum |
-| name-32681 | шт. | 1,0 | 100,00 | 100,00 |
+| name | units | quantity | price | totalSum | vatSum |
+| name-32681 | шт. | 1,0 | 100,00 | 100,00 руб. | 0,00 руб. |
 
-Scenario: If Results are less than 3 no coincidencies bar is shown
+Scenario: If invoice results are less than 3 no coincidencies bar is shown
 
 Meta:
 @id_
 
-GivenStories: precondition/sprint-32/us-63_1/aPreconditionToStoryUs63.1.story,
-              precondition/sprint-32/us-63_1/aPreconditionToPrepareCatalog.story,
-              precondition/sprint-32/us-63_1/aPreconditionForIfResultsAreLessThan3NoCoincidenciesBarIsShownScenario.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
+              precondition/sprint-32/us-68_1/aPreconditionForIfResultsAreLessThan3NoCoincidenciesBarIsShownScenario.story
 
 Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -314,6 +335,7 @@ And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse'
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | !big3 |
+Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
@@ -321,14 +343,14 @@ Then the user checks the autocomplete result list contains exact entries
 | 32681-big32 — big32-32681 |
 | 32681-big33 — big33-32681 |
 
-Scenario: Check there are only five results in autocomplete results
+Scenario: Check there are only invoice five results in autocomplete results
 
 Meta:
 @id_
 
-GivenStories: precondition/sprint-32/us-63_1/aPreconditionToStoryUs63.1.story,
-              precondition/sprint-32/us-63_1/aPreconditionToPrepareCatalog.story,
-              precondition/sprint-32/us-63_1/aPreconditionForCgeckThereAreOnluFiveResultsInACResultsScenario.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
+              precondition/sprint-32/us-68_1/aPreconditionForCgeckThereAreOnluFiveResultsInACResultsScenario.story
 
 Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -336,6 +358,7 @@ And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse'
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | !kog3 |
+Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
@@ -346,14 +369,14 @@ Then the user checks the autocomplete result list contains exact entries
 | 32681-kog35 — kog35-32681 |
 | Еще 1 результат. Уточните запрос. |
 
-Scenario: If Results are more than 5 coincidencies bar is shown
+Scenario: If invoice results are more than 5 coincidencies bar is shown
 
 Meta:
 @id_
 
-GivenStories: precondition/sprint-32/us-63_1/aPreconditionToStoryUs63.1.story,
-              precondition/sprint-32/us-63_1/aPreconditionToPrepareCatalog.story,
-              precondition/sprint-32/us-63_1/aPreconditionForIfResultsAreMoreThan5CoincidenciesBarIsShownScenario.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
+              precondition/sprint-32/us-68_1/aPreconditionForIfResultsAreMoreThan5CoincidenciesBarIsShownScenario.story
 
 Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -361,6 +384,7 @@ And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse'
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | !log3 |
+Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
@@ -374,6 +398,7 @@ Then the user checks the autocomplete result list contains exact entries
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | !log312 |
+Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
@@ -384,7 +409,7 @@ Then the user checks the autocomplete result list contains exact entries
 | 32681-log3124 — log3124-32681 |
 | Еще 2 результата. Уточните запрос. |
 
-Scenario: Check autocomplete result hightlight name
+Scenario: Check invoice autocomplete result hightlight name
 
 Meta:
 @id_
@@ -399,6 +424,7 @@ Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 When the user inputs value in the 'invoice product autocomplete' invoice field
+Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result entry found by name '32681-small_milk — топленое_молоко-32681' highlighted text is expectedValue
 
@@ -410,7 +436,7 @@ Examples:
 | !топленое | топленое |
 | !топленое_молоко | топленое_молоко |
 
-Scenario: Check autocomplete result hightlight sku
+Scenario: Check invoice autocomplete result hightlight sku
 
 Meta:
 @id_
@@ -425,6 +451,7 @@ Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 When the user inputs value in the 'invoice product autocomplete' invoice field
+Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result entry found by name '32681-small_milk_another — топленый_кефир-32681' highlighted text is expectedValue
 

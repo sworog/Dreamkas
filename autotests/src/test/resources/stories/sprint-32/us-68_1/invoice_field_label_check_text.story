@@ -11,9 +11,9 @@ Meta:
 @id
 @description assert acceptanceDate field label supplier
 
-GivenStories: precondition/sprint-32/us-68_1/aPreconditionToStoryUs68.1.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
-Given the user opens the authorization page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 Then the user asserts the invoice field label with name 'acceptanceDate'
@@ -24,9 +24,9 @@ Meta:
 @id
 @description assert supplier field label supplier
 
-GivenStories: precondition/sprint-32/us-68_1/aPreconditionToStoryUs68.1.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
-Given the user opens the authorization page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 Then the user asserts the invoice field label with name 'supplier'
@@ -37,9 +37,9 @@ Meta:
 @id
 @description assert accepter field label supplier
 
-GivenStories: precondition/sprint-32/us-68_1/aPreconditionToStoryUs68.1.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
-Given the user opens the authorization page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 Then the user asserts the invoice field label with name 'accepter'
@@ -50,9 +50,9 @@ Meta:
 @id
 @description assert supplierInvoiceNumber field label supplier
 
-GivenStories: precondition/sprint-32/us-68_1/aPreconditionToStoryUs68.1.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
-Given the user opens the authorization page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 Then the user asserts the invoice field label with name 'supplierInvoiceNumber'
@@ -63,9 +63,9 @@ Meta:
 @id
 @description assert legalEntity field label supplier
 
-GivenStories: precondition/sprint-32/us-68_1/aPreconditionToStoryUs68.1.story
+GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
-Given the user opens the authorization page
+Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
 
 Then the user asserts the invoice field label with name 'legalEntity'

@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.items.DateTime;
+import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.elements.preLoader.ProductEditionPreLoader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.helper.UrlHelper;
@@ -54,8 +55,7 @@ public class InvoiceSteps extends ScenarioSteps {
         invoicePage.checkValues(updatedExamplesTable);
     }
 
-    @Step
-    public InvoiceProductObject getInvoiceProductObject(String locator) {
+    private InvoiceProductObject getInvoiceProductObject(String locator) {
         return (InvoiceProductObject) invoicePage.getInvoiceProductsCollection().getAbstractObjectByLocator(locator);
     }
 
@@ -74,6 +74,25 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void assertInvoiceProductObjectQuantity(String locator, String expectedQuantity) {
         assertThat(getInvoiceProductObject(locator).getQuantity(), is(expectedQuantity));
+    }
+
+    @Step
+    public void assertLastCreatedInvoiceProductObjectQuantity(String expectedQuantity) throws JSONException {
+        assertInvoiceProductObjectQuantity(
+                Storage.getInvoiceVariableStorage().getProduct().getName(),
+                expectedQuantity);
+    }
+
+    @Step
+    public void assertInvoiceProductObjectPrice(String locator, String expectedPrice) {
+        assertThat(getInvoiceProductObject(locator).getPrice(), is(expectedPrice));
+    }
+
+    @Step
+    public void assertLastCreatedInvoiceProductObjectPrice(String expectedPrice) throws JSONException {
+        assertInvoiceProductObjectPrice(
+                Storage.getInvoiceVariableStorage().getProduct().getName(),
+                expectedPrice);
     }
 
     @Step
@@ -110,6 +129,7 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void acceptProductsButtonClick() {
         invoicePage.acceptProductsButtonClick();
+        new PreLoader(getDriver()).await();
     }
 
     @Step

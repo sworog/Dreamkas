@@ -28,11 +28,6 @@ public class InvoiceSteps extends ScenarioSteps {
     InvoiceSearchPage invoiceSearchPage;
 
     @Step
-    public void openInvoiceCreatePage() {
-        invoiceCreatePage.open();
-    }
-
-    @Step
     public void openInvoiceListPage() throws JSONException {
         Store store = StaticData.stores.get(Store.DEFAULT_NUMBER);
         openStoreInvoiceListPage(store);

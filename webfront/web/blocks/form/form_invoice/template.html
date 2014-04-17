@@ -37,7 +37,7 @@
 
     <div class="form__field" style="padding-bottom: 30px;">
         <input placeholder="Для добавления позиции введите наименование товара или код" style="width: 600px;"
-               data-url="<%- LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/search/products?properties[]=name&properties[]=sku' %>"
+               data-url="<%- LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/search/products?properties[]=name&properties[]=sku&purchasePriceNotEmpty=1' %>"
                type="text" class="inputText autocomplete"/>
     </div>
     <%= templates.totalSum() %>
