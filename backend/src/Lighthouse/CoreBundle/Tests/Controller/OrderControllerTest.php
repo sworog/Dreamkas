@@ -12,15 +12,15 @@ class OrderControllerTest extends WebTestCase
 {
     public function testPostOrderAction()
     {
-        $storeId = $this->factory->store()->getStoreId();
+        $storeId = $this->factory()->store()->getStoreId();
 
         $product1 = $this->createProduct('1');
         $product2 = $this->createProduct('2');
         $product3 = $this->createProduct('3');
 
-        $supplier = $this->factory->supplier()->getSupplier();
+        $supplier = $this->factory()->supplier()->getSupplier();
 
-        $this->factory->flush();
+        $this->factory()->flush();
 
         $orderProducts = array(
             array(
@@ -46,7 +46,7 @@ class OrderControllerTest extends WebTestCase
             'products' => $orderProducts,
         );
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -68,17 +68,17 @@ class OrderControllerTest extends WebTestCase
 
     public function testPostOrderEmptyProductsValidation()
     {
-        $storeId = $this->factory->store()->getStoreId();
+        $storeId = $this->factory()->store()->getStoreId();
         $this->createProduct();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $this->factory->flush();
+        $this->factory()->flush();
 
         $postData = array(
             'supplier' => $supplier->id,
             'products' => array(),
         );
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -99,10 +99,10 @@ class OrderControllerTest extends WebTestCase
      */
     public function testPostOrderValidation($expectedCode, array $data, array $assertions = array())
     {
-        $storeId = $this->factory->store()->getStoreId();
+        $storeId = $this->factory()->store()->getStoreId();
         $product = $this->createProduct();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $this->factory->flush();
+        $this->factory()->flush();
 
         $postData = array(
             'supplier' => $supplier->id,
@@ -121,7 +121,7 @@ class OrderControllerTest extends WebTestCase
 
         $postData = $data + $postData;
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -276,22 +276,34 @@ class OrderControllerTest extends WebTestCase
 
     public function testGerOrdersAction()
     {
-        $store1 = $this->factory->store()->getStore('1');
-        $store2 = $this->factory->store()->getStore('2');
+        $store1 = $this->factory()->store()->getStore('1');
+        $store2 = $this->factory()->store()->getStore('2');
+
+        $productId = $this->createProduct();
 
         $supplier1 = $this->factory()->supplier()->getSupplier('Перевоз1');
         $supplier2 = $this->factory()->supplier()->getSupplier('Перевоз2');
         $supplier3 = $this->factory()->supplier()->getSupplier('Перевоз3');
 
-        $this->factory->createOrder($store1, $supplier1, '2014-02-14 04:05:06');
-        $this->factory->createOrder($store1, $supplier2, '2014-02-13 04:05:06');
-        $this->factory->createOrder($store1, $supplier3, '2014-02-13 14:05:06');
-        $this->factory->createOrder($store2, $supplier1);
-        $this->factory->createOrder($store2, $supplier3, date('r', time() + 120));
+        $this->factory()
+            ->order()
+                ->createOrder($store1, $supplier1, '2014-02-14 04:05:06')
+                ->createOrderProduct($productId)
+            ->persist()
+                ->createOrder($store1, $supplier2, '2014-02-13 04:05:06')
+                ->createOrderProduct($productId)
+            ->persist()
+                ->createOrder($store1, $supplier3, '2014-02-13 14:05:06')
+                ->createOrderProduct($productId)
+            ->persist()
+                ->createOrder($store2, $supplier1)
+                ->createOrderProduct($productId)
+            ->persist()
+                ->createOrder($store2, $supplier3, date('r', time() + 120))
+                ->createOrderProduct($productId)
+            ->flush();
 
-        $this->factory->flush();
-
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store1->id);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store1->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -305,7 +317,7 @@ class OrderControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($supplier2->name, '2.supplier.name', $response, 1);
         Assert::assertJsonPathEquals($supplier3->name, '1.supplier.name', $response, 1);
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store2->id);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store2->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -322,6 +334,79 @@ class OrderControllerTest extends WebTestCase
     }
 
     /**
+     * @dataProvider gerOrdersFilterProvider
+     * @param array $filter
+     * @param array $expectedOrders
+     * @throws \PHPUnit_Framework_ExpectationFailedException
+     */
+    public function testGerOrdersFilter(array $filter, array $expectedOrders)
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+        $supplier = $this->factory()->supplier()->getSupplier();
+
+        $order1 = $this->factory()
+            ->order()
+                ->createOrder($store, $supplier, '2014-02-13 04:05:06')
+                ->createOrderProduct($productId, 1)
+            ->flush();
+
+        $order2 = $this->factory()
+            ->order()
+                ->createOrder($store, $supplier, '2014-02-13 04:05:06')
+                ->createOrderProduct($productId, 2)
+            ->flush();
+
+        $order3 = $this->factory()
+            ->order()
+                ->createOrder($store, $supplier, '2014-02-13 14:05:06')
+                ->createOrderProduct($productId, 3)
+            ->flush();
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id, $supplier->id, $order1->id)
+                ->createInvoiceProduct($productId, 1, 5.99)
+            ->persist()
+                ->createInvoice(array(), $store->id, $supplier->id, $order3->id)
+                ->createInvoiceProduct($productId, 2, 6.99)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $store->id . '/orders',
+            null,
+            $filter
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(count($expectedOrders), '*.id', $response);
+        foreach ($expectedOrders as $index => $expectedOrderNumber) {
+            Assert::assertJsonPathEquals($expectedOrderNumber, $index . '.number', $response);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function gerOrdersFilterProvider()
+    {
+        return array(
+            'incomplete' => array(
+                array('incomplete' => '1'),
+                array('10002'),
+            ),
+            'all' => array(
+                array(),
+                array('10003', '10002', '10001'),
+            ),
+        );
+    }
+
+    /**
      * @param $expectedCode
      * @param array $data
      * @param array $assertions
@@ -330,7 +415,7 @@ class OrderControllerTest extends WebTestCase
      */
     public function testPostOrderProductValidation($expectedCode, array $data, array $assertions = array())
     {
-        $storeId = $this->factory->store()->getStoreId();
+        $storeId = $this->factory()->store()->getStoreId();
         $product = $this->createProduct();
 
         $postData = $data + array(
@@ -338,7 +423,7 @@ class OrderControllerTest extends WebTestCase
             'quantity' => 1.11,
         );
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -467,7 +552,7 @@ class OrderControllerTest extends WebTestCase
     {
         $productId = $this->createProduct(array('name' => 'original'));
         $supplier = $this->factory()->supplier()->getSupplier();
-        $this->factory->flush();
+        $this->factory()->flush();
 
         $postData = array(
             'supplier' => $supplier->id,
@@ -478,8 +563,8 @@ class OrderControllerTest extends WebTestCase
                 )
             ),
         );
-        $storeId = $this->factory->store()->getStoreId();
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
+        $storeId = $this->factory()->store()->getStoreId();
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -516,7 +601,7 @@ class OrderControllerTest extends WebTestCase
 
     public function testOrderNumberCreation()
     {
-        $storeId = $this->factory->store()->getStoreId();
+        $storeId = $this->factory()->store()->getStoreId();
 
         $product1 = $this->createProduct('1');
         $product2 = $this->createProduct('2');
@@ -524,7 +609,7 @@ class OrderControllerTest extends WebTestCase
 
         $supplier = $this->factory()->supplier()->getSupplier();
 
-        $this->factory->flush();
+        $this->factory()->flush();
 
         $orderProducts = array(
             array(
@@ -550,7 +635,7 @@ class OrderControllerTest extends WebTestCase
             'products' => $orderProducts,
         );
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -578,13 +663,17 @@ class OrderControllerTest extends WebTestCase
         $productId1 = $this->createProduct('1');
         $productId2 = $this->createProduct('2');
         $productId3 = $this->createProduct('3');
-        $store = $this->factory->store()->getStore();
+
+        $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $order = $this->factory->createOrder($store, $supplier);
-        $orderProduct1 = $this->factory->createOrderProduct($order, $productId1, 10);
-        $orderProduct2 = $this->factory->createOrderProduct($order, $productId2, 20);
-        $orderProduct3 = $this->factory->createOrderProduct($order, $productId3, 30);
-        $this->factory->flush();
+
+        $order = $this->factory()
+            ->order()
+                ->createOrder($store, $supplier)
+                ->createOrderProduct($productId1, 10)
+                ->createOrderProduct($productId2, 20)
+                ->createOrderProduct($productId3, 30)
+            ->flush();
 
         $this->assertEquals(10001, $order->number);
 
@@ -592,7 +681,7 @@ class OrderControllerTest extends WebTestCase
             'supplier' => $supplier->id,
             'products' => array(
                 array(
-                    'id' => $orderProduct1->id,
+                    'id' => $order->products[0]->id,
                     'product' => $productId1,
                     'quantity' => 20,
                 ),
@@ -603,7 +692,7 @@ class OrderControllerTest extends WebTestCase
             )
         );
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
@@ -615,9 +704,9 @@ class OrderControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals('10001', 'number', $putResponse);
         Assert::assertJsonPathCount(2, 'products.*.id', $putResponse);
-        Assert::assertJsonPathEquals($orderProduct1->id, 'products.0.id', $putResponse);
-        Assert::assertJsonPathEquals($orderProduct2->id, 'products.1.id', $putResponse);
-        Assert::assertNotJsonPathEquals($orderProduct3->id, 'products.*.id', $putResponse, 0);
+        Assert::assertJsonPathEquals($order->products[0]->id, 'products.0.id', $putResponse);
+        Assert::assertJsonPathEquals($order->products[1]->id, 'products.1.id', $putResponse);
+        Assert::assertNotJsonPathEquals($order->products[2]->id, 'products.*.id', $putResponse, 0);
 
         Assert::assertJsonPathEquals($productId1, 'products.0.product.product.id', $putResponse);
         Assert::assertJsonPathEquals(20, 'products.0.quantity', $putResponse);
@@ -631,29 +720,33 @@ class OrderControllerTest extends WebTestCase
 
     public function testPutOrderActionInvalidStore()
     {
-        $store1 = $this->factory->store()->getStore('1');
-        $store2 = $this->factory->store()->getStore('2');
+        $store1 = $this->factory()->store()->getStore('1');
+        $store2 = $this->factory()->store()->getStore('2');
+
         $productId = $this->createProduct('1');
         $supplier = $this->factory()->supplier()->getSupplier();
-        $order = $this->factory->createOrder($store1, $supplier);
-        $orderProduct = $this->factory->createOrderProduct($order, $productId, 10);
-        $this->factory->flush();
+
+        $order = $this->factory()
+            ->order()
+                ->createOrder($store1, $supplier)
+                ->createOrderProduct($productId, 10)
+            ->flush();
 
         $orderData = array(
             'supplier' => $supplier->id,
             'products' => array(
                 array(
-                    'id' => $orderProduct->id,
+                    'id' => $order->products[0]->id,
                     'product' => $productId,
                     'quantity' => 20,
                 ),
             )
         );
 
-        $departmentManager = $this->factory->store()->getDepartmentManager($store1->id);
-        $this->factory->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
+        $departmentManager = $this->factory()->store()->getDepartmentManager($store1->id);
+        $this->factory()->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
 
-        $accessToken = $this->factory->oauth()->auth($departmentManager);
+        $accessToken = $this->factory()->oauth()->auth($departmentManager);
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
@@ -668,18 +761,20 @@ class OrderControllerTest extends WebTestCase
 
     public function testGetOrderActionInvalidStore()
     {
-        $store1 = $this->factory->store()->getStore('1');
-        $store2 = $this->factory->store()->getStore('2');
+        $store1 = $this->factory()->store()->getStore('1');
+        $store2 = $this->factory()->store()->getStore('2');
         $productId = $this->createProduct('1');
         $supplier = $this->factory()->supplier()->getSupplier();
-        $order = $this->factory->createOrder($store1, $supplier);
-        $this->factory->createOrderProduct($order, $productId, 10);
-        $this->factory->flush();
+        $order = $this->factory()
+            ->order()
+                ->createOrder($store1, $supplier)
+                ->createOrderProduct($productId, 10)
+            ->flush();
 
-        $departmentManager = $this->factory->store()->getDepartmentManager($store1->id);
-        $this->factory->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
+        $departmentManager = $this->factory()->store()->getDepartmentManager($store1->id);
+        $this->factory()->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
 
-        $accessToken = $this->factory->oauth()->auth($departmentManager);
+        $accessToken = $this->factory()->oauth()->auth($departmentManager);
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -693,18 +788,22 @@ class OrderControllerTest extends WebTestCase
 
     public function testDeleteOrderActionInvalidStore()
     {
-        $store1 = $this->factory->store()->getStore('1');
-        $store2 = $this->factory->store()->getStore('2');
+        $store1 = $this->factory()->store()->getStore('1');
+        $store2 = $this->factory()->store()->getStore('2');
+
         $productId = $this->createProduct('1');
         $supplier = $this->factory()->supplier()->getSupplier();
-        $order = $this->factory->createOrder($store1, $supplier);
-        $this->factory->createOrderProduct($order, $productId, 10);
-        $this->factory->flush();
 
-        $departmentManager = $this->factory->store()->getDepartmentManager($store1->id);
-        $this->factory->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
+        $order = $this->factory()
+            ->order()
+                ->createOrder($store1, $supplier)
+                ->createOrderProduct($productId, 10)
+            ->flush();
 
-        $accessToken = $this->factory->oauth()->auth($departmentManager);
+        $departmentManager = $this->factory()->store()->getDepartmentManager($store1->id);
+        $this->factory()->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
+
+        $accessToken = $this->factory()->oauth()->auth($departmentManager);
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
@@ -718,17 +817,19 @@ class OrderControllerTest extends WebTestCase
 
     public function testDeleteAction()
     {
-        $store = $this->factory->store()->getStore();
+        $store = $this->factory()->store()->getStore();
         $productId = $this->createProduct();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $order = $this->factory->createOrder($store, $supplier);
-        $this->factory->createOrderProduct($order, $productId, 10);
-        $this->factory->flush();
+        $order = $this->factory()
+            ->order()
+                ->createOrder($store, $supplier)
+                ->createOrderProduct($productId, 10)
+            ->flush();
 
         $orderProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.order_product');
         $this->assertCount(1, $orderProductRepository->findAll());
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $deleteResponse = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
@@ -750,11 +851,13 @@ class OrderControllerTest extends WebTestCase
         $productId2 = $this->createProduct(array('name' => 'Кефир2Назв', 'sku' => 'Кефир2Арт', 'barcode' => '2222222'));
         $productId3 = $this->createProduct(array('name' => 'Кефир3Назв', 'sku' => 'Кефир3Арт', 'barcode' => '3333333'));
 
-        $order = $this->factory()->createOrder($store, $supplier);
-        $this->factory()->createOrderProduct($order, $productId1, 3.11);
-        $this->factory()->createOrderProduct($order, $productId2, 2);
-        $this->factory()->createOrderProduct($order, $productId3, 7.77);
-        $this->factory()->flush();
+        $order = $this->factory()
+            ->order()
+                ->createOrder($store, $supplier)
+                ->createOrderProduct($productId1, 3.11)
+                ->createOrderProduct($productId2, 2)
+                ->createOrderProduct($productId3, 7.77)
+            ->flush();
 
         $mockPlugin = new MockPlugin();
         $mockPlugin->addResponse($this->getFixtureFilePath('OpenStack/auth.response.ok'));
@@ -795,12 +898,14 @@ class OrderControllerTest extends WebTestCase
         $productId1 = $this->createProduct('1');
         $productId2 = $this->createProduct('2');
         $productId3 = $this->createProduct('3');
-        $store = $this->factory->store()->getStore();
+        $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $order = $this->factory->createOrder($store, $supplier);
-        $orderProduct1 = $this->factory->createOrderProduct($order, $productId1, 10);
-        $orderProduct2 = $this->factory->createOrderProduct($order, $productId2, 20);
-        $this->factory->flush();
+        $order = $this->factory()
+            ->order()
+                ->createOrder($store, $supplier)
+                ->createOrderProduct($productId1, 10)
+                ->createOrderProduct($productId2, 20)
+            ->flush();
 
         $this->assertEquals(10001, $order->number);
 
@@ -818,7 +923,7 @@ class OrderControllerTest extends WebTestCase
             )
         );
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
@@ -830,8 +935,8 @@ class OrderControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals('10001', 'number', $putResponse);
         Assert::assertJsonPathCount(2, 'products.*.id', $putResponse);
-        Assert::assertJsonPathEquals($orderProduct1->id, 'products.0.id', $putResponse);
-        Assert::assertJsonPathEquals($orderProduct2->id, 'products.1.id', $putResponse);
+        Assert::assertJsonPathEquals($order->products[0]->id, 'products.0.id', $putResponse);
+        Assert::assertJsonPathEquals($order->products[1]->id, 'products.1.id', $putResponse);
         Assert::assertNotJsonPathEquals($productId2, 'products.*.product.product.id', $putResponse);
 
         Assert::assertJsonPathEquals($productId1, 'products.0.product.product.id', $putResponse);
@@ -849,12 +954,14 @@ class OrderControllerTest extends WebTestCase
         $productId1 = $this->createProduct('1');
         $productId2 = $this->createProduct('2');
 
-        $store = $this->factory->store()->getStore();
+        $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $order = $this->factory->createOrder($store, $supplier);
-        $orderProduct1 = $this->factory->createOrderProduct($order, $productId1, 10);
-        $orderProduct2 = $this->factory->createOrderProduct($order, $productId2, 20);
-        $this->factory->flush();
+        $order = $this->factory()
+            ->order()
+                ->createOrder($store, $supplier)
+                ->createOrderProduct($productId1, 10)
+                ->createOrderProduct($productId2, 20)
+            ->flush();
 
         $orderData = array(
             'supplier' => $supplier->id,
@@ -866,7 +973,7 @@ class OrderControllerTest extends WebTestCase
             )
         );
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
@@ -878,7 +985,7 @@ class OrderControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals('10001', 'number', $putResponse);
         Assert::assertJsonPathCount(1, 'products.*.id', $putResponse);
-        Assert::assertJsonPathEquals($orderProduct1->id, 'products.*.id', $putResponse);
+        Assert::assertJsonPathEquals($order->products[0]->id, 'products.*.id', $putResponse);
         Assert::assertNotJsonPathEquals($productId1, 'products.*.product.product.id', $putResponse);
 
         $this->assertOrder($accessToken, $store->id, $order->id, $supplier->id, $orderData['products']);
@@ -889,11 +996,13 @@ class OrderControllerTest extends WebTestCase
         $productId1 = $this->createProduct('1');
         $productId2 = $this->createProduct('2');
 
-        $store = $this->factory->store()->getStore();
+        $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $order = $this->factory->createOrder($store, $supplier);
-        $this->factory->createOrderProduct($order, $productId1, 10);
-        $this->factory->flush();
+        $order = $this->factory()
+            ->order()
+                ->createOrder($store, $supplier)
+                ->createOrderProduct($productId1, 10)
+            ->flush();
 
         $orderData = array(
             'supplier' => $supplier->id,
@@ -909,7 +1018,7 @@ class OrderControllerTest extends WebTestCase
             )
         );
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',

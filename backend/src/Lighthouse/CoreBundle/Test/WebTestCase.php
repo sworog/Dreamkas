@@ -105,10 +105,11 @@ class WebTestCase extends ContainerAwareTestCase
 
     /**
      * @deprecated
-     * @param string $invoiceId
+     * @param Invoice $invoice
      * @param string $productId
      * @param float $quantity
      * @param float $price
+     * @internal param string $invoiceId
      * @return string
      */
     public function createInvoiceProduct(Invoice $invoice, $productId, $quantity, $price)
@@ -118,7 +119,7 @@ class WebTestCase extends ContainerAwareTestCase
 
     /**
      * @param string $invoiceProductId
-     * @param string $invoiceId
+     * @param Invoice $invoice
      * @param string $productId
      * @param float $quantity
      * @param float $price
@@ -132,12 +133,12 @@ class WebTestCase extends ContainerAwareTestCase
      */
     public function editInvoiceProduct(
         $invoiceProductId,
-        $invoiceId,
+        $invoice,
         $productId,
         $quantity,
         $price
     ) {
-        $this->factory()->invoice()->createInvoiceProduct($invoiceId, $productId, $quantity, $price, $invoiceProductId);
+        $this->factory()->invoice()->createInvoiceProduct($invoice, $productId, $quantity, $price, $invoiceProductId);
     }
 
     /**
@@ -223,72 +224,6 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @param $productId
-     * @param $invoiceId
-     * @return array
-     */
-    protected function createInvoiceProducts($productId, $invoiceId, $storeId)
-    {
-        $productsData = array(
-            array(
-                'product' => $productId,
-                'quantity' => 10,
-                'priceEntered' => 11.12,
-                'productAmount' => 10,
-            ),
-            array(
-                'product' => $productId,
-                'quantity' => 5,
-                'priceEntered' => 12.76,
-                'productAmount' => 15,
-            ),
-            array(
-                'product' => $productId,
-                'quantity' => 1,
-                'priceEntered' => 5.99,
-                'productAmount' => 16,
-            ),
-        );
-
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
-
-        foreach ($productsData as $i => $row) {
-
-            $invoiceProductData = array(
-                'quantity' => $row['quantity'],
-                'priceEntered' => $row['priceEntered'],
-                'product' => $row['product'],
-            );
-
-            $response = $this->clientJsonRequest(
-                $accessToken,
-                'POST',
-                '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products.json',
-                $invoiceProductData
-            );
-
-            $this->assertResponseCode(201);
-            $productsData[$i]['id'] = $response['id'];
-        }
-
-        $getResponse = $this->clientJsonRequest(
-            $accessToken,
-            'GET',
-            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products'
-        );
-
-        $this->assertResponseCode(200);
-
-        Assert::assertJsonPathCount(3, "*.id", $getResponse);
-
-        foreach ($productsData as $productData) {
-            Assert::assertJsonPathEquals($productData['id'], '*.id', $getResponse);
-        }
-
-        return $productsData;
-    }
-
-    /**
      * @param string $number
      * @param string $date timestamp
      * @param string $storeId
@@ -324,11 +259,10 @@ class WebTestCase extends ContainerAwareTestCase
     /**
      * @param string $writeOffId
      * @param string $productId
+     * @param float $quantity
      * @param float $price
-     * @param int $quantity
      * @param string $cause
      * @param string $storeId
-     * @param User $manager
      * @return string
      */
     protected function createWriteOffProduct(

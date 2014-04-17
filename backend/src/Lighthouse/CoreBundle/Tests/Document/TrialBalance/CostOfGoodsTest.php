@@ -663,7 +663,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->assertEquals(1150, $trialBalanceSaleProduct3->costOfGoods->toNumber());
 
         // Edit invoice product price and quantity
-        $this->editInvoiceProduct($invoiceProduct1Id, $invoice1Id, $productId, 6, 50, $store);
+        $this->editInvoiceProduct($invoiceProduct1Id, $invoice1, $productId, 6, 50, $store);
 
         $costOfGoodsCalculator->calculateUnprocessed();
 
@@ -681,7 +681,7 @@ class CostOfGoodsTest extends WebTestCase
 
 
         // Edit invoice product change product
-        $this->editInvoiceProduct($invoiceProduct1Id, $invoice1Id, $productOtherId, 1, 11, $store);
+        $this->editInvoiceProduct($invoiceProduct1Id, $invoice1, $productOtherId, 1, 11, $store);
 
         $costOfGoodsCalculator->calculateUnprocessed();
 
@@ -699,7 +699,7 @@ class CostOfGoodsTest extends WebTestCase
 
 
         // Edit invoice product delete not first
-        $this->editInvoiceProduct($invoiceProduct1Id, $invoice1Id, $productId, 5, 100, $store);
+        $this->editInvoiceProduct($invoiceProduct1Id, $invoice1, $productId, 5, 100, $store);
         $costOfGoodsCalculator->calculateUnprocessed();
 
         $this->factory()->clear();

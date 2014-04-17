@@ -1398,11 +1398,13 @@ class InvoiceControllerTest extends WebTestCase
 
         $supplier = $this->factory()->supplier()->getSupplier();
 
-        $order = $this->factory()->createOrder($store, $supplier, '2014-04-16 17:39');
-        $this->factory()->createOrderProduct($order, $productId1, 11);
-        $this->factory()->createOrderProduct($order, $productId2, 22);
-        $this->factory()->createOrderProduct($order, $productId3, 33);
-        $this->factory()->flush();
+        $order = $this->factory()
+            ->order()
+                ->createOrder($store, $supplier, '2014-04-16 17:39')
+                ->createOrderProduct($productId1, 11)
+                ->createOrderProduct($productId2, 22)
+                ->createOrderProduct($productId3, 33)
+            ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
@@ -1444,13 +1446,17 @@ class InvoiceControllerTest extends WebTestCase
 
         $supplier = $this->factory()->supplier()->getSupplier();
 
-        $order1 = $this->factory()->createOrder($store1, $supplier);
-        $this->factory()->createOrderProduct($order1, $productId1, 11);
-        $this->factory()->flush();
+        $order1 = $this->factory()
+            ->order()
+                ->createOrder($store1, $supplier)
+                ->createOrderProduct($productId1, 11)
+            ->flush();
 
-        $order2 = $this->factory()->createOrder($store2, $supplier);
-        $this->factory()->createOrderProduct($order2, $productId2, 22);
-        $this->factory()->flush();
+        $order2 = $this->factory()
+            ->order()
+                ->createOrder($store2, $supplier)
+                ->createOrderProduct($productId2, 22)
+            ->flush();
 
         $accessToken1 = $this->factory()->oauth()->authAsDepartmentManager($store1->id);
         $this->clientJsonRequest(
@@ -1478,11 +1484,13 @@ class InvoiceControllerTest extends WebTestCase
 
         $supplier = $this->factory()->supplier()->getSupplier();
 
-        $order = $this->factory()->createOrder($store, $supplier, '2014-04-16 17:39');
-        $this->factory()->createOrderProduct($order, $productId1, 11);
-        $this->factory()->createOrderProduct($order, $productId2, 22);
-        $this->factory()->createOrderProduct($order, $productId3, 33);
-        $this->factory()->flush();
+        $order = $this->factory()
+            ->order()
+                ->createOrder($store, $supplier, '2014-04-16 17:39')
+                ->createOrderProduct($productId1, 11)
+                ->createOrderProduct($productId2, 22)
+                ->createOrderProduct($productId3, 33)
+            ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $invoiceData = $this->getInvoiceDataByOrder($order);
@@ -1507,9 +1515,11 @@ class InvoiceControllerTest extends WebTestCase
 
         $supplier = $this->factory()->supplier()->getSupplier();
 
-        $order = $this->factory()->createOrder($store, $supplier, '2014-04-16 17:39');
-        $this->factory()->createOrderProduct($order, $productId, 11);
-        $this->factory()->flush();
+        $order = $this->factory()
+            ->order()
+                ->createOrder($store, $supplier, '2014-04-16 17:39')
+                ->createOrderProduct($productId, 11)
+            ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $invoiceData = $this->getInvoiceDataByOrder($order);
@@ -1539,9 +1549,11 @@ class InvoiceControllerTest extends WebTestCase
 
         $supplier = $this->factory()->supplier()->getSupplier();
 
-        $order = $this->factory()->createOrder($store, $supplier, '2014-04-16 17:39');
-        $this->factory()->createOrderProduct($order, $productId, 11);
-        $this->factory()->flush();
+        $order = $this->factory()
+            ->order()
+                ->createOrder($store, $supplier, '2014-04-16 17:39')
+                ->createOrderProduct($productId, 11)
+            ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $invoiceData = $this->getInvoiceDataByOrder($order);
