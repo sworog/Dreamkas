@@ -36,7 +36,7 @@ public class FieldChecker {
         String actualValue;
 
         if (commonItem instanceof SelectByVisibleText) {
-            actualValue = commonItem.getOnlyVisibleWebElementFacade().getSelectedVisibleTextValue().trim();
+            actualValue = commonItem.getVisibleWebElementFacade().getSelectedVisibleTextValue().trim();
         } else if (commonItem instanceof Input || commonItem instanceof DateTime) {
             actualValue = commonItem.getVisibleWebElementFacade().getValue();
         } else {

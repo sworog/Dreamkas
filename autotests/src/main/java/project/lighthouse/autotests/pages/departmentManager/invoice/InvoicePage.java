@@ -18,7 +18,7 @@ import project.lighthouse.autotests.objects.web.invoice.InvoiceProductsCollectio
  */
 public class InvoicePage extends CommonPageObject {
 
-    @FindBy(name = "invoiceNumber")
+    @FindBy(name = "number")
     @SuppressWarnings("unused")
     private WebElement invoiceNumberWebElement;
 
