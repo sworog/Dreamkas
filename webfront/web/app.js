@@ -25,7 +25,33 @@ define(function(require) {
 
     var sync = Backbone.sync,
         loading,
-        routes;
+        routes,
+        showCHTPN;
+
+    showCHTPN = function(response) {
+        var chtpnTemplate = require('tpl!./chtpn.html');
+//        chtpnTemplate = _.template(chtpnTemplate);
+        var html = $('<div></div>').html(chtpnTemplate({
+            response: response
+        }));
+        html.find('.close').click(function(event){
+            event.preventDefault();
+
+            html.remove();
+        });
+        html.find('.show-more').click(function(event) {
+            event.preventDefault();
+
+            if (html.find('.more-info').is(':visible')) {
+                html.find('.more-info').hide();
+            } else {
+                html.find('.more-info').show();
+            }
+
+            return false;
+        });
+        $('body').append(html);
+    };
 
     Backbone.sync = function(method, model, options) {
         var syncing = sync.call(this, method, model, _.extend({}, options, {
@@ -40,6 +66,9 @@ define(function(require) {
                     if (app.isStarted) {
                         document.location.reload();
                     }
+                    break;
+                default:
+                    showCHTPN(res);
                     break;
             }
         });
