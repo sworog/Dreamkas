@@ -61,4 +61,15 @@ class IncrementGenerator extends BaseIncrementGenerator
         $query = array('_id' => $key);
         $db->selectCollection($coll)->remove($query);
     }
+
+    /**
+     * @param DocumentManager $dm
+     * @param object $document
+     * @return string
+     * @throws \Doctrine\ODM\MongoDB\MongoDBException
+     */
+    public function generate(DocumentManager $dm, $document)
+    {
+        return (string) parent::generate($dm, $document);
+    }
 }

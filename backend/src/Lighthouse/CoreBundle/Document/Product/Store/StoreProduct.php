@@ -22,7 +22,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @property float      $retailMarkup
  * @property string     $retailPricePreference
  * @property Money      $roundedRetailPrice
- * @property Quantity   $inventory
+ * @property Quantity|int   $inventory
  * @property float      $averageDailySales
  * @property Money      $lastPurchasePrice
  * @property Money      $averagePurchasePrice

@@ -90,6 +90,6 @@ Then the user sees the 403 error
 Scenario: Invoices link navigation by departmentManager who has no store
 
 Given there is the user with name 'departmentManager-SIC-3', position 'departmentManager-SIC-3', username 'departmentManager-SIC-3', password 'lighthouse', role 'departmentManager'
-And the user is on the invoice create page
+And the user opens the default store invoice create page
 When the user logs in using 'departmentManager-SIC-3' userName and 'lighthouse' password
 Then the user sees the 403 error

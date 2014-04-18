@@ -21,10 +21,8 @@ class PrecisionValidator extends ConstraintValidator
             return;
         }
 
-        $rounded = $value * pow(10, $constraint->precision);
-        $rounded = (float) (string) $rounded;
-
-        if ($rounded - floor($rounded) > 0) {
+        $floatingPart = $this->getFloatingPart($value);
+        if (strlen($floatingPart) > $constraint->precision) {
             $this->context->addViolation(
                 $constraint->message,
                 array(
@@ -33,5 +31,17 @@ class PrecisionValidator extends ConstraintValidator
                 )
             );
         }
+    }
+
+    /**
+     * @param string $value
+     * @return string
+     */
+    protected function getFloatingPart($value)
+    {
+        $parts = explode('.', $value);
+        $floatingPart = (isset($parts[1])) ? $parts[1] : '';
+        $floatingPart = rtrim($floatingPart, '0');
+        return $floatingPart;
     }
 }

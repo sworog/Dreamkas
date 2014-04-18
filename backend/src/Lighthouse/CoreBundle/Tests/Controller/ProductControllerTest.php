@@ -456,50 +456,121 @@ class ProductControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider productProvider
+     * @dataProvider searchProductsProvider
+     * @param string $property
+     * @param string $query
+     * @param array $expectedSkus
+     * @throws \PHPUnit_Framework_ExpectationFailedException
      */
-    public function testSearchProductsAction(array $postData)
+    public function testSearchProductsAction($property, $query, array $expectedSkus)
     {
         $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
-        $postData['subCategory'] = $this->createSubCategory();
-
-        for ($i = 0; $i < 5; $i++) {
-            $postData['name'] = 'Кефир' . $i;
-            $postData['sku'] = 'sku' . $i;
-            $this->clientJsonRequest(
-                $accessToken,
-                'POST',
-                '/api/1/products',
-                $postData
-            );
-            $this->assertResponseCode(201);
-        }
+        $this->createProduct(array('name' => 'Кефир3', 'sku' => '10001', 'purchasePrice' => ''));
+        $this->createProduct(array('name' => 'кефир веселый молочник', 'sku' => '10002'));
+        $this->createProduct(array('name' => 'Батон /Россия/ .12', 'sku' => '10003', 'vendor' => 'Россия'));
+        $this->createProduct(array('name' => 'Кефир грустный дойщик', 'sku' => '10004'));
+        $this->createProduct(array('name' => 'кефир5', 'sku' => '10005', 'barcode' => '00127463212'));
 
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/products/name/search' . '?query=кефир3'
+            '/api/1/products/' . $property . '/search?' . $query
         );
 
-        Assert::assertJsonPathCount(1, '*.name', $response);
-        Assert::assertJsonPathEquals('Кефир3', '*.name', $response);
+        Assert::assertJsonPathCount(count($expectedSkus), '*.sku', $response);
+        foreach ($expectedSkus as $expectedSku) {
+            Assert::assertJsonPathEquals($expectedSku, '*.sku', $response, 1);
+        }
     }
 
-    public function testSearchProductsActionEmptyRequest()
+    /**
+     * @return array
+     */
+    public function searchProductsProvider()
     {
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
-
-        $response = $this->clientJsonRequest(
-            $accessToken,
-            'GET',
-            '/api/1/products/invalid/search'
+        return array(
+            'by sku' => array(
+                'sku',
+                'query=10002',
+                array('10002')
+            ),
+            'by name' => array(
+                'name',
+                'query=Кефир3',
+                array('10001')
+            ),
+            'by barcode' => array(
+                'barcode',
+                'query=00127463212',
+                array('10005')
+            ),
+            'by name lowercase' => array(
+                'name',
+                'query=кефир3',
+                array('10001')
+            ),
+            'by name two words' => array(
+                'name',
+                'query=молочник кефир',
+                array('10002')
+            ),
+            'by name not exact match' => array(
+                'name',
+                'query=кефир',
+                array('10001', '10002', '10004', '10005')
+            ),
+            'by name regex char /' => array(
+                'name',
+                'query=/россия/',
+                array('10003')
+            ),
+            'by name regex char . does not match any char' => array(
+                'name',
+                'query=.ефир',
+                array()
+            ),
+            'by name with .' => array(
+                'name',
+                'query=.12',
+                array('10003')
+            ),
+            'field not intended for search but present in product' => array(
+                'vendor',
+                'query=Россия',
+                array()
+            ),
+            'invalid field' => array(
+                'invalid',
+                'query=Россия',
+                array()
+            ),
+            'not empty purchase price' => array(
+                'name',
+                'query=кефир&purchasePriceNotEmpty=1',
+                array('10002', '10004', '10005')
+            ),
+            '1 letters' => array(
+                'name',
+                'query=к',
+                array()
+            ),
+            '2 letters' => array(
+                'name',
+                'query=ке',
+                array()
+            ),
+            '3 letters' => array(
+                'name',
+                'query=дой',
+                array('10004')
+            ),
+            'lot of spaces' => array(
+                'name',
+                'query=кеф               мол',
+                array('10002')
+            ),
         );
-
-        $this->assertResponseCode(200);
-
-        $this->assertInternalType('array', $response);
-        $this->assertCount(0, $response);
     }
 
     public function validateProvider()
@@ -1914,5 +1985,32 @@ class ProductControllerTest extends WebTestCase
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
         Assert::assertJsonPathEquals('Такой артикул уже есть', 'children.sku.errors.0', $response);
+    }
+
+    public function testPostActionToSubCategoryWithMarkup()
+    {
+        $category = $this->factory()->catalog()->getCategory();
+        $subCategory = $this
+            ->factory()
+            ->catalog()
+            ->createSubCategory($category->id, 'Подкатегория с наценкой', null, 10, 20);
+
+        $productData = $this->getProductData(false);
+        unset($productData['purchasePrice']);
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/products',
+            $productData + array(
+                'subCategory' => $subCategory->id
+            )
+        );
+
+        $this->assertResponseCode(201);
+        foreach ($productData as $prop => $value) {
+            Assert::assertJsonPathEquals($value, $prop, $response);
+        }
     }
 }

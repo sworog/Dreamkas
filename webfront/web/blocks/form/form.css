@@ -34,6 +34,11 @@
     vertical-align: middle;
 }
 
+.form__totalSum {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
 .form__successMessage {
     vertical-align: middle;
     color: darkgreen;
@@ -89,11 +94,6 @@ tr[data-error]:after {
 .form_order__productForm {
     border-radius: 3px;
     margin-bottom: 50px;
-}
-
-.form_order__totalSum {
-    font-size: 20px;
-    margin-bottom: 10px;
 }
 
 .form_orderProduct [name="product"].inputText_error ~ [name="name"] {

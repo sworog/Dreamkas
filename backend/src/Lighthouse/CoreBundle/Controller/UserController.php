@@ -91,7 +91,7 @@ class UserController extends AbstractRestController
     public function postUsersAction(Request $request)
     {
         /** @var User $document */
-        $document = $this->getDocumentRepository()->createNew();
+        $document = $this->documentRepository->createNew();
 
         $type = $this->getDocumentFormType();
         $form = $this->createForm($type, $document, array('validation_groups' => array('Default', 'registration')));
@@ -181,7 +181,7 @@ class UserController extends AbstractRestController
     public function getUsersAction()
     {
         /* @var LoggableCursor $cursor */
-        $cursor = $this->getDocumentRepository()->findAll();
+        $cursor = $this->documentRepository->findAll();
         $collection = new UserCollection($cursor);
         return $collection;
     }

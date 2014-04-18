@@ -40,7 +40,7 @@ define(function(require) {
                 e.preventDefault();
 
                 var block = this,
-                    formData = form2js(this.el, '.', false),
+                    formData = block.getData(),
                     submit;
 
                 block.formData = formData;
@@ -64,6 +64,9 @@ define(function(require) {
                     block.trigger('submit:complete', response);
                 });
             }
+        },
+        getData: function(){
+            return form2js(this.el, '.', false);
         },
         findElements: function() {
             var block = this;

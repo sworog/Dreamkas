@@ -75,6 +75,8 @@ define(function(require, exports, module) {
         initialize: function() {
             var page = this;
 
+            window.PAGE = this;
+
             try {
                 page.initResources();
             } catch (error) {
@@ -122,6 +124,15 @@ define(function(require, exports, module) {
             return _.values(page.collections).concat(_.filter(page.models, function(model) {
                 return model && model.id;
             }));
+        },
+        save: function(params) {
+            var page = this;
+
+            page.set('params', params);
+
+            router.save(page.params);
+
+            return page;
         },
         destroy: function() {
             var page = this;

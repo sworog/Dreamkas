@@ -1,0 +1,59 @@
+<% if (PAGE.models.invoice.get('products').length) { %>
+<table class="table table_invoiceProducts" style="margin-bottom: 30px;">
+    <thead>
+    <tr>
+        <th>Товар</th>
+        <th>Количество</th>
+        <th>Цена</th>
+        <th>Сумма</th>
+        <th>НДС</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <% PAGE.models.invoice.get('products').forEach(function(invoiceProductModel){ %>
+    <tr data-product_cid="<%- invoiceProductModel.cid %>" class="table__invoiceProduct" name="invoiceProduct">
+        <td name="productName">
+            <%- invoiceProductModel.get('product.name') %>
+        </td>
+        <td>
+            <div style="white-space: nowrap">
+                <input data-name="quantity" autofocus type="text" class="inputText"
+                       value="<%- LH.formatAmount(invoiceProductModel.get('quantity')) %>"/>
+                <span class="table__invoiceProduct__editable" name="quantity">
+                    <%- LH.formatAmount(invoiceProductModel.get('quantity')) %>
+                </span>
+                <span name="productUnits">
+                    <%- LH.units(invoiceProductModel.get('product.units'), 'smallShort') %>
+                </span>
+            </div>
+        </td>
+        <td>
+            <div style="white-space: nowrap">
+                <input data-name="priceEntered" type="text" class="inputText"
+                       value="<%- LH.formatMoney(invoiceProductModel.get('priceEntered') || invoiceProductModel.get('product.purchasePrice')) %>"/>
+                <span class="table__invoiceProduct__editable" name="priceEntered">
+                    <%- LH.formatMoney(invoiceProductModel.get('priceEntered') || invoiceProductModel.get('product.purchasePrice')) %>
+                </span>
+                <span>
+                    руб.
+                </span>
+            </div>
+        </td>
+        <td style="white-space: nowrap" name="totalPrice">
+            <%- LH.formatMoney(invoiceProductModel.get('totalPrice')) %> руб.
+        </td>
+        <td style="white-space: nowrap" name="totalAmountVAT">
+            <%- LH.formatMoney(invoiceProductModel.get('totalAmountVAT')) %> руб.
+        </td>
+        <td>
+            <i class="icon-remove-sign form_invoice__removeProductLink"
+               data-product_cid="<%- invoiceProductModel.cid %>"></i>
+        </td>
+    </tr>
+    <% }) %>
+    </tbody>
+</table>
+<% } else { %>
+<span class="table_invoiceProducts"></span>
+<% } %>

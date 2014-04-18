@@ -2,7 +2,7 @@ package project.lighthouse.autotests.jbehave.departmentManager.invoice;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.When;
-import project.lighthouse.autotests.steps.departmentManager.InvoiceSteps;
+import project.lighthouse.autotests.steps.departmentManager.invoice.deprecated.InvoiceSteps;
 
 public class WhenInvoiceProductsSteps {
 

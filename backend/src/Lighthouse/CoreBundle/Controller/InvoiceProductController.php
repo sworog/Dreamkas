@@ -42,75 +42,10 @@ class InvoiceProductController extends AbstractRestController
 
     /**
      * @param Store $store
-     * @param Request $request
-     * @param Invoice $invoice
-     * @return View|Invoice
-     *
-     * @Rest\View(statusCode=201)
-     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
-     * @ApiDoc
-     */
-    public function postProductsAction(Store $store, Invoice $invoice, Request $request)
-    {
-        $this->checkInvoiceStore($invoice, $store);
-        $invoiceProduct = new InvoiceProduct();
-        $invoiceProduct->invoice = $invoice;
-        return $this->processForm($request, $invoiceProduct);
-    }
-
-    /**
-     * @param Store $store
-     * @param Request $request
-     * @param Invoice $invoice
-     * @param InvoiceProduct $invoiceProduct
-     *
-     * @return View|InvoiceProduct
-     *
-     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
-     * @ApiDoc
-     */
-    public function putProductAction(Store $store, Invoice $invoice, InvoiceProduct $invoiceProduct, Request $request)
-    {
-        $this->checkInvoiceProduct($invoiceProduct, $invoice, $store);
-        return $this->processForm($request, $invoiceProduct);
-    }
-
-    /**
-     * @param Store $store
-     * @param Invoice $invoice
-     * @param InvoiceProduct $invoiceProduct
-     * @return InvoiceProductCollection
-     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
-     * @ApiDoc
-     */
-    public function getProductAction(Store $store, Invoice $invoice, InvoiceProduct $invoiceProduct)
-    {
-        $this->checkInvoiceProduct($invoiceProduct, $invoice, $store);
-        return $invoiceProduct;
-    }
-
-    /**
-     * @param Store $store
-     * @param invoice $invoice
-     * @return InvoiceProductCollection
-     * @ApiDoc(
-     *      resource=true
-     * )
-     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
-     * @Rest\View(serializerEnableMaxDepthChecks=true)
-     * @ApiDoc
-     */
-    public function getProductsAction(Store $store, Invoice $invoice)
-    {
-        $this->checkInvoiceStore($invoice, $store);
-        return $invoice->products;
-    }
-
-    /**
-     * @param Store $store
      * @param Product $product
      * @return InvoiceProductCollection
      * @Rest\Route("stores/{store}/products/{product}/invoiceProducts")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
@@ -118,20 +53,6 @@ class InvoiceProductController extends AbstractRestController
     {
         $invoiceProducts = $this->documentRepository->findByStoreAndProduct($store->id, $product->id);
         return new InvoiceProductCollection($invoiceProducts);
-    }
-
-    /**
-     * @param Store $store
-     * @param Invoice $invoice
-     * @param InvoiceProduct $invoiceProduct
-     * @return null
-     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
-     * @ApiDoc
-     */
-    public function deleteProductAction(Store $store, Invoice $invoice, InvoiceProduct $invoiceProduct)
-    {
-        $this->checkInvoiceProduct($invoiceProduct, $invoice, $store);
-        return $this->processDelete($invoiceProduct);
     }
 
     /**

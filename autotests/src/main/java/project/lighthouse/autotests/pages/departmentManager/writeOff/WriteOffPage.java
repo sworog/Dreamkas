@@ -10,7 +10,7 @@ import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.items.*;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.objects.web.writeOff.WriteOffProductCollection;
-import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceBrowsing;
+import project.lighthouse.autotests.pages.departmentManager.invoice.deprecated.InvoiceBrowsing;
 
 import java.util.Map;
 

@@ -8,6 +8,7 @@ use FOS\RestBundle\View\View;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductCollection;
+use Lighthouse\CoreBundle\Document\Product\ProductFilter;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
@@ -86,28 +87,18 @@ class ProductController extends AbstractRestController
     }
 
     /**
-     * @param Request $request
-     * @param string $property name, sku, barcode
+     * @param string $property
+     * @param ProductFilter $filter
      * @return ProductCollection
      * @ApiDoc
      * @Secure(roles="ROLE_DEPARTMENT_MANAGER,ROLE_COMMERCIAL_MANAGER")
      * @Rest\View(serializerGroups={"Collection"})
+     * @Rest\Route("products/{property}/search")
      */
-    public function getProductsSearchAction(Request $request, $property)
+    public function getProductsSearchAction($property, ProductFilter $filter)
     {
-        /* @var LoggableCursor $cursor */
-
-        switch ($property) {
-            case 'name':
-            case 'sku':
-            case 'barcode':
-                $query = $request->get('query');
-                $cursor = $this->documentRepository->searchEntry($property, $query);
-                break;
-            default:
-                $cursor = array();
-        }
-
+        $filter->setProperties($property);
+        $cursor = $this->documentRepository->search($filter);
         return new ProductCollection($cursor);
     }
 
@@ -121,7 +112,7 @@ class ProductController extends AbstractRestController
     public function getProductsAction()
     {
         /* @var LoggableCursor $cursor */
-        $cursor = $this->getDocumentRepository()->findAll();
+        $cursor = $this->documentRepository->findAll();
         $collection = new ProductCollection($cursor);
         return $collection;
     }

@@ -1,38 +1,58 @@
 define(function(require) {
     //requirements
     var Model = require('kit/core/model'),
-        compute = require('kit/utils/computeAttr'),
-        currentUserModel = require('models/currentUser');
+        cookies = require('cookies'),
+        InvoiceProductsCollection = require('collections/invoiceProducts');
 
     return Model.extend({
-        modelName: 'invoice',
+        storeId: null,
         urlRoot: function() {
-            if(currentUserModel.stores.length) {
-                return LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/invoices'
+            return LH.baseApiUrl + '/stores/' + this.storeId + '/invoices'
+        },
+        defaults: {
+            supplier: null,
+            acceptanceDate: null,
+            accepter: null,
+            legalEntity: null,
+            includesVAT: true,
+            supplierInvoiceNumber: null,
+            products: null
+        },
+        saveData: function(){
+            var supplier = this.get('supplier');
+            if (supplier instanceof Object) {
+                supplier = supplier.id;
+            }
+            return {
+                supplier: supplier,
+                acceptanceDate: this.get('acceptanceDate'),
+                accepter: this.get('accepter'),
+                legalEntity: this.get('legalEntity'),
+                includesVAT: this.get('includesVAT'),
+                supplierInvoiceNumber: this.get('supplierInvoiceNumber'),
+                products: this.get('products').map(function(productModel) {
+                    return productModel.getData();
+                })
             }
         },
+        parse: function(data) {
 
-        defaults: {
-            includesVAT: true,
-            totalAmountVATFormatted: compute(['totalAmountVAT'], function(totalAmountVAT){
-                return LH.formatMoney(totalAmountVAT)
-            })
+            if (!this.get('products')){
+                this.set('products', new InvoiceProductsCollection());
+            }
+
+            this.get('products').reset(data.products);
+
+            delete data.products;
+
+            return data;
         },
+        validateProducts: function(){
+            var model = this;
 
-        dateFormat: 'dd.mm.yy',
-        datePrintFormat: "dd.mm.yyyy",
-        timeFormat: 'HH:mm',
-        invalidMessage: 'Вы ввели неверную дату',
-
-        saveData: [
-            'sku',
-            'supplier',
-            'acceptanceDate',
-            'accepter',
-            'legalEntity',
-            'includesVAT',
-            'supplierInvoiceSku',
-            'supplierInvoiceDate'
-        ]
+            return model.save(null, {
+                url: this.url() + '?validate=1&validationGroups=products'
+            });
+        }
     });
 });

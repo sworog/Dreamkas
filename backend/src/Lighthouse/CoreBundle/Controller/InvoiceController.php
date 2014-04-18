@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Document\Invoice\InvoiceCollection;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceHighlightGenerator;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Document\Invoice\InvoicesFilter;
+use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Form\InvoiceType;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -40,13 +41,13 @@ class InvoiceController extends AbstractRestController
      * @param Request $request
      * @return View|Invoice
      *
-     * @Rest\View(statusCode=201)
+     * @Rest\View(statusCode=201, serializerEnableMaxDepthChecks=true)
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function postInvoicesAction(Store $store, Request $request)
     {
-        $invoice = new Invoice;
+        $invoice = $this->documentRepository->createNew();
         $invoice->store = $store;
         return $this->processForm($request, $invoice);
     }
@@ -58,11 +59,17 @@ class InvoiceController extends AbstractRestController
      * @return View|Invoice
      *
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc
      */
     public function putInvoicesAction(Store $store, Invoice $invoice, Request $request)
     {
         $this->checkInvoiceStore($store, $invoice);
+        foreach ($invoice->products as $key => $invoiceProduct) {
+            unset($invoice->products[$key]);
+            $this->documentRepository->getDocumentManager()->remove($invoiceProduct);
+        }
+        $invoice->products = new InvoiceProductCollection();
         return $this->processForm($request, $invoice);
     }
 
@@ -81,7 +88,7 @@ class InvoiceController extends AbstractRestController
     {
         /* @var LoggableCursor $cursor */
         $cursor = $this->documentRepository->findByStore($store->id, $filter);
-        if ($filter->hasSkuOrSupplierInvoiceSku()) {
+        if ($filter->hasNumberOrSupplierInvoiceNumber()) {
             $highlightGenerator = new InvoiceHighlightGenerator($filter);
             $collection = new MetaCollection($cursor);
             $collection->addMetaGenerator($highlightGenerator);

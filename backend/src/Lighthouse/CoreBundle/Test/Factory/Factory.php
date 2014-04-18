@@ -12,6 +12,7 @@ use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Test\Factory\Invoice\InvoiceFactory;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
@@ -39,6 +40,16 @@ class Factory extends ContainerAwareFactory
      * @var CatalogFactory
      */
     protected $catalog;
+
+    /**
+     * @var InvoiceFactory
+     */
+    protected $invoice;
+
+    /**
+     * @var SupplierFactory
+     */
+    protected $supplier;
 
     /**
      * @var array
@@ -87,6 +98,28 @@ class Factory extends ContainerAwareFactory
             $this->catalog = new CatalogFactory($this->container, $this);
         }
         return $this->catalog;
+    }
+
+    /**
+     * @return InvoiceFactory
+     */
+    public function invoice()
+    {
+        if (null === $this->invoice) {
+            $this->invoice = new InvoiceFactory($this->container, $this);
+        }
+        return $this->invoice;
+    }
+
+    /**
+     * @return SupplierFactory
+     */
+    public function supplier()
+    {
+        if (null === $this->supplier) {
+            $this->supplier = new SupplierFactory($this->container, $this);
+        }
+        return $this->supplier;
     }
 
     /**
@@ -140,6 +173,11 @@ class Factory extends ContainerAwareFactory
     public function flush()
     {
         $this->getDocumentManager()->flush();
+    }
+
+    public function clear()
+    {
+        $this->getDocumentManager()->clear();
     }
 
     /**
@@ -237,13 +275,9 @@ class Factory extends ContainerAwareFactory
      * @param string $name
      * @return Supplier
      */
-    public function createSupplier($name = 'default')
+    public function createSupplier($name = SupplierFactory::DEFAULT_SUPPLIER_NAME)
     {
-        $supplier = new Supplier();
-        $supplier->name = $name;
-        $this->getDocumentManager()->persist($supplier);
-
-        return $supplier;
+        return $this->supplier()->getSupplier($name);
     }
 
     /**

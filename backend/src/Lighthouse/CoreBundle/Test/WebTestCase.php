@@ -2,10 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Test;
 
+use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\Client\Client;
-use Lighthouse\CoreBundle\Test\Factory\Factory;
 use PHPUnit_Framework_ExpectationFailedException;
 
 /**
@@ -18,45 +18,19 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected $client;
 
-    /**
-     * @var User
-     */
-    protected $departmentManager;
-
-    /**
-     * @var string
-     */
-    protected $storeId;
-
-    /**
-     * @var Factory
-     */
-    protected $factory;
-
     protected function setUp()
     {
         $this->client = static::createClient();
         $this->clearMongoDb();
-        $this->factory = new Factory($this->getContainer());
+        $this->factory = $this->createFactory();
     }
 
     protected function tearDown()
     {
         parent::tearDown();
 
-        $this->storeId = null;
-        $this->departmentManager = null;
         $this->factory = null;
         $this->client = null;
-    }
-
-    /**
-     *
-     */
-    protected function setUpStoreDepartmentManager()
-    {
-        $this->storeId = $this->factory->store()->getStoreId();
-        $this->departmentManager = $this->factory->store()->getDepartmentManager($this->storeId);
     }
 
     /**
@@ -106,115 +80,40 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @param array $modifiedData
-     * @param string $storeId
-     * @param User $departmentManager
-     * @return mixed
-     */
-    protected function createInvoice(array $modifiedData, $storeId, User $departmentManager = null)
-    {
-        $departmentManager = ($departmentManager) ?: $this->factory->store()->getDepartmentManager($storeId);
-        $accessToken = $this->factory->oauth()->auth($departmentManager);
-
-        $invoiceData = $modifiedData + array(
-            'sku' => 'sku232',
-            'supplier' => 'ООО "Поставщик"',
-            'acceptanceDate' => '2013-03-18 12:56',
-            'accepter' => 'Приемных Н.П.',
-            'legalEntity' => 'ООО "Магазин"',
-            'supplierInvoiceSku' => '1248373',
-            'supplierInvoiceDate' => '17.03.2013',
-            'includesVAT' => true,
-        );
-
-        $postResponse = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/stores/' . $storeId . '/invoices',
-            $invoiceData
-        );
-
-        $this->assertResponseCode(201);
-        Assert::assertJsonHasPath('id', $postResponse);
-
-        return $postResponse['id'];
-    }
-
-    /**
+     * @deprecated
+     *
      * @param array $modifiedData
      * @param string $invoiceId
      * @param string $storeId
-     * @param User $departmentManager
-     * @return mixed
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
+     * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
+     * @throws \Doctrine\ODM\MongoDB\MongoDBException
+     * @throws \Doctrine\ODM\MongoDB\LockException
+     * @throws \Lighthouse\CoreBundle\Exception\ValidationFailedException
+     * @return void
      */
-    protected function editInvoice(array $modifiedData, $invoiceId, $storeId, User $departmentManager = null)
+    protected function editInvoice(array $modifiedData, $invoiceId, $storeId)
     {
-        $departmentManager = ($departmentManager) ?: $this->factory->store()->getDepartmentManager($storeId);
-        $accessToken = $this->factory->oauth()->auth($departmentManager);
-
-        $invoiceData = $modifiedData + array(
-            'sku' => 'sku232',
-            'supplier' => 'ООО "Поставщик"',
-            'acceptanceDate' => '2013-03-18 12:56',
-            'accepter' => 'Приемных Н.П.',
-            'legalEntity' => 'ООО "Магазин"',
-            'supplierInvoiceSku' => '1248373',
-            'supplierInvoiceDate' => '17.03.2013',
-            'includesVAT' => true,
-        );
-
-        $postResponse = $this->clientJsonRequest(
-            $accessToken,
-            'PUT',
-            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId,
-            $invoiceData
-        );
-
-        $this->assertResponseCode(200);
-        Assert::assertJsonHasPath('id', $postResponse);
-
-        return $postResponse['id'];
+        if (isset($modifiedData['supplier'])) {
+            $supplierId = $this->factory()->supplier()->getSupplier($modifiedData['supplier'])->id;
+        } else {
+            $supplierId = null;
+        }
+        $this->factory()->invoice()->createInvoice($modifiedData, $storeId, $supplierId, $invoiceId);
     }
 
     /**
+     * @deprecated
      * @param string $invoiceId
      * @param string $productId
      * @param float $quantity
      * @param float $price
-     * @param string $storeId
-     * @param User $manager
      * @return string
      */
-    public function createInvoiceProduct(
-        $invoiceId,
-        $productId,
-        $quantity,
-        $price,
-        $storeId = null,
-        $manager = null
-    ) {
-        $manager = ($manager) ?: $this->departmentManager;
-        $storeId = ($storeId) ?: $this->storeId;
-        $manager = ($manager) ?: $this->factory->store()->getDepartmentManager($storeId);
-
-        $accessToken = $this->factory->oauth()->auth($manager);
-
-        $invoiceProductData = array(
-            'product' => $productId,
-            'quantity' => $quantity,
-            'priceEntered' => $price,
-        );
-
-        $postResponse = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products',
-            $invoiceProductData
-        );
-
-        $this->assertResponseCode(201);
-
-        return $postResponse['id'];
+    public function createInvoiceProduct(Invoice $invoice, $productId, $quantity, $price)
+    {
+        return $this->factory()->invoice()->createInvoiceProduct($invoice, $productId, $quantity, $price);
     }
 
     /**
@@ -223,8 +122,12 @@ class WebTestCase extends ContainerAwareTestCase
      * @param string $productId
      * @param float $quantity
      * @param float $price
-     * @param string $storeId
-     * @param User $manager
+     * @throws \RuntimeException
+     * @throws \InvalidArgumentException
+     * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
+     * @throws \Doctrine\ODM\MongoDB\MongoDBException
+     * @throws \Doctrine\ODM\MongoDB\LockException
+     * @throws \Lighthouse\CoreBundle\Exception\ValidationFailedException
      * @return string
      */
     public function editInvoiceProduct(
@@ -232,55 +135,9 @@ class WebTestCase extends ContainerAwareTestCase
         $invoiceId,
         $productId,
         $quantity,
-        $price,
-        $storeId = null,
-        $manager = null
+        $price
     ) {
-        $manager = ($manager) ?: $this->departmentManager;
-        $storeId = ($storeId) ?: $this->storeId;
-        $manager = ($manager) ?: $this->factory->store()->getDepartmentManager($storeId);
-
-        $accessToken = $this->factory->oauth()->auth($manager);
-
-        $invoiceProductData = array(
-            'product' => $productId,
-            'quantity' => $quantity,
-            'priceEntered' => $price,
-        );
-
-        $postResponse = $this->clientJsonRequest(
-            $accessToken,
-            'PUT',
-            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products/' . $invoiceProductId,
-            $invoiceProductData
-        );
-
-        $this->assertResponseCode(200);
-
-        return $postResponse['id'];
-    }
-
-    public function deleteInvoiceProduct(
-        $invoiceProductId,
-        $invoiceId,
-        $storeId = null,
-        $manager = null
-    ) {
-        $manager = ($manager) ?: $this->departmentManager;
-        $storeId = ($storeId) ?: $this->storeId;
-        $manager = ($manager) ?: $this->factory->store()->getDepartmentManager($storeId);
-
-        $accessToken = $this->factory->oauth()->auth($manager);
-
-        $postResponse = $this->clientJsonRequest(
-            $accessToken,
-            'DELETE',
-            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products/' . $invoiceProductId
-        );
-
-        $this->assertResponseCode(204);
-
-        return $postResponse['id'];
+        $this->factory()->invoice()->createInvoiceProduct($invoiceId, $productId, $quantity, $price, $invoiceProductId);
     }
 
     /**
@@ -341,7 +198,7 @@ class WebTestCase extends ContainerAwareTestCase
      * @param array $skus
      * @param bool $unique
      * @throws \PHPUnit_Framework_AssertionFailedError
-     * @return array
+     * @return array|string[] sku => id
      */
     protected function createProductsBySku(array $skus, $unique = false)
     {
@@ -370,7 +227,7 @@ class WebTestCase extends ContainerAwareTestCase
      * @param $invoiceId
      * @return array
      */
-    protected function createInvoiceProducts($productId, $invoiceId)
+    protected function createInvoiceProducts($productId, $invoiceId, $storeId)
     {
         $productsData = array(
             array(
@@ -393,7 +250,7 @@ class WebTestCase extends ContainerAwareTestCase
             ),
         );
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
 
         foreach ($productsData as $i => $row) {
 
@@ -406,7 +263,7 @@ class WebTestCase extends ContainerAwareTestCase
             $response = $this->clientJsonRequest(
                 $accessToken,
                 'POST',
-                '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId . '/products.json',
+                '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products.json',
                 $invoiceProductData
             );
 
@@ -417,7 +274,7 @@ class WebTestCase extends ContainerAwareTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $this->storeId . '/invoices/' . $invoiceId . '/products'
+            '/api/1/stores/' . $storeId . '/invoices/' . $invoiceId . '/products'
         );
 
         $this->assertResponseCode(200);
@@ -477,19 +334,12 @@ class WebTestCase extends ContainerAwareTestCase
     protected function createWriteOffProduct(
         $writeOffId,
         $productId,
-        $quantity = 10,
-        $price = 5.99,
-        $cause = 'Порча',
-        $storeId = null,
-        User $manager = null
+        $quantity,
+        $price,
+        $cause,
+        $storeId
     ) {
-        $manager = ($manager) ?: $this->departmentManager;
-        $storeId = ($storeId) ?: $this->storeId;
-        $price = ($price) ?: 5.99;
-        $quantity = ($quantity) ?: 10;
-        $cause = ($cause) ?: 'Порча';
-
-        $accessToken = $this->factory->oauth()->auth($manager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
 
         $postData = array(
             'product' => $productId,
@@ -624,7 +474,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function createGroup($name = 'Продовольственные товары')
     {
-        return $this->factory->catalog()->createGroup($name)->id;
+        return $this->factory()->catalog()->createGroup($name)->id;
     }
 
     /**
@@ -635,7 +485,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function createCategory($groupId = null, $name = 'Винно-водочные изделия')
     {
-        return $this->factory->catalog()->createCategory($groupId, $name)->id;
+        return $this->factory()->catalog()->createCategory($groupId, $name)->id;
     }
 
     /**
@@ -646,7 +496,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function createSubCategory($categoryId = null, $name = 'Водка')
     {
-        return $this->factory->catalog()->createSubCategory($categoryId, $name)->id;
+        return $this->factory()->catalog()->createSubCategory($categoryId, $name)->id;
     }
 
     /**

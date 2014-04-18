@@ -9,30 +9,30 @@ class InvoicesFilter implements FilterInterface
     /**
      * @var string
      */
-    protected $skuOrSupplierInvoiceSku;
+    protected $numberOrSupplierInvoiceNumber;
 
     /**
      * @param string $supplierInvoiceSku
      */
-    public function setSkuOrSupplierInvoiceSku($supplierInvoiceSku)
+    public function setNumberOrSupplierInvoiceNumber($supplierInvoiceSku)
     {
-        $this->skuOrSupplierInvoiceSku = $supplierInvoiceSku;
+        $this->numberOrSupplierInvoiceNumber = $supplierInvoiceSku;
     }
 
     /**
      * @return string
      */
-    public function getSkuOrSupplierInvoiceSku()
+    public function getNumberOrSupplierInvoiceNumber()
     {
-        return $this->skuOrSupplierInvoiceSku;
+        return $this->numberOrSupplierInvoiceNumber;
     }
 
     /**
      * @return bool
      */
-    public function hasSkuOrSupplierInvoiceSku()
+    public function hasNumberOrSupplierInvoiceNumber()
     {
-        return null !== $this->skuOrSupplierInvoiceSku;
+        return null !== $this->numberOrSupplierInvoiceNumber;
     }
 
     /**
@@ -41,8 +41,8 @@ class InvoicesFilter implements FilterInterface
      */
     public function populate(array $data)
     {
-        if (isset($data['skuOrSupplierInvoiceSku'])) {
-            $this->setSkuOrSupplierInvoiceSku($data['skuOrSupplierInvoiceSku']);
+        if (isset($data['numberOrSupplierInvoiceNumber'])) {
+            $this->setNumberOrSupplierInvoiceNumber($data['numberOrSupplierInvoiceNumber']);
         }
     }
 }

@@ -6,22 +6,15 @@
     suppliers: new SuppliersCollection()
 }, collections); %>
 <% var templates = _.extend({
-    downloadAgreementLink: require('tpl!blocks/form/form_order/downloadAgreementLink.html')
+    select_suppliers: require('tpl!blocks/select/select_suppliers/template.html')
 }, templates) %>
 
 <form class="form form_order <%- model.id ? '' : 'form_changed' %>" style="margin-bottom: 20px;">
     <div class="form__field" style="padding-bottom: 30px;">
         <label class="form__label">Поставщик</label>
-        <select class="select" name="supplier">
-            <option value="" selected disabled>Выберите поставщика</option>
-            <% collections.suppliers.forEach(function(supplierModel){ %>
-            <% var selected = supplierModel.id === model.get('supplier.id') %>
-            <option <%- selected ? 'selected' : '' %>
-                    value="<%- supplierModel.id %>"><%- supplierModel.get('name') %></option>
-            <% }) %>
-        </select>
-        <%= templates.downloadAgreementLink({
-            supplierModel: collections.suppliers.get(model.get('supplier.id'))
+        <%= templates.select_suppliers({
+            collections: _.pick(collections, 'suppliers'),
+            selected: model.get('supplier.id')
         }) %>
     </div>
     <div style="margin-bottom: 30px;">
@@ -35,11 +28,13 @@
     <h2>Добавление товара в заказ</h2>
 
     <div class="form__field" style="padding-bottom: 30px;">
-        <input style="width: 600px;" data-url="<%- LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/search/products?properties[]=name&properties[]=sku' %>"
+        <input placeholder="Для добавления позиции введите наименование товара или код"
+               style="width: 600px;"
+               data-url="<%- LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/search/products?properties[]=name&properties[]=sku&purchasePriceNotEmpty=1' %>"
                type="text" class="inputText autocomplete"/>
     </div>
 
-    <div class="form_order__totalSum">
+    <div class="form__totalSum">
         Итого:
         <%= model.get('collections.products').element(require('tpl!blocks/form/form_order/form_order__totalSum.html'), {
             collections: {

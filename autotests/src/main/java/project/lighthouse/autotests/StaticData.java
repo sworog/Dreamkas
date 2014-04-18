@@ -1,6 +1,7 @@
 package project.lighthouse.autotests;
 
 import project.lighthouse.autotests.objects.api.*;
+import project.lighthouse.autotests.objects.api.invoice.Invoice;
 import project.lighthouse.autotests.storage.Storage;
 
 import java.util.ArrayList;
@@ -66,5 +67,6 @@ public class StaticData {
         subCategoryProducts.clear();
         suppliers.clear();
         Storage.getOrderVariableStorage().resetNumber();
+        Storage.getInvoiceVariableStorage().resetNumber();
     }
 }
