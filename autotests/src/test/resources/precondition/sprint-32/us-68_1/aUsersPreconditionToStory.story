@@ -1,6 +1,6 @@
 Meta:
 @smoke
-@sprint_31
+@sprint_32
 @us_68.1
 
 Scenario: A scenario that prepares data with users
