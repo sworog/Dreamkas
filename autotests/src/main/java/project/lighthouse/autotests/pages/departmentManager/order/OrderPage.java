@@ -37,7 +37,7 @@ public class OrderPage extends CommonPageObject {
     }
 
     public String getOrderTotalSumText() {
-        return findVisibleElement(By.className("form_order__totalSum")).getText();
+        return findVisibleElement(By.className("form__totalSum")).getText();
     }
 
     public ButtonFacade getSaveButton() {
@@ -52,8 +52,8 @@ public class OrderPage extends CommonPageObject {
         return new LinkFacade(this, "Отменить");
     }
 
-    public void deleteButtonClick() {
-        new LinkFacade(this, "Удалить").click();
+    public LinkFacade getDeleteButtonLinkFacade() {
+        return new LinkFacade(this, "Удалить");
     }
 
     public OrderProductObjectCollection getOrderProductObjectCollection() {
