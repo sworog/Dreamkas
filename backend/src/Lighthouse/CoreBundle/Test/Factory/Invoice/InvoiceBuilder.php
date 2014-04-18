@@ -7,7 +7,6 @@ use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Test\Factory\Factory;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Validator\ValidatorInterface;
 
 class InvoiceBuilder
@@ -57,12 +56,13 @@ class InvoiceBuilder
 
     /**
      * @param array $data
-     * @param null $storeId
-     * @param null $supplierId
+     * @param string $storeId
+     * @param string $supplierId
+     * @param string $orderId
      * @throws \RuntimeException
      * @return InvoiceBuilder
      */
-    public function createInvoice(array $data, $storeId = null, $supplierId = null)
+    public function createInvoice(array $data, $storeId = null, $supplierId = null, $orderId = null)
     {
         $this->invoice = $this->invoiceRepository->createNew();
 
@@ -86,6 +86,10 @@ class InvoiceBuilder
             $this->invoice->store = $this->factory->store()->getStore();
         }
 
+        if ($orderId) {
+            $this->invoice->order = $this->factory->order()->getOrderById($orderId);
+        }
+
         $this->invoice->acceptanceDate = new \DateTime($invoiceData['acceptanceDate']);
         $this->invoice->accepter = $invoiceData['accepter'];
         $this->invoice->legalEntity = $invoiceData['legalEntity'];
@@ -93,14 +97,6 @@ class InvoiceBuilder
         $this->invoice->includesVAT = $invoiceData['includesVAT'];
 
         return $this;
-    }
-
-    /**
-     * @return Invoice
-     */
-    public function getInvoice()
-    {
-        return $this->invoice;
     }
 
     /**

@@ -43,25 +43,27 @@
         }) %>
     </div>
 
-    <div class="form__controls">
-        <div class="form_order__invoiceControls">
-            <a href="/invoices/create" class="button">
-                Принять по заказу
-            </a>
+    <% if(null == model.get('invoice')) { %>
+        <div class="form__controls">
+            <div class="form_order__invoiceControls">
+                <a href="<%= model.getCreateInvoiceFromOrderUrl() %>" class="button">
+                    Принять по заказу
+                </a>
+            </div>
+            <div class="form_order__saveControls">
+                <% if (model.id){ %>
+                <p>Заказ изменён, подтвердите изменения, пожалуйста.</p>
+                <% } %>
+                <button type="submit" class="button">
+                    Сохранить
+                </button>
+            <span style="margin-right: 10px;">
+            или
+            </span>
+                <a style="margin-right: 20px;" href="/orders">
+                    Отменить
+                </a>
+            </div>
         </div>
-        <div class="form_order__saveControls">
-            <% if (model.id){ %>
-            <p>Заказ изменён, подтвердите изменения, пожалуйста.</p>
-            <% } %>
-            <button type="submit" class="button">
-                Сохранить
-            </button>
-        <span style="margin-right: 10px;">
-        или
-        </span>
-            <a style="margin-right: 20px;" href="/orders">
-                Отменить
-            </a>
-        </div>
-    </div>
+    <% } %>
 </form>

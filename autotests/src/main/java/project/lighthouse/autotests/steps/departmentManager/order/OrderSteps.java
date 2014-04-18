@@ -128,6 +128,11 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
+    public void orderAcceptButtonClick() {
+        orderPage.getOrderAcceptButton().click();
+    }
+
+    @Step
     public void cancelLinkClick() {
         orderPage.getCancelLink().click();
     }
@@ -143,14 +148,24 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
+    public void deleteButtonLinkShouldBeVisible() {
+        orderPage.getDeleteButtonLinkFacade().shouldBeVisible();
+    }
+
+    @Step
+    public void deleteButtonLinkShouldBeNotVisible() {
+        orderPage.getDeleteButtonLinkFacade().shouldBeNotVisible();
+    }
+
+    @Step
     public void deleteButtonClickAndConfirmTheDeletion() {
-        orderPage.deleteButtonClick();
+        orderPage.getDeleteButtonLinkFacade().click();
         orderPage.getWaiter().getAlert().accept();
     }
 
     @Step
     public void deleteButtonClickAndDismissTheDeletion() {
-        orderPage.deleteButtonClick();
+        orderPage.getDeleteButtonLinkFacade().click();
         orderPage.getWaiter().getAlert().dismiss();
     }
 
@@ -259,11 +274,13 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
-    public void assertDownloadFileLinkIsNotVisible() {
-        try {
-            orderPage.getDownloadFileLink().click();
-        } catch (TimeoutException ignored) {
-        }
+    public void downloadFileLinkShouldBeNotVisible() {
+        orderPage.getDownloadFileLink().shouldBeNotVisible();
+    }
+
+    @Step
+    public void downloadFileLinkShouldBeVisible() {
+        orderPage.getDownloadFileLink().shouldBeVisible();
     }
 
     @Step

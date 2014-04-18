@@ -4,6 +4,8 @@ namespace Lighthouse\CoreBundle\Document\Invoice;
 
 use Doctrine\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
+use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 
 class InvoiceRepository extends DocumentRepository
@@ -30,6 +32,33 @@ class InvoiceRepository extends DocumentRepository
         $invoice->sumTotal = $this->numericFactory->createMoney(null);
         $invoice->totalAmountVAT = $this->numericFactory->createMoney(null);
         $invoice->sumTotalWithoutVAT = $this->numericFactory->createMoney(null);
+
+        return $invoice;
+    }
+
+    /**
+     * @param Order $order
+     * @return Invoice
+     */
+    public function createByOrder(Order $order)
+    {
+        $invoice = $this->createNew();
+
+        $invoice->order = $order;
+        $invoice->store = $order->store;
+        $invoice->supplier = $order->supplier;
+
+        foreach ($order->products as $orderProduct) {
+            $invoiceProduct = new InvoiceProduct();
+            $invoiceProduct->quantity = $orderProduct->quantity;
+            $invoiceProduct->product = $orderProduct->product;
+            $invoiceProduct->priceEntered = $orderProduct->product->purchasePrice;
+            $invoiceProduct->invoice = $invoice;
+
+            $invoice->products->add($invoiceProduct);
+        }
+
+        $invoice->calculateTotals();
 
         return $invoice;
     }

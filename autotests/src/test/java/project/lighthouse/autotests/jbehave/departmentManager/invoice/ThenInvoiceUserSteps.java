@@ -71,6 +71,11 @@ public class ThenInvoiceUserSteps {
         invoiceSteps.assertAcceptanceDateFieldContainsNowDate();
     }
 
+    @Then("the user checks the invoice is formed by order")
+    public void thenTheUserChecksTheInvoiceIsFormedByOrder() {
+        invoiceSteps.assertInvoiceOrderInfo();
+    }
+
     @Then("the user asserts '$elementName' invoice field data has '$fieldLength' symbols length")
     public void thenTheUserAssertsInvoiceFieldDataHasSymbolsLength(String elementName, int fieldLength) {
         invoiceSteps.assertFieldLength(elementName, fieldLength);

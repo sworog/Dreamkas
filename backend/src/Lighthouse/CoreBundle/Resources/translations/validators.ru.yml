@@ -60,6 +60,9 @@ lighthouse:
                 supplier:
                     does_not_exists: Такого поставщика не существует
                     empty: Выберите поставщика
+                order:
+                    unique: Накладная по этому заказу уже существует
+                    does_not_exists: Такой заказ не существует
                 products:
                     empty: Нужно добавить минимум один товар
             sale:

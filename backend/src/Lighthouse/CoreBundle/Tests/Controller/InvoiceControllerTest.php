@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
@@ -332,6 +333,18 @@ class InvoiceControllerTest extends WebTestCase
             'valid number 100 chars' => array(
                 201,
                 array('number' => str_repeat('z', 100)),
+            ),
+            /***********************************************************************************************
+             * 'order'
+             ***********************************************************************************************/
+            'invalid order' => array(
+                400,
+                array('order' => '10001'),
+                array('children.order.errors.0' => 'Такой заказ не существует'),
+            ),
+            'empty order' => array(
+                201,
+                array('order' => ''),
             ),
             /***********************************************************************************************
              * 'supplier'
@@ -1386,5 +1399,220 @@ class InvoiceControllerTest extends WebTestCase
         $this->assertResponseCode(200);
         Assert::assertJsonPathCount(1, 'products.*', $getResponse);
         $this->assertSame($putResponse['products'][0], $getResponse['products'][0]);
+    }
+
+    public function testGetInvoiceDataByOrder()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId1 = $this->createProduct(array('purchasePrice' => '11.11', 'name' => 'Продукт 1', 'sku' => '10001'));
+        $productId2 = $this->createProduct(array('purchasePrice' => '22.22', 'name' => 'Продукт 2', 'sku' => '10002'));
+        $productId3 = $this->createProduct(array('purchasePrice' => '33.33', 'name' => 'Продукт 3', 'sku' => '10003'));
+
+        $supplier = $this->factory()->supplier()->getSupplier();
+
+        $order = $this->factory()
+            ->order()
+                ->createOrder($store, $supplier, '2014-04-16 17:39')
+                ->createOrderProduct($productId1, 11)
+                ->createOrderProduct($productId2, 22)
+                ->createOrderProduct($productId3, 33)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $store->id . '/orders/' . $order->id . '/invoice'
+        );
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($supplier->id, 'supplier.id', $response);
+        Assert::assertJsonPathCount('3', 'products.*', $response);
+
+        Assert::assertJsonPathEquals($productId1, 'products.0.product.id', $response);
+        Assert::assertJsonPathEquals('11', 'products.0.quantity', $response);
+        Assert::assertJsonPathEquals('11.11', 'products.0.price', $response);
+
+        Assert::assertJsonPathEquals($productId2, 'products.1.product.id', $response);
+        Assert::assertJsonPathEquals('22', 'products.1.quantity', $response);
+        Assert::assertJsonPathEquals('22.22', 'products.1.price', $response);
+
+        Assert::assertJsonPathEquals($productId3, 'products.2.product.id', $response);
+        Assert::assertJsonPathEquals('33', 'products.2.quantity', $response);
+        Assert::assertJsonPathEquals('33.33', 'products.2.price', $response);
+
+        Assert::assertNotJsonHasPath('id', $response);
+        Assert::assertNotJsonHasPath('number', $response);
+        Assert::assertNotJsonHasPath('legalEntity', $response);
+        Assert::assertNotJsonHasPath('accepter', $response);
+        Assert::assertNotJsonHasPath('acceptanceDate', $response);
+        Assert::assertNotJsonHasPath('supplierInvoiceNumber', $response);
+    }
+
+    public function testGetInvoiceDataByOrderNotFoundInAnotherStore()
+    {
+        $store1 = $this->factory()->store()->getStore('1');
+        $store2 = $this->factory()->store()->getStore('2');
+        $productId1 = $this->createProduct('1');
+        $productId2 = $this->createProduct('2');
+
+        $supplier = $this->factory()->supplier()->getSupplier();
+
+        $order1 = $this->factory()
+            ->order()
+                ->createOrder($store1, $supplier)
+                ->createOrderProduct($productId1, 11)
+            ->flush();
+
+        $order2 = $this->factory()
+            ->order()
+                ->createOrder($store2, $supplier)
+                ->createOrderProduct($productId2, 22)
+            ->flush();
+
+        $accessToken1 = $this->factory()->oauth()->authAsDepartmentManager($store1->id);
+        $this->clientJsonRequest(
+            $accessToken1,
+            'GET',
+            '/api/1/stores/' . $store1->id . '/orders/' . $order2->id . '/invoice'
+        );
+        $this->assertResponseCode(404);
+
+        $accessToken2 = $this->factory()->oauth()->authAsDepartmentManager($store2->id);
+        $this->clientJsonRequest(
+            $accessToken2,
+            'GET',
+            '/api/1/stores/' . $store2->id . '/orders/' . $order1->id . '/invoice'
+        );
+        $this->assertResponseCode(404);
+    }
+
+    public function testCreateInvoiceWithOrder()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId1 = $this->createProduct(array('purchasePrice' => '11.11', 'name' => 'Продукт 1', 'sku' => '10001'));
+        $productId2 = $this->createProduct(array('purchasePrice' => '22.22', 'name' => 'Продукт 2', 'sku' => '10002'));
+        $productId3 = $this->createProduct(array('purchasePrice' => '33.33', 'name' => 'Продукт 3', 'sku' => '10003'));
+
+        $supplier = $this->factory()->supplier()->getSupplier();
+
+        $order = $this->factory()
+            ->order()
+                ->createOrder($store, $supplier, '2014-04-16 17:39')
+                ->createOrderProduct($productId1, 11)
+                ->createOrderProduct($productId2, 22)
+                ->createOrderProduct($productId3, 33)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+        $invoiceData = $this->getInvoiceDataByOrder($order);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData
+        );
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonPathEquals($order->id, 'order.id', $response);
+        Assert::assertJsonPathEquals('10001', 'number', $response);
+        Assert::assertJsonPathCount(3, 'products.*', $response);
+    }
+
+    public function testDuplicateInvoiceOnOrderCreate()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct(array('purchasePrice' => '11.11', 'name' => 'Продукт 1', 'sku' => '10001'));
+
+        $supplier = $this->factory()->supplier()->getSupplier();
+
+        $order = $this->factory()
+            ->order()
+                ->createOrder($store, $supplier, '2014-04-16 17:39')
+                ->createOrderProduct($productId, 11)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+        $invoiceData = $this->getInvoiceDataByOrder($order);
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData
+        );
+        $this->assertResponseCode(201);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData
+        );
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals('Накладная по этому заказу уже существует', 'children.order.errors.0', $response);
+    }
+
+    public function testInvoiceIsExposedInOrder()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct(array('purchasePrice' => '11.11', 'name' => 'Продукт 1', 'sku' => '10001'));
+
+        $supplier = $this->factory()->supplier()->getSupplier();
+
+        $order = $this->factory()
+            ->order()
+                ->createOrder($store, $supplier, '2014-04-16 17:39')
+                ->createOrderProduct($productId, 11)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+        $invoiceData = $this->getInvoiceDataByOrder($order);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData
+        );
+        $this->assertResponseCode(201);
+        Assert::assertJsonHasPath('id', $response);
+        Assert::assertJsonPathEquals($order->id, 'order.id', $response);
+        $invoiceId = $response['id'];
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $store->id . '/orders/' . $order->id
+        );
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals($invoiceId, 'invoice.id', $response);
+        Assert::assertJsonPathCount(1, 'invoice.products.*', $response);
+    }
+
+    /**
+     * @param Order $order
+     * @return array
+     */
+    protected function getInvoiceDataByOrder(Order $order)
+    {
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($order->store->id);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $order->store->id . '/orders/' . $order->id . '/invoice'
+        );
+        $this->assertResponseCode(200);
+        $invoiceData = InvoiceProductControllerTest::getInvoiceData($response['supplier']['id'], null, null, null);
+        $invoiceData['order'] = $response['order']['id'];
+        foreach ($response['products'] as $key => $productData) {
+            $invoiceData['products'][$key] = array(
+                'product' => $productData['product']['id'],
+                'quantity' => $productData['quantity'],
+                'priceEntered' => $productData['priceEntered'],
+            );
+        }
+        return $invoiceData;
     }
 }

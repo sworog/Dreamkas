@@ -42,6 +42,11 @@ public class WhenOrderUserSteps {
         orderSteps.cancelLinkClick();
     }
 
+    @When("the user clicks the accept order button")
+    public void whenTheUserClicksTheAcceptOrderButton() {
+        orderSteps.orderAcceptButtonClick();
+    }
+
     @When("the user clicks on order product in last created order")
     public void whenTheUserClicksOnOrderProductInLastCreatedOrder() throws JSONException {
         orderSteps.lastCreatedOrderProductCollectionObjectClickByLocator();

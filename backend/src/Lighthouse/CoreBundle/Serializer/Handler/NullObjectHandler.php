@@ -7,8 +7,6 @@ use JMS\DiExtraBundle\Annotation as DI;
 use JMS\Serializer\EventDispatcher\PreSerializeEvent;
 use JMS\Serializer\VisitorInterface;
 use Lighthouse\CoreBundle\Document\NullObjectInterface;
-use Lighthouse\CoreBundle\Types\Numeric\Money;
-use Lighthouse\CoreBundle\Types\Numeric\Numeric;
 
 /**
  * @DI\Service("lighthouse.core.serializer.handler.null_object")

@@ -9,6 +9,7 @@ import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.items.DateTime;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.elements.preLoader.ProductEditionPreLoader;
+import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.helper.exampleTable.invoice.InvoiceExampleTableUpdater;
@@ -135,6 +136,20 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void cancelLinkClick() {
         invoicePage.cancelLinkClick();
+    }
+
+    @Step
+    public void assertInvoiceOrderInfo() {
+        String expectedInvoiceOrderInfoText =
+                String.format(
+                        "на основании заказа №10001 от %s",
+                        new DateTimeHelper(0).convertDateByPattern("dd.MM.yyyy"));
+        assertThat(invoicePage.getInvoiceOrderInfo(), is(expectedInvoiceOrderInfoText));
+    }
+
+    @Step
+    public void invoiceOrderLinkClick() {
+        invoicePage.orderOnLinkClick();
     }
 
     @Step

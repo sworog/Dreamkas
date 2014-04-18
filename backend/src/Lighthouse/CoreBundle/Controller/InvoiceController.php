@@ -9,7 +9,9 @@ use Lighthouse\CoreBundle\Document\Invoice\InvoiceHighlightGenerator;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Document\Invoice\InvoicesFilter;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection;
+use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\InvoiceType;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
@@ -19,6 +21,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use JMS\DiExtraBundle\Annotation as DI;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
+use MongoDuplicateKeyException;
 
 class InvoiceController extends AbstractRestController
 {
@@ -34,6 +37,24 @@ class InvoiceController extends AbstractRestController
     protected function getDocumentFormType()
     {
         return new InvoiceType();
+    }
+
+    /**
+     * @param FlushFailedException $e
+     * @return Invoice|InvoiceType
+     * @throws \Exception
+     */
+    protected function handleFlushFailedException(FlushFailedException $e)
+    {
+        if ($e->getCause() instanceof MongoDuplicateKeyException) {
+            return $this->addFormError(
+                $e->getForm(),
+                'order',
+                'lighthouse.validation.errors.invoice.order.unique'
+            );
+        } else {
+            return parent::handleFlushFailedException($e);
+        }
     }
 
     /**
@@ -109,6 +130,23 @@ class InvoiceController extends AbstractRestController
     public function getInvoiceAction(Store $store, Invoice $invoice)
     {
         $this->checkInvoiceStore($store, $invoice);
+        return $invoice;
+    }
+
+    /**
+     * @param Store $store
+     * @param Order $order
+     * @throws NotFoundHttpException
+     * @return Invoice
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
+     */
+    public function getOrderInvoiceAction(Store $store, Order $order)
+    {
+        if ($order->store !== $store) {
+            throw new NotFoundHttpException(sprintf("%s object not found", Order::getClassName()));
+        }
+        $invoice = $this->documentRepository->createByOrder($order);
         return $invoice;
     }
 

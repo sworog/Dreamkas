@@ -105,4 +105,9 @@ public class WhenInvoiceUserSteps {
     public void whenTheUserClikcsOnDeleteIconAndDeletesLastAddedInvoiceProduct() throws JSONException {
         invoiceSteps.lastAddedInvoiceProductObjectDeleteIconClick();
     }
+
+    @When("the user clicks the ivoice order link")
+    public void whenTheUserClicksTheInvoiceOrderLink() {
+        invoiceSteps.invoiceOrderLinkClick();
+    }
 }

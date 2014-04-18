@@ -14,7 +14,8 @@ define(function(require, exports, module) {
         },
         localNavigationActiveLink: 'create',
         params: {
-            storeId: null
+            storeId: null,
+            fromOrder: null
         },
         isAllow: function() {
             var page = this;
@@ -34,9 +35,17 @@ define(function(require, exports, module) {
                     });
 
                 invoiceModel.storeId = page.params.storeId;
+                invoiceModel.fromOrder = page.params.fromOrder;
 
                 return invoiceModel;
             }
+        },
+        fetchData: function() {
+            var page = this;
+
+            return _.values(page.collections).concat(_.filter(page.models, function(model) {
+                return model && (model.id || null != model.fromOrder);
+            }));
         },
         blocks: {
             form_invoice: function() {

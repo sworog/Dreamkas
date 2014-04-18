@@ -9,6 +9,7 @@ use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection;
+use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
@@ -16,13 +17,15 @@ use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as AssertLH;
+use Doctrine\Bundle\MongoDBBundle\Validator\Constraints as AssertMongoDB;
 use DateTime;
 
 /**
  * @property string     $id
  * @property Store      $store
+ * @property Supplier   $supplier
+ * @property Order      $order
  * @property string     $number
- * @property string     $supplier
  * @property DateTime   $acceptanceDate
  * @property string     $accepter
  * @property string     $legalEntity
@@ -37,6 +40,7 @@ use DateTime;
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository"
  * )
+ * @AssertMongoDB\Unique(message="lighthouse.validation.errors.invoice.order.unique", fields={"order"})
  */
 class Invoice extends AbstractDocument implements Storeable
 {
@@ -56,6 +60,20 @@ class Invoice extends AbstractDocument implements Storeable
      * @var Store
      */
     protected $store;
+
+    /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Order\Order",
+     *     cascade="persist",
+     *     simple=true
+     * )
+     *
+     * @MongoDB\UniqueIndex(sparse=true)
+     * @AssertLH\Reference(message="lighthouse.validation.errors.invoice.order.does_not_exists")
+     * @Serializer\MaxDepth(2)
+     * @var Order
+     */
+    protected $order;
 
     /**
      * @Generated(startValue=10000)
@@ -175,6 +193,17 @@ class Invoice extends AbstractDocument implements Storeable
     public function getStore()
     {
         return $this->store;
+    }
+
+    /**
+     * @param Order $order
+     */
+    public function setOrder(Order $order = null)
+    {
+        if ($order) {
+            $order->invoice = $this;
+        }
+        $this->order = $order;
     }
 
     /**

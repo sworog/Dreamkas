@@ -40,7 +40,7 @@ class SupplierControllerTest extends WebTestCase
      */
     public function testPostValidation(array $postData, $expectedResponseCode, array $assertions)
     {
-        $this->factory->createSupplier('ООО "Повтор"');
+        $this->factory()->supplier()->getSupplier('ООО "Повтор"');
         $file = $this->factory->createFile();
         $this->factory->flush();
 
@@ -180,7 +180,7 @@ class SupplierControllerTest extends WebTestCase
 
     public function testPut()
     {
-        $supplier = $this->factory->createSupplier('ООО "ЕврейАрт"');
+        $supplier = $this->factory()->supplier()->getSupplier('ООО "ЕврейАрт"');
         $this->factory->flush();
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
@@ -206,8 +206,8 @@ class SupplierControllerTest extends WebTestCase
      */
     public function testPutValidation($data, $expectedResponseCode, $assertions)
     {
-        $supplier = $this->factory->createSupplier('ООО "ЕврейАрт"');
-        $this->factory->createSupplier('ООО "Повтор"');
+        $supplier = $this->factory()->supplier()->getSupplier('ООО "ЕврейАрт"');
+        $this->factory()->supplier()->getSupplier('ООО "Повтор"');
         $file = $this->factory->createFile();
         $this->factory->flush();
 
@@ -228,9 +228,9 @@ class SupplierControllerTest extends WebTestCase
 
     public function testGetAction()
     {
-        $this->factory->createSupplier('1');
-        $this->factory->createSupplier('2');
-        $this->factory->createSupplier('3');
+        $this->factory()->supplier()->getSupplier('1');
+        $this->factory()->supplier()->getSupplier('2');
+        $this->factory()->supplier()->getSupplier('3');
         $this->factory->flush();
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
@@ -255,9 +255,9 @@ class SupplierControllerTest extends WebTestCase
      */
     public function testGetActionPermissions($role, $expectedCode)
     {
-        $this->factory->createSupplier('1');
-        $this->factory->createSupplier('2');
-        $this->factory->createSupplier('3');
+        $this->factory()->supplier()->getSupplier('1');
+        $this->factory()->supplier()->getSupplier('2');
+        $this->factory()->supplier()->getSupplier('3');
         $this->factory->flush();
 
         $accessToken = $this->factory->oauth()->authAsRole($role);
@@ -286,8 +286,8 @@ class SupplierControllerTest extends WebTestCase
 
     public function testGetSupplierAction()
     {
-        $supplier1 = $this->factory->createSupplier('1');
-        $this->factory->createSupplier('2');
+        $supplier1 = $this->factory()->supplier()->getSupplier('1');
+        $this->factory()->supplier()->getSupplier('2');
         $this->factory->flush();
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
@@ -306,8 +306,8 @@ class SupplierControllerTest extends WebTestCase
      */
     public function testGetSupplierActionPermissions($role, $expectedResponseCode)
     {
-        $supplier1 = $this->factory->createSupplier('1');
-        $this->factory->createSupplier('2');
+        $supplier1 = $this->factory()->supplier()->getSupplier('1');
+        $this->factory()->supplier()->getSupplier('2');
         $this->factory->flush();
 
         $accessToken = $this->factory->oauth()->authAsRole($role);

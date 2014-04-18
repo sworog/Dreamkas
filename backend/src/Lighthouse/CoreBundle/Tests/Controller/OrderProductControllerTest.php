@@ -201,8 +201,7 @@ class OrderProductControllerTest extends WebTestCase
         );
         $product = $this->createProduct($productData, $subCategory);
 
-        $this->factory->createSupplier('123');
-        $this->factory->flush();
+        $this->factory()->supplier()->getSupplier('123');
 
         $postData = array(
             'product' => $product,

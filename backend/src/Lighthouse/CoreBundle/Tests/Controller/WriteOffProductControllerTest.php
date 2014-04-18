@@ -4,7 +4,6 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
-use Lighthouse\CoreBundle\Test\Factory\UserFactory;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;

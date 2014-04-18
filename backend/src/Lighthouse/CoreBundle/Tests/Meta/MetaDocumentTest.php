@@ -3,8 +3,6 @@
 namespace Lighthouse\CoreBundle\Tests\Meta;
 
 use JMS\Serializer\SerializerInterface;
-use Lighthouse\CoreBundle\Document\Invoice\Invoice;
-use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOffRepository;
 use Lighthouse\CoreBundle\Meta\MetaDocument;

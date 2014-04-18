@@ -1,10 +1,10 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Supplier;
+namespace Lighthouse\CoreBundle\Document\Order;
 
 use Lighthouse\CoreBundle\Document\NullObjectInterface;
 
-class NullSupplier extends Supplier implements NullObjectInterface
+class NullOrder extends Order implements NullObjectInterface
 {
     /**
      * @return string

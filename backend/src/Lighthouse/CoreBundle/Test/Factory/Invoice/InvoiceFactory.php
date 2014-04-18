@@ -7,9 +7,7 @@ use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Test\Factory\AbstractFactory;
-use Lighthouse\CoreBundle\Test\Factory\Invoice\InvoiceBuilder;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
-use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 
 class InvoiceFactory extends AbstractFactory
 {
@@ -17,29 +15,18 @@ class InvoiceFactory extends AbstractFactory
      * @param array $data
      * @param string $storeId
      * @param string $supplierId
-     * @param string $invoiceId
+     * @param null $orderId
      * @return InvoiceBuilder
      */
-    public function createInvoice(array $data, $storeId = null, $supplierId = null, $invoiceId = null)
+    public function createInvoice(array $data, $storeId = null, $supplierId = null, $orderId = null)
     {
         $builder = new InvoiceBuilder(
             $this->factory,
             $this->getInvoiceRepository(),
-            $this->getValidator(),
-            $this->getNumericFactory()
+            $this->factory->getValidator(),
+            $this->factory->getNumericFactory()
         );
-        return $builder->createInvoice($data, $storeId, $supplierId, $invoiceId);
-    }
-
-    /**
-     * @param Invoice $invoice
-     * @throws \InvalidArgumentException
-     */
-    public function flush(Invoice $invoice)
-    {
-        $this->getValidator()->validate($invoice);
-        $this->getDocumentManager()->persist($invoice);
-        $this->getDocumentManager()->flush($invoice);
+        return $builder->createInvoice($data, $storeId, $supplierId, $orderId);
     }
 
     /**
@@ -82,6 +69,9 @@ class InvoiceFactory extends AbstractFactory
 
     /**
      * @param string $id
+     * @throws \RuntimeException
+     * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
+     * @throws \Doctrine\ODM\MongoDB\LockException
      * @return Invoice
      */
     public function getInvoiceById($id)
@@ -95,6 +85,9 @@ class InvoiceFactory extends AbstractFactory
 
     /**
      * @param string $id
+     * @throws \RuntimeException
+     * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
+     * @throws \Doctrine\ODM\MongoDB\LockException
      * @return Invoice
      */
     public function getInvoiceProductById($id)
@@ -127,13 +120,5 @@ class InvoiceFactory extends AbstractFactory
     protected function getInvoiceProductRepository()
     {
         return $this->container->get('lighthouse.core.document.repository.invoice_product');
-    }
-
-    /**
-     * @return ExceptionalValidator
-     */
-    protected function getValidator()
-    {
-        return $this->container->get('lighthouse.core.validator');
     }
 }
