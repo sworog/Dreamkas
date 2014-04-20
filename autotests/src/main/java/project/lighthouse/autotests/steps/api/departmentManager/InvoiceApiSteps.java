@@ -61,6 +61,16 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
         getDriver().navigate().to(url);
     }
 
+    /**
+     * The method depends on invoice object creating by
+     * First - {@link project.lighthouse.autotests.steps.api.objectBuilder.InvoiceBuilderSteps#build(String, String, String, String, String)}}
+     * Second {@link project.lighthouse.autotests.steps.api.objectBuilder.InvoiceBuilderSteps#addProduct(String, String, String)}
+     *
+     * @param userName
+     * @return
+     * @throws IOException
+     * @throws JSONException
+     */
     @Step
     public Invoice createInvoiceFromInvoiceBuilderSteps(String userName) throws IOException, JSONException {
         User user = StaticData.users.get(userName);
