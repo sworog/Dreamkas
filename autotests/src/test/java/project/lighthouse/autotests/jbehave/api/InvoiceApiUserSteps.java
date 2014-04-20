@@ -13,15 +13,11 @@ import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.ProductApiSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.SupplierApiSteps;
 import project.lighthouse.autotests.steps.api.departmentManager.InvoiceApiSteps;
-import project.lighthouse.autotests.steps.api.departmentManager.OrderApiSteps;
 import project.lighthouse.autotests.storage.Storage;
 
 import java.io.IOException;
 
 public class InvoiceApiUserSteps {
-
-    @Steps
-    OrderApiSteps orderApiSteps;
 
     @Steps
     SupplierApiSteps supplierApiSteps;
@@ -74,5 +70,10 @@ public class InvoiceApiUserSteps {
     @Given("the user opens last created invoice page")
     public void givenTheUserOpensLastCreatedOrderPage() throws JSONException {
         invoiceApiSteps.openInvoicePage();
+    }
+
+    @Given("there is the invoice created with invoice builder steps by userName '$userName'")
+    public void givenThereIsTheInvoiceCreatedWithInvoiceBuilderStepsByUserName(String userName) throws IOException, JSONException {
+        invoiceApiSteps.createInvoiceFromInvoiceBuilderSteps(userName);
     }
 }

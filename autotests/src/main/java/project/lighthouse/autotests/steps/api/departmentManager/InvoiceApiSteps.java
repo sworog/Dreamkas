@@ -4,11 +4,12 @@ import net.thucydides.core.annotations.Step;
 import org.json.JSONException;
 import org.junit.Assert;
 import project.lighthouse.autotests.StaticData;
-import project.lighthouse.autotests.api.factories.InvoicesFactory;
+import project.lighthouse.autotests.api.abstractFactory.ApiFactory;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.User;
 import project.lighthouse.autotests.objects.api.invoice.Invoice;
 import project.lighthouse.autotests.objects.api.invoice.InvoiceProduct;
+import project.lighthouse.autotests.storage.Storage;
 
 import java.io.IOException;
 
@@ -44,8 +45,9 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
                                  String userName,
                                  InvoiceProduct[] invoiceProducts) throws IOException, JSONException {
         User user = StaticData.users.get(userName);
-        Invoice invoice = new InvoicesFactory(userName, "lighthouse")
-                .create(supplierId, acceptanceDate, accepter, legalEntity, supplierInvoiceNumber, invoiceProducts, user.getStore().getId());
+        Invoice invoice = new ApiFactory(userName, "lighthouse")
+                .getInvoicesFactory()
+                .create(supplierId, acceptanceDate, accepter, legalEntity, supplierInvoiceNumber, invoiceProducts, user.getStore());
         this.invoice = invoice;
         return invoice;
     }
@@ -54,8 +56,21 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
     public void openInvoicePage() throws JSONException {
         String url = String.format("%s/stores/%s/invoices/%s",
                 UrlHelper.getWebFrontUrl(),
-                invoice.getStoreId(),
+                invoice.getStore().getId(),
                 invoice.getId());
         getDriver().navigate().to(url);
+    }
+
+    @Step
+    public Invoice createInvoiceFromInvoiceBuilderSteps(String userName) throws IOException, JSONException {
+        User user = StaticData.users.get(userName);
+        Invoice invoice = new ApiFactory(userName, "lighthouse")
+                .getInvoicesFactory()
+                .create(
+                        Storage.getInvoiceVariableStorage().getInvoiceForInvoiceBuilderSteps(),
+                        user.getStore()
+                );
+        this.invoice = invoice;
+        return invoice;
     }
 }
