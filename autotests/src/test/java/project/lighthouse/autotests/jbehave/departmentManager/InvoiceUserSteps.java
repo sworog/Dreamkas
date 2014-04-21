@@ -5,8 +5,6 @@ import org.jbehave.core.annotations.*;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
-import project.lighthouse.autotests.helper.exampleTable.ExampleTableConverter;
-import project.lighthouse.autotests.jbehave.api.EndInvoiceApiSteps;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
@@ -242,33 +240,13 @@ public class InvoiceUserSteps {
         invoiceSteps.searchButtonClick();
     }
 
-    @Then("the user checks the invoice with sku '$sku' in search results")
-    public void thenTheUserChecksTheInvoiceInSearchResults(String sku) {
-        invoiceSteps.checkHasInvoice(sku);
-    }
-
-    @Then("the user checks the invoice search result list contains entry with stored values")
-    public void thenTheUserChecksTheInvoiceSearchResult() {
-        invoiceSteps.invoiceCompareWithExampleTable(ExampleTableConverter.convert(EndInvoiceApiSteps.examplesTable));
+    @When("the user clicks on item named '$itemName'")
+    public void whenTheUserClicksOnItem(String itemName) {
+        invoiceSteps.itemClick(itemName);
     }
 
     @Then("the user checks the form results text is '$text'")
     public void thenTheUserChecksTheFormREsultText(String text) {
         invoiceSteps.checkFormResultsText(text);
-    }
-
-    @When("the user clicks on the search result invoice with sku '$sku'")
-    public void whenTheUserClickOnTheSearchResultInvoice(String sku) {
-        invoiceSteps.searchResultClick(sku);
-    }
-
-    @Then("the user checks the highlighted text is '$expectedHighlightedText'")
-    public void thenTheUserChecksTheHighLightedText(String expectedHighlightedText) {
-        invoiceSteps.checkHighlightsText(expectedHighlightedText);
-    }
-
-    @When("the user clicks on item named '$itemName'")
-    public void whenTheUserClicksOnItem(String itemName) {
-        invoiceSteps.itemClick(itemName);
     }
 }

@@ -216,32 +216,6 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
-    public void checkFormResultsText(String text) {
-        Assert.assertEquals(text, invoiceSearchPage.getFormResultsText());
-    }
-
-    @Step
-    public void checkHasInvoice(String sku) {
-        invoiceSearchPage.getInvoiceSearchObjectCollection().contains(sku);
-    }
-
-    @Step
-    public void invoiceCompareWithExampleTable(ExamplesTable examplesTable) {
-        invoiceSearchPage.getInvoiceSearchObjectCollection().compareWithExampleTable(examplesTable);
-
-    }
-
-    @Step
-    public void searchResultClick(String sku) {
-        invoiceSearchPage.getInvoiceSearchObjectCollection().clickByLocator(sku);
-    }
-
-    @Step
-    public void checkHighlightsText(String expectedHighlightedText) {
-        invoiceSearchPage.getInvoiceSearchObjectCollection().containsHighLightText(expectedHighlightedText);
-    }
-
-    @Step
     public void objectPropertyClick(String objectLocator, String objectPropertyName) {
         invoiceBrowsing.getInvoiceProductsCollection().clickPropertyByLocator(objectLocator, objectPropertyName);
     }
@@ -291,5 +265,10 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void checkBoxPreLoaderWait() {
         new CheckBoxPreloader(getDriver()).await();
+    }
+
+    @Step
+    public void checkFormResultsText(String text) {
+        Assert.assertEquals(text, invoiceSearchPage.getFormResultsText());
     }
 }
