@@ -1,11 +1,28 @@
 <% var templates = {
-    select_unit: require('tpl!blocks/select/select_unit/select_unit.html'),
     select_priceRoundings: require('tpl!blocks/select/select_priceRoundings/select_priceRoundings.html'),
     select_vat: require('tpl!blocks/select/select_vat/select_vat.html')
 } %>
 
 <h1><%- model.id ? 'Редактирование товара' : 'Добавление товара' %></h1>
 <fieldset class="form__fieldset">
+    <div class="form__field form__feld_inline productForm__productTypeRadio">
+        <input id="product-form-piece-radio"
+                type="radio"
+                name="type"
+                value="piece"
+                class="productForm__hiddenInput"
+                <%- (model.get('type') == 'piece' || model.get('type') == null)?'checked':'' %> >
+        <label for="product-form-piece-radio">Штучный</label>
+
+        <input id="product-form-weight-radio"
+                type="radio"
+                name="type"
+                value="weight"
+                class="productForm__hiddenInput"
+                <%- (model.get('type') == 'weight')?'checked':'' %> >
+        <label for="product-form-weight-radio">Весовой</label>
+    </div>
+
     <% if (model.get('sku')) { %>
         <div class="form__field form__field_inline">
             <label class="form__label">Код товара</label>
@@ -40,6 +57,11 @@
     <div class="form__field form__field_inline">
         <label class="form__label">Производитель</label>
         <input value="<%- model.get('vendor') %>" class="inputText" type="text" name="vendor"/>
+    </div>
+
+    <!-- Advanced fields -->
+    <div class="productForm__productTypeSpecificFields">
+
     </div>
 
     <div class="form__field form__field_inline">

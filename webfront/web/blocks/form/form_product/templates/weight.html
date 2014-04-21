@@ -1,0 +1,12 @@
+<div class="form__field form__field_inline">
+    <label class="form__label">Наименование на весах</label>
+    <input value="<%- model.get('typeSpecific').nameOnScales %>" class="inputText" type="text" name="typeSpecific.nameOnScales"/>
+</div>
+<div class="form__field form__field_inline">
+    <label class="form__label">Описание товара на весах</label>
+    <input value="<%- model.get('typeSpecific').aboutOnScales %>" class="inputText" type="text" name="typeSpecific.aboutOnScales"/>
+</div>
+<div class="form__field form__field_inline">
+    <label class="form__label">Состав</label>
+    <textarea class="inputText" name="typeSpecific.structure"><%- model.get('typeSpecific').structure %></textarea>
+</div>

@@ -10,7 +10,12 @@ define(function(require) {
         defaults: {
             amount: 0,
             retailPricePreference: 'retailMarkup',
-            rounding: {}
+            rounding: {},
+            typeSpecific: {
+                nameOnScales: null,
+                aboutOnScales: null,
+                structure: null
+            }
         },
         saveData: function(){
 

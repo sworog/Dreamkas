@@ -9,6 +9,10 @@ define(function(require) {
             model: null,
             subCategoryModel: null,
             template: require('tpl!blocks/form/form_product/templates/index.html'),
+            productTypeSpecificFieldsTemplates: {
+                piece: require('tpl!./templates/piece.html'),
+                weight: require('tpl!./templates/weight.html')
+            },
             events: {
                 'click .productForm__inputLink': function(e) {
                     e.preventDefault;
@@ -46,6 +50,9 @@ define(function(require) {
                 },
                 'change [name="retailPriceMin"], [name="retailPriceMax"]': function() {
                     this.renderRetailPriceLink();
+                },
+                'click .productForm__productTypeRadio input': function() {
+                    this.renderProductTypeSpecificFields();
                 }
             },
 
@@ -76,6 +83,9 @@ define(function(require) {
 
                 block.$retailMarkupField = block.$('.productForm__retailMarkupField');
                 block.$retailPriceField = block.$('.productForm__retailPriceField');
+
+                block.$productTypeSpecificFields = block.$('.productForm__productTypeSpecificFields');
+                block.$productTypeRadio = block.$('.productForm__productTypeRadio');
             },
             render: function(){
                 var block = this;
@@ -83,6 +93,7 @@ define(function(require) {
                 Form.prototype.render.call(this);
 
                 block.renderPriceInputs();
+                block.renderProductTypeSpecificFields();
             },
             showRetailMarkupInput: function() {
                 this.$retailPriceSpan.addClass('productForm__hiddenInput');
@@ -221,6 +232,16 @@ define(function(require) {
                 this.$retailMarkupLink
                     .find('.productForm__inputLinkText')
                     .html(text);
+            },
+            renderProductTypeSpecificFields: function() {
+                var block = this,
+                    productTypeSelected = block.$productTypeRadio.find('input:checked').val();
+
+                block.$productTypeSpecificFields.hide(100);
+                block.$productTypeSpecificFields.html(block.productTypeSpecificFieldsTemplates[productTypeSelected]({
+                    model: block.model
+                }));
+                block.$productTypeSpecificFields.show(100);
             }
         });
     }
