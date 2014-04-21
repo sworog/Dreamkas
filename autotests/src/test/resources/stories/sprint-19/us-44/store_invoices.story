@@ -7,29 +7,6 @@ As a заведующий отделом
 I want to просматривать список накладных своего магазина
 In order to контролировать процесс приемки
 
-Scenario: Store invoice creation
-
-Given there is the user with name 'departmentManager-SIC', position 'departmentManager-SIC', username 'departmentManager-SIC', password 'lighthouse', role 'departmentManager'
-And there is the store with number 'SIC-01' managed by department manager named 'departmentManager-SIC'
-And the user is on the store 'SIC-01' invoice list page
-When the user logs in using 'departmentManager-SIC' userName and 'lighthouse' password
-When the user clicks the create button on the invoice list page
-And the user inputs '654321' in the invoice 'sku' field
-And the user inputs '02.04.2013 16:23' in the invoice 'acceptanceDate' field
-And the user inputs 'ОАЭ Поставщик' in the invoice 'supplier' field
-And the user inputs 'Иван Петрович Васильев' in the invoice 'accepter' field
-And the user inputs 'ООО23' in the invoice 'legalEntity' field
-And the user inputs '799' in the invoice 'supplierInvoiceSku' field
-And the user inputs '01.04.2013' in the invoice 'supplierInvoiceDate' field
-And the user navigates to invoice product addition
-And the user clicks finish edit button and ends the invoice edition
-Given the user is on the store 'SIC-01' invoice list page
-Then the user checks the invoice with '654321' sku is present
-And the user checks the invoice with '654321' sku has 'acceptanceDate' equal to '02.04.2013 16:23'
-And the user checks the invoice with '654321' sku has 'supplier' equal to 'ОАЭ Поставщик'
-And the user checks the invoice with '654321' sku has 'sumTotal' equal to ''
-And the user checks the invoice with '654321' sku has 'accepter' equal to 'Иван Петрович Васильев'
-
 Scenario: Creating invoces in different stores by different users
 
 Given there is the user with name 'departmentManager-SIC', position 'departmentManager-SIC', username 'departmentManager-SIC', password 'lighthouse', role 'departmentManager'
