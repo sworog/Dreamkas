@@ -14,7 +14,7 @@ class CostOfGoodsTest extends WebTestCase
 {
     public function testIndexRangeCreatedOnInvoiceConsecutiveInsert()
     {
-        $productIds = $this->createProductsBySku(array('1', '2', '3'));
+        $productIds = $this->createProductsByNames(array('1', '2', '3'));
 
         $store1 = $this->factory()->store()->getStore('701');
 
@@ -62,7 +62,7 @@ class CostOfGoodsTest extends WebTestCase
 
     public function testIndexRangeCreatedOnSaleConsecutiveInsert()
     {
-        $productIds = $this->createProductsBySku(array('1', '2', '3'));
+        $productIds = $this->createProductsByNames(array('1', '2', '3'));
 
         $store1 = $this->factory()->store()->getStore('701');
 

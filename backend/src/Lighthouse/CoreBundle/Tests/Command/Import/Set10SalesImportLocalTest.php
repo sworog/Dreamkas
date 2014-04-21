@@ -43,7 +43,7 @@ class Set10SalesImportLocalTest extends WebTestCase
         $this->factory->store()->getStoreId('197');
         $this->factory->store()->getStoreId('666');
         $this->factory->store()->getStoreId('777');
-        $this->createProductsBySku(
+        $this->createProductsByNames(
             array(
                 '1',
                 '3',
@@ -74,7 +74,7 @@ class Set10SalesImportLocalTest extends WebTestCase
     public function testExecuteWithErrors()
     {
         $this->factory->store()->getStoreId('197');
-        $this->createProductsBySku(
+        $this->createProductsByNames(
             array(
                 '8594403916157',
                 '2873168',
@@ -251,7 +251,7 @@ EOF;
     public function testProfile()
     {
         $this->factory->store()->getStoreId('197');
-        $this->createProductsBySku(
+        $this->createProductsByNames(
             array(
                 '1',
                 '7',
@@ -279,7 +279,7 @@ EOF;
     public function testSortByFileDate()
     {
         $this->factory->store()->getStores(array('1', '2', '3', '4', '5'));
-        $this->createProductsBySku(
+        $this->createProductsByNames(
             array(
                 'ЦБ000003263',
                 'ЦБ000003338',
@@ -315,7 +315,7 @@ EOF;
     public function testSortByFileName()
     {
         $this->factory->store()->getStores(array('1', '2', '3', '4', '5'));
-        $this->createProductsBySku(
+        $this->createProductsByNames(
             array(
                 'ЦБ000003263',
                 'ЦБ000003338',
@@ -351,7 +351,7 @@ EOF;
     public function testOnlyPurchaseFilesAreImportedOnFileDateSort()
     {
         $this->factory->store()->getStores(array('1', '2', '3'));
-        $this->createProductsBySku(
+        $this->createProductsByNames(
             array(
                 'АВ000000221',
                 'Ц0000001366',

@@ -74,7 +74,7 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
      */
     protected function createProducts(array $products)
     {
-        $productIds = $this->createProductsBySku(array_keys($products));
+        $productIds = $this->createProductsByNames(array_keys($products));
         foreach ($productIds as $sku => $productId) {
             $products[$sku]['id'] = $productId;
             $products[$sku]['sku'] = $sku;

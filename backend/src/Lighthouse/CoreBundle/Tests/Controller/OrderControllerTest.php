@@ -876,9 +876,9 @@ class OrderControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId1 = $this->createProduct(array('name' => 'Кефир1Назв', 'sku' => 'Кефир1Арт', 'barcode' => '1111111'));
-        $productId2 = $this->createProduct(array('name' => 'Кефир2Назв', 'sku' => 'Кефир2Арт', 'barcode' => '2222222'));
-        $productId3 = $this->createProduct(array('name' => 'Кефир3Назв', 'sku' => 'Кефир3Арт', 'barcode' => '3333333'));
+        $productId1 = $this->createProduct(array('name' => 'Кефир1Назв', 'barcode' => '1111111'));
+        $productId2 = $this->createProduct(array('name' => 'Кефир2Назв', 'barcode' => '2222222'));
+        $productId3 = $this->createProduct(array('name' => 'Кефир3Назв', 'barcode' => '3333333'));
 
         $order = $this->factory()
             ->order()

@@ -5,9 +5,9 @@
               tabNumber="1" shop="197">
         <positions>
             <position amount="513.0" costWithDiscount="513.0" discountValue="57.0" ndsSum="0.0" nds="18.0" cost="570.0"
-                      count="1.0" barCode="1" goodsCode="1" departNumber="1" order="3"/>
+                      count="1.0" barCode="1" goodsCode="10001" departNumber="1" order="3"/>
             <position amount="4500.0" costWithDiscount="180.0" discountValue="500.0" ndsSum="0.0" nds="18.0"
-                      cost="200.0" count="25.0" barCode="3" goodsCode="3" departNumber="1" order="1"/>
+                      cost="200.0" count="25.0" barCode="3" goodsCode="10003" departNumber="1" order="1"/>
         </positions>
         <payments>
             <payment description="" amount="5596.25" typeClass="CashPaymentEntity"/>
@@ -19,7 +19,7 @@
               tabNumber="1" shop="197">
         <positions>
             <position amount="36.0" costWithDiscount="36.0" discountValue="4.0" ndsSum="0.0" nds="18.0" cost="40.0"
-                      count="1.0" barCode="4" goodsCode="4" departNumber="51" order="1"/>
+                      count="1.0" barCode="4" goodsCode="10004" departNumber="51" order="1"/>
         </positions>
         <payments>
             <payment description="" amount="36.0" typeClass="BonusCardPaymentEntity"/>
@@ -31,7 +31,7 @@
               tabNumber="1" shop="197">
         <positions>
             <position amount="38.0" costWithDiscount="38.0" discountValue="2.0" ndsSum="0.0" nds="18.0" cost="40.0"
-                      count="1.0" barCode="4" goodsCode="4" departNumber="51" order="1"/>
+                      count="1.0" barCode="4" goodsCode="10004" departNumber="51" order="1"/>
         </positions>
         <payments>
             <payment description="" amount="38.0" typeClass="CashPaymentEntity"/>
@@ -43,13 +43,13 @@
               tabNumber="1" shop="197">
         <positions>
             <position amount="513.0" costWithDiscount="513.0" discountValue="57.0" ndsSum="0.0" nds="18.0" cost="570.0"
-                      count="1.0" barCode="3" goodsCode="3" departNumber="1" order="2"/>
+                      count="1.0" barCode="3" goodsCode="10003" departNumber="1" order="2"/>
             <position amount="4500.0" costWithDiscount="180.0" discountValue="500.0" ndsSum="0.0" nds="18.0"
-                      cost="200.0" count="25.0" barCode="4" goodsCode="4" departNumber="1" order="1"/>
+                      cost="200.0" count="25.0" barCode="4" goodsCode="10004" departNumber="1" order="1"/>
             <position amount="36.0" costWithDiscount="36.0" discountValue="4.0" ndsSum="0.0" nds="18.0" cost="40.0"
-                      count="1.57" barCode="1" goodsCode="1" departNumber="51" order="1"/>
+                      count="1.57" barCode="1" goodsCode="10001" departNumber="51" order="1"/>
             <position amount="36.0" costWithDiscount="36.0" discountValue="4.0" ndsSum="0.0" nds="18.0" cost="40.0"
-                      count="3.576" barCode="3" goodsCode="3" departNumber="51" order="1"/>
+                      count="3.576" barCode="3" goodsCode="10003" departNumber="51" order="1"/>
         </positions>
         <payments>
             <payment description="" amount="6000.0" typeClass="CashPaymentEntity"/>

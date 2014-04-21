@@ -28,7 +28,7 @@ class SalesImporterTest extends WebTestCase
             '8594403110111' => '-1',
             '4601501082159' => '-1',
         );
-        $productIds = $this->createProductsBySku(array_keys($skuAmounts));
+        $productIds = $this->createProductsByNames(array_keys($skuAmounts));
 
         $output = new TestOutput();
         $this->import('purchases-14-05-2012_9-18-29.xml', $output);
@@ -48,7 +48,7 @@ class SalesImporterTest extends WebTestCase
     public function testImportWithNotFoundProducts()
     {
         $this->factory->store()->getStoreId('197');
-        $this->createProductsBySku(
+        $this->createProductsByNames(
             array(
                 '1',
                 '3',
@@ -79,7 +79,7 @@ class SalesImporterTest extends WebTestCase
     public function testImportWithNotFoundShops()
     {
         $this->factory->store()->getStoreId('777');
-        $this->createProductsBySku(
+        $this->createProductsByNames(
             array(
                 'Кит-Кат-343424',
                 'Мит-Мат',
@@ -99,7 +99,7 @@ class SalesImporterTest extends WebTestCase
     public function testImportDoubleSales()
     {
         $storeIds = $this->factory->store()->getStores(array('777', '666'));
-        $productIds = $this->createProductsBySku(
+        $productIds = $this->createProductsByNames(
             array(
                 'Кит-Кат-343424',
             )
@@ -126,7 +126,7 @@ class SalesImporterTest extends WebTestCase
     public function testImportDoubleSalesWithDifferentAmount()
     {
         $storeIds = $this->factory->store()->getStores(array('777', '666'));
-        $productIds = $this->createProductsBySku(
+        $productIds = $this->createProductsByNames(
             array(
                 'Кит-Кат-343424',
             )
@@ -163,7 +163,7 @@ class SalesImporterTest extends WebTestCase
             '4' => -23,
         );
 
-        $productIds = $this->createProductsBySku(array_keys($skuAmounts));
+        $productIds = $this->createProductsByNames(array_keys($skuAmounts));
 
         $output = new TestOutput();
         $this->import('purchases-with-returns.xml', $output);
@@ -181,7 +181,7 @@ class SalesImporterTest extends WebTestCase
     public function testImportSamePurchaseWithDifferentStoreNumber()
     {
         $this->factory->store()->getStores(array('25573', '255731'));
-        $this->createProductsBySku(array('25573', '255731'));
+        $this->createProductsByNames(array('25573', '255731'));
 
         $output = new TestOutput();
         $this->import('SameSame/s25u574-shop1-product2-today-1.xml', $output);
@@ -300,7 +300,7 @@ class SalesImporterTest extends WebTestCase
             4100013097,
         );
         $storeId = $this->factory->store()->getStoreId('701');
-        $this->createProductsBySku($skus);
+        $this->createProductsByNames($skus);
 
         $importer = $this->import('Kesko/purchases-success-2013.11.04-00.03.09.514.xml', null, null, $datePeriod);
 
@@ -417,7 +417,7 @@ class SalesImporterTest extends WebTestCase
             '6' => -1,
         );
 
-        $productIds = $this->createProductsBySku(array_keys($skuAmounts));
+        $productIds = $this->createProductsByNames(array_keys($skuAmounts));
 
         $output = new TestOutput();
         $this->import('Duplicate/purchase-first.xml', $output);

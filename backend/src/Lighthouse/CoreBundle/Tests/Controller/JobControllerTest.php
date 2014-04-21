@@ -38,7 +38,7 @@ class JobControllerTest extends WebTestCase
         $storeId3 = $this->factory->store()->getStoreId('3');
 
         $productData = array(
-            'sku' => 'Печенье Юбилейное',
+            'name' => 'Печенье Юбилейное',
             'purchasePrice' => 20,
             'retailMarkupMin' => 10,
             'retailMarkupMax' => 30,
@@ -177,7 +177,7 @@ class JobControllerTest extends WebTestCase
         $storeId3 = $this->factory->store()->getStoreId('3');
 
         $productData = array(
-            'sku' => 'Печенье Юбилейное',
+            'name' => 'Печенье Юбилейное',
             'purchasePrice' => '20.00',
             'retailPriceMin' => '21.08',
             'retailPriceMax' => '27.74',
@@ -340,7 +340,7 @@ class JobControllerTest extends WebTestCase
         $storeId = $this->factory->store()->getStoreId('1');
 
         $productData = array(
-            'sku' => 'Печенье Юбилейное',
+            'name' => 'Печенье Юбилейное',
             'purchasePrice' => '20.00',
             'retailPriceMin' => '21.08',
             'retailPriceMax' => '27.74',
@@ -357,7 +357,7 @@ class JobControllerTest extends WebTestCase
         $this->updateStoreProduct($storeId, $productId, $storeProductData);
 
         $updateProductData = array(
-            'sku' => 'Печенье Юбелейное 200гр'
+            'name' => 'Печенье Юбелейное 200гр'
         ) + $productData;
 
         $this->updateProduct($productId, $updateProductData);

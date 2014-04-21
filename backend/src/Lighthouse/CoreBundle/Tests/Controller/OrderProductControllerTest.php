@@ -190,7 +190,6 @@ class OrderProductControllerTest extends WebTestCase
             'units' => 'gr',
             'barcode' => '123',
             'purchasePrice' => 123,
-            'sku' => '123',
             'vat' => 0,
             'vendor' => '',
             'vendorCountry' => '',

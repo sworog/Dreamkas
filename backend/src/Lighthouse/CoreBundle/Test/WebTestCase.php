@@ -158,7 +158,6 @@ class WebTestCase extends ContainerAwareTestCase
             'units' => 'gr',
             'barcode' => '4607025392408',
             'purchasePrice' => 3048,
-            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
             'vat' => 10,
             'vendor' => 'Вимм-Билль-Данн',
             'vendorCountry' => 'Россия',
@@ -170,7 +169,6 @@ class WebTestCase extends ContainerAwareTestCase
             $productData = $extra + $productData;
         } else {
             $productData['name'].= $extra;
-            $productData['sku'].= $extra;
         }
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
@@ -196,28 +194,28 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @param array $skus
+     * @param array $names
      * @param bool $unique
      * @throws \PHPUnit_Framework_AssertionFailedError
      * @return array|string[] sku => id
      */
-    protected function createProductsBySku(array $skus, $unique = false)
+    protected function createProductsByNames(array $names, $unique = false)
     {
         if ($unique) {
-            $skus = array_unique($skus);
+            $names = array_unique($names);
         }
         $products = array();
-        $failedSkus = array();
-        foreach ($skus as $sku) {
+        $failedNames = array();
+        foreach ($names as $name) {
             try {
-                $products[$sku] = $this->createProduct(array('sku' => $sku));
+                $products[$name] = $this->createProduct(array('name' => $name));
             } catch (\PHPUnit_Framework_AssertionFailedError $e) {
-                $failedSkus[] = $sku;
+                $failedNames[] = $name;
             }
         }
-        if (count($failedSkus) > 0) {
+        if (count($failedNames) > 0) {
             throw new \PHPUnit_Framework_AssertionFailedError(
-                sprintf('Failed to create products with following skus: %s', implode(', ', $failedSkus))
+                sprintf('Failed to create products with following names: %s', implode(', ', $failedNames))
             );
         }
         return $products;
