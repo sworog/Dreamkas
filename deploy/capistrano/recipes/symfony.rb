@@ -57,6 +57,7 @@ namespace :symfony do
         task :setup, :roles => :app, :except => { :no_release => true } do
             upload
             rename_database_name
+            rename_web_host
         end
 
         desc "Upload current parameters.yml to shared folder"
@@ -72,6 +73,13 @@ namespace :symfony do
             set :database_name, application.gsub(/\./, '_') unless exists?(:database_name)
             puts "--> Database name in ".yellow + "parameters.yml".bold.yellow + " will be set to ".yellow + "#{database_name}".red
             run "sed -r -i 's/^(\\s+database_name:\\s+).+$/\\1#{database_name}/g' #{parameters_file}"
+        end
+
+        desc "Rename web_host in app/config/parameters.yml"
+        task :rename_web_host, :roles => :app, :except => { :no_release => true } do
+            set :web_host, application_url.gsub('/', '\/\/')
+            puts "--> Web host in ".yellow + "parameters.yml".bold.yellow + " will be set to ".yellow + "#{application_url}".red
+            run "sed -r -i 's/^(\\s+web_host:\\s+).+$/\\1#{web_host}/g' #{parameters_file}"
         end
     end
 
