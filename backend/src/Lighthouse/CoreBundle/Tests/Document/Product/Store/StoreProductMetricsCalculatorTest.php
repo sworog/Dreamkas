@@ -75,10 +75,10 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
     protected function createProducts(array $products)
     {
         $productIds = $this->createProductsByNames(array_keys($products));
-        foreach ($productIds as $sku => $productId) {
-            $products[$sku]['id'] = $productId;
-            $products[$sku]['sku'] = $sku;
-            $products[$sku]['message'] = sprintf("Product '%s' assertions failed", $sku);
+        foreach ($productIds as $name => $productId) {
+            $products[$name]['id'] = $productId;
+            $products[$name]['name'] = $name;
+            $products[$name]['message'] = sprintf("Product '%s' assertions failed", $name);
         }
         return $products;
     }
@@ -87,77 +87,77 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
     {
         $storeId = $this->factory->store()->getStoreId('197');
         $products = array(
-            '12881231' => array(
+            '10001' => array(
                 'sold' => 12,
                 'accepted' => 30,
                 'inventory' => 18,
                 'inventoryDays' => 0,
                 'averageDailySales' => 0,
             ),
-            '1' => array(
+            '10002' => array(
                 'sold' => 312,
                 'accepted' => 1000,
                 'inventory' => 688,
                 'inventoryDays' => '202.4',
                 'averageDailySales' => 3.4,
             ),
-            '3' => array(
+            '10003' => array(
                 'sold' => 10,
                 'accepted' => 20,
                 'inventory' => 10,
                 'inventoryDays' => '30.3',
                 'averageDailySales' => '0.33',
             ),
-            '7' => array(
+            '10004' => array(
                 'sold' => 1,
                 'accepted' => 3,
                 'inventory' => 2,
                 'inventoryDays' => '66.7',
                 'averageDailySales' => '0.03',
             ),
-            '8594403916157' => array(
+            '10005' => array(
                 'sold' => 2,
                 'accepted' => 1,
                 'inventory' => -1,
                 'inventoryDays' => '0.0',
                 'averageDailySales' => '0.07',
             ),
-            '2873168' => array(
+            '10006' => array(
                 'sold' => 21,
                 'accepted' => 30,
                 'inventory' => 9,
                 'inventoryDays' => '12.9',
                 'averageDailySales' => 0.7,
             ),
-            '2809727' => array(
+            '10007' => array(
                 'sold' => 25,
                 'accepted' => 30,
                 'inventory' => 5,
                 'inventoryDays' => 6,
                 'averageDailySales' => '0.83',
             ),
-            '25525687' => array(
+            '10008' => array(
                 'sold' => 157,
                 'accepted' => 180,
                 'inventory' => 23,
                 'inventoryDays' => '4.4',
                 'averageDailySales' => '5.23',
             ),
-            '55557' => array(
+            '10009' => array(
                 'sold' => 1,
                 'accepted' => 11,
                 'inventory' => 10,
                 'inventoryDays' => '333.3',
                 'averageDailySales' => '0.03',
             ),
-            '8594403110111' => array(
+            '10010' => array(
                 'sold' => 1288,
                 'accepted' => 1500,
                 'inventory' => 212,
                 'inventoryDays' => '4.9',
                 'averageDailySales' => '42.93',
             ),
-            '4601501082159' => array(
+            '10011' => array(
                 'sold' => 134,
                 'accepted' => 167,
                 'inventory' => 33,
