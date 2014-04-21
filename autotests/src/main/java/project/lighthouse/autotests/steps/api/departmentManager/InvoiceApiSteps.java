@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.Step;
 import org.json.JSONException;
 import org.junit.Assert;
 import project.lighthouse.autotests.StaticData;
-import project.lighthouse.autotests.api.abstractFactory.ApiFactory;
+import project.lighthouse.autotests.api.abstractFactory.factories.InvoicesFactory;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.User;
 import project.lighthouse.autotests.objects.api.invoice.Invoice;
@@ -45,8 +45,7 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
                                  String userName,
                                  InvoiceProduct[] invoiceProducts) throws IOException, JSONException {
         User user = StaticData.users.get(userName);
-        Invoice invoice = new ApiFactory(userName, "lighthouse")
-                .getInvoicesFactory()
+        Invoice invoice = new InvoicesFactory(userName, "lighthouse")
                 .create(supplierId, acceptanceDate, accepter, legalEntity, supplierInvoiceNumber, invoiceProducts, user.getStore());
         this.invoice = invoice;
         return invoice;
@@ -74,8 +73,7 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
     @Step
     public Invoice createInvoiceFromInvoiceBuilderSteps(String userName) throws IOException, JSONException {
         User user = StaticData.users.get(userName);
-        Invoice invoice = new ApiFactory(userName, "lighthouse")
-                .getInvoicesFactory()
+        Invoice invoice = new InvoicesFactory(userName, "lighthouse")
                 .create(
                         Storage.getInvoiceVariableStorage().getInvoiceForInvoiceBuilderSteps(),
                         user.getStore()

@@ -1,7 +1,7 @@
 package project.lighthouse.autotests.api.abstractFactory.factories;
 
 import org.json.JSONException;
-import project.lighthouse.autotests.api.abstractFactory.ApiFactory;
+import project.lighthouse.autotests.api.abstractFactory.AbstractApiFactory;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.api.invoice.Invoice;
 import project.lighthouse.autotests.objects.api.invoice.InvoiceProduct;
@@ -11,9 +11,9 @@ import java.io.IOException;
 /**
  * Factory to create invoices
  */
-public class InvoicesFactory extends ApiFactory {
+public class InvoicesFactory extends AbstractApiFactory {
 
-    private InvoicesFactory(String userName, String password) {
+    public InvoicesFactory(String userName, String password) {
         super(userName, password);
     }
 
