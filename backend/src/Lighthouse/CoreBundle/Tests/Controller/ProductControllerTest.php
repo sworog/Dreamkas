@@ -1833,9 +1833,8 @@ class ProductControllerTest extends WebTestCase
     /**
      * @group unique
      */
-    public function testUniqueNameInParallel()
+    public function testNotUniqueSkuInParallel()
     {
-        $this->markTestIncomplete();
         $productData = $this->getProductData();
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
@@ -1852,10 +1851,11 @@ class ProductControllerTest extends WebTestCase
         }
         $exporter = new Exporter();
         $responseBody = $exporter->export($jsonResponses);
-        $this->assertCount(1, array_keys($statusCodes, 201), $responseBody);
-        $this->assertCount(2, array_keys($statusCodes, 400), $responseBody);
-        Assert::assertJsonPathEquals('Кефир "Веселый Молочник" 1% 950гр', '*.name', $jsonResponses, 1);
-        Assert::assertJsonPathEquals('Такой артикул уже есть', '*.children.sku.errors.0', $jsonResponses, 2);
+        $this->assertCount(3, array_keys($statusCodes, 201), $responseBody);
+        Assert::assertJsonPathEquals('Кефир "Веселый Молочник" 1% 950гр', '*.name', $jsonResponses, 3);
+        Assert::assertJsonPathEquals('10001', '*.sku', $jsonResponses, 1);
+        Assert::assertJsonPathEquals('10002', '*.sku', $jsonResponses, 1);
+        Assert::assertJsonPathEquals('10003', '*.sku', $jsonResponses, 1);
     }
 
     protected function doPostActionFlushFailedException(\Exception $exception)
@@ -1933,13 +1933,12 @@ class ProductControllerTest extends WebTestCase
      */
     public function testPostActionFlushFailedMongoDuplicateKeyException()
     {
-        $this->markTestIncomplete();
         $exception = new MongoDuplicateKeyException();
         $response = $this->doPostActionFlushFailedException($exception);
 
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
-        Assert::assertJsonPathEquals('Такой артикул уже есть', 'children.sku.errors.0', $response);
+        Assert::assertJsonPathEquals('Такой артикул уже есть', 'errors.0', $response);
     }
 
     public function testPostActionToSubCategoryWithMarkup()
