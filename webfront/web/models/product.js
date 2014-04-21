@@ -52,7 +52,6 @@ define(function(require) {
 
             return {
                 name: this.get('name'),
-                units: this.get('units'),
                 vat: this.get('vat'),
                 purchasePrice: purchasePrice,
                 retailPriceMin: retailPriceMin,
@@ -63,7 +62,6 @@ define(function(require) {
                 barcode: this.get('barcode'),
                 vendorCountry: this.get('vendorCountry'),
                 vendor: this.get('vendor'),
-                info: this.get('info'),
                 subCategory: this.get('subCategory'),
                 rounding: this.get('rounding') ? this.get('rounding').name : null
             }

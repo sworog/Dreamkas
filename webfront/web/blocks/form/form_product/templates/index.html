@@ -17,12 +17,8 @@
         <input value="<%- model.get('name') %>" class="inputText" type="text" name="name"/>
     </div>
     <div class="form__field form__field_inline">
-        <label class="form__label">Измеряется в</label>
-        <select class="select select_unit" name="units">
-            <%= templates.select_unit({
-                selected: model.get('units')
-            }) %>
-        </select>
+        <label class="form__label">Единица измерения</label>
+        <div name="units"><%- LH.units(model.get('units'), 'capitalFull') %></div>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">НДС</label>
@@ -32,6 +28,20 @@
             }) %>
         </select>
     </div>
+
+    <div class="form__field form__field_inline">
+        <label class="form__label">Штрихкод</label>
+        <input value="<%- model.get('barcode') %>" class="inputText" type="text" name="barcode"/>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Страна производства</label>
+        <input value="<%- model.get('vendorCountry') %>" class="inputText" type="text" name="vendorCountry"/>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Производитель</label>
+        <input value="<%- model.get('vendor') %>" class="inputText" type="text" name="vendor"/>
+    </div>
+
     <div class="form__field form__field_inline">
         <label class="form__label">Цена закупки</label>
         <input style="width: 150px;" value="<%- model.get('purchasePrice') ? LH.formatMoney(model.get('purchasePrice')) : '' %>" class="inputText" type="text" name="purchasePrice"/>
@@ -92,25 +102,6 @@
         </select>
     </div>
     <input type="hidden" value="<%- model.get('retailPricePreference') %>" name="retailPricePreference" />
-</fieldset>
-<fieldset class="form__fieldset">
-    <legend class="form__legend">Необязательно к заполнению</legend>
-    <div class="form__field form__field_inline">
-        <label class="form__label">Штрихкод</label>
-        <input value="<%- model.get('barcode') %>" class="inputText" type="text" name="barcode"/>
-    </div>
-    <div class="form__field form__field_inline">
-        <label class="form__label">Страна производства</label>
-        <input value="<%- model.get('vendorCountry') %>" class="inputText" type="text" name="vendorCountry"/>
-    </div>
-    <div class="form__field form__field_inline">
-        <label class="form__label">Производитель</label>
-        <input value="<%- model.get('vendor') %>" class="inputText" type="text" name="vendor"/>
-    </div>
-    <div class="form__field form__field_inline">
-        <label class="form__label">Дополнительная информация</label>
-        <textarea class="inputText" name="info"><%- model.get('info') %></textarea>
-    </div>
 </fieldset>
 <div class="form__controls">
     <span lh-button class="button">
