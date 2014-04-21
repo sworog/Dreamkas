@@ -81,6 +81,7 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
                         user.getStore()
                 );
         this.invoice = invoice;
+        Storage.getInvoiceVariableStorage().setInvoiceForInvoiceBuilderSteps(null);
         return invoice;
     }
 }
