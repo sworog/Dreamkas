@@ -15,6 +15,7 @@ import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.helper.exampleTable.invoice.InvoiceExampleTableUpdater;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.web.invoice.InvoiceProductObject;
+import project.lighthouse.autotests.objects.web.search.InvoiceListSearchObject;
 import project.lighthouse.autotests.pages.departmentManager.invoice.InvoicePage;
 import project.lighthouse.autotests.pages.departmentManager.invoice.deprecated.InvoiceSearchPage;
 import project.lighthouse.autotests.storage.Storage;
@@ -186,6 +187,22 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void invoiceListSearchObjectClick(String locator) {
         invoiceSearchPage.getInvoiceListSearchObjectCollection().clickByLocator(locator);
+    }
+
+    @Step
+    public void invoiceListSearchObjectContains(String locator) {
+        invoiceSearchPage.getInvoiceListSearchObjectCollection().contains(locator);
+    }
+
+    @Step
+    public void invoiceListSearchObjectExactCompareWith(ExamplesTable examplesTable) {
+        invoiceSearchPage.getInvoiceListSearchObjectCollection().exactCompareExampleTable(examplesTable);
+    }
+
+    @Step
+    public void invoiceListSearchObjectContainsHighLightedTextByLocator(String locator, String text) {
+        InvoiceListSearchObject invoiceListSearchObject = (InvoiceListSearchObject) invoiceSearchPage.getInvoiceListSearchObjectCollection().getAbstractObjectByLocator(locator);
+        assertThat(invoiceListSearchObject.getHighLightedText(), is(text));
     }
 
     @Step
