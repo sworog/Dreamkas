@@ -19,7 +19,6 @@ class ProductType extends AbstractType
             ->add('vat', 'text')
             ->add('purchasePrice', 'money')
             ->add('barcode', 'text')
-            ->add('sku', 'text')
             ->add('vendorCountry', 'text')
             ->add('vendor', 'text')
             ->add('info', 'text')
