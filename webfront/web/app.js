@@ -29,28 +29,32 @@ define(function(require) {
         showCHTPN;
 
     showCHTPN = function(response) {
-        var chtpnTemplate = require('tpl!./chtpn.html');
-//        chtpnTemplate = _.template(chtpnTemplate);
-        var html = $('<div></div>').html(chtpnTemplate({
-            response: response
-        }));
-        html.find('.close').click(function(event){
-            event.preventDefault();
-
-            html.remove();
-        });
-        html.find('.show-more').click(function(event) {
-            event.preventDefault();
-
-            if (html.find('.more-info').is(':visible')) {
-                html.find('.more-info').hide();
-            } else {
+        if (LH.debugLevel > 0) {
+            var chtpnTemplate = require('tpl!./chtpn.html');
+            var html = $('<div></div>').html(chtpnTemplate({
+                response: response
+            }));
+            if (LH.debugLevel >= 2) {
                 html.find('.more-info').show();
             }
+            html.find('.close').click(function(event){
+                event.preventDefault();
 
-            return false;
-        });
-        $('body').append(html);
+                html.remove();
+            });
+            html.find('.show-more').click(function(event) {
+                event.preventDefault();
+
+                if (html.find('.more-info').is(':visible')) {
+                    html.find('.more-info').hide();
+                } else {
+                    html.find('.more-info').show();
+                }
+
+                return false;
+            });
+            $('body').append(html);
+        }
     };
 
     Backbone.sync = function(method, model, options) {
@@ -66,6 +70,8 @@ define(function(require) {
                     if (app.isStarted) {
                         document.location.reload();
                     }
+                    break;
+                case 400:
                     break;
                 default:
                     showCHTPN(res);
