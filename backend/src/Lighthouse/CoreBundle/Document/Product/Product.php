@@ -15,7 +15,6 @@ use Lighthouse\CoreBundle\Versionable\VersionableInterface;
 use Lighthouse\CoreBundle\Validator\Constraints\Product\RetailPrice as AssertProductRetailPrice;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 
-
 /**
  *
  * @property string $id

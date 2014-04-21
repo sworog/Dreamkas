@@ -76,30 +76,29 @@ class Set10SalesImportLocalTest extends WebTestCase
         $this->factory->store()->getStoreId('197');
         $this->createProductsByNames(
             array(
-                '8594403916157',
-                '2873168',
-                '2809727',
-                '25525687',
-                '55557',
-                '8594403110111',
-                '4601501082159',
-                'Кит-Кат-343424',
+                '10001',
+                '10002',
+                '10003',
+                '10004',
+                '10005',
+                '10006',
+                '10007',
+                '10008',
+                '10009',
             )
         );
 
-        $commandTester = $this->execute('purchases-14-05-2012_9-18-29.xml');
+        $commandTester = $this->execute('purchases-not-found.xml');
 
         $display = $commandTester->getDisplay();
 
-        $this->assertContains(".E...........E............E.E.E                      31\nFlushing", $display);
-        $this->assertContains('Product with sku "1" not found', $display);
-        $this->assertContains('Product with sku "7" not found', $display);
-        $this->assertContains('Product with sku "3" not found', $display);
+        $this->assertContains("..E...............E.....                             24\nFlushing", $display);
+        $this->assertContains('Product with sku "2873168" not found', $display);
 
         /* @var LogRepository $logRepository */
         $logRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
         $cursor = $logRepository->findAll();
-        $this->assertCount(5, $cursor);
+        $this->assertCount(2, $cursor);
     }
 
     public function testExecuteWithAllErrors()
