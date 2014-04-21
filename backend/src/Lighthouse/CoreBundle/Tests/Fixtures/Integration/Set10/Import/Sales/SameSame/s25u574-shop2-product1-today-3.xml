@@ -4,7 +4,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="102.5" barCode="25573" cost="102.5" costWithDiscount="102.5" count="1" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="102.5" description="" typeClass="CashPaymentEntity"/>
@@ -15,7 +15,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="205.0" barCode="25573" cost="102.5" costWithDiscount="102.5" count="2" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="205.0" description="" typeClass="CashPaymentEntity"/>
@@ -26,7 +26,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="307.5" barCode="25573" cost="102.5" costWithDiscount="102.5" count="3" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="307.5" description="" typeClass="CashPaymentEntity"/>
@@ -37,7 +37,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="410.0" barCode="25573" cost="102.5" costWithDiscount="102.5" count="4" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="410.0" description="" typeClass="CashPaymentEntity"/>
@@ -48,7 +48,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="512.5" barCode="25573" cost="102.5" costWithDiscount="102.5" count="5" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="512.5" description="" typeClass="CashPaymentEntity"/>
@@ -59,7 +59,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="615.0" barCode="25573" cost="102.5" costWithDiscount="102.5" count="6" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="615.0" description="" typeClass="CashPaymentEntity"/>
@@ -70,7 +70,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="717.5" barCode="25573" cost="102.5" costWithDiscount="102.5" count="7" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="717.5" description="" typeClass="CashPaymentEntity"/>
@@ -81,7 +81,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="820.0" barCode="25573" cost="102.5" costWithDiscount="102.5" count="8" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="820.0" description="" typeClass="CashPaymentEntity"/>
@@ -92,7 +92,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="922.5" barCode="25573" cost="102.5" costWithDiscount="102.5" count="9" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="922.5" description="" typeClass="CashPaymentEntity"/>
@@ -103,7 +103,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="1025.0" barCode="25573" cost="102.5" costWithDiscount="102.5" count="10" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="1025.0" description="" typeClass="CashPaymentEntity"/>
@@ -114,7 +114,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="1127.5" barCode="25573" cost="102.5" costWithDiscount="102.5" count="11" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="1127.5" description="" typeClass="CashPaymentEntity"/>
@@ -125,7 +125,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="1230.0" barCode="25573" cost="102.5" costWithDiscount="102.5" count="12" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="1230.0" description="" typeClass="CashPaymentEntity"/>
@@ -136,7 +136,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="1332.5" barCode="25573" cost="102.5" costWithDiscount="102.5" count="13" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="1332.5" description="" typeClass="CashPaymentEntity"/>
@@ -147,7 +147,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="1435.0" barCode="25573" cost="102.5" costWithDiscount="102.5" count="14" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="1435.0" description="" typeClass="CashPaymentEntity"/>
@@ -158,7 +158,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="1537.5" barCode="25573" cost="102.5" costWithDiscount="102.5" count="15" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="1537.5" description="" typeClass="CashPaymentEntity"/>
@@ -169,7 +169,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="1640.0" barCode="25573" cost="102.5" costWithDiscount="102.5" count="16" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="1640.0" description="" typeClass="CashPaymentEntity"/>
@@ -180,7 +180,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="1742.5" barCode="25573" cost="102.5" costWithDiscount="102.5" count="17" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="1742.5" description="" typeClass="CashPaymentEntity"/>
@@ -191,7 +191,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="1845.0" barCode="25573" cost="102.5" costWithDiscount="102.5" count="18" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="1845.0" description="" typeClass="CashPaymentEntity"/>
@@ -202,7 +202,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="1947.5" barCode="25573" cost="102.5" costWithDiscount="102.5" count="19" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="1947.5" description="" typeClass="CashPaymentEntity"/>
@@ -213,7 +213,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="2050.0" barCode="25573" cost="102.5" costWithDiscount="102.5" count="20" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="2050.0" description="" typeClass="CashPaymentEntity"/>
@@ -224,7 +224,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="2152.5" barCode="25573" cost="102.5" costWithDiscount="102.5" count="21" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="2152.5" description="" typeClass="CashPaymentEntity"/>
@@ -235,7 +235,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="2255.0" barCode="25573" cost="102.5" costWithDiscount="102.5" count="22" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="2255.0" description="" typeClass="CashPaymentEntity"/>
@@ -246,7 +246,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="2357.5" barCode="25573" cost="102.5" costWithDiscount="102.5" count="23" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="2357.5" description="" typeClass="CashPaymentEntity"/>
@@ -257,7 +257,7 @@
               userName="Админ Админ Админ">
         <positions>
             <position amount="2460.0" barCode="25573" cost="102.5" costWithDiscount="102.5" count="24" departNumber="1"
-                      discountValue="0.0" goodsCode="25573" nds="0.0" ndsSum="0.0" order="1"/>
+                      discountValue="0.0" goodsCode="10001" nds="0.0" ndsSum="0.0" order="1"/>
         </positions>
         <payments>
             <payment amount="2460.0" description="" typeClass="CashPaymentEntity"/>
