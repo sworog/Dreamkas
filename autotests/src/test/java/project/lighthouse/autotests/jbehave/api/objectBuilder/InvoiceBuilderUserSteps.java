@@ -54,7 +54,7 @@ public class InvoiceBuilderUserSteps {
 
 
                     } else {
-                        acceptanceDate = elementValue;
+                        acceptanceDate = DateTimeHelper.getDate(elementValue);
                     }
                     break;
                 default:
