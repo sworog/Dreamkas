@@ -164,7 +164,7 @@ public class InvoiceSteps extends ScenarioSteps {
 
     @Step
     public void assertAcceptanceDateFieldContainsNowDate() {
-        String nowDate = DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN);
+        String nowDate = DateTimeHelper.getTodayDate(DateTime.DATE_TIME_PATTERN);
         invoicePage.checkValue("acceptanceDate", nowDate);
     }
 

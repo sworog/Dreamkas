@@ -1,7 +1,10 @@
 package project.lighthouse.autotests.jbehave.departmentManager;
 
 import net.thucydides.core.annotations.Steps;
-import org.jbehave.core.annotations.*;
+import org.jbehave.core.annotations.Alias;
+import org.jbehave.core.annotations.Given;
+import org.jbehave.core.annotations.Then;
+import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
@@ -54,12 +57,6 @@ public class InvoiceUserSteps {
     @When("the user inputs data to the invoice $examplesTable")
     public void whenTheUserInputsDataToTheInvoice(ExamplesTable examplesTable) {
         invoiceSteps.fieldInput(examplesTable);
-    }
-
-    @When("the user clicks the invoice create button")
-    @Pending
-    public void whenTheUserClicksTheInvoiceCreateButton() {
-        //Pending
     }
 
     @When("the user clicks the create button on the invoice list page")

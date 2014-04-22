@@ -10,6 +10,7 @@ import org.openqa.selenium.ElementNotVisibleException;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.elements.items.DateTime;
 import project.lighthouse.autotests.elements.preLoader.CheckBoxPreloader;
+import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.Store;
@@ -105,7 +106,7 @@ public class InvoiceSteps extends ScenarioSteps {
 
     @Step
     public void checkTheDateisNowDate(String elementName) {
-        String NowDate = DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN);
+        String NowDate = DateTimeHelper.getTodayDate(DateTime.DATE_TIME_PATTERN);
         invoiceBrowsing.shouldContainsText(elementName, NowDate);
     }
 

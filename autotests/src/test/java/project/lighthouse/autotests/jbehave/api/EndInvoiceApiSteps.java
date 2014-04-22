@@ -54,7 +54,7 @@ public class EndInvoiceApiSteps {
 
     @Given("there is the invoice with sku '$sku' in the store with number '$number' ruled by department manager with name '$userName'")
     public void givenThereIsTheInvoiceInTheStore(String sku, String number, String userName) throws IOException, JSONException {
-        invoiceApiSteps.createInvoiceThroughPost(sku, DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN), "supplier", "accepter", "legalEntity", "", "", number, userName);
+        invoiceApiSteps.createInvoiceThroughPost(sku, DateTimeHelper.getTodayDate(DateTime.DATE_TIME_PATTERN), "supplier", "accepter", "legalEntity", "", "", number, userName);
     }
 
     @Given("there is the date invoice with sku '$sku' and date '$date' in the store with number '$number' ruled by department manager with name '$userName'")
