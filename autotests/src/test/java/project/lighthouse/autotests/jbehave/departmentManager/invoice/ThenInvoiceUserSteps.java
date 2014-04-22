@@ -132,4 +132,9 @@ public class ThenInvoiceUserSteps {
             String number) {
         invoiceSteps.invoiceListSearchObjectContainsHighLightedTextByLocator(number, text);
     }
+
+    @Then("the user checks the form results text is '$text'")
+    public void thenTheUserChecksTheFormREsultText(String text) {
+        invoiceSteps.checkFormResultsText(text);
+    }
 }

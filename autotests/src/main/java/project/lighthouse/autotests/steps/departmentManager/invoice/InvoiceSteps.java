@@ -285,4 +285,19 @@ public class InvoiceSteps extends ScenarioSteps {
         collectionDoNotContainInvoiceProductObjectByLocator(
                 Storage.getInvoiceVariableStorage().getProduct().getName());
     }
+
+    @Step
+    public void searchButtonClick() {
+        invoiceSearchPage.searchButtonClick();
+    }
+
+    @Step
+    public void searchInput(String searchInput) {
+        invoiceSearchPage.input("skuOrSupplierInvoiceSku", searchInput);
+    }
+
+    @Step
+    public void checkFormResultsText(String text) {
+        assertThat(invoiceSearchPage.getFormResultsText(), is(text));
+    }
 }

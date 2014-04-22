@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.pages.departmentManager.invoice.deprecated;
 
-import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -41,14 +40,6 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
         findVisibleElement(
                 By.xpath("//*[@class='page__controlsLink invoice__editLink']"));
         evaluateJavascript("document.getElementsByClassName('page__controlsLink invoice__editLink')[0].click();");
-    }
-
-    public void listItemCheck(String value) {
-        commonViewInterface.itemCheck(value);
-    }
-
-    public void checkListItemWithSkuHasExpectedValue(String value, ExamplesTable checkValuesTable) {
-        commonViewInterface.checkListItemWithSkuHasExpectedValue(value, checkValuesTable);
     }
 
     public void elementClick(String elementName) {
