@@ -1015,7 +1015,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testAveragePurchasePrice()
     {
-        $this->markTestSkipped('Broken');
         $supplier = $this->factory()->supplier()->getSupplier();
         $store = $this->factory()->store()->getStore();
         $productId1 = $this->createProduct('1');
@@ -1057,6 +1056,12 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceData2 = $this->getInvoiceData($supplier->id, $productId1, 5, 29);
         $invoiceData2['acceptanceDate'] = date('c', strtotime('-2 days'));
+        $invoiceData2['products'][1] = array(
+            'product' => $productId2,
+            'priceEntered' => 34.67,
+            'quantity' => 6
+        );
+
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -1072,6 +1077,12 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceData3 = $this->getInvoiceData($supplier->id, $productId1, 10, 31);
         $invoiceData3['acceptanceDate'] = date('c', strtotime('-1 days'));
+        $invoiceData3['products'][1] = array(
+            'product' => $productId2,
+            'priceEntered' => 34.67,
+            'quantity' => 6
+        );
+
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
