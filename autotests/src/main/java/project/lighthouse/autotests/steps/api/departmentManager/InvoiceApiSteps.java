@@ -55,20 +55,25 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
 
     @Step
     public void openLastStoredInvoicePage() throws JSONException {
-        String url = String.format("%s/stores/%s/invoices/%s",
-                UrlHelper.getWebFrontUrl(),
-                getLastStoredInvoiceListItem().getStore().getId(),
-                getLastStoredInvoiceListItem().getId());
-        getDriver().navigate().to(url);
+        navigateToInvoicePage(getLastStoredInvoiceListItem());
     }
 
     @Step
-    public void openPreviosStoredInvoicePage() throws JSONException {
-        String url = String.format("%s/stores/%s/invoices/%s",
+    public void openOneInvoiceAgoStoredInvoicePage() throws JSONException {
+        navigateToInvoicePage(getOneInvoiceAgoListItem());
+    }
+
+    @Step
+    public void openTwoInvoiceAgoStoredInvoicePage() throws JSONException {
+        navigateToInvoicePage(getTwoInvoiceAgoListItem());
+    }
+
+    private void navigateToInvoicePage(Invoice invoice) {
+        String invoicePageUrl = String.format("%s/stores/%s/invoices/%s",
                 UrlHelper.getWebFrontUrl(),
-                getLastStoredInvoiceListItem().getStore().getId(),
-                getLastStoredInvoiceListItem().getId());
-        getDriver().navigate().to(url);
+                invoice.getStore().getId(),
+                invoice.getId());
+        getDriver().navigate().to(invoicePageUrl);
     }
 
     /**
@@ -97,4 +102,14 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
     private Invoice getLastStoredInvoiceListItem() {
         return invoiceList.get(invoiceList.size() - 1);
     }
+
+    private Invoice getOneInvoiceAgoListItem() {
+        return invoiceList.get(invoiceList.size() - 2);
+    }
+
+    private Invoice getTwoInvoiceAgoListItem() {
+        return invoiceList.get(invoiceList.size() - 3);
+    }
+
+
 }

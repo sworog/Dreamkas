@@ -68,7 +68,7 @@ Then the user checks the gross sale margin table contains expected value entries
 
 When the user logs out
 
-Given the user opens previous created invoice page
+Given the user opens one invoice ago created invoice page
 When the user logs in using 'departmentManager-s28u544' userName and 'lighthouse' password
 
 When the user clicks on the invoice product by name 'name-28544'
