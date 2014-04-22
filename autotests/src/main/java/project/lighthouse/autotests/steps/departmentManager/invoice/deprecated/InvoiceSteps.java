@@ -3,7 +3,6 @@ package project.lighthouse.autotests.steps.departmentManager.invoice.deprecated;
 import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
-import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.elements.preLoader.CheckBoxPreloader;
 import project.lighthouse.autotests.pages.departmentManager.invoice.deprecated.InvoiceBrowsing;
@@ -11,21 +10,6 @@ import project.lighthouse.autotests.pages.departmentManager.invoice.deprecated.I
 public class InvoiceSteps extends ScenarioSteps {
 
     InvoiceBrowsing invoiceBrowsing;
-
-    @Step
-    public void objectPropertyClick(String objectLocator, String objectPropertyName) {
-        invoiceBrowsing.getInvoiceProductsCollection().clickPropertyByLocator(objectLocator, objectPropertyName);
-    }
-
-    @Step
-    public void objectPropertyInput(String locator, String propertyName, String value) {
-        invoiceBrowsing.getInvoiceProductsCollection().inputPropertyByLocator(locator, propertyName, value);
-    }
-
-    @Step
-    public void compareWithExampleTable(ExamplesTable examplesTable) {
-        invoiceBrowsing.getInvoiceProductsCollection().compareWithExampleTable(examplesTable);
-    }
 
     @Step
     public void itemClick(String itemName) {
