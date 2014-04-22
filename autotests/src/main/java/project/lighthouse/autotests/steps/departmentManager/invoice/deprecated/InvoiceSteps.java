@@ -125,18 +125,8 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
-    public void invoiceProductListItemClick(String value) {
-        invoiceBrowsing.listItemClick(value);
-    }
-
-    @Step
     public void checkListItemWithSkuHasExpectedValue(String value, ExamplesTable checkValuesTable) {
         invoiceBrowsing.checkListItemWithSkuHasExpectedValue(value, checkValuesTable);
-    }
-
-    @Step
-    public void elementClick(String elementName) {
-        invoiceBrowsing.elementClick(elementName);
     }
 
     @Step
@@ -160,18 +150,8 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
-    public void invoiceStopEditButtonClick() {
-        invoiceBrowsing.writeOffStopEditButtonClick();
-    }
-
-    @Step
     public void invoiceStopEditlinkClick() {
         invoiceBrowsing.writeOffStopEditlinkClick();
-    }
-
-    @Step
-    public void addNewInvoiceProductButtonClick() {
-        invoiceBrowsing.addNewInvoiceProductButtonClick();
     }
 
     @Step

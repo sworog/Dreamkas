@@ -95,11 +95,6 @@ public class InvoiceUserSteps {
         invoiceSteps.addOneMoreProductLinkClick();
     }
 
-    @When("the user clicks on '$elementName' element to edit it")
-    public void whenTheUserClicksOnElementtoEditIt(String elementName) {
-        invoiceSteps.elementClick(elementName);
-    }
-
     @When("the user clicks OK and accepts changes")
     public void whenTheUSerClicksOkAndAcceptsChanges() throws InterruptedException {
         invoiceSteps.acceptChangesButtonClick();
@@ -120,28 +115,9 @@ public class InvoiceUserSteps {
         invoiceSteps.discardDeleteButtonClick();
     }
 
-    @When("the user clicks finish edit button and ends the invoice edition")
-    public void whenTheUserClicksFinishEDitButtonAndEndsEdition() {
-        invoiceSteps.invoiceStopEditButtonClick();
-    }
-
     @When("the user clicks finish edit link and ends the invoice edition")
     public void whenTheUserClicksFinishEditLinkAndEndsEdition() {
         invoiceSteps.invoiceStopEditlinkClick();
-    }
-
-    @When("the user edits '$elementName' element with new value '$newValue' and verify the '$checkType' changes")
-    public void whenTheUserEditElementWithNewValueAndVerify(String elementName, String newValue, String checkType) throws InterruptedException {
-        String newElementName = "inline " + elementName;
-        whenTheUserClicksOnElementtoEditIt(elementName);
-        whenTheUserInputsTextInTheInvoiceField(newElementName, newValue);
-        whenTheUSerClicksOkAndAcceptsChanges();
-        thenTheUserChecksTheElementValue(checkType, elementName, newValue);
-    }
-
-    @When("the user clicks the add invoice product button and adds the invoice product")
-    public void whenTheUserClicksTheAddInvoiceProductButtonAndAddsTheInvoiceProduct() {
-        invoiceSteps.addNewInvoiceProductButtonClick();
     }
 
     @Then("the user checks the invoice with '$skuValue' sku has '$name' equal to '$expectedValue'")

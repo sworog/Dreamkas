@@ -53,10 +53,6 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
         addNewInvoiceProductButtonClick();
     }
 
-    public void listItemClick(String value) {
-        commonViewInterface.itemClick(value);
-    }
-
     public void listItemCheck(String value) {
         commonViewInterface.itemCheck(value);
     }
