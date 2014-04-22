@@ -6,6 +6,7 @@ import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.elements.items.DateTime;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.elements.preLoader.ProductEditionPreLoader;
@@ -29,6 +30,21 @@ public class InvoiceSteps extends ScenarioSteps {
     InvoiceSearchPage invoiceSearchPage;
 
     private ExamplesTable examplesTable;
+
+    @Step
+    public void openInvoiceListPage() throws JSONException {
+        Store store = StaticData.stores.get(Store.DEFAULT_NUMBER);
+        openStoreInvoiceListPage(store);
+    }
+
+    @Step
+    public void openStoreInvoiceListPage(Store store) throws JSONException {
+        String invoiceListPageUrl = String.format(
+                "%s/stores/%s/invoices",
+                UrlHelper.getWebFrontUrl(),
+                store.getId());
+        getDriver().navigate().to(invoiceListPageUrl);
+    }
 
     @Step
     public void assertFieldLabel(String elementName) {
