@@ -70,7 +70,7 @@ class VersionRepository extends DocumentRepository
     {
         return $this->findBy(
             array('object' => $documentId),
-            array('createdDate' => -1)
+            array('createdDate' => self::SORT_DESC)
         );
     }
 

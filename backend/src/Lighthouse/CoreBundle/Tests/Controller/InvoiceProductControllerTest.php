@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductMetricsCalculator;
+use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
@@ -1314,32 +1315,55 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testTwoProductVersionsCreated()
     {
-        $this->markTestSkipped('Broken');
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
-        $invoice = $this->factory()
-            ->invoice()
-                ->createInvoice(array(), $store->id)
-                ->createInvoiceProduct($productId, 10, 10.12)
-            ->flush();
-
-        $this->updateProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
-
-        $this->createInvoiceProduct($invoice, $productId, 10, 10.12);
-        $this->factory()->flush();
+        $productId = $this->createProduct(array('name' => 'Кефир 1%'));
 
         /* @var VersionRepository $productVersionRepository */
         $productVersionRepository = $this->getContainer()->get('lighthouse.core.document.repository.product_version');
 
         $productVersions = $productVersionRepository->findAllByDocumentId($productId);
+        $this->assertCount(0, $productVersions);
 
+        $productVersionRepository->clear();
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id)
+                ->createInvoiceProduct($productId, 10, 10.12)
+            ->flush();
+
+        $productVersions = $productVersionRepository->findAllByDocumentId($productId);
+        $this->assertCount(1, $productVersions);
+        $productVersionRepository->clear();
+
+        // :XXX: :FIXME: MongoTimestamp used for version createdDate sometimes is generated in wrong order
+        sleep(1);
+
+        $this->updateProduct($productId, array('name' => 'Кефир 5%'));
+
+        $productVersions = $productVersionRepository->findAllByDocumentId($productId);
+        $this->assertCount(1, $productVersions);
+        $productVersionRepository->clear();
+        var_dump($productVersions->getNext()->createdDate->inc);
+
+        $this->factory()
+            ->invoice()
+            ->createInvoice(array(), $store->id)
+            ->createInvoiceProduct($productId, 5, 10.12)
+        ->flush();
+
+        $productVersionRepository->clear();
+
+        $productVersions = $productVersionRepository->findAllByDocumentId($productId);
         $this->assertCount(2, $productVersions);
 
-        $firstProduct = $productVersions->getNext();
-        $secondProduct = $productVersions->getNext();
+        /* @var ProductVersion $lastVersion */
+        /* @var ProductVersion $previousVersion */
+        $lastVersion = $productVersions->getNext();
+        $previousVersion = $productVersions->getNext();
 
-        $this->assertEquals('Кефир 5%', $firstProduct->name);
-        $this->assertEquals('Кефир 1%', $secondProduct->name);
+        $this->assertEquals('Кефир 5%', $lastVersion->name);
+        $this->assertEquals('Кефир 1%', $previousVersion->name);
     }
 
     public function testGetProductInvoiceProducts()
