@@ -139,31 +139,9 @@ public class InvoiceUserSteps {
         thenTheUserChecksTheElementValue(checkType, elementName, newValue);
     }
 
-    @When("the user clicks on '$elementClassName' element of invoice product with '$elementName' sku")
-    public void whenTheUserClicksOnElementOfInvoiceProductWithSku(String elementClassName, String elementName) {
-        invoiceSteps.childrenElementClick(elementName, elementClassName);
-    }
-
-    @Deprecated
-    @When("the user clicks on '$parentElementName' element of invoice product with '$invoiceSku' sku to edit")
-    public void whenTheUserClicksOnElementOfInvoiceProductWithSkuToEdit(String parentElementName, String invoiceSku) {
-        invoiceSteps.childrentItemClickByFindByLocator(parentElementName, invoiceSku);
-    }
-
-
     @When("the user clicks the add invoice product button and adds the invoice product")
     public void whenTheUserClicksTheAddInvoiceProductButtonAndAddsTheInvoiceProduct() {
         invoiceSteps.addNewInvoiceProductButtonClick();
-    }
-
-    @When("the user deletes the invoice product with '$elementName' sku")
-    public void whenTheUserDeletesTheInvoiceProducWithSku(String elementName) {
-        invoiceSteps.childrenItemNavigateAndClickByFindByLocator(elementName);
-    }
-
-    @When("the user tries to delete the invoice product with '$elementName' sku")
-    public void whenTheUserTriesToDeleteTheInvoiceProducWithSku(String elementName) {
-        invoiceSteps.tryChildrenItemNavigateAndClickByFindByLocator(elementName);
     }
 
     @Then("the user checks the invoice with '$skuValue' sku has '$name' equal to '$expectedValue'")

@@ -97,14 +97,6 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
         evaluateJavascript("document.getElementsByClassName('page__controlsLink invoice__stopEditLink')[0].click();");
     }
 
-    public void childrenElementClick(String elementName, String elementClassName) {
-        commonViewInterface.childrenItemClickByClassName(elementName, elementClassName);
-    }
-
-    public void childrenItemNavigateAndClickByFindByLocator(String elementName) {
-        commonViewInterface.childrenItemNavigateAndClickByFindByLocator(elementName, By.xpath(deleteButtonXpath));
-    }
-
     @Deprecated
     public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
         By findBy = getItems().get(parentElementName).getFindBy();

@@ -6,7 +6,6 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotVisibleException;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.elements.items.DateTime;
 import project.lighthouse.autotests.elements.preLoader.CheckBoxPreloader;
@@ -171,34 +170,8 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
-    public void childrenElementClick(String elementName, String elementClassName) {
-        invoiceBrowsing.childrenElementClick(elementName, elementClassName);
-    }
-
-    @Deprecated
-    @Step
-    public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
-        invoiceBrowsing.childrentItemClickByFindByLocator(parentElementName, elementName);
-    }
-
-    @Step
     public void addNewInvoiceProductButtonClick() {
         invoiceBrowsing.addNewInvoiceProductButtonClick();
-    }
-
-    @Step
-    public void childrenItemNavigateAndClickByFindByLocator(String elementName) {
-        invoiceBrowsing.childrenItemNavigateAndClickByFindByLocator(elementName);
-    }
-
-    @Step
-    public void tryChildrenItemNavigateAndClickByFindByLocator(String elementName) {
-        try {
-            invoiceBrowsing.childrenItemNavigateAndClickByFindByLocator(elementName);
-            String message = String.format("Invoice product with sku '%s' is deleted, but should not!", elementName);
-            Assert.fail(message);
-        } catch (ElementNotVisibleException ignored) {
-        }
     }
 
     @Step
