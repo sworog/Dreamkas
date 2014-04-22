@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "cffc9c023d643d3aeaa09eb34f3b6fb5",
+    "hash": "11b74efcd6884d8e4811cd2a3a1483a8",
     "packages": [
         {
             "name": "clamidity/profiler-bundle",
@@ -1929,15 +1929,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/munkie/karzer.git",
-                "reference": "81dae58ae4265790a7534ac8e9a38a0855adbac2"
+                "reference": "b1a7e4c76bdb06a9a3eadc5439e8f9db7a04e700"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/munkie/karzer/zipball/81dae58ae4265790a7534ac8e9a38a0855adbac2",
-                "reference": "81dae58ae4265790a7534ac8e9a38a0855adbac2",
+                "url": "https://api.github.com/repos/munkie/karzer/zipball/b1a7e4c76bdb06a9a3eadc5439e8f9db7a04e700",
+                "reference": "b1a7e4c76bdb06a9a3eadc5439e8f9db7a04e700",
                 "shasum": ""
             },
             "require": {
+                "munkie/phpunit-teamcity-testlistener": "dev-master",
                 "phpunit/phpunit": "~4.0"
             },
             "bin": [
@@ -1947,7 +1948,10 @@
             "autoload": {
                 "psr-0": {
                     "Karzer\\": "src/"
-                }
+                },
+                "files": [
+                    "src/Karzer/Util/Teamcity/TestListener.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -1965,7 +1969,43 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-03-12 12:36:12"
+            "time": "2014-04-22 11:34:58"
+        },
+        {
+            "name": "munkie/phpunit-teamcity-testlistener",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/munkie/phpunit-teamcity-testlistener.git",
+                "reference": "f2b3cdbfe1d99e5a7f8b74e5881b630fb64ebca9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/munkie/phpunit-teamcity-testlistener/zipball/f2b3cdbfe1d99e5a7f8b74e5881b630fb64ebca9",
+                "reference": "f2b3cdbfe1d99e5a7f8b74e5881b630fb64ebca9",
+                "shasum": ""
+            },
+            "require": {
+                "phpunit/phpunit": ">=3.7,<5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/TeamCity/TestListener.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mikhail Shamin",
+                    "email": "munk13@gmail.com"
+                }
+            ],
+            "description": "PHPUnit test listener for TeamCity CI Server",
+            "time": "2014-04-22 11:32:24"
         },
         {
             "name": "nelmio/api-doc-bundle",
@@ -3775,42 +3815,6 @@
                 "plugin"
             ],
             "time": "2014-01-23 18:29:07"
-        },
-        {
-            "name": "munkie/phpunit-teamcity-testlistener",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/munkie/phpunit-teamcity-testlistener.git",
-                "reference": "001de0bab1768292972bcb453fc737b299cbddc1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/munkie/phpunit-teamcity-testlistener/zipball/001de0bab1768292972bcb453fc737b299cbddc1",
-                "reference": "001de0bab1768292972bcb453fc737b299cbddc1",
-                "shasum": ""
-            },
-            "require": {
-                "phpunit/phpunit": ">=3.7,<5.0"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/TeamCity/TestListener.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mikhail Shamin",
-                    "email": "munk13@gmail.com"
-                }
-            ],
-            "description": "PHPUnit test listener for TeamCity CI Server",
-            "time": "2014-03-12 12:01:12"
         },
         {
             "name": "pdepend/pdepend",
