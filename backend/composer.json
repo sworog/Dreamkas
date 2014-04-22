@@ -1,5 +1,7 @@
 {
-    "name": "Lighthouse",
+    "name": "crystalservice/lighthouse",
+    "description": "Lighthouse",
+    "license": "proprietary",
     "autoload": {
         "psr-0": {
             "": "src/"
