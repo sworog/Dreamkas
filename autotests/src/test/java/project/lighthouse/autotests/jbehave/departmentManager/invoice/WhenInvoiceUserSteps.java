@@ -120,4 +120,9 @@ public class WhenInvoiceUserSteps {
     public void whenTheUserSearchesInvoices(String value) {
         invoiceSteps.searchInput(value);
     }
+
+    @When("the user clicks on the include vat checkbox")
+    public void whenTheUserClicksOnTheIncludeVatCheckBox() {
+        invoiceSteps.includeVatCheckBoxClick();
+    }
 }

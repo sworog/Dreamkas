@@ -137,4 +137,14 @@ public class ThenInvoiceUserSteps {
     public void thenTheUserChecksTheFormREsultText(String text) {
         invoiceSteps.checkFormResultsText(text);
     }
+
+    @Then("the user waits for checkBoxPreLoader finish")
+    public void thenTheUserWaitsForCheckBoxPreLoaderFinish() {
+        invoiceSteps.checkBoxPreLoaderWait();
+    }
+
+    @Then("the user checks the include vat checkbox is '$state'")
+    public void thenTheUserChecksTheIncludeVatCheckBoxState(String state) {
+        invoiceSteps.checkTheStateOfCheckBox(state);
+    }
 }

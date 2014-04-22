@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.steps.departmentManager.invoice;
 
+import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
@@ -8,6 +9,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.elements.items.DateTime;
+import project.lighthouse.autotests.elements.preLoader.CheckBoxPreLoader;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.elements.preLoader.ProductEditionPreLoader;
 import project.lighthouse.autotests.helper.DateTimeHelper;
@@ -315,5 +317,36 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void checkFormResultsText(String text) {
         assertThat(invoiceSearchPage.getFormResultsText(), is(text));
+    }
+
+    @Step
+    public void includeVatCheckBoxClick() {
+        invoicePage.getIncludeVatCheckBoxWebElement().click();
+    }
+
+    @Step
+    public void checkBoxPreLoaderWait() {
+        new CheckBoxPreLoader(getDriver()).await();
+    }
+
+    @Step
+    public void checkTheStateOfCheckBox(String state) {
+        String checkBoxState = invoicePage.getIncludeVatCheckBoxWebElement().getAttribute("checked");
+        switch (state) {
+            case "checked":
+                if (checkBoxState != null) {
+                    if (!checkBoxState.equals("true")) {
+                        Assert.fail("CheckBox is not checked!");
+                    }
+                } else {
+                    Assert.fail("CheckBox is not checked!");
+                }
+                break;
+            case "unChecked":
+                if (checkBoxState != null) {
+                    Assert.fail("CheckBox is not unchecked!");
+                }
+                break;
+        }
     }
 }
