@@ -8,7 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.common.CommonView;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
-import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.objects.web.invoice.InvoiceProductsCollection;
 
 public class InvoiceBrowsing extends InvoiceCreatePage {
@@ -42,15 +41,6 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
         findVisibleElement(
                 By.xpath("//*[@class='page__controlsLink invoice__editLink']"));
         evaluateJavascript("document.getElementsByClassName('page__controlsLink invoice__editLink')[0].click();");
-    }
-
-    public void goToTheaAdditionOfProductsLinkClick() {
-        new ButtonFacade(this, "Сохранить и перейти к добавлению товаров").click();
-        new PreLoader(getDriver()).await();
-    }
-
-    public void addOneMoreProductLinkClick() {
-        addNewInvoiceProductButtonClick();
     }
 
     public void listItemCheck(String value) {
@@ -97,15 +87,6 @@ public class InvoiceBrowsing extends InvoiceCreatePage {
     public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
         By findBy = getItems().get(parentElementName).getFindBy();
         commonViewInterface.childrenItemClickByFindByLocator(elementName, findBy);
-    }
-
-    public void addNewInvoiceProductButtonClick() {
-        new ButtonFacade(this, "Добавить товар").click();
-        new PreLoader(getDriver()).await();
-    }
-
-    public void checkItemIsNotPresent(String elementName) {
-        commonViewInterface.itemCheckIsNotPresent(elementName);
     }
 
     public InvoiceProductsCollection getInvoiceProductsCollection() {

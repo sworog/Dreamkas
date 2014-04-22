@@ -381,7 +381,7 @@ Scenario: DepartmentManager role valid rules - authorised access to invoice crea
 Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 When the user clicks the menu invoices item
-And the user clicks the create button on the invoice list page
+And the user clicks the create invoice link on invoice page menu navigation
 Then the user dont see the 403 error
 
 Scenario: DepartmentManager role valid rules - authorised access to writeOffs list

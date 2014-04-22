@@ -3,7 +3,6 @@ package project.lighthouse.autotests.pages.departmentManager.invoice.deprecated;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.common.CommonView;
-import project.lighthouse.autotests.elements.Buttons.localNavigation.NavigationLinkFacade;
 
 public class InvoiceListPage extends InvoiceCreatePage {
 
@@ -14,14 +13,6 @@ public class InvoiceListPage extends InvoiceCreatePage {
 
     public InvoiceListPage(WebDriver driver) {
         super(driver);
-    }
-
-    public void invoiceListItemCreate() {
-        new NavigationLinkFacade(this, "Создать накладную").click();
-    }
-
-    public void listItemClick(String skuValue) {
-        commonViewInterface.itemClick(skuValue);
     }
 
     public void listItemCheck(String skuValue) {

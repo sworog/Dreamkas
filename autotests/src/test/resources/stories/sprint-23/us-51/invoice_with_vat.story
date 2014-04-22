@@ -17,7 +17,7 @@ GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story
 
 Given the user is on the store '2351' invoice list page
 When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
-And the user clicks the create button on the invoice list page
+And the user clicks the create invoice link on invoice page menu navigation
 And the user inputs data to the invoice
 | elementName  | value |
 | sku | invoice-2351-0 |

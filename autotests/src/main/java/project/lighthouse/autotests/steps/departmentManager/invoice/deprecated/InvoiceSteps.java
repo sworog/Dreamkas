@@ -10,7 +10,6 @@ import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.elements.items.DateTime;
 import project.lighthouse.autotests.elements.preLoader.CheckBoxPreloader;
 import project.lighthouse.autotests.helper.DateTimeHelper;
-import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.pages.departmentManager.invoice.deprecated.InvoiceBrowsing;
@@ -40,11 +39,6 @@ public class InvoiceSteps extends ScenarioSteps {
                 UrlHelper.getWebFrontUrl(),
                 store.getId());
         getDriver().navigate().to(invoiceListPageUrl);
-    }
-
-    @Step
-    public void invoiceListItemCreate() {
-        invoiceListPage.invoiceListItemCreate();
     }
 
     @Step
@@ -83,22 +77,6 @@ public class InvoiceSteps extends ScenarioSteps {
     }
 
     @Step
-    public void editButtonClick() {
-        invoiceBrowsing.editButtonClick();
-    }
-
-    @Step
-    public void listItemClick(String skuValue) {
-        invoiceListPage.listItemClick(skuValue);
-    }
-
-    @Step
-    public void generateTestCharData(String elementName, int charNumber) {
-        String generatedData = new StringGenerator(charNumber).generateTestData();
-        input(elementName, generatedData);
-    }
-
-    @Step
     public void checkFieldLength(String elementName, int fieldLength) {
         invoiceCreatePage.checkFieldLength(elementName, fieldLength);
     }
@@ -107,16 +85,6 @@ public class InvoiceSteps extends ScenarioSteps {
     public void checkTheDateisNowDate(String elementName) {
         String NowDate = DateTimeHelper.getTodayDate(DateTime.DATE_TIME_PATTERN);
         invoiceBrowsing.shouldContainsText(elementName, NowDate);
-    }
-
-    @Step
-    public void goToTheaAdditionOfProductsLinkClick() {
-        invoiceBrowsing.goToTheaAdditionOfProductsLinkClick();
-    }
-
-    @Step
-    public void addOneMoreProductLinkClick() {
-        invoiceBrowsing.addOneMoreProductLinkClick();
     }
 
     @Step
@@ -147,16 +115,6 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void discardDeleteButtonClick() {
         invoiceBrowsing.discardDeleteButtonClick();
-    }
-
-    @Step
-    public void invoiceStopEditlinkClick() {
-        invoiceBrowsing.writeOffStopEditlinkClick();
-    }
-
-    @Step
-    public void checkItemIsNotPresent(String elementName) {
-        invoiceBrowsing.checkItemIsNotPresent(elementName);
     }
 
     @Step
