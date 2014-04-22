@@ -13,26 +13,6 @@ public class InvoiceSteps extends ScenarioSteps {
     InvoiceBrowsing invoiceBrowsing;
 
     @Step
-    public void acceptChangesButtonClick() throws InterruptedException {
-        invoiceBrowsing.acceptChangesButtonClick();
-    }
-
-    @Step
-    public void discardChangesButtonClick() {
-        invoiceBrowsing.discardChangesButtonClick();
-    }
-
-    @Step
-    public void acceptDeleteButtonClick() throws InterruptedException {
-        invoiceBrowsing.acceptDeleteButtonClick();
-    }
-
-    @Step
-    public void discardDeleteButtonClick() {
-        invoiceBrowsing.discardDeleteButtonClick();
-    }
-
-    @Step
     public void objectPropertyClick(String objectLocator, String objectPropertyName) {
         invoiceBrowsing.getInvoiceProductsCollection().clickPropertyByLocator(objectLocator, objectPropertyName);
     }
