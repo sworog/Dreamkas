@@ -30,6 +30,25 @@ class InvoiceFactory extends AbstractFactory
     }
 
     /**
+     * @param string $invoiceId
+     * @param array $data
+     * @param string $storeId
+     * @param string $supplierId
+     * @param null $orderId
+     * @return InvoiceBuilder
+     */
+    public function editInvoice($invoiceId, array $data, $storeId = null, $supplierId = null, $orderId = null)
+    {
+        $builder = new InvoiceBuilder(
+            $this->factory,
+            $this->getInvoiceRepository(),
+            $this->factory->getValidator(),
+            $this->factory->getNumericFactory()
+        );
+        return $builder->editInvoice($invoiceId, $data, $storeId, $supplierId, $orderId);
+    }
+
+    /**
      * @param Invoice $invoice
      * @param string $productId
      * @param float $quantity
