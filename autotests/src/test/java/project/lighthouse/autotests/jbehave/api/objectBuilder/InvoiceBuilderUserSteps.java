@@ -6,6 +6,7 @@ import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import org.junit.Assert;
 import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.steps.api.commercialManager.SupplierApiSteps;
 import project.lighthouse.autotests.steps.api.objectBuilder.InvoiceBuilderSteps;
 
@@ -22,16 +23,17 @@ public class InvoiceBuilderUserSteps {
 
     @Given("the user creates invoice api object with values $examplesTable")
     public void givenTheUserCreatesInvoiceApiObjectWithValues(ExamplesTable examplesTable) throws JSONException, IOException {
-        String  acceptanceDate = "",
+        String acceptanceDate = "",
                 accepter = "",
                 legalEntity = "",
-                supplierInvoiceNumber = "";
+                supplierInvoiceNumber = "",
+                acceptanceDateTime = "";
         for (Map<String, String> row : examplesTable.getRows()) {
             String elementName = row.get("elementName");
             String elementValue = row.get("value");
             switch (elementName) {
-                case "acceptanceDate":
-                    acceptanceDate = elementValue;
+                case "acceptanceDateTime":
+                    acceptanceDateTime = elementValue;
                     break;
                 case "accepter":
                     accepter = elementValue;
@@ -41,6 +43,19 @@ public class InvoiceBuilderUserSteps {
                     break;
                 case "supplierInvoiceNumber":
                     supplierInvoiceNumber = elementValue;
+                    break;
+                case "acceptanceDate":
+                    if (!acceptanceDateTime.isEmpty()) {
+                        String[] timeArrayValues = acceptanceDateTime.split(":");
+                        acceptanceDate = new DateTimeHelper(elementValue).convertDateTime(
+                                Integer.parseInt(timeArrayValues[0]),
+                                Integer.parseInt(timeArrayValues[1]),
+                                Integer.parseInt(timeArrayValues[2]));
+
+
+                    } else {
+                        acceptanceDate = elementValue;
+                    }
                     break;
                 default:
                     Assert.fail(String.format("No such elementName '%s'", elementName));
@@ -53,7 +68,7 @@ public class InvoiceBuilderUserSteps {
 
     @Given("the user adds the product with data to invoice api object $examplesTable")
     public void givenTheUserAddsTheProductWithDataToInvoiceApiObject(ExamplesTable examplesTable) throws JSONException {
-        String  productName = "",
+        String productName = "",
                 quantity = "",
                 price = "";
         for (Map<String, String> row : examplesTable.getRows()) {

@@ -11,7 +11,8 @@ Scenario: Gross sale margin update due invoice product quantity update
 
 Meta:
 @id_s28u54.2s1
-@description_@smoke
+@description
+@smoke
 
 GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story
 
@@ -25,20 +26,25 @@ Then the user checks the gross sale margin table contains expected value entries
 
 When the user logs out
 
-Given the user navigates to the invoice page with name 'Invoice-28544-1'
+Given the user opens last created invoice page
 When the user logs in using 'departmentManager-s28u544' userName and 'lighthouse' password
 
-When the user clicks on property named 'productAmount' of invoice product named '28544'
-And the user inputs the value '8' in property named 'productAmount' of invoice product named '28544'
-And the user clicks OK and accepts changes
+When the user clicks on the invoice product by name 'name-28544'
+And the user inputs quantity '8' on the invoice product with name 'name-28544'
+And the user presses 'ENTER' key button
+
+Then the user waits for the invoice product edition preloader finish
+
+When the user accepts products and saves the invoice
 
 When the user logs out
 
 Given the user runs the symfony:reports:recalculate command
-Given the user opens the authorization page
 
-When the user logs in using 'storeManager-s28u544' userName and 'lighthouse' password
-And the user clicks the menu report item
+Given the user opens the authorization page
+And the user logs in using 'storeManager-s28u544' userName and 'lighthouse' password
+
+When the user clicks the menu report item
 And the user clicks on store gross sale margin report link
 
 Then the user checks the gross sale margin table contains expected value entries after invoice product quantity is updated for story 54.2
@@ -47,7 +53,8 @@ Scenario: Gross sale margin update due invoice product price update
 
 Meta:
 @id_s28u54.2s2
-@description_@smoke
+@description
+@smoke
 
 GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story
 
@@ -61,20 +68,29 @@ Then the user checks the gross sale margin table contains expected value entries
 
 When the user logs out
 
-Given the user navigates to the invoice page with name 'Invoice-28544'
+Given the user opens previous created invoice page
 When the user logs in using 'departmentManager-s28u544' userName and 'lighthouse' password
 
-When the user clicks on property named 'productPrice' of invoice product named '28544'
-And the user inputs the value '100' in property named 'productPrice' of invoice product named '28544'
-And the user clicks OK and accepts changes
+When the user clicks on the invoice product by name 'name-28544'
+And the user presses 'TAB' key button
+
+Then the user waits for the invoice product edition preloader finish
+
+When the user inputs price '100' on the invoice product with name 'name-28544'
+And the user presses 'ENTER' key button
+
+Then the user waits for the invoice product edition preloader finish
+
+When the user accepts products and saves the invoice
 
 When the user logs out
 
 Given the user runs the symfony:reports:recalculate command
-Given the user opens the authorization page
 
-When the user logs in using 'storeManager-s28u544' userName and 'lighthouse' password
-And the user clicks the menu report item
+Given the user opens the authorization page
+And the user logs in using 'storeManager-s28u544' userName and 'lighthouse' password
+
+When the user clicks the menu report item
 And the user clicks on store gross sale margin report link
 
 Then the user checks the gross sale margin table contains expected value entries after invoice product price is updated for story 54.2
@@ -83,7 +99,8 @@ Scenario: Gross sale margin update due invoice product deletion
 
 Meta:
 @id_s28u54.2s3
-@description_@smoke
+@description
+@smoke
 
 GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story
 
@@ -97,19 +114,22 @@ Then the user checks the gross sale margin table contains expected value entries
 
 When the user logs out
 
-Given the user navigates to the invoice page with name 'Invoice-28544-1'
+Given the user opens last created invoice page
 When the user logs in using 'departmentManager-s28u544' userName and 'lighthouse' password
 
-And the user deletes the invoice product with '28544' sku
-And the user clicks OK and accepts deletion
+When the user clicks on the invoice product by name 'name-28544'
+And the user clicks on delete icon and deletes invoice product with name 'name-28544'
+
+When the user accepts products and saves the invoice
 
 When the user logs out
 
 Given the user runs the symfony:reports:recalculate command
-Given the user opens the authorization page
 
-When the user logs in using 'storeManager-s28u544' userName and 'lighthouse' password
-And the user clicks the menu report item
+And the user opens the authorization page
+And the user logs in using 'storeManager-s28u544' userName and 'lighthouse' password
+
+When the user clicks the menu report item
 And the user clicks on store gross sale margin report link
 
 Then the user checks the gross sale margin table contains expected value entries after invoice product deletion for story 54.2
@@ -118,7 +138,8 @@ Scenario: Gross sale margin update due invoice date update to the past
 
 Meta:
 @id_s28u54.2s4
-@description_@smoke
+@description_
+@smoke
 
 GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story
 
@@ -132,12 +153,14 @@ Then the user checks the gross sale margin table contains expected value entries
 
 When the user logs out
 
-Given the user navigates to the invoice page with name 'Invoice-28544-1'
+Given the user opens last created invoice page
 When the user logs in using 'departmentManager-s28u544' userName and 'lighthouse' password
 
-And the user clicks on 'acceptanceDate' element to edit it
-And the user inputs 'todayDate-3days' in the invoice 'inline acceptanceDate' field
-When the user clicks OK and accepts changes
+When the user inputs values on invoice page
+| elementName | value |
+| acceptanceDate | todayDate-3days |
+
+When the user accepts products and saves the invoice
 
 When the user logs out
 
@@ -154,7 +177,8 @@ Scenario: Gross sale margin update due invoice date update to the future
 
 Meta:
 @id_s28u54.2s5
-@description_@smoke
+@description
+@smoke
 
 GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story
 
@@ -168,12 +192,14 @@ Then the user checks the gross sale margin table contains expected value entries
 
 When the user logs out
 
-Given the user navigates to the invoice page with name 'Invoice-28544-1'
+Given the user opens last created invoice page
 When the user logs in using 'departmentManager-s28u544' userName and 'lighthouse' password
 
-And the user clicks on 'acceptanceDate' element to edit it
-And the user inputs 'todayDateAndTime' in the invoice 'inline acceptanceDate' field
-When the user clicks OK and accepts changes
+When the user inputs values on invoice page
+| elementName | value |
+| acceptanceDate | todayDateAndTime |
+
+When the user accepts products and saves the invoice
 
 When the user logs out
 

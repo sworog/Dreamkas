@@ -12,10 +12,12 @@ import project.lighthouse.autotests.objects.api.invoice.InvoiceProduct;
 import project.lighthouse.autotests.storage.Storage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InvoiceApiSteps extends DepartmentManagerApi {
 
-    private Invoice invoice;
+    private List<Invoice> invoiceList = new ArrayList<>();
 
     @Step
     @Deprecated
@@ -47,16 +49,25 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
         User user = StaticData.users.get(userName);
         Invoice invoice = new InvoicesFactory(userName, "lighthouse")
                 .create(supplierId, acceptanceDate, accepter, legalEntity, supplierInvoiceNumber, invoiceProducts, user.getStore());
-        this.invoice = invoice;
+        this.invoiceList.add(invoice);
         return invoice;
     }
 
     @Step
-    public void openInvoicePage() throws JSONException {
+    public void openLastStoredInvoicePage() throws JSONException {
         String url = String.format("%s/stores/%s/invoices/%s",
                 UrlHelper.getWebFrontUrl(),
-                invoice.getStore().getId(),
-                invoice.getId());
+                getLastStoredInvoiceListItem().getStore().getId(),
+                getLastStoredInvoiceListItem().getId());
+        getDriver().navigate().to(url);
+    }
+
+    @Step
+    public void openPreviosStoredInvoicePage() throws JSONException {
+        String url = String.format("%s/stores/%s/invoices/%s",
+                UrlHelper.getWebFrontUrl(),
+                getLastStoredInvoiceListItem().getStore().getId(),
+                getLastStoredInvoiceListItem().getId());
         getDriver().navigate().to(url);
     }
 
@@ -78,8 +89,12 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
                         Storage.getInvoiceVariableStorage().getInvoiceForInvoiceBuilderSteps(),
                         user.getStore()
                 );
-        this.invoice = invoice;
+        invoiceList.add(invoice);
         Storage.getInvoiceVariableStorage().setInvoiceForInvoiceBuilderSteps(null);
         return invoice;
+    }
+
+    private Invoice getLastStoredInvoiceListItem() {
+        return invoiceList.get(invoiceList.size() - 1);
     }
 }

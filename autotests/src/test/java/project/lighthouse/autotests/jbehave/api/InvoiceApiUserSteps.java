@@ -69,7 +69,12 @@ public class InvoiceApiUserSteps {
 
     @Given("the user opens last created invoice page")
     public void givenTheUserOpensLastCreatedOrderPage() throws JSONException {
-        invoiceApiSteps.openInvoicePage();
+        invoiceApiSteps.openLastStoredInvoicePage();
+    }
+
+    @Given("the user opens previous created invoice page")
+    public void givenTheUserOpensPreviousCreatedInvoicePage() throws JSONException {
+        invoiceApiSteps.openPreviosStoredInvoicePage();
     }
 
     @Given("there is the invoice created with invoice builder steps by userName '$userName'")
