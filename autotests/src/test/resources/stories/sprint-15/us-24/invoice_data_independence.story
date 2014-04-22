@@ -9,50 +9,107 @@ In order to иметь возможность работать с оригина
 
 Scenario: Invoice data independence
 
-Given there is the invoice 'Invoice-DI-Test' with product 'Invoice-DI-Test name' name, 'Invoice-DI-Test sku' sku, 'Invoice-DI-Test barcode' barcode, 'kg' units
-And the user navigates to the product with sku 'Invoice-DI-Test sku'
+Meta:
+@smoke
+@id_s15u24s1
+
+Given there is the user with name 'departmentManager-s15u24', position 'departmentManager-s15u24', username 'departmentManager-s15u24', password 'lighthouse', role 'departmentManager'
+And there is the store with number 'store-s15u24' managed by department manager named 'departmentManager-s15u24'
+
+Given there is the product with 'name-s15u24' name, 'sku-s15u24' sku, 'barcode-s15u24' barcode, 'unit' units, '15' purchasePrice
+
+Given the user creates invoice api object with values
+| elementName | value |
+| acceptanceDate | todayDateAndTime |
+| accepter | accepter |
+| legalEntity | legalEntity |
+| supplierInvoiceNumber | supplierInvoiceNumber |
+And the user adds the product with data to invoice api object
+| elementName | value |
+| productName | sku-s15u24 |
+| quantity | 1 |
+| price | 1 |
+And there is the invoice created with invoice builder steps by userName 'departmentManager-s15u24'
+
+Given the user navigates to the product with sku 'sku-s15u24'
 And the user logs in as 'commercialManager'
+
 When the user clicks the edit button on product card view page
 And the user inputs values in element fields
 | elementName | value |
-| name | Invoice-DI-Test name edited |
-| barcode | Invoice-DI-Test barcode edited |
-| sku | Invoice-DI-Test sku edited |
+| name | name-s15u24 edited |
 And the user clicks the create button
+
 Then the user checks the stored input values
+
 When the user logs out
-Given the user navigates to the invoice page with name 'Invoice-DI-Test'
-And the user logs in as 'departmentManager'
-Then the user checks the product with 'Invoice-DI-Test sku edited' sku is not present
-And the user checks the product with 'Invoice-DI-Test sku' sku has values
-| elementName | value |
-| productName | Invoice-DI-Test name |
-| productBarcode | Invoice-DI-Test barcode |
-| productSku | Invoice-DI-Test sku |
+
+Given the user opens last created invoice page
+And the user logs in using 'departmentManager-s15u24' userName and 'lighthouse' password
+
+Then the user checks the invoice products list contains exact entries
+| name | units | quantity | price | totalSum | vatSum |
+| name-s15u24 | шт. | 1,0 | 1,00 | 1,00 руб. | 0,00 руб. |
 
 Scenario: Edited product can be added to invoice
 
-Given there is the invoice 'Invoice-DI-Test1' with product 'Invoice-DI-Test1 name' name, 'Invoice-DI-Test1 sku' sku, 'Invoice-DI-Test1 barcode' barcode, 'kg' units
-And the user navigates to the product with sku 'Invoice-DI-Test1 sku'
+Meta:
+@smoke
+@id_s15u24s2
+
+Given skipped test
+
+!--В данный момент реализация такого сценария не возможна, потому что накладная шлется сразу и целиком
+!--
+
+Given there is the user with name 'departmentManager-s15u24', position 'departmentManager-s15u24', username 'departmentManager-s15u24', password 'lighthouse', role 'departmentManager'
+And there is the store with number 'store-s15u24' managed by department manager named 'departmentManager-s15u24'
+
+Given there is the product with 'name-s15u241' name, 'sku-s15u241' sku, 'barcode-s15u241' barcode, 'unit' units, '15' purchasePrice
+
+Given the user creates invoice api object with values
+| elementName | value |
+| acceptanceDate | todayDateAndTime |
+| accepter | accepter |
+| legalEntity | legalEntity |
+| supplierInvoiceNumber | supplierInvoiceNumber |
+And the user adds the product with data to invoice api object
+| elementName | value |
+| productName | sku-s15u241 |
+| quantity | 1 |
+| price | 1 |
+And there is the invoice created with invoice builder steps by userName 'departmentManager-s15u24'
+
+Given the user navigates to the product with sku 'sku-s15u241'
 And the user logs in as 'commercialManager'
+
 When the user clicks the edit button on product card view page
 And the user inputs values in element fields
 | elementName | value |
-| name | Invoice-DI-Test1 name edited |
-| barcode | Invoice-DI-Test1 barcode edited |
-| sku | Invoice-DI-Test1 sku edited |
+| name | name-s15u241 edited |
 And the user clicks the create button
+
 Then the user checks the stored input values
+
 When the user logs out
-Given the user navigates to the invoice page with name 'Invoice-DI-Test1'
-And the user logs in as 'departmentManager'
-When the user inputs 'Invoice-DI-Test1 name edited' in the invoice product 'productName' field
-And the user inputs '1' in the invoice product 'productAmount' field
-And the user inputs '1' in the invoice product 'invoiceCost' field
-And the user clicks the add more product button
-When the user clicks finish edit button and ends the invoice edition
-Then the user checks the product with 'Invoice-DI-Test1 sku edited' sku has values
+
+Given the user opens last created invoice page
+And the user logs in using 'departmentManager-s15u24' userName and 'lighthouse' password
+
+Then the user checks the invoice products list contains exact entries
+| name | units | quantity | price | totalSum | vatSum |
+| name-s15u241 | шт. | 1,0 | 1,00 | 1,00 руб. | 0,00 руб. |
+
+When the user inputs values on invoice page
 | elementName | value |
-| productName | Invoice-DI-Test1 name edited |
-| productBarcode | Invoice-DI-Test1 barcode edited |
-| productSku | Invoice-DI-Test1 sku edited |
+| invoice product autocomplete | name-s15u241 edited |
+Then the user waits for the invoice product edition preloader finish
+
+When the user presses 'ENTER' key button
+
+Then the user waits for the invoice product edition preloader finish
+
+Then the user checks the invoice products list contains exact entries
+| name | units | quantity | price | totalSum | vatSum |
+| name-s15u241 | шт. | 1,0 | 1,00 | 1,00 руб. | 0,00 руб. |
+| name-s15u241 edited | шт. | 1,0 | 15,00 | 15,00 руб. | 0,00 руб. |
