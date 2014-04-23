@@ -179,9 +179,39 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     public function calculateTotals()
     {
         if ($this->price && $this->priceWithoutVAT && $this->amountVAT) {
-            $this->totalPrice = $this->price->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
-            $this->totalPriceWithoutVAT = $this->priceWithoutVAT->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
-            $this->totalAmountVAT = $this->amountVAT->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
+            $this->setTotalPrice($this->price->mul($this->quantity, Decimal::ROUND_HALF_EVEN));
+            $this->setTotalPriceWithoutVAT($this->priceWithoutVAT->mul($this->quantity, Decimal::ROUND_HALF_EVEN));
+            $this->setTotalAmountVAT($this->amountVAT->mul($this->quantity, Decimal::ROUND_HALF_EVEN));
+        }
+    }
+
+    /**
+     * @param Money|Decimal $totalPrice
+     */
+    public function setTotalPrice(Money $totalPrice = null)
+    {
+        if (null === $this->totalPrice || !$this->totalPrice->equals($totalPrice)) {
+            $this->totalPrice = $totalPrice;
+        }
+    }
+
+    /**
+     * @param Money|Decimal $totalPriceWithoutVAT
+     */
+    public function setTotalPriceWithoutVAT(Money $totalPriceWithoutVAT = null)
+    {
+        if (null === $this->totalPriceWithoutVAT || !$this->totalPriceWithoutVAT->equals($totalPriceWithoutVAT)) {
+            $this->totalPriceWithoutVAT = $totalPriceWithoutVAT;
+        }
+    }
+
+    /**
+     * @param Money|Decimal $totalAmountVAT
+     */
+    public function setTotalAmountVAT(Money $totalAmountVAT = null)
+    {
+        if (null === $this->totalAmountVAT || !$this->totalAmountVAT->equals($totalAmountVAT)) {
+            $this->totalAmountVAT = $totalAmountVAT;
         }
     }
 
