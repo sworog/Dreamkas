@@ -42,7 +42,7 @@ public class InvoiceApiUserSteps {
         String uuid = new UUIDGenerator().generate();
         Supplier supplier = supplierApiSteps.createSupplier(uuid);
         SubCategory subCategory = catalogApiSteps.createDefaultSubCategoryThroughPost();
-        Product product = productApiSteps.createProductThroughPost(uuid, uuid, uuid, "unit", "100.00", subCategory.getName());
+        Product product = productApiSteps.createProductThroughPost(uuid, uuid, "unit", "100.00", subCategory.getName());
 
         InvoiceProduct invoiceProduct = new InvoiceProduct(product.getId(), quantity, enteredPrice);
 

@@ -57,7 +57,7 @@ public class EndWriteOffApiSteps {
     public void givenThereIsTheWriteOffWithProduct(String writeOffNumber, String productSku, String quantity, String price, String cause)
             throws IOException, JSONException {
         catalogApiSteps.createDefaultSubCategoryThroughPost();
-        createProduct(productSku, productSku, productSku, "kg", "15");
+        createProduct(productSku, productSku, "kg", "15");
         givenThereIsTheWriteOffWithNumber(writeOffNumber);
         writeOffApiSteps.addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause, "departmentManager");
     }
@@ -70,7 +70,7 @@ public class EndWriteOffApiSteps {
     @Given("the user navigates to new write off with '$writeOffNumber' number with product '$productSku' with quantity '$quantity', price '$price' and cause '$cause'")
     public void givenThereIsTheWriteOffWithProductWithNavigation(String writeOffNumber, String productSku, String productUnits, String purchasePrice, String quantity, String price, String cause)
             throws IOException, JSONException {
-        createProduct(productSku, productSku, productSku, productUnits, purchasePrice);
+        createProduct(productSku, productSku, productUnits, purchasePrice);
         givenThereIsTheWriteOffWithNumber(writeOffNumber);
         writeOffApiSteps.addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause, "departmentManager");
     }
@@ -108,9 +108,9 @@ public class EndWriteOffApiSteps {
         WriteOffSteps.examplesTable = examplesTable;
     }
 
-    public void createProduct(String productSku, String productName, String productBarCode, String productUnits, String purchasePrice) throws IOException, JSONException {
-        if (!StaticData.products.containsKey(productSku)) {
-            productApiSteps.createProductThroughPost(productName, productSku, productBarCode, productUnits, purchasePrice, SubCategory.DEFAULT_NAME);
+    public void createProduct(String productName, String productBarCode, String productUnits, String purchasePrice) throws IOException, JSONException {
+        if (!StaticData.products.containsKey(productName)) {
+            productApiSteps.createProductThroughPost(productName, productBarCode, productUnits, purchasePrice, SubCategory.DEFAULT_NAME);
         }
     }
 }
