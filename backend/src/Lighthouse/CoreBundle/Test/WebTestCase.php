@@ -81,43 +81,6 @@ class WebTestCase extends ContainerAwareTestCase
 
     /**
      * @deprecated
-     *
-     * @param array $modifiedData
-     * @param string $invoiceId
-     * @param string $storeId
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
-     * @throws \Doctrine\ODM\MongoDB\MongoDBException
-     * @throws \Doctrine\ODM\MongoDB\LockException
-     * @throws \Lighthouse\CoreBundle\Exception\ValidationFailedException
-     * @return void
-     */
-    protected function editInvoice(array $modifiedData, $invoiceId, $storeId)
-    {
-        if (isset($modifiedData['supplier'])) {
-            $supplierId = $this->factory()->supplier()->getSupplier($modifiedData['supplier'])->id;
-        } else {
-            $supplierId = null;
-        }
-        $this->factory()->invoice()->createInvoice($modifiedData, $storeId, $supplierId);
-    }
-
-    /**
-     * @deprecated
-     * @param Invoice $invoice
-     * @param string $productId
-     * @param float $quantity
-     * @param float $price
-     * @internal param string $invoiceId
-     * @return string
-     */
-    public function createInvoiceProduct(Invoice $invoice, $productId, $quantity, $price)
-    {
-        return $this->factory()->invoice()->createInvoiceProduct($invoice, $productId, $quantity, $price);
-    }
-
-    /**
      * @param string $invoiceProductId
      * @param Invoice $invoice
      * @param string $productId

@@ -1292,8 +1292,12 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->updateProduct($productId, array('name' => 'Кефир 5%'));
 
-        $this->factory()->clear();
-        $this->createInvoiceProduct($invoice, $productId, 10, 10.12);
+        $this->factory()
+            ->clear()
+            ->invoice()
+                ->editInvoice($invoice->id)
+                ->createInvoiceProduct($productId, 10, 10.12)
+            ->flush();
         $this->client->shutdownKernelBeforeRequest();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -1683,7 +1687,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testGetInvoiceProductAfterEditInvoiceAcceptanceDate()
     {
-        $this->markTestSkipped('Broken');
         $store = $this->factory()->store()->getStore();
         $productId = $this->createProduct();
         $invoice = $this->factory()
@@ -1704,8 +1707,10 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('2014-01-10T12:33:33+0400', 'acceptanceDate', $response);
         Assert::assertJsonPathEquals('2014-01-10T12:33:33+0400', 'products.0.acceptanceDate', $response);
 
-        $this->factory()->clear();
-        $this->editInvoice(array('acceptanceDate' => '2014-01-03T10:11:10+0400'), $invoice->id, $store->id);
+        $this->factory()
+            ->invoice()
+                ->editInvoice($invoice->id, array('acceptanceDate' => '2014-01-03T10:11:10+0400'))
+            ->flush();
 
         $response = $this->clientJsonRequest(
             $accessToken,

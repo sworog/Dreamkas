@@ -4,11 +4,13 @@ namespace Lighthouse\CoreBundle\Tests\Document\TrialBalance;
 
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 
 class CostOfGoodsTest extends WebTestCase
 {
@@ -16,38 +18,32 @@ class CostOfGoodsTest extends WebTestCase
     {
         $productIds = $this->createProductsByNames(array('1', '2', '3'));
 
-        $store1 = $this->factory()->store()->getStore('701');
+        $store = $this->factory()->store()->getStore('701');
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-12 12:23:13'), $store1->id)
+                ->createInvoice(array('acceptanceDate' => '2014-01-12 12:23:13'), $store->id)
                 ->createInvoiceProduct($productIds['1'], 105.678, 16.36)
                 ->createInvoiceProduct($productIds['3'], 320, 178.34)
             ->persist()
-                ->createInvoice(array('acceptanceDate' => '2014-01-13 19:56:04'), $store1->id)
+                ->createInvoice(array('acceptanceDate' => '2014-01-13 19:56:04'), $store->id)
                 ->createInvoiceProduct($productIds['2'], 45.04, 189.67)
                 ->createInvoiceProduct($productIds['3'], 115.12, 176.51)
             ->persist()
-                ->createInvoice(array('acceptanceDate' => '2014-01-13 20:03:14'), $store1->id)
+                ->createInvoice(array('acceptanceDate' => '2014-01-13 20:03:14'), $store->id)
                 ->createInvoiceProduct($productIds['1'], 111.67, 201.15)
                 ->createInvoiceProduct($productIds['3'], 115, 176.51)
             ->persist()
-                ->createInvoice(array('acceptanceDate' => '2014-01-14 08:15:31'), $store1->id)
+                ->createInvoice(array('acceptanceDate' => '2014-01-14 08:15:31'), $store->id)
                 ->createInvoiceProduct($productIds['1'], 300.01, 201.15)
             ->flush();
 
-        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
-        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        $costOfGoodsCalculator->calculateUnprocessed();
-
-        $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
-
-        $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
         foreach ($productIds as $productId) {
-            $storeProductId = $storeProductRepository->getIdByStoreIdAndProductId($store1->id, $productId);
+            $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $productId);
             $prevEndIndex = '0.000';
-            $trailBalances = $trialBalanceRepository->findByStoreProductIdAndReasonType(
+            $trailBalances = $this->getTrialBalanceRepository()->findByStoreProductIdAndReasonType(
                 $storeProductId,
                 InvoiceProduct::REASON_TYPE
             );
@@ -64,39 +60,33 @@ class CostOfGoodsTest extends WebTestCase
     {
         $productIds = $this->createProductsByNames(array('1', '2', '3'));
 
-        $store1 = $this->factory()->store()->getStore('701');
+        $store = $this->factory()->store()->getStore('701');
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-10 12:23:13'), $store1->id)
+                ->createInvoice(array('acceptanceDate' => '2014-01-10 12:23:13'), $store->id)
                 ->createInvoiceProduct($productIds['1'], 16.36, 10.09)
                 ->createInvoiceProduct($productIds['2'], 10.067, 29.56)
                 ->createInvoiceProduct($productIds['3'], 20, 30.05)
             ->flush();
 
-        $sale1 = $this->factory()->createSale($store1->id, '2014-01-11 13:45:09', 110.23);
+        $sale1 = $this->factory()->createSale($store->id, '2014-01-11 13:45:09', 110.23);
         $this->factory()->createSaleProduct(12.11, 9.102, $productIds['1'], $sale1);
         $this->factory()->createSaleProduct(34.12, 7, $productIds['3'], $sale1);
         $this->factory()->createSaleProduct(34.12, 1, $productIds['3'], $sale1);
         $this->factory()->flush();
 
-        $sale2 = $this->factory()->createSale($store1->id, '2014-01-12 15:45:09', 110.23);
+        $sale2 = $this->factory()->createSale($store->id, '2014-01-12 15:45:09', 110.23);
         $this->factory()->createSaleProduct(34.99, 2.056, $productIds['2'], $sale2);
         $this->factory()->createSaleProduct(35.15, 6, $productIds['3'], $sale2);
         $this->factory()->flush();
 
-        $sale3 = $this->factory()->createSale($store1->id, '2014-01-12 15:45:10', 110.23);
+        $sale3 = $this->factory()->createSale($store->id, '2014-01-12 15:45:10', 110.23);
         $this->factory()->createSaleProduct(11.49, 4.56, $productIds['1'], $sale3);
         $this->factory()->createSaleProduct(35.15, 2, $productIds['3'], $sale3);
         $this->factory()->flush();
 
-        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
-        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        $costOfGoodsCalculator->calculateUnprocessed();
-
-        $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
-
-        $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
         $countAssertions = array(
             $productIds['1'] => 2,
@@ -105,9 +95,9 @@ class CostOfGoodsTest extends WebTestCase
         );
 
         foreach ($productIds as $productId) {
-            $storeProductId = $storeProductRepository->getIdByStoreIdAndProductId($store1->id, $productId);
+            $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $productId);
             $prevEndIndex = '0.000';
-            $trailBalances = $trialBalanceRepository->findByStoreProductIdAndReasonType(
+            $trailBalances = $this->getTrialBalanceRepository()->findByStoreProductIdAndReasonType(
                 $storeProductId,
                 SaleProduct::REASON_TYPE
             );
@@ -133,17 +123,11 @@ class CostOfGoodsTest extends WebTestCase
         $this->factory()->createSaleProduct(34.12, 1, $productId, $sale);
         $this->factory()->flush();
 
-        /* @var \Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator $costOfGoodsCalculator */
-        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
-
-        $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
-
-        $storeProductId = $storeProductRepository->getIdByStoreIdAndProductId($store, $productId);
+        $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store, $productId);
         $prevEndIndex = '0.000';
-        $trailBalances = $trialBalanceRepository->findByStoreProductIdAndReasonType(
+        $trailBalances = $this->getTrialBalanceRepository()->findByStoreProductIdAndReasonType(
             $storeProductId,
             SaleProduct::REASON_TYPE
         );
@@ -166,8 +150,8 @@ class CostOfGoodsTest extends WebTestCase
     {
         $productId = $this->createProduct('1');
         $store = $this->factory()->store()->getStore('701');
-        $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
-        $storeProductId = $storeProductRepository->getIdByStoreIdAndProductId($store->id, $productId);
+
+        $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $productId);
 
         $this->factory()
             ->invoice()
@@ -181,15 +165,12 @@ class CostOfGoodsTest extends WebTestCase
                 ->createInvoiceProduct($productId, 2, 10.09)
             ->flush();
 
-        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
-        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
-        $numericFactory = $this->getContainer()->get('lighthouse.core.types.numeric.factory');
-        $startIndex = $numericFactory->createQuantity($start);
-        $endIndex = $numericFactory->createQuantity($end);
-        $cursor = $trialBalanceRepository->findByIndexRange(
+        $startIndex = $this->getNumericFactory()->createQuantity($start);
+        $endIndex = $this->getNumericFactory()->createQuantity($end);
+
+        $cursor = $this->getTrialBalanceRepository()->findByIndexRange(
             InvoiceProduct::REASON_TYPE,
             $storeProductId,
             $startIndex,
@@ -290,8 +271,7 @@ class CostOfGoodsTest extends WebTestCase
     {
         $productId = $this->createProduct('1');
         $store = $this->factory()->store()->getStore('701');
-        $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
-        $storeProductId = $storeProductRepository->getIdByStoreIdAndProductId($store->id, $productId);
+        $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $productId);
 
         $this->factory()
             ->invoice()
@@ -305,16 +285,15 @@ class CostOfGoodsTest extends WebTestCase
                 ->createInvoiceProduct($productId, 2, 10.09)
             ->flush();
 
-        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
-        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $numericFactory = $this->getContainer()->get('lighthouse.core.types.numeric.factory');
-        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
-        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        $startIndex = $numericFactory->createQuantity($start);
-        $endIndex = $numericFactory->createQuantity($end);
-        $costOfGoods = $costOfGoodsCalculator->calculateByIndexRange($storeProductId, $startIndex, $endIndex);
+        $startIndex = $this->getNumericFactory()->createQuantity($start);
+        $endIndex = $this->getNumericFactory()->createQuantity($end);
+        $costOfGoods = $this->getCostOfGoodsCalculator()->calculateByIndexRange(
+            $storeProductId,
+            $startIndex,
+            $endIndex
+        );
         $this->assertSame($expectedCostOfGoods, $costOfGoods->toNumber());
     }
 
@@ -425,36 +404,17 @@ class CostOfGoodsTest extends WebTestCase
 
         // Calculate CostOfGoods
 
-        /* @var \Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator $costOfGoodsCalculator */
-        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $trialBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
-
-        $trialBalanceSaleProduct1 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId((string) $saleProduct1->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals('32.08', $trialBalanceSaleProduct1->costOfGoods->toString());
-        $trialBalanceSaleProduct2 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId((string) $saleProduct2->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals('1.16', $trialBalanceSaleProduct2->costOfGoods->toString());
-        $trialBalanceSaleProduct3 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId((string) $saleProduct3->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals('10.11', $trialBalanceSaleProduct3->costOfGoods);
-        $trialBalanceSaleProduct4 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId((string) $saleProduct4->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals('13.30', $trialBalanceSaleProduct4->costOfGoods->toString());
-        $trialBalanceSaleProduct5 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId((string) $saleProduct5->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals('22.98', $trialBalanceSaleProduct5->costOfGoods->toString());
+        $this->assertCostOfGood($saleProduct1, '32.08');
+        $this->assertCostOfGood($saleProduct2, '1.16');
+        $this->assertCostOfGood($saleProduct3, '10.11');
+        $this->assertCostOfGood($saleProduct4, '13.30');
+        $this->assertCostOfGood($saleProduct5, '22.98');
     }
 
     public function testCostOfGoodsCalculateAfterInsertOldReceipts()
     {
-        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
-        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        /** @var TrialBalanceRepository $trialBalanceRepository */
-        $trialBalanceRepository = $this->getContainer()->get("lighthouse.core.document.repository.trial_balance");
-
         $store = $this->factory()->store()->getStore('1');
         $productId = $this->createProduct('1');
 
@@ -470,57 +430,32 @@ class CostOfGoodsTest extends WebTestCase
         $saleProduct1 = $this->factory()->createSaleProduct(250, 6, $productId, $sale1);
         $this->factory()->flush();
 
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-
-        $trialBalanceSaleProduct1 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(650, $trialBalanceSaleProduct1->costOfGoods->toNumber());
-
+        $this->assertCostOfGood($saleProduct1, '650.00');
 
         $saleBehindhand = $this->factory()->createSale($store->id, '2014-01-09 12:23:12', 1750);
-        $saleProductBehindhand = $this->factory()->createSaleProduct(250, 7, $productId, $saleBehindhand);
+        $saleProductBehindhand1 = $this->factory()->createSaleProduct(250, 7, $productId, $saleBehindhand);
         $this->factory()->flush();
 
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-
-        $trialBalanceSaleProductBehindhand = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProductBehindhand->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(800, $trialBalanceSaleProductBehindhand->costOfGoods->toNumber());
-
-        $trialBalanceSaleProduct1 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(1050, $trialBalanceSaleProduct1->costOfGoods->toNumber());
-
+        $this->assertCostOfGood($saleProductBehindhand1, '800.00');
+        $this->assertCostOfGood($saleProduct1, '1050.00');
 
         $saleBehindhand2 = $this->factory()->createSale($store->id, "2014-01-09 16:23:12", 500);
         $saleProductBehindhand2 = $this->factory()->createSaleProduct(250, 2, $productId, $saleBehindhand2);
         $this->factory()->flush();
 
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-
-        $trialBalanceSaleProductBehindhand = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProductBehindhand->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(800, $trialBalanceSaleProductBehindhand->costOfGoods->toNumber());
-
-        $trialBalanceSaleProductBehindhand2 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProductBehindhand2->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(300, $trialBalanceSaleProductBehindhand2->costOfGoods->toNumber());
-
-        $trialBalanceSaleProduct1 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(1150, $trialBalanceSaleProduct1->costOfGoods->toNumber());
+        $this->assertCostOfGood($saleProductBehindhand1, '800.00');
+        $this->assertCostOfGood($saleProductBehindhand2, '300.00');
+        $this->assertCostOfGood($saleProduct1, '1150.00');
     }
 
     public function testCostOfGoodsCalculateDuplicateReceipt()
     {
-        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
-        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        /** @var TrialBalanceRepository $trialBalanceRepository */
-        $trialBalanceRepository = $this->getContainer()->get("lighthouse.core.document.repository.trial_balance");
-
         $store = $this->factory()->store()->getStore('1');
         $productId = $this->createProduct('1');
 
@@ -545,72 +480,40 @@ class CostOfGoodsTest extends WebTestCase
         $saleProduct3 = $this->factory()->createSaleProduct(250, 6, $productId, $sale3);
         $this->factory()->flush();
 
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $trialBalanceSaleProduct1 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(800, $trialBalanceSaleProduct1->costOfGoods->toNumber());
-
-        $trialBalanceSaleProduct2 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct2->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(300, $trialBalanceSaleProduct2->costOfGoods->toNumber());
-
-        $trialBalanceSaleProduct3 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct3->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(1150, $trialBalanceSaleProduct3->costOfGoods->toNumber());
+        $this->assertCostOfGood($saleProduct1, '800.00');
+        $this->assertCostOfGood($saleProduct2, '300.00');
+        $this->assertCostOfGood($saleProduct3, '1150.00');
 
 
         $this->factory()->deleteSale($sale1);
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $trialBalanceSaleProduct2 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct2->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(200, $trialBalanceSaleProduct2->costOfGoods->toNumber());
-
-        $trialBalanceSaleProduct3 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct3->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(750, $trialBalanceSaleProduct3->costOfGoods->toNumber());
+        $this->assertCostOfGood($saleProduct2, '200.00');
+        $this->assertCostOfGood($saleProduct3, '750.00');
 
 
-
-        $sale1 = $this->factory()->createSale($store->id, '2014-01-09 12:23:12', 1000);
-        $saleProduct1 = $this->factory()->createSaleProduct(250, 4, $productId, $sale1);
+        $sale4 = $this->factory()->createSale($store->id, '2014-01-09 12:23:12', 1000);
+        $saleProduct4 = $this->factory()->createSaleProduct(250, 4, $productId, $sale4);
         $this->factory()->flush();
 
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $trialBalanceSaleProduct1 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(400, $trialBalanceSaleProduct1->costOfGoods->toNumber());
-
-        $trialBalanceSaleProduct2 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct2->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(250, $trialBalanceSaleProduct2->costOfGoods->toNumber());
-
-        $trialBalanceSaleProduct3 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct3->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(1000, $trialBalanceSaleProduct3->costOfGoods->toNumber());
-
+        $this->assertCostOfGood($saleProduct4, '400.00');
+        $this->assertCostOfGood($saleProduct2, '250.00');
+        $this->assertCostOfGood($saleProduct3, '1000.00');
 
         $this->factory()->deleteSale($sale2);
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $trialBalanceSaleProduct1 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(400, $trialBalanceSaleProduct1->costOfGoods->toNumber());
-
-        $trialBalanceSaleProduct3 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct3->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(850, $trialBalanceSaleProduct3->costOfGoods->toNumber());
+        $this->assertCostOfGood($saleProduct4, '400.00');
+        $this->assertCostOfGood($saleProduct3, '850.00');
     }
 
     public function testCostOfGoodsCalculateEditInvoice()
     {
         $this->markTestSkipped('Broken need to be fixed');
-        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
-        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        /** @var TrialBalanceRepository $trialBalanceRepository */
-        $trialBalanceRepository = $this->getContainer()->get("lighthouse.core.document.repository.trial_balance");
 
         $store = $this->factory()->store()->getStore("1");
         $productId = $this->createProduct("1");
@@ -647,193 +550,166 @@ class CostOfGoodsTest extends WebTestCase
         $saleProduct3 = $this->factory()->createSaleProduct(250, 6, $productId, $sale3);
         $this->factory()->flush();
 
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $trialBalanceSaleProduct1 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(800, $trialBalanceSaleProduct1->costOfGoods->toNumber());
-
-        $trialBalanceSaleProduct2 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct2->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(300, $trialBalanceSaleProduct2->costOfGoods->toNumber());
-
-        $trialBalanceSaleProduct3 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct3->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(1150, $trialBalanceSaleProduct3->costOfGoods->toNumber());
+        $this->assertCostOfGood($saleProduct1, '800.00');
+        $this->assertCostOfGood($saleProduct2, '300.00');
+        $this->assertCostOfGood($saleProduct3, '1150.00');
 
         // Edit invoice product price and quantity
         $this->editInvoiceProduct($invoiceProduct1Id, $invoice1, $productId, 6, 50, $store);
 
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $trialBalanceSaleProduct1 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(450, $trialBalanceSaleProduct1->costOfGoods->toNumber());
-
-        $trialBalanceSaleProduct2 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct2->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(300, $trialBalanceSaleProduct2->costOfGoods->toNumber());
-
-        $trialBalanceSaleProduct3 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct3->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(1100, $trialBalanceSaleProduct3->costOfGoods->toNumber());
+        $this->assertCostOfGood($saleProduct1, '450.00');
+        $this->assertCostOfGood($saleProduct2, '300.00');
+        $this->assertCostOfGood($saleProduct3, '1100.00');
 
 
         // Edit invoice product change product
         $this->editInvoiceProduct($invoiceProduct1Id, $invoice1, $productOtherId, 1, 11, $store);
 
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $trialBalanceSaleProduct1 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(1150, $trialBalanceSaleProduct1->costOfGoods->toNumber());
-
-        $trialBalanceSaleProduct2 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct2->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(400, $trialBalanceSaleProduct2->costOfGoods->toNumber());
-
-        $trialBalanceSaleProduct3 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct3->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(1200, $trialBalanceSaleProduct3->costOfGoods->toNumber());
+        $this->assertCostOfGood($saleProduct1, '1150.00');
+        $this->assertCostOfGood($saleProduct2, '400.00');
+        $this->assertCostOfGood($saleProduct3, '1200.00');
 
 
         // Edit invoice product delete not first
         $this->editInvoiceProduct($invoiceProduct1Id, $invoice1, $productId, 5, 100, $store);
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
         $this->factory()->clear();
         $this->factory()->invoice()->deleteInvoiceProduct($invoiceProduct2Id);
-        $costOfGoodsCalculator->calculateUnprocessed();
 
-        $trialBalanceSaleProduct1 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(900, $trialBalanceSaleProduct1->costOfGoods->toNumber());
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $trialBalanceSaleProduct2 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct2->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(400, $trialBalanceSaleProduct2->costOfGoods->toNumber());
-
-        $trialBalanceSaleProduct3 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct3->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(1200, $trialBalanceSaleProduct3->costOfGoods->toNumber());
+        $this->assertCostOfGood($saleProduct1, '900.00');
+        $this->assertCostOfGood($saleProduct2, '400.00');
+        $this->assertCostOfGood($saleProduct3, '1200.00');
 
 
         // Edit invoice product delete first
         $this->factory()->invoice()->createInvoiceProduct($invoice2, $productId, 5, 150, $store);
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
         $this->factory()->invoice()->deleteInvoiceProduct($invoiceProduct1Id);
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $trialBalanceSaleProduct1 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(1150, $trialBalanceSaleProduct1->costOfGoods->toNumber());
-
-        $trialBalanceSaleProduct2 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct2->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(400, $trialBalanceSaleProduct2->costOfGoods->toNumber());
-
-        $trialBalanceSaleProduct3 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct3->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(1200, $trialBalanceSaleProduct3->costOfGoods->toNumber());
+        $this->assertCostOfGood($saleProduct1, '1150.00');
+        $this->assertCostOfGood($saleProduct2, '400.00');
+        $this->assertCostOfGood($saleProduct3, '1200.00');
     }
 
     public function testCostOfGoodsCalculateEditInvoiceDate()
     {
-        $this->markTestSkipped('Broken need to be fixed');
-        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
-        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        /** @var TrialBalanceRepository $trialBalanceRepository */
-        $trialBalanceRepository = $this->getContainer()->get("lighthouse.core.document.repository.trial_balance");
+        $store = $this->factory()->store()->getStore('1');
+        $productId = $this->createProduct('1');
+        $this->createProduct('Other');
 
-        $store = $this->factory()->store()->getStoreId("1");
-        $product = $this->createProduct("1");
-        $this->createProduct("Other");
+        $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $productId);
 
-
-        $this->factory()
+        $invoice1 = $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-01 12:56'), $store)
-                ->createInvoiceProduct($product, 5, 100, $store)
+                ->createInvoice(array('acceptanceDate' => '2014-01-01 12:56'), $store->id)
+                ->createInvoiceProduct($productId, 5, 100, $store->id)
             ->flush();
         $invoice2 = $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-02 12:56'), $store)
-                ->createInvoiceProduct($product, 5, 150, $store)
-            ->persist()
-                ->createInvoice(array('acceptanceDate' => '2014-01-03 12:56'), $store)
-                ->createInvoiceProduct($product, 10, 200, $store)
+                ->createInvoice(array('acceptanceDate' => '2014-01-02 12:56'), $store->id)
+                ->createInvoiceProduct($productId, 5, 150, $store->id)
             ->flush();
 
-        $sale1 = $this->factory()->createSale($store, "2014-01-09 12:23:12", 1750);
-        $saleProduct1 = $this->factory()->createSaleProduct(250, 7, $product, $sale1);
+        $invoice3 = $this->factory()
+            ->invoice()
+                ->createInvoice(array('acceptanceDate' => '2014-01-03 12:56'), $store->id)
+                ->createInvoiceProduct($productId, 10, 200, $store->id)
+            ->flush();
+
+        $sale1 = $this->factory()->createSale($store->id, "2014-01-09 12:23:12", 1750);
+        $saleProduct1 = $this->factory()->createSaleProduct(250, 7, $productId, $sale1);
         $this->factory()->flush();
 
-        $sale2 = $this->factory()->createSale($store, "2014-01-09 16:23:12", 500);
-        $saleProduct2 = $this->factory()->createSaleProduct(250, 2, $product, $sale2);
+        $sale2 = $this->factory()->createSale($store->id, "2014-01-09 16:23:12", 500);
+        $saleProduct2 = $this->factory()->createSaleProduct(250, 2, $productId, $sale2);
         $this->factory()->flush();
 
-        $sale3 = $this->factory()->createSale($store, "2014-01-10 12:23:12", 1500);
-        $saleProduct3 = $this->factory()->createSaleProduct(250, 6, $product, $sale3);
+        $sale3 = $this->factory()->createSale($store->id, "2014-01-10 12:23:12", 1500);
+        $saleProduct3 = $this->factory()->createSaleProduct(250, 6, $productId, $sale3);
         $this->factory()->flush();
 
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $trialBalanceSaleProduct1 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(800, $trialBalanceSaleProduct1->costOfGoods->toNumber());
+        $this->assertCostOfGood($saleProduct1, '800.00');
+        $this->assertCostOfGood($saleProduct2, '300.00');
+        $this->assertCostOfGood($saleProduct3, '1150.00');
 
-        $trialBalanceSaleProduct2 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct2->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(300, $trialBalanceSaleProduct2->costOfGoods->toNumber());
+        $this->factory()
+            ->clear()
+            ->invoice()
+                ->editInvoice($invoice2->id, array('acceptanceDate' => '2014-01-01 10:00'))
+            ->flush();
 
-        $trialBalanceSaleProduct3 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct3->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(1150, $trialBalanceSaleProduct3->costOfGoods->toNumber());
+        $this->assertStoreProductTrialBalance(
+            $storeProductId,
+            InvoiceProduct::REASON_TYPE,
+            array(
+                array(
+                    'reasonId' => $invoice2->products[0]->id,
+                    'status' => TrialBalance::PROCESSING_STATUS_UNPROCESSED
+                ),
+                array(
+                    'reasonId' => $invoice1->products[0]->id,
+                    'status' => TrialBalance::PROCESSING_STATUS_OK
+                ),
+                array(
+                    'reasonId' => $invoice3->products[0]->id,
+                    'status' => TrialBalance::PROCESSING_STATUS_OK
+                ),
+            )
+        );
 
-        $this->factory()->clear();
-        $this->editInvoice(array('acceptanceDate' => '2014-01-01 10:00'), $invoice2, $store);
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->assertCostOfGood($saleProduct1, '950.00');
+        $this->assertCostOfGood($saleProduct2, '200.00');
+        $this->assertCostOfGood($saleProduct3, '1100.00');
 
-        $trialBalanceSaleProduct1 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(950, $trialBalanceSaleProduct1->costOfGoods->toNumber());
+        $this->factory()
+            ->clear()
+            ->invoice()
+                ->editInvoice($invoice2->id, array('acceptanceDate' => '2014-01-02 12:56'))
+            ->flush();
 
-        $trialBalanceSaleProduct2 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct2->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(200, $trialBalanceSaleProduct2->costOfGoods->toNumber());
+        $this->assertStoreProductTrialBalance(
+            $storeProductId,
+            InvoiceProduct::REASON_TYPE,
+            array(
+                array(
+                    'reasonId' => $invoice1->products[0]->id,
+                    'status' => TrialBalance::PROCESSING_STATUS_UNPROCESSED
+                ),
+                array(
+                    'reasonId' => $invoice2->products[0]->id,
+                    'status' => TrialBalance::PROCESSING_STATUS_UNPROCESSED
+                ),
+                array(
+                    'reasonId' => $invoice3->products[0]->id,
+                    'status' => TrialBalance::PROCESSING_STATUS_OK
+                ),
+            )
+        );
 
-        $trialBalanceSaleProduct3 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct3->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(1100, $trialBalanceSaleProduct3->costOfGoods->toNumber());
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $this->factory()->clear();
-        $this->editInvoice(array('acceptanceDate' => '2014-01-02 12:56'), $invoice2, $store);
-
-        $costOfGoodsCalculator->calculateUnprocessed();
-
-        $trialBalanceSaleProduct1 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(800, $trialBalanceSaleProduct1->costOfGoods->toNumber());
-
-        $trialBalanceSaleProduct2 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct2->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(300, $trialBalanceSaleProduct2->costOfGoods->toNumber());
-
-        $trialBalanceSaleProduct3 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct3->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(1150, $trialBalanceSaleProduct3->costOfGoods->toNumber());
+        $this->assertCostOfGood($saleProduct1, '800.00');
+        $this->assertCostOfGood($saleProduct2, '300.00');
+        $this->assertCostOfGood($saleProduct3, '1150.00');
     }
 
     public function testCostOfGoodsCalculateOutOfStock()
     {
-        $this->markTestSkipped('Calculation broken, should be fixed');
-        /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
-        $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
-        /** @var TrialBalanceRepository $trialBalanceRepository */
-        $trialBalanceRepository = $this->getContainer()->get("lighthouse.core.document.repository.trial_balance");
-
         $store = $this->factory()->store()->getStore('1');
         $productId = $this->createProduct(array('purchasePrice' => 100));
         $this->createProduct('Other');
@@ -842,9 +718,9 @@ class CostOfGoodsTest extends WebTestCase
         $saleProduct1 = $this->factory()->createSaleProduct(250, 7, $productId, $sale1);
         $this->factory()->flush();
 
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $trialBalanceSaleProduct1 = $trialBalanceRepository
+        $trialBalanceSaleProduct1 = $this->getTrialBalanceRepository()
             ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
         $this->assertEquals(700, $trialBalanceSaleProduct1->costOfGoods->toNumber());
 
@@ -854,11 +730,9 @@ class CostOfGoodsTest extends WebTestCase
                 ->createInvoiceProduct($productId, 5, 150)
             ->flush();
 
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $trialBalanceSaleProduct1 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(1050, $trialBalanceSaleProduct1->costOfGoods->toNumber());
+        $this->assertCostOfGood($saleProduct1, '1050.00');
 
         $this->factory()
             ->invoice()
@@ -866,10 +740,71 @@ class CostOfGoodsTest extends WebTestCase
                 ->createInvoiceProduct($productId, 1, 200)
             ->flush();
 
-        $costOfGoodsCalculator->calculateUnprocessed();
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $trialBalanceSaleProduct1 = $trialBalanceRepository
-            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
-        $this->assertEquals(1150, $trialBalanceSaleProduct1->costOfGoods->toNumber());
+        $this->assertCostOfGood($saleProduct1, '1150.00');
+    }
+
+    /**
+     * @param string $storeProductId
+     * @param string $reasonType
+     * @param array $expectations
+     */
+    protected function assertStoreProductTrialBalance($storeProductId, $reasonType, array $expectations)
+    {
+        $trialBalances = $this->getTrialBalanceRepository()->findByStoreProductIdAndReasonType(
+            $storeProductId,
+            $reasonType
+        );
+        $this->assertCount(count($expectations), $trialBalances);
+
+        foreach ($expectations as $expected) {
+            /* @var TrialBalance $trialBalance */
+            $trialBalance = $trialBalances->getNext();
+            $this->assertEquals($expected['reasonId'], $trialBalance->reason->getReasonId());
+            $this->assertEquals($expected['status'], $trialBalance->processingStatus, 'Status does not match');
+        }
+    }
+
+    /**
+     * @param SaleProduct $saleProduct
+     * @param string $expectedCostOfGood
+     */
+    protected function assertCostOfGood(SaleProduct $saleProduct, $expectedCostOfGood)
+    {
+        $trialBalanceSaleProduct = $this->getTrialBalanceRepository()->findOneByReason($saleProduct);
+        $this->assertSame($expectedCostOfGood, $trialBalanceSaleProduct->costOfGoods->toString());
+    }
+
+    /**
+     * @return TrialBalanceRepository
+     */
+    protected function getTrialBalanceRepository()
+    {
+        return $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
+    }
+
+    /**
+     * @return CostOfGoodsCalculator
+     */
+    protected function getCostOfGoodsCalculator()
+    {
+        return $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
+    }
+
+    /**
+     * @return StoreProductRepository
+     */
+    protected function getStoreProductRepository()
+    {
+        return $this->getContainer()->get('lighthouse.core.document.repository.store_product');
+    }
+
+    /**
+     * @return NumericFactory
+     */
+    protected function getNumericFactory()
+    {
+        return $this->getContainer()->get('lighthouse.core.types.numeric.factory');
     }
 }

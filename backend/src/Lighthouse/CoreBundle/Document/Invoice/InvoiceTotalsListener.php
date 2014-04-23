@@ -116,7 +116,7 @@ class InvoiceTotalsListener extends AbstractMongoDBListener implements ObjectIni
      */
     public function postFlush(PostFlushEventArgs $eventArgs)
     {
-        if (0 == $this->postFlushCount++ && !$this->invoicesQueue->isEmpty()) {
+        if (false && 0 == $this->postFlushCount++ && !$this->invoicesQueue->isEmpty()) {
             $dm = $eventArgs->getDocumentManager();
 
             foreach ($this->invoicesQueue as $invoice) {

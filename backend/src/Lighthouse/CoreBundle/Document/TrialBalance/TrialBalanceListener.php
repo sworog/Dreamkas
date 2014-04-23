@@ -256,7 +256,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
 
         foreach ($invoiceProducts as $invoiceProduct) {
             $invoiceProduct->beforeSave();
-            //$this->computeChangeSet($dm, $invoiceProduct);
+            $this->computeChangeSet($dm, $invoiceProduct);
         }
 
         foreach ($trialBalances as $trialBalance) {

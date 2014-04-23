@@ -37,7 +37,7 @@ class InvoiceFactory extends AbstractFactory
      * @param null $orderId
      * @return InvoiceBuilder
      */
-    public function editInvoice($invoiceId, array $data, $storeId = null, $supplierId = null, $orderId = null)
+    public function editInvoice($invoiceId, array $data = array(), $storeId = null, $supplierId = null, $orderId = null)
     {
         $builder = new InvoiceBuilder(
             $this->factory,
