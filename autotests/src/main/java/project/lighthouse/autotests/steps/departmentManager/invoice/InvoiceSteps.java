@@ -20,7 +20,7 @@ import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.web.invoice.InvoiceProductObject;
 import project.lighthouse.autotests.objects.web.search.InvoiceListSearchObject;
 import project.lighthouse.autotests.pages.departmentManager.invoice.InvoicePage;
-import project.lighthouse.autotests.pages.departmentManager.invoice.deprecated.InvoiceSearchPage;
+import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceSearchPage;
 import project.lighthouse.autotests.storage.Storage;
 
 import static org.hamcrest.Matchers.is;

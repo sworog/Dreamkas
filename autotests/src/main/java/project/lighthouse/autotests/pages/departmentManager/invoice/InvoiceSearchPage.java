@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.pages.departmentManager.invoice.deprecated;
+package project.lighthouse.autotests.pages.departmentManager.invoice;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
