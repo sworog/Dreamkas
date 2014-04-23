@@ -569,6 +569,7 @@ EOF;
     public function testUrlStatPathException()
     {
         $sambaMock = $this->getSambaMock(array('execute'));
+        $sambaMock->clearstatcache();
 
         $urlDir = "smb://user:password@host/base_path/success";
 
@@ -581,6 +582,7 @@ EOF;
     public function testUrlStatNotTypeUrlException()
     {
         $sambaMock = $this->getSambaMock(array('execute'));
+        $sambaMock->clearstatcache();
 
         $url = "smb://";
 

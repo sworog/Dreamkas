@@ -3,19 +3,19 @@
 namespace Lighthouse\CoreBundle\Test\Factory;
 
 use Lighthouse\CoreBundle\Document\File\File;
-use Lighthouse\CoreBundle\Document\Order\Order;
-use Lighthouse\CoreBundle\Document\Order\Product\OrderProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Receipt\ReceiptRepository;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Sale\Sale;
-use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Test\Factory\Invoice\InvoiceFactory;
+use Lighthouse\CoreBundle\Test\Factory\Order\OrderFactory;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
+use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
 
 class Factory extends ContainerAwareFactory
@@ -39,6 +39,21 @@ class Factory extends ContainerAwareFactory
      * @var CatalogFactory
      */
     protected $catalog;
+
+    /**
+     * @var InvoiceFactory
+     */
+    protected $invoice;
+
+    /**
+     * @var OrderFactory
+     */
+    protected $order;
+
+    /**
+     * @var SupplierFactory
+     */
+    protected $supplier;
 
     /**
      * @var array
@@ -87,6 +102,39 @@ class Factory extends ContainerAwareFactory
             $this->catalog = new CatalogFactory($this->container, $this);
         }
         return $this->catalog;
+    }
+
+    /**
+     * @return InvoiceFactory
+     */
+    public function invoice()
+    {
+        if (null === $this->invoice) {
+            $this->invoice = new InvoiceFactory($this->container, $this);
+        }
+        return $this->invoice;
+    }
+
+    /**
+     * @return OrderFactory
+     */
+    public function order()
+    {
+        if (null === $this->order) {
+            $this->order = new OrderFactory($this->container, $this);
+        }
+        return $this->order;
+    }
+
+    /**
+     * @return SupplierFactory
+     */
+    public function supplier()
+    {
+        if (null === $this->supplier) {
+            $this->supplier = new SupplierFactory($this->container, $this);
+        }
+        return $this->supplier;
     }
 
     /**
@@ -140,6 +188,11 @@ class Factory extends ContainerAwareFactory
     public function flush()
     {
         $this->getDocumentManager()->flush();
+    }
+
+    public function clear()
+    {
+        $this->getDocumentManager()->clear();
     }
 
     /**
@@ -204,7 +257,7 @@ class Factory extends ContainerAwareFactory
     /**
      * @return NumericFactory
      */
-    protected function getNumericFactory()
+    public function getNumericFactory()
     {
         return $this->container->get('lighthouse.core.types.numeric.factory');
     }
@@ -234,16 +287,11 @@ class Factory extends ContainerAwareFactory
     }
 
     /**
-     * @param string $name
-     * @return Supplier
+     * @return ExceptionalValidator
      */
-    public function createSupplier($name = 'default')
+    public function getValidator()
     {
-        $supplier = new Supplier();
-        $supplier->name = $name;
-        $this->getDocumentManager()->persist($supplier);
-
-        return $supplier;
+        return $this->container->get('lighthouse.core.validator');
     }
 
     /**
@@ -261,49 +309,5 @@ class Factory extends ContainerAwareFactory
         $this->getDocumentManager()->persist($file);
 
         return $file;
-    }
-
-
-    /**
-     * @param Store $store
-     * @param Supplier $supplier
-     * @param $createdDate
-     * @return Order
-     */
-    public function createOrder(Store $store = null, Supplier $supplier = null, $createdDate = null)
-    {
-        $supplier = ($supplier) ?: $this->createSupplier();
-
-        $store = ($store) ?: $this->store()->getStore();
-
-        $order = new Order();
-        $order->store = $store;
-        $order->supplier = $supplier;
-        $order->createdDate = new DateTimestamp($createdDate);
-
-        $this->getDocumentManager()->persist($order);
-
-        return $order;
-    }
-
-    /**
-     * @param Order $order
-     * @param string $productId
-     * @param int $quantity
-     * @return OrderProduct
-     */
-    public function createOrderProduct(Order $order, $productId, $quantity = 1)
-    {
-        $orderProduct = new OrderProduct();
-        $orderProduct->order = $order;
-        $orderProduct->product = $this->createProductVersion($productId);
-        $orderProduct->quantity = $this->getNumericFactory()->createQuantity($quantity);
-        $orderProduct->storeProduct = $this->getStoreProduct($order->store->id, $productId);
-
-        $this->getDocumentManager()->persist($orderProduct);
-
-        $order->products->add($orderProduct);
-
-        return $orderProduct;
     }
 }

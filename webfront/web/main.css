@@ -18,7 +18,7 @@
 @import "blocks/inputDate/inputDate.css";
 @import "blocks/editor/editor.css";
 @import "blocks/page/page.css";
-@import "blocks/invoice/invoice.css";
+@import "blocks/content/content.css";
 @import "blocks/form/form_product/form_product.css";
 @import "blocks/product/product.css";
 @import "blocks/saleBox/saleBox.css";
@@ -27,12 +27,11 @@
 @import "blocks/tooltip/tooltip.css";
 @import "blocks/form/form.css";
 @import "blocks/table/table.css";
-@import "blocks/navigationBar/navigationBar.css";
+@import "blocks/globalNavigation/globalNavigation.css";
 @import "blocks/localNavigation/localNavigation.css";
 @import "blocks/catalogCategory/catalogCategory.css";
 @import "blocks/store/store.css";
 @import "blocks/log/log.css";
-@import "blocks/invoiceList/invoiceList.css";
 @import "blocks/writeOffList/writeOffList.css";
 @import "blocks/layout/layout.css";
 @import "blocks/grossSales/grossSales.css";

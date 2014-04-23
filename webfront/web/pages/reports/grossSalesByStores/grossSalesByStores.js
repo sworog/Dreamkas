@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('kit/core/page.deprecated'),
         GrossSalesByStoresCollection = require('collections/grossSalesByStores'),
         Table_grossSalesByStores = require('blocks/table/table_grossSalesByStores/table_grossSalesByStores');
 

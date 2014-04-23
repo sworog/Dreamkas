@@ -1,0 +1,21 @@
+<% var templates = _.extend({
+    form__results: require('tpl!blocks/form/form_invoiceSearch/form__results.html')
+}, templates) %>
+
+<form class="form form_invoiceSearch">
+    <h1>Поиск накладной</h1>
+
+    <p>
+        Накладную можно найти по номеру накладной или по номеру счета-фактуры.
+    </p>
+
+    <div class="form__field form__field_inline" style="padding-bottom: 30px;">
+        <input style="width: 400px;" class="inputText" name="numberOrSupplierInvoiceNumber"
+               value="<%- PAGE.params.numberOrSupplierInvoiceNumber %>"
+               placeholder="Номер накладной или счет-фактура">
+        <button lh-button class="button" type="submit">
+            Найти
+        </button>
+    </div>
+    <%= PAGE.collections.invoices.element(templates.form__results) %>
+</form>

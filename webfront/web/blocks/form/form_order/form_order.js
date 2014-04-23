@@ -4,6 +4,7 @@ define(function(require, exports, module) {
         router = require('router'),
         OrderModel = require('models/order'),
         Autocomplete = require('blocks/autocomplete/autocomplete'),
+        Select_suppliers = require('blocks/select/select_suppliers/select_suppliers'),
         table_orderProducts__productSum = require('tpl!blocks/table/table_orderProducts/table_orderProducts__productSum.html');
 
     require('jquery');
@@ -17,6 +18,9 @@ define(function(require, exports, module) {
         redirectUrl: '/orders',
         el: '.form_order',
         model: new OrderModel(),
+        collections: {
+            suppliers: null
+        },
         editedProductModel: null,
         nextEditedProductModel: null,
         $errorTr: $('<tr class="table__orderProduct__error"><td colspan="5"></td></tr>'),
@@ -60,9 +64,11 @@ define(function(require, exports, module) {
             'keyup .table__orderProduct input': function(e) {
                 var block = this;
 
-                if (e.keyCode !== 13) {
-                    block.renderProductSum(e.target.value);
+                if (e.keyCode === 13 || e.keyCode === 27) {
+                    return;
                 }
+
+                block.renderProductSum(e.target.value);
             },
             'click .form_order__removeProductLink': function(e) {
                 e.stopPropagation();
@@ -99,6 +105,8 @@ define(function(require, exports, module) {
         initialize: function() {
             var block = this;
 
+            Form.prototype.initialize.apply(block, arguments);
+
             block.model.get('collections.products').on('change add remove', function() {
                 block.el.classList.add('form_changed');
             });
@@ -108,7 +116,10 @@ define(function(require, exports, module) {
             });
 
             block.blocks = {
-                autocomplete: new Autocomplete()
+                autocomplete: new Autocomplete(),
+                select_suppliers: new Select_suppliers({
+                    collections: _.pick(block.collections, 'suppliers')
+                })
             };
         },
         editProduct: function(orderProductModel) {
@@ -161,6 +172,8 @@ define(function(require, exports, module) {
             if (tr) {
                 tr.classList.remove('table__orderProduct_edit');
             }
+
+            block.el.querySelector('.autocomplete').focus();
         },
         renderProductSum: function(quantity) {
             var block = this,
@@ -192,6 +205,9 @@ define(function(require, exports, module) {
             var block = this;
 
             block.$errorTr.detach();
+        },
+        getCreateInvoiceFromOrderLink: function() {
+            var link = '/stores/' + model.get('store').id + '/invoices/create?order='+ model.id;
         }
     });
 });

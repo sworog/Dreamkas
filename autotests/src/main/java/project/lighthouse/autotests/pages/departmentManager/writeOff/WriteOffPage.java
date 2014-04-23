@@ -4,18 +4,32 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import project.lighthouse.autotests.CommonViewInterface;
+import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.common.CommonView;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.items.*;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.objects.web.writeOff.WriteOffProductCollection;
-import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceBrowsing;
 
 import java.util.Map;
 
 @DefaultUrl("/writeOffs/create")
-public class WriteOffPage extends InvoiceBrowsing {
+public class WriteOffPage extends CommonPageObject {
+
+    @FindBy(xpath = "//*[contains(@class, 'dataInputSave')]")
+    public WebElement acceptChangesButton;
+
+    @FindBy(xpath = "//*[contains(@class, 'dataInputCancel')]")
+    public WebElement discardChangesButton;
+
+    @FindBy(xpath = "//*[contains(@class, 'removeConfirmButton')]")
+    public WebElement acceptDeleteButton;
+
+    @FindBy(xpath = "//*[contains(@class, 'removeCancel')]")
+    public WebElement discardDeleteButton;
 
     public static final String ITEM_NAME = "writeOffProduct";
     private static final String ITEM_SKU_NAME = "productSku";
@@ -109,30 +123,25 @@ public class WriteOffPage extends InvoiceBrowsing {
         commonViewInterface.childrenItemNavigateAndClickByFindByLocator(value, By.xpath(deleteButtonXpath));
     }
 
-    @Override
     public void writeOffStopEditButtonClick() {
         String xpath = "//*[@class='button writeOff__stopEditButton']";
         findVisibleElement(By.xpath(xpath)).click();
     }
 
-    @Override
     public void writeOffStopEditlinkClick() {
         String xpath = "//*[@class='page__controlsLink writeOff__stopEditLink']";
         findVisibleElement(By.xpath(xpath)).click();
     }
 
-    @Override
     public void editButtonClick() {
         String xpath = "//*[@class='page__controlsLink writeOff__editLink']";
         findVisibleElement(By.xpath(xpath)).click();
     }
 
-    @Override
     public void elementClick(String elementName) {
         itemClick(elementName);
     }
 
-    @Override
     public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
         By findBy = getItems().get(parentElementName).getFindBy();
         commonViewInterface.childrenItemClickByFindByLocator(elementName, findBy);
@@ -140,5 +149,23 @@ public class WriteOffPage extends InvoiceBrowsing {
 
     public WriteOffProductCollection getWriteOffProductCollection() {
         return new WriteOffProductCollection(getDriver(), By.name("writeOffProduct"));
+    }
+
+    public void acceptChangesButtonClick() throws InterruptedException {
+        $(acceptChangesButton).click();
+        Thread.sleep(1000);
+    }
+
+    public void discardChangesButtonClick() {
+        $(discardChangesButton).click();
+    }
+
+    public void acceptDeleteButtonClick() throws InterruptedException {
+        $(acceptDeleteButton).click();
+        Thread.sleep(1000);
+    }
+
+    public void discardDeleteButtonClick() {
+        $(discardDeleteButton).click();
     }
 }

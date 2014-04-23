@@ -1,0 +1,13 @@
+<% var templates = _.extend({
+    table_invoices: require('tpl!blocks/table/table_invoices/template.html')
+}, templates) %>
+
+<div class="content">
+    <% if (PAGE.collections.invoices.length) { %>
+    <%= templates.table_invoices() %>
+    <% } else { %>
+    <p>
+        Нет накладных
+    </p>
+    <% } %>
+</div>

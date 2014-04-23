@@ -3,11 +3,11 @@
 namespace Lighthouse\CoreBundle\Tests\Console;
 
 use Lighthouse\CoreBundle\Console\DotHelper;
-use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
+use Lighthouse\CoreBundle\Test\TestCase;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Output\NullOutput;
 
-class DotHelperTest extends ContainerAwareTestCase
+class DotHelperTest extends TestCase
 {
     public function testGetName()
     {

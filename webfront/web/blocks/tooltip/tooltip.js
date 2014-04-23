@@ -1,4 +1,4 @@
-define(function(require, exports, module) {
+define(function(require) {
     //requirements
     var Block = require('block'),
         deepExtend = require('kit/deepExtend/deepExtend');
@@ -8,7 +8,7 @@ define(function(require, exports, module) {
     return Block.extend({
         el: null,
         trigger: null,
-        container: '.page__data',
+        container: '.content',
         template: require('tpl!./template.html'),
         events: {
             'click .tooltip__closeLink': function(e) {

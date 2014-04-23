@@ -7,9 +7,9 @@ use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use SebastianBergmann\Exporter\Exporter;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
-use PHPUnit_Util_Type;
 use MongoDuplicateKeyException;
 use Exception;
 
@@ -660,13 +660,6 @@ class UserControllerTest extends WebTestCase
                         'GET',
                         'POST'
                     ),
-                    'stores/{store}/invoices/{invoice}/products.*' => array(
-                        'GET::{invoiceProduct}',
-                        'PUT::{invoiceProduct}',
-                        'DELETE::{invoiceProduct}',
-                        'GET',
-                        'POST'
-                    ),
                     'stores/{store}/writeoffs.*' => array(
                         'GET::{writeOff}',
                         'PUT::{writeOff}',
@@ -721,7 +714,6 @@ class UserControllerTest extends WebTestCase
                         'GET::reports/grossSalesByProducts',
                     ),
                     'stores/{store}/invoices.*' => array(),
-                    'stores/{store}/invoices/{invoice}/products.*' => array(),
                     'stores/{store}/writeoffs.*' => array(),
                     'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
                     'users.*' => array(
@@ -754,7 +746,6 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/categories/{category}.*' => array(),
                     'stores/{store}/subcategories/{subCategory}.*' => array(),
                     'stores/{store}/invoices.*' => array(),
-                    'stores/{store}/invoices/{invoice}/products.*' => array(),
                     'stores/{store}/writeoffs.*' => array(),
                     'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
                     'users.*' => array(
@@ -779,7 +770,6 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/categories/{category}.*' => array(),
                     'stores/{store}/subcategories/{subCategory}.*' => array(),
                     'stores/{store}/invoices.*' => array(),
-                    'stores/{store}/invoices/{invoice}/products.*' => array(),
                     'stores/{store}/writeoffs.*' => array(),
                     'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
                     'users.*' => array(
@@ -820,7 +810,8 @@ class UserControllerTest extends WebTestCase
             $statusCodes[] = $response->getStatusCode();
             $jsonResponses[] = $this->client->decodeJsonResponse($response);
         }
-        $responseBody = PHPUnit_Util_Type::export($jsonResponses);
+        $exporter = new Exporter();
+        $responseBody = $exporter->export($jsonResponses);
         $this->assertCount(1, array_keys($statusCodes, 201), $responseBody);
         $this->assertCount(2, array_keys($statusCodes, 400), $responseBody);
         Assert::assertJsonPathEquals('test', '*.username', $jsonResponses, 1);

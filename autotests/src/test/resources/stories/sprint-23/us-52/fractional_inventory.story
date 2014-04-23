@@ -67,11 +67,20 @@ Meta:
 GivenStories: precondition/sprint-23/us-52/aPreconditionToStoryUs52.story,
               precondition/sprint-23/us-52/aPreconditionToScenarioS4.story
 
-Given the user navigates to the invoice page with name 'invoice-2352-1'
+Given the user opens last created invoice page
 When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
-And the user inputs '0,0003' in the invoice product 'productAmount' field
-And the user clicks the add more product button
-Then the user sees error messages
+
+When the user inputs values on invoice page
+| elementName | value |
+| invoice product autocomplete | name-2352 |
+Then the user waits for the invoice product edition preloader finish
+
+When the user inputs quantity '0,0003' on the invoice product with name 'name-2352'
+And the user presses 'ENTER' key button
+
+Then the user waits for the invoice product edition preloader finish
+
+Then the user sees exact error messages
 | error message |
 | Значение не должно содержать больше 3 цифр после запятой |
 
@@ -84,12 +93,16 @@ Meta:
 GivenStories: precondition/sprint-23/us-52/aPreconditionToStoryUs52.story,
               precondition/sprint-23/us-52/aPreconditionToScenarioS5.story
 
-Given the user navigates to the invoice page with name 'invoice-2352-2'
-When the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
-And the user clicks on property named 'productAmount' of invoice product named 'sku-2352-2'
-And the user inputs the value '6,7689' in property named 'productAmount' of invoice product named 'sku-2352-2'
-And the user clicks OK and accepts changes
-Then the user sees error messages
+Given the user opens last created invoice page
+And the user logs in using 'departmentManager-s23u52' userName and 'lighthouse' password
+
+When the user clicks on the invoice product by name 'name-2352-2'
+And the user inputs quantity '6,7689' on the invoice product with name 'name-2352-2'
+And the user presses 'ENTER' key button
+
+Then the user waits for the invoice product edition preloader finish
+
+Then the user sees exact error messages
 | error message |
 | Значение не должно содержать больше 3 цифр после запятой |
 

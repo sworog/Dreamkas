@@ -116,8 +116,8 @@ class LastPurchasePriceListener
         if (count($this->storeProductsToUpdate) > 0) {
             foreach ($this->storeProductsToUpdate as $storeProduct) {
                 $lastTrialBalance = $this->trialBalanceRepository->findOneReasonInvoiceProductByProduct($storeProduct);
-                $price = (null !== $lastTrialBalance) ? $lastTrialBalance->price : null;
-
+                $price = (null !== $lastTrialBalance) ? clone $lastTrialBalance->price : null;
+                $storeProduct->lastPurchasePrice = $price;
                 $this->storeProductRepository->updateLastPurchasePrice($storeProduct, $price);
             }
         }

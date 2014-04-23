@@ -1,4 +1,4 @@
-define(function(require, exports, module) {
+define(function(require) {
     //requirements
     var Block = require('block'),
         Tooltip = require('blocks/tooltip/tooltip'),
@@ -6,7 +6,6 @@ define(function(require, exports, module) {
         cookies = require('cookies');
 
     return Block.extend({
-        moduleId: module.id,
         el: '.autocomplete',
         events: {
             'focus': function(){

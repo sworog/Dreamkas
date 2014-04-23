@@ -18,7 +18,7 @@ import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductO
 @DefaultUrl("/orders/create")
 public class OrderPage extends CommonPageObject {
 
-    @FindBy(xpath = "//*[@class='page__data']/h2")
+    @FindBy(name = "orderNumber")
     @SuppressWarnings("unused")
     WebElement orderNumberHeaderTextWebElement;
 
@@ -37,7 +37,7 @@ public class OrderPage extends CommonPageObject {
     }
 
     public String getOrderTotalSumText() {
-        return findVisibleElement(By.className("form_order__totalSum")).getText();
+        return findVisibleElement(By.className("form__totalSum")).getText();
     }
 
     public ButtonFacade getSaveButton() {
@@ -52,8 +52,8 @@ public class OrderPage extends CommonPageObject {
         return new LinkFacade(this, "Отменить");
     }
 
-    public void deleteButtonClick() {
-        new LinkFacade(this, "Удалить").click();
+    public LinkFacade getDeleteButtonLinkFacade() {
+        return new LinkFacade(this, "Удалить");
     }
 
     public OrderProductObjectCollection getOrderProductObjectCollection() {
@@ -70,5 +70,9 @@ public class OrderPage extends CommonPageObject {
 
     public String getSaveControlsText() {
         return findVisibleElement(saveControlsTextWebElement).getText();
+    }
+
+    public ButtonFacade getDownloadAgreementFileButton() {
+        return new ButtonFacade(this, "Скачать договор");
     }
 }

@@ -1,0 +1,18 @@
+<% var selected = selected || null %>
+<% var templates = _.extend({
+    agreementLink: require('tpl!blocks/select/select_suppliers/agreementLink.html')
+}, templates) %>
+
+<div class="select_suppliers">
+    <select class="select" name="supplier">
+        <option value="" selected disabled>Выберите поставщика</option>
+        <% PAGE.collections.suppliers.forEach(function(supplierModel){ %>
+        <option <%- selected === supplierModel.id ? 'selected' : '' %>
+                value="<%- supplierModel.id %>"><%- supplierModel.get('name') %>
+        </option>
+        <% }) %>
+    </select>
+    <%= templates.agreementLink({
+        supplierModel: PAGE.collections.suppliers.get(selected)
+    }) %>
+</div>

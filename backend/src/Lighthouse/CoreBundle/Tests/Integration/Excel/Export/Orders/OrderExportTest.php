@@ -11,8 +11,8 @@ class OrderExportTest extends WebTestCase
 {
     public function testExportOrderGeneration()
     {
-        $this->setUpStoreDepartmentManager();
-        $supplier = $this->factory->createSupplier();
+        $store = $this->factory()->store()->getStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
         $product1 = $this->createProduct(array(
             'name' => 'Длинное название с многим количеством слов что бы проверить перенос строк',
             'sku' => 'Кефир1Арт',
@@ -41,11 +41,11 @@ class OrderExportTest extends WebTestCase
             )
         );
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $this->storeId . '/orders',
+            '/api/1/stores/' . $store->id . '/orders',
             $postData
         );
 

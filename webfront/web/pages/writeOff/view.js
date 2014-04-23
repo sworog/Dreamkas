@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('kit/core/page.deprecated'),
         WriteOff = require('blocks/writeOff/writeOff'),
         WriteOffModel = require('models/writeOff'),
         WriteOffProductsCollection = require('collections/writeOffProducts'),
@@ -10,6 +10,10 @@ define(function(require) {
 
     return Page.extend({
         __name__: 'page_writeOff_view',
+        params: {
+            writeOffId: null,
+            editMode: null
+        },
         partials: {
             '#content': require('tpl!./templates/view.html')
         },
@@ -33,11 +37,11 @@ define(function(require) {
             page.writeOffId = pageParams.writeOffId;
 
             page.writeOffModel = new WriteOffModel({
-                id: page.writeOffId
+                id: page.params.writeOffId
             });
 
             page.writeOffProductsCollection = new WriteOffProductsCollection({
-                writeOffId: page.writeOffId,
+                writeOffId: page.params.writeOffId,
                 storeId: pageParams.storeId
             });
 
@@ -47,7 +51,7 @@ define(function(require) {
                 new WriteOff({
                     writeOffModel: page.writeOffModel,
                     writeOffProductsCollection: page.writeOffProductsCollection,
-                    editMode: page.editMode,
+                    editMode: page.params.editMode,
                     el: document.getElementById('writeOff')
                 });
             }, function() {

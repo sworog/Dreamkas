@@ -27,11 +27,11 @@ class InvoiceHighlightGenerator implements MetaGeneratorInterface
     public function getMetaForElement($element)
     {
         $highlights = array();
-        if ($element->sku == $this->filter->getSkuOrSupplierInvoiceSku()) {
-            $highlights['sku'] = true;
+        if ($element->number == $this->filter->getNumberOrSupplierInvoiceNumber()) {
+            $highlights['number'] = true;
         }
-        if ($element->supplierInvoiceSku == $this->filter->getSkuOrSupplierInvoiceSku()) {
-            $highlights['supplierInvoiceSku'] = true;
+        if ($element->supplierInvoiceNumber == $this->filter->getNumberOrSupplierInvoiceNumber()) {
+            $highlights['supplierInvoiceNumber'] = true;
         }
         return array('highlights' => $highlights);
     }

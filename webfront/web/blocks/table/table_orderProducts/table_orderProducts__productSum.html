@@ -1,7 +1,8 @@
 <% var OrderProductModel = require('models/orderProduct') %>
+<% var normalizeNumber = require('kit/normalizeNumber/normalizeNumber') %>
 <% var orderProductModel = orderProductModel || new OrderProductModel() %>
 <% var quantity = quantity || orderProductModel.get('quantity')%>
 
 <span>
-    <%- LH.formatMoney(orderProductModel.get('product.product.purchasePrice') * quantity || '') %>
+    <%- LH.formatMoney(orderProductModel.get('product.product.purchasePrice') * normalizeNumber(quantity) || '') %>
 </span>

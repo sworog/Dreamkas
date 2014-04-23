@@ -5,13 +5,14 @@ namespace Lighthouse\CoreBundle\Document\Order;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
+use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Order\Product\OrderProduct;
 use Lighthouse\CoreBundle\Document\Order\Product\OrderProductCollection;
-use Lighthouse\CoreBundle\Document\ReferenceCollection;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Doctrine\Common\Collections\ArrayCollection;
+use Lighthouse\CoreBundle\Exception\NotEmptyException;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 use DateTime;
@@ -64,6 +65,17 @@ class Order extends AbstractDocument implements Storeable
      */
     protected $supplier;
 
+
+    /**
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Invoice\Invoice",
+     *     simple=true
+     * )
+     * @Serializer\MaxDepth(3)
+     * @var Invoice
+     */
+    protected $invoice;
+
     /**
      * @MongoDB\ReferenceMany(
      *      targetDocument="Lighthouse\CoreBundle\Document\Order\Product\OrderProduct",
@@ -112,5 +124,16 @@ class Order extends AbstractDocument implements Storeable
         }
 
         $this->products = $products;
+    }
+
+    /**
+     * @MongoDB\PreRemove
+     * @throws \Lighthouse\CoreBundle\Exception\NotEmptyException
+     */
+    public function preRemove()
+    {
+        if ($this->invoice) {
+            throw new NotEmptyException(sprintf('Order #%s has invoice #%s', $this->id, $this->invoice->id));
+        }
     }
 }

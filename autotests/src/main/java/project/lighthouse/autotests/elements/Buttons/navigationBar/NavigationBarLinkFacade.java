@@ -8,7 +8,7 @@ import project.lighthouse.autotests.elements.Buttons.abstraction.AbstractFacade;
  */
 public class NavigationBarLinkFacade extends AbstractFacade {
 
-    private static final String XPATH_PATTERN = "//*[@class='navigationBar__links']/a[text()='%s']";
+    private static final String XPATH_PATTERN = "//a[@name='globalNavigationLink' and text()='%s']";
 
     public NavigationBarLinkFacade(CommonPageObject pageObject, String linkText) {
         super(pageObject, linkText);

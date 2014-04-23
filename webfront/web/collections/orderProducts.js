@@ -3,7 +3,6 @@ define(function(require, exports, module) {
     var Collection = require('kit/core/collection');
 
     return Collection.extend({
-        cid: module.id,
         model: require('models/orderProduct')
     });
 });

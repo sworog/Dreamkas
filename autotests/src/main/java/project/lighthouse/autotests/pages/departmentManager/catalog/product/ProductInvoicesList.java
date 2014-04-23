@@ -23,8 +23,4 @@ public class ProductInvoicesList extends CommonPageObject {
     public InvoiceListCollection getProductInvoiceListObjects() {
         return new InvoiceListCollection(getDriver(), By.name("invoice"));
     }
-
-    public void invoiceSkuClick(String sku) {
-        getProductInvoiceListObjects().clickByLocator(sku);
-    }
 }

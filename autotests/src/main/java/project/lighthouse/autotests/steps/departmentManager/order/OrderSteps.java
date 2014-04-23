@@ -8,8 +8,8 @@ import org.json.JSONException;
 import org.junit.Assert;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.Buttons.LinkFacade;
-import project.lighthouse.autotests.elements.preLoader.OrderProductEditionPreLoader;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
+import project.lighthouse.autotests.elements.preLoader.ProductEditionPreLoader;
 import project.lighthouse.autotests.helper.exampleTable.order.OrderExampleTableUpdater;
 import project.lighthouse.autotests.objects.web.order.order.OrderObjectCollection;
 import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductObject;
@@ -18,6 +18,7 @@ import project.lighthouse.autotests.pages.departmentManager.order.OrdersListPage
 import project.lighthouse.autotests.storage.Storage;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 public class OrderSteps extends ScenarioSteps {
@@ -127,6 +128,11 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
+    public void orderAcceptButtonClick() {
+        orderPage.getOrderAcceptButton().click();
+    }
+
+    @Step
     public void cancelLinkClick() {
         orderPage.getCancelLink().click();
     }
@@ -142,14 +148,24 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
+    public void deleteButtonLinkShouldBeVisible() {
+        orderPage.getDeleteButtonLinkFacade().shouldBeVisible();
+    }
+
+    @Step
+    public void deleteButtonLinkShouldBeNotVisible() {
+        orderPage.getDeleteButtonLinkFacade().shouldBeNotVisible();
+    }
+
+    @Step
     public void deleteButtonClickAndConfirmTheDeletion() {
-        orderPage.deleteButtonClick();
+        orderPage.getDeleteButtonLinkFacade().click();
         orderPage.getWaiter().getAlert().accept();
     }
 
     @Step
     public void deleteButtonClickAndDismissTheDeletion() {
-        orderPage.deleteButtonClick();
+        orderPage.getDeleteButtonLinkFacade().click();
         orderPage.getWaiter().getAlert().dismiss();
     }
 
@@ -238,10 +254,9 @@ public class OrderSteps extends ScenarioSteps {
 
     @Step
     public void assertOrderNumberHeader() {
-        String expectedNumber = String.format("Заказ поставщику № %s", Storage.getOrderVariableStorage().getNumber());
         assertThat(
                 orderPage.getOrderNumberHeaderText(),
-                equalTo(expectedNumber));
+                equalTo(Storage.getOrderVariableStorage().getNumber()));
     }
 
     @Step
@@ -259,20 +274,46 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
-    public void assertDownloadFileLinkIsNotVisible() {
-        try {
-            orderPage.getDownloadFileLink().click();
-        } catch (TimeoutException ignored) {
-        }
+    public void downloadFileLinkShouldBeNotVisible() {
+        orderPage.getDownloadFileLink().shouldBeNotVisible();
+    }
+
+    @Step
+    public void downloadFileLinkShouldBeVisible() {
+        orderPage.getDownloadFileLink().shouldBeVisible();
     }
 
     @Step
     public void waitForPreLoader() {
-        new OrderProductEditionPreLoader(getDriver()).await();
+        new ProductEditionPreLoader(getDriver()).await();
     }
 
     @Step
     public void focusOutClick() {
         orderPage.findVisibleElement(By.xpath("//h2[text()='Добавление товара в заказ']")).click();
+    }
+
+    @Step
+    public void orderProductCollectionObjectPriceSumAssert(String locator, String expectedValue) {
+        OrderProductObject orderProductObject =
+                (OrderProductObject) orderPage.getOrderProductObjectCollection().getAbstractObjectByLocator(locator);
+        assertThat(orderProductObject.getSum(), is(expectedValue));
+    }
+
+    @Step
+    public void agreementDownloadButtonShouldBeVisible() {
+        orderPage.getDownloadAgreementFileButton().shouldBeVisible();
+    }
+
+    @Step
+    public void agreementDownloadButtonShouldBeNotVisible() {
+        orderPage.getDownloadAgreementFileButton().shouldBeNotVisible();
+    }
+
+    @Step
+    public void assertAutoCompletePlaceHolder(String expectedPlaceHolder) {
+        assertThat(
+                orderPage.getItemAttribute("order product autocomplete", "placeholder"),
+                is(expectedPlaceHolder));
     }
 }

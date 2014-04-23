@@ -3,6 +3,7 @@ package project.lighthouse.autotests.elements.items;
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.helper.DateTimeHelper;
 
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
@@ -34,6 +35,11 @@ public class DateTime extends CommonItem {
         this.name = name;
     }
 
+    public DateTime(CommonPageObject pageObject, String name, String label) {
+        super(pageObject, name, label);
+        this.name = name;
+    }
+
     public String getDatePickerXpath() {
         String xpathTemplate = "//*[contains(@class, 'datepicker') and @rel='%s']";
         return String.format(xpathTemplate, name);
@@ -43,37 +49,13 @@ public class DateTime extends CommonItem {
     public void setValue(String value) {
         getVisibleWebElementFacade().click();
         if (value.startsWith("!")) {
-            String parsedValue = getDate(value.substring(1));
+            String parsedValue = DateTimeHelper.getDate(value.substring(1));
             getVisibleWebElementFacade().type(parsedValue);
         } else {
-            String parsedValue = getDate(value);
+            String parsedValue = DateTimeHelper.getDate(value);
             dateTimePickerInput(parsedValue);
         }
         dateTimePickerClose();
-    }
-
-    public String getDate(String value) {
-        switch (value) {
-            case "todayDateAndTime":
-                return getTodayDate(DATE_TIME_PATTERN);
-            case "todayDate":
-                return getTodayDate(DATE_PATTERN);
-            default:
-                if (value.contains("-")) {
-                    String replacedValue = value.replaceFirst(".+-([0-3]?[0-9]).*", "$1");
-                    int numberOfDay = Integer.parseInt(replacedValue);
-                    return getTodayDate(DATE_TIME_PATTERN, numberOfDay);
-                }
-                return value;
-        }
-    }
-
-    public static String getTodayDate(String pattern) {
-        return new SimpleDateFormat(pattern).format(new Date());
-    }
-
-    public static String getTodayDate(String pattern, int day) {
-        return new SimpleDateFormat(pattern).format(new org.joda.time.DateTime().minusDays(day).toDate());
     }
 
     public void dateTimePickerInput(String datePattern) {
@@ -101,17 +83,17 @@ public class DateTime extends CommonItem {
     //TODO refactor to ButtonFacade() class
     public void dateTimePickerClose() {
         String dateTimePickerCloseButtonXpath = getDatePickerXpath() + "//*[@class='button datepicker__saveLink tooltip__closeLink']";
-        getPageObject().findElement(By.xpath(dateTimePickerCloseButtonXpath)).click();
+        getPageObject().findVisibleElement(By.xpath(dateTimePickerCloseButtonXpath)).click();
     }
 
     public String getActualDatePickerMonth() {
         String actualDatePickerMonthXpath = getDatePickerXpath() + "//*[@class='datepicker__monthName']";
-        return getPageObject().find(By.xpath(actualDatePickerMonthXpath)).getText();
+        return getPageObject().findVisibleElement(By.xpath(actualDatePickerMonthXpath)).getText();
     }
 
     public int getActualDatePickerYear() {
         String actualDatePickerYearXpath = getDatePickerXpath() + "//*[@class='datepicker__yearNum']";
-        String actualDatePickerYear = getPageObject().find(By.xpath(actualDatePickerYearXpath)).getText();
+        String actualDatePickerYear = getPageObject().findVisibleElement(By.xpath(actualDatePickerYearXpath)).getText();
         return Integer.parseInt(actualDatePickerYear);
     }
 
@@ -119,8 +101,8 @@ public class DateTime extends CommonItem {
         String[] time = timeString.split(":");
         String hoursXpath = getDatePickerXpath() + "//*[@name='hours']";
         String minutesXpath = getDatePickerXpath() + "//*[@name='minutes']";
-        getPageObject().find(By.xpath(hoursXpath)).type(time[0]);
-        getPageObject().find(By.xpath(minutesXpath)).type(time[1]);
+        getPageObject().$(getPageObject().findVisibleElement(By.xpath(hoursXpath))).type(time[0]);
+        getPageObject().$(getPageObject().findVisibleElement(By.xpath(minutesXpath))).type(time[1]);
     }
 
     public void setDay(String dayString) {
@@ -130,7 +112,7 @@ public class DateTime extends CommonItem {
                                 "and not(contains(@class, 'datepicker__dateItem datepicker__dateItem_otherMonth'))]",
                         dayString
                 );
-        getPageObject().findElement(By.xpath(timePickerDayXpath)).click();
+        getPageObject().findVisibleElement(By.xpath(timePickerDayXpath)).click();
     }
 
     public void setMonth(int monthValue) {
@@ -139,13 +121,13 @@ public class DateTime extends CommonItem {
         if (monthValue < getActualMonth) {
             actualMonthValue = 0;
             while (!(monthValue == actualMonthValue)) {
-                getPageObject().findElement(By.xpath(getDatePickerXpath() + prevMonthLinkXpath)).click();
+                getPageObject().findVisibleElement(By.xpath(getDatePickerXpath() + prevMonthLinkXpath)).click();
                 actualMonthValue = getMonthNumber(getActualDatePickerMonth());
             }
         } else if (monthValue > actualMonthValue) {
             actualMonthValue = 0;
             while (!(monthValue == actualMonthValue)) {
-                getPageObject().findElement(By.xpath(getDatePickerXpath() + nextMonthLinkXpath)).click();
+                getPageObject().findVisibleElement(By.xpath(getDatePickerXpath() + nextMonthLinkXpath)).click();
                 actualMonthValue = getMonthNumber(getActualDatePickerMonth());
             }
         }
@@ -156,7 +138,7 @@ public class DateTime extends CommonItem {
         if (yearValue < getActualDatePickerYear()) {
             int actualYearValue = 0;
             while (!(yearValue == actualYearValue)) {
-                getPageObject().findElement(By.xpath(getDatePickerXpath() + prevMonthLinkXpath)).click();
+                getPageObject().findVisibleElement(By.xpath(getDatePickerXpath() + prevMonthLinkXpath)).click();
                 actualYearValue = getActualDatePickerYear();
             }
         } else if (yearValue > actualYear) {

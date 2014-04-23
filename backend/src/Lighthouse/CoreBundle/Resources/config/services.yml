@@ -59,6 +59,8 @@ services:
         class: Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository
         arguments:
             - LighthouseCoreBundle:Invoice\Invoice
+        calls:
+            - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
 
     lighthouse.core.document.repository.invoice_product:
         parent: doctrine_mongodb.odm.repository

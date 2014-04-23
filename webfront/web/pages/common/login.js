@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('kit/core/page.deprecated'),
         Form_login = require('blocks/form/form_login/form_login');
 
     return Page.extend({

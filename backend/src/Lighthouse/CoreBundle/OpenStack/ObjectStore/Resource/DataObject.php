@@ -2,8 +2,12 @@
 
 namespace Lighthouse\CoreBundle\OpenStack\ObjectStore\Resource;
 
+use OpenCloud\Common\Http\Client;
 use OpenCloud\ObjectStore\Resource\DataObject as BaseDataObject;
 
+/**
+ * @method Client getClient
+ */
 class DataObject extends BaseDataObject
 {
     /**

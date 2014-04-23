@@ -1,0 +1,12 @@
+<% var templates = _.extend({
+    table_invoices: require('tpl!blocks/table/table_invoices/template.html')
+}, templates) %>
+
+<div class="form__results">
+    <% if (!PAGE.collections.invoices.length && PAGE.params.numberOrSupplierInvoiceNumber) { %>
+    <h3>Мы не смогли найти накладную с номером <%- PAGE.params.numberOrSupplierInvoiceNumber %></h3>
+    <% } %>
+    <% if (PAGE.collections.invoices.length) { %>
+    <%= templates.table_invoices() %>
+    <% } %>
+</div>

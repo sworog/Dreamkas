@@ -4,8 +4,6 @@ namespace Lighthouse\CoreBundle\Tests\Document;
 
 use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Lighthouse\CoreBundle\Document\Invoice\Invoice;
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Sale\Sale;
@@ -141,35 +139,11 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
         $manager = $this->getManager();
 
-        $store = new Store();
-        $store->number = '42';
-        $store->address = '42';
-        $store->contacts = '42';
-
-        $manager->persist($store);
-        $manager->flush();
-
-        $invoiceData = array(
-            'sku' => 'product232',
-            'supplier' => 'ООО "Поставщик"',
-            'acceptanceDate' => '2013-03-18 12:56',
-            'accepter' => 'Приемных Н.П.',
-            'legalEntity' => 'ООО "Магазин"',
-            'supplierInvoiceSku' => '1248373',
-            'supplierInvoiceDate' => '17.03.2013',
-        );
-
+        $store = $this->factory()->store()->getStore('42');
         $product = $this->createProduct();
 
         $storeProductRepository = $this->getStoreProductRepository();
         $storeProduct = $storeProductRepository->findOrCreateByStoreProduct($store, $product);
-
-        $invoice = new Invoice();
-        $invoice->store = $store;
-        $invoice->populate($invoiceData);
-
-        $manager->persist($invoice);
-        $manager->flush();
 
         $trialBalanceRepository = $this->getTrialBalanceRepository();
 
@@ -178,17 +152,11 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
         $this->assertCount(0, $startTrialBalance);
 
-        $productVersion = $this->getVersionFactory()->createDocumentVersion($product);
-        $numericFactory = $this->getNumericFactory();
-
-        $invoiceProduct = new InvoiceProduct();
-        $invoiceProduct->product = $productVersion;
-        $invoiceProduct->invoice = $invoice;
-        $invoiceProduct->priceEntered = $numericFactory->createMoney(0.99);
-        $invoiceProduct->quantity = $numericFactory->createQuantity(9);
-
-        $manager->persist($invoiceProduct);
-        $manager->flush();
+        $invoice = $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id)
+                ->createInvoiceProduct($product->id, 9, 0.99)
+            ->flush();
 
         $endTrialBalanceCursor = $trialBalanceRepository->findByStoreProduct($storeProduct->id);
         $endTrialBalance = new TrialBalanceCollection($endTrialBalanceCursor);
@@ -201,8 +169,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $this->assertEquals(99, $endTrialBalanceItem->price->getCount());
         $this->assertEquals(891, $endTrialBalanceItem->totalPrice->getCount());
 
-        $invoiceProduct->quantity = $numericFactory->createQuantity(10);
-        $manager->persist($invoiceProduct);
+        $invoice->products[0]->quantity = $invoice->products[0]->quantity->set(10);
+        $manager->persist($invoice);
         $manager->flush();
 
         $trialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
@@ -211,7 +179,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $this->assertEquals(99, $trialBalance->price->getCount());
         $this->assertEquals(990, $trialBalance->totalPrice->getCount());
 
-        $manager->remove($invoiceProduct);
+        $manager->remove($invoice->products->remove(0));
         $manager->flush();
 
         $trialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
@@ -284,6 +252,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $storeProduct = $storeProductRepository->findOrCreateByStoreProduct($store, $product);
 
         $writeOff = new WriteOff();
+        $writeOff->date = new \DateTime();
         $writeOff->store = $store;
 
         $writeOffProduct = new WriteOffProduct();

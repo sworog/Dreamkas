@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave.departmentManager.order;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
@@ -23,6 +24,11 @@ public class ThenOrderUserSteps {
     @Then("the user checks the order product found by name '$locator' has quantity equals to expectedValue")
     public void thenTheUserChecksTheOrderProductFoundByNameHasQuantityEqualsTo(String locator, String expectedValue) {
         orderSteps.assertOrderProductObjectQuantity(locator, expectedValue);
+    }
+
+    @Then("the user checks the order product found by name '$locator' has sum equals to '$expectedValue'")
+    public void thenTheUserChecksTheOrderProductFoundByNameHasSumEqualsTo(String locator, String expectedValue) {
+        orderSteps.orderProductCollectionObjectPriceSumAssert(locator, expectedValue);
     }
 
     @Then("the user checks the order product in last created order has quantity equals to expectedValue")
@@ -60,6 +66,11 @@ public class ThenOrderUserSteps {
         orderSteps.assertOrderCollectionDoNotContainLastCreatedOrder();
     }
 
+    @Then("the user checks the orders list do not contain order with number '$number'")
+    public void thenTheUserChecksTheOrdersListDoNotContainOrderWithNumber(String number) {
+        orderSteps.assertOrderCollectionDoNotContainOrderWithNumber(number);
+    }
+
     @Then("the user checks the last created order products list dont contains product")
     public void thenTheUserChecksTheLastCreatedOrderProductListDonContainsProduct() throws JSONException {
         orderSteps.assertOrderProductCollectionDoNotContainsProduct();
@@ -86,8 +97,14 @@ public class ThenOrderUserSteps {
     }
 
     @Then("the user checks the download file link is not visible")
+    @Alias("the user checks the download file link should be not visible")
     public void thenTheUserChecksTheDownloadFileLinkIsNotVisible() {
-        orderSteps.assertDownloadFileLinkIsNotVisible();
+        orderSteps.downloadFileLinkShouldBeNotVisible();
+    }
+
+    @Then("the user checks the download file link should be visible")
+    public void thenTheUserChecksTheDownloadFileLinkIsVisible() {
+        orderSteps.downloadFileLinkShouldBeVisible();
     }
 
     @Then("the user checks the downloaded file contains required data by user with name '$userName'")
@@ -128,5 +145,30 @@ public class ThenOrderUserSteps {
     @Then("the user waits for the order product edition preloader finish")
     public void thenTheUserWaitsForTheOrderProductEditionPreloaderFinish() {
         orderSteps.waitForPreLoader();
+    }
+
+    @Then("the user checks the download agreement button should be visible on the order page")
+    public void thenTheUserChecksTheDownloadAgreementButtonShouldBeVisibleOnTheOrderPage() {
+        orderSteps.agreementDownloadButtonShouldBeVisible();
+    }
+
+    @Then("the user checks the download agreement button should be not visible on the order page")
+    public void thenTheUserChecksTheDownloadAgreementButtonShouldBeNotVisibleOnTheOrderPage() {
+        orderSteps.agreementDownloadButtonShouldBeNotVisible();
+    }
+
+    @Then("the user checks the delete order link button should be visible")
+    public void thenTheUserChecksTheDeleteOrderLinkButtonShouldBeVisible() {
+        orderSteps.deleteButtonLinkShouldBeVisible();
+    }
+
+    @Then("the user checks the delete order link button should be not visible")
+    public void thenTheUserChecksTheDeleteOrderLinkButtonShouldBeNotVisible() {
+        orderSteps.deleteButtonLinkShouldBeNotVisible();
+    }
+
+    @Then("the user checks the order autocomplete placeholder text is '$expectedPlaceHolder'")
+    public void thenTheUserChecksTheOrderAutoCompletePlaceHolderText(String expectedPlaceHolder) {
+        orderSteps.assertAutoCompletePlaceHolder(expectedPlaceHolder);
     }
 }

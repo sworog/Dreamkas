@@ -8,11 +8,27 @@ use Lighthouse\CoreBundle\Util\File\SortableDirectoryIterator;
 class SortableDirectoryTest extends ContainerAwareTestCase
 {
     /**
+     * @dataProvider invalidDirectoryProvider
      * @expectedException \UnexpectedValueException
+     * @expectedExceptionMessage does not exist
      */
-    public function testInvalidDirectory()
+    public function testInvalidDirectory($path)
     {
-        new SortableDirectoryIterator('unknown');
+        new SortableDirectoryIterator($path);
+    }
+
+    /**
+     * @return array
+     */
+    public function invalidDirectoryProvider()
+    {
+        return array(
+            'unknown' => array('unknown'),
+            '/unknown' => array('unknown'),
+            'http://unknown.host/path' => array('http://unknown.host/path'),
+            'zip://archive.zip#dir/file.txt' => array('zip://archive.zip#dir/file.txt'),
+            '//erp:erp@' => array('//erp:erp@')
+        );
     }
 
     public function testSortByTimeDefault()

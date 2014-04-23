@@ -59,19 +59,13 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
     protected function acceptProducts(array $products, $storeId)
     {
         $invoiceData = array(
-            'sku' => 'ALL-TOGETHER-234',
             'acceptanceDate' => date('c', strtotime('-32 days')),
         );
-        $invoiceId = $this->createInvoice($invoiceData, $storeId);
+        $builder = $this->factory()->invoice()->createInvoice($invoiceData, $storeId);
         foreach ($products as $product) {
-            $this->createInvoiceProduct(
-                $invoiceId,
-                $product['id'],
-                $product['accepted'],
-                '99.99',
-                $storeId
-            );
+            $builder->createInvoiceProduct($product['id'], $product['accepted'], '99.99');
         }
+        $builder->flush();
     }
 
     /**

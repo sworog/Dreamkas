@@ -22,14 +22,6 @@ abstract class AbstractRestController extends FOSRestController
     protected $documentRepository;
 
     /**
-     * @return DocumentRepository
-     */
-    protected function getDocumentRepository()
-    {
-        return $this->documentRepository;
-    }
-
-    /**
      * @return AbstractType
      */
     abstract protected function getDocumentFormType();
@@ -43,13 +35,18 @@ abstract class AbstractRestController extends FOSRestController
      */
     protected function processForm(Request $request, AbstractDocument $document, $save = true)
     {
-        $validation = $request->get('validation', false);
+        $validate = $request->get('validate', false);
+        $validationGroups = $request->get('validationGroups', false);
+        $options = array();
+        if ($validate && $validationGroups) {
+            $options['validation_groups'] = $validationGroups;
+        }
         $type = $this->getDocumentFormType();
-        $form = $this->createForm($type, $document);
+        $form = $this->createForm($type, $document, $options);
         $form->submit($request);
 
         if ($form->isValid()) {
-            if (true == $save && false == $validation) {
+            if (true == $save && false == $validate) {
                 return $this->saveDocument($document, $form);
             } else {
                 return $document;
@@ -67,8 +64,8 @@ abstract class AbstractRestController extends FOSRestController
     protected function saveDocument(AbstractDocument $document, FormInterface $form)
     {
         try {
-            $this->getDocumentRepository()->getDocumentManager()->persist($document);
-            $this->getDocumentRepository()->getDocumentManager()->flush();
+            $this->documentRepository->getDocumentManager()->persist($document);
+            $this->documentRepository->getDocumentManager()->flush();
             return $document;
         } catch (Exception $e) {
             return $this->handleFlushFailedException(new FlushFailedException($e, $form));
@@ -91,7 +88,7 @@ abstract class AbstractRestController extends FOSRestController
      */
     protected function processPost(Request $request)
     {
-        $document = $this->getDocumentRepository()->createNew();
+        $document = $this->documentRepository->createNew();
         return $this->processForm($request, $document);
     }
 
@@ -101,8 +98,8 @@ abstract class AbstractRestController extends FOSRestController
      */
     protected function processDelete(AbstractDocument $document)
     {
-        $this->getDocumentRepository()->getDocumentManager()->remove($document);
-        $this->getDocumentRepository()->getDocumentManager()->flush();
+        $this->documentRepository->getDocumentManager()->remove($document);
+        $this->documentRepository->getDocumentManager()->flush();
         return null;
     }
 

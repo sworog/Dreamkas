@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('kit/core/page.deprecated'),
         Form_writeOff = require('blocks/form/form_writeOff/form_writeOff'),
         WriteOffModel = require('models/writeOff'),
         currentUserModel = require('models/currentUser'),

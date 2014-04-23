@@ -68,4 +68,8 @@ public class OrderProductObject extends AbstractObject implements ResultComparab
     public void deleteIconClick() {
         getElement().findElement(By.xpath(".//*[@class='icon-remove-sign form_order__removeProductLink']")).click();
     }
+
+    public String getSum() {
+        return sum;
+    }
 }

@@ -17,6 +17,11 @@ public class CommonUserSteps {
         commonSteps.checkErrorMessages(errorMessageTable);
     }
 
+    @Then("the user sees exact error messages $errorMessageTable")
+    public void ThenTheUserSeesExactErrorMessages(ExamplesTable errorMessageTable) {
+        commonSteps.exactCheckErrorMessages(errorMessageTable);
+    }
+
     @Then("the user sees no error messages")
     public void ThenTheUserSeesNoErrorMessages() {
         commonSteps.checkNoErrorMessages();

@@ -53,6 +53,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
     {
         $parser = $this->createXmlParser();
 
+        /* @var bool|GoodElement $good */
         $good = $parser->readNextElement();
         $this->assertEquals(Product::UNITS_UNIT, $good->getUnits());
 
@@ -119,6 +120,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
     {
         $parser = $this->createXmlParser('Integration/Set10/Import/Products/goods-groups.xml');
 
+        /* @var GoodElement|false $element */
         $element = $parser->readNextElement();
         $groups = $element->getGroups();
 

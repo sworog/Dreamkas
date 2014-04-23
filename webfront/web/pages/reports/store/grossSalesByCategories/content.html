@@ -28,7 +28,7 @@
         <% var weekAgoSum = categoryGrossSalesModel.get('weekAgo.runningSum') %>
 
         <tr name="categoryGrossSales"
-            href="stores/<%- models.store.id %>/groups/<%- groupId %>/categories/<%- categoryGrossSalesModel.get('category.id') %>/grossSalesBySubCategories">
+            href="stores/<%- models.store.id %>/groups/<%- params.groupId %>/categories/<%- categoryGrossSalesModel.get('category.id') %>/grossSalesBySubCategories">
             <td name="category.name">
                 <%- categoryGrossSalesModel.get('category.name') %>
             </td>

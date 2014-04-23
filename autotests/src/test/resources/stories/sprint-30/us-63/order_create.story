@@ -8,6 +8,8 @@ As a заведующий отделом
 I want to зафиксировать в системе заказ поставщику
 In order to чтобы потом принимать поставку на основании заказа
 
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
+
 Scenario: Order create
 
 Meta:
@@ -206,15 +208,12 @@ And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' 
 
 When the user inputs values on order page
 | elementName | value |
-| order product autocomplete | name-30631 |
-And the user inputs quantity '5' on the order product with name 'name-30631'
-And the user presses 'ENTER' key button
+| order product autocomplete | !name-30631 |
+Then the user waits for the invoice product edition preloader finish
 
-Then the user waits for the order product edition preloader finish
-
-Then the user checks the order products list contains entry
-| name | units | quantity | retailPrice | totalSum |
-| name-30631 | шт. | 5,0 | 0,00 | 0,00 |
+Then the user checks the autocomplete result list contains exact entries
+| result |
+| Нет результатов |
 
 Scenario: Verify autocomplete product with price with no mark up is choosen
 

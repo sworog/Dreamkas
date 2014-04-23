@@ -7,12 +7,6 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class OrderProductControllerTest extends WebTestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->setUpStoreDepartmentManager();
-    }
-
     /**
      * @param $expectedCode
      * @param array $data
@@ -22,6 +16,7 @@ class OrderProductControllerTest extends WebTestCase
      */
     public function testPostOrderProductValidation($expectedCode, array $data, array $assertions = array())
     {
+        $store = $this->factory()->store()->getStore();
         $product = $this->createProduct();
 
         $postData = $data + array(
@@ -29,11 +24,11 @@ class OrderProductControllerTest extends WebTestCase
                 'quantity' => 1.11,
             );
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $this->storeId . '/orders/products?validate=true',
+            '/api/1/stores/' . $store->id . '/orders/products?validate=true',
             $postData
         );
 
@@ -160,6 +155,7 @@ class OrderProductControllerTest extends WebTestCase
 
     public function testPostOrderProductValidationOutput()
     {
+        $store = $this->factory()->store()->getStore();
         $product = $this->createProduct();
 
         $postData = array(
@@ -167,11 +163,11 @@ class OrderProductControllerTest extends WebTestCase
                 'quantity' => 1.11,
             );
 
-        $accessToken = $this->factory->oauth()->auth($this->departmentManager);
+        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $this->storeId . '/orders/products?validate=true',
+            '/api/1/stores/' . $store->id . '/orders/products?validate=true',
             $postData
         );
 
@@ -205,8 +201,7 @@ class OrderProductControllerTest extends WebTestCase
         );
         $product = $this->createProduct($productData, $subCategory);
 
-        $this->factory->createSupplier('123');
-        $this->factory->flush();
+        $this->factory()->supplier()->getSupplier('123');
 
         $postData = array(
             'product' => $product,

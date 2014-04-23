@@ -3,10 +3,10 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\RestBundle\View\View;
-use Lighthouse\CoreBundle\Document\File\FileUploader;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\Order\OrderCollection;
 use Lighthouse\CoreBundle\Document\Order\OrderRepository;
+use Lighthouse\CoreBundle\Document\Order\OrdersFilter;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Form\OrderType;
 use Lighthouse\CoreBundle\Integration\Excel\Export\Orders\OrderGenerator;
@@ -90,14 +90,16 @@ class OrderController extends AbstractRestController
 
     /**
      * @param Store $store
+     * @param OrdersFilter $ordersFilter
      * @return Order
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @Rest\View(serializerEnableMaxDepthChecks=true)
+     * @Rest\Route("stores/{store}/orders")
      * @ApiDoc(resource=true)
      */
-    public function getOrdersAction(Store $store)
+    public function getOrdersAction(Store $store, OrdersFilter $ordersFilter)
     {
-        $orders = $this->documentRepository->findAllByStoreId($store->id);
+        $orders = $this->documentRepository->findAllByStoreId($store->id, $ordersFilter);
         return new OrderCollection($orders);
     }
 

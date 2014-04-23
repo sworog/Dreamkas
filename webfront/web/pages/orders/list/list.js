@@ -1,17 +1,18 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('page'),
         OrdersCollection = require('collections/orders');
 
     require('jquery');
 
     return Page.extend({
-        __name__: module.id,
-        partials: {
-            '#content': require('tpl!./content.html')
+        templates: {
+            content: require('tpl!./content.html'),
+            localNavigation: require('tpl!../localNavigation.html')
         },
-        permissions: function() {
-            return !LH.isAllow('stores/{store}/orders', 'GET');
+        localNavigationActiveLink: 'list',
+        isAllow: function() {
+            return LH.isAllow('stores/{store}/orders', 'GET');
         },
         initialize: function() {
             var page = this;
