@@ -16,7 +16,7 @@ Meta:
 Given there is the user with name 'departmentManager-s15u24', position 'departmentManager-s15u24', username 'departmentManager-s15u24', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s15u24' managed by department manager named 'departmentManager-s15u24'
 
-Given there is the product with 'name-s15u24' name, 'sku-s15u24' sku, 'barcode-s15u24' barcode, 'unit' units, '15' purchasePrice
+Given there is the product with 'name-s15u24' name, 'barcode-s15u24' barcode, 'unit' units, '15' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -65,7 +65,7 @@ Given skipped test
 Given there is the user with name 'departmentManager-s15u24', position 'departmentManager-s15u24', username 'departmentManager-s15u24', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s15u24' managed by department manager named 'departmentManager-s15u24'
 
-Given there is the product with 'name-s15u241' name, 'sku-s15u241' sku, 'barcode-s15u241' barcode, 'unit' units, '15' purchasePrice
+Given there is the product with 'name-s15u241' name, 'barcode-s15u241' barcode, 'unit' units, '15' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
