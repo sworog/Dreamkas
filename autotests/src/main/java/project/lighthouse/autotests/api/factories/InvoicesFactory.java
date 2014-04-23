@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.api.abstractFactory.factories;
+package project.lighthouse.autotests.api.factories;
 
 import org.json.JSONException;
 import project.lighthouse.autotests.api.abstractFactory.AbstractApiFactory;
