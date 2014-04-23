@@ -115,4 +115,36 @@ public class ThenInvoiceUserSteps {
     public void thenTheUserChecksTheInvoiceProductsListDoNotContainProductWithName() throws JSONException {
         invoiceSteps.collectionDoNotContainlastAddedInvoiceProductObject();
     }
+
+    @Then("the user asserts invoice search results contains invoice with number '$number'")
+    public void thenTheUserAssertsInvoiceSearchResultsContainsInvoiceWithNumber(String number) {
+        invoiceSteps.invoiceListSearchObjectContains(number);
+    }
+
+    @Then("the user checks invoice search results contains exact values $examplesTable")
+    public void thenTheUserChecksInvoiceSearchResultsContainsExactValues(ExamplesTable examplesTable) {
+        invoiceSteps.invoiceListSearchObjectExactCompareWith(examplesTable);
+    }
+
+    @Then("the user asserts invoice search results contains highlighted text '$text' of invoice with number '$number'")
+    public void thenTheUserAssertsInvoiceSearchResultsContainsInvoiceWithNumberAndHighlightedText(
+            String text,
+            String number) {
+        invoiceSteps.invoiceListSearchObjectContainsHighLightedTextByLocator(number, text);
+    }
+
+    @Then("the user checks the form results text is '$text'")
+    public void thenTheUserChecksTheFormREsultText(String text) {
+        invoiceSteps.checkFormResultsText(text);
+    }
+
+    @Then("the user waits for checkBoxPreLoader finish")
+    public void thenTheUserWaitsForCheckBoxPreLoaderFinish() {
+        invoiceSteps.checkBoxPreLoaderWait();
+    }
+
+    @Then("the user checks the include vat checkbox is '$state'")
+    public void thenTheUserChecksTheIncludeVatCheckBoxState(String state) {
+        invoiceSteps.checkTheStateOfCheckBox(state);
+    }
 }

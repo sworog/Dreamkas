@@ -9,176 +9,257 @@ In order to определять когда и какого объема тре�
 
 Scenario: Store balance verification
 
+Meta:
+@smoke
+@ids19u43s1
+
 Given there is the user with name 'departmentManager-BIC', position 'departmentManager-BIC', username 'departmentManager-BIC', password 'lighthouse', role 'departmentManager'
 And there is the user with name 'departmentManager-BIC-2', position 'departmentManager-BIC-2', username 'departmentManager-BIC-2', password 'lighthouse', role 'departmentManager'
-And there is the store with number 'BIC-01' managed by department manager named 'departmentManager-BIC'
+
+Given there is the store with number 'BIC-01' managed by department manager named 'departmentManager-BIC'
 And there is the store with number 'BIC-02' managed by department manager named 'departmentManager-BIC-2'
-And there is the product with 'SBV-01' name, 'SBV-01' sku, 'SBV-01' barcode
-And the user opens amount list page
-When the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
-Then the user checks the product with 'SBV-01' sku has 'amounts amount' element equal to '0' on amounts page
+
+Given there is the product with 'SBV-01' name, 'SBV-01' sku, 'SBV-01' barcode
+
+Given the user navigates to the subCategory 'defaultSubCategory', category 'defaultCategory', group 'defaultGroup' product list page
+And the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
+
+When the user opens product balance tab
+
+Then the user checks the product balance list contains entry
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SBV-01 | SBV-01 | SBV-01 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
+
 When the user logs out
-Given the user opens amount list page
-When the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
-Then the user checks the product with 'SBV-01' sku has 'amounts amount' element equal to '0' on amounts page
+
+Given the user navigates to the subCategory 'defaultSubCategory', category 'defaultCategory', group 'defaultGroup' product list page
+And the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
+
+When the user opens product balance tab
+
+Then the user checks the product balance list contains entry
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SBV-01 | SBV-01 | SBV-01 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
+
 When the user logs out
-Given there is the invoice with sku 'Invoice-BIC-1' in the store with number 'BIC-01' ruled by department manager with name 'departmentManager-BIC'
-And the user adds the product to the invoice with name 'Invoice-BIC-1' with sku 'SBV-01', quantity '5', price '10' in the store ruled by 'departmentManager-BIC'
-Given the user opens amount list page
-When the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
-Then the user checks the product with 'SBV-01' sku has 'amounts amount' element equal to '5' on amounts page
+
+Given the user creates invoice api object with values
+| elementName | value |
+| acceptanceDate | todayDateAndTime |
+| accepter | accepter |
+| legalEntity | legalEntity |
+| supplierInvoiceNumber | supplierInvoiceNumber |
+And the user adds the product with data to invoice api object
+| elementName | value |
+| productName |  SBV-01 |
+| quantity | 5 |
+| price | 10 |
+And there is the invoice created with invoice builder steps by userName 'departmentManager-BIC'
+
+Given the user navigates to the subCategory 'defaultSubCategory', category 'defaultCategory', group 'defaultGroup' product list page
+And the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
+
+When the user opens product balance tab
+
+Then the user checks the product balance list contains entry
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SBV-01 | SBV-01 | SBV-01 | 5,0 | 0,0 | 0,0 | 10,00 р. | — |
+
 When the user logs out
-Given the user opens amount list page
-When the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
-Then the user checks the product with 'SBV-01' sku has 'amounts amount' element equal to '0' on amounts page
+
+Given the user navigates to the subCategory 'defaultSubCategory', category 'defaultCategory', group 'defaultGroup' product list page
+And the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
+
+When the user opens product balance tab
+
+Then the user checks the product balance list contains entry
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SBV-01 | SBV-01 | SBV-01 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
+
 When the user logs out
+
 Given there is the write off with sku 'WriteOff-Bic-01' in the store with number 'BIC-01' ruled by user with name 'departmentManager-BIC'
 And the user adds the product to the write off with number 'WriteOff-Bic-01' with sku 'SBV-01', quantity '3', price '5, cause 'Причины нет' in the store ruled by 'departmentManager-BIC'
-Given the user opens amount list page
-When the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
-Then the user checks the product with 'SBV-01' sku has 'amounts amount' element equal to '2' on amounts page
+
+Given the user navigates to the subCategory 'defaultSubCategory', category 'defaultCategory', group 'defaultGroup' product list page
+And the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
+
+When the user opens product balance tab
+
+Then the user checks the product balance list contains entry
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SBV-01 | SBV-01 | SBV-01 | 2,0 | 0,0 | 0,0 | 10,00 р. | — |
+
 When the user logs out
-Given the user opens amount list page
-When the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
-Then the user checks the product with 'SBV-01' sku has 'amounts amount' element equal to '0' on amounts page
+
+Given the user navigates to the subCategory 'defaultSubCategory', category 'defaultCategory', group 'defaultGroup' product list page
+And the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
+
+When the user opens product balance tab
+
+Then the user checks the product balance list contains entry
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SBV-01 | SBV-01 | SBV-01 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
+
 When the user logs out
-Given there is the invoice with sku 'Invoice-BIC-2' in the store with number 'BIC-02' ruled by department manager with name 'departmentManager-BIC-2'
-And the user adds the product to the invoice with name 'Invoice-BIC-2' with sku 'SBV-01', quantity '3', price '10' in the store ruled by 'departmentManager-BIC-2'
-Given the user opens amount list page
-When the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
-Then the user checks the product with 'SBV-01' sku has 'amounts amount' element equal to '2' on amounts page
+
+Given the user creates invoice api object with values
+| elementName | value |
+| acceptanceDate | todayDateAndTime |
+| accepter | accepter |
+| legalEntity | legalEntity |
+| supplierInvoiceNumber | supplierInvoiceNumber |
+And the user adds the product with data to invoice api object
+| elementName | value |
+| productName |  SBV-01 |
+| quantity | 3 |
+| price | 10 |
+And there is the invoice created with invoice builder steps by userName 'departmentManager-BIC-2'
+
+Given the user navigates to the subCategory 'defaultSubCategory', category 'defaultCategory', group 'defaultGroup' product list page
+And the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
+
+When the user opens product balance tab
+
+Then the user checks the product balance list contains entry
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SBV-01 | SBV-01 | SBV-01 | 2,0 | 0,0 | 0,0 | 10,00 р. | — |
+
 When the user logs out
-Given the user opens amount list page
-When the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
-Then the user checks the product with 'SBV-01' sku has 'amounts amount' element equal to '3' on amounts page
+
+Given the user navigates to the subCategory 'defaultSubCategory', category 'defaultCategory', group 'defaultGroup' product list page
+And the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
+
+When the user opens product balance tab
+
+Then the user checks the product balance list contains entry
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SBV-01 | SBV-01 | SBV-01 | 3,0 | 0,0 | 0,0 | 10,00 р. | — |
+
 When the user logs out
+
 Given there is the write off with sku 'WriteOff-Bic-02' in the store with number 'BIC-02' ruled by user with name 'departmentManager-BIC-2'
 And the user adds the product to the write off with number 'WriteOff-Bic-02' with sku 'SBV-01', quantity '2', price '5, cause 'Причины нет' in the store ruled by 'departmentManager-BIC-2'
-Given the user opens amount list page
-When the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
-Then the user checks the product with 'SBV-01' sku has 'amounts amount' element equal to '2' on amounts page
+
+Given the user navigates to the subCategory 'defaultSubCategory', category 'defaultCategory', group 'defaultGroup' product list page
+And the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
+
+When the user opens product balance tab
+
+Then the user checks the product balance list contains entry
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SBV-01 | SBV-01 | SBV-01 | 2,0 | 0,0 | 0,0 | 10,00 р. | — |
+
 When the user logs out
-Given the user opens amount list page
-When the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
-Then the user checks the product with 'SBV-01' sku has 'amounts amount' element equal to '1' on amounts page
+
+Given the user navigates to the subCategory 'defaultSubCategory', category 'defaultCategory', group 'defaultGroup' product list page
+And the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
+
+When the user opens product balance tab
+
+Then the user checks the product balance list contains entry
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SBV-01 | SBV-01 | SBV-01 | 1,0 | 0,0 | 0,0 | 10,00 р. | — |
 
 Scenario: Store last purchase price
 
+Meta:
+@smoke
+@ids19u43s2
+
 Given there is the user with name 'departmentManager-BIC', position 'departmentManager-BIC', username 'departmentManager-BIC', password 'lighthouse', role 'departmentManager'
 And there is the user with name 'departmentManager-BIC-2', position 'departmentManager-BIC-2', username 'departmentManager-BIC-2', password 'lighthouse', role 'departmentManager'
-And there is the store with number 'BIC-01' managed by department manager named 'departmentManager-BIC'
+
+Given there is the store with number 'BIC-01' managed by department manager named 'departmentManager-BIC'
 And there is the store with number 'BIC-02' managed by department manager named 'departmentManager-BIC-2'
-And there is the product with 'SBV-02' name, 'SBV-02' sku, 'SBV-02' barcode
-And the user opens amount list page
-When the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
-Then the user checks the product with 'SBV-02' sku has 'amounts purchasePrice' element equal to '123,00' on amounts page
+Given there is the product with 'SBV-02' name, 'SBV-02' sku, 'SBV-02' barcode
+
+Given the user navigates to the subCategory 'defaultSubCategory', category 'defaultCategory', group 'defaultGroup' product list page
+And the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
+
+When the user opens product balance tab
+
+Then the user checks the product balance list contains entry
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SBV-02 | SBV-02 | SBV-02 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
+
 When the user logs out
-Given the user opens amount list page
-When the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
-Then the user checks the product with 'SBV-02' sku has 'amounts purchasePrice' element equal to '123,00' on amounts page
+
+Given the user navigates to the subCategory 'defaultSubCategory', category 'defaultCategory', group 'defaultGroup' product list page
+And the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
+
+When the user opens product balance tab
+
+Then the user checks the product balance list contains entry
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SBV-02 | SBV-02 | SBV-02 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
+
 When the user logs out
-Given there is the invoice with sku 'Invoice-BIC-3' in the store with number 'BIC-01' ruled by department manager with name 'departmentManager-BIC'
-And the user adds the product to the invoice with name 'Invoice-BIC-3' with sku 'SBV-02', quantity '5', price '101' in the store ruled by 'departmentManager-BIC'
-Given the user opens amount list page
-When the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
-Then the user checks the product with 'SBV-02' sku has 'amounts purchasePrice' element equal to '101,00' on amounts page
+
+Given the user creates invoice api object with values
+| elementName | value |
+| acceptanceDate | todayDateAndTime |
+| accepter | accepter |
+| legalEntity | legalEntity |
+| supplierInvoiceNumber | supplierInvoiceNumber |
+And the user adds the product with data to invoice api object
+| elementName | value |
+| productName |  SBV-02 |
+| quantity | 5 |
+| price | 101 |
+And there is the invoice created with invoice builder steps by userName 'departmentManager-BIC'
+
+Given the user navigates to the subCategory 'defaultSubCategory', category 'defaultCategory', group 'defaultGroup' product list page
+And the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
+
+When the user opens product balance tab
+
+Then the user checks the product balance list contains entry
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SBV-02 | SBV-02 | SBV-02 | 5,0 | 0,0 | 0,0 | 101,00 р. | — |
+
 When the user logs out
-Given the user opens amount list page
-When the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
-Then the user checks the product with 'SBV-02' sku has 'amounts purchasePrice' element equal to '123,00' on amounts page
+
+Given the user navigates to the subCategory 'defaultSubCategory', category 'defaultCategory', group 'defaultGroup' product list page
+And the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
+
+When the user opens product balance tab
+
+Then the user checks the product balance list contains entry
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SBV-02 | SBV-02 | SBV-02 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
+
 When the user logs out
-Given there is the invoice with sku 'Invoice-BIC-4' in the store with number 'BIC-02' ruled by department manager with name 'departmentManager-BIC-2'
-And the user adds the product to the invoice with name 'Invoice-BIC-4' with sku 'SBV-02', quantity '5', price '156' in the store ruled by 'departmentManager-BIC-2'
-Given the user opens amount list page
-When the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
-Then the user checks the product with 'SBV-02' sku has 'amounts purchasePrice' element equal to '101,00' on amounts page
+
+Given the user creates invoice api object with values
+| elementName | value |
+| acceptanceDate | todayDateAndTime |
+| accepter | accepter |
+| legalEntity | legalEntity |
+| supplierInvoiceNumber | supplierInvoiceNumber |
+And the user adds the product with data to invoice api object
+| elementName | value |
+| productName |  SBV-02 |
+| quantity | 5 |
+| price | 156 |
+And there is the invoice created with invoice builder steps by userName 'departmentManager-BIC-2'
+
+Given the user navigates to the subCategory 'defaultSubCategory', category 'defaultCategory', group 'defaultGroup' product list page
+And the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
+
+When the user opens product balance tab
+
+Then the user checks the product balance list contains entry
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SBV-02 | SBV-02 | SBV-02 | 5,0 | 0,0 | 0,0 | 101,00 р. | — |
+
 When the user logs out
-Given the user opens amount list page
-When the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
-Then the user checks the product with 'SBV-02' sku has 'amounts purchasePrice' element equal to '156,00' on amounts page
 
-Scenario: Department manager who has store can see balance link
+Given the user navigates to the subCategory 'defaultSubCategory', category 'defaultCategory', group 'defaultGroup' product list page
+And the user logs in using 'departmentManager-BIC-2' userName and 'lighthouse' password
 
-Given skipped. Info: 'skipped', Details: 'no dashboard balance link anymore'
+When the user opens product balance tab
 
-Given there is the user with name 'departmentManager-BIC', position 'departmentManager-BIC', username 'departmentManager-BIC', password 'lighthouse', role 'departmentManager'
-And there is the store with number 'BIC-01' managed by department manager named 'departmentManager-BIC'
-And the user opens the authorization page
-When the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
-Then the user checks the dashboard link to 'balance' section is present
-
-Scenario: Department manager who has store can get through link
-
-Given there is the user with name 'departmentManager-BIC', position 'departmentManager-BIC', username 'departmentManager-BIC', password 'lighthouse', role 'departmentManager'
-And there is the store with number 'BIC-01' managed by department manager named 'departmentManager-BIC'
-And the user opens amount list page
-When the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
-Then the user dont see the 403 error
-
-Scenario: Department manager who has no store cant see balance link
-
-Given skipped. Info: 'skipped', Details: 'no dashboard balance link anymore'
-
-Given there is the user with name 'departmentManager-BIC-3', position 'departmentManager-BIC-3', username 'departmentManager-BIC-3', password 'lighthouse', role 'departmentManager'
-And the user opens the authorization page
-When the user logs in using 'departmentManager-BIC-3' userName and 'lighthouse' password
-Then the user checks the dashboard link to 'balance' section is not present
-
-Scenario: Department manager who has no store cant get through link
-
-Given there is the user with name 'departmentManager-BIC-3', position 'departmentManager-BIC-3', username 'departmentManager-BIC-3', password 'lighthouse', role 'departmentManager'
-And the user opens amount list page
-When the user logs in using 'departmentManager-BIC-3' userName and 'lighthouse' password
-Then the user sees the 403 error
-
-Scenario: No balance page for commercialManager on left menu link
-
-Given skipped. Info: 'skipped', Details: 'no dashboard balance link anymore'
-
-Given there is the user with name 'commercialManager-BIC-3', position 'commercialManager-BIC-3', username 'commercialManager-BIC-3', password 'lighthouse', role 'commercialManager'
-And the user opens the authorization page
-When the user logs in using 'commercialManager-BIC-3' userName and 'lighthouse' password
-Then the user checks the dashboard link to 'balance' section is not present
-
-Scenario: No balance page for commercialManager through link
-
-Given there is the user with name 'commercialManager-BIC-3', position 'commercialManager-BIC-3', username 'commercialManager-BIC-3', password 'lighthouse', role 'commercialManager'
-And the user opens amount list page
-When the user logs in using 'commercialManager-BIC-3' userName and 'lighthouse' password
-Then the user sees the 403 error
-
-Scenario: Balance page for storeManager who has store on left menu link
-
-Given skipped. Info: 'skipped', Details: 'no dashboard balance link anymore'
-
-Given there is the user with name 'storeManager-BIC', position 'storeManager-BIC', username 'storeManager-BIC', password 'lighthouse', role 'storeManager'
-And there is the store with number 'BIC-011' managed by 'storeManager-BIC'
-And the user opens the authorization page
-When the user logs in using 'storeManager-BIC' userName and 'lighthouse' password
-Then the user checks the dashboard link to 'balance' section is present
-
-Scenario: Balance page for storeManager who has store throuhg link
-
-Given there is the user with name 'storeManager-BIC', position 'storeManager-BIC', username 'storeManager-BIC', password 'lighthouse', role 'storeManager'
-And there is the store with number 'BIC-011' managed by 'storeManager-BIC'
-And the user opens amount list page
-When the user logs in using 'storeManager-BIC' userName and 'lighthouse' password
-Then the user dont see the 403 error
-
-Scenario: Balance page for storeManager who has no store on left menu link
-
-Given skipped. Info: 'skipped', Details: 'no dashboard balance link anymore'
-
-Given there is the user with name 'storeManager-BIC-3', position 'storeManager-BIC-3', username 'storeManager-BIC-3', password 'lighthouse', role 'storeManager'
-And the user opens the authorization page
-When the user logs in using 'storeManager-BIC-3' userName and 'lighthouse' password
-Then the user checks the dashboard link to 'balance' section is not present
-
-Scenario: Balance page for storeManager who has no store throuhg link
-
-Given there is the user with name 'storeManager-BIC-3', position 'storeManager-BIC-3', username 'storeManager-BIC-3', password 'lighthouse', role 'storeManager'
-And the user opens amount list page
-When the user logs in using 'storeManager-BIC-3' userName and 'lighthouse' password
-Then the user sees the 403 error
-
-
+Then the user checks the product balance list contains entry
+| name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
+| SBV-02 | SBV-02 | SBV-02 | 5,0 | 0,0 | 0,0 | 156,00 р. | — |

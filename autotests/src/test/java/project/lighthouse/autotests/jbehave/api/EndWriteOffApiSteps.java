@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.junit.Assert;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.elements.items.DateTime;
+import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.api.SubCategory;
 import project.lighthouse.autotests.objects.api.User;
@@ -43,13 +44,13 @@ public class EndWriteOffApiSteps {
         Store store = storeApiSteps.createStoreThroughPost();
         User user = userApiSteps.getUser("departmentManager");
         catalogApiSteps.promoteDepartmentManager(store, user.getUserName());
-        writeOffApiSteps.createWriteOffThroughPost(writeOffNumber, DateTime.getTodayDate(DateTime.DATE_PATTERN), store.getNumber(), user.getUserName());
+        writeOffApiSteps.createWriteOffThroughPost(writeOffNumber, DateTimeHelper.getTodayDate(DateTime.DATE_PATTERN), store.getNumber(), user.getUserName());
     }
 
     @Given("there is the write off with number '$writeOffNumber' in the store with number '$storeNumber' ruled by user with name '$userName'")
     @Alias("there is the write off with sku '$writeOffNumber' in the store with number '$storeNumber' ruled by user with name '$userName'")
     public void givenThereIsTheWriteOffWithNumberInTheStoreRuledByUser(String writeOffNumber, String storeNumber, String userName) throws IOException, JSONException {
-        writeOffApiSteps.createWriteOffThroughPost(writeOffNumber, DateTime.getTodayDate(DateTime.DATE_PATTERN), storeNumber, userName);
+        writeOffApiSteps.createWriteOffThroughPost(writeOffNumber, DateTimeHelper.getTodayDate(DateTime.DATE_PATTERN), storeNumber, userName);
     }
 
     @Given("there is the write off with '$writeOffNumber' number with product '$productSku' with quantity '$quantity', price '$price' and cause '$cause'")
