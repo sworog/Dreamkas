@@ -107,7 +107,7 @@ class TrialBalance extends AbstractDocument
 
     /**
      * @MongoDB\Field(type="money")
-     * @var Money::
+     * @var Money
      */
     protected $costOfGoods;
 

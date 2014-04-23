@@ -164,8 +164,7 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     protected $store;
 
     /**
-     * @MongoDB\PrePersist
-     * @MongoDB\PreUpdate
+     * @MongoDB\PreFlush
      */
     public function beforeSave()
     {

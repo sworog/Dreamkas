@@ -80,31 +80,6 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @deprecated
-     * @param string $invoiceProductId
-     * @param Invoice $invoice
-     * @param string $productId
-     * @param float $quantity
-     * @param float $price
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
-     * @throws \Doctrine\ODM\MongoDB\MongoDBException
-     * @throws \Doctrine\ODM\MongoDB\LockException
-     * @throws \Lighthouse\CoreBundle\Exception\ValidationFailedException
-     * @return string
-     */
-    public function editInvoiceProduct(
-        $invoiceProductId,
-        $invoice,
-        $productId,
-        $quantity,
-        $price
-    ) {
-        $this->factory()->invoice()->createInvoiceProduct($invoice, $productId, $quantity, $price, $invoiceProductId);
-    }
-
-    /**
      * @param string|array $extra
      * @param null|string $subCategoryId
      * @param bool|string $putProductId string id of product to be updated

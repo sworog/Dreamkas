@@ -164,6 +164,35 @@ class InvoiceBuilder
     }
 
     /**
+     * @param int $index
+     * @param string $productId
+     * @param float $quantity
+     * @param float $price
+     * @return InvoiceBuilder
+     */
+    public function editInvoiceProduct($index, $productId, $quantity, $price)
+    {
+        $invoiceProduct = $this->invoice->products[$index];
+        $invoiceProduct->quantity = $this->numericFactory->createQuantity($quantity);
+        $invoiceProduct->priceEntered = $this->numericFactory->createMoney($price);
+        $invoiceProduct->product = $this->factory->createProductVersion($productId);
+        $invoiceProduct->calculatePrices();
+
+        return $this;
+    }
+
+    /**
+     * @param int $index
+     * @return InvoiceBuilder
+     */
+    public function deleteInvoiceProduct($index)
+    {
+        $invoiceProduct = $this->invoice->products->remove($index);
+        $this->invoiceRepository->getDocumentManager()->remove($invoiceProduct);
+        return $this;
+    }
+
+    /**
      * @return Invoice
      * @throws \InvalidArgumentException
      */

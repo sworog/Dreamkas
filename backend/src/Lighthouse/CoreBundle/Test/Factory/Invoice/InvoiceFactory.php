@@ -49,44 +49,6 @@ class InvoiceFactory extends AbstractFactory
     }
 
     /**
-     * @param Invoice $invoice
-     * @param string $productId
-     * @param float $quantity
-     * @param float $price
-     * @param string $id invoice product id to update
-     * @throws \RuntimeException
-     * @internal param string $invoiceId
-     * @return InvoiceProduct
-     */
-    public function createInvoiceProduct(Invoice $invoice, $productId, $quantity, $price, $id = null)
-    {
-        $invoiceProduct = ($id) ? $this->getInvoiceProductById($id) : new InvoiceProduct();
-
-        $invoiceProduct->quantity = $this->getNumericFactory()->createQuantity($quantity);
-        $invoiceProduct->priceEntered = $this->getNumericFactory()->createMoney($price);
-        $invoiceProduct->product = $this->factory->createProductVersion($productId);
-        $invoiceProduct->invoice = $invoice;
-
-        $invoice->products[] = $invoiceProduct;
-
-        $invoiceProduct->calculatePrices();
-
-        return $invoiceProduct;
-    }
-
-    /**
-     * @param string $id
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public function deleteInvoiceProduct($id)
-    {
-        $invoiceProduct = $this->getInvoiceProductById($id);
-        $this->getDocumentManager()->remove($invoiceProduct);
-        $this->getDocumentManager()->flush($invoiceProduct);
-    }
-
-    /**
      * @param string $id
      * @throws \RuntimeException
      * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
