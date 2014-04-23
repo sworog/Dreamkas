@@ -68,9 +68,9 @@ public class ApiConnect {
         }
     }
 
-    public void addProductToWriteOff(String writeOffNumber, String productSku, String quantity, String price, String cause)
+    public void addProductToWriteOff(String writeOffNumber, String productName, String quantity, String price, String cause)
             throws JSONException, IOException {
-        Product product = StaticData.products.get(productSku);
+        Product product = StaticData.products.get(productName);
         WriteOff writeOff = StaticData.writeOffs.get(writeOffNumber);
         String apiUrl = String.format("%s%s/%s/products.json", UrlHelper.getApiUrl(""), writeOff.getApiUrl(), writeOff.getId());
 
