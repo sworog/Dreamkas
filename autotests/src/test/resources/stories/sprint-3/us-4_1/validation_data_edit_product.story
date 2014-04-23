@@ -4,7 +4,7 @@ Meta:
 
 Scenario: Edit product validation - Field length validation
 
-Given there is created product with sku 'ED-NMLV'
+Given there is created product with name 'ED-NMLV'
 And the user navigates to the product with sku 'ED-NMLV'
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
@@ -23,7 +23,7 @@ Examples:
 
 Scenario: Edit product validation - Field length validation negative
 
-Given there is created product with sku 'ED-NMLVN'
+Given there is created product with name 'ED-NMLVN'
 And the user navigates to the product with sku 'ED-NMLVN'
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
@@ -43,7 +43,7 @@ Examples:
 
 Scenario: Edit product validation - Name field is required
 
-Given there is created product with sku 'ED-NFIR'
+Given there is created product with name 'ED-NFIR'
 And the user navigates to the product with sku 'ED-NFIR'
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
@@ -69,7 +69,7 @@ And the user inputs '58967' in 'purchasePrice' field
 And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
-Given there is created product with sku 'ED-SKVG'
+Given there is created product with name 'ED-SKVG'
 And the user is on the product list page
 When the user open the product card with 'ED-SKVG' sku
 And the user clicks the edit button on product card view page
@@ -85,7 +85,7 @@ Then the user sees error messages
 
 Scenario: Edit product validation - Vendor,Barcode,VendorCountryInfo fields are not required
 
-Given there is created product with sku 'ED-VBVCF'
+Given there is created product with name 'ED-VBVCF'
 And the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user open the product card with 'ED-VBVCF' sku
@@ -102,7 +102,7 @@ Then the user checks the product with 'EPVBVCF678' sku is present
 
 Scenario: Edit product validation - Purchase price validation good
 
-Given there is created product with sku 'ED-PPVC'
+Given there is created product with name 'ED-PPVC'
 And the user navigates to the product with sku 'ED-PPVC'
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
@@ -123,7 +123,7 @@ Examples:
 
 Scenario: Edit product validation - Purchase price validation negative
 
-Given there is created product with sku 'ED-PPC3D'
+Given there is created product with name 'ED-PPC3D'
 And the user navigates to the product with sku 'ED-PPC3D'
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page

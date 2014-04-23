@@ -96,9 +96,9 @@ public class EndProductApiSteps {
         сreateProductThroughPost(name, barcode, "kg", "123");
     }
 
-    @Given("there is created product with sku '$sku'")
-    public void givenThereIsCreatedProductWithSkuValue(String sku) throws JSONException, IOException {
-        givenTheUserCreatesProductWithParams(sku, sku, "kg");
+    @Given("there is created product with name '$name'")
+    public void givenThereIsCreatedProductWithNameValue(String name) throws JSONException, IOException {
+        givenTheUserCreatesProductWithParams(name, name, "kg");
     }
 
     //check
