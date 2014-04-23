@@ -428,3 +428,15 @@ Examples:
 | !small_milk | small_milk |
 | !small_milk_ano | small_milk_ano |
 | !30631-small_milk_another | 30631-small_milk_another |
+
+Scenario: Check order place holder title
+
+Meta:
+@id_s31u63.1s16
+
+GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story
+
+Given the user opens order create page
+And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse' password
+
+Then the user checks the order autocomplete placeholder text is 'Для добавления позиции введите наименование товара или код'
