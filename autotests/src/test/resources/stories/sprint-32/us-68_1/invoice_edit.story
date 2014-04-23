@@ -44,7 +44,9 @@ And the user checks the invoice vat sum is 'НДС: 0,00 руб.'
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | name-s32u681s1 |
-And the user inputs quantity '10' on the invoice product with name 'name-s32u681s1'
+Then the user waits for the invoice product edition preloader finish
+
+When the user inputs quantity '10' on the invoice product with name 'name-s32u681s1'
 And the user presses 'TAB' key button
 
 Then the user waits for the invoice product edition preloader finish
@@ -408,7 +410,9 @@ And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse'
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | name-s32u681s1 |
-And the user inputs quantity '10' on the invoice product with name 'name-s32u681s1'
+Then the user waits for the invoice product edition preloader finish
+
+When the user inputs quantity '10' on the invoice product with name 'name-s32u681s1'
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish

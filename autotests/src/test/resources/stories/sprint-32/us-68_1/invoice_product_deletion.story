@@ -33,7 +33,9 @@ When the user inputs values on invoice page
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | name-32681 |
-And the user inputs quantity '5' on the invoice product with name 'name-32681'
+Then the user waits for the invoice product edition preloader finish
+
+When the user inputs quantity '5' on the invoice product with name 'name-32681'
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
@@ -48,7 +50,9 @@ And the user checks the invoice vat sum is 'НДС: 0,00 руб.'
 When the user inputs values on invoice page
 | elementName | value |
 | invoice product autocomplete | name-326811 |
-And the user inputs quantity '5' on the invoice product with name 'name-326811'
+Then the user waits for the invoice product edition preloader finish
+
+When the user inputs quantity '5' on the invoice product with name 'name-326811'
 And the user presses 'ENTER' key button
 
 Then the user waits for the invoice product edition preloader finish
