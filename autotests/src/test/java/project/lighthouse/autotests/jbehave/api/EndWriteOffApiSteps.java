@@ -110,7 +110,7 @@ public class EndWriteOffApiSteps {
 
     public void createProduct(String productName, String productBarCode, String productUnits, String purchasePrice) throws IOException, JSONException {
         if (!StaticData.products.containsKey(productName)) {
-            productApiSteps.createProductThroughPost(productName, productBarCode, productUnits, purchasePrice, SubCategory.DEFAULT_NAME);
+            productApiSteps.createProductThroughPost(productName, productBarCode, productUnits, purchasePrice, SubCategory.DEFAULT_NAME, null);
         }
     }
 }

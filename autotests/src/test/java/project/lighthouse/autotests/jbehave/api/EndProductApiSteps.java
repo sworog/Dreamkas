@@ -88,7 +88,7 @@ public class EndProductApiSteps {
         if (!StaticData.hasSubCategory(SubCategory.DEFAULT_NAME)) {
             catalogApiSteps.createDefaultSubCategoryThroughPost();
         }
-        return productApiSteps.createProductThroughPost(name, barcode, units, purchasePrice, SubCategory.DEFAULT_NAME);
+        return productApiSteps.createProductThroughPost(name, barcode, units, purchasePrice, SubCategory.DEFAULT_NAME, null);
     }
 
     @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode")
@@ -120,14 +120,14 @@ public class EndProductApiSteps {
     @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice in the subcategory named '$subCategoryName'")
     public void createProductThroughPost(String name, String barcode, String units, String purchasePrice, String subCategoryName) throws JSONException, IOException {
         catalogApiSteps.createSubCategoryThroughPost(Group.DEFAULT_NAME, Category.DEFAULT_NAME, subCategoryName);
-        productApiSteps.createProductThroughPost(name, barcode, units, purchasePrice, subCategoryName);
+        productApiSteps.createProductThroughPost(name, barcode, units, purchasePrice, subCategoryName, null);
     }
 
     @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName'")
     public void createProductThroughPost(String name, String barcode, String units, String purchasePrice,
                                          String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
         catalogApiSteps.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
-        productApiSteps.createProductThroughPost(name, barcode, units, purchasePrice, subCategoryName);
+        productApiSteps.createProductThroughPost(name, barcode, units, purchasePrice, subCategoryName, null);
     }
 
     @Given("there is the product with '$productName' name, '$productSku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName' with '$rounding' rounding")

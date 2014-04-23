@@ -36,7 +36,7 @@ public class OrderApiUserSteps {
         String uuid = new UUIDGenerator().generate();
         Supplier supplier = supplierApiSteps.createSupplier(uuid);
         SubCategory subCategory = catalogApiSteps.createDefaultSubCategoryThroughPost();
-        Product product = productApiSteps.createProductThroughPost(uuid, uuid, "unit", "100.00", subCategory.getName());
+        Product product = productApiSteps.createProductThroughPost(uuid, uuid, "unit", "100.00", subCategory.getName(), null);
 
         Storage.getOrderVariableStorage().setProduct(product);
         Storage.getOrderVariableStorage().setSupplier(supplier);

@@ -8,7 +8,6 @@ import project.lighthouse.autotests.objects.api.SubCategory;
 
 import java.io.IOException;
 
-//TODO move all logic to high-level class
 public class ProductApiSteps extends CommercialManagerApi {
 
     @Step
@@ -47,21 +46,23 @@ public class ProductApiSteps extends CommercialManagerApi {
                                             String barcode,
                                             String units,
                                             String purchasePrice,
-                                            String subCategoryName) throws JSONException, IOException {
-        return createProductThroughPost(name, barcode, units, purchasePrice, subCategoryName, null);
-    }
-
-    @Step
-    public Product createProductThroughPost(String name,
-                                            String barcode,
-                                            String units,
-                                            String purchasePrice,
                                             String subCategoryName,
                                             String rounding) throws JSONException, IOException {
         SubCategory subCategory = StaticData.subCategories.get(subCategoryName);
         apiConnect.getSubCategoryMarkUp(subCategory);
-        Product product = new Product(name, units, "0", purchasePrice, barcode, "Тестовая страна", "Тестовый производитель", "", subCategory.getId(), StaticData.retailMarkupMax, StaticData.retailMarkupMin, rounding);
-        return apiConnect.createProductThroughPost(product, subCategory);
+        return createProduct(
+                name,
+                units,
+                "0",
+                purchasePrice,
+                barcode,
+                "Тестовая страна",
+                "Тестовый производитель",
+                "",
+                subCategoryName,
+                StaticData.retailMarkupMax,
+                StaticData.retailMarkupMin,
+                rounding);
     }
 
     @Step
@@ -73,9 +74,19 @@ public class ProductApiSteps extends CommercialManagerApi {
                                             String retailMarkupMax,
                                             String retailMarkupMin,
                                             String rounding) throws JSONException, IOException {
-        SubCategory subCategory = StaticData.subCategories.get(subCategoryName);
-        Product product = new Product(name, units, "0", purchasePrice, barcode, "Тестовая страна", "Тестовый производитель", "", subCategory.getId(), retailMarkupMax, retailMarkupMin, rounding);
-        return apiConnect.createProductThroughPost(product, subCategory);
+        return createProduct(
+                name,
+                units,
+                "0",
+                purchasePrice,
+                barcode,
+                "Тестовая страна",
+                "Тестовый производитель",
+                "",
+                subCategoryName,
+                retailMarkupMax,
+                retailMarkupMin,
+                rounding);
     }
 
     @Step
