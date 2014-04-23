@@ -1,7 +1,8 @@
-package project.lighthouse.autotests.api.factories;
+package project.lighthouse.autotests.api.abstractFactory.factories;
 
 import org.json.JSONException;
-import project.lighthouse.autotests.api.abstractFactory.AbstractFactory;
+import project.lighthouse.autotests.api.abstractFactory.AbstractApiFactory;
+import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.api.invoice.Invoice;
 import project.lighthouse.autotests.objects.api.invoice.InvoiceProduct;
 
@@ -10,7 +11,7 @@ import java.io.IOException;
 /**
  * Factory to create invoices
  */
-public class InvoicesFactory extends AbstractFactory {
+public class InvoicesFactory extends AbstractApiFactory {
 
     public InvoicesFactory(String userName, String password) {
         super(userName, password);
@@ -22,11 +23,23 @@ public class InvoicesFactory extends AbstractFactory {
                           String legalEntity,
                           String supplierInvoiceNumber,
                           InvoiceProduct[] invoiceProducts,
-                          String storeId) throws JSONException, IOException {
+                          Store store) throws JSONException, IOException {
         Invoice invoice = new Invoice(supplierId, acceptanceDate, accepter, legalEntity, supplierInvoiceNumber);
-        invoice.setStoreId(storeId);
+        return create(invoice, store, invoiceProducts);
+    }
+
+    public Invoice create(Invoice invoice,
+                          Store store,
+                          InvoiceProduct[] invoiceProducts) throws JSONException, IOException {
+
         invoice.putProducts(invoiceProducts);
-        getHttpExecutor().executePostRequest(invoice);
+        create(invoice, store);
+        return invoice;
+    }
+
+    public Invoice create(Invoice invoice, Store store) throws JSONException, IOException {
+        invoice.setStore(store);
+        createObject(invoice);
         return invoice;
     }
 }

@@ -309,4 +309,11 @@ public class OrderSteps extends ScenarioSteps {
     public void agreementDownloadButtonShouldBeNotVisible() {
         orderPage.getDownloadAgreementFileButton().shouldBeNotVisible();
     }
+
+    @Step
+    public void assertAutoCompletePlaceHolder(String expectedPlaceHolder) {
+        assertThat(
+                orderPage.getItemAttribute("order product autocomplete", "placeholder"),
+                is(expectedPlaceHolder));
+    }
 }

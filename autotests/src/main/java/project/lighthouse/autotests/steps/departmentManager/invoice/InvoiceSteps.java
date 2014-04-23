@@ -1,12 +1,15 @@
 package project.lighthouse.autotests.steps.departmentManager.invoice;
 
+import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.TimeoutException;
+import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.elements.items.DateTime;
+import project.lighthouse.autotests.elements.preLoader.CheckBoxPreLoader;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.elements.preLoader.ProductEditionPreLoader;
 import project.lighthouse.autotests.helper.DateTimeHelper;
@@ -15,8 +18,9 @@ import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.helper.exampleTable.invoice.InvoiceExampleTableUpdater;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.web.invoice.InvoiceProductObject;
+import project.lighthouse.autotests.objects.web.search.InvoiceListSearchObject;
 import project.lighthouse.autotests.pages.departmentManager.invoice.InvoicePage;
-import project.lighthouse.autotests.pages.departmentManager.invoice.deprecated.InvoiceSearchPage;
+import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceSearchPage;
 import project.lighthouse.autotests.storage.Storage;
 
 import static org.hamcrest.Matchers.is;
@@ -28,6 +32,21 @@ public class InvoiceSteps extends ScenarioSteps {
     InvoiceSearchPage invoiceSearchPage;
 
     private ExamplesTable examplesTable;
+
+    @Step
+    public void openInvoiceListPage() throws JSONException {
+        Store store = StaticData.stores.get(Store.DEFAULT_NUMBER);
+        openStoreInvoiceListPage(store);
+    }
+
+    @Step
+    public void openStoreInvoiceListPage(Store store) throws JSONException {
+        String invoiceListPageUrl = String.format(
+                "%s/stores/%s/invoices",
+                UrlHelper.getWebFrontUrl(),
+                store.getId());
+        getDriver().navigate().to(invoiceListPageUrl);
+    }
 
     @Step
     public void assertFieldLabel(String elementName) {
@@ -163,7 +182,7 @@ public class InvoiceSteps extends ScenarioSteps {
 
     @Step
     public void assertAcceptanceDateFieldContainsNowDate() {
-        String nowDate = DateTime.getTodayDate(DateTime.DATE_TIME_PATTERN);
+        String nowDate = DateTimeHelper.getTodayDate(DateTime.DATE_TIME_PATTERN);
         invoicePage.checkValue("acceptanceDate", nowDate);
     }
 
@@ -186,6 +205,22 @@ public class InvoiceSteps extends ScenarioSteps {
     @Step
     public void invoiceListSearchObjectClick(String locator) {
         invoiceSearchPage.getInvoiceListSearchObjectCollection().clickByLocator(locator);
+    }
+
+    @Step
+    public void invoiceListSearchObjectContains(String locator) {
+        invoiceSearchPage.getInvoiceListSearchObjectCollection().contains(locator);
+    }
+
+    @Step
+    public void invoiceListSearchObjectExactCompareWith(ExamplesTable examplesTable) {
+        invoiceSearchPage.getInvoiceListSearchObjectCollection().exactCompareExampleTable(examplesTable);
+    }
+
+    @Step
+    public void invoiceListSearchObjectContainsHighLightedTextByLocator(String locator, String text) {
+        InvoiceListSearchObject invoiceListSearchObject = (InvoiceListSearchObject) invoiceSearchPage.getInvoiceListSearchObjectCollection().getAbstractObjectByLocator(locator);
+        assertThat(invoiceListSearchObject.getHighLightedText(), is(text));
     }
 
     @Step
@@ -267,5 +302,51 @@ public class InvoiceSteps extends ScenarioSteps {
     public void collectionDoNotContainlastAddedInvoiceProductObject() throws JSONException {
         collectionDoNotContainInvoiceProductObjectByLocator(
                 Storage.getInvoiceVariableStorage().getProduct().getName());
+    }
+
+    @Step
+    public void searchButtonClick() {
+        invoiceSearchPage.searchButtonClick();
+    }
+
+    @Step
+    public void searchInput(String searchInput) {
+        invoiceSearchPage.input("skuOrSupplierInvoiceSku", searchInput);
+    }
+
+    @Step
+    public void checkFormResultsText(String text) {
+        assertThat(invoiceSearchPage.getFormResultsText(), is(text));
+    }
+
+    @Step
+    public void includeVatCheckBoxClick() {
+        invoicePage.getIncludeVatCheckBoxWebElement().click();
+    }
+
+    @Step
+    public void checkBoxPreLoaderWait() {
+        new CheckBoxPreLoader(getDriver()).await();
+    }
+
+    @Step
+    public void checkTheStateOfCheckBox(String state) {
+        String checkBoxState = invoicePage.getIncludeVatCheckBoxWebElement().getAttribute("checked");
+        switch (state) {
+            case "checked":
+                if (checkBoxState != null) {
+                    if (!checkBoxState.equals("true")) {
+                        Assert.fail("CheckBox is not checked!");
+                    }
+                } else {
+                    Assert.fail("CheckBox is not checked!");
+                }
+                break;
+            case "unChecked":
+                if (checkBoxState != null) {
+                    Assert.fail("CheckBox is not unchecked!");
+                }
+                break;
+        }
     }
 }

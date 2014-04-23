@@ -31,7 +31,12 @@ public class InvoicePage extends CommonPageObject {
     private WebElement vatSumWebElement;
 
     @FindBy(xpath = "//*[@name='order-info' or @name='invoice-order-info']")
-    public WebElement invoiceOrderInfoWebElement;
+    @SuppressWarnings("unused")
+    private WebElement invoiceOrderInfoWebElement;
+
+    @FindBy(name = "includesVAT")
+    @SuppressWarnings("unused")
+    public WebElement includeVatCheckBoxWebElement;
 
     public InvoicePage(WebDriver driver) {
         super(driver);
@@ -82,5 +87,9 @@ public class InvoicePage extends CommonPageObject {
     public void orderOnLinkClick() {
         //FIXME Really bad practice to hardcoded invoice number in page object class
         findVisibleElement(invoiceOrderInfoWebElement).findElement(By.xpath("./a[normalize-space(text()='заказа №10001')]")).click();
+    }
+
+    public WebElement getIncludeVatCheckBoxWebElement() {
+        return findVisibleElement(includeVatCheckBoxWebElement);
     }
 }

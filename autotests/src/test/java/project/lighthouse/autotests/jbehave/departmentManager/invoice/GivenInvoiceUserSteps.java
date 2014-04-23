@@ -44,4 +44,16 @@ public class GivenInvoiceUserSteps {
         userApiSteps.getUser(InvoiceApiSteps.DEFAULT_USER_NAME);
         catalogApiSteps.promoteDepartmentManager(storeApiSteps.createStoreThroughPost(), InvoiceApiSteps.DEFAULT_USER_NAME);
     }
+
+    @Given("the user is on the invoice list page")
+    public void givenTheUserIsOnTheInvoiceListPage() throws IOException, JSONException {
+        beforeSteps();
+        invoiceSteps.openInvoiceListPage();
+    }
+
+    @Given("the user is on the store '$storeName' invoice list page")
+    public void givenTheUserIsOnTheStoreInvoiceListPage(String storeName) throws JSONException {
+        Store store = StaticData.stores.get(storeName);
+        invoiceSteps.openStoreInvoiceListPage(store);
+    }
 }

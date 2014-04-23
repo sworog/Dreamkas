@@ -4,6 +4,7 @@ import org.json.JSONException;
 import project.lighthouse.autotests.helper.ObjectsFactory;
 import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.Supplier;
+import project.lighthouse.autotests.objects.api.invoice.Invoice;
 
 public class InvoiceVariableStorage {
 
@@ -15,6 +16,8 @@ public class InvoiceVariableStorage {
     private String accepter;
     private String legalEntity;
     private String supplierInvoiceNumber;
+
+    private Invoice invoice;
 
     private Integer number = 10000;
 
@@ -109,5 +112,13 @@ public class InvoiceVariableStorage {
     public InvoiceVariableStorage setSupplierInvoiceNumber(String supplierInvoiceNumber) {
         this.supplierInvoiceNumber = supplierInvoiceNumber;
         return this;
+    }
+
+    public void setInvoiceForInvoiceBuilderSteps(Invoice invoice) {
+        this.invoice = invoice;
+    }
+
+    public Invoice getInvoiceForInvoiceBuilderSteps() {
+        return invoice;
     }
 }

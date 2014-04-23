@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
-import project.lighthouse.autotests.api.factories.OrdersFactory;
+import project.lighthouse.autotests.api.abstractFactory.factories.OrdersFactory;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.Supplier;
 import project.lighthouse.autotests.objects.api.User;
@@ -18,9 +18,13 @@ public class OrderApiSteps extends ScenarioSteps {
     private Order order;
 
     @Step
-    public Order createOrder(Supplier supplier, OrderProduct[] orderProducts, String userName, String password) throws IOException, JSONException {
+    public Order createOrder(Supplier supplier,
+                             OrderProduct[] orderProducts,
+                             String userName,
+                             String password) throws IOException, JSONException {
         User user = StaticData.users.get(userName);
-        Order order = new OrdersFactory(userName, password).createOrder(supplier.getId(), orderProducts, user.getStore().getId());
+        Order order = new OrdersFactory(userName, password)
+                .createOrder(supplier.getId(), orderProducts, user.getStore().getId());
         this.order = order;
         return order;
     }

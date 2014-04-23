@@ -2,11 +2,12 @@ package project.lighthouse.autotests.objects.api.invoice;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.api.abstraction.AbstractProductableObject;
 
 public class Invoice extends AbstractProductableObject {
 
-    String storeId;
+    Store store;
 
     private static final String API_URL = "/stores/%s/invoices";
 
@@ -24,18 +25,18 @@ public class Invoice extends AbstractProductableObject {
 
     @Override
     public String getApiUrl() {
-        return String.format(API_URL, storeId);
+        return String.format(API_URL, store.getId());
     }
 
     public String getSku() throws JSONException {
         return getPropertyAsString("sku");
     }
 
-    public void setStoreId(String storeId) {
-        this.storeId = storeId;
+    public void setStore(Store store) throws JSONException {
+        this.store = store;
     }
 
-    public String getStoreId() {
-        return storeId;
+    public Store getStore() {
+        return store;
     }
 }
