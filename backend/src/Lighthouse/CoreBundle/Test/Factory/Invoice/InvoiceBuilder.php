@@ -74,6 +74,8 @@ class InvoiceBuilder
             'includesVAT' => true,
         );
 
+        $this->populateInvoice($this->invoice, $invoiceData);
+
         if ($supplierId) {
             $this->invoice->supplier = $this->factory->supplier()->getSupplierById($supplierId);
         } else {
@@ -90,11 +92,49 @@ class InvoiceBuilder
             $this->invoice->order = $this->factory->order()->getOrderById($orderId);
         }
 
-        $this->invoice->acceptanceDate = new \DateTime($invoiceData['acceptanceDate']);
-        $this->invoice->accepter = $invoiceData['accepter'];
-        $this->invoice->legalEntity = $invoiceData['legalEntity'];
-        $this->invoice->supplierInvoiceNumber = $invoiceData['supplierInvoiceNumber'];
-        $this->invoice->includesVAT = $invoiceData['includesVAT'];
+        return $this;
+    }
+
+    /**
+     * @param Invoice $invoice
+     * @param array $invoiceData
+     * @throws \Exception
+     */
+    protected function populateInvoice(Invoice $invoice, array $invoiceData)
+    {
+        if (isset($invoiceData['acceptanceDate']) && !$invoiceData['acceptanceDate'] instanceof \DateTime) {
+            $invoiceData['acceptanceDate'] = new \DateTime($invoiceData['acceptanceDate']);
+        }
+
+        foreach ($invoiceData as $field => $value) {
+            $invoice->__set($field, $value);
+        }
+    }
+
+    /**
+     * @param $invoiceId
+     * @param array $data
+     * @param null $storeId
+     * @param null $supplierId
+     * @param null $orderId
+     * @return InvoiceBuilder
+     */
+    public function editInvoice($invoiceId, array $data, $storeId = null, $supplierId = null, $orderId = null)
+    {
+        $this->invoice = $this->factory->invoice()->getInvoiceById($invoiceId);
+        $this->populateInvoice($this->invoice, $data);
+
+        if ($supplierId) {
+            $this->invoice->supplier = $this->factory->supplier()->getSupplierById($supplierId);
+        }
+
+        if ($storeId) {
+            $this->invoice->store = $this->factory->store()->getStoreById($storeId);
+        }
+
+        if ($orderId) {
+            $this->invoice->order = $this->factory->order()->getOrderById($orderId);
+        }
 
         return $this;
     }
@@ -120,6 +160,35 @@ class InvoiceBuilder
 
         $invoiceProduct->calculatePrices();
 
+        return $this;
+    }
+
+    /**
+     * @param int $index
+     * @param string $productId
+     * @param float $quantity
+     * @param float $price
+     * @return InvoiceBuilder
+     */
+    public function editInvoiceProduct($index, $productId, $quantity, $price)
+    {
+        $invoiceProduct = $this->invoice->products[$index];
+        $invoiceProduct->quantity = $this->numericFactory->createQuantity($quantity);
+        $invoiceProduct->priceEntered = $this->numericFactory->createMoney($price);
+        $invoiceProduct->product = $this->factory->createProductVersion($productId);
+        $invoiceProduct->calculatePrices();
+
+        return $this;
+    }
+
+    /**
+     * @param int $index
+     * @return InvoiceBuilder
+     */
+    public function deleteInvoiceProduct($index)
+    {
+        $invoiceProduct = $this->invoice->products->remove($index);
+        $this->invoiceRepository->getDocumentManager()->remove($invoiceProduct);
         return $this;
     }
 

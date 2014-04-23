@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductMetricsCalculator;
+use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
@@ -1015,7 +1016,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testAveragePurchasePrice()
     {
-        $this->markTestSkipped('Broken');
         $supplier = $this->factory()->supplier()->getSupplier();
         $store = $this->factory()->store()->getStore();
         $productId1 = $this->createProduct('1');
@@ -1057,6 +1057,12 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceData2 = $this->getInvoiceData($supplier->id, $productId1, 5, 29);
         $invoiceData2['acceptanceDate'] = date('c', strtotime('-2 days'));
+        $invoiceData2['products'][1] = array(
+            'product' => $productId2,
+            'priceEntered' => 34.67,
+            'quantity' => 6
+        );
+
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -1072,6 +1078,12 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceData3 = $this->getInvoiceData($supplier->id, $productId1, 10, 31);
         $invoiceData3['acceptanceDate'] = date('c', strtotime('-1 days'));
+        $invoiceData3['products'][1] = array(
+            'product' => $productId2,
+            'priceEntered' => 34.67,
+            'quantity' => 6
+        );
+
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -1280,8 +1292,12 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->updateProduct($productId, array('name' => 'Кефир 5%'));
 
-        $this->factory()->clear();
-        $this->createInvoiceProduct($invoice, $productId, 10, 10.12);
+        $this->factory()
+            ->clear()
+            ->invoice()
+                ->editInvoice($invoice->id)
+                ->createInvoiceProduct($productId, 10, 10.12)
+            ->flush();
         $this->client->shutdownKernelBeforeRequest();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -1303,32 +1319,55 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testTwoProductVersionsCreated()
     {
-        $this->markTestSkipped('Broken');
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
-        $invoice = $this->factory()
-            ->invoice()
-                ->createInvoice(array(), $store->id)
-                ->createInvoiceProduct($productId, 10, 10.12)
-            ->flush();
-
-        $this->updateProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
-
-        $this->createInvoiceProduct($invoice, $productId, 10, 10.12);
-        $this->factory()->flush();
+        $productId = $this->createProduct(array('name' => 'Кефир 1%'));
 
         /* @var VersionRepository $productVersionRepository */
         $productVersionRepository = $this->getContainer()->get('lighthouse.core.document.repository.product_version');
 
         $productVersions = $productVersionRepository->findAllByDocumentId($productId);
+        $this->assertCount(0, $productVersions);
 
+        $productVersionRepository->clear();
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id)
+                ->createInvoiceProduct($productId, 10, 10.12)
+            ->flush();
+
+        $productVersions = $productVersionRepository->findAllByDocumentId($productId);
+        $this->assertCount(1, $productVersions);
+        $productVersionRepository->clear();
+
+        // :XXX: :FIXME: MongoTimestamp used for version createdDate sometimes is generated in wrong order
+        sleep(1);
+
+        $this->updateProduct($productId, array('name' => 'Кефир 5%'));
+
+        $productVersions = $productVersionRepository->findAllByDocumentId($productId);
+        $this->assertCount(1, $productVersions);
+        $productVersionRepository->clear();
+        var_dump($productVersions->getNext()->createdDate->inc);
+
+        $this->factory()
+            ->invoice()
+            ->createInvoice(array(), $store->id)
+            ->createInvoiceProduct($productId, 5, 10.12)
+        ->flush();
+
+        $productVersionRepository->clear();
+
+        $productVersions = $productVersionRepository->findAllByDocumentId($productId);
         $this->assertCount(2, $productVersions);
 
-        $firstProduct = $productVersions->getNext();
-        $secondProduct = $productVersions->getNext();
+        /* @var ProductVersion $lastVersion */
+        /* @var ProductVersion $previousVersion */
+        $lastVersion = $productVersions->getNext();
+        $previousVersion = $productVersions->getNext();
 
-        $this->assertEquals('Кефир 5%', $firstProduct->name);
-        $this->assertEquals('Кефир 1%', $secondProduct->name);
+        $this->assertEquals('Кефир 5%', $lastVersion->name);
+        $this->assertEquals('Кефир 1%', $previousVersion->name);
     }
 
     public function testGetProductInvoiceProducts()
@@ -1648,7 +1687,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testGetInvoiceProductAfterEditInvoiceAcceptanceDate()
     {
-        $this->markTestSkipped('Broken');
         $store = $this->factory()->store()->getStore();
         $productId = $this->createProduct();
         $invoice = $this->factory()
@@ -1669,8 +1707,10 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('2014-01-10T12:33:33+0400', 'acceptanceDate', $response);
         Assert::assertJsonPathEquals('2014-01-10T12:33:33+0400', 'products.0.acceptanceDate', $response);
 
-        $this->factory()->clear();
-        $this->editInvoice(array('acceptanceDate' => '2014-01-03T10:11:10+0400'), $invoice->id, $store->id);
+        $this->factory()
+            ->invoice()
+                ->editInvoice($invoice->id, array('acceptanceDate' => '2014-01-03T10:11:10+0400'))
+            ->flush();
 
         $response = $this->clientJsonRequest(
             $accessToken,

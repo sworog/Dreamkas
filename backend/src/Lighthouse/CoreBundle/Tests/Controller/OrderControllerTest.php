@@ -351,7 +351,7 @@ class OrderControllerTest extends WebTestCase
                 ->createOrderProduct($productId, 1)
             ->flush();
 
-        $order2 = $this->factory()
+        $this->factory()
             ->order()
                 ->createOrder($store, $supplier, '2014-02-13 04:05:06')
                 ->createOrderProduct($productId, 2)
