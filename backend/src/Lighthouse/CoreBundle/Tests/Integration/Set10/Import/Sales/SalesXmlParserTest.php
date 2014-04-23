@@ -65,7 +65,7 @@ class SalesXmlParserTest extends ContainerAwareTestCase
 
         $this->assertEquals('3.5', $position->getCost());
         $this->assertEquals('10.0', $position->getCount());
-        $this->assertEquals('1', $position->getGoodsCode());
+        $this->assertEquals('10001', $position->getGoodsCode());
         $this->assertEquals('31.5', $position->getAmount());
 
         $purchaseElement = $xmlParser->readNextElement();

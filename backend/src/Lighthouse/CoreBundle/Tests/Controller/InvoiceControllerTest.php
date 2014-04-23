@@ -62,7 +62,7 @@ class InvoiceControllerTest extends WebTestCase
     public function testGetInvoicesActionMaxDepth()
     {
         $store = $this->factory()->store()->getStore();
-        $products = $this->createProductsBySku(array('1', '2', '3'));
+        $products = $this->createProductsByNames(array('1', '2', '3'));
 
         $this->factory()
             ->invoice()
@@ -768,8 +768,8 @@ class InvoiceControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId1 = $this->createProduct(array('sku' => '111', 'vat' => '10'));
-        $productId2 = $this->createProduct(array('sku' => '222', 'vat' => '18'));
+        $productId1 = $this->createProduct(array('vat' => '10'));
+        $productId2 = $this->createProduct(array('vat' => '18'));
 
         $invoiceData = InvoiceProductControllerTest::getInvoiceData($supplier->id, $productId1, 99.99, 36.78);
         $invoiceData['includesVAT'] = true;
@@ -831,8 +831,8 @@ class InvoiceControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId1 = $this->createProduct(array('sku' => '111', 'vat' => '10'));
-        $productId2 = $this->createProduct(array('sku' => '222', 'vat' => '18'));
+        $productId1 = $this->createProduct(array('vat' => '10'));
+        $productId2 = $this->createProduct(array('vat' => '18'));
 
         $invoiceData = InvoiceProductControllerTest::getInvoiceData($supplier->id, $productId1, 99.99, 33.44);
         $invoiceData['includesVAT'] = false;
@@ -890,8 +890,8 @@ class InvoiceControllerTest extends WebTestCase
     public function testInvoiceChangeIncludesVAT()
     {
         $store = $this->factory()->store()->getStore();
-        $productId1 = $this->createProduct(array('sku' => '111', 'vat' => '10'));
-        $this->createProduct(array('sku' => '222', 'vat' => '18'));
+        $productId1 = $this->createProduct(array('vat' => '10'));
+        $this->createProduct(array('vat' => '18'));
         $supplier = $this->factory()->supplier()->getSupplier();
 
         $invoiceData1 = array(
@@ -965,7 +965,7 @@ class InvoiceControllerTest extends WebTestCase
     {
         $storeId = $this->factory()->store()->getStoreId();
 
-        $productIds = $this->createProductsBySku(array('1', '2', '3'));
+        $productIds = $this->createProductsByNames(array('1', '2', '3'));
 
         $invoice = $this->factory()
             ->invoice()
@@ -1404,9 +1404,9 @@ class InvoiceControllerTest extends WebTestCase
     public function testGetInvoiceDataByOrder()
     {
         $store = $this->factory()->store()->getStore();
-        $productId1 = $this->createProduct(array('purchasePrice' => '11.11', 'name' => 'Продукт 1', 'sku' => '10001'));
-        $productId2 = $this->createProduct(array('purchasePrice' => '22.22', 'name' => 'Продукт 2', 'sku' => '10002'));
-        $productId3 = $this->createProduct(array('purchasePrice' => '33.33', 'name' => 'Продукт 3', 'sku' => '10003'));
+        $productId1 = $this->createProduct(array('purchasePrice' => '11.11', 'name' => 'Продукт 1'));
+        $productId2 = $this->createProduct(array('purchasePrice' => '22.22', 'name' => 'Продукт 2'));
+        $productId3 = $this->createProduct(array('purchasePrice' => '33.33', 'name' => 'Продукт 3'));
 
         $supplier = $this->factory()->supplier()->getSupplier();
 
@@ -1490,9 +1490,9 @@ class InvoiceControllerTest extends WebTestCase
     public function testCreateInvoiceWithOrder()
     {
         $store = $this->factory()->store()->getStore();
-        $productId1 = $this->createProduct(array('purchasePrice' => '11.11', 'name' => 'Продукт 1', 'sku' => '10001'));
-        $productId2 = $this->createProduct(array('purchasePrice' => '22.22', 'name' => 'Продукт 2', 'sku' => '10002'));
-        $productId3 = $this->createProduct(array('purchasePrice' => '33.33', 'name' => 'Продукт 3', 'sku' => '10003'));
+        $productId1 = $this->createProduct(array('purchasePrice' => '11.11', 'name' => 'Продукт 1'));
+        $productId2 = $this->createProduct(array('purchasePrice' => '22.22', 'name' => 'Продукт 2'));
+        $productId3 = $this->createProduct(array('purchasePrice' => '33.33', 'name' => 'Продукт 3'));
 
         $supplier = $this->factory()->supplier()->getSupplier();
 
@@ -1523,7 +1523,7 @@ class InvoiceControllerTest extends WebTestCase
     public function testDuplicateInvoiceOnOrderCreate()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct(array('purchasePrice' => '11.11', 'name' => 'Продукт 1', 'sku' => '10001'));
+        $productId = $this->createProduct(array('purchasePrice' => '11.11', 'name' => 'Продукт 1'));
 
         $supplier = $this->factory()->supplier()->getSupplier();
 
@@ -1557,7 +1557,7 @@ class InvoiceControllerTest extends WebTestCase
     public function testInvoiceIsExposedInOrder()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct(array('purchasePrice' => '11.11', 'name' => 'Продукт 1', 'sku' => '10001'));
+        $productId = $this->createProduct(array('purchasePrice' => '11.11', 'name' => 'Продукт 1'));
 
         $supplier = $this->factory()->supplier()->getSupplier();
 

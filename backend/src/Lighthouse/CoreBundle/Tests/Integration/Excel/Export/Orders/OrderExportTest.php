@@ -15,11 +15,10 @@ class OrderExportTest extends WebTestCase
         $supplier = $this->factory()->supplier()->getSupplier();
         $product1 = $this->createProduct(array(
             'name' => 'Длинное название с многим количеством слов что бы проверить перенос строк',
-            'sku' => 'Кефир1Арт',
             'barcode' => '1234567891234' // 13-и знаковый штрихкод
         ));
-        $product2 = $this->createProduct(array('name' => 'Кефир2Назв', 'sku' => 'Кефир2Арт', 'barcode' => '2222222'));
-        $product3 = $this->createProduct(array('name' => 'Кефир3Назв', 'sku' => 'Кефир3Арт', 'barcode' => '3333333'));
+        $product2 = $this->createProduct(array('name' => 'Кефир2Назв', 'barcode' => '2222222'));
+        $product3 = $this->createProduct(array('name' => 'Кефир3Назв', 'barcode' => '3333333'));
 
         $this->factory->flush();
 
@@ -100,21 +99,21 @@ class OrderExportTest extends WebTestCase
          * Products
          */
         $this->assertExcelRow($fileObject, 6, array(
-            'Кефир1Арт',    // sku
+            '10001',    // sku
             '1234567891234',      // barcode
             'Длинное название с многим количеством слов что бы проверить перенос строк',   // name
             3.11            // quantity
         ));
 
         $this->assertExcelRow($fileObject, 7, array(
-            'Кефир2Арт',
+            '10002',
             '2222222',
             'Кефир2Назв',
             2
         ));
 
         $this->assertExcelRow($fileObject, 8, array(
-            'Кефир3Арт',
+            '10003',
             '3333333',
             'Кефир3Назв',
             7.77

@@ -6,10 +6,12 @@
 
 <h1><%- model.id ? 'Редактирование товара' : 'Добавление товара' %></h1>
 <fieldset class="form__fieldset">
-    <div class="form__field form__field_inline">
-        <label class="form__label">Артикул</label>
-        <input value="<%- model.get('sku') %>" class="inputText" type="text" name="sku"/>
-    </div>
+    <% if (model.get('sku')) { %>
+        <div class="form__field form__field_inline">
+            <label class="form__label">Код товара</label>
+            <div name="sku"><%- model.get('sku') %></div>
+        </div>
+    <% } %>
     <div class="form__field form__field_inline">
         <label class="form__label">Наименование</label>
         <input value="<%- model.get('name') %>" class="inputText" type="text" name="name"/>

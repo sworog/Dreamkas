@@ -114,7 +114,7 @@ class MetaContainerTest extends WebTestCase
     {
         $this->clearMongoDb();
 
-        $this->createProductsBySku(array('1', '2', '3'));
+        $this->createProductsByNames(array('1', '2', '3'));
 
         $mockMetaGeneratorOne = $this->getMock(
             '\\Lighthouse\\CoreBundle\\Meta\\MetaGeneratorInterface'
@@ -193,7 +193,6 @@ class MetaContainerTest extends WebTestCase
             1 => array(
                 'name' => 'Продукт 1',
                 'barcode' => '7770000000001',
-                'sku' => 'Артикул_продукта_1',
                 'vat' => '10',
                 'units' => 'kg',
                 'vendor' => 'Вимм-Билль-Данн',
@@ -208,7 +207,6 @@ class MetaContainerTest extends WebTestCase
             2 => array(
                 'name' => 'Продукт 2 без диапозонов',
                 'barcode' => '7770000000002',
-                'sku' => 'Артикул_продукта_2',
                 'vat' => '10',
                 'units' => 'liter',
                 'vendor' => 'Петмол',
@@ -219,7 +217,6 @@ class MetaContainerTest extends WebTestCase
             3 => array(
                 'name' => 'Продукт 3',
                 'barcode' => '7770000000003',
-                'sku' => 'Артикул_продукта_3',
                 'vat' => '10',
                 'units' => 'unit',
                 'vendor' => 'Куромать',
@@ -233,7 +230,6 @@ class MetaContainerTest extends WebTestCase
             4 => array(
                 'name' => 'Продукт 4 без цены',
                 'barcode' => '7770000000004',
-                'sku' => 'Артикул_продукта_4',
                 'vat' => '10',
                 'units' => 'kg',
                 'vendor' => 'Гадило',
@@ -247,7 +243,6 @@ class MetaContainerTest extends WebTestCase
             5 => array(
                 'name' => 'Продукт 5',
                 'barcode' => '7770000000005',
-                'sku' => 'Артикул_продукта_5',
                 'vat' => '10',
                 'units' => 'liter',
                 'vendor' => 'Пончик',

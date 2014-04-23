@@ -116,12 +116,14 @@ abstract class AbstractRestController extends FOSRestController
         $messageTemplate,
         array $messageParameters = array()
     ) {
+        $propertyPath = ($field) ? 'data.' . $field : '';
+        $root = ($field) ? $form->get($field) : $form;
         $violation = new ConstraintViolation(
             $messageTemplate,
             $messageTemplate,
             $messageParameters,
-            $form->get($field),
-            'data.' . $field,
+            $root,
+            $propertyPath,
             null
         );
         $violationMapper = new ViolationMapper();

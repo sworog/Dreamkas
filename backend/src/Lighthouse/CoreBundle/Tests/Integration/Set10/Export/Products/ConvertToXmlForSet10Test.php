@@ -84,7 +84,6 @@ class ConvertToXmlForSet10Test extends WebTestCase
             1 => array(
                 'name' => 'Продукт 1',
                 'barcode' => '7770000000001',
-                'sku' => 'Артикул_продукта_1',
                 'vat' => '10',
                 'units' => 'kg',
                 'vendor' => 'Вимм-Билль-Данн',
@@ -99,7 +98,6 @@ class ConvertToXmlForSet10Test extends WebTestCase
             2 => array(
                 'name' => 'Продукт 2 без диапозонов',
                 'barcode' => '7770000000002',
-                'sku' => 'Артикул_продукта_2',
                 'vat' => '10',
                 'units' => 'liter',
                 'vendor' => 'Петмол',
@@ -110,7 +108,6 @@ class ConvertToXmlForSet10Test extends WebTestCase
             3 => array(
                 'name' => 'Продукт 3',
                 'barcode' => '7770000000003',
-                'sku' => 'Артикул_продукта_3',
                 'vat' => '10',
                 'units' => 'unit',
                 'vendor' => 'Куромать',
@@ -124,7 +121,6 @@ class ConvertToXmlForSet10Test extends WebTestCase
             4 => array(
                 'name' => 'Продукт 4 без цены',
                 'barcode' => '7770000000004',
-                'sku' => 'Артикул_продукта_4',
                 'vat' => '10',
                 'units' => 'kg',
                 'vendor' => 'Гадило',
@@ -138,7 +134,6 @@ class ConvertToXmlForSet10Test extends WebTestCase
             5 => array(
                 'name' => 'Продукт 5',
                 'barcode' => '7770000000005',
-                'sku' => 'Артикул_продукта_5',
                 'vat' => '10',
                 'units' => 'liter',
                 'vendor' => 'Пончик',
@@ -152,7 +147,6 @@ class ConvertToXmlForSet10Test extends WebTestCase
             6 => array(
                 'name' => 'Продукт 6',
                 'barcode' => '7770000000006',
-                'sku' => 'Артикул_продукта_6',
                 'vat' => '10',
                 'units' => 'liter',
                 'vendor' => 'Пончик',
@@ -211,7 +205,7 @@ class ConvertToXmlForSet10Test extends WebTestCase
 
         $xmlProduct1 = $converter->makeXmlByProduct($productsData[1]['model']);
         $expectedXmlProduct11 = <<<EOF
-<good marking-of-the-good="Артикул_продукта_1">
+<good marking-of-the-good="10001">
     <shop-indices>1</shop-indices>
     <name>Продукт 1</name>
     <bar-code code="7770000000001">
@@ -242,7 +236,7 @@ class ConvertToXmlForSet10Test extends WebTestCase
 </good>
 EOF;
         $expectedXmlProduct12 = <<<EOF
-<good marking-of-the-good="Артикул_продукта_1">
+<good marking-of-the-good="10001">
     <shop-indices>2 3</shop-indices>
     <name>Продукт 1</name>
     <bar-code code="7770000000001">
@@ -282,7 +276,7 @@ EOF;
 
         $xmlProduct3 = $converter->makeXmlByProduct($productsData[3]['model']);
         $expectedXmlProduct31 = <<<EOF
-<good marking-of-the-good="Артикул_продукта_3">
+<good marking-of-the-good="10003">
     <shop-indices>2</shop-indices>
     <name>Продукт 3</name>
     <bar-code code="7770000000003">
@@ -313,7 +307,7 @@ EOF;
 </good>
 EOF;
         $expectedXmlProduct32 = <<<EOF
-<good marking-of-the-good="Артикул_продукта_3">
+<good marking-of-the-good="10003">
     <shop-indices>1 3</shop-indices>
     <name>Продукт 3</name>
     <bar-code code="7770000000003">
@@ -353,7 +347,7 @@ EOF;
 
         $xmlProduct5 = $converter->makeXmlByProduct($productsData[5]['model']);
         $expectedXmlProduct5 = <<<EOF
-<good marking-of-the-good="Артикул_продукта_5">
+<good marking-of-the-good="10005">
     <shop-indices>1 2 3</shop-indices>
     <name>Продукт 5</name>
     <bar-code code="7770000000005">
@@ -388,7 +382,7 @@ EOF;
 
         $xmlProduct6 = $converter->makeXmlByProduct($productsData[6]['model']);
         $expectedXmlProduct6 = <<<EOF
-<good marking-of-the-good="Артикул_продукта_6">
+<good marking-of-the-good="10006">
     <shop-indices>1 2 3</shop-indices>
     <name>Продукт 6</name>
     <bar-code code="7770000000006">

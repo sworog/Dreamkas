@@ -5,7 +5,7 @@
               tabNumber="1" shop="197">
         <positions>
             <position amount="60.0" costWithDiscount="60.0" discountValue="0.0" ndsSum="0.0" nds="18.0" cost="60.0"
-                      count="1.0" barCode="1" goodsCode="1" departNumber="51" order="1"/>
+                      count="1.0" barCode="1" goodsCode="10001" departNumber="51" order="1"/>
         </positions>
         <payments>
             <payment description="" amount="60.0" typeClass="BonusCardPaymentEntity"/>
@@ -17,7 +17,7 @@
               tabNumber="1" shop="197">
         <positions>
             <position amount="60.0" costWithDiscount="60.0" discountValue="0.0" ndsSum="0.0" nds="18.0" cost="60.0"
-                      count="1.0" barCode="2" goodsCode="2" departNumber="51" order="1"/>
+                      count="1.0" barCode="2" goodsCode="10002" departNumber="51" order="1"/>
         </positions>
         <payments>
             <payment description="" amount="60.0" typeClass="BonusCardPaymentEntity"/>
@@ -29,7 +29,7 @@
               tabNumber="1" shop="197">
         <positions>
             <position amount="120.0" costWithDiscount="120.0" discountValue="0.0" ndsSum="0.0" nds="18.0" cost="60.0"
-                      count="2.0" barCode="4" goodsCode="4" departNumber="51" order="1"/>
+                      count="2.0" barCode="4" goodsCode="10004" departNumber="51" order="1"/>
         </positions>
         <payments>
             <payment description="" amount="60.0" typeClass="BonusCardPaymentEntity"/>
@@ -41,7 +41,7 @@
               tabNumber="1" shop="197">
         <positions>
             <position amount="60.0" costWithDiscount="60.0" discountValue="0.0" ndsSum="0.0" nds="18.0" cost="60.0"
-                      count="1.0" barCode="5" goodsCode="5" departNumber="51" order="1"/>
+                      count="1.0" barCode="5" goodsCode="10005" departNumber="51" order="1"/>
         </positions>
         <payments>
             <payment description="" amount="60.0" typeClass="BonusCardPaymentEntity"/>
@@ -53,7 +53,7 @@
               tabNumber="1" shop="197">
         <positions>
             <position amount="60.0" costWithDiscount="60.0" discountValue="0.0" ndsSum="0.0" nds="18.0" cost="60.0"
-                      count="1.0" barCode="6" goodsCode="6" departNumber="51" order="1"/>
+                      count="1.0" barCode="6" goodsCode="10006" departNumber="51" order="1"/>
         </positions>
         <payments>
             <payment description="" amount="60.0" typeClass="BonusCardPaymentEntity"/>
