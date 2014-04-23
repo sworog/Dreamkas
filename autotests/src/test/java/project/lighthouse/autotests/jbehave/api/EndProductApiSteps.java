@@ -101,13 +101,7 @@ public class EndProductApiSteps {
         givenTheUserCreatesProductWithParams(name, name, "kg");
     }
 
-    //check
-    @Given("there is created product with sku '$sku' and '$purchasePrice' purchasePrice")
-    public void givenThereIsCreatedProductWithSkuValue(String sku, String purchasePrice) throws JSONException, IOException {
-        givenTheUserCreatesProductWithParamsPrice(sku, sku, "kg", purchasePrice);
-    }
-
-    @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units")
+    @Given("there is the product with '$name' name, '$barcode' barcode, '$units' units")
     public void givenTheUserCreatesProductWithParams(String name, String barcode, String units) throws JSONException, IOException {
         сreateProductThroughPost(name, barcode, units, "123");
     }
@@ -168,14 +162,14 @@ public class EndProductApiSteps {
     //check
     @Given("the user navigates to the product with <sku>")
     public void givenTheUserNavigatesToTheProdcutWithSku(String sku) throws JSONException, IOException {
-        givenThereIsCreatedProductWithSkuValue(sku, "0,01");
+        givenTheUserCreatesProductWithParamsPrice(sku, sku, "kg", "0,01");
         givenTheUserNavigatesToTheProduct(sku);
     }
 
     @Given("the user navigates to the product with random name")
     public void givenTheUserNavigatesToTheProductWithRandomName() throws IOException, JSONException {
         String uuid = new UUIDGenerator().generate();
-        givenThereIsCreatedProductWithSkuValue(uuid, "0,01");
+        givenTheUserCreatesProductWithParamsPrice(uuid, uuid, "kg", "0,01");
         givenTheUserNavigatesToTheProduct(uuid);
     }
 }
