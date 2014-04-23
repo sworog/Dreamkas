@@ -19,7 +19,7 @@ And there is the user with name 'departmentManager-BIC-2', position 'departmentM
 Given there is the store with number 'BIC-01' managed by department manager named 'departmentManager-BIC'
 And there is the store with number 'BIC-02' managed by department manager named 'departmentManager-BIC-2'
 
-Given there is the product with 'SBV-01' name, 'SBV-01' sku, 'SBV-01' barcode
+Given there is the product with 'SBV-01' name, 'SBV-01' barcode
 
 Given the user navigates to the subCategory 'defaultSubCategory', category 'defaultCategory', group 'defaultGroup' product list page
 And the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password
@@ -172,7 +172,7 @@ And there is the user with name 'departmentManager-BIC-2', position 'departmentM
 
 Given there is the store with number 'BIC-01' managed by department manager named 'departmentManager-BIC'
 And there is the store with number 'BIC-02' managed by department manager named 'departmentManager-BIC-2'
-Given there is the product with 'SBV-02' name, 'SBV-02' sku, 'SBV-02' barcode
+Given there is the product with 'SBV-02' name, 'SBV-02' barcode
 
 Given the user navigates to the subCategory 'defaultSubCategory', category 'defaultCategory', group 'defaultGroup' product list page
 And the user logs in using 'departmentManager-BIC' userName and 'lighthouse' password

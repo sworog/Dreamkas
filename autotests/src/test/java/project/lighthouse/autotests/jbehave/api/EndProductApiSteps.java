@@ -91,7 +91,7 @@ public class EndProductApiSteps {
         return productApiSteps.createProductThroughPost(name, barcode, units, purchasePrice, SubCategory.DEFAULT_NAME, null);
     }
 
-    @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode")
+    @Given("there is the product with '$name' name, '$barcode' barcode")
     public void givenTheUserCreatesProductWithParams(String name, String barcode) throws JSONException, IOException {
         сreateProductThroughPost(name, barcode, "kg", "123");
     }

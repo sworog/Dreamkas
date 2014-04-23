@@ -9,7 +9,7 @@ Meta:
 
 GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
-Given there is the product with 'name-order-regression' name, 'sku-order-regression' sku, 'barCode-order-regression' barcode
+Given there is the product with 'name-order-regression' name, 'barCode-order-regression' barcode
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u67' userName and 'lighthouse' password
@@ -29,7 +29,7 @@ Meta:
 
 GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
-Given there is the product with 'name-order-regression' name, 'sku-order-regression' sku, 'barCode-order-regression' barcode
+Given there is the product with 'name-order-regression' name, 'barCode-order-regression' barcode
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u67' userName and 'lighthouse' password

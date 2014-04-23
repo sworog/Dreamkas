@@ -193,7 +193,7 @@ Examples:
 
 Scenario: Edit product retail price min cant be more then max
 
-Given there is the product with 'RMU12-PPV1-02' name, 'RMU12-PPV1-02' sku, 'RMU12-PPV1-02' barcode
+Given there is the product with 'RMU12-PPV1-02' name, 'RMU12-PPV1-02' barcode
 And the user navigates to the product with sku 'RMU12-PPV1-02'
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page

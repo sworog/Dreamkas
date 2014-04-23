@@ -20,7 +20,7 @@ GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
 Given there is the supplier with name 'supplier-s30u67s1'
 And there is the order in the store by 'departmentManager-s30u67'
-And there is the product with 'name-s30u67s1' name, 'sku-s30u67s1' sku, 'barCode-s30u67s1' barcode
+And there is the product with 'name-s30u67s1' name, 'barCode-s30u67s1' barcode
 
 Given the user opens last created order page
 And the user logs in using 'departmentManager-s30u67' userName and 'lighthouse' password
@@ -130,7 +130,7 @@ GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
 Given there is the supplier with name 'supplier-s30u67s1'
 And there is the order in the store by 'departmentManager-s30u67'
-And there is the product with 'name-s30u67s1' name, 'sku-s30u67s1' sku, 'barCode-s30u67s1' barcode
+And there is the product with 'name-s30u67s1' name, 'barCode-s30u67s1' barcode
 
 Given the user opens last created order page
 And the user logs in using 'departmentManager-s30u67' userName and 'lighthouse' password
