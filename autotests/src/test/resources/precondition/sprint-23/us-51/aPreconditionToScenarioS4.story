@@ -12,7 +12,6 @@ Given there is the product in subCategory with name 'defaultSubCategory-s23u51' 
 | vat | 0 |
 | purchasePrice | 134,80 |
 | barcode | barcode-2351-1 |
-| sku | sku-2351-1 |
 | vendorCountry |  |
 | vendor |  |
 | info |  |
