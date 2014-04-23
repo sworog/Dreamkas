@@ -2,7 +2,6 @@ package project.lighthouse.autotests.steps.api.departmentManager;
 
 import net.thucydides.core.annotations.Step;
 import org.json.JSONException;
-import org.junit.Assert;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.api.abstractFactory.factories.InvoicesFactory;
 import project.lighthouse.autotests.helper.UrlHelper;
@@ -18,25 +17,6 @@ import java.util.List;
 public class InvoiceApiSteps extends DepartmentManagerApi {
 
     private List<Invoice> invoiceList = new ArrayList<>();
-
-    @Step
-    @Deprecated
-    public Invoice createInvoiceThroughPost(String invoiceName, String date, String supplier, String accepter, String legalEntity, String supplierInvoiceSku, String supplierInvoiceDate, String storeName, String userName) throws JSONException, IOException {
-        Assert.fail("this method is deprecated and must be deleted");
-        return null;
-    }
-
-    @Step
-    @Deprecated
-    public void addProductToInvoice(String invoiceName, String productSku, String quantity, String price, String userName) throws JSONException, IOException {
-        Assert.fail("this method is deprecated and must be deleted");
-    }
-
-    @Step
-    @Deprecated
-    public void navigateToTheInvoicePage(String invoiceName) throws JSONException {
-        Assert.fail("this method is deprecated and must be deleted");
-    }
 
     @Step
     public Invoice createInvoice(String supplierId,
@@ -110,6 +90,4 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
     private Invoice getTwoInvoiceAgoListItem() {
         return invoiceList.get(invoiceList.size() - 3);
     }
-
-
 }
