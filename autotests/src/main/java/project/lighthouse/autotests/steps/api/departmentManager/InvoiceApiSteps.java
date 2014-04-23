@@ -2,38 +2,21 @@ package project.lighthouse.autotests.steps.api.departmentManager;
 
 import net.thucydides.core.annotations.Step;
 import org.json.JSONException;
-import org.junit.Assert;
 import project.lighthouse.autotests.StaticData;
-import project.lighthouse.autotests.api.factories.InvoicesFactory;
+import project.lighthouse.autotests.api.abstractFactory.factories.InvoicesFactory;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.User;
 import project.lighthouse.autotests.objects.api.invoice.Invoice;
 import project.lighthouse.autotests.objects.api.invoice.InvoiceProduct;
+import project.lighthouse.autotests.storage.Storage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InvoiceApiSteps extends DepartmentManagerApi {
 
-    private Invoice invoice;
-
-    @Step
-    @Deprecated
-    public Invoice createInvoiceThroughPost(String invoiceName, String date, String supplier, String accepter, String legalEntity, String supplierInvoiceSku, String supplierInvoiceDate, String storeName, String userName) throws JSONException, IOException {
-        Assert.fail("this method is deprecated and must be deleted");
-        return null;
-    }
-
-    @Step
-    @Deprecated
-    public void addProductToInvoice(String invoiceName, String productSku, String quantity, String price, String userName) throws JSONException, IOException {
-        Assert.fail("this method is deprecated and must be deleted");
-    }
-
-    @Step
-    @Deprecated
-    public void navigateToTheInvoicePage(String invoiceName) throws JSONException {
-        Assert.fail("this method is deprecated and must be deleted");
-    }
+    private List<Invoice> invoiceList = new ArrayList<>();
 
     @Step
     public Invoice createInvoice(String supplierId,
@@ -45,17 +28,66 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
                                  InvoiceProduct[] invoiceProducts) throws IOException, JSONException {
         User user = StaticData.users.get(userName);
         Invoice invoice = new InvoicesFactory(userName, "lighthouse")
-                .create(supplierId, acceptanceDate, accepter, legalEntity, supplierInvoiceNumber, invoiceProducts, user.getStore().getId());
-        this.invoice = invoice;
+                .create(supplierId, acceptanceDate, accepter, legalEntity, supplierInvoiceNumber, invoiceProducts, user.getStore());
+        this.invoiceList.add(invoice);
         return invoice;
     }
 
     @Step
-    public void openInvoicePage() throws JSONException {
-        String url = String.format("%s/stores/%s/invoices/%s",
+    public void openLastStoredInvoicePage() throws JSONException {
+        navigateToInvoicePage(getLastStoredInvoiceListItem());
+    }
+
+    @Step
+    public void openOneInvoiceAgoStoredInvoicePage() throws JSONException {
+        navigateToInvoicePage(getOneInvoiceAgoListItem());
+    }
+
+    @Step
+    public void openTwoInvoiceAgoStoredInvoicePage() throws JSONException {
+        navigateToInvoicePage(getTwoInvoiceAgoListItem());
+    }
+
+    private void navigateToInvoicePage(Invoice invoice) {
+        String invoicePageUrl = String.format("%s/stores/%s/invoices/%s",
                 UrlHelper.getWebFrontUrl(),
-                invoice.getStoreId(),
+                invoice.getStore().getId(),
                 invoice.getId());
-        getDriver().navigate().to(url);
+        getDriver().navigate().to(invoicePageUrl);
+    }
+
+    /**
+     * The method depends on invoice object creating by
+     * First - {@link project.lighthouse.autotests.steps.api.objectBuilder.InvoiceBuilderSteps#build(String, String, String, String, String)}}
+     * Second {@link project.lighthouse.autotests.steps.api.objectBuilder.InvoiceBuilderSteps#addProduct(String, String, String)}
+     *
+     * @param userName
+     * @return
+     * @throws IOException
+     * @throws JSONException
+     */
+    @Step
+    public Invoice createInvoiceFromInvoiceBuilderSteps(String userName) throws IOException, JSONException {
+        User user = StaticData.users.get(userName);
+        Invoice invoice = new InvoicesFactory(userName, "lighthouse")
+                .create(
+                        Storage.getInvoiceVariableStorage().getInvoiceForInvoiceBuilderSteps(),
+                        user.getStore()
+                );
+        invoiceList.add(invoice);
+        Storage.getInvoiceVariableStorage().setInvoiceForInvoiceBuilderSteps(null);
+        return invoice;
+    }
+
+    private Invoice getLastStoredInvoiceListItem() {
+        return invoiceList.get(invoiceList.size() - 1);
+    }
+
+    private Invoice getOneInvoiceAgoListItem() {
+        return invoiceList.get(invoiceList.size() - 2);
+    }
+
+    private Invoice getTwoInvoiceAgoListItem() {
+        return invoiceList.get(invoiceList.size() - 3);
     }
 }

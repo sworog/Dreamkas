@@ -170,4 +170,24 @@ public class WriteOffUserSteps {
     public void whenTheUserClicksTheLocalNavigationWriteOffCreateLink() {
         writeOffSteps.createInvoiceLinkClick();
     }
+
+    @When("the user clicks OK and accepts changes")
+    public void whenTheUSerClicksOkAndAcceptsChanges() throws InterruptedException {
+        writeOffSteps.acceptChangesButtonClick();
+    }
+
+    @When("the user clicks Cancel and discard changes")
+    public void whenTheUserClicksCancelAndDiscardTheChanges() {
+        writeOffSteps.discardChangesButtonClick();
+    }
+
+    @When("the user clicks OK and accepts deletion")
+    public void whenTheUSerClicksOkAndAcceptsDeletion() throws InterruptedException {
+        writeOffSteps.acceptDeleteButtonClick();
+    }
+
+    @When("the user clicks Cancel and discard deletion")
+    public void whenTheUserClicksCancelAndDiscardTheDeletion() {
+        writeOffSteps.discardDeleteButtonClick();
+    }
 }

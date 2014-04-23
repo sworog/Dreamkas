@@ -36,14 +36,20 @@ Given there is the product in subCategory with name 'defaultSubCategory-s23u51' 
 | retailMarkupMin |  |
 | rounding |  |
 
-And there is the invoice in the store with number '2351' ruled by department manager with name 'departmentManager-s23u51' with values
-| elementName | elementValue |
-| sku | invoice-2351-1 |
+Given the user creates invoice api object with values
+| elementName | value |
 | acceptanceDate | 19.11.2013 16:23 |
-| supplier | supplier |
 | accepter | accepter |
 | legalEntity | legalEntity |
-| supplierInvoiceSku | supplierInvoiceSku |
-| supplierInvoiceDate | 19.11.2013 |
-And the user adds the product to the invoice with name 'invoice-2351-1' with sku 'sku-2351', quantity '7', price '100,00' in the store ruled by 'departmentManager-s23u51'
-And the user adds the product to the invoice with name 'invoice-2351-1' with sku 'sku-2351-01', quantity '15', price '120,00' in the store ruled by 'departmentManager-s23u51'
+| supplierInvoiceNumber | supplierInvoiceNumber |
+And the user adds the product with data to invoice api object
+| elementName | value |
+| productName | sku-2351 |
+| quantity | 7 |
+| price | 100 |
+And the user adds the product with data to invoice api object
+| elementName | value |
+| productName | sku-2351-01 |
+| quantity | 15 |
+| price | 120 |
+And there is the invoice created with invoice builder steps by userName 'departmentManager-s23u51'

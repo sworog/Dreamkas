@@ -15,8 +15,12 @@ abstract public class AbstractObject {
         this.jsonObject = new JSONObject();
     }
 
-    public String getPropertyAsString(String key) throws JSONException {
-        return jsonObject.getString(key);
+    public String getPropertyAsString(String key) {
+        try {
+            return jsonObject.getString(key);
+        } catch (JSONException e) {
+            throw new AssertionError(e);
+        }
     }
 
     public JSONObject getJsonObject() {
@@ -29,7 +33,7 @@ abstract public class AbstractObject {
 
     abstract public String getApiUrl();
 
-    public String getId() throws JSONException {
+    public String getId() {
         return getPropertyAsString("id");
     }
 

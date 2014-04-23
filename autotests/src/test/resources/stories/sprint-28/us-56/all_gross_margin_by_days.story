@@ -11,7 +11,8 @@ Scenario: Gross margin by days
 
 Meta:
 @id_s28u56s1
-@description_@smoke
+@description_
+@smoke
 
 GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story,
               precondition/sprint-28/us-56/aPreconditionToStoryUs56.story

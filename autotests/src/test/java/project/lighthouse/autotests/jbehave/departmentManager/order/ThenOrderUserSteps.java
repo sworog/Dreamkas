@@ -166,4 +166,9 @@ public class ThenOrderUserSteps {
     public void thenTheUserChecksTheDeleteOrderLinkButtonShouldBeNotVisible() {
         orderSteps.deleteButtonLinkShouldBeNotVisible();
     }
+
+    @Then("the user checks the order autocomplete placeholder text is '$expectedPlaceHolder'")
+    public void thenTheUserChecksTheOrderAutoCompletePlaceHolderText(String expectedPlaceHolder) {
+        orderSteps.assertAutoCompletePlaceHolder(expectedPlaceHolder);
+    }
 }

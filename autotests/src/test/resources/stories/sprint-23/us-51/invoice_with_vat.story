@@ -11,75 +11,54 @@ Scenario: The checkbox is active by default
 
 Meta:
 @id_s23u51s1
-@description_@smoke
+@description_
+@smoke
 
 GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story
 
 Given the user is on the store '2351' invoice list page
-When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
-And the user clicks the create button on the invoice list page
-And the user inputs data to the invoice
-| elementName  | value |
-| sku | invoice-2351-0 |
-| acceptanceDate | 02.04.2013 16:23 |
-| supplier | Поставщик |
-| accepter | Иван Петрович Петрович |
-| legalEntity | Компания |
-| supplierInvoiceSku | 123456 |
-| supplierInvoiceDate | 01.04.2013 |
-And the user navigates to invoice product addition
-Then the user checks the checkbox 'includesVAT' is 'checked'
+And the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
 
-Scenario: Checkbox text
+When the user clicks the create invoice link on invoice page menu navigation
 
-Meta:
-@id_s23u51s2
-@description
-
-GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story,
-              precondition/sprint-23/us-51/aPreconditionToScenarioS2.story
-
-Given the user navigates to the invoice page with name 'invoice-2351'
-When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
-Then the user checks the checkbox 'includesVAT' is 'checked'
-And the user checks the checkbox 'includesVAT' text is 'Цена включает НДС'
-When the user clicks finish edit link and ends the invoice edition
-Then the user checks the checkbox 'includesVAT' is 'checked'
-And the user checks the checkbox 'includesVAT' text is 'Цена включает НДС'
+Then the user checks the include vat checkbox is 'checked'
 
 Scenario: The invoice with/without vat 10%
 
 Meta:
 @id_s23u51s3
-@description_@smoke
+@description_
+@smoke
 
 GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story,
               precondition/sprint-23/us-51/aPreconditionToScenarioS3.story
 
-Given the user navigates to the invoice page with name 'invoice-2351-1'
-When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
-Then the user checks the invoice products list contains entry
-| productName | productSku | productBarcode | productAmount | productUnits | productPrice | productSum | vatSum | vat |
-| name-2351 | sku-2351 | barcode-2351 | 7,0 | шт. | 100,00 | 700,00 | 63,63 р. | 10 |
-| name-2351-01 | sku-2351-01 | barcode-2351-01 | 15,0 | шт. | 120,00 | 1 800,00 | 274,65 р. | 18 |
-And the user checks invoice elements values
-| elementName | value |
-| totalProducts | 2 |
-| totalSum | 2 500,00 |
-| totalVat | 338,28 |
-Then the user checks the checkbox 'includesVAT' is 'checked'
-When the user clicks on item named 'includesVAT'
-Then the user waits for checkBoxPreloader
-Then the user checks the checkbox 'includesVAT' is 'unChecked'
-Then the user checks the invoice products list contains entry
-| productName | productSku | productBarcode | productAmount | productUnits | productPrice | productSum | vatSum | vat |
-| name-2351 | sku-2351 | barcode-2351 | 7,0 | шт. | 100,00 | 770,00 | 70,00 р. | 10 |
-| name-2351-01 | sku-2351-01 | barcode-2351-01 | 15,0 | шт. | 120,00 | 2 124,00 | 324,00 р. | 18 |
-And the user checks invoice elements values
-| elementName | value |
-| totalProducts | 2 |
-| totalSum | 2 894,00 |
-| totalVat | 394,00 |
+Given the user opens last created invoice page
+And the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
+
+Then the user checks the invoice products list contains exact entries
+| name | units | quantity | price | totalSum | vatSum |
+| name-2351 | шт. | 7,0 | 100,00 | 700,00 руб. | 63,63 руб. |
+| name-2351-01 | шт. | 15,0 | 120,00 | 1 800,00 руб. | 274,65 руб. |
+
+Then the user checks the invoice total sum is 'Итого: 2 500,00 руб.'
+And the user checks the invoice vat sum is 'НДС: 338,28 руб.'
+
+Then the user checks the include vat checkbox is 'checked'
+
+When the user clicks on the include vat checkbox
+
+Then the user waits for checkBoxPreLoader finish
+
+Then the user checks the include vat checkbox is 'unChecked'
+
+Then the user checks the invoice products list contains exact entries
+| name | units | quantity | price | totalSum | vatSum |
+| name-2351 | шт. | 7,0 | 100,00 | 770,00 руб. | 70,00 руб. |
+| name-2351-01 | шт. | 15,0 | 120,00 | 2 124,00 руб. |324,00 руб. |
+
+Then the user checks the invoice total sum is 'Итого: 2 894,00 руб.'
+And the user checks the invoice vat sum is 'НДС: 394,00 руб.'
 
 Scenario: The invoice with/without vat 0%
 
@@ -90,54 +69,49 @@ Meta:
 GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story,
               precondition/sprint-23/us-51/aPreconditionToScenarioS4.story
 
-Given the user navigates to the invoice page with name 'invoice-2351-2'
-When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
-Then the user checks the invoice products list contains entry
-| productName | productSku | productBarcode | productAmount | productUnits | productPrice | productSum | vatSum | vat |
-| name-2351-1 | sku-2351-1 | barcode-2351-1 | 4,555 | шт. | 145,50 | 662,75 | 0,00 р. | 0 |
-Then the user checks the checkbox 'includesVAT' is 'checked'
-When the user clicks on item named 'includesVAT'
-Then the user waits for checkBoxPreloader
-Then the user checks the checkbox 'includesVAT' is 'unChecked'
-Then the user checks the invoice products list contains entry
-| productName | productSku | productBarcode | productAmount | productUnits | productPrice | productSum | vatSum | vat |
-| name-2351-1 | sku-2351-1 | barcode-2351-1 | 4,555 | шт. | 145,50 | 662,75 | 0,00 р. | 0 |
+Given the user opens last created invoice page
+And the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
 
-Scenario: The checkbox is not clickable in view mode
+Then the user checks the invoice products list contains exact entries
+| name | units | quantity | price | totalSum | vatSum |
+| name-2351-1 | шт. | 4,555 | 145,50 | 662,75 руб. | 0,00 руб. |
 
-Meta:
-@id_s23u51s5
-@description_@smoke
+Then the user checks the include vat checkbox is 'checked'
 
-GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story,
-              precondition/sprint-23/us-51/aPreconditionToScenarioS5.story
+When the user clicks on the include vat checkbox
 
-Given the user navigates to the invoice page with name 'invoice-2351-3'
-When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
-When the user clicks finish edit link and ends the invoice edition
-Then the user checks the invoice products list contains entry
-| productName | productSku | productBarcode | productAmount | productUnits | productPrice | productSum | vatSum | vat |
-| name-2351-2 | sku-2351-2 | barcode-2351-2 | 15,0 | шт. | 120,00 | 1 800,00 | 274,65 р. | 18 |
-Then the user checks the checkbox 'includesVAT' is 'checked'
-When the user clicks on item named 'includesVAT'
-Then the user waits for checkBoxPreloader
-Then the user checks the checkbox 'includesVAT' is 'checked'
-Then the user checks the invoice products list contains entry
-| productName | productSku | productBarcode | productAmount | productUnits | productPrice | productSum | vatSum | vat |
-| name-2351-2 | sku-2351-2 | barcode-2351-2 | 15,0 | шт. | 120,00 | 1 800,00 | 274,65 р. | 18 |
+Then the user waits for checkBoxPreLoader finish
+
+Then the user checks the include vat checkbox is 'unChecked'
+
+Then the user checks the invoice products list contains exact entries
+| name | units | quantity | price | totalSum | vatSum |
+| name-2351-1 | шт. | 4,555 | 145,50 | 662,75 руб. | 0,00 руб. |
 
 Scenario: Average and last price are not changed if the price with/without vat
 
 Meta:
 @id_s23u51s6
-@description_@smoke
+@description_
+@smoke
 
 GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story,
               precondition/sprint-23/us-51/aPreconditionToScenarioS6.story
 
+Given the user opens last created invoice page
+And the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
+
+When the user clicks on the include vat checkbox
+
+Then the user waits for checkBoxPreLoader finish
+
+Then the user checks the include vat checkbox is 'unChecked'
+
+Given the user runs the recalculate_metrics cap command
 Given the user navigates to the subCategory 'defaultSubCategory-s23u51', category 'defaultCategory-s23u51', group 'defaultGroup-s23u51' product list page
-When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
+
 When the user opens product balance tab
+
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
 | name-2351-3 | sku-2351-3 | barcode-2351-3 | 10,0 | 0,0 | 0,0 | 100,00 р. | 100,00 р. |
@@ -152,14 +126,18 @@ Meta:
 GivenStories: precondition/sprint-23/us-51/aPreconditionToStoryUs51.story,
               precondition/sprint-23/us-51/aPreconditionToScenarioS7.story
 
-Given the user navigates to the invoice page with name 'invoice-2351-6'
-When the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
-Then the user checks the invoice products list contains entry
-| productName | productSku | productBarcode | productAmount | productUnits | productPrice | productSum | vatSum | vat |
-| name-2351-6 | sku-2351-6 | barcode-2351-6 | 10,0 | шт. | 100,00 | 1 000,00 | 90,90 р. | 10 |
-Given the user navigates to the invoice page with name 'invoice-2351-7'
-Then the user checks the invoice products list contains entry
-| name-2351-6 | sku-2351-6 | barcode-2351-6 | 10,0 | шт. | 100,00 | 1 000,00 | 0,00 р. | 0 |
+Given the user opens one invoice ago created invoice page
+And the user logs in using 'departmentManager-s23u51' userName and 'lighthouse' password
+
+Then the user checks the invoice products list contains exact entries
+| name | units | quantity | price | totalSum | vatSum |
+| name-2351-6 | шт. | 10,0 | 100,00 | 1 000,00 руб. | 90,90 руб. |
+
+Given the user opens last created invoice page
+
+Then the user checks the invoice products list contains exact entries
+| name | units | quantity | price | totalSum | vatSum |
+| name-2351-6 | шт. | 10,0 | 100,00 | 1 000,00 руб. | 0,00 руб. |
 
 
 

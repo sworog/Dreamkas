@@ -11,7 +11,8 @@ Scenario: Store gross sale margin verification scenario
 
 Meta:
 @id_s27u54.1s1
-@description_@smoke
+@description_
+@smoke
 
 GivenStories: precondition/sprint-27/us-54_1/aPreconditionToStoryUs54.1.story
 

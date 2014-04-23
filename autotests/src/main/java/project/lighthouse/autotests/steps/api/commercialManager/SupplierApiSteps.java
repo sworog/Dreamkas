@@ -10,6 +10,12 @@ import java.io.IOException;
 public class SupplierApiSteps extends CommercialManagerApi {
 
     @Step
+    public Supplier createSupplier() throws IOException, JSONException {
+        String uuid = new UUIDGenerator().generate();
+        return apiConnect.createSupplier(uuid);
+    }
+
+    @Step
     public Supplier createSupplier(String name) throws IOException, JSONException {
         return apiConnect.createSupplier(name);
     }
