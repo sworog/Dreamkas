@@ -48,7 +48,6 @@ class ProductTest extends TestCase
     {
         $array = array(
             'name' => 'Кефир "Веселый Молочник" 1% 950гр',
-            'units' => 'gr',
             'barcode' => '4607025392408',
             'purchasePrice' => 3048,
             'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',

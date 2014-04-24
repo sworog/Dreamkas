@@ -2,6 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Tests\Meta;
 
+use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
+use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
 use Lighthouse\CoreBundle\Meta\MetaCollection;
 use Lighthouse\CoreBundle\Meta\MetaDocument;
 use Lighthouse\CoreBundle\Meta\MetaGeneratorInterface;
@@ -194,7 +196,6 @@ class MetaContainerTest extends WebTestCase
                 'name' => 'Продукт 1',
                 'barcode' => '7770000000001',
                 'vat' => '10',
-                'units' => 'kg',
                 'vendor' => 'Вимм-Билль-Данн',
                 'vendorCountry' => 'Россия',
                 'purchasePrice' => '44.11',
@@ -202,13 +203,11 @@ class MetaContainerTest extends WebTestCase
                 'retailMarkupMax' => '60',
                 'retailPricePreference' => 'retailMarkup',
                 'subCategory' => $subCategoryData['id'],
-
             ),
             2 => array(
                 'name' => 'Продукт 2 без диапозонов',
                 'barcode' => '7770000000002',
                 'vat' => '10',
-                'units' => 'liter',
                 'vendor' => 'Петмол',
                 'vendorCountry' => 'Россия',
                 'purchasePrice' => '55',
@@ -218,7 +217,6 @@ class MetaContainerTest extends WebTestCase
                 'name' => 'Продукт 3',
                 'barcode' => '7770000000003',
                 'vat' => '10',
-                'units' => 'unit',
                 'vendor' => 'Куромать',
                 'vendorCountry' => 'Россия',
                 'purchasePrice' => '66.23',
@@ -231,7 +229,6 @@ class MetaContainerTest extends WebTestCase
                 'name' => 'Продукт 4 без цены',
                 'barcode' => '7770000000004',
                 'vat' => '10',
-                'units' => 'kg',
                 'vendor' => 'Гадило',
                 'vendorCountry' => 'Россия',
                 'purchasePrice' => '',
@@ -244,7 +241,6 @@ class MetaContainerTest extends WebTestCase
                 'name' => 'Продукт 5',
                 'barcode' => '7770000000005',
                 'vat' => '10',
-                'units' => 'liter',
                 'vendor' => 'Пончик',
                 'vendorCountry' => 'Израиль',
                 'purchasePrice' => '88.3',

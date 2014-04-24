@@ -104,7 +104,7 @@ class ProductControllerTest extends WebTestCase
     public function testPostProductActionOnlyOneErrorMessageOnNotBlank()
     {
         $invalidData = $this->getProductData();
-        $invalidData['units'] = '';
+        $invalidData['name'] = '';
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -117,7 +117,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(400);
 
-        Assert::assertJsonPathCount(1, 'children.units.errors.*', $response);
+        Assert::assertJsonPathCount(1, 'children.name.errors.*', $response);
     }
 
     public function testPostProductActionEmptyPost()
