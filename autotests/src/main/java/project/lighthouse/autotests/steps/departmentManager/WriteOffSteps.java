@@ -181,4 +181,24 @@ public class WriteOffSteps extends ScenarioSteps {
     public void writeOffProductCompareWithExampleTable(ExamplesTable examplesTable) {
         writeOffPage.getWriteOffProductCollection().compareWithExampleTable(examplesTable);
     }
+
+    @Step
+    public void acceptChangesButtonClick() throws InterruptedException {
+        writeOffPage.acceptChangesButtonClick();
+    }
+
+    @Step
+    public void discardChangesButtonClick() {
+        writeOffPage.discardChangesButtonClick();
+    }
+
+    @Step
+    public void acceptDeleteButtonClick() throws InterruptedException {
+        writeOffPage.acceptDeleteButtonClick();
+    }
+
+    @Step
+    public void discardDeleteButtonClick() {
+        writeOffPage.discardDeleteButtonClick();
+    }
 }

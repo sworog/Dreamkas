@@ -128,7 +128,9 @@ public class TeamCityStepListener implements StepListener {
     private void printFailure(TestOutcome result) {
         HashMap<String, String> properties = new HashMap<>();
         properties.put("name", getResultTitle(result));
-        properties.put("message", result.getTestFailureCause().getMessage());
+        //if NPE - detailMessage is null
+        //Add the test on it
+        properties.put("message", result.getTestFailureCause().getMessage() != null ? result.getTestFailureCause().getMessage() : "");
         properties.put("details", getStepsInfo(result.getTestSteps()));
         printMessage("testFailed", properties);
     }

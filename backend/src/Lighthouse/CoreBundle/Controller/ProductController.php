@@ -42,7 +42,7 @@ class ProductController extends AbstractRestController
     protected function handleFlushFailedException(FlushFailedException $e)
     {
         if ($e->getCause() instanceof MongoDuplicateKeyException) {
-            return $this->addFormError($e->getForm(), 'sku', 'lighthouse.validation.errors.product.sku.unique');
+            return $this->addFormError($e->getForm(), null, 'lighthouse.validation.errors.product.sku.unique');
         } else {
             return parent::handleFlushFailedException($e);
         }

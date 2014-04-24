@@ -3,16 +3,17 @@
 namespace Lighthouse\CoreBundle\Document\Product;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Rounding\AbstractRounding;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Versionable\VersionableInterface;
-use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints\Product\RetailPrice as AssertProductRetailPrice;
-use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
+use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 
 /**
  *
@@ -105,10 +106,8 @@ class Product extends AbstractDocument implements VersionableInterface
     protected $barcode;
 
     /**
-     * @MongoDB\String
+     * @Generated(startValue=10000)
      * @MongoDB\UniqueIndex
-     * @Assert\NotBlank
-     * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      * @Serializer\Groups({"Default", "Collection"})
      */
     protected $sku;

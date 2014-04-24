@@ -169,7 +169,7 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void productInvoiceListClick(String sku) {
-        productInvoicesList.invoiceSkuClick(sku);
+        productInvoicesList.getProductInvoiceListObjects().clickByLocator(sku);
     }
 
     @Step

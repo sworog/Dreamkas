@@ -3,6 +3,7 @@ package project.lighthouse.autotests.elements.items;
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.helper.DateTimeHelper;
 
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
@@ -48,37 +49,13 @@ public class DateTime extends CommonItem {
     public void setValue(String value) {
         getVisibleWebElementFacade().click();
         if (value.startsWith("!")) {
-            String parsedValue = getDate(value.substring(1));
+            String parsedValue = DateTimeHelper.getDate(value.substring(1));
             getVisibleWebElementFacade().type(parsedValue);
         } else {
-            String parsedValue = getDate(value);
+            String parsedValue = DateTimeHelper.getDate(value);
             dateTimePickerInput(parsedValue);
         }
         dateTimePickerClose();
-    }
-
-    public String getDate(String value) {
-        switch (value) {
-            case "todayDateAndTime":
-                return getTodayDate(DATE_TIME_PATTERN);
-            case "todayDate":
-                return getTodayDate(DATE_PATTERN);
-            default:
-                if (value.contains("-")) {
-                    String replacedValue = value.replaceFirst(".+-([0-3]?[0-9]).*", "$1");
-                    int numberOfDay = Integer.parseInt(replacedValue);
-                    return getTodayDate(DATE_TIME_PATTERN, numberOfDay);
-                }
-                return value;
-        }
-    }
-
-    public static String getTodayDate(String pattern) {
-        return new SimpleDateFormat(pattern).format(new Date());
-    }
-
-    public static String getTodayDate(String pattern, int day) {
-        return new SimpleDateFormat(pattern).format(new org.joda.time.DateTime().minusDays(day).toDate());
     }
 
     public void dateTimePickerInput(String datePattern) {

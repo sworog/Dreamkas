@@ -1696,11 +1696,11 @@ class GrossSalesControllerTest extends WebTestCase
         );
 
         $productIds = array();
-        $productIds['1'] = $this->createProduct(array('sku' => '1'), $catalogIds['1.1.1']);
-        $productIds['2'] = $this->createProduct(array('sku' => '2'), $catalogIds['1.1.1']);
-        $productIds['3'] = $this->createProduct(array('sku' => '3'), $catalogIds['1.1.2']);
-        $productIds['4'] = $this->createProduct(array('sku' => '4'), $catalogIds['2.1.1']);
-        $productIds['5'] = $this->createProduct(array('sku' => '5'), $catalogIds['1.2.1']);
+        $productIds['1'] = $this->createProduct(array('name' => '1'), $catalogIds['1.1.1']);
+        $productIds['2'] = $this->createProduct(array('name' => '2'), $catalogIds['1.1.1']);
+        $productIds['3'] = $this->createProduct(array('name' => '3'), $catalogIds['1.1.2']);
+        $productIds['4'] = $this->createProduct(array('name' => '4'), $catalogIds['2.1.1']);
+        $productIds['5'] = $this->createProduct(array('name' => '5'), $catalogIds['1.2.1']);
 
         return array($storeIds, $productIds, $catalogIds);
     }

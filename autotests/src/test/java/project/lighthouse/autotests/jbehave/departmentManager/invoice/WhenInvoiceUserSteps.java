@@ -110,4 +110,19 @@ public class WhenInvoiceUserSteps {
     public void whenTheUserClicksTheInvoiceOrderLink() {
         invoiceSteps.invoiceOrderLinkClick();
     }
+
+    @When("the user clicks the invoice search button and starts the search")
+    public void whenTheUserClicksTheInvoiceSearhButton() {
+        invoiceSteps.searchButtonClick();
+    }
+
+    @When("the user searches invoice by sku or supplier sku '$value'")
+    public void whenTheUserSearchesInvoices(String value) {
+        invoiceSteps.searchInput(value);
+    }
+
+    @When("the user clicks on the include vat checkbox")
+    public void whenTheUserClicksOnTheIncludeVatCheckBox() {
+        invoiceSteps.includeVatCheckBoxClick();
+    }
 }

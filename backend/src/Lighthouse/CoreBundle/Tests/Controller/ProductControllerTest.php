@@ -32,6 +32,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(201);
 
+        Assert::assertJsonPathEquals('10001', 'sku', $postResponse);
         Assert::assertJsonPathEquals(30.48, 'purchasePrice', $postResponse);
         Assert::assertNotJsonHasPath('lastPurchasePrice', $postResponse);
         Assert::assertJsonHasPath('subCategory', $postResponse);
@@ -129,36 +130,6 @@ class ProductControllerTest extends WebTestCase
             '/api/1/products'
         );
         $this->assertResponseCode(400);
-    }
-
-    /**
-     * @dataProvider productProvider
-     */
-    public function testPostProductActionUniqueSku(array $postData)
-    {
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
-
-        $postData['subCategory'] = $this->createSubCategory();
-
-        $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/products',
-            $postData
-        );
-
-        $this->assertResponseCode(201);
-
-        $response = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/products',
-            $postData
-        );
-
-        $this->assertResponseCode(400);
-
-        Assert::assertJsonPathContains('уже есть', 'children.sku.errors.0', $response);
     }
 
     /**
@@ -336,7 +307,6 @@ class ProductControllerTest extends WebTestCase
 
         for ($i = 0; $i < 5; $i++) {
             $postData['name'] = 'Кефир' . $i;
-            $postData['sku'] = 'sku' . $i;
             $this->clientJsonRequest(
                 $accessToken,
                 'POST',
@@ -354,6 +324,11 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
         Assert::assertJsonPathCount(5, '*.id', $response);
+        Assert::assertJsonPathEquals('10001', '0.sku', $response);
+        Assert::assertJsonPathEquals('10002', '1.sku', $response);
+        Assert::assertJsonPathEquals('10003', '2.sku', $response);
+        Assert::assertJsonPathEquals('10004', '3.sku', $response);
+        Assert::assertJsonPathEquals('10005', '4.sku', $response);
     }
 
     /**
@@ -442,7 +417,7 @@ class ProductControllerTest extends WebTestCase
     public function testGetSubCategoryProductsHaveNoSubcategoryField()
     {
         $subCategoryId = $this->createSubCategory();
-        $this->createProductsBySku(array('1', '2', '3', '4', '5'));
+        $this->createProductsByNames(array('1', '2', '3', '4', '5'));
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
@@ -466,11 +441,11 @@ class ProductControllerTest extends WebTestCase
     {
         $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
-        $this->createProduct(array('name' => 'Кефир3', 'sku' => '10001', 'purchasePrice' => ''));
-        $this->createProduct(array('name' => 'кефир веселый молочник', 'sku' => '10002'));
-        $this->createProduct(array('name' => 'Батон /Россия/ .12', 'sku' => '10003', 'vendor' => 'Россия'));
-        $this->createProduct(array('name' => 'Кефир грустный дойщик', 'sku' => '10004'));
-        $this->createProduct(array('name' => 'кефир5', 'sku' => '10005', 'barcode' => '00127463212'));
+        $this->createProduct(array('name' => 'Кефир3', 'purchasePrice' => ''));
+        $this->createProduct(array('name' => 'кефир веселый молочник'));
+        $this->createProduct(array('name' => 'Батон /Россия/ .12', 'vendor' => 'Россия'));
+        $this->createProduct(array('name' => 'Кефир грустный дойщик'));
+        $this->createProduct(array('name' => 'кефир5', 'barcode' => '00127463212'));
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -845,31 +820,10 @@ class ProductControllerTest extends WebTestCase
             /***********************************************************************************************
              * 'sku'
              ***********************************************************************************************/
-            'valid sku' => array(
-                201,
+            'sku should not be present' => array(
+                400,
                 array('sku' => 'qwe223sdw'),
-            ),
-            'valid sku 100 length' => array(
-                201,
-                array('sku' => str_repeat('z', 100)),
-            ),
-            'not valid sku empty' => array(
-                400,
-                array('sku' => ''),
-                array(
-                    'children.sku.errors.0'
-                    =>
-                    'Заполните это поле',
-                ),
-            ),
-            'not valid sku too long' => array(
-                400,
-                array('sku' => str_repeat("z", 101)),
-                array(
-                    'children.sku.errors.0'
-                    =>
-                    'Не более 100 символов',
-                ),
+                array('errors.0' => 'Эта форма не должна содержать дополнительных полей: "sku"'),
             ),
             /***********************************************************************************************
              * 'subCategory'
@@ -1699,7 +1653,6 @@ class ProductControllerTest extends WebTestCase
                     'units' => 'gr',
                     'barcode' => '4607025392408',
                     'purchasePrice' => 30.48,
-                    'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
                     'vat' => 10,
                     'vendor' => 'Вимм-Билль-Данн',
                     'vendorCountry' => 'Россия',
@@ -1880,7 +1833,7 @@ class ProductControllerTest extends WebTestCase
     /**
      * @group unique
      */
-    public function testUniqueNameInParallel()
+    public function testNotUniqueSkuInParallel()
     {
         $productData = $this->getProductData();
 
@@ -1898,10 +1851,11 @@ class ProductControllerTest extends WebTestCase
         }
         $exporter = new Exporter();
         $responseBody = $exporter->export($jsonResponses);
-        $this->assertCount(1, array_keys($statusCodes, 201), $responseBody);
-        $this->assertCount(2, array_keys($statusCodes, 400), $responseBody);
-        Assert::assertJsonPathEquals('Кефир "Веселый Молочник" 1% 950гр', '*.name', $jsonResponses, 1);
-        Assert::assertJsonPathEquals('Такой артикул уже есть', '*.children.sku.errors.0', $jsonResponses, 2);
+        $this->assertCount(3, array_keys($statusCodes, 201), $responseBody);
+        Assert::assertJsonPathEquals('Кефир "Веселый Молочник" 1% 950гр', '*.name', $jsonResponses, 3);
+        Assert::assertJsonPathEquals('10001', '*.sku', $jsonResponses, 1);
+        Assert::assertJsonPathEquals('10002', '*.sku', $jsonResponses, 1);
+        Assert::assertJsonPathEquals('10003', '*.sku', $jsonResponses, 1);
     }
 
     protected function doPostActionFlushFailedException(\Exception $exception)
@@ -1984,7 +1938,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
-        Assert::assertJsonPathEquals('Такой артикул уже есть', 'children.sku.errors.0', $response);
+        Assert::assertJsonPathEquals('Такой артикул уже есть', 'errors.0', $response);
     }
 
     public function testPostActionToSubCategoryWithMarkup()

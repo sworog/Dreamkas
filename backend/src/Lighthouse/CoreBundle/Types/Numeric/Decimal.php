@@ -190,6 +190,15 @@ class Decimal implements Numeric, RawValue
     }
 
     /**
+     * @param string $value
+     * @return bool
+     */
+    public function equals($value)
+    {
+        return $this->toString() === (string) $value;
+    }
+
+    /**
      * @param string $operation
      * @param string $operandLeft
      * @param string $operandRight

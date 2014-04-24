@@ -36,6 +36,7 @@ class AppKernel extends Kernel
             new Lighthouse\CoreBundle\LighthouseCoreBundle(),
             new Lighthouse\ReportsBundle\LighthouseReportsBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
+            new Ornicar\ApcBundle\OrnicarApcBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

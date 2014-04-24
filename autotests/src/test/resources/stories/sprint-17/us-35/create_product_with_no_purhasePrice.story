@@ -88,22 +88,6 @@ And the user clicks the create button
 Then the user sees no error messages
 And the user checks the product with 'PCWNPP2' sku has 'purchasePrice' equal to '—'
 
-Scenario: Invoice autocomplete search for product with no purchasePrice
-
-Given skipped test
-Given there is the product with 'ProductNoPriceName' name, 'ProductNoPriceSku' sku, 'ProductNoPriceBarCode' barcode, 'kg' units, '' purchasePrice
-And there is the invoice with 'InvoiceProductNoPriceTest' sku
-And the user navigates to the invoice page with name 'InvoiceProductNoPriceTest'
-And the user logs in as 'departmentManager'
-When the user inputs <value> in the invoice product <elementName> field
-Then the users checks no autocomplete results
-
-Examples:
-| value | elementName |
-| ProductNoPriceName | productName |
-| ProductNoPriceSku | productSku |
-| ProductNoPriceBarCode | productBarCode |
-
 Scenario: WriteOff autocomplete search for product with no purchasePrice
 
 Given skipped test

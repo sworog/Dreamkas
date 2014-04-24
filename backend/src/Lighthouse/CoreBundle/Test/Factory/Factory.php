@@ -185,14 +185,22 @@ class Factory extends ContainerAwareFactory
         return $saleModels;
     }
 
+    /**
+     * @return Factory
+     */
     public function flush()
     {
         $this->getDocumentManager()->flush();
+        return $this;
     }
 
+    /**
+     * @return Factory
+     */
     public function clear()
     {
         $this->getDocumentManager()->clear();
+        return $this;
     }
 
     /**

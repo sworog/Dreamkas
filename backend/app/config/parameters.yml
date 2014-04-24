@@ -15,3 +15,5 @@ parameters:
     secret:            kjhf843f34nbfi34fed23efedf34
 
     beanstalkd_server: 127.0.0.1
+
+    web_host: http://api.lighthouse.dev

@@ -3,6 +3,7 @@ package project.lighthouse.autotests.helper;
 import org.joda.time.DateTime;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * The helper is used for formatting and getting date and time values
@@ -13,6 +14,7 @@ public class DateTimeHelper {
 
     private static final String DATE_TIME_PATTERN = "dd.MM.yyyy HH:mm";
     private static final String DATE_PATTERN = "yyyy-MM-dd";
+    private static final String DATE_PATTERN_REVERT = "dd.MM.yyyy";
 
     public DateTimeHelper(String value) {
         days = getDays(value);
@@ -43,7 +45,7 @@ public class DateTimeHelper {
         return Integer.parseInt(replacedValue);
     }
 
-    private String getTodayDate(String pattern, int day) {
+    private static String getTodayDate(String pattern, int day) {
         return new SimpleDateFormat(pattern).format(new org.joda.time.DateTime().minusDays(day).toDate());
     }
 
@@ -76,5 +78,25 @@ public class DateTimeHelper {
             default:
                 return "в аду";
         }
+    }
+
+    public static String getDate(String value) {
+        switch (value) {
+            case "todayDateAndTime":
+                return getTodayDate(DATE_TIME_PATTERN);
+            case "todayDate":
+                return getTodayDate(DATE_PATTERN_REVERT);
+            default:
+                if (value.contains("-")) {
+                    String replacedValue = value.replaceFirst(".+-([0-3]?[0-9]).*", "$1");
+                    int numberOfDay = Integer.parseInt(replacedValue);
+                    return getTodayDate(DATE_TIME_PATTERN, numberOfDay);
+                }
+                return value;
+        }
+    }
+
+    public static String getTodayDate(String pattern) {
+        return new SimpleDateFormat(pattern).format(new Date());
     }
 }
