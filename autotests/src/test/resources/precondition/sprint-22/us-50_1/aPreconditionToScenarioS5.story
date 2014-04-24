@@ -15,7 +15,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | SCPBC-sku-4 |
+| productName | SCPBC-name-4 |
 | quantity | 1 |
 | price | 145 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-SCPBC'
@@ -28,7 +28,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | SCPBC-sku-4 |
+| productName | SCPBC-name-4 |
 | quantity | 2 |
 | price | 123 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-SCPBC'
