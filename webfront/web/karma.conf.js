@@ -15,6 +15,7 @@ module.exports = function(config) {
         // list of files / patterns to load in the browser
         files: [
             'karma.main.js',
+            'config.js',
             {pattern: 'require.config.js', included: false},
             {pattern: 'fixtures/**/*', included: false},
             {pattern: 'kit/**/*.html', included: false},
@@ -22,7 +23,17 @@ module.exports = function(config) {
             {pattern: 'bower_components/**/*.js', included: false},
             {pattern: 'utils/**/*.js', included: false},
             {pattern: 'libs/**/*.js', included: false},
-            {pattern: 'nls/**/*.js', included: false}
+            {pattern: 'nls/**/*.js', included: false},
+
+            {pattern: 'dictionary.js', included: false},
+
+            {pattern: 'models/*.js', included: false},
+
+            {pattern: 'blocks/form/form.js', included: false},
+            {pattern: 'blocks/select/select_priceRoundings/select_priceRoundings.html', included: false},
+            {pattern: 'blocks/select/select_vat/select_vat.html', included: false},
+            {pattern: 'blocks/form/form_product/**/*', included: false}
+
         ],
 
 

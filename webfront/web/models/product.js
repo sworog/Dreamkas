@@ -11,10 +11,12 @@ define(function(require) {
             amount: 0,
             retailPricePreference: 'retailMarkup',
             rounding: {},
-            typeSpecific: {
+            type: 'unit',
+            typeProperties: {
                 nameOnScales: null,
-                aboutOnScales: null,
-                structure: null
+                descriptionOnScales: null,
+                ingredients: null,
+                shelfLife: null
             }
         },
         saveData: function(){
@@ -68,7 +70,9 @@ define(function(require) {
                 vendorCountry: this.get('vendorCountry'),
                 vendor: this.get('vendor'),
                 subCategory: this.get('subCategory'),
-                rounding: this.get('rounding') ? this.get('rounding').name : null
+                rounding: this.get('rounding') ? this.get('rounding').name : null,
+                type: this.get('type'),
+                typeProperties: this.get('typeProperties')
             }
         },
         parse: function(response, options) {

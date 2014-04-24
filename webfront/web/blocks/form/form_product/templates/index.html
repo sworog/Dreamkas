@@ -6,13 +6,13 @@
 <h1><%- model.id ? 'Редактирование товара' : 'Добавление товара' %></h1>
 <fieldset class="form__fieldset">
     <div class="form__field form__feld_inline productForm__productTypeRadio">
-        <input id="product-form-piece-radio"
+        <input id="product-form-unit-radio"
                 type="radio"
                 name="type"
-                value="piece"
+                value="unit"
                 class="productForm__hiddenInput"
-                <%- (model.get('type') == 'piece' || model.get('type') == null)?'checked':'' %> >
-        <label for="product-form-piece-radio">Штучный</label>
+                <%- (model.get('type') == 'unit')?'checked':'' %> >
+        <label for="product-form-unit-radio">Штучный</label>
 
         <input id="product-form-weight-radio"
                 type="radio"
@@ -60,7 +60,7 @@
     </div>
 
     <!-- Advanced fields -->
-    <div class="productForm__productTypeSpecificFields">
+    <div class="productForm__productTypePropertiesFields">
 
     </div>
 

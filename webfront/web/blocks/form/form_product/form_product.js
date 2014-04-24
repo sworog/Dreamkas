@@ -10,7 +10,7 @@ define(function(require) {
             subCategoryModel: null,
             template: require('tpl!blocks/form/form_product/templates/index.html'),
             productTypeSpecificFieldsTemplates: {
-                piece: require('tpl!./templates/piece.html'),
+                unit: require('tpl!./templates/unit.html'),
                 weight: require('tpl!./templates/weight.html')
             },
             events: {
@@ -84,7 +84,7 @@ define(function(require) {
                 block.$retailMarkupField = block.$('.productForm__retailMarkupField');
                 block.$retailPriceField = block.$('.productForm__retailPriceField');
 
-                block.$productTypeSpecificFields = block.$('.productForm__productTypeSpecificFields');
+                block.$productTypePropertiesFields = block.$('.productForm__productTypePropertiesFields');
                 block.$productTypeRadio = block.$('.productForm__productTypeRadio');
             },
             render: function(){
@@ -237,11 +237,11 @@ define(function(require) {
                 var block = this,
                     productTypeSelected = block.$productTypeRadio.find('input:checked').val();
 
-                block.$productTypeSpecificFields.hide(100);
-                block.$productTypeSpecificFields.html(block.productTypeSpecificFieldsTemplates[productTypeSelected]({
+                block.$productTypePropertiesFields.hide(100);
+                block.$productTypePropertiesFields.html(block.productTypeSpecificFieldsTemplates[productTypeSelected]({
                     model: block.model
                 }));
-                block.$productTypeSpecificFields.show(100);
+                block.$productTypePropertiesFields.show(100);
             }
         });
     }
