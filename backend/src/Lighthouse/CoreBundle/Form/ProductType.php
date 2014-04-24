@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Type\UnitType as Unit;
 use Lighthouse\CoreBundle\Document\Product\Type\WeightType as Weight;
 use Lighthouse\CoreBundle\Form\Product\UnitType;
+use Lighthouse\CoreBundle\Form\Product\WeightType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormError;

@@ -9,7 +9,7 @@ use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use SebastianBergmann\Exporter\Exporter;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use MongoDuplicateKeyException;
 use Exception;
 
@@ -180,8 +180,9 @@ class UserControllerTest extends WebTestCase
         $userRepository->clear();
         $userModel = $userRepository->find($id);
 
-        /* @var PasswordEncoderInterface $encoder */
-        $encoder = $this->getContainer()->get('security.encoder_factory')->getEncoder($userModel);
+        /* @var EncoderFactoryInterface $encoderFactory */
+        $encoderFactory = $this->getContainer()->get('security.encoder_factory');
+        $encoder = $encoderFactory->getEncoder($userModel);
         $passwordHash = $encoder->encodePassword($userData['password'], $userModel->getSalt());
 
         $this->assertEquals($passwordHash, $userModel->password);

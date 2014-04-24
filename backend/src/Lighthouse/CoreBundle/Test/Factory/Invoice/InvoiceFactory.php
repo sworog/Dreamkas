@@ -4,7 +4,6 @@ namespace Lighthouse\CoreBundle\Test\Factory\Invoice;
 
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Test\Factory\AbstractFactory;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;

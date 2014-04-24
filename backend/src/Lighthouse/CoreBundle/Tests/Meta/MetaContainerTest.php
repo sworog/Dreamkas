@@ -2,8 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Tests\Meta;
 
-use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
-use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
 use Lighthouse\CoreBundle\Meta\MetaCollection;
 use Lighthouse\CoreBundle\Meta\MetaDocument;
 use Lighthouse\CoreBundle\Meta\MetaGeneratorInterface;
