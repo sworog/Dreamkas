@@ -117,7 +117,7 @@ public class EndProductApiSteps {
         productApiSteps.createProductThroughPost(name, barcode, units, purchasePrice, subCategoryName, null);
     }
 
-    @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName'")
+    @Given("there is the product with '$name' name, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName'")
     public void createProductThroughPost(String name, String barcode, String units, String purchasePrice,
                                          String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
         catalogApiSteps.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
@@ -153,6 +153,7 @@ public class EndProductApiSteps {
     }
 
     //check
+    //проверить, что переход по параметру нэйм
     @Given("the user navigates to the product with sku '$productSku'")
     @Alias("the user navigates to the product with <productSku>")
     public void givenTheUserNavigatesToTheProduct(String productSku) throws JSONException {
@@ -160,6 +161,7 @@ public class EndProductApiSteps {
     }
 
     //check
+    //проверить экзамплес тейбл
     @Given("the user navigates to the product with <sku>")
     public void givenTheUserNavigatesToTheProdcutWithSku(String sku) throws JSONException, IOException {
         givenTheUserCreatesProductWithParamsPrice(sku, sku, "kg", "0,01");

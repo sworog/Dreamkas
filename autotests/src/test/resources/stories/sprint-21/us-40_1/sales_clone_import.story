@@ -25,7 +25,7 @@ Then the user sees success message 'Настройки успешно сохра
 When the user logs out
 Given there is the subCategory with name 'ProductsExportSubCategory' related to group named 'ProductsExportGroup' and category named 'ProductsExportCategory'
 And the user sets subCategory 'ProductsExportSubCategory' mark up with max '30' and min '0' values
-And there is the product with 'Нескафе 3 в 1 классический растворимый' name, '46079770' sku, '46079770' barcode, 'unit' units, '20,80' purchasePrice of group named 'ProductsExportGroup', category named 'ProductsExportCategory', subcategory named 'ProductsExportSubCategory'
+And there is the product with 'Нескафе 3 в 1 классический растворимый' name, '46079770' barcode, 'unit' units, '20,80' purchasePrice of group named 'ProductsExportGroup', category named 'ProductsExportCategory', subcategory named 'ProductsExportSubCategory'
 And there is the user with name 'ProductsExportStoreManager', position 'ProductsExportStoreManager', username 'ProductsExportStoreManager', password 'lighthouse', role 'storeManager'
 And there is the user with name 'ProductsExportStoreManager2', position 'ProductsExportStoreManager2', username 'ProductsExportStoreManager2', password 'lighthouse', role 'storeManager'
 And there is the store with number '666' managed by 'ProductsExportStoreManager'

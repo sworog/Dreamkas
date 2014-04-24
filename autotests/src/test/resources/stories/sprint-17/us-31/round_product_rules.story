@@ -76,7 +76,7 @@ Then the user checks the product price roundings dropdawn default selected value
 Scenario: Regress - if mark up is not set store product price should be equal purchase price
 
 Given there is the subCategory with name 'storeProductsSubCategoryRegress' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
-And there is the product with 'storeProductName' name, 'storeProductSku10' sku, 'storeProductBarCode' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryRegress'
+And there is the product with 'storeProductName' name, 'storeProductBarCode' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryRegress'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
 And the user navigates to the product with sku 'storeProductSku10'

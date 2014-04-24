@@ -16,7 +16,7 @@ Meta:
 
 GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story
 
-Given there is the product with 'name-285441' name, '285441' sku, '285441' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s28u544', category named 'defaultCategory-s28u544', subcategory named 'defaultSubCategory-s28u544'
+Given there is the product with 'name-285441' name, '285441' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s28u544', category named 'defaultCategory-s28u544', subcategory named 'defaultSubCategory-s28u544'
 
 Given the user creates invoice api object with values
 | elementName | value |

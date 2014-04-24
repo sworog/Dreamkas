@@ -6,7 +6,7 @@ Meta:
 
 Scenario: A scenario that prepares data
 
-Given there is the product with 'name-2352' name, 'sku-2352' sku, 'barcode-2352' barcode, 'unit' units, '134,80' purchasePrice of group named 'defaultGroup-s23u52', category named 'defaultCategory-s23u52', subcategory named 'defaultSubCategory-s23u52'
+Given there is the product with 'name-2352' name, 'barcode-2352' barcode, 'unit' units, '134,80' purchasePrice of group named 'defaultGroup-s23u52', category named 'defaultCategory-s23u52', subcategory named 'defaultSubCategory-s23u52'
 
 Given the user creates invoice api object with values
 | elementName | value |

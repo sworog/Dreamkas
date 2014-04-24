@@ -35,7 +35,7 @@ Meta:
 
 Given there is the subCategory with name 'defaultSubCategory-regress' related to group named 'defaultGroup-regress' and category named 'defaultCategory-regress'
 And the user sets subCategory 'defaultSubCategory-regress' mark up with max '10' and min '0' values
-And there is the product with 'Regress-name-1' name, 'Regress-sku-1' sku, 'Regress-barcode-1' barcode, 'unit' units, '12345,67' purchasePrice of group named 'defaultGroup-regress', category named 'defaultCategory-regress', subcategory named 'defaultSubCategory-regress'
+And there is the product with 'Regress-name-1' name, 'Regress-barcode-1' barcode, 'unit' units, '12345,67' purchasePrice of group named 'defaultGroup-regress', category named 'defaultCategory-regress', subcategory named 'defaultSubCategory-regress'
 
 And the user navigates to the product with sku 'Regress-sku-1'
 And the user logs in as 'commercialManager'

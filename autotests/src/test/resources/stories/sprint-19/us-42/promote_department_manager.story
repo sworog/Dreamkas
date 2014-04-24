@@ -108,7 +108,7 @@ Given there is the user with name 'promotedDepartmentManager6', position 'promot
 And there is the store with number 'Dmsclihs-1' managed by department manager named 'promotedDepartmentManager6'
 And there is the subCategory with name 'ProductsTestSubCategory' related to group named 'ProductsTestGroup' and category named 'ProductsTestCategory'
 And the user sets subCategory 'ProductsTestSubCategory' mark up with max '30' and min '0' values
-And there is the product with 'DMCERPPLAST' name, 'DMCERPPLAST' sku, '34342478239479230479023' barcode, 'unit' units, '24' purchasePrice of group named 'ProductsTestGroup', category named 'ProductsTestCategory', subcategory named 'ProductsTestSubCategory'
+And there is the product with 'DMCERPPLAST' name, '34342478239479230479023' barcode, 'unit' units, '24' purchasePrice of group named 'ProductsTestGroup', category named 'ProductsTestCategory', subcategory named 'ProductsTestSubCategory'
 And the user navigates to the product with sku 'DMCERPPLAST'
 When the user logs in using 'promotedDepartmentManager6' userName and 'lighthouse' password
 Then the user checks the edit price button is not present
