@@ -124,7 +124,7 @@ Examples:
 
 Scenario: Edit product mark up validation positive
 
-Given the user navigates to the product with <sku>
+Given the user navigates to the product with name
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
 And the user inputs values in element fields
@@ -136,7 +136,7 @@ And the user clicks the create button
 Then the user sees no error messages
 
 Examples:
-| sku | inputText | elementName |
+| name | inputText | elementName |
 | RMU1-PPV-02 | 0 | retailMarkupMin |
 | RMU1-PPV-03 | 0 | retailMarkupMax |
 | RMU1-PPV-04 | 10,6 | retailMarkupMin |

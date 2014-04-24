@@ -123,7 +123,7 @@ Then the user sees error messages
 
 Scenario: Edit product retail price range validation positive
 
-Given the user navigates to the product with <sku>
+Given the user navigates to the product with name
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
 And the user clicks 'retailPriceHint' to make it avalaible
@@ -136,7 +136,7 @@ And the user clicks the create button
 Then the user sees no error messages
 
 Examples:
-| sku | inputText | elementName |
+| name | inputText | elementName |
 | RP1-PPV-07 | ,78 | retailPriceMin |
 | RP1-PPV-09 | .78 | retailPriceMin |
 | RP1-PPV-10 | 123.25 | retailPriceMin |

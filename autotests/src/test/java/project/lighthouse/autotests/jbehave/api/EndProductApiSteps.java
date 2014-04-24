@@ -8,8 +8,6 @@ import org.json.JSONException;
 import org.junit.Assert;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.helper.UUIDGenerator;
-import project.lighthouse.autotests.objects.api.Category;
-import project.lighthouse.autotests.objects.api.Group;
 import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.SubCategory;
 import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
@@ -111,12 +109,6 @@ public class EndProductApiSteps {
         сreateProductThroughPost(name, barcode, units, purchasePrice);
     }
 
-    @Given("there is the product with '$name' name, '$sku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice in the subcategory named '$subCategoryName'")
-    public void createProductThroughPost(String name, String barcode, String units, String purchasePrice, String subCategoryName) throws JSONException, IOException {
-        catalogApiSteps.createSubCategoryThroughPost(Group.DEFAULT_NAME, Category.DEFAULT_NAME, subCategoryName);
-        productApiSteps.createProductThroughPost(name, barcode, units, purchasePrice, subCategoryName, null);
-    }
-
     @Given("there is the product with '$name' name, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName'")
     public void createProductThroughPost(String name, String barcode, String units, String purchasePrice,
                                          String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
@@ -143,12 +135,10 @@ public class EndProductApiSteps {
         productApiSteps.navigateToTheProductPage(productName);
     }
 
-    //check
-    //проверить экзамплес тейбл
-    @Given("the user navigates to the product with <sku>")
-    public void givenTheUserNavigatesToTheProdcutWithSku(String sku) throws JSONException, IOException {
-        givenTheUserCreatesProductWithParamsPrice(sku, sku, "kg", "0,01");
-        givenTheUserNavigatesToTheProduct(sku);
+    @Given("the user navigates to the product with name")
+    public void givenTheUserNavigatesToTheProdcutWithName(String name) throws JSONException, IOException {
+        givenTheUserCreatesProductWithParamsPrice(name, name, "kg", "0,01");
+        givenTheUserNavigatesToTheProduct(name);
     }
 
     @Given("the user navigates to the product with random name")
