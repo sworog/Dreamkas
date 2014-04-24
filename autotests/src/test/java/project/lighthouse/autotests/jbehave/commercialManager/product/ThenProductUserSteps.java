@@ -39,4 +39,10 @@ public class ThenProductUserSteps {
     public void thenTheUserChecksProductListContainValues(ExamplesTable examplesTable) {
         productSteps.productListObjectCollectionCompareWithExamplesTable(examplesTable);
     }
+
+    @Then("the user checks the product with name '$name' has purchasePrice equals to '$expectedValue'")
+    public void thenTheUserChecksTheProductWithNameHasPurchasePriceEqualsToExpectedValue(String name,
+                                                                                         String expectedValue) {
+        productSteps.assertProductListObjectPurchasePrice(name, expectedValue);
+    }
 }

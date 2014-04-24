@@ -19,7 +19,7 @@ When the user logs in using 'storeManagerProducts' userName and 'lighthouse' pas
 And the user clicks on the group name 'storeProductsGroup'
 And the user clicks on the category name 'storeProductsCategory'
 And the user clicks on the subCategory name 'storeProductsSubCategory'
-And the user open the product card with 'storeProductSku' sku
+When the user clicks on product with name 'storeProductName'
 And the user clicks the edit price button
 And the user inputs <inputText> in <elementName> field
 And the user clicks the create button
@@ -44,7 +44,7 @@ When the user logs in using 'storeManagerProducts' userName and 'lighthouse' pas
 And the user clicks on the group name 'storeProductsGroup'
 And the user clicks on the category name 'storeProductsCategory'
 And the user clicks on the subCategory name 'storeProductsSubCategory'
-And the user open the product card with 'storeProductSku' sku
+And the user clicks on product with name 'storeProductName'
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
 And the user inputs <inputText> in <elementName> field

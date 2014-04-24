@@ -91,7 +91,6 @@ Scenario: Create product retail price min cant be more then max
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
 When the user inputs 'RP-PPV-06' in 'name' field
-And the user inputs 'RP-PPV-06' in 'sku' field
 And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user inputs '1' in 'purchasePrice' field

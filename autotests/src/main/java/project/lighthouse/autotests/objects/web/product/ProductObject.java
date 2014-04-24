@@ -50,4 +50,8 @@ public class ProductObject extends AbstractObject implements ObjectLocatable, Ob
                 .compare("vendorCountry", vendorCountry, row.get("vendorCountry"))
                 .compare("purchasePrice", purchasePrice, row.get("purchasePrice"));
     }
+
+    public String getPurchasePrice() {
+        return purchasePrice;
+    }
 }

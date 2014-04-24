@@ -14,19 +14,19 @@ And the user logs in as 'commercialManager'
 When the user inputs values in element fields
 | elementName | value |
 | name | PCWNPP |
-| sku | PCWNPP |
 | vat | 10 |
 | unit | unit |
 And the user clicks the create button
 Then the user sees no error messages
-And the user checks the product with 'PCWNPP' sku is present
+And the user checks the products list contain product with name 'PCWNPP'
 
 Scenario: Product with no prurchase price list checking
 
 Given there is the product with 'ProductNoPriceName' name, 'ProductNoPriceBarCode' barcode, 'kg' units, '' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
-Then the user checks the product with 'ProductNoPriceSku' sku has 'purchasePrice' equal to '—'
+
+Then the user checks the product with name 'ProductNoPriceName' has purchasePrice equals to '—'
 
 Scenario: Product with no purchase price card checking
 
@@ -56,7 +56,6 @@ And the user logs in as 'commercialManager'
 When the user inputs values in element fields
 | elementName | value |
 | name | PCWNPP1 |
-| sku | PCWNPP1 |
 | vat | 10 |
 | unit | unit |
 | purchasePrice | 1 |
@@ -65,7 +64,7 @@ When the user inputs values in element fields
 | purchasePrice | |
 And the user clicks the create button
 Then the user sees no error messages
-And the user checks the product with 'PCWNPP1' sku has 'purchasePrice' equal to '—'
+And the user checks the product with name 'PCWNPP1' has purchasePrice equals to '—'
 
 Scenario: Try to send form with data in retail price disabled fields
 
@@ -78,7 +77,6 @@ And the user clicks 'retailPriceHint' to make it avalaible
 And the user inputs values in element fields
 | elementName | value |
 | name | PCWNPP2 |
-| sku | PCWNPP2 |
 | vat | 10 |
 | unit | unit |
 | retailPriceMin | 1 |
@@ -86,7 +84,7 @@ And the user inputs values in element fields
 | purchasePrice | |
 And the user clicks the create button
 Then the user sees no error messages
-And the user checks the product with 'PCWNPP2' sku has 'purchasePrice' equal to '—'
+And the user checks the product with name 'PCWNPP2' has purchasePrice equals to '—'
 
 Scenario: WriteOff autocomplete search for product with no purchasePrice
 
