@@ -1650,7 +1650,7 @@ class ProductControllerTest extends WebTestCase
             'milkman' => array(
                 array(
                     'name' => 'Кефир "Веселый Молочник" 1% 950гр',
-                    'units' => 'gr',
+                    'type' => 'unit',
                     'barcode' => '4607025392408',
                     'purchasePrice' => 30.48,
                     'vat' => 10,

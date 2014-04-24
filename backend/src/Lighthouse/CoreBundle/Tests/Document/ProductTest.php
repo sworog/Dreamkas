@@ -20,9 +20,6 @@ class ProductTest extends TestCase
         $product->name = 'name';
         $this->assertEquals('name', $product->name);
 
-        $product->units = 'kg';
-        $this->assertEquals('kg', $product->units);
-
         $product->vat = 10;
         $this->assertEquals(10, $product->vat);
 

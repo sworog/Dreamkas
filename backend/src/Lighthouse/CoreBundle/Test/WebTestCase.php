@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Test;
 
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\Client\Client;
@@ -93,7 +94,7 @@ class WebTestCase extends ContainerAwareTestCase
 
         $productData = array(
             'name' => 'Кефир "Веселый Молочник" 1% 950гр',
-            'units' => 'gr',
+            'type' => UnitType::TYPE,
             'barcode' => '4607025392408',
             'purchasePrice' => 3048,
             'vat' => 10,
