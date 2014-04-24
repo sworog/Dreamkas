@@ -8,7 +8,6 @@ Narrative:
 Meta:
 @sprint_1
 @us_2
-@test
 
 Scenario: Viewing product card after creation 1
 
