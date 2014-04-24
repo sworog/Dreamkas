@@ -97,20 +97,21 @@ class ProductVersion extends Product implements VersionInterface
     public function getVersionFields()
     {
         return array(
-            "id",
-            "name",
-            "vat",
-            "purchasePrice",
-            "barcode",
-            "sku",
-            "vendorCountry",
-            "info",
-            "subCategory",
-            "retailMarkupMin",
-            "retailMarkupMax",
-            "retailPriceMin",
-            "retailPriceMax",
-            "roundingId"
+            'id',
+            'name',
+            'vat',
+            'purchasePrice',
+            'barcode',
+            'sku',
+            'vendorCountry',
+            'typeProperties',
+            'info',
+            'subCategory',
+            'retailMarkupMin',
+            'retailMarkupMax',
+            'retailPriceMin',
+            'retailPriceMax',
+            'roundingId'
         );
     }
 }
