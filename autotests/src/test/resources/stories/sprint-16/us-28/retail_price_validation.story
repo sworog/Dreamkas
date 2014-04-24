@@ -6,8 +6,8 @@ Scenario: Create product retail price range validation positive
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
-When the user inputs <value> in sku field
-And the user inputs values in element fields
+
+When the user inputs values in element fields
 | elementName | value |
 | purchasePrice | 0,01 |
 And the user clicks 'retailPriceHint' to make it avalaible
@@ -23,25 +23,25 @@ And the user clicks the create button
 Then the user sees no error messages
 
 Examples:
-| value | inputText | elementName |
-| RP-PPV-07 | ,78 | retailPriceMin |
-| RP-PPV-09 | .78 | retailPriceMin |
-| RP-PPV-10 | 123.25 | retailPriceMin |
-| RP-PPV-11 | 125,26 | retailPriceMin |
-| RP-PPV-12 | 789,6 | retailPriceMin |
-| RP-PPV-13 | 739,67 | retailPriceMin |
-| RP-PPV-14 | 739,67 | retailPriceMin |
-| RP-PPV-15 | 10000000 | retailPriceMin |
-| RP-PPV-16 | ,78 | retailPriceMax |
-| RP-PPV-17 | .78 | retailPriceMax |
-| RP-PPV-18 | 123.25 | retailPriceMax |
-| RP-PPV-19 | 125,26 | retailPriceMax |
-| RP-PPV-20 | 789,6 | retailPriceMax |
-| RP-PPV-21 | 739,67 | retailPriceMax |
-| RP-PPV-22 | 739,67 | retailPriceMax |
-| RP-PPV-23 | 10000000 | retailPriceMax |
-| RP-PPV-24 | 1 102,23 | retailPriceMax |
-| RP-PPV-25 | 1 102,23 | retailPriceMin |
+| inputText | elementName |
+| ,78 | retailPriceMin |
+| .78 | retailPriceMin |
+| 123.25 | retailPriceMin |
+| 125,26 | retailPriceMin |
+| 789,6 | retailPriceMin |
+| 739,67 | retailPriceMin |
+| 739,67 | retailPriceMin |
+| 10000000 | retailPriceMin |
+| ,78 | retailPriceMax |
+| .78 | retailPriceMax |
+| 123.25 | retailPriceMax |
+| 125,26 | retailPriceMax |
+| 789,6 | retailPriceMax |
+| 739,67 | retailPriceMax |
+| 739,67 | retailPriceMax |
+| 10000000 | retailPriceMax |
+| 1 102,23 | retailPriceMax |
+| 1 102,23 | retailPriceMin |
 
 
 Scenario: Create product retail price range validation negative
@@ -55,7 +55,6 @@ When the user clicks 'retailPriceHint' to make it avalaible
 And the user inputs values in element fields
 | elementName | value |
 | name | RP-PPV-06 |
-| sku | RP-PPV-06 |
 | unit | unit |
 | vat | 10 |
 | retailPriceMax | 100 |
@@ -109,7 +108,6 @@ Scenario: Create product retail price make retail mark up below zero
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
 When the user inputs 'RP-PPV-06' in 'name' field
-And the user inputs 'RP-PPV-06' in 'sku' field
 And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user inputs '1' in 'purchasePrice' field

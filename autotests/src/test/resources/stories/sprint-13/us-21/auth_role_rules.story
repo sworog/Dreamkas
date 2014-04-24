@@ -426,7 +426,9 @@ Scenario: DepartmentManager - no edit button for products card
 Given there is the product with 'IFBKG-119999' name, 'IFBKG-119999' barcode
 And the user is on the product list page
 And the user logs in as 'departmentManager'
-When the user open the product card with 'IFBKG-119999' sku
+
+When the user clicks on product with name 'IFBKG-119999'
+
 Then the user sees no edit product button
 
 Scenario: DepartmentManager - no create button for products list
