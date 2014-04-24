@@ -124,7 +124,7 @@ public class EndProductApiSteps {
         productApiSteps.createProductThroughPost(name, barcode, units, purchasePrice, subCategoryName, null);
     }
 
-    @Given("there is the product with '$productName' name, '$productSku' sku, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName' with '$rounding' rounding")
+    @Given("there is the product with '$productName' name, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName' with '$rounding' rounding")
     @Alias("there is the product with <productName>, <productSku>, '$barcode' barcode, '$units' units, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName' with '$rounding' rounding")
     public void createProductThroughPost(String productName, String barcode, String units, String purchasePrice,
                                          String rounding, String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {

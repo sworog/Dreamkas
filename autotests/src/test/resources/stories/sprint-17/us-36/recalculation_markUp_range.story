@@ -9,7 +9,7 @@ In order to чтобы цены в магазинах соответствова
 
 Scenario: Regress - No store storeManager get 403 after try to open product page url
 
-Given there is the product with 'storeProductName14' name, 'storeProductSku14' sku, 'storeProductBarCode14' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest100' rounding
+Given there is the product with 'storeProductName14' name, 'storeProductBarCode14' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest100' rounding
 And the user navigates to the product with sku 'storeProductSku14'
 And the user logs in as 'storeManager'
 Then the user sees the 403 error
