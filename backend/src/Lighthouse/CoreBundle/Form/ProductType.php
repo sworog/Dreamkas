@@ -5,8 +5,14 @@ namespace Lighthouse\CoreBundle\Form;
 
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\Type\UnitType as Unit;
+use Lighthouse\CoreBundle\Document\Product\Type\WeightType as Weight;
+use Lighthouse\CoreBundle\Form\Product\UnitType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class ProductType extends AbstractType
@@ -15,7 +21,6 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name', 'text')
-            ->add('units', 'text')
             ->add('vat', 'text')
             ->add('purchasePrice', 'money')
             ->add('barcode', 'text')
@@ -35,7 +40,30 @@ class ProductType extends AbstractType
                     'invalid_message' => 'lighthouse.validation.errors.product.subCategory.does_not_exists'
                 )
             )
-            ->add('rounding', 'custom_reference', array('reference_provider_alias' => 'rounding'));
+            ->add('rounding', 'custom_reference', array('reference_provider_alias' => 'rounding'))
+            ->add('type', 'text', array('mapped' => false));
+
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, array($this, 'setTypeForm'));
+    }
+
+    /**
+     * @param FormEvent $event
+     * @throws \Exception
+     */
+    public function setTypeForm(FormEvent $event)
+    {
+        $form = $event->getForm();
+        $type = $form->get('type')->getData();
+        switch ($type) {
+            case Unit::TYPE:
+                $form->add('typeProperties', new UnitType());
+                break;
+            case Weight::TYPE:
+                $form->add('typeProperties', new WeightType());
+                break;
+            default:
+                $form->get('type')->addError(new FormError('invalid type'));
+        }
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

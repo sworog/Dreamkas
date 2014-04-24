@@ -99,7 +99,6 @@ class ProductVersion extends Product implements VersionInterface
         return array(
             "id",
             "name",
-            "units",
             "vat",
             "purchasePrice",
             "barcode",
