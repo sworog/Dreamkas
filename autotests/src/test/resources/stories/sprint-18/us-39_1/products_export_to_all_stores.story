@@ -32,7 +32,7 @@ And there is the user with name 'ProductsExportStoreManager2', position 'Product
 And there is the store with number '666' managed by 'ProductsExportStoreManager'
 And there is the store with number '777' managed by 'ProductsExportStoreManager2'
 
-Given the user navigates to the product with sku 'Кит-Кат-343424'
+Given the user navigates to the product with name 'Кит Кат'
 When the user logs in using 'ProductsExportStoreManager' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
@@ -42,7 +42,7 @@ Then the user sees no error messages
 And the user checks the 'retailPrice' value is '24,20'
 When the user logs out
 
-Given the user navigates to the product with sku 'Кит-Кат-343424'
+Given the user navigates to the product with name 'Кит Кат'
 When the user logs in using 'ProductsExportStoreManager2' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available

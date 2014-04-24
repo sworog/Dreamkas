@@ -164,7 +164,7 @@ Meta:
 GivenStories: precondition/sprint-23/us-50/aPreconditionToStoryUs50.story,
               precondition/sprint-23/us-50/aPreconditionToScenarioS9.story
 
-Given the user navigates to the product with sku 'sku-s23u50'
+Given the user navigates to the product with name 'name-s23u50'
 When the user logs in using 'departmentManager-s23u50' userName and 'lighthouse' password
 Then the user checks the elements values
 | elementName | value |

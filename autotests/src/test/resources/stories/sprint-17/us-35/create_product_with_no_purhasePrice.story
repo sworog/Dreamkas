@@ -31,7 +31,7 @@ Then the user checks the product with 'ProductNoPriceSku' sku has 'purchasePrice
 Scenario: Product with no purchase price card checking
 
 Given there is the product with 'ProductNoPriceName' name, 'ProductNoPriceBarCode' barcode, 'kg' units, '' purchasePrice
-And the user navigates to the product with sku 'ProductNoPriceSku'
+And the user navigates to the product with name 'ProductNoPriceName'
 And the user logs in as 'commercialManager'
 Then the user checks the 'purchasePrice' value is 'отсутствует'
 

@@ -88,7 +88,7 @@ Then the user sees error messages
 Scenario: Edit product mark up validation negative
 
 Given there is the product with 'RMU-PPV-0211' name, 'RMU-PPV-0211' barcode
-And the user navigates to the product with sku 'RMU-PPV-0211'
+And the user navigates to the product with name 'RMU-PPV-0211'
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
 And the user inputs values in element fields
@@ -147,7 +147,7 @@ Examples:
 Scenario: Edit product min mark up can't be more than max
 
 Given there is the product with 'RMU-PPV1-02' name, 'RMU-PPV1-02' barcode
-And the user navigates to the product with sku 'RMU-PPV1-02'
+And the user navigates to the product with name 'RMU-PPV1-02'
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
 And the user inputs '1' in 'retailMarkupMax' field

@@ -109,7 +109,7 @@ And there is the store with number 'Dmsclihs-1' managed by department manager na
 And there is the subCategory with name 'ProductsTestSubCategory' related to group named 'ProductsTestGroup' and category named 'ProductsTestCategory'
 And the user sets subCategory 'ProductsTestSubCategory' mark up with max '30' and min '0' values
 And there is the product with 'DMCERPPLAST' name, '34342478239479230479023' barcode, 'unit' units, '24' purchasePrice of group named 'ProductsTestGroup', category named 'ProductsTestCategory', subcategory named 'ProductsTestSubCategory'
-And the user navigates to the product with sku 'DMCERPPLAST'
+And the user navigates to the product with name 'DMCERPPLAST'
 When the user logs in using 'promotedDepartmentManager6' userName and 'lighthouse' password
 Then the user checks the edit price button is not present
 And the user checks the 'retailPrice' value is '31,20'

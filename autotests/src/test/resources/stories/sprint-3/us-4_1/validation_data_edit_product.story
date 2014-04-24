@@ -5,7 +5,7 @@ Meta:
 Scenario: Edit product validation - Field length validation
 
 Given there is created product with name 'ED-NMLV'
-And the user navigates to the product with sku 'ED-NMLV'
+And the user navigates to the product with name 'ED-NMLV'
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
 And the user generates charData with <charNumber> number in the <elementName> field
@@ -24,7 +24,7 @@ Examples:
 Scenario: Edit product validation - Field length validation negative
 
 Given there is created product with name 'ED-NMLVN'
-And the user navigates to the product with sku 'ED-NMLVN'
+And the user navigates to the product with name 'ED-NMLVN'
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
 And the user generates charData with <charNumber> number in the <elementName> field
@@ -44,7 +44,7 @@ Examples:
 Scenario: Edit product validation - Name field is required
 
 Given there is created product with name 'ED-NFIR'
-And the user navigates to the product with sku 'ED-NFIR'
+And the user navigates to the product with name 'ED-NFIR'
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
 And the user inputs <inputText> in <elementName> field
@@ -103,7 +103,7 @@ Then the user checks the product with 'EPVBVCF678' sku is present
 Scenario: Edit product validation - Purchase price validation good
 
 Given there is created product with name 'ED-PPVC'
-And the user navigates to the product with sku 'ED-PPVC'
+And the user navigates to the product with name 'ED-PPVC'
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
 And the user inputs <inputText> in <elementName> field
@@ -124,7 +124,7 @@ Examples:
 Scenario: Edit product validation - Purchase price validation negative
 
 Given there is created product with name 'ED-PPC3D'
-And the user navigates to the product with sku 'ED-PPC3D'
+And the user navigates to the product with name 'ED-PPC3D'
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
 And the user inputs <inputText> in <elementName> field

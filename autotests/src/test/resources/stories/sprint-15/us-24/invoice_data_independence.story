@@ -26,12 +26,12 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | sku-s15u24 |
+| productName | name-s15u24 |
 | quantity | 1 |
 | price | 1 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s15u24'
 
-Given the user navigates to the product with sku 'sku-s15u24'
+Given the user navigates to the product with name 'name-s15u24'
 And the user logs in as 'commercialManager'
 
 When the user clicks the edit button on product card view page
@@ -75,12 +75,12 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | sku-s15u241 |
+| productName | name-s15u241 |
 | quantity | 1 |
 | price | 1 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s15u24'
 
-Given the user navigates to the product with sku 'sku-s15u241'
+Given the user navigates to the product with name 'name-s15u241'
 And the user logs in as 'commercialManager'
 
 When the user clicks the edit button on product card view page

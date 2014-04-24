@@ -65,7 +65,7 @@ And the user sets subCategory 'storeProductsSubCategory' mark up with max '49' a
 And there is the product with 'storeProductName3' name, 'storeProductBarCode3' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku3'
+And the user navigates to the product with name 'storeProductName3'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 Then the user checks the 'retailMarkupRange' value is '12,00 - 49,00'
@@ -77,7 +77,7 @@ And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' a
 And there is the product with 'storeProductName2' name, 'storeProductBarCode2' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku2'
+And the user navigates to the product with name 'storeProductName2'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 Then the user checks the 'retailPriceRange' value is '10,00 - 15,00'
@@ -90,7 +90,7 @@ And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' a
 And there is the product with 'storeProductName1' name, 'storeProductBarCode1' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku1'
+And the user navigates to the product with name 'storeProductName1'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user inputs <inputText> in <elementName> field
@@ -117,7 +117,7 @@ And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' a
 And there is the product with 'storeProductName2' name, 'storeProductBarCode2' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku2'
+And the user navigates to the product with name 'storeProductName2'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
@@ -164,7 +164,7 @@ And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' a
 And there is the product with 'storeProductName6' name, 'storeProductBarCode6' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku6'
+And the user navigates to the product with name 'storeProductName6'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user inputs '-1' in 'retailMarkup' field
@@ -180,7 +180,7 @@ And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' a
 And there is the product with 'storeProductName7' name, 'storeProductBarCode7' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku7'
+And the user navigates to the product with name 'storeProductName7'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
@@ -197,7 +197,7 @@ And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' a
 And there is the product with 'storeProductName5' name, 'storeProductBarCode5' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku5'
+And the user navigates to the product with name 'storeProductName5'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 Then the user checks the 'retailMarkupRange' value is '0,00 - 50,00'
 And the user checks the 'retailPriceRange' value is '10,00 - 15,00'

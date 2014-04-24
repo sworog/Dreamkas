@@ -30,7 +30,7 @@ And there is the user with name 'ProductsExportStoreManager', position 'Products
 And there is the user with name 'ProductsExportStoreManager2', position 'ProductsExportStoreManager2', username 'ProductsExportStoreManager2', password 'lighthouse', role 'storeManager'
 And there is the store with number '666' managed by 'ProductsExportStoreManager'
 And there is the store with number '777' managed by 'ProductsExportStoreManager2'
-And the user navigates to the product with sku '46079770'
+And the user navigates to the product with name 'Нескафе 3 в 1 классический растворимый'
 When the user logs in using 'ProductsExportStoreManager' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
@@ -41,7 +41,7 @@ And the user checks the 'retailPrice' value is '26,99'
 Given the user opens amount list page
 Then the user checks the product with '46079770' sku has 'amounts amount' element equal to '0' on amounts page
 When the user logs out
-Given the user navigates to the product with sku '46079770'
+Given the user navigates to the product with name 'Нескафе 3 в 1 классический растворимый'
 When the user logs in using 'ProductsExportStoreManager2' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available

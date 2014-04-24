@@ -14,7 +14,7 @@ And the user sets subCategory 'ReCalcRoundingSubCategory' mark up with max '100'
 And there is the product with productName, 'ReCalcRoundingProduct' barcode, 'kg' units, '10' purchasePrice of group named 'ReCalcRoundingGroup', category named 'ReCalcRoundingCategory', subcategory named 'ReCalcRoundingSubCategory' with 'nearest1' rounding
 And there is the user with <userName>, password 'lighthouse', role 'storeManager'
 And there is the store with <storeNumber> managed by <userName>
-And the user navigates to the product with <productSku>
+And the user navigates to the product with productName
 When the user logs in using <userName> and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
@@ -23,7 +23,7 @@ And the user clicks the create button
 Then the user checks the <elementName> value is <value>
 When the user logs out
 Given the user logs in as 'commercialManager'
-And the user navigates to the product with <productSku>
+And the user navigates to the product with productName
 When the user clicks the edit button on product card view page
 And the user inputs values in element fields
 | elementName | value |
@@ -35,7 +35,7 @@ And the user checks the last log product is <productName>
 And the user waits for the last log message success status
 And the user checks the last log status text is 'выполнено'
 When the user logs out
-Given the user navigates to the product with <productSku>
+Given the user navigates to the product with productName
 When the user logs in using <userName> and 'lighthouse' password
 Then the user checks the <elementName> value is <expectedValue>
 
@@ -53,7 +53,7 @@ And the user sets subCategory 'ReCalcRoundingSubCategory' mark up with max '100'
 And there is the product with productName, 'ReCalcRoundingProduct' barcode, 'kg' units, '1' purchasePrice of group named 'ReCalcRoundingGroup', category named 'ReCalcRoundingCategory', subcategory named 'ReCalcRoundingSubCategory' with 'nearest1' rounding
 And there is the user with <userName>, password 'lighthouse', role 'storeManager'
 And there is the store with <storeNumber> managed by <userName>
-And the user navigates to the product with <productSku>
+And the user navigates to the product with productName
 When the user logs in using <userName> and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
@@ -62,7 +62,7 @@ And the user clicks the create button
 Then the user checks the <elementName> value is <value>
 When the user logs out
 Given the user logs in as 'commercialManager'
-And the user navigates to the product with <productSku>
+And the user navigates to the product with productName
 When the user clicks the edit button on product card view page
 And the user inputs values in element fields
 | elementName | value |
@@ -74,7 +74,7 @@ And the user checks the last log product is <productName>
 And the user waits for the last log message success status
 And the user checks the last log status text is 'выполнено'
 When the user logs out
-Given the user navigates to the product with <productSku>
+Given the user navigates to the product with productName
 When the user logs in using <userName> and 'lighthouse' password
 Then the user checks the <elementName> value is <expectedValue>
 
@@ -92,7 +92,7 @@ And the user sets subCategory 'ReCalcRoundingSubCategory' mark up with max '100'
 And there is the product with productName, 'ReCalcRoundingProduct' barcode, 'kg' units, '10' purchasePrice of group named 'ReCalcRoundingGroup', category named 'ReCalcRoundingCategory', subcategory named 'ReCalcRoundingSubCategory' with 'nearest1' rounding
 And there is the user with <userName>, password 'lighthouse', role 'storeManager'
 And there is the store with <storeNumber> managed by <userName>
-And the user navigates to the product with <productSku>
+And the user navigates to the product with productName
 When the user logs in using <userName> and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
@@ -101,7 +101,7 @@ And the user clicks the create button
 Then the user checks the <elementName> value is <value>
 When the user logs out
 Given the user logs in as 'commercialManager'
-And the user navigates to the product with <productSku>
+And the user navigates to the product with productName
 When the user clicks the edit button on product card view page
 And the user inputs values in element fields
 | elementName | value |
@@ -113,7 +113,7 @@ And the user checks the last log product is <productName>
 And the user waits for the last log message success status
 And the user checks the last log status text is 'выполнено'
 When the user logs out
-Given the user navigates to the product with <productSku>
+Given the user navigates to the product with productName
 When the user logs in using <userName> and 'lighthouse' password
 Then the user checks the <elementName> value is <expectedValue>
 
@@ -130,7 +130,7 @@ And the user sets subCategory 'ReCalcRoundingSubCategory' mark up with max '100'
 And there is the product with productName, 'ReCalcRoundingProduct' barcode, 'kg' units, '10' purchasePrice of group named 'ReCalcRoundingGroup', category named 'ReCalcRoundingCategory', subcategory named 'ReCalcRoundingSubCategory' with 'nearest1' rounding
 And there is the user with <userName>, password 'lighthouse', role 'storeManager'
 And there is the store with <storeNumber> managed by <userName>
-And the user navigates to the product with <productSku>
+And the user navigates to the product with productName
 When the user logs in using <userName> and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
@@ -139,7 +139,7 @@ And the user clicks the create button
 Then the user checks the <elementName> value is <value>
 When the user logs out
 Given the user logs in as 'commercialManager'
-And the user navigates to the product with <productSku>
+And the user navigates to the product with productName
 When the user clicks the edit button on product card view page
 And the user inputs values in element fields
 | elementName | value |
@@ -151,7 +151,7 @@ And the user checks the last log product is <productName>
 And the user waits for the last log message success status
 And the user checks the last log status text is 'выполнено'
 When the user logs out
-Given the user navigates to the product with <productSku>
+Given the user navigates to the product with productName
 When the user logs in using <userName> and 'lighthouse' password
 Then the user checks the <elementName> value is <expectedValue>
 

@@ -32,7 +32,7 @@ And the user adds the product with data to invoice api object
 | price | 100,00 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s23u51'
 
-Given the user navigates to the product with sku 'sku-2351-6'
+Given the user navigates to the product with name 'name-2351-6'
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
 And the user inputs values in element fields
