@@ -34,4 +34,9 @@ public class ThenProductUserSteps {
     public void thenTheUserChecksTheProductsListContainProductWithName(String name) {
         productSteps.productObjectCollectionContainObjectWithLocator(name);
     }
+
+    @Then("the user checks product list contains values $examplesTable")
+    public void thenTheUserChecksProductListContainValues(ExamplesTable examplesTable) {
+        productSteps.productListObjectCollectionCompareWithExamplesTable(examplesTable);
+    }
 }

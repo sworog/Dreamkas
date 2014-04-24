@@ -242,4 +242,9 @@ public class ProductSteps extends ScenarioSteps {
     public void productObjectCollectionContainObjectWithLocator(String locator) {
         productListPage.getProductObjectCollection().contains(locator);
     }
+
+    @Step
+    public void productListObjectCollectionCompareWithExamplesTable(ExamplesTable examplesTable) {
+        productListPage.getProductObjectCollection().compareWithExampleTable(examplesTable);
+    }
 }
