@@ -232,4 +232,14 @@ public class ProductSteps extends ScenarioSteps {
         } catch (Exception ignored) {
         }
     }
+
+    @Step
+    public void productObjectClickByLocator(String locator) {
+        productListPage.getProductObjectCollection().clickByLocator(locator);
+    }
+
+    @Step
+    public void productObjectCollectionContainObjectWithLocator(String locator) {
+        productListPage.getProductObjectCollection().contains(locator);
+    }
 }

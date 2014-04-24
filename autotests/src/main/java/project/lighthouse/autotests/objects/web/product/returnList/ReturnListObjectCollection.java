@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects.web.product;
+package project.lighthouse.autotests.objects.web.product.returnList;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

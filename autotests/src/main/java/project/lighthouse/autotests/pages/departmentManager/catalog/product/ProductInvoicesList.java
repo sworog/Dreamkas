@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.items.NonType;
-import project.lighthouse.autotests.objects.web.product.InvoiceListCollection;
+import project.lighthouse.autotests.objects.web.product.invoiceList.InvoiceListCollection;
 
 public class ProductInvoicesList extends CommonPageObject {
 
