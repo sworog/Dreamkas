@@ -7,6 +7,10 @@ use Lighthouse\CoreBundle\Integration\Set10\SimpleXMLElement;
 
 class GoodElement extends SimpleXMLElement
 {
+    const PRODUCT_PIECE_ENTITY = 'ProductPieceEntity';
+    const PRODUCT_WEIGHT_ENTITY = 'ProductWeightEntity';
+    const PRODUCT_SPIRITS_ENTITY = 'ProductSpiritsEntity';
+
     /**
      * @return string
      */
@@ -108,5 +112,27 @@ class GoodElement extends SimpleXMLElement
             }
         }
         return $groups;
+    }
+
+    /**
+     * @return string
+     */
+    public function getProductType()
+    {
+        return (string) $this->{'product-type'};
+    }
+
+    /**
+     * @param string $key
+     * @return string
+     */
+    public function getPluginProperty($key)
+    {
+        foreach ($this->{'plugin-property'} as $pluginProperty) {
+            if ((string) $pluginProperty['key'] == $key) {
+                return (string) $pluginProperty['value'];
+            }
+        }
+        return null;
     }
 }

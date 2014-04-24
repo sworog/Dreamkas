@@ -110,8 +110,8 @@ class Set10ProductConverter
             )
         );
         $goodElement->setMeasureType(
-            $product->units,
-            $this->translator->trans('lighthouse.units.' . $product->units, array(), 'units')
+            $product->getUnits(),
+            $this->translator->trans('lighthouse.units.' . $product->getUnits(), array(), 'units')
         );
         $goodElement->setPluginProperty();
 
