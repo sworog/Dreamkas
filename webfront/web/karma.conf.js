@@ -54,7 +54,9 @@ module.exports = function(config) {
             // do not include tests or libraries
             // (these files will be instrumented by Istanbul),
             'kit/core/**/!(*.spec.js)*.js': 'coverage',
-            'kit/utils/**/!(*.spec.js)*.js': 'coverage'
+            'kit/utils/**/!(*.spec.js)*.js': 'coverage',
+            'models/!(*.spec.js)*.js': 'coverage',
+            'blocks/**/!(*.spec.js)*.js': 'coverage'
         },
 
         coverageReporter: {
