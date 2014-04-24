@@ -11,5 +11,5 @@ And there is the writeOff in the store with number 'SCPBC' ruled by department m
 | elementName | elementValue |
 | number | SCPBC-12 |
 | date | 02.04.2013 |
-And the user adds the product to the write off with number 'SCPBC-12' with sku 'SCPBC-sku-11', quantity '1', price '12,34, cause 'Плохо продавался' in the store ruled by 'departmentManager-SCPBC'
+And the user adds the product to the write off with number 'SCPBC-12' with name 'SCPBC-name-11', quantity '1', price '12,34', cause 'Плохо продавался' in the store ruled by 'departmentManager-SCPBC'
 

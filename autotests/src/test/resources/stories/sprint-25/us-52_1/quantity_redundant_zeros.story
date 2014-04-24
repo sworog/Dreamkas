@@ -381,7 +381,7 @@ Meta:
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
 Given there is the product with 'name-2552123' name, '2552123' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
-And the user adds the product to the write off with number '25521-01' with sku '2552123', quantity '12,000', price '100, cause 'cause' in the store ruled by 'departmentManager-s25u521'
+And the user adds the product to the write off with number '25521-01' with name 'name-2552123', quantity '12,000', price '100', cause 'cause' in the store ruled by 'departmentManager-s25u521'
 
 Given the user navigates to the write off with number '25521-01'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
@@ -399,7 +399,7 @@ Meta:
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
 Given there is the product with 'name-2552124' name, '2552124' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
-And the user adds the product to the write off with number '25521-01' with sku '2552124', quantity '85,560', price '100, cause 'cause' in the store ruled by 'departmentManager-s25u521'
+And the user adds the product to the write off with number '25521-01' with name '2552124', quantity '85,560', price '100', cause 'cause' in the store ruled by 'departmentManager-s25u521'
 
 Given the user navigates to the write off with number '25521-01'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
@@ -416,7 +416,7 @@ Meta:
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
 Given there is the product with 'name-2552125' name, '2552125' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
-And the user adds the product to the write off with number '25521-01' with sku '2552125', quantity '43,196', price '100, cause 'cause' in the store ruled by 'departmentManager-s25u521'
+And the user adds the product to the write off with number '25521-01' with name '2552125', quantity '43,196', price '100', cause 'cause' in the store ruled by 'departmentManager-s25u521'
 
 Given the user navigates to the write off with number '25521-01'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
@@ -433,7 +433,7 @@ Meta:
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
 Given there is the product with 'name-2552126' name, '2552126' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
-And the user adds the product to the write off with number '25521-01' with sku '2552126', quantity '12,000', price '100, cause 'cause' in the store ruled by 'departmentManager-s25u521'
+And the user adds the product to the write off with number '25521-01' with name '2552126', quantity '12,000', price '100', cause 'cause' in the store ruled by 'departmentManager-s25u521'
 
 Given the user navigates to the product with name 'name-2552126'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
@@ -451,7 +451,7 @@ Meta:
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
 Given there is the product with 'name-2552127' name, '2552127' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
-And the user adds the product to the write off with number '25521-01' with sku '2552127', quantity '85,560', price '100, cause 'cause' in the store ruled by 'departmentManager-s25u521'
+And the user adds the product to the write off with number '25521-01' with name '2552127', quantity '85,560', price '100', cause 'cause' in the store ruled by 'departmentManager-s25u521'
 
 Given the user navigates to the product with name 'name-2552127'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
@@ -469,7 +469,7 @@ Meta:
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
 Given there is the product with 'name-2552128' name, '2552128' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
-And the user adds the product to the write off with number '25521-01' with sku '2552128', quantity '43,196', price '100, cause 'cause' in the store ruled by 'departmentManager-s25u521'
+And the user adds the product to the write off with number '25521-01' with name '2552128', quantity '43,196', price '100', cause 'cause' in the store ruled by 'departmentManager-s25u521'
 
 Given the user navigates to the product with name 'name-2552128'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password

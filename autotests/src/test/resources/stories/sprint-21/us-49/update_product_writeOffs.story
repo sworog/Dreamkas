@@ -28,7 +28,7 @@ And there is the writeOff in the store with number 'UIBS-FF' ruled by department
 | elementName | elementValue |
 | number | WOUIBS-FF-01 |
 | date | 02.04.2013 |
-And the user adds the product to the write off with number 'WOUIBS-FF-01' with sku '7300330094026', quantity '1', price '12,34, cause 'Плохо продавался' in the store ruled by 'departmentManager-UIBS-FF'
+And the user adds the product to the write off with number 'WOUIBS-FF-01' with name '7300330094026', quantity '1', price '12,34', cause 'Плохо продавался' in the store ruled by 'departmentManager-UIBS-FF'
 And the user navigates to the product with name '7300330094026'
 When the user logs in using 'departmentManager-UIBS-FF' userName and 'lighthouse' password
 And the user clicks the product local navigation writeoffs link
@@ -46,8 +46,8 @@ And there is the writeOff in the store with number 'UIBS-FF' ruled by department
 | elementName | elementValue |
 | number | WOUIBS-FF-02 |
 | date | 02.04.2013 |
-And the user adds the product to the write off with number 'WOUIBS-FF-02' with sku '7300330094027', quantity '10', price '1, cause 'Плохо продавался' in the store ruled by 'departmentManager-UIBS-FF'
-And the user adds the product to the write off with number 'WOUIBS-FF-02' with sku '7300330094027', quantity '25', price '1, cause 'Плохо продавался' in the store ruled by 'departmentManager-UIBS-FF'
+And the user adds the product to the write off with number 'WOUIBS-FF-02' with name '7300330094027', quantity '10', price '1', cause 'Плохо продавался' in the store ruled by 'departmentManager-UIBS-FF'
+And the user adds the product to the write off with number 'WOUIBS-FF-02' with name '7300330094027', quantity '25', price '1', cause 'Плохо продавался' in the store ruled by 'departmentManager-UIBS-FF'
 And the user navigates to the product with name '7300330094027'
 When the user logs in using 'departmentManager-UIBS-FF' userName and 'lighthouse' password
 And the user clicks the product local navigation writeoffs link
@@ -66,12 +66,12 @@ And there is the writeOff in the store with number 'UIBS-FF' ruled by department
 | elementName | elementValue |
 | number | WOUIBS-FF-03 |
 | date | 05.04.2013 |
-And the user adds the product to the write off with number 'WOUIBS-FF-03' with sku '7300330094028', quantity '3', price '1, cause 'Плохо продавался' in the store ruled by 'departmentManager-UIBS-FF'
+And the user adds the product to the write off with number 'WOUIBS-FF-03' with name '7300330094028', quantity '3', price '1', cause 'Плохо продавался' in the store ruled by 'departmentManager-UIBS-FF'
 And there is the writeOff in the store with number 'UIBS-FF' ruled by department manager with name 'departmentManager-UIBS-FF' with values
 | elementName | elementValue |
 | number | WOUIBS-FF-04 |
 | date | 02.04.2013 |
-And the user adds the product to the write off with number 'WOUIBS-FF-04' with sku '7300330094028', quantity '2', price '1, cause 'Плохо продавался' in the store ruled by 'departmentManager-UIBS-FF'
+And the user adds the product to the write off with number 'WOUIBS-FF-04' with name '7300330094028', quantity '2', price '1', cause 'Плохо продавался' in the store ruled by 'departmentManager-UIBS-FF'
 And the user navigates to the product with name '7300330094028'
 When the user logs in using 'departmentManager-UIBS-FF' userName and 'lighthouse' password
 And the user clicks the product local navigation writeoffs link
@@ -142,7 +142,7 @@ And there is the writeOff in the store with number 'UIBS-FF' ruled by department
 | elementName | elementValue |
 | number | WOUIBS-FF-05 |
 | date | 02.04.2013 |
-And the user adds the product to the write off with number 'WOUIBS-FF-05' with sku '7300330094020', quantity '1', price '12,34, cause 'Плохо продавался' in the store ruled by 'departmentManager-UIBS-FF'
+And the user adds the product to the write off with number 'WOUIBS-FF-05' with name '7300330094020', quantity '1', price '12,34', cause 'Плохо продавался' in the store ruled by 'departmentManager-UIBS-FF'
 And the user navigates to the product with name '7300330094020'
 When the user logs in using 'departmentManager-UIBS-FF' userName and 'lighthouse' password
 And the user clicks the product local navigation writeoffs link

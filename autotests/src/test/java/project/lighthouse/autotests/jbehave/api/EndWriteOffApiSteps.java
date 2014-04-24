@@ -62,9 +62,9 @@ public class EndWriteOffApiSteps {
         writeOffApiSteps.addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause, "departmentManager");
     }
 
-    @Given("the user adds the product to the write off with number '$writeOffNumber' with sku '$productSku', quantity '$quantity', price '$price, cause '$cause' in the store ruled by '$userName'")
-    public void addProductToWriteOff(String writeOffNumber, String productSku, String quantity, String price, String cause, String userName) throws IOException, JSONException {
-        writeOffApiSteps.addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause, userName);
+    @Given("the user adds the product to the write off with number '$writeOffNumber' with name '$productName', quantity '$quantity', price '$price', cause '$cause' in the store ruled by '$userName'")
+    public void addProductToWriteOff(String writeOffNumber, String productName, String quantity, String price, String cause, String userName) throws IOException, JSONException {
+        writeOffApiSteps.addProductToWriteOff(writeOffNumber, productName, quantity, price, cause, userName);
     }
 
     @Given("the user navigates to new write off with '$writeOffNumber' number with product '$productSku' with quantity '$quantity', price '$price' and cause '$cause'")
