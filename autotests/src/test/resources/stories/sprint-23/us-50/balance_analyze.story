@@ -39,7 +39,7 @@ GivenStories: precondition/sprint-23/us-50/aPreconditionToStoryUs50.story,
 Given the user navigates to the subCategory 'defaultSubCategory-s23u50', category 'defaultCategory-s23u50', group 'defaultGroup-s23u50' product list page
 When the user logs in using 'departmentManager-s23u50' userName and 'lighthouse' password
 And the user opens product balance tab
-And the user clicks on the inventory table item by 'sku-s23u50'
+And the user clicks on the inventory table item by 'name-s23u50'
 Then the user checks the elements values
 | elementName | value |
 | name | name-s23u50 |
@@ -47,7 +47,6 @@ Then the user checks the elements values
 | vendorCountry | Тестовая страна |
 | purchasePrice | 12,34 |
 | barcode | barcode-s23u50 |
-| sku | sku-s23u50 |
 | info | |
 | unit | штука |
 | vat | 0 |
