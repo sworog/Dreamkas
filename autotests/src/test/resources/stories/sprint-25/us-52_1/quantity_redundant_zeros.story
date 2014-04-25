@@ -117,7 +117,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | 255214 |
+| productName | name-255214 |
 | quantity | 12,000 |
 | price | 100 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s25u521'
@@ -147,7 +147,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | 255215 |
+| productName | name-255215 |
 | quantity | 85,560 |
 | price | 100 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s25u521'
@@ -177,7 +177,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | 255216 |
+| productName | name-255216 |
 | quantity | 43,196 |
 | price | 100 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s25u521'
@@ -208,7 +208,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | 255217 |
+| productName | name-255217 |
 | quantity | 12,000 |
 | price | 100 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s25u521'
@@ -239,7 +239,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | 255218 |
+| productName | name-255218 |
 | quantity | 85,560 |
 | price | 100 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s25u521'
@@ -270,7 +270,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | 255219 |
+| productName | name-255219 |
 | quantity | 43,196 |
 | price | 100 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s25u521'
@@ -330,7 +330,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | 'name-2552121 |
+| productName | name-2552121 |
 | quantity | 85,560 |
 | price | 100 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s25u521'
@@ -360,7 +360,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | 'name-2552122 |
+| productName | name-2552122 |
 | quantity | 43,196 |
 | price | 100 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s25u521'
