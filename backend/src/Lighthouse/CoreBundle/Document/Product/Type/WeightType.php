@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document\Product\Type;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Symfony\Component\Validator\Constraints as Assert;
+use Lighthouse\CoreBundle\Validator\Constraints\Range\Range as AssertRange;
 
 /**
  * @property string $nameOnScales
@@ -20,28 +21,39 @@ class WeightType extends AbstractDocument implements Typeable
     const UNITS = 'kg';
 
     /**
+     * @Assert\Length(max="256", maxMessage="lighthouse.validation.errors.length")
      * @MongoDB\String
      * @var string
      */
     protected $nameOnScales;
 
     /**
+     * @Assert\Length(max="256", maxMessage="lighthouse.validation.errors.length")
      * @MongoDB\String
      * @var string
      */
     protected $descriptionOnScales;
 
     /**
+     * @Assert\Length(max="1024", maxMessage="lighthouse.validation.errors.length")
      * @MongoDB\String
      * @var string
      */
     protected $ingredients;
 
     /**
+     * @AssertRange(lte=1000)
      * @MongoDB\Int
      * @var int
      */
     protected $shelfLife;
+
+    /**
+     * @Assert\Length(max="1024", maxMessage="lighthouse.validation.errors.length")
+     * @MongoDB\String
+     * @var string
+     */
+    protected $nutritionFacts;
 
     /**
      * @return string

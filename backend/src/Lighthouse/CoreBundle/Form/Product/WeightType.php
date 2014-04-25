@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Form\Product;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Lighthouse\CoreBundle\Document\Product\Type\WeightType as Weight;
+use Lighthouse\CoreBundle\Document\Product\Type;
 
 class WeightType extends AbstractType
 {
@@ -19,7 +19,9 @@ class WeightType extends AbstractType
             ->add('nameOnScales', 'text')
             ->add('descriptionOnScales', 'text')
             ->add('ingredients', 'text')
-            ->add('shelfLife', 'text');
+            ->add('shelfLife', 'text')
+            ->add('nutritionFacts', 'text')
+        ;
     }
 
     /**
@@ -29,7 +31,7 @@ class WeightType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => Weight::getClassName(),
+                'data_class' => Type\WeightType::getClassName(),
                 'csrf_protection' => false
             )
         );

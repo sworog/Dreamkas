@@ -3,6 +3,8 @@
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
+use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
@@ -845,6 +847,195 @@ class ProductControllerTest extends WebTestCase
                     =>
                     'Заполните это поле'
                 ),
+            ),
+            /***********************************************************************************************
+             * 'type'
+             ***********************************************************************************************/
+            'invalid type' => array(
+                400,
+                array(
+                    'type' => 'invalid type',
+                    'typeProperties' => array(
+                        'nameOnScales' => '',
+                        'descriptionOnScales' => '',
+                        'shelfLife' => '',
+                        'ingredients' => '',
+                    )
+                ),
+                array(
+                    'children.type.errors.0' => 'Выбранное Вами значение недопустимо.',
+                    'errors.0' => 'Эта форма не должна содержать дополнительных полей: "typeProperties"',
+                )
+            ),
+            'empty type' => array(
+                400,
+                array(
+                    'type' => ''
+                ),
+                array(
+                    'children.type.errors.0' => 'Заполните это поле'
+                )
+            ),
+            /***********************************************************************************************
+             * 'weightType'
+             ***********************************************************************************************/
+            'weight type empty fields' => array(
+                201,
+                array(
+                    'type' => WeightType::TYPE,
+                    'typeProperties' => array(
+                        'nameOnScales' => '',
+                        'descriptionOnScales' => '',
+                        'shelfLife' => '',
+                        'ingredients' => '',
+                    )
+                ),
+                array(
+                    'units' => WeightType::UNITS,
+                    'type' => WeightType::TYPE,
+                    'typeProperties' => array()
+                )
+            ),
+            'weight type valid fields' => array(
+                201,
+                array(
+                    'type' => WeightType::TYPE,
+                    'typeProperties' => array(
+                        'nameOnScales' => 'Наименование на весах',
+                        'descriptionOnScales' => 'Описание на весах',
+                        'shelfLife' => '24',
+                        'ingredients' => 'Лук, чеснок, соль',
+                        'nutritionFacts' => "   Углеводы 5гр,\n  Белки 10гр\n  Жиры 20гр  \n"
+                    )
+                ),
+                array(
+                    'units' => WeightType::UNITS,
+                    'type' => WeightType::TYPE,
+                    'typeProperties.nameOnScales' => 'Наименование на весах',
+                    'typeProperties.descriptionOnScales' => 'Описание на весах',
+                    'typeProperties.shelfLife' => '24',
+                    'typeProperties.ingredients' => 'Лук, чеснок, соль',
+                    'typeProperties.nutritionFacts' => "Углеводы 5гр,\n  Белки 10гр\n  Жиры 20гр"
+                )
+            ),
+            'weight type fields valid max length' => array(
+                201,
+                array(
+                    'type' => WeightType::TYPE,
+                    'typeProperties' => array(
+                        'nameOnScales' => str_repeat('z', 256),
+                        'descriptionOnScales' => str_repeat('z', 256),
+                        'shelfLife' => '24',
+                        'ingredients' => str_repeat('z', 1024),
+                        'nutritionFacts' => str_repeat('z', 1024),
+                    )
+                ),
+                array(
+                    'units' => WeightType::UNITS,
+                    'type' => WeightType::TYPE,
+                    'typeProperties.nameOnScales' => str_repeat('z', 256),
+                    'typeProperties.descriptionOnScales' => str_repeat('z', 256),
+                    'typeProperties.shelfLife' => '24',
+                    'typeProperties.ingredients' => str_repeat('z', 1024),
+                    'typeProperties.nutritionFacts' => str_repeat('z', 1024)
+                )
+            ),
+            'weight type fields invalid length' => array(
+                400,
+                array(
+                    'type' => WeightType::TYPE,
+                    'typeProperties' => array(
+                        'nameOnScales' => str_repeat('z', 257),
+                        'descriptionOnScales' => str_repeat('z', 257),
+                        'shelfLife' => '24',
+                        'ingredients' => str_repeat('z', 1025),
+                        'nutritionFacts' => str_repeat('z', 1025),
+                    )
+                ),
+                array(
+                    'units' => null,
+                    'type' => null,
+                    'children.typeProperties.children.nameOnScales.errors.0' => 'Не более 256 символов',
+                    'children.typeProperties.children.descriptionOnScales.errors.0' => 'Не более 256 символов',
+                    'children.typeProperties.children.shelfLife.errors' => null,
+                    'children.typeProperties.children.ingredients.errors.0' => 'Не более 1024 символов',
+                    'children.typeProperties.children.nutritionFacts.errors.0' => 'Не более 1024 символов'
+                )
+            ),
+            'weight type invalid shelLife not a number' => array(
+                400,
+                array(
+                    'type' => WeightType::TYPE,
+                    'typeProperties' => array(
+                        'shelfLife' => 'aaa',
+                    )
+                ),
+                array(
+                    'units' => null,
+                    'type' => null,
+                    'children.typeProperties.children.shelfLife.errors.0' => 'Значение должно быть числом',
+                )
+            ),
+            'weight type invalid shelLife too big' => array(
+                400,
+                array(
+                    'type' => WeightType::TYPE,
+                    'typeProperties' => array(
+                        'shelfLife' => '1001',
+                    )
+                ),
+                array(
+                    'units' => null,
+                    'type' => null,
+                    'children.typeProperties.children.shelfLife.errors.0'
+                    =>
+                    'Значение должно быть меньше или равно 1000',
+                )
+            ),
+            'weight type invalid shelLife too big extra field' => array(
+                400,
+                array(
+                    'type' => WeightType::TYPE,
+                    'typeProperties' => array(
+                        'shelfLife' => '24',
+                        'bestBefore' => '2014.02.11'
+                    )
+                ),
+                array(
+                    'units' => null,
+                    'type' => null,
+                    'errors.0' => 'Эта форма не должна содержать дополнительных полей: "bestBefore"',
+                )
+            ),
+            /***********************************************************************************************
+             * 'unitType'
+             ***********************************************************************************************/
+            'unit type empty fields' => array(
+                201,
+                array(
+                    'type' => UnitType::TYPE,
+                    'typeProperties' => array(
+                    )
+                ),
+                array(
+                    'units' => UnitType::UNITS,
+                    'type' => UnitType::TYPE,
+                    'typeProperties' => array()
+                )
+            ),
+            'unit type extra field' => array(
+                400,
+                array(
+                    'type' => UnitType::TYPE,
+                    'typeProperties' => array(
+                        'field' => 'value'
+                    )
+                ),
+                array(
+                    'units' => null,
+                    'type' => null,
+                    'errors.0' => 'Эта форма не должна содержать дополнительных полей: "field"',
+                )
             ),
         );
     }
