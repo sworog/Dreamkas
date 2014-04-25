@@ -4,6 +4,7 @@ import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.product.ProductObject;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductCardView;
@@ -256,5 +257,17 @@ public class ProductSteps extends ScenarioSteps {
         ProductObject productObject = (ProductObject)
                 productListPage.getProductObjectCollection().getAbstractObjectByLocator(locator);
         assertThat(productObject.getPurchasePrice(), is(expectedValue));
+    }
+
+    @Step
+    public void assertProductListObjectSku(String locator, String sku) {
+        ProductObject productObject = (ProductObject)
+                productListPage.getProductObjectCollection().getAbstractObjectByLocator(locator);
+        assertThat(productObject.getSku(), is(sku));
+    }
+
+    @Step
+    public void assertSkuFieldIsNotVisible() {
+        ((Input) productCreatePage.getItems().get("sku")).shouldBeNotVisible();
     }
 }

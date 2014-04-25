@@ -19,6 +19,7 @@ public class ProductObject extends AbstractObject implements ObjectLocatable, Ob
     private String vendor;
     private String vendorCountry;
     private String purchasePrice;
+    private String sku;
 
     public ProductObject(WebElement element) {
         super(element);
@@ -30,6 +31,7 @@ public class ProductObject extends AbstractObject implements ObjectLocatable, Ob
         vendor = getElement().findElement(By.name("vendor")).getText();
         vendorCountry = getElement().findElement(By.name("vendorCountry")).getText();
         purchasePrice = getElement().findElement(By.name("purchasePrice")).getText();
+        sku = getElement().findElement(By.name("sku")).getText();
     }
 
     @Override
@@ -53,5 +55,9 @@ public class ProductObject extends AbstractObject implements ObjectLocatable, Ob
 
     public String getPurchasePrice() {
         return purchasePrice;
+    }
+
+    public String getSku() {
+        return sku;
     }
 }

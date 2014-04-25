@@ -45,4 +45,15 @@ public class ThenProductUserSteps {
                                                                                          String expectedValue) {
         productSteps.assertProductListObjectPurchasePrice(name, expectedValue);
     }
+
+    @Then("the user checks the product with name '$name' has sku equals to '$expectedValue'")
+    public void thenTheUserChecksTheProductWithNameHasSkuEqualsToExpectedValue(String name,
+                                                                               String expectedValue) {
+        productSteps.assertProductListObjectSku(name, expectedValue);
+    }
+
+    @Then("the user checks the product sku field is not visible")
+    public void thenTheUserChecksTheProductSkuFieldIsNotVisible() {
+        productSteps.assertSkuFieldIsNotVisible();
+    }
 }
