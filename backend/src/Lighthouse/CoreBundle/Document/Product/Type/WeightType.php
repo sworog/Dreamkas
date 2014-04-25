@@ -12,6 +12,7 @@ use Lighthouse\CoreBundle\Validator\Constraints\Range\Range as AssertRange;
  * @property string $descriptionOnScales
  * @property string $ingredients
  * @property int $shelfLife
+ * @property string $nutritionFacts
  *
  * @MongoDB\EmbeddedDocument
  */

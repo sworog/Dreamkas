@@ -30,7 +30,7 @@ class GoodElement extends SimpleXMLElement
     /**
      * @return string
      */
-    public function getSku()
+    public function getMarkingOfTheGood()
     {
         return (string) $this['marking-of-the-good'];
     }
@@ -51,7 +51,7 @@ class GoodElement extends SimpleXMLElement
     /**
      * @return string
      */
-    public function getVendor()
+    public function getManufacturerName()
     {
         return (string) $this->manufacturer->name;
     }

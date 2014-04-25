@@ -176,7 +176,7 @@ class Set10ProductImporter
             } catch (ValidationFailedException $e) {
                 $errors[] = array(
                     'message' => $e->getMessage(),
-                    'sku' => $goodElement->getSku(),
+                    'sku' => $goodElement->getMarkingOfTheGood(),
                     'name' => $goodElement->getGoodName(),
                 );
                 $dotHelper->writeError('E');
@@ -310,7 +310,7 @@ class Set10ProductImporter
      */
     public function getProduct(GoodElement $good, $update = false)
     {
-        $sku = $good->getSku();
+        $sku = $good->getMarkingOfTheGood();
         if (isset($this->productSkus[$sku])) {
             return false;
         }
@@ -330,10 +330,10 @@ class Set10ProductImporter
     {
         $product = ($product) ?: new Product();
         $product->name = $good->getGoodName();
-        $product->sku  = $good->getSku();
+        $product->sku  = $good->getMarkingOfTheGood();
         $product->vat  = $good->getVat();
         $product->barcode = $good->getBarcode();
-        $product->vendor = $good->getVendor();
+        $product->vendor = $good->getManufacturerName();
         $product->purchasePrice = $this->getPurchasePrice($good);
         $product->retailPricePreference = $product::RETAIL_PRICE_PREFERENCE_MARKUP;
         $product->retailMarkupMin = 15;
@@ -379,6 +379,7 @@ class Set10ProductImporter
         $type->nameOnScales = $good->getPluginProperty('name-on-scale-screen');
         $type->descriptionOnScales = $good->getPluginProperty('description-on-scale-screen');
         $type->ingredients = $good->getPluginProperty('composition');
+        $type->nutritionFacts = $good->getPluginProperty('food-value');
         $type->shelfLife = $good->getPluginProperty('good-for-hours');
         return $type;
     }

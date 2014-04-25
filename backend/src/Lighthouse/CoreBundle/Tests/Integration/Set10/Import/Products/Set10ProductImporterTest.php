@@ -2,7 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Import\Products;
 
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
+use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImporter;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
@@ -66,5 +69,48 @@ class Set10ProductImporterTest extends ContainerAwareTestCase
             ->get('lighthouse.core.document.repository.classifier.subcategory');
         $subCategories = $subCategoryRepository->findAll();
         $this->assertCount(4, $subCategories);
+    }
+
+    public function testImportProductTypes()
+    {
+        $this->clearMongoDb();
+
+        /* @var ProductRepository $productRepository */
+        $productRepository = $this->getContainer()->get('lighthouse.core.document.repository.product');
+
+        $parser = $this->createXmlParser();
+        $this->import($parser);
+
+        $this->assertEquals(4, $productRepository->count());
+
+        $product1 = $productRepository->findOneBySku('46091758');
+        $this->assertInstanceOf(Product::getClassName(), $product1);
+        $this->assertInstanceOf(UnitType::getClassName(), $product1->typeProperties);
+        $this->assertEquals(UnitType::TYPE, $product1->getType());
+
+        $product2 = $productRepository->findOneBySku('4008713700510');
+        $this->assertInstanceOf(Product::getClassName(), $product2);
+        $this->assertInstanceOf(UnitType::getClassName(), $product2->typeProperties);
+        $this->assertEquals(UnitType::TYPE, $product2->getType());
+
+        $product3 = $productRepository->findOneBySku('2808650');
+        $this->assertInstanceOf(Product::getClassName(), $product3);
+        $this->assertInstanceOf(WeightType::getClassName(), $product3->typeProperties);
+        $this->assertEquals(WeightType::TYPE, $product3->getType());
+        $this->assertEquals('Шашлык из креветок пр-во Лэнд', $product3->typeProperties->nameOnScales);
+        $this->assertEquals('Шашлык из креветок пр-во Лэнд', $product3->typeProperties->descriptionOnScales);
+        $this->assertEquals('креветки,ананас конс.,перец свежий,сок лимона,', $product3->typeProperties->ingredients);
+        $this->assertEquals('приправа,масло раст.,соль', $product3->typeProperties->nutritionFacts);
+        $this->assertNull($product3->typeProperties->shelfLife);
+
+        $product4 = $productRepository->findOneBySku('2809733');
+        $this->assertInstanceOf(Product::getClassName(), $product4);
+        $this->assertInstanceOf(WeightType::getClassName(), $product4->typeProperties);
+        $this->assertEquals(WeightType::TYPE, $product4->getType());
+        $this->assertEquals('Шашлык из курицы (филе) п/ф Кулинария', $product4->typeProperties->nameOnScales);
+        $this->assertEquals('Шашлык из курицы (филе) п/ф Кулинария', $product4->typeProperties->descriptionOnScales);
+        $this->assertNull($product4->typeProperties->ingredients);
+        $this->assertNull($product4->typeProperties->nutritionFacts);
+        $this->assertNull($product4->typeProperties->shelfLife);
     }
 }
