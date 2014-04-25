@@ -51,7 +51,7 @@ define(function(require) {
                 'change [name="retailPriceMin"], [name="retailPriceMax"]': function() {
                     this.renderRetailPriceLink();
                 },
-                'click .productForm__productTypeRadio input': function() {
+                'change .productForm__productTypeRadio input': function() {
                     this.renderProductTypeSpecificFields();
                 }
             },

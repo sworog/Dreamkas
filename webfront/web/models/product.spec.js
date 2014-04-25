@@ -105,7 +105,13 @@ define(function(require, exports, module) {
 
         it("test product form get data", function() {
             var form_product = require('blocks/form/form_product/form_product'),
-                fake_el = $("<div></div>");
+                fake_el = $("<div></div>"),
+                expectedSaveDataTypeSpecific = {
+                    nameOnScales: '',
+                    descriptionOnScales: '',
+                    ingredients: '',
+                    shelfLife: ''
+                };
             var form = new form_product({
                 model: product,
                 el: fake_el[0],
@@ -116,11 +122,81 @@ define(function(require, exports, module) {
             expect(actualData.type).toEqual('unit');
             expect(actualData.typeProperties).toBeUndefined();
 
-            form.$productTypeRadio.find('input[value=weight]').click();
+            form.$productTypeRadio.find('input[type=radio]').prop('checked', false);
+            form.$productTypeRadio.find('input[value=weight]').prop('checked', true).change();
             actualData = form.getData();
             expect(actualData.type).toEqual('weight');
-            expect(actualData.typeProperties).toBeUndefined();
-            expect(form.$productTypePropertiesFields.find('input[name="typeProperties.shelfLife"]')).not.toBeNull()
+            expect(actualData.typeProperties).toEqual(expectedSaveDataTypeSpecific);
+            expect(form.$productTypePropertiesFields.find('input[name="typeProperties.shelfLife"]').length).toEqual(1);
+        });
+
+        it("test product form show errors for weight product type properties", function() {
+            var form_product = require('blocks/form/form_product/form_product'),
+                fake_el = $("<div></div>"),
+                expectedSaveDataTypeSpecific = {
+                    nameOnScales: '',
+                    descriptionOnScales: '',
+                    ingredients: '',
+                    shelfLife: ''
+                };
+            var form = new form_product({
+                model: product,
+                el: fake_el[0],
+                subCategoryModel: fake_subCategoryModel
+            });
+
+            form.$productTypeRadio.find('input[type=radio]').prop('checked', false);
+            form.$productTypeRadio.find('input[value=weight]').prop('checked', true).change();
+
+            var actualData = form.getData();
+            expect(actualData.type).toEqual('weight');
+            expect(actualData.typeProperties).toEqual(expectedSaveDataTypeSpecific);
+            expect(form.$productTypePropertiesFields.find('input[name="typeProperties.shelfLife"]').length).toEqual(1);
+
+            var fake_errors = {
+                "children":{
+                    "name":{
+                        "errors": [
+                            "Ошибка"
+                        ]
+                    },
+                    "units":[],
+                    "vat":[],
+                    "purchasePrice":[],
+                    "barcode":[],
+                    "vendorCountry":[],
+                    "vendor":[],
+                    "info":[],
+                    "retailPriceMin":[],
+                    "retailPriceMax":[],
+                    "retailMarkupMin":[],
+                    "retailMarkupMax":[],
+                    "retailPricePreference":[],
+                    "subCategory":[],
+                    "rounding":[],
+                    "typeProperties": {
+                        "children": {
+                            "nameOnScales": {
+                                "errors":[
+                                    "Поле слишком длинное"
+                                ]
+                            }
+                        }
+                    }
+                }
+            };
+            form.showErrors(fake_errors);
+
+            expect(
+                form.$('input[name="name"]').closest('.form__field').attr('data-error')
+            ).toEqual("Ошибка");
+
+            expect(
+                form.$productTypePropertiesFields
+                    .find('input[name="typeProperties.nameOnScales"]')
+                    .closest('.form__field').
+                    attr('data-error')
+            ).toEqual("Поле слишком длинное");
         });
     })
 });
