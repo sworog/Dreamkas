@@ -6,11 +6,17 @@ Meta:
 
 Scenario: Write off creation
 
+Meta:
+@test
+
 Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductBarCode' barcode, 'liter' units, '15' purchasePrice
-And the user opens the write off create page
-And the user opens amount list page
+And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
-Then the user checks the product with 'WriteOff-ProductSku' sku has 'amounts amount' element equal to '0' on amounts page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'WriteOff-ProductName' has inventory equals to '0,0'
+
 Given the user opens the write off create page
 When the user inputs 'WriteOff Number-1' in the 'writeOff number' field on the write off page
 And the user inputs '24.10.2012' in the 'writeOff date' field on the write off page
@@ -37,8 +43,12 @@ Then the user checks write off elements values
 | elementName | value |
 | totalProducts | 1 |
 | totalSum | 150 |
-Given the user opens amount list page
-Then the user checks the product with 'WriteOff-ProductSku' sku has 'amounts amount' element equal to '-10' on amounts page
+
+Given the user navigates to the default subCategory product list page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'WriteOff-ProductName' has inventory equals to '-10,0'
 
 Scenario: Write Off product name autocomplete
 
@@ -111,10 +121,17 @@ Then the user checks write off elements values
 
 Scenario: Write off review kg
 
+Meta:
+@test
+
 Given there is the product with 'WriteOff-ProductName-review1' name, 'WriteOff-ProductBarCode-review1' barcode, 'kg' units, '15' purchasePrice
-And the user opens amount list page
+And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
-Then the user checks the product with 'WriteOff-ProductSku-review1' sku has 'amounts amount' element equal to '0' on amounts page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'WriteOff-WriteOff-ProductName-review1' has inventory equals to '0,0'
+
 Given the user opens the write off create page
 When the user inputs 'WriteOff Number-1' in the 'writeOff number' field on the write off page
 And the user inputs '24.10.2012' in the 'writeOff date' field on the write off page
@@ -141,15 +158,26 @@ Then the user checks write off elements values
 | elementName | value |
 | totalProducts | 1 |
 | totalSum | 150 |
-Given the user opens amount list page
-Then the user checks the product with 'WriteOff-ProductSku-review1' sku has 'amounts amount' element equal to '-10' on amounts page
+
+Given the user navigates to the default subCategory product list page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'WriteOff-WriteOff-ProductName-review1' has inventory equals to '-10,0'
 
 Scenario: Write off Review liter
 
+Meta:
+@test
+
 Given there is the product with 'WriteOff-ProductName-review2' name, 'WriteOff-ProductBarCode-review2' barcode, 'liter' units, '15' purchasePrice
-And the user opens amount list page
+And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
-Then the user checks the product with 'WriteOff-ProductSku-review2' sku has 'amounts amount' element equal to '0' on amounts page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'WriteOff-WriteOff-ProductName-review2' has inventory equals to '0,0'
+
 Given the user opens the write off create page
 When the user inputs 'WriteOff Number-1' in the 'writeOff number' field on the write off page
 And the user inputs '24.10.2012' in the 'writeOff date' field on the write off page
@@ -176,15 +204,25 @@ Then the user checks write off elements values
 | elementName | value |
 | totalProducts | 1 |
 | totalSum | 150 |
-Given the user opens amount list page
-Then the user checks the product with 'WriteOff-ProductSku-review2' sku has 'amounts amount' element equal to '-10' on amounts page
+
+Given the user navigates to the default subCategory product list page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'WriteOff-WriteOff-ProductName-review2' has inventory equals to '-10,0'
 
 Scenario: Write off Review units
 
+Meta:
+@test
+
 Given there is the product with 'WriteOff-ProductName-review3' name, 'WriteOff-ProductBarCode-review3' barcode, 'unit' units, '15' purchasePrice
-And the user opens amount list page
+And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
-Then the user checks the product with 'WriteOff-ProductSku-review3' sku has 'amounts amount' element equal to '0' on amounts page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'WriteOff-WriteOff-ProductName-review3' has inventory equals to '0,0'
 Given the user opens the write off create page
 When the user inputs 'WriteOff Number-1' in the 'writeOff number' field on the write off page
 And the user inputs '24.10.2012' in the 'writeOff date' field on the write off page
@@ -211,19 +249,28 @@ Then the user checks write off elements values
 | elementName | value |
 | totalProducts | 1 |
 | totalSum | 150 |
-Given the user opens amount list page
-Then the user checks the product with 'WriteOff-ProductSku-review3' sku has 'amounts amount' element equal to '-10' on amounts page
+
+Given the user navigates to the default subCategory product list page
+
+When the user opens product balance tab
+Then the user checks the product with name 'WriteOff-WriteOff-ProductName-review3' has inventory equals to '-10,0'
 
 Scenario: Review 3 different products in one write off
+
+Meta:
+@test
 
 Given there is the product with 'WriteOff-ProductName-review1' name, 'WriteOff-ProductBarCode-review1' barcode, 'kg' units, '15' purchasePrice
 Given there is the product with 'WriteOff-ProductName-review2' name, 'WriteOff-ProductBarCode-review2' barcode, 'liter' units, '15' purchasePrice
 Given there is the product with 'WriteOff-ProductName-review3' name, 'WriteOff-ProductBarCode-review3' barcode, 'unit' units, '15' purchasePrice
-And the user opens amount list page
+And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
-Then the user checks the product with 'WriteOff-ProductSku-review1' sku has 'amounts amount' element equal to '-10' on amounts page
-Then the user checks the product with 'WriteOff-ProductSku-review2' sku has 'amounts amount' element equal to '-10' on amounts page
-Then the user checks the product with 'WriteOff-ProductSku-review3' sku has 'amounts amount' element equal to '-10' on amounts page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'WriteOff-WriteOff-ProductName-review1' has inventory equals to '-10,0'
+Then the user checks the product with name 'WriteOff-WriteOff-ProductName-review2' has inventory equals to '-10,0'
+Then the user checks the product with name 'WriteOff-WriteOff-ProductName-review3' has inventory equals to '-10,0'
 Given the user opens the write off create page
 When the user inputs 'WriteOff Number-1' in the 'writeOff number' field on the write off page
 And the user inputs '24.10.2012' in the 'writeOff date' field on the write off page
@@ -276,10 +323,14 @@ Then the user checks write off elements values
 | elementName | value |
 | totalProducts | 3 |
 | totalSum | 450 |
-Given the user opens amount list page
-Then the user checks the product with 'WriteOff-ProductSku-review1' sku has 'amounts amount' element equal to '-20' on amounts page
-Then the user checks the product with 'WriteOff-ProductSku-review2' sku has 'amounts amount' element equal to '-20' on amounts page
-Then the user checks the product with 'WriteOff-ProductSku-review3' sku has 'amounts amount' element equal to '-20' on amounts page
+
+Given the user navigates to the default subCategory product list page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'WriteOff-WriteOff-ProductName-review1' has inventory equals to '-20,0'
+Then the user checks the product with name 'WriteOff-WriteOff-ProductName-review2' has inventory equals to '-20,0'
+Then the user checks the product with name 'WriteOff-WriteOff-ProductName-review3' has inventory equals to '-20,0'
 
 Scenario: Write off edition - number
 
@@ -315,12 +366,18 @@ Then the user checks write off elements values
 
 Scenario: Write off edition - product name
 
+Meta:
+@test
+
 Given there is the product with 'WriteOff-WOE-PN' name, 'WriteOff-WOE-PN' barcode, 'liter' units, '15' purchasePrice
 And there is the write off with 'WriteOff-Edit-productName' number with product 'WriteOff-ProductName-autocomplete' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
-And the user opens amount list page
+And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
-Then the user checks the product with 'WriteOff-WOE-PN' sku has 'amounts amount' element equal to '0' on amounts page
-And the user checks the product with 'WriteOff-ProductName-autocomplete' sku has 'amounts amount' element equal to '-10' on amounts page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'WriteOff-WOE-PN' has inventory equals to '-20,0'
+And the user checks the product with name 'WriteOff-ProductName-autocomplete' has inventory equals to '-20,0'
 Given the user navigates to the write off with number 'WriteOff-Edit-productName'
 When the user clicks edit button and starts write off edition
 And the user clicks on 'writeOff product name review' write off element to edit it
@@ -333,18 +390,29 @@ When the user clicks finish edit button and ends the write off edition
 Then the user checks the product with 'WriteOff-WOE-PN' sku has elements on the write off page
 | elementName | value |
 | writeOff product name review | WriteOff-WOE-PN |
-Given the user opens amount list page
-Then the user checks the product with 'WriteOff-WOE-PN' sku has 'amounts amount' element equal to '-10' on amounts page
-And the user checks the product with 'WriteOff-ProductName-autocomplete' sku has 'amounts amount' element equal to '0' on amounts page
+
+Given the user navigates to the default subCategory product list page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'WriteOff-WOE-PN' has inventory equals to '-10,0'
+And the user checks the product with name 'WriteOff-ProductName-autocomplete' has inventory equals to '0,0'
 
 Scenario: Write off edition - product sku
 
+Meta:
+@test
+
 Given there is the product with 'WriteOff-WOE-PS' name, 'WriteOff-WOE-PS' barcode, 'liter' units, '15' purchasePrice
 And there is the write off with 'WriteOff-Edit-productSku' number with product 'WriteOff-ProductSku-autocomplete' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
-And the user opens amount list page
+And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
-Then the user checks the product with 'WriteOff-WOE-PS' sku has 'amounts amount' element equal to '0' on amounts page
-And the user checks the product with 'WriteOff-ProductSku-autocomplete' sku has 'amounts amount' element equal to '-10' on amounts page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'WriteOff-WOE-PS' has inventory equals to '0,0'
+And the user checks the product with name 'WriteOff-ProductSku-autocomplete' has inventory equals to '-10,0'
+
 Given the user navigates to the write off with number 'WriteOff-Edit-productSku'
 When the user clicks edit button and starts write off edition
 And the user clicks on 'writeOff product sku review' write off element to edit it
@@ -357,18 +425,28 @@ When the user clicks finish edit button and ends the write off edition
 Then the user checks the product with 'WriteOff-WOE-PS' sku has elements on the write off page
 | elementName | value |
 | writeOff product sku review | WriteOff-WOE-PS |
-Given the user opens amount list page
-Then the user checks the product with 'WriteOff-WOE-PS' sku has 'amounts amount' element equal to '-10' on amounts page
-And the user checks the product with 'WriteOff-ProductSku-autocomplete' sku has 'amounts amount' element equal to '0' on amounts page
+
+Given the user navigates to the default subCategory product list page
+
+When the user opens product balance tab
+Then the user checks the product with name 'WriteOff-WOE-PS' has inventory equals to '-10,0'
+And the user checks the product with name 'WriteOff-ProductSku-autocomplete' has inventory equals to '0,0'
 
 Scenario: Write off edition - product barcode
 
+Meta:
+@test
+
 Given there is the product with 'WriteOff-WOE-Pb' name, 'WriteOff-WOE-Pb' barcode, 'liter' units, '15' purchasePrice
 And there is the write off with 'WriteOff-Edit-productBarCode' number with product 'WriteOff-ProductBarCode-autocomplete' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
-And the user opens amount list page
+And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
-Then the user checks the product with 'WriteOff-WOE-Pb' sku has 'amounts amount' element equal to '0' on amounts page
-And the user checks the product with 'WriteOff-ProductBarCode-autocomplete' sku has 'amounts amount' element equal to '-10' on amounts page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'WriteOff-WOE-Pb' has inventory equals to '0,0'
+And the user checks the product with name 'WriteOff-ProductBarCode-autocomplete' has inventory equals to '-10,0'
+
 Given the user navigates to the write off with number 'WriteOff-Edit-productBarCode'
 When the user clicks edit button and starts write off edition
 And the user clicks on 'writeOff product barCode review' write off element to edit it
@@ -381,16 +459,27 @@ When the user clicks finish edit button and ends the write off edition
 Then the user checks the product with 'WriteOff-WOE-Pb' sku has elements on the write off page
 | elementName | value |
 | writeOff product barCode review | WriteOff-WOE-Pb |
-Given the user opens amount list page
-Then the user checks the product with 'WriteOff-WOE-Pb' sku has 'amounts amount' element equal to '-10' on amounts page
-And the user checks the product with 'WriteOff-ProductBarCode-autocomplete' sku has 'amounts amount' element equal to '0' on amounts page
+
+Given the user navigates to the default subCategory product list page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'WriteOff-WOE-Pb' has inventory equals to '-10,0'
+And the user checks the product with name 'WriteOff-ProductBarCode-autocomplete' has inventory equals to '0,0'
 
 Scenario: Write off edition - product quantity
 
+Meta:
+@test
+
 Given there is the write off with 'WriteOff-Edit-productQuantity' number with product 'WriteOff-ProductQuantity' with quantity '50', price '15' and cause 'Причина сдачи: Истек срок хранения'
-And the user opens amount list page
+And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
-Then the user checks the product with 'WriteOff-ProductQuantity' sku has 'amounts amount' element equal to '-50' on amounts page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'WriteOff-ProductQuantity' has inventory equals to '-50,0'
+
 Given the user navigates to the write off with number 'WriteOff-Edit-productQuantity'
 When the user clicks edit button and starts write off edition
 And the user clicks on 'writeOff product quantity review' write off element to edit it
@@ -403,8 +492,12 @@ When the user clicks finish edit button and ends the write off edition
 Then the user checks the product with 'WriteOff-ProductQuantity' sku has elements on the write off page
 | elementName | value |
 | writeOff product quantity review | 12 |
-Given the user opens amount list page
-Then the user checks the product with 'WriteOff-ProductQuantity' sku has 'amounts amount' element equal to '-12' on amounts page
+
+Given the user navigates to the default subCategory product list page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'WriteOff-ProductQuantity' has inventory equals to '-12,0'
 
 Scenario: Write off edition - product price
 
@@ -471,10 +564,17 @@ And the user checks the product with 'WriteOff-WOE-ANP' sku has elements on the 
 
 Scenario: Write off edition - deleting product
 
+Meta:
+@test
+
 Given there is the write off with 'WriteOff-Edit-productDelete' number with product 'WriteOff-WOE-ANP-1' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
-And the user opens amount list page
+And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
-Then the user checks the product with 'WriteOff-WOE-ANP-1' sku has 'amounts amount' element equal to '-10' on amounts page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'WriteOff-WOE-ANP-1' has inventory equals to '-10,0'
+
 Given the user navigates to the write off with number 'WriteOff-Edit-productDelete'
 When the user clicks edit button and starts write off edition
 And the user deletes the write off product with 'WriteOff-WOE-ANP-1' sku
@@ -482,15 +582,26 @@ And the user clicks OK and accepts deletion
 Then the user checks the write off product with 'WriteOff-WOE-ANP-1' sku is not present
 When the user clicks finish edit button and ends the write off edition
 Then the user checks the write off product with 'WriteOff-WOE-ANP-1' sku is not present
-Given the user opens amount list page
-Then the user checks the product with 'WriteOff-WOE-ANP-1' sku has 'amounts amount' element equal to '0' on amounts page
+
+Given the user navigates to the default subCategory product list page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'WriteOff-WOE-ANP-1' has inventory equals to '0,0'
 
 Scenario: Write off edition - deleting product cancel
 
+Meta:
+@test
+
 Given there is the write off with 'WriteOff-Edit-productDelete-2' number with product 'WriteOff-WOE-ANP-2' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
-And the user opens amount list page
+And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
-Then the user checks the product with 'WriteOff-WOE-ANP-2' sku has 'amounts amount' element equal to '-10' on amounts page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'WriteOff-WOE-ANP-2' has inventory equals to '-10,0'
+
 Given the user navigates to the write off with number 'WriteOff-Edit-productDelete-2'
 When the user clicks edit button and starts write off edition
 And the user deletes the write off product with 'WriteOff-WOE-ANP-2' sku

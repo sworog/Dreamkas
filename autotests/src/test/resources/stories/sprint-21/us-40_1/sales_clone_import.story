@@ -38,8 +38,13 @@ And the user inputs '26,99' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the 'retailPrice' value is '26,99'
-Given the user opens amount list page
-Then the user checks the product with '46079770' sku has 'amounts amount' element equal to '0' on amounts page
+
+Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'Нескафе 3 в 1 классический растворимый' has inventory equals to '0,0'
+
 When the user logs out
 Given the user navigates to the product with name 'Нескафе 3 в 1 классический растворимый'
 When the user logs in using 'ProductsExportStoreManager2' userName and 'lighthouse' password
@@ -49,17 +54,30 @@ And the user inputs '25,50' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the 'retailPrice' value is '25,50'
-Given the user opens amount list page
-Then the user checks the product with '46079770' sku has 'amounts amount' element equal to '0' on amounts page
+
+Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'Нескафе 3 в 1 классический растворимый' has inventory equals to '0,0'
+
 When the user logs out
 Given the user prepares import clone data for us 40.1 story
-And the user opens amount list page
-When the user logs in using 'ProductsExportStoreManager' userName and 'lighthouse' password
-Then the user checks the product with '46079770' sku has 'amounts amount' element equal to '-2' on amounts page
+
+Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
+And the user logs in using 'ProductsExportStoreManager' userName and 'lighthouse' password
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'Нескафе 3 в 1 классический растворимый' has inventory equals to '-2,0'
+
 When the user logs out
-Given the user opens amount list page
-When the user logs in using 'ProductsExportStoreManager2' userName and 'lighthouse' password
-Then the user checks the product with '46079770' sku has 'amounts amount' element equal to '-3' on amounts page
+
+Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
+And the user logs in using 'ProductsExportStoreManager2' userName and 'lighthouse' password
+
+Then the user checks the product with name 'Нескафе 3 в 1 классический растворимый' has inventory equals to '-3,0'
+
 When the user logs out
 Given the user prepares import clone data for us 40.1 story
 Given the user logs in as 'commercialManager'
@@ -69,14 +87,19 @@ Then the user checks log messages
 | Sales import fail: hash: Такая продажа уже зарегистрированна в системе |
 | Sales import fail: hash: Такая продажа уже зарегистрированна в системе |
 When the user logs out
-Given the user opens amount list page
-When the user logs in using 'ProductsExportStoreManager' userName and 'lighthouse' password
-Then the user checks the product with '46079770' sku has 'amounts amount' element equal to '-2' on amounts page
+
+Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
+And the user logs in using 'ProductsExportStoreManager' userName and 'lighthouse' password
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'Нескафе 3 в 1 классический растворимый' has inventory equals to '-2,0'
 When the user logs out
-Given the user opens amount list page
-When the user logs in using 'ProductsExportStoreManager2' userName and 'lighthouse' password
-Then the user checks the product with '46079770' sku has 'amounts amount' element equal to '-3' on amounts page
-When the user logs out
+
+Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
+And the user logs in using 'ProductsExportStoreManager2' userName and 'lighthouse' password
+
+Then the user checks the product with name 'Нескафе 3 в 1 классический растворимый' has inventory equals to '-3,0'
 
 
 

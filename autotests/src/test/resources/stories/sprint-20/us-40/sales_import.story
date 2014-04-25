@@ -39,29 +39,48 @@ And the user inputs '26,99' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the 'retailPrice' value is '26,99'
-Given the user opens amount list page
-Then the user checks the product with '87108521' sku has 'amounts amount' element equal to '0' on amounts page
+
+Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'Конф.жев.Фруттелла 4 вкуса 42.5г' has inventory equals to '0,0'
+
 When the user logs out
 Given the user navigates to the product with name 'Конф.жев.Фруттелла 4 вкуса 42.5г'
-When the user logs in using 'ProductsExportStoreManager2' userName and 'lighthouse' password
-And the user clicks the edit price button
+And the user logs in using 'ProductsExportStoreManager2' userName and 'lighthouse' password
+
+When the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
 And the user inputs '25,50' in 'retailPrice' field
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the 'retailPrice' value is '25,50'
-Given the user opens amount list page
-Then the user checks the product with '87108521' sku has 'amounts amount' element equal to '0' on amounts page
+
+Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'Конф.жев.Фруттелла 4 вкуса 42.5г' has inventory equals to '0,0'
 When the user logs out
 Given the robot prepares import purchase data
 And the robot waits the import folder become empty
-And the user opens amount list page
-When the user logs in using 'ProductsExportStoreManager' userName and 'lighthouse' password
-Then the user checks the product with '87108521' sku has 'amounts amount' element equal to '-12' on amounts page
+
+Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
+And the user logs in using 'ProductsExportStoreManager' userName and 'lighthouse' password
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'Конф.жев.Фруттелла 4 вкуса 42.5г' has inventory equals to '-12,0'
+
 When the user logs out
-Given the user opens amount list page
-When the user logs in using 'ProductsExportStoreManager2' userName and 'lighthouse' password
-Then the user checks the product with '87108521' sku has 'amounts amount' element equal to '-6' on amounts page
+
+Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
+And the user logs in using 'ProductsExportStoreManager2' userName and 'lighthouse' password
+
+When the user opens product balance tab
+
+Then the user checks the product with name 'Конф.жев.Фруттелла 4 вкуса 42.5г' has inventory equals to '-6,0'
 
 Scenario: Import no such product data (xml)
 
