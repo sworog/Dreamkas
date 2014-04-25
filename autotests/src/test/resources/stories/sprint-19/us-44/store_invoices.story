@@ -30,7 +30,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | sku-SIC |
+| productName | name-SIC |
 | quantity | 1 |
 | price | 1 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-SIC'
@@ -43,7 +43,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | sku-SIC |
+| productName | name-SIC |
 | quantity | 1 |
 | price | 1 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-SIC-2'
