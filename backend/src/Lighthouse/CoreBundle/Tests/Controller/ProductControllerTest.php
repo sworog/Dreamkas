@@ -976,6 +976,20 @@ class ProductControllerTest extends WebTestCase
                     'children.typeProperties.children.shelfLife.errors.0' => 'Значение должно быть числом',
                 )
             ),
+            'weight type invalid shelLife float' => array(
+                400,
+                array(
+                    'type' => WeightType::TYPE,
+                    'typeProperties' => array(
+                        'shelfLife' => '12.12',
+                    )
+                ),
+                array(
+                    'units' => null,
+                    'type' => null,
+                    'children.typeProperties.children.shelfLife.errors.0' => 'Значение должно быть числом',
+                )
+            ),
             'weight type invalid shelLife too big' => array(
                 400,
                 array(

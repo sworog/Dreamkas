@@ -42,7 +42,7 @@ class WeightType extends AbstractDocument implements Typeable
     protected $ingredients;
 
     /**
-     * @AssertRange(lte=1000)
+     * @AssertRange(lte=1000, integer=1)
      * @MongoDB\Int
      * @var int
      */

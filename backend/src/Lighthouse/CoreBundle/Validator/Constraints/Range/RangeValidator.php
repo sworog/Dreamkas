@@ -59,7 +59,7 @@ class RangeValidator extends ConstraintValidator
      */
     protected function createComparison($value, Range $constraint)
     {
-        return new Comparison($value, $this->comparator);
+        return new Comparison($value, $this->comparator, $constraint->integer);
     }
 
     /**
