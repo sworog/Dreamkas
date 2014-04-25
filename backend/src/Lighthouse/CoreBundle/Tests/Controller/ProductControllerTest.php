@@ -333,6 +333,26 @@ class ProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('10005', '4.sku', $response);
     }
 
+    public function testGetProductsWithEmptyTypePropertiesReturnsArray()
+    {
+        $this->createProductsByNames(array('1', '2', '3', '4', '5'));
+
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/products'
+        );
+
+        $this->assertResponseCode(200);
+
+        $rawBody = $this->client->getResponse()->getContent();
+        $this->assertStringStartsWith('[', $rawBody);
+        $this->assertStringEndsWith(']', $rawBody);
+
+        Assert::assertJsonPathCount(5, '*.id', $response);
+    }
+
     /**
      * @dataProvider productProvider
      */
