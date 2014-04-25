@@ -29,7 +29,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Московское-Артикул |
+| productName | Печенье-Московское |
 | quantity | 10 |
 | price | 26 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -53,7 +53,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Московское-Артикул |
+| productName | Печенье-Московское |
 | quantity | 10 |
 | price | 56 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -84,7 +84,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Питерское-Артикул |
+| productName | Печенье-Питерское |
 | quantity | 10 |
 | price | 26 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -108,7 +108,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Питерское-Артикул |
+| productName | Печенье-Питерское |
 | quantity | 10 |
 | price | 56 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -139,7 +139,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Гламурное-Артикул |
+| productName | Печенье-Гламурное |
 | quantity | 10 |
 | price | 26 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -163,7 +163,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Гламурное-Артикул |
+| productName | Печенье-Гламурное |
 | quantity | 10 |
 | price | 56 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -194,7 +194,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Астраханское-Артикул |
+| productName | Печенье-Астраханское |
 | quantity | 10 |
 | price | 26 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -218,7 +218,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Астраханское-Артикул |
+| productName | Печенье-Астраханское |
 | quantity | 10 |
 | price | 56 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -249,7 +249,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Киевское-Артикул |
+| productName | Печенье-Киевское |
 | quantity | 10 |
 | price | 23,33 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -273,7 +273,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Киевское-Артикул |
+| productName | Печенье-Киевское |
 | quantity | 10 |
 | price | 26 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -305,7 +305,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Юбилейное-Артикул |
+| productName | Печенье-Юбилейное |
 | quantity | 10 |
 | price | 26 |
 And the user adds the product with data to invoice api object
@@ -323,7 +323,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Юбилейное-Артикул |
+| productName | Печенье-Юбилейное |
 | quantity | 5 |
 | price | 29 |
 And the user adds the product with data to invoice api object
@@ -341,7 +341,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Юбилейное-Артикул |
+| productName | Печенье-Юбилейное |
 | quantity | 10 |
 | price | 31 |
 And the user adds the product with data to invoice api object
