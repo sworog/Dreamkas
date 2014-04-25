@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.junit.Assert;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.helper.UUIDGenerator;
+import project.lighthouse.autotests.objects.api.Group;
 import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.SubCategory;
 import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
@@ -121,12 +122,13 @@ public class EndProductApiSteps {
     public void createProductThroughPost(String productName, String barcode, String units, String purchasePrice,
                                          String rounding, String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
         catalogApiSteps.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
-        productApiSteps.createProductThroughPost(productName, barcode, units, purchasePrice, groupName, categoryName, subCategoryName, rounding);
+        productApiSteps.createProductThroughPost(productName, barcode, units, purchasePrice, subCategoryName, rounding);
     }
 
     @Given("there is the product with productName and rounding in the subcategory named '$subCategoryName'")
     public void createProductThroughPost(String rounding, String productName, String subCategoryName) throws IOException, JSONException {
-        createProductThroughPost(productName, productName, productName, "kg", "1", rounding, subCategoryName);
+        catalogApiSteps.createSubCategoryThroughPost(Group.DEFAULT_NAME, SubCategory.DEFAULT_NAME, subCategoryName);
+        productApiSteps.createProductThroughPost(productName, productName, "kg", "1", subCategoryName, rounding);
     }
 
     @Given("the user navigates to the product with name '$productName'")
