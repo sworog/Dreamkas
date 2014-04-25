@@ -33,7 +33,8 @@ define(function(require, exports, module) {
                 nameOnScales: 'Помидор (Испания)',
                 descriptionOnScales: 'Хороший поидор (Испания)',
                 ingredients: 'Помидор, пестициды в ассортименте',
-                shelfLife: 48
+                shelfLife: 48,
+                nutritionFacts: "Она огромна"
             };
 
             var actualJSON = product.saveData();
@@ -110,7 +111,8 @@ define(function(require, exports, module) {
                     nameOnScales: '',
                     descriptionOnScales: '',
                     ingredients: '',
-                    shelfLife: ''
+                    shelfLife: '',
+                    nutritionFacts: ''
                 };
             var form = new form_product({
                 model: product,
@@ -137,7 +139,8 @@ define(function(require, exports, module) {
                     nameOnScales: '',
                     descriptionOnScales: '',
                     ingredients: '',
-                    shelfLife: ''
+                    shelfLife: '',
+                    nutritionFacts: ''
                 };
             var form = new form_product({
                 model: product,

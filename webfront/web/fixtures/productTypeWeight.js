@@ -16,6 +16,7 @@ define(function(require) {
             nameOnScales: 'Помидор (Испания)',
             descriptionOnScales: 'Хороший поидор (Испания)',
             ingredients: 'Помидор, пестициды в ассортименте',
+            nutritionFacts: 'Она огромна',
             shelfLife: 48
         },
         "rounding": {

@@ -11,13 +11,7 @@ define(function(require) {
             amount: 0,
             retailPricePreference: 'retailMarkup',
             rounding: {},
-            type: 'unit',
-            typeProperties: {
-                nameOnScales: null,
-                descriptionOnScales: null,
-                ingredients: null,
-                shelfLife: null
-            }
+            type: 'unit'
         },
         saveData: function(){
 
