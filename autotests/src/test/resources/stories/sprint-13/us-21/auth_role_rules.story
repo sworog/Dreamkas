@@ -198,13 +198,6 @@ And the user logs in as 'watchman'
 And the user opens the default store invoice create page
 Then the user sees the 403 error
 
-Scenario: Administrator role invalid rules - unauthorised access from amount list page link
-
-Given the user opens the authorization page
-And the user logs in as 'watchman'
-And the user opens amount list page
-Then the user sees the 403 error
-
 Scenario: Administrator role invalid rules - unauthorised access from write off create page link
 
 Given the user opens the authorization page
@@ -246,14 +239,6 @@ Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 And the user opens the default store invoice create page
 Then the user sees the 403 error
-
-Scenario: CommercialManager role invalid rules - unauthorised access from balance link
-
-Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19'
-Given the user opens the authorization page
-And the user logs in as 'commercialManager'
-And the user opens amount list page
-Then the user dont see the 403 error
 
 Scenario: CommercialManager role invalid rules - unauthorised access from writeOffs link
 
@@ -309,13 +294,6 @@ Scenario: StoreManager role invalid rules - unauthorised access from invoices cr
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
 And the user opens the default store invoice create page
-Then the user sees the 403 error
-
-Scenario: StoreManager role invalid rules - unauthorised access from balance link
-
-Given the user opens the authorization page
-And the user logs in as 'storeManager'
-And the user opens amount list page
 Then the user sees the 403 error
 
 Scenario: StoreManager role invalid rules - unauthorised access from writeOffs link
