@@ -27,7 +27,7 @@ Given there is the store with number '28544' managed by department manager named
 And there is the subCategory with name 'defaultSubCategory-s28u544' related to group named 'defaultGroup-s28u544' and category named 'defaultCategory-s28u544'
 And the user sets subCategory 'defaultSubCategory-s28u544' mark up with max '10' and min '0' values
 
-Given there is the product with 'name-28544' name, '28544' sku, '28544' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s28u544', category named 'defaultCategory-s28u544', subcategory named 'defaultSubCategory-s28u544'
+Given there is the product with 'name-28544' name, '28544' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s28u544', category named 'defaultCategory-s28u544', subcategory named 'defaultSubCategory-s28u544'
 
 Given the user creates invoice api object with values
 | elementName | value |

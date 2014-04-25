@@ -3,7 +3,7 @@ package project.lighthouse.autotests.steps.api.departmentManager;
 import net.thucydides.core.annotations.Step;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
-import project.lighthouse.autotests.api.abstractFactory.factories.InvoicesFactory;
+import project.lighthouse.autotests.api.factories.InvoicesFactory;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.User;
 import project.lighthouse.autotests.objects.api.invoice.Invoice;

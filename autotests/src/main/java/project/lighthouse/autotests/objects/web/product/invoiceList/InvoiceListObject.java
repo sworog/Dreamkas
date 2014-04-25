@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects.web.product;
+package project.lighthouse.autotests.objects.web.product.invoiceList;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -10,32 +10,30 @@ import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.Map;
 
-public class WriteOffListObject extends AbstractObject implements ObjectLocatable, ResultComparable, ObjectClickable {
+public class InvoiceListObject extends AbstractObject implements ObjectLocatable, ResultComparable, ObjectClickable {
 
     private String acceptanceDateFormatted;
     private String quantity;
     private String priceFormatted;
     private String totalPriceFormatted;
+    private String invoiceSku;
 
-    private String number;
-
-    public WriteOffListObject(WebElement element) {
+    public InvoiceListObject(WebElement element) {
         super(element);
     }
 
-    @Override
     public void setProperties() {
-        acceptanceDateFormatted = getElement().findElement(By.xpath(".//*[@model-attribute='createdDateFormatted']")).getText();
+        acceptanceDateFormatted = getElement().findElement(By.xpath(".//*[@model-attribute='acceptanceDateFormatted']")).getText();
         quantity = getElement().findElement(By.xpath(".//*[@model-attribute='quantityElement']")).getText();
         priceFormatted = getElement().findElement(By.xpath(".//*[@model-attribute='priceFormatted']")).getText();
         totalPriceFormatted = getElement().findElement(By.xpath(".//*[@model-attribute='totalPriceFormatted']")).getText();
-        number = getElement().getAttribute("writeoff-number");
+        invoiceSku = getElement().getAttribute("invoice-sku");
     }
 
     @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
-                .compare("createdDateFormatted", acceptanceDateFormatted, row.get("createdDateFormatted"))
+                .compare("acceptanceDateFormatted", acceptanceDateFormatted, row.get("acceptanceDateFormatted"))
                 .compare("quantity", quantity, row.get("quantity"))
                 .compare("priceFormatted", priceFormatted, row.get("priceFormatted"))
                 .compare("totalPriceFormatted", totalPriceFormatted, row.get("totalPriceFormatted"));
@@ -43,7 +41,7 @@ public class WriteOffListObject extends AbstractObject implements ObjectLocatabl
 
     @Override
     public String getObjectLocator() {
-        return number;
+        return invoiceSku;
     }
 
     @Override

@@ -15,7 +15,7 @@ GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
 Given there is the supplier with name 'supplier-s32u681s1'
 And there is the invoice in the store by 'departmentManager-s32u681'
-And there is the product with 'name-s32u681s1' name, 'sku-s32u681s1' sku, 'barCode-s32u681s1' barcode
+And there is the product with 'name-s32u681s1' name, 'barCode-s32u681s1' barcode
 
 Given the user opens last created invoice page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -402,7 +402,7 @@ GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
 Given there is the supplier with name 'supplier-s32u681s1'
 And there is the invoice in the store by 'departmentManager-s32u681'
-And there is the product with 'name-s32u681s1' name, 'sku-s32u681s1' sku, 'barCode-s32u681s1' barcode
+And there is the product with 'name-s32u681s1' name, 'barCode-s32u681s1' barcode
 
 Given the user opens last created invoice page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password

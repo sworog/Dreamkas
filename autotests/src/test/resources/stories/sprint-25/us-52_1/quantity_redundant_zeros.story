@@ -20,7 +20,7 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-25521' name, '25521' sku, '25521' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+Given there is the product with 'name-25521' name, '25521' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -30,12 +30,12 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | 25521 |
+| productName | name-25521 |
 | quantity | 12,000 |
 | price | 100 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s25u521'
 
-Given the user navigates to the product with sku '25521'
+Given the user navigates to the product with name 'name-25521'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
 Then the user checks the elements values
 | elementName | value |
@@ -49,7 +49,7 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-255212' name, '255212' sku, '255212' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+Given there is the product with 'name-255212' name, '255212' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -59,12 +59,12 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | 255212 |
+| productName | name-255212 |
 | quantity | 85,560 |
 | price | 100 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s25u521'
 
-Given the user navigates to the product with sku '255212'
+Given the user navigates to the product with name 'name-255212'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
 Then the user checks the elements values
 | elementName | value |
@@ -78,7 +78,7 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-255213' name, '255213' sku, '255213' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+Given there is the product with 'name-255213' name, '255213' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -88,12 +88,12 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | 255213 |
+| productName | name-255213 |
 | quantity | 43,196 |
 | price | 100 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s25u521'
 
-Given the user navigates to the product with sku '255213'
+Given the user navigates to the product with name 'name-255213'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
 Then the user checks the elements values
 | elementName | value |
@@ -107,7 +107,7 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-255214' name, '255214' sku, '255214' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+Given there is the product with 'name-255214' name, '255214' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -137,7 +137,7 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-255215' name, '255215' sku, '255215' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+Given there is the product with 'name-255215' name, '255215' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -167,7 +167,7 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-255216' name, '255216' sku, '255216' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+Given there is the product with 'name-255216' name, '255216' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -198,7 +198,7 @@ Meta:
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-255217' name, '255217' sku, '255217' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+Given there is the product with 'name-255217' name, '255217' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -229,7 +229,7 @@ Meta:
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-255218' name, '255218' sku, '255218' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+Given there is the product with 'name-255218' name, '255218' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -260,7 +260,7 @@ Meta:
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-255219' name, '255219' sku, '255219' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+Given there is the product with 'name-255219' name, '255219' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -290,7 +290,7 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-2552120' name, '2552120' sku, '2552120' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+Given there is the product with 'name-2552120' name, '2552120' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -300,12 +300,12 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | 2552120 |
+| productName | name-2552120 |
 | quantity | 12,000 |
 | price | 100 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s25u521'
 
-Given the user navigates to the product with sku '2552120'
+Given the user navigates to the product with name 'name-2552120'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
 And the user clicks the product local navigation invoices link
 Then the user checks the product invoices list contains entry
@@ -320,7 +320,7 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-2552121' name, '2552121' sku, '255218' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+Given there is the product with 'name-2552121' name, '255218' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -330,12 +330,12 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | 2552121 |
+| productName | 'name-2552121 |
 | quantity | 85,560 |
 | price | 100 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s25u521'
 
-Given the user navigates to the product with sku '2552121'
+Given the user navigates to the product with name ''name-2552121'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
 And the user clicks the product local navigation invoices link
 Then the user checks the product invoices list contains entry
@@ -350,7 +350,7 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-2552122' name, '2552122' sku, '2552122' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+Given there is the product with 'name-2552122' name, '2552122' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -360,12 +360,12 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | 2552122 |
+| productName | 'name-2552122 |
 | quantity | 43,196 |
 | price | 100 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s25u521'
 
-Given the user navigates to the product with sku '2552122'
+Given the user navigates to the product with name 'name-2552122'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
 And the user clicks the product local navigation invoices link
 Then the user checks the product invoices list contains entry
@@ -380,8 +380,8 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-2552123' name, '2552123' sku, '2552123' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
-And the user adds the product to the write off with number '25521-01' with sku '2552123', quantity '12,000', price '100, cause 'cause' in the store ruled by 'departmentManager-s25u521'
+Given there is the product with 'name-2552123' name, '2552123' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+And the user adds the product to the write off with number '25521-01' with name 'name-2552123', quantity '12,000', price '100', cause 'cause' in the store ruled by 'departmentManager-s25u521'
 
 Given the user navigates to the write off with number '25521-01'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
@@ -398,8 +398,8 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-2552124' name, '2552124' sku, '2552124' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
-And the user adds the product to the write off with number '25521-01' with sku '2552124', quantity '85,560', price '100, cause 'cause' in the store ruled by 'departmentManager-s25u521'
+Given there is the product with 'name-2552124' name, '2552124' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+And the user adds the product to the write off with number '25521-01' with name '2552124', quantity '85,560', price '100', cause 'cause' in the store ruled by 'departmentManager-s25u521'
 
 Given the user navigates to the write off with number '25521-01'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
@@ -415,8 +415,8 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-2552125' name, '2552125' sku, '2552125' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
-And the user adds the product to the write off with number '25521-01' with sku '2552125', quantity '43,196', price '100, cause 'cause' in the store ruled by 'departmentManager-s25u521'
+Given there is the product with 'name-2552125' name, '2552125' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+And the user adds the product to the write off with number '25521-01' with name '2552125', quantity '43,196', price '100', cause 'cause' in the store ruled by 'departmentManager-s25u521'
 
 Given the user navigates to the write off with number '25521-01'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
@@ -432,10 +432,10 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-2552126' name, '2552126' sku, '2552126' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
-And the user adds the product to the write off with number '25521-01' with sku '2552126', quantity '12,000', price '100, cause 'cause' in the store ruled by 'departmentManager-s25u521'
+Given there is the product with 'name-2552126' name, '2552126' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+And the user adds the product to the write off with number '25521-01' with name '2552126', quantity '12,000', price '100', cause 'cause' in the store ruled by 'departmentManager-s25u521'
 
-Given the user navigates to the product with sku '2552126'
+Given the user navigates to the product with name 'name-2552126'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
 And the user clicks the product local navigation writeoffs link
 Then the user checks the product writeOff list contains entry
@@ -450,10 +450,10 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-2552127' name, '2552127' sku, '2552127' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
-And the user adds the product to the write off with number '25521-01' with sku '2552127', quantity '85,560', price '100, cause 'cause' in the store ruled by 'departmentManager-s25u521'
+Given there is the product with 'name-2552127' name, '2552127' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+And the user adds the product to the write off with number '25521-01' with name '2552127', quantity '85,560', price '100', cause 'cause' in the store ruled by 'departmentManager-s25u521'
 
-Given the user navigates to the product with sku '2552127'
+Given the user navigates to the product with name 'name-2552127'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
 And the user clicks the product local navigation writeoffs link
 Then the user checks the product writeOff list contains entry
@@ -468,10 +468,10 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-2552128' name, '2552128' sku, '2552128' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
-And the user adds the product to the write off with number '25521-01' with sku '2552128', quantity '43,196', price '100, cause 'cause' in the store ruled by 'departmentManager-s25u521'
+Given there is the product with 'name-2552128' name, '2552128' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+And the user adds the product to the write off with number '25521-01' with name '2552128', quantity '43,196', price '100', cause 'cause' in the store ruled by 'departmentManager-s25u521'
 
-Given the user navigates to the product with sku '2552128'
+Given the user navigates to the product with name 'name-2552128'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
 And the user clicks the product local navigation writeoffs link
 Then the user checks the product writeOff list contains entry
@@ -487,10 +487,10 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-2552129' name, '2552129' sku, '2552129' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+Given there is the product with 'name-2552129' name, '2552129' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
 And the user prepares fixture for story 52.1 precision 1
 
-Given the user navigates to the product with sku '2552129'
+Given the user navigates to the product with name 'name-2552129'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
 When the user clicks the product local navigation returns link
 Then the user checks the product return list contains entry
@@ -506,10 +506,10 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-2552130' name, '2552130' sku, '2552130' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+Given there is the product with 'name-2552130' name, '2552130' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
 And the user prepares fixture for story 52.1 precision 2
 
-Given the user navigates to the product with sku '2552130'
+Given the user navigates to the product with name 'name-2552130'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
 When the user clicks the product local navigation returns link
 Then the user checks the product return list contains entry
@@ -524,10 +524,10 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-52_1/aPreconditionToStoryUs52.1.story
 
-Given there is the product with 'name-2552131' name, '2552131' sku, '2552131' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
+Given there is the product with 'name-2552131' name, '2552131' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u521', category named 'defaultCategory-s25u521', subcategory named 'defaultSubCategory-s25u521'
 And the user prepares fixture for story 52.1 precision 3
 
-Given the user navigates to the product with sku '2552131'
+Given the user navigates to the product with name 'name-2552131'
 When the user logs in using 'departmentManager-s25u521' userName and 'lighthouse' password
 When the user clicks the product local navigation returns link
 Then the user checks the product return list contains entry

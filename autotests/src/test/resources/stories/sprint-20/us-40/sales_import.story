@@ -26,12 +26,12 @@ Then the user sees success message 'Настройки успешно сохра
 When the user logs out
 Given there is the subCategory with name 'ProductsExportSubCategory' related to group named 'ProductsExportGroup' and category named 'ProductsExportCategory'
 And the user sets subCategory 'ProductsExportSubCategory' mark up with max '30' and min '0' values
-And there is the product with 'Конф.жев.Фруттелла 4 вкуса 42.5г' name, '87108521 ' sku, '87108521 ' barcode, 'unit' units, '20,80' purchasePrice of group named 'ProductsExportGroup', category named 'ProductsExportCategory', subcategory named 'ProductsExportSubCategory'
+And there is the product with 'Конф.жев.Фруттелла 4 вкуса 42.5г' name, '87108521 ' barcode, 'unit' units, '20,80' purchasePrice of group named 'ProductsExportGroup', category named 'ProductsExportCategory', subcategory named 'ProductsExportSubCategory'
 And there is the user with name 'ProductsExportStoreManager', position 'ProductsExportStoreManager', username 'ProductsExportStoreManager', password 'lighthouse', role 'storeManager'
 And there is the user with name 'ProductsExportStoreManager2', position 'ProductsExportStoreManager2', username 'ProductsExportStoreManager2', password 'lighthouse', role 'storeManager'
 And there is the store with number '666' managed by 'ProductsExportStoreManager'
 And there is the store with number '777' managed by 'ProductsExportStoreManager2'
-And the user navigates to the product with sku '87108521'
+And the user navigates to the product with name 'Конф.жев.Фруттелла 4 вкуса 42.5г'
 When the user logs in using 'ProductsExportStoreManager' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
@@ -42,7 +42,7 @@ And the user checks the 'retailPrice' value is '26,99'
 Given the user opens amount list page
 Then the user checks the product with '87108521' sku has 'amounts amount' element equal to '0' on amounts page
 When the user logs out
-Given the user navigates to the product with sku '87108521'
+Given the user navigates to the product with name 'Конф.жев.Фруттелла 4 вкуса 42.5г'
 When the user logs in using 'ProductsExportStoreManager2' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available

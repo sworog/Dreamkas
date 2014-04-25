@@ -20,7 +20,6 @@ public class ObjectsFactory {
                 "0",
                 "100.0",
                 "barcode",
-                "sku",
                 "country",
                 "vendor",
                 "info",

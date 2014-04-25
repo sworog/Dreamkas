@@ -10,7 +10,7 @@ In order to иметь возможность работать с оригина
 Scenario: WriteOff data independence
 
 Given there is the write off with 'WriteOff-DI-Test' number with product 'WriteOff-DI-Test' with quantity '1', price '1' and cause 'cause'
-And the user navigates to the product with sku 'WriteOff-DI-Test'
+And the user navigates to the product with name 'WriteOff-DI-Test'
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
 And the user inputs values in element fields
@@ -33,7 +33,7 @@ And the user checks the product with 'WriteOff-DI-Test' sku has elements on the 
 Scenario: Edited product can be added again to write off
 
 Given there is the write off with 'WriteOff-DI-Test1' number with product 'WriteOff-DI-Test1' with quantity '1', price '1' and cause 'cause'
-And the user navigates to the product with sku 'WriteOff-DI-Test1'
+And the user navigates to the product with name 'WriteOff-DI-Test1'
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
 And the user inputs values in element fields

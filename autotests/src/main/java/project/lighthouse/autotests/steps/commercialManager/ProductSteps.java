@@ -5,6 +5,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.helper.StringGenerator;
+import project.lighthouse.autotests.objects.web.product.ProductObject;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductCardView;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductCreatePage;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductListPage;
@@ -13,6 +14,8 @@ import project.lighthouse.autotests.pages.departmentManager.catalog.product.Prod
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductReturnList;
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductWriteOffList;
 
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 public class ProductSteps extends ScenarioSteps {
@@ -231,5 +234,27 @@ public class ProductSteps extends ScenarioSteps {
             fail("Create new product button is present on product list page!");
         } catch (Exception ignored) {
         }
+    }
+
+    @Step
+    public void productObjectClickByLocator(String locator) {
+        productListPage.getProductObjectCollection().clickByLocator(locator);
+    }
+
+    @Step
+    public void productObjectCollectionContainObjectWithLocator(String locator) {
+        productListPage.getProductObjectCollection().contains(locator);
+    }
+
+    @Step
+    public void productListObjectCollectionCompareWithExamplesTable(ExamplesTable examplesTable) {
+        productListPage.getProductObjectCollection().compareWithExampleTable(examplesTable);
+    }
+
+    @Step
+    public void assertProductListObjectPurchasePrice(String locator, String expectedValue) {
+        ProductObject productObject = (ProductObject)
+                productListPage.getProductObjectCollection().getAbstractObjectByLocator(locator);
+        assertThat(productObject.getPurchasePrice(), is(expectedValue));
     }
 }

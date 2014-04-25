@@ -5,7 +5,7 @@ import org.jbehave.core.annotations.Then;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.commercialManager.ProductSteps;
 
-public class ThenProductSteps {
+public class ThenProductUserSteps {
 
     @Steps
     ProductSteps productSteps;
@@ -28,5 +28,21 @@ public class ThenProductSteps {
     @Then("the user sees no create new product button")
     public void thenTheUserSeesNoCreateNewProductButton() {
         productSteps.newProductCreateButtonIsNotPresent();
+    }
+
+    @Then("the user checks the products list contain product with name '$name'")
+    public void thenTheUserChecksTheProductsListContainProductWithName(String name) {
+        productSteps.productObjectCollectionContainObjectWithLocator(name);
+    }
+
+    @Then("the user checks product list contains values $examplesTable")
+    public void thenTheUserChecksProductListContainValues(ExamplesTable examplesTable) {
+        productSteps.productListObjectCollectionCompareWithExamplesTable(examplesTable);
+    }
+
+    @Then("the user checks the product with name '$name' has purchasePrice equals to '$expectedValue'")
+    public void thenTheUserChecksTheProductWithNameHasPurchasePriceEqualsToExpectedValue(String name,
+                                                                                         String expectedValue) {
+        productSteps.assertProductListObjectPurchasePrice(name, expectedValue);
     }
 }

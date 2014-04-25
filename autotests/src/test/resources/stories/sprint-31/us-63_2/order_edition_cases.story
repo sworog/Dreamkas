@@ -14,7 +14,7 @@ Meta:
 GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
               precondition/sprint-31/us-63_1/aPreconditionToPrepareCatalog.story
 
-Given there is the product with 'name-30631' name, '30631' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
+Given there is the product with 'name-30631' name, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse' password
@@ -40,7 +40,7 @@ Meta:
 GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
               precondition/sprint-31/us-63_1/aPreconditionToPrepareCatalog.story
 
-Given there is the product with 'name-30631' name, '30631' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
+Given there is the product with 'name-30631' name, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse' password

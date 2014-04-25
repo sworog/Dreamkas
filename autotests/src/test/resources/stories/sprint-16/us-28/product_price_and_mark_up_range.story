@@ -11,14 +11,17 @@ Scenario: Product creation without filling any ranges
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
-When the user inputs 'Retail price - PCWRPR-1' in 'sku' field
-And the user inputs 'Наименование56' in 'name' field
+
+When the user inputs 'Retail price - PCWRPR-1' in 'name' field
 And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user inputs '12356' in 'purchasePrice' field
 And the user clicks the create button
-Then the user checks the product with 'Retail price - PCWRPR-1' sku is present
-When the user open the product card with 'Retail price - PCWRPR-1' sku
+
+Then the user checks the products list contain product with name 'Retail price - PCWRPR-1'
+
+When the user clicks on product with name 'Retail price - PCWRPR-1'
+
 Then the user checks the elements values
 | elementName | value |
 | purchasePrice | 12 356,00 |
@@ -29,8 +32,7 @@ Scenario: Product creation with markup range filling
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
-When the user inputs 'Retail price - PCWMF' in 'sku' field
-And the user inputs 'Наименование56' in 'name' field
+When the user inputs 'Retail price - PCWMF' in 'name' field
 And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user inputs '112' in 'purchasePrice' field
@@ -38,8 +40,11 @@ And the user inputs '10' in 'retailMarkupMin' field
 And the user inputs '15' in 'retailMarkupMax' field
 Then the user checks the 'retailPriceHint' value is '123,20 - 128,80'
 When the user clicks the create button
-Then the user checks the product with 'Retail price - PCWMF' sku is present
-When the user open the product card with 'Retail price - PCWMF' sku
+
+Then the user checks the products list contain product with name 'Retail price - PCWMF'
+
+When the user clicks on product with name 'Retail price - PCWMF'
+
 Then the user checks the elements values
 | elementName | value |
 | purchasePrice | 112 |
@@ -50,8 +55,8 @@ Scenario: Product creation with retailPriceRange range filling
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
-When the user inputs 'Retail price - PCWRPF' in 'sku' field
-And the user inputs 'Наименование56' in 'name' field
+
+When the user inputs 'Retail price - PCWRPF' in 'name' field
 And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user inputs '100' in 'purchasePrice' field
@@ -60,8 +65,11 @@ When the user inputs '140' in 'retailPriceMin' field
 And the user inputs '145' in 'retailPriceMax' field
 Then the user checks the 'retailMarkupHint' value is '40,00 - 45,00%'
 When the user clicks the create button
-Then the user checks the product with 'Retail price - PCWRPF' sku is present
-When the user open the product card with 'Retail price - PCWRPF' sku
+
+Then the user checks the products list contain product with name 'Retail price - PCWRPF'
+
+When the user clicks on product with name 'Retail price - PCWRPF'
+
 Then the user checks the elements values
 | elementName | value |
 | purchasePrice | 100 |
@@ -72,17 +80,21 @@ Scenario: Retail mark up last used field is active in product edition
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
-When the user inputs 'Retailprice-RM-LUFIAOPE' in 'sku' field
-And the user inputs 'Наименование56' in 'name' field
+
+When the user inputs 'Retailprice-RM-LUFIAOPE' in 'name' field
 And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user inputs '100' in 'purchasePrice' field
 And the user inputs '10' in 'retailMarkupMin' field
 And the user inputs '15' in 'retailMarkupMax' field
 When the user clicks the create button
-Then the user checks the product with 'Retailprice-RM-LUFIAOPE' sku is present
-When the user open the product card with 'Retailprice-RM-LUFIAOPE' sku
-And the user clicks the edit button on product card view page
+
+Then the user checks the products list contain product with name 'Retailprice-RM-LUFIAOPE'
+
+When the user clicks on product with name 'Retailprice-RM-LUFIAOPE'
+
+When the user clicks the edit button on product card view page
+
 Then the user checks the elements values
 | elementName | value |
 | retailPriceHint | 110,00 - 115,00 |
@@ -97,8 +109,8 @@ Scenario: Retail price last used field is active in product edition
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
-When the user inputs 'Retailprice-RP-LUFIAIPE' in 'sku' field
-And the user inputs 'Наименование56' in 'name' field
+
+When the user inputs 'Retailprice-RP-LUFIAIPE' in 'name' field
 And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user inputs '100' in 'purchasePrice' field
@@ -106,10 +118,13 @@ And the user clicks 'retailPriceHint' to make it avalaible
 When the user inputs '140' in 'retailPriceMin' field
 And the user inputs '145' in 'retailPriceMax' field
 When the user clicks the create button
-Then the user checks the product with 'Retailprice-RP-LUFIAIPE' sku is present
-When the user open the product card with 'Retailprice-RP-LUFIAIPE' sku
+
+Then the user checks the products list contain product with name 'Retailprice-RP-LUFIAIPE'
+
+When the user clicks on product with name 'Retailprice-RP-LUFIAIPE'
 And the user clicks the edit button on product card view page
 Then the user checks the elements values
+
 | elementName | value |
 | retailMarkupHint | 40,00 - 45,00 |
 And the user checks 'retailPriceMin' 'is' avalaible

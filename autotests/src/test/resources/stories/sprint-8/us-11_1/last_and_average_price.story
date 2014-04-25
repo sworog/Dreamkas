@@ -19,7 +19,7 @@ Meta:
 Given there is the user with name 'departmentManager-s8u111', position 'departmentManager-s8u111', username 'departmentManager-s8u111', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s8u111' managed by department manager named 'departmentManager-s8u111'
 
-Given there is the product with 'Печенье Московское' name, 'Печенье-Московское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'Печенье Московское' name, '45695514566' barcode, 'liter' units, '15' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -74,7 +74,7 @@ Meta:
 Given there is the user with name 'departmentManager-s8u111', position 'departmentManager-s8u111', username 'departmentManager-s8u111', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s8u111' managed by department manager named 'departmentManager-s8u111'
 
-Given there is the product with 'Печенье Питерское' name, 'Печенье-Питерское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'Печенье Питерское' name, '45695514566' barcode, 'liter' units, '15' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -129,7 +129,7 @@ Meta:
 Given there is the user with name 'departmentManager-s8u111', position 'departmentManager-s8u111', username 'departmentManager-s8u111', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s8u111' managed by department manager named 'departmentManager-s8u111'
 
-Given there is the product with 'Печенье Гламурное' name, 'Печенье-Гламурное-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'Печенье Гламурное' name, '45695514566' barcode, 'liter' units, '15' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -184,7 +184,7 @@ Meta:
 Given there is the user with name 'departmentManager-s8u111', position 'departmentManager-s8u111', username 'departmentManager-s8u111', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s8u111' managed by department manager named 'departmentManager-s8u111'
 
-Given there is the product with 'Печенье Астраханское' name, 'Печенье-Астраханское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'Печенье Астраханское' name, '45695514566' barcode, 'liter' units, '15' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -239,7 +239,7 @@ Meta:
 Given there is the user with name 'departmentManager-s8u111', position 'departmentManager-s8u111', username 'departmentManager-s8u111', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s8u111' managed by department manager named 'departmentManager-s8u111'
 
-Given there is the product with 'Печенье Киевское' name, 'Печенье-Киевское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'Печенье Киевское' name, '45695514566' barcode, 'liter' units, '15' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -294,8 +294,8 @@ Meta:
 Given there is the user with name 'departmentManager-s8u111', position 'departmentManager-s8u111', username 'departmentManager-s8u111', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s8u111' managed by department manager named 'departmentManager-s8u111'
 
-Given there is the product with 'Печенье Юбилейное' name, 'Печенье-Юбилейное-Артикул' sku, '45695514566' barcode, 'liter' units, '25,50' purchasePrice
-Given there is the product with 'name-s8u111' name, 'sku-s8u111' sku, 'barcode-s8u111' barcode, 'liter' units, '25,50' purchasePrice
+Given there is the product with 'Печенье Юбилейное' name, '45695514566' barcode, 'liter' units, '25,50' purchasePrice
+Given there is the product with 'name-s8u111' name, 'barcode-s8u111' barcode, 'liter' units, '25,50' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
