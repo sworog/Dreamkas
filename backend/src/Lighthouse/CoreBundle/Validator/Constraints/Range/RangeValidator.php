@@ -30,7 +30,7 @@ class RangeValidator extends ConstraintValidator
         try {
             $comparison = $this->createComparison($value, $constraint);
         } catch (UnexpectedTypeException $e) {
-            $this->addViolation($constraint, $constraint->invalidMessage);
+            $this->addViolation($constraint, $constraint->invalidMessage, array('{{ value }}' => $value));
             return;
         }
 
