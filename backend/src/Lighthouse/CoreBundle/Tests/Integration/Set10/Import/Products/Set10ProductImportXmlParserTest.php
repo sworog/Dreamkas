@@ -49,49 +49,6 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
         $this->assertEquals('Жевательные резинки, конфеты', $groups[2]['name']);
     }
 
-    public function testMeasurementParsing()
-    {
-        $parser = $this->createXmlParser();
-
-        /* @var bool|GoodElement $good */
-        $good = $parser->readNextElement();
-        $this->assertEquals(Product::UNITS_UNIT, $good->getUnits());
-
-        $good = $parser->readNextElement();
-        $this->assertEquals(Product::UNITS_UNIT, $good->getUnits());
-
-        $good = $parser->readNextElement();
-        $this->assertEquals(Product::UNITS_KG, $good->getUnits());
-
-        $good = $parser->readNextElement();
-        $this->assertEquals(Product::UNITS_KG, $good->getUnits());
-
-        $good = $parser->readNextElement();
-        $this->assertFalse($good);
-    }
-
-    public function testMeasurementCaseSensitiveParsing()
-    {
-        $parser = $this->createXmlParser('Integration/Set10/Import/Products/goods-measurement.xml');
-
-        $expected = array(
-            Product::UNITS_UNIT,
-            Product::UNITS_UNIT,
-            Product::UNITS_UNIT,
-            Product::UNITS_UNIT,
-            Product::UNITS_KG,
-            Product::UNITS_KG,
-            Product::UNITS_KG,
-            Product::UNITS_KG,
-            null
-        );
-
-        foreach ($expected as $expectedUnit) {
-            $good = $parser->readNextElement();
-            $this->assertEquals($expectedUnit, $good->getUnits());
-        }
-    }
-
     public function testOnlyGroupNodesAreRead()
     {
         $parser = $this->createXmlParser();

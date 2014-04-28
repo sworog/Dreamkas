@@ -376,11 +376,11 @@ class Set10ProductImporter
     public function createWeightType(GoodElement $good)
     {
         $type = new WeightType();
-        $type->nameOnScales = $good->getPluginProperty('name-on-scale-screen');
-        $type->descriptionOnScales = $good->getPluginProperty('description-on-scale-screen');
-        $type->ingredients = $good->getPluginProperty('composition');
-        $type->nutritionFacts = $good->getPluginProperty('food-value');
-        $type->shelfLife = $good->getPluginProperty('good-for-hours');
+        $type->nameOnScales = $good->getPluginProperty(GoodElement::PLUGIN_PROPERTY_NAME_ON_SCALE_SCREEN);
+        $type->descriptionOnScales = $good->getPluginProperty(GoodElement::PLUGIN_PROPERTY_DESCRIPTION_ON_SCALE_SCREEN);
+        $type->ingredients = $good->getPluginProperty(GoodElement::PLUGIN_PROPERTY_COMPOSITION);
+        $type->nutritionFacts = $good->getPluginProperty(GoodElement::PLUGIN_PROPERTY_FOOD_VALUE);
+        $type->shelfLife = $good->getPluginProperty(GoodElement::PLUGIN_PROPERTY_GOOD_FOR_HOURS);
         return $type;
     }
 

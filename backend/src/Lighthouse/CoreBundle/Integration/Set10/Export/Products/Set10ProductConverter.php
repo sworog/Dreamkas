@@ -11,7 +11,7 @@ use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\Translation\TranslatorInterface;
-use Lighthouse\CoreBundle\Integration\Set10\Import\Products\GoodElement as ImportGoodElement;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Products\GoodElement;
 
 /**
  * @DI\Service("lighthouse.core.integration.set10.export.products.converter")
@@ -97,9 +97,9 @@ class Set10ProductConverter
         $product = $storeProductModel->product;
 
         $goodElement = GoodElement::create();
-        $goodElement->setMarking($product->sku);
+        $goodElement->setMarkingOfTheGood($product->sku);
         $goodElement->setShopIndices($storeNumbers);
-        $goodElement->setName($product->name);
+        $goodElement->setGoodName($product->name);
         $goodElement->setBarcode($product->barcode);
         $goodElement->setPrice(
             $this->moneyModelTransformer->transform($storeProductModel->roundedRetailPrice)
@@ -131,11 +131,11 @@ class Set10ProductConverter
     {
         switch ($product->getType()) {
             case WeightType::TYPE:
-                $goodElement->setProductType(ImportGoodElement::PRODUCT_WEIGHT_ENTITY);
+                $goodElement->setProductType(GoodElement::PRODUCT_WEIGHT_ENTITY);
                 $goodElement->setPluginProperty('precision', '0.001');
                 break;
             case UnitType::TYPE:
-                $goodElement->setProductType(ImportGoodElement::PRODUCT_PIECE_ENTITY);
+                $goodElement->setProductType(GoodElement::PRODUCT_PIECE_ENTITY);
                 $goodElement->setPluginProperty('precision', '0.001');
                 break;
         }
