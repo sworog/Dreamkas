@@ -49,9 +49,10 @@ class Set10ProductConverter
 
     /**
      * @param Product $product
+     * @param bool $withoutHeader
      * @return string[]
      */
-    public function makeXmlByProduct(Product $product)
+    public function makeXmlByProduct(Product $product, $withoutHeader = true)
     {
         $xmlProducts = array();
 
@@ -77,7 +78,7 @@ class Set10ProductConverter
 
         foreach ($versionProducts as $version) {
             $goodElement = $this->createProductXml($version['storeProductModel'], $version['storeNumbers']);
-            $xmlProducts[] = $goodElement->asXmlWithoutHeader();
+            $xmlProducts[] = ($withoutHeader) ? $goodElement->asXmlWithoutHeader() : $goodElement->asXml();
         }
 
         return $xmlProducts;

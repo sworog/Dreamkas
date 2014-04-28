@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
+use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Integration\Set10\Export\Products\ExportProductsWorker;
 use Lighthouse\CoreBundle\Integration\Set10\Export\Products\Set10Export;
 use Lighthouse\CoreBundle\Integration\Set10\Export\Products\Set10ProductConverter;
@@ -43,12 +44,6 @@ class ConvertToXmlForSet10Test extends WebTestCase
      */
     public function initBase()
     {
-        $storeManager1User = $this->factory->user()->getUser('storeManager1', 'password', 'ROLE_STORE_MANAGER');
-        $storeManager1AccessToken = $this->factory->oauth()->auth($storeManager1User);
-        $storeManager2User = $this->factory->user()->getUser('storeManager2', 'password', 'ROLE_STORE_MANAGER');
-        $storeManager2AccessToken = $this->factory->oauth()->auth($storeManager2User);
-        $storeManager3User = $this->factory->user()->getUser('storeManager3', 'password', 'ROLE_STORE_MANAGER');
-
         $groupData = array(
             'name' => 'Группа',
             'id' => $this->createGroup('Группа'),
@@ -78,9 +73,10 @@ class ConvertToXmlForSet10Test extends WebTestCase
                 'id' => $this->factory->store()->getStoreId('3'),
             ),
         );
-        $this->factory->store()->linkStoreManagers($storeManager1User->id, $storesData[1]['id']);
-        $this->factory->store()->linkStoreManagers($storeManager2User->id, $storesData[2]['id']);
-        $this->factory->store()->linkStoreManagers($storeManager3User->id, $storesData[3]['id']);
+
+        $storeManager1AccessToken = $this->factory->oauth()->authAsStoreManager($storesData[1]['id']);
+        $storeManager2AccessToken = $this->factory->oauth()->authAsStoreManager($storesData[2]['id']);
+        $this->factory->oauth()->authAsStoreManager($storesData[3]['id']);
 
         $productsData = array(
             1 => array(
@@ -200,14 +196,14 @@ class ConvertToXmlForSet10Test extends WebTestCase
 
     public function testConvertProductsToXml()
     {
-        $this->markTestSkipped('Broken');
         $productsData = $this->initBase();
 
         /** @var Set10ProductConverter $converter */
         $converter = $this->getContainer()->get('lighthouse.core.integration.set10.export.products.converter');
 
-        $xmlProduct1 = $converter->makeXmlByProduct($productsData[1]['model']);
+        $xmlProduct1 = $converter->makeXmlByProduct($productsData[1]['model'], false);
         $expectedXmlProduct11 = <<<EOF
+<?xml version="1.0" encoding="UTF-8"?>
 <good marking-of-the-good="10001">
     <shop-indices>1</shop-indices>
     <name>Продукт 1</name>
@@ -239,6 +235,7 @@ class ConvertToXmlForSet10Test extends WebTestCase
 </good>
 EOF;
         $expectedXmlProduct12 = <<<EOF
+<?xml version="1.0" encoding="UTF-8"?>
 <good marking-of-the-good="10001">
     <shop-indices>2 3</shop-indices>
     <name>Продукт 1</name>
@@ -273,12 +270,13 @@ EOF;
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct12, $xmlProduct1[1]);
 
 
-        $xmlProduct2 = $converter->makeXmlByProduct($productsData[2]['model']);
+        $xmlProduct2 = $converter->makeXmlByProduct($productsData[2]['model'], false);
         $this->assertEmpty($xmlProduct2);
 
 
-        $xmlProduct3 = $converter->makeXmlByProduct($productsData[3]['model']);
+        $xmlProduct3 = $converter->makeXmlByProduct($productsData[3]['model'], false);
         $expectedXmlProduct31 = <<<EOF
+<?xml version="1.0" encoding="UTF-8"?>
 <good marking-of-the-good="10003">
     <shop-indices>2</shop-indices>
     <name>Продукт 3</name>
@@ -310,6 +308,7 @@ EOF;
 </good>
 EOF;
         $expectedXmlProduct32 = <<<EOF
+<?xml version="1.0" encoding="UTF-8"?>
 <good marking-of-the-good="10003">
     <shop-indices>1 3</shop-indices>
     <name>Продукт 3</name>
@@ -344,12 +343,13 @@ EOF;
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct32, $xmlProduct3[1]);
 
 
-        $xmlProduct4 = $converter->makeXmlByProduct($productsData[4]['model']);
+        $xmlProduct4 = $converter->makeXmlByProduct($productsData[4]['model'], false);
         $this->assertEmpty($xmlProduct4);
 
 
-        $xmlProduct5 = $converter->makeXmlByProduct($productsData[5]['model']);
+        $xmlProduct5 = $converter->makeXmlByProduct($productsData[5]['model'], false);
         $expectedXmlProduct5 = <<<EOF
+<?xml version="1.0" encoding="UTF-8"?>
 <good marking-of-the-good="10005">
     <shop-indices>1 2 3</shop-indices>
     <name>Продукт 5</name>
@@ -374,8 +374,8 @@ EOF;
             </parent-group>
         </parent-group>
     </group>
-    <measure-type id="liter">
-        <name>л</name>
+    <measure-type id="unit">
+        <name>шт</name>
     </measure-type>
     <plugin-property key="precision" value="1"/>
 </good>
@@ -383,8 +383,9 @@ EOF;
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct5, $xmlProduct5[0]);
 
 
-        $xmlProduct6 = $converter->makeXmlByProduct($productsData[6]['model']);
+        $xmlProduct6 = $converter->makeXmlByProduct($productsData[6]['model'], false);
         $expectedXmlProduct6 = <<<EOF
+<?xml version="1.0" encoding="UTF-8"?>
 <good marking-of-the-good="10006">
     <shop-indices>1 2 3</shop-indices>
     <name>Продукт 6</name>
@@ -409,8 +410,8 @@ EOF;
             </parent-group>
         </parent-group>
     </group>
-    <measure-type id="liter">
-        <name>л</name>
+    <measure-type id="unit">
+        <name>шт</name>
     </measure-type>
     <plugin-property key="precision" value="1"/>
 </good>
@@ -421,7 +422,6 @@ EOF;
 
     public function testWriteRemoteFile()
     {
-        $this->markTestSkipped('Broken');
         $this->initBase();
 
         $xmlFilePath = "/tmp/lighthouse_unit_test";
@@ -435,11 +435,11 @@ EOF;
 
         $this->createConfig(Set10Export::URL_CONFIG_NAME, $xmlFileUrl);
 
-        $commercialAccessToken = $this->factory->oauth()->authAsRole("ROLE_COMMERCIAL_MANAGER");
+        $commercialAccessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $this->clientJsonRequest(
             $commercialAccessToken,
-            "GET",
-            "/api/1/integration/export/products"
+            'GET',
+            '/api/1/integration/export/products'
         );
 
         $this->assertResponseCode(200);
