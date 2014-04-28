@@ -4,7 +4,7 @@ use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Karzer\Karzer;
 
-class AppKernel extends Kernel
+class LighthouseKernel extends Kernel
 {
     /**
      * @var string

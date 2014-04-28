@@ -4,9 +4,9 @@ namespace Lighthouse\CoreBundle\Tests;
 
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Symfony\Component\Filesystem\Filesystem;
-use AppKernel;
+use LighthouseKernel;
 
-class AppKernelTest extends ContainerAwareTestCase
+class LighthouseKernelTest extends ContainerAwareTestCase
 {
     /**
      * @runInSeparateProcess
@@ -22,7 +22,7 @@ class AppKernelTest extends ContainerAwareTestCase
         $tmpDir = '/tmp/' . uniqid('lighthouse-app-kernel-');
         $filesystem->mkdir($tmpDir);
 
-        $kernel = new AppKernel($env, $debug);
+        $kernel = new LighthouseKernel($env, $debug);
         $kernel->setCacheDir($tmpDir);
 
         $kernel->boot();

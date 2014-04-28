@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Test;
 
-use AppKernel;
+use LighthouseKernel;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Karzer\Framework\TestCase\SymfonyWebTestCase;
 use Lighthouse\CoreBundle\Job\JobManager;
@@ -30,7 +30,7 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     }
 
     /**
-     * @return AppKernel
+     * @return LighthouseKernel
      */
     protected static function initKernel()
     {
@@ -60,7 +60,7 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
 
     /**
      * @param array $options
-     * @return AppKernel
+     * @return LighthouseKernel
      */
     protected static function createKernel(array $options = array())
     {

@@ -10,7 +10,6 @@ use Lighthouse\CoreBundle\Form\Product\UnitType;
 use Lighthouse\CoreBundle\Form\Product\WeightType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
