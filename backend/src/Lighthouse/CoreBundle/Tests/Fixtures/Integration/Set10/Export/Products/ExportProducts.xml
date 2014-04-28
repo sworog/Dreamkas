@@ -25,6 +25,11 @@
         </group>
         <product-type>ProductWeightEntity</product-type>
         <plugin-property key="precision" value="0.001"/>
+        <plugin-property key="name-on-scale-screen" value="Название на весах"/>
+        <plugin-property key="description-on-scale-screen" value="Описание&#10;на весах"/>
+        <plugin-property key="composition" value="&lt;масло,соль,перец&gt;"/>
+        <plugin-property key="food-value" value="&quot;Углеводы - 12гр&quot;"/>
+        <plugin-property key="good-for-hours" value="23"/>
         <measure-type id="kg">
             <name>кг</name>
         </measure-type>
@@ -54,6 +59,11 @@
         </group>
         <product-type>ProductWeightEntity</product-type>
         <plugin-property key="precision" value="0.001"/>
+        <plugin-property key="name-on-scale-screen" value="Название на весах"/>
+        <plugin-property key="description-on-scale-screen" value="Описание&#10;на весах"/>
+        <plugin-property key="composition" value="&lt;масло,соль,перец&gt;"/>
+        <plugin-property key="food-value" value="&quot;Углеводы - 12гр&quot;"/>
+        <plugin-property key="good-for-hours" value="23"/>
         <measure-type id="kg">
             <name>кг</name>
         </measure-type>

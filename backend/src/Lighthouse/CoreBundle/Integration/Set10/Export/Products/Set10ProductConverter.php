@@ -131,14 +131,62 @@ class Set10ProductConverter
     {
         switch ($product->getType()) {
             case WeightType::TYPE:
-                $goodElement->setProductType(GoodElement::PRODUCT_WEIGHT_ENTITY);
-                $goodElement->setPluginProperty('precision', '0.001');
+                $this->setWeightProductTypeProperties($goodElement, $product);
                 break;
             case UnitType::TYPE:
-                $goodElement->setProductType(GoodElement::PRODUCT_PIECE_ENTITY);
-                $goodElement->setPluginProperty('precision', '0.001');
+                $this->setUnitProductTypeProperties($goodElement, $product);
                 break;
         }
+    }
+
+    /**
+     * @param GoodElement $goodElement
+     * @param Product $product
+     */
+    protected function setWeightProductTypeProperties(GoodElement $goodElement, Product $product)
+    {
+        $goodElement->setProductType(GoodElement::PRODUCT_WEIGHT_ENTITY);
+        $goodElement->setPluginProperty('precision', '0.001');
+        if ($product->typeProperties->nameOnScales) {
+            $goodElement->setPluginProperty(
+                GoodElement::PLUGIN_PROPERTY_NAME_ON_SCALE_SCREEN,
+                $product->typeProperties->nameOnScales
+            );
+        }
+        if ($product->typeProperties->descriptionOnScales) {
+            $goodElement->setPluginProperty(
+                GoodElement::PLUGIN_PROPERTY_DESCRIPTION_ON_SCALE_SCREEN,
+                $product->typeProperties->descriptionOnScales
+            );
+        }
+        if ($product->typeProperties->ingredients) {
+            $goodElement->setPluginProperty(
+                GoodElement::PLUGIN_PROPERTY_COMPOSITION,
+                $product->typeProperties->ingredients
+            );
+        }
+        if ($product->typeProperties->nutritionFacts) {
+            $goodElement->setPluginProperty(
+                GoodElement::PLUGIN_PROPERTY_FOOD_VALUE,
+                $product->typeProperties->nutritionFacts
+            );
+        }
+        if ($product->typeProperties->shelfLife) {
+            $goodElement->setPluginProperty(
+                GoodElement::PLUGIN_PROPERTY_GOOD_FOR_HOURS,
+                $product->typeProperties->shelfLife
+            );
+        }
+    }
+
+    /**
+     * @param GoodElement $goodElement
+     * @param Product $product
+     */
+    protected function setUnitProductTypeProperties(GoodElement $goodElement, Product $product)
+    {
+        $goodElement->setProductType(GoodElement::PRODUCT_PIECE_ENTITY);
+        $goodElement->setPluginProperty('precision', '0.001');
     }
 
     /**
