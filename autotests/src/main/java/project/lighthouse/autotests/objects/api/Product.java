@@ -12,17 +12,24 @@ public class Product extends AbstractObject {
         this.jsonObject = jsonObject;
     }
 
-    public Product(String name, String units, String vat, String purchasePrice, String barcode,
-                   String sku, String vendorCountry, String vendor, String info,
-                   String subCategory, String retailMarkupMax,
-                   String retailMarkupMin, String rounding) throws JSONException {
+    public Product(String name,
+                   String units,
+                   String vat,
+                   String purchasePrice,
+                   String barcode,
+                   String vendorCountry,
+                   String vendor,
+                   String info,
+                   String subCategory,
+                   String retailMarkupMax,
+                   String retailMarkupMin,
+                   String rounding) throws JSONException {
         this(new JSONObject()
                 .put("name", name)
                 .put("units", units)
                 .put("vat", vat)
                 .put("purchasePrice", purchasePrice)
                 .put("barcode", barcode)
-                .put("sku", sku)
                 .put("vendorCountry", vendorCountry)
                 .put("vendor", vendor)
                 .put("info", info)

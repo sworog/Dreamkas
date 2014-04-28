@@ -30,7 +30,7 @@ class ReturnProductControllerTest extends WebTestCase
         $storeId = $this->factory->store()->getStoreId('197');
         $departmentManager = $this->factory->store()->getDepartmentManager($storeId);
 
-        $products = $this->createProductsBySku(array('1', '2', '3', '4'));
+        $products = $this->createProductsByNames(array('1', '2', '3', '4'));
 
         $importer = $this->importSales('Integration/Set10/Import/Sales/purchases-with-returns.xml');
         $this->assertCount(0, $importer->getErrors(), 'Failed asserting no import errors');
@@ -52,7 +52,7 @@ class ReturnProductControllerTest extends WebTestCase
         Assert::assertNotJsonPathEquals($products['3'], '*.product.id', $getResponse1);
         Assert::assertNotJsonPathEquals($products['4'], '*.product.id', $getResponse1);
         Assert::assertJsonPathEquals($products['1'], '0.product.id', $getResponse1);
-        Assert::assertJsonPathEquals('1', '0.product.sku', $getResponse1);
+        Assert::assertJsonPathEquals('10001', '0.product.sku', $getResponse1);
         Assert::assertJsonPathEquals($storeId, '0.return.store.id', $getResponse1);
         Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.return.createdDate', $getResponse1);
         Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.createdDate', $getResponse1);

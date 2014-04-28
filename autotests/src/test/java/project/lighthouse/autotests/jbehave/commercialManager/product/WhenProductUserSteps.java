@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.When;
 import project.lighthouse.autotests.steps.commercialManager.ProductSteps;
 
-public class WhenProductSteps {
+public class WhenProductUserSteps {
 
     @Steps
     ProductSteps productSteps;
@@ -22,5 +22,10 @@ public class WhenProductSteps {
     @When("the user clicks on the product writeOff with '$number' number")
     public void whenTheUserClicksOnTheProductWriteOff(String number) {
         productSteps.productWriteOffListObjectClick(number);
+    }
+
+    @When("the user clicks on product with name '$name'")
+    public void whenTheUserClicksOnProductWithName(String name) {
+        productSteps.productObjectClickByLocator(name);
     }
 }

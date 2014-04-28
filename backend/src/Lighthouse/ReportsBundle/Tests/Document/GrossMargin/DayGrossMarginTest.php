@@ -11,7 +11,6 @@ class DayGrossMarginTest extends WebTestCase
 {
     public function testDayGrossMargin()
     {
-        $this->markTestSkipped('Broken');
         $costOfGoodsCalculator = $this->getCostOfGoodsCalculator();
         $dayGrossMarginRepository = $this->getDayGrossMarginRepository();
 

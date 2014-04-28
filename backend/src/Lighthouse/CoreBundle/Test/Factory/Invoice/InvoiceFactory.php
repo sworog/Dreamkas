@@ -30,41 +30,22 @@ class InvoiceFactory extends AbstractFactory
     }
 
     /**
-     * @param Invoice $invoice
-     * @param string $productId
-     * @param float $quantity
-     * @param float $price
-     * @param string $id invoice product id to update
-     * @throws \RuntimeException
-     * @internal param string $invoiceId
-     * @return InvoiceProduct
+     * @param string $invoiceId
+     * @param array $data
+     * @param string $storeId
+     * @param string $supplierId
+     * @param null $orderId
+     * @return InvoiceBuilder
      */
-    public function createInvoiceProduct(Invoice $invoice, $productId, $quantity, $price, $id = null)
+    public function editInvoice($invoiceId, array $data = array(), $storeId = null, $supplierId = null, $orderId = null)
     {
-        $invoiceProduct = ($id) ? $this->getInvoiceProductById($id) : new InvoiceProduct();
-
-        $invoiceProduct->quantity = $this->getNumericFactory()->createQuantity($quantity);
-        $invoiceProduct->priceEntered = $this->getNumericFactory()->createMoney($price);
-        $invoiceProduct->product = $this->factory->createProductVersion($productId);
-        $invoiceProduct->invoice = $invoice;
-
-        $invoice->products[] = $invoiceProduct;
-
-        $invoiceProduct->calculatePrices();
-
-        return $invoiceProduct;
-    }
-
-    /**
-     * @param string $id
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     */
-    public function deleteInvoiceProduct($id)
-    {
-        $invoiceProduct = $this->getInvoiceProductById($id);
-        $this->getDocumentManager()->remove($invoiceProduct);
-        $this->getDocumentManager()->flush($invoiceProduct);
+        $builder = new InvoiceBuilder(
+            $this->factory,
+            $this->getInvoiceRepository(),
+            $this->factory->getValidator(),
+            $this->factory->getNumericFactory()
+        );
+        return $builder->editInvoice($invoiceId, $data, $storeId, $supplierId, $orderId);
     }
 
     /**

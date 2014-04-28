@@ -18,8 +18,8 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
 Given there is the subCategory with name 'defaultSubCategory-s30u67' related to group named 'defaultGroup-s30u67' and category named 'defaultCategory-s30u67'
 And the user sets subCategory 'defaultSubCategory-s30u67' mark up with max '10' and min '0' values
 
-Given there is the product with 'name-3067' name, '3067' sku, '3067' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u67', category named 'defaultCategory-s30u67', subcategory named 'defaultSubCategory-s30u67'
-And there is the product with 'name-30671' name, '30671' sku, '30671' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u67', category named 'defaultCategory-s30u67', subcategory named 'defaultSubCategory-s30u67'
+Given there is the product with 'name-3067' name, '3067' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u67', category named 'defaultCategory-s30u67', subcategory named 'defaultSubCategory-s30u67'
+And there is the product with 'name-30671' name, '30671' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u67', category named 'defaultCategory-s30u67', subcategory named 'defaultSubCategory-s30u67'
 
 Given there is the supplier with name 'SupplierOrderDeletionTest'
 

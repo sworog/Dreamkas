@@ -38,7 +38,7 @@ Given there is the order in the store by 'departmentManager-s31u632'
 Given there is the subCategory with name 'defaultSubCategory-s31u632' related to group named 'defaultGroup-s31u632' and category named 'defaultCategory-s31u632'
 And the user sets subCategory 'defaultSubCategory-s31u632' mark up with max '10' and min '0' values
 
-Given there is the product with 'name-30632' name, '30632' sku, '30632' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s31u632', category named 'defaultCategory-s31u632', subcategory named 'defaultSubCategory-s31u632'
+Given there is the product with 'name-30632' name, '30632' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s31u632', category named 'defaultCategory-s31u632', subcategory named 'defaultSubCategory-s31u632'
 
 Given the user opens last created order page
 And the user logs in using 'departmentManager-s31u632' userName and 'lighthouse' password

@@ -103,7 +103,9 @@ class GeneratedListener
      */
     protected function generate($document, $propertyPath, DocumentManager $dm)
     {
-        $value = $this->generator->generate($dm, $document);
-        $this->accessor->setValue($document, $propertyPath, $value);
+        if (null === $this->accessor->getValue($document, $propertyPath)) {
+            $value = $this->generator->generate($dm, $document);
+            $this->accessor->setValue($document, $propertyPath, $value);
+        }
     }
 }

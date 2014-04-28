@@ -61,7 +61,6 @@ define(function(require) {
                 retailMarkupMin: retailMarkupMin,
                 retailPricePreference: this.get('retailPricePreference'),
                 barcode: this.get('barcode'),
-                sku: this.get('sku'),
                 vendorCountry: this.get('vendorCountry'),
                 vendor: this.get('vendor'),
                 info: this.get('info'),

@@ -19,7 +19,7 @@ Meta:
 Given there is the user with name 'departmentManager-s8u111', position 'departmentManager-s8u111', username 'departmentManager-s8u111', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s8u111' managed by department manager named 'departmentManager-s8u111'
 
-Given there is the product with 'Печенье Московское' name, 'Печенье-Московское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'Печенье Московское' name, '45695514566' barcode, 'liter' units, '15' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -29,7 +29,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Московское-Артикул |
+| productName | Печенье-Московское |
 | quantity | 10 |
 | price | 26 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -53,7 +53,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Московское-Артикул |
+| productName | Печенье-Московское |
 | quantity | 10 |
 | price | 56 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -74,7 +74,7 @@ Meta:
 Given there is the user with name 'departmentManager-s8u111', position 'departmentManager-s8u111', username 'departmentManager-s8u111', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s8u111' managed by department manager named 'departmentManager-s8u111'
 
-Given there is the product with 'Печенье Питерское' name, 'Печенье-Питерское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'Печенье Питерское' name, '45695514566' barcode, 'liter' units, '15' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -84,7 +84,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Питерское-Артикул |
+| productName | Печенье-Питерское |
 | quantity | 10 |
 | price | 26 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -108,7 +108,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Питерское-Артикул |
+| productName | Печенье-Питерское |
 | quantity | 10 |
 | price | 56 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -129,7 +129,7 @@ Meta:
 Given there is the user with name 'departmentManager-s8u111', position 'departmentManager-s8u111', username 'departmentManager-s8u111', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s8u111' managed by department manager named 'departmentManager-s8u111'
 
-Given there is the product with 'Печенье Гламурное' name, 'Печенье-Гламурное-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'Печенье Гламурное' name, '45695514566' barcode, 'liter' units, '15' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -139,7 +139,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Гламурное-Артикул |
+| productName | Печенье-Гламурное |
 | quantity | 10 |
 | price | 26 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -163,7 +163,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Гламурное-Артикул |
+| productName | Печенье-Гламурное |
 | quantity | 10 |
 | price | 56 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -184,7 +184,7 @@ Meta:
 Given there is the user with name 'departmentManager-s8u111', position 'departmentManager-s8u111', username 'departmentManager-s8u111', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s8u111' managed by department manager named 'departmentManager-s8u111'
 
-Given there is the product with 'Печенье Астраханское' name, 'Печенье-Астраханское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'Печенье Астраханское' name, '45695514566' barcode, 'liter' units, '15' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -194,7 +194,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Астраханское-Артикул |
+| productName | Печенье-Астраханское |
 | quantity | 10 |
 | price | 26 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -218,7 +218,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Астраханское-Артикул |
+| productName | Печенье-Астраханское |
 | quantity | 10 |
 | price | 56 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -239,7 +239,7 @@ Meta:
 Given there is the user with name 'departmentManager-s8u111', position 'departmentManager-s8u111', username 'departmentManager-s8u111', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s8u111' managed by department manager named 'departmentManager-s8u111'
 
-Given there is the product with 'Печенье Киевское' name, 'Печенье-Киевское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'Печенье Киевское' name, '45695514566' barcode, 'liter' units, '15' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -249,7 +249,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Киевское-Артикул |
+| productName | Печенье-Киевское |
 | quantity | 10 |
 | price | 23,33 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -273,7 +273,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Киевское-Артикул |
+| productName | Печенье-Киевское |
 | quantity | 10 |
 | price | 26 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -294,8 +294,8 @@ Meta:
 Given there is the user with name 'departmentManager-s8u111', position 'departmentManager-s8u111', username 'departmentManager-s8u111', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s8u111' managed by department manager named 'departmentManager-s8u111'
 
-Given there is the product with 'Печенье Юбилейное' name, 'Печенье-Юбилейное-Артикул' sku, '45695514566' barcode, 'liter' units, '25,50' purchasePrice
-Given there is the product with 'name-s8u111' name, 'sku-s8u111' sku, 'barcode-s8u111' barcode, 'liter' units, '25,50' purchasePrice
+Given there is the product with 'Печенье Юбилейное' name, '45695514566' barcode, 'liter' units, '25,50' purchasePrice
+Given there is the product with 'name-s8u111' name, 'barcode-s8u111' barcode, 'liter' units, '25,50' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -305,7 +305,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Юбилейное-Артикул |
+| productName | Печенье-Юбилейное |
 | quantity | 10 |
 | price | 26 |
 And the user adds the product with data to invoice api object
@@ -323,7 +323,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Юбилейное-Артикул |
+| productName | Печенье-Юбилейное |
 | quantity | 5 |
 | price | 29 |
 And the user adds the product with data to invoice api object
@@ -341,7 +341,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Юбилейное-Артикул |
+| productName | Печенье-Юбилейное |
 | quantity | 10 |
 | price | 31 |
 And the user adds the product with data to invoice api object

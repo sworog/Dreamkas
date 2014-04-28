@@ -91,11 +91,6 @@ Scenario: Unathorization use - users ivoice create page
 Given the user opens the default store invoice create page
 Then the user checks the login form is present
 
-Scenario: Unathorization use - amount list page
-
-Given the user opens amount list page
-Then the user checks the login form is present
-
 Scenario: Unathorization use - the write off create page
 
 Given the user opens the write off create page

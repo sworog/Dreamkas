@@ -216,7 +216,7 @@ Then the user checks there is no alert on the page
 
 Scenario: Alert writeOff product verification ProductBarCode stop edit button
 
-Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
+Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' barcode, 'liter' units
 And there is the write off with 'WriteOff-Alerts-10' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Alerts-10'
 And the user logs in as 'departmentManager'
@@ -231,7 +231,7 @@ Then the user checks there is no alert on the page
 
 Scenario: Alert writeOff product verification ProductBarCode stop edit link
 
-Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
+Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' barcode, 'liter' units
 And there is the write off with 'WriteOff-Alerts-11' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Alerts-11'
 And the user logs in as 'departmentManager'
@@ -246,7 +246,7 @@ Then the user checks there is no alert on the page
 
 Scenario: Alert writeOff product verification ProductName stop edit button
 
-Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
+Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' barcode, 'liter' units
 And there is the write off with 'WriteOff-Alerts-12' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Alerts-12'
 And the user logs in as 'departmentManager'
@@ -261,7 +261,7 @@ Then the user checks there is no alert on the page
 
 Scenario: Alert writeOff product verification ProductName stop edit link
 
-Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
+Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' barcode, 'liter' units
 And there is the write off with 'WriteOff-Alerts-13' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Alerts-13'
 And the user logs in as 'departmentManager'
@@ -276,7 +276,7 @@ Then the user checks there is no alert on the page
 
 Scenario: Alert writeOff product verification ProductSku stop edit button
 
-Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
+Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' barcode, 'liter' units
 And there is the write off with 'WriteOff-Alerts-14' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Alerts-14'
 And the user logs in as 'departmentManager'
@@ -291,7 +291,7 @@ Then the user checks there is no alert on the page
 
 Scenario: Alert writeOff product verification ProductSku stop edit link
 
-Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
+Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' barcode, 'liter' units
 And there is the write off with 'WriteOff-Alerts-15' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Alerts-15'
 And the user logs in as 'departmentManager'

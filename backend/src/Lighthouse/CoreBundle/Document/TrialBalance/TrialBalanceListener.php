@@ -18,9 +18,7 @@ use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculato
 use SplQueue;
 
 /**
- * Class TrialBalanceListener
- *
- * @DI\DoctrineMongoDBListener(events={"onFlush", "preFlush", "postFlush"}, priority=128)
+ * @DI\DoctrineMongoDBListener(events={"onFlush"}, priority=128)
  */
 class TrialBalanceListener extends AbstractMongoDBListener
 {
@@ -28,11 +26,6 @@ class TrialBalanceListener extends AbstractMongoDBListener
      * @var TrialBalanceRepository
      */
     protected $trialBalanceRepository;
-
-    /**
-     * @var InvoiceProductRepository
-     */
-    protected $invoiceProductRepository;
 
     /**
      * @var StoreProductRepository
@@ -45,56 +38,25 @@ class TrialBalanceListener extends AbstractMongoDBListener
     protected $costOfGoodsCalculator;
 
     /**
-     * @var SplQueue|TrialBalance[]
-     */
-    protected $trialBalanceQueue;
-
-    /**
-     * @var int
-     */
-    protected $postFlushCounter = 0;
-
-    /**
      * @DI\InjectParams({
      *      "trialBalanceRepository" = @DI\Inject("lighthouse.core.document.repository.trial_balance"),
-     *      "invoiceProductRepository" = @DI\Inject("lighthouse.core.document.repository.invoice_product"),
      *      "storeProductRepository" = @DI\Inject("lighthouse.core.document.repository.store_product"),
      *      "costOfGoodsCalculator" = @DI\Inject("lighthouse.core.document.trial_balance.calculator")
      * })
      * @param TrialBalanceRepository $trialBalanceRepository
-     * @param InvoiceProductRepository $invoiceProductRepository
      * @param StoreProductRepository $storeProductRepository
      * @param CostOfGoodsCalculator $costOfGoodsCalculator
      */
     public function __construct(
         TrialBalanceRepository $trialBalanceRepository,
-        InvoiceProductRepository $invoiceProductRepository,
         StoreProductRepository $storeProductRepository,
         CostOfGoodsCalculator $costOfGoodsCalculator
     ) {
         $this->trialBalanceRepository = $trialBalanceRepository;
-        $this->invoiceProductRepository = $invoiceProductRepository;
         $this->storeProductRepository = $storeProductRepository;
         $this->costOfGoodsCalculator = $costOfGoodsCalculator;
-
-        $this->trialBalanceQueue = new SplQueue();
-        $this->trialBalanceQueue->setIteratorMode(SplQueue::IT_MODE_DELETE);
     }
 
-    /**
-     * @param PreFlushEventArgs $eventArgs
-     */
-    public function preFlush(PreFlushEventArgs $eventArgs)
-    {
-        $dm = $eventArgs->getDocumentManager();
-        $uow = $dm->getUnitOfWork();
-
-        foreach ($uow->getScheduledDocumentUpdates() as $document) {
-            if ($document instanceof Invoice) {
-                $this->processInvoiceOnAcceptanceDateUpdate($document, $dm, $uow);
-            }
-        }
-    }
     /**
      * @param OnFlushEventArgs $eventArgs
      */
@@ -186,7 +148,8 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $trialBalance->reason = $document;
         $trialBalance->createdDate = $document->getReasonDate();
 
-        $this->trialBalanceQueue[] = $trialBalance;
+        $dm->persist($trialBalance);
+        $this->computeChangeSet($dm, $trialBalance);
     }
     
     /**
@@ -232,8 +195,6 @@ class TrialBalanceListener extends AbstractMongoDBListener
         }
 
         $dm->remove($trialBalance);
-
-        $this->computeChangeSet($dm, $trialBalance);
     }
 
     /**
@@ -256,7 +217,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
 
         foreach ($invoiceProducts as $invoiceProduct) {
             $invoiceProduct->beforeSave();
-            //$this->computeChangeSet($dm, $invoiceProduct);
+            $this->computeChangeSet($dm, $invoiceProduct);
         }
 
         foreach ($trialBalances as $trialBalance) {
@@ -272,20 +233,5 @@ class TrialBalanceListener extends AbstractMongoDBListener
             $trialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
             $this->computeChangeSet($dm, $trialBalance);
         }
-    }
-
-    /**
-     * @param PostFlushEventArgs $eventArgs
-     */
-    public function postFlush(PostFlushEventArgs $eventArgs)
-    {
-        if (0 == $this->postFlushCounter++ && !$this->trialBalanceQueue->isEmpty()) {
-            $dm = $eventArgs->getDocumentManager();
-            foreach ($this->trialBalanceQueue as $trialBalance) {
-                $dm->persist($trialBalance);
-            }
-            $dm->flush();
-        }
-        $this->postFlushCounter--;
     }
 }
