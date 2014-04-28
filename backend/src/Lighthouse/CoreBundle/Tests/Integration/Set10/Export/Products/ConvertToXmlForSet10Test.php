@@ -91,7 +91,13 @@ class ConvertToXmlForSet10Test extends WebTestCase
                 'retailMarkupMax' => '60',
                 'retailPricePreference' => 'retailMarkup',
                 'subCategory' => $subCategoryData['id'],
-
+                'typeProperties' => array(
+                    'nameOnScales' => 'Название на весах',
+                    'descriptionOnScales' => "Описание\nна весах",
+                    'ingredients' => '<масло,соль,перец>',
+                    'shelfLife' => '23',
+                    'nutritionFacts' => '"Углеводы - 12гр"'
+                )
             ),
             2 => array(
                 'name' => 'Продукт 2 без диапозонов',
@@ -211,7 +217,6 @@ class ConvertToXmlForSet10Test extends WebTestCase
         <count>1</count>
         <default-code>true</default-code>
     </bar-code>
-    <product-type>ProductPieceEntity</product-type>
     <price-entry price="63.96">
         <number>1</number>
         <department number="1">
@@ -228,10 +233,11 @@ class ConvertToXmlForSet10Test extends WebTestCase
             </parent-group>
         </parent-group>
     </group>
+    <product-type>ProductWeightEntity</product-type>
+    <plugin-property key="precision" value="0.001"/>
     <measure-type id="kg">
         <name>кг</name>
     </measure-type>
-    <plugin-property key="precision" value="1"/>
 </good>
 EOF;
         $expectedXmlProduct12 = <<<EOF
@@ -243,7 +249,6 @@ EOF;
         <count>1</count>
         <default-code>true</default-code>
     </bar-code>
-    <product-type>ProductPieceEntity</product-type>
     <price-entry price="70.58">
         <number>1</number>
         <department number="1">
@@ -260,10 +265,11 @@ EOF;
             </parent-group>
         </parent-group>
     </group>
+    <product-type>ProductWeightEntity</product-type>
+    <plugin-property key="precision" value="0.001"/>
     <measure-type id="kg">
         <name>кг</name>
     </measure-type>
-    <plugin-property key="precision" value="1"/>
 </good>
 EOF;
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct11, $xmlProduct1[0]);
@@ -284,7 +290,6 @@ EOF;
         <count>1</count>
         <default-code>true</default-code>
     </bar-code>
-    <product-type>ProductPieceEntity</product-type>
     <price-entry price="76.93">
         <number>1</number>
         <department number="1">
@@ -301,10 +306,11 @@ EOF;
             </parent-group>
         </parent-group>
     </group>
+    <product-type>ProductPieceEntity</product-type>
+    <plugin-property key="precision" value="0.001"/>
     <measure-type id="unit">
         <name>шт</name>
     </measure-type>
-    <plugin-property key="precision" value="1"/>
 </good>
 EOF;
         $expectedXmlProduct32 = <<<EOF
@@ -316,7 +322,6 @@ EOF;
         <count>1</count>
         <default-code>true</default-code>
     </bar-code>
-    <product-type>ProductPieceEntity</product-type>
     <price-entry price="117.54">
         <number>1</number>
         <department number="1">
@@ -333,10 +338,11 @@ EOF;
             </parent-group>
         </parent-group>
     </group>
+    <product-type>ProductPieceEntity</product-type>
+    <plugin-property key="precision" value="0.001"/>
     <measure-type id="unit">
         <name>шт</name>
     </measure-type>
-    <plugin-property key="precision" value="1"/>
 </good>
 EOF;
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct31, $xmlProduct3[0]);
@@ -357,7 +363,6 @@ EOF;
         <count>1</count>
         <default-code>true</default-code>
     </bar-code>
-    <product-type>ProductPieceEntity</product-type>
     <price-entry price="141.28">
         <number>1</number>
         <department number="1">
@@ -374,10 +379,11 @@ EOF;
             </parent-group>
         </parent-group>
     </group>
+    <product-type>ProductPieceEntity</product-type>
+    <plugin-property key="precision" value="0.001"/>
     <measure-type id="unit">
         <name>шт</name>
     </measure-type>
-    <plugin-property key="precision" value="1"/>
 </good>
 EOF;
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct5, $xmlProduct5[0]);
@@ -393,7 +399,6 @@ EOF;
         <count>1</count>
         <default-code>true</default-code>
     </bar-code>
-    <product-type>ProductPieceEntity</product-type>
     <price-entry price="141.28">
         <number>1</number>
         <department number="1">
@@ -410,10 +415,11 @@ EOF;
             </parent-group>
         </parent-group>
     </group>
+    <product-type>ProductPieceEntity</product-type>
+    <plugin-property key="precision" value="0.001"/>
     <measure-type id="unit">
         <name>шт</name>
     </measure-type>
-    <plugin-property key="precision" value="1"/>
 </good>
 EOF;
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct6, $xmlProduct6[0]);

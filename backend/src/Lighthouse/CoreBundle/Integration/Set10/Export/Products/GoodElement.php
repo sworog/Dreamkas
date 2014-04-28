@@ -70,7 +70,7 @@ class GoodElement extends SimpleXMLElement
      * @param string $productType
      * @return $this
      */
-    public function setProductType($productType = 'ProductPieceEntity')
+    public function setProductType($productType)
     {
         $this->addChild('product-type', $productType);
         return $this;
@@ -129,13 +129,16 @@ class GoodElement extends SimpleXMLElement
     }
 
     /**
+     *
+     * @param string $key
+     * @param string $value
      * @return $this
      */
-    public function setPluginProperty()
+    public function setPluginProperty($key, $value)
     {
         $pluginElement = $this->addChild('plugin-property');
-        $pluginElement->addAttribute('key', 'precision');
-        $pluginElement->addAttribute('value', 1);
+        $pluginElement->addAttribute('key', $key);
+        $pluginElement->addAttribute('value', $value);
         return $this;
     }
 }

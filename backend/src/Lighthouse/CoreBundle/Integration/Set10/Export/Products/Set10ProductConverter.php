@@ -7,8 +7,11 @@ use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
+use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\Translation\TranslatorInterface;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Products\GoodElement as ImportGoodElement;
 
 /**
  * @DI\Service("lighthouse.core.integration.set10.export.products.converter")
@@ -98,7 +101,6 @@ class Set10ProductConverter
         $goodElement->setShopIndices($storeNumbers);
         $goodElement->setName($product->name);
         $goodElement->setBarcode($product->barcode);
-        $goodElement->setProductType();
         $goodElement->setPrice(
             $this->moneyModelTransformer->transform($storeProductModel->roundedRetailPrice)
         );
@@ -110,13 +112,33 @@ class Set10ProductConverter
                 $product->subCategory->category->group->name => $product->subCategory->category->group->name,
             )
         );
+        $this->setProductTypeProperties($goodElement, $product);
+
         $goodElement->setMeasureType(
             $product->getUnits(),
             $this->translator->trans('lighthouse.units.' . $product->getUnits(), array(), 'units')
         );
-        $goodElement->setPluginProperty();
+
 
         return $goodElement;
+    }
+
+    /**
+     * @param GoodElement $goodElement
+     * @param Product $product
+     */
+    protected function setProductTypeProperties(GoodElement $goodElement, Product $product)
+    {
+        switch ($product->getType()) {
+            case WeightType::TYPE:
+                $goodElement->setProductType(ImportGoodElement::PRODUCT_WEIGHT_ENTITY);
+                $goodElement->setPluginProperty('precision', '0.001');
+                break;
+            case UnitType::TYPE:
+                $goodElement->setProductType(ImportGoodElement::PRODUCT_PIECE_ENTITY);
+                $goodElement->setPluginProperty('precision', '0.001');
+                break;
+        }
     }
 
     /**
