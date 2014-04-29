@@ -20,9 +20,9 @@ public class ProductCreatePage extends CommonPageObject {
     }
 
     public void createElements() {
+        put("type", new SelectByLabel(this, By.className("productForm__productTypeRadio")));
         put("sku", new Input(this, "sku"));
         put("name", new Input(this, "name"));
-        put("unit", new SelectByValue(this, "units"));
         put("purchasePrice", new Input(this, "purchasePrice"));
         put("vat", new SelectByValue(this, "vat"));
         put("barcode", new Input(this, "barcode"));
@@ -45,10 +45,15 @@ public class ProductCreatePage extends CommonPageObject {
         put("rounding", new SelectByVisibleText(this, "rounding.name"));
         put("rounding price", new NonType(this, By.xpath("//*[@class='productForm__rounding']")));
 
+        put("nameOnScales", new Input(this, "typeProperties.nameOnScales"));
+        put("descriptionOnScales", new Input(this, "typeProperties.descriptionOnScales"));
+        put("ingredients", new Input(this, "typeProperties.ingredients"));
+        put("nutritionFacts", new Input(this, "typeProperties.nutritionFacts"));
+        put("shelfLife", new Input(this, "typeProperties.shelfLife"));
+
         put("inventory", new NonType(this, By.xpath("//*[@model-attribute='inventoryElement']")));
         put("averageDailySales", new NonType(this, By.xpath("//*[@model-attribute='averageDailySalesElement']")));
         put("inventoryDays", new NonType(this, By.xpath("//*[@model-attribute='inventoryDaysElement']")));
-
     }
 
     public void createButtonClick() {

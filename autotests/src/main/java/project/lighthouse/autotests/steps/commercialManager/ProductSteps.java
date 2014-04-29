@@ -52,6 +52,11 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
+    public void selectProductType(String value) {
+        productCreatePage.getItems().get("type").setValue(value);
+    }
+
+    @Step
     public void selectDropDown(String elementName, String value) {
         productCreatePage.selectByValue(elementName, value);
     }

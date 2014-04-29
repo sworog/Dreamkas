@@ -1,74 +1,72 @@
-4 Создания продукта
+Создания штучного продукта
 
 Narrative:
 Как коммерческий директор,
-Я хочу создавать новый товар в системе,
-Чтобы ввести товар в ассортимент
+Я хочу при добавлении штучного и весового товаров, ввести все необходимый данные
+Чтобы ввести товар можно было продавать в магазине по всем правилам
 
 Meta:
-@sprint_0
-@us_4
+@sprint_33
+@us_69
 @product
+@s33u69s01
 
-Scenario: Creating new product 1
+Scenario: Create unit product 1
 
 Meta:
 @smoke
-@id_s0u4s1
+@s33u69s01e01
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
 
-When the user inputs 'Наименование1' in 'name' field
+When the user selects product type 'Штучный'
+And the user inputs 'ШтучныйТовар1' in 'name' field
 And the user inputs 'Производитель1' in 'vendor' field
 And the user inputs 'Россия1' in 'vendorCountry' field
 And the user inputs '123' in 'purchasePrice' field
 And the user inputs '123' in 'barcode' field
-And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
-And the user inputs 'Info1' in 'info' field
 And the user clicks the create button
 
-Then the user checks the products list contain product with name 'Наименование1'
+Then the user checks the products list contain product with name 'ШтучныйТовар1'
 
-Scenario: Creating new product 2
+Scenario: Creating unit product 2
 
 Meta:
 @smoke
-@id_s0u4s2
+@s33u69s01e02
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
 
-When the user inputs 'Наименование2' in 'name' field
+When the user selects product type 'Штучный'
+And the user inputs 'ШтучныйТовар2' in 'name' field
 And the user inputs 'Производитель2' in 'vendor' field
 And the user inputs 'Россия2' in 'vendorCountry' field
 And the user inputs '123' in 'purchasePrice' field
 And the user inputs '123' in 'barcode' field
-And the user selects 'liter' in 'unit' dropdown
 And the user selects '0' in 'vat' dropdown
-And the user inputs 'Info2' in 'info' field
 And the user clicks the create button
 
-Then the user checks the products list contain product with name 'Наименование2'
+Then the user checks the products list contain product with name 'ШтучныйТовар2'
 
-Scenario: Creating new product 3
+Scenario: Creating unit product 3
 
 Meta:
 @smoke
-@id_s0u4s3
+@s33u69s01e03
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
 
-When the user inputs 'Наименование3' in 'name' field
+When the user selects product type 'Штучный'
+And the user inputs 'ШтучныйТовар3' in 'name' field
 And the user inputs 'Производитель3' in 'vendor' field
 And the user inputs 'Россия' in 'vendorCountry' field
 And the user inputs '123' in 'purchasePrice' field
 And the user inputs '123' in 'barcode' field
-And the user selects 'kg' in 'unit' dropdown
 And the user selects '18' in 'vat' dropdown
-And the user inputs 'Info3' in 'info' field
 And the user clicks the create button
 
-Then the user checks the products list contain product with name 'Наименование3'
+Then the user checks the products list contain product with name 'ШтучныйТовар3'
