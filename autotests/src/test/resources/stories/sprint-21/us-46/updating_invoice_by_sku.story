@@ -35,7 +35,7 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
 Given there is the user with name 'departmentManager-UIBS-NF', position 'departmentManager-UIBS-NF', username 'departmentManager-UIBS-NF', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'UIBS-NF' managed by department manager named 'departmentManager-UIBS-NF'
 
-Given there is created product with sku 'UIBS-name'
+Given there is created product with name 'UIBS-name'
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -73,7 +73,7 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
 Given there is the user with name 'departmentManager-UIBS-NF', position 'departmentManager-UIBS-NF', username 'departmentManager-UIBS-NF', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'UIBS-NF' managed by department manager named 'departmentManager-UIBS-NF'
 
-Given there is created product with sku 'UIBS-name'
+Given there is created product with name 'UIBS-name'
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -109,7 +109,7 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
 Given there is the user with name 'departmentManager-UIBS-NF', position 'departmentManager-UIBS-NF', username 'departmentManager-UIBS-NF', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'UIBS-NF' managed by department manager named 'departmentManager-UIBS-NF'
 
-Given there is created product with sku 'UIBS-name'
+Given there is created product with name 'UIBS-name'
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -160,7 +160,7 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
 Given there is the user with name 'departmentManager-UIBS-NF', position 'departmentManager-UIBS-NF', username 'departmentManager-UIBS-NF', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'UIBS-NF' managed by department manager named 'departmentManager-UIBS-NF'
 
-Given there is created product with sku 'UIBS-name'
+Given there is created product with name 'UIBS-name'
 
 Given the user creates invoice api object with values
 | elementName | value |

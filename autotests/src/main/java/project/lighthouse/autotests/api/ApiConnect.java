@@ -34,7 +34,7 @@ public class ApiConnect {
             getSubCategoryMarkUp(subCategory);
             httpExecutor.executePostRequest(product);
             subCategory.addProduct(product);
-            StaticData.products.put(product.getSku(), product);
+            StaticData.products.put(product.getName(), product);
             return product;
         } else {
             return subCategory.getProduct(product);
@@ -53,8 +53,8 @@ public class ApiConnect {
                 : null;
     }
 
-    public String getProductPageUrl(String productSku) throws JSONException {
-        String productId = StaticData.products.get(productSku).getId();
+    public String getProductPageUrl(String productName) throws JSONException {
+        String productId = StaticData.products.get(productName).getId();
         return String.format("%s/products/%s", UrlHelper.getWebFrontUrl(), productId);
     }
 
@@ -68,9 +68,9 @@ public class ApiConnect {
         }
     }
 
-    public void addProductToWriteOff(String writeOffNumber, String productSku, String quantity, String price, String cause)
+    public void addProductToWriteOff(String writeOffNumber, String productName, String quantity, String price, String cause)
             throws JSONException, IOException {
-        Product product = StaticData.products.get(productSku);
+        Product product = StaticData.products.get(productName);
         WriteOff writeOff = StaticData.writeOffs.get(writeOffNumber);
         String apiUrl = String.format("%s%s/%s/products.json", UrlHelper.getApiUrl(""), writeOff.getApiUrl(), writeOff.getId());
 

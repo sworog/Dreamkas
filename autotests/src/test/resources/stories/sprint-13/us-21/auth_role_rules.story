@@ -198,13 +198,6 @@ And the user logs in as 'watchman'
 And the user opens the default store invoice create page
 Then the user sees the 403 error
 
-Scenario: Administrator role invalid rules - unauthorised access from amount list page link
-
-Given the user opens the authorization page
-And the user logs in as 'watchman'
-And the user opens amount list page
-Then the user sees the 403 error
-
 Scenario: Administrator role invalid rules - unauthorised access from write off create page link
 
 Given the user opens the authorization page
@@ -246,14 +239,6 @@ Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 And the user opens the default store invoice create page
 Then the user sees the 403 error
-
-Scenario: CommercialManager role invalid rules - unauthorised access from balance link
-
-Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19'
-Given the user opens the authorization page
-And the user logs in as 'commercialManager'
-And the user opens amount list page
-Then the user dont see the 403 error
 
 Scenario: CommercialManager role invalid rules - unauthorised access from writeOffs link
 
@@ -309,13 +294,6 @@ Scenario: StoreManager role invalid rules - unauthorised access from invoices cr
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
 And the user opens the default store invoice create page
-Then the user sees the 403 error
-
-Scenario: StoreManager role invalid rules - unauthorised access from balance link
-
-Given the user opens the authorization page
-And the user logs in as 'storeManager'
-And the user opens amount list page
 Then the user sees the 403 error
 
 Scenario: StoreManager role invalid rules - unauthorised access from writeOffs link
@@ -423,10 +401,12 @@ Then the user dont see the 403 error
 
 Scenario: DepartmentManager - no edit button for products card
 
-Given there is the product with 'IFBKG-119999' name, 'IFBKG-119999' sku, 'IFBKG-119999' barcode
+Given there is the product with 'IFBKG-119999' name, 'IFBKG-119999' barcode
 And the user is on the product list page
 And the user logs in as 'departmentManager'
-When the user open the product card with 'IFBKG-119999' sku
+
+When the user clicks on product with name 'IFBKG-119999'
+
 Then the user sees no edit product button
 
 Scenario: DepartmentManager - no create button for products list

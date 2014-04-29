@@ -15,7 +15,7 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-57_4/aPreconditionToStoryUs57.4.story
 
-Given there is the product with 'name-25574' name, '25574' sku, '25574' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u574', category named 'defaultCategory-s25u574', subcategory named 'defaultSubCategory-s25u574'
+Given there is the product with 'name-25574' name, '25574' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u574', category named 'defaultCategory-s25u574', subcategory named 'defaultSubCategory-s25u574'
 
 Given the user opens the authorization page
 When the user logs in using 'storeManager-s25u574' userName and 'lighthouse' password
@@ -34,7 +34,7 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-57_4/aPreconditionToStoryUs57.4.story
 
-Given there is the product with 'name-255741' name, '255741' sku, '' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u574', category named 'defaultCategory-s25u574', subcategory named 'defaultSubCategory-s25u574'
+Given there is the product with 'name-255741' name, '' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u574', category named 'defaultCategory-s25u574', subcategory named 'defaultSubCategory-s25u574'
 
 Given the user opens the authorization page
 When the user logs in using 'storeManager-s25u574' userName and 'lighthouse' password

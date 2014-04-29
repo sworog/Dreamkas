@@ -9,7 +9,6 @@ And the user logs in as 'commercialManager'
 When the user inputs values in element fields
 | elementName | value |
 | name |RMU-PPV-01 |
-| sku |RMU-PPV-01 |
 | unit | unit |
 | vat | 10 |
 | purchasePrice | 1 |
@@ -47,8 +46,8 @@ Scenario: Create product mark up validation positive
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
-When the user inputs <value> in sku field
-And the user inputs values in element fields
+
+When the user inputs values in element fields
 | elementName | value |
 | name |RMU-PPV-02 |
 | unit | unit |
@@ -61,20 +60,19 @@ And the user clicks the create button
 Then the user sees no error messages
 
 Examples:
-| value | inputText | elementName |
-| RMU-PPV-02 | 0 | retailMarkupMin |
-| RMU-PPV-03 | 0 | retailMarkupMax |
-| RMU-PPV-04 | 10,6 | retailMarkupMin |
-| RMU-PPV-05 | 10,6 | retailMarkupMax|
-| RMU-PPV-06 | 12,67 | retailMarkupMin |
-| RMU-PPV-07 | 12,67 | retailMarkupMax |
+| inputText | elementName |
+| 0 | retailMarkupMin |
+| 0 | retailMarkupMax |
+| 10,6 | retailMarkupMin |
+| 10,6 | retailMarkupMax|
+| 12,67 | retailMarkupMin |
+| 12,67 | retailMarkupMax |
 
 Scenario: Create product min mark up can't be more than max
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
 When the user inputs 'RMU-PPV-01' in 'name' field
-And the user inputs 'RMU-PPV-01' in 'sku' field
 And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user inputs '1' in 'purchasePrice' field
@@ -87,8 +85,8 @@ Then the user sees error messages
 
 Scenario: Edit product mark up validation negative
 
-Given there is the product with 'RMU-PPV-0211' name, 'RMU-PPV-0211' sku, 'RMU-PPV-0211' barcode
-And the user navigates to the product with sku 'RMU-PPV-0211'
+Given there is the product with 'RMU-PPV-0211' name, 'RMU-PPV-0211' barcode
+And the user navigates to the product with name 'RMU-PPV-0211'
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
 And the user inputs values in element fields
@@ -124,7 +122,7 @@ Examples:
 
 Scenario: Edit product mark up validation positive
 
-Given the user navigates to the product with <sku>
+Given the user navigates to the product with name
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
 And the user inputs values in element fields
@@ -136,7 +134,7 @@ And the user clicks the create button
 Then the user sees no error messages
 
 Examples:
-| sku | inputText | elementName |
+| name | inputText | elementName |
 | RMU1-PPV-02 | 0 | retailMarkupMin |
 | RMU1-PPV-03 | 0 | retailMarkupMax |
 | RMU1-PPV-04 | 10,6 | retailMarkupMin |
@@ -146,8 +144,8 @@ Examples:
 
 Scenario: Edit product min mark up can't be more than max
 
-Given there is the product with 'RMU-PPV1-02' name, 'RMU-PPV1-02' sku, 'RMU-PPV1-02' barcode
-And the user navigates to the product with sku 'RMU-PPV1-02'
+Given there is the product with 'RMU-PPV1-02' name, 'RMU-PPV1-02' barcode
+And the user navigates to the product with name 'RMU-PPV1-02'
 And the user logs in as 'commercialManager'
 When the user clicks the edit button on product card view page
 And the user inputs '1' in 'retailMarkupMax' field

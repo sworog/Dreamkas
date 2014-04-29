@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
-import project.lighthouse.autotests.objects.web.product.InvoiceListObject;
+import project.lighthouse.autotests.objects.web.product.invoiceList.InvoiceListObject;
 
 import java.util.List;
 
