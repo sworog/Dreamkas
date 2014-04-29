@@ -33,4 +33,8 @@ public class ThenBalanceSteps {
         balanceSteps.checkItemsAreVisible(sku, itemsExampleTable);
     }
 
+    @Then("the user checks the product with name '$name' has inventory equals to '$expectedValue'")
+    public void thenTheUserChecksTheProductWithNameHasInventory(String name, String expectedValue) {
+        balanceSteps.balanceObjectItemHasInventoryByLocator(name, expectedValue);
+    }
 }

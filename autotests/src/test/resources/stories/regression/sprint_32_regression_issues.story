@@ -9,7 +9,7 @@ Meta:
 
 GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
-Given there is the product with 'name-order-regression' name, 'sku-order-regression' sku, 'barCode-order-regression' barcode
+Given there is the product with 'name-order-regression' name, 'barCode-order-regression' barcode
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u67' userName and 'lighthouse' password
@@ -29,7 +29,7 @@ Meta:
 
 GivenStories: precondition/sprint-31/us-67/aPreconditionToStoryUs67.story
 
-Given there is the product with 'name-order-regression' name, 'sku-order-regression' sku, 'barCode-order-regression' barcode
+Given there is the product with 'name-order-regression' name, 'barCode-order-regression' barcode
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u67' userName and 'lighthouse' password
@@ -169,10 +169,9 @@ And the user creates new product from product list page
 
 When the user inputs values in element fields
 | elementName | value |
-| sku | regressionSubCategoryProductSku |
 | name | regressionSubCategoryProductName |
 | unit | unit |
 | vat | 0 |
 And the user clicks the create button
 
-Then the user checks the product with 'regressionSubCategoryProductSku' sku is present
+Then the user checks the products list contain product with name 'regressionSubCategoryProductName'

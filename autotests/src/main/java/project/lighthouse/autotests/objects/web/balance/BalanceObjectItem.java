@@ -52,11 +52,15 @@ public class BalanceObjectItem extends AbstractObject implements ObjectLocatable
 
     @Override
     public String getObjectLocator() {
-        return sku;
+        return name;
     }
 
     @Override
     public void click() {
         getElement().click();
+    }
+
+    public String getInventory() {
+        return inventory;
     }
 }

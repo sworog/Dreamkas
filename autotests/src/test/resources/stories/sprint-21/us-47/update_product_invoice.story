@@ -17,9 +17,9 @@ Given there is the user with name 'departmentManager-UIBS-FF', position 'departm
 And there is the store with number 'UIBS-FF' managed by department manager named 'departmentManager-UIBS-FF'
 
 Given there is the subCategory with name 'ProductsUpdateInvoiceSubCategory' related to group named 'ProductsUpdateInvoiceGroup' and category named 'ProductsUpdateInvoiceCategory'
-And there is the product with 'Корм Баффет д/кошек мясн.кус.в желе Морской коктейль 375г' name, '7300330094025' sku, '7300330094025' barcode, 'unit' units, '97,60' purchasePrice of group named 'ProductsUpdateInvoiceGroup', category named 'ProductsUpdateInvoiceCategory', subcategory named 'ProductsUpdateInvoiceSubCategory'
+And there is the product with '7300330094025' name, '7300330094025' barcode, 'unit' units, '97,60' purchasePrice of group named 'ProductsUpdateInvoiceGroup', category named 'ProductsUpdateInvoiceCategory', subcategory named 'ProductsUpdateInvoiceSubCategory'
 
-Given the user navigates to the product with sku '7300330094025'
+Given the user navigates to the product with name '7300330094025'
 And the user logs in using 'departmentManager-UIBS-FF' userName and 'lighthouse' password
 
 When the user clicks the product local navigation invoices link
@@ -36,7 +36,7 @@ Given there is the user with name 'departmentManager-UIBS-FF', position 'departm
 And there is the store with number 'UIBS-FF' managed by department manager named 'departmentManager-UIBS-FF'
 
 Given there is the subCategory with name 'ProductsUpdateInvoiceSubCategory' related to group named 'ProductsUpdateInvoiceGroup' and category named 'ProductsUpdateInvoiceCategory'
-And there is the product with 'Корм Баффет д/кошек мясн.кус.в желе Морской коктейль 375г' name, '7300330094025' sku, '7300330094025' barcode, 'unit' units, '97,60' purchasePrice of group named 'ProductsUpdateInvoiceGroup', category named 'ProductsUpdateInvoiceCategory', subcategory named 'ProductsUpdateInvoiceSubCategory'
+And there is the product with '7300330094025' name, '7300330094025' barcode, 'unit' units, '97,60' purchasePrice of group named 'ProductsUpdateInvoiceGroup', category named 'ProductsUpdateInvoiceCategory', subcategory named 'ProductsUpdateInvoiceSubCategory'
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -51,7 +51,7 @@ And the user adds the product with data to invoice api object
 | price | 100 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-UIBS-FF'
 
-Given the user navigates to the product with sku '7300330094025'
+Given the user navigates to the product with name '7300330094025'
 And the user logs in using 'departmentManager-UIBS-FF' userName and 'lighthouse' password
 
 When the user clicks the product local navigation invoices link
@@ -76,7 +76,7 @@ Given there is the user with name 'departmentManager-UIBS-FF', position 'departm
 And there is the store with number 'UIBS-FF' managed by department manager named 'departmentManager-UIBS-FF'
 
 Given there is the subCategory with name 'ProductsUpdateInvoiceSubCategory' related to group named 'ProductsUpdateInvoiceGroup' and category named 'ProductsUpdateInvoiceCategory'
-And there is the product with 'Корм Баффет д/кошек мясн.кус.в желе Морской коктейль 375г' name, '7300330094025' sku, '7300330094025' barcode, 'unit' units, '97,60' purchasePrice of group named 'ProductsUpdateInvoiceGroup', category named 'ProductsUpdateInvoiceCategory', subcategory named 'ProductsUpdateInvoiceSubCategory'
+And there is the product with '7300330094025' name, '7300330094025' barcode, 'unit' units, '97,60' purchasePrice of group named 'ProductsUpdateInvoiceGroup', category named 'ProductsUpdateInvoiceCategory', subcategory named 'ProductsUpdateInvoiceSubCategory'
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -104,7 +104,7 @@ And the user adds the product with data to invoice api object
 | price | 77 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-UIBS-FF'
 
-Given the user navigates to the product with sku '7300330094025'
+Given the user navigates to the product with name '7300330094025'
 And the user logs in using 'departmentManager-UIBS-FF' userName and 'lighthouse' password
 
 When the user clicks the product local navigation invoices link

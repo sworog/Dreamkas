@@ -50,7 +50,7 @@ Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
 | name-26404 | 26404 | 26404 | 5,0 | 0,0 | 0,0 | 124,50 р. | — |
 
-Given the user navigates to the product with sku '26404'
+Given the user navigates to the product with name 'name-26404'
 When the user clicks the product local navigation returns link
 Then the user checks the product return list contains entry
 | date | quantity | price | totalPrice |
@@ -64,7 +64,7 @@ Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
 | name-26404 | 26404 | 26404 | 1,0 | 0,0 | 0,0 | 124,50 р. | — |
 
-Given the user navigates to the product with sku '26404'
+Given the user navigates to the product with name 'name-26404'
 When the user clicks the product local navigation returns link
 Then the user checks the product return list contains entry
 | date | quantity | price | totalPrice |
