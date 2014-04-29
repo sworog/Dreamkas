@@ -40,19 +40,17 @@
             </a>
         </td>
     </tr>
+
     <tr>
-        <th>Закупочная цена</th>
-        <td>
-            <% if(productModel.purchasePrice){ %>
-                <span name="purchasePrice">
-                <%- LH.formatMoney(productModel.purchasePrice) %>
-                </span>
-            руб.
-            <% } else { %>
-                <i name="purchasePrice">
-                    отсутствует
-                </i>
-            <% } %>
+        <th>Тип товара</th>
+        <td name="type">
+            <%- LH.productTypes(productModel.type, 'nameSmallFull') %>
+        </td>
+    </tr>
+    <tr>
+        <th>Единица измерения</th>
+        <td name="units">
+            <%- LH.units(productModel.units, 'smallFull') %>
         </td>
     </tr>
     <tr>
@@ -69,9 +67,9 @@
         </td>
     </tr>
     <tr>
-        <th>Единица измерения</th>
-        <td name="units">
-            <%- LH.units(productModel.units, 'smallFull') %>
+        <th>Страна</th>
+        <td name="vendorCountry">
+            <%- productModel.vendorCountry %>
         </td>
     </tr>
     <tr>
@@ -80,10 +78,54 @@
             <%- productModel.vendor %>
         </td>
     </tr>
+
+    <% if (productModel.type == 'weight') { %>
+        <tr>
+            <th>Наименование на весах</th>
+            <td name="typeProperties.nameOnScales">
+                <%- productModel.typeProperties.nameOnScales %>
+            </td>
+        </tr>
+        <tr>
+            <th>Описание товара на весах</th>
+            <td name="typeProperties.descriptionOnScales">
+                <%- productModel.typeProperties.descriptionOnScales %>
+            </td>
+        </tr>
+        <tr>
+            <th>Состав</th>
+            <td name="typeProperties.ingredients">
+                <%- productModel.typeProperties.ingredients %>
+            </td>
+        </tr>
+        <tr>
+            <th>Пищевая ценность</th>
+            <td name="typeProperties.nutritionFacts">
+                <%- productModel.typeProperties.nutritionFacts %>
+            </td>
+        </tr>
+        <tr>
+            <th>Срок годности</th>
+            <td>
+                <span name="typeProperties.shelfLife"><%- productModel.typeProperties.shelfLife %></span>
+                <%- productModel.typeProperties.shelfLife?'ч.':'' %>
+            </td>
+        </tr>
+    <% } %>
+
     <tr>
-        <th>Страна</th>
-        <td name="vendorCountry">
-            <%- productModel.vendorCountry %>
+        <th>Закупочная цена</th>
+        <td>
+            <% if(productModel.purchasePrice){ %>
+                <span name="purchasePrice">
+                <%- LH.formatMoney(productModel.purchasePrice) %>
+                </span>
+            руб.
+            <% } else { %>
+            <i name="purchasePrice">
+                отсутствует
+            </i>
+            <% } %>
         </td>
     </tr>
     <tr>

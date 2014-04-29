@@ -2,6 +2,7 @@ define(function(require, exports, module) {
     var Product = require('./product'),
         SubCategory = require('./catalogSubCategory');
     window.LH.units = require('utils/units');
+    window.LH.productTypes = require('utils/productTypes');
     window.LH.formatMoney = require('utils/formatMoney');
     window.LH.formatAmount = require('utils/formatAmount');
     window.LH.formatDate = require('utils/formatDate');
@@ -122,12 +123,14 @@ define(function(require, exports, module) {
 
             var actualData = form.getData();
             expect(actualData.type).toEqual('unit');
+            expect(form.$productUnits.html()).toEqual('Штуки');
             expect(actualData.typeProperties).toBeUndefined();
 
             form.$productTypeRadio.find('input[type=radio]').prop('checked', false);
             form.$productTypeRadio.find('input[value=weight]').prop('checked', true).change();
             actualData = form.getData();
             expect(actualData.type).toEqual('weight');
+            expect(form.$productUnits.html()).toEqual('Килограммы');
             expect(actualData.typeProperties).toEqual(expectedSaveDataTypeSpecific);
             expect(form.$productTypePropertiesFields.find('input[name="typeProperties.shelfLife"]').length).toEqual(1);
         });

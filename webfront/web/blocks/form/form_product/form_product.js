@@ -84,6 +84,7 @@ define(function(require) {
                 block.$retailMarkupField = block.$('.productForm__retailMarkupField');
                 block.$retailPriceField = block.$('.productForm__retailPriceField');
 
+                block.$productUnits = block.$('[name=units]');
                 block.$productTypePropertiesFields = block.$('.productForm__productTypePropertiesFields');
                 block.$productTypeRadio = block.$('.productForm__productTypeRadio');
             },
@@ -237,6 +238,7 @@ define(function(require) {
                 var block = this,
                     productTypeSelected = block.$productTypeRadio.find('input:checked').val();
 
+                block.$productUnits.html(LH.units(LH.productTypes(productTypeSelected, 'units'), 'capitalFull'));
                 block.$productTypePropertiesFields.hide(100);
                 block.$productTypePropertiesFields.html(block.productTypeSpecificFieldsTemplates[productTypeSelected]({
                     model: block.model

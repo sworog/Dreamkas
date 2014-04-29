@@ -23,6 +23,7 @@ define(function(require) {
         formatDate: require('utils/formatDate'),
         isEmptyJSON: require('utils/isEmptyJSON'),
         prevalidateInput: require('utils/prevalidateInput'),
-        units: require('utils/units')
+        units: require('utils/units'),
+        productTypes: require('utils/productTypes')
     }, window.LH, window.Lighthouse);
 });
