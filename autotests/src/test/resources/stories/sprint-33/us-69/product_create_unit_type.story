@@ -31,7 +31,7 @@ And the user clicks the create button
 
 Then the user checks the products list contain product with name 'ШтучныйТовар1'
 
-Scenario: Creating unit product 2
+Scenario: Create unit product 2
 
 Meta:
 @smoke
@@ -51,7 +51,7 @@ And the user clicks the create button
 
 Then the user checks the products list contain product with name 'ШтучныйТовар2'
 
-Scenario: Creating unit product 3
+Scenario: Create unit product 3
 
 Meta:
 @smoke

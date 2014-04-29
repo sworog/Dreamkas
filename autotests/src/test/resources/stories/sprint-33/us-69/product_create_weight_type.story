@@ -31,12 +31,12 @@ And the user inputs 'ВесовойТовар1 название на весах'
 And the user inputs 'ВесовойТовар1 описание на весах' in 'descriptionOnScales' field
 And the user inputs 'Состав1' in 'ingredients' field
 And the user inputs 'Пищевая ценность1' in 'nutritionFacts' field
-And the user inputs '1' in 'shelfTime' field
+And the user inputs '1' in 'shelfLife' field
 And the user clicks the create button
 
 Then the user checks the products list contain product with name 'ВесовойТовар1'
 
-Scenario: Creating weight product 2
+Scenario: Create weight product 2
 
 Meta:
 @smoke
@@ -59,7 +59,7 @@ And the user clicks the create button
 
 Then the user checks the products list contain product with name 'ВесовойТовар2'
 
-Scenario: Creating weight product 3
+Scenario: Create weight product 3
 
 Meta:
 @smoke
