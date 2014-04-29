@@ -12,7 +12,7 @@
                 value="unit"
                 class="productForm__hiddenInput"
                 <%- (model.get('type') == 'unit')?'checked':'' %> >
-        <label for="product-form-unit-radio">Штучный</label>
+        <label for="product-form-unit-radio"><%- LH.productTypes('unit', 'nameCapitalFull') %></label>
 
         <input id="product-form-weight-radio"
                 type="radio"
@@ -20,7 +20,7 @@
                 value="weight"
                 class="productForm__hiddenInput"
                 <%- (model.get('type') == 'weight')?'checked':'' %> >
-        <label for="product-form-weight-radio">Весовой</label>
+        <label for="product-form-weight-radio"><%- LH.productTypes('weight', 'nameCapitalFull') %></label>
     </div>
 
     <% if (model.get('sku')) { %>
@@ -35,7 +35,7 @@
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Единица измерения</label>
-        <div name="units"><%- LH.units(model.get('units'), 'capitalFull') %></div>
+        <div name="units"></div>
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label" required>НДС</label>
