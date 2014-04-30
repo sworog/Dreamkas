@@ -1,4 +1,4 @@
-История просмотра карточки товара
+Просмотр карточки товара
 
 Narrative:
 Как коммерческий директор,
@@ -6,27 +6,28 @@ Narrative:
 Чтобы определять насколько верные и полные данные там содержатся.
 
 Meta:
-@sprint_1
-@us_2
+@sprint_33
+@us_69
+@product
+@s33u69s03
 
-Scenario: Viewing product card after creation 1
+Scenario: View unit product card after create
 
 Meta:
 @smoke
-@s1u2s1
+@s33u69s03e01
 
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 
 When the user creates new product from product list page
+And the user selects product type 'Штучный'
 And the user inputs 'Веселый' in 'name' field
 And the user inputs 'Рамзон' in 'vendor' field
 And the user inputs 'Раша матушка' in 'vendorCountry' field
 And the user inputs '5698' in 'purchasePrice' field
 And the user inputs '8954' in 'barcode' field
-And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
-And the user inputs 'Доп инфо: Текст двадцать пять' in 'info' field
 And the user clicks the create button
 
 Then the user checks the products list contain product with name 'Веселый'
@@ -42,24 +43,28 @@ And the user checks the 'unit' value is 'штука'
 And the user checks the 'vat' value is '10'
 And the user checks the 'info' value is 'Доп инфо: Текст двадцать пять'
 
-Scenario: Viewing product card after creation 2
+Scenario: View weight product card after create
 
 Meta:
 @smoke
-@s1u2s2
+@s33u69s03e02
 
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 
 When the user creates new product from product list page
+And the user selects product type 'Весовой'
 And the user inputs 'Веселый фермер' in 'name' field
 And the user inputs 'Рамзон зона' in 'vendor' field
 And the user inputs 'Раша матушка зе бест' in 'vendorCountry' field
 And the user inputs '589554' in 'purchasePrice' field
 And the user inputs '8988854' in 'barcode' field
-And the user selects 'liter' in 'unit' dropdown
 And the user selects '0' in 'vat' dropdown
-And the user inputs 'Доп инфо: Тестовые сущности' in 'info' field
+And the user inputs 'Веселый фермер весы' in 'nameOnScales' field
+And the user inputs 'Веселый фермер весы описание' in 'descriptionOnScales' field
+And the user inputs 'веселье, фермер' in 'ingredients' field
+And the user inputs 'жиры: 40%' in 'nutritionFacts' field
+And the user inputs '120' in 'shelfLife' field
 And the user clicks the create button
 
 Then the user checks the products list contain product with name 'Веселый фермер'
@@ -71,9 +76,13 @@ And the user checks the 'vendor' value is 'Рамзон зона'
 And the user checks the 'vendorCountry' value is 'Раша матушка зе бест'
 And the user checks the 'purchasePrice' value is '589 554,00'
 And the user checks the 'barcode' value is '8988854'
-And the user checks the 'unit' value is 'литр'
+And the user checks the 'unit' value is 'килограмм'
 And the user checks the 'vat' value is '0'
-And the user checks the 'info' value is 'Доп инфо: Тестовые сущности'
+And the user checks the 'nameOnScales' value is 'Веселый фермер весы'
+And the user checks the 'descriptionOnScales' value is 'Веселый фермер весы описание'
+And the user checks the 'ingredients' value is 'веселье, фермер'
+And the user checks the 'nutritionFacts' value is 'жиры: 40%'
+And the user checks the 'shelfLife' value is '120'
 
 Scenario: Viewing product card after creation 3
 
