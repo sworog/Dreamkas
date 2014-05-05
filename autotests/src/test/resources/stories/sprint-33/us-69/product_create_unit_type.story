@@ -70,3 +70,12 @@ And the user selects '18' in 'vat' dropdown
 And the user clicks the create button
 
 Then the user checks the products list contain product with name 'ШтучныйТовар3'
+
+Scenario: Verifying that there is no default values for vats
+
+Meta:
+@s33u69s01e04
+
+Given the user is on the product create page
+And the user logs in as 'commercialManager'
+Then the user checks default value for 'vat' dropdown equal to ''
