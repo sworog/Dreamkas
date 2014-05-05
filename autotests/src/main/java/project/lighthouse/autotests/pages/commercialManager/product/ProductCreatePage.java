@@ -20,7 +20,7 @@ public class ProductCreatePage extends CommonPageObject {
     }
 
     public void createElements() {
-        put("type", new SelectByLabel(this, By.className("productForm__productTypeRadio")));
+        put("type", new SelectByLabel(this, By.name("type"), By.className("productForm__productTypeRadio")));
         put("sku", new Input(this, "sku"));
         put("name", new Input(this, "name"));
         put("purchasePrice", new Input(this, "purchasePrice"));
@@ -28,7 +28,6 @@ public class ProductCreatePage extends CommonPageObject {
         put("barcode", new Input(this, "barcode"));
         put("vendor", new Input(this, "vendor"));
         put("vendorCountry", new Input(this, "vendorCountry"));
-        put("info", new Textarea(this, "info"));
         put("retailMarkupRange", new Input(this, "retailMarkupRange"));
         put("retailMarkupMin", new Input(this, "retailMarkupMin"));
         put("retailMarkupMax", new Input(this, "retailMarkupMax"));
@@ -44,6 +43,7 @@ public class ProductCreatePage extends CommonPageObject {
         put("subCategory", new NonType(this, "subCategory"));
         put("rounding", new SelectByVisibleText(this, "rounding.name"));
         put("rounding price", new NonType(this, By.xpath("//*[@class='productForm__rounding']")));
+        put("units", new NonType(this, "units"));
 
         put("nameOnScales", new Input(this, "typeProperties.nameOnScales"));
         put("descriptionOnScales", new Input(this, "typeProperties.descriptionOnScales"));

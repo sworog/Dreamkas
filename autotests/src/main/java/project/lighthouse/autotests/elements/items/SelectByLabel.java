@@ -1,26 +1,23 @@
 package project.lighthouse.autotests.elements.items;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPageObject;
 
-
 public class SelectByLabel extends CommonItem {
-    public SelectByLabel(CommonPageObject pageObject, By findBy) {
+
+    private By labelParentFindBy;
+
+    public SelectByLabel(CommonPageObject pageObject, By findBy, By labelParentFindBy) {
         super(pageObject, findBy);
-    }
-
-    public SelectByLabel(CommonPageObject pageObject, String name) {
-        super(pageObject, name);
-    }
-
-    public SelectByLabel(CommonPageObject pageObject, String name, String label) {
-        super(pageObject, name, label);
+        this.labelParentFindBy = labelParentFindBy;
     }
 
     @Override
     public void setValue(String value) {
         By labelBy = By.xpath("//label[text()=\"" + value + "\"]");
-        getVisibleWebElement().findElement(labelBy).click();
+        WebElement labelParent = getPageObject().findVisibleElement(labelParentFindBy);
+        labelParent.findElement(labelBy).click();
     }
 }
