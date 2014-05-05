@@ -16,33 +16,29 @@ public class Us_40_4_Fixture extends AbstractFixture {
     private static final String PRODUCT_NAME = "name-26404";
     private static final Double PRODUCT_PRICE = 150.0;
 
-    private String getProductSku() {
-        return StaticData.products.get(PRODUCT_NAME).getSku();
-    }
-
     public File prepareSalePurchaseFile() throws ParserConfigurationException, XPathExpressionException, TransformerException, IOException {
         Double productPrice = PRODUCT_PRICE * 5;
         PurchaseXmlBuilder purchaseXmlBuilder = PurchaseXmlBuilder.create("1")
-                .addXmlPurchase(getDate(todayDate, "00"), todayDate, SHOP_NUMBER, productPrice.toString(), PRODUCT_PRICE.toString(), "5", getProductSku(), 1);
+                .addXmlPurchase(getDate(todayDate, "00"), todayDate, SHOP_NUMBER, productPrice.toString(), PRODUCT_PRICE.toString(), "5", getProductSku(PRODUCT_NAME), 1);
         return prepareDataFile(purchaseXmlBuilder);
     }
 
     public File prepareSalePurchaseReturnFile() throws TransformerException, IOException, ParserConfigurationException, XPathExpressionException {
         PurchaseXmlBuilder purchaseXmlBuilder = PurchaseXmlBuilder.create("1")
-                .addXmlPurchase(getDate(todayDate, "00"), todayDate, SHOP_NUMBER, PRODUCT_PRICE.toString(), PRODUCT_PRICE.toString(), "1", getProductSku(), 1);
+                .addXmlPurchase(getDate(todayDate, "00"), todayDate, SHOP_NUMBER, PRODUCT_PRICE.toString(), PRODUCT_PRICE.toString(), "1", getProductSku(PRODUCT_NAME), 1);
         return prepareDataFile(purchaseXmlBuilder);
     }
 
     public File prepareReturnFile() throws ParserConfigurationException, XPathExpressionException, TransformerException, IOException {
         Double productPrice = PRODUCT_PRICE * 5;
         PurchaseXmlBuilder purchaseXmlBuilder = PurchaseXmlBuilder.create("1")
-                .addXmlReturn(getDate("2013-12-03", "00"), "2013-12-03+04:00", SHOP_NUMBER, productPrice.toString(), PRODUCT_PRICE.toString(), "5", getProductSku(), 1);
+                .addXmlReturn(getDate("2013-12-03", "00"), "2013-12-03+04:00", SHOP_NUMBER, productPrice.toString(), PRODUCT_PRICE.toString(), "5", getProductSku(PRODUCT_NAME), 1);
         return prepareDataFile(purchaseXmlBuilder);
     }
 
     public File prepareAnotherReturnFile() throws TransformerException, IOException, ParserConfigurationException, XPathExpressionException {
         PurchaseXmlBuilder purchaseXmlBuilder = PurchaseXmlBuilder.create("1")
-                .addXmlReturn(getDate("2013-12-03", "00"), "2013-12-03+04:00", SHOP_NUMBER, PRODUCT_PRICE.toString(), PRODUCT_PRICE.toString(), "1", getProductSku(), 1);
+                .addXmlReturn(getDate("2013-12-03", "00"), "2013-12-03+04:00", SHOP_NUMBER, PRODUCT_PRICE.toString(), PRODUCT_PRICE.toString(), "1", getProductSku(PRODUCT_NAME), 1);
         return prepareDataFile(purchaseXmlBuilder);
     }
 

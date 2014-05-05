@@ -20,8 +20,8 @@ public class Us_55_2_Fixture extends AbstractFixture {
     private static final String SHOP1 = "245521";
     private static final String SHOP2 = "245522";
     private static final String SHOP3 = "2455222";
-    private static final String PRODUCT_ID = "24552";
-    private static final String PRODUCT_ID2 = "245522";
+    private static final String PRODUCT_NAME = "name-24552";
+    private static final String PRODUCT_NAME2 = "name-245522";
     private static final Double PRODUCT_PRICE1 = 124.5;
     private static final Double PRODUCT_PRICE2 = 134.5;
     private static final Double PRODUCT_PRICE3 = 111.5;
@@ -71,19 +71,19 @@ public class Us_55_2_Fixture extends AbstractFixture {
     }
 
     public File prepareTwoDaysAgoDataForShop1() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-        return generateFileDataSetWithOneProduct(twoDaysAgoDate, SHOP1, PRODUCT_ID, PRODUCT_PRICE1);
+        return generateFileDataSetWithOneProduct(twoDaysAgoDate, SHOP1, getProductSku(PRODUCT_NAME), PRODUCT_PRICE1);
     }
 
     public File prepareEightDaysAgoDataForShop1() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-        return generateFileDataSetWithOneProduct(eightDaysAgoDate, SHOP1, PRODUCT_ID2, PRODUCT_PRICE2);
+        return generateFileDataSetWithOneProduct(eightDaysAgoDate, SHOP1, getProductSku(PRODUCT_NAME2), PRODUCT_PRICE2);
     }
 
     public File prepareYesterdayDataForShop2() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-        return generateFileDataSetWithOneProduct(yesterdayDate, SHOP2, PRODUCT_ID, PRODUCT_PRICE1);
+        return generateFileDataSetWithOneProduct(yesterdayDate, SHOP2, getProductSku(PRODUCT_NAME), PRODUCT_PRICE1);
     }
 
     public File prepareTwoDaysAgoDataForShop2() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-        return generateFileDataSetWithOneProduct(twoDaysAgoDate, SHOP2, PRODUCT_ID2, PRODUCT_PRICE2);
+        return generateFileDataSetWithOneProduct(twoDaysAgoDate, SHOP2, getProductSku(PRODUCT_NAME2), PRODUCT_PRICE2);
     }
 
     public File prepareEightDaysAgoDataForShop2() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
@@ -91,15 +91,15 @@ public class Us_55_2_Fixture extends AbstractFixture {
     }
 
     public File prepareEightDaysAgoDataForShop3() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-        return generateFileDataSetWithOneProduct(eightDaysAgoDate, SHOP3, PRODUCT_ID, PRODUCT_PRICE3);
+        return generateFileDataSetWithOneProduct(eightDaysAgoDate, SHOP3, getProductSku(PRODUCT_NAME), PRODUCT_PRICE3);
     }
 
     public File prepareTwoDaysAgoDataForShop3() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-        return generateFileDataSetWithOneProduct(twoDaysAgoDate, SHOP3, PRODUCT_ID, PRODUCT_PRICE4);
+        return generateFileDataSetWithOneProduct(twoDaysAgoDate, SHOP3, getProductSku(PRODUCT_NAME), PRODUCT_PRICE4);
     }
 
     public File prepareYesterdayDataForShop3() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-        return generateFileDataSetWithOneProduct(yesterdayDate, SHOP3, PRODUCT_ID, PRODUCT_PRICE5);
+        return generateFileDataSetWithOneProduct(yesterdayDate, SHOP3, getProductSku(PRODUCT_NAME), PRODUCT_PRICE5);
     }
 
     private String getGrossSalesSumOnTheEndOfTheDay() {
@@ -140,8 +140,8 @@ public class Us_55_2_Fixture extends AbstractFixture {
             Double finalPriceCount2 = PRODUCT_PRICE2 * i;
             String hours = String.format("%02d", i - 1);
             String dateTime = getDate(date, hours);
-            purchaseXmlBuilder.addXmlPurchase(dateTime, date, shopNumber, finalPriceCount.toString(), PRODUCT_PRICE1.toString(), Integer.toString(i), PRODUCT_ID);
-            purchaseXmlBuilder.addXmlPurchase(dateTime, date, shopNumber, finalPriceCount2.toString(), PRODUCT_PRICE2.toString(), Integer.toString(i), PRODUCT_ID2);
+            purchaseXmlBuilder.addXmlPurchase(dateTime, date, shopNumber, finalPriceCount.toString(), PRODUCT_PRICE1.toString(), Integer.toString(i), getProductSku(PRODUCT_NAME));
+            purchaseXmlBuilder.addXmlPurchase(dateTime, date, shopNumber, finalPriceCount2.toString(), PRODUCT_PRICE2.toString(), Integer.toString(i), getProductSku(PRODUCT_NAME2));
         }
         return purchaseXmlBuilder;
     }
