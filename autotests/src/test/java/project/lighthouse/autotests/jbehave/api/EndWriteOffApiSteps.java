@@ -9,6 +9,7 @@ import org.junit.Assert;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.elements.items.DateTime;
 import project.lighthouse.autotests.helper.DateTimeHelper;
+import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.api.SubCategory;
 import project.lighthouse.autotests.objects.api.User;
@@ -57,7 +58,7 @@ public class EndWriteOffApiSteps {
     public void givenThereIsTheWriteOffWithProduct(String writeOffNumber, String productSku, String quantity, String price, String cause)
             throws IOException, JSONException {
         catalogApiSteps.createDefaultSubCategoryThroughPost();
-        createProduct(productSku, productSku, "kg", "15");
+        createProduct(productSku, productSku, Product.TYPE_WEIGHT, "15");
         givenThereIsTheWriteOffWithNumber(writeOffNumber);
         writeOffApiSteps.addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause, "departmentManager");
     }
@@ -68,9 +69,9 @@ public class EndWriteOffApiSteps {
     }
 
     @Given("the user navigates to new write off with '$writeOffNumber' number with product '$productSku' with quantity '$quantity', price '$price' and cause '$cause'")
-    public void givenThereIsTheWriteOffWithProductWithNavigation(String writeOffNumber, String productSku, String productUnits, String purchasePrice, String quantity, String price, String cause)
+    public void givenThereIsTheWriteOffWithProductWithNavigation(String writeOffNumber, String productSku, String quantity, String price, String cause)
             throws IOException, JSONException {
-        createProduct(productSku, productSku, productUnits, purchasePrice);
+        createProduct(productSku, productSku, Product.TYPE_WEIGHT, "1");
         givenThereIsTheWriteOffWithNumber(writeOffNumber);
         writeOffApiSteps.addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause, "departmentManager");
     }
@@ -108,9 +109,9 @@ public class EndWriteOffApiSteps {
         WriteOffSteps.examplesTable = examplesTable;
     }
 
-    public void createProduct(String productName, String productBarCode, String productUnits, String purchasePrice) throws IOException, JSONException {
+    public void createProduct(String productName, String productBarCode, String productType, String purchasePrice) throws IOException, JSONException {
         if (!StaticData.products.containsKey(productName)) {
-            productApiSteps.createProductThroughPost(productName, productBarCode, productUnits, purchasePrice, SubCategory.DEFAULT_NAME, null);
+            productApiSteps.createProductThroughPost(productName, productBarCode, productType, purchasePrice, SubCategory.DEFAULT_NAME, null);
         }
     }
 }

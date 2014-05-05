@@ -12,13 +12,12 @@ public class ProductApiSteps extends CommercialManagerApi {
 
     @Step
     public Product createProduct(String name,
-                                 String units,
+                                 String type,
                                  String vat,
                                  String purchasePrice,
                                  String barcode,
                                  String vendorCountry,
                                  String vendor,
-                                 String info,
                                  String subCategoryName,
                                  String retailMarkupMax,
                                  String retailMarkupMin,
@@ -26,13 +25,12 @@ public class ProductApiSteps extends CommercialManagerApi {
         SubCategory subCategoryObject = StaticData.subCategories.get(subCategoryName);
         Product product = new Product(
                 name,
-                units,
+                type,
                 vat,
                 purchasePrice,
                 barcode,
                 vendorCountry,
                 vendor,
-                info,
                 subCategoryObject.getId(),
                 retailMarkupMax,
                 retailMarkupMin,
@@ -44,7 +42,7 @@ public class ProductApiSteps extends CommercialManagerApi {
     @Step
     public Product createProductThroughPost(String name,
                                             String barcode,
-                                            String units,
+                                            String type,
                                             String purchasePrice,
                                             String subCategoryName,
                                             String rounding) throws JSONException, IOException {
@@ -52,13 +50,12 @@ public class ProductApiSteps extends CommercialManagerApi {
         apiConnect.getSubCategoryMarkUp(subCategory);
         return createProduct(
                 name,
-                units,
+                type,
                 "0",
                 purchasePrice,
                 barcode,
                 "Тестовая страна",
                 "Тестовый производитель",
-                "",
                 subCategoryName,
                 StaticData.retailMarkupMax,
                 StaticData.retailMarkupMin,
@@ -68,7 +65,7 @@ public class ProductApiSteps extends CommercialManagerApi {
     @Step
     public Product createProductThroughPost(String name,
                                             String barcode,
-                                            String units,
+                                            String type,
                                             String purchasePrice,
                                             String subCategoryName,
                                             String retailMarkupMax,
@@ -76,13 +73,12 @@ public class ProductApiSteps extends CommercialManagerApi {
                                             String rounding) throws JSONException, IOException {
         return createProduct(
                 name,
-                units,
+                type,
                 "0",
                 purchasePrice,
                 barcode,
                 "Тестовая страна",
                 "Тестовый производитель",
-                "",
                 subCategoryName,
                 retailMarkupMax,
                 retailMarkupMin,
