@@ -124,8 +124,8 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
-Given there is the product with 'name-3268101' name, '32681' barcode, 'liter' units, '78.90' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
-And there is the product with 'name-3268102' name, '32681' barcode, 'kg' units, '56.78' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
+Given there is the product with 'name-3268101' name, '32681' barcode, 'unit' type, '78.90' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
+And there is the product with 'name-3268102' name, '32681' barcode, 'weight' type, '56.78' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
 Given the user opens the authorization page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -173,7 +173,7 @@ Then the user waits for the invoice product edition preloader finish
 Then the user checks the invoice products list contains exact entries
 | name | units | quantity | price | totalSum | vatSum |
 | name-32681 | шт. | 5,7 | 110,00 | 627,00 руб. | 0,00 руб. |
-| name-3268101 | л | 5,67 | 123,67 | 701,21 руб. | 0,00 руб. |
+| name-3268101 | шт. | 5,67 | 123,67 | 701,21 руб. | 0,00 руб. |
 
 Then the user checks the invoice total sum is 'Итого: 1 328,21 руб.'
 And the user checks the invoice vat sum is 'НДС: 0,00 руб.'
@@ -191,7 +191,7 @@ Then the user waits for the invoice product edition preloader finish
 Then the user checks the invoice products list contains exact entries
 | name | units | quantity | price | totalSum | vatSum |
 | name-32681 | шт. | 5,7 | 110,00 | 627,00 руб. | 0,00 руб. |
-| name-3268101 | л | 5,67 | 123,67 | 701,21 руб. | 0,00 руб. |
+| name-3268101 | шт. | 5,67 | 123,67 | 701,21 руб. | 0,00 руб. |
 | name-3268102 | кг | 45,789 | 56,78 | 2 599,90 руб. | 0,00 руб. |
 
 And the user checks the invoice total sum is 'Итого: 3 928,11 руб.'
@@ -220,7 +220,7 @@ Then the user checks stored values on invoice page
 Then the user checks the invoice products list contains exact entries
 | name | units | quantity | price | totalSum | vatSum |
 | name-32681 | шт. | 5,7 | 110,00 | 627,00 руб. | 0,00 руб. |
-| name-3268101 | л | 5,67 | 123,67 | 701,21 руб. | 0,00 руб. |
+| name-3268101 | шт. | 5,67 | 123,67 | 701,21 руб. | 0,00 руб. |
 | name-3268102 | кг | 45,789 | 56,78 | 2 599,90 руб. | 0,00 руб. |
 
 And the user checks the invoice total sum is 'Итого: 3 928,11 руб.'
@@ -235,7 +235,7 @@ Given there is the user with name 'departmentManager-s32u681', position 'departm
 And there is the store with number 'store-s32u681' managed by department manager named 'departmentManager-s32u681'
 Given there is the supplier with name 'supplier-s32u681s1'
 And there is the subCategory with name 'defaultSubCategory-s32u6811' related to group named 'defaultGroup-s32u6811' and category named 'defaultCategory-s32u6811'
-Given there is the product with 'name-326811' name, '326811' barcode, 'unit' units, '' purchasePrice of group named 'defaultGroup-s32u6811', category named 'defaultCategory-s32u6811', subcategory named 'defaultSubCategory-s32u6811'
+Given there is the product with 'name-326811' name, '326811' barcode, 'unit' type, '' purchasePrice of group named 'defaultGroup-s32u6811', category named 'defaultCategory-s32u6811', subcategory named 'defaultSubCategory-s32u6811'
 
 Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -258,7 +258,7 @@ Given there is the user with name 'departmentManager-s32u681', position 'departm
 And there is the store with number 'store-s32u681' managed by department manager named 'departmentManager-s32u681'
 Given there is the supplier with name 'supplier-s32u681s1'
 And there is the subCategory with name 'defaultSubCategory-s32u6812' related to group named 'defaultGroup-s32u6812' and category named 'defaultCategory-s32u6812'
-Given there is the product with 'name-326812' name, '326812' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u6812', category named 'defaultCategory-s32u6812', subcategory named 'defaultSubCategory-s32u6812'
+Given there is the product with 'name-326812' name, '326812' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s32u6812', category named 'defaultCategory-s32u6812', subcategory named 'defaultSubCategory-s32u6812'
 
 Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password

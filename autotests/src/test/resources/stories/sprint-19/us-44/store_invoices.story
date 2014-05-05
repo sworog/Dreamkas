@@ -20,7 +20,7 @@ Given there is the user with name 'departmentManager-SIC-2', position 'departmen
 And there is the store with number 'SIC-01' managed by department manager named 'departmentManager-SIC'
 And there is the store with number 'SIC-02' managed by department manager named 'departmentManager-SIC-2'
 
-Given there is the product with 'name-SIC' name, 'barcode-SIC' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-SIC', category named 'defaultCategory-SIC', subcategory named 'defaultSubCategory-SIC'
+Given there is the product with 'name-SIC' name, 'barcode-SIC' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-SIC', category named 'defaultCategory-SIC', subcategory named 'defaultSubCategory-SIC'
 
 Given the user creates invoice api object with values
 | elementName | value |

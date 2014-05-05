@@ -9,13 +9,12 @@ Scenario: A scenario that prepares data
 Given there is the product in subCategory with name 'defaultSubCategory-s23u51' with data
 | elementName | elementValue |
 | name | name-2351-3 |
-| units | unit |
+| type | unit |
 | vat | 18 |
 | purchasePrice | 134,80 |
 | barcode | barcode-2351-3 |
 | vendorCountry |  |
 | vendor |  |
-| info |  |
 | retailMarkupMax |  |
 | retailMarkupMin |  |
 | rounding |  |
@@ -36,13 +35,12 @@ And there is the invoice created with invoice builder steps by userName 'departm
 Given there is the product in subCategory with name 'defaultSubCategory-s23u51' with data
 | elementName | elementValue |
 | name | name-2351-4 |
-| units | unit |
+| type | unit |
 | vat | 10 |
 | purchasePrice | 134,80 |
 | barcode | barcode-2351-4 |
 | vendorCountry |  |
 | vendor |  |
-| info |  |
 | retailMarkupMax |  |
 | retailMarkupMin |  |
 | rounding |  |

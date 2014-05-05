@@ -3,13 +3,14 @@
 Meta:
 @sprint_10
 @us_14
+@s10u14s01
 
 Scenario: Write off creation
 
 Meta:
-@test
+@s10u14s01e01
 
-Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductBarCode' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductBarCode' barcode, 'unit' type, '15' purchasePrice
 And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
 
@@ -52,7 +53,10 @@ Then the user checks the product with name 'WriteOff-ProductName' has inventory 
 
 Scenario: Write Off product name autocomplete
 
-Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductBarCode' barcode, 'liter' units, '15' purchasePrice
+Meta:
+@s10u14s01e02
+
+Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductBarCode' barcode, 'unit' type, '15' purchasePrice
 And the user opens the write off create page
 And the user logs in as 'departmentManager'
 When the user inputs 'WriteOff pna' in the 'writeOff number' field on the write off page
@@ -62,7 +66,10 @@ When the user inputs 'WriteOff-ProductName' in the 'writeOff product name autoco
 
 Scenario: Write Off product sku autocomplete
 
-Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductBarCode' barcode, 'liter' units, '15' purchasePrice
+Meta:
+@s10u14s01e03
+
+Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductBarCode' barcode, 'unit' type, '15' purchasePrice
 And the user opens the write off create page
 And the user logs in as 'departmentManager'
 When the user inputs 'WriteOff psa' in the 'writeOff number' field on the write off page
@@ -72,7 +79,10 @@ When the user inputs 'WriteOff-ProductSku' in the 'writeOff product sku autocomp
 
 Scenario: Write Off product barcode autocomplete
 
-Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductBarCode' barcode, 'liter' units, '15' purchasePrice
+Meta:
+@s10u14s01e04
+
+Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductBarCode' barcode, 'unit' type, '15' purchasePrice
 And the user opens the write off create page
 And the user logs in as 'departmentManager'
 When the user inputs 'WriteOff pba' in the 'writeOff number' field on the write off page
@@ -81,6 +91,9 @@ And the user continues the write off creation
 When the user inputs 'WriteOff-ProductBarCode' in the 'writeOff product barCode autocomplete' field on the write off page
 
 Scenario: Write off price is filled by retail price
+
+Meta:
+@s10u14s01e05
 
 Given skipped test
 Given the user is on the product list page
@@ -107,7 +120,10 @@ Then the user checks write off elements values
 
 Scenario: Write off price is filled by purchase price
 
-Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductBarCode' barcode, 'liter' units, '15' purchasePrice
+Meta:
+@s10u14s01e06
+
+Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductBarCode' barcode, 'unit' type, '15' purchasePrice
 And the user opens the write off create page
 And the user logs in as 'departmentManager'
 When the user inputs 'WriteOff ifbpp' in the 'writeOff number' field on the write off page
@@ -121,9 +137,9 @@ Then the user checks write off elements values
 Scenario: Write off review kg
 
 Meta:
-@test
+@s10u14s01e07
 
-Given there is the product with 'WriteOff-ProductName-review1' name, 'WriteOff-ProductBarCode-review1' barcode, 'kg' units, '15' purchasePrice
+Given there is the product with 'WriteOff-ProductName-review1' name, 'WriteOff-ProductBarCode-review1' barcode, 'weight' type, '15' purchasePrice
 And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
 
@@ -167,9 +183,9 @@ Then the user checks the product with name 'WriteOff-WriteOff-ProductName-review
 Scenario: Write off Review liter
 
 Meta:
-@test
+@s10u14s01e08
 
-Given there is the product with 'WriteOff-ProductName-review2' name, 'WriteOff-ProductBarCode-review2' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'WriteOff-ProductName-review2' name, 'WriteOff-ProductBarCode-review2' barcode, 'unit' type, '15' purchasePrice
 And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
 
@@ -213,9 +229,9 @@ Then the user checks the product with name 'WriteOff-WriteOff-ProductName-review
 Scenario: Write off Review units
 
 Meta:
-@test
+@s10u14s01e09
 
-Given there is the product with 'WriteOff-ProductName-review3' name, 'WriteOff-ProductBarCode-review3' barcode, 'unit' units, '15' purchasePrice
+Given there is the product with 'WriteOff-ProductName-review3' name, 'WriteOff-ProductBarCode-review3' barcode, 'unit' type, '15' purchasePrice
 And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
 
@@ -257,11 +273,11 @@ Then the user checks the product with name 'WriteOff-WriteOff-ProductName-review
 Scenario: Review 3 different products in one write off
 
 Meta:
-@test
+@s10u14s01e10
 
-Given there is the product with 'WriteOff-ProductName-review1' name, 'WriteOff-ProductBarCode-review1' barcode, 'kg' units, '15' purchasePrice
-Given there is the product with 'WriteOff-ProductName-review2' name, 'WriteOff-ProductBarCode-review2' barcode, 'liter' units, '15' purchasePrice
-Given there is the product with 'WriteOff-ProductName-review3' name, 'WriteOff-ProductBarCode-review3' barcode, 'unit' units, '15' purchasePrice
+Given there is the product with 'WriteOff-ProductName-review1' name, 'WriteOff-ProductBarCode-review1' barcode, 'weight' type, '15' purchasePrice
+Given there is the product with 'WriteOff-ProductName-review2' name, 'WriteOff-ProductBarCode-review2' barcode, 'unit' type, '15' purchasePrice
+Given there is the product with 'WriteOff-ProductName-review3' name, 'WriteOff-ProductBarCode-review3' barcode, 'unit' type, '15' purchasePrice
 And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
 
@@ -368,7 +384,7 @@ Scenario: Write off edition - product name
 Meta:
 @test
 
-Given there is the product with 'WriteOff-WOE-PN' name, 'WriteOff-WOE-PN' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'WriteOff-WOE-PN' name, 'WriteOff-WOE-PN' barcode, 'unit' type, '15' purchasePrice
 And there is the write off with 'WriteOff-Edit-productName' number with product 'WriteOff-ProductName-autocomplete' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
 And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
@@ -402,7 +418,7 @@ Scenario: Write off edition - product sku
 Meta:
 @test
 
-Given there is the product with 'WriteOff-WOE-PS' name, 'WriteOff-WOE-PS' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'WriteOff-WOE-PS' name, 'WriteOff-WOE-PS' barcode, 'unit' type, '15' purchasePrice
 And there is the write off with 'WriteOff-Edit-productSku' number with product 'WriteOff-ProductSku-autocomplete' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
 And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
@@ -436,7 +452,7 @@ Scenario: Write off edition - product barcode
 Meta:
 @test
 
-Given there is the product with 'WriteOff-WOE-Pb' name, 'WriteOff-WOE-Pb' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'WriteOff-WOE-Pb' name, 'WriteOff-WOE-Pb' barcode, 'unit' type, '15' purchasePrice
 And there is the write off with 'WriteOff-Edit-productBarCode' number with product 'WriteOff-ProductBarCode-autocomplete' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
 And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
@@ -534,7 +550,7 @@ Then the user checks the product with 'WriteOff-ProductCause' sku has elements o
 
 Scenario: Write off edition - adding new product
 
-Given there is the product with 'WriteOff-WOE-ANP' name, 'WriteOff-WOE-ANP' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'WriteOff-WOE-ANP' name, 'WriteOff-WOE-ANP' barcode, 'unit' type, '15' purchasePrice
 And navigate to new write off with 'WriteOff-Edit-productAdd' number
 And the user logs in as 'departmentManager'
 When the user clicks edit button and starts write off edition

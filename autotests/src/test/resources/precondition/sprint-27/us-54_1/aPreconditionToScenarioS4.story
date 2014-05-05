@@ -16,4 +16,4 @@ Given there is the store with number '27541' managed by department manager named
 And there is the subCategory with name 'defaultSubCategory-s27u541' related to group named 'defaultGroup-s27u541' and category named 'defaultCategory-s27u541'
 And the user sets subCategory 'defaultSubCategory-s27u541' mark up with max '10' and min '0' values
 
-Given there is the product with 'name-27541' name, '27541' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s27u541', category named 'defaultCategory-s27u541', subcategory named 'defaultSubCategory-s27u541'
+Given there is the product with 'name-27541' name, '27541' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s27u541', category named 'defaultCategory-s27u541', subcategory named 'defaultSubCategory-s27u541'

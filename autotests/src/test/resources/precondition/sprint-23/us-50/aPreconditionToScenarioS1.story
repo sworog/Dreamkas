@@ -6,9 +6,9 @@ Meta:
 
 Scenario: A scenario that prepares data
 
-Given there is the product with 'Балык свиной в/с в/об Матера' name, '2800465' barcode, 'unit' units, '312,80' purchasePrice of group named 'defaultGroup-s23u50', category named 'defaultCategory-s23u50', subcategory named 'defaultSubCategory-s23u50'
-And there is the product with 'Балык Ломберный с/к в/с ТД Рублевский' name, '2805223' barcode, 'unit' units, '678,40' purchasePrice of group named 'defaultGroup-s23u50', category named 'defaultCategory-s23u50', subcategory named 'defaultSubCategory-s23u50'
-And there is the product with 'Ассорти Читтерио мясное нар.140г' name, '80469353' barcode, 'unit' units, '449,60' purchasePrice of group named 'defaultGroup-s23u50', category named 'defaultCategory-s23u50', subcategory named 'defaultSubCategory-s23u50'
+Given there is the product with 'Балык свиной в/с в/об Матера' name, '2800465' barcode, 'unit' type, '312,80' purchasePrice of group named 'defaultGroup-s23u50', category named 'defaultCategory-s23u50', subcategory named 'defaultSubCategory-s23u50'
+And there is the product with 'Балык Ломберный с/к в/с ТД Рублевский' name, '2805223' barcode, 'unit' type, '678,40' purchasePrice of group named 'defaultGroup-s23u50', category named 'defaultCategory-s23u50', subcategory named 'defaultSubCategory-s23u50'
+And there is the product with 'Ассорти Читтерио мясное нар.140г' name, '80469353' barcode, 'unit' type, '449,60' purchasePrice of group named 'defaultGroup-s23u50', category named 'defaultCategory-s23u50', subcategory named 'defaultSubCategory-s23u50'
 
 Given the user creates invoice api object with values
 | elementName | value |

@@ -5,7 +5,7 @@ Meta:
 
 Scenario: A scenario that prepares data
 
-Given there is the product with 'name-2352-2' name, 'barcode-2352-2' barcode, 'unit' units, '134,80' purchasePrice of group named 'defaultGroup-s23u52', category named 'defaultCategory-s23u52', subcategory named 'defaultSubCategory-s23u52'
+Given there is the product with 'name-2352-2' name, 'barcode-2352-2' barcode, 'unit' type, '134,80' purchasePrice of group named 'defaultGroup-s23u52', category named 'defaultCategory-s23u52', subcategory named 'defaultSubCategory-s23u52'
 Given there is the writeOff in the store with number '2352' ruled by department manager with name 'departmentManager-s23u52' with values
 | elementName | elementValue |
 | number | writeOff-2352-3 |

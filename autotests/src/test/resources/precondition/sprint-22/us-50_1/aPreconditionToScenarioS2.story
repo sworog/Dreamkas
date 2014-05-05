@@ -5,4 +5,4 @@ Meta:
 
 Scenario: A scenario that prepares data
 
-Given there is the product with 'SCPBC-name-1' name, '' barcode, 'unit' units, '' purchasePrice of group named 'SCPBC-defaultGroup', category named 'SCPBC-defaultCategory', subcategory named 'SCPBC-defaultSubCategory'
+Given there is the product with 'SCPBC-name-1' name, '' barcode, 'unit' type, '' purchasePrice of group named 'SCPBC-defaultGroup', category named 'SCPBC-defaultCategory', subcategory named 'SCPBC-defaultSubCategory'
