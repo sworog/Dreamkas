@@ -56,6 +56,12 @@ define(function(require, exports, module) {
 
                 expect($.trim($inventory.text())).toEqual('123,6');
             });
+
+            it('zero start negative number with decimals in template', function(){
+                var $inventory = $(templates.amount({value: -0.621}));
+
+                expect($.trim($inventory.text())).toEqual('-0,621');
+            });
         });
     });
 });
