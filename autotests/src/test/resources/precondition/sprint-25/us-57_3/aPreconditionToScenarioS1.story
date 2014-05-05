@@ -20,4 +20,4 @@ Given there is the store with number '25573' managed by 'storeManager-s25u573'
 And there is the subCategory with name 'defaultSubCategory-s25u573' related to group named 'defaultGroup-s25u573' and category named 'defaultCategory-s25u573'
 And the user sets subCategory 'defaultSubCategory-s25u573' mark up with max '10' and min '0' values
 
-Given there is the product with 'name-25573' name, '25573' barcode, 'unit' units, '100,0' purchasePrice of group named 'defaultGroup-s25u573', category named 'defaultCategory-s25u573', subcategory named 'defaultSubCategory-s25u573'
+Given there is the product with 'name-25573' name, '25573' barcode, 'unit' type, '100,0' purchasePrice of group named 'defaultGroup-s25u573', category named 'defaultCategory-s25u573', subcategory named 'defaultSubCategory-s25u573'
