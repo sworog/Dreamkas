@@ -88,7 +88,6 @@ And the user logs in as 'commercialManager'
 When the user creates new product from product list page
 And the user inputs 'WriteOff-ProductName-1' in 'name' field
 And the user inputs '112' in 'purchasePrice' field
-And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user inputs 'Retail price - WO-PCWRPF' in 'sku' field
 And the user clicks 'retailPriceHint' to make it avalaible
