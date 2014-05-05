@@ -28,7 +28,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SBV-01 | SBV-01 | SBV-01 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
+| SBV-01 | #sku:SBV-01 | SBV-01 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
 
 When the user logs out
 
@@ -39,7 +39,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SBV-01 | SBV-01 | SBV-01 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
+| SBV-01 | #sku:SBV-01 | SBV-01 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
 
 When the user logs out
 
@@ -63,7 +63,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SBV-01 | SBV-01 | SBV-01 | 5,0 | 0,0 | 0,0 | 10,00 р. | — |
+| SBV-01 | #sku:SBV-01 | SBV-01 | 5,0 | 0,0 | 0,0 | 10,00 р. | — |
 
 When the user logs out
 
@@ -74,7 +74,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SBV-01 | SBV-01 | SBV-01 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
+| SBV-01 | #sku:SBV-01 | SBV-01 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
 
 When the user logs out
 
@@ -88,7 +88,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SBV-01 | SBV-01 | SBV-01 | 2,0 | 0,0 | 0,0 | 10,00 р. | — |
+| SBV-01 | #sku:SBV-01 | SBV-01 | 2,0 | 0,0 | 0,0 | 10,00 р. | — |
 
 When the user logs out
 
@@ -99,7 +99,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SBV-01 | SBV-01 | SBV-01 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
+| SBV-01 | #sku:SBV-01 | SBV-01 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
 
 When the user logs out
 
@@ -123,7 +123,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SBV-01 | SBV-01 | SBV-01 | 2,0 | 0,0 | 0,0 | 10,00 р. | — |
+| SBV-01 | #sku:SBV-01 | SBV-01 | 2,0 | 0,0 | 0,0 | 10,00 р. | — |
 
 When the user logs out
 
@@ -134,7 +134,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SBV-01 | SBV-01 | SBV-01 | 3,0 | 0,0 | 0,0 | 10,00 р. | — |
+| SBV-01 | #sku:SBV-01 | SBV-01 | 3,0 | 0,0 | 0,0 | 10,00 р. | — |
 
 When the user logs out
 
@@ -148,7 +148,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SBV-01 | SBV-01 | SBV-01 | 2,0 | 0,0 | 0,0 | 10,00 р. | — |
+| SBV-01 | #sku:SBV-01 | SBV-01 | 2,0 | 0,0 | 0,0 | 10,00 р. | — |
 
 When the user logs out
 
@@ -159,7 +159,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SBV-01 | SBV-01 | SBV-01 | 1,0 | 0,0 | 0,0 | 10,00 р. | — |
+| SBV-01 | #sku:SBV-01 | SBV-01 | 1,0 | 0,0 | 0,0 | 10,00 р. | — |
 
 Scenario: Store last purchase price
 
@@ -181,7 +181,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SBV-02 | SBV-02 | SBV-02 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
+| SBV-02 | #sku:SBV-02 | SBV-02 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
 
 When the user logs out
 
@@ -192,7 +192,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SBV-02 | SBV-02 | SBV-02 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
+| SBV-02 | #sku:SBV-02 | SBV-02 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
 
 When the user logs out
 
@@ -216,7 +216,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SBV-02 | SBV-02 | SBV-02 | 5,0 | 0,0 | 0,0 | 101,00 р. | — |
+| SBV-02 | #sku:SBV-02 | SBV-02 | 5,0 | 0,0 | 0,0 | 101,00 р. | — |
 
 When the user logs out
 
@@ -227,7 +227,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SBV-02 | SBV-02 | SBV-02 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
+| SBV-02 | #sku:SBV-02 | SBV-02 | 0,0 | 0,0 | 0,0 | 123,00 р. | — |
 
 When the user logs out
 
@@ -251,7 +251,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SBV-02 | SBV-02 | SBV-02 | 5,0 | 0,0 | 0,0 | 101,00 р. | — |
+| SBV-02 | #sku:SBV-02 | SBV-02 | 5,0 | 0,0 | 0,0 | 101,00 р. | — |
 
 When the user logs out
 
@@ -262,4 +262,4 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SBV-02 | SBV-02 | SBV-02 | 5,0 | 0,0 | 0,0 | 156,00 р. | — |
+| SBV-02 | #sku:SBV-02 | SBV-02 | 5,0 | 0,0 | 0,0 | 156,00 р. | — |
