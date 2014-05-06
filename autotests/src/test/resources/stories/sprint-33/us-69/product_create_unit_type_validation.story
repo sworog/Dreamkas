@@ -8,8 +8,10 @@ Narrative:
 
 Meta:
 @sprint_33
-@us_4.1
+@us_69
+@product
 @s33u69s05
+
 
 Scenario: Create product validation - Name field length validation
 
