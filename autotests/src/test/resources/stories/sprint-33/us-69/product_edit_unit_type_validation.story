@@ -70,7 +70,7 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Given there is created product with name 'ED-SKVG'
 And the user is on the product list page
-When the user open the product card with 'ED-SKVG' sku
+When the user open the product card with 'ED-SKVG' name
 And the user clicks the edit button on product card view page
 And the user inputs 'Sku field validation good' in 'name' field
 And the user inputs '1001DS8' in 'sku' field

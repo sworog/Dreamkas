@@ -82,12 +82,7 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
-    public void listItemClick(String skuValue) {
-        productListPage.listItemClick(skuValue);
-    }
-
-    @Step
-    public void listItemClickByName(String name) {
+    public void listItemClick(String name) {
         productListPage.getProductObjectCollection().clickByLocator(name);
     }
 
