@@ -41,4 +41,9 @@ public class RobotUserSteps {
         final String fileName = "purchases-data.xml";
         robotSteps.prepareData(fileName);
     }
+
+    @Then("the robot checks xml file in autotests folder for equals fixture file '$fixtureFile'")
+    public void thenTheRobotChecksXmlFileInAutotestsFolderForEqualsFixtureFile(String fixtureFile) {
+        robotSteps.checkProductWeightExport(fixtureFile);
+    }
 }

@@ -65,6 +65,19 @@ public class RobotSteps extends ScenarioSteps {
         }
     }
 
+    @Step
+    public void checkProductWeightExport(String fixtureFile) {
+        String directoryPath = SERVER_URL + "/centrum/autotests/source";
+        File[] files = FileUtils.getFile(directoryPath).listFiles();
+        assert files != null;
+        Assert.assertTrue(files.length != 0);
+
+        File actualFile = files[0];
+        File expectedFile = new File(String.format("%s/xml/%s", System.getProperty("user.dir").replace("\\", "/"), fixtureFile));
+
+        Assert.assertEquals(expectedFile, actualFile);
+    }
+
     private String getFileName() {
         DateTimeFormatter dtf = DateTimeFormat.forPattern("dd-MM-yyyy_HH-mm-ss");
         return String.format("purchases-%s.xml", dtf.print(DateTime.now()));

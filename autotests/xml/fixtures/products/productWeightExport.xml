@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<goods-catalog><good marking-of-the-good="10001"><shop-indices>33691</shop-indices><name>name-33691</name><bar-code code="33691"><count>1</count><default-code>true</default-code></bar-code><product-type>ProductPieceEntity</product-type><price-entry price="147.00"><number>1</number><department number="1"><name>1</name></department></price-entry><vat>0</vat><group id="defaultSubCategory-s33u69.1"><name>defaultSubCategory-s33u69.1</name><parent-group id="defaultCategory-s33u69.1"><name>defaultCategory-s33u69.1</name><parent-group id="defaultGroup-s33u69.1"><name>defaultGroup-s33u69.1</name></parent-group></parent-group></group><measure-type id="kg"><name>кг</name></measure-type><plugin-property key="precision" value="1"/></good>
+</goods-catalog>
+<not-equealslsdlkjsdlksd></not-equealslsdlkjsdlksd>
