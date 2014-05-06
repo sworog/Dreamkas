@@ -11,6 +11,9 @@ import javax.xml.xpath.XPathExpressionException;
  */
 public class PurchaseXmlBuilder {
 
+    final public static String OPERATION_TYPE_SALE = "true";
+    final public static String OPERATION_TYPE_RETURN = "false";
+
     private XMLBuilder xmlBuilder;
 
     protected int number = 1;
@@ -30,10 +33,10 @@ public class PurchaseXmlBuilder {
             String amount,
             String price,
             String count,
-            String id,
+            String sku,
             Integer number
     ) throws XPathExpressionException {
-        return xmlAction(saleTime, operDay, shop, amount, price, count, id, "true", number);
+        return xmlAction(saleTime, operDay, shop, amount, price, count, sku, OPERATION_TYPE_SALE, number);
     }
 
     public PurchaseXmlBuilder addXmlPurchase(
@@ -43,9 +46,9 @@ public class PurchaseXmlBuilder {
             String amount,
             String price,
             String count,
-            String id
+            String sku
     ) throws XPathExpressionException {
-        return xmlAction(saleTime, operDay, shop, amount, price, count, id, "true", number++);
+        return xmlAction(saleTime, operDay, shop, amount, price, count, sku, OPERATION_TYPE_SALE, number++);
     }
 
     public PurchaseXmlBuilder addXmlReturn(
@@ -55,10 +58,10 @@ public class PurchaseXmlBuilder {
             String amount,
             String price,
             String count,
-            String id,
+            String sku,
             Integer number
     ) throws XPathExpressionException {
-        return xmlAction(saleTime, operDay, shop, amount, price, count, id, "false", number);
+        return xmlAction(saleTime, operDay, shop, amount, price, count, sku, OPERATION_TYPE_RETURN, number);
     }
 
     public PurchaseXmlBuilder addXmlReturn(
@@ -68,9 +71,9 @@ public class PurchaseXmlBuilder {
             String amount,
             String price,
             String count,
-            String id
+            String sku
     ) throws XPathExpressionException {
-        return xmlAction(saleTime, operDay, shop, amount, price, count, id, "false", number++);
+        return xmlAction(saleTime, operDay, shop, amount, price, count, sku, OPERATION_TYPE_RETURN, number++);
     }
 
     private PurchaseXmlBuilder xmlAction(
@@ -80,21 +83,43 @@ public class PurchaseXmlBuilder {
             String amount,
             String price,
             String count,
-            String id,
+            String sku,
             String operationType,
             Integer number
     ) throws XPathExpressionException {
         xmlBuilder.xpathFind("//purchases")
-                .e("purchase").a("discountAmount", "0.0").a("amount", amount).a("saletime", saleTime).a("number", number.toString()).a("shift", "11").a("cash", "1")
-                .a("shop", shop).a("operDay", operDay).a("operationType", operationType).a("userName", "Админ Админ Админ").a("tabNumber", "123213123")
+                .e("purchase")
+                    .a("discountAmount", "0.0")
+                    .a("amount", amount)
+                    .a("saletime", saleTime)
+                    .a("number", number.toString())
+                    .a("shift", "11")
+                    .a("cash", "1")
+                    .a("shop", shop)
+                    .a("operDay", operDay)
+                    .a("operationType", operationType)
+                    .a("userName", "Админ Админ Админ")
+                    .a("tabNumber", "123213123")
                 .e("positions")
-                .e("position").a("amount", amount).a("costWithDiscount", price).a("discountValue", "0.0").a("ndsSum", "0.0").a("nds", "0.0").a("cost", price)
-                .a("count", count).a("barCode", id).a("goodsCode", id).a("departNumber", "1").a("order", "1")
-                .up()
+                    .e("position")
+                        .a("amount", amount)
+                        .a("costWithDiscount", price)
+                        .a("discountValue", "0.0")
+                        .a("ndsSum", "0.0")
+                        .a("nds", "0.0")
+                        .a("cost", price)
+                        .a("count", count)
+                        .a("barCode", sku)
+                        .a("goodsCode", sku)
+                        .a("departNumber", "1")
+                        .a("order", "1")
+                    .up()
                 .up()
                 .e("payments")
-                .e("payment")
-                .a("description", "").a("amount", amount).a("typeClass", "CashPaymentEntity");
+                    .e("payment")
+                        .a("description", "")
+                        .a("amount", amount)
+                        .a("typeClass", "CashPaymentEntity");
         return this;
     }
 

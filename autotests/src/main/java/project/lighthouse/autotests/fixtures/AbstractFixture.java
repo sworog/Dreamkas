@@ -50,13 +50,13 @@ public abstract class AbstractFixture {
         return grossSalesByHourMap;
     }
 
-    public PurchaseXmlBuilder generateDataSet(String date, String shopNumber, String id, Double price) throws ParserConfigurationException, XPathExpressionException {
+    public PurchaseXmlBuilder generateDataSet(String date, String shopNumber, String sku, Double price) throws ParserConfigurationException, XPathExpressionException {
         PurchaseXmlBuilder purchaseXmlBuilder = PurchaseXmlBuilder.create("24");
         for (int i = 1; i < 25; i++) {
             Double finalPriceCount = price * i;
             String hours = String.format("%02d", i - 1);
             String dateTime = getDate(date, hours);
-            purchaseXmlBuilder.addXmlPurchase(dateTime, date, shopNumber, finalPriceCount.toString(), price.toString(), Integer.toString(i), id);
+            purchaseXmlBuilder.addXmlPurchase(dateTime, date, shopNumber, finalPriceCount.toString(), price.toString(), Integer.toString(i), sku);
         }
         return purchaseXmlBuilder;
     }
@@ -82,7 +82,7 @@ public abstract class AbstractFixture {
     }
 
     public String getFormattedValue(String value) {
-        return String.format("%s р.", value);
+        return String.format("%s р.", value.replace(".", ","));
     }
 
     abstract public String getFixtureFileName();
