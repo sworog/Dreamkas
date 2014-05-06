@@ -87,6 +87,11 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
+    public void listItemClickByName(String name) {
+        productListPage.getProductObjectCollection().clickByLocator(name);
+    }
+
+    @Step
     public void listItemCheck(String name) {
         productListPage.getProductObjectCollection().contains(name);
     }

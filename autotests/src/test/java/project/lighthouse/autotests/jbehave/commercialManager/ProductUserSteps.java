@@ -125,6 +125,11 @@ public class ProductUserSteps {
         productSteps.listItemClick(skuValue);
     }
 
+    @When("the user open the product card with '$nameValue' name")
+    public void whenTheUserOpenTheProductCardByName(String nameValue) {
+        productSteps.listItemClickByName(nameValue);
+    }
+
     @When("the user clicks the edit button on product card view page")
     public void whenTheUserClicksTheEditButtonOnProductCardViewPage() {
         productSteps.editButtonClick();
