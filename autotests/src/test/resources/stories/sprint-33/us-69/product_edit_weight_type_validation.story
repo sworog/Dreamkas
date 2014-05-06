@@ -117,3 +117,26 @@ Examples:
 | shelfLife | 1000 | s33u69s09e05.2 |
 | shelfLife | 24 | s33u69s09e05.3 |
 
+Scenario: Edit weight product switch to unit type
+
+Meta:
+@s33u69s09e06
+
+Given there is the product with 's33u69s09e06' name, 'weight' type
+And the user navigates to the product with name 's33u69s09e06'
+And the user logs in as 'commercialManager'
+When the user clicks the edit button on product card view page
+And the user inputs 's33u69s09e06' in 'nameOnScales' element field
+And the user inputs 's33u69s09e06' in 'descriptionOnScales' element field
+And the user inputs 's33u69s09e06' in 'ingredients' element field
+And the user inputs 's33u69s09e06' in 'nutritionFacts' element field
+And the user inputs '1' in 'shelfLife' element field
+When the user clicks the create button
+Then the user sees no error messages
+When the user clicks the edit button on product card view page
+And the user selects product type 'Штучный'
+When the user clicks the create button
+Then the user sees no error messages
+Given the user is on the product list page
+Then the user checks the product with 's33u69s09e06' name is present
+
