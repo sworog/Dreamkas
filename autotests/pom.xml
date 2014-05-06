@@ -101,6 +101,11 @@
             <artifactId>poi-ooxml</artifactId>
             <version>3.10-FINAL</version>
         </dependency>
+        <dependency>
+            <groupId>xmlunit</groupId>
+            <artifactId>xmlunit</artifactId>
+            <version>1.5</version>
+        </dependency>
     </dependencies>
 
     <build>

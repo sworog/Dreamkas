@@ -4,9 +4,11 @@ import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.apache.commons.io.FileUtils;
+import org.custommonkey.xmlunit.Diff;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.xml.sax.SAXException;
 import project.lighthouse.autotests.robotClient.InterruptedException_Exception;
 import project.lighthouse.autotests.robotClient.SetRobotHubWS;
 import project.lighthouse.autotests.robotClient.SetRobotHubWSService;
@@ -14,6 +16,7 @@ import project.lighthouse.autotests.robotClient.SetRobotHubWSService;
 import java.io.File;
 import java.io.IOException;
 
+import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
 
 public class RobotSteps extends ScenarioSteps {
@@ -75,7 +78,18 @@ public class RobotSteps extends ScenarioSteps {
         File actualFile = files[0];
         File expectedFile = new File(String.format("%s/xml/%s", System.getProperty("user.dir").replace("\\", "/"), fixtureFile));
 
-        Assert.assertEquals(expectedFile, actualFile);
+        Diff diff = null;
+        try {
+            String actualXml = FileUtils.readFileToString(actualFile);
+            String expectedXml = FileUtils.readFileToString(expectedFile);
+            diff = new Diff(expectedXml, actualXml);
+        } catch (SAXException | IOException e) {
+            e.printStackTrace();
+        }
+
+
+        assert diff != null;
+        assertTrue("Xml file not equals", diff.similar());
 
         actualFile.delete();
     }
