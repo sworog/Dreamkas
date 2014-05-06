@@ -78,6 +78,11 @@ public class ProductUserSteps {
         thenTheUserChecksTheElementValues(fieldInputTable);
     }
 
+    @When("the user selects product type '$value'")
+    public void whenTheUserSelectsValueInDropDown(String value) {
+        productSteps.selectProductType(value);
+    }
+
     @When("the user selects '$value' in '$elementName' dropdown")
     public void whenTheUserSelectsValueInDropDown(String value, String elementName) {
         productSteps.selectDropDown(elementName, value);

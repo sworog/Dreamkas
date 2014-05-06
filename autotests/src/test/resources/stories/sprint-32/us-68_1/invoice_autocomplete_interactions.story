@@ -26,7 +26,7 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
-Given there is the product with 'name-32681' name, '32681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
+Given there is the product with 'name-32681' name, '32681' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
 Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -276,7 +276,7 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
-Given there is the product with 'csme-32681' name, '32681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
+Given there is the product with 'csme-32681' name, '32681' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
 Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -298,7 +298,7 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
-Given there is the product with 'name-32681' name, '32681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
+Given there is the product with 'name-32681' name, '32681' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
 Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -418,7 +418,7 @@ Meta:
 Given there is the user with name 'departmentManager-s32u681', position 'departmentManager-s32u681', username 'departmentManager-s32u681', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s32u681' managed by department manager named 'departmentManager-s32u681'
 
-Given there is the product with 'топленое_молоко-32681' name, '32681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
+Given there is the product with 'топленое_молоко-32681' name, '32681' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
 Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -445,7 +445,7 @@ Meta:
 Given there is the user with name 'departmentManager-s32u681', position 'departmentManager-s32u681', username 'departmentManager-s32u681', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s32u681' managed by department manager named 'departmentManager-s32u681'
 
-Given there is the product with 'топленый_кефир-32681' name, '32681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
+Given there is the product with 'топленый_кефир-32681' name, '32681' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
 Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password

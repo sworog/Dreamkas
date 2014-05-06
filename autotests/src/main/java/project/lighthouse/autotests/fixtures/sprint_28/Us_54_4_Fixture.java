@@ -24,8 +24,8 @@ public class Us_54_4_Fixture extends AbstractFixture {
     private static final String TWO_DAYS_AGO_DATE_PURCHASE = new DateTimeHelper(2).convertDate();
 
     private static final String SHOP_NUMBER = "28544";
-    private static final String PRODUCT_ID = "28544";
-    private static final String PRODUCT_ID_2 = "285441";
+    private static final String PRODUCT_NAME = "name-28544";
+    private static final String PRODUCT_NAME_2 = "name-285441";
     private static final Double PRODUCT_PRICE_1 = 120.0;
     private static final Double PRODUCT_PRICE_2 = 130.0;
     private static final Double PRODUCT_PRICE_3 = 145.0;
@@ -114,7 +114,7 @@ public class Us_54_4_Fixture extends AbstractFixture {
                         Double.toString(PRODUCT_PRICE_3 * 2),
                         Double.toString(PRODUCT_PRICE_3),
                         "2",
-                        PRODUCT_ID,
+                        getProductSku(PRODUCT_NAME),
                         1
                 );
     }
@@ -127,7 +127,7 @@ public class Us_54_4_Fixture extends AbstractFixture {
                         Double.toString(PRODUCT_PRICE_2 * 2),
                         Double.toString(PRODUCT_PRICE_2),
                         "2",
-                        PRODUCT_ID_2,
+                        getProductSku(PRODUCT_NAME_2),
                         1
                 );
     }
@@ -140,7 +140,7 @@ public class Us_54_4_Fixture extends AbstractFixture {
                         Double.toString(PRODUCT_PRICE_2 * 2),
                         Double.toString(PRODUCT_PRICE_2),
                         "2",
-                        PRODUCT_ID,
+                        getProductSku(PRODUCT_NAME),
                         1
                 );
     }
@@ -153,7 +153,7 @@ public class Us_54_4_Fixture extends AbstractFixture {
                         Double.toString(PRODUCT_PRICE_1 * 5),
                         Double.toString(PRODUCT_PRICE_1),
                         "5",
-                        PRODUCT_ID,
+                        getProductSku(PRODUCT_NAME),
                         1
                 );
     }

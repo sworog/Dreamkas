@@ -22,7 +22,7 @@ And the user checks the products list contain product with name 'PCWNPP'
 
 Scenario: Product with no prurchase price list checking
 
-Given there is the product with 'ProductNoPriceName' name, 'ProductNoPriceBarCode' barcode, 'kg' units, '' purchasePrice
+Given there is the product with 'ProductNoPriceName' name, 'ProductNoPriceBarCode' barcode, 'weight' type, '' purchasePrice
 And the user is on the product list page
 And the user logs in as 'commercialManager'
 
@@ -30,7 +30,7 @@ Then the user checks the product with name 'ProductNoPriceName' has purchasePric
 
 Scenario: Product with no purchase price card checking
 
-Given there is the product with 'ProductNoPriceName' name, 'ProductNoPriceBarCode' barcode, 'kg' units, '' purchasePrice
+Given there is the product with 'ProductNoPriceName' name, 'ProductNoPriceBarCode' barcode, 'weight' type, '' purchasePrice
 And the user navigates to the product with name 'ProductNoPriceName'
 And the user logs in as 'commercialManager'
 Then the user checks the 'purchasePrice' value is 'отсутствует'
@@ -89,7 +89,7 @@ And the user checks the product with name 'PCWNPP2' has purchasePrice equals to 
 Scenario: WriteOff autocomplete search for product with no purchasePrice
 
 Given skipped test
-Given there is the product with 'ProductNoPriceName' name, 'ProductNoPriceBarCode' barcode, 'kg' units, '' purchasePrice
+Given there is the product with 'ProductNoPriceName' name, 'ProductNoPriceBarCode' barcode, 'weight' type, '' purchasePrice
 And there is the write off with number 'writeOffProductWithNoPrice'
 And the user navigates to the write off with number 'writeOffProductWithNoPrice'
 And the user logs in as 'departmentManager'

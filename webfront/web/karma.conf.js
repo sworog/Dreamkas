@@ -32,7 +32,8 @@ module.exports = function(config) {
             {pattern: 'blocks/form/form.js', included: false},
             {pattern: 'blocks/select/select_priceRoundings/select_priceRoundings.html', included: false},
             {pattern: 'blocks/select/select_vat/select_vat.html', included: false},
-            {pattern: 'blocks/form/form_product/**/*', included: false}
+            {pattern: 'blocks/form/form_product/**/*', included: false},
+            {pattern: 'blocks/amount/**/*', included: false}
 
         ],
 
@@ -99,6 +100,6 @@ module.exports = function(config) {
 
         // Continuous Integration mode
         // if true, it capture browsers, run tests and exit
-        singleRun: false
+        singleRun: true
     });
 };

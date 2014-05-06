@@ -8,13 +8,12 @@ Scenario: A scenario that prepares data
 Given there is the product in subCategory with name 'defaultSubCategory-s23u51' with data
 | elementName | elementValue |
 | name | name-2351-1 |
-| units | unit |
+| type | unit |
 | vat | 0 |
 | purchasePrice | 134,80 |
 | barcode | barcode-2351-1 |
 | vendorCountry |  |
 | vendor |  |
-| info |  |
 | retailMarkupMax |  |
 | retailMarkupMin |  |
 | rounding |  |

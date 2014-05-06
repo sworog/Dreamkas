@@ -5,7 +5,7 @@ Meta:
 
 Scenario: A scenario that prepares data
 
-Given there is the product with 'SCPBC-name-11' name, 'SCPBC-barcode-11' barcode, 'unit' units, '12,34' purchasePrice of group named 'SCPBC-defaultGroup', category named 'SCPBC-defaultCategory', subcategory named 'SCPBC-defaultSubCategory'
+Given there is the product with 'SCPBC-name-11' name, 'SCPBC-barcode-11' barcode, 'unit' type, '12,34' purchasePrice of group named 'SCPBC-defaultGroup', category named 'SCPBC-defaultCategory', subcategory named 'SCPBC-defaultSubCategory'
 And there is the writeOff in the store with number 'SCPBC' ruled by department manager with name 'departmentManager-SCPBC' with values
 | elementName | elementValue |
 | number | SCPBC-11 |

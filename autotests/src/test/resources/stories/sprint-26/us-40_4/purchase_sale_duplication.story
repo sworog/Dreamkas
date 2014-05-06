@@ -23,14 +23,14 @@ When the user logs in using 'storeManager-s26u404' userName and 'lighthouse' pas
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| name-26404 | 26404 | 26404 | -5,0 | 0,0 | 0,0 | 124,50 р. | — |
+| name-26404 | #sku:name-26404 | 26404 | -5,0 | 0,0 | 0,0 | 124,50 р. | — |
 
 Given the user prepares sale purchase return for us 40.4 story
 
 When the user refreshes the current page
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| name-26404 | 26404 | 26404 | -1,0 | 0,0 | 0,0 | 124,50 р. | — |
+| name-26404 | #sku:name-26404 | 26404 | -1,0 | 0,0 | 0,0 | 124,50 р. | — |
 
 Scenario: Return purchase duplication import
 
@@ -48,7 +48,7 @@ When the user logs in using 'departmentManager-s26u404' userName and 'lighthouse
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| name-26404 | 26404 | 26404 | 5,0 | 0,0 | 0,0 | 124,50 р. | — |
+| name-26404 | #sku:name-26404 | 26404 | 5,0 | 0,0 | 0,0 | 124,50 р. | — |
 
 Given the user navigates to the product with name 'name-26404'
 When the user clicks the product local navigation returns link
@@ -62,7 +62,7 @@ Given the user navigates to the subCategory 'defaultSubCategory-s26u404', catego
 When the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| name-26404 | 26404 | 26404 | 1,0 | 0,0 | 0,0 | 124,50 р. | — |
+| name-26404 | #sku:name-26404 | 26404 | 1,0 | 0,0 | 0,0 | 124,50 р. | — |
 
 Given the user navigates to the product with name 'name-26404'
 When the user clicks the product local navigation returns link

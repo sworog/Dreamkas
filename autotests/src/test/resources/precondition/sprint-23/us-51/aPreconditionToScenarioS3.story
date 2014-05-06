@@ -9,13 +9,12 @@ Scenario: A scenario that prepares data
 Given there is the product in subCategory with name 'defaultSubCategory-s23u51' with data
 | elementName | elementValue |
 | name | name-2351 |
-| units | unit |
+| type | unit |
 | vat | 10 |
 | purchasePrice | 134,80 |
 | barcode | barcode-2351 |
 | vendorCountry |  |
 | vendor |  |
-| info |  |
 | retailMarkupMax |  |
 | retailMarkupMin |  |
 | rounding |  |
@@ -23,13 +22,12 @@ Given there is the product in subCategory with name 'defaultSubCategory-s23u51' 
 Given there is the product in subCategory with name 'defaultSubCategory-s23u51' with data
 | elementName | elementValue |
 | name | name-2351-01 |
-| units | unit |
+| type | unit |
 | vat | 18 |
 | purchasePrice | 134,80 |
 | barcode | barcode-2351-01 |
 | vendorCountry |  |
 | vendor |  |
-| info |  |
 | retailMarkupMax |  |
 | retailMarkupMin |  |
 | rounding |  |
