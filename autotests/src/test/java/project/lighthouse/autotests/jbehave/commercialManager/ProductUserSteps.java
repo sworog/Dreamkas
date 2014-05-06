@@ -171,9 +171,9 @@ public class ProductUserSteps {
         productSteps.checkCardValue(checkValuesTable);
     }
 
-    @Then("the user checks the product with '$skuValue' sku is present")
-    public void thenTheUSerChecksTheProductWithSkuIsPresent(String skuValue) {
-        productSteps.listItemCheck(skuValue);
+    @Then("the user checks the product with '$name' name is present")
+    public void thenTheUserChecksTheProductWithNameIsPresent(String name) {
+        productSteps.listItemCheck(name);
     }
 
     @Then("the user checks the product with '$skuValue' sku is not present")
@@ -181,9 +181,9 @@ public class ProductUserSteps {
         productSteps.listItemCheckIsNotPresent(skuValue);
     }
 
-    @Then("the user checks the product with '$skuValue' sku has '$name' equal to '$expectedValue'")
-    public void checkProductWithSkuHasExpectedValue(String skuValue, String name, String expectedValue) {
-        productSteps.checkProductWithSkuHasExpectedValue(skuValue, name, expectedValue);
+    @Then("the user checks the product with '$name' name has '$element' equal to '$expectedValue'")
+    public void checkProductWithNameHasExpectedValue(String skuValue, String element, String expectedValue) {
+        productSteps.checkProductWithSkuHasExpectedValue(skuValue, element, expectedValue);
     }
 
     @Then("the user checks default value for '$dropDownType' dropdown equal to '$expectedValue'")

@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.Waiter;
+import project.lighthouse.autotests.elements.items.NonType;
 
 import java.util.Map;
 
@@ -47,6 +48,10 @@ abstract public class CommonPageObject extends PageObject {
      */
     public void put(String elementName, CommonItem commonItem) {
         items.put(elementName, commonItem);
+    }
+
+    public void put(String elementName) {
+        put(elementName, new NonType(this, elementName));
     }
 
     abstract public void createElements();
