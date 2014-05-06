@@ -76,6 +76,8 @@ public class RobotSteps extends ScenarioSteps {
         File expectedFile = new File(String.format("%s/xml/%s", System.getProperty("user.dir").replace("\\", "/"), fixtureFile));
 
         Assert.assertEquals(expectedFile, actualFile);
+
+        actualFile.delete();
     }
 
     private String getFileName() {
