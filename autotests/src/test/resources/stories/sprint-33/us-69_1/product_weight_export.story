@@ -31,7 +31,6 @@ When the user logs out
 
 Given the user opens catalog page
 And the user logs in as 'commercialManager'
-And the user sets subCategory 'defaultSubCategory-s33u69.1' mark up with max '30' and min '0' values
 When the user clicks on products export link
 Given the user opens the log page
 Then the user checks the last set10 export log title is 'Выгрузка товаров в Set Retail 10'
