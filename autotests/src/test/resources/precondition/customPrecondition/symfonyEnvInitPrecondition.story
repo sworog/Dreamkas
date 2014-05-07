@@ -26,6 +26,7 @@ Meta:
 id_s33u69.0s3
 id_s33u69.0s4
 @id_s33u69.1s1
+@id_s33u69.1s2
 
 Scenario: A scenario that prepares data
 

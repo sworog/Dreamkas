@@ -79,11 +79,6 @@ public class RobotSteps extends ScenarioSteps {
     @Step
     public void checkProductWeightExport(String fixtureFile) {
         String directoryPath = SERVER_URL + "/centrum/autotests/source/";
-//        File[] files = FileUtils.getFile(directoryPath).listFiles();
-//        assert files != null;
-//        Assert.assertTrue(files.length != 0);
-//
-//        File actualFile = files[0];
         String actualXml = getLastRemoteFileAsString(directoryPath);
         File expectedFile = new File(String.format("%s/xml/%s", System.getProperty("user.dir").replace("\\", "/"), fixtureFile));
 
@@ -94,9 +89,6 @@ public class RobotSteps extends ScenarioSteps {
         } catch (SAXException | IOException e) {
             e.printStackTrace();
         }
-
-//        String actualFileName = actualFile.getName();
-//        actualFile.delete();
 
         assert diff != null;
         assertTrue("Xml file not equals ", diff.similar());
