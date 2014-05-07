@@ -13,7 +13,7 @@ define(function(require) {
             rounding: {},
             type: 'unit'
         },
-        saveData: function(){
+        saveData: function() {
 
             var purchasePrice = parseFloat((this.get('purchasePrice') || '').toString()
                     .replace(' ', '', 'gi')
@@ -31,23 +31,23 @@ define(function(require) {
                     .replace(' ', '', 'gi')
                     .replace(',', '.', 'gi'));
 
-            if (!purchasePrice && this.get('purchasePrice') !== '0'){
+            if (!purchasePrice && this.get('purchasePrice') !== '0') {
                 purchasePrice = this.get('purchasePrice');
             }
 
-            if (!retailPriceMin && this.get('retailPriceMin') !== '0'){
+            if (!retailPriceMin && this.get('retailPriceMin') !== '0') {
                 retailPriceMin = this.get('retailPriceMin');
             }
 
-            if (!retailPriceMax && this.get('retailPriceMax') !== '0'){
+            if (!retailPriceMax && this.get('retailPriceMax') !== '0') {
                 retailPriceMax = this.get('retailPriceMax');
             }
 
-            if (!retailMarkupMax && this.get('retailMarkupMax') !== '0'){
+            if (!retailMarkupMax && this.get('retailMarkupMax') !== '0') {
                 retailMarkupMax = this.get('retailMarkupMax');
             }
 
-            if (!retailMarkupMin && this.get('retailMarkupMin') !== '0'){
+            if (!retailMarkupMin && this.get('retailMarkupMin') !== '0') {
                 retailMarkupMin = this.get('retailMarkupMin');
             }
 
@@ -72,7 +72,7 @@ define(function(require) {
         parse: function(response, options) {
             var data = Model.prototype.parse.apply(this, arguments);
 
-            if (data.product){
+            if (data.product) {
                 data = data.product;
             }
 
