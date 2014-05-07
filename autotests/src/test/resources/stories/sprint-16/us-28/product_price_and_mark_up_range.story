@@ -13,7 +13,6 @@ Given the user is on the product create page
 And the user logs in as 'commercialManager'
 
 When the user inputs 'Retail price - PCWRPR-1' in 'name' field
-And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user inputs '12356' in 'purchasePrice' field
 And the user clicks the create button
@@ -33,7 +32,6 @@ Scenario: Product creation with markup range filling
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
 When the user inputs 'Retail price - PCWMF' in 'name' field
-And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user inputs '112' in 'purchasePrice' field
 And the user inputs '10' in 'retailMarkupMin' field
@@ -57,7 +55,6 @@ Given the user is on the product create page
 And the user logs in as 'commercialManager'
 
 When the user inputs 'Retail price - PCWRPF' in 'name' field
-And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user inputs '100' in 'purchasePrice' field
 And the user clicks 'retailPriceHint' to make it avalaible
@@ -82,7 +79,6 @@ Given the user is on the product create page
 And the user logs in as 'commercialManager'
 
 When the user inputs 'Retailprice-RM-LUFIAOPE' in 'name' field
-And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user inputs '100' in 'purchasePrice' field
 And the user inputs '10' in 'retailMarkupMin' field
@@ -111,7 +107,6 @@ Given the user is on the product create page
 And the user logs in as 'commercialManager'
 
 When the user inputs 'Retailprice-RP-LUFIAIPE' in 'name' field
-And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user inputs '100' in 'purchasePrice' field
 And the user clicks 'retailPriceHint' to make it avalaible

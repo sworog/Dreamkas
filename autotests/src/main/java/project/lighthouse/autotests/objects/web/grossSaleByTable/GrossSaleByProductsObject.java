@@ -36,7 +36,7 @@ public class GrossSaleByProductsObject extends AbstractObject implements ObjectL
 
     @Override
     public String getObjectLocator() {
-        return productSku;
+        return productName;
     }
 
     @Override

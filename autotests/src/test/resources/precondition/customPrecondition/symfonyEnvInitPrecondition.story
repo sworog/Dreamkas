@@ -1,12 +1,15 @@
 Meta:
 @sprint_21
 @sprint_29
+@sprint_30
 @sprint_32
 @xss
 @supplier
 @invoice
 @us_68
 @us_46
+@us_64
+@us_69.0
 @smoke
 @id_s30u64s1
 @id_s30u64s1

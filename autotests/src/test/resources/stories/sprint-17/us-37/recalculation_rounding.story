@@ -11,7 +11,7 @@ Scenario: Store product nearest99 rounding recalculation with price range is set
 
 Given there is the subCategory with name 'ReCalcRoundingSubCategory' related to group named 'ReCalcRoundingGroup' and category named 'ReCalcRoundingCategory'
 And the user sets subCategory 'ReCalcRoundingSubCategory' mark up with max '100' and min '0' values
-And there is the product with productName, 'ReCalcRoundingProduct' barcode, 'kg' units, '10' purchasePrice of group named 'ReCalcRoundingGroup', category named 'ReCalcRoundingCategory', subcategory named 'ReCalcRoundingSubCategory' with 'nearest1' rounding
+And there is the product with productName, 'ReCalcRoundingProduct' barcode, 'weight' type, '10' purchasePrice of group named 'ReCalcRoundingGroup', category named 'ReCalcRoundingCategory', subcategory named 'ReCalcRoundingSubCategory' with 'nearest1' rounding
 And there is the user with <userName>, password 'lighthouse', role 'storeManager'
 And there is the store with <storeNumber> managed by <userName>
 And the user navigates to the product with productName
@@ -50,7 +50,7 @@ Scenario: Store product nearest50 rounding recalculation with price range is set
 
 Given there is the subCategory with name 'ReCalcRoundingSubCategory' related to group named 'ReCalcRoundingGroup' and category named 'ReCalcRoundingCategory'
 And the user sets subCategory 'ReCalcRoundingSubCategory' mark up with max '100' and min '0' values
-And there is the product with productName, 'ReCalcRoundingProduct' barcode, 'kg' units, '1' purchasePrice of group named 'ReCalcRoundingGroup', category named 'ReCalcRoundingCategory', subcategory named 'ReCalcRoundingSubCategory' with 'nearest1' rounding
+And there is the product with productName, 'ReCalcRoundingProduct' barcode, 'weight' type, '1' purchasePrice of group named 'ReCalcRoundingGroup', category named 'ReCalcRoundingCategory', subcategory named 'ReCalcRoundingSubCategory' with 'nearest1' rounding
 And there is the user with <userName>, password 'lighthouse', role 'storeManager'
 And there is the store with <storeNumber> managed by <userName>
 And the user navigates to the product with productName
@@ -89,7 +89,7 @@ Scenario: Store product nearest100 rounding recalculation with price range is se
 
 Given there is the subCategory with name 'ReCalcRoundingSubCategory' related to group named 'ReCalcRoundingGroup' and category named 'ReCalcRoundingCategory'
 And the user sets subCategory 'ReCalcRoundingSubCategory' mark up with max '100' and min '0' values
-And there is the product with productName, 'ReCalcRoundingProduct' barcode, 'kg' units, '10' purchasePrice of group named 'ReCalcRoundingGroup', category named 'ReCalcRoundingCategory', subcategory named 'ReCalcRoundingSubCategory' with 'nearest1' rounding
+And there is the product with productName, 'ReCalcRoundingProduct' barcode, 'weight' type, '10' purchasePrice of group named 'ReCalcRoundingGroup', category named 'ReCalcRoundingCategory', subcategory named 'ReCalcRoundingSubCategory' with 'nearest1' rounding
 And there is the user with <userName>, password 'lighthouse', role 'storeManager'
 And there is the store with <storeNumber> managed by <userName>
 And the user navigates to the product with productName
@@ -127,7 +127,7 @@ Scenario: Store product nearest10 rounding recalculation with price range is set
 
 Given there is the subCategory with name 'ReCalcRoundingSubCategory' related to group named 'ReCalcRoundingGroup' and category named 'ReCalcRoundingCategory'
 And the user sets subCategory 'ReCalcRoundingSubCategory' mark up with max '100' and min '0' values
-And there is the product with productName, 'ReCalcRoundingProduct' barcode, 'kg' units, '10' purchasePrice of group named 'ReCalcRoundingGroup', category named 'ReCalcRoundingCategory', subcategory named 'ReCalcRoundingSubCategory' with 'nearest1' rounding
+And there is the product with productName, 'ReCalcRoundingProduct' barcode, 'weight' type, '10' purchasePrice of group named 'ReCalcRoundingGroup', category named 'ReCalcRoundingCategory', subcategory named 'ReCalcRoundingSubCategory' with 'nearest1' rounding
 And there is the user with <userName>, password 'lighthouse', role 'storeManager'
 And there is the store with <storeNumber> managed by <userName>
 And the user navigates to the product with productName

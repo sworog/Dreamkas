@@ -2,6 +2,7 @@ package project.lighthouse.autotests.fixtures.sprint_25;
 
 import org.jbehave.core.model.ExamplesTable;
 import org.joda.time.DateTime;
+import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.fixtures.AbstractFixture;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.xml.PurchaseXmlBuilder;
@@ -20,8 +21,10 @@ public class Us_57_4_Fixture extends AbstractFixture {
 
     private static final String SHOP_1 = "25574";
     private static final String SHOP_2 = "255742";
-    private static final String PRODUCT_ID = "255742";
-    private static final String PRODUCT_ID_2 = "255743";
+    private static final String PRODUCT_NAME = "name-255742";
+    private static final String PRODUCT_NAME_2 = "name-255743";
+    private static final String PRODUCT_BARCODE = "255742";
+    private static final String PRODUCT_BARCODE_2 = "255743";
     private static final Double PRODUCT_PRICE_1 = 101.5;
     private static final Double PRODUCT_PRICE_2 = 102.5;
     private static final Double PRODUCT_PRICE_3 = 103.5;
@@ -31,11 +34,11 @@ public class Us_57_4_Fixture extends AbstractFixture {
     private final String weekAgoDate = new DateTimeHelper(7).convertDate();
 
     public ExamplesTable getEmptyFixtureExampleTable() {
-        return generateEmptyFixtureExampleTable("name-25574", "25574", "25574");
+        return generateEmptyFixtureExampleTable("name-25574", getProductSku("name-25574"), "25574");
     }
 
     public ExamplesTable getFixtureExampleTableForCheckingDataIfProductBarcodeIsEmpty() {
-        return generateEmptyFixtureExampleTable("name-255741", "255741", "");
+        return generateEmptyFixtureExampleTable("name-255741", getProductSku("name-255741"), "");
     }
 
     @Override
@@ -44,43 +47,43 @@ public class Us_57_4_Fixture extends AbstractFixture {
     }
 
     public File prepareTodayDataForShop1() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-        return generateFileDataSet(todayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_1);
+        return generateFileDataSet(todayDate, SHOP_1, getProductSku(PRODUCT_NAME), PRODUCT_PRICE_1);
     }
 
     public File prepareYesterdayDataForShop1() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-        return generateFileDataSet(yesterdayDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_2);
+        return generateFileDataSet(yesterdayDate, SHOP_1, getProductSku(PRODUCT_NAME), PRODUCT_PRICE_2);
     }
 
     public File prepareWeekAgoDataForShop1() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-        return generateFileDataSet(weekAgoDate, SHOP_1, PRODUCT_ID, PRODUCT_PRICE_3);
+        return generateFileDataSet(weekAgoDate, SHOP_1, getProductSku(PRODUCT_NAME), PRODUCT_PRICE_3);
     }
 
     public File prepareTodayDataForShop2() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-        return generateFileDataSet(todayDate, SHOP_2, PRODUCT_ID_2, PRODUCT_PRICE_1);
+        return generateFileDataSet(todayDate, SHOP_2, getProductSku(PRODUCT_NAME_2), PRODUCT_PRICE_1);
     }
 
     public File prepareYesterdayDataForShop2() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-        return generateFileDataSet(yesterdayDate, SHOP_2, PRODUCT_ID_2, PRODUCT_PRICE_2);
+        return generateFileDataSet(yesterdayDate, SHOP_2, getProductSku(PRODUCT_NAME_2), PRODUCT_PRICE_2);
     }
 
     public File prepareWeekAgoDataForShop2() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-        return generateFileDataSet(weekAgoDate, SHOP_2, PRODUCT_ID_2, PRODUCT_PRICE_3);
+        return generateFileDataSet(weekAgoDate, SHOP_2, getProductSku(PRODUCT_NAME_2), PRODUCT_PRICE_3);
     }
 
     public ExamplesTable getExampleTableFixtureForProduct1() {
-        return generateFixtureExampleTable("name-255742", PRODUCT_ID, PRODUCT_ID, getMapPrice1(), getMapPrice2(), getMapPrice3());
+        return generateFixtureExampleTable(PRODUCT_NAME, getProductSku(PRODUCT_NAME), PRODUCT_BARCODE, getMapPrice1(), getMapPrice2(), getMapPrice3());
     }
 
     public ExamplesTable getExampleTableFixtureForProduct2() {
-        return generateFixtureExampleTable("name-255743", PRODUCT_ID_2, PRODUCT_ID_2, getMapPrice1(), getMapPrice2(), getMapPrice3());
+        return generateFixtureExampleTable(PRODUCT_NAME_2, getProductSku(PRODUCT_NAME_2), PRODUCT_BARCODE_2, getMapPrice1(), getMapPrice2(), getMapPrice3());
     }
 
     public ExamplesTable getEmptyExampleTableFixtureForProduct1() {
-        return generateEmptyFixtureExampleTable("name-255742", PRODUCT_ID, PRODUCT_ID);
+        return generateEmptyFixtureExampleTable(PRODUCT_NAME, getProductSku(PRODUCT_NAME), PRODUCT_BARCODE);
     }
 
     public ExamplesTable getEmptyExampleTableFixtureForProduct2() {
-        return generateEmptyFixtureExampleTable("name-255743", PRODUCT_ID_2, PRODUCT_ID_2);
+        return generateEmptyFixtureExampleTable(PRODUCT_NAME_2, getProductSku(PRODUCT_NAME_2), PRODUCT_BARCODE_2);
     }
 
     private ExamplesTable generateFixtureExampleTable(String name, String sku, String barCode,
@@ -128,142 +131,142 @@ public class Us_57_4_Fixture extends AbstractFixture {
         return generateFormattedGrossSalesSumPerHour(generatedData);
     }
 
-    public File generateFileDataSet(String date, String shopNumber, String id, Double price) throws XPathExpressionException, ParserConfigurationException, TransformerException, IOException {
-        PurchaseXmlBuilder purchaseXmlBuilder = generateDataSet(date, shopNumber, id, price);
+    public File generateFileDataSet(String date, String shopNumber, String sku, Double price) throws XPathExpressionException, ParserConfigurationException, TransformerException, IOException {
+        PurchaseXmlBuilder purchaseXmlBuilder = generateDataSet(date, shopNumber, sku, price);
         return prepareDataFile(purchaseXmlBuilder);
     }
 
     public TodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet getTodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet() {
-        return new TodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet(SHOP_1, PRODUCT_ID);
+        return new TodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet(SHOP_1, getProductSku(PRODUCT_NAME));
     }
 
     public class TodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet extends DataSet {
 
-        public TodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet(String shopNumber, String productId) {
-            super(shopNumber, productId);
+        public TodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet(String shopNumber, String productSku) {
+            super(shopNumber, productSku);
         }
 
         public File prepareTodayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(todayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_3);
+            return generateFileDataSet(todayDate, getShopNumber(), getProductSku(), PRODUCT_PRICE_3);
         }
 
         public File prepareYesterdayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(yesterdayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_3);
+            return generateFileDataSet(yesterdayDate, getShopNumber(), getProductSku(), PRODUCT_PRICE_3);
         }
 
         public File prepareWeekAgoData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(weekAgoDate, getShopNumber(), getProductId(), PRODUCT_PRICE_3);
+            return generateFileDataSet(weekAgoDate, getShopNumber(), getProductSku(), PRODUCT_PRICE_3);
         }
     }
 
     public TodayIsBiggerThanYesterdayAndWeekAgoDataSet getTodayIsBiggerThanYesterdayAndWeekAgoDataSet() {
-        return new TodayIsBiggerThanYesterdayAndWeekAgoDataSet(SHOP_1, PRODUCT_ID);
+        return new TodayIsBiggerThanYesterdayAndWeekAgoDataSet(SHOP_1, PRODUCT_NAME);
     }
 
     public class TodayIsBiggerThanYesterdayAndWeekAgoDataSet extends DataSet {
 
-        public TodayIsBiggerThanYesterdayAndWeekAgoDataSet(String shopNumber, String productId) {
-            super(shopNumber, productId);
+        public TodayIsBiggerThanYesterdayAndWeekAgoDataSet(String shopNumber, String productSku) {
+            super(shopNumber, productSku);
         }
 
         public File prepareTodayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(todayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_3);
+            return generateFileDataSet(todayDate, getShopNumber(), getProductSku(), PRODUCT_PRICE_3);
         }
 
         public File prepareYesterdayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(yesterdayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_2);
+            return generateFileDataSet(yesterdayDate, getShopNumber(), getProductSku(), PRODUCT_PRICE_2);
         }
 
         public File prepareWeekAgoData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(weekAgoDate, getShopNumber(), getProductId(), PRODUCT_PRICE_1);
+            return generateFileDataSet(weekAgoDate, getShopNumber(), getProductSku(), PRODUCT_PRICE_1);
         }
     }
 
     public TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet getTodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet() {
-        return new TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet(SHOP_1, PRODUCT_ID);
+        return new TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet(SHOP_1, getProductSku(PRODUCT_NAME));
     }
 
     public class TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet extends DataSet {
 
-        public TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet(String shopNumber, String productId) {
-            super(shopNumber, productId);
+        public TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet(String shopNumber, String productSku) {
+            super(shopNumber, productSku);
         }
 
         public File prepareTodayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(todayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_2);
+            return generateFileDataSet(todayDate, getShopNumber(), getProductSku(), PRODUCT_PRICE_2);
         }
 
         public File prepareYesterdayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(yesterdayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_3);
+            return generateFileDataSet(yesterdayDate, getShopNumber(), getProductSku(), PRODUCT_PRICE_3);
         }
 
         public File prepareWeekAgoData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(weekAgoDate, getShopNumber(), getProductId(), PRODUCT_PRICE_1);
+            return generateFileDataSet(weekAgoDate, getShopNumber(), getProductSku(), PRODUCT_PRICE_1);
         }
     }
 
     public TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet getTodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet() {
-        return new TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet(SHOP_1, PRODUCT_ID);
+        return new TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet(SHOP_1, PRODUCT_NAME);
     }
 
     public class TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet extends DataSet {
 
-        public TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet(String shopNumber, String productId) {
-            super(shopNumber, productId);
+        public TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet(String shopNumber, String productSku) {
+            super(shopNumber, productSku);
         }
 
         public File prepareTodayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(todayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_2);
+            return generateFileDataSet(todayDate, getShopNumber(), getProductSku(), PRODUCT_PRICE_2);
         }
 
         public File prepareYesterdayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(yesterdayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_1);
+            return generateFileDataSet(yesterdayDate, getShopNumber(), getProductSku(), PRODUCT_PRICE_1);
         }
 
         public File prepareWeekAgoData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(weekAgoDate, getShopNumber(), getProductId(), PRODUCT_PRICE_3);
+            return generateFileDataSet(weekAgoDate, getShopNumber(), getProductSku(), PRODUCT_PRICE_3);
         }
     }
 
     public TodayIsSmallerThanYesterdayAndWeekAgoDataSet getTodayIsSmallerThanYesterdayAndWeekAgoDataSet() {
-        return new TodayIsSmallerThanYesterdayAndWeekAgoDataSet(SHOP_1, PRODUCT_ID);
+        return new TodayIsSmallerThanYesterdayAndWeekAgoDataSet(SHOP_1, getProductSku(PRODUCT_NAME));
     }
 
     public class TodayIsSmallerThanYesterdayAndWeekAgoDataSet extends DataSet {
 
-        public TodayIsSmallerThanYesterdayAndWeekAgoDataSet(String shopNumber, String productId) {
-            super(shopNumber, productId);
+        public TodayIsSmallerThanYesterdayAndWeekAgoDataSet(String shopNumber, String productSku) {
+            super(shopNumber, productSku);
         }
 
         public File prepareTodayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(todayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_1);
+            return generateFileDataSet(todayDate, getShopNumber(), getProductSku(), PRODUCT_PRICE_1);
         }
 
         public File prepareYesterdayData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(yesterdayDate, getShopNumber(), getProductId(), PRODUCT_PRICE_2);
+            return generateFileDataSet(yesterdayDate, getShopNumber(), getProductSku(), PRODUCT_PRICE_2);
         }
 
         public File prepareWeekAgoData() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException {
-            return generateFileDataSet(weekAgoDate, getShopNumber(), getProductId(), PRODUCT_PRICE_3);
+            return generateFileDataSet(weekAgoDate, getShopNumber(), getProductSku(), PRODUCT_PRICE_3);
         }
     }
 
     private class DataSet {
 
         private String shopNumber;
-        private String productId;
+        private String productSku;
 
-        public DataSet(String shopNumber, String productId) {
+        public DataSet(String shopNumber, String productSku) {
             this.shopNumber = shopNumber;
-            this.productId = productId;
+            this.productSku = productSku;
         }
 
         public String getShopNumber() {
             return shopNumber;
         }
 
-        public String getProductId() {
-            return productId;
+        public String getProductSku() {
+            return productSku;
         }
     }
 }

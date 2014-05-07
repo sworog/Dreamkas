@@ -2,6 +2,7 @@ package project.lighthouse.autotests.objects.web.balance;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectClickable;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectLocatable;

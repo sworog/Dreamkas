@@ -1,7 +1,11 @@
 {
     "devDependencies": {
         "karma": "~0.10",
+        "karma-jasmine": "~0.1.0",
         "karma-coverage": "~0.1.0",
         "karma-teamcity-reporter": "~0.1.0"
+    },
+    "scripts": {
+        "test": "./node_modules/karma/bin/karma start"
     }
 }

@@ -13,8 +13,8 @@ public class Us_57_3_Fixture extends AbstractFixture {
 
     private static final String SHOP_1 = "25573";
     private static final String SHOP_2 = "255731";
-    private static final String PRODUCT_ID_1 = "25573";
-    private static final String PRODUCT_ID_2 = "255731";
+    private static final String PRODUCT_NAME_1 = "name-25573";
+    private static final String PRODUCT_NAME_2 = "name-255731";
     private static final String SUBCATEGORY_NAME_1 = "defaultSubCategory-s25u573";
     private static final String SUBCATEGORY_NAME_2 = "defaultSubCategory-s25u5731";
     private static final String CATEGORY_NAME_1 = "defaultCategory-s25u573";
@@ -26,23 +26,23 @@ public class Us_57_3_Fixture extends AbstractFixture {
     private Us_57_4_Fixture us_57_4_fixture = new Us_57_4_Fixture();
 
     public Us_57_4_Fixture.TodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet getTodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet() {
-        return us_57_4_fixture.new TodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet(SHOP_1, PRODUCT_ID_1);
+        return us_57_4_fixture.new TodayYesterdayWeekAgoDataAreEqualToEachOtherDataSet(SHOP_1, getProductSku(PRODUCT_NAME_1));
     }
 
     public Us_57_4_Fixture.TodayIsBiggerThanYesterdayAndWeekAgoDataSet getTodayIsBiggerThanYesterdayAndWeekAgoDataSet() {
-        return us_57_4_fixture.new TodayIsBiggerThanYesterdayAndWeekAgoDataSet(SHOP_1, PRODUCT_ID_1);
+        return us_57_4_fixture.new TodayIsBiggerThanYesterdayAndWeekAgoDataSet(SHOP_1, getProductSku(PRODUCT_NAME_1));
     }
 
     public Us_57_4_Fixture.TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet getTodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet() {
-        return us_57_4_fixture.new TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet(SHOP_1, PRODUCT_ID_1);
+        return us_57_4_fixture.new TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet(SHOP_1, getProductSku(PRODUCT_NAME_1));
     }
 
     public Us_57_4_Fixture.TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet getTodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet() {
-        return us_57_4_fixture.new TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet(SHOP_1, PRODUCT_ID_1);
+        return us_57_4_fixture.new TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet(SHOP_1, getProductSku(PRODUCT_NAME_1));
     }
 
     public Us_57_4_Fixture.TodayIsSmallerThanYesterdayAndWeekAgoDataSet getTodayIsSmallerThanYesterdayAndWeekAgoDataSet() {
-        return us_57_4_fixture.new TodayIsSmallerThanYesterdayAndWeekAgoDataSet(SHOP_1, PRODUCT_ID_1);
+        return us_57_4_fixture.new TodayIsSmallerThanYesterdayAndWeekAgoDataSet(SHOP_1, getProductSku(PRODUCT_NAME_1));
     }
 
     public ExamplesTable getEmptyFixtureExampleTable() {
@@ -117,19 +117,19 @@ public class Us_57_3_Fixture extends AbstractFixture {
     }
 
     public Us_57_4_Fixture.TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet getTodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSetForShop1Product2() {
-        return us_57_4_fixture.new TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet(SHOP_1, PRODUCT_ID_2);
+        return us_57_4_fixture.new TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet(SHOP_1, getProductSku(PRODUCT_NAME_2));
     }
 
     public Us_57_4_Fixture.TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet getTodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSetForShop1Product1() {
-        return us_57_4_fixture.new TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet(SHOP_1, PRODUCT_ID_1);
+        return us_57_4_fixture.new TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet(SHOP_1, getProductSku(PRODUCT_NAME_1));
     }
 
     public Us_57_4_Fixture.TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet getTodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSetForShop2Product2() {
-        return us_57_4_fixture.new TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet(SHOP_2, PRODUCT_ID_2);
+        return us_57_4_fixture.new TodayIsSmallerThanYesterdayAndBiggerThanWeekAgoDataSet(SHOP_2, getProductSku(PRODUCT_NAME_2));
     }
 
     public Us_57_4_Fixture.TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet getTodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSetForShop2Product1() {
-        return us_57_4_fixture.new TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet(SHOP_2, PRODUCT_ID_1);
+        return us_57_4_fixture.new TodayIsBiggerThanYesterdayAndSmallerThanWeekAgoDataSet(SHOP_2, getProductSku(PRODUCT_NAME_1));
     }
 
     @Override

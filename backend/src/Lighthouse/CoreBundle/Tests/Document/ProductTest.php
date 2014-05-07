@@ -20,9 +20,6 @@ class ProductTest extends TestCase
         $product->name = 'name';
         $this->assertEquals('name', $product->name);
 
-        $product->units = 'kg';
-        $this->assertEquals('kg', $product->units);
-
         $product->vat = 10;
         $this->assertEquals(10, $product->vat);
 
@@ -51,7 +48,6 @@ class ProductTest extends TestCase
     {
         $array = array(
             'name' => 'Кефир "Веселый Молочник" 1% 950гр',
-            'units' => 'gr',
             'barcode' => '4607025392408',
             'purchasePrice' => 3048,
             'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',

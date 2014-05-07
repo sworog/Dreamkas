@@ -53,67 +53,71 @@ class RangeValidatorTest extends TestCase
     public function validValuesProvider()
     {
         return array(
-            array(
+            'null gt 0' => array(
                 array('gt' => 0),
                 null,
             ),
-            array(
+            '1 gt 0' => array(
                 array('gt' => 0),
                 1,
             ),
-            array(
+            '1 gte 0' => array(
                 array('gte' => 0),
                 1,
             ),
-            array(
+            '1 gte 1' => array(
                 array('gte' => 1),
                 1,
             ),
-            array(
+            '0 lt 1' => array(
                 array('lt' => 1),
                 0,
             ),
-            array(
+            '-1 lt 1' => array(
                 array('lt' => 1),
                 -1,
             ),
-            array(
+            '1 lte 1' => array(
                 array('lte' => 1),
                 1,
             ),
-            array(
+            '0 lte 1' => array(
                 array('lte' => 1),
                 0,
             ),
-            array(
+            '0 lte 1, integer true' => array(
+                array('lte' => 1, 'integer' => true),
+                0,
+            ),
+            '4 gt 0, lt 5' => array(
                 array('gt' => 0, 'lt' => 5),
                 4
             ),
-            array(
+            '0 gte 0, lte 5' => array(
                 array('gte' => 0, 'lte' => 5),
                 0
             ),
-            array(
+            '5 gte 0, lte 5' => array(
                 array('gte' => 0, 'lte' => 5),
                 5
             ),
-            array(
+            '4 gte 0, lte 5' => array(
                 array('gte' => 0, 'lte' => 5),
                 4
             ),
-            array(
+            'int 4 gte 0, lte 5' => array(
                 array('gte' => '0', 'lte' => '5'),
                 4
             ),
-            array(
+            'string 4 gte 0, lte 5' => array(
                 array('gte' => '0', 'lte' => '5'),
                 '4'
             ),
-            array(
+            'float 4.1 gte 0.4, lte 5.23' => array(
                 array('gte' => 0.4, 'lte' => 5.23),
                 4.1
             ),
-            array(
+            'string 4.1 gte 0.4, lte 5.23' => array(
                 array('gte' => '0.4', 'lte' => '5.23'),
                 '4.1'
             ),
@@ -123,7 +127,7 @@ class RangeValidatorTest extends TestCase
     /**
      * @dataProvider invalidValuesProvider
      */
-    public function testInvalidValues($options, $value, $limit, $message)
+    public function testValidationFail($options, $value, $limit, $message)
     {
         $this
             ->context
@@ -141,51 +145,99 @@ class RangeValidatorTest extends TestCase
         $this->validator->validate($value, $constraint);
     }
 
+    /**
+     * @return array
+     */
     public function invalidValuesProvider()
     {
         return array(
-            array(
+            '1 gt 2' => array(
                 array('gt' => 2),
                 1,
                 2,
                 'lighthouse.validation.errors.range.gt'
             ),
-            array(
+            '0 gte 1' => array(
                 array('gte' => 1),
                 0,
                 1,
                 'lighthouse.validation.errors.range.gte'
             ),
-            array(
+            '0.9 gte 1' => array(
                 array('gte' => 1),
                 0.9,
                 1,
                 'lighthouse.validation.errors.range.gte'
             ),
-            array(
+            '2 lt 1'=> array(
                 array('lt' => 1),
                 2,
                 1,
                 'lighthouse.validation.errors.range.lt'
             ),
-            array(
+            '10 lt 1' => array(
                 array('lt' => 1),
                 10,
                 1,
                 'lighthouse.validation.errors.range.lt'
             ),
-            array(
+            '2 lte 1' => array(
                 array('lte' => 1),
                 2,
                 1,
                 'lighthouse.validation.errors.range.lte'
             ),
-            array(
+            '-1 gt 0, lt 5' => array(
                 array('gt' => 0, 'lt' => 5),
                 -1,
                 0,
                 'lighthouse.validation.errors.range.gt'
             )
+        );
+    }
+
+    /**
+     * @dataProvider notNumericValueProvider
+     */
+    public function testNotNumericValue(array $options, $value)
+    {
+        $this
+            ->context
+            ->expects($this->once())
+            ->method('addViolation')
+            ->with(
+                'lighthouse.validation.errors.range.invalid',
+                array(
+                    '{{ value }}' => $value,
+                )
+            );
+
+        $constraint = new Range($options);
+        $this->validator->validate($value, $constraint);
+    }
+
+    /**
+     * @return array
+     */
+    public function notNumericValueProvider()
+    {
+        return array(
+            'aaa' => array(
+                array('gt' => 0),
+                'aaa'
+            ),
+            'aaa, integer' => array(
+                array('integer' => true, 'gt' => 0),
+                'aaa'
+            ),
+            '1.2 float, integer' => array(
+                array('integer' => true, 'gt' => 0),
+                '1.2'
+            ),
+            '1.2 integer, integer' => array(
+                array('integer' => true, 'gt' => 0),
+                1.2
+            ),
         );
     }
 
@@ -196,24 +248,6 @@ class RangeValidatorTest extends TestCase
     public function testConstraintRejectEmptyConstructor()
     {
         new Range();
-    }
-
-    public function testNotNumericValue()
-    {
-        $constraint = new Range(array('gt' => 10));
-
-        $value = 'string';
-
-        $this
-            ->context
-            ->expects($this->once())
-            ->method('addViolation')
-            ->with(
-                'lighthouse.validation.errors.range.invalid',
-                array()
-            );
-
-        $this->validator->validate($value, $constraint);
     }
 
     /**

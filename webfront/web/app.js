@@ -24,6 +24,7 @@ define(function(require) {
     numeral.language(app.locale);
 
     var sync = Backbone.sync,
+        isStarted,
         loading,
         routes,
         showCHTPN;
@@ -67,7 +68,7 @@ define(function(require) {
         syncing.fail(function(res) {
             switch (res.status) {
                 case 401:
-                    if (app.isStarted) {
+                    if (isStarted) {
                         document.location.reload();
                     }
                     break;
@@ -117,6 +118,7 @@ define(function(require) {
             'blocks/page/page',
             'libs/lhAutocomplete'
         ], function(routes) {
+            isStarted = true;
             router.routes = routes;
             router.start();
         });

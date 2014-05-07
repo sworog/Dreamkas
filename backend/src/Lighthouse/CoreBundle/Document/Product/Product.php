@@ -5,6 +5,9 @@ namespace Lighthouse\CoreBundle\Document\Product;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 use JMS\Serializer\Annotation as Serializer;
+use Lighthouse\CoreBundle\Document\Product\Type\Typeable;
+use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
+use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
@@ -19,6 +22,7 @@ use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
  *
  * @property string $id
  * @property string $name
+ * @property UnitType|WeightType $typeProperties
  * @property string $units kg,gr,l
  * @property int    $vat in %
  * @property Money  $purchasePrice
@@ -47,9 +51,10 @@ class Product extends AbstractDocument implements VersionableInterface
     const RETAIL_PRICE_PREFERENCE_PRICE = 'retailPrice';
     const RETAIL_PRICE_PREFERENCE_MARKUP = 'retailMarkup';
 
-    const UNITS_KG = 'kg';
-    const UNITS_LITER = 'liter';
-    const UNITS_UNIT = 'unit';
+    /* @deprecated */
+    const UNITS_KG = WeightType::UNITS;
+    /* @deprecated */
+    const UNITS_UNIT = UnitType::UNITS;
 
     /**
      * @Serializer\Exclude
@@ -77,11 +82,17 @@ class Product extends AbstractDocument implements VersionableInterface
     protected $name;
 
     /**
-     * @MongoDB\String
-     * @Assert\NotBlank(message="lighthouse.validation.errors.product.units.blank")
+     * @MongoDB\EmbedOne(
+     *   discriminatorField="type",
+     *   discriminatorMap={
+     *      "unit"="Lighthouse\CoreBundle\Document\Product\Type\UnitType",
+     *      "weight"="Lighthouse\CoreBundle\Document\Product\Type\WeightType"
+     *   }
+     * )
+     * @var Typeable
      * @Serializer\Groups({"Default", "Collection"})
      */
-    protected $units;
+    protected $typeProperties;
 
     /**
      * @MongoDB\Int
@@ -193,6 +204,33 @@ class Product extends AbstractDocument implements VersionableInterface
      * @var SubCategory
      */
     protected $subCategory;
+
+    public function __construct()
+    {
+        $this->typeProperties = new UnitType();
+    }
+
+    /**
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("units")
+     * @Serializer\Groups({"Default", "Collection"})
+     * @return string
+     */
+    public function getUnits()
+    {
+        return $this->typeProperties->getUnits();
+    }
+
+    /**
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("type")
+     * @Serializer\Groups({"Default", "Collection"})
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->typeProperties->getType();
+    }
 
     /**
      * @param AbstractRounding $rounding

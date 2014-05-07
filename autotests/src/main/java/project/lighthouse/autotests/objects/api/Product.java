@@ -6,6 +6,8 @@ import project.lighthouse.autotests.objects.api.abstraction.AbstractObject;
 
 public class Product extends AbstractObject {
 
+    public static final String TYPE_UNIT = "unit";
+    public static final String TYPE_WEIGHT = "weight";
     private static final String API_URL = "/products";
 
     public Product(JSONObject jsonObject) {
@@ -13,26 +15,24 @@ public class Product extends AbstractObject {
     }
 
     public Product(String name,
-                   String units,
+                   String type,
                    String vat,
                    String purchasePrice,
                    String barcode,
                    String vendorCountry,
                    String vendor,
-                   String info,
                    String subCategory,
                    String retailMarkupMax,
                    String retailMarkupMin,
                    String rounding) throws JSONException {
         this(new JSONObject()
                 .put("name", name)
-                .put("units", units)
+                .put("type", type)
                 .put("vat", vat)
                 .put("purchasePrice", purchasePrice)
                 .put("barcode", barcode)
                 .put("vendorCountry", vendorCountry)
                 .put("vendor", vendor)
-                .put("info", info)
                 .put("subCategory", subCategory)
                 .put("retailMarkupMax", retailMarkupMax)
                 .put("retailMarkupMin", retailMarkupMin)
@@ -45,11 +45,11 @@ public class Product extends AbstractObject {
         return API_URL;
     }
 
-    public String getSku() throws JSONException {
+    public String getSku() throws AssertionError {
         return getPropertyAsString("sku");
     }
 
-    public String getBarCode() throws JSONException {
+    public String getBarCode() throws AssertionError {
         return getPropertyAsString("barcode");
     }
 }

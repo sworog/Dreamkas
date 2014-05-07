@@ -15,6 +15,7 @@ module.exports = function(config) {
         // list of files / patterns to load in the browser
         files: [
             'karma.main.js',
+            'config.js',
             {pattern: 'require.config.js', included: false},
             {pattern: 'fixtures/**/*', included: false},
             {pattern: 'kit/**/*.html', included: false},
@@ -22,7 +23,18 @@ module.exports = function(config) {
             {pattern: 'bower_components/**/*.js', included: false},
             {pattern: 'utils/**/*.js', included: false},
             {pattern: 'libs/**/*.js', included: false},
-            {pattern: 'nls/**/*.js', included: false}
+            {pattern: 'nls/**/*.js', included: false},
+
+            {pattern: 'dictionary.js', included: false},
+
+            {pattern: 'models/*.js', included: false},
+
+            {pattern: 'blocks/form/form.js', included: false},
+            {pattern: 'blocks/select/select_priceRoundings/select_priceRoundings.html', included: false},
+            {pattern: 'blocks/select/select_vat/select_vat.html', included: false},
+            {pattern: 'blocks/form/form_product/**/*', included: false},
+            {pattern: 'blocks/amount/**/*', included: false}
+
         ],
 
 
@@ -43,7 +55,9 @@ module.exports = function(config) {
             // do not include tests or libraries
             // (these files will be instrumented by Istanbul),
             'kit/core/**/!(*.spec.js)*.js': 'coverage',
-            'kit/utils/**/!(*.spec.js)*.js': 'coverage'
+            'kit/utils/**/!(*.spec.js)*.js': 'coverage',
+            'models/!(*.spec.js)*.js': 'coverage',
+            'blocks/**/!(*.spec.js)*.js': 'coverage'
         },
 
         coverageReporter: {
@@ -86,6 +100,6 @@ module.exports = function(config) {
 
         // Continuous Integration mode
         // if true, it capture browsers, run tests and exit
-        singleRun: false
+        singleRun: true
     });
 };

@@ -113,8 +113,7 @@ class ProductController extends AbstractRestController
     {
         /* @var LoggableCursor $cursor */
         $cursor = $this->documentRepository->findAll();
-        $collection = new ProductCollection($cursor);
-        return $collection;
+        return new ProductCollection($cursor);
     }
 
     /**

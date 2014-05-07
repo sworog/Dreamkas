@@ -6,14 +6,20 @@ Narrative:
 Чтобы актуализировать эти данные и исправлять в них ошибки
 
 Meta:
-@sprint_2
-@us_3
+@sprint_33
+@us_69
+@product
+@s33u69s10
 
 Scenario: Product edit main
+
+Meta:
+@s33u69s10e01
 
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
+And the user selects product type 'Штучный'
 And the user inputs values in element fields
 | elementName | value |
 | name | Наименование1688 |
@@ -21,23 +27,18 @@ And the user inputs values in element fields
 | vendorCountry | Россия1688 |
 | purchasePrice | 1231688 |
 | barcode | 1231688 |
-| sku | 1688 |
-| info | Info1688 |
-And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
-When the user open the product card with '1688' sku
+And the user open the product card with 'Наименование1688' name
 Then the user checks the elements values
 | elementName | value  |
-| sku | 1688 |
 | name | Наименование1688 |
 | vendor | Производитель1688 |
 | vendorCountry | Россия1688 |
 | purchasePrice | 1 231 688,00 |
 | barcode | 1231688 |
-| unit | штука |
+| units | Штуки |
 | vat | 10 |
-| info | Info1688 |
 When the user clicks the edit button on product card view page
 And the user inputs values in element fields
 | elementName | value |
@@ -46,29 +47,28 @@ And the user inputs values in element fields
 | vendorCountry | Вендоркантри56 |
 | purchasePrice | 8922174 |
 | barcode | 102454 |
-| sku | 89489545DGF1 |
-| info | Info1688 |
-And the user selects 'liter' in 'unit' dropdown
 And the user selects '0' in 'vat' dropdown
 And the user clicks the create button
 Then the user checks the elements values
 | elementName | value  |
-| sku | 89489545DGF1 |
 | name | Имя23 56 |
 | vendor | Вендор45 |
 | vendorCountry | Вендоркантри56 |
 | vendorCountry |  |
 | purchasePrice | 8 922 174,00 |
 | barcode | 102454 |
-| unit | литр |
+| units | Штуки |
 | vat | 0 |
-| info | Info1688 |
 
-Scenario: Product edit check all dropdawn values
+Scenario: Product edit check all dropdown values
+
+Meta:
+@s33u69s10e02
 
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
+And the user selects product type 'Штучный'
 And the user inputs values in element fields
 | elementName | value |
 | name | Наименование16888 |
@@ -77,34 +77,31 @@ And the user inputs values in element fields
 | purchasePrice | 1231 |
 | purchasePrice | 1231 |
 | barcode | 12316888 |
-| sku | 16888 |
-| info | Info16888 |
-And the user selects 'liter' in 'unit' dropdown
 And the user selects '0' in 'vat' dropdown
 And the user clicks the create button
-When the user open the product card with '16888' sku
+When the user open the product card with 'Наименование16888' name
 When the user clicks the edit button on product card view page
-And the user selects 'kg' in 'unit' dropdown
 And the user selects '18' in 'vat' dropdown
 And the user clicks the create button
 Then the user checks the elements values
 | elementName | value  |
-| unit | килограмм |
+| type | Штучный |
+| units | Штуки |
 | vat | 18 |
 When the user clicks the edit button on product card view page
-And the user selects 'liter' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user checks the elements values
 | elementName | value  |
-| unit | литр |
+| units | Штуки |
 | vat | 10 |
 When the user clicks the edit button on product card view page
-And the user selects 'unit' in 'unit' dropdown
+And the user selects product type 'Весовой'
 And the user selects '0' in 'vat' dropdown
 And the user clicks the create button
 Then the user checks the elements values
 | elementName | value  |
-| unit | штука |
+| type | Весовой |
+| units | Килограммы |
 | vat | 0 |
 

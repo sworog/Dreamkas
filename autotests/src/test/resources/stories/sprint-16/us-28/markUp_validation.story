@@ -73,7 +73,6 @@ Scenario: Create product min mark up can't be more than max
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
 When the user inputs 'RMU-PPV-01' in 'name' field
-And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user inputs '1' in 'purchasePrice' field
 And the user inputs '1' in 'retailMarkupMax' field

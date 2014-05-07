@@ -1,7 +1,7 @@
 <table class="table table_productInvoices">
     <tbody>
     <% collection.forEach(function(productInvoiceModel){ %>
-    <tr invoice-sku="<%- productInvoiceModel.get('invoice.sku') %>" name="invoice" href="/stores/<%- productInvoiceModel.get('invoice.store.id') %>/invoices/<%- productInvoiceModel.get('invoice.id') %>">
+    <tr invoice-sku="<%- productInvoiceModel.get('invoice.sku') %>" name="invoice" href="/stores/<%- collection.storeId %>/invoices/<%- productInvoiceModel.get('invoice.id') %>">
         <td>
             <%= LH.modelNode(productInvoiceModel, 'acceptanceDateFormatted') %>
         </td>
