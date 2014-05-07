@@ -15,10 +15,10 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | 280046544 |
+| productName | name-s23u50-2 |
 | quantity | 100 |
 | price | 120,00 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s23u50'
 
-Given the user runs the prepare fixture data cap command for negative inventory testing - '0' days
+Given sales are created with '0' days shift for negative test' days shift and 'name-s23u50-2' product name
 And the user runs the recalculate_metrics cap command
