@@ -15,7 +15,6 @@ When the user inputs values in element fields
 | elementName | value |
 | name | PCWNPP |
 | vat | 10 |
-| unit | unit |
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the products list contain product with name 'PCWNPP'
@@ -57,7 +56,6 @@ When the user inputs values in element fields
 | elementName | value |
 | name | PCWNPP1 |
 | vat | 10 |
-| unit | unit |
 | purchasePrice | 1 |
 | retailMarkupMin | 1 |
 | retailMarkupMax | 2 |
@@ -78,7 +76,6 @@ And the user inputs values in element fields
 | elementName | value |
 | name | PCWNPP2 |
 | vat | 10 |
-| unit | unit |
 | retailPriceMin | 1 |
 | retailPriceMax | 2 |
 | purchasePrice | |
