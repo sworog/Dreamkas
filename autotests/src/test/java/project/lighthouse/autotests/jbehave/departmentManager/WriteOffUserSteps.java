@@ -124,6 +124,11 @@ public class WriteOffUserSteps {
         writeOffSteps.checkListItemHasExpectedValueByFindByLocator(value, checkValuesTable);
     }
 
+    @Then("the user checks the write off product list contains entries $checkValuesTable")
+    public void thenTheUserChecksTheProductWithNameHasElementEqualToExpectedValue(ExamplesTable checkValuesTable) {
+        writeOffSteps.compareListWithExamplesTable(checkValuesTable);
+    }
+
     @Then("the user checks '$elementName' write off field contains only '$fieldLength' symbols")
     public void checkFieldLength(String elementName, int fieldLength) {
         writeOffSteps.checkFieldLength(elementName, fieldLength);

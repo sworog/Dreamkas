@@ -49,6 +49,6 @@ public class WriteOffProductObject extends AbstractObject implements ObjectLocat
 
     @Override
     public String getObjectLocator() {
-        return sku.getText();
+        return name.getText();
     }
 }

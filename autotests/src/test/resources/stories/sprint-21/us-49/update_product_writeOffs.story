@@ -134,6 +134,9 @@ Then the user checks the product local navigation writeoffs link is not present
 
 Scenario: Product writeoff list item click
 
+Meta:
+@aaa
+
 Given there is the user with name 'departmentManager-UIBS-FF', position 'departmentManager-UIBS-FF', username 'departmentManager-UIBS-FF', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'UIBS-FF' managed by department manager named 'departmentManager-UIBS-FF'
 Given there is the subCategory with name 'ProductsUpdateWriteOffSubCategory' related to group named 'ProductsUpdateWriteOffGroup' and category named 'ProductsUpdateWriteOffCategory'
@@ -154,15 +157,9 @@ Then the user checks write off elements values
 | elementName | value |
 | writeOff number review | WOUIBS-FF-05 |
 | writeOff date review | 02.04.2013 |
-And the user checks the write off product with '7300330094020' sku is present
-And the user checks the product with '7300330094020' sku has elements on the write off page
-| elementName | value |
-| writeOff product name review | Корм Баффет д/кошек мясн.кус.в желе Морской коктейль 375г |
-| writeOff product sku review | 7300330094020 |
-| writeOff product barCode review | 7300330094025 |
-| writeOff product quantity review | 1 |
-| writeOff product price review | 12,34 |
-| writeOff cause review | Плохо продавался |
+And the user checks the write off product list contains entries
+| productName | productSku | productBarcode | productAmount | productUnits |  productPrice | productCause |
+| 7300330094020 | #sku:7300330094020 | 7300330094025 | 1,0 | шт. | 12,34 | Плохо продавался |
 Then the user checks write off elements values
 | elementName | value |
 | totalProducts | 1 |

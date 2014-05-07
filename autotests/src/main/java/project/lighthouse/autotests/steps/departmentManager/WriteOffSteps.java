@@ -45,6 +45,7 @@ public class WriteOffSteps extends ScenarioSteps {
     }
 
     @Step
+    @Deprecated
     public void itemCheck(String value) {
         writeOffPage.itemCheck(value);
     }
@@ -64,6 +65,11 @@ public class WriteOffSteps extends ScenarioSteps {
     @Step
     public void checkListItemHasExpectedValueByFindByLocator(String value, ExamplesTable checkValuesTable) {
         writeOffPage.checkListItemHasExpectedValueByFindByLocator(value, checkValuesTable);
+    }
+
+    @Step
+    public void compareListWithExamplesTable(ExamplesTable checkValuesTable) {
+        writeOffPage.getWriteOffProductCollection().compareWithExampleTable(checkValuesTable);
     }
 
     @Step
