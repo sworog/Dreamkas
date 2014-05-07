@@ -80,7 +80,7 @@ define(function(require, exports, module) {
 
             product.fetch();
             var actualJSON = product.saveData();
-            expect(actualJSON.typeProperties).toEqual(expectedSaveDataTypeSpecific);
+            expect(actualJSON.typeProperties).toBeNull();
             expect(actualJSON.type).toEqual("unit");
 
             var form_product = require('blocks/form/form_product/form_product'),

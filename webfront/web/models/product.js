@@ -66,7 +66,7 @@ define(function(require) {
                 subCategory: this.get('subCategory'),
                 rounding: this.get('rounding') ? this.get('rounding').name : null,
                 type: this.get('type'),
-                typeProperties: this.get('typeProperties')
+                typeProperties: this.get('type') === 'unit' ? null : this.get('typeProperties')
             }
         },
         parse: function(response, options) {
