@@ -170,7 +170,6 @@ And the user creates new product from product list page
 When the user inputs values in element fields
 | elementName | value |
 | name | regressionSubCategoryProductName |
-| unit | unit |
 | vat | 0 |
 And the user clicks the create button
 
