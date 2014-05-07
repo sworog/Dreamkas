@@ -46,7 +46,6 @@ When the user inputs values in element fields
 | elementName | value |
 | name | name-s33u69.0s3 |
 | purchasePrice | 1 |
-| unit | unit |
 | vat | 10 |
 And the user clicks the create button
 
@@ -74,7 +73,6 @@ When the user inputs values in element fields
 | elementName | value |
 | name | name-s33u69.0s5 |
 | purchasePrice | 1 |
-| unit | unit |
 | vat | 10 |
 And the user clicks the create button
 

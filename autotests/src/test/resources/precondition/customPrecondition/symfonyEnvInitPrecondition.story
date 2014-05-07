@@ -9,6 +9,7 @@ Meta:
 @us_68
 @us_46
 @us_64
+@us_69.0
 @smoke
 @id_s30u64s1
 @id_s30u64s1
