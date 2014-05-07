@@ -52,7 +52,7 @@ Then the user checks the order total sum is 'Итого: 1 430,00 руб'
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |
 | {lastCreatedProductName} | шт. | 2,0 | 100,00 | 200,00 |
-| name-s30u67s1 | кг | 10,0 | 123,00 | 1 230,00 |
+| name-s30u67s1 | шт. | 10,0 | 123,00 | 1 230,00 |
 
 When the user clicks the save order button
 
@@ -69,7 +69,7 @@ Then the user checks the filled order page values
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |
 | {lastCreatedProductName} | шт. | 2,0 | 100,00 | 200,00 |
-| name-s30u67s1 | кг | 10,0 | 123,00 | 1 230,00 |
+| name-s30u67s1 | шт. | 10,0 | 123,00 | 1 230,00 |
 
 Then the user checks the order total sum is 'Итого: 1 430,00 руб'
 
@@ -146,7 +146,7 @@ Then the user waits for the order product edition preloader finish
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |
 | {lastCreatedProductName} | шт. | 1,0 | 100,00 | 100,00 |
-| name-s30u67s1 | кг | 10,0 | 123,00 | 1 230,00 |
+| name-s30u67s1 | шт. | 10,0 | 123,00 | 1 230,00 |
 
 When the user clicks the save order button
 
@@ -155,7 +155,7 @@ When the user clicks on last created order on the orders list page
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |
 | {lastCreatedProductName} | шт. | 1,0 | 100,00 | 100,00 |
-| name-s30u67s1 | кг | 10,0 | 123,00 | 1 230,00 |
+| name-s30u67s1 | шт. | 10,0 | 123,00 | 1 230,00 |
 
 Scenario: Assert order number
 
