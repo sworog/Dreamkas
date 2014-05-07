@@ -7,8 +7,11 @@ use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
+use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\Translation\TranslatorInterface;
+use Lighthouse\CoreBundle\Integration\Set10\Import\Products\GoodElement;
 
 /**
  * @DI\Service("lighthouse.core.integration.set10.export.products.converter")
@@ -49,9 +52,10 @@ class Set10ProductConverter
 
     /**
      * @param Product $product
+     * @param bool $withoutHeader
      * @return string[]
      */
-    public function makeXmlByProduct(Product $product)
+    public function makeXmlByProduct(Product $product, $withoutHeader = true)
     {
         $xmlProducts = array();
 
@@ -77,7 +81,7 @@ class Set10ProductConverter
 
         foreach ($versionProducts as $version) {
             $goodElement = $this->createProductXml($version['storeProductModel'], $version['storeNumbers']);
-            $xmlProducts[] = $goodElement->asXmlWithoutHeader();
+            $xmlProducts[] = ($withoutHeader) ? $goodElement->asXmlWithoutHeader() : $goodElement->asXml();
         }
 
         return $xmlProducts;
@@ -93,11 +97,10 @@ class Set10ProductConverter
         $product = $storeProductModel->product;
 
         $goodElement = GoodElement::create();
-        $goodElement->setMarking($product->sku);
+        $goodElement->setMarkingOfTheGood($product->sku);
         $goodElement->setShopIndices($storeNumbers);
-        $goodElement->setName($product->name);
+        $goodElement->setGoodName($product->name);
         $goodElement->setBarcode($product->barcode);
-        $goodElement->setProductType();
         $goodElement->setPrice(
             $this->moneyModelTransformer->transform($storeProductModel->roundedRetailPrice)
         );
@@ -109,13 +112,81 @@ class Set10ProductConverter
                 $product->subCategory->category->group->name => $product->subCategory->category->group->name,
             )
         );
+        $this->setProductTypeProperties($goodElement, $product);
+
         $goodElement->setMeasureType(
             $product->getUnits(),
             $this->translator->trans('lighthouse.units.' . $product->getUnits(), array(), 'units')
         );
-        $goodElement->setPluginProperty();
+
 
         return $goodElement;
+    }
+
+    /**
+     * @param GoodElement $goodElement
+     * @param Product $product
+     */
+    protected function setProductTypeProperties(GoodElement $goodElement, Product $product)
+    {
+        switch ($product->getType()) {
+            case WeightType::TYPE:
+                $this->setWeightProductTypeProperties($goodElement, $product);
+                break;
+            case UnitType::TYPE:
+                $this->setUnitProductTypeProperties($goodElement, $product);
+                break;
+        }
+    }
+
+    /**
+     * @param GoodElement $goodElement
+     * @param Product $product
+     */
+    protected function setWeightProductTypeProperties(GoodElement $goodElement, Product $product)
+    {
+        $goodElement->setProductType(GoodElement::PRODUCT_WEIGHT_ENTITY);
+        $goodElement->setPluginProperty('precision', '0.001');
+        if ($product->typeProperties->nameOnScales) {
+            $goodElement->setPluginProperty(
+                GoodElement::PLUGIN_PROPERTY_NAME_ON_SCALE_SCREEN,
+                $product->typeProperties->nameOnScales
+            );
+        }
+        if ($product->typeProperties->descriptionOnScales) {
+            $goodElement->setPluginProperty(
+                GoodElement::PLUGIN_PROPERTY_DESCRIPTION_ON_SCALE_SCREEN,
+                $product->typeProperties->descriptionOnScales
+            );
+        }
+        if ($product->typeProperties->ingredients) {
+            $goodElement->setPluginProperty(
+                GoodElement::PLUGIN_PROPERTY_COMPOSITION,
+                $product->typeProperties->ingredients
+            );
+        }
+        if ($product->typeProperties->nutritionFacts) {
+            $goodElement->setPluginProperty(
+                GoodElement::PLUGIN_PROPERTY_FOOD_VALUE,
+                $product->typeProperties->nutritionFacts
+            );
+        }
+        if ($product->typeProperties->shelfLife) {
+            $goodElement->setPluginProperty(
+                GoodElement::PLUGIN_PROPERTY_GOOD_FOR_HOURS,
+                $product->typeProperties->shelfLife
+            );
+        }
+    }
+
+    /**
+     * @param GoodElement $goodElement
+     * @param Product $product
+     */
+    protected function setUnitProductTypeProperties(GoodElement $goodElement, Product $product)
+    {
+        $goodElement->setProductType(GoodElement::PRODUCT_PIECE_ENTITY);
+        $goodElement->setPluginProperty('precision', '0.001');
     }
 
     /**
