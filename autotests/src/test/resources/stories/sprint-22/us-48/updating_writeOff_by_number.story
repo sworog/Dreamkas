@@ -80,15 +80,9 @@ Then the user checks write off elements values
 | elementName | value |
 | writeOff number review | SCPBC-11 |
 | writeOff date review | 02.04.2013 |
-And the user checks the write off product with 'SCPBC-sku-11' sku is present
-And the user checks the product with 'SCPBC-sku-11' sku has elements on the write off page
-| elementName | value |
-| writeOff product name review | SCPBC-name-11 |
-| writeOff product sku review | SCPBC-sku-11 |
-| writeOff product barCode review | SCPBC-barcode-11 |
-| writeOff product quantity review | 1 |
-| writeOff product price review | 12,34 |
-| writeOff cause review | Плохо продавался |
+And the user checks the write off product list contains entries
+| productName | productSku | productBarcode | productAmount | productUnits |  productPrice | productCause |
+| SCPBC-name-11 | #sku:SCPBC-name-11 | SCPBC-barcode-11 | 1,0 | шт. | 12,34 | Плохо продавался |
 Then the user checks write off elements values
 | elementName | value |
 | totalProducts | 1 |
@@ -116,15 +110,9 @@ Then the user checks write off elements values
 | elementName | value |
 | writeOff number review | SCPBC-12 |
 | writeOff date review | 02.04.2013 |
-And the user checks the write off product with 'SCPBC-sku-11' sku is present
-And the user checks the product with 'SCPBC-sku-11' sku has elements on the write off page
-| elementName | value |
-| writeOff product name review | SCPBC-name-11 |
-| writeOff product sku review | SCPBC-sku-11 |
-| writeOff product barCode review | SCPBC-barcode-11 |
-| writeOff product quantity review | 1 |
-| writeOff product price review | 12,34 |
-| writeOff cause review | Плохо продавался |
+And the user checks the write off product list contains entries
+| productName | productSku | productBarcode | productAmount | productUnits |  productPrice | productCause |
+| SCPBC-name-11 | #sku:SCPBC-name-11 | SCPBC-barcode-11 | 1,0 | шт. | 12,34 | Плохо продавался |
 Then the user checks write off elements values
 | elementName | value |
 | totalProducts | 1 |
