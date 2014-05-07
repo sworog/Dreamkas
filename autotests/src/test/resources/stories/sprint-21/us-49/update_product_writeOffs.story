@@ -134,9 +134,6 @@ Then the user checks the product local navigation writeoffs link is not present
 
 Scenario: Product writeoff list item click
 
-Meta:
-@aaa
-
 Given there is the user with name 'departmentManager-UIBS-FF', position 'departmentManager-UIBS-FF', username 'departmentManager-UIBS-FF', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'UIBS-FF' managed by department manager named 'departmentManager-UIBS-FF'
 Given there is the subCategory with name 'ProductsUpdateWriteOffSubCategory' related to group named 'ProductsUpdateWriteOffGroup' and category named 'ProductsUpdateWriteOffCategory'
