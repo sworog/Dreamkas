@@ -34,6 +34,8 @@ public class RobotSteps extends ScenarioSteps {
     private static final String SERVER_URL = System.getProperty("centrum.server.url");
     private static final String IMPORT_FOLDER_PATH = System.getProperty("centrum.import.folder.path");
 
+    private NtlmPasswordAuthentication smbAuth = new NtlmPasswordAuthentication("erp:erp");
+
     @Step
     public void prepareData(String fileName) throws IOException, InterruptedException {
         final String sourcePath = String.format("%s/xml/purchases/%s", System.getProperty("user.dir").replace("\\", "/"), fileName);
@@ -42,13 +44,13 @@ public class RobotSteps extends ScenarioSteps {
     }
 
     @Step
-    public void checkImportIsDone() throws InterruptedException {
+    public void checkImportIsDone() throws InterruptedException, MalformedURLException, SmbException {
         final String importFolder = getFolderPath(IMPORT_FOLDER_PATH);
         checkFolderIsEmptyLoop(importFolder);
     }
 
     @Step
-    public void checkExportIsDone() throws InterruptedException {
+    public void checkExportIsDone() throws InterruptedException, MalformedURLException, SmbException {
         final String sourceFolder = SERVER_URL + "/centrum/products/source";
         final String tmpFolder = SERVER_URL + "/centrum/products/tmp";
         checkFolderIsEmptyLoop(sourceFolder);
@@ -77,46 +79,49 @@ public class RobotSteps extends ScenarioSteps {
     }
 
     @Step
-    public void checkProductWeightExport(String fixtureFile) {
+    public void checkProductWeightExport(String fixtureFile) throws IOException, SAXException {
         String directoryPath = SERVER_URL + "/centrum/autotests/source/";
-        String actualXml = getLastRemoteFileAsString(directoryPath);
+        SmbFile remoteDirectory = getRemoteFile(directoryPath);
+        SmbFile actualFile = getLastRemoteFile(remoteDirectory);
+        String actualXml = getRemoteFileAsString(actualFile);
         File expectedFile = new File(String.format("%s/xml/%s", System.getProperty("user.dir").replace("\\", "/"), fixtureFile));
 
-        Diff diff = null;
-        try {
-            String expectedXml = FileUtils.readFileToString(expectedFile);
-            diff = new Diff(expectedXml, actualXml);
-        } catch (SAXException | IOException e) {
-            e.printStackTrace();
-        }
+        String expectedXml = FileUtils.readFileToString(expectedFile);
+        Diff diff = new Diff(expectedXml, actualXml);
 
-        assert diff != null;
-        assertTrue("Xml file not equals ", diff.similar());
+        assertTrue("Xml file not equals " + actualFile.getName(), diff.similar());
     }
 
-    private String getLastRemoteFileAsString(String directory) {
-        directory = "smb:".concat(directory);
-        NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication("erp:erp");
-        String fileText = null;
-        SmbFileInputStream fileInputStream = null;
-        try {
-            SmbFile remoteDirectory = new SmbFile(directory, auth);
-            SmbFile[] files = remoteDirectory.listFiles();
-            assert files != null;
-            Assert.assertTrue(files.length != 0);
-            fileInputStream = new SmbFileInputStream(files[files.length - 1]);
-            fileText = IOUtils.toString(fileInputStream, Charset.defaultCharset());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (fileInputStream != null) {
-                try {
-                    fileInputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+    private SmbFile getRemoteFile(String path) throws MalformedURLException {
+        if (!path.startsWith("smb:")) {
+            path = "smb:".concat(path);
+        }
+
+        return new SmbFile(path, smbAuth);
+    }
+
+    private SmbFile getLastRemoteFile(SmbFile directory) throws IOException {
+        SmbFile[] files = directory.listFiles();
+        assert files != null;
+        Assert.assertTrue(files.length != 0);
+        SmbFile lastedFile = null;
+        for (SmbFile file : files) {
+            if (null == lastedFile) {
+                lastedFile = file;
+            } else {
+                if (file.getLastModified() > lastedFile.getLastModified()) {
+                    lastedFile = file;
                 }
             }
         }
+
+        return lastedFile;
+    }
+
+    private String getRemoteFileAsString(SmbFile remoteFile) throws IOException {
+        SmbFileInputStream fileInputStream = new SmbFileInputStream(remoteFile);
+        String fileText = IOUtils.toString(fileInputStream, Charset.defaultCharset());
+        fileInputStream.close();
 
         return fileText;
     }
@@ -126,8 +131,8 @@ public class RobotSteps extends ScenarioSteps {
         return String.format("purchases-%s.xml", dtf.print(DateTime.now()));
     }
 
-    private Boolean isDirectoryEmpty(String directoryPath) {
-        return FileUtils.getFile(directoryPath).list().length == 0;
+    private Boolean isDirectoryEmpty(String directoryPath) throws MalformedURLException, SmbException {
+        return getRemoteFile(directoryPath).list().length == 0;
     }
 
     private String getServerUrl() {
@@ -138,7 +143,7 @@ public class RobotSteps extends ScenarioSteps {
         return getServerUrl() + folderPath + "/";
     }
 
-    private void checkFolderIsEmptyLoop(String folderPath) throws InterruptedException {
+    private void checkFolderIsEmptyLoop(String folderPath) throws InterruptedException, MalformedURLException, SmbException {
         Boolean folderIsEmpty = isDirectoryEmpty(folderPath);
         int count = 0;
         while (!folderIsEmpty && count < 61) {
