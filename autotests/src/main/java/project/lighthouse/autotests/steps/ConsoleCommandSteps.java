@@ -53,6 +53,11 @@ public class ConsoleCommandSteps extends ScenarioSteps {
     }
 
     @Step
+    public void runCapAutoTestsSymfonyImportSalesLocalCommand(File file) throws IOException, InterruptedException {
+        runCapAutoTestsSymfonyImportSalesLocalCommand(file.getPath());
+    }
+
+    @Step
     public void runCapAutoTestsSymfonyProductsRecalculateMetricsCommand() throws IOException, InterruptedException {
         new SymfonyProductsRecalculateMetricsCommand().run();
     }

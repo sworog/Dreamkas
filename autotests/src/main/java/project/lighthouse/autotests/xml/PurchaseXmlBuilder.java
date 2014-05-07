@@ -3,8 +3,10 @@ package project.lighthouse.autotests.xml;
 import com.jamesmurty.utils.XMLBuilder;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.TransformerException;
 import javax.xml.xpath.XPathExpressionException;
+import java.util.Properties;
 
 /**
  * Get new instance {@link #create(String)}
@@ -124,6 +126,9 @@ public class PurchaseXmlBuilder {
     }
 
     public String asString() throws TransformerException {
-        return xmlBuilder.asString();
+        Properties outputProperties = new Properties();
+        outputProperties.put(OutputKeys.METHOD, "xml");
+        outputProperties.put(OutputKeys.INDENT, "yes");
+        return xmlBuilder.asString(outputProperties);
     }
 }
