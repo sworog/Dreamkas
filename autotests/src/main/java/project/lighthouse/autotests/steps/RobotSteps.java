@@ -90,6 +90,8 @@ public class RobotSteps extends ScenarioSteps {
         Diff diff = new Diff(expectedXml, actualXml);
 
         assertTrue("Xml file not equals " + actualFile.getName(), diff.similar());
+
+        actualFile.delete();
     }
 
     private SmbFile getRemoteFile(String path) throws MalformedURLException {
