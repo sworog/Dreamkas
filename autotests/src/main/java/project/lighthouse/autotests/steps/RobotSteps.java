@@ -1,9 +1,14 @@
 package project.lighthouse.autotests.steps;
 
+import jcifs.smb.NtlmPasswordAuthentication;
+import jcifs.smb.SmbException;
+import jcifs.smb.SmbFile;
+import jcifs.smb.SmbFileInputStream;
 import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.custommonkey.xmlunit.Diff;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -15,6 +20,9 @@ import project.lighthouse.autotests.robotClient.SetRobotHubWSService;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.UnknownHostException;
+import java.nio.charset.Charset;
 
 import static junit.framework.Assert.assertTrue;
 import static junit.framework.Assert.fail;
@@ -70,28 +78,55 @@ public class RobotSteps extends ScenarioSteps {
 
     @Step
     public void checkProductWeightExport(String fixtureFile) {
-        String directoryPath = SERVER_URL + "/centrum/autotests/source";
-        File[] files = FileUtils.getFile(directoryPath).listFiles();
-        assert files != null;
-        Assert.assertTrue(files.length != 0);
-
-        File actualFile = files[0];
+        String directoryPath = SERVER_URL + "/centrum/autotests/source/";
+//        File[] files = FileUtils.getFile(directoryPath).listFiles();
+//        assert files != null;
+//        Assert.assertTrue(files.length != 0);
+//
+//        File actualFile = files[0];
+        String actualXml = getLastRemoteFileAsString(directoryPath);
         File expectedFile = new File(String.format("%s/xml/%s", System.getProperty("user.dir").replace("\\", "/"), fixtureFile));
 
         Diff diff = null;
         try {
-            String actualXml = FileUtils.readFileToString(actualFile);
             String expectedXml = FileUtils.readFileToString(expectedFile);
             diff = new Diff(expectedXml, actualXml);
         } catch (SAXException | IOException e) {
             e.printStackTrace();
         }
 
+//        String actualFileName = actualFile.getName();
+//        actualFile.delete();
 
         assert diff != null;
-        assertTrue("Xml file not equals", diff.similar());
+        assertTrue("Xml file not equals ", diff.similar());
+    }
 
-        actualFile.delete();
+    private String getLastRemoteFileAsString(String directory) {
+        directory = "smb:".concat(directory);
+        NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication("erp:erp");
+        String fileText = null;
+        SmbFileInputStream fileInputStream = null;
+        try {
+            SmbFile remoteDirectory = new SmbFile(directory, auth);
+            SmbFile[] files = remoteDirectory.listFiles();
+            assert files != null;
+            Assert.assertTrue(files.length != 0);
+            fileInputStream = new SmbFileInputStream(files[files.length - 1]);
+            fileText = IOUtils.toString(fileInputStream, Charset.defaultCharset());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return fileText;
     }
 
     private String getFileName() {
