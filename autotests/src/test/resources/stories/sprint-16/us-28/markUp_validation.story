@@ -9,7 +9,6 @@ And the user logs in as 'commercialManager'
 When the user inputs values in element fields
 | elementName | value |
 | name |RMU-PPV-01 |
-| unit | unit |
 | vat | 10 |
 | purchasePrice | 1 |
 | retailMarkupMax | 100 |
@@ -50,7 +49,6 @@ And the user logs in as 'commercialManager'
 When the user inputs values in element fields
 | elementName | value |
 | name |RMU-PPV-02 |
-| unit | unit |
 | vat | 10 |
 | purchasePrice | 1 |
 | retailMarkupMax | 100 |

@@ -82,13 +82,13 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
-    public void listItemClick(String skuValue) {
-        productListPage.listItemClick(skuValue);
+    public void listItemClick(String name) {
+        productListPage.getProductObjectCollection().clickByLocator(name);
     }
 
     @Step
-    public void listItemCheck(String skuValue) {
-        productListPage.listItemCheck(skuValue);
+    public void listItemCheck(String name) {
+        productListPage.getProductObjectCollection().contains(name);
     }
 
     @Step
@@ -97,8 +97,9 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
-    public void checkProductWithSkuHasExpectedValue(String skuValue, String name, String expectedValue) {
-        productListPage.checkProductWithSkuHasExpectedValue(skuValue, name, expectedValue);
+    public void checkProductWithSkuHasExpectedValue(String name, String element, String expectedValue) {
+        ProductObject productObject = (ProductObject) productListPage.getProductObjectCollection().getAbstractObjectByLocator(name);
+        Assert.assertEquals(expectedValue, productObject.getPurchasePrice());
     }
 
     @Step

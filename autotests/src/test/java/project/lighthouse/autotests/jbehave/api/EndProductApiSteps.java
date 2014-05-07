@@ -97,8 +97,15 @@ public class EndProductApiSteps {
     }
 
     @Given("there is the product with '$name' name, '$barcode' barcode, '$type' type")
+    @Alias("there is the product with <name> name, '$barcode' barcode, '$type' type")
     public void givenTheUserCreatesProductWithParams(String name, String barcode, String type) throws JSONException, IOException {
         сreateProductThroughPost(name, barcode, type, "123");
+    }
+
+    @Given("there is the product with <productName> name, '$type' type")
+    @Alias("there is the product with '$productName' name, '$type' type")
+    public void givenTheUserCreatesProductWithType(String productName, String type) throws JSONException, IOException {
+        сreateProductThroughPost(productName, "000", type, "123");
     }
 
     @Given("there is the product with '$name' name, '$barcode' barcode, '$type' type, '$purchasePrice' purchasePrice")
@@ -137,6 +144,11 @@ public class EndProductApiSteps {
     @Given("the user navigates to the product with name '$productName'")
     @Alias("the user navigates to the product with productName")
     public void givenTheUserNavigatesToTheProduct(String productName) throws JSONException {
+        productApiSteps.navigateToTheProductPage(productName);
+    }
+
+    @Given("the user navigates to the product with name <productName>")
+    public void givenTheUserNavigatesToTheProductAlias(String productName) throws JSONException {
         productApiSteps.navigateToTheProductPage(productName);
     }
 

@@ -1,10 +1,7 @@
 package project.lighthouse.autotests.jbehave.commercialManager;
 
 import net.thucydides.core.annotations.Steps;
-import org.jbehave.core.annotations.Alias;
-import org.jbehave.core.annotations.Given;
-import org.jbehave.core.annotations.Then;
-import org.jbehave.core.annotations.When;
+import org.jbehave.core.annotations.*;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.objects.api.Category;
@@ -45,6 +42,21 @@ public class ProductUserSteps {
     @When("the user inputs '$value' in '$elementName' field")
     public void whenTheUserInputsTextInTheField(String value, String elementName) {
         productSteps.fieldInput(elementName, value);
+    }
+
+    @When("the user inputs '$value' in '$element' element field")
+    public void whenTheUserInputsTextInTheFieldAlias(String value, String element) {
+        productSteps.fieldInput(element, value);
+    }
+
+    @When("the user inputs <productName> in name element field")
+    public void whenTheUserInputsTextInTheNameField(String productName) {
+        productSteps.fieldInput("name", productName);
+    }
+
+    @When("the user inputs <exampleValue> in <exampleElement> element field")
+    public void whenTheUserInputsTextInTheFieldExampleAlias(String exampleValue, String exampleElement) {
+        productSteps.fieldInput(exampleElement, exampleValue);
     }
 
     @When("the user inputs '$value' in '$elementName' field by sendKeys method")
@@ -88,6 +100,11 @@ public class ProductUserSteps {
         productSteps.selectDropDown(elementName, value);
     }
 
+    @When("the user selects '$value' in '$element' element dropdown")
+    public void whenTheUserSelectsValueInDropDownAlias(String value, String element) {
+        productSteps.selectDropDown(element, value);
+    }
+
     @When("the user clicks the create button")
     public void whenTheUserClicksOnCreateButton() {
         productSteps.createButtonClick();
@@ -103,9 +120,9 @@ public class ProductUserSteps {
         productSteps.createNewProductButtonClick();
     }
 
-    @When("the user open the product card with '$skuValue' sku")
-    public void whenTheUserOpenTheProductCard(String skuValue) {
-        productSteps.listItemClick(skuValue);
+    @When("the user open the product card with '$nameValue' name")
+    public void whenTheUserOpenTheProductCard(String nameValue) {
+        productSteps.listItemClick(nameValue);
     }
 
     @When("the user clicks the edit button on product card view page")
@@ -171,9 +188,10 @@ public class ProductUserSteps {
         productSteps.checkCardValue(checkValuesTable);
     }
 
-    @Then("the user checks the product with '$skuValue' sku is present")
-    public void thenTheUSerChecksTheProductWithSkuIsPresent(String skuValue) {
-        productSteps.listItemCheck(skuValue);
+    @Then("the user checks the product with '$productName' name is present")
+    @Alias("the user checks the product with <productName> name is present")
+    public void thenTheUserChecksTheProductWithNameIsPresent(String productName) {
+        productSteps.listItemCheck(productName);
     }
 
     @Then("the user checks the product with '$skuValue' sku is not present")
@@ -181,9 +199,9 @@ public class ProductUserSteps {
         productSteps.listItemCheckIsNotPresent(skuValue);
     }
 
-    @Then("the user checks the product with '$skuValue' sku has '$name' equal to '$expectedValue'")
-    public void checkProductWithSkuHasExpectedValue(String skuValue, String name, String expectedValue) {
-        productSteps.checkProductWithSkuHasExpectedValue(skuValue, name, expectedValue);
+    @Then("the user checks the product with '$name' name has '$element' equal to '$expectedValue'")
+    public void checkProductWithNameHasExpectedValue(String skuValue, String element, String expectedValue) {
+        productSteps.checkProductWithSkuHasExpectedValue(skuValue, element, expectedValue);
     }
 
     @Then("the user checks default value for '$dropDownType' dropdown equal to '$expectedValue'")

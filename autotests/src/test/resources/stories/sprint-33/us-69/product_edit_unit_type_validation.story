@@ -1,6 +1,7 @@
 Meta:
-@sprint_3
-@us_4.1
+@sprint_33
+@us_69
+@s33u69s06
 
 Scenario: Edit product validation - Field length validation
 
@@ -19,7 +20,6 @@ Examples:
 | 200 | barcode |
 | 300 | vendor |
 | 100 | vendorCountry |
-| 2000 | info |
 
 Scenario: Edit product validation - Field length validation negative
 
@@ -36,10 +36,8 @@ Examples:
 | charNumber | elementName | errorMessage |
 | 301 | name | Не более 300 символов |
 | 201 | barcode | Не более 200 символов |
-| 101 | sku | Не более 100 символов |
 | 301 | vendor | Не более 300 символов |
 | 101 | vendorCountry | Не более 100 символов |
-| 2001 | info | Не более 2000 символов |
 
 Scenario: Edit product validation - Name field is required
 
@@ -56,9 +54,10 @@ Then the user sees error messages
 Examples:
 | inputText | elementName |
 |  | name |
-|  | sku |
 
 Scenario: Edit product validation - Sku field validation good
+
+Given skipped test
 
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
@@ -71,7 +70,7 @@ And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Given there is created product with name 'ED-SKVG'
 And the user is on the product list page
-When the user open the product card with 'ED-SKVG' sku
+When the user open the product card with 'ED-SKVG' name
 And the user clicks the edit button on product card view page
 And the user inputs 'Sku field validation good' in 'name' field
 And the user inputs '1001DS8' in 'sku' field
@@ -86,19 +85,16 @@ Then the user sees error messages
 Scenario: Edit product validation - Vendor,Barcode,VendorCountryInfo fields are not required
 
 Given there is created product with name 'ED-VBVCF'
-And the user is on the product list page
+And the user navigates to the product with name 'ED-VBVCF'
 And the user logs in as 'commercialManager'
-When the user open the product card with 'ED-VBVCF' sku
-And the user clicks the edit button on product card view page
-And the user inputs 'Vendor,Barcode,VendorCountryInfo fields are not required' in 'name' field
-And the user inputs 'EPVBVCF678' in 'sku' field
+When the user clicks the edit button on product card view page
+And the user inputs 'EPVBVCF678' in 'name' field
 And the user inputs '58967' in 'purchasePrice' field
-And the user selects 'unit' in 'unit' dropdown
 And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 Then the user sees no error messages
 Given the user is on the product list page
-Then the user checks the product with 'EPVBVCF678' sku is present
+Then the user checks the product with 'EPVBVCF678' name is present
 
 Scenario: Edit product validation - Purchase price validation good
 

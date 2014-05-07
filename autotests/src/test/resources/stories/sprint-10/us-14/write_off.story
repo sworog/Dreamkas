@@ -381,9 +381,6 @@ Then the user checks write off elements values
 
 Scenario: Write off edition - product name
 
-Meta:
-@test
-
 Given there is the product with 'WriteOff-WOE-PN' name, 'WriteOff-WOE-PN' barcode, 'unit' type, '15' purchasePrice
 And there is the write off with 'WriteOff-Edit-productName' number with product 'WriteOff-ProductName-autocomplete' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
 And the user navigates to the default subCategory product list page
@@ -414,9 +411,6 @@ Then the user checks the product with name 'WriteOff-WOE-PN' has inventory equal
 And the user checks the product with name 'WriteOff-ProductName-autocomplete' has inventory equals to '0,0'
 
 Scenario: Write off edition - product sku
-
-Meta:
-@test
 
 Given there is the product with 'WriteOff-WOE-PS' name, 'WriteOff-WOE-PS' barcode, 'unit' type, '15' purchasePrice
 And there is the write off with 'WriteOff-Edit-productSku' number with product 'WriteOff-ProductSku-autocomplete' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
@@ -449,9 +443,6 @@ And the user checks the product with name 'WriteOff-ProductSku-autocomplete' has
 
 Scenario: Write off edition - product barcode
 
-Meta:
-@test
-
 Given there is the product with 'WriteOff-WOE-Pb' name, 'WriteOff-WOE-Pb' barcode, 'unit' type, '15' purchasePrice
 And there is the write off with 'WriteOff-Edit-productBarCode' number with product 'WriteOff-ProductBarCode-autocomplete' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
 And the user navigates to the default subCategory product list page
@@ -483,9 +474,6 @@ Then the user checks the product with name 'WriteOff-WOE-Pb' has inventory equal
 And the user checks the product with name 'WriteOff-ProductBarCode-autocomplete' has inventory equals to '0,0'
 
 Scenario: Write off edition - product quantity
-
-Meta:
-@test
 
 Given there is the write off with 'WriteOff-Edit-productQuantity' number with product 'WriteOff-ProductQuantity' with quantity '50', price '15' and cause 'Причина сдачи: Истек срок хранения'
 And the user navigates to the default subCategory product list page
@@ -579,9 +567,6 @@ And the user checks the product with 'WriteOff-WOE-ANP' sku has elements on the 
 
 Scenario: Write off edition - deleting product
 
-Meta:
-@test
-
 Given there is the write off with 'WriteOff-Edit-productDelete' number with product 'WriteOff-WOE-ANP-1' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
 And the user navigates to the default subCategory product list page
 And the user logs in as 'departmentManager'
@@ -605,9 +590,6 @@ When the user opens product balance tab
 Then the user checks the product with name 'WriteOff-WOE-ANP-1' has inventory equals to '0,0'
 
 Scenario: Write off edition - deleting product cancel
-
-Meta:
-@test
 
 Given there is the write off with 'WriteOff-Edit-productDelete-2' number with product 'WriteOff-WOE-ANP-2' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
 And the user navigates to the default subCategory product list page
