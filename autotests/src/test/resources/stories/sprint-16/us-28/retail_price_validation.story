@@ -14,7 +14,6 @@ And the user clicks 'retailPriceHint' to make it avalaible
 And the user inputs values in element fields
 | elementName | value |
 | name | RP-PPV-07 |
-| unit | unit |
 | vat | 10 |
 | retailPriceMax | 10000000 |
 | retailPriceMin | 0,01 |
@@ -43,7 +42,6 @@ Examples:
 | 1 102,23 | retailPriceMax |
 | 1 102,23 | retailPriceMin |
 
-
 Scenario: Create product retail price range validation negative
 
 Given the user is on the product create page
@@ -55,7 +53,6 @@ When the user clicks 'retailPriceHint' to make it avalaible
 And the user inputs values in element fields
 | elementName | value |
 | name | RP-PPV-06 |
-| unit | unit |
 | vat | 10 |
 | retailPriceMax | 100 |
 | retailPriceMin | 0,01 |
