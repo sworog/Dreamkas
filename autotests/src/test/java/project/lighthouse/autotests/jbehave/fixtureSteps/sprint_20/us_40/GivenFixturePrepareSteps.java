@@ -19,7 +19,7 @@ public class GivenFixturePrepareSteps {
 
     @Given("the user prepares import purchase data for us 40 story")
     public void givenTheUserPreparesSalePurchaseForUs40Story() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException, InterruptedException {
-        consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(us_40_fixture.getFixtureFile().getPath());
+        us_40_fixture.positiveXmlPurchasesDataCopyToCentrum();
     }
 
     @Given("the user prepares import purchase data with no such product for us 40 story")

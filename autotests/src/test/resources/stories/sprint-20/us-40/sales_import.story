@@ -63,7 +63,8 @@ When the user opens product balance tab
 
 Then the user checks the product with name 'Конф.жев.Фруттелла 4 вкуса 42.5г' has inventory equals to '0,0'
 When the user logs out
-Given the robot prepares import purchase data
+
+Given the user prepares import purchase data for us 40 story
 And the robot waits the import folder become empty
 
 Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
@@ -90,6 +91,7 @@ And there is the user with name 'ProductsExportStoreManager', position 'Products
 And there is the user with name 'ProductsExportStoreManager2', position 'ProductsExportStoreManager2', username 'ProductsExportStoreManager2', password 'lighthouse', role 'storeManager'
 And there is the store with number '666' managed by 'ProductsExportStoreManager'
 And there is the store with number '777' managed by 'ProductsExportStoreManager2'
+
 Given the user prepares import purchase data with no such product for us 40 story
 
 Given the user opens the log page

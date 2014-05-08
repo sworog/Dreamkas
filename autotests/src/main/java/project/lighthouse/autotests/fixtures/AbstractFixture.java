@@ -1,6 +1,9 @@
 package project.lighthouse.autotests.fixtures;
 
 import org.apache.commons.io.FileUtils;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.xml.PurchaseXmlBuilder;
@@ -86,4 +89,31 @@ public abstract class AbstractFixture {
     }
 
     abstract public String getFixtureFileName();
+
+    public void copyDataFileToCentrum(File file) throws IOException, InterruptedException {
+        final String destinationPath = getFolderPath(getImportFolderPath()) + getFileName();
+        FileUtils.copyFile(file, new File(destinationPath));
+    }
+
+    private String getFileName() {
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("dd-MM-yyyy_HH-mm-ss");
+        return String.format("purchases-%s.xml", dtf.print(DateTime.now()));
+    }
+
+    private String getFolderPath(String folderPath) {
+        return getServerUrl() + folderPath + "/";
+    }
+
+    private String getServerUrl() {
+        return System.getProperty("centrum.server.url");
+    }
+
+    private String getImportFolderPath() {
+        return System.getProperty("centrum.import.folder.path");
+    }
+
+    public File getFileFixture(String fileName) {
+        return new File(
+                String.format("%s/xml/purchases/%s", System.getProperty("user.dir").replace("\\", "/"), fileName));
+    }
 }
