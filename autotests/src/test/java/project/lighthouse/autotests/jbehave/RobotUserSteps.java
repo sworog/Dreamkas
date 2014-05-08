@@ -17,7 +17,7 @@ public class RobotUserSteps {
     @Steps
     RobotSteps robotSteps;
 
-    String uuid;
+    private String uuid;
 
     @When("the robot starts the test named '$testName' on cashregistry with '$cashIp'")
     public void whenTheRobotsStartTheTestOnCashRegistry(String testName, String cashIp) throws InterruptedException_Exception {
@@ -37,12 +37,6 @@ public class RobotUserSteps {
     @Given("the robot waits the import folder become empty")
     public void givenTheRobotWaitsTheImportFolderBecomeEmpty() throws InterruptedException, MalformedURLException, SmbException {
         robotSteps.checkImportIsDone();
-    }
-
-    @Given("the robot prepares import purchase data")
-    public void givenTheRobotPreparesData() throws InterruptedException, IOException {
-        final String fileName = "purchases-data.xml";
-        robotSteps.prepareData(fileName);
     }
 
     @Then("the robot checks xml file in autotests folder for equals fixture file '$fixtureFile'")
