@@ -18,14 +18,11 @@ require.config({
         'when': 'bower_components/when/when',
         'lodash': 'bower_components/lodash/dist/lodash',
         'jquery': 'bower_components/jquery/dist/jquery',
+        'i18n': 'bower_components/requirejs-i18n/i18n',
 
         //kit
-        'templateCompiler': 'kit/utils/templateCompiler',
-
-        //requirejs plugins
-        'amd-loader': 'bower_components/amd-loader/amd-loader',
-        'tpl': 'kit/utils/templateLoader',
-        'i18n': 'bower_components/requirejs-i18n/i18n'
+        'templateCompiler': 'kit/templateCompiler/templateCompiler',
+        'tpl': 'kit/templateLoader/templateLoader'
     },
     shim: {
         backbone: {
