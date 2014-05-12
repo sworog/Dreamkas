@@ -7,6 +7,7 @@ import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
+import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.StoreApiSteps;
@@ -44,6 +45,11 @@ public class WriteOffUserSteps {
     @Alias("the user inputs '$inputValue' in the write off '$elementName' field")
     public void whenTheUserInputsTextInTheFieldOnTheWriteOffPage(String inputValue, String elementName) {
         writeOffSteps.input(elementName, inputValue);
+    }
+
+    @When("the user inputs the sku of product with name '$name' in the '$elementName' field on the write off page")
+    public void whenTheUserInputsTheSkuOfProductWithNameinTheElementNameField(String name, String elementName) {
+        whenTheUserInputsTextInTheFieldOnTheWriteOffPage(StaticData.products.get(name).getSku(), elementName);
     }
 
     @When("the user inputs <value> in the write off <elementName>")
