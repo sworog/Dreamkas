@@ -129,6 +129,11 @@ public class WriteOffUserSteps {
         writeOffSteps.compareListWithExamplesTable(checkValuesTable);
     }
 
+    @Then("the user checks the write off product list do not contain product with name '$name'")
+    public void thenTheUserChecksTheWriteOffProdictListDoNotContainsProductWithName(String name) {
+        writeOffSteps.writeOffProductCollectionDoNotContain(name);
+    }
+
     @Then("the user checks '$elementName' write off field contains only '$fieldLength' symbols")
     public void checkFieldLength(String elementName, int fieldLength) {
         writeOffSteps.checkFieldLength(elementName, fieldLength);

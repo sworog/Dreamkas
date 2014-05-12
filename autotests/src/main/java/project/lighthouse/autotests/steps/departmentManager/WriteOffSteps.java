@@ -73,6 +73,11 @@ public class WriteOffSteps extends ScenarioSteps {
     }
 
     @Step
+    public void writeOffProductCollectionDoNotContain(String locator) {
+        writeOffPage.getWriteOffProductCollection().notContains(locator);
+    }
+
+    @Step
     public void itemDelete(String value) {
         writeOffPage.itemDelete(value);
     }
