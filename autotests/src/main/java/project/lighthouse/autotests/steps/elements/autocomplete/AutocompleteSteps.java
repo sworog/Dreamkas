@@ -11,6 +11,8 @@ import org.openqa.selenium.interactions.Actions;
 import project.lighthouse.autotests.elements.preLoader.AutocompletePreLoader;
 import project.lighthouse.autotests.objects.web.autocomplete.AutoCompleteResult;
 import project.lighthouse.autotests.objects.web.autocomplete.AutoCompleteResultCollection;
+import project.lighthouse.autotests.objects.web.compare.CompareResult;
+import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 /**
  * Reusable steps for interacting with autocomplete results
@@ -29,6 +31,7 @@ public class AutocompleteSteps extends ScenarioSteps {
 
     @Step
     public void assertAutoCompleteResultIsHighlighted(String locator) {
+        locator = CompareResults.normalizeExpectedValue(locator);
         Boolean isHighlighted = ((AutoCompleteResult) getAutoCompleteResultCollection()
                 .getAbstractObjectByLocator(locator))
                 .isHighlighted();
@@ -42,6 +45,7 @@ public class AutocompleteSteps extends ScenarioSteps {
 
     @Step
     public void assertAutoCompleteResultHighlightText(String locator, String expectedValue) {
+        locator = CompareResults.normalizeExpectedValue(locator);
         String highlightText = ((AutoCompleteResult) getAutoCompleteResultCollection()
                 .getAbstractObjectByLocator(locator)).getHighlightedText();
         Assert.assertThat(
@@ -51,6 +55,7 @@ public class AutocompleteSteps extends ScenarioSteps {
 
     @Step
     public void autocompleteResultClickByName(String locator) {
+        locator = CompareResults.normalizeExpectedValue(locator);
         ((AutoCompleteResult) getAutoCompleteResultCollection()
                 .getAbstractObjectByLocator(locator))
                 .click();
@@ -58,6 +63,7 @@ public class AutocompleteSteps extends ScenarioSteps {
 
     @Step
     public void hoverOverAutocompleteResult(String locator) {
+        locator = CompareResults.normalizeExpectedValue(locator);
         WebElement autocompleteWebElement = getAutoCompleteResultCollection()
                 .getAbstractObjectByLocator(locator)
                 .getElement();

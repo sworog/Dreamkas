@@ -4,6 +4,8 @@ import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CompareResults extends ArrayList<CompareResult> {
 
@@ -17,8 +19,14 @@ public class CompareResults extends ArrayList<CompareResult> {
         return this;
     }
 
-    private String normalizeExpectedValue(String expectedValue) {
-        if (expectedValue.startsWith("#sku:")) {
+    public static String normalizeExpectedValue(String expectedValue) {
+        Pattern pattern = Pattern.compile("^(.*?)#sku\\[(.+?)\\](.*)$");
+        Matcher matcher = pattern.matcher(expectedValue);
+        if (matcher.matches()) {
+            String name = matcher.group(2);
+            String sku = StaticData.products.get(name).getSku();
+            return matcher.group(1) + sku + matcher.group(3);
+        } else if (expectedValue.startsWith("#sku:")) {
             String name = expectedValue.substring(5);
             return StaticData.products.get(name).getSku();
         } else {
