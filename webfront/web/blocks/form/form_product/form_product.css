@@ -36,6 +36,7 @@
 
 .productForm__productTypeRadio label {
     margin-right: 40px;
+    cursor: pointer;
 }
 
 .productForm__rounding{
