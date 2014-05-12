@@ -61,7 +61,8 @@ define(function(require) {
                 });
             },
             autocompleteToInput: function($input) {
-                var name = $input.attr('lh_product_autocomplete');
+                var name = $input.attr('lh_product_autocomplete'),
+                    block = this;
                 $input.autocomplete({
                     source: function(request, response) {
                         $.ajax({
@@ -118,7 +119,11 @@ define(function(require) {
                                         $(this).parents("form").find("[lh_product_autocomplete='" + inputs[i] + "']").val('').trigger('input');
                                     }
                                 }
-                                $(this).parents("form").find("[name='product']").val('');
+                                if ($(this).val() == '') {
+                                    $(this).parents("form").find("[name='product']").val('');
+                                } else {
+                                    $(this).parents("form").find("[name='product']").val('xxx');
+                                }
                             }
                     }
                 });
