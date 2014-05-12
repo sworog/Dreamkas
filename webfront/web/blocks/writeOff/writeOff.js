@@ -403,6 +403,12 @@ define(function(require) {
                                 }
                                 $(this).parents("form").find("[name='product']").val('');
                             }
+                            if ($(this).val() == '') {
+                                $(this).parents("form").find("[name='product']").val('');
+                            } else {
+                                $(this).parents("form").find("[name='product']").val('xxx');
+                            }
+                            break;
                     }
                 });
             }

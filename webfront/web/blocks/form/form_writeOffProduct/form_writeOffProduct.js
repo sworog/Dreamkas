@@ -125,6 +125,7 @@ define(function(require) {
                                     $(this).parents("form").find("[name='product']").val('xxx');
                                 }
                             }
+                            break;
                     }
                 });
             }
