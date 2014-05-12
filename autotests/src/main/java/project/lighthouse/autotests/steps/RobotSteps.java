@@ -40,8 +40,8 @@ public class RobotSteps extends ScenarioSteps {
 
     @Step
     public void checkExportIsDone() throws InterruptedException, MalformedURLException, SmbException {
-        final String sourceFolder = SERVER_URL + "/centrum/products/source";
-        final String tmpFolder = SERVER_URL + "/centrum/products/tmp";
+        final String sourceFolder = SERVER_URL + "/centrum/products/source/";
+        final String tmpFolder = SERVER_URL + "/centrum/products/tmp/";
         checkFolderIsEmptyLoop(sourceFolder);
         checkFolderIsEmptyLoop(tmpFolder);
     }
