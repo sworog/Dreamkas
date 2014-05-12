@@ -82,7 +82,7 @@ public class WriteOffUserSteps {
         writeOffSteps.editButtonClick();
     }
 
-    @When("the user deletes the write off product with '$value' sku")
+    @When("the user deletes the write off product with '$value' name")
     public void whenTheUserDeletesTheProductWithSkUOnWriteOffPage(String value) {
         writeOffSteps.itemDelete(value);
     }
@@ -107,7 +107,7 @@ public class WriteOffUserSteps {
         writeOffSteps.checkCardValue("", checkValuesTable);
     }
 
-    @Then("the user checks the write off product with '$value' sku is present")
+    @Then("the user checks the write off product with '$value' name is present")
     public void thenTheUserChecksTheProductWithValueIsPresent(String value) {
         writeOffSteps.itemCheck(value);
     }
@@ -139,7 +139,7 @@ public class WriteOffUserSteps {
         writeOffSteps.checkFieldLength(elementName, fieldLength);
     }
 
-    @Then("the user checks the write off product with '$value' sku is not present")
+    @Then("the user checks the write off product with '$value' name is not present")
     public void itemCheckIsNotPresent(String value) {
         writeOffSteps.itemCheckIsNotPresent(value);
     }
