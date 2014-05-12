@@ -110,8 +110,10 @@ public class OrderFileSteps extends ScenarioSteps {
 
     @Step
     public void assertSkuValue() throws JSONException {
+        Double aDouble = sheet.getRow(5).getCell(0).getNumericCellValue();
+        Integer integer = aDouble.intValue();
         assertThat(
-                sheet.getRow(5).getCell(0).toString(),
+                integer.toString(),
                 equalTo(Storage.getOrderVariableStorage().getProduct().getSku())
         );
     }
