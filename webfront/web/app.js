@@ -74,6 +74,8 @@ define(function(require) {
                     break;
                 case 400:
                     break;
+                case 0:
+                    break;
                 default:
                     showCHTPN(res);
                     break;
