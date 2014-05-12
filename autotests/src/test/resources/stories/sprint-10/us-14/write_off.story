@@ -70,7 +70,7 @@ And the user logs in as 'departmentManager'
 When the user inputs 'WriteOff psa' in the 'writeOff number' field on the write off page
 And the user inputs 'todayDate' in the 'writeOff date' field on the write off page
 And the user continues the write off creation
-When the user inputs 'WriteOff-ProductSku' in the 'writeOff product sku autocomplete' field on the write off page
+When the user inputs the sku of product with name 'WriteOff-ProductName' in the 'writeOff product sku autocomplete' field on the write off page
 
 Scenario: Write Off product barcode autocomplete
 
@@ -338,7 +338,7 @@ And the user checks the product with name 'WriteOff-ProductSku-autocomplete' has
 Given the user navigates to the write off with number 'WriteOff-Edit-productSku'
 When the user clicks edit button and starts write off edition
 And the user clicks on 'writeOff product sku review' write off element to edit it
-And the user inputs 'WriteOff-WOE-PS' in the 'inline writeOff product sku autocomplete' field on the write off page
+And the user inputs the sku of product with name 'WriteOff-WOE-PS' in the 'inline writeOff product sku autocomplete' field on the write off page
 And the user clicks OK and accepts changes
 Then the user checks the write off product list contains entries
 | productName | productSku | productBarcode | productAmount | productUnits | productPrice | productCause
@@ -468,9 +468,6 @@ Then the user checks the write off product list contains entries
 | WriteOff-WOE-ANP | #sku:WriteOff-WOE-ANP | WriteOff-WOE-ANP | 10,0 | шт. | 10,00 | Причина сдачи: Истек срок хранения |
 
 Scenario: Write off edition - deleting product
-
-Meta:
-@bbb
 
 Given there is the write off with 'WriteOff-Edit-productDelete' number with product 'WriteOff-WOE-ANP-1' with quantity '10', price '15' and cause 'Причина сдачи: Истек срок хранения'
 And the user navigates to the default subCategory product list page
