@@ -6,7 +6,7 @@ define(function(require) {
         СatalogGroupsCollection = require('collections/catalogGroups'),
         currentUserModel = require('models/currentUser'),
         Page403 = require('pages/errors/403'),
-        router = require('router');
+        router = require('kit/router/router');
 
     return Page.extend({
         __name__: 'page_catalog_catalog',

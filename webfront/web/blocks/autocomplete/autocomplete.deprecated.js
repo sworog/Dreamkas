@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Block = require('block');
+    var Block = require('kit/block/block');
 
     return Block.extend({
         cid: module.id,

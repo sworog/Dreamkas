@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Events = require('kit/events/events'),
+    var Events = require('../events/events'),
         Uri = require('uri/URI');
 
     require('lodash');

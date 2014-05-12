@@ -1,13 +1,13 @@
 define(function(require, exports, module) {
     //requirements
     var app = require('app'),
-        Block = require('kit/core/block.deprecated'),
+        Block = require('../core/block.deprecated'),
         Backbone = require('backbone'),
-        router = require('router'),
-        isAllow = require('kit/utils/isAllow'),
-        downloadUrl = require('kit/downloadUrl/downloadUrl'),
+        router = require('../router/router'),
+        isAllow = require('../utils/isAllow'),
+        downloadUrl = require('../downloadUrl/downloadUrl'),
         cookies = require('cookies'),
-        NewPage = require('page');
+        NewPage = require('../page/page');
 
     require('lodash');
 

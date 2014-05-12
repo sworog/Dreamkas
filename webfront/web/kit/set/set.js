@@ -1,9 +1,9 @@
 define(function(require) {
     //requirements
-    var deepExtend = require('kit/deepExtend/deepExtend'),
-        get = require('kit/get/get'),
-        pathToObject = require('kit/pathToObject/pathToObject'),
-        getChanges = require('kit/getChanges/getChanges');
+    var deepExtend = require('../deepExtend/deepExtend'),
+        get = require('../get/get'),
+        pathToObject = require('../pathToObject/pathToObject'),
+        getChanges = require('../getChanges/getChanges');
 
     require('lodash');
 

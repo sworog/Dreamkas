@@ -1,11 +1,11 @@
 define(function(require, exports, module) {
     //requirements
-    var BaseClass = require('kit/baseClass/baseClass'),
-        getText = require('kit/getText/getText'),
-        deepExtend = require('kit/deepExtend/deepExtend'),
-        delegateEvent = require('kit/delegateEvent/delegateEvent'),
-        undelegateEvents = require('kit/undelegateEvents/undelegateEvents'),
-        stringToFragment = require('kit/stringToFragment/stringToFragment');
+    var BaseClass = require('../baseClass/baseClass'),
+        getText = require('../getText/getText'),
+        deepExtend = require('../deepExtend/deepExtend'),
+        delegateEvent = require('../delegateEvent/delegateEvent'),
+        undelegateEvents = require('../undelegateEvents/undelegateEvents'),
+        stringToFragment = require('../stringToFragment/stringToFragment');
 
     require('lodash');
 

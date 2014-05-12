@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('page'),
+    var Page = require('kit/page/page'),
         SuppliersCollection = require('collections/suppliers'),
         Form_invoice = require('blocks/form/form_invoice/form_invoice'),
         InvoiceModel = require('models/invoice'),

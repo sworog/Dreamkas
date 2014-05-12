@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Block = require('block'),
+    var Block = require('kit/block/block'),
         Tooltip = require('blocks/tooltip/tooltip'),
         when = require('when'),
         cookies = require('cookies');

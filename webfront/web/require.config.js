@@ -21,9 +21,6 @@ require.config({
 
         //kit
         'templateCompiler': 'kit/utils/templateCompiler',
-        'block': 'kit/block/block',
-        'page': 'kit/page/page',
-        'router': 'kit/router/router',
 
         //requirejs plugins
         'amd-loader': 'bower_components/amd-loader/amd-loader',

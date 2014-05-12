@@ -1,10 +1,10 @@
 define(function(require) {
     //requirements
-    var deepExtend = require('kit/deepExtend/deepExtend'),
-        makeClass = require('kit/makeClass/makeClass'),
-        events = require('kit/events/events'),
-        get = require('kit/get/get'),
-        set = require('kit/set/set');
+    var deepExtend = require('../deepExtend/deepExtend'),
+        makeClass = require('../makeClass/makeClass'),
+        events = require('../events/events'),
+        get = require('../get/get'),
+        set = require('../set/set');
 
     require('lodash');
 
