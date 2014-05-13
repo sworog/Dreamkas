@@ -22,11 +22,12 @@ import java.util.Iterator;
 
 import static junit.framework.Assert.fail;
 
-public class HttpExecutor implements SimpleHttpRequestable {
+public class HttpExecutor implements SimpleHttpRequestable, HttpRequestable {
 
     private String userName;
     private String password;
 
+    @Deprecated
     public HttpExecutor(String userName, String password) {
         this.userName = userName;
         this.password = password;
@@ -34,6 +35,10 @@ public class HttpExecutor implements SimpleHttpRequestable {
 
     public static SimpleHttpRequestable getSimpleHttpRequestable() {
         return new HttpExecutor(null, null);
+    }
+
+    public static HttpRequestable getHttpRequestable(String userName, String password) {
+        return new HttpExecutor(userName, password);
     }
 
     private void setHeaders(HttpEntityEnclosingRequestBase httpEntityEnclosingRequestBase) {
