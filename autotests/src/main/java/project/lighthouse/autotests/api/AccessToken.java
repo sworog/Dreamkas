@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.api;
 
-import junit.framework.Assert;
 import org.json.JSONException;
 import org.json.JSONObject;
 import project.lighthouse.autotests.StaticData;
@@ -21,18 +20,19 @@ public class AccessToken {
 
     public String get() {
         if (!StaticData.userTokens.containsKey(userName)) {
-            String url = String.format("%s/oauth/v2/token", UrlHelper.getApiUrl());
-            String parameters = String.format("?grant_type=password&username=%s&password=%s&client_id=%s&client_secret=%s",
-                    userName,
-                    password,
-                    StaticData.client_id,
-                    StaticData.client_secret);
-            String response, accessToken = "";
+            String accessToken;
             try {
-                response = new HttpExecutor(null, null).executeSimpleGetRequest(url + parameters, false);
+                String url = String.format("%s/oauth/v2/token", UrlHelper.getApiUrl());
+                JSONObject jsonObject = new JSONObject()
+                        .put("grant_type", "password")
+                        .put("username", userName)
+                        .put("password", password)
+                        .put("client_id", StaticData.client_id)
+                        .put("client_secret", StaticData.client_secret);
+                String response = new HttpExecutor(null, null).executeSimplePostRequest(url, jsonObject.toString());
                 accessToken = new OauthAuthorizeData(new JSONObject(response)).getAccessToken();
             } catch (JSONException | IOException e) {
-                Assert.fail(e.getMessage());
+                throw new AssertionError(e.getMessage());
             }
             StaticData.userTokens.put(userName, accessToken);
             return accessToken;

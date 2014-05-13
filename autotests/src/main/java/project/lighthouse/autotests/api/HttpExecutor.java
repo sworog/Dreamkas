@@ -86,6 +86,13 @@ public class HttpExecutor {
         return executeHttpMethod(httpPost);
     }
 
+    public String executeSimplePostRequest(String targetUrl, String urlParameters) throws IOException {
+        HttpPost httpPost = new HttpPost(targetUrl);
+        StringEntity stringEntity = getStringEntity(urlParameters);
+        httpPost.setEntity(stringEntity);
+        return executeHttpMethod(httpPost);
+    }
+
     private String executePostRequest(String targetURL, JSONObject jsonObject) throws IOException {
         return executePostRequest(targetURL, jsonObject.toString());
     }
