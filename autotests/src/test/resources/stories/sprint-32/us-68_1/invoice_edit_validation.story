@@ -211,6 +211,8 @@ When the user clicks on invoice product in last created invoice
 
 When the user clicks on delete icon and deletes last added invoice product
 
+Then the user waits for the invoice product edition preloader finish
+
 When the user accepts products and saves the invoice
 
 Then the user sees exact error messages
