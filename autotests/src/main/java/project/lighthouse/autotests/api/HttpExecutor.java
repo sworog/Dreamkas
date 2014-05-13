@@ -169,13 +169,11 @@ public class HttpExecutor implements SimpleHttpRequestable, HttpRequestable {
         }
     }
 
-    public String executeSimpleGetRequest(String targetUrl, boolean forAccessToken) throws IOException {
+    public String executeGetRequest(String targetUrl) throws IOException {
         // TODO Work around for token expiration 401 : The access token provided has expired.
         HttpGet request = new HttpGet(targetUrl);
         request.setHeader("Accept", "application/json");
-        if (forAccessToken) {
-            request.setHeader("Authorization", "Bearer " + new AccessToken(userName, password).get());
-        }
+        request.setHeader("Authorization", "Bearer " + new AccessToken(userName, password).get());
         HttpResponse response = new HttpClientFacade().build().execute(request);
 
         // TODO

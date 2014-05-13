@@ -43,7 +43,7 @@ public class ApiConnect {
 
     public void getSubCategoryMarkUp(SubCategory subCategory) throws IOException, JSONException {
         String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/subcategories"), subCategory.getId());
-        String response = httpExecutor.executeSimpleGetRequest(apiUrl, true);
+        String response = httpExecutor.executeGetRequest(apiUrl);
         JSONObject jsonObject = new JSONObject(response);
         StaticData.retailMarkupMax = (!jsonObject.isNull("retailMarkupMax"))
                 ? jsonObject.getString("retailMarkupMax")
@@ -100,7 +100,7 @@ public class ApiConnect {
 
     private Group updatedGroup(Group group) throws JSONException, IOException {
         String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl(group.getApiUrl()), group.getId());
-        Group updatedGroup = new Group(new JSONObject(httpExecutor.executeSimpleGetRequest(apiUrl, true)));
+        Group updatedGroup = new Group(new JSONObject(httpExecutor.executeGetRequest(apiUrl)));
         StaticData.groups.put(group.getName(), updatedGroup);
         return updatedGroup;
     }
@@ -168,7 +168,7 @@ public class ApiConnect {
     }
 
     public User getUser(String userName) throws IOException, JSONException {
-        JSONArray jsonArray = new JSONArray(httpExecutor.executeSimpleGetRequest(UrlHelper.getApiUrl("/users"), true));
+        JSONArray jsonArray = new JSONArray(httpExecutor.executeGetRequest(UrlHelper.getApiUrl("/users")));
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             if (jsonObject.getString("username").equals(userName)) {
@@ -231,7 +231,7 @@ public class ApiConnect {
 
     private Boolean hasStoreManager(Store store, User user, String type) throws JSONException, IOException {
         String apiUrl = String.format("%s/%s/%s", UrlHelper.getApiUrl("/stores"), store.getId(), type);
-        String response = httpExecutor.executeSimpleGetRequest(apiUrl, true);
+        String response = httpExecutor.executeGetRequest(apiUrl);
         JSONArray jsonArray = new JSONArray(response);
         for (int i = 0; i < jsonArray.length(); i++) {
             if (jsonArray.getJSONObject(i).getString("id").equals(user.getId())) {
@@ -242,7 +242,7 @@ public class ApiConnect {
     }
 
     public String setSet10ImportUrl(String value) throws IOException, JSONException {
-        JSONObject jsonObject = new JSONObject(httpExecutor.executeSimpleGetRequest(UrlHelper.getApiUrl("/configs/by/name?query=set10-import-url"), true));
+        JSONObject jsonObject = new JSONObject(httpExecutor.executeGetRequest(UrlHelper.getApiUrl("/configs/by/name?query=set10-import-url")));
         String targetUrl = UrlHelper.getApiUrl("/configs/" + jsonObject.getString("id"));
         return httpExecutor.executePutRequest(targetUrl, new JSONObject()
                 .put("name", "set10-import-url")
