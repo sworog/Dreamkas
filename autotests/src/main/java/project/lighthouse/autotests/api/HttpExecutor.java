@@ -27,8 +27,7 @@ public class HttpExecutor implements SimpleHttpRequestable, HttpRequestable {
     private String userName;
     private String password;
 
-    @Deprecated
-    public HttpExecutor(String userName, String password) {
+    private HttpExecutor(String userName, String password) {
         this.userName = userName;
         this.password = password;
     }
@@ -114,6 +113,16 @@ public class HttpExecutor implements SimpleHttpRequestable, HttpRequestable {
                         executePostRequest(targetUrl, jsonObject)
                 )
         );
+    }
+
+    public void executeLinkRequest(String url, String linkHeader) throws JSONException, IOException {
+        String data = "_method=LINK";
+        HttpPost httpPost = getHttpPost(url);
+        httpPost.setHeader("Link", linkHeader);
+        StringEntity entity = new StringEntity(data, "UTF-8");
+        entity.setContentType("application/x-www-form-urlencoded; charset=UTF-8");
+        httpPost.setEntity(entity);
+        executeHttpMethod(httpPost);
     }
 
     private void validateResponseMessage(String url, HttpResponse httpResponse, String responseMessage) {
