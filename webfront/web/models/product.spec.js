@@ -71,7 +71,6 @@ define(function(require, exports, module) {
         it("saveData method for product type Unit", function() {
             var expectedSaveDataTypeSpecific = {};
 
-            product.fetch();
             var actualJSON = product.saveData();
             expect(actualJSON.typeProperties).toBeNull();
             expect(actualJSON.type).toEqual("unit");
