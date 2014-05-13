@@ -29,7 +29,7 @@ public class OrderFileSteps extends ScenarioSteps {
     public void assertOrderDownloadedFileData(String userName, String password) throws Exception {
         By findBy = orderPage.getDownloadFileLink().getFindBy();
         String downloadLocation = orderPage.findVisibleElement(findBy).getAttribute("href");
-        String response = new HttpExecutor(userName, password).executeSimpleGetRequest(downloadLocation, true);
+        String response = HttpExecutor.getHttpRequestable(userName, password).executeGetRequest(downloadLocation);
         JSONObject jsonObject = new JSONObject(response);
 
         String fileName = jsonObject.getString("name");

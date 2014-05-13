@@ -22,14 +22,22 @@ import java.util.Iterator;
 
 import static junit.framework.Assert.fail;
 
-public class HttpExecutor {
+public class HttpExecutor implements SimpleHttpRequestable, HttpRequestable {
 
     private String userName;
     private String password;
 
-    public HttpExecutor(String userName, String password) {
+    private HttpExecutor(String userName, String password) {
         this.userName = userName;
         this.password = password;
+    }
+
+    public static SimpleHttpRequestable getSimpleHttpRequestable() {
+        return new HttpExecutor(null, null);
+    }
+
+    public static HttpRequestable getHttpRequestable(String userName, String password) {
+        return new HttpExecutor(userName, password);
     }
 
     private void setHeaders(HttpEntityEnclosingRequestBase httpEntityEnclosingRequestBase) {
@@ -86,6 +94,13 @@ public class HttpExecutor {
         return executeHttpMethod(httpPost);
     }
 
+    public String executeSimplePostRequest(String targetUrl, String urlParameters) throws IOException {
+        HttpPost httpPost = new HttpPost(targetUrl);
+        StringEntity stringEntity = getStringEntity(urlParameters);
+        httpPost.setEntity(stringEntity);
+        return executeHttpMethod(httpPost);
+    }
+
     private String executePostRequest(String targetURL, JSONObject jsonObject) throws IOException {
         return executePostRequest(targetURL, jsonObject.toString());
     }
@@ -98,6 +113,16 @@ public class HttpExecutor {
                         executePostRequest(targetUrl, jsonObject)
                 )
         );
+    }
+
+    public void executeLinkRequest(String url, String linkHeader) throws JSONException, IOException {
+        String data = "_method=LINK";
+        HttpPost httpPost = getHttpPost(url);
+        httpPost.setHeader("Link", linkHeader);
+        StringEntity entity = new StringEntity(data, "UTF-8");
+        entity.setContentType("application/x-www-form-urlencoded; charset=UTF-8");
+        httpPost.setEntity(entity);
+        executeHttpMethod(httpPost);
     }
 
     private void validateResponseMessage(String url, HttpResponse httpResponse, String responseMessage) {
@@ -153,13 +178,11 @@ public class HttpExecutor {
         }
     }
 
-    public String executeSimpleGetRequest(String targetUrl, boolean forAccessToken) throws IOException {
+    public String executeGetRequest(String targetUrl) throws IOException {
         // TODO Work around for token expiration 401 : The access token provided has expired.
         HttpGet request = new HttpGet(targetUrl);
         request.setHeader("Accept", "application/json");
-        if (forAccessToken) {
-            request.setHeader("Authorization", "Bearer " + new AccessToken(userName, password).get());
-        }
+        request.setHeader("Authorization", "Bearer " + new AccessToken(userName, password).get());
         HttpResponse response = new HttpClientFacade().build().execute(request);
 
         // TODO
