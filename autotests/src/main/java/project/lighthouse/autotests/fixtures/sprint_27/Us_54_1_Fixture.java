@@ -136,7 +136,7 @@ public class Us_54_1_Fixture extends AbstractFixture {
                         Double.toString(PRODUCT_PRICE_1 * 30),
                         Double.toString(PRODUCT_PRICE_1),
                         "30",
-                        PRODUCT_NAME);
+                        getProductSku(PRODUCT_NAME));
     }
 
     private PurchaseXmlBuilder getYesterdayDelayedPurchases() throws ParserConfigurationException, XPathExpressionException {
