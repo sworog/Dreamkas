@@ -29,7 +29,7 @@ public class AccessToken {
                         .put("password", password)
                         .put("client_id", StaticData.client_id)
                         .put("client_secret", StaticData.client_secret);
-                String response = new HttpExecutor(null, null).executeSimplePostRequest(url, jsonObject.toString());
+                String response = HttpExecutor.getSimpleHttpRequestable().executeSimplePostRequest(url, jsonObject.toString());
                 accessToken = new OauthAuthorizeData(new JSONObject(response)).getAccessToken();
             } catch (JSONException | IOException e) {
                 throw new AssertionError(e.getMessage());
