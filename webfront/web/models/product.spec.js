@@ -18,11 +18,8 @@ define(function(require, exports, module) {
         productJSON = require('fixtures/productTypeWeight');
 
         beforeEach(function() {
-            spyOn($, 'ajax').andCallFake(function(options) {
-                options.success(productJSON);
-            });
-            product = new Product();
-            product.fetch();
+            product = new Product(productJSON);
+            product.set(productJSON);
         });
 
         afterEach(function() {
@@ -64,11 +61,7 @@ define(function(require, exports, module) {
         productJSON = require('fixtures/productTypeUnit');
 
         beforeEach(function() {
-            spyOn($, 'ajax').andCallFake(function(options) {
-                options.success(productJSON);
-            });
-            product = new Product();
-            product.fetch();
+            product = new Product(productJSON);
         });
 
         afterEach(function() {

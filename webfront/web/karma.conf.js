@@ -16,6 +16,7 @@ module.exports = function(config) {
         files: [
             'karma.main.js',
             'config.js',
+            {pattern: 'LH.js', included: false},
             {pattern: 'require.config.js', included: false},
             {pattern: 'fixtures/**/*', included: false},
             {pattern: 'kit/**/*.html', included: false},
