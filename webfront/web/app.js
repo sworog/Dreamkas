@@ -27,14 +27,13 @@ define(function(require) {
         isStarted,
         loading,
         routes,
-        showCHTPN;
+        showCHTPN,
+        showApiError,
+        showJsError;
 
-    showCHTPN = function(response) {
+    showCHTPN = function(template) {
         if (LH.debugLevel > 0) {
-            var chtpnTemplate = require('tpl!./chtpn.html');
-            var html = $('<div></div>').html(chtpnTemplate({
-                response: response
-            }));
+            var html = $('<div></div>').html(template);
             if (LH.debugLevel >= 2) {
                 html.find('.more-info').show();
             }
@@ -58,6 +57,25 @@ define(function(require) {
         }
     };
 
+    showApiError = function(response) {
+        var chtpnTemplate = require('tpl!./chtpn.html');
+
+        showCHTPN(chtpnTemplate({
+            response: response
+        }));
+    };
+
+    showJsError = function(error, file, line, col, errorObject) {
+        var chtpnJSTemplate = require('tpl!./chtpnJS.html');
+
+        showCHTPN(chtpnJSTemplate({
+            errorText: error,
+            errorObject: errorObject
+        }));
+    };
+
+    window.onerror = showJsError;
+
     Backbone.sync = function(method, model, options) {
         var syncing = sync.call(this, method, model, _.extend({}, options, {
             headers: {
@@ -77,7 +95,7 @@ define(function(require) {
                 case 0:
                     break;
                 default:
-                    showCHTPN(res);
+                    showApiError(res);
                     break;
             }
         });
