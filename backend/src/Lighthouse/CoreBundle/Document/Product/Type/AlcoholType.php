@@ -8,6 +8,9 @@ use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 
 /**
+ * @property Quantity $alcoholByVolume
+ * @property Quantity $volume
+ *
  * @MongoDB\EmbeddedDocument
  */
 class AlcoholType extends AbstractDocument implements Typeable
