@@ -82,20 +82,3 @@ And the user inputs values in element fields
 And the user clicks the create button
 Then the user sees no error messages
 And the user checks the product with name 'PCWNPP2' has purchasePrice equals to '—'
-
-Scenario: WriteOff autocomplete search for product with no purchasePrice
-
-Given skipped test
-Given there is the product with 'ProductNoPriceName' name, 'ProductNoPriceBarCode' barcode, 'weight' type, '' purchasePrice
-And there is the write off with number 'writeOffProductWithNoPrice'
-And the user navigates to the write off with number 'writeOffProductWithNoPrice'
-And the user logs in as 'departmentManager'
-When the user clicks the edit button on product card view page
-And the user inputs <value> in the write off <elementName>
-Then the users checks no autocomplete results
-
-Examples:
-| value | elementName |
-| ProductNoPriceName | writeOff product name autocomplete |
-| ProductNoPriceSku | writeOff product sku autocomplete |
-| ProductNoPriceBarCode | writeOff product barCode autocomplete |

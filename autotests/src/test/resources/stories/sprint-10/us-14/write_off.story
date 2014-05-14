@@ -85,34 +85,6 @@ And the user inputs 'todayDate' in the 'writeOff date' field on the write off pa
 And the user continues the write off creation
 When the user inputs 'WriteOff-ProductBarCode' in the 'writeOff product barCode autocomplete' field on the write off page
 
-Scenario: Write off price is filled by retail price
-
-Meta:
-@s10u14s01e05
-
-Given skipped test
-Given the user is on the product list page
-And the user logs in as 'commercialManager'
-When the user creates new product from product list page
-And the user inputs 'WriteOff-ProductName-1' in 'name' field
-And the user inputs '112' in 'purchasePrice' field
-And the user selects '10' in 'vat' dropdown
-And the user inputs 'Retail price - WO-PCWRPF' in 'sku' field
-And the user clicks 'retailPriceHint' to make it avalaible
-When the user inputs '140' in 'retailPriceMax' field
-And the user inputs '140' in 'retailPriceMin' field
-And the user clicks the create button
-And the user logs out
-Given the user opens the write off create page
-And the user logs in as 'departmentManager'
-When the user inputs 'WriteOff ifbrp' in the 'writeOff number' field on the write off page
-And the user inputs 'todayDate' in the 'writeOff date' field on the write off page
-And the user continues the write off creation
-When the user inputs 'WriteOff-ProductName-1' in the 'writeOff product name autocomplete' field on the write off page
-Then the user checks write off elements values
-| elementName | value |
-| writeOff product price | 140 |
-
 Scenario: Write off price is filled by purchase price
 
 Meta:
