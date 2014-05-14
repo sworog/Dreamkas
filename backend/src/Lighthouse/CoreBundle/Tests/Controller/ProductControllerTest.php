@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\Type\AlcoholType;
 use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
 use Lighthouse\CoreBundle\Document\User\User;
@@ -1061,6 +1062,222 @@ class ProductControllerTest extends WebTestCase
                 400,
                 array(
                     'type' => UnitType::TYPE,
+                    'typeProperties' => array(
+                        'field' => 'value'
+                    )
+                ),
+                array(
+                    'units' => null,
+                    'type' => null,
+                    'errors.0' => 'Эта форма не должна содержать дополнительных полей: "field"',
+                )
+            ),
+            /***********************************************************************************************
+             * 'alcoholType'
+             ***********************************************************************************************/
+            'alcohol type empty fields' => array(
+                201,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                    )
+                ),
+                array(
+                    'units' => AlcoholType::UNITS,
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array()
+                )
+            ),
+            'alcohol type valid fields coma' => array(
+                201,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '38,5',
+                        'volume' => '0,375',
+                    )
+                ),
+                array(
+                    'units' => AlcoholType::UNITS,
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '38.5',
+                        'volume' => '0.375',
+                    )
+                )
+            ),
+            'alcohol type valid fields dot' => array(
+                201,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '38.5',
+                        'volume' => '0.375',
+                    )
+                ),
+                array(
+                    'units' => AlcoholType::UNITS,
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '38.5',
+                        'volume' => '0.375',
+                    )
+                )
+            ),
+            'alcohol type invalid alcoholByVolume' => array(
+                400,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => 'aaa',
+                    )
+                ),
+                array(
+                    'children.typeProperties.children.alcoholByVolume.errors.0' => 'Значение должно быть числом',
+                )
+            ),
+            'alcohol type alcoholByVolume equals 0' => array(
+                201,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '0',
+                    )
+                ),
+                array(
+                    'typeProperties.alcoholByVolume' => '0',
+                )
+            ),
+            'alcohol type alcoholByVolume less than 0' => array(
+                400,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '-0.1',
+                    )
+                ),
+                array(
+                    'children.typeProperties.children.alcoholByVolume.errors.0'
+                    =>
+                    'Значение должно быть больше или равно 0',
+                )
+            ),
+            'alcohol type alcoholByVolume equals 99.9' => array(
+                201,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '99.9',
+                    )
+                ),
+                array(
+                    'typeProperties.alcoholByVolume' => '99.9',
+                )
+            ),
+            'alcohol type alcoholByVolume equals 100' => array(
+                400,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '100',
+                    )
+                ),
+                array(
+                    'children.typeProperties.children.alcoholByVolume.errors.0' => 'Значение должно быть меньше 100',
+                )
+            ),
+            'alcohol type alcoholByVolume precision 1' => array(
+                201,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '99.9',
+                    )
+                ),
+                array(
+                    'typeProperties.alcoholByVolume' => '99.9'
+                )
+            ),
+            'alcohol type alcoholByVolume precision 2' => array(
+                400,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '-0.01',
+                    )
+                ),
+                array(
+                    'children.typeProperties.children.alcoholByVolume.errors.0'
+                    =>
+                    'Значение не должно содержать больше 1 цифр после запятой',
+                )
+            ),
+            'alcohol type invalid volume' => array(
+                400,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'volume' => 'bbb',
+                    )
+                ),
+                array(
+                    'children.typeProperties.children.volume.errors.0' => 'Значение должно быть числом',
+                )
+            ),
+            'alcohol type volume equals 0' => array(
+                400,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'volume' => '0',
+                    )
+                ),
+                array(
+                    'children.typeProperties.children.volume.errors.0' => 'Значение должно быть больше 0',
+                )
+            ),
+            'alcohol type volume less than 0' => array(
+                400,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'volume' => '-0.01',
+                    )
+                ),
+                array(
+                    'children.typeProperties.children.volume.errors.0' => 'Значение должно быть больше 0',
+                )
+            ),
+            'alcohol type volume precision 3' => array(
+                201,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'volume' => '100.001',
+                    )
+                ),
+                array(
+                    'typeProperties.volume' => '100.001'
+                )
+            ),
+            'alcohol type volume precision 4' => array(
+                400,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'volume' => '100.0001',
+                    )
+                ),
+                array(
+                    'children.typeProperties.children.volume.errors.0'
+                    =>
+                    'Значение не должно содержать больше 3 цифр после запятой',
+                )
+            ),
+            'alcohol type extra field' => array(
+                400,
+                array(
+                    'type' => AlcoholType::TYPE,
                     'typeProperties' => array(
                         'field' => 'value'
                     )

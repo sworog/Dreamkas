@@ -6,6 +6,7 @@ namespace Lighthouse\CoreBundle\Form;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Type;
+use Lighthouse\CoreBundle\Form\Product\AlcoholType;
 use Lighthouse\CoreBundle\Form\Product\UnitType;
 use Lighthouse\CoreBundle\Form\Product\WeightType;
 use Symfony\Component\Form\AbstractType;
@@ -63,7 +64,11 @@ class ProductType extends AbstractType
                         new NotBlank(),
                         new Choice(
                             array(
-                                'choices' => array(Type\WeightType::TYPE, Type\UnitType::TYPE)
+                                'choices' => array(
+                                    Type\WeightType::TYPE,
+                                    Type\UnitType::TYPE,
+                                    Type\AlcoholType::TYPE
+                                )
                             )
                         )
                     ),
@@ -91,6 +96,12 @@ class ProductType extends AbstractType
                     $product->typeProperties = new Type\WeightType();
                 }
                 $form->add('typeProperties', new WeightType());
+                break;
+            case Type\AlcoholType::TYPE:
+                if (!$product->typeProperties instanceof Type\AlcoholType) {
+                    $product->typeProperties = new Type\AlcoholType();
+                }
+                $form->add('typeProperties', new AlcoholType());
                 break;
             case Type\UnitType::TYPE:
                 if (!$product->typeProperties instanceof Type\UnitType) {

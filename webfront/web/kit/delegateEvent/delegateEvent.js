@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var matchesSelector = require('kit/matchesSelector/matchesSelector');
+    var matchesSelector = require('../matchesSelector/matchesSelector');
 
     return function(view, eventName, selector, callback) {
 

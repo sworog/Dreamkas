@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var set = require('./set'),
-        events = require('kit/events/events');
+        events = require('../events/events');
 
     require('lodash');
 

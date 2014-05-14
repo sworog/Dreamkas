@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document\Product;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 use JMS\Serializer\Annotation as Serializer;
+use Lighthouse\CoreBundle\Document\Product\Type\AlcoholType;
 use Lighthouse\CoreBundle\Document\Product\Type\Typeable;
 use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
@@ -22,7 +23,7 @@ use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
  *
  * @property string $id
  * @property string $name
- * @property UnitType|WeightType $typeProperties
+ * @property UnitType|WeightType|AlcoholType|Typeable $typeProperties
  * @property string $units kg,gr,l
  * @property int    $vat in %
  * @property Money  $purchasePrice
@@ -81,7 +82,8 @@ class Product extends AbstractDocument implements VersionableInterface
      *   discriminatorField="type",
      *   discriminatorMap={
      *      "unit"="Lighthouse\CoreBundle\Document\Product\Type\UnitType",
-     *      "weight"="Lighthouse\CoreBundle\Document\Product\Type\WeightType"
+     *      "weight"="Lighthouse\CoreBundle\Document\Product\Type\WeightType",
+     *      "alcohol"="Lighthouse\CoreBundle\Document\Product\Type\AlcoholType"
      *   }
      * )
      * @var Typeable

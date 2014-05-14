@@ -4,7 +4,7 @@ define(function(require) {
         setter = require('kit/utils/setter'),
         form2js = require('form2js'),
         translate = require('kit/utils/translate'),
-        router = require('router');
+        router = require('kit/router/router');
 
     require('lodash');
     require('backbone');

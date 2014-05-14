@@ -4,7 +4,7 @@ define(function(require) {
         currentUserModel = require('models/currentUser'),
         cookie = require('cookies'),
         numeral = require('numeral'),
-        router = require('router'),
+        router = require('kit/router/router'),
         moment = require('moment');
 
     require('jquery');
