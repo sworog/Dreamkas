@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Type\AlcoholType;
 use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
@@ -133,6 +134,9 @@ class Set10ProductConverter
             case WeightType::TYPE:
                 $this->setWeightProductTypeProperties($goodElement, $product);
                 break;
+            case AlcoholType::TYPE:
+                $this->setAlcoholProductTypeProperties($goodElement, $product);
+                break;
             case UnitType::TYPE:
                 $this->setUnitProductTypeProperties($goodElement, $product);
                 break;
@@ -187,6 +191,28 @@ class Set10ProductConverter
     {
         $goodElement->setProductType(GoodElement::PRODUCT_PIECE_ENTITY);
         $goodElement->setPluginProperty('precision', '0.001');
+    }
+
+    /**
+     * @param GoodElement $goodElement
+     * @param Product $product
+     */
+    protected function setAlcoholProductTypeProperties(GoodElement $goodElement, Product $product)
+    {
+        $goodElement->setProductType(GoodElement::PRODUCT_SPIRITS_ENTITY);
+        $goodElement->setPluginProperty('precision', '0.001');
+        if ($product->typeProperties->alcoholByVolume) {
+            $goodElement->setPluginProperty(
+                GoodElement::PLUGIN_PROPERTY_ALCOHOLIC_CONTENT_PERCENTAGE,
+                $product->typeProperties->alcoholByVolume->toNumber()
+            );
+        }
+        if ($product->typeProperties->volume) {
+            $goodElement->setPluginProperty(
+                GoodElement::PLUGIN_PROPERTY_VOLUME,
+                $product->typeProperties->volume->toNumber()
+            );
+        }
     }
 
     /**

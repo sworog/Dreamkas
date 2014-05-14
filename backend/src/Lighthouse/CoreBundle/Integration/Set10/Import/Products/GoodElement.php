@@ -15,6 +15,8 @@ class GoodElement extends SimpleXMLElement
     const PLUGIN_PROPERTY_COMPOSITION = 'composition';
     const PLUGIN_PROPERTY_FOOD_VALUE = 'food-value';
     const PLUGIN_PROPERTY_GOOD_FOR_HOURS = 'good-for-hours';
+    const PLUGIN_PROPERTY_ALCOHOLIC_CONTENT_PERCENTAGE = 'alcoholic-content-percentage';
+    const PLUGIN_PROPERTY_VOLUME = 'volume';
 
     /**
      * @return GoodElement

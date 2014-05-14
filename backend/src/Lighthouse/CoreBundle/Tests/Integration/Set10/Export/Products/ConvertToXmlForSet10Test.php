@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Export\Products;
 
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Type\AlcoholType;
 use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
 use Lighthouse\CoreBundle\Document\User\User;
@@ -136,10 +137,10 @@ class ConvertToXmlForSet10Test extends WebTestCase
                 'subCategory' => $subCategoryData['id'],
             ),
             5 => array(
-                'name' => 'Продукт 5',
+                'name' => 'Виски 365 Дней',
                 'barcode' => '7770000000005',
                 'vat' => '10',
-                'type' => UnitType::TYPE,
+                'type' => AlcoholType::TYPE,
                 'vendor' => 'Пончик',
                 'vendorCountry' => 'Израиль',
                 'purchasePrice' => '88.3',
@@ -147,6 +148,10 @@ class ConvertToXmlForSet10Test extends WebTestCase
                 'retailMarkupMax' => '60',
                 'retailPricePreference' => 'retailMarkup',
                 'subCategory' => $subCategoryData['id'],
+                'typeProperties' => array(
+                    'alcoholByVolume' => '38,5',
+                    'volume' => '0,375'
+                )
             ),
             6 => array(
                 'name' => 'Продукт 6',
@@ -368,7 +373,7 @@ EOF;
 <?xml version="1.0" encoding="UTF-8"?>
 <good marking-of-the-good="10005">
     <shop-indices>1 2 3</shop-indices>
-    <name>Продукт 5</name>
+    <name>Виски 365 Дней</name>
     <bar-code code="7770000000005">
         <count>1</count>
         <default-code>true</default-code>
@@ -389,8 +394,10 @@ EOF;
             </parent-group>
         </parent-group>
     </group>
-    <product-type>ProductPieceEntity</product-type>
+    <product-type>ProductSpiritsEntity</product-type>
     <plugin-property key="precision" value="0.001"/>
+    <plugin-property key="alcoholic-content-percentage" value="38.5"/>
+    <plugin-property key="volume" value="0.375"/>
     <measure-type id="unit">
         <name>шт</name>
     </measure-type>
