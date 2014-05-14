@@ -1,5 +1,5 @@
 <% _.forEach(['nearest1', 'nearest10', 'nearest50', 'nearest99', 'nearest100'], function(value, index){ %>
 <option <%- selected === value ? 'selected' : '' %> value="<%- value %>">
-    <%- LH.translate(value) %>
+    <%- LH.getText(value) %>
 </option>
 <% })%>

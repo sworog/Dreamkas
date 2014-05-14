@@ -1,10 +1,10 @@
 define(function(require, exports, module) {
     //requirements
-    var Block = require('../block/block'),
-        router = require('../router/router'),
-        deepExtend = require('../deepExtend/deepExtend'),
+    var Block = require('kit/block/block'),
+        router = require('kit/router/router'),
+        deepExtend = require('kit/deepExtend/deepExtend'),
         when = require('when'),
-        get = require('../get/get');
+        get = require('kit/get/get');
 
     require('lodash');
 

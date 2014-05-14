@@ -5,7 +5,7 @@ define(function(require) {
     require('lodash');
 
     return Backbone.Collection.extend({
-        element: require('../collectionNode/collectionNode'),
+        element: require('kit/collectionNode/collectionNode'),
         fetch: function(options) {
             return Backbone.Collection.prototype.fetch.call(this, _.extend({
                 reset: true

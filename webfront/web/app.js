@@ -116,7 +116,7 @@ define(function(require) {
         requirejs([
             routes,
             'blocks/page/page',
-            'libs/lhAutocomplete'
+            'kit/lhAutocomplete'
         ], function(routes) {
             isStarted = true;
             router.routes = routes;

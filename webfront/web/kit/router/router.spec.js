@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var router = require('../router/router');
+    var router = require('kit/router/router');
 
     describe(module.id, function() {
 
