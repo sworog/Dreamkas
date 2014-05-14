@@ -25,12 +25,14 @@ import static junit.framework.Assert.fail;
 
 public class RobotSteps extends ScenarioSteps {
 
-    private SetRobotHubWS robotPort = new SetRobotHubWSService().getSetRobotHubWSPort();
-
     private static final String SERVER_URL = System.getProperty("centrum.server.url");
     private static final String IMPORT_FOLDER_PATH = System.getProperty("centrum.import.folder.path");
 
     private NtlmPasswordAuthentication smbAuth = new NtlmPasswordAuthentication("erp:erp");
+
+    private SetRobotHubWS getRobotPort() {
+        return new SetRobotHubWSService().getSetRobotHubWSPort();
+    }
 
     @Step
     public void checkImportIsDone() throws InterruptedException, MalformedURLException, SmbException {
@@ -48,12 +50,12 @@ public class RobotSteps extends ScenarioSteps {
 
     @Step
     public String runTest(String cashIp, String testName) throws InterruptedException_Exception {
-        return robotPort.runTest(cashIp, testName);
+        return getRobotPort().runTest(cashIp, testName);
     }
 
     @Step
     public String getStatus(String uuid) {
-        return robotPort.status(uuid);
+        return getRobotPort().status(uuid);
     }
 
     @Step
