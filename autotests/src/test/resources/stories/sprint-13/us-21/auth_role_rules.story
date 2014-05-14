@@ -45,28 +45,6 @@ Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 Then the user checks the catalog navigation menu item is visible
 
-Scenario: DepartmentManager role valid rules - dashboard links - invoices
-
-Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19 - us-42, us-44'
-Given the user opens the authorization page
-And the user logs in as 'departmentManager'
-Then the user checks the invoices navigation menu item is visible
-
-Scenario: DepartmentManager role valid rules - dashboard links - balance
-
-Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19 - us-42, us-43'
-
-Given the user opens the authorization page
-And the user logs in as 'departmentManager'
-Then the user checks the dashboard link to 'balance' section is present
-
-Scenario: DepartmentManager role valid rules - dashboard links - writeOffs
-
-Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19 - us-42, us-45'
-Given the user opens the authorization page
-And the user logs in as 'departmentManager'
-Then the user checks the writeOffs navigation menu item is visible
-
 Scenario: Administrator role invalid rules - dashboard links - catalog
 
 Given the user opens the authorization page
@@ -79,14 +57,6 @@ Given the user opens the authorization page
 And the user logs in as 'watchman'
 Then the user checks the invoices navigation menu item is not visible
 
-Scenario: Administrator role invalid rules - dashboard links - balance
-
-Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19 - us-42, us-43'
-
-Given the user opens the authorization page
-And the user logs in as 'watchman'
-Then the user checks the dashboard link to 'balance' section is not present
-
 Scenario: Administrator role invalid rules - dashboard links - writeOffs
 
 Given the user opens the authorization page
@@ -98,14 +68,6 @@ Scenario: Commercial manager role invalid rules - dashboard links - invoices
 Given the user opens the authorization page
 And the user logs in as 'commercialManager'
 Then the user checks the invoices navigation menu item is not visible
-
-Scenario: Commercial manager role invalid rules - dashboard links - balance
-
-Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19'
-
-Given the user opens the authorization page
-And the user logs in as 'commercialManager'
-Then the user checks the dashboard link to 'balance' section is present
 
 Scenario: Commercial manager role invalid rules - dashboard links - writeOffs
 
@@ -142,14 +104,6 @@ Scenario: StoreManager role invalid rules - dashboard links - invoices
 Given the user opens the authorization page
 And the user logs in as 'storeManager'
 Then the user checks the invoices navigation menu item is not visible
-
-Scenario: StoreManager role invalid rules - dashboard links - balance
-
-Given skipped. Info: 'Test is not actual', Details: 'It became not actual after sprint 19 - us-42, us-43'
-
-Given the user opens the authorization page
-And the user logs in as 'storeManager'
-Then the user checks the dashboard link to 'balance' section is not present
 
 Scenario: StoreManager role invalid rules - dashboard links - writeOffs
 
@@ -337,15 +291,6 @@ Given the user opens the authorization page
 And the user logs in as 'departmentManager'
 And the user is on the product create page
 Then the user sees the 403 error
-
-Scenario: DepartmentManager role valid rules - authorised access to balance
-
-Given skipped. Info: 'skipped', Details: 'no dashboard balance link anymore'
-
-Given the user opens the authorization page
-And the user logs in as 'departmentManager'
-When user opens the dashboard 'balance' section
-Then the user dont see the 403 error
 
 Scenario: DepartmentManager role valid rules - authorised access to invoice list
 
