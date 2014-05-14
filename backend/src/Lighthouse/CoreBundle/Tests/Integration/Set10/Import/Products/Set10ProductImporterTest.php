@@ -4,12 +4,14 @@ namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Import\Products;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Type\AlcoholType;
 use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImporter;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Test\TestOutput;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
 class Set10ProductImporterTest extends ContainerAwareTestCase
 {
@@ -59,11 +61,11 @@ class Set10ProductImporterTest extends ContainerAwareTestCase
 
         $groupRepository = $this->getContainer()->get('lighthouse.core.document.repository.classifier.group');
         $groups = $groupRepository->findAll();
-        $this->assertCount(2, $groups);
+        $this->assertCount(3, $groups);
 
         $categoryRepository = $this->getContainer()->get('lighthouse.core.document.repository.classifier.category');
         $categories = $categoryRepository->findAll();
-        $this->assertCount(3, $categories);
+        $this->assertCount(4, $categories);
 
         $subCategoryRepository = $this->getContainer()
             ->get('lighthouse.core.document.repository.classifier.subcategory');
@@ -103,14 +105,19 @@ class Set10ProductImporterTest extends ContainerAwareTestCase
         $this->assertEquals('приправа,масло раст.,соль', $product3->typeProperties->nutritionFacts);
         $this->assertNull($product3->typeProperties->shelfLife);
 
-        $product4 = $productRepository->findOneBySku('2809733');
+        $product4 = $productRepository->findOneBySku('4100051250');
         $this->assertInstanceOf(Product::getClassName(), $product4);
-        $this->assertInstanceOf(WeightType::getClassName(), $product4->typeProperties);
-        $this->assertEquals(WeightType::TYPE, $product4->getType());
-        $this->assertEquals('Шашлык из курицы (филе) п/ф Кулинария', $product4->typeProperties->nameOnScales);
-        $this->assertEquals('Шашлык из курицы (филе) п/ф Кулинария', $product4->typeProperties->descriptionOnScales);
-        $this->assertNull($product4->typeProperties->ingredients);
-        $this->assertNull($product4->typeProperties->nutritionFacts);
-        $this->assertNull($product4->typeProperties->shelfLife);
+        $this->assertInstanceOf(AlcoholType::getClassName(), $product4->typeProperties);
+        $this->assertEquals(AlcoholType::TYPE, $product4->getType());
+        $this->assertInstanceOf(Quantity::getClassName(), $product4->typeProperties->volume);
+        $this->assertSame(
+            '0.500',
+            $product4->typeProperties->volume->toString()
+        );
+        $this->assertInstanceOf(Quantity::getClassName(), $product4->typeProperties->alcoholByVolume);
+        $this->assertSame(
+            '7.200',
+            $product4->typeProperties->alcoholByVolume->toString()
+        );
     }
 }

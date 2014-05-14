@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Integration\Set10\Import\Products;
 
 use Lighthouse\CoreBundle\Integration\Set10\SimpleXMLElement;
+use DOMNode;
 
 class GoodElement extends SimpleXMLElement
 {
@@ -24,6 +25,15 @@ class GoodElement extends SimpleXMLElement
     public static function create()
     {
         return new static('<?xml version="1.0" encoding="UTF-8"?><good/>');
+    }
+
+    /**
+     * @param DOMNode $dom
+     * @return \SimpleXMLElement
+     */
+    public static function createByDom(DomNode $dom)
+    {
+        return simplexml_import_dom($dom, static::getClassName());
     }
 
     /**
