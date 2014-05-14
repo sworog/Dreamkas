@@ -78,21 +78,6 @@ Then the user sees error messages
 | error message |
 | Заполните это поле |
 
-Scenario: Edit mode role field is required
-
-Given skipped. Info: 'Select control is refactored', Details: 'Early in edit mode you can choose empty select, but after refactoring you can't'
-Given there is the user with name 'User validation', position 'User validation', username 'emnf7', password 'password', role 'commercialManager'
-And the user navigates to the user page with username 'emnf7'
-And the user logs in as 'watchman'
-When the user clicks the edit button on the user card page
-And the user inputs values in the user page element fields
-| elementName | value |
-| role | |
-When the user clicks the create new user button
-Then the user sees error messages
-| error message |
-| Заполните это поле |
-
 Scenario: Edit mode password minimum length validation invalid
 
 Given there is the user with name 'User validation', position 'User validation', username 'emnf8', password 'password', role 'commercialManager'
