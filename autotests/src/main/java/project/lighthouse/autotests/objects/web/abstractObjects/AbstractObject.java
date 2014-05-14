@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.objects.web.abstractObjects;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.Waiter;
@@ -18,20 +17,20 @@ abstract public class AbstractObject {
 
     public AbstractObject(WebElement element) {
         this.element = element;
-        setPropertiesWrapper();
+        setProperties();
     }
 
     public AbstractObject(WebElement element, WebDriver webDriver) {
         this.element = element;
         this.webDriver = webDriver;
-        setPropertiesWrapper();
+        setProperties();
     }
 
     public AbstractObject(WebElement element, By findBy, WebDriver webDriver) {
         this.element = element;
         this.findBy = findBy;
         this.webDriver = webDriver;
-        setPropertiesWrapper();
+        setProperties();
     }
 
     public WebDriver getWebDriver() {
@@ -47,14 +46,6 @@ abstract public class AbstractObject {
     }
 
     abstract public void setProperties();
-
-    private void setPropertiesWrapper() {
-        try {
-            setProperties();
-        } catch (StaleElementReferenceException e) {
-            setProperties();
-        }
-    }
 
     public String setProperty(By findBy) {
         Waiter waiter = new Waiter(webDriver, 0);
