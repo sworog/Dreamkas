@@ -70,6 +70,8 @@ define(function(require) {
 
         showCHTPN(chtpnJSTemplate({
             errorText: error,
+            file: file,
+            line: line,
             errorObject: errorObject
         }));
     };
