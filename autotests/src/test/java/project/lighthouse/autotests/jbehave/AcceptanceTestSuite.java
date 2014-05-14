@@ -1,8 +1,15 @@
 package project.lighthouse.autotests.jbehave;
 
 import ch.lambdaj.Lambda;
+import net.thucydides.core.ThucydidesSystemProperty;
+import net.thucydides.core.webdriver.ThucydidesWebDriverEventListener;
+import net.thucydides.core.webdriver.WebdriverProxyFactory;
 import net.thucydides.jbehave.ThucydidesJUnitStories;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.thucydides.RemoteWebDriverEventListener;
 
 import java.util.List;
 
@@ -22,6 +29,7 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
         findStoriesByBranch();
         setDemoMode();
         parallelExecutionStart();
+        registerWebDriverListener();
     }
 
     private void setWaitTimeOuts() {
@@ -117,5 +125,9 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
         for (String story : stories) {
             System.out.println(" - " + story);
         }
+    }
+
+    private void registerWebDriverListener() {
+        WebdriverProxyFactory.getFactory().registerListener(new RemoteWebDriverEventListener(getEnvironmentVariables()));
     }
 }
