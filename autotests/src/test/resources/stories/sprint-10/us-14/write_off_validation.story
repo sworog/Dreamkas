@@ -135,7 +135,7 @@ When the user clicks edit button and starts write off edition
 And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
-| Такого товара не существует |
+| Заполните это поле |
 
 Scenario: WriteOff no product name validation
 

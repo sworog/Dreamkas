@@ -21,8 +21,6 @@ And the user fills form with following data
 | vendorCountry | Россия1689 |
 | purchasePrice | 1231689 |
 | barcode | 1231689 |
-| info | Info1689 |
-| unit | unit |
 | vat | 10 |
 And the user clicks the create button
 
@@ -35,8 +33,6 @@ Then the user checks the elements values
 | vendorCountry | Россия1689 |
 | purchasePrice | 1 231 689,00 |
 | barcode | 1231689 |
-| info | Info1689 |
-| unit | штука |
 | vat | 10 |
 
 When the user clicks the edit button on product card view page
@@ -47,8 +43,6 @@ And the user fills form with following data
 | vendorCountry | Вендоркантри56 |
 | purchasePrice | 8922174 |
 | barcode | 102454 |
-| info | Info1689 |
-| unit | liter |
 | vat | 0 |
 And the user clicks the create button
 
@@ -59,8 +53,6 @@ Then the user checks the elements values
 | vendorCountry | Вендоркантри56 |
 | purchasePrice | 8 922 174,00 |
 | barcode | 102454 |
-| info | Info1689 |
-| unit | литр |
 | vat | 0 |
 
 Scenario: Check product is related to group/category/subcategory

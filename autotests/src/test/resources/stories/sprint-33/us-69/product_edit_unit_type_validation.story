@@ -55,33 +55,6 @@ Examples:
 | inputText | elementName |
 |  | name |
 
-Scenario: Edit product validation - Sku field validation good
-
-Given skipped test
-
-Given the user is on the product list page
-And the user logs in as 'commercialManager'
-When the user creates new product from product list page
-And the user inputs 'Sku field validation good' in 'name' field
-And the user inputs '1001DS8' in 'sku' field
-And the user inputs '58967' in 'purchasePrice' field
-And the user selects 'unit' in 'unit' dropdown
-And the user selects '10' in 'vat' dropdown
-And the user clicks the create button
-Given there is created product with name 'ED-SKVG'
-And the user is on the product list page
-When the user open the product card with 'ED-SKVG' name
-And the user clicks the edit button on product card view page
-And the user inputs 'Sku field validation good' in 'name' field
-And the user inputs '1001DS8' in 'sku' field
-And the user inputs '58967' in 'purchasePrice' field
-And the user selects 'unit' in 'unit' dropdown
-And the user selects '10' in 'vat' dropdown
-And the user clicks the create button
-Then the user sees error messages
-| error message |
-| Такой артикул уже есть |
-
 Scenario: Edit product validation - Vendor,Barcode,VendorCountryInfo fields are not required
 
 Given there is created product with name 'ED-VBVCF'

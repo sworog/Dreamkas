@@ -1,7 +1,9 @@
 package project.lighthouse.autotests.objects.web.writeOff;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.abstractObjects.ObjectProperty;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectLocatable;
@@ -22,6 +24,10 @@ public class WriteOffProductObject extends AbstractObject implements ObjectLocat
 
     public WriteOffProductObject(WebElement element) {
         super(element);
+    }
+
+    public WriteOffProductObject(WebElement element, WebDriver webDriver) {
+        super(element, webDriver);
     }
 
     @Override
@@ -50,5 +56,13 @@ public class WriteOffProductObject extends AbstractObject implements ObjectLocat
     @Override
     public String getObjectLocator() {
         return name.getText();
+    }
+
+    public void clickDeleteButton() {
+        new Actions(getWebDriver())
+                .moveToElement(getElement())
+                .click(getElement().findElement(By.xpath(".//*[@class='writeOff__removeLink']")))
+                .build()
+                .perform();
     }
 }
