@@ -6,6 +6,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.elements.items.DateTime;
@@ -18,6 +19,7 @@ import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.helper.exampleTable.invoice.InvoiceExampleTableUpdater;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.web.invoice.InvoiceProductObject;
+import project.lighthouse.autotests.objects.web.invoice.InvoiceProductsCollection;
 import project.lighthouse.autotests.objects.web.search.InvoiceListSearchObject;
 import project.lighthouse.autotests.pages.departmentManager.invoice.InvoicePage;
 import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceSearchPage;
@@ -292,9 +294,17 @@ public class InvoiceSteps extends ScenarioSteps {
 
     @Step
     public void collectionDoNotContainInvoiceProductObjectByLocator(String locator) {
+        InvoiceProductsCollection invoiceProductsCollection = null;
         try {
-            invoicePage.getInvoiceProductsCollection().notContains(locator);
-        } catch (TimeoutException ignored) {
+            invoiceProductsCollection = invoicePage.getInvoiceProductsCollection();
+        } catch (TimeoutException e) {
+            invoicePage.containsText("Итого: 0,00 руб.");
+        } catch (StaleElementReferenceException e) {
+            invoiceProductsCollection = invoicePage.getInvoiceProductsCollection();
+        } finally {
+            if (invoiceProductsCollection != null) {
+                invoiceProductsCollection.notContains(locator);
+            }
         }
     }
 

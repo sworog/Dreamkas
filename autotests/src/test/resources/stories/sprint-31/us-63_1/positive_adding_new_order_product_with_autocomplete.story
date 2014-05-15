@@ -49,6 +49,7 @@ Scenario: Adding new order product with autocomplete by sku
 Meta:
 @id_s31u63.1s2
 @smoke
+@depends on @id_s31u63.1s1
 
 GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
               precondition/sprint-31/us-63_1/aPreconditionToPositiveScenarios.story
@@ -61,7 +62,7 @@ And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse'
 When the user inputs values on order page
 | elementName | value |
 | supplier | supplier-s30u631s1 |
-| order product autocomplete | horse_leg |
+| order product autocomplete | 10002 |
 And the user presses 'ENTER' key button
 
 Then the user waits for the order product edition preloader finish

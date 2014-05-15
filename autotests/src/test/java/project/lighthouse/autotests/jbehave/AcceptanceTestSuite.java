@@ -1,13 +1,21 @@
 package project.lighthouse.autotests.jbehave;
 
 import ch.lambdaj.Lambda;
+import net.thucydides.core.ThucydidesSystemProperty;
+import net.thucydides.core.webdriver.ThucydidesWebDriverEventListener;
+import net.thucydides.core.webdriver.WebdriverProxyFactory;
 import net.thucydides.jbehave.ThucydidesJUnitStories;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.thucydides.RemoteWebDriverEventListener;
 
 import java.util.List;
 
 public class AcceptanceTestSuite extends ThucydidesJUnitStories {
 
+    private static final String STORIES = "lighthouse.autotests.stories";
     private static final String BRANCH = "lighthouse.autotests.branch";
     private static final String THREADS = "lighthouse.threads";
     private static final String DEMO_MODE = "lighthouse.demo";
@@ -20,8 +28,10 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
         setWebDriverBaseUrl();
         setThreads();
         findStoriesByBranch();
+        findStoriesByStories();
         setDemoMode();
         parallelExecutionStart();
+        registerWebDriverListener();
     }
 
     private void setWaitTimeOuts() {
@@ -46,6 +56,13 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
             if (branch.startsWith("sprint-")) {
                 findStoriesIn("**/" + branch);
             }
+        }
+    }
+
+    private void findStoriesByStories() {
+        String storyNames = getEnvironmentVariables().getProperty(STORIES, null);
+        if (storyNames != null) {
+            findStoriesCalled(storyNames);
         }
     }
 
@@ -117,5 +134,9 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
         for (String story : stories) {
             System.out.println(" - " + story);
         }
+    }
+
+    private void registerWebDriverListener() {
+        WebdriverProxyFactory.getFactory().registerListener(new RemoteWebDriverEventListener(getEnvironmentVariables()));
     }
 }
