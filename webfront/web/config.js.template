@@ -4,5 +4,6 @@ window.LH = {
     mockApiUrl: 'http://lh.apiary.io',
     mainJsFile: '/main.js',
     clientId: 'webfront_webfront',
-    clientSecret: 'secret'
+    clientSecret: 'secret',
+    debugLevel: 2
 };

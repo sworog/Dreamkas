@@ -19,7 +19,7 @@ Meta:
 Given there is the user with name 'departmentManager-s8u111', position 'departmentManager-s8u111', username 'departmentManager-s8u111', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s8u111' managed by department manager named 'departmentManager-s8u111'
 
-Given there is the product with 'Печенье Московское' name, 'Печенье-Московское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'Печенье-Московское' name, '45695514566' barcode, 'unit' type, '15' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -29,7 +29,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Московское-Артикул |
+| productName | Печенье-Московское |
 | quantity | 10 |
 | price | 26 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -43,7 +43,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Печенье Московское | Печенье-Московское-Артикул | 45695514566 | 10,0 | 0,0 | 0,0 | 26,00 р. | 26,00 р.|
+| Печенье-Московское | #sku:Печенье-Московское | 45695514566 | 10,0 | 0,0 | 0,0 | 26,00 р. | 26,00 р.|
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -53,7 +53,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Московское-Артикул |
+| productName | Печенье-Московское |
 | quantity | 10 |
 | price | 56 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -63,7 +63,7 @@ And the user refreshes the current page
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Печенье Московское | Печенье-Московское-Артикул | 45695514566 | 20,0 | 0,0 | 0,0 | 56,00 р. | 26,00 р.|
+| Печенье-Московское | #sku:Печенье-Московское | 45695514566 | 20,0 | 0,0 | 0,0 | 56,00 р. | 26,00 р.|
 
 Scenario: Average price is changed in 30 days
 
@@ -74,7 +74,7 @@ Meta:
 Given there is the user with name 'departmentManager-s8u111', position 'departmentManager-s8u111', username 'departmentManager-s8u111', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s8u111' managed by department manager named 'departmentManager-s8u111'
 
-Given there is the product with 'Печенье Питерское' name, 'Печенье-Питерское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'Печенье-Питерское' name, '45695514566' barcode, 'unit' type, '15' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -84,7 +84,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Питерское-Артикул |
+| productName | Печенье-Питерское |
 | quantity | 10 |
 | price | 26 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -98,7 +98,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Печенье Питерское | Печенье-Питерское-Артикул | 45695514566 | 10,0 | 0,0 | 0,0 | 26,00 р. | 26,00 р.|
+| Печенье-Питерское | #sku:Печенье-Питерское | 45695514566 | 10,0 | 0,0 | 0,0 | 26,00 р. | 26,00 р.|
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -108,7 +108,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Питерское-Артикул |
+| productName | Печенье-Питерское |
 | quantity | 10 |
 | price | 56 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -118,7 +118,7 @@ And the user refreshes the current page
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Печенье Питерское | Печенье-Питерское-Артикул | 45695514566 | 20,0 | 0,0 | 0,0 | 26,00 р. | 41,00 р.|
+| Печенье-Питерское | #sku:Печенье-Питерское | 45695514566 | 20,0 | 0,0 | 0,0 | 26,00 р. | 41,00 р.|
 
 Scenario: Average price is not changed above 30 days
 
@@ -129,7 +129,7 @@ Meta:
 Given there is the user with name 'departmentManager-s8u111', position 'departmentManager-s8u111', username 'departmentManager-s8u111', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s8u111' managed by department manager named 'departmentManager-s8u111'
 
-Given there is the product with 'Печенье Гламурное' name, 'Печенье-Гламурное-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'Печенье-Гламурное' name, '45695514566' barcode, 'unit' type, '15' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -139,7 +139,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Гламурное-Артикул |
+| productName | Печенье-Гламурное |
 | quantity | 10 |
 | price | 26 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -153,7 +153,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Печенье Гламурное | Печенье-Гламурное-Артикул | 45695514566 | 10,0 | 0,0 | 0,0 | 26,00 р. | 26,00 р.|
+| Печенье-Гламурное | #sku:Печенье-Гламурное | 45695514566 | 10,0 | 0,0 | 0,0 | 26,00 р. | 26,00 р.|
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -163,7 +163,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Гламурное-Артикул |
+| productName | Печенье-Гламурное |
 | quantity | 10 |
 | price | 56 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -173,7 +173,7 @@ And the user refreshes the current page
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Печенье Гламурное | Печенье-Гламурное-Артикул | 45695514566 | 20,0 | 0,0 | 0,0 | 26,00 р. | 26,00 р.|
+| Печенье-Гламурное | #sku:Печенье-Гламурное | 45695514566 | 20,0 | 0,0 | 0,0 | 26,00 р. | 26,00 р.|
 
 Scenario: Average price is changed in 1 days
 
@@ -184,7 +184,7 @@ Meta:
 Given there is the user with name 'departmentManager-s8u111', position 'departmentManager-s8u111', username 'departmentManager-s8u111', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s8u111' managed by department manager named 'departmentManager-s8u111'
 
-Given there is the product with 'Печенье Астраханское' name, 'Печенье-Астраханское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'Печенье-Астраханское' name, '45695514566' barcode, 'unit' type, '15' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -194,7 +194,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Астраханское-Артикул |
+| productName | Печенье-Астраханское |
 | quantity | 10 |
 | price | 26 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -208,7 +208,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Печенье Астраханское | Печенье-Астраханское-Артикул | 45695514566 | 10,0 | 0,0 | 0,0 | 26,00 р. | 26,00 р.|
+| Печенье-Астраханское | #sku:Печенье-Астраханское | 45695514566 | 10,0 | 0,0 | 0,0 | 26,00 р. | 26,00 р.|
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -218,7 +218,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Астраханское-Артикул |
+| productName | Печенье-Астраханское |
 | quantity | 10 |
 | price | 56 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -228,7 +228,7 @@ And the user refreshes the current page
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Печенье Астраханское | Печенье-Астраханское-Артикул | 45695514566 | 20,0 | 0,0 | 0,0 | 56,00 р. | 41,00 р.|
+| Печенье-Астраханское | #sku:Печенье-Астраханское | 45695514566 | 20,0 | 0,0 | 0,0 | 56,00 р. | 41,00 р.|
 
 Scenario: Average price round checking
 
@@ -239,7 +239,7 @@ Meta:
 Given there is the user with name 'departmentManager-s8u111', position 'departmentManager-s8u111', username 'departmentManager-s8u111', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s8u111' managed by department manager named 'departmentManager-s8u111'
 
-Given there is the product with 'Печенье Киевское' name, 'Печенье-Киевское-Артикул' sku, '45695514566' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'Печенье-Киевское' name, '45695514566' barcode, 'unit' type, '15' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -249,7 +249,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Киевское-Артикул |
+| productName | Печенье-Киевское |
 | quantity | 10 |
 | price | 23,33 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -263,7 +263,7 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Печенье Киевское | Печенье-Киевское-Артикул | 45695514566 | 10,0 | 0,0 | 0,0 | 23,33 р. | 23,33 р.|
+| Печенье-Киевское | #sku:Печенье-Киевское | 45695514566 | 10,0 | 0,0 | 0,0 | 23,33 р. | 23,33 р.|
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -273,7 +273,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Киевское-Артикул |
+| productName | Печенье-Киевское |
 | quantity | 10 |
 | price | 26 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -283,7 +283,7 @@ And the user refreshes the current page
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Печенье Киевское | Печенье-Киевское-Артикул | 45695514566 | 20,0 | 0,0 | 0,0 | 26,00 р. | 24,67 р.|
+| Печенье-Киевское | #sku:Печенье-Киевское | 45695514566 | 20,0 | 0,0 | 0,0 | 26,00 р. | 24,67 р.|
 
 Scenario: Average price calculation
 
@@ -294,8 +294,8 @@ Meta:
 Given there is the user with name 'departmentManager-s8u111', position 'departmentManager-s8u111', username 'departmentManager-s8u111', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s8u111' managed by department manager named 'departmentManager-s8u111'
 
-Given there is the product with 'Печенье Юбилейное' name, 'Печенье-Юбилейное-Артикул' sku, '45695514566' barcode, 'liter' units, '25,50' purchasePrice
-Given there is the product with 'name-s8u111' name, 'sku-s8u111' sku, 'barcode-s8u111' barcode, 'liter' units, '25,50' purchasePrice
+Given there is the product with 'Печенье-Юбилейное' name, '45695514566' barcode, 'unit' type, '25,50' purchasePrice
+Given there is the product with 'name-s8u111' name, 'barcode-s8u111' barcode, 'unit' type, '25,50' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -305,12 +305,12 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Юбилейное-Артикул |
+| productName | Печенье-Юбилейное |
 | quantity | 10 |
 | price | 26 |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | sku-s8u111 |
+| productName | name-s8u111 |
 | quantity | 1 |
 | price | 1 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -323,12 +323,12 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Юбилейное-Артикул |
+| productName | Печенье-Юбилейное |
 | quantity | 5 |
 | price | 29 |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | sku-s8u111 |
+| productName | name-s8u111 |
 | quantity | 1 |
 | price | 1 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -341,12 +341,12 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | Печенье-Юбилейное-Артикул |
+| productName | Печенье-Юбилейное |
 | quantity | 10 |
 | price | 31 |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | sku-s8u111 |
+| productName | name-s8u111 |
 | quantity | 1 |
 | price | 1 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s8u111'
@@ -360,12 +360,12 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Печенье Юбилейное | Печенье-Юбилейное-Артикул | 45695514566 | 25,0 | 0,0 | 0,0 | 31,00 р. | 28,60 р.|
+| Печенье-Юбилейное | #sku:Печенье-Юбилейное | 45695514566 | 25,0 | 0,0 | 0,0 | 31,00 р. | 28,60 р.|
 
 Given the user opens last created invoice page
 
-When the user clicks on the invoice product by name 'Печенье Юбилейное'
-And the user clicks on delete icon and deletes invoice product with name 'Печенье Юбилейное'
+When the user clicks on the invoice product by name 'Печенье-Юбилейное'
+And the user clicks on delete icon and deletes invoice product with name 'Печенье-Юбилейное'
 
 When the user accepts products and saves the invoice
 
@@ -376,12 +376,12 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Печенье Юбилейное | Печенье-Юбилейное-Артикул | 45695514566 | 15,0 | 0,0 | 0,0 | 29,00 р. | 27,00 р.|
+| Печенье-Юбилейное | #sku:Печенье-Юбилейное | 45695514566 | 15,0 | 0,0 | 0,0 | 29,00 р. | 27,00 р.|
 
 Given the user opens one invoice ago created invoice page
 
-When the user clicks on the invoice product by name 'Печенье Юбилейное'
-And the user clicks on delete icon and deletes invoice product with name 'Печенье Юбилейное'
+When the user clicks on the invoice product by name 'Печенье-Юбилейное'
+And the user clicks on delete icon and deletes invoice product with name 'Печенье-Юбилейное'
 
 When the user accepts products and saves the invoice
 
@@ -392,12 +392,12 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Печенье Юбилейное | Печенье-Юбилейное-Артикул | 45695514566 | 10,0 | 0,0 | 0,0 | 26,00 р. | 26,00 р.|
+| Печенье-Юбилейное | #sku:Печенье-Юбилейное | 45695514566 | 10,0 | 0,0 | 0,0 | 26,00 р. | 26,00 р.|
 
 Given the user opens two invoice ago created invoice page
 
-When the user clicks on the invoice product by name 'Печенье Юбилейное'
-And the user clicks on delete icon and deletes invoice product with name 'Печенье Юбилейное'
+When the user clicks on the invoice product by name 'Печенье-Юбилейное'
+And the user clicks on delete icon and deletes invoice product with name 'Печенье-Юбилейное'
 
 When the user accepts products and saves the invoice
 
@@ -408,4 +408,4 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Печенье Юбилейное | Печенье-Юбилейное-Артикул | 45695514566 | 0,0 | 0,0 | 0,0 | 25,50 р. | — |
+| Печенье-Юбилейное | #sku:Печенье-Юбилейное | 45695514566 | 0,0 | 0,0 | 0,0 | 25,50 р. | — |

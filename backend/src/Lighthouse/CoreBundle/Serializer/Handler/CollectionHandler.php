@@ -96,7 +96,20 @@ class CollectionHandler
         array $type,
         Context $context
     ) {
-        return $visitor->visitArray(array_values($collection->toArray()), $type, $context);
+        $type['name'] = 'array';
+        $preRoot = $visitor->getRoot();
+
+        $result = $visitor->visitArray(array_values($collection->toArray()), $type, $context);
+
+        if ($result instanceof \ArrayObject) {
+            $result = $result->getArrayCopy();
+        }
+        $postRoot = $visitor->getRoot();
+        // :FIXME: Dirty hack to avoid empty embedded document modify root to ArrayObject
+        if (null === $preRoot && $postRoot instanceof \ArrayObject) {
+            $visitor->setRoot($postRoot->getArrayCopy());
+        }
+        return $result;
     }
 
     /**

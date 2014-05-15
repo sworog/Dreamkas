@@ -1,35 +1,69 @@
 <% var templates = {
-    select_unit: require('tpl!blocks/select/select_unit/select_unit.html'),
     select_priceRoundings: require('tpl!blocks/select/select_priceRoundings/select_priceRoundings.html'),
     select_vat: require('tpl!blocks/select/select_vat/select_vat.html')
 } %>
 
 <h1><%- model.id ? 'Редактирование товара' : 'Добавление товара' %></h1>
 <fieldset class="form__fieldset">
-    <div class="form__field form__field_inline">
-        <label class="form__label">Артикул</label>
-        <input value="<%- model.get('sku') %>" class="inputText" type="text" name="sku"/>
+    <div class="form__field form__feld_inline productForm__productTypeRadio">
+        <input id="product-form-unit-radio"
+                type="radio"
+                name="type"
+                value="unit"
+                class="productForm__hiddenInput"
+                <%- (model.get('type') == 'unit')?'checked':'' %> >
+        <label for="product-form-unit-radio"><%- LH.productTypes('unit', 'nameCapitalFull') %></label>
+
+        <input id="product-form-weight-radio"
+                type="radio"
+                name="type"
+                value="weight"
+                class="productForm__hiddenInput"
+                <%- (model.get('type') == 'weight')?'checked':'' %> >
+        <label for="product-form-weight-radio"><%- LH.productTypes('weight', 'nameCapitalFull') %></label>
     </div>
+
+    <% if (model.get('sku')) { %>
+        <div class="form__field form__field_inline">
+            <label class="form__label">Код товара</label>
+            <div name="sku"><%- model.get('sku') %></div>
+        </div>
+    <% } %>
     <div class="form__field form__field_inline">
-        <label class="form__label">Наименование</label>
+        <label class="form__label" required>Наименование</label>
         <input value="<%- model.get('name') %>" class="inputText" type="text" name="name"/>
     </div>
     <div class="form__field form__field_inline">
-        <label class="form__label">Измеряется в</label>
-        <select class="select select_unit" name="units">
-            <%= templates.select_unit({
-                selected: model.get('units')
-            }) %>
-        </select>
+        <label class="form__label">Единица измерения</label>
+        <div name="units"></div>
     </div>
     <div class="form__field form__field_inline">
-        <label class="form__label">НДС</label>
+        <label class="form__label" required>НДС</label>
         <select class="select select_vat" name="vat">
             <%= templates.select_vat({
                 selected: model.get('vat')
             }) %>
         </select>
     </div>
+
+    <div class="form__field form__field_inline">
+        <label class="form__label">Штрихкод</label>
+        <input value="<%- model.get('barcode') %>" class="inputText" type="text" name="barcode"/>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Страна производства</label>
+        <input value="<%- model.get('vendorCountry') %>" class="inputText" type="text" name="vendorCountry"/>
+    </div>
+    <div class="form__field form__field_inline">
+        <label class="form__label">Производитель</label>
+        <input value="<%- model.get('vendor') %>" class="inputText" type="text" name="vendor"/>
+    </div>
+
+    <!-- Advanced fields -->
+    <div class="productForm__productTypePropertiesFields">
+
+    </div>
+
     <div class="form__field form__field_inline">
         <label class="form__label">Цена закупки</label>
         <input style="width: 150px;" value="<%- model.get('purchasePrice') ? LH.formatMoney(model.get('purchasePrice')) : '' %>" class="inputText" type="text" name="purchasePrice"/>
@@ -38,16 +72,17 @@
     <div class="form__field form__field_inline productForm__retailMarkupField">
         <label class="form__label">Диапазон наценки</label>
         <span name="retailMarkup" class="retailMarkup productForm__linkedInput <%- model.get('retailPricePreference') == 'retailMarkup' ? '' : 'productForm__hiddenInput' %>">
+
             <input
                    style="width: 100px;"
-                   value="<%- model.get('retailMarkupMin') %>"
+                   value="<%- model.get('retailMarkupMin') || model.get('subCategory.retailMarkupMin') %>"
                    class="inputText"
                    type="text"
                    name="retailMarkupMin"/>
             -
             <input
                     style="width: 100px;"
-                    value="<%- model.get('retailMarkupMax') %>"
+                    value="<%- model.get('retailMarkupMax') || model.get('subCategory.retailMarkupMax') %>"
                     class="inputText"
                     type="text"
                     name="retailMarkupMax"/>
@@ -90,25 +125,6 @@
         </select>
     </div>
     <input type="hidden" value="<%- model.get('retailPricePreference') %>" name="retailPricePreference" />
-</fieldset>
-<fieldset class="form__fieldset">
-    <legend class="form__legend">Необязательно к заполнению</legend>
-    <div class="form__field form__field_inline">
-        <label class="form__label">Штрихкод</label>
-        <input value="<%- model.get('barcode') %>" class="inputText" type="text" name="barcode"/>
-    </div>
-    <div class="form__field form__field_inline">
-        <label class="form__label">Страна производства</label>
-        <input value="<%- model.get('vendorCountry') %>" class="inputText" type="text" name="vendorCountry"/>
-    </div>
-    <div class="form__field form__field_inline">
-        <label class="form__label">Производитель</label>
-        <input value="<%- model.get('vendor') %>" class="inputText" type="text" name="vendor"/>
-    </div>
-    <div class="form__field form__field_inline">
-        <label class="form__label">Дополнительная информация</label>
-        <textarea class="inputText" name="info"><%- model.get('info') %></textarea>
-    </div>
 </fieldset>
 <div class="form__controls">
     <span lh-button class="button">

@@ -8,6 +8,7 @@ import java.util.List;
 
 public class AcceptanceTestSuite extends ThucydidesJUnitStories {
 
+    private static final String STORIES = "lighthouse.autotests.stories";
     private static final String BRANCH = "lighthouse.autotests.branch";
     private static final String THREADS = "lighthouse.threads";
     private static final String DEMO_MODE = "lighthouse.demo";
@@ -20,6 +21,7 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
         setWebDriverBaseUrl();
         setThreads();
         findStoriesByBranch();
+        findStoriesByStories();
         setDemoMode();
         parallelExecutionStart();
     }
@@ -46,6 +48,13 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
             if (branch.startsWith("sprint-")) {
                 findStoriesIn("**/" + branch);
             }
+        }
+    }
+
+    private void findStoriesByStories() {
+        String storyNames = getEnvironmentVariables().getProperty(STORIES, null);
+        if (storyNames != null) {
+            findStoriesCalled(storyNames);
         }
     }
 

@@ -3,6 +3,8 @@
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
+use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
@@ -32,6 +34,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(201);
 
+        Assert::assertJsonPathEquals('10001', 'sku', $postResponse);
         Assert::assertJsonPathEquals(30.48, 'purchasePrice', $postResponse);
         Assert::assertNotJsonHasPath('lastPurchasePrice', $postResponse);
         Assert::assertJsonHasPath('subCategory', $postResponse);
@@ -103,7 +106,7 @@ class ProductControllerTest extends WebTestCase
     public function testPostProductActionOnlyOneErrorMessageOnNotBlank()
     {
         $invalidData = $this->getProductData();
-        $invalidData['units'] = '';
+        $invalidData['name'] = '';
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
@@ -116,7 +119,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(400);
 
-        Assert::assertJsonPathCount(1, 'children.units.errors.*', $response);
+        Assert::assertJsonPathCount(1, 'children.name.errors.*', $response);
     }
 
     public function testPostProductActionEmptyPost()
@@ -129,36 +132,6 @@ class ProductControllerTest extends WebTestCase
             '/api/1/products'
         );
         $this->assertResponseCode(400);
-    }
-
-    /**
-     * @dataProvider productProvider
-     */
-    public function testPostProductActionUniqueSku(array $postData)
-    {
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
-
-        $postData['subCategory'] = $this->createSubCategory();
-
-        $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/products',
-            $postData
-        );
-
-        $this->assertResponseCode(201);
-
-        $response = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/products',
-            $postData
-        );
-
-        $this->assertResponseCode(400);
-
-        Assert::assertJsonPathContains('уже есть', 'children.sku.errors.0', $response);
     }
 
     /**
@@ -336,7 +309,6 @@ class ProductControllerTest extends WebTestCase
 
         for ($i = 0; $i < 5; $i++) {
             $postData['name'] = 'Кефир' . $i;
-            $postData['sku'] = 'sku' . $i;
             $this->clientJsonRequest(
                 $accessToken,
                 'POST',
@@ -353,6 +325,31 @@ class ProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
+        Assert::assertJsonPathCount(5, '*.id', $response);
+        Assert::assertJsonPathEquals('10001', '0.sku', $response);
+        Assert::assertJsonPathEquals('10002', '1.sku', $response);
+        Assert::assertJsonPathEquals('10003', '2.sku', $response);
+        Assert::assertJsonPathEquals('10004', '3.sku', $response);
+        Assert::assertJsonPathEquals('10005', '4.sku', $response);
+    }
+
+    public function testGetProductsWithEmptyTypePropertiesReturnsArray()
+    {
+        $this->createProductsByNames(array('1', '2', '3', '4', '5'));
+
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/products'
+        );
+
+        $this->assertResponseCode(200);
+
+        $rawBody = $this->client->getResponse()->getContent();
+        $this->assertStringStartsWith('[', $rawBody);
+        $this->assertStringEndsWith(']', $rawBody);
+
         Assert::assertJsonPathCount(5, '*.id', $response);
     }
 
@@ -442,7 +439,7 @@ class ProductControllerTest extends WebTestCase
     public function testGetSubCategoryProductsHaveNoSubcategoryField()
     {
         $subCategoryId = $this->createSubCategory();
-        $this->createProductsBySku(array('1', '2', '3', '4', '5'));
+        $this->createProductsByNames(array('1', '2', '3', '4', '5'));
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
@@ -466,11 +463,11 @@ class ProductControllerTest extends WebTestCase
     {
         $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
-        $this->createProduct(array('name' => 'Кефир3', 'sku' => '10001', 'purchasePrice' => ''));
-        $this->createProduct(array('name' => 'кефир веселый молочник', 'sku' => '10002'));
-        $this->createProduct(array('name' => 'Батон /Россия/ .12', 'sku' => '10003', 'vendor' => 'Россия'));
-        $this->createProduct(array('name' => 'Кефир грустный дойщик', 'sku' => '10004'));
-        $this->createProduct(array('name' => 'кефир5', 'sku' => '10005', 'barcode' => '00127463212'));
+        $this->createProduct(array('name' => 'Кефир3', 'purchasePrice' => ''));
+        $this->createProduct(array('name' => 'кефир веселый молочник'));
+        $this->createProduct(array('name' => 'Батон /Россия/ .12', 'vendor' => 'Россия'));
+        $this->createProduct(array('name' => 'Кефир грустный дойщик'));
+        $this->createProduct(array('name' => 'кефир5', 'barcode' => '00127463212'));
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -845,31 +842,10 @@ class ProductControllerTest extends WebTestCase
             /***********************************************************************************************
              * 'sku'
              ***********************************************************************************************/
-            'valid sku' => array(
-                201,
+            'sku should not be present' => array(
+                400,
                 array('sku' => 'qwe223sdw'),
-            ),
-            'valid sku 100 length' => array(
-                201,
-                array('sku' => str_repeat('z', 100)),
-            ),
-            'not valid sku empty' => array(
-                400,
-                array('sku' => ''),
-                array(
-                    'children.sku.errors.0'
-                    =>
-                    'Заполните это поле',
-                ),
-            ),
-            'not valid sku too long' => array(
-                400,
-                array('sku' => str_repeat("z", 101)),
-                array(
-                    'children.sku.errors.0'
-                    =>
-                    'Не более 100 символов',
-                ),
+                array('errors.0' => 'Эта форма не должна содержать дополнительных полей: "sku"'),
             ),
             /***********************************************************************************************
              * 'subCategory'
@@ -891,6 +867,209 @@ class ProductControllerTest extends WebTestCase
                     =>
                     'Заполните это поле'
                 ),
+            ),
+            /***********************************************************************************************
+             * 'type'
+             ***********************************************************************************************/
+            'invalid type' => array(
+                400,
+                array(
+                    'type' => 'invalid type',
+                    'typeProperties' => array(
+                        'nameOnScales' => '',
+                        'descriptionOnScales' => '',
+                        'shelfLife' => '',
+                        'ingredients' => '',
+                    )
+                ),
+                array(
+                    'children.type.errors.0' => 'Выбранное Вами значение недопустимо.',
+                    'errors.0' => 'Эта форма не должна содержать дополнительных полей: "typeProperties"',
+                )
+            ),
+            'empty type' => array(
+                400,
+                array(
+                    'type' => ''
+                ),
+                array(
+                    'children.type.errors.0' => 'Заполните это поле'
+                )
+            ),
+            /***********************************************************************************************
+             * 'weightType'
+             ***********************************************************************************************/
+            'weight type empty fields' => array(
+                201,
+                array(
+                    'type' => WeightType::TYPE,
+                    'typeProperties' => array(
+                        'nameOnScales' => '',
+                        'descriptionOnScales' => '',
+                        'shelfLife' => '',
+                        'ingredients' => '',
+                    )
+                ),
+                array(
+                    'units' => WeightType::UNITS,
+                    'type' => WeightType::TYPE,
+                    'typeProperties' => array()
+                )
+            ),
+            'weight type valid fields' => array(
+                201,
+                array(
+                    'type' => WeightType::TYPE,
+                    'typeProperties' => array(
+                        'nameOnScales' => 'Наименование на весах',
+                        'descriptionOnScales' => 'Описание на весах',
+                        'shelfLife' => '24',
+                        'ingredients' => 'Лук, чеснок, соль',
+                        'nutritionFacts' => "   Углеводы 5гр,\n  Белки 10гр\n  Жиры 20гр  \n"
+                    )
+                ),
+                array(
+                    'units' => WeightType::UNITS,
+                    'type' => WeightType::TYPE,
+                    'typeProperties.nameOnScales' => 'Наименование на весах',
+                    'typeProperties.descriptionOnScales' => 'Описание на весах',
+                    'typeProperties.shelfLife' => '24',
+                    'typeProperties.ingredients' => 'Лук, чеснок, соль',
+                    'typeProperties.nutritionFacts' => "Углеводы 5гр,\n  Белки 10гр\n  Жиры 20гр"
+                )
+            ),
+            'weight type fields valid max length' => array(
+                201,
+                array(
+                    'type' => WeightType::TYPE,
+                    'typeProperties' => array(
+                        'nameOnScales' => str_repeat('z', 256),
+                        'descriptionOnScales' => str_repeat('z', 256),
+                        'shelfLife' => '24',
+                        'ingredients' => str_repeat('z', 1024),
+                        'nutritionFacts' => str_repeat('z', 1024),
+                    )
+                ),
+                array(
+                    'units' => WeightType::UNITS,
+                    'type' => WeightType::TYPE,
+                    'typeProperties.nameOnScales' => str_repeat('z', 256),
+                    'typeProperties.descriptionOnScales' => str_repeat('z', 256),
+                    'typeProperties.shelfLife' => '24',
+                    'typeProperties.ingredients' => str_repeat('z', 1024),
+                    'typeProperties.nutritionFacts' => str_repeat('z', 1024)
+                )
+            ),
+            'weight type fields invalid length' => array(
+                400,
+                array(
+                    'type' => WeightType::TYPE,
+                    'typeProperties' => array(
+                        'nameOnScales' => str_repeat('z', 257),
+                        'descriptionOnScales' => str_repeat('z', 257),
+                        'shelfLife' => '24',
+                        'ingredients' => str_repeat('z', 1025),
+                        'nutritionFacts' => str_repeat('z', 1025),
+                    )
+                ),
+                array(
+                    'units' => null,
+                    'type' => null,
+                    'children.typeProperties.children.nameOnScales.errors.0' => 'Не более 256 символов',
+                    'children.typeProperties.children.descriptionOnScales.errors.0' => 'Не более 256 символов',
+                    'children.typeProperties.children.shelfLife.errors' => null,
+                    'children.typeProperties.children.ingredients.errors.0' => 'Не более 1024 символов',
+                    'children.typeProperties.children.nutritionFacts.errors.0' => 'Не более 1024 символов'
+                )
+            ),
+            'weight type invalid shelLife not a number' => array(
+                400,
+                array(
+                    'type' => WeightType::TYPE,
+                    'typeProperties' => array(
+                        'shelfLife' => 'aaa',
+                    )
+                ),
+                array(
+                    'units' => null,
+                    'type' => null,
+                    'children.typeProperties.children.shelfLife.errors.0' => 'Значение должно быть числом',
+                )
+            ),
+            'weight type invalid shelLife float' => array(
+                400,
+                array(
+                    'type' => WeightType::TYPE,
+                    'typeProperties' => array(
+                        'shelfLife' => '12.12',
+                    )
+                ),
+                array(
+                    'units' => null,
+                    'type' => null,
+                    'children.typeProperties.children.shelfLife.errors.0' => 'Значение должно быть числом',
+                )
+            ),
+            'weight type invalid shelLife too big' => array(
+                400,
+                array(
+                    'type' => WeightType::TYPE,
+                    'typeProperties' => array(
+                        'shelfLife' => '1001',
+                    )
+                ),
+                array(
+                    'units' => null,
+                    'type' => null,
+                    'children.typeProperties.children.shelfLife.errors.0'
+                    =>
+                    'Значение должно быть меньше или равно 1000',
+                )
+            ),
+            'weight type invalid shelLife too big extra field' => array(
+                400,
+                array(
+                    'type' => WeightType::TYPE,
+                    'typeProperties' => array(
+                        'shelfLife' => '24',
+                        'bestBefore' => '2014.02.11'
+                    )
+                ),
+                array(
+                    'units' => null,
+                    'type' => null,
+                    'errors.0' => 'Эта форма не должна содержать дополнительных полей: "bestBefore"',
+                )
+            ),
+            /***********************************************************************************************
+             * 'unitType'
+             ***********************************************************************************************/
+            'unit type empty fields' => array(
+                201,
+                array(
+                    'type' => UnitType::TYPE,
+                    'typeProperties' => array(
+                    )
+                ),
+                array(
+                    'units' => UnitType::UNITS,
+                    'type' => UnitType::TYPE,
+                    'typeProperties' => array()
+                )
+            ),
+            'unit type extra field' => array(
+                400,
+                array(
+                    'type' => UnitType::TYPE,
+                    'typeProperties' => array(
+                        'field' => 'value'
+                    )
+                ),
+                array(
+                    'units' => null,
+                    'type' => null,
+                    'errors.0' => 'Эта форма не должна содержать дополнительных полей: "field"',
+                )
             ),
         );
     }
@@ -1696,10 +1875,9 @@ class ProductControllerTest extends WebTestCase
             'milkman' => array(
                 array(
                     'name' => 'Кефир "Веселый Молочник" 1% 950гр',
-                    'units' => 'gr',
+                    'type' => 'unit',
                     'barcode' => '4607025392408',
                     'purchasePrice' => 30.48,
-                    'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
                     'vat' => 10,
                     'vendor' => 'Вимм-Билль-Данн',
                     'vendorCountry' => 'Россия',
@@ -1880,7 +2058,7 @@ class ProductControllerTest extends WebTestCase
     /**
      * @group unique
      */
-    public function testUniqueNameInParallel()
+    public function testNotUniqueSkuInParallel()
     {
         $productData = $this->getProductData();
 
@@ -1898,10 +2076,11 @@ class ProductControllerTest extends WebTestCase
         }
         $exporter = new Exporter();
         $responseBody = $exporter->export($jsonResponses);
-        $this->assertCount(1, array_keys($statusCodes, 201), $responseBody);
-        $this->assertCount(2, array_keys($statusCodes, 400), $responseBody);
-        Assert::assertJsonPathEquals('Кефир "Веселый Молочник" 1% 950гр', '*.name', $jsonResponses, 1);
-        Assert::assertJsonPathEquals('Такой артикул уже есть', '*.children.sku.errors.0', $jsonResponses, 2);
+        $this->assertCount(3, array_keys($statusCodes, 201), $responseBody);
+        Assert::assertJsonPathEquals('Кефир "Веселый Молочник" 1% 950гр', '*.name', $jsonResponses, 3);
+        Assert::assertJsonPathEquals('10001', '*.sku', $jsonResponses, 1);
+        Assert::assertJsonPathEquals('10002', '*.sku', $jsonResponses, 1);
+        Assert::assertJsonPathEquals('10003', '*.sku', $jsonResponses, 1);
     }
 
     protected function doPostActionFlushFailedException(\Exception $exception)
@@ -1984,7 +2163,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
-        Assert::assertJsonPathEquals('Такой артикул уже есть', 'children.sku.errors.0', $response);
+        Assert::assertJsonPathEquals('Такой артикул уже есть', 'errors.0', $response);
     }
 
     public function testPostActionToSubCategoryWithMarkup()

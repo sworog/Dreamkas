@@ -15,6 +15,9 @@ use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Type\Typeable;
+use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
+use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
 use Lighthouse\CoreBundle\Exception\ValidationFailedException;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
@@ -173,7 +176,7 @@ class Set10ProductImporter
             } catch (ValidationFailedException $e) {
                 $errors[] = array(
                     'message' => $e->getMessage(),
-                    'sku' => $goodElement->getSku(),
+                    'sku' => $goodElement->getMarkingOfTheGood(),
                     'name' => $goodElement->getGoodName(),
                 );
                 $dotHelper->writeError('E');
@@ -307,7 +310,7 @@ class Set10ProductImporter
      */
     public function getProduct(GoodElement $good, $update = false)
     {
-        $sku = $good->getSku();
+        $sku = $good->getMarkingOfTheGood();
         if (isset($this->productSkus[$sku])) {
             return false;
         }
@@ -327,19 +330,58 @@ class Set10ProductImporter
     {
         $product = ($product) ?: new Product();
         $product->name = $good->getGoodName();
-        $product->sku  = $good->getSku();
+        $product->sku  = $good->getMarkingOfTheGood();
         $product->vat  = $good->getVat();
         $product->barcode = $good->getBarcode();
-        $product->vendor = $good->getVendor();
-        $product->units = $good->getUnits() ?: Product::UNITS_UNIT;
+        $product->vendor = $good->getManufacturerName();
         $product->purchasePrice = $this->getPurchasePrice($good);
         $product->retailPricePreference = $product::RETAIL_PRICE_PREFERENCE_MARKUP;
         $product->retailMarkupMin = 15;
         $product->retailMarkupMax = 20;
+        $product->typeProperties = $this->createType($good);
 
         $product->subCategory = $this->getCatalog($good);
 
         return $product;
+    }
+
+    /**
+     * @param GoodElement $good
+     * @return Typeable
+     */
+    public function createType(GoodElement $good)
+    {
+        switch ($good->getProductType()) {
+            case GoodElement::PRODUCT_WEIGHT_ENTITY:
+                return $this->createWeightType($good);
+            case GoodElement::PRODUCT_PIECE_ENTITY:
+            default:
+                return $this->createUnitType($good);
+        }
+    }
+
+    /**
+     * @param GoodElement $good
+     * @return UnitType
+     */
+    public function createUnitType(GoodElement $good)
+    {
+        return new UnitType();
+    }
+
+    /**
+     * @param GoodElement $good
+     * @return WeightType
+     */
+    public function createWeightType(GoodElement $good)
+    {
+        $type = new WeightType();
+        $type->nameOnScales = $good->getPluginProperty(GoodElement::PLUGIN_PROPERTY_NAME_ON_SCALE_SCREEN);
+        $type->descriptionOnScales = $good->getPluginProperty(GoodElement::PLUGIN_PROPERTY_DESCRIPTION_ON_SCALE_SCREEN);
+        $type->ingredients = $good->getPluginProperty(GoodElement::PLUGIN_PROPERTY_COMPOSITION);
+        $type->nutritionFacts = $good->getPluginProperty(GoodElement::PLUGIN_PROPERTY_FOOD_VALUE);
+        $type->shelfLife = $good->getPluginProperty(GoodElement::PLUGIN_PROPERTY_GOOD_FOR_HOURS);
+        return $type;
     }
 
     /**

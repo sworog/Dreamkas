@@ -1,0 +1,19 @@
+<div id="chtpn" class="tooltip tooltip_form">
+    <div class="close">
+        Закрыть
+    </div>
+    <div class="simple-info">
+        Произошла ошибка подключения к серверу <a href="" class="show-more">показать подробности</a>
+    </div>
+    <div class="more-info">
+        <div>
+            Статус код: <%= response.status %> <br />
+            Статус текст: <%= response.statusText %> <br />
+            Текст ответа сервера:
+        </div>
+        <div>
+            <pre><%= JSON.stringify(JSON.parse(response.responseText), null, 2) %>
+            </pre>
+        </div>
+    </div>
+</div>

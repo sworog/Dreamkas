@@ -9,6 +9,9 @@ use Lighthouse\CoreBundle\Versionable\VersionInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
+ * @property string $version
+ * @property DateTimestamp $createdDate
+ *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Versionable\VersionRepository"
  * )
@@ -94,21 +97,21 @@ class ProductVersion extends Product implements VersionInterface
     public function getVersionFields()
     {
         return array(
-            "id",
-            "name",
-            "units",
-            "vat",
-            "purchasePrice",
-            "barcode",
-            "sku",
-            "vendorCountry",
-            "info",
-            "subCategory",
-            "retailMarkupMin",
-            "retailMarkupMax",
-            "retailPriceMin",
-            "retailPriceMax",
-            "roundingId"
+            'id',
+            'name',
+            'vat',
+            'purchasePrice',
+            'barcode',
+            'sku',
+            'vendorCountry',
+            'typeProperties',
+            'info',
+            'subCategory',
+            'retailMarkupMin',
+            'retailMarkupMax',
+            'retailPriceMin',
+            'retailPriceMax',
+            'roundingId'
         );
     }
 }

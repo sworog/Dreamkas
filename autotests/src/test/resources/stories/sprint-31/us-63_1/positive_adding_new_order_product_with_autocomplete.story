@@ -19,7 +19,7 @@ Meta:
 GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
               precondition/sprint-31/us-63_1/aPreconditionToPositiveScenarios.story
 
-Given there is the product with 'сухое_молоко-30631' name, '30631_dry_milk' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
+Given there is the product with 'сухое_молоко-30631' name, '30631' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse' password
@@ -49,11 +49,12 @@ Scenario: Adding new order product with autocomplete by sku
 Meta:
 @id_s31u63.1s2
 @smoke
+@depends on @id_s31u63.1s1
 
 GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
               precondition/sprint-31/us-63_1/aPreconditionToPositiveScenarios.story
 
-Given there is the product with 'копыто_лошадиное_30631' name, '30631_horse_leg' sku, '30631' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
+Given there is the product with 'копыто_лошадиное_30631' name, '30631' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse' password
@@ -61,7 +62,7 @@ And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse'
 When the user inputs values on order page
 | elementName | value |
 | supplier | supplier-s30u631s1 |
-| order product autocomplete | horse_leg |
+| order product autocomplete | 10002 |
 And the user presses 'ENTER' key button
 
 Then the user waits for the order product edition preloader finish

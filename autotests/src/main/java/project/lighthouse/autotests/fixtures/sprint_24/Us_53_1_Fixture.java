@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.fixtures.sprint_24;
 
 import org.apache.commons.io.FileUtils;
+import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.xml.PurchaseXmlBuilder;
 
@@ -57,7 +58,8 @@ public class Us_53_1_Fixture {
     }
 
     private PurchaseXmlBuilder dataSet1(String date) throws ParserConfigurationException, XPathExpressionException {
-        String shopNumber = "24531", id = "24531";
+        String shopNumber = "24531";
+        String id = StaticData.products.get("name-24531").getSku();
         Double doublePrice = 124.5;
         return generateDataSet(date, shopNumber, id, doublePrice);
     }
@@ -68,7 +70,8 @@ public class Us_53_1_Fixture {
     }
 
     private PurchaseXmlBuilder dataSet2(String date) throws ParserConfigurationException, XPathExpressionException {
-        String shopNumber = "24531", id = "245311";
+        String shopNumber = "24531";
+        String id = StaticData.products.get("name-245311").getSku();
         Double price = 174.5;
         return generateDataSet(date, shopNumber, id, price);
     }

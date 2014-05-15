@@ -53,7 +53,6 @@ class ProductTotalsTest extends ContainerAwareTestCase
 
         $product = new Product();
         $product->name = 'Кефир "Веселый Молочник" 1% 950гр';
-        $product->units = 'gr';
         $product->barcode = '4607025392408';
         $product->purchasePrice = $numericFactory->createMoney('12.34');
         $product->sku = 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР';

@@ -23,9 +23,9 @@ if ('production' === $env || 'staging' === $env) {
 
 $debug = getenv('SYMFONY_DEBUG') !== '0' && $env !== 'production';
 
-require_once __DIR__.'/../app/AppKernel.php';
+require_once __DIR__.'/../app/LighthouseKernel.php';
 
-$kernel = new AppKernel($env, $debug);
+$kernel = new LighthouseKernel($env, $debug);
 $kernel->loadClassCache();
 //require_once __DIR__.'/../app/AppCache.php';
 //$kernel = new AppCache($kernel);

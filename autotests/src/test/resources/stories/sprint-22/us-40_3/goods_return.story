@@ -21,23 +21,23 @@ When the user logs in using 'ReturnDepartmentManager' userName and 'lighthouse' 
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 1008577061437 | 0,0 | 0,0 | 0,0 | 20,80 р. | — |
+| Профитроли Коппенрат&Вайс Бэйлис 280г | #sku:Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 0,0 | 0,0 | 0,0 | 20,80 р. | — |
 When the user logs out
 Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
 When the user logs in using 'ReturnDepartmentManager2' userName and 'lighthouse' password
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 1008577061437 | 0,0 | 0,0 | 0,0 | 20,80 р. | — |
+| Профитроли Коппенрат&Вайс Бэйлис 280г | #sku:Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 0,0 | 0,0 | 0,0 | 20,80 р. | — |
 When the user logs out
-Given the user prepares import return data for us 40.3 story
+Given the user prepares import return data for us 40.3 story for product with 'Профитроли Коппенрат&Вайс Бэйлис 280г' name
 Given the user navigates to the subCategory 'ProductsExportSubCategory', category 'ProductsExportCategory', group 'ProductsExportGroup' product list page
 When the user logs in using 'ReturnDepartmentManager' userName and 'lighthouse' password
 When the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 1008577061437 | 2,0 | 0,0 | 0,0 | 20,80 р. | — |
-Given the user navigates to the product with sku '1008577061437'
+| Профитроли Коппенрат&Вайс Бэйлис 280г | #sku:Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 2,0 | 0,0 | 0,0 | 20,80 р. | — |
+Given the user navigates to the product with name 'Профитроли Коппенрат&Вайс Бэйлис 280г'
 When the user clicks the product local navigation returns link
 Then the user checks the product return list contains entry
 | date | quantity | price | totalPrice |
@@ -48,8 +48,8 @@ When the user logs in using 'ReturnDepartmentManager2' userName and 'lighthouse'
 When the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 1008577061437 | 3,0 | 0,0 | 0,0 | 20,80 р. | — |
-Given the user navigates to the product with sku '1008577061437'
+| Профитроли Коппенрат&Вайс Бэйлис 280г | #sku:Профитроли Коппенрат&Вайс Бэйлис 280г | 1008577061437 | 3,0 | 0,0 | 0,0 | 20,80 р. | — |
+Given the user navigates to the product with name 'Профитроли Коппенрат&Вайс Бэйлис 280г'
 When the user clicks the product local navigation returns link
 Then the user checks the product return list contains entry
 | date | quantity | price | totalPrice |
@@ -63,7 +63,7 @@ Meta:
 
 GivenStories: precondition/sprint-22/us-40.3/aPreconditionToScenarioS23.story
 
-Given the user navigates to the product with sku 'SCPBC-sku-1'
+Given the user navigates to the product with name 'SCPBC-name-1'
 When the user logs in using 'NRTF-1' userName and 'lighthouse' password
 Then the user checks the local navigation return link is not visible
 
@@ -75,6 +75,6 @@ Meta:
 
 GivenStories: precondition/sprint-22/us-40.3/aPreconditionToScenarioS23.story
 
-Given the user navigates to the product with sku 'SCPBC-sku-1'
+Given the user navigates to the product with name 'SCPBC-name-1'
 And the user logs in as 'commercialManager'
 Then the user checks the local navigation return link is not visible

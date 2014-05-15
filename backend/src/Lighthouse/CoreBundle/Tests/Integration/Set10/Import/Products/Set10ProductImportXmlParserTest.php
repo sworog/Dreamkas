@@ -49,49 +49,6 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
         $this->assertEquals('Жевательные резинки, конфеты', $groups[2]['name']);
     }
 
-    public function testMeasurementParsing()
-    {
-        $parser = $this->createXmlParser();
-
-        /* @var bool|GoodElement $good */
-        $good = $parser->readNextElement();
-        $this->assertEquals(Product::UNITS_UNIT, $good->getUnits());
-
-        $good = $parser->readNextElement();
-        $this->assertEquals(Product::UNITS_UNIT, $good->getUnits());
-
-        $good = $parser->readNextElement();
-        $this->assertEquals(Product::UNITS_KG, $good->getUnits());
-
-        $good = $parser->readNextElement();
-        $this->assertEquals(Product::UNITS_KG, $good->getUnits());
-
-        $good = $parser->readNextElement();
-        $this->assertFalse($good);
-    }
-
-    public function testMeasurementCaseSensitiveParsing()
-    {
-        $parser = $this->createXmlParser('Integration/Set10/Import/Products/goods-measurement.xml');
-
-        $expected = array(
-            Product::UNITS_UNIT,
-            Product::UNITS_UNIT,
-            Product::UNITS_UNIT,
-            Product::UNITS_UNIT,
-            Product::UNITS_KG,
-            Product::UNITS_KG,
-            Product::UNITS_KG,
-            Product::UNITS_KG,
-            null
-        );
-
-        foreach ($expected as $expectedUnit) {
-            $good = $parser->readNextElement();
-            $this->assertEquals($expectedUnit, $good->getUnits());
-        }
-    }
-
     public function testOnlyGroupNodesAreRead()
     {
         $parser = $this->createXmlParser();
@@ -150,5 +107,202 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $element = $parser->readNextElement();
         $this->assertFalse($element);
+    }
+
+    public function testPluginPropertyParse()
+    {
+        $parser = $this->createXmlParser();
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('0.001', $good->getPluginProperty('precision'));
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('0.001', $good->getPluginProperty('precision'));
+
+        $good = $parser->readNextElement();
+
+        $this->assertNotNull($good->getPluginProperty('composition'));
+        $this->assertNotNull($good->getPluginProperty('storage-conditions'));
+        $this->assertNotNull($good->getPluginProperty('food-value'));
+        $this->assertNotNull($good->getPluginProperty('plu-number'));
+
+        $this->assertNull($good->getPluginProperty('dummy'));
+    }
+
+    public function testProductTypeParse()
+    {
+        $parser = $this->createXmlParser();
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('ProductPieceEntity', $good->getProductType());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('ProductPieceEntity', $good->getProductType());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('ProductWeightEntity', $good->getProductType());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('ProductWeightEntity', $good->getProductType());
+
+        $good = $parser->readNextElement();
+
+        $this->assertFalse($good);
+    }
+
+    public function testGoodNameParse()
+    {
+        $parser = $this->createXmlParser();
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('Шар Чупа Чупс Смешарики Машина времени шокол.25г', $good->getGoodName());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('Шарики Брюгген Чокин Крипс рисовые шок.250г', $good->getGoodName());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('Шашлык из креветок пр-во Лэнд', $good->getGoodName());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('Шашлык из курицы (филе) п/ф Кулинария', $good->getGoodName());
+
+        $good = $parser->readNextElement();
+
+        $this->assertFalse($good);
+    }
+
+    public function testVatParse()
+    {
+        $parser = $this->createXmlParser();
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('18', $good->getVat());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('18', $good->getVat());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('18', $good->getVat());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('18', $good->getVat());
+
+        $good = $parser->readNextElement();
+
+        $this->assertFalse($good);
+    }
+
+    public function testMarkingOfTheGoodParse()
+    {
+        $parser = $this->createXmlParser();
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('46091758', $good->getMarkingOfTheGood());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('4008713700510', $good->getMarkingOfTheGood());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('2808650', $good->getMarkingOfTheGood());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('2809733', $good->getMarkingOfTheGood());
+
+        $good = $parser->readNextElement();
+
+        $this->assertFalse($good);
+    }
+
+    public function testBarcodeParse()
+    {
+        $parser = $this->createXmlParser();
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('46091758', $good->getBarcode());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('4008713700510', $good->getBarcode());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('2808650', $good->getBarcode());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('2809733', $good->getBarcode());
+
+        $good = $parser->readNextElement();
+
+        $this->assertFalse($good);
+    }
+
+    public function testManufacturerNameParse()
+    {
+        $parser = $this->createXmlParser();
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('Россия', $good->getManufacturerName());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('Германия', $good->getManufacturerName());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('Кулинария Лэнд', $good->getManufacturerName());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('Кулинария Лэнд', $good->getManufacturerName());
+
+        $good = $parser->readNextElement();
+
+        $this->assertFalse($good);
+    }
+
+    public function testPriceParse()
+    {
+        $parser = $this->createXmlParser();
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('50.77', $good->getPrice());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('94.00', $good->getPrice());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('1100.00', $good->getPrice());
+
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('440.00', $good->getPrice());
+
+        $good = $parser->readNextElement();
+
+        $this->assertFalse($good);
     }
 }

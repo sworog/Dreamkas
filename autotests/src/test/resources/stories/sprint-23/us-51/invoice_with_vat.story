@@ -114,8 +114,8 @@ When the user opens product balance tab
 
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| name-2351-3 | sku-2351-3 | barcode-2351-3 | 10,0 | 0,0 | 0,0 | 100,00 р. | 100,00 р. |
-| name-2351-4 | sku-2351-4 | barcode-2351-4 | 10,0 | 0,0 | 0,0 | 110,00 р. | 110,00 р. |
+| name-2351-3 | #sku:name-2351-3 | barcode-2351-3 | 10,0 | 0,0 | 0,0 | 100,00 р. | 100,00 р. |
+| name-2351-4 | #sku:name-2351-4 | barcode-2351-4 | 10,0 | 0,0 | 0,0 | 110,00 р. | 110,00 р. |
 
 Scenario: Vat is not changed in already invoiceProduct if product have new vat
 

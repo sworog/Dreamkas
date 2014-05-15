@@ -22,7 +22,7 @@ When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' 
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SCPBC-name | SCPBC-sku | SCPBC-barcode | 0,0 | 0,0 | 0,0 | 12,34 р. | — |
+| SCPBC-name | #sku:SCPBC-name | SCPBC-barcode | 0,0 | 0,0 | 0,0 | 12,34 р. | — |
 
 Scenario: Subcategory product balance not required fields checking
 
@@ -38,7 +38,7 @@ When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' 
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SCPBC-name-1 | SCPBC-sku-1 | | 0,0 | 0,0 | 0,0 | — | — |
+| SCPBC-name-1 | #sku:SCPBC-name-1 | | 0,0 | 0,0 | 0,0 | — | — |
 
 Scenario: Subcategory product balance after writeOff
 
@@ -55,7 +55,7 @@ When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' 
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SCPBC-name-2 | SCPBC-sku-2 | SCPBC-barcode-2 | 1,0 | 0,0 | 0,0 | 100,00 р. | — |
+| SCPBC-name-2 | #sku:SCPBC-name-2 | SCPBC-barcode-2 | 1,0 | 0,0 | 0,0 | 100,00 р. | — |
 
 Scenario: Subcategory product balance after invoice
 
@@ -72,7 +72,7 @@ When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' 
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SCPBC-name-3 | SCPBC-sku-3 | SCPBC-barcode-3 | -1,0 | 0,0 | 0,0 | 12,34 р. | — |
+| SCPBC-name-3 | #sku:SCPBC-name-3 | SCPBC-barcode-3 | -1,0 | 0,0 | 0,0 | 12,34 р. | — |
 
 Scenario: Subcategory product balance with average price checking
 
@@ -88,7 +88,7 @@ When the user logs in using 'departmentManager-SCPBC' userName and 'lighthouse' 
 And the user opens product balance tab
 Then the user checks the product balance list contains entry
 | name | sku | barcode | inventory | averageDailySales | inventoryDays | lastPurchasePrice | averagePurchasePrice |
-| SCPBC-name-4 | SCPBC-sku-4 | SCPBC-barcode-4 | 3,0 | 0,0 | 0,0 | 123,00 р. | 130,33 р. |
+| SCPBC-name-4 | #sku:SCPBC-name-4 | SCPBC-barcode-4 | 3,0 | 0,0 | 0,0 | 123,00 р. | 130,33 р. |
 
 Scenario: No product balance tab for commercialManager
 

@@ -19,5 +19,5 @@ And there is the subCategory with name 'defaultSubCategory-s25u5731' related to 
 And the user sets subCategory 'defaultSubCategory-s25u573' mark up with max '10' and min '0' values
 And the user sets subCategory 'defaultSubCategory-s25u5731' mark up with max '10' and min '0' values
 
-Given there is the product with 'name-25573' name, '25573' sku, '25573' barcode, 'unit' units, '100,0' purchasePrice of group named 'defaultGroup-s25u573', category named 'defaultCategory-s25u573', subcategory named 'defaultSubCategory-s25u573'
-Given there is the product with 'name-255731' name, '255731' sku, '255731' barcode, 'unit' units, '100,0' purchasePrice of group named 'defaultGroup-s25u5731', category named 'defaultCategory-s25u5731', subcategory named 'defaultSubCategory-s25u5731'
+Given there is the product with 'name-25573' name, '25573' barcode, 'unit' type, '100,0' purchasePrice of group named 'defaultGroup-s25u573', category named 'defaultCategory-s25u573', subcategory named 'defaultSubCategory-s25u573'
+Given there is the product with 'name-255731' name, '255731' barcode, 'unit' type, '100,0' purchasePrice of group named 'defaultGroup-s25u5731', category named 'defaultCategory-s25u5731', subcategory named 'defaultSubCategory-s25u5731'

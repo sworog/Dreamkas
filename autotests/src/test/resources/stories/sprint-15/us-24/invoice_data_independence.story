@@ -16,7 +16,7 @@ Meta:
 Given there is the user with name 'departmentManager-s15u24', position 'departmentManager-s15u24', username 'departmentManager-s15u24', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s15u24' managed by department manager named 'departmentManager-s15u24'
 
-Given there is the product with 'name-s15u24' name, 'sku-s15u24' sku, 'barcode-s15u24' barcode, 'unit' units, '15' purchasePrice
+Given there is the product with 'name-s15u24' name, 'barcode-s15u24' barcode, 'unit' type, '15' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -26,12 +26,12 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | sku-s15u24 |
+| productName | name-s15u24 |
 | quantity | 1 |
 | price | 1 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s15u24'
 
-Given the user navigates to the product with sku 'sku-s15u24'
+Given the user navigates to the product with name 'name-s15u24'
 And the user logs in as 'commercialManager'
 
 When the user clicks the edit button on product card view page
@@ -65,7 +65,7 @@ Given skipped test
 Given there is the user with name 'departmentManager-s15u24', position 'departmentManager-s15u24', username 'departmentManager-s15u24', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s15u24' managed by department manager named 'departmentManager-s15u24'
 
-Given there is the product with 'name-s15u241' name, 'sku-s15u241' sku, 'barcode-s15u241' barcode, 'unit' units, '15' purchasePrice
+Given there is the product with 'name-s15u241' name, 'barcode-s15u241' barcode, 'unit' type, '15' purchasePrice
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -75,12 +75,12 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | sku-s15u241 |
+| productName | name-s15u241 |
 | quantity | 1 |
 | price | 1 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s15u24'
 
-Given the user navigates to the product with sku 'sku-s15u241'
+Given the user navigates to the product with name 'name-s15u241'
 And the user logs in as 'commercialManager'
 
 When the user clicks the edit button on product card view page

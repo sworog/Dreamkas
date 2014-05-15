@@ -58,8 +58,8 @@ Meta:
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
-Given there is the product with 'name-306301' name, '306301' sku, '3063' barcode, 'liter' units, '78.90' purchasePrice of group named 'defaultGroup-s30u63', category named 'defaultCategory-s30u63', subcategory named 'defaultSubCategory-s30u63'
-And there is the product with 'name-306302' name, '306302' sku, '3063' barcode, 'kg' units, '56.78' purchasePrice of group named 'defaultGroup-s30u63', category named 'defaultCategory-s30u63', subcategory named 'defaultSubCategory-s30u63'
+Given there is the product with 'name-306301' name, '3063' barcode, 'unit' type, '78.90' purchasePrice of group named 'defaultGroup-s30u63', category named 'defaultCategory-s30u63', subcategory named 'defaultSubCategory-s30u63'
+And there is the product with 'name-306302' name, '3063' barcode, 'weight' type, '56.78' purchasePrice of group named 'defaultGroup-s30u63', category named 'defaultCategory-s30u63', subcategory named 'defaultSubCategory-s30u63'
 
 Given the user opens the authorization page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
@@ -96,7 +96,7 @@ Then the user waits for the order product edition preloader finish
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |
 | name-3063 | шт. | 5,7 | 100,00 | 570,00 |
-| name-306301 | л | 5,67 | 78,90 | 447,36 |
+| name-306301 | шт. | 5,67 | 78,90 | 447,36 |
 
 Then the user checks the order total sum is 'Итого: 1 017,36 руб'
 
@@ -111,7 +111,7 @@ Then the user waits for the order product edition preloader finish
 Then the user checks the order products list contains entry
 | name | units |quantity | retailPrice | totalSum |
 | name-3063 | шт. | 5,7 | 100,00 | 570,00 |
-| name-306301 | л | 5,67 | 78,90 | 447,36 |
+| name-306301 | шт. | 5,67 | 78,90 | 447,36 |
 | name-306302 | кг | 45,789 | 56,78 | 2 599,90 |
 
 And the user checks the order total sum is 'Итого: 3 617,26 руб'
@@ -201,7 +201,7 @@ Given there is the user with name 'departmentManager-s30u63', position 'departme
 And there is the store with number 'store-s30u63' managed by department manager named 'departmentManager-s30u63'
 Given there is the supplier with name 'supplier-s30u63s1'
 And there is the subCategory with name 'defaultSubCategory-s30u631' related to group named 'defaultGroup-s30u631' and category named 'defaultCategory-s30u631'
-Given there is the product with 'name-30631' name, '30631' sku, '30631' barcode, 'unit' units, '' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
+Given there is the product with 'name-30631' name, '30631' barcode, 'unit' type, '' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password
@@ -224,7 +224,7 @@ Given there is the user with name 'departmentManager-s30u63', position 'departme
 And there is the store with number 'store-s30u63' managed by department manager named 'departmentManager-s30u63'
 Given there is the supplier with name 'supplier-s30u63s1'
 And there is the subCategory with name 'defaultSubCategory-s30u632' related to group named 'defaultGroup-s30u632' and category named 'defaultCategory-s30u632'
-Given there is the product with 'name-30632' name, '30632' sku, '30632' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s30u632', category named 'defaultCategory-s30u632', subcategory named 'defaultSubCategory-s30u632'
+Given there is the product with 'name-30632' name, '30632' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s30u632', category named 'defaultCategory-s30u632', subcategory named 'defaultSubCategory-s30u632'
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password

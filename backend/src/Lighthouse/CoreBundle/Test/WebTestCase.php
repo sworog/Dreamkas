@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Test;
 
-use Lighthouse\CoreBundle\Document\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\Client\Client;
@@ -80,68 +80,6 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @deprecated
-     *
-     * @param array $modifiedData
-     * @param string $invoiceId
-     * @param string $storeId
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
-     * @throws \Doctrine\ODM\MongoDB\MongoDBException
-     * @throws \Doctrine\ODM\MongoDB\LockException
-     * @throws \Lighthouse\CoreBundle\Exception\ValidationFailedException
-     * @return void
-     */
-    protected function editInvoice(array $modifiedData, $invoiceId, $storeId)
-    {
-        if (isset($modifiedData['supplier'])) {
-            $supplierId = $this->factory()->supplier()->getSupplier($modifiedData['supplier'])->id;
-        } else {
-            $supplierId = null;
-        }
-        $this->factory()->invoice()->createInvoice($modifiedData, $storeId, $supplierId);
-    }
-
-    /**
-     * @deprecated
-     * @param Invoice $invoice
-     * @param string $productId
-     * @param float $quantity
-     * @param float $price
-     * @internal param string $invoiceId
-     * @return string
-     */
-    public function createInvoiceProduct(Invoice $invoice, $productId, $quantity, $price)
-    {
-        return $this->factory()->invoice()->createInvoiceProduct($invoice, $productId, $quantity, $price);
-    }
-
-    /**
-     * @param string $invoiceProductId
-     * @param Invoice $invoice
-     * @param string $productId
-     * @param float $quantity
-     * @param float $price
-     * @throws \RuntimeException
-     * @throws \InvalidArgumentException
-     * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
-     * @throws \Doctrine\ODM\MongoDB\MongoDBException
-     * @throws \Doctrine\ODM\MongoDB\LockException
-     * @throws \Lighthouse\CoreBundle\Exception\ValidationFailedException
-     * @return string
-     */
-    public function editInvoiceProduct(
-        $invoiceProductId,
-        $invoice,
-        $productId,
-        $quantity,
-        $price
-    ) {
-        $this->factory()->invoice()->createInvoiceProduct($invoice, $productId, $quantity, $price, $invoiceProductId);
-    }
-
-    /**
      * @param string|array $extra
      * @param null|string $subCategoryId
      * @param bool|string $putProductId string id of product to be updated
@@ -155,10 +93,9 @@ class WebTestCase extends ContainerAwareTestCase
 
         $productData = array(
             'name' => 'Кефир "Веселый Молочник" 1% 950гр',
-            'units' => 'gr',
+            'type' => UnitType::TYPE,
             'barcode' => '4607025392408',
             'purchasePrice' => 3048,
-            'sku' => 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР',
             'vat' => 10,
             'vendor' => 'Вимм-Билль-Данн',
             'vendorCountry' => 'Россия',
@@ -170,7 +107,6 @@ class WebTestCase extends ContainerAwareTestCase
             $productData = $extra + $productData;
         } else {
             $productData['name'].= $extra;
-            $productData['sku'].= $extra;
         }
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
@@ -196,28 +132,28 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @param array $skus
+     * @param array $names
      * @param bool $unique
      * @throws \PHPUnit_Framework_AssertionFailedError
      * @return array|string[] sku => id
      */
-    protected function createProductsBySku(array $skus, $unique = false)
+    protected function createProductsByNames(array $names, $unique = false)
     {
         if ($unique) {
-            $skus = array_unique($skus);
+            $names = array_unique($names);
         }
         $products = array();
-        $failedSkus = array();
-        foreach ($skus as $sku) {
+        $failedNames = array();
+        foreach ($names as $name) {
             try {
-                $products[$sku] = $this->createProduct(array('sku' => $sku));
+                $products[$name] = $this->createProduct(array('name' => $name));
             } catch (\PHPUnit_Framework_AssertionFailedError $e) {
-                $failedSkus[] = $sku;
+                $failedNames[] = $name;
             }
         }
-        if (count($failedSkus) > 0) {
+        if (count($failedNames) > 0) {
             throw new \PHPUnit_Framework_AssertionFailedError(
-                sprintf('Failed to create products with following skus: %s', implode(', ', $failedSkus))
+                sprintf('Failed to create products with following names: %s', implode(', ', $failedNames))
             );
         }
         return $products;

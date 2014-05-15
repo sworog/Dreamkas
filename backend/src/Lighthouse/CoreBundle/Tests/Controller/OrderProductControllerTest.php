@@ -187,10 +187,8 @@ class OrderProductControllerTest extends WebTestCase
         $subCategory = $this->createSubCategory($category, '123');
         $productData = array(
             'name' => '123',
-            'units' => 'gr',
             'barcode' => '123',
             'purchasePrice' => 123,
-            'sku' => '123',
             'vat' => 0,
             'vendor' => '',
             'vendorCountry' => '',

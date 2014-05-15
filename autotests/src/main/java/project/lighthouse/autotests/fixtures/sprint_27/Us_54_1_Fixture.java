@@ -26,7 +26,7 @@ public class Us_54_1_Fixture extends AbstractFixture {
     private static final String TWO_DAYS_AGO_DATE_PURCHASE = new DateTimeHelper(2).convertDate();
 
     private static final String SHOP_NUMBER = "27541";
-    private static final String PRODUCT_ID = "27541";
+    private static final String PRODUCT_NAME = "name-27541";
     private static final Double PRODUCT_PRICE_1 = 120.0;
     private static final Double PRODUCT_PRICE_2 = 125.0;
 
@@ -136,7 +136,7 @@ public class Us_54_1_Fixture extends AbstractFixture {
                         Double.toString(PRODUCT_PRICE_1 * 30),
                         Double.toString(PRODUCT_PRICE_1),
                         "30",
-                        PRODUCT_ID);
+                        getProductSku(PRODUCT_NAME));
     }
 
     private PurchaseXmlBuilder getYesterdayDelayedPurchases() throws ParserConfigurationException, XPathExpressionException {
@@ -147,7 +147,7 @@ public class Us_54_1_Fixture extends AbstractFixture {
                         Double.toString(PRODUCT_PRICE_1 * 10),
                         Double.toString(PRODUCT_PRICE_1),
                         "10",
-                        PRODUCT_ID);
+                        getProductSku(PRODUCT_NAME));
     }
 
     private PurchaseXmlBuilder getTwoDaysAgoPurchases() throws ParserConfigurationException, XPathExpressionException {
@@ -158,7 +158,7 @@ public class Us_54_1_Fixture extends AbstractFixture {
                         Double.toString(PRODUCT_PRICE_2 * 25),
                         Double.toString(PRODUCT_PRICE_2),
                         "25",
-                        PRODUCT_ID);
+                        getProductSku(PRODUCT_NAME));
     }
 
     private PurchaseXmlBuilder getTodayAgoPurchases() throws ParserConfigurationException, XPathExpressionException {
@@ -169,7 +169,7 @@ public class Us_54_1_Fixture extends AbstractFixture {
                         Double.toString(PRODUCT_PRICE_2 * 25),
                         Double.toString(PRODUCT_PRICE_2),
                         "25",
-                        PRODUCT_ID);
+                        getProductSku(PRODUCT_NAME));
     }
 
     private PurchaseXmlBuilder getFiveDaysAgoAgoPurchases() throws ParserConfigurationException, XPathExpressionException {
@@ -180,7 +180,7 @@ public class Us_54_1_Fixture extends AbstractFixture {
                         Double.toString(PRODUCT_PRICE_2 * 25),
                         Double.toString(PRODUCT_PRICE_2),
                         "25",
-                        PRODUCT_ID);
+                        getProductSku(PRODUCT_NAME));
     }
 
     @Override

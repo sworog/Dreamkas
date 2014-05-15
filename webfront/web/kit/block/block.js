@@ -28,6 +28,7 @@ define(function(require, exports, module) {
         blocks: {},
 
         el: null,
+        cid: null,
 
         template: function() {
         },

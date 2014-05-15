@@ -3,8 +3,11 @@ package project.lighthouse.autotests.steps.departmentManager;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.helper.exampleTable.ExampleTableConverter;
+import project.lighthouse.autotests.objects.web.writeOff.WriteOffProductCollection;
+import project.lighthouse.autotests.objects.web.writeOff.WriteOffProductObject;
 import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffListPage;
 import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffLocalNavigation;
 import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffPage;
@@ -46,12 +49,21 @@ public class WriteOffSteps extends ScenarioSteps {
 
     @Step
     public void itemCheck(String value) {
-        writeOffPage.itemCheck(value);
+        writeOffPage.getWriteOffProductCollection().contains(value);
     }
 
     @Step
     public void itemCheckIsNotPresent(String value) {
-        writeOffPage.itemCheckIsNotPresent(value);
+        WriteOffProductCollection writeOffProductCollection = null;
+        try {
+            writeOffProductCollection = writeOffPage.getWriteOffProductCollection();
+        } catch (TimeoutException e) {
+            writeOffPage.containsText("Итого 0 позиций на сумму 0,00 рублей");
+        } finally {
+            if (writeOffProductCollection != null) {
+                writeOffProductCollection.notContains(value);
+            }
+        }
     }
 
     @Deprecated
@@ -67,8 +79,19 @@ public class WriteOffSteps extends ScenarioSteps {
     }
 
     @Step
+    public void compareListWithExamplesTable(ExamplesTable checkValuesTable) {
+        writeOffPage.getWriteOffProductCollection().compareWithExampleTable(checkValuesTable);
+    }
+
+    @Step
+    public void writeOffProductCollectionDoNotContain(String locator) {
+        writeOffPage.getWriteOffProductCollection().notContains(locator);
+    }
+
+    @Step
     public void itemDelete(String value) {
-        writeOffPage.itemDelete(value);
+        WriteOffProductObject writeOffProductObject = (WriteOffProductObject) writeOffPage.getWriteOffProductCollection().getAbstractObjectByLocator(value);
+        writeOffProductObject.clickDeleteButton();
     }
 
     @Step

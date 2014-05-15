@@ -20,6 +20,7 @@ class Range extends Constraint
     public $lte;
     public $gt;
     public $gte;
+    public $integer = false;
 
     public function __construct($options = null)
     {

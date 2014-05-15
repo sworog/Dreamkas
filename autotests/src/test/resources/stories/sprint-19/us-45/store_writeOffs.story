@@ -11,7 +11,7 @@ Scenario: Store writeOffs creation
 
 Given there is the user with name 'departmentManager-DIC', position 'departmentManager-DIC', username 'departmentManager-DIC', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'DIC-01' managed by department manager named 'departmentManager-DIC'
-And there is the product with 'WriteOff-wolc-01' name, 'WriteOff-wolc-01' sku, 'WriteOff-wolc-01' barcode, 'liter' units, '15' purchasePrice
+And there is the product with 'WriteOff-wolc-01' name, 'WriteOff-wolc-01' barcode, 'unit' type, '15' purchasePrice
 And the user opens write off list page
 When the user logs in using 'departmentManager-DIC' userName and 'lighthouse' password
 When the user creates write off from write off list page

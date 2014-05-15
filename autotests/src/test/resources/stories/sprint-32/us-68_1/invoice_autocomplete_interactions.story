@@ -2,6 +2,7 @@ Meta:
 @sprint_32
 @us_68.1
 @invoice
+@s32u68.1s1
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
 
@@ -26,7 +27,7 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
-Given there is the product with 'name-32681' name, '32681' sku, '32681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
+Given there is the product with 'name-32681' name, '32681' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
 Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -38,8 +39,8 @@ Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
-| 32681 — name-32681 |
-And the user checks the autocomplete result entry found by name '32681 — name-32681' is highlighted
+| #sku[name-32681] — name-32681 |
+And the user checks the autocomplete result entry found by name '#sku[name-32681] — name-32681' is highlighted
 
 When the user presses 'ENTER' key button
 
@@ -73,16 +74,16 @@ Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
-| 3268121 — name-3268121 |
-| 3268122 — name-3268122 |
-| 3268123 — name-3268123 |
-| 3268124 — name-3268124 |
-And the user checks the autocomplete result entry found by name '3268121 — name-3268121' is highlighted
+| #sku[name-3268121] — name-3268121 |
+| #sku[name-3268122] — name-3268122 |
+| #sku[name-3268123] — name-3268123 |
+| #sku[name-3268124] — name-3268124 |
+And the user checks the autocomplete result entry found by name '#sku[name-3268121] — name-3268121' is highlighted
 
 When the user presses 'ARROW_DOWN' key button
 And the user presses 'ARROW_DOWN' key button
 
-Then the user checks the autocomplete result entry found by name '3268123 — name-3268123' is highlighted
+Then the user checks the autocomplete result entry found by name '#sku[name-3268123] — name-3268123' is highlighted
 
 When the user presses 'ENTER' key button
 
@@ -116,18 +117,18 @@ Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
-| 3268121 — name-3268121 |
-| 3268122 — name-3268122 |
-| 3268123 — name-3268123 |
-| 3268124 — name-3268124 |
-And the user checks the autocomplete result entry found by name '3268121 — name-3268121' is highlighted
+| #sku[name-3268121] — name-3268121 |
+| #sku[name-3268122] — name-3268122 |
+| #sku[name-3268123] — name-3268123 |
+| #sku[name-3268124] — name-3268124 |
+And the user checks the autocomplete result entry found by name '#sku[name-3268121] — name-3268121' is highlighted
 
 When the user presses 'ARROW_DOWN' key button
 And the user presses 'ARROW_DOWN' key button
 
-Then the user checks the autocomplete result entry found by name '3268123 — name-3268123' is highlighted
+Then the user checks the autocomplete result entry found by name '#sku[name-3268123] — name-3268123' is highlighted
 
-When the user clicks on the autocomplete result with name '3268123 — name-3268123'
+When the user clicks on the autocomplete result with name '#sku[name-3268123] — name-3268123'
 
 When the user presses 'ENTER' key button
 
@@ -160,17 +161,17 @@ Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
-| 3268121 — name-3268121 |
-| 3268122 — name-3268122 |
-| 3268123 — name-3268123 |
-| 3268124 — name-3268124 |
-And the user checks the autocomplete result entry found by name '3268121 — name-3268121' is highlighted
+| #sku[name-3268121] — name-3268121 |
+| #sku[name-3268122] — name-3268122 |
+| #sku[name-3268123] — name-3268123 |
+| #sku[name-3268124] — name-3268124 |
+And the user checks the autocomplete result entry found by name '#sku[name-3268121] — name-3268121' is highlighted
 
-When the user hovers mouse over autocomplete result entry found by name '3268123 — name-3268123'
+When the user hovers mouse over autocomplete result entry found by name '#sku[name-3268123] — name-3268123'
 
-Then the user checks the autocomplete result entry found by name '3268123 — name-3268123' is highlighted
+Then the user checks the autocomplete result entry found by name '#sku[name-3268123] — name-3268123' is highlighted
 
-When the user clicks on the autocomplete result with name '3268123 — name-3268123'
+When the user clicks on the autocomplete result with name '#sku[name-3268123] — name-3268123'
 
 When the user presses 'ENTER' key button
 
@@ -204,15 +205,15 @@ Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
-| 3268121 — name-3268121 |
-| 3268122 — name-3268122 |
-| 3268123 — name-3268123 |
-| 3268124 — name-3268124 |
-And the user checks the autocomplete result entry found by name '3268121 — name-3268121' is highlighted
+| #sku[name-3268121] — name-3268121 |
+| #sku[name-3268122] — name-3268122 |
+| #sku[name-3268123] — name-3268123 |
+| #sku[name-3268124] — name-3268124 |
+And the user checks the autocomplete result entry found by name '#sku[name-3268121] — name-3268121' is highlighted
 
-When the user hovers mouse over autocomplete result entry found by name '3268123 — name-3268123'
+When the user hovers mouse over autocomplete result entry found by name '#sku[name-3268123] — name-3268123'
 
-Then the user checks the autocomplete result entry found by name '3268123 — name-3268123' is highlighted
+Then the user checks the autocomplete result entry found by name '#sku[name-3268123] — name-3268123' is highlighted
 
 When the user presses 'ENTER' key button
 
@@ -276,7 +277,7 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
-Given there is the product with 'csme-32681' name, 'csme-32681' sku, '32681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
+Given there is the product with 'csme-32681' name, '32681' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
 Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -288,7 +289,7 @@ Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
-| csme-32681 — csme-32681 |
+| #sku[csme-32681] — csme-32681 |
 
 Scenario: Check that invoice product is adding with quantity eqauls 1 by default
 
@@ -298,7 +299,7 @@ Meta:
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
-Given there is the product with 'name-32681' name, '32681' sku, '32681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
+Given there is the product with 'name-32681' name, '32681' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
 Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -326,7 +327,7 @@ Meta:
 @id_
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story,
               precondition/sprint-32/us-68_1/aPreconditionForIfResultsAreLessThan3NoCoincidenciesBarIsShownScenario.story
 
 Given the user opens the store 'store-s32u681' invoice create page
@@ -339,9 +340,9 @@ Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
-| 32681-big31 — big31-32681 |
-| 32681-big32 — big32-32681 |
-| 32681-big33 — big33-32681 |
+| #sku[big31-32681] — big31-32681 |
+| #sku[big32-32681] — big32-32681 |
+| #sku[big33-32681] — big33-32681 |
 
 Scenario: Check there are only invoice five results in autocomplete results
 
@@ -349,7 +350,7 @@ Meta:
 @id_
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story,
               precondition/sprint-32/us-68_1/aPreconditionForCgeckThereAreOnluFiveResultsInACResultsScenario.story
 
 Given the user opens the store 'store-s32u681' invoice create page
@@ -362,11 +363,11 @@ Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
-| 32681-kog31 — kog31-32681 |
-| 32681-kog32 — kog32-32681 |
-| 32681-kog33 — kog33-32681 |
-| 32681-kog34 — kog34-32681 |
-| 32681-kog35 — kog35-32681 |
+| #sku[kog31-32681] — kog31-32681 |
+| #sku[kog32-32681] — kog32-32681 |
+| #sku[kog33-32681] — kog33-32681 |
+| #sku[kog34-32681] — kog34-32681 |
+| #sku[kog35-32681] — kog35-32681 |
 | Еще 1 результат. Уточните запрос. |
 
 Scenario: If invoice results are more than 5 coincidencies bar is shown
@@ -375,7 +376,7 @@ Meta:
 @id_
 
 GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
-              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
+              precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story,
               precondition/sprint-32/us-68_1/aPreconditionForIfResultsAreMoreThan5CoincidenciesBarIsShownScenario.story
 
 Given the user opens the store 'store-s32u681' invoice create page
@@ -388,11 +389,11 @@ Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
-| 32681-log31 — log31-32681 |
-| 32681-log32 — log32-32681 |
-| 32681-log33 — log33-32681 |
-| 32681-log34 — log34-32681 |
-| 32681-log35 — log35-32681 |
+| #sku[log31-32681] — log31-32681 |
+| #sku[log32-32681] — log32-32681 |
+| #sku[log33-32681] — log33-32681 |
+| #sku[log34-32681] — log34-32681 |
+| #sku[log35-32681] — log35-32681 |
 | Еще 13 результатов. Уточните запрос. |
 
 When the user inputs values on invoice page
@@ -402,11 +403,11 @@ Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the autocomplete result list contains exact entries
 | result |
-| 32681-log312 — log312-32681 |
-| 32681-log3121 — log3121-32681 |
-| 32681-log3122 — log3122-32681 |
-| 32681-log3123 — log3123-32681 |
-| 32681-log3124 — log3124-32681 |
+| #sku[log312-32681] — log312-32681 |
+| #sku[log3121-32681] — log3121-32681 |
+| #sku[log3122-32681] — log3122-32681 |
+| #sku[log3123-32681] — log3123-32681 |
+| #sku[log3124-32681] — log3124-32681 |
 | Еще 2 результата. Уточните запрос. |
 
 Scenario: Check invoice autocomplete result hightlight name
@@ -418,7 +419,7 @@ Meta:
 Given there is the user with name 'departmentManager-s32u681', position 'departmentManager-s32u681', username 'departmentManager-s32u681', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s32u681' managed by department manager named 'departmentManager-s32u681'
 
-Given there is the product with 'топленое_молоко-32681' name, '32681-small_milk' sku, '32681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
+Given there is the product with 'топленое_молоко-32681' name, '32681' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
 Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -426,7 +427,7 @@ And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse'
 When the user inputs value in the 'invoice product autocomplete' invoice field
 Then the user waits for the invoice product edition preloader finish
 
-Then the user checks the autocomplete result entry found by name '32681-small_milk — топленое_молоко-32681' highlighted text is expectedValue
+Then the user checks the autocomplete result entry found by name '#sku[топленое_молоко-32681] — топленое_молоко-32681' highlighted text is expectedValue
 
 Examples:
 | value | expectedValue |
@@ -442,10 +443,12 @@ Meta:
 @id_
 @smoke
 
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
+
 Given there is the user with name 'departmentManager-s32u681', position 'departmentManager-s32u681', username 'departmentManager-s32u681', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s32u681' managed by department manager named 'departmentManager-s32u681'
 
-Given there is the product with 'топленый_кефир-32681' name, '32681-small_milk_another' sku, '32681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
+Given there is the product with 'топленый_кефир-32681' name, '32681' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
 Given the user opens the store 'store-s32u681' invoice create page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -453,12 +456,10 @@ And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse'
 When the user inputs value in the 'invoice product autocomplete' invoice field
 Then the user waits for the invoice product edition preloader finish
 
-Then the user checks the autocomplete result entry found by name '32681-small_milk_another — топленый_кефир-32681' highlighted text is expectedValue
+Then the user checks the autocomplete result entry found by name '#sku[топленый_кефир-32681] — топленый_кефир-32681' highlighted text is expectedValue
 
 Examples:
 | value | expectedValue |
-| !sma | sma |
-| !small_ | small_ |
-| !small_milk | small_milk |
-| !small_milk_ano | small_milk_ano |
-| !32681-small_milk_another | 32681-small_milk_another |
+| !100 | 100 |
+| !1000 | 1000 |
+| !10001 | 10001 |

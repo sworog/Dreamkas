@@ -15,8 +15,8 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
 Given there is the subCategory with name 'defaultSubCategory-s32u681' related to group named 'defaultGroup-s32u681' and category named 'defaultCategory-s32u681'
 And the user sets subCategory 'defaultSubCategory-s32u681' mark up with max '10' and min '0' values
 
-Given there is the product with 'name-32681' name, '32681' sku, '32681' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
-And there is the product with 'name-326811' name, '326811' sku, '326811' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
+Given there is the product with 'name-32681' name, '32681' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
+And there is the product with 'name-326811' name, '326811' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
 Given there is the supplier with name 'SupplierInvoiceDeletionTest'
 
@@ -81,6 +81,8 @@ When the user clicks on the search result invoice with number '10001'
 When the user clicks on the invoice product by name 'name-32681'
 And the user clicks on delete icon and deletes invoice product with name 'name-32681'
 
+Then the user waits for the invoice product edition preloader finish
+
 Then the user checks the invoice products list do not contain product with name 'name-32681'
 And the user checks the invoice products list contains exact entries
 | name | units | quantity | price | totalSum | vatSum |
@@ -126,6 +128,8 @@ And the user checks the invoice vat sum is 'НДС: 0,00 руб.'
 When the user clicks on invoice product in last created invoice
 
 When the user clicks on delete icon and deletes last added invoice product
+
+Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the invoice products list do not contain last added product
 

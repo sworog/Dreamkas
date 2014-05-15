@@ -15,7 +15,7 @@ GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
 Given there is the supplier with name 'supplier-s32u681s1'
 And there is the invoice in the store by 'departmentManager-s32u681'
-And there is the product with 'name-s32u681s1' name, 'sku-s32u681s1' sku, 'barCode-s32u681s1' barcode
+And there is the product with 'name-s32u681s1' name, 'barCode-s32u681s1' barcode
 
 Given the user opens last created invoice page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -62,7 +62,7 @@ And the user checks the invoice vat sum is 'НДС: 0,00 руб.'
 Then the user checks the invoice products list contains exact entries
 | name | units | quantity | price | totalSum | vatSum |
 | {lastCreatedProductName} | шт. | 2,0 | 110,00 | 220,00 руб. | 0,00 руб. |
-| name-s32u681s1 | кг | 10,0 | 110,00 | 1 100,00 руб. | 0,00 руб. |
+| name-s32u681s1 | шт. | 10,0 | 110,00 | 1 100,00 руб. | 0,00 руб. |
 
 When the user inputs values on invoice page
 | elementName | value |
@@ -87,7 +87,7 @@ Then the user checks stored values on invoice page
 Then the user checks the invoice products list contains exact entries
 | name | units | quantity | price | totalSum | vatSum |
 | {lastCreatedProductName} | шт. | 2,0 | 110,00 | 220,00 руб. | 0,00 руб. |
-| name-s32u681s1 | кг | 10,0 | 110,00 | 1 100,00 руб. | 0,00 руб. |
+| name-s32u681s1 | шт. | 10,0 | 110,00 | 1 100,00 руб. | 0,00 руб. |
 
 Then the user checks the invoice total sum is 'Итого: 1 320,00 руб.'
 And the user checks the invoice vat sum is 'НДС: 0,00 руб.'
@@ -402,7 +402,7 @@ GivenStories: precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story
 
 Given there is the supplier with name 'supplier-s32u681s1'
 And there is the invoice in the store by 'departmentManager-s32u681'
-And there is the product with 'name-s32u681s1' name, 'sku-s32u681s1' sku, 'barCode-s32u681s1' barcode
+And there is the product with 'name-s32u681s1' name, 'barCode-s32u681s1' barcode
 
 Given the user opens last created invoice page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password
@@ -420,7 +420,7 @@ Then the user waits for the invoice product edition preloader finish
 Then the user checks the invoice products list contains exact entries
 | name | units | quantity | price | totalSum | vatSum |
 | {lastCreatedProductName} | шт. | 1,0 | 100,00 | 100,00 руб. | 0,00 руб. |
-| name-s32u681s1 | кг | 10,0 | 123,00 | 1 230,00 руб. | 0,00 руб. |
+| name-s32u681s1 | шт. | 10,0 | 123,00 | 1 230,00 руб. | 0,00 руб. |
 
 When the user accepts products and saves the invoice
 
@@ -435,4 +435,4 @@ When the user clicks on the search result invoice with last created invoice numb
 Then the user checks the invoice products list contains exact entries
 | name | units | quantity | price | totalSum | vatSum |
 | {lastCreatedProductName} | шт. | 1,0 | 100,00 | 100,00 руб. | 0,00 руб. |
-| name-s32u681s1 | кг | 10,0 | 123,00 | 1 230,00 руб. | 0,00 руб. |
+| name-s32u681s1 | шт. | 10,0 | 123,00 | 1 230,00 руб. | 0,00 руб. |

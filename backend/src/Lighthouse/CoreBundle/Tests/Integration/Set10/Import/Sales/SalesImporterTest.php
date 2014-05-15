@@ -17,18 +17,18 @@ class SalesImporterTest extends WebTestCase
         $storeId = $this->factory->store()->getStoreId('197');
 
         $skuAmounts = array(
-            '1' => '-112',
-            '3' => '-10',
-            '7' => '-1',
-            '8594403916157' => '-1',
-            '2873168' => '0.008',
-            '2809727' => '0',
-            '25525687' => '-155',
-            '55557' => '-1',
-            '8594403110111' => '-1',
-            '4601501082159' => '-1',
+            '10001' => '-112',
+            '10002' => '-10',
+            '10003' => '-1',
+            '10004' => '-1',
+            '10005' => '0.008',
+            '10006' => '0',
+            '10007' => '-155',
+            '10008' => '-1',
+            '10009' => '-1',
+            '10010' => '-1',
         );
-        $productIds = $this->createProductsBySku(array_keys($skuAmounts));
+        $productIds = $this->createProductsByNames(array_keys($skuAmounts));
 
         $output = new TestOutput();
         $this->import('purchases-14-05-2012_9-18-29.xml', $output);
@@ -48,22 +48,22 @@ class SalesImporterTest extends WebTestCase
     public function testImportWithNotFoundProducts()
     {
         $this->factory->store()->getStoreId('197');
-        $this->createProductsBySku(
+        $this->createProductsByNames(
             array(
-                '1',
-                '3',
-                '7',
-                '8594403916157',
-                '2809727',
-                '25525687',
-                '55557',
-                '8594403110111',
-                '4601501082159'
+                '10001',
+                '10002',
+                '10003',
+                '10004',
+                '10005',
+                '10006',
+                '10007',
+                '10008',
+                '10009'
             )
         );
 
         $output = new TestOutput();
-        $this->import('purchases-14-05-2012_9-18-29.xml', $output, 6);
+        $this->import('purchases-not-found.xml', $output, 6);
 
         $lines = $output->getLines();
         $this->assertCount(13, $lines);
@@ -79,7 +79,7 @@ class SalesImporterTest extends WebTestCase
     public function testImportWithNotFoundShops()
     {
         $this->factory->store()->getStoreId('777');
-        $this->createProductsBySku(
+        $this->createProductsByNames(
             array(
                 'Кит-Кат-343424',
                 'Мит-Мат',
@@ -99,7 +99,7 @@ class SalesImporterTest extends WebTestCase
     public function testImportDoubleSales()
     {
         $storeIds = $this->factory->store()->getStores(array('777', '666'));
-        $productIds = $this->createProductsBySku(
+        $productIds = $this->createProductsByNames(
             array(
                 'Кит-Кат-343424',
             )
@@ -126,7 +126,7 @@ class SalesImporterTest extends WebTestCase
     public function testImportDoubleSalesWithDifferentAmount()
     {
         $storeIds = $this->factory->store()->getStores(array('777', '666'));
-        $productIds = $this->createProductsBySku(
+        $productIds = $this->createProductsByNames(
             array(
                 'Кит-Кат-343424',
             )
@@ -163,7 +163,7 @@ class SalesImporterTest extends WebTestCase
             '4' => -23,
         );
 
-        $productIds = $this->createProductsBySku(array_keys($skuAmounts));
+        $productIds = $this->createProductsByNames(array_keys($skuAmounts));
 
         $output = new TestOutput();
         $this->import('purchases-with-returns.xml', $output);
@@ -181,7 +181,7 @@ class SalesImporterTest extends WebTestCase
     public function testImportSamePurchaseWithDifferentStoreNumber()
     {
         $this->factory->store()->getStores(array('25573', '255731'));
-        $this->createProductsBySku(array('25573', '255731'));
+        $this->createProductsByNames(array('10001', '10002'));
 
         $output = new TestOutput();
         $this->import('SameSame/s25u574-shop1-product2-today-1.xml', $output);
@@ -213,94 +213,94 @@ class SalesImporterTest extends WebTestCase
     {
         $datePeriod = new DatePeriod($start, $end);
         $skus = array(
-            4100024386,
-            4100028615,
-            4100032110,
-            4100024121,
-            4100015156,
-            4100028598,
-            4100015128,
-            4100028614,
-            4100013729,
-            4100016759,
-            4100044260,
-            4100024805,
-            4100006687,
-            4100010948,
-            4100008977,
-            4100008384,
-            4100026668,
-            4100019469,
-            4100005287,
-            4100015218,
-            4100040147,
-            4100013059,
-            4100011403,
-            4100012829,
-            4100009714,
-            4100039535,
-            4100016284,
-            4100008269,
-            4100050468,
-            4100018314,
-            4100016575,
-            4100028790,
-            4100010310,
-            4100028661,
-            4100012731,
-            4100010299,
-            4100024800,
-            4100011238,
-            4100047658,
-            4100023591,
-            4100026511,
-            4100026501,
-            4100024318,
-            4100044867,
-            4100029907,
-            4100024195,
-            4100011231,
-            4100016706,
-            4100011239,
-            4100029437,
-            4100015044,
-            4100039604,
-            4100009828,
-            4100011225,
-            4100012831,
-            4100049821,
-            4100028803,
-            4100036816,
-            4100036815,
-            4100042168,
-            4100024670,
-            4100015252,
-            4100011425,
-            4100022002,
-            4100022000,
-            4100039819,
-            4100031693,
-            4100016381,
-            4100028588,
-            4100015167,
-            4100018939,
-            4100011435,
-            4100014242,
-            4100018941,
-            4100028804,
-            4100033415,
-            4100024453,
-            4100018176,
-            4100028585,
-            4100013062,
-            4100018083,
-            4100013072,
-            4100031675,
-            4100019565,
-            4100013097,
+            10001 => 4100024386,
+            10002 => 4100028615,
+            10003 => 4100032110,
+            10004 => 4100024121,
+            10005 => 4100015156,
+            10006 => 4100028598,
+            10007 => 4100015128,
+            10008 => 4100028614,
+            10009 => 4100013729,
+            10010 => 4100016759,
+            10011 => 4100044260,
+            10012 => 4100024805,
+            10013 => 4100006687,
+            10014 => 4100010948,
+            10015 => 4100008977,
+            10016 => 4100008384,
+            10017 => 4100026668,
+            10018 => 4100019469,
+            10019 => 4100005287,
+            10020 => 4100015218,
+            10021 => 4100040147,
+            10022 => 4100013059,
+            10023 => 4100011403,
+            10024 => 4100012829,
+            10025 => 4100009714,
+            10026 => 4100039535,
+            10027 => 4100016284,
+            10028 => 4100008269,
+            10029 => 4100050468,
+            10030 => 4100018314,
+            10031 => 4100016575,
+            10032 => 4100028790,
+            10033 => 4100010310,
+            10034 => 4100028661,
+            10035 => 4100012731,
+            10036 => 4100010299,
+            10037 => 4100024800,
+            10038 => 4100011238,
+            10039 => 4100047658,
+            10040 => 4100023591,
+            10041 => 4100026511,
+            10042 => 4100026501,
+            10043 => 4100024318,
+            10044 => 4100044867,
+            10045 => 4100029907,
+            10046 => 4100024195,
+            10047 => 4100011231,
+            10048 => 4100016706,
+            10049 => 4100011239,
+            10050 => 4100029437,
+            10051 => 4100015044,
+            10052 => 4100039604,
+            10053 => 4100009828,
+            10054 => 4100011225,
+            10055 => 4100012831,
+            10056 => 4100049821,
+            10057 => 4100028803,
+            10058 => 4100036816,
+            10059 => 4100036815,
+            10060 => 4100042168,
+            10061 => 4100024670,
+            10062 => 4100015252,
+            10063 => 4100011425,
+            10064 => 4100022002,
+            10065 => 4100022000,
+            10066 => 4100039819,
+            10067 => 4100031693,
+            10068 => 4100016381,
+            10069 => 4100028588,
+            10070 => 4100015167,
+            10071 => 4100018939,
+            10072 => 4100011435,
+            10073 => 4100014242,
+            10074 => 4100018941,
+            10075 => 4100028804,
+            10076 => 4100033415,
+            10077 => 4100024453,
+            10078 => 4100018176,
+            10079 => 4100028585,
+            10080 => 4100013062,
+            10081 => 4100018083,
+            10082 => 4100013072,
+            10083 => 4100031675,
+            10084 => 4100019565,
+            10085 => 4100013097,
         );
         $storeId = $this->factory->store()->getStoreId('701');
-        $this->createProductsBySku($skus);
+        $this->createProductsByNames($skus);
 
         $importer = $this->import('Kesko/purchases-success-2013.11.04-00.03.09.514.xml', null, null, $datePeriod);
 
@@ -408,16 +408,16 @@ class SalesImporterTest extends WebTestCase
     {
         $storeId = $this->factory->store()->getStoreId('197');
 
-        $skuAmounts = array(
-            '1' => -1,
-            '2' => -1,
-            '3' => 0,
-            '4' => 2,
-            '5' => 1,
-            '6' => -1,
+        $nameAmounts = array(
+            '10001' => -1,
+            '10002' => -1,
+            '10003' => 0,
+            '10004' => 2,
+            '10005' => 1,
+            '10006' => -1,
         );
 
-        $productIds = $this->createProductsBySku(array_keys($skuAmounts));
+        $productIds = $this->createProductsByNames(array_keys($nameAmounts));
 
         $output = new TestOutput();
         $this->import('Duplicate/purchase-first.xml', $output);
@@ -427,17 +427,17 @@ class SalesImporterTest extends WebTestCase
         $lines = $output->getLines();
         $this->assertCount(3, $lines);
 
-        foreach ($skuAmounts as $sku => $inventory) {
-            $this->assertStoreProductTotals($storeId, $productIds[$sku], $inventory);
+        foreach ($nameAmounts as $name => $inventory) {
+            $this->assertStoreProductTotals($storeId, $productIds[$name], $inventory);
         }
 
-        $skuAmounts = array(
-            '1' => -2,
-            '2' => 0,
-            '3' => -1,
-            '4' => 1,
-            '5' => -1,
-            '6' => 1,
+        $nameAmounts = array(
+            '10001' => -2,
+            '10002' => 0,
+            '10003' => -1,
+            '10004' => 1,
+            '10005' => -1,
+            '10006' => 1,
         );
 
         $output = new TestOutput();
@@ -448,8 +448,8 @@ class SalesImporterTest extends WebTestCase
         $lines = $output->getLines();
         $this->assertCount(3, $lines);
 
-        foreach ($skuAmounts as $sku => $inventory) {
-            $this->assertStoreProductTotals($storeId, $productIds[$sku], $inventory);
+        foreach ($nameAmounts as $name => $inventory) {
+            $this->assertStoreProductTotals($storeId, $productIds[$name], $inventory);
         }
     }
 }

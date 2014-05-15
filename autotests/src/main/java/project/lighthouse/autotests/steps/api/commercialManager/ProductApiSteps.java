@@ -3,57 +3,127 @@ package project.lighthouse.autotests.steps.api.commercialManager;
 import net.thucydides.core.annotations.Step;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
-import project.lighthouse.autotests.objects.api.Category;
-import project.lighthouse.autotests.objects.api.Group;
 import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.SubCategory;
 
 import java.io.IOException;
 
-//TODO move all logic to high-level class
 public class ProductApiSteps extends CommercialManagerApi {
 
     @Step
-    public Product createProductThroughPost(Product product, SubCategory subCategory) throws IOException, JSONException {
-        return apiConnect.createProductThroughPost(product, subCategory);
+    public Product createProduct(String name,
+                                 String type,
+                                 String vat,
+                                 String purchasePrice,
+                                 String barcode,
+                                 String vendorCountry,
+                                 String vendor,
+                                 String subCategoryName,
+                                 String retailMarkupMax,
+                                 String retailMarkupMin,
+                                 String rounding) throws JSONException, IOException {
+        SubCategory subCategoryObject = StaticData.subCategories.get(subCategoryName);
+        Product product = new Product(
+                name,
+                type,
+                vat,
+                purchasePrice,
+                barcode,
+                vendorCountry,
+                vendor,
+                subCategoryObject.getId(),
+                retailMarkupMax,
+                retailMarkupMin,
+                rounding);
+        apiConnect.getSubCategoryMarkUp(subCategoryObject);
+        return apiConnect.createProductThroughPost(product, subCategoryObject);
     }
 
     @Step
-    public Product createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
-                                            String subCategoryName) throws JSONException, IOException {
-        return createProductThroughPostDefault(name, sku, barcode, units, purchasePrice, Group.DEFAULT_NAME, Category.DEFAULT_NAME, subCategoryName, null);
-    }
-
-    @Step
-    public Product createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
-                                            String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
-        return createProductThroughPostDefault(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName, null);
-    }
-
-    @Step
-    public Product createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice,
-                                            String groupName, String categoryName, String subCategoryName, String rounding) throws IOException, JSONException {
-        return createProductThroughPostDefault(name, sku, barcode, units, purchasePrice, groupName, categoryName, subCategoryName, rounding);
-    }
-
-    @Step
-    public Product createProductThroughPostDefault(String name, String sku, String barcode, String units, String purchasePrice, String groupName, String categoryName, String subCategoryName, String rounding) throws JSONException, IOException {
+    public Product createProductThroughPost(String name,
+                                            String barcode,
+                                            String type,
+                                            String purchasePrice,
+                                            String subCategoryName,
+                                            String rounding) throws JSONException, IOException {
         SubCategory subCategory = StaticData.subCategories.get(subCategoryName);
         apiConnect.getSubCategoryMarkUp(subCategory);
-        Product product = new Product(name, units, "0", purchasePrice, barcode, sku, "Тестовая страна", "Тестовый производитель", "", subCategory.getId(), StaticData.retailMarkupMax, StaticData.retailMarkupMin, rounding);
-        return apiConnect.createProductThroughPost(product, subCategory);
+        return createProduct(
+                name,
+                type,
+                "0",
+                purchasePrice,
+                barcode,
+                "Тестовая страна",
+                "Тестовый производитель",
+                subCategoryName,
+                StaticData.retailMarkupMax,
+                StaticData.retailMarkupMin,
+                rounding);
     }
 
     @Step
-    public Product createProductThroughPost(String name, String sku, String barcode, String units, String purchasePrice, String groupName, String categoryName, String subCategoryName, String retailMarkupMax, String retailMarkupMin, String rounding) throws JSONException, IOException {
-        SubCategory subCategory = StaticData.subCategories.get(subCategoryName);
-        Product product = new Product(name, units, "0", purchasePrice, barcode, sku, "Тестовая страна", "Тестовый производитель", "", subCategory.getId(), retailMarkupMax, retailMarkupMin, rounding);
-        return apiConnect.createProductThroughPost(product, subCategory);
+    public Product createProductThroughPost(String name,
+                                            String barcode,
+                                            String type,
+                                            String purchasePrice,
+                                            String subCategoryName,
+                                            String retailMarkupMax,
+                                            String retailMarkupMin,
+                                            String rounding) throws JSONException, IOException {
+        return createProduct(
+                name,
+                type,
+                "0",
+                purchasePrice,
+                barcode,
+                "Тестовая страна",
+                "Тестовый производитель",
+                subCategoryName,
+                retailMarkupMax,
+                retailMarkupMin,
+                rounding);
     }
 
     @Step
-    public void navigateToTheProductPage(String productSku) throws JSONException {
-        String productPageUrl = apiConnect.getProductPageUrl(productSku);
+    public Product createProductThroughPost(String name,
+                                            String barcode,
+                                            String type,
+                                            String purchasePrice,
+                                            String subCategoryName,
+                                            String retailMarkupMax,
+                                            String retailMarkupMin,
+                                            String rounding,
+                                            String nameOfScales,
+                                            String descriptionOnScales,
+                                            String ingredients,
+                                            String nutritionFacts,
+                                            String shelfLife) throws JSONException, IOException {
+        SubCategory subCategoryObject = StaticData.subCategories.get(subCategoryName);
+        Product product = new Product(
+                name,
+                type,
+                "0",
+                purchasePrice,
+                barcode,
+                "Тестовая страна",
+                "Тестовый производитель",
+                subCategoryObject.getId(),
+                retailMarkupMax,
+                retailMarkupMin,
+                rounding,
+                nameOfScales,
+                descriptionOnScales,
+                ingredients,
+                nutritionFacts,
+                shelfLife);
+        apiConnect.getSubCategoryMarkUp(subCategoryObject);
+        return apiConnect.createProductThroughPost(product, subCategoryObject);
+    }
+
+    @Step
+    public void navigateToTheProductPage(String productName) throws JSONException {
+        String productPageUrl = apiConnect.getProductPageUrl(productName);
         getDriver().navigate().to(productPageUrl);
     }
 }

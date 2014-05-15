@@ -16,14 +16,12 @@ public class ObjectsFactory {
     public static Product getProductObject() throws JSONException {
         return new Product(
                 "name",
-                "liter",
+                Product.TYPE_UNIT,
                 "0",
                 "100.0",
                 "barcode",
-                "sku",
                 "country",
                 "vendor",
-                "info",
                 "subCategory",
                 "100",
                 "0",

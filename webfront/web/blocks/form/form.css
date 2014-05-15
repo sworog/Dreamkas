@@ -81,6 +81,11 @@ tr[data-error]:after {
     text-align: right;
 }
 
+.form_product label[required]:after {
+    content: ' *';
+    font-size: 15px;
+}
+
 .form_supplier__fileBox {
     width: 600px;
     box-sizing: border-box;

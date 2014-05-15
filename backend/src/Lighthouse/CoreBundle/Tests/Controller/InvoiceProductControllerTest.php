@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductMetricsCalculator;
+use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
@@ -136,7 +137,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
 
-        $productIds = $this->createProductsBySku(array('1', '2', '3'));
+        $productIds = $this->createProductsByNames(array('1', '2', '3'));
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
@@ -784,7 +785,7 @@ class InvoiceProductControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productIds = $this->createProductsBySku(array('1', '2', '3'));
+        $productIds = $this->createProductsByNames(array('1', '2', '3'));
         $invoiceData = $this->getInvoiceData($supplier->id, $productIds['1'], 1, 1.99);
         $invoiceData['products'][1] = array(
             'quantity' => 2,
@@ -1015,7 +1016,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testAveragePurchasePrice()
     {
-        $this->markTestSkipped('Broken');
         $supplier = $this->factory()->supplier()->getSupplier();
         $store = $this->factory()->store()->getStore();
         $productId1 = $this->createProduct('1');
@@ -1057,6 +1057,12 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceData2 = $this->getInvoiceData($supplier->id, $productId1, 5, 29);
         $invoiceData2['acceptanceDate'] = date('c', strtotime('-2 days'));
+        $invoiceData2['products'][1] = array(
+            'product' => $productId2,
+            'priceEntered' => 34.67,
+            'quantity' => 6
+        );
+
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -1072,6 +1078,12 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $invoiceData3 = $this->getInvoiceData($supplier->id, $productId1, 10, 31);
         $invoiceData3['acceptanceDate'] = date('c', strtotime('-1 days'));
+        $invoiceData3['products'][1] = array(
+            'product' => $productId2,
+            'priceEntered' => 34.67,
+            'quantity' => 6
+        );
+
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -1227,9 +1239,9 @@ class InvoiceProductControllerTest extends WebTestCase
     public function testProductDataDoesNotChangeInInvoiceAfterProductUpdate()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
+        $productId = $this->createProduct(array('name' => 'Кефир 1%'));
 
-        $this->assertProduct($productId, array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
+        $this->assertProduct($productId, array('name' => 'Кефир 1%'));
 
         $invoice = $this->factory()
             ->invoice()
@@ -1249,9 +1261,9 @@ class InvoiceProductControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals($productId, 'products.0.product.id', $invoiceProductsResponse);
         Assert::assertJsonPathEquals('Кефир 1%', 'products.0.product.name', $invoiceProductsResponse);
-        Assert::assertJsonPathEquals('кефир_1%', 'products.0.product.sku', $invoiceProductsResponse);
+        Assert::assertJsonPathEquals('10001', 'products.0.product.sku', $invoiceProductsResponse);
 
-        $this->updateProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
+        $this->updateProduct($productId, array('name' => 'Кефир 5%'));
 
         $invoiceProductsResponse = $this->clientJsonRequest(
             $accessToken,
@@ -1263,25 +1275,29 @@ class InvoiceProductControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals($productId, 'products.0.product.id', $invoiceProductsResponse);
         Assert::assertJsonPathEquals('Кефир 1%', 'products.0.product.name', $invoiceProductsResponse);
-        Assert::assertJsonPathEquals('кефир_1%', 'products.0.product.sku', $invoiceProductsResponse);
+        Assert::assertJsonPathEquals('10001', 'products.0.product.sku', $invoiceProductsResponse);
 
-        $this->assertProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
+        $this->assertProduct($productId, array('name' => 'Кефир 5%', 'sku' => '10001'));
     }
 
     public function testTwoProductVersionsInInvoice()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
+        $productId = $this->createProduct(array('name' => 'Кефир 1%'));
         $invoice = $this->factory()
             ->invoice()
                 ->createInvoice(array(), $store->id)
                 ->createInvoiceProduct($productId, 10, 10.12)
             ->flush();
 
-        $this->updateProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
+        $this->updateProduct($productId, array('name' => 'Кефир 5%'));
 
-        $this->factory()->clear();
-        $this->createInvoiceProduct($invoice, $productId, 10, 10.12);
+        $this->factory()
+            ->clear()
+            ->invoice()
+                ->editInvoice($invoice->id)
+                ->createInvoiceProduct($productId, 10, 10.12)
+            ->flush();
         $this->client->shutdownKernelBeforeRequest();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -1297,47 +1313,69 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathCount(2, 'products.*.id', $invoiceProductsResponse);
         Assert::assertJsonPathEquals($productId, 'products.*.product.id', $invoiceProductsResponse, 2);
         Assert::assertJsonPathEquals('Кефир 1%', 'products.*.product.name', $invoiceProductsResponse, 1);
-        Assert::assertJsonPathEquals('кефир_1%', 'products.*.product.sku', $invoiceProductsResponse, 1);
         Assert::assertJsonPathEquals('Кефир 5%', 'products.*.product.name', $invoiceProductsResponse, 1);
-        Assert::assertJsonPathEquals('кефир_5%', 'products.*.product.sku', $invoiceProductsResponse, 1);
+        Assert::assertJsonPathEquals('10001', 'products.*.product.sku', $invoiceProductsResponse, 2);
     }
 
     public function testTwoProductVersionsCreated()
     {
-        $this->markTestSkipped('Broken');
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
-        $invoice = $this->factory()
-            ->invoice()
-                ->createInvoice(array(), $store->id)
-                ->createInvoiceProduct($productId, 10, 10.12)
-            ->flush();
-
-        $this->updateProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
-
-        $this->createInvoiceProduct($invoice, $productId, 10, 10.12);
-        $this->factory()->flush();
+        $productId = $this->createProduct(array('name' => 'Кефир 1%'));
 
         /* @var VersionRepository $productVersionRepository */
         $productVersionRepository = $this->getContainer()->get('lighthouse.core.document.repository.product_version');
 
         $productVersions = $productVersionRepository->findAllByDocumentId($productId);
+        $this->assertCount(0, $productVersions);
 
+        $productVersionRepository->clear();
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id)
+                ->createInvoiceProduct($productId, 10, 10.12)
+            ->flush();
+
+        $productVersions = $productVersionRepository->findAllByDocumentId($productId);
+        $this->assertCount(1, $productVersions);
+        $productVersionRepository->clear();
+
+        // :XXX: :FIXME: MongoTimestamp used for version createdDate sometimes is generated in wrong order
+        sleep(1);
+
+        $this->updateProduct($productId, array('name' => 'Кефир 5%'));
+
+        $productVersions = $productVersionRepository->findAllByDocumentId($productId);
+        $this->assertCount(1, $productVersions);
+        $productVersionRepository->clear();
+        var_dump($productVersions->getNext()->createdDate->inc);
+
+        $this->factory()
+            ->invoice()
+            ->createInvoice(array(), $store->id)
+            ->createInvoiceProduct($productId, 5, 10.12)
+        ->flush();
+
+        $productVersionRepository->clear();
+
+        $productVersions = $productVersionRepository->findAllByDocumentId($productId);
         $this->assertCount(2, $productVersions);
 
-        $firstProduct = $productVersions->getNext();
-        $secondProduct = $productVersions->getNext();
+        /* @var ProductVersion $lastVersion */
+        /* @var ProductVersion $previousVersion */
+        $lastVersion = $productVersions->getNext();
+        $previousVersion = $productVersions->getNext();
 
-        $this->assertEquals('Кефир 5%', $firstProduct->name);
-        $this->assertEquals('Кефир 1%', $secondProduct->name);
+        $this->assertEquals('Кефир 5%', $lastVersion->name);
+        $this->assertEquals('Кефир 1%', $previousVersion->name);
     }
 
     public function testGetProductInvoiceProducts()
     {
         $store = $this->factory()->store()->getStore();
-        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%', 'purchasePrice' => 35.24));
-        $productId2 = $this->createProduct(array('name' => 'Кефир 5%', 'sku' => 'кефир_5%', 'purchasePrice' => 35.64));
-        $productId3 = $this->createProduct(array('name' => 'Кефир 0%', 'sku' => 'кефир_0%', 'purchasePrice' => 42.15));
+        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'purchasePrice' => 35.24));
+        $productId2 = $this->createProduct(array('name' => 'Кефир 5%', 'purchasePrice' => 35.64));
+        $productId3 = $this->createProduct(array('name' => 'Кефир 0%', 'purchasePrice' => 42.15));
 
         $invoice1 = $this->factory()
             ->invoice()
@@ -1384,9 +1422,9 @@ class InvoiceProductControllerTest extends WebTestCase
     public function testInvoiceProductTotalPriceWithFloatQuantity()
     {
         $store = $this->factory()->store()->getStore();
-        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%', 'purchasePrice' => 35.24));
-        $productId2 = $this->createProduct(array('name' => 'Кефир 5%', 'sku' => 'кефир_5%', 'purchasePrice' => 35.64));
-        $productId3 = $this->createProduct(array('name' => 'Кефир 0%', 'sku' => 'кефир_0%', 'purchasePrice' => 42.15));
+        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'purchasePrice' => 35.24));
+        $productId2 = $this->createProduct(array('name' => 'Кефир 5%', 'purchasePrice' => 35.64));
+        $productId3 = $this->createProduct(array('name' => 'Кефир 0%', 'purchasePrice' => 42.15));
 
         $this->factory()
             ->invoice()
@@ -1439,7 +1477,7 @@ class InvoiceProductControllerTest extends WebTestCase
     public function testInvoiceProductWithVATFields()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%', 'purchasePrice' => 35.24));
+        $productId = $this->createProduct(array('name' => 'Кефир 1%', 'purchasePrice' => 35.24));
 
         $this->factory()
             ->invoice()
@@ -1478,7 +1516,7 @@ class InvoiceProductControllerTest extends WebTestCase
     public function testInvoiceProductWithVATFieldsWithoutVAT()
     {
         $store = $this->factory()->store()->getStore();
-        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%', 'purchasePrice' => 35.24));
+        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'purchasePrice' => 35.24));
 
         $this->factory()
             ->invoice()
@@ -1515,7 +1553,7 @@ class InvoiceProductControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
-        $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%', 'purchasePrice' => 35.24));
+        $productId = $this->createProduct(array('name' => 'Кефир 1%', 'purchasePrice' => 35.24));
 
         $invoiceData = $this->getInvoiceData($supplier->id, $productId, 99.99, 36.78);
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -1649,7 +1687,6 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testGetInvoiceProductAfterEditInvoiceAcceptanceDate()
     {
-        $this->markTestSkipped('Broken');
         $store = $this->factory()->store()->getStore();
         $productId = $this->createProduct();
         $invoice = $this->factory()
@@ -1670,8 +1707,10 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('2014-01-10T12:33:33+0400', 'acceptanceDate', $response);
         Assert::assertJsonPathEquals('2014-01-10T12:33:33+0400', 'products.0.acceptanceDate', $response);
 
-        $this->factory()->clear();
-        $this->editInvoice(array('acceptanceDate' => '2014-01-03T10:11:10+0400'), $invoice->id, $store->id);
+        $this->factory()
+            ->invoice()
+                ->editInvoice($invoice->id, array('acceptanceDate' => '2014-01-03T10:11:10+0400'))
+            ->flush();
 
         $response = $this->clientJsonRequest(
             $accessToken,

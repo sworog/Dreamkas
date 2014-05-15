@@ -16,7 +16,7 @@ import java.util.Map;
 public class Us_56_Fixture extends Us_54_4_Fixture {
 
     private static final Double PRODUCT_PRICE = 125.0;
-    private static final String PRODUCT_ID = "28544";
+    private static final String PRODUCT_NAME = "name-28544";
     private static final String SHOP_NUMBER = "2856";
 
     public ExamplesTable prepareFixtureExampleTable() {
@@ -51,7 +51,7 @@ public class Us_56_Fixture extends Us_54_4_Fixture {
                         Double.toString(PRODUCT_PRICE * 6),
                         Double.toString(PRODUCT_PRICE),
                         "6",
-                        PRODUCT_ID,
+                        getProductSku(PRODUCT_NAME),
                         1
                 );
     }

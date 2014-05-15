@@ -34,7 +34,6 @@ class VersionableFactoryTest extends ContainerAwareTestCase
 
         $this->assertInstanceOf('Lighthouse\\CoreBundle\\Document\\Product\\Version\\ProductVersion', $productVersion);
         $this->assertEquals($product->name, $productVersion->name);
-        $this->assertEquals($product->units, $productVersion->units);
         $this->assertEquals($product->barcode, $productVersion->barcode);
         $this->assertNotNull($productVersion->getVersion());
         $this->assertSame($product, $productVersion->getObject());
@@ -79,7 +78,6 @@ class VersionableFactoryTest extends ContainerAwareTestCase
     {
         $product = new Product();
         $product->name = 'Кефир "Веселый Молочник" 1% 950гр';
-        $product->units = 'gr';
         $product->barcode = '4607025392408';
         $product->purchasePrice = new Money(30.48);
         $product->sku = 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР';

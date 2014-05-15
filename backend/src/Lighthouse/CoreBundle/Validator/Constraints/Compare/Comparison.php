@@ -18,11 +18,18 @@ class Comparison
     protected $value;
 
     /**
+     * @var bool
+     */
+    protected $integer = false;
+
+    /**
      * @param mixed $value
      * @param Comparator $comparator
+     * @param bool $integer
      */
-    public function __construct($value, Comparator $comparator = null)
+    public function __construct($value, Comparator $comparator = null, $integer = false)
     {
+        $this->integer = (bool) $integer;
         $this->comparator = ($comparator) ?: new Comparator();
         $this->value = $this->normalizeValue($value);
     }
@@ -50,6 +57,9 @@ class Comparison
         }
         if ($value instanceof Numeric) {
             $value = $value->toNumber();
+        }
+        if ($this->integer && (string) (int) $value !== (string) $value) {
+            throw new UnexpectedTypeException($value, 'integer');
         }
         if (!is_numeric($value)) {
             throw new UnexpectedTypeException($value, 'numeric');

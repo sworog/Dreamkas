@@ -24,8 +24,59 @@ define(function(require) {
     numeral.language(app.locale);
 
     var sync = Backbone.sync,
+        isStarted,
         loading,
-        routes;
+        routes,
+        showCHTPN,
+        showApiError,
+        showJsError;
+
+    showCHTPN = function(template) {
+        if (LH.debugLevel > 0) {
+            var html = $('<div></div>').html(template);
+            if (LH.debugLevel >= 2) {
+                html.find('.more-info').show();
+            }
+            html.find('.close').click(function(event){
+                event.preventDefault();
+
+                html.remove();
+            });
+            html.find('.show-more').click(function(event) {
+                event.preventDefault();
+
+                if (html.find('.more-info').is(':visible')) {
+                    html.find('.more-info').hide();
+                } else {
+                    html.find('.more-info').show();
+                }
+
+                return false;
+            });
+            $('body').append(html);
+        }
+    };
+
+    showApiError = function(response) {
+        var chtpnTemplate = require('tpl!./chtpn.html');
+
+        showCHTPN(chtpnTemplate({
+            response: response
+        }));
+    };
+
+    showJsError = function(error, file, line, col, errorObject) {
+        var chtpnJSTemplate = require('tpl!./chtpnJS.html');
+
+        showCHTPN(chtpnJSTemplate({
+            errorText: error,
+            file: file,
+            line: line,
+            errorObject: errorObject
+        }));
+    };
+
+    window.onerror = showJsError;
 
     Backbone.sync = function(method, model, options) {
         var syncing = sync.call(this, method, model, _.extend({}, options, {
@@ -37,9 +88,16 @@ define(function(require) {
         syncing.fail(function(res) {
             switch (res.status) {
                 case 401:
-                    if (app.isStarted) {
+                    if (isStarted) {
                         document.location.reload();
                     }
+                    break;
+                case 400:
+                    break;
+                case 0:
+                    break;
+                default:
+                    showApiError(res);
                     break;
             }
         });
@@ -82,6 +140,7 @@ define(function(require) {
             'blocks/page/page',
             'libs/lhAutocomplete'
         ], function(routes) {
+            isStarted = true;
             router.routes = routes;
             router.start();
         });

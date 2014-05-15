@@ -725,7 +725,7 @@ class WriteOffProductControllerTest extends WebTestCase
     public function testProductDataDoesNotChangeInWriteOffAfterProductUpdate()
     {
         $store = $this->factory->store()->getStore();
-        $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
+        $productId = $this->createProduct(array('name' => 'Кефир 1%'));
         $writeOffId = $this->createWriteOff('1', null, $store->id);
         $this->createWriteOffProduct($writeOffId, $productId, 10, 5.99, 'Бой', $store->id);
 
@@ -740,9 +740,8 @@ class WriteOffProductControllerTest extends WebTestCase
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathEquals('Кефир 1%', '*.product.name', $writeoffProducts, 1);
-        Assert::assertJsonPathEquals('кефир_1%', '*.product.sku', $writeoffProducts, 1);
 
-        $this->updateProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
+        $this->updateProduct($productId, array('name' => 'Кефир 5%'));
 
         $writeoffProducts = $this->clientJsonRequest(
             $accessToken,
@@ -753,19 +752,18 @@ class WriteOffProductControllerTest extends WebTestCase
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathEquals('Кефир 1%', '*.product.name', $writeoffProducts, 1);
-        Assert::assertJsonPathEquals('кефир_1%', '*.product.sku', $writeoffProducts, 1);
 
-        $this->assertProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
+        $this->assertProduct($productId, array('name' => 'Кефир 5%'));
     }
 
     public function testTwoProductVersionsInWriteoff()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
+        $productId = $this->createProduct(array('name' => 'Кефир 1%'));
         $writeOffId = $this->createWriteOff('1', null, $store->id);
         $this->createWriteOffProduct($writeOffId, $productId, 10, 5.99, 'Бой', $store->id);
 
-        $this->updateProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
+        $this->updateProduct($productId, array('name' => 'Кефир 5%'));
 
         $this->createWriteOffProduct($writeOffId, $productId, 10, 5.99, 'Бой', $store->id);
 
@@ -782,19 +780,17 @@ class WriteOffProductControllerTest extends WebTestCase
         Assert::assertJsonPathCount(2, '*.id', $writeOffProductsResponse);
         Assert::assertJsonPathEquals($productId, '*.product.id', $writeOffProductsResponse, 2);
         Assert::assertJsonPathEquals('Кефир 1%', '*.product.name', $writeOffProductsResponse, 1);
-        Assert::assertJsonPathEquals('кефир_1%', '*.product.sku', $writeOffProductsResponse, 1);
         Assert::assertJsonPathEquals('Кефир 5%', '*.product.name', $writeOffProductsResponse, 1);
-        Assert::assertJsonPathEquals('кефир_5%', '*.product.sku', $writeOffProductsResponse, 1);
     }
 
     public function testTwoProductVersionsCreated()
     {
         $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%'));
+        $productId = $this->createProduct(array('name' => 'Кефир 1%'));
         $writeOffId = $this->createWriteOff('1', null, $store->id);
         $this->createWriteOffProduct($writeOffId, $productId, 10, 5.99, 'Бой', $store->id);
 
-        $this->updateProduct($productId, array('name' => 'Кефир 5%', 'sku' => 'кефир_5%'));
+        $this->updateProduct($productId, array('name' => 'Кефир 5%'));
 
         $this->createWriteOffProduct($writeOffId, $productId, 10, 5.99, 'Бой', $store->id);
 
@@ -943,9 +939,9 @@ class WriteOffProductControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%', 'purchasePrice' => 35.24));
-        $productId2 = $this->createProduct(array('name' => 'Кефир 5%', 'sku' => 'кефир_5%', 'purchasePrice' => 35.64));
-        $productId3 = $this->createProduct(array('name' => 'Кефир 0%', 'sku' => 'кефир_0%', 'purchasePrice' => 42.15));
+        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'purchasePrice' => 35.24));
+        $productId2 = $this->createProduct(array('name' => 'Кефир 5%', 'purchasePrice' => 35.64));
+        $productId3 = $this->createProduct(array('name' => 'Кефир 0%', 'purchasePrice' => 42.15));
 
         $writeOffId1 = $this->createWriteOff('MU-866', '2013-10-18T09:39:47+0400', $store->id);
 
@@ -980,9 +976,9 @@ class WriteOffProductControllerTest extends WebTestCase
     {
         $store = $this->factory()->store()->getStore();
 
-        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'sku' => 'кефир_1%', 'purchasePrice' => 35.24));
-        $productId2 = $this->createProduct(array('name' => 'Кефир 5%', 'sku' => 'кефир_5%', 'purchasePrice' => 35.64));
-        $productId3 = $this->createProduct(array('name' => 'Кефир 0%', 'sku' => 'кефир_0%', 'purchasePrice' => 42.15));
+        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'purchasePrice' => 35.24));
+        $productId2 = $this->createProduct(array('name' => 'Кефир 5%', 'purchasePrice' => 35.64));
+        $productId3 = $this->createProduct(array('name' => 'Кефир 0%', 'purchasePrice' => 42.15));
 
         $writeOffId1 = $this->createWriteOff('MU-866', '2013-10-18T09:39:47+0400', $store->id);
 

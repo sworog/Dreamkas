@@ -15,7 +15,7 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-57_4/aPreconditionToStoryUs57.4.story
 
-Given there is the product with 'name-25574' name, '25574' sku, '25574' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u574', category named 'defaultCategory-s25u574', subcategory named 'defaultSubCategory-s25u574'
+Given there is the product with 'name-25574' name, '25574' barcode, 'unit' type, '124,5' purchasePrice of group named 'defaultGroup-s25u574', category named 'defaultCategory-s25u574', subcategory named 'defaultSubCategory-s25u574'
 
 Given the user opens the authorization page
 When the user logs in using 'storeManager-s25u574' userName and 'lighthouse' password
@@ -34,7 +34,7 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-57_4/aPreconditionToStoryUs57.4.story
 
-Given there is the product with 'name-255741' name, '255741' sku, '' barcode, 'unit' units, '124,5' purchasePrice of group named 'defaultGroup-s25u574', category named 'defaultCategory-s25u574', subcategory named 'defaultSubCategory-s25u574'
+Given there is the product with 'name-255741' name, '' barcode, 'unit' type, '124,5' purchasePrice of group named 'defaultGroup-s25u574', category named 'defaultCategory-s25u574', subcategory named 'defaultSubCategory-s25u574'
 
 Given the user opens the authorization page
 When the user logs in using 'storeManager-s25u574' userName and 'lighthouse' password
@@ -104,7 +104,7 @@ And the user clicks on gross sale by products report link
 When the user clicks the catalog item with name 'defaultGroup-s25u574'
 And the user clicks the catalog item with name 'defaultCategory-s25u574'
 And the user clicks the catalog item with name 'defaultSubCategory-s25u574'
-Then the user checks the table today value by locator '255742' is not red highlighted
+Then the user checks the table today value by locator 'name-255742' is not red highlighted
 
 Scenario: Gross sale by products contains data not red highlighted (todayValue is equal yesterday/weekAgo)
 
@@ -124,7 +124,7 @@ And the user clicks on gross sale by products report link
 When the user clicks the catalog item with name 'defaultGroup-s25u574'
 And the user clicks the catalog item with name 'defaultCategory-s25u574'
 And the user clicks the catalog item with name 'defaultSubCategory-s25u574'
-Then the user checks the table today value by locator '255742' is not red highlighted
+Then the user checks the table today value by locator 'name-255742' is not red highlighted
 
 Scenario: Gross sale by products contains data not red highlighted (todayValue is smaller than yesterday and bigger than weekAgo)
 
@@ -144,7 +144,7 @@ And the user clicks on gross sale by products report link
 When the user clicks the catalog item with name 'defaultGroup-s25u574'
 And the user clicks the catalog item with name 'defaultCategory-s25u574'
 And the user clicks the catalog item with name 'defaultSubCategory-s25u574'
-Then the user checks the table today value by locator '255742' is not red highlighted
+Then the user checks the table today value by locator 'name-255742' is not red highlighted
 
 Scenario: Gross sale by products contains data not red highlighted (todayValue is bigger than yesterday and smaller than weekAgo)
 
@@ -164,7 +164,7 @@ And the user clicks on gross sale by products report link
 When the user clicks the catalog item with name 'defaultGroup-s25u574'
 And the user clicks the catalog item with name 'defaultCategory-s25u574'
 And the user clicks the catalog item with name 'defaultSubCategory-s25u574'
-Then the user checks the table today value by locator '255742' is not red highlighted
+Then the user checks the table today value by locator 'name-255742' is not red highlighted
 
 Scenario: Gross sale by products contains data red highlighted (todayValue is smaller than yesterday/weekAgo)
 
@@ -184,4 +184,4 @@ And the user clicks on gross sale by products report link
 When the user clicks the catalog item with name 'defaultGroup-s25u574'
 And the user clicks the catalog item with name 'defaultCategory-s25u574'
 And the user clicks the catalog item with name 'defaultSubCategory-s25u574'
-Then the user checks the table today value by locator '255742' is red highlighted
+Then the user checks the table today value by locator 'name-255742' is red highlighted

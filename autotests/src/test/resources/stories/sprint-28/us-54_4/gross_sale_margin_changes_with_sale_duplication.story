@@ -16,7 +16,7 @@ Meta:
 
 GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story
 
-Given there is the product with 'name-285441' name, '285441' sku, '285441' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s28u544', category named 'defaultCategory-s28u544', subcategory named 'defaultSubCategory-s28u544'
+Given there is the product with 'name-285441' name, '285441' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s28u544', category named 'defaultCategory-s28u544', subcategory named 'defaultSubCategory-s28u544'
 
 Given the user creates invoice api object with values
 | elementName | value |
@@ -27,7 +27,7 @@ Given the user creates invoice api object with values
 | supplierInvoiceNumber | supplierInvoiceNumber |
 And the user adds the product with data to invoice api object
 | elementName | value |
-| productName | 285441 |
+| productName | name-285441 |
 | quantity | 5 |
 | price | 100 |
 And there is the invoice created with invoice builder steps by userName 'departmentManager-s28u544'

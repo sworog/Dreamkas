@@ -1,0 +1,20 @@
+<div id="chtpn" class="tooltip tooltip_form">
+    <div class="close">
+        Закрыть
+    </div>
+    <div class="simple-info">
+        Произошла ошибка JavaScript <a href="" class="show-more">показать подробности</a>
+    </div>
+    <div class="more-info">
+        <div>
+            Текст ошибки: <%= errorText %> <br />
+            Файл: <%= file %> <br />
+            Строка: <%= line %> <br />
+            StackTrace:
+        </div>
+        <div>
+            <pre><%= errorObject.stack %>
+            </pre>
+        </div>
+    </div>
+</div>

@@ -119,14 +119,12 @@ define(function(require) {
             return JSON.parse(data);
         },
         showErrors: function(errors, error) {
-            var block = this;
+            var block = this,
+                addErrorToInput = function(data, field, prefix) {
+                    prefix = prefix || '';
 
-            block.removeErrors();
-
-            if (errors.children) {
-                _.each(errors.children, function(data, field) {
                     var fieldErrors,
-                        $input = block.$('[name="' + field + '"]'),
+                        $input = block.$('[name="' + prefix + field + '"]'),
                         $field = $input.closest('.form__field');
 
                     if (data.errors) {
@@ -134,6 +132,20 @@ define(function(require) {
                         fieldErrors = data.errors.join('. ');
                         $field.attr('data-error', ($field.attr('data-error') ? $field.attr('data-error') + ', ' : '') + block.translate(fieldErrors));
                     }
+
+                    if (data.children) {
+                        var newPrefix = prefix + field + '.';
+                        _.each(data.children, function(data, field) {
+                            addErrorToInput(data, field, newPrefix);
+                        });
+                    }
+                };
+
+            block.removeErrors();
+
+            if (errors.children) {
+                _.each(errors.children, function(data, field) {
+                    addErrorToInput(data, field);
                 });
             }
 

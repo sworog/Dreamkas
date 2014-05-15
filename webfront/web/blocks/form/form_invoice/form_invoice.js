@@ -80,7 +80,9 @@ define(function(require) {
                         return model.cid === productCid;
                     });
 
-                block.validationRequest.abort();
+                if (undefined != block.validationRequest) {
+                    block.validationRequest.abort();
+                }
 
                 invoiceProductModel.id = null;
 

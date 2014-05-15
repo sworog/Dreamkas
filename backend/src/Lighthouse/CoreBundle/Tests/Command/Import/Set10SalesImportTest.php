@@ -55,7 +55,7 @@ class Set10SalesImportTest extends WebTestCase
         $this->factory->store()->getStoreId('197');
         $this->factory->store()->getStoreId('666');
         $this->factory->store()->getStoreId('777');
-        $this->createProductsBySku(
+        $this->createProductsByNames(
             array(
                 '1',
                 '3',
@@ -101,20 +101,22 @@ class Set10SalesImportTest extends WebTestCase
     public function testExecuteWithErrors()
     {
         $this->factory->store()->getStoreId('197');
-        $this->createProductsBySku(
+        $this->createProductsByNames(
             array(
-                '8594403916157',
-                '2873168',
-                '2809727',
-                '25525687',
-                '55557',
-                '8594403110111',
-                '4601501082159'
+                '10001',
+                '10002',
+                '10003',
+                '10004',
+                '10005',
+                '10006',
+                '10007',
+                '10008',
+                '10009',
             )
         );
 
         $tmpDir = $this->createTempDir();
-        $file1 = $this->copyFixtureFileToDir('purchases-14-05-2012_9-18-29.xml', $tmpDir);
+        $file1 = $this->copyFixtureFileToDir('purchases-not-found.xml', $tmpDir);
 
         $this->createConfig(Set10Import::URL_CONFIG_NAME, 'file://' . $tmpDir);
 
@@ -126,17 +128,15 @@ class Set10SalesImportTest extends WebTestCase
         $display = $commandTester->getDisplay();
 
         $this->assertContains(basename($file1), $display);
-        $this->assertContains(".E...........E............E.E.E                      31\nFlushing", $display);
-        $this->assertContains('Product with sku "1" not found', $display);
-        $this->assertContains('Product with sku "7" not found', $display);
-        $this->assertContains('Product with sku "3" not found', $display);
+        $this->assertContains("..E...............E.....                             24\nFlushing", $display);
+        $this->assertContains('Product with sku "2873168" not found', $display);
 
         $this->assertFileNotExists($file1);
 
         /* @var LogRepository $logRepository */
         $logRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
         $cursor = $logRepository->findAll();
-        $this->assertCount(5, $cursor);
+        $this->assertCount(2, $cursor);
     }
 
     /**
@@ -204,7 +204,7 @@ class Set10SalesImportTest extends WebTestCase
     public function testOnlyPurchaseFilesImported()
     {
         $this->factory->store()->getStoreId('197');
-        $this->createProductsBySku(
+        $this->createProductsByNames(
             array(
                 '1',
                 '3',

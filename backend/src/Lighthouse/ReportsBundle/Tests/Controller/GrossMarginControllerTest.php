@@ -511,7 +511,6 @@ class GrossMarginControllerTest extends WebTestCase
 
     public function testGetDayGrossMarginReport()
     {
-        $this->markTestSkipped('Broken');
         $store1 = $this->factory()->store()->getStore('1');
         $store2 = $this->factory()->store()->getStore('2');
         $productId = $this->createProduct('1');

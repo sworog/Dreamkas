@@ -135,7 +135,7 @@ When the user clicks edit button and starts write off edition
 And the user presses the add product button and add the product to write off
 Then the user sees error messages
 | error message |
-| Такого товара не существует |
+| Заполните это поле |
 
 Scenario: WriteOff no product name validation
 
@@ -175,7 +175,7 @@ Then the user sees error messages
 
 Scenario: Write off Validation - quantity is required
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-14'
 And the user navigates to the write off with number 'WriteOff test-14'
 And the user logs in as 'departmentManager'
@@ -190,7 +190,7 @@ Then the user sees error messages
 
 Scenario: Write off product quantity validation sub zero
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-14'
 And the user navigates to the write off with number 'WriteOff test-14'
 And the user logs in as 'departmentManager'
@@ -206,7 +206,7 @@ Then the user sees error messages
 
 Scenario: Write off product quantity validation zero
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-14'
 And the user navigates to the write off with number 'WriteOff test-14'
 And the user logs in as 'departmentManager'
@@ -222,7 +222,7 @@ Then the user sees error messages
 
 Scenario: Write off product quantity validation String en small register
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-14'
 And the user navigates to the write off with number 'WriteOff test-14'
 And the user logs in as 'departmentManager'
@@ -238,7 +238,7 @@ Then the user sees error messages
 
 Scenario: Write off product quantity validation String en big register
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-14'
 And the user navigates to the write off with number 'WriteOff test-14'
 And the user logs in as 'departmentManager'
@@ -254,7 +254,7 @@ Then the user sees error messages
 
 Scenario: Write off product quantity validation String rus small register
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-14'
 And the user navigates to the write off with number 'WriteOff test-14'
 And the user logs in as 'departmentManager'
@@ -270,7 +270,7 @@ Then the user sees error messages
 
 Scenario: Write off product quantity validation String rus big register
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-14'
 And the user navigates to the write off with number 'WriteOff test-14'
 And the user logs in as 'departmentManager'
@@ -286,7 +286,7 @@ Then the user sees error messages
 
 Scenario: Write off product quantity validation symbols
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-14'
 And the user navigates to the write off with number 'WriteOff test-14'
 And the user logs in as 'departmentManager'
@@ -303,7 +303,7 @@ Then the user sees error messages
 
 Scenario: Write off product quantity positive validation
 
-Given there is the product with 'Name-WOV-QIR-1' name, 'SKU-WOV-QIR-1' sku, 'BARCode-WOV-QIR-1' barcode
+Given there is the product with 'Name-WOV-QIR-1' name, 'BARCode-WOV-QIR-1' barcode
 And there is the write off with number 'WriteOff test-15'
 And the user navigates to the write off with number 'WriteOff test-15'
 And the user logs in as 'departmentManager'
@@ -317,7 +317,7 @@ Then the user sees no error messages
 
 Scenario: Write off price validation - price is required
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-16'
 And the user navigates to the write off with number 'WriteOff test-16'
 And the user logs in as 'departmentManager'
@@ -333,7 +333,7 @@ Then the user sees error messages
 
 Scenario: Write off product price validation commma
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-17'
 And the user navigates to the write off with number 'WriteOff test-17'
 And the user logs in as 'departmentManager'
@@ -347,7 +347,7 @@ Then the user sees no error messages
 
 Scenario: Write off product price validation dott
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-18'
 And the user navigates to the write off with number 'WriteOff test-18'
 And the user logs in as 'departmentManager'
@@ -361,7 +361,7 @@ Then the user sees no error messages
 
 Scenario: Write off product price validation comma
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-19'
 And the user navigates to the write off with number 'WriteOff test-19'
 And the user logs in as 'departmentManager'
@@ -375,7 +375,7 @@ Then the user sees no error messages
 
 Scenario: Write off product price validation dot
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-19'
 And the user navigates to the write off with number 'WriteOff test-19'
 And the user logs in as 'departmentManager'
@@ -389,7 +389,7 @@ Then the user sees no error messages
 
 Scenario: Write off product price validation one digit
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-20'
 And the user navigates to the write off with number 'WriteOff test-20'
 And the user logs in as 'departmentManager'
@@ -403,7 +403,7 @@ Then the user sees no error messages
 
 Scenario: Write off product price validation two digits
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-21'
 And the user navigates to the write off with number 'WriteOff test-21'
 And the user logs in as 'departmentManager'
@@ -417,7 +417,7 @@ Then the user sees no error messages
 
 Scenario: Write off product price validation three digits
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-22'
 And the user navigates to the write off with number 'WriteOff test-22'
 And the user logs in as 'departmentManager'
@@ -433,7 +433,7 @@ Then the user sees error messages
 
 Scenario: Write off product price validation sub zero
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-22'
 And the user navigates to the write off with number 'WriteOff test-22'
 And the user logs in as 'departmentManager'
@@ -449,7 +449,7 @@ Then the user sees error messages
 
 Scenario: Write off product price validation zero
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-22'
 And the user navigates to the write off with number 'WriteOff test-22'
 And the user logs in as 'departmentManager'
@@ -465,7 +465,7 @@ Then the user sees error messages
 
 Scenario: Write off product price validation String en small register
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-22'
 And the user navigates to the write off with number 'WriteOff test-22'
 And the user logs in as 'departmentManager'
@@ -481,7 +481,7 @@ Then the user sees error messages
 
 Scenario: Write off product price validation String en big register
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-22'
 And the user navigates to the write off with number 'WriteOff test-22'
 And the user logs in as 'departmentManager'
@@ -497,7 +497,7 @@ Then the user sees error messages
 
 Scenario: Write off product price validation String rus small register
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-22'
 And the user navigates to the write off with number 'WriteOff test-22'
 And the user logs in as 'departmentManager'
@@ -513,7 +513,7 @@ Then the user sees error messages
 
 Scenario: Write off product price validation String rus big register
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-22'
 And the user navigates to the write off with number 'WriteOff test-22'
 And the user logs in as 'departmentManager'
@@ -529,7 +529,7 @@ Then the user sees error messages
 
 Scenario: Write off product price validation symbols
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-22'
 And the user navigates to the write off with number 'WriteOff test-22'
 And the user logs in as 'departmentManager'
@@ -545,7 +545,7 @@ Then the user sees error messages
 
 Scenario: Write off product price validation length good
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-23'
 And the user navigates to the write off with number 'WriteOff test-23'
 And the user logs in as 'departmentManager'
@@ -559,7 +559,7 @@ Then the user sees no error messages
 
 Scenario: Write off product price validation length negative
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-22'
 And the user navigates to the write off with number 'WriteOff test-22'
 And the user logs in as 'departmentManager'
@@ -575,7 +575,7 @@ Then the user sees error messages
 
 Scenario: Write off Validation - cause is required
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-16'
 And the user navigates to the write off with number 'WriteOff test-16'
 And the user logs in as 'departmentManager'
@@ -591,7 +591,7 @@ Then the user sees error messages
 
 Scenario: Write off Validation - cause 1000 symbols
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-16'
 And the user navigates to the write off with number 'WriteOff test-16'
 And the user logs in as 'departmentManager'
@@ -606,7 +606,7 @@ Then the user sees no error messages
 
 Scenario: Write off Validation - cause 1001 symbols
 
-Given there is the product with 'Name-WOV-QIR' name, 'SKU-WOV-QIR' sku, 'BARCode-WOV-QIR' barcode
+Given there is the product with 'Name-WOV-QIR' name, 'BARCode-WOV-QIR' barcode
 And there is the write off with number 'WriteOff test-16'
 And the user navigates to the write off with number 'WriteOff test-16'
 And the user logs in as 'departmentManager'
