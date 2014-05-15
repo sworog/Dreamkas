@@ -4,6 +4,8 @@ import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import org.openqa.selenium.WebElement;
+import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.product.ProductObject;
@@ -16,6 +18,7 @@ import project.lighthouse.autotests.pages.departmentManager.catalog.product.Prod
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductWriteOffList;
 
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
@@ -104,7 +107,9 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void checkDropDownDefaultValue(String dropDownType, String expectedValue) {
-        productCreatePage.checkDropDownDefaultValue(dropDownType, expectedValue);
+        String selectedValue = productCreatePage.getItems().get(dropDownType).$().getSelectedValue();
+        String message = String.format("The default value for '%s' dropDown is not '%s'. The selected value is '%s'", dropDownType, expectedValue, selectedValue);
+        assertThat(message, selectedValue, is(expectedValue));
     }
 
     @Step
@@ -149,7 +154,16 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void checkElementPresence(String elementName, String action) {
-        productCreatePage.checkElementPresence(elementName, action);
+        switch (action) {
+            case "is":
+                productCreatePage.getItems().get(elementName).$().shouldBeVisible();
+                break;
+            case "is not":
+                productCreatePage.getItems().get(elementName).$().shouldNotBeVisible();
+                break;
+            default:
+                Assert.fail(CommonPage.ERROR_MESSAGE);
+        }
     }
 
     @Step
@@ -159,12 +173,15 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void checkElementIsDisabled(String elementName) {
-        productCreatePage.checkElementIsDisabled(elementName);
+        assertThat(
+                "The disabled attribute is not present in the element",
+                productCreatePage.getItems().get(elementName).getWebElement().getAttribute("disabled"), notNullValue());
     }
 
     @Step
     public void checkDropDownDefaultValue(String expectedValue) {
-        productCreatePage.checkDropDownDefaultValue(expectedValue);
+        WebElement element = productCreatePage.getItems().get("rounding").getVisibleWebElement();
+        productCreatePage.getCommonActions().checkDropDownDefaultValue(element, expectedValue);
     }
 
     @Step
