@@ -110,7 +110,7 @@ public class TeamCityStepListener implements StepListener {
     public void testFinished(TestOutcome result) {
         if (result.isDataDriven()) {
             printExampleResults(result);
-        } else if (!result.isDataDriven()) {
+        } else {
             printTestStarted(result);
             if (result.isFailure() || result.isError()) {
                 printFailure(result);
@@ -129,7 +129,7 @@ public class TeamCityStepListener implements StepListener {
         HashMap<String, String> properties = new HashMap<>();
         properties.put("name", getResultTitle(result));
         //if NPE - detailMessage is null
-        //Add the test on it
+        //TODO Add the test on it
         properties.put("message", result.getTestFailureCause().getMessage() != null ? result.getTestFailureCause().getMessage() : "");
         properties.put("details", getStepsInfo(result.getTestSteps()));
         printMessage("testFailed", properties);
@@ -162,7 +162,7 @@ public class TeamCityStepListener implements StepListener {
     }
 
     private boolean isExample(TestStep testStep) {
-        return !testStep.getChildren().isEmpty() && testStep.getDescription().startsWith("[");
+        return testStep.isAGroup() && testStep.getDescription().startsWith("[");
     }
 
     private String getStepsInfo(List<TestStep> testSteps) {
@@ -196,8 +196,12 @@ public class TeamCityStepListener implements StepListener {
         StringBuilder builder = new StringBuilder();
         builder.append(testStep.getResult().toString());
         if (testStep.isFailure() || testStep.isError()) {
-            //TODO iterate through children to get exception
-            String exceptionCause = testStep.getException() != null ? getStackTrace(testStep.getException().getCause()) : "";
+            String exceptionCause;
+            if (testStep.isAGroup()) {
+                exceptionCause = "\t" + getStepsInfo(testStep.getChildren());
+            } else {
+                exceptionCause = testStep.getException() != null ? getStackTrace(testStep.getException().getCause()) : "";
+            }
             builder.append(
                     String.format("\r\n\n%s", exceptionCause)
             );
