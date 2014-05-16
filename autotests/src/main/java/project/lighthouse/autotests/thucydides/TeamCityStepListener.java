@@ -18,10 +18,10 @@ import static ch.lambdaj.Lambda.sum;
 
 public class TeamCityStepListener implements StepListener {
 
-    private static final String messageTemplate = "##teamcity[%s %s]";
-    private static final String propertyTemplate = " %s='%s'";
+    private static final String MESSAGE_TEMPLATE = "##teamcity[%s %s]";
+    private static final String PROPERTY_TEMPLATE = " %s='%s'";
 
-    private static final HashMap<String, String> escapeChars = new LinkedHashMap<String, String>() {
+    private static final HashMap<String, String> ESCAPE_CHARS = new LinkedHashMap<String, String>() {
         {
             put("\\|", "||");
             put("\'", "|\'");
@@ -50,7 +50,7 @@ public class TeamCityStepListener implements StepListener {
     }
 
     private String escapeProperty(String value) {
-        for (Map.Entry<String, String> escapeChar : escapeChars.entrySet()) {
+        for (Map.Entry<String, String> escapeChar : ESCAPE_CHARS.entrySet()) {
             value = value.replace(escapeChar.getKey(), escapeChar.getValue());
         }
         return value;
@@ -61,13 +61,13 @@ public class TeamCityStepListener implements StepListener {
         for (Map.Entry<String, String> property : properties.entrySet()) {
             propertiesBuilder.append(
                     String.format(
-                            propertyTemplate,
+                            PROPERTY_TEMPLATE,
                             property.getKey(),
                             escapeProperty(property.getValue())
                     )
             );
         }
-        String message = String.format(messageTemplate, messageName, propertiesBuilder.toString());
+        String message = String.format(MESSAGE_TEMPLATE, messageName, propertiesBuilder.toString());
         logger.info(message);
     }
 
@@ -110,7 +110,7 @@ public class TeamCityStepListener implements StepListener {
     public void testFinished(TestOutcome result) {
         if (result.isDataDriven()) {
             printExampleResults(result);
-        } else if (!result.isDataDriven()) {
+        } else {
             printTestStarted(result);
             if (result.isFailure() || result.isError()) {
                 printFailure(result);
@@ -128,8 +128,6 @@ public class TeamCityStepListener implements StepListener {
     private void printFailure(TestOutcome result) {
         HashMap<String, String> properties = new HashMap<>();
         properties.put("name", getResultTitle(result));
-        //if NPE - detailMessage is null
-        //Add the test on it
         properties.put("message", result.getTestFailureCause().getMessage() != null ? result.getTestFailureCause().getMessage() : "");
         properties.put("details", getStepsInfo(result.getTestSteps()));
         printMessage("testFailed", properties);
@@ -162,7 +160,7 @@ public class TeamCityStepListener implements StepListener {
     }
 
     private boolean isExample(TestStep testStep) {
-        return !testStep.getChildren().isEmpty() && testStep.getDescription().startsWith("[");
+        return testStep.isAGroup() && testStep.getDescription().startsWith("[");
     }
 
     private String getStepsInfo(List<TestStep> testSteps) {
@@ -196,13 +194,21 @@ public class TeamCityStepListener implements StepListener {
         StringBuilder builder = new StringBuilder();
         builder.append(testStep.getResult().toString());
         if (testStep.isFailure() || testStep.isError()) {
-            //TODO iterate through children to get exception
-            String exceptionCause = testStep.getException() != null ? ExceptionUtils.getStackTrace(testStep.getException().getCause()) : "";
+            String exceptionCause;
+            if (testStep.isAGroup()) {
+                exceptionCause = "Children " + getStepsInfo(testStep.getChildren());
+            } else {
+                exceptionCause = testStep.getException() != null ? getStackTrace(testStep.getException().getCause()) : "";
+            }
             builder.append(
                     String.format("\r\n\n%s", exceptionCause)
             );
         }
         return builder.toString();
+    }
+
+    public String getStackTrace(Throwable throwable) {
+        return ExceptionUtils.getStackTrace(throwable);
     }
 
     private String getResultTitle(TestOutcome result) {
