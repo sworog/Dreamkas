@@ -3,7 +3,7 @@ define(function(require) {
     var Model = require('kit/core/model'),
         compute = require('kit/utils/computeAttr'),
         currentUserModel = require('models/currentUser'),
-        numeral = require('libs/numeral');
+        numeral = require('numeral');
 
     var templates = {
         amount: require('tpl!blocks/amount/amount.html')

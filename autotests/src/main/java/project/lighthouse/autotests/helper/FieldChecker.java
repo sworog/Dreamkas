@@ -27,7 +27,7 @@ public class FieldChecker {
         int length;
         switch (commonItem.getOnlyVisibleWebElementFacade().getTagName()) {
             case "input":
-                length = commonItem.getOnlyVisibleWebElementFacade().getTextValue().length();
+                length = commonItem.getOnlyVisibleWebElementFacade().getValue().length();
                 break;
             case "textarea":
                 length = commonItem.getOnlyVisibleWebElementFacade().getValue().length();

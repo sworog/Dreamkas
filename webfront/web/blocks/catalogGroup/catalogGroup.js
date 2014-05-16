@@ -1,15 +1,14 @@
 define(function(require) {
     //requirements
-    var Editor = require('kit/blocks/editor/editor'),
+    var Editor = require('blocks/editor/editor'),
         Catalog__categoryList = require('blocks/catalog/catalog__categoryList'),
         Tooltip_catalogGroupMenu = require('blocks/tooltip/tooltip_catalogGroupMenu/tooltip_catalogGroupMenu'),
         Tooltip_catalogCategoryForm = require('blocks/tooltip/tooltip_catalogCategoryForm/tooltip_catalogCategoryForm'),
         Tooltip_catalogCategoryMenu = require('blocks/tooltip/tooltip_catalogCategoryMenu/tooltip_catalogCategoryMenu'),
         CatalogCategoryModel = require('models/catalogCategory'),
         Form_catalogGroupProperties = require('blocks/form/form_catalogGroupProperties/form_catalogGroupProperties'),
-        params = require('pages/catalog/params');
-
-    var router = new Backbone.Router();
+        params = require('pages/catalog/params'),
+        router = require('router');
 
     return Editor.extend({
         __name__: 'catalogGroup',
@@ -54,9 +53,7 @@ define(function(require) {
                 'destroy': function() {
                     var block = this;
 
-                    router.navigate('/catalog', {
-                        trigger: true
-                    });
+                    router.navigate('/catalog');
                 }
             }
         },

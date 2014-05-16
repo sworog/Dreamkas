@@ -270,6 +270,19 @@ namespace :symfony do
                 capifony_puts_ok
             end
         end
+
+        namespace :kesko do
+            desc "Import Kesko products"
+            task :default, :roles => :app, :except => { :no_release => true } do
+                set :fixtures, "src/Lighthouse/CoreBundle/DataFixtures/Kesko"
+                puts "--> Create users and stores".yellow
+                stream console_command("doctrine:mongodb:fixtures:load --fixtures=#{fixtures}"), :once => true
+                capifony_puts_ok
+                puts "--> Import products".yellow
+                stream console_command("lighthouse:import:products fixtures/kesko-goods.xml"), :once => true
+                capifony_puts_ok
+            end
+        end
     end
 
     task :import_xml do

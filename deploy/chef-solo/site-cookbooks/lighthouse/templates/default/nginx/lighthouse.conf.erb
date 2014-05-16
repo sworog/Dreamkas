@@ -4,10 +4,12 @@ server {
     root /var/www/$apihost.$env.api/current/web;
 
     access_log /var/log/nginx/$apihost.$env.api.access.log;
-    error_log  /var/log/nginx/$apihost.$env.api.error.log;
+    error_log  /var/log/nginx/$apihost.$env.api.error.log error;
 
     index app.php;
     error_page 404 = /404.html?apihost=$apihost&env=$env;
+
+    client_max_body_size 100m;
 
     location / {
         try_files $uri $uri/ @rewrite;
@@ -46,7 +48,7 @@ server {
 # webfront
 server {
     server_name ~^(?<webfronthost>.+)\.(?<env>.+?)\.webfront\.(lighthouse|lh)\.(cs|pro)$;
-    server_name ~^(?<webfronthost>.+(?!\.(webfront|api)))\.(lighthouse|lh)\.(cs|pro)$;
+    server_name ~^(?<webfronthost>.+(?!\.webfront))\.(lighthouse|lh)\.(cs|pro)$;
 
     if ($env = "") {
         set $env "staging";
@@ -55,7 +57,7 @@ server {
     root /var/www/$webfronthost.$env.webfront/current;
 
     access_log /var/log/nginx/$webfronthost.$env.webfront.access.log;
-    error_log  /var/log/nginx/$webfronthost.$env.webfront.error.log;
+    error_log  /var/log/nginx/$webfronthost.$env.webfront.error.log error;
 
     index index.html;
 

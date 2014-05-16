@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
-        var Form = require('kit/blocks/form/form'),
-            numeral = require('libs/numeral');
+        var Form = require('blocks/form/form'),
+            numeral = require('numeral');
 
         return Form.extend({
             __name__: 'form_product',

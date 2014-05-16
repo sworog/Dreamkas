@@ -12,7 +12,8 @@ class SupplierControllerTest extends WebTestCase
     {
         $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $postData = array(
-            'name' => 'ООО "ЕвроАрт"'
+            'name' => 'ООО "ЕвроАрт"',
+            'agreement' => null,
         );
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -34,8 +35,13 @@ class SupplierControllerTest extends WebTestCase
     public function testPostValidation(array $postData, $expectedResponseCode, array $assertions)
     {
         $this->factory->createSupplier('ООО "Повтор"');
+        $file = $this->factory->createFile();
         $this->factory->flush();
 
+        $postData += array(
+            'name' => '',
+            'agreement' => $file->id
+        );
         $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -91,7 +97,26 @@ class SupplierControllerTest extends WebTestCase
                     'children.name.errors.0' => 'Поставщик с таким названием уже существует',
                     'children.name.errors.1' => null
                 )
-            )
+            ),
+            'empty agreement file' => array(
+                array(
+                    'name' => 'ООО "Поставщик"',
+                ),
+                201,
+                array(
+                )
+            ),
+            'invalid agreement file' => array(
+                array(
+                    'name' => 'ООО "Поставщик"',
+                    'agreement' => '52f34a5f02af59ed408b4587'
+                ),
+                400,
+                array(
+                    'children.agreement.errors.0' => 'Указан неверный файл договора',
+                    'children.agreement.errors.1' => null
+                )
+            ),
         );
     }
 
@@ -177,10 +202,12 @@ class SupplierControllerTest extends WebTestCase
     {
         $supplier = $this->factory->createSupplier('ООО "ЕврейАрт"');
         $this->factory->createSupplier('ООО "Повтор"');
+        $file = $this->factory->createFile();
         $this->factory->flush();
 
         $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-        $putData = $data;
+        $putData = $data + array('agreement' => $file->id);
+
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',

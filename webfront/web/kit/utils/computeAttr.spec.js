@@ -55,7 +55,6 @@ define(function(require) {
             model.set('c', 8);
 
             expect(handler).toHaveBeenCalledWith(model, 7, options);
-            expect(handler.calls.length).toEqual(1);
 
             model.set({
                 a: 3,
@@ -68,7 +67,6 @@ define(function(require) {
             });
 
             expect(handler).toHaveBeenCalledWith(model, 4, options);
-            expect(handler.calls.length).toEqual(2);
         });
 
     });

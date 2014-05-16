@@ -1,30 +1,33 @@
 require.config({
     paths: {
-        'backbone.syphon': 'libs/backbone/backbone.syphon',
-        'dictionary': 'dictionary',
+        //deprecated libs
+        'backbone.syphon': 'libs/backbone.syphon',
         'jquery.ui': 'libs/jquery-ui/ui/minified/jquery-ui.min',
-        'backbone': 'kit/libs/backbone/backbone',
-        'backbone.queryparams': 'kit/libs/backbone/backbone.queryparams',
+        'backbone.queryparams': 'libs/backbone.queryparams',
+        'jquery.require': 'libs/jquery.require',
+        'jquery.maskedinput': 'libs/jquery.maskedinput',
 
-        'lodash': 'kit/libs/lodash',
+        //bower_components
+        'backbone': 'bower_components/backbone/backbone',
+        'moment': 'bower_components/momentjs/moment',
+        'cookies': 'bower_components/cookies-js/src/cookies',
+        'form2js': 'bower_components/form2js/src/form2js',
+        'numeral': 'bower_components/numeral/numeral',
+        'sortable': 'bower_components/sortable/js/sortable',
+        'uri': 'bower_components/uri.js/src',
+        'when': 'bower_components/when/when',
+        'lodash': 'bower_components/lodash/dist/lodash',
+        'jquery': 'bower_components/jquery/dist/jquery',
 
-        'jquery': 'kit/libs/jquery/jquery-2.0.3',
-        'jquery.require': 'kit/libs/jquery/jquery.require',
-        'jquery.maskedinput': 'kit/libs/jquery/jquery.maskedinput',
-
-        'amd-loader': 'kit/libs/require/amd-loader',
-        'tpl': 'kit/utils/templateLoader',
+        //kit
         'templateCompiler': 'kit/utils/templateCompiler',
+        'router': 'kit/router/router',
 
-        'i18n': 'kit/libs/require/i18n'
+        //requirejs plugins
+        'amd-loader': 'bower_components/amd-loader/amd-loader',
+        'tpl': 'kit/utils/templateLoader',
+        'i18n': 'bower_components/requirejs-i18n/i18n'
     },
-    packages: [
-        {
-            name: 'moment',
-            location: 'kit/libs/moment',
-            main: 'moment'
-        }
-    ],
     shim: {
         backbone: {
             deps: ['lodash', 'jquery'],

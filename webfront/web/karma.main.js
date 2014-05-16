@@ -1,5 +1,5 @@
 var specFiles = Object.keys(window.__karma__.files).filter(function (file) {
-    return /spec\.js$/.test(file);
+    return /spec\.js$/.test(file) && file.indexOf('bower_components') < 0;
 });
 
 var specModules = specFiles.map(function(moduleUrl){
@@ -10,6 +10,6 @@ var specModules = specFiles.map(function(moduleUrl){
 
 require({
     baseUrl: '/base/'
-}, ['kit/config'], function(){
+}, ['require.config'], function(){
     require(specModules, window.__karma__.start);
 });

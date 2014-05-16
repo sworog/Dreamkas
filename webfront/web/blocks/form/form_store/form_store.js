@@ -1,11 +1,10 @@
 define(function(require) {
         //requirements
-        var Form = require('kit/blocks/form/form');
+        var Form = require('blocks/form/form');
 
         return Form.extend({
             __name__: 'form_store',
             redirectUrl: '/stores/',
-            template: require('tpl!blocks/form/form_store/templates/index.html'),
             initialize: function(){
                 var block = this;
 

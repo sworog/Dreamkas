@@ -39,7 +39,7 @@ class ValidationFailedException extends RuntimeException
     }
 
     /**
-     * @return ConstraintViolationListInterface
+     * @return ConstraintViolationListInterface|ConstraintViolationInterface[]
      */
     public function getConstraintViolationList()
     {

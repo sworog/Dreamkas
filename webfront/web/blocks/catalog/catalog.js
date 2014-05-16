@@ -1,14 +1,14 @@
 define(function(require) {
 
         //requirements
-        var Editor = require('kit/blocks/editor/editor'),
+        var Editor = require('blocks/editor/editor'),
             CatalogGroupModel = require('models/catalogGroup'),
             Catalog__groupList = require('blocks/catalog/catalog__groupList'),
             Tooltip_catalogGroupForm = require('blocks/tooltip/tooltip_catalogGroupForm/tooltip_catalogGroupForm'),
             Tooltip_catalogGroupMenu = require('blocks/tooltip/tooltip_catalogGroupMenu/tooltip_catalogGroupMenu'),
             Tooltip_catalogCategoryMenu = require('blocks/tooltip/tooltip_catalogCategoryMenu/tooltip_catalogCategoryMenu'),
             params = require('pages/catalog/params'),
-            cookie = require('kit/libs/cookie');
+            cookie = require('cookies');
 
         var authorizationHeader = 'Bearer ' + cookie.get('token'),
             exportUrl = LH.baseApiUrl + '/integration/export/products';

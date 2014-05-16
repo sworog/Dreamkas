@@ -1,10 +1,17 @@
 <% var model = model || new Backbone.Model() %>
 
+<% var templates = {
+    form_supplier__agreementField: require('tpl!./form_supplier__agreementField.html')
+} %>
+
 <form class="form form_supplier">
     <div class="form__field">
         <label class="form__label">Юридическое лицо</label>
-        <input value="<%- model.get('name') %>" name="name" type="text" class="inputText" />
+        <input value="<%- model.get('name') %>" name="name" type="text" class="inputText"/>
     </div>
+    <%= templates.form_supplier__agreementField({
+        agreement: model.get('agreement')
+    }) %>
     <div class="form__controls">
         <button type="submit" class="button">
             Сохранить
@@ -12,7 +19,7 @@
             <span style="margin-right: 10px;">
                 или
             </span>
-        <a href="/suppliers">
+        <a style="margin-right: 20px;" href="/suppliers">
             Отменить
         </a>
     </div>

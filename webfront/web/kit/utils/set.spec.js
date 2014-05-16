@@ -188,8 +188,6 @@ define(function(require) {
 
         it('set:callback modify data', function() {
 
-            var spy = jasmine.createSpy().andReturn('test string');
-
             object = {
                 'set:testValue': function(testValue){
                     return 'string' + testValue;

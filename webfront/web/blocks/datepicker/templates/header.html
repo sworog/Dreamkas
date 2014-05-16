@@ -1,0 +1,4 @@
+<% var moment = require('moment') %>
+
+<span class="datepicker__monthName"><%- moment(visibleDate).format('MMMM') %></span>
+<span class="datepicker__yearNum"><%- moment(visibleDate).format('YYYY') %></span>

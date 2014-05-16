@@ -80,7 +80,7 @@ class ProductControllerTest extends WebTestCase
     {
         $postData = $data + $this->getProductData();
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -99,7 +99,7 @@ class ProductControllerTest extends WebTestCase
         $invalidData = $this->getProductData();
         $invalidData['units'] = '';
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -115,7 +115,7 @@ class ProductControllerTest extends WebTestCase
 
     public function testPostProductActionEmptyPost()
     {
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -795,7 +795,7 @@ class ProductControllerTest extends WebTestCase
                 ),
             ),
             /***********************************************************************************************
-             * 'sku'
+             * 'subCategory'
              ***********************************************************************************************/
             'not valid subCategory not exist' => array(
                 400,
@@ -812,7 +812,7 @@ class ProductControllerTest extends WebTestCase
                 array(
                     'children.subCategory.errors.0'
                     =>
-                    'Такой подкатегории не существует'
+                    'Заполните это поле'
                 ),
             ),
         );

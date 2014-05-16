@@ -189,6 +189,7 @@ class Product extends AbstractDocument implements VersionableInterface
      *     cascade="persist"
      * )
      * @MongoDB\Index
+     * @Assert\NotBlank
      * @Serializer\Groups({"Default"})
      * @var SubCategory
      */

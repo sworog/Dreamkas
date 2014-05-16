@@ -270,7 +270,7 @@ public class CommonActions {
         String actualValue;
         switch (element.getTagName()) {
             case "input":
-                actualValue = pageObject.$(element).getTextValue();
+                actualValue = pageObject.$(element).getValue();
                 break;
             default:
                 actualValue = pageObject.$(element).getText();

@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Table = require('kit/blocks/table/table');
+    var Table = require('blocks/table/table');
 
     return Table.extend({
         __name__: 'table_invoiceProducts',

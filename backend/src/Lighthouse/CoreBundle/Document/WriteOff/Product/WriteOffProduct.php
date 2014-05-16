@@ -81,6 +81,7 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
     protected $cause;
 
     /**
+     * @Assert\NotBlank
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Product\Version\ProductVersion",
      *     simple=true,

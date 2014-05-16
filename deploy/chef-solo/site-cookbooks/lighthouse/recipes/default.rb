@@ -3,12 +3,19 @@
 #############################################
 # admin
 #############################################
-package "vim"
-package "htop"
-package "curl"
-package "git"
-package "mc"
-package "smbclient"
+case node["platform_family"]
+when "debian"
+  package "vim"
+  package "htop"
+  package "curl"
+  package "git"
+  package "mc"
+  package "smbclient"
+when "rhel"
+  package "vim-common"
+  package "mc"
+  package "curl"
+end
 
 #############################################
 # users
@@ -20,12 +27,29 @@ user "watchman" do
   home "/home/watchman"
   supports :manage_home => true
 end
-cookbook_file "sudo_watchman" do
-  path "/etc/sudoers.d/watchman"
-  owner "root"
-  group "root"
-  mode 0440
+case node["platform_family"]
+when "debian"
+  cookbook_file "sudo_watchman" do
+    path "/etc/sudoers.d/watchman"
+    owner "root"
+    group "root"
+    mode 0440
+  end
+when "rhel"
+  cookbook_file "/tmp/parms_to_append.conf" do
+    source "sudo_watchman"
+  end
+
+  bash "append_to_config" do
+    user "root"
+    code <<-EOF
+       cat /tmp/parms_to_append.conf >> /etc/sudoers
+       rm /tmp/parms_to_append.conf
+    EOF
+    not_if "grep -q watchman /etc/sudoers"
+  end
 end
+
 
 #############################################
 # system

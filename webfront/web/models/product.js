@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Model = require('kit/core/model'),
         compute = require('kit/utils/computeAttr'),
-        numeral = require('libs/numeral');
+        numeral = require('numeral');
 
     return Model.extend({
         modelName: 'product',
@@ -14,15 +14,51 @@ define(function(require) {
         },
         saveData: function(){
 
+            var purchasePrice = parseFloat((this.get('purchasePrice') || '')
+                    .replace(' ', '', 'gi')
+                    .replace(',', '.', 'gi')),
+                retailPriceMin = parseFloat((this.get('retailPriceMin') || '')
+                    .replace(' ', '', 'gi')
+                    .replace(',', '.', 'gi')),
+                retailPriceMax = parseFloat((this.get('retailPriceMax') || '')
+                    .replace(' ', '', 'gi')
+                    .replace(',', '.', 'gi')),
+                retailMarkupMax = parseFloat((this.get('retailMarkupMax') || '')
+                    .replace(' ', '', 'gi')
+                    .replace(',', '.', 'gi')),
+                retailMarkupMin = parseFloat((this.get('retailMarkupMin') || '')
+                    .replace(' ', '', 'gi')
+                    .replace(',', '.', 'gi'));
+
+            if (!purchasePrice && this.get('purchasePrice') !== '0'){
+                purchasePrice = this.get('purchasePrice');
+            }
+
+            if (!retailPriceMin && this.get('retailPriceMin') !== '0'){
+                retailPriceMin = this.get('retailPriceMin');
+            }
+
+            if (!retailPriceMax && this.get('retailPriceMax') !== '0'){
+                retailPriceMax = this.get('retailPriceMax');
+            }
+
+            if (!retailMarkupMax && this.get('retailMarkupMax') !== '0'){
+                retailMarkupMax = this.get('retailMarkupMax');
+            }
+
+            if (!retailMarkupMin && this.get('retailMarkupMin') !== '0'){
+                retailMarkupMin = this.get('retailMarkupMin');
+            }
+
             return {
                 name: this.get('name'),
                 units: this.get('units'),
                 vat: this.get('vat'),
-                purchasePrice: this.get('purchasePrice'),
-                retailPriceMin: this.get('retailPriceMin'),
-                retailPriceMax: this.get('retailPriceMax'),
-                retailMarkupMax: this.get('retailMarkupMax'),
-                retailMarkupMin: this.get('retailMarkupMin'),
+                purchasePrice: purchasePrice,
+                retailPriceMin: retailPriceMin,
+                retailPriceMax: retailPriceMax,
+                retailMarkupMax: retailMarkupMax,
+                retailMarkupMin: retailMarkupMin,
                 retailPricePreference: this.get('retailPricePreference'),
                 barcode: this.get('barcode'),
                 sku: this.get('sku'),

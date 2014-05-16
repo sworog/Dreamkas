@@ -90,7 +90,7 @@ nelmio_cors:
     paths:
         '^/api/':
             allow_origin: ['*']
-            allow_headers: ['Content-Type', 'Authorization', 'Link']
+            allow_headers: ['Content-Type', 'Authorization', 'Link', 'X-File-Name']
             allow_methods: ['POST', 'PUT', 'GET', 'DELETE', 'OPTIONS', 'LINK', 'UNLINK']
             max_age: 3600
         '^/oauth/':
@@ -137,3 +137,8 @@ clamidity_profiler:
 lighthouse_core:
     job:
         tube_prefix: "%database_name%_%kernel.environment%"
+    selectel:
+        auth:
+            username: 18487
+            password: 4hSmzgdljt
+        container: lighthouse

@@ -42,4 +42,8 @@ public class SupplierObject extends AbstractObject implements ObjectLocatable, R
         return new CompareResults()
                 .compare("name", name, row.get("name"));
     }
+
+    public WebElement getDownloadAgreementButtonWebElement() {
+        return getElement().findElement(By.className("button"));
+    }
 }

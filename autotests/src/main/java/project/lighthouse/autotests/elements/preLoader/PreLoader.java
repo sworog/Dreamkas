@@ -14,6 +14,10 @@ public class PreLoader {
         waiter = new Waiter(driver, StaticData.DEFAULT_PRE_LOADER_TIMEOUT);
     }
 
+    public PreLoader(WebDriver driver, int seconds) {
+        waiter = new Waiter(driver, seconds);
+    }
+
     public void await() {
         waiter.waitUntilIsNotVisible(By.xpath(PRE_LOADER_XPATH));
     }

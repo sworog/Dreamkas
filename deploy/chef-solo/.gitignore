@@ -2,3 +2,5 @@
 tmp/
 .vagrant/
 .idea/
+.bundle/
+vendor/

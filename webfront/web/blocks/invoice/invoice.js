@@ -1,11 +1,11 @@
 define(function(require) {
         //requirements
         var Block = require('kit/core/block'),
-            InputDate = require('kit/blocks/inputDate/inputDate'),
+            InputDate = require('blocks/inputDate/inputDate'),
             Form_invoiceProduct = require('blocks/form/form_invoiceProduct/form_invoiceProduct'),
             Table_invoiceProducts = require('blocks/table/table_invoiceProducts/table_invoiceProducts'),
-            cookie = require('kit/libs/cookie'),
-            form2js = require('kit/libs/form2js');
+            cookie = require('cookies'),
+            form2js = require('form2js');
 
         return Block.extend({
             __name__: 'invoice',

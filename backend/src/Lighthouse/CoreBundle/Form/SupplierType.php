@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
+use Lighthouse\CoreBundle\Document\File\File;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,6 +18,14 @@ class SupplierType extends AbstractType
     {
         $builder
             ->add('name', 'text')
+            ->add(
+                'agreement',
+                'reference',
+                array(
+                    'class' => File::getClassName(),
+                    'invalid_message' => 'lighthouse.validation.errors.supplier.file.does_not_exist'
+                )
+            )
         ;
     }
 

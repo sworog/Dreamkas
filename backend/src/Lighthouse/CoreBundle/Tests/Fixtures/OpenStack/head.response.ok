@@ -1,0 +1,15 @@
+HTTP/1.1 200 OK
+Date: Mon, 03 Mar 2014 16:18:01 GMT
+Server: Selectel_Storage/1.0
+content-length: 135
+content-disposition: attachment; filename="test.txt"
+accept-ranges: bytes
+last-modified: Mon, 03 Mar 2014 16:16:53 GMT
+etag: f2273949854794963af56041d69f0cb3
+x-timestamp: 1393863413.28718
+cache-control: no-cache
+content-type: application/octet-stream
+X-Object-Downloads: 0
+Access-Control-Allow-Origin: *
+Access-Control-Expose-Headers: content-disposition, last-modified, etag, x-timestamp, x-object-downloads
+

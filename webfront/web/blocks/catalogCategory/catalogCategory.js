@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Editor = require('kit/blocks/editor/editor'),
+    var Editor = require('blocks/editor/editor'),
         CatalogSubCategoryModel = require('models/catalogSubCategory'),
         CatalogCategory__subCategoryList = require('blocks/catalogCategory/catalogCategory__subCategoryList'),
         Tooltip_catalogCategoryMenu = require('blocks/tooltip/tooltip_catalogCategoryMenu/tooltip_catalogCategoryMenu'),
@@ -9,9 +9,8 @@ define(function(require) {
         Table_products = require('blocks/table/table_products/table_products'),
         Form_catalogCategoryProperties = require('blocks/form/form_catalogCategoryProperties/form_catalogCategoryProperties'),
         Form_catalogSubCategoryProperties = require('blocks/form/form_catalogSubCategoryProperties/form_catalogSubCategoryProperties'),
-        pageParams = require('pages/catalog/params');
-
-    var router = new Backbone.Router();
+        pageParams = require('pages/catalog/params'),
+        router = require('router');
 
     return Editor.extend({
         __name__: 'catalogCategory',
@@ -61,9 +60,7 @@ define(function(require) {
                 destroy: function() {
                     var block = this;
 
-                    router.navigate('/catalog/' + block.catalogCategoryModel.get('group'), {
-                        trigger: true
-                    })
+                    router.navigate('/catalog/' + block.catalogCategoryModel.get('group'));
                 }
             }
         },

@@ -1,8 +1,7 @@
 define(function(require) {
     //requirements
-    var Table = require('kit/blocks/table/table');
-
-    require('moment');
+    var Table = require('blocks/table/table'),
+        moment = require('moment');
 
     return Table.extend({
         __name__: 'table_invoices',

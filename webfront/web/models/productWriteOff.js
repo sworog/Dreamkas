@@ -2,13 +2,12 @@ define(function(require) {
     //requirements
     var Model = require('kit/core/model'),
         compute = require('kit/utils/computeAttr'),
-        currentUserModel = require('models/currentUser');
+        currentUserModel = require('models/currentUser'),
+        moment = require('moment');
 
     var templates = {
         amount: require('tpl!blocks/amount/amount.html')
     };
-
-    require('moment');
 
     return Model.extend({
         modelName: 'productWriteOff',

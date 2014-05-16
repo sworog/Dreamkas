@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var extendClass = require('./extendClass'),
-        nestedObject = require('../fixtures/object');
+        nestedObject = require('fixtures/object');
 
     require('lodash');
 

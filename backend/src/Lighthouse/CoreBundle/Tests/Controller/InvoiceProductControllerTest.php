@@ -472,6 +472,27 @@ class InvoiceProductControllerTest extends WebTestCase
                     'Цена не должна быть больше 10000000'
                 ),
             ),
+            /***********************************************************************************************
+             * 'product'
+             ***********************************************************************************************/
+            'not valid product' => array(
+                400,
+                array('product' => 'not_valid_product_id'),
+                array(
+                    'children.product.errors.0'
+                    =>
+                        'Такого товара не существует'
+                ),
+            ),
+            'empty product' => array(
+                400,
+                array('product' => ''),
+                array(
+                    'children.product.errors.0'
+                    =>
+                    'Заполните это поле'
+                ),
+            ),
         );
     }
 

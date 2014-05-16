@@ -9,8 +9,6 @@ define(function(require) {
     getText.dictionary = dictionary;
 
     return window.LH = window.Lighthouse = _.extend({
-        Block: require('base/block'),
-        Page: require('base/page'),
         isAllow: function(resource, method){
             return isAllow(app.permissions, resource, method);
         },

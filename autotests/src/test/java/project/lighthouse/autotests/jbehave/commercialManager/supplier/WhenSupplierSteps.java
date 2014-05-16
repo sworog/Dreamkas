@@ -39,4 +39,14 @@ public class WhenSupplierSteps {
     public void whenTheUserClicksOnSupplierTableElementWithName(String supplierName) {
         supplierSteps.supplierCollectionObjectClickByLocator(supplierName);
     }
+
+    @When("the user uploads file with name '$fileName' and with size of '$size' kilobytes")
+    public void whenTheUserUploadsFileWithNameAndWithSize(String fileName, int size) {
+        supplierSteps.uploadFile(fileName, size);
+    }
+
+    @When("the user clicks on the supplier upload delete button")
+    public void whenTheUserClicksOnTheSupplierUploadDeleteButton() {
+        supplierSteps.uploadDeleteButtonClick();
+    }
 }

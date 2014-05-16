@@ -1,16 +1,22 @@
 define(function(require) {
     //requirements
-    var app = require('kit/core/app'),
-        Block = require('kit/core/block'),
+    var Block = require('kit/core/block'),
         currentUserModel = require('models/currentUser'),
-        cookie = require('kit/libs/cookie'),
-        numeral = require('libs/numeral');
+        cookie = require('cookies'),
+        numeral = require('numeral'),
+        router = require('router'),
+        moment = require('moment');
 
     require('jquery');
     require('lodash');
     require('backbone');
+    require('bower_components/momentjs/lang/ru');
 
-    app.locale = 'root';
+    var app = {
+        locale: 'root'
+    };
+
+    moment.lang('ru');
 
     Block.prototype.dictionary = require('dictionary');
 
@@ -19,7 +25,7 @@ define(function(require) {
 
     var sync = Backbone.sync,
         loading,
-        routers;
+        routes;
 
     Backbone.sync = function(method, model, options) {
         var syncing = sync.call(this, method, model, _.extend({}, options, {
@@ -41,25 +47,40 @@ define(function(require) {
         return syncing;
     };
 
+    $(document).on('click', '[href]', function(e) {
+        e.stopPropagation();
+
+        var $target = $(e.currentTarget);
+
+        if ($target.data('navigate') !== false) {
+            e.preventDefault();
+
+            router.navigate($target.attr('href'));
+        }
+    });
+
     loading = currentUserModel.fetch();
 
     loading.done(function() {
-        app.set('permissions', currentUserModel.permissions.toJSON());
-        routers = 'routers/authorized';
+        app.permissions = currentUserModel.permissions.toJSON();
+        routes = 'routes/authorized';
     });
 
     loading.fail(function() {
-        routers = 'routers/unauthorized';
+        routes = 'routes/unauthorized';
     });
 
     loading.always(function() {
-        app.start([
+        requirejs([
+            routes,
             'LH',
             'blocks/navigationBar/navigationBar',
             'blocks/page/page',
-            'libs/lhAutocomplete',
-            routers
-        ]);
+            'libs/lhAutocomplete'
+        ], function(routes){
+            router.routes = routes;
+            router.start();
+        });
     });
 
     return app;
