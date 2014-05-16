@@ -1,6 +1,9 @@
 package project.lighthouse.autotests.junit;
 
-import net.thucydides.core.model.*;
+import net.thucydides.core.model.DataTable;
+import net.thucydides.core.model.Story;
+import net.thucydides.core.model.TestOutcome;
+import net.thucydides.core.model.TestStep;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -74,10 +77,6 @@ public class TeamCityStepListenerTests {
         assertThat(stringArgumentCaptor.getAllValues().get(2), is(testFinishedExpectedMessage));
     }
 
-    /**
-     * This test is failed because listener can't get the children step cause exception
-     * Solution: have to iterate through children steps if(isAgroup = true) and print all childSteps info with failed child step
-     */
     @Test
     public void testScenarioChildStepResultIsFailure() {
 
@@ -91,7 +90,7 @@ public class TeamCityStepListenerTests {
         teamCityStepListener.testFinished(testOutcome);
 
         String testStartedExpectedMessage = "##teamcity[testStarted  name='sprint-1.us-1.story.failedScenario']";
-        String testFailedExpectedMessage = "##teamcity[testFailed  message='the test is failed!' details='Steps:|r|nFailed scenario step (0.1) -> ERROR|r|n|nStackTrace|r|n|r|n' name='sprint-1.us-1.story.failedScenario']";
+        String testFailedExpectedMessage = "##teamcity[testFailed  message='the test is failed!' details='Steps:|r|nFailed scenario step (0.1) -> ERROR|r|n|nChildren Steps:|r|nFailed scenario child step (0.1) -> ERROR|r|n|nStackTrace|r|n|r|n|r|n|r|n' name='sprint-1.us-1.story.failedScenario']";
         String testFinishedExpectedMessage = "##teamcity[testFinished  duration='100' name='sprint-1.us-1.story.failedScenario']";
 
         ArgumentCaptor<String> stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
@@ -237,6 +236,29 @@ public class TeamCityStepListenerTests {
         assertThat(stringArgumentCaptor.getAllValues().get(0), is(testStartedExpectedMessage));
         assertThat(stringArgumentCaptor.getAllValues().get(1), is(testFailedExpectedMessage));
         assertThat(stringArgumentCaptor.getAllValues().get(2), is(testFinishedExpectedMessage));
+    }
+
+    @Test
+    public void messagePropertyIsNullIfResultHasTestFailureCauseInstanceOfNPE() {
+
+        TestOutcome testOutcome = new TestOutcome("failedScenario");
+        testOutcome.setUserStory(STORY);
+        testOutcome.recordStep(TestStepFactory.getFailureTestStep("Failed scenario step", new NullPointerException()));
+        testOutcome.setTestFailureCause(new NullPointerException());
+
+        teamCityStepListener.testFinished(testOutcome);
+
+        String testStartedExpectedMessage = "##teamcity[testStarted  name='sprint-1.us-1.story.failedScenario']";
+        String testFailedExpectedMessage = "##teamcity[testFailed  message='' details='Steps:|r|nFailed scenario step (0.1) -> ERROR|r|n|nStackTrace|r|n|r|n' name='sprint-1.us-1.story.failedScenario']";
+        String testFinishedExpectedMessage = "##teamcity[testFinished  duration='100' name='sprint-1.us-1.story.failedScenario']";
+
+        ArgumentCaptor<String> stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
+        verify(logger, times(3)).info(stringArgumentCaptor.capture());
+
+        assertThat(stringArgumentCaptor.getAllValues().get(0), is(testStartedExpectedMessage));
+        assertThat(stringArgumentCaptor.getAllValues().get(1), is(testFailedExpectedMessage));
+        assertThat(stringArgumentCaptor.getAllValues().get(2), is(testFinishedExpectedMessage));
+
     }
 
     //test scenario with given stories in story
