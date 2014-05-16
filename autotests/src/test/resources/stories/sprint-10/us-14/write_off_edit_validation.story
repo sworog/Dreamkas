@@ -155,10 +155,12 @@ Scenario: WriteOff edit - no product name validation
 Given there is the write off with 'WriteOff-Edit-Val-13' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-13'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product name review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productName' of writeOff product named 'Name-WOV-QIR'
 And the user inputs '!Лвражрварврадв-45-345' in the 'inline writeOff product name autocomplete' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Такого товара не существует |
@@ -168,10 +170,12 @@ Scenario: WriteOff edit - no product barcode validation
 Given there is the write off with 'WriteOff-Edit-Val-14' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-14'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product barCode review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productBarcode' of writeOff product named 'Name-WOV-QIR'
 And the user inputs '!Лвражрварврадв-45-345' in the 'inline writeOff product barCode autocomplete' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Такого товара не существует |
@@ -181,10 +185,12 @@ Scenario: WriteOff edit - no product sku validation
 Given there is the write off with 'WriteOff-Edit-Val-15' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-15'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product sku review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productSku' of writeOff product named 'Name-WOV-QIR'
 And the user inputs '!Лвражрварврадв-45-345' in the 'inline writeOff product sku autocomplete' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Такого товара не существует |
@@ -194,10 +200,12 @@ Scenario: Write off edit Validation - quantity is required
 Given there is the write off with 'WriteOff-Edit-Val-16' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-16'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product quantity review' element of write off product with 'Name-WOV-QIR' sku to edit
-And the user inputs '' in the 'inline writeOff product quantity' field on the write off page
+And the user clicks on property named 'productAmount' of writeOff product named 'Name-WOV-QIR'
+And the user inputs the value '' in property named 'productAmount' of writeOff product named 'Name-WOV-QIR'
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Заполните это поле |
@@ -207,10 +215,12 @@ Scenario: Write off edit product quantity validation sub zero
 Given there is the write off with 'WriteOff-Edit-Val-17' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-17'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product quantity review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productAmount' of writeOff product named 'Name-WOV-QIR'
 And the user inputs '-10' in the 'inline writeOff product quantity' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Значение должно быть больше 0 |
@@ -220,10 +230,12 @@ Scenario: Write off edit product quantity validation zero
 Given there is the write off with 'WriteOff-Edit-Val-18' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-18'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product quantity review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productAmount' of writeOff product named 'Name-WOV-QIR'
 And the user inputs '0' in the 'inline writeOff product quantity' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Значение должно быть больше 0 |
@@ -233,10 +245,12 @@ Scenario: Write off edit product quantity validation String en small register
 Given there is the write off with 'WriteOff-Edit-Val-19' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-19'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product quantity review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productAmount' of writeOff product named 'Name-WOV-QIR'
 And the user inputs 'asdd' in the 'inline writeOff product quantity' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Значение должно быть числом |
@@ -246,10 +260,12 @@ Scenario: Write off edit product quantity validation String en big register
 Given there is the write off with 'WriteOff-Edit-Val-20' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-20'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product quantity review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productAmount' of writeOff product named 'Name-WOV-QIR'
 And the user inputs 'ADHF' in the 'inline writeOff product quantity' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Значение должно быть числом |
@@ -259,10 +275,12 @@ Scenario: Write off edit product quantity validation String rus small register
 Given there is the write off with 'WriteOff-Edit-Val-21' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-21'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product quantity review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productAmount' of writeOff product named 'Name-WOV-QIR'
 And the user inputs 'рыба' in the 'inline writeOff product quantity' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Значение должно быть числом |
@@ -272,10 +290,12 @@ Scenario: Write off edit product quantity validation String rus big register
 Given there is the write off with 'WriteOff-Edit-Val-22' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-22'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product quantity review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productAmount' of writeOff product named 'Name-WOV-QIR'
 And the user inputs 'Рыба' in the 'inline writeOff product quantity' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Значение должно быть числом |
@@ -285,10 +305,12 @@ Scenario: Write off edit product quantity validation symbols
 Given there is the write off with 'WriteOff-Edit-Val-23' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-23'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product quantity review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productAmount' of writeOff product named 'Name-WOV-QIR'
 And the user inputs '^%#$)&' in the 'inline writeOff product quantity' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Значение должно быть числом |
@@ -298,10 +320,12 @@ Scenario: Write off edit product quantity positive validation
 Given there is the write off with 'WriteOff-Edit-Val-24' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-24'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product quantity review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productAmount' of writeOff product named 'Name-WOV-QIR'
 And the user inputs '1' in the 'inline writeOff product quantity' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees no error messages
 
 Scenario: Write off edit price validation - price is required
@@ -309,10 +333,12 @@ Scenario: Write off edit price validation - price is required
 Given there is the write off with 'WriteOff-Edit-Val-25' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-25'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product price review' element of write off product with 'Name-WOV-QIR' sku to edit
-And the user inputs '' in the 'inline writeOff product price' field on the write off page
+And the user clicks on property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
+And the user inputs the value '' in property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Заполните это поле |
@@ -322,10 +348,12 @@ Scenario: Write off edit product price validation commma
 Given there is the write off with 'WriteOff-Edit-Val-26' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-26'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product price review' element of write off product with 'Name-WOV-QIR' sku to edit
-And the user inputs ',78' in the 'inline writeOff product price' field on the write off page
+And the user clicks on property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
+And the user inputs the value ',78' in property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
 And the user clicks OK and accepts changes
+
 Then the user sees no error messages
 
 Scenario: Write off edit product price validation dott
@@ -333,10 +361,12 @@ Scenario: Write off edit product price validation dott
 Given there is the write off with 'WriteOff-Edit-Val-27' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-27'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product price review' element of write off product with 'Name-WOV-QIR' sku to edit
-And the user inputs '.78' in the 'inline writeOff product price' field on the write off page
+And the user clicks on property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
+And the user inputs the value '.78' in property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
 And the user clicks OK and accepts changes
+
 Then the user sees no error messages
 
 Scenario: Write off edit product price validation comma
@@ -344,10 +374,12 @@ Scenario: Write off edit product price validation comma
 Given there is the write off with 'WriteOff-Edit-Val-28' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-28'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product price review' element of write off product with 'Name-WOV-QIR' sku to edit
-And the user inputs '123,25' in the 'inline writeOff product price' field on the write off page
+And the user clicks on property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
+And the user inputs the value '123,25' in property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
 And the user clicks OK and accepts changes
+
 Then the user sees no error messages
 
 Scenario: Write off edit product price validation dot
@@ -355,10 +387,12 @@ Scenario: Write off edit product price validation dot
 Given there is the write off with 'WriteOff-Edit-Val-29' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-29'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product price review' element of write off product with 'Name-WOV-QIR' sku to edit
-And the user inputs '12.56' in the 'inline writeOff product price' field on the write off page
+And the user clicks on property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
+And the user inputs the value '12.56' in property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
 And the user clicks OK and accepts changes
+
 Then the user sees no error messages
 
 Scenario: Write off edit product price validation one digit
@@ -366,10 +400,12 @@ Scenario: Write off edit product price validation one digit
 Given there is the write off with 'WriteOff-Edit-Val-30' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-30'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product price review' element of write off product with 'Name-WOV-QIR' sku to edit
-And the user inputs '1' in the 'inline writeOff product price' field on the write off page
+And the user clicks on property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
+And the user inputs the value '1' in property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
 And the user clicks OK and accepts changes
+
 Then the user sees no error messages
 
 Scenario: Write off edit product price validation two digits
@@ -377,10 +413,12 @@ Scenario: Write off edit product price validation two digits
 Given there is the write off with 'WriteOff-Edit-Val-31' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-31'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product price review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
 And the user inputs '99' in the 'inline writeOff product price' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees no error messages
 
 Scenario: Write off edit product price validation three digits
@@ -388,10 +426,12 @@ Scenario: Write off edit product price validation three digits
 Given there is the write off with 'WriteOff-Edit-Val-32' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-32'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product price review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
 And the user inputs '12,123' in the 'inline writeOff product price' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Цена не должна содержать больше 2 цифр после запятой |
@@ -401,10 +441,12 @@ Scenario: Write off edit product price validation sub zero
 Given there is the write off with 'WriteOff-Edit-Val-33' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-33'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product price review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
 And the user inputs '-1' in the 'inline writeOff product price' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю |
@@ -414,10 +456,12 @@ Scenario: Write off edit product price validation zero
 Given there is the write off with 'WriteOff-Edit-Val-34' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-34'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product price review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
 And the user inputs '0' in the 'inline writeOff product price' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Цена не должна быть меньше или равна нулю |
@@ -427,10 +471,12 @@ Scenario: Write off edit product price validation String en small register
 Given there is the write off with 'WriteOff-Edit-Val-35' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-35'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product price review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
 And the user inputs 'harry' in the 'inline writeOff product price' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Значение должно быть числом |
@@ -440,10 +486,12 @@ Scenario: Write off edit product price validation String en big register
 Given there is the write off with 'WriteOff-Edit-Val-36' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-36'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product price review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
 And the user inputs 'HARRY' in the 'inline writeOff product price' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Значение должно быть числом |
@@ -453,10 +501,12 @@ Scenario: Write off edit product price validation String rus small register
 Given there is the write off with 'WriteOff-Edit-Val-37' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-37'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product price review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
 And the user inputs 'цена' in the 'inline writeOff product price' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Значение должно быть числом |
@@ -466,10 +516,12 @@ Scenario: Write off edit product price validation String rus big register
 Given there is the write off with 'WriteOff-Edit-Val-38' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-38'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product price review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
 And the user inputs 'ЦЕНА' in the 'inline writeOff product price' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Значение должно быть числом |
@@ -479,10 +531,12 @@ Scenario: Write off edit product price validation symbols
 Given there is the write off with 'WriteOff-Edit-Val-39' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-39'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product price review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
 And the user inputs ';№?:"?*:№"' in the 'inline writeOff product price' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Значение должно быть числом |
@@ -492,10 +546,12 @@ Scenario: Write off edit product price validation length good
 Given there is the write off with 'WriteOff-Edit-Val-40' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-40'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product price review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
 And the user inputs '10000000' in the 'inline writeOff product price' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees no error messages
 
 Scenario: Write off edit product price validation length negative
@@ -503,10 +559,12 @@ Scenario: Write off edit product price validation length negative
 Given there is the write off with 'WriteOff-Edit-Val-41' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-41'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff product price review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productPrice' of writeOff product named 'Name-WOV-QIR'
 And the user inputs '10000001' in the 'inline writeOff product price' field on the write off page
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Цена не должна быть больше 10000000 |
@@ -516,10 +574,12 @@ Scenario: Write off edit Validation - cause is required
 Given there is the write off with 'WriteOff-Edit-Val-42' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-42'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff cause review' element of write off product with 'Name-WOV-QIR' sku to edit
-And the user inputs '' in the 'inline writeOff cause' field on the write off page
+And the user clicks on property named 'productCause' of writeOff product named 'Name-WOV-QIR'
+And the user inputs the value '' in property named 'productCause' of writeOff product named 'Name-WOV-QIR'
 And the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Заполните это поле |
@@ -529,11 +589,15 @@ Scenario: Write off edit Validation - cause 1000 symbols
 Given there is the write off with 'WriteOff-Edit-Val-43' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-43'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff cause review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productCause' of writeOff product named 'Name-WOV-QIR'
 And the user generates charData with '1000' number in the 'inline writeOff cause' write off field
+
 Then the user checks 'inline writeOff cause' write off field contains only '1000' symbols
+
 When the user clicks OK and accepts changes
+
 Then the user sees no error messages
 
 Scenario: Write off edit Validation - cause 1001 symbols
@@ -541,11 +605,15 @@ Scenario: Write off edit Validation - cause 1001 symbols
 Given there is the write off with 'WriteOff-Edit-Val-44' number with product 'Name-WOV-QIR' with quantity '10', price '15' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Edit-Val-44'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
-And the user clicks on 'writeOff cause review' element of write off product with 'Name-WOV-QIR' sku to edit
+And the user clicks on property named 'productCause' of writeOff product named 'Name-WOV-QIR'
 And the user generates charData with '1001' number in the 'inline writeOff cause' write off field
+
 Then the user checks 'inline writeOff cause' write off field contains only '1001' symbols
+
 When the user clicks OK and accepts changes
+
 Then the user sees error messages
 | error message |
 | Не более 1000 символов |

@@ -2,6 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
+use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
+
 class GroupType extends ClassifierNodeType
 {
     /**
@@ -9,6 +11,6 @@ class GroupType extends ClassifierNodeType
      */
     protected function getDataClass()
     {
-        return 'Lighthouse\\CoreBundle\\Document\\Classifier\\Group\\Group';
+        return Group::getClassName();
     }
 }

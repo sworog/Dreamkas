@@ -73,6 +73,12 @@ cookbook_file "ssh_rsa_privite_key" do
   mode "0600"
 end
 
+cookbook_file "ssh_rsa_public_key" do
+  path "/home/watchman/.ssh/id_rsa.pub"
+  owner "watchman"
+  group "watchman"
+end
+
 cookbook_file "authorized_keys" do
   path "/home/watchman/.ssh/authorized_keys"
   owner "watchman"

@@ -57,6 +57,7 @@ namespace :symfony do
         task :setup, :roles => :app, :except => { :no_release => true } do
             upload
             rename_database_name
+            rename_web_host
         end
 
         desc "Upload current parameters.yml to shared folder"
@@ -73,6 +74,13 @@ namespace :symfony do
             puts "--> Database name in ".yellow + "parameters.yml".bold.yellow + " will be set to ".yellow + "#{database_name}".red
             run "sed -r -i 's/^(\\s+database_name:\\s+).+$/\\1#{database_name}/g' #{parameters_file}"
         end
+
+        desc "Rename web_host in app/config/parameters.yml"
+        task :rename_web_host, :roles => :app, :except => { :no_release => true } do
+            set :web_host, application_url.gsub('/', '\/')
+            puts "--> Web host in ".yellow + "parameters.yml".bold.yellow + " will be set to ".yellow + "#{application_url}".red
+            run "sed -r -i 's/^(\\s+web_host:\\s+).+$/\\1#{web_host}/g' #{parameters_file}"
+        end
     end
 
     namespace :worker do
@@ -81,8 +89,8 @@ namespace :symfony do
         after "deploy:update", "symfony:worker:symlink:create"
         after "deploy:update", "symfony:worker:update"
         after "deploy:update", "symfony:worker:restart"
-        after "deploy:remove", "symfony:worker:symlink:remove"
-        after "deploy:remove", "symfony:worker:update"
+        after "deploy:remove:go", "symfony:worker:symlink:remove"
+        after "deploy:remove:go", "symfony:worker:update"
 
         set(:worker_conf_file) {"#{shared_path}/app/shared/supervisor/worker.conf"}
         set(:worker_symlink_file) {"/etc/supervisor/conf.d/#{application}.conf"}
@@ -137,8 +145,9 @@ namespace :symfony do
 
             desc "Create worker symlink in supervisor conf.d"
             task :create, :roles => :app, :except => { :no_release => true } do
-                puts "--> Symlink worker conf to supervisor conf.d".yellow
+                capifony_pretty_print "--> Symlink worker conf to supervisor conf.d"
                 run "sudo ln -snf #{worker_conf_file} #{worker_symlink_file}"
+                capifony_puts_ok
             end
 
             desc "Remove worker symlink from supervisor conf.d"
@@ -301,6 +310,48 @@ namespace :symfony do
         desc "Recalculate reports data"
         task :recalculate, :roles => :app, :except => { :no_release => true } do
             stream console_command("lighthouse:reports:recalculate"), :once => true
+        end
+    end
+
+    namespace :openstack do
+        namespace :container do
+
+            after "deploy:update", "symfony:openstack:container:create"
+
+            before "deploy:remove:go" do
+                begin
+                    symfony.openstack.container.delete
+                rescue Exception => error
+                    puts "✘\n".red
+                end
+            end
+
+            desc "Create OpenStack Storage container"
+            task :create, :roles => :app, :except => { :no_release => true } do
+                puts "--> Create storage container"
+                stream console_command("openstack:container:create"), :once => true
+                capifony_puts_ok
+            end
+
+            desc "Delete OpenStack Storage container"
+            task :delete, :roles => :app, :except => { :no_release => true } do
+                puts "--> Delete storage container".yellow
+                stream console_command("openstack:container:delete"), :once => true
+                capifony_puts_ok
+            end
+        end
+    end
+
+    namespace :apc do
+
+        before "deploy:restart", "symfony:apc:clear"
+        after "deploy:rollback:cleanup", "symfony:apc:clear"
+
+        desc "Clear apc cache"
+        task :clear do
+            capifony_pretty_print "--> Clear apc cache"
+            run console_command("apc:clear"), :once => true
+            capifony_puts_ok
         end
     end
 

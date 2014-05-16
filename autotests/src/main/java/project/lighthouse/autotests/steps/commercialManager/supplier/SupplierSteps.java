@@ -2,22 +2,23 @@ package project.lighthouse.autotests.steps.commercialManager.supplier;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
-import org.apache.commons.io.FileUtils;
 import org.jbehave.core.model.ExamplesTable;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.helper.FileCreator;
-import project.lighthouse.autotests.helper.FilesCompare;
+import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.helper.StringGenerator;
+import project.lighthouse.autotests.helper.file.FileCreator;
+import project.lighthouse.autotests.helper.file.FileDownloader;
+import project.lighthouse.autotests.helper.file.FilesCompare;
 import project.lighthouse.autotests.objects.web.supplier.SupplierObject;
 import project.lighthouse.autotests.objects.web.supplier.SupplierObjectCollection;
 import project.lighthouse.autotests.pages.commercialManager.supplier.SupplierListPage;
 import project.lighthouse.autotests.pages.commercialManager.supplier.SupplierPage;
 
 import java.io.File;
-import java.net.URL;
 
 public class SupplierSteps extends ScenarioSteps {
 
@@ -52,6 +53,7 @@ public class SupplierSteps extends ScenarioSteps {
     @Step
     public void createButtonClick() {
         supplierPage.getCreateButtonFacade().click();
+        new PreLoader(getDriver()).await();
     }
 
     @Step
@@ -186,13 +188,7 @@ public class SupplierSteps extends ScenarioSteps {
     @Step
     private void assertDownloadedFileEqualsToUploadedFile(WebElement element) throws Exception {
         String downloadLocation = element.getAttribute("href");
-        if (downloadLocation.trim().equals("")) {
-            throw new Exception("The element you have specified does not link to anything!");
-        }
-        String downloadPath = System.getProperty("java.io.tmpdir");
-        URL downloadURL = new URL(downloadLocation);
-        File downloadedFile = new File(downloadPath + "/" + fileName);
-        FileUtils.copyURLToFile(downloadURL, new File(downloadPath + "/" + fileName));
+        File downloadedFile = new FileDownloader(downloadLocation, fileName).getFile();
         Boolean compareResult = new FilesCompare(file, downloadedFile).compare();
         if (!compareResult) {
             Assert.fail("md5 sum is not equals!");
@@ -214,9 +210,16 @@ public class SupplierSteps extends ScenarioSteps {
     @Step
     public void assertDownloadAgreementButtonIsNotVisibleFromSupplierObjectByLocator(String locator) {
         try {
-            supplierListPage.getWaiter().invisibilityOfElementLocated(
-                    getDownloadAgreementButtonFromSupplierObjectByLocator(locator));
-        } catch (org.openqa.selenium.NoSuchElementException ignored) {
+            WebElement downloadAgreementButtonWebElement =
+                    getDownloadAgreementButtonFromSupplierObjectByLocator(locator);
+            if (!supplierPage.invisibilityOfElementLocated(downloadAgreementButtonWebElement)) {
+                String message =
+                        String.format(
+                                "The download link should not be visible in supplier object with locator %s",
+                                locator);
+                Assert.fail(message);
+            }
+        } catch (NoSuchElementException ignored) {
         }
     }
 

@@ -38,7 +38,9 @@
     visibility: visible;
 }
 
-.page.preloader_spinner .page__content {
+.page.preloader_spinner .page__content,
+.page.preloader_spinner .content,
+.page.preloader_spinner .localNavigation {
     display: none;
 }
 
@@ -51,13 +53,13 @@
 }
 
 .page__content {
-    min-height: 100%;
     margin-left: 200px;
-    padding: 60px;
     position: relative;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
+    height: 100%;
+    padding: 0;
 }
 
 .page__tabs{
@@ -101,13 +103,8 @@
     background: #ffff99;
 }
 
-[page^="pages/reports"] .page__content,
-[page^="pages/suppliers"] .page__content{
-    height: 100%;
-    padding: 0;
-}
-
 [page^="pages/reports"] .localNavigation,
+[page^="pages/orders"] .localNavigation,
 [page^="pages/suppliers"] .localNavigation{
     position: relative;
     top: 0;
@@ -119,8 +116,13 @@
     height: 100%;
     padding: 60px;
     position: relative;
-    overflow-x: hidden;
+    overflow-x: auto;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
+}
+
+.page__downloadLink{
+    display: inline-block;
+    padding: 5px 10px;
 }

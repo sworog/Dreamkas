@@ -15,75 +15,93 @@ class GrossMarginControllerTest extends WebTestCase
 {
     protected function prepareData()
     {
-        $store = $this->factory->getStore();
+        $store = $this->factory()->store()->getStore();
 
-        $product1 = $this->createProduct("1");
-        $product2 = $this->createProduct("2");
-        $product3 = $this->createProduct("3");
+        $productId1 = $this->createProduct('1');
+        $productId2 = $this->createProduct('2');
+        $productId3 = $this->createProduct('3');
 
-        $invoice1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-01 12:23:12'), $store);
-        $this->createInvoiceProduct($invoice1, $product1, 5, 100, $store);
-        $this->createInvoiceProduct($invoice1, $product2, 10, 201, $store);
-        $this->createInvoiceProduct($invoice1, $product3, 5, 120, $store);
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('acceptanceDate' => '2014-01-01 12:23:12'), $store->id)
+                ->createInvoiceProduct($productId1, 5, 100)
+                ->createInvoiceProduct($productId2, 10, 201)
+                ->createInvoiceProduct($productId3, 5, 120)
+            ->flush();
 
-        $invoice2 = $this->createInvoice(array('sku' => 2, 'acceptanceDate' => '2014-01-02 12:23:12'), $store);
-        $this->createInvoiceProduct($invoice2, $product1, 5, 101, $store);
-        $this->createInvoiceProduct($invoice2, $product2, 5, 200, $store);
-        $this->createInvoiceProduct($invoice2, $product3, 10, 130, $store);
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('acceptanceDate' => '2014-01-02 12:23:12'), $store->id)
+                ->createInvoiceProduct($productId1, 5, 101)
+                ->createInvoiceProduct($productId2, 5, 200)
+                ->createInvoiceProduct($productId3, 10, 130)
+            ->flush();
 
-        $invoice3 = $this->createInvoice(array('sku' => 3, 'acceptanceDate' => '2014-01-03 12:23:12'), $store);
-        $this->createInvoiceProduct($invoice3, $product1, 5, 102, $store);
-        $this->createInvoiceProduct($invoice3, $product2, 5, 205, $store);
-        $this->createInvoiceProduct($invoice3, $product3, 10, 135, $store);
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('acceptanceDate' => '2014-01-03 12:23:12'), $store->id)
+                ->createInvoiceProduct($productId1, 5, 102)
+                ->createInvoiceProduct($productId2, 5, 205)
+                ->createInvoiceProduct($productId3, 10, 135)
+            ->flush();
 
-        $invoice4 = $this->createInvoice(array('sku' => 4, 'acceptanceDate' => '2014-01-04 12:23:12'), $store);
-        $this->createInvoiceProduct($invoice4, $product1, 20, 101, $store);
-        $this->createInvoiceProduct($invoice4, $product2, 5, 200, $store);
-        $this->createInvoiceProduct($invoice4, $product3, 10, 130, $store);
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('acceptanceDate' => '2014-01-04 12:23:12'), $store->id)
+                ->createInvoiceProduct($productId1, 20, 101)
+                ->createInvoiceProduct($productId2, 5, 200)
+                ->createInvoiceProduct($productId3, 10, 130)
+            ->flush();
 
-        $invoice5 = $this->createInvoice(array('sku' => 5, 'acceptanceDate' => '2014-01-05 12:23:12'), $store);
-        $this->createInvoiceProduct($invoice5, $product1, 5, 101, $store);
-        $this->createInvoiceProduct($invoice5, $product2, 5, 200, $store);
-        $this->createInvoiceProduct($invoice5, $product3, 10, 130, $store);
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('acceptanceDate' => '2014-01-05 12:23:12'), $store->id)
+                ->createInvoiceProduct($productId1, 5, 101)
+                ->createInvoiceProduct($productId2, 5, 200)
+                ->createInvoiceProduct($productId3, 10, 130)
+            ->flush();
 
-        $invoice6 = $this->createInvoice(array('sku' => 6, 'acceptanceDate' => '2014-01-06 12:23:12'), $store);
-        $this->createInvoiceProduct($invoice6, $product1, 5, 101, $store);
-        $this->createInvoiceProduct($invoice6, $product2, 5, 200, $store);
-        $this->createInvoiceProduct($invoice6, $product3, 10, 130, $store);
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('acceptanceDate' => '2014-01-06 12:23:12'), $store->id)
+                ->createInvoiceProduct($productId1, 5, 101)
+                ->createInvoiceProduct($productId2, 5, 200)
+                ->createInvoiceProduct($productId3, 10, 130)
+            ->flush();
 
 
-        $sale1 = $this->factory->createSale($store, "2014-01-02 12:23:12", 222);
-        $this->factory->createSaleProduct(150, 3, $product1, $sale1);  // 450 - (3 x 100 = 300) = 150
-        $this->factory->createSaleProduct(250, 3, $product2, $sale1);  // 750 - (3 x 201 = 603) = 147
-        $this->factory->createSaleProduct(150, 3, $product3, $sale1);  // 450 - (3 x 120 = 360) = 90
-        $sale2 = $this->factory->createSale($store, "2014-01-03 12:23:12", 222);
-        $this->factory->createSaleProduct(150, 3, $product1, $sale2);  // 450 - (2 x 100 + 1 x 101 = 301) = 149
-        $this->factory->createSaleProduct(250, 8, $product2, $sale2);  // 2000 - (7 x 201 + 1 x 200 = 1607) = 393
-        $this->factory->createSaleProduct(150, 3, $product3, $sale2);  // 450 - (2 x 120 + 1 x 130 = 370) = 80
-        $sale4 = $this->factory->createSale($store, "2014-01-05 12:23:12", 222);
-        $this->factory->createSaleProduct(150, 8, $product1, $sale4);  // 1200 - (4 x 101 + 4 x 102 = 812) = 388
-        $this->factory->createSaleProduct(250, 3, $product2, $sale4);  // 750 - (3 x 200 = 600) = 150
-        $this->factory->createSaleProduct(150, 6, $product3, $sale4);  // 900 - (6 x 130 = 780) = 120
-        $sale5 = $this->factory->createSale($store, "2014-01-06 12:23:12", 222);
-        $this->factory->createSaleProduct(150, 5, $product1, $sale5);  // 750 - (1 x 102 + 4 x 101 = 506) = 244
-        $this->factory->createSaleProduct(250, 6, $product2, $sale5);  // 1500 - (1 x 200 + 5 x 205 = 1225) = 275
-        $this->factory->createSaleProduct(150, 2, $product3, $sale5);  // 300 - (2 x 130 = 260) = 40
-        $sale6 = $this->factory->createSale($store, "2014-01-07 12:23:12", 222);
-        $this->factory->createSaleProduct(150, 6, $product1, $sale6);  // 900 - (6 x 101 = 606) = 294
-        $this->factory->createSaleProduct(250, 3, $product2, $sale6);  // 750 - (3 x 200 = 600) = 150
-        $this->factory->createSaleProduct(150, 15, $product3, $sale6); // 2250 - (1x130 + 10x135 + 4x130 = 2000) = 250
-        $sale7 = $this->factory->createSale($store, "2014-01-08 12:23:12", 222);
-        $this->factory->createSaleProduct(150, 8, $product1, $sale7);  // 1200 - (8 x 101 = 808) = 392
-        $this->factory->createSaleProduct(250, 3, $product2, $sale7);  // 750 - (3 x 200 = 600) = 150
-        $this->factory->createSaleProduct(150, 10, $product3, $sale7); // 1500 - (10 x 130 = 1300) = 200
-        $sale8 = $this->factory->createSale($store, "2014-01-09 12:23:12", 222);
-        $this->factory->createSaleProduct(150, 3, $product1, $sale8);  // 450 - (3 x 101 = 303) = 147
-        $this->factory->createSaleProduct(250, 7, $product2, $sale8);  // 1750 - (7 x 200 = 1400) = 350
-        $this->factory->createSaleProduct(150, 1, $product3, $sale8);  // 150 - (1 x 130 = 130) = 20
+        $sale1 = $this->factory->createSale($store->id, "2014-01-02 12:23:12", 222);
+        $this->factory->createSaleProduct(150, 3, $productId1, $sale1);  // 450 - (3 x 100 = 300) = 150
+        $this->factory->createSaleProduct(250, 3, $productId2, $sale1);  // 750 - (3 x 201 = 603) = 147
+        $this->factory->createSaleProduct(150, 3, $productId3, $sale1);  // 450 - (3 x 120 = 360) = 90
+        $sale2 = $this->factory->createSale($store->id, "2014-01-03 12:23:12", 222);
+        $this->factory->createSaleProduct(150, 3, $productId1, $sale2);  // 450 - (2 x 100 + 1 x 101 = 301) = 149
+        $this->factory->createSaleProduct(250, 8, $productId2, $sale2);  // 2000 - (7 x 201 + 1 x 200 = 1607) = 393
+        $this->factory->createSaleProduct(150, 3, $productId3, $sale2);  // 450 - (2 x 120 + 1 x 130 = 370) = 80
+        $sale4 = $this->factory->createSale($store->id, "2014-01-05 12:23:12", 222);
+        $this->factory->createSaleProduct(150, 8, $productId1, $sale4);  // 1200 - (4 x 101 + 4 x 102 = 812) = 388
+        $this->factory->createSaleProduct(250, 3, $productId2, $sale4);  // 750 - (3 x 200 = 600) = 150
+        $this->factory->createSaleProduct(150, 6, $productId3, $sale4);  // 900 - (6 x 130 = 780) = 120
+        $sale5 = $this->factory->createSale($store->id, "2014-01-06 12:23:12", 222);
+        $this->factory->createSaleProduct(150, 5, $productId1, $sale5);  // 750 - (1 x 102 + 4 x 101 = 506) = 244
+        $this->factory->createSaleProduct(250, 6, $productId2, $sale5);  // 1500 - (1 x 200 + 5 x 205 = 1225) = 275
+        $this->factory->createSaleProduct(150, 2, $productId3, $sale5);  // 300 - (2 x 130 = 260) = 40
+        $sale6 = $this->factory->createSale($store->id, "2014-01-07 12:23:12", 222);
+        $this->factory->createSaleProduct(150, 6, $productId1, $sale6);  // 900 - (6 x 101 = 606) = 294
+        $this->factory->createSaleProduct(250, 3, $productId2, $sale6);  // 750 - (3 x 200 = 600) = 150
+        $this->factory->createSaleProduct(150, 15, $productId3, $sale6); // 2250 - (1x130 + 10x135 + 4x130 = 2000) = 250
+        $sale7 = $this->factory->createSale($store->id, "2014-01-08 12:23:12", 222);
+        $this->factory->createSaleProduct(150, 8, $productId1, $sale7);  // 1200 - (8 x 101 = 808) = 392
+        $this->factory->createSaleProduct(250, 3, $productId2, $sale7);  // 750 - (3 x 200 = 600) = 150
+        $this->factory->createSaleProduct(150, 10, $productId3, $sale7); // 1500 - (10 x 130 = 1300) = 200
+        $sale8 = $this->factory->createSale($store->id, "2014-01-09 12:23:12", 222);
+        $this->factory->createSaleProduct(150, 3, $productId1, $sale8);  // 450 - (3 x 101 = 303) = 147
+        $this->factory->createSaleProduct(250, 7, $productId2, $sale8);  // 1750 - (7 x 200 = 1400) = 350
+        $this->factory->createSaleProduct(150, 1, $productId3, $sale8);  // 150 - (1 x 130 = 130) = 20
 
         $this->factory->flush();
 
-        return $store;
+        return $store->id;
     }
 
     /**
@@ -104,7 +122,7 @@ class GrossMarginControllerTest extends WebTestCase
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
 
-        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
         $actualResponse = $this->clientJsonRequest(
             $accessToken,
@@ -160,7 +178,7 @@ class GrossMarginControllerTest extends WebTestCase
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->getGrossMarginManager()->recalculateStoreGrossMargin();
 
-        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
         $actualResponse = $this->clientJsonRequest(
             $accessToken,
@@ -218,53 +236,53 @@ class GrossMarginControllerTest extends WebTestCase
 
     public function testGetStoreGrossMarginReportsWithDataFromAutotests()
     {
-        $store = $this->factory->getStore('1');
+        $store = $this->factory()->store()->getStore('1');
         $product = $this->createProduct('1');
 
         $date = new DateTimestamp();
 
-        $invoice1 = $this->createInvoice(
-            array(
-                'sku' => 1,
-                'acceptanceDate' => $date->copy()->modify('-2 days 08:00')->format(DateTime::ISO8601)
-            ),
-            $store
-        );
-        $this->createInvoiceProduct($invoice1, $product, 50, 90, $store);
+        $this->factory()
+            ->invoice()
+                ->createInvoice(
+                    array('acceptanceDate' => $date->copy()->modify('-2 days 08:00')->format(DateTime::ISO8601)),
+                    $store->id
+                )
+                ->createInvoiceProduct($product, 50, 90)
+            ->flush();
 
-        $invoice2 = $this->createInvoice(
-            array(
-                'sku' => 2,
-                'acceptanceDate' => $date->copy()->modify('-1 day 08:00')->format(DateTime::ISO8601)
-            ),
-            $store
-        );
-        $this->createInvoiceProduct($invoice2, $product, 35, 100, $store);
+        $this->factory()
+            ->invoice()
+                ->createInvoice(
+                    array('acceptanceDate' => $date->copy()->modify('-1 day 08:00')->format(DateTime::ISO8601)),
+                    $store->id
+                )
+                ->createInvoiceProduct($product, 35, 100)
+            ->flush();
 
-        $sale1 = $this->factory->createSale(
-            $store,
+        $sale1 = $this->factory()->createSale(
+            $store->id,
             $date->copy()->modify('-2 days 10:00'),
             3125
         );
-        $this->factory->createSaleProduct(125, 25, $product, $sale1);
+        $this->factory()->createSaleProduct(125, 25, $product, $sale1);
 
-        $sale2 = $this->factory->createSale(
-            $store,
+        $sale2 = $this->factory()->createSale(
+            $store->id,
             $date->copy()->modify('-1 day 10:00'),
             3600
         );
-        $this->factory->createSaleProduct(120, 30, $product, $sale2);
-        $this->factory->flush();
+        $this->factory()->createSaleProduct(120, 30, $product, $sale2);
+        $this->factory()->flush();
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->getGrossMarginManager()->recalculateStoreGrossMargin();
 
-        $accessToken = $this->factory->authAsStoreManager($store);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($store->id);
 
         $actualResponse = $this->clientJsonRequest(
             $accessToken,
-            "GET",
-            "/api/1/stores/" . $store . "/reports/grossMargin"
+            'GET',
+            '/api/1/stores/' . $store->id . '/reports/grossMargin'
         );
 
         $expectedResponse = array(
@@ -283,27 +301,33 @@ class GrossMarginControllerTest extends WebTestCase
 
     public function testGetStoreGrossMarginReportsSimpleExampleOnBoard()
     {
-        $store = $this->factory->getStore("1");
-        $accessToken = $this->factory->authAsStoreManager($store);
-        $product = $this->createProduct("1");
+        $store = $this->factory()->store()->getStore('1');
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($store->id);
+        $product = $this->createProduct('1');
 
         // Begin inventory
-        $invoice1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-01 12:23:12'), $store);
-        $this->createInvoiceProduct($invoice1, $product, 3, 100, $store);
-        $this->createInvoiceProduct($invoice1, $product, 1, 101, $store);
-        $this->createInvoiceProduct($invoice1, $product, 2, 102, $store);
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('acceptanceDate' => '2014-01-01 12:23:12'), $store->id)
+                ->createInvoiceProduct($product, 3, 100)
+                ->createInvoiceProduct($product, 1, 101)
+                ->createInvoiceProduct($product, 2, 102)
+            ->flush();
 
 
         // Inventory purchase
-        $invoice2 = $this->createInvoice(array('sku' => 2, 'acceptanceDate' => '2014-01-02 12:23:12'), $store);
-        $this->createInvoiceProduct($invoice2, $product, 1, 101, $store);
-        $this->createInvoiceProduct($invoice2, $product, 2, 102, $store);
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('acceptanceDate' => '2014-01-02 12:23:12'), $store->id)
+                ->createInvoiceProduct($product, 1, 101)
+                ->createInvoiceProduct($product, 2, 102)
+            ->flush();
 
 
         // Sale
-        $sale1 = $this->factory->createSale($store, "2014-01-02 12:23:12", 1050);
-        $this->factory->createSaleProduct(150, 7, $product, $sale1);
-        $this->factory->flush();
+        $sale1 = $this->factory()->createSale($store->id, '2014-01-02 12:23:12', 1050);
+        $this->factory()->createSaleProduct(150, 7, $product, $sale1);
+        $this->factory()->flush();
 
 
         // Calculate CostOfGoods
@@ -316,10 +340,10 @@ class GrossMarginControllerTest extends WebTestCase
 
         $actualResponse = $this->clientJsonRequest(
             $accessToken,
-            "GET",
-            "/api/1/stores/" . $store . "/reports/grossMargin",
+            'GET',
+            '/api/1/stores/' . $store->id . '/reports/grossMargin',
             null,
-            array('time' => date('c', strtotime("2014-01-03 10:35:47")))
+            array('time' => date('c', strtotime('2014-01-03 10:35:47')))
         );
 
         $expectedResponse = array(
@@ -334,28 +358,37 @@ class GrossMarginControllerTest extends WebTestCase
 
     public function testGetStoreGrossMarginReportsWithDataFromBoardTwo()
     {
-        $store = $this->factory->getStore("1");
-        $accessToken = $this->factory->authAsStoreManager($store);
-        $product = $this->createProduct("1");
+        $store = $this->factory()->store()->getStore('1');
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($store->id);
+        $product = $this->createProduct('1');
 
         // Begin inventory
-        $invoice1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-01 12:23:12'), $store);
-        $this->createInvoiceProduct($invoice1, $product, 3, 1, $store);
-        $this->createInvoiceProduct($invoice1, $product, 2, 2, $store);
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('acceptanceDate' => '2014-01-01 12:23:12'), $store->id)
+                ->createInvoiceProduct($product, 3, 1)
+                ->createInvoiceProduct($product, 2, 2)
+            ->flush();
 
         // Day one
-        $invoice1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-02 12:23:12'), $store);
-        $this->createInvoiceProduct($invoice1, $product, 3, 3, $store);
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('acceptanceDate' => '2014-01-02 12:23:12'), $store->id)
+                ->createInvoiceProduct($product, 3, 3)
+            ->flush();
 
-        $sale1 = $this->factory->createSale($store, "2014-01-02 12:23:12", 233);
+        $sale1 = $this->factory->createSale($store->id, "2014-01-02 12:23:12", 233);
         $this->factory->createSaleProduct(5, 4, $product, $sale1);
         $this->factory->flush();
 
         // Day two
-        $invoice1 = $this->createInvoice(array('sku' => 1, 'acceptanceDate' => '2014-01-03 12:23:12'), $store);
-        $this->createInvoiceProduct($invoice1, $product, 2, 2, $store);
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('acceptanceDate' => '2014-01-03 12:23:12'), $store->id)
+                ->createInvoiceProduct($product, 2, 2)
+            ->flush();
 
-        $sale1 = $this->factory->createSale($store, "2014-01-03 12:23:12", 233);
+        $sale1 = $this->factory->createSale($store->id, "2014-01-03 12:23:12", 233);
         $this->factory->createSaleProduct(5, 3, $product, $sale1);
         $this->factory->flush();
 
@@ -372,7 +405,7 @@ class GrossMarginControllerTest extends WebTestCase
         $actualResponse = $this->clientJsonRequest(
             $accessToken,
             "GET",
-            "/api/1/stores/" . $store . "/reports/grossMargin",
+            "/api/1/stores/" . $store->id . "/reports/grossMargin",
             null,
             array('time' => date('c', strtotime("2014-01-04 10:35:47")))
         );
@@ -420,7 +453,7 @@ class GrossMarginControllerTest extends WebTestCase
 
         $this->getGrossMarginManager()->recalculateStoreGrossMargin();
 
-        $accessToken = $this->factory->authAsStoreManager($storeId);
+        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
         $actualResponse = $this->clientJsonRequest(
             $accessToken,
@@ -478,59 +511,78 @@ class GrossMarginControllerTest extends WebTestCase
 
     public function testGetDayGrossMarginReport()
     {
-        $store = $this->factory->getStore("1");
-        $store2 = $this->factory->getStore("2");
-        $product = $this->createProduct("1");
-        $accessToken = $this->factory->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $store1 = $this->factory()->store()->getStore('1');
+        $store2 = $this->factory()->store()->getStore('2');
+        $productId = $this->createProduct('1');
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('acceptanceDate' => '2014-01-01 12:56'), $store1->id)
+                ->createInvoiceProduct($productId, 5, 100)
+            ->flush();
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('acceptanceDate' => '2014-01-02 12:56'), $store1->id)
+                ->createInvoiceProduct($productId, 5, 150)
+            ->flush();
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('acceptanceDate' => '2014-01-03 12:56'), $store1->id)
+                ->createInvoiceProduct($productId, 10, 200)
+            ->flush();
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('acceptanceDate' => '2014-01-01 12:00'), $store2->id)
+                ->createInvoiceProduct($productId, 5, 100)
+            ->flush();
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('acceptanceDate' => '2014-01-02 12:00'), $store2->id)
+                ->createInvoiceProduct($productId, 5, 150)
+            ->flush();
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array('acceptanceDate' => '2014-01-03 12:00'), $store2->id)
+                ->createInvoiceProduct($productId, 10, 200)
+            ->flush();
 
 
-        $invoice1 = $this->createInvoice(array('sku' => '1', 'acceptanceDate' => '2014-01-01 12:56'), $store);
-        $this->createInvoiceProduct($invoice1, $product, 5, 100, $store);
-        $invoice2 = $this->createInvoice(array('sku' => '2', 'acceptanceDate' => '2014-01-02 12:56'), $store);
-        $this->createInvoiceProduct($invoice2, $product, 5, 150, $store);
-        $invoice3 = $this->createInvoice(array('sku' => '3', 'acceptanceDate' => '2014-01-03 12:56'), $store);
-        $this->createInvoiceProduct($invoice3, $product, 10, 200, $store);
+        $sale1 = $this->factory->createSale($store1->id, "2014-01-08 12:23:12", 1750);
+        $this->factory->createSaleProduct(250, 7, $productId, $sale1);  // CoG: 800
 
-        $invoice4 = $this->createInvoice(array('sku' => '4', 'acceptanceDate' => '2014-01-01 12:00'), $store2);
-        $this->createInvoiceProduct($invoice4, $product, 5, 100, $store2);
-        $invoice5 = $this->createInvoice(array('sku' => '5', 'acceptanceDate' => '2014-01-02 12:00'), $store2);
-        $this->createInvoiceProduct($invoice5, $product, 5, 150, $store2);
-        $invoice6 = $this->createInvoice(array('sku' => '6', 'acceptanceDate' => '2014-01-03 12:00'), $store2);
-        $this->createInvoiceProduct($invoice6, $product, 10, 200, $store2);
+        $sale2 = $this->factory->createSale($store1->id, "2014-01-08 16:23:12", 500);
+        $this->factory->createSaleProduct(250, 2, $productId, $sale2);  // CoG: 300
 
+        $sale3 = $this->factory->createSale($store1->id, "2014-01-10 12:23:12", 1500);
+        $this->factory->createSaleProduct(250, 6, $productId, $sale3);  // CoG: 1150
 
-        $sale1 = $this->factory->createSale($store, "2014-01-08 12:23:12", 1750);
-        $this->factory->createSaleProduct(250, 7, $product, $sale1);  // CoG: 800
+        $sale4 = $this->factory->createSale($store2->id, "2014-01-08 12:30:12", 2100);
+        $this->factory->createSaleProduct(300, 7, $productId, $sale4);  // CoG: 800
 
-        $sale2 = $this->factory->createSale($store, "2014-01-08 16:23:12", 500);
-        $this->factory->createSaleProduct(250, 2, $product, $sale2);  // CoG: 300
+        $sale5 = $this->factory->createSale($store2->id, "2014-01-08 16:30:12", 600);
+        $this->factory->createSaleProduct(300, 2, $productId, $sale5);  // CoG: 300
 
-        $sale3 = $this->factory->createSale($store, "2014-01-10 12:23:12", 1500);
-        $this->factory->createSaleProduct(250, 6, $product, $sale3);  // CoG: 1150
-
-        $sale4 = $this->factory->createSale($store2, "2014-01-08 12:30:12", 2100);
-        $this->factory->createSaleProduct(300, 7, $product, $sale4);  // CoG: 800
-
-        $sale5 = $this->factory->createSale($store2, "2014-01-08 16:30:12", 600);
-        $this->factory->createSaleProduct(300, 2, $product, $sale5);  // CoG: 300
-
-        $sale6 = $this->factory->createSale($store2, "2014-01-10 12:30:12", 1800);
-        $this->factory->createSaleProduct(300, 6, $product, $sale6);  // CoG: 1150
+        $sale6 = $this->factory->createSale($store2->id, "2014-01-10 12:30:12", 1800);
+        $this->factory->createSaleProduct(300, 6, $productId, $sale6);  // CoG: 1150
         $this->factory->flush();
 
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->getGrossMarginManager()->recalculateStoreGrossMargin();
         $this->getGrossMarginManager()->recalculateDayGrossMargin();
-        $this->getGrossMarginManager()->recalculateDayGrossMargin();
 
-
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $actualResponse = $this->clientJsonRequest(
             $accessToken,
-            "GET",
-            "/api/1/reports/grossMargin",
+            'GET',
+            '/api/1/reports/grossMargin',
             null,
-            array('time' => date('c', strtotime("2014-01-12 10:35:47")))
+            array('time' => date('c', strtotime('2014-01-12 10:35:47')))
         );
 
         $expectedResponse = array(

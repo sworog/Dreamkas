@@ -10,10 +10,8 @@ use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
-use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
-use DateTime;
 
 class ProductTotalsTest extends ContainerAwareTestCase
 {
@@ -51,24 +49,10 @@ class ProductTotalsTest extends ContainerAwareTestCase
 
         $numericFactory = $this->getNumericFactory();
 
-        $store = new Store();
-        $store->number = '42';
-        $store->address = '42';
-        $store->contacts = '42';
-
-        $invoice = new Invoice();
-        $invoice->sku = 'sdfwfsf232';
-        $invoice->supplier = 'ООО "Поставщик"';
-        $invoice->acceptanceDate = new \DateTime();
-        $invoice->accepter = 'Приемных Н.П.';
-        $invoice->legalEntity = 'ООО "Магазин"';
-        $invoice->supplierInvoiceSku = '1248373';
-        $invoice->supplierInvoiceDate = new DateTime('-1');
-        $invoice->store = $store;
+        $store = $this->factory()->store()->getStore('42');
 
         $product = new Product();
         $product->name = 'Кефир "Веселый Молочник" 1% 950гр';
-        $product->units = 'gr';
         $product->barcode = '4607025392408';
         $product->purchasePrice = $numericFactory->createMoney('12.34');
         $product->sku = 'КЕФИР "ВЕСЕЛЫЙ МОЛОЧНИК" 1% КАРТОН УПК. 950ГР';
@@ -77,22 +61,23 @@ class ProductTotalsTest extends ContainerAwareTestCase
         $product->vendorCountry = 'Россия';
         $product->info = 'Классный кефирчик, употребляю давно, всем рекомендую для поднятия тонуса';
 
-        $versionFactory = $this->getContainer()->get('lighthouse.core.versionable.factory');
-        $productVersion = $versionFactory->createDocumentVersion($product);
-
-        $invoiceProduct = new InvoiceProduct();
-        $invoiceProduct->invoice = $invoice;
-        $invoiceProduct->product = $productVersion;
-        $invoiceProduct->priceEntered = $numericFactory->createMoney('10.10');
-        $invoiceProduct->quantity = $numericFactory->createQuantity(10);
-
         $manager->persist($store);
         $manager->persist($product);
         $manager->flush();
 
+        $versionFactory = $this->getContainer()->get('lighthouse.core.versionable.factory');
+        $productVersion = $versionFactory->createDocumentVersion($product);
+
+        $invoice = $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id)
+                ->createInvoiceProduct($product->id, 10, '10.10')
+            ->flush();
+
         $manager->persist($invoice);
-        $manager->persist($invoiceProduct);
         $manager->flush();
+
+        $invoiceProduct = $invoice->products[0];
 
         $this->assertInstanceOf(Invoice::getClassName(), $invoiceProduct->invoice);
         $this->assertEquals($invoiceProduct->invoice->id, $invoice->id);
@@ -117,6 +102,7 @@ class ProductTotalsTest extends ContainerAwareTestCase
         $storeProductRepository->refresh($storeProduct);
         $this->assertEquals(4, $storeProduct->inventory->toNumber());
 
+        $invoice->products->remove(0);
         $manager->remove($invoiceProduct);
         $manager->flush();
 

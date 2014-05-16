@@ -165,7 +165,7 @@ class ClassMoneyRangeValidatorTest extends TestCase
             ->with(
                 'price',
                 'lighthouse.validation.errors.money_range.not_numeric',
-                array()
+                array('{{ value }}' => $value)
             );
 
         $constraint = new ClassMoneyRange($options);

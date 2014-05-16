@@ -8,14 +8,18 @@ use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryCollection;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\SubCategoryType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
+use MongoDuplicateKeyException;
+use Exception;
 
 class SubCategoryController extends AbstractRestController
 {
@@ -34,13 +38,26 @@ class SubCategoryController extends AbstractRestController
     }
 
     /**
+     * @param FlushFailedException $e
+     * @return FormInterface
+     */
+    protected function handleFlushFailedException(FlushFailedException $e)
+    {
+        if ($e->getCause() instanceof MongoDuplicateKeyException) {
+            return $this->addFormError($e->getForm(), 'name', 'lighthouse.validation.errors.subCategory.name.unique');
+        } else {
+            return parent::handleFlushFailedException($e);
+        }
+    }
+
+    /**
      * @param Request $request
+     * @throws Exception
+     * @throws FlushFailedException
      * @return View|SubCategory
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc(
-     *      resource=true
-     * )
+     * @ApiDoc(resource=true)
      */
     public function postSubcategoriesAction(Request $request)
     {

@@ -17,8 +17,8 @@ public class GivenPrepareFixtureSteps {
 
     private Us_40_3_Fixture us_40_3_fixture = new Us_40_3_Fixture();
 
-    @Given("the user prepares import return data for us 40.3 story")
-    public void givenTheUserPreparesImportCloneDataForUs401Story() throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException, InterruptedException {
-        consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(us_40_3_fixture.getImportReturnDataFixture().getPath());
+    @Given("the user prepares import return data for us 40.3 story for product with '$name' name")
+    public void givenTheUserPreparesImportCloneDataForUs401Story(String name) throws ParserConfigurationException, IOException, XPathExpressionException, TransformerException, InterruptedException {
+        consoleCommandSteps.runCapAutoTestsSymfonyImportSalesLocalCommand(us_40_3_fixture.prepareReturnData(name));
     }
 }

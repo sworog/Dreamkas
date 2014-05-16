@@ -1,69 +1,74 @@
 define(function(require) {
-        //requirements
-        var Block = require('kit/core/block'),
-            deepExtend = require('kit/utils/deepExtend');
+    //requirements
+    var Block = require('block'),
+        deepExtend = require('kit/deepExtend/deepExtend');
 
-        require('lodash');
+    require('jquery');
 
-        return Block.extend({
-            __name__: 'tooltip',
-            className: 'tooltip',
-            el: function(){
-                return document.body.appendChild(document.createElement('div'));
-            },
-            $trigger: null,
-            template: require('tpl!./tooltip.html'),
-            templates: {
-                index: require('tpl!./tooltip.html'),
-                content: require('tpl!./content.html')
-            },
-            events: {
-                'click .tooltip__closeLink': function(e) {
-                    e.preventDefault();
+    return Block.extend({
+        el: null,
+        trigger: null,
+        container: '.content',
+        template: require('tpl!./template.html'),
+        events: {
+            'click .tooltip__closeLink': function(e) {
+                e.preventDefault();
 
-                    var block = this;
+                var block = this;
 
+                block.hide();
+            }
+        },
+        initialize: function(){
+            var block = this;
+
+            block.cid = _.uniqueId('tooltip');
+
+            block.container = document.querySelector(block.container);
+
+            block.container.appendChild(block.el);
+        },
+        show: function(opt) {
+            var block = this,
+                $trigger = $(block.trigger);
+
+            $(document).on('click.' + block.cid, function(e) {
+                if ($trigger && e.target != $trigger[0] && !$(e.target).closest(block.el).length) {
                     block.hide();
                 }
-            },
-            show: function(opt) {
-                var block = this;
+            });
 
-                $(document).on('click.' + block.cid, function(e) {
-                    if (block.$trigger && e.target != block.$trigger[0] && !$(e.target).closest(block.el).length) {
-                        block.hide();
-                    }
-                });
+            $(document).on('keyup.' + block.cid, function(e) {
+                if (e.keyCode === 27) {
+                    block.hide();
+                }
+            });
 
-                $(document).on('keyup.' + block.cid, function(e) {
-                    if (e.keyCode === 27) {
-                        block.hide();
-                    }
-                });
+            deepExtend(block, opt);
 
-                deepExtend(block, opt);
+            block.render();
+            block.align();
+            $(block.el).show();
+        },
+        align: function(){
+            var block = this,
+                $trigger = $(block.trigger),
+                $container = $(block.container);
 
-                block.align();
-                block.$el.show();
-            },
-            align: function(){
-                var block = this;
+            $(block.el)
+                .css({
+                    top: $trigger.offset().top + $container.scrollTop() + $trigger.height(),
+                    left: $trigger.offset().left - $container.offset().left
+                })
+        },
+        hide: function() {
+            var block = this;
 
-                block.$el
-                    .css({
-                        top: block.$trigger.offset().top + block.$trigger.height(),
-                        left: block.$trigger.offset().left
-                    })
-            },
-            hide: function() {
-                var block = this;
+            $(document)
+                .off('click.' + block.cid)
+                .off('keyup.' + block.cid);
 
-                $(document)
-                    .off('click.' + block.cid)
-                    .off('keyup.' + block.cid);
-
-                block.$el.hide();
-            }
-        });
-    }
-);
+            $(block.el).hide();
+        }
+    });
+});

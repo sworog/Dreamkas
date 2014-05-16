@@ -2,10 +2,11 @@
 
 namespace Lighthouse\CoreBundle\Test;
 
-use AppKernel;
+use LighthouseKernel;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Karzer\Framework\TestCase\SymfonyWebTestCase;
 use Lighthouse\CoreBundle\Job\JobManager;
+use Lighthouse\CoreBundle\Test\Factory\Factory;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -17,6 +18,11 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
      */
     protected static $appDebug = false;
 
+    /**
+     * @var Factory
+     */
+    protected $factory;
+
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
@@ -24,7 +30,7 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     }
 
     /**
-     * @return AppKernel
+     * @return LighthouseKernel
      */
     protected static function initKernel()
     {
@@ -54,7 +60,7 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
 
     /**
      * @param array $options
-     * @return AppKernel
+     * @return LighthouseKernel
      */
     protected static function createKernel(array $options = array())
     {
@@ -76,6 +82,25 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     protected function getDocumentManager()
     {
         return $this->getContainer()->get('doctrine.odm.mongodb.document_manager');
+    }
+
+    /**
+     * @return Factory
+     */
+    protected function factory()
+    {
+        if (null === $this->factory) {
+            $this->factory = $this->createFactory();
+        }
+        return $this->factory;
+    }
+
+    /**
+     * @return Factory
+     */
+    protected function createFactory()
+    {
+        return new Factory($this->getContainer());
     }
 
     protected function clearMongoDb()

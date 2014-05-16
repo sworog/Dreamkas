@@ -145,7 +145,7 @@ define(function(require, exports, module) {
 
         // Manually bind a single named route to a callback. For example:
         //
-        //     this.route('search/:query/p:num', 'search', function(query, num) {
+        //     this.route('search/:query/p:num', 'search', function({params: {query: @string, num: @string}, route: @string}) {
         //       ...
         //     });
         //
@@ -159,7 +159,10 @@ define(function(require, exports, module) {
                 routeRegExp: routeRegExp,
                 callback: function(fragment) {
                     var params = router._extractParameters(route, routeRegExp, fragment);
-                    callback && callback.call(router, params, route);
+                    callback && callback.call(router, {
+                        params: params,
+                        route: route
+                    });
                 }
             });
 

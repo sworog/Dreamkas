@@ -13,6 +13,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository"
  * )
+ * @MongoDB\UniqueIndex(keys={"name"="asc"})
  * @Unique(fields="name", message="lighthouse.validation.errors.group.name.unique")
  */
 class Group extends AbstractNode

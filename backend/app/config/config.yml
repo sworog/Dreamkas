@@ -134,6 +134,11 @@ clamidity_profiler:
     enabled: false
     location_reports: "%kernel.root_dir%/logs"
 
+ornicar_apc:
+    host: "%web_host%"
+    web_dir: "%kernel.root_dir%/../web"
+    mode: curl
+
 lighthouse_core:
     job:
         tube_prefix: "%database_name%_%kernel.environment%"
@@ -141,4 +146,4 @@ lighthouse_core:
         auth:
             username: 18487
             password: 4hSmzgdljt
-        container: lighthouse
+        container: "%database_name%_%kernel.environment%"

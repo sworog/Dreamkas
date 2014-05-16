@@ -2,9 +2,15 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
+use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Test\Assert;
+use SebastianBergmann\Exporter\Exporter;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Exception;
+use MongoDuplicateKeyException;
 
 class StoreControllerTest extends WebTestCase
 {
@@ -16,7 +22,7 @@ class StoreControllerTest extends WebTestCase
             'contacts' => 'тел. 344-32-54, тел/факс +7-921-334-2343, email:super@store.spb.ru',
         );
 
-        $accessToken = $this->authAsRole("ROLE_COMMERCIAL_MANAGER");
+        $accessToken = $this->factory->oauth()->authAsRole("ROLE_COMMERCIAL_MANAGER");
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -35,7 +41,7 @@ class StoreControllerTest extends WebTestCase
 
     public function testStoreUnique()
     {
-        $this->factory->getStore("42");
+        $this->factory->store()->getStoreId("42");
 
         $storeData = array(
             'number' => '42',
@@ -43,7 +49,7 @@ class StoreControllerTest extends WebTestCase
             'contacts' => 'qwew',
         );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -71,7 +77,7 @@ class StoreControllerTest extends WebTestCase
             'contacts' => 'тел. 344-32-54, тел/факс +7-921-334-2343, email:super@store.spb.ru',
         );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -96,7 +102,7 @@ class StoreControllerTest extends WebTestCase
      */
     public function testPutStoreValidation($expectedCode, array $data, array $assertions = array())
     {
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStoreId();
 
         $storeData = $data + array(
                 'number' => 'магазин_номер-32',
@@ -104,7 +110,7 @@ class StoreControllerTest extends WebTestCase
                 'contacts' => 'тел. 344-32-54, тел/факс +7-921-334-2343, email:super@store.spb.ru',
             );
 
-        $accessToken = $this->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -228,9 +234,9 @@ class StoreControllerTest extends WebTestCase
 
     public function testGetStores()
     {
-        $storesIds = $this->getStores(array(0, 1, 2, 3, 4));
+        $storesIds = $this->factory->store()->getStores(array(0, 1, 2, 3, 4));
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -254,7 +260,7 @@ class StoreControllerTest extends WebTestCase
             'contacts' => 'тел. 344-32-54, тел/факс +7-921-334-2343, email:super@store.spb.ru',
         );
 
-        $accessToken = $this->authAsRole("ROLE_COMMERCIAL_MANAGER");
+        $accessToken = $this->factory->oauth()->authAsRole("ROLE_COMMERCIAL_MANAGER");
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -287,8 +293,8 @@ class StoreControllerTest extends WebTestCase
 
     public function testRolesPropertyIsNotExposed()
     {
-        $storeId = $this->factory->getStore();
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $storeId = $this->factory->store()->getStoreId();
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -302,17 +308,18 @@ class StoreControllerTest extends WebTestCase
 
     public function testGetStoreWithDepartments()
     {
-        $storeId = $this->factory->getStore('1');
+        $store = $this->factory->store()->getStore('1');
 
-        $departmentId1 = $this->createDepartment($storeId, '1-1');
-        $departmentId2 = $this->createDepartment($storeId, '1-2');
+        $departmentId1 = $this->factory->store()->getDepartment('1-1', $store)->id;
+        $departmentId2 = $this->factory->store()->getDepartment('1-2', $store)->id;
+        $this->client->shutdownKernelBeforeRequest();
 
-        $accessToken = $this->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId
+            '/api/1/stores/' . $store->id
         );
 
         $this->assertResponseCode(200);
@@ -335,7 +342,7 @@ class StoreControllerTest extends WebTestCase
      */
     public function testAccessStore($url, $method, $role, $responseCode, $requestData = null)
     {
-        $storeId = $this->factory->getStore();
+        $storeId = $this->factory->store()->getStoreId();
 
         $url = str_replace(
             array(
@@ -346,7 +353,7 @@ class StoreControllerTest extends WebTestCase
             ),
             $url
         );
-        $accessToken = $this->authAsRole($role);
+        $accessToken = $this->factory->oauth()->authAsRole($role);
         if (is_array($requestData)) {
             $requestData = $requestData + array (
                 'number' => 'магазин_номер-32',
@@ -488,5 +495,139 @@ class StoreControllerTest extends WebTestCase
                 array(),
             ),
         );
+    }
+
+    /**
+     * @group unique
+     */
+    public function testUniqueUsernameInParallel()
+    {
+        $storeData = array(
+            'number' => '32',
+            'address' => 'СПБ, Профессора Попова пр., д. 37, пом 3А',
+            'contacts' => '344-32-54',
+        );
+
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $jsonRequest = new JsonRequest('/api/1/stores', 'POST', $storeData);
+        $jsonRequest->setAccessToken($accessToken);
+
+        $responses = $this->client->parallelJsonRequest($jsonRequest, 3);
+        $statusCodes = array();
+        $jsonResponses = array();
+        foreach ($responses as $response) {
+            $statusCodes[] = $response->getStatusCode();
+            $jsonResponses[] = $this->client->decodeJsonResponse($response);
+        }
+        $exporter = new Exporter();
+        $responseBody = $exporter->export($jsonResponses);
+        $this->assertCount(1, array_keys($statusCodes, 201), $responseBody);
+        $this->assertCount(2, array_keys($statusCodes, 400), $responseBody);
+        Assert::assertJsonPathEquals('32', '*.number', $jsonResponses, 1);
+        Assert::assertJsonPathEquals('Такой магазин уже есть', '*.children.number.errors.0', $jsonResponses, 2);
+    }
+
+    protected function doPostActionFlushFailedException(\Exception $exception)
+    {
+        $storeData = array(
+            'number' => '32',
+            'address' => 'СПБ, Профессора Попова пр., д. 37, пом 3А',
+            'contacts' => '344-32-54',
+        );
+
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $store = new Store();
+
+        $documentManagerMock = $this->getMock(
+            'Doctrine\\ODM\\MongoDB\\DocumentManager',
+            array(),
+            array(),
+            '',
+            false
+        );
+        $documentManagerMock
+            ->expects($this->once())
+            ->method('persist');
+
+        $documentManagerMock
+            ->expects($this->once())
+            ->method('flush')
+            ->with($this->isEmpty())
+            ->will($this->throwException($exception));
+
+        $storeRepoMock = $this->getMock(
+            'Lighthouse\\CoreBundle\\Document\\Store\\StoreRepository',
+            array(),
+            array(),
+            '',
+            false
+        );
+
+        $storeRepoMock
+            ->expects($this->once())
+            ->method('createNew')
+            ->will($this->returnValue($store));
+        $storeRepoMock
+            ->expects($this->exactly(2))
+            ->method('getDocumentManager')
+            ->will($this->returnValue($documentManagerMock));
+
+        $this->client->addTweaker(
+            function (ContainerInterface $container) use ($storeRepoMock) {
+                $container->set('lighthouse.core.document.repository.store', $storeRepoMock);
+            }
+        );
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores',
+            $storeData
+        );
+
+        return $response;
+    }
+
+    /**
+     * @group unique
+     */
+    public function testPostActionFlushFailedException()
+    {
+        $exception = new Exception('Unknown exception');
+        $response = $this->doPostActionFlushFailedException($exception);
+
+        $this->assertResponseCode(500);
+        Assert::assertJsonPathEquals('Unknown exception', 'message', $response);
+    }
+
+    /**
+     * @group unique
+     */
+    public function testPostActionFlushFailedMongoDuplicateKeyException()
+    {
+        $exception = new MongoDuplicateKeyException();
+        $response = $this->doPostActionFlushFailedException($exception);
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
+        Assert::assertJsonPathEquals(
+            'Такой магазин уже есть',
+            'children.number.errors.0',
+            $response
+        );
+    }
+
+    /**
+     * @group unique
+     * @expectedException MongoDuplicateKeyException
+     */
+    public function testDoubleCreate()
+    {
+        $this->factory->store()->createStore();
+        $this->factory->flush();
+        $this->factory->store()->createStore();
+        $this->factory->flush();
     }
 }

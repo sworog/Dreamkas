@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('kit/core/page.deprecated'),
         Table_users = require('blocks/table/table_users/table_users'),
         UsersCollection = require('collections/users');
 

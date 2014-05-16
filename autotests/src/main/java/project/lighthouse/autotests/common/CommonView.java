@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.CommonViewInterface;
-import project.lighthouse.autotests.pages.departmentManager.invoice.InvoiceBrowsing;
+import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffListPage;
 import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffPage;
 
@@ -28,7 +28,6 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
 
     public String getCorrectXpathPattern() {
         switch (listPageName) {
-            case InvoiceBrowsing.ITEM_NAME:
             case WriteOffPage.ITEM_NAME:
             case WriteOffListPage.ITEM_NAME:
                 return XPATH_PATTERN + "/..";
@@ -104,6 +103,11 @@ public class CommonView extends CommonPageObject implements CommonViewInterface 
 
     public void checkListItemHasExpectedValueByFindByLocator(String value, String elementName, By findBy, String expectedValue) {
         itemCheck(value);
+        //
+        if (expectedValue.startsWith("#sku:")) {
+            String sku = expectedValue.substring(5);
+            expectedValue = StaticData.products.get(sku).getSku();
+        }
         WebElement listItem = getWebElementItem(value).findElement(findBy);
         getCommonActions().shouldContainsText(elementName, listItem, expectedValue);
     }

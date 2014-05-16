@@ -11,7 +11,7 @@ Scenario: Product store mark up set positive
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
-And there is the product with 'storeProductName' name, 'storeProductSku' sku, 'storeProductBarCode' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
+And there is the product with 'storeProductName' name, 'storeProductBarCode' barcode, 'weight' type, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
 And the user navigates to the store 'StoreProduct123' catalog page
@@ -19,7 +19,7 @@ When the user logs in using 'storeManagerProducts' userName and 'lighthouse' pas
 And the user clicks on the group name 'storeProductsGroup'
 And the user clicks on the category name 'storeProductsCategory'
 And the user clicks on the subCategory name 'storeProductsSubCategory'
-And the user open the product card with 'storeProductSku' sku
+When the user clicks on product with name 'storeProductName'
 And the user clicks the edit price button
 And the user inputs <inputText> in <elementName> field
 And the user clicks the create button
@@ -36,7 +36,7 @@ Scenario: Product stote retail price set positive
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
-And there is the product with 'storeProductName' name, 'storeProductSku' sku, 'storeProductBarCode' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
+And there is the product with 'storeProductName' name, 'storeProductBarCode' barcode, 'weight' type, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
 And the user navigates to the store 'StoreProduct123' catalog page
@@ -44,7 +44,7 @@ When the user logs in using 'storeManagerProducts' userName and 'lighthouse' pas
 And the user clicks on the group name 'storeProductsGroup'
 And the user clicks on the category name 'storeProductsCategory'
 And the user clicks on the subCategory name 'storeProductsSubCategory'
-And the user open the product card with 'storeProductSku' sku
+And the user clicks on product with name 'storeProductName'
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
 And the user inputs <inputText> in <elementName> field
@@ -62,10 +62,10 @@ Scenario: Check mark up range
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsCategory' and category named 'storeProductsGroup'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '49' and min '12' values
-And there is the product with 'storeProductName3' name, 'storeProductSku3' sku, 'storeProductBarCode3' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
+And there is the product with 'storeProductName3' name, 'storeProductBarCode3' barcode, 'weight' type, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku3'
+And the user navigates to the product with name 'storeProductName3'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 Then the user checks the 'retailMarkupRange' value is '12,00 - 49,00'
@@ -74,10 +74,10 @@ Scenario: Check retail price range
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsCategory' and category named 'storeProductsGroup'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
-And there is the product with 'storeProductName2' name, 'storeProductSku2' sku, 'storeProductBarCode2' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
+And there is the product with 'storeProductName2' name, 'storeProductBarCode2' barcode, 'weight' type, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku2'
+And the user navigates to the product with name 'storeProductName2'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 Then the user checks the 'retailPriceRange' value is '10,00 - 15,00'
@@ -87,10 +87,10 @@ Scenario: Mark up store product price negative
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
-And there is the product with 'storeProductName1' name, 'storeProductSku1' sku, 'storeProductBarCode1' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
+And there is the product with 'storeProductName1' name, 'storeProductBarCode1' barcode, 'weight' type, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku1'
+And the user navigates to the product with name 'storeProductName1'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user inputs <inputText> in <elementName> field
@@ -114,10 +114,10 @@ Scenario: Retail store product price negative
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsCategory' and category named 'storeProductsGroup'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
-And there is the product with 'storeProductName2' name, 'storeProductSku2' sku, 'storeProductBarCode2' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
+And there is the product with 'storeProductName2' name, 'storeProductBarCode2' barcode, 'weight' type, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku2'
+And the user navigates to the product with name 'storeProductName2'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
@@ -155,16 +155,16 @@ Scenario: Store manager cant view catalog if he dont manage any store through da
 Given there is the user with name 'testName1', position 'testName1', username 'testName1', password 'lighthouse', role 'storeManager'
 And the user opens the authorization page
 When the user logs in using 'testName1' userName and 'lighthouse' password
-Then the user checks the dashboard link to 'catalog' section is not present
+Then the user checks the catalog navigation menu item is not visible
 
 Scenario: If mark up dont set - check mark up under the zero
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
-And there is the product with 'storeProductName6' name, 'storeProductSku6' sku, 'storeProductBarCode6' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
+And there is the product with 'storeProductName6' name, 'storeProductBarCode6' barcode, 'weight' type, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku6'
+And the user navigates to the product with name 'storeProductName6'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user inputs '-1' in 'retailMarkup' field
@@ -177,10 +177,10 @@ Scenario: If mark up dont set - check retail price under the purchase price
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
-And there is the product with 'storeProductName7' name, 'storeProductSku7' sku, 'storeProductBarCode7' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
+And there is the product with 'storeProductName7' name, 'storeProductBarCode7' barcode, 'weight' type, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku7'
+And the user navigates to the product with name 'storeProductName7'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
@@ -194,10 +194,10 @@ Scenario: Check default values are set
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
-And there is the product with 'storeProductName5' name, 'storeProductSku5' sku, 'storeProductBarCode5' barcode, 'kg' units, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
+And there is the product with 'storeProductName5' name, 'storeProductBarCode5' barcode, 'weight' type, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
 And there is the user with name 'storeManagerProducts', position 'storeManagerProducts', username 'storeManagerProducts', password 'lighthouse', role 'storeManager'
 And there is the store with number 'StoreProduct123' managed by 'storeManagerProducts'
-And the user navigates to the product with sku 'storeProductSku5'
+And the user navigates to the product with name 'storeProductName5'
 When the user logs in using 'storeManagerProducts' userName and 'lighthouse' password
 Then the user checks the 'retailMarkupRange' value is '0,00 - 50,00'
 And the user checks the 'retailPriceRange' value is '10,00 - 15,00'

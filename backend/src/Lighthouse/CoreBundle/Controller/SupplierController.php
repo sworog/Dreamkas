@@ -6,12 +6,15 @@ use FOS\RestBundle\Controller\Annotations\View;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Lighthouse\CoreBundle\Document\Supplier\SupplierCollection;
 use Lighthouse\CoreBundle\Document\Supplier\SupplierRepository;
+use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\SupplierType;
 use JMS\DiExtraBundle\Annotation as DI;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use MongoDuplicateKeyException;
 
 class SupplierController extends AbstractRestController
 {
@@ -27,6 +30,19 @@ class SupplierController extends AbstractRestController
     protected function getDocumentFormType()
     {
         return new SupplierType();
+    }
+
+    /**
+     * @param FlushFailedException $e
+     * @return FormInterface
+     */
+    protected function handleFlushFailedException(FlushFailedException $e)
+    {
+        if ($e->getCause() instanceof MongoDuplicateKeyException) {
+            return $this->addFormError($e->getForm(), 'name', 'lighthouse.validation.errors.supplier.name.unique');
+        } else {
+            return parent::handleFlushFailedException($e);
+        }
     }
 
     /**

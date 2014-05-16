@@ -2,6 +2,7 @@ package project.lighthouse.autotests.objects.api;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import project.lighthouse.autotests.objects.api.abstraction.AbstractObject;
 
 public class WriteOff extends AbstractObject {
 

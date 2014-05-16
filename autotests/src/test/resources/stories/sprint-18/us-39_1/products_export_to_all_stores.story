@@ -26,13 +26,13 @@ When the user logs out
 
 Given there is the subCategory with name 'ProductsExportSubCategory' related to group named 'ProductsExportGroup' and category named 'ProductsExportCategory'
 And the user sets subCategory 'ProductsExportSubCategory' mark up with max '30' and min '0' values
-And there is the product with 'Кит Кат' name, 'Кит-Кат-343424' sku, '34342478239479230479023' barcode, 'unit' units, '24' purchasePrice of group named 'ProductsExportGroup', category named 'ProductsExportCategory', subcategory named 'ProductsExportSubCategory'
+And there is the product with 'Кит Кат' name, '34342478239479230479023' barcode, 'unit' type, '24' purchasePrice of group named 'ProductsExportGroup', category named 'ProductsExportCategory', subcategory named 'ProductsExportSubCategory'
 And there is the user with name 'ProductsExportStoreManager', position 'ProductsExportStoreManager', username 'ProductsExportStoreManager', password 'lighthouse', role 'storeManager'
 And there is the user with name 'ProductsExportStoreManager2', position 'ProductsExportStoreManager2', username 'ProductsExportStoreManager2', password 'lighthouse', role 'storeManager'
 And there is the store with number '666' managed by 'ProductsExportStoreManager'
 And there is the store with number '777' managed by 'ProductsExportStoreManager2'
 
-Given the user navigates to the product with sku 'Кит-Кат-343424'
+Given the user navigates to the product with name 'Кит Кат'
 When the user logs in using 'ProductsExportStoreManager' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available
@@ -42,7 +42,7 @@ Then the user sees no error messages
 And the user checks the 'retailPrice' value is '24,20'
 When the user logs out
 
-Given the user navigates to the product with sku 'Кит-Кат-343424'
+Given the user navigates to the product with name 'Кит Кат'
 When the user logs in using 'ProductsExportStoreManager2' userName and 'lighthouse' password
 And the user clicks the edit price button
 And the user clicks retailPriceHint to make retailPrice available

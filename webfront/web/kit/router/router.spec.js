@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var router = require('./router');
+    var router = require('router');
 
     describe(module.id, function() {
 
@@ -35,9 +35,12 @@ define(function(require, exports, module) {
             router.navigate('/stores/1/products/2');
 
             expect(route).toHaveBeenCalledWith({
-                storeId: '1',
-                productId: '2'
-            }, 'stores/:storeId/products/:productId');
+                params: {
+                    storeId: '1',
+                    productId: '2'
+                },
+                route: 'stores/:storeId/products/:productId'
+            });
         });
 
         it('call custom route with query params', function() {
@@ -53,9 +56,12 @@ define(function(require, exports, module) {
             router.navigate('/stores/0?storeId=1&productId=2');
 
             expect(route).toHaveBeenCalledWith({
-                storeId: '0',
-                productId: '2'
-            }, 'stores/:storeId');
+                params: {
+                    storeId: '0',
+                    productId: '2'
+                },
+                route: 'stores/:storeId'
+            });
         });
 
         it('call route with query params only', function() {
@@ -71,8 +77,11 @@ define(function(require, exports, module) {
             router.navigate('/stores?test=1');
 
             expect(route).toHaveBeenCalledWith({
-                test: '1'
-            }, 'stores(/)');
+                params: {
+                    test: '1'
+                },
+                route: 'stores(/)'
+            });
         });
 
     });

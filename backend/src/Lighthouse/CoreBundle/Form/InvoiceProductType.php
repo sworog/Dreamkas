@@ -2,6 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
+use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -15,11 +17,12 @@ class InvoiceProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('id', 'text', array('mapped' => false))
             ->add(
                 'product',
                 'reference',
                 array(
-                    'class' => 'Lighthouse\\CoreBundle\\Document\\Product\\Version\\ProductVersion',
+                    'class' => ProductVersion::getClassName(),
                     'invalid_message' => 'lighthouse.validation.errors.invoice_product.product.does_not_exists'
                 )
             )
@@ -34,7 +37,7 @@ class InvoiceProductType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Lighthouse\\CoreBundle\\Document\\Invoice\\Product\\InvoiceProduct',
+                'data_class' => InvoiceProduct::getClassName(),
                 'csrf_protection' => false
             )
         );

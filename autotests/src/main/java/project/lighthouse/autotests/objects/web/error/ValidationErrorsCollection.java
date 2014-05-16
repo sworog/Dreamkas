@@ -7,28 +7,48 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.Waiter;
+import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
+import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ValidationErrorsCollection extends ArrayList<ValidationError> {
+public class ValidationErrorsCollection extends AbstractObjectCollection {
 
     public ValidationErrorsCollection(WebDriver webDriver) {
-        Waiter waiter = new Waiter(webDriver, StaticData.DEFAULT_VALIDATION_ERROR_TIMEOUT);
-        List<WebElement> webElementList = waiter.getVisibleWebElements(By.xpath("//*[@data-error]"));
+        //TODO investigate with BO about empty data-error attribute in invoice validation
+        super(webDriver, By.xpath("//*[@data-error and not(@data-error='')]"));
+    }
+
+    @Override
+    public void init(WebDriver webDriver, By findBy) {
+        List<WebElement> webElementList =
+                new Waiter(webDriver, StaticData.DEFAULT_VALIDATION_ERROR_TIMEOUT).getVisibleWebElements(findBy);
         for (WebElement element : webElementList) {
-            ValidationError validationError = new ValidationError(element);
-            add(validationError);
+            AbstractObject abstractObject = createNode(element);
+            add(abstractObject);
         }
     }
 
+    @Override
+    public AbstractObject createNode(WebElement element) {
+        return new ValidationError(element);
+    }
+
+    /**
+     * use {@link #compareWithExampleTable(org.jbehave.core.model.ExamplesTable)}}
+     *
+     * @param examplesTable
+     */
+    @Deprecated
     public void matchesWithExampleTable(ExamplesTable examplesTable) {
         List<String> notFoundMessages = new ArrayList<>();
         for (Map<String, String> row : examplesTable.getRows()) {
             Boolean found = false;
             String message = row.get("error message");
-            for (ValidationError validationError : this) {
+            for (AbstractObject abstractObject : this) {
+                ValidationError validationError = (ValidationError) abstractObject;
                 if (validationError.getMessage().equals(message)) {
                     found = true;
                     break;
@@ -46,7 +66,8 @@ public class ValidationErrorsCollection extends ArrayList<ValidationError> {
 
     public void matchesWithMessage(String message) {
         Boolean matches = false;
-        for (ValidationError validationError : this) {
+        for (AbstractObject abstractObject : this) {
+            ValidationError validationError = (ValidationError) abstractObject;
             if (validationError.getMessage().equals(message)) {
                 matches = true;
             }
@@ -61,7 +82,8 @@ public class ValidationErrorsCollection extends ArrayList<ValidationError> {
         List<String> messages = new ArrayList<>();
         for (Map<String, String> row : examplesTable.getRows()) {
             String message = row.get("error message");
-            for (ValidationError validationError : this) {
+            for (AbstractObject abstractObject : this) {
+                ValidationError validationError = (ValidationError) abstractObject;
                 if (validationError.getMessage().equals(message)) {
                     messages.add(validationError.getMessage());
                 }
@@ -75,7 +97,8 @@ public class ValidationErrorsCollection extends ArrayList<ValidationError> {
 
     public List<String> getActualMessages() {
         List<String> actualMessages = new ArrayList<>();
-        for (ValidationError validationError : this) {
+        for (AbstractObject abstractObject : this) {
+            ValidationError validationError = (ValidationError) abstractObject;
             actualMessages.add(validationError.getMessage());
         }
         return actualMessages;

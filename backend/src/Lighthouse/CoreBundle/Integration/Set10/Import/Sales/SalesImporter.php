@@ -29,6 +29,7 @@ use Symfony\Component\Stopwatch\StopwatchPeriod;
 use Symfony\Component\Validator\ValidatorInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use DateTime;
+use Exception;
 
 /**
  * @DI\Service("lighthouse.core.integration.set10.import.sales.importer")
@@ -192,17 +193,11 @@ class SalesImporter
                     $this->dotHelper->writeQuestion('R');
                 } else {
                     $this->dotHelper->writeError('V');
-                    $this->errors[] = array(
-                        'count' => $count - 1,
-                        'exception' => $e
-                    );
+                    $this->addError($count - 1, $e);
                 }
             } catch (\Exception $e) {
                 $this->dotHelper->writeError('E');
-                $this->errors[] = array(
-                    'count' => $count - 1,
-                    'exception' => $e
-                );
+                $this->addError($count - 1, $e);
             }
             $allEvent->lap();
             $parseEvent->start();
@@ -212,7 +207,7 @@ class SalesImporter
         $this->flush($dm, $output);
         $allEvent->stop();
 
-        $this->outputErrors($output, $this->errors);
+        $this->outputErrors($output);
     }
 
     /**
@@ -248,20 +243,30 @@ class SalesImporter
     }
 
     /**
-     * @param OutputInterface $output
-     * @param array $errors
+     * @param int $count
+     * @param Exception $exception
      */
-    protected function outputErrors(OutputInterface $output, array $errors)
+    protected function addError($count, Exception $exception)
     {
-        if (count($errors) > 0) {
+        $this->errors[] = array($count, $exception);
+    }
+
+    /**
+     * @param OutputInterface $output
+     */
+    protected function outputErrors(OutputInterface $output)
+    {
+        if (count($this->errors) > 0) {
             $output->writeln('');
             $output->writeln('<error>Errors</error>');
-            foreach ($errors as $error) {
+            foreach ($this->errors as $error) {
+                /* @var Exception $exception */
+                list($count, $exception) = $error;
                 $output->writeln(
                     sprintf(
                         '<comment>Sale #%d</comment> - %s',
-                        $error['count'],
-                        $error['exception']->getMessage()
+                        $count,
+                        $exception->getMessage()
                     )
                 );
             }

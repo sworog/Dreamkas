@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('kit/core/page.deprecated'),
         Table_balance = require('blocks/table/table_balance/table_balance'),
         StoreProductsCollection = require('collections/storeProducts'),
         currentUserModel = require('models/currentUser'),

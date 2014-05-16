@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Serializer\Handler;
 
+use Doctrine\Common\Collections\Collection;
 use JMS\Serializer\Context;
 use JMS\Serializer\EventDispatcher\PreSerializeEvent;
 use JMS\Serializer\GraphNavigator;
@@ -9,7 +10,6 @@ use JMS\Serializer\JsonSerializationVisitor;
 use JMS\Serializer\Metadata\ClassMetadata;
 use JMS\DiExtraBundle\Annotation as DI;
 use JMS\Serializer\XmlSerializationVisitor;
-use Lighthouse\CoreBundle\Document\AbstractCollection;
 use Metadata\MetadataFactoryInterface;
 
 /**
@@ -48,13 +48,13 @@ class CollectionHandler
 
     /**
      * @param XmlSerializationVisitor $visitor
-     * @param AbstractCollection $collection
+     * @param Collection $collection
      * @param array $type
      * @param Context $context
      */
     public function serializeCollectionToXml(
         XmlSerializationVisitor $visitor,
-        AbstractCollection $collection,
+        Collection $collection,
         array $type,
         Context $context
     ) {
@@ -85,18 +85,31 @@ class CollectionHandler
 
     /**
      * @param JsonSerializationVisitor $visitor
-     * @param AbstractCollection $collection
+     * @param Collection $collection
      * @param array $type
      * @param Context $context
      * @return array|\ArrayObject|mixed
      */
     public function serializeCollectionToJson(
         JsonSerializationVisitor $visitor,
-        AbstractCollection $collection,
+        Collection $collection,
         array $type,
         Context $context
     ) {
-        return $visitor->visitArray($collection->toArray(), $type, $context);
+        $type['name'] = 'array';
+        $preRoot = $visitor->getRoot();
+
+        $result = $visitor->visitArray(array_values($collection->toArray()), $type, $context);
+
+        if ($result instanceof \ArrayObject) {
+            $result = $result->getArrayCopy();
+        }
+        $postRoot = $visitor->getRoot();
+        // :FIXME: Dirty hack to avoid empty embedded document modify root to ArrayObject
+        if (null === $preRoot && $postRoot instanceof \ArrayObject) {
+            $visitor->setRoot($postRoot->getArrayCopy());
+        }
+        return $result;
     }
 
     /**
@@ -104,7 +117,7 @@ class CollectionHandler
      */
     public function onSerializerPreSerialize(PreSerializeEvent $event)
     {
-        if ($event->getObject() instanceof AbstractCollection) {
+        if ($event->getObject() instanceof Collection) {
             $event->setType('Collection');
         }
     }

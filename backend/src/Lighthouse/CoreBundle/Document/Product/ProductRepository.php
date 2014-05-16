@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Document\Product;
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Classifier\ParentableRepository;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
-use Doctrine\MongoDB\LoggableCursor;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
@@ -15,13 +14,39 @@ use MongoRegex;
 class ProductRepository extends DocumentRepository implements ParentableRepository
 {
     /**
-     * @param string $property
-     * @param string $entry
-     * @return LoggableCursor
+     * @param ProductFilter $filter
+     * @return Cursor|Product[]|array
      */
-    public function searchEntry($property, $entry)
+    public function search(ProductFilter $filter)
     {
-        return $this->findBy(array($property => new MongoRegex("/".preg_quote($entry, '/')."/i")));
+        $criteria = array('$or' => array());
+        foreach ($filter->getPropertiesWithQuery() as $property => $query) {
+            $and = array();
+            $words = preg_split('/\s+/u', $query);
+            foreach ($words as $word) {
+                if (mb_strlen($word, 'UTF-8') > 2) {
+                    $and[] = array($property => new MongoRegex('/' . preg_quote($word, '/') . '/i'));
+                }
+            }
+            if (!empty($and)) {
+                $criteria['$or'][] = (1 == count($and)) ? reset($and) : array('$and' => $and);
+            }
+        }
+
+        if (empty($criteria['$or'])) {
+            return array();
+        }
+
+        if ($filter->isPurchasePriceNotEmpty()) {
+            $criteria = array(
+                '$and' => array(
+                    $criteria,
+                    array('purchasePrice' => array('$ne' => null, '$exists' => true))
+                )
+            );
+        }
+
+        return $this->findBy($criteria, null, 100);
     }
 
     /**

@@ -10,49 +10,49 @@ define(function(require) {
         defaults: {
             amount: 0,
             retailPricePreference: 'retailMarkup',
-            rounding: {}
+            rounding: {},
+            type: 'unit'
         },
-        saveData: function(){
+        saveData: function() {
 
-            var purchasePrice = parseFloat((this.get('purchasePrice') || '')
+            var purchasePrice = parseFloat((this.get('purchasePrice') || '').toString()
                     .replace(' ', '', 'gi')
                     .replace(',', '.', 'gi')),
-                retailPriceMin = parseFloat((this.get('retailPriceMin') || '')
+                retailPriceMin = parseFloat((this.get('retailPriceMin') || '').toString()
                     .replace(' ', '', 'gi')
                     .replace(',', '.', 'gi')),
-                retailPriceMax = parseFloat((this.get('retailPriceMax') || '')
+                retailPriceMax = parseFloat((this.get('retailPriceMax') || '').toString()
                     .replace(' ', '', 'gi')
                     .replace(',', '.', 'gi')),
-                retailMarkupMax = parseFloat((this.get('retailMarkupMax') || '')
+                retailMarkupMax = parseFloat((this.get('retailMarkupMax') || '').toString()
                     .replace(' ', '', 'gi')
                     .replace(',', '.', 'gi')),
-                retailMarkupMin = parseFloat((this.get('retailMarkupMin') || '')
+                retailMarkupMin = parseFloat((this.get('retailMarkupMin') || '').toString()
                     .replace(' ', '', 'gi')
                     .replace(',', '.', 'gi'));
 
-            if (!purchasePrice && this.get('purchasePrice') !== '0'){
+            if (!purchasePrice && this.get('purchasePrice') !== '0') {
                 purchasePrice = this.get('purchasePrice');
             }
 
-            if (!retailPriceMin && this.get('retailPriceMin') !== '0'){
+            if (!retailPriceMin && this.get('retailPriceMin') !== '0') {
                 retailPriceMin = this.get('retailPriceMin');
             }
 
-            if (!retailPriceMax && this.get('retailPriceMax') !== '0'){
+            if (!retailPriceMax && this.get('retailPriceMax') !== '0') {
                 retailPriceMax = this.get('retailPriceMax');
             }
 
-            if (!retailMarkupMax && this.get('retailMarkupMax') !== '0'){
+            if (!retailMarkupMax && this.get('retailMarkupMax') !== '0') {
                 retailMarkupMax = this.get('retailMarkupMax');
             }
 
-            if (!retailMarkupMin && this.get('retailMarkupMin') !== '0'){
+            if (!retailMarkupMin && this.get('retailMarkupMin') !== '0') {
                 retailMarkupMin = this.get('retailMarkupMin');
             }
 
             return {
                 name: this.get('name'),
-                units: this.get('units'),
                 vat: this.get('vat'),
                 purchasePrice: purchasePrice,
                 retailPriceMin: retailPriceMin,
@@ -61,18 +61,18 @@ define(function(require) {
                 retailMarkupMin: retailMarkupMin,
                 retailPricePreference: this.get('retailPricePreference'),
                 barcode: this.get('barcode'),
-                sku: this.get('sku'),
                 vendorCountry: this.get('vendorCountry'),
                 vendor: this.get('vendor'),
-                info: this.get('info'),
                 subCategory: this.get('subCategory'),
-                rounding: this.get('rounding') ? this.get('rounding').name : null
+                rounding: this.get('rounding') ? this.get('rounding').name : null,
+                type: this.get('type'),
+                typeProperties: this.get('type') === 'unit' ? null : this.get('typeProperties')
             }
         },
         parse: function(response, options) {
             var data = Model.prototype.parse.apply(this, arguments);
 
-            if (data.product){
+            if (data.product) {
                 data = data.product;
             }
 

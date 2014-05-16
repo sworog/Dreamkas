@@ -1,0 +1,17 @@
+<% var templates = _.defaults(templates, {
+    content: function(data) {
+        return '<h1>Welcome to Lighthouse</h1>';
+    },
+    localNavigation: null,
+    globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation.html')
+}) %>
+
+<div class="page">
+    <%= templates.globalNavigation(obj) %>
+
+    <% if (templates.localNavigation) { %>
+        <%= templates.localNavigation(obj) %>
+    <% } %>
+
+    <%= templates.content(obj) %>
+</div>

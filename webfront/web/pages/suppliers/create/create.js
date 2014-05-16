@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('kit/core/page.deprecated'),
         Form_supplier = require('blocks/form/form_supplier/form_supplier');
 
     require('jquery');

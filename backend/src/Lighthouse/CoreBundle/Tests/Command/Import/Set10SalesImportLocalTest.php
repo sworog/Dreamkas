@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Command\Import;
 
-use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
+use Lighthouse\CoreBundle\Document\Log\LogRepository;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -40,10 +40,10 @@ class Set10SalesImportLocalTest extends WebTestCase
      */
     public function testExecute($file, $expectedDisplay, $expectedLogEntriesCount)
     {
-        $this->factory->getStore('197');
-        $this->factory->getStore('666');
-        $this->factory->getStore('777');
-        $this->createProductsBySku(
+        $this->factory->store()->getStoreId('197');
+        $this->factory->store()->getStoreId('666');
+        $this->factory->store()->getStoreId('777');
+        $this->createProductsByNames(
             array(
                 '1',
                 '3',
@@ -65,46 +65,45 @@ class Set10SalesImportLocalTest extends WebTestCase
         $this->assertContains($file, $display);
         $this->assertContains($expectedDisplay, $display);
 
-        /* @var ConfigRepository $configRepository */
-        $configRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
-        $cursor = $configRepository->findAll();
+        /* @var LogRepository $logRepository */
+        $logRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
+        $cursor = $logRepository->findAll();
         $this->assertCount($expectedLogEntriesCount, $cursor);
     }
 
     public function testExecuteWithErrors()
     {
-        $this->factory->getStore('197');
-        $this->createProductsBySku(
+        $this->factory->store()->getStoreId('197');
+        $this->createProductsByNames(
             array(
-                '8594403916157',
-                '2873168',
-                '2809727',
-                '25525687',
-                '55557',
-                '8594403110111',
-                '4601501082159',
-                'Кит-Кат-343424',
+                '10001',
+                '10002',
+                '10003',
+                '10004',
+                '10005',
+                '10006',
+                '10007',
+                '10008',
+                '10009',
             )
         );
 
-        $commandTester = $this->execute('purchases-14-05-2012_9-18-29.xml');
+        $commandTester = $this->execute('purchases-not-found.xml');
 
         $display = $commandTester->getDisplay();
 
-        $this->assertContains(".E...........E............E.E.E                      31\nFlushing", $display);
-        $this->assertContains('Product with sku "1" not found', $display);
-        $this->assertContains('Product with sku "7" not found', $display);
-        $this->assertContains('Product with sku "3" not found', $display);
+        $this->assertContains("..E...............E.....                             24\nFlushing", $display);
+        $this->assertContains('Product with sku "2873168" not found', $display);
 
-        /* @var ConfigRepository $configRepository */
-        $configRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
-        $cursor = $configRepository->findAll();
-        $this->assertCount(5, $cursor);
+        /* @var LogRepository $logRepository */
+        $logRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
+        $cursor = $logRepository->findAll();
+        $this->assertCount(2, $cursor);
     }
 
     public function testExecuteWithAllErrors()
     {
-        $this->factory->getStore('197');
+        $this->factory->store()->getStoreId('197');
 
         $commandTester = $this->execute('purchases-14-05-2012_9-18-29.xml');
 
@@ -113,9 +112,9 @@ class Set10SalesImportLocalTest extends WebTestCase
         $this->assertContains(".E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E.E             40\nFlushing", $display);
         $this->assertContains('| Persist |', $display);
 
-        /* @var ConfigRepository $configRepository */
-        $configRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
-        $cursor = $configRepository->findAll();
+        /* @var LogRepository $logRepository */
+        $logRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
+        $cursor = $logRepository->findAll();
         $this->assertCount(20, $cursor);
     }
 
@@ -250,8 +249,8 @@ EOF;
 
     public function testProfile()
     {
-        $this->factory->getStore('197');
-        $this->createProductsBySku(
+        $this->factory->store()->getStoreId('197');
+        $this->createProductsByNames(
             array(
                 '1',
                 '7',
@@ -278,8 +277,8 @@ EOF;
 
     public function testSortByFileDate()
     {
-        $this->factory->getStores(array('1', '2', '3', '4', '5'));
-        $this->createProductsBySku(
+        $this->factory->store()->getStores(array('1', '2', '3', '4', '5'));
+        $this->createProductsByNames(
             array(
                 'ЦБ000003263',
                 'ЦБ000003338',
@@ -314,8 +313,8 @@ EOF;
 
     public function testSortByFileName()
     {
-        $this->factory->getStores(array('1', '2', '3', '4', '5'));
-        $this->createProductsBySku(
+        $this->factory->store()->getStores(array('1', '2', '3', '4', '5'));
+        $this->createProductsByNames(
             array(
                 'ЦБ000003263',
                 'ЦБ000003338',
@@ -350,8 +349,8 @@ EOF;
 
     public function testOnlyPurchaseFilesAreImportedOnFileDateSort()
     {
-        $this->factory->getStores(array('1', '2', '3'));
-        $this->createProductsBySku(
+        $this->factory->store()->getStores(array('1', '2', '3'));
+        $this->createProductsByNames(
             array(
                 'АВ000000221',
                 'Ц0000001366',

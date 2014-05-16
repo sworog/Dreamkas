@@ -9,15 +9,18 @@ use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserCollection;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
+use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\UserType;
 use Lighthouse\CoreBundle\Security\PermissionExtractor;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use MongoDuplicateKeyException;
 
 class UserController extends AbstractRestController
 {
@@ -60,6 +63,19 @@ class UserController extends AbstractRestController
     }
 
     /**
+     * @param FlushFailedException $e
+     * @return FormInterface
+     */
+    protected function handleFlushFailedException(FlushFailedException $e)
+    {
+        if ($e->getCause() instanceof MongoDuplicateKeyException) {
+            return $this->addFormError($e->getForm(), 'username', 'lighthouse.validation.errors.user.username.unique');
+        } else {
+            return parent::handleFlushFailedException($e);
+        }
+    }
+
+    /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @return User|View
      *
@@ -75,7 +91,7 @@ class UserController extends AbstractRestController
     public function postUsersAction(Request $request)
     {
         /** @var User $document */
-        $document = $this->getDocumentRepository()->createNew();
+        $document = $this->documentRepository->createNew();
 
         $type = $this->getDocumentFormType();
         $form = $this->createForm($type, $document, array('validation_groups' => array('Default', 'registration')));
@@ -83,10 +99,7 @@ class UserController extends AbstractRestController
 
         if ($form->isValid()) {
             $this->userProvider->setPassword($document, $document->password);
-
-            $this->getDocumentRepository()->getDocumentManager()->persist($document);
-            $this->getDocumentRepository()->getDocumentManager()->flush();
-            return $document;
+            return $this->saveDocument($document, $form);
         } else {
             return $form;
         }
@@ -117,9 +130,7 @@ class UserController extends AbstractRestController
             } else {
                 $this->userProvider->setPassword($user, $user->password);
             }
-            $this->getDocumentRepository()->getDocumentManager()->persist($user);
-            $this->getDocumentRepository()->getDocumentManager()->flush();
-            return $user;
+            return $this->saveDocument($user, $form);
         } else {
             return $form;
         }
@@ -170,7 +181,7 @@ class UserController extends AbstractRestController
     public function getUsersAction()
     {
         /* @var LoggableCursor $cursor */
-        $cursor = $this->getDocumentRepository()->findAll();
+        $cursor = $this->documentRepository->findAll();
         $collection = new UserCollection($cursor);
         return $collection;
     }

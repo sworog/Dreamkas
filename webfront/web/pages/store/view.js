@@ -1,6 +1,6 @@
 define(function (require) {
     //requirements
-    var Page = require('kit/core/page'),
+    var Page = require('kit/core/page.deprecated'),
         Store = require('blocks/store/store'),
         getUserStore = require('utils/getUserStore'),
         StoreManagerCandidatesCollection = require('collections/storeManagerCandidates'),
@@ -12,12 +12,15 @@ define(function (require) {
 
     return Page.extend({
         __name__: 'page_store_view',
+        params: {
+            storeId: null
+        },
         partials: {
             '#content': require('tpl!./templates/view.html')
         },
         initialize: function () {
             var page = this,
-                userStoreModel = getUserStore(page.storeId);
+                userStoreModel = getUserStore(page.params.storeId);
 
             if (!(LH.isAllow('stores', 'GET::{store}') || userStoreModel)){
                 new Page403();
@@ -25,23 +28,23 @@ define(function (require) {
             }
 
             page.storeModel = userStoreModel || new StoreModel({
-                id: page.storeId
+                id: page.params.storeId
             });
 
             page.storeManagerCandidatesCollection = new StoreManagerCandidatesCollection([], {
-                storeId: page.storeId
+                storeId: page.params.storeId
             });
 
             page.storeManagersCollection = new StoreManagersCollection([], {
-                storeId: page.storeId
+                storeId: page.params.storeId
             });
 
             page.departmentManagerCandidatesCollection = new DepartmentManagerCandidatesCollection([], {
-                storeId: page.storeId
+                storeId: page.params.storeId
             });
 
             page.departmentManagersCollection = new DepartmentManagerCollection([], {
-                storeId: page.storeId
+                storeId: page.params.storeId
             });
 
             $.when(

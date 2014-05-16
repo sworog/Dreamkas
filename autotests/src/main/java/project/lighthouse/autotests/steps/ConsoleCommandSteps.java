@@ -18,38 +18,13 @@ import java.io.IOException;
 public class ConsoleCommandSteps extends ScenarioSteps {
 
     @Step
-    public void runFixtureCommand() throws IOException, InterruptedException, TransformerException, ParserConfigurationException, SAXException {
-        //TODO refactor
-        String directoryPath = System.getProperty("user.dir") + "/xml/fixtures/sales";
-        File patternFile = new File(directoryPath + "/salesPattern.xml");
-        String filePath = directoryPath + "/sales.xml";
-        new XmlReplacement(patternFile).createFile(new DateTimeHelper("today-5days").convertDate(), new File(filePath));
-        new SymfonyImportSalesLocalCommand(filePath).run();
-    }
-
-    @Step
-    public void runNegativeFixtureCommand(String days) throws IOException, InterruptedException, TransformerException, ParserConfigurationException, SAXException {
-        //TODO refactor
-        String directoryPath = System.getProperty("user.dir") + "/xml/fixtures/sales";
-        File patternFile = new File(directoryPath + "/negativeSalesPattern.xml");
-        String filePath = directoryPath + "/negativeSales.xml";
-        new XmlReplacement(patternFile).createFile(new DateTimeHelper("today-" + days + "days").convertDate(), new File(filePath));
-        new SymfonyImportSalesLocalCommand(filePath).run();
-    }
-
-    @Step
-    public void runNegativeFixtureCommand2(String days) throws IOException, InterruptedException, TransformerException, ParserConfigurationException, SAXException {
-        //TODO refactor
-        String directoryPath = System.getProperty("user.dir") + "/xml/fixtures/sales";
-        File patternFile = new File(directoryPath + "/negativeSalesPattern1.xml");
-        String filePath = directoryPath + "/negativeSales.xml";
-        new XmlReplacement(patternFile).createFile(new DateTimeHelper("today-" + days + "days").convertDate(), new File(filePath));
-        new SymfonyImportSalesLocalCommand(filePath).run();
-    }
-
-    @Step
     public void runCapAutoTestsSymfonyImportSalesLocalCommand(String filePath) throws IOException, InterruptedException {
         new SymfonyImportSalesLocalCommand(filePath).run();
+    }
+
+    @Step
+    public void runCapAutoTestsSymfonyImportSalesLocalCommand(File file) throws IOException, InterruptedException {
+        runCapAutoTestsSymfonyImportSalesLocalCommand(file.getPath());
     }
 
     @Step

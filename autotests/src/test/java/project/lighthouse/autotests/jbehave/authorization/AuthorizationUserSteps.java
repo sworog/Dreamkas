@@ -3,11 +3,20 @@ package project.lighthouse.autotests.jbehave.authorization;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.*;
 import project.lighthouse.autotests.steps.AuthorizationSteps;
+import project.lighthouse.autotests.steps.administrator.UserSteps;
+import project.lighthouse.autotests.steps.menu.MenuNavigationSteps;
+import project.lighthouse.autotests.storage.Storage;
 
 public class AuthorizationUserSteps {
 
     @Steps
     AuthorizationSteps authorizationSteps;
+
+    @Steps
+    MenuNavigationSteps menuNavigationSteps;
+
+    @Steps
+    UserSteps userSteps;
 
     @BeforeScenario()
     public void beforeScenario() {
@@ -29,6 +38,11 @@ public class AuthorizationUserSteps {
         authorizationSteps.openPage();
     }
 
+    @Given("the user logs in using '$userName' userName and '$password' password")
+    public void givenTheUserLogsInUsingCredentials(String userName, String password) {
+        authorizationSteps.authorization(userName, password);
+    }
+
     @When("the user logs in using '$userName' userName and '$password' password")
     @Alias("the user logs in using <userName> and '$password' password")
     public void givenTheUserLogsInUsingUserNameAndPassword(String userName, String password) {
@@ -42,7 +56,9 @@ public class AuthorizationUserSteps {
 
     @When("the user logs out")
     public void whenTheUserLogsOut() {
-        authorizationSteps.logOut();
+        menuNavigationSteps.userNameLinkClick();
+        userSteps.logOutButtonClick();
+        Storage.getUserVariableStorage().setIsAuthorized(false);
     }
 
     @Then("the user checks that authorized is '$userName' user")
@@ -54,50 +70,5 @@ public class AuthorizationUserSteps {
     @Then("the user checks the login form is present")
     public void thenTheUserChecksTheLoginFormIsPresent() {
         authorizationSteps.loginFormIsPresent();
-    }
-
-    @Then("the user sees the 403 error")
-    public void thenTheUserSeesThe403Error() {
-        authorizationSteps.error403IsPresent();
-    }
-
-    @Then("the user sees the 404 error")
-    public void thenTheUserSeesThe404Error() {
-        authorizationSteps.error404isPresent();
-    }
-
-    @Then("the user dont see the 403 error")
-    public void thenTheUserDonseeSeeThe403Error() {
-        authorizationSteps.error403IsNotPresent();
-    }
-
-    @Then("the user sees no edit product button")
-    public void thenTheUserSeesNoEditProductButton() {
-        authorizationSteps.editProductButtonIsNotPresent();
-    }
-
-    @Then("the user sees no create new product button")
-    public void thenTheUserSeesNoCreateNewProductButton() {
-        authorizationSteps.newProductCreateButtonIsNotPresent();
-    }
-
-    @Then("the user sees user card edit button")
-    public void thenTheUserSeesUserCardEditButton() {
-        authorizationSteps.userCardEditButtonIsPresent();
-    }
-
-    @Then("the user sees no user card edit button")
-    public void thenTheUserSeesNoUserCardEditButton() {
-        authorizationSteps.userCardEditButtonIsNotPresent();
-    }
-
-    @Then("the user sees user card link to users list")
-    public void thenTheUserSeesUserCardLinkToUsersList() {
-        authorizationSteps.userCardListLinkIsPresent();
-    }
-
-    @Then("the user sees no user card link to users list")
-    public void thenTheUserSeesNoUserCardLinkToUsersList() {
-        authorizationSteps.userCardListLinkIsNotPresent();
     }
 }

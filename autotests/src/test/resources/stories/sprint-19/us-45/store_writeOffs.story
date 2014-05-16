@@ -11,7 +11,7 @@ Scenario: Store writeOffs creation
 
 Given there is the user with name 'departmentManager-DIC', position 'departmentManager-DIC', username 'departmentManager-DIC', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'DIC-01' managed by department manager named 'departmentManager-DIC'
-And there is the product with 'WriteOff-wolc-01' name, 'WriteOff-wolc-01' sku, 'WriteOff-wolc-01' barcode, 'liter' units, '15' purchasePrice
+And there is the product with 'WriteOff-wolc-01' name, 'WriteOff-wolc-01' barcode, 'unit' type, '15' purchasePrice
 And the user opens write off list page
 When the user logs in using 'departmentManager-DIC' userName and 'lighthouse' password
 When the user creates write off from write off list page
@@ -65,7 +65,7 @@ Given there is the user with name 'departmentManager-DIC', position 'departmentM
 And there is the store with number 'DIC-01' managed by department manager named 'departmentManager-DIC'
 And the user opens the authorization page
 When the user logs in using 'departmentManager-DIC' userName and 'lighthouse' password
-Then the user checks the dashboard link to 'writeOffs' section is present
+Then the user checks the writeOffs navigation menu item is visible
 
 Scenario: WriteOffs link navigation by departmentManager who has store
 
@@ -88,7 +88,7 @@ Scenario: Left menu writeOffs link is visible by departmentManager who has no st
 Given there is the user with name 'departmentManager-DIC-3', position 'departmentManager-DIC-3', username 'departmentManager-DIC-3', password 'lighthouse', role 'departmentManager'
 And the user opens the authorization page
 When the user logs in using 'departmentManager-DIC-3' userName and 'lighthouse' password
-Then the user checks the dashboard link to 'writeOffs' section is not present
+Then the user checks the writeOffs navigation menu item is not visible
 
 Scenario: WriteOffs create navigation by departmentManager who has no store
 

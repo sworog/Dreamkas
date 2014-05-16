@@ -179,6 +179,26 @@ class Decimal implements Numeric, RawValue
     }
 
     /**
+     * @param string $value
+     * @param int $roundMode
+     * @return Decimal
+     */
+    public function set($value, $roundMode = self::ROUND_HALF_UP)
+    {
+        $rounded = static::round((string) $value, $this->precision, $roundMode);
+        return static::createFromNumeric($rounded, $this->precision);
+    }
+
+    /**
+     * @param string $value
+     * @return bool
+     */
+    public function equals($value)
+    {
+        return $this->toString() === (string) $value;
+    }
+
+    /**
      * @param string $operation
      * @param string $operandLeft
      * @param string $operandRight

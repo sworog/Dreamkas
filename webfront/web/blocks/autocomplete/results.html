@@ -1,0 +1,28 @@
+<% var getText = require('kit/getText/getText') %>
+
+<div class="tooltip autocomplete__results" style="width: 600px;">
+    <% if (query.length < minQuery){ %>
+    <div class="autocomplete__hint">Для поиска введите более <%- minQuery - 1 %> символов</div>
+    <% } else if (!data.length) { %>
+    <div class="autocomplete__hint">Нет результатов</div>
+    <% } else { %>
+    <% data.slice(0, maxResults).forEach(function(item){ %>
+
+    <% var itemString = _.escape(item.product.sku) + ' &mdash; ' + _.escape(item.product.name) %>
+
+    <% var queryRegexp = query.replace(new RegExp(" ", "g"), "|");
+    itemString = itemString.replace(new RegExp(queryRegexp, 'gi'), function(match) {
+        return '<strong>' + match + '</strong>';
+    }) %>
+
+    <div class="autocomplete__item">
+        <%= itemString %>
+    </div>
+    <% }) %>
+    <% if (data.length > maxResults) { %>
+    <div class="autocomplete__hint">
+        Еще <%- getText({'%0 результат': ['%0 результат', '%0 результата', '%0 результатов']}, '%0 результат', [data.length - maxResults]) %>. Уточните запрос.
+    </div>
+    <% } %>
+    <% } %>
+</div>

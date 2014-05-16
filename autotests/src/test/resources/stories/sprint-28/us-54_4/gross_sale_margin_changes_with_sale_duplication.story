@@ -11,13 +11,26 @@ Scenario: Gross sale margin recalculation with sale duplication product
 
 Meta:
 @id_s28u54.4s1
-@description_@smoke
+@description_
+@smoke
 
 GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story
 
-Given there is the product with 'name-285441' name, '285441' sku, '285441' barcode, 'unit' units, '100' purchasePrice of group named 'defaultGroup-s28u544', category named 'defaultCategory-s28u544', subcategory named 'defaultSubCategory-s28u544'
-And there is the date invoice with sku 'Invoice-28544-2' and date 'today-1days' and time set to '8:00:00' in the store with number '28544' ruled by department manager with name 'departmentManager-s28u544'
-And the user adds the product to the invoice with name 'Invoice-28544-2' with sku '285441', quantity '5', price '100' in the store ruled by 'departmentManager-s28u544'
+Given there is the product with 'name-285441' name, '285441' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s28u544', category named 'defaultCategory-s28u544', subcategory named 'defaultSubCategory-s28u544'
+
+Given the user creates invoice api object with values
+| elementName | value |
+| acceptanceDateTime | 8:00:00 |
+| acceptanceDate | today-1days |
+| accepter | accepter |
+| legalEntity | legalEntity |
+| supplierInvoiceNumber | supplierInvoiceNumber |
+And the user adds the product with data to invoice api object
+| elementName | value |
+| productName | name-285441 |
+| quantity | 5 |
+| price | 100 |
+And there is the invoice created with invoice builder steps by userName 'departmentManager-s28u544'
 
 Given the user opens the authorization page
 
@@ -37,7 +50,8 @@ Scenario: Gross sale margin recalculation with sale duplication price
 
 Meta:
 @id_s28u54.4s2
-@description_@smoke
+@description_
+@smoke
 
 GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story
 

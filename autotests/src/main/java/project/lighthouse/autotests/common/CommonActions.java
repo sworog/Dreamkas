@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.common;
 
-import net.thucydides.core.pages.PageObject;
 import net.thucydides.core.webdriver.WebDriverFacade;
 import org.hamcrest.Matchers;
 import org.jbehave.core.model.ExamplesTable;
@@ -21,24 +20,16 @@ import static org.junit.Assert.assertThat;
 
 public class CommonActions {
 
-    Map<String, CommonItem> items;
-
     private static final String ERROR_MESSAGE_1 = "Element not found in the cache - perhaps the page has changed since it was looked up";
     private static final String ERROR_MESSAGE_2 = "Element is no longer attached to the DOM";
     private static final String ERROR_MESSAGE_3 = "Element does not exist in cache";
 
     private Waiter waiter;
 
-    private PageObject pageObject;
+    private CommonPageObject pageObject;
 
-    public CommonActions(PageObject pageObject) {
+    public CommonActions(CommonPageObject pageObject) {
         this.pageObject = pageObject;
-        waiter = new Waiter(pageObject.getDriver());
-    }
-
-    public CommonActions(PageObject pageObject, Map<String, CommonItem> items) {
-        this.pageObject = pageObject;
-        this.items = items;
         waiter = new Waiter(pageObject.getDriver());
     }
 
@@ -61,7 +52,7 @@ public class CommonActions {
     }
 
     private void defaultInput(String elementName, String inputText) {
-        items.get(elementName).setValue(inputText);
+        pageObject.getItems().get(elementName).setValue(inputText);
     }
 
     public void inputTable(ExamplesTable fieldInputTable) {
@@ -98,19 +89,19 @@ public class CommonActions {
         WebElement element;
         By findBy;
         if (checkType.isEmpty()) {
-            findBy = items.get(elementName).getFindBy();
+            findBy = pageObject.getItems().get(elementName).getFindBy();
             element = waiter.getVisibleWebElement(findBy);
         } else {
-            By parentFindBy = items.get(checkType).getFindBy();
+            By parentFindBy = pageObject.getItems().get(checkType).getFindBy();
             WebElement parent = waiter.getVisibleWebElement(parentFindBy);
-            element = items.get(elementName).getWebElement(parent);
+            element = pageObject.getItems().get(elementName).getWebElement(parent);
         }
         shouldContainsText(elementName, element, expectedValue);
     }
 
     public void checkElementText(String elementName, String expectedValue) {
         try {
-            WebElement element = items.get(elementName).getOnlyVisibleWebElement();
+            WebElement element = pageObject.getItems().get(elementName).getOnlyVisibleWebElement();
             shouldContainsText(elementName, element, expectedValue);
         } catch (Exception e) {
             if (isSkippableException(e, false)) {
@@ -147,7 +138,7 @@ public class CommonActions {
     }
 
     public void elementClick(String elementName) {
-        By findBy = items.get(elementName).getFindBy();
+        By findBy = pageObject.getItems().get(elementName).getFindBy();
         elementClick(findBy);
     }
 
@@ -258,12 +249,12 @@ public class CommonActions {
                 && exceptionMessage.contains("Timed out after");
     }
 
-    public Boolean visibleWebElementHasTagName(String xpath, String expectedTagName) {
-        return waiter.getVisibleWebElement(By.xpath(xpath)).getTagName().equals(expectedTagName);
+    public Boolean visibleWebElementHasTagName(By findBy, String expectedTagName) {
+        return waiter.getVisibleWebElement(findBy).getTagName().equals(expectedTagName);
     }
 
-    public Boolean webElementHasTagName(String xpath, String expectedTagName) {
-        return waiter.getOnlyVisibleElementFromTheList(By.xpath(xpath)).getTagName().equals(expectedTagName);
+    public Boolean webElementHasTagName(By findBy, String expectedTagName) {
+        return waiter.getOnlyVisibleElementFromTheList(findBy).getTagName().equals(expectedTagName);
     }
 
     public void shouldContainsText(String elementName, WebElement element, String expectedValue) {

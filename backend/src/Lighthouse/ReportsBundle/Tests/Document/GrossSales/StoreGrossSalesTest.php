@@ -10,7 +10,7 @@ class StoreGrossSalesTest extends WebTestCase
 {
     public function testCalculateGrossSales()
     {
-        $storeId = $this->createStore('1');
+        $storeId = $this->factory->store()->getStoreId('1');
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
         $product3Id = $this->createProduct('3');

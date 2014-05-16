@@ -16,6 +16,11 @@ define(function(require) {
         'suppliers/create(/)': require('pages/suppliers/create/create'),
         'suppliers/:supplierId(/)': require('pages/suppliers/view/view'),
 
+        //orders
+        'orders(/)': require('pages/orders/list/list'),
+        'orders/create(/)': require('pages/orders/create/create'),
+        'orders/:orderId(/)': require('pages/orders/view/view'),
+
         //reports
         'reports(/)': require('pages/reports/dashboard/dashboard'),
         'reports/grossMargin': require('pages/reports/grossMargin/grossMargin'),
@@ -28,10 +33,10 @@ define(function(require) {
         'stores/:storeId/reports/grossMargin(/)': require('pages/reports/store/grossMargin/grossMargin'),
 
         //invoices
-        'invoices(/)': require('pages/invoice/list'),
-        'invoices/create(/)': require('pages/invoice/form'),
-        'invoices/search(/)': require('pages/invoice/search'),
-        'invoices/:invoiceId(/)': require('pages/invoice/view'),
+        'stores/:storeId/invoices(/)': require('pages/invoices/list/list'),
+        'stores/:storeId/invoices/create(/)': require('pages/invoices/create/create'),
+        'stores/:storeId/invoices/search(/)': require('pages/invoices/search/search'),
+        'stores/:storeId/invoices/:invoiceId(/)': require('pages/invoices/view/view'),
 
         //users
         'users(/)': require('pages/user/list'),
@@ -73,7 +78,7 @@ define(function(require) {
         'stores/:storeId/departments/:departmentId(/)': require('pages/department/view'),
 
         //errors
-        '403(/)': require('pages/errors/403'),
+        'errors/403(/)': require('pages/errors/403'),
         '*path': require('pages/errors/404')
     };
 });

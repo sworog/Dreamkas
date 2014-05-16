@@ -56,11 +56,7 @@ class TrialBalanceRepository extends DocumentRepository
      */
     public function findOneByReason(Reasonable $reason)
     {
-        $criteria = array(
-            'reason.$id' => new MongoId($reason->getReasonId()),
-            'reason.$ref' => $reason->getReasonType(),
-        );
-        return $this->findOneBy($criteria);
+        return $this->findOneByReasonTypeReasonId($reason->getReasonId(), $reason->getReasonType());
     }
 
     /**
@@ -125,6 +121,10 @@ class TrialBalanceRepository extends DocumentRepository
      */
     public function findByReasons($reasons)
     {
+        if (0 == count($reasons)) {
+            return array();
+        }
+
         $reasonTypes = array();
         foreach ($reasons as $reason) {
             $reasonTypes[$reason->getReasonType()][] = new MongoId($reason->getReasonId());

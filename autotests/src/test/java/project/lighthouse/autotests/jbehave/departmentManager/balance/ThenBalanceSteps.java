@@ -22,15 +22,19 @@ public class ThenBalanceSteps {
         balanceSteps.balanceTabIsNotVisible();
     }
 
-    @Then("the user checks the balance list item by sku '$sku' has items not visible $examplesTable")
-    public void thenTheUserChecksTheBalanceListItemsHasItemsNotVisible(String sku, ExamplesTable examplesTable) {
-        balanceSteps.checkItemsAreNotVisible(sku, examplesTable);
+    @Then("the user checks the balance list item by name '$name' has items not visible $examplesTable")
+    public void thenTheUserChecksTheBalanceListItemsHasItemsNotVisible(String name, ExamplesTable examplesTable) {
+        balanceSteps.checkItemsAreNotVisible(name, examplesTable);
         itemsExampleTable = examplesTable;
     }
 
-    @Then("the user checks the balance list item by sku '$sku' has items become visible while hovering")
-    public void thenTheUserChecksTheBalanceListItemsHasItemsVisible(String sku) {
-        balanceSteps.checkItemsAreVisible(sku, itemsExampleTable);
+    @Then("the user checks the balance list item by name '$name' has items become visible while hovering")
+    public void thenTheUserChecksTheBalanceListItemsHasItemsVisible(String name) {
+        balanceSteps.checkItemsAreVisible(name, itemsExampleTable);
     }
 
+    @Then("the user checks the product with name '$name' has inventory equals to '$expectedValue'")
+    public void thenTheUserChecksTheProductWithNameHasInventory(String name, String expectedValue) {
+        balanceSteps.balanceObjectItemHasInventoryByLocator(name, expectedValue);
+    }
 }

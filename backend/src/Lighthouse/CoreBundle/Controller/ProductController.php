@@ -8,12 +8,16 @@ use FOS\RestBundle\View\View;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductCollection;
+use Lighthouse\CoreBundle\Document\Product\ProductFilter;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
+use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\ProductType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use MongoDuplicateKeyException;
 
 class ProductController extends AbstractRestController
 {
@@ -29,6 +33,19 @@ class ProductController extends AbstractRestController
     protected function getDocumentFormType()
     {
         return new ProductType();
+    }
+
+    /**
+     * @param FlushFailedException $e
+     * @return FormInterface
+     */
+    protected function handleFlushFailedException(FlushFailedException $e)
+    {
+        if ($e->getCause() instanceof MongoDuplicateKeyException) {
+            return $this->addFormError($e->getForm(), null, 'lighthouse.validation.errors.product.sku.unique');
+        } else {
+            return parent::handleFlushFailedException($e);
+        }
     }
 
     /**
@@ -70,28 +87,18 @@ class ProductController extends AbstractRestController
     }
 
     /**
-     * @param Request $request
-     * @param string $property name, sku, barcode
+     * @param string $property
+     * @param ProductFilter $filter
      * @return ProductCollection
      * @ApiDoc
      * @Secure(roles="ROLE_DEPARTMENT_MANAGER,ROLE_COMMERCIAL_MANAGER")
      * @Rest\View(serializerGroups={"Collection"})
+     * @Rest\Route("products/{property}/search")
      */
-    public function getProductsSearchAction(Request $request, $property)
+    public function getProductsSearchAction($property, ProductFilter $filter)
     {
-        /* @var LoggableCursor $cursor */
-
-        switch ($property) {
-            case 'name':
-            case 'sku':
-            case 'barcode':
-                $query = $request->get('query');
-                $cursor = $this->documentRepository->searchEntry($property, $query);
-                break;
-            default:
-                $cursor = array();
-        }
-
+        $filter->setProperties($property);
+        $cursor = $this->documentRepository->search($filter);
         return new ProductCollection($cursor);
     }
 
@@ -105,9 +112,8 @@ class ProductController extends AbstractRestController
     public function getProductsAction()
     {
         /* @var LoggableCursor $cursor */
-        $cursor = $this->getDocumentRepository()->findAll();
-        $collection = new ProductCollection($cursor);
-        return $collection;
+        $cursor = $this->documentRepository->findAll();
+        return new ProductCollection($cursor);
     }
 
     /**

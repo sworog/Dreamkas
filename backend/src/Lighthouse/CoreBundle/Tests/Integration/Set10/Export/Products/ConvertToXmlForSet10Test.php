@@ -4,6 +4,9 @@ namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Export\Products;
 
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
+use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
+use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Integration\Set10\Export\Products\ExportProductsWorker;
 use Lighthouse\CoreBundle\Integration\Set10\Export\Products\Set10Export;
 use Lighthouse\CoreBundle\Integration\Set10\Export\Products\Set10ProductConverter;
@@ -41,12 +44,6 @@ class ConvertToXmlForSet10Test extends WebTestCase
      */
     public function initBase()
     {
-        $storeManager1User = $this->createUser('storeManager1', 'password', 'ROLE_STORE_MANAGER');
-        $storeManager1AccessToken = $this->auth($storeManager1User);
-        $storeManager2User = $this->createUser('storeManager2', 'password', 'ROLE_STORE_MANAGER');
-        $storeManager2AccessToken = $this->auth($storeManager2User);
-        $storeManager3User = $this->createUser('storeManager3', 'password', 'ROLE_STORE_MANAGER');
-
         $groupData = array(
             'name' => 'Группа',
             'id' => $this->createGroup('Группа'),
@@ -65,28 +62,28 @@ class ConvertToXmlForSet10Test extends WebTestCase
         $storesData = array(
             1 => array(
                 'number' => '1',
-                'id' => $this->factory->getStore('1'),
+                'id' => $this->factory->store()->getStoreId('1'),
             ),
             2 => array(
                 'number' => '2',
-                'id' => $this->factory->getStore('2'),
+                'id' => $this->factory->store()->getStoreId('2'),
             ),
             3 => array(
                 'number' => '3',
-                'id' => $this->factory->getStore('3'),
+                'id' => $this->factory->store()->getStoreId('3'),
             ),
         );
-        $this->factory->linkStoreManagers($storeManager1User->id, $storesData[1]['id']);
-        $this->factory->linkStoreManagers($storeManager2User->id, $storesData[2]['id']);
-        $this->factory->linkStoreManagers($storeManager3User->id, $storesData[3]['id']);
+
+        $storeManager1AccessToken = $this->factory->oauth()->authAsStoreManager($storesData[1]['id']);
+        $storeManager2AccessToken = $this->factory->oauth()->authAsStoreManager($storesData[2]['id']);
+        $this->factory->oauth()->authAsStoreManager($storesData[3]['id']);
 
         $productsData = array(
             1 => array(
                 'name' => 'Продукт 1',
                 'barcode' => '7770000000001',
-                'sku' => 'Артикул_продукта_1',
                 'vat' => '10',
-                'units' => 'kg',
+                'type' => WeightType::TYPE,
                 'vendor' => 'Вимм-Билль-Данн',
                 'vendorCountry' => 'Россия',
                 'purchasePrice' => '44.11',
@@ -94,14 +91,19 @@ class ConvertToXmlForSet10Test extends WebTestCase
                 'retailMarkupMax' => '60',
                 'retailPricePreference' => 'retailMarkup',
                 'subCategory' => $subCategoryData['id'],
-
+                'typeProperties' => array(
+                    'nameOnScales' => 'Название на весах',
+                    'descriptionOnScales' => "Описание\nна весах",
+                    'ingredients' => '<масло,соль,перец>',
+                    'shelfLife' => '23',
+                    'nutritionFacts' => '"Углеводы - 12гр"'
+                )
             ),
             2 => array(
                 'name' => 'Продукт 2 без диапозонов',
                 'barcode' => '7770000000002',
-                'sku' => 'Артикул_продукта_2',
                 'vat' => '10',
-                'units' => 'liter',
+                'type' => UnitType::TYPE,
                 'vendor' => 'Петмол',
                 'vendorCountry' => 'Россия',
                 'purchasePrice' => '55',
@@ -110,9 +112,8 @@ class ConvertToXmlForSet10Test extends WebTestCase
             3 => array(
                 'name' => 'Продукт 3',
                 'barcode' => '7770000000003',
-                'sku' => 'Артикул_продукта_3',
                 'vat' => '10',
-                'units' => 'unit',
+                'type' => UnitType::TYPE,
                 'vendor' => 'Куромать',
                 'vendorCountry' => 'Россия',
                 'purchasePrice' => '66.23',
@@ -124,9 +125,8 @@ class ConvertToXmlForSet10Test extends WebTestCase
             4 => array(
                 'name' => 'Продукт 4 без цены',
                 'barcode' => '7770000000004',
-                'sku' => 'Артикул_продукта_4',
                 'vat' => '10',
-                'units' => 'kg',
+                'type' => WeightType::TYPE,
                 'vendor' => 'Гадило',
                 'vendorCountry' => 'Россия',
                 'purchasePrice' => '',
@@ -138,9 +138,8 @@ class ConvertToXmlForSet10Test extends WebTestCase
             5 => array(
                 'name' => 'Продукт 5',
                 'barcode' => '7770000000005',
-                'sku' => 'Артикул_продукта_5',
                 'vat' => '10',
-                'units' => 'liter',
+                'type' => UnitType::TYPE,
                 'vendor' => 'Пончик',
                 'vendorCountry' => 'Израиль',
                 'purchasePrice' => '88.3',
@@ -152,9 +151,8 @@ class ConvertToXmlForSet10Test extends WebTestCase
             6 => array(
                 'name' => 'Продукт 6',
                 'barcode' => '7770000000006',
-                'sku' => 'Артикул_продукта_6',
                 'vat' => '10',
-                'units' => 'liter',
+                'type' => UnitType::TYPE,
                 'vendor' => 'Пончик',
                 'vendorCountry' => 'Израиль',
                 'purchasePrice' => '88.3',
@@ -209,16 +207,16 @@ class ConvertToXmlForSet10Test extends WebTestCase
         /** @var Set10ProductConverter $converter */
         $converter = $this->getContainer()->get('lighthouse.core.integration.set10.export.products.converter');
 
-        $xmlProduct1 = $converter->makeXmlByProduct($productsData[1]['model']);
+        $xmlProduct1 = $converter->makeXmlByProduct($productsData[1]['model'], false);
         $expectedXmlProduct11 = <<<EOF
-<good marking-of-the-good="Артикул_продукта_1">
+<?xml version="1.0" encoding="UTF-8"?>
+<good marking-of-the-good="10001">
     <shop-indices>1</shop-indices>
     <name>Продукт 1</name>
     <bar-code code="7770000000001">
         <count>1</count>
         <default-code>true</default-code>
     </bar-code>
-    <product-type>ProductPieceEntity</product-type>
     <price-entry price="63.96">
         <number>1</number>
         <department number="1">
@@ -235,21 +233,27 @@ class ConvertToXmlForSet10Test extends WebTestCase
             </parent-group>
         </parent-group>
     </group>
+    <product-type>ProductWeightEntity</product-type>
+    <plugin-property key="precision" value="0.001"/>
+    <plugin-property key="name-on-scale-screen" value="Название на весах"/>
+    <plugin-property key="description-on-scale-screen" value="Описание&#10;на весах"/>
+    <plugin-property key="composition" value="&lt;масло,соль,перец&gt;"/>
+    <plugin-property key="food-value" value="&quot;Углеводы - 12гр&quot;"/>
+    <plugin-property key="good-for-hours" value="23"/>
     <measure-type id="kg">
         <name>кг</name>
     </measure-type>
-    <plugin-property key="precision" value="1"/>
 </good>
 EOF;
         $expectedXmlProduct12 = <<<EOF
-<good marking-of-the-good="Артикул_продукта_1">
+<?xml version="1.0" encoding="UTF-8"?>
+<good marking-of-the-good="10001">
     <shop-indices>2 3</shop-indices>
     <name>Продукт 1</name>
     <bar-code code="7770000000001">
         <count>1</count>
         <default-code>true</default-code>
     </bar-code>
-    <product-type>ProductPieceEntity</product-type>
     <price-entry price="70.58">
         <number>1</number>
         <department number="1">
@@ -266,30 +270,36 @@ EOF;
             </parent-group>
         </parent-group>
     </group>
+    <product-type>ProductWeightEntity</product-type>
+    <plugin-property key="precision" value="0.001"/>
+    <plugin-property key="name-on-scale-screen" value="Название на весах"/>
+    <plugin-property key="description-on-scale-screen" value="Описание&#10;на весах"/>
+    <plugin-property key="composition" value="&lt;масло,соль,перец&gt;"/>
+    <plugin-property key="food-value" value="&quot;Углеводы - 12гр&quot;"/>
+    <plugin-property key="good-for-hours" value="23"/>
     <measure-type id="kg">
         <name>кг</name>
     </measure-type>
-    <plugin-property key="precision" value="1"/>
 </good>
 EOF;
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct11, $xmlProduct1[0]);
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct12, $xmlProduct1[1]);
 
 
-        $xmlProduct2 = $converter->makeXmlByProduct($productsData[2]['model']);
+        $xmlProduct2 = $converter->makeXmlByProduct($productsData[2]['model'], false);
         $this->assertEmpty($xmlProduct2);
 
 
-        $xmlProduct3 = $converter->makeXmlByProduct($productsData[3]['model']);
+        $xmlProduct3 = $converter->makeXmlByProduct($productsData[3]['model'], false);
         $expectedXmlProduct31 = <<<EOF
-<good marking-of-the-good="Артикул_продукта_3">
+<?xml version="1.0" encoding="UTF-8"?>
+<good marking-of-the-good="10003">
     <shop-indices>2</shop-indices>
     <name>Продукт 3</name>
     <bar-code code="7770000000003">
         <count>1</count>
         <default-code>true</default-code>
     </bar-code>
-    <product-type>ProductPieceEntity</product-type>
     <price-entry price="76.93">
         <number>1</number>
         <department number="1">
@@ -306,21 +316,22 @@ EOF;
             </parent-group>
         </parent-group>
     </group>
+    <product-type>ProductPieceEntity</product-type>
+    <plugin-property key="precision" value="0.001"/>
     <measure-type id="unit">
         <name>шт</name>
     </measure-type>
-    <plugin-property key="precision" value="1"/>
 </good>
 EOF;
         $expectedXmlProduct32 = <<<EOF
-<good marking-of-the-good="Артикул_продукта_3">
+<?xml version="1.0" encoding="UTF-8"?>
+<good marking-of-the-good="10003">
     <shop-indices>1 3</shop-indices>
     <name>Продукт 3</name>
     <bar-code code="7770000000003">
         <count>1</count>
         <default-code>true</default-code>
     </bar-code>
-    <product-type>ProductPieceEntity</product-type>
     <price-entry price="117.54">
         <number>1</number>
         <department number="1">
@@ -337,30 +348,31 @@ EOF;
             </parent-group>
         </parent-group>
     </group>
+    <product-type>ProductPieceEntity</product-type>
+    <plugin-property key="precision" value="0.001"/>
     <measure-type id="unit">
         <name>шт</name>
     </measure-type>
-    <plugin-property key="precision" value="1"/>
 </good>
 EOF;
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct31, $xmlProduct3[0]);
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct32, $xmlProduct3[1]);
 
 
-        $xmlProduct4 = $converter->makeXmlByProduct($productsData[4]['model']);
+        $xmlProduct4 = $converter->makeXmlByProduct($productsData[4]['model'], false);
         $this->assertEmpty($xmlProduct4);
 
 
-        $xmlProduct5 = $converter->makeXmlByProduct($productsData[5]['model']);
+        $xmlProduct5 = $converter->makeXmlByProduct($productsData[5]['model'], false);
         $expectedXmlProduct5 = <<<EOF
-<good marking-of-the-good="Артикул_продукта_5">
+<?xml version="1.0" encoding="UTF-8"?>
+<good marking-of-the-good="10005">
     <shop-indices>1 2 3</shop-indices>
     <name>Продукт 5</name>
     <bar-code code="7770000000005">
         <count>1</count>
         <default-code>true</default-code>
     </bar-code>
-    <product-type>ProductPieceEntity</product-type>
     <price-entry price="141.28">
         <number>1</number>
         <department number="1">
@@ -377,25 +389,26 @@ EOF;
             </parent-group>
         </parent-group>
     </group>
-    <measure-type id="liter">
-        <name>л</name>
+    <product-type>ProductPieceEntity</product-type>
+    <plugin-property key="precision" value="0.001"/>
+    <measure-type id="unit">
+        <name>шт</name>
     </measure-type>
-    <plugin-property key="precision" value="1"/>
 </good>
 EOF;
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct5, $xmlProduct5[0]);
 
 
-        $xmlProduct6 = $converter->makeXmlByProduct($productsData[6]['model']);
+        $xmlProduct6 = $converter->makeXmlByProduct($productsData[6]['model'], false);
         $expectedXmlProduct6 = <<<EOF
-<good marking-of-the-good="Артикул_продукта_6">
+<?xml version="1.0" encoding="UTF-8"?>
+<good marking-of-the-good="10006">
     <shop-indices>1 2 3</shop-indices>
     <name>Продукт 6</name>
     <bar-code code="7770000000006">
         <count>1</count>
         <default-code>true</default-code>
     </bar-code>
-    <product-type>ProductPieceEntity</product-type>
     <price-entry price="141.28">
         <number>1</number>
         <department number="1">
@@ -412,10 +425,11 @@ EOF;
             </parent-group>
         </parent-group>
     </group>
-    <measure-type id="liter">
-        <name>л</name>
+    <product-type>ProductPieceEntity</product-type>
+    <plugin-property key="precision" value="0.001"/>
+    <measure-type id="unit">
+        <name>шт</name>
     </measure-type>
-    <plugin-property key="precision" value="1"/>
 </good>
 EOF;
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct6, $xmlProduct6[0]);
@@ -437,11 +451,11 @@ EOF;
 
         $this->createConfig(Set10Export::URL_CONFIG_NAME, $xmlFileUrl);
 
-        $commercialAccessToken = $this->authAsRole("ROLE_COMMERCIAL_MANAGER");
+        $commercialAccessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $this->clientJsonRequest(
             $commercialAccessToken,
-            "GET",
-            "/api/1/integration/export/products"
+            'GET',
+            '/api/1/integration/export/products'
         );
 
         $this->assertResponseCode(200);

@@ -4,21 +4,17 @@ namespace Lighthouse\CoreBundle\Document\TrialBalance;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
-use Doctrine\ODM\MongoDB\Event\PostFlushEventArgs;
 use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
-use SplQueue;
 
 /**
- * Class TrialBalanceListener
- *
- * @DI\DoctrineMongoDBListener(events={"onFlush", "postFlush"})
+ * @DI\DoctrineMongoDBListener(events={"onFlush"}, priority=128)
  */
 class TrialBalanceListener extends AbstractMongoDBListener
 {
@@ -26,11 +22,6 @@ class TrialBalanceListener extends AbstractMongoDBListener
      * @var TrialBalanceRepository
      */
     protected $trialBalanceRepository;
-
-    /**
-     * @var InvoiceProductRepository
-     */
-    protected $invoiceProductRepository;
 
     /**
      * @var StoreProductRepository
@@ -43,40 +34,23 @@ class TrialBalanceListener extends AbstractMongoDBListener
     protected $costOfGoodsCalculator;
 
     /**
-     * @var SplQueue|TrialBalance[]
-     */
-    protected $trialBalanceQueue;
-
-    /**
-     * @var int
-     */
-    protected $postFlushCounter = 0;
-
-    /**
      * @DI\InjectParams({
      *      "trialBalanceRepository" = @DI\Inject("lighthouse.core.document.repository.trial_balance"),
-     *      "invoiceProductRepository" = @DI\Inject("lighthouse.core.document.repository.invoice_product"),
      *      "storeProductRepository" = @DI\Inject("lighthouse.core.document.repository.store_product"),
      *      "costOfGoodsCalculator" = @DI\Inject("lighthouse.core.document.trial_balance.calculator")
      * })
      * @param TrialBalanceRepository $trialBalanceRepository
-     * @param InvoiceProductRepository $invoiceProductRepository
      * @param StoreProductRepository $storeProductRepository
      * @param CostOfGoodsCalculator $costOfGoodsCalculator
      */
     public function __construct(
         TrialBalanceRepository $trialBalanceRepository,
-        InvoiceProductRepository $invoiceProductRepository,
         StoreProductRepository $storeProductRepository,
         CostOfGoodsCalculator $costOfGoodsCalculator
     ) {
         $this->trialBalanceRepository = $trialBalanceRepository;
-        $this->invoiceProductRepository = $invoiceProductRepository;
         $this->storeProductRepository = $storeProductRepository;
         $this->costOfGoodsCalculator = $costOfGoodsCalculator;
-
-        $this->trialBalanceQueue = new SplQueue();
-        $this->trialBalanceQueue->setIteratorMode(SplQueue::IT_MODE_DELETE);
     }
 
     /**
@@ -84,7 +58,6 @@ class TrialBalanceListener extends AbstractMongoDBListener
      */
     public function onFlush(OnFlushEventArgs $eventArgs)
     {
-        /* @var DocumentManager $dm */
         $dm = $eventArgs->getDocumentManager();
         $uow = $dm->getUnitOfWork();
 
@@ -112,15 +85,11 @@ class TrialBalanceListener extends AbstractMongoDBListener
     }
 
     /**
-     * @param Reasonable $document
      * @param TrialBalance $trialBalance
      * @param DocumentManager $dm
      */
-    protected function processSupportsRangeIndexRemove(
-        Reasonable $document,
-        TrialBalance $trialBalance,
-        DocumentManager $dm
-    ) {
+    protected function processSupportsRangeIndexRemove(TrialBalance $trialBalance, DocumentManager $dm)
+    {
         $nextProcessedTrialBalance = $this->trialBalanceRepository->findOneNext($trialBalance);
 
         if (null != $nextProcessedTrialBalance) {
@@ -131,15 +100,16 @@ class TrialBalanceListener extends AbstractMongoDBListener
     }
 
     /**
-     * @param Reasonable $document
-     * @param $trialBalance
-     * @param $storeProduct
+     * @param TrialBalance $trialBalance
+     * @param StoreProduct $storeProduct
      * @param DocumentManager $dm
+     * @throws \Doctrine\ODM\MongoDB\MongoDBException
+     * @throws \InvalidArgumentException
+     * @throws \Doctrine\ODM\MongoDB\LockException
      */
     protected function processSupportsRangeIndexUpdate(
-        Reasonable $document,
-        $trialBalance,
-        $storeProduct,
+        TrialBalance $trialBalance,
+        StoreProduct $storeProduct,
         DocumentManager $dm
     ) {
         if ($storeProduct != $trialBalance->storeProduct) {
@@ -174,7 +144,8 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $trialBalance->reason = $document;
         $trialBalance->createdDate = $document->getReasonDate();
 
-        $this->trialBalanceQueue[] = $trialBalance;
+        $dm->persist($trialBalance);
+        $this->computeChangeSet($dm, $trialBalance);
     }
     
     /**
@@ -185,15 +156,21 @@ class TrialBalanceListener extends AbstractMongoDBListener
     {
         $trialBalance = $this->trialBalanceRepository->findOneByReason($document);
 
+        // :TODO: :XXX: :FIXME: Something wrong here, TrialBalance should be found
+        if (!$trialBalance) {
+            return;
+        }
+
         $storeProduct = $this->storeProductRepository->findOrCreateByReason($document);
 
         if ($this->costOfGoodsCalculator->supportsRangeIndex($document)) {
-            $this->processSupportsRangeIndexUpdate($document, $trialBalance, $storeProduct, $dm);
+            $this->processSupportsRangeIndexUpdate($trialBalance, $storeProduct, $dm);
         }
 
         $trialBalance->price = $document->getProductPrice();
         $trialBalance->quantity = $document->getProductQuantity();
         $trialBalance->storeProduct = $storeProduct;
+        $trialBalance->createdDate = clone $document->getReasonDate();
 
         $dm->persist($storeProduct);
         $dm->persist($trialBalance);
@@ -210,12 +187,10 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $trialBalance = $this->trialBalanceRepository->findOneByReason($document);
 
         if ($this->costOfGoodsCalculator->supportsRangeIndex($document)) {
-            $this->processSupportsRangeIndexRemove($document, $trialBalance, $dm);
+            $this->processSupportsRangeIndexRemove($trialBalance, $dm);
         }
 
         $dm->remove($trialBalance);
-
-        $this->computeChangeSet($dm, $trialBalance);
     }
 
     /**
@@ -233,7 +208,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $newAcceptanceDate = $changeSet['acceptanceDate'][1];
 
         /* @var InvoiceProduct[] $invoiceProducts */
-        $invoiceProducts = $this->invoiceProductRepository->findByInvoice($invoice->id);
+        $invoiceProducts = $invoice->products;
         $trialBalances = $this->trialBalanceRepository->findByReasons($invoiceProducts);
 
         foreach ($invoiceProducts as $invoiceProduct) {
@@ -250,25 +225,9 @@ class TrialBalanceListener extends AbstractMongoDBListener
                 }
             }
 
-            $trialBalance->createdDate = $newAcceptanceDate;
+            $trialBalance->createdDate = clone $newAcceptanceDate;
             $trialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
             $this->computeChangeSet($dm, $trialBalance);
-        }
-    }
-
-    /**
-     * @param PostFlushEventArgs $eventArgs
-     */
-    public function postFlush(PostFlushEventArgs $eventArgs)
-    {
-        if (!$this->trialBalanceQueue->isEmpty() && 0 == $this->postFlushCounter) {
-            $this->postFlushCounter++;
-            $dm = $eventArgs->getDocumentManager();
-            foreach ($this->trialBalanceQueue as $trialBalance) {
-                $dm->persist($trialBalance);
-            }
-            $dm->flush();
-            $this->postFlushCounter--;
         }
     }
 }

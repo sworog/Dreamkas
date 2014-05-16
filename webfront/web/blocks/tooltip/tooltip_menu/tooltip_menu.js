@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Tooltip = require('blocks/tooltip/tooltip');
+        var Tooltip = require('blocks/tooltip/tooltip.deprecated');
 
         return Tooltip.extend({
             className: 'tooltip tooltip_menu',

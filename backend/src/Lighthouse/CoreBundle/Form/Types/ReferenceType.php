@@ -46,7 +46,12 @@ class ReferenceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $viewTransformer = new DocumentToIdTransformer($this->odm, $options['class'], $this->versionFactory);
+        $viewTransformer = new DocumentToIdTransformer(
+            $this->odm,
+            $options['class'],
+            $this->versionFactory,
+            $options['return_null_object_on_not_found']
+        );
         $builder->addViewTransformer($viewTransformer);
     }
 
@@ -62,6 +67,7 @@ class ReferenceType extends AbstractType
         $resolver->setDefaults(
             array(
                 'compound' => false,
+                'return_null_object_on_not_found' => false
             )
         );
     }

@@ -1,7 +1,5 @@
 package project.lighthouse.autotests.api;
 
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,15 +11,15 @@ import java.io.IOException;
 
 public class ApiConnect {
 
-    private final HttpExecutor httpExecutor;
+    private final HttpRequestable httpRequestable;
 
     public ApiConnect(String userName, String password) throws IOException, JSONException {
-        httpExecutor = new HttpExecutor(userName, password);
+        httpRequestable = HttpExecutor.getHttpRequestable(userName, password);
     }
 
     public Department createStoreDepartmentThroughPost(Department department) throws JSONException, IOException {
         if (!StaticData.departments.containsKey(department.getNumber())) {
-            httpExecutor.executePostRequest(department);
+            httpRequestable.executePostRequest(department);
             StaticData.departments.put(department.getNumber(), department);
             return department;
         } else {
@@ -32,9 +30,9 @@ public class ApiConnect {
     public Product createProductThroughPost(Product product, SubCategory subCategory) throws JSONException, IOException {
         if (!subCategory.hasProduct(product)) {
             getSubCategoryMarkUp(subCategory);
-            httpExecutor.executePostRequest(product);
+            httpRequestable.executePostRequest(product);
             subCategory.addProduct(product);
-            StaticData.products.put(product.getSku(), product);
+            StaticData.products.put(product.getName(), product);
             return product;
         } else {
             return subCategory.getProduct(product);
@@ -43,7 +41,7 @@ public class ApiConnect {
 
     public void getSubCategoryMarkUp(SubCategory subCategory) throws IOException, JSONException {
         String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/subcategories"), subCategory.getId());
-        String response = httpExecutor.executeSimpleGetRequest(apiUrl, true);
+        String response = httpRequestable.executeGetRequest(apiUrl);
         JSONObject jsonObject = new JSONObject(response);
         StaticData.retailMarkupMax = (!jsonObject.isNull("retailMarkupMax"))
                 ? jsonObject.getString("retailMarkupMax")
@@ -53,57 +51,14 @@ public class ApiConnect {
                 : null;
     }
 
-    public String getProductPageUrl(String productSku) throws JSONException {
-        String productId = StaticData.products.get(productSku).getId();
+    public String getProductPageUrl(String productName) throws JSONException {
+        String productId = StaticData.products.get(productName).getId();
         return String.format("%s/products/%s", UrlHelper.getWebFrontUrl(), productId);
-    }
-
-    public Invoice createInvoiceThroughPost(Invoice invoice) throws JSONException, IOException {
-        if (!StaticData.invoices.containsKey(invoice.getSku())) {
-            httpExecutor.executePostRequest(invoice);
-            StaticData.invoices.put(invoice.getSku(), invoice);
-            return invoice;
-        } else {
-            return StaticData.invoices.get(invoice.getSku());
-        }
-    }
-
-    public String getInvoicePageUrl(String invoiceName) throws JSONException {
-        Invoice invoice = StaticData.invoices.get(invoiceName);
-        return String.format("%s/invoices/%s?editMode=true", UrlHelper.getWebFrontUrl(), invoice.getId());
-    }
-
-    public void addProductToInvoice(String invoiceName, String productSku, String quantity, String price)
-            throws JSONException, IOException {
-        Product product = StaticData.products.get(productSku);
-        Invoice invoice = StaticData.invoices.get(invoiceName);
-        // TODO: Нужно проверять найдены ли такой товар и такая накладная
-        if (!hasInvoiceProduct(invoice, product)) {
-            String apiUrl = String.format("%s%s/%s/products.json", UrlHelper.getApiUrl(""), invoice.getApiUrl(), invoice.getId());
-            String productJsonData = InvoiceProduct.getJsonObject(product.getId(), quantity, price).toString();
-            httpExecutor.executePostRequest(apiUrl, productJsonData);
-        }
-    }
-
-    private Boolean hasInvoiceProduct(Invoice invoice, Product product) throws IOException, JSONException {
-        JSONArray jsonArray = getInvoiceProducts(invoice);
-        for (int i = 0; i < jsonArray.length(); i++) {
-            if (jsonArray.getJSONObject(i).getJSONObject("product").getString("id").equals(product.getId())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private JSONArray getInvoiceProducts(Invoice invoice) throws IOException, JSONException {
-        String url = String.format("%s%s/%s/products", UrlHelper.getApiUrl(""), invoice.getApiUrl(), invoice.getId());
-        String response = httpExecutor.executeSimpleGetRequest(url, true);
-        return new JSONArray(response);
     }
 
     public WriteOff createWriteOffThroughPost(WriteOff writeOff) throws JSONException, IOException {
         if (!StaticData.writeOffs.containsKey(writeOff.getNumber())) {
-            httpExecutor.executePostRequest(writeOff);
+            httpRequestable.executePostRequest(writeOff);
             StaticData.writeOffs.put(writeOff.getNumber(), writeOff);
             return writeOff;
         } else {
@@ -111,14 +66,14 @@ public class ApiConnect {
         }
     }
 
-    public void addProductToWriteOff(String writeOffNumber, String productSku, String quantity, String price, String cause)
+    public void addProductToWriteOff(String writeOffNumber, String productName, String quantity, String price, String cause)
             throws JSONException, IOException {
-        Product product = StaticData.products.get(productSku);
+        Product product = StaticData.products.get(productName);
         WriteOff writeOff = StaticData.writeOffs.get(writeOffNumber);
         String apiUrl = String.format("%s%s/%s/products.json", UrlHelper.getApiUrl(""), writeOff.getApiUrl(), writeOff.getId());
 
         String productJsonData = WriteOffProduct.getJsonObject(product.getId(), quantity, price, cause).toString();
-        httpExecutor.executePostRequest(apiUrl, productJsonData);
+        httpRequestable.executePostRequest(apiUrl, productJsonData);
     }
 
     public String getWriteOffPageUrl(String writeOffNumber) throws JSONException {
@@ -128,7 +83,7 @@ public class ApiConnect {
 
     public Group createGroupThroughPost(Group group) throws JSONException, IOException {
         if (!StaticData.isGroupCreated(group.getName())) {
-            httpExecutor.executePostRequest(group);
+            httpRequestable.executePostRequest(group);
             StaticData.groups.put(group.getName(), group);
             return group;
         } else {
@@ -143,7 +98,7 @@ public class ApiConnect {
 
     private Group updatedGroup(Group group) throws JSONException, IOException {
         String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl(group.getApiUrl()), group.getId());
-        Group updatedGroup = new Group(new JSONObject(httpExecutor.executeSimpleGetRequest(apiUrl, true)));
+        Group updatedGroup = new Group(new JSONObject(httpRequestable.executeGetRequest(apiUrl)));
         StaticData.groups.put(group.getName(), updatedGroup);
         return updatedGroup;
     }
@@ -151,7 +106,7 @@ public class ApiConnect {
     public Category createCategoryThroughPost(Category category, Group group) throws IOException, JSONException {
         if (!(group.hasCategory(category))) {
             createGroupThroughPost(group);
-            httpExecutor.executePostRequest(category);
+            httpRequestable.executePostRequest(category);
             StaticData.categories.put(category.getName(), category);
             return category;
         } else {
@@ -176,7 +131,7 @@ public class ApiConnect {
         if (!category.hasSubCategory(subCategory)) {
             group = createGroupThroughPost(group);
             createCategoryThroughPost(category, group);
-            httpExecutor.executePostRequest(subCategory);
+            httpRequestable.executePostRequest(subCategory);
             StaticData.subCategories.put(subCategory.getName(), subCategory);
             return subCategory;
         } else {
@@ -197,7 +152,7 @@ public class ApiConnect {
 
     private User createUserThroughPost(User user) throws JSONException, IOException {
         if (!StaticData.users.containsKey(user.getUserName())) {
-            httpExecutor.executePostRequest(user);
+            httpRequestable.executePostRequest(user);
             StaticData.users.put(user.getUserName(), user);
             return user;
         } else {
@@ -211,7 +166,7 @@ public class ApiConnect {
     }
 
     public User getUser(String userName) throws IOException, JSONException {
-        JSONArray jsonArray = new JSONArray(httpExecutor.executeSimpleGetRequest(UrlHelper.getApiUrl("/users"), true));
+        JSONArray jsonArray = new JSONArray(httpRequestable.executeGetRequest(UrlHelper.getApiUrl("/users")));
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             if (jsonObject.getString("username").equals(userName)) {
@@ -226,7 +181,7 @@ public class ApiConnect {
 
     public Store createStoreThroughPost(Store store) throws JSONException, IOException {
         if (!StaticData.stores.containsKey(store.getNumber())) {
-            httpExecutor.executePostRequest(store);
+            httpRequestable.executePostRequest(store);
             StaticData.stores.put(store.getNumber(), store);
             return store;
         } else {
@@ -245,27 +200,21 @@ public class ApiConnect {
 
     public void setSubCategoryMarkUp(String retailMarkupMax, String retailMarkupMin, SubCategory subCategory) throws JSONException, IOException {
         String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/subcategories"), subCategory.getId());
-        httpExecutor.executePutRequest(apiUrl, new JSONObject()
-                .put("category", subCategory.getCategory().getId())
-                .put("name", subCategory.getName())
-                .put("retailMarkupMax", retailMarkupMax)
-                .put("retailMarkupMin", retailMarkupMin)
+        httpRequestable.executePutRequest(apiUrl, new JSONObject()
+                        .put("category", subCategory.getCategory().getId())
+                        .put("name", subCategory.getName())
+                        .put("retailMarkupMax", retailMarkupMax)
+                        .put("retailMarkupMin", retailMarkupMin)
         );
     }
 
     public void promoteUserToManager(Store store, User user, String type) throws JSONException, IOException {
         if (!hasStoreManager(store, user, type)) {
             String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/stores"), store.getId());
-            String data = "_method=LINK";
-            HttpPost httpPost = httpExecutor.getHttpPost(apiUrl);
-            httpPost.setHeader("Link", getLinkHeaderValue(user, type));
-            StringEntity entity = new StringEntity(data, "UTF-8");
-            entity.setContentType("application/x-www-form-urlencoded; charset=UTF-8");
-            httpPost.setEntity(entity);
-            httpExecutor.executeHttpMethod(httpPost);
+            httpRequestable.executeLinkRequest(apiUrl, getLinkHeaderValue(user, type));
+            user.setStore(store);
         }
     }
-
 
     private String getLinkHeaderValue(User user, String type) throws JSONException {
         return String.format("<%s/%s>; rel=\"%s\"", UrlHelper.getApiUrl("/users"), user.getId(), type);
@@ -273,7 +222,7 @@ public class ApiConnect {
 
     private Boolean hasStoreManager(Store store, User user, String type) throws JSONException, IOException {
         String apiUrl = String.format("%s/%s/%s", UrlHelper.getApiUrl("/stores"), store.getId(), type);
-        String response = httpExecutor.executeSimpleGetRequest(apiUrl, true);
+        String response = httpRequestable.executeGetRequest(apiUrl);
         JSONArray jsonArray = new JSONArray(response);
         for (int i = 0; i < jsonArray.length(); i++) {
             if (jsonArray.getJSONObject(i).getString("id").equals(user.getId())) {
@@ -284,9 +233,9 @@ public class ApiConnect {
     }
 
     public String setSet10ImportUrl(String value) throws IOException, JSONException {
-        JSONObject jsonObject = new JSONObject(httpExecutor.executeSimpleGetRequest(UrlHelper.getApiUrl("/configs/by/name?query=set10-import-url"), true));
+        JSONObject jsonObject = new JSONObject(httpRequestable.executeGetRequest(UrlHelper.getApiUrl("/configs/by/name?query=set10-import-url")));
         String targetUrl = UrlHelper.getApiUrl("/configs/" + jsonObject.getString("id"));
-        return httpExecutor.executePutRequest(targetUrl, new JSONObject()
+        return httpRequestable.executePutRequest(targetUrl, new JSONObject()
                 .put("name", "set10-import-url")
                 .put("value", value));
     }
@@ -298,7 +247,7 @@ public class ApiConnect {
 
     public Supplier createSupplier(Supplier supplier) throws IOException, JSONException {
         if (!StaticData.suppliers.containsKey(supplier.getName())) {
-            httpExecutor.executePostRequest(supplier);
+            httpRequestable.executePostRequest(supplier);
             StaticData.suppliers.put(supplier.getName(), supplier);
             return supplier;
         } else {

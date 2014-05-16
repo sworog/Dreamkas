@@ -4,7 +4,9 @@ import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.helper.StringGenerator;
+import project.lighthouse.autotests.objects.web.product.ProductObject;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductCardView;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductCreatePage;
 import project.lighthouse.autotests.pages.commercialManager.product.ProductListPage;
@@ -12,6 +14,10 @@ import project.lighthouse.autotests.pages.commercialManager.product.ProductLocal
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductInvoicesList;
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductReturnList;
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductWriteOffList;
+
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 public class ProductSteps extends ScenarioSteps {
 
@@ -42,7 +48,12 @@ public class ProductSteps extends ScenarioSteps {
      */
     @Step
     public void fieldInputBySendKeysMethod(String elementName, String inputText) {
-        productCreatePage.items.get(elementName).getVisibleWebElement().sendKeys(inputText);
+        productCreatePage.getItems().get(elementName).getVisibleWebElement().sendKeys(inputText);
+    }
+
+    @Step
+    public void selectProductType(String value) {
+        productCreatePage.getItems().get("type").setValue(value);
     }
 
     @Step
@@ -71,13 +82,13 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
-    public void listItemClick(String skuValue) {
-        productListPage.listItemClick(skuValue);
+    public void listItemClick(String name) {
+        productListPage.getProductObjectCollection().clickByLocator(name);
     }
 
     @Step
-    public void listItemCheck(String skuValue) {
-        productListPage.listItemCheck(skuValue);
+    public void listItemCheck(String name) {
+        productListPage.getProductObjectCollection().contains(name);
     }
 
     @Step
@@ -86,8 +97,9 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
-    public void checkProductWithSkuHasExpectedValue(String skuValue, String name, String expectedValue) {
-        productListPage.checkProductWithSkuHasExpectedValue(skuValue, name, expectedValue);
+    public void checkProductWithSkuHasExpectedValue(String name, String element, String expectedValue) {
+        ProductObject productObject = (ProductObject) productListPage.getProductObjectCollection().getAbstractObjectByLocator(name);
+        Assert.assertEquals(expectedValue, productObject.getPurchasePrice());
     }
 
     @Step
@@ -101,14 +113,14 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
-    public void editProductButtonClick() {
-        productCardView.editProductButtonClick();
+    public void editProductMarkUpAndPriceButtonClick() {
+        productCardView.editProductMarkUpAndPriceButtonClick();
     }
 
     @Step
-    public void editProductButtonIsNotPresent() {
+    public void editProductMarkUpAndPriceButtonIsNotPresent() {
         try {
-            productCardView.editProductButtonClick();
+            productCardView.editProductMarkUpAndPriceButtonClick();
             Assert.fail("Edit product button is clicked and present!");
         } catch (Exception ignored) {
         }
@@ -167,7 +179,7 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void productInvoiceListClick(String sku) {
-        productInvoicesList.invoiceSkuClick(sku);
+        productInvoicesList.getProductInvoiceListObjects().clickByLocator(sku);
     }
 
     @Step
@@ -211,5 +223,57 @@ public class ProductSteps extends ScenarioSteps {
     @Step
     public void checkProductReturnListObject(ExamplesTable examplesTable) {
         productReturnList.getReturnListObjectCollection().compareWithExampleTable(examplesTable);
+    }
+
+    @Step
+    public void editProductButtonIsNotPresent() {
+        try {
+            productCardView.editButtonClick();
+            Assert.fail("Edit product link is present!");
+        } catch (Exception ignored) {
+        }
+    }
+
+    @Step
+    public void newProductCreateButtonIsNotPresent() {
+        try {
+            productListPage.createNewProductButtonClick();
+            fail("Create new product button is present on product list page!");
+        } catch (Exception ignored) {
+        }
+    }
+
+    @Step
+    public void productObjectClickByLocator(String locator) {
+        productListPage.getProductObjectCollection().clickByLocator(locator);
+    }
+
+    @Step
+    public void productObjectCollectionContainObjectWithLocator(String locator) {
+        productListPage.getProductObjectCollection().contains(locator);
+    }
+
+    @Step
+    public void productListObjectCollectionCompareWithExamplesTable(ExamplesTable examplesTable) {
+        productListPage.getProductObjectCollection().compareWithExampleTable(examplesTable);
+    }
+
+    @Step
+    public void assertProductListObjectPurchasePrice(String locator, String expectedValue) {
+        ProductObject productObject = (ProductObject)
+                productListPage.getProductObjectCollection().getAbstractObjectByLocator(locator);
+        assertThat(productObject.getPurchasePrice(), is(expectedValue));
+    }
+
+    @Step
+    public void assertProductListObjectSku(String locator, String sku) {
+        ProductObject productObject = (ProductObject)
+                productListPage.getProductObjectCollection().getAbstractObjectByLocator(locator);
+        assertThat(productObject.getSku(), is(sku));
+    }
+
+    @Step
+    public void assertSkuFieldIsNotVisible() {
+        ((Input) productCreatePage.getItems().get("sku")).shouldBeNotVisible();
     }
 }

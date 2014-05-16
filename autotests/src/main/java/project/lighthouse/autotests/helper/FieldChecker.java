@@ -1,13 +1,16 @@
 package project.lighthouse.autotests.helper;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonItem;
+import project.lighthouse.autotests.elements.items.DateTime;
+import project.lighthouse.autotests.elements.items.Input;
+import project.lighthouse.autotests.elements.items.SelectByVisibleText;
 
-import static junit.framework.Assert.assertEquals;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 /**
- * This class is used to check and assert field length
+ * This class is used to check and assert field
  */
 public class FieldChecker {
 
@@ -18,9 +21,29 @@ public class FieldChecker {
     }
 
     public void assertLabelTitle() {
-        Assert.assertEquals(
-                commonItem.getLabel(),
-                commonItem.getVisibleWebElement().findElement(By.xpath("./../label")).getText());
+        String actualValue;
+
+        if (commonItem instanceof SelectByVisibleText) {
+            actualValue = commonItem.getVisibleWebElement().findElement(By.xpath("./../../label")).getText();
+        } else {
+            actualValue = commonItem.getVisibleWebElement().findElement(By.xpath("./../label")).getText();
+        }
+
+        assertThat(actualValue, is(commonItem.getLabel()));
+    }
+
+    public void assertValueEqual(String expectedValue) {
+        String actualValue;
+
+        if (commonItem instanceof SelectByVisibleText) {
+            actualValue = commonItem.getVisibleWebElementFacade().getSelectedVisibleTextValue().trim();
+        } else if (commonItem instanceof Input || commonItem instanceof DateTime) {
+            actualValue = commonItem.getVisibleWebElementFacade().getValue();
+        } else {
+            actualValue = commonItem.getVisibleWebElementFacade().getText();
+        }
+
+        assertThat(actualValue, is(expectedValue));
     }
 
     public void assertFieldLength(String elementName, int fieldLength) {
@@ -36,15 +59,13 @@ public class FieldChecker {
                 length = commonItem.getOnlyVisibleWebElementFacade().getText().length();
                 break;
         }
-        assertFieldLength(elementName, fieldLength, length);
-    }
-
-    private void assertFieldLength(String elementName, int fieldLength, int actualLength) {
-        assertEquals(
+        assertThat(
                 String.format("The '%s' field doesn't contains '%s' symbols. It actually contains '%s' symbols.",
                         elementName,
                         fieldLength,
-                        actualLength),
-                actualLength, fieldLength);
+                        length),
+                length,
+                is(fieldLength)
+        );
     }
 }

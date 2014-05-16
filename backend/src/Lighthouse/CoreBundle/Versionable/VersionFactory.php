@@ -42,6 +42,9 @@ class VersionFactory
 
         foreach ($versionable->getVersionFields() as $field) {
             $value = $classMetadata->getFieldValue($document, $field);
+            if ($classMetadata->isSingleValuedEmbed($field)) {
+                $value = clone $value;
+            }
             $versionableMetadata->setFieldValue($versionable, $field, $value);
         }
 
@@ -80,7 +83,7 @@ class VersionFactory
     protected function getFieldValue(VersionInterface $version, ClassMetadata $classMeta, $field)
     {
         $value = $classMeta->getFieldValue($version, $field);
-        if ($classMeta->isSingleValuedAssociation($field) && null !== $value) {
+        if ($classMeta->isSingleValuedReference($field) && null !== $value) {
             $associationMetadata = $this->getClassMetadata($value);
             $value = $associationMetadata->getIdentifierValue($value);
         }

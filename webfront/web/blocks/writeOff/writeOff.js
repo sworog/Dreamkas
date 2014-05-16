@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/core/block'),
+        var Block = require('kit/core/block.deprecated'),
             InputDate = require('blocks/inputDate/inputDate'),
             Form_writeOffProduct = require('blocks/form/form_writeOffProduct/form_writeOffProduct'),
             Table_writeOffProducts = require('blocks/table/table_writeOffProducts/table_writeOffProducts'),
@@ -403,6 +403,12 @@ define(function(require) {
                                 }
                                 $(this).parents("form").find("[name='product']").val('');
                             }
+                            if ($(this).val() == '') {
+                                $(this).parents("form").find("[name='product']").val('');
+                            } else {
+                                $(this).parents("form").find("[name='product']").val('xxx');
+                            }
+                            break;
                     }
                 });
             }

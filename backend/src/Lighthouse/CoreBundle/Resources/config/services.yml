@@ -1,5 +1,9 @@
 parameters:
     test.client.class: Lighthouse\CoreBundle\Test\Client\Client
+    doctrine_mongodb.odm.generator.increment.collection: IncNumbers
+    openstack.selectel.storage.container.metadata:
+        type: public
+        domains: cdn.lighthouse.pro
 
 services:
     jms_serializer.serialized_name_annotation_strategy:
@@ -55,6 +59,8 @@ services:
         class: Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository
         arguments:
             - LighthouseCoreBundle:Invoice\Invoice
+        calls:
+            - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
 
     lighthouse.core.document.repository.invoice_product:
         parent: doctrine_mongodb.odm.repository
@@ -167,3 +173,15 @@ services:
         parent: doctrine_mongodb.odm.repository
         arguments:
             - LighthouseCoreBundle:File\File
+            
+    lighthouse.core.document.repository.order:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\Order\OrderRepository
+        arguments:
+            - LighthouseCoreBundle:Order\Order
+
+    lighthouse.core.document.repository.order_product:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\Order\Product\OrderProductRepository
+        arguments:
+            - LighthouseCoreBundle:Order\Product\OrderProduct

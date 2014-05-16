@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <goods-catalog>
-    <good marking-of-the-good="&#x410;&#x440;&#x442;&#x438;&#x43A;&#x443;&#x43B;_&#x43F;&#x440;&#x43E;&#x434;&#x443;&#x43A;&#x442;&#x430;_1">
+    <good marking-of-the-good="10001">
         <shop-indices>1</shop-indices>
-        <name>&#x41F;&#x440;&#x43E;&#x434;&#x443;&#x43A;&#x442; 1</name>
+        <name>Продукт 1</name>
         <bar-code code="7770000000001">
             <count>1</count>
             <default-code>true</default-code>
         </bar-code>
-        <product-type>ProductPieceEntity</product-type>
         <price-entry price="63.96">
             <number>1</number>
             <department number="1">
@@ -15,29 +14,33 @@
             </department>
         </price-entry>
         <vat>10</vat>
-        <group id="&#x41F;&#x43E;&#x434;&#x43A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;">
-            <name>&#x41F;&#x43E;&#x434;&#x43A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;</name>
-            <parent-group id="&#x41A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;">
-                <name>&#x41A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;</name>
-                <parent-group id="&#x413;&#x440;&#x443;&#x43F;&#x43F;&#x430;">
-                    <name>&#x413;&#x440;&#x443;&#x43F;&#x43F;&#x430;</name>
+        <group id="Подкатегория">
+            <name>Подкатегория</name>
+            <parent-group id="Категория">
+                <name>Категория</name>
+                <parent-group id="Группа">
+                    <name>Группа</name>
                 </parent-group>
             </parent-group>
         </group>
+        <product-type>ProductWeightEntity</product-type>
+        <plugin-property key="precision" value="0.001"/>
+        <plugin-property key="name-on-scale-screen" value="Название на весах"/>
+        <plugin-property key="description-on-scale-screen" value="Описание&#10;на весах"/>
+        <plugin-property key="composition" value="&lt;масло,соль,перец&gt;"/>
+        <plugin-property key="food-value" value="&quot;Углеводы - 12гр&quot;"/>
+        <plugin-property key="good-for-hours" value="23"/>
         <measure-type id="kg">
-            <name>&#x43A;&#x433;</name>
+            <name>кг</name>
         </measure-type>
-        <plugin-property key="precision" value="1"/>
     </good>
-
-    <good marking-of-the-good="&#x410;&#x440;&#x442;&#x438;&#x43A;&#x443;&#x43B;_&#x43F;&#x440;&#x43E;&#x434;&#x443;&#x43A;&#x442;&#x430;_1">
+    <good marking-of-the-good="10001">
         <shop-indices>2 3</shop-indices>
-        <name>&#x41F;&#x440;&#x43E;&#x434;&#x443;&#x43A;&#x442; 1</name>
+        <name>Продукт 1</name>
         <bar-code code="7770000000001">
             <count>1</count>
             <default-code>true</default-code>
         </bar-code>
-        <product-type>ProductPieceEntity</product-type>
         <price-entry price="70.58">
             <number>1</number>
             <department number="1">
@@ -45,29 +48,33 @@
             </department>
         </price-entry>
         <vat>10</vat>
-        <group id="&#x41F;&#x43E;&#x434;&#x43A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;">
-            <name>&#x41F;&#x43E;&#x434;&#x43A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;</name>
-            <parent-group id="&#x41A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;">
-                <name>&#x41A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;</name>
-                <parent-group id="&#x413;&#x440;&#x443;&#x43F;&#x43F;&#x430;">
-                    <name>&#x413;&#x440;&#x443;&#x43F;&#x43F;&#x430;</name>
+        <group id="Подкатегория">
+            <name>Подкатегория</name>
+            <parent-group id="Категория">
+                <name>Категория</name>
+                <parent-group id="Группа">
+                    <name>Группа</name>
                 </parent-group>
             </parent-group>
         </group>
+        <product-type>ProductWeightEntity</product-type>
+        <plugin-property key="precision" value="0.001"/>
+        <plugin-property key="name-on-scale-screen" value="Название на весах"/>
+        <plugin-property key="description-on-scale-screen" value="Описание&#10;на весах"/>
+        <plugin-property key="composition" value="&lt;масло,соль,перец&gt;"/>
+        <plugin-property key="food-value" value="&quot;Углеводы - 12гр&quot;"/>
+        <plugin-property key="good-for-hours" value="23"/>
         <measure-type id="kg">
-            <name>&#x43A;&#x433;</name>
+            <name>кг</name>
         </measure-type>
-        <plugin-property key="precision" value="1"/>
     </good>
-
-    <good marking-of-the-good="&#x410;&#x440;&#x442;&#x438;&#x43A;&#x443;&#x43B;_&#x43F;&#x440;&#x43E;&#x434;&#x443;&#x43A;&#x442;&#x430;_3">
+    <good marking-of-the-good="10003">
         <shop-indices>2</shop-indices>
-        <name>&#x41F;&#x440;&#x43E;&#x434;&#x443;&#x43A;&#x442; 3</name>
+        <name>Продукт 3</name>
         <bar-code code="7770000000003">
             <count>1</count>
             <default-code>true</default-code>
         </bar-code>
-        <product-type>ProductPieceEntity</product-type>
         <price-entry price="76.93">
             <number>1</number>
             <department number="1">
@@ -75,29 +82,28 @@
             </department>
         </price-entry>
         <vat>10</vat>
-        <group id="&#x41F;&#x43E;&#x434;&#x43A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;">
-            <name>&#x41F;&#x43E;&#x434;&#x43A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;</name>
-            <parent-group id="&#x41A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;">
-                <name>&#x41A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;</name>
-                <parent-group id="&#x413;&#x440;&#x443;&#x43F;&#x43F;&#x430;">
-                    <name>&#x413;&#x440;&#x443;&#x43F;&#x43F;&#x430;</name>
+        <group id="Подкатегория">
+            <name>Подкатегория</name>
+            <parent-group id="Категория">
+                <name>Категория</name>
+                <parent-group id="Группа">
+                    <name>Группа</name>
                 </parent-group>
             </parent-group>
         </group>
+        <product-type>ProductPieceEntity</product-type>
+        <plugin-property key="precision" value="0.001"/>
         <measure-type id="unit">
-            <name>&#x448;&#x442;</name>
+            <name>шт</name>
         </measure-type>
-        <plugin-property key="precision" value="1"/>
     </good>
-
-    <good marking-of-the-good="&#x410;&#x440;&#x442;&#x438;&#x43A;&#x443;&#x43B;_&#x43F;&#x440;&#x43E;&#x434;&#x443;&#x43A;&#x442;&#x430;_3">
+    <good marking-of-the-good="10003">
         <shop-indices>1 3</shop-indices>
-        <name>&#x41F;&#x440;&#x43E;&#x434;&#x443;&#x43A;&#x442; 3</name>
+        <name>Продукт 3</name>
         <bar-code code="7770000000003">
             <count>1</count>
             <default-code>true</default-code>
         </bar-code>
-        <product-type>ProductPieceEntity</product-type>
         <price-entry price="117.54">
             <number>1</number>
             <department number="1">
@@ -105,29 +111,28 @@
             </department>
         </price-entry>
         <vat>10</vat>
-        <group id="&#x41F;&#x43E;&#x434;&#x43A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;">
-            <name>&#x41F;&#x43E;&#x434;&#x43A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;</name>
-            <parent-group id="&#x41A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;">
-                <name>&#x41A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;</name>
-                <parent-group id="&#x413;&#x440;&#x443;&#x43F;&#x43F;&#x430;">
-                    <name>&#x413;&#x440;&#x443;&#x43F;&#x43F;&#x430;</name>
+        <group id="Подкатегория">
+            <name>Подкатегория</name>
+            <parent-group id="Категория">
+                <name>Категория</name>
+                <parent-group id="Группа">
+                    <name>Группа</name>
                 </parent-group>
             </parent-group>
         </group>
+        <product-type>ProductPieceEntity</product-type>
+        <plugin-property key="precision" value="0.001"/>
         <measure-type id="unit">
-            <name>&#x448;&#x442;</name>
+            <name>шт</name>
         </measure-type>
-        <plugin-property key="precision" value="1"/>
     </good>
-
-    <good marking-of-the-good="&#x410;&#x440;&#x442;&#x438;&#x43A;&#x443;&#x43B;_&#x43F;&#x440;&#x43E;&#x434;&#x443;&#x43A;&#x442;&#x430;_5">
+    <good marking-of-the-good="10005">
         <shop-indices>1 2 3</shop-indices>
-        <name>&#x41F;&#x440;&#x43E;&#x434;&#x443;&#x43A;&#x442; 5</name>
+        <name>Продукт 5</name>
         <bar-code code="7770000000005">
             <count>1</count>
             <default-code>true</default-code>
         </bar-code>
-        <product-type>ProductPieceEntity</product-type>
         <price-entry price="141.28">
             <number>1</number>
             <department number="1">
@@ -135,29 +140,28 @@
             </department>
         </price-entry>
         <vat>10</vat>
-        <group id="&#x41F;&#x43E;&#x434;&#x43A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;">
-            <name>&#x41F;&#x43E;&#x434;&#x43A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;</name>
-            <parent-group id="&#x41A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;">
-                <name>&#x41A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;</name>
-                <parent-group id="&#x413;&#x440;&#x443;&#x43F;&#x43F;&#x430;">
-                    <name>&#x413;&#x440;&#x443;&#x43F;&#x43F;&#x430;</name>
+        <group id="Подкатегория">
+            <name>Подкатегория</name>
+            <parent-group id="Категория">
+                <name>Категория</name>
+                <parent-group id="Группа">
+                    <name>Группа</name>
                 </parent-group>
             </parent-group>
         </group>
-        <measure-type id="liter">
-            <name>&#x43B;</name>
+        <product-type>ProductPieceEntity</product-type>
+        <plugin-property key="precision" value="0.001"/>
+        <measure-type id="unit">
+            <name>шт</name>
         </measure-type>
-        <plugin-property key="precision" value="1"/>
     </good>
-
-    <good marking-of-the-good="&#x410;&#x440;&#x442;&#x438;&#x43A;&#x443;&#x43B;_&#x43F;&#x440;&#x43E;&#x434;&#x443;&#x43A;&#x442;&#x430;_6">
+    <good marking-of-the-good="10006">
         <shop-indices>1 2 3</shop-indices>
-        <name>&#x41F;&#x440;&#x43E;&#x434;&#x443;&#x43A;&#x442; 6</name>
+        <name>Продукт 6</name>
         <bar-code code="7770000000006">
             <count>1</count>
             <default-code>true</default-code>
         </bar-code>
-        <product-type>ProductPieceEntity</product-type>
         <price-entry price="141.28">
             <number>1</number>
             <department number="1">
@@ -165,18 +169,19 @@
             </department>
         </price-entry>
         <vat>10</vat>
-        <group id="&#x41F;&#x43E;&#x434;&#x43A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;">
-            <name>&#x41F;&#x43E;&#x434;&#x43A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;</name>
-            <parent-group id="&#x41A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;">
-                <name>&#x41A;&#x430;&#x442;&#x435;&#x433;&#x43E;&#x440;&#x438;&#x44F;</name>
-                <parent-group id="&#x413;&#x440;&#x443;&#x43F;&#x43F;&#x430;">
-                    <name>&#x413;&#x440;&#x443;&#x43F;&#x43F;&#x430;</name>
+        <group id="Подкатегория">
+            <name>Подкатегория</name>
+            <parent-group id="Категория">
+                <name>Категория</name>
+                <parent-group id="Группа">
+                    <name>Группа</name>
                 </parent-group>
             </parent-group>
         </group>
-        <measure-type id="liter">
-            <name>&#x43B;</name>
+        <product-type>ProductPieceEntity</product-type>
+        <plugin-property key="precision" value="0.001"/>
+        <measure-type id="unit">
+            <name>шт</name>
         </measure-type>
-        <plugin-property key="precision" value="1"/>
     </good>
 </goods-catalog>

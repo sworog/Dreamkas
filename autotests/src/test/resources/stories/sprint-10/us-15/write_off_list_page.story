@@ -11,7 +11,7 @@ Meta:
 
 Scenario: Write off list create
 
-Given there is the product with 'WriteOff-wolc' name, 'WriteOff-wolc' sku, 'WriteOff-wolc' barcode, 'liter' units, '15' purchasePrice
+Given there is the product with 'WriteOff-wolc' name, 'WriteOff-wolc' barcode, 'unit' type, '15' purchasePrice
 And the user opens write off list page
 And the user logs in as 'departmentManager'
 When the user creates write off from write off list page

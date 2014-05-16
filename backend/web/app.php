@@ -13,18 +13,19 @@ $loader = require_once __DIR__.'/../app/bootstrap.php.cache';
 /*
 */
 
-/*
+$namespace = getenv('SYMFONY_NAMESPACE') ?: md5(__FILE__);
+
 if ('production' === $env || 'staging' === $env) {
-    $loader = new ApcClassLoader('sf2', $loader);
-    $loader->register(true);
+    $apcLoader = new ApcClassLoader($namespace, $loader);
+    $loader->unregister();
+    $apcLoader->register(true);
 }
-*/
 
 $debug = getenv('SYMFONY_DEBUG') !== '0' && $env !== 'production';
 
-require_once __DIR__.'/../app/AppKernel.php';
+require_once __DIR__.'/../app/LighthouseKernel.php';
 
-$kernel = new AppKernel($env, $debug);
+$kernel = new LighthouseKernel($env, $debug);
 $kernel->loadClassCache();
 //require_once __DIR__.'/../app/AppCache.php';
 //$kernel = new AppCache($kernel);

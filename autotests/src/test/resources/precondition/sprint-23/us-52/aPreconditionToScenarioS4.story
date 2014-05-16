@@ -5,12 +5,18 @@ Meta:
 
 Scenario: A scenario that prepares data
 
-Given there is the invoice in the store with number '2352' ruled by department manager with name 'departmentManager-s23u52' with values
-| elementName | elementValue |
-| sku | invoice-2352-1 |
+Given there is the product with 'name-2352' name, 'barcode-2352' barcode, 'unit' type, '134,80' purchasePrice of group named 'defaultGroup-s23u52', category named 'defaultCategory-s23u52', subcategory named 'defaultSubCategory-s23u52'
+Given there is the product with 'name-235209' name, 'barcode-235209' barcode, 'unit' type, '134,80' purchasePrice of group named 'defaultGroup-s23u52', category named 'defaultCategory-s23u52', subcategory named 'defaultSubCategory-s23u52'
+
+Given the user creates invoice api object with values
+| elementName | value |
 | acceptanceDate | 02.04.2013 16:23 |
-| supplier | supplier |
 | accepter | accepter |
 | legalEntity | legalEntity |
-| supplierInvoiceSku | supplierInvoiceSku |
-| supplierInvoiceDate | 02.04.2013 |
+| supplierInvoiceNumber | supplierInvoiceNumber |
+And the user adds the product with data to invoice api object
+| elementName | value |
+| productName | name-235209 |
+| quantity | 3,675 |
+| price | 126,99 |
+And there is the invoice created with invoice builder steps by userName 'departmentManager-s23u52'

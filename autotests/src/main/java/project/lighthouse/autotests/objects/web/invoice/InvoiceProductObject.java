@@ -3,25 +3,21 @@ package project.lighthouse.autotests.objects.web.invoice;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
-import project.lighthouse.autotests.objects.web.abstractObjects.ObjectProperty;
+import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectClickable;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectLocatable;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ResultComparable;
 import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.Map;
 
-public class InvoiceProductObject extends AbstractObject implements ObjectLocatable, ResultComparable {
+public class InvoiceProductObject extends AbstractObject implements ObjectLocatable, ResultComparable, ObjectClickable {
 
-    private ObjectProperty name;
-    private ObjectProperty sku;
-    private ObjectProperty barcode;
-    private ObjectProperty quantity;
-    private ObjectProperty units;
-    private ObjectProperty price;
-    private ObjectProperty sum;
-
-    private ObjectProperty vatSum;
-    private ObjectProperty vat;
+    private String name;
+    private String quantity;
+    private String units;
+    private String price;
+    private String sum;
+    private String vatSum;
 
     public InvoiceProductObject(WebElement element) {
         super(element);
@@ -29,33 +25,56 @@ public class InvoiceProductObject extends AbstractObject implements ObjectLocata
 
     @Override
     public void setProperties() {
-        name = setObjectProperty("productName", By.name("productName"));
-        sku = setObjectProperty("productSku", By.name("productSku"));
-        barcode = setObjectProperty("productBarcode", By.name("productBarcode"));
-        quantity = setObjectProperty("productAmount", By.name("productAmount"));
-        units = setObjectProperty("productUnits", By.name("productUnits"));
-        price = setObjectProperty("productPrice", By.name("productPrice"));
-        sum = setObjectProperty("productSum", By.name("productSum"));
-        vatSum = setObjectProperty("vatSum", By.xpath(".//*[@model-attribute='productTotalAmountVATFormatted']"));
-        vat = setObjectProperty("vat", By.xpath(".//*[@model-attribute='product.vat']"));
+        name = getElement().findElement(By.name("productName")).getText();
+        quantity = getElement().findElement(By.name("quantity")).getText();
+        units = getElement().findElement(By.name("productUnits")).getText();
+        price = getElement().findElement(By.name("priceEntered")).getText();
+        sum = getElement().findElement(By.name("totalPrice")).getText();
+        vatSum = getElement().findElement(By.name("totalAmountVAT")).getText();
     }
 
     @Override
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
-                .compare("productSku", sku.getText(), row.get("productSku"))
-                .compare("productName", name.getText(), row.get("productName"))
-                .compare("productBarcode", barcode.getText(), row.get("productBarcode"))
-                .compare("productAmount", quantity.getText(), row.get("productAmount"))
-                .compare("productUnits", units.getText(), row.get("productUnits"))
-                .compare("productPrice", price.getText(), row.get("productPrice"))
-                .compare("productSum", sum.getText(), row.get("productSum"))
-                .compare("vatSum", vatSum.getText(), row.get("vatSum"))
-                .compare("vat", vat.getText(), row.get("vat"));
+                .compare("productName", name, row.get("name"))
+                .compare("quantity", quantity, row.get("quantity"))
+                .compare("productUnits", units, row.get("units"))
+                .compare("productPrice", price, row.get("price"))
+                .compare("productSum", sum, row.get("totalSum"))
+                .compare("vatSum", vatSum, row.get("vatSum"));
     }
 
     @Override
     public String getObjectLocator() {
-        return sku.getText();
+        return name;
+    }
+
+    public void quantityType(String value) {
+        WebElement quantityWebElement = getElement().findElement(By.xpath(".//*[@data-name='quantity']"));
+        quantityWebElement.clear();
+        quantityWebElement.sendKeys(value);
+    }
+
+    public void priceType(String value) {
+        WebElement quantityWebElement = getElement().findElement(By.xpath(".//*[@data-name='priceEntered']"));
+        quantityWebElement.clear();
+        quantityWebElement.sendKeys(value);
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void deleteIconClick() {
+        getElement().findElement(By.xpath(".//*[@class='icon-remove-sign form_invoice__removeProductLink']")).click();
+    }
+
+    @Override
+    public void click() {
+        getElement().click();
     }
 }

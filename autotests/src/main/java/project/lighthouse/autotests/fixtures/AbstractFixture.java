@@ -1,6 +1,10 @@
 package project.lighthouse.autotests.fixtures;
 
 import org.apache.commons.io.FileUtils;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.xml.PurchaseXmlBuilder;
 
@@ -18,6 +22,10 @@ public abstract class AbstractFixture {
     public final String todayDate = new DateTimeHelper(0).convertDate();
     public final String yesterdayDate = new DateTimeHelper(1).convertDate();
     public final String weekAgoDate = new DateTimeHelper(7).convertDate();
+
+    public String getProductSku(String name) {
+        return StaticData.products.get(name).getSku();
+    }
 
     public Map<Integer, String> generateFormattedGrossSalesSumPerHour(Map<Integer, Double> fixtureMap) {
         Map<Integer, String> formattedMap = new HashMap<>();
@@ -45,13 +53,13 @@ public abstract class AbstractFixture {
         return grossSalesByHourMap;
     }
 
-    public PurchaseXmlBuilder generateDataSet(String date, String shopNumber, String id, Double price) throws ParserConfigurationException, XPathExpressionException {
+    public PurchaseXmlBuilder generateDataSet(String date, String shopNumber, String sku, Double price) throws ParserConfigurationException, XPathExpressionException {
         PurchaseXmlBuilder purchaseXmlBuilder = PurchaseXmlBuilder.create("24");
         for (int i = 1; i < 25; i++) {
             Double finalPriceCount = price * i;
             String hours = String.format("%02d", i - 1);
             String dateTime = getDate(date, hours);
-            purchaseXmlBuilder.addXmlPurchase(dateTime, date, shopNumber, finalPriceCount.toString(), price.toString(), Integer.toString(i), id);
+            purchaseXmlBuilder.addXmlPurchase(dateTime, date, shopNumber, finalPriceCount.toString(), price.toString(), Integer.toString(i), sku);
         }
         return purchaseXmlBuilder;
     }
@@ -77,8 +85,35 @@ public abstract class AbstractFixture {
     }
 
     public String getFormattedValue(String value) {
-        return String.format("%s р.", value);
+        return String.format("%s р.", value.replace(".", ","));
     }
 
     abstract public String getFixtureFileName();
+
+    public void copyDataFileToCentrum(File file) throws IOException, InterruptedException {
+        final String destinationPath = getFolderPath(getImportFolderPath()) + getFileName();
+        FileUtils.copyFile(file, new File(destinationPath));
+    }
+
+    private String getFileName() {
+        DateTimeFormatter dtf = DateTimeFormat.forPattern("dd-MM-yyyy_HH-mm-ss");
+        return String.format("purchases-%s.xml", dtf.print(DateTime.now()));
+    }
+
+    private String getFolderPath(String folderPath) {
+        return getServerUrl() + folderPath + "/";
+    }
+
+    private String getServerUrl() {
+        return System.getProperty("centrum.server.url");
+    }
+
+    private String getImportFolderPath() {
+        return System.getProperty("centrum.import.folder.path");
+    }
+
+    public File getFileFixture(String fileName) {
+        return new File(
+                String.format("%s/xml/purchases/%s", System.getProperty("user.dir").replace("\\", "/"), fileName));
+    }
 }

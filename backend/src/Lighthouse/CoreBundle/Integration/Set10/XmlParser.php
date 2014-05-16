@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Integration\Set10;
 
+use Lighthouse\CoreBundle\Debug\ErrorHandler;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use XMLReader;
 use DOMNode;
@@ -39,9 +40,9 @@ abstract class XmlParser
     {
         while ($this->xmlReader->read()) {
             if (XMLReader::ELEMENT === $this->xmlReader->nodeType && $this->supportsNodeName($this->xmlReader->name)) {
-                /* FIXME */
-                $domNode = @$this->xmlReader->expand();
-                if (false === $domNode) {
+                try {
+                    $domNode = ErrorHandler::proxy($this->xmlReader)->expand();
+                } catch (\ErrorException $e) {
                     $error = libxml_get_last_error();
                     throw new RuntimeException(
                         sprintf(
@@ -59,7 +60,7 @@ abstract class XmlParser
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @return bool
      */
     abstract protected function supportsNodeName($name);

@@ -21,9 +21,7 @@ use JMS\Serializer\Annotation\Exclude;
  * @property ManagerCollection|User[] $storeManagers
  * @property ManagerCollection|User[] $departmentManagers
  *
- * @MongoDB\Document(
- *     repositoryClass="Lighthouse\CoreBundle\Document\Store\StoreRepository"
- * )
+ * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\Store\StoreRepository")
  * @Unique(fields="number", message="lighthouse.validation.errors.store.number.unique")
  */
 class Store extends AbstractDocument
@@ -49,6 +47,7 @@ class Store extends AbstractDocument
     /**
      * Номер
      * @MongoDB\String
+     * @MongoDB\UniqueIndex
      * @Assert\NotBlank
      * @Assert\Regex("/^[\w\d_\-]+$/u")
      * @Assert\Length(max="50", maxMessage="lighthouse.validation.errors.length")

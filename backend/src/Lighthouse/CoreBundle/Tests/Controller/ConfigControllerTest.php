@@ -14,7 +14,7 @@ class ConfigControllerTest extends WebTestCase
             'value' => 'test-config-value',
         );
 
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -39,7 +39,7 @@ class ConfigControllerTest extends WebTestCase
             'value' => 'test2',
         );
 
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -64,7 +64,7 @@ class ConfigControllerTest extends WebTestCase
             'value' => 'test2',
         );
 
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -82,7 +82,7 @@ class ConfigControllerTest extends WebTestCase
     {
         $configId = $this->createConfig("test-config", "test-config-value");
 
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -103,7 +103,7 @@ class ConfigControllerTest extends WebTestCase
         $configId2 = $this->createConfig("test-config2", "test-config-value2");
         $configId3 = $this->createConfig("test-config3", "test-config-value3");
 
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -132,7 +132,7 @@ class ConfigControllerTest extends WebTestCase
         $configId2 = $this->createConfig("test-config2", "test-config-value2");
         $this->createConfig("test-config3", "test-config-value3");
 
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $response = $this->clientJsonRequest(
             $accessToken,

@@ -7,7 +7,11 @@ use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use SebastianBergmann\Exporter\Exporter;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use MongoDuplicateKeyException;
+use Exception;
 
 class UserControllerTest extends WebTestCase
 {
@@ -21,7 +25,7 @@ class UserControllerTest extends WebTestCase
             'password'  => 'qwerty',
         );
 
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $this->clientJsonRequest(
             $accessToken,
@@ -64,7 +68,7 @@ class UserControllerTest extends WebTestCase
             'password'  => 'qwerty',
         );
 
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -93,7 +97,7 @@ class UserControllerTest extends WebTestCase
             'password'  => 'qwerty',
         );
 
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -138,7 +142,7 @@ class UserControllerTest extends WebTestCase
             'password'  => 'qwerty',
         );
 
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -176,8 +180,9 @@ class UserControllerTest extends WebTestCase
         $userRepository->clear();
         $userModel = $userRepository->find($id);
 
-        /* @var PasswordEncoderInterface $encoder */
-        $encoder = $this->getContainer()->get('security.encoder_factory')->getEncoder($userModel);
+        /* @var EncoderFactoryInterface $encoderFactory */
+        $encoderFactory = $this->getContainer()->get('security.encoder_factory');
+        $encoder = $encoderFactory->getEncoder($userModel);
         $passwordHash = $encoder->encodePassword($userData['password'], $userModel->getSalt());
 
         $this->assertEquals($passwordHash, $userModel->password);
@@ -448,7 +453,7 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetUsersAction(array $data)
     {
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $postDataArray = array();
         for ($i = 0; $i < 5; $i++) {
@@ -487,12 +492,12 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetUsersActionPermissionDenied($role)
     {
-        $this->createUser('user1', 'password', User::ROLE_COMMERCIAL_MANAGER);
-        $this->createUser('user2', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $this->createUser('user3', 'password', User::ROLE_STORE_MANAGER);
-        $this->createUser('user4', 'password', User::ROLE_ADMINISTRATOR);
+        $this->factory->user()->getUser('user1', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $this->factory->user()->getUser('user2', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $this->factory->user()->getUser('user3', 'password', User::ROLE_STORE_MANAGER);
+        $this->factory->user()->getUser('user4', 'password', User::ROLE_ADMINISTRATOR);
 
-        $accessToken = $this->authAsRole($role);
+        $accessToken = $this->factory->oauth()->authAsRole($role);
 
         $this->clientJsonRequest($accessToken, 'GET', '/api/1/users');
 
@@ -516,7 +521,7 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetUserAction(array $postData)
     {
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -543,10 +548,10 @@ class UserControllerTest extends WebTestCase
 
     public function testGetUsersCurrentAction()
     {
-        $authClient = $this->createAuthClient();
-        $user = $this->createUser('user', 'qwerty123');
+        $authClient = $this->factory->oauth()->getAuthClient();
+        $user = $this->factory->user()->getUser('user', 'qwerty123');
 
-        $token = $this->auth($user, 'qwerty123', $authClient);
+        $token = $this->factory->oauth()->auth($user, 'qwerty123', $authClient);
 
         $request = new JsonRequest('/api/1/users/current');
         $request->addHttpHeader('Authorization', 'Bearer ' . $token->access_token);
@@ -560,7 +565,7 @@ class UserControllerTest extends WebTestCase
 
     public function testGetUserPermissionsAction()
     {
-        $accessToken = $this->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -595,9 +600,7 @@ class UserControllerTest extends WebTestCase
      */
     public function testRolePermissions($role, array $assertions)
     {
-        $user = $this->getRoleUser($role);
-
-        $accessToken = $this->auth($user);
+        $accessToken = $this->factory->oauth()->authAsRole($role);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -623,6 +626,16 @@ class UserControllerTest extends WebTestCase
                 array(
                     'stores.*' => array(
                         'GET::{store}/products',
+                        'GET::{store}/search/products',
+                    ),
+                    'stores/{store}/orders.*' => array(
+                        'DELETE::{order}',
+                        'GET',
+                        'GET::{order}',
+                        'GET::{order}/download',
+                        'POST',
+                        'POST::products',
+                        'PUT::{order}',
                     ),
                     'stores/{store}/products/{product}.*' => array(
                         'GET',
@@ -645,13 +658,6 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/invoices.*' => array(
                         'GET::{invoice}',
                         'PUT::{invoice}',
-                        'GET',
-                        'POST'
-                    ),
-                    'stores/{store}/invoices/{invoice}/products.*' => array(
-                        'GET::{invoiceProduct}',
-                        'PUT::{invoiceProduct}',
-                        'DELETE::{invoiceProduct}',
                         'GET',
                         'POST'
                     ),
@@ -709,7 +715,6 @@ class UserControllerTest extends WebTestCase
                         'GET::reports/grossSalesByProducts',
                     ),
                     'stores/{store}/invoices.*' => array(),
-                    'stores/{store}/invoices/{invoice}/products.*' => array(),
                     'stores/{store}/writeoffs.*' => array(),
                     'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
                     'users.*' => array(
@@ -742,7 +747,6 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/categories/{category}.*' => array(),
                     'stores/{store}/subcategories/{subCategory}.*' => array(),
                     'stores/{store}/invoices.*' => array(),
-                    'stores/{store}/invoices/{invoice}/products.*' => array(),
                     'stores/{store}/writeoffs.*' => array(),
                     'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
                     'users.*' => array(
@@ -767,7 +771,6 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/categories/{category}.*' => array(),
                     'stores/{store}/subcategories/{subCategory}.*' => array(),
                     'stores/{store}/invoices.*' => array(),
-                    'stores/{store}/invoices/{invoice}/products.*' => array(),
                     'stores/{store}/writeoffs.*' => array(),
                     'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
                     'users.*' => array(
@@ -780,6 +783,137 @@ class UserControllerTest extends WebTestCase
                     )
                 )
             )
+        );
+    }
+
+    /**
+     * @group unique
+     */
+    public function testUniqueUsernameInParallel()
+    {
+        $userData = array(
+            'username'  => 'test',
+            'name'      => 'Вася пупкин',
+            'position'  => 'Комерческий директор',
+            'role'      => User::ROLE_COMMERCIAL_MANAGER,
+            'password'  => 'qwerty',
+        );
+
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
+
+        $jsonRequest = new JsonRequest('/api/1/users', 'POST', $userData);
+        $jsonRequest->setAccessToken($accessToken);
+
+        $responses = $this->client->parallelJsonRequest($jsonRequest, 3);
+        $statusCodes = array();
+        $jsonResponses = array();
+        foreach ($responses as $response) {
+            $statusCodes[] = $response->getStatusCode();
+            $jsonResponses[] = $this->client->decodeJsonResponse($response);
+        }
+        $exporter = new Exporter();
+        $responseBody = $exporter->export($jsonResponses);
+        $this->assertCount(1, array_keys($statusCodes, 201), $responseBody);
+        $this->assertCount(2, array_keys($statusCodes, 400), $responseBody);
+        Assert::assertJsonPathEquals('test', '*.username', $jsonResponses, 1);
+        Assert::assertJsonPathEquals(
+            'Пользователь с таким логином уже существует',
+            '*.children.username.errors.0',
+            $jsonResponses,
+            2
+        );
+    }
+
+    protected function doPostActionFlushFailedException(\Exception $exception)
+    {
+        $userData = array(
+            'username'  => 'test',
+            'name'      => 'Вася пупкин',
+            'position'  => 'Комерческий директор',
+            'role'      => User::ROLE_COMMERCIAL_MANAGER,
+            'password'  => 'qwerty',
+        );
+
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
+
+        $user = new User();
+
+        $documentManagerMock = $this->getMock(
+            'Doctrine\\ODM\\MongoDB\\DocumentManager',
+            array(),
+            array(),
+            '',
+            false
+        );
+        $documentManagerMock
+            ->expects($this->once())
+            ->method('persist');
+
+        $documentManagerMock
+            ->expects($this->once())
+            ->method('flush')
+            ->with($this->isEmpty())
+            ->will($this->throwException($exception));
+
+        $userRepoMock = $this->getMock(
+            'Lighthouse\\CoreBundle\\Document\\User\\UserRepository',
+            array(),
+            array(),
+            '',
+            false
+        );
+
+        $userRepoMock
+            ->expects($this->once())
+            ->method('createNew')
+            ->will($this->returnValue($user));
+        $userRepoMock
+            ->expects($this->exactly(2))
+            ->method('getDocumentManager')
+            ->will($this->returnValue($documentManagerMock));
+
+        $this->client->addTweaker(
+            function (ContainerInterface $container) use ($userRepoMock) {
+                $container->set('lighthouse.core.document.repository.user', $userRepoMock);
+            }
+        );
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/users',
+            $userData
+        );
+
+        return $response;
+    }
+
+    /**
+     * @group unique
+     */
+    public function testPostActionFlushFailedException()
+    {
+        $exception = new Exception('Unknown exception');
+        $response = $this->doPostActionFlushFailedException($exception);
+
+        $this->assertResponseCode(500);
+        Assert::assertJsonPathEquals('Unknown exception', 'message', $response);
+    }
+
+    /**
+     * @group unique
+     */
+    public function testPostActionFlushFailedMongoDuplicateKeyException()
+    {
+        $exception = new MongoDuplicateKeyException();
+        $response = $this->doPostActionFlushFailedException($exception);
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
+        Assert::assertJsonPathEquals(
+            'Пользователь с таким логином уже существует',
+            'children.username.errors.0',
+            $response
         );
     }
 }

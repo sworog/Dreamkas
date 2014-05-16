@@ -29,6 +29,15 @@
     display: none;
 }
 
+.productForm__productTypeRadio input:not(:checked) + label {
+    color: #999;
+    text-decoration: underline;
+}
+
+.productForm__productTypeRadio label {
+    margin-right: 40px;
+}
+
 .productForm__rounding{
     vertical-align: middle;
     color: #555;

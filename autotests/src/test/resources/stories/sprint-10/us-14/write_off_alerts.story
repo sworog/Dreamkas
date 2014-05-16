@@ -216,7 +216,7 @@ Then the user checks there is no alert on the page
 
 Scenario: Alert writeOff product verification ProductBarCode stop edit button
 
-Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
+Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' barcode, 'unit' type
 And there is the write off with 'WriteOff-Alerts-10' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Alerts-10'
 And the user logs in as 'departmentManager'
@@ -231,7 +231,7 @@ Then the user checks there is no alert on the page
 
 Scenario: Alert writeOff product verification ProductBarCode stop edit link
 
-Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
+Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' barcode, 'unit' type
 And there is the write off with 'WriteOff-Alerts-11' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Alerts-11'
 And the user logs in as 'departmentManager'
@@ -246,7 +246,7 @@ Then the user checks there is no alert on the page
 
 Scenario: Alert writeOff product verification ProductName stop edit button
 
-Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
+Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' barcode, 'unit' type
 And there is the write off with 'WriteOff-Alerts-12' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Alerts-12'
 And the user logs in as 'departmentManager'
@@ -261,7 +261,7 @@ Then the user checks there is no alert on the page
 
 Scenario: Alert writeOff product verification ProductName stop edit link
 
-Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
+Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' barcode, 'unit' type
 And there is the write off with 'WriteOff-Alerts-13' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Alerts-13'
 And the user logs in as 'departmentManager'
@@ -276,32 +276,40 @@ Then the user checks there is no alert on the page
 
 Scenario: Alert writeOff product verification ProductSku stop edit button
 
-Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
+Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' barcode, 'unit' type
 And there is the write off with 'WriteOff-Alerts-14' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Alerts-14'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
 And the user clicks on 'writeOff product sku review' write off element to edit it
-And the user inputs 'IE-IPA-1' in the 'inline writeOff product sku autocomplete' field on the write off page
+And the user inputs the sku of product with name 'IE-IPA-1' in the 'inline writeOff product sku autocomplete' field on the write off page
 And the user clicks finish edit button and ends the write off edition
+
 Then the user checks alert text is equal to 'У вас есть несохранённые данные'
+
 When the user clicks Cancel and discard changes
 And the user clicks finish edit button and ends the write off edition
+
 Then the user checks there is no alert on the page
 
 Scenario: Alert writeOff product verification ProductSku stop edit link
 
-Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' sku, 'IE-IPA-1' barcode, 'liter' units
+Given there is the product with 'IE-IPA-1' name, 'IE-IPA-1' barcode, 'unit' type
 And there is the write off with 'WriteOff-Alerts-15' number with product 'IE-IPE' with quantity '1', price '1' and cause 'Причина'
 And the user navigates to the write off with number 'WriteOff-Alerts-15'
 And the user logs in as 'departmentManager'
+
 When the user clicks edit button and starts write off edition
 And the user clicks on 'writeOff product sku review' write off element to edit it
-And the user inputs 'IE-IPA-1' in the 'inline writeOff product sku autocomplete' field on the write off page
+And the user inputs the sku of product with name 'IE-IPA-1' in the 'inline writeOff product sku autocomplete' field on the write off page
 And the user clicks finish edit link and ends the write off edition
+
 Then the user checks alert text is equal to 'У вас есть несохранённые данные'
+
 When the user clicks Cancel and discard changes
 And the user clicks finish edit link and ends the write off edition
+
 Then the user checks there is no alert on the page
 
 Scenario: Alert writeOff product verification productAmount stop edit button

@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.steps.departmentManager;
 
-import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
@@ -8,11 +7,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import project.lighthouse.autotests.Waiter;
+import project.lighthouse.autotests.objects.web.balance.BalanceObjectItem;
 import project.lighthouse.autotests.pages.departmentManager.balance.BalanceListPage;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 public class BalanceSteps extends ScenarioSteps {
 
@@ -32,7 +36,7 @@ public class BalanceSteps extends ScenarioSteps {
     public void balanceTabIsNotVisible() {
         try {
             balanceListPage.balanceTabClick();
-            Assert.fail("Products balance tab is visible!");
+            fail("Products balance tab is visible!");
         } catch (Exception ignored) {
         }
     }
@@ -74,7 +78,12 @@ public class BalanceSteps extends ScenarioSteps {
         }
         if (notFoundRows.size() > 0) {
             String errorMessage = String.format("These rows are not found: '%s'.", notFoundRows.toString());
-            Assert.fail(errorMessage);
+            fail(errorMessage);
         }
+    }
+
+    public void balanceObjectItemHasInventoryByLocator(String locator, String inventory) {
+        BalanceObjectItem balanceObjectItem = (BalanceObjectItem) balanceListPage.getBalanceObjectCollection().getAbstractObjectByLocator(locator);
+        assertThat(balanceObjectItem.getInventory(), is(inventory));
     }
 }

@@ -7,6 +7,7 @@ import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
+import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.StoreApiSteps;
@@ -46,6 +47,11 @@ public class WriteOffUserSteps {
         writeOffSteps.input(elementName, inputValue);
     }
 
+    @When("the user inputs the sku of product with name '$name' in the '$elementName' field on the write off page")
+    public void whenTheUserInputsTheSkuOfProductWithNameinTheElementNameField(String name, String elementName) {
+        whenTheUserInputsTextInTheFieldOnTheWriteOffPage(StaticData.products.get(name).getSku(), elementName);
+    }
+
     @When("the user inputs <value> in the write off <elementName>")
     public void whenTheUserInputsValueInTheWriteOffElementName(String value, String elementName) {
         writeOffSteps.input(elementName, value);
@@ -82,7 +88,7 @@ public class WriteOffUserSteps {
         writeOffSteps.editButtonClick();
     }
 
-    @When("the user deletes the write off product with '$value' sku")
+    @When("the user deletes the write off product with '$value' name")
     public void whenTheUserDeletesTheProductWithSkUOnWriteOffPage(String value) {
         writeOffSteps.itemDelete(value);
     }
@@ -107,7 +113,7 @@ public class WriteOffUserSteps {
         writeOffSteps.checkCardValue("", checkValuesTable);
     }
 
-    @Then("the user checks the write off product with '$value' sku is present")
+    @Then("the user checks the write off product with '$value' name is present")
     public void thenTheUserChecksTheProductWithValueIsPresent(String value) {
         writeOffSteps.itemCheck(value);
     }
@@ -124,12 +130,22 @@ public class WriteOffUserSteps {
         writeOffSteps.checkListItemHasExpectedValueByFindByLocator(value, checkValuesTable);
     }
 
+    @Then("the user checks the write off product list contains entries $checkValuesTable")
+    public void thenTheUserChecksTheProductWithNameHasElementEqualToExpectedValue(ExamplesTable checkValuesTable) {
+        writeOffSteps.compareListWithExamplesTable(checkValuesTable);
+    }
+
+    @Then("the user checks the write off product list do not contain product with name '$name'")
+    public void thenTheUserChecksTheWriteOffProdictListDoNotContainsProductWithName(String name) {
+        writeOffSteps.writeOffProductCollectionDoNotContain(name);
+    }
+
     @Then("the user checks '$elementName' write off field contains only '$fieldLength' symbols")
     public void checkFieldLength(String elementName, int fieldLength) {
         writeOffSteps.checkFieldLength(elementName, fieldLength);
     }
 
-    @Then("the user checks the write off product with '$value' sku is not present")
+    @Then("the user checks the write off product with '$value' name is not present")
     public void itemCheckIsNotPresent(String value) {
         writeOffSteps.itemCheckIsNotPresent(value);
     }
@@ -169,5 +185,25 @@ public class WriteOffUserSteps {
     @When("the user clicks the local navigation writeOff create link")
     public void whenTheUserClicksTheLocalNavigationWriteOffCreateLink() {
         writeOffSteps.createInvoiceLinkClick();
+    }
+
+    @When("the user clicks OK and accepts changes")
+    public void whenTheUSerClicksOkAndAcceptsChanges() throws InterruptedException {
+        writeOffSteps.acceptChangesButtonClick();
+    }
+
+    @When("the user clicks Cancel and discard changes")
+    public void whenTheUserClicksCancelAndDiscardTheChanges() {
+        writeOffSteps.discardChangesButtonClick();
+    }
+
+    @When("the user clicks OK and accepts deletion")
+    public void whenTheUSerClicksOkAndAcceptsDeletion() throws InterruptedException {
+        writeOffSteps.acceptDeleteButtonClick();
+    }
+
+    @When("the user clicks Cancel and discard deletion")
+    public void whenTheUserClicksCancelAndDiscardTheDeletion() {
+        writeOffSteps.discardDeleteButtonClick();
     }
 }

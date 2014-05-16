@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
+use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -26,7 +27,7 @@ class WriteOffType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'Lighthouse\\CoreBundle\\Document\\WriteOff\\WriteOff',
+                'data_class' => WriteOff::getClassName(),
                 'csrf_protection' => false
             )
         );
