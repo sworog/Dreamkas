@@ -293,4 +293,9 @@ public class ProductSteps extends ScenarioSteps {
     public void assertSkuFieldIsNotVisible() {
         ((Input) productCreatePage.getItems().get("sku")).shouldBeNotVisible();
     }
+
+    @Step
+    public void assertFieldErrorMessage(String elementName, String expectedErrorMessage) {
+        productCreatePage.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(expectedErrorMessage);
+    }
 }
