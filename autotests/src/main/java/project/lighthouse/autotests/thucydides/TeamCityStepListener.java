@@ -198,7 +198,7 @@ public class TeamCityStepListener implements StepListener {
         if (testStep.isFailure() || testStep.isError()) {
             String exceptionCause;
             if (testStep.isAGroup()) {
-                exceptionCause = "\t" + getStepsInfo(testStep.getChildren());
+                exceptionCause = "Children " + getStepsInfo(testStep.getChildren());
             } else {
                 exceptionCause = testStep.getException() != null ? getStackTrace(testStep.getException().getCause()) : "";
             }
