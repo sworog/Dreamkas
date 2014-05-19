@@ -94,7 +94,7 @@ class WebTestCase extends ContainerAwareTestCase
         $productData = array(
             'name' => 'Кефир "Веселый Молочник" 1% 950гр',
             'type' => UnitType::TYPE,
-            'barcode' => '4607025392408',
+            'barcode' => uniqid('', true),
             'purchasePrice' => 3048,
             'vat' => 10,
             'vendor' => 'Вимм-Билль-Данн',
@@ -147,7 +147,7 @@ class WebTestCase extends ContainerAwareTestCase
         $failedNames = array();
         foreach ($names as $name) {
             try {
-                $products[$name] = $this->createProduct(array('name' => $name));
+                $products[$name] = $this->createProduct(array('name' => $name, 'barcode' => $name));
             } catch (\PHPUnit_Framework_AssertionFailedError $e) {
                 $failedNames[] = $name;
             }

@@ -299,25 +299,11 @@ class ProductControllerTest extends WebTestCase
         $this->assertResponseCode(200);
     }
 
-    /**
-     * @dataProvider productProvider
-     */
-    public function testGetProductsAction(array $postData)
+    public function testGetProductsAction()
     {
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
-        $postData['subCategory'] = $this->createSubCategory();
-
-        for ($i = 0; $i < 5; $i++) {
-            $postData['name'] = 'Кефир' . $i;
-            $this->clientJsonRequest(
-                $accessToken,
-                'POST',
-                '/api/1/products',
-                $postData
-            );
-            $this->assertResponseCode(201);
-        }
+        $this->createProductsByNames(array('1', '2', '3', '4', '5'));
 
         $response = $this->clientJsonRequest(
             $accessToken,
