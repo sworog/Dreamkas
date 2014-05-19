@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document\Product;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 use JMS\Serializer\Annotation as Serializer;
+use Lighthouse\CoreBundle\Document\Product\Barcode\Barcode;
 use Lighthouse\CoreBundle\Document\Product\Type\AlcoholType;
 use Lighthouse\CoreBundle\Document\Product\Type\Typeable;
 use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
@@ -39,6 +40,7 @@ use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
  * @property string $retailPricePreference
  * @property AbstractRounding $rounding
  * @property SubCategory $subCategory
+ * @property Barcode[] $barcodes
  *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\Product\ProductRepository"
@@ -201,6 +203,12 @@ class Product extends AbstractDocument implements VersionableInterface
      * @var SubCategory
      */
     protected $subCategory;
+
+    /**
+     * @MongoDB\EmbedMany(targetDocument="Lighthouse\CoreBundle\Document\Product\Barcode\Barcode")
+     * @var array|Barcode[]
+     */
+    protected $barcodes = array();
 
     public function __construct()
     {

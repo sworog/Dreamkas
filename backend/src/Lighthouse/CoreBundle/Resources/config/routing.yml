@@ -6,6 +6,11 @@ lighthouse.core.product:
     resource: Lighthouse\CoreBundle\Controller\ProductController
     type:     rest
 
+lighthouse.core.product.barcode:
+    resource: Lighthouse\CoreBundle\Controller\ProductBarcodesController
+    parent:   lighthouse.core.product
+    type:     rest
+
 lighthouse.core.invoice:
     resource: Lighthouse\CoreBundle\Controller\InvoiceController
     parent:   lighthouse.core.store

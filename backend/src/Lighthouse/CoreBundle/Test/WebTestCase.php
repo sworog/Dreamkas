@@ -278,7 +278,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function assertProduct($productId, array $assertions)
     {
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $request = new JsonRequest('/api/1/products/' . $productId);
         $request->setAccessToken($accessToken);
