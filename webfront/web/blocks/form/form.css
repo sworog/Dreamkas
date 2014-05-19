@@ -126,3 +126,19 @@ tr[data-error]:after {
 .form_order.form_changed .form_order__saveControls{
     display: block;
 }
+
+.form_barcodes__row .form_barcodes__removeLink{
+    visibility: hidden;
+}
+
+.form_barcodes__row:hover .form_barcodes__removeLink{
+    visibility: visible;
+}
+
+.form_barcodes__row .inputText{
+    border-color: transparent;
+}
+
+.form_barcodes__row .inputText:hover{
+    border-color: #cacaca;
+}

@@ -5,7 +5,7 @@ define(function(require, exports, module) {
 
     return Page.extend({
         params: {
-
+            productId: null
         },
         templates: {
             content: require('tpl!./content.html'),
@@ -16,7 +16,9 @@ define(function(require, exports, module) {
             product: function(){
                 var page = this;
 
-                return
+                return new ProductModel({
+                    id: page.params.productId
+                })
             }
         },
         collections: {

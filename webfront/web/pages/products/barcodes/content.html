@@ -1,3 +1,53 @@
 <div class="content">
-    Barcodes
+    <h1>Дополнительные штриховые коды</h1>
+
+    <form class="form form_barcodes">
+        <table class="table" style="margin-bottom: 30px;">
+            <thead>
+            <tr>
+                <th>Штрихкод</th>
+                <th style="width: 1px;">Количество</th>
+                <th style="width: 1px;">Цена по ШК</th>
+                <th style="width: 1px;"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="form_barcodes__row">
+                <td><input value="12334534" name="barcode[]" type="text" class="inputText" />
+                </td>
+                <td><input value="20" name="amount[]" type="text" class="inputText" style="width: 80px;"/>
+                </td>
+                <td style="white-space: nowrap;">
+                    <input value="120" name="price[]" type="text" class="inputText" style="width: 100px; text-align: right"/>
+                    <span>руб.</span>
+                </td>
+                <td>
+                    <a class="button form_barcodes__removeLink">Удалить</a>
+                </td>
+            </tr>
+            <tr class="form_barcodes__addRow">
+                <td><input name="barcode[]" type="text" class="inputText" />
+                </td>
+                <td><input name="amount[]" type="text" class="inputText" style="width: 80px;"/>
+                </td>
+                <td style="white-space: nowrap;">
+                    <input name="price[]" type="text" class="inputText" style="width: 100px; text-align: right"/>
+                    <span>руб.</span>
+                </td>
+                <td>
+                    <a class="button form_barcodes__addLink">Добавить</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="form__controls">
+            <button class="button" type="submit">
+                Сохранить
+            </button>
+                <span style="margin-right: 5px;">
+                    или
+                </span>
+            <a href="/products">Отменить</a>
+        </div>
+    </form>
 </div>
