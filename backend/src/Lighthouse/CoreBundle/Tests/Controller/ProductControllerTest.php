@@ -2267,10 +2267,15 @@ class ProductControllerTest extends WebTestCase
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
-        $jsonRequest = new JsonRequest('/api/1/products', 'POST', $productData);
-        $jsonRequest->setAccessToken($accessToken);
+        $jsonRequests = array();
+        for ($i = 0; $i <= 2; $i++) {
+            $data = array('barcode' => $i) + $productData;
+            $jsonRequest = new JsonRequest('/api/1/products', 'POST', $data);
+            $jsonRequest->setAccessToken($accessToken);
+            $jsonRequests[] = $jsonRequest;
+        }
 
-        $responses = $this->client->parallelJsonRequest($jsonRequest, 3);
+        $responses = $this->client->parallelJsonRequests($jsonRequests);
         $statusCodes = array();
         $jsonResponses = array();
         foreach ($responses as $response) {
@@ -2327,6 +2332,10 @@ class ProductControllerTest extends WebTestCase
             ->expects($this->exactly(2))
             ->method('getDocumentManager')
             ->will($this->returnValue($documentManagerMock));
+        $productRepoMock
+            ->expects($this->once())
+            ->method('findByBarcodes')
+            ->will($this->returnValue(array()));
 
         $this->client->addTweaker(
             function (ContainerInterface $container) use ($productRepoMock) {
