@@ -108,9 +108,24 @@
             <th>Срок годности</th>
             <td>
                 <span name="typeProperties.shelfLife"><%- productModel.typeProperties.shelfLife %></span>
-                <%- productModel.typeProperties.shelfLife?'ч.':'' %>
+                <%- productModel.typeProperties.shelfLife? 'ч.' : '' %>
             </td>
         </tr>
+    <% } %>
+
+    <% if (productModel.type == 'alcohol') { %>
+    <tr>
+        <th>Крепость</th>
+        <td name="typeProperties.alcoholByVolume">
+            <%- productModel.typeProperties.alcoholByVolume %> %
+        </td>
+    </tr>
+    <tr>
+        <th>Объем тары</th>
+        <td name="typeProperties.volume">
+            <%- productModel.typeProperties.volume %> л.
+        </td>
+    </tr>
     <% } %>
 
     <tr>
