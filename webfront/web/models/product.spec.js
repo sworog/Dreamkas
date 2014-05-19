@@ -2,17 +2,6 @@ define(function(require, exports, module) {
     var Product = require('./product'),
         SubCategory = require('./catalogSubCategory');
 
-    window.LH.units = require('kit/units/units');
-    window.LH.productTypes = require('kit/productTypes/productTypes');
-    window.LH.formatMoney = require('kit/formatMoney/formatMoney');
-    window.LH.formatAmount = require('kit/formatAmount/formatAmount');
-    window.LH.formatDate = require('kit/formatDate/formatDate');
-    window.LH.getText = function(text){
-        var dictionary = require('dictionary'),
-            getText = require('kit/getText/getText');
-        return getText(dictionary, text);
-    };
-
     describe("Test product type Weight", function() {
         var product, productJSON;
 

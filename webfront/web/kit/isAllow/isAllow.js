@@ -4,27 +4,36 @@ define(function(require) {
 
     require('lodash');
 
-    return function(permissions, resourcePath, methodList){
+    var isAllow = function(permissions, resourcePath, methodList){
 
+        if (typeof permissions === 'string'){
+            methodList = resourcePath;
+            resourcePath = permissions;
+            permissions = {};
+        }
+
+        permissions = _.extend({}, isAllow.permissions, permissions);
         methodList = methodList || 'GET';
 
-        var isAllow = false,
+        var result = false,
             resourcePermissions = get(permissions, resourcePath);
 
         if (resourcePermissions === 'all'){
-            isAllow = true;
+            result = true;
         } else if(typeof resourcePermissions === 'string') {
-            isAllow = resourcePermissions === methodList;
+            result = resourcePermissions === methodList;
         }
 
         if(_.isArray(resourcePermissions) && typeof methodList === 'string'){
-            isAllow = _.indexOf(resourcePermissions, methodList) >= 0;
+            result = _.indexOf(resourcePermissions, methodList) >= 0;
         }
 
         if(_.isArray(resourcePermissions) && _.isArray(methodList)){
-            isAllow = _.intersection(resourcePermissions, methodList).length === methodList.length;
+            result = _.intersection(resourcePermissions, methodList).length === methodList.length;
         }
 
-        return isAllow;
-    }
+        return result;
+    };
+
+    return isAllow;
 });

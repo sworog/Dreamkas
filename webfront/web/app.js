@@ -1,6 +1,9 @@
 define(function(require) {
     //requirements
     var Block = require('kit/core/block.deprecated'),
+        isAllow = require('kit/isAllow/isAllow'),
+        getText = require('kit/getText/getText'),
+        dictionary = require('dictionary'),
         currentUserModel = require('models/currentUser'),
         cookie = require('cookies'),
         numeral = require('numeral'),
@@ -15,6 +18,8 @@ define(function(require) {
     var app = {
         locale: 'root'
     };
+
+    getText.dictionary = dictionary;
 
     moment.lang('ru');
 
@@ -126,6 +131,8 @@ define(function(require) {
         if (!currentUserModel.stores.length) {
             delete app.permissions['stores/{store}/orders'];
         }
+
+        isAllow.permissions = app.permissions;
 
         routes = 'routes/authorized';
     });

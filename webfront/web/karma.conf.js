@@ -29,6 +29,7 @@ module.exports = function(config) {
             {pattern: 'dictionary.js', included: false},
 
             {pattern: 'models/*.js', included: false},
+            {pattern: 'collections/*.js', included: false},
 
             {pattern: 'blocks/form/form.js', included: false},
             {pattern: 'blocks/select/select_priceRoundings/select_priceRoundings.html', included: false},

@@ -87,7 +87,7 @@ define(function(require, exports, module) {
                 try {
                     page.render()
                 } catch (error) {
-                    console.error(error);
+                    console.error(error.stack);
                 }
             }, function(error) {
                 page.set('error', error);
