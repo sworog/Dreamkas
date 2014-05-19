@@ -16,7 +16,7 @@ class Barcode extends AbstractDocument
 {
     /**
      * @MongoDB\String
-     * @MongoDB\UniqueIndex
+     * @MongoDB\UniqueIndex(sparse=true)
      * @Assert\NotBlank
      * @Assert\Length(max="200", maxMessage="lighthouse.validation.errors.length")
      * @var string
