@@ -4,22 +4,14 @@
 
 <% var table_productInvoices = require('tpl!blocks/table/table_productInvoices/table_productInvoices.html'); %>
 
-<div class="localNavigation">
+<% var templates = {
+    localNavigation: require('tpl!./localNavigation.html')
+}%>
 
-    <a class="localNavigation__link" href="/products/<%- productModel.id %>">Свойства</a>
-    <% if (LH.isAllow('stores/{store}/products/{product}', 'GET::invoiceProducts') && currentUserModel.stores.length) { %>
-    <a class="localNavigation__link localNavigation__link_active" href="/products/<%- productModel.id %>/invoices">Приходы</a>
-    <% } %>
-
-    <% if (LH.isAllow('stores/{store}/products/{product}', 'GET::writeOffProducts') && currentUserModel.stores.length) { %>
-    <a class="localNavigation__link" href="/products/<%- productModel.id %>/writeoffs">Списания</a>
-    <% } %>
-
-    <% if (LH.isAllow('stores/{store}/products/{product}', 'GET::returnProducts') && currentUserModel.stores.length) { %>
-    <a class="localNavigation__link" href="/products/<%- productModel.id %>/returns">Возвраты</a>
-    <% } %>
-
-</div>
+<%= templates.localNavigation({
+    active: 'invoices',
+    productModel: productModel
+}) %>
 
 <div class="page__data">
 
