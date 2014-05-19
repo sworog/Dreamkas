@@ -107,6 +107,7 @@ class WebTestCase extends ContainerAwareTestCase
             $productData = $extra + $productData;
         } else {
             $productData['name'].= $extra;
+            $productData['barcode'].= $extra;
         }
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);

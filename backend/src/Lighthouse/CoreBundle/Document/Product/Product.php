@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\Product;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
+use Doctrine\Bundle\MongoDBBundle\Validator\Constraints as MongoDBAssert;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\Product\Barcode\Barcode;
 use Lighthouse\CoreBundle\Document\Product\Type\AlcoholType;
@@ -17,7 +17,7 @@ use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Rounding\AbstractRounding;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Versionable\VersionableInterface;
-use Lighthouse\CoreBundle\Validator\Constraints\Product\RetailPrice as AssertProductRetailPrice;
+use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 
 /**
@@ -46,8 +46,10 @@ use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
  *      repositoryClass="Lighthouse\CoreBundle\Document\Product\ProductRepository"
  * )
  * @MongoDB\InheritanceType("COLLECTION_PER_CLASS")
- * @Unique(fields="sku", message="lighthouse.validation.errors.product.sku.unique")
- * @AssertProductRetailPrice
+ * @MongoDBAssert\Unique(fields="sku", message="lighthouse.validation.errors.product.sku.unique")
+ *
+ * @LighthouseAssert\Product\RetailPrice
+ * @LighthouseAssert\Product\BarcodeUnique
  */
 class Product extends AbstractDocument implements VersionableInterface
 {
@@ -257,5 +259,23 @@ class Product extends AbstractDocument implements VersionableInterface
     public function getVersionClass()
     {
         return ProductVersion::getClassName();
+    }
+
+    /**
+     * @param string $barcode
+     * @return bool
+     */
+    public function hasProductBarcode($barcode)
+    {
+        if ($this->barcode == $barcode) {
+            return true;
+        } elseif (count($this->barcodes) > 0) {
+            foreach ($this->barcodes as $productBarcode) {
+                if ($productBarcode->barcode == $barcode) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

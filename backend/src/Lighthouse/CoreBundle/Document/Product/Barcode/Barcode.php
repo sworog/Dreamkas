@@ -10,6 +10,10 @@ use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * @property string $barcode
+ * @property Quantity $quantity
+ * @property Money $money
+ *
  * @MongoDB\EmbeddedDocument
  */
 class Barcode extends AbstractDocument

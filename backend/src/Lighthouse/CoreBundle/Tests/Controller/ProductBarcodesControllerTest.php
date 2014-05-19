@@ -19,7 +19,7 @@ class ProductBarcodesControllerTest extends WebTestCase
         $productId = $this->createProduct();
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-        $postResponse = $this->clientJsonRequest(
+        $response = $this->clientJsonRequest(
             $accessToken,
             'PUT',
             '/api/1/products/' . $productId . '/barcodes',
@@ -28,7 +28,7 @@ class ProductBarcodesControllerTest extends WebTestCase
 
         $this->assertResponseCode($expectedCode);
 
-        $this->performJsonAssertions($postResponse, $assertions);
+        $this->performJsonAssertions($response, $assertions);
 
         if (!empty($productAssertions)) {
             $this->assertProduct($productId, $productAssertions);
@@ -42,12 +42,16 @@ class ProductBarcodesControllerTest extends WebTestCase
      * @param array $assertions
      * @param array $productAssertions
      */
-    public function testPutActionValidation(array $data, $expectedCode, array $assertions, array $productAssertions = array())
-    {
+    public function testPutActionValidation(
+        array $data,
+        $expectedCode,
+        array $assertions,
+        array $productAssertions = array()
+    ) {
         $productId = $this->createProduct();
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-        $postResponse = $this->clientJsonRequest(
+        $response = $this->clientJsonRequest(
             $accessToken,
             'PUT',
             '/api/1/products/' . $productId . '/barcodes?validate=true',
@@ -56,7 +60,7 @@ class ProductBarcodesControllerTest extends WebTestCase
 
         $this->assertResponseCode($expectedCode);
 
-        $this->performJsonAssertions($postResponse, $assertions);
+        $this->performJsonAssertions($response, $assertions);
 
         if (!empty($productAssertions)) {
             $this->assertProduct($productId, array('barcodes' => array()));
@@ -403,6 +407,113 @@ class ProductBarcodesControllerTest extends WebTestCase
                     =>
                     'Цена не должна быть меньше или равна нулю',
                 ),
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider barcodeUniqueProvider
+     * @param array $barcodes
+     * @param array $assertions
+     */
+    public function testExtraBarcodeUniqueAnotherProduct(array $barcodes, array $assertions)
+    {
+        $productId1 = $this->createProduct(array('name' => 'Кефир', 'barcode' => '11111'));
+        $productId2 = $this->createProduct(array('name' => 'Молоко', 'barcode' => '11112'));
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/products/' . $productId1 . '/barcodes',
+            array(
+                'barcodes' => array(
+                    array('barcode' => '54492653'),
+                    array('barcode' => '54492654'),
+                )
+            )
+        );
+        $this->assertResponseCode(201);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/products/' . $productId2 . '/barcodes',
+            array(
+                'barcodes' => $barcodes,
+            )
+        );
+        $this->assertResponseCode(400);
+        $this->performJsonAssertions($response, $assertions);
+    }
+
+    /**
+     * @return array
+     */
+    public function barcodeUniqueProvider()
+    {
+        return array(
+            'extra barcode outer' => array(
+                array(
+                    array('barcode' => '54492653')
+                ),
+                array(
+                    'children.barcodes.children.0.children.barcode.errors.0'
+                    =>
+                    'Штрихкод уже используется в продукте [10001] "Кефир"'
+                )
+            ),
+            'main barcode outer' => array(
+                array(
+                    array('barcode' => '11111')
+                ),
+                array(
+                    'children.barcodes.children.0.children.barcode.errors.0'
+                    =>
+                    'Штрихкод уже используется в продукте [10001] "Кефир"'
+                )
+            ),
+            'all barcodes outer' => array(
+                array(
+                    array('barcode' => '11111'),
+                    array('barcode' => '54492653'),
+                    array('barcode' => '54492654'),
+                ),
+                array(
+                    'children.barcodes.children.0.children.barcode.errors.0'
+                    =>
+                    'Штрихкод уже используется в продукте [10001] "Кефир"',
+                    'children.barcodes.children.1.children.barcode.errors.0'
+                    =>
+                    'Штрихкод уже используется в продукте [10001] "Кефир"',
+                    'children.barcodes.children.2.children.barcode.errors.0'
+                    =>
+                    'Штрихкод уже используется в продукте [10001] "Кефир"',
+                )
+            ),
+            'main barcode inner' => array(
+                array(
+                    array('barcode' => '11112')
+                ),
+                array(
+                    'children.barcodes.children.0.children.barcode.errors.0'
+                    =>
+                    'Штрихкод уже используется в этом продукте'
+                )
+            ),
+            'extra barcode inner' => array(
+                array(
+                    array('barcode' => '666'),
+                    array('barcode' => '666'),
+                ),
+                array(
+                    'children.barcodes.children.0.children.barcode.errors.0'
+                    =>
+                    null,
+                    'children.barcodes.children.1.children.barcode.errors.0'
+                    =>
+                    'Штрихкод уже используется в этом продукте'
+                )
             ),
         );
     }
