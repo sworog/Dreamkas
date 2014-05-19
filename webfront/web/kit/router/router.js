@@ -1,9 +1,7 @@
-define(function(require, exports, module) {
+define(function(require) {
     //requirements
-    var Events = require('kit/events/events'),
-        Uri = require('uri/URI');
-
-    require('lodash');
+    var Uri = require('bower_components/uri.js/src/URI'),
+        _ = require('bower_components/lodash/dist/lodash');
 
     // Cached regex for stripping leading and trailing slashes.
     var rootStripper = /^\/+|\/+$/g;
@@ -22,12 +20,10 @@ define(function(require, exports, module) {
     var splatParam = /\*\w+/g;
     var escapeRegExp = /[\-{}\[\]+?.,\\\^$|#\s]/g;
 
-    return window.router = _.extend({
+    return _.extend({
         routes: {},
         root: '/',
-        handlers: [],
-        history: window.history,
-        location: window.location,
+        _handlers: [],
 
         start: function(options) {
 
@@ -43,67 +39,23 @@ define(function(require, exports, module) {
 
             this.started = true;
 
-            this.fragment = this.getFragment();
+            this.fragment = this._getFragment();
 
             // Normalize root to always include a leading and trailing slash.
             this.root = ('/' + this.root + '/').replace(rootStripper, '/');
 
-            window.addEventListener('popstate', this.checkUrl.bind(this));
+            window.addEventListener('popstate', this._checkUrl.bind(this));
 
             if (!options.silent) {
-                this.loadUrl();
+                this._loadUrl();
             }
 
             return this;
         },
 
-        // Disable Backbone.history, perhaps temporarily. Not useful in a real app,
-        // but possibly useful for unit testing Routers.
         stop: function() {
-            window.removeEventListener('popstate', this.checkUrl);
+            window.removeEventListener('popstate', this._checkUrl);
             this.started = false;
-        },
-
-        // Get the cross-browser normalized URL fragment, either from the URL,
-        // the hash, or the override.
-        getFragment: function(fragment) {
-            if (fragment == null) {
-                fragment = this.location.pathname + this.location.search;
-                var root = this.root.replace(trailingSlash, '');
-                if (!fragment.indexOf(root)) fragment = fragment.substr(root.length);
-            }
-
-            return fragment.replace(routeStripper, '');
-        },
-
-        // Checks the current URL to see if it has changed, and if it has,
-        // calls `loadUrl`, normalizing across the hidden iframe.
-        checkUrl: function() {
-
-            if (this.getFragment() === this.fragment) {
-                return this;
-            }
-
-            this.loadUrl();
-            return this;
-        },
-
-        // Attempt to load the current URL fragment. If a route succeeds with a
-        // match, returns `true`. If no defined routes matches the fragment,
-        // returns `false`.
-        loadUrl: function(fragmentOverride) {
-
-            var router = this;
-            var fragment = this.fragment = router.getFragment(fragmentOverride);
-            var fragmentPath = fragment.split('?')[0];
-
-            return _.any(router.handlers, function(handler) {
-                if (handler.routeRegExp.test(fragmentPath)) {
-                    router.handler = handler;
-                    handler.callback(fragment);
-                    return true;
-                }
-            });
         },
 
         // Save a fragment into the hash history, or replace the URL state if the
@@ -124,7 +76,7 @@ define(function(require, exports, module) {
                 replace: false
             }, options);
 
-            fragment = this.getFragment(fragment || '');
+            fragment = this._getFragment(fragment || '');
 
             if (this.fragment === fragment) {
                 return this;
@@ -134,44 +86,18 @@ define(function(require, exports, module) {
 
             var url = this.root + fragment;
 
-            this.history[options.replace ? 'replaceState' : 'pushState']({}, document.title, url);
+            window.history[options.replace ? 'replaceState' : 'pushState']({}, document.title, url);
 
             if (options.trigger) {
-                this.loadUrl(fragment);
+                this._loadUrl(fragment);
             }
-
-            return this;
-        },
-
-        // Manually bind a single named route to a callback. For example:
-        //
-        //     this.route('search/:query/p:num', 'search', function({params: {query: @string, num: @string}, route: @string}) {
-        //       ...
-        //     });
-        //
-        route: function(route, callback) {
-
-            var router = this,
-                routeRegExp = this._routeToRegExp(route);
-
-            this.handlers.unshift({
-                route: route,
-                routeRegExp: routeRegExp,
-                callback: function(fragment) {
-                    var params = router._extractParameters(route, routeRegExp, fragment);
-                    callback && callback.call(router, {
-                        params: params,
-                        route: route
-                    });
-                }
-            });
 
             return this;
         },
 
         save: function(params) {
 
-            if(!_.isPlainObject(params)){
+            if (!_.isPlainObject(params)) {
                 return;
             }
 
@@ -199,6 +125,68 @@ define(function(require, exports, module) {
             });
         },
 
+        // Get the cross-browser normalized URL fragment, either from the URL,
+        // the hash, or the override.
+        _getFragment: function(fragment) {
+            if (fragment == null) {
+                fragment = window.location.pathname + window.location.search;
+                var root = this.root.replace(trailingSlash, '');
+                if (!fragment.indexOf(root)) fragment = fragment.substr(root.length);
+            }
+
+            return fragment.replace(routeStripper, '');
+        },
+
+        // Checks the current URL to see if it has changed, and if it has,
+        // calls `_loadUrl`, normalizing across the hidden iframe.
+        _checkUrl: function() {
+
+            if (this._getFragment() === this.fragment) {
+                return this;
+            }
+
+            this._loadUrl();
+            return this;
+        },
+
+        // Attempt to load the current URL fragment. If a route succeeds with a
+        // match, returns `true`. If no defined routes matches the fragment,
+        // returns `false`.
+        _loadUrl: function(fragmentOverride) {
+
+            var router = this;
+            var fragment = this.fragment = router._getFragment(fragmentOverride);
+            var fragmentPath = fragment.split('?')[0];
+
+            return _.any(router._handlers, function(handler) {
+                if (handler.routeRegExp.test(fragmentPath)) {
+                    router.handler = handler;
+                    handler.callback(fragment);
+                    return true;
+                }
+            });
+        },
+
+        _bindRoute: function(route, callback) {
+
+            var router = this,
+                routeRegExp = this._routeToRegExp(route);
+
+            this._handlers.unshift({
+                route: route,
+                routeRegExp: routeRegExp,
+                callback: function(fragment) {
+                    var params = router._extractParameters(route, routeRegExp, fragment);
+                    callback && callback.call(router, {
+                        params: params,
+                        route: route
+                    });
+                }
+            });
+
+            return this;
+        },
+
         // Bind all defined routes to router. We have to reverse the
         // order of the routes here to support behavior where the most general
         // routes can be defined at the bottom of the route map.
@@ -213,7 +201,7 @@ define(function(require, exports, module) {
             var route, routes = _.keys(this.routes);
 
             while ((route = routes.pop()) != null) {
-                this.route(route, this.routes[route]);
+                this._bindRoute(route, this.routes[route]);
             }
         },
 
@@ -229,10 +217,8 @@ define(function(require, exports, module) {
             return new RegExp('^' + route + '$');
         },
 
-        /**
-         * Given a route, and a URL fragment that it matches, return the hash of
-         * extracted parameters.
-         */
+        // Given a route, and a URL fragment that it matches, return the hash of
+        // extracted parameters.
         _extractParameters: function(route, routeRegExp, fragment) {
             var params = routeRegExp.exec(fragment.split('?')[0]).slice(1),
                 queryParams = new Uri(fragment).search(true),
@@ -247,5 +233,5 @@ define(function(require, exports, module) {
 
             return _.extend(queryParams, namedParams);
         }
-    }, Events);
+    });
 });
