@@ -32,8 +32,8 @@ When the user clicks on product with name 'alcohol type product'
 Then the user checks the stored input values
 Then the user checks the elements values
 | elementName | value  |
-| Алкоголь | Штучный |
-| units | Литры |
+| type | Алкоголь |
+| units | Штуки |
 
 Scenario: Product alcohol type edition
 
