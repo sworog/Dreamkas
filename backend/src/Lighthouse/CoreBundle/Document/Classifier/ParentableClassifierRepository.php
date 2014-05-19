@@ -19,16 +19,21 @@ abstract class ParentableClassifierRepository extends DocumentRepository impleme
      */
     public function countByParent($parentId)
     {
-        return $this->findByParent($parentId)->count();
+        $qb = $this->createQueryBuilder()
+            ->field($this->getParentFieldName())->equals($parentId);
+        return $qb->getQuery()->count();
     }
 
     /**
      * @param string $parentId
-     * @return Cursor|AbstractNode[]
+     * @return AbstractNode[]
      */
     public function findByParent($parentId)
     {
-        return $this->findBy(array($this->getParentFieldName() => $parentId));
+        return $this->findBy(
+            array($this->getParentFieldName() => $parentId),
+            array('name' => self::SORT_ASC)
+        );
     }
 
     /**

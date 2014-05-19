@@ -92,14 +92,13 @@ class WriteOffController extends AbstractRestController
      */
     public function getWriteoffsAction(Store $store, WriteOffsFilter $filter)
     {
-        /** @var Cursor $cursor */
-        $cursor = $this->documentRepository->findByStore($store->id, $filter);
+        $writeOffs = $this->documentRepository->findByStore($store->id, $filter);
         if ($filter->hasNumber()) {
             $highlightGenerator = new WriteOffHighlightGenerator($filter);
-            $collection = new MetaCollection($cursor);
+            $collection = new MetaCollection($writeOffs);
             $collection->addMetaGenerator($highlightGenerator);
         } else {
-            $collection = new WriteOffCollection($cursor);
+            $collection = new WriteOffCollection($writeOffs);
         }
         return $collection;
     }

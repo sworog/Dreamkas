@@ -39,9 +39,7 @@ class DocumentRepository extends BaseRepository
      */
     public function count()
     {
-        /* @var Cursor $cursor */
-        $cursor = $this->findAll();
-        return $cursor->count();
+        return $this->createQueryBuilder()->getQuery()->count();
     }
 
     /**
@@ -83,7 +81,7 @@ class DocumentRepository extends BaseRepository
     public function isCollectionEmpty()
     {
         /* @var Cursor $cursor */
-        $cursor = $this->findAll();
+        $cursor = $this->getDocumentPersister()->loadAll();
         return 0 == $cursor->limit(1)->count();
     }
 

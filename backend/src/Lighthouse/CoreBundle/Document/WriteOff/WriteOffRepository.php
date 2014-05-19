@@ -10,7 +10,7 @@ class WriteOffRepository extends DocumentRepository
     /**
      * @param $storeId
      * @param WriteOffsFilter $filter
-     * @return Cursor
+     * @return WriteOff[]
      */
     public function findByStore($storeId, WriteOffsFilter $filter)
     {
