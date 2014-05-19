@@ -12,6 +12,8 @@
 
     <a class="localNavigation__link <%- active === 'properties' ? 'localNavigation__link_active' : ''%>" href="/products/<%- productModel.id %>">Свойства</a>
 
+    <a class="localNavigation__link <%- active === 'barcodes' ? 'localNavigation__link_active' : ''%>" href="/products/<%- productModel.id %>/barcodes">Штрихкоды</a>
+
     <% if (LH.isAllow('stores/{store}/products/{product}', 'GET::invoiceProducts') && currentUserModel.stores.length) { %>
     <a class="localNavigation__link <%- active === 'invoices' ? 'localNavigation__link_active' : ''%>" href="/products/<%- productModel.id %>/invoices">Приходы</a>
     <% } %>
