@@ -117,13 +117,13 @@
     <tr>
         <th>Крепость</th>
         <td name="typeProperties.alcoholByVolume">
-            <%- productModel.typeProperties.alcoholByVolume %> %
+            <%- LH.formatAmount(productModel.typeProperties.alcoholByVolume) %> %
         </td>
     </tr>
     <tr>
         <th>Объем тары</th>
         <td name="typeProperties.volume">
-            <%- productModel.typeProperties.volume %> л.
+            <%- LH.formatAmount(productModel.typeProperties.volume) %> л.
         </td>
     </tr>
     <% } %>
