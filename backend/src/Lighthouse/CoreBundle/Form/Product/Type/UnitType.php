@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Form\Product;
+namespace Lighthouse\CoreBundle\Form\Product\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
