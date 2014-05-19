@@ -60,22 +60,20 @@ Then the user checks the element field 'alcoholByVolume' has errorMessage
 
 Examples:
 | exampleElement | exampleValue | errorMessage | productName |
-| alcoholByVolume | 0,0 | Сообщение об ошибке | s34u70s07e04.1 |
-| alcoholByVolume | 0.0 | Сообщение об ошибке | s34u70s07e04.2 |
-| alcoholByVolume | -0,1 | Сообщение об ошибке | s34u70s07e04.3 |
-| alcoholByVolume | -0.1 | Сообщение об ошибке | s34u70s07e04.4 |
-| alcoholByVolume | -1 | Сообщение об ошибке | s34u70s07e04.5 |
-| alcoholByVolume | 1,12 | Сообщение об ошибке | s34u70s07e04.6 |
-| alcoholByVolume | 1.12 | Сообщение об ошибке | s34u70s07e04.7 |
-| alcoholByVolume | 100 | Сообщение об ошибке | s34u70s07e04.8 |
-| alcoholByVolume | 101 | Сообщение об ошибке | s34u70s07e04.9 |
-| alcoholByVolume | alco | Сообщение об ошибке | s34u70s07e04.10 |
-| alcoholByVolume | ALCO | Сообщение об ошибке | s34u70s07e04.11 |
-| alcoholByVolume | алко | Сообщение об ошибке | s34u70s07e04.12 |
-| alcoholByVolume | АЛКО | Сообщение об ошибке | s34u70s07e04.13 |
-| alcoholByVolume | !"№;%:?*() | Сообщение об ошибке | s34u70s07e04.14 |
-| alcoholByVolume | 1 1 | Сообщение об ошибке | s34u70s07e04.15 |
-| alcoholByVolume | вы33434№4 | Сообщение об ошибке | s34u70s07e04.16 |
+| alcoholByVolume | -0,1 | Значение должно быть больше или равно 0 | s34u70s07e04.3 |
+| alcoholByVolume | -0.1 | Значение должно быть больше или равно 0 | s34u70s07e04.4 |
+| alcoholByVolume | -1 | Значение должно быть больше или равно 0 | s34u70s07e04.5 |
+| alcoholByVolume | 1,12 | Значение не должно содержать больше 1 цифр после запятой | s34u70s07e04.6 |
+| alcoholByVolume | 1.12 | Значение не должно содержать больше 1 цифр после запятой | s34u70s07e04.7 |
+| alcoholByVolume | 100 | Значение должно быть меньше 100 | s34u70s07e04.8 |
+| alcoholByVolume | 101 | Значение должно быть меньше 100 | s34u70s07e04.9 |
+| alcoholByVolume | alco | Значение должно быть числом | s34u70s07e04.10 |
+| alcoholByVolume | ALCO | Значение должно быть числом | s34u70s07e04.11 |
+| alcoholByVolume | алко | Значение должно быть числом | s34u70s07e04.12 |
+| alcoholByVolume | АЛКО | Значение должно быть числом | s34u70s07e04.13 |
+| alcoholByVolume | !"№;%:?*() | Значение должно быть числом | s34u70s07e04.14 |
+| alcoholByVolume | 1 1 | Значение должно быть числом | s34u70s07e04.15 |
+| alcoholByVolume | вы33434№4 | Значение должно быть числом | s34u70s07e04.16 |
 
 Scenario: Product create volume field positive validation
 
@@ -113,6 +111,7 @@ Scenario: Product create volume field negative validation
 
 Meta:
 @id_s34u70s7
+@test
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
@@ -128,17 +127,14 @@ Then the user checks the element field 'volume' has errorMessage
 
 Examples:
 | exampleElement | exampleValue | errorMessage | productName |
-| volume | 0 | Сообщение об ошибке | s34u70s07d04.1 |
-| volume | 0,123 | Сообщение об ошибке | s34u70s07d04.2 |
-| volume | 0,999 | Сообщение об ошибке | s34u70s07d04.3 |
-| volume | -1 | Сообщение об ошибке | s34u70s07d04.4 |
-| volume | -1 | Сообщение об ошибке | s34u70s07d04.5 |
-| volume | 1,1234 | Сообщение об ошибке | s34u70s07d04.6 |
-| volume | 1.1234 | Сообщение об ошибке | s34u70s07d04.7 |
-| volume | alco | Сообщение об ошибке | s34u70s07d04.8 |
-| volume | ALCO | Сообщение об ошибке | s34u70s07d04.9 |
-| volume | алко | Сообщение об ошибке | s34u70s07d04.10 |
-| volume | АЛКО | Сообщение об ошибке | s34u70s07d04.11 |
-| volume | !"№;%:?*() | Сообщение об ошибке | s34u70s07d04.12 |
-| volume | 1 1 | Сообщение об ошибке | s34u70s07d04.13 |
-| volume | вы33434№4 | Сообщение об ошибке | s34u70s07d04.14 |
+| volume | 0 | Значение должно быть больше 0 | s34u70s07d04.1 |
+| volume | -1 | Значение должно быть больше 0 | s34u70s07d04.4 |
+| volume | 1,1234 | Значение не должно содержать больше 3 цифр после запятой | s34u70s07d04.6 |
+| volume | 1.1234 | Значение не должно содержать больше 3 цифр после запятой | s34u70s07d04.7 |
+| volume | alco | Значение должно быть числом | s34u70s07d04.8 |
+| volume | ALCO | Значение должно быть числом | s34u70s07d04.9 |
+| volume | алко | Значение должно быть числом | s34u70s07d04.10 |
+| volume | АЛКО | Значение должно быть числом | s34u70s07d04.11 |
+| volume | !"№;%:?*() | Значение должно быть числом | s34u70s07d04.12 |
+| volume | 1 1 | Значение должно быть числом | s34u70s07d04.13 |
+| volume | вы33434№4 | Значение должно быть числом | s34u70s07d04.14 |
