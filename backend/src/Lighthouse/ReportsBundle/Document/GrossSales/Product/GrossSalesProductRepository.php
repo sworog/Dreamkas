@@ -89,7 +89,7 @@ class GrossSalesProductRepository extends DocumentRepository implements GrossSal
     /**
      * @param array $dates
      * @param array $storeProductIds
-     * @return Cursor
+     * @return GrossSalesProductReport[]
      */
     public function findByDayHoursStoreProducts(array $dates, array $storeProductIds)
     {

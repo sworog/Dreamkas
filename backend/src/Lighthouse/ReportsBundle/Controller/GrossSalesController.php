@@ -35,7 +35,7 @@ class GrossSalesController extends FOSRestController
     /**
      * @param Store $store
      * @param Request $request
-     * @return Cursor
+     * @return GrossSalesStoreTodayReport
      *
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
      * @Rest\Route("stores/{store}/reports/grossSales")

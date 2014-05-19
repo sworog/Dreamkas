@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 use Lighthouse\ReportsBundle\Document\GrossMargin\DayGrossMarginRepository;
 use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMargin;
+use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMarginCollection;
 use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMarginRepository;
 use JMS\DiExtraBundle\Annotation as DI;
 use DateTime;
@@ -63,7 +64,7 @@ class GrossMarginManager
     /**
      * @param Store $store
      * @param DateTime $date
-     * @return \Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMarginCollection
+     * @return StoreDayGrossMarginCollection
      */
     public function getStoreGrossMarginReport(Store $store, DateTime $date)
     {
@@ -74,11 +75,11 @@ class GrossMarginManager
     }
 
     /**
-     * @param Cursor|StoreDayGrossMargin[] $cursor
+     * @param StoreDayGrossMargin[] $cursor
      * @param DateTime $date
      * @return DayGrossMarginCollection
      */
-    protected function fillStoreDayGrossMarginCollection(Cursor $cursor, DateTime $date)
+    protected function fillStoreDayGrossMarginCollection(array $cursor, DateTime $date)
     {
         $collection = new DayGrossMarginCollection();
         $previousDay = $date;
@@ -130,11 +131,11 @@ class GrossMarginManager
     }
 
     /**
-     * @param Cursor|StoreDayGrossMargin[] $cursor
+     * @param StoreDayGrossMargin[] $cursor
      * @param DateTime $date
      * @return DayGrossMarginCollection
      */
-    protected function fillDayGrossMarginCollection(Cursor $cursor, DateTime $date)
+    protected function fillDayGrossMarginCollection(array $cursor, DateTime $date)
     {
         $collection = new DayGrossMarginCollection();
         $previousDay = $date;

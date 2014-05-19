@@ -198,11 +198,11 @@ class GrossSalesReportManager
     }
 
     /**
-     * @param Cursor|GrossSalesStoreReport[] $storeDayReports
+     * @param GrossSalesStoreReport[] $storeDayReports
      * @param array $dates
      * @return GrossSales
      */
-    protected function createGrossSales(Cursor $storeDayReports, array $dates)
+    protected function createGrossSales(array $storeDayReports, array $dates)
     {
         $grossSales = new GrossSales();
         foreach ($storeDayReports as $storeDayReport) {
@@ -251,10 +251,8 @@ class GrossSalesReportManager
         $dates = $this->getDatesForDay($time, $intervals);
         $queryDates = $this->getQueryDates($dates);
         $storeDayReports = $this->grossSalesStoreRepository->findByDates($queryDates);
-        $storeDayReports->sort(array('store' => 1));
-        /* @var Store[]|Cursor $stores */
-        $stores = $this->storeRepository->findAll();
-        $stores->sort(array('id' => 1));
+        /* @var Store[] $stores */
+        $stores = $this->storeRepository->findBy(array(), array('id' => DocumentRepository::SORT_ASC));
         $storeReports = $this->createGrossSalesByStoresCollection($storeDayReports, $dates);
         $this->fillGrossSalesByStoresCollection($storeReports, $stores, $dates);
         return $storeReports;
@@ -307,11 +305,11 @@ class GrossSalesReportManager
     }
 
     /**
-     * @param Cursor|GrossSalesStoreReport[] $storeDayReports
+     * @param GrossSalesStoreReport[] $storeDayReports
      * @param array $dates
      * @return StoreGrossSalesByStores[]|GrossSalesByStoresCollection
      */
-    protected function createGrossSalesByStoresCollection(Cursor $storeDayReports, array $dates)
+    protected function createGrossSalesByStoresCollection(array $storeDayReports, array $dates)
     {
         $storeReports = new GrossSalesByStoresCollection();
         foreach ($storeDayReports as $storeDayReport) {
@@ -333,12 +331,12 @@ class GrossSalesReportManager
 
     /**
      * @param GrossSalesByStoresCollection $grossSalesByStores
-     * @param Cursor|Store[] $stores
+     * @param Store[] $stores
      * @param array $dates
      */
     protected function fillGrossSalesByStoresCollection(
         GrossSalesByStoresCollection $grossSalesByStores,
-        Cursor $stores,
+        array $stores,
         array $dates
     ) {
         foreach ($stores as $store) {
@@ -388,7 +386,7 @@ class GrossSalesReportManager
     public function getGrossSalesStoreReport(Store $store, DateTime $time = null)
     {
         $time = new DateTimestamp($time);
-        $time->modify("-1 hour");
+        $time->modify('-1 hour');
 
         $intervals = array(
             'today' => null,
@@ -410,10 +408,10 @@ class GrossSalesReportManager
     /**
      * @param DateTimestamp $time
      * @param array $dates
-     * @param Cursor|GrossSalesStoreReport[] $reports
+     * @param GrossSalesStoreReport[] $reports
      * @return GrossSalesStoreTodayReport
      */
-    protected function createGrossSalesStoreTodayReport(DateTimestamp $time, array $dates, Cursor $reports)
+    protected function createGrossSalesStoreTodayReport(DateTimestamp $time, array $dates, array $reports)
     {
         $grossSalesStoreTodayReport = new GrossSalesStoreTodayReport($dates);
         $nowHour = $time->getHours();
@@ -518,11 +516,11 @@ class GrossSalesReportManager
     }
 
     /**
-     * @param Cursor $reports
+     * @param GrossSalesStoreReport[] $reports
      * @param array $dates
      * @return TodayHoursGrossSales
      */
-    protected function createGrossSalesStoreByHoursCollection(Cursor $reports, array $dates)
+    protected function createGrossSalesStoreByHoursCollection(array $reports, array $dates)
     {
         $todayHoursGrossSales = new TodayHoursGrossSales($dates);
 
@@ -576,7 +574,7 @@ class GrossSalesReportManager
      */
     public function recalculateGrossSalesProductReport($batch = 1000)
     {
-        $stores = $this->storeRepository->findAll()->toArray();
+        $stores = $this->storeRepository->findAll();
         $countProducts = $this->productRepository->count();
 
         $results = $this->trialBalanceRepository->calculateGrossSalesProduct($stores, $countProducts);
@@ -705,14 +703,13 @@ class GrossSalesReportManager
     }
 
     /**
-     * @param Cursor $reports
+     * @param GrossSalesProductReport[] $reports
      * @param DateTimestamp[] $endDayHours
      * @return GrossSalesByProductsCollection
      */
-    protected function createGrossSalesByProductsCollection(Cursor $reports, array $endDayHours)
+    protected function createGrossSalesByProductsCollection(array $reports, array $endDayHours)
     {
         $collection = new GrossSalesByProductsCollection();
-        /** @var GrossSalesProductReport $report */
         foreach ($reports as $report) {
             $storeProductReport = $collection->getByStoreProduct($report->product, $endDayHours);
             foreach ($endDayHours as $dayName => $dayHour) {
@@ -754,9 +751,11 @@ class GrossSalesReportManager
      */
     public function getGrossSalesBySubCategories(Store $store, Category $category, DateTime $time = null)
     {
-        $cursor = $this->subCategoryRepository->findByParent($category->id);
-        $cursor->sort(array('name' => 1));
-        $nodes = new SubCategoryCollection($cursor);
+        $subCategories = $this->subCategoryRepository->findByParent(
+            $category->id,
+            array('name' => DocumentRepository::SORT_ASC)
+        );
+        $nodes = new SubCategoryCollection($subCategories);
 
         return $this->getGrossSalesByNode(
             $this->grossSalesSubCategoryRepository,
@@ -775,9 +774,8 @@ class GrossSalesReportManager
      */
     public function getGrossSalesByCategories(Store $store, Group $group, DateTime $time = null)
     {
-        $cursor = $this->categoryRepository->findByParent($group->id);
-        $cursor->sort(array('name' => 1));
-        $nodes = new CategoryCollection($cursor);
+        $categories = $this->categoryRepository->findByParent($group->id);
+        $nodes = new CategoryCollection($categories);
 
         return $this->getGrossSalesByNode(
             $this->grossSalesCategoryRepository,
@@ -795,9 +793,8 @@ class GrossSalesReportManager
      */
     public function getGrossSalesByGroups(Store $store, DateTime $time = null)
     {
-        $cursor = $this->groupRepository->findAll();
-        $cursor->sort(array('name' => 1));
-        $nodes = new GroupCollection($cursor);
+        $groups = $this->groupRepository->findBy(array(), array('name' => DocumentRepository::SORT_ASC));
+        $nodes = new GroupCollection($groups);
 
         return $this->getGrossSalesByNode(
             $this->grossSalesGroupRepository,
@@ -850,13 +847,13 @@ class GrossSalesReportManager
 
     /**
      * @param GrossSalesByClassifierNodeCollection $collection
-     * @param Cursor|GrossSalesNodeReport[] $reports
+     * @param GrossSalesNodeReport[] $reports
      * @param DateTimestamp[] $endDayHours
      * @return GrossSalesBySubCategoriesCollection
      */
     protected function createGrossSalesByClassifierNodeCollection(
         GrossSalesByClassifierNodeCollection $collection,
-        Cursor $reports,
+        array $reports,
         array $endDayHours
     ) {
         foreach ($reports as $report) {
