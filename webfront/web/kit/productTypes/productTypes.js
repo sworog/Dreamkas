@@ -11,7 +11,7 @@ define(function (require) {
             nameSmallFull: 'весовой'
         },
         alcohol: {
-            units: 'unit',
+            units: 'liter',
             nameCapitalFull: 'Алкоголь',
             nameSmallFull: 'алкоголь'
         }
