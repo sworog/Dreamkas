@@ -19,9 +19,9 @@ Given there is the product with <productName> name, 'alcohol' type
 And the user navigates to the product with name <productName>
 And the user logs in as 'commercialManager'
 
-When the user inputs <exampleValue> in <exampleElement> element field
-
-When the user clicks the create button
+When the user clicks the edit button on product card view page
+And the user inputs <exampleValue> in <exampleElement> element field
+And the user clicks the create button
 
 Then the user sees no error messages
 
@@ -49,9 +49,9 @@ Given there is the product with <productName> name, 'alcohol' type
 And the user navigates to the product with name <productName>
 And the user logs in as 'commercialManager'
 
-When the user inputs <exampleValue> in <exampleElement> element field
-
-When the user clicks the create button
+When the user clicks the edit button on product card view page
+And the user inputs <exampleValue> in <exampleElement> element field
+And the user clicks the create button
 
 Then the user checks the element field 'alcoholByVolume' has errorMessage
 
@@ -81,9 +81,9 @@ Given there is the product with <productName> name, 'alcohol' type
 And the user navigates to the product with name <productName>
 And the user logs in as 'commercialManager'
 
-When the user inputs <exampleValue> in <exampleElement> element field
-
-When the user clicks the create button
+When the user clicks the edit button on product card view page
+And the user inputs <exampleValue> in <exampleElement> element field
+And the user clicks the create button
 
 Then the user sees no error messages
 
@@ -112,9 +112,9 @@ Given there is the product with <productName> name, 'alcohol' type
 And the user navigates to the product with name <productName>
 And the user logs in as 'commercialManager'
 
-When the user inputs <exampleValue> in <exampleElement> element field
-
-When the user clicks the create button
+When the user clicks the edit button on product card view page
+And the user inputs <exampleValue> in <exampleElement> element field
+And the user clicks the create button
 
 Then the user checks the element field 'volume' has errorMessage
 
