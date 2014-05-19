@@ -1,17 +1,9 @@
 define(function(require) {
     //requirements
-    var isAllow = require('kit/isAllow/isAllow'),
-        getText = require('kit/getText/getText'),
-        dictionary = require('dictionary'),
-        app = require('app');
-
-    getText.dictionary = dictionary;
 
     return window.LH = window.Lighthouse = _.extend({
-        isAllow: function(resource, method){
-            return isAllow(app.permissions, resource, method);
-        },
-        getText: getText,
+        isAllow: require('kit/isAllow/isAllow'),
+        getText: require('kit/getText/getText'),
         isReportsAllow: require('kit/isReportsAllow/isReportsAllow'),
         modelNode: require('kit/modelNode/modelNode'),
         formatMoney: require('kit/formatMoney/formatMoney'),

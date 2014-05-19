@@ -11,7 +11,8 @@ define(function(require) {
             template: require('tpl!blocks/form/form_product/templates/index.html'),
             productTypeSpecificFieldsTemplates: {
                 unit: require('tpl!./templates/unit.html'),
-                weight: require('tpl!./templates/weight.html')
+                weight: require('tpl!./templates/weight.html'),
+                alcohol: require('tpl!./templates/alcohol.html')
             },
             events: {
                 'click .productForm__inputLink': function(e) {

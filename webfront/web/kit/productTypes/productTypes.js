@@ -9,6 +9,11 @@ define(function (require) {
             units: 'kg',
             nameCapitalFull: 'Весовой',
             nameSmallFull: 'весовой'
+        },
+        alcohol: {
+            units: 'liter',
+            nameCapitalFull: 'Алкоголь',
+            nameSmallFull: 'алкоголь'
         }
     };
 
