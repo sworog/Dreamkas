@@ -4,6 +4,7 @@ import net.thucydides.core.pages.WebElementFacade;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.helper.FieldChecker;
+import project.lighthouse.autotests.helper.FieldErrorChecker;
 
 /**
  * Abstract class representing single page element type (input and etc)
@@ -30,6 +31,10 @@ abstract public class CommonItem {
 
     public FieldChecker getFieldChecker() {
         return new FieldChecker(this);
+    }
+
+    public FieldErrorChecker getFieldErrorMessageChecker() {
+        return new FieldErrorChecker(this);
     }
 
     public String getLabel() {

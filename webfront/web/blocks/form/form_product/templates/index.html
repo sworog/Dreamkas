@@ -72,16 +72,17 @@
     <div class="form__field form__field_inline productForm__retailMarkupField">
         <label class="form__label">Диапазон наценки</label>
         <span name="retailMarkup" class="retailMarkup productForm__linkedInput <%- model.get('retailPricePreference') == 'retailMarkup' ? '' : 'productForm__hiddenInput' %>">
+
             <input
                    style="width: 100px;"
-                   value="<%- model.get('retailMarkupMin') %>"
+                   value="<%- model.get('retailMarkupMin') || model.get('subCategory.retailMarkupMin') %>"
                    class="inputText"
                    type="text"
                    name="retailMarkupMin"/>
             -
             <input
                     style="width: 100px;"
-                    value="<%- model.get('retailMarkupMax') %>"
+                    value="<%- model.get('retailMarkupMax') || model.get('subCategory.retailMarkupMax') %>"
                     class="inputText"
                     type="text"
                     name="retailMarkupMax"/>

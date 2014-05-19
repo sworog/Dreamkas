@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
         var Form = require('blocks/form/form'),
-            roundPrice = require('utils/roundPrice'),
+            roundPrice = require('kit/roundPrice/roundPrice'),
             numeral = require('numeral');
 
         return Form.extend({
@@ -150,7 +150,7 @@ define(function(require) {
                     block.$rounding.addClass('preloader_spinner');
                     roundPrice(price, rounding).done(function(data){
                         block.$rounding.removeClass('preloader_spinner');
-                        block.$rounding.html('(' + LH.formatMoney(data.price) + ' руб. - округлено ' + LH.translate(rounding) + ')');
+                        block.$rounding.html('(' + LH.formatMoney(data.price) + ' руб. - округлено ' + LH.getText(rounding) + ')');
                     });
                 } else {
                     block.$rounding.hide();

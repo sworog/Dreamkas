@@ -1,7 +1,7 @@
 define(function(require) {
     // requirements
     var Model = require('kit/core/model'),
-        computeAttr = require('kit/utils/computeAttr'),
+        computeAttr = require('kit/computeAttr/computeAttr'),
         currentUserModel = require('models/currentUser');
 
     var templates = {

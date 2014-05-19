@@ -1,12 +1,5 @@
 require.config({
     paths: {
-        //deprecated libs
-        'backbone.syphon': 'libs/backbone.syphon',
-        'jquery.ui': 'libs/jquery-ui/ui/minified/jquery-ui.min',
-        'backbone.queryparams': 'libs/backbone.queryparams',
-        'jquery.require': 'libs/jquery.require',
-        'jquery.maskedinput': 'libs/jquery.maskedinput',
-
         //bower_components
         'backbone': 'bower_components/backbone/backbone',
         'moment': 'bower_components/momentjs/moment',
@@ -18,7 +11,9 @@ require.config({
         'when': 'bower_components/when/when',
         'lodash': 'bower_components/lodash/dist/lodash',
         'jquery': 'bower_components/jquery/dist/jquery',
+        'jquery.ui': 'bower_components/jqueryui/ui/minified/jquery-ui.min',
         'i18n': 'bower_components/requirejs-i18n/i18n',
+        'jquery.maskedinput': 'bower_components/jquery-maskedinput/dist/jquery.maskedinput',
 
         //kit
         'templateCompiler': 'kit/templateCompiler/templateCompiler',
@@ -29,10 +24,9 @@ require.config({
             deps: ['lodash', 'jquery'],
             exports: 'Backbone'
         },
-        'backbone.queryparams': ['backbone'],
-        'jquery.require': ['jquery'],
-        'libs/lhAutocomplete': ['jquery.ui'],
-        'jquery.ui': ['jquery']
+        'kit/lhAutocomplete': ['jquery.ui'],
+        'jquery.ui': ['jquery'],
+        'jquery.maskedinput': ['jquery']
     },
     config: {
         //Set the config for the i18n

@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var get = require('../utils/get');
+    var get = require('kit/get/get');
 
     require('lodash');
     require('backbone');

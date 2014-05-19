@@ -81,6 +81,8 @@ When the user clicks on the search result invoice with number '10001'
 When the user clicks on the invoice product by name 'name-32681'
 And the user clicks on delete icon and deletes invoice product with name 'name-32681'
 
+Then the user waits for the invoice product edition preloader finish
+
 Then the user checks the invoice products list do not contain product with name 'name-32681'
 And the user checks the invoice products list contains exact entries
 | name | units | quantity | price | totalSum | vatSum |
@@ -126,6 +128,8 @@ And the user checks the invoice vat sum is 'НДС: 0,00 руб.'
 When the user clicks on invoice product in last created invoice
 
 When the user clicks on delete icon and deletes last added invoice product
+
+Then the user waits for the invoice product edition preloader finish
 
 Then the user checks the invoice products list do not contain last added product
 
