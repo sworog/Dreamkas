@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave.commercialManager.product;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.commercialManager.ProductSteps;
@@ -55,5 +56,11 @@ public class ThenProductUserSteps {
     @Then("the user checks the product sku field is not visible")
     public void thenTheUserChecksTheProductSkuFieldIsNotVisible() {
         productSteps.assertSkuFieldIsNotVisible();
+    }
+
+    @Then("the user checks the element field '$elementName' has error message '$errorMessage'")
+    @Alias("the user checks the element field '$elementName' has errorMessage")
+    public void thenTheUserChecksTheElementFieldHasErrorMessage(String elementName, String errorMessage) {
+        productSteps.assertFieldErrorMessage(elementName, errorMessage);
     }
 }

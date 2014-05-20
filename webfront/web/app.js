@@ -1,10 +1,13 @@
 define(function(require) {
     //requirements
     var Block = require('kit/core/block.deprecated'),
+        isAllow = require('kit/isAllow/isAllow'),
+        getText = require('kit/getText/getText'),
+        dictionary = require('dictionary'),
         currentUserModel = require('models/currentUser'),
         cookie = require('cookies'),
         numeral = require('numeral'),
-        router = require('router'),
+        router = require('kit/router/router'),
         moment = require('moment');
 
     require('jquery');
@@ -15,6 +18,8 @@ define(function(require) {
     var app = {
         locale: 'root'
     };
+
+    getText.dictionary = dictionary;
 
     moment.lang('ru');
 
@@ -127,6 +132,8 @@ define(function(require) {
             delete app.permissions['stores/{store}/orders'];
         }
 
+        isAllow.permissions = app.permissions;
+
         routes = 'routes/authorized';
     });
 
@@ -138,7 +145,7 @@ define(function(require) {
         requirejs([
             routes,
             'blocks/page/page',
-            'libs/lhAutocomplete'
+            'kit/lhAutocomplete'
         ], function(routes) {
             isStarted = true;
             router.routes = routes;

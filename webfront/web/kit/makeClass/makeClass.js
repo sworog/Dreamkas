@@ -1,6 +1,7 @@
 define(function(require) {
         //requirements
-        var deepExtend = require('kit/deepExtend/deepExtend');
+        var deepExtend = require('kit/deepExtend/deepExtend'),
+            extendClass = require('kit/extendClass/extendClass');
 
         require('lodash');
 

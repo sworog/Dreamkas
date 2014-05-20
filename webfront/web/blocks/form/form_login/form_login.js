@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Form = require('blocks/form/form'),
         tokenModel = require('models/token'),
-        login = require('utils/login');
+        login = require('kit/login/login');
 
     return Form.extend({
         __name__: 'form_login',

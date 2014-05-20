@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave.commercialManager.product;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.When;
 import project.lighthouse.autotests.steps.commercialManager.ProductSteps;
 
@@ -25,7 +26,8 @@ public class WhenProductUserSteps {
     }
 
     @When("the user clicks on product with name '$name'")
-    public void whenTheUserClicksOnProductWithName(String name) {
-        productSteps.productObjectClickByLocator(name);
+    @Alias("the user clicks on product with <productName>")
+    public void whenTheUserClicksOnProductWithName(String productName) {
+        productSteps.productObjectClickByLocator(productName);
     }
 }

@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Form = require('blocks/form/form'),
-        router = require('router'),
+        router = require('kit/router/router'),
         OrderModel = require('models/order'),
         Autocomplete = require('blocks/autocomplete/autocomplete'),
         Select_suppliers = require('blocks/select/select_suppliers/select_suppliers'),
