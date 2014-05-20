@@ -36,6 +36,7 @@ use DateTime;
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository"
  * )
+ * @MongoDB\HasLifecycleCallbacks
  */
 class InvoiceProduct extends AbstractDocument implements Reasonable
 {

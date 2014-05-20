@@ -76,6 +76,18 @@ class DocumentRepository extends BaseRepository
     }
 
     /**
+     * @param array $criteria
+     * @param array $sort
+     * @param int $limit
+     * @param int $skip
+     * @return \Doctrine\ODM\MongoDB\Cursor
+     */
+    public function findBy(array $criteria, array $sort = null, $limit = null, $skip = null)
+    {
+        return $this->getDocumentPersister()->loadAll($criteria, $sort, $limit, $skip);
+    }
+
+    /**
      * @return bool
      */
     public function isCollectionEmpty()
