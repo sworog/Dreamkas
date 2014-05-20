@@ -35,4 +35,4 @@ Then the user checks the last set10 export log title is 'Выгрузка тов
 Then the user waits for the last set10 export log message success status
 And the user checks the last set10 export log status text is 'выполнено'
 
-Then the robot checks xml file in autotests folder for equals fixture file 'fixtures/products/productWeightExport.xml'
+Then the robot checks xml file in autotests folder for equals fixture file 'fixtures/products/productAlcoholExport.xml'
