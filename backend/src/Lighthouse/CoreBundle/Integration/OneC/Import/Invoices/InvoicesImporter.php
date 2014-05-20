@@ -222,7 +222,7 @@ class InvoicesImporter
             $invoice->acceptanceDate = $date;
             $invoice->number = $number;
             $invoice->store = $store;
-            // :FIXME: :XXX:
+            // FIXME Supplier should be auto generated on import?
             //$invoice->supplier = $supplier;
             $invoice->accepter = 'Накладных Импорт';
             $invoice->legalEntity = 'Магазин';

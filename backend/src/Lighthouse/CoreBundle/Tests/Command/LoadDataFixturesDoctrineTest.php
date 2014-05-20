@@ -56,7 +56,7 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
      */
     public function testCustomFixtures($folder, $expectedOutput)
     {
-        // :TODO: doctrine command produces notice so will suppress it in this test
+        // FIXME doctrine command produces notice so will suppress it in this test
         $errorNoticeBackup = PHPUnit_Framework_Error_Notice::$enabled;
         PHPUnit_Framework_Error_Notice::$enabled = false;
         $errorReporting = error_reporting();

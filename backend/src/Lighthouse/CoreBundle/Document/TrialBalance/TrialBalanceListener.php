@@ -156,7 +156,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
     {
         $trialBalance = $this->trialBalanceRepository->findOneByReason($document);
 
-        // :TODO: :XXX: :FIXME: Something wrong here, TrialBalance should be found
+        // FIXME Something wrong here, TrialBalance should be found
         if (!$trialBalance) {
             return;
         }
