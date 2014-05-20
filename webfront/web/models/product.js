@@ -1,12 +1,19 @@
 define(function(require) {
     //requirements
     var Model = require('kit/core/model'),
-        compute = require('kit/computeAttr/computeAttr'),
+        BarcodesCollections = require('collections/barcodes'),
         numeral = require('numeral');
 
     return Model.extend({
         modelName: 'product',
         urlRoot: LH.baseApiUrl + '/products',
+        initialize: function(){
+            this.collections = {
+                barcodes: new BarcodesCollections()
+            };
+
+            this.collections.barcodes.productId = this.id;
+        },
         defaults: {
             amount: 0,
             retailPricePreference: 'retailMarkup',
@@ -80,6 +87,8 @@ define(function(require) {
                 data.group = data.subCategory.category.group;
                 data.category = data.subCategory.category;
             }
+
+            this.collections.barcodes.reset(data.barcodes);
 
             return data;
         }

@@ -1,54 +1,42 @@
+<% var templates = {
+    form_barcodes: require('tpl!blocks/form/form_barcodes/form_barcodes.html')
+} %>
+
 <div class="content">
     <h1>Дополнительные штриховые коды</h1>
 
-    <form id="form_barcodes" class="form form_barcodes">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Штрихкод</th>
-                <th style="width: 1px;">Количество</th>
-                <th style="width: 1px;">Цена по ШК</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>
-                    <input value="12334534" name="barcode[]" type="text" class="inputText" />
-                </td>
-                <td>
-                    <input style="width: 80px;" value="20" name="amount[]" type="text" class="inputText" />
-                </td>
-                <td style="white-space: nowrap;">
-                    <input  value="120" name="price[]" type="text" class="inputText" style="width: 120px; text-align: right" />
+    <div class="table" style="margin-bottom: 30px;">
+        <div class="table__head">
+            <div class="table__row">
+                <div class="table__cell">Штрихкод</div>
+                <div class="table__cell" style="width: 1px;">Количество</div>
+                <div class="table__cell" style="width: 1px;">Цена по ШК</div>
+                <div class="table__cell" style="width: 1px;"></div>
+            </div>
+        </div>
+
+        <%= models.product.collections.barcodes.element(templates.form_barcodes, {
+            collections: _.pick(models.product.collections, 'barcodes')
+        }) %>
+
+        <form class="form form_barcode table__body">
+            <div class="table__row">
+                <div class="table__cell">
+                    <input name="barcode" type="text" class="inputText"/>
+                </div>
+                <div class="table__cell">
+                    <input name="quantity" type="text" class="inputText" style="width: 80px;"/>
+                </div>
+                <div class="table__cell" style="white-space: nowrap">
+                    <input name="price" type="text" class="inputText" style="width: 100px; text-align: right"/>
                     <span>руб.</span>
-                </td>
-                <td>
-                    <a class="button form_barcodes__removeLink">Удалить</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </form>
-    <form class="form_barcode" style="margin-bottom: 30px;">
-        <table class="table">
-            <tr>
-                <td>
-                    <input name="barcode[]" type="text" class="inputText" />
-                </td>
-                <td style="width: 1px;">
-                    <input style="width: 80px;" name="amount[]" type="text" class="inputText" />
-                </td>
-                <td style="width: 1px; white-space: nowrap;">
-                    <input name="price[]" type="text" class="inputText" style="width: 120px; text-align: right" />
-                    <span>руб.</span>
-                </td>
-                <td style="width: 1px;">
+                </div>
+                <div class="table__cell">
                     <button type="submit" class="button">Добавить</button>
-                </td>
-            </tr>
-        </table>
-    </form>
+                </div>
+            </div>
+        </form>
+    </div>
     <div class="form__controls">
         <button form="form_barcodes" class="button" type="submit">
             Сохранить
@@ -56,6 +44,6 @@
         <span style="margin-right: 5px;">
             или
         </span>
-        <a href="/products">Отменить</a>
+        <a href="/">Отменить</a>
     </div>
 </div>

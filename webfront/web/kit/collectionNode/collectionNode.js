@@ -1,5 +1,8 @@
 define(function(require) {
     //requirements
+    var stringToFragment = require('kit/stringToFragment/stringToFragment'),
+        fragmentToString = require('kit/fragmentToString/fragmentToString');
+
     require('lodash');
     require('jquery');
 
@@ -8,13 +11,16 @@ define(function(require) {
             elementId = _.uniqueId('collectionNode_');
 
         var generateElementString = function() {
-            var element = template(data || {collection: collection}),
-                $element = $(element);
+            var elementString = template(data || {collection: collection}),
+                element = stringToFragment(elementString);
 
-            $element.attr('collection', collection.cid);
-            $element.attr('id', elementId);
+            if (element.id){
+                elementId = element.id;
+            } else {
+                element.id = elementId;
+            }
 
-            return $element.wrap('<div></div>').parent().html();
+            return fragmentToString(element);
         };
 
         collection.listenTo(collection, 'add remove reset change', function(collection) {

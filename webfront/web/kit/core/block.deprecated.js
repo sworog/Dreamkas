@@ -131,7 +131,7 @@ define(function(require) {
 
                 _.each(block.listeners, function(listener, property) {
                     if (typeof listener === 'function') {
-                        block.listenTo(block, listener);
+                        block.listenTo(block, property, listener);
                     } else if (block.get(property)) {
                         block.listenTo(block.get(property), listener);
                     }

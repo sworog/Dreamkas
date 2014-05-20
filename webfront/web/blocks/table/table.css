@@ -2,19 +2,39 @@
     width: 100%;
     border-spacing: 0;
     border-collapse: collapse;
+    display: table;
 }
 
-.table tbody {
+.table__head {
+    display: table-header-group;
+}
+
+.table__row {
+    display: table-row;
+}
+
+.table__cell {
+    display: table-cell;
+}
+
+.table__body {
+    display: table-row-group;
+}
+
+.table tbody,
+.table__body {
     border: none !important;
 }
 
-.table tr {
+.table tr,
+.table__row {
     position: static !important;
 }
 
 .table > tbody > tr > td,
 .table > tbody > tr > th,
-.table > tfoot > tr > td {
+.table > tfoot > tr > td,
+.table__body .table__cell {
     vertical-align: middle;
     border-bottom: 1px solid #eee;
     border-top: 1px solid #eee;
@@ -22,7 +42,8 @@
     text-align: left;
 }
 
-.table > thead > tr > th {
+.table > thead > tr > th,
+.table__head .table__cell {
     border-bottom: 1px solid #ddd;
     border-top: none;
     text-align: left;
@@ -35,7 +56,8 @@
 .table > tbody > tr > td:first-child,
 .table > tbody > tr > th:first-child,
 .table > thead > tr > th:first-child,
-.table > tfoot > tr > td:first-child {
+.table > tfoot > tr > td:first-child,
+.table__row > .table__cell:first-child {
     padding-left: 0;
 }
 
