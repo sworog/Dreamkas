@@ -137,6 +137,15 @@ public class EndProductApiSteps {
                 nameOfScales, descriptionOnScales, ingredients, nutritionFacts, shelfLife);
     }
 
+    @Given("there is the alcohol product with '$name' name, '$barcode' barcode, '$purchasePrice' purchasePrice, '$alcoholByVolume' alcoholByVolume, '$volume' volume, markup min '$min' max '$max' of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName'")
+    public void createProductThroughPost(String name, String barcode, String purchasePrice,
+                                         String alcoholByVolume, String volume,
+                                         String groupName, String categoryName, String subCategoryName, String min, String max) throws IOException, JSONException {
+        catalogApiSteps.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
+        productApiSteps.createProductThroughPost(name, barcode, "alcohol", purchasePrice, subCategoryName, max, min, null,
+                alcoholByVolume, volume);
+    }
+
     @Given("there is the product with '$productName' name, '$barcode' barcode, '$type' type, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName' with '$rounding' rounding")
     @Alias("there is the product with productName, '$barcode' barcode, '$type' type, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName' with '$rounding' rounding")
     public void createProductThroughPost(String productName, String barcode, String type, String purchasePrice,
