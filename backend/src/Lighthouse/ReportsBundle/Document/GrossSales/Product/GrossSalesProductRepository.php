@@ -2,6 +2,7 @@
 
 namespace Lighthouse\ReportsBundle\Document\GrossSales\Product;
 
+use Doctrine\MongoDB\ArrayIterator;
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
@@ -127,7 +128,7 @@ class GrossSalesProductRepository extends DocumentRepository implements GrossSal
     /**
      * @param array $storeProductIds
      * @param string|MongoId $storeId
-     * @return array
+     * @return ArrayIterator
      */
     public function calculateGrossSalesByIds(array $storeProductIds, $storeId)
     {

@@ -2,11 +2,15 @@
 
 namespace Lighthouse\CoreBundle\Tests\Document;
 
+use Doctrine\MongoDB\ArrayIterator;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use MongoCollection;
 
 class TestDocumentRepository extends DocumentRepository
 {
+    /**
+     * @var MongoCollection
+     */
     private $collection;
 
     /**
@@ -27,7 +31,7 @@ class TestDocumentRepository extends DocumentRepository
 
     /**
      * @param array $ops
-     * @return array
+     * @return ArrayIterator
      */
     public function testAggregate(array $ops = array())
     {

@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\TrialBalance;
 
+use Doctrine\MongoDB\ArrayIterator;
 use Doctrine\ODM\MongoDB\Cursor;
 use Doctrine\ODM\MongoDB\Query\Expr;
 use Doctrine\ODM\MongoDB\Query\Query;
@@ -365,7 +366,7 @@ class TrialBalanceRepository extends DocumentRepository
     }
 
     /**
-     * @return array
+     * @return ArrayIterator
      */
     public function calculateGrossSales()
     {

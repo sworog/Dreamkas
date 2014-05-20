@@ -2,7 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Document;
 
+use Doctrine\MongoDB\ArrayIterator;
 use Doctrine\MongoDB\Cursor;
+use Doctrine\MongoDB\Exception\ResultException;
 use Doctrine\ODM\MongoDB\DocumentRepository as BaseRepository;
 use Doctrine\ODM\MongoDB\LockMode;
 use Doctrine\ODM\MongoDB\MongoDBException;
@@ -92,9 +94,7 @@ class DocumentRepository extends BaseRepository
      */
     public function isCollectionEmpty()
     {
-        /* @var Cursor $cursor */
-        $cursor = $this->getDocumentPersister()->loadAll();
-        return 0 == $cursor->limit(1)->count();
+        return 0 == $this->count();
     }
 
     /**
@@ -135,8 +135,8 @@ class DocumentRepository extends BaseRepository
     /**
      * @param array $ops
      * @param int|null $timeout
-     * @return array
-     * @throws MongoDBException
+     * @return ArrayIterator
+     * @throws ResultException
      */
     protected function aggregate(array $ops, $timeout = -1)
     {
@@ -145,17 +145,13 @@ class DocumentRepository extends BaseRepository
             MongoCursor::$timeout = $timeout;
         }
 
-        $result = $this->getMongoCollection()->aggregate($ops);
+        $result = $this->getDocumentCollection()->aggregate($ops);
 
         if (isset($backupTimeout)) {
             MongoCursor::$timeout = $backupTimeout;
         }
 
-        if (1 == $result['ok']) {
-            return $result['result'];
-        }
-
-        throw new MongoDBException($result['errmsg'], $result['code']);
+        return $result;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Lighthouse\ReportsBundle\Document\GrossSales\Classifier;
 
+use Doctrine\MongoDB\ArrayIterator;
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
@@ -104,7 +105,7 @@ abstract class GrossSalesNodeRepository extends DocumentRepository implements Gr
     /**
      * @param array $ids
      * @param string|MongoId $storeId
-     * @return array
+     * @return ArrayIterator
      */
     public function calculateGrossSalesByIds(array $ids, $storeId)
     {
