@@ -25,7 +25,9 @@ And the user clicks the create button
 
 Then the user sees no error messages
 
-And the user checks the product with <productName> name is present
+Given the user is on the product list page
+
+Then the user checks the product with <productName> name is present
 
 Examples:
 | exampleElement | exampleValue | productName |
@@ -87,7 +89,9 @@ And the user clicks the create button
 
 Then the user sees no error messages
 
-And the user checks the product with <productName> name is present
+Given the user is on the product list page
+
+Then the user checks the product with <productName> name is present
 
 Examples:
 | exampleElement | exampleValue | productName |

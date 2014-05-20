@@ -111,7 +111,6 @@ Scenario: Product create volume field negative validation
 
 Meta:
 @id_s34u70s7
-@test
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
