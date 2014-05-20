@@ -150,7 +150,7 @@ class DayGrossMarginRepository extends DocumentRepository
 
     /**
      * @param DateTime $date
-     * @return DayGrossMargin[]
+     * @return Cursor|DayGrossMargin[]
      */
     public function findByDate(DateTime $date)
     {

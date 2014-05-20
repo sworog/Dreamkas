@@ -26,7 +26,7 @@ class GrossMarginController extends FOSRestController
     /**
      * @param Store $store
      * @param Request $request
-     * @return StoreDayGrossMarginCollection
+     * @return Cursor
      *
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
      * @Rest\Route("stores/{store}/reports/grossMargin")

@@ -69,7 +69,7 @@ class GrossSalesStoreRepository extends DocumentRepository
     /**
      * @param Store $store
      * @param array $dates
-     * @return GrossSalesStoreReport[]
+     * @return Cursor|GrossSalesStoreReport[]
      */
     public function findByStoreDayHours(Store $store, array $dates)
     {

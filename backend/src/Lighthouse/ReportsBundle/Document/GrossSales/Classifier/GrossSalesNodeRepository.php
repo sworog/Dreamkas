@@ -87,7 +87,7 @@ abstract class GrossSalesNodeRepository extends DocumentRepository implements Gr
      * @param array $dates
      * @param array $nodeIds
      * @param string $storeId
-     * @return GrossSalesNodeReport[]
+     * @return Cursor|GrossSalesNodeReport[]
      */
     public function findByDayHoursAndNodeIds(array $dates, array $nodeIds, $storeId)
     {
