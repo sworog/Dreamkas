@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Import\Sales;
 
+use Lighthouse\CoreBundle\Document\Receipt\ReceiptRepository;
 use Lighthouse\CoreBundle\Document\Sale\Sale;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesImporter;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesXmlParser;
@@ -306,17 +307,18 @@ class SalesImporterTest extends WebTestCase
 
         $this->assertCount(0, $importer->getErrors());
 
-        $salesRepository = $this->getContainer()->get('lighthouse.core.document.repository.receipt');
+        /* @var ReceiptRepository $receiptRepository */
+        $receiptRepository = $this->getContainer()->get('lighthouse.core.document.repository.receipt');
 
         $utcDateTimeZone = new \DateTimeZone('UTC');
 
         /* @var Sale $firstSale */
-        $firstSale = $salesRepository->findBy(array('store' => $storeId), array('createdDate' => 1), 1)->getNext();
+        $firstSale = $receiptRepository->findBy(array('store' => $storeId), array('createdDate' => 1), 1)->getNext();
         $firstSaleCreatedDate = $firstSale->createdDate;
         $firstSaleCreatedDate->setTimezone($utcDateTimeZone);
 
         /* @var Sale $lastSale */
-        $lastSale = $salesRepository->findBy(array('store' => $storeId), array('createdDate' => -1), 1)->getNext();
+        $lastSale = $receiptRepository->findBy(array('store' => $storeId), array('createdDate' => -1), 1)->getNext();
         $lastSaleCreatedDate = $lastSale->createdDate;
         $lastSaleCreatedDate->setTimezone($utcDateTimeZone);
 

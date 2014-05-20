@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use Doctrine\ODM\MongoDB\Cursor;
 use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;

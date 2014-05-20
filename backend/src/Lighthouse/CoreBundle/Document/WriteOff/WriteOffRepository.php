@@ -3,14 +3,14 @@
 namespace Lighthouse\CoreBundle\Document\WriteOff;
 
 use Lighthouse\CoreBundle\Document\DocumentRepository;
-use Doctrine\MongoDB\Cursor;
+use Doctrine\ODM\MongoDB\Cursor;
 
 class WriteOffRepository extends DocumentRepository
 {
     /**
      * @param $storeId
      * @param WriteOffsFilter $filter
-     * @return WriteOff[]
+     * @return WriteOff[]|Cursor
      */
     public function findByStore($storeId, WriteOffsFilter $filter)
     {
@@ -21,8 +21,7 @@ class WriteOffRepository extends DocumentRepository
             $criteria['number'] = $filter->getNumber();
         }
 
-        $cursor = $this->findBy($criteria, $sort);
-        return $cursor;
+        return $this->findBy($criteria, $sort);
     }
 
     /**

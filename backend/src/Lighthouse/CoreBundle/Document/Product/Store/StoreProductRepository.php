@@ -209,7 +209,7 @@ class StoreProductRepository extends DocumentRepository
 
     /**
      * @param Store $store
-     * @param Cursor|array $productCollection
+     * @param Cursor|Product[] $productCollection
      * @return StoreProductCollection
      */
     protected function findByProducts(Store $store, $productCollection)

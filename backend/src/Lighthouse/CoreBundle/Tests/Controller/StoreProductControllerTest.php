@@ -1171,7 +1171,7 @@ class StoreProductControllerTest extends WebTestCase
         $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
 
         $this->createProduct(array('name' => 'Пиво светлое Балтика'));
-        $this->createProduct(array('name' => 'Пиво ERDINGER светлое'));
+        $this->createProduct(array('name' => 'Пиво git ERDINGER светлое'));
         $this->createProduct(array('name' => 'Светлые косы'));
 
         $response = $this->clientJsonRequest(

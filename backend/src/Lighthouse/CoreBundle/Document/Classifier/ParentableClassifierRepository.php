@@ -26,7 +26,7 @@ abstract class ParentableClassifierRepository extends DocumentRepository impleme
 
     /**
      * @param string $parentId
-     * @return AbstractNode[]|\Doctrine\ODM\MongoDB\Cursor
+     * @return AbstractNode[]|Cursor
      */
     public function findByParent($parentId)
     {
