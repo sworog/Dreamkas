@@ -18,7 +18,7 @@ Scenario: Out of the bounds checking
 
 Given there is the subCategory with name 'ReCalcSubCategory' related to group named 'ReCalcGroup' and category named 'ReCalcCategory'
 And the user sets subCategory 'ReCalcSubCategory' mark up with max '30' and min '10' values
-And there is the product with productName, 'ReCalcProduct' barcode, 'weight' type, '20' purchasePrice of group named 'ReCalcGroup', category named 'ReCalcCategory', subcategory named 'ReCalcSubCategory' with 'nearest1' rounding
+And there is the product with productName, random generated barcode, 'weight' type, '20' purchasePrice of group named 'ReCalcGroup', category named 'ReCalcCategory', subcategory named 'ReCalcSubCategory' with 'nearest1' rounding
 And there is the user with <userName>, password 'lighthouse', role 'storeManager'
 And there is the store with <storeNumber> managed by <userName>
 And the user navigates to the product with productName
