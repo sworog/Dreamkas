@@ -25,7 +25,7 @@ And the user inputs 'ВесовойТовар1' in 'name' field
 And the user inputs 'Производитель1' in 'vendor' field
 And the user inputs 'Россия1' in 'vendorCountry' field
 And the user inputs '123' in 'purchasePrice' field
-And the user inputs '123' in 'barcode' field
+And the user inputs '3369021' in 'barcode' field
 And the user selects '10' in 'vat' dropdown
 And the user inputs 'ВесовойТовар1 название на весах' in 'nameOnScales' field
 And the user inputs 'ВесовойТовар1 описание на весах' in 'descriptionOnScales' field
@@ -50,7 +50,7 @@ And the user inputs 'ВесовойТовар2' in 'name' field
 And the user inputs 'Производитель1' in 'vendor' field
 And the user inputs 'Россия1' in 'vendorCountry' field
 And the user inputs '123' in 'purchasePrice' field
-And the user inputs '123' in 'barcode' field
+And the user inputs '3369022' in 'barcode' field
 And the user selects '10' in 'vat' dropdown
 And the user inputs 'ВесовойТовар2 название на весах' in 'nameOnScales' field
 And the user inputs 'ВесовойТовар2 описание на весах' in 'descriptionOnScales' field
@@ -73,7 +73,7 @@ And the user inputs 'ВесовойТовар3' in 'name' field
 And the user inputs 'Производитель3' in 'vendor' field
 And the user inputs 'Россия3' in 'vendorCountry' field
 And the user inputs '123' in 'purchasePrice' field
-And the user inputs '123' in 'barcode' field
+And the user inputs '3369023' in 'barcode' field
 And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 
