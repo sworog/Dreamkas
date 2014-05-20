@@ -25,6 +25,6 @@ class Set10ProductImportXmlParser extends XmlParser
      */
     protected function createElement(DOMNode $node)
     {
-        return simplexml_import_dom($node, GoodElement::getClassName());
+        return GoodElement::createByDom($node);
     }
 }

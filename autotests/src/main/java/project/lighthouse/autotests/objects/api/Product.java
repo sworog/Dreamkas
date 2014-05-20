@@ -78,6 +78,38 @@ public class Product extends AbstractObject {
         );
     }
 
+    public Product(String name,
+                   String type,
+                   String vat,
+                   String purchasePrice,
+                   String barcode,
+                   String vendorCountry,
+                   String vendor,
+                   String subCategory,
+                   String retailMarkupMax,
+                   String retailMarkupMin,
+                   String rounding,
+                   String alcoholByVolume,
+                   String volume) throws JSONException {
+        this(new JSONObject()
+                        .put("name", name)
+                        .put("type", type)
+                        .put("vat", vat)
+                        .put("purchasePrice", purchasePrice)
+                        .put("barcode", barcode)
+                        .put("vendorCountry", vendorCountry)
+                        .put("vendor", vendor)
+                        .put("subCategory", subCategory)
+                        .put("retailMarkupMax", retailMarkupMax)
+                        .put("retailMarkupMin", retailMarkupMin)
+                        .put("rounding", rounding)
+                        .put("typeProperties", new JSONObject()
+                                        .put("alcoholByVolume", alcoholByVolume)
+                                        .put("volume", volume)
+                        )
+        );
+    }
+
     @Override
     public String getApiUrl() {
         return API_URL;

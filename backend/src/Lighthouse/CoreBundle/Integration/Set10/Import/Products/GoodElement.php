@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Integration\Set10\Import\Products;
 
 use Lighthouse\CoreBundle\Integration\Set10\SimpleXMLElement;
+use DOMNode;
 
 class GoodElement extends SimpleXMLElement
 {
@@ -15,6 +16,8 @@ class GoodElement extends SimpleXMLElement
     const PLUGIN_PROPERTY_COMPOSITION = 'composition';
     const PLUGIN_PROPERTY_FOOD_VALUE = 'food-value';
     const PLUGIN_PROPERTY_GOOD_FOR_HOURS = 'good-for-hours';
+    const PLUGIN_PROPERTY_ALCOHOLIC_CONTENT_PERCENTAGE = 'alcoholic-content-percentage';
+    const PLUGIN_PROPERTY_VOLUME = 'volume';
 
     /**
      * @return GoodElement
@@ -22,6 +25,15 @@ class GoodElement extends SimpleXMLElement
     public static function create()
     {
         return new static('<?xml version="1.0" encoding="UTF-8"?><good/>');
+    }
+
+    /**
+     * @param DOMNode $dom
+     * @return \SimpleXMLElement
+     */
+    public static function createByDom(DomNode $dom)
+    {
+        return simplexml_import_dom($dom, static::getClassName());
     }
 
     /**

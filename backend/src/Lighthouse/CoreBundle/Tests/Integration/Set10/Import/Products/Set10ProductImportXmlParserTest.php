@@ -116,6 +116,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
         $good = $parser->readNextElement();
 
         $this->assertEquals('0.001', $good->getPluginProperty('precision'));
+        $this->assertNull($good->getPluginProperty('dummy'));
 
         $good = $parser->readNextElement();
 
@@ -128,7 +129,16 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
         $this->assertNotNull($good->getPluginProperty('food-value'));
         $this->assertNotNull($good->getPluginProperty('plu-number'));
 
-        $this->assertNull($good->getPluginProperty('dummy'));
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('', $good->getPluginProperty('composition'));
+        $this->assertEquals('7.200', $good->getPluginProperty('alcoholic-content-percentage'));
+        $this->assertEquals('0.500', $good->getPluginProperty('volume'));
+        $this->assertNull($good->getPluginProperty('storage-conditions'));
+        $this->assertNull($good->getPluginProperty('food-value'));
+
+        $good = $parser->readNextElement();
+        $this->assertFalse($good);
     }
 
     public function testProductTypeParse()
@@ -149,7 +159,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
-        $this->assertEquals('ProductWeightEntity', $good->getProductType());
+        $this->assertEquals('ProductSpiritsEntity', $good->getProductType());
 
         $good = $parser->readNextElement();
 
@@ -174,7 +184,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
-        $this->assertEquals('Шашлык из курицы (филе) п/ф Кулинария', $good->getGoodName());
+        $this->assertEquals('Напиток слабоалк Гринолс 7,2% 0,5л', $good->getGoodName());
 
         $good = $parser->readNextElement();
 
@@ -224,7 +234,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
-        $this->assertEquals('2809733', $good->getMarkingOfTheGood());
+        $this->assertEquals('4100051250', $good->getMarkingOfTheGood());
 
         $good = $parser->readNextElement();
 
@@ -249,7 +259,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
-        $this->assertEquals('2809733', $good->getBarcode());
+        $this->assertEquals('5010296001075', $good->getBarcode());
 
         $good = $parser->readNextElement();
 
@@ -274,7 +284,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
-        $this->assertEquals('Кулинария Лэнд', $good->getManufacturerName());
+        $this->assertEquals('', $good->getManufacturerName());
 
         $good = $parser->readNextElement();
 
@@ -299,7 +309,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
-        $this->assertEquals('440.00', $good->getPrice());
+        $this->assertEquals('69.90', $good->getPrice());
 
         $good = $parser->readNextElement();
 

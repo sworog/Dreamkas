@@ -116,45 +116,44 @@
 		<plugin-property key="description-on-scale-screen" value="Шашлык из креветок пр-во Лэнд"/>
 		<plugin-property key="name-on-scale-screen" value="Шашлык из креветок пр-во Лэнд"/>
 	</good>
-	<good marking-of-the-good="2809733">
-		<name>Шашлык из курицы (филе) п/ф Кулинария</name>
-		<bar-code code="2809733">
-			<count>1</count>
-			<default-code>true</default-code>
-		</bar-code>
-		<product-type>ProductWeightEntity</product-type>
-		<price-entry price="440.00">
-			<begin-date>2011-05-12T00:00:00.000</begin-date>
-			<end-date>2061-05-12T23:59:59.000</end-date>
-			<number>1</number>
-			<department number="1">
-				<name>1</name>
-			</department>
-		</price-entry>
-		<vat>18</vat>
-		<group id="130453">
-			<name>Блюда из птицы собственного производства</name>
-			<parent-group id="136048">
-				<name>Блюда из птицы</name>
-				<parent-group id="93441">
-					<name>Кулинария ЛЭНД</name>
-					<parent-group id="93637">
-						<name>Производство ЛЭНД</name>
-					</parent-group>
-				</parent-group>
-			</parent-group>
-		</group>
-		<measure-type id="1">
-			<name>Кг</name>
-		</measure-type>
-		<manufacturer id="126">
-			<name>Кулинария Лэнд</name>
-		</manufacturer>
-		<plugin-property key="precision" value="0.001"/>
-		<plugin-property key="plu-number" value="816"/>
-		<plugin-property key="description-on-scale-screen" value="Шашлык из курицы (филе) п/ф Кулинария"/>
-		<plugin-property key="name-on-scale-screen" value="Шашлык из курицы (филе) п/ф Кулинария"/>
-	</good>
+    <good marking-of-the-good="4100051250">
+        <shop-indices>702</shop-indices>
+        <name>Напиток слабоалк Гринолс 7,2% 0,5л</name>
+        <bar-code code="5010296001075" do-not-send-to-scales="true">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <product-type>ProductSpiritsEntity</product-type>
+        <price-entry price="69.90" currency="RUB">
+            <begin-date>2013-11-14T00:00:00</begin-date>
+            <end-date>2070-12-31T23:59:59</end-date>
+            <number>1</number>
+            <department number="1"/>
+        </price-entry>
+        <vat>18</vat>
+        <group id="5101">
+            <name>Джин-тоник, бол.0,5л</name>
+            <parent-group id="510">
+                <name>Джин тоник</name>
+                <parent-group id="51">
+                    <name>Слабоалкогольные напитки</name>
+                    <parent-group id="4">
+                        <name>Бакалея</name>
+                    </parent-group>
+                </parent-group>
+            </parent-group>
+        </group>
+        <measure-type id="1">
+            <name>ШТ</name>
+        </measure-type>
+        <country id="RU">
+            <name>Россия</name>
+        </country>
+        <delete-from-cash>false</delete-from-cash>
+        <plugin-property key="alcoholic-content-percentage" value="7.200"/>
+        <plugin-property key="volume" value="0.500"/>
+        <plugin-property key="composition" value=""/>
+    </good>
 	<max-discount-restriction id="1" subject-type="GOOD" subject-code="94840" type="MAX_DISCOUNT_PERCENT" value="0">
 		<since-date>2011-05-12T00:00:00.000</since-date>
 		<till-date>2061-05-12T23:59:59.000</till-date>
