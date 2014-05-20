@@ -127,18 +127,26 @@ tr[data-error]:after {
     display: block;
 }
 
-.form_barcodes__row .form_barcodes__removeLink{
+.form_barcodes tbody .form_barcodes__removeLink{
     visibility: hidden;
 }
 
-.form_barcodes__row:hover .form_barcodes__removeLink{
+.form_barcodes tbody .form_barcodes__addLink{
+    display: none;
+}
+
+.form_barcodes tfoot .form_barcodes__removeLink{
+    display: none;
+}
+
+.form_barcodes tbody tr:hover .form_barcodes__removeLink{
     visibility: visible;
 }
 
-.form_barcodes__row .inputText{
+.form_barcodes tbody .inputText{
     border-color: transparent;
 }
 
-.form_barcodes__row .inputText:hover{
+.form_barcodes tbody .inputText:hover{
     border-color: #cacaca;
 }

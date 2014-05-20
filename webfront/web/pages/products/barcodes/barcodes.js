@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Page = require('kit/page/page'),
+        Form_barcodes = require('blocks/form/form_barcodes/form_barcodes'),
         ProductModel = require('models/product');
 
     return Page.extend({
@@ -25,7 +26,7 @@ define(function(require, exports, module) {
 
         },
         blocks: {
-
+            form_barcodes: Form_barcodes
         }
     });
 });

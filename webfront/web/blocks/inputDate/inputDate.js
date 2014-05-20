@@ -54,7 +54,7 @@ define(function(require) {
                 }
 
                 block.listenTo(block.datepicker, {
-                    'set:selectedDate': function(date){
+                    'change:selectedDate': function(date){
                         block.set('date', date, {
                             updateDatepicker: false
                         });
