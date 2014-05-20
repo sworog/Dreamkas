@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Tests\Document;
 
-use Doctrine\MongoDB\Exception\ResultException;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Tests\Fixtures\Document\TestDocument;
 use Lighthouse\CoreBundle\Tests\Fixtures\Document\TestDocumentRepository;
