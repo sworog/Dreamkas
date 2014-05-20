@@ -154,6 +154,18 @@ public class EndProductApiSteps {
         productApiSteps.createProductThroughPost(productName, barcode, type, purchasePrice, subCategoryName, rounding);
     }
 
+    @Given("there is the product with productName, random generated barcode, '$type' type, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName' with '$rounding' rounding")
+    public void createProductThroughPostWithRandomGeneratedBarCode(String productName,
+                                                                   String type,
+                                                                   String purchasePrice,
+                                                                   String rounding,
+                                                                   String groupName,
+                                                                   String categoryName,
+                                                                   String subCategoryName) throws IOException, JSONException {
+        catalogApiSteps.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
+        productApiSteps.createProductThroughPost(productName, new UUIDGenerator().generate(), type, purchasePrice, subCategoryName, rounding);
+    }
+
     @Given("there is the product with productName and rounding in the subcategory named '$subCategoryName'")
     public void createProductThroughPost(String rounding, String productName, String subCategoryName) throws IOException, JSONException {
         catalogApiSteps.createSubCategoryThroughPost(Group.DEFAULT_NAME, SubCategory.DEFAULT_NAME, subCategoryName);
