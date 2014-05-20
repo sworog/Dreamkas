@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('blocks/form/form');
+    var Form = require('blocks/form/form'),
+        Page = require('kit/page/page');
 
     require('lodash');
 

@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Form = require('blocks/form/form'),
+        cookies = require('cookies'),
         Page = require('kit/page/page');
 
     require('lodash');
@@ -8,17 +9,35 @@ define(function(require, exports, module) {
 
     return Form.extend({
         el: '.form_barcode',
-        listeners: {
-            'submit:success': function(formData){
-                Page.current.trigger('form_barcode:submit:success', formData);
-            }
-        },
         submit: function(formData){
-            var deferred = $.Deferred();
+            var block = this;
 
-            deferred.resolve(formData);
+            return block.validateBarcode(formData);
+        },
+        submitSuccess: function(){
+            var block = this;
 
-            return deferred.promise();
+            Page.current.models.product.collections.barcodes.push(block.formData);
+            block.formData = null;
+            block.clear();
+            block.el.querySelector('[autofocus]').focus();
+        },
+        validateBarcode: function(barcode){
+            var block = this;
+
+            block.request = $.ajax({
+                type: 'PUT',
+                url: LH.baseApiUrl + '/products/' + Page.current.models.product.id + '/barcodes?validate=1&validationGroups=barcodes',
+                dataType: 'json',
+                headers: {
+                    Authorization: 'Bearer ' + cookies.get('token')
+                },
+                data: {
+                    barcodes: Page.current.models.product.collections.barcodes.toJSON().concat(barcode)
+                }
+            });
+
+            return block.request;
         }
     });
 });

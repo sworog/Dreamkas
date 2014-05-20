@@ -15,14 +15,12 @@
             </div>
         </div>
 
-        <%= models.product.collections.barcodes.element(templates.form_barcodes, {
-            collections: _.pick(models.product.collections, 'barcodes')
-        }) %>
+        <%= models.product.collections.barcodes.element(templates.form_barcodes) %>
 
         <form class="form form_barcode table__body">
             <div class="table__row">
                 <div class="table__cell">
-                    <input name="barcode" type="text" class="inputText"/>
+                    <input autofocus name="barcode" type="text" class="inputText"/>
                 </div>
                 <div class="table__cell">
                     <input name="quantity" type="text" class="inputText" style="width: 80px;"/>

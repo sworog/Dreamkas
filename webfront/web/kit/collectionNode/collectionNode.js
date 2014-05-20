@@ -1,7 +1,5 @@
 define(function(require) {
     //requirements
-    var stringToFragment = require('kit/stringToFragment/stringToFragment'),
-        fragmentToString = require('kit/fragmentToString/fragmentToString');
 
     require('lodash');
     require('jquery');
@@ -11,8 +9,12 @@ define(function(require) {
             elementId = _.uniqueId('collectionNode_');
 
         var generateElementString = function() {
-            var elementString = template(data || {collection: collection}),
-                element = stringToFragment(elementString);
+            var wrapper = document.createElement('div'),
+                element;
+
+            wrapper.innerHTML = template(data || {collection: collection});
+
+            element = wrapper.children[0];
 
             if (element.id){
                 elementId = element.id;
@@ -20,13 +22,15 @@ define(function(require) {
                 element.id = elementId;
             }
 
-            return fragmentToString(element);
+            return wrapper.innerHTML;
         };
+
+        var elementString = generateElementString();
 
         collection.listenTo(collection, 'add remove reset change', function(collection) {
             $('#' + elementId).replaceWith(generateElementString());
         });
 
-        return generateElementString();
+        return elementString;
     }
 });

@@ -1,12 +1,7 @@
-<%
-/**
- *
- * @collections.barcodes
- */
-%>
+<% var Page = require('kit/page/page') %>
 
 <form id="form_barcodes" class="form form_barcodes table__body">
-    <% collections.barcodes.forEach(function(barcodeModel, index){ %>
+    <% Page.current.models.product.collections.barcodes.forEach(function(barcodeModel, index){ %>
         <div class="table__row form_barcodes__row">
             <div class="table__cell">
                 <input value="<%- barcodeModel.get('barcode') %>" name="barcodes[<%- index %>].barcode" type="text" class="inputText"/>
@@ -20,7 +15,7 @@
                 <span>руб.</span>
             </div>
             <div class="table__cell">
-                <a class="button form_barcodes__removeLink">Удалить</a>
+                <span data-barcode_cid="<%- barcodeModel.cid %>" class="button form_barcodes__removeLink">Удалить</span>
             </div>
         </div>
     <% }) %>
