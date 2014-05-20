@@ -2,12 +2,13 @@
 
 namespace Lighthouse\CoreBundle\Document;
 
-use Doctrine\MongoDB\Cursor;
+use Doctrine\MongoDB\ArrayIterator;
+use Doctrine\MongoDB\Exception\ResultException;
 use Doctrine\ODM\MongoDB\DocumentRepository as BaseRepository;
 use Doctrine\ODM\MongoDB\LockMode;
-use Doctrine\ODM\MongoDB\MongoDBException;
 use Doctrine\ODM\MongoDB\Proxy\Proxy;
 use Doctrine\MongoDB\Collection;
+use Doctrine\ODM\MongoDB\Types\Type;
 use MongoCollection;
 use MongoCursor;
 use MongoId;
@@ -39,9 +40,7 @@ class DocumentRepository extends BaseRepository
      */
     public function count()
     {
-        /* @var Cursor $cursor */
-        $cursor = $this->findAll();
-        return $cursor->count();
+        return $this->createQueryBuilder()->getQuery()->count();
     }
 
     /**
@@ -78,13 +77,23 @@ class DocumentRepository extends BaseRepository
     }
 
     /**
+     * @param array $criteria
+     * @param array $sort
+     * @param int $limit
+     * @param int $skip
+     * @return \Doctrine\ODM\MongoDB\Cursor
+     */
+    public function findBy(array $criteria, array $sort = null, $limit = null, $skip = null)
+    {
+        return $this->getDocumentPersister()->loadAll($criteria, $sort, $limit, $skip);
+    }
+
+    /**
      * @return bool
      */
     public function isCollectionEmpty()
     {
-        /* @var Cursor $cursor */
-        $cursor = $this->findAll();
-        return 0 == $cursor->limit(1)->count();
+        return 0 == $this->count();
     }
 
     /**
@@ -125,8 +134,8 @@ class DocumentRepository extends BaseRepository
     /**
      * @param array $ops
      * @param int|null $timeout
-     * @return array
-     * @throws MongoDBException
+     * @return ArrayIterator
+     * @throws ResultException
      */
     protected function aggregate(array $ops, $timeout = -1)
     {
@@ -135,17 +144,13 @@ class DocumentRepository extends BaseRepository
             MongoCursor::$timeout = $timeout;
         }
 
-        $result = $this->getMongoCollection()->aggregate($ops);
+        $result = $this->getDocumentCollection()->aggregate($ops);
 
         if (isset($backupTimeout)) {
             MongoCursor::$timeout = $backupTimeout;
         }
 
-        if (1 == $result['ok']) {
-            return $result['result'];
-        }
-
-        throw new MongoDBException($result['errmsg'], $result['code']);
+        return $result;
     }
 
     /**
@@ -159,6 +164,22 @@ class DocumentRepository extends BaseRepository
                 return new MongoId((string) $id);
             },
             $ids
+        );
+    }
+
+    /**
+     * @param array $values
+     * @param string $typeName
+     * @return array
+     */
+    protected function convertToType(array $values, $typeName)
+    {
+        $type = Type::getType($typeName);
+        return array_map(
+            function ($value) use ($type) {
+                return $type->convertToDatabaseValue($value);
+            },
+            $values
         );
     }
 

@@ -101,7 +101,7 @@ class ProductRepository extends DocumentRepository implements ParentableReposito
     }
 
     /**
-     * @param string|barcodes $barcodes
+     * @param string|array $barcodes
      * @return Cursor|Product[]
      */
     public function findByBarcodes($barcodes)

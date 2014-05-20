@@ -37,15 +37,11 @@ class IncrementGenerator extends BaseIncrementGenerator
 
         $query = array('_id' => $key);
         $newObj = array('$set' => array('current_id' => $startValue));
+        $options = array('upsert' => true, 'new' => true);
 
-        $command = array();
-        $command['findandmodify'] = $coll;
-        $command['query'] = $query;
-        $command['update'] = $newObj;
-        $command['upsert'] = true;
-        $command['new'] = true;
-        $result = $db->command($command);
-        return $result['value']['current_id'];
+        $result = $db->selectCollection($coll)->findAndUpdate($query, $newObj, $options);
+
+        return $result['current_id'];
     }
 
     /**

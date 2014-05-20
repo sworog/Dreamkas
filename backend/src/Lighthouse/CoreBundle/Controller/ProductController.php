@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use Doctrine\ODM\MongoDB\LoggableCursor;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -111,8 +110,7 @@ class ProductController extends AbstractRestController
      */
     public function getProductsAction()
     {
-        /* @var LoggableCursor $cursor */
-        $cursor = $this->documentRepository->findAll();
+        $cursor = $this->documentRepository->findBy(array());
         return new ProductCollection($cursor);
     }
 

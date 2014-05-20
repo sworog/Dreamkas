@@ -10,6 +10,7 @@ use DateTime;
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Log\LogRepository"
  * )
+ * @MongoDB\HasLifecycleCallbacks
  *
  * @property int        $id
  * @property DateTime  $date

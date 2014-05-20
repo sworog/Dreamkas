@@ -1,8 +1,10 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Product\RecalcProductPrice;
+namespace Lighthouse\CoreBundle\Tests\Document\Product\RecalcProductPrice;
 
 use Lighthouse\CoreBundle\Document\Job\Integration\Set10\ExportProductsJob;
+use Lighthouse\CoreBundle\Document\Product\RecalcProductPrice\RecalcProductPriceJob;
+use Lighthouse\CoreBundle\Document\Product\RecalcProductPrice\RecalcProductPriceWorker;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Test\TestCase;
 

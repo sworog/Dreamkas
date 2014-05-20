@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\Returne;
+namespace Lighthouse\CoreBundle\Tests\Document\Returne;
 
 use Lighthouse\CoreBundle\Document\Returne\Returne;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;

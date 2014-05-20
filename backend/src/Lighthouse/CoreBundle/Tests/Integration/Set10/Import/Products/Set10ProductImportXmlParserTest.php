@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Import\Products;
 
-use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\GoodElement;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
@@ -137,6 +136,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
         $this->assertNull($good->getPluginProperty('storage-conditions'));
         $this->assertNull($good->getPluginProperty('food-value'));
 
+        /* @var false $good */
         $good = $parser->readNextElement();
         $this->assertFalse($good);
     }
@@ -163,6 +163,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
+        /* @var false $good */
         $this->assertFalse($good);
     }
 
@@ -188,6 +189,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
+        /* @var false $good */
         $this->assertFalse($good);
     }
 
@@ -213,6 +215,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
+        /* @var false $good */
         $this->assertFalse($good);
     }
 
@@ -238,6 +241,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
+        /* @var false $good */
         $this->assertFalse($good);
     }
 
@@ -263,6 +267,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
+        /* @var false $good */
         $this->assertFalse($good);
     }
 
@@ -288,6 +293,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
+        /* @var false $good */
         $this->assertFalse($good);
     }
 
@@ -313,6 +319,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
+        /* @var false $good */
         $this->assertFalse($good);
     }
 }

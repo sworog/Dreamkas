@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use Doctrine\ODM\MongoDB\LoggableCursor;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceCollection;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceHighlightGenerator;
@@ -107,7 +106,6 @@ class InvoiceController extends AbstractRestController
      */
     public function getInvoicesAction(Store $store, InvoicesFilter $filter)
     {
-        /* @var LoggableCursor $cursor */
         $cursor = $this->documentRepository->findByStore($store->id, $filter);
         if ($filter->hasNumberOrSupplierInvoiceNumber()) {
             $highlightGenerator = new InvoiceHighlightGenerator($filter);

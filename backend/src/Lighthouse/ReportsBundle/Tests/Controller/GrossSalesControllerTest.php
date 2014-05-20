@@ -21,8 +21,8 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesReportsByTime()
     {
-        $storeId = $this->factory->store()->getStoreId();
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
+        $storeId = $this->factory()->store()->getStoreId();
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
 
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
@@ -31,7 +31,7 @@ class GrossSalesControllerTest extends WebTestCase
         $sales = array(
             array(
                 'storeId' => $storeId,
-                'createdDate' => "8:01",
+                'createdDate' => '8:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -53,7 +53,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "9:01",
+                'createdDate' => '9:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -75,7 +75,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "10:01",
+                'createdDate' => '10:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -97,7 +97,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "11:01",
+                'createdDate' => '11:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -142,7 +142,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-1 days 9:01",
+                'createdDate' => '-1 days 9:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -164,7 +164,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-1 days 10:01",
+                'createdDate' => '-1 days 10:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -187,7 +187,7 @@ class GrossSalesControllerTest extends WebTestCase
 
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-7 days 8:01",
+                'createdDate' => '-7 days 8:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -209,7 +209,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-7 days 9:01",
+                'createdDate' => '-7 days 9:01',
                 'sumTotal' => 705.53,
                 'positions' => array(
                     array(
@@ -236,7 +236,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-7 days 10:01",
+                'createdDate' => '-7 days 10:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -269,7 +269,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSales',
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -277,29 +277,29 @@ class GrossSalesControllerTest extends WebTestCase
         $expected = array(
             'today' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("10:00")),
+                    'date' => date(DateTime::ISO8601, strtotime('10:00')),
                     'value' => 1207.06,
                 )
             ),
             'yesterday' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("-1 day 10:00")),
+                    'date' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
                     'value' => 1207.06,
                     'diff' => 0,
                 ),
                 'dayEnd' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("-1 day 23:59:59")),
+                    'date' => date(DateTime::ISO8601, strtotime('-1 day 23:59:59')),
                     'value' => 1810.59,
                 ),
             ),
             'weekAgo' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("-7 day 10:00")),
+                    'date' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
                     'value' => 1309.06,
                     'diff' => -7.79
                 ),
                 'dayEnd' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("-7 day 23:59:59")),
+                    'date' => date(DateTime::ISO8601, strtotime('-7 day 23:59:59')),
                     'value' => 1912.59,
                 ),
             ),
@@ -318,7 +318,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSales',
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -326,27 +326,27 @@ class GrossSalesControllerTest extends WebTestCase
         $expected = array(
             'today' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("10:00")),
+                    'date' => date(DateTime::ISO8601, strtotime('10:00')),
                     'value' => 0,
                 )
             ),
             'yesterday' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("-1 day 10:00")),
+                    'date' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
                     'value' => 0,
                 ),
                 'dayEnd' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("-1 day 23:59:59")),
+                    'date' => date(DateTime::ISO8601, strtotime('-1 day 23:59:59')),
                     'value' => 0,
                 ),
             ),
             'weekAgo' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("-7 day 10:00")),
+                    'date' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
                     'value' => 0,
                 ),
                 'dayEnd' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("-7 day 23:59:59")),
+                    'date' => date(DateTime::ISO8601, strtotime('-7 day 23:59:59')),
                     'value' => 0,
                 ),
             ),
@@ -423,7 +423,7 @@ class GrossSalesControllerTest extends WebTestCase
         $sales = array(
             array(
                 'storeId' => $storeId,
-                'createdDate' => "7:25",
+                'createdDate' => '7:25',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -445,7 +445,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-1 days 8:01",
+                'createdDate' => '-1 days 8:01',
                 'sumTotal' => 325.74,
                 'positions' => array(
                     array(
@@ -467,7 +467,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-1 week 9:01",
+                'createdDate' => '-1 week 9:01',
                 'sumTotal' => 846.92,
                 'positions' => array(
                     array(
@@ -507,7 +507,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSales',
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -515,29 +515,29 @@ class GrossSalesControllerTest extends WebTestCase
         $expected = array(
             'today' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("10:00")),
+                    'date' => date(DateTime::ISO8601, strtotime('10:00')),
                     'value' => 603.53,
                 )
             ),
             'yesterday' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("-1 day 10:00")),
+                    'date' => date(DateTime::ISO8601, strtotime('-1 day 10:00')),
                     'value' => 325.74,
                     'diff' => 85.28,
                 ),
                 'dayEnd' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("-1 day 23:59:59")),
+                    'date' => date(DateTime::ISO8601, strtotime('-1 day 23:59:59')),
                     'value' => 325.74,
                 ),
             ),
             'weekAgo' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("-7 day 10:00")),
+                    'date' => date(DateTime::ISO8601, strtotime('-7 day 10:00')),
                     'value' => 846.92,
                     'diff' => -28.74
                 ),
                 'dayEnd' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("-7 day 23:59:59")),
+                    'date' => date(DateTime::ISO8601, strtotime('-7 day 23:59:59')),
                     'value' => 846.92,
                 ),
             ),
@@ -556,7 +556,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSales',
             null,
-            array('time' => date('c', strtotime("-7 day 10:35:47")))
+            array('time' => date('c', strtotime('-7 day 10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -564,29 +564,29 @@ class GrossSalesControllerTest extends WebTestCase
         $expected = array(
             'today' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("-7 days 10:00")),
+                    'date' => date(DateTime::ISO8601, strtotime('-7 days 10:00')),
                     'value' => 846.92,
                 )
             ),
             'yesterday' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("-8 day 10:00")),
+                    'date' => date(DateTime::ISO8601, strtotime('-8 day 10:00')),
                     'value' => 0,
                     'diff' => 0,
                 ),
                 'dayEnd' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("-8 day 23:59:59")),
+                    'date' => date(DateTime::ISO8601, strtotime('-8 day 23:59:59')),
                     'value' => 0,
                 ),
             ),
             'weekAgo' => array(
                 'now' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("-14 day 10:00")),
+                    'date' => date(DateTime::ISO8601, strtotime('-14 day 10:00')),
                     'value' => 0,
                     'diff' => 0,
                 ),
                 'dayEnd' => array(
-                    'date' => date(DateTime::ISO8601, strtotime("-14 day 23:59:59")),
+                    'date' => date(DateTime::ISO8601, strtotime('-14 day 23:59:59')),
                     'value' => 0,
                 ),
             ),
@@ -600,7 +600,7 @@ class GrossSalesControllerTest extends WebTestCase
         $storeId = $this->factory->store()->getStoreId();
         $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
-        $storeOtherId = $this->factory->store()->getStoreId("other");
+        $storeOtherId = $this->factory->store()->getStoreId('other');
 
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
@@ -609,7 +609,7 @@ class GrossSalesControllerTest extends WebTestCase
         $sales = array(
             array(
                 'storeId' => $storeId,
-                'createdDate' => "8:01",
+                'createdDate' => '8:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -631,7 +631,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "9:01",
+                'createdDate' => '9:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -653,7 +653,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "10:01",
+                'createdDate' => '10:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -675,7 +675,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "11:01",
+                'createdDate' => '11:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -720,7 +720,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-1 days 9:01",
+                'createdDate' => '-1 days 9:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -742,7 +742,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-1 days 10:01",
+                'createdDate' => '-1 days 10:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -765,7 +765,7 @@ class GrossSalesControllerTest extends WebTestCase
 
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-7 days 8:01",
+                'createdDate' => '-7 days 8:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -787,7 +787,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-7 days 9:01",
+                'createdDate' => '-7 days 9:01',
                 'sumTotal' => 705.53,
                 'positions' => array(
                     array(
@@ -814,7 +814,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-7 days 10:01",
+                'createdDate' => '-7 days 10:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -842,7 +842,7 @@ class GrossSalesControllerTest extends WebTestCase
         $salesInOtherStore = array(
             array(
                 'storeId' => $storeOtherId,
-                'createdDate' => "8:01",
+                'createdDate' => '8:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -876,7 +876,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSalesByHours',
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -895,21 +895,21 @@ class GrossSalesControllerTest extends WebTestCase
         }
         $expectedYesterday += array(
             8 => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime("-1 day 08:00")),
+                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 08:00')),
                 'hourSum' => 603.53,
             ),
             9 => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime("-1 day 09:00")),
+                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
                 'hourSum' => 603.53,
             ),
         );
         $expectedWeekAgo += array(
             8 => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime("-1 week 08:00")),
+                'dayHour' => date(DateTime::ISO8601, strtotime('-1 week 08:00')),
                 'hourSum' => 603.53,
             ),
             9 => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime("-1 week 09:00")),
+                'dayHour' => date(DateTime::ISO8601, strtotime('-1 week 09:00')),
                 'hourSum' => 705.53,
             ),
         );
@@ -917,43 +917,43 @@ class GrossSalesControllerTest extends WebTestCase
         $expected = array(
             'today' => array(
                 0 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("00:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('00:00')),
                     'hourSum' => 0,
                 ),
                 1 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("01:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('01:00')),
                     'hourSum' => 0,
                 ),
                 2 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("02:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('02:00')),
                     'hourSum' => 0,
                 ),
                 3 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("03:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('03:00')),
                     'hourSum' => 0,
                 ),
                 4 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("04:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('04:00')),
                     'hourSum' => 0,
                 ),
                 5 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("05:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('05:00')),
                     'hourSum' => 0,
                 ),
                 6 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("06:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('06:00')),
                     'hourSum' => 0,
                 ),
                 7 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("07:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('07:00')),
                     'hourSum' => 0,
                 ),
                 8 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("08:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('08:00')),
                     'hourSum' => 603.53,
                 ),
                 9 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("09:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
                     'hourSum' => 603.53,
                 ),
             ),
@@ -1023,7 +1023,7 @@ class GrossSalesControllerTest extends WebTestCase
         $storeId = $this->factory->store()->getStoreId();
         $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
-        $storeOtherId = $this->factory->store()->getStoreId("other");
+        $storeOtherId = $this->factory->store()->getStoreId('other');
 
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
@@ -1032,7 +1032,7 @@ class GrossSalesControllerTest extends WebTestCase
         $sales = array(
             array(
                 'storeId' => $storeId,
-                'createdDate' => "8:01",
+                'createdDate' => '8:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1054,7 +1054,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "9:01",
+                'createdDate' => '9:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1076,7 +1076,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "10:01",
+                'createdDate' => '10:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1098,7 +1098,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "11:01",
+                'createdDate' => '11:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1121,7 +1121,7 @@ class GrossSalesControllerTest extends WebTestCase
 
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-7 days 8:01",
+                'createdDate' => '-7 days 8:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1143,7 +1143,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-7 days 9:01",
+                'createdDate' => '-7 days 9:01',
                 'sumTotal' => 705.53,
                 'positions' => array(
                     array(
@@ -1170,7 +1170,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-7 days 10:01",
+                'createdDate' => '-7 days 10:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1198,7 +1198,7 @@ class GrossSalesControllerTest extends WebTestCase
         $salesInOtherStore = array(
             array(
                 'storeId' => $storeOtherId,
-                'createdDate' => "8:01",
+                'createdDate' => '8:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1232,7 +1232,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSalesByHours',
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -1251,21 +1251,21 @@ class GrossSalesControllerTest extends WebTestCase
         }
         $expectedYesterday += array(
             8 => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime("-1 day 08:00")),
+                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 08:00')),
                 'hourSum' => 0,
             ),
             9 => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime("-1 day 09:00")),
+                'dayHour' => date(DateTime::ISO8601, strtotime('-1 day 09:00')),
                 'hourSum' => 0,
             ),
         );
         $expectedWeekAgo += array(
             8 => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime("-1 week 08:00")),
+                'dayHour' => date(DateTime::ISO8601, strtotime('-1 week 08:00')),
                 'hourSum' => 603.53,
             ),
             9 => array(
-                'dayHour' => date(DateTime::ISO8601, strtotime("-1 week 09:00")),
+                'dayHour' => date(DateTime::ISO8601, strtotime('-1 week 09:00')),
                 'hourSum' => 705.53,
             ),
         );
@@ -1273,43 +1273,43 @@ class GrossSalesControllerTest extends WebTestCase
         $expected = array(
             'today' => array(
                 0 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("00:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('00:00')),
                     'hourSum' => 0,
                 ),
                 1 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("01:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('01:00')),
                     'hourSum' => 0,
                 ),
                 2 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("02:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('02:00')),
                     'hourSum' => 0,
                 ),
                 3 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("03:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('03:00')),
                     'hourSum' => 0,
                 ),
                 4 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("04:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('04:00')),
                     'hourSum' => 0,
                 ),
                 5 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("05:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('05:00')),
                     'hourSum' => 0,
                 ),
                 6 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("06:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('06:00')),
                     'hourSum' => 0,
                 ),
                 7 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("07:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('07:00')),
                     'hourSum' => 0,
                 ),
                 8 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("08:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('08:00')),
                     'hourSum' => 603.53,
                 ),
                 9 => array(
-                    'dayHour' => date(DateTime::ISO8601, strtotime("09:00")),
+                    'dayHour' => date(DateTime::ISO8601, strtotime('09:00')),
                     'hourSum' => 603.53,
                 ),
             ),
@@ -1325,7 +1325,7 @@ class GrossSalesControllerTest extends WebTestCase
         $storeId = $this->factory->store()->getStoreId();
         $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
 
-        $storeOtherId = $this->factory->store()->getStoreId("other");
+        $storeOtherId = $this->factory->store()->getStoreId('other');
 
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
@@ -1335,7 +1335,7 @@ class GrossSalesControllerTest extends WebTestCase
         $salesInOtherStore = array(
             array(
                 'storeId' => $storeOtherId,
-                'createdDate' => "8:01",
+                'createdDate' => '8:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1369,7 +1369,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             '/api/1/stores/' . $storeId . '/reports/grossSalesByHours',
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -1413,7 +1413,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             '/api/1/reports/grossSalesByStores',
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -1507,7 +1507,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             '/api/1/reports/grossSalesByStores',
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -1601,7 +1601,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             '/api/1/reports/grossSales',
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -1639,7 +1639,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             '/api/1/reports/grossSales',
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -1811,8 +1811,8 @@ class GrossSalesControllerTest extends WebTestCase
     {
         $storeId = $this->factory->store()->getStoreId('1');
         $storeOtherId = $this->factory->store()->getStoreId('Other');
-        $subCategoryId = $this->createSubCategory();
-        $subCategoryOtherId = $this->createSubCategory(null, 'Other');
+        $subCategoryId = $this->factory()->catalog()->createSubCategory()->id;
+        $subCategoryOtherId = $this->factory()->catalog()->createSubCategory(null, 'Other')->id;
         $product1Id = $this->createProduct('1', $subCategoryId);
         $product2Id = $this->createProduct('2', $subCategoryId);
         $product3Id = $this->createProduct('3', $subCategoryOtherId);
@@ -1820,7 +1820,7 @@ class GrossSalesControllerTest extends WebTestCase
         $sales = array(
             array(
                 'storeId' => $storeId,
-                'createdDate' => "8:01",
+                'createdDate' => '8:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1842,7 +1842,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "9:01",
+                'createdDate' => '9:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1864,7 +1864,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "10:01",
+                'createdDate' => '10:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1886,7 +1886,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "11:01",
+                'createdDate' => '11:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1931,7 +1931,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-1 days 9:01",
+                'createdDate' => '-1 days 9:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1953,7 +1953,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-1 days 10:01",
+                'createdDate' => '-1 days 10:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1976,7 +1976,7 @@ class GrossSalesControllerTest extends WebTestCase
 
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-7 days 8:01",
+                'createdDate' => '-7 days 8:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -1998,7 +1998,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-7 days 9:01",
+                'createdDate' => '-7 days 9:01',
                 'sumTotal' => 705.53,
                 'positions' => array(
                     array(
@@ -2025,7 +2025,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
             array(
                 'storeId' => $storeId,
-                'createdDate' => "-7 days 10:01",
+                'createdDate' => '-7 days 10:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -2051,7 +2051,7 @@ class GrossSalesControllerTest extends WebTestCase
         $salesInOtherStore = array(
             array(
                 'storeId' => $storeOtherId,
-                'createdDate' => "8:01",
+                'createdDate' => '8:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -2083,7 +2083,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             '/api/1/stores/' . $storeId . '/subcategories/' . $subCategoryId . '/reports/grossSalesByProducts',
             null,
-            array('time' => date('c', strtotime("11:35:47")))
+            array('time' => date('c', strtotime('11:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -2149,10 +2149,10 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesByProductsEmpty()
     {
-        $storeId = $this->factory->store()->getStoreId('1');
-        $storeOtherId = $this->factory->store()->getStoreId('Other');
-        $subCategoryId = $this->createSubCategory();
-        $subCategoryOtherId = $this->createSubCategory(null, 'Other');
+        $storeId = $this->factory()->store()->getStoreId('1');
+        $storeOtherId = $this->factory()->store()->getStoreId('Other');
+        $subCategoryId = $this->factory()->catalog()->createSubCategory()->id;
+        $subCategoryOtherId = $this->factory()->catalog()->createSubCategory(null, 'Other')->id;
         $product1Id = $this->createProduct('1', $subCategoryId);
         $product2Id = $this->createProduct('2', $subCategoryId);
         $product3Id = $this->createProduct('3', $subCategoryOtherId);
@@ -2160,7 +2160,7 @@ class GrossSalesControllerTest extends WebTestCase
         $salesInOtherStore = array(
             array(
                 'storeId' => $storeOtherId,
-                'createdDate' => "8:01",
+                'createdDate' => '8:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -2192,7 +2192,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             '/api/1/stores/' . $storeId . '/subcategories/' . $subCategoryId . '/reports/grossSalesByProducts',
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -2238,10 +2238,10 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesByProductsMaxDepth()
     {
-        $storeId = $this->factory->store()->getStoreId('1');
-        $storeOtherId = $this->factory->store()->getStoreId('Other');
-        $subCategoryId = $this->createSubCategory();
-        $subCategoryOtherId = $this->createSubCategory(null, 'Other');
+        $storeId = $this->factory()->store()->getStoreId('1');
+        $storeOtherId = $this->factory()->store()->getStoreId('Other');
+        $subCategoryId = $this->factory()->catalog()->createSubCategory()->id;
+        $subCategoryOtherId = $this->factory()->catalog()->createSubCategory(null, 'Other')->id;
         $product1Id = $this->createProduct('1', $subCategoryId);
         $product2Id = $this->createProduct('2', $subCategoryId);
         $product3Id = $this->createProduct('3', $subCategoryOtherId);
@@ -2249,7 +2249,7 @@ class GrossSalesControllerTest extends WebTestCase
         $salesInOtherStore = array(
             array(
                 'storeId' => $storeOtherId,
-                'createdDate' => "8:01",
+                'createdDate' => '8:01',
                 'sumTotal' => 603.53,
                 'positions' => array(
                     array(
@@ -2281,7 +2281,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             '/api/1/stores/' . $storeId . '/subcategories/' . $subCategoryId . '/reports/grossSalesByProducts',
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -2293,15 +2293,15 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testAccessGetGrossSalesByProductReport()
     {
-        $storeId = $this->factory->store()->getStoreId();
-        $storeManagerToken = $this->factory->oauth()->authAsStoreManager($storeId);
-        $departmentManagerToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
-        $storeManagerOtherStoreToken = $this->factory->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
-        $commercialManagerToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-        $departmentManagerOtherStoreToken = $this->factory->oauth()->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
-        $administratorToken = $this->factory->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
+        $storeId = $this->factory()->store()->getStoreId();
+        $storeManagerToken = $this->factory()->oauth()->authAsStoreManager($storeId);
+        $departmentManagerToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
+        $storeManagerOtherStoreToken = $this->factory()->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
+        $commercialManagerToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $departmentManagerOtherStoreToken = $this->factory()->oauth()->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
+        $administratorToken = $this->factory()->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
 
-        $subCategoryId = $this->createSubCategory();
+        $subCategoryId = $this->factory()->catalog()->createSubCategory()->id;
 
 
         $this->clientJsonRequest(
@@ -2361,7 +2361,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$storeIds['1']}/categories/{$catalogIds['1.1']}/reports/grossSalesBySubCategories",
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -2423,7 +2423,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$storeIds['1']}/categories/{$catalogIds['1.1']}/reports/grossSalesBySubCategories",
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -2466,7 +2466,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$storeIds['1']}/categories/{$catalogIds['1.1']}/reports/grossSalesBySubCategories",
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -2494,7 +2494,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$storeIds['1']}/groups/{$catalogIds['1']}/reports/grossSalesByCategories",
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -2552,7 +2552,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$storeIds['1']}/groups/{$catalogIds['1']}/reports/grossSalesByCategories",
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -2572,7 +2572,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$storeIds['1']}/groups/{$catalogIds['1']}/reports/grossSalesByCategories",
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -2621,7 +2621,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$storeIds['1']}/reports/grossSalesByGroups",
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -2679,7 +2679,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$storeIds['1']}/reports/grossSalesByGroups",
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);
@@ -2736,7 +2736,7 @@ class GrossSalesControllerTest extends WebTestCase
             'GET',
             "/api/1/stores/{$storeIds['1']}/reports/grossSalesByGroups",
             null,
-            array('time' => date('c', strtotime("10:35:47")))
+            array('time' => date('c', strtotime('10:35:47')))
         );
 
         $this->assertResponseCode(200);

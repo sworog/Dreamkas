@@ -2,6 +2,7 @@
 
 namespace Lighthouse\ReportsBundle\Document\GrossMargin\Store;
 
+use Doctrine\MongoDB\ArrayIterator;
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use DateTime;
@@ -51,7 +52,7 @@ class StoreDayGrossMarginRepository extends DocumentRepository
     }
 
     /**
-     * @return array
+     * @return ArrayIterator
      */
     public function aggregateByDay()
     {

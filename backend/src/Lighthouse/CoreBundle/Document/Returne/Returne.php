@@ -17,6 +17,7 @@ use DateTime;
  *     repositoryClass="Lighthouse\CoreBundle\Document\Receipt\ReceiptRepository",
  *     collection="Receipt"
  * )
+ * @MongoDB\HasLifecycleCallbacks
  */
 class Returne extends Receipt
 {
