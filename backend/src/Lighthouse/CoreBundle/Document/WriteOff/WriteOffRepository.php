@@ -38,13 +38,8 @@ class WriteOffRepository extends DocumentRepository
             ->field('id')->equals($writeOff->id)
             ->returnNew();
 
-        if ($itemsCountDiff <> 0) {
-            $query->field('itemsCount')->inc($itemsCountDiff);
-        }
-
-        if ($sumTotalDiff <> 0) {
-            $query->field('sumTotal')->inc($sumTotalDiff);
-        }
+        $query->field('itemsCount')->inc($itemsCountDiff);
+        $query->field('sumTotal')->inc($sumTotalDiff);
 
         $query->getQuery()->execute();
     }
