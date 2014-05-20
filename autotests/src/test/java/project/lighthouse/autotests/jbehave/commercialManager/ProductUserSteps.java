@@ -1,7 +1,10 @@
 package project.lighthouse.autotests.jbehave.commercialManager;
 
 import net.thucydides.core.annotations.Steps;
-import org.jbehave.core.annotations.*;
+import org.jbehave.core.annotations.Alias;
+import org.jbehave.core.annotations.Given;
+import org.jbehave.core.annotations.Then;
+import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.objects.api.Category;
@@ -181,6 +184,11 @@ public class ProductUserSteps {
     @Then("the user checks the '$elementNameToCheck' is <expectedValue>")
     public void AliastTheUserChecksValue(String elementNameToCheck, String expectedValue) {
         productSteps.checkCardValue(elementNameToCheck, expectedValue);
+    }
+
+    @Then("the user checks the <exampleElement> has <exampleExpectedValue>")
+    public void thenTheUserChecksTheExampleElementHasExampleExpectedValue(String exampleElement, String exampleExpectedValue) {
+        productSteps.checkCardValue(exampleElement, exampleExpectedValue);
     }
 
     @Then("the user checks the elements values $checkValuesTable")

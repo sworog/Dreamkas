@@ -28,17 +28,21 @@ Then the user sees no error messages
 
 And the user checks the product with <productName> name is present
 
+When the user clicks on product with <productName>
+
+Then the user checks the <exampleElement> has <exampleExpectedValue>
+
 Examples:
-| exampleElement | exampleValue | productName |
-| alcoholByVolume | 0 | s34u70s07e05.0 |
-| alcoholByVolume | 0,1 | s34u70s07e05.1 |
-| alcoholByVolume | 0.1 | s34u70s07e05.2 |
-| alcoholByVolume | 1 | s34u70s07e05.3 |
-| alcoholByVolume | 99.9 | s34u70s07e05.4 |
-| alcoholByVolume | 99,9 | s34u70s07e05.5 |
-| alcoholByVolume | 40 | s34u70s07e05.6 |
-| alcoholByVolume | 40,0 | s34u70s07e05.7 |
-| alcoholByVolume | 40.0 | s34u70s07e05.8 |
+| exampleElement | exampleValue | productName | exampleExpectedValue |
+| alcoholByVolume | 0 | s34u70s07e05.0 | 0 |
+| alcoholByVolume | 0,1 | s34u70s07e05.1 | 0,1 |
+| alcoholByVolume | 0.1 | s34u70s07e05.2 | 0,1 |
+| alcoholByVolume | 1 | s34u70s07e05.3 | 1 |
+| alcoholByVolume | 99.9 | s34u70s07e05.4 | 99,9 |
+| alcoholByVolume | 99,9 | s34u70s07e05.5 | 99,9 |
+| alcoholByVolume | 40 | s34u70s07e05.6 | 40 |
+| alcoholByVolume | 40,0 | s34u70s07e05.7 | 40,0 |
+| alcoholByVolume | 40.0 | s34u70s07e05.8 | 40,0 |
 
 
 Scenario: Product create alcoholByVolume field negative validation
@@ -93,18 +97,22 @@ Then the user sees no error messages
 
 And the user checks the product with <productName> name is present
 
+When the user clicks on product with <productName>
+
+Then the user checks the <exampleElement> has <exampleExpectedValue>
+
 Examples:
-| exampleElement | exampleValue | productName |
-| volume | 1 | s34u70s07d05.0 |
-| volume | 100,000 | s34u70s07d05.1 |
-| volume | 1,123 | s34u70s07d05.2 |
-| volume | 1.123 | s34u70s07d05.3 |
-| volume | 1.1 | s34u70s07d05.4 |
-| volume | 1,1 | s34u70s07d05.5 |
-| volume | 1,12 | s34u70s07d05.6 |
-| volume | 1.12 | s34u70s07d05.7 |
-| volume | 1.13 | s34u70s07d05.8 |
-| volume | 1,13 | s34u70s07d05.9 |
+| exampleElement | exampleValue | productName | exampleExpectedValue |
+| volume | 1 | s34u70s07d05.0 | 1 |
+| volume | 100,000 | s34u70s07d05.1 | 100,0 |
+| volume | 1,123 | s34u70s07d05.2 | 1,123 |
+| volume | 1.123 | s34u70s07d05.3 | 1,123 |
+| volume | 1.1 | s34u70s07d05.4 | 1,1 |
+| volume | 1,1 | s34u70s07d05.5 | 1,1 |
+| volume | 1,12 | s34u70s07d05.6 | 1,12 |
+| volume | 1.12 | s34u70s07d05.7 | 1,12 |
+| volume | 1.13 | s34u70s07d05.8 | 1,13 |
+| volume | 1,13 | s34u70s07d05.9 | 1,13 |
 
 
 Scenario: Product create volume field negative validation
