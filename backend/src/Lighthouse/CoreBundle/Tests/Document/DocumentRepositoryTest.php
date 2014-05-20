@@ -2,64 +2,38 @@
 
 namespace Lighthouse\CoreBundle\Tests\Document;
 
-use Lighthouse\CoreBundle\Test\TestCase;
-use MongoCollection;
-use PHPUnit_Framework_MockObject_MockObject;
+use Doctrine\MongoDB\Exception\ResultException;
+use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
+use Lighthouse\CoreBundle\Tests\Fixtures\Document\TestDocument;
+use Lighthouse\CoreBundle\Tests\Fixtures\Document\TestDocumentRepository;
 
-class DocumentRepositoryTest extends TestCase
+class DocumentRepositoryTest extends ContainerAwareTestCase
 {
     /**
-     * @expectedException \Doctrine\ODM\MongoDB\MongoDBException
-     * @expectedExceptionMessage Error
-     * @expectedExceptionCode 22
+     * @expectedException \Doctrine\MongoDB\Exception\ResultException
+     * @expectedExceptionMessage exception:
+     * @expectedExceptionCode 15942
      */
-    public function testAggregateException()
+    public function testEmptyAggregateFail()
     {
-        /* @var MongoCollection|PHPUnit_Framework_MockObject_MockObject $collection */
-        $collection = $this->getMock(
-            'MongoCollection',
-            array(),
-            array(),
-            '',
-            false
-        );
-        $aggregateResponse = array(
-            'ok' => 0,
-            'errmsg' => 'Error',
-            'code' => 22,
-        );
-        $collection->expects($this->once())
-                    ->method('aggregate')
-                    ->will($this->returnValue($aggregateResponse));
-
-        $repository = new TestDocumentRepository($collection);
-
-        $repository->testAggregate();
+        $this->getTestDocumentRepository()->testAggregate(array());
     }
 
-    public function testAggregate()
+    public function testAggregateOk()
     {
-        /* @var MongoCollection|PHPUnit_Framework_MockObject_MockObject $collection */
-        $collection = $this->getMock(
-            'MongoCollection',
-            array(),
-            array(),
-            '',
-            false
+        $ops = array(
+            '$match' => array('_id' => 1)
         );
-        $aggregateResult = array(1,2);
-        $aggregateResponse = array(
-            'ok' => 1,
-            'result' => $aggregateResult,
-        );
-        $collection->expects($this->once())
-            ->method('aggregate')
-            ->will($this->returnValue($aggregateResponse));
+        $result = $this->getTestDocumentRepository()->testAggregate($ops);
+        $expectedCommandResult = array('ok' => 1, 'result' => array());
+        $this->assertEquals($expectedCommandResult, $result->getCommandResult());
+    }
 
-        $repository = new TestDocumentRepository($collection);
-
-        $result = $repository->testAggregate();
-
-        $this->assertSame($aggregateResult, $result);
+    /**
+     * @return TestDocumentRepository
+     */
+    protected function getTestDocumentRepository()
+    {
+        return $this->getDocumentManager()->getRepository(TestDocument::getClassName());
     }
 }
