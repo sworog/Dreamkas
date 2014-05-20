@@ -48,7 +48,7 @@ public class ProductCreatePage extends CommonPageObject {
         put("shelfLife", new Input(this, "typeProperties.shelfLife"));
 
         put("alcoholByVolume", new Input(this, "typeProperties.alcoholByVolume"));
-        put("volume ", new Input(this, "typeProperties.volume "));
+        put("volume", new Input(this, "typeProperties.volume"));
 
         put("inventory", new NonType(this, By.xpath("//*[@model-attribute='inventoryElement']")));
         put("averageDailySales", new NonType(this, By.xpath("//*[@model-attribute='averageDailySalesElement']")));

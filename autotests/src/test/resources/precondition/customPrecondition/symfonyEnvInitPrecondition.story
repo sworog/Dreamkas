@@ -24,10 +24,11 @@ Meta:
 @id_s21u46s3
 @id_s21u46s4
 @id_s19u44s1
-id_s33u69.0s3
-id_s33u69.0s4
+@id_s33u69.0s3
+@id_s33u69.0s4
 @id_s33u69.1s1
 @id_s33u69.1s2
+@id_s34u70.1s1
 
 Scenario: A scenario that prepares data
 
