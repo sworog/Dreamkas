@@ -1167,17 +1167,17 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testAdvancedSearchStoreProductsActionMulti()
     {
-        $storeId = $this->factory->store()->getStoreId();
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
+        $storeId = $this->factory()->store()->getStoreId();
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
 
         $this->createProduct(array('name' => 'Пиво светлое Балтика'));
-        $this->createProduct(array('name' => 'Пиво git ERDINGER светлое'));
+        $this->createProduct(array('name' => 'Пиво ERDINGER светлое'));
         $this->createProduct(array('name' => 'Светлые косы'));
 
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/search/products' . '?properties[]=name&properties[]=sku&query=Пиво светл'
+            "/api/1/stores/{$storeId}/search/products?properties[]=name&properties[]=sku&query=Пиво светл"
         );
 
         $this->assertResponseCode(200);
