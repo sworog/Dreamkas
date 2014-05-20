@@ -78,7 +78,7 @@ Examples:
 | alcoholByVolume | 1 1 | Значение должно быть числом | s34u70s07e06.15 |
 | alcoholByVolume | вы33434№4 | Значение должно быть числом | s34u70s07e06.16 |
 
-Scenario: Product create volume field positive validation
+Scenario: Product edit volume field positive validation
 
 Meta:
 @id_s34u70s10
@@ -115,7 +115,7 @@ Examples:
 | volume | 1,13 | s34u70s07d06.9 | 1,13 |
 
 
-Scenario: Product create volume field negative validation
+Scenario: Product edit volume field negative validation
 
 Meta:
 @id_s34u70s11

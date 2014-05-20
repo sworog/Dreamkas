@@ -105,7 +105,7 @@ public class EndProductApiSteps {
     @Given("there is the product with <productName> name, '$type' type")
     @Alias("there is the product with '$productName' name, '$type' type")
     public void givenTheUserCreatesProductWithType(String productName, String type) throws JSONException, IOException {
-        сreateProductThroughPost(productName, "000", type, "123");
+        сreateProductThroughPost(productName, new UUIDGenerator().generate(), type, "123");
     }
 
     @Given("there is the product with '$name' name, '$barcode' barcode, '$type' type, '$purchasePrice' purchasePrice")
