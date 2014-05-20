@@ -3,13 +3,12 @@
 namespace Lighthouse\CoreBundle\Document;
 
 use Doctrine\MongoDB\ArrayIterator;
-use Doctrine\MongoDB\Cursor;
 use Doctrine\MongoDB\Exception\ResultException;
 use Doctrine\ODM\MongoDB\DocumentRepository as BaseRepository;
 use Doctrine\ODM\MongoDB\LockMode;
-use Doctrine\ODM\MongoDB\MongoDBException;
 use Doctrine\ODM\MongoDB\Proxy\Proxy;
 use Doctrine\MongoDB\Collection;
+use Doctrine\ODM\MongoDB\Types\Type;
 use MongoCollection;
 use MongoCursor;
 use MongoId;
@@ -165,6 +164,22 @@ class DocumentRepository extends BaseRepository
                 return new MongoId((string) $id);
             },
             $ids
+        );
+    }
+
+    /**
+     * @param array $values
+     * @param string $typeName
+     * @return array
+     */
+    protected function convertToType(array $values, $typeName)
+    {
+        $type = Type::getType($typeName);
+        return array_map(
+            function ($value) use ($type) {
+                return $type->convertToDatabaseValue($value);
+            },
+            $values
         );
     }
 

@@ -4,6 +4,7 @@ namespace Lighthouse\ReportsBundle\Document\GrossSales\Classifier;
 
 use Doctrine\MongoDB\ArrayIterator;
 use Doctrine\ODM\MongoDB\Cursor;
+use Doctrine\ODM\MongoDB\Types\Type;
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
@@ -93,6 +94,7 @@ abstract class GrossSalesNodeRepository extends DocumentRepository implements Gr
     public function findByDayHoursAndNodeIds(array $dates, array $nodeIds, $storeId)
     {
         $nodeIds = $this->convertToMongoIds($nodeIds);
+        $dates = $this->convertToType($dates, Type::DATE);
         return $this->findBy(
             array(
                 'dayHour' => array('$in' => $dates),

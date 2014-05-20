@@ -155,7 +155,7 @@ class CatalogFactory extends AbstractFactory
      * @return SubCategory
      */
     public function createSubCategory(
-        $categoryId,
+        $categoryId = null,
         $name = self::DEFAULT_SUBCATEGORY_NAME,
         $rounding = null,
         $retailMarkupMin = null,

@@ -4,6 +4,7 @@ namespace Lighthouse\ReportsBundle\Document\GrossSales\Product;
 
 use Doctrine\MongoDB\ArrayIterator;
 use Doctrine\ODM\MongoDB\Cursor;
+use Doctrine\ODM\MongoDB\Types\Type;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesCalculatable;
@@ -88,7 +89,7 @@ class GrossSalesProductRepository extends DocumentRepository implements GrossSal
     }
 
     /**
-     * @param array $dates
+     * @param DateTimestamp[] $dates
      * @param array $storeProductIds
      * @return Cursor
      */
@@ -96,7 +97,7 @@ class GrossSalesProductRepository extends DocumentRepository implements GrossSal
     {
         return $this->findBy(
             array(
-                'dayHour' => array('$in' => $dates),
+                'dayHour' => array('$in' => $this->convertToType($dates, Type::DATE)),
                 'product' => array('$in' => $storeProductIds)
             )
         );
