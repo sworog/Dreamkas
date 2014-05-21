@@ -62,7 +62,7 @@ textarea.inputText, .inputText textarea {
 }
 
 input.inputText_error, .inputText_error input, textarea.inputText_error, .inputText_error textarea{
-    border-color: #d40000;
+    border-color: #d40000 !important;
 }
 
 .inputText_error:focus, .inputText_error input:focus, .inputText_error textarea:focus {

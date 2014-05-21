@@ -14,23 +14,6 @@ define(function(require, exports, module) {
             localNavigation: require('tpl!pages/product/templates/localNavigation.html')
         },
         localNavigationActiveLink: 'barcodes',
-        events: {
-            'click .form_barcodes__removeLink': function(e){
-
-                e.preventDefault();
-
-                var link = e.target,
-                    barcodesCollection = Page.current.models.product.collections.barcodes,
-                    model = barcodesCollection.get(link.dataset.barcode_cid);
-
-                barcodesCollection.remove(model);
-            },
-            'submit .form_barcodes': function(e){
-                var block = this;
-
-                block.blocks.form_barcodes.submit();
-            }
-        },
         models: {
             product: function(){
                 var page = this;

@@ -46,6 +46,10 @@ define(function(require, exports, module) {
 
             Form.prototype.removeErrors.apply(block, arguments);
 
+//            _.forEach(document.getElementById('barcodesTable').querySelectorAll('.inputText_error'), function(input){
+//                input.classList.remove('inputText_error')
+//            });
+
             delete document.getElementById('barcodesTable').dataset.error;
         },
         validateBarcode: function(barcode){
