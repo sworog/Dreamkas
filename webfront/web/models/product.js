@@ -88,7 +88,9 @@ define(function(require) {
                 data.category = data.subCategory.category;
             }
 
-            this.collections.barcodes.reset(data.barcodes);
+            if (data.barcodes){
+                this.collections.barcodes.reset(data.barcodes);
+            }
 
             return data;
         }
