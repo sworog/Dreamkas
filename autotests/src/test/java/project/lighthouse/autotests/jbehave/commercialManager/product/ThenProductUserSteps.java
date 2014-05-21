@@ -63,4 +63,9 @@ public class ThenProductUserSteps {
     public void thenTheUserChecksTheElementFieldHasErrorMessage(String elementName, String errorMessage) {
         productSteps.assertFieldErrorMessage(elementName, errorMessage);
     }
+
+    @Then("the user checks the extra barcodes list contains exact entries $examplesTable")
+    public void thenTheUserChecksTheExtraBarcodesListContainsExactValues(ExamplesTable examplesTable) {
+        productSteps.barcodeCollectionExactCompareWithExamplesTable(examplesTable);
+    }
 }
