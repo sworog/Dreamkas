@@ -480,15 +480,7 @@ EOF;
             array('barcode' => '888002', 'quantity' => 1, 'price' => ''),
             array('barcode' => '888003', 'quantity' => 2.687, 'price' => ''),
         );
-
-        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-        $this->clientJsonRequest(
-            $accessToken,
-            'PUT',
-            "/api/1/products/{$productId}/barcodes",
-            array('barcodes' => $barcodesData)
-        );
-        $this->assertResponseCode(200);
+        $this->updateProductBarcodes($productId, $barcodesData);
 
         /* @var Product $product */
         $product = $this->getProductRepository()->find($productId);
@@ -556,7 +548,14 @@ EOF;
 
     public function testWriteRemoteFile()
     {
-        $this->initBase();
+        $products = $this->initBase();
+
+        $barcodesData = array(
+            array('barcode' => '888001', 'quantity' => 10, 'price' => 69.95),
+            array('barcode' => '888002', 'quantity' => 1, 'price' => ''),
+            array('barcode' => '888003', 'quantity' => 2.687, 'price' => ''),
+        );
+        $this->updateProductBarcodes($products[6]['model']->id, $barcodesData);
 
         $xmlFilePath = "/tmp/lighthouse_unit_test";
         /* @var Filesystem $filesystem */
