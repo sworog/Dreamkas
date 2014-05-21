@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @property string $barcode
  * @property Quantity $quantity
- * @property Money $money
+ * @property Money $price
  *
  * @MongoDB\EmbeddedDocument
  */

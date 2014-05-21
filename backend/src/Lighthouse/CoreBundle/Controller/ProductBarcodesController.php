@@ -31,25 +31,11 @@ class ProductBarcodesController extends AbstractRestController
         return new BarcodesType();
     }
 
-    protected function handleFlushFailedException(FlushFailedException $e)
-    {
-        if ($e->getCause() instanceof MongoDuplicateKeyException) {
-            return $this->addFormError(
-                $e->getForm(),
-                '',
-                'lighthouse.validation.errors.product.barcode.unique'
-            );
-        } else {
-            return parent::handleFlushFailedException($e);
-        }
-    }
-
     /**
      * @param Request $request
      * @param Product $product
      * @return Form|Barcode[]
      *
-     * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
