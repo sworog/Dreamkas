@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Export\Products;
 
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Type\AlcoholType;
@@ -38,6 +39,14 @@ class ConvertToXmlForSet10Test extends WebTestCase
     public function getProductRepository()
     {
         return $this->getContainer()->get('lighthouse.core.document.repository.product');
+    }
+
+    /**
+     * @return Set10ProductConverter
+     */
+    public function getConverter()
+    {
+        return $this->getContainer()->get('lighthouse.core.integration.set10.export.products.converter');
     }
 
     /**
@@ -209,8 +218,7 @@ class ConvertToXmlForSet10Test extends WebTestCase
     {
         $productsData = $this->initBase();
 
-        /** @var Set10ProductConverter $converter */
-        $converter = $this->getContainer()->get('lighthouse.core.integration.set10.export.products.converter');
+        $converter = $this->getConverter();
 
         $xmlProduct1 = $converter->makeXmlByProduct($productsData[1]['model'], false);
         $expectedXmlProduct11 = <<<EOF
@@ -442,6 +450,109 @@ EOF;
         $this->assertXmlStringEqualsXmlString($expectedXmlProduct6, $xmlProduct6[0]);
 
     }
+
+    public function testBarcodesExport()
+    {
+        $this->factory()->store()->getStores(array('666', '777', '888'));
+        $productData = array(
+            'name' => 'Продукт 1',
+            'barcode' => '7770000000001',
+            'vat' => '10',
+            'type' => WeightType::TYPE,
+            'vendor' => 'Вимм-Билль-Данн',
+            'vendorCountry' => 'Россия',
+            'purchasePrice' => '44.11',
+            'retailMarkupMin' => '40',
+            'retailMarkupMax' => '60',
+            'retailPricePreference' => 'retailMarkup',
+            'typeProperties' => array(
+                'nameOnScales' => 'Название на весах',
+                'descriptionOnScales' => "Описание\nна весах",
+                'ingredients' => '<масло,соль,перец>',
+                'shelfLife' => '23',
+                'nutritionFacts' => '"Углеводы - 12гр"'
+            )
+        );
+        $productId = $this->createProduct($productData);
+
+        $barcodesData = array(
+            array('barcode' => '888001', 'quantity' => 10, 'price' => 69.95),
+            array('barcode' => '888002', 'quantity' => 1, 'price' => ''),
+            array('barcode' => '888003', 'quantity' => 2.687, 'price' => ''),
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/products/{$productId}/barcodes",
+            array('barcodes' => $barcodesData)
+        );
+        $this->assertResponseCode(200);
+
+        /* @var Product $product */
+        $product = $this->getProductRepository()->find($productId);
+
+        $actualXml = $this->getConverter()->makeXmlByProduct($product, false);
+
+        $expectedXml = <<<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<good marking-of-the-good="10001">
+    <shop-indices>666 777 888</shop-indices>
+    <name>Продукт 1</name>
+    <bar-code code="7770000000001">
+        <count>1</count>
+        <default-code>true</default-code>
+    </bar-code>
+    <bar-code code="888001">
+        <count>10</count>
+        <default-code>false</default-code>
+        <price-entry price="69.95">
+            <number>1</number>
+            <department number="1">
+                <name>1</name>
+            </department>
+        </price-entry>
+    </bar-code>
+    <bar-code code="888002">
+        <count>1</count>
+        <default-code>false</default-code>
+    </bar-code>
+    <bar-code code="888003">
+        <count>2.687</count>
+        <default-code>false</default-code>
+    </bar-code>
+    <price-entry price="70.58">
+        <number>1</number>
+        <department number="1">
+            <name>1</name>
+        </department>
+    </price-entry>
+    <vat>10</vat>
+    <group id="Водка">
+        <name>Водка</name>
+        <parent-group id="Винно-водочные изделия">
+            <name>Винно-водочные изделия</name>
+            <parent-group id="Продовольственные товары">
+                <name>Продовольственные товары</name>
+            </parent-group>
+        </parent-group>
+    </group>
+    <product-type>ProductWeightEntity</product-type>
+    <plugin-property key="precision" value="0.001"/>
+    <plugin-property key="name-on-scale-screen" value="Название на весах"/>
+    <plugin-property key="description-on-scale-screen" value="Описание&#10;на весах"/>
+    <plugin-property key="composition" value="&lt;масло,соль,перец&gt;"/>
+    <plugin-property key="food-value" value="&quot;Углеводы - 12гр&quot;"/>
+    <plugin-property key="good-for-hours" value="23"/>
+    <measure-type id="kg">
+        <name>кг</name>
+    </measure-type>
+</good>
+EOF;
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml[0]);
+    }
+
 
     public function testWriteRemoteFile()
     {

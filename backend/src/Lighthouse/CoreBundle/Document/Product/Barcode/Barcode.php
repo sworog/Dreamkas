@@ -43,4 +43,16 @@ class Barcode extends AbstractDocument
      * @var Money
      */
     protected $price;
+
+    /**
+     * @return float|null
+     */
+    public function getPriceAsFloat()
+    {
+        if ($this->price && !$this->price->isNull()) {
+            return $this->price->toNumber();
+        } else {
+            return null;
+        }
+    }
 }
