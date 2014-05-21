@@ -29,6 +29,7 @@ class Barcode extends AbstractDocument
 
     /**
      * @MongoDB\Field(type="quantity")
+     * @Assert\NotBlank
      * @LighthouseAssert\Chain({
      *  @LighthouseAssert\Precision(3),
      *  @LighthouseAssert\Range\Range(gt=0)

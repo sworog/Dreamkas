@@ -84,7 +84,7 @@ class ProductBarcodesControllerTest extends WebTestCase
                         )
                     )
                 ),
-                201,
+                200,
                 array(
                     '0.barcode' => '1111',
                     '0.quantity' => 12,
@@ -97,25 +97,25 @@ class ProductBarcodesControllerTest extends WebTestCase
                     'barcodes.1' => null
                 )
             ),
-            'valid quantity and price missing' => array(
+            'valid price missing' => array(
                 array(
                     'barcodes' => array(
                         array(
                             'barcode' => '1111',
-                            'quantity' => '',
+                            'quantity' => '1',
                             'price' => ''
                         )
                     )
                 ),
-                201,
+                200,
                 array(
                     '0.barcode' => '1111',
-                    '0.quantity' => null,
+                    '0.quantity' => '1',
                     '0.price' => null
                 ),
                 array(
                     'barcodes.0.barcode' => '1111',
-                    'barcodes.0.quantity' => null,
+                    'barcodes.0.quantity' => '1',
                     'barcodes.0.price' => null,
                     'barcodes.1' => null
                 )
@@ -125,20 +125,20 @@ class ProductBarcodesControllerTest extends WebTestCase
                     'barcodes' => array(
                         array(
                             'barcode' => str_repeat('1', 200),
-                            'quantity' => '',
+                            'quantity' => '1',
                             'price' => ''
                         )
                     )
                 ),
-                201,
+                200,
                 array(
                     '0.barcode' => str_repeat('1', 200),
-                    '0.quantity' => null,
+                    '0.quantity' => '1',
                     '0.price' => null
                 ),
                 array(
                     'barcodes.0.barcode' => str_repeat('1', 200),
-                    'barcodes.0.quantity' => null,
+                    'barcodes.0.quantity' => '1',
                     'barcodes.0.price' => null,
                     'barcodes.1' => null
                 )
@@ -153,7 +153,7 @@ class ProductBarcodesControllerTest extends WebTestCase
                         )
                     )
                 ),
-                201,
+                200,
                 array(
                     '0.barcode' => 'aaaa',
                     '0.quantity' => 0.001,
@@ -171,7 +171,7 @@ class ProductBarcodesControllerTest extends WebTestCase
                     'barcodes' => array(
                         array(
                             'barcode' => '1111',
-                            'quantity' => '',
+                            'quantity' => '1',
                             'price' => ''
                         ),
                         array(
@@ -181,22 +181,22 @@ class ProductBarcodesControllerTest extends WebTestCase
                         )
                     )
                 ),
-                201,
+                200,
                 array(
                     '0.barcode' => '1111',
-                    '0.quantity' => null,
+                    '0.quantity' => '1',
                     '0.price' => null,
                     '1.barcode' => '1112',
-                    '1.quantity' => 1,
+                    '1.quantity' => '1',
                     '1.price' => null,
                     '2' => null,
                 ),
                 array(
                     'barcodes.0.barcode' => '1111',
-                    'barcodes.0.quantity' => null,
+                    'barcodes.0.quantity' => '1',
                     'barcodes.0.price' => null,
                     'barcodes.1.barcode' => '1112',
-                    'barcodes.1.quantity' => 1,
+                    'barcodes.1.quantity' => '1',
                     'barcodes.1.price' => null,
                     'barcodes.2' => null
                 )
@@ -234,6 +234,23 @@ class ProductBarcodesControllerTest extends WebTestCase
                 ),
             ),
             // Quantity
+            'invalid quantity missing' => array(
+                array(
+                    'barcodes' => array(
+                        array(
+                            'barcode' => '1111',
+                            'quantity' => '',
+                            'price' => ''
+                        )
+                    )
+                ),
+                400,
+                array(
+                    'children.barcodes.children.0.children.quantity.errors.0'
+                    =>
+                    'Заполните это поле',
+                ),
+            ),
             'invalid quantity precision coma' => array(
                 array(
                     'barcodes' => array(
@@ -428,12 +445,12 @@ class ProductBarcodesControllerTest extends WebTestCase
             '/api/1/products/' . $productId1 . '/barcodes',
             array(
                 'barcodes' => array(
-                    array('barcode' => '54492653'),
-                    array('barcode' => '54492654'),
+                    array('barcode' => '54492653', 'quantity' => '1'),
+                    array('barcode' => '54492654', 'quantity' => '1'),
                 )
             )
         );
-        $this->assertResponseCode(201);
+        $this->assertResponseCode(200);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -455,7 +472,7 @@ class ProductBarcodesControllerTest extends WebTestCase
         return array(
             'extra barcode outer' => array(
                 array(
-                    array('barcode' => '54492653')
+                    array('barcode' => '54492653', 'quantity' => '1')
                 ),
                 array(
                     'children.barcodes.children.0.children.barcode.errors.0'
@@ -465,7 +482,7 @@ class ProductBarcodesControllerTest extends WebTestCase
             ),
             'main barcode outer' => array(
                 array(
-                    array('barcode' => '11111')
+                    array('barcode' => '11111', 'quantity' => '1')
                 ),
                 array(
                     'children.barcodes.children.0.children.barcode.errors.0'
@@ -475,9 +492,9 @@ class ProductBarcodesControllerTest extends WebTestCase
             ),
             'all barcodes outer' => array(
                 array(
-                    array('barcode' => '11111'),
-                    array('barcode' => '54492653'),
-                    array('barcode' => '54492654'),
+                    array('barcode' => '11111', 'quantity' => '1'),
+                    array('barcode' => '54492653', 'quantity' => '1'),
+                    array('barcode' => '54492654', 'quantity' => '1'),
                 ),
                 array(
                     'children.barcodes.children.0.children.barcode.errors.0'
@@ -493,7 +510,7 @@ class ProductBarcodesControllerTest extends WebTestCase
             ),
             'main barcode inner' => array(
                 array(
-                    array('barcode' => '11112')
+                    array('barcode' => '11112', 'quantity' => '1')
                 ),
                 array(
                     'children.barcodes.children.0.children.barcode.errors.0'
@@ -503,8 +520,8 @@ class ProductBarcodesControllerTest extends WebTestCase
             ),
             'extra barcode inner' => array(
                 array(
-                    array('barcode' => '666'),
-                    array('barcode' => '666'),
+                    array('barcode' => '666', 'quantity' => '1'),
+                    array('barcode' => '666', 'quantity' => '1'),
                 ),
                 array(
                     'children.barcodes.children.0.children.barcode.errors.0'
