@@ -81,7 +81,6 @@ define(function(require) {
                 //block.removeBlocks();
 
                 if (typeof block.template === 'function'){
-                    console.log(block.template(block));
                     block.el.innerHTML = block.template(block);
                 }
 
