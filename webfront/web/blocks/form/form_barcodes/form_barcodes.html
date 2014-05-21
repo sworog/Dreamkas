@@ -2,7 +2,7 @@
 
 <form id="form_barcodes" class="form form_barcodes table__body">
     <% Page.current.models.product.collections.barcodes.forEach(function(barcodeModel, index){ %>
-        <div class="table__row form_barcodes__row">
+        <div class="table__row form_barcodes__row" name="barcodeRow">
             <div class="table__cell">
                 <input value="<%- barcodeModel.get('barcode') %>" name="barcodes[<%- index %>].barcode" type="text" class="inputText"/>
             </div>

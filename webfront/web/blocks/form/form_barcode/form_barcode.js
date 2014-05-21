@@ -22,6 +22,32 @@ define(function(require, exports, module) {
             block.clear();
             block.el.querySelector('[autofocus]').focus();
         },
+        showErrors: function(errors){
+            var block = this,
+                error = errors.children.barcodes.children.pop(),
+                errorString = "";
+
+            _.forEach(error.children, function(data, fieldName){
+                if (data.errors){
+                    block.el.querySelector('[name="' + fieldName + '"]').classList.add('inputText_error');
+
+                    _.forEach(data.errors, function(error){
+                        if (errorString.indexOf(error) < 0){
+                            errorString += error + '. '
+                        }
+                    });
+                }
+            });
+
+            document.getElementById('barcodesTable').dataset.error = errorString;
+        },
+        removeErrors: function(){
+            var block = this;
+
+            Form.prototype.removeErrors.apply(block, arguments);
+
+            delete document.getElementById('barcodesTable').dataset.error;
+        },
         validateBarcode: function(barcode){
             var block = this;
 
