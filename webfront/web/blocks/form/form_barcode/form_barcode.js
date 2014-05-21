@@ -53,7 +53,7 @@ define(function(require, exports, module) {
 
             block.request = $.ajax({
                 type: 'PUT',
-                url: LH.baseApiUrl + '/products/' + Page.current.models.product.id + '/barcodes?validate=1&validationGroups=barcodes',
+                url: LH.baseApiUrl + '/products/' + Page.current.models.product.id + '/barcodes?validate=1',
                 dataType: 'json',
                 headers: {
                     Authorization: 'Bearer ' + cookies.get('token')

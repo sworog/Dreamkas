@@ -1,6 +1,8 @@
 <% var templates = {
-    form_barcodes: require('tpl!blocks/form/form_barcodes/form_barcodes.html')
+    form_barcodes__row: require('tpl!blocks/form/form_barcodes/form_barcodes__row.html')
 } %>
+
+<% var Page = require('kit/page/page') %>
 
 <div class="content">
     <h1>Дополнительные штриховые коды</h1>
@@ -15,7 +17,13 @@
             </div>
         </div>
 
-        <%= models.product.collections.barcodes.element(templates.form_barcodes) %>
+        <form id="form_barcodes" class="form form_barcodes table__body">
+            <% Page.current.models.product.collections.barcodes.forEach(function(barcodeModel){ %>
+                <%= templates.form_barcodes__row({
+                    barcodeModel: barcodeModel
+                }) %>
+            <% }) %>
+        </form>
 
         <form class="form form_barcode table__body">
             <div class="table__row">

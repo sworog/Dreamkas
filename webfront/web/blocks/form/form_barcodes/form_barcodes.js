@@ -1,6 +1,8 @@
 define(function(require, exports, module) {
     //requirements
     var Form = require('blocks/form/form'),
+        form_barcodes__row = require('tpl!blocks/form/form_barcodes/form_barcodes__row.html'),
+        stringToFragment = require('kit/stringToFragment/stringToFragment'),
         cookies = require('cookies'),
         Page = require('kit/page/page');
 
@@ -8,9 +10,26 @@ define(function(require, exports, module) {
 
     return Form.extend({
         el: '.form_barcodes',
-        render: function(){},
+        startListening: function(){
+            var block = this;
+
+            Form.prototype.startListening.apply(block, arguments);
+
+            block.listenTo(Page.current.models.product.collections.barcodes, {
+                add: function(barcodeModel){
+                    block.el.appendChild(stringToFragment(form_barcodes__row({
+                        barcodeModel: barcodeModel
+                    })));
+                },
+                remove: function(barcodeModel){
+                    block.el.removeChild(block.el.querySelector('[data-barcode_cid="' + barcodeModel.cid + '"]'));
+                }
+            });
+        },
         submit: function(formData){
             var block = this;
+
+            console.log(formData);
 
             block.request = $.ajax({
                 type: 'PUT',
@@ -19,9 +38,7 @@ define(function(require, exports, module) {
                 headers: {
                     Authorization: 'Bearer ' + cookies.get('token')
                 },
-                data: {
-                    barcodes: Page.current.models.product.collections.barcodes.toJSON()
-                }
+                data: formData
             });
 
             return block.request;

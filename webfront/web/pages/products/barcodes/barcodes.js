@@ -24,6 +24,11 @@ define(function(require, exports, module) {
                     model = barcodesCollection.get(link.dataset.barcode_cid);
 
                 barcodesCollection.remove(model);
+            },
+            'submit .form_barcodes': function(e){
+                var block = this;
+
+                block.blocks.form_barcodes.submit();
             }
         },
         models: {
@@ -41,11 +46,6 @@ define(function(require, exports, module) {
         blocks: {
             form_barcodes: Form_barcodes,
             form_barcode: Form_barcode
-        },
-        listeners: {
-            'form_barcode:submit:success': function(data){
-                console.log(data);
-            }
         }
     });
 });
