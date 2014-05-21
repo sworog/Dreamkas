@@ -95,11 +95,6 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
-    public void listItemCheckIsNotPresent(String skuValue) {
-        productListPage.listItemCheckIsNotPresent(skuValue);
-    }
-
-    @Step
     public void checkProductWithSkuHasExpectedValue(String name, String element, String expectedValue) {
         ProductObject productObject = (ProductObject) productListPage.getProductObjectCollection().getAbstractObjectByLocator(name);
         Assert.assertEquals(expectedValue, productObject.getPurchasePrice());
