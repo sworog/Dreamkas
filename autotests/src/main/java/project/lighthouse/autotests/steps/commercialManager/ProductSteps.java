@@ -349,4 +349,24 @@ public class ProductSteps extends ScenarioSteps {
         ((BarcodeObject) extraBarcodesPage.getBarcodeObjectCollection().getAbstractObjectByLocator(locator))
                 .deleteButtonClick();
     }
+
+    @Step
+    public void addExtraBarcodeButtonShouldBeNotVisible() {
+        extraBarcodesPage.getAddBarcodeButton().shouldBeNotVisible();
+    }
+
+    @Step
+    public void saveExtraBarcodeButtonShouldBeNotVisible() {
+        extraBarcodesPage.getSaveBarcodeButton().shouldBeNotVisible();
+    }
+
+    @Step
+    public void cancelSaveExtraBarcodeLinkShouldBeNotVisible() {
+        extraBarcodesPage.getCancelLink().shouldBeNotVisible();
+    }
+
+    @Step
+    public void elementShouldBeNotVisible(String elementName) {
+        extraBarcodesPage.elementShouldBeNotVisible(elementName);
+    }
 }
