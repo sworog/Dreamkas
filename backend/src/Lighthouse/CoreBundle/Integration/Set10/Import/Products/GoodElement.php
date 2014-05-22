@@ -2,9 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Integration\Set10\Import\Products;
 
-use Lighthouse\CoreBundle\Document\Product\Barcode\Barcode;
 use Lighthouse\CoreBundle\Integration\Set10\SimpleXMLElement;
-use DOMNode;
 
 class GoodElement extends SimpleXMLElement
 {
@@ -178,7 +176,7 @@ class GoodElement extends SimpleXMLElement
     }
 
     /**
-     * @param SimpleXMLElement $node
+     * @param \SimpleXMLElement $node
      * @param float $price
      * @param string $priceNumber
      * @param string $departmentNumber
@@ -186,7 +184,7 @@ class GoodElement extends SimpleXMLElement
      * @return SimpleXMLElement
      */
     protected function createPriceEntry(
-        SimpleXMLElement $node,
+        \SimpleXMLElement $node,
         $price,
         $priceNumber = null,
         $departmentNumber = null,
