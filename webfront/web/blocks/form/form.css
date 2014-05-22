@@ -142,3 +142,15 @@ tr[data-error]:after {
 .form_barcodes .inputText:hover{
     border-color: #cacaca;
 }
+
+.form_barcodes .inputText[readonly]:hover{
+    border-color: transparent;
+}
+
+.form_barcodes .inputText[readonly]:focus{
+    border-color: transparent !important;
+}
+
+.form_barcodes__emptyCell .inputText__postfix{
+    visibility: hidden;
+}
