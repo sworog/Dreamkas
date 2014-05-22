@@ -1,10 +1,7 @@
 package project.lighthouse.autotests.storage;
 
 import project.lighthouse.autotests.guice.Injectors;
-import project.lighthouse.autotests.storage.variable.InvoiceVariableStorage;
-import project.lighthouse.autotests.storage.variable.OrderVariableStorage;
-import project.lighthouse.autotests.storage.variable.StoreVariableStorage;
-import project.lighthouse.autotests.storage.variable.UserVariableStorage;
+import project.lighthouse.autotests.storage.variable.*;
 
 public class Storage {
 
@@ -22,5 +19,9 @@ public class Storage {
 
     public static InvoiceVariableStorage getInvoiceVariableStorage() {
         return Injectors.getInjector().getInstance(InvoiceVariableStorage.class);
+    }
+
+    public static CustomVariableStorage getCustomVariableStorage() {
+        return Injectors.getInjector().getInstance(CustomVariableStorage.class);
     }
 }

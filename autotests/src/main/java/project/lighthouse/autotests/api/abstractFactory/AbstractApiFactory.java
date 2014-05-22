@@ -15,7 +15,11 @@ public abstract class AbstractApiFactory {
         httpRequestable = HttpExecutor.getHttpRequestable(userName, password);
     }
 
-    public void createObject(AbstractObject object ) throws IOException, JSONException {
+    public void createObject(AbstractObject object) throws IOException, JSONException {
         httpRequestable.executePostRequest(object);
+    }
+
+    public HttpRequestable getHttpRequestable() {
+        return httpRequestable;
     }
 }
