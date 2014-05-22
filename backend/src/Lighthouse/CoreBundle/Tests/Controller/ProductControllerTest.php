@@ -2150,25 +2150,25 @@ class ProductControllerTest extends WebTestCase
             /*************************************
              * GET /api/1/products/__PRODUCT_ID__
              */
-            array(
+            'GET COMMERCIAL MANAGER' => array(
                 '/api/1/products/__PRODUCT_ID__',
                 'GET',
                 User::ROLE_COMMERCIAL_MANAGER,
                 200,
             ),
-            array(
+            'GET DEPARTMENT MANAGER' => array(
                 '/api/1/products/__PRODUCT_ID__',
                 'GET',
                 User::ROLE_DEPARTMENT_MANAGER,
                 200,
             ),
-            array(
+            'GET STORE MANAGER' => array(
                 '/api/1/products/__PRODUCT_ID__',
                 'GET',
                 User::ROLE_STORE_MANAGER,
-                403,
+                200,
             ),
-            array(
+            'GET ADMINISTRATOR' => array(
                 '/api/1/products/__PRODUCT_ID__',
                 'GET',
                 User::ROLE_ADMINISTRATOR,
@@ -2177,25 +2177,25 @@ class ProductControllerTest extends WebTestCase
             /*************************************
              * POST /api/1/products
              */
-            array(
+            'POST COMMERCIAL MANAGER' => array(
                 '/api/1/products',
                 'POST',
                 User::ROLE_COMMERCIAL_MANAGER,
                 201,
             ),
-            array(
+            'POST DEPARTMENT MANAGER' => array(
                 '/api/1/products',
                 'POST',
                 User::ROLE_DEPARTMENT_MANAGER,
                 403,
             ),
-            array(
+            'POST STORE MANAGER' => array(
                 '/api/1/products',
                 'POST',
                 User::ROLE_STORE_MANAGER,
                 403,
             ),
-            array(
+            'POST ADMINISTRATOR' => array(
                 '/api/1/products',
                 'POST',
                 User::ROLE_ADMINISTRATOR,
@@ -2204,25 +2204,25 @@ class ProductControllerTest extends WebTestCase
             /*************************************
              * PUT /api/1/products/__PRODUCT_ID__
              */
-            array(
+            'PUT COMMERCIAL MANAGER' => array(
                 '/api/1/products/__PRODUCT_ID__',
                 'PUT',
                 User::ROLE_COMMERCIAL_MANAGER,
                 200,
             ),
-            array(
+            'PUT DEPARTMENT MANAGER' => array(
                 '/api/1/products/__PRODUCT_ID__',
                 'PUT',
                 User::ROLE_DEPARTMENT_MANAGER,
                 403,
             ),
-            array(
+            'PUT STORE MANAGER' => array(
                 '/api/1/products/__PRODUCT_ID__',
                 'PUT',
                 User::ROLE_STORE_MANAGER,
                 403,
             ),
-            array(
+            'PUT ADMINISTRATOR' => array(
                 '/api/1/products/__PRODUCT_ID__',
                 'PUT',
                 User::ROLE_ADMINISTRATOR,
@@ -2231,25 +2231,25 @@ class ProductControllerTest extends WebTestCase
             /*************************************
              * GET /api/1/subcategories/__SUBCATEGORY_ID__/products
              */
-            array(
+            'GET SUBCATEGORY COMMERCIAL MANAGER' => array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__/products',
                 'GET',
                 User::ROLE_COMMERCIAL_MANAGER,
                 200,
             ),
-            array(
+            'GET SUBCATEGORY DEPARTMENT MANAGER' => array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__/products',
                 'GET',
                 User::ROLE_DEPARTMENT_MANAGER,
                 200,
             ),
-            array(
+            'GET SUBCATEGORY STORE MANAGER' => array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__/products',
                 'GET',
                 User::ROLE_STORE_MANAGER,
-                403,
+                200,
             ),
-            array(
+            'GET SUBCATEGORY ADMINISTRATOR' => array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__/products',
                 'GET',
                 User::ROLE_ADMINISTRATOR,
