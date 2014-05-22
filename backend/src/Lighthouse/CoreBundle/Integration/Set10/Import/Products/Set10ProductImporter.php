@@ -13,6 +13,7 @@ use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
+use Lighthouse\CoreBundle\Document\Product\Barcode\Barcode;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
@@ -343,7 +344,8 @@ class Set10ProductImporter
         $product->name = $good->getGoodName();
         $product->sku  = $good->getMarkingOfTheGood();
         $product->vat  = $good->getVat();
-        $product->barcode = $good->getBarcode();
+        $product->barcode = $good->getDefaultBarcode()->getCode();
+        $product->barcodes = $this->getBarcodes($good);
         $product->vendor = $good->getManufacturerName();
         $product->purchasePrice = $this->getPurchasePrice($good);
         $product->retailPricePreference = $product::RETAIL_PRICE_PREFERENCE_MARKUP;
@@ -354,6 +356,25 @@ class Set10ProductImporter
         $product->subCategory = $this->getCatalog($good);
 
         return $product;
+    }
+
+    /**
+     * @param GoodElement $goodElement
+     * @return array
+     */
+    protected function getBarcodes(GoodElement $goodElement)
+    {
+        $barcodes = array();
+        foreach ($goodElement->getExtraBarcodes() as $barcodeElement) {
+            $count = $barcodeElement->getCount() ?: 1;
+            $price = $barcodeElement->getPrice();
+            $barcode = new Barcode();
+            $barcode->barcode = $barcodeElement->getCode();
+            $barcode->quantity = $this->quantityTransformer->reverseTransform($count);
+            $barcode->price = $this->moneyModelTransformer->reverseTransform($price);
+            $barcodes[] = $barcode;
+        }
+        return $barcodes;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Integration\Set10\Import\Products;
 
+use Lighthouse\CoreBundle\Document\Product\Barcode\Barcode;
 use Lighthouse\CoreBundle\Integration\Set10\SimpleXMLElement;
 use DOMNode;
 
@@ -25,15 +26,6 @@ class GoodElement extends SimpleXMLElement
     public static function create()
     {
         return new static('<?xml version="1.0" encoding="UTF-8"?><good/>');
-    }
-
-    /**
-     * @param DOMNode $dom
-     * @return \SimpleXMLElement
-     */
-    public static function createByDom(DomNode $dom)
-    {
-        return simplexml_import_dom($dom, static::getClassName());
     }
 
     /**
@@ -91,16 +83,32 @@ class GoodElement extends SimpleXMLElement
     }
 
     /**
-     * @return string
+     * @return BarcodeElement
      */
-    public function getBarcode()
+    public function getDefaultBarcode()
     {
-        foreach ($this->{'bar-code'} as $barCode) {
-            if ('true' == (string) $barCode->{'default-code'}) {
-                return (string) $barCode['code'];
+        foreach ($this->{'bar-code'} as $barcode) {
+            $barcodeElement = BarcodeElement::createBySimpleXml($barcode);
+            if ($barcodeElement->isDefaultCode()) {
+                return $barcodeElement;
             }
         }
         return null;
+    }
+
+    /**
+     * @return BarcodeElement[]
+     */
+    public function getExtraBarcodes()
+    {
+        $barcodes = array();
+        foreach ($this->{'bar-code'} as $barcode) {
+            $barcodeElement = BarcodeElement::createBySimpleXml($barcode);
+            if (!$barcodeElement->isDefaultCode()) {
+                $barcodes[] = $barcodeElement;
+            }
+        }
+        return $barcodes;
     }
 
     /**
