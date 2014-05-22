@@ -81,14 +81,25 @@ class GoodElement extends SimpleXMLElement
     }
 
     /**
+     * @return BarcodeElement[]
+     */
+    public function getBarcodes()
+    {
+        $barcodes = array();
+        foreach ($this->{'bar-code'} as $barcode) {
+            $barcodes[] = BarcodeElement::createBySimpleXml($barcode);
+        }
+        return $barcodes;
+    }
+
+    /**
      * @return BarcodeElement
      */
     public function getDefaultBarcode()
     {
-        foreach ($this->{'bar-code'} as $barcode) {
-            $barcodeElement = BarcodeElement::createBySimpleXml($barcode);
-            if ($barcodeElement->isDefaultCode()) {
-                return $barcodeElement;
+        foreach ($this->getBarcodes() as $barcode) {
+            if ($barcode->isDefaultCode()) {
+                return $barcode;
             }
         }
         return null;
@@ -100,10 +111,9 @@ class GoodElement extends SimpleXMLElement
     public function getExtraBarcodes()
     {
         $barcodes = array();
-        foreach ($this->{'bar-code'} as $barcode) {
-            $barcodeElement = BarcodeElement::createBySimpleXml($barcode);
-            if (!$barcodeElement->isDefaultCode()) {
-                $barcodes[] = $barcodeElement;
+        foreach ($this->getBarcodes() as $barcode) {
+            if (!$barcode->isDefaultCode()) {
+                $barcodes[] = $barcode;
             }
         }
         return $barcodes;
@@ -118,13 +128,14 @@ class GoodElement extends SimpleXMLElement
      */
     public function addBarcode($barcode, $count = 1, $default = true, $price = null)
     {
-        $barcodeElement = $this->addChild('bar-code');
-        $barcodeElement->addAttribute('code', $barcode);
-        $barcodeElement->addChild('count', $count);
-        $barcodeElement->addChild('default-code', $default ? 'true' : 'false');
+        $barcodeElement = BarcodeElement::create();
+        $barcodeElement->setCode($barcode);
+        $barcodeElement->setCount($count);
+        $barcodeElement->setDefaultCode($default);
         if ($price) {
             $this->createPriceEntry($barcodeElement, $price);
         }
+        $this->addSimpleXmlElement($barcodeElement);
         return $this;
     }
 

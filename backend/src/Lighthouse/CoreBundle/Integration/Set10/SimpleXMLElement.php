@@ -41,4 +41,39 @@ class SimpleXMLElement extends \SimpleXMLElement
         $xml = $this->asXML();
         return substr($xml, strpos($xml, '?>') + 3);
     }
+
+    /**
+     * @param $name
+     * @param null $value
+     * @return \SimpleXMLElement
+     */
+    protected function setChild($name, $value = null)
+    {
+        if (isset($this->$name)) {
+            $child = $this->$name;
+            $this->$name = $value;
+        } else {
+            $child = $this->addChild($name, $value);
+        }
+
+        return $child;
+    }
+
+    /**
+     * @param SimpleXMLElement $element
+     */
+    protected function addSimpleXmlElement(SimpleXMLElement $element)
+    {
+        $domDoc = $this->toDomNode()->ownerDocument;
+        $elementNode = $domDoc->importNode($element->toDomNode(), true);
+        $domDoc->getElementsByTagName($this->getName())->item(0)->appendChild($elementNode);
+    }
+
+    /**
+     * @return \DOMElement
+     */
+    public function toDomNode()
+    {
+        return dom_import_simplexml($this);
+    }
 }

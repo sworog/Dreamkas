@@ -10,6 +10,14 @@ use Lighthouse\CoreBundle\Integration\Set10\SimpleXMLElement;
 class BarcodeElement extends SimpleXMLElement
 {
     /**
+     * @return BarcodeElement
+     */
+    public static function create()
+    {
+        return new static('<?xml version="1.0" encoding="UTF-8"?><bar-code/>');
+    }
+
+    /**
      * @return bool
      */
     public function isDefaultCode()
@@ -26,6 +34,16 @@ class BarcodeElement extends SimpleXMLElement
     }
 
     /**
+     * @param bool $flag
+     * @return $this
+     */
+    public function setDefaultCode($flag = true)
+    {
+        $this->setChild('default-code', $flag ? 'true' : 'false');
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getCount()
@@ -34,11 +52,31 @@ class BarcodeElement extends SimpleXMLElement
     }
 
     /**
+     * @param float $count
+     * @return $this
+     */
+    public function setCount($count)
+    {
+        $this->setChild('count', $count);
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getCode()
     {
         return (string) $this['code'];
+    }
+
+    /**
+     * @param string $code
+     * @return $this
+     */
+    public function setCode($code)
+    {
+        $this['code'] = $code;
+        return $this;
     }
 
     /**
