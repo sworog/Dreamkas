@@ -78,7 +78,7 @@ class ProductController extends AbstractRestController
      * @param Product $product
      * @return Product
      * @ApiDoc
-     * @Secure(roles="ROLE_DEPARTMENT_MANAGER,ROLE_COMMERCIAL_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
      */
     public function getProductAction(Product $product)
     {
@@ -90,7 +90,7 @@ class ProductController extends AbstractRestController
      * @param ProductFilter $filter
      * @return ProductCollection
      * @ApiDoc
-     * @Secure(roles="ROLE_DEPARTMENT_MANAGER,ROLE_COMMERCIAL_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @Rest\View(serializerGroups={"Collection"})
      * @Rest\Route("products/{property}/search")
      */
@@ -106,7 +106,7 @@ class ProductController extends AbstractRestController
      * @ApiDoc(
      *      resource=true
      * )
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
      */
     public function getProductsAction()
     {
@@ -117,7 +117,7 @@ class ProductController extends AbstractRestController
     /**
      * @param SubCategory $subCategory
      * @return ProductCollection
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @Rest\View(serializerGroups={"Collection"})
      * @ApiDoc
      */

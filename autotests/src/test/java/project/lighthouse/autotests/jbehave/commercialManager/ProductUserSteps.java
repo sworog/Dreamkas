@@ -202,11 +202,6 @@ public class ProductUserSteps {
         productSteps.listItemCheck(productName);
     }
 
-    @Then("the user checks the product with '$skuValue' sku is not present")
-    public void thenTheUSerChecksTheProductWithSkuIsNotPresent(String skuValue) {
-        productSteps.listItemCheckIsNotPresent(skuValue);
-    }
-
     @Then("the user checks the product with '$name' name has '$element' equal to '$expectedValue'")
     public void checkProductWithNameHasExpectedValue(String skuValue, String element, String expectedValue) {
         productSteps.checkProductWithSkuHasExpectedValue(skuValue, element, expectedValue);

@@ -14,6 +14,16 @@ define(function(require, exports, module) {
             return '/products/' + Page.current.models.product.id
         },
         events: {
+            'keyup [name="price[]"]': function(e){
+                var input = e.target,
+                    $cell = $(input).closest('.table__cell');
+
+                if (input.value.length){
+                    $cell.removeClass('form_barcodes__emptyCell');
+                } else {
+                    $cell.addClass('form_barcodes__emptyCell');
+                }
+            },
             'click .form_barcodes__removeLink': function(e){
 
                 e.preventDefault();

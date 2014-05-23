@@ -24,14 +24,14 @@
                 }) %>
             <% }) %>
         </form>
-
+        <% if (LH.isAllow('products', 'PUT::{product}/barcodes')) { %>
         <form class="form form_barcode table__body">
             <div class="table__row">
                 <div class="table__cell">
                     <input autofocus name="barcode" type="text" class="inputText"/>
                 </div>
                 <div class="table__cell">
-                    <input name="quantity" type="text" class="inputText" style="width: 80px;"/>
+                    <input name="quantity" type="text" value="1" class="inputText" style="width: 80px;"/>
                 </div>
                 <div class="table__cell" style="white-space: nowrap">
                     <input name="price" type="text" class="inputText" style="width: 100px; text-align: right"/>
@@ -42,7 +42,9 @@
                 </div>
             </div>
         </form>
+        <% } %>
     </div>
+    <% if (LH.isAllow('products', 'PUT::{product}/barcodes')) { %>
     <div class="form__controls">
         <button form="form_barcodes" class="button" type="submit">
             Сохранить
@@ -52,4 +54,5 @@
         </span>
         <a href="/products/<%- models.product.id %>">Отменить</a>
     </div>
+    <% } %>
 </div>
