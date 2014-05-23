@@ -29,8 +29,7 @@ Meta:
 
 GivenStories: precondition/sprint-31/us-66/aPreconditionToStoryUs66.story
 
-Given there is the order in the store by 'departmentManager-s30u66'
-And the user opens last created order page
+Given the user opens order create page
 And the user logs in using 'departmentManager-s30u66' userName and 'lighthouse' password
 
 Then the user checks the download file link is not visible

@@ -79,12 +79,6 @@ And the user opens pop up menu of subCategory 'productListPage' element
 And the user deletes element through pop up menu
 Then the user checks alert text is equal to 'Подкатегория не пуста. Сначала удалите из нее все товары.'
 
-Scenario: No products dashboard link for commercial manager
-
-Given the user opens the authorization page
-And the user logs in as 'commercialManager'
-Then the user checks the catalog navigation menu item is not visible
-
 Scenario: No products dashboard link for department manager
 
 Given the user opens the authorization page
