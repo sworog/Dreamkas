@@ -42,6 +42,11 @@ public class WhenProductUserSteps {
         productSteps.barcodePageInput(examplesTable);
     }
 
+    @When("the user inputs value in element with name '$elementName' on product extra barcode page")
+    public void whenTheUserInputsOnProductExtraBarcodePage(String value, String elementName) {
+        productSteps.barcodePageInput(elementName, value);
+    }
+
     @When("the user clicks on add extra barcode button")
     public void whenTheUserClicksOnAddExtraBarcodeButton() {
         productSteps.addBarcodeButtonClick();

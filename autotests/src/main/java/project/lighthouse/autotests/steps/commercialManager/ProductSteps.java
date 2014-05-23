@@ -322,6 +322,11 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
+    public void barcodePageInput(String elementName, String value) {
+        extraBarcodesPage.input(elementName, value);
+    }
+
+    @Step
     public void barcodeCollectionExactCompareWithExamplesTable(ExamplesTable examplesTable) {
         extraBarcodesPage.getBarcodeObjectCollection().exactCompareExampleTable(examplesTable);
     }
