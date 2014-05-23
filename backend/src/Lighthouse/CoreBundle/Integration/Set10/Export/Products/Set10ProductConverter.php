@@ -79,6 +79,7 @@ class Set10ProductConverter
             }
             $versionProducts[$uniqueVersionString]['storeNumbers'][] = $storeProduct->store->number;
         }
+        ksort($versionProducts);
 
         foreach ($versionProducts as $version) {
             $goodElement = $this->createProductXml($version['storeProductModel'], $version['storeNumbers']);

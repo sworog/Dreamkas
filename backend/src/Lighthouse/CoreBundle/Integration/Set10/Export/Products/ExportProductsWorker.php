@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Integration\Set10\Export\Products;
 
 use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
+use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Job\Integration\Set10\ExportProductsJob;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Job\Job;
@@ -94,7 +95,7 @@ class ExportProductsWorker implements WorkerInterface
 
         $this->productRepository->getDocumentManager()->clear();
 
-        $products = $this->productRepository->findAll();
+        $products = $this->productRepository->findBy(array(), array('id' => DocumentRepository::SORT_ASC));
         foreach ($products as $product) {
             $xmlProducts = $this->converter->makeXmlByProduct($product);
             array_map(

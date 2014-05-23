@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Export\Products;
 
+use Lighthouse\CoreBundle\Document\Job\Integration\Set10\ExportProductsJob;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
@@ -760,5 +761,64 @@ EOF;
         $this->updateConfig($configPasswordId, Set10Export::PASSWORD_CONFIG_NAME, 'password');
         $validateResult = $worker->validateConfig();
         $this->assertTrue($validateResult);
+    }
+
+    public function testProductBarcodeUpdatesDoesNotExport()
+    {
+        $products = $this->initBase();
+
+        $barcodesData = array(
+            array('barcode' => '888001', 'quantity' => 10, 'price' => 69.95),
+            array('barcode' => '888002', 'quantity' => 1, 'price' => ''),
+            array('barcode' => '888003', 'quantity' => 2.687, 'price' => ''),
+        );
+        $this->updateProductBarcodes($products[6]['model']->id, $barcodesData);
+
+        $xmlFilePath = "/tmp/lighthouse_unit_test_" . uniqid();
+        /* @var Filesystem $filesystem */
+        $filesystem = $this->getContainer()->get('filesystem');
+        if ($filesystem->exists($xmlFilePath)) {
+            $filesystem->remove($xmlFilePath);
+        }
+
+        mkdir($xmlFilePath . "/source", 0777, true);
+        $xmlFileUrl = "file://" . $xmlFilePath;
+
+        $this->createConfig(Set10Export::URL_CONFIG_NAME, $xmlFileUrl);
+
+        /* @var JobManager $jobManager */
+        $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
+
+        $jobManager->addJob(new ExportProductsJob());
+
+        $jobManager->startWatchingTubes();
+
+        $job = $jobManager->reserveJob(0);
+        $jobManager->processJob($job);
+
+        $files = glob($xmlFilePath . "/source/*");
+        $this->assertXmlFileEqualsXmlFile(
+            $this->getFixtureFilePath('Integration/Set10/Export/Products/ExportProducts.xml'),
+            array_pop($files)
+        );
+
+        $barcodesData = array(
+            array('barcode' => '888001', 'quantity' => 10, 'price' => 69.95),
+            array('barcode' => '888002', 'quantity' => 1, 'price' => ''),
+            array('barcode' => '888003', 'quantity' => 2.600, 'price' => ''),
+        );
+        $this->updateProductBarcodes($products[6]['model']->id, $barcodesData);
+        $jobManager->addJob(new ExportProductsJob());
+
+        $job = $jobManager->reserveJob(0);
+        $jobManager->processJob($job);
+
+        $jobManager->stopWatchingTubes();
+
+        $files = glob($xmlFilePath . "/source/*");
+        $this->assertXmlFileEqualsXmlFile(
+            $this->getFixtureFilePath('Integration/Set10/Export/Products/ExportProductsUpdated.xml'),
+            array_pop($files)
+        );
     }
 }
