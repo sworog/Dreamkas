@@ -251,19 +251,43 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
-        $this->assertEquals('46091758', $good->getBarcode());
+        $this->assertEquals('46091758', $good->getDefaultBarcode()->getCode());
+        $this->assertEquals('1', $good->getDefaultBarcode()->getCount());
+        $this->assertFalse(false, $good->getDefaultBarcode()->hasPrice());
+        $this->assertCount(0, $good->getExtraBarcodes());
 
         $good = $parser->readNextElement();
 
-        $this->assertEquals('4008713700510', $good->getBarcode());
+        $this->assertEquals('4008713700510', $good->getDefaultBarcode()->getCode());
+
+        $extraBarcodes = $good->getExtraBarcodes();
+
+        $this->assertCount(2, $extraBarcodes);
+        $this->assertEquals('4008713700428', $extraBarcodes[0]->getCode());
+        $this->assertEquals('1.5', $extraBarcodes[0]->getCount());
+        $this->assertFalse($extraBarcodes[0]->isDefaultCode());
+        $this->assertFalse($extraBarcodes[0]->hasPrice());
+        $this->assertNull($extraBarcodes[0]->getPrice());
+
+        $this->assertEquals('25359565', $extraBarcodes[1]->getCode());
+        $this->assertEquals('1', $extraBarcodes[1]->getCount());
+        $this->assertFalse($extraBarcodes[1]->isDefaultCode());
+        $this->assertTrue($extraBarcodes[1]->hasPrice());
+        $this->assertEquals('96.00', $extraBarcodes[1]->getPrice());
 
         $good = $parser->readNextElement();
 
-        $this->assertEquals('2808650', $good->getBarcode());
+        $this->assertEquals('2808650', $good->getDefaultBarcode()->getCode());
+        $this->assertEquals('1', $good->getDefaultBarcode()->getCount());
+        $this->assertFalse(false, $good->getDefaultBarcode()->hasPrice());
+        $this->assertCount(0, $good->getExtraBarcodes());
 
         $good = $parser->readNextElement();
 
-        $this->assertEquals('5010296001075', $good->getBarcode());
+        $this->assertEquals('5010296001075', $good->getDefaultBarcode()->getCode());
+        $this->assertEquals('1', $good->getDefaultBarcode()->getCount());
+        $this->assertFalse(false, $good->getDefaultBarcode()->hasPrice());
+        $this->assertCount(0, $good->getExtraBarcodes());
 
         $good = $parser->readNextElement();
 

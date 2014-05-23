@@ -164,6 +164,24 @@
             <count>1</count>
             <default-code>true</default-code>
         </bar-code>
+        <bar-code code="888001">
+            <count>10</count>
+            <default-code>false</default-code>
+            <price-entry price="69.95">
+                <number>1</number>
+                <department number="1">
+                    <name>1</name>
+                </department>
+            </price-entry>
+        </bar-code>
+        <bar-code code="888002">
+            <count>1</count>
+            <default-code>false</default-code>
+        </bar-code>
+        <bar-code code="888003">
+            <count>2.687</count>
+            <default-code>false</default-code>
+        </bar-code>
         <price-entry price="141.28">
             <number>1</number>
             <department number="1">

@@ -40,12 +40,18 @@
 			<default-code>true</default-code>
 		</bar-code>
 		<bar-code code="4008713700428">
-			<count>1</count>
+			<count>1.5</count>
 			<default-code>false</default-code>
 		</bar-code>
 		<bar-code code="25359565">
 			<count>1</count>
 			<default-code>false</default-code>
+            <price-entry price="96.00">
+                <number>1</number>
+                <department number="1">
+                    <name>1</name>
+                </department>
+            </price-entry>
 		</bar-code>
 		<product-type>ProductPieceEntity</product-type>
 		<price-entry price="94.00">

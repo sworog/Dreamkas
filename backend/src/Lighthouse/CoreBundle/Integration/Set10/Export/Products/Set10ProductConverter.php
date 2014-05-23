@@ -89,21 +89,21 @@ class Set10ProductConverter
     }
 
     /**
-     * @param StoreProduct $storeProductModel
+     * @param StoreProduct $storeProduct
      * @param array $storeNumbers
      * @return GoodElement
      */
-    protected function createProductXml(StoreProduct $storeProductModel, array $storeNumbers)
+    protected function createProductXml(StoreProduct $storeProduct, array $storeNumbers)
     {
-        $product = $storeProductModel->product;
+        $product = $storeProduct->product;
 
         $goodElement = GoodElement::create();
         $goodElement->setMarkingOfTheGood($product->sku);
         $goodElement->setShopIndices($storeNumbers);
         $goodElement->setGoodName($product->name);
-        $goodElement->setBarcode($product->barcode);
+        $this->setBarcodes($goodElement, $storeProduct);
         $goodElement->setPrice(
-            $this->moneyModelTransformer->transform($storeProductModel->roundedRetailPrice)
+            $this->moneyModelTransformer->transform($storeProduct->roundedRetailPrice)
         );
         $goodElement->setVat($product->vat);
         $goodElement->setGroups(
@@ -211,6 +211,23 @@ class Set10ProductConverter
             $goodElement->setPluginProperty(
                 GoodElement::PLUGIN_PROPERTY_VOLUME,
                 $product->typeProperties->volume->toNumber()
+            );
+        }
+    }
+
+    /**
+     * @param GoodElement $goodElement
+     * @param StoreProduct $storeProduct
+     */
+    protected function setBarcodes(GoodElement $goodElement, StoreProduct $storeProduct)
+    {
+        $goodElement->addBarcode($storeProduct->product->barcode, 1, true);
+        foreach ($storeProduct->product->barcodes as $barcode) {
+            $goodElement->addBarcode(
+                $barcode->barcode,
+                $barcode->quantity->toNumber(),
+                false,
+                $barcode->getPriceAsFloat()
             );
         }
     }

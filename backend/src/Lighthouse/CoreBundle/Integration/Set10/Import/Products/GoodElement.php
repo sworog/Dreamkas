@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Integration\Set10\Import\Products;
 
 use Lighthouse\CoreBundle\Integration\Set10\SimpleXMLElement;
-use DOMNode;
 
 class GoodElement extends SimpleXMLElement
 {
@@ -25,15 +24,6 @@ class GoodElement extends SimpleXMLElement
     public static function create()
     {
         return new static('<?xml version="1.0" encoding="UTF-8"?><good/>');
-    }
-
-    /**
-     * @param DOMNode $dom
-     * @return \SimpleXMLElement
-     */
-    public static function createByDom(DomNode $dom)
-    {
-        return simplexml_import_dom($dom, static::getClassName());
     }
 
     /**
@@ -91,28 +81,61 @@ class GoodElement extends SimpleXMLElement
     }
 
     /**
-     * @return string
+     * @return BarcodeElement[]
      */
-    public function getBarcode()
+    public function getBarcodes()
     {
-        foreach ($this->{'bar-code'} as $barCode) {
-            if ('true' == (string) $barCode->{'default-code'}) {
-                return (string) $barCode['code'];
+        $barcodes = array();
+        foreach ($this->{'bar-code'} as $barcode) {
+            $barcodes[] = BarcodeElement::createBySimpleXml($barcode);
+        }
+        return $barcodes;
+    }
+
+    /**
+     * @return BarcodeElement
+     */
+    public function getDefaultBarcode()
+    {
+        foreach ($this->getBarcodes() as $barcode) {
+            if ($barcode->isDefaultCode()) {
+                return $barcode;
             }
         }
         return null;
     }
 
     /**
+     * @return BarcodeElement[]
+     */
+    public function getExtraBarcodes()
+    {
+        $barcodes = array();
+        foreach ($this->getBarcodes() as $barcode) {
+            if (!$barcode->isDefaultCode()) {
+                $barcodes[] = $barcode;
+            }
+        }
+        return $barcodes;
+    }
+
+    /**
      * @param string $barcode
+     * @param int $count
+     * @param bool $default
+     * @param float $price
      * @return $this
      */
-    public function setBarcode($barcode)
+    public function addBarcode($barcode, $count = 1, $default = true, $price = null)
     {
-        $barcodeElement = $this->addChild('bar-code');
-        $barcodeElement->addAttribute('code', $barcode);
-        $barcodeElement->addChild('count', 1);
-        $barcodeElement->addChild('default-code', 'true');
+        $barcodeElement = BarcodeElement::create();
+        $barcodeElement->setCode($barcode);
+        $barcodeElement->setCount($count);
+        $barcodeElement->setDefaultCode($default);
+        if ($price) {
+            $this->createPriceEntry($barcodeElement, $price);
+        }
+        $this->addSimpleXmlElement($barcodeElement);
         return $this;
     }
 
@@ -159,14 +182,33 @@ class GoodElement extends SimpleXMLElement
      */
     public function setPrice($price, $priceNumber = null, $departmentNumber = null, $departmentName = null)
     {
-        $priceElement = $this->addChild('price-entry');
+        $this->createPriceEntry($this, $price, $priceNumber, $departmentNumber, $departmentName);
+        return $this;
+    }
+
+    /**
+     * @param \SimpleXMLElement $node
+     * @param float $price
+     * @param string $priceNumber
+     * @param string $departmentNumber
+     * @param string $departmentName
+     * @return SimpleXMLElement
+     */
+    protected function createPriceEntry(
+        \SimpleXMLElement $node,
+        $price,
+        $priceNumber = null,
+        $departmentNumber = null,
+        $departmentName = null
+    ) {
+        $priceElement = $node->addChild('price-entry');
         $priceElement->addAttribute('price', $price);
         $priceElement->addChild('number', ($priceNumber) ?: 1);
         /** Залипон, что б касса съедала цену */
         $priceDepartmentElement = $priceElement->addChild('department');
         $priceDepartmentElement->addAttribute('number', ($departmentNumber) ?: 1);
         $priceDepartmentElement->addChild('name', ($departmentName) ?: 1);
-        return $this;
+        return $priceElement;
     }
 
     /**

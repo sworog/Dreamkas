@@ -161,6 +161,24 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
+     * @param string $productId
+     * @param array $barcodes
+     */
+    protected function updateProductBarcodes($productId, array $barcodes)
+    {
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/products/' . $productId . '/barcodes',
+            array(
+                'barcodes' => $barcodes,
+            )
+        );
+        $this->assertResponseCode(200);
+    }
+
+    /**
      * @param string $number
      * @param string $date timestamp
      * @param string $storeId
