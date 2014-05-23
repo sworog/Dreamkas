@@ -96,7 +96,7 @@ class StoreProductRepository extends DocumentRepository
         $uow = $this->getDocumentManager()->getUnitOfWork();
 
         $id = $this->getIdByStoreAndProduct($store, $product);
-        $storeProduct = $uow->tryGetById($id, StoreProduct::getClassName());
+        $storeProduct = $uow->tryGetById($id, $this->getClassMetadata());
 
         if (!$storeProduct) {
             $storeProduct = new StoreProduct();
@@ -209,7 +209,7 @@ class StoreProductRepository extends DocumentRepository
 
     /**
      * @param Store $store
-     * @param Cursor|array $productCollection
+     * @param Cursor|Product[] $productCollection
      * @return StoreProductCollection
      */
     protected function findByProducts(Store $store, $productCollection)

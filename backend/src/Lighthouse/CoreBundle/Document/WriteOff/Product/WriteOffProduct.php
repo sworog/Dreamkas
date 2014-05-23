@@ -21,6 +21,8 @@ use DateTime;
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProductRepository"
  * )
+ * @MongoDB\HasLifecycleCallbacks
+ *
  * @property string     $id
  * @property Money      $price
  * @property Quantity   $quantity

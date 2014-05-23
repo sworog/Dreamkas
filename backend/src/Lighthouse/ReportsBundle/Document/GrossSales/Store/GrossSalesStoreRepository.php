@@ -3,6 +3,7 @@
 namespace Lighthouse\ReportsBundle\Document\GrossSales\Store;
 
 use Doctrine\ODM\MongoDB\Cursor;
+use Doctrine\ODM\MongoDB\Types\Type;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
@@ -86,7 +87,7 @@ class GrossSalesStoreRepository extends DocumentRepository
         return $this->findBy(
             array(
                 'store' => $storeId,
-                'dayHour' => array('$in' => $dates),
+                'dayHour' => array('$in' => $this->normalizeDates($dates)),
             )
         );
     }
@@ -114,7 +115,10 @@ class GrossSalesStoreRepository extends DocumentRepository
     public function findByDates(array $dates)
     {
         $queryDates = $this->normalizeDates($dates);
-        return $this->findBy(array('dayHour' => array('$in' => $queryDates)), array('store' => 1));
+        $qb = $this->createQueryBuilder()
+            ->field('dayHour')->in($queryDates)
+            ->sort('store', DocumentRepository::SORT_ASC);
+        return $qb->getQuery()->execute();
     }
 
     /**
@@ -123,6 +127,6 @@ class GrossSalesStoreRepository extends DocumentRepository
      */
     protected function normalizeDates(array $dates)
     {
-        return array_values($dates);
+        return $this->convertToType(array_values($dates), Type::DATE);
     }
 }

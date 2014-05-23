@@ -9,7 +9,7 @@ require.config({
         'sortable': 'bower_components/sortable/js/sortable',
         'uri': 'bower_components/uri.js/src',
         'when': 'bower_components/when/when',
-        'lodash': 'bower_components/lodash/dist/lodash',
+        'lodash': 'kit/lodash/lodash',
         'jquery': 'bower_components/jquery/dist/jquery',
         'jquery.ui': 'bower_components/jqueryui/ui/minified/jquery-ui.min',
         'i18n': 'bower_components/requirejs-i18n/i18n',

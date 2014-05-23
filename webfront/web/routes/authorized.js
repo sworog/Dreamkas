@@ -52,6 +52,7 @@ define(function(require) {
         'products/:productId/invoices': require('pages/product/invoices'),
         'products/:productId/writeoffs': require('pages/product/writeOffs'),
         'products/:productId/returns': require('pages/product/returns'),
+        'products/:productId/barcodes': require('pages/products/barcodes/barcodes'),
 
         //writeOffs
         'writeOffs(/)': require('pages/writeOff/list'),

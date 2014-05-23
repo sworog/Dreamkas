@@ -25,4 +25,8 @@ public class ProductLocalNavigation extends CommonPageObject {
     public void productReturnsLinkClick() {
         new NavigationLinkFacade(this, "Возвраты").click();
     }
+
+    public void barCodesLinkClick() {
+        new NavigationLinkFacade(this, "Штрихкоды").click();
+    }
 }

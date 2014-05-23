@@ -1340,7 +1340,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertCount(1, $productVersions);
         $productVersionRepository->clear();
 
-        // :XXX: :FIXME: MongoTimestamp used for version createdDate sometimes is generated in wrong order
+        // FIXME MongoTimestamp used for version createdDate sometimes is generated in wrong order
         sleep(1);
 
         $this->updateProduct($productId, array('name' => 'Кефир 5%'));

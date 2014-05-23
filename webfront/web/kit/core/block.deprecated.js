@@ -13,7 +13,7 @@ define(function(require) {
     var Block = Backbone.View
         .extend({
             __name__: null,
-            template: function(){},
+            template: null,
             dictionary: {},
 
             className: null,
@@ -80,7 +80,10 @@ define(function(require) {
 
                 //block.removeBlocks();
 
-                block.el.innerHTML = block.template(block);
+                if (typeof block.template === 'function'){
+                    block.el.innerHTML = block.template(block);
+                }
+
                 block.requireBlocks();
 
                 block.findElements();
@@ -131,7 +134,7 @@ define(function(require) {
 
                 _.each(block.listeners, function(listener, property) {
                     if (typeof listener === 'function') {
-                        block.listenTo(block, listener);
+                        block.listenTo(block, property, listener);
                     } else if (block.get(property)) {
                         block.listenTo(block.get(property), listener);
                     }

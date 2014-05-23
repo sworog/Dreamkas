@@ -58,8 +58,8 @@ Meta:
 
 GivenStories: precondition/sprint-30/us-63/aPreconditionToStoryUs63.story
 
-Given there is the product with 'name-306301' name, '3063' barcode, 'unit' type, '78.90' purchasePrice of group named 'defaultGroup-s30u63', category named 'defaultCategory-s30u63', subcategory named 'defaultSubCategory-s30u63'
-And there is the product with 'name-306302' name, '3063' barcode, 'weight' type, '56.78' purchasePrice of group named 'defaultGroup-s30u63', category named 'defaultCategory-s30u63', subcategory named 'defaultSubCategory-s30u63'
+Given there is the product with 'name-306301' name, '306301' barcode, 'unit' type, '78.90' purchasePrice of group named 'defaultGroup-s30u63', category named 'defaultCategory-s30u63', subcategory named 'defaultSubCategory-s30u63'
+And there is the product with 'name-306302' name, '306302' barcode, 'weight' type, '56.78' purchasePrice of group named 'defaultGroup-s30u63', category named 'defaultCategory-s30u63', subcategory named 'defaultSubCategory-s30u63'
 
 Given the user opens the authorization page
 And the user logs in using 'departmentManager-s30u63' userName and 'lighthouse' password

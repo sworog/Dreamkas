@@ -25,7 +25,7 @@ And the user inputs 'ШтучныйТовар1' in 'name' field
 And the user inputs 'Производитель1' in 'vendor' field
 And the user inputs 'Россия1' in 'vendorCountry' field
 And the user inputs '123' in 'purchasePrice' field
-And the user inputs '123' in 'barcode' field
+And the user inputs '3369011' in 'barcode' field
 And the user selects '10' in 'vat' dropdown
 And the user clicks the create button
 
@@ -44,7 +44,7 @@ When the user selects product type 'Штучный'
 And the user inputs 'ШтучныйТовар2' in 'name' field
 And the user inputs 'Производитель2' in 'vendor' field
 And the user inputs 'Россия2' in 'vendorCountry' field
-And the user inputs '123' in 'purchasePrice' field
+And the user inputs '3369012' in 'purchasePrice' field
 And the user inputs '123' in 'barcode' field
 And the user selects '0' in 'vat' dropdown
 And the user clicks the create button
@@ -65,7 +65,7 @@ And the user inputs 'ШтучныйТовар3' in 'name' field
 And the user inputs 'Производитель3' in 'vendor' field
 And the user inputs 'Россия' in 'vendorCountry' field
 And the user inputs '123' in 'purchasePrice' field
-And the user inputs '123' in 'barcode' field
+And the user inputs '3369013' in 'barcode' field
 And the user selects '18' in 'vat' dropdown
 And the user clicks the create button
 

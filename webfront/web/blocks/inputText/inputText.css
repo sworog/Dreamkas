@@ -15,7 +15,7 @@ input.inputText, .inputText input, textarea.inputText, .inputText textarea{
     box-sizing: border-box;
     margin: 0;
     border: 2px solid #cacaca;
-    padding: 1px 8px 0;
+    padding: 0 8px;
     vertical-align: middle;
     width: 100%;
     color: #000;
@@ -54,7 +54,7 @@ textarea.inputText, .inputText textarea {
 }
 
 .inputText:focus, .inputText input:focus, .inputText textarea:focus {
-    border-color: #1FB18A;
+    border-color: #1FB18A !important;
 }
 
 .inputText[disabled], .inputText input[disabled], .inputText textarea[disabled] {
@@ -62,7 +62,7 @@ textarea.inputText, .inputText textarea {
 }
 
 input.inputText_error, .inputText_error input, textarea.inputText_error, .inputText_error textarea{
-    border-color: #d40000;
+    border-color: #d40000 !important;
 }
 
 .inputText_error:focus, .inputText_error input:focus, .inputText_error textarea:focus {

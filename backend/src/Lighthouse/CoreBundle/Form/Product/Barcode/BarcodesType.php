@@ -1,13 +1,14 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Form\Product;
+namespace Lighthouse\CoreBundle\Form\Product\Barcode;
 
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Lighthouse\CoreBundle\Document\Product\Type;
+use JMS\DiExtraBundle\Annotation as DI;
 
-class AlcoholType extends AbstractType
+class BarcodesType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,9 +17,16 @@ class AlcoholType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('alcoholByVolume', 'quantity')
-            ->add('volume', 'quantity')
-        ;
+            ->add(
+                'barcodes',
+                'collection',
+                array(
+                    'type' => new BarcodeType(),
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'by_reference' => false,
+                )
+            );
     }
 
     /**
@@ -28,8 +36,9 @@ class AlcoholType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => Type\AlcoholType::getClassName(),
-                'csrf_protection' => false
+                'data_class' => Product::getClassName(),
+                'csrf_protection' => false,
+                'cascade_validation' => true
             )
         );
     }

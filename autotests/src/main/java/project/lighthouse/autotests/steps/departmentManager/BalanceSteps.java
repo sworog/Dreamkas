@@ -65,7 +65,7 @@ public class BalanceSteps extends ScenarioSteps {
             Boolean found = false;
             String item = row.get("items");
             new Actions(getDriver()).moveToElement(balanceListPage.getBalanceObjectCollection().getAbstractObjectByLocator(locator).getElement()).build().perform();
-            List<WebElement> webElementList = waiter.getVisibleWebElements(By.xpath("//*[@name='inventoryItem']//*[@model-attribute='product.sku' and text()='" + locator + "']/../../..//*[@class='table__rowHiddenElement table_subCategoryBalance__valueHint']"));
+            List<WebElement> webElementList = waiter.getVisibleWebElements(By.xpath("//*[@name='inventoryItem']//*[@model-attribute='product.name' and text()='" + locator + "']/../..//*[@class='table__rowHiddenElement table_subCategoryBalance__valueHint']"));
             for (WebElement element : webElementList) {
                 if (element.getText().equals(item)) {
                     found = true;

@@ -63,4 +63,29 @@ public class ThenProductUserSteps {
     public void thenTheUserChecksTheElementFieldHasErrorMessage(String elementName, String errorMessage) {
         productSteps.assertFieldErrorMessage(elementName, errorMessage);
     }
+
+    @Then("the user checks the extra barcodes list contains exact entries $examplesTable")
+    public void thenTheUserChecksTheExtraBarcodesListContainsExactValues(ExamplesTable examplesTable) {
+        productSteps.barcodeCollectionExactCompareWithExamplesTable(examplesTable);
+    }
+
+    @Then("the user checks the add extra barcode button should be not visible")
+    public void thenTheUserChecksTheAddExtraBarcodeButtonIsNotVisible() {
+        productSteps.addExtraBarcodeButtonShouldBeNotVisible();
+    }
+
+    @Then("the user checks the save extra barcode button should be not visible")
+    public void thenTheUserChecksTheSaveExtraBarcodeButtonIsNotVisible() {
+        productSteps.saveExtraBarcodeButtonShouldBeNotVisible();
+    }
+
+    @Then("the user checks the cancel save extra barcode link should be not visible")
+    public void thenTheUserChecksTheCancelExtraBarcodeLinkIsNotVisible() {
+        productSteps.cancelSaveExtraBarcodeLinkShouldBeNotVisible();
+    }
+
+    @Then("the user checks the element with name '$elementName' should be not visible")
+    public void thenTheUserChecksTheElementWithNameShouldBeNotVisible(String elementName) {
+        productSteps.elementShouldBeNotVisible(elementName);
+    }
 }

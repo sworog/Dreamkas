@@ -13,6 +13,7 @@ use DateTime;
  * @property string         $id
  * @property Money          $hourSum
  * @property DateTime       $dayHour
+ * @property Store          $store
  *
  * @MongoDB\MappedSuperclass
  */

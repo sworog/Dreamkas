@@ -20,6 +20,7 @@ use DateTime;
 
 /**
  * @MongoDB\Document
+ * @MongoDB\HasLifecycleCallbacks
  *
  * @property int            $id
  * @property Money          $price

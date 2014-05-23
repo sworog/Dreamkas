@@ -203,13 +203,23 @@ class Client extends BaseClient
     /**
      * @param JsonRequest $jsonRequest
      * @param int $times
-     * @return Response[]
+     * @return \Symfony\Component\HttpFoundation\Response[]
      */
     public function parallelJsonRequest(JsonRequest $jsonRequest, $times = 2)
     {
+        $jsonRequests = array_fill(0, $times, $jsonRequest);
+        return $this->parallelJsonRequests($jsonRequests);
+    }
+
+    /**
+     * @param JsonRequest[] $jsonRequests
+     * @return Response[]
+     */
+    public function parallelJsonRequests($jsonRequests)
+    {
         /* @var PhpProcess[] $processes */
         $processes = array();
-        for ($i = 0; $i < $times; $i++) {
+        foreach ($jsonRequests as $jsonRequest) {
             $processes[] = $this->createProcessRequest($jsonRequest);
         }
         foreach ($processes as $process) {

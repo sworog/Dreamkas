@@ -124,8 +124,8 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/sprint-32/us-68_1/aUsersPreconditionToStory.story,
               precondition/sprint-32/us-68_1/aPreconditionWithDataToInvoiceCreateStory.story
 
-Given there is the product with 'name-3268101' name, '32681' barcode, 'unit' type, '78.90' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
-And there is the product with 'name-3268102' name, '32681' barcode, 'weight' type, '56.78' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
+Given there is the product with 'name-3268101' name, '3268101' barcode, 'unit' type, '78.90' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
+And there is the product with 'name-3268102' name, '3268102' barcode, 'weight' type, '56.78' purchasePrice of group named 'defaultGroup-s32u681', category named 'defaultCategory-s32u681', subcategory named 'defaultSubCategory-s32u681'
 
 Given the user opens the authorization page
 And the user logs in using 'departmentManager-s32u681' userName and 'lighthouse' password

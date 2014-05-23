@@ -1,13 +1,13 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Form\Product;
+namespace Lighthouse\CoreBundle\Form\Product\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Lighthouse\CoreBundle\Document\Product\Type;
 
-class WeightType extends AbstractType
+class AlcoholType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,11 +16,8 @@ class WeightType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nameOnScales', 'text')
-            ->add('descriptionOnScales', 'text')
-            ->add('ingredients', 'text')
-            ->add('shelfLife', 'text')
-            ->add('nutritionFacts', 'text')
+            ->add('alcoholByVolume', 'quantity')
+            ->add('volume', 'quantity')
         ;
     }
 
@@ -31,7 +28,7 @@ class WeightType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => Type\WeightType::getClassName(),
+                'data_class' => Type\AlcoholType::getClassName(),
                 'csrf_protection' => false
             )
         );

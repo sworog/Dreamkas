@@ -78,8 +78,7 @@ class InvoiceRepository extends DocumentRepository
                 array('supplierInvoiceNumber' => $filter->getNumberOrSupplierInvoiceNumber()),
             );
         }
-        $cursor = $this->findBy($criteria, $sort);
-        return $cursor;
+        return $this->findBy($criteria, $sort);
     }
 
     /**
