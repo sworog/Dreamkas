@@ -92,6 +92,7 @@ class ExportProductsWorker implements WorkerInterface
         $remoteXmlFile = fopen($url . "/source/catalog-goods_" . time() . ".xml", "w");
         fwrite($remoteXmlFile, "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<goods-catalog>");
 
+        $this->productRepository->clear();
         $products = $this->productRepository->findAll();
         foreach ($products as $product) {
             $xmlProducts = $this->converter->makeXmlByProduct($product);
