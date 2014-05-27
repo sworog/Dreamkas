@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Document\InvoiceProduct;
+namespace Lighthouse\CoreBundle\Tests\Document\Store;
 
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\TestCase;

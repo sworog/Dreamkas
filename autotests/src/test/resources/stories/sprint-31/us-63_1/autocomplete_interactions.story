@@ -252,7 +252,7 @@ Meta:
 GivenStories: precondition/sprint-31/us-63_1/aPreconditionToStoryUs63.1.story,
               precondition/sprint-31/us-63_1/aPreconditionToPrepareCatalog.story
 
-Given there is the product with 'csme-30631' name, '30631' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
+Given there is the product with 'csme-30631' name, '31631' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse' password
@@ -386,7 +386,7 @@ Meta:
 Given there is the user with name 'departmentManager-s30u631', position 'departmentManager-s30u631', username 'departmentManager-s30u631', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s30u631' managed by department manager named 'departmentManager-s30u631'
 
-Given there is the product with 'топленое_молоко-30631' name, '30631' barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
+Given there is the product with 'топленое_молоко-30631' name, random generated barcode, 'unit' type, '100' purchasePrice of group named 'defaultGroup-s30u631', category named 'defaultCategory-s30u631', subcategory named 'defaultSubCategory-s30u631'
 
 Given the user opens order create page
 And the user logs in using 'departmentManager-s30u631' userName and 'lighthouse' password
@@ -409,7 +409,7 @@ Meta:
 @id_s31u63.1s15
 @smoke
 
-GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
+Given the user runs the symfony:env:init command
 
 Given there is the user with name 'departmentManager-s30u631', position 'departmentManager-s30u631', username 'departmentManager-s30u631', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s30u631' managed by department manager named 'departmentManager-s30u631'

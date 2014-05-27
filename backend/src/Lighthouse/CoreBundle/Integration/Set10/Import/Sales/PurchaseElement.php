@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Integration\Set10\Import\Sales;
 
 use Lighthouse\CoreBundle\Integration\Set10\SimpleXMLElement;
 use DateTime;
+use DomNode;
 
 class PurchaseElement extends SimpleXMLElement
 {

@@ -105,7 +105,7 @@ public class EndProductApiSteps {
     @Given("there is the product with <productName> name, '$type' type")
     @Alias("there is the product with '$productName' name, '$type' type")
     public void givenTheUserCreatesProductWithType(String productName, String type) throws JSONException, IOException {
-        сreateProductThroughPost(productName, "000", type, "123");
+        сreateProductThroughPost(productName, new UUIDGenerator().generate(), type, "123");
     }
 
     @Given("there is the product with '$name' name, '$barcode' barcode, '$type' type, '$purchasePrice' purchasePrice")
@@ -118,6 +118,13 @@ public class EndProductApiSteps {
                                          String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
         catalogApiSteps.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
         productApiSteps.createProductThroughPost(name, barcode, type, purchasePrice, subCategoryName, null);
+    }
+
+    @Given("there is the product with '$name' name, random generated barcode, '$type' type, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName'")
+    public void createProductThroughPost(String name, String type, String purchasePrice,
+                                         String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
+        catalogApiSteps.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
+        productApiSteps.createProductThroughPost(name, new UUIDGenerator().generate(), type, purchasePrice, subCategoryName, null);
     }
 
     @Given("there is the product with '$name' name, '$barcode' barcode, '$type' type, '$purchasePrice' purchasePrice, markup min '$min' max '$max' of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName'")
@@ -137,12 +144,33 @@ public class EndProductApiSteps {
                 nameOfScales, descriptionOnScales, ingredients, nutritionFacts, shelfLife);
     }
 
+    @Given("there is the alcohol product with '$name' name, '$barcode' barcode, '$purchasePrice' purchasePrice, '$alcoholByVolume' alcoholByVolume, '$volume' volume, markup min '$min' max '$max' of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName'")
+    public void createProductThroughPost(String name, String barcode, String purchasePrice,
+                                         String alcoholByVolume, String volume,
+                                         String groupName, String categoryName, String subCategoryName, String min, String max) throws IOException, JSONException {
+        catalogApiSteps.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
+        productApiSteps.createProductThroughPost(name, barcode, "alcohol", purchasePrice, subCategoryName, max, min, null,
+                alcoholByVolume, volume);
+    }
+
     @Given("there is the product with '$productName' name, '$barcode' barcode, '$type' type, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName' with '$rounding' rounding")
     @Alias("there is the product with productName, '$barcode' barcode, '$type' type, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName' with '$rounding' rounding")
     public void createProductThroughPost(String productName, String barcode, String type, String purchasePrice,
                                          String rounding, String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
         catalogApiSteps.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
         productApiSteps.createProductThroughPost(productName, barcode, type, purchasePrice, subCategoryName, rounding);
+    }
+
+    @Given("there is the product with productName, random generated barcode, '$type' type, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName' with '$rounding' rounding")
+    public void createProductThroughPostWithRandomGeneratedBarCode(String productName,
+                                                                   String type,
+                                                                   String purchasePrice,
+                                                                   String rounding,
+                                                                   String groupName,
+                                                                   String categoryName,
+                                                                   String subCategoryName) throws IOException, JSONException {
+        catalogApiSteps.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
+        productApiSteps.createProductThroughPost(productName, new UUIDGenerator().generate(), type, purchasePrice, subCategoryName, rounding);
     }
 
     @Given("there is the product with productName and rounding in the subcategory named '$subCategoryName'")

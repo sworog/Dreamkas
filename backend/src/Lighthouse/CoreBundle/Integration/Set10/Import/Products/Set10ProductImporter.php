@@ -6,15 +6,18 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
+use Lighthouse\CoreBundle\DataTransformer\QuantityTransformer;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
+use Lighthouse\CoreBundle\Document\Product\Barcode\Barcode;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Type\AlcoholType;
 use Lighthouse\CoreBundle\Document\Product\Type\Typeable;
 use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
@@ -66,6 +69,11 @@ class Set10ProductImporter
     protected $moneyModelTransformer;
 
     /**
+     * @var QuantityTransformer
+     */
+    protected $quantityTransformer;
+
+    /**
      * @var array
      */
     protected $productSkus = array();
@@ -103,7 +111,8 @@ class Set10ProductImporter
      *      "groupRepository" = @DI\Inject("lighthouse.core.document.repository.classifier.group"),
      *      "categoryRepository" = @DI\Inject("lighthouse.core.document.repository.classifier.category"),
      *      "subCategoryRepository" = @DI\Inject("lighthouse.core.document.repository.classifier.subcategory"),
-     *      "moneyModelTransformer" = @DI\Inject("lighthouse.core.data_transformer.money_model")
+     *      "moneyModelTransformer" = @DI\Inject("lighthouse.core.data_transformer.money_model"),
+     *      "quantityTransformer" = @DI\Inject("lighthouse.core.data_transformer.quantity")
      * })
      * @param ObjectManager $dm
      * @param ValidatorInterface $validator
@@ -112,6 +121,7 @@ class Set10ProductImporter
      * @param CategoryRepository $categoryRepository
      * @param SubCategoryRepository $subCategoryRepository
      * @param MoneyModelTransformer $moneyModelTransformer
+     * @param QuantityTransformer $quantityTransformer
      */
     public function __construct(
         ObjectManager $dm,
@@ -120,7 +130,8 @@ class Set10ProductImporter
         GroupRepository $groupRepository,
         CategoryRepository $categoryRepository,
         SubCategoryRepository $subCategoryRepository,
-        MoneyModelTransformer $moneyModelTransformer
+        MoneyModelTransformer $moneyModelTransformer,
+        QuantityTransformer $quantityTransformer
     ) {
         $this->dm = $dm;
         $this->validator = $validator;
@@ -129,6 +140,7 @@ class Set10ProductImporter
         $this->categoryRepository = $categoryRepository;
         $this->subCategoryRepository = $subCategoryRepository;
         $this->moneyModelTransformer = $moneyModelTransformer;
+        $this->quantityTransformer = $quantityTransformer;
     }
 
     /**
@@ -332,7 +344,8 @@ class Set10ProductImporter
         $product->name = $good->getGoodName();
         $product->sku  = $good->getMarkingOfTheGood();
         $product->vat  = $good->getVat();
-        $product->barcode = $good->getBarcode();
+        $product->barcode = $good->getDefaultBarcode()->getCode();
+        $product->barcodes = $this->getBarcodes($good);
         $product->vendor = $good->getManufacturerName();
         $product->purchasePrice = $this->getPurchasePrice($good);
         $product->retailPricePreference = $product::RETAIL_PRICE_PREFERENCE_MARKUP;
@@ -346,6 +359,25 @@ class Set10ProductImporter
     }
 
     /**
+     * @param GoodElement $goodElement
+     * @return array
+     */
+    protected function getBarcodes(GoodElement $goodElement)
+    {
+        $barcodes = array();
+        foreach ($goodElement->getExtraBarcodes() as $barcodeElement) {
+            $count = $barcodeElement->getCount() ?: 1;
+            $price = $barcodeElement->getPrice();
+            $barcode = new Barcode();
+            $barcode->barcode = $barcodeElement->getCode();
+            $barcode->quantity = $this->quantityTransformer->reverseTransform($count);
+            $barcode->price = $this->moneyModelTransformer->reverseTransform($price);
+            $barcodes[] = $barcode;
+        }
+        return $barcodes;
+    }
+
+    /**
      * @param GoodElement $good
      * @return Typeable
      */
@@ -354,6 +386,8 @@ class Set10ProductImporter
         switch ($good->getProductType()) {
             case GoodElement::PRODUCT_WEIGHT_ENTITY:
                 return $this->createWeightType($good);
+            case GoodElement::PRODUCT_SPIRITS_ENTITY:
+                return $this->createAlcoholType($good);
             case GoodElement::PRODUCT_PIECE_ENTITY:
             default:
                 return $this->createUnitType($good);
@@ -381,6 +415,23 @@ class Set10ProductImporter
         $type->ingredients = $good->getPluginProperty(GoodElement::PLUGIN_PROPERTY_COMPOSITION);
         $type->nutritionFacts = $good->getPluginProperty(GoodElement::PLUGIN_PROPERTY_FOOD_VALUE);
         $type->shelfLife = $good->getPluginProperty(GoodElement::PLUGIN_PROPERTY_GOOD_FOR_HOURS);
+        return $type;
+    }
+
+    /**
+     * @param GoodElement $good
+     * @return WeightType
+     */
+    public function createAlcoholType(GoodElement $good)
+    {
+        $type = new AlcoholType();
+
+        $alcoholByVolume = $good->getPluginProperty(GoodElement::PLUGIN_PROPERTY_ALCOHOLIC_CONTENT_PERCENTAGE);
+        $type->alcoholByVolume = $this->quantityTransformer->reverseTransform($alcoholByVolume);
+
+        $volume = $good->getPluginProperty(GoodElement::PLUGIN_PROPERTY_VOLUME);
+        $type->volume = $this->quantityTransformer->reverseTransform($volume);
+
         return $type;
     }
 

@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Import\Products;
 
-use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\GoodElement;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
@@ -116,6 +115,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
         $good = $parser->readNextElement();
 
         $this->assertEquals('0.001', $good->getPluginProperty('precision'));
+        $this->assertNull($good->getPluginProperty('dummy'));
 
         $good = $parser->readNextElement();
 
@@ -128,7 +128,17 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
         $this->assertNotNull($good->getPluginProperty('food-value'));
         $this->assertNotNull($good->getPluginProperty('plu-number'));
 
-        $this->assertNull($good->getPluginProperty('dummy'));
+        $good = $parser->readNextElement();
+
+        $this->assertEquals('', $good->getPluginProperty('composition'));
+        $this->assertEquals('7.200', $good->getPluginProperty('alcoholic-content-percentage'));
+        $this->assertEquals('0.500', $good->getPluginProperty('volume'));
+        $this->assertNull($good->getPluginProperty('storage-conditions'));
+        $this->assertNull($good->getPluginProperty('food-value'));
+
+        /* @var false $good */
+        $good = $parser->readNextElement();
+        $this->assertFalse($good);
     }
 
     public function testProductTypeParse()
@@ -149,10 +159,11 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
-        $this->assertEquals('ProductWeightEntity', $good->getProductType());
+        $this->assertEquals('ProductSpiritsEntity', $good->getProductType());
 
         $good = $parser->readNextElement();
 
+        /* @var false $good */
         $this->assertFalse($good);
     }
 
@@ -174,10 +185,11 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
-        $this->assertEquals('Шашлык из курицы (филе) п/ф Кулинария', $good->getGoodName());
+        $this->assertEquals('Напиток слабоалк Гринолс 7,2% 0,5л', $good->getGoodName());
 
         $good = $parser->readNextElement();
 
+        /* @var false $good */
         $this->assertFalse($good);
     }
 
@@ -203,6 +215,7 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
+        /* @var false $good */
         $this->assertFalse($good);
     }
 
@@ -224,10 +237,11 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
-        $this->assertEquals('2809733', $good->getMarkingOfTheGood());
+        $this->assertEquals('4100051250', $good->getMarkingOfTheGood());
 
         $good = $parser->readNextElement();
 
+        /* @var false $good */
         $this->assertFalse($good);
     }
 
@@ -237,22 +251,47 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
-        $this->assertEquals('46091758', $good->getBarcode());
+        $this->assertEquals('46091758', $good->getDefaultBarcode()->getCode());
+        $this->assertEquals('1', $good->getDefaultBarcode()->getCount());
+        $this->assertFalse(false, $good->getDefaultBarcode()->hasPrice());
+        $this->assertCount(0, $good->getExtraBarcodes());
 
         $good = $parser->readNextElement();
 
-        $this->assertEquals('4008713700510', $good->getBarcode());
+        $this->assertEquals('4008713700510', $good->getDefaultBarcode()->getCode());
+
+        $extraBarcodes = $good->getExtraBarcodes();
+
+        $this->assertCount(2, $extraBarcodes);
+        $this->assertEquals('4008713700428', $extraBarcodes[0]->getCode());
+        $this->assertEquals('1.5', $extraBarcodes[0]->getCount());
+        $this->assertFalse($extraBarcodes[0]->isDefaultCode());
+        $this->assertFalse($extraBarcodes[0]->hasPrice());
+        $this->assertNull($extraBarcodes[0]->getPrice());
+
+        $this->assertEquals('25359565', $extraBarcodes[1]->getCode());
+        $this->assertEquals('1', $extraBarcodes[1]->getCount());
+        $this->assertFalse($extraBarcodes[1]->isDefaultCode());
+        $this->assertTrue($extraBarcodes[1]->hasPrice());
+        $this->assertEquals('96.00', $extraBarcodes[1]->getPrice());
 
         $good = $parser->readNextElement();
 
-        $this->assertEquals('2808650', $good->getBarcode());
+        $this->assertEquals('2808650', $good->getDefaultBarcode()->getCode());
+        $this->assertEquals('1', $good->getDefaultBarcode()->getCount());
+        $this->assertFalse(false, $good->getDefaultBarcode()->hasPrice());
+        $this->assertCount(0, $good->getExtraBarcodes());
 
         $good = $parser->readNextElement();
 
-        $this->assertEquals('2809733', $good->getBarcode());
+        $this->assertEquals('5010296001075', $good->getDefaultBarcode()->getCode());
+        $this->assertEquals('1', $good->getDefaultBarcode()->getCount());
+        $this->assertFalse(false, $good->getDefaultBarcode()->hasPrice());
+        $this->assertCount(0, $good->getExtraBarcodes());
 
         $good = $parser->readNextElement();
 
+        /* @var false $good */
         $this->assertFalse($good);
     }
 
@@ -274,10 +313,11 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
-        $this->assertEquals('Кулинария Лэнд', $good->getManufacturerName());
+        $this->assertEquals('', $good->getManufacturerName());
 
         $good = $parser->readNextElement();
 
+        /* @var false $good */
         $this->assertFalse($good);
     }
 
@@ -299,10 +339,11 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
 
         $good = $parser->readNextElement();
 
-        $this->assertEquals('440.00', $good->getPrice());
+        $this->assertEquals('69.90', $good->getPrice());
 
         $good = $parser->readNextElement();
 
+        /* @var false $good */
         $this->assertFalse($good);
     }
 }

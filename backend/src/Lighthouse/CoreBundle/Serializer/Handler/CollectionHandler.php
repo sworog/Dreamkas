@@ -105,7 +105,7 @@ class CollectionHandler
             $result = $result->getArrayCopy();
         }
         $postRoot = $visitor->getRoot();
-        // :FIXME: Dirty hack to avoid empty embedded document modify root to ArrayObject
+        // FIXME Dirty hack to avoid empty embedded document modify root to ArrayObject
         if (null === $preRoot && $postRoot instanceof \ArrayObject) {
             $visitor->setRoot($postRoot->getArrayCopy());
         }

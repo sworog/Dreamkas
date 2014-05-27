@@ -9,6 +9,7 @@ use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Validator\ViolationMapper\ViolationMapper;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolation;
@@ -35,18 +36,10 @@ abstract class AbstractRestController extends FOSRestController
      */
     protected function processForm(Request $request, AbstractDocument $document, $save = true)
     {
-        $validate = $request->get('validate', false);
-        $validationGroups = $request->get('validationGroups', false);
-        $options = array();
-        if ($validate && $validationGroups) {
-            $options['validation_groups'] = $validationGroups;
-        }
-        $type = $this->getDocumentFormType();
-        $form = $this->createForm($type, $document, $options);
-        $form->submit($request);
+        $form = $this->submitForm($request, $document);
 
         if ($form->isValid()) {
-            if (true == $save && false == $validate) {
+            if ($save && !$this->isValidate($request)) {
                 return $this->saveDocument($document, $form);
             } else {
                 return $document;
@@ -54,6 +47,44 @@ abstract class AbstractRestController extends FOSRestController
         } else {
             return $form;
         }
+    }
+
+    /**
+     * @param Request $request
+     * @param mixed $document
+     * @return Form
+     */
+    protected function submitForm(Request $request, $document)
+    {
+        $options = $this->getFormOptions($request);
+        $type = $this->getDocumentFormType();
+        $form = $this->createForm($type, $document, $options);
+        $form->submit($request);
+
+        return $form;
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    protected function getFormOptions(Request $request)
+    {
+        $validationGroups = $request->get('validationGroups', false);
+        $options = array();
+        if ($this->isValidate($request) && $validationGroups) {
+            $options['validation_groups'] = $validationGroups;
+        }
+        return $options;
+    }
+
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    protected function isValidate(Request $request)
+    {
+        return false != $request->get('validate', false);
     }
 
     /**

@@ -128,7 +128,7 @@
     </good>
     <good marking-of-the-good="10005">
         <shop-indices>1 2 3</shop-indices>
-        <name>Продукт 5</name>
+        <name>Виски 365 Дней</name>
         <bar-code code="7770000000005">
             <count>1</count>
             <default-code>true</default-code>
@@ -149,8 +149,10 @@
                 </parent-group>
             </parent-group>
         </group>
-        <product-type>ProductPieceEntity</product-type>
+        <product-type>ProductSpiritsEntity</product-type>
         <plugin-property key="precision" value="0.001"/>
+        <plugin-property key="alcoholic-content-percentage" value="38.5"/>
+        <plugin-property key="volume" value="0.375"/>
         <measure-type id="unit">
             <name>шт</name>
         </measure-type>
@@ -161,6 +163,24 @@
         <bar-code code="7770000000006">
             <count>1</count>
             <default-code>true</default-code>
+        </bar-code>
+        <bar-code code="888001">
+            <count>10</count>
+            <default-code>false</default-code>
+            <price-entry price="69.95">
+                <number>1</number>
+                <department number="1">
+                    <name>1</name>
+                </department>
+            </price-entry>
+        </bar-code>
+        <bar-code code="888002">
+            <count>1</count>
+            <default-code>false</default-code>
+        </bar-code>
+        <bar-code code="888003">
+            <count>2.687</count>
+            <default-code>false</default-code>
         </bar-code>
         <price-entry price="141.28">
             <number>1</number>

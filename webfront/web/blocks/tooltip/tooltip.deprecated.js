@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
         var Block = require('kit/core/block.deprecated'),
-            deepExtend = require('kit/utils/deepExtend');
+            deepExtend = require('kit/deepExtend/deepExtend');
 
         require('lodash');
 

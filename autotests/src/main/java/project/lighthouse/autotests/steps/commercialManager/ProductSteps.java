@@ -4,18 +4,20 @@ import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import org.openqa.selenium.WebElement;
+import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.elements.items.Input;
+import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.product.ProductObject;
-import project.lighthouse.autotests.pages.commercialManager.product.ProductCardView;
-import project.lighthouse.autotests.pages.commercialManager.product.ProductCreatePage;
-import project.lighthouse.autotests.pages.commercialManager.product.ProductListPage;
-import project.lighthouse.autotests.pages.commercialManager.product.ProductLocalNavigation;
+import project.lighthouse.autotests.objects.web.product.barcodes.BarcodeObject;
+import project.lighthouse.autotests.pages.commercialManager.product.*;
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductInvoicesList;
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductReturnList;
 import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductWriteOffList;
 
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
@@ -28,6 +30,7 @@ public class ProductSteps extends ScenarioSteps {
     ProductInvoicesList productInvoicesList;
     ProductWriteOffList productWriteOffList;
     ProductReturnList productReturnList;
+    ExtraBarcodesPage extraBarcodesPage;
 
     @Step
     public void isTheProductCardOpen() {
@@ -92,11 +95,6 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
-    public void listItemCheckIsNotPresent(String skuValue) {
-        productListPage.listItemCheckIsNotPresent(skuValue);
-    }
-
-    @Step
     public void checkProductWithSkuHasExpectedValue(String name, String element, String expectedValue) {
         ProductObject productObject = (ProductObject) productListPage.getProductObjectCollection().getAbstractObjectByLocator(name);
         Assert.assertEquals(expectedValue, productObject.getPurchasePrice());
@@ -104,7 +102,9 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void checkDropDownDefaultValue(String dropDownType, String expectedValue) {
-        productCreatePage.checkDropDownDefaultValue(dropDownType, expectedValue);
+        String selectedValue = productCreatePage.getItems().get(dropDownType).$().getSelectedValue();
+        String message = String.format("The default value for '%s' dropDown is not '%s'. The selected value is '%s'", dropDownType, expectedValue, selectedValue);
+        assertThat(message, selectedValue, is(expectedValue));
     }
 
     @Step
@@ -149,7 +149,16 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void checkElementPresence(String elementName, String action) {
-        productCreatePage.checkElementPresence(elementName, action);
+        switch (action) {
+            case "is":
+                productCreatePage.getItems().get(elementName).$().shouldBeVisible();
+                break;
+            case "is not":
+                productCreatePage.getItems().get(elementName).$().shouldNotBeVisible();
+                break;
+            default:
+                Assert.fail(CommonPage.ERROR_MESSAGE);
+        }
     }
 
     @Step
@@ -159,12 +168,15 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void checkElementIsDisabled(String elementName) {
-        productCreatePage.checkElementIsDisabled(elementName);
+        assertThat(
+                "The disabled attribute is not present in the element",
+                productCreatePage.getItems().get(elementName).getWebElement().getAttribute("disabled"), notNullValue());
     }
 
     @Step
     public void checkDropDownDefaultValue(String expectedValue) {
-        productCreatePage.checkDropDownDefaultValue(expectedValue);
+        WebElement element = productCreatePage.getItems().get("rounding").getVisibleWebElement();
+        productCreatePage.getCommonActions().checkDropDownDefaultValue(element, expectedValue);
     }
 
     @Step
@@ -275,5 +287,91 @@ public class ProductSteps extends ScenarioSteps {
     @Step
     public void assertSkuFieldIsNotVisible() {
         ((Input) productCreatePage.getItems().get("sku")).shouldBeNotVisible();
+    }
+
+    @Step
+    public void assertFieldErrorMessage(String elementName, String expectedErrorMessage) {
+        productCreatePage.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(expectedErrorMessage);
+    }
+
+    @Step
+    public void barCodesLinkClick() {
+        productLocalNavigation.barCodesLinkClick();
+    }
+
+    @Step
+    public void addBarcodeButtonClick() {
+        extraBarcodesPage.getAddBarcodeButton().click();
+        new PreLoader(getDriver()).await();
+    }
+
+    @Step
+    public void saveBarcodeButtonClick() {
+        extraBarcodesPage.getSaveBarcodeButton().click();
+        new PreLoader(getDriver()).await();
+    }
+
+    @Step
+    public void cancelBarcodeSaveLinkClick() {
+        extraBarcodesPage.getCancelLink().click();
+    }
+
+    @Step
+    public void barcodePageInput(ExamplesTable examplesTable) {
+        extraBarcodesPage.fieldInput(examplesTable);
+    }
+
+    @Step
+    public void barcodePageInput(String elementName, String value) {
+        extraBarcodesPage.input(elementName, value);
+    }
+
+    @Step
+    public void barcodeCollectionExactCompareWithExamplesTable(ExamplesTable examplesTable) {
+        extraBarcodesPage.getBarcodeObjectCollection().exactCompareExampleTable(examplesTable);
+    }
+
+    @Step
+    public void barcodeObjectBarcodeType(String locator, String value) {
+        ((BarcodeObject) extraBarcodesPage.getBarcodeObjectCollection().getAbstractObjectByLocator(locator))
+                .barcodeFieldType(value);
+    }
+
+    @Step
+    public void quantityObjectBarcodeType(String locator, String value) {
+        ((BarcodeObject) extraBarcodesPage.getBarcodeObjectCollection().getAbstractObjectByLocator(locator))
+                .quantityFieldType(value);
+    }
+
+    @Step
+    public void priceObjectBarcodeType(String locator, String value) {
+        ((BarcodeObject) extraBarcodesPage.getBarcodeObjectCollection().getAbstractObjectByLocator(locator))
+                .priceFieldType(value);
+    }
+
+    @Step
+    public void priceObjectDelete(String locator) {
+        ((BarcodeObject) extraBarcodesPage.getBarcodeObjectCollection().getAbstractObjectByLocator(locator))
+                .deleteButtonClick();
+    }
+
+    @Step
+    public void addExtraBarcodeButtonShouldBeNotVisible() {
+        extraBarcodesPage.getAddBarcodeButton().shouldBeNotVisible();
+    }
+
+    @Step
+    public void saveExtraBarcodeButtonShouldBeNotVisible() {
+        extraBarcodesPage.getSaveBarcodeButton().shouldBeNotVisible();
+    }
+
+    @Step
+    public void cancelSaveExtraBarcodeLinkShouldBeNotVisible() {
+        extraBarcodesPage.getCancelLink().shouldBeNotVisible();
+    }
+
+    @Step
+    public void elementShouldBeNotVisible(String elementName) {
+        extraBarcodesPage.elementShouldBeNotVisible(elementName);
     }
 }

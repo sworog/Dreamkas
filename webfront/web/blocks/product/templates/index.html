@@ -108,9 +108,24 @@
             <th>Срок годности</th>
             <td>
                 <span name="typeProperties.shelfLife"><%- productModel.typeProperties.shelfLife %></span>
-                <%- productModel.typeProperties.shelfLife?'ч.':'' %>
+                <%- productModel.typeProperties.shelfLife? 'ч.' : '' %>
             </td>
         </tr>
+    <% } %>
+
+    <% if (productModel.type == 'alcohol') { %>
+    <tr>
+        <th>Крепость</th>
+        <td name="typeProperties.alcoholByVolume">
+            <%- productModel.typeProperties.alcoholByVolume !== undefined ? LH.formatAmount(productModel.typeProperties.alcoholByVolume) + '%' : '' %>
+        </td>
+    </tr>
+    <tr>
+        <th>Объем тары</th>
+        <td name="typeProperties.volume">
+            <%- productModel.typeProperties.volume ? LH.formatAmount(productModel.typeProperties.volume) + 'л.' : '' %>
+        </td>
+    </tr>
     <% } %>
 
     <tr>
@@ -167,7 +182,7 @@
         <th>Округление</th>
         <td>
             <span name="rounding.name">
-                <%- LH.translate(productModel.rounding.name) %>
+                <%- LH.getText(productModel.rounding.name) %>
             </span>
         </td>
     </tr>

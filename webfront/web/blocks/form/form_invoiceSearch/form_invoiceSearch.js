@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var Form = require('blocks/form/form'),
-        Page = require('page');
+        Page = require('kit/page/page');
 
     return Form.extend({
         el: '.form_invoiceSearch',

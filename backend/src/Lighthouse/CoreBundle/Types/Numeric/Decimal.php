@@ -251,4 +251,12 @@ class Decimal implements Numeric, RawValue
         $count = (int) static::round($result, 0, $roundMode);
         return new static($count, $precision);
     }
+
+    /**
+     * @return string
+     */
+    public static function getClassName()
+    {
+        return get_called_class();
+    }
 }

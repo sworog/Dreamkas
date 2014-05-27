@@ -16,6 +16,7 @@ module.exports = function(config) {
         files: [
             'karma.main.js',
             'config.js',
+            {pattern: 'LH.js', included: false},
             {pattern: 'require.config.js', included: false},
             {pattern: 'fixtures/**/*', included: false},
             {pattern: 'kit/**/*.html', included: false},
@@ -28,6 +29,7 @@ module.exports = function(config) {
             {pattern: 'dictionary.js', included: false},
 
             {pattern: 'models/*.js', included: false},
+            {pattern: 'collections/*.js', included: false},
 
             {pattern: 'blocks/form/form.js', included: false},
             {pattern: 'blocks/select/select_priceRoundings/select_priceRoundings.html', included: false},
@@ -48,7 +50,7 @@ module.exports = function(config) {
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['dots', 'coverage'],
+        reporters: ['dots'],
 
         preprocessors: {
             // source files, that you wanna generate coverage for

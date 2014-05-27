@@ -11,6 +11,9 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
 
 /**
+ * @property string $id
+ * @property Store $store
+ *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\WriteOff\WriteOffRepository"
  * )

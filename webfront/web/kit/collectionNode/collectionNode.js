@@ -1,5 +1,6 @@
 define(function(require) {
     //requirements
+
     require('lodash');
     require('jquery');
 
@@ -8,19 +9,28 @@ define(function(require) {
             elementId = _.uniqueId('collectionNode_');
 
         var generateElementString = function() {
-            var element = template(data || {collection: collection}),
-                $element = $(element);
+            var wrapper = document.createElement('div'),
+                element;
 
-            $element.attr('collection', collection.cid);
-            $element.attr('id', elementId);
+            wrapper.innerHTML = template(data || {collection: collection});
 
-            return $element.wrap('<div></div>').parent().html();
+            element = wrapper.children[0];
+
+            if (element.id){
+                elementId = element.id;
+            } else {
+                element.id = elementId;
+            }
+
+            return wrapper.innerHTML;
         };
+
+        var elementString = generateElementString();
 
         collection.listenTo(collection, 'add remove reset change', function(collection) {
             $('#' + elementId).replaceWith(generateElementString());
         });
 
-        return generateElementString();
+        return elementString;
     }
 });

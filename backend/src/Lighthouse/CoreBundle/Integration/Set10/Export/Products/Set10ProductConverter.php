@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Type\AlcoholType;
 use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
@@ -78,6 +79,7 @@ class Set10ProductConverter
             }
             $versionProducts[$uniqueVersionString]['storeNumbers'][] = $storeProduct->store->number;
         }
+        ksort($versionProducts);
 
         foreach ($versionProducts as $version) {
             $goodElement = $this->createProductXml($version['storeProductModel'], $version['storeNumbers']);
@@ -88,21 +90,21 @@ class Set10ProductConverter
     }
 
     /**
-     * @param StoreProduct $storeProductModel
+     * @param StoreProduct $storeProduct
      * @param array $storeNumbers
      * @return GoodElement
      */
-    protected function createProductXml(StoreProduct $storeProductModel, array $storeNumbers)
+    protected function createProductXml(StoreProduct $storeProduct, array $storeNumbers)
     {
-        $product = $storeProductModel->product;
+        $product = $storeProduct->product;
 
         $goodElement = GoodElement::create();
         $goodElement->setMarkingOfTheGood($product->sku);
         $goodElement->setShopIndices($storeNumbers);
         $goodElement->setGoodName($product->name);
-        $goodElement->setBarcode($product->barcode);
+        $this->setBarcodes($goodElement, $storeProduct);
         $goodElement->setPrice(
-            $this->moneyModelTransformer->transform($storeProductModel->roundedRetailPrice)
+            $this->moneyModelTransformer->transform($storeProduct->roundedRetailPrice)
         );
         $goodElement->setVat($product->vat);
         $goodElement->setGroups(
@@ -132,6 +134,9 @@ class Set10ProductConverter
         switch ($product->getType()) {
             case WeightType::TYPE:
                 $this->setWeightProductTypeProperties($goodElement, $product);
+                break;
+            case AlcoholType::TYPE:
+                $this->setAlcoholProductTypeProperties($goodElement, $product);
                 break;
             case UnitType::TYPE:
                 $this->setUnitProductTypeProperties($goodElement, $product);
@@ -187,6 +192,45 @@ class Set10ProductConverter
     {
         $goodElement->setProductType(GoodElement::PRODUCT_PIECE_ENTITY);
         $goodElement->setPluginProperty('precision', '0.001');
+    }
+
+    /**
+     * @param GoodElement $goodElement
+     * @param Product $product
+     */
+    protected function setAlcoholProductTypeProperties(GoodElement $goodElement, Product $product)
+    {
+        $goodElement->setProductType(GoodElement::PRODUCT_SPIRITS_ENTITY);
+        $goodElement->setPluginProperty('precision', '0.001');
+        if ($product->typeProperties->alcoholByVolume) {
+            $goodElement->setPluginProperty(
+                GoodElement::PLUGIN_PROPERTY_ALCOHOLIC_CONTENT_PERCENTAGE,
+                $product->typeProperties->alcoholByVolume->toNumber()
+            );
+        }
+        if ($product->typeProperties->volume) {
+            $goodElement->setPluginProperty(
+                GoodElement::PLUGIN_PROPERTY_VOLUME,
+                $product->typeProperties->volume->toNumber()
+            );
+        }
+    }
+
+    /**
+     * @param GoodElement $goodElement
+     * @param StoreProduct $storeProduct
+     */
+    protected function setBarcodes(GoodElement $goodElement, StoreProduct $storeProduct)
+    {
+        $goodElement->addBarcode($storeProduct->product->barcode, 1, true);
+        foreach ($storeProduct->product->barcodes as $barcode) {
+            $goodElement->addBarcode(
+                $barcode->barcode,
+                $barcode->quantity->toNumber(),
+                false,
+                $barcode->getPriceAsFloat()
+            );
+        }
     }
 
     /**

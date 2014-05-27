@@ -3,14 +3,10 @@ package project.lighthouse.autotests.pages.commercialManager.product;
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.items.*;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
-
-import static junit.framework.Assert.*;
 
 @DefaultUrl("/products/create")
 public class ProductCreatePage extends CommonPageObject {
@@ -51,6 +47,9 @@ public class ProductCreatePage extends CommonPageObject {
         put("nutritionFacts", new Input(this, "typeProperties.nutritionFacts"));
         put("shelfLife", new Input(this, "typeProperties.shelfLife"));
 
+        put("alcoholByVolume", new Input(this, "typeProperties.alcoholByVolume"));
+        put("volume", new Input(this, "typeProperties.volume"));
+
         put("inventory", new NonType(this, By.xpath("//*[@model-attribute='inventoryElement']")));
         put("averageDailySales", new NonType(this, By.xpath("//*[@model-attribute='averageDailySalesElement']")));
         put("inventoryDays", new NonType(this, By.xpath("//*[@model-attribute='inventoryDaysElement']")));
@@ -61,42 +60,11 @@ public class ProductCreatePage extends CommonPageObject {
         new PreLoader(getDriver()).await();
     }
 
-    public void checkDropDownDefaultValue(String dropDownType, String expectedValue) {
-        WebElement element = getItems().get(dropDownType).getWebElement();
-        String selectedValue = $(element).getSelectedValue();
-        assertEquals(
-                String.format("The default value for '%s' dropDown is not '%s'. The selected value is '%s'", dropDownType, expectedValue, selectedValue),
-                selectedValue, expectedValue
-        );
-    }
-
-    public void checkElementPresence(String elementName, String action) {
-        switch (action) {
-            case "is":
-                $(getItems().get(elementName).getWebElement()).shouldBeVisible();
-                break;
-            case "is not":
-                $(getItems().get(elementName).getWebElement()).shouldNotBeVisible();
-                break;
-            default:
-                fail(CommonPage.ERROR_MESSAGE);
-        }
-    }
-
     public void retailPriceHintClick() {
         By retailPriceHintFindBy = getItems().get("retailPriceHint").getFindBy();
         By retailMarkupHintFindBy = getItems().get("retailMarkupHint").getFindBy();
         if (getWaiter().isElementVisible(retailPriceHintFindBy) && !getWaiter().isElementVisible(retailMarkupHintFindBy)) {
             findVisibleElement(retailPriceHintFindBy).click();
         }
-    }
-
-    public void checkElementIsDisabled(String elementName) {
-        assertNotNull("The disabled attribute is not present in the element", getItems().get(elementName).getWebElement().getAttribute("disabled"));
-    }
-
-    public void checkDropDownDefaultValue(String expectedValue) {
-        WebElement element = getItems().get("rounding").getVisibleWebElement();
-        getCommonActions().checkDropDownDefaultValue(element, expectedValue);
     }
 }

@@ -1,16 +1,6 @@
 define(function(require, exports, module) {
     var Product = require('./product'),
         SubCategory = require('./catalogSubCategory');
-    window.LH.units = require('utils/units');
-    window.LH.productTypes = require('utils/productTypes');
-    window.LH.formatMoney = require('utils/formatMoney');
-    window.LH.formatAmount = require('utils/formatAmount');
-    window.LH.formatDate = require('utils/formatDate');
-    window.LH.translate = function(text){
-        var dictionary = require('dictionary'),
-            translate = require('kit/utils/translate');
-        return translate(dictionary, text);
-    };
 
     describe("Test product type Weight", function() {
         var product, productJSON;
@@ -18,11 +8,8 @@ define(function(require, exports, module) {
         productJSON = require('fixtures/productTypeWeight');
 
         beforeEach(function() {
-            spyOn($, 'ajax').andCallFake(function(options) {
-                options.success(productJSON);
-            });
-            product = new Product();
-            product.fetch();
+            product = new Product(productJSON);
+            product.set(productJSON);
         });
 
         afterEach(function() {
@@ -64,11 +51,7 @@ define(function(require, exports, module) {
         productJSON = require('fixtures/productTypeUnit');
 
         beforeEach(function() {
-            spyOn($, 'ajax').andCallFake(function(options) {
-                options.success(productJSON);
-            });
-            product = new Product();
-            product.fetch();
+            product = new Product(productJSON);
         });
 
         afterEach(function() {
@@ -78,7 +61,6 @@ define(function(require, exports, module) {
         it("saveData method for product type Unit", function() {
             var expectedSaveDataTypeSpecific = {};
 
-            product.fetch();
             var actualJSON = product.saveData();
             expect(actualJSON.typeProperties).toBeNull();
             expect(actualJSON.type).toEqual("unit");

@@ -1,0 +1,31 @@
+<%
+/**
+ *
+ * @productModel
+ * @active
+ */
+%>
+
+<% var currentUserModel = require('models/currentUser') %>
+
+<% var productModel = productModel || models.product %>
+
+<div class="localNavigation">
+
+    <a class="localNavigation__link <%- localNavigationActiveLink === 'properties' ? 'localNavigation__link_active' : ''%>" href="/products/<%- productModel.id %>">Свойства</a>
+
+    <a class="localNavigation__link <%- localNavigationActiveLink === 'barcodes' ? 'localNavigation__link_active' : ''%>" href="/products/<%- productModel.id %>/barcodes">Штрихкоды</a>
+
+    <% if (LH.isAllow('stores/{store}/products/{product}', 'GET::invoiceProducts') && currentUserModel.stores.length) { %>
+    <a class="localNavigation__link <%- localNavigationActiveLink === 'invoices' ? 'localNavigation__link_active' : ''%>" href="/products/<%- productModel.id %>/invoices">Приходы</a>
+    <% } %>
+
+    <% if (LH.isAllow('stores/{store}/products/{product}', 'GET::writeOffProducts') && currentUserModel.stores.length) { %>
+    <a class="localNavigation__link <%- localNavigationActiveLink === 'writeoffs' ? 'localNavigation__link_active' : ''%>" href="/products/<%- productModel.id %>/writeoffs">Списания</a>
+    <% } %>
+
+    <% if (LH.isAllow('stores/{store}/products/{product}', 'GET::returnProducts') && currentUserModel.stores.length) { %>
+    <a class="localNavigation__link <%- localNavigationActiveLink === 'returns' ? 'localNavigation__link_active' : ''%>" href="/products/<%- productModel.id %>/returns">Возвраты</a>
+    <% } %>
+
+</div>

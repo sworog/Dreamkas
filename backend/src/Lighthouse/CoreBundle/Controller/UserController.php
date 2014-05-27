@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use Doctrine\ODM\MongoDB\LoggableCursor;
 use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
@@ -180,10 +179,8 @@ class UserController extends AbstractRestController
      */
     public function getUsersAction()
     {
-        /* @var LoggableCursor $cursor */
-        $cursor = $this->documentRepository->findAll();
-        $collection = new UserCollection($cursor);
-        return $collection;
+        $users = $this->documentRepository->findAll();
+        return new UserCollection($users);
     }
 
     /**

@@ -2,7 +2,7 @@ define(function (require) {
     //requirements
     var Page = require('kit/core/page.deprecated'),
         Store = require('blocks/store/store'),
-        getUserStore = require('utils/getUserStore'),
+        getUserStore = require('kit/getUserStore/getUserStore'),
         StoreManagerCandidatesCollection = require('collections/storeManagerCandidates'),
         StoreManagersCollection = require('collections/storeManagers'),
         DepartmentManagerCollection = require('collections/departmentManagers'),

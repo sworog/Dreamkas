@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Block = require('block'),
+    var Block = require('kit/block/block'),
         deepExtend = require('kit/deepExtend/deepExtend');
 
     require('jquery');

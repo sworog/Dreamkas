@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\Type\AlcoholType;
 use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
 use Lighthouse\CoreBundle\Document\User\User;
@@ -298,25 +299,11 @@ class ProductControllerTest extends WebTestCase
         $this->assertResponseCode(200);
     }
 
-    /**
-     * @dataProvider productProvider
-     */
-    public function testGetProductsAction(array $postData)
+    public function testGetProductsAction()
     {
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
-        $postData['subCategory'] = $this->createSubCategory();
-
-        for ($i = 0; $i < 5; $i++) {
-            $postData['name'] = 'Кефир' . $i;
-            $this->clientJsonRequest(
-                $accessToken,
-                'POST',
-                '/api/1/products',
-                $postData
-            );
-            $this->assertResponseCode(201);
-        }
+        $this->createProductsByNames(array('1', '2', '3', '4', '5'));
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -1061,6 +1048,222 @@ class ProductControllerTest extends WebTestCase
                 400,
                 array(
                     'type' => UnitType::TYPE,
+                    'typeProperties' => array(
+                        'field' => 'value'
+                    )
+                ),
+                array(
+                    'units' => null,
+                    'type' => null,
+                    'errors.0' => 'Эта форма не должна содержать дополнительных полей: "field"',
+                )
+            ),
+            /***********************************************************************************************
+             * 'alcoholType'
+             ***********************************************************************************************/
+            'alcohol type empty fields' => array(
+                201,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                    )
+                ),
+                array(
+                    'units' => AlcoholType::UNITS,
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array()
+                )
+            ),
+            'alcohol type valid fields coma' => array(
+                201,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '38,5',
+                        'volume' => '0,375',
+                    )
+                ),
+                array(
+                    'units' => AlcoholType::UNITS,
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '38.5',
+                        'volume' => '0.375',
+                    )
+                )
+            ),
+            'alcohol type valid fields dot' => array(
+                201,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '38.5',
+                        'volume' => '0.375',
+                    )
+                ),
+                array(
+                    'units' => AlcoholType::UNITS,
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '38.5',
+                        'volume' => '0.375',
+                    )
+                )
+            ),
+            'alcohol type invalid alcoholByVolume' => array(
+                400,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => 'aaa',
+                    )
+                ),
+                array(
+                    'children.typeProperties.children.alcoholByVolume.errors.0' => 'Значение должно быть числом',
+                )
+            ),
+            'alcohol type alcoholByVolume equals 0' => array(
+                201,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '0',
+                    )
+                ),
+                array(
+                    'typeProperties.alcoholByVolume' => '0',
+                )
+            ),
+            'alcohol type alcoholByVolume less than 0' => array(
+                400,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '-0.1',
+                    )
+                ),
+                array(
+                    'children.typeProperties.children.alcoholByVolume.errors.0'
+                    =>
+                    'Значение должно быть больше или равно 0',
+                )
+            ),
+            'alcohol type alcoholByVolume equals 99.9' => array(
+                201,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '99.9',
+                    )
+                ),
+                array(
+                    'typeProperties.alcoholByVolume' => '99.9',
+                )
+            ),
+            'alcohol type alcoholByVolume equals 100' => array(
+                400,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '100',
+                    )
+                ),
+                array(
+                    'children.typeProperties.children.alcoholByVolume.errors.0' => 'Значение должно быть меньше 100',
+                )
+            ),
+            'alcohol type alcoholByVolume precision 1' => array(
+                201,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '99.9',
+                    )
+                ),
+                array(
+                    'typeProperties.alcoholByVolume' => '99.9'
+                )
+            ),
+            'alcohol type alcoholByVolume precision 2' => array(
+                400,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'alcoholByVolume' => '-0.01',
+                    )
+                ),
+                array(
+                    'children.typeProperties.children.alcoholByVolume.errors.0'
+                    =>
+                    'Значение не должно содержать больше 1 цифр после запятой',
+                )
+            ),
+            'alcohol type invalid volume' => array(
+                400,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'volume' => 'bbb',
+                    )
+                ),
+                array(
+                    'children.typeProperties.children.volume.errors.0' => 'Значение должно быть числом',
+                )
+            ),
+            'alcohol type volume equals 0' => array(
+                400,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'volume' => '0',
+                    )
+                ),
+                array(
+                    'children.typeProperties.children.volume.errors.0' => 'Значение должно быть больше 0',
+                )
+            ),
+            'alcohol type volume less than 0' => array(
+                400,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'volume' => '-0.01',
+                    )
+                ),
+                array(
+                    'children.typeProperties.children.volume.errors.0' => 'Значение должно быть больше 0',
+                )
+            ),
+            'alcohol type volume precision 3' => array(
+                201,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'volume' => '100.001',
+                    )
+                ),
+                array(
+                    'typeProperties.volume' => '100.001'
+                )
+            ),
+            'alcohol type volume precision 4' => array(
+                400,
+                array(
+                    'type' => AlcoholType::TYPE,
+                    'typeProperties' => array(
+                        'volume' => '100.0001',
+                    )
+                ),
+                array(
+                    'children.typeProperties.children.volume.errors.0'
+                    =>
+                    'Значение не должно содержать больше 3 цифр после запятой',
+                )
+            ),
+            'alcohol type extra field' => array(
+                400,
+                array(
+                    'type' => AlcoholType::TYPE,
                     'typeProperties' => array(
                         'field' => 'value'
                     )
@@ -1947,25 +2150,25 @@ class ProductControllerTest extends WebTestCase
             /*************************************
              * GET /api/1/products/__PRODUCT_ID__
              */
-            array(
+            'GET COMMERCIAL MANAGER' => array(
                 '/api/1/products/__PRODUCT_ID__',
                 'GET',
                 User::ROLE_COMMERCIAL_MANAGER,
                 200,
             ),
-            array(
+            'GET DEPARTMENT MANAGER' => array(
                 '/api/1/products/__PRODUCT_ID__',
                 'GET',
                 User::ROLE_DEPARTMENT_MANAGER,
                 200,
             ),
-            array(
+            'GET STORE MANAGER' => array(
                 '/api/1/products/__PRODUCT_ID__',
                 'GET',
                 User::ROLE_STORE_MANAGER,
-                403,
+                200,
             ),
-            array(
+            'GET ADMINISTRATOR' => array(
                 '/api/1/products/__PRODUCT_ID__',
                 'GET',
                 User::ROLE_ADMINISTRATOR,
@@ -1974,25 +2177,25 @@ class ProductControllerTest extends WebTestCase
             /*************************************
              * POST /api/1/products
              */
-            array(
+            'POST COMMERCIAL MANAGER' => array(
                 '/api/1/products',
                 'POST',
                 User::ROLE_COMMERCIAL_MANAGER,
                 201,
             ),
-            array(
+            'POST DEPARTMENT MANAGER' => array(
                 '/api/1/products',
                 'POST',
                 User::ROLE_DEPARTMENT_MANAGER,
                 403,
             ),
-            array(
+            'POST STORE MANAGER' => array(
                 '/api/1/products',
                 'POST',
                 User::ROLE_STORE_MANAGER,
                 403,
             ),
-            array(
+            'POST ADMINISTRATOR' => array(
                 '/api/1/products',
                 'POST',
                 User::ROLE_ADMINISTRATOR,
@@ -2001,25 +2204,25 @@ class ProductControllerTest extends WebTestCase
             /*************************************
              * PUT /api/1/products/__PRODUCT_ID__
              */
-            array(
+            'PUT COMMERCIAL MANAGER' => array(
                 '/api/1/products/__PRODUCT_ID__',
                 'PUT',
                 User::ROLE_COMMERCIAL_MANAGER,
                 200,
             ),
-            array(
+            'PUT DEPARTMENT MANAGER' => array(
                 '/api/1/products/__PRODUCT_ID__',
                 'PUT',
                 User::ROLE_DEPARTMENT_MANAGER,
                 403,
             ),
-            array(
+            'PUT STORE MANAGER' => array(
                 '/api/1/products/__PRODUCT_ID__',
                 'PUT',
                 User::ROLE_STORE_MANAGER,
                 403,
             ),
-            array(
+            'PUT ADMINISTRATOR' => array(
                 '/api/1/products/__PRODUCT_ID__',
                 'PUT',
                 User::ROLE_ADMINISTRATOR,
@@ -2028,25 +2231,25 @@ class ProductControllerTest extends WebTestCase
             /*************************************
              * GET /api/1/subcategories/__SUBCATEGORY_ID__/products
              */
-            array(
+            'GET SUBCATEGORY COMMERCIAL MANAGER' => array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__/products',
                 'GET',
                 User::ROLE_COMMERCIAL_MANAGER,
                 200,
             ),
-            array(
+            'GET SUBCATEGORY DEPARTMENT MANAGER' => array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__/products',
                 'GET',
                 User::ROLE_DEPARTMENT_MANAGER,
                 200,
             ),
-            array(
+            'GET SUBCATEGORY STORE MANAGER' => array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__/products',
                 'GET',
                 User::ROLE_STORE_MANAGER,
-                403,
+                200,
             ),
-            array(
+            'GET SUBCATEGORY ADMINISTRATOR' => array(
                 '/api/1/subcategories/__SUBCATEGORY_ID__/products',
                 'GET',
                 User::ROLE_ADMINISTRATOR,
@@ -2064,10 +2267,15 @@ class ProductControllerTest extends WebTestCase
 
         $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
-        $jsonRequest = new JsonRequest('/api/1/products', 'POST', $productData);
-        $jsonRequest->setAccessToken($accessToken);
+        $jsonRequests = array();
+        for ($i = 0; $i <= 2; $i++) {
+            $data = array('barcode' => $i) + $productData;
+            $jsonRequest = new JsonRequest('/api/1/products', 'POST', $data);
+            $jsonRequest->setAccessToken($accessToken);
+            $jsonRequests[] = $jsonRequest;
+        }
 
-        $responses = $this->client->parallelJsonRequest($jsonRequest, 3);
+        $responses = $this->client->parallelJsonRequests($jsonRequests);
         $statusCodes = array();
         $jsonResponses = array();
         foreach ($responses as $response) {
@@ -2124,6 +2332,10 @@ class ProductControllerTest extends WebTestCase
             ->expects($this->exactly(2))
             ->method('getDocumentManager')
             ->will($this->returnValue($documentManagerMock));
+        $productRepoMock
+            ->expects($this->once())
+            ->method('findByBarcodes')
+            ->will($this->returnValue(array()));
 
         $this->client->addTweaker(
             function (ContainerInterface $container) use ($productRepoMock) {

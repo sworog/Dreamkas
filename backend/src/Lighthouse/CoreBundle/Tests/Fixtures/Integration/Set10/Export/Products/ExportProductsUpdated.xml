@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<goods-catalog>
+    <good marking-of-the-good="10001">
+        <shop-indices>1</shop-indices>
+        <name>Продукт 1</name>
+        <bar-code code="7770000000001">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <price-entry price="63.96">
+            <number>1</number>
+            <department number="1">
+                <name>1</name>
+            </department>
+        </price-entry>
+        <vat>10</vat>
+        <group id="Подкатегория">
+            <name>Подкатегория</name>
+            <parent-group id="Категория">
+                <name>Категория</name>
+                <parent-group id="Группа">
+                    <name>Группа</name>
+                </parent-group>
+            </parent-group>
+        </group>
+        <product-type>ProductWeightEntity</product-type>
+        <plugin-property key="precision" value="0.001"/>
+        <plugin-property key="name-on-scale-screen" value="Название на весах"/>
+        <plugin-property key="description-on-scale-screen" value="Описание&#10;на весах"/>
+        <plugin-property key="composition" value="&lt;масло,соль,перец&gt;"/>
+        <plugin-property key="food-value" value="&quot;Углеводы - 12гр&quot;"/>
+        <plugin-property key="good-for-hours" value="23"/>
+        <measure-type id="kg">
+            <name>кг</name>
+        </measure-type>
+    </good>
+    <good marking-of-the-good="10001">
+        <shop-indices>2 3</shop-indices>
+        <name>Продукт 1</name>
+        <bar-code code="7770000000001">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <price-entry price="70.58">
+            <number>1</number>
+            <department number="1">
+                <name>1</name>
+            </department>
+        </price-entry>
+        <vat>10</vat>
+        <group id="Подкатегория">
+            <name>Подкатегория</name>
+            <parent-group id="Категория">
+                <name>Категория</name>
+                <parent-group id="Группа">
+                    <name>Группа</name>
+                </parent-group>
+            </parent-group>
+        </group>
+        <product-type>ProductWeightEntity</product-type>
+        <plugin-property key="precision" value="0.001"/>
+        <plugin-property key="name-on-scale-screen" value="Название на весах"/>
+        <plugin-property key="description-on-scale-screen" value="Описание&#10;на весах"/>
+        <plugin-property key="composition" value="&lt;масло,соль,перец&gt;"/>
+        <plugin-property key="food-value" value="&quot;Углеводы - 12гр&quot;"/>
+        <plugin-property key="good-for-hours" value="23"/>
+        <measure-type id="kg">
+            <name>кг</name>
+        </measure-type>
+    </good>
+    <good marking-of-the-good="10003">
+        <shop-indices>2</shop-indices>
+        <name>Продукт 3</name>
+        <bar-code code="7770000000003">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <price-entry price="76.93">
+            <number>1</number>
+            <department number="1">
+                <name>1</name>
+            </department>
+        </price-entry>
+        <vat>10</vat>
+        <group id="Подкатегория">
+            <name>Подкатегория</name>
+            <parent-group id="Категория">
+                <name>Категория</name>
+                <parent-group id="Группа">
+                    <name>Группа</name>
+                </parent-group>
+            </parent-group>
+        </group>
+        <product-type>ProductPieceEntity</product-type>
+        <plugin-property key="precision" value="0.001"/>
+        <measure-type id="unit">
+            <name>шт</name>
+        </measure-type>
+    </good>
+    <good marking-of-the-good="10003">
+        <shop-indices>1 3</shop-indices>
+        <name>Продукт 3</name>
+        <bar-code code="7770000000003">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <price-entry price="117.54">
+            <number>1</number>
+            <department number="1">
+                <name>1</name>
+            </department>
+        </price-entry>
+        <vat>10</vat>
+        <group id="Подкатегория">
+            <name>Подкатегория</name>
+            <parent-group id="Категория">
+                <name>Категория</name>
+                <parent-group id="Группа">
+                    <name>Группа</name>
+                </parent-group>
+            </parent-group>
+        </group>
+        <product-type>ProductPieceEntity</product-type>
+        <plugin-property key="precision" value="0.001"/>
+        <measure-type id="unit">
+            <name>шт</name>
+        </measure-type>
+    </good>
+    <good marking-of-the-good="10005">
+        <shop-indices>1 2 3</shop-indices>
+        <name>Виски 365 Дней</name>
+        <bar-code code="7770000000005">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <price-entry price="141.28">
+            <number>1</number>
+            <department number="1">
+                <name>1</name>
+            </department>
+        </price-entry>
+        <vat>10</vat>
+        <group id="Подкатегория">
+            <name>Подкатегория</name>
+            <parent-group id="Категория">
+                <name>Категория</name>
+                <parent-group id="Группа">
+                    <name>Группа</name>
+                </parent-group>
+            </parent-group>
+        </group>
+        <product-type>ProductSpiritsEntity</product-type>
+        <plugin-property key="precision" value="0.001"/>
+        <plugin-property key="alcoholic-content-percentage" value="38.5"/>
+        <plugin-property key="volume" value="0.375"/>
+        <measure-type id="unit">
+            <name>шт</name>
+        </measure-type>
+    </good>
+    <good marking-of-the-good="10006">
+        <shop-indices>1 2 3</shop-indices>
+        <name>Продукт 6</name>
+        <bar-code code="7770000000006">
+            <count>1</count>
+            <default-code>true</default-code>
+        </bar-code>
+        <bar-code code="888001">
+            <count>10</count>
+            <default-code>false</default-code>
+            <price-entry price="69.95">
+                <number>1</number>
+                <department number="1">
+                    <name>1</name>
+                </department>
+            </price-entry>
+        </bar-code>
+        <bar-code code="888002">
+            <count>1</count>
+            <default-code>false</default-code>
+        </bar-code>
+        <bar-code code="888003">
+            <count>2.6</count>
+            <default-code>false</default-code>
+        </bar-code>
+        <price-entry price="141.28">
+            <number>1</number>
+            <department number="1">
+                <name>1</name>
+            </department>
+        </price-entry>
+        <vat>10</vat>
+        <group id="Подкатегория">
+            <name>Подкатегория</name>
+            <parent-group id="Категория">
+                <name>Категория</name>
+                <parent-group id="Группа">
+                    <name>Группа</name>
+                </parent-group>
+            </parent-group>
+        </group>
+        <product-type>ProductPieceEntity</product-type>
+        <plugin-property key="precision" value="0.001"/>
+        <measure-type id="unit">
+            <name>шт</name>
+        </measure-type>
+    </good>
+</goods-catalog>

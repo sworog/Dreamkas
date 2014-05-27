@@ -28,6 +28,7 @@ use DateTime;
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\Order\OrderRepository"
  * )
+ * @MongoDB\HasLifecycleCallbacks
  */
 class Order extends AbstractDocument implements Storeable
 {

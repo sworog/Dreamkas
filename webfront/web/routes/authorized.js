@@ -4,7 +4,7 @@ define(function(require) {
     return {
         //common
         '(/)': require('pages/common/dashboard'),
-        'logout(/)': require('utils/logout'),
+        'logout(/)': require('kit/logout/logout'),
         'dashboard(/)': require('pages/common/dashboard'),
         'sale(/)': require('pages/common/sale'),
         'balance(/)': require('pages/common/balance'),
@@ -52,6 +52,7 @@ define(function(require) {
         'products/:productId/invoices': require('pages/product/invoices'),
         'products/:productId/writeoffs': require('pages/product/writeOffs'),
         'products/:productId/returns': require('pages/product/returns'),
+        'products/:productId/barcodes': require('pages/products/barcodes/barcodes'),
 
         //writeOffs
         'writeOffs(/)': require('pages/writeOff/list'),

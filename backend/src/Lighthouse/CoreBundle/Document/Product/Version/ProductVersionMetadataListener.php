@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\Product\Version;
 
 use Doctrine\ODM\MongoDB\Event\LoadClassMetadataEventArgs;
+use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
@@ -15,6 +16,7 @@ class ProductVersionMetadataListener
      */
     public function loadClassMetadata(LoadClassMetadataEventArgs $eventArgs)
     {
+        /* @var ClassMetadata $classMetadata */
         $classMetadata = $eventArgs->getClassMetadata();
         // FIXME Dummy workaround to remove product unique index on sku
         if ('Lighthouse\\CoreBundle\\Document\\Product\\Version\\ProductVersion' === $classMetadata->getName()) {

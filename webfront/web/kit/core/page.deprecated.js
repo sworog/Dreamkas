@@ -3,11 +3,11 @@ define(function(require, exports, module) {
     var app = require('app'),
         Block = require('kit/core/block.deprecated'),
         Backbone = require('backbone'),
-        router = require('router'),
-        isAllow = require('kit/utils/isAllow'),
+        router = require('kit/router/router'),
+        isAllow = require('kit/isAllow/isAllow'),
         downloadUrl = require('kit/downloadUrl/downloadUrl'),
         cookies = require('cookies'),
-        NewPage = require('page');
+        NewPage = require('kit/page/page');
 
     require('lodash');
 

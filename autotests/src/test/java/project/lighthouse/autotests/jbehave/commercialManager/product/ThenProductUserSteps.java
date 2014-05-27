@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave.commercialManager.product;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.commercialManager.ProductSteps;
@@ -55,5 +56,36 @@ public class ThenProductUserSteps {
     @Then("the user checks the product sku field is not visible")
     public void thenTheUserChecksTheProductSkuFieldIsNotVisible() {
         productSteps.assertSkuFieldIsNotVisible();
+    }
+
+    @Then("the user checks the element field '$elementName' has error message '$errorMessage'")
+    @Alias("the user checks the element field '$elementName' has errorMessage")
+    public void thenTheUserChecksTheElementFieldHasErrorMessage(String elementName, String errorMessage) {
+        productSteps.assertFieldErrorMessage(elementName, errorMessage);
+    }
+
+    @Then("the user checks the extra barcodes list contains exact entries $examplesTable")
+    public void thenTheUserChecksTheExtraBarcodesListContainsExactValues(ExamplesTable examplesTable) {
+        productSteps.barcodeCollectionExactCompareWithExamplesTable(examplesTable);
+    }
+
+    @Then("the user checks the add extra barcode button should be not visible")
+    public void thenTheUserChecksTheAddExtraBarcodeButtonIsNotVisible() {
+        productSteps.addExtraBarcodeButtonShouldBeNotVisible();
+    }
+
+    @Then("the user checks the save extra barcode button should be not visible")
+    public void thenTheUserChecksTheSaveExtraBarcodeButtonIsNotVisible() {
+        productSteps.saveExtraBarcodeButtonShouldBeNotVisible();
+    }
+
+    @Then("the user checks the cancel save extra barcode link should be not visible")
+    public void thenTheUserChecksTheCancelExtraBarcodeLinkIsNotVisible() {
+        productSteps.cancelSaveExtraBarcodeLinkShouldBeNotVisible();
+    }
+
+    @Then("the user checks the element with name '$elementName' should be not visible")
+    public void thenTheUserChecksTheElementWithNameShouldBeNotVisible(String elementName) {
+        productSteps.elementShouldBeNotVisible(elementName);
     }
 }

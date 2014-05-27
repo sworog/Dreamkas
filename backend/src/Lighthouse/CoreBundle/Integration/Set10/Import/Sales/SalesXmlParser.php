@@ -41,6 +41,6 @@ class SalesXmlParser extends XmlParser
      */
     protected function createElement(DOMNode $node)
     {
-        return simplexml_import_dom($node, PurchaseElement::getClassName());
+        return PurchaseElement::createByDom($node);
     }
 }

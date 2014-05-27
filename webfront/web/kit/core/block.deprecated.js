@@ -1,22 +1,19 @@
 define(function(require) {
     //requirements
-    var deepExtend = require('../utils/deepExtend'),
-        extendClass = require('../utils/extendClass'),
-        setter = require('../utils/setter'),
-        getter = require('../utils/getter'),
-        translate = require('../utils/translate');
+    var deepExtend = require('kit/deepExtend/deepExtend'),
+        extendClass = require('kit/extendClass/extendClass'),
+        get = require('kit/get/get'),
+        set = require('kit/set/set'),
+        getText = require('kit/getText/getText');
 
-    require('jquery.require');
     require('lodash');
     require('backbone');
     require('jquery');
 
     var Block = Backbone.View
-        .extend(setter)
-        .extend(getter)
         .extend({
             __name__: null,
-            template: function(){},
+            template: null,
             dictionary: {},
 
             className: null,
@@ -58,6 +55,14 @@ define(function(require) {
                     this.render();
                 }
             },
+            get: function(){
+                var args = [this].concat([].slice.call(arguments));
+                return get.apply(null, args);
+            },
+            set: function(){
+                var args = [this].concat([].slice.call(arguments));
+                return set.apply(null, args);
+            },
             delegateEvents: function() {
                 var block = this;
 
@@ -68,14 +73,17 @@ define(function(require) {
             initialize: function() {
             },
             translate: function(text){
-                return translate(this.get('dictionary'), text);
+                return getText(this.get('dictionary'), text);
             },
             render: function() {
                 var block = this;
 
                 //block.removeBlocks();
 
-                block.el.innerHTML = block.template(block);
+                if (typeof block.template === 'function'){
+                    block.el.innerHTML = block.template(block);
+                }
+
                 block.requireBlocks();
 
                 block.findElements();
@@ -126,7 +134,7 @@ define(function(require) {
 
                 _.each(block.listeners, function(listener, property) {
                     if (typeof listener === 'function') {
-                        block.listenTo(block, listener);
+                        block.listenTo(block, property, listener);
                     } else if (block.get(property)) {
                         block.listenTo(block.get(property), listener);
                     }

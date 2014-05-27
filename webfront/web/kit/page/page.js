@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     //requirements
-    var Block = require('block'),
-        router = require('router'),
+    var Block = require('kit/block/block'),
+        router = require('kit/router/router'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         when = require('when'),
         get = require('kit/get/get');
@@ -87,7 +87,7 @@ define(function(require, exports, module) {
                 try {
                     page.render()
                 } catch (error) {
-                    console.error(error);
+                    console.error(error.stack);
                 }
             }, function(error) {
                 page.set('error', error);

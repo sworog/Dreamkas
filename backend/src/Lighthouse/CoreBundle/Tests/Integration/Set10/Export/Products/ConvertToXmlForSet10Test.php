@@ -2,8 +2,11 @@
 
 namespace Lighthouse\CoreBundle\Tests\Integration\Set10\Export\Products;
 
+use Lighthouse\CoreBundle\Document\Job\Integration\Set10\ExportProductsJob;
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Document\Product\Type\AlcoholType;
 use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
 use Lighthouse\CoreBundle\Document\User\User;
@@ -37,6 +40,14 @@ class ConvertToXmlForSet10Test extends WebTestCase
     public function getProductRepository()
     {
         return $this->getContainer()->get('lighthouse.core.document.repository.product');
+    }
+
+    /**
+     * @return Set10ProductConverter
+     */
+    public function getConverter()
+    {
+        return $this->getContainer()->get('lighthouse.core.integration.set10.export.products.converter');
     }
 
     /**
@@ -136,10 +147,10 @@ class ConvertToXmlForSet10Test extends WebTestCase
                 'subCategory' => $subCategoryData['id'],
             ),
             5 => array(
-                'name' => 'Продукт 5',
+                'name' => 'Виски 365 Дней',
                 'barcode' => '7770000000005',
                 'vat' => '10',
-                'type' => UnitType::TYPE,
+                'type' => AlcoholType::TYPE,
                 'vendor' => 'Пончик',
                 'vendorCountry' => 'Израиль',
                 'purchasePrice' => '88.3',
@@ -147,6 +158,10 @@ class ConvertToXmlForSet10Test extends WebTestCase
                 'retailMarkupMax' => '60',
                 'retailPricePreference' => 'retailMarkup',
                 'subCategory' => $subCategoryData['id'],
+                'typeProperties' => array(
+                    'alcoholByVolume' => '38,5',
+                    'volume' => '0,375'
+                )
             ),
             6 => array(
                 'name' => 'Продукт 6',
@@ -204,8 +219,7 @@ class ConvertToXmlForSet10Test extends WebTestCase
     {
         $productsData = $this->initBase();
 
-        /** @var Set10ProductConverter $converter */
-        $converter = $this->getContainer()->get('lighthouse.core.integration.set10.export.products.converter');
+        $converter = $this->getConverter();
 
         $xmlProduct1 = $converter->makeXmlByProduct($productsData[1]['model'], false);
         $expectedXmlProduct11 = <<<EOF
@@ -368,7 +382,7 @@ EOF;
 <?xml version="1.0" encoding="UTF-8"?>
 <good marking-of-the-good="10005">
     <shop-indices>1 2 3</shop-indices>
-    <name>Продукт 5</name>
+    <name>Виски 365 Дней</name>
     <bar-code code="7770000000005">
         <count>1</count>
         <default-code>true</default-code>
@@ -389,8 +403,10 @@ EOF;
             </parent-group>
         </parent-group>
     </group>
-    <product-type>ProductPieceEntity</product-type>
+    <product-type>ProductSpiritsEntity</product-type>
     <plugin-property key="precision" value="0.001"/>
+    <plugin-property key="alcoholic-content-percentage" value="38.5"/>
+    <plugin-property key="volume" value="0.375"/>
     <measure-type id="unit">
         <name>шт</name>
     </measure-type>
@@ -436,9 +452,111 @@ EOF;
 
     }
 
+    public function testBarcodesExport()
+    {
+        $this->factory()->store()->getStores(array('666', '777', '888'));
+        $productData = array(
+            'name' => 'Продукт 1',
+            'barcode' => '7770000000001',
+            'vat' => '10',
+            'type' => WeightType::TYPE,
+            'vendor' => 'Вимм-Билль-Данн',
+            'vendorCountry' => 'Россия',
+            'purchasePrice' => '44.11',
+            'retailMarkupMin' => '40',
+            'retailMarkupMax' => '60',
+            'retailPricePreference' => 'retailMarkup',
+            'typeProperties' => array(
+                'nameOnScales' => 'Название на весах',
+                'descriptionOnScales' => "Описание\nна весах",
+                'ingredients' => '<масло,соль,перец>',
+                'shelfLife' => '23',
+                'nutritionFacts' => '"Углеводы - 12гр"'
+            )
+        );
+        $productId = $this->createProduct($productData);
+
+        $barcodesData = array(
+            array('barcode' => '888001', 'quantity' => 10, 'price' => 69.95),
+            array('barcode' => '888002', 'quantity' => 1, 'price' => ''),
+            array('barcode' => '888003', 'quantity' => 2.687, 'price' => ''),
+        );
+        $this->updateProductBarcodes($productId, $barcodesData);
+
+        /* @var Product $product */
+        $product = $this->getProductRepository()->find($productId);
+
+        $actualXml = $this->getConverter()->makeXmlByProduct($product, false);
+
+        $expectedXml = <<<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<good marking-of-the-good="10001">
+    <shop-indices>666 777 888</shop-indices>
+    <name>Продукт 1</name>
+    <bar-code code="7770000000001">
+        <count>1</count>
+        <default-code>true</default-code>
+    </bar-code>
+    <bar-code code="888001">
+        <count>10</count>
+        <default-code>false</default-code>
+        <price-entry price="69.95">
+            <number>1</number>
+            <department number="1">
+                <name>1</name>
+            </department>
+        </price-entry>
+    </bar-code>
+    <bar-code code="888002">
+        <count>1</count>
+        <default-code>false</default-code>
+    </bar-code>
+    <bar-code code="888003">
+        <count>2.687</count>
+        <default-code>false</default-code>
+    </bar-code>
+    <price-entry price="70.58">
+        <number>1</number>
+        <department number="1">
+            <name>1</name>
+        </department>
+    </price-entry>
+    <vat>10</vat>
+    <group id="Водка">
+        <name>Водка</name>
+        <parent-group id="Винно-водочные изделия">
+            <name>Винно-водочные изделия</name>
+            <parent-group id="Продовольственные товары">
+                <name>Продовольственные товары</name>
+            </parent-group>
+        </parent-group>
+    </group>
+    <product-type>ProductWeightEntity</product-type>
+    <plugin-property key="precision" value="0.001"/>
+    <plugin-property key="name-on-scale-screen" value="Название на весах"/>
+    <plugin-property key="description-on-scale-screen" value="Описание&#10;на весах"/>
+    <plugin-property key="composition" value="&lt;масло,соль,перец&gt;"/>
+    <plugin-property key="food-value" value="&quot;Углеводы - 12гр&quot;"/>
+    <plugin-property key="good-for-hours" value="23"/>
+    <measure-type id="kg">
+        <name>кг</name>
+    </measure-type>
+</good>
+EOF;
+        $this->assertXmlStringEqualsXmlString($expectedXml, $actualXml[0]);
+    }
+
+
     public function testWriteRemoteFile()
     {
-        $this->initBase();
+        $products = $this->initBase();
+
+        $barcodesData = array(
+            array('barcode' => '888001', 'quantity' => 10, 'price' => 69.95),
+            array('barcode' => '888002', 'quantity' => 1, 'price' => ''),
+            array('barcode' => '888003', 'quantity' => 2.687, 'price' => ''),
+        );
+        $this->updateProductBarcodes($products[6]['model']->id, $barcodesData);
 
         $xmlFilePath = "/tmp/lighthouse_unit_test";
         /* @var Filesystem $filesystem */
@@ -643,5 +761,64 @@ EOF;
         $this->updateConfig($configPasswordId, Set10Export::PASSWORD_CONFIG_NAME, 'password');
         $validateResult = $worker->validateConfig();
         $this->assertTrue($validateResult);
+    }
+
+    public function testProductBarcodeUpdatesDoesNotExport()
+    {
+        $products = $this->initBase();
+
+        $barcodesData = array(
+            array('barcode' => '888001', 'quantity' => 10, 'price' => 69.95),
+            array('barcode' => '888002', 'quantity' => 1, 'price' => ''),
+            array('barcode' => '888003', 'quantity' => 2.687, 'price' => ''),
+        );
+        $this->updateProductBarcodes($products[6]['model']->id, $barcodesData);
+
+        $xmlFilePath = "/tmp/lighthouse_unit_test_" . uniqid();
+        /* @var Filesystem $filesystem */
+        $filesystem = $this->getContainer()->get('filesystem');
+        if ($filesystem->exists($xmlFilePath)) {
+            $filesystem->remove($xmlFilePath);
+        }
+
+        mkdir($xmlFilePath . "/source", 0777, true);
+        $xmlFileUrl = "file://" . $xmlFilePath;
+
+        $this->createConfig(Set10Export::URL_CONFIG_NAME, $xmlFileUrl);
+
+        /* @var JobManager $jobManager */
+        $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
+
+        $jobManager->addJob(new ExportProductsJob());
+
+        $jobManager->startWatchingTubes();
+
+        $job = $jobManager->reserveJob(0);
+        $jobManager->processJob($job);
+
+        $files = glob($xmlFilePath . "/source/*");
+        $this->assertXmlFileEqualsXmlFile(
+            $this->getFixtureFilePath('Integration/Set10/Export/Products/ExportProducts.xml'),
+            array_pop($files)
+        );
+
+        $barcodesData = array(
+            array('barcode' => '888001', 'quantity' => 10, 'price' => 69.95),
+            array('barcode' => '888002', 'quantity' => 1, 'price' => ''),
+            array('barcode' => '888003', 'quantity' => 2.600, 'price' => ''),
+        );
+        $this->updateProductBarcodes($products[6]['model']->id, $barcodesData);
+        $jobManager->addJob(new ExportProductsJob());
+
+        $job = $jobManager->reserveJob(0);
+        $jobManager->processJob($job);
+
+        $jobManager->stopWatchingTubes();
+
+        $files = glob($xmlFilePath . "/source/*");
+        $this->assertXmlFileEqualsXmlFile(
+            $this->getFixtureFilePath('Integration/Set10/Export/Products/ExportProductsUpdated.xml'),
+            array_pop($files)
+        );
     }
 }

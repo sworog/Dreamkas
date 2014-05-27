@@ -1,7 +1,10 @@
 package project.lighthouse.autotests.jbehave.commercialManager;
 
 import net.thucydides.core.annotations.Steps;
-import org.jbehave.core.annotations.*;
+import org.jbehave.core.annotations.Alias;
+import org.jbehave.core.annotations.Given;
+import org.jbehave.core.annotations.Then;
+import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.objects.api.Category;
@@ -183,6 +186,11 @@ public class ProductUserSteps {
         productSteps.checkCardValue(elementNameToCheck, expectedValue);
     }
 
+    @Then("the user checks the <exampleElement> has <exampleExpectedValue>")
+    public void thenTheUserChecksTheExampleElementHasExampleExpectedValue(String exampleElement, String exampleExpectedValue) {
+        productSteps.checkCardValue(exampleElement, exampleExpectedValue);
+    }
+
     @Then("the user checks the elements values $checkValuesTable")
     public void thenTheUserChecksTheElementValues(ExamplesTable checkValuesTable) {
         productSteps.checkCardValue(checkValuesTable);
@@ -192,11 +200,6 @@ public class ProductUserSteps {
     @Alias("the user checks the product with <productName> name is present")
     public void thenTheUserChecksTheProductWithNameIsPresent(String productName) {
         productSteps.listItemCheck(productName);
-    }
-
-    @Then("the user checks the product with '$skuValue' sku is not present")
-    public void thenTheUSerChecksTheProductWithSkuIsNotPresent(String skuValue) {
-        productSteps.listItemCheckIsNotPresent(skuValue);
     }
 
     @Then("the user checks the product with '$name' name has '$element' equal to '$expectedValue'")

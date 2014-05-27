@@ -20,6 +20,7 @@ use DateTime;
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\Returne\Product\ReturnProductRepository"
  * )
+ * @MongoDB\HasLifecycleCallbacks
  *
  * @property int            $id
  * @property Money          $price

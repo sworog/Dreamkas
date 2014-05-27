@@ -9,7 +9,6 @@ use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
-use Lighthouse\CoreBundle\Document\Classifier\ParentableClassifierRepository;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupCollection;
 use Lighthouse\CoreBundle\Document\Classifier\ParentableRepository;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
@@ -388,7 +387,7 @@ class GrossSalesReportManager
     public function getGrossSalesStoreReport(Store $store, DateTime $time = null)
     {
         $time = new DateTimestamp($time);
-        $time->modify("-1 hour");
+        $time->modify('-1 hour');
 
         $intervals = array(
             'today' => null,
@@ -576,7 +575,7 @@ class GrossSalesReportManager
      */
     public function recalculateGrossSalesProductReport($batch = 1000)
     {
-        $stores = $this->storeRepository->findAll()->toArray();
+        $stores = $this->storeRepository->findAll();
         $countProducts = $this->productRepository->count();
 
         $results = $this->trialBalanceRepository->calculateGrossSalesProduct($stores, $countProducts);
@@ -795,8 +794,7 @@ class GrossSalesReportManager
      */
     public function getGrossSalesByGroups(Store $store, DateTime $time = null)
     {
-        $cursor = $this->groupRepository->findAll();
-        $cursor->sort(array('name' => 1));
+        $cursor = $this->groupRepository->findBy(array(), array('name' => DocumentRepository::SORT_ASC));
         $nodes = new GroupCollection($cursor);
 
         return $this->getGrossSalesByNode(

@@ -514,7 +514,7 @@ class WriteOffProductControllerTest extends WebTestCase
 
     public function testProductAmountChangeOnWriteOf()
     {
-        $storeId = $this->factory->store()->getStoreId();
+        $storeId = $this->factory()->store()->getStoreId();
 
         $productId1 = $this->createProduct(1);
         $productId2 = $this->createProduct(2);
