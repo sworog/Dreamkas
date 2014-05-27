@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block'),
-        router = require('kit/router/router'),
+        router = require('router'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         when = require('when'),
         get = require('kit/get/get');
@@ -13,12 +13,12 @@ define(function(require, exports, module) {
         constructor: function(req) {
             var page = this;
 
-            if (Page.current && req.route === Page.current.get('route')) {
+            if (Page.current && req.route === Page.current.route) {
                 Page.current.set(req);
                 return;
             }
 
-            page.set('status', 'starting');
+            page.set('status', 'loading');
 
             if (Page.current) {
                 Page.current.destroy();
@@ -26,7 +26,7 @@ define(function(require, exports, module) {
 
             page.referrer = Page.current;
 
-            Page.current = page;
+            Page.current = window.PAGE = page;
 
             deepExtend(page, req);
 
@@ -96,15 +96,13 @@ define(function(require, exports, module) {
         render: function() {
             var page = this;
 
-            page.set('status', 'rendering');
-
             if (page.referrer) {
                 page.referrer.destroyBlocks();
             }
 
             Block.prototype.render.apply(page, arguments);
 
-            page.set('status', 'rendered');
+            page.set('status', 'loaded');
         },
         fetch: function(dataList) {
             var page = this;
@@ -150,15 +148,8 @@ define(function(require, exports, module) {
         },
         'set:status': function(status) {
             var page = this;
-            if (status == 'starting') {
-                page.el.classList.add('preloader_spinner');
-            }
 
-            if (status == 'rendered') {
-                page.el.classList.remove('preloader_spinner');
-            }
-
-            page.el.setAttribute('data-status', status);
+            page.el.setAttribute('status', status);
         }
     });
 

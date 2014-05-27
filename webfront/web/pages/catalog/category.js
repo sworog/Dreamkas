@@ -8,7 +8,7 @@ define(function(require) {
         СatalogGroupModel = require('models/catalogGroup'),
         currentUserModel = require('models/currentUser'),
         Page403 = require('pages/errors/403'),
-        router = require('kit/router/router');
+        router = require('router');
 
     return Page.extend({
         __name__: 'page_catalog_category',

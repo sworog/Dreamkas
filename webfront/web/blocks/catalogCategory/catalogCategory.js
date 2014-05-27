@@ -10,7 +10,7 @@ define(function(require) {
         Form_catalogCategoryProperties = require('blocks/form/form_catalogCategoryProperties/form_catalogCategoryProperties'),
         Form_catalogSubCategoryProperties = require('blocks/form/form_catalogSubCategoryProperties/form_catalogSubCategoryProperties'),
         pageParams = require('pages/catalog/params'),
-        router = require('kit/router/router');
+        router = require('router');
 
     return Editor.extend({
         __name__: 'catalogCategory',

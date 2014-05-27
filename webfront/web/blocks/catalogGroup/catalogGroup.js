@@ -8,7 +8,7 @@ define(function(require) {
         CatalogCategoryModel = require('models/catalogCategory'),
         Form_catalogGroupProperties = require('blocks/form/form_catalogGroupProperties/form_catalogGroupProperties'),
         params = require('pages/catalog/params'),
-        router = require('kit/router/router');
+        router = require('router');
 
     return Editor.extend({
         __name__: 'catalogGroup',

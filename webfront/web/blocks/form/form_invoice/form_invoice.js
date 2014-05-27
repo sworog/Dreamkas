@@ -9,7 +9,7 @@ define(function(require) {
         Select_suppliers = require('blocks/select/select_suppliers/select_suppliers'),
         totalSum = require('tpl!blocks/form/form_invoice/totalSum.html'),
         table_invoiceProducts = require('tpl!blocks/table/table_invoiceProducts/template.html'),
-        router = require('kit/router/router');
+        router = require('router');
 
     return Form.extend({
         redirectUrl: function() {

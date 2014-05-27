@@ -7,7 +7,7 @@ define(function(require) {
         currentUserModel = require('models/currentUser'),
         cookie = require('cookies'),
         numeral = require('numeral'),
-        router = require('kit/router/router'),
+        router = require('router'),
         moment = require('moment');
 
     require('jquery');
@@ -143,9 +143,7 @@ define(function(require) {
 
     loading.always(function() {
         requirejs([
-            routes,
-            'blocks/page/page',
-            'kit/lhAutocomplete'
+            routes
         ], function(routes) {
             isStarted = true;
             router.routes = routes;

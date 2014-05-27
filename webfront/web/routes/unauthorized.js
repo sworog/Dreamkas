@@ -3,6 +3,7 @@ define(function(require) {
 
     return {
         //common
+        'signup(/)': require('pages/signup/signup'),
         '*path': require('pages/common/login')
     };
 });

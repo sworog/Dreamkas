@@ -34,13 +34,13 @@
     background-size: contain;
 }
 
-.page.preloader_spinner * {
+.page.page[status="loading"] * {
     visibility: visible;
 }
 
-.page.preloader_spinner .page__content,
-.page.preloader_spinner .content,
-.page.preloader_spinner .localNavigation {
+.page.page[status="loading"] .page__content,
+.page.page[status="loading"] .content,
+.page.page[status="loading"] .localNavigation {
     display: none;
 }
 
@@ -125,4 +125,34 @@
 .page__downloadLink{
     display: inline-block;
     padding: 5px 10px;
+}
+
+.page[status="loading"]{
+    min-height: 100px;
+}
+
+.page[status="loading"] *{
+    visibility: hidden;
+}
+
+.page[status="loading"]:after {
+    content: "";
+    display: block;
+    visibility: visible;
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -37px 0 0 -37px;
+
+    border: 10px solid #333;
+    border-top-color: transparent;
+    border-radius: 100%;
+
+    -webkit-animation: spin 1s infinite ease;
+    -moz-animation: spin 1s infinite ease;
+    -ms-animation: spin 1s infinite ease;
+    -o-animation: spin 1s infinite ease;
+    animation: spin 1s infinite ease;
 }

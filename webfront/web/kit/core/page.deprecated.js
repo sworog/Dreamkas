@@ -3,7 +3,7 @@ define(function(require, exports, module) {
     var app = require('app'),
         Block = require('kit/core/block.deprecated'),
         Backbone = require('backbone'),
-        router = require('kit/router/router'),
+        router = require('router'),
         isAllow = require('kit/isAllow/isAllow'),
         downloadUrl = require('kit/downloadUrl/downloadUrl'),
         cookies = require('cookies'),
@@ -56,9 +56,8 @@ define(function(require, exports, module) {
             this.cid = _.uniqueId('cid');
             this._configure.apply(this, arguments);
 
-            if (NewPage.current){
-                NewPage.current.destroy();
-                delete NewPage.current;
+            if (window.PAGE){
+                window.PAGE.destroy();
             }
 
             switch (typeof page.permissions) {
@@ -153,6 +152,11 @@ define(function(require, exports, module) {
             router.navigate(router.toFragment(pathname, queryParams));
 
             return page;
+        },
+        'set:loading': function(loading) {
+            var block = this;
+
+            block.el.setAttribute('status', loading ? 'loading' : 'loaded');
         }
     });
 
