@@ -33,7 +33,7 @@ class StoreProductControllerTest extends WebTestCase
     protected function initStoreProduct()
     {
         $this->storeManager = $this->factory->user()->getUser(
-            'Василий Петрович Краузе',
+            'vasyaPetrCrause@lighthouse.pro',
             'password',
             User::ROLE_STORE_MANAGER
         );
@@ -825,8 +825,8 @@ class StoreProductControllerTest extends WebTestCase
         $storeId1 = $this->storeId;
         $storeId2 = $this->factory->store()->getStoreId('2', '2', '2');
 
-        $departmentManager1 = $this->factory->user()->getUser('dm1', 'password', 'ROLE_DEPARTMENT_MANAGER');
-        $departmentManager2 = $this->factory->user()->getUser('dm2', 'password', 'ROLE_DEPARTMENT_MANAGER');
+        $departmentManager1 = $this->factory->user()->getUser('dm1@lh.pro', 'password', 'ROLE_DEPARTMENT_MANAGER');
+        $departmentManager2 = $this->factory->user()->getUser('dm2@lh.pro', 'password', 'ROLE_DEPARTMENT_MANAGER');
 
         $this->factory->store()->linkDepartmentManagers($departmentManager1->id, $storeId1);
         $this->factory->store()->linkDepartmentManagers($departmentManager2->id, $storeId2);

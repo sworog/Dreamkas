@@ -27,7 +27,7 @@ class LoadUserData extends ContainerAware implements FixtureInterface, OrderedFi
     public function load(ObjectManager $manager)
     {
         $this->getUserProvider()->createNewUser(
-            'administrator',
+            'administrator@lighthouse.pro',
             'lighthouse',
             'Сережа',
             User::ROLE_ADMINISTRATOR,
@@ -35,7 +35,7 @@ class LoadUserData extends ContainerAware implements FixtureInterface, OrderedFi
         );
 
         $this->getUserProvider()->createNewUser(
-            'commercialManager',
+            'commercialManager@lighthouse.pro',
             'lighthouse',
             'Юрий Константиныч',
             User::ROLE_COMMERCIAL_MANAGER,
@@ -43,7 +43,7 @@ class LoadUserData extends ContainerAware implements FixtureInterface, OrderedFi
         );
 
         $this->getUserProvider()->createNewUser(
-            'departmentManager',
+            'departmentManager@lighthouse.pro',
             'lighthouse',
             'Наталья Павловна',
             User::ROLE_DEPARTMENT_MANAGER,
@@ -51,7 +51,7 @@ class LoadUserData extends ContainerAware implements FixtureInterface, OrderedFi
         );
 
         $this->getUserProvider()->createNewUser(
-            'storeManager',
+            'storeManager@lighthouse.pro',
             'lighthouse',
             'Михаил Сергеевич',
             User::ROLE_STORE_MANAGER,

@@ -61,7 +61,7 @@ class UserProvider implements UserProviderInterface
      */
     public function loadUserByUsername($username)
     {
-        $user = $this->userRepository->findOneBy(array('username' => $username));
+        $user = $this->userRepository->findOneBy(array('email' => $username));
 
         if (!$user) {
             $e = new UsernameNotFoundException();
@@ -149,19 +149,19 @@ class UserProvider implements UserProviderInterface
     }
 
     /**
-     * @param string $username
+     * @param string $email
      * @param string $password
      * @param string $name
      * @param string $role
      * @param string $position
      * @return User
      */
-    public function createNewUser($username, $password, $name, $role, $position)
+    public function createNewUser($email, $password, $name, $role, $position)
     {
         $user = $this->createUser();
 
         $user->name = $name;
-        $user->username = $username;
+        $user->email = $email;
         $user->role = $role;
         $user->position = $position;
 

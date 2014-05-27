@@ -14,7 +14,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 /**
  *
  * @property string $id
- * @property string $username
+ * @property string $email
  * @property string $name
  * @property string $position
  * @property string $password
@@ -22,7 +22,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @property string $role
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\User\UserRepository")
- * @Unique(fields="username", message="lighthouse.validation.errors.user.username.unique")
+ * @Unique(fields="email", message="lighthouse.validation.errors.user.email.unique")
  */
 class User extends AbstractDocument implements UserInterface
 {
@@ -40,11 +40,10 @@ class User extends AbstractDocument implements UserInterface
      * @MongoDB\String
      * @MongoDB\UniqueIndex
      * @Assert\NotBlank
-     * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
-     * @Assert\Regex("/^[\w\d_\-\.\@]+$/u")
+     * @Assert\Email
      * @var string
      */
-    protected $username;
+    protected $email;
 
     /**
      * @MongoDB\String
@@ -80,7 +79,7 @@ class User extends AbstractDocument implements UserInterface
      * @Assert\NotBlank(groups={"registration"})
      * @Assert\Length(min="6")
      * @LighthouseAssert\NotEqualsField(
-     *      field = "username",
+     *      field = "email",
      *      message = "lighthouse.validation.errors.user.password.not_equals_login"
      * )
      * @Serializer\Exclude
@@ -130,7 +129,7 @@ class User extends AbstractDocument implements UserInterface
      */
     public function getUsername()
     {
-        return $this->username;
+        return $this->email;
     }
 
     /**

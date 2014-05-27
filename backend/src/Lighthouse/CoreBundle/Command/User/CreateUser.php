@@ -34,7 +34,7 @@ class CreateUser extends Command
         $this
             ->setName('lighthouse:user:create')
             ->setDescription('Create user')
-            ->addArgument('username', InputArgument::REQUIRED, 'Username')
+            ->addArgument('email', InputArgument::REQUIRED, 'Email')
             ->addArgument('password', InputArgument::REQUIRED, 'Password')
             ->addArgument('role', InputArgument::OPTIONAL, 'User role', 'ROLE_ADMINISTRATOR');
     }
@@ -50,12 +50,12 @@ class CreateUser extends Command
 
         $user = $this->userProvider->createUser();
 
-        $username = $input->getArgument('username');
+        $email = $input->getArgument('email');
         $role = $input->getArgument('role');
         $password =  $input->getArgument('password');
 
-        $user->name = $username;
-        $user->username = $username;
+        $user->name = $email;
+        $user->email = $email;
         $user->role = $role;
         $user->position = $role;
 

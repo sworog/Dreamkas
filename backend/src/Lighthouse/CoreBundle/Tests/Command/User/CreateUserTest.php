@@ -48,7 +48,7 @@ class CreateUserTest extends ContainerAwareTestCase
         $commandTester = new CommandTester($this->getCommand());
 
         $input = array(
-            'username' => 'admin',
+            'email' => 'admin@lighthouse.pro',
             'password' => 'lighthouse',
             'role' => 'ROLE_ADMINISTRATOR',
         );
@@ -59,27 +59,27 @@ class CreateUserTest extends ContainerAwareTestCase
 
         $display = $commandTester->getDisplay();
         $this->assertContains('Creating user...Done', $display);
-        $this->assertContains('"username":"admin"', $display);
+        $this->assertContains('"email":"admin@lighthouse.pro"', $display);
         $this->assertContains('"role":"ROLE_ADMINISTRATOR"', $display);
 
-        $user = $this->userProvider->loadUserByUsername('admin');
+        $user = $this->userProvider->loadUserByUsername('admin@lighthouse.pro');
 
         $this->assertInstanceOf('Lighthouse\\CoreBundle\\Document\\User\\User', $user);
-        $this->assertEquals('admin', $user->username);
+        $this->assertEquals('admin@lighthouse.pro', $user->email);
         $this->assertNotEquals('lighthouse', $user->password);
         $this->assertEquals('ROLE_ADMINISTRATOR', $user->role);
     }
 
     /**
      * @expectedException \Lighthouse\CoreBundle\Exception\ValidationFailedException
-     * @expectedExceptionMessage username:
+     * @expectedExceptionMessage email:
      */
     public function testUserExists()
     {
         $commandTester = new CommandTester($this->getCommand());
 
         $input = array(
-            'username' => 'admin',
+            'email' => 'admin@lighthouse.pro',
             'password' => 'lighthouse',
             'role' => 'ROLE_ADMINISTRATOR',
         );

@@ -68,7 +68,7 @@ class UserController extends AbstractRestController
     protected function handleFlushFailedException(FlushFailedException $e)
     {
         if ($e->getCause() instanceof MongoDuplicateKeyException) {
-            return $this->addFormError($e->getForm(), 'username', 'lighthouse.validation.errors.user.username.unique');
+            return $this->addFormError($e->getForm(), 'email', 'lighthouse.validation.errors.user.email.unique');
         } else {
             return parent::handleFlushFailedException($e);
         }

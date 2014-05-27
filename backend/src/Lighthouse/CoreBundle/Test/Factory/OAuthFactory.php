@@ -73,7 +73,7 @@ class OAuthFactory extends AbstractFactory
         $request = new Request();
         $request->setMethod('POST');
         $request->request->set('grant_type', OAuth2::GRANT_TYPE_USER_CREDENTIALS);
-        $request->request->set('username', $oauthUser->username);
+        $request->request->set('username', $oauthUser->getUsername());
         $request->request->set('password', $password);
         $request->request->set('client_id', $oauthClient->getPublicId());
         $request->request->set('client_secret', $oauthClient->getSecret());

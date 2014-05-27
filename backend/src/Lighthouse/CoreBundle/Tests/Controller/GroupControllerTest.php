@@ -644,7 +644,7 @@ class GroupControllerTest extends WebTestCase
      */
     public function testGetStoreGroupStoreManagerHasStore($role, $rel)
     {
-        $manager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
+        $manager = $this->factory->user()->getUser('vasyaPetrCrause@lighthouse.pro', 'password', $role);
 
         $groupId = $this->createGroup();
         $storeId = $this->factory->store()->getStoreId();
@@ -671,7 +671,7 @@ class GroupControllerTest extends WebTestCase
      */
     public function testGetStoreGroupStoreManagerFromAnotherStore($role, $rel)
     {
-        $manager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
+        $manager = $this->factory->user()->getUser('vasyaPetrCrause@lighthouse.pro', 'password', $role);
 
         $groupId = $this->createGroup();
         $storeId1 = $this->factory->store()->getStoreId('42');

@@ -7,7 +7,7 @@ use Lighthouse\CoreBundle\Security\User\UserProvider;
 
 class UserFactory extends AbstractFactory
 {
-    const USER_DEFAULT_USERNAME = 'admin';
+    const USER_DEFAULT_EMAIL = 'admin@lighthouse.pro';
     const USER_DEFAULT_PASSWORD = 'password';
     const USER_DEFAULT_NAME = 'Админ Админыч';
     const USER_DEFAULT_POSITION = 'Администратор';
@@ -23,11 +23,11 @@ class UserFactory extends AbstractFactory
      */
     public function getRoleUser($role)
     {
-        return $this->getUser($role, UserFactory::USER_DEFAULT_PASSWORD, $role, $role, $role);
+        return $this->getUser($role . '@lighthouse.pro', UserFactory::USER_DEFAULT_PASSWORD, $role, $role, $role);
     }
 
     /**
-     * @param string $username
+     * @param string $email
      * @param string $password
      * @param string $role
      * @param string $name
@@ -36,7 +36,7 @@ class UserFactory extends AbstractFactory
      * @return User
      */
     public function getUser(
-        $username = self::USER_DEFAULT_USERNAME,
+        $email = self::USER_DEFAULT_EMAIL,
         $password = self::USER_DEFAULT_PASSWORD,
         $role = User::ROLE_ADMINISTRATOR,
         $name = self::USER_DEFAULT_NAME,
@@ -44,7 +44,7 @@ class UserFactory extends AbstractFactory
     ) {
         $hash = md5(implode(',', func_get_args()));
         if (!isset($this->users[$hash])) {
-            $this->users[$hash] = $this->createUser($username, $password, $role, $name, $position);
+            $this->users[$hash] = $this->createUser($email, $password, $role, $name, $position);
         }
         return $this->users[$hash];
     }
@@ -64,7 +64,7 @@ class UserFactory extends AbstractFactory
     }
 
     /**
-     * @param string $username
+     * @param string $email
      * @param string $password
      * @param string $role
      * @param string $name
@@ -72,7 +72,7 @@ class UserFactory extends AbstractFactory
      * @return User
      */
     public function createUser(
-        $username = self::USER_DEFAULT_USERNAME,
+        $email = self::USER_DEFAULT_EMAIL,
         $password = self::USER_DEFAULT_PASSWORD,
         $role = User::ROLE_ADMINISTRATOR,
         $name = self::USER_DEFAULT_NAME,
@@ -80,7 +80,7 @@ class UserFactory extends AbstractFactory
     ) {
         $user = new User();
         $user->name = $name;
-        $user->username = $username;
+        $user->email = $email;
         $user->role = $role;
         $user->position = $position;
 

@@ -941,7 +941,7 @@ class SubCategoryControllerTest extends WebTestCase
      */
     public function testGetStoreSubCategoryStoreManagerHasStore($role, $rel)
     {
-        $storeManager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
+        $storeManager = $this->factory->user()->getUser('vasyaPetrCrause@lighthouse.pro', 'password', $role);
 
         $subCategoryId = $this->createSubCategory();
         $storeId = $this->factory->store()->getStoreId();
@@ -967,7 +967,7 @@ class SubCategoryControllerTest extends WebTestCase
      */
     public function testGetStoreSubCategoryStoreManagerFromAnotherStore($role, $rel)
     {
-        $storeManager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
+        $storeManager = $this->factory->user()->getUser('vasyaPetrCrause@lighthouse.pro', 'password', $role);
 
         $subCategoryId = $this->createSubCategory();
         $storeId1 = $this->factory->store()->getStoreId('42');
@@ -994,7 +994,7 @@ class SubCategoryControllerTest extends WebTestCase
      */
     public function testGetStoreSubCategoryStoreManagerHasNoStore($role)
     {
-        $storeManager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
+        $storeManager = $this->factory->user()->getUser('vasyaPetrCrause@lighthouse.pro', 'password', $role);
 
         $subCategoryId = $this->createSubCategory();
         $storeId = $this->factory->store()->getStoreId();
@@ -1019,7 +1019,7 @@ class SubCategoryControllerTest extends WebTestCase
      */
     public function testGetStoreCategorySubCategoriesStoreManagerHasStore($role, $rel)
     {
-        $storeManager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
+        $storeManager = $this->factory->user()->getUser('vasyaPetrCrause@lighthouse.pro', 'password', $role);
 
         $storeId = $this->factory->store()->getStoreId();
 

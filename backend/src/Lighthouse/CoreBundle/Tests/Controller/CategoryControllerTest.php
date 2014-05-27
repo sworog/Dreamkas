@@ -894,7 +894,7 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testGetStoreCategoryStoreManagerHasStore($role, $rel)
     {
-        $storeManager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
+        $storeManager = $this->factory->user()->getUser('vasyaPetrCrause@lighthouse.pro', 'password', $role);
 
         $categoryId = $this->createCategory();
         $storeId = $this->factory->store()->getStoreId();
@@ -920,7 +920,7 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testGetStoreCategoryStoreManagerFromAnotherStore($role, $rel)
     {
-        $storeManager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
+        $storeManager = $this->factory->user()->getUser('vasyaPetrCrause@lighthouse.pro', 'password', $role);
 
         $categoryId = $this->createCategory();
         $storeId1 = $this->factory->store()->getStoreId('42');
@@ -947,7 +947,7 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testGetStoreCategoryStoreManagerHasNoStore($role)
     {
-        $storeManager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
+        $storeManager = $this->factory->user()->getUser('vasyaPetrCrause@lighthouse.pro', 'password', $role);
 
         $categoryId = $this->createCategory();
         $storeId = $this->factory->store()->getStoreId();
@@ -972,7 +972,7 @@ class CategoryControllerTest extends WebTestCase
      */
     public function testGetStoreGroupCategoriesStoreManagerHasStore($role, $rel)
     {
-        $manager = $this->factory->user()->getUser('Василий Петрович Краузе', 'password', $role);
+        $manager = $this->factory->user()->getUser('vasyaPetrCrause@lighthouse.pro', 'password', $role);
 
         $storeId = $this->factory->store()->getStoreId();
 

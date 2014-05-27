@@ -18,7 +18,7 @@ class UserControllerTest extends WebTestCase
     public function testPostUserUniqueUsernameTest()
     {
         $userData = array(
-            'username'  => 'test',
+            'email'     => 'test@test.com',
             'name'      => 'Вася пупкин',
             'position'  => 'Комерческий директор',
             'role'      => 'ROLE_COMMERCIAL_MANAGER',
@@ -46,8 +46,8 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseCode(400);
 
         Assert::assertJsonPathContains(
-            'Пользователь с таким логином уже существует',
-            'children.username.errors.0',
+            'Пользователь с таким email уже существует',
+            'children.email.errors.0',
             $response
         );
     }
@@ -61,7 +61,7 @@ class UserControllerTest extends WebTestCase
         array $assertions = array()
     ) {
         $userData = $data + array(
-            'username'  => 'test',
+            'email'     => 'test@test.com',
             'name'      => 'Вася пупкин',
             'position'  => 'Комерческий директор',
             'role'      => 'ROLE_COMMERCIAL_MANAGER',
@@ -90,7 +90,7 @@ class UserControllerTest extends WebTestCase
         array $data,
         array $assertions = array()
     ) {        $userData = array(
-            'username'  => 'qweqwe',
+            'email'     => 'qwe@qwe.qwe',
             'name'      => 'ASFFS',
             'position'  => 'SFwewe',
             'role'      => 'ROLE_COMMERCIAL_MANAGER',
@@ -111,7 +111,7 @@ class UserControllerTest extends WebTestCase
         $id = $response['id'];
 
         $newUserData = $data + array(
-            'username'  => 'васяпупкин',
+            'email'     => 'test@test.com',
             'name'      => 'Вася Пупкин',
             'position'  => 'Комец бля',
             'role'      => 'ROLE_COMMERCIAL_MANAGER',
@@ -135,7 +135,7 @@ class UserControllerTest extends WebTestCase
     public function testPasswordChange()
     {
         $userData = array(
-            'username'  => 'qweqwe',
+            'email'     => 'qweqwe@test.com',
             'name'      => 'ASFFS',
             'position'  => 'SFwewe',
             'role'      => 'ROLE_COMMERCIAL_MANAGER',
@@ -162,7 +162,7 @@ class UserControllerTest extends WebTestCase
         $oldPasswordHash = $userModel->password;
 
         $newUserData = array(
-            'username'  => 'qweqwe',
+            'email'     => 'qweqwe@test.com',
             'name'      => 'ASFFSssd',
             'position'  => 'SFwewe',
             'role'      => 'ROLE_COMMERCIAL_MANAGER',
@@ -222,7 +222,7 @@ class UserControllerTest extends WebTestCase
             ),
             'not valid password equals username' => array(
                 400,
-                array('password' => 'userer', 'username' => 'userer'),
+                array('password' => 'userer@test.com', 'email' => 'userer@test.com'),
                 array(
                     'children.password.errors.0'
                     =>
@@ -269,60 +269,52 @@ class UserControllerTest extends WebTestCase
                 ),
             ),
             /***********************************************************************************************
-             * 'username'
+             * 'email'
              ***********************************************************************************************/
-            'valid username' => array(
+            'valid email' => array(
                 201,
-                array('username' => 'test'),
+                array('email' => 'test@test.com'),
             ),
-            'valid username 100 chars' => array(
+            'valid email with dot' => array(
                 201,
-                array('username' => str_repeat('z', 100)),
+                array('email' => 'test.dot@test.com'),
             ),
-            'valid username symbols' => array(
+            'valid email UPPERCASE' => array(
                 201,
-                array('username' => '1234567890-_aф@.'),
+                array('email' => 'TEST@TEST.COM'),
             ),
-            'valid username symbols 1' => array(
-                201,
-                array('username' => '1234567890'),
-            ),
-            'valid username symbols 2' => array(
-                201,
-                array('username' => '@asdffdd'),
-            ),
-            'valid username symbols 3' => array(
-                201,
-                array('username' => 'q.wer'),
-            ),
-
-            'valid username symbols 4' => array(
-                201,
-                array('username' => 'фыва'),
-            ),
-            'not valid username symbols' => array(
+            'not valid email for domain level 2' => array(
                 400,
-                array('username' => 'фa1234567890-_=][\';/.,.|+_)()*&^%$#@!{}:"'),
+                array('email' => 'test@test'),
                 array(
-                    'children.username.errors.0'
+                    'children.email.errors.0'
                     =>
-                    'Значение недопустимо.'
+                    'Значение адреса электронной почты недопустимо.'
                 ),
             ),
-            'not valid username 101 chars' => array(
+            'not valid email without at' => array(
                 400,
-                array('username' => str_repeat('z', 101)),
+                array('email' => 'test.test.com'),
                 array(
-                    'children.username.errors.0'
+                    'children.email.errors.0'
                     =>
-                    'Не более 100 символов'
+                    'Значение адреса электронной почты недопустимо.'
+                ),
+            ),
+            'not valid email wrong symbols' => array(
+                400,
+                array('email' => 'test[]@test.com'),
+                array(
+                    'children.email.errors.0'
+                    =>
+                    'Значение адреса электронной почты недопустимо.'
                 )
             ),
-            'empty username' => array(
+            'empty email' => array(
                 400,
-                array('username' => ''),
+                array('email' => ''),
                 array(
-                    'children.username.errors.0'
+                    'children.email.errors.0'
                     =>
                     'Заполните это поле',
                 ),
@@ -436,9 +428,9 @@ class UserControllerTest extends WebTestCase
                     'Заполните это поле',
                 ),
             ),
-            'not valid password equals username' => array(
+            'not valid password equals email' => array(
                 400,
-                array('password' => 'userer', 'username' => 'userer'),
+                array('password' => 'userer@test.com', 'email' => 'userer@test.com'),
                 array(
                     'children.password.errors.0'
                     =>
@@ -459,7 +451,7 @@ class UserControllerTest extends WebTestCase
         for ($i = 0; $i < 5; $i++) {
             $postData = $data;
             $postData['name'] .= $i;
-            $postData['username'] .= $i;
+            $postData['email'] .= $i;
             $this->clientJsonRequest(
                 $accessToken,
                 'POST',
@@ -476,7 +468,7 @@ class UserControllerTest extends WebTestCase
             '/api/1/users'
         );
         $this->assertResponseCode(200);
-        Assert::assertJsonPathCount(6, '*.username', $postResponse);
+        Assert::assertJsonPathCount(6, '*.email', $postResponse);
 
         foreach ($postDataArray as $postData) {
             foreach ($postData as $key => $value) {
@@ -492,10 +484,10 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetUsersActionPermissionDenied($role)
     {
-        $this->factory->user()->getUser('user1', 'password', User::ROLE_COMMERCIAL_MANAGER);
-        $this->factory->user()->getUser('user2', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $this->factory->user()->getUser('user3', 'password', User::ROLE_STORE_MANAGER);
-        $this->factory->user()->getUser('user4', 'password', User::ROLE_ADMINISTRATOR);
+        $this->factory->user()->getUser('user1@lighthouse.pro', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $this->factory->user()->getUser('user2@lighthouse.pro', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $this->factory->user()->getUser('user3@lighthouse.pro', 'password', User::ROLE_STORE_MANAGER);
+        $this->factory->user()->getUser('user4@lighthouse.pro', 'password', User::ROLE_ADMINISTRATOR);
 
         $accessToken = $this->factory->oauth()->authAsRole($role);
 
@@ -549,7 +541,7 @@ class UserControllerTest extends WebTestCase
     public function testGetUsersCurrentAction()
     {
         $authClient = $this->factory->oauth()->getAuthClient();
-        $user = $this->factory->user()->getUser('user', 'qwerty123');
+        $user = $this->factory->user()->getUser('user@lighthouse.pro', 'qwerty123');
 
         $token = $this->factory->oauth()->auth($user, 'qwerty123', $authClient);
 
@@ -560,7 +552,7 @@ class UserControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals('user', 'username', $getResponse);
+        Assert::assertJsonPathEquals('user@lighthouse.pro', 'email', $getResponse);
     }
 
     public function testGetUserPermissionsAction()
@@ -583,7 +575,7 @@ class UserControllerTest extends WebTestCase
         return array(
             'standard' => array(
                 array(
-                    'username'  => 'test',
+                    'email'     => 'test@test.com',
                     'name'      => 'Вася пупкин',
                     'position'  => 'Комерческий директор',
                     'role'      => 'ROLE_COMMERCIAL_MANAGER',
@@ -792,7 +784,7 @@ class UserControllerTest extends WebTestCase
     public function testUniqueUsernameInParallel()
     {
         $userData = array(
-            'username'  => 'test',
+            'email'     => 'test@test.com',
             'name'      => 'Вася пупкин',
             'position'  => 'Комерческий директор',
             'role'      => User::ROLE_COMMERCIAL_MANAGER,
@@ -815,10 +807,10 @@ class UserControllerTest extends WebTestCase
         $responseBody = $exporter->export($jsonResponses);
         $this->assertCount(1, array_keys($statusCodes, 201), $responseBody);
         $this->assertCount(2, array_keys($statusCodes, 400), $responseBody);
-        Assert::assertJsonPathEquals('test', '*.username', $jsonResponses, 1);
+        Assert::assertJsonPathEquals('test@test.com', '*.email', $jsonResponses, 1);
         Assert::assertJsonPathEquals(
-            'Пользователь с таким логином уже существует',
-            '*.children.username.errors.0',
+            'Пользователь с таким email уже существует',
+            '*.children.email.errors.0',
             $jsonResponses,
             2
         );
@@ -827,7 +819,7 @@ class UserControllerTest extends WebTestCase
     protected function doPostActionFlushFailedException(\Exception $exception)
     {
         $userData = array(
-            'username'  => 'test',
+            'email'     => 'test@test.com',
             'name'      => 'Вася пупкин',
             'position'  => 'Комерческий директор',
             'role'      => User::ROLE_COMMERCIAL_MANAGER,
@@ -911,8 +903,8 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
         Assert::assertJsonPathEquals(
-            'Пользователь с таким логином уже существует',
-            'children.username.errors.0',
+            'Пользователь с таким email уже существует',
+            'children.email.errors.0',
             $response
         );
     }
