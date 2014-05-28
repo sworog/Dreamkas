@@ -27,7 +27,6 @@ use Lighthouse\CoreBundle\MongoDB\Mapping\Annotations\GlobalDb;
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\User\UserRepository")
  * @Unique(fields="email", message="lighthouse.validation.errors.user.email.unique")
  * @GlobalDb
- * @Unique(fields="username", message="lighthouse.validation.errors.user.username.unique")
  */
 class User extends AbstractDocument implements UserInterface
 {
