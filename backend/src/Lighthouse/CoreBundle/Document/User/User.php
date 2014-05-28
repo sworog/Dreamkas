@@ -5,11 +5,13 @@ namespace Lighthouse\CoreBundle\Document\User;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Document\Project\Project;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
+use Lighthouse\CoreBundle\MongoDB\Mapping\Annotations\GlobalDb;
 
 /**
  *
@@ -20,9 +22,12 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * @property string $password
  * @property string $salt
  * @property string $role
+ * @property Project $project
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\User\UserRepository")
  * @Unique(fields="email", message="lighthouse.validation.errors.user.email.unique")
+ * @GlobalDb
+ * @Unique(fields="username", message="lighthouse.validation.errors.user.username.unique")
  */
 class User extends AbstractDocument implements UserInterface
 {
@@ -95,6 +100,16 @@ class User extends AbstractDocument implements UserInterface
     protected $salt;
 
     /**
+     * @MongoDB\ReferenceOne(
+     *      targetDocument="Lighthouse\CoreBundle\Document\Project\Project",
+     *      simple=true,
+     *      cascade="persist"
+     * )
+     * @var Project
+     */
+    protected $project;
+
+    /**
      * @return Role[] The user roles
      */
     public function getRoles()
@@ -151,5 +166,13 @@ class User extends AbstractDocument implements UserInterface
     public function hasUserRole($role)
     {
         return in_array($role, $this->getRoles());
+    }
+
+    /**
+     * @return Project
+     */
+    public function getProject()
+    {
+        return $this->project;
     }
 }
