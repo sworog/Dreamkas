@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\MongoDB;
 
+use Doctrine\MongoDB\Database;
 use Doctrine\ODM\MongoDB\SchemaManager as BaseSchemaManager;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Project\Project;
@@ -88,6 +89,23 @@ class SchemaManager extends BaseSchemaManager
         $this->dm->getProjectDocumentCollection($class->name, $project)->drop();
     }
 
+    public function dropProjectDatabases()
+    {
+        /* @var Database[] $databases */
+        $databases = array();
+        foreach ($this->getProjects() as $project) {
+            foreach ($this->getAllClassMetadata(false) as $class) {
+                $database = $this->dm->getProjectDocumentDatabase($class->name, $project);
+                if (!isset($databases[$database->getName()])) {
+                    $databases[$database->getName()] = $database;
+                }
+            }
+        }
+        foreach ($databases as $database) {
+            $database->drop();
+        }
+    }
+
     public function createGlobalCollections()
     {
         foreach ($this->getAllClassMetadata(true) as $class) {
@@ -169,7 +187,7 @@ class SchemaManager extends BaseSchemaManager
      */
     protected function getIndexOptions(array $options, $timeout = null)
     {
-        if ( ! isset($options['safe']) && ! isset($options['w'])) {
+        if (!isset($options['safe']) && !isset($options['w'])) {
             if (version_compare(phpversion('mongo'), '1.3.0', '<')) {
                 $options['safe'] = true;
             } else {
@@ -177,14 +195,14 @@ class SchemaManager extends BaseSchemaManager
             }
         }
 
-        if (isset($options['safe']) && ! isset($options['w']) &&
+        if (isset($options['safe']) && !isset($options['w']) &&
             version_compare(phpversion('mongo'), '1.3.0', '>=')) {
 
             $options['w'] = is_bool($options['safe']) ? (integer) $options['safe'] : $options['safe'];
             unset($options['safe']);
         }
 
-        if ( ! isset($options['timeout']) && isset($timeout)) {
+        if (!isset($options['timeout']) && isset($timeout)) {
             $options['timeout'] = $timeout;
         }
 

@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Test;
 
 use LighthouseKernel;
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Karzer\Framework\TestCase\SymfonyWebTestCase;
 use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\Factory\Factory;
@@ -111,8 +110,8 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     protected function clearMongoDb()
     {
         $dm = $this->getDocumentManager();
+        $dm->getSchemaManager()->dropProjectDatabases();
         $dm->getSchemaManager()->dropGlobalCollections();
-        $dm->getSchemaManager()->dropAllProjectCollections();
         $dm->getSchemaManager()->createGlobalCollections();
         $dm->getSchemaManager()->ensureGlobalIndexes();
     }
