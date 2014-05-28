@@ -328,7 +328,7 @@ class Factory extends ContainerAwareFactory
         parent::setContainer($container);
 
         if ($container) {
-            $this->user()->authUserProject();
+            $this->user()->authProject();
         }
     }
 }
