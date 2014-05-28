@@ -198,13 +198,8 @@ class UserProvider implements UserProviderInterface
      * @param string $password
      * @return User
      */
-    public function registerUser(User $user, $password)
+    public function sendRegistredMessage(User $user, $password)
     {
-        $this->setPassword($user, $password);
-
-        $this->userRepository->getDocumentManager()->persist($user);
-        $this->userRepository->getDocumentManager()->flush();
-
         $messageBody = $this->getMessageBody($password);
 
         $message = \Swift_Message::newInstance()
@@ -218,6 +213,10 @@ class UserProvider implements UserProviderInterface
         return $user;
     }
 
+    /**
+     * @param string $password
+     * @return string
+     */
     public function getMessageBody($password)
     {
         $message = <<<TEXT
