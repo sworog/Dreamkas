@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Test\Factory;
 
 use Lighthouse\CoreBundle\Document\Project\Project;
+use Lighthouse\CoreBundle\Document\Project\ProjectRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Security\Token\ProjectToken;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
@@ -19,6 +20,11 @@ class UserFactory extends AbstractFactory
      * @var User[]
      */
     protected $users = array();
+
+    /**
+     * @var string
+     */
+    protected $projectId;
 
     /**
      * @param string $role
@@ -87,7 +93,7 @@ class UserFactory extends AbstractFactory
         $user->role = $role;
         $user->position = $position;
 
-        $user->project = new Project();
+        $user->project = $this->getProject();
 
         $this->getUserProvider()->setPassword($user, $password);
 
@@ -95,6 +101,28 @@ class UserFactory extends AbstractFactory
         $this->getDocumentManager()->flush();
 
         return $user;
+    }
+
+    /**
+     * @return Project
+     * @throws \Doctrine\ODM\MongoDB\LockException
+     */
+    public function getProject()
+    {
+        if (!$this->projectId) {
+            $this->projectId = $this->createProject()->id;
+        }
+        return $this->getProjectProvider()->find($this->projectId);
+    }
+
+    /**
+     * @return Project
+     */
+    public function createProject()
+    {
+        $project = new Project();
+        $this->getProjectProvider()->save($project);
+        return $project;
     }
 
     /**
@@ -115,6 +143,14 @@ class UserFactory extends AbstractFactory
     protected function getUserProvider()
     {
         return $this->container->get('lighthouse.core.user.provider');
+    }
+
+    /**
+     * @return ProjectRepository
+     */
+    protected function getProjectProvider()
+    {
+        return $this->container->get('lighthouse.core.document.repository.project');
     }
 
     /**

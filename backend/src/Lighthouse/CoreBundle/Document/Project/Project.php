@@ -7,6 +7,8 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\MongoDB\Mapping\Annotations\GlobalDb;
 
 /**
+ * @property string $id
+ *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\Project\ProjectRepository"
  * )
