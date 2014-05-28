@@ -15,6 +15,9 @@ public class AuthorizationPage extends CommonPageObject {
     @SuppressWarnings("unused")
     private WebElement loginFormWebElement;
 
+    @FindBy(name = "")
+    WebElement signUpPageTitleWebElement;
+
     public AuthorizationPage(WebDriver driver) {
         super(driver);
     }
@@ -23,6 +26,8 @@ public class AuthorizationPage extends CommonPageObject {
     public void createElements() {
         put("userName", new Input(this, "username"));
         put("password", new Input(this, "password"));
+
+        put("email", new Input(this, "email"));
     }
 
     public void loginButtonClick() {
@@ -31,5 +36,10 @@ public class AuthorizationPage extends CommonPageObject {
 
     public WebElement getLoginFormWebElement() {
         return findVisibleElement(loginFormWebElement);
+    }
+
+
+    public String getSignUpPageTitleText() {
+        return findVisibleElement(signUpPageTitleWebElement).getText();
     }
 }
