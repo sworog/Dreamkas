@@ -10,7 +10,7 @@ use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMargin;
 use Lighthouse\ReportsBundle\Document\GrossMargin\Store\StoreDayGrossMarginRepository;
 use JMS\DiExtraBundle\Annotation as DI;
 use DateTime;
-use Lighthouse\ReportsBundle\Document\GrossMargin\Store\DayGrossMarginCollection;
+use Lighthouse\ReportsBundle\Document\GrossMargin\DayGrossMarginCollection;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**

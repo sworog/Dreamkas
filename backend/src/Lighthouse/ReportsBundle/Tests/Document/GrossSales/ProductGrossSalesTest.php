@@ -26,14 +26,14 @@ class ProductGrossSalesTest extends WebTestCase
 
     public function testCalculateProductGrossSalesHourSumCalculate()
     {
-        $storeId = $this->factory->store()->getStoreId('1');
-        $storeOtherId = $this->factory->store()->getStoreId('Other');
+        $storeId = $this->factory()->store()->getStoreId('1');
+        $storeOtherId = $this->factory()->store()->getStoreId('Other');
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
         $product3Id = $this->createProduct('3');
-        $storeProduct1Id = $this->factory->getStoreProduct($storeId, $product1Id);
-        $storeProduct2Id = $this->factory->getStoreProduct($storeId, $product2Id);
-        $storeProduct3Id = $this->factory->getStoreProduct($storeId, $product3Id);
+        $storeProduct1Id = $this->factory()->getStoreProduct($storeId, $product1Id);
+        $storeProduct2Id = $this->factory()->getStoreProduct($storeId, $product2Id);
+        $storeProduct3Id = $this->factory()->getStoreProduct($storeId, $product3Id);
 
 
         $sales = array(
@@ -124,7 +124,7 @@ class ProductGrossSalesTest extends WebTestCase
             ),
         );
 
-        $this->factory->createSales($sales);
+        $this->factory()->createSales($sales);
 
         $grossSalesReportManager = $this->getGrossSalesReportManager();
         $grossSalesReportManager->recalculateGrossSalesProductReport();
