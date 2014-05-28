@@ -25,7 +25,7 @@ class UserControllerTest extends WebTestCase
             'password'  => 'qwerty',
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $this->clientJsonRequest(
             $accessToken,
@@ -68,7 +68,7 @@ class UserControllerTest extends WebTestCase
             'password'  => 'qwerty',
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -98,7 +98,7 @@ class UserControllerTest extends WebTestCase
             'password'  => 'qwerty',
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -143,7 +143,7 @@ class UserControllerTest extends WebTestCase
             'password'  => 'qwerty',
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -452,7 +452,7 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetUsersAction(array $data)
     {
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $postDataArray = array();
         for ($i = 0; $i < 5; $i++) {
@@ -491,12 +491,12 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetUsersActionPermissionDenied($role)
     {
-        $this->factory->user()->getUser('user1@lighthouse.pro', 'password', User::ROLE_COMMERCIAL_MANAGER);
-        $this->factory->user()->getUser('user2@lighthouse.pro', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $this->factory->user()->getUser('user3@lighthouse.pro', 'password', User::ROLE_STORE_MANAGER);
-        $this->factory->user()->getUser('user4@lighthouse.pro', 'password', User::ROLE_ADMINISTRATOR);
+        $this->factory()->user()->getUser('user1@lighthouse.pro', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $this->factory()->user()->getUser('user2@lighthouse.pro', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $this->factory()->user()->getUser('user3@lighthouse.pro', 'password', User::ROLE_STORE_MANAGER);
+        $this->factory()->user()->getUser('user4@lighthouse.pro', 'password', User::ROLE_ADMINISTRATOR);
 
-        $accessToken = $this->factory->oauth()->authAsRole($role);
+        $accessToken = $this->factory()->oauth()->authAsRole($role);
 
         $this->clientJsonRequest($accessToken, 'GET', '/api/1/users');
 
@@ -520,7 +520,7 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetUserAction(array $postData)
     {
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -547,10 +547,10 @@ class UserControllerTest extends WebTestCase
 
     public function testGetUsersCurrentAction()
     {
-        $authClient = $this->factory->oauth()->getAuthClient();
-        $user = $this->factory->user()->getUser('user@lighthouse.pro', 'qwerty123');
+        $authClient = $this->factory()->oauth()->getAuthClient();
+        $user = $this->factory()->user()->getUser('user@lighthouse.pro', 'qwerty123');
 
-        $token = $this->factory->oauth()->auth($user, 'qwerty123', $authClient);
+        $token = $this->factory()->oauth()->auth($user, 'qwerty123', $authClient);
 
         $request = new JsonRequest('/api/1/users/current');
         $request->addHttpHeader('Authorization', 'Bearer ' . $token->access_token);
@@ -564,7 +564,7 @@ class UserControllerTest extends WebTestCase
 
     public function testGetUserPermissionsAction()
     {
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -599,7 +599,7 @@ class UserControllerTest extends WebTestCase
      */
     public function testRolePermissions($role, array $assertions)
     {
-        $accessToken = $this->factory->oauth()->authAsRole($role);
+        $accessToken = $this->factory()->oauth()->authAsRole($role);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -798,7 +798,7 @@ class UserControllerTest extends WebTestCase
             'password'  => 'qwerty',
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
 
         $jsonRequest = new JsonRequest('/api/1/users', 'POST', $userData);
         $jsonRequest->setAccessToken($accessToken);
@@ -833,7 +833,7 @@ class UserControllerTest extends WebTestCase
             'password'  => 'qwerty',
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
 
         $user = new User();
 

@@ -21,12 +21,17 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     /**
      * @var Factory
      */
-    protected $factory;
+    private $factory;
 
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
         self::$appDebug = (boolean) getenv('SYMFONY_DEBUG') ?: false;
+    }
+
+    protected function tearDown()
+    {
+        $this->factory = null;
     }
 
     /**

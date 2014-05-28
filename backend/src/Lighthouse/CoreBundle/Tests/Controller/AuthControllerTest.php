@@ -9,8 +9,8 @@ class AuthControllerTest extends WebTestCase
 {
     public function testAuth()
     {
-        $authClient = $this->factory->oauth()->getAuthClient();
-        $user = $this->factory->user()->getUser('admin@lighthouse.pro', 'qwerty123');
+        $authClient = $this->factory()->oauth()->getAuthClient();
+        $user = $this->factory()->user()->getUser('admin@lighthouse.pro', 'qwerty123');
 
         $authParams = array(
             'grant_type' => 'password',
@@ -44,8 +44,8 @@ class AuthControllerTest extends WebTestCase
 
     public function testRefreshToken()
     {
-        $authClient = $this->factory->oauth()->getAuthClient();
-        $user = $this->factory->user()->getUser('admin@lighthouse.pro', 'qwerty123');
+        $authClient = $this->factory()->oauth()->getAuthClient();
+        $user = $this->factory()->user()->getUser('admin@lighthouse.pro', 'qwerty123');
 
         $authParams = array(
             'grant_type' => 'password',
@@ -105,9 +105,9 @@ class AuthControllerTest extends WebTestCase
 
     public function testInvalidPassword()
     {
-        $authClient = $this->factory->oauth()->getAuthClient();
+        $authClient = $this->factory()->oauth()->getAuthClient();
 
-        $user = $this->factory->user()->getUser('test@lighthouse.pro', 'password');
+        $user = $this->factory()->user()->getUser('test@lighthouse.pro', 'password');
 
         $authParams = array(
             'grant_type' => 'password',

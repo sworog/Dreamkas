@@ -73,21 +73,21 @@ class ConvertToXmlForSet10Test extends WebTestCase
         $storesData = array(
             1 => array(
                 'number' => '1',
-                'id' => $this->factory->store()->getStoreId('1'),
+                'id' => $this->factory()->store()->getStoreId('1'),
             ),
             2 => array(
                 'number' => '2',
-                'id' => $this->factory->store()->getStoreId('2'),
+                'id' => $this->factory()->store()->getStoreId('2'),
             ),
             3 => array(
                 'number' => '3',
-                'id' => $this->factory->store()->getStoreId('3'),
+                'id' => $this->factory()->store()->getStoreId('3'),
             ),
         );
 
-        $storeManager1AccessToken = $this->factory->oauth()->authAsStoreManager($storesData[1]['id']);
-        $storeManager2AccessToken = $this->factory->oauth()->authAsStoreManager($storesData[2]['id']);
-        $this->factory->oauth()->authAsStoreManager($storesData[3]['id']);
+        $storeManager1AccessToken = $this->factory()->oauth()->authAsStoreManager($storesData[1]['id']);
+        $storeManager2AccessToken = $this->factory()->oauth()->authAsStoreManager($storesData[2]['id']);
+        $this->factory()->oauth()->authAsStoreManager($storesData[3]['id']);
 
         $productsData = array(
             1 => array(
@@ -569,7 +569,7 @@ EOF;
 
         $this->createConfig(Set10Export::URL_CONFIG_NAME, $xmlFileUrl);
 
-        $commercialAccessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $commercialAccessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $this->clientJsonRequest(
             $commercialAccessToken,
             'GET',

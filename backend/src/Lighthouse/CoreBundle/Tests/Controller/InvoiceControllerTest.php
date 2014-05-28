@@ -174,7 +174,7 @@ class InvoiceControllerTest extends WebTestCase
                 ->createInvoiceProduct($productId)
             ->flush();
 
-        $accessToken = $this->factory->oauth()->auth($departmentManager);
+        $accessToken = $this->factory()->oauth()->auth($departmentManager);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -204,7 +204,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $postData = $data + InvoiceProductControllerTest::getInvoiceData($supplier->id, $productId, 10, 5.99);
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -230,7 +230,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $postData = $data + $invoiceData['invoice']['data'];
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -284,7 +284,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $postData = InvoiceProductControllerTest::getInvoiceData($supplier1->id, $productId, 10, 5.99);
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
         $postJson = $this->clientJsonRequest(
             $accessToken,
@@ -910,7 +910,7 @@ class InvoiceControllerTest extends WebTestCase
             )
         );
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -975,7 +975,7 @@ class InvoiceControllerTest extends WebTestCase
                 ->createInvoiceProduct($productIds['3'], 2, 1.95, $storeId)
             ->flush();
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',

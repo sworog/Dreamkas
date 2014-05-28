@@ -22,7 +22,7 @@ class StoreControllerTest extends WebTestCase
             'contacts' => 'тел. 344-32-54, тел/факс +7-921-334-2343, email:super@store.spb.ru',
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole("ROLE_COMMERCIAL_MANAGER");
+        $accessToken = $this->factory()->oauth()->authAsRole("ROLE_COMMERCIAL_MANAGER");
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -41,7 +41,7 @@ class StoreControllerTest extends WebTestCase
 
     public function testStoreUnique()
     {
-        $this->factory->store()->getStoreId("42");
+        $this->factory()->store()->getStoreId("42");
 
         $storeData = array(
             'number' => '42',
@@ -49,7 +49,7 @@ class StoreControllerTest extends WebTestCase
             'contacts' => 'qwew',
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -77,7 +77,7 @@ class StoreControllerTest extends WebTestCase
             'contacts' => 'тел. 344-32-54, тел/факс +7-921-334-2343, email:super@store.spb.ru',
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -102,7 +102,7 @@ class StoreControllerTest extends WebTestCase
      */
     public function testPutStoreValidation($expectedCode, array $data, array $assertions = array())
     {
-        $storeId = $this->factory->store()->getStoreId();
+        $storeId = $this->factory()->store()->getStoreId();
 
         $storeData = $data + array(
                 'number' => 'магазин_номер-32',
@@ -110,7 +110,7 @@ class StoreControllerTest extends WebTestCase
                 'contacts' => 'тел. 344-32-54, тел/факс +7-921-334-2343, email:super@store.spb.ru',
             );
 
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -234,9 +234,9 @@ class StoreControllerTest extends WebTestCase
 
     public function testGetStores()
     {
-        $storesIds = $this->factory->store()->getStores(array(0, 1, 2, 3, 4));
+        $storesIds = $this->factory()->store()->getStores(array(0, 1, 2, 3, 4));
 
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -260,7 +260,7 @@ class StoreControllerTest extends WebTestCase
             'contacts' => 'тел. 344-32-54, тел/факс +7-921-334-2343, email:super@store.spb.ru',
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole("ROLE_COMMERCIAL_MANAGER");
+        $accessToken = $this->factory()->oauth()->authAsRole("ROLE_COMMERCIAL_MANAGER");
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -293,8 +293,8 @@ class StoreControllerTest extends WebTestCase
 
     public function testRolesPropertyIsNotExposed()
     {
-        $storeId = $this->factory->store()->getStoreId();
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $storeId = $this->factory()->store()->getStoreId();
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -308,13 +308,13 @@ class StoreControllerTest extends WebTestCase
 
     public function testGetStoreWithDepartments()
     {
-        $store = $this->factory->store()->getStore('1');
+        $store = $this->factory()->store()->getStore('1');
 
-        $departmentId1 = $this->factory->store()->getDepartment('1-1', $store)->id;
-        $departmentId2 = $this->factory->store()->getDepartment('1-2', $store)->id;
+        $departmentId1 = $this->factory()->store()->getDepartment('1-1', $store)->id;
+        $departmentId2 = $this->factory()->store()->getDepartment('1-2', $store)->id;
         $this->client->shutdownKernelBeforeRequest();
 
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -342,7 +342,7 @@ class StoreControllerTest extends WebTestCase
      */
     public function testAccessStore($url, $method, $role, $responseCode, $requestData = null)
     {
-        $storeId = $this->factory->store()->getStoreId();
+        $storeId = $this->factory()->store()->getStoreId();
 
         $url = str_replace(
             array(
@@ -353,7 +353,7 @@ class StoreControllerTest extends WebTestCase
             ),
             $url
         );
-        $accessToken = $this->factory->oauth()->authAsRole($role);
+        $accessToken = $this->factory()->oauth()->authAsRole($role);
         if (is_array($requestData)) {
             $requestData = $requestData + array (
                 'number' => 'магазин_номер-32',
@@ -508,7 +508,7 @@ class StoreControllerTest extends WebTestCase
             'contacts' => '344-32-54',
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $jsonRequest = new JsonRequest('/api/1/stores', 'POST', $storeData);
         $jsonRequest->setAccessToken($accessToken);
@@ -536,7 +536,7 @@ class StoreControllerTest extends WebTestCase
             'contacts' => '344-32-54',
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $store = new Store();
 
@@ -625,9 +625,9 @@ class StoreControllerTest extends WebTestCase
      */
     public function testDoubleCreate()
     {
-        $this->factory->store()->createStore();
-        $this->factory->flush();
-        $this->factory->store()->createStore();
-        $this->factory->flush();
+        $this->factory()->store()->createStore();
+        $this->factory()->flush();
+        $this->factory()->store()->createStore();
+        $this->factory()->flush();
     }
 }

@@ -22,14 +22,12 @@ class WebTestCase extends ContainerAwareTestCase
     {
         $this->client = static::createClient();
         $this->clearMongoDb();
-        $this->factory = $this->createFactory();
     }
 
     protected function tearDown()
     {
         parent::tearDown();
 
-        $this->factory = null;
         $this->client = null;
     }
 
@@ -88,7 +86,7 @@ class WebTestCase extends ContainerAwareTestCase
     protected function createProduct($extra = '', $subCategoryId = null, $putProductId = false)
     {
         if ($subCategoryId == null) {
-            $subCategoryId = $this->factory->catalog()->getSubCategory()->id;
+            $subCategoryId = $this->factory()->catalog()->getSubCategory()->id;
         }
 
         $productData = array(
@@ -110,7 +108,7 @@ class WebTestCase extends ContainerAwareTestCase
             $productData['barcode'].= $extra;
         }
 
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $method = ($putProductId) ? 'PUT' : 'POST';
         $url = '/api/1/products' . (($putProductId) ? '/' . $putProductId : '');
         $request = new JsonRequest($url, $method, $productData);
@@ -187,8 +185,8 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function createWriteOff($number, $date, $storeId, User $departmentManager = null)
     {
-        $departmentManager = ($departmentManager) ?: $this->factory->store()->getDepartmentManager($storeId);
-        $accessToken = $this->factory->oauth()->auth($departmentManager);
+        $departmentManager = ($departmentManager) ?: $this->factory()->store()->getDepartmentManager($storeId);
+        $accessToken = $this->factory()->oauth()->auth($departmentManager);
 
         $date = $date ? : date('c', strtotime('-1 day'));
 
@@ -228,7 +226,7 @@ class WebTestCase extends ContainerAwareTestCase
         $cause,
         $storeId
     ) {
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
 
         $postData = array(
             'product' => $productId,
@@ -259,13 +257,13 @@ class WebTestCase extends ContainerAwareTestCase
     {
         $catalogIds = array();
         foreach ($catalog as $groupName => $categories) {
-            $groupId = $this->factory->catalog()->createGroup($groupName)->id;
+            $groupId = $this->factory()->catalog()->createGroup($groupName)->id;
             $catalogIds[$groupName] = $groupId;
             foreach ($categories as $categoryName => $subCategories) {
-                $categoryId = $this->factory->catalog()->createCategory($groupId, $categoryName)->id;
+                $categoryId = $this->factory()->catalog()->createCategory($groupId, $categoryName)->id;
                 $catalogIds[$categoryName] = $categoryId;
                 foreach ($subCategories as $subCategoryName => $void) {
-                    $subCategoryId = $this->factory->catalog()->createSubCategory($categoryId, $subCategoryName)->id;
+                    $subCategoryId = $this->factory()->catalog()->createSubCategory($categoryId, $subCategoryName)->id;
                     $catalogIds[$subCategoryName] = $subCategoryId;
                 }
             }
@@ -297,7 +295,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function assertProduct($productId, array $assertions)
     {
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $request = new JsonRequest('/api/1/products/' . $productId);
         $request->setAccessToken($accessToken);
@@ -318,7 +316,7 @@ class WebTestCase extends ContainerAwareTestCase
      */
     protected function assertStoreProduct($storeId, $productId, array $assertions, $message = '')
     {
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
 
         $storeProductJson = $this->clientJsonRequest(
             $accessToken,
@@ -398,7 +396,7 @@ class WebTestCase extends ContainerAwareTestCase
         $productId,
         array $productData = array()
     ) {
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
 
         $this->clientJsonRequest(
             $accessToken,
@@ -439,7 +437,7 @@ class WebTestCase extends ContainerAwareTestCase
             'value' => $value,
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -470,7 +468,7 @@ class WebTestCase extends ContainerAwareTestCase
             'value' => $value,
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
