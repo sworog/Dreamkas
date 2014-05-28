@@ -720,6 +720,8 @@ EOF;
 
     public function testWorkerValidateConfig()
     {
+        $this->factory()->user()->authProject();
+
         /** @var ExportProductsWorker $worker */
         $worker = $this->getContainer()->get('lighthouse.core.integration.set10.export.products.worker');
 

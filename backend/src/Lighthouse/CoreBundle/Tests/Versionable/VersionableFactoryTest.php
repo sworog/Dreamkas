@@ -19,6 +19,7 @@ class VersionableFactoryTest extends ContainerAwareTestCase
     public function testCreateVersionable()
     {
         $this->clearMongoDb();
+        $this->factory()->user()->authProject();
 
         $product = $this->createProduct();
 

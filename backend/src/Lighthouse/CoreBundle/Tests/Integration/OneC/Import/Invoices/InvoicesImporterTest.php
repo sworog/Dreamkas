@@ -58,6 +58,8 @@ class InvoicesImporterTest extends WebTestCase
     {
         $filePath = $this->getFixtureFilePath('Integration/OneC/Import/Invoices/amn.csv');
 
+        $this->factory()->user()->authProject();
+
         $output = $this->import($filePath);
 
         $display = $output->getDisplay();
