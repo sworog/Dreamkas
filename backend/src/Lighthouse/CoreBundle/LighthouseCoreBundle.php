@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddCommandAsServicePass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddJobWorkersPass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddReferenceProvidersPass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddRoundingsToManagerPass;
+use Lighthouse\CoreBundle\DependencyInjection\Compiler\MongoDBDocumentManagerPass;
 use Lighthouse\CoreBundle\MongoDB\Types\DateTimeTZType;
 use Lighthouse\CoreBundle\MongoDB\Types\MoneyType;
 use Lighthouse\CoreBundle\MongoDB\Types\QuantityType;
@@ -50,6 +51,7 @@ class LighthouseCoreBundle extends Bundle
         $container->addCompilerPass(new AddRoundingsToManagerPass());
         $container->addCompilerPass(new AddReferenceProvidersPass());
         $container->addCompilerPass(new AddJobWorkersPass());
+        $container->addCompilerPass(new MongoDBDocumentManagerPass());
     }
 
     /**

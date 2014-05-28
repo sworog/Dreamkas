@@ -1,5 +1,8 @@
 parameters:
     test.client.class: Lighthouse\CoreBundle\Test\Client\Client
+    doctrine_mongodb.odm.document_manager.class: Lighthouse\CoreBundle\MongoDB\DocumentManager
+    doctrine_mongodb.odm.metadata.annotation.class: Lighthouse\CoreBundle\MongoDB\Mapping\Driver\AnnotationDriver
+    doctrine_mongodb.odm.metadata_factory.class: Lighthouse\CoreBundle\MongoDB\Mapping\ClassMetadataFactory
     doctrine_mongodb.odm.generator.increment.collection: IncNumbers
     openstack.selectel.storage.container.metadata:
         type: public
@@ -116,6 +119,11 @@ services:
         parent: doctrine_mongodb.odm.repository
         arguments:
             - LighthouseCoreBundle:User\User
+
+    lighthouse.core.document.repository.project:
+        parent: doctrine_mongodb.odm.repository
+        arguments:
+            - LighthouseCoreBundle:Project\Project
 
     lighthouse.core.document.repository.client:
         parent: doctrine_mongodb.odm.repository
