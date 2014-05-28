@@ -39,8 +39,8 @@ class User extends AbstractDocument implements UserInterface
     /**
      * @MongoDB\String
      * @MongoDB\UniqueIndex
-     * @Assert\NotBlank
-     * @Assert\Email
+     * @Assert\NotBlank(groups={"Default", "registration"})
+     * @Assert\Email(groups={"Default", "registration"})
      * @var string
      */
     protected $email;
@@ -76,7 +76,7 @@ class User extends AbstractDocument implements UserInterface
 
     /**
      * @MongoDB\String
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank(groups={"creation"})
      * @Assert\Length(min="6")
      * @LighthouseAssert\NotEqualsField(
      *      field = "email",

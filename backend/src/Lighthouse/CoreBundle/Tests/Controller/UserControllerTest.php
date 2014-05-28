@@ -89,7 +89,8 @@ class UserControllerTest extends WebTestCase
         $expectedCode,
         array $data,
         array $assertions = array()
-    ) {        $userData = array(
+    ) {
+        $userData = array(
             'email'     => 'qwe@qwe.qwe',
             'name'      => 'ASFFS',
             'position'  => 'SFwewe',
@@ -234,7 +235,7 @@ class UserControllerTest extends WebTestCase
 
     public function editUserValidationProvider()
     {
-        return array(
+        return $this->emailUserValidationProvider() + array(
             /***********************************************************************************************
              * 'name'
              ***********************************************************************************************/
@@ -264,57 +265,6 @@ class UserControllerTest extends WebTestCase
                 array('name' => ''),
                 array(
                     'children.name.errors.0'
-                    =>
-                    'Заполните это поле',
-                ),
-            ),
-            /***********************************************************************************************
-             * 'email'
-             ***********************************************************************************************/
-            'valid email' => array(
-                201,
-                array('email' => 'test@test.com'),
-            ),
-            'valid email with dot' => array(
-                201,
-                array('email' => 'test.dot@test.com'),
-            ),
-            'valid email UPPERCASE' => array(
-                201,
-                array('email' => 'TEST@TEST.COM'),
-            ),
-            'not valid email for domain level 2' => array(
-                400,
-                array('email' => 'test@test'),
-                array(
-                    'children.email.errors.0'
-                    =>
-                    'Значение адреса электронной почты недопустимо.'
-                ),
-            ),
-            'not valid email without at' => array(
-                400,
-                array('email' => 'test.test.com'),
-                array(
-                    'children.email.errors.0'
-                    =>
-                    'Значение адреса электронной почты недопустимо.'
-                ),
-            ),
-            'not valid email wrong symbols' => array(
-                400,
-                array('email' => 'test[]@test.com'),
-                array(
-                    'children.email.errors.0'
-                    =>
-                    'Значение адреса электронной почты недопустимо.'
-                )
-            ),
-            'empty email' => array(
-                400,
-                array('email' => ''),
-                array(
-                    'children.email.errors.0'
                     =>
                     'Заполните это поле',
                 ),
@@ -387,6 +337,63 @@ class UserControllerTest extends WebTestCase
                     'children.role.errors.0'
                     =>
                     'Заполните это поле',
+                ),
+            ),
+        );
+    }
+
+    public function emailUserValidationProvider()
+    {
+        return array(
+            /***********************************************************************************************
+             * 'email'
+             ***********************************************************************************************/
+            'valid email' => array(
+                201,
+                array('email' => 'test@test.com'),
+            ),
+            'valid email with dot' => array(
+                201,
+                array('email' => 'test.dot@test.com'),
+            ),
+            'valid email UPPERCASE' => array(
+                201,
+                array('email' => 'TEST@TEST.COM'),
+            ),
+            'not valid email for domain level 2' => array(
+                400,
+                array('email' => 'test@test'),
+                array(
+                    'children.email.errors.0'
+                    =>
+                        'Значение адреса электронной почты недопустимо.'
+                ),
+            ),
+            'not valid email without at' => array(
+                400,
+                array('email' => 'test.test.com'),
+                array(
+                    'children.email.errors.0'
+                    =>
+                        'Значение адреса электронной почты недопустимо.'
+                ),
+            ),
+            'not valid email wrong symbols' => array(
+                400,
+                array('email' => 'test[]@test.com'),
+                array(
+                    'children.email.errors.0'
+                    =>
+                        'Значение адреса электронной почты недопустимо.'
+                )
+            ),
+            'empty email' => array(
+                400,
+                array('email' => ''),
+                array(
+                    'children.email.errors.0'
+                    =>
+                        'Заполните это поле',
                 ),
             ),
         );
@@ -903,6 +910,89 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
         Assert::assertJsonPathEquals(
+            'Пользователь с таким email уже существует',
+            'children.email.errors.0',
+            $response
+        );
+    }
+
+    public function testPostSignupAction()
+    {
+        $postData = array(
+            'email' => 'signup@lh.pro'
+        );
+
+        $response = $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/signup',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonPathEquals($postData['email'], 'email', $response);
+        Assert::assertNotJsonHasPath('password', $response);
+    }
+
+    /**
+     * @dataProvider postSignupProvider
+     *
+     * @param $expectedCode
+     * @param array $data
+     * @param array $assertions
+     */
+    public function testPostSignupValidationTest(
+        $expectedCode,
+        array $data,
+        array $assertions = array()
+    ) {
+        $postData = $data + array(
+            'email' => 'signup@lh.pro',
+        );
+
+        $response = $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/signup',
+            $postData
+        );
+
+        $this->assertResponseCode($expectedCode);
+
+        $this->performJsonAssertions($response, $assertions, false);
+    }
+
+    public function postSignupProvider()
+    {
+        return $this->emailUserValidationProvider();
+    }
+
+    public function testPostSignupUniqueEmailValidationTest()
+    {
+        $userData = array(
+            'email'     => 'signup@lh.com',
+        );
+
+        $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/signup',
+            $userData
+        );
+
+        $this->assertResponseCode(201);
+
+        $response = $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/signup',
+            $userData
+        );
+
+        $this->assertResponseCode(400);
+
+        Assert::assertJsonPathContains(
             'Пользователь с таким email уже существует',
             'children.email.errors.0',
             $response

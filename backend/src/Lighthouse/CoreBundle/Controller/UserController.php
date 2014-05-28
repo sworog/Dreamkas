@@ -93,7 +93,7 @@ class UserController extends AbstractRestController
         $document = $this->documentRepository->createNew();
 
         $type = $this->getDocumentFormType();
-        $form = $this->createForm($type, $document, array('validation_groups' => array('Default', 'registration')));
+        $form = $this->createForm($type, $document, array('validation_groups' => array('Default', 'creation')));
         $form->submit($request);
 
         if ($form->isValid()) {
@@ -130,6 +130,35 @@ class UserController extends AbstractRestController
                 $this->userProvider->setPassword($user, $user->password);
             }
             return $this->saveDocument($user, $form);
+        } else {
+            return $form;
+        }
+    }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return User|View
+     *
+     * @Rest\View(statusCode=201)
+     * @Rest\Route("users/signup")
+     * @ApiDoc(
+     *      resource=true,
+     *      description="Create user",
+     *      input="Lighthouse\CoreBundle\Form\UserType"
+     * )
+     *
+     */
+    public function postUsersSignupAction(Request $request)
+    {
+        /** @var User $document */
+        $document = $this->documentRepository->createNew();
+
+        $type = $this->getDocumentFormType();
+        $form = $this->createForm($type, $document, array('validation_groups' => array('registration')));
+        $form->submit($request);
+
+        if ($form->isValid()) {
+            return $this->saveDocument($document, $form);
         } else {
             return $form;
         }
