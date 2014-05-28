@@ -3,17 +3,23 @@
 namespace Lighthouse\CoreBundle\MongoDB;
 
 use Doctrine\ODM\MongoDB\DocumentManager as BaseDocumentManager;
+use Doctrine\ODM\MongoDB\MongoDBException;
+use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\MongoDB\Mapping\ClassMetadata;
+use Lighthouse\CoreBundle\Security\Token\ProjectToken;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
-class DocumentManager extends BaseDocumentManager
+class DocumentManager extends BaseDocumentManager implements ContainerAwareInterface
 {
     /**
-     * @var SecurityContextInterface
+     * @var ContainerInterface
      */
-    protected $securityContext;
+    protected $container;
 
     /**
      * @var \Doctrine\MongoDB\Database[][]
@@ -21,16 +27,33 @@ class DocumentManager extends BaseDocumentManager
     protected $projectDocumentDatabases;
 
     /**
+     * @var \Doctrine\MongoDB\Collection[][]
+     */
+    protected $projectDocumentCollections;
+
+    /**
      * @var SchemaManager
      */
     protected $schemaManager;
 
     /**
-     * @param SecurityContextInterface $securityContext
+     * Sets the Container.
+     *
+     * @param ContainerInterface|null $container A ContainerInterface instance or null
+     *
+     * @api
      */
-    public function setSecurityContext(SecurityContextInterface $securityContext)
+    public function setContainer(ContainerInterface $container = null)
     {
-        $this->securityContext = $securityContext;
+        $this->container = $container;
+    }
+
+    /**
+     * @return SecurityContextInterface
+     */
+    protected function getSecurityContext()
+    {
+        return $this->container->get('security.context');
     }
 
     /**
@@ -52,9 +75,19 @@ class DocumentManager extends BaseDocumentManager
 
         if ($metadata->globalDb) {
             return parent::getDocumentDatabase($className);
+        } else {
+            return $this->getProjectDocumentDatabase($className, $this->getCurrentProject());
         }
+    }
 
-        $project = $this->getCurrentProject();
+    /**
+     * @param string $className
+     * @param Project $project
+     * @return \Doctrine\MongoDB\Database
+     */
+    public function getProjectDocumentDatabase($className, Project $project)
+    {
+        $metadata = $this->getClassMetadata($className);
 
         if (!isset($this->projectDocumentDatabases[$project->getNamespace()][$metadata->name])) {
             $db = $this->getDocumentDatabaseName($metadata);
@@ -68,21 +101,6 @@ class DocumentManager extends BaseDocumentManager
     }
 
     /**
-     * @return \Lighthouse\CoreBundle\Document\Project\Project
-     */
-    protected function getCurrentProject()
-    {
-        if ($this->securityContext->getToken()) {
-            $user = $this->securityContext->getToken()->getUser();
-            if ($user instanceof User && $user->getProject()) {
-                return $user->getProject();
-            }
-        }
-
-        throw new RuntimeException("User with project is not signed in");
-    }
-
-    /**
      * @param ClassMetadata $metadata
      * @return string
      */
@@ -93,6 +111,73 @@ class DocumentManager extends BaseDocumentManager
         $db = $db ? $db : 'doctrine';
 
         return $db;
+    }
+
+    /**
+     * @param string $className
+     * @return \Doctrine\MongoDB\Collection
+     * @throws \Doctrine\ODM\MongoDB\MongoDBException
+     */
+    public function getDocumentCollection($className)
+    {
+        $metadata = $this->getClassMetadata($className);
+        if ($metadata->globalDb) {
+            return parent::getDocumentCollection($className);
+        } else {
+            return $this->getProjectDocumentCollection($className, $this->getCurrentProject());
+        }
+    }
+
+    /**
+     * @param string $className
+     * @param Project $project
+     * @return \Doctrine\MongoDB\Collection
+     * @throws \Doctrine\ODM\MongoDB\MongoDBException
+     */
+    public function getProjectDocumentCollection($className, Project $project)
+    {
+        $metadata = $this->getClassMetadata($className);
+
+        if (!isset($this->projectDocumentCollections[$project->getNamespace()][$metadata->name])) {
+
+            $collectionName = $metadata->getCollection();
+
+            if (!$collectionName) {
+                throw MongoDBException::documentNotMappedToCollection($metadata->name);
+            }
+
+            $db = $this->getProjectDocumentDatabase($className, $project);
+
+            $collection = $metadata->isFile()
+                ? $db->getGridFS($collectionName)
+                : $db->selectCollection($collectionName);
+
+            if ($metadata->slaveOkay !== null) {
+                $collection->setSlaveOkay($metadata->slaveOkay);
+            }
+
+            $this->projectDocumentCollections[$project->getNamespace()][$metadata->name] = $collection;
+        }
+
+        return $this->projectDocumentCollections[$project->getNamespace()][$metadata->name];
+    }
+
+    /**
+     * @return Project
+     */
+    protected function getCurrentProject()
+    {
+        $token = $this->getSecurityContext()->getToken();
+        if ($token instanceof ProjectToken) {
+            return $token->getProject();
+        } elseif ($token instanceof TokenInterface) {
+            $user = $token->getUser();
+            if ($user instanceof User && $user->getProject()) {
+                return $user->getProject();
+            }
+        }
+
+        throw new RuntimeException("User with project is not signed in");
     }
 
     /**

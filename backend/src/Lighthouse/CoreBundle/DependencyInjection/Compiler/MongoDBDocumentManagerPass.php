@@ -17,7 +17,7 @@ class MongoDBDocumentManagerPass implements CompilerPassInterface
         foreach ($documentManagerIds as $id => $tagAttributes) {
             $definition = $container->getDefinition($id);
 
-            $definition->addMethodCall('setSecurityContext', array(new Reference('security.context')));
+            $definition->addMethodCall('setContainer', array(new Reference('service_container')));
 
             $configurationServiceId = $definition->getArgument(1);
             $configurationDefinition = $container->getDefinition($configurationServiceId);
