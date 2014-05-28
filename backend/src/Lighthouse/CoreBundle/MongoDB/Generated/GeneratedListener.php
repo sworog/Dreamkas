@@ -4,9 +4,7 @@ namespace Lighthouse\CoreBundle\MongoDB\Generated;
 
 use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
 use Doctrine\MongoDB\Collection;
-use Doctrine\MongoDB\Event\CreateCollectionEventArgs;
 use Doctrine\MongoDB\Event\EventArgs;
-use Doctrine\MongoDB\LoggableCollection;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;

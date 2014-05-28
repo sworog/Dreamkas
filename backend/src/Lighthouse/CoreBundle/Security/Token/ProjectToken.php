@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Security\Token;
 
 use Lighthouse\CoreBundle\Document\Project\Project;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Role\RoleInterface;
 
 class ProjectToken implements TokenInterface
 {
@@ -57,9 +58,7 @@ class ProjectToken implements TokenInterface
     }
 
     /**
-     * Returns the user roles.
-     *
-     * @return RoleInterface[] An array of RoleInterface instances.
+     * @return RoleInterface[]|array
      */
     public function getRoles()
     {
@@ -67,9 +66,7 @@ class ProjectToken implements TokenInterface
     }
 
     /**
-     * Returns the user credentials.
-     *
-     * @return mixed The user credentials
+     * @return mixed|string
      */
     public function getCredentials()
     {
@@ -77,10 +74,7 @@ class ProjectToken implements TokenInterface
     }
 
     /**
-     * Returns a user representation.
-     *
-     * @return mixed either returns an object which implements __toString(), or
-     *                  a primitive string is returned.
+     * @return mixed|string
      */
     public function getUser()
     {
@@ -88,9 +82,8 @@ class ProjectToken implements TokenInterface
     }
 
     /**
-     * Sets a user.
-     *
      * @param mixed $user
+     * @throws \Exception
      */
     public function setUser($user)
     {
@@ -98,8 +91,6 @@ class ProjectToken implements TokenInterface
     }
 
     /**
-     * Returns the username.
-     *
      * @return string
      */
     public function getUsername()
@@ -108,9 +99,7 @@ class ProjectToken implements TokenInterface
     }
 
     /**
-     * Returns whether the user is authenticated or not.
-     *
-     * @return bool    true if the token has been authenticated, false otherwise
+     * @return bool
      */
     public function isAuthenticated()
     {
@@ -118,9 +107,8 @@ class ProjectToken implements TokenInterface
     }
 
     /**
-     * Sets the authenticated flag.
-     *
-     * @param bool $isAuthenticated The authenticated flag
+     * @param bool $isAuthenticated
+     * @throws \Exception
      */
     public function setAuthenticated($isAuthenticated)
     {
@@ -128,7 +116,7 @@ class ProjectToken implements TokenInterface
     }
 
     /**
-     * Removes sensitive information from the token.
+     *
      */
     public function eraseCredentials()
     {
@@ -136,9 +124,7 @@ class ProjectToken implements TokenInterface
     }
 
     /**
-     * Returns the token attributes.
-     *
-     * @return array The token attributes
+     * @return array
      */
     public function getAttributes()
     {
@@ -159,7 +145,7 @@ class ProjectToken implements TokenInterface
      */
     public function hasAttribute($name)
     {
-        // TODO: Implement hasAttribute() method.
+
     }
 
     /**
@@ -168,7 +154,7 @@ class ProjectToken implements TokenInterface
      */
     public function getAttribute($name)
     {
-        // TODO: Implement getAttribute() method.
+
     }
 
     /**
@@ -177,7 +163,7 @@ class ProjectToken implements TokenInterface
      */
     public function setAttribute($name, $value)
     {
-        // TODO: Implement setAttribute() method.
+
     }
 
     /**
