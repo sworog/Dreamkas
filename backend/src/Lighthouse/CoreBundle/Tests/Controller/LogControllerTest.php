@@ -11,6 +11,8 @@ class LogControllerTest extends WebTestCase
 {
     public function testGetLogsAction()
     {
+        $this->factory()->user()->authProject();
+
         /** @var LogRepository $logRepository */
         $logRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
 
