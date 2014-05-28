@@ -17,6 +17,6 @@ public class SignUpPage extends CommonPageObject {
     }
 
     public void signUpButtonClick() {
-        new ButtonFacade(this, "Зарегестрироваться").click();
+        new ButtonFacade(this, "Зарегистрироваться").click();
     }
 }
