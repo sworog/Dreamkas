@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\MongoDB\Generated;
 
+use Doctrine\MongoDB\Collection;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Id\IncrementGenerator as BaseIncrementGenerator;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -23,23 +24,21 @@ class IncrementGenerator extends BaseIncrementGenerator
     }
 
     /**
-     * @param DocumentManager $dm
+     * @param Collection $collection
      * @param string $className
      * @param int $startValue
      * @return int
      */
-    public function setStartValue(DocumentManager $dm, $className, $startValue)
+    public function setStartValue(Collection $collection, $className, $startValue)
     {
-        $db = $dm->getDocumentDatabase($className);
-
         $coll = $this->collection ?: 'doctrine_increment_ids';
-        $key = $this->key ?: $dm->getDocumentCollection($className)->getName();
+        $key = $this->key ?: $collection->getName();
 
         $query = array('_id' => $key);
         $newObj = array('$set' => array('current_id' => $startValue));
         $options = array('upsert' => true, 'new' => true);
 
-        $result = $db->selectCollection($coll)->findAndUpdate($query, $newObj, $options);
+        $result = $collection->getDatabase()->selectCollection($coll)->findAndUpdate($query, $newObj, $options);
 
         return $result['current_id'];
     }
