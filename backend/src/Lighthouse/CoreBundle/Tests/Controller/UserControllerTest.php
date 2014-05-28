@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use SebastianBergmann\Exporter\Exporter;
+use Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use MongoDuplicateKeyException;
@@ -997,5 +998,68 @@ class UserControllerTest extends WebTestCase
             'children.email.errors.0',
             $response
         );
+    }
+
+    public function testPostSignupEmailSendAndLoginWithPassword()
+    {
+        $this->client->enableProfiler();
+
+        $userData = array(
+            'email'     => 'signup@lh.com',
+        );
+
+        $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/signup',
+            $userData
+        );
+
+        $this->assertResponseCode(201);
+
+        /** @var MessageDataCollector $mailCollector */
+        $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
+        $this->assertEquals(1, $mailCollector->getMessageCount());
+
+        $collectedMessages = $mailCollector->getMessages();
+        /** @var \Swift_Message $message */
+        $message = $collectedMessages[0];
+
+        $this->assertInstanceOf('Swift_Message', $message);
+        $this->assertEquals('noreply@lighthouse.pro', key($message->getFrom()));
+        $this->assertEquals('signup@lh.com', key($message->getTo()));
+        $this->assertEquals('Добро пожаловать в Lighthouse', $message->getSubject());
+        $this->assertContains('Добро пожаловать в Lighthouse!', $message->getBody());
+        $this->assertContains('Ваш пароль для входа:', $message->getBody());
+        $this->assertContains('Если это письмо пришло вам по ошибке, просто проигнорируйте его', $message->getBody());
+
+
+        preg_match('/Ваш пароль для входа:\s(.+)\n/', $message->getBody(), $matches);
+        $password = $matches[1];
+
+
+        $authClient = $this->factory->oauth()->getAuthClient();
+
+        $authParams = array(
+            'grant_type' => 'password',
+            'username' => $userData['email'],
+            'password' => $password,
+            'client_id' => $authClient->getPublicId(),
+            'client_secret' => $authClient->getSecret()
+        );
+
+        $this->client->request(
+            'POST',
+            '/oauth/v2/token',
+            $authParams,
+            array(),
+            array('Content-Type' => 'application/x-www-form-urlencoded')
+        );
+
+        $response = $this->client->getResponse()->getContent();
+        $jsonResponse = json_decode($response, true);
+
+        $this->assertResponseCode(200);
+        self::assertNotNull($jsonResponse);
     }
 }

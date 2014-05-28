@@ -5,13 +5,16 @@ namespace Lighthouse\CoreBundle\Security\User;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
+use Symfony\Bridge\Monolog\Logger;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use JMS\DiExtraBundle\Annotation as DI;
+use Symfony\Component\Security\Core\Util\SecureRandom;
 use Symfony\Component\Validator\ValidatorInterface;
+use Swift_Mailer;
 
 /**
  * @DI\Service("lighthouse.core.user.provider")
@@ -34,24 +37,33 @@ class UserProvider implements UserProviderInterface
     protected $validator;
 
     /**
+     * @var Swift_Mailer
+     */
+    protected $mailer;
+
+    /**
      * @DI\InjectParams({
      *      "userRepository" = @DI\Inject("lighthouse.core.document.repository.user"),
      *      "encoderFactory" = @DI\Inject("security.encoder_factory"),
-     *      "validator"      = @DI\Inject("lighthouse.core.validator")
+     *      "validator"      = @DI\Inject("lighthouse.core.validator"),
+     *      "mailer"         = @DI\Inject("mailer")
      * })
      *
      * @param UserRepository $userRepository
      * @param EncoderFactoryInterface $encoderFactory
      * @param ValidatorInterface $validator
+     * @param Swift_Mailer $mailer
      */
     public function __construct(
         UserRepository $userRepository,
         EncoderFactoryInterface $encoderFactory,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        Swift_Mailer $mailer
     ) {
         $this->userRepository = $userRepository;
         $this->encoderFactory = $encoderFactory;
         $this->validator = $validator;
+        $this->mailer = $mailer;
     }
 
     /**
@@ -168,5 +180,54 @@ class UserProvider implements UserProviderInterface
         $this->updateUserWithPassword($user, $password, true);
 
         return $user;
+    }
+
+    /**
+     * @return string
+     */
+    public function generateUserPassword()
+    {
+        $secureRandom = new SecureRandom();
+        $password = bin2hex($secureRandom->nextBytes(8));
+
+        return substr($password, 0, 8);
+    }
+
+    /**
+     * @param User $user
+     * @param string $password
+     * @return User
+     */
+    public function registerUser(User $user, $password)
+    {
+        $this->setPassword($user, $password);
+
+        $this->userRepository->getDocumentManager()->persist($user);
+        $this->userRepository->getDocumentManager()->flush();
+
+        $messageBody = $this->getMessageBody($password);
+
+        $message = \Swift_Message::newInstance()
+            ->setFrom('noreply@lighthouse.pro')
+            ->setTo($user->email)
+            ->setSubject('Добро пожаловать в Lighthouse')
+            ->setBody($messageBody);
+
+        $this->mailer->send($message);
+
+        return $user;
+    }
+
+    public function getMessageBody($password)
+    {
+        $message = <<<TEXT
+Добро пожаловать в Lighthouse!
+
+Ваш пароль для входа: {$password}
+
+Если это письмо пришло вам по ошибке, просто проигнорируйте его.
+TEXT;
+
+        return $message;
     }
 }

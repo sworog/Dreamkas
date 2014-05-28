@@ -158,7 +158,8 @@ class UserController extends AbstractRestController
         $form->submit($request);
 
         if ($form->isValid()) {
-            return $this->saveDocument($document, $form);
+            $password = $this->userProvider->generateUserPassword();
+            return $this->userProvider->registerUser($document, $password);
         } else {
             return $form;
         }
