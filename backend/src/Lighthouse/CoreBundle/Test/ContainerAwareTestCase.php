@@ -82,7 +82,7 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     }
 
     /**
-     * @return DocumentManager
+     * @return \Lighthouse\CoreBundle\MongoDB\DocumentManager
      */
     protected function getDocumentManager()
     {
@@ -110,10 +110,11 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
 
     protected function clearMongoDb()
     {
-        $mongoDb = $this->getDocumentManager();
-        $mongoDb->getSchemaManager()->dropCollections();
-        $mongoDb->getSchemaManager()->createCollections();
-        $mongoDb->getSchemaManager()->ensureIndexes();
+        $dm = $this->getDocumentManager();
+        $dm->getSchemaManager()->dropGlobalCollections();
+        $dm->getSchemaManager()->dropAllProjectCollections();
+        $dm->getSchemaManager()->createGlobalCollections();
+        $dm->getSchemaManager()->ensureGlobalIndexes();
     }
 
     protected function clearJobs()
