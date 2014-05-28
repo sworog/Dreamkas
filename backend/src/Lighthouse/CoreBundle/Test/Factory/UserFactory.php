@@ -2,12 +2,15 @@
 
 namespace Lighthouse\CoreBundle\Test\Factory;
 
+use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\User\User;
+use Lighthouse\CoreBundle\Security\Token\ProjectToken;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class UserFactory extends AbstractFactory
 {
-    const USER_DEFAULT_EMAIL = 'admin@lighthouse.pro';
+    const USER_DEFAULT_EMAIL = 'default@lighthouse.pro';
     const USER_DEFAULT_PASSWORD = 'password';
     const USER_DEFAULT_NAME = 'Админ Админыч';
     const USER_DEFAULT_POSITION = 'Администратор';
@@ -84,6 +87,8 @@ class UserFactory extends AbstractFactory
         $user->role = $role;
         $user->position = $position;
 
+        $user->project = new Project();
+
         $this->getUserProvider()->setPassword($user, $password);
 
         $this->getDocumentManager()->persist($user);
@@ -93,10 +98,30 @@ class UserFactory extends AbstractFactory
     }
 
     /**
+     * @param User $user
+     * @return ProjectToken
+     */
+    public function authUserProject(User $user = null)
+    {
+        $user = ($user) ?: $this->getUser();
+        $token = new ProjectToken($user->getProject());
+        $this->getSecurityContext()->setToken($token);
+        return $token;
+    }
+
+    /**
      * @return UserProvider
      */
     protected function getUserProvider()
     {
         return $this->container->get('lighthouse.core.user.provider');
+    }
+
+    /**
+     * @return SecurityContextInterface
+     */
+    protected function getSecurityContext()
+    {
+        return $this->container->get('security.context');
     }
 }
