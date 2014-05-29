@@ -1038,7 +1038,7 @@ class UserControllerTest extends WebTestCase
         $password = $matches[1];
 
 
-        $authClient = $this->factory->oauth()->getAuthClient();
+        $authClient = $this->factory()->oauth()->getAuthClient();
 
         $authParams = array(
             'grant_type' => 'password',
