@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Symfony\Bridge\Monolog\Logger;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -42,28 +43,37 @@ class UserProvider implements UserProviderInterface
     protected $mailer;
 
     /**
+     * @var ContainerInterface
+     */
+    protected $container;
+
+    /**
      * @DI\InjectParams({
      *      "userRepository" = @DI\Inject("lighthouse.core.document.repository.user"),
      *      "encoderFactory" = @DI\Inject("security.encoder_factory"),
      *      "validator"      = @DI\Inject("lighthouse.core.validator"),
-     *      "mailer"         = @DI\Inject("mailer")
+     *      "mailer"         = @DI\Inject("mailer"),
+     *      "container"      = @DI\Inject("service_container")
      * })
      *
      * @param UserRepository $userRepository
      * @param EncoderFactoryInterface $encoderFactory
      * @param ValidatorInterface $validator
      * @param Swift_Mailer $mailer
+     * @param ContainerInterface $container
      */
     public function __construct(
         UserRepository $userRepository,
         EncoderFactoryInterface $encoderFactory,
         ValidatorInterface $validator,
-        Swift_Mailer $mailer
+        Swift_Mailer $mailer,
+        ContainerInterface $container
     ) {
         $this->userRepository = $userRepository;
         $this->encoderFactory = $encoderFactory;
         $this->validator = $validator;
         $this->mailer = $mailer;
+        $this->container = $container;
     }
 
     /**
@@ -198,7 +208,7 @@ class UserProvider implements UserProviderInterface
      * @param string $password
      * @return User
      */
-    public function sendRegistredMessage(User $user, $password)
+    public function sendRegisteredMessage(User $user, $password)
     {
         $messageBody = $this->getMessageBody($password);
 
@@ -219,13 +229,12 @@ class UserProvider implements UserProviderInterface
      */
     public function getMessageBody($password)
     {
-        $message = <<<TEXT
-Добро пожаловать в Lighthouse!
-
-Ваш пароль для входа: {$password}
-
-Если это письмо пришло вам по ошибке, просто проигнорируйте его.
-TEXT;
+        $message = $this->container->get('templating')->render(
+            'LighthouseCoreBundle:Email:registered.html.php',
+            array(
+                'password' => $password
+            )
+        );
 
         return $message;
     }
