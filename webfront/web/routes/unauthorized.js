@@ -4,6 +4,7 @@ define(function(require) {
     return {
         //common
         'signup(/)': require('pages/signup/signup'),
-        '*path': require('pages/common/login')
+        'login(/)': require('pages/login/login'),
+        '*path': require('pages/login/login')
     };
 });

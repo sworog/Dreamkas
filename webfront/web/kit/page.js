@@ -1,71 +1,47 @@
 define(function(require) {
     //requirements
     var Block = require('kit/block'),
-        makeClass = require('kit/makeClass/makeClass'),
-        deepExtend = require('kit/deepExtend/deepExtend'),
         when = require('when'),
         _ = require('lodash');
 
-    return makeClass(function(opt) {
-
-        var page = this,
-            blockOpt = {},
-            PageBlock,
-            pageKey;
-
-        page.route = opt.route;
-
-        _.extend(page.data.params, opt.params);
-
-        when(_.result(this, 'isAllow')).then(function(isAllow) {
-            if (isAllow) {
-
-                page._initResources();
-
-                when(page.fetchAll()).then(function(data) {
-
-                    deepExtend(page.data, data);
-
-                    for (pageKey in page) {
-                        blockOpt[pageKey] = page[pageKey];
-                    }
-
-                    PageBlock = Block.extend(blockOpt);
-
-                    if (window.PAGE) {
-                        window.PAGE.destroy();
-                    }
-
-                    window.PAGE = new PageBlock;
-
-                    window.PAGE.set('status', 'loaded');
-                });
-            } else {
-                page.showError({
-                    statusCode: '403'
-                });
-            }
-        }, function(error) {
-            page.showError(error);
-        });
-    }, {
+    return Block.extend({
         el: document.body,
-        data: {
-            params: {},
-            status: 'loading'
+        init: function(){
+            var page = this;
+
+            page._super();
+
+            page.set('status', 'loading');
+
+            when(_.result(page, 'isAllow')).then(function(isAllow) {
+                if (isAllow) {
+
+                    page._initResources();
+
+                    when(page.fetchAll()).then(function(data) {
+
+                        window.PAGE && window.PAGE.destroy();
+                        window.PAGE = page;
+
+                        page.set(data);
+
+                        page.set('status', 'loaded');
+                    });
+                } else {
+                    page.showError({
+                        statusCode: '403'
+                    });
+                }
+            }, function(error) {
+                page.showError(error);
+            });
         },
         resources: {},
         isAllow: true,
+
         showError: function(error) {
             error.statusCode = error.statusCode || 'unknown error';
             alert('Error: ' + error.statusCode);
-        },
-        _initResources: function() {
-            var page = this;
-
-            page.resources = _.transform(page.resources, function(result, ResourceClass, key) {
-                result[key] = new ResourceClass();
-            });
         },
         fetch: function(resourceName) {
             var page = this;
@@ -110,6 +86,13 @@ define(function(require) {
 
             return when(page.resources[resourceName].save(page.get(resourceName)), function(){
                 page.set && page.set('status', 'loaded');
+            });
+        },
+        _initResources: function() {
+            var page = this;
+
+            page.resources = _.transform(page.resources, function(result, ResourceClass, key) {
+                result[key] = new ResourceClass();
             });
         }
     });

@@ -8,7 +8,7 @@ define(function(require, exports, module) {
             globalNavigation: require('rv!./globalNavigation.html')
         },
         components: {
-            form_signup: require('blocks/form/form_signup/form_signup')
+            form_login: require('blocks/form/form_login/form_login')
         }
     });
 });

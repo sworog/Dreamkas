@@ -10,7 +10,7 @@ require.config({
         'when': 'bower_components/when/when',
         'lodash': 'kit/lodash',
         'underscore': 'kit/underscore',
-        'router': 'bower_components/router/router',
+        'router': 'kit/router',
         'jquery': 'bower_components/jquery/dist/jquery',
         'jquery.ui': 'bower_components/jqueryui/ui/minified/jquery-ui.min',
         'jquery.maskedinput': 'bower_components/jquery-maskedinput/dist/jquery.maskedinput',

@@ -1,0 +1,10 @@
+<div class="content">
+    <h1>Добро пожаловать в Lighthouse!</h1>
+    {{#params.email}}
+        <p>
+            Ваша учетная запись успешно создана. <br/>
+            Для входа введите пароль присланный вам на email.
+        </p>
+    {{/params.email}}
+    <form_login email="{{{params.email}}}" />
+</div>
