@@ -35,15 +35,15 @@ set :api_clients, [
 ]
 
 set :api_users, [
-    {"username" => "watchman",              "userpass" => "lighthouse", "userrole" => "ROLE_ADMINISTRATOR"},
-    #{"username" => "administrator",         "userpass" => "lighthouse", "userrole" => "ROLE_ADMINISTRATOR"},
-    #{"username" => "commercialManager",     "userpass" => "lighthouse", "userrole" => "ROLE_COMMERCIAL_MANAGER"},
-    #{"username" => "storeManager",          "userpass" => "lighthouse", "userrole" => "ROLE_STORE_MANAGER"},
-    #{"username" => "departmentManager",     "userpass" => "lighthouse", "userrole" => "ROLE_DEPARTMENT_MANAGER"},
-    #{"username" => "administratorApi",      "userpass" => "lighthouse", "userrole" => "ROLE_ADMINISTRATOR"},
-    #{"username" => "commercialManagerApi",  "userpass" => "lighthouse", "userrole" => "ROLE_COMMERCIAL_MANAGER"},
-    #{"username" => "storeManagerApi",       "userpass" => "lighthouse", "userrole" => "ROLE_STORE_MANAGER"},
-    #{"username" => "departmentManagerApi",  "userpass" => "lighthouse", "userrole" => "ROLE_DEPARTMENT_MANAGER"}
+    {"email" => "watchman@lighthouse.pro",               "userpass" => "lighthouse", "userrole" => "ROLE_ADMINISTRATOR"},
+    #{"email" => "administrator@lighthouse.pro",         "userpass" => "lighthouse", "userrole" => "ROLE_ADMINISTRATOR"},
+    #{"email" => "commercialManager@lighthouse.pro",     "userpass" => "lighthouse", "userrole" => "ROLE_COMMERCIAL_MANAGER"},
+    #{"email" => "storeManager@lighthouse.pro",          "userpass" => "lighthouse", "userrole" => "ROLE_STORE_MANAGER"},
+    #{"email" => "departmentManager@lighthouse.pro",     "userpass" => "lighthouse", "userrole" => "ROLE_DEPARTMENT_MANAGER"},
+    #{"email" => "administratorApi@lighthouse.pro",      "userpass" => "lighthouse", "userrole" => "ROLE_ADMINISTRATOR"},
+    #{"email" => "commercialManagerApi@lighthouse.pro",  "userpass" => "lighthouse", "userrole" => "ROLE_COMMERCIAL_MANAGER"},
+    #{"email" => "storeManagerApi@lighthouse.pro",       "userpass" => "lighthouse", "userrole" => "ROLE_STORE_MANAGER"},
+    #{"email" => "departmentManagerApi@lighthouse.pro",  "userpass" => "lighthouse", "userrole" => "ROLE_DEPARTMENT_MANAGER"}
 ]
 
 role :web,        domain                         # Your HTTP server, Apache/etc
