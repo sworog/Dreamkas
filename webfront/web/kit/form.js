@@ -6,14 +6,18 @@ define(function(require, exports, module) {
         $ = require('jquery');
 
     return Block.extend({
+        model: null,
         redirectUrl: null,
+        data: {
+            model: {}
+        },
         elements: {
-            $submitButton: function(){
+            $submitButton: function() {
                 var block = this;
 
                 return $(block.el).find('[type="submit"]').closest('.button').add('[form="' + block.el.id + '"]');
             },
-            $controls: function(){
+            $controls: function() {
                 var block = this;
 
                 return $(block.el).find('.form__controls');
@@ -47,8 +51,11 @@ define(function(require, exports, module) {
                 });
             }
         },
-        submit: function(){
+        submit: function() {
+            var block = this,
+                model = new block.model;
 
+            return model.save(block.get('model'));
         },
         submitStart: function() {
             var block = this;
@@ -80,27 +87,28 @@ define(function(require, exports, module) {
             block.showErrors(JSON.parse(response.responseText), response);
         },
         showErrors: function(errors, error) {
-            var block = this,
-                addErrorToInput = function(data, field, prefix) {
-                    prefix = prefix || '';
+            var block = this;
 
-                    var fieldErrors,
-                        $input = $(block.el).find('[name="' + prefix + field + '"]'),
-                        $field = $input.closest('.form__field');
+            function addErrorToInput(data, field, prefix) {
+                prefix = prefix || '';
 
-                    if (data.errors) {
-                        $input.addClass('inputText_error');
-                        fieldErrors = data.errors.join('. ');
-                        $field.attr('data-error', ($field.attr('data-error') ? $field.attr('data-error') + ', ' : '') + fieldErrors);
-                    }
+                var fieldErrors,
+                    $input = $(block.el).find('[name="' + prefix + field + '"]'),
+                    $field = $input.closest('.form__field');
 
-                    if (data.children) {
-                        var newPrefix = prefix + field + '.';
-                        _.each(data.children, function(data, field) {
-                            addErrorToInput(data, field, newPrefix);
-                        });
-                    }
-                };
+                if (data.errors) {
+                    $input.addClass('inputText_error');
+                    fieldErrors = data.errors.join('. ');
+                    $field.attr('data-error', ($field.attr('data-error') ? $field.attr('data-error') + ', ' : '') + block.getText(fieldErrors));
+                }
+
+                if (data.children) {
+                    var newPrefix = prefix + field + '.';
+                    _.each(data.children, function(data, field) {
+                        addErrorToInput(data, field, newPrefix);
+                    });
+                }
+            };
 
             block.removeErrors();
 
@@ -111,7 +119,7 @@ define(function(require, exports, module) {
             }
 
             if (errors.error) {
-                block.elements.$controls.attr('data-error', typeof errors.error === 'string' ? errors.error : 'неизвестная ошибка: ' + error.statusText);
+                block.elements.$controls.attr('data-error', typeof errors.error === 'string' ? block.getText(errors.error) : block.getText('неизвестная ошибка: ' + error.statusText));
             }
 
             if (errors.errors) {
@@ -119,11 +127,11 @@ define(function(require, exports, module) {
             }
 
             if (errors.description) {
-                block.elements.$controls.attr('data-error', errors.description);
+                block.elements.$controls.attr('data-error', block.getText(errors.description));
             }
 
             if (errors.error_description) {
-                block.elements.$controls.attr('data-error', errors.error_description);
+                block.elements.$controls.attr('data-error', block.getText(errors.error_description));
             }
         },
         removeErrors: function() {

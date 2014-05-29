@@ -1,23 +1,23 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/form'),
-        $ = require('jquery');
+    var Form = require('kit/form');
+
+    require('backbone');
 
     return Form.extend({
+        model: Backbone.Model.extend({
+            url: LH.baseApiUrl + '/users/signup'
+        }),
         template: require('rv!./template.html'),
-        redirectUrl: function(){
-            var block = this;
-
-            return '/login?email=' + block.get('email');
+        data: {
+            model: {
+                email: null
+            }
         },
-        submit: function(){
+        redirectUrl: function() {
             var block = this;
 
-            return $.ajax({
-                type: 'POST',
-                data: block.data,
-                url: LH.baseApiUrl + '/users/signup'
-            });
+            return '/login?email=' + block.get('model.email');
         }
     });
 });

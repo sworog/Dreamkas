@@ -2,6 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Ractive = require('ractive'),
         delegateEvent = require('kit/delegateEvent/delegateEvent'),
+        getText = require('kit/getText/getText'),
         get = require('kit/get/get'),
         _ = require('lodash');
 
@@ -11,8 +12,14 @@ define(function(require, exports, module) {
     return Ractive.extend({
         elements: {},
         events: {},
+        nls: {},
         listeners: {},
         observers: {},
+        data: {
+            getText: function(){
+                return this.getText.apply(this, arguments);
+            }
+        },
 
         init: function(){
             var block = this;
@@ -29,6 +36,13 @@ define(function(require, exports, module) {
             block._undelegateEvents();
 
             return block.teardown();
+        },
+
+        getText: function(){
+            var block = this,
+                args = [].slice.call(arguments, 0);
+
+            return getText.apply(null, [block.nls].concat(args));
         },
 
         _initElements: function() {
