@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Model = require('kit/core/model');
 
-    var TokenModel = Model.extend({
+    return Model.extend({
         modelName: 'token',
         urlRoot: LH.baseUrl + '/oauth/v2/token',
         defaults: {
@@ -19,6 +19,4 @@ define(function(require) {
             'password'
         ]
     });
-
-    return new TokenModel();
 });

@@ -1,6 +1,7 @@
 define(function(require) {
     //requirements
     var Form = require('kit/form'),
+        TokenModel = require('models/token'),
         login = require('kit/login/login');
 
     return Form.extend({
@@ -9,17 +10,14 @@ define(function(require) {
             client_id: LH.clientId,
             client_secret: LH.clientSecret,
             grant_type: 'password',
-            email: null,
+            username: null,
             password: null
         },
         submit: function(){
-            var block = this;
+            var block = this,
+                model = new TokenModel;
 
-            return $.ajax({
-                type: 'POST',
-                data: block.data,
-                url: LH.baseUrl + '/oauth/v2/token'
-            });
+            return model.save(block.data);
         },
         submitSuccess: function(response) {
             login(response.access_token);
