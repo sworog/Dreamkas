@@ -5,9 +5,13 @@ define(function(require) {
         _ = require('lodash');
 
     return Block.extend({
-        el: document.body,
+        resources: {},
+        isAllow: true,
+
         init: function(){
             var page = this;
+
+            page.el = document.body;
 
             page._super();
 
@@ -25,6 +29,9 @@ define(function(require) {
 
                         page.set(data);
 
+                        page.el.innerHTML = '';
+                        page.insert(page.el);
+
                         page.set('status', 'loaded');
                     });
                 } else {
@@ -36,13 +43,12 @@ define(function(require) {
                 page.showError(error);
             });
         },
-        resources: {},
-        isAllow: true,
 
         showError: function(error) {
             error.statusCode = error.statusCode || 'unknown error';
             alert('Error: ' + error.statusCode);
         },
+
         fetch: function(resourceName) {
             var page = this;
 
@@ -58,6 +64,7 @@ define(function(require) {
                 page.showError(error);
             })
         },
+
         fetchAll: function(resourceNames) {
             var page = this,
                 fetched = _.map(resourceNames || _.keys(page.resources), function(resourceName) {
@@ -79,6 +86,7 @@ define(function(require) {
                 page.showError(errors);
             });
         },
+
         save: function(resourceName) {
             var page = this;
 
@@ -88,6 +96,7 @@ define(function(require) {
                 page.set && page.set('status', 'loaded');
             });
         },
+
         _initResources: function() {
             var page = this;
 

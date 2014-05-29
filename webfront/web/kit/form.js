@@ -6,8 +6,6 @@ define(function(require, exports, module) {
         $ = require('jquery');
 
     return Block.extend({
-        model: null,
-        collection: null,
         redirectUrl: null,
         elements: {
             $submitButton: function(){
