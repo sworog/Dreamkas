@@ -230,8 +230,8 @@ namespace :symfony do
         desc "Recreate db, create default clients and users"
         task :init, :roles => :app, :except => { :no_release => true } do
             doctrine.mongodb.schema.recreate
-            user.create_default
             auth.client.create_default
+            user.create_default
         end
     end
 

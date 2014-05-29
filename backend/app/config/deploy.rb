@@ -36,14 +36,14 @@ set :api_clients, [
 
 set :api_users, [
     {"username" => "watchman",              "userpass" => "lighthouse", "userrole" => "ROLE_ADMINISTRATOR"},
-    {"username" => "administrator",         "userpass" => "lighthouse", "userrole" => "ROLE_ADMINISTRATOR"},
-    {"username" => "commercialManager",     "userpass" => "lighthouse", "userrole" => "ROLE_COMMERCIAL_MANAGER"},
-    {"username" => "storeManager",          "userpass" => "lighthouse", "userrole" => "ROLE_STORE_MANAGER"},
-    {"username" => "departmentManager",     "userpass" => "lighthouse", "userrole" => "ROLE_DEPARTMENT_MANAGER"},
-    {"username" => "administratorApi",      "userpass" => "lighthouse", "userrole" => "ROLE_ADMINISTRATOR"},
-    {"username" => "commercialManagerApi",  "userpass" => "lighthouse", "userrole" => "ROLE_COMMERCIAL_MANAGER"},
-    {"username" => "storeManagerApi",       "userpass" => "lighthouse", "userrole" => "ROLE_STORE_MANAGER"},
-    {"username" => "departmentManagerApi",  "userpass" => "lighthouse", "userrole" => "ROLE_DEPARTMENT_MANAGER"}
+    #{"username" => "administrator",         "userpass" => "lighthouse", "userrole" => "ROLE_ADMINISTRATOR"},
+    #{"username" => "commercialManager",     "userpass" => "lighthouse", "userrole" => "ROLE_COMMERCIAL_MANAGER"},
+    #{"username" => "storeManager",          "userpass" => "lighthouse", "userrole" => "ROLE_STORE_MANAGER"},
+    #{"username" => "departmentManager",     "userpass" => "lighthouse", "userrole" => "ROLE_DEPARTMENT_MANAGER"},
+    #{"username" => "administratorApi",      "userpass" => "lighthouse", "userrole" => "ROLE_ADMINISTRATOR"},
+    #{"username" => "commercialManagerApi",  "userpass" => "lighthouse", "userrole" => "ROLE_COMMERCIAL_MANAGER"},
+    #{"username" => "storeManagerApi",       "userpass" => "lighthouse", "userrole" => "ROLE_STORE_MANAGER"},
+    #{"username" => "departmentManagerApi",  "userpass" => "lighthouse", "userrole" => "ROLE_DEPARTMENT_MANAGER"}
 ]
 
 role :web,        domain                         # Your HTTP server, Apache/etc
