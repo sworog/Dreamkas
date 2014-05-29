@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Security\User;
 
+use Hackzilla\PasswordGenerator\Generator\PasswordGenerator;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
@@ -43,17 +44,23 @@ class UserProvider implements UserProviderInterface
     protected $mailer;
 
     /**
+     * @var PasswordGenerator
+     */
+    protected $passwordGenerator;
+
+    /**
      * @var ContainerInterface
      */
     protected $container;
 
     /**
      * @DI\InjectParams({
-     *      "userRepository" = @DI\Inject("lighthouse.core.document.repository.user"),
-     *      "encoderFactory" = @DI\Inject("security.encoder_factory"),
-     *      "validator"      = @DI\Inject("lighthouse.core.validator"),
-     *      "mailer"         = @DI\Inject("mailer"),
-     *      "container"      = @DI\Inject("service_container")
+     *      "userRepository"    = @DI\Inject("lighthouse.core.document.repository.user"),
+     *      "encoderFactory"    = @DI\Inject("security.encoder_factory"),
+     *      "validator"         = @DI\Inject("lighthouse.core.validator"),
+     *      "mailer"            = @DI\Inject("mailer"),
+     *      "container"         = @DI\Inject("service_container"),
+     *      "passwordGenerator" = @DI\Inject("hackzilla_password_generator")
      * })
      *
      * @param UserRepository $userRepository
@@ -61,19 +68,22 @@ class UserProvider implements UserProviderInterface
      * @param ValidatorInterface $validator
      * @param Swift_Mailer $mailer
      * @param ContainerInterface $container
+     * @param PasswordGenerator $passwordGenerator
      */
     public function __construct(
         UserRepository $userRepository,
         EncoderFactoryInterface $encoderFactory,
         ValidatorInterface $validator,
         Swift_Mailer $mailer,
-        ContainerInterface $container
+        ContainerInterface $container,
+        PasswordGenerator $passwordGenerator
     ) {
         $this->userRepository = $userRepository;
         $this->encoderFactory = $encoderFactory;
         $this->validator = $validator;
         $this->mailer = $mailer;
         $this->container = $container;
+        $this->passwordGenerator = $passwordGenerator;
     }
 
     /**
@@ -197,10 +207,7 @@ class UserProvider implements UserProviderInterface
      */
     public function generateUserPassword()
     {
-        $secureRandom = new SecureRandom();
-        $password = bin2hex($secureRandom->nextBytes(8));
-
-        return substr($password, 0, 8);
+        return $this->passwordGenerator->generatePassword();
     }
 
     /**

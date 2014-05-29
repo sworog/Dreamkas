@@ -32,7 +32,8 @@
         "munkie/karzer": "dev-phpunit-4.0",
         "clamidity/profiler-bundle": "dev-master",
         "liuggio/ExcelBundle": "~2.0",
-        "ornicar/apc-bundle": "~1.0.2"
+        "ornicar/apc-bundle": "~1.0.2",
+        "hackzilla/password-generator-bundle": "*"
     },
     "repositories": [
         {
