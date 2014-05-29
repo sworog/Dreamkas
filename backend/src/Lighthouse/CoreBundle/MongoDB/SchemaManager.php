@@ -10,6 +10,9 @@ use Lighthouse\CoreBundle\MongoDB\Mapping\ClassMetadata;
 
 class SchemaManager extends BaseSchemaManager
 {
+    const GLOBAL_DB = true;
+    const PROJECT_DB = false;
+
     /**
      * @var DocumentManager
      */
@@ -56,22 +59,19 @@ class SchemaManager extends BaseSchemaManager
      */
     protected function getProjects()
     {
-        return $this->dm->getRepository(Project::getClassName())->findBy(
-            array(),
-            array('id' => DocumentRepository::SORT_ASC)
-        );
+        return $this->dm->getRepository(Project::getClassName())->findAll();
     }
 
     public function dropGlobalCollections()
     {
-        foreach ($this->getAllClassMetadata(true) as $class) {
+        foreach ($this->getAllClassMetadata(self::GLOBAL_DB) as $class) {
             $this->dropDocumentCollection($class->name);
         }
     }
 
     public function dropProjectCollections(Project $project)
     {
-        foreach ($this->getAllClassMetadata(false) as $class) {
+        foreach ($this->getAllClassMetadata(self::PROJECT_DB) as $class) {
             $this->dropProjectDocumentCollection($class->name, $project);
         }
     }
@@ -89,16 +89,33 @@ class SchemaManager extends BaseSchemaManager
         $this->dm->getProjectDocumentCollection($class->name, $project)->drop();
     }
 
+    public function dropCollections()
+    {
+        $this->dropAllProjectCollections();
+        $this->dropGlobalCollections();
+    }
+
+    public function dropGlobalDatabases()
+    {
+        /* @var Database[] $databases */
+        $databases = array();
+        foreach ($this->getAllClassMetadata(self::GLOBAL_DB) as $class) {
+            $database = $this->dm->getDocumentDatabase($class->name);
+            $databases[$database->getName()] = $database;
+        }
+        foreach ($databases as $database) {
+            $database->drop();
+        }
+    }
+
     public function dropProjectDatabases()
     {
         /* @var Database[] $databases */
         $databases = array();
         foreach ($this->getProjects() as $project) {
-            foreach ($this->getAllClassMetadata(false) as $class) {
+            foreach ($this->getAllClassMetadata(self::PROJECT_DB) as $class) {
                 $database = $this->dm->getProjectDocumentDatabase($class->name, $project);
-                if (!isset($databases[$database->getName()])) {
-                    $databases[$database->getName()] = $database;
-                }
+                $databases[$database->getName()] = $database;
             }
         }
         foreach ($databases as $database) {
@@ -106,9 +123,55 @@ class SchemaManager extends BaseSchemaManager
         }
     }
 
+    public function dropDatabases()
+    {
+        $this->dropProjectDatabases();
+        $this->dropGlobalDatabases();
+    }
+
+    public function createGlobalDatabases()
+    {
+        foreach ($this->getAllClassMetadata(self::GLOBAL_DB) as $class) {
+            $this->createDocumentDatabase($class->name);
+        }
+    }
+
+    /**
+     * @param string $documentName
+     * @param Project $project
+     */
+    public function createProjectDocumentDatabase($documentName, Project $project)
+    {
+        $class = $this->getClassMetadata($documentName);
+        $this->dm->getProjectDocumentDatabase($class->name, $project)->execute("function() { return true; }");
+    }
+
+    /**
+     * @param Project $project
+     */
+    public function createProjectDatabases(Project $project)
+    {
+        foreach ($this->getAllClassMetadata(self::PROJECT_DB) as $class) {
+            $this->createProjectDocumentDatabase($class->name, $project);
+        }
+    }
+
+    public function createAllProjectDatabases()
+    {
+        foreach ($this->getProjects() as $project) {
+            $this->createProjectDatabases($project);
+        }
+    }
+
+    public function createDatabases()
+    {
+        $this->createGlobalDatabases();
+        $this->createAllProjectDatabases();
+    }
+
     public function createGlobalCollections()
     {
-        foreach ($this->getAllClassMetadata(true) as $class) {
+        foreach ($this->getAllClassMetadata(self::GLOBAL_DB) as $class) {
             $this->createDocumentCollection($class->name);
         }
     }
@@ -118,7 +181,7 @@ class SchemaManager extends BaseSchemaManager
      */
     public function createProjectCollections(Project $project)
     {
-        foreach ($this->getAllClassMetadata(false) as $class) {
+        foreach ($this->getAllClassMetadata(self::PROJECT_DB) as $class) {
             $this->createProjectDocumentCollection($class->name, $project);
         }
     }
@@ -138,13 +201,36 @@ class SchemaManager extends BaseSchemaManager
         );
     }
 
+    public function createAllProjectCollections()
+    {
+        foreach ($this->getProjects() as $project) {
+            $this->createProjectCollections($project);
+        }
+    }
+
+    public function createCollections()
+    {
+        $this->createGlobalCollections();
+        $this->createAllProjectCollections();
+    }
+
     /**
      * @param null|int $timeout
      */
     public function ensureGlobalIndexes($timeout = null)
     {
-        foreach ($this->getAllClassMetadata(true) as $class) {
+        foreach ($this->getAllClassMetadata(self::GLOBAL_DB) as $class) {
             $this->ensureDocumentIndexes($class->name, $timeout);
+        }
+    }
+
+    /**
+     * @param null $timeout
+     */
+    public function ensureAllProjectIndexes($timeout = null)
+    {
+        foreach ($this->getProjects() as $project) {
+            $this->ensureProjectIndexes($project, $timeout);
         }
     }
 
@@ -154,7 +240,7 @@ class SchemaManager extends BaseSchemaManager
      */
     public function ensureProjectIndexes(Project $project, $timeout = null)
     {
-        foreach ($this->getAllClassMetadata(false) as $class) {
+        foreach ($this->getAllClassMetadata(self::PROJECT_DB) as $class) {
             $this->ensureProjectDocumentIndexes($class->name, $project, $timeout);
         }
     }
@@ -178,6 +264,46 @@ class SchemaManager extends BaseSchemaManager
                 $collection->ensureIndex($keys, $options);
             }
         }
+    }
+
+    /**
+     * @param null $timeout
+     */
+    public function ensureIndexes($timeout = null)
+    {
+        $this->ensureGlobalIndexes($timeout);
+        $this->ensureAllProjectIndexes($timeout);
+    }
+
+    public function deleteGlobalIndexes()
+    {
+        foreach ($this->getAllClassMetadata(self::GLOBAL_DB) as $class) {
+            $this->dm->getDocumentCollection($class->name)->deleteIndexes();
+        }
+    }
+
+    /**
+     * @param Project $project
+     * @throws \Doctrine\ODM\MongoDB\MongoDBException
+     */
+    public function deleteProjectDocumentIndexes(Project $project)
+    {
+        foreach ($this->getAllClassMetadata(self::PROJECT_DB) as $class) {
+            $this->dm->getProjectDocumentCollection($class->name, $project)->deleteIndexes();
+        }
+    }
+
+    public function deleteAllProjectIndexes()
+    {
+        foreach ($this->getProjects() as $project) {
+            $this->deleteProjectDocumentIndexes($project);
+        }
+    }
+
+    public function deleteIndexes()
+    {
+        $this->deleteAllProjectIndexes();
+        $this->deleteGlobalIndexes();
     }
 
     /**
