@@ -4,28 +4,17 @@ namespace Lighthouse\CoreBundle\Tests\Command\User;
 
 use JMS\Serializer\SerializerInterface;
 use Lighthouse\CoreBundle\Command\User\CreateUser;
+use Lighthouse\CoreBundle\Document\Project\Project;
+use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class CreateUserTest extends ContainerAwareTestCase
 {
-    /**
-     * @var UserProvider
-     */
-    protected $userProvider;
-
     protected function setUp()
     {
         $this->clearMongoDb();
-
-        $this->userProvider = $this->getContainer()->get('lighthouse.core.user.provider');
-    }
-
-    protected function tearDown()
-    {
-        $this->userProvider = null;
-        parent::tearDown();
     }
 
     /**
@@ -33,14 +22,15 @@ class CreateUserTest extends ContainerAwareTestCase
      */
     protected function getCommand()
     {
-        /* @var $serializer SerializerInterface */
-        $serializer = $this->getContainer()->get('serializer');
+        return $this->getContainer()->get('lighthouse.core.command.user.create_user');
+    }
 
-        $command = new CreateUser();
-        $command->setUserProvider($this->userProvider);
-        $command->setSerializer($serializer);
-
-        return $command;
+    /**
+     * @return UserProvider
+     */
+    protected function getUserProvider()
+    {
+        return $this->getContainer()->get('lighthouse.core.user.provider');
     }
 
     public function testExecute()
@@ -62,12 +52,13 @@ class CreateUserTest extends ContainerAwareTestCase
         $this->assertContains('"email":"admin@lighthouse.pro"', $display);
         $this->assertContains('"role":"ROLE_ADMINISTRATOR"', $display);
 
-        $user = $this->userProvider->loadUserByUsername('admin@lighthouse.pro');
+        $user = $this->getUserProvider()->loadUserByUsername('admin@lighthouse.pro');
 
-        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Document\\User\\User', $user);
+        $this->assertInstanceOf(User::getClassName(), $user);
         $this->assertEquals('admin@lighthouse.pro', $user->email);
         $this->assertNotEquals('lighthouse', $user->password);
         $this->assertEquals('ROLE_ADMINISTRATOR', $user->role);
+        $this->assertInstanceOf(Project::getClassName(), $user->project);
     }
 
     /**
@@ -92,6 +83,24 @@ class CreateUserTest extends ContainerAwareTestCase
     }
 
     /**
+     * @expectedException \Lighthouse\CoreBundle\Exception\RuntimeException
+     * @expectedExceptionMessage Project with id#1 not found
+     */
+    public function testProjectDoesNotExist()
+    {
+        $commandTester = new CommandTester($this->getCommand());
+
+        $input = array(
+            'email' => 'admin@lighthouse.pro',
+            'password' => 'lighthouse',
+            'role' => 'ROLE_ADMINISTRATOR',
+            '--project' => 1
+        );
+
+        $commandTester->execute($input);
+    }
+
+    /**
      * @expectedException \RuntimeException
      * @expectedExceptionMessage Not enough arguments.
      */
@@ -99,8 +108,6 @@ class CreateUserTest extends ContainerAwareTestCase
     {
         $commandTester = new CommandTester($this->getCommand());
 
-        $exitCode = $commandTester->execute(array());
-
-        $this->assertEquals(0, $exitCode);
+        $commandTester->execute(array());
     }
 }
