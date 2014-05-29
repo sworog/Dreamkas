@@ -2,13 +2,9 @@ define(function(require, exports, module) {
     //requirements
     var Form = require('kit/form');
 
-    require('backbone');
-
     return Form.extend({
-        model: Backbone.Model.extend({
-            url: LH.baseApiUrl + '/users/signup'
-        }),
         template: require('rv!./template.html'),
+        model: require('models/signup'),
         data: {
             model: {
                 email: null

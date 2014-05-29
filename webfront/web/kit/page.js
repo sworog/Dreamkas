@@ -44,6 +44,10 @@ define(function(require) {
             });
         },
 
+        complete: function(){
+            this.el.querySelector('[autofocus]').focus();
+        },
+
         showError: function(error) {
             error.statusCode = error.statusCode || 'unknown error';
             alert('Error: ' + error.statusCode);
