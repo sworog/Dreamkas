@@ -6,10 +6,11 @@ framework:
     session:
         storage_id: session.storage.mock_file
     profiler:
-        enabled: true
+        enabled: false
 
 swiftmailer:
     disable_delivery: true
+    logging: true
 
 ekino_new_relic:
     application_name: Lighthouse API tests
