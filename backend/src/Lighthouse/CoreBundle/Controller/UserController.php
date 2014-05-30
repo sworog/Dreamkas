@@ -238,7 +238,7 @@ class UserController extends AbstractRestController
         $candidates = (bool) $request->query->get('candidates', false);
         if ($candidates) {
             $excludeIds = $this->storeRepository->findAllStoresManagerIds();
-            $users = $this->documentRepository->findAllByRole(User::ROLE_STORE_MANAGER, $excludeIds);
+            $users = $this->documentRepository->findAllByRoles(User::ROLE_STORE_MANAGER, $excludeIds);
             return new UserCollection($users);
         } else {
             return new UserCollection($store->storeManagers);
@@ -258,7 +258,7 @@ class UserController extends AbstractRestController
         $candidates = (bool) $request->query->get('candidates', false);
         if ($candidates) {
             $excludeIds = $this->storeRepository->findAllDepartmentManagerIds();
-            $users = $this->documentRepository->findAllByRole(User::ROLE_DEPARTMENT_MANAGER, $excludeIds);
+            $users = $this->documentRepository->findAllByRoles(User::ROLE_DEPARTMENT_MANAGER, $excludeIds);
             return new UserCollection($users);
         } else {
             return new UserCollection($store->departmentManagers);
