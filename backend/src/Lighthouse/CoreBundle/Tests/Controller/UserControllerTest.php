@@ -1002,10 +1002,8 @@ class UserControllerTest extends WebTestCase
 
     public function testPostSignupEmailSendAndLoginWithPassword()
     {
-        $this->client->enableProfiler();
-
         $userData = array(
-            'email'     => 'signup@lh.com',
+            'email' => 'signup@lh.com',
         );
 
         $this->clientJsonRequest(
@@ -1017,12 +1015,7 @@ class UserControllerTest extends WebTestCase
 
         $this->assertResponseCode(201);
 
-        /** @var MessageDataCollector $mailCollector */
-        $mailCollector = $this->client->getProfile()->getCollector('swiftmailer');
-        $this->assertEquals(1, $mailCollector->getMessageCount());
-
-        $collectedMessages = $mailCollector->getMessages();
-        /** @var \Swift_Message $message */
+        $collectedMessages = $this->getSentEmailMessages();
         $message = $collectedMessages[0];
 
         $this->assertInstanceOf('Swift_Message', $message);
@@ -1033,10 +1026,7 @@ class UserControllerTest extends WebTestCase
         $this->assertContains('Ваш пароль для входа:', $message->getBody());
         $this->assertContains('Если это письмо пришло вам по ошибке, просто проигнорируйте его', $message->getBody());
 
-
-        preg_match('/Ваш пароль для входа:\s(.+)\n/', $message->getBody(), $matches);
-        $password = $matches[1];
-
+        $password = $this->getPasswordFromEmailBody($message->getBody());
 
         $authClient = $this->factory()->oauth()->getAuthClient();
 
@@ -1060,6 +1050,68 @@ class UserControllerTest extends WebTestCase
         $jsonResponse = json_decode($response, true);
 
         $this->assertResponseCode(200);
-        self::assertNotNull($jsonResponse);
+        Assert::assertJsonHasPath('access_token', $jsonResponse);
+        Assert::assertJsonHasPath('refresh_token', $jsonResponse);
+    }
+
+    public function testGetCurrentAfterSignupAction()
+    {
+        $userData = array(
+            'email' => 'signup@lh.com',
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/signup',
+            $userData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('project.id', $postResponse);
+        Assert::assertJsonPathCount(3, 'roles.*', $postResponse);
+        Assert::assertJsonPathEquals(User::ROLE_COMMERCIAL_MANAGER, 'roles.*', $postResponse);
+        Assert::assertJsonPathEquals(User::ROLE_DEPARTMENT_MANAGER, 'roles.*', $postResponse);
+        Assert::assertJsonPathEquals(User::ROLE_STORE_MANAGER, 'roles.*', $postResponse);
+
+        $messages = $this->getSentEmailMessages();
+        $this->assertCount(2, $messages, 'There should be two emails logged one from spool and the other one sent');
+
+        $password = $this->getPasswordFromEmailBody($messages[1]->getBody());
+
+        $accessToken = $this->factory()->oauth()->doAuthByUsername('signup@lh.com', $password);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/users/current'
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertSame($getResponse, $postResponse);
+    }
+
+    /**
+     * @return \Swift_Message[]
+     */
+    protected function getSentEmailMessages()
+    {
+        /* @var \Swift_Plugins_MessageLogger $messageLogger */
+        return $this->getContainer()->get('swiftmailer.plugin.messagelogger')->getMessages();
+    }
+
+    /**
+     * @param string $body
+     * @return string
+     * @throws \PHPUnit_Framework_AssertionFailedError
+     */
+    protected function getPasswordFromEmailBody($body)
+    {
+        if (preg_match('/Ваш пароль для входа:\s(.+)\n/u', $body, $matches)) {
+            return $matches[1];
+        }
+        throw new \PHPUnit_Framework_AssertionFailedError('Password not found in message');
     }
 }

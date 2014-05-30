@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\RestBundle\View\View;
+use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\User\User;
@@ -150,21 +151,27 @@ class UserController extends AbstractRestController
      */
     public function postUsersSignupAction(Request $request)
     {
-        /** @var User $document */
-        $document = $this->documentRepository->createNew();
+        /** @var User $user */
+        $user = $this->documentRepository->createNew();
 
         $type = $this->getDocumentFormType();
-        $form = $this->createForm($type, $document, array('validation_groups' => array('registration')));
+        $form = $this->createForm($type, $user, array('validation_groups' => array('registration')));
         $form->submit($request);
 
         if ($form->isValid()) {
+            $user->roles = array(
+                User::ROLE_COMMERCIAL_MANAGER,
+                User::ROLE_STORE_MANAGER,
+                User::ROLE_DEPARTMENT_MANAGER,
+            );
+            $user->project = new Project();
             $password = $this->userProvider->generateUserPassword();
-            $this->userProvider->setPassword($document, $password);
-            $document = $this->saveDocument($document, $form);
-            if ($document instanceof User) {
-                return $this->userProvider->sendRegisteredMessage($document, $password);
+            $this->userProvider->setPassword($user, $password);
+            $user = $this->saveDocument($user, $form);
+            if ($user instanceof User) {
+                return $this->userProvider->sendRegisteredMessage($user, $password);
             }
-            return $document;
+            return $user;
         } else {
             return $form;
         }

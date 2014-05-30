@@ -66,17 +66,20 @@ class User extends AbstractDocument implements UserInterface
     protected $position;
 
     /**
-     * @MongoDB\string
+     * @MongoDB\Collection
      * @Assert\NotBlank
-     * @Assert\Choice({
-     *      "ROLE_COMMERCIAL_MANAGER",
-     *      "ROLE_STORE_MANAGER",
-     *      "ROLE_DEPARTMENT_MANAGER",
-     *      "ROLE_ADMINISTRATOR"
-     * })
-     * @var string
+     * @Assert\Choice(
+     *      choices={
+     *          "ROLE_COMMERCIAL_MANAGER",
+     *          "ROLE_STORE_MANAGER",
+     *          "ROLE_DEPARTMENT_MANAGER",
+     *          "ROLE_ADMINISTRATOR"
+     *      },
+     *      multiple=true
+     * )
+     * @var array
      */
-    protected $role;
+    protected $roles;
 
     /**
      * @MongoDB\String
@@ -113,7 +116,7 @@ class User extends AbstractDocument implements UserInterface
      */
     public function getRoles()
     {
-        return array($this->role);
+        return $this->roles;
     }
 
     /**
