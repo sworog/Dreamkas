@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var config = require('config'),
-        Model = require('kit/core/model');
+        Model = require('kit/model');
 
     return Model.extend({
         urlRoot: config.baseUrl + '/oauth/v2/token',

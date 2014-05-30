@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Page = require('pages/page'),
-        signupModel = require('models/signup.inst');
+        SignupModel = require('models/signup');
 
     return Page.extend({
         data: {
@@ -14,7 +14,7 @@ define(function(require, exports, module) {
             this._super();
 
             if (this.get('params.signup')==='success'){
-                this.set('login.username', signupModel.get('email'));
+                this.set('login.username', SignupModel.email);
             }
         },
         partials: {

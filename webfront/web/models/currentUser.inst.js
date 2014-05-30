@@ -1,10 +1,9 @@
 define(function(require) {
     //requirements
-    var config = require('config'),
-        Model = require('kit/core/model');
+    var Model = require('kit/model');
 
     var CurrentUserModel = Model.extend({
-        url: config.baseApiUrl + '/users/current'
+        url: Model.baseApiUrl + '/users/current'
     });
 
     return new CurrentUserModel();

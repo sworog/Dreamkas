@@ -1,10 +1,11 @@
 define(function(require, exports, module) {
     //requirements
-    var _ = require('kit/lodash');
+    var config = require('config'),
+        _ = require('lodash');
 
     require('backbone');
 
-    return Backbone.Model.extend({
+    var Model = Backbone.Model.extend({
         toJSON: function(options) {
             options = options || {};
 
@@ -27,11 +28,6 @@ define(function(require, exports, module) {
 
             return saveData;
         },
-        fetch: function(options) {
-            return Backbone.Model.prototype.fetch.call(this, _.extend({
-                wait: true
-            }, options));
-        },
         save: function(attributes, options) {
             return Backbone.Model.prototype.save.call(this, attributes, _.extend({
                 wait: true,
@@ -43,5 +39,10 @@ define(function(require, exports, module) {
                 wait: true
             }, options))
         }
-    })
+    });
+
+    Model.baseApiUrl = config.baseApiUrl;
+    Model.mockApiUrl = config.mockApiUrl;
+
+    return Model;
 });
