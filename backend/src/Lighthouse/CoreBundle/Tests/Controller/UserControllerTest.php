@@ -226,9 +226,7 @@ class UserControllerTest extends WebTestCase
                 400,
                 array('password' => 'userer@test.com', 'email' => 'userer@test.com'),
                 array(
-                    'children.password.errors.0'
-                    =>
-                    'Логин и пароль не должны совпадать'
+                    'children.password.errors.0' => 'Логин и пароль не должны совпадать'
                 )
             ),
         );
@@ -256,18 +254,14 @@ class UserControllerTest extends WebTestCase
                 400,
                 array('name' => str_repeat('z', 101)),
                 array(
-                    'children.name.errors.0'
-                    =>
-                    'Не более 100 символов'
+                    'children.name.errors.0' => 'Не более 100 символов'
                 )
             ),
             'empty name' => array(
                 400,
                 array('name' => ''),
                 array(
-                    'children.name.errors.0'
-                    =>
-                    'Заполните это поле',
+                    'children.name.errors.0' => 'Заполните это поле',
                 ),
             ),
             /***********************************************************************************************
@@ -289,18 +283,14 @@ class UserControllerTest extends WebTestCase
                 400,
                 array('position' => str_repeat('z', 101)),
                 array(
-                    'children.position.errors.0'
-                    =>
-                    'Не более 100 символов'
+                    'children.position.errors.0' => 'Не более 100 символов'
                 )
             ),
             'empty position' => array(
                 400,
                 array('position' => ''),
                 array(
-                    'children.position.errors.0'
-                    =>
-                    'Заполните это поле',
+                    'children.position.errors.0' => 'Заполните это поле',
                 ),
             ),
             /***********************************************************************************************
@@ -326,23 +316,22 @@ class UserControllerTest extends WebTestCase
                 400,
                 array('roles' => array('govnar')),
                 array(
-                    'children.roles.errors.0'
-                    =>
-                    'Значение недопустимо.'
+                    'children.roles.errors.0' => 'Значение недопустимо.'
                 )
             ),
             'empty role' => array(
                 400,
                 array('roles' => ''),
                 array(
-                    'children.roles.errors.0'
-                    =>
-                    'Заполните это поле',
+                    'children.roles.errors.0' => 'Заполните это поле',
                 ),
             ),
         );
     }
 
+    /**
+     * @return array
+     */
     public function emailUserValidationProvider()
     {
         return array(
@@ -365,36 +354,35 @@ class UserControllerTest extends WebTestCase
                 400,
                 array('email' => 'test@test'),
                 array(
-                    'children.email.errors.0'
-                    =>
-                        'Значение адреса электронной почты недопустимо.'
+                    'children.email.errors.0' => 'Значение адреса электронной почты недопустимо.'
                 ),
             ),
             'not valid email without at' => array(
                 400,
                 array('email' => 'test.test.com'),
                 array(
-                    'children.email.errors.0'
-                    =>
-                        'Значение адреса электронной почты недопустимо.'
+                    'children.email.errors.0' => 'Значение адреса электронной почты недопустимо.'
                 ),
             ),
             'not valid email wrong symbols' => array(
                 400,
                 array('email' => 'test[]@test.com'),
                 array(
-                    'children.email.errors.0'
-                    =>
-                        'Значение адреса электронной почты недопустимо.'
+                    'children.email.errors.0' => 'Значение адреса электронной почты недопустимо.'
+                )
+            ),
+            'not valid email !#$%&`*+\/=?^`{|}~@lighthouse.pro' => array(
+                400,
+                array('email' => '!#$%&`*+\/=?^`{|}~@lighthouse.pro'),
+                array(
+                    'children.email.errors.0' => 'Значение адреса электронной почты недопустимо.'
                 )
             ),
             'empty email' => array(
                 400,
                 array('email' => ''),
                 array(
-                    'children.email.errors.0'
-                    =>
-                        'Заполните это поле',
+                    'children.email.errors.0' => 'Заполните это поле',
                 ),
             ),
         );
@@ -937,7 +925,7 @@ class UserControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider postSignupProvider
+     * @dataProvider emailUserValidationProvider
      *
      * @param $expectedCode
      * @param array $data
@@ -964,15 +952,10 @@ class UserControllerTest extends WebTestCase
         $this->performJsonAssertions($response, $assertions, false);
     }
 
-    public function postSignupProvider()
-    {
-        return $this->emailUserValidationProvider();
-    }
-
     public function testPostSignupUniqueEmailValidationTest()
     {
         $userData = array(
-            'email'     => 'signup@lh.com',
+            'email' => 'signup@lh.com',
         );
 
         $this->clientJsonRequest(
