@@ -48,6 +48,7 @@ class VersionableFactoryTest extends ContainerAwareTestCase
     public function testFindByDocument()
     {
         $this->clearMongoDb();
+        $this->factory()->user()->authProject();
 
         $product = $this->createProduct();
 

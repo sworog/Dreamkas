@@ -7,14 +7,11 @@ use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 
 class TrialBalanceRepositoryTest extends ContainerAwareTestCase
 {
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->clearMongoDb();
-    }
-
     public function testRecalculationDoesNotFailIfTrialBalanceCollectionDoesNotExist()
     {
+        $this->clearMongoDb();
+        $this->factory()->user()->authProject();
+
         /* @var TrialBalanceRepository $trailBalanceRepository */
         $trailBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');
         $dm = $trailBalanceRepository->getDocumentManager();

@@ -139,6 +139,8 @@ class Set10SalesImportLocalTest extends WebTestCase
 
     public function testImportInvalidXmlFile()
     {
+        $this->factory()->user()->authProject();
+
         $file = 'purchases-invalid.xml';
 
         $commandTester = $this->execute($file);
@@ -157,6 +159,8 @@ class Set10SalesImportLocalTest extends WebTestCase
 
     public function testImportDirectory()
     {
+        $this->factory()->user()->authProject();
+
         $commandTester = $this->execute('Kesko/');
         $display = $commandTester->getDisplay();
         $this->assertContains('Found 2 files', $display);

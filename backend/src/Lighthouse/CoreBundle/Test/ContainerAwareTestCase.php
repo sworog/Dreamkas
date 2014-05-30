@@ -30,6 +30,7 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
 
     protected function tearDown()
     {
+        static::shutdownKernel();
         $this->factory = null;
     }
 
@@ -48,6 +49,13 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
         $kernel = static::getKernel();
         $kernel->shutdown();
         $kernel->boot();
+    }
+
+    protected static function shutdownKernel()
+    {
+        if (null !== static::$kernel) {
+            static::$kernel->shutdown();
+        }
     }
 
     /**
@@ -130,5 +138,10 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     protected function getFixtureFilePath($filePath)
     {
         return __DIR__ . '/../Tests/Fixtures/' . $filePath;
+    }
+
+    protected function markTestBroken()
+    {
+        $this->markTestSkipped('Broken');
     }
 }

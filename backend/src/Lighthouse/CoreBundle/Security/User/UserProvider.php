@@ -194,7 +194,7 @@ class UserProvider implements UserProviderInterface
 
         $user->name = $name;
         $user->email = $email;
-        $user->role = $role;
+        $user->roles = array($role);
         $user->position = $position;
 
         $this->updateUserWithPassword($user, $password, true);
