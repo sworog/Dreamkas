@@ -50,14 +50,14 @@ class CreateUserTest extends ContainerAwareTestCase
         $display = $commandTester->getDisplay();
         $this->assertContains('Creating user...Done', $display);
         $this->assertContains('"email":"admin@lighthouse.pro"', $display);
-        $this->assertContains('"role":"ROLE_ADMINISTRATOR"', $display);
+        $this->assertContains('"roles":["ROLE_ADMINISTRATOR"]', $display);
 
         $user = $this->getUserProvider()->loadUserByUsername('admin@lighthouse.pro');
 
         $this->assertInstanceOf(User::getClassName(), $user);
         $this->assertEquals('admin@lighthouse.pro', $user->email);
         $this->assertNotEquals('lighthouse', $user->password);
-        $this->assertEquals('ROLE_ADMINISTRATOR', $user->role);
+        $this->assertContains(User::ROLE_ADMINISTRATOR, $user->roles);
         $this->assertInstanceOf(Project::getClassName(), $user->project);
     }
 

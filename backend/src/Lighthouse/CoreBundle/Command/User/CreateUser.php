@@ -85,7 +85,7 @@ class CreateUser extends Command
 
         $user->name = $email;
         $user->email = $email;
-        $user->role = $role;
+        $user->roles = array($role);
         $user->position = $role;
 
         $projectId = $input->getOption('project');
