@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var Uri = require('bower_components/uri.js/src/URI'),
-        _ = require('lodash');
+        _ = require('bower_components/lodash/dist/lodash');
 
     // Cached regex for stripping leading and trailing slashes.
     var rootStripper = /^\/+|\/+$/g;
