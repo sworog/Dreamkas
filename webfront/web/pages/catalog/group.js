@@ -4,7 +4,7 @@ define(function(require) {
         pageParams = require('pages/catalog/params'),
         СatalogGroupModel = require('models/catalogGroup'),
         CatalogGroup = require('blocks/catalogGroup/catalogGroup'),
-        currentUserModel = require('models/currentUser'),
+        currentUserModel = require('models/currentUser.inst'),
         Page403 = require('pages/errors/403'),
         router = require('router');
 

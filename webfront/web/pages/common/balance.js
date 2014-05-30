@@ -3,7 +3,7 @@ define(function(require) {
     var Page = require('kit/core/page.deprecated'),
         Table_balance = require('blocks/table/table_balance/table_balance'),
         StoreProductsCollection = require('collections/storeProducts'),
-        currentUserModel = require('models/currentUser'),
+        currentUserModel = require('models/currentUser.inst'),
         Page403 = require('pages/errors/403');
 
     return Page.extend({

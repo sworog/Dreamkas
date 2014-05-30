@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Form = require('blocks/form/form'),
         InvoiceProductModel = require('models/invoiceProduct'),
-        currentUserModel = require('models/currentUser'),
+        currentUserModel = require('models/currentUser.inst'),
         SuppliersCollection = require('collections/suppliers'),
         InputDate = require('blocks/inputDate/inputDate'),
         Autocomplete = require('blocks/autocomplete/autocomplete'),
@@ -13,7 +13,7 @@ define(function(require) {
 
     return Form.extend({
         redirectUrl: function() {
-            return '/stores/' + currentUserModel.stores.at(0).id + '/invoices';
+            return '/stores/' + this.storeId + '/invoices';
         },
         el: '.form_invoice',
         storeId: null,

@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Page = require('kit/core/page.deprecated'),
         StoreGrossSalesByHourModel = require('models/storeGrossSalesByHours'),
-        currentUserModel = require('models/currentUser');
+        currentUserModel = require('models/currentUser.inst');
 
     require('jquery');
 
@@ -26,8 +26,7 @@ define(function(require, exports, module) {
                 storeGrossSalesByHoursModel.storeId = page.params.storeId;
 
                 return storeGrossSalesByHoursModel;
-            },
-            store: currentUserModel.stores.length ? currentUserModel.stores.at(0) : null
+            }
         },
         initialize: function() {
             var page = this;

@@ -1,10 +1,14 @@
 define(function(require) {
     //requirements
     var currentUserModel = require('models/currentUser.inst'),
+        ErrorPage = require('pages/error/error'),
+        config = require('config'),
         cookie = require('cookies'),
         router = require('router'),
         $ = require('jquery'),
         _ = require('lodash');
+
+    window.LH = _.extend({}, config);
 
     var isStarted,
         loading,
@@ -31,8 +35,16 @@ define(function(require) {
         }
     });
 
-    window.onerror = function(error){
-        window.PAGE && window.PAGE.set('error', error);
+    window.onerror = function(error) {
+        if (window.PAGE) {
+            window.PAGE.set('error', error);
+        } else {
+            new ErrorPage({
+                data: {
+                    error: error
+                }
+            });
+        }
     };
 
     $(document).on('click', '[href]', function(e) {

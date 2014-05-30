@@ -7,6 +7,17 @@ define(function(require) {
     return Block.extend({
         resources: {},
         isAllow: true,
+        template: require('rv!pages/template.html'),
+        partials: {
+            globalNavigation: require('rv!pages/globalNavigation.html')
+        },
+        observers: {
+            status: function(status){
+                var page = this;
+
+                page.el.setAttribute('status', status);
+            }
+        },
 
         init: function(){
             var page = this;

@@ -2,7 +2,7 @@ define(function(require) {
     // requirements
     var Model = require('kit/core/model'),
         computeAttr = require('kit/computeAttr/computeAttr'),
-        currentUserModel = require('models/currentUser');
+        currentUserModel = require('models/currentUser.inst');
 
     var templates = {
         amount: require('tpl!blocks/amount/amount.html')

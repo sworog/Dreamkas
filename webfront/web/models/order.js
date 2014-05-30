@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Model = require('kit/core/model'),
         OrderProductsCollection = require('collections/orderProducts'),
-        currentUserModel = require('models/currentUser');
+        currentUserModel = require('models/currentUser.inst');
 
     return Model.extend({
         __name__: module.id,

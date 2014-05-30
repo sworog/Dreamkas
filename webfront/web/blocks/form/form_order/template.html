@@ -1,6 +1,6 @@
 <% var OrderModel = require('models/order') %>
 <% var SuppliersCollection = require('collections/suppliers') %>
-<% var currentUserModel = require('models/currentUser') %>
+<% var currentUserModel = require('models/currentUser.inst') %>
 <% var model = model || new OrderModel() %>
 <% var collections = _.extend({
     suppliers: new SuppliersCollection()

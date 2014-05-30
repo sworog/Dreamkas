@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('pages/page'),
+    var Page = require('kit/page'),
         SignupModel = require('models/signup');
 
     return Page.extend({
