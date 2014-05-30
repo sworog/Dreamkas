@@ -35,22 +35,15 @@ define(function(require) {
                         page.set('status', 'loaded');
                     });
                 } else {
-                    page.showError({
-                        statusCode: '403'
+                    page.set('error', {
+                        status: '403'
                     });
                 }
-            }, function(error) {
-                page.showError(error);
             });
         },
 
         complete: function(){
             this.el.querySelector('[autofocus]').focus();
-        },
-
-        showError: function(error) {
-            error.statusCode = error.statusCode || 'unknown error';
-            alert('Error: ' + error.statusCode);
         },
 
         fetch: function(resourceName) {
@@ -64,9 +57,7 @@ define(function(require) {
                 page.set && page.set('status', 'loaded');
 
                 return data;
-            }, function(error) {
-                page.showError(error);
-            })
+            });
         },
 
         fetchAll: function(resourceNames) {
@@ -86,8 +77,6 @@ define(function(require) {
                 page.set && page.set('status', 'loaded');
 
                 return data;
-            }, function(errors) {
-                page.showError(errors);
             });
         },
 

@@ -1,5 +1,3 @@
-require(['config', 'require.config'], function() {
-    require(['LH'], function(){
-        require(['app']);
-    });
+require(['require.config'], function() {
+    require(['app']);
 });

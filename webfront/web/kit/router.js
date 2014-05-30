@@ -24,5 +24,9 @@ define(function(require, exports, module) {
         return this;
     };
 
+    router.routes = {
+        'logout(/)': require('kit/logout/logout')
+    };
+
     return router;
 });

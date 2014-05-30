@@ -1,12 +1,13 @@
 define(function(require) {
     //requirements
-    var Model = require('kit/core/model');
+    var config = require('config'),
+        Model = require('kit/core/model');
 
     return Model.extend({
-        urlRoot: LH.baseUrl + '/oauth/v2/token',
+        urlRoot: config.baseUrl + '/oauth/v2/token',
         defaults: {
-            client_id: LH.clientId,
-            client_secret: LH.clientSecret,
+            client_id: config.clientId,
+            client_secret: config.clientSecret,
             grant_type: 'password'
         },
         saveData: [

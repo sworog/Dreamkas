@@ -1,3 +1,5 @@
 define(function(require, exports, module) {
-    return require('bower_components/lodash/dist/lodash');
+    var _ = require('bower_components/lodash/dist/lodash');
+
+    return _;
 });
