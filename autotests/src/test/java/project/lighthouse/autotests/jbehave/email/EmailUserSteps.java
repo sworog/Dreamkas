@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave.email;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import project.lighthouse.autotests.steps.email.EmailSteps;
@@ -11,6 +12,11 @@ public class EmailUserSteps {
 
     @Steps
     EmailSteps emailSteps;
+
+    @Given("the user prepares email inbox")
+    public void givenTheUserPreparesEmailInbox() {
+        emailSteps.deleteAllMessages();
+    }
 
     @When("the user gets the last email message from the test email inbox folder")
     public void whenTheUserGetsTheLastEmailMessageFromTheTesEmailInboxFolder() throws MessagingException, InterruptedException {
@@ -27,8 +33,8 @@ public class EmailUserSteps {
         emailSteps.assertEmailMessageSubject(expectedSubject);
     }
 
-    @Then("the user assert the email message content value contains '$expectedContent'")
-    public void thenTheUserAssertsTheEmailMessageContentValue(String expectedContent) {
-        emailSteps.assertEmailMessageContent(expectedContent);
+    @Then("the user assert the email message content matches the required template")
+    public void thenTheUserAssertsTheEmailMessageContentValue() {
+        emailSteps.assertEmailMessageContent();
     }
 }

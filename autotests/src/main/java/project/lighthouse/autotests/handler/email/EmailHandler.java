@@ -36,15 +36,13 @@ public class EmailHandler {
         try {
             Folder inbox = store.getFolder("INBOX");
             inbox.open(Folder.READ_WRITE);
-            Message msg = inbox.getMessage(inbox.getMessageCount());
-            Multipart mp = (Multipart) msg.getContent();
-            BodyPart bp = mp.getBodyPart(0);
+            Message message = inbox.getMessage(inbox.getMessageCount());
             StringBuilder stringBuilder = new StringBuilder();
-            for (Address value : msg.getFrom()) {
+            for (Address value : message.getFrom()) {
                 stringBuilder.append(value);
             }
-            emailMessage = new EmailMessage(stringBuilder.toString(), msg.getSubject(), bp.getContent().toString());
-            msg.setFlag(Flags.Flag.DELETED, true);
+            emailMessage = new EmailMessage(stringBuilder.toString(), message.getSubject(), message.getContent().toString());
+            message.setFlag(Flags.Flag.DELETED, true);
             inbox.close(true);
         } catch (Exception e) {
             throw new AssertionError(e);
@@ -65,6 +63,22 @@ public class EmailHandler {
             fail("The email inbox folder is still empty after timeOut");
         }
         inbox.close(true);
+    }
+
+    public void deleteAllMessages() {
+        try {
+            Folder inbox = store.getFolder("INBOX");
+            inbox.open(Folder.READ_WRITE);
+            int messageCount = inbox.getMessageCount();
+            if (messageCount != 0) {
+                for (Message message : inbox.getMessages()) {
+                    message.setFlag(Flags.Flag.DELETED, true);
+                }
+            }
+            inbox.close(true);
+        } catch (Exception e) {
+            throw new AssertionError(e);
+        }
     }
 
     public EmailMessage getEmailMessage() throws MessagingException, InterruptedException {

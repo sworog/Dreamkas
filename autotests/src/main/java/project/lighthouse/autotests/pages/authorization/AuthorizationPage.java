@@ -15,7 +15,7 @@ public class AuthorizationPage extends CommonPageObject {
     @SuppressWarnings("unused")
     private WebElement loginFormWebElement;
 
-    @FindBy(name = "")
+    @FindBy(xpath = "//*[@class='content']/p")
     WebElement signUpPageTitleWebElement;
 
     public AuthorizationPage(WebDriver driver) {
@@ -37,7 +37,6 @@ public class AuthorizationPage extends CommonPageObject {
     public WebElement getLoginFormWebElement() {
         return findVisibleElement(loginFormWebElement);
     }
-
 
     public String getSignUpPageTitleText() {
         return findVisibleElement(signUpPageTitleWebElement).getText();

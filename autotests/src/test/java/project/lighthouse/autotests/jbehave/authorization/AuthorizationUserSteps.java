@@ -89,9 +89,9 @@ public class AuthorizationUserSteps {
         authorizationSteps.emailFieldInput(value);
     }
 
-    @Then("the user checks the sign up text is '$expectedSignUpText'")
-    public void thenTheUserChecksTheSignUpText(String expectedSignUpText) {
-        authorizationSteps.assertSignUpText(expectedSignUpText);
+    @Then("the user checks the sign up text is expected")
+    public void thenTheUserChecksTheSignUpText() {
+        authorizationSteps.assertSignUpText();
     }
 
     @Then("the user asserts the elements have values on auth page $examplesTable")

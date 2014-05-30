@@ -112,7 +112,6 @@ public class AuthorizationSteps extends ScenarioSteps {
     @Step
     public void signUpButtonClick() {
         signUpPage.signUpButtonClick();
-        // PreLoader if needed
         new PreLoader(getDriver()).await();
     }
 
@@ -122,8 +121,10 @@ public class AuthorizationSteps extends ScenarioSteps {
     }
 
     @Step
-    public void assertSignUpText(String expectedSignUpText) {
-        assertThat(authorizationPage.getSignUpPageTitleText(), is(expectedSignUpText));
+    public void assertSignUpText() {
+        assertThat(
+                authorizationPage.getSignUpPageTitleText(),
+                is("Ваша учетная запись успешно создана.\nДля входа введите пароль присланный вам на email."));
     }
 
     @Step
