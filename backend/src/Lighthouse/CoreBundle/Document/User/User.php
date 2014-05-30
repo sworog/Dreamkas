@@ -21,7 +21,7 @@ use Lighthouse\CoreBundle\MongoDB\Mapping\Annotations\GlobalDb;
  * @property string $position
  * @property string $password
  * @property string $salt
- * @property string $role
+ * @property array $roles
  * @property Project $project
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\User\UserRepository")
@@ -112,7 +112,7 @@ class User extends AbstractDocument implements UserInterface
     protected $project;
 
     /**
-     * @return Role[] The user roles
+     * @return array The user roles
      */
     public function getRoles()
     {

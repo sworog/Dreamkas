@@ -22,7 +22,7 @@ class UserControllerTest extends WebTestCase
             'email'     => 'test@test.com',
             'name'      => 'Вася пупкин',
             'position'  => 'Комерческий директор',
-            'role'      => 'ROLE_COMMERCIAL_MANAGER',
+            'roles'     => array('ROLE_COMMERCIAL_MANAGER'),
             'password'  => 'qwerty',
         );
 
@@ -65,7 +65,7 @@ class UserControllerTest extends WebTestCase
             'email'     => 'test@test.com',
             'name'      => 'Вася пупкин',
             'position'  => 'Комерческий директор',
-            'role'      => 'ROLE_COMMERCIAL_MANAGER',
+            'roles'      => array('ROLE_COMMERCIAL_MANAGER'),
             'password'  => 'qwerty',
         );
 
@@ -95,7 +95,7 @@ class UserControllerTest extends WebTestCase
             'email'     => 'qwe@qwe.qwe',
             'name'      => 'ASFFS',
             'position'  => 'SFwewe',
-            'role'      => 'ROLE_COMMERCIAL_MANAGER',
+            'roles'     => array(User::ROLE_COMMERCIAL_MANAGER),
             'password'  => 'qwerty',
         );
 
@@ -116,7 +116,7 @@ class UserControllerTest extends WebTestCase
             'email'     => 'test@test.com',
             'name'      => 'Вася Пупкин',
             'position'  => 'Комец бля',
-            'role'      => 'ROLE_COMMERCIAL_MANAGER',
+            'roles'     => array(User::ROLE_COMMERCIAL_MANAGER),
         );
 
         $response = $this->clientJsonRequest(
@@ -140,7 +140,7 @@ class UserControllerTest extends WebTestCase
             'email'     => 'qweqwe@test.com',
             'name'      => 'ASFFS',
             'position'  => 'SFwewe',
-            'role'      => 'ROLE_COMMERCIAL_MANAGER',
+            'roles'     => array(User::ROLE_COMMERCIAL_MANAGER),
             'password'  => 'qwerty',
         );
 
@@ -167,7 +167,7 @@ class UserControllerTest extends WebTestCase
             'email'     => 'qweqwe@test.com',
             'name'      => 'ASFFSssd',
             'position'  => 'SFwewe',
-            'role'      => 'ROLE_COMMERCIAL_MANAGER',
+            'roles'     => array(User::ROLE_COMMERCIAL_MANAGER),
             'password'  => '',
         );
 
@@ -304,38 +304,38 @@ class UserControllerTest extends WebTestCase
                 ),
             ),
             /***********************************************************************************************
-             * 'role'
+             * 'roles'
              ***********************************************************************************************/
             'valid role commercialManager' => array(
                 201,
-                array('role' => 'ROLE_COMMERCIAL_MANAGER'),
+                array('roles' => array('ROLE_COMMERCIAL_MANAGER')),
             ),
             'valid role storeManager' => array(
                 201,
-                array('role' => 'ROLE_STORE_MANAGER'),
+                array('roles' => array('ROLE_STORE_MANAGER')),
             ),
             'valid role departmentManager' => array(
                 201,
-                array('role' => 'ROLE_DEPARTMENT_MANAGER'),
+                array('roles' => array('ROLE_DEPARTMENT_MANAGER')),
             ),
             'valid role administrator' => array(
                 201,
-                array('role' => 'ROLE_ADMINISTRATOR'),
+                array('roles' => array('ROLE_ADMINISTRATOR')),
             ),
             'not valid role' => array(
                 400,
-                array('role' => 'govnar'),
+                array('roles' => array('govnar')),
                 array(
-                    'children.role.errors.0'
+                    'children.roles.errors.0'
                     =>
-                    'Выбранное Вами значение недопустимо.'
+                    'Значение недопустимо.'
                 )
             ),
             'empty role' => array(
                 400,
-                array('role' => ''),
+                array('roles' => ''),
                 array(
-                    'children.role.errors.0'
+                    'children.roles.errors.0'
                     =>
                     'Заполните это поле',
                 ),
@@ -586,7 +586,7 @@ class UserControllerTest extends WebTestCase
                     'email'     => 'test@test.com',
                     'name'      => 'Вася пупкин',
                     'position'  => 'Комерческий директор',
-                    'role'      => 'ROLE_COMMERCIAL_MANAGER',
+                    'roles'     => array('ROLE_COMMERCIAL_MANAGER'),
                     'password'  => 'qwerty',
                 ),
             ),
@@ -795,7 +795,7 @@ class UserControllerTest extends WebTestCase
             'email'     => 'test@test.com',
             'name'      => 'Вася пупкин',
             'position'  => 'Комерческий директор',
-            'role'      => User::ROLE_COMMERCIAL_MANAGER,
+            'roles'      => array(User::ROLE_COMMERCIAL_MANAGER),
             'password'  => 'qwerty',
         );
 
@@ -830,7 +830,7 @@ class UserControllerTest extends WebTestCase
             'email'     => 'test@test.com',
             'name'      => 'Вася пупкин',
             'position'  => 'Комерческий директор',
-            'role'      => User::ROLE_COMMERCIAL_MANAGER,
+            'roles'      => array(User::ROLE_COMMERCIAL_MANAGER),
             'password'  => 'qwerty',
         );
 

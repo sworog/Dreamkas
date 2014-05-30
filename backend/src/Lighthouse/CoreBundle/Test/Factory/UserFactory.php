@@ -90,7 +90,7 @@ class UserFactory extends AbstractFactory
         $user = new User();
         $user->name = $name;
         $user->email = $email;
-        $user->role = $role;
+        $user->roles = array($role);
         $user->position = $position;
 
         $user->project = $this->getProject();

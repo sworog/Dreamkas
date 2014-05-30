@@ -23,7 +23,19 @@ class UserType extends AbstractType
         $builder
             ->add('email', 'text')
             ->add('name', 'text')
-            //->add('roles', 'text')
+            ->add(
+                'roles',
+                'choice',
+                array(
+                    'choices' => array(
+                        User::ROLE_COMMERCIAL_MANAGER => User::ROLE_COMMERCIAL_MANAGER,
+                        User::ROLE_STORE_MANAGER => User::ROLE_STORE_MANAGER,
+                        User::ROLE_DEPARTMENT_MANAGER => User::ROLE_DEPARTMENT_MANAGER,
+                        User::ROLE_ADMINISTRATOR => User::ROLE_ADMINISTRATOR,
+                    ),
+                    'multiple' => true
+                )
+            )
             ->add('password', 'password')
             ->add('position', 'text');
     }
