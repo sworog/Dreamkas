@@ -65,7 +65,7 @@ class CreateUser extends Command
             ->addArgument('email', InputArgument::REQUIRED, 'Email')
             ->addArgument('password', InputArgument::REQUIRED, 'Password')
             ->addArgument('role', InputArgument::OPTIONAL, 'User role', User::ROLE_ADMINISTRATOR)
-            ->addOption('project', null, InputOption::VALUE_OPTIONAL , 'Project', true);
+            ->addOption('project', null, InputOption::VALUE_OPTIONAL, 'Project', true);
     }
 
     /**
