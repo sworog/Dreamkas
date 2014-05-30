@@ -38,7 +38,18 @@
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
+            <groupId>com.github.crystalservice</groupId>
+            <artifactId>thucydides-teamcity-steplistener</artifactId>
+            <version>0.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-lang</groupId>
+                    <artifactId>commons-lang</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+        <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
             <scope>test</scope>
