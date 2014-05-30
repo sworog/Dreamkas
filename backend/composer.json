@@ -25,6 +25,7 @@
         "symfony/monolog-bundle": "~2.2",
         "twig/extensions": "~1.0",
         "sensio/framework-extra-bundle": "~2.2",
+        "sensio/distribution-bundle": "~2.2",
         "jms/security-extra-bundle": "~1.5",
         "jms/di-extra-bundle": "~1.4",
         "jms/serializer-bundle": "~0.12",
@@ -51,5 +52,19 @@
         "pdepend/pdepend": "~1.1",
         "munkie/phpunit-teamcity-testlistener": "dev-master",
         "guzzle/plugin": "~3.8"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+        ],
+        "post-update-cmd": [
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+        ]
     }
 }
