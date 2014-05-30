@@ -1,19 +1,18 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/form');
+    var Form = require('kit/form'),
+        signupModel = require('models/signup.inst');
 
     return Form.extend({
         template: require('rv!./template.html'),
-        model: require('models/signup'),
         data: {
             model: {
                 email: null
             }
         },
-        redirectUrl: function() {
-            var block = this;
-
-            return '/login?email=' + block.get('model.email');
-        }
+        submit: function(){
+            return signupModel.save(this.get('model'));
+        },
+        redirectUrl: '/login?signup=success'
     });
 });
