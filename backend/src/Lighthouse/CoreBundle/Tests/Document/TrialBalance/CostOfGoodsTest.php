@@ -479,6 +479,7 @@ class CostOfGoodsTest extends WebTestCase
         $sale3 = $this->factory()->createSale($store->id, '2014-01-10 12:23:12', 1500);
         $saleProduct3 = $this->factory()->createSaleProduct(250, 6, $productId, $sale3);
         $this->factory()->flush();
+        $this->factory()->clear();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
