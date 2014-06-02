@@ -1,10 +1,17 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/page');
+    var config = require('config'),
+        Page = require('kit/page');
 
     return Page.extend({
-        partials: {
-            content: require('rv!./content.html')
+        template: require('rv!./template.html'),
+        data: {
+            jsErrors: [],
+            apiErrors: [],
+            debugLevel: config.debugLevel,
+            getResponseJson: function(error){
+                return JSON.stringify(JSON.parse(error.responseText), null, 2);
+            }
         }
     });
 });

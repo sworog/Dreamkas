@@ -1,0 +1,24 @@
+<div class="content">
+    {{#apiErrors}}
+        <h1>Произошла ошибка подключения к серверу</h1>
+        Статус код: <strong>{{status}}</strong> <br />
+        Статус текст: <strong>{{statusText}}</strong> <br />
+        Текст ответа сервера:
+        <div>
+            <pre>{{getResponseJson(.)}}</pre>
+        </div>
+    {{/apiErrors}}
+
+    {{#jsErrors}}
+        <h1>Произошла ошибка JavaScript</h1>
+        Текст ошибки: <strong>{{data.message}}</strong> <br/>
+        Файл: <strong>{{file}}</strong> <br/>
+        Строка: <strong>{{line}}</strong> <br/>
+        {{#debugLevel===2}}
+            StackTrace:
+            <div>
+            <pre>{{data.stack}}</pre>
+            </div>
+        {{/debugLevel}}
+    {{/jsErrors}}
+</div>

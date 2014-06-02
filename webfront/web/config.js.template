@@ -3,5 +3,6 @@ define({
     baseApiUrl: 'http://%api_url%/api/1',
     mockApiUrl: 'http://lh.apiary.io',
     clientId: 'webfront_webfront',
-    clientSecret: 'secret'
+    clientSecret: 'secret',
+    debugLevel: 2
 });
