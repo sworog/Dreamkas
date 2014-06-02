@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Command\Products;
 
+use Lighthouse\CoreBundle\Command\ProjectableCommand;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsManager;
 use Symfony\Component\Console\Command\Command;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -12,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @DI\Service("lighthouse.core.command.product.create_cost_of_goods_calculate_jobs")
  * @DI\Tag("console.command")
  */
-class CreateCostOfGoodsCalculateJobsCommand extends Command
+class CreateCostOfGoodsCalculateJobsCommand extends Command implements ProjectableCommand
 {
     /**
      * @var CostOfGoodsManager
