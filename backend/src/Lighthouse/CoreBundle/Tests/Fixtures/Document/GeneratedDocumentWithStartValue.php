@@ -4,9 +4,11 @@ namespace Lighthouse\CoreBundle\Tests\Fixtures\Document;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
+use Lighthouse\CoreBundle\MongoDB\Mapping\Annotations\GlobalDb;
 
 /**
  * @MongoDB\Document
+ * @GlobalDb
  */
 class GeneratedDocumentWithStartValue
 {

@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\RestBundle\View\View;
+use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\User\User;
@@ -68,7 +69,7 @@ class UserController extends AbstractRestController
     protected function handleFlushFailedException(FlushFailedException $e)
     {
         if ($e->getCause() instanceof MongoDuplicateKeyException) {
-            return $this->addFormError($e->getForm(), 'username', 'lighthouse.validation.errors.user.username.unique');
+            return $this->addFormError($e->getForm(), 'email', 'lighthouse.validation.errors.user.email.unique');
         } else {
             return parent::handleFlushFailedException($e);
         }
@@ -93,7 +94,7 @@ class UserController extends AbstractRestController
         $document = $this->documentRepository->createNew();
 
         $type = $this->getDocumentFormType();
-        $form = $this->createForm($type, $document, array('validation_groups' => array('Default', 'registration')));
+        $form = $this->createForm($type, $document, array('validation_groups' => array('Default', 'creation')));
         $form->submit($request);
 
         if ($form->isValid()) {
@@ -130,6 +131,47 @@ class UserController extends AbstractRestController
                 $this->userProvider->setPassword($user, $user->password);
             }
             return $this->saveDocument($user, $form);
+        } else {
+            return $form;
+        }
+    }
+
+    /**
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @return User|View
+     *
+     * @Rest\View(statusCode=201)
+     * @Rest\Route("users/signup")
+     * @ApiDoc(
+     *      resource=true,
+     *      description="Create user",
+     *      input="Lighthouse\CoreBundle\Form\UserType"
+     * )
+     *
+     */
+    public function postUsersSignupAction(Request $request)
+    {
+        /** @var User $user */
+        $user = $this->documentRepository->createNew();
+
+        $type = $this->getDocumentFormType();
+        $form = $this->createForm($type, $user, array('validation_groups' => array('registration')));
+        $form->submit($request);
+
+        if ($form->isValid()) {
+            $user->roles = array(
+                User::ROLE_COMMERCIAL_MANAGER,
+                User::ROLE_STORE_MANAGER,
+                User::ROLE_DEPARTMENT_MANAGER,
+            );
+            $user->project = new Project();
+            $password = $this->userProvider->generateUserPassword();
+            $this->userProvider->setPassword($user, $password);
+            $user = $this->saveDocument($user, $form);
+            if ($user instanceof User) {
+                return $this->userProvider->sendRegisteredMessage($user, $password);
+            }
+            return $user;
         } else {
             return $form;
         }
@@ -196,7 +238,7 @@ class UserController extends AbstractRestController
         $candidates = (bool) $request->query->get('candidates', false);
         if ($candidates) {
             $excludeIds = $this->storeRepository->findAllStoresManagerIds();
-            $users = $this->documentRepository->findAllByRole(User::ROLE_STORE_MANAGER, $excludeIds);
+            $users = $this->documentRepository->findAllByRoles(User::ROLE_STORE_MANAGER, $excludeIds);
             return new UserCollection($users);
         } else {
             return new UserCollection($store->storeManagers);
@@ -216,7 +258,7 @@ class UserController extends AbstractRestController
         $candidates = (bool) $request->query->get('candidates', false);
         if ($candidates) {
             $excludeIds = $this->storeRepository->findAllDepartmentManagerIds();
-            $users = $this->documentRepository->findAllByRole(User::ROLE_DEPARTMENT_MANAGER, $excludeIds);
+            $users = $this->documentRepository->findAllByRoles(User::ROLE_DEPARTMENT_MANAGER, $excludeIds);
             return new UserCollection($users);
         } else {
             return new UserCollection($store->departmentManagers);

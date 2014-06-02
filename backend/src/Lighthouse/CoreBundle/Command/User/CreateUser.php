@@ -2,10 +2,14 @@
 
 namespace Lighthouse\CoreBundle\Command\User;
 
+use Lighthouse\CoreBundle\Document\Project\ProjectRepository;
+use Lighthouse\CoreBundle\Document\User\User;
+use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 use JMS\Serializer\SerializerInterface;
@@ -27,16 +31,41 @@ class CreateUser extends Command
     protected $serializer;
 
     /**
+     * @var ProjectRepository
+     */
+    protected $projectRepository;
+
+    /**
+     * @DI\InjectParams({
+     *      "userProvider" = @DI\Inject("lighthouse.core.user.provider"),
+     *      "serializer" = @DI\Inject("serializer"),
+     *      "projectRepository" = @DI\Inject("lighthouse.core.document.repository.project")
+     * })
+     * @param UserProvider $userProvider
+     * @param SerializerInterface $serializer
+     * @param ProjectRepository $projectRepository
+     */
+    public function __construct(
+        UserProvider $userProvider,
+        SerializerInterface $serializer,
+        ProjectRepository $projectRepository
+    ) {
+        parent::__construct('lighthouse:user:create');
+        $this->userProvider = $userProvider;
+        $this->serializer = $serializer;
+        $this->projectRepository = $projectRepository;
+    }
+    /**
      *
      */
     protected function configure()
     {
         $this
-            ->setName('lighthouse:user:create')
             ->setDescription('Create user')
-            ->addArgument('username', InputArgument::REQUIRED, 'Username')
+            ->addArgument('email', InputArgument::REQUIRED, 'Email')
             ->addArgument('password', InputArgument::REQUIRED, 'Password')
-            ->addArgument('role', InputArgument::OPTIONAL, 'User role', 'ROLE_ADMINISTRATOR');
+            ->addArgument('role', InputArgument::OPTIONAL, 'User role', User::ROLE_ADMINISTRATOR)
+            ->addOption('project', null, InputOption::VALUE_OPTIONAL, 'Project', true);
     }
 
     /**
@@ -50,14 +79,28 @@ class CreateUser extends Command
 
         $user = $this->userProvider->createUser();
 
-        $username = $input->getArgument('username');
+        $email = $input->getArgument('email');
         $role = $input->getArgument('role');
         $password =  $input->getArgument('password');
 
-        $user->name = $username;
-        $user->username = $username;
-        $user->role = $role;
+        $user->name = $email;
+        $user->email = $email;
+        $user->roles = array($role);
         $user->position = $role;
+
+        $projectId = $input->getOption('project');
+
+        if (true === $projectId) {
+            $project = $this->projectRepository->createNew();
+        } elseif (null !== $projectId) {
+            $project = $this->projectRepository->find($projectId);
+            if (!$project) {
+                throw new RuntimeException(sprintf('Project with id#%s not found', $projectId));
+            }
+        } else {
+            $project = null;
+        }
+        $user->project = $project;
 
         $this->userProvider->updateUserWithPassword($user, $password, true);
 
@@ -66,27 +109,5 @@ class CreateUser extends Command
         $output->writeln($this->serializer->serialize($user, 'json'));
 
         return 0;
-    }
-
-    /**
-     * @DI\InjectParams({
-     *      "userProvider" = @DI\Inject("lighthouse.core.user.provider")
-     * })
-     * @param UserProvider $userProvider
-     */
-    public function setUserProvider(UserProvider $userProvider)
-    {
-        $this->userProvider = $userProvider;
-    }
-
-    /**
-     * @DI\InjectParams({
-     *      "serializer" = @DI\Inject("serializer")
-     * })
-     * @param SerializerInterface $serializer
-     */
-    public function setSerializer(SerializerInterface $serializer)
-    {
-        $this->serializer = $serializer;
     }
 }

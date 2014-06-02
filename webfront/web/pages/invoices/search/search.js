@@ -3,7 +3,7 @@ define(function(require) {
     var Page = require('kit/page/page'),
         InvoicesCollection = require('collections/invoices'),
         Form_invoiceSearch = require('blocks/form/form_invoiceSearch/form_invoiceSearch'),
-        currentUserModel = require('models/currentUser'),
+        currentUserModel = require('models/currentUser.inst'),
         when = require('when');
 
     return Page.extend({

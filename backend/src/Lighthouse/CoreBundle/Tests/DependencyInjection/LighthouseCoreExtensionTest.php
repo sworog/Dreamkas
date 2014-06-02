@@ -42,8 +42,10 @@ class LighthouseCoreExtensionTest extends TestCase
         $extension->load($config, $containerMock);
 
         $expectedValues = array(
+            'doctrine_mongodb.odm.document_manager.class',
             'doctrine_mongodb.odm.generator.increment.collection',
-            'test.client.class',
+            'doctrine_mongodb.odm.metadata.annotation.class',
+            'doctrine_mongodb.odm.metadata_factory.class',
             'lighthouse.core.job.tube.prefix',
             'lighthouse.core.job.worker.max_runtime',
             'lighthouse.core.job.worker.reserve_timeout',
@@ -56,6 +58,7 @@ class LighthouseCoreExtensionTest extends TestCase
             'openstack.selectel.options',
             'openstack.selectel.storage.container.metadata',
             'openstack.selectel.storage.container.name',
+            'test.client.class'
         );
         $this->assertEquals($capturedArguments, $expectedValues, '', 0, 10, true);
     }

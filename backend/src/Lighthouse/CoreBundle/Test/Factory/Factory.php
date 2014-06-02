@@ -17,6 +17,7 @@ use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class Factory extends ContainerAwareFactory
 {
@@ -317,5 +318,17 @@ class Factory extends ContainerAwareFactory
         $this->getDocumentManager()->persist($file);
 
         return $file;
+    }
+
+    /**
+     * @param ContainerInterface $container
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        parent::setContainer($container);
+
+        if ($container) {
+            $this->user()->authProject();
+        }
     }
 }

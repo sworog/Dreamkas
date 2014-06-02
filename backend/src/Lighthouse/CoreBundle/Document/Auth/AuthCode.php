@@ -4,9 +4,11 @@ namespace Lighthouse\CoreBundle\Document\Auth;
 
 use FOS\OAuthServerBundle\Document\AuthCode as BaseAuthCode;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Lighthouse\CoreBundle\MongoDB\Mapping\Annotations\GlobalDb;
 
 /**
- * @MongoDB\Document()
+ * @MongoDB\Document
+ * @GlobalDb
  */
 class AuthCode extends BaseAuthCode
 {

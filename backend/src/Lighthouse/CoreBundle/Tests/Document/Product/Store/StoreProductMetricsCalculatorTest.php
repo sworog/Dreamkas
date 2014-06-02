@@ -85,7 +85,7 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
 
     public function testInventoryRatioCalculation()
     {
-        $storeId = $this->factory->store()->getStoreId('197');
+        $storeId = $this->factory()->store()->getStoreId('197');
         $products = array(
             '10001' => array(
                 'sold' => 12,

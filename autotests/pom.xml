@@ -12,8 +12,8 @@
     <properties>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <thucydides.version>0.9.239</thucydides.version>
-        <thucydides.jbehave.version>0.9.235</thucydides.jbehave.version>
+        <thucydides.version>0.9.244</thucydides.version>
+        <thucydides.jbehave.version>0.9.244</thucydides.jbehave.version>
         <thucydides.maven.version>0.9.224</thucydides.maven.version>
         <thucydides.browser.width>1280</thucydides.browser.width>
         <thucydides.browser.height>1024</thucydides.browser.height>
@@ -32,11 +32,24 @@
         <lighthouse.timeouts.validationerrorwait>10</lighthouse.timeouts.validationerrorwait>
         <project.parallel.agent.total>1</project.parallel.agent.total>
         <project.parallel.agent.number>1</project.parallel.agent.number>
+        <email.username>lighthouse.eddystone@gmail.com</email.username>
+        <email.password>RZ8XnfRk</email.password>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
+            <groupId>com.github.crystalservice</groupId>
+            <artifactId>thucydides-teamcity-steplistener</artifactId>
+            <version>0.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-lang</groupId>
+                    <artifactId>commons-lang</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+        <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
             <scope>test</scope>
@@ -109,7 +122,12 @@
         <dependency>
             <groupId>org.samba.jcifs</groupId>
             <artifactId>jcifs</artifactId>
-            <version>1.3.3</version>
+            <version>1.3.14-kohsuke-1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.5.0-b01</version>
         </dependency>
     </dependencies>
 
@@ -155,6 +173,8 @@
                         </lighthouse.timeouts.validationerrorwait>
                         <parallel.agent.number>${project.parallel.agent.number}</parallel.agent.number>
                         <parallel.agent.total>${project.parallel.agent.total}</parallel.agent.total>
+                        <email.username>${email.username}</email.username>
+                        <email.password>${email.password}</email.password>
                     </systemPropertyVariables>
                 </configuration>
                 <executions>

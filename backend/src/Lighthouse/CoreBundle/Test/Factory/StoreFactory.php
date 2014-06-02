@@ -175,7 +175,7 @@ class StoreFactory extends AbstractFactory
     {
         $storeId = ($storeId) ?: $this->getStoreId();
         if (!isset($this->storeManagers[$storeId])) {
-            $username = 'storeManagerStore' . $storeId;
+            $username = 'storeManagerStore' . $storeId . '@lighthouse.pro';
             $manager = $this->factory->user()->getUser(
                 $username,
                 UserFactory::USER_DEFAULT_PASSWORD,
@@ -196,7 +196,7 @@ class StoreFactory extends AbstractFactory
     {
         $storeId = ($storeId) ?: $this->getStoreId();
         if (!isset($this->departmentManagers[$storeId])) {
-            $username = 'departmentManagerStore' . $storeId;
+            $username = 'departmentManagerStore' . $storeId . '@lighthouse.pro';
             $manager = $this->factory->user()->getUser(
                 $username,
                 UserFactory::USER_DEFAULT_PASSWORD,

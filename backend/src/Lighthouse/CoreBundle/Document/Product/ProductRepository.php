@@ -165,4 +165,12 @@ class ProductRepository extends DocumentRepository implements ParentableReposito
         }
         return $retailPrice;
     }
+
+    /**
+     * @return array|Cursor|Product[]
+     */
+    public function findAll()
+    {
+        return $this->findBy(array(), array('id' => self::SORT_ASC));
+    }
 }

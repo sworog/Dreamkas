@@ -52,9 +52,9 @@ class Set10SalesImportTest extends WebTestCase
 
     public function testExecute()
     {
-        $this->factory->store()->getStoreId('197');
-        $this->factory->store()->getStoreId('666');
-        $this->factory->store()->getStoreId('777');
+        $this->factory()->store()->getStoreId('197');
+        $this->factory()->store()->getStoreId('666');
+        $this->factory()->store()->getStoreId('777');
         $this->createProductsByNames(
             array(
                 '1',
@@ -100,7 +100,7 @@ class Set10SalesImportTest extends WebTestCase
 
     public function testExecuteWithErrors()
     {
-        $this->factory->store()->getStoreId('197');
+        $this->factory()->store()->getStoreId('197');
         $this->createProductsByNames(
             array(
                 '10001',
@@ -203,7 +203,7 @@ class Set10SalesImportTest extends WebTestCase
 
     public function testOnlyPurchaseFilesImported()
     {
-        $this->factory->store()->getStoreId('197');
+        $this->factory()->store()->getStoreId('197');
         $this->createProductsByNames(
             array(
                 '1',

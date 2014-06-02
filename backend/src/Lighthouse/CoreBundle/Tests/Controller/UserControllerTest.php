@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use SebastianBergmann\Exporter\Exporter;
+use Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use MongoDuplicateKeyException;
@@ -18,14 +19,14 @@ class UserControllerTest extends WebTestCase
     public function testPostUserUniqueUsernameTest()
     {
         $userData = array(
-            'username'  => 'test',
+            'email'     => 'test@test.com',
             'name'      => 'Вася пупкин',
             'position'  => 'Комерческий директор',
-            'role'      => 'ROLE_COMMERCIAL_MANAGER',
+            'roles'     => array('ROLE_COMMERCIAL_MANAGER'),
             'password'  => 'qwerty',
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $this->clientJsonRequest(
             $accessToken,
@@ -46,8 +47,8 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseCode(400);
 
         Assert::assertJsonPathContains(
-            'Пользователь с таким логином уже существует',
-            'children.username.errors.0',
+            'Пользователь с таким email уже существует',
+            'children.email.errors.0',
             $response
         );
     }
@@ -61,14 +62,14 @@ class UserControllerTest extends WebTestCase
         array $assertions = array()
     ) {
         $userData = $data + array(
-            'username'  => 'test',
+            'email'     => 'test@test.com',
             'name'      => 'Вася пупкин',
             'position'  => 'Комерческий директор',
-            'role'      => 'ROLE_COMMERCIAL_MANAGER',
+            'roles'      => array('ROLE_COMMERCIAL_MANAGER'),
             'password'  => 'qwerty',
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -89,15 +90,16 @@ class UserControllerTest extends WebTestCase
         $expectedCode,
         array $data,
         array $assertions = array()
-    ) {        $userData = array(
-            'username'  => 'qweqwe',
+    ) {
+        $userData = array(
+            'email'     => 'qwe@qwe.qwe',
             'name'      => 'ASFFS',
             'position'  => 'SFwewe',
-            'role'      => 'ROLE_COMMERCIAL_MANAGER',
+            'roles'     => array(User::ROLE_COMMERCIAL_MANAGER),
             'password'  => 'qwerty',
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -111,10 +113,10 @@ class UserControllerTest extends WebTestCase
         $id = $response['id'];
 
         $newUserData = $data + array(
-            'username'  => 'васяпупкин',
+            'email'     => 'test@test.com',
             'name'      => 'Вася Пупкин',
             'position'  => 'Комец бля',
-            'role'      => 'ROLE_COMMERCIAL_MANAGER',
+            'roles'     => array(User::ROLE_COMMERCIAL_MANAGER),
         );
 
         $response = $this->clientJsonRequest(
@@ -135,14 +137,14 @@ class UserControllerTest extends WebTestCase
     public function testPasswordChange()
     {
         $userData = array(
-            'username'  => 'qweqwe',
+            'email'     => 'qweqwe@test.com',
             'name'      => 'ASFFS',
             'position'  => 'SFwewe',
-            'role'      => 'ROLE_COMMERCIAL_MANAGER',
+            'roles'     => array(User::ROLE_COMMERCIAL_MANAGER),
             'password'  => 'qwerty',
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -162,10 +164,10 @@ class UserControllerTest extends WebTestCase
         $oldPasswordHash = $userModel->password;
 
         $newUserData = array(
-            'username'  => 'qweqwe',
+            'email'     => 'qweqwe@test.com',
             'name'      => 'ASFFSssd',
             'position'  => 'SFwewe',
-            'role'      => 'ROLE_COMMERCIAL_MANAGER',
+            'roles'     => array(User::ROLE_COMMERCIAL_MANAGER),
             'password'  => '',
         );
 
@@ -222,11 +224,9 @@ class UserControllerTest extends WebTestCase
             ),
             'not valid password equals username' => array(
                 400,
-                array('password' => 'userer', 'username' => 'userer'),
+                array('password' => 'userer@test.com', 'email' => 'userer@test.com'),
                 array(
-                    'children.password.errors.0'
-                    =>
-                    'Логин и пароль не должны совпадать'
+                    'children.password.errors.0' => 'Логин и пароль не должны совпадать'
                 )
             ),
         );
@@ -234,7 +234,7 @@ class UserControllerTest extends WebTestCase
 
     public function editUserValidationProvider()
     {
-        return array(
+        return $this->emailUserValidationProvider() + array(
             /***********************************************************************************************
              * 'name'
              ***********************************************************************************************/
@@ -254,77 +254,14 @@ class UserControllerTest extends WebTestCase
                 400,
                 array('name' => str_repeat('z', 101)),
                 array(
-                    'children.name.errors.0'
-                    =>
-                    'Не более 100 символов'
+                    'children.name.errors.0' => 'Не более 100 символов'
                 )
             ),
             'empty name' => array(
                 400,
                 array('name' => ''),
                 array(
-                    'children.name.errors.0'
-                    =>
-                    'Заполните это поле',
-                ),
-            ),
-            /***********************************************************************************************
-             * 'username'
-             ***********************************************************************************************/
-            'valid username' => array(
-                201,
-                array('username' => 'test'),
-            ),
-            'valid username 100 chars' => array(
-                201,
-                array('username' => str_repeat('z', 100)),
-            ),
-            'valid username symbols' => array(
-                201,
-                array('username' => '1234567890-_aф@.'),
-            ),
-            'valid username symbols 1' => array(
-                201,
-                array('username' => '1234567890'),
-            ),
-            'valid username symbols 2' => array(
-                201,
-                array('username' => '@asdffdd'),
-            ),
-            'valid username symbols 3' => array(
-                201,
-                array('username' => 'q.wer'),
-            ),
-
-            'valid username symbols 4' => array(
-                201,
-                array('username' => 'фыва'),
-            ),
-            'not valid username symbols' => array(
-                400,
-                array('username' => 'фa1234567890-_=][\';/.,.|+_)()*&^%$#@!{}:"'),
-                array(
-                    'children.username.errors.0'
-                    =>
-                    'Значение недопустимо.'
-                ),
-            ),
-            'not valid username 101 chars' => array(
-                400,
-                array('username' => str_repeat('z', 101)),
-                array(
-                    'children.username.errors.0'
-                    =>
-                    'Не более 100 символов'
-                )
-            ),
-            'empty username' => array(
-                400,
-                array('username' => ''),
-                array(
-                    'children.username.errors.0'
-                    =>
-                    'Заполните это поле',
+                    'children.name.errors.0' => 'Заполните это поле',
                 ),
             ),
             /***********************************************************************************************
@@ -346,55 +283,106 @@ class UserControllerTest extends WebTestCase
                 400,
                 array('position' => str_repeat('z', 101)),
                 array(
-                    'children.position.errors.0'
-                    =>
-                    'Не более 100 символов'
+                    'children.position.errors.0' => 'Не более 100 символов'
                 )
             ),
             'empty position' => array(
                 400,
                 array('position' => ''),
                 array(
-                    'children.position.errors.0'
-                    =>
-                    'Заполните это поле',
+                    'children.position.errors.0' => 'Заполните это поле',
                 ),
             ),
             /***********************************************************************************************
-             * 'role'
+             * 'roles'
              ***********************************************************************************************/
             'valid role commercialManager' => array(
                 201,
-                array('role' => 'ROLE_COMMERCIAL_MANAGER'),
+                array('roles' => array('ROLE_COMMERCIAL_MANAGER')),
             ),
             'valid role storeManager' => array(
                 201,
-                array('role' => 'ROLE_STORE_MANAGER'),
+                array('roles' => array('ROLE_STORE_MANAGER')),
             ),
             'valid role departmentManager' => array(
                 201,
-                array('role' => 'ROLE_DEPARTMENT_MANAGER'),
+                array('roles' => array('ROLE_DEPARTMENT_MANAGER')),
             ),
             'valid role administrator' => array(
                 201,
-                array('role' => 'ROLE_ADMINISTRATOR'),
+                array('roles' => array('ROLE_ADMINISTRATOR')),
             ),
             'not valid role' => array(
                 400,
-                array('role' => 'govnar'),
+                array('roles' => array('govnar')),
                 array(
-                    'children.role.errors.0'
-                    =>
-                    'Выбранное Вами значение недопустимо.'
+                    'children.roles.errors.0' => 'Значение недопустимо.'
                 )
             ),
             'empty role' => array(
                 400,
-                array('role' => ''),
+                array('roles' => ''),
                 array(
-                    'children.role.errors.0'
-                    =>
-                    'Заполните это поле',
+                    'children.roles.errors.0' => 'Заполните это поле',
+                ),
+            ),
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function emailUserValidationProvider()
+    {
+        return array(
+            /***********************************************************************************************
+             * 'email'
+             ***********************************************************************************************/
+            'valid email' => array(
+                201,
+                array('email' => 'test@test.com'),
+            ),
+            'valid email with dot' => array(
+                201,
+                array('email' => 'test.dot@test.com'),
+            ),
+            'valid email UPPERCASE' => array(
+                201,
+                array('email' => 'TEST@TEST.COM'),
+            ),
+            'not valid email for domain level 2' => array(
+                400,
+                array('email' => 'test@test'),
+                array(
+                    'children.email.errors.0' => 'Значение адреса электронной почты недопустимо.'
+                ),
+            ),
+            'not valid email without at' => array(
+                400,
+                array('email' => 'test.test.com'),
+                array(
+                    'children.email.errors.0' => 'Значение адреса электронной почты недопустимо.'
+                ),
+            ),
+            'not valid email wrong symbols' => array(
+                400,
+                array('email' => 'test[]@test.com'),
+                array(
+                    'children.email.errors.0' => 'Значение адреса электронной почты недопустимо.'
+                )
+            ),
+            'not valid email !#$%&`*+\/=?^`{|}~@lighthouse.pro' => array(
+                400,
+                array('email' => '!#$%&`*+\/=?^`{|}~@lighthouse.pro'),
+                array(
+                    'children.email.errors.0' => 'Значение адреса электронной почты недопустимо.'
+                )
+            ),
+            'empty email' => array(
+                400,
+                array('email' => ''),
+                array(
+                    'children.email.errors.0' => 'Заполните это поле',
                 ),
             ),
         );
@@ -436,9 +424,9 @@ class UserControllerTest extends WebTestCase
                     'Заполните это поле',
                 ),
             ),
-            'not valid password equals username' => array(
+            'not valid password equals email' => array(
                 400,
-                array('password' => 'userer', 'username' => 'userer'),
+                array('password' => 'userer@test.com', 'email' => 'userer@test.com'),
                 array(
                     'children.password.errors.0'
                     =>
@@ -453,13 +441,13 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetUsersAction(array $data)
     {
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $postDataArray = array();
         for ($i = 0; $i < 5; $i++) {
             $postData = $data;
             $postData['name'] .= $i;
-            $postData['username'] .= $i;
+            $postData['email'] .= $i;
             $this->clientJsonRequest(
                 $accessToken,
                 'POST',
@@ -476,7 +464,7 @@ class UserControllerTest extends WebTestCase
             '/api/1/users'
         );
         $this->assertResponseCode(200);
-        Assert::assertJsonPathCount(6, '*.username', $postResponse);
+        Assert::assertJsonPathCount(6, '*.email', $postResponse);
 
         foreach ($postDataArray as $postData) {
             foreach ($postData as $key => $value) {
@@ -492,12 +480,12 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetUsersActionPermissionDenied($role)
     {
-        $this->factory->user()->getUser('user1', 'password', User::ROLE_COMMERCIAL_MANAGER);
-        $this->factory->user()->getUser('user2', 'password', User::ROLE_DEPARTMENT_MANAGER);
-        $this->factory->user()->getUser('user3', 'password', User::ROLE_STORE_MANAGER);
-        $this->factory->user()->getUser('user4', 'password', User::ROLE_ADMINISTRATOR);
+        $this->factory()->user()->getUser('user1@lighthouse.pro', 'password', User::ROLE_COMMERCIAL_MANAGER);
+        $this->factory()->user()->getUser('user2@lighthouse.pro', 'password', User::ROLE_DEPARTMENT_MANAGER);
+        $this->factory()->user()->getUser('user3@lighthouse.pro', 'password', User::ROLE_STORE_MANAGER);
+        $this->factory()->user()->getUser('user4@lighthouse.pro', 'password', User::ROLE_ADMINISTRATOR);
 
-        $accessToken = $this->factory->oauth()->authAsRole($role);
+        $accessToken = $this->factory()->oauth()->authAsRole($role);
 
         $this->clientJsonRequest($accessToken, 'GET', '/api/1/users');
 
@@ -521,7 +509,7 @@ class UserControllerTest extends WebTestCase
      */
     public function testGetUserAction(array $postData)
     {
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -548,10 +536,10 @@ class UserControllerTest extends WebTestCase
 
     public function testGetUsersCurrentAction()
     {
-        $authClient = $this->factory->oauth()->getAuthClient();
-        $user = $this->factory->user()->getUser('user', 'qwerty123');
+        $authClient = $this->factory()->oauth()->getAuthClient();
+        $user = $this->factory()->user()->getUser('user@lighthouse.pro', 'qwerty123');
 
-        $token = $this->factory->oauth()->auth($user, 'qwerty123', $authClient);
+        $token = $this->factory()->oauth()->auth($user, 'qwerty123', $authClient);
 
         $request = new JsonRequest('/api/1/users/current');
         $request->addHttpHeader('Authorization', 'Bearer ' . $token->access_token);
@@ -560,12 +548,12 @@ class UserControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals('user', 'username', $getResponse);
+        Assert::assertJsonPathEquals('user@lighthouse.pro', 'email', $getResponse);
     }
 
     public function testGetUserPermissionsAction()
     {
-        $accessToken = $this->factory->oauth()->authAsRole('ROLE_ADMINISTRATOR');
+        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_ADMINISTRATOR');
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -583,10 +571,10 @@ class UserControllerTest extends WebTestCase
         return array(
             'standard' => array(
                 array(
-                    'username'  => 'test',
+                    'email'     => 'test@test.com',
                     'name'      => 'Вася пупкин',
                     'position'  => 'Комерческий директор',
-                    'role'      => 'ROLE_COMMERCIAL_MANAGER',
+                    'roles'     => array('ROLE_COMMERCIAL_MANAGER'),
                     'password'  => 'qwerty',
                 ),
             ),
@@ -600,7 +588,7 @@ class UserControllerTest extends WebTestCase
      */
     public function testRolePermissions($role, array $assertions)
     {
-        $accessToken = $this->factory->oauth()->authAsRole($role);
+        $accessToken = $this->factory()->oauth()->authAsRole($role);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -792,14 +780,14 @@ class UserControllerTest extends WebTestCase
     public function testUniqueUsernameInParallel()
     {
         $userData = array(
-            'username'  => 'test',
+            'email'     => 'test@test.com',
             'name'      => 'Вася пупкин',
             'position'  => 'Комерческий директор',
-            'role'      => User::ROLE_COMMERCIAL_MANAGER,
+            'roles'      => array(User::ROLE_COMMERCIAL_MANAGER),
             'password'  => 'qwerty',
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
 
         $jsonRequest = new JsonRequest('/api/1/users', 'POST', $userData);
         $jsonRequest->setAccessToken($accessToken);
@@ -815,10 +803,10 @@ class UserControllerTest extends WebTestCase
         $responseBody = $exporter->export($jsonResponses);
         $this->assertCount(1, array_keys($statusCodes, 201), $responseBody);
         $this->assertCount(2, array_keys($statusCodes, 400), $responseBody);
-        Assert::assertJsonPathEquals('test', '*.username', $jsonResponses, 1);
+        Assert::assertJsonPathEquals('test@test.com', '*.email', $jsonResponses, 1);
         Assert::assertJsonPathEquals(
-            'Пользователь с таким логином уже существует',
-            '*.children.username.errors.0',
+            'Пользователь с таким email уже существует',
+            '*.children.email.errors.0',
             $jsonResponses,
             2
         );
@@ -827,14 +815,14 @@ class UserControllerTest extends WebTestCase
     protected function doPostActionFlushFailedException(\Exception $exception)
     {
         $userData = array(
-            'username'  => 'test',
+            'email'     => 'test@test.com',
             'name'      => 'Вася пупкин',
             'position'  => 'Комерческий директор',
-            'role'      => User::ROLE_COMMERCIAL_MANAGER,
+            'roles'      => array(User::ROLE_COMMERCIAL_MANAGER),
             'password'  => 'qwerty',
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
 
         $user = new User();
 
@@ -911,9 +899,202 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
         Assert::assertJsonPathEquals(
-            'Пользователь с таким логином уже существует',
-            'children.username.errors.0',
+            'Пользователь с таким email уже существует',
+            'children.email.errors.0',
             $response
         );
+    }
+
+    public function testPostSignupAction()
+    {
+        $postData = array(
+            'email' => 'signup@lh.pro'
+        );
+
+        $response = $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/signup',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonPathEquals($postData['email'], 'email', $response);
+        Assert::assertNotJsonHasPath('password', $response);
+    }
+
+    /**
+     * @dataProvider emailUserValidationProvider
+     *
+     * @param $expectedCode
+     * @param array $data
+     * @param array $assertions
+     */
+    public function testPostSignupValidationTest(
+        $expectedCode,
+        array $data,
+        array $assertions = array()
+    ) {
+        $postData = $data + array(
+            'email' => 'signup@lh.pro',
+        );
+
+        $response = $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/signup',
+            $postData
+        );
+
+        $this->assertResponseCode($expectedCode);
+
+        $this->performJsonAssertions($response, $assertions, false);
+    }
+
+    public function testPostSignupUniqueEmailValidationTest()
+    {
+        $userData = array(
+            'email' => 'signup@lh.com',
+        );
+
+        $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/signup',
+            $userData
+        );
+
+        $this->assertResponseCode(201);
+
+        $response = $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/signup',
+            $userData
+        );
+
+        $this->assertResponseCode(400);
+
+        Assert::assertJsonPathContains(
+            'Пользователь с таким email уже существует',
+            'children.email.errors.0',
+            $response
+        );
+    }
+
+    public function testPostSignupEmailSendAndLoginWithPassword()
+    {
+        $userData = array(
+            'email' => 'signup@lh.com',
+        );
+
+        $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/signup',
+            $userData
+        );
+
+        $this->assertResponseCode(201);
+
+        $collectedMessages = $this->getSentEmailMessages();
+        $message = $collectedMessages[0];
+
+        $this->assertInstanceOf('Swift_Message', $message);
+        $this->assertEquals('noreply@lighthouse.pro', key($message->getFrom()));
+        $this->assertEquals('signup@lh.com', key($message->getTo()));
+        $this->assertEquals('Добро пожаловать в Lighthouse', $message->getSubject());
+        $this->assertContains('Добро пожаловать в Lighthouse!', $message->getBody());
+        $this->assertContains('Ваш пароль для входа:', $message->getBody());
+        $this->assertContains('Если это письмо пришло вам по ошибке, просто проигнорируйте его', $message->getBody());
+
+        $password = $this->getPasswordFromEmailBody($message->getBody());
+
+        $authClient = $this->factory()->oauth()->getAuthClient();
+
+        $authParams = array(
+            'grant_type' => 'password',
+            'username' => $userData['email'],
+            'password' => $password,
+            'client_id' => $authClient->getPublicId(),
+            'client_secret' => $authClient->getSecret()
+        );
+
+        $this->client->request(
+            'POST',
+            '/oauth/v2/token',
+            $authParams,
+            array(),
+            array('Content-Type' => 'application/x-www-form-urlencoded')
+        );
+
+        $response = $this->client->getResponse()->getContent();
+        $jsonResponse = json_decode($response, true);
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonHasPath('access_token', $jsonResponse);
+        Assert::assertJsonHasPath('refresh_token', $jsonResponse);
+    }
+
+    public function testGetCurrentAfterSignupAction()
+    {
+        $userData = array(
+            'email' => 'signup@lh.com',
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/signup',
+            $userData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('project.id', $postResponse);
+        Assert::assertJsonPathCount(3, 'roles.*', $postResponse);
+        Assert::assertJsonPathEquals(User::ROLE_COMMERCIAL_MANAGER, 'roles.*', $postResponse);
+        Assert::assertJsonPathEquals(User::ROLE_DEPARTMENT_MANAGER, 'roles.*', $postResponse);
+        Assert::assertJsonPathEquals(User::ROLE_STORE_MANAGER, 'roles.*', $postResponse);
+
+        $messages = $this->getSentEmailMessages();
+        $this->assertCount(2, $messages, 'There should be two emails logged one from spool and the other one sent');
+
+        $password = $this->getPasswordFromEmailBody($messages[1]->getBody());
+
+        $accessToken = $this->factory()->oauth()->doAuthByUsername('signup@lh.com', $password);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/users/current'
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertSame($getResponse, $postResponse);
+    }
+
+    /**
+     * @return \Swift_Message[]
+     */
+    protected function getSentEmailMessages()
+    {
+        /* @var \Swift_Plugins_MessageLogger $messageLogger */
+        return $this->getContainer()->get('swiftmailer.plugin.messagelogger')->getMessages();
+    }
+
+    /**
+     * @param string $body
+     * @return string
+     * @throws \PHPUnit_Framework_AssertionFailedError
+     */
+    protected function getPasswordFromEmailBody($body)
+    {
+        if (preg_match('/Ваш пароль для входа:\s(.+)\n/u', $body, $matches)) {
+            return $matches[1];
+        }
+        throw new \PHPUnit_Framework_AssertionFailedError('Password not found in message');
     }
 }

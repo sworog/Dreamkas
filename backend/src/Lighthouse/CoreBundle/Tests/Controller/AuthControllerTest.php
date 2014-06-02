@@ -9,12 +9,12 @@ class AuthControllerTest extends WebTestCase
 {
     public function testAuth()
     {
-        $authClient = $this->factory->oauth()->getAuthClient();
-        $user = $this->factory->user()->getUser('admin', 'qwerty123');
+        $authClient = $this->factory()->oauth()->getAuthClient();
+        $user = $this->factory()->user()->getUser('admin@lighthouse.pro', 'qwerty123');
 
         $authParams = array(
             'grant_type' => 'password',
-            'username' => $user->username,
+            'username' => $user->getUsername(),
             'password' => 'qwerty123',
             'client_id' => $authClient->getPublicId(),
             'client_secret' => $authClient->getSecret()
@@ -44,12 +44,12 @@ class AuthControllerTest extends WebTestCase
 
     public function testRefreshToken()
     {
-        $authClient = $this->factory->oauth()->getAuthClient();
-        $user = $this->factory->user()->getUser('admin', 'qwerty123');
+        $authClient = $this->factory()->oauth()->getAuthClient();
+        $user = $this->factory()->user()->getUser('admin@lighthouse.pro', 'qwerty123');
 
         $authParams = array(
             'grant_type' => 'password',
-            'username' => $user->username,
+            'username' => $user->getUsername(),
             'password' => 'qwerty123',
             'client_id' => $authClient->getPublicId(),
             'client_secret' => $authClient->getSecret()
@@ -105,13 +105,13 @@ class AuthControllerTest extends WebTestCase
 
     public function testInvalidPassword()
     {
-        $authClient = $this->factory->oauth()->getAuthClient();
+        $authClient = $this->factory()->oauth()->getAuthClient();
 
-        $this->factory->user()->getUser('test', 'password');
+        $user = $this->factory()->user()->getUser('test@lighthouse.pro', 'password');
 
         $authParams = array(
             'grant_type' => 'password',
-            'username' => 'test',
+            'username' => $user->getUsername(),
             'password' => 'invalidPassword',
             'client_id' => $authClient->getPublicId(),
             'client_secret' => $authClient->getSecret()

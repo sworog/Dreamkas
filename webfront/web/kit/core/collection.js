@@ -1,7 +1,6 @@
 define(function(require) {
     //requirements
-    var Backbone = require('backbone');
-
+    require('backbone');
     require('lodash');
 
     return Backbone.Collection.extend({

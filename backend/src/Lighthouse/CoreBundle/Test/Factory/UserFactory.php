@@ -2,12 +2,16 @@
 
 namespace Lighthouse\CoreBundle\Test\Factory;
 
+use Lighthouse\CoreBundle\Document\Project\Project;
+use Lighthouse\CoreBundle\Document\Project\ProjectRepository;
 use Lighthouse\CoreBundle\Document\User\User;
+use Lighthouse\CoreBundle\Security\Token\ProjectToken;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class UserFactory extends AbstractFactory
 {
-    const USER_DEFAULT_USERNAME = 'admin';
+    const USER_DEFAULT_EMAIL = 'default@lighthouse.pro';
     const USER_DEFAULT_PASSWORD = 'password';
     const USER_DEFAULT_NAME = 'Админ Админыч';
     const USER_DEFAULT_POSITION = 'Администратор';
@@ -18,16 +22,21 @@ class UserFactory extends AbstractFactory
     protected $users = array();
 
     /**
+     * @var string
+     */
+    protected $projectId;
+
+    /**
      * @param string $role
      * @return User
      */
     public function getRoleUser($role)
     {
-        return $this->getUser($role, UserFactory::USER_DEFAULT_PASSWORD, $role, $role, $role);
+        return $this->getUser($role . '@lighthouse.pro', UserFactory::USER_DEFAULT_PASSWORD, $role, $role, $role);
     }
 
     /**
-     * @param string $username
+     * @param string $email
      * @param string $password
      * @param string $role
      * @param string $name
@@ -36,7 +45,7 @@ class UserFactory extends AbstractFactory
      * @return User
      */
     public function getUser(
-        $username = self::USER_DEFAULT_USERNAME,
+        $email = self::USER_DEFAULT_EMAIL,
         $password = self::USER_DEFAULT_PASSWORD,
         $role = User::ROLE_ADMINISTRATOR,
         $name = self::USER_DEFAULT_NAME,
@@ -44,7 +53,7 @@ class UserFactory extends AbstractFactory
     ) {
         $hash = md5(implode(',', func_get_args()));
         if (!isset($this->users[$hash])) {
-            $this->users[$hash] = $this->createUser($username, $password, $role, $name, $position);
+            $this->users[$hash] = $this->createUser($email, $password, $role, $name, $position);
         }
         return $this->users[$hash];
     }
@@ -64,7 +73,7 @@ class UserFactory extends AbstractFactory
     }
 
     /**
-     * @param string $username
+     * @param string $email
      * @param string $password
      * @param string $role
      * @param string $name
@@ -72,7 +81,7 @@ class UserFactory extends AbstractFactory
      * @return User
      */
     public function createUser(
-        $username = self::USER_DEFAULT_USERNAME,
+        $email = self::USER_DEFAULT_EMAIL,
         $password = self::USER_DEFAULT_PASSWORD,
         $role = User::ROLE_ADMINISTRATOR,
         $name = self::USER_DEFAULT_NAME,
@@ -80,9 +89,11 @@ class UserFactory extends AbstractFactory
     ) {
         $user = new User();
         $user->name = $name;
-        $user->username = $username;
-        $user->role = $role;
+        $user->email = $email;
+        $user->roles = array($role);
         $user->position = $position;
+
+        $user->project = $this->getProject();
 
         $this->getUserProvider()->setPassword($user, $password);
 
@@ -93,10 +104,58 @@ class UserFactory extends AbstractFactory
     }
 
     /**
+     * @return Project
+     * @throws \Doctrine\ODM\MongoDB\LockException
+     */
+    public function getProject()
+    {
+        if (!$this->projectId) {
+            $this->projectId = $this->createProject()->id;
+        }
+        return $this->getProjectProvider()->find($this->projectId);
+    }
+
+    /**
+     * @return Project
+     */
+    public function createProject()
+    {
+        $project = new Project();
+        $this->getProjectProvider()->save($project);
+        return $project;
+    }
+
+    /**
+     * @return ProjectToken
+     */
+    public function authProject()
+    {
+        $token = new ProjectToken($this->getProject());
+        $this->getSecurityContext()->setToken($token);
+        return $token;
+    }
+
+    /**
      * @return UserProvider
      */
     protected function getUserProvider()
     {
         return $this->container->get('lighthouse.core.user.provider');
+    }
+
+    /**
+     * @return ProjectRepository
+     */
+    protected function getProjectProvider()
+    {
+        return $this->container->get('lighthouse.core.document.repository.project');
+    }
+
+    /**
+     * @return SecurityContextInterface
+     */
+    protected function getSecurityContext()
+    {
+        return $this->container->get('security.context');
     }
 }

@@ -3,7 +3,7 @@ define(function(require) {
     var Page = require('kit/core/page.deprecated'),
         StoreGrossSalesModel = require('models/storeGrossSales'),
         GrossSalesModel = require('models/grossSales'),
-        currentUserModel = require('models/currentUser');
+        currentUserModel = require('models/currentUser.inst');
 
     require('jquery');
 

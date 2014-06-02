@@ -3,7 +3,7 @@ define(function(require) {
     var Page = require('kit/core/page.deprecated'),
         User = require('blocks/user/user'),
         UserModel = require('models/user'),
-        currentUserModel = require('models/currentUser'),
+        currentUserModel = require('models/currentUser.inst'),
         Page403 = require('pages/errors/403');
 
     return Page.extend({

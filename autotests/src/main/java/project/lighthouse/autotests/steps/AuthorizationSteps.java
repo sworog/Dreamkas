@@ -2,16 +2,20 @@ package project.lighthouse.autotests.steps;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
+import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.TimeoutException;
+import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.pages.MenuNavigationBar;
 import project.lighthouse.autotests.pages.authorization.AuthorizationPage;
+import project.lighthouse.autotests.pages.authorization.SignUpPage;
 import project.lighthouse.autotests.storage.Storage;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
@@ -26,6 +30,7 @@ public class AuthorizationSteps extends ScenarioSteps {
 
     AuthorizationPage authorizationPage;
     MenuNavigationBar menuNavigationBar;
+    SignUpPage signUpPage;
 
     @Step
     public void authorization(String userName) {
@@ -102,5 +107,38 @@ public class AuthorizationSteps extends ScenarioSteps {
     public void authorizationFalse(String userName, String password) {
         authorization(userName, password, true);
         Storage.getUserVariableStorage().setIsAuthorized(false);
+    }
+
+    @Step
+    public void signUpButtonClick() {
+        signUpPage.signUpButtonClick();
+        new PreLoader(getDriver()).await();
+    }
+
+    @Step
+    public void emailFieldInput(String emailValue) {
+        signUpPage.input("email", emailValue);
+    }
+
+    @Step
+    public void assertSignUpText() {
+        assertThat(
+                authorizationPage.getSignUpPageTitleText(),
+                is("Ваша учетная запись успешно создана.\nДля входа введите пароль присланный вам на email."));
+    }
+
+    @Step
+    public void assertValues(ExamplesTable examplesTable) {
+        authorizationPage.checkValues(examplesTable);
+    }
+
+    @Step
+    public void assertValue(String elementName, String value) {
+        authorizationPage.checkValue(elementName, value);
+    }
+
+    @Step
+    public void openSignUpPage() {
+        signUpPage.open();
     }
 }

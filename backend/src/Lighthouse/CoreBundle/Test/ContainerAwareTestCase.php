@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Test;
 
 use LighthouseKernel;
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Karzer\Framework\TestCase\SymfonyWebTestCase;
 use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\Factory\Factory;
@@ -21,12 +20,18 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     /**
      * @var Factory
      */
-    protected $factory;
+    private $factory;
 
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
         self::$appDebug = (boolean) getenv('SYMFONY_DEBUG') ?: false;
+    }
+
+    protected function tearDown()
+    {
+        static::shutdownKernel();
+        $this->factory = null;
     }
 
     /**
@@ -44,6 +49,13 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
         $kernel = static::getKernel();
         $kernel->shutdown();
         $kernel->boot();
+    }
+
+    protected static function shutdownKernel()
+    {
+        if (null !== static::$kernel) {
+            static::$kernel->shutdown();
+        }
     }
 
     /**
@@ -77,7 +89,7 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     }
 
     /**
-     * @return DocumentManager
+     * @return \Lighthouse\CoreBundle\MongoDB\DocumentManager
      */
     protected function getDocumentManager()
     {
@@ -105,10 +117,11 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
 
     protected function clearMongoDb()
     {
-        $mongoDb = $this->getDocumentManager();
-        $mongoDb->getSchemaManager()->dropCollections();
-        $mongoDb->getSchemaManager()->createCollections();
-        $mongoDb->getSchemaManager()->ensureIndexes();
+        $dm = $this->getDocumentManager();
+        $dm->getSchemaManager()->dropProjectDatabases();
+        $dm->getSchemaManager()->dropGlobalCollections();
+        $dm->getSchemaManager()->createGlobalCollections();
+        $dm->getSchemaManager()->ensureGlobalIndexes();
     }
 
     protected function clearJobs()
@@ -125,5 +138,10 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     protected function getFixtureFilePath($filePath)
     {
         return __DIR__ . '/../Tests/Fixtures/' . $filePath;
+    }
+
+    protected function markTestBroken()
+    {
+        $this->markTestSkipped('Broken');
     }
 }

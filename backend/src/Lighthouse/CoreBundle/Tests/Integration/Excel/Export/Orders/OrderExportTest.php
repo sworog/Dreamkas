@@ -20,7 +20,7 @@ class OrderExportTest extends WebTestCase
         $product2 = $this->createProduct(array('name' => 'Кефир2Назв', 'barcode' => '2222222'));
         $product3 = $this->createProduct(array('name' => 'Кефир3Назв', 'barcode' => '3333333'));
 
-        $this->factory->flush();
+        $this->factory()->flush();
 
         $postData = array(
             'supplier' => $supplier->id,
@@ -40,7 +40,7 @@ class OrderExportTest extends WebTestCase
             )
         );
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',

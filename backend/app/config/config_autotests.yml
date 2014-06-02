@@ -5,9 +5,6 @@ framework:
     profiler:
         enabled: false
 
-swiftmailer:
-    disable_delivery: true
-
 monolog:
     handlers:
         main:

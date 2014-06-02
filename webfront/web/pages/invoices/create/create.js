@@ -5,7 +5,7 @@ define(function(require, exports, module) {
         Form_invoice = require('blocks/form/form_invoice/form_invoice'),
         InvoiceModel = require('models/invoice'),
         InvoiceProductsCollection = require('collections/invoiceProducts'),
-        currentUserModel = require('models/currentUser');
+        currentUserModel = require('models/currentUser.inst');
 
     return Page.extend({
         templates: {

@@ -11,6 +11,6 @@ public class BodyPreLoader extends AbstractPreLoader {
 
     @Override
     public String getXpath() {
-        return "//body[contains(@class, 'preloader_spinner')]";
+        return "//body[@status='loading']";
     }
 }

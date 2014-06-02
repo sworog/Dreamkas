@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Page = require('kit/core/page.deprecated'),
         SuppliersCollection = require('collections/suppliers'),
-        currentUserModel = require('models/currentUser');
+        currentUserModel = require('models/currentUser.inst');
 
     require('jquery');
 

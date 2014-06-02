@@ -8,12 +8,9 @@ framework:
     profiler:
         enabled: false
 
-web_profiler:
-    toolbar: false
-    intercept_redirects: false
-
 swiftmailer:
     disable_delivery: true
+    logging: true
 
 ekino_new_relic:
     application_name: Lighthouse API tests

@@ -198,17 +198,17 @@ namespace :symfony do
 
     namespace :user do
 
-        def create_api_user(username, userpass, userrole)
-            capture console_command("lighthouse:user:create #{username} #{userpass} #{userrole}")
+        def create_api_user(email, password, role)
+            capture console_command("lighthouse:user:create #{email} #{password} #{role}")
         end
 
-        desc "Create user, required: -S username=<..> -S userpass=<..>, optional: -S userrole=<..> (administrator by default)"
+        desc "Create user, required: -S email=<..> -S userpass=<..>, optional: -S userrole=<..> (administrator by default)"
         task :create, :roles => :app, :except => { :no_release => true } do
             puts "--> Creating user"
-            raise "username should be provided by -S username=.." unless exists?(:username)
+            raise "email should be provided by -S email=.." unless exists?(:email)
             raise "userpass should be provided by -S userpass=.." unless exists?(:userpass)
             set :userrole, "" unless exists?(:userrole)
-            puts create_api_user(username, userpass, userrole)
+            puts create_api_user(email, userpass, userrole)
             capifony_puts_ok
         end
 
@@ -219,8 +219,8 @@ namespace :symfony do
                 puts "--> Failed to create user".red
             end
             api_users.each do |api_user|
-                puts "--> Creating user " + api_user['username'].green
-                puts create_api_user(api_user['username'], api_user['userpass'], api_user['userrole'])
+                puts "--> Creating user " + api_user['email'].green
+                puts create_api_user(api_user['email'], api_user['userpass'], api_user['userrole'])
             end
             end
         end
@@ -230,8 +230,8 @@ namespace :symfony do
         desc "Recreate db, create default clients and users"
         task :init, :roles => :app, :except => { :no_release => true } do
             doctrine.mongodb.schema.recreate
-            user.create_default
             auth.client.create_default
+            user.create_default
         end
     end
 

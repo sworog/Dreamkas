@@ -40,9 +40,9 @@ class Set10SalesImportLocalTest extends WebTestCase
      */
     public function testExecute($file, $expectedDisplay, $expectedLogEntriesCount)
     {
-        $this->factory->store()->getStoreId('197');
-        $this->factory->store()->getStoreId('666');
-        $this->factory->store()->getStoreId('777');
+        $this->factory()->store()->getStoreId('197');
+        $this->factory()->store()->getStoreId('666');
+        $this->factory()->store()->getStoreId('777');
         $this->createProductsByNames(
             array(
                 '1',
@@ -73,7 +73,7 @@ class Set10SalesImportLocalTest extends WebTestCase
 
     public function testExecuteWithErrors()
     {
-        $this->factory->store()->getStoreId('197');
+        $this->factory()->store()->getStoreId('197');
         $this->createProductsByNames(
             array(
                 '10001',
@@ -103,7 +103,7 @@ class Set10SalesImportLocalTest extends WebTestCase
 
     public function testExecuteWithAllErrors()
     {
-        $this->factory->store()->getStoreId('197');
+        $this->factory()->store()->getStoreId('197');
 
         $commandTester = $this->execute('purchases-14-05-2012_9-18-29.xml');
 
@@ -139,6 +139,8 @@ class Set10SalesImportLocalTest extends WebTestCase
 
     public function testImportInvalidXmlFile()
     {
+        $this->factory()->user()->authProject();
+
         $file = 'purchases-invalid.xml';
 
         $commandTester = $this->execute($file);
@@ -157,6 +159,8 @@ class Set10SalesImportLocalTest extends WebTestCase
 
     public function testImportDirectory()
     {
+        $this->factory()->user()->authProject();
+
         $commandTester = $this->execute('Kesko/');
         $display = $commandTester->getDisplay();
         $this->assertContains('Found 2 files', $display);
@@ -249,7 +253,7 @@ EOF;
 
     public function testProfile()
     {
-        $this->factory->store()->getStoreId('197');
+        $this->factory()->store()->getStoreId('197');
         $this->createProductsByNames(
             array(
                 '1',
@@ -277,7 +281,7 @@ EOF;
 
     public function testSortByFileDate()
     {
-        $this->factory->store()->getStores(array('1', '2', '3', '4', '5'));
+        $this->factory()->store()->getStores(array('1', '2', '3', '4', '5'));
         $this->createProductsByNames(
             array(
                 'ЦБ000003263',
@@ -313,7 +317,7 @@ EOF;
 
     public function testSortByFileName()
     {
-        $this->factory->store()->getStores(array('1', '2', '3', '4', '5'));
+        $this->factory()->store()->getStores(array('1', '2', '3', '4', '5'));
         $this->createProductsByNames(
             array(
                 'ЦБ000003263',
@@ -349,7 +353,7 @@ EOF;
 
     public function testOnlyPurchaseFilesAreImportedOnFileDateSort()
     {
-        $this->factory->store()->getStores(array('1', '2', '3'));
+        $this->factory()->store()->getStores(array('1', '2', '3'));
         $this->createProductsByNames(
             array(
                 'АВ000000221',

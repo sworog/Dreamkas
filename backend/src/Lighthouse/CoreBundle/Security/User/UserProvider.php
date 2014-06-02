@@ -2,16 +2,21 @@
 
 namespace Lighthouse\CoreBundle\Security\User;
 
+use Hackzilla\PasswordGenerator\Generator\PasswordGenerator;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
+use Symfony\Bridge\Monolog\Logger;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use JMS\DiExtraBundle\Annotation as DI;
+use Symfony\Component\Security\Core\Util\SecureRandom;
 use Symfony\Component\Validator\ValidatorInterface;
+use Swift_Mailer;
 
 /**
  * @DI\Service("lighthouse.core.user.provider")
@@ -34,24 +39,51 @@ class UserProvider implements UserProviderInterface
     protected $validator;
 
     /**
+     * @var Swift_Mailer
+     */
+    protected $mailer;
+
+    /**
+     * @var PasswordGenerator
+     */
+    protected $passwordGenerator;
+
+    /**
+     * @var ContainerInterface
+     */
+    protected $container;
+
+    /**
      * @DI\InjectParams({
-     *      "userRepository" = @DI\Inject("lighthouse.core.document.repository.user"),
-     *      "encoderFactory" = @DI\Inject("security.encoder_factory"),
-     *      "validator"      = @DI\Inject("lighthouse.core.validator")
+     *      "userRepository"    = @DI\Inject("lighthouse.core.document.repository.user"),
+     *      "encoderFactory"    = @DI\Inject("security.encoder_factory"),
+     *      "validator"         = @DI\Inject("lighthouse.core.validator"),
+     *      "mailer"            = @DI\Inject("mailer"),
+     *      "container"         = @DI\Inject("service_container"),
+     *      "passwordGenerator" = @DI\Inject("hackzilla_password_generator")
      * })
      *
      * @param UserRepository $userRepository
      * @param EncoderFactoryInterface $encoderFactory
      * @param ValidatorInterface $validator
+     * @param Swift_Mailer $mailer
+     * @param ContainerInterface $container
+     * @param PasswordGenerator $passwordGenerator
      */
     public function __construct(
         UserRepository $userRepository,
         EncoderFactoryInterface $encoderFactory,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        Swift_Mailer $mailer,
+        ContainerInterface $container,
+        PasswordGenerator $passwordGenerator
     ) {
         $this->userRepository = $userRepository;
         $this->encoderFactory = $encoderFactory;
         $this->validator = $validator;
+        $this->mailer = $mailer;
+        $this->container = $container;
+        $this->passwordGenerator = $passwordGenerator;
     }
 
     /**
@@ -61,7 +93,7 @@ class UserProvider implements UserProviderInterface
      */
     public function loadUserByUsername($username)
     {
-        $user = $this->userRepository->findOneBy(array('username' => $username));
+        $user = $this->userRepository->findOneBy(array('email' => $username));
 
         if (!$user) {
             $e = new UsernameNotFoundException();
@@ -149,24 +181,68 @@ class UserProvider implements UserProviderInterface
     }
 
     /**
-     * @param string $username
+     * @param string $email
      * @param string $password
      * @param string $name
      * @param string $role
      * @param string $position
      * @return User
      */
-    public function createNewUser($username, $password, $name, $role, $position)
+    public function createNewUser($email, $password, $name, $role, $position)
     {
         $user = $this->createUser();
 
         $user->name = $name;
-        $user->username = $username;
-        $user->role = $role;
+        $user->email = $email;
+        $user->roles = array($role);
         $user->position = $position;
 
         $this->updateUserWithPassword($user, $password, true);
 
         return $user;
+    }
+
+    /**
+     * @return string
+     */
+    public function generateUserPassword()
+    {
+        return $this->passwordGenerator->generatePassword();
+    }
+
+    /**
+     * @param User $user
+     * @param string $password
+     * @return User
+     */
+    public function sendRegisteredMessage(User $user, $password)
+    {
+        $messageBody = $this->getMessageBody($password);
+
+        $message = \Swift_Message::newInstance()
+            ->setFrom('noreply@lighthouse.pro')
+            ->setTo($user->email)
+            ->setSubject('Добро пожаловать в Lighthouse')
+            ->setBody($messageBody);
+
+        $this->mailer->send($message);
+
+        return $user;
+    }
+
+    /**
+     * @param string $password
+     * @return string
+     */
+    public function getMessageBody($password)
+    {
+        $message = $this->container->get('templating')->render(
+            'LighthouseCoreBundle:Email:registered.html.php',
+            array(
+                'password' => $password
+            )
+        );
+
+        return $message;
     }
 }

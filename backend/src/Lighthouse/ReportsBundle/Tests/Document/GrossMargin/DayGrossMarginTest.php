@@ -14,8 +14,8 @@ class DayGrossMarginTest extends WebTestCase
         $costOfGoodsCalculator = $this->getCostOfGoodsCalculator();
         $dayGrossMarginRepository = $this->getDayGrossMarginRepository();
 
-        $store1 = $this->factory->store()->getStore('1');
-        $store2 = $this->factory->store()->getStore('2');
+        $store1 = $this->factory()->store()->getStore('1');
+        $store2 = $this->factory()->store()->getStore('2');
         $productId = $this->createProduct('1');
 
 
@@ -56,24 +56,24 @@ class DayGrossMarginTest extends WebTestCase
             ->flush();
 
 
-        $sale1 = $this->factory->createSale($store1->id, '2014-01-09 12:23:12', 1750);
-        $this->factory->createSaleProduct(250, 7, $productId, $sale1);  // CoG: 800
+        $sale1 = $this->factory()->createSale($store1->id, '2014-01-09 12:23:12', 1750);
+        $this->factory()->createSaleProduct(250, 7, $productId, $sale1);  // CoG: 800
 
-        $sale2 = $this->factory->createSale($store1->id, '2014-01-09 16:23:12', 500);
-        $this->factory->createSaleProduct(250, 2, $productId, $sale2);  // CoG: 300
+        $sale2 = $this->factory()->createSale($store1->id, '2014-01-09 16:23:12', 500);
+        $this->factory()->createSaleProduct(250, 2, $productId, $sale2);  // CoG: 300
 
-        $sale3 = $this->factory->createSale($store1->id, '2014-01-10 12:23:12', 1500);
-        $this->factory->createSaleProduct(250, 6, $productId, $sale3);  // CoG: 1150
+        $sale3 = $this->factory()->createSale($store1->id, '2014-01-10 12:23:12', 1500);
+        $this->factory()->createSaleProduct(250, 6, $productId, $sale3);  // CoG: 1150
 
-        $sale4 = $this->factory->createSale($store2->id, '2014-01-09 12:30:12', 2100);
-        $this->factory->createSaleProduct(300, 7, $productId, $sale4);  // CoG: 800
+        $sale4 = $this->factory()->createSale($store2->id, '2014-01-09 12:30:12', 2100);
+        $this->factory()->createSaleProduct(300, 7, $productId, $sale4);  // CoG: 800
 
-        $sale5 = $this->factory->createSale($store2->id, '2014-01-09 16:30:12', 600);
-        $this->factory->createSaleProduct(300, 2, $productId, $sale5);  // CoG: 300
+        $sale5 = $this->factory()->createSale($store2->id, '2014-01-09 16:30:12', 600);
+        $this->factory()->createSaleProduct(300, 2, $productId, $sale5);  // CoG: 300
 
-        $sale6 = $this->factory->createSale($store2->id, '2014-01-10 12:30:12', 1800);
-        $this->factory->createSaleProduct(300, 6, $productId, $sale6);  // CoG: 1150
-        $this->factory->flush();
+        $sale6 = $this->factory()->createSale($store2->id, '2014-01-10 12:30:12', 1800);
+        $this->factory()->createSaleProduct(300, 6, $productId, $sale6);  // CoG: 1150
+        $this->factory()->flush();
 
 
         $costOfGoodsCalculator->calculateUnprocessed();

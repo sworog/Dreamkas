@@ -17,7 +17,7 @@ class AbstractRestControllerTest extends WebTestCase
             'HTTP_Origin' => 'http://webfront.lighthouse.dev',
         );
 
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $this->clientJsonRequest(
             $accessToken,

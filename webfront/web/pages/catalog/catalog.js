@@ -4,9 +4,9 @@ define(function(require) {
         pageParams = require('pages/catalog/params'),
         Catalog = require('blocks/catalog/catalog'),
         СatalogGroupsCollection = require('collections/catalogGroups'),
-        currentUserModel = require('models/currentUser'),
+        currentUserModel = require('models/currentUser.inst'),
         Page403 = require('pages/errors/403'),
-        router = require('kit/router/router');
+        router = require('router');
 
     return Page.extend({
         __name__: 'page_catalog_catalog',

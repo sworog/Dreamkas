@@ -14,7 +14,7 @@ class FileControllerTest extends WebTestCase
 {
     public function testPostAction()
     {
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $jsonRequest = new JsonRequest('/api/1/files', 'POST');
         $jsonRequest->addHttpHeader('X-File-Name', 'test.txt');
@@ -65,7 +65,7 @@ class FileControllerTest extends WebTestCase
         array $assertions,
         $expectedRequestsCount
     ) {
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $jsonRequest = new JsonRequest('/api/1/files', 'POST');
         $mockFile = $this->getFixtureFilePath('OpenStack/auth.response.ok');
