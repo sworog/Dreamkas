@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Test;
 
+use Lighthouse\CoreBundle\Document\Project\Project;
 use LighthouseKernel;
 use Karzer\Framework\TestCase\SymfonyWebTestCase;
 use Lighthouse\CoreBundle\Job\JobManager;
@@ -166,5 +167,15 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
         $application = $this->createConsoleApplication($catchExceptions, $reboot);
         $tester = new ApplicationTester($application);
         return $tester;
+    }
+
+    /**
+     * @return Project
+     */
+    protected function authenticateProject()
+    {
+        $project = $this->factory()->user()->getProject();
+        $this->getContainer()->get('project.context')->authenticate($project);
+        return $project;
     }
 }

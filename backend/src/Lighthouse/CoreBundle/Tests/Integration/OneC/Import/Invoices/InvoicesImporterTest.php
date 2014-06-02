@@ -10,6 +10,12 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class InvoicesImporterTest extends WebTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->authenticateProject();
+    }
+
     /**
      * @param string $filePath
      * @param int $batchSize
