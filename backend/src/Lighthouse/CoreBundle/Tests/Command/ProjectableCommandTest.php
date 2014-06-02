@@ -3,8 +3,6 @@
 namespace Lighthouse\CoreBundle\Tests\Command;
 
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Component\Console\Tester\ApplicationTester;
 
 class ProjectableCommandTest extends ContainerAwareTestCase
 {
@@ -21,11 +19,7 @@ class ProjectableCommandTest extends ContainerAwareTestCase
             '--project' => 'aaa'
         );
 
-        $application = new Application(static::createKernel());
-        $application->setAutoExit(false);
-        $application->setCatchExceptions(false);
-
-        $tester = new ApplicationTester($application);
+        $tester = $this->createConsoleTester(false);
         $tester->run($arrayInput);
     }
 
@@ -41,11 +35,7 @@ class ProjectableCommandTest extends ContainerAwareTestCase
             'command' => 'lighthouse:import:sales:local',
         );
 
-        $application = new Application(static::createKernel());
-        $application->setAutoExit(false);
-        $application->setCatchExceptions(false);
-
-        $tester = new ApplicationTester($application);
+        $tester = $this->createConsoleTester(false);
         $tester->run($arrayInput);
     }
 }

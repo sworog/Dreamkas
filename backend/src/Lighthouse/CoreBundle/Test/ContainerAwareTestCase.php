@@ -6,6 +6,8 @@ use LighthouseKernel;
 use Karzer\Framework\TestCase\SymfonyWebTestCase;
 use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\Factory\Factory;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Lighthouse\CoreBundle\Test\Console\ApplicationTester;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -135,5 +137,29 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     protected function markTestBroken()
     {
         $this->markTestSkipped('Broken');
+    }
+
+    /**
+     * @param bool $catchExceptions
+     * @return Application
+     */
+    protected function createConsoleApplication($catchExceptions = true)
+    {
+        $application = new Application(static::getKernel());
+        $application->setCatchExceptions($catchExceptions);
+        $application->setAutoExit(false);
+
+        return $application;
+    }
+
+    /**
+     * @param bool $catchExceptions
+     * @return ApplicationTester
+     */
+    protected function createConsoleTester($catchExceptions = true)
+    {
+        $application = $this->createConsoleApplication($catchExceptions);
+        $tester = new ApplicationTester($application);
+        return $tester;
     }
 }
