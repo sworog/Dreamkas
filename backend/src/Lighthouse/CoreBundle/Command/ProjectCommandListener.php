@@ -19,9 +19,12 @@ class ProjectCommandListener
     protected $provider;
 
     /**
+     * List of command names to be executed in project context
      * @var array
      */
-    protected $projectableCommands = array();
+    protected $projectableCommands = array(
+        'doctrine:mongodb:fixtures:load',
+    );
 
     /**
      * @DI\InjectParams({
@@ -65,7 +68,7 @@ class ProjectCommandListener
     {
         if ($command instanceof ProjectableCommand) {
             return true;
-        } elseif (in_array(get_class($command), $this->projectableCommands)) {
+        } elseif (in_array($command->getName(), $this->projectableCommands)) {
             return true;
         } else {
             return false;
