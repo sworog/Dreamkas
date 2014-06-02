@@ -28,7 +28,7 @@ class ApplicationTester extends BaseApplicationTester
      */
     public function runProjectCommand($command, $project, array $input = array(), $options = array())
     {
-        $input['--project'] = ($project instanceof Project) ? $project->getNamespace() : $project;
+        $input['--project'] = ($project instanceof Project) ? $project->getName() : $project;
         return $this->runCommand($command, $input, $options);
     }
 

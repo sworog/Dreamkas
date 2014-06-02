@@ -25,7 +25,7 @@ class Project extends AbstractDocument
     /**
      * @return string
      */
-    public function getNamespace()
+    public function getName()
     {
         return $this->id;
     }

@@ -65,7 +65,7 @@ class Set10SalesImportLocalTest extends WebTestCase
 
         $project = $this->factory()->user()->getProject();
 
-        $commandTester = $this->execute($file, $project->getNamespace());
+        $commandTester = $this->execute($file, $project->getName());
         $display = $commandTester->getDisplay();
 
         $this->assertContains($file, $display);
@@ -95,7 +95,7 @@ class Set10SalesImportLocalTest extends WebTestCase
         );
         $project = $this->factory()->user()->getProject();
 
-        $commandTester = $this->execute('purchases-not-found.xml', $project->getNamespace());
+        $commandTester = $this->execute('purchases-not-found.xml', $project->getName());
 
         $display = $commandTester->getDisplay();
 
@@ -113,7 +113,7 @@ class Set10SalesImportLocalTest extends WebTestCase
         $this->factory()->store()->getStoreId('197');
         $project = $this->factory()->user()->getProject();
 
-        $commandTester = $this->execute('purchases-14-05-2012_9-18-29.xml', $project->getNamespace());
+        $commandTester = $this->execute('purchases-14-05-2012_9-18-29.xml', $project->getName());
 
         $display = $commandTester->getDisplay();
 
@@ -152,7 +152,7 @@ class Set10SalesImportLocalTest extends WebTestCase
 
         $file = 'purchases-invalid.xml';
 
-        $commandTester = $this->execute($file, $project->getNamespace());
+        $commandTester = $this->execute($file, $project->getName());
 
         $display = $commandTester->getDisplay();
         $this->assertContains($file, $display);
@@ -163,7 +163,7 @@ class Set10SalesImportLocalTest extends WebTestCase
     {
         $project = $this->factory()->user()->getProject();
 
-        $tester = $this->execute('unknown.xml', $project->getNamespace());
+        $tester = $this->execute('unknown.xml', $project->getName());
         $this->assertEquals(1, $tester->getStatusCode());
         $this->assertContains('[UnexpectedValueException]', $tester->getDisplay());
     }
@@ -172,7 +172,7 @@ class Set10SalesImportLocalTest extends WebTestCase
     {
         $project = $this->factory()->user()->getProject();
 
-        $commandTester = $this->execute('Kesko/', $project->getNamespace());
+        $commandTester = $this->execute('Kesko/', $project->getName());
         $display = $commandTester->getDisplay();
         $this->assertContains('Found 2 files', $display);
         $this->assertContains('purchases-success-2013.11.04-00.03.09.514.xml', $display);
@@ -191,7 +191,7 @@ class Set10SalesImportLocalTest extends WebTestCase
             array(
                 'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/Kesko'),
                 '--dry-run' => true,
-                '--project' => $project->getNamespace(),
+                '--project' => $project->getName(),
             )
         );
         $this->assertEquals(0, $commandTester->getStatusCode());
@@ -214,7 +214,7 @@ EOF;
                 '--dry-run' => true,
                 '--import-date' => '2013-12-01',
                 '--receipt-date' => '2013-11-04',
-                '--project' => $project->getNamespace()
+                '--project' => $project->getName()
             )
         );
         $this->assertEquals(0, $commandTester->getStatusCode());
@@ -237,7 +237,7 @@ EOF;
                 '--dry-run' => true,
                 '--import-date' => '2013-12-01',
                 '--receipt-date' => '2013-11-04',
-                '--project' => $project->getNamespace()
+                '--project' => $project->getName()
             )
         );
         $this->assertEquals(0, $commandTester->getStatusCode());
@@ -258,7 +258,7 @@ EOF;
                 '--dry-run' => true,
                 '--import-date' => '2013-12-01',
                 '--receipt-date' => '2013-11-04',
-                '--project' => $project->getNamespace(),
+                '--project' => $project->getName(),
             )
         );
         $this->assertEquals(0, $commandTester->getStatusCode());
@@ -294,7 +294,7 @@ EOF;
             array(
                 'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/purchases-14-05-2012_9-18-29.xml'),
                 '--profile' => true,
-                '--project' => $project->getNamespace()
+                '--project' => $project->getName()
             )
         );
         $this->assertEquals(0, $commandTester->getStatusCode());
@@ -322,7 +322,7 @@ EOF;
             array(
                 'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/ADM'),
                 '--sort' => 'filedate',
-                '--project' => $project->getNamespace()
+                '--project' => $project->getName()
             )
         );
         $this->assertEquals(0, $commandTester->getStatusCode());
@@ -361,7 +361,7 @@ EOF;
             array(
                 'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/ADM'),
                 '--sort' => 'filename',
-                '--project' => $project->getNamespace()
+                '--project' => $project->getName()
             )
         );
         $this->assertEquals(0, $commandTester->getStatusCode());
@@ -401,7 +401,7 @@ EOF;
             array(
                 'file' => $this->getFixtureFilePath('Integration/Set10/Import/Sales/PurchasesDiscounts'),
                 '--sort' => 'filedate',
-                '--project' => $project->getNamespace()
+                '--project' => $project->getName()
             )
         );
         $this->assertEquals(0, $commandTester->getStatusCode());
@@ -441,6 +441,4 @@ EOF;
         $tester = new ApplicationTester($application);
         $tester->run($arrayInput);
     }
-
-
 }

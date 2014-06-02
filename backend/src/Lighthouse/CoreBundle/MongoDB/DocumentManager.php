@@ -89,15 +89,15 @@ class DocumentManager extends BaseDocumentManager implements ContainerAwareInter
     {
         $metadata = $this->getClassMetadata($className);
 
-        if (!isset($this->projectDocumentDatabases[$project->getNamespace()][$metadata->name])) {
+        if (!isset($this->projectDocumentDatabases[$project->getName()][$metadata->name])) {
             $db = $this->getDocumentDatabaseName($metadata);
-            $db .= '_' . $project->getNamespace();
+            $db .= '_' . $project->getName();
 
             $conn = $this->getConnection();
-            $this->projectDocumentDatabases[$project->getNamespace()][$metadata->name] = $conn->selectDatabase($db);
+            $this->projectDocumentDatabases[$project->getName()][$metadata->name] = $conn->selectDatabase($db);
         }
 
-        return $this->projectDocumentDatabases[$project->getNamespace()][$metadata->name];
+        return $this->projectDocumentDatabases[$project->getName()][$metadata->name];
     }
 
     /**
@@ -138,7 +138,7 @@ class DocumentManager extends BaseDocumentManager implements ContainerAwareInter
     {
         $metadata = $this->getClassMetadata($className);
 
-        if (!isset($this->projectDocumentCollections[$project->getNamespace()][$metadata->name])) {
+        if (!isset($this->projectDocumentCollections[$project->getName()][$metadata->name])) {
 
             $collectionName = $metadata->getCollection();
 
@@ -156,10 +156,10 @@ class DocumentManager extends BaseDocumentManager implements ContainerAwareInter
                 $collection->setSlaveOkay($metadata->slaveOkay);
             }
 
-            $this->projectDocumentCollections[$project->getNamespace()][$metadata->name] = $collection;
+            $this->projectDocumentCollections[$project->getName()][$metadata->name] = $collection;
         }
 
-        return $this->projectDocumentCollections[$project->getNamespace()][$metadata->name];
+        return $this->projectDocumentCollections[$project->getName()][$metadata->name];
     }
 
     /**

@@ -78,7 +78,7 @@ class ProjectToken implements TokenInterface
      */
     public function getUser()
     {
-        return $this->project->getNamespace();
+        return $this->project->getName();
     }
 
     /**
@@ -95,7 +95,7 @@ class ProjectToken implements TokenInterface
      */
     public function getUsername()
     {
-        return $this->project->getNamespace();
+        return $this->project->getName();
     }
 
     /**
@@ -171,7 +171,7 @@ class ProjectToken implements TokenInterface
      */
     public function __toString()
     {
-        return sprintf('Project %s', $this->project->getNamespace());
+        return sprintf('Project %s', $this->project->getName());
     }
 
     /**
