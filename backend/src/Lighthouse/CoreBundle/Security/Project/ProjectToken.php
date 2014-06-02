@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Security\Token;
+namespace Lighthouse\CoreBundle\Security\Project;
 
 use Lighthouse\CoreBundle\Document\Project\Project;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

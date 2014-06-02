@@ -8,7 +8,7 @@ use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\MongoDB\Mapping\ClassMetadata;
-use Lighthouse\CoreBundle\Security\Token\ProjectToken;
+use Lighthouse\CoreBundle\Security\Project\ProjectToken;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

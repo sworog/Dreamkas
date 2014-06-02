@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Test\Factory;
 use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\Project\ProjectRepository;
 use Lighthouse\CoreBundle\Document\User\User;
-use Lighthouse\CoreBundle\Security\Token\ProjectToken;
+use Lighthouse\CoreBundle\Security\Project\ProjectToken;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 

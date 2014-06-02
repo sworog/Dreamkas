@@ -1,16 +1,17 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Project;
+namespace Lighthouse\CoreBundle\Security\Project;
 
-use Lighthouse\CoreBundle\Security\Token\ProjectToken;
+use Lighthouse\CoreBundle\Document\Project\Project;
+use Lighthouse\CoreBundle\Security\Project\ProjectToken;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class RunAsProjectInvokerProxy
 {
     /**
-     * @var SecurityContextInterface
+     * @var ProjectAuthenticationProvider
      */
-    protected $securityContext;
+    protected $provider;
 
     /**
      * @var Project
@@ -23,13 +24,13 @@ class RunAsProjectInvokerProxy
     protected $object;
 
     /**
-     * @param SecurityContextInterface $securityContext
+     * @param ProjectAuthenticationProvider $provider
      * @param Project $project
      * @param $object
      */
-    public function __construct(SecurityContextInterface $securityContext, Project $project, $object)
+    public function __construct(ProjectAuthenticationProvider $provider, Project $project, $object)
     {
-        $this->securityContext = $securityContext;
+        $this->provider = $provider;
         $this->project = $project;
         $this->object = $object;
     }
@@ -41,13 +42,11 @@ class RunAsProjectInvokerProxy
      */
     public function __call($name, array $args)
     {
-        $projectToken = new ProjectToken($this->project, $this->securityContext->getToken());
-
-        $this->securityContext->setToken($projectToken);
+        $this->provider->authenticate($this->project);
 
         $result = call_user_func_array(array($this->object, $name), $args);
 
-        $this->securityContext->setToken($projectToken->getOriginalToken());
+        $this->provider->logout();
 
         return $result;
     }
