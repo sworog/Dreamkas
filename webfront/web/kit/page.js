@@ -1,6 +1,7 @@
 define(function(require) {
     //requirements
     var Block = require('kit/block'),
+        currentUser = require('models/currentUser.inst'),
         when = require('when'),
         _ = require('lodash');
 
@@ -12,21 +13,32 @@ define(function(require) {
             globalNavigation: require('rv!pages/globalNavigation.html')
         },
         observers: {
-            status: function(status){
+            status: function(status) {
                 var page = this;
 
                 page.el.setAttribute('status', status);
             }
         },
 
-        init: function(){
+        init: function() {
             var page = this;
+
+            if (window.PAGE && window.PAGE.name === 'error'){
+                page.destroy();
+                return;
+            }
+
+            window.PAGE && window.PAGE.destroy();
+            window.PAGE = page;
 
             page.el = document.body;
 
             page._super();
 
-            page.set('status', 'loading');
+            page.set({
+                status: 'loading',
+                currentUser: currentUser.toJSON()
+            });
 
             when(_.result(page, 'isAllow')).then(function(isAllow) {
                 if (isAllow) {
@@ -34,9 +46,6 @@ define(function(require) {
                     page._initResources();
 
                     when(page.fetchAll()).then(function(data) {
-
-                        window.PAGE && window.PAGE.destroy();
-                        window.PAGE = page;
 
                         page.set(data);
 
@@ -53,7 +62,7 @@ define(function(require) {
             });
         },
 
-        complete: function(){
+        complete: function() {
             this.el.querySelector('[autofocus]').focus();
         },
 
@@ -96,7 +105,7 @@ define(function(require) {
 
             page.set && page.set('status', 'loading');
 
-            return when(page.resources[resourceName].save(page.get(resourceName)), function(){
+            return when(page.resources[resourceName].save(page.get(resourceName)), function() {
                 page.set && page.set('status', 'loaded');
             });
         },

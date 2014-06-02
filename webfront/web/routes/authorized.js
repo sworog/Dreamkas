@@ -41,7 +41,7 @@ define(function(require) {
         'users(/)': require('pages/user/list'),
         'users/edit/:userId(/)': require('pages/user/form'),
         'users/create(/)': require('pages/user/form'),
-        'users/:userId(/)': require('pages/user/view'),
+        'users/current(/)': require('pages/users/current/current'),
 
         //products
         'products(/)': require('pages/product/list'),
@@ -67,7 +67,7 @@ define(function(require) {
 
         //stores
         'stores(/)': require('pages/stores/list/list'),
-        'stores/create(/)': require('pages/store/form'),
+        'stores/create(/)': require('pages/stores/create/create'),
         'stores/edit/:storeId(/)': require('pages/store/form'),
         'stores/:storeId(/)': require('pages/store/view'),
         'stores/:storeId/products/edit/:productId(/)': require('pages/storeProduct/from'),

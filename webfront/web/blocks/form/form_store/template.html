@@ -1,0 +1,18 @@
+<h1>{{ model.id ? 'Редактирование магазина' : 'Добавление магазина' }}</h1>
+<div class="form__field form__field_inline">
+    <label class="form__label">Номер магазина</label>
+    <input value="{{model.number}}" class="inputText" type="text" name="number"/>
+</div>
+<div class="form__field form__field_inline">
+    <label class="form__label">Адрес</label>
+    <input value="{{model.address}}" class="inputText" type="text" name="address"/>
+</div>
+<div class="form__field form__field_inline">
+    <label class="form__label">Контакты</label>
+    <input value="{{model.contacts}}" class="inputText" type="text" name="contacts" />
+</div>
+<div class="form__controls">
+    <button lh-button class="button">
+        {{ model.id ? 'Сохранить' : 'Добавить' }}
+    </button>
+</div>
