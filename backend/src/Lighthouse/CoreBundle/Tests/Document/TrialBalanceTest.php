@@ -189,7 +189,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
     public function testCreateTrialBalanceBySale()
     {
         $this->clearMongoDb();
-        $this->factory()->user()->authProject();
+        $this->authenticateProject();
 
         $manager = $this->getManager();
         $numericFactory = $this->getNumericFactory();
@@ -234,7 +234,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
     public function testCreateTrialBalanceByWriteOffCRUD()
     {
         $this->clearMongoDb();
-        $this->factory()->user()->authProject();
+        $this->authenticateProject();
 
         $manager = $this->getManager();
         $trialBalanceRepository = $this->getTrialBalanceRepository();

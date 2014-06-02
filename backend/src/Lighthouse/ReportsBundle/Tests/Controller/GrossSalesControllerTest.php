@@ -1632,6 +1632,7 @@ class GrossSalesControllerTest extends WebTestCase
     {
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
+        $this->authenticateProject();
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
         $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
 

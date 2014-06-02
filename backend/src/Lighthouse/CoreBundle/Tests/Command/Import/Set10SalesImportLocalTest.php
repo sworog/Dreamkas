@@ -147,7 +147,6 @@ class Set10SalesImportLocalTest extends WebTestCase
 
     public function testImportInvalidXmlFile()
     {
-        $this->factory()->user()->authProject();
         $project = $this->factory()->user()->getProject();
 
         $file = 'purchases-invalid.xml';

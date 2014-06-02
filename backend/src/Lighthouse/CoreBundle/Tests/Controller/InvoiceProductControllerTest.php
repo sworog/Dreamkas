@@ -1319,6 +1319,8 @@ class InvoiceProductControllerTest extends WebTestCase
 
     public function testTwoProductVersionsCreated()
     {
+        $this->markTestBroken();
+
         $store = $this->factory()->store()->getStore();
         $productId = $this->createProduct(array('name' => 'Кефир 1%'));
 
