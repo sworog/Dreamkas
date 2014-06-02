@@ -5,15 +5,11 @@ namespace Lighthouse\CoreBundle\MongoDB;
 use Doctrine\ODM\MongoDB\DocumentManager as BaseDocumentManager;
 use Doctrine\ODM\MongoDB\MongoDBException;
 use Lighthouse\CoreBundle\Document\Project\Project;
-use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\MongoDB\Mapping\ClassMetadata;
 use Lighthouse\CoreBundle\Security\Project\ProjectContext;
-use Lighthouse\CoreBundle\Security\Project\ProjectToken;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class DocumentManager extends BaseDocumentManager implements ContainerAwareInterface
 {

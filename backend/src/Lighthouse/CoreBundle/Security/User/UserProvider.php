@@ -6,7 +6,6 @@ use Hackzilla\PasswordGenerator\Generator\PasswordGenerator;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
-use Symfony\Bridge\Monolog\Logger;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -14,7 +13,6 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use JMS\DiExtraBundle\Annotation as DI;
-use Symfony\Component\Security\Core\Util\SecureRandom;
 use Symfony\Component\Validator\ValidatorInterface;
 use Swift_Mailer;
 

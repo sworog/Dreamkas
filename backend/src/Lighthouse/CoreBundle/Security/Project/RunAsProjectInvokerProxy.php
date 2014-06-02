@@ -3,8 +3,6 @@
 namespace Lighthouse\CoreBundle\Security\Project;
 
 use Lighthouse\CoreBundle\Document\Project\Project;
-use Lighthouse\CoreBundle\Security\Project\ProjectToken;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class RunAsProjectInvokerProxy
 {

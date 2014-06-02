@@ -3,10 +3,6 @@
 namespace Lighthouse\CoreBundle\Tests\Command;
 
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
-use Lighthouse\CoreBundle\Test\TestOutput;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\HttpKernel\KernelInterface;
 use PHPUnit_Framework_Error_Notice;
 
 class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase

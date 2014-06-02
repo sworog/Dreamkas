@@ -4,7 +4,6 @@ namespace Lighthouse\CoreBundle\MongoDB;
 
 use Doctrine\MongoDB\Database;
 use Doctrine\ODM\MongoDB\SchemaManager as BaseSchemaManager;
-use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\MongoDB\Mapping\ClassMetadata;
 

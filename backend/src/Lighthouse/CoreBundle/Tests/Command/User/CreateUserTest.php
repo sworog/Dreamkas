@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Tests\Command\User;
 
-use JMS\Serializer\SerializerInterface;
 use Lighthouse\CoreBundle\Command\User\CreateUser;
 use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\User\User;
