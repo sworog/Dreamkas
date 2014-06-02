@@ -3,9 +3,8 @@ define(function(require) {
 
     return {
         //common
-        '(/)': require('pages/common/dashboard'),
+        '(/)': require('pages/main/main'),
         'logout(/)': require('kit/logout/logout'),
-        'dashboard(/)': require('pages/common/dashboard'),
         'sale(/)': require('pages/common/sale'),
         'balance(/)': require('pages/common/balance'),
         'logs(/)': require('pages/common/log'),

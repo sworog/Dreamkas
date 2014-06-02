@@ -20,8 +20,8 @@ define(function(require) {
         }
     });
 
-    $(document).ajaxError(function(e, res) {
-        switch (res.status) {
+    $(document).ajaxError(function(event, error) {
+        switch (error.status) {
             case 401:
                 isStarted && document.location.reload();
                 break;
@@ -30,18 +30,33 @@ define(function(require) {
             case 0:
                 break;
             default:
-                window.PAGE && window.PAGE.set('error', res);
+                if (window.PAGE instanceof ErrorPage){
+                    window.PAGE.data.apiErrors.push(error);
+                } else {
+                    new ErrorPage({
+                        data: {
+                            apiErrors: [error]
+                        }
+                    });
+                }
                 break;
         }
     });
 
-    window.onerror = function(error) {
-        if (window.PAGE) {
-            window.PAGE.set('error', error);
+    window.onerror = function(error, file, line, col, errorObject) {
+
+        var jsError = {
+            file: file,
+            line: line,
+            data: errorObject
+        };
+
+        if (window.PAGE instanceof ErrorPage){
+            window.PAGE.data.jsErrors.push(jsError);
         } else {
             new ErrorPage({
                 data: {
-                    error: error
+                    jsErrors: [jsError]
                 }
             });
         }
