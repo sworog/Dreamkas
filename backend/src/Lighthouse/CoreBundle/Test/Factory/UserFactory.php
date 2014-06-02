@@ -121,6 +121,7 @@ class UserFactory extends AbstractFactory
     public function createProject()
     {
         $project = new Project();
+        $project->name = 'project1';
         $this->getProjectProvider()->save($project);
         return $project;
     }

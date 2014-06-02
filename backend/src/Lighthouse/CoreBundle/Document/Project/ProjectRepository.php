@@ -13,6 +13,12 @@ class ProjectRepository extends DocumentRepository
      */
     public function findByName($name)
     {
-        return $this->find($name);
+        $criteria = array(
+            '$or' => array(
+                array('name' => $name),
+                array('_id' => $name)
+            )
+        );
+        return $this->findOneBy($criteria);
     }
 }
