@@ -4,7 +4,6 @@ define(function(require, exports, module) {
         Page = require('kit/page');
 
     return Page.extend({
-        name: 'error',
         template: require('rv!./template.html'),
         data: {
             jsErrors: [],

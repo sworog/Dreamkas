@@ -25,11 +25,6 @@ define(function(require) {
         init: function() {
             var page = this;
 
-            if (window.PAGE && window.PAGE.name === 'error'){
-                page.destroy();
-                return;
-            }
-
             window.PAGE && window.PAGE.destroy();
             window.PAGE = page;
 
