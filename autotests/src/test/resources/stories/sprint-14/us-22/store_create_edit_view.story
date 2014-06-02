@@ -11,6 +11,9 @@ Meta:
 
 Scenario: Create new store from stores list page
 
+Meta:
+@smoke
+
 Given user is on stores list page
 And the user logs in as 'commercialManager'
 When When user clicks create new store button
@@ -39,6 +42,9 @@ When user clicks on store row in list
 Then user checks store card data
 
 Scenario: Edit store
+
+Meta:
+@smoke
 
 Given there is created store with number 'store222', address 'ул. Профессора Попова д.37б, 5 этаж', contacts 'тел.: +7 (812) 331-2255'
 And user navigates to created store page

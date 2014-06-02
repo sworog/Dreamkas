@@ -11,6 +11,9 @@ Meta:
 
 Scenario: Create a new department in store
 
+Meta:
+@smoke
+
 Given user is on stores list page
 And the user logs in as 'commercialManager'
 And there is created store with number 'sprint14-us23', address 'address sprint14-us23', contacts 'contacts sprint14-us23'
@@ -32,6 +35,9 @@ Then user checks department card data
 | name | departmentName1 |
 
 Scenario: Edit a department
+
+Meta:
+@smoke
 
 Given created default store with department 'departmentEdit1', 'Department for edit test'
 When user clicks edit department link

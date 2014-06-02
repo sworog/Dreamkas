@@ -9,6 +9,9 @@ In order to иметь возможность работать с оригина
 
 Scenario: WriteOff data independence
 
+Meta:
+@smoke
+
 Given there is the write off with 'WriteOff-DI-Test' number with product 'WriteOff-DI-Test' with quantity '1', price '1' and cause 'cause'
 And the user navigates to the product with name 'WriteOff-DI-Test'
 And the user logs in as 'commercialManager'
@@ -33,6 +36,9 @@ And the user checks the write off product list contains entries
 |  WriteOff-DI-Test | #sku:WriteOff-DI-Test | WriteOff-DI-Test | 1,0 | кг | 1,00 | cause |
 
 Scenario: Edited product can be added again to write off
+
+Meta:
+@smoke
 
 Given there is the write off with 'WriteOff-DI-Test1' number with product 'WriteOff-DI-Test1' with quantity '1', price '1' and cause 'cause'
 And the user navigates to the product with name 'WriteOff-DI-Test1'

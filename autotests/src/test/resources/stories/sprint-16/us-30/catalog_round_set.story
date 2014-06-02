@@ -43,6 +43,9 @@ Then the user checks the price roundings dropdawn default selected value is 'Ð´Ð
 
 Scenario: Create new category from group with setted roundings
 
+Meta:
+@smoke
+
 Given there is the group with name 'Group-roundings1'
 And the user navigates to the group with name 'Group-roundings1'
 And the user logs in as 'commercialManager'
@@ -60,6 +63,9 @@ Then the user checks the price roundings dropdawn default selected value is 'Ð´Ð
 When the user clicks on end edition link and ends the edition
 
 Scenario: Create new subCategory from category with setted roundings
+
+Meta:
+@smoke
 
 Given there is the category with name 'Category-roundings2' related to group named 'Group-roundings2'
 And the user navigates to the category with name 'Category-roundings2' related to group named 'Group-roundings2'

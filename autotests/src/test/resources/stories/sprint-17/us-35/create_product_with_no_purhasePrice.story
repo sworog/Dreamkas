@@ -9,6 +9,9 @@ In order to чтобы запланировать товар в ассортим
 
 Scenario: Product creation with no purchasePrice
 
+Meta:
+@smoke
+
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
 When the user inputs values in element fields

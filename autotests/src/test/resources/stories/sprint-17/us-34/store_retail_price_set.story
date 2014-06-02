@@ -9,6 +9,9 @@ In order to определить цену на товар для своего м
 
 Scenario: Product store mark up set positive
 
+Meta:
+@smoke
+
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values
 And there is the product with 'storeProductName' name, 'storeProductBarCode' barcode, 'weight' type, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategory'
@@ -33,6 +36,9 @@ Examples:
 | 35 | retailMarkup | 35,00 |
 
 Scenario: Product stote retail price set positive
+
+Meta:
+@smoke
 
 Given there is the subCategory with name 'storeProductsSubCategory' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategory' mark up with max '50' and min '0' values

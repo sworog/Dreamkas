@@ -9,6 +9,9 @@ In order to обеспечить обмен данными между фронт
 
 Scenario: Saving integration settings
 
+Meta:
+@smoke
+
 Given the user opens the settings page
 And the user logs in as 'watchman'
 When the user input values on the setting page

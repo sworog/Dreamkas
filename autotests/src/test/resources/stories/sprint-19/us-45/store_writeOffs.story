@@ -9,6 +9,9 @@ In order to контролировать процесс списания
 
 Scenario: Store writeOffs creation
 
+Meta:
+@smoke
+
 Given there is the user with name 'departmentManager-DIC', position 'departmentManager-DIC', username 'departmentManager-DIC', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'DIC-01' managed by department manager named 'departmentManager-DIC'
 And there is the product with 'WriteOff-wolc-01' name, 'WriteOff-wolc-01' barcode, 'unit' type, '15' purchasePrice
@@ -30,6 +33,9 @@ And the user checks the product with 'WriteOff-wolc-01' sku has 'writeOff list p
 And the user checks the product with 'WriteOff-wolc-01' sku has 'writeOff list page sumTotal' element equal to '150' on write off list page
 
 Scenario: Creating writeOffs in different stores by different users
+
+Meta:
+@smoke
 
 Given there is the user with name 'departmentManager-DIC', position 'departmentManager-DIC', username 'departmentManager-DIC', password 'lighthouse', role 'departmentManager'
 And there is the user with name 'departmentManager-DIC-2', position 'departmentManager-DIC-2', username 'departmentManager-DIC-2', password 'lighthouse', role 'departmentManager'
