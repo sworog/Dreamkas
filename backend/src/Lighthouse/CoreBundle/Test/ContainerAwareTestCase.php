@@ -141,10 +141,14 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
 
     /**
      * @param bool $catchExceptions
+     * @param bool $reboot
      * @return Application
      */
-    protected function createConsoleApplication($catchExceptions = true)
+    protected function createConsoleApplication($catchExceptions = true, $reboot = false)
     {
+        if ($reboot) {
+            static::shutdownKernel();
+        }
         $application = new Application(static::getKernel());
         $application->setCatchExceptions($catchExceptions);
         $application->setAutoExit(false);
@@ -154,11 +158,12 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
 
     /**
      * @param bool $catchExceptions
+     * @param bool $reboot
      * @return ApplicationTester
      */
-    protected function createConsoleTester($catchExceptions = true)
+    protected function createConsoleTester($catchExceptions = true, $reboot = false)
     {
-        $application = $this->createConsoleApplication($catchExceptions);
+        $application = $this->createConsoleApplication($catchExceptions, $reboot);
         $tester = new ApplicationTester($application);
         return $tester;
     }

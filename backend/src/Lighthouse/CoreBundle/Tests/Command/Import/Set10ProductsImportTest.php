@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Tests\Command\Import;
 use Lighthouse\CoreBundle\Command\Import\Set10ProductsImport;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImporter;
 use Lighthouse\CoreBundle\Test\Assert;
+use Lighthouse\CoreBundle\Test\Console\ApplicationTester;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -13,38 +14,32 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
     protected function setUp()
     {
         $this->clearMongoDb();
-        $this->factory()->user()->authProject();
     }
 
     /**
-     * @param bool $reboot
-     * @return CommandTester
+     * @param array $input
+     * @param bool $catchExceptions
+     * @return ApplicationTester
      */
-    protected function getCommandTester($reboot = false)
+    protected function execute(array $input = array(), $catchExceptions = true)
     {
-        if ($reboot) {
-            $this->rebootKernel();
-        }
-
-        /* @var Set10ProductsImport $command */
-        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_products_import');
-        $commandTester = new CommandTester($command);
-
-        return $commandTester;
+        return $this->createConsoleTester($catchExceptions, true)->runProjectCommand(
+            'lighthouse:import:products',
+            $this->factory()->user()->getProject(),
+            $input
+        );
     }
 
     public function testExecuteWithoutErrors()
     {
-        $commandTester = $this->getCommandTester();
-
         $input = array(
             'file' => $this->getFixtureFilePath('Integration/Set10/Import/Products/goods.xml'),
             '--batch-size' => 4
         );
 
-        $exitCode = $commandTester->execute($input);
+        $commandTester = $this->execute($input);
 
-        $this->assertEquals(0, $exitCode);
+        $this->assertEquals(0, $commandTester->getStatusCode());
 
         $display = $commandTester->getDisplay();
 
@@ -56,27 +51,21 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
 
     public function testDoubleExecuteWithSameFileWithoutUpdate()
     {
-        $this->markTestBroken();
-
-        $commandTester = $this->getCommandTester();
-
         $input = array(
             'file' => $this->getFixtureFilePath('Integration/Set10/Import/Products/goods.xml'),
             '--batch-size' => 4
         );
 
-        $exitCode = $commandTester->execute($input);
+        $commandTester = $this->execute($input);
 
-        $this->assertEquals(0, $exitCode);
+        $this->assertEquals(0, $commandTester->getStatusCode());
 
         $display = $commandTester->getDisplay();
         $this->assertContains('....', $display);
 
-        // shutdown kernel to emulate two different command invokes
-        $commandTester2 = $this->getCommandTester(true);
-        $exitCode = $commandTester2->execute($input);
+        $commandTester2 = $this->execute($input);
 
-        $this->assertEquals(0, $exitCode);
+        $this->assertEquals(0, $commandTester2->getStatusCode());
 
         $display = $commandTester2->getDisplay();
 
@@ -92,28 +81,22 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
 
     public function testDoubleExecuteWithSameFileWithUpdate()
     {
-        $this->markTestBroken();
-
-        $commandTester = $this->getCommandTester();
-
         $input = array(
             'file' => $this->getFixtureFilePath('Integration/Set10/Import/Products/goods.xml'),
         );
 
-        $exitCode = $commandTester->execute($input);
+        $commandTester = $this->execute($input);
 
-        $this->assertEquals(0, $exitCode);
+        $this->assertEquals(0, $commandTester->getStatusCode());
 
         $display = $commandTester->getDisplay();
         $this->assertContains('....', $display);
 
-        // shutdown kernel to emulate two different command invokes
-        $commandTester2 = $this->getCommandTester(true);
-
         $input['--update'] = true;
-        $exitCode = $commandTester2->execute($input);
 
-        $this->assertEquals(0, $exitCode);
+        $commandTester2 = $this->execute($input);
+
+        $this->assertEquals(0, $commandTester2->getStatusCode());
 
         $display = $commandTester2->getDisplay();
 
@@ -129,14 +112,13 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
 
     public function testImportFolder()
     {
-        $commandTester = $this->getCommandTester();
         $input = array(
             'file' => $this->getFixtureFilePath('Integration/Set10/Import/Products/GoodsFolder'),
         );
 
-        $exitCode = $commandTester->execute($input);
+        $commandTester = $this->execute($input);
 
-        $this->assertEquals(0, $exitCode);
+        $this->assertEquals(0, $commandTester->getStatusCode());
 
         $display = $commandTester->getDisplay();
 
@@ -150,20 +132,13 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
 
     public function testExecuteWithBatchSize3()
     {
-        $this->markTestBroken();
-
-        /* @var Set10ProductsImport $command */
-        $command = $this->getContainer()->get('lighthouse.core.command.import.set10_products_import');
-        $commandTester = new CommandTester($command);
-
         $input = array(
             'file' => $this->getFixtureFilePath('Integration/Set10/Import/Products/goods.xml'),
             '--batch-size' => 3
         );
+        $commandTester = $this->execute($input);
 
-        $exitCode = $commandTester->execute($input);
-
-        $this->assertEquals(0, $exitCode);
+        $this->assertEquals(0, $commandTester->getStatusCode());
 
         $display = $commandTester->getDisplay();
 
@@ -236,18 +211,18 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
 
     public function testImportInvalidXml()
     {
-        $commandTester = $this->getCommandTester();
-
         $input = array(
             'file' => $this->getFixtureFilePath('Integration/Set10/Import/Products/goods-invalid.xml'),
         );
 
-        $exitCode = $commandTester->execute($input);
-        $this->assertEquals(0, $exitCode);
+        $commandTester = $this->execute($input);
 
-        $display = $commandTester->getDisplay();
+        $this->assertEquals(0, $commandTester->getStatusCode());
 
-        $this->assertContains("Error: Failed to parse node 'good': Extra content at the end of the document", $display);
+        $this->assertContains(
+            "Error: Failed to parse node 'good': Extra content at the end of the document",
+            $commandTester->getDisplay()
+        );
     }
 
     /**
@@ -255,12 +230,10 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
      */
     public function testImportNotExistingFile()
     {
-        $commandTester = $this->getCommandTester();
-
         $input = array(
             'file' => $this->getFixtureFilePath('Integration/Set10/Import/Products/goods-invalid-not-found.xml'),
         );
 
-        $commandTester->execute($input);
+        $this->execute($input, false);
     }
 }

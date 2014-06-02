@@ -15,7 +15,7 @@ class ApplicationTester extends BaseApplicationTester
      */
     public function runCommand($command, array $input = array(), $options = array())
     {
-        $input['command'] = $command;
+        $input = array('command' => $command) + $input;
         return $this->run($input, $options);
     }
 
