@@ -66,7 +66,7 @@ define(function(require) {
         'catalog/:catalogGroupId/:catalogCategoryId/:catalogSubCategoryId(/)(:section)': require('pages/catalog/category'),
 
         //stores
-        'stores(/)': require('pages/store/list'),
+        'stores(/)': require('pages/stores/list/list'),
         'stores/create(/)': require('pages/store/form'),
         'stores/edit/:storeId(/)': require('pages/store/form'),
         'stores/:storeId(/)': require('pages/store/view'),
