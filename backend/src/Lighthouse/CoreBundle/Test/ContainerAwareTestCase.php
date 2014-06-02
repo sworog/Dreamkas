@@ -102,17 +102,9 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     protected function factory()
     {
         if (null === $this->factory) {
-            $this->factory = $this->createFactory();
+            $this->factory = new Factory(static::createKernel()->boot()->getContainer());
         }
         return $this->factory;
-    }
-
-    /**
-     * @return Factory
-     */
-    protected function createFactory()
-    {
-        return new Factory($this->getContainer());
     }
 
     protected function clearMongoDb()
