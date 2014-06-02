@@ -12,8 +12,8 @@
     <properties>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <thucydides.version>0.9.239</thucydides.version>
-        <thucydides.jbehave.version>0.9.235</thucydides.jbehave.version>
+        <thucydides.version>0.9.244</thucydides.version>
+        <thucydides.jbehave.version>0.9.244</thucydides.jbehave.version>
         <thucydides.maven.version>0.9.224</thucydides.maven.version>
         <thucydides.browser.width>1280</thucydides.browser.width>
         <thucydides.browser.height>1024</thucydides.browser.height>
@@ -122,12 +122,12 @@
         <dependency>
             <groupId>org.samba.jcifs</groupId>
             <artifactId>jcifs</artifactId>
-            <version>1.3.3</version>
+            <version>1.3.14-kohsuke-1</version>
         </dependency>
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
-            <version>1.4</version>
+            <version>1.5.0-b01</version>
         </dependency>
     </dependencies>
 
