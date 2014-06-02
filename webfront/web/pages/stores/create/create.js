@@ -6,6 +6,9 @@ define(function(require, exports, module) {
         partials: {
             content: require('rv!./content.html'),
             globalNavigation: require('rv!pages/globalNavigation_main.html')
+        },
+        components: {
+            form_store: require('blocks/form/form_store/form_store')
         }
     });
 });

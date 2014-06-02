@@ -6,11 +6,13 @@ define(function(require) {
         _ = require('lodash');
 
     return Block.extend({
+        el: document.body,
         resources: {},
         isAllow: true,
         template: require('rv!pages/template.html'),
         partials: {
-            globalNavigation: require('rv!pages/globalNavigation.html')
+            globalNavigation: require('rv!pages/globalNavigation.html'),
+            localNavigation: ''
         },
         observers: {
             status: function(status) {
@@ -31,8 +33,6 @@ define(function(require) {
             window.PAGE && window.PAGE.destroy();
             window.PAGE = page;
 
-            page.el = document.body;
-
             page._super();
 
             page.set({
@@ -48,9 +48,6 @@ define(function(require) {
                     when(page.fetchAll()).then(function(data) {
 
                         page.set(data);
-
-                        page.el.innerHTML = '';
-                        page.insert(page.el);
 
                         page.set('status', 'loaded');
                     });
@@ -69,8 +66,6 @@ define(function(require) {
         fetch: function(resourceName) {
             var page = this;
 
-            page.set && page.set('status', 'loading');
-
             return when(page.resources[resourceName].fetch()).then(function(data) {
 
                 page.set && page.set(resourceName, page.resources[resourceName].toJSON());
@@ -86,8 +81,6 @@ define(function(require) {
                     return page.resources[resourceName].fetch();
                 });
 
-            page.set && page.set('status', 'loading');
-
             return when.all(fetched).then(function() {
                 var data = _.transform(page.resources, function(result, resource, key) {
                     result[key] = resource.toJSON();
@@ -102,8 +95,6 @@ define(function(require) {
 
         save: function(resourceName) {
             var page = this;
-
-            page.set && page.set('status', 'loading');
 
             return when(page.resources[resourceName].save(page.get(resourceName)), function() {
                 page.set && page.set('status', 'loaded');

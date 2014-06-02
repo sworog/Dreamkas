@@ -3,8 +3,12 @@ define(function(require) {
         var Form = require('kit/form');
 
         return Form.extend({
+            model: require('models/store'),
             redirectUrl: '/stores',
             template: require('rv!./template.html'),
+            data: {
+                model: {}
+            },
             init: function(){
                 var block = this;
 
