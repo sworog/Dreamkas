@@ -7,7 +7,6 @@ define(function(require, exports, module) {
             stores: require('collections/stores')
         },
         partials: {
-            globalNavigation: require('rv!pages/globalNavigation_main.html'),
             content: require('rv!./content.html')
         }
     });

@@ -11,7 +11,7 @@ define(function(require) {
         isAllow: true,
         template: require('rv!pages/template.html'),
         partials: {
-            globalNavigation: require('rv!pages/globalNavigation.html'),
+            globalNavigation: require('rv!pages/globalNavigation_main.html'),
             localNavigation: ''
         },
         observers: {
@@ -40,7 +40,7 @@ define(function(require) {
 
                     page._initResources();
 
-                    when(page.fetchAll()).then(function(data) {
+                    when(page.fetch()).then(function(data) {
 
                         page.set(data);
 
@@ -58,19 +58,7 @@ define(function(require) {
             this.el.querySelector('[autofocus]').focus();
         },
 
-        fetch: function(resourceName) {
-            var page = this;
-
-            return when(page.resources[resourceName].fetch()).then(function(data) {
-
-                page.set && page.set(resourceName, page.resources[resourceName].toJSON());
-                page.set && page.set('status', 'loaded');
-
-                return data;
-            });
-        },
-
-        fetchAll: function(resourceNames) {
+        fetch: function(resourceNames) {
             var page = this,
                 fetched = _.map(resourceNames || _.keys(page.resources), function(resourceName) {
                     return page.resources[resourceName].fetch();

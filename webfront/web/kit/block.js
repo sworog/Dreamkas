@@ -4,6 +4,7 @@ define(function(require, exports, module) {
         delegateEvent = require('kit/delegateEvent/delegateEvent'),
         getText = require('kit/getText/getText'),
         get = require('kit/get/get'),
+        moment = require('moment'),
         _ = require('lodash');
 
     // Cached regex to split keys for `delegate`.
@@ -18,6 +19,9 @@ define(function(require, exports, module) {
         data: {
             getText: function(){
                 return this.getText.apply(this, arguments);
+            },
+            formatDateTime: function(){
+                return this.formatDateTime.apply(this, arguments);
             }
         },
 
@@ -43,6 +47,10 @@ define(function(require, exports, module) {
                 args = [].slice.call(arguments, 0);
 
             return getText.apply(null, [block.nls].concat(args));
+        },
+
+        formatDateTime: function(date){
+            return moment(date).format('DD.MM.YYYY HH:mm');
         },
 
         _initElements: function() {

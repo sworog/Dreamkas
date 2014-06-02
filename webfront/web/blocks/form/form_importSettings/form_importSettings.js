@@ -1,14 +1,14 @@
 define(function(require) {
     //requirements
-    var Form = require('blocks/form/form'),
+    var Form = require('kit/form'),
+        config = require('config'),
         cookie = require('cookies');
 
     var authorizationHeader = 'Bearer ' + cookie.get('token'),
-        configUrl = LH.baseApiUrl + '/configs';
+        configUrl = config.baseApiUrl + '/configs';
 
     return Form.extend({
-        __name__: 'form_exportSettings',
-        template: require('tpl!blocks/form/form_importSettings/templates/index.html'),
+        template: require('rv!./template.html'),
         set10ImportUrl: {},
         set10ImportLogin: {},
         set10ImportPassword: {},

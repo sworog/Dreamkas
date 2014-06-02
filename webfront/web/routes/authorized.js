@@ -7,8 +7,8 @@ define(function(require) {
         'logout(/)': require('kit/logout/logout'),
         'sale(/)': require('pages/common/sale'),
         'balance(/)': require('pages/common/balance'),
-        'logs(/)': require('pages/common/log'),
-        'settings(/)': require('pages/common/settings'),
+        'log(/)': require('pages/log/log'),
+        'settings(/)': require('pages/settings/settings'),
 
         //suppliers
         'suppliers(/)': require('pages/suppliers/list/list'),
@@ -42,6 +42,7 @@ define(function(require) {
         'users/edit/:userId(/)': require('pages/user/form'),
         'users/create(/)': require('pages/user/form'),
         'users/current(/)': require('pages/users/current/current'),
+        'users/edit(/)': require('pages/users/edit/edit'),
 
         //products
         'products(/)': require('pages/product/list'),
@@ -68,7 +69,7 @@ define(function(require) {
         //stores
         'stores(/)': require('pages/stores/list/list'),
         'stores/create(/)': require('pages/stores/create/create'),
-        'stores/edit/:storeId(/)': require('pages/store/form'),
+//        'stores/edit/:storeId(/)': require('pages/store/form'),
         'stores/:storeId(/)': require('pages/store/view'),
         'stores/:storeId/products/edit/:productId(/)': require('pages/storeProduct/from'),
 

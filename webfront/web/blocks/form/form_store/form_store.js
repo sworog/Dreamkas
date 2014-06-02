@@ -15,7 +15,7 @@ define(function(require) {
                 block._super();
 
                 if (block.get('model.id')){
-                    block.redirectUrl += '/' + block.model.id;
+                    block.redirectUrl += '/' + block.get('model.id');
                 }
             }
         });
