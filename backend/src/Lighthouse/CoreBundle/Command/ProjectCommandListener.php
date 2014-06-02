@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Command;
 
-use Lighthouse\CoreBundle\Security\Project\ProjectAuthenticationProvider;
+use Lighthouse\CoreBundle\Security\Project\ProjectContext;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -14,9 +14,9 @@ use Symfony\Component\Console\Input\InputOption;
 class ProjectCommandListener
 {
     /**
-     * @var ProjectAuthenticationProvider
+     * @var ProjectContext
      */
-    protected $provider;
+    protected $projectContext;
 
     /**
      * List of command names to be executed in project context
@@ -28,13 +28,13 @@ class ProjectCommandListener
 
     /**
      * @DI\InjectParams({
-     *      "provider" = @DI\Inject("lighthouse.core.security.project.authentication_provider")
+     *      "projectContext" = @DI\Inject("project.context")
      * })
-     * @param ProjectAuthenticationProvider $provider
+     * @param ProjectContext $projectContext
      */
-    public function __construct(ProjectAuthenticationProvider $provider)
+    public function __construct(ProjectContext $projectContext)
     {
-        $this->provider = $provider;
+        $this->projectContext = $projectContext;
     }
 
     /**
@@ -57,7 +57,7 @@ class ProjectCommandListener
         }
 
         $projectId = $event->getInput()->getParameterOption('--project');
-        $this->provider->authenticateByProjectName($projectId);
+        $this->projectContext->authenticateByProjectName($projectId);
     }
 
     /**

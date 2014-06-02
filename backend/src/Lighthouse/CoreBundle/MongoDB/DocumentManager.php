@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\MongoDB\Mapping\ClassMetadata;
+use Lighthouse\CoreBundle\Security\Project\ProjectContext;
 use Lighthouse\CoreBundle\Security\Project\ProjectToken;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -49,11 +50,11 @@ class DocumentManager extends BaseDocumentManager implements ContainerAwareInter
     }
 
     /**
-     * @return SecurityContextInterface
+     * @return ProjectContext
      */
-    protected function getSecurityContext()
+    protected function getProjectContext()
     {
-        return $this->container->get('security.context');
+        return $this->container->get('project.context');
     }
 
     /**
@@ -167,17 +168,11 @@ class DocumentManager extends BaseDocumentManager implements ContainerAwareInter
      */
     protected function getCurrentProject()
     {
-        $token = $this->getSecurityContext()->getToken();
-        if ($token instanceof ProjectToken) {
-            return $token->getProject();
-        } elseif ($token instanceof TokenInterface) {
-            $user = $token->getUser();
-            if ($user instanceof User && $user->getProject()) {
-                return $user->getProject();
-            }
+        $project = $this->getProjectContext()->getCurrentProject();
+        if (!$project) {
+            throw new RuntimeException("User with project is not signed in");
         }
-
-        throw new RuntimeException("User with project is not signed in");
+        return $project;
     }
 
     /**

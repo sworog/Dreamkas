@@ -4,14 +4,16 @@ namespace Lighthouse\CoreBundle\Security\Project;
 
 use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\Project\ProjectRepository;
+use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
- * @DI\Service("lighthouse.core.security.project.authentication_provider")
+ * @DI\Service("project.context")
  */
-class ProjectAuthenticationProvider
+class ProjectContext
 {
     /**
      * @var SecurityContextInterface
@@ -73,5 +75,22 @@ class ProjectAuthenticationProvider
             );
         }
         $this->securityContext->setToken($projectToken->getOriginalToken());
+    }
+
+    /**
+     * @return Project|null
+     */
+    public function getCurrentProject()
+    {
+        $token = $this->securityContext->getToken();
+        if ($token instanceof ProjectToken) {
+            return $token->getProject();
+        } elseif ($token instanceof TokenInterface) {
+            $user = $token->getUser();
+            if ($user instanceof User && $user->getProject()) {
+                return $user->getProject();
+            }
+        }
+        return null;
     }
 }

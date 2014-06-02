@@ -9,9 +9,9 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 class RunAsProjectInvokerProxy
 {
     /**
-     * @var ProjectAuthenticationProvider
+     * @var ProjectContext
      */
-    protected $provider;
+    protected $projectContext;
 
     /**
      * @var Project
@@ -24,13 +24,13 @@ class RunAsProjectInvokerProxy
     protected $object;
 
     /**
-     * @param ProjectAuthenticationProvider $provider
+     * @param ProjectContext $projectContext
      * @param Project $project
      * @param $object
      */
-    public function __construct(ProjectAuthenticationProvider $provider, Project $project, $object)
+    public function __construct(ProjectContext $projectContext, Project $project, $object)
     {
-        $this->provider = $provider;
+        $this->projectContext = $projectContext;
         $this->project = $project;
         $this->object = $object;
     }
@@ -42,11 +42,11 @@ class RunAsProjectInvokerProxy
      */
     public function __call($name, array $args)
     {
-        $this->provider->authenticate($this->project);
+        $this->projectContext->authenticate($this->project);
 
         $result = call_user_func_array(array($this->object, $name), $args);
 
-        $this->provider->logout();
+        $this->projectContext->logout();
 
         return $result;
     }

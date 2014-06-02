@@ -11,19 +11,19 @@ use JMS\DiExtraBundle\Annotation as DI;
 class RunAsProjectInvoker
 {
     /**
-     * @var ProjectAuthenticationProvider
+     * @var ProjectContext
      */
-    protected $provider;
+    protected $projectContext;
 
     /**
      * @DI\InjectParams({
-     *      "provider" = @DI\Inject("lighthouse.core.security.project.authentication_provider")
+     *      "projectContext" = @DI\Inject("project.context")
      * })
-     * @param ProjectAuthenticationProvider $provider
+     * @param ProjectContext $projectContext
      */
-    public function __construct(ProjectAuthenticationProvider $provider)
+    public function __construct(ProjectContext $projectContext)
     {
-        $this->provider = $provider;
+        $this->projectContext = $projectContext;
     }
 
     /**
@@ -33,6 +33,6 @@ class RunAsProjectInvoker
      */
     public function invoke($object, Project $project)
     {
-        return new RunAsProjectInvokerProxy($this->provider, $project, $object);
+        return new RunAsProjectInvokerProxy($this->projectContext, $project, $object);
     }
 }
