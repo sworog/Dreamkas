@@ -2,13 +2,14 @@ define(function(require) {
     //requirements
     var currentUserModel = require('models/currentUser.inst'),
         ErrorPage = require('pages/error/error'),
-        config = require('config'),
         cookie = require('cookies'),
         router = require('router'),
         $ = require('jquery'),
         _ = require('lodash');
 
-    window.LH = _.extend({}, config);
+    //deprecated
+    require('LH');
+    currentUserModel.stores = [];
 
     var isStarted,
         loading,
