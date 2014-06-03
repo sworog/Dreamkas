@@ -2,15 +2,16 @@
     <h1>Магазины
         <a class="button" href="/stores/create" style="margin-left: 20px;">Новый магазин</a>
     </h1>
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Номер магазина</th>
-            <th>Адрес</th>
-            <th>Контакты</th>
-        </tr>
-        </thead>
-        <tbody>
+    {{#stores.length}}
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Номер магазина</th>
+                <th>Адрес</th>
+                <th>Контакты</th>
+            </tr>
+            </thead>
+            <tbody>
             {{#stores}}
                 <tr href="/stores/{{id}}">
                     <td>
@@ -24,6 +25,13 @@
                     </td>
                 </tr>
             {{/stores}}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    {{/stores.length}}
+
+    {{^stores.length}}
+        <p>
+            В вашей сети пока нет ни одного магазина.
+        </p>
+    {{/stores.length}}
 </div>

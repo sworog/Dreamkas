@@ -22,6 +22,9 @@ define(function(require, exports, module) {
             },
             formatDateTime: function(){
                 return this.formatDateTime.apply(this, arguments);
+            },
+            formatDate: function(){
+                return this.formatDate.apply(this, arguments);
             }
         },
 
@@ -51,6 +54,10 @@ define(function(require, exports, module) {
 
         formatDateTime: function(date){
             return moment(date).format('DD.MM.YYYY HH:mm');
+        },
+
+        formatDate: function(date){
+            return moment(date).format('DD.MM.YYYY');
         },
 
         _initElements: function() {

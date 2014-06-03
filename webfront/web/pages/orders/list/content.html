@@ -1,28 +1,26 @@
-<% var collections = _.extend({
-    orders: new Backbone.Collection
-}, obj.collections) %>
-
 <div class="content">
     <h2>Невыполненные заказы</h2>
-    <% if (collections.orders.length) { %>
-    <table class="table">
-        <% collections.orders.forEach(function(orderModel){ %>
-            <tr name="order" href="/orders/<%- orderModel.id %>">
-                <td name="orderNumber">
-                    <%- orderModel.get('number') %>
-                </td>
-                <td name="orderSupplier">
-                    <%- orderModel.get('supplier.name') %>
-                </td>
-                <td name="orderDate">
-                    <%- LH.formatDate(orderModel.get('createdDate')) %>
-                </td>
-            </tr>
-        <% }) %>
-    </table>
-    <% } else { %>
+    {{#orders.length}}
+        <table class="table">
+            {{#orders}}
+                <tr name="order" href="/orders/{{id}}">
+                    <td name="orderNumber">
+                        {{number}}
+                    </td>
+                    <td name="orderSupplier">
+                        {{supplier.name}}
+                    </td>
+                    <td name="orderDate">
+                        {{formatDate(createdDate)}}
+                    </td>
+                </tr>
+            {{/orders}}
+        </table>
+    {{/orders.length}}
+
+    {{^orders.length}}
         <p>
             Нет невыполненных заказов
         </p>
-    <% } %>
+    {{/orders.length}}
 </div>

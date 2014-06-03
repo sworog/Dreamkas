@@ -1,10 +1,9 @@
 define(function(require, exports, module) {
     //requirements
-    var Collection = require('kit/core/collection'),
-        currentUserModel = require('models/currentUser.inst');
+    var Collection = require('kit/collection');
 
     return Collection.extend({
         model: require('models/order'),
-        url: LH.baseApiUrl + '/stores/orders?incomplete=1'
+        url: Collection.baseApiUrl + '/stores/orders?incomplete=1'
     });
 });
