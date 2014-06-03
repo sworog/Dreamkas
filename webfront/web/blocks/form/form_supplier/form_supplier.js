@@ -1,25 +1,17 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('blocks/form/form'),
+    var Form = require('kit/form'),
         SupplierModel = require('models/supplier'),
-        cookie = require('cookies');
-
-    var templates = {
-        form_supplier__agreementField: require('tpl!./form_supplier__agreementField.html')
-    };
-
-    require('jquery');
-    require('lodash');
+        cookie = require('cookies'),
+        $ = require('jquery'),
+        _ = require('lodash');
 
     var authorizationHeader = 'Bearer ' + cookie.get('token');
 
     return Form.extend({
-        __name__: module.id,
         redirectUrl: '/suppliers',
-        el: '.form_supplier',
-        model: function() {
-            return new SupplierModel();
-        },
+        model: SupplierModel,
+        template: require('rv!./template.html'),
         events: {
             'change [type="file"]': function(e) {
                 var block = this,
@@ -44,7 +36,10 @@ define(function(require, exports, module) {
                     data: file,
                     processData: false,
                     success: function(res) {
-                        block.renderAgreementField(res);
+                        block.set({
+                            agreement: res,
+                            successMessage: true
+                        });
                         button.classList.remove('preloader_rows');
                         block.disable(false);
                     },
@@ -67,7 +62,10 @@ define(function(require, exports, module) {
                 }
 
                 if (confirm('Вы уверены, что хотите удалить файл?')) {
-                    block.renderAgreementField();
+                    block.set({
+                        agreement: null,
+                        successMessage: false
+                    });
                 }
             }
         },
@@ -80,15 +78,6 @@ define(function(require, exports, module) {
             } else {
                 form_supplier__fileField.dataset.error = 'Неизвестная ошибка: ' + error.status + ', '+ error.statusText;
             }
-        },
-        renderAgreementField: function(agreement) {
-            var block = this,
-                form_supplier__fileField = block.el.querySelector('.form_supplier__fileField');
-
-            $(form_supplier__fileField).replaceWith(templates.form_supplier__agreementField({
-                agreement: agreement,
-                successMessage: true
-            }));
         },
         disable: function(disabled) {
             var block = this;

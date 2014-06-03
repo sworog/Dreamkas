@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return Page.extend({
         partials: {
             content: require('rv!./content.html'),
-            localNavigation: require('rv!pages/reports/localNavigation_net.html')
+            localNavigation: require('rv!pages/reports/localNavigation.html')
         }
     });
 });

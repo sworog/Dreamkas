@@ -6,6 +6,7 @@ define(function(require) {
         _ = require('lodash');
 
     require('sortable');
+    require('backbone');
 
     return Block.extend({
         resources: {},
@@ -103,8 +104,12 @@ define(function(require) {
         _initResources: function() {
             var page = this;
 
-            page.resources = _.transform(page.resources, function(result, ResourceClass, key) {
-                result[key] = new ResourceClass();
+            page.resources = _.transform(page.resources, function(result, ResourceInitializer, key) {
+                if (ResourceInitializer.extend){
+                    result[key] = new ResourceInitializer();
+                } else {
+                    result[key] = ResourceInitializer.call(page);
+                }
             });
         }
     });

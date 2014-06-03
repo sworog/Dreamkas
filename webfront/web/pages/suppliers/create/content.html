@@ -1,13 +1,5 @@
-<% var templates = {
-    localNavigation: require('tpl!blocks/localNavigation/localNavigation_suppliers.html'),
-    form_supplier: require('tpl!blocks/form/form_supplier/template.html')
-} %>
-<% if (LH.isAllow('suppliers', 'POST')) { %>
-<%= templates.localNavigation(obj) %>
-<% } %>
-
-<div class="page__data">
+<div class="content">
     <h2>Добавить поставщика</h2>
 
-    <%= templates.form_supplier() %>
+    <form_supplier />
 </div>
