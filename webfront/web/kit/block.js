@@ -2,9 +2,8 @@ define(function(require, exports, module) {
     //requirements
     var Ractive = require('ractive'),
         delegateEvent = require('kit/delegateEvent/delegateEvent'),
-        getText = require('kit/getText/getText'),
+        getText = require('kit/getText'),
         get = require('kit/get/get'),
-        moment = require('moment'),
         _ = require('lodash');
 
     // Cached regex to split keys for `delegate`.
@@ -17,18 +16,15 @@ define(function(require, exports, module) {
         listeners: {},
         observers: {},
         data: {
-            getText: function(){
+            getText: function() {
                 return this.getText.apply(this, arguments);
             },
-            formatDateTime: function(){
-                return this.formatDateTime.apply(this, arguments);
-            },
-            formatDate: function(){
-                return this.formatDate.apply(this, arguments);
-            }
+            formatDate: require('kit/formatDate/formatDate'),
+            formatMoney: require('kit/formatMoney/formatMoney'),
+            moment: require('moment')
         },
 
-        init: function(){
+        init: function() {
             var block = this;
 
             block._initElements();
@@ -37,7 +33,14 @@ define(function(require, exports, module) {
             block._startListening();
         },
 
-        destroy: function(){
+        getText: function() {
+            var block = this,
+                args = [].slice.call(arguments, 0);
+
+            return getText.apply(null, [block.nls].concat(args));
+        },
+
+        destroy: function() {
             var block = this;
 
             block._undelegateEvents();
@@ -45,28 +48,13 @@ define(function(require, exports, module) {
             return block.teardown();
         },
 
-        getText: function(){
-            var block = this,
-                args = [].slice.call(arguments, 0);
-
-            return getText.apply(null, [block.nls].concat(args));
-        },
-
-        formatDateTime: function(date){
-            return moment(date).format('DD.MM.YYYY HH:mm');
-        },
-
-        formatDate: function(date){
-            return moment(date).format('DD.MM.YYYY');
-        },
-
         _initElements: function() {
             var block = this,
                 elements = {};
 
-            block.__elements = block.__elements ||  block.elements;
+            block.__elements = block.__elements || block.elements;
 
-            _.forEach(block.__elements, function(value, key){
+            _.forEach(block.__elements, function(value, key) {
                 var el = get(block, '__elements.' + key);
                 elements[key] = typeof el === 'string' ? block.el.querySelector(el) : el;
             });
@@ -112,7 +100,7 @@ define(function(require, exports, module) {
 
             var handlers = block._handlers;
 
-            if (!handlers){
+            if (!handlers) {
                 return;
             }
 

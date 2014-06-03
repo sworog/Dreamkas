@@ -8,7 +8,7 @@
                      status="{{status}}"
                      type="{{type}}">
                     <div class="log__time">
-                        {{formatDateTime(dateCreated)}}
+                        {{formatDate(dateCreated, {time: true})}}
                     </div>
                     <div class="log__title">
                         {{getText(type)}}
@@ -34,7 +34,7 @@
             {{#logs}}
                 <div class="log__item" id="<%= logItemModel.get('id') %>">
                     <div class="log__time">
-                        {{formatDateTime(date)}}
+                        {{formatDate(date, {time: true})}}
                     </div>
                     <div class="log__finalMessage">
                         {{getText(message)}}
