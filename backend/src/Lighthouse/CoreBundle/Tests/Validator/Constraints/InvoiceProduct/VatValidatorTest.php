@@ -8,7 +8,7 @@ use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Validator\Constraints\InvoiceProduct\Vat;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\ValidatorInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class VatValidatorTest extends ContainerAwareTestCase
 {

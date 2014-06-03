@@ -6,66 +6,73 @@ use Lighthouse\CoreBundle\Exception\ValidationFailedException;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
-use Symfony\Component\Validator\Validator;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Exception;
+use Symfony\Component\Validator\MetadataInterface;
+use Symfony\Component\Validator\Validator\ContextualValidatorInterface;
 use JMS\DiExtraBundle\Annotation as DI;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
- * @DI\Service("lighthouse.core.validator", parent="validator")
+ * @DI\Service("lighthouse.core.validator")
  */
-class ExceptionalValidator extends Validator
+class ExceptionalValidator implements ValidatorInterface
 {
     /**
-     * @param mixed $value
-     * @param null $groups
-     * @param bool $traverse
-     * @param bool $deep
-     * @return ConstraintViolationList|ConstraintViolationListInterface
+     * @var ValidatorInterface
      */
-    public function validate($value, $groups = null, $traverse = false, $deep = false)
-    {
-        $constraintViolationList = parent::validate($value, $groups, $traverse, $deep);
-        return $this->processConstraintViolationList($constraintViolationList);
-    }
+    protected $delegate;
 
     /**
-     * @param mixed $containingValue
-     * @param string $property
-     * @param null $groups
-     * @return ConstraintViolationList|ConstraintViolationListInterface
+     * @DI\InjectParams({
+     *      "delegate" = @DI\Inject("validator")
+     * })
+     * @param ValidatorInterface $delegate
      */
-    public function validateProperty($containingValue, $property, $groups = null)
+    public function __construct(ValidatorInterface $delegate)
     {
-        $constraintViolationList = parent::validateProperty($containingValue, $property, $groups);
-        return $this->processConstraintViolationList($constraintViolationList);
-    }
-
-    /**
-     * @param string $containingValue
-     * @param string $property
-     * @param string $value
-     * @param null $groups
-     * @return ConstraintViolationList|ConstraintViolationListInterface
-     */
-    public function validatePropertyValue($containingValue, $property, $value, $groups = null)
-    {
-        $constraintViolationList = parent::validatePropertyValue(
-            $containingValue,
-            $property,
-            $value,
-            $groups
-        );
-        return $this->processConstraintViolationList($constraintViolationList);
+        $this->delegate = $delegate;
     }
 
     /**
      * @param mixed $value
      * @param Constraint|Constraint[] $constraints
-     * @param null $groups
+     * @param array|null $groups
      * @return ConstraintViolationListInterface
      */
-    public function validateValue($value, $constraints, $groups = null)
+    public function validate($value, $constraints = null, $groups = null)
     {
-        $constraintViolationList = parent::validateValue($value, $constraints, $groups);
+        $constraintViolationList = $this->delegate->validate($value, $constraints, $groups);
+        return $this->processConstraintViolationList($constraintViolationList);
+    }
+
+    /**
+     * @param object $object
+     * @param string $propertyName
+     * @param null $groups
+     * @return ConstraintViolationList|ConstraintViolationListInterface
+     */
+    public function validateProperty($object, $propertyName, $groups = null)
+    {
+        $constraintViolationList = $this->delegate->validateProperty($object, $propertyName, $groups);
+        return $this->processConstraintViolationList($constraintViolationList);
+    }
+
+    /**
+     * @param object $object
+     * @param string $propertyName
+     * @param string $value
+     * @param array|null $groups
+     * @return ConstraintViolationList|ConstraintViolationListInterface
+     */
+    public function validatePropertyValue($object, $propertyName, $value, $groups = null)
+    {
+        $constraintViolationList = $this->delegate->validatePropertyValue(
+            $object,
+            $propertyName,
+            $value,
+            $groups
+        );
         return $this->processConstraintViolationList($constraintViolationList);
     }
 
@@ -81,5 +88,40 @@ class ExceptionalValidator extends Validator
         } else {
             return $constraintViolationList;
         }
+    }
+
+    /**
+     * @param mixed $value
+     * @return MetadataInterface
+     */
+    public function getMetadataFor($value)
+    {
+        return $this->delegate->getMetadataFor($value);
+    }
+
+    /**
+     * @param mixed $value
+     * @return bool
+     */
+    public function hasMetadataFor($value)
+    {
+        return $this->delegate->hasMetadataFor($value);
+    }
+
+    /**
+     * @return ContextualValidatorInterface
+     */
+    public function startContext()
+    {
+        return $this->delegate->startContext();
+    }
+
+    /**
+     * @param ExecutionContextInterface $context
+     * @return ContextualValidatorInterface
+     */
+    public function inContext(ExecutionContextInterface $context)
+    {
+        return $this->delegate->inContext($context);
     }
 }
