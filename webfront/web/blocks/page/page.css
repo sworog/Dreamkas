@@ -39,8 +39,7 @@
 }
 
 .page.page[status="loading"] .page__content,
-.page.page[status="loading"] .content,
-.page.page[status="loading"] .localNavigation {
+.page.page[status="loading"] .content {
     display: none;
 }
 

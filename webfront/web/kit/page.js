@@ -5,8 +5,9 @@ define(function(require) {
         when = require('when'),
         _ = require('lodash');
 
+    require('sortable');
+
     return Block.extend({
-        el: document.body,
         resources: {},
         isAllow: true,
         template: require('rv!pages/template.html'),
@@ -25,8 +26,7 @@ define(function(require) {
         init: function() {
             var page = this;
 
-            window.PAGE && window.PAGE.destroy();
-            window.PAGE = page;
+            page.el = document.body;
 
             page._super();
 
@@ -42,7 +42,27 @@ define(function(require) {
 
                     when(page.fetch()).then(function(data) {
 
+                        var autofocus;
+
                         page.set(data);
+
+                        if (window.PAGE){
+                            window.PAGE.destroy();
+                        }
+
+                        while (page.el.hasChildNodes()) {
+                            page.el.removeChild(page.el.lastChild);
+                        }
+
+                        page.insert(page.el);
+
+                        window.PAGE = page;
+
+                        autofocus = page.el.querySelector('[autofocus]');
+
+                        autofocus && autofocus.focus()
+
+                        Sortable.init();
 
                         page.set('status', 'loaded');
                     });
@@ -52,10 +72,6 @@ define(function(require) {
                     });
                 }
             });
-        },
-
-        complete: function() {
-            this.el.querySelector('[autofocus]').focus();
         },
 
         fetch: function(resourceNames) {
