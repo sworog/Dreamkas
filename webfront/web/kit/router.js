@@ -13,6 +13,7 @@ define(function(require, exports, module) {
             callback: function(fragment) {
                 var params = router._extractParameters(route, routeRegExp, fragment);
                 Page && new Page({
+                    params: params,
                     data: {
                         params: params
                     },

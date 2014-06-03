@@ -8,10 +8,7 @@ define(function(require, exports, module) {
         data: {
             jsErrors: [],
             apiErrors: [],
-            debugLevel: config.debugLevel,
-            getResponseJson: function(error){
-                return JSON.stringify(JSON.parse(error.responseText), null, 2);
-            }
+            debugLevel: config.debugLevel
         }
     });
 });

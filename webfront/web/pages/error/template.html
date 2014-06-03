@@ -7,7 +7,7 @@
             {{#debugLevel===2}}
                 Текст ответа сервера:
                 <div>
-                    <pre>{{getResponseJson(.)}}</pre>
+                    <pre>{{JSON.stringify(JSON.parse(.responseText), null, 2)}}</pre>
                 </div>
             {{/debugLevel}}
         </div>

@@ -6,23 +6,15 @@ define(function(require, exports, module) {
     require('jquery');
 
     window.LH = _.extend({
+        modelNode: require('kit/modelNode/modelNode'),
+        formatMoney: require('kit/formatMoney/formatMoney'),
+        formatAmount: require('kit/formatAmount/formatAmount'),
+        formatDate: require('kit/formatDate/formatDate'),
+        isEmptyJSON: require('kit/isEmptyJSON/isEmptyJSON'),
+        prevalidateInput: require('kit/prevalidateInput/prevalidateInput'),
+        units: require('kit/units/units'),
+        productTypes: require('kit/productTypes/productTypes'),
         getText: require('kit/getText'),
-        modelNode: function(model, attr) {
-            var text = typeof model.get(attr) === 'undefined' ? '' : model.get(attr);
-            var nodeTemplate = '<span model="' + model.modelName + '" model-id="' + model.id + '" model-attribute="' + attr + '">' + text + '</span>';
-
-            var handlers = {};
-
-            handlers['change:' + attr] = function() {
-                $('body')
-                    .find('[model-id="' + model.id + '"][model-attribute="' + attr + '"]')
-                    .html(model.get(attr) || '');
-            };
-
-            model.listenTo(model, handlers);
-
-            return nodeTemplate;
-        },
         isAllow: function(){
             return true;
         },
