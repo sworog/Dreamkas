@@ -5,6 +5,7 @@ import org.jbehave.core.annotations.*;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.AuthorizationSteps;
 import project.lighthouse.autotests.steps.administrator.UserSteps;
+import project.lighthouse.autotests.steps.email.EmailSteps;
 import project.lighthouse.autotests.steps.menu.MenuNavigationSteps;
 import project.lighthouse.autotests.storage.Storage;
 
@@ -18,6 +19,9 @@ public class AuthorizationUserSteps {
 
     @Steps
     UserSteps userSteps;
+
+    @Steps
+    EmailSteps emailSteps;
 
     @BeforeScenario()
     public void beforeScenario() {
@@ -87,6 +91,17 @@ public class AuthorizationUserSteps {
     @Alias("the user inputs value in email field")
     public void whenTheUserInputsValueInEmailField(String value) {
         authorizationSteps.emailFieldInput(value);
+    }
+
+    @When("the user inputs stored password from email in password field")
+    public void whenTheUserInputsStoredPasswordFromEmailInPasswordField() {
+        String password = emailSteps.getEmailCredentials();
+        authorizationSteps.passwordFieldInput(password);
+    }
+
+    @When("the user clicks on sign in button and logs in")
+    public void whenTheUserClicksOnSignInButtonAndLogsIn() {
+        authorizationSteps.loginButtonClick();
     }
 
     @Then("the user checks the sign up text is expected")

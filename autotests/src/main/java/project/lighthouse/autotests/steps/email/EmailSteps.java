@@ -16,6 +16,8 @@ public class EmailSteps extends ScenarioSteps {
 
     private EmailMessage emailMessage;
 
+    private static final String REGEX_PATTERN = "Добро пожаловать в Lighthouse!\r\n\r\nВаш пароль для входа: (.*)\r\nЕсли это письмо пришло вам по ошибке, просто проигнорируйте его.\r\n";
+
     @Step
     public void deleteAllMessages() {
         new EmailHandler().deleteAllMessages();
@@ -38,11 +40,17 @@ public class EmailSteps extends ScenarioSteps {
 
     @Step
     public void assertEmailMessageContent() {
-        String stringPattern = "Добро пожаловать в Lighthouse!\\r\\n\\r\\nВаш пароль для входа: (.*)\\r\\nЕсли это письмо пришло вам по ошибке, просто проигнорируйте его.\\r\\n";
-        Pattern pattern = Pattern.compile(stringPattern);
-        Matcher matcher = pattern.matcher(emailMessage.getContent());
-
         String message = String.format("the email message content is not matching the template. email message content: '%s'", emailMessage.getContent());
-        assertThat(message, true, is(matcher.matches()));
+        assertThat(message, true, is(getMatcher().matches()));
+    }
+
+    @Step
+    public String getEmailCredentials() {
+        return getMatcher().group(1);
+    }
+
+    private Matcher getMatcher() {
+        Pattern pattern = Pattern.compile(REGEX_PATTERN);
+        return pattern.matcher(emailMessage.getContent());
     }
 }
