@@ -176,4 +176,16 @@ class User extends AbstractDocument implements UserInterface
     {
         return $this->project;
     }
+
+    /**
+     * @return array
+     */
+    public static function getDefaultRoles()
+    {
+        return array(
+            self::ROLE_COMMERCIAL_MANAGER,
+            self::ROLE_STORE_MANAGER,
+            self::ROLE_DEPARTMENT_MANAGER
+        );
+    }
 }

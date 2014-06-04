@@ -17,14 +17,6 @@ class CreateUserTest extends ContainerAwareTestCase
     }
 
     /**
-     * @return CreateUser
-     */
-    protected function getCommand()
-    {
-        return $this->getContainer()->get('lighthouse.core.command.user.create_user');
-    }
-
-    /**
      * @return UserProvider
      */
     protected function getUserProvider()
@@ -34,17 +26,15 @@ class CreateUserTest extends ContainerAwareTestCase
 
     public function testExecute()
     {
-        $commandTester = new CommandTester($this->getCommand());
-
         $input = array(
             'email' => 'admin@lighthouse.pro',
             'password' => 'lighthouse',
-            'role' => 'ROLE_ADMINISTRATOR',
+            'roles' => array('ROLE_ADMINISTRATOR'),
         );
 
-        $exitCode = $commandTester->execute($input);
+        $commandTester = $this->createConsoleTester()->runCommand('lighthouse:user:create', $input);
 
-        $this->assertEquals(0, $exitCode);
+        $this->assertEquals(0, $commandTester->getStatusCode());
 
         $display = $commandTester->getDisplay();
         $this->assertContains('Creating user...Done', $display);
@@ -57,7 +47,35 @@ class CreateUserTest extends ContainerAwareTestCase
         $this->assertEquals('admin@lighthouse.pro', $user->email);
         $this->assertNotEquals('lighthouse', $user->password);
         $this->assertContains(User::ROLE_ADMINISTRATOR, $user->roles);
+        $this->assertEquals('ROLE_ADMINISTRATOR', $user->position);
         $this->assertInstanceOf(Project::getClassName(), $user->project);
+    }
+
+    public function testCreateUserWithMultipleRoles()
+    {
+        $input = array(
+            'email' => 'admin@lighthouse.pro',
+            'password' => 'lighthouse',
+            'roles' => array('ROLE_COMMERCIAL_MANAGER', 'ROLE_STORE_MANAGER', 'ROLE_DEPARTMENT_MANAGER'),
+        );
+
+        $commandTester = $this->createConsoleTester(false)->runCommand('lighthouse:user:create', $input);
+
+        $this->assertEquals(0, $commandTester->getStatusCode());
+
+        $display = $commandTester->getDisplay();
+        $this->assertContains('Creating user...Done', $display);
+        $this->assertContains('"email":"admin@lighthouse.pro"', $display);
+        $this->assertContains(
+            '"roles":["ROLE_COMMERCIAL_MANAGER","ROLE_STORE_MANAGER","ROLE_DEPARTMENT_MANAGER"]',
+            $display
+        );
+
+        $user = $this->getUserProvider()->loadUserByUsername('admin@lighthouse.pro');
+
+        $this->assertInstanceOf(User::getClassName(), $user);
+        $this->assertSame($user->roles, $input['roles']);
+        $this->assertEquals('ROLE_COMMERCIAL_MANAGER', $user->position);
     }
 
     /**
@@ -66,19 +84,18 @@ class CreateUserTest extends ContainerAwareTestCase
      */
     public function testUserExists()
     {
-        $commandTester = new CommandTester($this->getCommand());
-
         $input = array(
             'email' => 'admin@lighthouse.pro',
             'password' => 'lighthouse',
-            'role' => 'ROLE_ADMINISTRATOR',
+            array('roles' => 'ROLE_ADMINISTRATOR'),
         );
 
-        $exitCode1 = $commandTester->execute($input);
+        $commandTester = $this->createConsoleTester(false, true);
 
-        $this->assertEquals(0, $exitCode1);
+        $exitCode = $commandTester->runCommand('lighthouse:user:create', $input)->getStatusCode();
+        $this->assertEquals(0, $exitCode);
 
-        $commandTester->execute($input);
+        $commandTester->runCommand('lighthouse:user:create', $input);
     }
 
     /**
@@ -87,16 +104,14 @@ class CreateUserTest extends ContainerAwareTestCase
      */
     public function testProjectDoesNotExist()
     {
-        $commandTester = new CommandTester($this->getCommand());
-
         $input = array(
             'email' => 'admin@lighthouse.pro',
             'password' => 'lighthouse',
-            'role' => 'ROLE_ADMINISTRATOR',
+            'roles' => array('ROLE_ADMINISTRATOR'),
             '--project' => 1
         );
 
-        $commandTester->execute($input);
+        $this->createConsoleTester(false)->runCommand('lighthouse:user:create', $input);
     }
 
     /**
@@ -105,8 +120,6 @@ class CreateUserTest extends ContainerAwareTestCase
      */
     public function testMissingParams()
     {
-        $commandTester = new CommandTester($this->getCommand());
-
-        $commandTester->execute(array());
+        $this->createConsoleTester(false)->runCommand('lighthouse:user:create', array());
     }
 }

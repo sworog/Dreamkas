@@ -64,7 +64,12 @@ class CreateUser extends Command
             ->setDescription('Create user')
             ->addArgument('email', InputArgument::REQUIRED, 'Email')
             ->addArgument('password', InputArgument::REQUIRED, 'Password')
-            ->addArgument('role', InputArgument::OPTIONAL, 'User role', User::ROLE_ADMINISTRATOR)
+            ->addArgument(
+                'roles',
+                InputArgument::OPTIONAL | InputArgument::IS_ARRAY,
+                'User roles',
+                User::getDefaultRoles()
+            )
             ->addOption('project', null, InputOption::VALUE_OPTIONAL, 'Project', true);
     }
 
@@ -80,13 +85,13 @@ class CreateUser extends Command
         $user = $this->userProvider->createUser();
 
         $email = $input->getArgument('email');
-        $role = $input->getArgument('role');
+        $roles = $input->getArgument('roles');
         $password =  $input->getArgument('password');
 
         $user->name = $email;
         $user->email = $email;
-        $user->roles = array($role);
-        $user->position = $role;
+        $user->roles = $roles;
+        $user->position = reset($roles);
 
         $projectId = $input->getOption('project');
 
