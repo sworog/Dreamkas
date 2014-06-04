@@ -27,6 +27,10 @@ define(function(require, exports, module) {
         init: function() {
             var block = this;
 
+            if (block.component){
+                block.el = block.fragment.items[0].node;
+            }
+
             block._initElements();
             block._delegateEvents();
             block._startObserving();

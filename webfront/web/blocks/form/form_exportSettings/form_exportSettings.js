@@ -9,22 +9,19 @@ define(function(require) {
 
     return Form.extend({
         template: require('rv!./template.html'),
-        set10IntegrationUrl: {},
-        set10IntegrationLogin: {},
-        set10IntegrationPassword: {},
         successMessage: 'Настройки успешно сохранены',
-        submit: function(data) {
+        submit: function() {
             var block = this,
                 saveData = $.when(
-                    block.saveExportUrl(data['set10-integration-url']),
-                    block.saveExportLogin(data['set10-integration-login']),
-                    block.saveExportPassword(data['set10-integration-password'])
+                    block.saveExportUrl(block.get('set10IntegrationUrl.value')),
+                    block.saveExportLogin(block.get('set10IntegrationLogin.value')),
+                    block.saveExportPassword(block.get('set10IntegrationPassword.value'))
                 );
 
             saveData.done(function(exportUrl, exportLogin, exportPassword) {
-                block.set10IntegrationUrl.id = exportUrl[0].id;
-                block.set10IntegrationLogin.id = exportLogin[0].id;
-                block.set10IntegrationPassword.id = exportPassword[0].id;
+                block.set('set10IntegrationUrl.id', exportUrl[0].id);
+                block.set('set10IntegrationLogin.id', exportLogin[0].id);
+                block.set('set10IntegrationPassword.id', exportPassword[0].id);
             });
 
             return saveData;
@@ -38,9 +35,9 @@ define(function(require) {
             var block = this;
 
             return $.ajax({
-                url: configUrl + (block.set10IntegrationUrl.id ? '/' + block.set10IntegrationUrl.id : ''),
+                url: configUrl + (block.get('set10IntegrationUrl.id') ? '/' + block.get('set10IntegrationUrl.id') : ''),
                 dataType: 'json',
-                type: block.set10IntegrationUrl.id ? 'PUT' : 'POST',
+                type: block.get('set10IntegrationUrl.id') ? 'PUT' : 'POST',
                 data: {
                     name: 'set10-integration-url',
                     value: url
@@ -54,9 +51,9 @@ define(function(require) {
             var block = this;
 
             return $.ajax({
-                url: configUrl + (block.set10IntegrationLogin.id ? '/' + block.set10IntegrationLogin.id : ''),
+                url: configUrl + (block.get('set10IntegrationLogin.id') ? '/' + block.get('set10IntegrationLogin.id') : ''),
                 dataType: 'json',
-                type: block.set10IntegrationLogin.id ? 'PUT' : 'POST',
+                type: block.get('set10IntegrationLogin.id') ? 'PUT' : 'POST',
                 data: {
                     name: 'set10-integration-login',
                     value: login
@@ -70,9 +67,9 @@ define(function(require) {
             var block = this;
 
             return $.ajax({
-                url: configUrl + (block.set10IntegrationPassword.id ? '/' + block.set10IntegrationPassword.id : ''),
+                url: configUrl + (block.get('set10IntegrationPassword.id') ? '/' + block.get('set10IntegrationPassword.id') : ''),
                 dataType: 'json',
-                type: block.set10IntegrationPassword.id ? 'PUT' : 'POST',
+                type: block.get('set10IntegrationPassword.id') ? 'PUT' : 'POST',
                 data: {
                     name: 'set10-integration-password',
                     value: password
