@@ -20,10 +20,6 @@
         <a name="globalNavigationLink" href="/writeOffs?storeId=<%- currentUserModel.stores.at(0).id %>">Списания</a>
         <% } %>
 
-        <% if(LH.isAllow('users')){ %>
-        <a name="globalNavigationLink" href="/users">Пользователи</a>
-        <% } %>
-
         <% if(LH.isAllow('stores')){ %>
         <a name="globalNavigationLink" href="/stores">Магазины</a>
         <% } %>
@@ -40,10 +36,6 @@
         <a name="globalNavigationLink" href="/orders">Заказы</a>
         <% } %>
 
-        <% if(currentUserModel.stores && currentUserModel.stores.length) { %>
-        <a name="globalNavigationLink" href="/stores/<%- currentUserModel.stores.at(0).id %>">Мой магазин</a>
-        <% } %>
-
         <% if(LH.isAllow('configs')){ %>
         <a name="globalNavigationLink" href="/settings">Настройки</a>
         <% } %>
@@ -58,7 +50,7 @@
         <% if(currentUserModel.get('id')) { %>
         <div class="globalNavigation__userControls">
             <a href="/users/current" name="userName" class="globalNavigation__userName">
-                <%- currentUserModel.get('name') %>
+                <%- currentUserModel.get('email') %>
             </a>
         </div>
         <% } %>

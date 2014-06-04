@@ -5,8 +5,6 @@ define(function(require) {
         //common
         '(/)': require('pages/main/main'),
         'logout(/)': require('kit/logout/logout'),
-        'sale(/)': require('pages/common/sale'),
-        'balance(/)': require('pages/common/balance'),
         'log(/)': require('pages/log/log'),
         'settings(/)': require('pages/settings/settings'),
 
