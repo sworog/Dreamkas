@@ -80,6 +80,7 @@
                         <include>**/Test*.java</include>
                         <include>**/When*.java</include>
                     </includes>
+		    <disableXmlReport>true</disableXmlReport>
                     <argLine>-Xmx512m</argLine>
                     <parallel>classes</parallel>
                     <systemPropertyVariables>

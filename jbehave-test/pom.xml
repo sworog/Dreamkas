@@ -85,6 +85,7 @@
                         <include>**/When*.java</include>
                         <include>**/*TestSuite.java</include>
                     </includes>
+	            <disableXmlReport>true</disableXmlReport>
                 </configuration>
                 <executions>
                     <execution>
