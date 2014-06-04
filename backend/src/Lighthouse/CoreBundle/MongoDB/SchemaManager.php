@@ -18,6 +18,11 @@ class SchemaManager extends BaseSchemaManager
     protected $dm;
 
     /**
+     * @var Project[]
+     */
+    protected $projects;
+
+    /**
      * @param null|bool $global true: only global, false: only project, null: all
      * @return ClassMetadata[]
      */
@@ -54,11 +59,21 @@ class SchemaManager extends BaseSchemaManager
     }
 
     /**
+     * Cache projects
      * @return Project[]
      */
     protected function getProjects()
     {
-        return $this->dm->getRepository(Project::getClassName())->findAll();
+        // FIXME workaround to delete dbs after collections were deleted
+        if (null === $this->projects) {
+            $this->projects = $this->dm->getRepository(Project::getClassName())->findAll()->toArray();
+        }
+        return $this->projects;
+    }
+
+    protected function clearProjects()
+    {
+        $this->projects = null;
     }
 
     public function dropGlobalCollections()
@@ -126,6 +141,7 @@ class SchemaManager extends BaseSchemaManager
     {
         $this->dropProjectDatabases();
         $this->dropGlobalDatabases();
+        $this->clearProjects();
     }
 
     public function createGlobalDatabases()
