@@ -7,7 +7,8 @@ define(function(require, exports, module) {
             stores: require('collections/stores')
         },
         partials: {
-            content: require('rv!./content.html')
+            content: require('rv!./content.html'),
+            localNavigation: require('rv!blocks/localNavigation/localNavigation_stores.html')
         }
     });
 });
