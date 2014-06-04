@@ -69,6 +69,7 @@
                 <version>2.12</version>
                 <configuration>
                     <!--<skip>true</skip>-->
+                    <disableXmlReport>true</disableXmlReport>
                 </configuration>
             </plugin>
             <plugin>
