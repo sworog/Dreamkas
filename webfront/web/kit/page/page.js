@@ -79,7 +79,7 @@ define(function(require, exports, module) {
         templates: {
             content: null,
             localNavigation: null,
-            globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation.html')
+            globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation.deprecated.html')
         },
         localNavigationActiveLink: null,
         collections: {},
