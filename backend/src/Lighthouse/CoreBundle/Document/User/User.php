@@ -185,7 +185,8 @@ class User extends AbstractDocument implements UserInterface
         return array(
             self::ROLE_COMMERCIAL_MANAGER,
             self::ROLE_STORE_MANAGER,
-            self::ROLE_DEPARTMENT_MANAGER
+            self::ROLE_DEPARTMENT_MANAGER,
+            self::ROLE_ADMINISTRATOR
         );
     }
 }

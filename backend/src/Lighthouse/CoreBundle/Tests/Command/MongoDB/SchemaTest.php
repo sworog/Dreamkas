@@ -83,5 +83,6 @@ class SchemaTest extends ContainerAwareTestCase
         if (preg_match('/(\{.*?\})/u', $display, $matches)) {
             return json_decode($matches[1] . '}');
         }
+        throw new \RuntimeException('Failed to parse user data');
     }
 }
