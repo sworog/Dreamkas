@@ -1,0 +1,9 @@
+/target
+/target-*
+/autotests.iml
+/chromedriver.log
+/libpeerconnection.log
+/thucydides.properties
+xml/out/*
+/upload
+/.idea
