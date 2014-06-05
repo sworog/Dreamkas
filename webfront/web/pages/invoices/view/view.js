@@ -4,22 +4,16 @@ define(function(require, exports, module) {
         SuppliersCollection = require('collections/suppliers'),
         Form_invoice = require('blocks/form/form_invoice/form_invoice'),
         InvoiceModel = require('models/invoice'),
-        InvoiceProductsCollection = require('collections/invoiceProducts'),
-        currentUserModel = require('models/currentUser.inst');
+        InvoiceProductsCollection = require('collections/invoiceProducts');
 
     return Page.extend({
         templates: {
             content: require('tpl!./content.html'),
-            localNavigation: require('tpl!../localNavigation.html')
+            localNavigation: require('tpl!blocks/localNavigation/localNavigation_invoices.deprecated.html')
         },
         params: {
             storeId: null,
             invoiceId: null
-        },
-        isAllow: function() {
-            var page = this;
-
-            return currentUserModel.stores.length && currentUserModel.stores.at(0).id === page.params.storeId;
         },
         collections: {
             suppliers: function() {
@@ -30,10 +24,10 @@ define(function(require, exports, module) {
             invoice: function() {
                 var page = this,
                     invoiceModel = new InvoiceModel({
+                        id: page.params.invoiceId,
                         products: new InvoiceProductsCollection()
                     });
 
-                invoiceModel.id = page.params.invoiceId;
                 invoiceModel.storeId = page.params.storeId;
 
                 return invoiceModel;

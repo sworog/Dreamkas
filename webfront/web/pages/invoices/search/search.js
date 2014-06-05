@@ -3,23 +3,17 @@ define(function(require) {
     var Page = require('kit/page/page'),
         InvoicesCollection = require('collections/invoices'),
         Form_invoiceSearch = require('blocks/form/form_invoiceSearch/form_invoiceSearch'),
-        currentUserModel = require('models/currentUser.inst'),
         when = require('when');
 
     return Page.extend({
         localNavigationActiveLink: 'search',
         templates: {
             content: require('tpl!./content.html'),
-            localNavigation: require('tpl!../localNavigation.html')
+            localNavigation: require('tpl!blocks/localNavigation/localNavigation_invoices.deprecated.html')
         },
         params: {
             storeId: null,
             numberOrSupplierInvoiceNumber: null
-        },
-        isAllow: function() {
-            var page = this;
-
-            return currentUserModel.stores.length && currentUserModel.stores.at(0).id === page.params.storeId;
         },
         collections: {
             invoices: function() {
