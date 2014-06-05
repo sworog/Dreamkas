@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Job;
 use Lighthouse\CoreBundle\Document\Job\Job;
 use Lighthouse\CoreBundle\Job\Worker\WorkerManager;
 use Lighthouse\CoreBundle\Exception\Job\NotFoundJobException;
+use Lighthouse\CoreBundle\Security\Project\ProjectContext;
 use Pheanstalk_PheanstalkInterface as PheanstalkInterface;
 use Pheanstalk_Exception_ServerException as PheanstalkServerException;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -38,27 +39,36 @@ class JobManager
     protected $logger;
 
     /**
+     * @var ProjectContext
+     */
+    protected $projectContext;
+
+    /**
      * @DI\InjectParams({
      *      "pheanstalk" = @DI\Inject("leezy.pheanstalk"),
      *      "jobRepository" = @DI\Inject("lighthouse.core.job.repository"),
      *      "workerManager" = @DI\Inject("lighthouse.core.job.worker.manager"),
      *      "logger" = @DI\Inject("logger"),
+     *      "projectContext" = @DI\Inject("project.context"),
      * })
      * @param PheanstalkInterface $pheanstalk
      * @param JobRepository $jobRepository
      * @param WorkerManager $workerManager
      * @param LoggerInterface $logger
+     * @param ProjectContext $projectContext
      */
     public function __construct(
         PheanstalkInterface $pheanstalk,
         JobRepository $jobRepository,
         WorkerManager $workerManager,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        ProjectContext $projectContext
     ) {
         $this->pheanstalk = $pheanstalk;
         $this->jobRepository = $jobRepository;
         $this->workerManager = $workerManager;
         $this->logger = $logger;
+        $this->projectContext = $projectContext;
     }
 
     /**
@@ -83,7 +93,11 @@ class JobManager
     {
         $worker = $this->workerManager->getByJob($job);
         $tubeName = $worker->getName();
-        return $this->pheanstalk->putInTube($tubeName, $job->id);
+        $data = json_encode(array(
+                'jobId' => $job->id,
+                'projectId' => $this->projectContext->getCurrentProject()->getName(),
+            ));
+        return $this->pheanstalk->putInTube($tubeName, $data);
     }
 
     /**
@@ -190,7 +204,13 @@ class JobManager
             return null;
         }
 
-        $jobId = $tubeJob->getData();
+        $data = json_decode($tubeJob->getData(), true);
+
+        $jobId = $data['jobId'];
+        $projectId = $data['projectId'];
+        if (null === $this->projectContext->getCurrentProject()) {
+            $this->projectContext->authenticateByProjectName($projectId);
+        }
 
         /* @var Job $job */
         $job = $this->jobRepository->find($jobId);
@@ -209,6 +229,10 @@ class JobManager
 
         $job->setProcessingStatus();
         $this->jobRepository->save($job);
+
+        if (null === $this->projectContext->getCurrentProject()) {
+            $this->projectContext->logout();
+        }
 
         return $job;
     }
