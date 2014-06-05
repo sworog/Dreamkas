@@ -1,8 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Page = require('kit/page/page'),
-        InvoicesCollection = require('collections/invoices'),
-        currentUserModel = require('models/currentUser.inst');
+        InvoicesCollection = require('collections/invoices');
 
     return Page.extend({
         templates: {
@@ -12,11 +11,6 @@ define(function(require, exports, module) {
         localNavigationActiveLink: 'list',
         params: {
             storeId: null
-        },
-        isAllow: function() {
-            var page = this;
-
-            return currentUserModel.stores.length && currentUserModel.stores.at(0).id === page.params.storeId;
         },
         collections: {
             invoices: function() {
