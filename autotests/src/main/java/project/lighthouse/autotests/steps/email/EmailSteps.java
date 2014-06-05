@@ -46,7 +46,13 @@ public class EmailSteps extends ScenarioSteps {
 
     @Step
     public String getEmailCredentials() {
-        return getMatcher().group(1);
+        Matcher matcher = getMatcher();
+        if (matcher.matches()) {
+            return matcher.group(1);
+        } else {
+            String message = String.format("Cannot get password from the email message because email content is not matching. email content: '%s'", emailMessage.getContent());
+            throw new AssertionError(message);
+        }
     }
 
     private Matcher getMatcher() {
