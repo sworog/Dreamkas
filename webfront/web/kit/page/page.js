@@ -13,11 +13,6 @@ define(function(require, exports, module) {
         constructor: function(req) {
             var page = this;
 
-            if (Page.current && req.route === Page.current.route) {
-                Page.current.set(req);
-                return;
-            }
-
             page.set('status', 'loading');
 
             if (Page.current) {
@@ -102,8 +97,6 @@ define(function(require, exports, module) {
         },
         initialize: function() {
             var page = this;
-
-            window.PAGE = this;
 
             try {
                 page.initResources();

@@ -28,6 +28,8 @@ define(function(require) {
                 break;
             case 400:
                 break;
+            case 409:
+                break;
             case 0:
                 break;
             default:
