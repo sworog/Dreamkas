@@ -32,15 +32,11 @@
         <a name="globalNavigationLink" href="/suppliers">Поставщики</a>
         <% } %>
 
-        <% if(LH.isAllow('stores/{store}/orders', 'GET')){ %>
-        <a name="globalNavigationLink" href="/orders">Заказы</a>
-        <% } %>
-
         <% if(LH.isAllow('configs')){ %>
         <a name="globalNavigationLink" href="/settings">Настройки</a>
         <% } %>
 
-        <a name="globalNavigationLink" href="/logs">Лог</a>
+        <a name="globalNavigationLink" href="/log">Лог</a>
 
         <% } %>
     </div>

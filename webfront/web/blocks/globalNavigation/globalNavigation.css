@@ -21,9 +21,10 @@
 }
 
 .globalNavigation__backLink{
-    font-size: 22px;
+    font-size: 20px;
     position: absolute;
-    left: -28px;
+    left: -25px;
+    top: 1px;
     text-decoration: none !important;
 }
 
