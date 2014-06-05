@@ -15,5 +15,7 @@
             </p>
         <% } %>
     </h1>
-    <%= templates.form_invoice() %>
+    <%= templates.form_invoice({
+        storeId: params.storeId
+    }) %>
 </div>

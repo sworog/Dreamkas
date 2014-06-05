@@ -10,17 +10,12 @@ define(function(require, exports, module) {
     return Page.extend({
         templates: {
             content: require('tpl!./content.html'),
-            localNavigation: require('tpl!../localNavigation.html')
+            localNavigation: require('tpl!blocks/localNavigation/localNavigation_invoices.deprecated.html')
         },
         localNavigationActiveLink: 'create',
         params: {
             storeId: null,
             fromOrder: null
-        },
-        isAllow: function() {
-            var page = this;
-
-            return currentUserModel.stores.length && currentUserModel.stores.at(0).id === page.params.storeId;
         },
         collections: {
             suppliers: function() {
