@@ -18,7 +18,7 @@ define(function(require, exports, module) {
             }
         },
         components: {
-            form_supplier: require('blocks/form/form_supplier/form_supplier')
+            'form-supplier': require('blocks/form/form_supplier/form_supplier')
         }
     });
 });

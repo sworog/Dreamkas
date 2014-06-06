@@ -26,7 +26,7 @@ define(function(require, exports, module) {
             globalNavigation: require('rv!./globalNavigation.html')
         },
         components: {
-            form_login: require('blocks/form/form_login/form_login')
+            'form-login': require('blocks/form/form_login/form_login')
         }
     });
 });

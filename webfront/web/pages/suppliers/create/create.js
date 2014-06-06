@@ -10,7 +10,7 @@ define(function(require, exports, module) {
             localNavigation: require('rv!pages/suppliers/localNavigation.html')
         },
         components: {
-            form_supplier: require('blocks/form/form_supplier/form_supplier')
+            'form-supplier': require('blocks/form/form_supplier/form_supplier')
         }
     });
 });
