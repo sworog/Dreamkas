@@ -5,11 +5,7 @@ define(function(require, exports, module) {
     return Model.extend({
         __name__: module.id,
         url: function() {
-            if (this.get('orderId')) {
-                return LH.baseApiUrl + '/stores/' + (this.collection.storeId || this.get('storeId')) + '/orders/' + this.get('orderId') + '/products?validate=1'
-            } else {
-                return LH.baseApiUrl + '/stores/' + (this.collection.storeId || this.get('storeId')) + '/orders/products?validate=1'
-            }
+            return LH.baseApiUrl + '/stores/' + (this.collection.storeId || this.get('storeId')) + '/orders/products?validate=1'
         },
         defaults: {
             storeId: null,

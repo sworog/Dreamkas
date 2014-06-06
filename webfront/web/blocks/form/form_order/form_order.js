@@ -147,6 +147,7 @@ define(function(require, exports, module) {
             });
 
             block.editedProductModel.id = null;
+            block.editedProductModel.set('id', null);
 
             block.editedProductModel.save(changes, {
                 success: function() {
