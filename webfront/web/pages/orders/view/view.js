@@ -3,14 +3,16 @@ define(function(require, exports, module) {
     var Page = require('kit/page/page'),
         SuppliersCollection = require('collections/suppliers'),
         OrderModel = require('models/order'),
+        router = require('router'),
         Form_order = require('blocks/form/form_order/form_order');
 
     require('jquery');
 
     return Page.extend({
         templates: {
-            content: require('tpl!./content.html'),
-            localNavigation: require('tpl!../localNavigation.html')
+            content: require('tpl!./content.ejs'),
+            localNavigation: require('tpl!blocks/localNavigation/localNavigation_orders.ejs'),
+            globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation_store.ejs')
         },
         events: {
             'click .form_order__removeLink': function(e){
@@ -28,17 +30,15 @@ define(function(require, exports, module) {
 
                     page.models.order.destroy({
                         success: function() {
-                            router.navigate('/orders');
+                            router.navigate('/stores/' + page.get('params.storeId') + '/orders');
                         }
                     });
                 }
             }
         },
         params: {
-            orderId: null
-        },
-        isAllow: function() {
-            return LH.isAllow('stores/{store}/orders', 'GET');
+            orderId: null,
+            storeId: null
         },
         collections: {
             suppliers: function(){
@@ -50,7 +50,16 @@ define(function(require, exports, module) {
                 var page = this;
 
                 return new OrderModel({
+                    storeId: page.get('params.storeId'),
                     id: page.params.orderId
+                });
+            },
+            store: function() {
+                var page = this,
+                    StoreModel = require('models/store');
+
+                return new StoreModel({
+                    id: page.get('params.storeId')
                 });
             }
         },
@@ -59,6 +68,7 @@ define(function(require, exports, module) {
                 var page = this;
 
                 return new Form_order({
+                    storeId: page.get('params.storeId'),
                     model: page.models.order,
                     collections: _.pick(page.collections, 'suppliers')
                 })

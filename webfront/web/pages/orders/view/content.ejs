@@ -1,11 +1,5 @@
-<% var collections = _.defaults(collections, {
-    suppliers: new Backbone.Collection
-}) %>
-<% var models = _.defaults(models, {
-    order: new Backbone.Model
-}) %>
 <% var templates = _.defaults(templates, {
-    form_order: require('tpl!blocks/form/form_order/template.html')
+    form_order: require('tpl!blocks/form/form_order/template.ejs')
 }) %>
 
 
@@ -25,6 +19,7 @@
     <h2>Заказ поставщику № <span name="orderNumber"><%- models.order.get('number') %></span></h2>
 
     <%= templates.form_order({
+        storeId: params.storeId,
         collections: _.pick(collections, 'suppliers'),
         model: models.order
     }) %>

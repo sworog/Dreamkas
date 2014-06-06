@@ -2,8 +2,9 @@
     <h2>Невыполненные заказы</h2>
     {{#orders.length}}
         <table class="table">
+            <tbody>
             {{#orders}}
-                <tr name="order" href="/orders/{{id}}">
+                <tr name="order" href="/stores/{{store.id}}/orders/{{id}}">
                     <td name="orderNumber">
                         {{number}}
                     </td>
@@ -15,6 +16,7 @@
                     </td>
                 </tr>
             {{/orders}}
+            </tbody>
         </table>
     {{/orders.length}}
 

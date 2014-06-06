@@ -14,8 +14,10 @@ define(function(require, exports, module) {
 
     return Form.extend({
         __name__: module.id,
-        template: require('tpl!./template.html'),
-        redirectUrl: '/orders',
+        template: require('tpl!./template.ejs'),
+        redirectUrl: function(){
+            return '/stores/' + this.storeId + '/orders';
+        },
         el: '.form_order',
         model: new OrderModel(),
         collections: {
@@ -138,6 +140,11 @@ define(function(require, exports, module) {
             block.removeProductError();
 
             changes[key] = value;
+
+            block.editedProductModel.set({
+                storeId: block.storeId,
+                orderId: block.model.id
+            });
 
             block.editedProductModel.id = null;
 

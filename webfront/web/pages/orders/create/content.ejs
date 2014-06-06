@@ -1,5 +1,5 @@
 <% var templates = {
-    form_order: require('tpl!blocks/form/form_order/template.html')
+    form_order: require('tpl!blocks/form/form_order/template.ejs')
 } %>
 
 <div class="content">
@@ -7,6 +7,7 @@
 
     <%= templates.form_order({
         collections: _.pick(collections, 'suppliers'),
-        model: models.order
+        model: models.order,
+        storeId: params.storeId
     }) %>
 </div>

@@ -8,8 +8,9 @@ define(function(require, exports, module) {
 
     return Page.extend({
         templates: {
-            content: require('tpl!./content.html'),
-            localNavigation: require('tpl!blocks/localNavigation/localNavigation_invoices.deprecated.html')
+            content: require('tpl!./content.ejs'),
+            localNavigation: require('tpl!blocks/localNavigation/localNavigation_invoices.ejs'),
+            globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation_store.ejs')
         },
         params: {
             storeId: null,
@@ -31,6 +32,16 @@ define(function(require, exports, module) {
                 invoiceModel.storeId = page.params.storeId;
 
                 return invoiceModel;
+            },
+            models: {
+                store: function() {
+                    var page = this,
+                        StoreModel = require('models/store');
+
+                    return new StoreModel({
+                        id: page.get('params.storeId')
+                    });
+                }
             }
         },
         blocks: {
