@@ -45,6 +45,34 @@ define(function(require, exports, module) {
             });
         },
 
+        events: {
+            'click .page__tabItem': function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                var block = this,
+                    $target = $(e.target),
+                    rel = $target.attr('rel'),
+                    href = $target.attr('href'),
+                    $targetContent = $('.page__tabContentItem[rel="' + rel + '"]');
+
+                if (href) {
+                    router.navigate(href, {
+                        trigger: false
+                    });
+                }
+
+                $targetContent
+                    .addClass('page__tabContentItem_active')
+                    .siblings('.page__tabContentItem')
+                    .removeClass('page__tabContentItem_active');
+
+                $target
+                    .addClass('page__tabItem_active')
+                    .siblings('.page__tabItem')
+                    .removeClass('page__tabItem_active');
+            }
+        },
+
         el: document.body,
         isAllow: true,
         template: require('tpl!kit/page/template.html'),

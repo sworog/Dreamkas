@@ -5,14 +5,11 @@ namespace Lighthouse\CoreBundle\MongoDB;
 use Doctrine\ODM\MongoDB\DocumentManager as BaseDocumentManager;
 use Doctrine\ODM\MongoDB\MongoDBException;
 use Lighthouse\CoreBundle\Document\Project\Project;
-use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\MongoDB\Mapping\ClassMetadata;
-use Lighthouse\CoreBundle\Security\Token\ProjectToken;
+use Lighthouse\CoreBundle\Security\Project\ProjectContext;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class DocumentManager extends BaseDocumentManager implements ContainerAwareInterface
 {
@@ -49,11 +46,11 @@ class DocumentManager extends BaseDocumentManager implements ContainerAwareInter
     }
 
     /**
-     * @return SecurityContextInterface
+     * @return ProjectContext
      */
-    protected function getSecurityContext()
+    protected function getProjectContext()
     {
-        return $this->container->get('security.context');
+        return $this->container->get('project.context');
     }
 
     /**
@@ -89,15 +86,15 @@ class DocumentManager extends BaseDocumentManager implements ContainerAwareInter
     {
         $metadata = $this->getClassMetadata($className);
 
-        if (!isset($this->projectDocumentDatabases[$project->getNamespace()][$metadata->name])) {
+        if (!isset($this->projectDocumentDatabases[$project->getName()][$metadata->name])) {
             $db = $this->getDocumentDatabaseName($metadata);
-            $db .= '_' . $project->getNamespace();
+            $db .= '_' . $project->getName();
 
             $conn = $this->getConnection();
-            $this->projectDocumentDatabases[$project->getNamespace()][$metadata->name] = $conn->selectDatabase($db);
+            $this->projectDocumentDatabases[$project->getName()][$metadata->name] = $conn->selectDatabase($db);
         }
 
-        return $this->projectDocumentDatabases[$project->getNamespace()][$metadata->name];
+        return $this->projectDocumentDatabases[$project->getName()][$metadata->name];
     }
 
     /**
@@ -138,7 +135,7 @@ class DocumentManager extends BaseDocumentManager implements ContainerAwareInter
     {
         $metadata = $this->getClassMetadata($className);
 
-        if (!isset($this->projectDocumentCollections[$project->getNamespace()][$metadata->name])) {
+        if (!isset($this->projectDocumentCollections[$project->getName()][$metadata->name])) {
 
             $collectionName = $metadata->getCollection();
 
@@ -156,10 +153,10 @@ class DocumentManager extends BaseDocumentManager implements ContainerAwareInter
                 $collection->setSlaveOkay($metadata->slaveOkay);
             }
 
-            $this->projectDocumentCollections[$project->getNamespace()][$metadata->name] = $collection;
+            $this->projectDocumentCollections[$project->getName()][$metadata->name] = $collection;
         }
 
-        return $this->projectDocumentCollections[$project->getNamespace()][$metadata->name];
+        return $this->projectDocumentCollections[$project->getName()][$metadata->name];
     }
 
     /**
@@ -167,17 +164,11 @@ class DocumentManager extends BaseDocumentManager implements ContainerAwareInter
      */
     protected function getCurrentProject()
     {
-        $token = $this->getSecurityContext()->getToken();
-        if ($token instanceof ProjectToken) {
-            return $token->getProject();
-        } elseif ($token instanceof TokenInterface) {
-            $user = $token->getUser();
-            if ($user instanceof User && $user->getProject()) {
-                return $user->getProject();
-            }
+        $project = $this->getProjectContext()->getCurrentProject();
+        if (!$project) {
+            throw new RuntimeException("User with project is not signed in");
         }
-
-        throw new RuntimeException("User with project is not signed in");
+        return $project;
     }
 
     /**

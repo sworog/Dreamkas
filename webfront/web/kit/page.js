@@ -1,47 +1,69 @@
 define(function(require) {
     //requirements
     var Block = require('kit/block'),
+        currentUser = require('models/currentUser.inst'),
         when = require('when'),
         _ = require('lodash');
+
+    require('sortable');
+    require('backbone');
 
     return Block.extend({
         resources: {},
         isAllow: true,
         template: require('rv!pages/template.html'),
         partials: {
-            globalNavigation: require('rv!pages/globalNavigation.html')
+            globalNavigation: require('rv!pages/globalNavigation_main.html'),
+            localNavigation: ''
         },
         observers: {
-            status: function(status){
+            status: function(status) {
                 var page = this;
 
                 page.el.setAttribute('status', status);
             }
         },
 
-        init: function(){
+        init: function() {
             var page = this;
 
             page.el = document.body;
 
             page._super();
 
-            page.set('status', 'loading');
+            page.set({
+                status: 'loading',
+                currentUser: currentUser.toJSON()
+            });
 
             when(_.result(page, 'isAllow')).then(function(isAllow) {
                 if (isAllow) {
 
                     page._initResources();
 
-                    when(page.fetchAll()).then(function(data) {
+                    when(page.fetch()).then(function(data) {
 
-                        window.PAGE && window.PAGE.destroy();
-                        window.PAGE = page;
+                        var autofocus;
 
                         page.set(data);
 
-                        page.el.innerHTML = '';
+                        if (window.PAGE){
+                            window.PAGE.destroy();
+                        }
+
+                        while (page.el.hasChildNodes()) {
+                            page.el.removeChild(page.el.lastChild);
+                        }
+
                         page.insert(page.el);
+
+                        window.PAGE = page;
+
+                        autofocus = page.el.querySelector('[autofocus]');
+
+                        autofocus && autofocus.focus()
+
+                        Sortable.init();
 
                         page.set('status', 'loaded');
                     });
@@ -53,31 +75,11 @@ define(function(require) {
             });
         },
 
-        complete: function(){
-            this.el.querySelector('[autofocus]').focus();
-        },
-
-        fetch: function(resourceName) {
-            var page = this;
-
-            page.set && page.set('status', 'loading');
-
-            return when(page.resources[resourceName].fetch()).then(function(data) {
-
-                page.set && page.set(resourceName, page.resources[resourceName].toJSON());
-                page.set && page.set('status', 'loaded');
-
-                return data;
-            });
-        },
-
-        fetchAll: function(resourceNames) {
+        fetch: function(resourceNames) {
             var page = this,
                 fetched = _.map(resourceNames || _.keys(page.resources), function(resourceName) {
                     return page.resources[resourceName].fetch();
                 });
-
-            page.set && page.set('status', 'loading');
 
             return when.all(fetched).then(function() {
                 var data = _.transform(page.resources, function(result, resource, key) {
@@ -94,9 +96,7 @@ define(function(require) {
         save: function(resourceName) {
             var page = this;
 
-            page.set && page.set('status', 'loading');
-
-            return when(page.resources[resourceName].save(page.get(resourceName)), function(){
+            return when(page.resources[resourceName].save(page.get(resourceName)), function() {
                 page.set && page.set('status', 'loaded');
             });
         },
@@ -104,8 +104,12 @@ define(function(require) {
         _initResources: function() {
             var page = this;
 
-            page.resources = _.transform(page.resources, function(result, ResourceClass, key) {
-                result[key] = new ResourceClass();
+            page.resources = _.transform(page.resources, function(result, ResourceInitializer, key) {
+                if (ResourceInitializer.extend){
+                    result[key] = new ResourceInitializer();
+                } else {
+                    result[key] = ResourceInitializer.call(page);
+                }
             });
         }
     });

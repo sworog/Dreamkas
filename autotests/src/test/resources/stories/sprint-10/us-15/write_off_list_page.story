@@ -8,6 +8,7 @@ Narrative:
 Meta:
 @sprint_10
 @us_15
+@smoke
 
 Scenario: Write off list create
 

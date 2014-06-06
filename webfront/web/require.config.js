@@ -24,8 +24,6 @@ define(function(require, exports, module) {
             'tpl': 'kit/templateLoader/templateLoader'
         },
         shim: {
-            'kit/lhAutocomplete': ['jquery.ui'],
-            'jquery.ui': ['jquery'],
             'jquery.maskedinput': ['jquery']
         },
         config: {

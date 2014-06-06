@@ -1,29 +1,17 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/page/page'),
-        OrdersCollection = require('collections/orders');
+    var Page = require('kit/page');
 
     require('jquery');
 
     return Page.extend({
-        templates: {
-            content: require('tpl!./content.html'),
-            localNavigation: require('tpl!../localNavigation.html')
+        partials: {
+            content: require('rv!./content.html'),
+            localNavigation: require('rv!../localNavigation.html')
         },
         localNavigationActiveLink: 'list',
-        isAllow: function() {
-            return LH.isAllow('stores/{store}/orders', 'GET');
-        },
-        initialize: function() {
-            var page = this;
-
-            page.collections = {
-                orders: new OrdersCollection()
-            };
-
-            $.when(page.collections.orders.fetch()).done(function() {
-                page.render();
-            });
+        resources: {
+            orders: require('collections/orders')
         }
     });
 });

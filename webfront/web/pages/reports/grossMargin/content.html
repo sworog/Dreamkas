@@ -1,30 +1,22 @@
-<% var moment = require('moment') %>
-
-<% var templates = {
-    localNavigation_reports: require('tpl!blocks/localNavigation/localNavigation_reports.html')
-} %>
-
-<%= templates.localNavigation_reports({
-    active: 'grossMargin'
-}) %>
-
-<div class="page__data">
+<div class="content">
     <h2>Валовая прибыль сети</h2>
 
-    <% if (collections.grossMargin.length) { %>
-    <table class="table table_grossMargin">
-        <% collections.grossMargin.forEach(function(grossMarginModel){ %>
-        <tr name="grossMarginRow">
-            <td name="grossMarginDate">
-                <%- moment(grossMarginModel.get('date')).format('DD.MM') %>
-            </td>
-            <td name="grossMarginSum">
-                <%- LH.formatMoney(grossMarginModel.get('sum')) %> р.
-            </td>
-        </tr>
-        <% }) %>
-    </table>
-    <% } else { %>
-    <p>Нет данных</p>
-    <% } %>
+    {{#grossMargin.length}}
+        <table class="table table_grossMargin">
+            {{#grossMargin}}
+                <tr name="grossMarginRow">
+                    <td name="grossMarginDate">
+                        {{ moment(date).format('DD.MM') }}
+                    </td>
+                    <td name="grossMarginSum">
+                        {{formatMoney(sum)}} р.
+                    </td>
+                </tr>
+            {{/grossMargin}}
+        </table>
+    {{/grossMargin.length}}
+
+    {{^grossMargin.length}}
+        <p>Нет данных</p>
+    {{/grossMargin.length}}
 </div>

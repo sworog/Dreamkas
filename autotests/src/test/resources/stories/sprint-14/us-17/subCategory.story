@@ -11,6 +11,9 @@ Meta:
 
 Scenario: SubCategory create
 
+Meta:
+@smoke
+
 Given there is the category with name 'subCategoryTestCategory' related to group named 'subCategoryTestGroup'
 And the user navigates to the category with name 'subCategoryTestCategory' related to group named 'subCategoryTestGroup'
 And the user logs in as 'commercialManager'
@@ -21,6 +24,9 @@ When the user clicks on end edition link and ends the edition
 Then the user checks the subCategory with 'First subCategory create' name is present
 
 Scenario: SubCategory delete
+
+Meta:
+@smoke
 
 Given there is the subCategory with name 'subCategoryTestDelete' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategory'
 And the user navigates to the category with name 'subCategoryTestCategory' related to group named 'subCategoryTestGroup'
@@ -34,6 +40,9 @@ When the user clicks on end edition link and ends the edition
 Then the user checks the subCategory with 'subCategoryTestDelete' name is not present
 
 Scenario: SubCategory edit
+
+Meta:
+@smoke
 
 Given there is the subCategory with name 'subCategoryTestEdit' related to group named 'subCategoryTestGroup' and category named 'subCategoryTestCategory'
 And the user navigates to the category with name 'subCategoryTestCategory' related to group named 'subCategoryTestGroup'

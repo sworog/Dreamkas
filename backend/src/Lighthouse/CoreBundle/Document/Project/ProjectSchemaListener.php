@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document\Project;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\MongoDB\SchemaManager;
+use Lighthouse\CoreBundle\Security\Project\RunAsProjectInvoker;
 
 /**
  * @DI\DoctrineMongoDBListener(events={"postPersist", "postRemove"})

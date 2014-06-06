@@ -10,6 +10,12 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class InvoicesImporterTest extends WebTestCase
 {
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->authenticateProject();
+    }
+
     /**
      * @param string $filePath
      * @param int $batchSize
@@ -58,7 +64,7 @@ class InvoicesImporterTest extends WebTestCase
     {
         $filePath = $this->getFixtureFilePath('Integration/OneC/Import/Invoices/amn.csv');
 
-        $this->factory()->user()->authProject();
+        $this->authenticateProject();
 
         $output = $this->import($filePath);
 

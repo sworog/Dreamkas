@@ -54,6 +54,11 @@ public class AuthorizationSteps extends ScenarioSteps {
         Storage.getUserVariableStorage().setIsAuthorized(true);
     }
 
+    @Step
+    public void loginButtonClick() {
+        authorizationPage.loginButtonClick();
+    }
+
     // TODO fix this in future
 
     /**
@@ -118,6 +123,11 @@ public class AuthorizationSteps extends ScenarioSteps {
     @Step
     public void emailFieldInput(String emailValue) {
         signUpPage.input("email", emailValue);
+    }
+
+    @Step
+    public void passwordFieldInput(String passwordValue) {
+        authorizationPage.input("password", passwordValue);
     }
 
     @Step

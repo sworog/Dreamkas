@@ -6,7 +6,6 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Project\Project;
-use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
@@ -176,5 +175,18 @@ class User extends AbstractDocument implements UserInterface
     public function getProject()
     {
         return $this->project;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getDefaultRoles()
+    {
+        return array(
+            self::ROLE_COMMERCIAL_MANAGER,
+            self::ROLE_STORE_MANAGER,
+            self::ROLE_DEPARTMENT_MANAGER,
+            self::ROLE_ADMINISTRATOR
+        );
     }
 }

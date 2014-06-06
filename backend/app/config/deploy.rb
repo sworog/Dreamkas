@@ -35,15 +35,8 @@ set :api_clients, [
 ]
 
 set :api_users, [
-    {"email" => "watchman@lighthouse.pro",               "userpass" => "lighthouse", "userrole" => "ROLE_ADMINISTRATOR"},
-    #{"email" => "administrator@lighthouse.pro",         "userpass" => "lighthouse", "userrole" => "ROLE_ADMINISTRATOR"},
-    #{"email" => "commercialManager@lighthouse.pro",     "userpass" => "lighthouse", "userrole" => "ROLE_COMMERCIAL_MANAGER"},
-    #{"email" => "storeManager@lighthouse.pro",          "userpass" => "lighthouse", "userrole" => "ROLE_STORE_MANAGER"},
-    #{"email" => "departmentManager@lighthouse.pro",     "userpass" => "lighthouse", "userrole" => "ROLE_DEPARTMENT_MANAGER"},
-    #{"email" => "administratorApi@lighthouse.pro",      "userpass" => "lighthouse", "userrole" => "ROLE_ADMINISTRATOR"},
-    #{"email" => "commercialManagerApi@lighthouse.pro",  "userpass" => "lighthouse", "userrole" => "ROLE_COMMERCIAL_MANAGER"},
-    #{"email" => "storeManagerApi@lighthouse.pro",       "userpass" => "lighthouse", "userrole" => "ROLE_STORE_MANAGER"},
-    #{"email" => "departmentManagerApi@lighthouse.pro",  "userpass" => "lighthouse", "userrole" => "ROLE_DEPARTMENT_MANAGER"}
+    {"email" => "watchman@lighthouse.pro",  "userpass" => "lighthouse", "userrole" => "ROLE_ADMINISTRATOR"},
+    {"email" => "owner@lighthouse.pro",     "userpass" => "lighthouse"},
 ]
 
 role :web,        domain                         # Your HTTP server, Apache/etc

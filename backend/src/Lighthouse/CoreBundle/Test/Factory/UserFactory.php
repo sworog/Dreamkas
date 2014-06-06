@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Test\Factory;
 use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\Project\ProjectRepository;
 use Lighthouse\CoreBundle\Document\User\User;
-use Lighthouse\CoreBundle\Security\Token\ProjectToken;
+use Lighthouse\CoreBundle\Security\Project\ProjectToken;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
@@ -38,7 +38,7 @@ class UserFactory extends AbstractFactory
     /**
      * @param string $email
      * @param string $password
-     * @param string $role
+     * @param string|array $roles
      * @param string $name
      * @param string $position
      *
@@ -47,13 +47,13 @@ class UserFactory extends AbstractFactory
     public function getUser(
         $email = self::USER_DEFAULT_EMAIL,
         $password = self::USER_DEFAULT_PASSWORD,
-        $role = User::ROLE_ADMINISTRATOR,
+        $roles = User::ROLE_ADMINISTRATOR,
         $name = self::USER_DEFAULT_NAME,
         $position = self::USER_DEFAULT_POSITION
     ) {
         $hash = md5(implode(',', func_get_args()));
         if (!isset($this->users[$hash])) {
-            $this->users[$hash] = $this->createUser($email, $password, $role, $name, $position);
+            $this->users[$hash] = $this->createUser($email, $password, $roles, $name, $position);
         }
         return $this->users[$hash];
     }
@@ -75,7 +75,7 @@ class UserFactory extends AbstractFactory
     /**
      * @param string $email
      * @param string $password
-     * @param string $role
+     * @param string|array $roles
      * @param string $name
      * @param string $position
      * @return User
@@ -83,14 +83,14 @@ class UserFactory extends AbstractFactory
     public function createUser(
         $email = self::USER_DEFAULT_EMAIL,
         $password = self::USER_DEFAULT_PASSWORD,
-        $role = User::ROLE_ADMINISTRATOR,
+        $roles = User::ROLE_ADMINISTRATOR,
         $name = self::USER_DEFAULT_NAME,
         $position = self::USER_DEFAULT_POSITION
     ) {
         $user = new User();
         $user->name = $name;
         $user->email = $email;
-        $user->roles = array($role);
+        $user->roles = (array) $roles;
         $user->position = $position;
 
         $user->project = $this->getProject();
@@ -121,6 +121,7 @@ class UserFactory extends AbstractFactory
     public function createProject()
     {
         $project = new Project();
+        $project->name = 'project1';
         $this->getProjectProvider()->save($project);
         return $project;
     }

@@ -47,6 +47,31 @@ define(function(require, exports, module) {
                         e.target.classList.remove('preloader_rows');
                     }
                 });
+            },
+            'click .page__tabItem': function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                var block = this,
+                    $target = $(e.target),
+                    rel = $target.attr('rel'),
+                    href = $target.attr('href'),
+                    $targetContent = $('.page__tabContentItem[rel="' + rel + '"]');
+
+                if (href) {
+                    router.navigate(href, {
+                        trigger: false
+                    });
+                }
+
+                $targetContent
+                    .addClass('page__tabContentItem_active')
+                    .siblings('.page__tabContentItem')
+                    .removeClass('page__tabContentItem_active');
+
+                $target
+                    .addClass('page__tabItem_active')
+                    .siblings('.page__tabItem')
+                    .removeClass('page__tabItem_active');
             }
         },
         constructor: function() {
@@ -58,20 +83,6 @@ define(function(require, exports, module) {
 
             if (window.PAGE){
                 window.PAGE.destroy();
-            }
-
-            switch (typeof page.permissions) {
-                case 'object':
-                    accessDenied = _.some(page.permissions, function(value, key) {
-                        return !isAllow(app.permissions, key, value);
-                    });
-                    break;
-                case 'function':
-                    accessDenied = page.permissions();
-                    break;
-                case 'string':
-                    accessDenied = isAllow(app.permissions, page.permissions);
-                    break;
             }
 
             if (accessDenied) {

@@ -70,7 +70,7 @@ namespace :symfony do
 
         desc "Rename database_name in app/config/parameters.yml. Application name will be used (%branch.stage.env%) unless -S database_name=%database_name% argument is provided"
         task :rename_database_name, :roles => :app, :except => { :no_release => true } do
-            set :database_name, application.gsub(/\./, '_') unless exists?(:database_name)
+            set :database_name, "#{host}_#{stage}".gsub(/\./, '_') unless exists?(:database_name)
             puts "--> Database name in ".yellow + "parameters.yml".bold.yellow + " will be set to ".yellow + "#{database_name}".red
             run "sed -r -i 's/^(\\s+database_name:\\s+).+$/\\1#{database_name}/g' #{parameters_file}"
         end

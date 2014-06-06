@@ -10,7 +10,7 @@ class TrialBalanceRepositoryTest extends ContainerAwareTestCase
     public function testRecalculationDoesNotFailIfTrialBalanceCollectionDoesNotExist()
     {
         $this->clearMongoDb();
-        $this->factory()->user()->authProject();
+        $this->authenticateProject();
 
         /* @var TrialBalanceRepository $trailBalanceRepository */
         $trailBalanceRepository = $this->getContainer()->get('lighthouse.core.document.repository.trial_balance');

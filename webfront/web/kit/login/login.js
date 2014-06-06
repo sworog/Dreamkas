@@ -5,7 +5,7 @@ define(function(require) {
     return function(token){
         cookie.set('token', token, {path: '/'});
 
-        if (window.PAGE.route === 'login(/)'){
+        if (document.location.pathname.indexOf('login')>=0){
             document.location.href = '/';
         } else {
             document.location.reload();

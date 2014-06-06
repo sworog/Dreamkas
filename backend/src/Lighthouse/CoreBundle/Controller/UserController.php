@@ -159,11 +159,7 @@ class UserController extends AbstractRestController
         $form->submit($request);
 
         if ($form->isValid()) {
-            $user->roles = array(
-                User::ROLE_COMMERCIAL_MANAGER,
-                User::ROLE_STORE_MANAGER,
-                User::ROLE_DEPARTMENT_MANAGER,
-            );
+            $user->roles = User::getDefaultRoles();
             $user->project = new Project();
             $password = $this->userProvider->generateUserPassword();
             $this->userProvider->setPassword($user, $password);

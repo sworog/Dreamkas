@@ -1,16 +1,13 @@
 define(function(require) {
     //requirements
-    var Model = require('kit/core/model');
+    var Model = require('kit/model');
 
     return Model.extend({
-        modelName: 'user',
         saveData: [
             'name',
-            'position',
-            'username',
-            'password',
-            'role'
+            'email',
+            'password'
         ],
-        urlRoot: LH.baseApiUrl + '/users'
+        urlRoot: Model.baseApiUrl + '/users'
     });
 });

@@ -53,9 +53,9 @@ define(function(require, exports, module) {
         },
         submit: function() {
             var block = this,
-                model = new block.model;
+                model = new block.model(block.get('model'));
 
-            return model.save(block.get('model'));
+            return model.save();
         },
         submitStart: function() {
             var block = this;

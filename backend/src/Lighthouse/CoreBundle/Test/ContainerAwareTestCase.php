@@ -2,10 +2,13 @@
 
 namespace Lighthouse\CoreBundle\Test;
 
+use Lighthouse\CoreBundle\Document\Project\Project;
 use LighthouseKernel;
 use Karzer\Framework\TestCase\SymfonyWebTestCase;
 use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\Factory\Factory;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Lighthouse\CoreBundle\Test\Console\ApplicationTester;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -102,17 +105,9 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     protected function factory()
     {
         if (null === $this->factory) {
-            $this->factory = $this->createFactory();
+            $this->factory = new Factory(static::createKernel()->boot()->getContainer());
         }
         return $this->factory;
-    }
-
-    /**
-     * @return Factory
-     */
-    protected function createFactory()
-    {
-        return new Factory($this->getContainer());
     }
 
     protected function clearMongoDb()
@@ -143,5 +138,44 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     protected function markTestBroken()
     {
         $this->markTestSkipped('Broken');
+    }
+
+    /**
+     * @param bool $catchExceptions
+     * @param bool $reboot
+     * @return Application
+     */
+    protected function createConsoleApplication($catchExceptions = true, $reboot = false)
+    {
+        if ($reboot) {
+            static::shutdownKernel();
+        }
+        $application = new Application(static::getKernel());
+        $application->setCatchExceptions($catchExceptions);
+        $application->setAutoExit(false);
+
+        return $application;
+    }
+
+    /**
+     * @param bool $catchExceptions
+     * @param bool $reboot
+     * @return ApplicationTester
+     */
+    protected function createConsoleTester($catchExceptions = true, $reboot = false)
+    {
+        $application = $this->createConsoleApplication($catchExceptions, $reboot);
+        $tester = new ApplicationTester($application);
+        return $tester;
+    }
+
+    /**
+     * @return Project
+     */
+    protected function authenticateProject()
+    {
+        $project = $this->factory()->user()->getProject();
+        $this->getContainer()->get('project.context')->authenticate($project);
+        return $project;
     }
 }

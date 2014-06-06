@@ -92,12 +92,12 @@
     color: #95a5a6;
 }
 
-.table [data-sort-by] {
+.table[data-sortable] th {
     cursor: pointer;
-    position: relative;
+    color: #1FB18A;
 }
 
-.table [data-sort-by]:after {
+.table[data-sortable] th:after {
     content: "";
     width: 0;
     height: 0;
@@ -110,6 +110,24 @@
     top: -1px;
     left: 4px;
     color: #ccc;
+}
+
+.table[data-sortable] th[data-sortable="false"] {
+    cursor: default;
+    color: #999;
+}
+
+.table[data-sortable] th[data-sortable="false"]:after {
+    display: none;
+}
+
+.table[data-sortable] th[data-sorted="true"]:after {
+    color: #333;
+}
+
+.table[data-sortable] th[data-sorted-direction="descending"]:after {
+    border-bottom: solid 6px;
+    border-top: none;
 }
 
 .table .table__sortedHeader_ascending_false:after {

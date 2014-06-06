@@ -10,7 +10,7 @@ class ReturneTest extends ContainerAwareTestCase
     public function testCreatedDateIsSetOnPrePersist()
     {
         $this->clearMongoDb();
-        $this->factory()->user()->authProject();
+        $this->authenticateProject();
 
         $dm = $this->getDocumentManager();
         $return = new Returne();

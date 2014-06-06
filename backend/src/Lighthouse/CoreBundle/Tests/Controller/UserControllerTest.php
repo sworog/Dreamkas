@@ -8,7 +8,6 @@ use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use SebastianBergmann\Exporter\Exporter;
-use Symfony\Bundle\SwiftmailerBundle\DataCollector\MessageDataCollector;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use MongoDuplicateKeyException;
@@ -1053,10 +1052,11 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('project.id', $postResponse);
-        Assert::assertJsonPathCount(3, 'roles.*', $postResponse);
+        Assert::assertJsonPathCount(4, 'roles.*', $postResponse);
         Assert::assertJsonPathEquals(User::ROLE_COMMERCIAL_MANAGER, 'roles.*', $postResponse);
         Assert::assertJsonPathEquals(User::ROLE_DEPARTMENT_MANAGER, 'roles.*', $postResponse);
         Assert::assertJsonPathEquals(User::ROLE_STORE_MANAGER, 'roles.*', $postResponse);
+        Assert::assertJsonPathEquals(User::ROLE_ADMINISTRATOR, 'roles.*', $postResponse);
 
         $messages = $this->getSentEmailMessages();
         $this->assertCount(2, $messages, 'There should be two emails logged one from spool and the other one sent');

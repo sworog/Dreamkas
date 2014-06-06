@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Command\Import;
 
+use Lighthouse\CoreBundle\Command\ProjectableCommand;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImporter;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Products\Set10ProductImportXmlParser;
@@ -18,7 +19,7 @@ use SplFileInfo;
  * @DI\Service("lighthouse.core.command.import.set10_products_import")
  * @DI\Tag("console.command")
  */
-class Set10ProductsImport extends Command
+class Set10ProductsImport extends Command implements ProjectableCommand
 {
     /**
      * @var Set10ProductImporter

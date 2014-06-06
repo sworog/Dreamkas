@@ -103,4 +103,13 @@ class LighthouseKernel extends Kernel
         Karzer::setThreadNumber($karzerThreadNumber);
         $this->__construct($environment, $debug);
     }
+
+    /**
+     * @return LighthouseKernel
+     */
+    public function boot()
+    {
+        parent::boot();
+        return $this;
+    }
 }

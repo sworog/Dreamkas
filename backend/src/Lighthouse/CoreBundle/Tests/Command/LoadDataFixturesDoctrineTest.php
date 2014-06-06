@@ -3,44 +3,20 @@
 namespace Lighthouse\CoreBundle\Tests\Command;
 
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
-use Lighthouse\CoreBundle\Test\TestOutput;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
-use Symfony\Component\Console\Input\ArgvInput;
-use Symfony\Component\HttpKernel\KernelInterface;
 use PHPUnit_Framework_Error_Notice;
 
 class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
 {
     protected function setUp()
     {
-        $this->markTestBroken();
         parent::setUp();
         $this->clearMongoDb();
     }
 
-    /**
-     * @param array $args
-     * @return TestOutput
-     */
-    protected function runConsole(array $args)
-    {
-        /* @var KernelInterface $kernel */
-        $kernel = $this->getContainer()->get('kernel');
-        $application = new Application($kernel);
-
-        array_unshift($args, 'app/console');
-
-        $input = new ArgvInput($args);
-        $input->setInteractive(false);
-        $output = new TestOutput();
-        $application->doRun($input, $output);
-
-        return $output;
-    }
-
     public function testDefaultFixtures()
     {
-        $output = $this->runConsole(array('doctrine:mongodb:fixtures:load'));
+        $project = $this->factory()->user()->getProject();
+        $tester = $this->createConsoleTester()->runProjectCommand('doctrine:mongodb:fixtures:load', $project);
 
         $expected = '  > purging database
   > loading [10] Lighthouse\\CoreBundle\\DataFixtures\\MongoDB\\LoadApiClientData
@@ -49,7 +25,7 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
   > loading [40] Lighthouse\\CoreBundle\\DataFixtures\\MongoDB\\LoadCatalogData
 ';
 
-        $this->assertEquals($expected, $output->getDisplay());
+        $this->assertEquals($expected, $tester->getDisplay());
     }
 
     /**
@@ -65,15 +41,18 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
 
         $fixturesPath = $this->getContainer()->getParameter('kernel.root_dir');
         $fixturesPath.= '/../src/Lighthouse/CoreBundle/DataFixtures/' . $folder;
-        $output = $this->runConsole(
-            array(
-                'doctrine:mongodb:fixtures:load',
-                '--fixtures=' . $fixturesPath
-            )
+
+        $project = $this->factory()->user()->getProject();
+
+        $tester = $this->createConsoleTester()->runProjectCommand(
+            'doctrine:mongodb:fixtures:load',
+            $project,
+            array('--fixtures' => $fixturesPath)
         );
+
         error_reporting($errorReporting);
         PHPUnit_Framework_Error_Notice::$enabled = $errorNoticeBackup;
-        $this->assertEquals($expectedOutput, $output->getDisplay());
+        $this->assertEquals($expectedOutput, $tester->getDisplay());
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Command\Products;
 
+use Lighthouse\CoreBundle\Command\ProjectableCommand;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductMetricsCalculator;
 use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Console\Command\Command;
@@ -12,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @DI\Service("lighthouse.core.command.product.recalculate_metrics")
  * @DI\Tag("console.command")
  */
-class RecalculateMetricsCommand extends Command
+class RecalculateMetricsCommand extends Command implements ProjectableCommand
 {
     /**
      * @var StoreProductMetricsCalculator

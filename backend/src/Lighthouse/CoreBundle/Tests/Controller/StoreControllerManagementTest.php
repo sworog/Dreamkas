@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
+use Lighthouse\CoreBundle\Test\Factory\UserFactory;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class StoreControllerManagementTest extends WebTestCase
@@ -190,7 +191,7 @@ class StoreControllerManagementTest extends WebTestCase
         $accessToken = $this->factory()->oauth()->auth($commUser, 'password');
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
-        $request->addLinkHeader('http://localhost/api/1/groups/'.  $groupId, Store::REL_STORE_MANAGERS);
+        $request->addLinkHeader('http://localhost/api/1/groups/' . $groupId, Store::REL_STORE_MANAGERS);
 
         $linkResponse = $this->jsonRequest($request, $accessToken);
 
@@ -644,6 +645,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         Assert::assertJsonPathCount(0, 'departmentManagers.*', $storeJson);
     }
+
     public function testGetStoreDepartmentManagers()
     {
         $depUser1 = $this->factory()->user()->getUser('storeUser1@lh.pro', 'password', User::ROLE_DEPARTMENT_MANAGER);
@@ -797,5 +799,39 @@ class StoreControllerManagementTest extends WebTestCase
         $this->assertResponseCode(200);
 
         Assert::assertJsonPathCount(0, '*', $managersJson);
+    }
+
+    public function testStoreCreatorIsAddedToManagers()
+    {
+        $master = $this->factory()->user()->createUser(
+            'master@lighthouse.pro',
+            UserFactory::USER_DEFAULT_PASSWORD,
+            array(
+                User::ROLE_COMMERCIAL_MANAGER,
+                User::ROLE_DEPARTMENT_MANAGER,
+                User::ROLE_STORE_MANAGER
+            ),
+            'Master'
+        );
+
+        $accessToken = $this->factory()->oauth()->auth($master);
+
+        $storeData = array(
+            'number' => '1',
+            'address' => 'HellRoad 666',
+            'contacts' => '112'
+        );
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/stores',
+            $storeData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonPathEquals($master->id, 'storeManagers.*.id', $response);
+        Assert::assertJsonPathEquals($master->id, 'departmentManagers.*.id', $response);
     }
 }

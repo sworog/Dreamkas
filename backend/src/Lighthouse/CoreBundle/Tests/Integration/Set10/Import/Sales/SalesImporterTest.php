@@ -126,14 +126,14 @@ class SalesImporterTest extends WebTestCase
 
     public function testImportDoubleSalesWithDifferentAmount()
     {
-        $this->markTestBroken();
-
         $storeIds = $this->factory()->store()->getStores(array('777', '666'));
         $productIds = $this->createProductsByNames(
             array(
                 'Кит-Кат-343424',
             )
         );
+
+        $this->authenticateProject();
 
         $output = new TestOutput();
         $this->import('purchases-13-09-2013_15-09-26.xml', $output);
@@ -144,6 +144,8 @@ class SalesImporterTest extends WebTestCase
         $this->assertStoreProductTotals($storeIds['777'], $productIds['Кит-Кат-343424'], -2);
 
         static::rebootKernel();
+
+        $this->authenticateProject();
 
         $output = new TestOutput();
         $this->import('purchases-13-09-2013_15-09-26-double.xml', $output);

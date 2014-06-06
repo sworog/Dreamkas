@@ -1,15 +1,21 @@
 define(function(require) {
         //requirements
-        var Form = require('blocks/form/form');
+        var Form = require('kit/form');
 
         return Form.extend({
-            __name__: 'form_store',
-            redirectUrl: '/stores/',
-            initialize: function(){
+            model: require('models/store'),
+            redirectUrl: '/stores',
+            template: require('rv!./template.html'),
+            data: {
+                model: {}
+            },
+            init: function(){
                 var block = this;
 
-                if (block.model.id){
-                    block.redirectUrl += block.model.id;
+                block._super();
+
+                if (block.get('model.id')){
+                    block.redirectUrl += '/' + block.get('model.id');
                 }
             }
         });

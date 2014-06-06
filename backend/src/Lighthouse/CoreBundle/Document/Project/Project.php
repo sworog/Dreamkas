@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\MongoDB\Mapping\Annotations\GlobalDb;
 
 /**
  * @property string $id
+ * @property string $name
  *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\Project\ProjectRepository"
@@ -23,10 +24,20 @@ class Project extends AbstractDocument
     protected $id;
 
     /**
+     * @MongoDB\String
+     * @var string
+     */
+    protected $name;
+
+    /**
      * @return string
      */
-    public function getNamespace()
+    public function getName()
     {
-        return $this->id;
+        if ($this->name) {
+            return $this->name;
+        } else {
+            return $this->id;
+        }
     }
 }
