@@ -5,8 +5,6 @@ define(function(require) {
         //common
         '(/)': require('pages/main/main'),
         'logout(/)': require('kit/logout/logout'),
-        'sale(/)': require('pages/common/sale'),
-        'balance(/)': require('pages/common/balance'),
         'log(/)': require('pages/log/log'),
         'settings(/)': require('pages/settings/settings'),
 
@@ -16,9 +14,9 @@ define(function(require) {
         'suppliers/:supplierId(/)': require('pages/suppliers/view/view'),
 
         //orders
-        'orders(/)': require('pages/orders/list/list'),
-        'orders/create(/)': require('pages/orders/create/create'),
-        'orders/:orderId(/)': require('pages/orders/view/view'),
+        'stores/:storeId/orders(/)': require('pages/orders/list/list'),
+        'stores/:storeId/orders/create(/)': require('pages/orders/create/create'),
+        'stores/:storeId/orders/:orderId(/)': require('pages/orders/view/view'),
 
         //reports
         'reports(/)': require('pages/reports/dashboard/dashboard'),
@@ -67,7 +65,7 @@ define(function(require) {
         'stores(/)': require('pages/stores/list/list'),
         'stores/create(/)': require('pages/stores/create/create'),
 //        'stores/edit/:storeId(/)': require('pages/store/form'),
-        'stores/:storeId(/)': require('pages/store/view'),
+        'stores/:storeId(/)': require('pages/stores/dashboard/dashboard'),
         'stores/:storeId/products/edit/:productId(/)': require('pages/storeProduct/from'),
 
         //departments

@@ -5,7 +5,15 @@ define(function(require) {
         cookie = require('cookies'),
         router = require('router'),
         $ = require('jquery'),
-        _ = require('lodash');
+        _ = require('lodash'),
+        moment = require('moment'),
+        numeral = require('numeral');
+
+    moment.lang('root', require('i18n!nls/moment'));
+    moment.lang('root');
+
+    numeral.language('root', require('i18n!nls/numeral'));
+    numeral.language('root');
 
     //deprecated
     require('LH');
@@ -27,6 +35,8 @@ define(function(require) {
                 isStarted && document.location.reload();
                 break;
             case 400:
+                break;
+            case 409:
                 break;
             case 0:
                 break;

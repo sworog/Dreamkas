@@ -9,18 +9,14 @@ define(function(require, exports, module) {
 
     return Page.extend({
         templates: {
-            content: require('tpl!./content.html'),
-            localNavigation: require('tpl!../localNavigation.html')
+            content: require('tpl!./content.ejs'),
+            localNavigation: require('tpl!blocks/localNavigation/localNavigation_invoices.ejs'),
+            globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation_store.ejs')
         },
         localNavigationActiveLink: 'create',
         params: {
             storeId: null,
             fromOrder: null
-        },
-        isAllow: function() {
-            var page = this;
-
-            return currentUserModel.stores.length && currentUserModel.stores.at(0).id === page.params.storeId;
         },
         collections: {
             suppliers: function() {
@@ -38,6 +34,14 @@ define(function(require, exports, module) {
                 invoiceModel.fromOrder = page.params.fromOrder;
 
                 return invoiceModel;
+            },
+            store: function() {
+                var page = this,
+                    StoreModel = require('models/store');
+
+                return new StoreModel({
+                    id: page.get('params.storeId')
+                });
             }
         },
         fetchData: function() {

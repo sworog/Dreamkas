@@ -4,6 +4,9 @@ define(function(require, exports, module) {
 
     return Collection.extend({
         model: require('models/order'),
-        url: Collection.baseApiUrl + '/stores/orders?incomplete=1'
+        storeId: null,
+        url: function(){
+            return Collection.baseApiUrl + '/stores/' + this.storeId + '/orders?incomplete=1'
+        }
     });
 });

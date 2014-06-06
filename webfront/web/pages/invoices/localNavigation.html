@@ -1,9 +1,0 @@
-<% var currentUserModel = require('models/currentUser.inst') %>
-
-<div class="localNavigation">
-    <h2>
-        <a class="localNavigation__link <%- PAGE.localNavigationActiveLink === 'list' ? 'localNavigation__link_active' : '' %>" href="/stores/<%- currentUserModel.stores.at(0).id %>/invoices">Накладные</a>
-    </h2>
-    <a class="localNavigation__link <%- PAGE.localNavigationActiveLink === 'search' ? 'localNavigation__link_active' : '' %>" href="/stores/<%- currentUserModel.stores.at(0).id %>/invoices/search">Поиск накладной</a>
-    <a class="localNavigation__link <%- PAGE.localNavigationActiveLink === 'create' ? 'localNavigation__link_active' : '' %>" href="/stores/<%- currentUserModel.stores.at(0).id %>/invoices/create">Создать накладную</a>
-</div>

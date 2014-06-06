@@ -13,7 +13,7 @@ define(function(require) {
         isAllow: true,
         template: require('rv!pages/template.html'),
         partials: {
-            globalNavigation: require('rv!pages/globalNavigation_main.html'),
+            globalNavigation: require('rv!blocks/globalNavigation/globalNavigation.html'),
             localNavigation: ''
         },
         observers: {

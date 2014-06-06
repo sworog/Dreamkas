@@ -10,13 +10,11 @@ define(function(require, exports, module) {
 
     return Page.extend({
         templates: {
-            content: require('tpl!./content.html'),
-            localNavigation: require('tpl!../localNavigation.html')
+            content: require('tpl!./content.ejs'),
+            localNavigation: require('tpl!blocks/localNavigation/localNavigation_orders.ejs'),
+            globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation_store.ejs')
         },
         localNavigationActiveLink: 'create',
-        isAllow: function() {
-            return LH.isAllow('stores/{store}/orders', 'POST');
-        },
         collections: {
             suppliers: function(){
                 return new SuppliersCollection()
@@ -24,10 +22,24 @@ define(function(require, exports, module) {
         },
         models: {
             order: function(){
+                var page = this,
+                    orderProductCollection = new OrderProductsCollection();
+
+                orderProductCollection.storeId = page.get('params.storeId');
+
                 return new OrderModel({
+                    storeId: page.get('params.storeId'),
                     collections: {
-                        products: new OrderProductsCollection()
+                        products: orderProductCollection
                     }
+                });
+            },
+            store: function() {
+                var page = this,
+                    StoreModel = require('models/store');
+
+                return new StoreModel({
+                    id: page.get('params.storeId')
                 });
             }
         },
@@ -36,6 +48,7 @@ define(function(require, exports, module) {
                 var page = this;
 
                 return new Form_order({
+                    storeId: page.get('params.storeId'),
                     model: page.models.order,
                     collections: _.pick(page.collections, 'suppliers')
                 });

@@ -1,4 +1,4 @@
-.globalNavigation{
+.globalNavigation {
     background: #282A2E;
     height: 100%;
     float: left;
@@ -13,39 +13,57 @@
     position: relative;
 }
 
-.globalNavigation__bottom{
+.globalNavigation__top{
+    position: relative;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #555;
+}
+
+.globalNavigation__backLink{
+    font-size: 20px;
+    position: absolute;
+    left: -25px;
+    top: 1px;
+    text-decoration: none !important;
+}
+
+.globalNavigation__bottom {
     position: absolute;
     left: 40px;
     bottom: 40px;
     right: 40px;
 }
 
-.globalNavigation__userControls{
+.globalNavigation__userControls {
     padding-bottom: 10px;
 }
 
-.globalNavigation a{
+.globalNavigation a {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #D4D4D4;
+}
+
+.globalNavigation__links a {
     height: 40px;
     line-height: 41px;
     vertical-align: middle;
     cursor: pointer;
-    color: #D4D4D4;
     text-decoration: none;
-    display: block;
-    overflow: hidden;
-    text-overflow: ellipsis;
     font-size: 15px;
 }
 
-.globalNavigation a:hover{
+.globalNavigation a:hover {
     color: #1FB18A;
 }
 
-.globalNavigation .globalNavigation__logo{
+.globalNavigation .globalNavigation__logo {
     font-size: 20px;
 }
 
-.globalNavigation__userName{
+.globalNavigation__userName {
 }
 
 .globalNavigation__links {
@@ -53,11 +71,16 @@
     height: 100%;
 }
 
-.globalNavigation__active{
+.globalNavigation__active {
     background-color: #e5e5e5;
 }
 
-.globalNavigation .globalNavigation__userName{
+.globalNavigation .globalNavigation__userName {
     height: auto;
     line-height: normal;
+}
+
+.globalNavigation_store__number {
+    display: block;
+    font-size: 20px;
 }
