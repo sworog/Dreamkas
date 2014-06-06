@@ -1,0 +1,9 @@
+<% var totalSum = 0 %>
+
+<% collections.orderProducts.forEach(function(orderModel){
+    totalSum += orderModel.get('quantity') * orderModel.get('product.product.purchasePrice') || 0;
+}) %>
+
+<span>
+    <%- LH.formatMoney(totalSum) + ' руб' %>
+</span>

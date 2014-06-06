@@ -1,31 +1,30 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/page/page'),
-        InvoicesCollection = require('collections/invoices'),
-        currentUserModel = require('models/currentUser');
+    var Page = require('kit/page'),
+        InvoicesCollection = require('collections/invoices');
 
     return Page.extend({
-        templates: {
-            content: require('tpl!./content.html'),
-            localNavigation: require('tpl!../localNavigation.html')
+        partials: {
+            content: require('rv!./content.html'),
+            localNavigation: require('rv!blocks/localNavigation/localNavigation_invoices.html'),
+            globalNavigation: require('rv!blocks/globalNavigation/globalNavigation_store.html')
         },
-        localNavigationActiveLink: 'list',
-        params: {
-            storeId: null
-        },
-        isAllow: function() {
-            var page = this;
-
-            return currentUserModel.stores.length && currentUserModel.stores.at(0).id === page.params.storeId;
-        },
-        collections: {
+        resources: {
             invoices: function() {
                 var page = this,
                     invoices = new InvoicesCollection();
 
-                invoices.storeId = page.params.storeId;
+                invoices.storeId = page.get('params.storeId');
 
                 return invoices;
+            },
+            store: function() {
+                var page = this,
+                    StoreModel = require('models/store');
+
+                return new StoreModel({
+                    id: page.get('params.storeId')
+                });
             }
         }
     });

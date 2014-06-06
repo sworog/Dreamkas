@@ -5,9 +5,11 @@ namespace Lighthouse\CoreBundle\Document\Auth;
 use FOS\OAuthServerBundle\Document\Client as BaseClient;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use OAuth2\OAuth2;
+use Lighthouse\CoreBundle\MongoDB\Mapping\Annotations\GlobalDb;
 
 /**
- * @MongoDB\Document()
+ * @MongoDB\Document
+ * @GlobalDb
  */
 class Client extends BaseClient
 {

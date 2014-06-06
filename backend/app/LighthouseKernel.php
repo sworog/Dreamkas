@@ -37,10 +37,11 @@ class LighthouseKernel extends Kernel
             new Lighthouse\ReportsBundle\LighthouseReportsBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new Ornicar\ApcBundle\OrnicarApcBundle(),
+            new Hackzilla\Bundle\PasswordGeneratorBundle\HackzillaPasswordGeneratorBundle(),
         );
 
+
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-            $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
         }
 
@@ -101,5 +102,14 @@ class LighthouseKernel extends Kernel
 
         Karzer::setThreadNumber($karzerThreadNumber);
         $this->__construct($environment, $debug);
+    }
+
+    /**
+     * @return LighthouseKernel
+     */
+    public function boot()
+    {
+        parent::boot();
+        return $this;
     }
 }

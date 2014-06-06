@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Form = require('blocks/form/form'),
-        router = require('kit/router/router'),
+        router = require('router'),
         OrderModel = require('models/order'),
         Autocomplete = require('blocks/autocomplete/autocomplete'),
         Select_suppliers = require('blocks/select/select_suppliers/select_suppliers'),
@@ -14,8 +14,10 @@ define(function(require, exports, module) {
 
     return Form.extend({
         __name__: module.id,
-        template: require('tpl!./template.html'),
-        redirectUrl: '/orders',
+        template: require('tpl!./template.ejs'),
+        redirectUrl: function(){
+            return '/stores/' + this.storeId + '/orders';
+        },
         el: '.form_order',
         model: new OrderModel(),
         collections: {
@@ -139,7 +141,13 @@ define(function(require, exports, module) {
 
             changes[key] = value;
 
+            block.editedProductModel.set({
+                storeId: block.storeId,
+                orderId: block.model.id
+            });
+
             block.editedProductModel.id = null;
+            block.editedProductModel.set('id', null);
 
             block.editedProductModel.save(changes, {
                 success: function() {

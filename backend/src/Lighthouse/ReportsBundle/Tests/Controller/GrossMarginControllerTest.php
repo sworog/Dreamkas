@@ -70,36 +70,36 @@ class GrossMarginControllerTest extends WebTestCase
             ->flush();
 
 
-        $sale1 = $this->factory->createSale($store->id, "2014-01-02 12:23:12", 222);
-        $this->factory->createSaleProduct(150, 3, $productId1, $sale1);  // 450 - (3 x 100 = 300) = 150
-        $this->factory->createSaleProduct(250, 3, $productId2, $sale1);  // 750 - (3 x 201 = 603) = 147
-        $this->factory->createSaleProduct(150, 3, $productId3, $sale1);  // 450 - (3 x 120 = 360) = 90
-        $sale2 = $this->factory->createSale($store->id, "2014-01-03 12:23:12", 222);
-        $this->factory->createSaleProduct(150, 3, $productId1, $sale2);  // 450 - (2 x 100 + 1 x 101 = 301) = 149
-        $this->factory->createSaleProduct(250, 8, $productId2, $sale2);  // 2000 - (7 x 201 + 1 x 200 = 1607) = 393
-        $this->factory->createSaleProduct(150, 3, $productId3, $sale2);  // 450 - (2 x 120 + 1 x 130 = 370) = 80
-        $sale4 = $this->factory->createSale($store->id, "2014-01-05 12:23:12", 222);
-        $this->factory->createSaleProduct(150, 8, $productId1, $sale4);  // 1200 - (4 x 101 + 4 x 102 = 812) = 388
-        $this->factory->createSaleProduct(250, 3, $productId2, $sale4);  // 750 - (3 x 200 = 600) = 150
-        $this->factory->createSaleProduct(150, 6, $productId3, $sale4);  // 900 - (6 x 130 = 780) = 120
-        $sale5 = $this->factory->createSale($store->id, "2014-01-06 12:23:12", 222);
-        $this->factory->createSaleProduct(150, 5, $productId1, $sale5);  // 750 - (1 x 102 + 4 x 101 = 506) = 244
-        $this->factory->createSaleProduct(250, 6, $productId2, $sale5);  // 1500 - (1 x 200 + 5 x 205 = 1225) = 275
-        $this->factory->createSaleProduct(150, 2, $productId3, $sale5);  // 300 - (2 x 130 = 260) = 40
-        $sale6 = $this->factory->createSale($store->id, "2014-01-07 12:23:12", 222);
-        $this->factory->createSaleProduct(150, 6, $productId1, $sale6);  // 900 - (6 x 101 = 606) = 294
-        $this->factory->createSaleProduct(250, 3, $productId2, $sale6);  // 750 - (3 x 200 = 600) = 150
-        $this->factory->createSaleProduct(150, 15, $productId3, $sale6); // 2250 - (1x130 + 10x135 + 4x130 = 2000) = 250
-        $sale7 = $this->factory->createSale($store->id, "2014-01-08 12:23:12", 222);
-        $this->factory->createSaleProduct(150, 8, $productId1, $sale7);  // 1200 - (8 x 101 = 808) = 392
-        $this->factory->createSaleProduct(250, 3, $productId2, $sale7);  // 750 - (3 x 200 = 600) = 150
-        $this->factory->createSaleProduct(150, 10, $productId3, $sale7); // 1500 - (10 x 130 = 1300) = 200
-        $sale8 = $this->factory->createSale($store->id, "2014-01-09 12:23:12", 222);
-        $this->factory->createSaleProduct(150, 3, $productId1, $sale8);  // 450 - (3 x 101 = 303) = 147
-        $this->factory->createSaleProduct(250, 7, $productId2, $sale8);  // 1750 - (7 x 200 = 1400) = 350
-        $this->factory->createSaleProduct(150, 1, $productId3, $sale8);  // 150 - (1 x 130 = 130) = 20
+        $sale1 = $this->factory()->createSale($store->id, "2014-01-02 12:23:12", 222);
+        $this->factory()->createSaleProduct(150, 3, $productId1, $sale1);  // 450 - (3 x 100 = 300) = 150
+        $this->factory()->createSaleProduct(250, 3, $productId2, $sale1);  // 750 - (3 x 201 = 603) = 147
+        $this->factory()->createSaleProduct(150, 3, $productId3, $sale1);  // 450 - (3 x 120 = 360) = 90
+        $sale2 = $this->factory()->createSale($store->id, "2014-01-03 12:23:12", 222);
+        $this->factory()->createSaleProduct(150, 3, $productId1, $sale2);  // 450 - (2 x 100 + 1 x 101 = 301) = 149
+        $this->factory()->createSaleProduct(250, 8, $productId2, $sale2);  // 2000 - (7 x 201 + 1 x 200 = 1607) = 393
+        $this->factory()->createSaleProduct(150, 3, $productId3, $sale2);  // 450 - (2 x 120 + 1 x 130 = 370) = 80
+        $sale4 = $this->factory()->createSale($store->id, "2014-01-05 12:23:12", 222);
+        $this->factory()->createSaleProduct(150, 8, $productId1, $sale4);  // 1200 - (4 x 101 + 4 x 102 = 812) = 388
+        $this->factory()->createSaleProduct(250, 3, $productId2, $sale4);  // 750 - (3 x 200 = 600) = 150
+        $this->factory()->createSaleProduct(150, 6, $productId3, $sale4);  // 900 - (6 x 130 = 780) = 120
+        $sale5 = $this->factory()->createSale($store->id, "2014-01-06 12:23:12", 222);
+        $this->factory()->createSaleProduct(150, 5, $productId1, $sale5);  // 750 - (1 x 102 + 4 x 101 = 506) = 244
+        $this->factory()->createSaleProduct(250, 6, $productId2, $sale5);  // 1500 - (1 x 200 + 5 x 205 = 1225) = 275
+        $this->factory()->createSaleProduct(150, 2, $productId3, $sale5);  // 300 - (2 x 130 = 260) = 40
+        $sale6 = $this->factory()->createSale($store->id, "2014-01-07 12:23:12", 222);
+        $this->factory()->createSaleProduct(150, 6, $productId1, $sale6);  // 900 - (6 x 101 = 606) = 294
+        $this->factory()->createSaleProduct(250, 3, $productId2, $sale6);  // 750 - (3 x 200 = 600) = 150
+        $this->factory()->createSaleProduct(150, 15, $productId3, $sale6); // 2250 -(1x130+10x135+4x130=2000) = 250
+        $sale7 = $this->factory()->createSale($store->id, "2014-01-08 12:23:12", 222);
+        $this->factory()->createSaleProduct(150, 8, $productId1, $sale7);  // 1200 - (8 x 101 = 808) = 392
+        $this->factory()->createSaleProduct(250, 3, $productId2, $sale7);  // 750 - (3 x 200 = 600) = 150
+        $this->factory()->createSaleProduct(150, 10, $productId3, $sale7); // 1500 - (10 x 130 = 1300) = 200
+        $sale8 = $this->factory()->createSale($store->id, "2014-01-09 12:23:12", 222);
+        $this->factory()->createSaleProduct(150, 3, $productId1, $sale8);  // 450 - (3 x 101 = 303) = 147
+        $this->factory()->createSaleProduct(250, 7, $productId2, $sale8);  // 1750 - (7 x 200 = 1400) = 350
+        $this->factory()->createSaleProduct(150, 1, $productId3, $sale8);  // 150 - (1 x 130 = 130) = 20
 
-        $this->factory->flush();
+        $this->factory()->flush();
 
         return $store->id;
     }
@@ -122,7 +122,7 @@ class GrossMarginControllerTest extends WebTestCase
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
 
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
 
         $actualResponse = $this->clientJsonRequest(
             $accessToken,
@@ -178,7 +178,7 @@ class GrossMarginControllerTest extends WebTestCase
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->getGrossMarginManager()->recalculateStoreGrossMargin();
 
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
 
         $actualResponse = $this->clientJsonRequest(
             $accessToken,
@@ -377,9 +377,9 @@ class GrossMarginControllerTest extends WebTestCase
                 ->createInvoiceProduct($product, 3, 3)
             ->flush();
 
-        $sale1 = $this->factory->createSale($store->id, "2014-01-02 12:23:12", 233);
-        $this->factory->createSaleProduct(5, 4, $product, $sale1);
-        $this->factory->flush();
+        $sale1 = $this->factory()->createSale($store->id, "2014-01-02 12:23:12", 233);
+        $this->factory()->createSaleProduct(5, 4, $product, $sale1);
+        $this->factory()->flush();
 
         // Day two
         $this->factory()
@@ -388,9 +388,9 @@ class GrossMarginControllerTest extends WebTestCase
                 ->createInvoiceProduct($product, 2, 2)
             ->flush();
 
-        $sale1 = $this->factory->createSale($store->id, "2014-01-03 12:23:12", 233);
-        $this->factory->createSaleProduct(5, 3, $product, $sale1);
-        $this->factory->flush();
+        $sale1 = $this->factory()->createSale($store->id, "2014-01-03 12:23:12", 233);
+        $this->factory()->createSaleProduct(5, 3, $product, $sale1);
+        $this->factory()->flush();
 
 
         // Calculate CostOfGoods
@@ -453,7 +453,7 @@ class GrossMarginControllerTest extends WebTestCase
 
         $this->getGrossMarginManager()->recalculateStoreGrossMargin();
 
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
 
         $actualResponse = $this->clientJsonRequest(
             $accessToken,
@@ -552,24 +552,24 @@ class GrossMarginControllerTest extends WebTestCase
             ->flush();
 
 
-        $sale1 = $this->factory->createSale($store1->id, "2014-01-08 12:23:12", 1750);
-        $this->factory->createSaleProduct(250, 7, $productId, $sale1);  // CoG: 800
+        $sale1 = $this->factory()->createSale($store1->id, "2014-01-08 12:23:12", 1750);
+        $this->factory()->createSaleProduct(250, 7, $productId, $sale1);  // CoG: 800
 
-        $sale2 = $this->factory->createSale($store1->id, "2014-01-08 16:23:12", 500);
-        $this->factory->createSaleProduct(250, 2, $productId, $sale2);  // CoG: 300
+        $sale2 = $this->factory()->createSale($store1->id, "2014-01-08 16:23:12", 500);
+        $this->factory()->createSaleProduct(250, 2, $productId, $sale2);  // CoG: 300
 
-        $sale3 = $this->factory->createSale($store1->id, "2014-01-10 12:23:12", 1500);
-        $this->factory->createSaleProduct(250, 6, $productId, $sale3);  // CoG: 1150
+        $sale3 = $this->factory()->createSale($store1->id, "2014-01-10 12:23:12", 1500);
+        $this->factory()->createSaleProduct(250, 6, $productId, $sale3);  // CoG: 1150
 
-        $sale4 = $this->factory->createSale($store2->id, "2014-01-08 12:30:12", 2100);
-        $this->factory->createSaleProduct(300, 7, $productId, $sale4);  // CoG: 800
+        $sale4 = $this->factory()->createSale($store2->id, "2014-01-08 12:30:12", 2100);
+        $this->factory()->createSaleProduct(300, 7, $productId, $sale4);  // CoG: 800
 
-        $sale5 = $this->factory->createSale($store2->id, "2014-01-08 16:30:12", 600);
-        $this->factory->createSaleProduct(300, 2, $productId, $sale5);  // CoG: 300
+        $sale5 = $this->factory()->createSale($store2->id, "2014-01-08 16:30:12", 600);
+        $this->factory()->createSaleProduct(300, 2, $productId, $sale5);  // CoG: 300
 
-        $sale6 = $this->factory->createSale($store2->id, "2014-01-10 12:30:12", 1800);
-        $this->factory->createSaleProduct(300, 6, $productId, $sale6);  // CoG: 1150
-        $this->factory->flush();
+        $sale6 = $this->factory()->createSale($store2->id, "2014-01-10 12:30:12", 1800);
+        $this->factory()->createSaleProduct(300, 6, $productId, $sale6);  // CoG: 1150
+        $this->factory()->flush();
 
 
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();

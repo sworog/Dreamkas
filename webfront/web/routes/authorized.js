@@ -3,13 +3,10 @@ define(function(require) {
 
     return {
         //common
-        '(/)': require('pages/common/dashboard'),
+        '(/)': require('pages/main/main'),
         'logout(/)': require('kit/logout/logout'),
-        'dashboard(/)': require('pages/common/dashboard'),
-        'sale(/)': require('pages/common/sale'),
-        'balance(/)': require('pages/common/balance'),
-        'logs(/)': require('pages/common/log'),
-        'settings(/)': require('pages/common/settings'),
+        'log(/)': require('pages/log/log'),
+        'settings(/)': require('pages/settings/settings'),
 
         //suppliers
         'suppliers(/)': require('pages/suppliers/list/list'),
@@ -17,9 +14,9 @@ define(function(require) {
         'suppliers/:supplierId(/)': require('pages/suppliers/view/view'),
 
         //orders
-        'orders(/)': require('pages/orders/list/list'),
-        'orders/create(/)': require('pages/orders/create/create'),
-        'orders/:orderId(/)': require('pages/orders/view/view'),
+        'stores/:storeId/orders(/)': require('pages/orders/list/list'),
+        'stores/:storeId/orders/create(/)': require('pages/orders/create/create'),
+        'stores/:storeId/orders/:orderId(/)': require('pages/orders/view/view'),
 
         //reports
         'reports(/)': require('pages/reports/dashboard/dashboard'),
@@ -39,10 +36,8 @@ define(function(require) {
         'stores/:storeId/invoices/:invoiceId(/)': require('pages/invoices/view/view'),
 
         //users
-        'users(/)': require('pages/user/list'),
-        'users/edit/:userId(/)': require('pages/user/form'),
-        'users/create(/)': require('pages/user/form'),
-        'users/:userId(/)': require('pages/user/view'),
+        'users/current(/)': require('pages/users/current/current'),
+        'users/edit(/)': require('pages/users/edit/edit'),
 
         //products
         'products(/)': require('pages/product/list'),
@@ -67,10 +62,10 @@ define(function(require) {
         'catalog/:catalogGroupId/:catalogCategoryId/:catalogSubCategoryId(/)(:section)': require('pages/catalog/category'),
 
         //stores
-        'stores(/)': require('pages/store/list'),
-        'stores/create(/)': require('pages/store/form'),
-        'stores/edit/:storeId(/)': require('pages/store/form'),
-        'stores/:storeId(/)': require('pages/store/view'),
+        'stores(/)': require('pages/stores/list/list'),
+        'stores/create(/)': require('pages/stores/create/create'),
+//        'stores/edit/:storeId(/)': require('pages/store/form'),
+        'stores/:storeId(/)': require('pages/stores/dashboard/dashboard'),
         'stores/:storeId/products/edit/:productId(/)': require('pages/storeProduct/from'),
 
         //departments

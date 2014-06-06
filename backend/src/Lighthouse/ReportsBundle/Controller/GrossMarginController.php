@@ -10,7 +10,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\ReportsBundle\Document\GrossMargin\Store\DayGrossMarginCollection;
+use Lighthouse\ReportsBundle\Document\GrossMargin\DayGrossMarginCollection;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;

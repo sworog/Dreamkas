@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
         var Block = require('kit/core/block.deprecated'),
-            router = require('kit/router/router');
+            router = require('router');
 
         return Block.extend({
             __name__: 'editor',

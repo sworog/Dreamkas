@@ -11,9 +11,9 @@ class UserRepository extends DocumentRepository
      * @param array $excludeIds
      * @return \Doctrine\ODM\MongoDB\Cursor
      */
-    public function findAllByRole($role, array $excludeIds = array())
+    public function findAllByRoles($role, array $excludeIds = array())
     {
-        $criteria = array('role' => $role);
+        $criteria = array('roles' => $role);
         if (!empty($excludeIds)) {
             $criteria['id'] = array('$nin' => $excludeIds);
         }

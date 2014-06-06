@@ -11,6 +11,9 @@ Meta:
 
 Scenario: Group create from catalog page
 
+Meta:
+@smoke
+
 Given the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
@@ -20,6 +23,9 @@ When the user clicks on end edition link and ends the edition
 Then the user checks the group with 'First group create' name is present
 
 Scenario: Group delete from catalog page
+
+Meta:
+@smoke
 
 Given the user opens catalog page
 And the user logs in as 'commercialManager'
@@ -33,6 +39,9 @@ When the user clicks on end edition link and ends the edition
 Then the user checks the group with 'group delete from catalog' name is not present
 
 Scenario: Group delete from group page
+
+Meta:
+@smoke
 
 Given the user opens catalog page
 And the user logs in as 'commercialManager'
@@ -50,6 +59,9 @@ Then the user checks the group with 'group delete from group page' name is not p
 
 Scenario: Group edit from catalog page
 
+Meta:
+@smoke
+
 Given the user opens catalog page
 And the user logs in as 'commercialManager'
 When the user clicks on start edition link and starts the edition
@@ -64,6 +76,9 @@ When the user clicks on end edition link and ends the edition
 Then the user checks the group with 'new group edits from catalog' name is present
 
 Scenario: Group edit from group page
+
+Meta:
+@smoke
 
 Given the user opens catalog page
 And the user logs in as 'commercialManager'
@@ -116,6 +131,9 @@ And the user checks the group with 'new group edits cancel from group page' name
 
 Scenario: Category create from group page
 
+Meta:
+@smoke
+
 Given there is the group with name 'GcFcP'
 And the user navigates to the group with name 'GcFcP'
 And the user logs in as 'commercialManager'
@@ -129,6 +147,9 @@ Given the user opens catalog page
 Then the user checks the category with 'First category create' name is related to group 'GcFcP'
 
 Scenario: Category delete from catalog
+
+Meta:
+@smoke
 
 Given there is the category with name 'category delete from catalog' related to group named 'GDFC'
 And the user opens catalog page
@@ -144,6 +165,9 @@ Then the user checks the category with 'category delete from catalog' name is no
 
 Scenario: Category delete from group page
 
+Meta:
+@smoke
+
 Given there is the category with name 'category delete from group page' related to group named 'GDFCP'
 And the user opens catalog page
 And the user logs in as 'commercialManager'
@@ -155,6 +179,9 @@ When the user clicks on end edition link and ends the edition
 Then the user checks the category with 'category delete from group page' name is not present
 
 Scenario: Category edit from catalog
+
+Meta:
+@smoke
 
 Given there is the category with name 'category edit cancel from catalog' related to group named 'GEDC'
 And the user navigates to the group with name 'GEDC'
@@ -170,6 +197,9 @@ Given the user opens catalog page
 Then the user checks the category with 'new category edit from catalog' name is present
 
 Scenario: Category edit from group page
+
+Meta:
+@smoke
 
 Given there is the category with name 'category edit from catalog' related to group named 'GEFCP'
 And the user opens catalog page

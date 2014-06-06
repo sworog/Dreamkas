@@ -9,6 +9,9 @@ In order to управлять политикой цен торговой сет
 
 Scenario: Check rounding on catalog card page
 
+Meta:
+@smoke
+
 Given there is the product with productName and rounding in the subcategory named 'RoundingSubCategory'
 And the user navigates to the product with productName
 And the user logs in as 'commercialManager'
@@ -57,6 +60,9 @@ Examples:
 
 Scenario: Rounding inheritance from subCategory
 
+Meta:
+@smoke
+
 Given there is the subCategory with rounding set to 'nearest100' with name 'RoundingSubCategorySet' related to group named 'RoundingGroup' and category named 'RoundingCategory'
 And the user navigates to the subCategory 'RoundingSubCategorySet', category 'RoundingCategory', group 'RoundingGroup' product list page
 And the user logs in as 'commercialManager'
@@ -90,6 +96,9 @@ And the user checks page contains text 'Изменить наценку/цену
 
 Scenario: Mark up rounding price check nearest1
 
+Meta:
+@smoke
+
 Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
 And there is the product with 'storeProductName99' name, 'storeProductBarCode99' barcode, 'weight' type, '10' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest1' rounding
@@ -111,6 +120,9 @@ Examples:
 
 Scenario: Mark up rounding price check nearest10
 
+Meta:
+@smoke
+
 Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
 And there is the product with 'storeProductName991' name, 'storeProductBarCode991' barcode, 'weight' type, '1' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest10' rounding
@@ -130,6 +142,9 @@ Examples:
 | 45,78 | retailMarkup | 1,50 |
 
 Scenario: Mark up rounding price check nearest100
+
+Meta:
+@smoke
 
 Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
@@ -152,6 +167,9 @@ Examples:
 
 Scenario: Mark up rounding price check nearest50
 
+Meta:
+@smoke
+
 Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
 And there is the product with 'storeProductName993' name, 'storeProductBarCode993' barcode, 'weight' type, '1' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest50' rounding
@@ -172,6 +190,9 @@ Examples:
 
 Scenario: Mark up rounding price check nearest99
 
+Meta:
+@smoke
+
 Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values
 And there is the product with 'storeProductName994' name, 'storeProductBarCode994' barcode, 'weight' type, '1' purchasePrice of group named 'storeProductsGroup', category named 'storeProductsCategory', subcategory named 'storeProductsSubCategoryOne' with 'nearest99' rounding
@@ -191,6 +212,9 @@ Examples:
 | 50 | retailMarkup | 1,99 |
 
 Scenario: Retail price rounding price check nearest99
+
+Meta:
+@smoke
 
 Given there is the subCategory with name 'storeProductsSubCategoryOne' related to group named 'storeProductsGroup' and category named 'storeProductsCategory'
 And the user sets subCategory 'storeProductsSubCategoryOne' mark up with max '100' and min '0' values

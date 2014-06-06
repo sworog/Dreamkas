@@ -24,7 +24,7 @@ class OrderProductControllerTest extends WebTestCase
                 'quantity' => 1.11,
             );
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -163,7 +163,7 @@ class OrderProductControllerTest extends WebTestCase
                 'quantity' => 1.11,
             );
 
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -179,8 +179,8 @@ class OrderProductControllerTest extends WebTestCase
 
     public function testSearchStoreProductsActionWithRangeMarkup()
     {
-        $storeId = $this->factory->store()->getStoreId('123');
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
+        $storeId = $this->factory()->store()->getStoreId('123');
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
 
         $group = $this->createGroup('123');
         $category = $this->createCategory($group, '123');

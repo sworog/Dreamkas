@@ -140,6 +140,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $manager = $this->getManager();
 
         $store = $this->factory()->store()->getStore('42');
+
+        $this->authenticateProject();
         $product = $this->createProduct();
 
         $storeProductRepository = $this->getStoreProductRepository();
@@ -157,6 +159,9 @@ class TrialBalanceTest extends ContainerAwareTestCase
                 ->createInvoice(array(), $store->id)
                 ->createInvoiceProduct($product->id, 9, 0.99)
             ->flush();
+
+        // get invoice from right container
+        $invoice = $this->getContainer()->get('lighthouse.core.document.repository.invoice')->find($invoice->id);
 
         $endTrialBalanceCursor = $trialBalanceRepository->findByStoreProduct($storeProduct->id);
         $endTrialBalance = new TrialBalanceCollection($endTrialBalanceCursor);
@@ -189,6 +194,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
     public function testCreateTrialBalanceBySale()
     {
         $this->clearMongoDb();
+        $this->authenticateProject();
 
         $manager = $this->getManager();
         $numericFactory = $this->getNumericFactory();
@@ -233,6 +239,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
     public function testCreateTrialBalanceByWriteOffCRUD()
     {
         $this->clearMongoDb();
+        $this->authenticateProject();
 
         $manager = $this->getManager();
         $trialBalanceRepository = $this->getTrialBalanceRepository();

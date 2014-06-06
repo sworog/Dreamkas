@@ -9,6 +9,7 @@ Scenario: Write off creation
 
 Meta:
 @s10u14s01e01
+@smoke
 
 Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductBarCode' barcode, 'unit' type, '15' purchasePrice
 And the user navigates to the default subCategory product list page
@@ -89,6 +90,7 @@ Scenario: Write off price is filled by purchase price
 
 Meta:
 @s10u14s01e06
+@smoke
 
 Given there is the product with 'WriteOff-ProductName' name, 'WriteOff-ProductBarCode' barcode, 'unit' type, '15' purchasePrice
 And the user opens the write off create page

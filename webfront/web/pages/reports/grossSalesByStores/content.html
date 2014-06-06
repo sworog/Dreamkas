@@ -1,21 +1,44 @@
-<% var templates = {
-    table_grossSalesByStores: require('tpl!blocks/table/table_grossSalesByStores/table_grossSalesByStores.html'),
-    localNavigation_reports: require('tpl!blocks/localNavigation/localNavigation_reports.html')
-} %>
-<%= templates.localNavigation_reports({
-    active: 'grossSalesByStores'
-}) %>
-
-<div class="page__data">
+<div class="content">
     <h2>Продажи по магазинам</h2>
 
-    <% if (collections.grossSalesByStores.length) { %>
-    <table id="table_grossSalesByStores" style="margin-bottom: 40px;" class="table table_grossSalesByStores">
-        <%= templates.table_grossSalesByStores({
-            collections: _.pick(collections, 'grossSalesByStores')
-        }) %>
-    </table>
-    <% } else { %>
-    <p>Нет данных</p>
-    <% } %>
+    {{#grossSalesByStores.length}}
+        <table data-sortable class="table">
+            <thead>
+            <tr>
+                <th data-sortable="false"></th>
+                <th>
+                    вчера
+                </th>
+                <th>
+                    позавчера
+                </th>
+                <th>
+                    {{getText('last day', moment(grossSalesByStores.0.eightDaysAgo.dayHour).day())}}
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#grossSalesByStores}}
+                <tr name="grossSalesByStoresRow">
+                    <td name="store.number">
+                        {{store.number}}
+                    </td>
+                    <td data-value="{{yesterday.runningSum}}" name="yesterday.runningSum">
+                        {{formatMoney(yesterday.runningSum)}} р.
+                    </td>
+                    <td data-value="{{twoDaysAgo.runningSum}}" name="twoDaysAgo.runningSum">
+                        {{formatMoney(twoDaysAgo.runningSum)}} р.
+                    </td>
+                    <td data-value="{{eightDaysAgo.runningSum}}" name="eightDaysAgo.runningSum">
+                        {{formatMoney(eightDaysAgo.runningSum)}} р.
+                    </td>
+                </tr>
+            {{/grossSalesByStores}}
+            </tbody>
+        </table>
+    {{/grossSalesByStores.length}}
+
+    {{^grossSalesByStores.length}}
+        <p>Нет данных</p>
+    {{/grossSalesByStores.length}}
 </div>

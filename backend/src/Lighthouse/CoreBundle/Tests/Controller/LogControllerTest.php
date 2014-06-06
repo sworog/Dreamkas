@@ -11,6 +11,8 @@ class LogControllerTest extends WebTestCase
 {
     public function testGetLogsAction()
     {
+        $this->authenticateProject();
+
         /** @var LogRepository $logRepository */
         $logRepository = $this->getContainer()->get('lighthouse.core.document.repository.log');
 
@@ -22,7 +24,7 @@ class LogControllerTest extends WebTestCase
         $testLog2 = "test log 22";
         $logRepository->createLog($testLog2, $testLogDate);
 
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $response = $this->clientJsonRequest(
             $accessToken,

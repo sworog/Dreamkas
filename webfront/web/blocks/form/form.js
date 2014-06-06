@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Block = require('kit/core/block.deprecated'),
         form2js = require('form2js'),
-        router = require('kit/router/router');
+        router = require('router');
 
     require('lodash');
     require('backbone');

@@ -2,11 +2,13 @@
 
 namespace Lighthouse\CoreBundle\Test;
 
+use Lighthouse\CoreBundle\Document\Project\Project;
 use LighthouseKernel;
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Karzer\Framework\TestCase\SymfonyWebTestCase;
 use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\Factory\Factory;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Lighthouse\CoreBundle\Test\Console\ApplicationTester;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\KernelInterface;
 
@@ -21,12 +23,18 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     /**
      * @var Factory
      */
-    protected $factory;
+    private $factory;
 
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
         self::$appDebug = (boolean) getenv('SYMFONY_DEBUG') ?: false;
+    }
+
+    protected function tearDown()
+    {
+        static::shutdownKernel();
+        $this->factory = null;
     }
 
     /**
@@ -44,6 +52,13 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
         $kernel = static::getKernel();
         $kernel->shutdown();
         $kernel->boot();
+    }
+
+    protected static function shutdownKernel()
+    {
+        if (null !== static::$kernel) {
+            static::$kernel->shutdown();
+        }
     }
 
     /**
@@ -77,7 +92,7 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     }
 
     /**
-     * @return DocumentManager
+     * @return \Lighthouse\CoreBundle\MongoDB\DocumentManager
      */
     protected function getDocumentManager()
     {
@@ -90,25 +105,18 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     protected function factory()
     {
         if (null === $this->factory) {
-            $this->factory = $this->createFactory();
+            $this->factory = new Factory(static::createKernel()->boot()->getContainer());
         }
         return $this->factory;
     }
 
-    /**
-     * @return Factory
-     */
-    protected function createFactory()
-    {
-        return new Factory($this->getContainer());
-    }
-
     protected function clearMongoDb()
     {
-        $mongoDb = $this->getDocumentManager();
-        $mongoDb->getSchemaManager()->dropCollections();
-        $mongoDb->getSchemaManager()->createCollections();
-        $mongoDb->getSchemaManager()->ensureIndexes();
+        $dm = $this->getDocumentManager();
+        $dm->getSchemaManager()->dropProjectDatabases();
+        $dm->getSchemaManager()->dropGlobalCollections();
+        $dm->getSchemaManager()->createGlobalCollections();
+        $dm->getSchemaManager()->ensureGlobalIndexes();
     }
 
     protected function clearJobs()
@@ -125,5 +133,49 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     protected function getFixtureFilePath($filePath)
     {
         return __DIR__ . '/../Tests/Fixtures/' . $filePath;
+    }
+
+    protected function markTestBroken()
+    {
+        $this->markTestSkipped('Broken');
+    }
+
+    /**
+     * @param bool $catchExceptions
+     * @param bool $reboot
+     * @return Application
+     */
+    protected function createConsoleApplication($catchExceptions = true, $reboot = false)
+    {
+        if ($reboot) {
+            static::shutdownKernel();
+        }
+        $application = new Application(static::getKernel());
+        $application->setCatchExceptions($catchExceptions);
+        $application->setAutoExit(false);
+
+        return $application;
+    }
+
+    /**
+     * @param bool $catchExceptions
+     * @param bool $reboot
+     * @return ApplicationTester
+     */
+    protected function createConsoleTester($catchExceptions = true, $reboot = false)
+    {
+        $application = $this->createConsoleApplication($catchExceptions, $reboot);
+        $tester = new ApplicationTester($application);
+        return $tester;
+    }
+
+    /**
+     * @return Project
+     */
+    protected function authenticateProject()
+    {
+        $project = $this->factory()->user()->getProject();
+        $this->getContainer()->get('project.context')->authenticate($project);
+        return $project;
     }
 }

@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block'),
-        router = require('kit/router/router'),
+        router = require('router'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         when = require('when'),
         get = require('kit/get/get');
@@ -13,12 +13,7 @@ define(function(require, exports, module) {
         constructor: function(req) {
             var page = this;
 
-            if (Page.current && req.route === Page.current.get('route')) {
-                Page.current.set(req);
-                return;
-            }
-
-            page.set('status', 'starting');
+            page.set('status', 'loading');
 
             if (Page.current) {
                 Page.current.destroy();
@@ -26,7 +21,7 @@ define(function(require, exports, module) {
 
             page.referrer = Page.current;
 
-            Page.current = page;
+            Page.current = window.PAGE = page;
 
             deepExtend(page, req);
 
@@ -45,13 +40,41 @@ define(function(require, exports, module) {
             });
         },
 
+        events: {
+            'click .page__tabItem': function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                var block = this,
+                    $target = $(e.target),
+                    rel = $target.attr('rel'),
+                    href = $target.attr('href'),
+                    $targetContent = $('.page__tabContentItem[rel="' + rel + '"]');
+
+                if (href) {
+                    router.navigate(href, {
+                        trigger: false
+                    });
+                }
+
+                $targetContent
+                    .addClass('page__tabContentItem_active')
+                    .siblings('.page__tabContentItem')
+                    .removeClass('page__tabContentItem_active');
+
+                $target
+                    .addClass('page__tabItem_active')
+                    .siblings('.page__tabItem')
+                    .removeClass('page__tabItem_active');
+            }
+        },
+
         el: document.body,
         isAllow: true,
         template: require('tpl!kit/page/template.html'),
         templates: {
             content: null,
             localNavigation: null,
-            globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation.html')
+            globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation.deprecated.html')
         },
         localNavigationActiveLink: null,
         collections: {},
@@ -75,8 +98,6 @@ define(function(require, exports, module) {
         initialize: function() {
             var page = this;
 
-            window.PAGE = this;
-
             try {
                 page.initResources();
             } catch (error) {
@@ -96,15 +117,13 @@ define(function(require, exports, module) {
         render: function() {
             var page = this;
 
-            page.set('status', 'rendering');
-
             if (page.referrer) {
                 page.referrer.destroyBlocks();
             }
 
             Block.prototype.render.apply(page, arguments);
 
-            page.set('status', 'rendered');
+            page.set('status', 'loaded');
         },
         fetch: function(dataList) {
             var page = this;
@@ -150,15 +169,8 @@ define(function(require, exports, module) {
         },
         'set:status': function(status) {
             var page = this;
-            if (status == 'starting') {
-                page.el.classList.add('preloader_spinner');
-            }
 
-            if (status == 'rendered') {
-                page.el.classList.remove('preloader_spinner');
-            }
-
-            page.el.setAttribute('data-status', status);
+            page.el.setAttribute('status', status);
         }
     });
 

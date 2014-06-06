@@ -12,6 +12,8 @@ set :deploy_to,   "{#deploy_to_base}#{application}"
 set :deploy_via,  :remote_cache_subfolder
 set :deploy_subdir, "webfront/web"
 
+set :shared_children,   %w()
+
 set :repository,  "git@github.com:crystalservice/lighthouse.git"
 set :scm,         :git
 

@@ -23,6 +23,9 @@ And the user checks the stored values on the setting page
 
 Scenario: Saving sales import setting after refresh
 
+Meta:
+@smoke
+
 Given the user opens the settings page
 And the user logs in as 'watchman'
 When the user input values on the setting page

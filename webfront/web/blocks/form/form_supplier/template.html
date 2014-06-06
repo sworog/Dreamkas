@@ -1,24 +1,44 @@
-<% var model = model || new Backbone.Model() %>
-
-<% var templates = {
-    form_supplier__agreementField: require('tpl!./form_supplier__agreementField.html')
-} %>
-
 <form class="form form_supplier">
     <div class="form__field">
         <label class="form__label">Юридическое лицо</label>
-        <input value="<%- model.get('name') %>" name="name" type="text" class="inputText"/>
+        <input value="{{model.name}}" name="name" type="text" class="inputText"/>
     </div>
-    <%= templates.form_supplier__agreementField({
-        agreement: model.get('agreement')
-    }) %>
+    <div class="form__field form_supplier__fileField">
+        <label class="form__label">Файл договора</label>
+
+        {{#agreement.id}}
+            <div class="form_supplier__fileBox">
+                <p>
+                    {{#successMessage}}
+                        <span style="float: right" class="form__successMessage">Файл успешно загружен</span>
+                    {{/successMessage}}
+                    <a name="agreementLink" data-navigate="false" href="{{agreement.url}}">
+                        {{decodeURIComponent(agreement.name)}}
+                    </a>
+                </p>
+                <span class="button">
+                    Заменить
+                    <input name="file" type="file"/>
+                </span>
+                <span style="vertical-align: middle; margin-right: 10px;">или</span>
+                <a href="#" class="form_supplier__removeFile" style="vertical-align: middle;">Удалить</a>
+            </div>
+        {{/agreement.id}}
+
+        {{^agreement.id}}
+            <span class="button">
+                Загрузить
+                <input name="file" type="file"/>
+            </span>
+        {{/agreement.id}}
+    </div>
     <div class="form__controls">
         <button type="submit" class="button">
             Сохранить
         </button>
-            <span style="margin-right: 10px;">
-                или
-            </span>
+        <span style="margin-right: 10px;">
+            или
+        </span>
         <a style="margin-right: 20px;" href="/suppliers">
             Отменить
         </a>

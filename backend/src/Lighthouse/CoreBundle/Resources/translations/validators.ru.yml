@@ -84,7 +84,7 @@ lighthouse:
                 category.does_not_exists: Такой категории не существует
             user:
                 password.not_equals_login: Логин и пароль не должны совпадать
-                username.unique: Пользователь с таким логином уже существует
+                email.unique: Пользователь с таким email уже существует
             store:
                 number.unique: Такой магазин уже есть
                 does_not_exist: Такого магазина не существует

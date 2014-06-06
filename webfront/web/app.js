@@ -1,113 +1,76 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/core/block.deprecated'),
-        isAllow = require('kit/isAllow/isAllow'),
-        getText = require('kit/getText/getText'),
-        dictionary = require('dictionary'),
-        currentUserModel = require('models/currentUser'),
+    var currentUserModel = require('models/currentUser.inst'),
+        ErrorPage = require('pages/error/error'),
         cookie = require('cookies'),
-        numeral = require('numeral'),
-        router = require('kit/router/router'),
-        moment = require('moment');
+        router = require('router'),
+        $ = require('jquery'),
+        _ = require('lodash'),
+        moment = require('moment'),
+        numeral = require('numeral');
 
-    require('jquery');
-    require('lodash');
-    require('backbone');
-    require('bower_components/momentjs/lang/ru');
+    moment.lang('root', require('i18n!nls/moment'));
+    moment.lang('root');
 
-    var app = {
-        locale: 'root'
-    };
+    numeral.language('root', require('i18n!nls/numeral'));
+    numeral.language('root');
 
-    getText.dictionary = dictionary;
+    //deprecated
+    require('LH');
+    currentUserModel.stores = [];
 
-    moment.lang('ru');
-
-    Block.prototype.dictionary = require('dictionary');
-
-    numeral.language(app.locale, require('i18n!nls/numeral'));
-    numeral.language(app.locale);
-
-    var sync = Backbone.sync,
-        isStarted,
+    var isStarted,
         loading,
-        routes,
-        showCHTPN,
-        showApiError,
-        showJsError;
+        routes;
 
-    showCHTPN = function(template) {
-        if (LH.debugLevel > 0) {
-            var html = $('<div></div>').html(template);
-            if (LH.debugLevel >= 2) {
-                html.find('.more-info').show();
-            }
-            html.find('.close').click(function(event){
-                event.preventDefault();
-
-                html.remove();
-            });
-            html.find('.show-more').click(function(event) {
-                event.preventDefault();
-
-                if (html.find('.more-info').is(':visible')) {
-                    html.find('.more-info').hide();
-                } else {
-                    html.find('.more-info').show();
-                }
-
-                return false;
-            });
-            $('body').append(html);
+    $.ajaxSetup({
+        headers: {
+            Authorization: 'Bearer ' + cookie.get('token')
         }
-    };
+    });
 
-    showApiError = function(response) {
-        var chtpnTemplate = require('tpl!./chtpn.html');
+    $(document).ajaxError(function(event, error) {
+        switch (error.status) {
+            case 401:
+                isStarted && document.location.reload();
+                break;
+            case 400:
+                break;
+            case 409:
+                break;
+            case 0:
+                break;
+            default:
+                if (window.PAGE instanceof ErrorPage){
+                    window.PAGE.data.apiErrors.push(error);
+                } else {
+                    new ErrorPage({
+                        data: {
+                            apiErrors: [error]
+                        }
+                    });
+                }
+                break;
+        }
+    });
 
-        showCHTPN(chtpnTemplate({
-            response: response
-        }));
-    };
+    window.onerror = function(error, file, line, col, errorObject) {
 
-    showJsError = function(error, file, line, col, errorObject) {
-        var chtpnJSTemplate = require('tpl!./chtpnJS.html');
-
-        showCHTPN(chtpnJSTemplate({
-            errorText: error,
+        var jsError = {
             file: file,
             line: line,
-            errorObject: errorObject
-        }));
-    };
+            data: errorObject
+        };
 
-    window.onerror = showJsError;
-
-    Backbone.sync = function(method, model, options) {
-        var syncing = sync.call(this, method, model, _.extend({}, options, {
-            headers: {
-                Authorization: 'Bearer ' + cookie.get('token')
-            }
-        }));
-
-        syncing.fail(function(res) {
-            switch (res.status) {
-                case 401:
-                    if (isStarted) {
-                        document.location.reload();
-                    }
-                    break;
-                case 400:
-                    break;
-                case 0:
-                    break;
-                default:
-                    showApiError(res);
-                    break;
-            }
-        });
-
-        return syncing;
+        if (window.PAGE instanceof ErrorPage){
+            window.PAGE.data.jsErrors.push(jsError);
+        } else {
+            new ErrorPage({
+                data: {
+                    jsErrors: [jsError]
+                }
+            });
+        }
     };
 
     $(document).on('click', '[href]', function(e) {
@@ -125,15 +88,6 @@ define(function(require) {
     loading = currentUserModel.fetch();
 
     loading.done(function() {
-        app.permissions = _.extend(currentUserModel.permissions.toJSON(), {
-        });
-
-        if (!currentUserModel.stores.length) {
-            delete app.permissions['stores/{store}/orders'];
-        }
-
-        isAllow.permissions = app.permissions;
-
         routes = 'routes/authorized';
     });
 
@@ -143,15 +97,11 @@ define(function(require) {
 
     loading.always(function() {
         requirejs([
-            routes,
-            'blocks/page/page',
-            'kit/lhAutocomplete'
+            routes
         ], function(routes) {
             isStarted = true;
-            router.routes = routes;
+            _.extend(router.routes, routes);
             router.start();
         });
     });
-
-    return app;
 });

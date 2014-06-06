@@ -9,6 +9,9 @@ In order to управлять розничной ценой на товары �
 
 Scenario: Group mark up range set
 
+Meta:
+@smoke
+
 Given there is the group with name 'GroupMarkUp-1'
 And the user navigates to the group with name 'GroupMarkUp-1'
 And the user logs in as 'commercialManager'
@@ -23,6 +26,9 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: Group mark up set - checks no inheritance
+
+Meta:
+@smoke
 
 Given there is the subCategory with name 'subCategorymarkUp-2' related to group named 'groupMarkUp-2' and category named 'categoryMarkUp-2'
 And the user navigates to the group with name 'groupMarkUp-2'
@@ -46,6 +52,9 @@ And the user logs out
 
 Scenario: Category mark up range set
 
+Meta:
+@smoke
+
 Given there is the category with name 'categoryMarkUp-4' related to group named 'groupMarkUp-4'
 And the user navigates to the category with name 'categoryMarkUp-4' related to group named 'groupMarkUp-4'
 And the user logs in as 'commercialManager'
@@ -60,6 +69,9 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: Category mark up range set - no inheritance
+
+Meta:
+@smoke
 
 Given there is the subCategory with name 'subCategorymarkUp-5' related to group named 'groupMarkUp-5' and category named 'categoryMarkUp-5'
 And the user navigates to the category with name 'categoryMarkUp-5' related to group named 'groupMarkUp-5'
@@ -79,6 +91,9 @@ And the user logs out
 
 Scenario: SubCategory mark up range set
 
+Meta:
+@smoke
+
 Given there is the subCategory with name 'subCategorymarkUp-7' related to group named 'groupMarkUp-7' and category named 'categoryMarkUp-7'
 And the user navigates to the subCategory 'subCategorymarkUp-7', category 'categoryMarkUp-7', group 'groupMarkUp-7' product list page
 And the user logs in as 'commercialManager'
@@ -93,6 +108,9 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: Category mark up reset (group mark up is already set)
+
+Meta:
+@smoke
 
 Given there is the subCategory with name 'subCategorymarkUp-8' related to group named 'groupMarkUp-8' and category named 'categoryMarkUp-8'
 And the user navigates to the group with name 'groupMarkUp-8'
@@ -122,6 +140,9 @@ And the user logs out
 
 Scenario: SubCategory mark up reset (group, subCategory mark up is already set)
 
+Meta:
+@smoke
+
 Given there is the subCategory with name 'subCategorymarkUp-9' related to group named 'groupMarkUp-9' and category named 'categoryMarkUp-9'
 And the user navigates to the group with name 'groupMarkUp-9'
 And the user logs in as 'commercialManager'
@@ -147,6 +168,9 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: SubCategory mark up reset (group, category mark up is already set)
+
+Meta:
+@smoke
 
 Given there is the subCategory with name 'subCategorymarkUp-10' related to group named 'groupMarkUp-10' and category named 'categoryMarkUp-10'
 And the user navigates to the group with name 'groupMarkUp-10'
@@ -181,6 +205,9 @@ And the user logs out
 
 Scenario: Create category - check inheritance
 
+Meta:
+@smoke
+
 Given there is the group with name 'groupMarkUp-11'
 And the user navigates to the group with name 'groupMarkUp-11'
 And the user logs in as 'commercialManager'
@@ -201,6 +228,9 @@ When the user clicks on end edition link and ends the edition
 And the user logs out
 
 Scenario: Create subCategory - check inheritance
+
+Meta:
+@smoke
 
 Given there is the category with name 'categoryMarkUp-12' related to group named 'groupMarkUp-12'
 And the user navigates to the category with name 'categoryMarkUp-12' related to group named 'groupMarkUp-12'

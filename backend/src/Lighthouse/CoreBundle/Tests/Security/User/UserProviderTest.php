@@ -52,7 +52,7 @@ class UserProviderTest extends ContainerAwareTestCase
         $userProvider = $this->getUserProvider();
 
         $user = $userProvider->createNewUser(
-            'username',
+            'username@lighthouse.pro',
             'password',
             'name',
             User::ROLE_ADMINISTRATOR,
@@ -69,7 +69,7 @@ class UserProviderTest extends ContainerAwareTestCase
         $refreshedUser = $userProvider->refreshUser($unserializedUser);
 
         $this->assertEquals($user->id, $refreshedUser->id);
-        $this->assertEquals($user->username, $refreshedUser->username);
+        $this->assertEquals($user->email, $refreshedUser->email);
         $this->assertNotSame($user, $refreshedUser);
     }
 
@@ -88,7 +88,7 @@ class UserProviderTest extends ContainerAwareTestCase
         $this->clearMongoDb();
 
         $user = $this->getUserProvider()->createNewUser(
-            'username',
+            'username@lighthouse.pro',
             'password',
             'name',
             User::ROLE_ADMINISTRATOR,
@@ -97,7 +97,7 @@ class UserProviderTest extends ContainerAwareTestCase
 
         static::rebootKernel();
 
-        $loadedUser = $this->getUserProvider()->loadUserByUsername('username');
+        $loadedUser = $this->getUserProvider()->loadUserByUsername('username@lighthouse.pro');
 
         $this->assertEquals($user->id, $loadedUser->id);
         $this->assertNotSame($user, $loadedUser);

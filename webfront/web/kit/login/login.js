@@ -4,6 +4,11 @@ define(function(require) {
 
     return function(token){
         cookie.set('token', token, {path: '/'});
-        document.location.reload();
+
+        if (document.location.pathname.indexOf('login')>=0){
+            document.location.href = '/';
+        } else {
+            document.location.reload();
+        }
     }
 });

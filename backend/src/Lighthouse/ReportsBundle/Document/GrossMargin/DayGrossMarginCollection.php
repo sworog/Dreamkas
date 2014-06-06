@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\ReportsBundle\Document\GrossMargin\Store;
+namespace Lighthouse\ReportsBundle\Document\GrossMargin;
 
 use Lighthouse\CoreBundle\Document\AbstractCollection;
 

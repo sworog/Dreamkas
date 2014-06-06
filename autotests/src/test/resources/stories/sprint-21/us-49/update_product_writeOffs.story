@@ -20,6 +20,9 @@ Then the user checks page contains text 'Списаний товара еще н
 
 Scenario: Product writeOff list found
 
+Meta:
+@smoke
+
 Given there is the user with name 'departmentManager-UIBS-FF', position 'departmentManager-UIBS-FF', username 'departmentManager-UIBS-FF', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'UIBS-FF' managed by department manager named 'departmentManager-UIBS-FF'
 Given there is the subCategory with name 'ProductsUpdateWriteOffSubCategory' related to group named 'ProductsUpdateWriteOffGroup' and category named 'ProductsUpdateWriteOffCategory'
@@ -37,6 +40,9 @@ Then the user checks the product writeOff list contains entry
 | 02.04.2013 | 1,0 | 12,34 | 12,34 |
 
 Scenario: Two products from one writeOffs
+
+Meta:
+@smoke
 
 Given there is the user with name 'departmentManager-UIBS-FF', position 'departmentManager-UIBS-FF', username 'departmentManager-UIBS-FF', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'UIBS-FF' managed by department manager named 'departmentManager-UIBS-FF'

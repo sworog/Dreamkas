@@ -26,7 +26,7 @@ abstract class AbstractLoadStoresData extends ContainerAware implements Dependen
             $store->contacts = (isset($storeData['contacts'])) ? $storeData['contacts'] : '911-888-7-' . $storeNumber;
 
             $storeManager = $userProvider->createNewUser(
-                'storeManager' . $storeNumber,
+                'storeManager' . $storeNumber . '@lighthouse.pro',
                 'lighthouse',
                 'Сторье #' . $storeNumber,
                 User::ROLE_STORE_MANAGER,
@@ -34,7 +34,7 @@ abstract class AbstractLoadStoresData extends ContainerAware implements Dependen
             );
 
             $departmentManager = $userProvider->createNewUser(
-                'departmentManager' . $storeNumber,
+                'departmentManager' . $storeNumber . '@lighthouse.pro',
                 'lighthouse',
                 'Депардье #' . $storeNumber,
                 User::ROLE_DEPARTMENT_MANAGER,

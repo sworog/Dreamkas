@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Command\Import;
 
 use Clamidity\ProfilerBundle\DataCollector\XhprofCollector;
+use Lighthouse\CoreBundle\Command\ProjectableCommand;
 use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\Document\Log\LogRepository;
 use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\PurchaseElement;
@@ -26,7 +27,7 @@ use Symfony\Component\Stopwatch\StopwatchEvent;
  * @DI\Service("lighthouse.core.command.import.set10_sales_import_local")
  * @DI\Tag("console.command")
  */
-class Set10SalesImportLocal extends Command
+class Set10SalesImportLocal extends Command implements ProjectableCommand
 {
     /**
      * @var SalesImporter

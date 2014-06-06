@@ -1,17 +1,27 @@
 define(function(require) {
     //requirements
-    var Form = require('blocks/form/form'),
-        tokenModel = require('models/token'),
+    var Form = require('kit/form'),
         login = require('kit/login/login');
 
     return Form.extend({
-        __name__: 'form_login',
-        model: tokenModel,
-        submitSuccess: function(response) {
-            login(this.model.get('access_token'));
+        template: require('rv!./template.html'),
+        model: require('models/login'),
+        nls: require('i18n!./nls/main'),
+        data: {
+            model: {
+                username: null,
+                password: null
+            }
         },
-        translate: function(text){
-            return LH.getText(this.get('dictionary'), text);
+        complete: function(){
+            if (this.get('model.username')){
+                this.el.querySelector('[name="password"]').focus();
+            } else {
+                this.el.querySelector('[name="username"]').focus();
+            }
+        },
+        submitSuccess: function(response) {
+            login(response.access_token);
         }
     });
 });

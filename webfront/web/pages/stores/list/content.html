@@ -1,0 +1,35 @@
+<div class="content">
+    <h1>Магазины</h1>
+    {{#stores.length}}
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Номер магазина</th>
+                <th>Адрес</th>
+                <th>Контакты</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{#stores}}
+                <tr href="/stores/{{id}}">
+                    <td>
+                        {{number}}
+                    </td>
+                    <td>
+                        {{address}}
+                    </td>
+                    <td>
+                        {{contacts}}
+                    </td>
+                </tr>
+            {{/stores}}
+            </tbody>
+        </table>
+    {{/stores.length}}
+
+    {{^stores.length}}
+        <p>
+            В вашей сети пока нет ни одного магазина.
+        </p>
+    {{/stores.length}}
+</div>

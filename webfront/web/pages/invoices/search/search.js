@@ -3,23 +3,18 @@ define(function(require) {
     var Page = require('kit/page/page'),
         InvoicesCollection = require('collections/invoices'),
         Form_invoiceSearch = require('blocks/form/form_invoiceSearch/form_invoiceSearch'),
-        currentUserModel = require('models/currentUser'),
         when = require('when');
 
     return Page.extend({
         localNavigationActiveLink: 'search',
         templates: {
-            content: require('tpl!./content.html'),
-            localNavigation: require('tpl!../localNavigation.html')
+            content: require('tpl!./content.ejs'),
+            localNavigation: require('tpl!blocks/localNavigation/localNavigation_invoices.ejs'),
+            globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation_store.ejs')
         },
         params: {
             storeId: null,
             numberOrSupplierInvoiceNumber: null
-        },
-        isAllow: function() {
-            var page = this;
-
-            return currentUserModel.stores.length && currentUserModel.stores.at(0).id === page.params.storeId;
         },
         collections: {
             invoices: function() {
@@ -29,6 +24,16 @@ define(function(require) {
                 invoices.storeId = page.params.storeId;
 
                 return invoices;
+            }
+        },
+        models: {
+            store: function() {
+                var page = this,
+                    StoreModel = require('models/store');
+
+                return new StoreModel({
+                    id: page.get('params.storeId')
+                });
             }
         },
         fetch: function() {

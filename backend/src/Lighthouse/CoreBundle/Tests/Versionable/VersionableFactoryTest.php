@@ -19,6 +19,7 @@ class VersionableFactoryTest extends ContainerAwareTestCase
     public function testCreateVersionable()
     {
         $this->clearMongoDb();
+        $this->authenticateProject();
 
         $product = $this->createProduct();
 
@@ -47,6 +48,7 @@ class VersionableFactoryTest extends ContainerAwareTestCase
     public function testFindByDocument()
     {
         $this->clearMongoDb();
+        $this->authenticateProject();
 
         $product = $this->createProduct();
 

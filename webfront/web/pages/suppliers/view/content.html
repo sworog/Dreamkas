@@ -1,20 +1,5 @@
-<% var templates = {
-    localNavigation: require('tpl!blocks/localNavigation/localNavigation_suppliers.html'),
-    form_supplier: require('tpl!blocks/form/form_supplier/template.html')
-} %>
+<div class="content">
+    <h2>{{supplier.name}}</h2>
 
-<% var models = _.extend({
-    supplier: new Backbone.Model()
-}, obj.models) %>
-
-<% if (LH.isAllow('suppliers', 'POST')) { %>
-<%= templates.localNavigation(obj) %>
-<% } %>
-
-<div class="page__data">
-    <h2><%- models.supplier.get('name') %></h2>
-
-    <%= templates.form_supplier({
-        model: models.supplier
-    }) %>
+    <form_supplier model={{supplier}} />
 </div>

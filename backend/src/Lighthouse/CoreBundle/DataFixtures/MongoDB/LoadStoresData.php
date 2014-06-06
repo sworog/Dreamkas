@@ -38,7 +38,7 @@ class LoadStoresData extends ContainerAware implements FixtureInterface, Ordered
         $userProvider = $this->container->get('lighthouse.core.user.provider');
 
         $storeMan666 = $userProvider->createNewUser(
-            'storeManager666',
+            'storeManager666@lighthouse.pro',
             'lighthouse',
             'Петров А.Д.',
             User::ROLE_STORE_MANAGER,
@@ -46,7 +46,7 @@ class LoadStoresData extends ContainerAware implements FixtureInterface, Ordered
         );
 
         $depMan666 = $userProvider->createNewUser(
-            'departmentManager666',
+            'departmentManager666@lighthouse.pro',
             'lighthouse',
             'Сидоров А.Д.',
             User::ROLE_DEPARTMENT_MANAGER,
@@ -54,7 +54,7 @@ class LoadStoresData extends ContainerAware implements FixtureInterface, Ordered
         );
 
         $storeMan777 = $userProvider->createNewUser(
-            'storeManager777',
+            'storeManager777@lighthouse.pro',
             'lighthouse',
             'Казиновмч Л.В.',
             User::ROLE_STORE_MANAGER,
@@ -62,7 +62,7 @@ class LoadStoresData extends ContainerAware implements FixtureInterface, Ordered
         );
 
         $depMan777 = $userProvider->createNewUser(
-            'departmentManager777',
+            'departmentManager777@lighthouse.pro',
             'lighthouse',
             'Игроков Б.Дж.',
             User::ROLE_DEPARTMENT_MANAGER,
@@ -70,7 +70,7 @@ class LoadStoresData extends ContainerAware implements FixtureInterface, Ordered
         );
 
         $storeMan888 = $userProvider->createNewUser(
-            'storeManager888',
+            'storeManager888@lighthouse.pro',
             'lighthouse',
             'Морозов П.Т.',
             User::ROLE_STORE_MANAGER,
@@ -78,7 +78,7 @@ class LoadStoresData extends ContainerAware implements FixtureInterface, Ordered
         );
 
         $depMan888 = $userProvider->createNewUser(
-            'departmentManager888',
+            'departmentManager888@lighthouse.pro',
             'lighthouse',
             'Морозов Ф.Т.',
             User::ROLE_DEPARTMENT_MANAGER,

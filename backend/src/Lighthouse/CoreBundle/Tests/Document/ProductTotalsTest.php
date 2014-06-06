@@ -44,6 +44,7 @@ class ProductTotalsTest extends ContainerAwareTestCase
     public function testShopProductAmountChangesOnInOutOperations()
     {
         $this->clearMongoDb();
+        $this->authenticateProject();
 
         $manager = $this->getManager();
 
@@ -74,8 +75,8 @@ class ProductTotalsTest extends ContainerAwareTestCase
                 ->createInvoiceProduct($product->id, 10, '10.10')
             ->flush();
 
-        $manager->persist($invoice);
-        $manager->flush();
+        // get invoice from right container
+        $invoice = $this->getContainer()->get('lighthouse.core.document.repository.invoice')->find($invoice->id);
 
         $invoiceProduct = $invoice->products[0];
 

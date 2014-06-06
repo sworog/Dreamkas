@@ -56,6 +56,7 @@ class Set10ProductImporterTest extends ContainerAwareTestCase
     public function testImportOneFileImport()
     {
         $this->clearMongoDb();
+        $this->authenticateProject();
 
         $cursor = $this->getProductRepository()->findAll();
         $this->assertCount(0, $cursor);
@@ -83,6 +84,7 @@ class Set10ProductImporterTest extends ContainerAwareTestCase
     public function testImportProductTypes()
     {
         $this->clearMongoDb();
+        $this->authenticateProject();
 
         $parser = $this->createXmlParser();
         $this->import($parser);
@@ -128,6 +130,7 @@ class Set10ProductImporterTest extends ContainerAwareTestCase
     public function testImportProductBarcodes()
     {
         $this->clearMongoDb();
+        $this->authenticateProject();
 
         $parser = $this->createXmlParser();
         $this->import($parser);

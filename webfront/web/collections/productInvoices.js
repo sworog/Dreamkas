@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var Collection = require('kit/core/collection'),
-        currentUserModel = require('models/currentUser');
+        currentUserModel = require('models/currentUser.inst');
 
     return Collection.extend({
         model: require('models/productInvoice'),

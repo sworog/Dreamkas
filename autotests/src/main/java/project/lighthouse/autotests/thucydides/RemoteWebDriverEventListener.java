@@ -24,8 +24,8 @@ public class RemoteWebDriverEventListener implements ThucydidesWebDriverEventLis
 
         if (driver instanceof RemoteWebDriver) {
             Dimension dimension = new Dimension(
-                environmentVariables.getPropertyAsInteger(ThucydidesSystemProperty.SNAPSHOT_WIDTH, ThucydidesSystemProperty.DEFAULT_WIDTH),
-                environmentVariables.getPropertyAsInteger(ThucydidesSystemProperty.SNAPSHOT_HEIGHT, ThucydidesSystemProperty.DEFAULT_HEIGHT)
+                    environmentVariables.getPropertyAsInteger(ThucydidesSystemProperty.THUCYDIDES_BROWSER_WIDTH, ThucydidesSystemProperty.DEFAULT_WIDTH),
+                    environmentVariables.getPropertyAsInteger(ThucydidesSystemProperty.THUCYDIDES_BROWSER_HEIGHT, ThucydidesSystemProperty.DEFAULT_HEIGHT)
             );
             driver.manage().window().setSize(dimension);
         }

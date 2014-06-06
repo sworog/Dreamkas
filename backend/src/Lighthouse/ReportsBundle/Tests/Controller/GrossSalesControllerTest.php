@@ -258,7 +258,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
         );
 
-        $this->factory->createSales($sales);
+        $this->factory()->createSales($sales);
 
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
 
@@ -310,8 +310,8 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesReportsByTimeEmptyReports()
     {
-        $storeId = $this->factory->store()->getStoreId();
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
+        $storeId = $this->factory()->store()->getStoreId();
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -357,13 +357,13 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testAccessGetStoreGrossSalesReport()
     {
-        $storeId = $this->factory->store()->getStoreId();
-        $storeManagerToken = $this->factory->oauth()->authAsStoreManager($storeId);
-        $departmentManagerToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
-        $storeManagerOtherStoreToken = $this->factory->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
-        $commercialManagerToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-        $departmentManagerOtherStoreToken = $this->factory->oauth()->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
-        $administratorToken = $this->factory->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
+        $storeId = $this->factory()->store()->getStoreId();
+        $storeManagerToken = $this->factory()->oauth()->authAsStoreManager($storeId);
+        $departmentManagerToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
+        $storeManagerOtherStoreToken = $this->factory()->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
+        $commercialManagerToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $departmentManagerOtherStoreToken = $this->factory()->oauth()->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
+        $administratorToken = $this->factory()->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
 
 
         $this->clientJsonRequest(
@@ -414,7 +414,7 @@ class GrossSalesControllerTest extends WebTestCase
      */
     protected function prepareStoreGrossSalesReportData()
     {
-        $storeId = $this->factory->store()->getStoreId();
+        $storeId = $this->factory()->store()->getStoreId();
 
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
@@ -488,7 +488,7 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
             ),
         );
-        $this->factory->createSales($sales);
+        $this->factory()->createSales($sales);
 
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
 
@@ -500,7 +500,7 @@ class GrossSalesControllerTest extends WebTestCase
     public function testGetStoreGrossSalesReportsDiffs()
     {
         $storeId = $this->prepareStoreGrossSalesReportData();
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -549,7 +549,7 @@ class GrossSalesControllerTest extends WebTestCase
     public function testGetStoreGrossSalesReportsDiffsPreviousDateIsZero()
     {
         $storeId = $this->prepareStoreGrossSalesReportData();
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -597,10 +597,10 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByHour()
     {
-        $storeId = $this->factory->store()->getStoreId();
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
+        $storeId = $this->factory()->store()->getStoreId();
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
 
-        $storeOtherId = $this->factory->store()->getStoreId('other');
+        $storeOtherId = $this->factory()->store()->getStoreId('other');
 
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
@@ -836,7 +836,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
         );
 
-        $this->factory->createSales($sales);
+        $this->factory()->createSales($sales);
 
 
         $salesInOtherStore = array(
@@ -864,7 +864,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
         );
 
-        $this->factory->createSales($salesInOtherStore);
+        $this->factory()->createSales($salesInOtherStore);
 
 
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
@@ -966,13 +966,13 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testAccessGetStoreGrossSalesReportByHours()
     {
-        $storeId = $this->factory->store()->getStoreId();
-        $storeManagerToken = $this->factory->oauth()->authAsStoreManager($storeId);
-        $departmentManagerToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
-        $storeManagerOtherStoreToken = $this->factory->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
-        $commercialManagerToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
-        $departmentManagerOtherStoreToken = $this->factory->oauth()->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
-        $administratorToken = $this->factory->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
+        $storeId = $this->factory()->store()->getStoreId();
+        $storeManagerToken = $this->factory()->oauth()->authAsStoreManager($storeId);
+        $departmentManagerToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
+        $storeManagerOtherStoreToken = $this->factory()->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
+        $commercialManagerToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $departmentManagerOtherStoreToken = $this->factory()->oauth()->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
+        $administratorToken = $this->factory()->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
 
 
         $this->clientJsonRequest(
@@ -1020,10 +1020,10 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByHourEmptyYesterday()
     {
-        $storeId = $this->factory->store()->getStoreId();
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
+        $storeId = $this->factory()->store()->getStoreId();
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
 
-        $storeOtherId = $this->factory->store()->getStoreId('other');
+        $storeOtherId = $this->factory()->store()->getStoreId('other');
 
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
@@ -1192,7 +1192,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
         );
 
-        $this->factory->createSales($sales);
+        $this->factory()->createSales($sales);
 
 
         $salesInOtherStore = array(
@@ -1220,7 +1220,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
         );
 
-        $this->factory->createSales($salesInOtherStore);
+        $this->factory()->createSales($salesInOtherStore);
 
 
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
@@ -1322,10 +1322,10 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByHourEmptyAll()
     {
-        $storeId = $this->factory->store()->getStoreId();
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
+        $storeId = $this->factory()->store()->getStoreId();
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
 
-        $storeOtherId = $this->factory->store()->getStoreId('other');
+        $storeOtherId = $this->factory()->store()->getStoreId('other');
 
         $product1Id = $this->createProduct('1');
         $product2Id = $this->createProduct('2');
@@ -1357,7 +1357,7 @@ class GrossSalesControllerTest extends WebTestCase
             ),
         );
 
-        $this->factory->createSales($salesInOtherStore);
+        $this->factory()->createSales($salesInOtherStore);
 
 
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
@@ -1407,7 +1407,7 @@ class GrossSalesControllerTest extends WebTestCase
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
         $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
 
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -1496,12 +1496,12 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByStoreEmpty()
     {
-        $storeIds = $this->factory->store()->getStores(array('1', '2', '3'));
+        $storeIds = $this->factory()->store()->getStores(array('1', '2', '3'));
         // create store managers to be sure they would not get in serialization
-        $this->factory->store()->getStoreManager($storeIds['1']);
-        $this->factory->store()->getDepartmentManager($storeIds['1']);
+        $this->factory()->store()->getStoreManager($storeIds['1']);
+        $this->factory()->store()->getDepartmentManager($storeIds['1']);
 
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -1595,7 +1595,7 @@ class GrossSalesControllerTest extends WebTestCase
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
         $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
 
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -1630,10 +1630,12 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGetGrossSalesEmpty()
     {
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $this->authenticateProject();
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
         $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
 
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -1671,10 +1673,10 @@ class GrossSalesControllerTest extends WebTestCase
      */
     protected function createSalesProducts()
     {
-        $storeIds = $this->factory->store()->getStores(array('1', '2', '3'));
+        $storeIds = $this->factory()->store()->getStores(array('1', '2', '3'));
         // create store managers to be sure they would not get in serialization
-        $this->factory->store()->getStoreManager($storeIds['1']);
-        $this->factory->store()->getDepartmentManager($storeIds['1']);
+        $this->factory()->store()->getStoreManager($storeIds['1']);
+        $this->factory()->store()->getDepartmentManager($storeIds['1']);
 
         $catalogIds = $this->createCatalog(
             array(
@@ -1713,104 +1715,104 @@ class GrossSalesControllerTest extends WebTestCase
         list($storeIds, $productIds, $catalogIds) = $this->createSalesProducts();
 
         // today, should not be counted
-        $sale = $this->factory->createSale($storeIds['1'], '8:01', 408.09);
-        $this->factory->createSaleProduct(34.77, 3, $productIds['1'], $sale);
-        $this->factory->createSaleProduct(43.55, 4, $productIds['2'], $sale);
-        $this->factory->createSaleProduct(64.79, 2, $productIds['3'], $sale);
+        $sale = $this->factory()->createSale($storeIds['1'], '8:01', 408.09);
+        $this->factory()->createSaleProduct(34.77, 3, $productIds['1'], $sale);
+        $this->factory()->createSaleProduct(43.55, 4, $productIds['2'], $sale);
+        $this->factory()->createSaleProduct(64.79, 2, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['2'], '8:12', 0);
-        $this->factory->createSaleProduct(34.77, 3, $productIds['1'], $sale);
-        $this->factory->createSaleProduct(43.55, 4, $productIds['2'], $sale);
-        $this->factory->createSaleProduct(64.79, 2, $productIds['3'], $sale);
+        $sale = $this->factory()->createSale($storeIds['2'], '8:12', 0);
+        $this->factory()->createSaleProduct(34.77, 3, $productIds['1'], $sale);
+        $this->factory()->createSaleProduct(43.55, 4, $productIds['2'], $sale);
+        $this->factory()->createSaleProduct(64.79, 2, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['3'], '8:03', 0);
-        $this->factory->createSaleProduct(34.77, 3, $productIds['1'], $sale);
-        $this->factory->createSaleProduct(43.55, 4, $productIds['2'], $sale);
-        $this->factory->createSaleProduct(64.79, 2, $productIds['3'], $sale);
+        $sale = $this->factory()->createSale($storeIds['3'], '8:03', 0);
+        $this->factory()->createSaleProduct(34.77, 3, $productIds['1'], $sale);
+        $this->factory()->createSaleProduct(43.55, 4, $productIds['2'], $sale);
+        $this->factory()->createSaleProduct(64.79, 2, $productIds['3'], $sale);
 
         // yesterday, 3rd store has no sales
-        $sale = $this->factory->createSale($storeIds['1'], '-1 day 8:01', 708.91);
-        $this->factory->createSaleProduct(34.77, 6, $productIds['1'], $sale);
-        $this->factory->createSaleProduct(43.55, 10, $productIds['2'], $sale);
-        $this->factory->createSaleProduct(64.79, 1, $productIds['3'], $sale);
+        $sale = $this->factory()->createSale($storeIds['1'], '-1 day 8:01', 708.91);
+        $this->factory()->createSaleProduct(34.77, 6, $productIds['1'], $sale);
+        $this->factory()->createSaleProduct(43.55, 10, $productIds['2'], $sale);
+        $this->factory()->createSaleProduct(64.79, 1, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['2'], '-1 day 8:12', 1535.51);
-        $this->factory->createSaleProduct(34.77, 5, $productIds['1'], $sale);
-        $this->factory->createSaleProduct(43.55, 3, $productIds['2'], $sale);
-        $this->factory->createSaleProduct(64.79, 19, $productIds['3'], $sale);
+        $sale = $this->factory()->createSale($storeIds['2'], '-1 day 8:12', 1535.51);
+        $this->factory()->createSaleProduct(34.77, 5, $productIds['1'], $sale);
+        $this->factory()->createSaleProduct(43.55, 3, $productIds['2'], $sale);
+        $this->factory()->createSaleProduct(64.79, 19, $productIds['3'], $sale);
 
         // 2 days ago,
-        $sale = $this->factory->createSale($storeIds['1'], '- 2 days 8:01', 715.55);
-        $this->factory->createSaleProduct(34.77, 5, $productIds['1'], $sale);
-        $this->factory->createSaleProduct(43.55, 5, $productIds['2'], $sale);
-        $this->factory->createSaleProduct(64.79, 5, $productIds['3'], $sale);
+        $sale = $this->factory()->createSale($storeIds['1'], '- 2 days 8:01', 715.55);
+        $this->factory()->createSaleProduct(34.77, 5, $productIds['1'], $sale);
+        $this->factory()->createSaleProduct(43.55, 5, $productIds['2'], $sale);
+        $this->factory()->createSaleProduct(64.79, 5, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['2'], '-2 days 8:12', 594.75);
-        $this->factory->createSaleProduct(34.77, 4, $productIds['1'], $sale);
-        $this->factory->createSaleProduct(43.55, 6, $productIds['2'], $sale);
-        $this->factory->createSaleProduct(64.79, 3, $productIds['3'], $sale);
+        $sale = $this->factory()->createSale($storeIds['2'], '-2 days 8:12', 594.75);
+        $this->factory()->createSaleProduct(34.77, 4, $productIds['1'], $sale);
+        $this->factory()->createSaleProduct(43.55, 6, $productIds['2'], $sale);
+        $this->factory()->createSaleProduct(64.79, 3, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['3'], '-2 days 8:03', 838.84);
-        $this->factory->createSaleProduct(34.77, 1, $productIds['1'], $sale);
-        $this->factory->createSaleProduct(43.55, 14, $productIds['2'], $sale);
-        $this->factory->createSaleProduct(64.79, 3, $productIds['3'], $sale);
+        $sale = $this->factory()->createSale($storeIds['3'], '-2 days 8:03', 838.84);
+        $this->factory()->createSaleProduct(34.77, 1, $productIds['1'], $sale);
+        $this->factory()->createSaleProduct(43.55, 14, $productIds['2'], $sale);
+        $this->factory()->createSaleProduct(64.79, 3, $productIds['3'], $sale);
 
         // 7 days ago, should not be counted
-        $sale = $this->factory->createSale($storeIds['1'], '-7 days 8:01', 0);
-        $this->factory->createSaleProduct(34.77, 4, $productIds['1'], $sale);
-        $this->factory->createSaleProduct(43.55, 7, $productIds['2'], $sale);
-        $this->factory->createSaleProduct(64.79, 13, $productIds['3'], $sale);
+        $sale = $this->factory()->createSale($storeIds['1'], '-7 days 8:01', 0);
+        $this->factory()->createSaleProduct(34.77, 4, $productIds['1'], $sale);
+        $this->factory()->createSaleProduct(43.55, 7, $productIds['2'], $sale);
+        $this->factory()->createSaleProduct(64.79, 13, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['2'], '-7 days 8:12', 0);
-        $this->factory->createSaleProduct(34.77, 23, $productIds['1'], $sale);
-        $this->factory->createSaleProduct(43.55, 1, $productIds['2'], $sale);
-        $this->factory->createSaleProduct(64.79, 12, $productIds['3'], $sale);
+        $sale = $this->factory()->createSale($storeIds['2'], '-7 days 8:12', 0);
+        $this->factory()->createSaleProduct(34.77, 23, $productIds['1'], $sale);
+        $this->factory()->createSaleProduct(43.55, 1, $productIds['2'], $sale);
+        $this->factory()->createSaleProduct(64.79, 12, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['3'], '-7 days 8:03', 0);
-        $this->factory->createSaleProduct(34.77, 7, $productIds['1'], $sale);
-        $this->factory->createSaleProduct(43.55, 5, $productIds['2'], $sale);
-        $this->factory->createSaleProduct(64.79, 3, $productIds['3'], $sale);
+        $sale = $this->factory()->createSale($storeIds['3'], '-7 days 8:03', 0);
+        $this->factory()->createSaleProduct(34.77, 7, $productIds['1'], $sale);
+        $this->factory()->createSaleProduct(43.55, 5, $productIds['2'], $sale);
+        $this->factory()->createSaleProduct(64.79, 3, $productIds['3'], $sale);
 
         // 8 days ago
-        $sale = $this->factory->createSale($storeIds['1'], '-8 days 8:01', 360.86);
-        $this->factory->createSaleProduct(34.77, 1, $productIds['1'], $sale);
-        $this->factory->createSaleProduct(43.55, 6, $productIds['2'], $sale);
-        $this->factory->createSaleProduct(64.79, 1, $productIds['3'], $sale);
+        $sale = $this->factory()->createSale($storeIds['1'], '-8 days 8:01', 360.86);
+        $this->factory()->createSaleProduct(34.77, 1, $productIds['1'], $sale);
+        $this->factory()->createSaleProduct(43.55, 6, $productIds['2'], $sale);
+        $this->factory()->createSaleProduct(64.79, 1, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['2'], '-8 days 8:12', 748.43);
-        $this->factory->createSaleProduct(34.77, 8, $productIds['1'], $sale);
-        $this->factory->createSaleProduct(43.55, 10, $productIds['2'], $sale);
-        $this->factory->createSaleProduct(34.77, 1, $productIds['1'], $sale);
+        $sale = $this->factory()->createSale($storeIds['2'], '-8 days 8:12', 748.43);
+        $this->factory()->createSaleProduct(34.77, 8, $productIds['1'], $sale);
+        $this->factory()->createSaleProduct(43.55, 10, $productIds['2'], $sale);
+        $this->factory()->createSaleProduct(34.77, 1, $productIds['1'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['3'], '-8 days 8:03', 965.58);
-        $this->factory->createSaleProduct(34.77, 11, $productIds['1'], $sale);
-        $this->factory->createSaleProduct(64.79, 9, $productIds['3'], $sale);
+        $sale = $this->factory()->createSale($storeIds['3'], '-8 days 8:03', 965.58);
+        $this->factory()->createSaleProduct(34.77, 11, $productIds['1'], $sale);
+        $this->factory()->createSaleProduct(64.79, 9, $productIds['3'], $sale);
 
         // 9 days ago, should not be counted
-        $sale = $this->factory->createSale($storeIds['1'], '-9 days 10:01', 0);
-        $this->factory->createSaleProduct(34.77, 1, $productIds['1'], $sale);
-        $this->factory->createSaleProduct(43.55, 8, $productIds['2'], $sale);
-        $this->factory->createSaleProduct(64.79, 3, $productIds['3'], $sale);
+        $sale = $this->factory()->createSale($storeIds['1'], '-9 days 10:01', 0);
+        $this->factory()->createSaleProduct(34.77, 1, $productIds['1'], $sale);
+        $this->factory()->createSaleProduct(43.55, 8, $productIds['2'], $sale);
+        $this->factory()->createSaleProduct(64.79, 3, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['2'], '-9 days 14:12', 0);
-        $this->factory->createSaleProduct(34.77, 4, $productIds['1'], $sale);
-        $this->factory->createSaleProduct(43.55, 5, $productIds['2'], $sale);
-        $this->factory->createSaleProduct(64.79, 6, $productIds['3'], $sale);
+        $sale = $this->factory()->createSale($storeIds['2'], '-9 days 14:12', 0);
+        $this->factory()->createSaleProduct(34.77, 4, $productIds['1'], $sale);
+        $this->factory()->createSaleProduct(43.55, 5, $productIds['2'], $sale);
+        $this->factory()->createSaleProduct(64.79, 6, $productIds['3'], $sale);
 
-        $sale = $this->factory->createSale($storeIds['3'], '-9 days 16:03', 0);
-        $this->factory->createSaleProduct(34.77, 1, $productIds['1'], $sale);
-        $this->factory->createSaleProduct(43.55, 1, $productIds['2'], $sale);
-        $this->factory->createSaleProduct(64.79, 1, $productIds['3'], $sale);
+        $sale = $this->factory()->createSale($storeIds['3'], '-9 days 16:03', 0);
+        $this->factory()->createSaleProduct(34.77, 1, $productIds['1'], $sale);
+        $this->factory()->createSaleProduct(43.55, 1, $productIds['2'], $sale);
+        $this->factory()->createSaleProduct(64.79, 1, $productIds['3'], $sale);
 
-        $this->factory->flush();
+        $this->factory()->flush();
 
         return array($storeIds, $productIds, $catalogIds);
     }
 
     public function testGrossSalesByProducts()
     {
-        $storeId = $this->factory->store()->getStoreId('1');
-        $storeOtherId = $this->factory->store()->getStoreId('Other');
+        $storeId = $this->factory()->store()->getStoreId('1');
+        $storeOtherId = $this->factory()->store()->getStoreId('Other');
         $subCategoryId = $this->factory()->catalog()->createSubCategory()->id;
         $subCategoryOtherId = $this->factory()->catalog()->createSubCategory(null, 'Other')->id;
         $product1Id = $this->createProduct('1', $subCategoryId);
@@ -2046,7 +2048,7 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
             ),
         );
-        $this->factory->createSales($sales);
+        $this->factory()->createSales($sales);
 
         $salesInOtherStore = array(
             array(
@@ -2072,12 +2074,12 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
             ),
         );
-        $this->factory->createSales($salesInOtherStore);
+        $this->factory()->createSales($salesInOtherStore);
 
         $grossSalesReportManager = $this->getGrossSalesReportService();
         $grossSalesReportManager->recalculateGrossSalesProductReport();
 
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2181,12 +2183,12 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
             ),
         );
-        $this->factory->createSales($salesInOtherStore);
+        $this->factory()->createSales($salesInOtherStore);
 
         $grossSalesReportManager = $this->getGrossSalesReportService();
         $grossSalesReportManager->recalculateGrossSalesProductReport();
 
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2270,12 +2272,12 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
             ),
         );
-        $this->factory->createSales($salesInOtherStore);
+        $this->factory()->createSales($salesInOtherStore);
 
         $grossSalesReportManager = $this->getGrossSalesReportService();
         $grossSalesReportManager->recalculateGrossSalesProductReport();
 
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2355,7 +2357,7 @@ class GrossSalesControllerTest extends WebTestCase
         $this->getGrossSalesReportService()->recalculateGrossSalesProductReport(1);
         $this->getGrossSalesReportService()->recalculateGrossSalesBySubCategories($output);
 
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2417,7 +2419,7 @@ class GrossSalesControllerTest extends WebTestCase
     {
         list($storeIds,, $catalogIds) = $this->createSalesProducts();
 
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2460,7 +2462,7 @@ class GrossSalesControllerTest extends WebTestCase
     {
         list($storeIds,, $catalogIds) = $this->createSalesProducts();
 
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2488,7 +2490,7 @@ class GrossSalesControllerTest extends WebTestCase
         $this->getGrossSalesReportService()->recalculateGrossSalesByCategories($output);
         $this->getGrossSalesReportService()->recalculateGrossSalesByGroups($output);
 
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2546,7 +2548,7 @@ class GrossSalesControllerTest extends WebTestCase
     {
         list($storeIds,, $catalogIds) = $this->createSalesProducts();
 
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2566,7 +2568,7 @@ class GrossSalesControllerTest extends WebTestCase
     {
         list($storeIds,, $catalogIds) = $this->createSalesProducts();
 
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2615,7 +2617,7 @@ class GrossSalesControllerTest extends WebTestCase
         $this->getGrossSalesReportService()->recalculateGrossSalesByCategories($output, 1);
         $this->getGrossSalesReportService()->recalculateGrossSalesByGroups($output, 1);
 
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2673,7 +2675,7 @@ class GrossSalesControllerTest extends WebTestCase
     {
         list($storeIds,, $catalogIds) = $this->createSalesProducts();
 
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2730,7 +2732,7 @@ class GrossSalesControllerTest extends WebTestCase
     {
         list($storeIds,, $catalogIds) = $this->createSalesProducts();
 
-        $accessToken = $this->factory->oauth()->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeIds['1']);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',

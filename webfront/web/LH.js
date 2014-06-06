@@ -1,17 +1,26 @@
-define(function(require) {
+define(function(require, exports, module) {
     //requirements
+    var get = require('kit/get/get'),
+        config = require('config');
 
-    return window.LH = window.Lighthouse = _.extend({
-        isAllow: require('kit/isAllow/isAllow'),
-        getText: require('kit/getText/getText'),
-        isReportsAllow: require('kit/isReportsAllow/isReportsAllow'),
+    require('jquery');
+
+    window.LH = _.extend({
         modelNode: require('kit/modelNode/modelNode'),
+        collectionNode: require('kit/collectionNode/collectionNode'),
         formatMoney: require('kit/formatMoney/formatMoney'),
         formatAmount: require('kit/formatAmount/formatAmount'),
         formatDate: require('kit/formatDate/formatDate'),
         isEmptyJSON: require('kit/isEmptyJSON/isEmptyJSON'),
         prevalidateInput: require('kit/prevalidateInput/prevalidateInput'),
         units: require('kit/units/units'),
-        productTypes: require('kit/productTypes/productTypes')
-    }, window.LH, window.Lighthouse);
+        productTypes: require('kit/productTypes/productTypes'),
+        getText: require('kit/getText'),
+        isAllow: function(){
+            return true;
+        },
+        isReportsAllow: function(){
+            return true;
+        }
+    }, config);
 });

@@ -9,6 +9,9 @@ In order to управлять розничной ценой на товары �
 
 Scenario: Product creation without filling any ranges
 
+Meta:
+@smoke
+
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
 
@@ -28,6 +31,9 @@ Then the user checks the elements values
 | retailPriceRange | отсутствует |
 
 Scenario: Product creation with markup range filling
+
+Meta:
+@smoke
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
@@ -50,6 +56,9 @@ Then the user checks the elements values
 | retailPriceRange | 123,20 - 128,80 |
 
 Scenario: Product creation with retailPriceRange range filling
+
+Meta:
+@smoke
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
@@ -74,6 +83,9 @@ Then the user checks the elements values
 | retailPriceRange | 140,00 - 145,00 |
 
 Scenario: Retail mark up last used field is active in product edition
+
+Meta:
+@smoke
 
 Given the user is on the product create page
 And the user logs in as 'commercialManager'
@@ -161,6 +173,9 @@ Then the user checks the elements values
 | retailMarkupHint | Введите значение |
 
 Scenario: Retail mark up range inheritance
+
+Meta:
+@smoke
 
 Meta:
 @id_s16u28s9

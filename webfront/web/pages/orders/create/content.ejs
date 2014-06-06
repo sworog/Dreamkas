@@ -1,0 +1,13 @@
+<% var templates = {
+    form_order: require('tpl!blocks/form/form_order/template.ejs')
+} %>
+
+<div class="content">
+    <h2>Заказ поставщику</h2>
+
+    <%= templates.form_order({
+        collections: _.pick(collections, 'suppliers'),
+        model: models.order,
+        storeId: params.storeId
+    }) %>
+</div>

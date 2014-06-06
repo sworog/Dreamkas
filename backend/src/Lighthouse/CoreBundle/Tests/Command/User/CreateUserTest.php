@@ -2,93 +2,114 @@
 
 namespace Lighthouse\CoreBundle\Tests\Command\User;
 
-use JMS\Serializer\SerializerInterface;
-use Lighthouse\CoreBundle\Command\User\CreateUser;
+use Lighthouse\CoreBundle\Document\Project\Project;
+use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
-use Symfony\Component\Console\Tester\CommandTester;
 
 class CreateUserTest extends ContainerAwareTestCase
 {
-    /**
-     * @var UserProvider
-     */
-    protected $userProvider;
-
     protected function setUp()
     {
         $this->clearMongoDb();
-
-        $this->userProvider = $this->getContainer()->get('lighthouse.core.user.provider');
-    }
-
-    protected function tearDown()
-    {
-        $this->userProvider = null;
-        parent::tearDown();
     }
 
     /**
-     * @return CreateUser
+     * @return UserProvider
      */
-    protected function getCommand()
+    protected function getUserProvider()
     {
-        /* @var $serializer SerializerInterface */
-        $serializer = $this->getContainer()->get('serializer');
-
-        $command = new CreateUser();
-        $command->setUserProvider($this->userProvider);
-        $command->setSerializer($serializer);
-
-        return $command;
+        return $this->getContainer()->get('lighthouse.core.user.provider');
     }
 
     public function testExecute()
     {
-        $commandTester = new CommandTester($this->getCommand());
-
         $input = array(
-            'username' => 'admin',
+            'email' => 'admin@lighthouse.pro',
             'password' => 'lighthouse',
-            'role' => 'ROLE_ADMINISTRATOR',
+            'roles' => array('ROLE_ADMINISTRATOR'),
         );
 
-        $exitCode = $commandTester->execute($input);
+        $commandTester = $this->createConsoleTester()->runCommand('lighthouse:user:create', $input);
 
-        $this->assertEquals(0, $exitCode);
+        $this->assertEquals(0, $commandTester->getStatusCode());
 
         $display = $commandTester->getDisplay();
         $this->assertContains('Creating user...Done', $display);
-        $this->assertContains('"username":"admin"', $display);
-        $this->assertContains('"role":"ROLE_ADMINISTRATOR"', $display);
+        $this->assertContains('"email":"admin@lighthouse.pro"', $display);
+        $this->assertContains('"roles":["ROLE_ADMINISTRATOR"]', $display);
 
-        $user = $this->userProvider->loadUserByUsername('admin');
+        $user = $this->getUserProvider()->loadUserByUsername('admin@lighthouse.pro');
 
-        $this->assertInstanceOf('Lighthouse\\CoreBundle\\Document\\User\\User', $user);
-        $this->assertEquals('admin', $user->username);
+        $this->assertInstanceOf(User::getClassName(), $user);
+        $this->assertEquals('admin@lighthouse.pro', $user->email);
         $this->assertNotEquals('lighthouse', $user->password);
-        $this->assertEquals('ROLE_ADMINISTRATOR', $user->role);
+        $this->assertContains(User::ROLE_ADMINISTRATOR, $user->roles);
+        $this->assertEquals('ROLE_ADMINISTRATOR', $user->position);
+        $this->assertInstanceOf(Project::getClassName(), $user->project);
+    }
+
+    public function testCreateUserWithMultipleRoles()
+    {
+        $input = array(
+            'email' => 'admin@lighthouse.pro',
+            'password' => 'lighthouse',
+            'roles' => array('ROLE_COMMERCIAL_MANAGER', 'ROLE_STORE_MANAGER', 'ROLE_DEPARTMENT_MANAGER'),
+        );
+
+        $commandTester = $this->createConsoleTester(false)->runCommand('lighthouse:user:create', $input);
+
+        $this->assertEquals(0, $commandTester->getStatusCode());
+
+        $display = $commandTester->getDisplay();
+        $this->assertContains('Creating user...Done', $display);
+        $this->assertContains('"email":"admin@lighthouse.pro"', $display);
+        $this->assertContains(
+            '"roles":["ROLE_COMMERCIAL_MANAGER","ROLE_STORE_MANAGER","ROLE_DEPARTMENT_MANAGER"]',
+            $display
+        );
+
+        $user = $this->getUserProvider()->loadUserByUsername('admin@lighthouse.pro');
+
+        $this->assertInstanceOf(User::getClassName(), $user);
+        $this->assertSame($user->roles, $input['roles']);
+        $this->assertEquals('ROLE_COMMERCIAL_MANAGER', $user->position);
     }
 
     /**
      * @expectedException \Lighthouse\CoreBundle\Exception\ValidationFailedException
-     * @expectedExceptionMessage username:
+     * @expectedExceptionMessage email:
      */
     public function testUserExists()
     {
-        $commandTester = new CommandTester($this->getCommand());
-
         $input = array(
-            'username' => 'admin',
+            'email' => 'admin@lighthouse.pro',
             'password' => 'lighthouse',
-            'role' => 'ROLE_ADMINISTRATOR',
+            array('roles' => 'ROLE_ADMINISTRATOR'),
         );
 
-        $exitCode1 = $commandTester->execute($input);
+        $commandTester = $this->createConsoleTester(false, true);
 
-        $this->assertEquals(0, $exitCode1);
+        $exitCode = $commandTester->runCommand('lighthouse:user:create', $input)->getStatusCode();
+        $this->assertEquals(0, $exitCode);
 
-        $commandTester->execute($input);
+        $commandTester->runCommand('lighthouse:user:create', $input);
+    }
+
+    /**
+     * @expectedException \Lighthouse\CoreBundle\Exception\RuntimeException
+     * @expectedExceptionMessage Project with id#1 not found
+     */
+    public function testProjectDoesNotExist()
+    {
+        $input = array(
+            'email' => 'admin@lighthouse.pro',
+            'password' => 'lighthouse',
+            'roles' => array('ROLE_ADMINISTRATOR'),
+            '--project' => 1
+        );
+
+        $this->createConsoleTester(false)->runCommand('lighthouse:user:create', $input);
     }
 
     /**
@@ -97,10 +118,6 @@ class CreateUserTest extends ContainerAwareTestCase
      */
     public function testMissingParams()
     {
-        $commandTester = new CommandTester($this->getCommand());
-
-        $exitCode = $commandTester->execute(array());
-
-        $this->assertEquals(0, $exitCode);
+        $this->createConsoleTester(false)->runCommand('lighthouse:user:create', array());
     }
 }

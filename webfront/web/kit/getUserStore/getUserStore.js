@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var currentUserModel = require('models/currentUser');
+    var currentUserModel = require('models/currentUser.inst');
 
     return function(storeId){
         if (currentUserModel.stores.length){

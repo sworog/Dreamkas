@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var currentUserModel = require('models/currentUser');
+    var currentUserModel = require('models/currentUser.inst');
 
     require('lodash');
 

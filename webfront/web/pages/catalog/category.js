@@ -6,9 +6,9 @@ define(function(require) {
         CatalogProductsCollection = require('collections/catalogProducts'),
         StoreProductsCollection = require('collections/storeProducts'),
         СatalogGroupModel = require('models/catalogGroup'),
-        currentUserModel = require('models/currentUser'),
+        currentUserModel = require('models/currentUser.inst'),
         Page403 = require('pages/errors/403'),
-        router = require('kit/router/router');
+        router = require('router');
 
     return Page.extend({
         __name__: 'page_catalog_category',

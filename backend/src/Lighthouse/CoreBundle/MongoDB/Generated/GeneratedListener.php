@@ -3,7 +3,8 @@
 namespace Lighthouse\CoreBundle\MongoDB\Generated;
 
 use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
-use Doctrine\MongoDB\Event\CreateCollectionEventArgs;
+use Doctrine\MongoDB\Collection;
+use Doctrine\MongoDB\Event\EventArgs;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Mapping\ClassMetadata;
@@ -11,7 +12,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 /**
- * @DI\DoctrineMongoDBListener(events={"prePersist", "preCreateCollection"})
+ * @DI\DoctrineMongoDBListener(events={"prePersist", "postCreateCollection"})
  */
 class GeneratedListener
 {
@@ -69,15 +70,18 @@ class GeneratedListener
         return $mappings;
     }
 
-    public function preCreateCollection(CreateCollectionEventArgs $eventArgs)
+    public function postCreateCollection(EventArgs $eventArgs)
     {
         /* @var DocumentManager $documentManager */
         $documentManager = $this->managerRegistry->getManager();
 
-        foreach ($this->getGeneratedMappings($documentManager, $eventArgs->getName()) as $mapping) {
+        /* @var Collection $collection */
+        $collection = $eventArgs->getData();
+
+        foreach ($this->getGeneratedMappings($documentManager, $collection->getName()) as $mapping) {
             /* @var ClassMetadata $metadata*/
             list($metadata, $fieldMapping) = $mapping;
-            $this->generator->setStartValue($documentManager, $metadata->getName(), $fieldMapping['startValue']);
+            $this->generator->setStartValue($collection, $metadata->getName(), $fieldMapping['startValue']);
         }
     }
 

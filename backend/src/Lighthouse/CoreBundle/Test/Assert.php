@@ -66,7 +66,7 @@ class Assert
             $message = sprintf(
                 "Failed asserting JSON path '%s' value equals '%s'.\nFound values: %s",
                 $path,
-                $expected,
+                is_array($expected) ? json_encode($expected) : $expected,
                 implode(', ', $notFoundValues)
             );
         }

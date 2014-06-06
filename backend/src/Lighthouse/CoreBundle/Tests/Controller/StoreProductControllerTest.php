@@ -32,21 +32,21 @@ class StoreProductControllerTest extends WebTestCase
 
     protected function initStoreProduct()
     {
-        $this->storeManager = $this->factory->user()->getUser(
-            'Василий Петрович Краузе',
+        $this->storeManager = $this->factory()->user()->getUser(
+            'vasyaPetrCrause@lighthouse.pro',
             'password',
             User::ROLE_STORE_MANAGER
         );
 
         $this->productId = $this->createProduct();
-        $this->storeId = $this->factory->store()->getStoreId();
+        $this->storeId = $this->factory()->store()->getStoreId();
 
-        $this->factory->store()->linkStoreManagers($this->storeManager->id, $this->storeId);
+        $this->factory()->store()->linkStoreManagers($this->storeManager->id, $this->storeId);
     }
 
     public function testGetActionNoStoreProductCreated()
     {
-        $accessToken = $this->factory->oauth()->auth($this->storeManager, 'password');
+        $accessToken = $this->factory()->oauth()->auth($this->storeManager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -63,7 +63,7 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testGetActionProductDoesNotExist()
     {
-        $accessToken = $this->factory->oauth()->auth($this->storeManager, 'password');
+        $accessToken = $this->factory()->oauth()->auth($this->storeManager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -77,7 +77,7 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testGetActionProductExistsStoreNotExists()
     {
-        $accessToken = $this->factory->oauth()->auth($this->storeManager, 'password');
+        $accessToken = $this->factory()->oauth()->auth($this->storeManager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -112,7 +112,7 @@ class StoreProductControllerTest extends WebTestCase
 
         $productId = $this->createProduct($productData);
 
-        $accessToken = $this->factory->oauth()->auth($this->storeManager, 'password');
+        $accessToken = $this->factory()->oauth()->auth($this->storeManager, 'password');
 
         $putData = $data;
 
@@ -418,7 +418,7 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testStoreManagerAccessHasNoStore()
     {
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -433,7 +433,7 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testStoreManagerAccessHasStore()
     {
-        $accessToken = $this->factory->oauth()->auth($this->storeManager, 'password');
+        $accessToken = $this->factory()->oauth()->auth($this->storeManager, 'password');
 
         $this->clientJsonRequest(
             $accessToken,
@@ -446,7 +446,7 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testDepartmentManagerAccessHasNoStore()
     {
-        $accessToken = $this->factory->oauth()->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -461,14 +461,14 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testDepartmentManagerAccessHasStore()
     {
-        $departmentManager = $this->factory->user()->getUser(
+        $departmentManager = $this->factory()->user()->getUser(
             'Василиса Петровна Бздых',
             'password',
             User::ROLE_DEPARTMENT_MANAGER
         );
-        $this->factory->store()->linkDepartmentManagers($departmentManager->id, $this->storeId);
+        $this->factory()->store()->linkDepartmentManagers($departmentManager->id, $this->storeId);
 
-        $accessToken = $this->factory->oauth()->auth($departmentManager, 'password');
+        $accessToken = $this->factory()->oauth()->auth($departmentManager, 'password');
 
         $this->clientJsonRequest(
             $accessToken,
@@ -481,7 +481,7 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testGetStoreSubCategoryProductsStoreManagerHasStore()
     {
-        $accessToken = $this->factory->oauth()->auth($this->storeManager, 'password');
+        $accessToken = $this->factory()->oauth()->auth($this->storeManager, 'password');
 
         $subCategoryId = $this->createSubCategory(null, 'Вино сухое');
 
@@ -505,7 +505,7 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testGetStoreSubCategoryProductsHasNoSubCategoryAndStore()
     {
-        $accessToken = $this->factory->oauth()->auth($this->storeManager, 'password');
+        $accessToken = $this->factory()->oauth()->auth($this->storeManager, 'password');
 
         $subCategoryId = $this->createSubCategory(null, 'Вино сухое');
 
@@ -553,7 +553,7 @@ class StoreProductControllerTest extends WebTestCase
 
         $productId = $this->createProduct($productData);
 
-        $accessToken = $this->factory->oauth()->auth($this->storeManager, 'password');
+        $accessToken = $this->factory()->oauth()->auth($this->storeManager, 'password');
 
         $putData = $data + array('retailPricePreference' => 'retailPrice');
 
@@ -755,7 +755,7 @@ class StoreProductControllerTest extends WebTestCase
 
         $productId = $this->createProduct($productData);
 
-        $accessToken = $this->factory->oauth()->auth($this->storeManager, 'password');
+        $accessToken = $this->factory()->oauth()->auth($this->storeManager, 'password');
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -823,20 +823,20 @@ class StoreProductControllerTest extends WebTestCase
     public function testGetStoreProductsAction()
     {
         $storeId1 = $this->storeId;
-        $storeId2 = $this->factory->store()->getStoreId('2', '2', '2');
+        $storeId2 = $this->factory()->store()->getStoreId('2', '2', '2');
 
-        $departmentManager1 = $this->factory->user()->getUser('dm1', 'password', 'ROLE_DEPARTMENT_MANAGER');
-        $departmentManager2 = $this->factory->user()->getUser('dm2', 'password', 'ROLE_DEPARTMENT_MANAGER');
+        $departmentManager1 = $this->factory()->user()->getUser('dm1@lh.pro', 'password', 'ROLE_DEPARTMENT_MANAGER');
+        $departmentManager2 = $this->factory()->user()->getUser('dm2@lh.pro', 'password', 'ROLE_DEPARTMENT_MANAGER');
 
-        $this->factory->store()->linkDepartmentManagers($departmentManager1->id, $storeId1);
-        $this->factory->store()->linkDepartmentManagers($departmentManager2->id, $storeId2);
+        $this->factory()->store()->linkDepartmentManagers($departmentManager1->id, $storeId1);
+        $this->factory()->store()->linkDepartmentManagers($departmentManager2->id, $storeId2);
 
         $productId1 = $this->productId;
         $productId2 = $this->createProduct('2');
         $productId3 = $this->createProduct('3');
 
-        $departmentAccessToken1 = $this->factory->oauth()->auth($departmentManager1);
-        $departmentAccessToken2 = $this->factory->oauth()->auth($departmentManager2);
+        $departmentAccessToken1 = $this->factory()->oauth()->auth($departmentManager1);
+        $departmentAccessToken2 = $this->factory()->oauth()->auth($departmentManager2);
 
         $response = $this->clientJsonRequest(
             $departmentAccessToken1,
@@ -1036,8 +1036,8 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testAdvancedSearchStoreProductsAction()
     {
-        $storeId = $this->factory->store()->getStoreId();
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
+        $storeId = $this->factory()->store()->getStoreId();
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
 
         $this->createProduct(array('name' => 'Велосипед 2010004')); // 10002
         $this->createProduct(array('name' => 'Самокат'));  // 10003
@@ -1102,8 +1102,8 @@ class StoreProductControllerTest extends WebTestCase
 
     public function testAdvancedSearchStoreProductsActionOnlyOneProp()
     {
-        $storeId = $this->factory->store()->getStoreId();
-        $accessToken = $this->factory->oauth()->authAsDepartmentManager($storeId);
+        $storeId = $this->factory()->store()->getStoreId();
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
 
         $this->createProduct(array('name' => 'Велосипед 3345'));
         $this->createProduct(array('name' => 'Самокат'));

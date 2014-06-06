@@ -5,24 +5,27 @@ namespace Lighthouse\CoreBundle\Document\User;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Symfony\Component\Security\Core\Role\Role;
+use Lighthouse\CoreBundle\Document\Project\Project;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
+use Lighthouse\CoreBundle\MongoDB\Mapping\Annotations\GlobalDb;
 
 /**
  *
  * @property string $id
- * @property string $username
+ * @property string $email
  * @property string $name
  * @property string $position
  * @property string $password
  * @property string $salt
- * @property string $role
+ * @property array $roles
+ * @property Project $project
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\User\UserRepository")
- * @Unique(fields="username", message="lighthouse.validation.errors.user.username.unique")
+ * @Unique(fields="email", message="lighthouse.validation.errors.user.email.unique")
+ * @GlobalDb
  */
 class User extends AbstractDocument implements UserInterface
 {
@@ -39,12 +42,11 @@ class User extends AbstractDocument implements UserInterface
     /**
      * @MongoDB\String
      * @MongoDB\UniqueIndex
-     * @Assert\NotBlank
-     * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
-     * @Assert\Regex("/^[\w\d_\-\.\@]+$/u")
+     * @Assert\NotBlank(groups={"Default", "registration"})
+     * @Assert\Email(groups={"Default", "registration"})
      * @var string
      */
-    protected $username;
+    protected $email;
 
     /**
      * @MongoDB\String
@@ -63,24 +65,27 @@ class User extends AbstractDocument implements UserInterface
     protected $position;
 
     /**
-     * @MongoDB\string
+     * @MongoDB\Collection
      * @Assert\NotBlank
-     * @Assert\Choice({
-     *      "ROLE_COMMERCIAL_MANAGER",
-     *      "ROLE_STORE_MANAGER",
-     *      "ROLE_DEPARTMENT_MANAGER",
-     *      "ROLE_ADMINISTRATOR"
-     * })
-     * @var string
+     * @Assert\Choice(
+     *      choices={
+     *          "ROLE_COMMERCIAL_MANAGER",
+     *          "ROLE_STORE_MANAGER",
+     *          "ROLE_DEPARTMENT_MANAGER",
+     *          "ROLE_ADMINISTRATOR"
+     *      },
+     *      multiple=true
+     * )
+     * @var array
      */
-    protected $role;
+    protected $roles;
 
     /**
      * @MongoDB\String
-     * @Assert\NotBlank(groups={"registration"})
+     * @Assert\NotBlank(groups={"creation"})
      * @Assert\Length(min="6")
      * @LighthouseAssert\NotEqualsField(
-     *      field = "username",
+     *      field = "email",
      *      message = "lighthouse.validation.errors.user.password.not_equals_login"
      * )
      * @Serializer\Exclude
@@ -96,11 +101,21 @@ class User extends AbstractDocument implements UserInterface
     protected $salt;
 
     /**
-     * @return Role[] The user roles
+     * @MongoDB\ReferenceOne(
+     *      targetDocument="Lighthouse\CoreBundle\Document\Project\Project",
+     *      simple=true,
+     *      cascade="persist"
+     * )
+     * @var Project
+     */
+    protected $project;
+
+    /**
+     * @return array The user roles
      */
     public function getRoles()
     {
-        return array($this->role);
+        return $this->roles;
     }
 
     /**
@@ -130,7 +145,7 @@ class User extends AbstractDocument implements UserInterface
      */
     public function getUsername()
     {
-        return $this->username;
+        return $this->email;
     }
 
     /**
@@ -152,5 +167,26 @@ class User extends AbstractDocument implements UserInterface
     public function hasUserRole($role)
     {
         return in_array($role, $this->getRoles());
+    }
+
+    /**
+     * @return Project
+     */
+    public function getProject()
+    {
+        return $this->project;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getDefaultRoles()
+    {
+        return array(
+            self::ROLE_COMMERCIAL_MANAGER,
+            self::ROLE_STORE_MANAGER,
+            self::ROLE_DEPARTMENT_MANAGER,
+            self::ROLE_ADMINISTRATOR
+        );
     }
 }

@@ -9,6 +9,9 @@ So that I can achieve a business goal
 
 Scenario: Store product nearest99 rounding recalculation with price range is set
 
+Meta:
+@smoke
+
 Given there is the subCategory with name 'ReCalcRoundingSubCategory' related to group named 'ReCalcRoundingGroup' and category named 'ReCalcRoundingCategory'
 And the user sets subCategory 'ReCalcRoundingSubCategory' mark up with max '100' and min '0' values
 And there is the product with productName, random generated barcode, 'weight' type, '10' purchasePrice of group named 'ReCalcRoundingGroup', category named 'ReCalcRoundingCategory', subcategory named 'ReCalcRoundingSubCategory' with 'nearest1' rounding
@@ -47,6 +50,9 @@ Examples:
 | ReCalcRoundingProductName3 | ReCalcStoreManager3 | ReCalcStore1 | 19,49 | retailPrice | 18,99 |
 
 Scenario: Store product nearest50 rounding recalculation with price range is set
+
+Meta:
+@smoke
 
 Given there is the subCategory with name 'ReCalcRoundingSubCategory' related to group named 'ReCalcRoundingGroup' and category named 'ReCalcRoundingCategory'
 And the user sets subCategory 'ReCalcRoundingSubCategory' mark up with max '100' and min '0' values
@@ -87,6 +93,9 @@ Examples:
 
 Scenario: Store product nearest100 rounding recalculation with price range is set
 
+Meta:
+@smoke
+
 Given there is the subCategory with name 'ReCalcRoundingSubCategory' related to group named 'ReCalcRoundingGroup' and category named 'ReCalcRoundingCategory'
 And the user sets subCategory 'ReCalcRoundingSubCategory' mark up with max '100' and min '0' values
 And there is the product with productName, random generated barcode, 'weight' type, '10' purchasePrice of group named 'ReCalcRoundingGroup', category named 'ReCalcRoundingCategory', subcategory named 'ReCalcRoundingSubCategory' with 'nearest1' rounding
@@ -124,6 +133,9 @@ Examples:
 | ReCalcRoundingProductName10 | ReCalcStoreManager2 | ReCalcStore1 | 10,99 | retailPrice | 11,00 |
 
 Scenario: Store product nearest10 rounding recalculation with price range is set
+
+Meta:
+@smoke
 
 Given there is the subCategory with name 'ReCalcRoundingSubCategory' related to group named 'ReCalcRoundingGroup' and category named 'ReCalcRoundingCategory'
 And the user sets subCategory 'ReCalcRoundingSubCategory' mark up with max '100' and min '0' values

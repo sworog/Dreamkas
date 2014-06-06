@@ -3,7 +3,7 @@ define(function(require, exports, module) {
     var app = require('app'),
         Block = require('kit/core/block.deprecated'),
         Backbone = require('backbone'),
-        router = require('kit/router/router'),
+        router = require('router'),
         isAllow = require('kit/isAllow/isAllow'),
         downloadUrl = require('kit/downloadUrl/downloadUrl'),
         cookies = require('cookies'),
@@ -47,6 +47,31 @@ define(function(require, exports, module) {
                         e.target.classList.remove('preloader_rows');
                     }
                 });
+            },
+            'click .page__tabItem': function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                var block = this,
+                    $target = $(e.target),
+                    rel = $target.attr('rel'),
+                    href = $target.attr('href'),
+                    $targetContent = $('.page__tabContentItem[rel="' + rel + '"]');
+
+                if (href) {
+                    router.navigate(href, {
+                        trigger: false
+                    });
+                }
+
+                $targetContent
+                    .addClass('page__tabContentItem_active')
+                    .siblings('.page__tabContentItem')
+                    .removeClass('page__tabContentItem_active');
+
+                $target
+                    .addClass('page__tabItem_active')
+                    .siblings('.page__tabItem')
+                    .removeClass('page__tabItem_active');
             }
         },
         constructor: function() {
@@ -56,23 +81,8 @@ define(function(require, exports, module) {
             this.cid = _.uniqueId('cid');
             this._configure.apply(this, arguments);
 
-            if (NewPage.current){
-                NewPage.current.destroy();
-                delete NewPage.current;
-            }
-
-            switch (typeof page.permissions) {
-                case 'object':
-                    accessDenied = _.some(page.permissions, function(value, key) {
-                        return !isAllow(app.permissions, key, value);
-                    });
-                    break;
-                case 'function':
-                    accessDenied = page.permissions();
-                    break;
-                case 'string':
-                    accessDenied = isAllow(app.permissions, page.permissions);
-                    break;
+            if (window.PAGE){
+                window.PAGE.destroy();
             }
 
             if (accessDenied) {
@@ -153,6 +163,11 @@ define(function(require, exports, module) {
             router.navigate(router.toFragment(pathname, queryParams));
 
             return page;
+        },
+        'set:loading': function(loading) {
+            var block = this;
+
+            block.el.setAttribute('status', loading ? 'loading' : 'loaded');
         }
     });
 

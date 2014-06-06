@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Page = require('kit/core/page.deprecated'),
-        currentUserModel = require('models/currentUser'),
+        currentUserModel = require('models/currentUser.inst'),
         GrossSalesByProductsCollection = require('collections/grossSalesByProducts');
 
     require('jquery');
@@ -21,7 +21,6 @@ define(function(require, exports, module) {
             return !LH.isReportsAllow(['grossSalesByProducts']);
         },
         models: {
-            store: currentUserModel.stores.length ? currentUserModel.stores.at(0) : null
         },
         collections: {
             grossSalesByProducts: function() {

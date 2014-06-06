@@ -68,12 +68,26 @@ class OAuthFactory extends AbstractFactory
         $password = UserFactory::USER_DEFAULT_PASSWORD,
         AuthClient $oauthClient = null
     ) {
+        return $this->doAuthByUsername($oauthUser->getUsername(), $password, $oauthClient);
+    }
+
+    /**
+     * @param string $username
+     * @param string $password
+     * @param AuthClient $oauthClient
+     * @return \stdClass access token
+     */
+    public function doAuthByUsername(
+        $username,
+        $password = UserFactory::USER_DEFAULT_PASSWORD,
+        AuthClient $oauthClient = null
+    ) {
         $oauthClient = ($oauthClient) ?: $this->getAuthClient();
 
         $request = new Request();
         $request->setMethod('POST');
         $request->request->set('grant_type', OAuth2::GRANT_TYPE_USER_CREDENTIALS);
-        $request->request->set('username', $oauthUser->username);
+        $request->request->set('username', $username);
         $request->request->set('password', $password);
         $request->request->set('client_id', $oauthClient->getPublicId());
         $request->request->set('client_secret', $oauthClient->getSecret());

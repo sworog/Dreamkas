@@ -64,7 +64,17 @@ class StoreController extends AbstractRestController
      */
     public function postStoresAction(Request $request)
     {
-        return $this->processPost($request);
+        /* @var Store $store */
+        $store = $this->documentRepository->createNew();
+        /* @var User $currentUser */
+        $currentUser = $this->getUser();
+        if ($currentUser->hasUserRole(User::ROLE_STORE_MANAGER)) {
+            $store->storeManagers->add($currentUser);
+        }
+        if ($currentUser->hasUserRole(User::ROLE_DEPARTMENT_MANAGER)) {
+            $store->departmentManagers->add($currentUser);
+        }
+        return $this->processForm($request, $store);
     }
 
     /**

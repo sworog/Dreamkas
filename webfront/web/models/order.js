@@ -1,13 +1,12 @@
 define(function(require, exports, module) {
     //requirements
     var Model = require('kit/core/model'),
-        OrderProductsCollection = require('collections/orderProducts'),
-        currentUserModel = require('models/currentUser');
+        OrderProductsCollection = require('collections/orderProducts');
 
     return Model.extend({
         __name__: module.id,
         urlRoot: function() {
-            return LH.baseApiUrl + '/stores/' + currentUserModel.stores.at(0).id + '/orders'
+            return LH.baseApiUrl + '/stores/' + this.get('storeId') + '/orders'
         },
         name: null,
         defaults: {
@@ -35,7 +34,7 @@ define(function(require, exports, module) {
             return data;
         },
         getCreateInvoiceFromOrderUrl: function() {
-            return '/stores/' + currentUserModel.stores.at(0).id + '/invoices/create?fromOrder=' + this.id;
+            return '/stores/' + this.get('storeId') + '/invoices/create?fromOrder=' + this.id;
         }
     });
 });

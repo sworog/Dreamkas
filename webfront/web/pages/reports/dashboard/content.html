@@ -1,11 +1,2 @@
-<% var templates = {
-    table_grossSalesByStores: require('tpl!blocks/table/table_grossSalesByStores/table_grossSalesByStores.html'),
-    localNavigation_reports: require('tpl!blocks/localNavigation/localNavigation_reports.html')
-} %>
-
-<%= templates.localNavigation_reports({
-    models: _.pick(models, 'store')
-}) %>
-
-<div class="page__data">
+<div class="content">
 </div>

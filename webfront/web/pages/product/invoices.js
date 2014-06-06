@@ -4,7 +4,7 @@ define(function(require) {
         ProductInvoicesCollection = require('collections/productInvoices'),
         ProductModel = require('models/product'),
         StoreProductModel = require('models/storeProduct'),
-        currentUserModel = require('models/currentUser'),
+        currentUserModel = require('models/currentUser.inst'),
         Page403 = require('pages/errors/403');
 
     return Page.extend({

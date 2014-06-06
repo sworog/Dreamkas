@@ -11,6 +11,9 @@ Meta:
 
 Scenario: SubCategory page full product create/edit
 
+Meta:
+@smoke
+
 Given the user is on the product list page
 And the user logs in as 'commercialManager'
 When the user creates new product from product list page
@@ -57,6 +60,9 @@ Then the user checks the elements values
 
 Scenario: Check product is related to group/category/subcategory
 
+Meta:
+@smoke
+
 Given there is the subCategory with name 'productListPage' related to group named 'productListPage' and category named 'productListPage'
 And the user navigates to the subCategory 'productListPage', category 'productListPage', group 'productListPage' product list page
 And there is the product with 'CPIRTGCS' name, 'CPIRTGCS' barcode, 'weight' type, '123' purchasePrice of group named 'productListPage', category named 'productListPage', subcategory named 'productListPage'
@@ -69,6 +75,9 @@ Then the user checks the elements values
 | subCategory | productListPage |
 
 Scenario: Delete subcategory with products
+
+Meta:
+@smoke
 
 Given there is the subCategory with name 'productListPage' related to group named 'productListPage' and category named 'productListPage'
 And there is the product with 'PWESIDS' name, 'PWESIDS' barcode, 'weight' type, '123' purchasePrice of group named 'productListPage', category named 'productListPage', subcategory named 'productListPage'

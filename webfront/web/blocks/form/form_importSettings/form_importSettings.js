@@ -1,33 +1,29 @@
 define(function(require) {
     //requirements
-    var Form = require('blocks/form/form'),
+    var Form = require('kit/form'),
+        config = require('config'),
         cookie = require('cookies');
 
     var authorizationHeader = 'Bearer ' + cookie.get('token'),
-        configUrl = LH.baseApiUrl + '/configs';
+        configUrl = config.baseApiUrl + '/configs';
 
     return Form.extend({
-        __name__: 'form_exportSettings',
-        template: require('tpl!blocks/form/form_importSettings/templates/index.html'),
-        set10ImportUrl: {},
-        set10ImportLogin: {},
-        set10ImportPassword: {},
-        set10ImportInterval: {},
+        template: require('rv!./template.html'),
         successMessage: 'Настройки успешно сохранены',
-        submit: function(data) {
+        submit: function() {
             var block = this,
                 saveData = $.when(
-                    block.saveImportUrl(data['set10-import-url']),
-                    block.saveImportLogin(data['set10-import-login']),
-                    block.saveImportPassword(data['set10-import-password']),
-                    block.saveImportInterval(data['set10-import-interval'])
+                    block.saveImportUrl(block.get('set10ImportUrl.value')),
+                    block.saveImportLogin(block.get('set10ImportLogin.value')),
+                    block.saveImportPassword(block.get('set10ImportPassword.value')),
+                    block.saveImportInterval(block.get('set10ImportInterval.value'))
                 );
 
             saveData.done(function(importUrl, importLogin, importPassword, importInterval) {
-                block.set10ImportUrl.id = importUrl[0].id;
-                block.set10ImportLogin.id = importLogin[0].id;
-                block.set10ImportPassword.id = importPassword[0].id;
-                block.set10ImportInterval.id = importInterval[0].id;
+                block.set('set10ImportUrl.id', importUrl[0].id);
+                block.set('set10ImportLogin.id', importLogin[0].id);
+                block.set('set10ImportPassword.id', importPassword[0].id);
+                block.set('set10ImportInterval.id', importInterval[0].id);
             });
 
             return saveData;
@@ -41,9 +37,9 @@ define(function(require) {
             var block = this;
 
             return $.ajax({
-                url: configUrl + (block.set10ImportUrl.id ? '/' + block.set10ImportUrl.id : ''),
+                url: configUrl + (block.get('set10ImportUrl.id') ? '/' + block.get('set10ImportUrl.id') : ''),
                 dataType: 'json',
-                type: block.set10ImportUrl.id ? 'PUT' : 'POST',
+                type: block.get('set10ImportUrl.id') ? 'PUT' : 'POST',
                 data: {
                     name: 'set10-import-url',
                     value: url
@@ -57,9 +53,9 @@ define(function(require) {
             var block = this;
 
             return $.ajax({
-                url: configUrl + (block.set10ImportLogin.id ? '/' + block.set10ImportLogin.id : ''),
+                url: configUrl + (block.get('set10ImportLogin.id') ? '/' + block.get('set10ImportLogin.id') : ''),
                 dataType: 'json',
-                type: block.set10ImportLogin.id ? 'PUT' : 'POST',
+                type: block.get('set10ImportLogin.id') ? 'PUT' : 'POST',
                 data: {
                     name: 'set10-import-login',
                     value: login
@@ -73,9 +69,9 @@ define(function(require) {
             var block = this;
 
             return $.ajax({
-                url: configUrl + (block.set10ImportPassword.id ? '/' + block.set10ImportPassword.id : ''),
+                url: configUrl + (block.get('set10ImportPassword.id') ? '/' + block.get('set10ImportPassword.id') : ''),
                 dataType: 'json',
-                type: block.set10ImportPassword.id ? 'PUT' : 'POST',
+                type: block.get('set10ImportPassword.id') ? 'PUT' : 'POST',
                 data: {
                     name: 'set10-import-password',
                     value: password
@@ -89,9 +85,9 @@ define(function(require) {
             var block = this;
 
             return $.ajax({
-                url: configUrl + (block.set10ImportInterval.id ? '/' + block.set10ImportInterval.id : ''),
+                url: configUrl + (block.get('set10ImportInterval.id') ? '/' + block.get('set10ImportInterval.id') : ''),
                 dataType: 'json',
-                type: block.set10ImportInterval.id ? 'PUT' : 'POST',
+                type: block.get('set10ImportInterval.id') ? 'PUT' : 'POST',
                 data: {
                     name: 'set10-import-interval',
                     value: interval
