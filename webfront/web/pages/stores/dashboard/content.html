@@ -17,7 +17,7 @@
         {{#storeGrossSales.yesterday.now.diff}}
             На
             <strong class="grossSales__diffText {{storeGrossSales.yesterday.now.diff >= 0 ? 'grossSales__diffText_plus' : 'grossSales__diffText_minus'}}">
-                {{Math.abs(storeGrossSales.yesterday.now.diff}}%
+                {{Math.abs(storeGrossSales.yesterday.now.diff)}}%
                 {{storeGrossSales.yesterday.now.diff > 0 ? 'больше' : 'меньше'}}</strong>, чем вчера
             ({{formatMoney(storeGrossSales.yesterday.now.value)}})
         {{/storeGrossSales.yesterday.now.diff}}
@@ -34,7 +34,7 @@
                 {{Math.abs(models.storeGrossSales.weekAgo.now.diff)}}%
                 {{storeGrossSales.weekAgo.now.diff >= 0 ? 'больше' : 'меньше'}}</strong>, чем
             в {{getText('for last day', moment(storeGrossSales.today.now.date).day())}}
-            ({{formatMoney(storeGrossSales.weekAgo.now.value}})
+            ({{formatMoney(storeGrossSales.weekAgo.now.value)}})
         {{/storeGrossSales.weekAgo.now.diff}}
     </div>
     <h2 class="grossSales__subTitle">

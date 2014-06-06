@@ -8001,7 +8001,7 @@
 			}
 			return tag;
 		};
-		getTagName = makeRegexMatcher( /^[a-zA-Z]{1,}:?[a-zA-Z0-9_\-]*/ );
+		getTagName = makeRegexMatcher( /^[a-zA-Z]{1,}:?[a-zA-Z0-9\-]*/ );
 		getAttributes = function( tokenizer ) {
 			var start, attrs, attr;
 			start = tokenizer.pos;

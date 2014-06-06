@@ -8,7 +8,7 @@ define(function(require, exports, module) {
             localNavigation: require('rv!blocks/localNavigation/localNavigation_stores.html')
         },
         components: {
-            form_store: require('blocks/form/form_store/form_store')
+            'form-store': require('blocks/form/form_store/form_store')
         }
     });
 });

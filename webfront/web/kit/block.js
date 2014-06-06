@@ -2,6 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Ractive = require('ractive'),
         delegateEvent = require('kit/delegateEvent/delegateEvent'),
+        
         getText = require('kit/getText'),
         get = require('kit/get/get'),
         _ = require('lodash');

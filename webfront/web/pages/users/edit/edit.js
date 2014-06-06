@@ -7,7 +7,7 @@ define(function(require, exports, module) {
             content: require('rv!./content.html')
         },
         components: {
-            form_user: require('blocks/form/form_user/form_user')
+            'form-user': require('blocks/form/form_user/form_user')
         }
     });
 });

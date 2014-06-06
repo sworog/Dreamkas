@@ -13,8 +13,8 @@ define(function(require, exports, module) {
             content: require('rv!./content.html')
         },
         components: {
-            form_exportSettings: require('blocks/form/form_exportSettings/form_exportSettings'),
-            form_importSettings: require('blocks/form/form_importSettings/form_importSettings')
+            'form-exportSettings': require('blocks/form/form_exportSettings/form_exportSettings'),
+            'form-importSettings': require('blocks/form/form_importSettings/form_importSettings')
         },
         fetch: function() {
             var page = this;
