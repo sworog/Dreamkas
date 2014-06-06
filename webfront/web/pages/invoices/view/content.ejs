@@ -8,7 +8,7 @@
         <% if(PAGE.models.invoice.get('order')) { %>
             <p name="order-info">
                 на основании
-                <a href="/orders/<%- PAGE.models.invoice.get('order').id %>">
+                <a href="/stores/<%- PAGE.models.store.id %>/orders/<%- PAGE.models.invoice.get('order').id %>">
                     заказа №<%- PAGE.models.invoice.get('order').number %>
                 </a> от
                 <%- moment(PAGE.models.invoice.get('createdDate')).format('DD.MM.YYYY') %>

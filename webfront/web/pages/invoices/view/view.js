@@ -33,15 +33,13 @@ define(function(require, exports, module) {
 
                 return invoiceModel;
             },
-            models: {
-                store: function() {
-                    var page = this,
-                        StoreModel = require('models/store');
+            store: function() {
+                var page = this,
+                    StoreModel = require('models/store');
 
-                    return new StoreModel({
-                        id: page.get('params.storeId')
-                    });
-                }
+                return new StoreModel({
+                    id: page.get('params.storeId')
+                });
             }
         },
         blocks: {
