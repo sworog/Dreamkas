@@ -3,17 +3,15 @@ define(function(require, exports, module) {
     var Form = require('kit/form');
 
     return Form.extend({
-        template: require('rv!./template.html'),
+        el: '.form_signup',
         model: require('models/signup'),
-        data: {
-            model: {
-                email: null
-            }
-        },
         redirectUrl: '/login?signup=success',
         submitSuccess: function(res){
-            this.model.email = res.email;
-            this._super();
+            var block = this;
+
+            block.model.email = res.email;
+
+            Form.prototype.submitSuccess.apply(block, arguments);
         }
     });
 });

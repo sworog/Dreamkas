@@ -1,18 +1,23 @@
 define(function(require) {
     //requirements
     var Form = require('kit/form'),
-        login = require('kit/login/login');
+        login = require('kit/login/login'),
+        SignupModel = require('models/signup');
 
     return Form.extend({
+        el: '.form_login',
         nls: require('i18n!./nls/main'),
+        model: require('models/login'),
         initialize: function(){
 
-            Form.prototype.apply(this, arguments);
+            var block = this;
 
-            if (this.get('model.username')){
-                this.el.querySelector('[name="password"]').focus();
+            Form.prototype.initialize.apply(block, arguments);
+
+            if (SignupModel.email){
+                block.el.querySelector('[name="password"]').focus();
             } else {
-                this.el.querySelector('[name="username"]').focus();
+                block.el.querySelector('[name="username"]').focus();
             }
         },
         submitSuccess: function(response) {

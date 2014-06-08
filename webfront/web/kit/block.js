@@ -106,7 +106,7 @@ define(function(require, exports, module) {
 
             _.forEach(block.__elements, function(value, key){
                 var el = block.get('__elements.' + key);
-                elements[key] = typeof el === 'string' ? block.el.querySelectorAll(el) : el;
+                elements[key] = typeof el === 'string' ? block.el.querySelector(el) : el;
             });
 
             block.elements = elements;

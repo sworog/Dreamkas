@@ -2,27 +2,13 @@ define(function(require) {
     //requirements
     var Block = require('kit/block'),
         form2js = require('form2js'),
-        router = require('router');
-
-    require('lodash');
-    require('backbone');
+        router = require('router'),
+        _ = require('lodash');
 
     return Block.extend({
         model: null,
         collection: null,
         redirectUrl: null,
-        initialize: function() {
-            var block = this;
-
-            Block.prototype.initialize.apply(block, arguments);
-
-            block.__model = block.__model || block.model;
-            block.model = block.get('__model');
-
-            block.__collection = block.__collection || block.collection;
-            block.collection = block.get('__collection');
-
-        },
         events: {
             'change input, checkbox, textarea': function() {
                 var block = this;
@@ -33,14 +19,14 @@ define(function(require) {
                 e.preventDefault();
 
                 var block = this,
-                    formData = block.getData(),
                     submit;
 
-                block.formData = formData;
-                block.trigger('submit:start', formData);
-                block.submitStart(formData);
+                block.formData = block.getData();
 
-                submit = block.submit(formData);
+                block.trigger('submit:start');
+                block.submitStart();
+
+                submit = block.submit();
 
                 submit.done(function(response) {
                     block.submitSuccess(response);
@@ -70,12 +56,13 @@ define(function(require) {
         getData: function(){
             return form2js(this.el, '.', false);
         },
-        submit: function(formData) {
-            var block = this;
+        submit: function() {
+            var block = this,
+                model = block.model.extend ? new block.model : block.model;
 
-            return block.model.save(formData);
+            return model.save(block.formData);
         },
-        submitStart: function(formData) {
+        submitStart: function() {
             var block = this;
 
             block.elements.$submitButton.addClass('preloader_stripes');

@@ -4,11 +4,11 @@ define(function(require, exports, module) {
 
     return Page.extend({
         partials: {
-            content: require('rv!./content.html'),
-            globalNavigation: require('rv!./globalNavigation.html')
+            content: require('tpl!./content.ejs'),
+            globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation_signup.ejs')
         },
-        components: {
-            'form-signup': require('blocks/form/form_signup/form_signup')
+        blocks: {
+            form_signup: require('blocks/form/form_signup/form_signup')
         }
     });
 });

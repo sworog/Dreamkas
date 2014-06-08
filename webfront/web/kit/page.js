@@ -44,14 +44,14 @@ define(function(require, exports, module) {
 
         partials: {
             content: null,
-            localNavigation: function(){
+            localNavigation: function() {
                 return '';
             },
             globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation.ejs')
         },
 
         listeners: {
-            params: function(params){
+            params: function(params) {
                 router.save(params);
             }
         },
@@ -73,11 +73,27 @@ define(function(require, exports, module) {
         },
 
         initialize: function() {
-            var page = this;
+            var page = this,
+                autofocus,
+                firstInput;
 
             Promise.resolve(page.fetch()).then(function() {
-                page.render();
-                page.el.setAttribute('status', 'loaded');
+                try {
+                    page.render();
+
+                    autofocus = page.el.querySelector('[autofocus]');
+                    firstInput = page.el.querySelector('[type=text]');
+
+                    if (autofocus){
+                        autofocus.focus();
+                    } else if(firstInput) {
+                        firstInput.focus();
+                    }
+
+                    page.el.setAttribute('status', 'loaded');
+                } catch (error) {
+                    throw error;
+                }
             }, function(error) {
                 page.set('error', error);
             });
