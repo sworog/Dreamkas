@@ -1,5 +1,16 @@
+<%
+/**
+ *
+ * @models.grossSales
+ */
+%>
+<% var formatMoney = require('kit/formatMoney/formatMoney') %>
+<% var getText = require('kit/getText/getText') %>
+<% var moment = require('moment') %>
+
 <div class="content">
     <h1>Обзор</h1>
+
     <h2 class="grossSales__subTitle">
         Объём продаж по сети
     </h2>
@@ -9,7 +20,7 @@
                 Вчера
             </td>
             <td>
-                {{formatMoney(grossSales.yesterday.runningSum)}} р.
+                <%- formatMoney(models.grossSales.get('yesterday.runningSum')) %> р.
             </td>
         </tr>
         <tr name="twoDaysAgo.runningSum">
@@ -17,15 +28,15 @@
                 Позавчера
             </td>
             <td>
-                {{formatMoney(grossSales.twoDaysAgo.runningSum)}} р.
+                <%- formatMoney(models.grossSales.get('twoDaysAgo.runningSum')) %>
             </td>
         </tr>
         <tr name="eightDaysAgo.dayHour">
             <td>
-                В {{getText('for last day', moment(grossSales.eightDaysAgo.dayHour).day())}}
+                В <%- getText('for last day', moment(models.grossSales.get('eightDaysAgo.dayHour')).day()) %>
             </td>
             <td>
-                {{formatMoney(grossSales.eightDaysAgo.runningSum)}} р.
+                <%- formatMoney(models.grossSales.get('eightDaysAgo.runningSum')) %> р.
             </td>
         </tr>
     </table>
