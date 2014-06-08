@@ -1,41 +1,37 @@
 define(function(require, exports, module) {
     //requirements
-    var Ractive = require('ractive'),
+    var BaseClass = require('kit/baseClass/baseClass'),
+        getText = require('kit/getText/getText'),
+        deepExtend = require('kit/deepExtend/deepExtend'),
         delegateEvent = require('kit/delegateEvent/delegateEvent'),
-        
-        getText = require('kit/getText'),
-        get = require('kit/get/get'),
+        undelegateEvents = require('kit/undelegateEvents/undelegateEvents'),
+        stringToFragment = require('kit/stringToFragment/stringToFragment'),
         _ = require('lodash');
 
     // Cached regex to split keys for `delegate`.
     var delegateEventSplitter = /^(\S+)\s*(.*)$/;
 
-    return Ractive.extend({
-        elements: {},
-        events: {},
-        nls: {},
-        listeners: {},
-        observers: {},
-        data: {
-            getText: function() {
-                return this.getText.apply(this, arguments);
-            },
-            formatDate: require('kit/formatDate/formatDate'),
-            formatMoney: require('kit/formatMoney/formatMoney'),
-            moment: require('moment')
-        },
-
-        init: function() {
+    return BaseClass.extend({
+        constructor: function(params) {
             var block = this;
 
-            if (block.component){
-                block.el = block.fragment.items[0].node;
-            }
+            deepExtend(this, params);
 
-            block._initElements();
-            block._delegateEvents();
-            block._startObserving();
+            block._initElement();
+            block.initialize.apply(block, arguments);
+            block._initBlocks();
             block._startListening();
+        },
+
+        el: null,
+
+        elements: {},
+        blocks: {},
+
+        template: function() {
+        },
+
+        initialize: function() {
         },
 
         getText: function() {
@@ -45,35 +41,84 @@ define(function(require, exports, module) {
             return getText.apply(null, [block.nls].concat(args));
         },
 
-        destroy: function() {
+        _templateToElement: function(){
+            var block = this,
+                fragment = stringToFragment(block.template(block)),
+                wrapper = document.createElement('div');
+
+            wrapper.appendChild(fragment);
+
+            return wrapper.children[0];
+        },
+
+        render: function() {
+            var block = this,
+                newEl = block._templateToElement();
+
+            block._destroyBlocks();
+
+            block.el.innerHTML = newEl.innerHTML;
+
+            _.forEach(newEl.attributes, function(attribute) {
+                block.el.setAttribute(attribute.name, attribute.value);
+            });
+
+            block._initElements();
+            block._initBlocks();
+        },
+
+        _initBlocks: function() {
+            var block = this;
+
+            block.__blocks = block.__blocks || block.blocks;
+
+            block.blocks = _.transform(block.get('__blocks'), function(result, blockInitializer, key) {
+                result[key] = block.get('__blocks.' + key);
+            });
+        },
+
+        _initElement: function(el) {
             var block = this;
 
             block._undelegateEvents();
 
-            return block.teardown();
+            block.__el = block.__el || block.el;
+
+            el = el || block.get('__el');
+
+            if (typeof el === 'string'){
+                el = document.querySelector(el);
+            }
+
+            block.el = el || block._templateToElement();
+
+            block._initElements();
+            block._delegateEvents();
+
+            return block;
         },
 
         _initElements: function() {
             var block = this,
                 elements = {};
 
-            block.__elements = block.__elements || block.elements;
+            block.__elements = block.__elements ||  block.elements;
 
-            _.forEach(block.__elements, function(value, key) {
-                var el = get(block, '__elements.' + key);
-                elements[key] = typeof el === 'string' ? block.el.querySelector(el) : el;
+            _.forEach(block.__elements, function(value, key){
+                var el = block.get('__elements.' + key);
+                elements[key] = typeof el === 'string' ? block.el.querySelectorAll(el) : el;
             });
 
             block.elements = elements;
-
-            return block;
         },
 
         // Set callbacks, where `this.events` is a hash of
         //
-        // *{"event selector": callback(){}}*
+        // *{"event selector": "callback"}*
         //
         //     {
+        //       'mousedown .title':  'edit',
+        //       'click .button':     'save',
         //       'click .open':       function(e) { ... }
         //     }
         //
@@ -83,12 +128,13 @@ define(function(require, exports, module) {
         // This only works for delegate-able events: not `focus`, `blur`, and
         // not `change`, `submit`, and `reset` in Internet Explorer.
         _delegateEvents: function(events) {
-            var block = this,
-                key;
+            var block = this;
 
-            events = events || block.events;
+            if (!(events || (events = block.get('events')))) {
+                return block;
+            }
 
-            for (key in events) {
+            for (var key in events) {
                 var method = events[key];
 
                 var match = key.match(delegateEventSplitter);
@@ -103,19 +149,7 @@ define(function(require, exports, module) {
         _undelegateEvents: function() {
             var block = this;
 
-            var handlers = block._handlers;
-
-            if (!handlers) {
-                return;
-            }
-
-            var removeListener = function(item) {
-                view.el.removeEventListener(item.eventName, item.handler, false);
-            };
-
-            // Remove all handlers.
-            handlers.forEach(removeListener);
-            block._handlers = [];
+            undelegateEvents(block);
 
             return block;
         },
@@ -123,17 +157,54 @@ define(function(require, exports, module) {
         _startListening: function(listeners) {
             var block = this;
 
-            block.on(listeners || block.listeners);
+            if (!(listeners || (listeners = block.get('listeners')))) {
+                return block;
+            }
+
+            _.each(listeners, function(listener, property) {
+                if (typeof listener === 'function') {
+                    block.listenTo(block, property, listener);
+                } else if (block.get(property)) {
+                    block.listenTo(block.get(property), listener);
+                }
+            });
 
             return block;
         },
 
-        _startObserving: function(observers) {
+        destroy: function(){
             var block = this;
 
-            block.observe(observers || block.observers);
+            block._destroyBlocks();
+            block.stopListening();
+            block._undelegateEvents();
+        },
+
+        remove: function() {
+            var block = this;
+
+            block.destroy();
+
+            var parentNode = block.el.parentNode;
+
+            if (parentNode) {
+                parentNode.removeChild(block.el);
+            }
 
             return block;
+        },
+
+        _destroyBlocks: function(){
+            var block = this;
+
+            _.forEach(block.blocks, function(blockToDestroy, blockName) {
+
+                if (blockToDestroy && typeof blockToDestroy.destroy === 'function') {
+                    blockToDestroy.destroy();
+                    delete block.blocks[blockName];
+                }
+
+            });
         }
     });
 });

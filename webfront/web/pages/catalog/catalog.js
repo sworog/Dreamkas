@@ -8,12 +8,10 @@ define(function(require, exports, module) {
             content: require('rv!./content.html'),
             localNavigation: require('rv!blocks/localNavigation/localNavigation_catalog.html')
         },
-        beforeInit: function(opt) {
-            this.data = deepExtend({
-                params: {
-                    edit: 0
-                }
-            }, opt.data);
+        data: {
+            params: {
+                edit: 0
+            }
         }
     });
 });

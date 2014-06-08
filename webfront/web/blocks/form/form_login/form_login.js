@@ -4,16 +4,11 @@ define(function(require) {
         login = require('kit/login/login');
 
     return Form.extend({
-        template: require('rv!./template.html'),
-        model: require('models/login'),
         nls: require('i18n!./nls/main'),
-        data: {
-            model: {
-                username: null,
-                password: null
-            }
-        },
-        complete: function(){
+        initialize: function(){
+
+            Form.prototype.apply(this, arguments);
+
             if (this.get('model.username')){
                 this.el.querySelector('[name="password"]').focus();
             } else {

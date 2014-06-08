@@ -14,9 +14,6 @@ define(function(require, exports, module) {
                 var params = router._extractParameters(route, routeRegExp, fragment);
                 Page && new Page({
                     params: params,
-                    data: {
-                        params: params
-                    },
                     route: route
                 });
             }
