@@ -1,116 +1,102 @@
-define(function(require) {
+define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block'),
-        currentUser = require('models/currentUser.inst'),
-        when = require('when'),
+        router = require('router'),
+        deepExtend = require('kit/deepExtend/deepExtend'),
+        get = require('kit/get/get'),
         _ = require('lodash');
 
-    require('sortable');
-    require('backbone');
+    var Page = Block.extend({
 
-    return Block.extend({
-        resources: {},
-        isAllow: true,
-        template: require('rv!pages/template.html'),
-        partials: {
-            globalNavigation: require('rv!blocks/globalNavigation/globalNavigation.html'),
-            localNavigation: ''
+        constructor: function(request) {
+            var page = this;
+
+            page.el.setAttribute('status', 'loading');
+
+            if (Page.current) {
+                Page.current.destroy();
+            }
+
+            Page.current = page;
+
+            deepExtend(page, request);
+
+            Promise.resolve(page.get('isAllow')).then(function(isAllow) {
+                if (isAllow) {
+                    page._initElement();
+                    page._initResources();
+                    page.initialize.apply(page, arguments);
+                    page._startListening();
+                } else {
+                    page.set('error', 403);
+                }
+            }, function(error) {
+                page.set('error', error);
+            });
         },
-        observers: {
-            status: function(status) {
-                var page = this;
 
-                page.el.setAttribute('status', status);
+        el: document.body,
+        template: require('tpl!pages/template.ejs'),
+
+        isAllow: true,
+        collections: {},
+        models: {},
+
+        partials: {
+            content: null,
+            localNavigation: function(){
+                return '';
+            },
+            globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation.ejs')
+        },
+
+        listeners: {
+            params: function(params){
+                router.save(params);
             }
         },
 
-        init: function() {
-            var page = this;
-
-            page.el = document.body;
-
-            page._super();
-
-            page.set({
-                status: 'loading',
-                currentUser: currentUser.toJSON()
-            });
-
-            when(_.result(page, 'isAllow')).then(function(isAllow) {
-                if (isAllow) {
-
-                    page._initResources();
-
-                    when(page.fetch()).then(function(data) {
-
-                        var autofocus;
-
-                        page.set(data);
-
-                        if (window.PAGE){
-                            window.PAGE.destroy();
-                        }
-
-                        while (page.el.hasChildNodes()) {
-                            page.el.removeChild(page.el.lastChild);
-                        }
-
-                        page.insert(page.el);
-
-                        window.PAGE = page;
-
-                        autofocus = page.el.querySelector('[autofocus]');
-
-                        autofocus && autofocus.focus()
-
-                        Sortable.init();
-
-                        page.set('status', 'loaded');
-                    });
-                } else {
-                    page.set('error', {
-                        status: '403'
-                    });
-                }
-            });
-        },
-
-        fetch: function(resourceNames) {
-            var page = this,
-                fetched = _.map(resourceNames || _.keys(page.resources), function(resourceName) {
-                    return page.resources[resourceName].fetch();
-                });
-
-            return when.all(fetched).then(function() {
-                var data = _.transform(page.resources, function(result, resource, key) {
-                    result[key] = resource.toJSON();
-                });
-
-                page.set && page.set(data);
-                page.set && page.set('status', 'loaded');
-
-                return data;
-            });
-        },
-
-        save: function(resourceName) {
-            var page = this;
-
-            return when(page.resources[resourceName].save(page.get(resourceName)), function() {
-                page.set && page.set('status', 'loaded');
-            });
-        },
-
         _initResources: function() {
+
             var page = this;
 
-            page.resources = _.transform(page.resources, function(result, ResourceInitializer, key) {
-                if (ResourceInitializer.extend){
-                    result[key] = new ResourceInitializer();
-                } else {
-                    result[key] = ResourceInitializer.call(page);
-                }
+            page.__collections = page.__collections || page.collections;
+            page.__models = page.__models || page.models;
+
+            page.collections = _.transform(page.__collections, function(result, collectionInitializer, key) {
+                result[key] = collectionInitializer.extend ? new collectionInitializer : page.get('collections.' + key);
             });
+
+            page.models = _.transform(page.__models, function(result, modelInitializer, key) {
+                result[key] = modelInitializer.extend ? new modelInitializer : page.get('models.' + key);
+            });
+        },
+
+        initialize: function() {
+            var page = this;
+
+            Promise.resolve(page.fetch()).then(function() {
+                page.render();
+                page.el.setAttribute('status', 'loaded');
+            }, function(error) {
+                page.set('error', error);
+            });
+        },
+
+        fetch: function(dataList) {
+            var page = this;
+
+            dataList = dataList || _.values(page.collections).concat(_.filter(page.models, function(model) {
+                return model && model.id;
+            }));
+
+            var fetchList = _.map(dataList, function(data) {
+                return (data && typeof data.fetch === 'function') ? data.fetch() : data;
+            });
+
+            return Promise.all(fetchList);
         }
     });
+
+    return Page;
 });

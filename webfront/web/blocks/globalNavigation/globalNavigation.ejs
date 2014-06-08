@@ -1,3 +1,10 @@
+<%
+/**
+ *
+ * @currentUserModel
+ */
+%>
+
 <div class="globalNavigation">
 
     <div class="globalNavigation__links">
@@ -13,7 +20,7 @@
 
         <div class="globalNavigation__userControls">
             <a href="/users/current" name="userName" class="globalNavigation__userName">
-                {{currentUser.email}}
+                <%- currentUserModel.get('email') %>
             </a>
         </div>
 

@@ -1,63 +1,81 @@
-define(function(require, exports, module) {
+define(function(require) {
     //requirements
     var Block = require('kit/block'),
-        when = require('when'),
-        router = require('router'),
-        $ = require('jquery');
+        form2js = require('form2js'),
+        router = require('router');
+
+    require('lodash');
+    require('backbone');
 
     return Block.extend({
         model: null,
+        collection: null,
         redirectUrl: null,
-        data: {
-            model: {}
-        },
-        elements: {
-            $submitButton: function() {
-                var block = this;
+        initialize: function() {
+            var block = this;
 
-                return $(block.el).find('[type="submit"]').closest('.button').add('[form="' + block.el.id + '"]');
-            },
-            $controls: function() {
-                var block = this;
+            Block.prototype.initialize.apply(block, arguments);
 
-                return $(block.el).find('.form__controls');
-            }
+            block.__model = block.__model || block.model;
+            block.model = block.get('__model');
+
+            block.__collection = block.__collection || block.collection;
+            block.collection = block.get('__collection');
+
         },
         events: {
+            'change input, checkbox, textarea': function() {
+                var block = this;
+
+                block.removeSuccessMessage();
+            },
             submit: function(e) {
                 e.preventDefault();
 
                 var block = this,
+                    formData = block.getData(),
                     submit;
 
-                block.fire('submit:start');
-                block.submitStart();
+                block.formData = formData;
+                block.trigger('submit:start', formData);
+                block.submitStart(formData);
 
-                submit = block.submit();
+                submit = block.submit(formData);
 
                 submit.done(function(response) {
                     block.submitSuccess(response);
-                    block.fire('submit:success', response);
+                    block.trigger('submit:success', response);
                 });
 
                 submit.fail(function(response) {
                     block.submitError(response);
-                    block.fire('submit:error', response);
+                    block.trigger('submit:error', response);
                 });
 
                 submit.always(function(response) {
                     block.submitComplete(response);
-                    block.fire('submit:complete', response);
+                    block.trigger('submit:complete', response);
                 });
             }
         },
-        submit: function() {
-            var block = this,
-                model = new block.model(block.get('model'));
+        elements: {
+            $submitButton: function(){
+                var block = this;
 
-            return model.save();
+                return $(block.el).find('[type="submit"]').closest('.button').add('[form="' + block.el.id + '"]');
+            },
+            controls: '.form__controls',
+            results: '.form__results'
         },
-        submitStart: function() {
+        getData: function(){
+            return form2js(this.el, '.', false);
+        },
+        submit: function(formData) {
+            var block = this;
+
+            return block.model.save(formData);
+        },
+        submitStart: function(formData) {
             var block = this;
 
             block.elements.$submitButton.addClass('preloader_stripes');
@@ -65,17 +83,21 @@ define(function(require, exports, module) {
             block.removeErrors();
             block.removeSuccessMessage();
         },
-        submitComplete: function() {
+        submitComplete: function(response) {
             var block = this;
 
             block.elements.$submitButton.removeClass('preloader_stripes');
             block.disable(false);
         },
-        submitSuccess: function() {
+        submitSuccess: function(response) {
             var block = this;
 
+            if (block.collection) {
+                block.collection.push(response);
+            }
+
             if (block.redirectUrl) {
-                router.navigate(_.result(block, 'redirectUrl'));
+                router.navigate(block.get('redirectUrl'));
             }
 
             if (block.successMessage) {
@@ -108,7 +130,7 @@ define(function(require, exports, module) {
                         addErrorToInput(data, field, newPrefix);
                     });
                 }
-            };
+            }
 
             block.removeErrors();
 
@@ -119,31 +141,30 @@ define(function(require, exports, module) {
             }
 
             if (errors.error) {
-                block.elements.$controls.attr('data-error', typeof errors.error === 'string' ? block.getText(errors.error) : block.getText('неизвестная ошибка: ' + error.statusText));
+                block.elements.controls.dataset.error = typeof errors.error === 'string' ? block.getText(errors.error) : block.getText('неизвестная ошибка: ' + error.statusText);
             }
 
             if (errors.errors) {
-                block.elements.$controls.attr('data-error', errors.errors.join(', '));
+                block.elements.controls.dataset.error = errors.errors.join(', ');
             }
 
             if (errors.description) {
-                block.elements.$controls.attr('data-error', block.getText(errors.description));
+                block.elements.controls.dataset.error = block.getText(errors.description);
             }
 
             if (errors.error_description) {
-                block.elements.$controls.attr('data-error', block.getText(errors.error_description));
+                block.elements.controls.dataset.error = block.getText(errors.error_description);
             }
         },
         removeErrors: function() {
             var block = this;
-
             $(block.el).find('[data-error]').removeAttr('data-error');
             $(block.el).find('.inputText_error').removeClass('inputText_error');
         },
         showSuccessMessage: function() {
             var block = this;
 
-            block.elements.$submitButton.after('<span class="form__successMessage">' + _.result(block, 'successMessage') + '</span>')
+            block.elements.$submitButton.after('<span class="form__successMessage">' + block.getText(block.get('successMessage')) + '</span>')
         },
         removeSuccessMessage: function() {
             var block = this;
@@ -162,7 +183,7 @@ define(function(require, exports, module) {
             var block = this;
 
             block.removeErrors();
-            block.elements.$submitButton.removeClass('preloader_stripes');
+            block.elements.$submitButton.removeClass('preloader preloader_rows');
 
             block.$el.find(':input').each(function() {
                 switch (this.type) {
@@ -180,5 +201,5 @@ define(function(require, exports, module) {
                 }
             });
         }
-    });
+    })
 });
