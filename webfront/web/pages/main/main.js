@@ -3,11 +3,16 @@ define(function(require, exports, module) {
     var Page = require('kit/page');
 
     return Page.extend({
-        resources: {
+        models: {
             grossSales: require('models/grossSales')
         },
         partials: {
-            content: require('rv!./content.html')
+            content: require('tpl!./content.ejs')
+        },
+        fetch: function(){
+            return Promise.all([
+                this.models.grossSales.fetch()
+            ]);
         }
     });
 });

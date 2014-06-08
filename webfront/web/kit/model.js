@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var config = require('config'),
+        get = require('kit/get/get'),
         _ = require('lodash');
 
     require('backbone');
@@ -38,6 +39,9 @@ define(function(require, exports, module) {
             Backbone.Model.prototype.destroy.call(this, _.extend({
                 wait: true
             }, options))
+        },
+        get: function(path) {
+            return get(this, 'attributes.' + path);
         }
     });
 
