@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/form');
+    var Form = require('kit/form'),
+        LoginModel = require('models/login');
 
     return Form.extend({
         el: '.form_signup',
@@ -9,7 +10,7 @@ define(function(require, exports, module) {
         submitSuccess: function(res){
             var block = this;
 
-            block.model.email = res.email;
+            LoginModel.email = res.email;
 
             Form.prototype.submitSuccess.apply(block, arguments);
         }
