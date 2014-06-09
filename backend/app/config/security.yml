@@ -26,7 +26,7 @@ security:
             security:   false
 
         signup:
-            pattern:    ^/api/1/users/(signup|restore_password)$
+            pattern:    ^/api/1/users/(signup|restorePassword)$
             security:   false
 
         api:

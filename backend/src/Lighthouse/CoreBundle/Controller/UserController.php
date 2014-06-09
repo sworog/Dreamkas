@@ -177,7 +177,7 @@ class UserController extends AbstractRestController
     /**
      * @param Request $request
      *
-     * @Rest\Route("users/restore_password")
+     * @Rest\Route("users/restorePassword")
      * @Rest\View
      * @return View
      */

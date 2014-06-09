@@ -1103,7 +1103,7 @@ class UserControllerTest extends WebTestCase
         $restoreResponse = $this->clientJsonRequest(
             null,
             'POST',
-            '/api/1/users/restore_password',
+            '/api/1/users/restorePassword',
             $restoreData
         );
 
@@ -1135,7 +1135,7 @@ class UserControllerTest extends WebTestCase
         $restoreResponse = $this->clientJsonRequest(
             null,
             'POST',
-            '/api/1/users/restore_password',
+            '/api/1/users/restorePassword',
             $restoreData
         );
 
