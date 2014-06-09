@@ -14,6 +14,7 @@ public class EndUserApiSteps {
     UserApiSteps userApiSteps;
 
 
+    @Deprecated
     @Given("there is the user with name '$name', position '$position', username '$userName', password '$password', role '$role'")
     @Alias("there is the user with name '$name', position '$position', <userName>, password '$password', role '$role'")
     public void givenThereIsTheUser(String name, String position, String userName, String password, String role) throws IOException, JSONException {

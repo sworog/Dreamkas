@@ -79,11 +79,13 @@ public class CatalogApiSteps extends OwnerApi {
         apiConnect.setSubCategoryMarkUp(retailMarkupMax, retailMarkupMin, StaticData.subCategories.get(subCategoryName));
     }
 
+    @Deprecated
     @Step
     public void promoteStoreManager(Store store, String userName) throws IOException, JSONException {
         apiConnect.promoteUserToManager(store, StaticData.users.get(userName), STORE_MANAGERS_REL_VALUE);
     }
 
+    @Deprecated
     @Step
     public void promoteDepartmentManager(Store store, String userName) throws IOException, JSONException {
         apiConnect.promoteUserToManager(store, StaticData.users.get(userName), DEPARTMENT_MANAGERS_REL_VALUE);
