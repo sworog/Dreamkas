@@ -8,7 +8,7 @@ define(function(require, exports, module) {
     window.LH = _.extend({
         modelNode: require('kit/modelNode/modelNode'),
         collectionNode: require('kit/collectionNode/collectionNode'),
-        formatMoney: require('kit/formatMoney/formatMoney'),
+        formatMoney: require('kit/formatMoney'),
         formatAmount: require('kit/formatAmount/formatAmount'),
         formatDate: require('kit/formatDate'),
         isEmptyJSON: require('kit/isEmptyJSON/isEmptyJSON'),

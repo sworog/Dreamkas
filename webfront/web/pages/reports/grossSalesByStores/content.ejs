@@ -1,0 +1,53 @@
+<%
+/**
+ *
+ * @collections.grossSalesByStores
+ */
+%>
+
+<% var getText = require('kit/getText') %>
+<% var formatMoney = require('kit/formatMoney') %>
+<% var moment = require('moment') %>
+
+<div class="content">
+    <h2>Продажи по магазинам</h2>
+
+    <% if (collections.grossSalesByStores.length) { %>
+    <table data-sortable class="table">
+        <thead>
+        <tr>
+            <th data-sortable="false"></th>
+            <th>
+                вчера
+            </th>
+            <th>
+                позавчера
+            </th>
+            <th>
+                <%- getText('last day', moment(collections.grossSalesByStores.at(0).get('eightDaysAgo.dayHour').day())) %>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <% collections.grossSalesByStores.forEach(function(grossSalesByStoreModel){ %>
+        <tr name="grossSalesByStoresRow">
+            <td name="store.number">
+                <%- grossSalesByStoreModel.get('store.number') %>
+            </td>
+            <td data-value="<%- grossSalesByStoreModel.get('yesterday.runningSum') %>" name="yesterday.runningSum">
+                <%- formatMoney(grossSalesByStoreModel.get('yesterday.runningSum')) %> р.
+            </td>
+            <td data-value="<%- grossSalesByStoreModel.get('twoDaysAgo.runningSum') %>" name="twoDaysAgo.runningSum">
+                <%- formatMoney(grossSalesByStoreModel.get('twoDaysAgo.runningSum')) %> р.
+            </td>
+            <td data-value="<%- grossSalesByStoreModel.get('eightDaysAgo.runningSum') %>" name="eightDaysAgo.runningSum">
+                <%- formatMoney(grossSalesByStoreModel.get('eightDaysAgo.runningSum')) %> р.
+            </td>
+        </tr>
+        <% }) %>
+        </tbody>
+    </table>
+    <% } else { %>
+    <p>Нет данных</p>
+    <% } %>
+</div>
