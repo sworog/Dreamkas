@@ -16,7 +16,8 @@ public class EmailSteps extends ScenarioSteps {
 
     private EmailMessage emailMessage;
 
-    private static final String REGEX_PATTERN = "Добро пожаловать в Lighthouse!\r\n\r\nВаш пароль для входа: (.*)\r\nЕсли это письмо пришло вам по ошибке, просто проигнорируйте его.\r\n";
+    private static final String SIGN_UP_REGEX_PATTERN = "Добро пожаловать в Lighthouse!\r\n\r\nВаш пароль для входа: (.*)\r\nЕсли это письмо пришло вам по ошибке, просто проигнорируйте его.\r\n";
+    private static final String RESTORE_PASSWORD_REGEX_PATTERN = "Вы воспользовались формой восстановления пароля в Lighthouse.\r\n\r\nВаш новый пароль для входа: (.*)\r\n\r\n";
 
     @Step
     public void deleteAllMessages() {
@@ -39,24 +40,48 @@ public class EmailSteps extends ScenarioSteps {
     }
 
     @Step
-    public void assertEmailMessageContent() {
-        String message = String.format("the email message content is not matching the template. email message content: '%s'", emailMessage.getContent());
-        assertThat(message, true, is(getMatcher().matches()));
+    public void matchEmailMessageContentToSignUpRegexPattern() {
+        assertThat(getExceptionMessage(), true, is(getSignUpEmailMatcher().matches()));
     }
 
     @Step
-    public String getEmailCredentials() {
-        Matcher matcher = getMatcher();
-        if (matcher.matches()) {
-            return matcher.group(1);
+    public void matchEmailContentToRestorePasswordRegexPattern() {
+        assertThat(getExceptionMessage(), true, is(getRestorePasswordEmailMatcher().matches()));
+    }
+
+    @Step
+    public String getRestorePasswordEmailCredentials() {
+        return getEmailCredentials(getRestorePasswordEmailMatcher());
+    }
+
+    @Step
+    public String getSignUpEmailCredentials() {
+        return getEmailCredentials(getSignUpEmailMatcher());
+    }
+
+    private String getEmailCredentials(Matcher emailMatcher) {
+        if (emailMatcher.matches()) {
+            return emailMatcher.group(1);
         } else {
             String message = String.format("Cannot get password from the email message because email content is not matching. email content: '%s'", emailMessage.getContent());
             throw new AssertionError(message);
         }
     }
 
-    private Matcher getMatcher() {
-        Pattern pattern = Pattern.compile(REGEX_PATTERN);
+    private Matcher getSignUpEmailMatcher() {
+        return getEmailMatcher(SIGN_UP_REGEX_PATTERN);
+    }
+
+    private Matcher getRestorePasswordEmailMatcher() {
+        return getEmailMatcher(RESTORE_PASSWORD_REGEX_PATTERN);
+    }
+
+    private Matcher getEmailMatcher(String regexPattern) {
+        Pattern pattern = Pattern.compile(regexPattern);
         return pattern.matcher(emailMessage.getContent());
+    }
+
+    private String getExceptionMessage() {
+        return String.format("The email message content is not matching the template. email message content: '%s'", emailMessage.getContent());
     }
 }

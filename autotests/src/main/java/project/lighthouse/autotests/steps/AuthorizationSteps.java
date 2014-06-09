@@ -8,6 +8,7 @@ import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.pages.MenuNavigationBar;
 import project.lighthouse.autotests.pages.authorization.AuthorizationPage;
+import project.lighthouse.autotests.pages.authorization.RestorePasswordPage;
 import project.lighthouse.autotests.pages.authorization.SignUpPage;
 import project.lighthouse.autotests.storage.Storage;
 
@@ -31,6 +32,7 @@ public class AuthorizationSteps extends ScenarioSteps {
     AuthorizationPage authorizationPage;
     MenuNavigationBar menuNavigationBar;
     SignUpPage signUpPage;
+    RestorePasswordPage restorePasswordPage;
 
     @Step
     public void authorization(String userName) {
@@ -138,6 +140,11 @@ public class AuthorizationSteps extends ScenarioSteps {
     }
 
     @Step
+    public void assertRestorePasswordText(String text) {
+        assertThat(authorizationPage.getSignUpPageTitleText(), is(text));
+    }
+
+    @Step
     public void assertValues(ExamplesTable examplesTable) {
         authorizationPage.checkValues(examplesTable);
     }
@@ -150,5 +157,36 @@ public class AuthorizationSteps extends ScenarioSteps {
     @Step
     public void openSignUpPage() {
         signUpPage.open();
+    }
+
+    @Step
+    public void forgotPasswordLinkClick() {
+        authorizationPage.forgotPasswordLinkClick();
+    }
+
+    @Step
+    public void recoverPasswordButtonClick() {
+        restorePasswordPage.recoverPasswordButtonClick();
+        new PreLoader(getDriver()).await();
+    }
+
+    @Step
+    public void assertPageTitleText(String text) {
+        assertThat(restorePasswordPage.getPageTitleText(), is(text));
+    }
+
+    @Step
+    public void assertPageText(String text) {
+        assertThat(restorePasswordPage.getPageText(), is(text));
+    }
+
+    @Step
+    public void restorePasswordPageEmailInput(String value) {
+        restorePasswordPage.input("email", value);
+    }
+
+    @Step
+    public void restorePasswordPageOpen() {
+        restorePasswordPage.open();
     }
 }

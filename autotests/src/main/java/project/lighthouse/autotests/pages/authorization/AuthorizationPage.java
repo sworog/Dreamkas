@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
+import project.lighthouse.autotests.elements.Buttons.LinkFacade;
 import project.lighthouse.autotests.elements.items.Input;
 
 @DefaultUrl("/")
@@ -40,5 +41,9 @@ public class AuthorizationPage extends CommonPageObject {
 
     public String getSignUpPageTitleText() {
         return findVisibleElement(signUpPageTitleWebElement).getText();
+    }
+
+    public void forgotPasswordLinkClick() {
+        new LinkFacade(this, "Забыли пароль?").click();
     }
 }

@@ -35,6 +35,11 @@ public class EmailUserSteps {
 
     @Then("the user assert the email message content matches the required template")
     public void thenTheUserAssertsTheEmailMessageContentValue() {
-        emailSteps.assertEmailMessageContent();
+        emailSteps.matchEmailMessageContentToSignUpRegexPattern();
+    }
+
+    @Then("the user assert the restore password email message content matches the required template")
+    public void thenTheUserAssertsTheRestorePasswordEmailMessageContentMatchesTheRequiredTemplate() {
+        emailSteps.matchEmailContentToRestorePasswordRegexPattern();
     }
 }
