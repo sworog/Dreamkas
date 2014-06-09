@@ -8,23 +8,26 @@ define(function(require) {
         configUrl = config.baseApiUrl + '/configs';
 
     return Form.extend({
-        template: require('rv!./template.html'),
+        el: '.form_exportSettings',
         successMessage: 'Настройки успешно сохранены',
-        submit: function() {
-            var block = this,
-                saveData = $.when(
-                    block.saveExportUrl(block.get('set10IntegrationUrl.value')),
-                    block.saveExportLogin(block.get('set10IntegrationLogin.value')),
-                    block.saveExportPassword(block.get('set10IntegrationPassword.value'))
-                );
 
-            saveData.done(function(exportUrl, exportLogin, exportPassword) {
+        submit: function() {
+            var block = this;
+
+            return Promise.all([
+                block.saveExportUrl(block.formData['set10-integration-url']),
+                block.saveExportLogin(block.formData['set10-integration-login']),
+                block.saveExportPassword(block.formData['set10-integration-password'])
+            ]).then(function(results) {
+
+                var exportUrl = results[0],
+                    exportLogin = results[1],
+                    exportPassword = results[2];
+
                 block.set('set10IntegrationUrl.id', exportUrl[0].id);
                 block.set('set10IntegrationLogin.id', exportLogin[0].id);
                 block.set('set10IntegrationPassword.id', exportPassword[0].id);
             });
-
-            return saveData;
         },
         submitError: function() {
             var block = this;

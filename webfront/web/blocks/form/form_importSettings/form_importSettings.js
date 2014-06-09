@@ -8,25 +8,29 @@ define(function(require) {
         configUrl = config.baseApiUrl + '/configs';
 
     return Form.extend({
-        template: require('rv!./template.html'),
+        el: '.form_importSettings',
         successMessage: 'Настройки успешно сохранены',
-        submit: function() {
-            var block = this,
-                saveData = $.when(
-                    block.saveImportUrl(block.get('set10ImportUrl.value')),
-                    block.saveImportLogin(block.get('set10ImportLogin.value')),
-                    block.saveImportPassword(block.get('set10ImportPassword.value')),
-                    block.saveImportInterval(block.get('set10ImportInterval.value'))
-                );
 
-            saveData.done(function(importUrl, importLogin, importPassword, importInterval) {
+        submit: function() {
+            var block = this;
+
+            return Promise.all([
+                block.saveImportUrl(block.formData['set10-import-url']),
+                block.saveImportLogin(block.formData['set10-import-login']),
+                block.saveImportPassword(block.formData['set10-import-password']),
+                block.saveImportInterval(block.formData['set10-import-interval'])
+            ]).then(function(results){
+
+                var importUrl = results[0],
+                    importLogin = results[1],
+                    importPassword = results[2],
+                    importInterval = results[3];
+
                 block.set('set10ImportUrl.id', importUrl[0].id);
                 block.set('set10ImportLogin.id', importLogin[0].id);
                 block.set('set10ImportPassword.id', importPassword[0].id);
                 block.set('set10ImportInterval.id', importInterval[0].id);
             });
-
-            return saveData;
         },
         submitError: function() {
             var block = this;
