@@ -3,12 +3,12 @@ define(function(require, exports, module) {
     var Page = require('kit/page');
 
     return Page.extend({
-        resources: {
+        collections: {
             stores: require('collections/stores')
         },
         partials: {
-            content: require('rv!./content.html'),
-            localNavigation: require('rv!blocks/localNavigation/localNavigation_stores.html')
+            content: require('tpl!./content.ejs'),
+            localNavigation: require('tpl!blocks/localNavigation/localNavigation_stores.ejs')
         }
     });
 });
