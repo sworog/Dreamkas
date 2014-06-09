@@ -1,7 +1,14 @@
+<%
+/**
+ *
+ * @models.store
+ */
+%>
+
 <div class="localNavigation">
-    <h2>
-        <a class="localNavigation__link <%- PAGE.localNavigationActiveLink === 'list' ? 'localNavigation__link_active' : '' %>" href="/stores/<%- params.storeId %>/invoices">Накладные</a>
-    </h2>
-    <a class="localNavigation__link <%- PAGE.localNavigationActiveLink === 'search' ? 'localNavigation__link_active' : '' %>" href="/stores/<%- params.storeId %>/invoices/search">Поиск накладной</a>
-    <a class="localNavigation__link <%- PAGE.localNavigationActiveLink === 'create' ? 'localNavigation__link_active' : '' %>" href="/stores/<%- params.storeId %>/invoices/create">Создать накладную</a>
+    <div class="localNavigation__section">
+        <a class="localNavigation__link" href="/stores/<%- models.store.id %>/invoices">Накладные</a>
+    </div>
+    <a class="localNavigation__link" href="/stores/<%- models.store.id %>/invoices/search">Поиск накладной</a>
+    <a class="localNavigation__link" href="/stores/<%- models.store.id %>/invoices/create">Создать накладную</a>
 </div>
