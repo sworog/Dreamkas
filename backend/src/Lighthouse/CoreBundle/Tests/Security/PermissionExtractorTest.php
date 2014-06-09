@@ -35,6 +35,7 @@ class PermissionExtractorTest extends ContainerAwareTestCase
             ),
             'users' => array(
                 'GET::current',
+                'PUT::current',
                 'GET::permissions'
             ),
             'users/signup' => array(
