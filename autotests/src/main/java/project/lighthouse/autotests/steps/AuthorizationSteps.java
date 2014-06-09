@@ -14,20 +14,30 @@ import project.lighthouse.autotests.storage.Storage;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
 
 public class AuthorizationSteps extends ScenarioSteps {
 
-    private Map<String, HashMap<String, String>> users = new HashMap<String, HashMap<String, String>>() {{
+    private Map<String, HashMap<String, String>> users = new HashMap<String, HashMap<String, String>>() {
+
+        @Override
+        public HashMap<String, String> get(Object key) {
+            HashMap<String, String> get = super.get(key);
+            String message = String.format("Users map don't contain value with the key '%s'", key);
+            assertThat(message, get, notNullValue());
+            return get;
+        }
+
+        {
         put("owner", new HashMap<String, String>() {{
             put("email", "owner@lighthouse.pro");
             put("password", "lighthouse");
 
         }});
-    }};
+
+        }};
 
     AuthorizationPage authorizationPage;
     MenuNavigationBar menuNavigationBar;
