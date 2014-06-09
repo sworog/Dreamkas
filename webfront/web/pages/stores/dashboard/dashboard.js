@@ -1,13 +1,12 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/page');
+    var Page = require('pages/store');
 
     return Page.extend({
         partials: {
-            content: require('rv!./content.html'),
-            globalNavigation: require('rv!blocks/globalNavigation/globalNavigation_store.html')
+            content: require('tpl!./content.ejs')
         },
-        resources: {
+        models: {
             storeGrossSales: function(){
                 var page = this,
                     StoreGrossSalesModel = require('models/storeGrossSales'),
@@ -17,14 +16,6 @@ define(function(require, exports, module) {
                 storeGrossSalesModel.storeId = page.get('params.storeId');
 
                 return storeGrossSalesModel;
-            },
-            store: function(){
-                var page = this,
-                    StoreModel = require('models/store');
-
-                return new StoreModel({
-                    id: page.get('params.storeId')
-                });
             }
         }
     });

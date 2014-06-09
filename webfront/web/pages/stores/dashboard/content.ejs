@@ -1,0 +1,68 @@
+<%
+/**
+ *
+ * @models.storeGrossSales
+ */
+%>
+
+<% var moment = require('moment') %>
+<% var formatMoney = require('kit/formatMoney') %>
+<% var getText = require('kit/getText') %>
+
+<div class="content">
+    <h1>Обзор</h1>
+
+    <h2 class="grossSales__subTitle" style="padding-bottom: 0;">
+        Объём продаж на <%- moment(models.storeGrossSales.get('today.now.date')).startOf('hour').format('HH:mm') %>
+    </h2>
+
+    <div class="grossSales__todayValue">
+        <%- formatMoney(models.storeGrossSales.get('today.now.value')) %>
+    </div>
+    <div class="grossSales__yesterdayDiff">
+
+        <% if (models.storeGrossSales.get('yesterday.now.diff')===0) { %>
+        Так же как вчера
+        <% } else if (models.storeGrossSales.get('yesterday.now.diff')) { %>
+        На
+        <strong class="grossSales__diffText <%- models.storeGrossSales.get('yesterday.now.diff') >= 0 ? 'grossSales__diffText_plus' : 'grossSales__diffText_minus' %>">
+            <%- Math.abs(models.storeGrossSales.get('yesterday.now.diff'))%>%
+            <%- models.storeGrossSales.get('yesterday.now.diff') > 0 ? 'больше' : 'меньше' %></strong>, чем вчера
+        (<%- formatMoney(models.storeGrossSales.get('yesterday.now.value')) %>)
+        <% } %>
+    </div>
+    <div class="grossSales__weekDiff" style="padding-bottom: 20px;">
+
+        <% if (models.storeGrossSales.get('weekAgo.now.diff')===0) { %>
+            Так же как в <%- getText('for last day', moment(models.storeGrossSales.get('today.now.date')).day()) %>
+        <% } else if (models.storeGrossSales.get('weekAgo.now.diff')) { %>
+            На
+            <strong class="grossSales__diffText <%- models.storeGrossSales.get('weekAgo.now.diff') >= 0 ? 'grossSales__diffText_plus' : 'grossSales__diffText_minus' %>">
+                <%- Math.abs(models.storeGrossSales.get('weekAgo.now.diff')) %>%
+                <%- models.storeGrossSales.get('weekAgo.now.diff') >= 0 ? 'больше' : 'меньше' %></strong>, чем
+            в <%- getText('for last day', moment(models.storeGrossSales.get('today.now.date')).day()) %>
+            (<%- formatMoney(models.storeGrossSales.get('weekAgo.now.value')) %>)
+        <% } %>
+    </div>
+    <h2 class="grossSales__subTitle">
+        Объём продаж на конец дня
+    </h2>
+    <table class="grossSales__table">
+        <tr class="grossSales__yesterdayValue">
+            <td>
+                Вчера
+            </td>
+            <td>
+                <%- formatMoney(models.storeGrossSales.get('yesterday.dayEnd.value')) %>
+            </td>
+        </tr>
+        <tr class="grossSales__lastWeekValue">
+            <td>
+                В <%- getText('for last day', moment(models.storeGrossSales.get('today.now.date')).day()) %>
+            </td>
+            <td>
+                <%- formatMoney(models.storeGrossSales.get('weekAgo.dayEnd.value')) %>
+            </td>
+        </tr>
+    </table>
+</div>

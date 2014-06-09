@@ -10,7 +10,9 @@ define(function(require, exports, module) {
     return Form.extend({
         el: '.form_supplier',
         redirectUrl: '/suppliers',
-        template: require('tpl!./template.ejs'),
+        partials: {
+            fileBox: require('tpl!./fileBox.ejs')
+        },
         events: {
             'change [type="file"]': function(e) {
                 var block = this,
@@ -37,7 +39,8 @@ define(function(require, exports, module) {
                     success: function(res) {
                         block.model.set('agreement', res);
                         block.set('successMessage', true);
-                        block.render();
+                        block.renderFileBox();
+                        block.disable(false);
                     },
                     error: function(error) {
                         agreementInput.value = '';
@@ -60,9 +63,14 @@ define(function(require, exports, module) {
                 if (confirm('Вы уверены, что хотите удалить файл?')) {
                     block.model.set('agreement', null);
                     block.set('successMessage', false);
-                    block.render();
+                    block.renderFileBox();
                 }
             }
+        },
+        renderFileBox: function(){
+            var block = this;
+
+            $('#form__fileBox').replaceWith(block.partials.fileBox(_.pick(block, 'model', 'successMessage')));
         },
         showFileErrors: function(errorJson, error){
             var block = this,
