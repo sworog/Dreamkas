@@ -4,10 +4,10 @@ define(function(require, exports, module) {
 
     return Page.extend({
         partials: {
-            content: require('rv!./content.html'),
-            localNavigation: require('rv!pages/suppliers/localNavigation.html')
+            content: require('tpl!./content.ejs'),
+            localNavigation: require('tpl!blocks/localNavigation/localNavigation_suppliers.ejs')
         },
-        resources: {
+        collections: {
             suppliers: require('collections/suppliers')
         }
     });

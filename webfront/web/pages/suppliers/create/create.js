@@ -6,11 +6,21 @@ define(function(require, exports, module) {
 
     return Page.extend({
         partials: {
-            content: require('rv!./content.html'),
-            localNavigation: require('rv!pages/suppliers/localNavigation.html')
+            content: require('tpl!./content.ejs'),
+            localNavigation: require('tpl!blocks/localNavigation/localNavigation_suppliers.ejs')
         },
-        components: {
-            'form-supplier': require('blocks/form/form_supplier/form_supplier')
+        models: {
+            supplier: require('models/supplier')
+        },
+        blocks: {
+            form_supplier: function(){
+                var page = this,
+                    Form_supplier = require('blocks/form/form_supplier/form_supplier');
+
+                return new Form_supplier({
+                    model: page.models.supplier
+                });
+            }
         }
     });
 });

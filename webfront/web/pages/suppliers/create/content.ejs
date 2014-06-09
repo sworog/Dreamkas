@@ -1,0 +1,18 @@
+<%
+/**
+ *
+ * @models.supplier
+ */
+%>
+
+<% var partials = {
+    form_supplier: require('tpl!blocks/form/form_supplier/template.ejs')
+}%>
+
+<div class="content">
+    <h2>Добавить поставщика</h2>
+
+    <%= partials.form_supplier({
+        model: models.supplier
+    }) %>
+</div>
