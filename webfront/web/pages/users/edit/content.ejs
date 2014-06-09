@@ -1,0 +1,32 @@
+<% var currentUser = require('models/currentUser.inst') %>
+
+<div class="content">
+    <form class="form form_user">
+        <div class="form__field form__field_inline">
+            <label class="form__label">Email</label>
+            <input class="inputText"
+                   type="text"
+                   name="email"
+                   value="<%- currentUser.get('email')%>">
+        </div>
+        <div class="form__field form__field_inline">
+            <label class="form__label">Имя</label>
+            <input class="inputText"
+                   type="text"
+                   name="name"
+                   value="<%- currentUser.get('name')%>">
+        </div>
+        <div class="form__field form__field_inline">
+            <label class="form__label">Пароль</label>
+            <input type="password"
+                   class="inputText"
+                   name="password"
+                   value="<%- currentUser.get('password')%>"/>
+        </div>
+        <div class="form__controls">
+            <button type="submit" lh-button class="button">
+                Сохранить
+            </button>
+        </div>
+    </form>
+</div>

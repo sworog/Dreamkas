@@ -1,0 +1,56 @@
+<%
+/**
+ *
+ * @collections.jobs
+ * @collections.log
+ */
+%>
+<% var formatDate = require('kit/formatDate') %>
+<% var getText = require('kit/getText') %>
+
+<div class="content">
+    <div class="log">
+        <div class="log__column">
+            <h2>Задачи</h2>
+            <% collections.jobs.forEach(function(jobModel){ %>
+            <div class="log__item"
+                 id="<%- jobModel.id %>"
+                 status="<%- jobModel.get('status') %>"
+                 type="<%- jobModel.get('type') %>">
+                <div class="log__time">
+                    <%- formatDate(dateCreated, {time: true}) %>
+                </div>
+                <div class="log__title">
+                    <%- getText(jobModel.get('type')) %>
+                </div>
+                <% if (jobModel.get('productVersion')) { %>
+                <div class="log__productName">
+                    <%- jobModel.get('productVersion.name') %>
+                </div>
+                <% } %>
+                <div class="log__status">
+                    <%- getText(jobModel.get('status')) %>
+                </div>
+                <% if (jobModel.get('finalMessage')) { %>
+                <div class="log__finalMessage">
+                    <%- getText(jobModel.get('finalMessage')) %>
+                </div>
+                <% } %>
+            </div>
+            <% }) %>
+        </div>
+        <div class="log__column">
+            <h2>Лог</h2>
+            <% collections.log.forEach(function(logModel){ %>
+            <div class="log__item" id="<%- logModel.id %>">
+                <div class="log__time">
+                    <%- formatDate(logModel.get('date'), {time: true}) %>
+                </div>
+                <div class="log__finalMessage">
+                    <%- getText(logModel.get('message')) %>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+    </div>
+</div>

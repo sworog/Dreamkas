@@ -1,0 +1,7 @@
+<% var currentUser = require('models/currentUser.inst') %>
+
+<div class="content">
+    <h1 name="name">
+        <%- currentUser.get('name') || currentUser.get('email') %>
+    </h1>
+</div>

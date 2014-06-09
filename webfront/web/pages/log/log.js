@@ -4,9 +4,9 @@ define(function(require, exports, module) {
 
     return Page.extend({
         partials: {
-            content: require('rv!./content.html')
+            content: require('tpl!./content.ejs')
         },
-        resources: {
+        collections: {
             jobs: require('collections/jobs'),
             log: require('collections/log')
         }

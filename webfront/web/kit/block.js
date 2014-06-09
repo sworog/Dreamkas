@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var BaseClass = require('kit/baseClass/baseClass'),
-        getText = require('kit/getText/getText'),
+        getText = require('kit/getText'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         delegateEvent = require('kit/delegateEvent/delegateEvent'),
         undelegateEvents = require('kit/undelegateEvents/undelegateEvents'),
