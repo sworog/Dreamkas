@@ -21,6 +21,10 @@ Given the user opens lighthouse sign up page
 When the user inputs 'lighthouse.eddystone@gmail.com' value in email field
 And the user clicks on sign up button
 
+When the user gets the last email message from the test email inbox folder
+
+Given the user prepares email inbox
+
 When the user clicks on forgot password link
 And the user inputs 'lighthouse.eddystone@gmail.com' value in restore password email field
 
