@@ -4,11 +4,21 @@ define(function(require, exports, module) {
 
     return Page.extend({
         partials: {
-            content: require('rv!./content.html'),
-            localNavigation: require('rv!blocks/localNavigation/localNavigation_stores.html')
+            content: require('tpl!./content.ejs'),
+            localNavigation: require('tpl!blocks/localNavigation/localNavigation_stores.ejs')
         },
-        components: {
-            'form-store': require('blocks/form/form_store/form_store')
+        models: {
+            store: require('models/store')
+        },
+        blocks: {
+            form_store: function(){
+                var page = this,
+                    Form_store = require('blocks/form/form_store/form_store');
+
+                return new Form_store({
+                    model: page.models.store
+                });
+            }
         }
     });
 });
