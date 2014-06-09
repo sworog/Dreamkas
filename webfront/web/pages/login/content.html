@@ -6,5 +6,12 @@
             Для входа введите пароль присланный вам на email.
         </p>
     {{/params.signup}}
+
+    {{#params.restorePassword === 'success'}}
+        <p>
+            Ваш новый пароль отправлен вам на email.
+        </p>
+    {{/params.restorePassword}}
+
     <form_login model="{{login}}" />
 </div>
