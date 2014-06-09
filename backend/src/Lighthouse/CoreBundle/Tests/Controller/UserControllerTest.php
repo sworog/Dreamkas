@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use OAuth2\OAuth2ServerException;
 use SebastianBergmann\Exporter\Exporter;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
@@ -1162,6 +1163,39 @@ class UserControllerTest extends WebTestCase
                 array('children.email.errors.0' => 'Заполните это поле'),
             ),
         );
+    }
+
+    public function testUserLoginAfterPasswordRestore()
+    {
+        $this->factory()->user()->createUser('user@lh.com', 'lighthouse', User::getDefaultRoles());
+
+        $restoreData = array(
+            'email' => 'user@lh.com'
+        );
+
+        $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/restorePassword',
+            $restoreData
+        );
+
+        $this->assertResponseCode(200);
+
+        $messages = $this->getSentEmailMessages();
+        $newPassword = $this->getPasswordFromEmailBody($messages[1]->getBody());
+
+        $this->factory()->clear();
+
+        try {
+            $this->factory()->oauth()->doAuthByUsername('user@lh.com', 'lighthouse');
+            $this->fail('Old password should not fit');
+        } catch (OAuth2ServerException $e) {
+            $this->assertTrue(true);
+        }
+
+        $accessToken = $this->factory()->oauth()->doAuthByUsername('user@lh.com', $newPassword);
+        $this->assertNotNull($accessToken->access_token);
     }
 
     /**

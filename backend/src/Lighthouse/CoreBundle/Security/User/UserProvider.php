@@ -249,7 +249,7 @@ class UserProvider implements UserProviderInterface
     public function restoreUserPassword(User $user)
     {
         $newPassword = $this->generateUserPassword();
-        $this->setPassword($user, $newPassword);
+        $this->updateUserWithPassword($user, $newPassword);
         $this->sendRestorePasswordMessage($user, $newPassword);
     }
 
