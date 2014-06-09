@@ -25,8 +25,8 @@ security:
             pattern:    ^/oauth/v2/token
             security:   false
 
-        sugnup:
-            pattern:    ^/api/1/users/signup$
+        signup:
+            pattern:    ^/api/1/users/(signup|restore_password)$
             security:   false
 
         api:

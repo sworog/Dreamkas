@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use JMS\DiExtraBundle\Annotation as DI;
+use Symfony\Component\Templating\EngineInterface;
 use Symfony\Component\Validator\ValidatorInterface;
 use Swift_Mailer;
 
@@ -215,7 +216,7 @@ class UserProvider implements UserProviderInterface
      */
     public function sendRegisteredMessage(User $user, $password)
     {
-        $messageBody = $this->getMessageBody($password);
+        $messageBody = $this->getSignUpMessageBody($password);
 
         $message = \Swift_Message::newInstance()
             ->setFrom('noreply@lighthouse.pro')
@@ -232,15 +233,65 @@ class UserProvider implements UserProviderInterface
      * @param string $password
      * @return string
      */
-    public function getMessageBody($password)
+    public function getSignUpMessageBody($password)
     {
-        $message = $this->container->get('templating')->render(
+        return $this->getTemplating()->render(
             'LighthouseCoreBundle:Email:registered.html.php',
             array(
                 'password' => $password
             )
         );
+    }
 
-        return $message;
+    /**
+     * @param User $user
+     */
+    public function restoreUserPassword(User $user)
+    {
+        $newPassword = $this->generateUserPassword();
+        $this->setPassword($user, $newPassword);
+        $this->sendRestorePasswordMessage($user, $newPassword);
+    }
+
+    /**
+     * @param User $user
+     * @param string $password
+     * @return User
+     */
+    public function sendRestorePasswordMessage(User $user, $password)
+    {
+        $messageBody = $this->getRestorePasswordMessageBody($password);
+
+        $message = \Swift_Message::newInstance()
+            ->setFrom('noreply@lighthouse.pro')
+            ->setTo($user->email)
+            ->setSubject('Восстановление пароля в Lighthouse')
+            ->setBody($messageBody);
+
+        $this->mailer->send($message);
+
+        return $user;
+    }
+
+    /**
+     * @param string $password
+     * @return string
+     */
+    protected function getRestorePasswordMessageBody($password)
+    {
+        return $this->getTemplating()->render(
+            'LighthouseCoreBundle:Email:restore_password.html.php',
+            array(
+                'password' => $password
+            )
+        );
+    }
+
+    /**
+     * @return EngineInterface
+     */
+    protected function getTemplating()
+    {
+        return $this->container->get('templating');
     }
 }
