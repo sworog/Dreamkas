@@ -92,9 +92,10 @@ define(function(require, exports, module) {
 
                     page.el.setAttribute('status', 'loaded');
                 } catch (error) {
-                    throw error;
+                    console.error(error);
                 }
             }, function(error) {
+                console.error(error);
                 page.set('error', error);
             });
         },

@@ -23,24 +23,25 @@ define(function(require) {
 
                 block.formData = block.getData();
 
-                block.trigger('submit:start');
                 block.submitStart();
+                block.trigger('submit:start');
 
-                submit = block.submit();
+                Promise.resolve(block.submit()).then(function(response){
 
-                submit.done(function(response) {
                     block.submitSuccess(response);
                     block.trigger('submit:success', response);
-                });
 
-                submit.fail(function(response) {
-                    block.submitError(response);
-                    block.trigger('submit:error', response);
-                });
-
-                submit.always(function(response) {
                     block.submitComplete(response);
                     block.trigger('submit:complete', response);
+
+                }, function(response){
+
+                    block.submitError(response);
+                    block.trigger('submit:error', response);
+
+                    block.submitComplete(response);
+                    block.trigger('submit:complete', response);
+
                 });
             }
         },
