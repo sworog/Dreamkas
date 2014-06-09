@@ -10,7 +10,7 @@ define(function(require, exports, module) {
         collectionNode: require('kit/collectionNode/collectionNode'),
         formatMoney: require('kit/formatMoney/formatMoney'),
         formatAmount: require('kit/formatAmount/formatAmount'),
-        formatDate: require('kit/formatDate/formatDate'),
+        formatDate: require('kit/formatDate'),
         isEmptyJSON: require('kit/isEmptyJSON/isEmptyJSON'),
         prevalidateInput: require('kit/prevalidateInput/prevalidateInput'),
         units: require('kit/units/units'),
