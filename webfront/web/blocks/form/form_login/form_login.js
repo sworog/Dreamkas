@@ -1,8 +1,7 @@
 define(function(require) {
     //requirements
     var Form = require('kit/form'),
-        login = require('kit/login/login'),
-        SignupModel = require('models/signup');
+        login = require('kit/login/login');
 
     return Form.extend({
         el: '.form_login',
@@ -14,7 +13,7 @@ define(function(require) {
 
             Form.prototype.initialize.apply(block, arguments);
 
-            if (SignupModel.email){
+            if (block.model.email){
                 block.el.querySelector('[name="password"]').focus();
             } else {
                 block.el.querySelector('[name="username"]').focus();

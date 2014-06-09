@@ -1,19 +1,18 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/form');
+    var Form = require('kit/form'),
+        LoginModel = require('models/login');
 
     return Form.extend({
-        template: require('rv!./template.html'),
+        el: '.form_restorePassword',
         model: require('models/restorePassword'),
-        data: {
-            model: {
-                email: null
-            }
-        },
         redirectUrl: '/login?restorePassword=success',
         submitSuccess: function(res){
-            this.model.email = res.email;
-            this._super();
+            var block = this;
+
+            LoginModel.email = res.email;
+
+            Form.prototype.submitSuccess.apply(block, arguments);
         }
     });
 });

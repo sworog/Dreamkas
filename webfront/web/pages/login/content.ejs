@@ -1,4 +1,4 @@
-<% var SignupModel = require('models/signup'); %>
+<% var LoginModel = require('models/login'); %>
 
 <div class="content">
     <h1>Добро пожаловать в Lighthouse!</h1>
@@ -10,13 +10,19 @@
     </p>
     <% } %>
 
+    <% if(params.restorePassword === 'success') { %>
+    <p>
+        Ваш новый пароль отправлен вам на email.
+    </p>
+    <% } %>
+
     <form class="form form_login">
         <div class="form__field">
             <label class="form__label">Email</label>
             <input class="inputText"
                    type="text"
                    name="username"
-                   value="<%- SignupModel.email %>"/>
+                   value="<%- LoginModel.email %>"/>
         </div>
         <div class="form__field">
             <label class="form__label">Пароль</label>
@@ -28,6 +34,9 @@
             <button type="submit" class="button">
                 Войти
             </button>
+            <a style="margin-left: 70px" href="/restorePassword" >
+                Забыли пароль?
+            </a>
         </div>
     </form>
 
