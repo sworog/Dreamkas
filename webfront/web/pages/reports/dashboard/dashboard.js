@@ -4,8 +4,8 @@ define(function(require, exports, module) {
 
     return Page.extend({
         partials: {
-            content: require('rv!./content.html'),
-            localNavigation: require('rv!blocks/localNavigation/localNavigation_reports.html')
+            content: require('tpl!./content.html'),
+            localNavigation: require('tpl!blocks/localNavigation/localNavigation_reports.ejs')
         }
     });
 });

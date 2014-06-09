@@ -1,14 +1,13 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/page'),
-        $ = require('jquery');
+    var Page = require('kit/page');
 
     return Page.extend({
         partials: {
-            content: require('rv!./content.html'),
-            localNavigation: require('rv!blocks/localNavigation/localNavigation_reports.html')
+            content: require('tpl!./content.ejs'),
+            localNavigation: require('tpl!blocks/localNavigation/localNavigation_reports.ejs')
         },
-        resources: {
+        collections: {
             grossMargin: require('collections/grossMargin')
         }
     });

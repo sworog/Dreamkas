@@ -1,0 +1,30 @@
+<%
+/**
+ *
+ * @collections.grossMargin
+ */
+%>
+
+<% var moment = require('moment') %>
+<% var formatMoney = require('kit/formatMoney') %>
+
+<div class="content">
+    <h2>Валовая прибыль сети</h2>
+
+    <% if (collections.grossMargin.length) { %>
+    <table class="table table_grossMargin">
+        <% collections.grossMargin.forEach(function(grossMarginModel){ %>
+        <tr name="grossMarginRow">
+            <td name="grossMarginDate">
+                <%- moment(grossMarginModel.get('date')).format('DD.MM') %>
+            </td>
+            <td name="grossMarginSum">
+                <%- formatMoney(grossMarginModel.get('sum')) %>
+            </td>
+        </tr>
+        <% }) %>
+    </table>
+    <% } else { %>
+    <p>Нет данных</p>
+    <% } %>
+</div>

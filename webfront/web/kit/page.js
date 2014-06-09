@@ -6,6 +6,8 @@ define(function(require, exports, module) {
         get = require('kit/get/get'),
         _ = require('lodash');
 
+    require('sortable');
+
     var Page = Block.extend({
 
         constructor: function(request) {
@@ -50,6 +52,34 @@ define(function(require, exports, module) {
             globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation.ejs')
         },
 
+        events: {
+            'click .page__tabItem': function(e) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                var block = this,
+                    $target = $(e.target),
+                    rel = $target.attr('rel'),
+                    href = $target.attr('href'),
+                    $targetContent = $('.page__tabContentItem[rel="' + rel + '"]');
+
+                if (href) {
+                    router.navigate(href, {
+                        trigger: false
+                    });
+                }
+
+                $targetContent
+                    .addClass('page__tabContentItem_active')
+                    .siblings('.page__tabContentItem')
+                    .removeClass('page__tabContentItem_active');
+
+                $target
+                    .addClass('page__tabItem_active')
+                    .siblings('.page__tabItem')
+                    .removeClass('page__tabItem_active');
+            }
+        },
+
         listeners: {
             params: function(params) {
                 router.save(params);
@@ -73,23 +103,11 @@ define(function(require, exports, module) {
         },
 
         initialize: function() {
-            var page = this,
-                autofocus,
-                firstInput;
+            var page = this;
 
             Promise.resolve(page.fetch()).then(function() {
                 try {
                     page.render();
-
-                    autofocus = page.el.querySelector('[autofocus]');
-                    firstInput = page.el.querySelector('[type=text]');
-
-                    if (autofocus){
-                        autofocus.focus();
-                    } else if(firstInput) {
-                        firstInput.focus();
-                    }
-
                     page.el.setAttribute('status', 'loaded');
                 } catch (error) {
                     console.error(error);
@@ -98,6 +116,26 @@ define(function(require, exports, module) {
                 console.error(error);
                 page.set('error', error);
             });
+        },
+
+        render: function(){
+            var page = this,
+                autofocus,
+                firstInput;
+
+            Block.prototype.render.apply(page, arguments);
+
+            autofocus = page.el.querySelector('[autofocus]');
+            firstInput = page.el.querySelector('[type=text]');
+
+            Sortable.init();
+
+            if (autofocus){
+                autofocus.focus();
+            } else if(firstInput) {
+                firstInput.focus();
+            }
+
         },
 
         fetch: function(dataList) {
