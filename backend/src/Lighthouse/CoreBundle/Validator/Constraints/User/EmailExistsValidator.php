@@ -4,7 +4,6 @@ namespace Lighthouse\CoreBundle\Validator\Constraints\User;
 
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Validator\Constraints\ConstraintValidator;
-use Lighthouse\CoreBundle\Validator\Constraints\User\EmailExists;
 use Symfony\Component\Validator\Constraint;
 use JMS\DiExtraBundle\Annotation as DI;
 
