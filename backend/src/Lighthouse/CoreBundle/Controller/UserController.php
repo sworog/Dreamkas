@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserCollection;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
+use Lighthouse\CoreBundle\Form\UserRestorePasswordType;
 use Lighthouse\CoreBundle\Form\UserType;
 use Lighthouse\CoreBundle\Security\PermissionExtractor;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
@@ -171,6 +172,26 @@ class UserController extends AbstractRestController
         } else {
             return $form;
         }
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @Rest\Route("users/restorePassword")
+     * @Rest\View
+     * @return View
+     */
+    public function postUsersRestorePasswordAction(Request $request)
+    {
+        $form = $this->createForm(new UserRestorePasswordType());
+        $form->submit($request);
+        if ($form->isValid()) {
+            $email = $form->get('email')->getData();
+            $user = $this->documentRepository->findOneByEmail($email);
+            $this->userProvider->restoreUserPassword($user);
+            return array('email' => $email);
+        }
+        return $form;
     }
 
     /**

@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use OAuth2\OAuth2ServerException;
 use SebastianBergmann\Exporter\Exporter;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
@@ -1076,6 +1077,127 @@ class UserControllerTest extends WebTestCase
         $this->assertSame($getResponse, $postResponse);
     }
 
+    public function testPasswordRestoreAction()
+    {
+        // signup
+        $userData = array(
+            'email' => 'user@lh.com',
+        );
+
+        $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/signup',
+            $userData
+        );
+
+        $this->assertResponseCode(201);
+
+        $messages = $this->getSentEmailMessages();
+        $password = $this->getPasswordFromEmailBody($messages[1]->getBody());
+
+        // restore
+        $restoreData = array(
+            'email' => 'user@lh.com'
+        );
+
+        $restoreResponse = $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/restorePassword',
+            $restoreData
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals('user@lh.com', 'email', $restoreResponse);
+
+        $messages = $this->getSentEmailMessages();
+        $this->assertCount(2, $messages);
+        $this->assertContains('Вы воспользовались формой восстановления пароля в Lighthouse.', $messages[1]->getBody());
+        $this->assertContains('Ваш новый пароль для входа:', $messages[1]->getBody());
+        $newPassword = $this->getPasswordFromEmailBody($messages[1]->getBody());
+
+        $this->assertNotEquals($newPassword, $password);
+    }
+
+    /**
+     * @dataProvider passwordRestoreValidationFailProvider
+     * @param string $email
+     * @param array $assertions
+     */
+    public function testPasswordRestoreValidationFail($email, array $assertions)
+    {
+        $this->factory()->user()->createUser('user@lh.com', 'lighthouse', User::getDefaultRoles());
+
+        $restoreData = array(
+            'email' => $email
+        );
+
+        $restoreResponse = $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/restorePassword',
+            $restoreData
+        );
+
+        $this->assertResponseCode(400);
+        $this->performJsonAssertions($restoreResponse, $assertions);
+    }
+
+    /**
+     * @return array
+     */
+    public function passwordRestoreValidationFailProvider()
+    {
+        return array(
+            'not registered' => array(
+                'invalid@lh.com',
+                array('children.email.errors.0' => 'Пользователь с таким e-mail не зарегистрирован в системе'),
+            ),
+            'invalid email' => array(
+                'invalid_lh.com',
+                array('children.email.errors.0' => 'Пользователь с таким e-mail не зарегистрирован в системе'),
+            ),
+            'empty' => array(
+                '',
+                array('children.email.errors.0' => 'Заполните это поле'),
+            ),
+        );
+    }
+
+    public function testUserLoginAfterPasswordRestore()
+    {
+        $this->factory()->user()->createUser('user@lh.com', 'lighthouse', User::getDefaultRoles());
+
+        $restoreData = array(
+            'email' => 'user@lh.com'
+        );
+
+        $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/restorePassword',
+            $restoreData
+        );
+
+        $this->assertResponseCode(200);
+
+        $messages = $this->getSentEmailMessages();
+        $newPassword = $this->getPasswordFromEmailBody($messages[1]->getBody());
+
+        $this->factory()->clear();
+
+        try {
+            $this->factory()->oauth()->doAuthByUsername('user@lh.com', 'lighthouse');
+            $this->fail('Old password should not fit');
+        } catch (OAuth2ServerException $e) {
+            $this->assertTrue(true);
+        }
+
+        $accessToken = $this->factory()->oauth()->doAuthByUsername('user@lh.com', $newPassword);
+        $this->assertNotNull($accessToken->access_token);
+    }
+
     /**
      * @return \Swift_Message[]
      */
@@ -1092,7 +1214,7 @@ class UserControllerTest extends WebTestCase
      */
     protected function getPasswordFromEmailBody($body)
     {
-        if (preg_match('/Ваш пароль для входа:\s(.+)\n/u', $body, $matches)) {
+        if (preg_match('/пароль для входа:\s*(.+?)\n/u', $body, $matches)) {
             return $matches[1];
         }
         throw new \PHPUnit_Framework_AssertionFailedError('Password not found in message');

@@ -53,6 +53,11 @@ public class AuthorizationUserSteps {
         authorizationSteps.authorization(userName, password);
     }
 
+    @Given("the user opens lighthouse restore password page")
+    public void givenTheUserOpensRestorePasswordPage() {
+        authorizationSteps.restorePasswordPageOpen();
+    }
+
     @When("the user logs in using '$userName' userName and '$password' password")
     @Alias("the user logs in using <userName> and '$password' password")
     public void givenTheUserLogsInUsingUserNameAndPassword(String userName, String password) {
@@ -95,7 +100,13 @@ public class AuthorizationUserSteps {
 
     @When("the user inputs stored password from email in password field")
     public void whenTheUserInputsStoredPasswordFromEmailInPasswordField() {
-        String password = emailSteps.getEmailCredentials();
+        String password = emailSteps.getSignUpEmailCredentials();
+        authorizationSteps.passwordFieldInput(password);
+    }
+
+    @When("the user inputs stored password from restore password email in password field")
+    public void whenTheUserInputsStoredPasswordFromRestorePasswordEmailInPasswordField() {
+        String password = emailSteps.getRestorePasswordEmailCredentials();
         authorizationSteps.passwordFieldInput(password);
     }
 
@@ -104,9 +115,29 @@ public class AuthorizationUserSteps {
         authorizationSteps.loginButtonClick();
     }
 
+    @When("the user clicks on forgot password link")
+    public void whenTheUserClicksOnForgotPasswordLink() {
+        authorizationSteps.forgotPasswordLinkClick();
+    }
+
+    @When("the user clicks on restore password button")
+    public void whenTheUserClicksOnRestorePasswordButton() {
+        authorizationSteps.recoverPasswordButtonClick();
+    }
+
+    @When("the user inputs '$value' value in restore password email field")
+    public void whenTheUserInputsValueInRestorePasswordEmailField(String value) {
+        authorizationSteps.restorePasswordPageEmailInput(value);
+    }
+
     @Then("the user checks the sign up text is expected")
     public void thenTheUserChecksTheSignUpText() {
         authorizationSteps.assertSignUpText();
+    }
+
+    @Then("the user checks the restore password text is '$expected'")
+    public void thenTheUserChecksTheRestorePasswordText(String expected) {
+        authorizationSteps.assertRestorePasswordText(expected);
     }
 
     @Then("the user asserts the elements have values on auth page $examplesTable")
@@ -117,5 +148,15 @@ public class AuthorizationUserSteps {
     @Then("the user asserts the element '$elementName' value is equal to value")
     public void thenTheUserAssertsTheElementsHaveValuesOnAuthPage(String elementName, String value) {
         authorizationSteps.assertValue(elementName, value);
+    }
+
+    @Then("the user asserts the restore password page title text is '$text'")
+    public void thenTheUserAssertsTheRestorePasswordPageTitle(String text) {
+        authorizationSteps.assertPageTitleText(text);
+    }
+
+    @Then("the user asserts the restore password page text is '$text'")
+    public void thenTheUserAssertsTheRestorePasswordPageText(String text) {
+        authorizationSteps.assertPageText(text);
     }
 }

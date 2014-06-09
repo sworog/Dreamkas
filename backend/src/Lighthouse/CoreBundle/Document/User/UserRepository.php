@@ -19,4 +19,13 @@ class UserRepository extends DocumentRepository
         }
         return $this->findBy($criteria);
     }
+
+    /**
+     * @param string $email
+     * @return User|null
+     */
+    public function findOneByEmail($email)
+    {
+        return $this->findOneBy(array('email' => $email));
+    }
 }
