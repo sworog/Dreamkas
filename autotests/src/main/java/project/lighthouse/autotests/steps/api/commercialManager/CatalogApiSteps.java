@@ -10,7 +10,7 @@ import project.lighthouse.autotests.objects.api.SubCategory;
 
 import java.io.IOException;
 
-public class CatalogApiSteps extends CommercialManagerApi {
+public class CatalogApiSteps extends OwnerApi {
 
     private static final String STORE_MANAGERS_REL_VALUE = "storeManagers";
     private static final String DEPARTMENT_MANAGERS_REL_VALUE = "departmentManagers";

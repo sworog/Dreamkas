@@ -18,7 +18,7 @@ Meta:
 @s33u69s07e01
 
 Given the user is on the product list page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user creates new product from product list page
 And the user selects product type 'Весовой'
 And the user inputs <productName> in name element field
@@ -41,7 +41,7 @@ Meta:
 @s33u69s07e02
 
 Given the user is on the product list page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user creates new product from product list page
 And the user selects product type 'Весовой'
 And the user inputs <productName> in name element field
@@ -65,7 +65,7 @@ Meta:
 @s33u69s07e03
 
 Given the user is on the product list page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user creates new product from product list page
 And the user selects product type 'Весовой'
 And the user inputs 's33u69s07e03' in 'name' element field
@@ -80,7 +80,7 @@ Meta:
 @s33u69s07e04
 
 Given the user is on the product list page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user creates new product from product list page
 And the user selects product type 'Весовой'
 And the user inputs <productName> in name element field
@@ -102,7 +102,7 @@ Meta:
 @s33u69s07e05
 
 Given the user is on the product list page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user creates new product from product list page
 And the user selects product type 'Весовой'
 And the user inputs <productName> in name element field

@@ -12,7 +12,7 @@ import project.lighthouse.autotests.storage.Storage;
 import java.io.IOException;
 import java.util.List;
 
-public class ProductApiSteps extends CommercialManagerApi {
+public class ProductApiSteps extends OwnerApi {
 
     @Step
     public Product createProduct(String name,

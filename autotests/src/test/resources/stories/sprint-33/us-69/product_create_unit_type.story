@@ -18,7 +18,7 @@ Meta:
 @s33u69s01e01
 
 Given the user is on the product create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user selects product type 'Штучный'
 And the user inputs 'ШтучныйТовар1' in 'name' field
@@ -38,7 +38,7 @@ Meta:
 @s33u69s01e02
 
 Given the user is on the product create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user selects product type 'Штучный'
 And the user inputs 'ШтучныйТовар2' in 'name' field
@@ -58,7 +58,7 @@ Meta:
 @s33u69s01e03
 
 Given the user is on the product create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user selects product type 'Штучный'
 And the user inputs 'ШтучныйТовар3' in 'name' field
@@ -77,5 +77,5 @@ Meta:
 @s33u69s01e04
 
 Given the user is on the product create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 Then the user checks default value for 'vat' dropdown equal to ''

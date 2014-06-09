@@ -19,7 +19,7 @@ Meta:
 
 Given there is the product with <productName> name, 'weight' type
 And the user navigates to the product with name <productName>
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks the edit button on product card view page
 And the user generates charData with <charNumber> number in the <elementName> field
 Then the user checks <elementName> field contains only <charNumber> symbols
@@ -40,7 +40,7 @@ Meta:
 
 Given there is the product with <productName> name, 'weight' type
 And the user navigates to the product with name <productName>
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks the edit button on product card view page
 And the user generates charData with <charNumber> number in the <elementName> field
 Then the user checks <elementName> field contains only <charNumber> symbols
@@ -63,7 +63,7 @@ Meta:
 
 Given there is the product with 's33u69s09e03' name, 'weight' type
 And the user navigates to the product with name 's33u69s09e03'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks the edit button on product card view page
 And the user inputs '' in 'nameOnScales' element field
 And the user inputs '' in 'descriptionOnScales' element field
@@ -82,7 +82,7 @@ Meta:
 
 Given there is the product with <productName> name, 'weight' type
 And the user navigates to the product with name <productName>
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks the edit button on product card view page
 And the user inputs <exampleValue> in <exampleElement> element field
 When the user clicks the create button
@@ -102,7 +102,7 @@ Meta:
 
 Given there is the product with <productName> name, 'weight' type
 And the user navigates to the product with name <productName>
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks the edit button on product card view page
 And the user inputs <exampleValue> in <exampleElement> element field
 When the user clicks the create button
@@ -124,7 +124,7 @@ Meta:
 
 Given there is the product with 's33u69s09e06' name, 'weight' type
 And the user navigates to the product with name 's33u69s09e06'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks the edit button on product card view page
 And the user inputs 's33u69s09e06' in 'nameOnScales' element field
 And the user inputs 's33u69s09e06' in 'descriptionOnScales' element field

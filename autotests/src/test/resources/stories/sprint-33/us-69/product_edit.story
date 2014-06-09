@@ -17,7 +17,7 @@ Meta:
 @s33u69s10e01
 
 Given the user is on the product list page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user creates new product from product list page
 And the user selects product type 'Штучный'
 And the user inputs values in element fields
@@ -66,7 +66,7 @@ Meta:
 @s33u69s10e02
 
 Given the user is on the product list page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user creates new product from product list page
 And the user selects product type 'Штучный'
 And the user inputs values in element fields

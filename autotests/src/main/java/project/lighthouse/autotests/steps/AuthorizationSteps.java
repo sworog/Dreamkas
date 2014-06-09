@@ -21,11 +21,12 @@ import static org.junit.Assert.fail;
 
 public class AuthorizationSteps extends ScenarioSteps {
 
-    private Map<String, String> users = new HashMap<String, String>() {{
-        put("watchman", "lighthouse");
-        put("commercialManager", "lighthouse");
-        put("storeManager", "lighthouse");
-        put("departmentManager", "lighthouse");
+    private Map<String, HashMap<String, String>> users = new HashMap<String, HashMap<String, String>>() {{
+        put("owner", new HashMap<String, String>() {{
+            put("email", "owner@lighthouse.pro");
+            put("password", "lighthouse");
+
+        }});
     }};
 
     AuthorizationPage authorizationPage;
@@ -33,23 +34,24 @@ public class AuthorizationSteps extends ScenarioSteps {
     SignUpPage signUpPage;
 
     @Step
-    public void authorization(String userName) {
-        String password = users.get(userName);
-        authorization(userName, password);
+    public void authorization(String user) {
+        String email = users.get(user).get("email");
+        String password = users.get(user).get("password");
+        authorization(email, password);
     }
 
     @Step
-    public void authorization(String userName, String password) {
-        authorization(userName, password, false);
+    public void authorization(String email, String password) {
+        authorization(email, password, false);
     }
 
     @Step
-    public void authorization(String userName, String password, Boolean isFalse) {
-        workAroundTypeForUserName(userName);
+    public void authorization(String email, String password, Boolean isFalse) {
+        workAroundTypeForUserName(email);
         authorizationPage.input("password", password);
         authorizationPage.loginButtonClick();
         if (!isFalse) {
-            checkUser(userName);
+            checkUser(email);
         }
         Storage.getUserVariableStorage().setIsAuthorized(true);
     }
@@ -69,8 +71,8 @@ public class AuthorizationSteps extends ScenarioSteps {
      */
     @Step
     public void workAroundTypeForUserName(String inputText) {
-        authorizationPage.input("userName", inputText);
-        if (!authorizationPage.getItems().get("userName").getVisibleWebElementFacade().getValue().equals(inputText)) {
+        authorizationPage.input("email", inputText);
+        if (!authorizationPage.getItems().get("email").getVisibleWebElementFacade().getValue().equals(inputText)) {
             workAroundTypeForUserName(inputText);
         }
     }
@@ -86,12 +88,12 @@ public class AuthorizationSteps extends ScenarioSteps {
     }
 
     @Step
-    public void checkUser(String userName) {
-        String actualUserName = menuNavigationBar.getUserNameText();
+    public void checkUser(String email) {
+        String actualUserEmail = menuNavigationBar.getUserEmailText();
         assertThat(
-                String.format("The user name is '%s'. Should be '%s'.", actualUserName, userName),
-                actualUserName,
-                equalTo(userName));
+                String.format("The user name is '%s'. Should be '%s'.", actualUserEmail, email),
+                actualUserEmail,
+                equalTo(email));
     }
 
     @Step

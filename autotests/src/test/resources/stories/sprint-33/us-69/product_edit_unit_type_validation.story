@@ -7,7 +7,7 @@ Scenario: Edit product validation - Field length validation
 
 Given there is created product with name 'ED-NMLV'
 And the user navigates to the product with name 'ED-NMLV'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks the edit button on product card view page
 And the user generates charData with <charNumber> number in the <elementName> field
 Then the user checks <elementName> field contains only <charNumber> symbols
@@ -25,7 +25,7 @@ Scenario: Edit product validation - Field length validation negative
 
 Given there is created product with name 'ED-NMLVN'
 And the user navigates to the product with name 'ED-NMLVN'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks the edit button on product card view page
 And the user generates charData with <charNumber> number in the <elementName> field
 Then the user checks <elementName> field contains only <charNumber> symbols
@@ -43,7 +43,7 @@ Scenario: Edit product validation - Name field is required
 
 Given there is created product with name 'ED-NFIR'
 And the user navigates to the product with name 'ED-NFIR'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks the edit button on product card view page
 And the user inputs <inputText> in <elementName> field
 And the user clicks the create button
@@ -59,7 +59,7 @@ Scenario: Edit product validation - Vendor,Barcode,VendorCountryInfo fields are 
 
 Given there is created product with name 'ED-VBVCF'
 And the user navigates to the product with name 'ED-VBVCF'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks the edit button on product card view page
 And the user inputs 'EPVBVCF678' in 'name' field
 And the user inputs '58967' in 'purchasePrice' field
@@ -73,7 +73,7 @@ Scenario: Edit product validation - Purchase price validation good
 
 Given there is created product with name 'ED-PPVC'
 And the user navigates to the product with name 'ED-PPVC'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks the edit button on product card view page
 And the user inputs <inputText> in <elementName> field
 And the user clicks the create button
@@ -94,7 +94,7 @@ Scenario: Edit product validation - Purchase price validation negative
 
 Given there is created product with name 'ED-PPC3D'
 And the user navigates to the product with name 'ED-PPC3D'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks the edit button on product card view page
 And the user inputs <inputText> in <elementName> field
 And the user clicks the create button

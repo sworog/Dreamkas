@@ -7,13 +7,13 @@ import project.lighthouse.autotests.api.ApiConnect;
 
 import java.io.IOException;
 
-public class CommercialManagerApi extends ScenarioSteps {
+public class OwnerApi extends ScenarioSteps {
 
     protected ApiConnect apiConnect;
 
-    public CommercialManagerApi() {
+    public OwnerApi() {
         try {
-            apiConnect = new ApiConnect("commercialManagerApi", "lighthouse");
+            apiConnect = new ApiConnect("owner@lighthouse.pro", "lighthouse");
         } catch (IOException | JSONException e) {
             Assert.fail(e.getMessage());
         }

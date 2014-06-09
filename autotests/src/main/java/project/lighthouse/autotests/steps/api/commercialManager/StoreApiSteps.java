@@ -7,7 +7,7 @@ import project.lighthouse.autotests.storage.Storage;
 
 import java.io.IOException;
 
-public class StoreApiSteps extends CommercialManagerApi {
+public class StoreApiSteps extends OwnerApi {
 
     @Step
     public Store createStoreThroughPost() throws IOException, JSONException {
