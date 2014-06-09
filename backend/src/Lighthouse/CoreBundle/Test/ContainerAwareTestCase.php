@@ -113,6 +113,7 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
     protected function clearMongoDb()
     {
         $dm = $this->getDocumentManager();
+        $dm->getSchemaManager()->dropAllProjectCollections();
         $dm->getSchemaManager()->dropProjectDatabases();
         $dm->getSchemaManager()->dropGlobalCollections();
         $dm->getSchemaManager()->createGlobalCollections();
