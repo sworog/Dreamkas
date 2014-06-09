@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Form;
+namespace Lighthouse\CoreBundle\Form\User;
 
 use Lighthouse\CoreBundle\Document\User\User;
 use Symfony\Component\Form\AbstractType;
