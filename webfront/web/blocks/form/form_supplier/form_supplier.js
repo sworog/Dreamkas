@@ -1,7 +1,6 @@
 define(function(require, exports, module) {
     //requirements
     var Form = require('kit/form'),
-        SupplierModel = require('models/supplier'),
         cookie = require('cookies'),
         $ = require('jquery'),
         _ = require('lodash');
@@ -9,9 +8,9 @@ define(function(require, exports, module) {
     var authorizationHeader = 'Bearer ' + cookie.get('token');
 
     return Form.extend({
+        el: '.form_supplier',
         redirectUrl: '/suppliers',
-        model: SupplierModel,
-        template: require('rv!./template.html'),
+        template: require('tpl!./template.ejs'),
         events: {
             'change [type="file"]': function(e) {
                 var block = this,
@@ -20,7 +19,7 @@ define(function(require, exports, module) {
                     $form__field = $(button).closest('.form__field'),
                     agreementInput = $form__field.find('[name="agreement"]');
 
-                button.classList.add('preloader_rows');
+                button.classList.add('preloader_stripes');
                 block.removeErrors();
                 block.removeSuccessMessage();
                 block.disable(true);
@@ -36,17 +35,14 @@ define(function(require, exports, module) {
                     data: file,
                     processData: false,
                     success: function(res) {
-                        block.set({
-                            agreement: res,
-                            successMessage: true
-                        });
-                        button.classList.remove('preloader_rows');
-                        block.disable(false);
+                        block.model.set('agreement', res);
+                        block.set('successMessage', true);
+                        block.render();
                     },
                     error: function(error) {
                         agreementInput.value = '';
                         block.showFileErrors(error.responseJSON, error);
-                        button.classList.remove('preloader_rows');
+                        button.classList.remove('preloader_stripes');
                         block.disable(false);
                     }
                 });
@@ -62,10 +58,9 @@ define(function(require, exports, module) {
                 }
 
                 if (confirm('Вы уверены, что хотите удалить файл?')) {
-                    block.set({
-                        agreement: null,
-                        successMessage: false
-                    });
+                    block.model.set('agreement', null);
+                    block.set('successMessage', false);
+                    block.render();
                 }
             }
         },
