@@ -1,9 +1,12 @@
-<% var SupplierModel = require('models/supplier') %>
-<% var supplierModel = supplierModel || new SupplierModel() %>
-
+<%
+/**
+ *
+ * @supplierModel
+ */
+%>
 <a style="visibility: <%- supplierModel.get('agreement.url') ? 'visible' : 'hidden' %>"
    data-navigate="false"
    class="button select_suppliers__agreementLink"
-   href="<%- supplierModel.get('agreement.url')%>">
+   href="<%- supplierModel ? supplierModel.get('agreement.url') : '' %>">
     Скачать договор
 </a>

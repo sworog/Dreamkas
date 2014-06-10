@@ -4,20 +4,27 @@ define(function(require, exports, module) {
         OrderProductsCollection = require('collections/orderProducts');
 
     return Model.extend({
-        __name__: module.id,
         urlRoot: function() {
             return LH.baseApiUrl + '/stores/' + this.get('storeId') + '/orders'
         },
-        name: null,
         defaults: {
-            collections: {
-                products: new OrderProductsCollection()
-            }
+            storeId: null
+        },
+        collections: {
+            products: null
+        },
+        initialize: function(){
+            var model = this,
+                orderProductsCollection = new OrderProductsCollection(model.get('products'));
+
+            orderProductsCollection.storeId = model.get('storeId');
+
+            model.collections.products = orderProductsCollection;
         },
         saveData: function() {
             return {
                 supplier: this.get('supplier'),
-                products: this.get('collections.products').map(function(productModel) {
+                products: this.collections.products.map(function(productModel) {
                     return {
                         product: productModel.get('product.product.id'),
                         quantity: productModel.get('quantity')
@@ -27,9 +34,9 @@ define(function(require, exports, module) {
         },
         parse: function(data) {
 
-            data.collections = {
-                products: new OrderProductsCollection(data.products)
-            };
+            var model = this;
+
+            model.collections.products.reset(data.products);
 
             return data;
         },

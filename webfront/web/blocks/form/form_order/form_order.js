@@ -1,25 +1,22 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('blocks/form/form'),
+    var Form = require('kit/form'),
         router = require('router'),
-        OrderModel = require('models/order'),
         Autocomplete = require('blocks/autocomplete/autocomplete'),
         Select_suppliers = require('blocks/select/select_suppliers/select_suppliers'),
-        table_orderProducts__productSum = require('tpl!blocks/table/table_orderProducts/table_orderProducts__productSum.html');
-
-    require('jquery');
-    require('lodash');
+        productSum = require('tpl!blocks/table/table_orderProducts/productSum.ejs'),
+        $ = require('jquery'),
+        _ = require('lodash');
 
     var form;
 
     return Form.extend({
-        __name__: module.id,
-        template: require('tpl!./template.ejs'),
+        el: '.form_order',
+        storeId: null,
         redirectUrl: function(){
             return '/stores/' + this.storeId + '/orders';
         },
-        el: '.form_order',
-        model: new OrderModel(),
+        model: require('models/order'),
         collections: {
             suppliers: null
         },
@@ -109,11 +106,11 @@ define(function(require, exports, module) {
 
             Form.prototype.initialize.apply(block, arguments);
 
-            block.model.get('collections.products').on('change add remove', function() {
+            block.model.collections.products.on('change add remove', function() {
                 block.el.classList.add('form_changed');
             });
 
-            block.model.get('collections.products').on('add', function(orderProductModel) {
+            block.model.collections.products.on('add', function(orderProductModel) {
                 block.editProduct(orderProductModel);
             });
 
@@ -187,7 +184,7 @@ define(function(require, exports, module) {
             var block = this,
                 productSum = block.el.querySelector('.table__orderProduct_edit .table_orderProducts__productSum');
 
-            productSum.innerHTML = table_orderProducts__productSum({
+            productSum.innerHTML = productSum({
                 orderProductModel: block.editedProductModel,
                 quantity: quantity
             });
