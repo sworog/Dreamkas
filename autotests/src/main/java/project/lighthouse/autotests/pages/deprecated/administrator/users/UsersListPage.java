@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.pages.administrator.users;
+package project.lighthouse.autotests.pages.deprecated.administrator.users;
 
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
@@ -8,6 +8,7 @@ import project.lighthouse.autotests.common.CommonView;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.items.NonType;
 
+@Deprecated
 @DefaultUrl("/users")
 public class UsersListPage extends CommonPageObject {
 

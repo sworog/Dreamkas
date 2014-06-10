@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.pages.administrator.users;
+package project.lighthouse.autotests.pages.deprecated.administrator.users;
 
 import net.thucydides.core.annotations.DefaultUrl;
 import org.jbehave.core.model.ExamplesTable;
@@ -12,6 +12,7 @@ import project.lighthouse.autotests.helper.RoleReplacer;
 
 import java.util.Map;
 
+@Deprecated
 @DefaultUrl("/users/create")
 public class UserCreatePage extends CommonPageObject {
 
