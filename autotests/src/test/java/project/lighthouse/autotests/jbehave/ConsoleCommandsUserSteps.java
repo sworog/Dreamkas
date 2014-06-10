@@ -2,12 +2,9 @@ package project.lighthouse.autotests.jbehave;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
-import org.xml.sax.SAXException;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.steps.ConsoleCommandSteps;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.IOException;
 
 public class ConsoleCommandsUserSteps {
@@ -29,5 +26,10 @@ public class ConsoleCommandsUserSteps {
     @Given("the user runs the symfony:reports:recalculate command")
     public void givenTheUserRunTheSymfonyReportsRecalculateCommand() throws IOException, InterruptedException {
         consoleCommandSteps.runCapAutoTestsSymfonyReportsRecalculateCommand();
+    }
+
+    @Given("the user runs the symfony:user:create command with params: email '$email' and password '$password'")
+    public void givenTheUserRunsTheSymfonyUserCreateCommandWithParams(String email, String password) throws IOException, InterruptedException {
+        consoleCommandSteps.runCapAutoTestsSymfonyCreateUserCommand(email, password);
     }
 }
