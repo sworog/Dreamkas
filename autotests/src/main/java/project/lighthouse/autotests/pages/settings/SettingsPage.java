@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.pages.administrator;
+package project.lighthouse.autotests.pages.settings;
 
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
