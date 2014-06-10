@@ -1,51 +1,29 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/page/page'),
-        SuppliersCollection = require('collections/suppliers'),
-        OrderModel = require('models/order'),
-        OrderProductsCollection = require('collections/orderProducts'),
-        Form_order = require('blocks/form/form_order/form_order');
-
-    require('jquery');
+    var Page = require('pages/store');
 
     return Page.extend({
-        templates: {
+        partials: {
             content: require('tpl!./content.ejs'),
-            localNavigation: require('tpl!blocks/localNavigation/localNavigation_orders.ejs'),
-            globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation_store.ejs')
+            localNavigation: require('tpl!blocks/localNavigation/localNavigation_orders.ejs')
         },
-        localNavigationActiveLink: 'create',
         collections: {
-            suppliers: function(){
-                return new SuppliersCollection()
-            }
+            suppliers: require('collections/suppliers')
         },
         models: {
             order: function(){
                 var page = this,
-                    orderProductCollection = new OrderProductsCollection();
-
-                orderProductCollection.storeId = page.get('params.storeId');
+                    OrderModel = require('models/order');
 
                 return new OrderModel({
-                    storeId: page.get('params.storeId'),
-                    collections: {
-                        products: orderProductCollection
-                    }
-                });
-            },
-            store: function() {
-                var page = this,
-                    StoreModel = require('models/store');
-
-                return new StoreModel({
-                    id: page.get('params.storeId')
+                    storeId: page.get('params.storeId')
                 });
             }
         },
         blocks: {
             form_order: function(){
-                var page = this;
+                var page = this,
+                    Form_order = require('blocks/form/form_order/form_order');
 
                 return new Form_order({
                     storeId: page.get('params.storeId'),

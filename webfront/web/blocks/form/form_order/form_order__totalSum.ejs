@@ -1,9 +1,18 @@
-<% var totalSum = 0 %>
+<%
+/**
+ *
+ * @collections.orderProducts
+ * @totalSum
+ */
+%>
+
+<% var totalSum = totalSum || 0 %>
+<% var formatMoney = require('kit/formatMoney') %>
 
 <% collections.orderProducts.forEach(function(orderModel){
     totalSum += orderModel.get('quantity') * orderModel.get('product.product.purchasePrice') || 0;
 }) %>
 
 <span>
-    <%- LH.formatMoney(totalSum) + ' руб' %>
+    <%- formatMoney(totalSum) + ' р.' %>
 </span>
