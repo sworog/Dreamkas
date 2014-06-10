@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.jbehave.administrator;
+package project.lighthouse.autotests.jbehave.settings;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.AfterStory;
