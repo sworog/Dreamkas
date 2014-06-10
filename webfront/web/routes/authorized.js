@@ -64,7 +64,7 @@ define(function(require) {
         //stores
         'stores(/)': require('pages/stores/list/list'),
         'stores/create(/)': require('pages/stores/create/create'),
-//        'stores/edit/:storeId(/)': require('pages/store/form'),
+        'stores/:storeId/settings(/)': require('pages/stores/settings/settings'),
         'stores/:storeId(/)': require('pages/stores/dashboard/dashboard'),
         'stores/:storeId/products/edit/:productId(/)': require('pages/storeProduct/from'),
 
