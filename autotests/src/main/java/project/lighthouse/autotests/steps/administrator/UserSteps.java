@@ -158,6 +158,7 @@ public class UserSteps extends ScenarioSteps {
     @Step
     public void saveButtonClick() {
         userEditPage.saveButtonClick();
+        new PreLoader(getDriver()).await();
     }
 
     @Step
@@ -167,7 +168,22 @@ public class UserSteps extends ScenarioSteps {
     }
 
     @Step
+    public void userEditPagePasswordInput(String password) {
+        userEditPage.input("password", password);
+    }
+
+    @Step
+    public void userEditPageInput(String elementName, String value) {
+        userEditPage.input(elementName, value);
+    }
+
+    @Step
     public void userCardPageValuesCheck() {
         userCardPage.checkValues(examplesTable);
+    }
+
+    @Step
+    public void userEditPageOpen() {
+        userEditPage.open();
     }
 }

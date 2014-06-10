@@ -22,6 +22,11 @@ public class EndUserSteps {
         userSteps.userListPageOpen();
     }
 
+    @Given("the user opens user edit page")
+    public void givenTheUserOpensUserEditPage() {
+        userSteps.userEditPageOpen();
+    }
+
     @When("the user clicks the create new user button from users list page")
     public void whenTheUserCreatesNewUserFromUsersListPage() {
         userSteps.createNewUserButtonClick();
@@ -85,6 +90,16 @@ public class EndUserSteps {
     @When("the user inputs values on user edit page $examplesTable")
     public void whenTheUserInputsValuesOnUserEditPage(ExamplesTable examplesTable) {
         userSteps.userEditPageInput(examplesTable);
+    }
+
+    @When("the user inputs password '$password' on the login page")
+    public void whenTheUserInputsPasswordOnTheLoginPage(String password) {
+        userSteps.userEditPagePasswordInput(password);
+    }
+
+    @When("the user inputs value '$value' in the field with elementName '$elementName'")
+    public void whenTheUserInputsValueInTheFieldWithElementName(String value, String elementName) {
+        userSteps.userEditPageInput(elementName, value);
     }
 
     @Then("the user checks the user with '$login' username is present")

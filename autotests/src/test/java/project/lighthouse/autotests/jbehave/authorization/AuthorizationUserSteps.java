@@ -130,6 +130,11 @@ public class AuthorizationUserSteps {
         authorizationSteps.restorePasswordPageEmailInput(value);
     }
 
+    @When("the user inputs values on login page $examplesTable")
+    public void whenTheUserInputsValuesOnLoginPage(ExamplesTable examplesTable) {
+        authorizationSteps.authFieldInput(examplesTable);
+    }
+
     @Then("the user checks the sign up text is expected")
     public void thenTheUserChecksTheSignUpText() {
         authorizationSteps.assertSignUpText();
