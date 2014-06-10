@@ -4,6 +4,7 @@ define(function(require) {
 
     return Form.extend({
         el: '.form_user',
+        model: require('models/currentUser.inst'),
         redirectUrl: '/users/current'
     });
 });

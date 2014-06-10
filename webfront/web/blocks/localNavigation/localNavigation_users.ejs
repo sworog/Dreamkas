@@ -1,4 +1,12 @@
+<% var currentUserModel = require('models/currentUser.inst') %>
+
 <div class="localNavigation">
+
+    <div class="localNavigation__section">
+        <a class="localNavigation__link" href="/users/current">
+            <%- currentUserModel.get('name') || currentUserModel.get('email') %>
+        </a>
+    </div>
 
     <a class="localNavigation__link"
        href="/users/edit">Редактировать</a>

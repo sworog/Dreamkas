@@ -3,7 +3,12 @@ define(function(require) {
     var Model = require('kit/model');
 
     var CurrentUserModel = Model.extend({
-        url: Model.baseApiUrl + '/users/current'
+        url: Model.baseApiUrl + '/users/current',
+        saveData: [
+            'name',
+            'email',
+            'password'
+        ]
     });
 
     return new CurrentUserModel();
