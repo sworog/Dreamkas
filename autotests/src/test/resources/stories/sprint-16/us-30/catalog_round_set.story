@@ -10,7 +10,7 @@ In order to управлять политикой цен торговой сет
 Scenario: Default values group
 
 Given the user opens catalog page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks on start edition link and starts the edition
 And the user creates new group with name 'Group-roundings0'
 And the user clicks on the group name 'Group-roundings0'
@@ -21,7 +21,7 @@ Scenario: Default values category
 
 Given there is the group with name 'Group-roundings'
 And the user navigates to the group with name 'Group-roundings'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks on start edition link and starts the edition
 And the user clicks create new category button
 And the user inputs 'Category-roundings0' in 'name' field of pop up
@@ -34,7 +34,7 @@ Scenario: Default values subCategory
 
 Given there is the category with name 'Category-roundings' related to group named 'Group-roundings'
 And the user navigates to the category with name 'Category-roundings' related to group named 'Group-roundings'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks on start edition link and starts the edition
 And the user creates new subCategory with name 'subCategory-roundings0'
 And the user clicks on the subCategory name 'subCategory-roundings0'
@@ -48,7 +48,7 @@ Meta:
 
 Given there is the group with name 'Group-roundings1'
 And the user navigates to the group with name 'Group-roundings1'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks on start edition link and starts the edition
 And the user switches to 'group' properties tab
 And the user set price roundings to 'до рублей'
@@ -69,7 +69,7 @@ Meta:
 
 Given there is the category with name 'Category-roundings2' related to group named 'Group-roundings2'
 And the user navigates to the category with name 'Category-roundings2' related to group named 'Group-roundings2'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks on start edition link and starts the edition
 And the user switches to 'category' properties tab
 And the user set price roundings to 'до рублей'
@@ -85,7 +85,7 @@ Scenario: Group round set
 
 Given there is the group with name 'Group-roundings'
 And the user navigates to the group with name 'Group-roundings'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks on start edition link and starts the edition
 And the user switches to 'group' properties tab
 And the user set price roundings to <value>
@@ -104,7 +104,7 @@ Scenario: Category round set
 
 Given there is the category with name 'Category-roundings' related to group named 'Group-roundings'
 And the user navigates to the category with name 'Category-roundings' related to group named 'Group-roundings'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks on start edition link and starts the edition
 And the user switches to 'category' properties tab
 And the user set price roundings to <value>
@@ -123,7 +123,7 @@ Scenario: SubCategory round set
 
 Given there is the subCategory with name 'subCategory-roundings' related to group named 'Group-roundings' and category named 'Category-roundings'
 And the user navigates to the subCategory 'subCategory-roundings', category 'Category-roundings', group 'Group-roundings' product list page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks on start edition link and starts the edition
 And the user switches to 'subCategory' properties tab
 And the user set price roundings to <value>
@@ -140,9 +140,12 @@ Examples:
 
 Scenario: Group round checks after refresh
 
+Meta:
+@smoke
+
 Given there is the group with name 'Group-roundings'
 And the user navigates to the group with name 'Group-roundings'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks on start edition link and starts the edition
 And the user switches to 'group' properties tab
 And the user set price roundings to <value>
@@ -163,9 +166,12 @@ Examples:
 
 Scenario: Category round checks after refresh
 
+Meta:
+@smoke
+
 Given there is the category with name 'Category-roundings' related to group named 'Group-roundings'
 And the user navigates to the category with name 'Category-roundings' related to group named 'Group-roundings'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks on start edition link and starts the edition
 And the user switches to 'category' properties tab
 And the user set price roundings to <value>
@@ -185,9 +191,12 @@ Examples:
 
 Scenario: SubCategory round checks after refresh
 
+Meta:
+@smoke
+
 Given there is the subCategory with name 'subCategory-roundings' related to group named 'Group-roundings' and category named 'Category-roundings'
 And the user navigates to the subCategory 'subCategory-roundings', category 'Category-roundings', group 'Group-roundings' product list page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 When the user clicks on start edition link and starts the edition
 And the user switches to 'subCategory' properties tab
 And the user set price roundings to <value>

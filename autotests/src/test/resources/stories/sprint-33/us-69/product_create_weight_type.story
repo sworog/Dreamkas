@@ -18,7 +18,7 @@ Meta:
 @s33u69s02e01
 
 Given the user is on the product create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user selects product type 'Весовой'
 And the user inputs 'ВесовойТовар1' in 'name' field
@@ -43,7 +43,7 @@ Meta:
 @s33u69s02e02
 
 Given the user is on the product create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user selects product type 'Весовой'
 And the user inputs 'ВесовойТовар2' in 'name' field
@@ -66,7 +66,7 @@ Meta:
 @s33u69s02e03
 
 Given the user is on the product create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user selects product type 'Весовой'
 And the user inputs 'ВесовойТовар3' in 'name' field

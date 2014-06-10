@@ -7,7 +7,7 @@ import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.objects.web.log.JobLogObject;
 import project.lighthouse.autotests.objects.web.log.JobLogObjectCollection;
 
-@DefaultUrl("/logs")
+@DefaultUrl("/log")
 public class JobsPage extends CommonPageObject {
 
     public static final String RECALC_PRODUCT_MESSAGE_TYPE = "recalc_product_price";

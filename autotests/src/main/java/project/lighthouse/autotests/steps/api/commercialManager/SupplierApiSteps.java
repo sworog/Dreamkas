@@ -7,7 +7,7 @@ import project.lighthouse.autotests.objects.api.Supplier;
 
 import java.io.IOException;
 
-public class SupplierApiSteps extends CommercialManagerApi {
+public class SupplierApiSteps extends OwnerApi {
 
     @Step
     public Supplier createSupplier() throws IOException, JSONException {

@@ -18,6 +18,7 @@ public class UserApiSteps extends ScenarioSteps {
         apiConnect = new ApiConnect("administrator", "lighthouse");
     }
 
+    @Deprecated
     @Step
     public User createUserThroughPost(String name, String position, String login, String password, String role) throws JSONException, IOException {
         String updatedRole = RoleReplacer.replace(role);

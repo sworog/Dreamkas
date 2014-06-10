@@ -33,9 +33,9 @@ public class AuthorizationUserSteps {
         beforeScenario();
     }
 
-    @Given("the user logs in as '$userNameToLogin'")
-    public void givenTheUSerLogsInAsUserName(String userNameToLogin) {
-        authorizationSteps.authorization(userNameToLogin);
+    @Given("the user logs in as '$user'")
+    public void givenTheUSerLogsInAsUser(String user) {
+        authorizationSteps.authorization(user);
     }
 
     @Given("the user opens the authorization page")

@@ -150,6 +150,7 @@ public class ApiConnect {
         return String.format("%s/products/create?subCategory=%s", UrlHelper.getWebFrontUrl(), subCategoryId);
     }
 
+    @Deprecated
     private User createUserThroughPost(User user) throws JSONException, IOException {
         if (!StaticData.users.containsKey(user.getUserName())) {
             httpRequestable.executePostRequest(user);
@@ -160,6 +161,7 @@ public class ApiConnect {
         }
     }
 
+    @Deprecated
     public User createUserThroughPost(String name, String position, String login, String password, String role) throws JSONException, IOException {
         User user = new User(name, position, login, password, role);
         return createUserThroughPost(user);
@@ -208,6 +210,7 @@ public class ApiConnect {
         );
     }
 
+    @Deprecated
     public void promoteUserToManager(Store store, User user, String type) throws JSONException, IOException {
         if (!hasStoreManager(store, user, type)) {
             String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/stores"), store.getId());

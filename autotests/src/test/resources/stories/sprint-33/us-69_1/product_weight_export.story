@@ -17,7 +17,7 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/sprint-33/us-69_1/aPreconditionWithData.story
 
 Given the user opens the settings page
-And the user logs in as 'watchman'
+And the user logs in as 'owner'
 When the user input values on the setting page
 | elementName | value |
 | set10-integration-url | smb://faro.lighthouse.pro/centrum/autotests |
@@ -25,11 +25,11 @@ When the user input values on the setting page
 | set10-integration-password | erp |
 And the user clicks save button on the setting page
 Then the user sees success message 'Настройки успешно сохранены'
-When the user logs out
 
 Given the user opens catalog page
-And the user logs in as 'commercialManager'
+
 When the user clicks on products export link
+
 Given the user opens the log page
 Then the user checks the last set10 export log title is 'Выгрузка товаров в Set Retail 10'
 Then the user waits for the last set10 export log message success status
@@ -48,7 +48,7 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/sprint-33/us-69_1/aPreconditionWithDataS2.story
 
 Given the user opens the settings page
-And the user logs in as 'watchman'
+And the user logs in as 'owner'
 When the user input values on the setting page
 | elementName | value |
 | set10-integration-url | smb://faro.lighthouse.pro/centrum/autotests |
@@ -56,11 +56,11 @@ When the user input values on the setting page
 | set10-integration-password | erp |
 And the user clicks save button on the setting page
 Then the user sees success message 'Настройки успешно сохранены'
-When the user logs out
 
 Given the user opens catalog page
-And the user logs in as 'commercialManager'
+
 When the user clicks on products export link
+
 Given the user opens the log page
 Then the user checks the last set10 export log title is 'Выгрузка товаров в Set Retail 10'
 Then the user waits for the last set10 export log message success status

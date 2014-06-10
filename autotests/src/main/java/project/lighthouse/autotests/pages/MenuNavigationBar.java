@@ -20,7 +20,7 @@ public class MenuNavigationBar extends CommonPageObject {
     public void createElements() {
     }
 
-    public String getUserNameText() {
+    public String getUserEmailText() {
         return findVisibleElement(userNameWebElement).getText();
     }
 
