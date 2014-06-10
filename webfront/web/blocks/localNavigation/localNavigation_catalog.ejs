@@ -1,0 +1,18 @@
+<%
+/**
+ *
+ * @params.edit
+ */
+%>
+
+<div class="localNavigation">
+
+    <% if (params.edit) { %>
+    <a style="white-space: nowrap" class="localNavigation__link catalog__editLink">Завершить редактирование</a>
+    <% } else { %>
+    <a class="localNavigation__link catalog__editLink">Редактировать</a>
+    <% } %>
+
+    <a class="localNavigation__link catalog__exportLink">Выгрузить в SetRetail</a>
+
+</div>

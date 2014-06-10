@@ -2,6 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var config = require('config'),
         get = require('kit/get/get'),
+        $ = require('jquery'),
         _ = require('lodash');
 
     require('backbone');
@@ -42,6 +43,21 @@ define(function(require, exports, module) {
         },
         get: function(path) {
             return get(this, 'attributes.' + path);
+        },
+        element: function(attr){
+            var model = this,
+                uniqueId = _.uniqueId('model'),
+                nodeTemplate = '<span id="' + uniqueId + '">' + model.get(attr) || '' + '</span>';
+
+            var handlers = {};
+
+            handlers['change:' + attr] = function() {
+                document.getElementById(uniqueId).innerHTML = model.get(attr) || '';
+            };
+
+            model.listenTo(model, handlers);
+
+            return nodeTemplate;
         }
     });
 

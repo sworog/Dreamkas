@@ -45,7 +45,9 @@ define(function(require, exports, module) {
         models: {},
 
         partials: {
-            content: null,
+            content: function() {
+                return '';
+            },
             localNavigation: function() {
                 return '';
             },
