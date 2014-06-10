@@ -28,7 +28,7 @@ When the user inputs values on user edit page
 | email | alla.pavlovna@lighthouse.pro |
 And the user inputs password 'lighthouse' on the login page
 
-When the user clicks on save user data button click
+When the user clicks on save user data button
 
 Then the user checks stored values on user card page
 
@@ -51,7 +51,7 @@ When the user inputs values on user edit page
 | elementName | value |
 | password | 12345678 |
 
-When the user clicks on save user data button click
+When the user clicks on save user data button
 And the user logs out
 
 When the user inputs values on login page
@@ -88,7 +88,7 @@ When the user inputs values on user edit page
 | name | Алла Павловна |
 And the user inputs password 'lighthouse' on the login page
 
-When the user clicks on save user data button click
+When the user clicks on save user data button
 
 Then the user checks stored values on user card page
 
@@ -111,7 +111,7 @@ When the user inputs values on user edit page
 And the user inputs value '' in the field with elementName 'name'
 And the user inputs password 'lighthouse' on the login page
 
-When the user clicks on save user data button click
+When the user clicks on save user data button
 
 Then the user checks stored values on user card page
 
@@ -135,7 +135,7 @@ When the user inputs values on user edit page
 And the user inputs value '' in the field with elementName 'name'
 And the user inputs password 'lighthouse' on the login page
 
-When the user clicks on save user data button click
+When the user clicks on save user data button
 
 Then the user checks stored values on user card page
 

@@ -65,7 +65,7 @@ public class WhenUserSteps {
         userSteps.generateTestCharDataWithoutSpaces(elementName, number, str);
     }
 
-    @When("the user clicks on save user data button click")
+    @When("the user clicks on save user data button")
     public void whenTheUserClicksOnSaveUserDataButtonClick() {
         userSteps.saveButtonClick();
     }
