@@ -22,7 +22,7 @@
 
         <div class="globalNavigation__userControls">
             <a href="/users/current" name="userName" class="globalNavigation__userName">
-                <%- currentUserModel.get('email') %>
+                <%- currentUserModel.get('name') || currentUserModel.get('email') %>
             </a>
         </div>
 
