@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import project.lighthouse.autotests.objects.api.abstraction.AbstractObject;
 
+@Deprecated
 public class User extends AbstractObject {
 
     private Store store;

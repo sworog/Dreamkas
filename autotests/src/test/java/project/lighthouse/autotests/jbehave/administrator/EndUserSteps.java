@@ -77,6 +77,16 @@ public class EndUserSteps {
         userSteps.generateTestCharDataWithoutSpaces(elementName, number, str);
     }
 
+    @When("the user clicks on save user data button click")
+    public void whenTheUserClicksOnSaveUserDataButtonClick() {
+        userSteps.saveButtonClick();
+    }
+
+    @When("the user inputs values on user edit page $examplesTable")
+    public void whenTheUserInputsValuesOnUserEditPage(ExamplesTable examplesTable) {
+        userSteps.userEditPageInput(examplesTable);
+    }
+
     @Then("the user checks the user with '$login' username is present")
     public void thenTheUSerChecksTheProductWithSkuIsPresent(String login) {
         userSteps.listItemCheck(login);
@@ -120,5 +130,10 @@ public class EndUserSteps {
     @Then("the user sees no user card link to users list")
     public void thenTheUserSeesNoUserCardLinkToUsersList() {
         userSteps.userCardListLinkIsNotPresent();
+    }
+
+    @Then("the user checks stored values on user card page")
+    public void thenTheUserChecksStoredValuesOnUserCardPage() {
+        userSteps.userCardPageValuesCheck();
     }
 }

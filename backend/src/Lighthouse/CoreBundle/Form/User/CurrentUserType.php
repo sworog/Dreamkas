@@ -1,14 +1,13 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Form;
+namespace Lighthouse\CoreBundle\Form\User;
 
-use Lighthouse\CoreBundle\Validator\Constraints\User\EmailExists;
+use Lighthouse\CoreBundle\Document\User\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Validator\Constraints\NotBlank;
 
-class UserRestorePasswordType extends AbstractType
+class CurrentUserType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,16 +15,11 @@ class UserRestorePasswordType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add(
-            'email',
-            'text',
-            array(
-                'constraints' => array(
-                    new NotBlank(),
-                    new EmailExists(),
-                )
-            )
-        );
+        $builder
+            ->add('email', 'text')
+            ->add('name', 'text')
+            ->add('password', 'password')
+        ;
     }
 
     /**
@@ -35,6 +29,7 @@ class UserRestorePasswordType extends AbstractType
     {
         $resolver->setDefaults(
             array(
+                'data_class' => User::getClassName(),
                 'csrf_protection' => false
             )
         );

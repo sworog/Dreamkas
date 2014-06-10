@@ -1,7 +1,16 @@
-<% var currentUser = require('models/currentUser.inst') %>
+<% var currentUserModel = require('models/currentUser.inst') %>
 
 <div class="content">
+
+    <% if (currentUserModel.get('name')) { %>
     <h1 name="name">
-        <%- currentUser.get('name') || currentUser.get('email') %>
+        <%- currentUserModel.get('name') %>
     </h1>
+    <% } %>
+
+    <div class="form__label">email</div>
+    <h2 name="email">
+        <%- currentUserModel.get('email') %>
+    </h2>
+
 </div>

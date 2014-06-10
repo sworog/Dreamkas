@@ -15,12 +15,15 @@ Meta:
 
 GivenStories: precondition/sprint-25/us-57_3/aPreconditionToScenarioS1.story
 
-Given the user opens the authorization page
-When the user logs in using 'storeManager-s25u573' userName and 'lighthouse' password
-And the user clicks the menu report item
+Given the user navigates to the store with number '25573'
+And the user logs in as 'owner'
+
+When the user clicks the menu report item
 And the user clicks on gross sale by products report link
+
 When the user clicks the catalog item with name 'defaultGroup-s25u573'
 And the user clicks the catalog item with name 'defaultCategory-s25u573'
+
 Then the user checks the gross sale by subCategory report contains zero sales value entry
 
 Scenario: Gross sale by groups/Categories/subCategories contains data not red highlighted (todayValue is bigger than yesterdaya and weekAgo)
@@ -32,16 +35,22 @@ Meta:
 GivenStories: precondition/sprint-25/us-57_3/aPreconditionToScenarioS1.story
 
 Given the user prepares data for red highlighted checks - today data is bigger than yesterday and smaller than weekAgo one for story 57.3
-Given the user runs the symfony:reports:recalculate command
+And the user runs the symfony:reports:recalculate command
 
-Given the user opens the authorization page
-When the user logs in using 'storeManager-s25u573' userName and 'lighthouse' password
-And the user clicks the menu report item
+Given the user navigates to the store with number '25573'
+And the user logs in as 'owner'
+
+When the user clicks the menu report item
 And the user clicks on gross sale by products report link
+
 Then the user checks the catalog item today entry value by locator 'defaultGroup-s25u573' is not red highlighted
+
 When the user clicks the catalog item with name 'defaultGroup-s25u573'
+
 Then the user checks the catalog item today entry value by locator 'defaultCategory-s25u573' is not red highlighted
+
 When the user clicks the catalog item with name 'defaultCategory-s25u573'
+
 Then the user checks the subCategory today entry value by locator 'defaultSubCategory-s25u573' is not red highlighted
 
 Scenario: Gross sale by groups/Categories/subCategories contains data not red highlighted (todayValue is equal yesterday and weekAgo)
@@ -53,16 +62,22 @@ Meta:
 GivenStories: precondition/sprint-25/us-57_3/aPreconditionToScenarioS1.story
 
 Given the user prepares data for red highlighted checks - today data is equal yesterday/weekAgo one for story 57.3
-Given the user runs the symfony:reports:recalculate command
+And the user runs the symfony:reports:recalculate command
 
-Given the user opens the authorization page
-When the user logs in using 'storeManager-s25u573' userName and 'lighthouse' password
-And the user clicks the menu report item
+Given the user navigates to the store with number '25573'
+And the user logs in as 'owner'
+
+When the user clicks the menu report item
 And the user clicks on gross sale by products report link
+
 Then the user checks the catalog item today entry value by locator 'defaultGroup-s25u573' is not red highlighted
+
 When the user clicks the catalog item with name 'defaultGroup-s25u573'
+
 Then the user checks the catalog item today entry value by locator 'defaultCategory-s25u573' is not red highlighted
+
 When the user clicks the catalog item with name 'defaultCategory-s25u573'
+
 Then the user checks the subCategory today entry value by locator 'defaultSubCategory-s25u573' is not red highlighted
 
 Scenario: Gross sale by groups/Categories/subCategories contains data not red highlighted (todayValue is smaller than yesterday and bigger than weekAgo)
@@ -74,16 +89,22 @@ Meta:
 GivenStories: precondition/sprint-25/us-57_3/aPreconditionToScenarioS1.story
 
 Given the user prepares data for red highlighted checks - today data is smaller than yesterday and bigger than weekAgo one for story 57.3
-Given the user runs the symfony:reports:recalculate command
+And the user runs the symfony:reports:recalculate command
 
-Given the user opens the authorization page
-When the user logs in using 'storeManager-s25u573' userName and 'lighthouse' password
-And the user clicks the menu report item
+Given the user navigates to the store with number '25573'
+And the user logs in as 'owner'
+
+When the user clicks the menu report item
 And the user clicks on gross sale by products report link
+
 Then the user checks the catalog item today entry value by locator 'defaultGroup-s25u573' is not red highlighted
+
 When the user clicks the catalog item with name 'defaultGroup-s25u573'
+
 Then the user checks the catalog item today entry value by locator 'defaultCategory-s25u573' is not red highlighted
+
 When the user clicks the catalog item with name 'defaultCategory-s25u573'
+
 Then the user checks the subCategory today entry value by locator 'defaultSubCategory-s25u573' is not red highlighted
 
 Scenario: Gross sale by groups/Categories/subCategories contains data not red highlighted (todayValue is bigger than yesterday and smaller than weekAgo)
@@ -97,14 +118,20 @@ GivenStories: precondition/sprint-25/us-57_3/aPreconditionToScenarioS1.story
 Given the user prepares data for red highlighted checks - today data is bigger than yesterday and smaller than weekAgo one for story 57.3
 Given the user runs the symfony:reports:recalculate command
 
-Given the user opens the authorization page
-When the user logs in using 'storeManager-s25u573' userName and 'lighthouse' password
-And the user clicks the menu report item
+Given the user navigates to the store with number '25573'
+And the user logs in as 'owner'
+
+When the user clicks the menu report item
 And the user clicks on gross sale by products report link
+
 Then the user checks the catalog item today entry value by locator 'defaultGroup-s25u573' is not red highlighted
+
 When the user clicks the catalog item with name 'defaultGroup-s25u573'
+
 Then the user checks the catalog item today entry value by locator 'defaultCategory-s25u573' is not red highlighted
+
 When the user clicks the catalog item with name 'defaultCategory-s25u573'
+
 Then the user checks the subCategory today entry value by locator 'defaultSubCategory-s25u573' is not red highlighted
 
 Scenario: Gross sale by groups/Categories/subCategories contains data red highlighted (todayValue is smaller than yesterday/weekAgo)
@@ -117,16 +144,22 @@ Meta:
 GivenStories: precondition/sprint-25/us-57_3/aPreconditionToScenarioS1.story
 
 Given the user prepares data for red highlighted checks - today data is smaller than yesterday and weekAgo one for story 57.3
-Given the user runs the symfony:reports:recalculate command
+And the user runs the symfony:reports:recalculate command
 
-Given the user opens the authorization page
-When the user logs in using 'storeManager-s25u573' userName and 'lighthouse' password
-And the user clicks the menu report item
+Given the user navigates to the store with number '25573'
+And the user logs in as 'owner'
+
+When the user clicks the menu report item
 And the user clicks on gross sale by products report link
+
 Then the user checks the catalog item today entry value by locator 'defaultGroup-s25u573' is red highlighted
+
 When the user clicks the catalog item with name 'defaultGroup-s25u573'
+
 Then the user checks the catalog item today entry value by locator 'defaultCategory-s25u573' is red highlighted
+
 When the user clicks the catalog item with name 'defaultCategory-s25u573'
+
 Then the user checks the subCategory today entry value by locator 'defaultSubCategory-s25u573' is red highlighted
 
 Scenario: Main Gross sale by subCategories testing scenario
@@ -139,20 +172,26 @@ Meta:
 GivenStories: precondition/sprint-25/us-57_3/aPreconditionToScenarioS2.story
 
 Given the user prepares data for story 57.3 testing
-Given the user runs the symfony:reports:recalculate command
+And the user runs the symfony:reports:recalculate command
 
-Given the user opens the authorization page
-When the user logs in using 'storeManager-s25u573' userName and 'lighthouse' password
-And the user clicks the menu report item
+Given the user navigates to the store with number '25573'
+And the user logs in as 'owner'
+
+When the user clicks the menu report item
 And the user clicks on gross sale by products report link
+
 Then the user checks the gross sale by subCategory report contains entry
 | name | todayValue | yesterdayValue | weekAgoValue |
 | defaultGroup-s25u573 | 0,00 р. | 0,00 р. | 0,00 р. |
+
 When the user clicks the catalog item with name 'defaultGroup-s25u573'
+
 Then the user checks the gross sale by subCategory report contains entry
 | name | todayValue | yesterdayValue | weekAgoValue |
 | defaultCategory-s25u573 | 0,00 р. | 0,00 р. | 0,00 р. |
+
 When the user clicks the catalog item with name 'defaultCategory-s25u573'
+
 Then the user checks the gross sale by subCategory report contains entry
 | name | todayValue | yesterdayValue | weekAgoValue |
 | defaultSubCategory-s25u573 | 0,00 р. | 0,00 р. | 0,00 р. |

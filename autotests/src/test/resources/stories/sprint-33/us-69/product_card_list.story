@@ -18,7 +18,7 @@ Meta:
 @s33u69s04e01
 
 Given the user is on the product list page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user creates new product from product list page
 And the user selects product type 'Штучный'

@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\JsonRequest;
+use Lighthouse\CoreBundle\Test\Factory\UserFactory;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use OAuth2\OAuth2ServerException;
 use SebastianBergmann\Exporter\Exporter;
@@ -132,6 +133,68 @@ class UserControllerTest extends WebTestCase
         foreach ($assertions as $path => $expected) {
             Assert::assertJsonPathContains($expected, $path, $response);
         }
+    }
+
+    public function testPutCurrentUser()
+    {
+        $user = $this->factory()->user()->createUser(
+            'user@lh.com',
+            UserFactory::USER_DEFAULT_PASSWORD,
+            User::getDefaultRoles(),
+            null,
+            null
+        );
+
+        $userData = array(
+            'email' => 'loser@lh.com',
+            'name'  => 'Loser LH',
+            'password' => 'qwerty',
+        );
+
+        $accessToken = $this->factory()->oauth()->doAuthByUsername('user@lh.com');
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/users/current',
+            $userData
+        );
+
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals($user->id, 'id', $response);
+        Assert::assertJsonPathEquals('loser@lh.com', 'email', $response);
+        Assert::assertJsonPathEquals('Loser LH', 'name', $response);
+
+        $this->factory()->clear();
+
+        try {
+            $this->factory()->oauth()->doAuthByUsername('user@lh.com');
+            $this->fail();
+        } catch (OAuth2ServerException $e) {
+            $this->assertTrue(true);
+        }
+
+        $accessToken = $this->factory()->oauth()->doAuthByUsername('loser@lh.com', 'qwerty');
+        $this->assertNotNull($accessToken->access_token);
+    }
+
+    public function testPutCurrentUserWithoutToken()
+    {
+        $userData = array(
+            'email' => 'loser@lh.com',
+            'name'  => 'Loser LH',
+            'password' => 'qwerty',
+        );
+
+        $response = $this->clientJsonRequest(
+            null,
+            'PUT',
+            '/api/1/users/current',
+            $userData
+        );
+
+        $this->assertResponseCode(401);
+        Assert::assertJsonPathEquals('access_denied', 'error', $response);
     }
 
     public function testPasswordChange()
@@ -665,7 +728,8 @@ class UserControllerTest extends WebTestCase
                     'users.*' => array(
                         'GET::current',
                         'GET::permissions',
-                        'GET::{user}/stores'
+                        'GET::{user}/stores',
+                        'PUT::current'
                     ),
                     'suppliers.*' => array(
                         'GET',
@@ -708,7 +772,8 @@ class UserControllerTest extends WebTestCase
                     'users.*' => array(
                         'GET::current',
                         'GET::permissions',
-                        'GET::{user}/stores'
+                        'GET::{user}/stores',
+                        'PUT::current'
                     ),
                     'suppliers.*' => array(
                         'GET',
@@ -740,7 +805,8 @@ class UserControllerTest extends WebTestCase
                     'users.*' => array(
                         'GET::current',
                         'GET::permissions',
-                        'GET::{user}'
+                        'GET::{user}',
+                        'PUT::current'
                     ),
                     'suppliers.*' => array(
                         'GET',
@@ -767,6 +833,7 @@ class UserControllerTest extends WebTestCase
                         'GET',
                         'GET::{user}',
                         'POST',
+                        'PUT::current',
                         'PUT::{user}'
                     )
                 )

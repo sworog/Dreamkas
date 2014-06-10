@@ -2,3 +2,5 @@
 
 Ваш новый пароль для входа: <?php echo $password ?>
 
+-----
+Lighthouse.pro

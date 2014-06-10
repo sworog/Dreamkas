@@ -5,9 +5,11 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.helper.StringGenerator;
-import project.lighthouse.autotests.pages.administrator.users.UserCardPage;
-import project.lighthouse.autotests.pages.administrator.users.UserCreatePage;
-import project.lighthouse.autotests.pages.administrator.users.UsersListPage;
+import project.lighthouse.autotests.pages.deprecated.administrator.users.UserCreatePage;
+import project.lighthouse.autotests.pages.deprecated.administrator.users.UsersListPage;
+import project.lighthouse.autotests.pages.user.UserCardPage;
+import project.lighthouse.autotests.pages.user.UserEditPage;
+import project.lighthouse.autotests.pages.user.localNavigation.UserLocalNavigation;
 
 import static org.junit.Assert.fail;
 
@@ -16,6 +18,10 @@ public class UserSteps extends ScenarioSteps {
     UserCreatePage userCreatePage;
     UserCardPage userCardPage;
     UsersListPage usersListPage;
+    UserLocalNavigation userLocalNavigation;
+    UserEditPage userEditPage;
+
+    private ExamplesTable examplesTable;
 
     @Step
     public void userCreatePageOpen() {
@@ -60,7 +66,7 @@ public class UserSteps extends ScenarioSteps {
 
     @Step
     public void editButtonClick() {
-        userCardPage.editButtonClick();
+        userLocalNavigation.editButtonClick();
     }
 
     @Step
@@ -118,13 +124,13 @@ public class UserSteps extends ScenarioSteps {
 
     @Step
     public void userCardEditButtonIsPresent() {
-        userCardPage.editButtonClick();
+        userLocalNavigation.editButtonClick();
     }
 
     @Step
     public void userCardEditButtonIsNotPresent() {
         try {
-            userCardPage.editButtonClick();
+            userLocalNavigation.editButtonClick();
             fail("User card edit link is present!");
         } catch (Exception ignored) {
         }
@@ -146,6 +152,22 @@ public class UserSteps extends ScenarioSteps {
 
     @Step
     public void logOutButtonClick() {
-        userCardPage.logOutButtonClick();
+        userLocalNavigation.logOutButtonClick();
+    }
+
+    @Step
+    public void saveButtonClick() {
+        userEditPage.saveButtonClick();
+    }
+
+    @Step
+    public void userEditPageInput(ExamplesTable examplesTable) {
+        userEditPage.fieldInput(examplesTable);
+        this.examplesTable = examplesTable;
+    }
+
+    @Step
+    public void userCardPageValuesCheck() {
+        userCardPage.checkValues(examplesTable);
     }
 }

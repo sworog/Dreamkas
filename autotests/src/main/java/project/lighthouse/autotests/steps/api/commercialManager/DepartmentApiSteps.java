@@ -8,7 +8,7 @@ import project.lighthouse.autotests.objects.api.Store;
 
 import java.io.IOException;
 
-public class DepartmentApiSteps extends CommercialManagerApi {
+public class DepartmentApiSteps extends OwnerApi {
 
     @Step
     public Department createStoreDepartmentThroughPost(String number, String name, String storeName) throws IOException, JSONException {

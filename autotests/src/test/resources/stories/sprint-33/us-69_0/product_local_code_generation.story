@@ -13,7 +13,7 @@ Meta:
 @smoke
 
 Given the user is on the product create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 Then the user checks the product sku field is not visible
 
@@ -25,7 +25,7 @@ Meta:
 
 Given there is the product with 'name-s33u69.0s2' name, 'barcode-s33u69.0s2' barcode
 And the user navigates to the product with name 'name-s33u69.0s2'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user clicks the edit button on product card view page
 
@@ -40,7 +40,7 @@ Meta:
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
 
 Given the user is on the product create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values in element fields
 | elementName | value |
@@ -67,7 +67,7 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
 Given there is the product with 'name-s33u69.0s4' name, 'barcode-s33u69.0s4' barcode
 
 Given the user is on the product create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values in element fields
 | elementName | value |

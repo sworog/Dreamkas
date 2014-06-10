@@ -29,6 +29,12 @@ public class EndStoreApiSteps {
         createdStore = storeApiSteps.createStoreThroughPost(number, address, contacts);
     }
 
+    @Given("there is the store with number '$storeNumber'")
+    public void givenThereIsTheStoreWithNumber(String storeNumber) throws IOException, JSONException {
+        createdStore = storeApiSteps.createStoreThroughPost(storeNumber, storeNumber, storeNumber);
+    }
+
+    @Deprecated
     @Given("there is the store with number '$storeNumber' managed by '$userName'")
     @Alias("there is the store with <storeNumber> managed by <userName>")
     public void givenThereIsTheStoreManagedBy(String storeNumber, String userName) throws IOException, JSONException {
@@ -36,6 +42,7 @@ public class EndStoreApiSteps {
         catalogApiSteps.promoteStoreManager(createdStore, userName);
     }
 
+    @Deprecated
     @Given("there is the store with number '$storeNumber' managed by department manager named '$userName'")
     public void givenThereIsTheStoreManagedByDepartmentManager(String storeNumber, String userName) throws IOException, JSONException {
         createdStore = storeApiSteps.createStoreThroughPost(storeNumber, storeNumber, storeNumber);

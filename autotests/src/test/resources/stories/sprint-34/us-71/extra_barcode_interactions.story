@@ -15,7 +15,7 @@ Meta:
 
 Given there is the product with 'name-3471' name, '3471' barcode, 'unit' type, '100' purchasePrice
 And the user navigates to the product with name 'name-3471'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user clicks the product local navigation barcodes link
 And the user inputs values on product extra barcode page
@@ -45,7 +45,7 @@ Meta:
 
 Given there is the product with 'name-34711' name, '34711' barcode, 'unit' type, '100' purchasePrice
 And the user navigates to the product with name 'name-34711'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user clicks the product local navigation barcodes link
 And the user inputs values on product extra barcode page
@@ -91,7 +91,7 @@ Meta:
 
 Given there is the product with 'name-347111' name, '347111' barcode, 'unit' type, '100' purchasePrice
 And the user navigates to the product with name 'name-347111'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user clicks the product local navigation barcodes link
 And the user inputs values on product extra barcode page
@@ -137,7 +137,7 @@ Meta:
 
 Given there is the product with 'name-34712' name, '347112' barcode, 'unit' type, '100' purchasePrice
 And the user navigates to the product with name 'name-34712'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user clicks the product local navigation barcodes link
 And the user inputs values on product extra barcode page
@@ -194,7 +194,7 @@ Meta:
 
 Given there is the product with 'name-347122' name, '3471122' barcode, 'unit' type, '100' purchasePrice
 And the user navigates to the product with name 'name-347122'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user clicks the product local navigation barcodes link
 And the user inputs values on product extra barcode page

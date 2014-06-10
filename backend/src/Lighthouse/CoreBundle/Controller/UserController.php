@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\RestBundle\View\View;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
@@ -10,17 +11,18 @@ use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserCollection;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
-use Lighthouse\CoreBundle\Form\UserRestorePasswordType;
-use Lighthouse\CoreBundle\Form\UserType;
+use Lighthouse\CoreBundle\Form\User\CurrentUserType;
+use Lighthouse\CoreBundle\Form\User\UserRestorePasswordType;
+use Lighthouse\CoreBundle\Form\User\UserType;
 use Lighthouse\CoreBundle\Security\PermissionExtractor;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use FOS\RestBundle\Controller\Annotations as Rest;
-use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Security\Core\SecurityContextInterface;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use JMS\DiExtraBundle\Annotation as DI;
 use JMS\SecurityExtraBundle\Annotation\Secure;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use MongoDuplicateKeyException;
 
 class UserController extends AbstractRestController
@@ -56,7 +58,7 @@ class UserController extends AbstractRestController
     protected $permissionExtractor;
 
     /**
-     * @return UserType
+     * @return \Lighthouse\CoreBundle\Form\User\UserType
      */
     protected function getDocumentFormType()
     {
@@ -104,6 +106,30 @@ class UserController extends AbstractRestController
         } else {
             return $form;
         }
+    }
+
+    /**
+     * @param Request $request
+     * @return User|Form
+     * @ApiDoc
+     */
+    public function putUsersCurrentAction(Request $request)
+    {
+        $user = $this->securityContext->getToken()->getUser();
+
+        $form = $this->createForm(
+            new CurrentUserType(),
+            $user,
+            array('validation_groups' => array('Update current'))
+        );
+
+        $form->submit($request);
+        if ($form->isValid()) {
+            $this->userProvider->setPassword($user, $user->password);
+            $this->saveDocument($user, $form);
+            return $user;
+        }
+        return $form;
     }
 
     /**

@@ -10,7 +10,7 @@ import project.lighthouse.autotests.objects.api.SubCategory;
 
 import java.io.IOException;
 
-public class CatalogApiSteps extends CommercialManagerApi {
+public class CatalogApiSteps extends OwnerApi {
 
     private static final String STORE_MANAGERS_REL_VALUE = "storeManagers";
     private static final String DEPARTMENT_MANAGERS_REL_VALUE = "departmentManagers";
@@ -79,11 +79,13 @@ public class CatalogApiSteps extends CommercialManagerApi {
         apiConnect.setSubCategoryMarkUp(retailMarkupMax, retailMarkupMin, StaticData.subCategories.get(subCategoryName));
     }
 
+    @Deprecated
     @Step
     public void promoteStoreManager(Store store, String userName) throws IOException, JSONException {
         apiConnect.promoteUserToManager(store, StaticData.users.get(userName), STORE_MANAGERS_REL_VALUE);
     }
 
+    @Deprecated
     @Step
     public void promoteDepartmentManager(Store store, String userName) throws IOException, JSONException {
         apiConnect.promoteUserToManager(store, StaticData.users.get(userName), DEPARTMENT_MANAGERS_REL_VALUE);

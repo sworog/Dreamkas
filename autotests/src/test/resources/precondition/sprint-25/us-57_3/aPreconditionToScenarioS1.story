@@ -13,9 +13,7 @@ Scenario: A scenario that prepares data
 
 Given the user runs the symfony:env:init command
 
-Given there is the user with name 'storeManager-s25u573', position 'storeManager-s25u573', username 'storeManager-s25u573', password 'lighthouse', role 'storeManager'
-
-Given there is the store with number '25573' managed by 'storeManager-s25u573'
+Given there is the store with number '25573'
 
 And there is the subCategory with name 'defaultSubCategory-s25u573' related to group named 'defaultGroup-s25u573' and category named 'defaultCategory-s25u573'
 And the user sets subCategory 'defaultSubCategory-s25u573' mark up with max '10' and min '0' values

@@ -17,7 +17,7 @@ Meta:
 @id_s29u60.1s1
 
 Given the user opens supplier create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 Then the user checks the upload agreement file buttton is clickable
 
@@ -28,7 +28,7 @@ Meta:
 @id_s29u60.1s2
 
 Given the user opens supplier create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -52,7 +52,7 @@ Meta:
 
 Given there is the supplier with name 'supplier-s29u60.1s3'
 And the user navigates to supplier page with name 'supplier-s29u60.1s3'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user uploads file with name 'uploadFile.txt' and with size of '1120' kilobytes
 
@@ -72,7 +72,7 @@ Meta:
 @id_s29u60.1s4
 
 Given the user opens supplier page with random name
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user uploads file with name 'uploadFile123.crt' and with size of '456' kilobytes
 
@@ -85,7 +85,7 @@ Meta:
 @id_s29u60.1s5
 
 Given the user opens supplier page with random name
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user uploads file with name 'uploadFile123.crt' and with size of '589' kilobytes
 
@@ -98,7 +98,7 @@ Meta:
 
 Given there is the supplier with name 'supplier-s29u60.1s4'
 And the user navigates to supplier page with name 'supplier-s29u60.1s4'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user uploads file with name 'uploadFile123.avi' and with size of '1600' kilobytes
 
@@ -122,7 +122,7 @@ Meta:
 
 Given there is the supplier with name 'supplier-s29u60.1s5'
 And the user opens supplier list page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 Then the user asserts the download agreement button is not visible of supplier list item found by locator 'supplier-s29u60.1s5'
 
@@ -132,7 +132,7 @@ Meta:
 @id_s29u60.1s8
 
 Given the user opens supplier create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -155,7 +155,7 @@ Meta:
 @id_s29u60.1s9
 
 Given the user opens supplier create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -178,7 +178,7 @@ Meta:
 @id_s29u60.1s10
 
 Given the user opens supplier create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -197,7 +197,7 @@ Meta:
 @id_s29u60.1s11
 
 Given the user opens supplier create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -217,7 +217,7 @@ Meta:
 @id_s29u60.1s12
 
 Given the user opens supplier create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -239,7 +239,7 @@ Meta:
 @id_s29u60.1s13
 
 Given the user opens supplier create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -265,7 +265,7 @@ Meta:
 @id_s29u60.1s14
 
 Given the user opens supplier create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -289,7 +289,7 @@ Meta:
 @id_s29u60.1s15
 
 Given the user opens supplier create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -304,10 +304,7 @@ Then the user asserts uploaded file name is expected
 
 When the user clicks on the supplier create button
 
-When the user logs out
-
 Given the user opens supplier list page
-And the user logs in as 'storeManager'
 
 Then the user asserts the download agreement button is clickable of supplier list item found by locator 'supplier-s29u60.1s13'
 
@@ -320,7 +317,7 @@ Meta:
 @id_s29u60.1s16
 
 Given the user opens supplier create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -335,10 +332,7 @@ Then the user asserts uploaded file name is expected
 
 When the user clicks on the supplier create button
 
-When the user logs out
-
 Given the user opens supplier list page
-And the user logs in as 'departmentManager'
 
 Then the user asserts the download agreement button is clickable of supplier list item found by locator 'supplier-s29u60.1s14'
 
@@ -350,7 +344,7 @@ Meta:
 @id_s29u60.1s17
 
 Given the user opens supplier create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -369,7 +363,7 @@ Meta:
 @id_s29u60.1s18
 
 Given the user opens supplier create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
