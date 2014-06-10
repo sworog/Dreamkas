@@ -140,7 +140,9 @@ class UserControllerTest extends WebTestCase
         $user = $this->factory()->user()->createUser(
             'user@lh.com',
             UserFactory::USER_DEFAULT_PASSWORD,
-            User::getDefaultRoles()
+            User::getDefaultRoles(),
+            null,
+            null
         );
 
         $userData = array(

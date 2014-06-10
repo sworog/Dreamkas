@@ -42,8 +42,8 @@ class User extends AbstractDocument implements UserInterface
     /**
      * @MongoDB\String
      * @MongoDB\UniqueIndex
-     * @Assert\NotBlank(groups={"Default", "registration"})
-     * @Assert\Email(groups={"Default", "registration"})
+     * @Assert\NotBlank(groups={"Default", "registration", "Update current"})
+     * @Assert\Email(groups={"Default", "registration", "Update current"})
      * @var string
      */
     protected $email;
@@ -51,7 +51,11 @@ class User extends AbstractDocument implements UserInterface
     /**
      * @MongoDB\String
      * @Assert\NotBlank
-     * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
+     * @Assert\Length(
+     *      groups={"Default", "Update current"},
+     *      max="100",
+     *      maxMessage="lighthouse.validation.errors.length"
+     * )
      * @var string
      */
     protected $name;
@@ -82,9 +86,10 @@ class User extends AbstractDocument implements UserInterface
 
     /**
      * @MongoDB\String
-     * @Assert\NotBlank(groups={"creation"})
-     * @Assert\Length(min="6")
+     * @Assert\NotBlank(groups={"creation", "Update current"})
+     * @Assert\Length(min="6", groups={"Default", "Update current"})
      * @LighthouseAssert\NotEqualsField(
+     *      groups={"Default", "Update current"},
      *      field = "email",
      *      message = "lighthouse.validation.errors.user.password.not_equals_login"
      * )

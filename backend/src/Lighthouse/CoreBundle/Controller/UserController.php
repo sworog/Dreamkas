@@ -117,7 +117,12 @@ class UserController extends AbstractRestController
     {
         $user = $this->securityContext->getToken()->getUser();
 
-        $form = $this->createForm(new CurrentUserType(), $user);
+        $form = $this->createForm(
+            new CurrentUserType(),
+            $user,
+            array('validation_groups' => array('Update current'))
+        );
+
         $form->submit($request);
         if ($form->isValid()) {
             $this->userProvider->setPassword($user, $user->password);
