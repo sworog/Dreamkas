@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.pages.administrator.users;
+package project.lighthouse.autotests.pages.user;
 
 import net.thucydides.core.annotations.findby.FindBy;
 import org.openqa.selenium.WebDriver;

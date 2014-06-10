@@ -5,9 +5,9 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.helper.StringGenerator;
-import project.lighthouse.autotests.pages.administrator.users.UserCardPage;
 import project.lighthouse.autotests.pages.administrator.users.UserCreatePage;
 import project.lighthouse.autotests.pages.administrator.users.UsersListPage;
+import project.lighthouse.autotests.pages.user.UserCardPage;
 
 import static org.junit.Assert.fail;
 
