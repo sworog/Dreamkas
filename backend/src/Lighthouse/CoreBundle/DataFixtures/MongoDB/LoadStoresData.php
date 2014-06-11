@@ -6,6 +6,7 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Security\Project\ProjectContext;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Lighthouse\CoreBundle\Document\User\User;
 use Symfony\Component\DependencyInjection\ContainerAware;
@@ -36,61 +37,18 @@ class LoadStoresData extends ContainerAware implements FixtureInterface, Ordered
 
         /* @var UserProvider $userProvider */
         $userProvider = $this->container->get('lighthouse.core.user.provider');
+        $projectContext = $this->container->get('project.context');
 
-        $storeMan666 = $userProvider->createNewUser(
-            'storeManager666@lighthouse.pro',
-            'lighthouse',
-            'Петров А.Д.',
-            User::ROLE_STORE_MANAGER,
-            'Директор магазина'
-        );
+        $ownerUser = $userProvider->loadUserByUsername("owner@lighthouse.pro");
+        $project = $ownerUser->getProject();
+        $projectContext->authenticate($project);
 
-        $depMan666 = $userProvider->createNewUser(
-            'departmentManager666@lighthouse.pro',
-            'lighthouse',
-            'Сидоров А.Д.',
-            User::ROLE_DEPARTMENT_MANAGER,
-            'Зав. отдела'
-        );
-
-        $storeMan777 = $userProvider->createNewUser(
-            'storeManager777@lighthouse.pro',
-            'lighthouse',
-            'Казиновмч Л.В.',
-            User::ROLE_STORE_MANAGER,
-            'Директор магазина'
-        );
-
-        $depMan777 = $userProvider->createNewUser(
-            'departmentManager777@lighthouse.pro',
-            'lighthouse',
-            'Игроков Б.Дж.',
-            User::ROLE_DEPARTMENT_MANAGER,
-            'Зав. отдела'
-        );
-
-        $storeMan888 = $userProvider->createNewUser(
-            'storeManager888@lighthouse.pro',
-            'lighthouse',
-            'Морозов П.Т.',
-            User::ROLE_STORE_MANAGER,
-            'Директор магазина'
-        );
-
-        $depMan888 = $userProvider->createNewUser(
-            'departmentManager888@lighthouse.pro',
-            'lighthouse',
-            'Морозов Ф.Т.',
-            User::ROLE_DEPARTMENT_MANAGER,
-            'Зав. отдела'
-        );
-
-        $store666->storeManagers->add($storeMan666);
-        $store666->departmentManagers->add($depMan666);
-        $store777->storeManagers->add($storeMan777);
-        $store777->departmentManagers->add($depMan777);
-        $store888->storeManagers->add($storeMan888);
-        $store888->departmentManagers->add($depMan888);
+        $store666->storeManagers->add($ownerUser);
+        $store666->departmentManagers->add($ownerUser);
+        $store777->storeManagers->add($ownerUser);
+        $store777->departmentManagers->add($ownerUser);
+        $store888->storeManagers->add($ownerUser);
+        $store888->departmentManagers->add($ownerUser);
 
         $manager->persist($store666);
         $manager->persist($store777);

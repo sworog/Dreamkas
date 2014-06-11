@@ -55,7 +55,7 @@ class UserProviderTest extends ContainerAwareTestCase
             'username@lighthouse.pro',
             'password',
             'name',
-            User::ROLE_ADMINISTRATOR,
+            array(User::ROLE_ADMINISTRATOR),
             'position'
         );
 
@@ -91,7 +91,7 @@ class UserProviderTest extends ContainerAwareTestCase
             'username@lighthouse.pro',
             'password',
             'name',
-            User::ROLE_ADMINISTRATOR,
+            array(User::ROLE_ADMINISTRATOR),
             'position'
         );
 
