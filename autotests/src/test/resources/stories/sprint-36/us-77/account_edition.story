@@ -26,7 +26,7 @@ When the user inputs values on user edit page
 | elementName | value |
 | name | Алла Павловна |
 | email | alla.pavlovna@lighthouse.pro |
-And the user inputs password 'lighthouse' on the login page
+And the user inputs password 'lighthouse' on the user edit page
 
 When the user clicks on save user data button
 
@@ -86,7 +86,7 @@ And the user logs in using 'test.user@lighthouse.pro' userName and 'lighthouse' 
 When the user inputs values on user edit page
 | elementName | value |
 | name | Алла Павловна |
-And the user inputs password 'lighthouse' on the login page
+And the user inputs password 'lighthouse' on the user edit page
 
 When the user clicks on save user data button
 
@@ -109,7 +109,7 @@ When the user inputs values on user edit page
 | elementName | value |
 | email | alla.pavlovna@lighthouse.pro |
 And the user inputs value '' in the field with elementName 'name'
-And the user inputs password 'lighthouse' on the login page
+And the user inputs password 'lighthouse' on the user edit page
 
 When the user clicks on save user data button
 
@@ -133,7 +133,7 @@ When the user inputs values on user edit page
 | elementName | value |
 | email | alla.pavlovna@lighthouse.pro |
 And the user inputs value '' in the field with elementName 'name'
-And the user inputs password 'lighthouse' on the login page
+And the user inputs password 'lighthouse' on the user edit page
 
 When the user clicks on save user data button
 
