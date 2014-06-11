@@ -35,7 +35,7 @@ public class UserSteps extends ScenarioSteps {
 
     @Step
     public void input(String elementName, String inputText) {
-        userCreatePage.input(elementName, inputText);
+        userEditPage.input(elementName, inputText);
     }
 
     @Step
@@ -96,7 +96,7 @@ public class UserSteps extends ScenarioSteps {
 
     @Step
     public void checkFieldLength(String elementName, int fieldLength) {
-        userCreatePage.checkFieldLength(elementName, fieldLength);
+        userEditPage.checkFieldLength(elementName, fieldLength);
     }
 
     @Step
@@ -180,6 +180,11 @@ public class UserSteps extends ScenarioSteps {
     @Step
     public void userCardPageValuesCheck() {
         userCardPage.checkValues(examplesTable);
+    }
+
+    @Step
+    public void userCardPageValueCheck(String elementName, String value) {
+        userCardPage.checkValue(elementName, value);
     }
 
     @Step

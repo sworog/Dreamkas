@@ -32,4 +32,9 @@ public class ConsoleCommandsUserSteps {
     public void givenTheUserRunsTheSymfonyUserCreateCommandWithParams(String email, String password) throws IOException, InterruptedException {
         consoleCommandSteps.runCapAutoTestsSymfonyCreateUserCommand(email, password);
     }
+
+    @Given("the user runs the symfony:user:create command with params: generated email and common password")
+    public void givenTheUserRunsTheSymfonyUserCreateCommandWithParams() throws IOException, InterruptedException {
+        consoleCommandSteps.runCapAutoTestsSymfonyCreateUserCommandWithEmailGeneratedAndCommonPassword();
+    }
 }

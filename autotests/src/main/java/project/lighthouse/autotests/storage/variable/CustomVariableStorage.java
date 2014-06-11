@@ -9,7 +9,17 @@ public class CustomVariableStorage {
 
     private List<ExtraBarcode> extraBarcodes = new ArrayList<>();
 
+    private String email;
+
     public List<ExtraBarcode> getExtraBarcodes() {
         return extraBarcodes;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

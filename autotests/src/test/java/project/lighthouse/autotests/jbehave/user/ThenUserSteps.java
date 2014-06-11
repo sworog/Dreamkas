@@ -59,4 +59,9 @@ public class ThenUserSteps {
     public void thenTheUserChecksStoredValuesOnUserCardPage() {
         userSteps.userCardPageValuesCheck();
     }
+
+    @Then("the user asserts the element '$elementName' value is equal to value on user card page")
+    public void thenTheUserAssertsTheElementValueIsEqualToValueOnUserCardPage(String elementName, String value) {
+        userSteps.userCardPageValueCheck(elementName, value);
+    }
 }

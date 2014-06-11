@@ -53,6 +53,12 @@ public class AuthorizationUserSteps {
         authorizationSteps.authorization(userName, password);
     }
 
+    @Given("the user logs in using generated email and common password")
+    public void givenTheUserLogsInUsingGeneratedEmailAndPassword() {
+        String email = Storage.getCustomVariableStorage().getEmail();
+        authorizationSteps.authorization(email, "lighthouse");
+    }
+
     @Given("the user opens lighthouse restore password page")
     public void givenTheUserOpensRestorePasswordPage() {
         authorizationSteps.restorePasswordPageOpen();

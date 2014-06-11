@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave.user;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.administrator.UserSteps;
@@ -75,12 +76,13 @@ public class WhenUserSteps {
         userSteps.userEditPageInput(examplesTable);
     }
 
-    @When("the user inputs password '$password' on the login page")
+    @When("the user inputs password '$password' on the user edit page")
     public void whenTheUserInputsPasswordOnTheLoginPage(String password) {
         userSteps.userEditPagePasswordInput(password);
     }
 
     @When("the user inputs value '$value' in the field with elementName '$elementName'")
+    @Alias("the user inputs value in the field with elementName '$elementName'")
     public void whenTheUserInputsValueInTheFieldWithElementName(String value, String elementName) {
         userSteps.userEditPageInput(elementName, value);
     }

@@ -3,6 +3,8 @@ package project.lighthouse.autotests.steps;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import project.lighthouse.autotests.console.backend.*;
+import project.lighthouse.autotests.helper.UUIDGenerator;
+import project.lighthouse.autotests.storage.Storage;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,5 +39,12 @@ public class ConsoleCommandSteps extends ScenarioSteps {
     @Step
     public void runCapAutoTestsSymfonyCreateUserCommand(String email, String password) throws IOException, InterruptedException {
         new SymfonyUserCreateCommand(email, password).run();
+    }
+
+    @Step
+    public void runCapAutoTestsSymfonyCreateUserCommandWithEmailGeneratedAndCommonPassword() throws IOException, InterruptedException {
+        String generatedEmail = String.format("%s@lighthouse.pro", new UUIDGenerator().generate());
+        Storage.getCustomVariableStorage().setEmail(generatedEmail);
+        new SymfonyUserCreateCommand(generatedEmail, "lighthouse").run();
     }
 }
