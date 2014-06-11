@@ -1,0 +1,46 @@
+<%
+/**
+ *
+ * @collections.groups
+ */
+%>
+
+<div class="catalog__groupList">
+    <% collections.groups.each(function(groupModel){ %>
+    <div data-group_id="<%- groupModel.id %>" class="catalog__groupItem">
+        <h2 class="catalog__groupTitle">
+
+            <a href="/catalog/groups/<%- groupModel.id %>?edit=<%- PAGE.params.edit %>"
+               class="catalog__groupLink"><%= groupModel.element('name') %></a>
+
+            <% if (PAGE.params.edit === '1') { %>
+            <a class="editor__editLink catalog__editGroupLink"></a>
+            <% } %>
+
+        </h2>
+        <div class="catalog__categoryList">
+
+            <% if(!groupModel.collections.categories.length) { %>
+
+            <div>Нет категорий</div>
+
+            <% } else { %>
+
+            <% groupModel.collections.categories.forEach(function(categoryModel){ %>
+            <div data-category_id="<%- categoryModel.id %>" class="catalog__categoryItem">
+
+                <a href="/catalog/groups/<%- groupModel.id %>/categories/<%- categoryModel.id %>?edit=<%- PAGE.params.edit %>"
+                   class="catalog__categoryLink"><%= categoryModel.element('name') %></a>
+
+                <% if (PAGE.params.edit === '1') { %>
+                <a class="editor__editLink catalog__editCategoryLink"></a>
+                <% } %>
+
+            </div>
+            <% }) %>
+
+            <% } %>
+        </div>
+    </div>
+    <% }) %>
+</div>

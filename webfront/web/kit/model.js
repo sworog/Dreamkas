@@ -46,7 +46,7 @@ define(function(require, exports, module) {
         },
         element: function(attr){
             var model = this,
-                uniqueId = _.uniqueId('model'),
+                uniqueId = _.uniqueId('modelElement'),
                 nodeTemplate = '<span id="' + uniqueId + '">' + model.get(attr) || '' + '</span>';
 
             var handlers = {};

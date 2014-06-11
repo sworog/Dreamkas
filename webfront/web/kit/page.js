@@ -112,6 +112,8 @@ define(function(require, exports, module) {
         initialize: function() {
             var page = this;
 
+            window.PAGE = page;
+
             Promise.resolve(page.fetch()).then(function() {
                 try {
                     page.render();

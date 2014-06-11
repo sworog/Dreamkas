@@ -71,17 +71,17 @@ define(function(require) {
             block.removeErrors();
             block.removeSuccessMessage();
         },
-        submitComplete: function(response) {
+        submitComplete: function() {
             var block = this;
 
             block.elements.$submitButton.removeClass('preloader_stripes');
             block.disable(false);
         },
-        submitSuccess: function(response) {
+        submitSuccess: function() {
             var block = this;
 
             if (block.collection) {
-                block.collection.push(response);
+                block.collection.push(block.model);
             }
 
             if (block.redirectUrl) {
@@ -96,7 +96,7 @@ define(function(require) {
             var block = this;
             block.showErrors(JSON.parse(response.responseText), response);
         },
-        showErrors: function(errors, error) {
+        showErrors: function(errors, response) {
             var block = this;
 
             function addErrorToInput(data, field, prefix) {
@@ -129,10 +129,10 @@ define(function(require) {
             }
 
             if (errors.error) {
-                block.elements.controls.dataset.error = typeof errors.error === 'string' ? block.getText(errors.error) : block.getText('неизвестная ошибка: ' + error.statusText);
+                block.elements.controls.dataset.error = typeof errors.error === 'string' ? block.getText(errors.error) : block.getText('неизвестная ошибка: ' + response.statusText);
             }
 
-            if (errors.errors) {
+            if (errors.errors.length) {
                 block.elements.controls.dataset.error = errors.errors.join(', ');
             }
 
