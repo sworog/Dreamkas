@@ -330,7 +330,7 @@ class UserControllerTest extends WebTestCase
                 400,
                 array('password' => 'userer@test.com', 'email' => 'userer@test.com'),
                 array(
-                    'children.password.errors.0' => 'Логин и пароль не должны совпадать'
+                    'children.password.errors.0' => 'E-mail и пароль не должны совпадать'
                 )
             ),
         );
@@ -523,18 +523,17 @@ class UserControllerTest extends WebTestCase
                 400,
                 array('password' => ''),
                 array(
-                    'children.password.errors.0'
-                    =>
-                    'Заполните это поле',
+                    'children.password.errors.0' => 'Заполните это поле',
                 ),
             ),
             'not valid password equals email' => array(
                 400,
-                array('password' => 'userer@test.com', 'email' => 'userer@test.com'),
                 array(
-                    'children.password.errors.0'
-                    =>
-                    'Логин и пароль не должны совпадать'
+                    'password' => 'userer@test.com',
+                    'email' => 'userer@test.com'
+                ),
+                array(
+                    'children.password.errors.0' => 'E-mail и пароль не должны совпадать'
                 )
             ),
         );
