@@ -24,7 +24,11 @@ use Lighthouse\CoreBundle\MongoDB\Mapping\Annotations\GlobalDb;
  * @property Project $project
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\User\UserRepository")
- * @Unique(fields="email", message="lighthouse.validation.errors.user.email.unique")
+ * @Unique(
+ *      fields="email",
+ *      message="lighthouse.validation.errors.user.email.unique",
+ *      groups={"Default", "registration", "Update current"}
+ * )
  * @GlobalDb
  */
 class User extends AbstractDocument implements UserInterface
@@ -91,7 +95,7 @@ class User extends AbstractDocument implements UserInterface
      * @LighthouseAssert\NotEqualsField(
      *      groups={"Default", "Update current"},
      *      field = "email",
-     *      message = "lighthouse.validation.errors.user.password.not_equals_login"
+     *      message = "lighthouse.validation.errors.user.password.not_equals_email"
      * )
      * @Serializer\Exclude
      * @var string
