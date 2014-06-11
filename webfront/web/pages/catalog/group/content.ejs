@@ -1,0 +1,26 @@
+<%
+/**
+ *
+ * @models.group
+ */
+%>
+
+<div class="content catalog catalog_edit_<%- PAGE.params.edit %>">
+    <div class="page__header">
+        <a href="/catalog?edit=<%- PAGE.params.edit %>" class="page__backLink">
+            Товарный справочник
+        </a>
+    </div>
+
+    <h1>
+        <a class="page__editLink group__editLink"></a>
+
+        <span style="vertical-align: middle">
+            <%= models.group.element('name') %>
+        </span>
+
+        <a class="button group__addCategoryLink">
+            Добавить категорию
+        </a>
+    </h1>
+</div>

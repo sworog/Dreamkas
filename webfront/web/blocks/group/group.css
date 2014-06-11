@@ -1,0 +1,12 @@
+.group__editLink {
+    margin-left: -25px;
+}
+
+.group__editLink,
+.group__addCategoryLink {
+    visibility: hidden;
+}
+
+.group__addCategoryLink{
+    margin-top: -2px;
+}

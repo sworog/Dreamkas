@@ -8,6 +8,23 @@
     margin-right: -5px;
 }
 
+.catalog__addGroupLink{
+    visibility: hidden;
+}
+
+.catalog__groupList .page__editLink{
+    margin-left: -25px;
+    visibility: hidden;
+}
+
+.catalog_edit_1 .page__editLink,
+.catalog_edit_1 .catalog__addGroupLink,
+.catalog_edit_1 .group__addCategoryLink {
+    visibility: visible;
+}{
+    visibility: visible;
+}
+
 .catalog__groupLink{
     vertical-align: middle;
 }

@@ -6,16 +6,14 @@
  */
 %>
 
-<div class="content">
+<div class="content catalog catalog_edit_<%- PAGE.params.edit %>">
     <h1>
         <span style="vertical-align: middle; margin-right: 10px;">
             Товарный справочник
         </span>
-        <% if (params.edit === '1') { %>
         <a class="button catalog__addGroupLink">
             Добавить группу
         </a>
-        <% } %>
     </h1>
 
     <%= collections.groups.element(require('tpl!blocks/catalog/groupList.ejs'), {

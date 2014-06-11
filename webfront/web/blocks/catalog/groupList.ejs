@@ -10,12 +10,10 @@
     <div class="catalog__groupItem">
         <h2 class="catalog__groupTitle">
 
-            <a href="/catalog/groups/<%- groupModel.id %>?edit=<%- PAGE.params.edit %>"
-               class="catalog__groupLink"><%= groupModel.get('name') %></a>
+            <a data-group_id="<%- groupModel.id %>" class="page__editLink catalog__editGroupLink"></a>
 
-            <% if (PAGE.params.edit === '1') { %>
-            <a data-group_id="<%- groupModel.id %>" class="editor__editLink catalog__editGroupLink"></a>
-            <% } %>
+            <a href="/groups/<%- groupModel.id %>?edit=<%- PAGE.params.edit %>"
+               class="catalog__groupLink"><%= groupModel.get('name') %></a>
 
         </h2>
         <div class="catalog__categoryList">
@@ -29,12 +27,10 @@
             <% groupModel.collections.categories.forEach(function(categoryModel){ %>
             <div data-category_id="<%- categoryModel.id %>" class="catalog__categoryItem">
 
-                <a href="/catalog/groups/<%- groupModel.id %>/categories/<%- categoryModel.id %>?edit=<%- PAGE.params.edit %>"
-                   class="catalog__categoryLink"><%= categoryModel.get('name') %></a>
+                <a class="page__editLink catalog__editCategoryLink"></a>
 
-                <% if (PAGE.params.edit === '1') { %>
-                <a class="editor__editLink catalog__editCategoryLink"></a>
-                <% } %>
+                <a href="/groups/<%- groupModel.id %>/categories/<%- categoryModel.id %>?edit=<%- PAGE.params.edit %>"
+                   class="catalog__categoryLink"><%= categoryModel.get('name') %></a>
 
             </div>
             <% }) %>

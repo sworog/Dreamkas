@@ -57,6 +57,7 @@ define(function(require) {
 
         //catalog
         'catalog(/)': require('pages/catalog/catalog'),
+        'groups/:groupId(/)': require('pages/catalog/group/group'),
 //        'catalog/:catalogGroupId(/)': require('pages/catalog/group'),
 //        'catalog/:catalogGroupId/:catalogCategoryId(/)(:catalogSubCategoryId)': require('pages/catalog/category'),
 //        'catalog/:catalogGroupId/:catalogCategoryId/:catalogSubCategoryId(/)(:section)': require('pages/catalog/category'),

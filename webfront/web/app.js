@@ -79,12 +79,10 @@ define(function(require) {
     $(document).on('click', '[href]', function(e) {
         e.stopPropagation();
 
-        var $target = $(e.currentTarget);
-
-        if ($target.data('navigate') !== false) {
+        if (e.currentTarget.dataset.navigate !== '0') {
             e.preventDefault();
 
-            router.navigate($target.attr('href'));
+            router.navigate(e.currentTarget.href.split(document.location.origin)[1]);
         }
     });
 
