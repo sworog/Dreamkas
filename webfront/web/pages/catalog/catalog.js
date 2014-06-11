@@ -14,11 +14,11 @@ define(function(require) {
             'click .catalog__addGroupLink': function(e) {
                 e.preventDefault();
 
-                var block = this;
+                var page = this;
 
-                block.blocks.tooltip_groupForm.show({
+                page.blocks.tooltip_groupForm.show({
                     trigger: e.target,
-                    collection: block.collections.groups,
+                    collection: page.collections.groups,
                     model: new GroupModel()
                 });
             },
@@ -40,6 +40,16 @@ define(function(require) {
                     alert('Выгрузка невозможна, обратитесь к администратору');
                     e.target.classList.remove('preloader_stripes');
                 });
+            },
+            'click .catalog__editGroupLink': function(e){
+                e.preventDefault();
+
+                var page = this;
+
+                page.blocks.tooltip_groupMenu.show({
+                    trigger: e.target,
+                    model: page.collections.groups.get(e.target.dataset.group_id)
+                });
             }
         },
         listeners: {
@@ -57,7 +67,8 @@ define(function(require) {
             groups: require('collections/groups')
         },
         blocks: {
-            tooltip_groupForm: require('blocks/tooltip/tooltip_groupForm/tooltip_groupForm')
+            tooltip_groupForm: require('blocks/tooltip/tooltip_groupForm/tooltip_groupForm'),
+            tooltip_groupMenu: require('blocks/tooltip/tooltip_groupMenu/tooltip_groupMenu')
         },
         exportCatalog: function(){
             return $.ajax({
