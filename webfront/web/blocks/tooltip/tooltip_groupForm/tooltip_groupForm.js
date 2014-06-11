@@ -1,22 +1,31 @@
 define(function(require) {
         //requirements
-        var Tooltip = require('blocks/tooltip/tooltip');
+        var Tooltip = require('blocks/tooltip/tooltip'),
+            GroupModel = require('models/group');
 
         return Tooltip.extend({
+            newGroup: false,
             model: null,
             collection: null,
             template: require('tpl!./template.ejs'),
             listeners: {
-                'blocks.form_catalogGroup': {
+                'blocks.form_group': {
                     'submit:success': function() {
                         var block = this;
 
-                        block.hide();
+                        if (block.newGroup){
+                            block.model = new GroupModel();
+                            block.render();
+                            block._startListening();
+                            block.el.querySelector('[type="text"]').focus();
+                        } else {
+                            block.hide();
+                        }
                     }
                 }
             },
             blocks: {
-                form_catalogGroup: function(){
+                form_group: function(){
                     var block = this,
                         Form_catalogGroup = require('blocks/form/form_group/form_group');
 

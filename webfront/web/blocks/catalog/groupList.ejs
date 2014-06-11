@@ -11,7 +11,7 @@
         <h2 class="catalog__groupTitle">
 
             <a href="/catalog/groups/<%- groupModel.id %>?edit=<%- PAGE.params.edit %>"
-               class="catalog__groupLink"><%= groupModel.element('name') %></a>
+               class="catalog__groupLink"><%= groupModel.get('name') %></a>
 
             <% if (PAGE.params.edit === '1') { %>
             <a data-group_id="<%- groupModel.id %>" class="editor__editLink catalog__editGroupLink"></a>
@@ -30,7 +30,7 @@
             <div data-category_id="<%- categoryModel.id %>" class="catalog__categoryItem">
 
                 <a href="/catalog/groups/<%- groupModel.id %>/categories/<%- categoryModel.id %>?edit=<%- PAGE.params.edit %>"
-                   class="catalog__categoryLink"><%= categoryModel.element('name') %></a>
+                   class="catalog__categoryLink"><%= categoryModel.get('name') %></a>
 
                 <% if (PAGE.params.edit === '1') { %>
                 <a class="editor__editLink catalog__editCategoryLink"></a>

@@ -67,7 +67,13 @@ define(function(require) {
             groups: require('collections/groups')
         },
         blocks: {
-            tooltip_groupForm: require('blocks/tooltip/tooltip_groupForm/tooltip_groupForm'),
+            tooltip_groupForm: function(){
+                var Tooltip_groupForm = require('blocks/tooltip/tooltip_groupForm/tooltip_groupForm');
+
+                return new Tooltip_groupForm({
+                    newGroup: true
+                });
+            },
             tooltip_groupMenu: require('blocks/tooltip/tooltip_groupMenu/tooltip_groupMenu')
         },
         exportCatalog: function(){

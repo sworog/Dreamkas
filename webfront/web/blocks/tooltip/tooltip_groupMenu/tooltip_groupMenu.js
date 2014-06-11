@@ -1,8 +1,6 @@
 define(function(require) {
         //requirements
-        var Tooltip = require('blocks/tooltip/tooltip'),
-            Tooltip_catalogGroupForm = require('blocks/tooltip/tooltip_groupForm/tooltip_groupForm'),
-            CatalogGroupModel = require('models/group');
+        var Tooltip = require('blocks/tooltip/tooltip');
 
         return Tooltip.extend({
             template: require('tpl!./template.ejs'),
@@ -10,20 +8,18 @@ define(function(require) {
             events: {
                 'click .tooltip__editLink': function(e) {
                     e.preventDefault();
-                    var block = this,
-                        $target = $(e.target);
+                    var block = this;
 
-                    block.tooltip_catalogGroupForm.show({
-                        model: block.catalogGroupModel,
-                        collection: null,
-                        $trigger: $target
+                    block.blocks.tooltip_groupForm.show({
+                        model: block.model,
+                        trigger: e.target
                     });
 
                     block.hide();
                 },
                 'click .tooltip__removeLink': function(e) {
                     e.preventDefault();
-                    
+
                     var block = this;
 
                     if (e.target.classList.contains('preloader_stripes')) {
