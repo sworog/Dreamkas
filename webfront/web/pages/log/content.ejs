@@ -18,7 +18,7 @@
                  status="<%- jobModel.get('status') %>"
                  type="<%- jobModel.get('type') %>">
                 <div class="log__time">
-                    <%- formatDate(dateCreated, {time: true}) %>
+                    <%- formatDate(jobModel.get('dateCreated'), {time: true}) %>
                 </div>
                 <div class="log__title">
                     <%- getText(jobModel.get('type')) %>

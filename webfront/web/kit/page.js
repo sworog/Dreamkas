@@ -13,6 +13,11 @@ define(function(require, exports, module) {
         constructor: function(request) {
             var page = this;
 
+            if (Page.current && Page.current.route === request.route){
+                Page.current.set(request);
+                return;
+            }
+
             page.el.setAttribute('status', 'loading');
 
             if (Page.current) {
@@ -83,7 +88,7 @@ define(function(require, exports, module) {
         },
 
         listeners: {
-            params: function(params) {
+            'change:params': function(params) {
                 router.save(params);
             }
         },

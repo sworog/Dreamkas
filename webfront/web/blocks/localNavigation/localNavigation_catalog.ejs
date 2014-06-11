@@ -7,10 +7,10 @@
 
 <div class="localNavigation">
 
-    <% if (params.edit) { %>
-    <a style="white-space: nowrap" class="localNavigation__link catalog__editLink">Завершить редактирование</a>
+    <% if (params.edit === '1') { %>
+    <a href="/catalog?edit=0" style="white-space: nowrap" class="localNavigation__link catalog__editLink">Завершить редактирование</a>
     <% } else { %>
-    <a class="localNavigation__link catalog__editLink">Редактировать</a>
+    <a href="/catalog?edit=1" class="localNavigation__link catalog__editLink">Редактировать</a>
     <% } %>
 
     <a class="localNavigation__link catalog__exportLink">Выгрузить в SetRetail</a>

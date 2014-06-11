@@ -56,7 +56,7 @@ define(function(require) {
         'writeOffs/:writeOffId(/)': require('pages/writeOff/view'),
 
         //catalog
-        'catalog(/:edit)(/)': require('pages/catalog/catalog'),
+        'catalog(/)': require('pages/catalog/catalog'),
 //        'catalog/:catalogGroupId(/)': require('pages/catalog/group'),
 //        'catalog/:catalogGroupId/:catalogCategoryId(/)(:catalogSubCategoryId)': require('pages/catalog/category'),
 //        'catalog/:catalogGroupId/:catalogCategoryId/:catalogSubCategoryId(/)(:section)': require('pages/catalog/category'),

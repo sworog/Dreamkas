@@ -17,7 +17,8 @@
 .localNavigation__link{
     display: block;
     color: #000;
-    padding: 10px 0;
+    padding: 10px 15px;
+    margin: 0 -15px;
 }
 
 .localNavigation__link_active{
