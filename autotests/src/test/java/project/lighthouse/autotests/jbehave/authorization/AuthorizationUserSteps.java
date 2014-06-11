@@ -53,6 +53,12 @@ public class AuthorizationUserSteps {
         authorizationSteps.authorization(userName, password);
     }
 
+    @Given("the user logs in using generated email and common password")
+    public void givenTheUserLogsInUsingGeneratedEmailAndPassword() {
+        String email = Storage.getCustomVariableStorage().getEmail();
+        authorizationSteps.authorization(email, "lighthouse");
+    }
+
     @Given("the user opens lighthouse restore password page")
     public void givenTheUserOpensRestorePasswordPage() {
         authorizationSteps.restorePasswordPageOpen();
@@ -128,6 +134,11 @@ public class AuthorizationUserSteps {
     @When("the user inputs '$value' value in restore password email field")
     public void whenTheUserInputsValueInRestorePasswordEmailField(String value) {
         authorizationSteps.restorePasswordPageEmailInput(value);
+    }
+
+    @When("the user inputs values on login page $examplesTable")
+    public void whenTheUserInputsValuesOnLoginPage(ExamplesTable examplesTable) {
+        authorizationSteps.authFieldInput(examplesTable);
     }
 
     @Then("the user checks the sign up text is expected")

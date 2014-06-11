@@ -18,6 +18,11 @@ abstract class AbstractLoadStoresData extends ContainerAware implements Dependen
     public function load(ObjectManager $manager)
     {
         $userProvider = $this->container->get('lighthouse.core.user.provider');
+        $projectContext = $this->container->get('project.context');
+
+        $ownerUser = $userProvider->loadUserByUsername('owner@lighthouse.pro');
+        $project = $ownerUser->getProject();
+        $projectContext->authenticate($project);
 
         foreach ($this->getStoresData() as $storeNumber => $storeData) {
             $store = new Store();
@@ -25,24 +30,8 @@ abstract class AbstractLoadStoresData extends ContainerAware implements Dependen
             $store->address = (isset($storeData['address'])) ? $storeData['address'] : 'Ул. Кеско, д. ' . $storeNumber;
             $store->contacts = (isset($storeData['contacts'])) ? $storeData['contacts'] : '911-888-7-' . $storeNumber;
 
-            $storeManager = $userProvider->createNewUser(
-                'storeManager' . $storeNumber . '@lighthouse.pro',
-                'lighthouse',
-                'Сторье #' . $storeNumber,
-                User::ROLE_STORE_MANAGER,
-                'Директор магазина'
-            );
-
-            $departmentManager = $userProvider->createNewUser(
-                'departmentManager' . $storeNumber . '@lighthouse.pro',
-                'lighthouse',
-                'Депардье #' . $storeNumber,
-                User::ROLE_DEPARTMENT_MANAGER,
-                'Зав. отдела'
-            );
-
-            $store->storeManagers->add($storeManager);
-            $store->departmentManagers->add($departmentManager);
+            $store->storeManagers->add($ownerUser);
+            $store->departmentManagers->add($ownerUser);
             $manager->persist($store);
         }
 

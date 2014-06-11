@@ -135,20 +135,21 @@ class UserControllerTest extends WebTestCase
         }
     }
 
-    public function testPutCurrentUser()
+    /**
+     * @dataProvider putCurrentUserProvider
+     * @param array $data
+     * @param int $expectedResponseCode
+     * @param array $assertions
+     */
+    public function testPutCurrentUser(array $data, $expectedResponseCode, array $assertions)
     {
-        $user = $this->factory()->user()->createUser(
-            'user@lh.com',
-            UserFactory::USER_DEFAULT_PASSWORD,
-            User::getDefaultRoles(),
-            null,
-            null
-        );
+        $this->factory()->user()->createProjectUser('user@lh.com', UserFactory::USER_DEFAULT_PASSWORD, 'project1');
+        $this->factory()->user()->createProjectUser('superuser@lh.com', UserFactory::USER_DEFAULT_PASSWORD, 'project2');
 
-        $userData = array(
-            'email' => 'loser@lh.com',
+        $userData = $data + array(
+            'email' => 'user@lh.com',
             'name'  => 'Loser LH',
-            'password' => 'qwerty',
+            'password' => UserFactory::USER_DEFAULT_PASSWORD,
         );
 
         $accessToken = $this->factory()->oauth()->doAuthByUsername('user@lh.com');
@@ -160,22 +161,62 @@ class UserControllerTest extends WebTestCase
             $userData
         );
 
-        $this->assertResponseCode(200);
-        Assert::assertJsonPathEquals($user->id, 'id', $response);
-        Assert::assertJsonPathEquals('loser@lh.com', 'email', $response);
-        Assert::assertJsonPathEquals('Loser LH', 'name', $response);
+        $this->assertResponseCode($expectedResponseCode);
+        $this->performJsonAssertions($response, $assertions);
 
-        $this->factory()->clear();
-
-        try {
-            $this->factory()->oauth()->doAuthByUsername('user@lh.com');
-            $this->fail();
-        } catch (OAuth2ServerException $e) {
-            $this->assertTrue(true);
+        if (200 === $expectedResponseCode) {
+            $this->factory()->clear();
+            $accessToken = $this->factory()->oauth()->doAuthByUsername($userData['email'], $userData['password']);
+            $getResponse = $this->clientJsonRequest(
+                $accessToken,
+                'GET',
+                '/api/1/users/current'
+            );
+            $this->assertSame($getResponse, $response);
         }
+    }
 
-        $accessToken = $this->factory()->oauth()->doAuthByUsername('loser@lh.com', 'qwerty');
-        $this->assertNotNull($accessToken->access_token);
+    /**
+     * @return array
+     */
+    public function putCurrentUserProvider()
+    {
+        return array(
+            'empty name' => array(
+                array('name' => ''),
+                200,
+                array('name' => null)
+            ),
+            'duplicate email' => array(
+                array('email' => 'superuser@lh.com'),
+                400,
+                array('children.email.errors.0' => 'Пользователь с таким email уже существует')
+            ),
+            'empty password' => array(
+                array('password' => ''),
+                400,
+                array('children.password.errors.0' => 'Заполните это поле')
+            ),
+            'same password as email' => array(
+                array('email' => 'user@lh.com', 'password' => 'user@lh.com'),
+                400,
+                array('children.password.errors.0' => 'E-mail и пароль не должны совпадать')
+            ),
+            'too short password' => array(
+                array('password' => 'loser'),
+                400,
+                array(
+                    'children.password.errors.0'
+                    =>
+                    'Значение слишком короткое. Должно быть равно 6 символам или больше.'
+                )
+            ),
+            'good password with min required length' => array(
+                array('password' => 'qwerty'),
+                200,
+                array('password' => null)
+            ),
+        );
     }
 
     public function testPutCurrentUserWithoutToken()
@@ -289,7 +330,7 @@ class UserControllerTest extends WebTestCase
                 400,
                 array('password' => 'userer@test.com', 'email' => 'userer@test.com'),
                 array(
-                    'children.password.errors.0' => 'Логин и пароль не должны совпадать'
+                    'children.password.errors.0' => 'E-mail и пароль не должны совпадать'
                 )
             ),
         );
@@ -482,18 +523,17 @@ class UserControllerTest extends WebTestCase
                 400,
                 array('password' => ''),
                 array(
-                    'children.password.errors.0'
-                    =>
-                    'Заполните это поле',
+                    'children.password.errors.0' => 'Заполните это поле',
                 ),
             ),
             'not valid password equals email' => array(
                 400,
-                array('password' => 'userer@test.com', 'email' => 'userer@test.com'),
                 array(
-                    'children.password.errors.0'
-                    =>
-                    'Логин и пароль не должны совпадать'
+                    'password' => 'userer@test.com',
+                    'email' => 'userer@test.com'
+                ),
+                array(
+                    'children.password.errors.0' => 'E-mail и пароль не должны совпадать'
                 )
             ),
         );

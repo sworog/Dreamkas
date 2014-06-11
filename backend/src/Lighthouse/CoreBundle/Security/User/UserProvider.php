@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Security\User;
 
 use Hackzilla\PasswordGenerator\Generator\PasswordGenerator;
+use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
@@ -183,18 +184,19 @@ class UserProvider implements UserProviderInterface
      * @param string $email
      * @param string $password
      * @param string $name
-     * @param string $role
+     * @param string $roles
      * @param string $position
      * @return User
      */
-    public function createNewUser($email, $password, $name, $role, $position)
+    public function createNewUser($email, $password, $name, $roles, $position)
     {
         $user = $this->createUser();
 
         $user->name = $name;
         $user->email = $email;
-        $user->roles = array($role);
+        $user->roles = $roles;
         $user->position = $position;
+        $user->project = new Project();
 
         $this->updateUserWithPassword($user, $password, true);
 

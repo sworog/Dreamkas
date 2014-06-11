@@ -15,7 +15,7 @@ public class UserLocalNavigation extends CommonPageObject {
     }
 
     public void editButtonClick() {
-        new NavigationLinkFacade(this, "Редактировать");
+        new NavigationLinkFacade(this, "Редактировать").click();
     }
 
     public void logOutButtonClick() {

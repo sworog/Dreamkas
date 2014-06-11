@@ -1,26 +1,15 @@
-package project.lighthouse.autotests.jbehave.administrator;
+package project.lighthouse.autotests.jbehave.user;
 
 import net.thucydides.core.annotations.Steps;
-import org.jbehave.core.annotations.Given;
-import org.jbehave.core.annotations.Then;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.administrator.UserSteps;
 
-public class EndUserSteps {
+public class WhenUserSteps {
 
     @Steps
     UserSteps userSteps;
-
-    @Given("the user opens create new user page")
-    public void givenTheUserOpensCreateNewUserPage() {
-        userSteps.userCreatePageOpen();
-    }
-
-    @Given("the user is on the users list page")
-    public void givenTheUserIsOnTheUsersListPage() {
-        userSteps.userListPageOpen();
-    }
 
     @When("the user clicks the create new user button from users list page")
     public void whenTheUserCreatesNewUserFromUsersListPage() {
@@ -77,7 +66,7 @@ public class EndUserSteps {
         userSteps.generateTestCharDataWithoutSpaces(elementName, number, str);
     }
 
-    @When("the user clicks on save user data button click")
+    @When("the user clicks on save user data button")
     public void whenTheUserClicksOnSaveUserDataButtonClick() {
         userSteps.saveButtonClick();
     }
@@ -87,53 +76,14 @@ public class EndUserSteps {
         userSteps.userEditPageInput(examplesTable);
     }
 
-    @Then("the user checks the user with '$login' username is present")
-    public void thenTheUSerChecksTheProductWithSkuIsPresent(String login) {
-        userSteps.listItemCheck(login);
+    @When("the user inputs password '$password' on the user edit page")
+    public void whenTheUserInputsPasswordOnTheLoginPage(String password) {
+        userSteps.userEditPagePasswordInput(password);
     }
 
-    @Then("the user checks the user with '$login' username has '$name' element equal to '$expectedValue' on users page")
-    public void thenTheUserChecksTheProductWithValueHasElement(String login, String elementName, String expectedValue) {
-        userSteps.checkListItemHasExpectedValueByFindByLocator(login, elementName, expectedValue);
-    }
-
-    @Then("the user checks the user page '$elementName' value is '$expectedValue'")
-    public void thenTheUserChecksValue(String elementName, String expectedValue) {
-        userSteps.checkCardValue(elementName, expectedValue);
-    }
-
-    @Then("the user checks the user page elements values $checkValuesTable")
-    public void thenTheUserChecksTheElementValues(ExamplesTable checkValuesTable) {
-        userSteps.checkCardValue(checkValuesTable);
-    }
-
-    @Then("the user checks '$elementName' user page field contains only '$number' symbols")
-    public void thenTheUserChecksUserPageFieldContainsSymbols(String elementName, int number) {
-        userSteps.checkFieldLength(elementName, number);
-    }
-
-    @Then("the user sees user card edit button")
-    public void thenTheUserSeesUserCardEditButton() {
-        userSteps.userCardEditButtonIsPresent();
-    }
-
-    @Then("the user sees no user card edit button")
-    public void thenTheUserSeesNoUserCardEditButton() {
-        userSteps.userCardEditButtonIsNotPresent();
-    }
-
-    @Then("the user sees user card link to users list")
-    public void thenTheUserSeesUserCardLinkToUsersList() {
-        userSteps.userCardListLinkIsPresent();
-    }
-
-    @Then("the user sees no user card link to users list")
-    public void thenTheUserSeesNoUserCardLinkToUsersList() {
-        userSteps.userCardListLinkIsNotPresent();
-    }
-
-    @Then("the user checks stored values on user card page")
-    public void thenTheUserChecksStoredValuesOnUserCardPage() {
-        userSteps.userCardPageValuesCheck();
+    @When("the user inputs value '$value' in the field with elementName '$elementName'")
+    @Alias("the user inputs value in the field with elementName '$elementName'")
+    public void whenTheUserInputsValueInTheFieldWithElementName(String value, String elementName) {
+        userSteps.userEditPageInput(elementName, value);
     }
 }

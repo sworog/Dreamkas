@@ -32,13 +32,14 @@ public class AuthorizationSteps extends ScenarioSteps {
         }
 
         {
-        put("owner", new HashMap<String, String>() {{
-            put("email", "owner@lighthouse.pro");
-            put("password", "lighthouse");
+            put("owner", new HashMap<String, String>() {{
+                put("email", "owner@lighthouse.pro");
+                put("password", "lighthouse");
 
-        }});
+            }});
 
-        }};
+        }
+    };
 
     AuthorizationPage authorizationPage;
     MenuNavigationBar menuNavigationBar;
@@ -83,8 +84,8 @@ public class AuthorizationSteps extends ScenarioSteps {
      */
     @Step
     public void workAroundTypeForUserName(String inputText) {
-        authorizationPage.input("email", inputText);
-        if (!authorizationPage.getItems().get("email").getVisibleWebElementFacade().getValue().equals(inputText)) {
+        authorizationPage.input("userName", inputText);
+        if (!authorizationPage.getItems().get("userName").getVisibleWebElementFacade().getValue().equals(inputText)) {
             workAroundTypeForUserName(inputText);
         }
     }
@@ -200,5 +201,10 @@ public class AuthorizationSteps extends ScenarioSteps {
     @Step
     public void restorePasswordPageOpen() {
         restorePasswordPage.open();
+    }
+
+    @Step
+    public void authFieldInput(ExamplesTable examplesTable) {
+        authorizationPage.fieldInput(examplesTable);
     }
 }

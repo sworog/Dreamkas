@@ -15,6 +15,7 @@ class UserFactory extends AbstractFactory
     const USER_DEFAULT_PASSWORD = 'password';
     const USER_DEFAULT_NAME = 'Админ Админыч';
     const USER_DEFAULT_POSITION = 'Администратор';
+    const PROJECT_DEFAULT_NAME = 'project1';
 
     /**
      * @var User[]
@@ -22,9 +23,9 @@ class UserFactory extends AbstractFactory
     protected $users = array();
 
     /**
-     * @var string
+     * @var array
      */
-    protected $projectId;
+    protected $projectIds;
 
     /**
      * @param string $role
@@ -75,9 +76,10 @@ class UserFactory extends AbstractFactory
     /**
      * @param string $email
      * @param string $password
-     * @param string|array $roles
+     * @param array|string $roles
      * @param string $name
      * @param string $position
+     * @param \Lighthouse\CoreBundle\Document\Project\Project $project
      * @return User
      */
     public function createUser(
@@ -85,7 +87,8 @@ class UserFactory extends AbstractFactory
         $password = self::USER_DEFAULT_PASSWORD,
         $roles = User::ROLE_ADMINISTRATOR,
         $name = self::USER_DEFAULT_NAME,
-        $position = self::USER_DEFAULT_POSITION
+        $position = self::USER_DEFAULT_POSITION,
+        Project $project = null
     ) {
         $user = new User();
         $user->name = $name;
@@ -93,7 +96,7 @@ class UserFactory extends AbstractFactory
         $user->roles = (array) $roles;
         $user->position = $position;
 
-        $user->project = $this->getProject();
+        $user->project = ($project) ?: $this->getProject();
 
         $this->getUserProvider()->setPassword($user, $password);
 
@@ -104,24 +107,48 @@ class UserFactory extends AbstractFactory
     }
 
     /**
-     * @return Project
-     * @throws \Doctrine\ODM\MongoDB\LockException
+     * @param string $email
+     * @param string $password
+     * @param string $projectName
+     * @return User
      */
-    public function getProject()
-    {
-        if (!$this->projectId) {
-            $this->projectId = $this->createProject()->id;
-        }
-        return $this->getProjectProvider()->find($this->projectId);
+    public function createProjectUser(
+        $email,
+        $password = self::USER_DEFAULT_PASSWORD,
+        $projectName = self::PROJECT_DEFAULT_NAME
+    ) {
+        $project = $this->getProject($projectName);
+        return $this->createUser(
+            $email,
+            $password,
+            User::getDefaultRoles(),
+            null,
+            null,
+            $project
+        );
     }
 
     /**
+     * @param string $name
+     * @throws \Doctrine\ODM\MongoDB\LockException
      * @return Project
      */
-    public function createProject()
+    public function getProject($name = self::PROJECT_DEFAULT_NAME)
+    {
+        if (!isset($this->projectIds[$name])) {
+            $this->projectIds[$name] = $this->createProject($name)->id;
+        }
+        return $this->getProjectProvider()->find($this->projectIds[$name]);
+    }
+
+    /**
+     * @param string $name
+     * @return Project
+     */
+    public function createProject($name = self::PROJECT_DEFAULT_NAME)
     {
         $project = new Project();
-        $project->name = 'project1';
+        $project->name = $name;
         $this->getProjectProvider()->save($project);
         return $project;
     }

@@ -1,10 +1,12 @@
 package project.lighthouse.autotests.pages.user;
 
+import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.items.Input;
 
+@DefaultUrl("/users/edit")
 public class UserEditPage extends CommonPageObject {
 
     public UserEditPage(WebDriver driver) {
