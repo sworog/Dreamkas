@@ -45,22 +45,9 @@ class LighthouseCoreBundle extends Bundle
      */
     public function build(ContainerBuilder $container)
     {
-        parent::build($container);
-
-        $container->addCompilerPass(new AddCommandAsServicePass());
         $container->addCompilerPass(new AddRoundingsToManagerPass());
         $container->addCompilerPass(new AddReferenceProvidersPass());
         $container->addCompilerPass(new AddJobWorkersPass());
         $container->addCompilerPass(new MongoDBDocumentManagerPass());
-    }
-
-    /**
-     * @param Application $application
-     */
-    public function registerCommands(Application $application)
-    {
-        /* @var CommandManager $commandManager */
-        $commandManager = $this->container->get('lighthouse.core.command.manager');
-        $application->addCommands($commandManager->getAll());
     }
 }
