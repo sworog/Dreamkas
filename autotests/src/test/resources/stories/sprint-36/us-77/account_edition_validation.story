@@ -12,10 +12,10 @@ Scenario: Account name field length validation 100 symbols
 Meta:
 @id_s36u77s6
 
-Given the user runs the symfony:user:create command with params: email 'test.s36u77s1@lighthouse.pro' and password 'lighthouse'
+Given the user runs the symfony:user:create command with params: generated email and common password
 
 Given the user opens user edit page
-And the user logs in using 'test.s36u77s1@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in using generated email and common password
 
 When the user generates charData with '100' number in the 'name' user page field
 
@@ -31,10 +31,10 @@ Scenario: Account name field length validation negative 101 symbols
 Meta:
 @id_s36u77s7
 
-Given the user runs the symfony:user:create command with params: email 'test.s36u77s2@lighthouse.pro' and password 'lighthouse'
+Given the user runs the symfony:user:create command with params: generated email and common password
 
 Given the user opens user edit page
-And the user logs in using 'test.s36u77s2@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in using generated email and common password
 
 When the user generates charData with '101' number in the 'name' user page field
 
@@ -52,10 +52,10 @@ Scenario: Account name field is not required
 Meta:
 @id_s36u77s8
 
-Given the user runs the symfony:user:create command with params: email 'test.s36u77s3@lighthouse.pro' and password 'lighthouse'
+Given the user runs the symfony:user:create command with params: generated email and common password
 
 Given the user opens user edit page
-And the user logs in using 'test.s36u77s3@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in using generated email and common password
 
 When the user inputs values on user edit page
 | elementName | value |
@@ -70,10 +70,10 @@ Scenario: Account password minimum length validation invalid
 Meta:
 @id_s36u77s9
 
-Given the user runs the symfony:user:create command with params: email 'test.s36u77s4@lighthouse.pro' and password 'lighthouse'
+Given the user runs the symfony:user:create command with params: generated email and common password
 
 Given the user opens user edit page
-And the user logs in using 'test.s36u77s4@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in using generated email and common password
 
 When the user inputs values on user edit page
 | elementName | value |
@@ -89,10 +89,10 @@ Scenario: Account password minimum length validation positive
 Meta:
 @id_s36u77s10
 
-Given the user runs the symfony:user:create command with params: email 'test.s36u77s5@lighthouse.pro' and password 'lighthouse'
+Given the user runs the symfony:user:create command with params: generated email and common password
 
 Given the user opens user edit page
-And the user logs in using 'test.s36u77s5@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in using generated email and common password
 
 When the user inputs values on user edit page
 | elementName | value |
@@ -101,15 +101,15 @@ And the user clicks on save user data button
 
 Then the user sees no error messages
 
-Scenario: Account password must be not equal to username
+Scenario: Account password must be not equal to email
 
 Meta:
 @id_s36u77s11
 
-Given the user runs the symfony:user:create command with params: email 'test.s36u77s6@lighthouse.pro' and password 'lighthouse'
+Given the user runs the symfony:user:create command with params: generated email and common password
 
 Given the user opens user edit page
-And the user logs in using 'test.s36u77s6@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in using generated email and common password
 
 When the user inputs values on user edit page
 | elementName | value |
@@ -119,17 +119,17 @@ And the user clicks on save user data button
 
 Then the user sees exact error messages
 | error message |
-| Логин и пароль не должны совпадать |
+| E-mail и пароль не должны совпадать |
 
 Scenario: Account password validation positive
 
 Meta:
 @id_s36u77s12
 
-Given the user runs the symfony:user:create command with params: email 'test.s36u77s7@lighthouse.pro' and password 'lighthouse'
+Given the user runs the symfony:user:create command with params: generated email and common password
 
 Given the user opens user edit page
-And the user logs in using 'test.s36u77s7@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in using generated email and common password
 
 When the user inputs values on user edit page
 | elementName | value |
@@ -157,17 +157,17 @@ And the user clicks on save user data button
 
 Then the user sees exact error messages
 | error message |
-| Пользователь с таким логином уже существует |
+| Пользователь с таким email уже существует |
 
 Scenario: Account email is required
 
 Meta:
 @id_s36u77s14
 
-Given the user runs the symfony:user:create command with params: email 'test.s36u77s10@lighthouse.pro' and password 'lighthouse'
+Given the user runs the symfony:user:create command with params: generated email and common password
 
 Given the user opens user edit page
-And the user logs in using 'test.s36u77s10@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in using generated email and common password
 
 When the user inputs values on user edit page
 | elementName | value |
