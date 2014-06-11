@@ -46,7 +46,7 @@
     color: #D4D4D4;
 }
 
-.globalNavigation__links a {
+.globalNavigation__link {
     height: 40px;
     line-height: 41px;
     vertical-align: middle;
@@ -64,11 +64,6 @@
 }
 
 .globalNavigation__userName {
-}
-
-.globalNavigation__links {
-    float: left;
-    height: 100%;
 }
 
 .globalNavigation__active {
