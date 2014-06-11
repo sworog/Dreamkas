@@ -7,11 +7,13 @@
 
 <div class="localNavigation">
 
-    <a href="?edit=<%- params.edit === '1' ? '0' : '1' %>" style="white-space: nowrap" class="localNavigation__link catalog__editLink">
-        <%- params.edit === '1' ? 'Завершить редактирование' : 'Редактировать' %>
-    </a>
+    <div class="localNavigation__section">
+        <a href="?edit=<%- params.edit === '1' ? '0' : '1' %>" style="white-space: nowrap" class="localNavigation__link catalog__editLink">
+            <%- params.edit === '1' ? 'Завершить редактирование' : 'Редактировать' %>
+        </a>
 
-    <a class="localNavigation__link catalog__exportLink">Выгрузить в SetRetail</a>
+        <a class="localNavigation__link catalog__exportLink">Выгрузить в SetRetail</a>
+    </div>
 
     <% if (models.group) { %>
         <a href="?section=categories" class="localNavigation__link">Категории</a>

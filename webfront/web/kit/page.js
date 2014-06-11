@@ -15,6 +15,7 @@ define(function(require, exports, module) {
 
             if (Page.current && Page.current.route === request.route){
                 Page.current.set(request);
+                router.save(Page.current.params);
                 return;
             }
 
@@ -84,12 +85,6 @@ define(function(require, exports, module) {
                     .addClass('page__tabItem_active')
                     .siblings('.page__tabItem')
                     .removeClass('page__tabItem_active');
-            }
-        },
-
-        listeners: {
-            'change:params': function(params) {
-                router.save(params);
             }
         },
 
