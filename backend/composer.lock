@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0e94b850ab3909b3069c30da566930e2",
+    "hash": "cb1db8abf2193b99924d29c8854f0f6b",
     "packages": [
         {
             "name": "clamidity/profiler-bundle",
@@ -54,6 +54,36 @@
                 "source": "https://github.com/munkie/ProfilerBundle/tree/master"
             },
             "time": "2013-12-12 12:02:53"
+        },
+        {
+            "name": "crystalservice/samba",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/crystalservice/samba.git",
+                "reference": "06175089b3e83ba67b70b4684fcf4d2d57a1eb68"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/crystalservice/samba/zipball/06175089b3e83ba67b70b4684fcf4d2d57a1eb68",
+                "reference": "06175089b3e83ba67b70b4684fcf4d2d57a1eb68",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Samba\\": "src/Samba/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Samba stream wrapper",
+            "time": "2014-06-11 17:17:47"
         },
         {
             "name": "doctrine/annotations",
@@ -4131,6 +4161,7 @@
         "doctrine/data-fixtures": 20,
         "munkie/karzer": 20,
         "clamidity/profiler-bundle": 20,
+        "crystalservice/samba": 20,
         "munkie/phpunit-teamcity-testlistener": 20
     },
     "platform": {
