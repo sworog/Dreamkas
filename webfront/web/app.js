@@ -82,7 +82,7 @@ define(function(require) {
         if (e.currentTarget.dataset.navigate !== '0') {
             e.preventDefault();
 
-            router.navigate(e.currentTarget.href.split(document.location.origin)[1]);
+            router.navigate(e.currentTarget.href ? e.currentTarget.href.split(document.location.origin)[1] : e.currentTarget.getAttribute('href'));
         }
     });
 

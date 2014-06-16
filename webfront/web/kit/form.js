@@ -132,7 +132,7 @@ define(function(require) {
                 block.elements.controls.dataset.error = typeof errors.error === 'string' ? block.getText(errors.error) : block.getText('неизвестная ошибка: ' + response.statusText);
             }
 
-            if (errors.errors.length) {
+            if (errors.errors && errors.errors.length) {
                 block.elements.controls.dataset.error = errors.errors.join(', ');
             }
 
