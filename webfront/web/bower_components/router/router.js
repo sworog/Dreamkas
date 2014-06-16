@@ -95,7 +95,12 @@ define(function(require) {
             return this;
         },
 
-        save: function(params) {
+        save: function(params, options) {
+
+            options = _.extend({
+                trigger: false,
+                replace: false
+            }, options);
 
             if (!_.isPlainObject(params)) {
                 return;
@@ -120,9 +125,7 @@ define(function(require) {
 
             fragment = new Uri(fragment).setQuery(params).toString();
 
-            router.navigate(fragment, {
-                trigger: false
-            });
+            router.navigate(fragment, options);
         },
 
         // Get the cross-browser normalized URL fragment, either from the URL,

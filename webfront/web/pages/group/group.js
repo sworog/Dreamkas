@@ -31,7 +31,7 @@ define(function(require, exports, module) {
                     e.target.classList.remove('preloader_stripes');
                 });
             },
-            'click .group__editLink': function(e){
+            'click .catalog__editGroupLink': function(e){
                 e.preventDefault();
 
                 var page = this;
@@ -41,15 +41,15 @@ define(function(require, exports, module) {
                     model: page.models.group
                 });
             },
-            'click .group__addCategoryLink': function(e) {
+            'click .catalog__addCategoryLink': function(e) {
                 e.preventDefault();
 
                 var page = this;
 
                 page.blocks.tooltip_categoryForm.show({
                     trigger: e.target,
-                    model: new CategoryModel({
-                        group: page.models.group.toJSON()
+                    model: new CategoryModel({}, {
+                        group: page.models.group
                     })
                 });
             },
@@ -96,8 +96,10 @@ define(function(require, exports, module) {
                     Tooltip_categoryForm = require('blocks/tooltip/tooltip_categoryForm/tooltip_categoryForm');
 
                 return new Tooltip_categoryForm({
-                    collection: page.models.group.collections.categories
-
+                    collection: page.models.group.collections.categories,
+                    models: {
+                        group: page.models.group
+                    }
                 });
             },
             tooltip_groupMenu: require('blocks/tooltip/tooltip_groupMenu/tooltip_groupMenu'),

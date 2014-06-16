@@ -13,7 +13,9 @@ define(function(require) {
                         var block = this;
 
                         if (block.collection){
-                            block.model = new CategoryModel();
+                            block.model = new CategoryModel({}, {
+                                group: block.models.group
+                            });
                             block.render();
                             block._startListening();
                             block.el.querySelector('[type="text"]').focus();

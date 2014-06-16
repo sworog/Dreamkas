@@ -14,12 +14,10 @@ define(function(require) {
                     rounding: this.get('rounding.name')
                 }
             },
-            initialize: function() {
-
-                console.log(this.collection.group);
+            initialize: function(data, opt) {
 
                 this.models = {
-                    group: this.collection.group
+                    group: this.collection ? this.collection.group : opt.group
                 };
 
                 this.collections = {

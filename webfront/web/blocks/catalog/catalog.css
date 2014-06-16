@@ -1,4 +1,4 @@
-.catalog__groupItem{
+.catalog__groupItem {
     display: inline-block;
     vertical-align: top;
     width: 50%;
@@ -8,54 +8,48 @@
     margin-right: -5px;
 }
 
-.catalog__addGroupLink{
+.catalog__addGroupLink {
     visibility: hidden;
 }
 
-.catalog__groupList .page__editLink{
-    margin-left: -25px;
+.catalog__groupList .page__editLink,
+.catalog__categoryList .page__editLink {
     visibility: hidden;
 }
 
 .catalog_edit_1 .page__editLink,
 .catalog_edit_1 .catalog__addGroupLink,
-.catalog_edit_1 .group__addCategoryLink {
-    visibility: visible;
-}{
+.catalog_edit_1 .catalog__addCategoryLink {
     visibility: visible;
 }
 
-.catalog__groupLink{
+.catalog__groupLink {
     vertical-align: middle;
 }
 
-.catalog__categoryList{
+.catalog__categoryList {
     padding: 0;
     margin: 0;
     list-style: none;
 }
 
-.catalog__categoryItem{
-    margin: 0 10px 5px 0;
+.catalog__categoryItem {
+    margin: 0 15px 5px 0;
     display: inline-block;
     vertical-align: middle;
 }
 
-.catalog__categoryLink{
-    margin-right: 4px;
-}
-
-.catalog__groupTitle{
+.catalog__groupTitle {
     padding-bottom: 10px;
 }
 
-.catalog__groupNavigation{
+.catalog__groupNavigation {
     float: right;
     width: 200px;
     padding-left: 40px;
 }
 
-.catalog__groupNavigationLink{
+.catalog__groupNavigationLink {
     display: block;
     border-bottom: 1px solid #eee;
     border-top: 1px solid #eee;
@@ -66,11 +60,11 @@
     z-index: 1;
 }
 
-.catalog__groupNavigationLink:hover{
+.catalog__groupNavigationLink:hover {
     background-color: #f4f4f4;
 }
 
-.catalog__groupNavigationLink_active{
+.catalog__groupNavigationLink_active {
     background-color: #fafafa;
     color: #000;
     cursor: default;

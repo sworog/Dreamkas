@@ -12,10 +12,10 @@
     <div class="catalog__groupItem">
         <h2 class="catalog__groupTitle">
 
-            <a data-group_id="<%- groupModel.id %>" class="page__editLink catalog__editGroupLink"></a>
-
             <a href="/groups/<%- groupModel.id %>?edit=<%- PAGE.params.edit %>"
                class="catalog__groupLink"><%= groupModel.get('name') %></a>
+
+            <a data-group_id="<%- groupModel.id %>" class="page__editLink catalog__editGroupLink"></a>
 
         </h2>
 

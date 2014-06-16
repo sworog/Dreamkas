@@ -13,12 +13,12 @@
     <% collections.categories.forEach(function(categoryModel){ %>
     <div class="catalog__categoryItem">
 
+        <a href="/groups/<%- groupModel.id %>/categories/<%- categoryModel.id %>?edit=<%- PAGE.params.edit %>"
+           class="catalog__categoryLink"><%= categoryModel.get('name') %></a>
+
         <a data-group_id="<%- groupModel.id %>"
            data-category_id="<%- categoryModel.id %>"
            class="page__editLink catalog__editCategoryLink"></a>
-
-        <a href="/groups/<%- groupModel.id %>/categories/<%- categoryModel.id %>?edit=<%- PAGE.params.edit %>"
-           class="catalog__categoryLink"><%= categoryModel.get('name') %></a>
 
     </div>
     <% }) %>

@@ -15,7 +15,9 @@ define(function(require, exports, module) {
 
             if (Page.current && Page.current.route === request.route){
                 Page.current.set(request);
-                router.save(Page.current.params);
+                router.save(Page.current.params, {
+                    replace: true
+                });
                 return;
             }
 
