@@ -205,6 +205,24 @@ define(function(require, exports, module) {
                 }
 
             });
+        },
+        _removeBlocks: function(){
+            var block = this;
+
+            _.forEach(block.blocks, function(blockToDestroy, blockName) {
+
+                var parentNode = blockToDestroy.el.parentNode;
+
+                if (parentNode) {
+                    parentNode.removeChild(blockToDestroy.el);
+                }
+
+                if (blockToDestroy && typeof blockToDestroy.destroy === 'function') {
+                    blockToDestroy.destroy();
+                    delete block.blocks[blockName];
+                }
+
+            });
         }
     });
 });

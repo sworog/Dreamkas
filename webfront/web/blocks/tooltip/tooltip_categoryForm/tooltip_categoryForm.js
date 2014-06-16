@@ -4,7 +4,6 @@ define(function(require) {
             CategoryModel = require('models/category');
 
         return Tooltip.extend({
-            newCategory: false,
             model: null,
             collection: null,
             template: require('tpl!./template.ejs'),
@@ -13,7 +12,7 @@ define(function(require) {
                     'submit:success': function() {
                         var block = this;
 
-                        if (block.newCategory){
+                        if (block.collection){
                             block.model = new CategoryModel();
                             block.render();
                             block._startListening();

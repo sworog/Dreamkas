@@ -8,13 +8,20 @@ define(function(require) {
             saveData: function() {
                 return {
                     name: this.get('name'),
-                    group: this.get('group.id'),
+                    group: this.models.group.id,
                     retailMarkupMax: this.get('retailMarkupMax'),
                     retailMarkupMin: this.get('retailMarkupMin'),
                     rounding: this.get('rounding.name')
                 }
             },
             initialize: function() {
+
+                console.log(this.collection.group);
+
+                this.models = {
+                    group: this.collection.group
+                };
+
                 this.collections = {
                     subCategories: new SubCategoriesCollections(this.get('subCategories'))
                 };

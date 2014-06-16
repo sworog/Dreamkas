@@ -45,6 +45,7 @@ define(function(require) {
 
             deepExtend(block, opt);
 
+            block._removeBlocks();
             block.render();
             block.align();
 

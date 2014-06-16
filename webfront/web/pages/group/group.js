@@ -48,11 +48,8 @@ define(function(require, exports, module) {
 
                 page.blocks.tooltip_categoryForm.show({
                     trigger: e.target,
-                    collection: page.models.group.collections.categories,
                     model: new CategoryModel({
-                        group: {
-                            id: page.models.group.id
-                        }
+                        group: page.models.group.toJSON()
                     })
                 });
             },
@@ -95,10 +92,12 @@ define(function(require, exports, module) {
         },
         blocks: {
             tooltip_categoryForm: function(){
-                var Tooltip_categoryForm = require('blocks/tooltip/tooltip_categoryForm/tooltip_categoryForm');
+                var page = this,
+                    Tooltip_categoryForm = require('blocks/tooltip/tooltip_categoryForm/tooltip_categoryForm');
 
                 return new Tooltip_categoryForm({
-                    newCategory: true
+                    collection: page.models.group.collections.categories
+
                 });
             },
             tooltip_groupMenu: require('blocks/tooltip/tooltip_groupMenu/tooltip_groupMenu'),

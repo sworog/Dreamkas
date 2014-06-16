@@ -9,7 +9,9 @@ define(function(require) {
             },
             initialize: function() {
                 this.collections = {
-                    categories: new CategoriesCollection(this.get('categories'))
+                    categories: new CategoriesCollection(this.get('categories'), {
+                        group: this
+                    })
                 }
             },
             urlRoot: function() {
