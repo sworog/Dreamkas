@@ -8,12 +8,9 @@
     margin-right: -5px;
 }
 
-.catalog__addGroupLink {
-    visibility: hidden;
-}
-
-.catalog__groupList .page__editLink,
-.catalog__categoryList .page__editLink {
+.catalog .page__editLink,
+.catalog__addGroupLink,
+.catalog__addCategoryLink {
     visibility: hidden;
 }
 
