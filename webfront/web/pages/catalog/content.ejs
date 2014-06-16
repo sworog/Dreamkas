@@ -17,6 +17,8 @@
     </h1>
 
     <%= collections.groups.element(require('tpl!blocks/catalog/groupList.ejs'), {
-        collections: _.pick(collections, 'groups')
+        collections: {
+            groups: collections.groups
+        }
     }) %>
 </div>

@@ -5,10 +5,10 @@
  */
 %>
 
-<% var CategoryModel = require('models/group') %>
-<% var model = model || new CategoryModel() %>
+<% var GroupModel = require('models/group') %>
+<% var model = model || new GroupModel() %>
 
-<div class="tooltip tooltip_groupForm">
+<div class="tooltip tooltip_categoryForm">
     <form class="form">
         <div class="form__field" style="white-space: nowrap; padding-bottom: 0;">
 
@@ -17,7 +17,7 @@
                    class="inputText"
                    type="text"
                    name="name"
-                   placeholder="Название группы">
+                   placeholder="Название категории">
 
             <button type="submit" class="button">
                 Подтвердить

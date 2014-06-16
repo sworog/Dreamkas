@@ -2,7 +2,6 @@ define(function(require, exports, module) {
     //requirements
     var config = require('config'),
         get = require('kit/get/get'),
-        $ = require('jquery'),
         _ = require('lodash');
 
     require('backbone');
@@ -59,7 +58,7 @@ define(function(require, exports, module) {
 
             return nodeTemplate;
         }
-    });
+    }).extend();
 
     Model.baseApiUrl = config.baseApiUrl;
     Model.mockApiUrl = config.mockApiUrl;

@@ -5,25 +5,26 @@ define(function(require) {
 
         return Model.extend({
             urlRoot: Model.baseApiUrl + '/categories',
-            collections: {
-                subCategories: require('collections/subCategories')
-            },
-            saveData: function(){
+            saveData: function() {
                 return {
                     name: this.get('name'),
-                    group: this.get('group'),
+                    group: this.get('group.id'),
                     retailMarkupMax: this.get('retailMarkupMax'),
                     retailMarkupMin: this.get('retailMarkupMin'),
                     rounding: this.get('rounding.name')
                 }
             },
             initialize: function() {
-                this.collections.subCategories = new SubCategoriesCollections();
+                this.collections = {
+                    subCategories: new SubCategoriesCollections(this.get('subCategories'))
+                };
             },
-            parse: function(response, options) {
+            parse: function() {
                 var data = Model.prototype.parse.apply(this, arguments);
 
-                this.collections.subCategories.reset(data.subCategories);
+                if (this.collections){
+                    this.collections.subCategories.reset(data.subCategories);
+                }
 
                 return data;
             }

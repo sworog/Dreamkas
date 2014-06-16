@@ -7,20 +7,19 @@ define(function(require) {
             defaults: {
                 storeId: null
             },
-            initialize: function(){
-                this.collections.categories = new CategoriesCollection();
+            initialize: function() {
+                this.collections = {
+                    categories: new CategoriesCollection(this.get('categories'))
+                }
             },
-            urlRoot: function(){
-                if (this.get('storeId')){
+            urlRoot: function() {
+                if (this.get('storeId')) {
                     return Model.baseApiUrl + '/stores/' + this.get('storeId') + '/groups';
                 } else {
                     return Model.baseApiUrl + '/groups';
                 }
             },
-            collections: {
-                categories: null
-            },
-            saveData: function(){
+            saveData: function() {
                 return {
                     name: this.get('name'),
                     retailMarkupMax: this.get('retailMarkupMax'),
@@ -31,9 +30,9 @@ define(function(require) {
             parse: function(response, options) {
                 var data = Model.prototype.parse.apply(this, arguments);
 
-                this.collections.categories = this.collections.categories || new CategoriesCollection();
-
-                this.collections.categories.reset(data.categories);
+                if (this.collections){
+                    this.collections.categories.reset(data.categories);
+                }
 
                 return data;
             }

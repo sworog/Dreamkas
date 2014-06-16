@@ -1,19 +1,20 @@
 define(function(require) {
         //requirements
         var Tooltip = require('blocks/tooltip/tooltip'),
-            GroupModel = require('models/group');
+            CategoryModel = require('models/category');
 
         return Tooltip.extend({
+            newCategory: false,
             model: null,
             collection: null,
             template: require('tpl!./template.ejs'),
             listeners: {
-                'blocks.form_group': {
+                'blocks.form_category': {
                     'submit:success': function() {
                         var block = this;
 
-                        if (block.collection){
-                            block.model = new GroupModel();
+                        if (block.newCategory){
+                            block.model = new CategoryModel();
                             block.render();
                             block._startListening();
                             block.el.querySelector('[type="text"]').focus();
@@ -24,7 +25,7 @@ define(function(require) {
                 }
             },
             blocks: {
-                form_group: function(){
+                form_category: function(){
                     var block = this,
                         Form = require('kit/form');
 

@@ -10,7 +10,7 @@ define(function(require) {
                 if (this.storeId) {
                     return Collection.baseApiUrl + '/stores/' + this.storeId + '/groups/' + this.groupId + '/categories'
                 } else {
-                    return Collection.baseApiUrl + '/groups/' + this.group + '/categories'
+                    return Collection.baseApiUrl + '/groups/' + this.groupId + '/categories'
                 }
             }
         });

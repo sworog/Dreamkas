@@ -36,12 +36,12 @@ define(function(require) {
                 deepExtend(child.prototype, protoProps);
             }
 
-            return deepExtend(child, {
+            return deepExtend(child, parent, {
                 extend: function() {
                     var args = [this].concat([].slice.call(arguments));
                     return makeClass.apply(null, args);
                 }
-            }, parent);
+            });
         };
     }
 );

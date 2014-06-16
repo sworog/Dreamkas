@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var deepExtend = require('kit/deepExtend/deepExtend'),
-        makeClass = require('kit/makeClass/makeClass'),
+        makeClass = require('kit/makeClass'),
         events = require('kit/events/events'),
         get = require('kit/get/get'),
         set = require('kit/set/set');
