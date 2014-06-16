@@ -45,6 +45,16 @@ define(function(require) {
                     trigger: e.target,
                     model: page.collections.groups.get(e.target.dataset.group_id)
                 });
+            },
+            'click .catalog__editCategoryLink': function(e){
+                e.preventDefault();
+
+                var page = this;
+
+                page.blocks.tooltip_categoryMenu.show({
+                    trigger: e.target,
+                    model: page.collections.groups.get(e.target.dataset.group_id).collections.categories.get(e.target.dataset.category_id)
+                });
             }
         },
         listeners: {
@@ -70,7 +80,8 @@ define(function(require) {
                     collection: page.collections.groups
                 });
             },
-            tooltip_groupMenu: require('blocks/tooltip/tooltip_groupMenu/tooltip_groupMenu')
+            tooltip_groupMenu: require('blocks/tooltip/tooltip_groupMenu/tooltip_groupMenu'),
+            tooltip_categoryMenu: require('blocks/tooltip/tooltip_categoryMenu/tooltip_categoryMenu')
         }
     });
 });

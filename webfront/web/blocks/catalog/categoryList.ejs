@@ -1,7 +1,8 @@
 <%
 /**
  *
- * @collections.categories
+ * @collections.categories,
+ * @groupModel
  */
 %>
 
@@ -10,11 +11,13 @@
     <% if(collections.categories.length) { %>
 
     <% collections.categories.forEach(function(categoryModel){ %>
-    <div data-category_id="<%- categoryModel.id %>" class="catalog__categoryItem">
+    <div class="catalog__categoryItem">
 
-        <a class="page__editLink catalog__editCategoryLink"></a>
+        <a data-group_id="<%- groupModel.id %>"
+           data-category_id="<%- categoryModel.id %>"
+           class="page__editLink catalog__editCategoryLink"></a>
 
-        <a href="/groups/<%- categoryModel.group %>/categories/<%- categoryModel.id %>?edit=<%- PAGE.params.edit %>"
+        <a href="/groups/<%- groupModel.id %>/categories/<%- categoryModel.id %>?edit=<%- PAGE.params.edit %>"
            class="catalog__categoryLink"><%= categoryModel.get('name') %></a>
 
     </div>

@@ -25,6 +25,7 @@
     </h1>
 
     <%= models.group.collections.categories.element(require('tpl!blocks/catalog/categoryList.ejs'), {
+        groupModel: models.group,
         collections: {
             categories: models.group.collections.categories
         }
