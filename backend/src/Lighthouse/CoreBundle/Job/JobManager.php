@@ -83,10 +83,7 @@ class JobManager
 
         $jobId = $this->putJobInTube($job);
 
-        if (! $job->silent) {
-            $job->setPendingStatus($jobId);
-            $this->jobRepository->save($job);
-        }
+        $this->setPendingStatus($job, $jobId);
     }
 
     /**
@@ -208,50 +205,114 @@ class JobManager
             return null;
         }
 
-        $data = json_decode($tubeJob->getData(), true);
-        $silent = $data['silent'];
-        $jobId = $data['jobId'];
-        $projectId = $data['projectId'];
+        $jobData = $this->getJobDataArray($tubeJob);
+        $projectId = $jobData['projectId'];
 
         if (null === $this->projectContext->getCurrentProject()) {
             $this->projectContext->authenticateByProjectName($projectId);
         }
 
-        if ($silent) {
-            return $this->reserveSilentJob($data, $tubeJob);
-        }
-
         /* @var Job $job */
-        $job = $this->jobRepository->find($jobId);
-        if (!$job) {
-            $this->logger->critical(
-                sprintf(
-                    'Job #%s from tube was not found in repository by id #%s. Job will be deleted from tube.',
-                    $tubeJob->getId(),
-                    $jobId
-                )
-            );
-            $this->pheanstalk->delete($tubeJob);
-            throw new NotFoundJobException($jobId, $tubeJob->getId());
-        }
+        $job = $this->getJob($tubeJob, $jobData);
+
         $job->setTubeJob($tubeJob);
 
-        $job->setProcessingStatus();
-        $this->jobRepository->save($job);
+        $this->setProcessingStatus($job);
 
-        if (null === $this->projectContext->getCurrentProject()) {
-            $this->projectContext->logout();
+        return $job;
+    }
+
+    /**
+     * @param \Pheanstalk_Job $tubeJob
+     * @return array
+     */
+    protected function getJobDataArray(\Pheanstalk_Job $tubeJob)
+    {
+        return json_decode($tubeJob->getData(), true);
+    }
+
+    /**
+     * @param \Pheanstalk_Job $tubeJob
+     * @param array $jobData
+     * @return Job
+     * @throws NotFoundJobException
+     */
+    protected function getJob(\Pheanstalk_Job $tubeJob, array $jobData)
+    {
+        $silent = $jobData['silent'];
+        $jobId = $jobData['jobId'];
+        if ($silent) {
+            $job = $this->getSilentJob($tubeJob, $jobData);
+        } else {
+            $job = $this->jobRepository->find($jobId);
+            if (!$job) {
+                $this->logger->critical(
+                    sprintf(
+                        'Job #%s from tube was not found in repository by id #%s. Job will be deleted from tube.',
+                        $tubeJob->getId(),
+                        $jobId
+                    )
+                );
+                $this->pheanstalk->delete($tubeJob);
+                throw new NotFoundJobException($jobId, $tubeJob->getId());
+            }
         }
 
         return $job;
     }
 
     /**
-     * @param array $data
+     * @param Job $job
+     */
+    protected function setProcessingStatus(Job $job)
+    {
+        if (!$job->silent) {
+            $job->setProcessingStatus();
+            $this->jobRepository->save($job);
+        }
+    }
+
+    /**
+     * @param Job $job
+     */
+    protected function setSuccessStatus(Job $job)
+    {
+        if (!$job->silent) {
+            $job->setSuccessStatus();
+            $this->jobRepository->save($job);
+        }
+    }
+
+    /**
+     * @param Job $job
+     * @param Exception $exception
+     */
+    protected function setFailStatus(Job $job, Exception $exception)
+    {
+        if (!$job->silent) {
+            $job->setFailStatus($exception->getMessage());
+            $this->jobRepository->save($job);
+        }
+    }
+
+    /**
+     * @param Job $job
+     * @param $jobId
+     */
+    protected function setPendingStatus(Job $job, $jobId)
+    {
+        if (!$job->silent) {
+            $job->setPendingStatus($jobId);
+            $this->jobRepository->save($job);
+        }
+    }
+
+    /**
      * @param \Pheanstalk_Job $tubeJob
+     * @param array $data
      * @return Job
      */
-    protected function reserveSilentJob(array $data, $tubeJob)
+    protected function getSilentJob($tubeJob, array $data)
     {
         $jobClassName = $data['className'];
         /** @var Job $job */
@@ -259,7 +320,6 @@ class JobManager
 
         $job->setDataFromTube($data);
         $job->jobId = $tubeJob->getId();
-        $job->setTubeJob($tubeJob);
 
         return $job;
     }
@@ -275,20 +335,14 @@ class JobManager
 
             $this->pheanstalk->delete($job->getTubeJob());
 
-            if (! $job->silent) {
-                $job->setSuccessStatus();
-                $this->jobRepository->save($job);
-            }
+            $this->setSuccessStatus($job);
 
         } catch (Exception $e) {
             $this->logger->emergency($e);
 
             $this->pheanstalk->delete($job->getTubeJob());
 
-            if (! $job->silent) {
-                $job->setFailStatus($e->getMessage());
-                $this->jobRepository->save($job);
-            }
+            $this->setFailStatus($job, $e);
         }
     }
 }

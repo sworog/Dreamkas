@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods;
 
 use Lighthouse\CoreBundle\Document\Job\Job;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Lighthouse\CoreBundle\Document\Job\JobSilent;
 
 /**
  * @property string $storeProductId
@@ -13,7 +14,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
  *      collection="Jobs"
  * )
  */
-class CostOfGoodsCalculateJob extends Job
+class CostOfGoodsCalculateJob extends JobSilent
 {
     const TYPE = 'cost_of_goods_calculate';
 
@@ -22,11 +23,6 @@ class CostOfGoodsCalculateJob extends Job
      * @var string
      */
     protected $storeProductId;
-
-    /**
-     * @var bool
-     */
-    protected $silent = true;
 
     /**
      * @return string
