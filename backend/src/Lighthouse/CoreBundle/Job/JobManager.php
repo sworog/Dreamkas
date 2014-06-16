@@ -76,13 +76,17 @@ class JobManager
      */
     public function addJob(Job $job)
     {
-        // save job if it was not saved before
-        $this->jobRepository->save($job);
+        if (! $job->silent) {
+            // save job if it was not saved before
+            $this->jobRepository->save($job);
+        }
 
         $jobId = $this->putJobInTube($job);
 
-        $job->setPendingStatus($jobId);
-        $this->jobRepository->save($job);
+        if (! $job->silent) {
+            $job->setPendingStatus($jobId);
+            $this->jobRepository->save($job);
+        }
     }
 
     /**
@@ -93,11 +97,11 @@ class JobManager
     {
         $worker = $this->workerManager->getByJob($job);
         $tubeName = $worker->getName();
-        $data = json_encode(array(
-                'jobId' => $job->id,
-                'projectId' => $this->projectContext->getCurrentProject()->getName(),
-            ));
-        return $this->pheanstalk->putInTube($tubeName, $data);
+        $data = $job->getTubeData() + array(
+            'projectId' => $this->projectContext->getCurrentProject()->getName(),
+        );
+        $jsonData = json_encode($data);
+        return $this->pheanstalk->putInTube($tubeName, $jsonData);
     }
 
     /**
@@ -205,11 +209,16 @@ class JobManager
         }
 
         $data = json_decode($tubeJob->getData(), true);
-
+        $silent = $data['silent'];
         $jobId = $data['jobId'];
         $projectId = $data['projectId'];
+
         if (null === $this->projectContext->getCurrentProject()) {
             $this->projectContext->authenticateByProjectName($projectId);
+        }
+
+        if ($silent) {
+            return $this->reserveSilentJob($data, $tubeJob);
         }
 
         /* @var Job $job */
@@ -238,6 +247,24 @@ class JobManager
     }
 
     /**
+     * @param array $data
+     * @param \Pheanstalk_Job $tubeJob
+     * @return Job
+     */
+    protected function reserveSilentJob(array $data, $tubeJob)
+    {
+        $jobClassName = $data['className'];
+        /** @var Job $job */
+        $job = new $jobClassName;
+
+        $job->setDataFromTube($data);
+        $job->jobId = $tubeJob->getId();
+        $job->setTubeJob($tubeJob);
+
+        return $job;
+    }
+
+    /**
      * @param Job $job
      */
     public function processJob(Job $job)
@@ -248,16 +275,20 @@ class JobManager
 
             $this->pheanstalk->delete($job->getTubeJob());
 
-            $job->setSuccessStatus();
-            $this->jobRepository->save($job);
+            if (! $job->silent) {
+                $job->setSuccessStatus();
+                $this->jobRepository->save($job);
+            }
 
         } catch (Exception $e) {
             $this->logger->emergency($e);
 
             $this->pheanstalk->delete($job->getTubeJob());
 
-            $job->setFailStatus($e->getMessage());
-            $this->jobRepository->save($job);
+            if (! $job->silent) {
+                $job->setFailStatus($e->getMessage());
+                $this->jobRepository->save($job);
+            }
         }
     }
 }

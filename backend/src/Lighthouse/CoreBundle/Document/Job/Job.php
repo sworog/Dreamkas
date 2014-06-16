@@ -18,6 +18,7 @@ use DateTime;
  * @property DateTime $dateStarted
  * @property DateTime $dateFinished
  * @property float $duration
+ * @property bool $silent
  *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Job\JobRepository",
@@ -114,6 +115,12 @@ class Job extends AbstractDocument
     protected $tubeJob;
 
     /**
+     * @Serializer\Exclude
+     * @var bool
+     */
+    protected $silent = false;
+
+    /**
      *
      */
     public function __construct()
@@ -201,5 +208,25 @@ class Job extends AbstractDocument
     public function getTubeJob()
     {
         return $this->tubeJob;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTubeData()
+    {
+        return array(
+            'jobId' => $this->id,
+            'silent' => $this->silent,
+            'className' => $this->getClassName(),
+        );
+    }
+
+    /**
+     * @param array $tubeData
+     */
+    public function setDataFromTube(array $tubeData)
+    {
+        $this->silent = $tubeData['silent'];
     }
 }

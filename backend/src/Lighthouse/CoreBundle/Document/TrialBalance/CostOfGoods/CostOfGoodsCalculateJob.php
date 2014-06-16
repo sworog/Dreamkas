@@ -24,10 +24,37 @@ class CostOfGoodsCalculateJob extends Job
     protected $storeProductId;
 
     /**
+     * @var bool
+     */
+    protected $silent = true;
+
+    /**
      * @return string
      */
     public function getType()
     {
         return CostOfGoodsCalculateJob::TYPE;
+    }
+
+    /**
+     * @return array
+     */
+    public function getTubeData()
+    {
+        $data = parent::getTubeData();
+        $data['storeProjectId'] = $this->storeProductId;
+
+        return $data;
+    }
+
+    /**
+     * @param array $tubeData
+     */
+    public function setDataFromTube(array $tubeData)
+    {
+        parent::setDataFromTube($tubeData);
+
+        $this->id = $tubeData['jobId'];
+        $this->storeProductId = $tubeData['storeProjectId'];
     }
 }
