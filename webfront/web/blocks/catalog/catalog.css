@@ -14,10 +14,18 @@
     visibility: hidden;
 }
 
-.catalog_edit_1 .page__editLink,
-.catalog_edit_1 .catalog__addGroupLink,
-.catalog_edit_1 .catalog__addCategoryLink {
+.catalog[edit="1"] .page__editLink,
+.catalog[edit="1"] .catalog__addGroupLink,
+.catalog[edit="1"] .catalog__addCategoryLink {
     visibility: visible;
+}
+
+.catalog[section="categories"] .form_groupProperties {
+    display: none;
+}
+
+.catalog[section="settings"] .catalog__categoryList {
+    display: none;
 }
 
 .catalog__groupLink {

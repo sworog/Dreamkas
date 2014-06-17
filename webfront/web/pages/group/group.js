@@ -70,6 +70,12 @@ define(function(require, exports, module) {
 
                 page.render();
             },
+            'change:params.section': function(section){
+                var page = this;
+
+                page.el.querySelector('.content').setAttribute('section', section);
+                page.el.querySelector('input[type="text"]').focus();
+            },
             'models.group': {
                 destroy: function(){
                     router.navigate('/catalog?edit=' + PAGE.params.edit);
@@ -103,7 +109,15 @@ define(function(require, exports, module) {
                 });
             },
             tooltip_groupMenu: require('blocks/tooltip/tooltip_groupMenu/tooltip_groupMenu'),
-            tooltip_categoryMenu: require('blocks/tooltip/tooltip_categoryMenu/tooltip_categoryMenu')
+            tooltip_categoryMenu: require('blocks/tooltip/tooltip_categoryMenu/tooltip_categoryMenu'),
+            form_groupProperties: function(){
+                var page = this,
+                    Form_groupProperties = require('blocks/form/form_groupProperties/form_groupProperties');
+
+                return new Form_groupProperties({
+                    model: page.models.group
+                });
+            }
         }
     });
 });

@@ -4,8 +4,11 @@
  * @models.group
  */
 %>
+<% var partials = _.extend({
+    select_priceRoundings: require('tpl!blocks/select/select_priceRoundings/select_priceRoundings.ejs')
+}, partials) %>
 
-<div class="content catalog catalog_edit_<%- PAGE.params.edit %>">
+<div class="content catalog" edit="<%- PAGE.params.edit %>" section="<%- PAGE.params.section %>">
     <div class="page__header">
         <a href="/catalog?edit=<%- PAGE.params.edit %>" class="page__backLink">
             Товарный справочник
@@ -30,4 +33,44 @@
             categories: models.group.collections.categories
         }
     }) %>
+
+    <form class="form form_groupProperties">
+        <div class="form__field form__field_inline">
+
+            <label class="form__label">Минимальная наценка</label>
+
+            <input value="<%- models.group.get('retailMarkupMin') %>"
+                   autofocus
+                   class="inputText"
+                   type="text"
+                   name="retailMarkupMin"/>
+
+            <span class="inputText__postfix">%</span>
+        </div>
+        <div class="form__field form__field_inline">
+
+            <label class="form__label">Максимальная наценка</label>
+
+            <input value="<%- models.group.get('retailMarkupMax') %>"
+                   class="inputText"
+                   type="text"
+                   name="retailMarkupMax"/>
+
+            <span class="inputText__postfix">%</span>
+        </div>
+        <div class="form__field form__field_inline">
+
+            <label class="form__label">Округление</label>
+
+            <%= partials.select_priceRoundings({
+                selected: models.group.get('rounding')
+            }) %>
+        </div>
+        <div class="form__controls">
+            <button type="submit" lh-button class="button">
+                Сохранить
+            </button>
+        </div>
+    </form>
+
 </div>
