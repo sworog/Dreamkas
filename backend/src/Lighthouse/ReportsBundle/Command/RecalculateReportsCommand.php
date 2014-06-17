@@ -2,6 +2,7 @@
 
 namespace Lighthouse\ReportsBundle\Command;
 
+use Lighthouse\CoreBundle\Command\ProjectableCommand;
 use Lighthouse\ReportsBundle\Reports\GrossMargin\GrossMarginManager;
 use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesReportManager;
 use Symfony\Component\Console\Command\Command;
@@ -13,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  * @DI\Service("lighthouse.reports.command.recalculate")
  * @DI\Tag("console.command")
  */
-class RecalculateReportsCommand extends Command
+class RecalculateReportsCommand extends Command implements ProjectableCommand
 {
     /**
      * @var GrossSalesReportManager
