@@ -198,17 +198,18 @@ namespace :symfony do
 
     namespace :user do
 
-        def create_api_user(email, password, role)
-            capture console_command("lighthouse:user:create #{email} #{password} #{role}")
+        def create_api_user(email, password, role, customProjectName)
+            capture console_command("lighthouse:user:create #{email} #{password} #{role} --customProjectName=#{customProjectName}")
         end
 
-        desc "Create user, required: -S email=<..> -S userpass=<..>, optional: -S userrole=<..> (administrator by default)"
+        desc "Create user, required: -S email=<..> -S userpass=<..>, optional: -S userrole=<..> (administrator by default) -S customProjectName=<..>"
         task :create, :roles => :app, :except => { :no_release => true } do
             puts "--> Creating user"
             raise "email should be provided by -S email=.." unless exists?(:email)
             raise "userpass should be provided by -S userpass=.." unless exists?(:userpass)
             set :userrole, "" unless exists?(:userrole)
-            puts create_api_user(email, userpass, userrole)
+            set :customProjectName, "" unless exists?(:customProjectName)
+            puts create_api_user(email, userpass, userrole, customProjectName)
             capifony_puts_ok
         end
 
@@ -220,7 +221,7 @@ namespace :symfony do
             end
             api_users.each do |api_user|
                 puts "--> Creating user " + api_user['email'].green
-                puts create_api_user(api_user['email'], api_user['userpass'], api_user['userrole'])
+                puts create_api_user(api_user['email'], api_user['userpass'], api_user['userrole'], "")
             end
             end
         end
