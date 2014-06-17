@@ -70,7 +70,8 @@ class CreateUser extends Command
                 'User roles',
                 User::getDefaultRoles()
             )
-            ->addOption('project', null, InputOption::VALUE_OPTIONAL, 'Project', true);
+            ->addOption('project', null, InputOption::VALUE_OPTIONAL, 'Project', true)
+            ->addOption('customProjectName', null, InputOption::VALUE_OPTIONAL, 'Custom project name', null);
     }
 
     /**
@@ -94,9 +95,13 @@ class CreateUser extends Command
         $user->position = reset($roles);
 
         $projectId = $input->getOption('project');
+        $customProjectName = $input->getOption('customProjectName');
 
         if (true === $projectId) {
             $project = $this->projectRepository->createNew();
+            if (null !== $customProjectName) {
+                $project->name = $customProjectName;
+            }
         } elseif (null !== $projectId) {
             $project = $this->projectRepository->find($projectId);
             if (!$project) {
