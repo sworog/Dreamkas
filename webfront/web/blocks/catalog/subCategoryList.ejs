@@ -1,0 +1,29 @@
+<%
+/**
+ *
+ * @collections.subCategories,
+ */
+%>
+
+<div class="catalog__subCategoryList">
+
+    <% if(collections.subCategories.length) { %>
+
+    <% collections.subCategories.forEach(function(subCategoryModel){ %>
+    <div class="catalog__subCategoryItem">
+
+        <a href="?subCategoryId=<%- subCategoryModel.id %>"
+           class="catalog__subCategoryLink"><%= subCategoryModel.get('name') %></a>
+
+        <a data-subcategory_id="<%- subCategoryModel.id %>"
+           class="page__editLink catalog__editSubCategoryLink"></a>
+
+    </div>
+    <% }) %>
+
+    <% } else { %>
+
+    <p>Нет подкатегорий</p>
+
+    <% } %>
+</div>

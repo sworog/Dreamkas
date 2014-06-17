@@ -8,17 +8,17 @@ define(function(require) {
             saveData: function() {
                 return {
                     name: this.get('name'),
-                    group: this.models.group.id,
+                    group: this.get('groupId'),
                     retailMarkupMax: this.get('retailMarkupMax'),
                     retailMarkupMin: this.get('retailMarkupMin'),
                     rounding: this.get('rounding.name')
                 }
             },
-            initialize: function(data, opt) {
+            initialize: function() {
 
-                this.models = {
-                    group: this.collection ? this.collection.group : opt.group
-                };
+                if (!this.get('groupId')) {
+                    this.set('groupId', this.collection.groupId)
+                }
 
                 this.collections = {
                     subCategories: new SubCategoriesCollections(this.get('subCategories'))

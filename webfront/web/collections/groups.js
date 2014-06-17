@@ -1,12 +1,11 @@
 define(function(require) {
         //requirements
-        var Collection = require('kit/collection');
+        var Collection = require('kit/collection'),
+            _ = require('lodash');
 
         return Collection.extend({
             model: require('models/group'),
-            initialize: function(data, opt){
-                this.storeId = opt && opt.storeId;
-            },
+            storeId: null,
             url: function(){
                 if (this.store){
                     return Collection.baseApiUrl + '/stores/' + this.storeId + '/groups';

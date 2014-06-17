@@ -2,14 +2,15 @@ define(function(require, exports, module) {
     //requirements
     var Page = require('kit/page'),
         exportCatalog = require('kit/exportCatalog'),
-        CategoryModel = require('models/category'),
         router = require('router');
 
     return Page.extend({
         params: {
             edit: '0',
+            categoryId: null,
+            subCategoryId: null,
             groupId: null,
-            section: 'categories'
+            section: 'subCategories'
         },
         events: {
             'click .catalog__exportLink': function(e) {
@@ -31,28 +32,6 @@ define(function(require, exports, module) {
                     e.target.classList.remove('preloader_stripes');
                 });
             },
-            'click .catalog__editGroupLink': function(e){
-                e.preventDefault();
-
-                var page = this;
-
-                page.blocks.tooltip_groupMenu.show({
-                    trigger: e.target,
-                    model: page.models.group
-                });
-            },
-            'click .catalog__addCategoryLink': function(e) {
-                e.preventDefault();
-
-                var page = this;
-
-                page.blocks.tooltip_categoryForm.show({
-                    trigger: e.target,
-                    model: new CategoryModel({
-                        groupId: page.models.group.id
-                    })
-                });
-            },
             'click .catalog__editCategoryLink': function(e){
                 e.preventDefault();
 
@@ -60,7 +39,7 @@ define(function(require, exports, module) {
 
                 page.blocks.tooltip_categoryMenu.show({
                     trigger: e.target,
-                    model: page.models.group.collections.categories.get(e.target.dataset.category_id)
+                    model: page.models.category
                 });
             }
         },
@@ -76,15 +55,15 @@ define(function(require, exports, module) {
                 page.el.querySelector('.content').setAttribute('section', section);
                 page.el.querySelector('input[type="text"]').focus();
             },
-            'models.group': {
+            'models.category': {
                 destroy: function(){
-                    router.navigate('/catalog?edit=' + PAGE.params.edit);
+                    router.navigate('/groups/' + PAGE.params.groupId + '?edit=' + PAGE.params.edit);
                 }
             }
         },
         partials: {
             content: require('tpl!./content.ejs'),
-            localNavigation: require('tpl!blocks/localNavigation/localNavigation_group.ejs')
+            localNavigation: require('tpl!blocks/localNavigation/localNavigation_category.ejs')
         },
         models: {
             group: function(){
@@ -94,28 +73,26 @@ define(function(require, exports, module) {
                 return new GroupModel({
                     id: page.params.groupId
                 });
+            },
+            category: function(){
+                var CategoryModel = require('models/category'),
+                    page = this;
+
+                return new CategoryModel({
+                    groupId: page.params.groupId,
+                    id: page.params.categoryId
+                });
             }
         },
         blocks: {
-            tooltip_categoryForm: function(){
-                var page = this,
-                    Tooltip_categoryForm = require('blocks/tooltip/tooltip_categoryForm/tooltip_categoryForm');
-
-                return new Tooltip_categoryForm({
-                    collection: page.models.group.collections.categories,
-                    models: {
-                        group: page.models.group
-                    }
-                });
-            },
-            tooltip_groupMenu: require('blocks/tooltip/tooltip_groupMenu/tooltip_groupMenu'),
             tooltip_categoryMenu: require('blocks/tooltip/tooltip_categoryMenu/tooltip_categoryMenu'),
-            form_groupProperties: function(){
+            tooltip_subCategoryForm: require('blocks/tooltip/tooltip_subCategoryForm/tooltip_subCategoryForm'),
+            form_categoryProperties: function(){
                 var page = this,
-                    Form_groupProperties = require('blocks/form/form_groupProperties/form_groupProperties');
+                    Form_categoryProperties = require('blocks/form/form_categoryProperties/form_categoryProperties');
 
-                return new Form_groupProperties({
-                    model: page.models.group
+                return new Form_categoryProperties({
+                    model: page.models.category
                 });
             }
         }

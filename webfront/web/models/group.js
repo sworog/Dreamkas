@@ -10,7 +10,7 @@ define(function(require) {
             initialize: function() {
                 this.collections = {
                     categories: new CategoriesCollection(this.get('categories'), {
-                        group: this
+                        groupId: this.id
                     })
                 }
             },

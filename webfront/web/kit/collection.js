@@ -7,6 +7,9 @@ define(function(require, exports, module) {
     require('backbone');
 
     var Collection = Backbone.Collection.extend({
+        initialize: function(data, options){
+            _.extend(this, options);
+        },
         fetch: function(options) {
             return Backbone.Collection.prototype.fetch.call(this, _.extend({
                 reset: true

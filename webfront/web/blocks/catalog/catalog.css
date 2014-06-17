@@ -20,11 +20,13 @@
     visibility: visible;
 }
 
-.catalog[section="categories"] .form_groupProperties {
+.catalog[section="categories"] .form_groupProperties,
+.catalog[section="subCategories"] .form_categoryProperties {
     display: none;
 }
 
-.catalog[section="settings"] .catalog__categoryList {
+.catalog[section="settings"] .catalog__categoryList,
+.catalog[section="settings"] .catalog__subCategoryList {
     display: none;
 }
 
