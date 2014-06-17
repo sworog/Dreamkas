@@ -86,7 +86,7 @@ define(function(require, exports, module) {
         },
         blocks: {
             tooltip_categoryMenu: require('blocks/tooltip/tooltip_categoryMenu/tooltip_categoryMenu'),
-            tooltip_subCategoryForm: require('blocks/tooltip/tooltip_subCategoryForm/tooltip_subCategoryForm'),
+            //tooltip_subCategoryForm: require('blocks/tooltip/tooltip_subCategoryForm/tooltip_subCategoryForm'),
             form_categoryProperties: function(){
                 var page = this,
                     Form_categoryProperties = require('blocks/form/form_categoryProperties/form_categoryProperties');
