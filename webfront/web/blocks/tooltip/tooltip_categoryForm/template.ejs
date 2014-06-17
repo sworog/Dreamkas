@@ -5,14 +5,11 @@
  */
 %>
 
-<% var CategoryModel = require('models/category') %>
-<% var model = model || new CategoryModel() %>
-
 <div class="tooltip tooltip_categoryForm">
     <form class="form">
         <div class="form__field" style="white-space: nowrap; padding-bottom: 0;">
 
-            <input value="<%- model.get('name') %>"
+            <input value="<%- model && model.get('name') %>"
                    style="width: 250px;"
                    class="inputText"
                    type="text"
