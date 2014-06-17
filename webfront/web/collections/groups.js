@@ -5,7 +5,7 @@ define(function(require) {
         return Collection.extend({
             model: require('models/group'),
             initialize: function(data, opt){
-                this.storeId = opt.storeId;
+                this.storeId = opt && opt.storeId;
             },
             url: function(){
                 if (this.store){
