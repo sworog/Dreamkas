@@ -4,9 +4,11 @@ define(function(require) {
 
         return Collection.extend({
             model: require('models/group'),
-            storeId: null,
+            initialize: function(data, opt){
+                this.storeId = opt.storeId;
+            },
             url: function(){
-                if (this.storeId){
+                if (this.store){
                     return Collection.baseApiUrl + '/stores/' + this.storeId + '/groups';
                 } else {
                     return Collection.baseApiUrl + '/groups';

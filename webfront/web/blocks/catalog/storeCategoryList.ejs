@@ -1,0 +1,27 @@
+<%
+/**
+ *
+ * @collections.categories,
+ * @groupModel
+ */
+%>
+
+<div class="catalog__categoryList">
+
+    <% if(collections.categories.length) { %>
+
+    <% collections.categories.forEach(function(categoryModel){ %>
+    <div class="catalog__categoryItem">
+
+        <a href="/stores/<%- PAGE.params.storeId %>/groups/<%- groupModel.id %>/categories/<%- categoryModel.id %>?edit=<%- PAGE.params.edit %>"
+           class="catalog__categoryLink"><%= categoryModel.get('name') %></a>
+
+    </div>
+    <% }) %>
+
+    <% } else { %>
+
+    <p>Нет категорий</p>
+
+    <% } %>
+</div>

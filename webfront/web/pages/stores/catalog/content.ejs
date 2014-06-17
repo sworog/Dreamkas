@@ -11,12 +11,9 @@
         <span style="vertical-align: middle; margin-right: 10px;">
             Товарный справочник
         </span>
-        <a class="button catalog__addGroupLink">
-            Добавить группу
-        </a>
     </h1>
 
-    <%= collections.groups.element(require('tpl!blocks/catalog/groupList.ejs'), {
+    <%= collections.groups.element(require('tpl!blocks/catalog/storeGroupList.ejs'), {
         collections: {
             groups: collections.groups
         }
