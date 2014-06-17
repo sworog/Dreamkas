@@ -68,6 +68,7 @@ define(function(require) {
         'stores/:storeId/settings(/)': require('pages/stores/settings/settings'),
         'stores/:storeId(/)': require('pages/stores/dashboard/dashboard'),
         'stores/:storeId/catalog(/)': require('pages/stores/catalog/catalog'),
+        'stores/:storeId/groups/:groupId(/)': require('pages/stores/group/group'),
         'stores/:storeId/products/edit/:productId(/)': require('pages/storeProduct/from'),
 
         //departments

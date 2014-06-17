@@ -1,0 +1,34 @@
+<%
+/**
+ *
+ * @models.group
+ */
+%>
+
+<div class="content catalog">
+    <div class="page__header">
+        <a href="/stores/<%- PAGE.params.storeId %>/catalog" class="page__backLink">
+            Товарный справочник
+        </a>
+    </div>
+
+    <h1>
+        <span style="vertical-align: middle">
+            <%= models.group.element('name') %>
+        </span>
+
+        <a class="page__editLink catalog__editGroupLink"></a>
+
+        <a class="button catalog__addCategoryLink">
+            Добавить категорию
+        </a>
+    </h1>
+
+    <%= models.group.collections.categories.element(require('tpl!blocks/catalog/categoryList.ejs'), {
+        groupModel: models.group,
+        collections: {
+            categories: models.group.collections.categories
+        }
+    }) %>
+
+</div>
