@@ -15,22 +15,26 @@ define(function(require, exports, module) {
             subSection: 'products'
         },
         events: {
-            'click .catalog__subCategoryLink': function(e){
+            'click .catalog__subCategoryLink': function(e) {
                 e.preventDefault();
                 e.stopPropagation();
 
-                if (e.target.classList.contains('preloader_stripes')){
+                if (e.target.classList.contains('preloader_stripes')) {
                     return;
                 }
 
                 var page = this,
                     subCategoryId = e.target.dataset.subcategory_id;
 
-                page.models.subCategory.set('id', subCategoryId);
+                page.models.subCategory
+                    .clear({
+                        silent: true
+                    })
+                    .set('id', subCategoryId);
 
                 e.target.classList.add('preloader_stripes');
 
-                page.models.subCategory.fetch().then(function(){
+                page.models.subCategory.fetch().then(function() {
                     page.set('params', {
                         subCategoryId: subCategoryId,
                         section: 'subCategory'
@@ -42,21 +46,21 @@ define(function(require, exports, module) {
 
                 var page = this;
 
-                if (e.target.classList.contains('preloader_stripes')){
+                if (e.target.classList.contains('preloader_stripes')) {
                     return;
                 }
 
                 e.target.classList.add('preloader_stripes');
 
-                Promise.resolve(exportCatalog()).then(function(){
+                Promise.resolve(exportCatalog()).then(function() {
                     alert('Выгрузка началась');
                     e.target.classList.remove('preloader_stripes');
-                }, function(){
+                }, function() {
                     alert('Выгрузка невозможна, обратитесь к администратору');
                     e.target.classList.remove('preloader_stripes');
                 });
             },
-            'click .catalog__editCategoryLink': function(e){
+            'click .catalog__editCategoryLink': function(e) {
                 e.preventDefault();
 
                 var page = this;
@@ -79,7 +83,7 @@ define(function(require, exports, module) {
                     })
                 });
             },
-            'click .catalog__editSubCategoryLink': function(e){
+            'click .catalog__editSubCategoryLink': function(e) {
                 e.preventDefault();
 
                 var page = this;
@@ -92,7 +96,7 @@ define(function(require, exports, module) {
         },
         listeners: {
             'models.category': {
-                destroy: function(){
+                destroy: function() {
                     router.navigate('/groups/' + PAGE.params.groupId + '?edit=' + PAGE.params.edit);
                 }
             }
@@ -102,7 +106,7 @@ define(function(require, exports, module) {
             localNavigation: require('tpl!blocks/localNavigation/localNavigation_category.ejs')
         },
         models: {
-            group: function(){
+            group: function() {
                 var GroupModel = require('models/group'),
                     page = this;
 
@@ -110,7 +114,7 @@ define(function(require, exports, module) {
                     id: page.params.groupId
                 });
             },
-            category: function(){
+            category: function() {
                 var CategoryModel = require('models/category'),
                     page = this;
 
@@ -119,7 +123,7 @@ define(function(require, exports, module) {
                     id: page.params.categoryId
                 });
             },
-            subCategory: function(){
+            subCategory: function() {
                 var page = this;
 
                 return new SubCategoryModel({
@@ -132,7 +136,7 @@ define(function(require, exports, module) {
         blocks: {
             tooltip_categoryMenu: require('blocks/tooltip/tooltip_categoryMenu/tooltip_categoryMenu'),
             tooltip_subCategoryMenu: require('blocks/tooltip/tooltip_subCategoryMenu/tooltip_subCategoryMenu'),
-            form_categorySettings: function(){
+            form_categorySettings: function() {
                 var page = this,
                     Form_categoryProperties = require('blocks/form/form_categorySettings/form_categorySettings');
 
@@ -140,7 +144,7 @@ define(function(require, exports, module) {
                     model: page.models.category
                 });
             },
-            form_subCategorySettings: function(){
+            form_subCategorySettings: function() {
                 var page = this,
                     Form_subCategoryProperties = require('blocks/form/form_subCategorySettings/form_subCategorySettings');
 
@@ -148,7 +152,7 @@ define(function(require, exports, module) {
                     model: page.models.subCategory
                 });
             },
-            form_subCategory: function(){
+            form_subCategory: function() {
                 var page = this,
                     Form_subCategory = require('blocks/form/form_subCategory/form_subCategory');
 
