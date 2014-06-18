@@ -1,19 +1,19 @@
 define(function(require) {
         //requirements
-        var Collection = require('kit/core/collection');
+        var Collection = require('kit/collection');
 
         return Collection.extend({
             model: require('models/product'),
-            url: function(){
-                if (this.storeId){
-                    return LH.baseApiUrl + '/stores/' + this.storeId + '/subcategories/' + this.subCategory + '/products'
-                } else {
-                    return LH.baseApiUrl + '/subcategories/' + this.subCategory + '/products'
-                }
+            defaults: {
+                storeId: null,
+                subCategoryId: null
             },
-            initialize: function(models, options){
-                this.subCategory = options.subCategory;
-                this.storeId = options.storeId;
+            url: function(){
+                if (this.get('storeId')){
+                    return Collection.baseApiUrl + '/stores/' + this.get('storeId') + '/subcategories/' + this.get('subCategoryId') + '/products'
+                } else {
+                    return Collection.baseApiUrl + '/subcategories/' + this.get('subCategoryId') + '/products'
+                }
             }
         });
     }

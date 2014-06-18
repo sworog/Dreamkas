@@ -12,7 +12,7 @@
     <% collections.subCategories.forEach(function(subCategoryModel){ %>
     <div class="catalog__subCategoryItem">
 
-        <a href="?subCategoryId=<%- subCategoryModel.id %>"
+        <a href="?subCategoryId=<%- subCategoryModel.id %>&section=subCategory"
            class="catalog__subCategoryLink"><%= subCategoryModel.get('name') %></a>
 
         <a data-subcategory_id="<%- subCategoryModel.id %>"

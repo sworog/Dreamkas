@@ -8,7 +8,7 @@
     select_priceRoundings: require('tpl!blocks/select/select_priceRoundings/select_priceRoundings.ejs')
 }, partials) %>
 
-<div class="content catalog" edit="<%- PAGE.params.edit %>" section="<%- PAGE.params.section %>">
+<div class="content catalog" edit="<%- PAGE.params.edit %>">
     <div class="page__header">
         <a href="/catalog?edit=<%- PAGE.params.edit %>" class="page__backLink">
             Товарный справочник
@@ -24,14 +24,17 @@
 
     </h1>
 
+    <% if (PAGE.params.section === 'categories') { %>
     <%= models.group.collections.categories.element(require('tpl!blocks/catalog/categoryList.ejs'), {
         groupModel: models.group,
         collections: {
             categories: models.group.collections.categories
         }
     }) %>
+    <% } %>
 
-    <form class="form form_groupProperties">
+    <% if (PAGE.params.section === 'settings') { %>
+    <form class="form form_groupSettings">
         <div class="form__field form__field_inline">
 
             <label class="form__label">Минимальная наценка</label>
@@ -68,5 +71,5 @@
             </button>
         </div>
     </form>
-
+    <% } %>
 </div>

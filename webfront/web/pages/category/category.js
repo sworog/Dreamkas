@@ -9,9 +9,10 @@ define(function(require, exports, module) {
         params: {
             edit: '0',
             categoryId: null,
-            subCategoryId: null,
             groupId: null,
-            section: 'subCategories'
+            subCategoryId: '0',
+            section: 'subCategory',
+            subSection: 'products'
         },
         events: {
             'click .catalog__exportLink': function(e) {
@@ -68,16 +69,6 @@ define(function(require, exports, module) {
             }
         },
         listeners: {
-            'change:params.edit': function(){
-                var page = this;
-
-                page.render();
-            },
-            'change:params.section': function(section){
-                var page = this;
-
-                page.el.querySelector('.content').setAttribute('section', section);
-            },
             'models.category': {
                 destroy: function(){
                     router.navigate('/groups/' + PAGE.params.groupId + '?edit=' + PAGE.params.edit);
@@ -105,17 +96,34 @@ define(function(require, exports, module) {
                     groupId: page.params.groupId,
                     id: page.params.categoryId
                 });
+            },
+            subCategory: function(){
+                var page = this;
+
+                return new SubCategoryModel({
+                    id: page.params.subCategoryId !== '0' && page.params.subCategoryId,
+                    groupId: page.params.groupId,
+                    categoryId: page.params.categoryId
+                });
             }
         },
         blocks: {
             tooltip_categoryMenu: require('blocks/tooltip/tooltip_categoryMenu/tooltip_categoryMenu'),
             tooltip_subCategoryMenu: require('blocks/tooltip/tooltip_subCategoryMenu/tooltip_subCategoryMenu'),
-            form_categoryProperties: function(){
+            form_categorySettings: function(){
                 var page = this,
-                    Form_categoryProperties = require('blocks/form/form_categoryProperties/form_categoryProperties');
+                    Form_categoryProperties = require('blocks/form/form_categorySettings/form_categorySettings');
 
                 return new Form_categoryProperties({
                     model: page.models.category
+                });
+            },
+            form_subCategorySettings: function(){
+                var page = this,
+                    Form_subCategoryProperties = require('blocks/form/form_subCategorySettings/form_subCategorySettings');
+
+                return new Form_subCategoryProperties({
+                    model: page.models.subCategory
                 });
             },
             form_subCategory: function(){

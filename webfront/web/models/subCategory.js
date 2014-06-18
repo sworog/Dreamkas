@@ -1,6 +1,7 @@
 define(function(require) {
         //requirements
-        var Model = require('kit/model');
+        var Model = require('kit/model'),
+            ProductsCollection = require('collections/catalogProducts');
 
         return Model.extend({
             defaults: {
@@ -16,6 +17,22 @@ define(function(require) {
                     retailMarkupMin: this.get('retailMarkupMin'),
                     rounding: this.get('rounding.name')
                 }
+            },
+            initialize: function() {
+                this.collections = {
+                    products: new ProductsCollection(this.get('products'), {
+                        subCategoryId: this.id
+                    })
+                }
+            },
+            parse: function(response, options) {
+                var data = Model.prototype.parse.apply(this, arguments);
+
+                if (this.collections){
+                    this.collections.products.reset(data.products);
+                }
+
+                return data;
             }
         });
     }

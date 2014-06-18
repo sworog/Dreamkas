@@ -16,13 +16,14 @@
     visibility: visible;
 }
 
-.catalog[section="categories"] .form_groupProperties,
-.catalog[section="subCategories"] .form_categoryProperties {
+.catalog[section="categories"] .form_groupSettings,
+.catalog[section="subCategory"] .form_categorySettings {
     display: none;
 }
 
 .catalog[section="settings"] .catalog__categoryList,
-.catalog[section="settings"] .catalog__subCategoryList {
+.catalog[section="settings"] .catalog__subCategoryList,
+.catalog[section="settings"] .catalog__subCategoryContent {
     display: none;
 }
 
@@ -84,7 +85,7 @@
     padding: 10px 40px;
 }
 
-.catalog__subCategoryItem{
+.catalog__subCategoryItem {
     position: relative;
 }
 
@@ -111,7 +112,7 @@
     z-index: 10;
 }
 
-.catalog__subCategoryLink:hover{
+.catalog__subCategoryLink:hover {
     background-color: #f4f4f4;
 }
 

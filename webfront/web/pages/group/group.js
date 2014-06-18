@@ -65,16 +65,6 @@ define(function(require, exports, module) {
             }
         },
         listeners: {
-            'change:params.edit': function(){
-                var page = this;
-
-                page.render();
-            },
-            'change:params.section': function(section){
-                var page = this;
-
-                page.el.querySelector('.content').setAttribute('section', section);
-            },
             'models.group': {
                 destroy: function(){
                     router.navigate('/catalog?edit=' + PAGE.params.edit);
@@ -98,9 +88,9 @@ define(function(require, exports, module) {
         blocks: {
             tooltip_groupMenu: require('blocks/tooltip/tooltip_groupMenu/tooltip_groupMenu'),
             tooltip_categoryMenu: require('blocks/tooltip/tooltip_categoryMenu/tooltip_categoryMenu'),
-            form_groupProperties: function(){
+            form_groupSettings: function(){
                 var page = this,
-                    Form_groupProperties = require('blocks/form/form_groupProperties/form_groupProperties');
+                    Form_groupProperties = require('blocks/form/form_groupSettings/form_groupSettings');
 
                 return new Form_groupProperties({
                     model: page.models.group

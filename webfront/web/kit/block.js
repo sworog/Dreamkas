@@ -29,6 +29,7 @@ define(function(require, exports, module) {
         blocks: {},
 
         template: function() {
+            return '<div></div>';
         },
 
         initialize: function() {
@@ -41,7 +42,7 @@ define(function(require, exports, module) {
             return getText.apply(null, [block.nls].concat(args));
         },
 
-        _templateToElement: function(){
+        _templateToElement: function() {
             var block = this,
                 fragment = stringToFragment(block.template(block)),
                 wrapper = document.createElement('div');
@@ -86,7 +87,7 @@ define(function(require, exports, module) {
 
             el = el || block.get('__el');
 
-            if (typeof el === 'string'){
+            if (typeof el === 'string') {
                 el = document.querySelector(el);
             }
 
@@ -102,9 +103,9 @@ define(function(require, exports, module) {
             var block = this,
                 elements = {};
 
-            block.__elements = block.__elements ||  block.elements;
+            block.__elements = block.__elements || block.elements;
 
-            _.forEach(block.__elements, function(value, key){
+            _.forEach(block.__elements, function(value, key) {
                 var el = block.get('__elements.' + key);
                 elements[key] = typeof el === 'string' ? block.el.querySelector(el) : el;
             });
@@ -172,7 +173,7 @@ define(function(require, exports, module) {
             return block;
         },
 
-        destroy: function(){
+        destroy: function() {
             var block = this;
 
             block._destroyBlocks();
@@ -194,7 +195,7 @@ define(function(require, exports, module) {
             return block;
         },
 
-        _destroyBlocks: function(){
+        _destroyBlocks: function() {
             var block = this;
 
             _.forEach(block.blocks, function(blockToDestroy, blockName) {
@@ -206,7 +207,7 @@ define(function(require, exports, module) {
 
             });
         },
-        _removeBlocks: function(){
+        _removeBlocks: function() {
             var block = this;
 
             _.forEach(block.blocks, function(blockToDestroy, blockName) {
