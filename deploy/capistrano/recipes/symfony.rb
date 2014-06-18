@@ -237,9 +237,10 @@ namespace :symfony do
     end
 
     namespace :import do
-        desc "Import products catalog from file, required: -S file=<..>"
+        desc "Import products catalog from file, required: -S file=<..>, -S project=<..>"
         task :products do
             raise "Path to xml file should be provided by -S file=.." unless exists?(:file)
+            raise "project should be provided by -S project=.." unless exists?(:project)
 
             set :xml_file_path, file
             set :remote_temp_file_path, "/tmp/#{host}_#{stage}_xml_import.xml"
@@ -254,14 +255,15 @@ namespace :symfony do
             top.upload(xml_file_path, remote_temp_file_path)
 
             puts "--> Import products".yellow
-            stream console_command("lighthouse:import:products #{remote_temp_file_path}")
+            stream console_command("lighthouse:import:products #{remote_temp_file_path} --project=#{project}"")
             capifony_puts_ok
         end
 
         namespace :sales do
-            desc "Upload and import sales xml"
+            desc "Upload and import sales xml, required: -S project=<..>"
             task :local, :roles => :app, :except => { :no_release => true } do
                 raise "Path to xml file should be provided by -S file=.." unless exists?(:file)
+                raise "project should be provided by -S project=.." unless exists?(:project)
 
                 set :xml_file_path, file
                 set :remote_temp_file_path, "/tmp/#{host}_#{stage}_xml_import_sales.xml"
@@ -276,7 +278,7 @@ namespace :symfony do
                 top.upload(xml_file_path, remote_temp_file_path)
 
                 puts "--> Import products".yellow
-                stream console_command("lighthouse:import:sales:local #{remote_temp_file_path}")
+                stream console_command("lighthouse:import:sales:local #{remote_temp_file_path} --project=#{project}"")
                 capifony_puts_ok
             end
         end
@@ -301,16 +303,18 @@ namespace :symfony do
     end
 
     namespace :products do
-        desc "Recalculate products metrics"
+        desc "Recalculate products metrics, required: -S project=<..>"
         task :recalculate_metrics, :roles => :app, :except => { :no_release => true } do
-            stream console_command("lighthouse:products:recalculate_metrics"), :once => true
+            raise "project should be provided by -S project=.." unless exists?(:project)
+            stream console_command("lighthouse:products:recalculate_metrics --project=#{project}"), :once => true
         end
     end
 
     namespace :reports do
-        desc "Recalculate reports data"
+        desc "Recalculate reports data, required: -S project=<..>"
         task :recalculate, :roles => :app, :except => { :no_release => true } do
-            stream console_command("lighthouse:reports:recalculate"), :once => true
+            raise "project should be provided by -S project=.." unless exists?(:project)
+            stream console_command("lighthouse:reports:recalculate --project=#{project}"), :once => true
         end
     end
 
