@@ -2,7 +2,7 @@
 /**
  *
  * @collections.categories,
- * @groupModel
+ * @groupId
  */
 %>
 
@@ -13,7 +13,7 @@
     <% collections.categories.forEach(function(categoryModel){ %>
     <div class="catalog__categoryItem">
 
-        <a href="/stores/<%- PAGE.params.storeId %>/groups/<%- groupModel.id %>/categories/<%- categoryModel.id %>"
+        <a href="/stores/<%- PAGE.params.storeId %>/groups/<%- PAGE.params.groupId || groupId %>/categories/<%- categoryModel.id %>"
            class="catalog__categoryLink"><%= categoryModel.get('name') %></a>
 
     </div>

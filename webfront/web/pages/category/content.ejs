@@ -26,16 +26,7 @@
 
         <a class="page__editLink catalog__editCategoryLink"></a>
 
-        <a class="button catalog__addSubCategoryLink">
-            Добавить подкатегорию
-        </a>
     </h1>
-
-    <%= models.category.collections.subCategories.element(require('tpl!blocks/catalog/subCategoryList.ejs'), {
-        collections: {
-            subCategories: models.category.collections.subCategories
-        }
-    }) %>
 
     <form class="form form_categoryProperties">
         <div class="form__field form__field_inline">
@@ -43,7 +34,6 @@
             <label class="form__label">Минимальная наценка</label>
 
             <input value="<%- models.category.get('retailMarkupMin') %>"
-                   autofocus
                    class="inputText"
                    type="text"
                    name="retailMarkupMin"/>

@@ -5,19 +5,16 @@
  */
 %>
 
-<% var SubCategoryModel = require('models/subCategory') %>
-<% var model = model || new SubCategoryModel() %>
-
 <div class="tooltip tooltip_categoryForm">
     <form class="form">
         <div class="form__field" style="white-space: nowrap; padding-bottom: 0;">
 
-            <input value="<%- model.get('name') %>"
+            <input value="<%- model && model.get('name') %>"
                    style="width: 250px;"
                    class="inputText"
                    type="text"
                    name="name"
-                   placeholder="Название категории">
+                   placeholder="Название подкатегории">
 
             <button type="submit" class="button">
                 Подтвердить

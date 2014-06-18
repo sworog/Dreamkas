@@ -6,6 +6,7 @@ define(function(require) {
         return Tooltip.extend({
             model: null,
             collection: null,
+            groupId: null,
             template: require('tpl!./template.ejs'),
             listeners: {
                 'blocks.form_category': {
@@ -14,7 +15,7 @@ define(function(require) {
 
                         if (block.collection){
                             block.model = new CategoryModel({
-                                groupId: block.models.group.id
+                                groupId: block.groupId
                             });
                             block.render();
                             block._startListening();

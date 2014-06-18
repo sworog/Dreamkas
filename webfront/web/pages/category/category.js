@@ -2,6 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Page = require('kit/page'),
         exportCatalog = require('kit/exportCatalog'),
+        SubCategoryModel = require('models/subCategory'),
         router = require('router');
 
     return Page.extend({
@@ -41,6 +42,29 @@ define(function(require, exports, module) {
                     trigger: e.target,
                     model: page.models.category
                 });
+            },
+            'click .catalog__addSubCategoryLink': function(e) {
+                e.preventDefault();
+
+                var page = this;
+
+                page.blocks.tooltip_subCategoryForm.show({
+                    trigger: e.target,
+                    model: new SubCategoryModel({
+                        groupId: page.models.group.id,
+                        categoryId: page.models.category.id
+                    })
+                });
+            },
+            'click .catalog__editSubCategoryLink': function(e){
+                e.preventDefault();
+
+                var page = this;
+
+                page.blocks.tooltip_subCategoryMenu.show({
+                    trigger: e.target,
+                    model: page.models.category.collections.subCategories.get(e.target.dataset.subcategory_id)
+                });
             }
         },
         listeners: {
@@ -53,7 +77,6 @@ define(function(require, exports, module) {
                 var page = this;
 
                 page.el.querySelector('.content').setAttribute('section', section);
-                page.el.querySelector('input[type="text"]').focus();
             },
             'models.category': {
                 destroy: function(){
@@ -86,13 +109,23 @@ define(function(require, exports, module) {
         },
         blocks: {
             tooltip_categoryMenu: require('blocks/tooltip/tooltip_categoryMenu/tooltip_categoryMenu'),
-            //tooltip_subCategoryForm: require('blocks/tooltip/tooltip_subCategoryForm/tooltip_subCategoryForm'),
+            tooltip_subCategoryMenu: require('blocks/tooltip/tooltip_subCategoryMenu/tooltip_subCategoryMenu'),
             form_categoryProperties: function(){
                 var page = this,
                     Form_categoryProperties = require('blocks/form/form_categoryProperties/form_categoryProperties');
 
                 return new Form_categoryProperties({
                     model: page.models.category
+                });
+            },
+            form_subCategory: function(){
+                var page = this,
+                    Form_subCategory = require('blocks/form/form_subCategory/form_subCategory');
+
+                return new Form_subCategory({
+                    groupId: page.models.group.id,
+                    categoryId: page.models.category.id,
+                    collection: page.models.category.collections.subCategories
                 });
             }
         }

@@ -126,20 +126,18 @@ define(function(require, exports, module) {
 
         render: function(){
             var page = this,
-                autofocus,
-                firstInput;
+                autofocus;
 
             Block.prototype.render.apply(page, arguments);
 
             autofocus = page.el.querySelector('[autofocus]');
-            firstInput = page.el.querySelector('[type=text]');
 
             Sortable.init();
 
+            console.log(autofocus);
+
             if (autofocus){
                 autofocus.focus();
-            } else if(firstInput) {
-                firstInput.focus();
             }
 
         },

@@ -72,11 +72,11 @@ define(function(require) {
             groups: require('collections/groups')
         },
         blocks: {
-            tooltip_groupForm: function(){
+            form_group: function(){
                 var page = this,
-                    Tooltip_groupForm = require('blocks/tooltip/tooltip_groupForm/tooltip_groupForm');
+                    Form_group = require('blocks/form/form_group/form_group');
 
-                return new Tooltip_groupForm({
+                return new Form_group({
                     collection: page.collections.groups
                 });
             },

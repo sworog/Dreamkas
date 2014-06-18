@@ -34,10 +34,6 @@
     background-size: contain;
 }
 
-.page.page[status="loading"] * {
-    visibility: visible;
-}
-
 .page.page[status="loading"] .page__content,
 .page.page[status="loading"] .content {
     display: none;
@@ -128,10 +124,6 @@
 
 .page[status="loading"]{
     min-height: 100px;
-}
-
-.page[status="loading"] *{
-    visibility: hidden;
 }
 
 .page[status="loading"]:after {

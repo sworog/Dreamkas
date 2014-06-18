@@ -74,7 +74,6 @@ define(function(require, exports, module) {
                 var page = this;
 
                 page.el.querySelector('.content').setAttribute('section', section);
-                page.el.querySelector('input[type="text"]').focus();
             },
             'models.group': {
                 destroy: function(){
@@ -97,17 +96,6 @@ define(function(require, exports, module) {
             }
         },
         blocks: {
-            tooltip_categoryForm: function(){
-                var page = this,
-                    Tooltip_categoryForm = require('blocks/tooltip/tooltip_categoryForm/tooltip_categoryForm');
-
-                return new Tooltip_categoryForm({
-                    collection: page.models.group.collections.categories,
-                    models: {
-                        group: page.models.group
-                    }
-                });
-            },
             tooltip_groupMenu: require('blocks/tooltip/tooltip_groupMenu/tooltip_groupMenu'),
             tooltip_categoryMenu: require('blocks/tooltip/tooltip_categoryMenu/tooltip_categoryMenu'),
             form_groupProperties: function(){
@@ -116,6 +104,15 @@ define(function(require, exports, module) {
 
                 return new Form_groupProperties({
                     model: page.models.group
+                });
+            },
+            form_category: function(){
+                var page = this,
+                    Form_category = require('blocks/form/form_category/form_category');
+
+                return new Form_category({
+                    groupId: page.models.group.id,
+                    collection: page.models.group.collections.categories
                 });
             }
         }

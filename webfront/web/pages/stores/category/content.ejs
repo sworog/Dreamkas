@@ -1,0 +1,28 @@
+<%
+/**
+ *
+ * @models.category
+ */
+%>
+<% var partials = _.extend({
+    select_priceRoundings: require('tpl!blocks/select/select_priceRoundings/select_priceRoundings.ejs')
+}, partials) %>
+
+<div class="content catalog">
+    <div class="page__header">
+        <a href="/stores/<%- PAGE.params.storeId %>/catalog" class="page__backLink">
+            Товарный справочник
+        </a>
+        <span class="page__backLinkSeparator">/</span>
+        <a href="/stores/<%- PAGE.params.storeId %>/groups/<%- PAGE.params.groupId %>" class="page__backLink">
+            <%= models.group.element('name') %>
+        </a>
+    </div>
+
+    <h1>
+        <span style="vertical-align: middle">
+            <%= models.category.element('name') %>
+        </span>
+    </h1>
+
+</div>

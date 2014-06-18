@@ -3,18 +3,20 @@ define(function(require) {
         var Model = require('kit/model');
 
         return Model.extend({
+            defaults: {
+                categoryId: null,
+                groupId: null
+            },
             urlRoot: Model.baseApiUrl + '/subcategories',
-            saveData: function(){
+            saveData: function() {
                 return {
                     name: this.get('name'),
-                    category: this.get('category'),
+                    category: this.get('categoryId'),
                     retailMarkupMax: this.get('retailMarkupMax'),
                     retailMarkupMin: this.get('retailMarkupMin'),
                     rounding: this.get('rounding.name')
                 }
-            },
-            categoryId: null,
-            groupId: null
+            }
         });
     }
 );

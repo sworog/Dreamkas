@@ -22,9 +22,6 @@
 
         <a class="page__editLink catalog__editGroupLink"></a>
 
-        <a class="button catalog__addCategoryLink">
-            Добавить категорию
-        </a>
     </h1>
 
     <%= models.group.collections.categories.element(require('tpl!blocks/catalog/categoryList.ejs'), {
@@ -40,7 +37,6 @@
             <label class="form__label">Минимальная наценка</label>
 
             <input value="<%- models.group.get('retailMarkupMin') %>"
-                   autofocus
                    class="inputText"
                    type="text"
                    name="retailMarkupMin"/>
