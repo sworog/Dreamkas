@@ -255,7 +255,7 @@ namespace :symfony do
             top.upload(xml_file_path, remote_temp_file_path)
 
             puts "--> Import products".yellow
-            stream console_command("lighthouse:import:products #{remote_temp_file_path} --project=#{project}"")
+            stream console_command("lighthouse:import:products #{remote_temp_file_path} --project=#{project}")
             capifony_puts_ok
         end
 
@@ -278,7 +278,7 @@ namespace :symfony do
                 top.upload(xml_file_path, remote_temp_file_path)
 
                 puts "--> Import products".yellow
-                stream console_command("lighthouse:import:sales:local #{remote_temp_file_path} --project=#{project}"")
+                stream console_command("lighthouse:import:sales:local #{remote_temp_file_path} --project=#{project}")
                 capifony_puts_ok
             end
         end
