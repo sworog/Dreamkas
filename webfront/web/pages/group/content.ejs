@@ -62,7 +62,7 @@
             <label class="form__label">Округление</label>
 
             <%= partials.select_priceRoundings({
-                selected: models.group.get('rounding')
+                selected: models.group.get('rounding.name')
             }) %>
         </div>
         <div class="form__controls">
