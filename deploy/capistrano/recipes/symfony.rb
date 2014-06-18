@@ -237,10 +237,10 @@ namespace :symfony do
     end
 
     namespace :import do
-        desc "Import products catalog from file, required: -S file=<..>, -S project=<..>"
+        desc "Import products catalog from file, required: -S file=<..>, -S projectId=<..>"
         task :products do
             raise "Path to xml file should be provided by -S file=.." unless exists?(:file)
-            raise "project should be provided by -S project=.." unless exists?(:project)
+            raise "project should be provided by -S projectId=.." unless exists?(:projectId)
 
             set :xml_file_path, file
             set :remote_temp_file_path, "/tmp/#{host}_#{stage}_xml_import.xml"
@@ -255,15 +255,15 @@ namespace :symfony do
             top.upload(xml_file_path, remote_temp_file_path)
 
             puts "--> Import products".yellow
-            stream console_command("lighthouse:import:products #{remote_temp_file_path} --project=#{project}")
+            stream console_command("lighthouse:import:products #{remote_temp_file_path} --project=#{projectId}")
             capifony_puts_ok
         end
 
         namespace :sales do
-            desc "Upload and import sales xml, required: -S project=<..>"
+            desc "Upload and import sales xml, required: -S projectId=<..>"
             task :local, :roles => :app, :except => { :no_release => true } do
                 raise "Path to xml file should be provided by -S file=.." unless exists?(:file)
-                raise "project should be provided by -S project=.." unless exists?(:project)
+                raise "project should be provided by -S projectId=.." unless exists?(:projectId)
 
                 set :xml_file_path, file
                 set :remote_temp_file_path, "/tmp/#{host}_#{stage}_xml_import_sales.xml"
@@ -278,7 +278,7 @@ namespace :symfony do
                 top.upload(xml_file_path, remote_temp_file_path)
 
                 puts "--> Import products".yellow
-                stream console_command("lighthouse:import:sales:local #{remote_temp_file_path} --project=#{project}")
+                stream console_command("lighthouse:import:sales:local #{remote_temp_file_path} --project=#{projectId}")
                 capifony_puts_ok
             end
         end
@@ -303,18 +303,18 @@ namespace :symfony do
     end
 
     namespace :products do
-        desc "Recalculate products metrics, required: -S project=<..>"
+        desc "Recalculate products metrics, required: -S projectId=<..>"
         task :recalculate_metrics, :roles => :app, :except => { :no_release => true } do
-            raise "project should be provided by -S project=.." unless exists?(:project)
-            stream console_command("lighthouse:products:recalculate_metrics --project=#{project}"), :once => true
+            raise "project should be provided by -S projectId=.." unless exists?(:projectId)
+            stream console_command("lighthouse:products:recalculate_metrics --project=#{projectId}"), :once => true
         end
     end
 
     namespace :reports do
-        desc "Recalculate reports data, required: -S project=<..>"
+        desc "Recalculate reports data, required: -S projectId=<..>"
         task :recalculate, :roles => :app, :except => { :no_release => true } do
-            raise "project should be provided by -S project=.." unless exists?(:project)
-            stream console_command("lighthouse:reports:recalculate --project=#{project}"), :once => true
+            raise "project should be provided by -S projectId=.." unless exists?(:projectId)
+            stream console_command("lighthouse:reports:recalculate --project=#{projectId}"), :once => true
         end
     end
 
