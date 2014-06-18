@@ -23,15 +23,15 @@ public class ConsoleCommand {
         String cmd = cmd(command, host);
         File dir = new File(folder);
         Process process = Runtime.getRuntime().exec(cmd, null, dir);
-        process.waitFor();
-        return new ConsoleCommandResult(process.exitValue(), readOutput(process));
+        int resultValue = process.waitFor();
+        return new ConsoleCommandResult(resultValue, readOutput(process));
     }
 
     private String cmd(String command, String host) {
         if (isUnix()) {
             return String.format("%s -S host=%s", command, host);
         } else {
-            return String.format("cmd /c \"%s -S host=%s\"", command, host);
+            return String.format("cmd /c %s -S host=%s", command, host);
         }
     }
 
