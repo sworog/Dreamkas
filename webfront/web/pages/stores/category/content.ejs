@@ -26,6 +26,11 @@
         </span>
     </h1>
 
+    <% if (PAGE.params.subCategoryId !== '0') { %>
+    <h2>
+        <%- models.subCategory.get('name') %>
+    </h2>
+
     <div class="page__tabs">
         <a href="?subSection=products"
            class="page__tabItem <%- PAGE.params.subSection === 'products' ? 'page__tabItem_active' : '' %>">
@@ -86,5 +91,7 @@
 
     <% if (PAGE.params.subSection === 'balance') { %>
     <p>Нет данных</p>
+    <% } %>
+
     <% } %>
 </div>

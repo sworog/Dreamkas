@@ -30,6 +30,11 @@
     </h1>
 
     <% if (PAGE.params.section === 'subCategory') { %>
+
+    <h2>
+        <%- models.subCategory.get('name') %>
+    </h2>
+
     <div class="page__tabs">
         <a href="?subSection=products"
            class="page__tabItem <%- PAGE.params.subSection === 'products' ? 'page__tabItem_active' : '' %>">
@@ -42,7 +47,7 @@
     </div>
 
     <% if (PAGE.params.subSection === 'products') { %>
-
+    <a class="button">Добавить продукт</a>
     <% if (models.subCategory.collections.products.length) { %>
     <table class="table table_products">
         <thead>
@@ -80,10 +85,6 @@
         <% }) %>
         </tbody>
     </table>
-    <% } else { %>
-    <p>
-        Нет продуктов
-    </p>
     <% } %>
 
     <% } %>

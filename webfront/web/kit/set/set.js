@@ -34,7 +34,12 @@ define(function(require) {
 
     return function(object, path, data, extra) {
 
-        data = typeof path === 'string' ? pathToObject(path, data) : path;
+        if (typeof path === 'string'){
+            data = pathToObject(path, data);
+        } else {
+            extra = data;
+            data = path;
+        }
 
         return set(object, null, data, extra);
     }

@@ -11,10 +11,32 @@ define(function(require, exports, module) {
             categoryId: null,
             groupId: null,
             subCategoryId: '0',
-            section: 'subCategory',
+            section: '0',
             subSection: 'products'
         },
         events: {
+            'click .catalog__subCategoryLink': function(e){
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (e.target.classList.contains('preloader_stripes')){
+                    return;
+                }
+
+                var page = this,
+                    subCategoryId = e.target.dataset.subcategory_id;
+
+                page.models.subCategory.set('id', subCategoryId);
+
+                e.target.classList.add('preloader_stripes');
+
+                page.models.subCategory.fetch().then(function(){
+                    page.set('params', {
+                        subCategoryId: subCategoryId,
+                        section: 'subCategory'
+                    });
+                });
+            },
             'click .catalog__exportLink': function(e) {
                 e.preventDefault();
 

@@ -14,8 +14,7 @@ define(function(require, exports, module) {
             var page = this;
 
             if (Page.current && Page.current.route === request.route){
-                Page.current.set(request);
-                router.save(Page.current.params, {
+                Page.current.set(request, {
                     replace: true
                 });
                 return;
@@ -49,7 +48,11 @@ define(function(require, exports, module) {
         template: require('tpl!pages/template.ejs'),
 
         listeners: {
-            'change:params': function(){
+            'change:params': function(params, options){
+                router.save(Page.current.params, {
+                    replace: options.replace || false
+                });
+
                 this.render();
             }
         },

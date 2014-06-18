@@ -16,6 +16,29 @@ define(function(require, exports, module) {
             content: require('tpl!./content.ejs'),
             localNavigation: require('tpl!blocks/localNavigation/localNavigation_storeCategory.ejs')
         },
+        events: {
+            'click .catalog__subCategoryLink': function(e){
+                e.preventDefault();
+                e.stopPropagation();
+
+                if (e.target.classList.contains('preloader_stripes')){
+                    return;
+                }
+
+                var page = this,
+                    subCategoryId = e.target.dataset.subcategory_id;
+
+                page.models.subCategory.set('id', subCategoryId);
+
+                e.target.classList.add('preloader_stripes');
+
+                page.models.subCategory.fetch().then(function(){
+                    page.set('params', {
+                        subCategoryId: subCategoryId
+                    });
+                });
+            }
+        },
         models: {
             group: function(){
                 var GroupModel = require('models/group'),

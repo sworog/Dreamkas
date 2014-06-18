@@ -19,6 +19,7 @@ define(function(require) {
         },
         set: function(){
             var args = [this].concat([].slice.call(arguments));
+
             return set.apply(null, args);
         }
     }, events);

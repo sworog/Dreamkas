@@ -12,8 +12,16 @@
     <% collections.subCategories.forEach(function(subCategoryModel){ %>
     <div class="catalog__subCategoryItem">
 
-        <a href="?subCategoryId=<%- subCategoryModel.id %>&section=subCategory"
+        <% if (PAGE.params.subCategoryId === subCategoryModel.id) { %>
+
+        <span class="catalog__subCategoryLink catalog__subCategoryLink_active"><%= subCategoryModel.get('name') %></span>
+
+        <% } else { %>
+
+        <a data-subcategory_id="<%- subCategoryModel.id %>"
            class="catalog__subCategoryLink"><%= subCategoryModel.get('name') %></a>
+
+        <% } %>
 
         <a data-subcategory_id="<%- subCategoryModel.id %>"
            class="page__editLink catalog__editSubCategoryLink"></a>
