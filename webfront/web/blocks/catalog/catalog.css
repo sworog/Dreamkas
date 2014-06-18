@@ -16,17 +16,6 @@
     visibility: visible;
 }
 
-.catalog[section="categories"] .form_groupSettings,
-.catalog[section="subCategory"] .form_categorySettings {
-    display: none;
-}
-
-.catalog[section="settings"] .catalog__categoryList,
-.catalog[section="settings"] .catalog__subCategoryList,
-.catalog[section="settings"] .catalog__subCategoryContent {
-    display: none;
-}
-
 .catalog__groupLink {
     vertical-align: middle;
 }

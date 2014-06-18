@@ -4,11 +4,12 @@
  * @models.category
  */
 %>
+<% var formatMoney = require('kit/formatMoney') %>
 <% var partials = _.extend({
     select_priceRoundings: require('tpl!blocks/select/select_priceRoundings/select_priceRoundings.ejs')
 }, partials) %>
 
-<div class="content catalog">
+<div class="content catalog" edit="<%- PAGE.params.edit %>">
     <div class="page__header">
         <a href="/stores/<%- PAGE.params.storeId %>/catalog" class="page__backLink">
             Товарный справочник
@@ -25,4 +26,65 @@
         </span>
     </h1>
 
+    <div class="page__tabs">
+        <a href="?subSection=products"
+           class="page__tabItem <%- PAGE.params.subSection === 'products' ? 'page__tabItem_active' : '' %>">
+            Продукты
+        </a>
+        <a href="?subSection=balance"
+           class="page__tabItem <%- PAGE.params.subSection === 'balance' ? 'page__tabItem_active' : '' %>">
+            Остатки
+        </a>
+    </div>
+
+    <% if (PAGE.params.subSection === 'products') { %>
+
+    <% if (models.subCategory.collections.products.length) { %>
+    <table class="table table_products">
+        <thead>
+        <tr>
+            <th>Артикул</th>
+            <th>Название</th>
+            <th>Производитель</th>
+            <th>Страна</th>
+            <th>Цена</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% models.subCategory.collections.products.forEach(function(productModel){ %>
+        <tr name="product" href="/products/<%- productModel.get('id') %>">
+            <td name="sku">
+                <%- productModel.get('sku') %>
+            </td>
+            <td name="name">
+                <%- productModel.get('name') %>
+            </td>
+            <td name="vendor">
+                <%- productModel.get('vendor') %>
+            </td>
+            <td name="vendorCountry">
+                <%- productModel.get('vendorCountry') %>
+            </td>
+            <td name="purchasePrice">
+                <% if(productModel.get('purchasePrice')){ %>
+                <%- formatMoney(productModel.get('purchasePrice')) %> р.
+                <% } else { %>
+                &mdash;
+                <% } %>
+            </td>
+        </tr>
+        <% }) %>
+        </tbody>
+    </table>
+    <% } else { %>
+    <p>
+        Нет продуктов
+    </p>
+    <% } %>
+
+    <% } %>
+
+    <% if (PAGE.params.subSection === 'balance') { %>
+    <p>Нет данных</p>
+    <% } %>
 </div>

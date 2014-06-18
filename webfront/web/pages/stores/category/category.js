@@ -2,21 +2,15 @@ define(function(require, exports, module) {
     //requirements
     var Page = require('pages/store'),
         exportCatalog = require('kit/exportCatalog'),
+        SubCategoryModel = require('models/subCategory'),
         router = require('router');
 
     return Page.extend({
         params: {
             categoryId: null,
-            subCategoryId: null,
             groupId: null,
-            section: 'subCategories'
-        },
-        listeners: {
-            'change:params.section': function(section){
-                var page = this;
-
-                page.el.querySelector('.content').setAttribute('section', section);
-            }
+            subCategoryId: '0',
+            subSection: 'products'
         },
         partials: {
             content: require('tpl!./content.ejs'),
@@ -38,6 +32,15 @@ define(function(require, exports, module) {
                 return new CategoryModel({
                     groupId: page.params.groupId,
                     id: page.params.categoryId
+                });
+            },
+            subCategory: function(){
+                var page = this;
+
+                return new SubCategoryModel({
+                    id: page.params.subCategoryId !== '0' && page.params.subCategoryId,
+                    groupId: page.params.groupId,
+                    categoryId: page.params.categoryId
                 });
             }
         }

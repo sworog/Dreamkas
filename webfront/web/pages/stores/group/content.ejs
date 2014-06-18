@@ -13,15 +13,7 @@
     </div>
 
     <h1>
-        <span style="vertical-align: middle">
-            <%= models.group.element('name') %>
-        </span>
-
-        <a class="page__editLink catalog__editGroupLink"></a>
-
-        <a class="button catalog__addCategoryLink">
-            Добавить категорию
-        </a>
+        <%= models.group.element('name') %>
     </h1>
 
     <%= models.group.collections.categories.element(require('tpl!blocks/catalog/storeCategoryList.ejs'), {
