@@ -22,17 +22,17 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void startEditionButtonLinkClick() {
-        groupPage.startEditionButtonLinkClick();
+        groupPage.getLocalMenuNavigationPageObjectElement().getStartEditionNavigationLink().click();
     }
 
     @Step
     public void startEditButtonLinkClickIsNotPresent() {
-        groupPage.startEditButtonLinkClickIsNotPresent();
+        groupPage.getLocalMenuNavigationPageObjectElement().getStartEditionNavigationLink().shouldBeNotVisible();
     }
 
     @Step
     public void stopEditionButtonLinkClick() {
-        groupPage.stopEditionButtonLinkClick();
+        groupPage.getLocalMenuNavigationPageObjectElement().getStopEditionNavigationLink().click();
     }
 
     @Step
@@ -239,11 +239,12 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void productsExportLinkClick() {
-        groupPage.productsExportLinkClick();
+        groupPage.getLocalMenuNavigationPageObjectElement().getProductsExportNavigationLink().click();
+        groupPage.getCommonActions().checkAlertText("Выгрузка началась");
     }
 
     @Step
     public void productsExportLinkIsNotPresent() {
-        groupPage.productsExportLinkIsNotPresent();
+        groupPage.getLocalMenuNavigationPageObjectElement().getProductsExportNavigationLink().shouldBeNotVisible();
     }
 }
