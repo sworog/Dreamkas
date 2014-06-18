@@ -60,6 +60,8 @@ Meta:
 
 !--В данный момент реализация такого сценария не возможна, потому что накладная шлется сразу и целиком
 
+Given skipped test
+
 Given there is the user with name 'departmentManager-s15u24', position 'departmentManager-s15u24', username 'departmentManager-s15u24', password 'lighthouse', role 'departmentManager'
 And there is the store with number 'store-s15u24' managed by department manager named 'departmentManager-s15u24'
 
