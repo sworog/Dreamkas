@@ -12,8 +12,8 @@
     <properties>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <thucydides.version>0.9.244</thucydides.version>
-        <thucydides.jbehave.version>0.9.244</thucydides.jbehave.version>
+        <thucydides.version>0.9.250</thucydides.version>
+        <thucydides.jbehave.version>0.9.250</thucydides.jbehave.version>
         <thucydides.maven.version>0.9.224</thucydides.maven.version>
         <thucydides.browser.width>1280</thucydides.browser.width>
         <thucydides.browser.height>1024</thucydides.browser.height>
@@ -49,7 +49,7 @@
             </exclusions>
         </dependency>
         <dependency>
-        <groupId>junit</groupId>
+            <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
             <scope>test</scope>
