@@ -72,8 +72,10 @@ define(function(require) {
         'stores/:storeId/catalog(/)': require('pages/stores/catalog/catalog'),
         'stores/:storeId/groups/:groupId(/)': require('pages/stores/group/group'),
         'stores/:storeId/groups/:groupId/categories/:categoryId(/)': require('pages/stores/category/category'),
-        'stores/:storeId/products/:productId/edit(/)': require('pages/editStoreProduct'),
-        'stores/:storeId/products/:productId/barcodes(/)': require('pages/storeProductBarcodes'),
+        'stores/:storeId/products/:productId/edit(/)': require('pages/editStoreProduct/editStoreProduct'),
+        'stores/:storeId/products/:productId/barcodes(/)': require('pages/storeProductBarcodes/storeProductBarcodes'),
+        'stores/:storeId/products/:productId/invoices(/)': require('pages/storeProductInvoices/storeProductInvoices'),
+        'stores/:storeId/products/:productId/writeOffs(/)': require('pages/storeProductWriteOffs/storeProductWriteOffs'),
 
         //departments
         'stores/:storeId/departments/create(/)': require('pages/department/form'),

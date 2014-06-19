@@ -8,7 +8,7 @@ define(function(require, exports, module) {
             storeId: null
         },
         partials: {
-            content: require('tpl!./editStoreProduct.ejs'),
+            content: require('tpl!./content.ejs'),
             localNavigation: require('tpl!blocks/localNavigation/localNavigation_storeProduct.ejs')
         },
         models: {

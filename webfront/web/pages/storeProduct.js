@@ -4,10 +4,10 @@ define(function(require, exports, module) {
 
     return Page.extend({
         params: {
+            storeId: null,
             productId: null
         },
         partials: {
-            content: require('tpl!./storeProductBarcodes.ejs'),
             localNavigation: require('tpl!blocks/localNavigation/localNavigation_storeProduct.ejs')
         },
         models: {
