@@ -17,41 +17,54 @@ define({
     nearest100: 'до рублей',
     nearest99: 'до 99 копеек',
 
-    kg: function(format){
+    productTypes: function(type, format) {
 
-        format = format || 'smallShort';
+        format = format || 'nameCapitalFull';
 
-        var formats = {
-            capitalFull: "Килограммы",
-            smallFull: "килограмм",
-            smallShort: "кг"
+        var productTypes = {
+            unit: {
+                units: 'unit',
+                nameCapitalFull: 'Штучный',
+                nameSmallFull: 'штучный'
+            },
+            weight: {
+                units: 'kg',
+                nameCapitalFull: 'Весовой',
+                nameSmallFull: 'весовой'
+            },
+            alcohol: {
+                units: 'unit',
+                nameCapitalFull: 'Алкоголь',
+                nameSmallFull: 'алкоголь'
+            }
         };
 
-        return formats[format];
+        return type ? productTypes[type][format] : '';
     },
-    unit: function(format){
+
+    units: function(unit, format) {
 
         format = format || 'smallShort';
 
-        var formats = {
-            capitalFull: "Штуки",
-            smallFull: "штука",
-            smallShort: "шт."
+        var unitsEnums = {
+            kg: {
+                capitalFull: "Килограммы",
+                smallFull: "килограмм",
+                smallShort: "кг"
+            },
+            unit: {
+                capitalFull: "Штуки",
+                smallFull: "штука",
+                smallShort: "шт."
+            },
+            liter: {
+                capitalFull: "Литры",
+                smallFull: "литр",
+                smallShort: "л"
+            }
         };
 
-        return formats[format];
-    },
-    liter: function(format){
-
-        format = format || 'smallShort';
-
-        var formats = {
-            capitalFull: "Литры",
-            smallFull: "литр",
-            smallShort: "л"
-        };
-
-        return formats[format];
+        return unit ? unitsEnums[unit][format] : '';
     },
 
     'for last day': function(day) {

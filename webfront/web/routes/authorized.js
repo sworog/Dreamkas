@@ -41,9 +41,9 @@ define(function(require) {
 
         //products
         'products(/)': require('pages/product/list'),
-        'products/edit/:productId(/)': require('pages/product/form'),
+        'products/:productId/edit(/)': require('pages/product/form'),
         'products/create(/)': require('pages/product/form'),
-        'products/:productId(/)': require('pages/product/view'),
+        'products/:productId(/)': require('pages/products/view/view'),
         'products/:productId/invoices': require('pages/product/invoices'),
         'products/:productId/writeoffs': require('pages/product/writeOffs'),
         'products/:productId/returns': require('pages/product/returns'),

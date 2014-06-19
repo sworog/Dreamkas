@@ -128,7 +128,7 @@
             </td>
             <td>
                 <span name="inventory"><%- productModel.get('inventory') || 0 %></span>
-                <span name="units"><%- getText(productModel.get('product.units')) %></span>
+                <span name="units"><%- getText('units', productModel.get('product.units')) %></span>
             </td>
         </tr>
         <% }) %>
