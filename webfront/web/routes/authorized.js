@@ -68,11 +68,11 @@ define(function(require) {
         'stores/create(/)': require('pages/stores/create/create'),
         'stores/:storeId/settings(/)': require('pages/stores/settings/settings'),
         'stores/:storeId(/)': require('pages/stores/dashboard/dashboard'),
-        'stores/:storeId/products/:productId(/)': require('pages/product/view'),
+        'stores/:storeId/products/:productId(/)': require('pages/stores/product/product'),
         'stores/:storeId/catalog(/)': require('pages/stores/catalog/catalog'),
         'stores/:storeId/groups/:groupId(/)': require('pages/stores/group/group'),
         'stores/:storeId/groups/:groupId/categories/:categoryId(/)': require('pages/stores/category/category'),
-        'stores/:storeId/products/edit/:productId(/)': require('pages/storeProduct/from'),
+        'stores/:storeId/products/:productId/edit(/)': require('pages/editStoreProduct'),
 
         //departments
         'stores/:storeId/departments/create(/)': require('pages/department/form'),

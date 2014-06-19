@@ -5,12 +5,19 @@ define(function(require) {
         numeral = require('numeral');
 
     return Model.extend({
-        urlRoot: Model.baseApiUrl + '/products',
+        urlRoot: function(){
+            if (this.get('storeId')){
+                return Model.baseApiUrl + '/stores/' + this.get('storeId') + '/products';
+            } else {
+                return Model.baseApiUrl + '/products';
+            }
+        },
         defaults: {
             amount: 0,
             retailPricePreference: 'retailMarkup',
             rounding: {},
-            type: 'unit'
+            type: 'unit',
+            storeId: null
         },
         initialize: function(){
             this.collections = {
@@ -57,22 +64,30 @@ define(function(require) {
                 retailMarkupMin = this.get('retailMarkupMin');
             }
 
-            return {
-                name: this.get('name'),
-                vat: this.get('vat'),
-                purchasePrice: purchasePrice,
-                retailPriceMin: retailPriceMin,
-                retailPriceMax: retailPriceMax,
-                retailMarkupMax: retailMarkupMax,
-                retailMarkupMin: retailMarkupMin,
-                retailPricePreference: this.get('retailPricePreference'),
-                barcode: this.get('barcode'),
-                vendorCountry: this.get('vendorCountry'),
-                vendor: this.get('vendor'),
-                subCategory: this.get('subCategory'),
-                rounding: this.get('rounding') ? this.get('rounding').name : null,
-                type: this.get('type'),
-                typeProperties: this.get('type') === 'unit' ? null : this.get('typeProperties')
+            if (this.get('storeId')){
+                return {
+                    retailPrice: this.get('retailPrice'),
+                    retailMarkup: this.get('retailMarkup'),
+                    retailPricePreference: this.get('retailPricePreference')
+                };
+            } else {
+                return {
+                    name: this.get('name'),
+                    vat: this.get('vat'),
+                    purchasePrice: purchasePrice,
+                    retailPriceMin: retailPriceMin,
+                    retailPriceMax: retailPriceMax,
+                    retailMarkupMax: retailMarkupMax,
+                    retailMarkupMin: retailMarkupMin,
+                    retailPricePreference: this.get('retailPricePreference'),
+                    barcode: this.get('barcode'),
+                    vendorCountry: this.get('vendorCountry'),
+                    vendor: this.get('vendor'),
+                    subCategory: this.get('subCategory'),
+                    rounding: this.get('rounding') ? this.get('rounding.name') : null,
+                    type: this.get('type'),
+                    typeProperties: this.get('type') === 'unit' ? null : this.get('typeProperties')
+                };
             }
         },
         parse: function(){
