@@ -73,6 +73,7 @@ define(function(require) {
         'stores/:storeId/groups/:groupId(/)': require('pages/stores/group/group'),
         'stores/:storeId/groups/:groupId/categories/:categoryId(/)': require('pages/stores/category/category'),
         'stores/:storeId/products/:productId/edit(/)': require('pages/editStoreProduct'),
+        'stores/:storeId/products/:productId/barcodes(/)': require('pages/storeProductBarcodes'),
 
         //departments
         'stores/:storeId/departments/create(/)': require('pages/department/form'),

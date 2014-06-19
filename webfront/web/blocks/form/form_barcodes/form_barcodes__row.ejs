@@ -6,13 +6,14 @@
 %>
 
 <% var formatMoney = require('kit/formatMoney') %>
+<% var formatAmount = require('kit/formatAmount') %>
 
 <div data-barcode_cid="<%- barcodeModel.cid %>" class="table__row form_barcodes__row" name="barcodeRow">
     <div class="table__cell">
         <input value="<%- barcodeModel.get('barcode') %>" name="barcode[]" type="text" class="inputText"/>
     </div>
     <div class="table__cell">
-        <input value="<%- LH.formatAmount(barcodeModel.get('quantity')) %>" name="quantity[]" type="text"
+        <input value="<%- formatAmount(barcodeModel.get('quantity')) %>" name="quantity[]" type="text"
                class="inputText" style="width: 80px;"/>
     </div>
     <div class="table__cell <%- barcodeModel.get('price') ? '' : 'form_barcodes__emptyCell'%>" style="white-space: nowrap;">
