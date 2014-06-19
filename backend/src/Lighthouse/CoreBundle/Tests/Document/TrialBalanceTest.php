@@ -14,6 +14,7 @@ use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceCollection;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
+use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
@@ -160,6 +161,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
                 ->createInvoiceProduct($product->id, 9, 0.99)
             ->flush();
 
+        $this->processJobs();
+
         // get invoice from right container
         $invoice = $this->getContainer()->get('lighthouse.core.document.repository.invoice')->find($invoice->id);
 
@@ -178,6 +181,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $manager->persist($invoice);
         $manager->flush();
 
+        $this->processJobs();
+
         $trialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
 
         $this->assertEquals(10000, $trialBalance->quantity->getCount());
@@ -186,6 +191,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
         $manager->remove($invoice->products->remove(0));
         $manager->flush();
+
+        $this->processJobs();
 
         $trialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
         $this->assertTrue(null === $trialBalance);
@@ -228,6 +235,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $manager->persist($sale);
         $manager->persist($saleProduct);
         $manager->flush();
+
+        $this->processJobs();
 
         $trialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
 
@@ -275,6 +284,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $manager->persist($writeOffProduct);
         $manager->flush();
 
+        $this->processJobs();
+
         $trialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
 
         $this->assertEquals(7999, $trialBalance->price->getCount());
@@ -285,6 +296,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $writeOffProduct->price = $numericFactory->createMoney(77.99);
         $writeOffProduct->quantity = $numericFactory->createQuantity(7);
         $manager->flush($writeOffProduct);
+
+        $this->processJobs();
 
         $afterEditTrialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
 
@@ -299,6 +312,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
         // Delete
         $manager->remove($writeOffProduct);
         $manager->flush();
+
+        $this->processJobs();
 
         $afterDeleteTrialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
         $this->assertTrue(null === $afterDeleteTrialBalance);

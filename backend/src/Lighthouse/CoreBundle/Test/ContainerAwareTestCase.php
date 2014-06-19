@@ -179,4 +179,24 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
         $this->getContainer()->get('project.context')->authenticate($project);
         return $project;
     }
+
+    /**
+     * process all jobs
+     */
+    protected function processJobs()
+    {
+        /* @var JobManager $jobManager */
+        $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
+
+        $jobManager->startWatchingTubes();
+        while (1) {
+            $job = $jobManager->reserveJob(0);
+            if (null == $job) {
+                break;
+            }
+
+            $jobManager->processJob($job);
+        }
+        $jobManager->stopWatchingTubes();
+    }
 }

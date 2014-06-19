@@ -207,8 +207,17 @@ class CostOfGoodsCalculator
      */
     public function supportsRangeIndex(Reasonable $reason)
     {
+        return $this->supportsRangeIndexByReasonType($reason->getReasonType());
+    }
+
+    /**
+     * @param string $reasonType
+     * @return bool
+     */
+    public function supportsRangeIndexByReasonType($reasonType)
+    {
         return in_array(
-            $reason->getReasonType(),
+            $reasonType,
             $this->getSupportRangeIndex()
         );
     }
@@ -222,10 +231,23 @@ class CostOfGoodsCalculator
         return $this->supportsCostOfGoods($trialBalance->reason);
     }
 
+    /**
+     * @param Reasonable $reason
+     * @return bool
+     */
     public function supportsCostOfGoods(Reasonable $reason)
     {
+        return $this->supportsRangeIndexByReasonType($reason->getReasonType());
+    }
+
+    /**
+     * @param string $reasonType
+     * @return bool
+     */
+    public function supportsCostOfGoodsByReasonType($reasonType)
+    {
         return in_array(
-            $reason->getReasonType(),
+            $reasonType,
             $this->getSupportCostOfGoods()
         );
     }

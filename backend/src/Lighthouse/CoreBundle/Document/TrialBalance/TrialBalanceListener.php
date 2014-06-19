@@ -12,6 +12,7 @@ use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
+use Lighthouse\CoreBundle\Job\JobManager;
 
 /**
  * @DI\DoctrineMongoDBListener(events={"onFlush"}, priority=128)
@@ -34,23 +35,32 @@ class TrialBalanceListener extends AbstractMongoDBListener
     protected $costOfGoodsCalculator;
 
     /**
+     * @var JobManager
+     */
+    protected $jobManager;
+
+    /**
      * @DI\InjectParams({
      *      "trialBalanceRepository" = @DI\Inject("lighthouse.core.document.repository.trial_balance"),
      *      "storeProductRepository" = @DI\Inject("lighthouse.core.document.repository.store_product"),
-     *      "costOfGoodsCalculator" = @DI\Inject("lighthouse.core.document.trial_balance.calculator")
+     *      "costOfGoodsCalculator" = @DI\Inject("lighthouse.core.document.trial_balance.calculator"),
+     *      "jobManager" = @DI\Inject("lighthouse.core.job.manager")
      * })
      * @param TrialBalanceRepository $trialBalanceRepository
      * @param StoreProductRepository $storeProductRepository
      * @param CostOfGoodsCalculator $costOfGoodsCalculator
+     * @param JobManager $jobManager
      */
     public function __construct(
         TrialBalanceRepository $trialBalanceRepository,
         StoreProductRepository $storeProductRepository,
-        CostOfGoodsCalculator $costOfGoodsCalculator
+        CostOfGoodsCalculator $costOfGoodsCalculator,
+        JobManager $jobManager
     ) {
         $this->trialBalanceRepository = $trialBalanceRepository;
         $this->storeProductRepository = $storeProductRepository;
         $this->costOfGoodsCalculator = $costOfGoodsCalculator;
+        $this->jobManager = $jobManager;
     }
 
     /**
@@ -85,67 +95,16 @@ class TrialBalanceListener extends AbstractMongoDBListener
     }
 
     /**
-     * @param TrialBalance $trialBalance
-     * @param DocumentManager $dm
-     */
-    protected function processSupportsRangeIndexRemove(TrialBalance $trialBalance, DocumentManager $dm)
-    {
-        $nextProcessedTrialBalance = $this->trialBalanceRepository->findOneNext($trialBalance);
-
-        if (null != $nextProcessedTrialBalance) {
-            $nextProcessedTrialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
-            $dm->persist($nextProcessedTrialBalance);
-            $this->computeChangeSet($dm, $nextProcessedTrialBalance);
-        }
-    }
-
-    /**
-     * @param TrialBalance $trialBalance
-     * @param StoreProduct $storeProduct
-     * @param DocumentManager $dm
-     * @throws \Doctrine\ODM\MongoDB\MongoDBException
-     * @throws \InvalidArgumentException
-     * @throws \Doctrine\ODM\MongoDB\LockException
-     */
-    protected function processSupportsRangeIndexUpdate(
-        TrialBalance $trialBalance,
-        StoreProduct $storeProduct,
-        DocumentManager $dm
-    ) {
-        if ($storeProduct != $trialBalance->storeProduct) {
-            $needProcessedTrialProduct = $this->trialBalanceRepository->findOnePrevious($trialBalance);
-            if (null == $needProcessedTrialProduct) {
-                $needProcessedTrialProduct = $this->trialBalanceRepository->findOneNext($trialBalance);
-            }
-            if (null != $needProcessedTrialProduct) {
-                $needProcessedTrialProduct->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
-                $dm->persist($needProcessedTrialProduct);
-                $this->computeChangeSet($dm, $needProcessedTrialProduct);
-            }
-        }
-
-        $trialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
-    }
-
-    /**
      * @param Reasonable $document
      * @param DocumentManager $dm
      */
     protected function onReasonablePersist(Reasonable $document, DocumentManager $dm)
     {
-        $storeProduct = $this->storeProductRepository->findOrCreateByReason($document);
-        $dm->persist($storeProduct);
-        $this->computeChangeSet($dm, $storeProduct);
+        $trialBalanceProcessJob = new TrialBalanceProcessJob();
+        $trialBalanceProcessJob->setReason($document);
+        $trialBalanceProcessJob->processType = TrialBalanceProcessJob::PROCESS_TYPE_CREATE;
 
-        $trialBalance = new TrialBalance();
-        $trialBalance->price = $document->getProductPrice();
-        $trialBalance->quantity = $document->getProductQuantity();
-        $trialBalance->storeProduct = $storeProduct;
-        $trialBalance->reason = $document;
-        $trialBalance->createdDate = $document->getReasonDate();
-
-        $dm->persist($trialBalance);
-        $this->computeChangeSet($dm, $trialBalance);
+        $this->jobManager->addJob($trialBalanceProcessJob);
     }
     
     /**
@@ -154,28 +113,11 @@ class TrialBalanceListener extends AbstractMongoDBListener
      */
     protected function onReasonableUpdate(Reasonable $document, DocumentManager $dm)
     {
-        $trialBalance = $this->trialBalanceRepository->findOneByReason($document);
+        $trialBalanceProcessJob = new TrialBalanceProcessJob();
+        $trialBalanceProcessJob->setReason($document);
+        $trialBalanceProcessJob->processType = TrialBalanceProcessJob::PROCESS_TYPE_UPDATE;
 
-        // FIXME Something wrong here, TrialBalance should be found
-        if (!$trialBalance) {
-            return;
-        }
-
-        $storeProduct = $this->storeProductRepository->findOrCreateByReason($document);
-
-        if ($this->costOfGoodsCalculator->supportsRangeIndex($document)) {
-            $this->processSupportsRangeIndexUpdate($trialBalance, $storeProduct, $dm);
-        }
-
-        $trialBalance->price = $document->getProductPrice();
-        $trialBalance->quantity = $document->getProductQuantity();
-        $trialBalance->storeProduct = $storeProduct;
-        $trialBalance->createdDate = clone $document->getReasonDate();
-
-        $dm->persist($storeProduct);
-        $dm->persist($trialBalance);
-
-        $this->computeChangeSet($dm, $trialBalance);
+        $this->jobManager->addJob($trialBalanceProcessJob);
     }
 
     /**
@@ -184,13 +126,11 @@ class TrialBalanceListener extends AbstractMongoDBListener
      */
     protected function onReasonableRemove(Reasonable $document, DocumentManager $dm)
     {
-        $trialBalance = $this->trialBalanceRepository->findOneByReason($document);
+        $trialBalanceProcessJob = new TrialBalanceProcessJob();
+        $trialBalanceProcessJob->setReason($document);
+        $trialBalanceProcessJob->processType = TrialBalanceProcessJob::PROCESS_TYPE_REMOVE;
 
-        if ($this->costOfGoodsCalculator->supportsRangeIndex($document)) {
-            $this->processSupportsRangeIndexRemove($trialBalance, $dm);
-        }
-
-        $dm->remove($trialBalance);
+        $this->jobManager->addJob($trialBalanceProcessJob);
     }
 
     /**
