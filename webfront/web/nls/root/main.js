@@ -17,6 +17,43 @@ define({
     nearest100: 'до рублей',
     nearest99: 'до 99 копеек',
 
+    kg: function(format){
+
+        format = format || 'smallShort';
+
+        var formats = {
+            capitalFull: "Килограммы",
+            smallFull: "килограмм",
+            smallShort: "кг"
+        };
+
+        return formats[format];
+    },
+    unit: function(format){
+
+        format = format || 'smallShort';
+
+        var formats = {
+            capitalFull: "Штуки",
+            smallFull: "штука",
+            smallShort: "шт."
+        };
+
+        return formats[format];
+    },
+    liter: function(format){
+
+        format = format || 'smallShort';
+
+        var formats = {
+            capitalFull: "Литры",
+            smallFull: "литр",
+            smallShort: "л"
+        };
+
+        return formats[format];
+    },
+
     'for last day': function(day) {
         switch (day) {
             case 1:

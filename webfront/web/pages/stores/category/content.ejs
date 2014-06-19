@@ -5,6 +5,7 @@
  */
 %>
 <% var formatMoney = require('kit/formatMoney') %>
+<% var getText = require('kit/getText') %>
 <% var partials = _.extend({
     select_priceRoundings: require('tpl!blocks/select/select_priceRoundings/select_priceRoundings.ejs')
 }, partials) %>
@@ -44,7 +45,7 @@
 
     <% if (PAGE.params.subSection === 'products') { %>
 
-    <% if (models.subCategory.collections.products.length) { %>
+    <% if (collections.products.length) { %>
     <table class="table table_products">
         <thead>
         <tr>
@@ -56,23 +57,23 @@
         </tr>
         </thead>
         <tbody>
-        <% models.subCategory.collections.products.forEach(function(productModel){ %>
-        <tr name="product" href="/products/<%- productModel.get('id') %>">
+        <% collections.products.forEach(function(productModel){ %>
+        <tr name="product" href="/stores/<%- PAGE.params.storeId %>/products/<%- productModel.get('product.id') %>">
             <td name="sku">
-                <%- productModel.get('sku') %>
+                <%- productModel.get('product.sku') %>
             </td>
             <td name="name">
-                <%- productModel.get('name') %>
+                <%- productModel.get('product.name') %>
             </td>
             <td name="vendor">
-                <%- productModel.get('vendor') %>
+                <%- productModel.get('product.vendor') %>
             </td>
             <td name="vendorCountry">
-                <%- productModel.get('vendorCountry') %>
+                <%- productModel.get('product.vendorCountry') %>
             </td>
             <td name="purchasePrice">
-                <% if(productModel.get('purchasePrice')){ %>
-                <%- formatMoney(productModel.get('purchasePrice')) %> р.
+                <% if(productModel.get('product.purchasePrice')){ %>
+                <%- formatMoney(productModel.get('product.purchasePrice')) %> р.
                 <% } else { %>
                 &mdash;
                 <% } %>
@@ -90,7 +91,54 @@
     <% } %>
 
     <% if (PAGE.params.subSection === 'balance') { %>
-    <p>Нет данных</p>
+    <% if (collections.products.length) { %>
+    <table class="table table_products">
+        <thead>
+        <tr>
+            <th>Артикул</th>
+            <th>Название</th>
+            <th>Производитель</th>
+            <th>Страна</th>
+            <th>Средняя ЗЦ</th>
+            <th>Последняя ЗЦ</th>
+            <th>Количество</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% collections.products.forEach(function(productModel){ %>
+        <tr href="/stores/<%- PAGE.params.storeId %>/products/<%- productModel.get('product.id') %>" name="inventoryItem">
+            <td name="sku">
+                <%- productModel.get('product.sku') %>
+            </td>
+            <td name="name">
+                <%- productModel.get('product.name') %>
+            </td>
+            <td name="vendor">
+                <%- productModel.get('product.vendor') %>
+            </td>
+            <td name="vendorCountry">
+                <%- productModel.get('product.vendorCountry') %>
+            </td>
+            <td name="averagePurchasePrice">
+                <%= productModel.get('averagePurchasePrice') ? formatMoney(productModel.get('averagePurchasePrice')) + 'р.' : '&mdash;' %>
+            </td>
+            <td name="lastPurchasePrice">
+                <%- productModel.get('lastPurchasePrice') ? formatMoney(productModel.get('lastPurchasePrice')) : formatMoney(productModel.get('product.purchasePrice')) %>
+                р.
+            </td>
+            <td>
+                <span name="inventory"><%- productModel.get('inventory') || 0 %></span>
+                <span name="units"><%- getText(productModel.get('product.units')) %></span>
+            </td>
+        </tr>
+        <% }) %>
+        </tbody>
+    </table>
+    <% } else { %>
+    <p>
+        Нет продуктов
+    </p>
+    <% } %>
     <% } %>
 
     <% } %>

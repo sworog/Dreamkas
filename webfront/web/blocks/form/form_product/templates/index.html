@@ -1,5 +1,5 @@
 <% var templates = {
-    select_priceRoundings: require('tpl!blocks/select/select_priceRoundings/select_priceRoundings.html'),
+    select_priceRoundings: require('tpl!blocks/select/select_priceRoundings/select_priceRoundings.ejs'),
     select_vat: require('tpl!blocks/select/select_vat/select_vat.html')
 } %>
 
@@ -136,11 +136,9 @@
     </div>
     <div class="form__field form__field_inline">
         <label class="form__label">Округление</label>
-        <select class="select select_priceRoundings" name="rounding.name">
-            <%= templates.select_priceRoundings({
-                selected: model.get('rounding').name || subCategoryModel.get('rounding').name || 'nearest1'
-            }) %>
-        </select>
+        <%= templates.select_priceRoundings({
+            selected: model.get('rounding.name') || subCategoryModel.get('rounding.name') || 'nearest1'
+        }) %>
     </div>
     <input type="hidden" value="<%- model.get('retailPricePreference') %>" name="retailPricePreference"/>
 </fieldset>

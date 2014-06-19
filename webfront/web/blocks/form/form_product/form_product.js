@@ -63,7 +63,7 @@ define(function(require) {
                 if (block.model.id){
                     block.redirectUrl = '/products/' + block.model.id
                 } else {
-                    block.redirectUrl = '/catalog/' + block.model.get('group').id + '/' + block.model.get('category').id + '/' + block.model.get('subCategory').id
+                    block.redirectUrl = '/groups/' + block.model.get('group').id + '/categories/' + block.model.get('category').id + '?subCategoryId' + block.model.get('subCategory').id
                 }
             },
             findElements: function(){

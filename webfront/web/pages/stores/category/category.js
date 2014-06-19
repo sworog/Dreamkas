@@ -17,22 +17,28 @@ define(function(require, exports, module) {
             localNavigation: require('tpl!blocks/localNavigation/localNavigation_storeCategory.ejs')
         },
         events: {
-            'click .catalog__subCategoryLink': function(e){
+            'click .catalog__subCategoryLink[data-subcategory_id]': function(e) {
                 e.preventDefault();
                 e.stopPropagation();
 
-                if (e.target.classList.contains('preloader_stripes')){
+                if (e.target.classList.contains('preloader_stripes')) {
                     return;
                 }
 
                 var page = this,
                     subCategoryId = e.target.dataset.subcategory_id;
 
-                page.models.subCategory.set('id', subCategoryId);
+                page.models.subCategory
+                    .clear({
+                        silent: true
+                    })
+                    .set('id', subCategoryId);
+
+                page.collections.products.subCategoryId = subCategoryId;
 
                 e.target.classList.add('preloader_stripes');
 
-                page.models.subCategory.fetch().then(function(){
+                Promise.all([page.models.subCategory.fetch(), page.collections.products.fetch()]).then(function() {
                     page.set('params', {
                         subCategoryId: subCategoryId
                     });
@@ -64,6 +70,17 @@ define(function(require, exports, module) {
                     id: page.params.subCategoryId !== '0' && page.params.subCategoryId,
                     groupId: page.params.groupId,
                     categoryId: page.params.categoryId
+                });
+            }
+        },
+        collections: {
+            products: function() {
+                var page = this,
+                    ProductsCollection = require('collections/catalogProducts');
+
+                return new ProductsCollection([], {
+                    storeId: page.params.storeId,
+                    subCategoryId: page.params.subCategoryId !== '0' && page.params.subCategoryId
                 });
             }
         }
