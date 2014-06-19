@@ -6,10 +6,10 @@ parameters:
     database_user:     root
     database_password: ~
 
-    mailer_transport:  gmail
-    mailer_host:       ~
-    mailer_user:       lighthouse.eddystone@gmail.com
-    mailer_password:   RZ8XnfRk
+    mailer_transport:  smtp
+    mailer_host:       smtp.yandex.ru
+    mailer_user:       noreply@lighthouse.pro
+    mailer_password:   A1234567a
 
     locale:            ru
     secret:            kjhf843f34nbfi34fed23efedf34
