@@ -1,17 +1,16 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('blocks/form/form'),
-        form_barcodes__row = require('tpl!blocks/form/form_barcodes/form_barcodes__row.html'),
+    var Form = require('kit/form'),
+        form_barcodes__row = require('tpl!blocks/form/form_barcodes/form_barcodes__row.ejs'),
         stringToFragment = require('kit/stringToFragment/stringToFragment'),
-        cookies = require('cookies'),
-        Page = require('kit/page/page');
+        cookies = require('cookies');
 
     require('lodash');
 
     return Form.extend({
         el: '.form_barcodes',
         redirectUrl: function(){
-            return '/products/' + Page.current.models.product.id
+            return '/products/' + PAGE.models.product.id
         },
         events: {
             'keyup [name="price[]"]': function(e){
@@ -29,18 +28,18 @@ define(function(require, exports, module) {
                 e.preventDefault();
 
                 var link = e.target,
-                    barcodesCollection = Page.current.models.product.collections.barcodes,
+                    barcodesCollection = PAGE.models.product.collections.barcodes,
                     model = barcodesCollection.get(link.dataset.barcode_cid);
 
                 barcodesCollection.remove(model);
             }
         },
-        startListening: function(){
+        _startListening: function(){
             var block = this;
 
-            Form.prototype.startListening.apply(block, arguments);
+            Form.prototype._startListening.apply(block, arguments);
 
-            block.listenTo(Page.current.models.product.collections.barcodes, {
+            block.listenTo(PAGE.models.product.collections.barcodes, {
                 add: function(barcodeModel){
                     block.el.appendChild(stringToFragment(form_barcodes__row({
                         barcodeModel: barcodeModel
@@ -51,19 +50,19 @@ define(function(require, exports, module) {
                 }
             });
         },
-        submit: function(formData){
+        submit: function(){
             var block = this,
-                barcodes = _.map(formData.barcode, function(barcode, index){
+                barcodes = _.map(block.formData.barcode, function(barcode, index){
                     return {
                         barcode: barcode,
-                        quantity: formData.quantity[index],
-                        price: formData.price[index]
+                        quantity: block.formData.quantity[index],
+                        price: block.formData.price[index]
                     }
                 });
 
             block.request = $.ajax({
                 type: 'PUT',
-                url: LH.baseApiUrl + '/products/' + Page.current.models.product.id + '/barcodes',
+                url: LH.baseApiUrl + '/products/' + PAGE.models.product.id + '/barcodes',
                 dataType: 'json',
                 headers: {
                     Authorization: 'Bearer ' + cookies.get('token')

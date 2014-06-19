@@ -1,5 +1,5 @@
-<% var templates = {
-    form_barcodes__row: require('tpl!blocks/form/form_barcodes/form_barcodes__row.html')
+<% var partials = {
+    form_barcodes__row: require('tpl!blocks/form/form_barcodes/form_barcodes__row.ejs')
 } %>
 
 <% var Page = require('kit/page/page') %>
@@ -18,13 +18,12 @@
         </div>
 
         <form id="form_barcodes" class="form form_barcodes table__body">
-            <% Page.current.models.product.collections.barcodes.forEach(function(barcodeModel){ %>
-                <%= templates.form_barcodes__row({
+            <% models.product.collections.barcodes.forEach(function(barcodeModel){ %>
+                <%= partials.form_barcodes__row({
                     barcodeModel: barcodeModel
                 }) %>
             <% }) %>
         </form>
-        <% if (LH.isAllow('products', 'PUT::{product}/barcodes')) { %>
         <form class="form form_barcode table__body">
             <div class="table__row">
                 <div class="table__cell">
@@ -42,9 +41,7 @@
                 </div>
             </div>
         </form>
-        <% } %>
     </div>
-    <% if (LH.isAllow('products', 'PUT::{product}/barcodes')) { %>
     <div class="form__controls">
         <button form="form_barcodes" class="button" type="submit">
             Сохранить
@@ -54,5 +51,4 @@
         </span>
         <a href="/products/<%- models.product.id %>">Отменить</a>
     </div>
-    <% } %>
 </div>

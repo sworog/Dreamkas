@@ -1,34 +1,28 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/page/page'),
-        Form_barcodes = require('blocks/form/form_barcodes/form_barcodes'),
-        Form_barcode = require('blocks/form/form_barcode/form_barcode'),
-        ProductModel = require('models/product');
+    var Page = require('kit/page');
 
     return Page.extend({
         params: {
             productId: null
         },
-        templates: {
-            content: require('tpl!./content.html'),
-            localNavigation: require('tpl!pages/product/templates/localNavigation.html')
+        partials: {
+            content: require('tpl!./content.ejs'),
+            localNavigation: require('tpl!blocks/localNavigation/localNavigation_product.ejs')
         },
-        localNavigationActiveLink: 'barcodes',
         models: {
             product: function(){
-                var page = this;
+                var page = this,
+                    ProductModel = require('models/product');
 
                 return new ProductModel({
                     id: page.params.productId
                 })
             }
         },
-        collections: {
-
-        },
         blocks: {
-            form_barcodes: Form_barcodes,
-            form_barcode: Form_barcode
+            form_barcodes: require('blocks/form/form_barcodes/form_barcodes'),
+            form_barcode: require('blocks/form/form_barcode/form_barcode')
         }
     });
 });

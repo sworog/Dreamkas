@@ -171,9 +171,9 @@ define(function(require) {
             var block = this;
 
             block.removeErrors();
-            block.elements.$submitButton.removeClass('preloader preloader_rows');
+            block.elements.$submitButton.removeClass('preloader preloader_stripes');
 
-            block.$el.find(':input').each(function() {
+            $(block.el).find(':input').each(function() {
                 switch (this.type) {
                     case 'password':
                     case 'select-multiple':

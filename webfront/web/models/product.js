@@ -12,6 +12,13 @@ define(function(require) {
             rounding: {},
             type: 'unit'
         },
+        initialize: function(){
+            this.collections = {
+                barcodes: new BarcodesCollections(this.get('barcodes'), {
+                    productId: this.id
+                })
+            };
+        },
         saveData: function() {
 
             var purchasePrice = parseFloat((this.get('purchasePrice') || '').toString()
@@ -67,6 +74,15 @@ define(function(require) {
                 type: this.get('type'),
                 typeProperties: this.get('type') === 'unit' ? null : this.get('typeProperties')
             }
+        },
+        parse: function(){
+            var data = Model.prototype.parse.apply(this, arguments);
+
+            if (this.collections){
+                this.collections.barcodes.reset(data.barcodes);
+            }
+
+            return data;
         }
     });
 });
