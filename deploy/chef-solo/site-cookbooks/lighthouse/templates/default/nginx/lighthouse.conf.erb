@@ -50,6 +50,17 @@ server {
     server_name ~^(?<webfronthost>.+)\.(?<env>.+?)\.webfront\.(lighthouse|lh)\.(cs|pro)$;
     server_name ~^(?<webfronthost>.+(?!\.webfront))\.(lighthouse|lh)\.(cs|pro)$;
 
+    # auth
+    satisfy any;
+
+    allow 85.114.29.78;
+    deny all;
+
+    auth_basic           "Lighthouse Pro";
+    auth_basic_user_file htpasswd;
+    #end auth
+
+
     if ($env = "") {
         set $env "staging";
     }
