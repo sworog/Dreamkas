@@ -9,6 +9,7 @@ import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.items.InputOnlyVisible;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
+import project.lighthouse.autotests.pages.commercialManager.catalog.localNavigation.CatalogMenuNavigation;
 
 import static junit.framework.Assert.fail;
 
@@ -23,14 +24,14 @@ public class GroupPage extends CommonPageObject {
      * Page object element for catalog local menu navigation
      */
     @SuppressWarnings("unused")
-    private LocalMenuNavigation localMenuNavigation;
+    private CatalogMenuNavigation catalogMenuNavigation;
 
     public GroupPage(WebDriver driver) {
         super(driver);
     }
 
-    public LocalMenuNavigation getLocalMenuNavigationPageObjectElement() {
-        return localMenuNavigation;
+    public CatalogMenuNavigation getLocalMenuNavigationPageObjectElement() {
+        return catalogMenuNavigation;
     }
 
     public void addNewButtonClick() {

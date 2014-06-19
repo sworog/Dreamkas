@@ -1,12 +1,12 @@
-package project.lighthouse.autotests.pages.commercialManager.catalog;
+package project.lighthouse.autotests.pages.commercialManager.catalog.localNavigation;
 
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.localNavigation.NavigationLinkFacade;
 
-public class LocalMenuNavigation extends CommonPageObject {
+public class CatalogMenuNavigation extends CommonPageObject {
 
-    public LocalMenuNavigation(WebDriver driver) {
+    public CatalogMenuNavigation(WebDriver driver) {
         super(driver);
     }
 
