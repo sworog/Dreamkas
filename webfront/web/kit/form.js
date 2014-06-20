@@ -54,14 +54,21 @@ define(function(require) {
             controls: '.form__controls',
             results: '.form__results'
         },
+        initialize: function(){
+            var block = this;
+
+            Block.prototype.initialize.apply(block, arguments);
+
+            block.model = block.get('model');
+            block.redirectUrl = block.get('redirectUrl');
+        },
         getData: function(){
             return form2js(this.el, '.', false);
         },
         submit: function() {
-            var block = this,
-                model = block.model.extend ? new block.model : block.model;
+            var block = this;
 
-            return model.save(block.formData);
+            return block.model.save(block.formData);
         },
         submitStart: function() {
             var block = this;

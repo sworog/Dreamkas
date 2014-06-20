@@ -6,7 +6,26 @@ define(function(require) {
         return Form.extend({
             el: '.form_product',
             defaultInputLinkText: 'Введите значение',
-            model: null,
+            redirectUrl: function(){
+                var block = this,
+                    redirectUrl;
+                
+                if (block.model.id){
+                    redirectUrl = '/products/' + block.model.id
+                } else {
+                    redirectUrl = '/groups/' + block.models.subCategory.get('category.group.id') + '/categories/' + block.models.subCategory.get('category.id') + '?subCategoryId' + block.models.subCategory.id
+                }
+                
+                return redirectUrl;
+            },
+            model: function(){
+                var block = this,
+                    ProductModel = require('models/product');
+                
+                return new ProductModel({
+                    subCategoryId: block.models.subCategory
+                });
+            },
             models: {
                 subCategory: null
             },
@@ -62,53 +81,31 @@ define(function(require) {
                     this.renderProductTypeSpecificFields();
                 }
             },
-
             initialize: function(){
-                var block = this,
-                    ProductModel = require('models/product');
-
-                if (!block.model){
-                    block.model = new ProductModel({
-                        subCategoryId: block.models.subCategory
-                    });
-                }
-
-                if (block.model.id){
-                    block.redirectUrl = '/products/' + block.model.id
-                } else {
-                    block.redirectUrl = '/groups/' + block.models.subCategory.get('category.group.id') + '/categories/' + block.models.subCategory.get('category.id') + '?subCategoryId' + block.models.subCategory.id
-                }
-            },
-            findElements: function(){
                 var block = this;
-                Form.prototype.findElements.apply(block, arguments);
 
-                block.$retailPricePreferenceInput = block.$el.find('[name="retailPricePreference"]');
-                block.$retailPriceMinInput = block.$el.find('[name="retailPriceMin"]');
-                block.$retailPriceMaxInput = block.$el.find('[name="retailPriceMax"]');
-                block.$retailMarkupMinInput = block.$el.find('[name="retailMarkupMin"]');
-                block.$retailMarkupMaxInput = block.$el.find('[name="retailMarkupMax"]');
-                block.$retailPriceSpan = block.$el.find('span.retailPrice');
-                block.$retailMarkupSpan = block.$el.find('span.retailMarkup');
-                block.$purchasePriceInput = block.$el.find('[name="purchasePrice"]');
+                Form.prototype.initialize.apply(block, arguments);
+
+                block.$retailPricePreferenceInput = $(block.el).find('[name="retailPricePreference"]');
+                block.$retailPriceMinInput = $(block.el).find('[name="retailPriceMin"]');
+                block.$retailPriceMaxInput = $(block.el).find('[name="retailPriceMax"]');
+                block.$retailMarkupMinInput = $(block.el).find('[name="retailMarkupMin"]');
+                block.$retailMarkupMaxInput = $(block.el).find('[name="retailMarkupMax"]');
+                block.$retailPriceSpan = $(block.el).find('span.retailPrice');
+                block.$retailMarkupSpan = $(block.el).find('span.retailMarkup');
+                block.$purchasePriceInput = $(block.el).find('[name="purchasePrice"]');
 
                 block.$retailPriceLink = block.$retailPriceSpan.next('.productForm__inputLink');
                 block.$retailMarkupLink = block.$retailMarkupSpan.next('.productForm__inputLink');
 
-                block.$retailMarkupField = block.$('.productForm__retailMarkupField');
-                block.$retailPriceField = block.$('.productForm__retailPriceField');
+                block.$retailMarkupField = $(block.el).find('.productForm__retailMarkupField');
+                block.$retailPriceField = $(block.el).find('.productForm__retailPriceField');
 
-                block.$productUnits = block.$('[name=units]');
-                block.$productTypePropertiesFields = block.$('.productForm__productTypePropertiesFields');
-                block.$productTypeRadio = block.$('.productForm__productTypeRadio');
-            },
-            render: function(){
-                var block = this;
-
-                Form.prototype.render.call(this);
+                block.$productUnits = $(block.el).find('[name="units"]');
+                block.$productTypePropertiesFields = $(block.el).find('.productForm__productTypePropertiesFields');
+                block.$productTypeRadio = $(block.el).find('.productForm__productTypeRadio');
 
                 block.renderPriceInputs();
-                block.renderProductTypeSpecificFields();
             },
             showRetailMarkupInput: function() {
                 this.$retailPriceSpan.addClass('productForm__hiddenInput');
