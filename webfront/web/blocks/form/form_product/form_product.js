@@ -1,14 +1,20 @@
 define(function(require) {
         //requirements
-        var Form = require('blocks/form/form'),
+        var Form = require('kit/form'),
             numeral = require('numeral');
 
         return Form.extend({
-            __name__: 'form_product',
+            el: '.form_product',
             defaultInputLinkText: 'Введите значение',
             model: null,
-            subCategoryModel: null,
-            template: require('tpl!blocks/form/form_product/templates/index.html'),
+            models: {
+                subCategory: null
+            },
+            partials: {
+                unitFields: require('tpl!./templates/unit.html'),
+                weightFields: require('tpl!./templates/weight.html'),
+                alcoholFields: require('tpl!./templates/alcohol.html')
+            },
             productTypeSpecificFieldsTemplates: {
                 unit: require('tpl!./templates/unit.html'),
                 weight: require('tpl!./templates/weight.html'),
@@ -58,12 +64,19 @@ define(function(require) {
             },
 
             initialize: function(){
-                var block = this;
+                var block = this,
+                    ProductModel = require('models/product');
+
+                if (!block.model){
+                    block.model = new ProductModel({
+                        subCategoryId: block.models.subCategory
+                    });
+                }
 
                 if (block.model.id){
                     block.redirectUrl = '/products/' + block.model.id
                 } else {
-                    block.redirectUrl = '/groups/' + block.model.get('group').id + '/categories/' + block.model.get('category').id + '?subCategoryId' + block.model.get('subCategory').id
+                    block.redirectUrl = '/groups/' + block.models.subCategory.get('category.group.id') + '/categories/' + block.models.subCategory.get('category.id') + '?subCategoryId' + block.models.subCategory.id
                 }
             },
             findElements: function(){

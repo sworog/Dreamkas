@@ -17,7 +17,8 @@ define(function(require) {
             retailPricePreference: 'retailMarkup',
             rounding: {},
             type: 'unit',
-            storeId: null
+            storeId: null,
+            subCategoryId: null
         },
         initialize: function(){
             this.collections = {
@@ -83,7 +84,7 @@ define(function(require) {
                     barcode: this.get('barcode'),
                     vendorCountry: this.get('vendorCountry'),
                     vendor: this.get('vendor'),
-                    subCategory: this.get('subCategory'),
+                    subCategory: this.get('subCategoryId'),
                     rounding: this.get('rounding') ? this.get('rounding.name') : null,
                     type: this.get('type'),
                     typeProperties: this.get('type') === 'unit' ? null : this.get('typeProperties')
