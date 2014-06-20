@@ -18,7 +18,7 @@ GivenStories: precondition/sprint-28/us-54_4/aPreconditionToStoryUs54.4.story,
               precondition/sprint-28/us-56/aPreconditionToStoryUs56.story
 
 Given the user opens the authorization page
-And the user logs in as 'commercialManager'
+And the user logs in using 's28u544@lighthouse.pro' userName and 'lighthouse' password
 
 When the user clicks the menu report item
 And the user clicks on gross margin by days report link
@@ -33,8 +33,12 @@ Meta:
 
 Given the user runs the symfony:env:init command
 
+Given the user runs the symfony:user:create command with params: email 's28u544@lighthouse.pro' and password 'lighthouse'
+
+Given the user with email 's28u544@lighthouse.pro' creates the store with number '28544'
+
 Given the user opens the authorization page
-And the user logs in as 'commercialManager'
+And the user logs in using 's28u544@lighthouse.pro' userName and 'lighthouse' password
 
 When the user clicks the menu report item
 And the user clicks on gross margin by days report link
