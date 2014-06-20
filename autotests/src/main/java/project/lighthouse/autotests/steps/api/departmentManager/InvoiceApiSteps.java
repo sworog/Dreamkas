@@ -9,6 +9,7 @@ import project.lighthouse.autotests.objects.api.User;
 import project.lighthouse.autotests.objects.api.invoice.Invoice;
 import project.lighthouse.autotests.objects.api.invoice.InvoiceProduct;
 import project.lighthouse.autotests.storage.Storage;
+import project.lighthouse.autotests.storage.containers.user.UserContainer;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -67,12 +68,26 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
      * @throws JSONException
      */
     @Step
+    @Deprecated
     public Invoice createInvoiceFromInvoiceBuilderSteps(String userName) throws IOException, JSONException {
         User user = StaticData.users.get(userName);
         Invoice invoice = new InvoicesFactory(userName, "lighthouse")
                 .create(
                         Storage.getInvoiceVariableStorage().getInvoiceForInvoiceBuilderSteps(),
                         user.getStore()
+                );
+        invoiceList.add(invoice);
+        Storage.getInvoiceVariableStorage().setInvoiceForInvoiceBuilderSteps(null);
+        return invoice;
+    }
+
+    @Step
+    public Invoice createInvoiceFromInvoiceBuilderStepsByUserWithEmail(String email) throws IOException, JSONException {
+        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainer(email);
+        Invoice invoice = new InvoicesFactory(email, userContainer.getPassword())
+                .create(
+                        Storage.getInvoiceVariableStorage().getInvoiceForInvoiceBuilderSteps(),
+                        userContainer.getStore()
                 );
         invoiceList.add(invoice);
         Storage.getInvoiceVariableStorage().setInvoiceForInvoiceBuilderSteps(null);
