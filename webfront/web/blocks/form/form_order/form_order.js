@@ -16,7 +16,11 @@ define(function(require, exports, module) {
         redirectUrl: function(){
             return '/stores/' + this.storeId + '/orders';
         },
-        model: require('models/order'),
+        model: function(){
+            var OrderModel = require('models/order');
+
+            return new OrderModel();
+        },
         collections: {
             suppliers: null
         },

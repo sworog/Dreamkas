@@ -1,6 +1,7 @@
 define(function(require) {
         //requirements
         var Form = require('kit/form'),
+            getText = require('kit/getText'),
             numeral = require('numeral');
 
         return Form.extend({
@@ -30,14 +31,9 @@ define(function(require) {
                 subCategory: null
             },
             partials: {
-                unitFields: require('tpl!./templates/unit.html'),
-                weightFields: require('tpl!./templates/weight.html'),
-                alcoholFields: require('tpl!./templates/alcohol.html')
-            },
-            productTypeSpecificFieldsTemplates: {
-                unit: require('tpl!./templates/unit.html'),
-                weight: require('tpl!./templates/weight.html'),
-                alcohol: require('tpl!./templates/alcohol.html')
+                unit: require('tpl!./unitFields.ejs'),
+                weight: require('tpl!./weightFields.ejs'),
+                alcohol: require('tpl!./alcoholFields.ejs')
             },
             events: {
                 'click .productForm__inputLink': function(e) {
@@ -77,8 +73,8 @@ define(function(require) {
                 'change [name="retailPriceMin"], [name="retailPriceMax"]': function() {
                     this.renderRetailPriceLink();
                 },
-                'change .productForm__productTypeRadio input': function() {
-                    this.renderProductTypeSpecificFields();
+                'change [name="type"]': function(e) {
+                    this.renderProductTypeSpecificFields(e.target.value);
                 }
             },
             initialize: function(){
@@ -102,8 +98,8 @@ define(function(require) {
                 block.$retailPriceField = $(block.el).find('.productForm__retailPriceField');
 
                 block.$productUnits = $(block.el).find('[name="units"]');
-                block.$productTypePropertiesFields = $(block.el).find('.productForm__productTypePropertiesFields');
-                block.$productTypeRadio = $(block.el).find('.productForm__productTypeRadio');
+                block.$productTypePropertiesFields = $(block.el).find('.form_product__productTypePropertiesFields');
+                block.$productTypeRadio = $(block.el).find('[name="type"]');
 
                 block.renderPriceInputs();
             },
@@ -144,12 +140,10 @@ define(function(require) {
                     calculatedMaxVal = LH.formatMoney(+(retailMarkupMax / 100 * purchasePrice).toFixed(2) + purchasePrice);
                 }
 
-                this.$retailPriceMinInput
-                    .val(retailMarkupMin !== null ? numeral().unformat(calculatedMinVal) : '')
-                    .change();
-                this.$retailPriceMaxInput
-                    .val(retailMarkupMax !== null ? numeral().unformat(calculatedMaxVal) : '')
-                    .change();
+                this.$retailPriceMinInput.val(retailMarkupMin !== null ? numeral().unformat(calculatedMinVal) : '');
+                this.$retailPriceMaxInput.val(retailMarkupMax !== null ? numeral().unformat(calculatedMaxVal) : '');
+
+                this.renderRetailPriceLink();
             },
             calculateRetailMarkup: function() {
                 var retailPriceMinVal = this.$retailPriceMinInput.val(),
@@ -174,12 +168,10 @@ define(function(require) {
                     calculatedMaxVal = LH.formatMoney(+(retailPriceMax * 100 / purchasePrice).toFixed(2) - 100);
                 }
 
-                this.$retailMarkupMinInput
-                    .val(retailPriceMin !== null ? numeral().unformat(calculatedMinVal) : '')
-                    .change();
-                this.$retailMarkupMaxInput
-                    .val(retailPriceMax !== null ? numeral().unformat(calculatedMaxVal) : '')
-                    .change();
+                this.$retailMarkupMinInput.val(retailPriceMin !== null ? numeral().unformat(calculatedMinVal) : '');
+                this.$retailMarkupMaxInput.val(retailPriceMax !== null ? numeral().unformat(calculatedMaxVal) : '');
+
+                this.renderRetailPriceLink();
             },
             disablePriceInputs: function(){
                 var block = this;
@@ -245,16 +237,13 @@ define(function(require) {
                     .find('.productForm__inputLinkText')
                     .html(text);
             },
-            renderProductTypeSpecificFields: function() {
-                var block = this,
-                    productTypeSelected = block.$productTypeRadio.find('input:checked').val();
+            renderProductTypeSpecificFields: function(productTypeSelected) {
+                var block = this;
 
-                block.$productUnits.html(LH.units(LH.productTypes(productTypeSelected, 'units'), 'capitalFull'));
-                block.$productTypePropertiesFields.hide(100);
-                block.$productTypePropertiesFields.html(block.productTypeSpecificFieldsTemplates[productTypeSelected]({
+                block.$productUnits.html(getText('units', getText('productTypes', productTypeSelected, 'units'), 'capitalFull'));
+                block.$productTypePropertiesFields.html(block.partials[productTypeSelected]({
                     model: block.model
                 }));
-                block.$productTypePropertiesFields.show(100);
             }
         });
     }

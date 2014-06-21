@@ -7,6 +7,9 @@
 %>
 
 <% var partials = {
+    unit: require('tpl!./unitFields.ejs'),
+    weight: require('tpl!./weightFields.ejs'),
+    alcohol: require('tpl!./alcoholFields.ejs'),
     select_priceRoundings: require('tpl!blocks/select/select_priceRoundings/select_priceRoundings.ejs'),
     select_vat: require('tpl!blocks/select/select_vat/select_vat.ejs')
 } %>
@@ -85,8 +88,10 @@
         </div>
 
         <!-- Advanced fields -->
-        <div class="productForm__productTypePropertiesFields">
-
+        <div class="form_product__productTypePropertiesFields">
+            <%= partials[model.get('type')]({
+                model: model
+            })%>
         </div>
 
         <div class="form__field">
