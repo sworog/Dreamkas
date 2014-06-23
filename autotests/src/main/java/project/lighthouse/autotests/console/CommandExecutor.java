@@ -15,7 +15,7 @@ public class CommandExecutor {
         this.folder = folder;
     }
 
-    public void run() throws IOException, InterruptedException {
+    public ConsoleCommandResult run() throws IOException, InterruptedException {
         String host = StaticData.WEB_DRIVER_BASE_URL.replaceAll("http://(.*).autotests.webfront.lighthouse.pro", "$1");
         String commandToExecute = String.format("bundle exec cap autotests %s", command);
         ConsoleCommandResult consoleCommandResult = new ConsoleCommand(folder, host).exec(commandToExecute);
@@ -23,5 +23,6 @@ public class CommandExecutor {
             String errorMessage = String.format("Output: '%s'. Command: '%s'. Host: '%s'.", consoleCommandResult.getOutput(), commandToExecute, host);
             Assert.fail(errorMessage);
         }
+        return consoleCommandResult;
     }
 }

@@ -9,6 +9,8 @@ import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.steps.api.commercialManager.SupplierApiSteps;
 import project.lighthouse.autotests.steps.api.objectBuilder.InvoiceBuilderSteps;
+import project.lighthouse.autotests.storage.Storage;
+import project.lighthouse.autotests.storage.containers.user.UserContainer;
 
 import java.io.IOException;
 import java.util.Map;
@@ -21,8 +23,8 @@ public class InvoiceBuilderUserSteps {
     @Steps
     SupplierApiSteps supplierApiSteps;
 
-    @Given("the user creates invoice api object with values $examplesTable")
-    public void givenTheUserCreatesInvoiceApiObjectWithValues(ExamplesTable examplesTable) throws JSONException, IOException {
+    @Given("the user with email '$mail' creates invoice api object with values $examplesTable")
+    public void givenTheUserCreatesInvoiceApiObjectWithValues(String email, ExamplesTable examplesTable) throws JSONException, IOException {
         String acceptanceDate = "",
                 accepter = "",
                 legalEntity = "",
@@ -62,8 +64,9 @@ public class InvoiceBuilderUserSteps {
                     break;
             }
         }
+        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainer(email);
 
-        invoiceBuilderSteps.build(supplierApiSteps.createSupplier().getId(), acceptanceDate, accepter, legalEntity, supplierInvoiceNumber);
+        invoiceBuilderSteps.build(supplierApiSteps.createSupplier(userContainer).getId(), acceptanceDate, accepter, legalEntity, supplierInvoiceNumber);
     }
 
     @Given("the user adds the product with data to invoice api object $examplesTable")

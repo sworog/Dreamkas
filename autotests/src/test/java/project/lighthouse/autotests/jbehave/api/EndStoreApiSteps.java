@@ -59,4 +59,9 @@ public class EndStoreApiSteps {
         String storeId = storeApiSteps.getStoreId(storeNumber);
         storeSteps.navigateToStorePage(storeId);
     }
+
+    @Given("the user with email '$email' creates the store with number '$number'")
+    public void givenThereIsTheStoreWithNumberManagerByUserName(String email, String number) throws IOException, JSONException {
+        storeApiSteps.createStoreThroughPostByUserWithEmail(number, number, number, email);
+    }
 }

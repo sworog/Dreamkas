@@ -82,8 +82,14 @@ public class InvoiceApiUserSteps {
         invoiceApiSteps.openTwoInvoiceAgoStoredInvoicePage();
     }
 
+    @Deprecated
     @Given("there is the invoice created with invoice builder steps by userName '$userName'")
     public void givenThereIsTheInvoiceCreatedWithInvoiceBuilderStepsByUserName(String userName) throws IOException, JSONException {
         invoiceApiSteps.createInvoiceFromInvoiceBuilderSteps(userName);
+    }
+
+    @Given("the user with email '$email' creates the invoice with invoice builder steps")
+    public void givenThereIsTheInvoiceCreatedWithInvoiceBuilderStepsByUserWithEmail(String email) throws IOException, JSONException {
+        invoiceApiSteps.createInvoiceFromInvoiceBuilderStepsByUserWithEmail(email);
     }
 }
