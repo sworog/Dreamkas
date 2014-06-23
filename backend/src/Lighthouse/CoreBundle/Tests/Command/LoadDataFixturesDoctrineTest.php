@@ -30,6 +30,8 @@ class LoadDataFixturesDoctrineTest extends ContainerAwareTestCase
 
     /**
      * @dataProvider fixturesProvider
+     * @param string $folder
+     * @param string $expectedOutput
      */
     public function testCustomFixtures($folder, $expectedOutput)
     {

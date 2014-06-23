@@ -220,6 +220,7 @@ class UserProvider implements UserProviderInterface
     {
         $messageBody = $this->getSignUpMessageBody($password);
 
+        /* @var \Swift_Message $message */
         $message = \Swift_Message::newInstance()
             ->setFrom('noreply@lighthouse.pro')
             ->setTo($user->email)
@@ -264,6 +265,7 @@ class UserProvider implements UserProviderInterface
     {
         $messageBody = $this->getRestorePasswordMessageBody($password);
 
+        /* @var \Swift_Message $message */
         $message = \Swift_Message::newInstance()
             ->setFrom('noreply@lighthouse.pro')
             ->setTo($user->email)

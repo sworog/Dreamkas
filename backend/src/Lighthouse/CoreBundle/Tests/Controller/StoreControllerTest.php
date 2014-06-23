@@ -45,8 +45,8 @@ class StoreControllerTest extends WebTestCase
 
         $storeData = array(
             'number' => '42',
-            'address' => 'qwe',
-            'contacts' => 'qwew',
+            'address' => 'address',
+            'contacts' => 'contacts',
         );
 
         $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');

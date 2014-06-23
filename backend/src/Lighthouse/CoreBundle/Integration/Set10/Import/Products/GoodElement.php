@@ -31,6 +31,7 @@ class GoodElement extends SimpleXMLElement
      */
     public function getGoodName()
     {
+        /** @noinspection PhpUndefinedFieldInspection */
         return (string) $this->name;
     }
 
@@ -49,6 +50,7 @@ class GoodElement extends SimpleXMLElement
      */
     public function getVat()
     {
+        /** @noinspection PhpUndefinedFieldInspection */
         return (int) $this->vat;
     }
 
@@ -144,6 +146,7 @@ class GoodElement extends SimpleXMLElement
      */
     public function getManufacturerName()
     {
+        /** @noinspection PhpUndefinedFieldInspection */
         return (string) $this->manufacturer->name;
     }
 
@@ -166,6 +169,7 @@ class GoodElement extends SimpleXMLElement
     public function getPrice()
     {
         foreach ($this->{'price-entry'} as $price) {
+            /** @noinspection PhpUndefinedFieldInspection */
             if ('1' == $price->number) {
                 return (string) $price['price'];
             }

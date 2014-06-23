@@ -138,6 +138,7 @@ class ChainValidatorTest extends TestCase
     /**
      * @dataProvider invalidOptionsProvider
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @param $options
      */
     public function testRejectConstructorWithInvalidConstraints($options)
     {
@@ -168,6 +169,7 @@ class ChainValidatorTest extends TestCase
     /**
      * @dataProvider missingOptionsProvider
      * @expectedException \Symfony\Component\Validator\Exception\MissingOptionsException
+     * @param $options
      */
     public function testRejectConstructorWithMissingOptions($options)
     {

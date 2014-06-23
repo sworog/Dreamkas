@@ -355,7 +355,6 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @deprecated
      * @param string $name
      * @return string
      */
@@ -365,7 +364,6 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @deprecated
      * @param string $groupId
      * @param string $name
      * @return string
@@ -376,7 +374,6 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @deprecated
      * @param string $categoryId
      * @param string $name
      * @return string

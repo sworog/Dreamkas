@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Command\User;
 
+use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\Project\ProjectRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
@@ -98,6 +99,7 @@ class CreateUser extends Command
         $customProjectName = $input->getOption('customProjectName');
 
         if (true === $projectId) {
+            /* @var Project $project */
             $project = $this->projectRepository->createNew();
             if (null !== $customProjectName) {
                 $project->name = $customProjectName;

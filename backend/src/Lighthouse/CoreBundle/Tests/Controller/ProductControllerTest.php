@@ -19,6 +19,7 @@ class ProductControllerTest extends WebTestCase
 {
     /**
      * @dataProvider productProvider
+     * @param array $postData
      */
     public function testPostProductAction(array $postData)
     {
@@ -85,6 +86,9 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider validateProvider
+     * @param int $expectedCode
+     * @param array $data
+     * @param array $assertions
      */
     public function testPostProductInvalidData($expectedCode, array $data, array $assertions = array())
     {
@@ -137,6 +141,7 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider productProvider
+     * @param array $postData
      */
     public function testPutProductAction(array $postData)
     {
@@ -187,6 +192,7 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider productProvider
+     * @param array $putData
      */
     public function testPutProductActionNotFound(array $putData)
     {
@@ -208,6 +214,7 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider productProvider
+     * @param array $postData
      */
     public function testPutProductActionInvalidData(array $postData)
     {
@@ -248,6 +255,7 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider productProvider
+     * @param array $postData
      */
     public function testPutProductActionChangeId(array $postData)
     {
@@ -342,6 +350,7 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider productProvider
+     * @param array $postData
      */
     public function testGetProduct(array $postData)
     {
@@ -1279,6 +1288,8 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider validRetailPriceProvider
+     * @param array $postData
+     * @param array $assertions
      */
     public function testPostProductActionSetRetailsPriceValid(array $postData, array $assertions = array())
     {
@@ -1300,6 +1311,8 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider invalidRetailPriceProvider
+     * @param array $postData
+     * @param array $assertions
      */
     public function testPostProductActionSetRetailsPriceInvalid(array $postData, array $assertions = array())
     {
@@ -1321,6 +1334,8 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider validRetailPriceProvider
+     * @param array $putData
+     * @param array $assertions
      */
     public function testPutProductActionSetRetailPriceValid(array $putData, array $assertions = array())
     {
@@ -1364,6 +1379,8 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider invalidRetailPriceProvider
+     * @param array $putData
+     * @param array $assertions
      */
     public function testPutProductActionSetRetailPriceInvalid(array $putData, array $assertions = array())
     {

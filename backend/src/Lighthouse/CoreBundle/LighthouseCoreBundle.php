@@ -2,8 +2,6 @@
 
 namespace Lighthouse\CoreBundle;
 
-use Lighthouse\CoreBundle\Command\CommandManager;
-use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddCommandAsServicePass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddJobWorkersPass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddReferenceProvidersPass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddRoundingsToManagerPass;
@@ -13,7 +11,6 @@ use Lighthouse\CoreBundle\MongoDB\Types\MoneyType;
 use Lighthouse\CoreBundle\MongoDB\Types\QuantityType;
 use Lighthouse\CoreBundle\MongoDB\Types\TimestampType;
 use Samba\SambaStreamWrapper;
-use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Doctrine\ODM\MongoDB\Types\Type;

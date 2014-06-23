@@ -22,7 +22,7 @@ class RetailPriceValidator extends ConstraintValidator
      */
     public function validate($value, Constraint $constraint)
     {
-        $validPurchasePrice = $this->validatePurchasePrice($value, $constraint);
+        $validPurchasePrice = $this->validatePurchasePrice($value);
 
         $retailPriceConstraints = $this->getRetailPriceConstraints($value, $constraint, $validPurchasePrice);
 
@@ -93,10 +93,9 @@ class RetailPriceValidator extends ConstraintValidator
 
     /**
      * @param Product $value
-     * @param Constraint|RetailPrice $constraint
      * @return bool
      */
-    protected function validatePurchasePrice(Product $value, Constraint $constraint)
+    protected function validatePurchasePrice(Product $value)
     {
         $purchasePriceConstraints = array(
             new Money()
@@ -196,7 +195,7 @@ class RetailPriceValidator extends ConstraintValidator
 
     /**
      * @param Product $value
-     * @param Constraint|RetailPrice $conts
+     * @param Constraint|RetailPrice $constraint
      */
     protected function validateCompareMarkup(Product $value, Constraint $constraint)
     {
