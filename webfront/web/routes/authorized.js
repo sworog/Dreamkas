@@ -10,6 +10,7 @@ define(function(require) {
 
         //company
         'company': require('pages/company/company'),
+        'company/createOrganization': require('pages/createCompanyOrganization/createCompanyOrganization'),
 
         //suppliers
         'suppliers(/)': require('pages/suppliers/list/list'),

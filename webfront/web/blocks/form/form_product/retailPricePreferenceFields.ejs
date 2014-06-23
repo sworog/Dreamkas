@@ -1,0 +1,76 @@
+<%
+/**
+ *
+ * @model
+ */
+%>
+<% var purchasePrice = purchasePrice %>
+
+<fieldset class="form_product__retailPricePreferenceFields">
+
+    <% if (purchasePrice) { %>
+    <div class="form__field form_product__retailMarkupField">
+        <label class="form__label">Диапазон наценки</label>
+
+        <div name="retailMarkup"
+             class="form_product__linkedInput">
+
+            <input
+                    style="width: 100px;"
+                    value="<%- model.get('retailMarkupMin') || model.get('subCategory.retailMarkupMin') %>"
+                    class="inputText"
+                    type="text"
+                    name="retailMarkupMin"/>
+            -
+            <input
+                    style="width: 100px;"
+                    value="<%- model.get('retailMarkupMax') || model.get('subCategory.retailMarkupMax') %>"
+                    class="inputText"
+                    type="text"
+                    name="retailMarkupMax"/>
+
+            <span class="inputText__postfix">%</span>
+
+        </div>
+
+        <label for="retailMarkupPreferenceRadio"
+               class="form_product__inputLink"
+               name="retailMarkupHint">
+            Введите значение
+        </label>
+
+    </div>
+    <div class="form__field form_product__retailPriceField">
+        <label class="form__label">Диапазон цены продажи</label>
+
+        <div name="retailPrice"
+             class="form_product__linkedInput">
+            <input
+                    style="width: 100px;"
+                    value="<%- model.get('retailPriceMin') ? formatMoney(model.get('retailPriceMin')) : '' %>"
+                    class="inputText"
+                    type="text"
+                    name="retailPriceMin"/>
+            -
+            <input
+                    style="width: 100px;"
+                    value="<%- model.get('retailPriceMax') ? formatMoney(model.get('retailPriceMax')) : '' %>"
+                    class="inputText"
+                    type="text"
+                    name="retailPriceMax"/>
+
+            <span class="inputText__postfix">руб.</span>
+
+        </div>
+
+        <label for="retailPricePreferenceRadio"
+               class="form_product__inputLink"
+               name="retailPriceHint">
+            Введите значение
+        </label>
+
+    </div>
+
+    <% } %>
+
+</fieldset>

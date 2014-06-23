@@ -154,3 +154,30 @@ tr[data-error]:after {
 .form_barcodes__emptyCell .inputText__postfix{
     visibility: hidden;
 }
+
+.form_product__linkedInput,
+.form_product__retailPricePreferenceRadio {
+    display: none;
+}
+
+.form_product__inputLink {
+    color: #1FB18A;
+    border-bottom: 1px dashed;
+    cursor: pointer;
+}
+
+.form_product__retailPricePreferenceRadio#retailMarkupPreferenceRadio:checked ~ .form_product__retailPricePreferenceFields .form_product__retailMarkupField .form_product__linkedInput{
+    display: block;
+}
+
+.form_product__retailPricePreferenceRadio#retailMarkupPreferenceRadio:checked ~ .form_product__retailPricePreferenceFields .form_product__retailMarkupField .form_product__inputLink{
+    display: none;
+}
+
+.form_product__retailPricePreferenceRadio#retailPricePreferenceRadio:checked ~ .form_product__retailPricePreferenceFields .form_product__retailPriceField .form_product__linkedInput{
+    display: block;
+}
+
+.form_product__retailPricePreferenceRadio#retailPricePreferenceRadio:checked ~ .form_product__retailPricePreferenceFields .form_product__retailPriceField .form_product__inputLink{
+    display: none;
+}

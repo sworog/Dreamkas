@@ -116,7 +116,9 @@ define(function(require, exports, module) {
             Sortable.init();
 
             if (autofocus){
-                autofocus.focus();
+                setTimeout(function(){
+                    autofocus.focus();
+                }, 0);
             }
 
         },
