@@ -12,6 +12,7 @@ use Lighthouse\CoreBundle\MongoDB\Types\DateTimeTZType;
 use Lighthouse\CoreBundle\MongoDB\Types\MoneyType;
 use Lighthouse\CoreBundle\MongoDB\Types\QuantityType;
 use Lighthouse\CoreBundle\MongoDB\Types\TimestampType;
+use Samba\SambaStreamWrapper;
 use Symfony\Component\Console\Application;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
@@ -35,8 +36,8 @@ class LighthouseCoreBundle extends Bundle
 
     protected function addStreamWrappers()
     {
-        if (!in_array('smb', stream_get_wrappers())) {
-            stream_wrapper_register('smb', 'Lighthouse\\CoreBundle\\Samba\\SambaStreamWrapper');
+        if (!SambaStreamWrapper::is_registered()) {
+            SambaStreamWrapper::register();
         }
     }
 
