@@ -10,7 +10,7 @@ define(function(require) {
     return Page.extend({
         __name__: 'page_writeOff_form',
         partials: {
-            '#content': require('tpl!./templates/form.html')
+            '#content': require('ejs!./templates/form.html')
         },
         initialize: function(pageParams) {
             var page = this;

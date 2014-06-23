@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var template = require('tpl!fixtures/template.html');
+    var template = require('ejs!fixtures/template.html');
 
     describe('utils/templateLoader', function(){
         it('template compiled to function', function(){

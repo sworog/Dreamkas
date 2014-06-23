@@ -12,7 +12,7 @@ define(function(require, exports, module) {
             storeId: null
         },
         partials: {
-            '#content': require('tpl!./content.html')
+            '#content': require('ejs!./content.html')
         },
         permissions: function() {
             return !LH.isReportsAllow(['storeGrossSalesByHours']);

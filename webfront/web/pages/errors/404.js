@@ -5,7 +5,7 @@ define(function(require) {
     return Page.extend({
         __name__: 'page_error_404',
         partials: {
-            '#content': require('tpl!./templates/404.html')
+            '#content': require('ejs!./templates/404.html')
         }
     });
 });

@@ -16,7 +16,7 @@
         <%= models.group.element('name') %>
     </h1>
 
-    <%= models.group.collections.categories.element(require('tpl!blocks/catalog/storeCategoryList.ejs'), {
+    <%= models.group.collections.categories.element(require('ejs!blocks/catalog/storeCategoryList.ejs'), {
         groupModel: models.group,
         collections: {
             categories: models.group.collections.categories

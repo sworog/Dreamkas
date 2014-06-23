@@ -7,7 +7,7 @@ define(function(require) {
             productId: null
         },
         partials: {
-            content: require('tpl!./content.ejs')
+            content: require('ejs!./content.ejs')
         },
         collections: {
             productWriteOffs: function(){

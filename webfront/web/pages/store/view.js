@@ -16,7 +16,7 @@ define(function (require) {
             storeId: null
         },
         partials: {
-            '#content': require('tpl!./templates/view.html')
+            '#content': require('ejs!./templates/view.html')
         },
         initialize: function () {
             var page = this,

@@ -6,7 +6,7 @@
 %>
 <% var formatMoney = require('kit/formatMoney') %>
 <% var partials = _.extend({
-    select_priceRoundings: require('tpl!blocks/select/select_priceRoundings/select_priceRoundings.ejs')
+    select_priceRoundings: require('ejs!blocks/select/select_priceRoundings/select_priceRoundings.ejs')
 }, partials) %>
 
 <div class="content catalog" edit="<%- PAGE.params.edit %>">

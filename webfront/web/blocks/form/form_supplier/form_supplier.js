@@ -11,7 +11,7 @@ define(function(require, exports, module) {
         el: '.form_supplier',
         redirectUrl: '/suppliers',
         partials: {
-            fileBox: require('tpl!./fileBox.ejs')
+            fileBox: require('ejs!./fileBox.ejs')
         },
         events: {
             'change [type="file"]': function(e) {

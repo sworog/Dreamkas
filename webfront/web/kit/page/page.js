@@ -70,11 +70,11 @@ define(function(require, exports, module) {
 
         el: document.body,
         isAllow: true,
-        template: require('tpl!kit/page/template.html'),
+        template: require('ejs!kit/page/template.html'),
         templates: {
             content: null,
             localNavigation: null,
-            globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation.deprecated.html')
+            globalNavigation: require('ejs!blocks/globalNavigation/globalNavigation.deprecated.html')
         },
         localNavigationActiveLink: null,
         collections: {},

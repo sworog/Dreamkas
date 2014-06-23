@@ -7,7 +7,7 @@ define(function(require, exports, module) {
             grossSales: require('models/grossSales')
         },
         partials: {
-            content: require('tpl!./content.ejs')
+            content: require('ejs!./content.ejs')
         },
         fetch: function(){
             return Promise.all([

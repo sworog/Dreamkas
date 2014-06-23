@@ -4,7 +4,7 @@ define(function(require, exports, module) {
         router = require('router'),
         Autocomplete = require('blocks/autocomplete/autocomplete'),
         Select_suppliers = require('blocks/select/select_suppliers/select_suppliers'),
-        productSum = require('tpl!blocks/table/table_orderProducts/productSum.ejs'),
+        productSum = require('ejs!blocks/table/table_orderProducts/productSum.ejs'),
         $ = require('jquery'),
         _ = require('lodash');
 

@@ -14,7 +14,7 @@ define(function(require) {
         },
         currentUserModel: currentUserModel,
         partials: {
-            '#content': require('tpl!./templates/writeOffs.html')
+            '#content': require('ejs!./templates/writeOffs.html')
         },
         initialize: function() {
             var page = this;

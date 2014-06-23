@@ -5,7 +5,7 @@
  */
 %>
 <% var partials = _.extend({
-    select_priceRoundings: require('tpl!blocks/select/select_priceRoundings/select_priceRoundings.ejs')
+    select_priceRoundings: require('ejs!blocks/select/select_priceRoundings/select_priceRoundings.ejs')
 }, partials) %>
 
 <div class="content catalog" edit="<%- PAGE.params.edit %>">
@@ -25,7 +25,7 @@
     </h1>
 
     <% if (PAGE.params.section === 'categories') { %>
-    <%= models.group.collections.categories.element(require('tpl!blocks/catalog/categoryList.ejs'), {
+    <%= models.group.collections.categories.element(require('ejs!blocks/catalog/categoryList.ejs'), {
         groupModel: models.group,
         collections: {
             categories: models.group.collections.categories

@@ -13,8 +13,8 @@ define(function(require, exports, module) {
             subSection: 'products'
         },
         partials: {
-            content: require('tpl!./content.ejs'),
-            localNavigation: require('tpl!blocks/localNavigation/localNavigation_storeCategory.ejs')
+            content: require('ejs!./content.ejs'),
+            localNavigation: require('ejs!blocks/localNavigation/localNavigation_storeCategory.ejs')
         },
         events: {
             'click .catalog__subCategoryLink[data-subcategory_id]': function(e) {

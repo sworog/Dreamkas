@@ -7,11 +7,11 @@
 %>
 
 <% var partials = {
-    unit: require('tpl!./unitFields.ejs'),
-    weight: require('tpl!./weightFields.ejs'),
-    alcohol: require('tpl!./alcoholFields.ejs'),
-    select_priceRoundings: require('tpl!blocks/select/select_priceRoundings/select_priceRoundings.ejs'),
-    select_vat: require('tpl!blocks/select/select_vat/select_vat.ejs')
+    unit: require('ejs!./unitFields.ejs'),
+    weight: require('ejs!./weightFields.ejs'),
+    alcohol: require('ejs!./alcoholFields.ejs'),
+    select_priceRoundings: require('ejs!blocks/select/select_priceRoundings/select_priceRoundings.ejs'),
+    select_vat: require('ejs!blocks/select/select_vat/select_vat.ejs')
 } %>
 <% var formatMoney = require('kit/formatMoney') %>
 <% var ProductModel = require('models/product') %>

@@ -4,7 +4,7 @@ define(function(require) {
 
     return Page.extend({
         partials: {
-            content: require('tpl!./content.ejs')
+            content: require('ejs!./content.ejs')
         },
         collections: {
             productReturns: function(){

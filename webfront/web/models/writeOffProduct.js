@@ -6,7 +6,7 @@ define(function(require) {
         numeral = require('numeral');
 
     var templates = {
-        amount: require('tpl!blocks/amount/amount.html')
+        amount: require('ejs!blocks/amount/amount.html')
     };
 
     return Model.extend({

@@ -6,7 +6,7 @@ define(function(require) {
         __name__: 'page_error_global',
         response: null,
         partials: {
-            '#content': require('tpl!./templates/global.html')
+            '#content': require('ejs!./templates/global.html')
         }
     });
 });

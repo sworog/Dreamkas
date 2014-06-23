@@ -7,7 +7,7 @@ define(function(require) {
         return Form.extend({
             __name__: 'form_invoiceProduct',
             invoiceId: null,
-            template: require('tpl!blocks/form/form_invoiceProduct/templates/index.html'),
+            template: require('ejs!blocks/form/form_invoiceProduct/templates/index.html'),
 
             initialize: function() {
                 var block = this;

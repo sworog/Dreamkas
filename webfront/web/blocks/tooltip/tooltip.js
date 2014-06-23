@@ -7,7 +7,7 @@ define(function(require) {
     return Block.extend({
         trigger: null,
         container: '.content',
-        template: require('tpl!./template.ejs'),
+        template: require('ejs!./template.ejs'),
         events: {
             'click .tooltip__closeLink': function(e) {
                 e.preventDefault();

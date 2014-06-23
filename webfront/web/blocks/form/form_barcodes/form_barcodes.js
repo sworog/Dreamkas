@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Form = require('kit/form'),
-        form_barcodes__row = require('tpl!blocks/form/form_barcodes/form_barcodes__row.ejs'),
+        form_barcodes__row = require('ejs!blocks/form/form_barcodes/form_barcodes__row.ejs'),
         stringToFragment = require('kit/stringToFragment/stringToFragment'),
         cookies = require('cookies');
 

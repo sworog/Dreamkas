@@ -14,7 +14,7 @@ define(function(require) {
         },
         currentUserModel: currentUserModel,
         partials: {
-            '#content': require('tpl!./templates/invoices.html')
+            '#content': require('ejs!./templates/invoices.html')
         },
         initialize: function() {
             var page = this;

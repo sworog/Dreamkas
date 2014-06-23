@@ -7,11 +7,11 @@
  */
 %>
 
-<% var table_productReturns = require('tpl!blocks/table/table_productReturns/table_productReturns.html'); %>
+<% var table_productReturns = require('ejs!blocks/table/table_productReturns/table_productReturns.html'); %>
 
 
 <% var templates = {
-    localNavigation: require('tpl!./localNavigation.html')
+    localNavigation: require('ejs!./localNavigation.html')
 }%>
 
 <%= templates.localNavigation({

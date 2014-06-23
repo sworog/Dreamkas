@@ -1,6 +1,6 @@
 <div class="localNavigation catalog">
 
-    <%= models.category.collections.subCategories.element(require('tpl!blocks/catalog/storeSubCategoryList.ejs'), {
+    <%= models.category.collections.subCategories.element(require('ejs!blocks/catalog/storeSubCategoryList.ejs'), {
         collections: {
             subCategories: models.category.collections.subCategories
         }

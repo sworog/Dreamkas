@@ -31,9 +31,9 @@ define(function(require) {
                 subCategory: null
             },
             partials: {
-                unit: require('tpl!./unitFields.ejs'),
-                weight: require('tpl!./weightFields.ejs'),
-                alcohol: require('tpl!./alcoholFields.ejs')
+                unit: require('ejs!./unitFields.ejs'),
+                weight: require('ejs!./weightFields.ejs'),
+                alcohol: require('ejs!./alcoholFields.ejs')
             },
             events: {
                 'click .productForm__inputLink': function(e) {

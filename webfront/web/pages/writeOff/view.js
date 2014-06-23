@@ -15,7 +15,7 @@ define(function(require) {
             editMode: null
         },
         partials: {
-            '#content': require('tpl!./templates/view.html')
+            '#content': require('ejs!./templates/view.html')
         },
         initialize: function(pageParams) {
             var page = this;

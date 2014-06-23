@@ -7,7 +7,7 @@ define(function(require) {
         departmentManagerCandidatesCollection: null,
         departmentManagersCollection: null,
         storeModel: null,
-        template: require('tpl!blocks/select/select_departmentManagers/templates/index.html'),
+        template: require('ejs!blocks/select/select_departmentManagers/templates/index.html'),
         events: {
             'change': function(event) {
                 var block = this,

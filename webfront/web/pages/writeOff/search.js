@@ -9,7 +9,7 @@ define(function(require) {
     return Page.extend({
         __name__: 'page_invoice_list',
         partials: {
-            '#content': require('tpl!./templates/search.html')
+            '#content': require('ejs!./templates/search.html')
         },
         initialize: function(pageParams) {
             var page = this;

@@ -17,7 +17,7 @@
 
         </h2>
 
-        <%= groupModel.collections.categories.element(require('tpl!./storeCategoryList.ejs'), {
+        <%= groupModel.collections.categories.element(require('ejs!./storeCategoryList.ejs'), {
             groupId: groupModel.id,
             collections: {
                 categories: groupModel.collections.categories

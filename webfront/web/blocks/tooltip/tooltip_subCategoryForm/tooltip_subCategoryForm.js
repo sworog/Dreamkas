@@ -8,7 +8,7 @@ define(function(require) {
             collection: null,
             groupId: null,
             categoryId: null,
-            template: require('tpl!./template.ejs'),
+            template: require('ejs!./template.ejs'),
             listeners: {
                 'blocks.form_subCategory': {
                     'submit:success': function() {

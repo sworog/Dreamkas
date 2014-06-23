@@ -7,8 +7,8 @@ define(function(require, exports, module) {
             supplierId: null
         },
         partials: {
-            content: require('tpl!./content.ejs'),
-            localNavigation: require('tpl!blocks/localNavigation/localNavigation_suppliers.ejs')
+            content: require('ejs!./content.ejs'),
+            localNavigation: require('ejs!blocks/localNavigation/localNavigation_suppliers.ejs')
         },
         models: {
             supplier: function(){

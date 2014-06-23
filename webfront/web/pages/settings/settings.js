@@ -10,7 +10,7 @@ define(function(require, exports, module) {
 
     return Page.extend({
         partials: {
-            content: require('tpl!./content.ejs')
+            content: require('ejs!./content.ejs')
         },
         blocks: {
             form_exportSettings: function(){

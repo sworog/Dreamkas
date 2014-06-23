@@ -10,9 +10,9 @@
 <% var config = require('config') %>
 
 <% var partials = {
-    select_suppliers: require('tpl!blocks/select/select_suppliers/template.ejs'),
-    totalSum: require('tpl!blocks/form/form_order/form_order__totalSum.ejs'),
-    table_orderProducts: require('tpl!blocks/table/table_orderProducts/template.ejs')
+    select_suppliers: require('ejs!blocks/select/select_suppliers/template.ejs'),
+    totalSum: require('ejs!blocks/form/form_order/form_order__totalSum.ejs'),
+    table_orderProducts: require('ejs!blocks/table/table_orderProducts/template.ejs')
 } %>
 
 <form class="form form_order <%- model.id ? '' : 'form_changed' %>" style="margin-bottom: 20px;">

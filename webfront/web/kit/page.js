@@ -45,7 +45,7 @@ define(function(require, exports, module) {
         },
 
         el: document.body,
-        template: require('tpl!pages/template.ejs'),
+        template: require('ejs!pages/template.ejs'),
 
         listeners: {
             'change:params': function(params, options){
@@ -68,7 +68,7 @@ define(function(require, exports, module) {
             localNavigation: function() {
                 return '';
             },
-            globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation.ejs')
+            globalNavigation: require('ejs!blocks/globalNavigation/globalNavigation.ejs')
         },
 
         _initResources: function() {

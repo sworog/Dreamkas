@@ -7,7 +7,7 @@ define(function(require, exports, module) {
             subCategoryId: null
         },
         partials: {
-            content: require('tpl!./content.ejs')
+            content: require('ejs!./content.ejs')
         },
         models: {
             subCategory: function(){

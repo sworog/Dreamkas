@@ -21,7 +21,7 @@ define(function(require, exports, module) {
             //plugins
             'i18n': 'bower_components/requirejs-i18n/i18n',
             'rv': 'bower_components/requirejs-ractive/rv',
-            'tpl': 'kit/templateLoader/templateLoader'
+            'ejs': 'kit/templateLoader/templateLoader'
         },
         shim: {
             'jquery.maskedinput': ['jquery']
