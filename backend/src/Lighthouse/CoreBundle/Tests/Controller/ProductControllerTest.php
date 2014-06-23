@@ -744,7 +744,7 @@ class ProductControllerTest extends WebTestCase
              ***********************************************************************************************/
             'valid barcode' => array(
                 201,
-                array('barcode' => 'ijashglkalgh2378rt8237t4rjhdg '),
+                array('barcode' => 'Problem resolution Save to dictionary '),
             ),
             'valid barcode empty' => array(
                 201,
@@ -768,7 +768,7 @@ class ProductControllerTest extends WebTestCase
              ***********************************************************************************************/
             'valid vendor' => array(
                 201,
-                array('vendor' => 'asdsadjhg2124jk 124 " 1!@3 - _ =_+[]<>$;&%#№'),
+                array('vendor' => 'vendor 124 " 1!@3 - _ =_+[]<>$;&%#№'),
             ),
             'valid vendor empty' => array(
                 201,
@@ -792,7 +792,7 @@ class ProductControllerTest extends WebTestCase
              ***********************************************************************************************/
             'valid vendorCountry' => array(
                 201,
-                array('vendorCountry' => 'asdsadjhg2124jk 124 " 1!@3 - _ =_+[]<>$;&%#№'),
+                array('vendorCountry' => 'vendor country 124 " 1!@3 - _ =_+[]<>$;&%#№'),
             ),
             'valid vendorCountry empty' => array(
                 201,
@@ -816,7 +816,7 @@ class ProductControllerTest extends WebTestCase
              ***********************************************************************************************/
             'valid info' => array(
                 201,
-                array('info' => 'asdsadjhg2124jk 124 " 1!@3 - _ =_+[]<>$;&%#№'),
+                array('info' => 'info 124 " 1!@3 - _ =_+[]<>$;&%#№'),
             ),
             'valid info empty' => array(
                 201,

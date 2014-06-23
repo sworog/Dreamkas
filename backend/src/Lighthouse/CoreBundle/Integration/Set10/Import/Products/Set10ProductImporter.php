@@ -390,15 +390,14 @@ class Set10ProductImporter
                 return $this->createAlcoholType($good);
             case GoodElement::PRODUCT_PIECE_ENTITY:
             default:
-                return $this->createUnitType($good);
+                return $this->createUnitType();
         }
     }
 
     /**
-     * @param GoodElement $good
      * @return UnitType
      */
-    public function createUnitType(GoodElement $good)
+    public function createUnitType()
     {
         return new UnitType();
     }

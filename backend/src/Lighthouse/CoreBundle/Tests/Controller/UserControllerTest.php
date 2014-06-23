@@ -334,7 +334,7 @@ class UserControllerTest extends WebTestCase
             ),
             'not valid password equals username' => array(
                 400,
-                array('password' => 'userer@test.com', 'email' => 'userer@test.com'),
+                array('password' => 'password@test.com', 'email' => 'password@test.com'),
                 array(
                     'children.password.errors.0' => 'E-mail и пароль не должны совпадать'
                 )
@@ -424,7 +424,7 @@ class UserControllerTest extends WebTestCase
             ),
             'not valid role' => array(
                 400,
-                array('roles' => array('govnar')),
+                array('roles' => array('GOD')),
                 array(
                     'children.roles.errors.0' => 'Значение недопустимо.'
                 )
@@ -535,8 +535,8 @@ class UserControllerTest extends WebTestCase
             'not valid password equals email' => array(
                 400,
                 array(
-                    'password' => 'userer@test.com',
-                    'email' => 'userer@test.com'
+                    'password' => 'password@test.com',
+                    'email' => 'password@test.com'
                 ),
                 array(
                     'children.password.errors.0' => 'E-mail и пароль не должны совпадать'

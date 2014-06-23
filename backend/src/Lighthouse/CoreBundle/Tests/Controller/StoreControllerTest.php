@@ -158,11 +158,11 @@ class StoreControllerTest extends WebTestCase
             ),
             'valid symbols number' => array(
                 201,
-                array('number' => 'QWEqweФЫВфыв123-_-34'),
+                array('number' => 'StoreМагазин123-_-34'),
             ),
             'not valid symbols number' => array(
                 400,
-                array('number' => 'ASdqwe123466!@#$%^&*(;"'),
+                array('number' => 'Abc123466!@#$%^&*(;"'),
                 array(
                     'children.number.errors.0'
                     =>
@@ -188,7 +188,7 @@ class StoreControllerTest extends WebTestCase
             ),
             'valid symbols address' => array(
                 201,
-                array('address' => 'ASdqwe123466!@#$%^&*(;"'),
+                array('address' => 'Address123466!@#$%^&*(;"'),
             ),
             'not valid empty address' => array(
                 400,
@@ -218,7 +218,7 @@ class StoreControllerTest extends WebTestCase
             ),
             'valid symbols contacts' => array(
                 201,
-                array('contacts' => 'ASdqwe123466!@#$%^&*(;"'),
+                array('contacts' => 'StoreМагазин123466!@#$%^&*(;"'),
             ),
             'not valid empty contacts' => array(
                 400,
