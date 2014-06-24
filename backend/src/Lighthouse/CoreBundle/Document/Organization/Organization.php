@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document\Organization;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Symfony\Component\Validator\Constraints as Assert;
+use Lighthouse\CoreBundle\Validator\Constraints\FieldLength as AssertFieldLength;
 
 /**
  * @property string $id
@@ -31,43 +32,49 @@ class Organization extends AbstractDocument
     /**
      * @MongoDB\String
      * @Assert\NotBlank
+     * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
     protected $name;
 
     /**
      * @MongoDB\String
+     * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
     protected $phone;
 
     /**
      * @MongoDB\String
+     * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
     protected $fax;
 
     /**
      * @MongoDB\String
-     * @Assert\Email
+     * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
     protected $email;
 
     /**
      * @MongoDB\String
+     * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
     protected $director;
 
     /**
      * @MongoDB\String
+     * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
     protected $chiefAccountant;
 
     /**
      * @MongoDB\String
+     * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
     protected $address;

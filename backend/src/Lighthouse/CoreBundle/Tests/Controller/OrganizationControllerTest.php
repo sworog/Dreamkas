@@ -98,6 +98,40 @@ class OrganizationControllerTest extends WebTestCase
                     'children.name.errors.0' => 'Заполните это поле',
                 )
             ),
+            'length validation valid' => array(
+                array(
+                    'name' => str_repeat('n', 300),
+                    'phone' => str_repeat('p', 300),
+                    'fax' => str_repeat('f', 300),
+                    'email' => str_repeat('e', 300),
+                    'director' => str_repeat('p', 300),
+                    'chiefAccountant' => str_repeat('c', 300),
+                    'address' => str_repeat('a', 300),
+                ),
+                201,
+                array()
+            ),
+            'length validation invalid' => array(
+                array(
+                    'name' => str_repeat('n', 301),
+                    'phone' => str_repeat('p', 301),
+                    'fax' => str_repeat('f', 301),
+                    'email' => str_repeat('e', 301),
+                    'director' => str_repeat('p', 301),
+                    'chiefAccountant' => str_repeat('c', 301),
+                    'address' => str_repeat('a', 301),
+                ),
+                400,
+                array(
+                    'children.name.errors.0' => 'Не более 300 символов',
+                    'children.phone.errors.0' => 'Не более 300 символов',
+                    'children.fax.errors.0' => 'Не более 300 символов',
+                    'children.email.errors.0' => 'Не более 300 символов',
+                    'children.director.errors.0' => 'Не более 300 символов',
+                    'children.chiefAccountant.errors.0' => 'Не более 300 символов',
+                    'children.address.errors.0' => 'Не более 300 символов',
+                )
+            ),
         );
     }
 }
