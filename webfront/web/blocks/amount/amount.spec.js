@@ -3,7 +3,7 @@ define(function(require, exports, module) {
     var numeral = require('numeral');
 
     var templates = {
-        amount: require('ejs!./amount.html')
+        amount: require('ejs!./amount.ejs')
     };
 
     require('jquery');

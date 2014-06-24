@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/form'),
+    var Form = require('kit/form/form'),
         GroupModel = require('models/group');
 
     return Form.extend({

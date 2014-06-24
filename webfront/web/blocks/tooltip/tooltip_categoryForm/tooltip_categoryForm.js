@@ -29,7 +29,7 @@ define(function(require) {
             blocks: {
                 form_category: function(){
                     var block = this,
-                        Form = require('kit/form');
+                        Form = require('kit/form/form');
 
                     return new Form({
                         el: block.el.querySelector('form'),

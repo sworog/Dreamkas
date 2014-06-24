@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Form = require('kit/form'),
+    var Form = require('kit/form/form'),
         login = require('kit/login/login');
 
     return Form.extend({

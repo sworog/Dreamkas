@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/form'),
+    var Form = require('kit/form/form'),
         form_barcodes__row = require('ejs!blocks/form/form_barcodes/form_barcodes__row.ejs'),
         stringToFragment = require('kit/stringToFragment/stringToFragment'),
         cookies = require('cookies');

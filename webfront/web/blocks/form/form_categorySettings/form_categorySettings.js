@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Form = require('kit/form');
+    var Form = require('kit/form/form');
 
     return Form.extend({
         el: '.form_categorySettings',

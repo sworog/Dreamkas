@@ -6,6 +6,9 @@ define(function(require, exports, module) {
         partials: {
             content: require('ejs!./content.ejs'),
             localNavigation: require('ejs!blocks/localNavigation/localNavigation_company.ejs')
+        },
+        blocks: {
+            form_organization: require('blocks/form/form_companyOrganization/form_companyOrganization')
         }
     });
 });
