@@ -82,8 +82,8 @@ class StoreGrossSalesTest extends WebTestCase
 
         $this->factory()->createSales($sales);
 
+        $this->processJobs();
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
-
         $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
 
         $reportRepository = $this->getReportRepository();

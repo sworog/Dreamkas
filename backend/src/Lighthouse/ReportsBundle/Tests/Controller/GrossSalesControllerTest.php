@@ -259,6 +259,7 @@ class GrossSalesControllerTest extends WebTestCase
         );
 
         $this->factory()->createSales($sales);
+        $this->processJobs();
 
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
 
@@ -490,8 +491,9 @@ class GrossSalesControllerTest extends WebTestCase
         );
         $this->factory()->createSales($sales);
 
-        $storeGrossSalesReportService = $this->getGrossSalesReportService();
+        $this->processJobs();
 
+        $storeGrossSalesReportService = $this->getGrossSalesReportService();
         $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
 
         return $storeId;
@@ -866,9 +868,9 @@ class GrossSalesControllerTest extends WebTestCase
 
         $this->factory()->createSales($salesInOtherStore);
 
+        $this->processJobs();
 
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
-
         $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
 
         $response = $this->clientJsonRequest(
@@ -1222,9 +1224,9 @@ class GrossSalesControllerTest extends WebTestCase
 
         $this->factory()->createSales($salesInOtherStore);
 
+        $this->processJobs();
 
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
-
         $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
 
         $response = $this->clientJsonRequest(
@@ -1359,9 +1361,9 @@ class GrossSalesControllerTest extends WebTestCase
 
         $this->factory()->createSales($salesInOtherStore);
 
+        $this->processJobs();
 
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
-
         $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
 
         $response = $this->clientJsonRequest(
@@ -1704,6 +1706,8 @@ class GrossSalesControllerTest extends WebTestCase
         $productIds['4'] = $this->createProduct(array('name' => '4', 'barcode' => '4'), $catalogIds['2.1.1']);
         $productIds['5'] = $this->createProduct(array('name' => '5', 'barcode' => '5'), $catalogIds['1.2.1']);
 
+        $this->processJobs();
+
         return array($storeIds, $productIds, $catalogIds);
     }
 
@@ -1805,6 +1809,8 @@ class GrossSalesControllerTest extends WebTestCase
         $this->factory()->createSaleProduct(64.79, 1, $productIds['3'], $sale);
 
         $this->factory()->flush();
+
+        $this->processJobs();
 
         return array($storeIds, $productIds, $catalogIds);
     }
@@ -2076,6 +2082,8 @@ class GrossSalesControllerTest extends WebTestCase
         );
         $this->factory()->createSales($salesInOtherStore);
 
+        $this->processJobs();
+
         $grossSalesReportManager = $this->getGrossSalesReportService();
         $grossSalesReportManager->recalculateGrossSalesProductReport();
 
@@ -2185,6 +2193,8 @@ class GrossSalesControllerTest extends WebTestCase
         );
         $this->factory()->createSales($salesInOtherStore);
 
+        $this->processJobs();
+
         $grossSalesReportManager = $this->getGrossSalesReportService();
         $grossSalesReportManager->recalculateGrossSalesProductReport();
 
@@ -2273,6 +2283,8 @@ class GrossSalesControllerTest extends WebTestCase
             ),
         );
         $this->factory()->createSales($salesInOtherStore);
+
+        $this->processJobs();
 
         $grossSalesReportManager = $this->getGrossSalesReportService();
         $grossSalesReportManager->recalculateGrossSalesProductReport();

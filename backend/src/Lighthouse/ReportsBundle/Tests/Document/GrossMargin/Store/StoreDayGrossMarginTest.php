@@ -52,6 +52,8 @@ class StoreDayGrossMarginTest extends WebTestCase
         $this->factory()->createSaleProduct(11.49, 1.76, $productId, $sale6);
         $this->factory()->flush();
 
+        $this->processJobs();
+
         return $storeProductId;
     }
 

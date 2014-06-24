@@ -126,6 +126,7 @@ class ProductGrossSalesTest extends WebTestCase
 
         $this->factory()->createSales($sales);
 
+        $this->processJobs();
         $grossSalesReportManager = $this->getGrossSalesReportManager();
         $grossSalesReportManager->recalculateGrossSalesProductReport();
 

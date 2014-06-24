@@ -527,6 +527,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 ->createInvoiceProduct($productId1, 10, 4.99, $storeId)
                 ->createInvoiceProduct($productId2, 20, 6.99, $storeId)
             ->flush();
+        $this->processJobs();
 
         $this->assertStoreProductTotals($storeId, $productId1, 10, 4.99);
         $this->assertStoreProductTotals($storeId, $productId2, 20, 6.99);

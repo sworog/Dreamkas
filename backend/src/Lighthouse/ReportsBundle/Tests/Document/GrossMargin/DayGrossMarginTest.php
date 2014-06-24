@@ -76,6 +76,7 @@ class DayGrossMarginTest extends WebTestCase
         $this->factory()->flush();
 
 
+        $this->processJobs();
         $costOfGoodsCalculator->calculateUnprocessed();
         $dayGrossMarginRepository->recalculate();
 

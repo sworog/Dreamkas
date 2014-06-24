@@ -100,6 +100,7 @@ class GrossMarginControllerTest extends WebTestCase
         $this->factory()->createSaleProduct(150, 1, $productId3, $sale8);  // 150 - (1 x 130 = 130) = 20
 
         $this->factory()->flush();
+        $this->processJobs();
 
         return $store->id;
     }
@@ -274,6 +275,7 @@ class GrossMarginControllerTest extends WebTestCase
         $this->factory()->createSaleProduct(120, 30, $product, $sale2);
         $this->factory()->flush();
 
+        $this->processJobs();
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->getGrossMarginManager()->recalculateStoreGrossMargin();
 
@@ -331,6 +333,7 @@ class GrossMarginControllerTest extends WebTestCase
 
 
         // Calculate CostOfGoods
+        $this->processJobs();
         /* @var \Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
         $costOfGoodsCalculator->calculateUnprocessed();
@@ -394,6 +397,7 @@ class GrossMarginControllerTest extends WebTestCase
 
 
         // Calculate CostOfGoods
+        $this->processJobs();
         /* @var CostOfGoodsCalculator $costOfGoodsCalculator */
         $costOfGoodsCalculator = $this->getContainer()->get('lighthouse.core.document.trial_balance.calculator');
         $costOfGoodsCalculator->calculateUnprocessed();
@@ -436,20 +440,7 @@ class GrossMarginControllerTest extends WebTestCase
             ->getContainer()
             ->get('lighthouse.core.document.trial_balance.cost_of_goods.manager');
         $costOfGoodsManager->createCalculateJobsForUnprocessed();
-
-        /* @var JobManager $jobManager */
-        $jobManager = $this->getContainer()->get('lighthouse.core.job.manager');
-        $jobManager->startWatchingTubes();
-        while (1) {
-            $job = $jobManager->reserveJob(0);
-            if (null == $job) {
-                break;
-            }
-
-            $jobManager->processJob($job);
-        }
-        $jobManager->stopWatchingTubes();
-
+        $this->processJobs();
 
         $this->getGrossMarginManager()->recalculateStoreGrossMargin();
 
@@ -572,6 +563,7 @@ class GrossMarginControllerTest extends WebTestCase
         $this->factory()->flush();
 
 
+        $this->processJobs();
         $this->getGrossMarginManager()->calculateGrossMarginUnprocessedTrialBalance();
         $this->getGrossMarginManager()->recalculateStoreGrossMargin();
         $this->getGrossMarginManager()->recalculateDayGrossMargin();

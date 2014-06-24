@@ -126,6 +126,8 @@ class ProductTotalsTest extends ContainerAwareTestCase
         $manager->persist($invoiceProduct2);
         $manager->flush();
 
+        $this->processJobs();
+
         $storeProductRepository->refresh($storeProduct);
         $this->assertEquals(15, $storeProduct->inventory->toNumber());
         $this->assertEquals(2222, $storeProduct->lastPurchasePrice->getCount());
@@ -159,6 +161,8 @@ class ProductTotalsTest extends ContainerAwareTestCase
 
         $manager->persist($sale2);
         $manager->flush();
+
+        $this->processJobs();
 
         $storeProductRepository->refresh($storeProduct);
         $this->assertEquals(-2, $storeProduct->inventory->toNumber());
