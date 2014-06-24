@@ -872,6 +872,8 @@ class StoreProductControllerTest extends WebTestCase
                 ->createInvoiceProduct($productId2, 2, 11.99, $storeId1)
             ->flush();
 
+        $this->processJobs();
+
         $response = $this->clientJsonRequest(
             $departmentAccessToken1,
             'GET',
@@ -896,6 +898,8 @@ class StoreProductControllerTest extends WebTestCase
                 ->createInvoiceProduct($productId1, 3, 9.99, $storeId1)
                 ->createInvoiceProduct($productId2, 4, 12.99, $storeId1)
             ->flush();
+
+        $this->processJobs();
 
         $response = $this->clientJsonRequest(
             $departmentAccessToken1,
@@ -952,6 +956,7 @@ class StoreProductControllerTest extends WebTestCase
                 ->createInvoiceProduct($productId1, 10, 31)
             ->flush();
 
+        $this->processJobs();
         /* @var $averagePriceService StoreProductMetricsCalculator */
         $averagePriceService = $this->getContainer()->get('lighthouse.core.service.product.metrics_calculator');
         $averagePriceService->recalculateAveragePrice();

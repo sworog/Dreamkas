@@ -22,6 +22,7 @@ class WebTestCase extends ContainerAwareTestCase
     {
         $this->client = static::createClient();
         $this->clearMongoDb();
+        $this->clearJobs();
     }
 
     protected function tearDown()

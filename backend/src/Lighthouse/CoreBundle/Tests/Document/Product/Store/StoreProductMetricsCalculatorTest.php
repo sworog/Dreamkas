@@ -181,6 +181,7 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
             $this->assertStoreProduct($storeId, $product['id'], $assertions, $product['message']);
         }
 
+        $this->processJobs();
         /* @var \Lighthouse\CoreBundle\Document\Product\Store\StoreProductMetricsCalculator $metricsCalculator */
         $metricsCalculator = $this->getContainer()->get('lighthouse.core.service.product.metrics_calculator');
         $metricsCalculator->recalculateDailyAverageSales();
