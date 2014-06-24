@@ -48,6 +48,7 @@ class OrganizationController extends AbstractRestController
      * @return View|Organization
      *
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
      */
     public function putOrganizationAction(Request $request, Organization $organization)
     {
@@ -59,9 +60,21 @@ class OrganizationController extends AbstractRestController
      * @return Organization
      *
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
      */
     public function getOrganizationAction(Organization $organization)
     {
         return $organization;
+    }
+
+    /**
+     * @return \Doctrine\ODM\MongoDB\Cursor|Organization[]
+     *
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc(resource=true)
+     */
+    public function getOrganizationsAction()
+    {
+        return $this->documentRepository->findAll()->toArray(false);
     }
 }

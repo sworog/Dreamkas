@@ -194,4 +194,43 @@ class OrganizationControllerTest extends WebTestCase
             $this->assertSame($putResponse, $getResponse);
         }
     }
+
+    public function testGetOrganizationsAction()
+    {
+        $user = $this->factory()->user()->createProjectUser();
+
+        $accessToken = $this->factory()->oauth()->auth($user);
+
+        $ids = array();
+        for ($i = 1; $i <= 5; $i++) {
+            $postData = array(
+                'name' => 'Колян ' . $i
+            );
+
+            $postResponse = $this->clientJsonRequest(
+                $accessToken,
+                'POST',
+                '/api/1/organizations',
+                $postData
+            );
+
+            $this->assertResponseCode(201);
+            Assert::assertJsonHasPath('id', $postResponse);
+            $ids[] = $postResponse['id'];
+        }
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/organizations'
+        );
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(5, '*.id', $getResponse);
+        foreach ($ids as $id) {
+            Assert::assertJsonPathEquals($id, '*.id', $getResponse, 1);
+        }
+
+        $this->assertSame(array_values($getResponse), $getResponse);
+    }
 }
