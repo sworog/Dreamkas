@@ -217,6 +217,8 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(201);
 
+        $this->processJobs();
+
         $invoiceId = $response['id'];
         Assert::assertJsonPathEquals(1, 'itemsCount', $response);
         Assert::assertJsonPathEquals(111.2, 'sumTotal', $response);
@@ -238,6 +240,8 @@ class InvoiceProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
+        $this->processJobs();
+
         Assert::assertJsonPathEquals('2', 'itemsCount', $response);
         Assert::assertJsonPathEquals('175', 'sumTotal', $response);
         $this->assertStoreProductTotals($store->id, $productId, 15, '12.76');
@@ -257,6 +261,8 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
+
+        $this->processJobs();
 
         Assert::assertJsonPathEquals('3', 'itemsCount', $response);
         Assert::assertJsonPathEquals('180.99', 'sumTotal', $response);
@@ -577,6 +583,7 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(201);
+        $this->processJobs();
         $invoiceId = $responseJson['id'];
 
         Assert::assertJsonPathEquals($quantity, 'products.0.quantity', $responseJson);
@@ -608,6 +615,7 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
+        $this->processJobs();
         Assert::assertNotJsonPathEquals($invoiceProductId, 'products.0.id', $responseJson);
         Assert::assertJsonPathEquals($newPrice, 'products.0.price', $responseJson);
         Assert::assertJsonPathEquals($newQuantity, 'products.0.quantity', $responseJson);
@@ -676,6 +684,7 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(201);
+        $this->processJobs();
         Assert::assertJsonHasPath('id', $postJson);
         $invoiceId = $postJson['id'];
 
@@ -703,6 +712,7 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
+        $this->processJobs();
 
         Assert::assertJsonPathEquals($invoiceSumTotal2, 'sumTotal', $putJson);
         Assert::assertJsonPathEquals(1, 'itemsCount', $putJson);
@@ -808,6 +818,7 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(201);
+        $this->processJobs();
 
         Assert::assertJsonHasPath('id', $postResponse);
         Assert::assertJsonPathCount(3, 'products.*.id', $postResponse);
@@ -827,6 +838,8 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
+        $this->processJobs();
+
         Assert::assertJsonPathCount(2, 'products.*.id', $putResponse);
         Assert::assertNotJsonPathEquals($productIds['2'], 'products.*.id', $putResponse);
         Assert::assertJsonPathEquals(13.96, 'sumTotal', $putResponse);
@@ -870,6 +883,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $invoiceData
         );
         $this->assertResponseCode(201);
+        $this->processJobs();
         $invoiceId = $response['id'];
 
         $this->assertStoreProductTotals($store->id, $productId, 16, 5.99);
@@ -884,6 +898,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $invoiceData
         );
         $this->assertResponseCode(200);
+        $this->processJobs();
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -926,6 +941,7 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(201);
+        $this->processJobs();
         $invoiceId = $response['id'];
 
         $this->assertStoreProductTotals($store->id, $productId, 16, 5.99);
@@ -939,6 +955,7 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
+        $this->processJobs();
 
         $this->assertStoreProductTotals($store->id, $productId, 15, 12.76);
 
@@ -951,6 +968,7 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
+        $this->processJobs();
 
         $this->assertStoreProductTotals($store->id, $productId, 5, 12.76);
     }
@@ -981,6 +999,7 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(201);
+        $this->processJobs();
         $invoiceId = $response['id'];
 
         $this->assertStoreProductTotals($store->id, $productId, 16, 5.99);
@@ -995,6 +1014,7 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
+        $this->processJobs();
 
         $this->assertStoreProductTotals($store->id, $productId, 16, 5.99);
 
@@ -1009,6 +1029,7 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
+        $this->processJobs();
 
         $this->assertStoreProductTotals($store->id, $productId, 15, 13.01);
         $this->assertStoreProductTotals($store->id, $newProductId, 1, 5.99);
@@ -1032,6 +1053,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $invoiceData0
         );
         $this->assertResponseCode(201);
+        $this->processJobs();
 
         $invoiceData1 = $this->getInvoiceData($supplier->id, $productId1, 10, 26);
         $invoiceData1['acceptanceDate'] = date('c', strtotime('-3 days'));
@@ -1047,6 +1069,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $invoiceData1
         );
         $this->assertResponseCode(201);
+        $this->processJobs();
         $invoiceId1 = $response['id'];
 
         /* @var $averagePriceService StoreProductMetricsCalculator */
@@ -1070,6 +1093,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $invoiceData2
         );
         $this->assertResponseCode(201);
+        $this->processJobs();
         $invoiceId2 = $response['id'];
 
         $averagePriceService->recalculateAveragePrice();
@@ -1091,6 +1115,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $invoiceData3
         );
         $this->assertResponseCode(201);
+        $this->processJobs();
         $invoiceId3 = $response['id'];
 
         $averagePriceService->recalculateAveragePrice();
@@ -1106,6 +1131,7 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
+        $this->processJobs();
 
         $averagePriceService->recalculateAveragePrice();
 
@@ -1124,6 +1150,7 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
+        $this->processJobs();
 
         $averagePriceService->recalculateAveragePrice();
 
@@ -1142,6 +1169,7 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
+        $this->processJobs();
 
         $averagePriceService->recalculateAveragePrice();
 
@@ -1171,6 +1199,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 ->createInvoice(array('acceptanceDate' => date('c', strtotime('-15 days'))), $store->id)
                 ->createInvoiceProduct($productId1, 10, 23.33)
             ->flush();
+        $this->processJobs();
 
         /* @var $averagePriceService StoreProductMetricsCalculator */
         $averagePriceService = $this->getContainer()->get('lighthouse.core.service.product.metrics_calculator');
@@ -1196,6 +1225,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $invoiceData
         );
         $this->assertResponseCode(201);
+        $this->processJobs();
         $invoiceId = $response['id'];
 
         /* @var $averagePriceService StoreProductMetricsCalculator */
@@ -1223,6 +1253,7 @@ class InvoiceProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
+        $this->processJobs();
 
         $averagePriceService->recalculateAveragePrice();
 
@@ -1248,6 +1279,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 ->createInvoice(array(), $store->id)
                 ->createInvoiceProduct($productId, 10, 10.12)
             ->flush();
+        $this->processJobs();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
@@ -1289,6 +1321,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 ->createInvoice(array(), $store->id)
                 ->createInvoiceProduct($productId, 10, 10.12)
             ->flush();
+        $this->processJobs();
 
         $this->updateProduct($productId, array('name' => 'Кефир 5%'));
 
@@ -1298,6 +1331,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 ->editInvoice($invoice->id)
                 ->createInvoiceProduct($productId, 10, 10.12)
             ->flush();
+        $this->processJobs();
         $this->client->shutdownKernelBeforeRequest();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -1337,6 +1371,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 ->createInvoice(array(), $store->id)
                 ->createInvoiceProduct($productId, 10, 10.12)
             ->flush();
+        $this->processJobs();
 
         $productVersions = $productVersionRepository->findAllByDocumentId($productId);
         $this->assertCount(1, $productVersions);
@@ -1357,6 +1392,7 @@ class InvoiceProductControllerTest extends WebTestCase
             ->createInvoice(array(), $store->id)
             ->createInvoiceProduct($productId, 5, 10.12)
         ->flush();
+        $this->processJobs();
 
         $productVersionRepository->clear();
 
@@ -1392,6 +1428,8 @@ class InvoiceProductControllerTest extends WebTestCase
                 ->createInvoiceProduct($productId1, 120, 37.20)
                 ->createInvoiceProduct($productId2, 200, 35.80)
             ->flush();
+
+        $this->processJobs();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $getResponse = $this->clientJsonRequest(
@@ -1435,6 +1473,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 ->createInvoiceProduct($productId2, 0.4, 21.77)
                 ->createInvoiceProduct($productId3, 7.77, 42.99)
             ->flush();
+        $this->processJobs();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $getResponse = $this->clientJsonRequest(
@@ -1492,6 +1531,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 )
                 ->createInvoiceProduct($productId, 99.99, 36.78)
             ->flush();
+        $this->processJobs();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $getResponse = $this->clientJsonRequest(
@@ -1531,6 +1571,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 )
                 ->createInvoiceProduct($productId1, 99.99, 33.44)
             ->flush();
+        $this->processJobs();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $getResponse = $this->clientJsonRequest(
@@ -1566,6 +1607,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $invoiceData
         );
         $this->assertResponseCode(201);
+        $this->processJobs();
         $invoiceId = $invoiceResponse['id'];
 
         $getResponse = $this->clientJsonRequest(
@@ -1595,6 +1637,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $invoiceData
         );
         $this->assertResponseCode(200);
+        $this->processJobs();
 
         Assert::assertJsonPathEquals(false, 'includesVAT', $invoiceResponse);
         Assert::assertJsonPathEquals(4045.60, 'sumTotal', $invoiceResponse);
@@ -1627,6 +1670,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $invoiceData
         );
         $this->assertResponseCode(200);
+        $this->processJobs();
 
         Assert::assertJsonPathEquals(true, 'includesVAT', $invoiceResponse);
         Assert::assertJsonPathEquals(3677.63, 'sumTotal', $invoiceResponse);
@@ -1669,6 +1713,7 @@ class InvoiceProductControllerTest extends WebTestCase
             $invoiceData
         );
         $this->assertResponseCode(201);
+        $this->processJobs();
         $invoiceId = $response['id'];
 
         $invoiceData['products'][0]['quantity'] = '';
@@ -1696,6 +1741,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 ->createInvoice(array('acceptanceDate' => '2014-01-10T12:33:33+0400'), $store->id)
                 ->createInvoiceProduct($productId, 1, 9.99)
             ->flush();
+        $this->processJobs();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
@@ -1713,6 +1759,7 @@ class InvoiceProductControllerTest extends WebTestCase
             ->invoice()
                 ->editInvoice($invoice->id, array('acceptanceDate' => '2014-01-03T10:11:10+0400'))
             ->flush();
+        $this->processJobs();
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -1740,6 +1787,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 ->createInvoiceProduct($productId2, 3, 4.99)
                 ->createInvoiceProduct($productId3, 2, 1.95)
             ->flush();
+        $this->processJobs();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
         $getResponse = $this->clientJsonRequest(
