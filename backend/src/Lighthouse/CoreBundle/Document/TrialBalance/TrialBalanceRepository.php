@@ -66,8 +66,18 @@ class TrialBalanceRepository extends DocumentRepository
      */
     public function findOneNext(TrialBalance $trialBalance)
     {
+        return $this->findOneNextByTrialBalanceReasonType($trialBalance, $trialBalance->reason->getReasonType());
+    }
+
+    /**
+     * @param TrialBalance $trialBalance
+     * @param string $reasonType
+     * @return null|TrialBalance
+     */
+    public function findOneNextByTrialBalanceReasonType(TrialBalance $trialBalance, $reasonType)
+    {
         $criteria = array(
-            'reason.$ref' => $trialBalance->reason->getReasonType(),
+            'reason.$ref' => $reasonType,
             'storeProduct' => $trialBalance->storeProduct->id,
             'createdDate.date' => array('$gte' => $trialBalance->createdDate),
             '_id' => array('$ne' => $trialBalance->id),

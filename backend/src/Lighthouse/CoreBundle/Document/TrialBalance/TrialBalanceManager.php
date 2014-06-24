@@ -119,7 +119,7 @@ class TrialBalanceManager
         $trialBalance = $this->trialBalanceRepository->findOneByReasonTypeReasonId($reasonId, $reasonType);
 
         if ($this->costOfGoodsCalculator->supportsRangeIndexByReasonType($reasonType)) {
-            $this->processSupportsRangeIndexRemove($trialBalance);
+            $this->processSupportsRangeIndexRemove($trialBalance, $reasonType);
         }
 
         $this->documentManager->remove($trialBalance);
@@ -127,10 +127,14 @@ class TrialBalanceManager
 
     /**
      * @param TrialBalance $trialBalance
+     * @param string $reasonType
      */
-    protected function processSupportsRangeIndexRemove(TrialBalance $trialBalance)
+    protected function processSupportsRangeIndexRemove(TrialBalance $trialBalance, $reasonType)
     {
-        $nextProcessedTrialBalance = $this->trialBalanceRepository->findOneNext($trialBalance);
+        $nextProcessedTrialBalance = $this->trialBalanceRepository->findOneNextByTrialBalanceReasonType(
+            $trialBalance,
+            $reasonType
+        );
 
         if (null != $nextProcessedTrialBalance) {
             $nextProcessedTrialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
