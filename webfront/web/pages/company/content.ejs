@@ -12,9 +12,8 @@
 
     <% collections.organizations.forEach(function(organizationModel){ %>
     <div style="padding-bottom: 20px;">
-        <a name="organizationLink" href="/company/organizations/<%- organizationModel.id %>">
-            <%- organizationModel.get('name') %>
-        </a>
+        <a name="organizationLink"
+           href="/company/organizations/<%- organizationModel.id %>"><%- organizationModel.get('name') %></a>
     </div>
     <% }) %>
 </div>
