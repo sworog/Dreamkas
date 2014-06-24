@@ -6,7 +6,7 @@ define(function(require, exports, module) {
         el: '.form_companyOrganization',
         redirectUrl: '/company',
         model: function(){
-            var Model = require('models/companyOrganization');
+            var Model = require('models/companyOrganization/companyOrganization');
 
             return new Model();
         }

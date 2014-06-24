@@ -13,8 +13,8 @@ define(function(require, exports, module) {
             '</select>' +
             '</form>';
 
-    describe('form methods', function() {
-        it('getData', function() {
+    describe(module.id, function() {
+        it('getData method', function() {
 
             var expectedData = {
                 textInput: 'textInputValue',

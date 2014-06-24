@@ -3,7 +3,7 @@ define(function(require, exports, module) {
     var Page = require('./createCompanyOrganization'),
         $ = require('jquery');
 
-    describe('page layout', function(){
+    describe(module.id, function(){
 
         var page = new Page({
             el: document.createElement('div')
