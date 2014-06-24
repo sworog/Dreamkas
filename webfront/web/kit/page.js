@@ -103,7 +103,6 @@ define(function(require, exports, module) {
                     console.error(error);
                 }
             }, function(error) {
-                console.error(error);
                 page.set('error', error);
             });
         },

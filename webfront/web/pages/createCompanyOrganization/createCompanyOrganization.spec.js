@@ -14,8 +14,6 @@ define(function(require, exports, module) {
 
         beforeEach(function(done){
 
-            page && page.destroy();
-
             page = new Page();
 
             page.on('loaded', function(){
@@ -24,12 +22,16 @@ define(function(require, exports, module) {
 
         });
 
+        afterEach(function(){
+            page.destroy();
+        });
+
         sharedSpecs.globalNavigation();
         sharedSpecs.localNavigation_company();
 
         it('input name', function(){
 
-            var $input = $('[name="name"][type="text"]', page.el);
+            var $input = $('[name="name"][type="text"]');
 
             expect($input.length).toEqual(1);
             expect($input.val()).toEqual('');
@@ -37,7 +39,7 @@ define(function(require, exports, module) {
 
         it('input phone', function(){
 
-            var $input = $('[name="phone"][type="text"]', page.el);
+            var $input = $('[name="phone"][type="text"]');
 
             expect($input.length).toEqual(1);
             expect($input.val()).toEqual('');
@@ -45,7 +47,7 @@ define(function(require, exports, module) {
 
         it('input fax', function(){
 
-            var $input = $('[name="fax"][type="text"]', page.el);
+            var $input = $('[name="fax"][type="text"]');
 
             expect($input.length).toEqual(1);
             expect($input.val()).toEqual('');
@@ -53,7 +55,7 @@ define(function(require, exports, module) {
 
         it('input email', function(){
 
-            var $input = $('[name="email"][type="text"]', page.el);
+            var $input = $('[name="email"][type="text"]');
 
             expect($input.length).toEqual(1);
             expect($input.val()).toEqual('');
@@ -61,7 +63,7 @@ define(function(require, exports, module) {
 
         it('input director', function(){
 
-            var $input = $('[name="director"][type="text"]', page.el);
+            var $input = $('[name="director"][type="text"]');
 
             expect($input.length).toEqual(1);
             expect($input.val()).toEqual('');
@@ -69,7 +71,7 @@ define(function(require, exports, module) {
 
         it('input chiefAccountant', function(){
 
-            var $input = $('[name="chiefAccountant"][type="text"]', page.el);
+            var $input = $('[name="chiefAccountant"][type="text"]');
 
             expect($input.length).toEqual(1);
             expect($input.val()).toEqual('');
@@ -77,7 +79,7 @@ define(function(require, exports, module) {
 
         it('input address', function(){
 
-            var $input = $('textarea[name="address"]', page.el);
+            var $input = $('textarea[name="address"]');
 
             expect($input.length).toEqual(1);
             expect($input.val()).toEqual('');
@@ -85,7 +87,7 @@ define(function(require, exports, module) {
 
         it('add button', function(){
 
-            var $button = $('.form_companyOrganization button[type="submit"]', page.el);
+            var $button = $('.form_companyOrganization button[type="submit"]');
 
             expect($button.length).toEqual(1);
             expect($button.text()).toEqual('Добавить');
