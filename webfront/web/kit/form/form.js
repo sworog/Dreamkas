@@ -86,8 +86,6 @@ define(function(require) {
                 block.collection.push(model);
             }
 
-            console.log(111);
-
             if (block.redirectUrl) {
                 router.navigate(block.get('redirectUrl'));
             }

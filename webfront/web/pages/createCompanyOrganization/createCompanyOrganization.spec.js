@@ -3,11 +3,11 @@ define(function(require, exports, module) {
     var Page = require('./createCompanyOrganization'),
         $ = require('jquery');
 
-    var page = new Page({
-        el: document.createElement('div')
-    });
-
     describe('page layout', function(){
+
+        var page = new Page({
+            el: document.createElement('div')
+        });
 
         it('company global link', function(){
             expect(page.el.querySelector('.globalNavigation [href="/company"]').innerHTML).toEqual('Компания');
@@ -75,19 +75,6 @@ define(function(require, exports, module) {
 
             expect($input.length).toEqual(1);
             expect($input.val()).toEqual('');
-        });
-
-    });
-
-    describe('form submit', function(){
-
-        it ('submit success', function(){
-            page.blocks.form_organization.submitSuccess();
-            expect(document.location.href).toBe('test');
-        });
-
-        it ('submit error', function(){
-
         });
 
     });
