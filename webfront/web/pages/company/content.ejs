@@ -10,13 +10,11 @@
 
     <h2>Организации</h2>
 
-    <table>
-        <% collections.organizations.forEach(function(organizationModel){ %>
-        <tr>
-            <td>
-                <%- organizationModel.get('name') %>
-            </td>
-        </tr>
-        <% }) %>
-    </table>
+    <% collections.organizations.forEach(function(organizationModel){ %>
+    <div style="padding-bottom: 20px;">
+        <a href="/company/organizations/<%- organizationModel.id %>">
+            <%- organizationModel.get('name') %>
+        </a>
+    </div>
+    <% }) %>
 </div>
