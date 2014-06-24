@@ -17,7 +17,7 @@ public class EmailSteps extends ScenarioSteps {
     private EmailMessage emailMessage;
 
     private static final String SIGN_UP_REGEX_PATTERN = "Добро пожаловать в Lighthouse!\r\n\r\nВаш пароль для входа: (.*)\r\nЕсли это письмо пришло вам по ошибке, просто проигнорируйте его.\r\n";
-    private static final String RESTORE_PASSWORD_REGEX_PATTERN = "Вы воспользовались формой восстановления пароля в Lighthouse.\r\n\r\nВаш новый пароль для входа: (.*)\r\n\r\n";
+    private static final String RESTORE_PASSWORD_REGEX_PATTERN = "Вы воспользовались формой восстановления пароля в Lighthouse.\r\n\r\nВаш новый пароль для входа: (.*)\r\n-----\r\nLighthouse.pro\r\n";
 
     @Step
     public void deleteAllMessages() {

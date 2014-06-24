@@ -1,0 +1,29 @@
+<div class="localNavigation catalog" edit="<%- PAGE.params.edit %>">
+
+    <div class="localNavigation__section">
+        <a href="?edit=<%- PAGE.params.edit === '1' ? '0' : '1' %>"
+           style="white-space: nowrap"
+           class="localNavigation__link catalog__editLink">
+            <%- PAGE.params.edit === '1' ? 'Завершить редактирование' : 'Редактировать' %>
+        </a>
+
+        <a class="localNavigation__link catalog__exportLink">Выгрузить в SetRetail</a>
+        <a href="?section=settings&subCategoryId=0" class="localNavigation__link">Свойства</a>
+    </div>
+
+    <form class="form form_subCategory">
+        <div class="form__field">
+            <input class="inputText"
+                   placeholder="Добавить подкатегорию"
+                   name="name"
+                   type="text" />
+        </div>
+    </form>
+
+    <%= models.category.collections.subCategories.element(require('tpl!blocks/catalog/subCategoryList.ejs'), {
+        collections: {
+            subCategories: models.category.collections.subCategories
+        }
+    }) %>
+
+</div>

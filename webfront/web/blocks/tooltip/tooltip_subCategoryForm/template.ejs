@@ -1,0 +1,26 @@
+<%
+/**
+ *
+ * @model
+ */
+%>
+
+<div class="tooltip tooltip_categoryForm">
+    <form class="form">
+        <div class="form__field" style="white-space: nowrap; padding-bottom: 0;">
+
+            <input value="<%- model && model.get('name') %>"
+                   style="width: 250px;"
+                   class="inputText"
+                   type="text"
+                   name="name"
+                   placeholder="Название подкатегории">
+
+            <button type="submit" class="button">
+                Подтвердить
+            </button>
+
+            <a class="tooltip__closeLink" style="vertical-align: middle; margin-right: 10px;">Отмена</a>
+        </div>
+    </form>
+</div>

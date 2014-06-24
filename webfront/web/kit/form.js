@@ -54,14 +54,21 @@ define(function(require) {
             controls: '.form__controls',
             results: '.form__results'
         },
+        initialize: function(){
+            var block = this;
+
+            Block.prototype.initialize.apply(block, arguments);
+
+            block.model = block.get('model');
+            block.redirectUrl = block.get('redirectUrl');
+        },
         getData: function(){
             return form2js(this.el, '.', false);
         },
         submit: function() {
-            var block = this,
-                model = block.model.extend ? new block.model : block.model;
+            var block = this;
 
-            return model.save(block.formData);
+            return block.model.save(block.formData);
         },
         submitStart: function() {
             var block = this;
@@ -71,17 +78,17 @@ define(function(require) {
             block.removeErrors();
             block.removeSuccessMessage();
         },
-        submitComplete: function(response) {
+        submitComplete: function() {
             var block = this;
 
             block.elements.$submitButton.removeClass('preloader_stripes');
             block.disable(false);
         },
-        submitSuccess: function(response) {
+        submitSuccess: function() {
             var block = this;
 
             if (block.collection) {
-                block.collection.push(response);
+                block.collection.push(block.model);
             }
 
             if (block.redirectUrl) {
@@ -96,7 +103,7 @@ define(function(require) {
             var block = this;
             block.showErrors(JSON.parse(response.responseText), response);
         },
-        showErrors: function(errors, error) {
+        showErrors: function(errors, response) {
             var block = this;
 
             function addErrorToInput(data, field, prefix) {
@@ -129,10 +136,10 @@ define(function(require) {
             }
 
             if (errors.error) {
-                block.elements.controls.dataset.error = typeof errors.error === 'string' ? block.getText(errors.error) : block.getText('неизвестная ошибка: ' + error.statusText);
+                block.elements.controls.dataset.error = typeof errors.error === 'string' ? block.getText(errors.error) : block.getText('неизвестная ошибка: ' + response.statusText);
             }
 
-            if (errors.errors) {
+            if (errors.errors && errors.errors.length) {
                 block.elements.controls.dataset.error = errors.errors.join(', ');
             }
 
@@ -171,9 +178,9 @@ define(function(require) {
             var block = this;
 
             block.removeErrors();
-            block.elements.$submitButton.removeClass('preloader preloader_rows');
+            block.elements.$submitButton.removeClass('preloader preloader_stripes');
 
-            block.$el.find(':input').each(function() {
+            $(block.el).find(':input').each(function() {
                 switch (this.type) {
                     case 'password':
                     case 'select-multiple':

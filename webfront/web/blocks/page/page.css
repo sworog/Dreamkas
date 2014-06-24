@@ -34,10 +34,6 @@
     background-size: contain;
 }
 
-.page.page[status="loading"] * {
-    visibility: visible;
-}
-
 .page.page[status="loading"] .page__content,
 .page.page[status="loading"] .content {
     display: none;
@@ -64,7 +60,7 @@
 .page__tabs{
     overflow: hidden;
     border-bottom: 1px solid #eee;
-    margin-bottom: 15px;
+    margin-bottom: 40px;
 }
 
 .page__tabItem{
@@ -130,10 +126,6 @@
     min-height: 100px;
 }
 
-.page[status="loading"] *{
-    visibility: hidden;
-}
-
 .page[status="loading"]:after {
     content: "";
     display: block;
@@ -154,4 +146,39 @@
     -ms-animation: spin 1s infinite ease;
     -o-animation: spin 1s infinite ease;
     animation: spin 1s infinite ease;
+}
+
+.page__editLink {
+    display: inline-block;
+    line-height: 0;
+    font-size: 0;
+    border-radius: 100%;
+    border: 2px solid;
+    vertical-align: middle;
+    margin-top: -1px;
+    height: 16px;
+    width: 16px;
+    position: relative;
+    color: #999;
+    cursor: pointer !important;
+}
+
+.page__editLink:hover{
+    color: #333;
+}
+
+.page__editLink:after{
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -5px;
+    margin-top: -2px;
+    width: 0;
+    height: 0;
+    border-bottom: none;
+    border-left: solid 5px transparent;
+    border-top: solid 6px;
+    border-right: solid 5px transparent;
+    display: block;
 }

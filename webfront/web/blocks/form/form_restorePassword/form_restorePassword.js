@@ -5,7 +5,11 @@ define(function(require, exports, module) {
 
     return Form.extend({
         el: '.form_restorePassword',
-        model: require('models/restorePassword'),
+        model: function(){
+            var RestorePasswordModel = require('models/restorePassword');
+
+            return new RestorePasswordModel();
+        },
         redirectUrl: '/login?restorePassword=success',
         submitSuccess: function(res){
             var block = this;

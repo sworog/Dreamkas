@@ -17,6 +17,56 @@ define({
     nearest100: 'до рублей',
     nearest99: 'до 99 копеек',
 
+    productTypes: function(type, format) {
+
+        format = format || 'nameCapitalFull';
+
+        var productTypes = {
+            unit: {
+                units: 'unit',
+                nameCapitalFull: 'Штучный',
+                nameSmallFull: 'штучный'
+            },
+            weight: {
+                units: 'kg',
+                nameCapitalFull: 'Весовой',
+                nameSmallFull: 'весовой'
+            },
+            alcohol: {
+                units: 'unit',
+                nameCapitalFull: 'Алкоголь',
+                nameSmallFull: 'алкоголь'
+            }
+        };
+
+        return type ? productTypes[type][format] : '';
+    },
+
+    units: function(unit, format) {
+
+        format = format || 'smallShort';
+
+        var unitsEnums = {
+            kg: {
+                capitalFull: "Килограммы",
+                smallFull: "килограмм",
+                smallShort: "кг"
+            },
+            unit: {
+                capitalFull: "Штуки",
+                smallFull: "штука",
+                smallShort: "шт."
+            },
+            liter: {
+                capitalFull: "Литры",
+                smallFull: "литр",
+                smallShort: "л"
+            }
+        };
+
+        return unit ? unitsEnums[unit][format] : '';
+    },
+
     'for last day': function(day) {
         switch (day) {
             case 1:

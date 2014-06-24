@@ -1,0 +1,176 @@
+<%
+/**
+ *
+ * @models.category
+ */
+%>
+<% var formatMoney = require('kit/formatMoney') %>
+<% var partials = _.extend({
+    select_priceRoundings: require('tpl!blocks/select/select_priceRoundings/select_priceRoundings.ejs')
+}, partials) %>
+
+<div class="content catalog" edit="<%- PAGE.params.edit %>">
+    <div class="page__header">
+        <a href="/catalog?edit=<%- PAGE.params.edit %>" class="page__backLink">
+            Товарный справочник
+        </a>
+        <span class="page__backLinkSeparator">/</span>
+        <a href="/groups/<%- PAGE.params.groupId %>?edit=<%- PAGE.params.edit %>" class="page__backLink">
+            <%= models.group.element('name') %>
+        </a>
+    </div>
+
+    <h1>
+        <span style="vertical-align: middle">
+            <%= models.category.element('name') %>
+        </span>
+
+        <a class="page__editLink catalog__editCategoryLink"></a>
+
+    </h1>
+
+    <% if (PAGE.params.section === 'subCategory') { %>
+
+    <h2>
+        <%- models.subCategory.get('name') %>
+        <a style="margin-left: 20px;" href="/products/create?subCategoryId=<%- PAGE.params.subCategoryId %>" class="button">Добавить продукт</a>
+    </h2>
+
+    <div class="page__tabs">
+        <a href="?subSection=products"
+           class="page__tabItem <%- PAGE.params.subSection === 'products' ? 'page__tabItem_active' : '' %>">
+            Продукты
+        </a>
+        <a href="?subSection=subCategorySettings"
+           class="page__tabItem <%- PAGE.params.subSection === 'subCategorySettings' ? 'page__tabItem_active' : '' %>">
+            Свойства
+        </a>
+    </div>
+
+    <% if (PAGE.params.subSection === 'products') { %>
+    <% if (collections.products.length) { %>
+    <table class="table table_products">
+        <thead>
+        <tr>
+            <th>Артикул</th>
+            <th>Название</th>
+            <th>Производитель</th>
+            <th>Страна</th>
+            <th>Цена</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% collections.products.forEach(function(productModel){ %>
+        <tr name="product" href="/products/<%- productModel.get('id') %>">
+            <td name="sku">
+                <%- productModel.get('sku') %>
+            </td>
+            <td name="name">
+                <%- productModel.get('name') %>
+            </td>
+            <td name="vendor">
+                <%- productModel.get('vendor') %>
+            </td>
+            <td name="vendorCountry">
+                <%- productModel.get('vendorCountry') %>
+            </td>
+            <td name="purchasePrice">
+                <% if(productModel.get('purchasePrice')){ %>
+                <%- formatMoney(productModel.get('purchasePrice')) %> р.
+                <% } else { %>
+                &mdash;
+                <% } %>
+            </td>
+        </tr>
+        <% }) %>
+        </tbody>
+    </table>
+    <% } else { %>
+    <p>
+        Нет продуктов
+    </p>
+    <% } %>
+
+    <% } %>
+
+    <% if (PAGE.params.subSection === 'subCategorySettings') { %>
+    <form class="form form_subCategorySettings">
+        <div class="form__field form__field_inline">
+
+            <label class="form__label">Минимальная наценка</label>
+
+            <input value="<%- models.subCategory.get('retailMarkupMin') %>"
+                   class="inputText"
+                   type="text"
+                   name="retailMarkupMin"/>
+
+            <span class="inputText__postfix">%</span>
+        </div>
+        <div class="form__field form__field_inline">
+
+            <label class="form__label">Максимальная наценка</label>
+
+            <input value="<%- models.subCategory.get('retailMarkupMax') %>"
+                   class="inputText"
+                   type="text"
+                   name="retailMarkupMax"/>
+
+            <span class="inputText__postfix">%</span>
+        </div>
+        <div class="form__field form__field_inline">
+
+            <label class="form__label">Округление</label>
+
+            <%= partials.select_priceRoundings({
+                selected: models.subCategory.get('rounding.name')
+            }) %>
+        </div>
+        <div class="form__controls">
+            <button type="submit" lh-button class="button">
+                Сохранить
+            </button>
+        </div>
+    </form>
+    <% } %>
+    <% } %>
+
+    <% if (PAGE.params.section === 'settings') { %>
+    <form class="form form_categorySettings">
+        <div class="form__field form__field_inline">
+
+            <label class="form__label">Минимальная наценка</label>
+
+            <input value="<%- models.category.get('retailMarkupMin') %>"
+                   class="inputText"
+                   type="text"
+                   name="retailMarkupMin"/>
+
+            <span class="inputText__postfix">%</span>
+        </div>
+        <div class="form__field form__field_inline">
+
+            <label class="form__label">Максимальная наценка</label>
+
+            <input value="<%- models.category.get('retailMarkupMax') %>"
+                   class="inputText"
+                   type="text"
+                   name="retailMarkupMax"/>
+
+            <span class="inputText__postfix">%</span>
+        </div>
+        <div class="form__field form__field_inline">
+
+            <label class="form__label">Округление</label>
+
+            <%= partials.select_priceRoundings({
+                selected: models.category.get('rounding.name')
+            }) %>
+        </div>
+        <div class="form__controls">
+            <button type="submit" lh-button class="button">
+                Сохранить
+            </button>
+        </div>
+    </form>
+    <% } %>
+</div>

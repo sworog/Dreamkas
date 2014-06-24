@@ -1,0 +1,10 @@
+<% var getText = require('kit/getText') %>
+<% var selected = selected || 'nearest1' %>
+
+<select class="select" name="rounding.name">
+    <% _.forEach(['nearest1', 'nearest10', 'nearest50', 'nearest99', 'nearest100'], function(value, index){ %>
+    <option <%- selected === value ? 'selected' : '' %> value="<%- value %>">
+        <%- getText(value) %>
+    </option>
+    <% }) %>
+</select>

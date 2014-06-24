@@ -1,0 +1,36 @@
+<%
+/**
+ *
+ * @collections.groups
+ */
+%>
+
+<div class="catalog__groupList">
+
+    <% if (collections.groups.length) { %>
+    <% collections.groups.each(function(groupModel){ %>
+    <div class="catalog__groupItem">
+        <h2 class="catalog__groupTitle">
+
+            <a href="/groups/<%- groupModel.id %>?edit=<%- PAGE.params.edit %>"
+               class="catalog__groupLink"><%= groupModel.get('name') %></a>
+
+            <a data-group_id="<%- groupModel.id %>" class="page__editLink catalog__editGroupLink"></a>
+
+        </h2>
+
+        <%= groupModel.collections.categories.element(require('tpl!./categoryList.ejs'), {
+            groupModel: groupModel,
+            collections: {
+                categories: groupModel.collections.categories
+            }
+        }) %>
+
+    </div>
+    <% }) %>
+    <% } else { %>
+    <p>
+        Нет групп
+    </p>
+    <% } %>
+</div>

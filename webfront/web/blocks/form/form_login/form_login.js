@@ -6,7 +6,11 @@ define(function(require) {
     return Form.extend({
         el: '.form_login',
         nls: require('i18n!./nls/main'),
-        model: require('models/login'),
+        model: function(){
+            var LoginModel = require('models/login');
+
+            return new LoginModel();
+        },
         initialize: function(){
 
             var block = this;

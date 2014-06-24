@@ -5,7 +5,11 @@ define(function(require, exports, module) {
 
     return Form.extend({
         el: '.form_signup',
-        model: require('models/signup'),
+        model: function(){
+            var SignUpModel = require('models/signup');
+
+            return new SignUpModel();
+        },
         redirectUrl: '/login?signup=success',
         submitSuccess: function(res){
             var block = this;

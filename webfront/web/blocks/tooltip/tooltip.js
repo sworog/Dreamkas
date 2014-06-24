@@ -1,15 +1,13 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block/block'),
-        deepExtend = require('kit/deepExtend/deepExtend');
-
-    require('jquery');
+    var Block = require('kit/block'),
+        deepExtend = require('kit/deepExtend/deepExtend'),
+        $ = require('jquery');
 
     return Block.extend({
-        el: null,
         trigger: null,
         container: '.content',
-        template: require('tpl!./template.html'),
+        template: require('tpl!./template.ejs'),
         events: {
             'click .tooltip__closeLink': function(e) {
                 e.preventDefault();
@@ -22,6 +20,8 @@ define(function(require) {
         initialize: function(){
             var block = this;
 
+            Block.prototype.initialize.apply(block, arguments);
+
             block.cid = _.uniqueId('tooltip');
 
             block.container = document.querySelector(block.container);
@@ -29,11 +29,10 @@ define(function(require) {
             block.container.appendChild(block.el);
         },
         show: function(opt) {
-            var block = this,
-                $trigger = $(block.trigger);
+            var block = this;
 
             $(document).on('click.' + block.cid, function(e) {
-                if ($trigger && e.target != $trigger[0] && !$(e.target).closest(block.el).length) {
+                if (block.trigger && e.target !== block.trigger && !$(e.target).closest(block.el).length) {
                     block.hide();
                 }
             });
@@ -46,8 +45,10 @@ define(function(require) {
 
             deepExtend(block, opt);
 
+            block._removeBlocks();
             block.render();
             block.align();
+
             $(block.el).show();
         },
         align: function(){

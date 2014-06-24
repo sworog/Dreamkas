@@ -21,11 +21,22 @@
 }
 
 .globalNavigation__backLink{
-    font-size: 20px;
+    font-size: 11px;
     position: absolute;
-    left: -25px;
-    top: 1px;
+    left: -30px;
+    top: -1px;
     text-decoration: none !important;
+    width: 18px;
+    height: 20px;
+    border: 2px solid #ddd;
+    text-align: center;
+    border-radius: 25px;
+    line-height: 21px;
+    padding-right: 2px;
+}
+
+.globalNavigation__backLink:hover {
+    border-color: #1FB18A;
 }
 
 .globalNavigation__bottom {
@@ -46,7 +57,7 @@
     color: #D4D4D4;
 }
 
-.globalNavigation__links a {
+.globalNavigation__link {
     height: 40px;
     line-height: 41px;
     vertical-align: middle;
@@ -64,11 +75,6 @@
 }
 
 .globalNavigation__userName {
-}
-
-.globalNavigation__links {
-    float: left;
-    height: 100%;
 }
 
 .globalNavigation__active {

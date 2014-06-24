@@ -10,16 +10,15 @@ define(function(require, exports, module) {
         defaults: {
             storeId: null
         },
-        collections: {
-            products: null
-        },
-        initialize: function(){
+        initialize: function() {
             var model = this,
                 orderProductsCollection = new OrderProductsCollection(model.get('products'));
 
             orderProductsCollection.storeId = model.get('storeId');
 
-            model.collections.products = orderProductsCollection;
+            model.collections = {
+                products: orderProductsCollection
+            };
         },
         saveData: function() {
             return {
@@ -32,11 +31,13 @@ define(function(require, exports, module) {
                 })
             }
         },
-        parse: function(data) {
+        parse: function() {
 
-            var model = this;
+            var data = Model.prototype.parse.apply(this, arguments);
 
-            model.collections.products.reset(data.products);
+            if (this.collections) {
+                this.collections.products.reset(data.products);
+            }
 
             return data;
         },

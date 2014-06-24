@@ -27,7 +27,7 @@ public class AuthorizationPage extends CommonPageObject {
     public void createElements() {
         put("userName", new Input(this, "username"));
         put("password", new Input(this, "password"));
-        put("email", new Input(this, "email"));
+        put("email", new Input(this, "username"));
     }
 
     public void loginButtonClick() {

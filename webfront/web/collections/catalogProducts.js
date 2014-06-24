@@ -1,19 +1,22 @@
 define(function(require) {
         //requirements
-        var Collection = require('kit/core/collection');
+        var Collection = require('kit/collection');
 
         return Collection.extend({
             model: require('models/product'),
+            storeId: null,
+            subCategoryId: null,
             url: function(){
                 if (this.storeId){
-                    return LH.baseApiUrl + '/stores/' + this.storeId + '/subcategories/' + this.subCategory + '/products'
+                    return Collection.baseApiUrl + '/stores/' + this.storeId + '/subcategories/' + this.subCategoryId + '/products'
                 } else {
-                    return LH.baseApiUrl + '/subcategories/' + this.subCategory + '/products'
+                    return Collection.baseApiUrl + '/subcategories/' + this.subCategoryId + '/products'
                 }
             },
-            initialize: function(models, options){
-                this.subCategory = options.subCategory;
-                this.storeId = options.storeId;
+            fetch: function(){
+                if (this.subCategoryId){
+                    return Collection.prototype.fetch.apply(this, arguments);
+                }
             }
         });
     }

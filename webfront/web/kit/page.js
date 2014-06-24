@@ -13,6 +13,13 @@ define(function(require, exports, module) {
         constructor: function(request) {
             var page = this;
 
+            if (Page.current && Page.current.route === request.route){
+                Page.current.set(request, {
+                    replace: true
+                });
+                return;
+            }
+
             page.el.setAttribute('status', 'loading');
 
             if (Page.current) {
@@ -40,50 +47,28 @@ define(function(require, exports, module) {
         el: document.body,
         template: require('tpl!pages/template.ejs'),
 
+        listeners: {
+            'change:params': function(params, options){
+                router.save(Page.current.params, {
+                    replace: options.replace || false
+                });
+
+                this.render();
+            }
+        },
+
         isAllow: true,
         collections: {},
         models: {},
 
         partials: {
-            content: null,
+            content: function() {
+                return '';
+            },
             localNavigation: function() {
                 return '';
             },
             globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation.ejs')
-        },
-
-        events: {
-            'click .page__tabItem': function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                var block = this,
-                    $target = $(e.target),
-                    rel = $target.attr('rel'),
-                    href = $target.attr('href'),
-                    $targetContent = $('.page__tabContentItem[rel="' + rel + '"]');
-
-                if (href) {
-                    router.navigate(href, {
-                        trigger: false
-                    });
-                }
-
-                $targetContent
-                    .addClass('page__tabContentItem_active')
-                    .siblings('.page__tabContentItem')
-                    .removeClass('page__tabContentItem_active');
-
-                $target
-                    .addClass('page__tabItem_active')
-                    .siblings('.page__tabItem')
-                    .removeClass('page__tabItem_active');
-            }
-        },
-
-        listeners: {
-            params: function(params) {
-                router.save(params);
-            }
         },
 
         _initResources: function() {
@@ -105,6 +90,8 @@ define(function(require, exports, module) {
         initialize: function() {
             var page = this;
 
+            window.PAGE = page;
+
             Promise.resolve(page.fetch()).then(function() {
                 try {
                     page.render();
@@ -120,20 +107,16 @@ define(function(require, exports, module) {
 
         render: function(){
             var page = this,
-                autofocus,
-                firstInput;
+                autofocus;
 
             Block.prototype.render.apply(page, arguments);
 
             autofocus = page.el.querySelector('[autofocus]');
-            firstInput = page.el.querySelector('[type=text]');
 
             Sortable.init();
 
             if (autofocus){
                 autofocus.focus();
-            } else if(firstInput) {
-                firstInput.focus();
             }
 
         },

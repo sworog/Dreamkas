@@ -49,6 +49,11 @@ public class EndCatalogUserSteps {
         catalogApiSteps.createSubCategoryThroughPost(groupName, categoryName, subCategoryName);
     }
 
+    @Given("the user with email '$email' creates the subCategory with name '$subCategoryName' related to group named '$groupName' and category named '$categoryName'")
+    public void givenThereIsTheSubCategory(String email, String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
+        catalogApiSteps.createSubCategoryThroughPostByUserWithEmail(groupName, categoryName, subCategoryName, email);
+    }
+
     @Given("there is the subCategory with rounding set to '$rounding' with name '$subCategoryName' related to group named '$groupName' and category named '$categoryName'")
     public void createSubCategoryThroughPost(String rounding, String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {
         catalogApiSteps.createSubCategoryThroughPost(groupName, categoryName, subCategoryName, rounding);
@@ -62,6 +67,11 @@ public class EndCatalogUserSteps {
     @Given("the user sets subCategory '$subCategoryName' mark up with max '$maxValue' and min '$minValue' values")
     public void givenTheUSerSetsSubCategoryMarkUp(String subCategoryName, String maxValue, String minValue) throws IOException, JSONException {
         catalogApiSteps.setSubCategoryMarkUp(maxValue, minValue, subCategoryName);
+    }
+
+    @Given("the user with email '$email' sets subCategory '$subCategoryName' mark up with max '$maxValue' and min '$minValue' values")
+    public void givenTheUSerSetsSubCategoryMarkUp(String email, String subCategoryName, String maxValue, String minValue) throws IOException, JSONException {
+        catalogApiSteps.setSubCategoryMarkUpByUserWithEmail(maxValue, minValue, subCategoryName, email);
     }
 
     @Given("the user navigates to the default subCategory product list page")

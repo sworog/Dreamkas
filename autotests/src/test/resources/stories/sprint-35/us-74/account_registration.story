@@ -28,6 +28,6 @@ And the user asserts the elements have values on auth page
 
 When the user gets the last email message from the test email inbox folder
 
-Then the user assert the email message from value is 'lighthouse.eddystone@gmail.com'
+Then the user assert the email message from value is 'noreply@lighthouse.pro'
 And the user assert the email message subject value is 'Добро пожаловать в Lighthouse'
 And the user assert the email message content matches the required template

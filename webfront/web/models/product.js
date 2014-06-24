@@ -1,24 +1,31 @@
 define(function(require) {
     //requirements
-    var Model = require('kit/core/model'),
+    var Model = require('kit/model'),
         BarcodesCollections = require('collections/barcodes'),
         numeral = require('numeral');
 
     return Model.extend({
-        modelName: 'product',
-        urlRoot: LH.baseApiUrl + '/products',
-        initialize: function(){
-            this.collections = {
-                barcodes: new BarcodesCollections()
-            };
-
-            this.collections.barcodes.productId = this.id;
+        urlRoot: function(){
+            if (this.get('storeId')){
+                return Model.baseApiUrl + '/stores/' + this.get('storeId') + '/products';
+            } else {
+                return Model.baseApiUrl + '/products';
+            }
         },
         defaults: {
             amount: 0,
             retailPricePreference: 'retailMarkup',
             rounding: {},
-            type: 'unit'
+            type: 'unit',
+            storeId: null,
+            subCategoryId: null
+        },
+        initialize: function(){
+            this.collections = {
+                barcodes: new BarcodesCollections(this.get('barcodes'), {
+                    productId: this.id
+                })
+            };
         },
         saveData: function() {
 
@@ -58,37 +65,36 @@ define(function(require) {
                 retailMarkupMin = this.get('retailMarkupMin');
             }
 
-            return {
-                name: this.get('name'),
-                vat: this.get('vat'),
-                purchasePrice: purchasePrice,
-                retailPriceMin: retailPriceMin,
-                retailPriceMax: retailPriceMax,
-                retailMarkupMax: retailMarkupMax,
-                retailMarkupMin: retailMarkupMin,
-                retailPricePreference: this.get('retailPricePreference'),
-                barcode: this.get('barcode'),
-                vendorCountry: this.get('vendorCountry'),
-                vendor: this.get('vendor'),
-                subCategory: this.get('subCategory'),
-                rounding: this.get('rounding') ? this.get('rounding').name : null,
-                type: this.get('type'),
-                typeProperties: this.get('type') === 'unit' ? null : this.get('typeProperties')
+            if (this.get('storeId')){
+                return {
+                    retailPrice: this.get('retailPrice'),
+                    retailMarkup: this.get('retailMarkup'),
+                    retailPricePreference: this.get('retailPricePreference')
+                };
+            } else {
+                return {
+                    name: this.get('name'),
+                    vat: this.get('vat'),
+                    purchasePrice: purchasePrice,
+                    retailPriceMin: retailPriceMin,
+                    retailPriceMax: retailPriceMax,
+                    retailMarkupMax: retailMarkupMax,
+                    retailMarkupMin: retailMarkupMin,
+                    retailPricePreference: this.get('retailPricePreference'),
+                    barcode: this.get('barcode'),
+                    vendorCountry: this.get('vendorCountry'),
+                    vendor: this.get('vendor'),
+                    subCategory: this.get('subCategoryId'),
+                    rounding: this.get('rounding') ? this.get('rounding.name') : null,
+                    type: this.get('type'),
+                    typeProperties: this.get('type') === 'unit' ? null : this.get('typeProperties')
+                };
             }
         },
-        parse: function(response, options) {
+        parse: function(){
             var data = Model.prototype.parse.apply(this, arguments);
 
-            if (data.product) {
-                data = data.product;
-            }
-
-            if (typeof data.subCategory == 'object') {
-                data.group = data.subCategory.category.group;
-                data.category = data.subCategory.category;
-            }
-
-            if (data.barcodes){
+            if (this.collections){
                 this.collections.barcodes.reset(data.barcodes);
             }
 

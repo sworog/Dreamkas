@@ -3,7 +3,7 @@ define(function(require) {
         var Block = require('kit/core/block.deprecated'),
             moment = require('moment'),
             Datepicker = require('blocks/datepicker/datepicker'),
-            Tooltip = require('blocks/tooltip/tooltip.deprecated');
+            Tooltip = require('blocks/tooltip/tooltip');
 
         require('jquery.maskedinput');
 
@@ -29,7 +29,7 @@ define(function(require) {
                 }
 
                 block.tooltip = new Tooltip({
-                    $trigger: block.$el
+                    trigger: block.el
                 });
 
                 block.datepicker = new Datepicker({
@@ -39,9 +39,9 @@ define(function(require) {
                     noTime: block.noTime
                 });
 
-                block.tooltip.$el.addClass('inputDate__tooltip');
+                block.tooltip.el.classList.add('inputDate__tooltip');
                 block.datepicker.$el.attr({rel: block.$el.attr('name')});
-                block.tooltip.$content.html(block.datepicker.$el);
+                $(block.tooltip.el).html(block.datepicker.$el);
 
                 if (date){
                     block.set('date', date);

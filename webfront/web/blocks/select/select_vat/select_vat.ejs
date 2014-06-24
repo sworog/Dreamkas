@@ -1,0 +1,21 @@
+<% var values = {
+    '0': 'Не облагается',
+    '10': '10%',
+    '18': '18%'
+} %>
+
+<% var selected = selected || null %>
+
+<select class="select" name="vat">
+    <option value="" <%- selected ? '' : 'selected'%> disabled>
+        выберите ставку
+    </option>
+
+    <% _.forEach([0, 10, 18], function(value, index){ %>
+    <option <%- selected === value ? 'selected' : '' %> value="<%- value %>">
+        <%- values[value] %>
+    </option>
+    <% }) %>
+</select>
+
+

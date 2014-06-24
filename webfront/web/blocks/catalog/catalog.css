@@ -1,4 +1,4 @@
-.catalog__groupItem{
+.catalog__groupItem {
     display: inline-block;
     vertical-align: top;
     width: 50%;
@@ -8,38 +8,41 @@
     margin-right: -5px;
 }
 
-.catalog__groupLink{
+.catalog .page__editLink {
+    visibility: hidden;
+}
+
+.catalog[edit="1"] .page__editLink {
+    visibility: visible;
+}
+
+.catalog__groupLink {
     vertical-align: middle;
 }
 
-.catalog__categoryList{
+.catalog__categoryList {
     padding: 0;
     margin: 0;
-    overflow: hidden;
     list-style: none;
 }
 
-.catalog__categoryItem{
-    margin: 0 10px 5px 0;
+.catalog__categoryItem {
+    margin: 0 15px 5px 0;
     display: inline-block;
     vertical-align: middle;
 }
 
-.catalog__categoryLink{
-    margin-right: 4px;
-}
-
-.catalog__groupTitle{
+.catalog__groupTitle {
     padding-bottom: 10px;
 }
 
-.catalog__groupNavigation{
+.catalog__groupNavigation {
     float: right;
     width: 200px;
     padding-left: 40px;
 }
 
-.catalog__groupNavigationLink{
+.catalog__groupNavigationLink {
     display: block;
     border-bottom: 1px solid #eee;
     border-top: 1px solid #eee;
@@ -50,11 +53,11 @@
     z-index: 1;
 }
 
-.catalog__groupNavigationLink:hover{
+.catalog__groupNavigationLink:hover {
     background-color: #f4f4f4;
 }
 
-.catalog__groupNavigationLink_active{
+.catalog__groupNavigationLink_active {
     background-color: #fafafa;
     color: #000;
     cursor: default;
@@ -62,3 +65,47 @@
     border-top: 1px solid #ccc;
     z-index: 10;
 }
+
+.catalog__subCategoryList {
+    margin: 0 -40px;
+}
+
+.catalog__subCategoryList p {
+    padding: 10px 40px;
+}
+
+.catalog__subCategoryItem {
+    position: relative;
+}
+
+.catalog__subCategoryLink {
+    display: block;
+    border-bottom: 1px solid #eee;
+    border-top: 1px solid #eee;
+    white-space: nowrap;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 40px;
+    margin-bottom: -1px;
+    text-decoration: none;
+    position: relative;
+    transition: none !important;
+    background-color: #fafafa;
+    z-index: 1;
+}
+
+.catalog__subCategoryList .catalog__editSubCategoryLink {
+    position: absolute;
+    right: 10px;
+    top: 11px;
+    z-index: 10;
+}
+
+.catalog__subCategoryLink:hover {
+    background-color: #f4f4f4;
+}
+
+.catalog__subCategoryLink_active {
+    background-color: #f4f4f4;
+}
+

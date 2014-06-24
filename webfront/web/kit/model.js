@@ -42,8 +42,23 @@ define(function(require, exports, module) {
         },
         get: function(path) {
             return get(this, 'attributes.' + path);
+        },
+        element: function(attr){
+            var model = this,
+                uniqueId = _.uniqueId('modelElement'),
+                nodeTemplate = '<span id="' + uniqueId + '">' + model.get(attr) || '' + '</span>';
+
+            var handlers = {};
+
+            handlers['change:' + attr] = function() {
+                document.getElementById(uniqueId).innerHTML = model.get(attr) || '';
+            };
+
+            model.listenTo(model, handlers);
+
+            return nodeTemplate;
         }
-    });
+    }).extend();
 
     Model.baseApiUrl = config.baseApiUrl;
     Model.mockApiUrl = config.mockApiUrl;

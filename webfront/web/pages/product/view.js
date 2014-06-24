@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Page = require('kit/core/page.deprecated'),
         Product = require('blocks/product/product'),
-        ProductModel = require('models/product'),
+        ProductModel = require('models/product.deprecated'),
         StoreProductModel = require('models/storeProduct'),
         currentUserModel = require('models/currentUser.inst'),
         Page403 = require('pages/errors/403');

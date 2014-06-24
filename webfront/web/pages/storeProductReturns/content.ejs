@@ -1,0 +1,46 @@
+<%
+/**
+ *
+ * @models.product
+ * @collections.productInvoices
+ */
+%>
+<% var formatDate = require('kit/formatDate') %>
+<% var formatMoney = require('kit/formatMoney') %>
+<% var getText = require('kit/getText') %>
+<% var partials = {
+    amount: require('tpl!blocks/amount/amount.ejs')
+} %>
+
+<div class="content">
+    <h1 name="name">
+        <%- models.product.get('product.name') %>
+    </h1>
+
+    <% if(collections.productReturns.length) { %>
+    <table class="table">
+        <tbody>
+        <% collections.productReturns.forEach(function(productReturnModel){ %>
+        <tr name="return"
+            href="/stores/<%- PAGE.params.storeId %>/invoices/<%- productReturnModel.get('invoice.id') %>">
+            <td>
+                <%- formatDate(productReturnModel.get('createdDate')) %>
+            </td>
+            <td>
+                + <%= partials.amount({value: productReturnModel.get('quantity') }) %>
+                <%- getText('units', productReturnModel.get('product.units')) %>
+            </td>
+            <td>
+                по <%- formatMoney(productReturnModel.get('price')) %> р.
+            </td>
+            <td>
+                = <%- formatMoney(productReturnModel.get('totalPrice')) %> р.
+            </td>
+        </tr>
+        <% }) %>
+        </tbody>
+    </table>
+    <% } else { %>
+    <p>Возвратов товара еще не было</p>
+    <% } %>
+</div>

@@ -2,7 +2,6 @@ package project.lighthouse.autotests.pages.commercialManager.catalog;
 
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonItem;
@@ -10,6 +9,7 @@ import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.items.InputOnlyVisible;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
+import project.lighthouse.autotests.pages.commercialManager.catalog.localNavigation.CatalogMenuNavigation;
 
 import static junit.framework.Assert.fail;
 
@@ -20,44 +20,22 @@ public class GroupPage extends CommonPageObject {
     public static final String CATEGORY = "category";
     public static final String SUBCATEGORY = "subCategory";
 
+    /**
+     * Page object element for catalog local menu navigation
+     */
+    @SuppressWarnings("unused")
+    private CatalogMenuNavigation catalogMenuNavigation;
 
     public GroupPage(WebDriver driver) {
         super(driver);
     }
 
+    public CatalogMenuNavigation getLocalMenuNavigationPageObjectElement() {
+        return catalogMenuNavigation;
+    }
+
     public void addNewButtonClick() {
         new ButtonFacade(this, "Добавить группу").click();
-    }
-
-    public void startEditionButtonLinkClick() {
-        findVisibleElement(By.xpath("//*[@class='page__controlsLink editor__on']")).click();
-    }
-
-    public void startEditButtonLinkClickIsNotPresent() {
-        try {
-            startEditionButtonLinkClick();
-            fail("The edit button is present on catalog page!");
-        } catch (Exception ignored) {
-        }
-    }
-
-    public void stopEditionButtonLinkClick() {
-        try {
-            WebElement stopEditionButton = findVisibleElement(By.xpath("//*[@class='page__controlsLink editor__off']"));
-            evaluateJavascript(
-                    String.format("window.scrollTo(%s, %s)",
-                            stopEditionButton.getLocation().getX(), stopEditionButton.getLocation().getY() - 50)
-            );
-            stopEditionButton.click();
-        } catch (Exception e) {
-            if (e.getMessage().contains("Element is not clickable at point")) {
-                withAction().sendKeys(Keys.ESCAPE).build().perform();
-                evaluateJavascript("window.scrollTo(0,0)");
-                stopEditionButtonLinkClick();
-            } else {
-                throw e;
-            }
-        }
     }
 
     public void addNewButtonConfirmClick() {
@@ -174,18 +152,5 @@ public class GroupPage extends CommonPageObject {
                 );
         }
         return null;
-    }
-
-    public void productsExportLinkClick() {
-        findVisibleElement(By.xpath("//*[@class='page__controlsLink catalog__exportLink']")).click();
-        getCommonActions().checkAlertText("Выгрузка началась");
-    }
-
-    public void productsExportLinkIsNotPresent() {
-        try {
-            productsExportLinkClick();
-            fail("The products export link is present on catalog page");
-        } catch (Exception ignored) {
-        }
     }
 }

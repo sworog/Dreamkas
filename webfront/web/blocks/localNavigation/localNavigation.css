@@ -1,4 +1,4 @@
-.localNavigation{
+.localNavigation {
     height: 100%;
     width: 284px;
     box-sizing: border-box;
@@ -14,20 +14,38 @@
 
 }
 
-.localNavigation__link{
+.localNavigation__link {
     display: block;
     color: #000;
-    padding: 10px 0;
+    padding: 10px 40px;
+    margin: 0 -40px;
 }
 
-.localNavigation__link_active{
+.localNavigation__link_active {
     color: #1FB18A;
     cursor: default !important;
     text-decoration: none !important;
 }
 
-.localNavigation__section{
+.localNavigation__section {
     border-bottom: 1px solid #eee;
     padding: 0 0 15px;
     margin: 0 0 15px;
+}
+
+.localNavigation .form {
+    margin: 0 -8px;
+}
+
+.localNavigation .form .inputText {
+    border-color: transparent;
+    width: 100%;
+}
+
+.localNavigation .form .inputText::-webkit-input-placeholder {
+    color: #000;
+}
+
+.localNavigation .form .inputText:-moz-placeholder {
+    color: #000;
 }

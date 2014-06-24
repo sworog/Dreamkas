@@ -120,6 +120,19 @@ public class EndProductApiSteps {
         productApiSteps.createProductThroughPost(name, barcode, type, purchasePrice, subCategoryName, null);
     }
 
+    @Given("the user with email '$email' creates the product with '$name' name, '$barcode' barcode, '$type' type, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName'")
+    public void createProductThroughPostByUser(String email,
+                                               String name,
+                                               String barcode,
+                                               String type,
+                                               String purchasePrice,
+                                               String groupName,
+                                               String categoryName,
+                                               String subCategoryName) throws IOException, JSONException {
+        catalogApiSteps.createSubCategoryThroughPostByUserWithEmail(groupName, categoryName, subCategoryName, email);
+        productApiSteps.createProductThroughPostByUserWithEmail(name, barcode, type, purchasePrice, subCategoryName, null, email);
+    }
+
     @Given("there is the product with '$name' name, random generated barcode, '$type' type, '$purchasePrice' purchasePrice of group named '$groupName', category named '$categoryName', subcategory named '$subCategoryName'")
     public void createProductThroughPost(String name, String type, String purchasePrice,
                                          String groupName, String categoryName, String subCategoryName) throws IOException, JSONException {

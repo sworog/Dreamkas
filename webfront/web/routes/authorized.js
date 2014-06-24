@@ -41,9 +41,9 @@ define(function(require) {
 
         //products
         'products(/)': require('pages/product/list'),
-        'products/edit/:productId(/)': require('pages/product/form'),
-        'products/create(/)': require('pages/product/form'),
-        'products/:productId(/)': require('pages/product/view'),
+        'products/create(/)': require('pages/createProduct/createProduct'),
+        'products/:productId/edit(/)': require('pages/product/form'),
+        'products/:productId(/)': require('pages/products/view/view'),
         'products/:productId/invoices': require('pages/product/invoices'),
         'products/:productId/writeoffs': require('pages/product/writeOffs'),
         'products/:productId/returns': require('pages/product/returns'),
@@ -57,16 +57,26 @@ define(function(require) {
 
         //catalog
         'catalog(/)': require('pages/catalog/catalog'),
-        'catalog/:catalogGroupId(/)': require('pages/catalog/group'),
-        'catalog/:catalogGroupId/:catalogCategoryId(/)(:catalogSubCategoryId)': require('pages/catalog/category'),
-        'catalog/:catalogGroupId/:catalogCategoryId/:catalogSubCategoryId(/)(:section)': require('pages/catalog/category'),
+        'groups/:groupId(/)': require('pages/group/group'),
+        'groups/:groupId/categories/:categoryId(/)': require('pages/category/category'),
+//        'catalog/:catalogGroupId(/)': require('pages/catalog/group'),
+//        'catalog/:catalogGroupId/:catalogCategoryId(/)(:catalogSubCategoryId)': require('pages/catalog/category'),
+//        'catalog/:catalogGroupId/:catalogCategoryId/:catalogSubCategoryId(/)(:section)': require('pages/catalog/category'),
 
         //stores
         'stores(/)': require('pages/stores/list/list'),
         'stores/create(/)': require('pages/stores/create/create'),
         'stores/:storeId/settings(/)': require('pages/stores/settings/settings'),
         'stores/:storeId(/)': require('pages/stores/dashboard/dashboard'),
-        'stores/:storeId/products/edit/:productId(/)': require('pages/storeProduct/from'),
+        'stores/:storeId/products/:productId(/)': require('pages/stores/product/product'),
+        'stores/:storeId/catalog(/)': require('pages/stores/catalog/catalog'),
+        'stores/:storeId/groups/:groupId(/)': require('pages/stores/group/group'),
+        'stores/:storeId/groups/:groupId/categories/:categoryId(/)': require('pages/stores/category/category'),
+        'stores/:storeId/products/:productId/edit(/)': require('pages/storeProductEdit/storeProductEdit'),
+        'stores/:storeId/products/:productId/barcodes(/)': require('pages/storeProductBarcodes/storeProductBarcodes'),
+        'stores/:storeId/products/:productId/invoices(/)': require('pages/storeProductInvoices/storeProductInvoices'),
+        'stores/:storeId/products/:productId/writeOffs(/)': require('pages/storeProductWriteOffs/storeProductWriteOffs'),
+        'stores/:storeId/products/:productId/returns(/)': require('pages/storeProductReturns/storeProductReturns'),
 
         //departments
         'stores/:storeId/departments/create(/)': require('pages/department/form'),

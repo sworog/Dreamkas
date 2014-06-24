@@ -1,8 +1,8 @@
 define(function(require) {
     //requirements
     var Page = require('kit/core/page.deprecated'),
-        ProductModel = require('models/product'),
-        SubCategoryModel = require('models/catalogSubCategory'),
+        ProductModel = require('models/product.deprecated'),
+        SubCategoryModel = require('models/subCategory'),
         Form_product = require('blocks/form/form_product/form_product');
 
     return Page.extend({

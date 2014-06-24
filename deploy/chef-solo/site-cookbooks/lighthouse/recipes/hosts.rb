@@ -27,6 +27,13 @@ cookbook_file "favicon.ico" do
   mode "0644"
 end
 
+cookbook_file "nginx_htpasswd" do
+  path "#{node.nginx.dir}/htpasswd"
+  action :create
+  owner "watchman"
+  mode "0644"
+end
+
 template "#{node.nginx.dir}/sites-available/lighthouse.conf" do
   source "nginx/lighthouse.conf.erb"
   mode "0644"

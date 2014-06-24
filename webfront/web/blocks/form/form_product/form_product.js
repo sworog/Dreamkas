@@ -1,18 +1,39 @@
 define(function(require) {
         //requirements
-        var Form = require('blocks/form/form'),
+        var Form = require('kit/form'),
+            getText = require('kit/getText'),
             numeral = require('numeral');
 
         return Form.extend({
-            __name__: 'form_product',
+            el: '.form_product',
             defaultInputLinkText: 'Введите значение',
-            model: null,
-            subCategoryModel: null,
-            template: require('tpl!blocks/form/form_product/templates/index.html'),
-            productTypeSpecificFieldsTemplates: {
-                unit: require('tpl!./templates/unit.html'),
-                weight: require('tpl!./templates/weight.html'),
-                alcohol: require('tpl!./templates/alcohol.html')
+            redirectUrl: function(){
+                var block = this,
+                    redirectUrl;
+                
+                if (block.model.id){
+                    redirectUrl = '/products/' + block.model.id
+                } else {
+                    redirectUrl = '/groups/' + block.models.subCategory.get('category.group.id') + '/categories/' + block.models.subCategory.get('category.id') + '?subCategoryId' + block.models.subCategory.id
+                }
+                
+                return redirectUrl;
+            },
+            model: function(){
+                var block = this,
+                    ProductModel = require('models/product');
+                
+                return new ProductModel({
+                    subCategoryId: block.models.subCategory
+                });
+            },
+            models: {
+                subCategory: null
+            },
+            partials: {
+                unit: require('tpl!./unitFields.ejs'),
+                weight: require('tpl!./weightFields.ejs'),
+                alcohol: require('tpl!./alcoholFields.ejs')
             },
             events: {
                 'click .productForm__inputLink': function(e) {
@@ -52,50 +73,35 @@ define(function(require) {
                 'change [name="retailPriceMin"], [name="retailPriceMax"]': function() {
                     this.renderRetailPriceLink();
                 },
-                'change .productForm__productTypeRadio input': function() {
-                    this.renderProductTypeSpecificFields();
+                'change [name="type"]': function(e) {
+                    this.renderProductTypeSpecificFields(e.target.value);
                 }
             },
-
             initialize: function(){
                 var block = this;
 
-                if (block.model.id){
-                    block.redirectUrl = '/products/' + block.model.id
-                } else {
-                    block.redirectUrl = '/catalog/' + block.model.get('group').id + '/' + block.model.get('category').id + '/' + block.model.get('subCategory').id
-                }
-            },
-            findElements: function(){
-                var block = this;
-                Form.prototype.findElements.apply(block, arguments);
+                Form.prototype.initialize.apply(block, arguments);
 
-                block.$retailPricePreferenceInput = block.$el.find('[name="retailPricePreference"]');
-                block.$retailPriceMinInput = block.$el.find('[name="retailPriceMin"]');
-                block.$retailPriceMaxInput = block.$el.find('[name="retailPriceMax"]');
-                block.$retailMarkupMinInput = block.$el.find('[name="retailMarkupMin"]');
-                block.$retailMarkupMaxInput = block.$el.find('[name="retailMarkupMax"]');
-                block.$retailPriceSpan = block.$el.find('span.retailPrice');
-                block.$retailMarkupSpan = block.$el.find('span.retailMarkup');
-                block.$purchasePriceInput = block.$el.find('[name="purchasePrice"]');
+                block.$retailPricePreferenceInput = $(block.el).find('[name="retailPricePreference"]');
+                block.$retailPriceMinInput = $(block.el).find('[name="retailPriceMin"]');
+                block.$retailPriceMaxInput = $(block.el).find('[name="retailPriceMax"]');
+                block.$retailMarkupMinInput = $(block.el).find('[name="retailMarkupMin"]');
+                block.$retailMarkupMaxInput = $(block.el).find('[name="retailMarkupMax"]');
+                block.$retailPriceSpan = $(block.el).find('span.retailPrice');
+                block.$retailMarkupSpan = $(block.el).find('span.retailMarkup');
+                block.$purchasePriceInput = $(block.el).find('[name="purchasePrice"]');
 
                 block.$retailPriceLink = block.$retailPriceSpan.next('.productForm__inputLink');
                 block.$retailMarkupLink = block.$retailMarkupSpan.next('.productForm__inputLink');
 
-                block.$retailMarkupField = block.$('.productForm__retailMarkupField');
-                block.$retailPriceField = block.$('.productForm__retailPriceField');
+                block.$retailMarkupField = $(block.el).find('.productForm__retailMarkupField');
+                block.$retailPriceField = $(block.el).find('.productForm__retailPriceField');
 
-                block.$productUnits = block.$('[name=units]');
-                block.$productTypePropertiesFields = block.$('.productForm__productTypePropertiesFields');
-                block.$productTypeRadio = block.$('.productForm__productTypeRadio');
-            },
-            render: function(){
-                var block = this;
-
-                Form.prototype.render.call(this);
+                block.$productUnits = $(block.el).find('[name="units"]');
+                block.$productTypePropertiesFields = $(block.el).find('.form_product__productTypePropertiesFields');
+                block.$productTypeRadio = $(block.el).find('[name="type"]');
 
                 block.renderPriceInputs();
-                block.renderProductTypeSpecificFields();
             },
             showRetailMarkupInput: function() {
                 this.$retailPriceSpan.addClass('productForm__hiddenInput');
@@ -134,12 +140,10 @@ define(function(require) {
                     calculatedMaxVal = LH.formatMoney(+(retailMarkupMax / 100 * purchasePrice).toFixed(2) + purchasePrice);
                 }
 
-                this.$retailPriceMinInput
-                    .val(retailMarkupMin !== null ? numeral().unformat(calculatedMinVal) : '')
-                    .change();
-                this.$retailPriceMaxInput
-                    .val(retailMarkupMax !== null ? numeral().unformat(calculatedMaxVal) : '')
-                    .change();
+                this.$retailPriceMinInput.val(retailMarkupMin !== null ? numeral().unformat(calculatedMinVal) : '');
+                this.$retailPriceMaxInput.val(retailMarkupMax !== null ? numeral().unformat(calculatedMaxVal) : '');
+
+                this.renderRetailPriceLink();
             },
             calculateRetailMarkup: function() {
                 var retailPriceMinVal = this.$retailPriceMinInput.val(),
@@ -164,12 +168,10 @@ define(function(require) {
                     calculatedMaxVal = LH.formatMoney(+(retailPriceMax * 100 / purchasePrice).toFixed(2) - 100);
                 }
 
-                this.$retailMarkupMinInput
-                    .val(retailPriceMin !== null ? numeral().unformat(calculatedMinVal) : '')
-                    .change();
-                this.$retailMarkupMaxInput
-                    .val(retailPriceMax !== null ? numeral().unformat(calculatedMaxVal) : '')
-                    .change();
+                this.$retailMarkupMinInput.val(retailPriceMin !== null ? numeral().unformat(calculatedMinVal) : '');
+                this.$retailMarkupMaxInput.val(retailPriceMax !== null ? numeral().unformat(calculatedMaxVal) : '');
+
+                this.renderRetailPriceLink();
             },
             disablePriceInputs: function(){
                 var block = this;
@@ -235,16 +237,13 @@ define(function(require) {
                     .find('.productForm__inputLinkText')
                     .html(text);
             },
-            renderProductTypeSpecificFields: function() {
-                var block = this,
-                    productTypeSelected = block.$productTypeRadio.find('input:checked').val();
+            renderProductTypeSpecificFields: function(productTypeSelected) {
+                var block = this;
 
-                block.$productUnits.html(LH.units(LH.productTypes(productTypeSelected, 'units'), 'capitalFull'));
-                block.$productTypePropertiesFields.hide(100);
-                block.$productTypePropertiesFields.html(block.productTypeSpecificFieldsTemplates[productTypeSelected]({
+                block.$productUnits.html(getText('units', getText('productTypes', productTypeSelected, 'units'), 'capitalFull'));
+                block.$productTypePropertiesFields.html(block.partials[productTypeSelected]({
                     model: block.model
                 }));
-                block.$productTypePropertiesFields.show(100);
             }
         });
     }

@@ -70,7 +70,7 @@ namespace :symfony do
 
         desc "Rename database_name in app/config/parameters.yml. Application name will be used (%branch.stage.env%) unless -S database_name=%database_name% argument is provided"
         task :rename_database_name, :roles => :app, :except => { :no_release => true } do
-            set :database_name, "#{host}_#{stage}".gsub(/\./, '_') unless exists?(:database_name)
+            set :database_name, "#{host}_#{stage[0..1]}".gsub(/\./, '_') unless exists?(:database_name)
             puts "--> Database name in ".yellow + "parameters.yml".bold.yellow + " will be set to ".yellow + "#{database_name}".red
             run "sed -r -i 's/^(\\s+database_name:\\s+).+$/\\1#{database_name}/g' #{parameters_file}"
         end
@@ -198,17 +198,18 @@ namespace :symfony do
 
     namespace :user do
 
-        def create_api_user(email, password, role)
-            capture console_command("lighthouse:user:create #{email} #{password} #{role}")
+        def create_api_user(email, password, role, customProjectName)
+            capture console_command("lighthouse:user:create #{email} #{password} #{role} --customProjectName=#{customProjectName}")
         end
 
-        desc "Create user, required: -S email=<..> -S userpass=<..>, optional: -S userrole=<..> (administrator by default)"
+        desc "Create user, required: -S email=<..> -S userpass=<..>, optional: -S userrole=<..> (administrator by default) -S customProjectName=<..>"
         task :create, :roles => :app, :except => { :no_release => true } do
             puts "--> Creating user"
             raise "email should be provided by -S email=.." unless exists?(:email)
             raise "userpass should be provided by -S userpass=.." unless exists?(:userpass)
             set :userrole, "" unless exists?(:userrole)
-            puts create_api_user(email, userpass, userrole)
+            set :customProjectName, "" unless exists?(:customProjectName)
+            puts create_api_user(email, userpass, userrole, customProjectName)
             capifony_puts_ok
         end
 
@@ -220,7 +221,7 @@ namespace :symfony do
             end
             api_users.each do |api_user|
                 puts "--> Creating user " + api_user['email'].green
-                puts create_api_user(api_user['email'], api_user['userpass'], api_user['userrole'])
+                puts create_api_user(api_user['email'], api_user['userpass'], api_user['userrole'], "")
             end
             end
         end
@@ -236,9 +237,10 @@ namespace :symfony do
     end
 
     namespace :import do
-        desc "Import products catalog from file, required: -S file=<..>"
+        desc "Import products catalog from file, required: -S file=<..>, -S projectId=<..>"
         task :products do
             raise "Path to xml file should be provided by -S file=.." unless exists?(:file)
+            raise "project should be provided by -S projectId=.." unless exists?(:projectId)
 
             set :xml_file_path, file
             set :remote_temp_file_path, "/tmp/#{host}_#{stage}_xml_import.xml"
@@ -253,14 +255,15 @@ namespace :symfony do
             top.upload(xml_file_path, remote_temp_file_path)
 
             puts "--> Import products".yellow
-            stream console_command("lighthouse:import:products #{remote_temp_file_path}")
+            stream console_command("lighthouse:import:products #{remote_temp_file_path} --project=#{projectId}")
             capifony_puts_ok
         end
 
         namespace :sales do
-            desc "Upload and import sales xml"
+            desc "Upload and import sales xml, required: -S projectId=<..>"
             task :local, :roles => :app, :except => { :no_release => true } do
                 raise "Path to xml file should be provided by -S file=.." unless exists?(:file)
+                raise "project should be provided by -S projectId=.." unless exists?(:projectId)
 
                 set :xml_file_path, file
                 set :remote_temp_file_path, "/tmp/#{host}_#{stage}_xml_import_sales.xml"
@@ -275,7 +278,7 @@ namespace :symfony do
                 top.upload(xml_file_path, remote_temp_file_path)
 
                 puts "--> Import products".yellow
-                stream console_command("lighthouse:import:sales:local #{remote_temp_file_path}")
+                stream console_command("lighthouse:import:sales:local #{remote_temp_file_path} --project=#{projectId}")
                 capifony_puts_ok
             end
         end
@@ -300,16 +303,18 @@ namespace :symfony do
     end
 
     namespace :products do
-        desc "Recalculate products metrics"
+        desc "Recalculate products metrics, required: -S projectId=<..>"
         task :recalculate_metrics, :roles => :app, :except => { :no_release => true } do
-            stream console_command("lighthouse:products:recalculate_metrics"), :once => true
+            raise "project should be provided by -S projectId=.." unless exists?(:projectId)
+            stream console_command("lighthouse:products:recalculate_metrics --project=#{projectId}"), :once => true
         end
     end
 
     namespace :reports do
-        desc "Recalculate reports data"
+        desc "Recalculate reports data, required: -S projectId=<..>"
         task :recalculate, :roles => :app, :except => { :no_release => true } do
-            stream console_command("lighthouse:reports:recalculate"), :once => true
+            raise "project should be provided by -S projectId=.." unless exists?(:projectId)
+            stream console_command("lighthouse:reports:recalculate --project=#{projectId}"), :once => true
         end
     end
 

@@ -1,62 +1,87 @@
 define(function(require) {
     //requirements
-    var Page = require('kit/core/page.deprecated'),
-        pageParams = require('pages/catalog/params'),
-        Catalog = require('blocks/catalog/catalog'),
-        СatalogGroupsCollection = require('collections/catalogGroups'),
-        currentUserModel = require('models/currentUser.inst'),
-        Page403 = require('pages/errors/403'),
-        router = require('router');
+    var Page = require('kit/page'),
+        GroupModel = require('models/group'),
+        exportCatalog = require('kit/exportCatalog');
 
     return Page.extend({
-        __name__: 'page_catalog_catalog',
-        partials: {
-            '#content': require('tpl!./templates/catalog.html')
+        params: {
+            edit: '0'
         },
-        initialize: function(params){
-            var page = this;
+        events: {
+            'click .catalog__addGroupLink': function(e) {
+                e.preventDefault();
 
-            if (page.referrer.__name__ && page.referrer.__name__.indexOf('page_catalog') >= 0){
-                _.extend(params, pageParams);
-            } else {
-                pageParams.editMode = params.editMode || pageParams.editMode || 'false'
-            }
+                var page = this;
 
-            if (currentUserModel.stores.length){
-                pageParams.storeId = currentUserModel.stores.at(0).id;
-            }
-
-            if (!pageParams.storeId && !LH.isAllow('groups')){
-                new Page403();
-                return;
-            }
-
-            if (pageParams.storeId && !LH.isAllow('stores/{store}/groups')){
-                new Page403();
-                return;
-            }
-
-            if (!LH.isAllow('groups', 'POST')) {
-                pageParams.editMode = 'false';
-            }
-
-            router.navigate(document.location.pathname + '?editMode=' + pageParams.editMode + '&storeId=' + pageParams.storeId, {
-                replace: true,
-                trigger: false
-            });
-
-            page.catalogGroupsCollection = new СatalogGroupsCollection([], {
-                storeId: pageParams.storeId
-            });
-
-            $.when(page.catalogGroupsCollection.fetch()).then(function(){
-                page.render();
-                new Catalog({
-                    editMode: pageParams.editMode,
-                    catalogGroupsCollection: page.catalogGroupsCollection,
-                    el: document.getElementById('catalog')
+                page.blocks.tooltip_groupForm.show({
+                    trigger: e.target,
+                    model: new GroupModel()
                 });
-            });
+            },
+            'click .catalog__exportLink': function(e) {
+                e.preventDefault();
+
+                if (e.target.classList.contains('preloader_stripes')){
+                    return;
+                }
+
+                e.target.classList.add('preloader_stripes');
+
+                Promise.resolve(exportCatalog()).then(function(){
+                    alert('Выгрузка началась');
+                    e.target.classList.remove('preloader_stripes');
+                }, function(){
+                    alert('Выгрузка невозможна, обратитесь к администратору');
+                    e.target.classList.remove('preloader_stripes');
+                });
+            },
+            'click .catalog__editGroupLink': function(e){
+                e.preventDefault();
+
+                var page = this;
+
+                page.blocks.tooltip_groupMenu.show({
+                    trigger: e.target,
+                    model: page.collections.groups.get(e.target.dataset.group_id)
+                });
+            },
+            'click .catalog__editCategoryLink': function(e){
+                e.preventDefault();
+
+                var page = this;
+
+                page.blocks.tooltip_categoryMenu.show({
+                    trigger: e.target,
+                    model: page.collections.groups.get(e.target.dataset.group_id).collections.categories.get(e.target.dataset.category_id)
+                });
+            }
+        },
+        listeners: {
+            'change:params.edit': function(){
+                var page = this;
+
+                page.render();
+            }
+        },
+        partials: {
+            content: require('tpl!./content.ejs'),
+            localNavigation: require('tpl!blocks/localNavigation/localNavigation_catalog.ejs')
+        },
+        collections: {
+            groups: require('collections/groups')
+        },
+        blocks: {
+            form_group: function(){
+                var page = this,
+                    Form_group = require('blocks/form/form_group/form_group');
+
+                return new Form_group({
+                    collection: page.collections.groups
+                });
+            },
+            tooltip_groupMenu: require('blocks/tooltip/tooltip_groupMenu/tooltip_groupMenu'),
+            tooltip_categoryMenu: require('blocks/tooltip/tooltip_categoryMenu/tooltip_categoryMenu')
         }
     });
 });

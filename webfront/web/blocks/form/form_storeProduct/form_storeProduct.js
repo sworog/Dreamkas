@@ -1,17 +1,17 @@
 define(function(require) {
         //requirements
-        var Form = require('blocks/form/form'),
+        var Form = require('kit/form'),
             roundPrice = require('kit/roundPrice/roundPrice'),
+            formatMoney = require('kit/formatMoney'),
             numeral = require('numeral');
 
         return Form.extend({
-            __name__: 'form_storeProduct',
+            el: '.form_storeProduct',
             defaultInputLinkText: 'Введите значение',
-            template: require('tpl!blocks/form/form_storeProduct/templates/index.html'),
             events: {
                 'click .productForm__inputLink': function(e) {
-                    e.preventDefault;
-                    var $link = $(e.currentTarget),
+                    e.preventDefault();
+                    var $link = $(e.delegateTarget),
                         $linkedInput = $link.prev('.productForm__linkedInput');
 
                     switch ($linkedInput.attr('name')) {
@@ -25,45 +25,32 @@ define(function(require) {
                 },
                 'keyup [name="retailMarkup"]': function() {
                     this.calculateRetailPrice();
+                    this.renderRetailPriceLink();
+                    this.renderRounding();
                 },
                 'keyup [name="retailPrice"]': function() {
                     this.calculateRetailMarkup();
-                },
-                'change [name="retailMarkup"]': function() {
                     this.renderRetailMarkupLink();
-                },
-                'change [name="retailPrice"]': function() {
-                    this.renderRetailPriceLink();
-                    this.renderRounding();
                 }
             },
             initialize: function(){
                 var block = this;
 
                 if (block.model.id){
-                    block.redirectUrl = '/products/' + block.model.id
+                    block.redirectUrl = '/stores/' + PAGE.params.storeId + '/products/' + block.model.id
                 }
-            },
-            findElements: function(){
-                var block = this;
-                Form.prototype.findElements.apply(block, arguments);
 
-                block.$retailPricePreferenceInput = block.$('[name="retailPricePreference"]');
-                block.$retailPriceInput = block.$('[name="retailPrice"]');
-                block.$retailMarkupInput = block.$('[name="retailMarkup"]');
-                block.$rounding = block.$('.productForm__rounding');
+                block.$retailPricePreferenceInput = $(block.el).find('[name="retailPricePreference"]');
+                block.$retailPriceInput = $(block.el).find('[name="retailPrice"]');
+                block.$retailMarkupInput = $(block.el).find('[name="retailMarkup"]');
+                block.$rounding = $(block.el).find('.productForm__rounding');
 
                 block.$retailPriceLink = block.$retailPriceInput.next('.productForm__inputLink');
                 block.$retailMarkupLink = block.$retailMarkupInput.next('.productForm__inputLink');
-            },
-            render: function(){
-                var block = this;
-
-                Form.prototype.render.call(this);
 
                 block.renderRetailMarkupLink();
                 block.renderRetailPriceLink();
-                block.renderRounding()
+                block.renderRounding();
             },
             showRetailMarkupInput: function() {
                 this.$retailPriceInput.addClass('productForm__hiddenInput');
@@ -83,41 +70,39 @@ define(function(require) {
             },
 
             calculateRetailPrice: function() {
-                var purchasePrice = numeral().unformat(LH.formatMoney(this.model.get('product').purchasePrice)),
-                    retailMarkup = numeral().unformat(LH.formatMoney(this.$retailMarkupInput.val())),
+                var purchasePrice = numeral().unformat(formatMoney(this.model.get('product.purchasePrice'))),
+                    retailMarkup = numeral().unformat(formatMoney(this.$retailMarkupInput.val())),
                     calculatedVal;
 
                 if (!purchasePrice || _.isNaN(purchasePrice) || _.isNaN(retailMarkup)) {
                     calculatedVal = '';
                 } else {
-                    calculatedVal = LH.formatMoney(+(retailMarkup / 100 * purchasePrice).toFixed(2) + purchasePrice);
+                    calculatedVal = formatMoney(+(retailMarkup / 100 * purchasePrice).toFixed(2) + purchasePrice);
                 }
 
                 this.$retailPriceInput
-                    .val(calculatedVal)
-                    .change();
+                    .val(calculatedVal);
             },
             calculateRetailMarkup: function() {
-                var purchasePrice = numeral().unformat(LH.formatMoney(this.model.get('product').purchasePrice)),
-                    retailPrice = numeral().unformat(LH.formatMoney(this.$retailPriceInput.val())),
+                var purchasePrice = numeral().unformat(formatMoney(this.model.get('product.purchasePrice'))),
+                    retailPrice = numeral().unformat(formatMoney(this.$retailPriceInput.val())),
                     calculatedVal;
 
                 if (!purchasePrice || !retailPrice || _.isNaN(purchasePrice) || _.isNaN(retailPrice)){
                     calculatedVal = '';
                 } else {
-                    calculatedVal = LH.formatMoney(+(retailPrice * 100 / purchasePrice).toFixed(2) - 100);
+                    calculatedVal = formatMoney(+(retailPrice * 100 / purchasePrice).toFixed(2) - 100);
                 }
 
                 this.$retailMarkupInput
-                    .val(calculatedVal)
-                    .change();
+                    .val(calculatedVal);
             },
             renderRetailPriceLink: function() {
                 var price = $.trim(this.$retailPriceInput.val()),
                     text;
 
                 if (price){
-                    text = LH.formatMoney(price) + ' руб.'
+                    text = formatMoney(price) + ' руб.'
                 } else {
                     text = this.defaultInputLinkText;
                 }
@@ -131,7 +116,7 @@ define(function(require) {
                     text;
 
                 if (markup) {
-                    text = LH.formatMoney(markup) + '%'
+                    text = formatMoney(markup) + '%'
                 } else {
                     text = this.defaultInputLinkText;
                 }
@@ -143,14 +128,14 @@ define(function(require) {
             renderRounding: function(){
                 var block = this,
                     price = $.trim(block.$retailPriceInput.val()),
-                    rounding = block.model.get('product').rounding.name;
+                    rounding = block.model.get('product.rounding.name');
 
                 if (price){
                     block.$rounding.show();
                     block.$rounding.addClass('preloader_spinner');
                     roundPrice(price, rounding).done(function(data){
                         block.$rounding.removeClass('preloader_spinner');
-                        block.$rounding.html('(' + LH.formatMoney(data.price) + ' руб. - округлено ' + LH.getText(rounding) + ')');
+                        block.$rounding.html('(' + formatMoney(data.price) + ' руб. - округлено ' + LH.getText(rounding) + ')');
                     });
                 } else {
                     block.$rounding.hide();
