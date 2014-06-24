@@ -43,6 +43,18 @@ class OrganizationController extends AbstractRestController
     }
 
     /**
+     * @param Request $request
+     * @param Organization $organization
+     * @return View|Organization
+     *
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     */
+    public function putOrganizationAction(Request $request, Organization $organization)
+    {
+        return $this->processForm($request, $organization);
+    }
+
+    /**
      * @param Organization $organization
      * @return Organization
      *

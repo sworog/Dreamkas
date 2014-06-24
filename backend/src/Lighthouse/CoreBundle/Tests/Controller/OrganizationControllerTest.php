@@ -134,4 +134,64 @@ class OrganizationControllerTest extends WebTestCase
             ),
         );
     }
+
+    /**
+     * @dataProvider postActionProvider
+     * @param array $putData
+     * @param int $expectedCode
+     * @param array $assertions
+     */
+    public function testPutAction(array $putData, $expectedCode, array $assertions)
+    {
+        $user = $this->factory()->user()->createProjectUser();
+
+        $accessToken = $this->factory()->oauth()->auth($user);
+
+        $postData = array(
+            'name' => 'Колян'
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/organizations',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+        Assert::assertJsonHasPath('id', $postResponse);
+        $id = $postResponse['id'];
+
+        $putData += array(
+            'name' => '',
+            'phone' => '',
+            'fax' => '',
+            'email' => '',
+            'director' => '',
+            'chiefAccountant' => '',
+            'address' => '',
+        );
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/organizations/' . $id,
+            $putData
+        );
+
+        $expectedCode = (201 === $expectedCode) ? 200 : $expectedCode;
+        $this->assertResponseCode($expectedCode);
+
+        $this->performJsonAssertions($putResponse, $assertions);
+
+        if (200 === $expectedCode) {
+            $getResponse = $this->clientJsonRequest(
+                $accessToken,
+                'GET',
+                '/api/1/organizations/' . $postResponse['id']
+            );
+
+            $this->assertSame($putResponse, $getResponse);
+        }
+    }
 }
