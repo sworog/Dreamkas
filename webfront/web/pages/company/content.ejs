@@ -1,3 +1,22 @@
+<%
+/**
+ *
+ * @collections.organizations
+ */
+%>
+
 <div class="content">
     <h1>Компания</h1>
+
+    <h2>Организации</h2>
+
+    <table>
+        <% collections.organizations.forEach(function(organizationModel){ %>
+        <tr>
+            <td>
+                <%- organizationModel.get('name') %>
+            </td>
+        </tr>
+        <% }) %>
+    </table>
 </div>

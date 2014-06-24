@@ -3,23 +3,29 @@ define(function(require, exports, module) {
     var Page = require('./createCompanyOrganization'),
         $ = require('jquery');
 
+    var sharedSpecs = {
+        globalNavigation: require('blocks/globalNavigation/globalNavigation.spec'),
+        localNavigation_company: require('blocks/localNavigation/localNavigation_company.spec')
+    };
+
     describe(module.id, function(){
 
-        var page = new Page({
-            el: document.createElement('div')
+        var page;
+
+        beforeEach(function(done){
+
+            page && page.destroy();
+
+            page = new Page();
+
+            page.on('loaded', function(){
+                done();
+            });
+
         });
 
-        it('company global link', function(){
-            expect(page.el.querySelector('.globalNavigation [href="/company"]').innerHTML).toEqual('Компания');
-        });
-
-        it('organizations local link', function(){
-            expect(page.el.querySelector('.localNavigation [href="/company"]').innerHTML).toEqual('Организации');
-        });
-
-        it('add organization local link', function(){
-            expect(page.el.querySelector('.localNavigation [href="/company/organizations/create"]').innerHTML).toEqual('Добавить организацию');
-        });
+        sharedSpecs.globalNavigation();
+        sharedSpecs.localNavigation_company();
 
         it('input name', function(){
 

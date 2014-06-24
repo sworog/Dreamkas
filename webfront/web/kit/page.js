@@ -13,6 +13,8 @@ define(function(require, exports, module) {
         constructor: function(request) {
             var page = this;
 
+            request = _.extend({}, request);
+
             if (Page.current && Page.current.route === request.route){
                 Page.current.set(request, {
                     replace: true
@@ -95,6 +97,7 @@ define(function(require, exports, module) {
             Promise.resolve(page.fetch()).then(function() {
                 try {
                     page.render();
+                    page.trigger('loaded');
                     page.el.setAttribute('status', 'loaded');
                 } catch (error) {
                     console.error(error);
@@ -135,6 +138,14 @@ define(function(require, exports, module) {
             });
 
             return Promise.all(fetchList);
+        },
+
+        destroy: function(){
+            var page = this;
+
+            delete Page.current;
+
+            Block.prototype.destroy.apply(page, arguments);
         }
     });
 

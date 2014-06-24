@@ -8,6 +8,6 @@
         "karma-coverage": "~0.1"
     },
     "scripts": {
-        "test": "node ./node_modules/karma/bin/karma start --reporters teamcity,coverage --single-run"
+        "test": "node ./node_modules/karma/bin/karma start --single-run"
     }
 }
