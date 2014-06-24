@@ -18,7 +18,7 @@ define(function(require, exports, module) {
         });
 
         it('add organization local link', function(){
-            expect(page.el.querySelector('.localNavigation [href="/company/createOrganization"]').innerHTML).toEqual('Добавить организацию');
+            expect(page.el.querySelector('.localNavigation [href="/company/organizations/create"]').innerHTML).toEqual('Добавить организацию');
         });
 
         it('input name', function(){
@@ -75,6 +75,20 @@ define(function(require, exports, module) {
 
             expect($input.length).toEqual(1);
             expect($input.val()).toEqual('');
+        });
+
+        it('add button', function(){
+
+            var $button = $('.form_companyOrganization button[type="submit"]', page.el);
+
+            expect($button.length).toEqual(1);
+            expect($button.text()).toEqual('Добавить');
+        });
+
+        it('form_organization block', function(){
+            var Form_companyOrganization = require('blocks/form/form_companyOrganization/form_companyOrganization');
+
+            expect(page.blocks.form_companyOrganization instanceof Form_companyOrganization).toBeTruthy();
         });
 
     });

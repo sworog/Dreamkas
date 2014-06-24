@@ -8,7 +8,7 @@ define(function(require, exports, module) {
             localNavigation: require('ejs!blocks/localNavigation/localNavigation_company.ejs')
         },
         blocks: {
-            form_organization: require('blocks/form/form_companyOrganization/form_companyOrganization')
+            form_companyOrganization: require('blocks/form/form_companyOrganization/form_companyOrganization')
         }
     });
 });
