@@ -99,8 +99,7 @@ When user fill organization inputs
 | address | Кореандр, ул. Смородская, д. 53 |
 And user clicks organization form edit button
 Then the user sees no error messages
-When user clicks to organization in list with name 'OrganizationEdited'
-Then user checks organization fields data
+And the user sees success message 'Данные организации успешно сохранены'
 
 Scenario: Edit organization validation not require name field
 
