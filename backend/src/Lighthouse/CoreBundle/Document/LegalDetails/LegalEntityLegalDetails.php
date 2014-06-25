@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @property string $ogrn
  * @property string $okpo
  *
- * @MongoDB\Document
+ * @MongoDB\EmbeddedDocument
  */
 class LegalEntityLegalDetails extends LegalDetails
 {

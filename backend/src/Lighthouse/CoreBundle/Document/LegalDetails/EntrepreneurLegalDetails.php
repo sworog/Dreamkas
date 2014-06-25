@@ -4,15 +4,16 @@ namespace Lighthouse\CoreBundle\Document\LegalDetails;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Symfony\Component\Validator\Constraints as Assert;
+use DateTime;
 
 /**
  * @property string $inn
  * @property string $ogrnip
  * @property string $okpo
  * @property string $certificateNumber
- * @property string $certificateDate
+ * @property DateTime $certificateDate
  *
- * @MongoDB\Document
+ * @MongoDB\EmbeddedDocument
  */
 class EntrepreneurLegalDetails extends LegalDetails
 {
@@ -41,15 +42,14 @@ class EntrepreneurLegalDetails extends LegalDetails
 
     /**
      * @MongoDB\String
-     * @Assert\Length(min=25, max=25, exactMessage="lighthouse.validation.errors.legal_details.certificate_number")
+     * @Assert\Length(max=25, maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
     protected $certificateNumber;
 
     /**
-     * @MongoDB\String
-     * @Assert\Length(max=100, maxMessage="lighthouse.validation.errors.length")
-     * @var string
+     * @MongoDB\Date
+     * @var \DateTime
      */
     protected $certificateDate;
 }

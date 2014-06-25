@@ -1,11 +1,12 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Form;
+namespace Lighthouse\CoreBundle\Form\Organization;
 
 use Lighthouse\CoreBundle\Document\LegalDetails\EntrepreneurLegalDetails;
 use Lighthouse\CoreBundle\Document\LegalDetails\LegalDetails;
 use Lighthouse\CoreBundle\Document\LegalDetails\LegalEntityLegalDetails;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -16,6 +17,10 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class LegalDetailsType extends AbstractType
 {
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -41,71 +46,42 @@ class LegalDetailsType extends AbstractType
             );
         ;
 
-        $builder->addEventListener(FormEvents::PRE_SUBMIT, array($this, 'setTypeForm'));
-    }
-
-    /**
-     * @param FormEvent $event
-     */
-    public function setTypeForm(FormEvent $event)
-    {
-        $form = $event->getForm();
-        $data = $event->getData();
-        $type = (isset($data['type'])) ? $data['type'] : null;
-
-        switch ($type) {
-            case LegalEntityLegalDetails::TYPE:
-                $this->buildLegalEntityForm($form);
-                break;
-            case EntrepreneurLegalDetails::TYPE:
-                $this->buildEntrepreneurForm($form);
+        switch ($options['data_class']) {
+            case LegalEntityLegalDetails::getClassName():
+                $builder
+                    ->add('inn', 'text')
+                    ->add('kpp', 'text')
+                    ->add('ogrn', 'text')
+                    ->add('okpo', 'text')
+                ;
                 break;
 
+            case EntrepreneurLegalDetails::getClassName():
+                $builder
+                    ->add('inn', 'text')
+                    ->add('ogrnip', 'text')
+                    ->add('okpo', 'text')
+                    ->add('certificateNumber', 'text')
+                    ->add(
+                        'certificateDate',
+                        'date',
+                        array(
+                            'format' => DateType::HTML5_FORMAT,
+                            'widget' => 'single_text'
+                        )
+                    )
+                ;
         }
     }
 
     /**
-     * @param FormInterface $form
+     * @param OptionsResolverInterface $resolver
      */
-    public function buildLegalEntityForm(FormInterface $form)
-    {
-        if (!$form->getData() instanceof LegalEntityLegalDetails) {
-            $form->setData(new LegalEntityLegalDetails());
-        }
-
-        $form
-            ->add('inn', 'text')
-            ->add('kpp', 'text')
-            ->add('ogrn', 'text')
-            ->add('okpo', 'text')
-        ;
-    }
-
-    /**
-     * @param FormInterface $form
-     */
-    public function buildEntrepreneurForm(FormInterface $form)
-    {
-        if (!$form->getData() instanceof EntrepreneurLegalDetails) {
-            $form->setData(new EntrepreneurLegalDetails());
-        }
-
-        $form
-            ->add('inn', 'text')
-            ->add('ogrnip', 'text')
-            ->add('okpo', 'text')
-            ->add('certificateNumber', 'text')
-            ->add('certificateDate', 'text')
-        ;
-    }
-
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(
             array(
-                'data_class' => LegalDetails::getClassName(),
-                'csrf_protection' => false,
-                'cascade_validation' => true
+                'csrf_protection' => false
             )
         );
     }

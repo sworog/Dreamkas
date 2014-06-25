@@ -8,7 +8,6 @@ use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Validator\ViolationMapper\ViolationMapper;
-use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolation;
@@ -29,13 +28,17 @@ abstract class AbstractRestController extends FOSRestController
     /**
      * @param Request $request
      * @param AbstractDocument $document
-     * @throws FlushFailedException
      * @param bool $save
+     * @param bool $clearMissing
      * @return FormInterface|AbstractDocument
      */
-    protected function processForm(Request $request, AbstractDocument $document = null, $save = true)
-    {
-        $form = $this->submitForm($request, $document);
+    protected function processForm(
+        Request $request,
+        AbstractDocument $document = null,
+        $save = true,
+        $clearMissing = true
+    ) {
+        $form = $this->submitForm($request, $document, $clearMissing);
 
         if ($form->isValid()) {
             $document = ($document) ?: $form->getData();
@@ -52,14 +55,15 @@ abstract class AbstractRestController extends FOSRestController
     /**
      * @param Request $request
      * @param mixed $document
+     * @param bool $clearMissing
      * @return FormInterface
      */
-    protected function submitForm(Request $request, $document = null)
+    protected function submitForm(Request $request, $document = null, $clearMissing = true)
     {
         $options = $this->getFormOptions($request);
         $type = $this->getDocumentFormType();
         $form = $this->createForm($type, $document, $options);
-        $form->submit($request);
+        $form->submit($request, $clearMissing);
 
         return $form;
     }

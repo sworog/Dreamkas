@@ -22,15 +22,9 @@ use JMS\Serializer\Annotation as Serializer;
  *      "legalEntity" = "Lighthouse\CoreBundle\Document\LegalDetails\LegalEntityLegalDetails"
  * })
  */
-class LegalDetails extends AbstractDocument
+abstract class LegalDetails extends AbstractDocument
 {
     const TYPE = 'abstract';
-
-    /**
-     * @MongoDB\Id
-     * @var string
-     */
-    protected $id;
 
     /**
      * @MongoDB\String
