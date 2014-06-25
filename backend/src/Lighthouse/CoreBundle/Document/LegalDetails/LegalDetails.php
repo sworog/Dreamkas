@@ -17,8 +17,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 abstract class LegalDetails extends AbstractDocument
 {
-    const TYPE_ENTREPRENEUR = 'entrepreneur';
-    const TYPE_LEGAL_ENTITY = 'legalEntity';
+    const TYPE = 'abstract';
 
     /**
      * @MongoDB\Id
@@ -50,4 +49,12 @@ abstract class LegalDetails extends AbstractDocument
      * @var string
      */
     protected $okpo;
+
+    /**
+     * @return string
+     */
+    public function getType()
+    {
+        return static::TYPE;
+    }
 }

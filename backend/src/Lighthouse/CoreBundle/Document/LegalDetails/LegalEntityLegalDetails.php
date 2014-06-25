@@ -10,6 +10,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class LegalEntityLegalDetails extends LegalDetails
 {
+    const TYPE = 'legalEntity';
+
     /**
      * @MongoDB\String
      * @Assert\Regex(pattern="/^\d{10}$/", message="lighthouse.validation.errors.legal_details.inn.legal_entity")
