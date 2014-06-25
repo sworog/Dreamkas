@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
@@ -32,13 +31,14 @@ abstract class AbstractRestController extends FOSRestController
      * @param AbstractDocument $document
      * @throws FlushFailedException
      * @param bool $save
-     * @return View|AbstractDocument
+     * @return FormInterface|AbstractDocument
      */
-    protected function processForm(Request $request, AbstractDocument $document, $save = true)
+    protected function processForm(Request $request, AbstractDocument $document = null, $save = true)
     {
         $form = $this->submitForm($request, $document);
 
         if ($form->isValid()) {
+            $document = ($document) ?: $form->getData();
             if ($save && !$this->isValidate($request)) {
                 return $this->saveDocument($document, $form);
             } else {
@@ -52,9 +52,9 @@ abstract class AbstractRestController extends FOSRestController
     /**
      * @param Request $request
      * @param mixed $document
-     * @return Form
+     * @return FormInterface
      */
-    protected function submitForm(Request $request, $document)
+    protected function submitForm(Request $request, $document = null)
     {
         $options = $this->getFormOptions($request);
         $type = $this->getDocumentFormType();
@@ -115,7 +115,7 @@ abstract class AbstractRestController extends FOSRestController
 
     /**
      * @param Request $request
-     * @return View|AbstractDocument
+     * @return FormInterface|AbstractDocument
      */
     protected function processPost(Request $request)
     {
@@ -125,13 +125,12 @@ abstract class AbstractRestController extends FOSRestController
 
     /**
      * @param AbstractDocument $document
-     * @return null
+     * @return void
      */
     protected function processDelete(AbstractDocument $document)
     {
         $this->documentRepository->getDocumentManager()->remove($document);
         $this->documentRepository->getDocumentManager()->flush();
-        return null;
     }
 
     /**
@@ -139,7 +138,7 @@ abstract class AbstractRestController extends FOSRestController
      * @param string $field
      * @param $messageTemplate
      * @param array $messageParameters
-     * @return \Symfony\Component\Form\FormInterface
+     * @return FormInterface
      */
     protected function addFormError(
         FormInterface $form,
