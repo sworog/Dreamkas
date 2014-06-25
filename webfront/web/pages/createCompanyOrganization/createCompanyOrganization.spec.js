@@ -30,67 +30,35 @@ define(function(require, exports, module) {
         sharedSpecs.localNavigation_company();
 
         it('input name', function(){
-
-            var $input = $('[name="name"][type="text"]');
-
-            expect($input.length).toEqual(1);
-            expect($input.val()).toEqual('');
+            expect($('[name="name"][type="text"]').val()).toEqual('');
         });
 
         it('input phone', function(){
-
-            var $input = $('[name="phone"][type="text"]');
-
-            expect($input.length).toEqual(1);
-            expect($input.val()).toEqual('');
+            expect($('[name="phone"][type="text"]').val()).toEqual('');
         });
 
         it('input fax', function(){
-
-            var $input = $('[name="fax"][type="text"]');
-
-            expect($input.length).toEqual(1);
-            expect($input.val()).toEqual('');
+            expect($('[name="fax"][type="text"]').val()).toEqual('');
         });
 
         it('input email', function(){
-
-            var $input = $('[name="email"][type="text"]');
-
-            expect($input.length).toEqual(1);
-            expect($input.val()).toEqual('');
+            expect($('[name="email"][type="text"]').val()).toEqual('');
         });
 
         it('input director', function(){
-
-            var $input = $('[name="director"][type="text"]');
-
-            expect($input.length).toEqual(1);
-            expect($input.val()).toEqual('');
+            expect($('[name="director"][type="text"]').val()).toEqual('');
         });
 
         it('input chiefAccountant', function(){
-
-            var $input = $('[name="chiefAccountant"][type="text"]');
-
-            expect($input.length).toEqual(1);
-            expect($input.val()).toEqual('');
+            expect($('[name="chiefAccountant"][type="text"]').val()).toEqual('');
         });
 
         it('input address', function(){
-
-            var $input = $('textarea[name="address"]');
-
-            expect($input.length).toEqual(1);
-            expect($input.val()).toEqual('');
+            expect($('textarea[name="address"]').val()).toEqual('');
         });
 
         it('add button', function(){
-
-            var $button = $('.form_companyOrganization button[type="submit"]');
-
-            expect($button.length).toEqual(1);
-            expect($button.text()).toEqual('Добавить');
+            expect($.trim($('.form_companyOrganization button[type="submit"]').text())).toEqual('Добавить');
         });
 
         it('form_organization block', function(){
