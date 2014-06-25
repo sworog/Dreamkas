@@ -11,8 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @MongoDB\InheritanceType("SINGLE_COLLECTION")
  * @MongoDB\DiscriminatorField("type")
  * @MongoDB\DiscriminatorMap({
- *      "entrepreneur" => "Lighthouse\CoreBundle\Document\LegalDetails\EntrepreneurLegalDetails",
- *      "legalEntity" => "Lighthouse\CoreBundle\Document\LegalDetails\LegalEntityLegalDetails"
+ *      "entrepreneur" = "Lighthouse\CoreBundle\Document\LegalDetails\EntrepreneurLegalDetails",
+ *      "legalEntity" = "Lighthouse\CoreBundle\Document\LegalDetails\LegalEntityLegalDetails"
  * })
  */
 abstract class LegalDetails extends AbstractDocument

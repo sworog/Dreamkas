@@ -12,14 +12,14 @@ class EntrepreneurLegalDetails extends LegalDetails
 {
     /**
      * @MongoDB\String
-     * @Assert\Regex(pattern="/^\d{12}$/" message="lighthouse.validation.errors.legal_details.inn.entrepreneur")
+     * @Assert\Regex(pattern="/^\d{12}$/", message="lighthouse.validation.errors.legal_details.inn.entrepreneur")
      * @var string
      */
     protected $inn;
 
     /**
      * @MongoDB\String
-     * @Assert\Regex(pattern="/^\d{15}$/" message="lighthouse.validation.errors.legal_details.orgnip")
+     * @Assert\Regex(pattern="/^\d{15}$/", message="lighthouse.validation.errors.legal_details.orgnip")
      * @var string
      */
     protected $orgnip;
