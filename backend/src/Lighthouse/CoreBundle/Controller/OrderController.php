@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\Order\OrderCollection;
 use Lighthouse\CoreBundle\Document\Order\OrderRepository;
@@ -10,6 +9,7 @@ use Lighthouse\CoreBundle\Document\Order\OrdersFilter;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Form\OrderType;
 use Lighthouse\CoreBundle\Integration\Excel\Export\Orders\OrderGenerator;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -44,7 +44,7 @@ class OrderController extends AbstractRestController
     /**
      * @param Store $store
      * @param Request $request
-     * @return View|Order
+     * @return FormInterface|Order
      *
      * @Rest\View(statusCode=201)
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
@@ -61,7 +61,7 @@ class OrderController extends AbstractRestController
      * @param Store $store
      * @param Order $order
      * @param Request $request
-     * @return View|Order
+     * @return FormInterface|Order
      *
      * @Rest\View(statusCode=200)
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")

@@ -51,7 +51,7 @@ class DepartmentController extends AbstractRestController
 
     /**
      * @param Request $request
-     * @return \FOS\RestBundle\View\View|Department
+     * @return FormInterface|Department
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc(
@@ -66,7 +66,7 @@ class DepartmentController extends AbstractRestController
     /**
      * @param Request $request
      * @param Department $department
-     * @return \FOS\RestBundle\View\View|Department
+     * @return FormInterface|Department
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */

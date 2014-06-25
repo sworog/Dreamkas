@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryCollection;
@@ -54,7 +53,7 @@ class SubCategoryController extends AbstractRestController
      * @param Request $request
      * @throws Exception
      * @throws FlushFailedException
-     * @return View|SubCategory
+     * @return FormInterface|SubCategory
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc(resource=true)
@@ -67,7 +66,7 @@ class SubCategoryController extends AbstractRestController
     /**
      * @param Request $request
      * @param SubCategory $subCategory
-     * @return View|SubCategory
+     * @return FormInterface|SubCategory
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */

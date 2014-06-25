@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository;
@@ -59,8 +58,8 @@ class GroupController extends AbstractRestController
      *
      * @param Request $request
      * @throws \Exception
-     * @throws \Lighthouse\CoreBundle\Exception\FlushFailedException
-     * @return View|Group
+     * @throws FlushFailedException
+     * @return FormInterface|Group
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -74,7 +73,7 @@ class GroupController extends AbstractRestController
      *
      * @param Request $request
      * @param Group $group
-     * @return View|Group
+     * @return FormInterface|Group
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -85,13 +84,13 @@ class GroupController extends AbstractRestController
 
     /**
      * @param Group $group
-     * @return null
+     * @return void
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
     public function deleteGroupsAction(Group $group)
     {
-        return $this->processDelete($group);
+        $this->processDelete($group);
     }
 
     /**

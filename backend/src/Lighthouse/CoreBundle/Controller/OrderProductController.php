@@ -7,7 +7,7 @@ use Lighthouse\CoreBundle\Document\Order\Product\OrderProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Form\OrderProductType;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use FOS\RestBundle\View\View;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -39,7 +39,7 @@ class OrderProductController extends AbstractRestController
     /**
      * @param Store $store
      * @param Request $request
-     * @return View|OrderProduct
+     * @return FormInterface|OrderProduct
      *
      * @Rest\View(statusCode=200)
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")

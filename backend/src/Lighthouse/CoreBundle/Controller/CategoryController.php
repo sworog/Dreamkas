@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
@@ -53,7 +52,7 @@ class CategoryController extends AbstractRestController
      * @param Request $request
      * @throws Exception
      * @throws FlushFailedException
-     * @return View|Category
+     * @return FormInterface|Category
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc(resource=true)
@@ -66,7 +65,7 @@ class CategoryController extends AbstractRestController
     /**
      * @param Request $request
      * @param Category $category
-     * @return View|Category
+     * @return FormInterface|Category
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -128,12 +127,12 @@ class CategoryController extends AbstractRestController
 
     /**
      * @param Category $category
-     * @return null
+     * @return void
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
     public function deleteCategoriesAction(Category $category)
     {
-        return $this->processDelete($category);
+        $this->processDelete($category);
     }
 }

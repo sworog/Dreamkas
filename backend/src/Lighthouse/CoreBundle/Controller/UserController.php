@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\Store\Store;
@@ -79,8 +78,8 @@ class UserController extends AbstractRestController
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return User|View
+     * @param Request $request
+     * @return User|FormInterface
      *
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_ADMINISTRATOR")
@@ -135,7 +134,7 @@ class UserController extends AbstractRestController
     /**
      * @param Request $request
      * @param User $user User ID
-     * @return View|User
+     * @return FormInterface|User
      * @Secure(roles="ROLE_ADMINISTRATOR")
      * @ApiDoc(
      *      description="Update user",
@@ -165,7 +164,7 @@ class UserController extends AbstractRestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return User|View
+     * @return User|FormInterface
      *
      * @Rest\View(statusCode=201)
      * @Rest\Route("users/signup")
@@ -205,7 +204,7 @@ class UserController extends AbstractRestController
      *
      * @Rest\Route("users/restorePassword")
      * @Rest\View
-     * @return View
+     * @return FormInterface|array
      */
     public function postUsersRestorePasswordAction(Request $request)
     {

@@ -384,10 +384,18 @@ class OrganizationControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.legalDetails.children.okpo.errors.0' => 'ОКПО юридического лица должен состоять из 8 цифр',
-                    'children.legalDetails.children.inn.errors.0' => 'ИНН юридического лица должен состоять из 10 цифр',
-                    'children.legalDetails.children.kpp.errors.0' => 'КПП должен состоять из 9 цифр',
-                    'children.legalDetails.children.ogrn.errors.0' => 'ОГРН должен состоять из 13 цифр',
+                    'children.legalDetails.children.okpo.errors.0'
+                    =>
+                    'ОКПО юридического лица должен состоять из 8 цифр',
+                    'children.legalDetails.children.inn.errors.0'
+                    =>
+                    'ИНН юридического лица должен состоять из 10 цифр',
+                    'children.legalDetails.children.kpp.errors.0'
+                    =>
+                    'КПП должен состоять из 9 цифр',
+                    'children.legalDetails.children.ogrn.errors.0'
+                    =>
+                    'ОГРН должен состоять из 13 цифр',
                 )
             ),
             'legal entity invalid max length' => array(
@@ -401,10 +409,18 @@ class OrganizationControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.legalDetails.children.okpo.errors.0' => 'ОКПО юридического лица должен состоять из 8 цифр',
-                    'children.legalDetails.children.inn.errors.0' => 'ИНН юридического лица должен состоять из 10 цифр',
-                    'children.legalDetails.children.kpp.errors.0' => 'КПП должен состоять из 9 цифр',
-                    'children.legalDetails.children.ogrn.errors.0' => 'ОГРН должен состоять из 13 цифр',
+                    'children.legalDetails.children.okpo.errors.0'
+                    =>
+                    'ОКПО юридического лица должен состоять из 8 цифр',
+                    'children.legalDetails.children.inn.errors.0'
+                    =>
+                    'ИНН юридического лица должен состоять из 10 цифр',
+                    'children.legalDetails.children.kpp.errors.0'
+                    =>
+                    'КПП должен состоять из 9 цифр',
+                    'children.legalDetails.children.ogrn.errors.0'
+                    =>
+                    'ОГРН должен состоять из 13 цифр',
                 )
             ),
             'legal entity invalid not digits' => array(
@@ -418,10 +434,18 @@ class OrganizationControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.legalDetails.children.okpo.errors.0' => 'ОКПО юридического лица должен состоять из 8 цифр',
-                    'children.legalDetails.children.inn.errors.0' => 'ИНН юридического лица должен состоять из 10 цифр',
-                    'children.legalDetails.children.kpp.errors.0' => 'КПП должен состоять из 9 цифр',
-                    'children.legalDetails.children.ogrn.errors.0' => 'ОГРН должен состоять из 13 цифр',
+                    'children.legalDetails.children.okpo.errors.0'
+                    =>
+                    'ОКПО юридического лица должен состоять из 8 цифр',
+                    'children.legalDetails.children.inn.errors.0'
+                    =>
+                    'ИНН юридического лица должен состоять из 10 цифр',
+                    'children.legalDetails.children.kpp.errors.0'
+                    =>
+                    'КПП должен состоять из 9 цифр',
+                    'children.legalDetails.children.ogrn.errors.0'
+                    =>
+                    'ОГРН должен состоять из 13 цифр',
                 )
             ),
             // Entrepreneur

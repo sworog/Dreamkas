@@ -63,10 +63,6 @@ lighthouse.core.organization:
     resource: Lighthouse\CoreBundle\Controller\OrganizationController
     type:     rest
 
-lighthouse.core.legal_details:
-    resource: Lighthouse\CoreBundle\Controller\LegalDetailsController
-    type:     rest
-
 lighthouse.core.job:
     resource: Lighthouse\CoreBundle\Controller\JobController
     type:     rest

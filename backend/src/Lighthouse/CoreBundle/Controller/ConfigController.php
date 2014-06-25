@@ -3,12 +3,12 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use Doctrine\MongoDB\LoggableCursor;
-use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Config\Config;
 use Lighthouse\CoreBundle\Document\Config\ConfigCollection;
 use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
 use Lighthouse\CoreBundle\Form\ConfigType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -33,7 +33,7 @@ class ConfigController extends AbstractRestController
 
     /**
      * @param Request $request
-     * @return View|Config
+     * @return FormInterface|Config
      *
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_ADMINISTRATOR")
@@ -47,7 +47,7 @@ class ConfigController extends AbstractRestController
     /**
      * @param Request $request
      * @param Config $config
-     * @return View|Config
+     * @return FormInterface|Config
      *
      * @Rest\View(statusCode=200)
      * @Secure(roles="ROLE_ADMINISTRATOR")

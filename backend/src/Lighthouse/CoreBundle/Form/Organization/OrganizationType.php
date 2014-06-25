@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Form\Organization;
 use Lighthouse\CoreBundle\Document\LegalDetails\EntrepreneurLegalDetails;
 use Lighthouse\CoreBundle\Document\LegalDetails\LegalEntityLegalDetails;
 use Lighthouse\CoreBundle\Document\Organization\Organization;
-use Lighthouse\CoreBundle\Form\Organization\LegalDetailsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;

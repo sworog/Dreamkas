@@ -130,11 +130,6 @@ services:
         arguments:
             - LighthouseCoreBundle:Organization\Organization
 
-    lighthouse.core.document.repository.legal_details:
-        parent: doctrine_mongodb.odm.repository
-        arguments:
-            - LighthouseCoreBundle:LegalDetails\LegalDetails
-
     lighthouse.core.document.repository.client:
         parent: doctrine_mongodb.odm.repository
         arguments:
