@@ -86,11 +86,12 @@ define(function(require) {
                 block.collection.push(model);
             }
 
-            if (block.redirectUrl) {
+            if (block.get('redirectUrl')) {
                 router.navigate(block.get('redirectUrl'));
+                return;
             }
 
-            if (block.successMessage) {
+            if (block.get('successMessage')) {
                 block.showSuccessMessage();
             }
         },

@@ -46,12 +46,12 @@ define(function(require, exports, module) {
         element: function(attr){
             var model = this,
                 uniqueId = _.uniqueId('modelElement'),
-                nodeTemplate = '<span id="' + uniqueId + '">' + model.get(attr) || '' + '</span>';
+                nodeTemplate = '<span id="' + uniqueId + '">' + _.escape(model.get(attr)) || '' + '</span>';
 
             var handlers = {};
 
             handlers['change:' + attr] = function() {
-                document.getElementById(uniqueId).innerHTML = model.get(attr) || '';
+                document.getElementById(uniqueId).innerHTML = _.escape(model.get(attr)) || '';
             };
 
             model.listenTo(model, handlers);
