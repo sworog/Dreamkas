@@ -3,7 +3,6 @@ define(function(require, exports, module) {
     var Block = require('kit/block'),
         router = require('router'),
         deepExtend = require('kit/deepExtend/deepExtend'),
-        get = require('kit/get/get'),
         _ = require('lodash');
 
     require('sortable');
@@ -143,6 +142,16 @@ define(function(require, exports, module) {
             var page = this;
 
             delete Page.current;
+
+            _.forEach(page.models, function(model){
+                model.off();
+                model.stopListening();
+            });
+
+            _.forEach(page.collections, function(collection){
+                collection.off();
+                collection.stopListening();
+            });
 
             Block.prototype.destroy.apply(page, arguments);
         }

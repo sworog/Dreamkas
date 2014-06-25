@@ -12,6 +12,7 @@ define(function(require) {
         'company': require('pages/company/company'),
         'company/organizations/create': require('pages/createCompanyOrganization/createCompanyOrganization'),
         'company/organizations/:organizationId': require('pages/companyOrganization/companyOrganization'),
+        'company/organizations/:organizationId/details': require('pages/companyOrganizationDetails/companyOrganizationDetails'),
 
         //suppliers
         'suppliers(/)': require('pages/suppliers/list/list'),

@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/core/block.deprecated'),
+        var Block = require('kit/block'),
             moment = require('moment'),
             Datepicker = require('blocks/datepicker/datepicker'),
             Tooltip = require('blocks/tooltip/tooltip');
@@ -8,15 +8,13 @@ define(function(require) {
         require('jquery.maskedinput');
 
         return Block.extend({
-            __name__: 'inputDate',
-            className: 'inputDate',
-            tagName: 'input',
             date: null,
-            noTime: false,
-            templates: {
-                datepicker__controls: require('ejs!blocks/inputDate/templates/datepicker__controls.html')
+            blocks: {
+                tooltip_datepicker: function(){
+                    var block = this,
+                        Tooltip_datepicker = require('blocks/tooltip/tooltip_datepicker/tooltip_datepicker');
+                }
             },
-            el: '.inputDate',
             initialize: function() {
 
                 var block = this,
@@ -98,13 +96,6 @@ define(function(require) {
                 var block = this;
 
                 block.tooltip.show();
-            },
-            remove: function(){
-                var block = this;
-
-                block.tooltip.remove();
-
-                Block.prototype.remove.call(block);
             }
         });
     }

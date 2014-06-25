@@ -48,13 +48,9 @@ define(function(require, exports, module) {
                 uniqueId = _.uniqueId('modelElement'),
                 nodeTemplate = '<span id="' + uniqueId + '">' + _.escape(model.get(attr)) || '' + '</span>';
 
-            var handlers = {};
-
-            handlers['change:' + attr] = function() {
+            model.on('change:' + attr, function() {
                 document.getElementById(uniqueId).innerHTML = _.escape(model.get(attr)) || '';
-            };
-
-            model.listenTo(model, handlers);
+            });
 
             return nodeTemplate;
         }

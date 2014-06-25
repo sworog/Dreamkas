@@ -30,7 +30,7 @@ module.exports = function(config) {
 
         // test results reporter to use
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
-        reporters: ['dots'],
+        reporters: ['dots', 'allure'],
 
         preprocessors: {
             // source files, that you wanna generate coverage for
@@ -39,6 +39,9 @@ module.exports = function(config) {
             //'requireDom.js': 'coverage'
         },
 
+        allureReport: {
+            reportDir: 'allureXML'
+        },
 
         // web server port
         port: 9876,

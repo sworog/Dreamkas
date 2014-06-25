@@ -1,0 +1,56 @@
+.inputRadio {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    vertical-align: middle;
+    position: relative;
+    cursor: pointer;
+    min-height: 20px;
+    min-width: 20px;
+    line-height: 20px;
+    padding: 0 10px 0 25px;
+}
+
+.inputRadio_empty {
+    padding: 0;
+}
+
+.inputRadio__text:before {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: -1px;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #333;
+    border-radius: 16px;
+    background-color: #fff;
+    visibility: visible;
+}
+
+.inputRadio__text:after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 5px;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background-color: #333;
+    visibility: hidden;
+}
+
+.inputRadio input:checked + .inputRadio__text:after {
+    visibility: visible;
+}
+
+.inputRadio input {
+    visibility: hidden;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    top: 0;
+}
