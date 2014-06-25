@@ -12,6 +12,7 @@ class LogRepository extends DocumentRepository
      */
     public function createLog($message, \DateTime $date = null)
     {
+        /* @var Log $log */
         $log = $this->createNew();
         $log->message = $message;
         if ($date !== null) {

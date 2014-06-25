@@ -79,6 +79,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
     /**
      * @dataProvider trialBalanceDataProvider
+     * @param array $trialBalanceData
      */
     public function testGetSetProperties(array $trialBalanceData)
     {
@@ -94,6 +95,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
 
     /**
      * @dataProvider trialBalanceDataProvider
+     * @param array $data
      */
     public function testPopulateAndToArray(array $data)
     {

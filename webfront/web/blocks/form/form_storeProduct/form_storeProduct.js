@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Form = require('kit/form'),
+        var Form = require('kit/form/form'),
             roundPrice = require('kit/roundPrice/roundPrice'),
             formatMoney = require('kit/formatMoney'),
             numeral = require('numeral');

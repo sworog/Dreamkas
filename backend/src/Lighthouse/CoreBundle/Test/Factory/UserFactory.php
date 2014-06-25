@@ -113,7 +113,7 @@ class UserFactory extends AbstractFactory
      * @return User
      */
     public function createProjectUser(
-        $email,
+        $email = self::USER_DEFAULT_EMAIL,
         $password = self::USER_DEFAULT_PASSWORD,
         $projectName = self::PROJECT_DEFAULT_NAME
     ) {

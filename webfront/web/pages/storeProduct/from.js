@@ -11,7 +11,7 @@ define(function(require) {
             storeId: null
         },
         partials: {
-            '#content': require('tpl!./templates/form.html')
+            '#content': require('ejs!./templates/form.html')
         },
         permissions: {
             'stores/{store}/products/{product}': 'PUT'

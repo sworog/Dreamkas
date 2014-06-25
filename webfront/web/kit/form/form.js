@@ -26,13 +26,13 @@ define(function(require) {
                 block.submitStart();
                 block.trigger('submit:start');
 
-                Promise.resolve(block.submit()).then(function(response){
+                Promise.resolve(block.submit()).then(function(model){
 
-                    block.submitSuccess(response);
-                    block.trigger('submit:success', response);
+                    block.submitSuccess(model);
+                    block.trigger('submit:success', model);
 
-                    block.submitComplete(response);
-                    block.trigger('submit:complete', response);
+                    block.submitComplete(model);
+                    block.trigger('submit:complete', model);
 
                 }, function(response){
 
@@ -54,21 +54,16 @@ define(function(require) {
             controls: '.form__controls',
             results: '.form__results'
         },
-        initialize: function(){
-            var block = this;
-
-            Block.prototype.initialize.apply(block, arguments);
-
-            block.model = block.get('model');
-            block.redirectUrl = block.get('redirectUrl');
-        },
         getData: function(){
             return form2js(this.el, '.', false);
         },
         submit: function() {
-            var block = this;
+            var block = this,
+                model = block.get('model');
 
-            return block.model.save(block.formData);
+            return Promise.resolve(model.save(block.formData), function(){
+                return model;
+            });
         },
         submitStart: function() {
             var block = this;
@@ -84,18 +79,19 @@ define(function(require) {
             block.elements.$submitButton.removeClass('preloader_stripes');
             block.disable(false);
         },
-        submitSuccess: function() {
+        submitSuccess: function(model) {
             var block = this;
 
             if (block.collection) {
-                block.collection.push(block.model);
+                block.collection.push(model);
             }
 
-            if (block.redirectUrl) {
+            if (block.get('redirectUrl')) {
                 router.navigate(block.get('redirectUrl'));
+                return;
             }
 
-            if (block.successMessage) {
+            if (block.get('successMessage')) {
                 block.showSuccessMessage();
             }
         },

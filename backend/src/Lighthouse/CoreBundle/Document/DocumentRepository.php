@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document;
 
 use Doctrine\MongoDB\ArrayIterator;
 use Doctrine\MongoDB\Exception\ResultException;
+use Doctrine\ODM\MongoDB\Cursor;
 use Doctrine\ODM\MongoDB\DocumentRepository as BaseRepository;
 use Doctrine\ODM\MongoDB\LockMode;
 use Doctrine\ODM\MongoDB\Proxy\Proxy;
@@ -13,6 +14,9 @@ use MongoCollection;
 use MongoCursor;
 use MongoId;
 
+/**
+ * @method Cursor findAll
+ */
 class DocumentRepository extends BaseRepository
 {
     const SORT_ASC = 1;

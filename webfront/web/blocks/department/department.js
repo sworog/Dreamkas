@@ -6,7 +6,7 @@ define(function(require) {
             __name__: 'department',
             storeModel: null,
             departmentModel: null,
-            template: require('tpl!blocks/department/templates/index.html')
+            template: require('ejs!blocks/department/templates/index.html')
         })
     }
 );

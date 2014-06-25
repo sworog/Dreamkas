@@ -303,6 +303,8 @@ class SupplierControllerTest extends WebTestCase
 
     /**
      * @dataProvider getActionPermissionsProvider
+     * @param string $role
+     * @param int $expectedResponseCode
      */
     public function testGetSupplierActionPermissions($role, $expectedResponseCode)
     {

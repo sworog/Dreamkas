@@ -125,6 +125,11 @@ services:
         arguments:
             - LighthouseCoreBundle:Project\Project
 
+    lighthouse.core.document.repository.organization:
+        parent: doctrine_mongodb.odm.repository
+        arguments:
+            - LighthouseCoreBundle:Organization\Organization
+
     lighthouse.core.document.repository.client:
         parent: doctrine_mongodb.odm.repository
         arguments:

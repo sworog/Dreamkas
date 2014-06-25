@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 
     return Block.extend({
         __name__: module.id,
-        template: require('tpl!./table_grossSalesByStores.html'),
+        template: require('ejs!./table_grossSalesByStores.html'),
         sortBy: null,
         ascending: true,
         collections: {

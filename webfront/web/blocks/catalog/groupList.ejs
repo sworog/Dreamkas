@@ -19,7 +19,7 @@
 
         </h2>
 
-        <%= groupModel.collections.categories.element(require('tpl!./categoryList.ejs'), {
+        <%= groupModel.collections.categories.element(require('ejs!./categoryList.ejs'), {
             groupModel: groupModel,
             collections: {
                 categories: groupModel.collections.categories

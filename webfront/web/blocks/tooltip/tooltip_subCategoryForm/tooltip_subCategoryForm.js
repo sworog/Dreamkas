@@ -8,7 +8,7 @@ define(function(require) {
             collection: null,
             groupId: null,
             categoryId: null,
-            template: require('tpl!./template.ejs'),
+            template: require('ejs!./template.ejs'),
             listeners: {
                 'blocks.form_subCategory': {
                     'submit:success': function() {
@@ -31,7 +31,7 @@ define(function(require) {
             blocks: {
                 form_subCategory: function(){
                     var block = this,
-                        Form = require('kit/form');
+                        Form = require('kit/form/form');
 
                     return new Form({
                         el: block.el.querySelector('form'),

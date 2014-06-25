@@ -1,6 +1,6 @@
 <% var templates = {
-    localNavigation_reports: require('tpl!blocks/localNavigation/localNavigation_reports.deprecated.html'),
-    table_storeGrossSalesByHours: require('tpl!blocks/table/table_storeGrossSalesByHours/table_storeGrossSalesByHours.html')
+    localNavigation_reports: require('ejs!blocks/localNavigation/localNavigation_reports.deprecated.html'),
+    table_storeGrossSalesByHours: require('ejs!blocks/table/table_storeGrossSalesByHours/table_storeGrossSalesByHours.html')
 } %>
 <%= templates.localNavigation_reports({
     models: _.pick(models, 'store'),

@@ -17,7 +17,7 @@ define(function(require, exports, module) {
         permissions: null,
         referrer: {},
         loading: false,
-        template: require('tpl!./template.deprecated.html'),
+        template: require('ejs!./template.deprecated.html'),
         partials: {},
         models: {},
         collections: {},

@@ -14,7 +14,7 @@ define(function(require) {
             date: null,
             noTime: false,
             templates: {
-                datepicker__controls: require('tpl!blocks/inputDate/templates/datepicker__controls.html')
+                datepicker__controls: require('ejs!blocks/inputDate/templates/datepicker__controls.html')
             },
             el: '.inputDate',
             initialize: function() {

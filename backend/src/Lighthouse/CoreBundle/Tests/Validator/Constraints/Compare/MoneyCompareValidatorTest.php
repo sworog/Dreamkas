@@ -38,6 +38,8 @@ class MoneyCompareValidatorTest extends TestCase
      * @dataProvider invalidFieldValueProvider
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Money"
+     * @param $a
+     * @param $b
      */
     public function testInvalidFieldValue($a, $b)
     {

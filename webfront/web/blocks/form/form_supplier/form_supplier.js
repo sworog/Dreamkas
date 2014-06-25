@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/form'),
+    var Form = require('kit/form/form'),
         cookie = require('cookies'),
         $ = require('jquery'),
         _ = require('lodash');
@@ -11,7 +11,7 @@ define(function(require, exports, module) {
         el: '.form_supplier',
         redirectUrl: '/suppliers',
         partials: {
-            fileBox: require('tpl!./fileBox.ejs')
+            fileBox: require('ejs!./fileBox.ejs')
         },
         events: {
             'change [type="file"]': function(e) {

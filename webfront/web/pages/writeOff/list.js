@@ -9,7 +9,7 @@ define(function(require) {
     return Page.extend({
         __name__: 'page_writeOffs_list',
         partials: {
-            '#content': require('tpl!./templates/list.html')
+            '#content': require('ejs!./templates/list.html')
         },
         initialize: function(pageParams){
             var page = this;

@@ -27,6 +27,7 @@ class AbstractDocumentTest extends TestCase
     {
         $product = new Test();
 
+        /** @noinspection PhpUndefinedFieldInspection */
         $product->invalid;
     }
 
@@ -37,6 +38,7 @@ class AbstractDocumentTest extends TestCase
     {
         $document = new Test();
 
+        /** @noinspection PhpUndefinedFieldInspection */
         $document->invalid = 'invalid';
     }
 

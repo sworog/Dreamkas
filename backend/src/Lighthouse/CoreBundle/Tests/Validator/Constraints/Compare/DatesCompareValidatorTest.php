@@ -36,6 +36,8 @@ class DatesCompareValidatorTest extends TestCase
 
     /**
      * @dataProvider validValuesProvider
+     * @param DateTime $orderDate
+     * @param DateTime $createdDate
      */
     public function testValidValues(DateTime $orderDate = null, DateTime $createdDate = null)
     {
@@ -78,6 +80,8 @@ class DatesCompareValidatorTest extends TestCase
 
     /**
      * @dataProvider invalidValuesProvider
+     * @param DateTime $orderDate
+     * @param DateTime $createdDate
      */
     public function testInvalidValues(DateTime $orderDate, DateTime $createdDate)
     {
@@ -110,6 +114,7 @@ class DatesCompareValidatorTest extends TestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Lighthouse\CoreBundle\Document\AbstractDocument"
      * @dataProvider unexpectedValueTypeProvider
+     * @param mixed $value
      */
     public function testValueUnexpectedType($value)
     {
@@ -139,6 +144,8 @@ class DatesCompareValidatorTest extends TestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "\DateTime"
      * @dataProvider fieldUnexpectedTypesProvider
+     * @param mixed $orderDate
+     * @param mixed $createdDate
      */
     public function testFieldUnexpectedType($orderDate, $createdDate)
     {

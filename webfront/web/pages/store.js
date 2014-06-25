@@ -7,7 +7,7 @@ define(function(require, exports, module) {
             storeId: null
         },
         partials: {
-            globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation_store.ejs')
+            globalNavigation: require('ejs!blocks/globalNavigation/globalNavigation_store.ejs')
         },
         models: {
             store: function(){

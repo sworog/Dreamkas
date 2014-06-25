@@ -8,6 +8,11 @@ define(function(require) {
         'log(/)': require('pages/log/log'),
         'settings(/)': require('pages/settings/settings'),
 
+        //company
+        'company': require('pages/company/company'),
+        'company/organizations/create': require('pages/createCompanyOrganization/createCompanyOrganization'),
+        'company/organizations/:organizationId': require('pages/companyOrganization/companyOrganization'),
+
         //suppliers
         'suppliers(/)': require('pages/suppliers/list/list'),
         'suppliers/create(/)': require('pages/suppliers/create/create'),

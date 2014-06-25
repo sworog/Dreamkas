@@ -1,0 +1,17 @@
+<%
+/**
+ *
+ * @models.companyOrganization
+ */
+%>
+<% var partials = {
+    form_companyOrganization: require('ejs!blocks/form/form_companyOrganization/template.ejs')
+} %>
+
+<div class="content">
+    <h1 name="companyOrganizationName"><%= models.companyOrganization.element('name') %></h1>
+
+    <%= partials.form_companyOrganization({
+        model: models.companyOrganization
+    }) %>
+</div>

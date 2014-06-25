@@ -15,36 +15,16 @@ module.exports = function(config) {
         // list of files / patterns to load in the browser
         files: [
             'karma.main.js',
-            'config.js',
-            {pattern: 'LH.js', included: false},
-            {pattern: 'require.config.js', included: false},
-            {pattern: 'fixtures/**/*', included: false},
-            {pattern: 'kit/**/*.html', included: false},
-            {pattern: 'kit/**/*.js', included: false},
-            {pattern: 'bower_components/**/*.js', included: false},
-            {pattern: 'utils/**/*.js', included: false},
-            {pattern: 'libs/**/*.js', included: false},
-            {pattern: 'nls/**/*.js', included: false},
-
-            {pattern: 'dictionary.js', included: false},
-
-            {pattern: 'models/*.js', included: false},
-            {pattern: 'collections/*.js', included: false},
-
-            {pattern: 'blocks/form/form.js', included: false},
-            {pattern: 'blocks/select/select_priceRoundings/select_priceRoundings.html', included: false},
-            {pattern: 'blocks/select/select_vat/select_vat.html', included: false},
-            {pattern: 'blocks/form/form_product/**/*', included: false},
-            {pattern: 'blocks/amount/**/*', included: false}
-
+            {pattern: '**/*.js', included: false},
+            {pattern: '**/*.ejs', included: false}
         ],
 
 
         // list of files to exclude
         exclude: [
-            'kit/docs/**/*.js',
-            'coverage/**/*.js',
-            'main.js'
+            'karma.conf.js',
+            'node_modules/**/*.spec.js',
+            'bower_components/**/*.spec.js'
         ],
 
 
@@ -56,15 +36,7 @@ module.exports = function(config) {
             // source files, that you wanna generate coverage for
             // do not include tests or libraries
             // (these files will be instrumented by Istanbul),
-            'kit/core/**/!(*.spec.js)*.js': 'coverage',
-            'kit/utils/**/!(*.spec.js)*.js': 'coverage',
-            'models/!(*.spec.js)*.js': 'coverage',
-            'blocks/**/!(*.spec.js)*.js': 'coverage'
-        },
-
-        coverageReporter: {
-            type: 'html',
-            dir: './build/coverage/'
+            //'requireDom.js': 'coverage'
         },
 
 

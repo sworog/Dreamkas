@@ -4,8 +4,8 @@ define(function(require, exports, module) {
 
     return Page.extend({
         partials: {
-            content: require('tpl!./content.ejs'),
-            localNavigation: require('tpl!blocks/localNavigation/localNavigation_reports.ejs')
+            content: require('ejs!./content.ejs'),
+            localNavigation: require('ejs!blocks/localNavigation/localNavigation_reports.ejs')
         },
         collections: {
             grossMargin: require('collections/grossMargin')

@@ -8,9 +8,9 @@ define(function(require, exports, module) {
 
     return Page.extend({
         templates: {
-            content: require('tpl!./content.ejs'),
-            localNavigation: require('tpl!blocks/localNavigation/localNavigation_invoices.ejs'),
-            globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation_store.ejs')
+            content: require('ejs!./content.ejs'),
+            localNavigation: require('ejs!blocks/localNavigation/localNavigation_invoices.ejs'),
+            globalNavigation: require('ejs!blocks/globalNavigation/globalNavigation_store.ejs')
         },
         params: {
             storeId: null,

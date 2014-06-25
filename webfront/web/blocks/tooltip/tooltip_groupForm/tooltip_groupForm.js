@@ -6,7 +6,7 @@ define(function(require) {
         return Tooltip.extend({
             model: null,
             collection: null,
-            template: require('tpl!./template.ejs'),
+            template: require('ejs!./template.ejs'),
             listeners: {
                 'blocks.form_group': {
                     'submit:success': function() {
@@ -26,7 +26,7 @@ define(function(require) {
             blocks: {
                 form_group: function(){
                     var block = this,
-                        Form = require('kit/form');
+                        Form = require('kit/form/form');
 
                     return new Form({
                         el: block.el.querySelector('form'),

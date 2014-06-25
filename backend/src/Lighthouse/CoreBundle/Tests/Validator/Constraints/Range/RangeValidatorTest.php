@@ -35,8 +35,10 @@ class RangeValidatorTest extends TestCase
 
     /**
      * @dataProvider validValuesProvider
+     * @param $options
+     * @param $value
      */
-    public function testValidValues($options, $value)
+    public function testValidValues(array $options, $value = null)
     {
         $this
             ->context
@@ -126,6 +128,10 @@ class RangeValidatorTest extends TestCase
 
     /**
      * @dataProvider invalidValuesProvider
+     * @param array $options
+     * @param int|float $value
+     * @param int|float $limit
+     * @param string $message
      */
     public function testValidationFail($options, $value, $limit, $message)
     {
@@ -198,6 +204,8 @@ class RangeValidatorTest extends TestCase
 
     /**
      * @dataProvider notNumericValueProvider
+     * @param array $options
+     * @param $value
      */
     public function testNotNumericValue(array $options, $value)
     {
@@ -255,6 +263,7 @@ class RangeValidatorTest extends TestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      *
      * @dataProvider notNumericLimitProvider
+     * @param $options
      */
     public function testNotNumericLimit($options)
     {

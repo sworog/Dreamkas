@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     var Product = require('./product'),
-        SubCategory = require('./catalogSubCategory');
+        SubCategory = require('./subCategory');
 
     describe("Test product type Weight", function() {
         var product, productJSON;

@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 
     return Page.extend({
         partials: {
-            content: require('tpl!./content.ejs')
+            content: require('ejs!./content.ejs')
         },
         models: {
             storeGrossSales: function(){

@@ -5,13 +5,13 @@
  * @model
  */
 %>
-
 <% var partials = {
-    unit: require('tpl!./unitFields.ejs'),
-    weight: require('tpl!./weightFields.ejs'),
-    alcohol: require('tpl!./alcoholFields.ejs'),
-    select_priceRoundings: require('tpl!blocks/select/select_priceRoundings/select_priceRoundings.ejs'),
-    select_vat: require('tpl!blocks/select/select_vat/select_vat.ejs')
+    unit: require('ejs!./unitFields.ejs'),
+    weight: require('ejs!./weightFields.ejs'),
+    alcohol: require('ejs!./alcoholFields.ejs'),
+    select_priceRoundings: require('ejs!blocks/select/select_priceRoundings/select_priceRoundings.ejs'),
+    select_vat: require('ejs!blocks/select/select_vat/select_vat.ejs'),
+    retailPricePreferenceFields: require('ejs!./retailPricePreferenceFields.ejs')
 } %>
 <% var formatMoney = require('kit/formatMoney') %>
 <% var ProductModel = require('models/product') %>
@@ -65,7 +65,7 @@
         <div class="form__field">
             <label class="form__label">Единица измерения</label>
 
-            <div name="units">Штуки</div>
+            <div class="form_product__units" name="units">Штуки</div>
         </div>
         <div class="form__field">
             <label class="form__label" required>НДС</label>
@@ -87,76 +87,50 @@
             <input value="<%- model.get('vendor') %>" class="inputText" type="text" name="vendor"/>
         </div>
 
-        <!-- Advanced fields -->
         <div class="form_product__productTypePropertiesFields">
             <%= partials[model.get('type')]({
                 model: model
-            })%>
+            }) %>
         </div>
 
         <div class="form__field">
             <label class="form__label">Цена закупки</label>
+
             <input style="width: 150px;"
                    value="<%- model.get('purchasePrice') ? formatMoney(model.get('purchasePrice')) : '' %>"
-                   class="inputText" type="text" name="purchasePrice"/>
+                   class="inputText"
+                   type="text"
+                   name="purchasePrice"/>
+
             <span class="inputText__postfix">руб.</span>
         </div>
-        <div class="form__field productForm__retailMarkupField">
-            <label class="form__label">Диапазон наценки</label>
 
-                <span name="retailMarkup"
-                      class="retailMarkup productForm__linkedInput">
+        <input type="radio"
+               id="retailMarkupPreferenceRadio"
+               class="form_product__retailPricePreferenceRadio"
+               name="retailPricePreference"
+               value="retailMarkup"
+                <%- model.get('retailPricePreference') === 'retailMarkup' ? 'checked' : ''%> />
 
-                    <input
-                            style="width: 100px;"
-                            value="<%- model.get('retailMarkupMin') || model.get('subCategory.retailMarkupMin') %>"
-                            class="inputText"
-                            type="text"
-                            name="retailMarkupMin"/>
-                    -
-                    <input
-                            style="width: 100px;"
-                            value="<%- model.get('retailMarkupMax') || model.get('subCategory.retailMarkupMax') %>"
-                            class="inputText"
-                            type="text"
-                            name="retailMarkupMax"/>
-                </span>
-                <span class="productForm__inputLink">
-                    <span class="productForm__inputLinkText" name="retailMarkupHint"></span>
-                </span>
-            <span class="inputText__postfix">%</span>
-            <span class="productForm__disableHint">Введите цену закупки</span>
-        </div>
-        <div class="form__field productForm__retailPriceField">
-            <label class="form__label">Диапазон цены продажи</label>
-            <div name="retailPrice"
-                 class="retailPrice productForm__linkedInput productForm__hiddenInput">
-                <input
-                        style="width: 100px;"
-                        value="<%- model.get('retailPriceMin') ? formatMoney(model.get('retailPriceMin')) : '' %>"
-                        class="inputText"
-                        type="text"
-                        name="retailPriceMin"/>
-                -
-                <input
-                        style="width: 100px;"
-                        value="<%- model.get('retailPriceMax') ? formatMoney(model.get('retailPriceMax')) : '' %>"
-                        class="inputText"
-                        type="text"
-                        name="retailPriceMax"/>
-            </div>
-            <span class="productForm__inputLink">
-                <span class="productForm__inputLinkText" name="retailPriceHint"></span>
-            </span>
-            <span class="inputText__postfix">руб.</span>
-            <span class="productForm__disableHint">Введите цену закупки</span>
-        </div>
+        <input type="radio"
+               id="retailPricePreferenceRadio"
+               class="form_product__retailPricePreferenceRadio"
+               name="retailPricePreference"
+               value="retailPrice"
+                <%- model.get('retailPricePreference') === 'retailPrice' ? 'checked' : ''%> />
+
+        <%= partials.retailPricePreferenceFields({
+            model: model,
+            purchasePrice: model.get('purchasePrice')
+        }) %>
+
         <div class="form__field">
             <label class="form__label">Округление</label>
             <%= partials.select_priceRoundings({
                 selected: model.get('rounding.name') || models.subCategory.get('rounding.name')
             }) %>
         </div>
+
     </fieldset>
     <div class="form__controls">
         <button type="submit" class="button">

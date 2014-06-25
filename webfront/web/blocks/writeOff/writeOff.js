@@ -11,15 +11,15 @@ define(function(require) {
             __name__: 'writeOff',
             editMode: false,
             dataEditing: false,
-            template: require('tpl!blocks/writeOff/templates/index.html'),
+            template: require('ejs!blocks/writeOff/templates/index.html'),
             templates: {
-                index: require('tpl!blocks/writeOff/templates/index.html'),
-                dataInput: require('tpl!blocks/writeOff/templates/dataInput.html'),
-                dataInputAutocomplete: require('tpl!blocks/writeOff/templates/dataInputAutocomplete.html'),
-                dataInputControls: require('tpl!blocks/writeOff/templates/dataInputControls.html'),
-                footer: require('tpl!blocks/writeOff/templates/footer.html'),
-                head: require('tpl!blocks/writeOff/templates/head.html'),
-                removeConfirm: require('tpl!blocks/writeOff/templates/removeConfirm.html')
+                index: require('ejs!blocks/writeOff/templates/index.html'),
+                dataInput: require('ejs!blocks/writeOff/templates/dataInput.html'),
+                dataInputAutocomplete: require('ejs!blocks/writeOff/templates/dataInputAutocomplete.html'),
+                dataInputControls: require('ejs!blocks/writeOff/templates/dataInputControls.html'),
+                footer: require('ejs!blocks/writeOff/templates/footer.html'),
+                head: require('ejs!blocks/writeOff/templates/head.html'),
+                removeConfirm: require('ejs!blocks/writeOff/templates/removeConfirm.html')
             },
             listeners: {
                 writeOffModel: {

@@ -21,6 +21,7 @@ class RecalcProductPriceFactory
      * @DI\InjectParams({
      *      "versionFactory" = @DI\Inject("lighthouse.core.versionable.factory")
      * })
+     * @param VersionFactory $versionFactory
      */
     public function __construct(VersionFactory $versionFactory)
     {

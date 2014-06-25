@@ -3,7 +3,7 @@ define(function(require) {
         var Tooltip = require('blocks/tooltip/tooltip');
 
         return Tooltip.extend({
-            template: require('tpl!./template.ejs'),
+            template: require('ejs!./template.ejs'),
             model: null,
             events: {
                 'click .tooltip__editLink': function(e) {

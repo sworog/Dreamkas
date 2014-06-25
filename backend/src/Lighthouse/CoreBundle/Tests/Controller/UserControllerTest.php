@@ -56,6 +56,9 @@ class UserControllerTest extends WebTestCase
 
     /**
      * @dataProvider userValidationProvider
+     * @param int $expectedCode
+     * @param array $data
+     * @param array $assertions
      */
     public function testPostUserActionValidation(
         $expectedCode,
@@ -86,6 +89,9 @@ class UserControllerTest extends WebTestCase
 
     /**
      * @dataProvider editUserValidationPasswordProvider
+     * @param int $expectedCode
+     * @param array $data
+     * @param array $assertions
      */
     public function testPutUserAction(
         $expectedCode,
@@ -94,8 +100,8 @@ class UserControllerTest extends WebTestCase
     ) {
         $userData = array(
             'email'     => 'qwe@qwe.qwe',
-            'name'      => 'ASFFS',
-            'position'  => 'SFwewe',
+            'name'      => 'name',
+            'position'  => 'position',
             'roles'     => array(User::ROLE_COMMERCIAL_MANAGER),
             'password'  => 'qwerty',
         );
@@ -241,9 +247,9 @@ class UserControllerTest extends WebTestCase
     public function testPasswordChange()
     {
         $userData = array(
-            'email'     => 'qweqwe@test.com',
-            'name'      => 'ASFFS',
-            'position'  => 'SFwewe',
+            'email'     => 'qwerty@test.com',
+            'name'      => 'Name',
+            'position'  => 'Position',
             'roles'     => array(User::ROLE_COMMERCIAL_MANAGER),
             'password'  => 'qwerty',
         );
@@ -268,9 +274,9 @@ class UserControllerTest extends WebTestCase
         $oldPasswordHash = $userModel->password;
 
         $newUserData = array(
-            'email'     => 'qweqwe@test.com',
-            'name'      => 'ASFFSssd',
-            'position'  => 'SFwewe',
+            'email'     => 'qwerty@test.com',
+            'name'      => 'NewName',
+            'position'  => 'NewPosition',
             'roles'     => array(User::ROLE_COMMERCIAL_MANAGER),
             'password'  => '',
         );
@@ -328,7 +334,7 @@ class UserControllerTest extends WebTestCase
             ),
             'not valid password equals username' => array(
                 400,
-                array('password' => 'userer@test.com', 'email' => 'userer@test.com'),
+                array('password' => 'password@test.com', 'email' => 'password@test.com'),
                 array(
                     'children.password.errors.0' => 'E-mail и пароль не должны совпадать'
                 )
@@ -418,7 +424,7 @@ class UserControllerTest extends WebTestCase
             ),
             'not valid role' => array(
                 400,
-                array('roles' => array('govnar')),
+                array('roles' => array('GOD')),
                 array(
                     'children.roles.errors.0' => 'Значение недопустимо.'
                 )
@@ -529,8 +535,8 @@ class UserControllerTest extends WebTestCase
             'not valid password equals email' => array(
                 400,
                 array(
-                    'password' => 'userer@test.com',
-                    'email' => 'userer@test.com'
+                    'password' => 'password@test.com',
+                    'email' => 'password@test.com'
                 ),
                 array(
                     'children.password.errors.0' => 'E-mail и пароль не должны совпадать'
@@ -541,6 +547,7 @@ class UserControllerTest extends WebTestCase
 
     /**
      * @dataProvider userProvider
+     * @param array $data
      */
     public function testGetUsersAction(array $data)
     {
@@ -580,6 +587,7 @@ class UserControllerTest extends WebTestCase
 
     /**
      * @dataProvider getUsersActionPermissionDeniedProvider
+     * @param string $role
      */
     public function testGetUsersActionPermissionDenied($role)
     {
@@ -609,6 +617,7 @@ class UserControllerTest extends WebTestCase
 
     /**
      * @dataProvider userProvider
+     * @param array $postData
      */
     public function testGetUserAction(array $postData)
     {

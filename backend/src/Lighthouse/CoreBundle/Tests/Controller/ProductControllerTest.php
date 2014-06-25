@@ -19,6 +19,7 @@ class ProductControllerTest extends WebTestCase
 {
     /**
      * @dataProvider productProvider
+     * @param array $postData
      */
     public function testPostProductAction(array $postData)
     {
@@ -85,6 +86,9 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider validateProvider
+     * @param int $expectedCode
+     * @param array $data
+     * @param array $assertions
      */
     public function testPostProductInvalidData($expectedCode, array $data, array $assertions = array())
     {
@@ -137,6 +141,7 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider productProvider
+     * @param array $postData
      */
     public function testPutProductAction(array $postData)
     {
@@ -187,6 +192,7 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider productProvider
+     * @param array $putData
      */
     public function testPutProductActionNotFound(array $putData)
     {
@@ -208,6 +214,7 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider productProvider
+     * @param array $postData
      */
     public function testPutProductActionInvalidData(array $postData)
     {
@@ -248,6 +255,7 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider productProvider
+     * @param array $postData
      */
     public function testPutProductActionChangeId(array $postData)
     {
@@ -342,6 +350,7 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider productProvider
+     * @param array $postData
      */
     public function testGetProduct(array $postData)
     {
@@ -735,7 +744,7 @@ class ProductControllerTest extends WebTestCase
              ***********************************************************************************************/
             'valid barcode' => array(
                 201,
-                array('barcode' => 'ijashglkalgh2378rt8237t4rjhdg '),
+                array('barcode' => 'Problem resolution Save to dictionary '),
             ),
             'valid barcode empty' => array(
                 201,
@@ -759,7 +768,7 @@ class ProductControllerTest extends WebTestCase
              ***********************************************************************************************/
             'valid vendor' => array(
                 201,
-                array('vendor' => 'asdsadjhg2124jk 124 " 1!@3 - _ =_+[]<>$;&%#№'),
+                array('vendor' => 'vendor 124 " 1!@3 - _ =_+[]<>$;&%#№'),
             ),
             'valid vendor empty' => array(
                 201,
@@ -783,7 +792,7 @@ class ProductControllerTest extends WebTestCase
              ***********************************************************************************************/
             'valid vendorCountry' => array(
                 201,
-                array('vendorCountry' => 'asdsadjhg2124jk 124 " 1!@3 - _ =_+[]<>$;&%#№'),
+                array('vendorCountry' => 'vendor country 124 " 1!@3 - _ =_+[]<>$;&%#№'),
             ),
             'valid vendorCountry empty' => array(
                 201,
@@ -807,7 +816,7 @@ class ProductControllerTest extends WebTestCase
              ***********************************************************************************************/
             'valid info' => array(
                 201,
-                array('info' => 'asdsadjhg2124jk 124 " 1!@3 - _ =_+[]<>$;&%#№'),
+                array('info' => 'info 124 " 1!@3 - _ =_+[]<>$;&%#№'),
             ),
             'valid info empty' => array(
                 201,
@@ -1279,6 +1288,8 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider validRetailPriceProvider
+     * @param array $postData
+     * @param array $assertions
      */
     public function testPostProductActionSetRetailsPriceValid(array $postData, array $assertions = array())
     {
@@ -1300,6 +1311,8 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider invalidRetailPriceProvider
+     * @param array $postData
+     * @param array $assertions
      */
     public function testPostProductActionSetRetailsPriceInvalid(array $postData, array $assertions = array())
     {
@@ -1321,6 +1334,8 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider validRetailPriceProvider
+     * @param array $putData
+     * @param array $assertions
      */
     public function testPutProductActionSetRetailPriceValid(array $putData, array $assertions = array())
     {
@@ -1364,6 +1379,8 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider invalidRetailPriceProvider
+     * @param array $putData
+     * @param array $assertions
      */
     public function testPutProductActionSetRetailPriceInvalid(array $putData, array $assertions = array())
     {

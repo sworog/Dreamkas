@@ -14,7 +14,7 @@ define(function(require) {
         },
         currentUserModel: currentUserModel,
         partials: {
-            '#content': require('tpl!./templates/returns.html')
+            '#content': require('ejs!./templates/returns.html')
         },
         initialize: function(params) {
             var page = this;

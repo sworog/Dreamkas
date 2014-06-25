@@ -65,8 +65,8 @@ define(function(require) {
             }
         },
         partials: {
-            content: require('tpl!./content.ejs'),
-            localNavigation: require('tpl!blocks/localNavigation/localNavigation_catalog.ejs')
+            content: require('ejs!./content.ejs'),
+            localNavigation: require('ejs!blocks/localNavigation/localNavigation_catalog.ejs')
         },
         collections: {
             groups: require('collections/groups')

@@ -38,6 +38,9 @@ class InvoiceProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider productTotalPriceCalculationProvider
+     * @param string|float $quantity
+     * @param string|float $price
+     * @param string|float $totalPrice
      */
     public function testProductTotalPriceCalculation($quantity, $price, $totalPrice)
     {
@@ -265,6 +268,9 @@ class InvoiceProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider validationProvider
+     * @param int $expectedCode
+     * @param array $data
+     * @param array $assertions
      */
     public function testPostActionValidation($expectedCode, array $data, array $assertions = array())
     {
@@ -290,6 +296,9 @@ class InvoiceProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider validationProvider
+     * @param int $expectedCode
+     * @param array $data
+     * @param array $assertions
      */
     public function testPostWithValidationGroup($expectedCode, array $data, array $assertions = array())
     {
@@ -558,6 +567,12 @@ class InvoiceProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider putInvoiceProvider
+     * @param float $quantity
+     * @param float $price
+     * @param float $totalPrice
+     * @param float $newQuantity
+     * @param float $newPrice
+     * @param float $newTotalPrice
      */
     public function testPutInvoiceProductAction($quantity, $price, $totalPrice, $newQuantity, $newPrice, $newTotalPrice)
     {
@@ -646,6 +661,12 @@ class InvoiceProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider putInvoiceProductActionChangeProductIdProvider
+     * @param float $quantity1
+     * @param float $price1
+     * @param float $invoiceSumTotal1
+     * @param float $quantity2
+     * @param float $price2
+     * @param float $invoiceSumTotal2
      */
     public function testPutInvoiceProductActionChangeProductId(
         $quantity1,

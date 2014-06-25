@@ -210,7 +210,7 @@ class StoreController extends AbstractRestController
         $role = Store::getRoleByRel($link->getRel());
         if (!$user->hasUserRole($role)) {
             throw new BadRequestHttpException(
-                sprintf("User '%s' does not have %s role", $user->username, $role)
+                sprintf("User '%s' does not have %s role", $user->email, $role)
             );
         }
     }

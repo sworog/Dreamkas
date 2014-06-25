@@ -29,9 +29,9 @@ class ListClientTest extends TestCase
         $clients[] = $client1;
 
         $client2 = new Client();
-        $client2->setId('webbo');
-        $client2->setRandomId('dwd4324234jkn23j42');
-        $client2->setSecret('retsec');
+        $client2->setId('android');
+        $client2->setRandomId('99754106633f94d350db34d548d6091a');
+        $client2->setSecret('password');
         $clients[] = $client2;
 
         $clientRepositoryMock->expects($this->once())
@@ -49,6 +49,6 @@ class ListClientTest extends TestCase
 
         $display = $commandTester->getDisplay();
         $this->assertContains('Client PublicID: test_random, Secret: secret', $display);
-        $this->assertContains('Client PublicID: webbo_dwd4324234jkn23j42, Secret: retsec', $display);
+        $this->assertContains('Client PublicID: android_99754106633f94d350db34d548d6091a, Secret: password', $display);
     }
 }

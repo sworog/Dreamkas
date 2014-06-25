@@ -230,7 +230,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->auth($commUser, 'password');
 
-        $request = new JsonRequest('/api/1/stores/notfoundstore' . $storeId, 'LINK');
+        $request = new JsonRequest('/api/1/stores/not_found_store' . $storeId, 'LINK');
         $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_STORE_MANAGERS);
 
         $linkResponse = $this->jsonRequest($request, $accessToken);
@@ -274,7 +274,7 @@ class StoreControllerManagementTest extends WebTestCase
     {
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
-        $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/notfoundstore/storeManagers');
+        $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/not_found_store/storeManagers');
 
         $this->assertResponseCode(404);
 

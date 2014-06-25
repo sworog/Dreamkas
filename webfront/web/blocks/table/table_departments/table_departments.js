@@ -5,8 +5,8 @@ define(function(require) {
     return Table.extend({
         __name__: 'table_stores',
         templates: {
-            head: require('tpl!blocks/table/table_departments/templates/head.html'),
-            tr: require('tpl!blocks/table/table_departments/templates/tr.html')
+            head: require('ejs!blocks/table/table_departments/templates/head.html'),
+            tr: require('ejs!blocks/table/table_departments/templates/tr.html')
         }
     });
 });

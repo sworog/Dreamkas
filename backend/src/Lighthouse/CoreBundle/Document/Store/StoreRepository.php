@@ -2,8 +2,12 @@
 
 namespace Lighthouse\CoreBundle\Document\Store;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 
+/**
+ * @method Store[]|Cursor findAll
+ */
 class StoreRepository extends DocumentRepository
 {
     /**

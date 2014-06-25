@@ -12,7 +12,7 @@ define(function(require) {
             subCategory: null
         },
         partials: {
-            '#content': require('tpl!./templates/form.html')
+            '#content': require('ejs!./templates/form.html')
         },
         permissions: {
             products: 'POST'

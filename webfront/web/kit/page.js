@@ -13,6 +13,8 @@ define(function(require, exports, module) {
         constructor: function(request) {
             var page = this;
 
+            request = _.extend({}, request);
+
             if (Page.current && Page.current.route === request.route){
                 Page.current.set(request, {
                     replace: true
@@ -45,7 +47,7 @@ define(function(require, exports, module) {
         },
 
         el: document.body,
-        template: require('tpl!pages/template.ejs'),
+        template: require('ejs!pages/template.ejs'),
 
         listeners: {
             'change:params': function(params, options){
@@ -68,7 +70,7 @@ define(function(require, exports, module) {
             localNavigation: function() {
                 return '';
             },
-            globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation.ejs')
+            globalNavigation: require('ejs!blocks/globalNavigation/globalNavigation.ejs')
         },
 
         _initResources: function() {
@@ -95,12 +97,12 @@ define(function(require, exports, module) {
             Promise.resolve(page.fetch()).then(function() {
                 try {
                     page.render();
+                    page.trigger('loaded');
                     page.el.setAttribute('status', 'loaded');
                 } catch (error) {
                     console.error(error);
                 }
             }, function(error) {
-                console.error(error);
                 page.set('error', error);
             });
         },
@@ -116,7 +118,9 @@ define(function(require, exports, module) {
             Sortable.init();
 
             if (autofocus){
-                autofocus.focus();
+                setTimeout(function(){
+                    autofocus.focus();
+                }, 0);
             }
 
         },
@@ -133,6 +137,14 @@ define(function(require, exports, module) {
             });
 
             return Promise.all(fetchList);
+        },
+
+        destroy: function(){
+            var page = this;
+
+            delete Page.current;
+
+            Block.prototype.destroy.apply(page, arguments);
         }
     });
 

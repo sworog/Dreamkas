@@ -98,6 +98,8 @@ class InvoiceControllerTest extends WebTestCase
 
     /**
      * @dataProvider postInvoiceDataProvider
+     * @param array $invoiceData
+     * @param array $assertions
      */
     public function testGetInvoice(array $invoiceData, array $assertions)
     {
@@ -195,6 +197,9 @@ class InvoiceControllerTest extends WebTestCase
 
     /**
      * @dataProvider validateProvider
+     * @param int $expectedCode
+     * @param array $data
+     * @param array $assertions
      */
     public function testPostInvoiceValidation($expectedCode, array $data, array $assertions = array())
     {
@@ -221,7 +226,8 @@ class InvoiceControllerTest extends WebTestCase
     }
 
     /**
-      * @dataProvider providerSupplierInvoiceDateIsValidAndAcceptanceDateIsInvalid
+     * @dataProvider providerSupplierInvoiceDateIsValidAndAcceptanceDateIsInvalid
+     * @param array $data
      */
     public function testPostInvoiceSupplierInvoiceDateIsValidAndAcceptanceDateIsInvalid(array $data)
     {

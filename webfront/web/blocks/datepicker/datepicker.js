@@ -10,12 +10,12 @@ define(function(require) {
             selectedDate: null,
             noTime: false,
             dateList: [],
-            template: require('tpl!blocks/datepicker/templates/index.html'),
+            template: require('ejs!blocks/datepicker/templates/index.html'),
             templates: {
-                index: require('tpl!blocks/datepicker/templates/index.html'),
-                controls: require('tpl!blocks/datepicker/templates/controls.html'),
-                dateList: require('tpl!blocks/datepicker/templates/dateList.html'),
-                header: require('tpl!blocks/datepicker/templates/header.html')
+                index: require('ejs!blocks/datepicker/templates/index.html'),
+                controls: require('ejs!blocks/datepicker/templates/controls.html'),
+                dateList: require('ejs!blocks/datepicker/templates/dateList.html'),
+                header: require('ejs!blocks/datepicker/templates/header.html')
             },
 
             initialize: function() {

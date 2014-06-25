@@ -8,7 +8,7 @@ define(function(require, exports, module) {
             groupId: null
         },
         partials: {
-            content: require('tpl!./content.ejs')
+            content: require('ejs!./content.ejs')
         },
         models: {
             group: function(){

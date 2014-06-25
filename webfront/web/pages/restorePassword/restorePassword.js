@@ -4,8 +4,8 @@ define(function(require, exports, module) {
 
     return Page.extend({
         partials: {
-            content: require('tpl!./content.ejs'),
-            globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation_login.ejs')
+            content: require('ejs!./content.ejs'),
+            globalNavigation: require('ejs!blocks/globalNavigation/globalNavigation_login.ejs')
         },
         blocks: {
             form_restorePassword: require('blocks/form/form_restorePassword/form_restorePassword')

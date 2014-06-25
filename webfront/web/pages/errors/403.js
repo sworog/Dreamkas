@@ -5,7 +5,7 @@ define(function(require) {
     return Page.extend({
         __name__: 'page_error_403',
         partials: {
-            '#content': require('tpl!./templates/403.html')
+            '#content': require('ejs!./templates/403.html')
         }
     });
 });

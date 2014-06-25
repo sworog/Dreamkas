@@ -143,6 +143,7 @@ class Set10SalesImportTest extends WebTestCase
      * @expectedException \Lighthouse\CoreBundle\Exception\RuntimeException
      * @expectedExceptionMessage Failed to read directory
      * @dataProvider invalidDirectoryProvider
+     * @param string $url
      */
     public function testInvalidDirectory($url)
     {

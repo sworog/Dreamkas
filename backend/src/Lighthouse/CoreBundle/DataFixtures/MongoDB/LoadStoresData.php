@@ -6,9 +6,7 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Security\Project\ProjectContext;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
-use Lighthouse\CoreBundle\Document\User\User;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 class LoadStoresData extends ContainerAware implements FixtureInterface, OrderedFixtureInterface

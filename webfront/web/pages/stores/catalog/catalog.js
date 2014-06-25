@@ -24,7 +24,7 @@ define(function(require) {
             }
         },
         partials: {
-            content: require('tpl!./content.ejs')
+            content: require('ejs!./content.ejs')
         },
         collections: {
             groups: function(){

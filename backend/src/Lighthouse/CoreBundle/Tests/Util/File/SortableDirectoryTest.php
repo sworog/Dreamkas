@@ -11,6 +11,7 @@ class SortableDirectoryTest extends ContainerAwareTestCase
      * @dataProvider invalidDirectoryProvider
      * @expectedException \UnexpectedValueException
      * @expectedExceptionMessage does not exist
+     * @param string $path
      */
     public function testInvalidDirectory($path)
     {

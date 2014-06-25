@@ -72,8 +72,8 @@ define(function(require, exports, module) {
             }
         },
         partials: {
-            content: require('tpl!./content.ejs'),
-            localNavigation: require('tpl!blocks/localNavigation/localNavigation_group.ejs')
+            content: require('ejs!./content.ejs'),
+            localNavigation: require('ejs!blocks/localNavigation/localNavigation_group.ejs')
         },
         models: {
             group: function(){

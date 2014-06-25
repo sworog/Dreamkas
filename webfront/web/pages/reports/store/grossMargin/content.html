@@ -1,7 +1,7 @@
 <% var moment = require('moment') %>
 
 <% var templates = {
-    localNavigation_reports: require('tpl!blocks/localNavigation/localNavigation_reports.deprecated.html')
+    localNavigation_reports: require('ejs!blocks/localNavigation/localNavigation_reports.deprecated.html')
 } %>
 <%= templates.localNavigation_reports({
     models: _.pick(models, 'store'),
