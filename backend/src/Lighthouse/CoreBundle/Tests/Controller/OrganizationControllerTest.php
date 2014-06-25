@@ -205,20 +205,7 @@ class OrganizationControllerTest extends WebTestCase
 
         $ids = array();
         for ($i = 1; $i <= 5; $i++) {
-            $postData = array(
-                'name' => 'Колян ' . $i
-            );
-
-            $postResponse = $this->clientJsonRequest(
-                $accessToken,
-                'POST',
-                '/api/1/organizations',
-                $postData
-            );
-
-            $this->assertResponseCode(201);
-            Assert::assertJsonHasPath('id', $postResponse);
-            $ids[] = $postResponse['id'];
+            $ids[] = $this->createOrganization('Колян ' . $i, $accessToken);
         }
 
         $getResponse = $this->clientJsonRequest(
@@ -237,15 +224,15 @@ class OrganizationControllerTest extends WebTestCase
     }
 
     /**
-     * @param string $name
+     * @param array|string $postData
      * @param object $accessToken
      * @return string
      */
-    protected function createOrganization($name, $accessToken)
+    protected function createOrganization($postData, $accessToken)
     {
-        $postData = array(
-            'name' => $name
-        );
+        if (is_string($postData)) {
+            $postData = array('name' => $postData);
+        }
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
@@ -498,13 +485,13 @@ class OrganizationControllerTest extends WebTestCase
                 array(
                     'children.legalDetails.children.okpo.errors.0'
                     =>
-                        'ОКПО индивидуально предпринимателя должен состоять из 10 цифр',
+                    'ОКПО индивидуально предпринимателя должен состоять из 10 цифр',
                     'children.legalDetails.children.inn.errors.0'
                     =>
-                        'ИНН индивидуально предпринимателя должен состоять из 12 цифр',
+                    'ИНН индивидуально предпринимателя должен состоять из 12 цифр',
                     'children.legalDetails.children.ogrnip.errors.0'
                     =>
-                        'ОГРНИП должен состоять из 15 цифр',
+                    'ОГРНИП должен состоять из 15 цифр',
                 )
             ),
             'entrepreneur invalid max length' => array(
@@ -520,16 +507,16 @@ class OrganizationControllerTest extends WebTestCase
                 array(
                     'children.legalDetails.children.okpo.errors.0'
                     =>
-                        'ОКПО индивидуально предпринимателя должен состоять из 10 цифр',
+                    'ОКПО индивидуально предпринимателя должен состоять из 10 цифр',
                     'children.legalDetails.children.inn.errors.0'
                     =>
-                        'ИНН индивидуально предпринимателя должен состоять из 12 цифр',
+                    'ИНН индивидуально предпринимателя должен состоять из 12 цифр',
                     'children.legalDetails.children.ogrnip.errors.0'
                     =>
-                        'ОГРНИП должен состоять из 15 цифр',
+                    'ОГРНИП должен состоять из 15 цифр',
                     'children.legalDetails.children.certificateNumber.errors.0'
                     =>
-                        'Не более 25 символов',
+                    'Не более 25 символов',
                 )
             ),
             'entrepreneur invalid not digits' => array(
@@ -544,13 +531,13 @@ class OrganizationControllerTest extends WebTestCase
                 array(
                     'children.legalDetails.children.okpo.errors.0'
                     =>
-                        'ОКПО индивидуально предпринимателя должен состоять из 10 цифр',
+                    'ОКПО индивидуально предпринимателя должен состоять из 10 цифр',
                     'children.legalDetails.children.inn.errors.0'
                     =>
-                        'ИНН индивидуально предпринимателя должен состоять из 12 цифр',
+                    'ИНН индивидуально предпринимателя должен состоять из 12 цифр',
                     'children.legalDetails.children.ogrnip.errors.0'
                     =>
-                        'ОГРНИП должен состоять из 15 цифр',
+                    'ОГРНИП должен состоять из 15 цифр',
                 )
             ),
             'entrepreneur invalid certificate date' => array(
@@ -578,5 +565,87 @@ class OrganizationControllerTest extends WebTestCase
                 )
             ),
         );
+    }
+
+    public function testPatchUnsetAndEmptyFields()
+    {
+        $user = $this->factory()->user()->createProjectUser();
+        $accessToken = $this->factory()->oauth()->auth($user);
+
+        $postData = array(
+            'name' => 'ИП "Борисов"',
+            'phone' => '+79023456789',
+            'fax' => '(812) 234-09-88',
+            'email' => 'boris.ov@list.ru',
+            'director' => 'Борисов Иван Петрович',
+            'chiefAccountant' => 'Борисова Надежда Ильинишна',
+            'address' => 'Борисполь, ул. Ленина д.38',
+            'legalDetails' => array(
+                'type' => LegalEntityLegalDetails::TYPE,
+                'fullName' => 'ООО "ДРИНК"',
+                'legalAddress' => '650055, КЕМЕРОВСКАЯ обл, КЕМЕРОВО г, СИБИРЯКОВ-ГВАРДЕЙЦЕВ ул, 1',
+                'okpo' => '37718962',
+                'inn' => '4205244100',
+                'kpp' => '420501001',
+                'ogrn' => '1124205008487',
+            )
+        );
+
+        $organizationId = $this->createOrganization($postData, $accessToken);
+
+        $patchData = array(
+            'name' => 'ИП "Борисов"',
+            'phone' => '',
+            'fax' => null,
+            'director' => 'Борисов И.П.',
+            'chiefAccountant' => 'Борисова Н.И.',
+            'address' => 'Борисполь, ул. Ленина д.38',
+            'legalDetails' => array(
+                'type' => LegalEntityLegalDetails::TYPE,
+                'fullName' => 'ООО "ДРИНК"',
+                'legalAddress' => '650055, КЕМЕРОВСКАЯ обл, КЕМЕРОВО г, СИБИРЯКОВ-ГВАРДЕЙЦЕВ ул, 1',
+                'okpo' => '',
+                'inn' => null,
+                'ogrn' => '1124205008488',
+            )
+        );
+
+        $patchResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PATCH',
+            '/api/1/organizations/' . $organizationId,
+            $patchData
+        );
+
+        $this->assertResponseCode(200);
+
+        $expectedData = array(
+            'id' => $organizationId,
+            'name' => 'ИП "Борисов"',
+            'email' => 'boris.ov@list.ru',
+            'director' => 'Борисов И.П.',
+            'chiefAccountant' => 'Борисова Н.И.',
+            'address' => 'Борисполь, ул. Ленина д.38',
+            'legalDetails' => array(
+                'type' => LegalEntityLegalDetails::TYPE,
+                'fullName' => 'ООО "ДРИНК"',
+                'legalAddress' => '650055, КЕМЕРОВСКАЯ обл, КЕМЕРОВО г, СИБИРЯКОВ-ГВАРДЕЙЦЕВ ул, 1',
+                'kpp' => '420501001',
+                'ogrn' => '1124205008488',
+            )
+        );
+
+        $this->assertEquals($expectedData, $patchResponse);
+
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/organizations/' . $organizationId
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertSame($patchResponse, $getResponse);
     }
 }
