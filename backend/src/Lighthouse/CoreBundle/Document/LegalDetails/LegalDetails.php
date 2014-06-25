@@ -4,9 +4,16 @@ namespace Lighthouse\CoreBundle\Document\LegalDetails;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Lighthouse\CoreBundle\Document\Organization\Organization;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
+ * @property string $id
+ * @property string $fullName
+ * @property string $legalAddress
+ * @property Organization $organization
+ *
  * @MongoDB\MappedSuperclass(repositoryClass="Lighthouse\CoreBundle\Document\LegalDetails\LegalDetailsRepository")
  * @MongoDB\InheritanceType("SINGLE_COLLECTION")
  * @MongoDB\DiscriminatorField("type")
@@ -15,7 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      "legalEntity" = "Lighthouse\CoreBundle\Document\LegalDetails\LegalEntityLegalDetails"
  * })
  */
-abstract class LegalDetails extends AbstractDocument
+class LegalDetails extends AbstractDocument
 {
     const TYPE = 'abstract';
 
@@ -40,17 +47,18 @@ abstract class LegalDetails extends AbstractDocument
     protected $legalAddress;
 
     /**
-     * @MongoDB\String
-     * @Assert\Length(
-     *      min=10,
-     *      max=10,
-     *      exactMessage="lighthouse.validation.errors.legal_details.okpo.length"
+     * @MongoDB\ReferenceOne(
+     *     targetDocument="Lighthouse\CoreBundle\Document\Organization\Organization",
+     *     simple=true,
+     *     cascade="persist"
      * )
-     * @var string
+     * @var Organization
      */
-    protected $okpo;
+    protected $organization;
 
     /**
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("type")
      * @return string
      */
     public function getType()

@@ -130,12 +130,12 @@ class SubCategoryController extends AbstractRestController
 
     /**
      * @param SubCategory $subCategory
-     * @return null
+     * @return void
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
     public function deleteSubcategoriesAction(SubCategory $subCategory)
     {
-        return $this->processDelete($subCategory);
+        $this->processDelete($subCategory);
     }
 }

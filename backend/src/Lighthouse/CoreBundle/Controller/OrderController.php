@@ -108,12 +108,12 @@ class OrderController extends AbstractRestController
      * @param Order $order
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
-     * @return null
+     * @return void
      */
     public function deleteOrderAction(Store $store, Order $order)
     {
         $this->checkOrderStore($store, $order);
-        return $this->processDelete($order);
+        $this->processDelete($order);
     }
 
     /**

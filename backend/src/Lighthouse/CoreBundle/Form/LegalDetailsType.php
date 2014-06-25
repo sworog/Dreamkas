@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Form;
 
 use Lighthouse\CoreBundle\Document\LegalDetails\EntrepreneurLegalDetails;
+use Lighthouse\CoreBundle\Document\LegalDetails\LegalDetails;
 use Lighthouse\CoreBundle\Document\LegalDetails\LegalEntityLegalDetails;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -20,7 +21,6 @@ class LegalDetailsType extends AbstractType
         $builder
             ->add('fullName', 'text')
             ->add('legalAddress', 'text')
-            ->add('okpo', 'text')
             ->add(
                 'type',
                 'text',
@@ -69,10 +69,15 @@ class LegalDetailsType extends AbstractType
      */
     public function buildLegalEntityForm(FormInterface $form)
     {
+        if (!$form->getData() instanceof LegalEntityLegalDetails) {
+            $form->setData(new LegalEntityLegalDetails());
+        }
+
         $form
             ->add('inn', 'text')
             ->add('kpp', 'text')
             ->add('ogrn', 'text')
+            ->add('okpo', 'text')
         ;
     }
 
@@ -81,9 +86,14 @@ class LegalDetailsType extends AbstractType
      */
     public function buildEntrepreneurForm(FormInterface $form)
     {
+        if (!$form->getData() instanceof EntrepreneurLegalDetails) {
+            $form->setData(new EntrepreneurLegalDetails());
+        }
+
         $form
             ->add('inn', 'text')
-            ->add('orgnip', 'text')
+            ->add('ogrnip', 'text')
+            ->add('okpo', 'text')
             ->add('certificateNumber', 'text')
             ->add('certificateDate', 'text')
         ;
@@ -93,6 +103,7 @@ class LegalDetailsType extends AbstractType
     {
         $resolver->setDefaults(
             array(
+                'data_class' => LegalDetails::getClassName(),
                 'csrf_protection' => false,
                 'cascade_validation' => true
             )
