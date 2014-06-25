@@ -27,6 +27,11 @@ public class OrganizationSteps extends ScenarioSteps {
     }
 
     @Step
+    public void clickEditButton() {
+        organizationFormPage.saveButtonClick();
+    }
+
+    @Step
     public void clickCreateNewOrganizationLink() {
         organizationListPage.clickCreateNewOrganizationLink();
     }

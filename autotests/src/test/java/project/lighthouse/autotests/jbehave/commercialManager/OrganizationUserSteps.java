@@ -28,13 +28,18 @@ public class OrganizationUserSteps {
         organizationSteps.clickCreateButton();
     }
 
+    @When("user clicks organization form edit button")
+    public void userClicksCreateFormEditButton() {
+        organizationSteps.clickEditButton();
+    }
+
     @When("user fill organization inputs $fieldInputTable")
     public void userFillInputs(ExamplesTable fieldInputTable) {
         organizationSteps.fillInputs(fieldInputTable);
         organizationData = fieldInputTable;
     }
 
-    @When("user clicks to organization in list with name $name")
+    @When("user clicks to organization in list with name '$name'")
     public void userClicksToOrganizationInListWithName(String name) {
         organizationSteps.clickOrganizationListItemByName(name);
     }
