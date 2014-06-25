@@ -4,7 +4,14 @@ define(function(require, exports, module) {
 
     return Form.extend({
         el: '.form_companyOrganization',
-        redirectUrl: '/company',
+        redirectUrl: function(){
+            var page = this;
+
+            if (!page.get('model.id')){
+                return '/company';
+            }
+        },
+        successMessage: 'Данные организации успешно сохранены',
         model: function(){
             var Model = require('models/companyOrganization/companyOrganization');
 
