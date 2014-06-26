@@ -1,9 +1,8 @@
 define(function(require) {
         //requirements
         var Block = require('kit/block'),
+            formatDate = require('kit/formatDate'),
             moment = require('moment');
-
-        require('jquery.maskedinput');
 
         return Block.extend({
             date: null,
@@ -11,13 +10,27 @@ define(function(require) {
                 tooltip_datepicker: function(){
                     var block = this,
                         Tooltip_datepicker = require('blocks/tooltip/tooltip_datepicker/tooltip_datepicker');
+
+                    var tooltip_datepicker = new Tooltip_datepicker({
+                        target: block.el
+                    });
+
+                    tooltip_datepicker.on('selectdate', function(date){
+                        console.log(date);
+                        block.el.dataset.date = date;
+                        block.el.value = formatDate(date);
+                    });
+
+                    return tooltip_datepicker;
                 }
             },
             events: {
                 'focus': function(e) {
                     var block = this;
 
-                    block.showDatePicker();
+                    block.showDatepicker({
+                        date: +block.el.dataset.date
+                    });
                 },
                 'change': function(e){
                     var block = this,
@@ -30,10 +43,10 @@ define(function(require) {
                     }
                 }
             },
-            showDatePicker: function() {
+            showDatepicker: function(opt) {
                 var block = this;
 
-                console.log(11);
+                block.blocks.tooltip_datepicker.show(opt);
             }
         });
     }

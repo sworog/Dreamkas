@@ -5,7 +5,7 @@ define(function(require) {
         $ = require('jquery');
 
     return Block.extend({
-        trigger: null,
+        target: null,
         container: '.content',
         template: require('ejs!./template.ejs'),
         events: {
@@ -32,7 +32,7 @@ define(function(require) {
             var block = this;
 
             $(document).on('click.' + block.cid, function(e) {
-                if (block.trigger && e.target !== block.trigger && !$(e.target).closest(block.el).length) {
+                if (block.target && e.target !== block.target && !$.contains(block.el, e.target)) {
                     block.hide();
                 }
             });
@@ -53,13 +53,13 @@ define(function(require) {
         },
         align: function(){
             var block = this,
-                $trigger = $(block.trigger),
+                $target = $(block.target),
                 $container = $(block.container);
 
             $(block.el)
                 .css({
-                    top: $trigger.offset().top + $container.scrollTop() + $trigger.height(),
-                    left: $trigger.offset().left - $container.offset().left
+                    top: $target.offset().top + $container.scrollTop() + $target.height(),
+                    left: $target.offset().left - $container.offset().left
                 })
         },
         hide: function() {
