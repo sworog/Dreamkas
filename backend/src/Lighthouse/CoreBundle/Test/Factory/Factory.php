@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Test\Factory;
 
 use Lighthouse\CoreBundle\Document\File\File;
-use Lighthouse\CoreBundle\Document\Organization\Organization;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Receipt\ReceiptRepository;

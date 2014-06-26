@@ -65,7 +65,7 @@ class UserFactory extends AbstractFactory
      */
     public function getUserById($userId)
     {
-        return $this->getProjectRepository()->find($userId);
+        return $this->getUserRepository()->find($userId);
     }
 
     /**
