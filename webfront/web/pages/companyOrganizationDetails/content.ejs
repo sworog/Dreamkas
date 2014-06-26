@@ -102,9 +102,9 @@
                 <label class="form__label">
                     Дата свидетельства
                 </label>
-                <input data-date="<%- moment(models.companyOrganization.get('legalDetails.certificateDate')).valueOf() %>"
+                <input data-date="<%- models.companyOrganization.get('legalDetails.certificateDate') ? moment(models.companyOrganization.get('legalDetails.certificateDate')).valueOf() : '' %>"
                        name="legalDetails.certificateDate"
-                       value="<%- formatDate(models.companyOrganization.get('legalDetails.certificateDate')) %>"
+                       value="<%- models.companyOrganization.get('legalDetails.certificateDate') ? formatDate(models.companyOrganization.get('legalDetails.certificateDate')) : '' %>"
                        type="text"
                        class="inputText inputDate"/>
             </div>
