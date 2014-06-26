@@ -43,23 +43,7 @@ class TrialBalanceProcessWorker implements WorkerInterface
      */
     public function work(Job $job)
     {
-        $reason = $this->trialBalanceManager->findReasonByIdType($job->reasonId, $job->reasonClassName);
-
-        switch ($job->processType) {
-            case TrialBalanceProcessJob::PROCESS_TYPE_CREATE:
-                $this->trialBalanceManager->reasonableCreateProcess($reason);
-                break;
-
-            case TrialBalanceProcessJob::PROCESS_TYPE_UPDATE:
-                $this->trialBalanceManager->reasonableUpdateProcess($reason);
-                break;
-
-            case TrialBalanceProcessJob::PROCESS_TYPE_REMOVE:
-                $this->trialBalanceManager->reasonableRemoveProcess($job->reasonId, $job->reasonType);
-                break;
-        }
-
-        $this->trialBalanceManager->flush();
+        $this->trialBalanceManager->trialBalanceJobProcess($job);
     }
 
     /**

@@ -73,6 +73,32 @@ class TrialBalanceManager
     }
 
     /**
+     * @param TrialBalanceProcessJob $job
+     */
+    public function trialBalanceJobProcess(TrialBalanceProcessJob $job)
+    {
+        switch ($job->processType) {
+            case TrialBalanceProcessJob::PROCESS_TYPE_CREATE:
+                $reason = $this->findReasonByIdType($job->reasonId, $job->reasonClassName);
+                if (null !== $reason) {
+                    $this->reasonableCreateProcess($reason);
+                }
+                break;
+
+            case TrialBalanceProcessJob::PROCESS_TYPE_UPDATE:
+                $reason = $this->findReasonByIdType($job->reasonId, $job->reasonClassName);
+                $this->reasonableUpdateProcess($reason);
+                break;
+
+            case TrialBalanceProcessJob::PROCESS_TYPE_REMOVE:
+                $this->reasonableRemoveProcess($job->reasonId, $job->reasonType);
+                break;
+        }
+
+        $this->flush();
+    }
+
+    /**
      * @param Reasonable $reasonable
      */
     public function reasonableCreateProcess(Reasonable $reasonable)
@@ -118,11 +144,13 @@ class TrialBalanceManager
     {
         $trialBalance = $this->trialBalanceRepository->findOneByReasonTypeReasonId($reasonId, $reasonType);
 
-        if ($this->costOfGoodsCalculator->supportsRangeIndexByReasonType($reasonType)) {
-            $this->processSupportsRangeIndexRemove($trialBalance, $reasonType);
-        }
+        if (null != $trialBalance) {
+            if ($this->costOfGoodsCalculator->supportsRangeIndexByReasonType($reasonType)) {
+                $this->processSupportsRangeIndexRemove($trialBalance, $reasonType);
+            }
 
-        $this->documentManager->remove($trialBalance);
+            $this->documentManager->remove($trialBalance);
+        }
     }
 
     /**
