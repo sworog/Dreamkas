@@ -27,6 +27,14 @@ define(function(require, exports, module) {
                 return new InputDate({
                     el: '[name="certificateDate"]'
                 });
+            },
+            form_companyOrganizationDetails: function(){
+                var page = this,
+                    Form_companyOrganizationDetails = require('blocks/form/form_companyOrganizationDetails/form_companyOrganizationDetails');
+
+                return new Form_companyOrganizationDetails({
+                    model: page.models.companyOrganization
+                });
             }
         }
     });

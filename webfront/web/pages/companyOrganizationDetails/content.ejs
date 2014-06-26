@@ -16,9 +16,10 @@
             <label class="form__label">
                 Вид организации
             </label>
+
             <div style="padding-bottom: 10px;">
                 <label class="inputRadio">
-                    <input type="radio" name="type" value="entrepreneur" checked />
+                    <input type="radio" name="type" value="entrepreneur" checked/>
                 <span class="inputRadio__text">
                     Индивидуальный предприниматель
                 </span>
@@ -26,7 +27,7 @@
             </div>
             <div>
                 <label class="inputRadio">
-                <input type="radio" name="type" value="legalEntity" />
+                    <input type="radio" name="type" value="legalEntity"/>
                 <span class="inputRadio__text">
                     Юридическое лицо
                 </span>
@@ -37,44 +38,78 @@
             <label class="form__label">
                 Полное наименование
             </label>
-            <input autofocus name="fullName" type="text" class="inputText" />
+            <input autofocus name="fullName" type="text" class="inputText"/>
         </div>
-        <div class="form__field">
-            <label class="form__label">
-                Адресс регистрации
-            </label>
-            <textarea name="legalAddress" class="inputText"></textarea>
-        </div>
-        <div class="form__field">
-            <label class="form__label">
-                ИНН
-            </label>
-            <input name="inn" type="text" class="inputText" />
-        </div>
-        <div class="form__field">
-            <label class="form__label">
-                ОКПО
-            </label>
-            <input name="okpo" type="text" class="inputText" />
-        </div>
-        <div class="form__field">
-            <label class="form__label">
-                ОГРНИП
-            </label>
-            <input type="text" name="ogrnip" class="inputText" />
-        </div>
-        <div class="form__field">
-            <label class="form__label">
-                Номер свидетельства
-            </label>
-            <input name="certificateNumber" type="text" class="inputText" />
-        </div>
-        <div class="form__field">
-            <label class="form__label">
-                Дата свидетельства
-            </label>
-            <input name="certificateDate" type="text" class="inputText inputDate" />
-        </div>
+        <fieldset <%- models.companyOrganization.get('type') !== 'entrepreneur' ? 'disabled' : '' %> class="form_companyOrganizationDetails__typeFields" rel="entrepreneur">
+            <div class="form__field">
+                <label class="form__label">
+                    Адресс регистрации
+                </label>
+                <textarea name="legalDetails.legalAddress" class="inputText"></textarea>
+            </div>
+            <div class="form__field">
+                <label class="form__label">
+                    ИНН
+                </label>
+                <input name="legalDetails.inn" type="text" class="inputText"/>
+            </div>
+            <div class="form__field">
+                <label class="form__label">
+                    ОКПО
+                </label>
+                <input name="legalDetails.okpo" type="text" class="inputText"/>
+            </div>
+            <div class="form__field">
+                <label class="form__label">
+                    ОГРНИП
+                </label>
+                <input type="text" name="legalDetails.ogrnip" class="inputText"/>
+            </div>
+            <div class="form__field">
+                <label class="form__label">
+                    Номер свидетельства
+                </label>
+                <input name="legalDetails.certificateNumber" type="text" class="inputText"/>
+            </div>
+            <div class="form__field">
+                <label class="form__label">
+                    Дата свидетельства
+                </label>
+                <input name="legalDetails.certificateDate" type="text" class="inputText inputDate"/>
+            </div>
+        </fieldset>
+        <fieldset <%- models.companyOrganization.get('type') !== 'legalEntity' ? 'disabled' : '' %> class="form_companyOrganizationDetails__typeFields" rel="legalEntity">
+            <div class="form__field">
+                <label class="form__label">
+                    Юридический адресс
+                </label>
+                <textarea name="legalDetails.legalAddress" class="inputText"></textarea>
+            </div>
+            <div class="form__field">
+                <label class="form__label">
+                    ИНН
+                </label>
+                <input name="legalDetails.inn" type="text" class="inputText"/>
+            </div>
+            <div class="form__field">
+                <label class="form__label">
+                    ОКПО
+                </label>
+                <input name="legalDetails.okpo" type="text" class="inputText"/>
+            </div>
+            <div class="form__field">
+                <label class="form__label">
+                    КПП
+                </label>
+                <input name="legalDetails.kpp" type="text" class="inputText"/>
+            </div>
+            <div class="form__field">
+                <label class="form__label">
+                    ОГРН
+                </label>
+                <input name="legalDetails.ogrn" type="text" class="inputText"/>
+            </div>
+        </fieldset>
         <div class="form__controls">
             <button type="submit" class="button">
                 Сохранить
