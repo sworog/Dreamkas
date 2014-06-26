@@ -28,7 +28,7 @@ class BankAccount extends AbstractDocument
 
     /**
      * @MongoDb\String
-     * @Assert\Regex(pattern="/^\d{9}$/", message="lighthouse.validation.errors.bank_account")
+     * @Assert\Regex(pattern="/^\d{9}$/", message="lighthouse.validation.errors.bank_account.bic")
      * @var string
      */
     protected $bic;
