@@ -6,7 +6,7 @@ use Lighthouse\CoreBundle\Document\Department\Department;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class DepartmentType extends AbstractType
+class DepartmentType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder

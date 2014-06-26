@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Form;
 use Symfony\Component\Form\AbstractType as BaseAbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-abstract class AbstractType extends BaseAbstractType
+abstract class DocumentType extends BaseAbstractType
 {
     /**
      * @param OptionsResolverInterface $resolver

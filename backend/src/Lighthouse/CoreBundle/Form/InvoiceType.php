@@ -12,7 +12,7 @@ use JMS\DiExtraBundle\Annotation as DI;
  * Class InvoiceType
  * @DI\Service("lighthouse_core.form.invoice")
  */
-class InvoiceType extends AbstractType
+class InvoiceType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder

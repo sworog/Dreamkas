@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Form;
 use Lighthouse\CoreBundle\Document\Config\Config;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class ConfigType extends AbstractType
+class ConfigType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder

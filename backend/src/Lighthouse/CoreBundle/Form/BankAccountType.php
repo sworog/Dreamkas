@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Form;
 use Lighthouse\CoreBundle\Document\BankAccount\BankAccount;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class BankAccountType extends AbstractType
+class BankAccountType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder

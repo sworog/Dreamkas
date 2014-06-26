@@ -3,16 +3,15 @@
 namespace Lighthouse\CoreBundle\Form\User;
 
 use Lighthouse\CoreBundle\Document\User\User;
-use Symfony\Component\Form\AbstractType;
+use Lighthouse\CoreBundle\Form\DocumentType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
  * Class InvoiceType
  * @DI\Service("lighthouse_core.form.user")
  */
-class UserType extends AbstractType
+class UserType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -41,23 +40,10 @@ class UserType extends AbstractType
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(
-            array(
-                'data_class' => User::getClassName(),
-                'csrf_protection' => false
-            )
-        );
-    }
-
-    /**
      * @return string
      */
-    public function getName()
+    protected function getDataClass()
     {
-        return '';
+        return User::getClassName();
     }
 }

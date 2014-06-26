@@ -3,11 +3,10 @@
 namespace Lighthouse\CoreBundle\Form\User;
 
 use Lighthouse\CoreBundle\Document\User\User;
-use Symfony\Component\Form\AbstractType;
+use Lighthouse\CoreBundle\Form\DocumentType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CurrentUserType extends AbstractType
+class CurrentUserType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -23,23 +22,10 @@ class CurrentUserType extends AbstractType
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(
-            array(
-                'data_class' => User::getClassName(),
-                'csrf_protection' => false
-            )
-        );
-    }
-
-    /**
      * @return string
      */
-    public function getName()
+    protected function getDataClass()
     {
-        return '';
+        return User::getClassName();
     }
 }

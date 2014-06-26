@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Form;
 
 use Symfony\Component\Form\FormBuilderInterface;
 
-abstract class ClassifierNodeType extends AbstractType
+abstract class ClassifierNodeType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder

@@ -6,7 +6,7 @@ use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class InvoiceProductType extends AbstractType
+class InvoiceProductType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder
