@@ -58,7 +58,7 @@ class Factory extends ContainerAwareFactory
 
     protected function initFactories()
     {
-        $this->factories = array(
+        $this->factoryClasses = array(
             'oauth' => OAuthFactory::getClassName(),
             'user' => UserFactory::getClassName(),
             'store' => StoreFactory::getClassName(),
@@ -66,7 +66,7 @@ class Factory extends ContainerAwareFactory
             'invoice' => InvoiceFactory::getClassName(),
             'order' => OrderFactory::getClassName(),
             'supplier' => SupplierFactory::getClassName(),
-            'organization' => Organization::getClassName(),
+            'organization' => OrganizationFactory::getClassName(),
         );
     }
 
