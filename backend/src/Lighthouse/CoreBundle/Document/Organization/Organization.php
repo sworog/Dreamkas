@@ -2,8 +2,11 @@
 
 namespace Lighthouse\CoreBundle\Document\Organization;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Document\BankAccount\BankAccount;
 use Lighthouse\CoreBundle\Document\LegalDetails\LegalDetails;
 use Lighthouse\CoreBundle\Document\LegalDetails\LegalEntityLegalDetails;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -19,6 +22,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @property string $chiefAccountant
  * @property string $address
  * @property LegalDetails $legalDetails
+ * @property BankAccount[]|Collection $bankAccounts
  *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\Organization\OrganizationRepository"
@@ -90,8 +94,20 @@ class Organization extends AbstractDocument
      */
     protected $legalDetails;
 
+    /**
+     * @MongoDB\ReferenceMany(
+     *      targetDocument="Lighthouse\CoreBundle\Document\BankAccount\BankAccount",
+     *      simple=true,
+     *      cascade="persist",
+     *      mappedBy="organization"
+     * )
+     * @var BankAccount[]|Collection
+     */
+    protected $bankAccounts;
+
     public function __construct()
     {
         $this->legalDetails = new LegalEntityLegalDetails();
+        $this->bankAccounts = new ArrayCollection();
     }
 }

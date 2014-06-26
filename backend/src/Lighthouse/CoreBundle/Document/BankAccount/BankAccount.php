@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document\BankAccount;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Lighthouse\CoreBundle\Document\Organization\Organization;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -13,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @property string $bankAddress
  * @property string $correspondentAccount
  * @property string $account
+ * @property Organization $organization
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\BankAccount\BankAccountRepository")
  */
@@ -59,4 +61,15 @@ class BankAccount extends AbstractDocument
      * @var string
      */
     protected $account;
+
+    /**
+     * @MongoDB\ReferenceOne(
+     *      targetDocument="Lighthouse\CoreBundle\Document\Organization\Organization",
+     *      simple=true,
+     *      cascade="persist",
+     *      inversedBy="bankAccounts"
+     * )
+     * @var Organization
+     */
+    protected $organization;
 }
