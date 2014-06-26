@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Job\Worker;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Job\JobManager;
 use Lighthouse\CoreBundle\Exception\Job\NotFoundJobException;
 use Symfony\Component\Console\Command\Command;
@@ -33,22 +34,34 @@ class WorkerCommand extends Command
     protected $reserveTimeout = 60;
 
     /**
+     * @var DocumentManager
+     */
+    protected $documentManager;
+
+    /**
      * @DI\InjectParams({
      *      "jobManager" = @DI\Inject("lighthouse.core.job.manager"),
      *      "workerMaxRuntime" = @DI\Inject("%lighthouse.core.job.worker.max_runtime%"),
-     *      "reserveTimeout" = @DI\Inject("%lighthouse.core.job.worker.reserve_timeout%")
+     *      "reserveTimeout" = @DI\Inject("%lighthouse.core.job.worker.reserve_timeout%"),
+     *      "documentManager" = @DI\Inject("doctrine.odm.mongodb.document_manager")
      * })
      * @param JobManager $jobManager
      * @param int $workerMaxRuntime
      * @param int $reserveTimeout
+     * @param DocumentManager $documentManager
      */
-    public function __construct(JobManager $jobManager, $workerMaxRuntime, $reserveTimeout)
-    {
+    public function __construct(
+        JobManager $jobManager,
+        $workerMaxRuntime,
+        $reserveTimeout,
+        DocumentManager $documentManager
+    ) {
         parent::__construct();
 
         $this->jobManager = $jobManager;
         $this->workerMaxRuntime = $workerMaxRuntime;
         $this->reserveTimeout = $reserveTimeout;
+        $this->documentManager = $documentManager;
     }
 
     protected function configure()
@@ -72,6 +85,7 @@ class WorkerCommand extends Command
     {
         $maxRuntime = $input->getOption('max-runtime');
         $runtimeDeadline = time() + $maxRuntime;
+        $processedJobs = 0;
 
         $this->jobManager->startWatchingTubes();
 
@@ -100,6 +114,11 @@ class WorkerCommand extends Command
                 }
             } catch (NotFoundJobException $e) {
                 $output->writeln((string) $e);
+            }
+
+            $processedJobs++;
+            if ($processedJobs % 100 == 0) {
+                $this->documentManager->clear();
             }
         }
 
