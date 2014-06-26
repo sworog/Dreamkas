@@ -13,8 +13,10 @@ define(function(require, exports, module) {
         },
         saveData: function(){
 
+            var certificateDate = this.get('legalDetails.certificateDate') && moment(this.get('legalDetails.certificateDate'), "DD.MM.YYYY").format('YYYY-MM-DD');
+
             var legalDetails = _.extend({}, this.get('legalDetails'), {
-                certificateDate: moment(this.get('legalDetails.certificateDate'), "DD.MM.YYYY").format('YYYY-MM-DD')
+                certificateDate: certificateDate
             });
 
             switch (legalDetails.type){
