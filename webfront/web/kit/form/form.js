@@ -106,7 +106,7 @@ define(function(require) {
                 prefix = prefix || '';
 
                 var fieldErrors,
-                    $input = $(block.el).find('[name="' + prefix + field + '"]'),
+                    $input = $(block.el).find('[name="' + prefix + field + '"]:visible'),
                     $field = $input.closest('.form__field');
 
                 if (data.errors) {
