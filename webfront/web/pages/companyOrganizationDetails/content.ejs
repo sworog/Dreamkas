@@ -5,6 +5,9 @@
  */
 %>
 
+<% var formatDate = require('kit/formatDate') %>
+<% var moment = require('moment') %>
+
 <div class="content">
 
     <h1><%- models.companyOrganization.get('name') %></h1>
@@ -19,18 +22,24 @@
 
             <div style="padding-bottom: 10px;">
                 <label class="inputRadio">
-                    <input type="radio" name="type" value="entrepreneur" checked/>
-                <span class="inputRadio__text">
-                    Индивидуальный предприниматель
-                </span>
+                    <input type="radio"
+                           name="legalDetails.type"
+                           value="entrepreneur"
+                            <%- models.companyOrganization.get('legalDetails.type') === 'entrepreneur' ? 'checked' : '' %>/>
+                    <span class="inputRadio__text">
+                        Индивидуальный предприниматель
+                    </span>
                 </label>
             </div>
             <div>
                 <label class="inputRadio">
-                    <input type="radio" name="type" value="legalEntity"/>
-                <span class="inputRadio__text">
-                    Юридическое лицо
-                </span>
+                    <input type="radio"
+                           name="legalDetails.type"
+                           value="legalEntity"
+                            <%- models.companyOrganization.get('legalDetails.type') === 'legalEntity' ? 'checked' : '' %>/>
+                    <span class="inputRadio__text">
+                        Юридическое лицо
+                    </span>
                 </label>
             </div>
         </div>
@@ -38,76 +47,112 @@
             <label class="form__label">
                 Полное наименование
             </label>
-            <input autofocus name="fullName" type="text" class="inputText"/>
+            <input autofocus
+                   name="legalDetails.fullName"
+                   type="text"
+                   value="<%- models.companyOrganization.get('legalDetails.fullName') %>"
+                   class="inputText"/>
         </div>
-        <fieldset <%- models.companyOrganization.get('type') !== 'entrepreneur' ? 'disabled' : '' %> class="form_companyOrganizationDetails__typeFields" rel="entrepreneur">
+        <fieldset <%- models.companyOrganization.get('legalDetails.type') !== 'entrepreneur' ? 'disabled' : '' %>
+                class="form_companyOrganizationDetails__typeFields" rel="entrepreneur">
             <div class="form__field">
                 <label class="form__label">
                     Адресс регистрации
                 </label>
-                <textarea name="legalDetails.legalAddress" class="inputText"></textarea>
+                <textarea name="legalDetails.legalAddress"
+                          class="inputText"><%- models.companyOrganization.get('legalDetails.legalAddress') %></textarea>
             </div>
             <div class="form__field">
                 <label class="form__label">
                     ИНН
                 </label>
-                <input name="legalDetails.inn" type="text" class="inputText"/>
+                <input name="legalDetails.inn"
+                       value="<%- models.companyOrganization.get('legalDetails.inn') %>"
+                       type="text"
+                       class="inputText"/>
             </div>
             <div class="form__field">
                 <label class="form__label">
                     ОКПО
                 </label>
-                <input name="legalDetails.okpo" type="text" class="inputText"/>
+                <input name="legalDetails.okpo"
+                       value="<%- models.companyOrganization.get('legalDetails.okpo') %>"
+                       type="text"
+                       class="inputText"/>
             </div>
             <div class="form__field">
                 <label class="form__label">
                     ОГРНИП
                 </label>
-                <input type="text" name="legalDetails.ogrnip" class="inputText"/>
+                <input type="text"
+                       value="<%- models.companyOrganization.get('legalDetails.ogrnip') %>"
+                       name="legalDetails.ogrnip"
+                       class="inputText"/>
             </div>
             <div class="form__field">
                 <label class="form__label">
                     Номер свидетельства
                 </label>
-                <input name="legalDetails.certificateNumber" type="text" class="inputText"/>
+                <input name="legalDetails.certificateNumber"
+                       value="<%- models.companyOrganization.get('legalDetails.certificateNumber') %>"
+                       type="text"
+                       class="inputText"/>
             </div>
             <div class="form__field">
                 <label class="form__label">
                     Дата свидетельства
                 </label>
-                <input name="legalDetails.certificateDate" type="text" class="inputText inputDate"/>
+                <input data-date="<%- moment(models.companyOrganization.get('legalDetails.certificateDate')).valueOf() %>"
+                       name="legalDetails.certificateDate"
+                       value="<%- formatDate(models.companyOrganization.get('legalDetails.certificateDate')) %>"
+                       type="text"
+                       class="inputText inputDate"/>
             </div>
         </fieldset>
-        <fieldset <%- models.companyOrganization.get('type') !== 'legalEntity' ? 'disabled' : '' %> class="form_companyOrganizationDetails__typeFields" rel="legalEntity">
+        <fieldset <%- models.companyOrganization.get('legalDetails.type') !== 'legalEntity' ? 'disabled' : '' %>
+                class="form_companyOrganizationDetails__typeFields" rel="legalEntity">
             <div class="form__field">
                 <label class="form__label">
                     Юридический адресс
                 </label>
-                <textarea name="legalDetails.legalAddress" class="inputText"></textarea>
+                <textarea name="legalDetails.legalAddress"
+                          class="inputText"><%- models.companyOrganization.get('legalDetails.legalAddress') %></textarea>
             </div>
             <div class="form__field">
                 <label class="form__label">
                     ИНН
                 </label>
-                <input name="legalDetails.inn" type="text" class="inputText"/>
+                <input name="legalDetails.inn"
+                       value="<%- models.companyOrganization.get('legalDetails.inn') %>"
+                       type="text"
+                       class="inputText"/>
             </div>
             <div class="form__field">
                 <label class="form__label">
                     ОКПО
                 </label>
-                <input name="legalDetails.okpo" type="text" class="inputText"/>
+                <input name="legalDetails.okpo"
+                       value="<%- models.companyOrganization.get('legalDetails.okpo') %>"
+                       type="text"
+                       class="inputText"/>
             </div>
             <div class="form__field">
                 <label class="form__label">
                     КПП
                 </label>
-                <input name="legalDetails.kpp" type="text" class="inputText"/>
+                <input name="legalDetails.kpp"
+                       value="<%- models.companyOrganization.get('legalDetails.kpp') %>"
+                       type="text"
+                       class="inputText"/>
             </div>
             <div class="form__field">
                 <label class="form__label">
                     ОГРН
                 </label>
-                <input name="legalDetails.ogrn" type="text" class="inputText"/>
+                <input name="legalDetails.ogrn"
+                       value="<%- models.companyOrganization.get('legalDetails.ogrn') %>"
+                       type="text"
+                       class="inputText"/>
             </div>
         </fieldset>
         <div class="form__controls">

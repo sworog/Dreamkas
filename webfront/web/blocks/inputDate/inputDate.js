@@ -5,6 +5,7 @@ define(function(require) {
             moment = require('moment');
 
         return Block.extend({
+            format: 'DD.MM.YYYY',
             date: null,
             blocks: {
                 tooltip_datepicker: function(){
@@ -16,9 +17,8 @@ define(function(require) {
                     });
 
                     tooltip_datepicker.on('selectdate', function(date){
-                        console.log(date);
                         block.el.dataset.date = date;
-                        block.el.value = formatDate(date);
+                        block.el.value = moment(date).format(block.format);
                     });
 
                     return tooltip_datepicker;

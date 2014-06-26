@@ -25,7 +25,7 @@ define(function(require, exports, module) {
                 var InputDate = require('blocks/inputDate/inputDate');
 
                 return new InputDate({
-                    el: '[name="certificateDate"]'
+                    el: '[name="legalDetails.certificateDate"]'
                 });
             },
             form_companyOrganizationDetails: function(){

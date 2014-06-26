@@ -6,7 +6,7 @@ define(function(require, exports, module) {
         el: '.form_companyOrganizationDetails',
         successMessage: 'Данные успешно сохранены',
         events: {
-            'change [name="type"]': function(e){
+            'change [name="legalDetails.type"]': function(e){
                 var block = this;
 
                 $(block.el).find('.form_companyOrganizationDetails__typeFields').attr('disabled', true);
