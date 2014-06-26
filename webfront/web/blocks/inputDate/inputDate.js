@@ -5,7 +5,7 @@ define(function(require) {
             moment = require('moment');
 
         return Block.extend({
-            format: 'DD.MM.YYYY',
+            dateFormat: 'DD.MM.YYYY',
             date: null,
             blocks: {
                 tooltip_datepicker: function(){
@@ -18,7 +18,7 @@ define(function(require) {
 
                     tooltip_datepicker.on('selectdate', function(date){
                         block.el.dataset.date = date;
-                        block.el.value = moment(date).format(block.format);
+                        block.el.value = moment(date).format(block.dateFormat);
                     });
 
                     return tooltip_datepicker;
@@ -34,13 +34,9 @@ define(function(require) {
                 },
                 'change': function(e){
                     var block = this,
-                        date = moment(block.$el.val() || null, block.dateFormat);
+                        date = moment(block.el.value, block.dateFormat).valueOf();
 
-                    if (date){
-                        block.set('date', date.valueOf(), {
-                            updateInput: false
-                        });
-                    }
+                    block.el.dataset.date = date > 0 ? moment(block.el.value || null, block.dateFormat).valueOf() : '';
                 }
             },
             showDatepicker: function(opt) {
