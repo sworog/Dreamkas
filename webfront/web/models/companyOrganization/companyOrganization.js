@@ -4,6 +4,9 @@ define(function(require, exports, module) {
 
     return Model.extend({
         urlRoot: Model.baseApiUrl + '/organizations',
+        defaults: {
+            'type': 'entrepreneur'
+        },
         saveData: [
             'name',
             'phone',
@@ -11,6 +14,7 @@ define(function(require, exports, module) {
             'email',
             'director',
             'chiefAccountant',
+            'legalDetails',
             'address'
         ]
     });
