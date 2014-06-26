@@ -41,10 +41,11 @@ define(function(require) {
 
                     var block = this;
 
-                    block.selectDate(moment().valueOf());
+                    block.selectNow();
                 },
                 'click .datepicker__nextMonthLink': function(e) {
                     e.preventDefault();
+                    e.stopPropagation();
 
                     var block = this;
 
@@ -52,6 +53,7 @@ define(function(require) {
                 },
                 'click .datepicker__prevMonthLink': function(e) {
                     e.preventDefault();
+                    e.stopPropagation();
 
                     var block = this;
 
@@ -94,6 +96,8 @@ define(function(require) {
                 block.visibleDate = date;
 
                 this.render();
+
+                block.trigger('showdate', date);
             },
             selectDate: function(date){
                 var block = this;
@@ -109,6 +113,11 @@ define(function(require) {
                 $(block.el).find('.datepicker__dateItem[data-date="' + moment(date).startOf('day').valueOf() + '"]').addClass('datepicker__dateItem_selected');
 
                 block.trigger('selectdate', date);
+            },
+            selectNow: function(){
+                var block = this;
+
+                block.selectDate(moment().valueOf());
             },
             _clearSelectedDate: function() {
                 var block = this;

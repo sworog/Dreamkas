@@ -4,7 +4,7 @@ define(function(require) {
         Form_writeOff = require('blocks/form/form_writeOff/form_writeOff'),
         WriteOffModel = require('models/writeOff'),
         currentUserModel = require('models/currentUser.inst'),
-        InputDate_noTime = require('blocks/inputDate/inputDate_noTime'),
+        InputDate_noTime = require('blocks/inputDate/inputDate'),
         Page403 = require('pages/errors/403');
 
     return Page.extend({

@@ -178,6 +178,7 @@ define(function(require, exports, module) {
 
             block._destroyBlocks();
             block.stopListening();
+            block.off();
             block._undelegateEvents();
         },
 
