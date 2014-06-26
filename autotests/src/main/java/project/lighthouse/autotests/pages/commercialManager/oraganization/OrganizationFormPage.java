@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.pages.commercialManager.oraganization;
 
 import net.thucydides.core.annotations.DefaultUrl;
+import net.thucydides.core.annotations.findby.By;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
@@ -37,5 +38,9 @@ public class OrganizationFormPage extends CommonPageObject {
     public void saveButtonClick() {
         new ButtonFacade(this, "Сохранить").click();
         new PreLoader(getDriver()).await();
+    }
+
+    public void legalDetailsLinkClick() {
+        click(By.linkText("Юридические реквизиты"));
     }
 }

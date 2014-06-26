@@ -5,6 +5,7 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
+import project.lighthouse.autotests.steps.commercialManager.LegalDetailsSteps;
 import project.lighthouse.autotests.steps.commercialManager.OrganizationSteps;
 
 public class OrganizationUserSteps {
@@ -57,5 +58,20 @@ public class OrganizationUserSteps {
     @Then("user checks organization form the element field '$name' has error message '$errorMessage'")
     public void userCheckOrganizationFormTheElementFieldHasErrorMessage(String name, String errorMessage) {
         organizationSteps.assertFieldErrorMessage(name, errorMessage);
+    }
+
+    @Given("user have organization with name '$name'")
+    public void userHaveOrganizationWithName(String name) {
+        organizationSteps.createOrganizationWithName(name);
+    }
+
+    @Given("user is on organization page name '$name'")
+    public void userIsOnOrganizationPageName(String name) {
+        organizationSteps.navigateToOrganizationPageByName(name);
+    }
+
+    @When("user clicks legal details link")
+    public void userClicksLegalDetailsLink() {
+        organizationSteps.clickLegalDetailsLink();
     }
 }
