@@ -1,0 +1,47 @@
+<% var moment = require('moment') %>
+<% var visibleDate = visibleDate || moment().valueOf() %>
+
+<div class="datepicker">
+    <div class="datepicker__controlLinks">
+        <a class="datepicker__prevMonthLink">пред</a>
+        <a class="datepicker__nextMonthLink">след</a>
+    </div>
+
+    <div class="datepicker__header">
+        <span class="datepicker__monthName"><%- moment(visibleDate).format('MMMM') %></span>
+        <span class="datepicker__yearNum"><%- moment(visibleDate).format('YYYY') %></span>
+    </div>
+
+    <div class="datepicker__daysOfWeek">
+        <div class="datepicker__dayOfWeek">
+            <%- moment().day(0).format('dd') %>
+        </div>
+        <div class="datepicker__dayOfWeek">
+            <%- moment().day(1).format('dd') %>
+        </div>
+        <div class="datepicker__dayOfWeek">
+            <%- moment().day(2).format('dd') %>
+        </div>
+        <div class="datepicker__dayOfWeek">
+            <%- moment().day(3).format('dd') %>
+        </div>
+        <div class="datepicker__dayOfWeek">
+            <%- moment().day(4).format('dd') %>
+        </div>
+        <div class="datepicker__dayOfWeek">
+            <%- moment().day(5).format('dd') %>
+        </div>
+        <div class="datepicker__dayOfWeek">
+            <%- moment().day(6).format('dd') %>
+        </div>
+    </div>
+
+    <div class="datepicker__dateList">
+        <% _.forEach(get('dateList'), function(date){ %>
+        <div data-date="<%- date.moment.valueOf() %>"
+             class="datepicker__dateItem <%- date.isOtherMonth ? 'datepicker__dateItem_otherMonth' : '' %> <%- date.isNow ? 'datepicker__dateItem_now' : '' %> <%- date.isSelected ? 'datepicker__dateItem_selected' : '' %>">
+            <%- date.moment.format('D') %>
+        </div>
+        <% }) %>
+    </div>
+</div>

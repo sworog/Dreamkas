@@ -19,6 +19,15 @@ define(function(require, exports, module) {
                     id: page.params.organizationId
                 });
             }
+        },
+        blocks: {
+            certificateDateInput: function(){
+                var InputDate = require('blocks/inputDate/inputDate');
+
+                return new InputDate({
+                    el: '[name="certificateDate"]'
+                });
+            }
         }
     });
 });
