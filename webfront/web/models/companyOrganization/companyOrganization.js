@@ -17,6 +17,32 @@ define(function(require, exports, module) {
                 certificateDate: moment(this.get('legalDetails.certificateDate'), "DD.MM.YYYY").format('YYYY-MM-DD')
             });
 
+            switch (legalDetails.type){
+                case 'entrepreneur':
+                    legalDetails = _.pick(legalDetails,
+                        'type',
+                        'fullName',
+                        'legalAddress',
+                        'inn',
+                        'ogrnip',
+                        'okpo',
+                        'certificateNumber',
+                        'certificateDate'
+                    );
+                    break;
+                case 'legalEntity':
+                    legalDetails = _.pick(legalDetails,
+                        'type',
+                        'fullName',
+                        'legalAddress',
+                        'inn',
+                        'kpp',
+                        'okpo',
+                        'ogrn'
+                    );
+                    break;
+            }
+
             return {
                 name: this.get('name'),
                 phone: this.get('phone'),
