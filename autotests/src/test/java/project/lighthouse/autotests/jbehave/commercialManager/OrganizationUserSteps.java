@@ -74,4 +74,9 @@ public class OrganizationUserSteps {
     public void userClicksLegalDetailsLink() {
         organizationSteps.clickLegalDetailsLink();
     }
+
+    @When("user clicks bank accounts list link")
+    public void userClicksBankAccountsListLink() {
+        organizationSteps.clickBankAccountsListLink();
+    }
 }

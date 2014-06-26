@@ -77,4 +77,9 @@ public class OrganizationSteps extends ScenarioSteps {
     public void clickLegalDetailsLink() {
         organizationFormPage.legalDetailsLinkClick();
     }
+
+    @Step
+    public void clickBankAccountsListLink() {
+        organizationFormPage.bankAccountsListLink();
+    }
 }
