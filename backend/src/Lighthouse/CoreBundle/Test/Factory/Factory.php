@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Test\Factory;
 
 use Lighthouse\CoreBundle\Document\File\File;
+use Lighthouse\CoreBundle\Document\Organization\Organization;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Receipt\ReceiptRepository;
@@ -19,42 +20,27 @@ use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * @method OAuthFactory oauth()
+ * @method UserFactory user()
+ * @method StoreFactory store()
+ * @method CatalogFactory catalog()
+ * @method InvoiceFactory invoice()
+ * @method OrderFactory order()
+ * @method SupplierFactory supplier()
+ * @method OrganizationFactory organization()
+ */
 class Factory extends ContainerAwareFactory
 {
     /**
-     * @var OAuthFactory
+     * @var array|string[]
      */
-    protected $oauth;
+    protected $factoryClasses = array();
 
     /**
-     * @var UserFactory
+     * @var AbstractFactory[]
      */
-    protected $user;
-
-    /**
-     * @var StoreFactory
-     */
-    protected $store;
-
-    /**
-     * @var CatalogFactory
-     */
-    protected $catalog;
-
-    /**
-     * @var InvoiceFactory
-     */
-    protected $invoice;
-
-    /**
-     * @var OrderFactory
-     */
-    protected $order;
-
-    /**
-     * @var SupplierFactory
-     */
-    protected $supplier;
+    protected $factories;
 
     /**
      * @var array
@@ -62,80 +48,73 @@ class Factory extends ContainerAwareFactory
     protected $storeProducts = array();
 
     /**
-     * @return OAuthFactory
+     * @param ContainerInterface $container
      */
-    public function oauth()
+    public function __construct(ContainerInterface $container)
     {
-        if (null === $this->oauth) {
-            $this->oauth = new OAuthFactory($this->container, $this);
-        }
-        return $this->oauth;
+        $this->initFactories();
+        parent::__construct($container);
+    }
+
+    protected function initFactories()
+    {
+        $this->factories = array(
+            'oauth' => OAuthFactory::getClassName(),
+            'user' => UserFactory::getClassName(),
+            'store' => StoreFactory::getClassName(),
+            'catalog' => CatalogFactory::getClassName(),
+            'invoice' => InvoiceFactory::getClassName(),
+            'order' => OrderFactory::getClassName(),
+            'supplier' => SupplierFactory::getClassName(),
+            'organization' => Organization::getClassName(),
+        );
     }
 
     /**
-     * @return UserFactory
+     * @param ContainerInterface $container
      */
-    public function user()
+    public function setContainer(ContainerInterface $container = null)
     {
-        if (null === $this->user) {
-            $this->user = new UserFactory($this->container, $this);
+        parent::setContainer($container);
+
+        if ($container) {
+            $this->user()->authProject();
         }
-        return $this->user;
     }
 
     /**
-     * @return StoreFactory
+     * @param string $name
+     * @param array $arguments
+     * @return AbstractFactory
      */
-    public function store()
+    public function __call($name, $arguments)
     {
-        if (null === $this->store) {
-            $this->store = new StoreFactory($this->container, $this);
+        if (!isset($this->factories[$name])) {
+            if (isset($this->factoryClasses[$name])) {
+                $this->factories[$name] = new $this->factoryClasses[$name]($this->container, $this);
+            } else {
+                throw new \RuntimeException(sprintf('Invalid factory name: %s', $name));
+            }
         }
-        return $this->store;
+        return $this->factories[$name];
     }
 
     /**
-     * @return CatalogFactory
+     * @return Factory
      */
-    public function catalog()
+    public function flush()
     {
-        if (null === $this->catalog) {
-            $this->catalog = new CatalogFactory($this->container, $this);
-        }
-        return $this->catalog;
+        $this->getDocumentManager()->flush();
+        return $this;
     }
 
     /**
-     * @return InvoiceFactory
+     * @return Factory
      */
-    public function invoice()
+    public function clear()
     {
-        if (null === $this->invoice) {
-            $this->invoice = new InvoiceFactory($this->container, $this);
-        }
-        return $this->invoice;
-    }
-
-    /**
-     * @return OrderFactory
-     */
-    public function order()
-    {
-        if (null === $this->order) {
-            $this->order = new OrderFactory($this->container, $this);
-        }
-        return $this->order;
-    }
-
-    /**
-     * @return SupplierFactory
-     */
-    public function supplier()
-    {
-        if (null === $this->supplier) {
-            $this->supplier = new SupplierFactory($this->container, $this);
-        }
-        return $this->supplier;
+        $this->getDocumentManager()->clear();
+        return $this;
     }
 
     /**
@@ -184,24 +163,6 @@ class Factory extends ContainerAwareFactory
         $this->flush();
 
         return $saleModels;
-    }
-
-    /**
-     * @return Factory
-     */
-    public function flush()
-    {
-        $this->getDocumentManager()->flush();
-        return $this;
-    }
-
-    /**
-     * @return Factory
-     */
-    public function clear()
-    {
-        $this->getDocumentManager()->clear();
-        return $this;
     }
 
     /**
@@ -255,6 +216,23 @@ class Factory extends ContainerAwareFactory
     }
 
     /**
+     * @param string $name
+     * @param string $url
+     * @param int $size
+     * @return File
+     */
+    public function createFile($name = 'default.txt', $url = 'http://cdn.lighthouse.pro/123', $size = 123)
+    {
+        $file = new File();
+        $file->name = $name;
+        $file->url = $url;
+        $file->size = $size;
+        $this->getDocumentManager()->persist($file);
+
+        return $file;
+    }
+
+    /**
      * @param string $productId
      * @return ProductVersion
      */
@@ -301,34 +279,5 @@ class Factory extends ContainerAwareFactory
     public function getValidator()
     {
         return $this->container->get('lighthouse.core.validator');
-    }
-
-    /**
-     * @param string $name
-     * @param string $url
-     * @param int $size
-     * @return File
-     */
-    public function createFile($name = 'default.txt', $url = 'http://cdn.lighthouse.pro/123', $size = 123)
-    {
-        $file = new File();
-        $file->name = $name;
-        $file->url = $url;
-        $file->size = $size;
-        $this->getDocumentManager()->persist($file);
-
-        return $file;
-    }
-
-    /**
-     * @param ContainerInterface $container
-     */
-    public function setContainer(ContainerInterface $container = null)
-    {
-        parent::setContainer($container);
-
-        if ($container) {
-            $this->user()->authProject();
-        }
     }
 }

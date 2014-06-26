@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Test\Factory;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\PropertyAccess\PropertyAccessor;
 
 abstract class AbstractFactory extends ContainerAwareFactory
 {
@@ -19,5 +20,24 @@ abstract class AbstractFactory extends ContainerAwareFactory
     {
         parent::__construct($container);
         $this->factory = $factory;
+    }
+
+    /**
+     * @param object $object
+     * @param array $data
+     */
+    protected function populate($object, array $data)
+    {
+        foreach ($data as $name => $value) {
+            $this->getPropertyAccessor()->setValue($object, $name, $value);
+        }
+    }
+
+    /**
+     * @return PropertyAccessor
+     */
+    protected function getPropertyAccessor()
+    {
+        return $this->container->get('property_accessor');
     }
 }
