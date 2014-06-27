@@ -12,6 +12,7 @@ use JMS\SecurityExtraBundle\Annotation\Secure;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BankAccountController extends AbstractRestController
 {
@@ -30,6 +31,23 @@ class BankAccountController extends AbstractRestController
     }
 
     /**
+     * @param Organization $organization
+     * @param BankAccount $bankAccount
+     * @return BankAccount
+     *
+     * @Rest\Route("organizations/{organization}/bankAccounts/{bankAccount}")
+     * @Rest\View(statusCode=201)
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     */
+    public function getOrganizationBankAccountAction(
+        Organization $organization,
+        BankAccount $bankAccount
+    ) {
+        $this->checkBankAccountOrganization($organization, $bankAccount);
+        return $bankAccount;
+    }
+
+    /**
      * @param Request $request
      * @param Organization $organization
      * @return BankAccount|FormInterface
@@ -44,5 +62,36 @@ class BankAccountController extends AbstractRestController
         $bankAccount = $this->documentRepository->createNew();
         $bankAccount->organization = $organization;
         return $this->processForm($request, $bankAccount);
+    }
+
+    /**
+     * @param Request $request
+     * @param Organization $organization
+     * @param BankAccount $bankAccount
+     * @return BankAccount|FormInterface
+     *
+     * @Rest\Route("organizations/{organization}/bankAccounts/{bankAccount}")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc(resource=true)
+     */
+    public function putOrganizationBankAccountAction(
+        Request $request,
+        Organization $organization,
+        BankAccount $bankAccount
+    ) {
+        $this->checkBankAccountOrganization($organization, $bankAccount);
+        return $this->processForm($request, $bankAccount);
+    }
+
+    /**
+     * @param Organization $organization
+     * @param BankAccount $bankAccount
+     * @throws NotFoundHttpException
+     */
+    protected function checkBankAccountOrganization(Organization $organization, BankAccount $bankAccount)
+    {
+        if ($bankAccount->organization !== $organization) {
+            throw new NotFoundHttpException(sprintf("%s object not found", get_class($bankAccount)));
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class BankAccountControllerTest extends WebTestCase
@@ -120,5 +121,59 @@ class BankAccountControllerTest extends WebTestCase
                 )
             ),
         );
+    }
+
+    /**
+     * @dataProvider organizationPostActionProvider
+     * @param array $putData
+     * @param $expectedCode
+     * @param array $assertions
+     */
+    public function testOrganizationBankAccountPutAction(array $putData, $expectedCode, array $assertions)
+    {
+        $organization = $this->factory()->organization()->getOrganization();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postData = array(
+            'account' => '12345767890'
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/organizations/{$organization->id}/bankAccounts",
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+        Assert::assertJsonHasPath('id', $postResponse);
+        $id = $postResponse['id'];
+
+        $putData += array(
+            'account' => '1234567890',
+        );
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/organizations/{$organization->id}/bankAccounts/{$id}",
+            $putData
+        );
+
+        $expectedCode = (201 === $expectedCode) ? 200 : $expectedCode;
+        $this->assertResponseCode($expectedCode);
+
+        $this->performJsonAssertions($putResponse, $assertions);
+
+        if (200 === $expectedCode) {
+            $getResponse = $this->clientJsonRequest(
+                $accessToken,
+                'GET',
+                "/api/1/organizations/{$organization->id}/bankAccounts/{$id}"
+            );
+
+            $this->assertSame($putResponse, $getResponse);
+        }
     }
 }
