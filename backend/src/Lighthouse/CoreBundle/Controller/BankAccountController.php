@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use Lighthouse\CoreBundle\Document\BankAccount\BankAccount;
+use Lighthouse\CoreBundle\Document\BankAccount\BankAccountCollection;
 use Lighthouse\CoreBundle\Document\BankAccount\BankAccountRepository;
 use Lighthouse\CoreBundle\Document\Organization\Organization;
 use Lighthouse\CoreBundle\Form\BankAccountType;
@@ -38,6 +39,7 @@ class BankAccountController extends AbstractRestController
      * @Rest\Route("organizations/{organization}/bankAccounts/{bankAccount}")
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc(resource=true)
      */
     public function getOrganizationBankAccountAction(
         Organization $organization,
@@ -45,6 +47,21 @@ class BankAccountController extends AbstractRestController
     ) {
         $this->checkBankAccountOrganization($organization, $bankAccount);
         return $bankAccount;
+    }
+
+    /**
+     * @param Organization $organization
+     * @return BankAccountCollection
+     *
+     * @Rest\Route("organizations/{organization}/bankAccounts")
+     * @Rest\View(statusCode=200)
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc(resource=true)
+     */
+    public function getOrganizationBankAccountsAction(Organization $organization)
+    {
+        $cursor = $this->documentRepository->findByOrganization($organization);
+        return new BankAccountCollection($cursor);
     }
 
     /**

@@ -176,4 +176,34 @@ class BankAccountControllerTest extends WebTestCase
             $this->assertSame($putResponse, $getResponse);
         }
     }
+
+    public function testOrganizationBankAccountsGetAllAction()
+    {
+        $organization = $this->factory()->organization()->getOrganization();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        for ($i = 1; $i <= 5; $i++) {
+            $this->clientJsonRequest(
+                $accessToken,
+                'POST',
+                "/api/1/organizations/{$organization->id}/bankAccounts",
+                array(
+                    'account' => '1234567' . $i
+                )
+            );
+
+            $this->assertResponseCode(201);
+        }
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/organizations/{$organization->id}/bankAccounts"
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(5, '*.id', $getResponse);
+    }
 }
