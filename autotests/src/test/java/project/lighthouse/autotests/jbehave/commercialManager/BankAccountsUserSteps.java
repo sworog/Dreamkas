@@ -26,6 +26,11 @@ public class BankAccountsUserSteps {
         bankAccountsSteps.clickCreateBankAccountFormButton();
     }
 
+    @When("user clicks save bank account form button")
+    public void userClicksSaveBankAccountFormButton() {
+        bankAccountsSteps.clickSaveBankAccountFormButton();
+    }
+
     @When("user clicks to bank accounts in list with bank '$bankName' and account '$account'")
     public void userClicksToBankAccountsInListWithBankAndAccount(String bankName, String account) {
         bankAccountsSteps.clickBankAccountListItemByBankAndAccount(bankName, account);

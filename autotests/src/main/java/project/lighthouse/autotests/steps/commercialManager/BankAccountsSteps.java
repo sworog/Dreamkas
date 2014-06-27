@@ -26,6 +26,11 @@ public class BankAccountsSteps extends ScenarioSteps {
     }
 
     @Step
+    public void clickSaveBankAccountFormButton() {
+        bankAccountsFormPage.saveFormButtonClick();
+    }
+
+    @Step
     public void clickBankAccountListItemByBankAndAccount(String bankName, String account) {
         bankAccountsListPage.bankAccountListItemByBankAndAccountClick(bankName, account);
     }
