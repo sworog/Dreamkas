@@ -20,13 +20,13 @@ When user clicks legal details link
 And user selects legal details type 'Индивидуальный предприниматель'
 And user fill legal details inputs
  | elementName | value |
- | fullName | ООО "organization-s37us802_1" |
- | legalAddress | СПб, Васи Томчака, д 35, оф. 302 |
- | inn | 631401231404 |
- | okpo | 0161644627 |
- | ogrnip | 308631716200038 |
- | certificateNumber | 2356 254558654846552124 |
- | certificateDate | 17.12.2004 |
+ | legalDetails.fullName | ООО "organization-s37us802_1" |
+ | legalDetails.legalAddress | СПб, Васи Томчака, д 35, оф. 302 |
+ | legalDetails.inn | 631401231404 |
+ | legalDetails.okpo | 0161644627 |
+ | legalDetails.ogrnip | 308631716200038 |
+ | legalDetails.certificateNumber | 2356 254558654846552124 |
+ | legalDetails.certificateDate | 17.12.2004 |
 And user clicks save legal details button
 Then the user sees success message 'Данные успешно сохранены'
 And user checks legal details fields data
@@ -44,56 +44,56 @@ When user clicks legal details link
 And user selects legal details type 'Индивидуальный предприниматель'
 And user fill legal details inputs
  | elementName | value |
- | fullName | length301char01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789T |
- | legalAddress | length301char01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789T |
- | inn | 1234567890123 |
- | okpo | 12345678901 |
- | ogrnip | 1234567890123456 |
- | certificateNumber | 12345678901234567890123456 |
- | certificateDate | notDate |
+ | legalDetails.fullName | length301char01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789T |
+ | legalDetails.legalAddress | length301char01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789T |
+ | legalDetails.inn | 1234567890123 |
+ | legalDetails.okpo | 12345678901 |
+ | legalDetails.ogrnip | 1234567890123456 |
+ | legalDetails.certificateNumber | 12345678901234567890123456 |
+ | legalDetails.certificateDate | notDate |
 And user clicks save legal details button
-Then the user checks the element field 'fullName' has error message 'Не более 300 символов'
-And the user checks the element field 'legalAddress' has error message 'Не более 300 символов'
-And the user checks the element field 'inn' has error message 'ИНН должен быть ровно 12 цифр'
-And the user checks the element field 'okpo' has error message 'ОКПО должно содержать 10 цифр'
-And the user checks the element field 'ogrnip' has error message 'ОГРНИП должно содержать 15 цифр'
-And the user checks the element field 'certificateNumber' has error message 'Не более 25 символов'
-And the user checks the element field 'certificateDate' has error message 'Должна быть дата'
+Then user checks legal details form the element field 'legalDetails.fullName' has error message 'Не более 300 символов'
+And user checks legal details form the element field 'legalDetails.legalAddress' has error message 'Не более 300 символов'
+And user checks legal details form the element field 'legalDetails.inn' has error message 'ИНН индивидуально предпринимателя должен состоять из 12 цифр'
+And user checks legal details form the element field 'legalDetails.okpo' has error message 'ОКПО индивидуально предпринимателя должен состоять из 10 цифр'
+And user checks legal details form the element field 'legalDetails.ogrnip' has error message 'ОГРНИП должен состоять из 15 цифр'
+And user checks legal details form the element field 'legalDetails.certificateNumber' has error message 'Не более 25 символов'
+And user checks legal details form the element field 'legalDetails.certificateDate' has error message 'Значение недопустимо.'
 When user fill legal details inputs
  | elementName | value |
- | fullName | valid |
- | legalAddress | valid |
- | inn | 12345678901 |
- | okpo | 123456789 |
- | ogrnip | 12345678901234 |
- | certificateNumber | valid |
- | certificateDate | 1.12.2001 |
+ | legalDetails.fullName | valid |
+ | legalDetails.legalAddress | valid |
+ | legalDetails.inn | 12345678901 |
+ | legalDetails.okpo | 123456789 |
+ | legalDetails.ogrnip | 12345678901234 |
+ | legalDetails.certificateNumber | valid |
+ | legalDetails.certificateDate | 1.12.2001 |
 And user clicks save legal details button
-Then the user checks the element field 'inn' has error message 'ИНН должен быть ровно 12 цифр'
-And the user checks the element field 'okpo' has error message 'ОКПО должно содержать 10 цифр'
-And the user checks the element field 'ogrnip' has error message 'ОГРНИП должно содержать 15 цифр'
+Then user checks legal details form the element field 'legalDetails.inn' has error message 'ИНН индивидуально предпринимателя должен состоять из 12 цифр'
+And user checks legal details form the element field 'legalDetails.okpo' has error message 'ОКПО индивидуально предпринимателя должен состоять из 10 цифр'
+And user checks legal details form the element field 'legalDetails.ogrnip' has error message 'ОГРНИП должен состоять из 15 цифр'
 When user fill legal details inputs
  | elementName | value |
- | fullName | valid |
- | legalAddress | valid |
- | inn | notNumeric12 |
- | okpo | notNumeric1 |
- | ogrnip | notNumeric123456 |
- | certificateNumber | valid |
- | certificateDate | 1.12.2001 |
+ | legalDetails.fullName | valid |
+ | legalDetails.legalAddress | valid |
+ | legalDetails.inn | notNumeric12 |
+ | legalDetails.okpo | notNumeric1 |
+ | legalDetails.ogrnip | notNumeric123456 |
+ | legalDetails.certificateNumber | valid |
+ | legalDetails.certificateDate | 1.12.2001 |
 And user clicks save legal details button
-Then the user checks the element field 'inn' has error message 'ИНН должен быть ровно 12 цифр'
-And the user checks the element field 'okpo' has error message 'ОКПО должно содержать 10 цифр'
-And the user checks the element field 'ogrnip' has error message 'ОГРНИП должно содержать 15 цифр'
+Then user checks legal details form the element field 'legalDetails.inn' has error message 'ИНН индивидуально предпринимателя должен состоять из 12 цифр'
+And user checks legal details form the element field 'legalDetails.okpo' has error message 'ОКПО индивидуально предпринимателя должен состоять из 10 цифр'
+And user checks legal details form the element field 'legalDetails.ogrnip' has error message 'ОГРНИП должен состоять из 15 цифр'
 When user fill legal details inputs
  | elementName | value |
- | fullName | valid |
- | legalAddress | valid |
- | inn | 123456789012 |
- | okpo | 1234567890 |
- | ogrnip | 123456789012345 |
- | certificateNumber | valid |
- | certificateDate | 1.12.2001 |
+ | legalDetails.fullName | valid |
+ | legalDetails.legalAddress | valid |
+ | legalDetails.inn | 123456789012 |
+ | legalDetails.okpo | 1234567890 |
+ | legalDetails.ogrnip | 123456789012345 |
+ | legalDetails.certificateNumber | valid |
+ | legalDetails.certificateDate | 1.12.2001 |
 And user clicks save legal details button
 Then the user sees no error messages
 And the user sees success message 'Данные успешно сохранены'
@@ -111,12 +111,12 @@ When user clicks legal details link
 And user selects legal details type 'Юридическое лицо'
 And user fill legal details inputs
  | elementName | value |
- | fullName | ООО "organization-s37us802_3" |
- | legalAddress | СПб, Васи Томчака, д 35, оф. 302 |
- | inn | 7825392986 |
- | kpp | 780201001 |
- | ogrn | 1037843021413 |
- | okpo | 47954132 |
+ | legalDetails.fullName | ООО "organization-s37us802_3" |
+ | legalDetails.legalAddress.yur | СПб, Васи Томчака, д 35, оф. 302 |
+ | legalDetails.inn.yur | 7825392986 |
+ | legalDetails.kpp | 780201001 |
+ | legalDetails.ogrn | 1037843021413 |
+ | legalDetails.okpo.yur | 47954132 |
 And user clicks save legal details button
 Then the user sees success message 'Данные успешно сохранены'
 And user checks legal details fields data
@@ -131,56 +131,56 @@ And the user logs in using 'owner@lighthouse.pro' userName and 'lighthouse' pass
 And user have organization with name 'organization-s37us802_4'
 And user is on organization page name 'organization-s37us802_4'
 When user clicks legal details link
-And user selects legal details type 'Индивидуальный предприниматель'
+And user selects legal details type 'Юридическое лицо'
 And user fill legal details inputs
  | elementName | value |
- | fullName | length301char01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789T |
- | legalAddress | length301char01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789T |
- | inn | 12345678901 |
- | kpp | 1234567890 |
- | ogrn | 12345678901234 |
- | okpo | 123456789 |
+ | legalDetails.fullName | length301char01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789T |
+ | legalDetails.legalAddress.yur | length301char01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789T |
+ | legalDetails.inn.yur | 12345678901 |
+ | legalDetails.kpp | 1234567890 |
+ | legalDetails.ogrn | 12345678901234 |
+ | legalDetails.okpo.yur | 123456789 |
 And user clicks save legal details button
-Then the user checks the element field 'fullName' has error message 'Не более 300 символов'
-And the user checks the element field 'legalAddress' has error message 'Не более 300 символов'
-And the user checks the element field 'inn' has error message 'ИНН должен быть ровно 10 цифр'
-And the user checks the element field 'kpp' has error message 'КПП должен содержать 9 цифр'
-And the user checks the element field 'ogrn' has error message 'ОГРН должно содержать 13 цифр'
-And the user checks the element field 'okpo' has error message 'ОКПО должно содержать 8 цифр'
+Then user checks legal details form the element field 'legalDetails.fullName' has error message 'Не более 300 символов'
+And user checks legal details form the element field 'legalDetails.legalAddress.yur' has error message 'Не более 300 символов'
+And user checks legal details form the element field 'legalDetails.inn.yur' has error message 'ИНН юридического лица должен состоять из 10 цифр'
+And user checks legal details form the element field 'legalDetails.kpp' has error message 'КПП должен состоять из 9 цифр'
+And user checks legal details form the element field 'legalDetails.ogrn' has error message 'ОГРН должен состоять из 13 цифр'
+And user checks legal details form the element field 'legalDetails.okpo.yur' has error message 'ОКПО юридического лица должен состоять из 8 цифр'
 When user fill legal details inputs
  | elementName | value |
- | fullName | valid |
- | legalAddress | valid |
- | inn | 123456789 |
- | kpp | 12345678 |
- | ogrn | 123456789012 |
- | okpo | 1234567 |
+ | legalDetails.fullName | valid |
+ | legalDetails.legalAddress.yur | valid |
+ | legalDetails.inn.yur | 123456789 |
+ | legalDetails.kpp | 12345678 |
+ | legalDetails.ogrn | 123456789012 |
+ | legalDetails.okpo.yur | 1234567 |
 And user clicks save legal details button
-Then the user checks the element field 'inn' has error message 'ИНН должен быть ровно 10 цифр'
-And the user checks the element field 'kpp' has error message 'КПП должен содержать 9 цифр'
-And the user checks the element field 'ogrn' has error message 'ОГРН должно содержать 13 цифр'
-And the user checks the element field 'okpo' has error message 'ОКПО должно содержать 8 цифр'
+Then user checks legal details form the element field 'legalDetails.inn.yur' has error message 'ИНН юридического лица должен состоять из 10 цифр'
+And user checks legal details form the element field 'legalDetails.kpp' has error message 'КПП должен состоять из 9 цифр'
+And user checks legal details form the element field 'legalDetails.ogrn' has error message 'ОГРН должен состоять из 13 цифр'
+And user checks legal details form the element field 'legalDetails.okpo.yur' has error message 'ОКПО юридического лица должен состоять из 8 цифр'
 When user fill legal details inputs
  | elementName | value |
- | fullName | valid |
- | legalAddress | valid |
- | inn | notNumeric |
- | kpp | notNumeric |
- | ogrn | notNumeric |
- | okpo | notNumeric |
+ | legalDetails.fullName | valid |
+ | legalDetails.legalAddress.yur | valid |
+ | legalDetails.inn.yur | notNumeric |
+ | legalDetails.kpp | notNumeric |
+ | legalDetails.ogrn | notNumeric |
+ | legalDetails.okpo.yur | notNumeric |
 And user clicks save legal details button
-Then the user checks the element field 'inn' has error message 'ИНН должен быть ровно 10 цифр'
-And the user checks the element field 'kpp' has error message 'КПП должен содержать 9 цифр'
-And the user checks the element field 'ogrn' has error message 'ОГРН должно содержать 13 цифр'
-And the user checks the element field 'okpo' has error message 'ОКПО должно содержать 8 цифр'
+Then user checks legal details form the element field 'legalDetails.inn.yur' has error message 'ИНН юридического лица должен состоять из 10 цифр'
+And user checks legal details form the element field 'legalDetails.kpp' has error message 'КПП должен состоять из 9 цифр'
+And user checks legal details form the element field 'legalDetails.ogrn' has error message 'ОГРН должен состоять из 13 цифр'
+And user checks legal details form the element field 'legalDetails.okpo.yur' has error message 'ОКПО юридического лица должен состоять из 8 цифр'
 When user fill legal details inputs
  | elementName | value |
- | fullName | ООО "organization-s37us802_4" |
- | legalAddress | СПб, Васи Томчака, д 35, оф. 302 |
- | inn | 7825392986 |
- | kpp | 780201001 |
- | ogrn | 1037843021413 |
- | okpo | 47954132 |
+ | legalDetails.fullName | ООО "organization-s37us802_4" |
+ | legalDetails.legalAddress.yur | СПб, Васи Томчака, д 35, оф. 302 |
+ | legalDetails.inn.yur | 7825392986 |
+ | legalDetails.kpp | 780201001 |
+ | legalDetails.ogrn | 1037843021413 |
+ | legalDetails.okpo.yur | 47954132 |
 And user clicks save legal details button
 Then the user sees no error messages
 And the user sees success message 'Данные успешно сохранены'
@@ -199,13 +199,13 @@ When user clicks legal details link
 And user selects legal details type 'Индивидуальный предприниматель'
 And user fill legal details inputs
  | elementName | value |
- | fullName | ООО "organization-s37us802_5" |
- | legalAddress | СПб, Васи Томчака, д 35, оф. 302 |
- | inn | 631401231404 |
- | okpo | 0161644627 |
- | ogrnip | 308631716200038 |
- | certificateNumber | 2356 254558654846552124 |
- | certificateDate | 17.12.2004 |
+ | legalDetails.fullName | ООО "organization-s37us802_5" |
+ | legalDetails.legalAddress | СПб, Васи Томчака, д 35, оф. 302 |
+ | legalDetails.inn | 631401231404 |
+ | legalDetails.okpo | 0161644627 |
+ | legalDetails.ogrnip | 308631716200038 |
+ | legalDetails.certificateNumber | 2356 254558654846552124 |
+ | legalDetails.certificateDate | 17.12.2004 |
 And user clicks save legal details button
 Then the user sees success message 'Данные успешно сохранены'
 And user checks legal details fields data
@@ -214,13 +214,13 @@ When user clicks legal details link
 And user selects legal details type 'Индивидуальный предприниматель'
 And user fill legal details inputs
  | elementName | value |
- | fullName | ООО "organization-s37us802_5Edited" |
- | legalAddress | Edited |
- | inn | 123456789012 |
- | okpo | 1234567890 |
- | ogrnip | 123456789012345 |
- | certificateNumber | Edited |
- | certificateDate | 11.11.2003 |
+ | legalDetails.fullName | ООО "organization-s37us802_5Edited" |
+ | legalDetails.legalAddress | Edited |
+ | legalDetails.inn | 123456789012 |
+ | legalDetails.okpo | 1234567890 |
+ | legalDetails.ogrnip | 123456789012345 |
+ | legalDetails.certificateNumber | Edited |
+ | legalDetails.certificateDate | 11.11.2003 |
 And user clicks save legal details button
 Then the user sees success message 'Данные успешно сохранены'
 And user checks legal details fields data
@@ -238,13 +238,13 @@ When user clicks legal details link
 And user selects legal details type 'Индивидуальный предприниматель'
 And user fill legal details inputs
  | elementName | value |
- | fullName | ООО "organization-s37us802_6" |
- | legalAddress | СПб, Васи Томчака, д 35, оф. 302 |
- | inn | 631401231404 |
- | okpo | 0161644627 |
- | ogrnip | 308631716200038 |
- | certificateNumber | 2356 254558654846552124 |
- | certificateDate | 17.12.2004 |
+ | legalDetails.fullName | ООО "organization-s37us802_6" |
+ | legalDetails.legalAddress | СПб, Васи Томчака, д 35, оф. 302 |
+ | legalDetails.inn | 631401231404 |
+ | legalDetails.okpo | 0161644627 |
+ | legalDetails.ogrnip | 308631716200038 |
+ | legalDetails.certificateNumber | 2356 254558654846552124 |
+ | legalDetails.certificateDate | 17.12.2004 |
 And user clicks save legal details button
 Then the user sees success message 'Данные успешно сохранены'
 And user checks legal details fields data
@@ -253,56 +253,56 @@ When user clicks legal details link
 And user selects legal details type 'Индивидуальный предприниматель'
 And user fill legal details inputs
  | elementName | value |
- | fullName | length301char01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789T |
- | legalAddress | length301char01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789T |
- | inn | 1234567890123 |
- | okpo | 12345678901 |
- | ogrnip | 1234567890123456 |
- | certificateNumber | 12345678901234567890123456 |
- | certificateDate | notDate |
+ | legalDetails.fullName | length301char01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789T |
+ | legalDetails.legalAddress | length301char01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789T |
+ | legalDetails.inn | 1234567890123 |
+ | legalDetails.okpo | 12345678901 |
+ | legalDetails.ogrnip | 1234567890123456 |
+ | legalDetails.certificateNumber | 12345678901234567890123456 |
+ | legalDetails.certificateDate | notDate |
 And user clicks save legal details button
-Then the user checks the element field 'fullName' has error message 'Не более 300 символов'
-And the user checks the element field 'legalAddress' has error message 'Не более 300 символов'
-And the user checks the element field 'inn' has error message 'ИНН должен быть ровно 12 цифр'
-And the user checks the element field 'okpo' has error message 'ОКПО должно содержать 10 цифр'
-And the user checks the element field 'ogrnip' has error message 'ОГРНИП должно содержать 15 цифр'
-And the user checks the element field 'certificateNumber' has error message 'Не более 25 символов'
-And the user checks the element field 'certificateDate' has error message 'Должна быть дата'
+Then user checks legal details form the element field 'legalDetails.fullName' has error message 'Не более 300 символов'
+And user checks legal details form the element field 'legalDetails.legalAddress' has error message 'Не более 300 символов'
+And user checks legal details form the element field 'legalDetails.inn' has error message 'ИНН индивидуально предпринимателя должен состоять из 12 цифр'
+And user checks legal details form the element field 'legalDetails.okpo' has error message 'ОКПО индивидуально предпринимателя должен состоять из 10 цифр'
+And user checks legal details form the element field 'legalDetails.ogrnip' has error message 'ОГРНИП должен состоять из 15 цифр'
+And user checks legal details form the element field 'legalDetails.certificateNumber' has error message 'Не более 25 символов'
+And user checks legal details form the element field 'legalDetails.certificateDate' has error message 'Значение недопустимо.'
 When user fill legal details inputs
  | elementName | value |
- | fullName | valid |
- | legalAddress | valid |
- | inn | 12345678901 |
- | okpo | 123456789 |
- | ogrnip | 12345678901234 |
- | certificateNumber | valid |
- | certificateDate | 1.12.2001 |
+ | legalDetails.fullName | valid |
+ | legalDetails.legalAddress | valid |
+ | legalDetails.inn | 12345678901 |
+ | legalDetails.okpo | 123456789 |
+ | legalDetails.ogrnip | 12345678901234 |
+ | legalDetails.certificateNumber | valid |
+ | legalDetails.certificateDate | 1.12.2001 |
 And user clicks save legal details button
-Then the user checks the element field 'inn' has error message 'ИНН должен быть ровно 12 цифр'
-And the user checks the element field 'okpo' has error message 'ОКПО должно содержать 10 цифр'
-And the user checks the element field 'ogrnip' has error message 'ОГРНИП должно содержать 15 цифр'
+Then user checks legal details form the element field 'legalDetails.inn' has error message 'ИНН индивидуально предпринимателя должен состоять из 12 цифр'
+And user checks legal details form the element field 'legalDetails.okpo' has error message 'ОКПО индивидуально предпринимателя должен состоять из 10 цифр'
+And user checks legal details form the element field 'legalDetails.ogrnip' has error message 'ОГРНИП должен состоять из 15 цифр'
 When user fill legal details inputs
  | elementName | value |
- | fullName | valid |
- | legalAddress | valid |
- | inn | notNumeric12 |
- | okpo | notNumeric1 |
- | ogrnip | notNumeric123456 |
- | certificateNumber | valid |
- | certificateDate | 1.12.2001 |
+ | legalDetails.fullName | valid |
+ | legalDetails.legalAddress | valid |
+ | legalDetails.inn | notNumeric12 |
+ | legalDetails.okpo | notNumeric1 |
+ | legalDetails.ogrnip | notNumeric123456 |
+ | legalDetails.certificateNumber | valid |
+ | legalDetails.certificateDate | 1.12.2001 |
 And user clicks save legal details button
-Then the user checks the element field 'inn' has error message 'ИНН должен быть ровно 12 цифр'
-And the user checks the element field 'okpo' has error message 'ОКПО должно содержать 10 цифр'
-And the user checks the element field 'ogrnip' has error message 'ОГРНИП должно содержать 15 цифр'
+Then user checks legal details form the element field 'legalDetails.inn' has error message 'ИНН индивидуально предпринимателя должен состоять из 12 цифр'
+And user checks legal details form the element field 'legalDetails.okpo' has error message 'ОКПО индивидуально предпринимателя должен состоять из 10 цифр'
+And user checks legal details form the element field 'legalDetails.ogrnip' has error message 'ОГРНИП должен состоять из 15 цифр'
 When user fill legal details inputs
  | elementName | value |
- | fullName | valid |
- | legalAddress | valid |
- | inn | 123456789012 |
- | okpo | 1234567890 |
- | ogrnip | 123456789012345 |
- | certificateNumber | valid |
- | certificateDate | 1.12.2001 |
+ | legalDetails.fullName | valid |
+ | legalDetails.legalAddress | valid |
+ | legalDetails.inn | 123456789012 |
+ | legalDetails.okpo | 1234567890 |
+ | legalDetails.ogrnip | 123456789012345 |
+ | legalDetails.certificateNumber | valid |
+ | legalDetails.certificateDate | 1.12.2001 |
 And user clicks save legal details button
 Then the user sees no error messages
 And the user sees success message 'Данные успешно сохранены'
@@ -320,12 +320,12 @@ When user clicks legal details link
 And user selects legal details type 'Юридическое лицо'
 And user fill legal details inputs
  | elementName | value |
- | fullName | ООО "organization-s37us802_7" |
- | legalAddress | СПб, Васи Томчака, д 35, оф. 302 |
- | inn | 7825392986 |
- | kpp | 780201001 |
- | ogrn | 1037843021413 |
- | okpo | 47954132 |
+ | legalDetails.fullName | ООО "organization-s37us802_7" |
+ | legalDetails.legalAddress.yur | СПб, Васи Томчака, д 35, оф. 302 |
+ | legalDetails.inn.yur | 7825392986 |
+ | legalDetails.kpp | 780201001 |
+ | legalDetails.ogrn | 1037843021413 |
+ | legalDetails.okpo.yur | 47954132 |
 And user clicks save legal details button
 Then the user sees success message 'Данные успешно сохранены'
 And user checks legal details fields data
@@ -334,12 +334,12 @@ When user clicks legal details link
 And user selects legal details type 'Юридическое лицо'
 And user fill legal details inputs
  | elementName | value |
- | fullName | ООО "organization-s37us802_7Editet" |
- | legalAddress | Edited |
- | inn | 1234567890 |
- | kpp | 123456789 |
- | ogrn | 1234567890123 |
- | okpo | 12345678 |
+ | legalDetails.fullName | ООО "organization-s37us802_7Editet" |
+ | legalDetails.legalAddress.yur | Edited |
+ | legalDetails.inn.yur | 1234567890 |
+ | legalDetails.kpp | 123456789 |
+ | legalDetails.ogrn | 1234567890123 |
+ | legalDetails.okpo.yur | 12345678 |
 And user clicks save legal details button
 Then the user sees success message 'Данные успешно сохранены'
 And user checks legal details fields data
@@ -357,67 +357,67 @@ When user clicks legal details link
 And user selects legal details type 'Юридическое лицо'
 And user fill legal details inputs
  | elementName | value |
- | fullName | ООО "organization-s37us802_7" |
- | legalAddress | СПб, Васи Томчака, д 35, оф. 302 |
- | inn | 7825392986 |
- | kpp | 780201001 |
- | ogrn | 1037843021413 |
- | okpo | 47954132 |
+ | legalDetails.fullName | ООО "organization-s37us802_7" |
+ | legalDetails.legalAddress.yur | СПб, Васи Томчака, д 35, оф. 302 |
+ | legalDetails.inn.yur | 7825392986 |
+ | legalDetails.kpp | 780201001 |
+ | legalDetails.ogrn | 1037843021413 |
+ | legalDetails.okpo.yur | 47954132 |
 And user clicks save legal details button
 Then the user sees success message 'Данные успешно сохранены'
 And user checks legal details fields data
 Given user is on organization page name 'organization-s37us802_8'
 When user clicks legal details link
-And user selects legal details type 'Индивидуальный предприниматель'
+And user selects legal details type 'Юридическое лицо'
 And user fill legal details inputs
  | elementName | value |
- | fullName | length301char01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789T |
- | legalAddress | length301char01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789T |
- | inn | 12345678901 |
- | kpp | 1234567890 |
- | ogrn | 12345678901234 |
- | okpo | 123456789 |
+ | legalDetails.fullName | length301char01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789T |
+ | legalDetails.legalAddress.yur | length301char01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789T |
+ | legalDetails.inn.yur | 12345678901 |
+ | legalDetails.kpp | 1234567890 |
+ | legalDetails.ogrn | 12345678901234 |
+ | legalDetails.okpo.yur | 123456789 |
 And user clicks save legal details button
-Then the user checks the element field 'fullName' has error message 'Не более 300 символов'
-And the user checks the element field 'legalAddress' has error message 'Не более 300 символов'
-And the user checks the element field 'inn' has error message 'ИНН должен быть ровно 10 цифр'
-And the user checks the element field 'kpp' has error message 'КПП должен содержать 9 цифр'
-And the user checks the element field 'ogrn' has error message 'ОГРН должно содержать 13 цифр'
-And the user checks the element field 'okpo' has error message 'ОКПО должно содержать 8 цифр'
+Then user checks legal details form the element field 'legalDetails.fullName' has error message 'Не более 300 символов'
+And user checks legal details form the element field 'legalDetails.legalAddress.yur' has error message 'Не более 300 символов'
+And user checks legal details form the element field 'legalDetails.inn.yur' has error message 'ИНН юридического лица должен состоять из 10 цифр'
+And user checks legal details form the element field 'legalDetails.kpp' has error message 'КПП должен состоять из 9 цифр'
+And user checks legal details form the element field 'legalDetails.ogrn' has error message 'ОГРН должен состоять из 13 цифр'
+And user checks legal details form the element field 'legalDetails.okpo.yur' has error message 'ОКПО юридического лица должен состоять из 8 цифр'
 When user fill legal details inputs
  | elementName | value |
- | fullName | valid |
- | legalAddress | valid |
- | inn | 123456789 |
- | kpp | 12345678 |
- | ogrn | 123456789012 |
- | okpo | 1234567 |
+ | legalDetails.fullName | valid |
+ | legalDetails.legalAddress.yur | valid |
+ | legalDetails.inn.yur | 123456789 |
+ | legalDetails.kpp | 12345678 |
+ | legalDetails.ogrn | 123456789012 |
+ | legalDetails.okpo.yur | 1234567 |
 And user clicks save legal details button
-Then the user checks the element field 'inn' has error message 'ИНН должен быть ровно 10 цифр'
-And the user checks the element field 'kpp' has error message 'КПП должен содержать 9 цифр'
-And the user checks the element field 'ogrn' has error message 'ОГРН должно содержать 13 цифр'
-And the user checks the element field 'okpo' has error message 'ОКПО должно содержать 8 цифр'
+Then user checks legal details form the element field 'legalDetails.inn.yur' has error message 'ИНН юридического лица должен состоять из 10 цифр'
+And user checks legal details form the element field 'legalDetails.kpp' has error message 'КПП должен состоять из 9 цифр'
+And user checks legal details form the element field 'legalDetails.ogrn' has error message 'ОГРН должен состоять из 13 цифр'
+And user checks legal details form the element field 'legalDetails.okpo.yur' has error message 'ОКПО юридического лица должен состоять из 8 цифр'
 When user fill legal details inputs
  | elementName | value |
- | fullName | valid |
- | legalAddress | valid |
- | inn | notNumeric |
- | kpp | notNumeric |
- | ogrn | notNumeric |
- | okpo | notNumeric |
+ | legalDetails.fullName | valid |
+ | legalDetails.legalAddress.yur | valid |
+ | legalDetails.inn.yur | notNumeric |
+ | legalDetails.kpp | notNumeric |
+ | legalDetails.ogrn | notNumeric |
+ | legalDetails.okpo.yur | notNumeric |
 And user clicks save legal details button
-Then the user checks the element field 'inn' has error message 'ИНН должен быть ровно 10 цифр'
-And the user checks the element field 'kpp' has error message 'КПП должен содержать 9 цифр'
-And the user checks the element field 'ogrn' has error message 'ОГРН должно содержать 13 цифр'
-And the user checks the element field 'okpo' has error message 'ОКПО должно содержать 8 цифр'
+Then user checks legal details form the element field 'legalDetails.inn.yur' has error message 'ИНН юридического лица должен состоять из 10 цифр'
+And user checks legal details form the element field 'legalDetails.kpp' has error message 'КПП должен состоять из 9 цифр'
+And user checks legal details form the element field 'legalDetails.ogrn' has error message 'ОГРН должен состоять из 13 цифр'
+And user checks legal details form the element field 'legalDetails.okpo.yur' has error message 'ОКПО юридического лица должен состоять из 8 цифр'
 When user fill legal details inputs
  | elementName | value |
- | fullName | ООО "organization-s37us802_8" |
- | legalAddress | СПб, Васи Томчака, д 35, оф. 302 |
- | inn | 7825392986 |
- | kpp | 780201001 |
- | ogrn | 1037843021413 |
- | okpo | 47954132 |
+ | legalDetails.fullName | ООО "organization-s37us802_8" |
+ | legalDetails.legalAddress.yur | СПб, Васи Томчака, д 35, оф. 302 |
+ | legalDetails.inn.yur | 7825392986 |
+ | legalDetails.kpp | 780201001 |
+ | legalDetails.ogrn | 1037843021413 |
+ | legalDetails.okpo.yur | 47954132 |
 And user clicks save legal details button
 Then the user sees no error messages
 And the user sees success message 'Данные успешно сохранены'
