@@ -21,6 +21,10 @@
 .form__controls {
 }
 
+.form__cancelLink{
+    margin-left: 10px;
+}
+
 .form__field {
     padding-bottom: 16px;
 }

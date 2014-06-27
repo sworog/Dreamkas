@@ -7,7 +7,6 @@ define(function(require, exports, module) {
             organizationId: null
         },
         partials: {
-            content: require('ejs!./content.ejs'),
             localNavigation: require('ejs!blocks/localNavigation/localNavigation_companyOrganization.ejs')
         },
         models: {

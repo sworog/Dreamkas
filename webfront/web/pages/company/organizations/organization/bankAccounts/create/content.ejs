@@ -1,0 +1,72 @@
+<div class="content">
+    <h1>Добавление расчетного счета</h1>
+
+    <form class="form form_bankAccount">
+        <div class="form__field">
+
+            <label class="form__label">
+                БИК
+            </label>
+
+            <input autofocus
+                   name="bic"
+                   class="inputText"
+                   type="text"/>
+
+        </div>
+        <div class="form__field">
+
+            <label class="form__label">
+                Название банка
+            </label>
+
+            <input name="bankName"
+                   class="inputText"
+                   type="text"/>
+
+        </div>
+        <div class="form__field">
+
+            <label class="form__label">
+                Адресс банка
+            </label>
+
+            <input name="bankAddress"
+                   class="inputText"
+                   type="text"/>
+
+        </div>
+        <div class="form__field">
+
+            <label class="form__label">
+                Корр. счет
+            </label>
+
+            <input name="correspondentAccount"
+                   class="inputText"
+                   type="text"/>
+
+        </div>
+        <div class="form__field">
+
+            <label class="form__label">
+                Рачетный счет
+            </label>
+
+            <input name="account"
+                   class="inputText"
+                   type="text"/>
+
+        </div>
+        <div class="form__controls">
+            <button type="submit" class="button">
+                Добавить
+            </button>
+            или
+            <a href="/company/organizations/<%- models.companyOrganization.id %>/bankAccounts" class="form__cancelLink">
+                отменить
+            </a>
+        </div>
+    </form>
+
+</div>
