@@ -13,8 +13,8 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\InvoiceType;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Meta\MetaCollection;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -59,7 +59,7 @@ class InvoiceController extends AbstractRestController
     /**
      * @param Store $store
      * @param Request $request
-     * @return View|Invoice
+     * @return FormInterface|Invoice
      *
      * @Rest\View(statusCode=201, serializerEnableMaxDepthChecks=true)
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
@@ -76,7 +76,7 @@ class InvoiceController extends AbstractRestController
      * @param Store $store
      * @param Invoice $invoice
      * @param Request $request
-     * @return View|Invoice
+     * @return FormInterface|Invoice
      *
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @Rest\View(serializerEnableMaxDepthChecks=true)

@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\View\View;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductCollection;
@@ -49,7 +48,7 @@ class ProductController extends AbstractRestController
 
     /**
      * @param Request $request
-     * @return View|Product
+     * @return FormInterface|Product
      *
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
@@ -63,7 +62,7 @@ class ProductController extends AbstractRestController
     /**
      * @param Request $request
      * @param Product $product
-     * @return View|Product
+     * @return FormInterface|Product
      *
      * @Rest\View(statusCode=200)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")

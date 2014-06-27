@@ -4,8 +4,10 @@ namespace Lighthouse\CoreBundle\Document\Organization;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Document\LegalDetails\LegalDetails;
+use Lighthouse\CoreBundle\Document\LegalDetails\LegalEntityLegalDetails;
 use Symfony\Component\Validator\Constraints as Assert;
-use Lighthouse\CoreBundle\Validator\Constraints\FieldLength as AssertFieldLength;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @property string $id
@@ -16,6 +18,7 @@ use Lighthouse\CoreBundle\Validator\Constraints\FieldLength as AssertFieldLength
  * @property string $director
  * @property string $chiefAccountant
  * @property string $address
+ * @property LegalDetails $legalDetails
  *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\Organization\OrganizationRepository"
@@ -78,4 +81,17 @@ class Organization extends AbstractDocument
      * @var string
      */
     protected $address;
+
+    /**
+     * @MongoDB\EmbedOne(
+     *   targetDocument="Lighthouse\CoreBundle\Document\LegalDetails\LegalDetails"
+     * )
+     * @var LegalDetails
+     */
+    protected $legalDetails;
+
+    public function __construct()
+    {
+        $this->legalDetails = new LegalEntityLegalDetails();
+    }
 }

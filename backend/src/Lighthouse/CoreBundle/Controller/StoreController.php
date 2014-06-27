@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Store\ManagerCollection;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreCollection;
@@ -58,7 +57,7 @@ class StoreController extends AbstractRestController
      * @Rest\View(statusCode=201)
      *
      * @param Request $request
-     * @return View|Store
+     * @return FormInterface|Store
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -82,7 +81,7 @@ class StoreController extends AbstractRestController
      *
      * @param Request $request
      * @param Store $store
-     * @return View|Store
+     * @return FormInterface|Store
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */

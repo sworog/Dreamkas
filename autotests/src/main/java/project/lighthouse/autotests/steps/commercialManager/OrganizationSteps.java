@@ -3,10 +3,13 @@ package project.lighthouse.autotests.steps.commercialManager;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import project.lighthouse.autotests.pages.commercialManager.legalDetails.LegalDetailsFormPage;
 import project.lighthouse.autotests.pages.commercialManager.oraganization.OrganizationFormPage;
 import project.lighthouse.autotests.pages.commercialManager.oraganization.OrganizationListPage;
+import project.lighthouse.autotests.steps.CommonSteps;
 
 public class OrganizationSteps extends ScenarioSteps {
+    CommonSteps commonSteps;
 
     OrganizationFormPage organizationFormPage;
     OrganizationListPage organizationListPage;
@@ -54,5 +57,24 @@ public class OrganizationSteps extends ScenarioSteps {
     @Step
     public void assertFieldErrorMessage(String elementName, String expectedErrorMessage) {
         organizationFormPage.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(expectedErrorMessage);
+    }
+
+    @Step
+    public void createOrganizationWithName(String name) {
+        organizationFormPage.open();
+        clickCreateNewOrganizationLink();
+        organizationFormPage.input("name", name);
+        clickCreateButton();
+    }
+
+    @Step
+    public void navigateToOrganizationPageByName(String name) {
+        organizationListPage.open();
+        clickOrganizationListItemByName(name);
+    }
+
+    @Step
+    public void clickLegalDetailsLink() {
+        organizationFormPage.legalDetailsLinkClick();
     }
 }

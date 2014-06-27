@@ -6,7 +6,7 @@ define(function(require, exports, module) {
         describe(module.id, function(){
 
             it('organization local link', function(){
-                expect($('.localNavigation [href^="/company/organization"]').text()).toEqual('Данные организации');
+                expect($('.localNavigation__link:eq(0)').text()).toEqual('Данные организации');
             });
 
         });

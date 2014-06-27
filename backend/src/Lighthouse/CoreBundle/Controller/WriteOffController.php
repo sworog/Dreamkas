@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOffCollection;
@@ -11,6 +10,7 @@ use Lighthouse\CoreBundle\Document\WriteOff\WriteOffRepository;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOffsFilter;
 use Lighthouse\CoreBundle\Form\WriteOffType;
 use Lighthouse\CoreBundle\Meta\MetaCollection;
+use Symfony\Component\Form\Test\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -39,7 +39,7 @@ class WriteOffController extends AbstractRestController
      *
      * @param Store $store
      * @param Request $request
-     * @return View|WriteOff
+     * @return FormInterface|WriteOff
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
@@ -56,7 +56,7 @@ class WriteOffController extends AbstractRestController
      * @param Store $store
      * @param WriteOff $writeOff
      * @param Request $request
-     * @return View|WriteOff
+     * @return FormInterface|WriteOff
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */

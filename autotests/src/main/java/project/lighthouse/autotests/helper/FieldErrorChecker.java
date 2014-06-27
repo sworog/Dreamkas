@@ -16,7 +16,7 @@ public class FieldErrorChecker {
 
     public void assertFieldErrorMessage(String expectedFieldErrorMessage) {
         try {
-            String actualFieldErrorMessage = commonItem.getVisibleWebElement().findElement(By.xpath("./../../*[@data-error]")).getAttribute("data-error");
+            String actualFieldErrorMessage = commonItem.getVisibleWebElement().findElement(By.xpath("./..")).getAttribute("data-error");
             Assert.assertThat(actualFieldErrorMessage, Matchers.is(expectedFieldErrorMessage));
         } catch (NoSuchElementException e) {
             Assert.fail("Field do not have error validation messages");

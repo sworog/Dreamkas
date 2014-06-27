@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
@@ -11,6 +10,7 @@ use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProductCollection;
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProductRepository;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Form\WriteOffProductType;
+use Symfony\Component\Form\Test\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -38,7 +38,7 @@ class WriteOffProductController extends AbstractRestController
      * @param Store $store
      * @param Request $request
      * @param WriteOff $writeOff
-     * @return View|WriteOffProduct
+     * @return FormInterface|WriteOffProduct
      * @Rest\View(statusCode=201)
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
@@ -57,7 +57,7 @@ class WriteOffProductController extends AbstractRestController
      * @param Request $request
      * @param WriteOff $writeOff
      * @param WriteOffProduct $writeOffProduct
-     * @return View|WriteOffProduct
+     * @return FormInterface|WriteOffProduct
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
@@ -75,14 +75,14 @@ class WriteOffProductController extends AbstractRestController
      * @param Store $store
      * @param WriteOff $writeOff
      * @param WriteOffProduct $writeOffProduct
-     * @return null
+     * @return void
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function deleteProductsAction(Store $store, WriteOff $writeOff, WriteOffProduct $writeOffProduct)
     {
         $this->checkWriteOffProduct($writeOff, $writeOffProduct, $store);
-        return $this->processDelete($writeOffProduct);
+        $this->processDelete($writeOffProduct);
     }
 
     /**

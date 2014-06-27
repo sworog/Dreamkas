@@ -1,110 +1,48 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/core/block.deprecated'),
-            moment = require('moment'),
-            Datepicker = require('blocks/datepicker/datepicker'),
-            Tooltip = require('blocks/tooltip/tooltip');
-
-        require('jquery.maskedinput');
+        var Block = require('kit/block'),
+            formatDate = require('kit/formatDate'),
+            moment = require('moment');
 
         return Block.extend({
-            __name__: 'inputDate',
-            className: 'inputDate',
-            tagName: 'input',
+            dateFormat: 'DD.MM.YYYY',
             date: null,
-            noTime: false,
-            templates: {
-                datepicker__controls: require('ejs!blocks/inputDate/templates/datepicker__controls.html')
-            },
-            el: '.inputDate',
-            initialize: function() {
+            blocks: {
+                tooltip_datepicker: function(){
+                    var block = this,
+                        Tooltip_datepicker = require('blocks/tooltip/tooltip_datepicker/tooltip_datepicker');
 
-                var block = this,
-                    date = +block.$el.val() || block.$el.val();
+                    var tooltip_datepicker = new Tooltip_datepicker({
+                        target: block.el
+                    });
 
-                if (block.noTime){
-                    block.dateFormat = 'DD.MM.YYYY';
-                } else {
-                    block.dateFormat = 'DD.MM.YYYY HH:mm'
-                }
+                    tooltip_datepicker.on('selectdate', function(date){
+                        block.el.dataset.date = date;
+                        block.el.value = moment(date).format(block.dateFormat);
+                    });
 
-                block.tooltip = new Tooltip({
-                    trigger: block.el
-                });
-
-                block.datepicker = new Datepicker({
-                    templates: {
-                        controls: block.templates.datepicker__controls
-                    },
-                    noTime: block.noTime
-                });
-
-                block.tooltip.el.classList.add('inputDate__tooltip');
-                block.datepicker.$el.attr({rel: block.$el.attr('name')});
-                $(block.tooltip.el).html(block.datepicker.$el);
-
-                if (date){
-                    block.set('date', date);
-                }
-
-                if (block.noTime){
-                    block.$el.mask('99.99.9999');
-                } else {
-                    block.$el.mask('99.99.9999 99:99');
-                }
-
-                block.listenTo(block.datepicker, {
-                    'change:selectedDate': function(date){
-                        block.set('date', date, {
-                            updateDatepicker: false
-                        });
-                    }
-                });
-            },
-            'set:date': function(date, extra) {
-                var block = this;
-
-                extra = _.extend({
-                    updateInput: true,
-                    updateDatepicker: true
-                }, extra);
-
-                if (extra.updateInput){
-                    block.$el.val(date ? moment(date).format(block.dateFormat) : '');
-                }
-
-                if (extra.updateDatepicker){
-                    block.datepicker.set('selectedDate', date);
+                    return tooltip_datepicker;
                 }
             },
             events: {
                 'focus': function(e) {
                     var block = this;
 
-                    block.showDatePicker();
+                    block.showDatepicker({
+                        date: +block.el.dataset.date
+                    });
                 },
                 'change': function(e){
                     var block = this,
-                        date = moment(block.$el.val() || null, block.dateFormat);
+                        date = moment(block.el.value, block.dateFormat).valueOf();
 
-                    if (date){
-                        block.set('date', date.valueOf(), {
-                            updateInput: false
-                        });
-                    }
+                    block.el.dataset.date = date > 0 ? moment(block.el.value || null, block.dateFormat).valueOf() : '';
                 }
             },
-            showDatePicker: function() {
+            showDatepicker: function(opt) {
                 var block = this;
 
-                block.tooltip.show();
-            },
-            remove: function(){
-                var block = this;
-
-                block.tooltip.remove();
-
-                Block.prototype.remove.call(block);
+                block.blocks.tooltip_datepicker.show(opt);
             }
         });
     }

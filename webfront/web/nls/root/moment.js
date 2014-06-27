@@ -64,8 +64,8 @@ define(function(require, exports, module) {
         months : monthsCaseReplace,
         monthsShort : monthsShortCaseReplace,
         weekdays : weekdaysCaseReplace,
-        weekdaysShort : "вс_пн_вт_ср_чт_пт_сб".split("_"),
-        weekdaysMin : "вс_пн_вт_ср_чт_пт_сб".split("_"),
+        weekdaysShort : ["пн", "вт", "ср", "чт", "пт", "сб", "вс"],
+        weekdaysMin : ["пн", "вт", "ср", "чт", "пт", "сб", "вс"],
         monthsParse : [/^янв/i, /^фев/i, /^мар/i, /^апр/i, /^ма[й|я]/i, /^июн/i, /^июл/i, /^авг/i, /^сен/i, /^окт/i, /^ноя/i, /^дек/i],
         longDateFormat : {
             LT : "HH:mm",

@@ -2,11 +2,11 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Organization\Organization;
 use Lighthouse\CoreBundle\Document\Organization\OrganizationRepository;
-use Lighthouse\CoreBundle\Form\OrganizationType;
+use Lighthouse\CoreBundle\Form\Organization\OrganizationType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -31,7 +31,7 @@ class OrganizationController extends AbstractRestController
 
     /**
      * @param Request $request
-     * @return View|Organization
+     * @return FormInterface|Organization
      *
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
@@ -45,7 +45,7 @@ class OrganizationController extends AbstractRestController
     /**
      * @param Request $request
      * @param Organization $organization
-     * @return View|Organization
+     * @return FormInterface|Organization
      *
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
@@ -53,6 +53,17 @@ class OrganizationController extends AbstractRestController
     public function putOrganizationAction(Request $request, Organization $organization)
     {
         return $this->processForm($request, $organization);
+    }
+
+    /**
+     * @Rest\Patch()
+     * @param Request $request
+     * @param Organization $organization
+     * @return FormInterface|Organization
+     */
+    public function patchOrganizationAction(Request $request, Organization $organization)
+    {
+        return $this->processForm($request, $organization, true, false);
     }
 
     /**
