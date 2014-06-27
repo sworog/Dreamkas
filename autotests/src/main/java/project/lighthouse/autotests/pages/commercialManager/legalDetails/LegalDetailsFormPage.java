@@ -16,14 +16,19 @@ public class LegalDetailsFormPage extends CommonPageObject {
 
     @Override
     public void createElements() {
-        put("type", new SelectByLabel(this, By.name("type"), By.className("inputRadio__text")));
-        put("fullName", new Input(this, "fullName"));
-        put("legalAddress", new Textarea(this, "legalAddress"));
-        put("inn", new Input(this, "inn"));
-        put("okpo", new Input(this, "okpo"));
-        put("ogrnip", new Input(this, "ogrnip"));
-        put("certificateNumber", new Input(this, "certificateNumber"));
-        put("certificateDate", new Input(this, "certificateDate"));
+        put("legalDetails.fullName", new Input(this, "legalDetails.fullName"));
+        put("legalDetails.legalAddress", new Textarea(this, By.cssSelector("fieldset[rel='entrepreneur'] [name='legalDetails.legalAddress']")));
+        put("legalDetails.inn", new Input(this, By.cssSelector("fieldset[rel='entrepreneur'] [name='legalDetails.inn']")));
+        put("legalDetails.okpo", new Input(this, By.cssSelector("fieldset[rel='entrepreneur'] [name='legalDetails.okpo']")));
+        put("legalDetails.ogrnip", new Input(this, "legalDetails.ogrnip"));
+        put("legalDetails.certificateNumber", new Input(this, "legalDetails.certificateNumber"));
+        put("legalDetails.certificateDate", new Input(this, "legalDetails.certificateDate"));
+
+        put("legalDetails.legalAddress.yur", new Textarea(this, By.cssSelector("fieldset[rel='legalEntity'] [name='legalDetails.legalAddress']")));
+        put("legalDetails.inn.yur", new Input(this, By.cssSelector("fieldset[rel='legalEntity'] [name='legalDetails.inn']")));
+        put("legalDetails.okpo.yur", new Input(this, By.cssSelector("fieldset[rel='legalEntity'] [name='legalDetails.okpo']")));
+        put("legalDetails.kpp", new Input(this, "legalDetails.kpp"));
+        put("legalDetails.ogrn", new Input(this, "legalDetails.ogrn"));
     }
 
     public void saveButtonClick() {

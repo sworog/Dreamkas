@@ -32,4 +32,9 @@ public class LegalDetailsUserSteps {
     public void userChecksLegalDetailsFieldsData() {
         legalDetailsSteps.checkLegalDetailsData(legalDetailsData);
     }
+
+    @Then("user checks legal details form the element field '$name' has error message '$errorMessage'")
+    public void userCheckLegalDetailsFormTheElementFieldHasErrorMessage(String name, String errorMessage) {
+        legalDetailsSteps.assertFieldErrorMessage(name, errorMessage);
+    }
 }

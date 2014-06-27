@@ -28,4 +28,9 @@ public class LegalDetailsSteps extends ScenarioSteps {
     public void checkLegalDetailsData(ExamplesTable data) {
         legalDetailsFormPage.checkValues(data);
     }
+
+    @Step
+    public void assertFieldErrorMessage(String elementName, String expectedErrorMessage) {
+        legalDetailsFormPage.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(expectedErrorMessage);
+    }
 }
