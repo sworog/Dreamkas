@@ -31,7 +31,17 @@ public class BankAccountsSteps extends ScenarioSteps {
     }
 
     @Step
+    public void clickBankAccountListItemByBank(String bankName) {
+        bankAccountsListPage.bankAccountListItemByBankClick(bankName);
+    }
+
+    @Step
     public void checkBankAccountData(ExamplesTable data) {
         bankAccountsFormPage.checkValues(data);
+    }
+
+    @Step
+    public void assertFieldErrorMessage(String elementName, String expectedErrorMessage) {
+        bankAccountsFormPage.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(expectedErrorMessage);
     }
 }

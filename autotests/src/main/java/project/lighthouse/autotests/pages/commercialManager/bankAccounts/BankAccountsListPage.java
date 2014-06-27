@@ -22,4 +22,8 @@ public class BankAccountsListPage extends CommonPageObject {
     public void bankAccountListItemByBankAndAccountClick(String bankName, String account) {
         // TODO: как-то находим и кликаем
     }
+
+    public void bankAccountListItemByBankClick(String bankName) {
+        click(By.xpath("a[contains(text(), \"" + bankName + "\")]"));
+    }
 }

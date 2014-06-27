@@ -31,8 +31,18 @@ public class BankAccountsUserSteps {
         bankAccountsSteps.clickBankAccountListItemByBankAndAccount(bankName, account);
     }
 
+    @When("user clicks to bank accounts in list with bank '$bankName'")
+    public void userClicksToBankAccountsInListWithBank(String bankName) {
+        bankAccountsSteps.clickBankAccountListItemByBank(bankName);
+    }
+
     @Then("user checks bank account fields data")
     public void userChecksBankAccountsFieldsData() {
         bankAccountsSteps.checkBankAccountData(bankAccountData);
+    }
+
+    @Then("user checks bank account form the element field '$name' has error message '$errorMessage'")
+    public void userChecksBankAccountFormTheElementFieldHasErrorMessage(String name, String errorMessage) {
+        bankAccountsSteps.assertFieldErrorMessage(name, errorMessage);
     }
 }
