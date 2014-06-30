@@ -3,6 +3,8 @@
 namespace Lighthouse\CoreBundle\Serializer\Handler;
 
 use Doctrine\Common\Collections\Collection;
+use Doctrine\MongoDB\Iterator;
+use Doctrine\ODM\MongoDB\Cursor;
 use JMS\Serializer\Context;
 use JMS\Serializer\EventDispatcher\PreSerializeEvent;
 use JMS\Serializer\GraphNavigator;
@@ -48,13 +50,13 @@ class CollectionHandler
 
     /**
      * @param XmlSerializationVisitor $visitor
-     * @param Collection $collection
+     * @param Collection|Iterator $collection
      * @param array $type
      * @param Context $context
      */
     public function serializeCollectionToXml(
         XmlSerializationVisitor $visitor,
-        Collection $collection,
+        $collection,
         array $type,
         Context $context
     ) {
@@ -85,14 +87,14 @@ class CollectionHandler
 
     /**
      * @param JsonSerializationVisitor $visitor
-     * @param Collection $collection
+     * @param Collection|Iterator $collection
      * @param array $type
      * @param Context $context
      * @return array|\ArrayObject|mixed
      */
     public function serializeCollectionToJson(
         JsonSerializationVisitor $visitor,
-        Collection $collection,
+        $collection,
         array $type,
         Context $context
     ) {
@@ -117,7 +119,7 @@ class CollectionHandler
      */
     public function onSerializerPreSerialize(PreSerializeEvent $event)
     {
-        if ($event->getObject() instanceof Collection) {
+        if ($event->getObject() instanceof Collection || $event->getObject() instanceof Cursor) {
             $event->setType('Collection');
         }
     }
