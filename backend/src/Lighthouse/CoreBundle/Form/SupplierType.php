@@ -16,6 +16,10 @@ class SupplierType extends DocumentType
     {
         $builder
             ->add('name', 'text')
+            ->add('phone', 'text')
+            ->add('fax', 'text')
+            ->add('email', 'text')
+            ->add('contactPerson', 'text')
             ->add(
                 'agreement',
                 'reference',

@@ -5,6 +5,8 @@ namespace Lighthouse\CoreBundle\Document\BankAccount;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Organization\Organization;
+use Lighthouse\CoreBundle\Document\Organization\Organizationable;
+use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -69,7 +71,7 @@ class BankAccount extends AbstractDocument
      *      cascade="persist",
      *      inversedBy="bankAccounts"
      * )
-     * @var Organization
+     * @var Organizationable|Organization|Supplier
      */
     protected $organization;
 }

@@ -28,7 +28,7 @@ use JMS\Serializer\Annotation as Serializer;
  *      repositoryClass="Lighthouse\CoreBundle\Document\Organization\OrganizationRepository"
  * )
  */
-class Organization extends AbstractDocument
+class Organization extends AbstractDocument implements Organizationable
 {
     /**
      * @MongoDB\Id

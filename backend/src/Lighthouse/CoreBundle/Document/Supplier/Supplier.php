@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\File\File;
+use Lighthouse\CoreBundle\Document\Organization\Organizationable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -17,7 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )
  * @Unique(fields="name", message="lighthouse.validation.errors.supplier.name.unique")
  */
-class Supplier extends AbstractDocument
+class Supplier extends AbstractDocument implements Organizationable
 {
     /**
      * @MongoDB\Id
@@ -33,6 +34,34 @@ class Supplier extends AbstractDocument
      * @var string
      */
     protected $name;
+
+    /**
+     * @MongoDB\String
+     * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
+     * @var string
+     */
+    protected $phone;
+
+    /**
+     * @MongoDB\String
+     * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
+     * @var string
+     */
+    protected $fax;
+
+    /**
+     * @MongoDB\String
+     * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
+     * @var string
+     */
+    protected $email;
+
+    /**
+     * @MongoDB\String
+     * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
+     * @var string
+     */
+    protected $contactPerson;
 
     /**
      * @MongoDB\ReferenceOne(
