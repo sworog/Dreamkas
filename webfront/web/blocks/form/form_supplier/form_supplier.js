@@ -14,7 +14,7 @@ define(function(require, exports, module) {
             fileBox: require('ejs!./fileBox.ejs')
         },
         model: function(){
-            var Model = require('models/supplier');
+            var Model = require('models/supplier/supplier');
 
             return new Model();
         },

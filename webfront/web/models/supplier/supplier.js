@@ -9,7 +9,7 @@ define(function(require, exports, module) {
             'phone',
             'fax',
             'email',
-            'contacts',
+            'contactPerson',
             'agreement'
         ]
     });

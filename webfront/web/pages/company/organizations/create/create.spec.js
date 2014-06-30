@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('./createCompanyOrganization'),
+    var Page = require('./create'),
         $ = require('jquery');
 
     var sharedSpecs = {
