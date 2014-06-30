@@ -72,6 +72,13 @@ define(function(require, exports, module) {
                 }
             }
         },
+        initialize: function(){
+            var block = this;
+
+            Form.prototype.initialize.apply(block, arguments);
+
+            block.model = block.get('model');
+        },
         renderFileBox: function(){
             var block = this;
 

@@ -16,7 +16,7 @@
             <% if (successMessage) { %>
             <span style="float: right" class="form__successMessage">Файл успешно загружен</span>
             <% } %>
-            <a name="agreementLink" data-navigate="false" href="<%- model.get('agreement.url') %>">
+            <a name="agreementLink" data-navigate="0" href="<%- model.get('agreement.url') %>">
                 <%- decodeURIComponent(model.get('agreement.name')) %>
             </a>
         </p>
