@@ -6,12 +6,16 @@ define(function(require, exports, module) {
         partials: {
             content: require('ejs!./content.ejs')
         },
+        params: {
+            bankAccountId: null
+        },
         models: {
             bankAccount: function(){
                 var page = this,
                     Model = require('models/bankAccount/bankAccount');
 
                 return new Model({
+                    id: page.params.bankAccountId,
                     organizationId: page.params.organizationId
                 });
             }
@@ -22,6 +26,7 @@ define(function(require, exports, module) {
                     Form = require('blocks/form/form_bankAccount/form_bankAccount');
 
                 return new Form({
+                    model: page.models.bankAccount,
                     organizationId: page.params.organizationId
                 });
             }

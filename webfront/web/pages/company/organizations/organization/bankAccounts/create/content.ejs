@@ -5,6 +5,8 @@
 <div class="content">
     <h1>Добавление расчетного счета</h1>
 
-    <%= partials.form_bankAccount() %>
+    <%= partials.form_bankAccount({
+        organizationId: models.companyOrganization.id
+    }) %>
 
 </div>

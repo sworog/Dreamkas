@@ -1,3 +1,10 @@
+<%
+/**
+ *
+ * @organizationId
+ */
+%>
+
 <% var BankAccountModel = require('models/bankAccount/bankAccount') %>
 <% var model = model || new BankAccountModel() %>
 
@@ -10,6 +17,7 @@
 
         <input autofocus
                name="bic"
+               value="<%- model.get('bic') %>"
                class="inputText"
                type="text"/>
 
@@ -21,6 +29,7 @@
         </label>
 
         <input name="bankName"
+               value="<%- model.get('bankName') %>"
                class="inputText"
                type="text"/>
 
@@ -32,6 +41,7 @@
         </label>
 
         <input name="bankAddress"
+               value="<%- model.get('bankAddress') %>"
                class="inputText"
                type="text"/>
 
@@ -43,6 +53,7 @@
         </label>
 
         <input name="correspondentAccount"
+               value="<%- model.get('correspondentAccount') %>"
                class="inputText"
                type="text"/>
 
@@ -54,6 +65,7 @@
         </label>
 
         <input name="account"
+               value="<%- model.get('account') %>"
                class="inputText"
                type="text"/>
 
@@ -63,7 +75,7 @@
             Добавить
         </button>
         или
-        <a href="/company/organizations/<%- model.id %>/bankAccounts" class="form__cancelLink">
+        <a href="/company/organizations/<%- organizationId %>/bankAccounts" class="form__cancelLink">
             отменить
         </a>
     </div>
