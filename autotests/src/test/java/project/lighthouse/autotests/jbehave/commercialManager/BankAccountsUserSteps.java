@@ -1,11 +1,13 @@
 package project.lighthouse.autotests.jbehave.commercialManager;
 
+import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.commercialManager.BankAccountsSteps;
 
 public class BankAccountsUserSteps {
+    @Steps
     BankAccountsSteps bankAccountsSteps;
 
     ExamplesTable bankAccountData;

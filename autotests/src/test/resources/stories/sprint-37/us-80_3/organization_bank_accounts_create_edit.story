@@ -15,7 +15,7 @@ Meta:
 Given the user opens the authorization page
 And the user logs in using 'owner@lighthouse.pro' userName and 'lighthouse' password
 And user have organization with name 'organization-s37u803_1'
-And user is on company page
+And user is on organization page name 'organization-s37u803_1'
 When user clicks bank accounts list link
 And user clicks create new bank account link
 And user fill bank account inputs
@@ -35,7 +35,7 @@ Scenario: Create organization bank account validation
 Given the user opens the authorization page
 And the user logs in using 'owner@lighthouse.pro' userName and 'lighthouse' password
 And user have organization with name 'organization-s37u803_2'
-And user is on company page
+And user is on organization page name 'organization-s37u803_2'
 When user clicks bank accounts list link
 And user clicks create new bank account link
 And user fill bank account inputs
@@ -79,7 +79,7 @@ Meta:
 Given the user opens the authorization page
 And the user logs in using 'owner@lighthouse.pro' userName and 'lighthouse' password
 And user have organization with name 'organization-s37u803_3'
-And user is on company page
+And user is on organization page name 'organization-s37u803_3'
 When user clicks bank accounts list link
 And user clicks create new bank account link
 And user fill bank account inputs
@@ -109,7 +109,7 @@ Scenario: Edit organization bank account validation
 Given the user opens the authorization page
 And the user logs in using 'owner@lighthouse.pro' userName and 'lighthouse' password
 And user have organization with name 'organization-s37u803_4'
-And user is on company page
+And user is on organization page name 'organization-s37u803_4'
 When user clicks bank accounts list link
 And user clicks create new bank account link
 And user fill bank account inputs
