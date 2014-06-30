@@ -13,7 +13,7 @@ Meta:
 @smoke
 
 Given the user opens the authorization page
-And the user logs in using 'owner@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in as 'owner'
 And user have organization with name 'organization-s37us802_1'
 And user is on organization page name 'organization-s37us802_1'
 When user clicks legal details link
@@ -37,7 +37,7 @@ Then user checks legal details fields data
 Scenario: Create legal details on organization IP validation
 
 Given the user opens the authorization page
-And the user logs in using 'owner@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in as 'owner'
 And user have organization with name 'organization-s37us802_2'
 And user is on organization page name 'organization-s37us802_2'
 When user clicks legal details link
@@ -104,7 +104,7 @@ Meta:
 @smoke
 
 Given the user opens the authorization page
-And the user logs in using 'owner@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in as 'owner'
 And user have organization with name 'organization-s37us802_3'
 And user is on organization page name 'organization-s37us802_3'
 When user clicks legal details link
@@ -127,7 +127,7 @@ Then user checks legal details fields data
 Scenario: Create legal details on organization legalEntity validation
 
 Given the user opens the authorization page
-And the user logs in using 'owner@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in as 'owner'
 And user have organization with name 'organization-s37us802_4'
 And user is on organization page name 'organization-s37us802_4'
 When user clicks legal details link
@@ -192,7 +192,7 @@ Meta:
 @smoke
 
 Given the user opens the authorization page
-And the user logs in using 'owner@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in as 'owner'
 And user have organization with name 'organization-s37us802_5'
 And user is on organization page name 'organization-s37us802_5'
 When user clicks legal details link
@@ -231,7 +231,7 @@ Then user checks legal details fields data
 Scenario: Edit legal details on organization IP validation
 
 Given the user opens the authorization page
-And the user logs in using 'owner@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in as 'owner'
 And user have organization with name 'organization-s37us802_6'
 And user is on organization page name 'organization-s37us802_6'
 When user clicks legal details link
@@ -313,7 +313,7 @@ Meta:
 @smoke
 
 Given the user opens the authorization page
-And the user logs in using 'owner@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in as 'owner'
 And user have organization with name 'organization-s37us802_7'
 And user is on organization page name 'organization-s37us802_7'
 When user clicks legal details link
@@ -350,7 +350,7 @@ Then user checks legal details fields data
 Scenario: Edit legal details on organization legalEntity validation
 
 Given the user opens the authorization page
-And the user logs in using 'owner@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in as 'owner'
 And user have organization with name 'organization-s37us802_8'
 And user is on organization page name 'organization-s37us802_8'
 When user clicks legal details link

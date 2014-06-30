@@ -13,7 +13,7 @@ Meta:
 @smoke
 
 Given user is on company page
-And the user logs in using 'owner@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in as 'owner'
 When user clicks create new organization link
 And user fill organization inputs
 | elementName | value |
@@ -33,7 +33,7 @@ Then user checks organization fields data
 Scenario: Validation create organization not require name field
 
 Given user is on create organization page
-And the user logs in using 'owner@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in as 'owner'
 When user fill organization inputs
  | elementName | value |
  | phone | +79211315542 |
@@ -48,7 +48,7 @@ Then user checks organization form the element field 'name' has error message '�
 Scenario: Validation create organization long value
 
 Given user is on create organization page
-And the user logs in using 'owner@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in as 'owner'
 When user fill organization inputs
  | elementName | value |
  | name | 123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567_301 |
@@ -73,7 +73,7 @@ Meta:
 @smoke
 
 Given user is on company page
-And the user logs in using 'owner@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in as 'owner'
 When user clicks create new organization link
 And user fill organization inputs
 | elementName | value |
@@ -104,7 +104,7 @@ And the user sees success message 'Данные организации успе�
 Scenario: Edit organization validation not require name field
 
 Given user is on company page
-And the user logs in using 'owner@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in as 'owner'
 When user clicks create new organization link
 And user fill organization inputs
 | elementName | value |
@@ -134,7 +134,7 @@ Then user checks organization form the element field 'name' has error message '�
 Scenario: Edit organization validation lenght
 
 Given user is on company page
-And the user logs in using 'owner@lighthouse.pro' userName and 'lighthouse' password
+And the user logs in as 'owner'
 When user clicks create new organization link
 And user fill organization inputs
 | elementName | value |
