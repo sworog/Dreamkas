@@ -13,6 +13,11 @@ define(function(require, exports, module) {
         partials: {
             fileBox: require('ejs!./fileBox.ejs')
         },
+        model: function(){
+            var Model = require('models/supplier');
+
+            return new Model();
+        },
         events: {
             'change [type="file"]': function(e) {
                 var block = this,

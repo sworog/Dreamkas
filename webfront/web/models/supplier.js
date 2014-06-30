@@ -6,6 +6,10 @@ define(function(require, exports, module) {
         urlRoot: Model.baseApiUrl + '/suppliers',
         saveData: [
             'name',
+            'phone',
+            'fax',
+            'email',
+            'contacts',
             'agreement'
         ]
     });

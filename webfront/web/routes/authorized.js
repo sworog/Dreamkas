@@ -18,9 +18,9 @@ define(function(require) {
         'company/organizations/:organizationId/bankAccounts/:bankAccountId': require('pages/company/organizations/organization/bankAccounts/bankAccount/bankAccount'),
 
         //suppliers
-        'suppliers(/)': require('pages/suppliers/list/list'),
+        'suppliers(/)': require('pages/suppliers/suppliers'),
         'suppliers/create(/)': require('pages/suppliers/create/create'),
-        'suppliers/:supplierId(/)': require('pages/suppliers/view/view'),
+        'suppliers/:supplierId(/)': require('pages/suppliers/supplier/supplier'),
 
         //orders
         'stores/:storeId/orders(/)': require('pages/orders/list/list'),
