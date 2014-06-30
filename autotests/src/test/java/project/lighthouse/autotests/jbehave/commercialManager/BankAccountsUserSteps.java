@@ -52,4 +52,9 @@ public class BankAccountsUserSteps {
     public void userChecksBankAccountFormTheElementFieldHasErrorMessage(String name, String errorMessage) {
         bankAccountsSteps.assertFieldErrorMessage(name, errorMessage);
     }
+
+    @Then("user checks bank account list exists account '$account' and bank '$bankName'")
+    public void userChecksBankAccountListExistsAccountAndBank(String account, String bankName) {
+        bankAccountsSteps.assertExistsListItemWithAccountAndBank(account, bankName);
+    }
 }

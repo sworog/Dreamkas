@@ -49,4 +49,9 @@ public class BankAccountsSteps extends ScenarioSteps {
     public void assertFieldErrorMessage(String elementName, String expectedErrorMessage) {
         bankAccountsFormPage.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(expectedErrorMessage);
     }
+
+    @Step
+    public void assertExistsListItemWithAccountAndBank(String account, String bankName) {
+        bankAccountsListPage.assertExistsListItemWithAccountAndBank(account, bankName);
+    }
 }
