@@ -23,8 +23,8 @@ define(function(require) {
                 block.el.querySelector('[name="username"]').focus();
             }
         },
-        submitSuccess: function(response) {
-            login(response.access_token);
+        submitSuccess: function() {
+            login(this.model.get('access_token'));
         }
     });
 });

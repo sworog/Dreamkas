@@ -4,10 +4,8 @@ define(function(require, exports, module) {
         Page = require('kit/page');
 
     return Page.extend({
-        template: require('rv!./template.html'),
-        data: {
-            jsErrors: [],
-            apiErrors: [],
+        template: require('ejs!./content.ejs'),
+        params: {
             debugLevel: config.debugLevel
         }
     });
