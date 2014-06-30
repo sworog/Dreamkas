@@ -5,9 +5,9 @@ define(function(require, exports, module) {
     return Form.extend({
         el: '.form_companyOrganization',
         redirectUrl: function(){
-            var page = this;
+            var block = this;
 
-            if (!page.get('model.id')){
+            if (!block.get('model.id')){
                 return '/company';
             }
         },
@@ -16,6 +16,15 @@ define(function(require, exports, module) {
             var Model = require('models/companyOrganization/companyOrganization');
 
             return new Model();
+        },
+        blocks: {
+            certificateDateInput: function(){
+                var InputDate = require('blocks/inputDate/inputDate');
+
+                return new InputDate({
+                    el: '[name="legalDetails.certificateDate"]'
+                });
+            }
         }
     });
 });

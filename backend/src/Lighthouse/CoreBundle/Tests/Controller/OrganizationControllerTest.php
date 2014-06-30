@@ -632,11 +632,11 @@ class OrganizationControllerTest extends WebTestCase
                 'legalAddress' => '650055, КЕМЕРОВСКАЯ обл, КЕМЕРОВО г, СИБИРЯКОВ-ГВАРДЕЙЦЕВ ул, 1',
                 'kpp' => '420501001',
                 'ogrn' => '1124205008488',
-            )
+            ),
+            'bankAccounts' => array()
         );
 
         $this->assertEquals($expectedData, $patchResponse);
-
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,

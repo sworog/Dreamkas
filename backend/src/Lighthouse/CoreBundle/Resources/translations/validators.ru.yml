@@ -132,6 +132,8 @@ lighthouse:
                     entrepreneur: ИНН индивидуально предпринимателя должен состоять из 12 цифр
                 ogrnip: ОГРНИП должен состоять из 15 цифр
                 certificate_number: Номер свидетельства должен состоять из 25 символов
+            bank_account:
+                bic: БИК должен состоять из 9 цифр
 
 This value should not be blank.: Заполните это поле
 This value should be {{ limit }} or less.: Не более {{ limit }} символов

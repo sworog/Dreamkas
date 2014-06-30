@@ -88,12 +88,12 @@ class UserProvider implements UserProviderInterface
 
     /**
      * @param string $username
-     * @return User|UserInterface
-     * @throws \Symfony\Component\Security\Core\Exception\UsernameNotFoundException
+     * @return User
+     * @throws UsernameNotFoundException
      */
     public function loadUserByUsername($username)
     {
-        $user = $this->userRepository->findOneBy(array('email' => $username));
+        $user = $this->userRepository->findOneByEmail($username);
 
         if (!$user) {
             $e = new UsernameNotFoundException();
@@ -106,9 +106,9 @@ class UserProvider implements UserProviderInterface
 
     /**
      * @param UserInterface $user
-     * @return User|UserInterface
-     * @throws \Symfony\Component\Security\Core\Exception\UsernameNotFoundException
-     * @throws \Symfony\Component\Security\Core\Exception\UnsupportedUserException
+     * @return User
+     * @throws UsernameNotFoundException
+     * @throws UnsupportedUserException
      */
     public function refreshUser(UserInterface $user)
     {

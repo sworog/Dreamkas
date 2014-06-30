@@ -4,11 +4,9 @@ namespace Lighthouse\CoreBundle\Form;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class StoreProductType extends AbstractType
+class StoreProductType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -34,23 +32,10 @@ class StoreProductType extends AbstractType
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(
-            array(
-                'data_class' => StoreProduct::getClassName(),
-                'csrf_protection' => false
-            )
-        );
-    }
-
-    /**
      * @return string
      */
-    public function getName()
+    protected function getDataClass()
     {
-        return '';
+        return StoreProduct::getClassName();
     }
 }

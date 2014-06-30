@@ -4,11 +4,9 @@ namespace Lighthouse\CoreBundle\Form;
 
 use Lighthouse\CoreBundle\Document\File\File;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class SupplierType extends AbstractType
+class SupplierType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -30,23 +28,10 @@ class SupplierType extends AbstractType
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(
-            array(
-                'data_class' => Supplier::getClassName(),
-                'csrf_protection' => false
-            )
-        );
-    }
-
-    /**
      * @return string
      */
-    public function getName()
+    protected function getDataClass()
     {
-        return '';
+        return Supplier::getClassName();
     }
 }

@@ -3,11 +3,9 @@
 namespace Lighthouse\CoreBundle\Form;
 
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class WriteOffType extends AbstractType
+class WriteOffType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,27 +15,15 @@ class WriteOffType extends AbstractType
     {
         $builder
             ->add('number', 'text')
-            ->add('date', 'datetime');
-    }
-
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(
-            array(
-                'data_class' => WriteOff::getClassName(),
-                'csrf_protection' => false
-            )
-        );
+            ->add('date', 'datetime')
+        ;
     }
 
     /**
      * @return string
      */
-    public function getName()
+    protected function getDataClass()
     {
-        return '';
+        return WriteOff::getClassName();
     }
 }

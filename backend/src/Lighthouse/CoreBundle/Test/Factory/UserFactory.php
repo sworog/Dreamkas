@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Test\Factory;
 use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\Project\ProjectRepository;
 use Lighthouse\CoreBundle\Document\User\User;
+use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Security\Project\ProjectToken;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
 use Symfony\Component\Security\Core\SecurityContextInterface;
@@ -18,14 +19,14 @@ class UserFactory extends AbstractFactory
     const PROJECT_DEFAULT_NAME = 'project1';
 
     /**
-     * @var User[]
+     * @var array(email => id)
      */
     protected $users = array();
 
     /**
      * @var array
      */
-    protected $projectIds;
+    protected $projectIds = array();
 
     /**
      * @param string $role
@@ -52,11 +53,10 @@ class UserFactory extends AbstractFactory
         $name = self::USER_DEFAULT_NAME,
         $position = self::USER_DEFAULT_POSITION
     ) {
-        $hash = md5(implode(',', func_get_args()));
-        if (!isset($this->users[$hash])) {
-            $this->users[$hash] = $this->createUser($email, $password, $roles, $name, $position);
+        if (!isset($this->users[$email])) {
+            $this->createUser($email, $password, $roles, $name, $position);
         }
-        return $this->users[$hash];
+        return $this->getUserRepository()->findOneByEmail($email);
     }
 
     /**
@@ -65,12 +65,7 @@ class UserFactory extends AbstractFactory
      */
     public function getUserById($userId)
     {
-        foreach ($this->users as $user) {
-            if ($user->id == $userId) {
-                return $user;
-            }
-        }
-        return null;
+        return $this->getUserRepository()->find($userId);
     }
 
     /**
@@ -103,6 +98,8 @@ class UserFactory extends AbstractFactory
         $this->getDocumentManager()->persist($user);
         $this->getDocumentManager()->flush();
 
+        $this->users[$email] = $user->id;
+
         return $user;
     }
 
@@ -129,6 +126,18 @@ class UserFactory extends AbstractFactory
     }
 
     /**
+     * @param string $email
+     * @return User
+     */
+    public function getProjectUser($email = self::USER_DEFAULT_EMAIL)
+    {
+        if (!isset($this->users[$email])) {
+            $this->createProjectUser($email);
+        }
+        return $this->getUserRepository()->findOneByEmail($email);
+    }
+
+    /**
      * @param string $name
      * @throws \Doctrine\ODM\MongoDB\LockException
      * @return Project
@@ -138,7 +147,7 @@ class UserFactory extends AbstractFactory
         if (!isset($this->projectIds[$name])) {
             $this->projectIds[$name] = $this->createProject($name)->id;
         }
-        return $this->getProjectProvider()->find($this->projectIds[$name]);
+        return $this->getProjectRepository()->find($this->projectIds[$name]);
     }
 
     /**
@@ -149,7 +158,7 @@ class UserFactory extends AbstractFactory
     {
         $project = new Project();
         $project->name = $name;
-        $this->getProjectProvider()->save($project);
+        $this->getProjectRepository()->save($project);
         return $project;
     }
 
@@ -172,9 +181,17 @@ class UserFactory extends AbstractFactory
     }
 
     /**
+     * @return UserRepository
+     */
+    protected function getUserRepository()
+    {
+        return $this->container->get('lighthouse.core.document.repository.user');
+    }
+
+    /**
      * @return ProjectRepository
      */
-    protected function getProjectProvider()
+    protected function getProjectRepository()
     {
         return $this->container->get('lighthouse.core.document.repository.project');
     }

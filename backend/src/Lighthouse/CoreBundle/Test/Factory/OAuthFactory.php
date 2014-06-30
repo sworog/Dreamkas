@@ -150,4 +150,14 @@ class OAuthFactory extends AbstractFactory
         $departmentManager = $this->factory->store()->getDepartmentManager($storeId);
         return $this->auth($departmentManager);
     }
+
+    /**
+     * @param string $email
+     * @return stdClass
+     */
+    public function authAsProjectUser($email = UserFactory::USER_DEFAULT_EMAIL)
+    {
+        $projectUser = $this->factory->user()->getProjectUser($email);
+        return $this->auth($projectUser);
+    }
 }

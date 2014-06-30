@@ -3,11 +3,9 @@
 namespace Lighthouse\CoreBundle\Form;
 
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class StoreType extends AbstractType
+class StoreType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -18,29 +16,15 @@ class StoreType extends AbstractType
         $builder
             ->add('number', 'text')
             ->add('address', 'text')
-            ->add('contacts', 'text');
+            ->add('contacts', 'text')
+        ;
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
+     * @return string
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    protected function getDataClass()
     {
-        $resolver->setDefaults(
-            array(
-                'data_class' => Store::getClassName(),
-                'csrf_protection' => false
-            )
-        );
-    }
-
-    /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
-     */
-    public function getName()
-    {
-        return '';
+        return Store::getClassName();
     }
 }

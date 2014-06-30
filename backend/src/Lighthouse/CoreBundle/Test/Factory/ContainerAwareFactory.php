@@ -40,4 +40,12 @@ abstract class ContainerAwareFactory implements ContainerAwareInterface
     {
         $this->container = $container;
     }
+
+    /**
+     * @return string
+     */
+    public static function getClassName()
+    {
+        return get_called_class();
+    }
 }

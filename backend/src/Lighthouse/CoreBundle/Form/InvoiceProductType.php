@@ -4,11 +4,9 @@ namespace Lighthouse\CoreBundle\Form;
 
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class InvoiceProductType extends AbstractType
+class InvoiceProductType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -27,27 +25,15 @@ class InvoiceProductType extends AbstractType
                 )
             )
             ->add('priceEntered', 'money')
-            ->add('quantity', 'quantity');
-    }
-
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(
-            array(
-                'data_class' => InvoiceProduct::getClassName(),
-                'csrf_protection' => false
-            )
-        );
+            ->add('quantity', 'quantity')
+        ;
     }
 
     /**
      * @return string
      */
-    public function getName()
+    protected function getDataClass()
     {
-        return '';
+        return InvoiceProduct::getClassName();
     }
 }

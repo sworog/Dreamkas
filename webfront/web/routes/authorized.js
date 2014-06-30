@@ -10,9 +10,12 @@ define(function(require) {
 
         //company
         'company': require('pages/company/company'),
-        'company/organizations/create': require('pages/createCompanyOrganization/createCompanyOrganization'),
-        'company/organizations/:organizationId': require('pages/companyOrganization/companyOrganization'),
-        'company/organizations/:organizationId/details': require('pages/companyOrganizationDetails/companyOrganizationDetails'),
+        'company/organizations/create': require('pages/company/organizations/create/create'),
+        'company/organizations/:organizationId': require('pages/company/organizations/organization/organization'),
+        'company/organizations/:organizationId/details': require('pages/company/organizations/organization/details/details'),
+        'company/organizations/:organizationId/bankAccounts': require('pages/company/organizations/organization/bankAccounts/bankAccounts'),
+        'company/organizations/:organizationId/bankAccounts/create': require('pages/company/organizations/organization/bankAccounts/create/create'),
+        'company/organizations/:organizationId/bankAccounts/:bankAccountId': require('pages/company/organizations/organization/bankAccounts/bankAccount/bankAccount'),
 
         //suppliers
         'suppliers(/)': require('pages/suppliers/list/list'),

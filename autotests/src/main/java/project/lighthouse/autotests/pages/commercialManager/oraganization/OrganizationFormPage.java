@@ -43,4 +43,8 @@ public class OrganizationFormPage extends CommonPageObject {
     public void legalDetailsLinkClick() {
         click(By.linkText("Юридические реквизиты"));
     }
+
+    public void bankAccountsListLink() {
+        click(By.linkText("Расчетные счета"));
+    }
 }

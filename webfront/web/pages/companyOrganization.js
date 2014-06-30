@@ -7,7 +7,6 @@ define(function(require, exports, module) {
             organizationId: null
         },
         partials: {
-            content: require('ejs!./content.ejs'),
             localNavigation: require('ejs!blocks/localNavigation/localNavigation_companyOrganization.ejs')
         },
         models: {
@@ -17,16 +16,6 @@ define(function(require, exports, module) {
 
                 return new Model({
                     id: page.params.organizationId
-                });
-            }
-        },
-        blocks: {
-            form_companyOrganization: function(){
-                var page = this,
-                    Form = require('blocks/form/form_companyOrganization/form_companyOrganization');
-
-                return new Form({
-                    model: page.models.companyOrganization
                 });
             }
         }
