@@ -2,10 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\Product\Product;
-use Lighthouse\CoreBundle\Document\Product\ProductCollection;
 use Lighthouse\CoreBundle\Document\Product\ProductFilter;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
@@ -87,7 +87,7 @@ class ProductController extends AbstractRestController
     /**
      * @param string $property
      * @param ProductFilter $filter
-     * @return ProductCollection
+     * @return Product[]|Cursor
      * @ApiDoc
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @Rest\View(serializerGroups={"Collection"})
@@ -96,33 +96,28 @@ class ProductController extends AbstractRestController
     public function getProductsSearchAction($property, ProductFilter $filter)
     {
         $filter->setProperties($property);
-        $cursor = $this->documentRepository->search($filter);
-        return new ProductCollection($cursor);
+        return $this->documentRepository->search($filter);
     }
 
     /**
-     * @return ProductCollection
-     * @ApiDoc(
-     *      resource=true
-     * )
+     * @return Product[]|Cursor
+     * @ApiDoc(resource=true)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
      */
     public function getProductsAction()
     {
-        $cursor = $this->documentRepository->findBy(array());
-        return new ProductCollection($cursor);
+        return $this->documentRepository->findBy(array());
     }
 
     /**
      * @param SubCategory $subCategory
-     * @return ProductCollection
+     * @return Product[]|Cursor
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @Rest\View(serializerGroups={"Collection"})
      * @ApiDoc
      */
     public function getSubcategoryProductsAction(SubCategory $subCategory)
     {
-        $cursor = $this->documentRepository->findBySubCategory($subCategory);
-        return new ProductCollection($cursor);
+        return $this->documentRepository->findBySubCategory($subCategory);
     }
 }

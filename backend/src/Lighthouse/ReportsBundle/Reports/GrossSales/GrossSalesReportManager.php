@@ -4,17 +4,14 @@ namespace Lighthouse\ReportsBundle\Reports\GrossSales;
 
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Console\DotHelper;
-use Lighthouse\CoreBundle\Document\AbstractCollection;
+use Lighthouse\CoreBundle\Document\DocumentCollection;
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
-use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
-use Lighthouse\CoreBundle\Document\Classifier\Group\GroupCollection;
 use Lighthouse\CoreBundle\Document\Classifier\ParentableRepository;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
-use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryCollection;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
@@ -754,8 +751,7 @@ class GrossSalesReportManager
     public function getGrossSalesBySubCategories(Store $store, Category $category, DateTime $time = null)
     {
         $cursor = $this->subCategoryRepository->findByParent($category->id);
-        $cursor->sort(array('name' => 1));
-        $nodes = new SubCategoryCollection($cursor);
+        $nodes = new DocumentCollection($cursor);
 
         return $this->getGrossSalesByNode(
             $this->grossSalesSubCategoryRepository,
@@ -775,8 +771,7 @@ class GrossSalesReportManager
     public function getGrossSalesByCategories(Store $store, Group $group, DateTime $time = null)
     {
         $cursor = $this->categoryRepository->findByParent($group->id);
-        $cursor->sort(array('name' => 1));
-        $nodes = new CategoryCollection($cursor);
+        $nodes = new DocumentCollection($cursor);
 
         return $this->getGrossSalesByNode(
             $this->grossSalesCategoryRepository,
@@ -795,7 +790,7 @@ class GrossSalesReportManager
     public function getGrossSalesByGroups(Store $store, DateTime $time = null)
     {
         $cursor = $this->groupRepository->findBy(array(), array('name' => DocumentRepository::SORT_ASC));
-        $nodes = new GroupCollection($cursor);
+        $nodes = new DocumentCollection($cursor);
 
         return $this->getGrossSalesByNode(
             $this->grossSalesGroupRepository,
@@ -808,7 +803,7 @@ class GrossSalesReportManager
 
     /**
      * @param GrossSalesNodeRepository $grossSalesNodeRepository
-     * @param AbstractCollection $nodes
+     * @param DocumentCollection $nodes
      * @param GrossSalesByClassifierNodeCollection $collection
      * @param Store $store
      * @param DateTime $time
@@ -816,7 +811,7 @@ class GrossSalesReportManager
      */
     protected function getGrossSalesByNode(
         GrossSalesNodeRepository $grossSalesNodeRepository,
-        AbstractCollection $nodes,
+        DocumentCollection $nodes,
         GrossSalesByClassifierNodeCollection $collection,
         Store $store,
         DateTime $time = null
@@ -872,12 +867,12 @@ class GrossSalesReportManager
 
     /**
      * @param GrossSalesByClassifierNodeCollection $collection
-     * @param AbstractNode[]|AbstractCollection $nodes
+     * @param AbstractNode[]|DocumentCollection $nodes
      * @param DateTime[] $dates
      */
     public function fillGrossSalesByClassifierNodeCollection(
         GrossSalesByClassifierNodeCollection $collection,
-        AbstractCollection $nodes,
+        DocumentCollection $nodes,
         array $dates
     ) {
         foreach ($nodes as $node) {

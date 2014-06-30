@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\BankAccount\BankAccount;
-use Lighthouse\CoreBundle\Document\BankAccount\BankAccountCollection;
 use Lighthouse\CoreBundle\Document\BankAccount\BankAccountRepository;
 use Lighthouse\CoreBundle\Document\Organization\Organization;
 use Lighthouse\CoreBundle\Form\BankAccountType;
@@ -51,7 +51,7 @@ class BankAccountController extends AbstractRestController
 
     /**
      * @param Organization $organization
-     * @return BankAccountCollection
+     * @return Cursor|BankAccount[]
      *
      * @Rest\Route("organizations/{organization}/bankAccounts")
      * @Rest\View(statusCode=200)
@@ -60,8 +60,7 @@ class BankAccountController extends AbstractRestController
      */
     public function getOrganizationBankAccountsAction(Organization $organization)
     {
-        $cursor = $this->documentRepository->findByOrganization($organization);
-        return new BankAccountCollection($cursor);
+        return $this->documentRepository->findByOrganization($organization);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Organization\Organization;
 use Lighthouse\CoreBundle\Document\Organization\OrganizationRepository;
 use Lighthouse\CoreBundle\Form\Organization\OrganizationType;
@@ -79,13 +80,13 @@ class OrganizationController extends AbstractRestController
     }
 
     /**
-     * @return \Doctrine\ODM\MongoDB\Cursor|Organization[]
+     * @return Cursor|Organization[]
      *
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc(resource=true)
      */
     public function getOrganizationsAction()
     {
-        return $this->documentRepository->findAll()->toArray(false);
+        return $this->documentRepository->findAll();
     }
 }

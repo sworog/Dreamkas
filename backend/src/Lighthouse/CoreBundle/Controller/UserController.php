@@ -2,12 +2,12 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\User\User;
-use Lighthouse\CoreBundle\Document\User\UserCollection;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\User\CurrentUserType;
@@ -255,7 +255,7 @@ class UserController extends AbstractRestController
     }
 
     /**
-     * @return UserCollection
+     * @return User[]|Cursor
      * @Secure(roles="ROLE_ADMINISTRATOR")
      * @ApiDoc(
      *      description="Create users"
@@ -263,14 +263,13 @@ class UserController extends AbstractRestController
      */
     public function getUsersAction()
     {
-        $users = $this->documentRepository->findAll();
-        return new UserCollection($users);
+        return $this->documentRepository->findAll();
     }
 
     /**
      * @param Store $store
      * @param Request $request
-     * @return UserCollection
+     * @return User[]|Cursor
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @Rest\Route("stores/{store}/storeManagers")
      * @ApiDoc
@@ -280,17 +279,16 @@ class UserController extends AbstractRestController
         $candidates = (bool) $request->query->get('candidates', false);
         if ($candidates) {
             $excludeIds = $this->storeRepository->findAllStoresManagerIds();
-            $users = $this->documentRepository->findAllByRoles(User::ROLE_STORE_MANAGER, $excludeIds);
-            return new UserCollection($users);
+            return $this->documentRepository->findAllByRoles(User::ROLE_STORE_MANAGER, $excludeIds);
         } else {
-            return new UserCollection($store->storeManagers);
+            return $store->storeManagers;
         }
     }
 
     /**
      * @param Store $store
      * @param Request $request
-     * @return UserCollection
+     * @return User[]|Cursor
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @Rest\Route("stores/{store}/departmentManagers")
      * @ApiDoc
@@ -300,10 +298,9 @@ class UserController extends AbstractRestController
         $candidates = (bool) $request->query->get('candidates', false);
         if ($candidates) {
             $excludeIds = $this->storeRepository->findAllDepartmentManagerIds();
-            $users = $this->documentRepository->findAllByRoles(User::ROLE_DEPARTMENT_MANAGER, $excludeIds);
-            return new UserCollection($users);
+            return $this->documentRepository->findAllByRoles(User::ROLE_DEPARTMENT_MANAGER, $excludeIds);
         } else {
-            return new UserCollection($store->departmentManagers);
+            return $store->departmentManagers;
         }
     }
 }

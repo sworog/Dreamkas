@@ -2,9 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use Doctrine\MongoDB\LoggableCursor;
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Config\Config;
-use Lighthouse\CoreBundle\Document\Config\ConfigCollection;
 use Lighthouse\CoreBundle\Document\Config\ConfigRepository;
 use Lighthouse\CoreBundle\Form\ConfigType;
 use Symfony\Component\Form\AbstractType;
@@ -70,18 +69,13 @@ class ConfigController extends AbstractRestController
     }
 
     /**
-     * @return ConfigCollection
-     * @ApiDoc(
-     *      resource=true
-     * )
+     * @return Cursor|Config[]
+     * @ApiDoc(resource=true)
      * @Secure(roles="ROLE_ADMINISTRATOR")
      */
     public function getConfigsAction()
     {
-        /* @var LoggableCursor $cursor */
-        $cursor = $this->documentRepository->findAll();
-        $collection = new ConfigCollection($cursor);
-        return $collection;
+        return $this->documentRepository->findAll();
     }
 
     /**

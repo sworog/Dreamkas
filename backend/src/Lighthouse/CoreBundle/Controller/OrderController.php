@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Order\Order;
-use Lighthouse\CoreBundle\Document\Order\OrderCollection;
 use Lighthouse\CoreBundle\Document\Order\OrderRepository;
 use Lighthouse\CoreBundle\Document\Order\OrdersFilter;
 use Lighthouse\CoreBundle\Document\Store\Store;
@@ -91,7 +91,7 @@ class OrderController extends AbstractRestController
     /**
      * @param Store $store
      * @param OrdersFilter $ordersFilter
-     * @return Order
+     * @return Order[]|Cursor
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @Rest\Route("stores/{store}/orders")
@@ -99,8 +99,7 @@ class OrderController extends AbstractRestController
      */
     public function getOrdersAction(Store $store, OrdersFilter $ordersFilter)
     {
-        $orders = $this->documentRepository->findAllByStoreId($store->id, $ordersFilter);
-        return new OrderCollection($orders);
+        return $this->documentRepository->findAllByStoreId($store->id, $ordersFilter);
     }
 
     /**

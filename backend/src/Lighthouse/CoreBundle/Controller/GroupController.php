@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
-use Lighthouse\CoreBundle\Document\Classifier\Group\GroupCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
@@ -116,29 +116,23 @@ class GroupController extends AbstractRestController
     }
 
     /**
-     * @return GroupCollection
+     * @return Group[]|Cursor
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc(
-     *      resource=true
-     * )
+     * @ApiDoc(resource=true)
      */
     public function getGroupsAction()
     {
-        $cursor = $this->documentRepository->findAll();
-        return new GroupCollection($cursor);
+        return $this->documentRepository->findAll();
     }
 
     /**
      * @param Store $store
-     * @return GroupCollection
+     * @return Group[]|Cursor
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
-     * @ApiDoc(
-     *      resource=true
-     * )
+     * @ApiDoc(resource=true)
      */
     public function getStoreGroupsAction(Store $store)
     {
-        $cursor = $this->documentRepository->findAll();
-        return new GroupCollection($cursor);
+        return $this->documentRepository->findAll();
     }
 }
