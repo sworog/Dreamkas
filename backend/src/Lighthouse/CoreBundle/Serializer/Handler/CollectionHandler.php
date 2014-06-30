@@ -113,7 +113,7 @@ class CollectionHandler
         if (null === $preRoot && $postRoot instanceof ArrayObject) {
             $visitor->setRoot($postRoot->getArrayCopy());
         }
-        
+
         return $result;
     }
 

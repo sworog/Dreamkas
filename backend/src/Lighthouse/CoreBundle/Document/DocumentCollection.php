@@ -94,4 +94,12 @@ class DocumentCollection extends ArrayCollection
             $this->add($element);
         }
     }
+
+    /**
+     * @return string
+     */
+    public static function getClassName()
+    {
+        return get_called_class();
+    }
 }

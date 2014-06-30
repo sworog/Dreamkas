@@ -5,6 +5,8 @@ namespace Lighthouse\CoreBundle\Serializer\Metadata\Driver;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use FOS\RestBundle\Util\Inflector\DoctrineInflector;
 use JMS\Serializer\Metadata\Driver\AbstractDoctrineTypeDriver;
+use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Document\DocumentCollection;
 use Metadata\Driver\DriverInterface;
 use JMS\Serializer\Metadata\ClassMetadata;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -45,9 +47,9 @@ class DocumentDriver extends AbstractDoctrineTypeDriver
     {
         $metadata = parent::loadMetadataForClass($class);
 
-        if ($class->isSubclassOf('\\Lighthouse\\CoreBundle\\Document\\AbstractDocument')) {
+        if ($class->isSubclassOf(AbstractDocument::getClassName())) {
             $this->processDocumentMetadata($metadata);
-        } elseif ($class->isSubclassOf('\\Lighthouse\\CoreBundle\\Document\\AbstractCollection')) {
+        } elseif ($class->isSubclassOf(DocumentCollection::getClassName())) {
             $this->processCollectionMetadata($metadata);
         }
         return $metadata;
