@@ -37,9 +37,6 @@ define(function(require) {
                 subCategory: null
             },
             partials: {
-                unit: require('ejs!./unitFields.ejs'),
-                weight: require('ejs!./weightFields.ejs'),
-                alcohol: require('ejs!./alcoholFields.ejs'),
                 retailPricePreferenceFields: require('ejs!./retailPricePreferenceFields.ejs')
             },
             events: {
@@ -49,17 +46,12 @@ define(function(require) {
                     block.renderRetailPricePreferenceFields(e.target.value);
                 },
                 'change [name="type"]': function(e) {
-                    this.renderProductTypeSpecificFields(e.target.value);
+                    var block = this;
+
+                    $(block.el).find('.form_product__typeFields').attr('disabled', true);
+                    $(block.el).find('.form_product__typeFields[rel="' + e.target.value + '"]').removeAttr('disabled');
+
                 }
-            },
-            renderProductTypeSpecificFields: function(productTypeSelected) {
-                var block = this;
-
-                block.elements.units.innerHTML = getText('units', getText('productTypes', productTypeSelected, 'units'), 'capitalFull');
-
-                block.elements.productTypePropertiesFields.innerHTML = block.partials[productTypeSelected]({
-                    model: block.model
-                });
             },
             renderRetailPricePreferenceFields: function(purchasePrice){
                 var block = this;
