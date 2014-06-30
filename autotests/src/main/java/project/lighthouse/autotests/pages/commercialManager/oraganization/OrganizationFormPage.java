@@ -45,6 +45,6 @@ public class OrganizationFormPage extends CommonPageObject {
     }
 
     public void bankAccountsListLink() {
-        click(By.linkText("Расчётные счета"));
+        click(By.linkText("Расчетные счета"));
     }
 }

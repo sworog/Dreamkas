@@ -8,10 +8,35 @@
 
 <div class="content">
     <h1><%- models.companyOrganization.get('name') %></h1>
+
     <h2>Расчетные счета
-        <a style="margin-left: 20px;" href="/company/organizations/<%- models.companyOrganization.id %>/bankAccounts/create" class="button">Добавить расчетный счет</a>
+        <a style="margin-left: 20px;"
+           href="/company/organizations/<%- models.companyOrganization.id %>/bankAccounts/create" class="button">
+            Добавить расчетный счет
+        </a>
     </h2>
 
+    <% if (collections.bankAccounts.length) { %>
+
+    <table class="table">
+        <tbody>
+
+        <% collections.bankAccounts.forEach(function(bankAccountModel){ %>
+        <tr href="/company/organizations/<%- models.companyOrganization.id %>/bankAccounts/<%- bankAccountModel.id %>">
+            <td>
+                <%- bankAccountModel.get('account') %>
+            </td>
+            <td>
+                <%- bankAccountModel.get('bankName') %>
+            </td>
+        </tr>
+        <% }) %>
+
+        </tbody>
+    </table>
+
+    <% } else { %>
     <p>Вы еще не добавили ни одного расчетного счета для этой организации</p>
+    <% } %>
 
 </div>

@@ -1,0 +1,82 @@
+<%
+/**
+ *
+ * @organizationId
+ */
+%>
+
+<% var BankAccountModel = require('models/bankAccount/bankAccount') %>
+<% var model = model || new BankAccountModel() %>
+
+<form class="form form_bankAccount">
+    <div class="form__field">
+
+        <label class="form__label">
+            БИК
+        </label>
+
+        <input autofocus
+               name="bic"
+               value="<%- model.get('bic') %>"
+               class="inputText"
+               type="text"/>
+
+    </div>
+    <div class="form__field">
+
+        <label class="form__label">
+            Название банка
+        </label>
+
+        <input name="bankName"
+               value="<%- model.get('bankName') %>"
+               class="inputText"
+               type="text"/>
+
+    </div>
+    <div class="form__field">
+
+        <label class="form__label">
+            Адресс банка
+        </label>
+
+        <input name="bankAddress"
+               value="<%- model.get('bankAddress') %>"
+               class="inputText"
+               type="text"/>
+
+    </div>
+    <div class="form__field">
+
+        <label class="form__label">
+            Корр. счет
+        </label>
+
+        <input name="correspondentAccount"
+               value="<%- model.get('correspondentAccount') %>"
+               class="inputText"
+               type="text"/>
+
+    </div>
+    <div class="form__field">
+
+        <label class="form__label">
+            Рачетный счет
+        </label>
+
+        <input name="account"
+               value="<%- model.get('account') %>"
+               class="inputText"
+               type="text"/>
+
+    </div>
+    <div class="form__controls">
+        <button type="submit" class="button">
+            <%- model.id ? 'Сохранить' : 'Добавить' %>
+        </button>
+        или
+        <a href="/company/organizations/<%- organizationId %>/bankAccounts" class="form__cancelLink">
+            отменить
+        </a>
+    </div>
+</form>

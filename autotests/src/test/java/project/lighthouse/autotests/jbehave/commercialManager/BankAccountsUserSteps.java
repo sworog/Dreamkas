@@ -1,11 +1,13 @@
 package project.lighthouse.autotests.jbehave.commercialManager;
 
+import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.commercialManager.BankAccountsSteps;
 
 public class BankAccountsUserSteps {
+    @Steps
     BankAccountsSteps bankAccountsSteps;
 
     ExamplesTable bankAccountData;
@@ -49,5 +51,10 @@ public class BankAccountsUserSteps {
     @Then("user checks bank account form the element field '$name' has error message '$errorMessage'")
     public void userChecksBankAccountFormTheElementFieldHasErrorMessage(String name, String errorMessage) {
         bankAccountsSteps.assertFieldErrorMessage(name, errorMessage);
+    }
+
+    @Then("user checks bank account list exists account '$account' and bank '$bankName'")
+    public void userChecksBankAccountListExistsAccountAndBank(String account, String bankName) {
+        bankAccountsSteps.assertExistsListItemWithAccountAndBank(account, bankName);
     }
 }
