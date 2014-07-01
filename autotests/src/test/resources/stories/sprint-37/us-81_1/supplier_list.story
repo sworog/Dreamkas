@@ -1,6 +1,7 @@
 Meta:
 @sprint_29
 @us_61
+@us_81.1
 @supplier
 
 Narrative:
@@ -18,7 +19,7 @@ Meta:
 
 Given the user opens supplier create page
 And there is the supplier with name 'supplier-s29u61s0'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -33,7 +34,7 @@ Meta:
 @id_s29u61s2
 
 Given the user opens supplier create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -50,7 +51,7 @@ Meta:
 Given the user runs the symfony:env:init command
 
 Given the user opens supplier list page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 Then the user checks page contains text 'Нет поставщиков'
 
@@ -62,7 +63,7 @@ Meta:
 
 Given there is the supplier with name 'supplier-s29s61'
 And the user opens supplier list page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user clicks on supplier list table element with name 'supplier-s29s61'
 
@@ -80,7 +81,7 @@ Meta:
 
 Given there is the supplier with name 'supplier-s29s61-2'
 And the user navigates to supplier page with name 'supplier-s29s61-2'
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -96,7 +97,7 @@ Meta:
 @id_s29u61s6
 
 Given the user opens supplier page with random name
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user generate test data with char number '100' to the supplier field name 'supplierName'
 
@@ -112,7 +113,7 @@ Meta:
 @id_s29u61s7
 
 Given the user opens supplier page with random name
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user generate test data with char number '101' to the supplier field name 'supplierName'
 
@@ -131,7 +132,7 @@ Meta:
 
 Given there is the supplier with name 'supplier-s29s61-3'
 And the user opens supplier page with random name
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -148,7 +149,7 @@ Meta:
 @id_s29u61s9
 
 Given the user opens supplier page with random name
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -158,69 +159,3 @@ When the user clicks on the supplier create button
 Then the user sees error messages
 | error message |
 | Заполните это поле |
-
-Scenario: The direct supplier card url is restricted for administrator
-
-Meta:
-@id_s29u61s10
-
-Given the user opens supplier page with random name
-And the user logs in as 'watchman'
-
-Then the user sees the 403 error
-
-Scenario: The direct supplier card url is restricted for departmentManager
-
-Meta:
-@id_s29u61s11
-
-Given the user opens supplier page with random name
-And the user logs in as 'departmentManager'
-
-Then the user sees the 403 error
-
-Scenario: The direct supplier card url is restricted for storeManager
-
-Meta:
-@id_s29u61s12
-
-Given the user opens supplier page with random name
-And the user logs in as 'storeManager'
-
-Then the user sees the 403 error
-
-Scenario: The direct supplier list url is restricted for administrator
-
-Meta:
-@id_s29u61s13
-
-Given the user opens supplier list page
-And the user logs in as 'watchman'
-
-Then the user sees the 403 error
-
-Scenario: Card view by click is restricted for departmentManager
-
-Meta:
-@id_s29u61s14
-
-Given there is the supplier with name 'supplier-s29s61-4'
-And the user opens supplier list page
-And the user logs in as 'departmentManager'
-
-When the user clicks on supplier list table element with name 'supplier-s29s61-4'
-
-Then the user checks the supplier list contains element with value 'supplier-s29s61-4'
-
-Scenario: Card view by click is restricted for storeManager
-
-Meta:
-@id_s29u61s15
-
-Given there is the supplier with name 'supplier-s29s61-4'
-And the user opens supplier list page
-And the user logs in as 'storeManager'
-
-When the user clicks on supplier list table element with name 'supplier-s29s61-4'
-
-Then the user checks the supplier list contains element with value 'supplier-s29s61-4'

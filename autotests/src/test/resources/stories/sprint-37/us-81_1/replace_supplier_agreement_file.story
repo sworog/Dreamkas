@@ -1,6 +1,7 @@
 Meta:
 @sprint_29
 @us_60.2
+@us_81.1
 @supplier
 
 Narrative:
@@ -17,7 +18,7 @@ Meta:
 @id_s29u60.2s1
 
 Given the user opens supplier create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -41,7 +42,7 @@ Meta:
 @id_s29u60.2s2
 
 Given the user opens supplier create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -66,7 +67,7 @@ Meta:
 @id_s29u60.2s3
 
 Given the user opens supplier create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -97,7 +98,7 @@ Meta:
 @id_s29u60.2s4
 
 Given the user opens supplier create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
@@ -128,7 +129,7 @@ Meta:
 @id_s29u60.2s5
 
 Given the user opens supplier create page
-And the user logs in as 'commercialManager'
+And the user logs in as 'owner'
 
 When the user inputs values on supplier page
 | elementName | value |
