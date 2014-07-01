@@ -1,17 +1,34 @@
-<%
-/**
- *
- * @model
- */
-%>
+<% var SupplierModel = require('models/supplier/supplier') %>
+<% var model = model || new SupplierModel() %>
+
 <% var partials = {
     fileBox: require('ejs!./fileBox.ejs')
 } %>
 
 <form class="form form_supplier">
     <div class="form__field">
-        <label class="form__label">Юридическое лицо</label>
+        <label class="form__label">Наименование</label>
         <input value="<%- model.get('name') %>" name="name" type="text" class="inputText"/>
+    </div>
+
+    <div class="form__field">
+        <label class="form__label">Телефон</label>
+        <input value="<%- model.get('phone') %>" name="phone" type="text" class="inputText"/>
+    </div>
+
+    <div class="form__field">
+        <label class="form__label">Факс</label>
+        <input value="<%- model.get('fax') %>" name="fax" type="text" class="inputText"/>
+    </div>
+
+    <div class="form__field">
+        <label class="form__label">Эл. почта</label>
+        <input value="<%- model.get('email') %>" name="email" type="text" class="inputText"/>
+    </div>
+
+    <div class="form__field">
+        <label class="form__label">Контактное лицо</label>
+        <textarea name="contactPerson" class="inputText"><%- model.get('contactPerson') %></textarea>
     </div>
 
     <%= partials.fileBox({

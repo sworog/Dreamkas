@@ -10,17 +10,10 @@ define(function(require, exports, module) {
             localNavigation: require('ejs!blocks/localNavigation/localNavigation_suppliers.ejs')
         },
         models: {
-            supplier: require('models/supplier')
+            supplier: require('models/supplier/supplier')
         },
         blocks: {
-            form_supplier: function(){
-                var page = this,
-                    Form_supplier = require('blocks/form/form_supplier/form_supplier');
-
-                return new Form_supplier({
-                    model: page.models.supplier
-                });
-            }
+            form_supplier: require('blocks/form/form_supplier/form_supplier')
         }
     });
 });

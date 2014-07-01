@@ -13,7 +13,7 @@ define(function(require, exports, module) {
         models: {
             supplier: function(){
                 var page = this,
-                    Model = require('models/supplier');
+                    Model = require('models/supplier/supplier');
 
                 return new Model({
                     id: page.get('params.supplierId')

@@ -13,6 +13,11 @@ define(function(require, exports, module) {
         partials: {
             fileBox: require('ejs!./fileBox.ejs')
         },
+        model: function(){
+            var Model = require('models/supplier/supplier');
+
+            return new Model();
+        },
         events: {
             'change [type="file"]': function(e) {
                 var block = this,
@@ -66,6 +71,13 @@ define(function(require, exports, module) {
                     block.renderFileBox();
                 }
             }
+        },
+        initialize: function(){
+            var block = this;
+
+            Form.prototype.initialize.apply(block, arguments);
+
+            block.model = block.get('model');
         },
         renderFileBox: function(){
             var block = this;

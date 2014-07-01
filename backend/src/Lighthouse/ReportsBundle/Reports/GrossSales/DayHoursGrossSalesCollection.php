@@ -2,8 +2,8 @@
 
 namespace Lighthouse\ReportsBundle\Reports\GrossSales;
 
-use Lighthouse\CoreBundle\Document\AbstractCollection;
+use Lighthouse\CoreBundle\Document\DocumentCollection;
 
-class DayHoursGrossSalesCollection extends AbstractCollection
+class DayHoursGrossSalesCollection extends DocumentCollection
 {
 }

@@ -2,11 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection;
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
-use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProductCollection;
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProductRepository;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Form\WriteOffProductType;
@@ -102,7 +101,7 @@ class WriteOffProductController extends AbstractRestController
     /**
      * @param Store $store
      * @param WriteOff $writeOff
-     * @return WriteOffProductCollection
+     * @return WriteOffProduct[]|Cursor
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc(
      *      resource=true
@@ -118,15 +117,14 @@ class WriteOffProductController extends AbstractRestController
     /**
      * @param Store $store
      * @param Product $product
-     * @return InvoiceProductCollection
+     * @return WriteOffProduct[]|Cursor
      * @Rest\Route("stores/{store}/products/{product}/writeOffProducts")
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getProductWriteOffProductsAction(Store $store, Product $product)
     {
-        $writeOffProducts = $this->documentRepository->findByStoreAndProduct($store->id, $product->id);
-        return new WriteOffProductCollection($writeOffProducts);
+        return $this->documentRepository->findByStoreAndProduct($store->id, $product->id);
     }
 
     /**

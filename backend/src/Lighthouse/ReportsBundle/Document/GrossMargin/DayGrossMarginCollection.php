@@ -2,8 +2,8 @@
 
 namespace Lighthouse\ReportsBundle\Document\GrossMargin;
 
-use Lighthouse\CoreBundle\Document\AbstractCollection;
+use Lighthouse\CoreBundle\Document\DocumentCollection;
 
-class DayGrossMarginCollection extends AbstractCollection
+class DayGrossMarginCollection extends DocumentCollection
 {
 }

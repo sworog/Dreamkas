@@ -2,9 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use FOS\RestBundle\Controller\Annotations\View;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
-use Lighthouse\CoreBundle\Document\Supplier\SupplierCollection;
 use Lighthouse\CoreBundle\Document\Supplier\SupplierRepository;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\SupplierType;
@@ -72,14 +72,13 @@ class SupplierController extends AbstractRestController
     }
 
     /**
-     * @return SupplierCollection
+     * @return Cursor|Supplier[]
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER,ROLE_STORE_MANAGER")
      * @ApiDoc
      */
     public function getSuppliersAction()
     {
-        $cursor = $this->documentRepository->findAll();
-        return new SupplierCollection($cursor);
+        return $this->documentRepository->findAll();
     }
 
     /**

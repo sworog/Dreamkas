@@ -10,7 +10,6 @@ use Lighthouse\CoreBundle\Document\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
-use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceCollection;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
@@ -152,9 +151,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $trialBalanceRepository = $this->getTrialBalanceRepository();
 
         $startTrialBalanceCursor = $trialBalanceRepository->findByStoreProduct($storeProduct->id);
-        $startTrialBalance = new TrialBalanceCollection($startTrialBalanceCursor);
 
-        $this->assertCount(0, $startTrialBalance);
+        $this->assertCount(0, $startTrialBalanceCursor);
 
         $invoice = $this->factory()
             ->invoice()
@@ -166,12 +164,11 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $invoice = $this->getContainer()->get('lighthouse.core.document.repository.invoice')->find($invoice->id);
 
         $endTrialBalanceCursor = $trialBalanceRepository->findByStoreProduct($storeProduct->id);
-        $endTrialBalance = new TrialBalanceCollection($endTrialBalanceCursor);
 
-        $this->assertCount(1, $endTrialBalance);
+        $this->assertCount(1, $endTrialBalanceCursor);
 
         /** @var TrialBalance $endTrialBalanceItem */
-        $endTrialBalanceItem = $endTrialBalance->current();
+        $endTrialBalanceItem = $endTrialBalanceCursor->getNext();
         $this->assertEquals(9000, $endTrialBalanceItem->quantity->getCount());
         $this->assertEquals(99, $endTrialBalanceItem->price->getCount());
         $this->assertEquals(891, $endTrialBalanceItem->totalPrice->getCount());

@@ -2,8 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use FOS\RestBundle\Controller\FOSRestController;
-use Lighthouse\CoreBundle\Document\Log\LogCollection;
+use Lighthouse\CoreBundle\Document\Log\Log;
 use Lighthouse\CoreBundle\Document\Log\LogRepository;
 use JMS\DiExtraBundle\Annotation as DI;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -17,14 +18,11 @@ class LogController extends FOSRestController
     protected $documentRepository;
 
     /**
-     * @return LogCollection
-     * @ApiDoc(
-     *      resource=true
-     * )
+     * @return Cursor|Log[]
+     * @ApiDoc(resource=true)
      */
     public function getLogsAction()
     {
-        $cursor = $this->documentRepository->findAll();
-        return new LogCollection($cursor);
+        return $this->documentRepository->findAll();
     }
 }

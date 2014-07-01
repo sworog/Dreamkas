@@ -2,12 +2,12 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
-use Lighthouse\CoreBundle\Document\Invoice\InvoiceCollection;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceHighlightGenerator;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Document\Invoice\InvoicesFilter;
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
@@ -89,14 +89,14 @@ class InvoiceController extends AbstractRestController
             unset($invoice->products[$key]);
             $this->documentRepository->getDocumentManager()->remove($invoiceProduct);
         }
-        $invoice->products = new InvoiceProductCollection();
+        $invoice->products = new ArrayCollection();
         return $this->processForm($request, $invoice);
     }
 
     /**
      * @param Store $store
      * @param InvoicesFilter $filter
-     * @return InvoiceCollection|MetaCollection
+     * @return MetaCollection|Invoice[]|Cursor
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc(
      *      resource=true
@@ -112,7 +112,7 @@ class InvoiceController extends AbstractRestController
             $collection = new MetaCollection($cursor);
             $collection->addMetaGenerator($highlightGenerator);
         } else {
-            $collection = new InvoiceCollection($cursor);
+            $collection = $cursor;
         }
         return $collection;
     }

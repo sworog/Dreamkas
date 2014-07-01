@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Tests\Fixtures\Document;
 
-use Lighthouse\CoreBundle\Document\AbstractCollection;
+use Lighthouse\CoreBundle\Document\DocumentCollection;
 
-class TestCollection extends AbstractCollection
+class TestCollection extends DocumentCollection
 {
 }

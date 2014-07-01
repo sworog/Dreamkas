@@ -3,6 +3,8 @@
 namespace Lighthouse\CoreBundle\Serializer\Handler;
 
 use Doctrine\Common\Collections\Collection;
+use Doctrine\MongoDB\Iterator;
+use Doctrine\ODM\MongoDB\Cursor;
 use JMS\Serializer\Context;
 use JMS\Serializer\EventDispatcher\PreSerializeEvent;
 use JMS\Serializer\GraphNavigator;
@@ -11,6 +13,7 @@ use JMS\Serializer\Metadata\ClassMetadata;
 use JMS\DiExtraBundle\Annotation as DI;
 use JMS\Serializer\XmlSerializationVisitor;
 use Metadata\MetadataFactoryInterface;
+use ArrayObject;
 
 /**
  * @DI\Service("lighthouse.core.serializer.handler.collection")
@@ -48,13 +51,13 @@ class CollectionHandler
 
     /**
      * @param XmlSerializationVisitor $visitor
-     * @param Collection $collection
+     * @param Collection|Iterator $collection
      * @param array $type
      * @param Context $context
      */
     public function serializeCollectionToXml(
         XmlSerializationVisitor $visitor,
-        Collection $collection,
+        $collection,
         array $type,
         Context $context
     ) {
@@ -85,14 +88,14 @@ class CollectionHandler
 
     /**
      * @param JsonSerializationVisitor $visitor
-     * @param Collection $collection
+     * @param Collection|Iterator $collection
      * @param array $type
      * @param Context $context
      * @return array|\ArrayObject|mixed
      */
     public function serializeCollectionToJson(
         JsonSerializationVisitor $visitor,
-        Collection $collection,
+        $collection,
         array $type,
         Context $context
     ) {
@@ -101,14 +104,16 @@ class CollectionHandler
 
         $result = $visitor->visitArray(array_values($collection->toArray()), $type, $context);
 
-        if ($result instanceof \ArrayObject) {
+        if ($result instanceof ArrayObject) {
             $result = $result->getArrayCopy();
         }
-        $postRoot = $visitor->getRoot();
+
         // FIXME Dirty hack to avoid empty embedded document modify root to ArrayObject
-        if (null === $preRoot && $postRoot instanceof \ArrayObject) {
+        $postRoot = $visitor->getRoot();
+        if (null === $preRoot && $postRoot instanceof ArrayObject) {
             $visitor->setRoot($postRoot->getArrayCopy());
         }
+
         return $result;
     }
 
@@ -117,7 +122,7 @@ class CollectionHandler
      */
     public function onSerializerPreSerialize(PreSerializeEvent $event)
     {
-        if ($event->getObject() instanceof Collection) {
+        if ($event->getObject() instanceof Collection || $event->getObject() instanceof Cursor) {
             $event->setType('Collection');
         }
     }

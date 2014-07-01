@@ -40,10 +40,15 @@ class FileUploadRequest
     }
 
     /**
-     * @return resource
+     * @return resource|string
      */
     public function getFileResource()
     {
-        return $this->request->getContent(true);
+        try {
+            return $this->request->getContent(true);
+        } catch (\LogicException $e) {
+            // FIXME Workaround when content was already fetched in \FOS\RestBundle\EventListener
+            return $this->request->getContent(false);
+        }
     }
 }

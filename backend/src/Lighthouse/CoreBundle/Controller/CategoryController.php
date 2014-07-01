@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
-use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
@@ -101,28 +101,26 @@ class CategoryController extends AbstractRestController
 
     /**
      * @param Group $group
-     * @return CategoryCollection
+     * @return Category[]|Cursor
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
     public function getGroupCategoriesAction(Group $group)
     {
-        $categories = $this->documentRepository->findByParent($group->id);
-        return new CategoryCollection($categories);
+        return $this->documentRepository->findByParent($group->id);
     }
 
 
     /**
      * @param Store $store
      * @param Group $group
-     * @return CategoryCollection
+     * @return Category[]|Cursor
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getStoreGroupCategoriesAction(Store $store, Group $group)
     {
-        $categories = $this->documentRepository->findByParent($group->id);
-        return new CategoryCollection($categories);
+        return $this->documentRepository->findByParent($group->id);
     }
 
     /**

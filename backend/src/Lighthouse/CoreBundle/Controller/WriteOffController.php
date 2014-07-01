@@ -2,9 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
-use Lighthouse\CoreBundle\Document\WriteOff\WriteOffCollection;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOffHighlightGenerator;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOffRepository;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOffsFilter;
@@ -82,11 +82,9 @@ class WriteOffController extends AbstractRestController
     /**
      * @param Store $store
      * @param WriteOffsFilter $filter
-     * @return WriteOffCollection|MetaCollection
+     * @return MetaCollection|WriteOff[]|Cursor
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
-     * @ApiDoc(
-     *      resource=true
-     * )
+     * @ApiDoc(resource=true)
      * @Rest\Route("stores/{store}/writeoffs")
      */
     public function getWriteoffsAction(Store $store, WriteOffsFilter $filter)
@@ -97,7 +95,7 @@ class WriteOffController extends AbstractRestController
             $collection = new MetaCollection($writeOffs);
             $collection->addMetaGenerator($highlightGenerator);
         } else {
-            $collection = new WriteOffCollection($writeOffs);
+            $collection = $writeOffs;
         }
         return $collection;
     }

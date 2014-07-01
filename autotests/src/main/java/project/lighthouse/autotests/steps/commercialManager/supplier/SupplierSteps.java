@@ -244,4 +244,9 @@ public class SupplierSteps extends ScenarioSteps {
         } catch (TimeoutException ignored) {
         }
     }
+
+    @Step
+    public void assertFieldErrorMessage(String elementName, String expectedErrorMessage) {
+        supplierPage.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(expectedErrorMessage);
+    }
 }

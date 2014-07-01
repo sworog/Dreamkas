@@ -10,7 +10,7 @@ class OrderRepository extends DocumentRepository
     /**
      * @param string $storeId
      * @param OrdersFilter $ordersFilter
-     * @return Cursor
+     * @return Cursor|Order[]
      */
     public function findAllByStoreId($storeId, OrdersFilter $ordersFilter)
     {
@@ -24,7 +24,7 @@ class OrderRepository extends DocumentRepository
 
     /**
      * @param string $id
-     * @return \Lighthouse\CoreBundle\Document\NullObjectInterface|NullOrder
+     * @return NullOrder
      */
     public function getNullObject($id)
     {

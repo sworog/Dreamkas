@@ -87,11 +87,40 @@
             <input value="<%- model.get('vendor') %>" class="inputText" type="text" name="vendor"/>
         </div>
 
-        <div class="form_product__productTypePropertiesFields">
-            <%= partials[model.get('type')]({
-                model: model
-            }) %>
-        </div>
+        <fieldset <%- (model.get('type') == 'weight') ? '' : 'disabled' %> class="form_product__typeFields" rel="weight">
+            <div class="form__field">
+                <label class="form__label">Наименование на весах</label>
+                <input value="<%- model.get('typeProperties.nameOnScales') %>" class="inputText" type="text" name="typeProperties.nameOnScales"/>
+            </div>
+            <div class="form__field">
+                <label class="form__label">Описание товара на весах</label>
+                <input value="<%- model.get('typeProperties.descriptionOnScales') %>" class="inputText" type="text" name="typeProperties.descriptionOnScales"/>
+            </div>
+            <div class="form__field">
+                <label class="form__label">Состав</label>
+                <textarea class="inputText" name="typeProperties.ingredients"><%- model.get('typeProperties.ingredients') %></textarea>
+            </div>
+            <div class="form__field">
+                <label class="form__label">Пищевая ценность</label>
+                <textarea class="inputText" name="typeProperties.nutritionFacts"><%- model.get('typeProperties.nutritionFacts') %></textarea>
+            </div>
+            <div class="form__field">
+                <label class="form__label">Срок годности</label>
+                <input style="width: 150px; text-align: right;" value="<%- model.get('typeProperties.shelfLife') %>" class="inputText" type="text" name="typeProperties.shelfLife"/>
+                <span class="inputText__postfix">ч.</span>
+            </div>
+        </fieldset>
+
+        <fieldset <%- (model.get('type') == 'alcohol') ? '' : 'disabled' %> class="form_product__typeFields" rel="alcohol">
+            <div class="form__field">
+                <label class="form__label">Крепость</label>
+                <input value="<%- model.get('typeProperties.alcoholByVolume') %>" class="inputText" type="text" name="typeProperties.alcoholByVolume"/>
+            </div>
+            <div class="form__field">
+                <label class="form__label">Объем тары</label>
+                <input value="<%- model.get('typeProperties.volume') %>" class="inputText" type="text" name="typeProperties.volume"/>
+            </div>
+        </fieldset>
 
         <div class="form__field">
             <label class="form__label">Цена закупки</label>

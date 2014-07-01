@@ -26,13 +26,13 @@ define(function(require) {
                 block.submitStart();
                 block.trigger('submit:start');
 
-                Promise.resolve(block.submit()).then(function(model){
+                Promise.resolve(block.submit()).then(function(){
 
-                    block.submitSuccess(model);
-                    block.trigger('submit:success', model);
+                    block.submitSuccess();
+                    block.trigger('submit:success');
 
-                    block.submitComplete(model);
-                    block.trigger('submit:complete', model);
+                    block.submitComplete();
+                    block.trigger('submit:complete');
 
                 }, function(response){
 
@@ -54,16 +54,21 @@ define(function(require) {
             controls: '.form__controls',
             results: '.form__results'
         },
+        initialize: function(){
+            var block = this;
+
+            Block.prototype.initialize.apply(block, arguments);
+
+            block.model = block.get('model');
+            block.redirectUrl = block.get('redirectUrl');
+        },
         getData: function(){
             return form2js(this.el, '.', false);
         },
         submit: function() {
-            var block = this,
-                model = block.get('model');
+            var block = this;
 
-            return Promise.resolve(model.save(block.formData), function(){
-                return model;
-            });
+            return block.model.save(block.formData);
         },
         submitStart: function() {
             var block = this;
@@ -79,15 +84,15 @@ define(function(require) {
             block.elements.$submitButton.removeClass('preloader_stripes');
             block.disable(false);
         },
-        submitSuccess: function(model) {
+        submitSuccess: function() {
             var block = this;
 
             if (block.collection) {
-                block.collection.push(model);
+                block.collection.push(block.model);
             }
 
-            if (block.get('redirectUrl')) {
-                router.navigate(block.get('redirectUrl'));
+            if (block.redirectUrl) {
+                router.navigate(block.redirectUrl);
                 return;
             }
 

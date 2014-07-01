@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\Invoice;
 
-use Doctrine\MongoDB\Cursor;
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Order\Order;
@@ -66,7 +66,7 @@ class InvoiceRepository extends DocumentRepository
     /**
      * @param string $storeId
      * @param InvoicesFilter $filter
-     * @return Cursor
+     * @return Cursor|Invoice[]
      */
     public function findByStore($storeId, InvoicesFilter $filter)
     {

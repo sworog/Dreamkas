@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('./companyOrganization'),
+    var Page = require('./organization'),
         modelFixture = require('kit/modelFixture/modelFixture'),
         $ = require('jquery'),
         _ = require('lodash');

@@ -9,7 +9,7 @@ class DepartmentRepository extends DocumentRepository
 {
     /**
      * @param string $storeId
-     * @return Cursor
+     * @return Cursor|Department[]
      */
     public function findByStore($storeId)
     {

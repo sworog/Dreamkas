@@ -8,7 +8,7 @@ use Doctrine\MongoDB\Cursor;
 use Closure;
 use Traversable;
 
-class AbstractCollection extends ArrayCollection
+class DocumentCollection extends ArrayCollection
 {
     /**
      * @param array|Cursor|Collection $elements
@@ -93,5 +93,13 @@ class AbstractCollection extends ArrayCollection
         foreach ($elements as $element) {
             $this->add($element);
         }
+    }
+
+    /**
+     * @return string
+     */
+    public static function getClassName()
+    {
+        return get_called_class();
     }
 }

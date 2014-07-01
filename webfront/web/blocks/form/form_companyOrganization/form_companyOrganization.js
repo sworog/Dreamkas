@@ -7,7 +7,7 @@ define(function(require, exports, module) {
         redirectUrl: function(){
             var block = this;
 
-            if (!block.get('model.id')){
+            if (!block.model.id){
                 return '/company';
             }
         },

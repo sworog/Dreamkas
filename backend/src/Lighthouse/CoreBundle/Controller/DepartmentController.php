@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Department\Department;
-use Lighthouse\CoreBundle\Document\Department\DepartmentCollection;
 use Lighthouse\CoreBundle\Document\Department\DepartmentRepository;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\DepartmentType;
@@ -88,14 +88,12 @@ class DepartmentController extends AbstractRestController
 
     /**
      * @param Store $store
-     * @return DepartmentCollection
+     * @return Department[]|Cursor
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
     public function getStoreDepartmentsAction(Store $store)
     {
-        $cursor = $this->documentRepository->findByStore($store->id);
-        $collection = new DepartmentCollection($cursor);
-        return $collection;
+        return $this->documentRepository->findByStore($store->id);
     }
 }
