@@ -1,0 +1,17 @@
+<%
+/**
+ *
+ * @models.companyOrganization
+ */
+%>
+
+<div class="localNavigation">
+
+    <div class="localNavigation__section">
+        <a href="/suppliers/<%- models.supplier.id %>" class="localNavigation__link">Данные поставщика</a>
+    </div>
+
+    <a href="/suppliers/<%- models.supplier.id %>/details" class="localNavigation__link">Юридические реквизиты</a>
+    <a href="/suppliers/<%- models.supplier.id %>/bankAccounts" class="localNavigation__link">Расчетные счета</a>
+
+</div>

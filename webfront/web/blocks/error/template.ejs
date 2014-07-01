@@ -1,19 +1,16 @@
 <%
 /**
  *
- * @apiErrors
- * @jsErrors
+ * @apiError
+ * @jsError
  */
 %>
 <% var config = require('config') %>
-<% var apiErrors = apiErrors || [] %>
-<% var jsErrors = jsErrors || [] %>
 
 <div class="error">
 
-    <% if (apiErrors.length) { %>
+    <% if (apiError) { %>
 
-    <% _.forEach(apiErrors, function(apiError) { %>
     <div style="padding-bottom: 40px;">
         <h1>Произошла ошибка подключения к серверу</h1>
         Статус код: <strong><%- apiError.status %></strong> <br/>
@@ -25,16 +22,14 @@
         </div>
         <% } %>
     </div>
-    <% }) %>
 
     <% } %>
 
-    <% if (jsErrors.length) { %>
+    <% if (jsError) { %>
 
-    <% _.forEach(jsErrors, function(jsError) { %>
     <div style="padding-bottom: 40px;">
         <h1>Произошла ошибка JavaScript</h1>
-        Текст ошибки: <strong><%- jsError.data.message %></strong> <br/>
+        Текст ошибки: <strong><%- jsError.message || jsError.data.message %></strong> <br/>
         Файл: <strong><%- jsError.file %></strong> <br/>
         Строка: <strong><%- jsError.line %></strong> <br/>
         <% if (config.debugLevel === 2) { %>
@@ -44,7 +39,6 @@
         </div>
         <% } %>
     </div>
-    <% }) %>
 
     <% } %>
 

@@ -1,7 +1,7 @@
 <%
 /**
  *
- * @models.companyOrganization
+ * @models.supplier
  */
 %>
 
@@ -10,7 +10,7 @@
 
 <div class="content">
 
-    <h1><%- models.companyOrganization.get('name') %></h1>
+    <h1><%- models.supplier.get('name') %></h1>
 
     <h2>Юридические реквизиты</h2>
 
@@ -25,7 +25,7 @@
                     <input type="radio"
                            name="legalDetails.type"
                            value="entrepreneur"
-                            <%- models.companyOrganization.get('legalDetails.type') === 'entrepreneur' ? 'checked' : '' %>/>
+                            <%- models.supplier.get('legalDetails.type') === 'entrepreneur' ? 'checked' : '' %>/>
                     <span class="inputRadio__text">
                         Индивидуальный предприниматель
                     </span>
@@ -36,7 +36,7 @@
                     <input type="radio"
                            name="legalDetails.type"
                            value="legalEntity"
-                            <%- models.companyOrganization.get('legalDetails.type') === 'legalEntity' ? 'checked' : '' %>/>
+                            <%- models.supplier.get('legalDetails.type') === 'legalEntity' ? 'checked' : '' %>/>
                     <span class="inputRadio__text">
                         Юридическое лицо
                     </span>
@@ -50,24 +50,24 @@
             <input autofocus
                    name="legalDetails.fullName"
                    type="text"
-                   value="<%- models.companyOrganization.get('legalDetails.fullName') %>"
+                   value="<%- models.supplier.get('legalDetails.fullName') %>"
                    class="inputText"/>
         </div>
-        <fieldset <%- models.companyOrganization.get('legalDetails.type') !== 'entrepreneur' ? 'disabled' : '' %>
+        <fieldset <%- models.supplier.get('legalDetails.type') !== 'entrepreneur' ? 'disabled' : '' %>
                 class="form_legalDetails__typeFields" rel="entrepreneur">
             <div class="form__field">
                 <label class="form__label">
                     Адресс регистрации
                 </label>
                 <textarea name="legalDetails.legalAddress"
-                          class="inputText"><%- models.companyOrganization.get('legalDetails.legalAddress') %></textarea>
+                          class="inputText"><%- models.supplier.get('legalDetails.legalAddress') %></textarea>
             </div>
             <div class="form__field">
                 <label class="form__label">
                     ИНН
                 </label>
                 <input name="legalDetails.inn"
-                       value="<%- models.companyOrganization.get('legalDetails.inn') %>"
+                       value="<%- models.supplier.get('legalDetails.inn') %>"
                        type="text"
                        class="inputText"/>
             </div>
@@ -76,7 +76,7 @@
                     ОКПО
                 </label>
                 <input name="legalDetails.okpo"
-                       value="<%- models.companyOrganization.get('legalDetails.okpo') %>"
+                       value="<%- models.supplier.get('legalDetails.okpo') %>"
                        type="text"
                        class="inputText"/>
             </div>
@@ -85,7 +85,7 @@
                     ОГРНИП
                 </label>
                 <input type="text"
-                       value="<%- models.companyOrganization.get('legalDetails.ogrnip') %>"
+                       value="<%- models.supplier.get('legalDetails.ogrnip') %>"
                        name="legalDetails.ogrnip"
                        class="inputText"/>
             </div>
@@ -94,7 +94,7 @@
                     Номер свидетельства
                 </label>
                 <input name="legalDetails.certificateNumber"
-                       value="<%- models.companyOrganization.get('legalDetails.certificateNumber') %>"
+                       value="<%- models.supplier.get('legalDetails.certificateNumber') %>"
                        type="text"
                        class="inputText"/>
             </div>
@@ -102,28 +102,28 @@
                 <label class="form__label">
                     Дата свидетельства
                 </label>
-                <input data-date="<%- models.companyOrganization.get('legalDetails.certificateDate') ? moment(models.companyOrganization.get('legalDetails.certificateDate')).valueOf() : '' %>"
+                <input data-date="<%- models.supplier.get('legalDetails.certificateDate') ? moment(models.supplier.get('legalDetails.certificateDate')).valueOf() : '' %>"
                        name="legalDetails.certificateDate"
-                       value="<%- models.companyOrganization.get('legalDetails.certificateDate') ? formatDate(models.companyOrganization.get('legalDetails.certificateDate')) : '' %>"
+                       value="<%- models.supplier.get('legalDetails.certificateDate') ? formatDate(models.supplier.get('legalDetails.certificateDate')) : '' %>"
                        type="text"
                        class="inputText inputDate"/>
             </div>
         </fieldset>
-        <fieldset <%- models.companyOrganization.get('legalDetails.type') !== 'legalEntity' ? 'disabled' : '' %>
+        <fieldset <%- models.supplier.get('legalDetails.type') !== 'legalEntity' ? 'disabled' : '' %>
                 class="form_legalDetails__typeFields" rel="legalEntity">
             <div class="form__field">
                 <label class="form__label">
                     Юридический адресс
                 </label>
                 <textarea name="legalDetails.legalAddress"
-                          class="inputText"><%- models.companyOrganization.get('legalDetails.legalAddress') %></textarea>
+                          class="inputText"><%- models.supplier.get('legalDetails.legalAddress') %></textarea>
             </div>
             <div class="form__field">
                 <label class="form__label">
                     ИНН
                 </label>
                 <input name="legalDetails.inn"
-                       value="<%- models.companyOrganization.get('legalDetails.inn') %>"
+                       value="<%- models.supplier.get('legalDetails.inn') %>"
                        type="text"
                        class="inputText"/>
             </div>
@@ -132,7 +132,7 @@
                     ОКПО
                 </label>
                 <input name="legalDetails.okpo"
-                       value="<%- models.companyOrganization.get('legalDetails.okpo') %>"
+                       value="<%- models.supplier.get('legalDetails.okpo') %>"
                        type="text"
                        class="inputText"/>
             </div>
@@ -141,7 +141,7 @@
                     КПП
                 </label>
                 <input name="legalDetails.kpp"
-                       value="<%- models.companyOrganization.get('legalDetails.kpp') %>"
+                       value="<%- models.supplier.get('legalDetails.kpp') %>"
                        type="text"
                        class="inputText"/>
             </div>
@@ -150,7 +150,7 @@
                     ОГРН
                 </label>
                 <input name="legalDetails.ogrn"
-                       value="<%- models.companyOrganization.get('legalDetails.ogrn') %>"
+                       value="<%- models.supplier.get('legalDetails.ogrn') %>"
                        type="text"
                        class="inputText"/>
             </div>

@@ -7,9 +7,9 @@ define(function(require, exports, module) {
             content: require('ejs!./content.ejs')
         },
         blocks: {
-            form_organizationDetails: function(){
+            form_legalDetails: function(){
                 var page = this,
-                    Form_companyOrganizationDetails = require('blocks/form/form_organizationDetails/form_organizationDetails');
+                    Form_companyOrganizationDetails = require('blocks/form/form_legalDetails/form_legalDetails');
 
                 return new Form_companyOrganizationDetails({
                     model: page.models.companyOrganization

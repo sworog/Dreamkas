@@ -45,7 +45,7 @@ define(function(require) {
                 break;
             default:
                 new Error({
-                    apiErrors: [error]
+                    apiError: error
                 });
                 break;
         }
@@ -60,7 +60,7 @@ define(function(require) {
         };
 
         new Error({
-            jsErrors: [jsError]
+            jsError: jsError
         });
     };
 

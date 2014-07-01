@@ -7,29 +7,24 @@ define(function(require, exports, module) {
         el: document.body,
 
         template: require('ejs!./template.ejs'),
-        jsErrors: [],
-        apiErrors: [],
+
+        jsError: null,
+        apiError: null,
 
         initialize: function(data){
             var block = this;
 
-            Block.prototype.initialize.apply(block, arguments);
-
             if (window.ERROR){
 
-                data = _.extend({
-                    jsErrors: [],
-                    apiErrors: []
-                }, data);
-
-                window.ERROR.jsErrors.concat(data.jsErrors);
-                window.ERROR.apiErrors.concat(data.apiErrors);
+                _.extend(window.ERROR, data);
 
                 window.ERROR.render();
 
                 block.destroy();
                 return;
             }
+
+            Block.prototype.initialize.apply(block, arguments);
 
             window.ERROR = block;
 
