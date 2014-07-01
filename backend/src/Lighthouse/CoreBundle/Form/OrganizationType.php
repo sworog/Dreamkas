@@ -2,14 +2,13 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
-use Lighthouse\CoreBundle\Document\File\File;
-use Lighthouse\CoreBundle\Document\Supplier\Supplier;
+use Lighthouse\CoreBundle\Document\Organization\Organization;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class SupplierType extends AbstractType
+class OrganizationType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -22,15 +21,9 @@ class SupplierType extends AbstractType
             ->add('phone', 'text')
             ->add('fax', 'text')
             ->add('email', 'text')
-            ->add('contactPerson', 'text')
-            ->add(
-                'agreement',
-                'reference',
-                array(
-                    'class' => File::getClassName(),
-                    'invalid_message' => 'lighthouse.validation.errors.supplier.file.does_not_exist'
-                )
-            )
+            ->add('director', 'text')
+            ->add('chiefAccountant', 'text')
+            ->add('address', 'text')
         ;
 
         $builder->addEventListener(FormEvents::PRE_SUBMIT, array(LegalDetailsType::getClassName(), 'setTypeForm'));
@@ -43,7 +36,7 @@ class SupplierType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => Supplier::getClassName(),
+                'data_class' => Organization::getClassName(),
                 'csrf_protection' => false,
                 'cascade_validation' => true
             )

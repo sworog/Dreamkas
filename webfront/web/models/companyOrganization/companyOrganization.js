@@ -45,8 +45,6 @@ define(function(require, exports, module) {
                     break;
             }
 
-            console.log(legalDetails);
-
             return {
                 name: this.get('name'),
                 phone: this.get('phone'),

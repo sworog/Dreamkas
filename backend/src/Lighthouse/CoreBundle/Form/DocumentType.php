@@ -2,10 +2,11 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
+use Lighthouse\CoreBundle\Document\ClassNameable;
 use Symfony\Component\Form\AbstractType as BaseAbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-abstract class DocumentType extends BaseAbstractType
+abstract class DocumentType extends BaseAbstractType implements ClassNameable
 {
     /**
      * @param OptionsResolverInterface $resolver
@@ -34,4 +35,12 @@ abstract class DocumentType extends BaseAbstractType
      * @return string
      */
     abstract protected function getDataClass();
+
+    /**
+     * @return string
+     */
+    public static function getClassName()
+    {
+        return get_called_class();
+    }
 }

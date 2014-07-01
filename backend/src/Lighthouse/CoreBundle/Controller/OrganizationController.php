@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Controller;
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Organization\Organization;
 use Lighthouse\CoreBundle\Document\Organization\OrganizationRepository;
-use Lighthouse\CoreBundle\Form\Organization\OrganizationType;
+use Lighthouse\CoreBundle\Form\OrganizationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -57,10 +57,12 @@ class OrganizationController extends AbstractRestController
     }
 
     /**
-     * @Rest\Patch()
      * @param Request $request
      * @param Organization $organization
      * @return FormInterface|Organization
+     *
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
      */
     public function patchOrganizationAction(Request $request, Organization $organization)
     {

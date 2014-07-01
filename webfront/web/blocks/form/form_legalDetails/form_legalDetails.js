@@ -3,14 +3,14 @@ define(function(require, exports, module) {
     var Form = require('kit/form/form');
 
     return Form.extend({
-        el: '.form_companyOrganizationDetails',
+        el: '.form_legalDetails',
         successMessage: 'Данные успешно сохранены',
         events: {
             'change [name="legalDetails.type"]': function(e){
                 var block = this;
 
-                $(block.el).find('.form_companyOrganizationDetails__typeFields').attr('disabled', true);
-                $(block.el).find('.form_companyOrganizationDetails__typeFields[rel="' + e.target.value + '"]').removeAttr('disabled');
+                $(block.el).find('.form_legalDetails__typeFields').attr('disabled', true);
+                $(block.el).find('.form_legalDetails__typeFields[rel="' + e.target.value + '"]').removeAttr('disabled');
             }
         },
         model: function(){

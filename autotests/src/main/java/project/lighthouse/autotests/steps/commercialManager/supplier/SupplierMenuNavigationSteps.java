@@ -22,4 +22,9 @@ public class SupplierMenuNavigationSteps extends ScenarioSteps {
         } catch (Exception ignored) {
         }
     }
+
+    @Step
+    public void clickLegalDetailsLink() {
+        supplierPageMenuNavigation.legalDetailsLinkClick();
+    }
 }

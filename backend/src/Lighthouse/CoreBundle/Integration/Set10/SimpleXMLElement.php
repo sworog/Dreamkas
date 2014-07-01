@@ -2,9 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Integration\Set10;
 
+use Lighthouse\CoreBundle\Document\ClassNameable;
 use DomNode;
 
-class SimpleXMLElement extends \SimpleXMLElement
+class SimpleXMLElement extends \SimpleXMLElement implements ClassNameable
 {
     /**
      * @return string

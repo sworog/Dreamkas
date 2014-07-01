@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/munkie/ProfilerBundle.git",
-                "reference": "712c641d4bee1f9d7caf03fb1d56688d253b0d36"
+                "reference": "109c7e476d5563b75c9902e2b3760754250d8ad4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/munkie/ProfilerBundle/zipball/712c641d4bee1f9d7caf03fb1d56688d253b0d36",
-                "reference": "712c641d4bee1f9d7caf03fb1d56688d253b0d36",
+                "url": "https://api.github.com/repos/munkie/ProfilerBundle/zipball/109c7e476d5563b75c9902e2b3760754250d8ad4",
+                "reference": "109c7e476d5563b75c9902e2b3760754250d8ad4",
                 "shasum": ""
             },
             "require": {
@@ -53,7 +53,7 @@
             "support": {
                 "source": "https://github.com/munkie/ProfilerBundle/tree/master"
             },
-            "time": "2013-12-12 12:02:53"
+            "time": "2014-07-01 11:24:49"
         },
         {
             "name": "crystalservice/samba",
@@ -2154,17 +2154,17 @@
         },
         {
             "name": "nelmio/api-doc-bundle",
-            "version": "2.5.2",
+            "version": "2.6.0",
             "target-dir": "Nelmio/ApiDocBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nelmio/NelmioApiDocBundle.git",
-                "reference": "fa920111260e350ea17942c77c811762e965cbdc"
+                "reference": "b48650a9e020d43ec5a3c0f4345714ef724344d7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/fa920111260e350ea17942c77c811762e965cbdc",
-                "reference": "fa920111260e350ea17942c77c811762e965cbdc",
+                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/b48650a9e020d43ec5a3c0f4345714ef724344d7",
+                "reference": "b48650a9e020d43ec5a3c0f4345714ef724344d7",
                 "shasum": ""
             },
             "require": {
@@ -2225,7 +2225,7 @@
                 "documentation",
                 "rest"
             ],
-            "time": "2014-05-16 09:33:58"
+            "time": "2014-06-25 06:52:01"
         },
         {
             "name": "nelmio/cors-bundle",
@@ -2533,16 +2533,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.0.8",
+            "version": "2.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "58401826c8cfc8fd689b60026e91c337df374bca"
+                "reference": "ed8ac99ce38c3fd134128c898f7ca74665abef7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/58401826c8cfc8fd689b60026e91c337df374bca",
-                "reference": "58401826c8cfc8fd689b60026e91c337df374bca",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/ed8ac99ce38c3fd134128c898f7ca74665abef7f",
+                "reference": "ed8ac99ce38c3fd134128c898f7ca74665abef7f",
                 "shasum": ""
             },
             "require": {
@@ -2594,7 +2594,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-05-26 14:55:24"
+            "time": "2014-06-29 08:14:40"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -2855,16 +2855,16 @@
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "2.1.4",
+            "version": "2.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "1a894a16b6c15fcdc5ef2b110f0e6233952c9b0f"
+                "reference": "7878b9c41edb3afab92b85edf5f0981014a2713a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/1a894a16b6c15fcdc5ef2b110f0e6233952c9b0f",
-                "reference": "1a894a16b6c15fcdc5ef2b110f0e6233952c9b0f",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/7878b9c41edb3afab92b85edf5f0981014a2713a",
+                "reference": "7878b9c41edb3afab92b85edf5f0981014a2713a",
                 "shasum": ""
             },
             "require": {
@@ -2908,7 +2908,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2014-06-07 16:22:57"
+            "time": "2014-06-12 07:22:15"
         },
         {
             "name": "psr/log",

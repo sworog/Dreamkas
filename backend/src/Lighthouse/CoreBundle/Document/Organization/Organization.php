@@ -8,7 +8,6 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\BankAccount\BankAccount;
 use Lighthouse\CoreBundle\Document\LegalDetails\LegalDetails;
-use Lighthouse\CoreBundle\Document\LegalDetails\LegalEntityLegalDetails;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 
@@ -107,7 +106,24 @@ class Organization extends AbstractDocument implements Organizationable
 
     public function __construct()
     {
-        $this->legalDetails = new LegalEntityLegalDetails();
         $this->bankAccounts = new ArrayCollection();
+    }
+
+    /**
+     * @return LegalDetails
+     */
+    public function getLegalDetails()
+    {
+        return $this->legalDetails;
+    }
+
+    /**
+     * @param LegalDetails $legalDetails
+     * @return $this
+     */
+    public function setLegalDetails(LegalDetails $legalDetails)
+    {
+        $this->legalDetails = $legalDetails;
+        return $this;
     }
 }

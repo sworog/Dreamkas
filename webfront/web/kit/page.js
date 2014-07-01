@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block'),
+        Error = require('blocks/error/error'),
         router = require('router'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         _ = require('lodash');
@@ -156,8 +157,10 @@ define(function(require, exports, module) {
             Block.prototype.destroy.apply(page, arguments);
         },
 
-        'throw': function(error){
-            console.error(error);
+        throw: function(error){
+            new Error({
+                jsError: error
+            });
         }
     });
 
