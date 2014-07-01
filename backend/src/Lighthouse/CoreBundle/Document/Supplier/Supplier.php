@@ -6,12 +6,19 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\File\File;
+use Lighthouse\CoreBundle\Document\LegalDetails\LegalDetails;
 use Lighthouse\CoreBundle\Document\Organization\Organizationable;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @property string $id
  * @property string $name
+ * @property string $phone
+ * @property string $fax
+ * @property string $email
+ * @property string $contactPerson
+ * @property File $agreement
+ * @property LegalDetails $legalDetails
  *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\Supplier\SupplierRepository"
@@ -71,4 +78,12 @@ class Supplier extends AbstractDocument implements Organizationable
      * @var File
      */
     protected $agreement;
+
+    /**
+     * @MongoDB\EmbedOne(
+     *   targetDocument="Lighthouse\CoreBundle\Document\LegalDetails\LegalDetails"
+     * )
+     * @var LegalDetails
+     */
+    protected $legalDetails;
 }
