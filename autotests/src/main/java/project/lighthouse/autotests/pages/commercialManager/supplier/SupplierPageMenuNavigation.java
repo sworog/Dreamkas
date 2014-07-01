@@ -17,4 +17,8 @@ public class SupplierPageMenuNavigation extends CommonPageObject {
     public void createSupplierLinkClick() {
         new NavigationLinkFacade(this, "Добавить поставщика").click();
     }
+
+    public void legalDetailsLinkClick() {
+        new NavigationLinkFacade(this, "Юридические реквизиты").click();
+    }
 }

@@ -13,4 +13,9 @@ public class WhenSupplierMenuNavigationSteps {
     public void whenTheUSerClicksTheCreateSupplierLinkOnSupplierPageMenuNavigation() {
         supplierMenuNavigationSteps.createSupplierLinkClick();
     }
+
+    @When("the user clicks supplier legal details link")
+    public void userClicksLegalDetailsLink() {
+        supplierMenuNavigationSteps.clickLegalDetailsLink();
+    }
 }
