@@ -2,9 +2,11 @@
 
 namespace Lighthouse\CoreBundle\Document\Supplier;
 
+use Doctrine\Common\Collections\Collection;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Lighthouse\CoreBundle\Document\BankAccount\BankAccount;
 use Lighthouse\CoreBundle\Document\File\File;
 use Lighthouse\CoreBundle\Document\LegalDetails\LegalDetails;
 use Lighthouse\CoreBundle\Document\Organization\Organizationable;
@@ -19,6 +21,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @property string $contactPerson
  * @property File $agreement
  * @property LegalDetails $legalDetails
+ * @property BankAccount[]|Collection $bankAccounts
  *
  * @MongoDB\Document(
  *      repositoryClass="Lighthouse\CoreBundle\Document\Supplier\SupplierRepository"
@@ -86,6 +89,17 @@ class Supplier extends AbstractDocument implements Organizationable
      * @var LegalDetails
      */
     protected $legalDetails;
+
+    /**
+     * @MongoDB\ReferenceMany(
+     *      targetDocument="Lighthouse\CoreBundle\Document\BankAccount\BankAccount",
+     *      simple=true,
+     *      cascade="persist",
+     *      mappedBy="organization"
+     * )
+     * @var BankAccount[]|Collection
+     */
+    protected $bankAccounts;
 
     /**
      * @return LegalDetails
