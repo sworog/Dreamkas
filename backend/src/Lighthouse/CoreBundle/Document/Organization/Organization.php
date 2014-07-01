@@ -8,7 +8,6 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\BankAccount\BankAccount;
 use Lighthouse\CoreBundle\Document\LegalDetails\LegalDetails;
-use Lighthouse\CoreBundle\Document\LegalDetails\LegalEntityLegalDetails;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 

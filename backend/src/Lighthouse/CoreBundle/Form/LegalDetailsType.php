@@ -5,12 +5,9 @@ namespace Lighthouse\CoreBundle\Form;
 use Lighthouse\CoreBundle\Document\LegalDetails\EntrepreneurLegalDetails;
 use Lighthouse\CoreBundle\Document\LegalDetails\LegalEntityLegalDetails;
 use Lighthouse\CoreBundle\Document\Organization\Organizationable;
-use Lighthouse\CoreBundle\Form\DocumentType;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\NotBlank;
 

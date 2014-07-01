@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Form;
 
 use Lighthouse\CoreBundle\Document\Organization\Organization;
-use Lighthouse\CoreBundle\Form\LegalDetailsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvents;
