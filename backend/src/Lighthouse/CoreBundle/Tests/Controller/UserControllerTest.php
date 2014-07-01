@@ -860,8 +860,16 @@ class UserControllerTest extends WebTestCase
                     'suppliers.*' => array(
                         'GET',
                         'GET::{supplier}',
+                        'PATCH::{supplier}',
                         'POST',
                         'PUT::{supplier}',
+                    ),
+                    'organizations.*' => array(
+                        'GET',
+                        'GET::{organization}',
+                        'PATCH::{organization}',
+                        'POST',
+                        'PUT::{organization}',
                     )
                 )
             ),
