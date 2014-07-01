@@ -86,4 +86,22 @@ class Supplier extends AbstractDocument implements Organizationable
      * @var LegalDetails
      */
     protected $legalDetails;
+
+    /**
+     * @return LegalDetails
+     */
+    public function getLegalDetails()
+    {
+        return $this->legalDetails;
+    }
+
+    /**
+     * @param LegalDetails $legalDetails
+     * @return $this
+     */
+    public function setLegalDetails(LegalDetails $legalDetails)
+    {
+        $this->legalDetails = $legalDetails;
+        return $this;
+    }
 }

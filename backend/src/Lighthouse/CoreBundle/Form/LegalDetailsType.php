@@ -1,17 +1,20 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Form\Organization;
+namespace Lighthouse\CoreBundle\Form;
 
 use Lighthouse\CoreBundle\Document\LegalDetails\EntrepreneurLegalDetails;
 use Lighthouse\CoreBundle\Document\LegalDetails\LegalEntityLegalDetails;
+use Lighthouse\CoreBundle\Document\Organization\Organizationable;
+use Lighthouse\CoreBundle\Form\DocumentType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class LegalDetailsType extends AbstractType
+class LegalDetailsType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -71,22 +74,55 @@ class LegalDetailsType extends AbstractType
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
+     * @return string
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    protected function getDataClass()
     {
-        $resolver->setDefaults(
-            array(
-                'csrf_protection' => false
-            )
-        );
+        return null;
     }
 
     /**
-     * @return string
+     * @param FormEvent $event
      */
-    public function getName()
+    public static function setTypeForm(FormEvent $event)
     {
-        return '';
+        $form = $event->getForm();
+        $data = $event->getData();
+
+        if (!isset($data['legalDetails']['type'])) {
+            return;
+        }
+
+        /* @var Organizationable $organization */
+        $organization = $form->getData();
+
+        switch ($data['legalDetails']['type']) {
+            case EntrepreneurLegalDetails::TYPE:
+                if (!$organization->getLegalDetails() instanceof EntrepreneurLegalDetails) {
+                    $organization->setLegalDetails(new EntrepreneurLegalDetails());
+                }
+                $form->add(
+                    'legalDetails',
+                    new LegalDetailsType(),
+                    array(
+                        'data_class' => EntrepreneurLegalDetails::getClassName()
+                    )
+                );
+                break;
+
+            case LegalEntityLegalDetails::TYPE:
+            default:
+                if (!$organization->getLegalDetails() instanceof LegalEntityLegalDetails) {
+                    $organization->setLegalDetails(new LegalEntityLegalDetails());
+                }
+                $form->add(
+                    'legalDetails',
+                    new LegalDetailsType(),
+                    array(
+                        'data_class' => LegalEntityLegalDetails::getClassName()
+                    )
+                );
+                break;
+        }
     }
 }

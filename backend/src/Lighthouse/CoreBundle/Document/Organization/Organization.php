@@ -110,4 +110,22 @@ class Organization extends AbstractDocument implements Organizationable
         $this->legalDetails = new LegalEntityLegalDetails();
         $this->bankAccounts = new ArrayCollection();
     }
+
+    /**
+     * @return LegalDetails
+     */
+    public function getLegalDetails()
+    {
+        return $this->legalDetails;
+    }
+
+    /**
+     * @param LegalDetails $legalDetails
+     * @return $this
+     */
+    public function setLegalDetails(LegalDetails $legalDetails)
+    {
+        $this->legalDetails = $legalDetails;
+        return $this;
+    }
 }
