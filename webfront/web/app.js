@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var currentUserModel = require('models/currentUser.inst'),
-        ErrorPage = require('pages/error/error'),
+        Error = require('blocks/error/error'),
         cookie = require('cookies'),
         router = require('router'),
         $ = require('jquery'),
@@ -44,13 +44,9 @@ define(function(require) {
             case 0:
                 break;
             default:
-                if (window.PAGE){
-                    window.PAGE.throw(error);
-                } else {
-                    new ErrorPage({
-                        errors: [error]
-                    });
-                }
+                new Error({
+                    apiErrors: [error]
+                });
                 break;
         }
     });
@@ -63,13 +59,9 @@ define(function(require) {
             data: errorObject
         };
 
-        if (window.PAGE){
-            window.PAGE.throw(jsError);
-        } else {
-            new ErrorPage({
-                errors: [jsError]
-            });
-        }
+        new Error({
+            jsErrors: [jsError]
+        });
     };
 
     $(document).on('click', '[href]', function(e) {
