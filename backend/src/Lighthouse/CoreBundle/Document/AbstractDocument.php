@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Document;
 
 use JMS\Serializer\Annotation as Serializer;
 
-abstract class AbstractDocument
+abstract class AbstractDocument implements ClassNameable
 {
     /**
      * @return string

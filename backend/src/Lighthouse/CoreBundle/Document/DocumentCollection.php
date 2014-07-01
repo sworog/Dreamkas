@@ -8,7 +8,7 @@ use Doctrine\MongoDB\Cursor;
 use Closure;
 use Traversable;
 
-class DocumentCollection extends ArrayCollection
+class DocumentCollection extends ArrayCollection implements ClassNameable
 {
     /**
      * @param array|Cursor|Collection $elements
