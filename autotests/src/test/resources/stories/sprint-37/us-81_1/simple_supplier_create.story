@@ -69,7 +69,6 @@ Then the user asserts label of supplier field with name 'supplierName'
 And the user asserts label of supplier field with name 'phone'
 And the user asserts label of supplier field with name 'fax'
 And the user asserts label of supplier field with name 'email'
-And the user asserts label of supplier field with name 'contactPerson'
 
 Scenario: Check maximum positive supplier field range
 

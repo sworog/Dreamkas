@@ -38,10 +38,10 @@ define(function(require, exports, module) {
                     page.initialize.apply(page, arguments);
                     page._startListening();
                 } else {
-                    page.set('error', 403);
+                    page.throw('403');
                 }
             }, function(error) {
-                page.set('error', error);
+                page.throw(error);
             });
         },
 
@@ -99,10 +99,10 @@ define(function(require, exports, module) {
                     page.trigger('loaded');
                     page.el.setAttribute('status', 'loaded');
                 } catch (error) {
-                    console.error(error);
+                    page.throw(error);
                 }
             }, function(error) {
-                page.set('error', error);
+                page.throw(error);
             });
         },
 
@@ -154,6 +154,10 @@ define(function(require, exports, module) {
             });
 
             Block.prototype.destroy.apply(page, arguments);
+        },
+
+        'throw': function(error){
+            console.error(error);
         }
     });
 

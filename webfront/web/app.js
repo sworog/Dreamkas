@@ -44,13 +44,11 @@ define(function(require) {
             case 0:
                 break;
             default:
-                if (window.PAGE instanceof ErrorPage){
-                    window.PAGE.data.apiErrors.push(error);
+                if (window.PAGE){
+                    window.PAGE.throw(error);
                 } else {
                     new ErrorPage({
-                        data: {
-                            apiErrors: [error]
-                        }
+                        errors: [error]
                     });
                 }
                 break;
@@ -65,13 +63,11 @@ define(function(require) {
             data: errorObject
         };
 
-        if (window.PAGE instanceof ErrorPage){
-            window.PAGE.data.jsErrors.push(jsError);
+        if (window.PAGE){
+            window.PAGE.throw(jsError);
         } else {
             new ErrorPage({
-                data: {
-                    jsErrors: [jsError]
-                }
+                errors: [jsError]
             });
         }
     };

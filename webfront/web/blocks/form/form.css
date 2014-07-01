@@ -186,7 +186,8 @@ tr[data-error]:after {
     display: none;
 }
 
-.form_companyOrganizationDetails__typeFields[disabled] {
+.form_companyOrganizationDetails__typeFields[disabled],
+.form_product__typeFields[disabled]{
     display: none;
 }
 

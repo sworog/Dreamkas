@@ -50,7 +50,7 @@ define(function(require) {
 
         //products
         'products(/)': require('pages/product/list'),
-        'products/create(/)': require('pages/createProduct/createProduct'),
+        'products/create(/)': require('pages/products/create/create'),
         'products/:productId/edit(/)': require('pages/product/form'),
         'products/:productId(/)': require('pages/products/view/view'),
         'products/:productId/invoices': require('pages/product/invoices'),

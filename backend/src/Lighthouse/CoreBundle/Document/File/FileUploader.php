@@ -26,7 +26,7 @@ class FileUploader
     protected $validator;
 
     /**
-     * @var resource
+     * @var resource|string
      */
     protected $fileResource;
 
@@ -46,18 +46,18 @@ class FileUploader
 
     /**
      * @param FileUploadRequest $fileUploadRequest
-     * @return mixed
+     * @return resource|string
      */
     public function getFileResource(FileUploadRequest $fileUploadRequest)
     {
-        if (!$this->fileResource) {
+        if (null === $this->fileResource) {
             $this->setFileResource($fileUploadRequest->getFileResource());
         }
         return $this->fileResource;
     }
 
     /**
-     * @param $fileResource
+     * @param resource|string $fileResource
      */
     public function setFileResource($fileResource)
     {

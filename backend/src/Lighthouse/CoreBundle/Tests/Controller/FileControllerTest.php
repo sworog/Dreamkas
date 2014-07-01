@@ -58,17 +58,19 @@ class FileControllerTest extends WebTestCase
      * @param int $expectedCode
      * @param array $assertions
      * @param int $expectedRequestsCount
+     * @param string $mockFileName
      */
     public function testPostActionValidation(
         array $headers,
         $expectedCode,
         array $assertions,
-        $expectedRequestsCount
+        $expectedRequestsCount,
+        $mockFileName = 'auth.response.ok'
     ) {
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $jsonRequest = new JsonRequest('/api/1/files', 'POST');
-        $mockFile = $this->getFixtureFilePath('OpenStack/auth.response.ok');
+        $mockFile = $this->getFixtureFilePath('OpenStack/' . $mockFileName);
 
         $headers += array(
             'X-File-Name' => 'test.txt',
@@ -170,6 +172,29 @@ class FileControllerTest extends WebTestCase
                 ),
                 4
             ),
+            'X-File-Name without extension' => array(
+                array(
+                    'X-File-Name' => 'LICENCE',
+                    'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'
+                ),
+                201,
+                array(
+                    'name' => 'LICENCE'
+                ),
+                4
+            ),
+            'empty file' => array(
+                array(
+                    'X-File-Name' => 'empty',
+                    'Content-Type' => 'application/x-www-form-urlencoded; charset=UTF-8'
+                ),
+                201,
+                array(
+                    'name' => 'empty'
+                ),
+                4,
+                'empty'
+            )
         );
     }
 }
