@@ -466,4 +466,46 @@ class SupplierControllerTest extends WebTestCase
         $this->factory()->supplier()->createSupplier('1');
         $this->factory()->supplier()->createSupplier('1');
     }
+
+    /**
+     * @dataProvider \Lighthouse\CoreBundle\Tests\Controller\OrganizationControllerTest::patchActionProvider
+     * @param array $postData
+     * @param int $expectedCode
+     * @param array $assertions
+     */
+    public function testPatchAction(array $postData, $expectedCode, array $assertions = array())
+    {
+        $user = $this->factory()->user()->createProjectUser();
+        $accessToken = $this->factory()->oauth()->auth($user);
+
+        $supplier = $this->factory()->supplier()->getSupplier();
+
+        $data = array(
+            'legalDetails' => $postData
+        );
+
+        $patchResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PATCH',
+            '/api/1/suppliers/' . $supplier->id,
+            $data
+        );
+
+        $this->assertResponseCode($expectedCode);
+
+        $this->performJsonAssertions($patchResponse, $assertions);
+
+        if (200 == $expectedCode) {
+
+            $getResponse = $this->clientJsonRequest(
+                $accessToken,
+                'GET',
+                '/api/1/suppliers/' . $supplier->id
+            );
+
+            $this->assertResponseCode(200);
+
+            $this->assertSame($patchResponse, $getResponse);
+        }
+    }
 }

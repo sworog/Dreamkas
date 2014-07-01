@@ -107,7 +107,6 @@ class Organization extends AbstractDocument implements Organizationable
 
     public function __construct()
     {
-        $this->legalDetails = new LegalEntityLegalDetails();
         $this->bankAccounts = new ArrayCollection();
     }
 

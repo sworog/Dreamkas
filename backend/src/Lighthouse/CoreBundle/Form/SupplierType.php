@@ -4,9 +4,12 @@ namespace Lighthouse\CoreBundle\Form;
 
 use Lighthouse\CoreBundle\Document\File\File;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class SupplierType extends DocumentType
+class SupplierType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -29,13 +32,29 @@ class SupplierType extends DocumentType
                 )
             )
         ;
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, array(LegalDetailsType::getClassName(), 'setTypeForm'));
+    }
+
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(
+            array(
+                'data_class' => Supplier::getClassName(),
+                'csrf_protection' => false,
+                'cascade_validation' => true
+            )
+        );
     }
 
     /**
      * @return string
      */
-    protected function getDataClass()
+    public function getName()
     {
-        return Supplier::getClassName();
+        return '';
     }
 }

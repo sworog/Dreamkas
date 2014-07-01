@@ -72,6 +72,19 @@ class SupplierController extends AbstractRestController
     }
 
     /**
+     * @param Request $request
+     * @param Supplier $supplier
+     * @return FormInterface|Supplier
+     *
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function patchSupplierAction(Request $request, Supplier $supplier)
+    {
+        return $this->processForm($request, $supplier, true, false);
+    }
+
+    /**
      * @return Cursor|Supplier[]
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_DEPARTMENT_MANAGER,ROLE_STORE_MANAGER")
      * @ApiDoc
