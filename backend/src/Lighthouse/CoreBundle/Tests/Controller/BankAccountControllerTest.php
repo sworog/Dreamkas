@@ -53,6 +53,21 @@ class BankAccountControllerTest extends WebTestCase
         $this->assertResponseCode($expectedCode);
 
         $this->performJsonAssertions($postResponse, $assertions);
+
+        if (201 == $expectedCode) {
+            Assert::assertJsonHasPath('id', $postResponse);
+            $id = $postResponse['id'];
+
+            $getResponse = $this->clientJsonRequest(
+                $accessToken,
+                'GET',
+                "/api/1/suppliers/{$supplier->id}/bankAccounts/{$id}"
+            );
+
+            $this->assertResponseCode(200);
+
+            $this->assertEquals($postResponse, $getResponse);
+        }
     }
 
     /**
@@ -148,7 +163,7 @@ class BankAccountControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider organizationPostActionProvider
+     * @dataProvider postActionProvider
      * @param array $putData
      * @param $expectedCode
      * @param array $assertions
@@ -202,6 +217,36 @@ class BankAccountControllerTest extends WebTestCase
     }
 
     public function testOrganizationBankAccountsGetAllAction()
+    {
+        $organization = $this->factory()->organization()->getOrganization();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        for ($i = 1; $i <= 5; $i++) {
+            $this->clientJsonRequest(
+                $accessToken,
+                'POST',
+                "/api/1/organizations/{$organization->id}/bankAccounts",
+                array(
+                    'account' => '1234567' . $i
+                )
+            );
+
+            $this->assertResponseCode(201);
+        }
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/organizations/{$organization->id}/bankAccounts"
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(5, '*.id', $getResponse);
+    }
+
+    public function testSupplierBankAccountsGetAllAction()
     {
         $organization = $this->factory()->organization()->getOrganization();
 

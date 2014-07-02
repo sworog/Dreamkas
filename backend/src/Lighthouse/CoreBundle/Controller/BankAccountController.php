@@ -39,15 +39,31 @@ class BankAccountController extends AbstractRestController
      * @return BankAccount
      *
      * @Rest\Route("organizations/{organization}/bankAccounts/{bankAccount}")
-     * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc(resource=true)
+     * @ApiDoc
      */
     public function getOrganizationBankAccountAction(
         Organization $organization,
         BankAccount $bankAccount
     ) {
         $this->checkBankAccountOrganization($organization, $bankAccount);
+        return $bankAccount;
+    }
+
+    /**
+     * @param Supplier $supplier
+     * @param BankAccount $bankAccount
+     * @return BankAccount
+     *
+     * @Rest\Route("suppliers/{supplier}/bankAccounts/{bankAccount}")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function getSupplierBankAccountAction(
+        Supplier $supplier,
+        BankAccount $bankAccount
+    ) {
+        $this->checkBankAccountOrganization($supplier, $bankAccount);
         return $bankAccount;
     }
 
