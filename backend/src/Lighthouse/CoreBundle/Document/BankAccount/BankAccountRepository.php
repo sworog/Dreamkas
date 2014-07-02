@@ -4,7 +4,8 @@ namespace Lighthouse\CoreBundle\Document\BankAccount;
 
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
-use Lighthouse\CoreBundle\Document\Organization\Organization;
+use Lighthouse\CoreBundle\Document\Organization\Organizationable;
+use MongoId;
 
 /**
  * @method BankAccount createNew()
@@ -16,13 +17,15 @@ use Lighthouse\CoreBundle\Document\Organization\Organization;
 class BankAccountRepository extends DocumentRepository
 {
     /**
-     * @param Organization $organization
+     * @param Organizationable $organization
      * @return Cursor|BankAccount[]
      */
-    public function findByOrganization(Organization $organization)
+    public function findByOrganization(Organizationable $organization)
     {
-        return $this->findBy(array(
-            'organization' => $organization->id
-        ));
+        $criteria = array(
+            'organization.$id' => new MongoId($organization->getOrganizationId()),
+            'organization.$ref' => $organization->getOrganizationType(),
+        );
+        return $this->findBy($criteria);
     }
 }

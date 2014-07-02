@@ -29,6 +29,8 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class Organization extends AbstractDocument implements Organizationable
 {
+    const TYPE = 'Organization';
+
     /**
      * @MongoDB\Id
      * @var string
@@ -125,5 +127,21 @@ class Organization extends AbstractDocument implements Organizationable
     {
         $this->legalDetails = $legalDetails;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrganizationType()
+    {
+        return self::TYPE;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrganizationId()
+    {
+        return $this->id;
     }
 }

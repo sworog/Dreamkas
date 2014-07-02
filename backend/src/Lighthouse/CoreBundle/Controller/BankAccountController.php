@@ -72,13 +72,25 @@ class BankAccountController extends AbstractRestController
      * @return Cursor|BankAccount[]
      *
      * @Rest\Route("organizations/{organization}/bankAccounts")
-     * @Rest\View(statusCode=200)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc(resource=true)
+     * @ApiDoc
      */
     public function getOrganizationBankAccountsAction(Organization $organization)
     {
         return $this->documentRepository->findByOrganization($organization);
+    }
+
+    /**
+     * @param Supplier $supplier
+     * @return Cursor|BankAccount[]
+     *
+     * @Rest\Route("suppliers/{supplier}/bankAccounts")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function getSupplierBankAccountsAction(Supplier $supplier)
+    {
+        return $this->documentRepository->findByOrganization($supplier);
     }
 
     /**
@@ -123,7 +135,7 @@ class BankAccountController extends AbstractRestController
      *
      * @Rest\Route("organizations/{organization}/bankAccounts/{bankAccount}")
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc(resource=true)
+     * @ApiDoc
      */
     public function putOrganizationBankAccountAction(
         Request $request,
@@ -131,6 +143,25 @@ class BankAccountController extends AbstractRestController
         BankAccount $bankAccount
     ) {
         $this->checkBankAccountOrganization($organization, $bankAccount);
+        return $this->processForm($request, $bankAccount);
+    }
+
+    /**
+     * @param Request $request
+     * @param Supplier $supplier
+     * @param BankAccount $bankAccount
+     * @return BankAccount|FormInterface
+     *
+     * @Rest\Route("suppliers/{supplier}/bankAccounts/{bankAccount}")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function putSupplierBankAccountAction(
+        Request $request,
+        Supplier $supplier,
+        BankAccount $bankAccount
+    ) {
+        $this->checkBankAccountOrganization($supplier, $bankAccount);
         return $this->processForm($request, $bankAccount);
     }
 

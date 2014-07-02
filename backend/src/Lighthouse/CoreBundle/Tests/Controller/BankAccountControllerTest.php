@@ -29,6 +29,21 @@ class BankAccountControllerTest extends WebTestCase
         $this->assertResponseCode($expectedCode);
 
         $this->performJsonAssertions($postResponse, $assertions);
+
+        if (201 == $expectedCode) {
+            Assert::assertJsonHasPath('id', $postResponse);
+            $id = $postResponse['id'];
+
+            $getResponse = $this->clientJsonRequest(
+                $accessToken,
+                'GET',
+                "/api/1/organizations/{$organization->id}/bankAccounts/{$id}"
+            );
+
+            $this->assertResponseCode(200);
+
+            $this->assertEquals($postResponse, $getResponse);
+        }
     }
 
     /**
@@ -211,7 +226,61 @@ class BankAccountControllerTest extends WebTestCase
                 'GET',
                 "/api/1/organizations/{$organization->id}/bankAccounts/{$id}"
             );
+            $this->assertResponseCode(200);
+            $this->assertSame($putResponse, $getResponse);
+        }
+    }
 
+    /**
+     * @dataProvider postActionProvider
+     * @param array $putData
+     * @param $expectedCode
+     * @param array $assertions
+     */
+    public function testSupplierBankAccountPutAction(array $putData, $expectedCode, array $assertions)
+    {
+        $supplier = $this->factory()->supplier()->getSupplier('Организация');
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postData = array(
+            'account' => '12345767890'
+        );
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/suppliers/{$supplier->id}/bankAccounts",
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+        Assert::assertJsonHasPath('id', $postResponse);
+        $id = $postResponse['id'];
+
+        $putData += array(
+            'account' => '1234567890',
+        );
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            "/api/1/suppliers/{$supplier->id}/bankAccounts/{$id}",
+            $putData
+        );
+
+        $expectedCode = (201 === $expectedCode) ? 200 : $expectedCode;
+        $this->assertResponseCode($expectedCode);
+
+        $this->performJsonAssertions($putResponse, $assertions);
+
+        if (200 === $expectedCode) {
+            $getResponse = $this->clientJsonRequest(
+                $accessToken,
+                'GET',
+                "/api/1/suppliers/{$supplier->id}/bankAccounts/{$id}"
+            );
+            $this->assertResponseCode(200);
             $this->assertSame($putResponse, $getResponse);
         }
     }
@@ -248,7 +317,7 @@ class BankAccountControllerTest extends WebTestCase
 
     public function testSupplierBankAccountsGetAllAction()
     {
-        $organization = $this->factory()->organization()->getOrganization();
+        $supplier = $this->factory()->supplier()->getSupplier();
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
@@ -256,7 +325,7 @@ class BankAccountControllerTest extends WebTestCase
             $this->clientJsonRequest(
                 $accessToken,
                 'POST',
-                "/api/1/organizations/{$organization->id}/bankAccounts",
+                "/api/1/suppliers/{$supplier->id}/bankAccounts",
                 array(
                     'account' => '1234567' . $i
                 )
@@ -268,7 +337,7 @@ class BankAccountControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/organizations/{$organization->id}/bankAccounts"
+            "/api/1/suppliers/{$supplier->id}/bankAccounts"
         );
 
         $this->assertResponseCode(200);

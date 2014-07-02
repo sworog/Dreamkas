@@ -30,6 +30,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Supplier extends AbstractDocument implements Organizationable
 {
+    const TYPE = 'Supplier';
+
     /**
      * @MongoDB\Id
      * @var string
@@ -117,5 +119,21 @@ class Supplier extends AbstractDocument implements Organizationable
     {
         $this->legalDetails = $legalDetails;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrganizationType()
+    {
+        return self::TYPE;
+    }
+
+    /**
+     * @return string
+     */
+    public function getOrganizationId()
+    {
+        return $this->id;
     }
 }
