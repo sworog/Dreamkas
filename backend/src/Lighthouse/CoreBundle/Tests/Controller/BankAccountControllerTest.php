@@ -8,7 +8,7 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 class BankAccountControllerTest extends WebTestCase
 {
     /**
-     * @dataProvider organizationPostActionProvider
+     * @dataProvider postActionProvider
      * @param array $postData
      * @param $expectedCode
      * @param array $assertions
@@ -32,9 +32,33 @@ class BankAccountControllerTest extends WebTestCase
     }
 
     /**
+     * @dataProvider postActionProvider
+     * @param array $postData
+     * @param $expectedCode
+     * @param array $assertions
+     */
+    public function testSupplierPostAction(array $postData, $expectedCode, array $assertions)
+    {
+        $supplier = $this->factory()->supplier()->getSupplier('Организация');
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/suppliers/{$supplier->id}/bankAccounts",
+            $postData
+        );
+
+        $this->assertResponseCode($expectedCode);
+
+        $this->performJsonAssertions($postResponse, $assertions);
+    }
+
+    /**
      * @return array
      */
-    public function organizationPostActionProvider()
+    public function postActionProvider()
     {
         return array(
             'valid only account' => array(

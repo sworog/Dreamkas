@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @property string $bankAddress
  * @property string $correspondentAccount
  * @property string $account
- * @property Organization $organization
+ * @property Organizationable|Organization|Supplier $organization
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\BankAccount\BankAccountRepository")
  */
@@ -70,6 +70,13 @@ class BankAccount extends AbstractDocument
      *      simple=true,
      *      cascade="persist",
      *      inversedBy="bankAccounts"
+     * )
+     * @MongoDB\ReferenceOne(
+     *      discriminatorField="organizationType",
+     *      discriminatorMap={
+     *          "Organization"="Lighthouse\CoreBundle\Document\Organization\Organization",
+     *          "Supplier"="Lighthouse\CoreBundle\Document\Supplier\Supplier"
+     *      }
      * )
      * @var Organizationable|Organization|Supplier
      */

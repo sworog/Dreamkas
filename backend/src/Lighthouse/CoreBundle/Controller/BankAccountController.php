@@ -6,6 +6,8 @@ use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\BankAccount\BankAccount;
 use Lighthouse\CoreBundle\Document\BankAccount\BankAccountRepository;
 use Lighthouse\CoreBundle\Document\Organization\Organization;
+use Lighthouse\CoreBundle\Document\Organization\Organizationable;
+use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Lighthouse\CoreBundle\Form\BankAccountType;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -82,6 +84,23 @@ class BankAccountController extends AbstractRestController
 
     /**
      * @param Request $request
+     * @param Supplier $supplier
+     * @return BankAccount|FormInterface
+     *
+     * @Rest\Route("suppliers/{supplier}/bankAccounts")
+     * @Rest\View(statusCode=201)
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc(resource=true)
+     */
+    public function postSupplierBankAccountAction(Request $request, Supplier $supplier)
+    {
+        $bankAccount = $this->documentRepository->createNew();
+        $bankAccount->organization = $supplier;
+        return $this->processForm($request, $bankAccount);
+    }
+
+    /**
+     * @param Request $request
      * @param Organization $organization
      * @param BankAccount $bankAccount
      * @return BankAccount|FormInterface
@@ -100,11 +119,10 @@ class BankAccountController extends AbstractRestController
     }
 
     /**
-     * @param Organization $organization
+     * @param Organizationable $organization
      * @param BankAccount $bankAccount
-     * @throws NotFoundHttpException
      */
-    protected function checkBankAccountOrganization(Organization $organization, BankAccount $bankAccount)
+    protected function checkBankAccountOrganization(Organizationable $organization, BankAccount $bankAccount)
     {
         if ($bankAccount->organization !== $organization) {
             throw new NotFoundHttpException(sprintf("%s object not found", get_class($bankAccount)));
