@@ -1,0 +1,45 @@
+<%
+/**
+ *
+ * @model
+ */
+%>
+<% var formatAmount = require('kit/formatAmount') %>
+
+<div class="form__field form_product__retailMarkupField">
+    <label class="form__label">Диапазон наценки</label>
+
+    <div name="retailMarkup"
+         class="form_product__linkedInput">
+
+        <input
+                style="width: 100px;"
+                value="<%- model.get('retailMarkupMin') ? formatAmount(model.get('retailMarkupMin')) : '' %>"
+                class="inputText"
+                type="text"
+                name="retailMarkupMin"/>
+        -
+        <input
+                style="width: 100px;"
+                value="<%- model.get('retailMarkupMax') ? formatAmount(model.get('retailMarkupMax')) : '' %>"
+                class="inputText"
+                type="text"
+                name="retailMarkupMax"/>
+
+        <span class="inputText__postfix">%</span>
+
+    </div>
+
+    <label for="retailMarkupPreferenceRadio"
+           class="form_product__inputLink"
+           name="retailMarkupHint">
+
+        <% if (model.get('retailMarkupMin') && model.get('retailMarkupMax')) { %>
+        <%- formatAmount(model.get('retailMarkupMin')) %> &mdash; <%- formatAmount(model.get('retailMarkupMax')) %>
+        <% } else { %>
+        Введите значение
+        <% } %>
+
+    </label>
+
+</div>

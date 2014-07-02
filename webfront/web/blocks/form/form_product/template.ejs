@@ -6,9 +6,6 @@
  */
 %>
 <% var partials = {
-    unit: require('ejs!./unitFields.ejs'),
-    weight: require('ejs!./weightFields.ejs'),
-    alcohol: require('ejs!./alcoholFields.ejs'),
     select_priceRoundings: require('ejs!blocks/select/select_priceRoundings/select_priceRoundings.ejs'),
     select_vat: require('ejs!blocks/select/select_vat/select_vat.ejs'),
     retailPricePreferenceFields: require('ejs!./retailPricePreferenceFields.ejs')
@@ -149,8 +146,7 @@
                 <%- model.get('retailPricePreference') === 'retailPrice' ? 'checked' : ''%> />
 
         <%= partials.retailPricePreferenceFields({
-            model: model,
-            purchasePrice: model.get('purchasePrice')
+            model: model
         }) %>
 
         <div class="form__field">
