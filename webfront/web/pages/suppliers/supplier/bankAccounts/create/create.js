@@ -12,7 +12,7 @@ define(function(require, exports, module) {
                     Form = require('blocks/form/form_bankAccount/form_bankAccount');
 
                 return new Form({
-                    organizationId: page.params.organizationId
+                    supplierId: page.params.supplierId
                 });
             }
         }

@@ -12,7 +12,7 @@ define(function(require, exports, module) {
                     Collection = require('collections/bankAccounts/bankAccounts');
 
                 return new Collection([], {
-                    organizationId: page.params.supplierId
+                    supplierId: page.params.supplierId
                 });
             }
         }

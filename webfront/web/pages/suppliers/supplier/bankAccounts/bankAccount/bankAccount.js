@@ -16,7 +16,7 @@ define(function(require, exports, module) {
 
                 return new Model({
                     id: page.params.bankAccountId,
-                    organizationId: page.params.organizationId
+                    supplierId: page.params.supplierId
                 });
             }
         },
