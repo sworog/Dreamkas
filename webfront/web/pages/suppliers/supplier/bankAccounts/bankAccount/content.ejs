@@ -1,0 +1,21 @@
+<%
+/**
+ *
+ * @models.bankAccount
+ * @models.supplier
+ */
+%>
+
+<% var partials = {
+    form_bankAccount: require('ejs!blocks/form/form_bankAccount/template.ejs')
+} %>
+
+<div class="content">
+    <h1>Редактирование расчетного счета</h1>
+
+    <%= partials.form_bankAccount({
+        organizationId: models.companyOrganization.id,
+        model: models.bankAccount
+    }) %>
+
+</div>

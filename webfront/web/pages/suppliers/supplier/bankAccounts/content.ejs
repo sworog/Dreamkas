@@ -1,0 +1,42 @@
+<%
+/**
+ *
+ * @models.supplier
+ * @collections.bankAccounts
+ */
+%>
+
+<div class="content">
+    <h1><%- models.supplier.get('name') %></h1>
+
+    <h2>Расчетные счета
+        <a style="margin-left: 20px;"
+           href="/suppliers/<%- models.supplier.id %>/bankAccounts/create" class="button">
+            Добавить расчетный счет
+        </a>
+    </h2>
+
+    <% if (collections.bankAccounts.length) { %>
+
+    <table class="table">
+        <tbody>
+
+        <% collections.bankAccounts.forEach(function(bankAccountModel){ %>
+        <tr href="/suppliers/<%- models.supplier.id %>/bankAccounts/<%- bankAccountModel.id %>">
+            <td>
+                <%- bankAccountModel.get('account') %>
+            </td>
+            <td>
+                <%- bankAccountModel.get('bankName') %>
+            </td>
+        </tr>
+        <% }) %>
+
+        </tbody>
+    </table>
+
+    <% } else { %>
+    <p>Вы еще не добавили ни одного расчетного счета для этой организации</p>
+    <% } %>
+
+</div>
