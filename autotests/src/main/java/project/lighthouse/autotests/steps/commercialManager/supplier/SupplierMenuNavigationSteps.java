@@ -27,4 +27,9 @@ public class SupplierMenuNavigationSteps extends ScenarioSteps {
     public void clickLegalDetailsLink() {
         supplierPageMenuNavigation.legalDetailsLinkClick();
     }
+
+    @Step
+    public void clickBankAccountsLink() {
+        supplierPageMenuNavigation.bankAccountsLinkClick();
+    }
 }
