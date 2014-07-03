@@ -23,6 +23,8 @@ define(function(require) {
         'suppliers/:supplierId(/)': require('pages/suppliers/supplier/supplier'),
         'suppliers/:supplierId/details(/)': require('pages/suppliers/supplier/details/details'),
         'suppliers/:supplierId/bankAccounts(/)': require('pages/suppliers/supplier/bankAccounts/bankAccounts'),
+        'suppliers/:supplierId/bankAccounts/create(/)': require('pages/suppliers/supplier/bankAccounts/create/create'),
+        'suppliers/:supplierId/bankAccounts/:bankAccountId(/)': require('pages/suppliers/supplier/bankAccounts/bankAccount/bankAccount'),
 
         //orders
         'stores/:storeId/orders(/)': require('pages/orders/list/list'),

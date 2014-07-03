@@ -27,7 +27,7 @@ define(function(require, exports, module) {
 
                 return new Form({
                     model: page.models.bankAccount,
-                    organizationId: page.params.organizationId
+                    supplierId: page.params.supplierId
                 });
             }
         }

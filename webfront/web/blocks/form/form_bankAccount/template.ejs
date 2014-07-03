@@ -2,11 +2,15 @@
 /**
  *
  * @organizationId
+ * @supplierId
  */
 %>
 
 <% var BankAccountModel = require('models/bankAccount/bankAccount') %>
 <% var model = model || new BankAccountModel() %>
+
+<% var organizationId = organizationId || null %>
+<% var supplierId = supplierId || null %>
 
 <form class="form form_bankAccount">
     <div class="form__field">
@@ -75,8 +79,18 @@
             <%- model.id ? 'Сохранить' : 'Добавить' %>
         </button>
         или
+
+        <% if (organizationId) { %>
         <a href="/company/organizations/<%- organizationId %>/bankAccounts" class="form__cancelLink">
             отменить
         </a>
+        <% } %>
+
+        <% if (supplierId) { %>
+        <a href="/suppliers/<%- supplierId %>/bankAccounts" class="form__cancelLink">
+            отменить
+        </a>
+        <% } %>
+
     </div>
 </form>

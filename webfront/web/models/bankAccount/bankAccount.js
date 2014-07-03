@@ -16,7 +16,7 @@ define(function(require, exports, module) {
             }
 
             if (this.get('supplierId')){
-                url = Model.baseApiUrl + '/organizations/' + this.get('supplierId') + '/bankAccounts';
+                url = Model.baseApiUrl + '/suppliers/' + this.get('supplierId') + '/bankAccounts';
             }
 
             return url;

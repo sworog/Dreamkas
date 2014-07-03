@@ -10,7 +10,8 @@
 } %>
 
 <div class="content">
-    <h1>Добавление расчетного счета</h1>
+    <h1><%- models.supplier.get('name') %></h1>
+    <h2>Добавление расчетного счета</h2>
 
     <%= partials.form_bankAccount({
         organizationId: models.supplier.id
