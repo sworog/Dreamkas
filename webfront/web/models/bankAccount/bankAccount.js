@@ -4,10 +4,22 @@ define(function(require, exports, module) {
 
     return Model.extend({
         defaults: {
-            organizationId: null
+            organizationId: null,
+            supplierId: null
         },
         urlRoot: function(){
-            return Model.baseApiUrl + '/organizations/' + this.get('organizationId') + '/bankAccounts'
+
+            var url;
+
+            if (this.get('organizationId')){
+                url = Model.baseApiUrl + '/organizations/' + this.get('organizationId') + '/bankAccounts';
+            }
+
+            if (this.get('supplierId')){
+                url = Model.baseApiUrl + '/suppliers/' + this.get('supplierId') + '/bankAccounts';
+            }
+
+            return url;
         },
         saveData: [
             'bic',

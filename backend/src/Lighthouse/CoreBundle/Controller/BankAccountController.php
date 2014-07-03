@@ -6,6 +6,8 @@ use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\BankAccount\BankAccount;
 use Lighthouse\CoreBundle\Document\BankAccount\BankAccountRepository;
 use Lighthouse\CoreBundle\Document\Organization\Organization;
+use Lighthouse\CoreBundle\Document\Organization\Organizationable;
+use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Lighthouse\CoreBundle\Form\BankAccountType;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -37,9 +39,8 @@ class BankAccountController extends AbstractRestController
      * @return BankAccount
      *
      * @Rest\Route("organizations/{organization}/bankAccounts/{bankAccount}")
-     * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc(resource=true)
+     * @ApiDoc
      */
     public function getOrganizationBankAccountAction(
         Organization $organization,
@@ -50,17 +51,46 @@ class BankAccountController extends AbstractRestController
     }
 
     /**
+     * @param Supplier $supplier
+     * @param BankAccount $bankAccount
+     * @return BankAccount
+     *
+     * @Rest\Route("suppliers/{supplier}/bankAccounts/{bankAccount}")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function getSupplierBankAccountAction(
+        Supplier $supplier,
+        BankAccount $bankAccount
+    ) {
+        $this->checkBankAccountOrganization($supplier, $bankAccount);
+        return $bankAccount;
+    }
+
+    /**
      * @param Organization $organization
      * @return Cursor|BankAccount[]
      *
      * @Rest\Route("organizations/{organization}/bankAccounts")
-     * @Rest\View(statusCode=200)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc(resource=true)
+     * @ApiDoc
      */
     public function getOrganizationBankAccountsAction(Organization $organization)
     {
         return $this->documentRepository->findByOrganization($organization);
+    }
+
+    /**
+     * @param Supplier $supplier
+     * @return Cursor|BankAccount[]
+     *
+     * @Rest\Route("suppliers/{supplier}/bankAccounts")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function getSupplierBankAccountsAction(Supplier $supplier)
+    {
+        return $this->documentRepository->findByOrganization($supplier);
     }
 
     /**
@@ -82,13 +112,30 @@ class BankAccountController extends AbstractRestController
 
     /**
      * @param Request $request
+     * @param Supplier $supplier
+     * @return BankAccount|FormInterface
+     *
+     * @Rest\Route("suppliers/{supplier}/bankAccounts")
+     * @Rest\View(statusCode=201)
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc(resource=true)
+     */
+    public function postSupplierBankAccountAction(Request $request, Supplier $supplier)
+    {
+        $bankAccount = $this->documentRepository->createNew();
+        $bankAccount->organization = $supplier;
+        return $this->processForm($request, $bankAccount);
+    }
+
+    /**
+     * @param Request $request
      * @param Organization $organization
      * @param BankAccount $bankAccount
      * @return BankAccount|FormInterface
      *
      * @Rest\Route("organizations/{organization}/bankAccounts/{bankAccount}")
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc(resource=true)
+     * @ApiDoc
      */
     public function putOrganizationBankAccountAction(
         Request $request,
@@ -100,11 +147,29 @@ class BankAccountController extends AbstractRestController
     }
 
     /**
-     * @param Organization $organization
+     * @param Request $request
+     * @param Supplier $supplier
      * @param BankAccount $bankAccount
-     * @throws NotFoundHttpException
+     * @return BankAccount|FormInterface
+     *
+     * @Rest\Route("suppliers/{supplier}/bankAccounts/{bankAccount}")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
      */
-    protected function checkBankAccountOrganization(Organization $organization, BankAccount $bankAccount)
+    public function putSupplierBankAccountAction(
+        Request $request,
+        Supplier $supplier,
+        BankAccount $bankAccount
+    ) {
+        $this->checkBankAccountOrganization($supplier, $bankAccount);
+        return $this->processForm($request, $bankAccount);
+    }
+
+    /**
+     * @param Organizationable $organization
+     * @param BankAccount $bankAccount
+     */
+    protected function checkBankAccountOrganization(Organizationable $organization, BankAccount $bankAccount)
     {
         if ($bankAccount->organization !== $organization) {
             throw new NotFoundHttpException(sprintf("%s object not found", get_class($bankAccount)));

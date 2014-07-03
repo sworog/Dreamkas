@@ -18,4 +18,9 @@ public class WhenSupplierMenuNavigationSteps {
     public void userClicksLegalDetailsLink() {
         supplierMenuNavigationSteps.clickLegalDetailsLink();
     }
+
+    @When("the user clicks supplier bank accounts link")
+    public void userClicksBankAccountsLink() {
+        supplierMenuNavigationSteps.clickBankAccountsLink();
+    }
 }

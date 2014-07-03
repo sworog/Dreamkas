@@ -1,0 +1,44 @@
+<%
+/**
+ *
+ * @model
+ */
+%>
+<% var formatMoney = require('kit/formatMoney') %>
+
+<div class="form__field form_product__retailPriceField">
+    <label class="form__label">Диапазон цены продажи</label>
+
+    <div name="retailPrice"
+         class="form_product__linkedInput">
+        <input
+                style="width: 100px;"
+                value="<%- model.get('retailPriceMin') ? formatMoney(model.get('retailPriceMin')) : '' %>"
+                class="inputText"
+                type="text"
+                name="retailPriceMin"/>
+        -
+        <input
+                style="width: 100px;"
+                value="<%- model.get('retailPriceMax') ? formatMoney(model.get('retailPriceMax')) : '' %>"
+                class="inputText"
+                type="text"
+                name="retailPriceMax"/>
+
+        <span class="inputText__postfix">руб.</span>
+
+    </div>
+
+    <label for="retailPricePreferenceRadio"
+           class="form_product__inputLink"
+           name="retailPriceHint">
+
+        <% if (model.get('retailPriceMin') && model.get('retailPriceMax')) { %>
+        <%- formatMoney(model.get('retailPriceMin')) %> &mdash; <%- formatMoney(model.get('retailPriceMax')) %>
+        <% } else { %>
+        Введите значение
+        <% } %>
+
+    </label>
+
+</div>

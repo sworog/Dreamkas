@@ -21,4 +21,8 @@ public class SupplierPageMenuNavigation extends CommonPageObject {
     public void legalDetailsLinkClick() {
         new NavigationLinkFacade(this, "Юридические реквизиты").click();
     }
+
+    public void bankAccountsLinkClick() {
+        new NavigationLinkFacade(this, "Расчетные счета").click();
+    }
 }

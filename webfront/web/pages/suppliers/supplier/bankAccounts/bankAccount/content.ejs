@@ -2,7 +2,7 @@
 /**
  *
  * @models.bankAccount
- * @models.companyOrganization
+ * @models.supplier
  */
 %>
 
@@ -11,13 +11,11 @@
 } %>
 
 <div class="content">
-
-    <h1 name="companyOrganizationName"><%= models.companyOrganization.element('name') %></h1>
-
+    <h1><%- models.supplier.get('name') %></h1>
     <h2>Редактирование расчетного счета</h2>
 
     <%= partials.form_bankAccount({
-        organizationId: models.companyOrganization.id,
+        supplierId: models.supplier.id,
         model: models.bankAccount
     }) %>
 

@@ -16,4 +16,14 @@ interface Organizationable
      * @return $this
      */
     public function setLegalDetails(LegalDetails $legalDetails);
+
+    /**
+     * @return string
+     */
+    public function getOrganizationType();
+
+    /**
+     * @return string
+     */
+    public function getOrganizationId();
 }
