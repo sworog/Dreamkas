@@ -1,11 +1,13 @@
 Meta:
 @sprint_37
-@us_80.3
+@us_81.3
 
 Narrative:
 Как владелец торговой точки,
 Я хочу добавить в систему данные нескольких счетов поставщика,
 Что бы в дальнейшем использовать эти данные при формировании документов
+
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story
 
 Scenario: Create supplier bank account
 
