@@ -2,60 +2,21 @@
 
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints;
 
-use Lighthouse\CoreBundle\Test\TestCase;
+use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Validator\Constraints\Chain;
-use Lighthouse\CoreBundle\Validator\Constraints\ChainValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Range;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
-use Symfony\Component\Validator\ExecutionContextInterface;
+use Symfony\Component\Validator\Validator\LegacyValidator;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ChainValidatorTest extends TestCase
+class ChainValidatorTest extends ContainerAwareTestCase
 {
     /**
-     * @var ExecutionContextInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @return LegacyValidator|ValidatorInterface
      */
-    protected $context;
-
-    /**
-     * @var ConstraintViolationListInterface|\PHPUnit_Framework_MockObject_MockObject
-     */
-    protected $violations;
-
-    /**
-     * @var ChainValidator
-     */
-    protected $validator;
-
-    public function setUp()
+    protected function getValidator()
     {
-        /* @var ExecutionContextInterface|\PHPUnit_Framework_MockObject_MockObject $context */
-        $context = $this->getMock(
-            'Symfony\\Component\\Validator\\ExecutionContext',
-            array(),
-            array(),
-            '',
-            false
-        );
-
-        $this->validator = new ChainValidator();
-        $this->validator->initialize($context);
-
-        $this->violations = $this->getMock(
-            'Symfony\\Component\\Validator\\ConstraintViolationList',
-            array(),
-            array(),
-            '',
-            false
-        );
-        $this->context = $context;
-    }
-
-    public function tearDown()
-    {
-        $this->context = null;
-        $this->violations = null;
-        $this->validator = null;
+        return $this->getContainer()->get('validator');
     }
 
     public function testValidationPasses()
@@ -67,72 +28,53 @@ class ChainValidatorTest extends TestCase
         $options = array($notBlank, $range);
         $constraint = new Chain($options);
 
-        $this
-            ->violations
-            ->expects($this->any())
-            ->method('count')
-            ->will($this->returnValue(0));
-        $this
-            ->context
-            ->expects($this->at(0))
-            ->method('getViolations')
-            ->will($this->returnValue($this->violations));
-
-        $this
-            ->context
-            ->expects($this->at(1))
-            ->method('validateValue')
-            ->with($value, $notBlank, "", null);
-
-        $this
-            ->context
-            ->expects($this->at(2))
-            ->method('getViolations')
-            ->will($this->returnValue($this->violations));
-
-        $this
-            ->context
-            ->expects($this->at(3))
-            ->method('validateValue')
-            ->with($value, $range, "", null);
-
-        $this->validator->validate($value, $constraint);
+        $violationList = $this->getValidator()->validateValue($value, $constraint);
+        $this->assertCount(0, $violationList);
     }
 
-    public function testValidationBreaksOnFirstValidator()
+    /**
+     * @dataProvider validationBreaksOnFirstFailure
+     * @param $value
+     * @param $expectedMessageTemplate
+     */
+    public function testValidationBreaksOnFirstFailure($value, $expectedMessageTemplate)
     {
-        $value = 6;
-
         $notBlank = new NotBlank();
         $range = new Range(array('min' => 5));
-        $options = array($notBlank, $range);
-        $constraint = new Chain($options);
+        $range2 = new Range(array('min' => 6, 'minMessage' => 'invalid range'));
 
-        $this
-            ->violations
-            ->expects($this->at(0))
-            ->method('count')
-            ->will($this->returnValue(0));
+        $constraint = new Chain(
+            array(
+                $notBlank,
+                $range,
+                $range2
+            )
+        );
 
-        $this
-            ->violations
-            ->expects($this->at(1))
-            ->method('count')
-            ->will($this->returnValue(1));
+        $violationList = $this->getValidator()->validateValue($value, $constraint);
+        $this->assertCount(1, $violationList);
+        $this->assertEquals($expectedMessageTemplate, $violationList->get(0)->getMessageTemplate());
+    }
 
-        $this
-            ->context
-            ->expects($this->at(0))
-            ->method('getViolations')
-            ->will($this->returnValue($this->violations));
-
-        $this
-            ->context
-            ->expects($this->once())
-            ->method('validateValue')
-            ->with($value, $notBlank, "", null);
-
-        $this->validator->validate($value, $constraint);
+    /**
+     * @return array
+     */
+    public function validationBreaksOnFirstFailure()
+    {
+        return array(
+            'blank' => array(
+                '',
+                'This value should not be blank.',
+            ),
+            'range' => array(
+                4,
+                'This value should be {{ limit }} or more.'
+            ),
+            'range2' => array(
+                5,
+                'invalid range'
+            ),
+        );
     }
 
     /**
