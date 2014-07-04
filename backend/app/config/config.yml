@@ -33,6 +33,7 @@ framework:
     validation:
         enable_annotations: true
         api: auto
+        strict_email: true
     templating:
         engines: ['twig', 'php']
         #assets_version: SomeVersionScheme
