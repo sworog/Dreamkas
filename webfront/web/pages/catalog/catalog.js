@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Page = require('kit/page'),
         GroupModel = require('models/group'),
-        exportCatalog = require('kit/exportCatalog');
+        exportCatalog = require('kit/exportCatalog/exportCatalog');
 
     return Page.extend({
         params: {

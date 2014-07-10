@@ -8,14 +8,6 @@ define(function(require, exports, module) {
             time: false
         }, opt);
 
-        if (typeof opt.time === 'string'){
-            opt.format += ' ' + opt.time
-        }
-
-        if (opt.time === true) {
-            opt.format += ' HH:mm'
-        }
-
         return moment(date).format(opt.format);
     }
 });

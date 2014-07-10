@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Model = require('kit/model');
+    var Model = require('kit/model/model');
 
     var CurrentUserModel = Model.extend({
         url: Model.baseApiUrl + '/users/current',

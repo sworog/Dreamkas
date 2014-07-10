@@ -26,7 +26,7 @@ define(function(require) {
             blocks: {
                 form_group: function(){
                     var block = this,
-                        Form = require('kit/form');
+                        Form = require('kit/form/form');
 
                     return new Form({
                         el: block.el.querySelector('form'),

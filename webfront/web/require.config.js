@@ -9,9 +9,9 @@ define(function(require, exports, module) {
             'numeral': 'bower_components/numeral/numeral',
             'sortable': 'bower_components/sortable/js/sortable',
             'when': 'bower_components/when/when',
-            'lodash': 'kit/lodash',
-            'underscore': 'kit/underscore',
-            'router': 'kit/router',
+            'lodash': 'kit/underscore/lodash',
+            'underscore': 'kit/underscore/underscore',
+            'router': 'kit/router/router',
             'jquery': 'bower_components/jquery/dist/jquery',
             'jquery.ui': 'bower_components/jqueryui/ui/minified/jquery-ui.min',
             'jquery.maskedinput': 'bower_components/jquery-maskedinput/dist/jquery.maskedinput',
@@ -20,8 +20,7 @@ define(function(require, exports, module) {
 
             //plugins
             'i18n': 'bower_components/requirejs-i18n/i18n',
-            'rv': 'bower_components/requirejs-ractive/rv',
-            'tpl': 'kit/templateLoader/templateLoader'
+            'ejs': 'kit/templateLoader/templateLoader'
         },
         shim: {
             'jquery.maskedinput': ['jquery']

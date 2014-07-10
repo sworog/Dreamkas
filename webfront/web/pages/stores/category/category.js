@@ -1,7 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Page = require('pages/store'),
-        exportCatalog = require('kit/exportCatalog'),
+        exportCatalog = require('kit/exportCatalog/exportCatalog'),
         SubCategoryModel = require('models/subCategory'),
         router = require('router');
 

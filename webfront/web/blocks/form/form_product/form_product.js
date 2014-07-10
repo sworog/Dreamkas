@@ -1,7 +1,7 @@
 define(function(require) {
         //requirements
-        var Form = require('kit/form'),
-            getText = require('kit/getText'),
+        var Form = require('kit/form/form'),
+            getText = require('kit/getText/getText'),
             numeral = require('numeral');
 
         return Form.extend({

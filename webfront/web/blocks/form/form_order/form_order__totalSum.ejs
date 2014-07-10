@@ -7,7 +7,7 @@
 %>
 
 <% var totalSum = totalSum || 0 %>
-<% var formatMoney = require('kit/formatMoney') %>
+<% var formatMoney = require('kit/formatMoney/formatMoney') %>
 
 <% collections.orderProducts.forEach(function(orderModel){
     totalSum += orderModel.get('quantity') * orderModel.get('product.product.purchasePrice') || 0;

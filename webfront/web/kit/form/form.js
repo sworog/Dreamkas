@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block'),
+    var Block = require('kit/block/block'),
         form2js = require('form2js'),
         router = require('router'),
         _ = require('lodash');

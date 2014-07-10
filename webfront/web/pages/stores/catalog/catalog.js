@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var Page = require('pages/store'),
-        exportCatalog = require('kit/exportCatalog');
+        exportCatalog = require('kit/exportCatalog/exportCatalog');
 
     return Page.extend({
         events: {
