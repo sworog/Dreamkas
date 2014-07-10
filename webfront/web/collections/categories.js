@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Collection = require('kit/collection'),
+        var Collection = require('kit/collection/collection'),
             _ = require('lodash');
 
         return Collection.extend({

@@ -3,9 +3,10 @@ define(function(require, exports, module) {
     var Model = require('kit/model/model');
 
     return Model.extend({
-        url: Model.baseApiUrl + '/users/restorePassword',
+        urlRoot: Model.baseApiUrl + '/suppliers',
         saveData: [
-            'email'
+            'name',
+            'agreement'
         ]
     });
 });

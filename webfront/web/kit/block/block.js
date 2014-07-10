@@ -1,13 +1,12 @@
 define(function(require, exports, module) {
     //requirements
     var BaseClass = require('kit/baseClass/baseClass'),
-        getText = require('kit/getText'),
+        getText = require('kit/getText/getText'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         delegateEvent = require('kit/delegateEvent/delegateEvent'),
         undelegateEvents = require('kit/undelegateEvents/undelegateEvents'),
-        stringToFragment = require('kit/stringToFragment/stringToFragment');
-
-    require('lodash');
+        stringToFragment = require('kit/stringToFragment/stringToFragment'),
+        _ = require('lodash');
 
     // Cached regex to split keys for `delegate`.
     var delegateEventSplitter = /^(\S+)\s*(.*)$/;
@@ -18,29 +17,32 @@ define(function(require, exports, module) {
 
             deepExtend(this, params);
 
-            block.initElement();
+            block._initElement();
             block.initialize.apply(block, arguments);
-            block.initBlocks();
-            block.startListening();
+            block._initBlocks();
+            block._startListening();
         },
+
+        el: null,
 
         elements: {},
         blocks: {},
 
-        el: null,
-        cid: null,
-
         template: function() {
+            return '<div></div>';
         },
 
         initialize: function() {
         },
 
-        getText: function(text, dictionary) {
-            return getText(text, _.extend({}, this.dictionary, dictionary));
+        getText: function() {
+            var block = this,
+                args = [].slice.call(arguments, 0);
+
+            return getText.apply(null, [block.nls].concat(args));
         },
 
-        templateToElement: function(){
+        _templateToElement: function() {
             var block = this,
                 fragment = stringToFragment(block.template(block)),
                 wrapper = document.createElement('div');
@@ -52,11 +54,9 @@ define(function(require, exports, module) {
 
         render: function() {
             var block = this,
-                newEl = block.templateToElement();
+                newEl = block._templateToElement();
 
-            block.set('status', 'rendering');
-
-            block.destroyBlocks();
+            block._destroyBlocks();
 
             block.el.innerHTML = newEl.innerHTML;
 
@@ -64,13 +64,11 @@ define(function(require, exports, module) {
                 block.el.setAttribute(attribute.name, attribute.value);
             });
 
-            block.initElements();
-            block.initBlocks();
-
-            block.set('status', 'rendered');
+            block._initElements();
+            block._initBlocks();
         },
 
-        initBlocks: function() {
+        _initBlocks: function() {
             var block = this;
 
             block.__blocks = block.__blocks || block.blocks;
@@ -80,36 +78,36 @@ define(function(require, exports, module) {
             });
         },
 
-        initElement: function(el) {
+        _initElement: function(el) {
             var block = this;
 
-            block.undelegateEvents();
+            block._undelegateEvents();
 
             block.__el = block.__el || block.el;
 
             el = el || block.get('__el');
 
-            if (typeof el === 'string'){
+            if (typeof el === 'string') {
                 el = document.querySelector(el);
             }
 
-            block.el = el || block.templateToElement();
+            block.el = el || block._templateToElement();
 
-            block.initElements();
-            block.delegateEvents();
+            block._initElements();
+            block._delegateEvents();
 
             return block;
         },
 
-        initElements: function() {
+        _initElements: function() {
             var block = this,
                 elements = {};
 
-            block.__elements = block.__elements ||  block.elements;
+            block.__elements = block.__elements || block.elements;
 
-            _.forEach(block.__elements, function(value, key){
+            _.forEach(block.__elements, function(value, key) {
                 var el = block.get('__elements.' + key);
-                elements[key] = typeof el === 'string' ? block.el.querySelectorAll(el) : el;
+                elements[key] = typeof el === 'string' ? block.el.querySelector(el) : el;
             });
 
             block.elements = elements;
@@ -130,7 +128,7 @@ define(function(require, exports, module) {
         // Omitting the selector binds the event to `this.el`.
         // This only works for delegate-able events: not `focus`, `blur`, and
         // not `change`, `submit`, and `reset` in Internet Explorer.
-        delegateEvents: function(events) {
+        _delegateEvents: function(events) {
             var block = this;
 
             if (!(events || (events = block.get('events')))) {
@@ -149,7 +147,7 @@ define(function(require, exports, module) {
             return block;
         },
 
-        undelegateEvents: function() {
+        _undelegateEvents: function() {
             var block = this;
 
             undelegateEvents(block);
@@ -157,7 +155,7 @@ define(function(require, exports, module) {
             return block;
         },
 
-        startListening: function(listeners) {
+        _startListening: function(listeners) {
             var block = this;
 
             if (!(listeners || (listeners = block.get('listeners')))) {
@@ -175,11 +173,12 @@ define(function(require, exports, module) {
             return block;
         },
 
-        destroy: function(){
+        destroy: function() {
             var block = this;
 
+            block._destroyBlocks();
             block.stopListening();
-            block.undelegateEvents();
+            block._undelegateEvents();
         },
 
         remove: function() {
@@ -189,8 +188,6 @@ define(function(require, exports, module) {
 
             var parentNode = block.el.parentNode;
 
-            block.destroyBlocks();
-
             if (parentNode) {
                 parentNode.removeChild(block.el);
             }
@@ -198,10 +195,28 @@ define(function(require, exports, module) {
             return block;
         },
 
-        destroyBlocks: function(){
+        _destroyBlocks: function() {
             var block = this;
 
             _.forEach(block.blocks, function(blockToDestroy, blockName) {
+
+                if (blockToDestroy && typeof blockToDestroy.destroy === 'function') {
+                    blockToDestroy.destroy();
+                    delete block.blocks[blockName];
+                }
+
+            });
+        },
+        _removeBlocks: function() {
+            var block = this;
+
+            _.forEach(block.blocks, function(blockToDestroy, blockName) {
+
+                var parentNode = blockToDestroy.el.parentNode;
+
+                if (parentNode) {
+                    parentNode.removeChild(blockToDestroy.el);
+                }
 
                 if (blockToDestroy && typeof blockToDestroy.destroy === 'function') {
                     blockToDestroy.destroy();

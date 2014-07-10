@@ -8,14 +8,14 @@ define(function(require, exports, module) {
     window.LH = _.extend({
         modelNode: require('kit/modelNode/modelNode'),
         collectionNode: require('kit/collectionNode/collectionNode'),
-        formatMoney: require('kit/formatMoney'),
-        formatAmount: require('kit/formatAmount'),
-        formatDate: require('kit/formatDate'),
+        formatMoney: require('kit/formatMoney/formatMoney'),
+        formatAmount: require('kit/formatAmount/formatAmount'),
+        formatDate: require('kit/formatDate/formatDate'),
         isEmptyJSON: require('kit/isEmptyJSON/isEmptyJSON'),
         prevalidateInput: require('kit/prevalidateInput/prevalidateInput'),
         units: require('kit/units/units'),
         productTypes: require('kit/productTypes/productTypes'),
-        getText: require('kit/getText'),
+        getText: require('kit/getText/getText'),
         isAllow: function(){
             return true;
         },

@@ -2,7 +2,7 @@ define(function(require) {
         //requirements
         var Form = require('kit/form/form'),
             roundPrice = require('kit/roundPrice/roundPrice'),
-            formatMoney = require('kit/formatMoney'),
+            formatMoney = require('kit/formatMoney/formatMoney'),
             numeral = require('numeral');
 
         return Form.extend({

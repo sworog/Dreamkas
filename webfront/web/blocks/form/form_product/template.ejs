@@ -10,7 +10,7 @@
     select_vat: require('ejs!blocks/select/select_vat/select_vat.ejs'),
     retailPricePreferenceFields: require('ejs!./retailPricePreferenceFields.ejs')
 } %>
-<% var formatMoney = require('kit/formatMoney') %>
+<% var formatMoney = require('kit/formatMoney/formatMoney') %>
 <% var ProductModel = require('models/product') %>
 <% var model = model || new ProductModel() %>
 

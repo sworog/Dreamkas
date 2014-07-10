@@ -7,7 +7,7 @@ define(function(require) {
         $ = require('jquery'),
         _ = require('lodash'),
         moment = require('moment'),
-        getText = require('kit/getText'),
+        getText = require('kit/getText/getText'),
         numeral = require('numeral');
 
     getText.dictionary = require('i18n!nls/main');

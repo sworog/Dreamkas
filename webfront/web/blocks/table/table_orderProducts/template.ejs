@@ -8,8 +8,8 @@
 <% var partials = {
     productSum: require('ejs!./productSum.ejs')
 } %>
-<% var formatAmount = require('kit/formatAmount') %>
-<% var formatMoney = require('kit/formatMoney') %>
+<% var formatAmount = require('kit/formatAmount/formatAmount') %>
+<% var formatMoney = require('kit/formatMoney/formatMoney') %>
 
 <% if (collections.orderProducts.length) { %>
 <table class="table table__orderProducts">

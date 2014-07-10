@@ -4,7 +4,7 @@ define(function(require) {
         extendClass = require('kit/extendClass/extendClass'),
         get = require('kit/get/get'),
         set = require('kit/set/set'),
-        getText = require('kit/getText');
+        getText = require('kit/getText/getText');
 
     require('lodash');
     require('backbone');
