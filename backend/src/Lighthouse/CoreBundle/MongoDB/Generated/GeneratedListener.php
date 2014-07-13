@@ -37,6 +37,9 @@ class GeneratedListener
      *      "accessor" = @DI\Inject("property_accessor"),
      *      "managerRegistry" = @DI\Inject("doctrine_mongodb")
      * })
+     * @param IncrementGenerator $generator
+     * @param PropertyAccessorInterface $accessor
+     * @param ManagerRegistry $managerRegistry
      */
     public function __construct(
         IncrementGenerator $generator,
@@ -79,9 +82,8 @@ class GeneratedListener
         $collection = $eventArgs->getData();
 
         foreach ($this->getGeneratedMappings($documentManager, $collection->getName()) as $mapping) {
-            /* @var ClassMetadata $metadata*/
-            list($metadata, $fieldMapping) = $mapping;
-            $this->generator->setStartValue($collection, $metadata->getName(), $fieldMapping['startValue']);
+            list(, $fieldMapping) = $mapping;
+            $this->generator->setStartValue($collection, $fieldMapping['startValue']);
         }
     }
 

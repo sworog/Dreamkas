@@ -1,0 +1,45 @@
+<%
+/**
+ *
+ * @apiError
+ * @jsError
+ */
+%>
+<% var config = require('config') %>
+
+<div class="error">
+
+    <% if (apiError) { %>
+
+    <div style="padding-bottom: 40px;">
+        <h1>Произошла ошибка подключения к серверу</h1>
+        Статус код: <strong><%- apiError.status %></strong> <br/>
+        Статус текст: <strong><%- apiError.statusText %></strong> <br/>
+        <% if (config.debugLevel === 2) { %>
+        Текст ответа сервера:
+        <div>
+            <pre><%- JSON.stringify(JSON.parse(apiError.responseText), null, 2) %></pre>
+        </div>
+        <% } %>
+    </div>
+
+    <% } %>
+
+    <% if (jsError) { %>
+
+    <div style="padding-bottom: 40px;">
+        <h1>Произошла ошибка JavaScript</h1>
+        Текст ошибки: <strong><%- jsError.message || jsError.data.message %></strong> <br/>
+        Файл: <strong><%- jsError.file %></strong> <br/>
+        Строка: <strong><%- jsError.line %></strong> <br/>
+        <% if (config.debugLevel === 2) { %>
+        StackTrace:
+        <div>
+            <pre><%- jsError.data.stack %></pre>
+        </div>
+        <% } %>
+    </div>
+
+    <% } %>
+
+</div>

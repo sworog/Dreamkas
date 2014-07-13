@@ -13,11 +13,11 @@ define(function(require) {
     return Editor.extend({
         __name__: 'catalogGroup',
         catalogGroupModel: null,
-        template: require('tpl!blocks/catalogGroup/templates/index.html'),
+        template: require('ejs!blocks/catalogGroup/templates/index.html'),
         templates: {
-            index: require('tpl!blocks/catalogGroup/templates/index.html'),
-            catalog__categoryList: require('tpl!blocks/catalog/templates/catalog__categoryList.html'),
-            catalog__categoryItem: require('tpl!blocks/catalog/templates/catalog__categoryItem.html')
+            index: require('ejs!blocks/catalogGroup/templates/index.html'),
+            catalog__categoryList: require('ejs!blocks/catalog/templates/catalog__categoryList.html'),
+            catalog__categoryItem: require('ejs!blocks/catalog/templates/catalog__categoryItem.html')
         },
         events: {
             'click .catalog__editGroupLink': function(e) {

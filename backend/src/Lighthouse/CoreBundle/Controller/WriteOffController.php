@@ -2,15 +2,15 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\RestBundle\View\View;
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
-use Lighthouse\CoreBundle\Document\WriteOff\WriteOffCollection;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOffHighlightGenerator;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOffRepository;
 use Lighthouse\CoreBundle\Document\WriteOff\WriteOffsFilter;
 use Lighthouse\CoreBundle\Form\WriteOffType;
 use Lighthouse\CoreBundle\Meta\MetaCollection;
+use Symfony\Component\Form\Test\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -39,7 +39,7 @@ class WriteOffController extends AbstractRestController
      *
      * @param Store $store
      * @param Request $request
-     * @return View|WriteOff
+     * @return FormInterface|WriteOff
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
@@ -56,7 +56,7 @@ class WriteOffController extends AbstractRestController
      * @param Store $store
      * @param WriteOff $writeOff
      * @param Request $request
-     * @return View|WriteOff
+     * @return FormInterface|WriteOff
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
@@ -82,11 +82,9 @@ class WriteOffController extends AbstractRestController
     /**
      * @param Store $store
      * @param WriteOffsFilter $filter
-     * @return WriteOffCollection|MetaCollection
+     * @return MetaCollection|WriteOff[]|Cursor
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
-     * @ApiDoc(
-     *      resource=true
-     * )
+     * @ApiDoc(resource=true)
      * @Rest\Route("stores/{store}/writeoffs")
      */
     public function getWriteoffsAction(Store $store, WriteOffsFilter $filter)
@@ -97,7 +95,7 @@ class WriteOffController extends AbstractRestController
             $collection = new MetaCollection($writeOffs);
             $collection->addMetaGenerator($highlightGenerator);
         } else {
-            $collection = new WriteOffCollection($writeOffs);
+            $collection = $writeOffs;
         }
         return $collection;
     }

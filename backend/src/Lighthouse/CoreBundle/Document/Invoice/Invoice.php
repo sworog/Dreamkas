@@ -2,13 +2,13 @@
 
 namespace Lighthouse\CoreBundle\Document\Invoice;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\ODM\MongoDB\PersistentCollection;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
@@ -175,7 +175,7 @@ class Invoice extends AbstractDocument implements Storeable
      *      minMessage="lighthouse.validation.errors.invoice.products.empty"
      * )
      * @Serializer\MaxDepth(4)
-     * @var InvoiceProduct[]
+     * @var InvoiceProduct[]|Collection
      */
     protected $products;
 
@@ -184,7 +184,7 @@ class Invoice extends AbstractDocument implements Storeable
      */
     public function __construct()
     {
-        $this->products = new InvoiceProductCollection();
+        $this->products = new ArrayCollection();
     }
 
     /**

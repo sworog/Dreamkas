@@ -91,6 +91,34 @@ define(function(require) {
                 };
             }
         },
+        calculateRanges: function(){
+            var model = this,
+                purchasePrice = model.get('purchasePrice'),
+                retailMarkupMin = model.get('retailMarkupMin'),
+                retailMarkupMax = model.get('retailMarkupMax'),
+                retailPriceMin = model.get('retailPriceMin'),
+                retailPriceMax = model.get('retailPriceMax');
+
+            switch (model.get('retailPricePreference')){
+                case 'retailMarkup':
+
+                    model.set({
+                        retailPriceMin: retailMarkupMin ? (purchasePrice + purchasePrice * retailMarkupMin / 100) : null,
+                        retailPriceMax: retailMarkupMax ? (purchasePrice + purchasePrice * retailMarkupMax / 100) : null
+                    });
+
+                    break;
+                case 'retailPrice':
+
+                    model.set({
+                        retailMarkupMin: retailPriceMin ? (100 * (retailPriceMin - purchasePrice) / purchasePrice) : null,
+                        retailMarkupMax: retailPriceMax ? (100 * (retailPriceMax - purchasePrice) / purchasePrice) : null
+                    });
+
+                    break;
+            }
+
+        },
         parse: function(){
             var data = Model.prototype.parse.apply(this, arguments);
 

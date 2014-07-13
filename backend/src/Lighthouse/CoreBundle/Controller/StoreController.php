@@ -2,10 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\RestBundle\View\View;
-use Lighthouse\CoreBundle\Document\Store\ManagerCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Document\Store\StoreCollection;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
@@ -58,7 +57,7 @@ class StoreController extends AbstractRestController
      * @Rest\View(statusCode=201)
      *
      * @param Request $request
-     * @return View|Store
+     * @return FormInterface|Store
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -82,7 +81,7 @@ class StoreController extends AbstractRestController
      *
      * @param Request $request
      * @param Store $store
-     * @return View|Store
+     * @return FormInterface|Store
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -92,17 +91,13 @@ class StoreController extends AbstractRestController
     }
 
     /**
-     * @return StoreCollection
+     * @return Store[]|Cursor
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc(
-     *      resource=true
-     * )
+     * @ApiDoc(resource=true)
      */
     public function getStoresAction()
     {
-        $cursor = $this->documentRepository->findAll();
-        $collection = new StoreCollection($cursor);
-        return $collection;
+        return $this->documentRepository->findAll();
     }
 
     /**
@@ -163,21 +158,20 @@ class StoreController extends AbstractRestController
 
     /**
      * @param User $user
-     * @return StoreCollection|Store[]
+     * @return Cursor|Store[]
      * @Secure(roles="ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
      * @SecureParam(name="user", permissions="ACL_CURRENT_USER")
      * @ApiDoc
      */
     public function getUserStoresAction(User $user)
     {
-        $cursor = $this->documentRepository->findByManagers($user->id);
-        return new StoreCollection($cursor);
+        return $this->documentRepository->findByManagers($user->id);
     }
 
     /**
      * @param Link $link
      * @param Store $store
-     * @return ManagerCollection|User[]
+     * @return Collection|User[]
      * @throws BadRequestHttpException
      */
     protected function getManagersByLink(Link $link, Store $store)
@@ -210,7 +204,7 @@ class StoreController extends AbstractRestController
         $role = Store::getRoleByRel($link->getRel());
         if (!$user->hasUserRole($role)) {
             throw new BadRequestHttpException(
-                sprintf("User '%s' does not have %s role", $user->username, $role)
+                sprintf("User '%s' does not have %s role", $user->email, $role)
             );
         }
     }

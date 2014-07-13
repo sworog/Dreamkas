@@ -131,6 +131,7 @@ class MoneyRangeValidatorTest extends TestCase
     /**
      * @dataProvider invalidOptionsProvider
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
+     * @param $options
      */
     public function testInvalidOptions($options)
     {
@@ -172,6 +173,7 @@ class MoneyRangeValidatorTest extends TestCase
 
     /**
      * @dataProvider invalidValueProvider
+     * @param $value
      */
     public function testInvalidValue($value)
     {

@@ -3,12 +3,12 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\View\View;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Form\RoundingRoundType;
 use Lighthouse\CoreBundle\Rounding\AbstractRounding;
 use Lighthouse\CoreBundle\Rounding\RoundingManager;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -46,7 +46,7 @@ class RoundingController extends FOSRestController
     /**
      * @param string $name
      * @param Request $request
-     * @return array|View
+     * @return array|FormInterface
      * @ApiDoc
      * @Rest\View(statusCode=201)
      * @Rest\Route("roundings/{name}/round")

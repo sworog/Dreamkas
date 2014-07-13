@@ -2,9 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\RestBundle\View\View;
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
-use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
@@ -53,7 +52,7 @@ class CategoryController extends AbstractRestController
      * @param Request $request
      * @throws Exception
      * @throws FlushFailedException
-     * @return View|Category
+     * @return FormInterface|Category
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc(resource=true)
@@ -66,7 +65,7 @@ class CategoryController extends AbstractRestController
     /**
      * @param Request $request
      * @param Category $category
-     * @return View|Category
+     * @return FormInterface|Category
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -102,38 +101,36 @@ class CategoryController extends AbstractRestController
 
     /**
      * @param Group $group
-     * @return CategoryCollection
+     * @return Category[]|Cursor
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
     public function getGroupCategoriesAction(Group $group)
     {
-        $categories = $this->documentRepository->findByParent($group->id);
-        return new CategoryCollection($categories);
+        return $this->documentRepository->findByParent($group->id);
     }
 
 
     /**
      * @param Store $store
      * @param Group $group
-     * @return CategoryCollection
+     * @return Category[]|Cursor
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getStoreGroupCategoriesAction(Store $store, Group $group)
     {
-        $categories = $this->documentRepository->findByParent($group->id);
-        return new CategoryCollection($categories);
+        return $this->documentRepository->findByParent($group->id);
     }
 
     /**
      * @param Category $category
-     * @return null
+     * @return void
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
     public function deleteCategoriesAction(Category $category)
     {
-        return $this->processDelete($category);
+        $this->processDelete($category);
     }
 }

@@ -11,8 +11,8 @@ public abstract class AbstractApiFactory {
 
     private HttpRequestable httpRequestable;
 
-    public AbstractApiFactory(String userName, String password) {
-        httpRequestable = HttpExecutor.getHttpRequestable(userName, password);
+    public AbstractApiFactory(String email, String password) {
+        httpRequestable = HttpExecutor.getHttpRequestable(email, password);
     }
 
     public void createObject(AbstractObject object) throws IOException, JSONException {

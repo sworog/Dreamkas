@@ -6,6 +6,6 @@ define(function(require) {
         __name__: 'log',
         jobsCollection: null,
         logCollection: null,
-        template: require('tpl!blocks/log/templates/index.html')
+        template: require('ejs!blocks/log/templates/index.html')
     });
 });

@@ -7,16 +7,9 @@ Meta:
 
 Scenario: A scenario that prepares data
 
-Given there is the user with name 'storeManager-s28u56', position 'storeManager-s28u56', username 'storeManager-s28u56', password 'lighthouse', role 'storeManager'
-Given there is the user with name 'departmentManager-s28u56', position 'departmentManager-s28u56', username 'departmentManager-s28u56', password 'lighthouse', role 'departmentManager'
+Given the user with email 's28u544@lighthouse.pro' creates the store with number '2856'
 
-Given there is the store with number '2856' managed by 'storeManager-s28u56'
-Given there is the store with number '2856' managed by department manager named 'departmentManager-s28u56'
-
-And there is the subCategory with name 'defaultSubCategory-s28u544' related to group named 'defaultGroup-s28u544' and category named 'defaultCategory-s28u544'
-And the user sets subCategory 'defaultSubCategory-s28u544' mark up with max '10' and min '0' values
-
-Given the user creates invoice api object with values
+Given the user with email 's28u544@lighthouse.pro' creates invoice api object with values
 | elementName | value |
 | acceptanceDateTime | 8:00:00 |
 | acceptanceDate | today-1days |
@@ -28,7 +21,7 @@ And the user adds the product with data to invoice api object
 | productName | name-28544 |
 | quantity | 12 |
 | price | 95 |
-And there is the invoice created with invoice builder steps by userName 'departmentManager-s28u56'
+And the user with email 's28u544@lighthouse.pro' creates the invoice with invoice builder steps
 
 Given the user prepares yesterday purchases for us 56 story
 

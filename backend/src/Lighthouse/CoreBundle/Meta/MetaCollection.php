@@ -2,10 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Meta;
 
-use Lighthouse\CoreBundle\Document\AbstractCollection;
+use Lighthouse\CoreBundle\Document\DocumentCollection;
 use ArrayIterator;
 
-class MetaCollection extends AbstractCollection
+class MetaCollection extends DocumentCollection
 {
     /**
      * @var MetaGeneratorInterface[]

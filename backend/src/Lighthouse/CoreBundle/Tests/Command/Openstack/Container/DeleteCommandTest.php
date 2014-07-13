@@ -22,6 +22,8 @@ class DeleteCommandTest extends ContainerAwareTestCase
 
     /**
      * @dataProvider providerContainerName
+     * @param array $options
+     * @param string $expectedName
      */
     public function testContainerExists(array $options, $expectedName)
     {
@@ -69,6 +71,8 @@ class DeleteCommandTest extends ContainerAwareTestCase
 
     /**
      * @dataProvider providerContainerName
+     * @param array $options
+     * @param string $expectedName
      */
     public function testContainerDoesNotExist(array $options, $expectedName)
     {
@@ -97,6 +101,8 @@ class DeleteCommandTest extends ContainerAwareTestCase
 
     /**
      * @dataProvider providerContainerName
+     * @param array $options
+     * @param string $expectedName
      */
     public function testFailedAuth(array $options, $expectedName)
     {

@@ -1,0 +1,25 @@
+<%
+/**
+ *
+ * @model
+ */
+%>
+<% var partials = {
+    retailPriceField: require('ejs!./retailPriceField.ejs'),
+    retailMarkupField: require('ejs!./retailMarkupField.ejs')
+} %>
+
+<fieldset class="form_product__retailPricePreferenceFields">
+
+    <% if (model.get('purchasePrice')) { %>
+
+        <%= partials.retailMarkupField({
+            model: model
+        }) %>
+        <%= partials.retailPriceField({
+            model: model
+        }) %>
+
+    <% } %>
+
+</fieldset>

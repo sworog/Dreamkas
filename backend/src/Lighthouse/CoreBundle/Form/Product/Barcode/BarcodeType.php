@@ -3,11 +3,10 @@
 namespace Lighthouse\CoreBundle\Form\Product\Barcode;
 
 use Lighthouse\CoreBundle\Document\Product\Barcode\Barcode;
-use Symfony\Component\Form\AbstractType;
+use Lighthouse\CoreBundle\Form\DocumentType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class BarcodeType extends AbstractType
+class BarcodeType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -23,23 +22,10 @@ class BarcodeType extends AbstractType
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(
-            array(
-                'data_class' => Barcode::getClassName(),
-                'csrf_protection' => false
-            )
-        );
-    }
-
-    /**
      * @return string
      */
-    public function getName()
+    protected function getDataClass()
     {
-        return '';
+        return Barcode::getClassName();
     }
 }

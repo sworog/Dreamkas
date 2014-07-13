@@ -4,7 +4,7 @@ define(function(require) {
 
     return Form.extend({
         __name__: 'form_writeOff',
-        template: require('tpl!blocks/form/form_writeOff/templates/index.html'),
+        template: require('ejs!blocks/form/form_writeOff/templates/index.html'),
         redirectUrl: function(){
             var block = this;
 

@@ -2,12 +2,12 @@
 
 namespace Lighthouse\CoreBundle\Document\Order;
 
+use Doctrine\Common\Collections\Collection;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Order\Product\OrderProduct;
-use Lighthouse\CoreBundle\Document\Order\Product\OrderProductCollection;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
@@ -87,7 +87,7 @@ class Order extends AbstractDocument implements Storeable
      * @Assert\Valid(traverse=true)
      * @Assert\Count(min=1, minMessage="lighthouse.validation.errors.order.products.empty")
      * @Serializer\MaxDepth(4)
-     * @var OrderProduct[]
+     * @var OrderProduct[]|Collection
      */
     protected $products;
 
@@ -104,7 +104,7 @@ class Order extends AbstractDocument implements Storeable
     public function __construct()
     {
         $this->createdDate = new DateTime();
-        $this->products = new OrderProductCollection();
+        $this->products = new ArrayCollection();
     }
 
     /**

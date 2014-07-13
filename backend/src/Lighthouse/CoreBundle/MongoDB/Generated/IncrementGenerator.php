@@ -25,11 +25,10 @@ class IncrementGenerator extends BaseIncrementGenerator
 
     /**
      * @param Collection $collection
-     * @param string $className
      * @param int $startValue
      * @return int
      */
-    public function setStartValue(Collection $collection, $className, $startValue)
+    public function setStartValue(Collection $collection, $startValue)
     {
         $coll = $this->collection ?: 'doctrine_increment_ids';
         $key = $this->key ?: $collection->getName();

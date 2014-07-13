@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductFilter;
@@ -13,6 +12,7 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Form\StoreProductType;
 use JMS\DiExtraBundle\Annotation as DI;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\Form\Test\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
@@ -63,7 +63,7 @@ class StoreProductController extends AbstractRestController
      * @param Store $store
      * @param Product $product
      * @param Request $request
-     * @return View|StoreProduct
+     * @return FormInterface|StoreProduct
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER")
      * @ApiDoc
      */

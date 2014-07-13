@@ -88,12 +88,12 @@ class UserProvider implements UserProviderInterface
 
     /**
      * @param string $username
-     * @return User|UserInterface
-     * @throws \Symfony\Component\Security\Core\Exception\UsernameNotFoundException
+     * @return User
+     * @throws UsernameNotFoundException
      */
     public function loadUserByUsername($username)
     {
-        $user = $this->userRepository->findOneBy(array('email' => $username));
+        $user = $this->userRepository->findOneByEmail($username);
 
         if (!$user) {
             $e = new UsernameNotFoundException();
@@ -106,9 +106,9 @@ class UserProvider implements UserProviderInterface
 
     /**
      * @param UserInterface $user
-     * @return User|UserInterface
-     * @throws \Symfony\Component\Security\Core\Exception\UsernameNotFoundException
-     * @throws \Symfony\Component\Security\Core\Exception\UnsupportedUserException
+     * @return User
+     * @throws UsernameNotFoundException
+     * @throws UnsupportedUserException
      */
     public function refreshUser(UserInterface $user)
     {
@@ -220,6 +220,7 @@ class UserProvider implements UserProviderInterface
     {
         $messageBody = $this->getSignUpMessageBody($password);
 
+        /* @var \Swift_Message $message */
         $message = \Swift_Message::newInstance()
             ->setFrom('noreply@lighthouse.pro')
             ->setTo($user->email)
@@ -264,6 +265,7 @@ class UserProvider implements UserProviderInterface
     {
         $messageBody = $this->getRestorePasswordMessageBody($password);
 
+        /* @var \Swift_Message $message */
         $message = \Swift_Message::newInstance()
             ->setFrom('noreply@lighthouse.pro')
             ->setTo($user->email)

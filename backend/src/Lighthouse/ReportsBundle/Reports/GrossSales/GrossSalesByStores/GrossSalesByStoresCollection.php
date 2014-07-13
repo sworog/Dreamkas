@@ -2,10 +2,10 @@
 
 namespace Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesByStores;
 
-use Lighthouse\CoreBundle\Document\AbstractCollection;
+use Lighthouse\CoreBundle\Document\DocumentCollection;
 use Lighthouse\CoreBundle\Document\Store\Store;
 
-class GrossSalesByStoresCollection extends AbstractCollection
+class GrossSalesByStoresCollection extends DocumentCollection
 {
     /**
      * @param Store $store

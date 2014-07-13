@@ -2,10 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\RestBundle\View\View;
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
-use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryCollection;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
@@ -54,7 +53,7 @@ class SubCategoryController extends AbstractRestController
      * @param Request $request
      * @throws Exception
      * @throws FlushFailedException
-     * @return View|SubCategory
+     * @return FormInterface|SubCategory
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc(resource=true)
@@ -67,7 +66,7 @@ class SubCategoryController extends AbstractRestController
     /**
      * @param Request $request
      * @param SubCategory $subCategory
-     * @return View|SubCategory
+     * @return FormInterface|SubCategory
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -103,7 +102,7 @@ class SubCategoryController extends AbstractRestController
 
     /**
      * @param Category $category
-     * @return SubCategoryCollection
+     * @return SubCategory[]|Cursor
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc(
      *      resource = true
@@ -111,31 +110,29 @@ class SubCategoryController extends AbstractRestController
      */
     public function getCategorySubcategoriesAction(Category $category)
     {
-        $subCategories = $this->documentRepository->findByParent($category->id);
-        return new SubCategoryCollection($subCategories);
+        return $this->documentRepository->findByParent($category->id);
     }
 
     /**
      * @param Store $store
      * @param Category $category
-     * @return SubCategoryCollection
+     * @return SubCategory[]|Cursor
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getStoreCategorySubcategoriesAction(Store $store, Category $category)
     {
-        $subCategories = $this->documentRepository->findByParent($category->id);
-        return new SubCategoryCollection($subCategories);
+        return $this->documentRepository->findByParent($category->id);
     }
 
     /**
      * @param SubCategory $subCategory
-     * @return null
+     * @return void
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
     public function deleteSubcategoriesAction(SubCategory $subCategory)
     {
-        return $this->processDelete($subCategory);
+        $this->processDelete($subCategory);
     }
 }

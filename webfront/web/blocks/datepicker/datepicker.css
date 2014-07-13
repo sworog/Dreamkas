@@ -100,11 +100,6 @@
     padding-right: 10px;
 }
 
-.datepicker__saveLink{
-    float: right;
-    margin: 0;
-}
-
 .datepicker_noTime .datepicker__timeControls{
     display: none;
 }

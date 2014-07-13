@@ -3,10 +3,11 @@
 namespace Lighthouse\CoreBundle\Test\Factory;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Lighthouse\CoreBundle\Document\ClassNameable;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-abstract class ContainerAwareFactory implements ContainerAwareInterface
+abstract class ContainerAwareFactory implements ContainerAwareInterface, ClassNameable
 {
     /**
      * @var ContainerInterface
@@ -39,5 +40,13 @@ abstract class ContainerAwareFactory implements ContainerAwareInterface
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getClassName()
+    {
+        return get_called_class();
     }
 }

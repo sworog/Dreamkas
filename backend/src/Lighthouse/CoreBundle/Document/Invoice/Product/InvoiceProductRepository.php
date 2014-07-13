@@ -11,7 +11,7 @@ class InvoiceProductRepository extends DocumentRepository
     /**
      * @param string $storeId
      * @param string $productId
-     * @return Cursor
+     * @return Cursor|InvoiceProduct[]
      */
     public function findByStoreAndProduct($storeId, $productId)
     {

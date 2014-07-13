@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\Store;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Department\Department;
 use Lighthouse\CoreBundle\Document\User\User;
@@ -18,8 +19,8 @@ use JMS\Serializer\Annotation\Exclude;
  * @property string $address
  * @property string $contacts
  * @property ArrayCollection|Department[] $departments
- * @property ManagerCollection|User[] $storeManagers
- * @property ManagerCollection|User[] $departmentManagers
+ * @property Collection|User[] $storeManagers
+ * @property Collection|User[] $departmentManagers
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\Store\StoreRepository")
  * @Unique(fields="number", message="lighthouse.validation.errors.store.number.unique")
@@ -90,7 +91,7 @@ class Store extends AbstractDocument
      *      simple=true,
      *      cascade="persist"
      * )
-     * @var ManagerCollection|User[]
+     * @var User[]|Collection
      */
     protected $storeManagers;
 
@@ -100,7 +101,7 @@ class Store extends AbstractDocument
      *      simple=true,
      *      cascade="persist"
      * )
-     * @var ManagerCollection|User[]
+     * @var User[]|Collection
      */
     protected $departmentManagers;
 
@@ -110,13 +111,13 @@ class Store extends AbstractDocument
     public function __construct()
     {
         $this->departments = new ArrayCollection();
-        $this->storeManagers = new ManagerCollection();
-        $this->departmentManagers = new ManagerCollection();
+        $this->storeManagers = new ArrayCollection();
+        $this->departmentManagers = new ArrayCollection();
     }
 
     /**
      * @param string $rel
-     * @return ManagerCollection|User[]
+     * @return Collection|User[]
      * @throws InvalidArgumentException
      */
     public function getManagersByRel($rel)

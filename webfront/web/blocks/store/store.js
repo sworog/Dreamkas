@@ -13,7 +13,7 @@ define(function(require) {
             storeManagersCollection: null,
             departmentManagerCandidatesCollection: null,
             departmentManagersCollection: null,
-            template: require('tpl!blocks/store/store.html'),
+            template: require('ejs!blocks/store/store.html'),
             initialize: function(){
                 var block = this;
 

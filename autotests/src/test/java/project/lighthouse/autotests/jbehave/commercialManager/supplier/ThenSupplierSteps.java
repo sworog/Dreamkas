@@ -110,4 +110,9 @@ public class ThenSupplierSteps {
     public void thenTheUserAssertsThereIsNoFileAttached() {
         supplierSteps.assertThereIsNoFileAttached();
     }
+
+    @Then("user checks supplier form the element field '$name' has error message '$errorMessage'")
+    public void userChecksSupplierFormTheElementFieldHasErrorMessage(String name, String errorMessage) {
+        supplierSteps.assertFieldErrorMessage(name, errorMessage);
+    }
 }

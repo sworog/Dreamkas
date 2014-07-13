@@ -61,6 +61,7 @@ class PurchaseElement extends SimpleXMLElement
     public function getPositions()
     {
         $positions = array();
+        /** @noinspection PhpUndefinedFieldInspection */
         foreach ($this->positions->position as $position) {
             $positions[] = new PositionElement($position);
         }

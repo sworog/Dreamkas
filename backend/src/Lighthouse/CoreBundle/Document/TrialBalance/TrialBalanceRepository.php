@@ -442,11 +442,6 @@ class TrialBalanceRepository extends DocumentRepository
             $maxHoursStep = 1;
         }
 
-        $countSteps = 1;
-
-        $countAllSteps = ((24 * 10) / $maxHoursStep) * count($stores);
-
-        $startCalc = microtime(true);
         $totalDurationAggregateTime = 0.0;
         $totalMergeTime = 0.0;
 
@@ -473,17 +468,6 @@ class TrialBalanceRepository extends DocumentRepository
                 $totalDurationAggregateTime += $durationAggregateTime;
                 $totalMergeTime += $durationMergeTime;
 
-//                    printf(
-//                        "Получено: %6d, Агрегация: %6f|%6f, Мердж: %6f|%6f, Шаг: %3d/%3d \n",
-//                        count($stepResult['result']),
-//                        $durationAggregateTime,
-//                        $totalDurationAggregateTime,
-//                        $durationMergeTime,
-//                        $totalMergeTime,
-//                        $countSteps++,
-//                        $countAllSteps
-//                    );
-
                 if ($endDate >= $requireDatePeriod->getEndDate()) {
                     break;
                 }
@@ -495,10 +479,6 @@ class TrialBalanceRepository extends DocumentRepository
                 }
             }
         }
-
-        $durationCalc = microtime(true) - $startCalc;
-
-//        echo "Время на расчёт: $durationCalc, Всего записей: ". $results['totalCount'] ."\n";
 
         return $results;
     }

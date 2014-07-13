@@ -4,19 +4,19 @@ namespace Lighthouse\CoreBundle\Document\Product\Store;
 
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
+use Lighthouse\CoreBundle\Document\DocumentCollection;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductFilter;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Document\Store\StoreCollection;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Exception\InvalidArgumentException;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
-use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
+use JMS\DiExtraBundle\Annotation as DI;
 
 class StoreProductRepository extends DocumentRepository
 {
@@ -187,12 +187,11 @@ class StoreProductRepository extends DocumentRepository
      */
     public function findByProduct(Product $product)
     {
-        /* @var StoreProduct[]|StoreProductCollection $storeProducts */
         $cursor = $this->findBy(array('product' => $product->id));
-        $storeProducts = new StoreProductCollection($cursor);
+        $storeProducts = new DocumentCollection($cursor);
 
-        /* @var Store[]|StoreCollection $stores */
-        $stores = new StoreCollection($this->storeRepository->findAll());
+        /* @var Store[]|DocumentCollection $stores */
+        $stores = new DocumentCollection($this->storeRepository->findAll());
 
         // filter found stores
         foreach ($storeProducts as $storeProduct) {
@@ -210,7 +209,7 @@ class StoreProductRepository extends DocumentRepository
     /**
      * @param Store $store
      * @param Cursor|Product[] $productCollection
-     * @return StoreProductCollection
+     * @return StoreProductCollection|StoreProduct[]
      */
     protected function findByProducts(Store $store, $productCollection)
     {

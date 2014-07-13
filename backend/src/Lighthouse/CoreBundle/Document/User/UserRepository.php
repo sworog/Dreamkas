@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\User;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 
 class UserRepository extends DocumentRepository
@@ -9,7 +10,7 @@ class UserRepository extends DocumentRepository
     /**
      * @param string $role
      * @param array $excludeIds
-     * @return \Doctrine\ODM\MongoDB\Cursor
+     * @return Cursor|User[]
      */
     public function findAllByRoles($role, array $excludeIds = array())
     {

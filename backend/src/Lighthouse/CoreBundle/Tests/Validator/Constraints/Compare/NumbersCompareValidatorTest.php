@@ -36,6 +36,8 @@ class NumbersCompareValidatorTest extends TestCase
 
     /**
      * @dataProvider validValuesProvider
+     * @param int $minValue
+     * @param int $maxValue
      */
     public function testValidValues($minValue = null, $maxValue = null)
     {
@@ -78,6 +80,8 @@ class NumbersCompareValidatorTest extends TestCase
 
     /**
      * @dataProvider invalidValuesProvider
+     * @param int|float $minValue
+     * @param int|float $maxValue
      */
     public function testInvalidValues($minValue, $maxValue)
     {
@@ -110,6 +114,7 @@ class NumbersCompareValidatorTest extends TestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "Lighthouse\CoreBundle\Document\AbstractDocument"
      * @dataProvider unexpectedValueTypeProvider
+     * @param mixed $value
      */
     public function testValueUnexpectedType($value)
     {
@@ -139,6 +144,8 @@ class NumbersCompareValidatorTest extends TestCase
      * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
      * @expectedExceptionMessage Expected argument of type "numeric"
      * @dataProvider fieldUnexpectedTypesProvider
+     * @param $minValue
+     * @param $maxValue
      */
     public function testFieldUnexpectedType($minValue, $maxValue)
     {

@@ -21,6 +21,10 @@
 .form__controls {
 }
 
+.form__cancelLink{
+    margin-left: 10px;
+}
+
 .form__field {
     padding-bottom: 16px;
 }
@@ -109,48 +113,81 @@ tr[data-error]:after {
     display: none;
 }
 
-.form_orderProduct__removeLink{
+.form_orderProduct__removeLink {
     font-size: 28px;
     margin-left: 30px;
     cursor: pointer;
 }
 
-.form_order__saveControls{
+.form_order__saveControls {
     display: none;
 }
 
-.form_order.form_changed .form_order__invoiceControls{
+.form_order.form_changed .form_order__invoiceControls {
     display: none;
 }
 
-.form_order.form_changed .form_order__saveControls{
+.form_order.form_changed .form_order__saveControls {
     display: block;
 }
 
-.form_barcodes .form_barcodes__removeLink{
+.form_barcodes .form_barcodes__removeLink {
     visibility: hidden;
 }
 
-.form_barcodes .table__row:hover .form_barcodes__removeLink{
+.form_barcodes .table__row:hover .form_barcodes__removeLink {
     visibility: visible;
 }
 
-.form_barcodes .inputText{
+.form_barcodes .inputText {
     border-color: transparent;
 }
 
-.form_barcodes .inputText:hover{
+.form_barcodes .inputText:hover {
     border-color: #cacaca;
 }
 
-.form_barcodes .inputText[readonly]:hover{
+.form_barcodes .inputText[readonly]:hover {
     border-color: transparent;
 }
 
-.form_barcodes .inputText[readonly]:focus{
+.form_barcodes .inputText[readonly]:focus {
     border-color: transparent !important;
 }
 
-.form_barcodes__emptyCell .inputText__postfix{
+.form_barcodes__emptyCell .inputText__postfix {
     visibility: hidden;
 }
+
+.form_product__linkedInput,
+.form_product__retailPricePreferenceRadio {
+    display: none;
+}
+
+.form_product__inputLink {
+    color: #1FB18A;
+    border-bottom: 1px dashed;
+    cursor: pointer;
+}
+
+.form_product__retailPricePreferenceRadio#retailMarkupPreferenceRadio:checked ~ .form_product__retailPricePreferenceFields .form_product__retailMarkupField .form_product__linkedInput {
+    display: block;
+}
+
+.form_product__retailPricePreferenceRadio#retailMarkupPreferenceRadio:checked ~ .form_product__retailPricePreferenceFields .form_product__retailMarkupField .form_product__inputLink {
+    display: none;
+}
+
+.form_product__retailPricePreferenceRadio#retailPricePreferenceRadio:checked ~ .form_product__retailPricePreferenceFields .form_product__retailPriceField .form_product__linkedInput {
+    display: block;
+}
+
+.form_product__retailPricePreferenceRadio#retailPricePreferenceRadio:checked ~ .form_product__retailPricePreferenceFields .form_product__retailPriceField .form_product__inputLink {
+    display: none;
+}
+
+.form_legalDetails__typeFields[disabled],
+.form_product__typeFields[disabled]{
+    display: none;
+}
+

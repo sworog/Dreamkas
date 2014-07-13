@@ -2,13 +2,12 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\RestBundle\View\View;
+use Doctrine\ODM\MongoDB\Cursor;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Lighthouse\CoreBundle\Document\Project\Project;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Document\User\User;
-use Lighthouse\CoreBundle\Document\User\UserCollection;
 use Lighthouse\CoreBundle\Document\User\UserRepository;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\User\CurrentUserType;
@@ -79,8 +78,8 @@ class UserController extends AbstractRestController
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return User|View
+     * @param Request $request
+     * @return User|FormInterface
      *
      * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_ADMINISTRATOR")
@@ -135,7 +134,7 @@ class UserController extends AbstractRestController
     /**
      * @param Request $request
      * @param User $user User ID
-     * @return View|User
+     * @return FormInterface|User
      * @Secure(roles="ROLE_ADMINISTRATOR")
      * @ApiDoc(
      *      description="Update user",
@@ -165,7 +164,7 @@ class UserController extends AbstractRestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @return User|View
+     * @return User|FormInterface
      *
      * @Rest\View(statusCode=201)
      * @Rest\Route("users/signup")
@@ -205,7 +204,7 @@ class UserController extends AbstractRestController
      *
      * @Rest\Route("users/restorePassword")
      * @Rest\View
-     * @return View
+     * @return FormInterface|array
      */
     public function postUsersRestorePasswordAction(Request $request)
     {
@@ -256,7 +255,7 @@ class UserController extends AbstractRestController
     }
 
     /**
-     * @return UserCollection
+     * @return User[]|Cursor
      * @Secure(roles="ROLE_ADMINISTRATOR")
      * @ApiDoc(
      *      description="Create users"
@@ -264,14 +263,13 @@ class UserController extends AbstractRestController
      */
     public function getUsersAction()
     {
-        $users = $this->documentRepository->findAll();
-        return new UserCollection($users);
+        return $this->documentRepository->findAll();
     }
 
     /**
      * @param Store $store
      * @param Request $request
-     * @return UserCollection
+     * @return User[]|Cursor
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @Rest\Route("stores/{store}/storeManagers")
      * @ApiDoc
@@ -281,17 +279,16 @@ class UserController extends AbstractRestController
         $candidates = (bool) $request->query->get('candidates', false);
         if ($candidates) {
             $excludeIds = $this->storeRepository->findAllStoresManagerIds();
-            $users = $this->documentRepository->findAllByRoles(User::ROLE_STORE_MANAGER, $excludeIds);
-            return new UserCollection($users);
+            return $this->documentRepository->findAllByRoles(User::ROLE_STORE_MANAGER, $excludeIds);
         } else {
-            return new UserCollection($store->storeManagers);
+            return $store->storeManagers;
         }
     }
 
     /**
      * @param Store $store
      * @param Request $request
-     * @return UserCollection
+     * @return User[]|Cursor
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @Rest\Route("stores/{store}/departmentManagers")
      * @ApiDoc
@@ -301,10 +298,9 @@ class UserController extends AbstractRestController
         $candidates = (bool) $request->query->get('candidates', false);
         if ($candidates) {
             $excludeIds = $this->storeRepository->findAllDepartmentManagerIds();
-            $users = $this->documentRepository->findAllByRoles(User::ROLE_DEPARTMENT_MANAGER, $excludeIds);
-            return new UserCollection($users);
+            return $this->documentRepository->findAllByRoles(User::ROLE_DEPARTMENT_MANAGER, $excludeIds);
         } else {
-            return new UserCollection($store->departmentManagers);
+            return $store->departmentManagers;
         }
     }
 }

@@ -2,8 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use FOS\RestBundle\Controller\FOSRestController;
-use Lighthouse\CoreBundle\Job\JobCollection;
+use Lighthouse\CoreBundle\Document\Job\Job;
 use Lighthouse\CoreBundle\Job\JobRepository;
 use JMS\DiExtraBundle\Annotation as DI;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -17,14 +18,11 @@ class JobController extends FOSRestController
     protected $documentRepository;
 
     /**
-     * @return JobCollection
-     * @ApiDoc(
-     *      resource=true
-     * )
+     * @return Job[]|Cursor
+     * @ApiDoc(resource=true)
      */
     public function getJobsAction()
     {
-        $cursor = $this->documentRepository->findAll();
-        return new JobCollection($cursor);
+        return $this->documentRepository->findAll();
     }
 }

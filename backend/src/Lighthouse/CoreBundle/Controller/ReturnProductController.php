@@ -2,11 +2,12 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use FOS\RestBundle\Controller\FOSRestController;
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\Document\Returne\Product\ReturnProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Product\Product;
-use Lighthouse\CoreBundle\Document\Returne\Product\ReturnProductCollection;
 use Lighthouse\CoreBundle\Document\Returne\Product\ReturnProductRepository;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
@@ -23,14 +24,13 @@ class ReturnProductController extends FOSRestController
     /**
      * @param Store $store
      * @param Product $product
-     * @return ReturnProductCollection
+     * @return ReturnProduct[]|Cursor
      * @Rest\Route("stores/{store}/products/{product}/returnProducts")
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
     public function getStoreProductReturnProductsAction(Store $store, Product $product)
     {
-        $cursor = $this->documentRepository->findByStoreAndProduct($store->id, $product->id);
-        return new ReturnProductCollection($cursor);
+        return $this->documentRepository->findByStoreAndProduct($store->id, $product->id);
     }
 }

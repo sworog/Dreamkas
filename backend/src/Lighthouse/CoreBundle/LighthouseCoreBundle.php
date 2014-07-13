@@ -2,8 +2,6 @@
 
 namespace Lighthouse\CoreBundle;
 
-use Lighthouse\CoreBundle\Command\CommandManager;
-use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddCommandAsServicePass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddJobWorkersPass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddReferenceProvidersPass;
 use Lighthouse\CoreBundle\DependencyInjection\Compiler\AddRoundingsToManagerPass;
@@ -12,7 +10,7 @@ use Lighthouse\CoreBundle\MongoDB\Types\DateTimeTZType;
 use Lighthouse\CoreBundle\MongoDB\Types\MoneyType;
 use Lighthouse\CoreBundle\MongoDB\Types\QuantityType;
 use Lighthouse\CoreBundle\MongoDB\Types\TimestampType;
-use Symfony\Component\Console\Application;
+use Samba\SambaStreamWrapper;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Doctrine\ODM\MongoDB\Types\Type;
@@ -35,8 +33,8 @@ class LighthouseCoreBundle extends Bundle
 
     protected function addStreamWrappers()
     {
-        if (!in_array('smb', stream_get_wrappers())) {
-            stream_wrapper_register('smb', 'Lighthouse\\CoreBundle\\Samba\\SambaStreamWrapper');
+        if (!SambaStreamWrapper::is_registered()) {
+            SambaStreamWrapper::register();
         }
     }
 

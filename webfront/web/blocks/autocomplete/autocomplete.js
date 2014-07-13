@@ -72,7 +72,7 @@ define(function(require) {
             }
         },
         templates: {
-            results: require('tpl!./results.html')
+            results: require('ejs!./results.html')
         },
         data: [],
         selectedItem: null,

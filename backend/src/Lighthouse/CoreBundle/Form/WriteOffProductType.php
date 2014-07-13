@@ -4,11 +4,9 @@ namespace Lighthouse\CoreBundle\Form;
 
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class WriteOffProductType extends AbstractType
+class WriteOffProductType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -27,27 +25,15 @@ class WriteOffProductType extends AbstractType
             )
             ->add('price', 'money')
             ->add('quantity', 'quantity')
-            ->add('cause', 'text');
-    }
-
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(
-            array(
-                'data_class' => WriteOffProduct::getClassName(),
-                'csrf_protection' => false
-            )
-        );
+            ->add('cause', 'text')
+        ;
     }
 
     /**
      * @return string
      */
-    public function getName()
+    protected function getDataClass()
     {
-        return '';
+        return WriteOffProduct::getClassName();
     }
 }

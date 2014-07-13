@@ -48,6 +48,7 @@ class BarcodeElement extends SimpleXMLElement
      */
     public function getCount()
     {
+        /** @noinspection PhpUndefinedFieldInspection */
         return (string) $this->count;
     }
 

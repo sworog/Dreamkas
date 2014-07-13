@@ -215,17 +215,18 @@ class InvoicesImporter
             } else {
                 $store = $this->lastStore;
             }
-            $supplier = trim($row[8]);
-            $supplier = ($supplier) ?: 'Не указан';
 
             $invoice = new Invoice();
             $invoice->acceptanceDate = $date;
             $invoice->number = $number;
             $invoice->store = $store;
-            // FIXME Supplier should be auto generated on import?
-            //$invoice->supplier = $supplier;
             $invoice->accepter = 'Накладных Импорт';
             $invoice->legalEntity = 'Магазин';
+
+            // FIXME Supplier should be auto generated on import?
+            //$supplier = trim($row[8]);
+            //$supplier = ($supplier) ?: 'Не указан';
+            //$invoice->supplier = $supplier;
         } else {
             $this->checkStoreRow($row);
         }

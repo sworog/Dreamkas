@@ -182,4 +182,8 @@ abstract public class CommonPageObject extends PageObject {
             Assert.fail(message);
         }
     }
+
+    public void clickByContainsTextLink(String linkText) {
+        click(By.xpath("//a[contains(text(), \"" + linkText + "\")]"));
+    }
 }

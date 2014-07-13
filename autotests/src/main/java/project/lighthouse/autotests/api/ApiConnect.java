@@ -118,11 +118,11 @@ public class ApiConnect {
 
     public String getGroupPageUrl(String groupName) throws JSONException {
         String groupId = StaticData.groups.get(groupName).getId();
-        return String.format("%s/catalog/%s", UrlHelper.getWebFrontUrl(), groupId);
+        return String.format("%s/groups/%s", UrlHelper.getWebFrontUrl(), groupId);
     }
 
     public String getCategoryPageUrl(String categoryName, String groupName) throws JSONException {
-        String groupPageUrl = getGroupPageUrl(groupName) + "/%s";
+        String groupPageUrl = getGroupPageUrl(groupName) + "/categories/%s";
         String categoryId = StaticData.categories.get(categoryName).getId();
         return String.format(groupPageUrl, categoryId);
     }
@@ -142,7 +142,7 @@ public class ApiConnect {
     public String getSubCategoryProductListPageUrl(String subCategoryName, String categoryName, String groupName) throws JSONException {
         String categoryPageUrl = getCategoryPageUrl(categoryName, groupName);
         String subCategoryId = StaticData.subCategories.get(subCategoryName).getId();
-        return categoryPageUrl + "/" + subCategoryId;
+        return String.format("%s?subCategoryId=%s&section=subCategory", categoryPageUrl, subCategoryId);
     }
 
     public String getSubCategoryProductCreatePageUrl(String subCategoryName) throws JSONException {

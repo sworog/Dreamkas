@@ -20,7 +20,7 @@
         </div>
     </form>
 
-    <%= models.category.collections.subCategories.element(require('tpl!blocks/catalog/subCategoryList.ejs'), {
+    <%= models.category.collections.subCategories.element(require('ejs!blocks/catalog/subCategoryList.ejs'), {
         collections: {
             subCategories: models.category.collections.subCategories
         }

@@ -204,11 +204,11 @@ class DepartmentControllerTest extends WebTestCase
             ),
             'valid symbols number' => array(
                 201,
-                array('number' => 'QWEqweФЫВфыв123-_-34'),
+                array('number' => 'DepartmentДепартамент123-_-34'),
             ),
             'not valid symbols number' => array(
                 400,
-                array('number' => 'ASdqwe123466!@#$%^&*(;"'),
+                array('number' => 'DepartmentДепартамент123466!@#$%^&*(;"'),
                 array(
                     'children.number.errors.0'
                     =>

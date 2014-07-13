@@ -40,6 +40,9 @@ class Set10ProductConverter
      *     "moneyModelTransformer"=@DI\Inject("lighthouse.core.data_transformer.money_model"),
      *     "translator"=@DI\Inject("translator"),
      * })
+     * @param StoreProductRepository $storeProductRepository
+     * @param MoneyModelTransformer $moneyModelTransformer
+     * @param TranslatorInterface $translator
      */
     public function __construct(
         StoreProductRepository $storeProductRepository,
@@ -139,7 +142,7 @@ class Set10ProductConverter
                 $this->setAlcoholProductTypeProperties($goodElement, $product);
                 break;
             case UnitType::TYPE:
-                $this->setUnitProductTypeProperties($goodElement, $product);
+                $this->setUnitProductTypeProperties($goodElement);
                 break;
         }
     }
@@ -186,9 +189,8 @@ class Set10ProductConverter
 
     /**
      * @param GoodElement $goodElement
-     * @param Product $product
      */
-    protected function setUnitProductTypeProperties(GoodElement $goodElement, Product $product)
+    protected function setUnitProductTypeProperties(GoodElement $goodElement)
     {
         $goodElement->setProductType(GoodElement::PRODUCT_PIECE_ENTITY);
         $goodElement->setPluginProperty('precision', '0.001');

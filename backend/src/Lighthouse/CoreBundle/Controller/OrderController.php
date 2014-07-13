@@ -2,14 +2,14 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\RestBundle\View\View;
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Order\Order;
-use Lighthouse\CoreBundle\Document\Order\OrderCollection;
 use Lighthouse\CoreBundle\Document\Order\OrderRepository;
 use Lighthouse\CoreBundle\Document\Order\OrdersFilter;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Form\OrderType;
 use Lighthouse\CoreBundle\Integration\Excel\Export\Orders\OrderGenerator;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -44,7 +44,7 @@ class OrderController extends AbstractRestController
     /**
      * @param Store $store
      * @param Request $request
-     * @return View|Order
+     * @return FormInterface|Order
      *
      * @Rest\View(statusCode=201)
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
@@ -61,7 +61,7 @@ class OrderController extends AbstractRestController
      * @param Store $store
      * @param Order $order
      * @param Request $request
-     * @return View|Order
+     * @return FormInterface|Order
      *
      * @Rest\View(statusCode=200)
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
@@ -91,7 +91,7 @@ class OrderController extends AbstractRestController
     /**
      * @param Store $store
      * @param OrdersFilter $ordersFilter
-     * @return Order
+     * @return Order[]|Cursor
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @Rest\Route("stores/{store}/orders")
@@ -99,8 +99,7 @@ class OrderController extends AbstractRestController
      */
     public function getOrdersAction(Store $store, OrdersFilter $ordersFilter)
     {
-        $orders = $this->documentRepository->findAllByStoreId($store->id, $ordersFilter);
-        return new OrderCollection($orders);
+        return $this->documentRepository->findAllByStoreId($store->id, $ordersFilter);
     }
 
     /**
@@ -108,12 +107,12 @@ class OrderController extends AbstractRestController
      * @param Order $order
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
-     * @return null
+     * @return void
      */
     public function deleteOrderAction(Store $store, Order $order)
     {
         $this->checkOrderStore($store, $order);
-        return $this->processDelete($order);
+        $this->processDelete($order);
     }
 
     /**

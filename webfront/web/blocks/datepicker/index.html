@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Datepicker</title>
+    <link rel="stylesheet" href="/main.css"/>
+    <style>
+        .datepicker{
+            width: 273px;
+            margin: 100px auto;
+        }
+    </style>
+</head>
+<body>
+
+<script src="/bower_components/requirejs/require.js"></script>
+
+<script>
+    require({
+        baseUrl: '/'
+    }, ['require.config'], function() {
+        require([
+            'blocks/datepicker/datepicker',
+            'moment',
+            'i18n!nls/moment'
+        ], function(Datepicker, moment, momentNls) {
+
+            moment.lang('root', momentNls);
+            moment.lang('root');
+
+            window.datepicker = new Datepicker();
+
+            document.body.appendChild(datepicker.el);
+        });
+    });
+</script>
+
+</body>
+</html>

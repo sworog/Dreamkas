@@ -2,9 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use FOS\RestBundle\View\View;
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
-use Lighthouse\CoreBundle\Document\Classifier\Group\GroupCollection;
 use Lighthouse\CoreBundle\Document\Classifier\Group\GroupRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
@@ -59,8 +58,8 @@ class GroupController extends AbstractRestController
      *
      * @param Request $request
      * @throws \Exception
-     * @throws \Lighthouse\CoreBundle\Exception\FlushFailedException
-     * @return View|Group
+     * @throws FlushFailedException
+     * @return FormInterface|Group
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -74,7 +73,7 @@ class GroupController extends AbstractRestController
      *
      * @param Request $request
      * @param Group $group
-     * @return View|Group
+     * @return FormInterface|Group
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -85,13 +84,13 @@ class GroupController extends AbstractRestController
 
     /**
      * @param Group $group
-     * @return null
+     * @return void
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
     public function deleteGroupsAction(Group $group)
     {
-        return $this->processDelete($group);
+        $this->processDelete($group);
     }
 
     /**
@@ -117,29 +116,23 @@ class GroupController extends AbstractRestController
     }
 
     /**
-     * @return GroupCollection
+     * @return Group[]|Cursor
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc(
-     *      resource=true
-     * )
+     * @ApiDoc(resource=true)
      */
     public function getGroupsAction()
     {
-        $cursor = $this->documentRepository->findAll();
-        return new GroupCollection($cursor);
+        return $this->documentRepository->findAll();
     }
 
     /**
      * @param Store $store
-     * @return GroupCollection
+     * @return Group[]|Cursor
      * @SecureParam(name="store", permissions="ACL_STORE_MANAGER,ACL_DEPARTMENT_MANAGER")
-     * @ApiDoc(
-     *      resource=true
-     * )
+     * @ApiDoc(resource=true)
      */
     public function getStoreGroupsAction(Store $store)
     {
-        $cursor = $this->documentRepository->findAll();
-        return new GroupCollection($cursor);
+        return $this->documentRepository->findAll();
     }
 }

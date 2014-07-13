@@ -2,11 +2,11 @@
 
 namespace Lighthouse\ReportsBundle\Reports\GrossSales;
 
-use Lighthouse\CoreBundle\Document\AbstractCollection;
+use Lighthouse\CoreBundle\Document\DocumentCollection;
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use DateTime;
 
-abstract class GrossSalesByClassifierNodeCollection extends AbstractCollection
+abstract class GrossSalesByClassifierNodeCollection extends DocumentCollection
 {
     /**
      * @param AbstractNode $node

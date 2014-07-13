@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\MongoDB;
 use Doctrine\MongoDB\Database;
 use Doctrine\ODM\MongoDB\SchemaManager as BaseSchemaManager;
 use Lighthouse\CoreBundle\Document\Project\Project;
+use Lighthouse\CoreBundle\Document\Project\ProjectRepository;
 use Lighthouse\CoreBundle\MongoDB\Mapping\ClassMetadata;
 
 class SchemaManager extends BaseSchemaManager
@@ -59,6 +60,14 @@ class SchemaManager extends BaseSchemaManager
     }
 
     /**
+     * @return ProjectRepository
+     */
+    protected function getProjectRepository()
+    {
+        return $this->dm->getRepository(Project::getClassName());
+    }
+
+    /**
      * Cache projects
      * @return Project[]
      */
@@ -66,7 +75,7 @@ class SchemaManager extends BaseSchemaManager
     {
         // FIXME workaround to delete dbs after collections were deleted
         if (null === $this->projects) {
-            $this->projects = $this->dm->getRepository(Project::getClassName())->findAll()->toArray();
+            $this->projects = $this->getProjectRepository()->findAll()->toArray();
         }
         return $this->projects;
     }

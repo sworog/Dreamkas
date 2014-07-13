@@ -2,10 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Document\Product\Product;
@@ -41,7 +41,7 @@ class InvoiceProductController extends AbstractRestController
     /**
      * @param Store $store
      * @param Product $product
-     * @return InvoiceProductCollection
+     * @return Cursor|InvoiceProduct[]
      * @Rest\Route("stores/{store}/products/{product}/invoiceProducts")
      * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
@@ -49,8 +49,7 @@ class InvoiceProductController extends AbstractRestController
      */
     public function getProductInvoiceProductsAction(Store $store, Product $product)
     {
-        $invoiceProducts = $this->documentRepository->findByStoreAndProduct($store->id, $product->id);
-        return new InvoiceProductCollection($invoiceProducts);
+        return $this->documentRepository->findByStoreAndProduct($store->id, $product->id);
     }
 
     /**

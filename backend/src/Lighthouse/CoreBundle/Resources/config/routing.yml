@@ -59,6 +59,14 @@ lighthouse.core.user:
     resource: Lighthouse\CoreBundle\Controller\UserController
     type:     rest
 
+lighthouse.core.organization:
+    resource: Lighthouse\CoreBundle\Controller\OrganizationController
+    type:     rest
+
+lighthouse.core.bank_account:
+    resource: Lighthouse\CoreBundle\Controller\BankAccountController
+    type:     rest
+
 lighthouse.core.job:
     resource: Lighthouse\CoreBundle\Controller\JobController
     type:     rest

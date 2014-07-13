@@ -1,8 +1,8 @@
 define(function(require) {
     //requirements
     var currentUserModel = require('models/currentUser.inst'),
-        ErrorPage = require('pages/error/error'),
-        cookie = require('cookies'),
+        Error = require('blocks/error/error'),
+        cookies = require('cookies'),
         router = require('router'),
         $ = require('jquery'),
         _ = require('lodash'),
@@ -18,17 +18,13 @@ define(function(require) {
     numeral.language('root', require('i18n!nls/numeral'));
     numeral.language('root');
 
-    //deprecated
-    require('LH');
-    currentUserModel.stores = [];
-
     var isStarted,
         loading,
         routes;
 
     $.ajaxSetup({
         headers: {
-            Authorization: 'Bearer ' + cookie.get('token')
+            Authorization: 'Bearer ' + cookies.get('token')
         }
     });
 
@@ -44,15 +40,9 @@ define(function(require) {
             case 0:
                 break;
             default:
-                if (window.PAGE instanceof ErrorPage){
-                    window.PAGE.data.apiErrors.push(error);
-                } else {
-                    new ErrorPage({
-                        data: {
-                            apiErrors: [error]
-                        }
-                    });
-                }
+                new Error({
+                    apiError: error
+                });
                 break;
         }
     });
@@ -65,15 +55,9 @@ define(function(require) {
             data: errorObject
         };
 
-        if (window.PAGE instanceof ErrorPage){
-            window.PAGE.data.jsErrors.push(jsError);
-        } else {
-            new ErrorPage({
-                data: {
-                    jsErrors: [jsError]
-                }
-            });
-        }
+        new Error({
+            jsError: jsError
+        });
     };
 
     $(document).on('click', '[href]', function(e) {
@@ -82,7 +66,7 @@ define(function(require) {
         if (e.currentTarget.dataset.navigate !== '0') {
             e.preventDefault();
 
-            router.navigate(e.currentTarget.href ? e.currentTarget.href.split(document.location.origin)[1] : e.currentTarget.getAttribute('href'));
+            router.navigate(e.currentTarget.getAttribute('href'));
         }
     });
 
@@ -93,7 +77,8 @@ define(function(require) {
     });
 
     loading.fail(function() {
-        routes = 'routes/unauthorized';
+//        routes = 'routes/unauthorized';
+        routes = 'routes/authorized';
     });
 
     loading.always(function() {

@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\WriteOff;
 
+use Doctrine\Common\Collections\Collection;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
@@ -9,10 +10,16 @@ use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
+use DateTime;
 
 /**
  * @property string $id
  * @property Store $store
+ * @property string $number
+ * @property DateTime $date
+ * @property Money $sumTotal
+ * @property int $itemsCount
+ * @property WriteOffProduct[]|Collection $products
  *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\WriteOff\WriteOffRepository"
@@ -50,7 +57,7 @@ class WriteOff extends AbstractDocument implements Storeable
      * @MongoDB\Date
      * @Assert\NotBlank
      * @Assert\DateTime
-     * @var \DateTime
+     * @var DateTime
      */
     protected $date;
 
@@ -77,7 +84,7 @@ class WriteOff extends AbstractDocument implements Storeable
      * )
      *
      * @Assert\Valid(traverse=true)
-     * @var WriteOffProduct[]
+     * @var WriteOffProduct[]|Collection
      */
     protected $products;
 

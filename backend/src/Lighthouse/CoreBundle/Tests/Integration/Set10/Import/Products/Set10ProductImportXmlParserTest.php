@@ -26,7 +26,9 @@ class Set10ProductImportXmlParserTest extends ContainerAwareTestCase
         $simpleXml = $parser->readNextElement();
         $this->assertInstanceOf('\SimpleXmlElement', $simpleXml);
         $this->assertEquals('good', $simpleXml->getName());
+        /** @noinspection PhpUndefinedFieldInspection */
         $this->assertNotNull($simpleXml->name);
+        /** @noinspection PhpUndefinedFieldInspection */
         $this->assertNotNull($simpleXml->group);
     }
 

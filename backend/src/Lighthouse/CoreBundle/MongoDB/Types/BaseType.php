@@ -3,8 +3,9 @@
 namespace Lighthouse\CoreBundle\MongoDB\Types;
 
 use Doctrine\ODM\MongoDB\Types\Type;
+use Lighthouse\CoreBundle\Document\ClassNameable;
 
-class BaseType extends Type
+class BaseType extends Type implements ClassNameable
 {
     /**
      * @param $value

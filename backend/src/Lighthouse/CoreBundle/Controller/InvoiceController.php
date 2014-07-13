@@ -2,19 +2,19 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Invoice\Invoice;
-use Lighthouse\CoreBundle\Document\Invoice\InvoiceCollection;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceHighlightGenerator;
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Document\Invoice\InvoicesFilter;
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductCollection;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\InvoiceType;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\View\View;
 use Lighthouse\CoreBundle\Meta\MetaCollection;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -59,7 +59,7 @@ class InvoiceController extends AbstractRestController
     /**
      * @param Store $store
      * @param Request $request
-     * @return View|Invoice
+     * @return FormInterface|Invoice
      *
      * @Rest\View(statusCode=201, serializerEnableMaxDepthChecks=true)
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
@@ -76,7 +76,7 @@ class InvoiceController extends AbstractRestController
      * @param Store $store
      * @param Invoice $invoice
      * @param Request $request
-     * @return View|Invoice
+     * @return FormInterface|Invoice
      *
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @Rest\View(serializerEnableMaxDepthChecks=true)
@@ -89,14 +89,14 @@ class InvoiceController extends AbstractRestController
             unset($invoice->products[$key]);
             $this->documentRepository->getDocumentManager()->remove($invoiceProduct);
         }
-        $invoice->products = new InvoiceProductCollection();
+        $invoice->products = new ArrayCollection();
         return $this->processForm($request, $invoice);
     }
 
     /**
      * @param Store $store
      * @param InvoicesFilter $filter
-     * @return InvoiceCollection|MetaCollection
+     * @return MetaCollection|Invoice[]|Cursor
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc(
      *      resource=true
@@ -112,7 +112,7 @@ class InvoiceController extends AbstractRestController
             $collection = new MetaCollection($cursor);
             $collection->addMetaGenerator($highlightGenerator);
         } else {
-            $collection = new InvoiceCollection($cursor);
+            $collection = $cursor;
         }
         return $collection;
     }

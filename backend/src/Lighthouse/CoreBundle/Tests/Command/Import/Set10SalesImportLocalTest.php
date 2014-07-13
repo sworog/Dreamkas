@@ -41,6 +41,9 @@ class Set10SalesImportLocalTest extends WebTestCase
 
     /**
      * @dataProvider executeProvider
+     * @param string $file
+     * @param string $expectedDisplay
+     * @param int $expectedLogEntriesCount
      */
     public function testExecute($file, $expectedDisplay, $expectedLogEntriesCount)
     {

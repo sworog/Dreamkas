@@ -1,86 +1,73 @@
 define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block'),
+        Error = require('blocks/error/error'),
         router = require('router'),
         deepExtend = require('kit/deepExtend/deepExtend'),
-        when = require('when'),
-        get = require('kit/get/get');
+        _ = require('lodash');
 
-    require('lodash');
+    require('sortable');
 
     var Page = Block.extend({
 
-        constructor: function(req) {
+        constructor: function(request) {
             var page = this;
 
-            page.set('status', 'loading');
+            request = _.extend({}, request);
+
+            if (Page.current && Page.current.route === request.route){
+                Page.current.set(request, {
+                    replace: true
+                });
+                return;
+            }
+
+            page.el.setAttribute('status', 'loading');
 
             if (Page.current) {
                 Page.current.destroy();
             }
 
-            page.referrer = Page.current;
+            Page.current = page;
 
-            Page.current = window.PAGE = page;
+            deepExtend(page, request);
 
-            deepExtend(page, req);
-
-            when(page.get('isAllow')).then(function(isAllow) {
+            Promise.resolve(page.get('isAllow')).then(function(isAllow) {
                 if (isAllow) {
-                    page.initElement();
+                    page._initElement();
+                    page._initResources();
                     page.initialize.apply(page, arguments);
-                    page.startListening();
+                    page._startListening();
                 } else {
-                    router.navigate('/errors/403', {
-                        replace: true
-                    });
+                    page.throw('403');
                 }
             }, function(error) {
-                page.set('error', error);
+                page.throw(error);
             });
         },
 
-        events: {
-            'click .page__tabItem': function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                var block = this,
-                    $target = $(e.target),
-                    rel = $target.attr('rel'),
-                    href = $target.attr('href'),
-                    $targetContent = $('.page__tabContentItem[rel="' + rel + '"]');
+        el: document.body,
+        template: require('ejs!./template.ejs'),
 
-                if (href) {
-                    router.navigate(href, {
-                        trigger: false
-                    });
-                }
+        listeners: {
+            'change:params': function(params, options){
+                router.save(Page.current.params, {
+                    replace: options.replace || false
+                });
 
-                $targetContent
-                    .addClass('page__tabContentItem_active')
-                    .siblings('.page__tabContentItem')
-                    .removeClass('page__tabContentItem_active');
-
-                $target
-                    .addClass('page__tabItem_active')
-                    .siblings('.page__tabItem')
-                    .removeClass('page__tabItem_active');
+                this.render();
             }
         },
 
-        el: document.body,
         isAllow: true,
-        template: require('tpl!kit/page/template.html'),
-        templates: {
-            content: null,
-            localNavigation: null,
-            globalNavigation: require('tpl!blocks/globalNavigation/globalNavigation.deprecated.html')
-        },
-        localNavigationActiveLink: null,
         collections: {},
         models: {},
 
-        initResources: function() {
+        content: function() {
+            return '<h1>Добро пожаловать в Lighthouse!</h1>';
+        },
+
+        _initResources: function() {
 
             var page = this;
 
@@ -88,89 +75,86 @@ define(function(require, exports, module) {
             page.__models = page.__models || page.models;
 
             page.collections = _.transform(page.__collections, function(result, collectionInitializer, key) {
-                result[key] = page.get('collections.' + key);
+                result[key] = collectionInitializer.extend ? new collectionInitializer : page.get('collections.' + key);
             });
 
             page.models = _.transform(page.__models, function(result, modelInitializer, key) {
-                result[key] = page.get('models.' + key);
+                result[key] = modelInitializer.extend ? new modelInitializer : page.get('models.' + key);
             });
         },
+
         initialize: function() {
             var page = this;
 
-            try {
-                page.initResources();
-            } catch (error) {
-                console.error(error);
-            }
+            window.PAGE = page;
 
-            when(page.fetch()).then(function() {
+            Promise.resolve(page.fetch()).then(function() {
                 try {
-                    page.render()
+                    page.render();
+                    page.trigger('loaded');
+                    page.el.setAttribute('status', 'loaded');
                 } catch (error) {
-                    console.error(error.stack);
+                    page.throw(error);
                 }
             }, function(error) {
-                page.set('error', error);
+                page.throw(error);
             });
         },
-        render: function() {
-            var page = this;
 
-            if (page.referrer) {
-                page.referrer.destroyBlocks();
-            }
+        render: function(){
+            var page = this,
+                autofocus;
 
             Block.prototype.render.apply(page, arguments);
 
-            page.set('status', 'loaded');
+            autofocus = page.el.querySelector('[autofocus]');
+
+            Sortable.init();
+
+            if (autofocus){
+                setTimeout(function(){
+                    autofocus.focus();
+                }, 0);
+            }
+
         },
+
         fetch: function(dataList) {
             var page = this;
 
-            var fetchList = _.map(dataList || page.get('fetchData'), function(data) {
-                if (typeof data === 'string') {
-                    data = page.get(data);
-                }
+            dataList = dataList || _.values(page.collections).concat(_.filter(page.models, function(model) {
+                return model && model.id;
+            }));
+
+            var fetchList = _.map(dataList, function(data) {
                 return (data && typeof data.fetch === 'function') ? data.fetch() : data;
             });
 
-            return when.all(fetchList);
+            return Promise.all(fetchList);
         },
-        fetchData: function() {
+
+        destroy: function(){
             var page = this;
 
-            return _.values(page.collections).concat(_.filter(page.models, function(model) {
-                return model && model.id;
-            }));
-        },
-        save: function(params) {
-            var page = this;
+            delete Page.current;
 
-            page.set('params', params);
-
-            router.save(page.params);
-
-            return page;
-        },
-        destroy: function() {
-            var page = this;
-
-            delete page.referrer;
-
-            Block.prototype.destroy.call(page);
-        },
-        'set:error': function(error, extra) {
-            var page = this;
-
-            router.navigate('/errors/' + error.status, {
-                trigger: true
+            _.forEach(page.models, function(model){
+                model.off();
+                model.stopListening();
             });
-        },
-        'set:status': function(status) {
-            var page = this;
 
-            page.el.setAttribute('status', status);
+            _.forEach(page.collections, function(collection){
+                collection.off();
+                collection.stopListening();
+            });
+
+            Block.prototype.destroy.apply(page, arguments);
+        },
+
+        throw: function(error){
+            new Error({
+                jsError: error
+            });
         }
     });
 

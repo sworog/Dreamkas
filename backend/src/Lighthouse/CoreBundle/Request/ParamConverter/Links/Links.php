@@ -2,11 +2,12 @@
 
 namespace Lighthouse\CoreBundle\Request\ParamConverter\Links;
 
+use Lighthouse\CoreBundle\Document\ClassNameable;
 use Traversable;
 use IteratorAggregate;
 use ArrayIterator;
 
-class Links implements IteratorAggregate
+class Links implements IteratorAggregate, ClassNameable
 {
     /**
      * @var Link[]|ArrayIterator

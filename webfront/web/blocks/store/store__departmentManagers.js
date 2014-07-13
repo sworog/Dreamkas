@@ -8,9 +8,9 @@ define(function(require) {
         departmentManagerCandidatesCollection: null,
         departmentManagersCollection: null,
         storeModel: null,
-        template: require('tpl!blocks/store/store__departmentManagers.html'),
+        template: require('ejs!blocks/store/store__departmentManagers.html'),
         templates: {
-            store__departmentManagerItem: require('tpl!blocks/store/store__departmentManagerItem.html')
+            store__departmentManagerItem: require('ejs!blocks/store/store__departmentManagerItem.html')
         },
         events: {
             "click .store__departmentManagerRemoveLink": function(event) {

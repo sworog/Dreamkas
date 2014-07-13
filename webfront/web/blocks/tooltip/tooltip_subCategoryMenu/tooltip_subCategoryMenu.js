@@ -3,7 +3,7 @@ define(function(require) {
         var Tooltip = require('blocks/tooltip/tooltip');
 
         return Tooltip.extend({
-            template: require('tpl!./template.ejs'),
+            template: require('ejs!./template.ejs'),
             categoryId: null,
             groupId: null,
             model: null,

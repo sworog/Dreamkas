@@ -26,13 +26,13 @@ define(function(require) {
                 block.submitStart();
                 block.trigger('submit:start');
 
-                Promise.resolve(block.submit()).then(function(response){
+                Promise.resolve(block.submit()).then(function(){
 
-                    block.submitSuccess(response);
-                    block.trigger('submit:success', response);
+                    block.submitSuccess();
+                    block.trigger('submit:success');
 
-                    block.submitComplete(response);
-                    block.trigger('submit:complete', response);
+                    block.submitComplete();
+                    block.trigger('submit:complete');
 
                 }, function(response){
 
@@ -92,10 +92,11 @@ define(function(require) {
             }
 
             if (block.redirectUrl) {
-                router.navigate(block.get('redirectUrl'));
+                router.navigate(block.redirectUrl);
+                return;
             }
 
-            if (block.successMessage) {
+            if (block.get('successMessage')) {
                 block.showSuccessMessage();
             }
         },
@@ -110,7 +111,7 @@ define(function(require) {
                 prefix = prefix || '';
 
                 var fieldErrors,
-                    $input = $(block.el).find('[name="' + prefix + field + '"]'),
+                    $input = $(block.el).find('[name="' + prefix + field + '"]:visible'),
                     $field = $input.closest('.form__field');
 
                 if (data.errors) {

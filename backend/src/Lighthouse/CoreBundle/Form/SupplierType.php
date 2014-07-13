@@ -6,6 +6,7 @@ use Lighthouse\CoreBundle\Document\File\File;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class SupplierType extends AbstractType
@@ -18,6 +19,10 @@ class SupplierType extends AbstractType
     {
         $builder
             ->add('name', 'text')
+            ->add('phone', 'text')
+            ->add('fax', 'text')
+            ->add('email', 'text')
+            ->add('contactPerson', 'text')
             ->add(
                 'agreement',
                 'reference',
@@ -27,6 +32,8 @@ class SupplierType extends AbstractType
                 )
             )
         ;
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, array(LegalDetailsType::getClassName(), 'setTypeForm'));
     }
 
     /**
@@ -37,7 +44,8 @@ class SupplierType extends AbstractType
         $resolver->setDefaults(
             array(
                 'data_class' => Supplier::getClassName(),
-                'csrf_protection' => false
+                'csrf_protection' => false,
+                'cascade_validation' => true
             )
         );
     }

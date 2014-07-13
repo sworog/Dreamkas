@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\Classifier;
 
-use Doctrine\MongoDB\Cursor;
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use MongoId;
 

@@ -1,18 +1,8 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/page');
+    var Page = require('kit/page/page');
 
     return Page.extend({
-        models: {
-            grossSales: require('models/grossSales')
-        },
-        partials: {
-            content: require('tpl!./content.ejs')
-        },
-        fetch: function(){
-            return Promise.all([
-                this.models.grossSales.fetch()
-            ]);
-        }
+        content: require('ejs!./content.ejs')
     });
 });

@@ -66,8 +66,6 @@ class InvoiceFactory extends AbstractFactory
     /**
      * @param string $id
      * @throws \RuntimeException
-     * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
-     * @throws \Doctrine\ODM\MongoDB\LockException
      * @return Invoice
      */
     public function getInvoiceProductById($id)

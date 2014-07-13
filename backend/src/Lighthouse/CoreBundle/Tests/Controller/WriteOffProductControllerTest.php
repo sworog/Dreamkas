@@ -286,7 +286,7 @@ class WriteOffProductControllerTest extends WebTestCase
             ),
             'valid cause special symbols' => array(
                 201,
-                array('cause' => '!@#$%^&^&*QWEQWE}{}":<></.,][;.,`~\=0=-\\'),
+                array('cause' => '!@#$%^&^&*QWERTY}{}":<></.,][;.,`~\=0=-\\'),
             ),
         );
     }

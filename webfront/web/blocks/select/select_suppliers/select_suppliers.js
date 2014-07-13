@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block'),
         SuppliersCollection = require('collections/suppliers'),
-        agreementLink = require('tpl!./agreementLink.html');
+        agreementLink = require('ejs!./agreementLink.html');
 
     return Block.extend({
         el: '.select_suppliers',

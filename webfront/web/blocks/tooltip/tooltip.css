@@ -47,3 +47,8 @@
 .tooltip_menu .tooltip__controlLink:hover{
     background: #f4f4f4;
 }
+
+.tooltip_datepicker__saveLink{
+    float: right;
+    margin: 0;
+}

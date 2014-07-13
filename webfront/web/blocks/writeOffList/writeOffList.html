@@ -1,6 +1,6 @@
 <!-- @writeOffsCollection -->
 
-<% var writeOff = require('tpl!blocks/writeOff/templates/index.html') %>
+<% var writeOff = require('ejs!blocks/writeOff/templates/index.html') %>
 
 <div class="writeOffList">
     <% writeOffsCollection.each(function(writeOffModel){ %>

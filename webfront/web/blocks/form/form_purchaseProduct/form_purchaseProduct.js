@@ -5,7 +5,7 @@ define(function(require) {
 
         return Form.extend({
             __name__: 'form_purchase',
-            template: require('tpl!blocks/form/form_purchaseProduct/templates/index.html'),
+            template: require('ejs!blocks/form/form_purchaseProduct/templates/index.html'),
             initialize: function(){
                 var block = this;
 
