@@ -1,6 +1,5 @@
 define(function(require, exports, module) {
     //requirements
-    var $ = require('jquery');
 
     return function() {
         describe(module.id, function() {

@@ -5,7 +5,6 @@ define(function(require, exports, module) {
         Autocomplete = require('blocks/autocomplete/autocomplete'),
         Select_suppliers = require('blocks/select/select_suppliers/select_suppliers'),
         productSum = require('ejs!blocks/table/table_orderProducts/productSum.ejs'),
-        $ = require('jquery'),
         _ = require('lodash');
 
     var form;

@@ -3,12 +3,13 @@ define(function(require, exports, module) {
     var Page = require('kit/page');
 
     return Page.extend({
-        partials: {
-            content: require('ejs!./content.ejs'),
-            globalNavigation: require('ejs!blocks/globalNavigation/globalNavigation_login.ejs')
-        },
+        template: require('ejs!./template.ejs'),
         blocks: {
-            form_login: require('blocks/form/form_login/form_login')
+            form_login: function(){
+                var Block = require('blocks/form/form_login/form_login');
+
+                return new Block();
+            }
         }
     });
 });

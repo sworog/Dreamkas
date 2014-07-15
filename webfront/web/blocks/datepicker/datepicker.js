@@ -1,7 +1,6 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/block'),
-            $ = require('jquery'),
+        var Block = require('kit/block/block'),
             moment = require('moment');
 
         return Block.extend({

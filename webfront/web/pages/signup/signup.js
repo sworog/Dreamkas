@@ -1,14 +1,15 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/page');
+    var Page = require('kit/page/page');
 
     return Page.extend({
-        partials: {
-            content: require('ejs!./content.ejs'),
-            globalNavigation: require('ejs!blocks/globalNavigation/globalNavigation_login.ejs')
-        },
+        template: require('ejs!./template.ejs'),
         blocks: {
-            form_signup: require('blocks/form/form_signup/form_signup')
+            form_signup: function(){
+                var Block = require('blocks/form/form_signup/form_signup');
+
+                return new Block();
+            }
         }
     });
 });

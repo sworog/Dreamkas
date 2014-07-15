@@ -1,176 +1,109 @@
 define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block'),
+        Error = require('blocks/error/error'),
         router = require('router'),
         deepExtend = require('kit/deepExtend/deepExtend'),
-        when = require('when'),
-        get = require('kit/get/get');
-
-    require('lodash');
+        _ = require('lodash');
 
     var Page = Block.extend({
 
-        constructor: function(req) {
-            var page = this;
-
-            page.set('status', 'loading');
-
-            if (Page.current) {
-                Page.current.destroy();
-            }
-
-            page.referrer = Page.current;
-
-            Page.current = window.PAGE = page;
-
-            deepExtend(page, req);
-
-            when(page.get('isAllow')).then(function(isAllow) {
-                if (isAllow) {
-                    page.initElement();
-                    page.initialize.apply(page, arguments);
-                    page.startListening();
-                } else {
-                    router.navigate('/errors/403', {
-                        replace: true
-                    });
-                }
-            }, function(error) {
-                page.set('error', error);
-            });
-        },
-
-        events: {
-            'click .page__tabItem': function(e) {
-                e.preventDefault();
-                e.stopImmediatePropagation();
-                var block = this,
-                    $target = $(e.target),
-                    rel = $target.attr('rel'),
-                    href = $target.attr('href'),
-                    $targetContent = $('.page__tabContentItem[rel="' + rel + '"]');
-
-                if (href) {
-                    router.navigate(href, {
-                        trigger: false
-                    });
-                }
-
-                $targetContent
-                    .addClass('page__tabContentItem_active')
-                    .siblings('.page__tabContentItem')
-                    .removeClass('page__tabContentItem_active');
-
-                $target
-                    .addClass('page__tabItem_active')
-                    .siblings('.page__tabItem')
-                    .removeClass('page__tabItem_active');
-            }
-        },
-
         el: document.body,
-        isAllow: true,
-        template: require('ejs!kit/page/template.html'),
-        templates: {
-            content: null,
-            localNavigation: null,
-            globalNavigation: require('ejs!blocks/globalNavigation/globalNavigation.deprecated.html')
-        },
-        localNavigationActiveLink: null,
+        template: require('ejs!./template.ejs'),
+
         collections: {},
         models: {},
 
-        initResources: function() {
-
-            var page = this;
-
-            page.__collections = page.__collections || page.collections;
-            page.__models = page.__models || page.models;
-
-            page.collections = _.transform(page.__collections, function(result, collectionInitializer, key) {
-                result[key] = page.get('collections.' + key);
-            });
-
-            page.models = _.transform(page.__models, function(result, modelInitializer, key) {
-                result[key] = page.get('models.' + key);
-            });
+        content: function() {
+            return '<h1>Добро пожаловать в Lighthouse!</h1>';
         },
+
         initialize: function() {
             var page = this;
 
-            try {
-                page.initResources();
-            } catch (error) {
-                console.error(error);
+            page.collections = _.transform(page.collections, function(result, collectionInitializer, key) {
+                result[key] = page.get('collections.' + key);
+            });
+
+            page.models = _.transform(page.models, function(result, modelInitializer, key) {
+                result[key] = page.get('models.' + key);
+            });
+
+            Page.previous = Page.current;
+            Page.current = page;
+
+            if (Page.previous){
+                Page.previous.destroy();
             }
 
-            when(page.fetch()).then(function() {
+            Promise.resolve(page.fetch()).then(function() {
                 try {
-                    page.render()
+                    page.render();
+                    page.trigger('loaded');
+                    page.el.setAttribute('status', 'loaded');
                 } catch (error) {
-                    console.error(error.stack);
+                    page.throw(error);
                 }
             }, function(error) {
-                page.set('error', error);
+                page.throw(error);
             });
         },
-        render: function() {
-            var page = this;
 
-            if (page.referrer) {
-                page.referrer.destroyBlocks();
+        render: function(){
+            var page = this,
+                autofocus;
+
+            if (Page.previous){
+                Page.previous.removeBlocks();
             }
 
             Block.prototype.render.apply(page, arguments);
 
-            page.set('status', 'loaded');
+            autofocus = page.el.querySelector('[autofocus]');
+
+            if (autofocus){
+                setTimeout(function(){
+                    autofocus.focus();
+                }, 0);
+            }
+
         },
+
         fetch: function(dataList) {
             var page = this;
 
-            var fetchList = _.map(dataList || page.get('fetchData'), function(data) {
-                if (typeof data === 'string') {
-                    data = page.get(data);
-                }
+            dataList = dataList || _.values(page.collections).concat(_.filter(page.models, function(model) {
+                return model && model.id;
+            }));
+
+            var fetchList = _.map(dataList, function(data) {
                 return (data && typeof data.fetch === 'function') ? data.fetch() : data;
             });
 
-            return when.all(fetchList);
+            return Promise.all(fetchList);
         },
-        fetchData: function() {
+
+        destroy: function(){
             var page = this;
 
-            return _.values(page.collections).concat(_.filter(page.models, function(model) {
-                return model && model.id;
-            }));
-        },
-        save: function(params) {
-            var page = this;
-
-            page.set('params', params);
-
-            router.save(page.params);
-
-            return page;
-        },
-        destroy: function() {
-            var page = this;
-
-            delete page.referrer;
-
-            Block.prototype.destroy.call(page);
-        },
-        'set:error': function(error, extra) {
-            var page = this;
-
-            router.navigate('/errors/' + error.status, {
-                trigger: true
+            _.forEach(page.models, function(model){
+                model.off();
+                model.stopListening();
             });
-        },
-        'set:status': function(status) {
-            var page = this;
 
-            page.el.setAttribute('status', status);
+            _.forEach(page.collections, function(collection){
+                collection.off();
+                collection.stopListening();
+            });
+
+            page.undelegateEvents();
+            page.stopListening();
+        },
+
+        throw: function(error){
+            new Error({
+                jsError: error
+            });
         }
     });
 

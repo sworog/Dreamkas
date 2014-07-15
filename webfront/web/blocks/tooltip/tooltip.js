@@ -1,8 +1,7 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block'),
-        deepExtend = require('kit/deepExtend/deepExtend'),
-        $ = require('jquery');
+    var Block = require('kit/block/block'),
+        deepExtend = require('kit/deepExtend/deepExtend');
 
     return Block.extend({
         target: null,

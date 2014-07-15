@@ -1,39 +1,61 @@
-@import "fonts/proxima/proxima.css";
-@import "bower_components/jqueryui/themes/base/minified/jquery-ui.min.css";
-@import "bower_components/fontawesome/css/font-awesome.css";
+@import "/adminex/html/css/style.css";
+@import "/adminex/html/css/style-responsive.css";
+@import "/adminex/html/js/bootstrap-timepicker/css/timepicker.css";
+@import "/adminex/html/js/bootstrap-colorpicker/css/colorpicker.css";
+@import "/adminex/html/js/bootstrap-daterangepicker/daterangepicker-bs3.css";
+@import "/adminex/html/js/bootstrap-datetimepicker/css/datetimepicker-custom.css";
 
-@import "kit/default.css";
-@import "kit/animation.css";
+.app__logoImg {
+    display: inline-block;
+    width: 40px;
+    vertical-align: middle;
+}
 
-/* blocks */
-@import "blocks/button/button.css";
-@import "blocks/table/table.css";
-@import "blocks/inputText/inputText.css";
-@import "blocks/checkbox/checkbox.css";
-@import "blocks/select/select.css";
-@import "blocks/preloader/preloader.css";
-@import "blocks/tooltip/tooltip.css";
-@import "blocks/datepicker/datepicker.css";
-@import "blocks/inputDate/inputDate.css";
-@import "blocks/page/page.css";
-@import "blocks/content/content.css";
-@import "blocks/product/product.css";
-@import "blocks/saleBox/saleBox.css";
-@import "blocks/writeOff/writeOff.css";
-@import "blocks/catalog/catalog.css";
-@import "blocks/tooltip/tooltip.css";
-@import "blocks/form/form.css";
-@import "blocks/table/table.css";
-@import "blocks/globalNavigation/globalNavigation.css";
-@import "blocks/localNavigation/localNavigation.css";
-@import "blocks/store/store.css";
-@import "blocks/log/log.css";
-@import "blocks/writeOffList/writeOffList.css";
-@import "blocks/layout/layout.css";
-@import "blocks/grossSales/grossSales.css";
-@import "blocks/preloader/preloader.css";
-@import "blocks/autocomplete/autocomplete.css";
-@import "blocks/radioGroup/radioGroup.css";
-@import "blocks/inputRadio/inputRadio.css";
-@import "blocks/error/error.css";
+.logo a {
+    margin-left: 10px;
+    font-size: 21px;
+}
+
+.notification-menu .dropdown-toggle {
+    padding: 0 15px;
+    height: 50px;
+    line-height: 50px;
+}
+
+.app__logoText {
+    vertical-align: middle;
+    margin-left: -8px;
+    position: relative;
+    top: 2px;
+}
+
+.app__title {
+    display: inline-block;
+    height: 50px;
+    line-height: 48px;
+    font-size: 24px;
+    padding: 0 20px;
+}
+
+.left-side-inner {
+    padding-top: 20px;
+}
+
+.left-side .logged-user .media-body{
+    margin-left: 10px;
+}
+
+.custom-nav > li > a {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.form__errorMessage {
+    color: #a94442;
+    display: none;
+}
+
+.form__errorMessage_visible {
+    display: block;
+}
 
