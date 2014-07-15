@@ -26,7 +26,7 @@ define(function(require) {
                 block.submitStart();
                 block.trigger('submit:start');
 
-                Promise.resolve(block.submit()).then(function(){
+                Promise.resolve(block.submit()).then(function() {
 
                     block.submitSuccess();
                     block.trigger('submit:success');
@@ -34,7 +34,7 @@ define(function(require) {
                     block.submitComplete();
                     block.trigger('submit:complete');
 
-                }, function(response){
+                }, function(response) {
 
                     block.submitError(response);
                     block.trigger('submit:error', response);
@@ -45,24 +45,16 @@ define(function(require) {
                 });
             }
         },
-        elements: {
-            $submitButton: function(){
-                var block = this;
-
-                return $(block.el).find('[type="submit"]').closest('.button').add('[form="' + block.el.id + '"]');
-            },
-            controls: '.form__controls',
-            results: '.form__results'
-        },
-        initialize: function(){
+        initialize: function() {
             var block = this;
 
             Block.prototype.initialize.apply(block, arguments);
 
+            block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' + block.el.id + '"]');
             block.model = block.get('model');
             block.redirectUrl = block.get('redirectUrl');
         },
-        getData: function(){
+        getData: function() {
             return form2js(this.el, '.', false);
         },
         submit: function() {
@@ -73,16 +65,14 @@ define(function(require) {
         submitStart: function() {
             var block = this;
 
-            block.elements.$submitButton.addClass('preloader_stripes');
-            block.disable(true);
+            block.disable();
             block.removeErrors();
             block.removeSuccessMessage();
         },
         submitComplete: function() {
             var block = this;
 
-            block.elements.$submitButton.removeClass('preloader_stripes');
-            block.disable(false);
+            block.enable();
         },
         submitSuccess: function() {
             var block = this;
@@ -102,100 +92,61 @@ define(function(require) {
         },
         submitError: function(response) {
             var block = this;
+
             block.showErrors(JSON.parse(response.responseText), response);
+        },
+        showFieldError: function(data, field) {
+            var block = this,
+                errorMessage,
+                inputElement = block.el.querySelector('[name="' + field + '"]'),
+                errorElement = block.el.querySelector('.form__errorMessage[for="' + field + '"]');
+
+            if (data.errors) {
+                inputElement.classList.add('error');
+
+                errorMessage = data.errors.map(block.getText).join('. ');
+
+                errorElement.classList.add('form__errorMessage_visible');
+                errorElement.innerHTML = block.getText(errorMessage);
+            }
+
         },
         showErrors: function(errors, response) {
             var block = this;
-
-            function addErrorToInput(data, field, prefix) {
-                prefix = prefix || '';
-
-                var fieldErrors,
-                    $input = $(block.el).find('[name="' + prefix + field + '"]:visible'),
-                    $field = $input.closest('.form__field');
-
-                if (data.errors) {
-                    $input.addClass('inputText_error');
-                    fieldErrors = data.errors.join('. ');
-                    $field.attr('data-error', ($field.attr('data-error') ? $field.attr('data-error') + ', ' : '') + block.getText(fieldErrors));
-                }
-
-                if (data.children) {
-                    var newPrefix = prefix + field + '.';
-                    _.each(data.children, function(data, field) {
-                        addErrorToInput(data, field, newPrefix);
-                    });
-                }
-            }
 
             block.removeErrors();
 
             if (errors.children) {
                 _.each(errors.children, function(data, field) {
-                    addErrorToInput(data, field);
+                    block.showFieldError(data, field);
                 });
-            }
-
-            if (errors.error) {
-                block.elements.controls.dataset.error = typeof errors.error === 'string' ? block.getText(errors.error) : block.getText('неизвестная ошибка: ' + response.statusText);
-            }
-
-            if (errors.errors && errors.errors.length) {
-                block.elements.controls.dataset.error = errors.errors.join(', ');
-            }
-
-            if (errors.description) {
-                block.elements.controls.dataset.error = block.getText(errors.description);
-            }
-
-            if (errors.error_description) {
-                block.elements.controls.dataset.error = block.getText(errors.error_description);
             }
         },
         removeErrors: function() {
             var block = this;
-            $(block.el).find('[data-error]').removeAttr('data-error');
-            $(block.el).find('.inputText_error').removeClass('inputText_error');
+
+            block.$('.form__errorMessage_visible').removeClass('form__errorMessage_visible');
+            block.$('input.error').removeClass('error');
         },
         showSuccessMessage: function() {
             var block = this;
 
-            block.elements.$submitButton.after('<span class="form__successMessage">' + block.getText(block.get('successMessage')) + '</span>')
+            //block.elements.$submitButton.after('<span class="form__successMessage">' + block.getText(block.get('successMessage')) + '</span>')
         },
         removeSuccessMessage: function() {
             var block = this;
 
-            $(block.el).find('.form__successMessage').remove();
+            //$(block.el).find('.form__successMessage').remove();
         },
-        disable: function(disabled) {
-            var block = this;
-            if (disabled) {
-                block.elements.$submitButton.attr('disabled', true);
-            } else {
-                block.elements.$submitButton.removeAttr('disabled');
-            }
-        },
-        clear: function() {
+        disable: function() {
             var block = this;
 
-            block.removeErrors();
-            block.elements.$submitButton.removeClass('preloader preloader_stripes');
+            block.$submitButton.attr('disabled', true);
+        },
+        enable: function() {
+            var block = this;
 
-            $(block.el).find(':input').each(function() {
-                switch (this.type) {
-                    case 'password':
-                    case 'select-multiple':
-                    case 'select-one':
-                    case 'text':
-                    case 'textarea':
-                    case 'hidden':
-                        $(this).val('');
-                        break;
-                    case 'checkbox':
-                    case 'radio':
-                        this.checked = false;
-                }
-            });
+            block.$submitButton.removeAttr('disabled');
         }
     })
 });

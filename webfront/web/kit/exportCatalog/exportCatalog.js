@@ -3,7 +3,6 @@ define(function(require, exports, module) {
     var cookies = require('cookies'),
         config = require('config');
 
-
     return function() {
         return $.ajax({
             url: config.baseApiUrl + '/integration/export/products',

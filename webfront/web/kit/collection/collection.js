@@ -1,8 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var config = require('config'),
-        _ = require('lodash'),
-        $ = require('jquery');
+        _ = require('lodash');
 
     require('backbone');
 

@@ -6,60 +6,11 @@ define(function(require, exports, module) {
         deepExtend = require('kit/deepExtend/deepExtend'),
         _ = require('lodash');
 
-    require('sortable');
-
     var Page = Block.extend({
-
-        constructor: function(request) {
-            var page = this;
-
-            request = _.extend({}, request);
-
-            if (Page.current && Page.current.route === request.route){
-                Page.current.set(request, {
-                    replace: true
-                });
-                return;
-            }
-
-            page.el.setAttribute('status', 'loading');
-
-            if (Page.current) {
-                Page.current.destroy();
-            }
-
-            Page.current = page;
-
-            deepExtend(page, request);
-
-            Promise.resolve(page.get('isAllow')).then(function(isAllow) {
-                if (isAllow) {
-                    page._initElement();
-                    page._initResources();
-                    page.initialize.apply(page, arguments);
-                    page._startListening();
-                } else {
-                    page.throw('403');
-                }
-            }, function(error) {
-                page.throw(error);
-            });
-        },
 
         el: document.body,
         template: require('ejs!./template.ejs'),
 
-        listeners: {
-            'change:params': function(params, options){
-                router.save(Page.current.params, {
-                    replace: options.replace || false
-                });
-
-                this.render();
-            }
-        },
-
-        isAllow: true,
         collections: {},
         models: {},
 
@@ -67,26 +18,23 @@ define(function(require, exports, module) {
             return '<h1>Добро пожаловать в Lighthouse!</h1>';
         },
 
-        _initResources: function() {
-
-            var page = this;
-
-            page.__collections = page.__collections || page.collections;
-            page.__models = page.__models || page.models;
-
-            page.collections = _.transform(page.__collections, function(result, collectionInitializer, key) {
-                result[key] = collectionInitializer.extend ? new collectionInitializer : page.get('collections.' + key);
-            });
-
-            page.models = _.transform(page.__models, function(result, modelInitializer, key) {
-                result[key] = modelInitializer.extend ? new modelInitializer : page.get('models.' + key);
-            });
-        },
-
         initialize: function() {
             var page = this;
 
-            window.PAGE = page;
+            page.collections = _.transform(page.collections, function(result, collectionInitializer, key) {
+                result[key] = page.get('collections.' + key);
+            });
+
+            page.models = _.transform(page.models, function(result, modelInitializer, key) {
+                result[key] = page.get('models.' + key);
+            });
+
+            Page.previous = Page.current;
+            Page.current = page;
+
+            if (Page.previous){
+                Page.previous.destroy();
+            }
 
             Promise.resolve(page.fetch()).then(function() {
                 try {
@@ -105,11 +53,13 @@ define(function(require, exports, module) {
             var page = this,
                 autofocus;
 
+            if (Page.previous){
+                Page.previous.removeBlocks();
+            }
+
             Block.prototype.render.apply(page, arguments);
 
             autofocus = page.el.querySelector('[autofocus]');
-
-            Sortable.init();
 
             if (autofocus){
                 setTimeout(function(){
@@ -136,8 +86,6 @@ define(function(require, exports, module) {
         destroy: function(){
             var page = this;
 
-            delete Page.current;
-
             _.forEach(page.models, function(model){
                 model.off();
                 model.stopListening();
@@ -148,7 +96,8 @@ define(function(require, exports, module) {
                 collection.stopListening();
             });
 
-            Block.prototype.destroy.apply(page, arguments);
+            page.undelegateEvents();
+            page.stopListening();
         },
 
         throw: function(error){

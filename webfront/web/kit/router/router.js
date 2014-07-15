@@ -170,7 +170,7 @@ define(function(require) {
             });
         },
 
-        _bindRoute: function(route, callback) {
+        _bindRoute: function(route, Page) {
 
             var router = this,
                 routeRegExp = this._routeToRegExp(route);
@@ -180,7 +180,7 @@ define(function(require) {
                 routeRegExp: routeRegExp,
                 callback: function(fragment) {
                     var params = router._extractParameters(route, routeRegExp, fragment);
-                    callback && callback.call(router, {
+                    Page && new Page({
                         params: params,
                         route: route
                     });

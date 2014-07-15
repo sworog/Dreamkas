@@ -6,8 +6,6 @@ define(function(require, exports, module) {
         amount: require('ejs!./amount.ejs')
     };
 
-    require('jquery');
-
     numeral.language('root', require('nls/root/numeral'));
 
     describe('blocks/amount', function(){

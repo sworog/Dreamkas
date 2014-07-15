@@ -3,8 +3,7 @@ define(function(require, exports, module) {
     var Form = require('kit/form/form'),
         config = require('config'),
         cookies = require('cookies'),
-        _ = require('lodash'),
-        $ = require('jquery');
+        _ = require('lodash');
 
     return Form.extend({
         el: '.form_barcode',

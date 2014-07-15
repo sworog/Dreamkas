@@ -2,7 +2,6 @@ define(function(require, exports, module) {
     //requirements
     var Form = require('kit/form/form'),
         cookie = require('cookies'),
-        $ = require('jquery'),
         _ = require('lodash');
 
     var authorizationHeader = 'Bearer ' + cookie.get('token');

@@ -77,8 +77,7 @@ define(function(require) {
     });
 
     loading.fail(function() {
-//        routes = 'routes/unauthorized';
-        routes = 'routes/authorized';
+        routes = 'routes/unauthorized';
     });
 
     loading.always(function() {

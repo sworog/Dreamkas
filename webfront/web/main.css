@@ -5,7 +5,7 @@
 @import "/adminex/html/js/bootstrap-daterangepicker/daterangepicker-bs3.css";
 @import "/adminex/html/js/bootstrap-datetimepicker/css/datetimepicker-custom.css";
 
-.page__logoImg {
+.app__logoImg {
     display: inline-block;
     width: 40px;
     vertical-align: middle;
@@ -22,7 +22,7 @@
     line-height: 50px;
 }
 
-.page__logoText {
+.app__logoText {
     vertical-align: middle;
     margin-left: -8px;
     position: relative;
@@ -43,5 +43,19 @@
 
 .left-side .logged-user .media-body{
     margin-left: 10px;
+}
+
+.custom-nav > li > a {
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.form__errorMessage {
+    color: #a94442;
+    display: none;
+}
+
+.form__errorMessage_visible {
+    display: block;
 }
 
