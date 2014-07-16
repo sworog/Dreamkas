@@ -1,12 +1,13 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Form;
+namespace Lighthouse\CoreBundle\Form\Classifier;
 
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
-use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
+use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
+use Lighthouse\CoreBundle\Form\Classifier\ClassifierNodeType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class SubCategoryType extends ClassifierNodeType
+class CategoryType extends ClassifierNodeType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -17,22 +18,20 @@ class SubCategoryType extends ClassifierNodeType
         parent::buildForm($builder, $options);
         $builder
             ->add(
-                'category',
+                'group',
                 'reference',
                 array(
-                    'class' => Category::getClassName(),
-                    'invalid_message' => 'lighthouse.validation.errors.subCategory.category.does_not_exists'
+                    'class' => Group::getClassName(),
+                    'invalid_message' => 'lighthouse.validation.errors.category.group.does_not_exists'
                 )
             );
     }
 
     /**
-     * Returns the name of this type.
-     *
-     * @return string The name of this type
+     * @return string
      */
     protected function getDataClass()
     {
-        return SubCategory::getClassName();
+        return Category::getClassName();
     }
 }

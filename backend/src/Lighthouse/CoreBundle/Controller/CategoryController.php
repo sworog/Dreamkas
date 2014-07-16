@@ -7,7 +7,7 @@ use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Category\CategoryRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
-use Lighthouse\CoreBundle\Form\CategoryType;
+use Lighthouse\CoreBundle\Form\Classifier\CategoryType;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use JMS\DiExtraBundle\Annotation as DI;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -28,7 +28,7 @@ class CategoryController extends AbstractRestController
     protected $documentRepository;
 
     /**
-     * @return CategoryType
+     * @return \Lighthouse\CoreBundle\Form\Classifier\CategoryType
      */
     protected function getDocumentFormType()
     {

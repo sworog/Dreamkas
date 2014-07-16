@@ -3,13 +3,16 @@
 namespace Lighthouse\CoreBundle\Controller;
 
 use Doctrine\ODM\MongoDB\Cursor;
+use Lighthouse\CoreBundle\Document\Classifier\CatalogManager;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
-use Lighthouse\CoreBundle\Form\SubCategoryType;
+use Lighthouse\CoreBundle\Form\Classifier\CatalogGroupType;
+use Lighthouse\CoreBundle\Form\Classifier\SubCategoryType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -27,6 +30,12 @@ class SubCategoryController extends AbstractRestController
      * @var SubCategoryRepository
      */
     protected $documentRepository;
+
+    /**
+     * @DI\Inject("lighthouse.core.document.catalog.manager")
+     * @var CatalogManager
+     */
+    protected $catalogManager;
 
     /**
      * @return AbstractType
@@ -134,5 +143,56 @@ class SubCategoryController extends AbstractRestController
     public function deleteSubcategoriesAction(SubCategory $subCategory)
     {
         $this->processDelete($subCategory);
+    }
+
+    /**
+     * @param Request $request
+     * @return Form|SubCategory
+     *
+     * @Rest\View(statusCode=201)
+     * @Rest\Route("catalog/groups")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function postCatalogGroupsAction(Request $request)
+    {
+        $catalogGroup = $this->catalogManager->createNewCatalogGroup();
+
+        $formType = new CatalogGroupType();
+        $form = $this->createForm($formType, $catalogGroup);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            return $this->saveDocument($catalogGroup, $form);
+        } else {
+            return $form;
+        }
+    }
+
+    /**
+     * @param SubCategory $catalogGroup
+     * @return SubCategory
+     *
+     * @Rest\Route("catalog/groups/{catalogGroup}")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function getCatalogGroupAction(SubCategory $catalogGroup)
+    {
+        return $catalogGroup;
+    }
+
+    /**
+     * @return Cursor|SubCategory[]
+     *
+     * @Rest\Route("catalog/groups")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function getCatalogGroupsAction()
+    {
+        $defaultCategory = $this->catalogManager->getDefaultCategory();
+        return $this->documentRepository->findByParent($defaultCategory->id);
     }
 }
