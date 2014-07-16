@@ -17,8 +17,8 @@ public class ModalWindowPage extends CommonPageObject {
     public void createElements() {
     }
 
-    public String getHeadingText() {
-        return findVisibleElement(By.name("heading")).getText();
+    public String getTitleText() {
+        return findVisibleElement(By.name("title")).getText();
     }
 
     public void confirmationOkClick() {
