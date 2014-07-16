@@ -1,3 +1,7 @@
+<% var partials = {
+    modal_groupForm: require('ejs!blocks/modal/modal_groupForm/modal_groupForm.ejs')
+}%>
+
 <div class="row">
     <% if (collections.groups.length) {%>
         <div class="col-sm-3 col-md-2">
@@ -63,22 +67,4 @@
     <% } %>
 </div>
 
-<div id="modal-group" tabindex="-1" role="dialog" aria-labelledby="modal-default-label" aria-hidden="true" class="modal fade" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
-                <h4 id="modal-default-label" class="modal-title">Modal Default</h4>
-            </div>
-            <div class="modal-body">
-
-                asdasd
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
+<%= partials.modal_groupForm() %>
