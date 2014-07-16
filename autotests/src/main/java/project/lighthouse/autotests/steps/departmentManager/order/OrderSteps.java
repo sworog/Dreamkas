@@ -13,8 +13,8 @@ import project.lighthouse.autotests.elements.preLoader.ProductEditionPreLoader;
 import project.lighthouse.autotests.helper.exampleTable.order.OrderExampleTableUpdater;
 import project.lighthouse.autotests.objects.web.order.order.OrderObjectCollection;
 import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductObject;
-import project.lighthouse.autotests.pages.departmentManager.order.OrderPage;
-import project.lighthouse.autotests.pages.departmentManager.order.OrdersListPage;
+import project.lighthouse.autotests.pages.deprecated.departmentManager.order.OrderPage;
+import project.lighthouse.autotests.pages.deprecated.departmentManager.order.OrdersListPage;
 import project.lighthouse.autotests.storage.Storage;
 
 import static org.hamcrest.Matchers.equalTo;

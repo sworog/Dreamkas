@@ -7,8 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.StaticData;
-import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffListPage;
-import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffPage;
+import project.lighthouse.autotests.pages.deprecated.departmentManager.writeOff.WriteOffListPage;
+import project.lighthouse.autotests.pages.deprecated.departmentManager.writeOff.WriteOffPage;
 
 import java.util.Map;
 

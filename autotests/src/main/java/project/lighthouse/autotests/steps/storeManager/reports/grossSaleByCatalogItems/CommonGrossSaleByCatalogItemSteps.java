@@ -7,7 +7,7 @@ import org.junit.Assert;
 import project.lighthouse.autotests.elements.preLoader.BodyPreLoader;
 import project.lighthouse.autotests.fixtures.sprint_25.Us_57_3_Fixture;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectValueColorable;
-import project.lighthouse.autotests.pages.storeManager.reports.grossSaleByCatalogItems.CommonGrossSaleByCatalogItemPage;
+import project.lighthouse.autotests.pages.deprecated.storeManager.reports.grossSaleByCatalogItems.CommonGrossSaleByCatalogItemPage;
 
 public class CommonGrossSaleByCatalogItemSteps extends ScenarioSteps {
 

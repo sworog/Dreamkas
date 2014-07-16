@@ -6,7 +6,7 @@ import org.jbehave.core.model.ExamplesTable;
 import org.junit.Assert;
 import project.lighthouse.autotests.fixtures.sprint_25.Us_57_4_Fixture;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectValueColorable;
-import project.lighthouse.autotests.pages.storeManager.reports.grossSaleByCatalogItems.GrossSaleByProductsPage;
+import project.lighthouse.autotests.pages.deprecated.storeManager.reports.grossSaleByCatalogItems.GrossSaleByProductsPage;
 
 public class GrossSaleByProductsSteps extends ScenarioSteps {
 

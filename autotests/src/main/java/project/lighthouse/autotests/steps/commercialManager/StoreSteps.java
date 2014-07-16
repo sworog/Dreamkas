@@ -7,9 +7,9 @@ import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.Store;
-import project.lighthouse.autotests.pages.commercialManager.store.StoreCardPage;
-import project.lighthouse.autotests.pages.commercialManager.store.StoreCreatePage;
-import project.lighthouse.autotests.pages.commercialManager.store.StoreListPage;
+import project.lighthouse.autotests.pages.deprecated.commercialManager.store.StoreCardPage;
+import project.lighthouse.autotests.pages.deprecated.commercialManager.store.StoreCreatePage;
+import project.lighthouse.autotests.pages.deprecated.commercialManager.store.StoreListPage;
 
 import java.util.Map;
 

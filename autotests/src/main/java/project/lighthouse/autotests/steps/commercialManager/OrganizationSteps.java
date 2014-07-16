@@ -3,9 +3,8 @@ package project.lighthouse.autotests.steps.commercialManager;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.pages.commercialManager.legalDetails.LegalDetailsFormPage;
-import project.lighthouse.autotests.pages.commercialManager.oraganization.OrganizationFormPage;
-import project.lighthouse.autotests.pages.commercialManager.oraganization.OrganizationListPage;
+import project.lighthouse.autotests.pages.deprecated.commercialManager.oraganization.OrganizationFormPage;
+import project.lighthouse.autotests.pages.deprecated.commercialManager.oraganization.OrganizationListPage;
 import project.lighthouse.autotests.steps.CommonSteps;
 
 public class OrganizationSteps extends ScenarioSteps {

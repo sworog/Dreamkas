@@ -8,7 +8,7 @@ import org.joda.time.DateTime;
 import project.lighthouse.autotests.fixtures.sprint_24.Us_55_2_Fixture;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectLocatable;
 import project.lighthouse.autotests.objects.web.reports.grossSaleByStores.GrossSalesByStoresCollection;
-import project.lighthouse.autotests.pages.commercialManager.reports.GrossSaleByStoresReportsPage;
+import project.lighthouse.autotests.pages.deprecated.commercialManager.reports.GrossSaleByStoresReportsPage;
 
 public class GrossSaleByStoresReportsSteps extends ScenarioSteps {
 

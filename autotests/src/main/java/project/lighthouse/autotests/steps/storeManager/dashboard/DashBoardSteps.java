@@ -5,7 +5,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.joda.time.DateTime;
 import project.lighthouse.autotests.fixtures.sprint_24.Us_53_1_Fixture;
-import project.lighthouse.autotests.pages.storeManager.dashBoard.DashBoardPage;
+import project.lighthouse.autotests.pages.deprecated.storeManager.dashBoard.DashBoardPage;
 
 public class DashBoardSteps extends ScenarioSteps {
 

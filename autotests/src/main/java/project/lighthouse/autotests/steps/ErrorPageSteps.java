@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.pages.errorPage.ErrorPage;
+import project.lighthouse.autotests.pages.deprecated.errorPage.ErrorPage;
 
 public class ErrorPageSteps extends ScenarioSteps {
 

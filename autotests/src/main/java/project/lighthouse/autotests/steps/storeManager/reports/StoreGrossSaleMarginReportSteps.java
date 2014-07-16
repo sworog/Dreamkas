@@ -8,7 +8,7 @@ import project.lighthouse.autotests.fixtures.sprint_28.Us_54_2_Fixture;
 import project.lighthouse.autotests.fixtures.sprint_28.Us_54_4_Fixture;
 import project.lighthouse.autotests.fixtures.sprint_28.Us_54_5_Fixture;
 import project.lighthouse.autotests.fixtures.sprint_28.Us_56_Fixture;
-import project.lighthouse.autotests.pages.storeManager.reports.StoreGrossSaleMarginReportPage;
+import project.lighthouse.autotests.pages.deprecated.storeManager.reports.StoreGrossSaleMarginReportPage;
 
 public class StoreGrossSaleMarginReportSteps extends ScenarioSteps {
 

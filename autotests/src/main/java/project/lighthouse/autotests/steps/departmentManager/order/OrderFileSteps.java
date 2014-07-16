@@ -10,7 +10,7 @@ import project.lighthouse.autotests.api.HttpExecutor;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.helper.WorkBookHandler;
 import project.lighthouse.autotests.helper.file.FileDownloader;
-import project.lighthouse.autotests.pages.departmentManager.order.OrderPage;
+import project.lighthouse.autotests.pages.deprecated.departmentManager.order.OrderPage;
 import project.lighthouse.autotests.storage.Storage;
 
 import java.io.File;

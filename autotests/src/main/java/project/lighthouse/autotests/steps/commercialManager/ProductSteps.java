@@ -11,10 +11,10 @@ import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.product.ProductObject;
 import project.lighthouse.autotests.objects.web.product.barcodes.BarcodeObject;
-import project.lighthouse.autotests.pages.commercialManager.product.*;
-import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductInvoicesList;
-import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductReturnList;
-import project.lighthouse.autotests.pages.departmentManager.catalog.product.ProductWriteOffList;
+import project.lighthouse.autotests.pages.deprecated.commercialManager.product.*;
+import project.lighthouse.autotests.pages.deprecated.departmentManager.catalog.product.ProductInvoicesList;
+import project.lighthouse.autotests.pages.deprecated.departmentManager.catalog.product.ProductReturnList;
+import project.lighthouse.autotests.pages.deprecated.departmentManager.catalog.product.ProductWriteOffList;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;

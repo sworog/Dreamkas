@@ -3,10 +3,10 @@ package project.lighthouse.autotests.steps.commercialManager;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import project.lighthouse.autotests.helper.StringGenerator;
-import project.lighthouse.autotests.pages.commercialManager.catalog.CategoryPage;
-import project.lighthouse.autotests.pages.commercialManager.catalog.GroupPage;
-import project.lighthouse.autotests.pages.commercialManager.catalog.MarkUpTab;
-import project.lighthouse.autotests.pages.commercialManager.catalog.SubCategoryPage;
+import project.lighthouse.autotests.pages.deprecated.commercialManager.catalog.CategoryPage;
+import project.lighthouse.autotests.pages.deprecated.commercialManager.catalog.GroupPage;
+import project.lighthouse.autotests.pages.deprecated.commercialManager.catalog.MarkUpTab;
+import project.lighthouse.autotests.pages.deprecated.commercialManager.catalog.SubCategoryPage;
 
 public class CatalogSteps extends ScenarioSteps {
 

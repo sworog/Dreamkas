@@ -2,7 +2,7 @@ package project.lighthouse.autotests.steps.storeManager.reports;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
-import project.lighthouse.autotests.pages.storeManager.reports.ReportsMenuLocalNavigationPage;
+import project.lighthouse.autotests.pages.deprecated.storeManager.reports.ReportsMenuLocalNavigationPage;
 
 public class ReportsMenuLocalNavigationPageSteps extends ScenarioSteps {
 

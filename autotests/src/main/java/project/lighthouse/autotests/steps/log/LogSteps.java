@@ -3,8 +3,8 @@ package project.lighthouse.autotests.steps.log;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.pages.logPages.JobsPage;
-import project.lighthouse.autotests.pages.logPages.LogPage;
+import project.lighthouse.autotests.pages.deprecated.logPages.JobsPage;
+import project.lighthouse.autotests.pages.deprecated.logPages.LogPage;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;

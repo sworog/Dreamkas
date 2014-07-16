@@ -4,7 +4,7 @@ import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import project.lighthouse.autotests.helper.DateTimeHelper;
-import project.lighthouse.autotests.pages.commercialManager.reports.GrossSalesByNetworkPage;
+import project.lighthouse.autotests.pages.deprecated.commercialManager.reports.GrossSalesByNetworkPage;
 
 public class GrossSaleByNetworkSteps extends ScenarioSteps {
 

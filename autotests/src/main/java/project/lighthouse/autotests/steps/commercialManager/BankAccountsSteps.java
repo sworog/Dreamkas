@@ -3,8 +3,8 @@ package project.lighthouse.autotests.steps.commercialManager;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.pages.commercialManager.bankAccounts.BankAccountsFormPage;
-import project.lighthouse.autotests.pages.commercialManager.bankAccounts.BankAccountsListPage;
+import project.lighthouse.autotests.pages.deprecated.commercialManager.bankAccounts.BankAccountsFormPage;
+import project.lighthouse.autotests.pages.deprecated.commercialManager.bankAccounts.BankAccountsListPage;
 
 public class BankAccountsSteps extends ScenarioSteps {
     BankAccountsListPage bankAccountsListPage;

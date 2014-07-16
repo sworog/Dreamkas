@@ -7,9 +7,9 @@ import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.pages.deprecated.administrator.users.UserCreatePage;
 import project.lighthouse.autotests.pages.deprecated.administrator.users.UsersListPage;
-import project.lighthouse.autotests.pages.user.UserCardPage;
-import project.lighthouse.autotests.pages.user.UserEditPage;
-import project.lighthouse.autotests.pages.user.localNavigation.UserLocalNavigation;
+import project.lighthouse.autotests.pages.deprecated.user.UserCardPage;
+import project.lighthouse.autotests.pages.deprecated.user.UserEditPage;
+import project.lighthouse.autotests.pages.deprecated.user.localNavigation.UserLocalNavigation;
 
 import static org.junit.Assert.fail;
 

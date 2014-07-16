@@ -15,8 +15,8 @@ import project.lighthouse.autotests.helper.file.FileDownloader;
 import project.lighthouse.autotests.helper.file.FilesCompare;
 import project.lighthouse.autotests.objects.web.supplier.SupplierObject;
 import project.lighthouse.autotests.objects.web.supplier.SupplierObjectCollection;
-import project.lighthouse.autotests.pages.commercialManager.supplier.SupplierListPage;
-import project.lighthouse.autotests.pages.commercialManager.supplier.SupplierPage;
+import project.lighthouse.autotests.pages.deprecated.commercialManager.supplier.SupplierListPage;
+import project.lighthouse.autotests.pages.deprecated.commercialManager.supplier.SupplierPage;
 
 import java.io.File;
 

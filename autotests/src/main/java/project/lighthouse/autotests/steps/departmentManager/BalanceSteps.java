@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.objects.web.balance.BalanceObjectItem;
-import project.lighthouse.autotests.pages.departmentManager.balance.BalanceListPage;
+import project.lighthouse.autotests.pages.deprecated.departmentManager.balance.BalanceListPage;
 
 import java.util.ArrayList;
 import java.util.List;

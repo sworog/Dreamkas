@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
-import project.lighthouse.autotests.pages.commercialManager.legalDetails.LegalDetailsFormPage;
+import project.lighthouse.autotests.pages.deprecated.commercialManager.legalDetails.LegalDetailsFormPage;
 
 public class LegalDetailsSteps extends ScenarioSteps {
     LegalDetailsFormPage legalDetailsFormPage;

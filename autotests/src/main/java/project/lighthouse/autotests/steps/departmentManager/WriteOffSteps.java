@@ -8,10 +8,10 @@ import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.helper.exampleTable.ExampleTableConverter;
 import project.lighthouse.autotests.objects.web.writeOff.WriteOffProductCollection;
 import project.lighthouse.autotests.objects.web.writeOff.WriteOffProductObject;
-import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffListPage;
-import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffLocalNavigation;
-import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffPage;
-import project.lighthouse.autotests.pages.departmentManager.writeOff.WriteOffSearchPage;
+import project.lighthouse.autotests.pages.deprecated.departmentManager.writeOff.WriteOffListPage;
+import project.lighthouse.autotests.pages.deprecated.departmentManager.writeOff.WriteOffLocalNavigation;
+import project.lighthouse.autotests.pages.deprecated.departmentManager.writeOff.WriteOffPage;
+import project.lighthouse.autotests.pages.deprecated.departmentManager.writeOff.WriteOffSearchPage;
 
 public class WriteOffSteps extends ScenarioSteps {
 

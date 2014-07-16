@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
-import project.lighthouse.autotests.pages.settings.SettingsPage;
+import project.lighthouse.autotests.pages.deprecated.settings.SettingsPage;
 
 public class SettingSteps extends ScenarioSteps {
 
