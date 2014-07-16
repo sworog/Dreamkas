@@ -14,7 +14,7 @@ define(function(require, exports, module) {
         submitSuccess: function(res){
             var block = this;
 
-            LoginModel.email = res.email;
+            LoginModel.email = block.model.get('email');
 
             Form.prototype.submitSuccess.apply(block, arguments);
         }

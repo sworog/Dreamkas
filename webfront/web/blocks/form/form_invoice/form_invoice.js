@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var Form = require('blocks/form/form'),
         InvoiceProductModel = require('models/invoiceProduct'),
-        currentUserModel = require('models/currentUser.inst'),
+        currentUserModel = require('models/currentUser/currentUser.inst'),
         SuppliersCollection = require('collections/suppliers'),
         InputDate = require('blocks/inputDate/inputDate'),
         Autocomplete = require('blocks/autocomplete/autocomplete'),

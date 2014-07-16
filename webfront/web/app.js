@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var currentUserModel = require('models/currentUser.inst'),
+    var currentUserModel = require('models/currentUser/currentUser.inst'),
         Error = require('blocks/error/error'),
         cookie = require('cookies'),
         router = require('router'),

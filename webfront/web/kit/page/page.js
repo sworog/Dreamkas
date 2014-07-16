@@ -14,6 +14,8 @@ define(function(require, exports, module) {
         collections: {},
         models: {},
 
+        title: 'Title',
+
         content: function() {
             return '<h1>Добро пожаловать в Lighthouse!</h1>';
         },
