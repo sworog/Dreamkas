@@ -5,7 +5,7 @@ import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 /**
- * Create group modal page element
+ * Create group modal page object
  */
 public class CreateGroupModalPage extends ModalWindowPage {
 

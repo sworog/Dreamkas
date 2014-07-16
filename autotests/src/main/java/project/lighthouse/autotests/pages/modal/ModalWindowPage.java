@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 
 /**
- * Common page element representing modal window
+ * Common page object representing modal window
  */
 public class ModalWindowPage extends CommonPageObject {
 
