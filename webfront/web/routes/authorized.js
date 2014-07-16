@@ -8,6 +8,9 @@ define(function(require) {
     return {
         //common
         '(/)': require('pages/main/main'),
-        'logout(/)': require('kit/logout/logout')
+        'logout(/)': require('kit/logout/logout'),
+
+        //catalog
+        'catalog(/)': require('pages/catalog/catalog')
     };
 });
