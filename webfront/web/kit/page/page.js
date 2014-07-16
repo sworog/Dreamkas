@@ -15,6 +15,7 @@ define(function(require, exports, module) {
         models: {},
 
         title: 'Title',
+        activeNavigationItem: 'main',
 
         content: function() {
             return '<h1>Добро пожаловать в Lighthouse!</h1>';
