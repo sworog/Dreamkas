@@ -158,10 +158,35 @@ class SubCategoryController extends AbstractRestController
     {
         $catalogGroup = $this->catalogManager->createNewCatalogGroup();
 
+        return $this->processCatalogGroupForm($request, $catalogGroup);
+    }
+
+    /**
+     * @param Request $request
+     * @param SubCategory $catalogGroup
+     * @return Form|SubCategory
+     *
+     * @Rest\Route("catalog/groups/{catalogGroup}")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function putCatalogGroupsAction(Request $request, SubCategory $catalogGroup)
+    {
+        return $this->processCatalogGroupForm($request, $catalogGroup);
+    }
+
+    /**
+     * @param Request $request
+     * @param SubCategory $catalogGroup
+     *
+     * @return Form|SubCategory
+     */
+    protected function processCatalogGroupForm(Request $request, SubCategory $catalogGroup)
+    {
         $formType = new CatalogGroupType();
         $form = $this->createForm($formType, $catalogGroup);
 
-        $form->handleRequest($request);
+        $form->submit($request);
 
         if ($form->isValid()) {
             return $this->saveDocument($catalogGroup, $form);

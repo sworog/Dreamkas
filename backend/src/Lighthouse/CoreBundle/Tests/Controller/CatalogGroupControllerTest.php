@@ -91,6 +91,38 @@ class CatalogGroupControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($catalogGroupId3, '2.id', $getResponse, 1);
     }
 
+    public function testPutAction()
+    {
+        $catalogGroupId = $this->createCatalogGroup('Группа1');
+
+        $putData = array(
+            'name' => 'Хомячки',
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/catalog/groups/' . $catalogGroupId,
+            $putData
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('Хомячки', 'name', $putResponse);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/catalog/groups/' . $catalogGroupId
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertEquals($putResponse, $getResponse);
+    }
+
     /**
      * @param string $name
      * @return string
