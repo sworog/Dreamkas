@@ -11,6 +11,15 @@ doctrine_mongodb:
     document_managers:
         default:
             auto_mapping: true
+            filters:
+                softdeleteable:
+                    class: Gedmo\SoftDeleteable\Filter\ODM\SoftDeleteableFilter
+                    enabled: true
+
+stof_doctrine_extensions:
+    mongodb:
+        default:
+            softdeleteable: true
 
 framework:
     #esi:             ~

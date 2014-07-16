@@ -61,6 +61,12 @@ abstract class AbstractNode extends AbstractDocument
     protected $retailMarkupMax;
 
     /**
+     * @MongoDB\Date
+     * @var \DateTime
+     */
+    protected $deletedAt;
+
+    /**
      * @var AbstractRounding
      */
     protected $rounding;

@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Document\Product\Product;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
+use Gedmo\Mapping\Annotation\SoftDeleteable;
 
 /**
  * @property Category $category
@@ -17,6 +18,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
  * )
  * @MongoDB\UniqueIndex(keys={"name"="asc", "category"="asc"})
  * @Unique(fields={"name", "category"}, message="lighthouse.validation.errors.subCategory.name.unique")
+ * @SoftDeleteable
  */
 class SubCategory extends AbstractNode
 {

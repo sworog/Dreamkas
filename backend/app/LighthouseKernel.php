@@ -38,6 +38,7 @@ class LighthouseKernel extends Kernel
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new Ornicar\ApcBundle\OrnicarApcBundle(),
             new Hackzilla\Bundle\PasswordGeneratorBundle\HackzillaPasswordGeneratorBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
         );
 
 

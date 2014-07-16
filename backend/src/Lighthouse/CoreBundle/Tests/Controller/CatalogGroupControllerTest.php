@@ -2,6 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
+use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategoryRepository;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
@@ -138,6 +140,40 @@ class CatalogGroupControllerTest extends WebTestCase
         $this->assertResponseCode(204);
 
         $this->assertNull($deleteResponse);
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/catalog/groups/' . $catalogGroupId
+        );
+
+        $this->assertResponseCode(404);
+
+        $subCategory = $this->getSubCategoryRepository()->find($catalogGroupId);
+        $this->assertNull($subCategory);
+
+        $subCategories = $this->getSubCategoryRepository()->findAll();
+        $this->assertCount(0, $subCategories);
+
+        $this
+            ->getSubCategoryRepository()
+            ->getDocumentManager()
+            ->getFilterCollection()
+            ->disable('softdeleteable');
+
+        $subCategory = $this->getSubCategoryRepository()->find($catalogGroupId);
+        $this->assertInstanceOf(SubCategory::getClassName(), $subCategory);
+
+        $subCategories = $this->getSubCategoryRepository()->findAll();
+        $this->assertCount(1, $subCategories);
+    }
+
+    /**
+     * @return SubCategoryRepository
+     */
+    protected function getSubCategoryRepository()
+    {
+        return $this->getContainer()->get('lighthouse.core.document.repository.classifier.subcategory');
     }
 
     /**
