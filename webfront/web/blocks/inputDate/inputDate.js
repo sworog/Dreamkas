@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/block'),
+        var Block = require('kit/block/block'),
             formatDate = require('kit/formatDate'),
             moment = require('moment');
 

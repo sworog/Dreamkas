@@ -2,7 +2,7 @@ define(function(require) {
     //requirements
     var currentUserModel = require('models/currentUser/currentUser.inst'),
         Error = require('blocks/error/error'),
-        cookie = require('cookies'),
+        cookies = require('cookies'),
         router = require('router'),
         $ = require('jquery'),
         _ = require('lodash'),
@@ -18,17 +18,13 @@ define(function(require) {
     numeral.language('root', require('i18n!nls/numeral'));
     numeral.language('root');
 
-    //deprecated
-    require('LH');
-    currentUserModel.stores = [];
-
     var isStarted,
         loading,
         routes;
 
     $.ajaxSetup({
         headers: {
-            Authorization: 'Bearer ' + cookie.get('token')
+            Authorization: 'Bearer ' + cookies.get('token')
         }
     });
 
@@ -70,7 +66,7 @@ define(function(require) {
         if (e.currentTarget.dataset.navigate !== '0') {
             e.preventDefault();
 
-            router.navigate(e.currentTarget.href ? e.currentTarget.href.split(document.location.origin)[1] : e.currentTarget.getAttribute('href'));
+            router.navigate(e.currentTarget.getAttribute('href'));
         }
     });
 
