@@ -8,7 +8,7 @@ import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.api.ApiConnect;
-import project.lighthouse.autotests.steps.administrator.SettingSteps;
+import project.lighthouse.autotests.steps.deprecated.administrator.SettingSteps;
 
 import java.io.IOException;
 import java.util.Iterator;

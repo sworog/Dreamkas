@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.steps.storeManager.reports.grossSaleByCatalogItems.CommonGrossSaleByCatalogItemSteps;
+import project.lighthouse.autotests.steps.deprecated.storeManager.reports.grossSaleByCatalogItems.CommonGrossSaleByCatalogItemSteps;
 
 public class ThenCommonGrossSaleByCatalogItemSteps {
 

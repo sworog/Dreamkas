@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
-import project.lighthouse.autotests.steps.departmentManager.invoice.InvoiceSteps;
+import project.lighthouse.autotests.steps.deprecated.departmentManager.invoice.InvoiceSteps;
 
 public class ThenInvoiceUserSteps {
 

@@ -2,7 +2,7 @@ package project.lighthouse.autotests.jbehave;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
-import project.lighthouse.autotests.steps.PostgreSQLJDBCSteps;
+import project.lighthouse.autotests.steps.deprecated.PostgreSQLJDBCSteps;
 
 import java.sql.SQLException;
 

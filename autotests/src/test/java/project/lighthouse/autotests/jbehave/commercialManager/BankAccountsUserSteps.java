@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.steps.commercialManager.BankAccountsSteps;
+import project.lighthouse.autotests.steps.deprecated.commercialManager.BankAccountsSteps;
 
 public class BankAccountsUserSteps {
     @Steps

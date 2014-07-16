@@ -2,7 +2,7 @@ package project.lighthouse.autotests.jbehave.user;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
-import project.lighthouse.autotests.steps.administrator.UserSteps;
+import project.lighthouse.autotests.steps.deprecated.administrator.UserSteps;
 
 public class GivenUserSteps {
 

@@ -5,7 +5,7 @@ import org.jbehave.core.annotations.Given;
 import org.json.JSONException;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.steps.api.commercialManager.StoreApiSteps;
-import project.lighthouse.autotests.steps.storeManager.reports.StoreGrossSaleByHourReportSteps;
+import project.lighthouse.autotests.steps.deprecated.storeManager.reports.StoreGrossSaleByHourReportSteps;
 
 public class GivenStoreGrossSaleByHourReportUserSteps {
 

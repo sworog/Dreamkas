@@ -4,8 +4,8 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.*;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.AuthorizationSteps;
-import project.lighthouse.autotests.steps.administrator.UserSteps;
-import project.lighthouse.autotests.steps.email.EmailSteps;
+import project.lighthouse.autotests.steps.deprecated.administrator.UserSteps;
+import project.lighthouse.autotests.steps.deprecated.email.EmailSteps;
 import project.lighthouse.autotests.steps.menu.MenuNavigationSteps;
 import project.lighthouse.autotests.storage.Storage;
 

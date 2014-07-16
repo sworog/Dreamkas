@@ -2,7 +2,7 @@ package project.lighthouse.autotests.jbehave.departmentManager.order;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
-import project.lighthouse.autotests.steps.departmentManager.order.OrderSteps;
+import project.lighthouse.autotests.steps.deprecated.departmentManager.order.OrderSteps;
 
 public class GivenOrderUserSteps {
 

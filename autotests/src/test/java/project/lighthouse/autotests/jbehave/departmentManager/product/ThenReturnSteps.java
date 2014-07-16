@@ -3,7 +3,7 @@ package project.lighthouse.autotests.jbehave.departmentManager.product;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.steps.commercialManager.ProductSteps;
+import project.lighthouse.autotests.steps.deprecated.commercialManager.ProductSteps;
 
 public class ThenReturnSteps {
 

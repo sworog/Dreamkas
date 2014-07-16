@@ -5,7 +5,7 @@ import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
-import project.lighthouse.autotests.steps.departmentManager.order.OrderSteps;
+import project.lighthouse.autotests.steps.deprecated.departmentManager.order.OrderSteps;
 
 public class WhenOrderUserSteps {
 

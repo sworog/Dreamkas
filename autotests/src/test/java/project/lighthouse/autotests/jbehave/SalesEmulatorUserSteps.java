@@ -3,7 +3,7 @@ package project.lighthouse.autotests.jbehave;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.When;
-import project.lighthouse.autotests.steps.SalesSteps;
+import project.lighthouse.autotests.steps.deprecated.SalesSteps;
 
 public class SalesEmulatorUserSteps {
 

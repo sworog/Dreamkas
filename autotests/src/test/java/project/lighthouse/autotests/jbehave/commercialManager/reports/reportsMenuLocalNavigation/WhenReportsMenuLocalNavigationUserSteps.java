@@ -2,7 +2,7 @@ package project.lighthouse.autotests.jbehave.commercialManager.reports.reportsMe
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.When;
-import project.lighthouse.autotests.steps.commercialManager.reports.ReportsMenuLocalNavigationPageSteps;
+import project.lighthouse.autotests.steps.deprecated.commercialManager.reports.ReportsMenuLocalNavigationPageSteps;
 
 public class WhenReportsMenuLocalNavigationUserSteps {
 

@@ -3,7 +3,7 @@ package project.lighthouse.autotests.jbehave.fixtureSteps.sprint_22.us_40_3;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
 import project.lighthouse.autotests.fixtures.sprint_22.Us_40_3_Fixture;
-import project.lighthouse.autotests.steps.ConsoleCommandSteps;
+import project.lighthouse.autotests.steps.deprecated.ConsoleCommandSteps;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;

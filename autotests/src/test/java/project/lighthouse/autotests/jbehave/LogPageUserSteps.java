@@ -5,7 +5,7 @@ import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.steps.log.LogSteps;
+import project.lighthouse.autotests.steps.deprecated.log.LogSteps;
 
 public class LogPageUserSteps {
 

@@ -2,7 +2,7 @@ package project.lighthouse.autotests.jbehave.commercialManager.reports.grossSale
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
-import project.lighthouse.autotests.steps.commercialManager.reports.GrossSaleByStoresReportsSteps;
+import project.lighthouse.autotests.steps.deprecated.commercialManager.reports.GrossSaleByStoresReportsSteps;
 
 public class ThenGrossSaleByStoresReportUserSteps {
 

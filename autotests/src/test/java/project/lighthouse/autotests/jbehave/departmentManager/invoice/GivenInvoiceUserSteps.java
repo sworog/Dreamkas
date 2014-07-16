@@ -9,7 +9,7 @@ import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.StoreApiSteps;
 import project.lighthouse.autotests.steps.api.departmentManager.InvoiceApiSteps;
-import project.lighthouse.autotests.steps.departmentManager.invoice.InvoiceSteps;
+import project.lighthouse.autotests.steps.deprecated.departmentManager.invoice.InvoiceSteps;
 
 import java.io.IOException;
 

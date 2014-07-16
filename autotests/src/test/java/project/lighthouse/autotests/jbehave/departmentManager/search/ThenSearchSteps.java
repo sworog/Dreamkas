@@ -3,7 +3,7 @@ package project.lighthouse.autotests.jbehave.departmentManager.search;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.steps.departmentManager.WriteOffSteps;
+import project.lighthouse.autotests.steps.deprecated.departmentManager.WriteOffSteps;
 
 public class ThenSearchSteps {
 

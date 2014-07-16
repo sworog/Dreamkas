@@ -5,8 +5,8 @@ import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
-import project.lighthouse.autotests.steps.departmentManager.order.OrderFileSteps;
-import project.lighthouse.autotests.steps.departmentManager.order.OrderSteps;
+import project.lighthouse.autotests.steps.deprecated.departmentManager.order.OrderFileSteps;
+import project.lighthouse.autotests.steps.deprecated.departmentManager.order.OrderSteps;
 
 public class ThenOrderUserSteps {
 

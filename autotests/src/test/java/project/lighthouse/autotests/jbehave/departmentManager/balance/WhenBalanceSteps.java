@@ -4,8 +4,8 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.When;
 import project.lighthouse.autotests.fixtures.sprint_23.Us_50_Fixture;
-import project.lighthouse.autotests.steps.ConsoleCommandSteps;
-import project.lighthouse.autotests.steps.departmentManager.BalanceSteps;
+import project.lighthouse.autotests.steps.deprecated.ConsoleCommandSteps;
+import project.lighthouse.autotests.steps.deprecated.departmentManager.BalanceSteps;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;

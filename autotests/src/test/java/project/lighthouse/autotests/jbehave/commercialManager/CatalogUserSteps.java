@@ -7,8 +7,8 @@ import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.json.JSONException;
 import org.junit.Assert;
-import project.lighthouse.autotests.steps.commercialManager.CatalogSteps;
-import project.lighthouse.autotests.steps.commercialManager.StoreSteps;
+import project.lighthouse.autotests.steps.deprecated.commercialManager.CatalogSteps;
+import project.lighthouse.autotests.steps.deprecated.commercialManager.StoreSteps;
 
 public class CatalogUserSteps {
 

@@ -3,7 +3,7 @@ package project.lighthouse.autotests.jbehave.storeManager.reports.grossSaleMargi
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Then;
-import project.lighthouse.autotests.steps.storeManager.reports.StoreGrossSaleMarginReportSteps;
+import project.lighthouse.autotests.steps.deprecated.storeManager.reports.StoreGrossSaleMarginReportSteps;
 
 public class ThenGrossSaleMarginReportSteps {
 

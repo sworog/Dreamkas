@@ -3,7 +3,7 @@ package project.lighthouse.autotests.jbehave.commercialManager.supplier;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Then;
-import project.lighthouse.autotests.steps.commercialManager.supplier.SupplierSteps;
+import project.lighthouse.autotests.steps.deprecated.commercialManager.supplier.SupplierSteps;
 
 public class ThenSupplierSteps {
 

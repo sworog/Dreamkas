@@ -2,7 +2,7 @@ package project.lighthouse.autotests.jbehave.departmentManager.order;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.When;
-import project.lighthouse.autotests.steps.departmentManager.order.OrderMenuNavigationSteps;
+import project.lighthouse.autotests.steps.deprecated.departmentManager.order.OrderMenuNavigationSteps;
 
 public class WhenOrderMenuNavigationUserSteps {
 

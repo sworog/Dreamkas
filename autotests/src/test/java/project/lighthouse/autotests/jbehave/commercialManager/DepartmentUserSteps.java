@@ -9,7 +9,7 @@ import org.json.JSONException;
 import project.lighthouse.autotests.objects.api.Department;
 import project.lighthouse.autotests.steps.AuthorizationSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.DepartmentApiSteps;
-import project.lighthouse.autotests.steps.commercialManager.DepartmentSteps;
+import project.lighthouse.autotests.steps.deprecated.commercialManager.DepartmentSteps;
 
 import java.io.IOException;
 

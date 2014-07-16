@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.steps.commercialManager.ProductSteps;
+import project.lighthouse.autotests.steps.deprecated.commercialManager.ProductSteps;
 
 public class WhenProductUserSteps {
 

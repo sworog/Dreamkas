@@ -7,7 +7,7 @@ import org.json.JSONException;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
 import project.lighthouse.autotests.steps.api.commercialManager.StoreApiSteps;
-import project.lighthouse.autotests.steps.commercialManager.StoreSteps;
+import project.lighthouse.autotests.steps.deprecated.commercialManager.StoreSteps;
 
 import java.io.IOException;
 

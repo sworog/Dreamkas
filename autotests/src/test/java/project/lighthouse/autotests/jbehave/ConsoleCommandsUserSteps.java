@@ -6,7 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.console.ConsoleCommandResult;
-import project.lighthouse.autotests.steps.ConsoleCommandSteps;
+import project.lighthouse.autotests.steps.deprecated.ConsoleCommandSteps;
 import project.lighthouse.autotests.storage.Storage;
 import project.lighthouse.autotests.storage.containers.user.UserContainer;
 

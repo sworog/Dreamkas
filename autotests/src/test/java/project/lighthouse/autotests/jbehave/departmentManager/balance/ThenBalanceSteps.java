@@ -3,7 +3,7 @@ package project.lighthouse.autotests.jbehave.departmentManager.balance;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.steps.departmentManager.BalanceSteps;
+import project.lighthouse.autotests.steps.deprecated.departmentManager.BalanceSteps;
 
 public class ThenBalanceSteps {
 

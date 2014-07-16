@@ -2,7 +2,7 @@ package project.lighthouse.autotests.jbehave.errorPage;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Then;
-import project.lighthouse.autotests.steps.ErrorPageSteps;
+import project.lighthouse.autotests.steps.deprecated.ErrorPageSteps;
 
 public class ThenErrorPageUserSteps {
 

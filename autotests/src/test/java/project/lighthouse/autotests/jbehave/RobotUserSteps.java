@@ -7,7 +7,7 @@ import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.xml.sax.SAXException;
 import project.lighthouse.autotests.robotClient.InterruptedException_Exception;
-import project.lighthouse.autotests.steps.RobotSteps;
+import project.lighthouse.autotests.steps.deprecated.RobotSteps;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

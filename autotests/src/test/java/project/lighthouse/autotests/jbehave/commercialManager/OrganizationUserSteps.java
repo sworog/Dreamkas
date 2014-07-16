@@ -5,8 +5,7 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.steps.commercialManager.LegalDetailsSteps;
-import project.lighthouse.autotests.steps.commercialManager.OrganizationSteps;
+import project.lighthouse.autotests.steps.deprecated.commercialManager.OrganizationSteps;
 
 public class OrganizationUserSteps {
     @Steps
