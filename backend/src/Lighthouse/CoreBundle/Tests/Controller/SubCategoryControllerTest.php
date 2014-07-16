@@ -311,7 +311,7 @@ class SubCategoryControllerTest extends WebTestCase
         $this->assertResponseCode(400);
 
         Assert::assertJsonPathContains(
-            'Подкатегория с таким названием уже существует в этой категории',
+            'Группа с таким названием уже существует',
             'children.name.errors',
             $postResponse
         );
@@ -339,7 +339,7 @@ class SubCategoryControllerTest extends WebTestCase
         $this->assertResponseCode(400);
 
         Assert::assertJsonPathContains(
-            'Подкатегория с таким названием уже существует в этой категории',
+            'Группа с таким названием уже существует',
             'children.name.errors',
             $postResponse
         );
@@ -1170,7 +1170,7 @@ class SubCategoryControllerTest extends WebTestCase
         $this->assertCount(2, array_keys($statusCodes, 400), $responseBody);
         Assert::assertJsonPathEquals('Молочка', '*.name', $jsonResponses, 1);
         Assert::assertJsonPathEquals(
-            'Подкатегория с таким названием уже существует в этой категории',
+            'Группа с таким названием уже существует',
             '*.children.name.errors.0',
             $jsonResponses,
             2
@@ -1263,7 +1263,7 @@ class SubCategoryControllerTest extends WebTestCase
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
         Assert::assertJsonPathEquals(
-            'Подкатегория с таким названием уже существует в этой категории',
+            'Группа с таким названием уже существует',
             'children.name.errors.0',
             $response
         );

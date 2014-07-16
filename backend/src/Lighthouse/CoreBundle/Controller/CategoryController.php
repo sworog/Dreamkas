@@ -28,7 +28,7 @@ class CategoryController extends AbstractRestController
     protected $documentRepository;
 
     /**
-     * @return \Lighthouse\CoreBundle\Form\Classifier\CategoryType
+     * @return CategoryType
      */
     protected function getDocumentFormType()
     {

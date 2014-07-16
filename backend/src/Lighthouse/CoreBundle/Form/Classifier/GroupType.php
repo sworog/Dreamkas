@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Form\Classifier;
 
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
-use Lighthouse\CoreBundle\Form\Classifier\ClassifierNodeType;
 
 class GroupType extends ClassifierNodeType
 {

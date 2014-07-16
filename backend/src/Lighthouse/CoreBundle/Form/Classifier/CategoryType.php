@@ -4,7 +4,6 @@ namespace Lighthouse\CoreBundle\Form\Classifier;
 
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
-use Lighthouse\CoreBundle\Form\Classifier\ClassifierNodeType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class CategoryType extends ClassifierNodeType
