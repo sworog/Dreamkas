@@ -1,7 +1,7 @@
 define(function(require) {
     //requirements
     var Model = require('kit/core/model'),
-        currentUserModel = require('models/currentUser.inst');
+        currentUserModel = require('models/currentUser/currentUser.inst');
 
     return Model.extend({
         modelName: 'writeOff',

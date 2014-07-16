@@ -1,6 +1,7 @@
 define(function(require) {
     //requirements
     var Block = require('kit/block/block'),
+        getText = require('kit/getText/getText'),
         form2js = require('form2js'),
         router = require('router'),
         _ = require('lodash');
@@ -104,10 +105,10 @@ define(function(require) {
             if (data.errors) {
                 inputElement.classList.add('error');
 
-                errorMessage = data.errors.map(block.getText).join('. ');
+                errorMessage = data.errors.map(getText).join('. ');
 
                 errorElement.classList.add('form__errorMessage_visible');
-                errorElement.innerHTML = block.getText(errorMessage);
+                errorElement.innerHTML = getText(errorMessage);
             }
 
         },
@@ -131,7 +132,7 @@ define(function(require) {
         showSuccessMessage: function() {
             var block = this;
 
-            //block.elements.$submitButton.after('<span class="form__successMessage">' + block.getText(block.get('successMessage')) + '</span>')
+            //block.elements.$submitButton.after('<span class="form__successMessage">' + getText(block.get('successMessage')) + '</span>')
         },
         removeSuccessMessage: function() {
             var block = this;

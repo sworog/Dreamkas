@@ -1,152 +1,124 @@
-<div class="page sticky-header">
-    <!-- left side start-->
-    <div class="left-side sticky-left-side">
+<% var currentUserModel = require('models/currentUser/currentUser.inst') %>
 
-        <!--logo and iconic logo start-->
-        <div class="logo">
-            <a href="index.html">
-                <img class="app__logoImg" src="/img/logo1_green.png" />
-                <span class="app__logoText">Lighthouse</span>
-            </a>
-        </div>
+<div class="page">
 
-        <div class="logo-icon text-center">
-            <a href="index.html"><img class="app__logoImg" src="img/logo1.png" /></a>
-        </div>
-        <!--logo and iconic logo end-->
+    <nav id="sidebar" role="navigation" class="navbar-default navbar-static-side" style="min-height: 100%">
 
-
-        <div class="left-side-inner">
-
-            <!-- visible to small devices only -->
-            <div class="visible-xs hidden-sm hidden-md hidden-lg">
-                <div class="media logged-user">
-                    <div class="media-body">
-                        <h4><a href="#">owner@lighthouse.pro</a></h4>
-                    </div>
-                </div>
-
-                <ul class="nav nav-pills nav-stacked custom-nav">
-                    <li><a href="#"><i class="fa fa-user"></i> <span>Profile</span></a></li>
-                    <li><a href="#"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
-                    <li><a href="#"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
-                </ul>
-
-                <hr/>
+        <nav id="topbar" role="navigation" style="margin-bottom: 0;">
+            <div class="navbar-header">
+                <a id="logo" href="/" class="navbar-brand">
+                    <span style="font-size: 22px;" class="logo-text">LightHOUSE</span>
+                </a>
             </div>
+        </nav>
 
-            <!--sidebar nav start-->
-            <ul class="nav nav-pills nav-stacked custom-nav">
-                <li class="menu">
-                    <a href="index.html">
-                        <i class="fa fa-home"></i>
-                        <span>Обзор</span>
-                    </a>
+        <div class="sidebar-collapse menu-scroll">
+            <ul id="side-menu" class="nav">
+                <li class="user-panel">
+
+                    <div class="info">
+                        <p>
+                            <%- currentUserModel.get('username') || currentUserModel.get('email') %>
+                        </p>
+                        <ul class="list-inline list-unstyled">
+                            <li>
+                                <a href="extra-profile.html"
+                                   data-hover="tooltip"
+                                   title=""
+                                   data-original-title="Profile">
+                                    <i class="fa fa-user"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   data-hover="tooltip"
+                                   title=""
+                                   data-toggle="modal"
+                                   data-target="#modal-config"
+                                   data-original-title="Setting">
+                                    <i class="fa fa-cog"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/logout"
+                                   data-hover="tooltip"
+                                   title=""
+                                   data-original-title="Logout">
+                                    <i class="fa fa-sign-out"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="clearfix"></div>
                 </li>
 
-
-                <li class="menu active">
-
-                    <a href="index.html">
-                        <i class="fa fa-exchange"></i>
-                        <span>Товародвижение</span>
-                    </a>
-                </li>
-
-                <li class="menu">
-                    <a href="index.html">
-                        <i class="fa fa-rub"></i>
-                        <span>Деньги</span>
-                    </a>
-                </li>
-
-                <li class="menu">
-                    <a href="index.html">
-                        <i class="fa fa-bar-chart-o"></i>
-                        <span>Отчеты</span>
+                <li>
+                    <a href="/">
+                        <i class="fa fa-tachometer fa-fw"></i>
+                        <span class="menu-title">Обзор</span>
                     </a>
                 </li>
 
                 <li>
-                    <hr/>
-
-                </li>
-
-
-                <li class="menu">
-
-                    <a href="goods.html">
-                        <i class="fa"></i>
-                        <span>Ассортимент</span>
+                    <a href="/">
+                        <i class="fa fa-exchange fa-fw"></i>
+                        <span class="menu-title">Товародвижение</span>
                     </a>
                 </li>
 
-                <li class="menu">
-                    <a href="index.html">
-                        <i class="fa"></i>
-                        <span>Поставщики</span>
+                <li>
+                    <a href="/">
+                        <i class="fa fa-rub fa-fw"></i>
+                        <span class="menu-title">Деньги</span>
                     </a>
                 </li>
 
-                <li class="menu">
-                    <a href="index.html">
-                        <i class="fa"></i>
-                        <span>Магазины</span>
+                <li>
+                    <a href="/">
+                        <i class="fa fa-bar-chart-o fa-fw"></i>
+                        <span class="menu-title">Отчеты</span>
                     </a>
                 </li>
 
+                <li>
+                    <a href="/">
+                        <span class="menu-title">Ассортимент</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/">
+                        <span class="menu-title">Поставщики</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/">
+                        <span class="menu-title">Магазины</span>
+                    </a>
+                </li>
             </ul>
-            <!--sidebar nav end-->
-
         </div>
-    </div>
-    <!-- left side end-->
+    </nav>
 
-    <!-- main content start-->
-    <div class="main-content">
+    <div id="page-wrapper">
 
-        <!-- header section start-->
-        <div class="header-section">
-
-            <!--toggle button start-->
-            <a class="hidden-lg hidden-md hidden-sm toggle-btn"><i class="fa fa-bars"></i></a>
-            <!--toggle button end-->
-            <div class="app__title">
-                Приёмка
+        <!--BEGIN TITLE PAGE-->
+        <div id="title-breadcrumb-option-demo" class="page-title-breadcrumb">
+            <div class="page-header pull-left">
+                <div class="page-title"><%- title %></div>
             </div>
 
-            <!--notification menu start -->
-            <div class="menu-right">
-                <ul class="notification-menu">
-                    <li>
-                        <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            owner@lighthouse.pro
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
-                            <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
-                            <li><a href="#"><i class="fa fa-cog"></i> Settings</a></li>
-                            <li><a href="/logout"><i class="fa fa-sign-out"></i> Log Out</a></li>
-                        </ul>
-                    </li>
-
-                </ul>
-            </div>
-            <!--notification menu end -->
-
+            <div class="clearfix"></div>
         </div>
-        <!-- header section end-->
+        <!--END TITLE PAGE-->
 
-        <!--body wrapper start-->
-        <div class="wrapper">
-
+        <!--BEGIN CONTENT-->
+        <div class="page-content">
             <%= content(obj) %>
-
         </div>
-        <!--body wrapper end-->
-
-
+        <!--END CONTENT-->
     </div>
-    <!-- main content end-->
 
 </div>
