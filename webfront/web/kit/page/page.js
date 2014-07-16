@@ -113,14 +113,6 @@ define(function(require, exports, module) {
             var block = this;
 
             Block.prototype._initBlocks.apply(block, arguments);
-
-            //BEGIN TOOTLIP
-            $("[data-toggle='tooltip'], [data-hover='tooltip']").tooltip();
-            //END TOOLTIP
-
-            //BEGIN POPOVER
-            $("[data-toggle='popover'], [data-hover='popover']").popover();
-            //END POPOVER
         }
     });
 

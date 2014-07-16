@@ -16,7 +16,7 @@ define(function(require) {
         },
         showErrors: function(error) {
             var block = this,
-                form__errorMessage = block.el.querySelector('.form__errorMessage');
+                form__errorMessage = block.el.querySelector('.form__errorMessage_global');
 
             form__errorMessage.innerHTML = getText(error.error);
             form__errorMessage.classList.add('form__errorMessage_visible');

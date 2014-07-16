@@ -66,6 +66,7 @@ define(function(require) {
         submitStart: function() {
             var block = this;
 
+            block.$submitButton.addClass('loading');
             block.disable();
             block.removeErrors();
             block.removeSuccessMessage();
@@ -73,6 +74,7 @@ define(function(require) {
         submitComplete: function() {
             var block = this;
 
+            block.$submitButton.removeClass('loading');
             block.enable();
         },
         submitSuccess: function() {
@@ -100,10 +102,10 @@ define(function(require) {
             var block = this,
                 errorMessage,
                 inputElement = block.el.querySelector('[name="' + field + '"]'),
-                errorElement = block.el.querySelector('.form__errorMessage[for="' + field + '"]');
+                errorElement = block.el.querySelector('.form__errorMessage[for="' + field + '"]') || $('<div class="form__errorMessage"></div>').insertAfter(inputElement)[0];
 
             if (data.errors) {
-                inputElement.classList.add('error');
+                inputElement.classList.add('invalid');
 
                 errorMessage = data.errors.map(getText).join('. ');
 
@@ -127,7 +129,7 @@ define(function(require) {
             var block = this;
 
             block.$('.form__errorMessage_visible').removeClass('form__errorMessage_visible');
-            block.$('input.error').removeClass('error');
+            block.$('input.invalid').removeClass('invalid');
         },
         showSuccessMessage: function() {
             var block = this;
