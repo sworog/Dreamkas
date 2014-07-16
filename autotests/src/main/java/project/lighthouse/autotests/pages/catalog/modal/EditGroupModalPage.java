@@ -5,9 +5,9 @@ import org.openqa.selenium.WebDriver;
 /**
  * Edit group modal page object
  */
-public class EditGroupPageModalPage extends CreateGroupModalPage {
+public class EditGroupModalPage extends CreateGroupModalPage {
 
-    public EditGroupPageModalPage(WebDriver driver) {
+    public EditGroupModalPage(WebDriver driver) {
         super(driver);
     }
 
