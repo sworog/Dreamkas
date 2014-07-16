@@ -138,6 +138,8 @@ class SubCategoryController extends AbstractRestController
      * @param SubCategory $subCategory
      * @return void
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @Rest\Route("subcategories/{subCategory}", name="_subcategories")
+     * @Rest\Route("catalog/groups/{subCategory}", name="_catalog_groups")
      * @ApiDoc
      */
     public function deleteSubcategoriesAction(SubCategory $subCategory)

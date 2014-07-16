@@ -509,7 +509,7 @@ class SubCategoryControllerTest extends WebTestCase
         Assert::assertJsonPathCount(0, '*.id', $response);
     }
 
-    public function testDeleteCategory()
+    public function testDeleteSubCategory()
     {
         $groupId = $this->createGroup();
         $categoryId = $this->createCategory($groupId);
@@ -542,7 +542,7 @@ class SubCategoryControllerTest extends WebTestCase
         $this->assertResponseCode(404);
     }
 
-    public function testDeleteNotEmptyCategory()
+    public function testDeleteNotEmptySubCategory()
     {
         $subCategoryId = $this->createSubCategory();
 

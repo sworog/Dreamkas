@@ -123,6 +123,23 @@ class CatalogGroupControllerTest extends WebTestCase
         $this->assertEquals($putResponse, $getResponse);
     }
 
+    public function testDeleteAction()
+    {
+        $catalogGroupId = $this->createCatalogGroup('Группа1');
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/catalog/groups/' . $catalogGroupId
+        );
+
+        $this->assertResponseCode(204);
+
+        $this->assertNull($deleteResponse);
+    }
+
     /**
      * @param string $name
      * @return string
