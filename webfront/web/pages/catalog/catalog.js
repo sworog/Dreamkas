@@ -5,6 +5,13 @@ define(function(require, exports, module) {
     return Page.extend({
         content: require('ejs!./content.ejs'),
         title: 'Ассортимент',
-        activeNavigationItem: 'catalog'
+        activeNavigationItem: 'catalog',
+        collections: {
+            groups: function() {
+                var GroupsCollection = require('collections/groups/groups');
+
+                return new GroupsCollection();
+            }
+        }
     });
 });

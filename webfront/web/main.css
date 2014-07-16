@@ -14,3 +14,35 @@
     line-height: 24px;
 }
 
+.modal {
+    overflow: hidden;
+}
+
+.modal-dialog {
+    height: 100%;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+
+.modal-content{
+    height: 100%;
+}
+
+.modal-body{
+    position: absolute;
+    top: 67px;
+    bottom: 85px;
+    left: 0;
+    right: 0;
+    overflow: auto;
+    padding-bottom: 0;
+    padding-top: 0;
+}
+
+.modal-footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
