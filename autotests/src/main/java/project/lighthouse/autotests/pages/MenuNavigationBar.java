@@ -8,7 +8,7 @@ import project.lighthouse.autotests.elements.Buttons.navigationBar.NavigationBar
 
 public class MenuNavigationBar extends CommonPageObject {
 
-    @FindBy(xpath = "//*[@class='globalNavigation']//*[@name='userName']")
+    @FindBy(xpath = "//*[@id='side-menu']/*[@class='user-panel']/*[@class='info']/p")
     @SuppressWarnings("unused")
     private WebElement userNameWebElement;
 
