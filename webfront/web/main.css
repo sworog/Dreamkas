@@ -47,7 +47,7 @@ input + .form__errorMessage {
 }
 
 .groupList__link.loading {
-    background-color: #5bc0de;
+    background-color: #5bc0de !important;
     color: #fff;
 }
 
