@@ -114,13 +114,13 @@ define(function(require) {
             }
 
         },
-        showErrors: function(errors, response) {
+        showErrors: function(error, response) {
             var block = this;
 
             block.removeErrors();
 
-            if (errors.children) {
-                _.each(errors.children, function(data, field) {
+            if (error.errors.children) {
+                _.each(error.errors.children, function(data, field) {
                     block.showFieldError(data, field);
                 });
             }

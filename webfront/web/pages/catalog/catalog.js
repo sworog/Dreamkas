@@ -5,10 +5,6 @@ define(function(require, exports, module) {
         Form_group = require('blocks/form/form_group/form_group'),
         router = require('router');
 
-    var partials = {
-        group: require('ejs!./group.ejs')
-    };
-
     return Page.extend({
         content: require('ejs!./content.ejs'),
         title: 'Ассортимент',
