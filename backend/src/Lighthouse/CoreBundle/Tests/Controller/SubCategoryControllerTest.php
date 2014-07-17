@@ -1175,7 +1175,7 @@ class SubCategoryControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('Молочка', '*.name', $jsonResponses, 1);
         Assert::assertJsonPathEquals(
             'Группа с таким названием уже существует',
-            '*.children.name.errors.0',
+            '*.errors.children.name.errors.0',
             $jsonResponses,
             2
         );

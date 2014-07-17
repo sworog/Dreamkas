@@ -362,7 +362,7 @@ class SupplierControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('Поставщик', '*.name', $jsonResponses, 1);
         Assert::assertJsonPathEquals(
             'Поставщик с таким названием уже существует',
-            '*.children.name.errors.0',
+            '*.errors.children.name.errors.0',
             $jsonResponses,
             2
         );

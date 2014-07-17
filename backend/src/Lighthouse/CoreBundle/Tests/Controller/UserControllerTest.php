@@ -930,7 +930,7 @@ class UserControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('test@test.com', '*.email', $jsonResponses, 1);
         Assert::assertJsonPathEquals(
             'Пользователь с таким email уже существует',
-            '*.children.email.errors.0',
+            '*.errors.children.email.errors.0',
             $jsonResponses,
             2
         );
