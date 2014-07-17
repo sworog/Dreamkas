@@ -1,13 +1,8 @@
 package project.lighthouse.autotests.jbehave;
 
 import ch.lambdaj.Lambda;
-import net.thucydides.core.ThucydidesSystemProperty;
-import net.thucydides.core.webdriver.ThucydidesWebDriverEventListener;
 import net.thucydides.core.webdriver.WebdriverProxyFactory;
 import net.thucydides.jbehave.ThucydidesJUnitStories;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.thucydides.RemoteWebDriverEventListener;
 
@@ -62,7 +57,9 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
     private void findStoriesByStories() {
         String storyNames = getEnvironmentVariables().getProperty(STORIES, null);
         if (storyNames != null) {
-            findStoriesCalled(storyNames);
+            if (!storyNames.isEmpty()) {
+                findStoriesCalled(storyNames);
+            }
         }
     }
 
