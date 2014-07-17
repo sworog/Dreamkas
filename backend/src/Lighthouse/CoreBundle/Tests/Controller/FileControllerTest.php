@@ -121,8 +121,8 @@ class FileControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'errors.errors.0' => 'Размер файла должен быть меньше 10Мб',
-                    'errors.errors.1' => null,
+                    'errors.0' => 'Размер файла должен быть меньше 10Мб',
+                    'errors.1' => null,
                 ),
                 2
             ),
@@ -148,7 +148,7 @@ class FileControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'errors.errors.0' => 'Отсутствует заголовок X-File-Name',
+                    'errors.0' => 'Отсутствует заголовок X-File-Name',
                 ),
                 2
             ),

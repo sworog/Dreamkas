@@ -525,7 +525,7 @@ class StoreControllerTest extends WebTestCase
         $this->assertCount(1, array_keys($statusCodes, 201), $responseBody);
         $this->assertCount(2, array_keys($statusCodes, 400), $responseBody);
         Assert::assertJsonPathEquals('32', '*.number', $jsonResponses, 1);
-        Assert::assertJsonPathEquals('Такой магазин уже есть', '*.children.number.errors.0', $jsonResponses, 2);
+        Assert::assertJsonPathEquals('Такой магазин уже есть', '*.errors.children.number.errors.0', $jsonResponses, 2);
     }
 
     protected function doPostActionFlushFailedException(\Exception $exception)

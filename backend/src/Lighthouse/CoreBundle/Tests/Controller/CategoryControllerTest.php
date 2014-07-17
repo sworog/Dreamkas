@@ -1099,7 +1099,7 @@ class CategoryControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('Молочка', '*.name', $jsonResponses, 1);
         Assert::assertJsonPathEquals(
             'Категория с таким названием уже существует в этой группе',
-            '*.children.name.errors.0',
+            '*.errors.children.name.errors.0',
             $jsonResponses,
             2
         );

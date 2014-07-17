@@ -558,7 +558,7 @@ class DepartmentControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('42', '*.number', $jsonResponses, 1);
         Assert::assertJsonPathEquals(
             'Отдел с таким названием уже существует в этом магазине',
-            '*.children.number.errors.0',
+            '*.errors.children.number.errors.0',
             $jsonResponses,
             2
         );
