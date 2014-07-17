@@ -39,7 +39,7 @@ public class StoreApiSteps extends OwnerApi {
                                                        String contacts,
                                                        String email) throws JSONException, IOException {
         Store store = new Store(number, address, contacts);
-        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainer(email);
+        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email);
 
         store = new ApiConnect(userContainer.getEmail(), userContainer.getPassword()).createStoreThroughPost(store);
         Storage.getStoreVariableStorage().setStore(store);

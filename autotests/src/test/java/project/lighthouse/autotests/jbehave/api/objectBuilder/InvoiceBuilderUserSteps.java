@@ -64,7 +64,7 @@ public class InvoiceBuilderUserSteps {
                     break;
             }
         }
-        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainer(email);
+        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email);
 
         invoiceBuilderSteps.build(supplierApiSteps.createSupplier(userContainer).getId(), acceptanceDate, accepter, legalEntity, supplierInvoiceNumber);
     }

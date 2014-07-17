@@ -27,7 +27,7 @@ public class CatalogApiSteps extends OwnerApi {
     @Step
     public Group createGroupThroughPostByUserWithEmail(String groupName, String email) throws IOException, JSONException {
         Group group = new Group(groupName);
-        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainer(email);
+        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email);
         return new ApiConnect(userContainer.getEmail(), userContainer.getPassword()).createGroupThroughPost(group);
     }
 
@@ -42,7 +42,7 @@ public class CatalogApiSteps extends OwnerApi {
     public Category createCategoryThroughPostByUserWithEmail(String categoryName, String groupName, String email) throws IOException, JSONException {
         Group group = createGroupThroughPostByUserWithEmail(groupName, email);
         Category category = new Category(categoryName, group.getId());
-        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainer(email);
+        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email);
         return new ApiConnect(userContainer.getEmail(), userContainer.getPassword()).createCategoryThroughPost(category, group);
     }
 
@@ -71,7 +71,7 @@ public class CatalogApiSteps extends OwnerApi {
         Group group = createGroupThroughPostByUserWithEmail(groupName, email);
         Category category = createCategoryThroughPostByUserWithEmail(categoryName, groupName, email);
         SubCategory subCategory = new SubCategory(subCategoryName, category.getId());
-        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainer(email);
+        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email);
         return new ApiConnect(userContainer.getEmail(), userContainer.getPassword()).createSubCategoryThroughPost(subCategory, category, group);
     }
 
@@ -111,7 +111,7 @@ public class CatalogApiSteps extends OwnerApi {
                                                     String retailMarkupMin,
                                                     String subCategoryName,
                                                     String email) throws IOException, JSONException {
-        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainer(email);
+        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email);
         new ApiConnect(userContainer.getEmail(), userContainer.getPassword())
                 .setSubCategoryMarkUp(retailMarkupMax, retailMarkupMin, StaticData.subCategories.get(subCategoryName));
     }

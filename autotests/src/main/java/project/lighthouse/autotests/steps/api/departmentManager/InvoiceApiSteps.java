@@ -83,7 +83,7 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
 
     @Step
     public Invoice createInvoiceFromInvoiceBuilderStepsByUserWithEmail(String email) throws IOException, JSONException {
-        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainer(email);
+        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email);
         Invoice invoice = new InvoicesFactory(email, userContainer.getPassword())
                 .create(
                         Storage.getInvoiceVariableStorage().getInvoiceForInvoiceBuilderSteps(),

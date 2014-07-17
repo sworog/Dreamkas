@@ -70,7 +70,7 @@ public class ProductApiSteps extends OwnerApi {
                 retailMarkupMax,
                 retailMarkupMin,
                 rounding);
-        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainer(email);
+        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email);
         ApiConnect userApiConnect = new ApiConnect(userContainer.getEmail(), userContainer.getPassword());
         userApiConnect.getSubCategoryMarkUp(subCategoryObject);
         return userApiConnect.createProductThroughPost(product, subCategoryObject);
@@ -109,7 +109,7 @@ public class ProductApiSteps extends OwnerApi {
             String rounding, String email) throws JSONException, IOException {
         SubCategory subCategory = StaticData.subCategories.get(subCategoryName);
 
-        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainer(email);
+        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email);
         ApiConnect userApiConnect = new ApiConnect(userContainer.getEmail(), userContainer.getPassword());
         userApiConnect.getSubCategoryMarkUp(subCategory);
         return createProductByUser(

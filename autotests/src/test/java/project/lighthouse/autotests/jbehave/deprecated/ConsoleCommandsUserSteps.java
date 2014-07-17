@@ -9,6 +9,7 @@ import project.lighthouse.autotests.console.ConsoleCommandResult;
 import project.lighthouse.autotests.steps.deprecated.ConsoleCommandSteps;
 import project.lighthouse.autotests.storage.Storage;
 import project.lighthouse.autotests.storage.containers.user.UserContainer;
+import project.lighthouse.autotests.storage.containers.user.UserContainerList;
 
 import java.io.IOException;
 
@@ -35,10 +36,13 @@ public class ConsoleCommandsUserSteps {
 
     @Given("the user runs the symfony:user:create command with params: email '$email' and password '$password'")
     public void givenTheUserRunsTheSymfonyUserCreateCommandWithParams(String email, String password) throws IOException, InterruptedException, JSONException {
-        ConsoleCommandResult consoleCommandResult = consoleCommandSteps.runCapAutoTestsSymfonyCreateUserCommand(email, password);
-        UserContainer userContainer = getUserContainer(consoleCommandResult);
-        Storage.getUserVariableStorage().getUserContainers().add(userContainer);
-        Storage.getUserVariableStorage().getUserContainers().getContainer(email).setPassword(password);
+        UserContainerList userContainers = Storage.getUserVariableStorage().getUserContainers();
+        if (!userContainers.hasContainerWithEmail(email)) {
+            ConsoleCommandResult consoleCommandResult = consoleCommandSteps.runCapAutoTestsSymfonyCreateUserCommand(email, password);
+            UserContainer userContainer = getUserContainer(consoleCommandResult);
+            Storage.getUserVariableStorage().getUserContainers().add(userContainer);
+            Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email).setPassword(password);
+        }
     }
 
     private UserContainer getUserContainer(ConsoleCommandResult consoleCommandResult) throws JSONException {
