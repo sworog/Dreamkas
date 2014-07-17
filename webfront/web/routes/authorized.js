@@ -11,6 +11,7 @@ define(function(require) {
         'logout(/)': require('kit/logout/logout'),
 
         //catalog
-        'catalog(/)': require('pages/catalog/catalog')
+        'catalog(/)': require('pages/catalog/catalog'),
+        'catalog/groups/:groupId(/)': require('pages/catalog/catalog')
     };
 });

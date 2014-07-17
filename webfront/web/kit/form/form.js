@@ -102,7 +102,7 @@ define(function(require) {
             var block = this,
                 errorMessage,
                 inputElement = block.el.querySelector('[name="' + field + '"]'),
-                errorElement = block.el.querySelector('.form__errorMessage[for="' + field + '"]') || $('<div class="form__errorMessage"></div>').insertAfter(inputElement)[0];
+                errorElement = block.el.querySelector('.form__errorMessage[for="' + field + '"]') || $('<div for="' + field + '" class="form__errorMessage"></div>').insertAfter(inputElement)[0];
 
             if (data.errors) {
                 inputElement.classList.add('invalid');

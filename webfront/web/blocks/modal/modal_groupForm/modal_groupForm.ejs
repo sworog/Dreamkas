@@ -1,4 +1,7 @@
-<div id="modal-group"
+<% var GroupModel = require('models/group/group') %>
+<% var group = group || new GroupModel() %>
+
+<div id="<%- group.id ? 'modal-groupEdit' : 'modal-groupAdd' %>"
      tabindex="-1"
      role="dialog"
      aria-labelledby="modal-default-label"
@@ -10,23 +13,39 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
-                <h4 id="modal-default-label" class="modal-title">Добавить группу</h4>
+                <h4 id="modal-default-label" class="modal-title">
+                    <%- group.id ? 'Редактирование группы' : 'Добавить группу' %>
+                </h4>
             </div>
             <div class="modal-body">
 
-                <form class="form form_group">
-                    <div class="form-group"><label for="inputSubject" class="control-label">Наименование</label>
+                <form id="<%- group.id ? 'form_groupEdit' : 'form_groupAdd' %>" style="padding: 100px 30px;" class="form form_group">
+                    <div class="form-group">
+
+                        <label for="inputSubject" class="control-label">Наименование</label>
 
                         <div class="input-icon right">
-                            <input name="name" type="text" placeholder="" class="form-control">
+                            <input
+                                    name="name"
+                                    type="text"
+                                    placeholder=""
+                                    class="form-control"
+                                    value="<%- group.get('name') %>">
                         </div>
                     </div>
                 </form>
 
+                <% if (group.id) { %>
+                    <a style="cursor: pointer;" class="form__groupRemoveLink">
+                        <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                        Удалить группу
+                    </a>
+                <% } %>
+
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-default">Отменить</button>
-                <button type="button" class="btn btn-primary">Сохранить</button>
+                <button form="<%- group.id ? 'form_groupEdit' : 'form_groupAdd' %>" type="submit" class="btn btn-primary">Сохранить</button>
             </div>
         </div>
     </div>

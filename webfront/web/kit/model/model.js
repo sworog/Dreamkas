@@ -36,7 +36,7 @@ define(function(require, exports, module) {
             }, options));
         },
         destroy: function(options) {
-            Backbone.Model.prototype.destroy.call(this, _.extend({
+            return Backbone.Model.prototype.destroy.call(this, _.extend({
                 wait: true
             }, options))
         },
@@ -46,7 +46,7 @@ define(function(require, exports, module) {
         element: function(attr){
             var model = this,
                 uniqueId = _.uniqueId('modelElement'),
-                nodeTemplate = '<span id="' + uniqueId + '">' + _.escape(model.get(attr)) || '' + '</span>';
+                nodeTemplate = '<span id="' + uniqueId + '">' + (_.escape(model.get(attr)) || '') + '</span>';
 
             model.on('change:' + attr, function() {
                 document.getElementById(uniqueId).innerHTML = _.escape(model.get(attr)) || '';
