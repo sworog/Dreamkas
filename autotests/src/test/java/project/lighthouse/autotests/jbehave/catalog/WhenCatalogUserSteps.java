@@ -64,5 +64,8 @@ public class WhenCatalogUserSteps {
         catalogSteps.deleteGroupModalPageConfirmCancel();
     }
 
-
+    @When("the user clicks on the edit group icon")
+    public void whenTheUserClicksOnTheEditGroupIcon() {
+        catalogSteps.editGroupIconClick();
+    }
 }

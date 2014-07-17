@@ -2,6 +2,8 @@ package project.lighthouse.autotests.steps.catalog;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
+import org.openqa.selenium.TimeoutException;
+import project.lighthouse.autotests.objects.web.catalog.GroupObjectCollection;
 import project.lighthouse.autotests.pages.catalog.CatalogPage;
 import project.lighthouse.autotests.pages.catalog.modal.CreateGroupModalPage;
 import project.lighthouse.autotests.pages.catalog.modal.DeleteGroupModalPage;
@@ -39,8 +41,16 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void groupCollectionContainsGroupWithName(String groupName) {
-        //try catch to prevent exception if there is no groups
-        catalogPage.getGroupObjectCollection().contains(groupName);
+        GroupObjectCollection orderObjectCollection = null;
+        try {
+            orderObjectCollection = catalogPage.getGroupObjectCollection();
+        } catch (TimeoutException e) {
+            catalogPage.containsText("У вас пока нет ни групп, ни товаров!");
+        } finally {
+            if (orderObjectCollection != null) {
+                orderObjectCollection.contains(groupName);
+            }
+        }
     }
 
     @Step
@@ -111,5 +121,10 @@ public class CatalogSteps extends ScenarioSteps {
     @Step
     public void deleteGroupModalPageConfirmCancel() {
         deleteGroupModalPage.confirmationCancelClick();
+    }
+
+    @Step
+    public void editGroupIconClick() {
+        catalogPage.editGroupIconClick();
     }
 }

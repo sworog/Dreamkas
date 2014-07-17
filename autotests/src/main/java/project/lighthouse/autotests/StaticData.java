@@ -68,5 +68,6 @@ public class StaticData {
         suppliers.clear();
         Storage.getOrderVariableStorage().resetNumber();
         Storage.getInvoiceVariableStorage().resetNumber();
+        Storage.getUserVariableStorage().getUserContainers().clear();
     }
 }

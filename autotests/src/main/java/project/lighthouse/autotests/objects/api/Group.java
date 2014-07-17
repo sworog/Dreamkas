@@ -7,7 +7,7 @@ import project.lighthouse.autotests.objects.api.abstraction.AbstractClassifierNo
 
 public class Group extends AbstractClassifierNode {
 
-    private static final String API_URL = "/groups";
+    private static final String API_URL = "/catalog/groups";
 
     static public String DEFAULT_NAME = "defaultGroup";
 
