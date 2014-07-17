@@ -13,7 +13,7 @@ Meta:
 @smoke
 @id_
 
-Given the user runs the symfony:user:create command with params: email 's28u100@lighthouse.pro' and password 'lighthouse'
+GivenStories: precondition/sprint-38/aPreconditionToUserCreation.story
 
 Given the user opens catalog page
 And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
@@ -30,7 +30,7 @@ Scenario: Group creation confirmation cancel
 Meta:
 @id_
 
-Given the user runs the symfony:user:create command with params: email 's28u100@lighthouse.pro' and password 'lighthouse'
+GivenStories: precondition/sprint-38/aPreconditionToUserCreation.story
 
 Given the user opens catalog page
 And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
@@ -47,7 +47,7 @@ Meta:
 @smoke
 @id_
 
-Given the user runs the symfony:user:create command with params: email 's28u100@lighthouse.pro' and password 'lighthouse'
+GivenStories: precondition/sprint-38/aPreconditionToUserCreation.story
 
 Given there is the group with name 'Группа до редактирования'
 
@@ -68,7 +68,7 @@ Scenario: Group edition confirmation cancel
 Meta:
 @id_
 
-Given the user runs the symfony:user:create command with params: email 's28u100@lighthouse.pro' and password 'lighthouse'
+GivenStories: precondition/sprint-38/aPreconditionToUserCreation.story
 
 Given there is the group with name 'Группа до редактирования1'
 
@@ -89,7 +89,7 @@ Meta:
 @smoke
 @id_
 
-Given the user runs the symfony:user:create command with params: email 's28u100@lighthouse.pro' and password 'lighthouse'
+GivenStories: precondition/sprint-38/aPreconditionToUserCreation.story
 
 Given there is the group with name 'Группа для удаления'
 
@@ -109,7 +109,7 @@ Scenario: Group deletion confirmation cancel
 Meta:
 @id_
 
-Given the user runs the symfony:user:create command with params: email 's28u100@lighthouse.pro' and password 'lighthouse'
+GivenStories: precondition/sprint-38/aPreconditionToUserCreation.story
 
 Given there is the group with name 'Группа для удаления1'
 
@@ -129,7 +129,7 @@ Meta:
 @smoke
 @id_
 
-Given the user runs the symfony:user:create command with params: email 's28u100@lighthouse.pro' and password 'lighthouse'
+GivenStories: precondition/sprint-38/aPreconditionToUserCreation.story
 
 Given the user opens the authorization page
 And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
@@ -143,7 +143,7 @@ Scenario: Catalog title assert
 Meta:
 @id_
 
-Given the user runs the symfony:user:create command with params: email 's28u100@lighthouse.pro' and password 'lighthouse'
+GivenStories: precondition/sprint-38/aPreconditionToUserCreation.story
 
 Given the user opens catalog page
 And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
@@ -155,7 +155,7 @@ Scenario: Choosen group title assert
 Meta:
 @id_
 
-Given the user runs the symfony:user:create command with params: email 's28u100@lighthouse.pro' and password 'lighthouse'
+GivenStories: precondition/sprint-38/aPreconditionToUserCreation.story
 
 Given there is the group with name 'Группа для выбора'
 
@@ -171,7 +171,7 @@ Scenario: Create group modal window title assert
 Meta:
 @id_
 
-Given the user runs the symfony:user:create command with params: email 's28u100@lighthouse.pro' and password 'lighthouse'
+GivenStories: precondition/sprint-38/aPreconditionToUserCreation.story
 
 Given the user opens catalog page
 And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
@@ -185,7 +185,7 @@ Scenario: Edit group modal window title assert
 Meta:
 @id_
 
-Given the user runs the symfony:user:create command with params: email 's28u100@lighthouse.pro' and password 'lighthouse'
+GivenStories: precondition/sprint-38/aPreconditionToUserCreation.story
 
 Given there is the group with name 'Тест группа'
 
@@ -199,7 +199,10 @@ Then the user asserts the create group modal window title is 'Редактиро
 
 Scenario: Delete group modal window title assert
 
-Given the user runs the symfony:user:create command with params: email 's28u100@lighthouse.pro' and password 'lighthouse'
+Meta:
+@id_
+
+GivenStories: precondition/sprint-38/aPreconditionToUserCreation.story
 
 Given there is the group with name 'Тест группа'
 
@@ -217,9 +220,8 @@ Scenario: No groups title assert
 Meta:
 @id_
 
-Given the user runs the symfony:user:create command with params: email 's28u100@lighthouse.pro' and password 'lighthouse'
-
-Given the user runs the symfony:env:init command
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
+              precondition/sprint-38/aPreconditionToUserCreation.story
 
 Given the user opens catalog page
 And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
