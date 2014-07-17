@@ -35,7 +35,7 @@ public class CatalogPage extends CommonPageObject {
     }
 
     public String getTitle() {
-        return findVisibleElement(By.name("Heading")).getText();
+        return findVisibleElement(By.className("page-title")).getText();
     }
 
     public void editGroupIconClick() {
