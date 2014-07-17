@@ -76,7 +76,7 @@ class DepartmentControllerTest extends WebTestCase
 
         Assert::assertJsonPathContains(
             'Отдел с таким названием уже существует в этом магазине',
-            'children.number.errors',
+            'errors.children.number.errors',
             $postResponse
         );
 
@@ -104,7 +104,7 @@ class DepartmentControllerTest extends WebTestCase
 
         Assert::assertJsonPathContains(
             'Отдел с таким названием уже существует в этом магазине',
-            'children.number.errors',
+            'errors.children.number.errors',
             $postResponse
         );
     }
@@ -149,7 +149,7 @@ class DepartmentControllerTest extends WebTestCase
                 400,
                 array('name' => ''),
                 array(
-                    'children.name.errors.0'
+                    'errors.children.name.errors.0'
                     =>
                     'Заполните это поле'
                 )
@@ -158,7 +158,7 @@ class DepartmentControllerTest extends WebTestCase
                 400,
                 array('name' => str_repeat('z', 101)),
                 array(
-                    'children.name.errors.0'
+                    'errors.children.name.errors.0'
                     =>
                     'Не более 100 символов'
                 )
@@ -167,7 +167,7 @@ class DepartmentControllerTest extends WebTestCase
                 400,
                 array('store' => '1234'),
                 array(
-                    'children.store.errors.0'
+                    'errors.children.store.errors.0'
                     =>
                     'Такого магазина не существует'
                 )
@@ -184,7 +184,7 @@ class DepartmentControllerTest extends WebTestCase
                 400,
                 array('number' => ''),
                 array(
-                    'children.number.errors.0'
+                    'errors.children.number.errors.0'
                     =>
                     'Заполните это поле'
                 )
@@ -193,7 +193,7 @@ class DepartmentControllerTest extends WebTestCase
                 400,
                 array('number' => str_repeat('z', 51)),
                 array(
-                    'children.number.errors.0'
+                    'errors.children.number.errors.0'
                     =>
                     'Не более 50 символов'
                 )
@@ -210,7 +210,7 @@ class DepartmentControllerTest extends WebTestCase
                 400,
                 array('number' => 'DepartmentДепартамент123466!@#$%^&*(;"'),
                 array(
-                    'children.number.errors.0'
+                    'errors.children.number.errors.0'
                     =>
                     'Значение недопустимо'
                 )
@@ -651,7 +651,7 @@ class DepartmentControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
         Assert::assertJsonPathEquals(
             'Отдел с таким названием уже существует в этом магазине',
-            'children.number.errors.0',
+            'errors.children.number.errors.0',
             $response
         );
     }

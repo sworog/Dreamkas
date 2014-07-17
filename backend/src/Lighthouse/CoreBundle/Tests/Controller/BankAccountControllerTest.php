@@ -129,7 +129,7 @@ class BankAccountControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.account.errors.0' => 'Заполните это поле'
+                    'errors.children.account.errors.0' => 'Заполните это поле'
                 )
             ),
             'invalid max length' => array(
@@ -141,10 +141,10 @@ class BankAccountControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.bankName.errors.0' => 'Не более 300 символов',
-                    'children.bankAddress.errors.0' => 'Не более 300 символов',
-                    'children.correspondentAccount.errors.0' => 'Не более 30 символов',
-                    'children.account.errors.0' => 'Не более 100 символов',
+                    'errors.children.bankName.errors.0' => 'Не более 300 символов',
+                    'errors.children.bankAddress.errors.0' => 'Не более 300 символов',
+                    'errors.children.correspondentAccount.errors.0' => 'Не более 30 символов',
+                    'errors.children.account.errors.0' => 'Не более 100 символов',
                 )
             ),
             'invalid bic max length' => array(
@@ -153,7 +153,7 @@ class BankAccountControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.bic.errors.0' => 'БИК должен состоять из 9 цифр',
+                    'errors.children.bic.errors.0' => 'БИК должен состоять из 9 цифр',
                 )
             ),
             'invalid bic min length' => array(
@@ -162,7 +162,7 @@ class BankAccountControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.bic.errors.0' => 'БИК должен состоять из 9 цифр',
+                    'errors.children.bic.errors.0' => 'БИК должен состоять из 9 цифр',
                 )
             ),
             'invalid bic not digits' => array(
@@ -171,7 +171,7 @@ class BankAccountControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.bic.errors.0' => 'БИК должен состоять из 9 цифр',
+                    'errors.children.bic.errors.0' => 'БИК должен состоять из 9 цифр',
                 )
             ),
         );

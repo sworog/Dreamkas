@@ -88,12 +88,12 @@ class SupplierControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.name.errors.0' => 'Не более 100 символов',
-                    'children.name.errors.1' => null,
-                    'children.phone.errors.0' => 'Не более 300 символов',
-                    'children.fax.errors.0' => 'Не более 300 символов',
-                    'children.email.errors.0' => 'Не более 300 символов',
-                    'children.contactPerson.errors.0' => 'Не более 300 символов',
+                    'errors.children.name.errors.0' => 'Не более 100 символов',
+                    'errors.children.name.errors.1' => null,
+                    'errors.children.phone.errors.0' => 'Не более 300 символов',
+                    'errors.children.fax.errors.0' => 'Не более 300 символов',
+                    'errors.children.email.errors.0' => 'Не более 300 символов',
+                    'errors.children.contactPerson.errors.0' => 'Не более 300 символов',
                 )
             ),
             'name empty' => array(
@@ -102,8 +102,8 @@ class SupplierControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.name.errors.0' => 'Заполните это поле',
-                    'children.name.errors.1' => null
+                    'errors.children.name.errors.0' => 'Заполните это поле',
+                    'errors.children.name.errors.1' => null
                 )
             ),
             'duplicate' => array(
@@ -112,8 +112,8 @@ class SupplierControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.name.errors.0' => 'Поставщик с таким названием уже существует',
-                    'children.name.errors.1' => null
+                    'errors.children.name.errors.0' => 'Поставщик с таким названием уже существует',
+                    'errors.children.name.errors.1' => null
                 )
             ),
             'empty agreement file' => array(
@@ -131,8 +131,8 @@ class SupplierControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.agreement.errors.0' => 'Указан неверный файл договора',
-                    'children.agreement.errors.1' => null
+                    'errors.children.agreement.errors.0' => 'Указан неверный файл договора',
+                    'errors.children.agreement.errors.1' => null
                 )
             ),
         );
@@ -170,10 +170,10 @@ class SupplierControllerTest extends WebTestCase
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals(
             'Поставщик с таким названием уже существует',
-            'children.name.errors.0',
+            'errors.children.name.errors.0',
             $postResponse
         );
-        Assert::assertNotJsonHasPath('children.name.errors.1', $postResponse);
+        Assert::assertNotJsonHasPath('errors.children.name.errors.1', $postResponse);
     }
 
     /**
@@ -452,7 +452,7 @@ class SupplierControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
         Assert::assertJsonPathEquals(
             'Поставщик с таким названием уже существует',
-            'children.name.errors.0',
+            'errors.children.name.errors.0',
             $response
         );
     }

@@ -143,7 +143,7 @@ class SubCategoryControllerTest extends WebTestCase
                 400,
                 array('name' => ''),
                 array(
-                    'children.name.errors.0'
+                    'errors.children.name.errors.0'
                     =>
                     'Заполните это поле'
                 )
@@ -152,7 +152,7 @@ class SubCategoryControllerTest extends WebTestCase
                 400,
                 array('name' => str_repeat('z', 101)),
                 array(
-                    'children.name.errors.0'
+                    'errors.children.name.errors.0'
                     =>
                     'Не более 100 символов'
                 )
@@ -161,7 +161,7 @@ class SubCategoryControllerTest extends WebTestCase
                 400,
                 array('category' => '1234'),
                 array(
-                    'children.category.errors.*'
+                    'errors.children.category.errors.*'
                     =>
                     'Такой категории не существует'
                 )
@@ -186,45 +186,45 @@ class SubCategoryControllerTest extends WebTestCase
             'not valid markup -0.01' => array(
                 400,
                 array('retailMarkupMin' => -0.01, 'retailMarkupMax' => 100),
-                array('children.retailMarkupMin.errors.0' => 'Значение должно быть больше или равно 0')
+                array('errors.children.retailMarkupMin.errors.0' => 'Значение должно быть больше или равно 0')
             ),
             'not valid markup min is more than max' => array(
                 400,
                 array('retailMarkupMin' => 10, 'retailMarkupMax' => 0),
-                array('children.retailMarkupMin.errors.0' => 'Минимальная наценка не может быть больше максимальной')
+                array('errors.children.retailMarkupMin.errors.0' => 'Минимальная наценка не может быть больше максимальной')
             ),
             'not valid markup not float' => array(
                 400,
                 array('retailMarkupMin' => 'aaa', 'retailMarkupMax' => 'bbb'),
-                array('children.retailMarkupMin.errors.*' => 'Значение должно быть числом'),
-                array('children.retailMarkupMax.errors.*' => 'Значение должно быть числом')
+                array('errors.children.retailMarkupMin.errors.*' => 'Значение должно быть числом'),
+                array('errors.children.retailMarkupMax.errors.*' => 'Значение должно быть числом')
             ),
             'not valid markup min not float' => array(
                 400,
                 array('retailMarkupMin' => 'aaa', 'retailMarkupMax' => 10),
                 array(
-                    'children.retailMarkupMin.errors.0' => 'Значение должно быть числом',
-                    'children.retailMarkupMin.errors.1' => null,
+                    'errors.children.retailMarkupMin.errors.0' => 'Значение должно быть числом',
+                    'errors.children.retailMarkupMin.errors.1' => null,
                 ),
             ),
             'not valid markup max not float' => array(
                 400,
                 array('retailMarkupMin' => 10, 'retailMarkupMax' => 'bbb'),
                 array(
-                    'children.retailMarkupMax.errors.0' => 'Значение должно быть числом',
-                    'children.retailMarkupMin.errors.1' => null,
-                    'children.retailMarkupMin.errors' => null,
+                    'errors.children.retailMarkupMax.errors.0' => 'Значение должно быть числом',
+                    'errors.children.retailMarkupMin.errors.1' => null,
+                    'errors.children.retailMarkupMin.errors' => null,
                 ),
             ),
             'not valid markup, min entered, max not' => array(
                 400,
                 array('retailMarkupMin' => 10, 'retailMarkupMax' => ''),
-                array('children.retailMarkupMax.errors.0' => 'Заполните это поле'),
+                array('errors.children.retailMarkupMax.errors.0' => 'Заполните это поле'),
             ),
             'not valid markup, max entered, min not' => array(
                 400,
                 array('retailMarkupMin' => '', 'retailMarkupMax' => 10),
-                array('children.retailMarkupMin.errors.0' => 'Заполните это поле'),
+                array('errors.children.retailMarkupMin.errors.0' => 'Заполните это поле'),
             ),
             // rounding
             'valid rounding nearest1' => array(
@@ -256,7 +256,7 @@ class SubCategoryControllerTest extends WebTestCase
                 400,
                 array('rounding' => 'aaaa'),
                 array(
-                    'children.rounding.errors.0' => 'Значение недопустимо.',
+                    'errors.children.rounding.errors.0' => 'Значение недопустимо.',
                 )
             ),
             'valid rounding no value, should inherit group value' => array(
@@ -312,7 +312,7 @@ class SubCategoryControllerTest extends WebTestCase
 
         Assert::assertJsonPathContains(
             'Группа с таким названием уже существует',
-            'children.name.errors',
+            'errors.children.name.errors',
             $postResponse
         );
 
@@ -340,7 +340,7 @@ class SubCategoryControllerTest extends WebTestCase
 
         Assert::assertJsonPathContains(
             'Группа с таким названием уже существует',
-            'children.name.errors',
+            'errors.children.name.errors',
             $postResponse
         );
     }
@@ -1264,7 +1264,7 @@ class SubCategoryControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
         Assert::assertJsonPathEquals(
             'Группа с таким названием уже существует',
-            'children.name.errors.0',
+            'errors.children.name.errors.0',
             $response
         );
     }

@@ -106,7 +106,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals(
             'Эта форма не должна содержать дополнительных полей: "dummy", "foo"',
-            'errors.0',
+            'errors.errors.0',
             $response
         );
     }
@@ -130,7 +130,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals(
             'Такого товара не существует',
-            'children.products.children.0.children.product.errors.0',
+            'errors.children.products.children.0.children.product.errors.0',
             $response
         );
     }
@@ -321,7 +321,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertResponseCode($expectedCode);
         $this->performJsonAssertions($response, $assertions, true);
         if (400 == $expectedCode) {
-            Assert::assertNotJsonHasPath('children.acceptanceDate.errors.0', $response);
+            Assert::assertNotJsonHasPath('errors.children.acceptanceDate.errors.0', $response);
         } else {
             Assert::assertNotJsonHasPath('acceptanceDate', $response);
         }
@@ -344,7 +344,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('quantity' => ''),
                 array(
-                    'children.products.children.0.children.quantity.errors.0'
+                    'errors.children.products.children.0.children.quantity.errors.0'
                     =>
                     'Заполните это поле'
                 )
@@ -353,7 +353,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('quantity' => -10),
                 array(
-                    'children.products.children.0.children.quantity.errors.0'
+                    'errors.children.products.children.0.children.quantity.errors.0'
                     =>
                     'Значение должно быть больше 0'
                 )
@@ -362,7 +362,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('quantity' => -1),
                 array(
-                    'children.products.children.0.children.quantity.errors.0'
+                    'errors.children.products.children.0.children.quantity.errors.0'
                     =>
                     'Значение должно быть больше 0'
                 )
@@ -371,7 +371,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('quantity' => 0),
                 array(
-                    'children.products.children.0.children.quantity.errors.0'
+                    'errors.children.products.children.0.children.quantity.errors.0'
                     =>
                     'Значение должно быть больше 0'
                 )
@@ -388,7 +388,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('quantity' => 2.5555),
                 array(
-                    'children.products.children.0.children.quantity.errors.0'
+                    'errors.children.products.children.0.children.quantity.errors.0'
                     =>
                     'Значение не должно содержать больше 3 цифр после запятой'
                 )
@@ -397,7 +397,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('quantity' => '2,5555'),
                 array(
-                    'children.products.children.0.children.quantity.errors.0'
+                    'errors.children.products.children.0.children.quantity.errors.0'
                     =>
                     'Значение не должно содержать больше 3 цифр после запятой',
                 )
@@ -406,10 +406,10 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('quantity' => '2,5555'),
                 array(
-                    'children.products.children.0.children.quantity.errors.0'
+                    'errors.children.products.children.0.children.quantity.errors.0'
                     =>
                     'Значение не должно содержать больше 3 цифр после запятой',
-                    'children.products.children.0.children.quantity.errors.1'
+                    'errors.children.products.children.0.children.quantity.errors.1'
                     =>
                     null
                 )
@@ -418,7 +418,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('quantity' => 'abc'),
                 array(
-                    'children.products.children.0.children.quantity.errors.0'
+                    'errors.children.products.children.0.children.quantity.errors.0'
                     =>
                     'Значение должно быть числом'
                 )
@@ -442,7 +442,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('priceEntered' => ''),
                 array(
-                    'children.products.children.0.children.priceEntered.errors.0'
+                    'errors.children.products.children.0.children.priceEntered.errors.0'
                     =>
                     'Заполните это поле'
                 )
@@ -451,7 +451,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('priceEntered' => '10,898'),
                 array(
-                    'children.products.children.0.children.priceEntered.errors.0'
+                    'errors.children.products.children.0.children.priceEntered.errors.0'
                     =>
                     'Цена не должна содержать больше 2 цифр после запятой'
                 ),
@@ -460,7 +460,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('priceEntered' => '10.898'),
                 array(
-                    'children.products.children.0.children.priceEntered.errors.0'
+                    'errors.children.products.children.0.children.priceEntered.errors.0'
                     =>
                     'Цена не должна содержать больше 2 цифр после запятой'
                 ),
@@ -473,7 +473,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('priceEntered' => 'not a number'),
                 array(
-                    'children.products.children.0.children.priceEntered.errors.0'
+                    'errors.children.products.children.0.children.priceEntered.errors.0'
                     =>
                     'Значение должно быть числом',
                 ),
@@ -482,7 +482,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('priceEntered' => 0),
                 array(
-                    'children.products.children.0.children.priceEntered.errors.0'
+                    'errors.children.products.children.0.children.priceEntered.errors.0'
                     =>
                     'Цена не должна быть меньше или равна нулю'
                 ),
@@ -491,7 +491,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('priceEntered' => -10),
                 array(
-                    'children.products.children.0.children.priceEntered.errors.0'
+                    'errors.children.products.children.0.children.priceEntered.errors.0'
                     =>
                     'Цена не должна быть меньше или равна нулю'
                 )
@@ -500,7 +500,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('priceEntered' => 2000000001),
                 array(
-                    'children.products.children.0.children.priceEntered.errors.0'
+                    'errors.children.products.children.0.children.priceEntered.errors.0'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
@@ -509,7 +509,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('priceEntered' => '100000000'),
                 array(
-                    'children.products.children.0.children.priceEntered.errors.0'
+                    'errors.children.products.children.0.children.priceEntered.errors.0'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
@@ -522,7 +522,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('priceEntered' => '10000001'),
                 array(
-                    'children.products.children.0.children.priceEntered.errors.0'
+                    'errors.children.products.children.0.children.priceEntered.errors.0'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
@@ -534,7 +534,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('product' => 'not_valid_product_id'),
                 array(
-                    'children.products.children.0.children.product.errors.0'
+                    'errors.children.products.children.0.children.product.errors.0'
                     =>
                         'Такого товара не существует'
                 ),
@@ -543,7 +543,7 @@ class InvoiceProductControllerTest extends WebTestCase
                 400,
                 array('product' => ''),
                 array(
-                    'children.products.children.0.children.product.errors.0'
+                    'errors.children.products.children.0.children.product.errors.0'
                     =>
                     'Заполните это поле'
                 ),
@@ -1703,7 +1703,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals(
             'Заполните это поле',
-            'children.products.children.0.children.quantity.errors.0',
+            'errors.children.products.children.0.children.quantity.errors.0',
             $response
         );
     }

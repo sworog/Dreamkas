@@ -147,7 +147,7 @@ class GroupControllerTest extends WebTestCase
                 400,
                 array('name' => ''),
                 array(
-                    'children.name.errors.0'
+                    'errors.children.name.errors.0'
                     =>
                     'Заполните это поле'
                 )
@@ -156,7 +156,7 @@ class GroupControllerTest extends WebTestCase
                 400,
                 array('name' => str_repeat('z', 101)),
                 array(
-                    'children.name.errors.0'
+                    'errors.children.name.errors.0'
                     =>
                     'Не более 100 символов'
                 )
@@ -181,28 +181,28 @@ class GroupControllerTest extends WebTestCase
             'not valid markup -0.01' => array(
                 400,
                 array('retailMarkupMin' => -0.01, 'retailMarkupMax' => 100),
-                array('children.retailMarkupMin.errors.0' => 'Значение должно быть больше или равно 0')
+                array('errors.children.retailMarkupMin.errors.0' => 'Значение должно быть больше или равно 0')
             ),
             'not valid markup min is more than max' => array(
                 400,
                 array('retailMarkupMin' => 10, 'retailMarkupMax' => 0),
-                array('children.retailMarkupMin.errors.0' => 'Минимальная наценка не может быть больше максимальной')
+                array('errors.children.retailMarkupMin.errors.0' => 'Минимальная наценка не может быть больше максимальной')
             ),
             'not valid markup not float' => array(
                 400,
                 array('retailMarkupMin' => 'aaa', 'retailMarkupMax' => 'bbb'),
-                array('children.retailMarkupMin.errors.*' => 'Значение должно быть числом'),
-                array('children.retailMarkupMax.errors.*' => 'Значение должно быть числом')
+                array('errors.children.retailMarkupMin.errors.*' => 'Значение должно быть числом'),
+                array('errors.children.retailMarkupMax.errors.*' => 'Значение должно быть числом')
             ),
             'not valid markup min not float' => array(
                 400,
                 array('retailMarkupMin' => 'aaa', 'retailMarkupMax' => 10),
-                array('children.retailMarkupMin.errors.*' => 'Значение должно быть числом'),
+                array('errors.children.retailMarkupMin.errors.*' => 'Значение должно быть числом'),
             ),
             'not valid markup max not float' => array(
                 400,
                 array('retailMarkupMin' => 10, 'retailMarkupMax' => 'bbb'),
-                array('children.retailMarkupMax.errors.*' => 'Значение должно быть числом'),
+                array('errors.children.retailMarkupMax.errors.*' => 'Значение должно быть числом'),
             ),
             // rounding
             'valid rounding nearest1' => array(
@@ -234,7 +234,7 @@ class GroupControllerTest extends WebTestCase
                 400,
                 array('rounding' => 'aaaa'),
                 array(
-                    'children.rounding.errors.0' => 'Значение недопустимо.',
+                    'errors.children.rounding.errors.0' => 'Значение недопустимо.',
                 )
             ),
             'valid rounding no value, should be default rounding' => array(
@@ -385,7 +385,7 @@ class GroupControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(400);
-        Assert::assertJsonPathEquals('Такая группа уже есть', 'children.name.errors.0', $postResponse);
+        Assert::assertJsonPathEquals('Такая группа уже есть', 'errors.children.name.errors.0', $postResponse);
     }
 
     public function testDeleteGroupNoCategories()
@@ -872,6 +872,6 @@ class GroupControllerTest extends WebTestCase
 
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
-        Assert::assertJsonPathEquals('Такая группа уже есть', 'children.name.errors.0', $response);
+        Assert::assertJsonPathEquals('Такая группа уже есть', 'errors.children.name.errors.0', $response);
     }
 }

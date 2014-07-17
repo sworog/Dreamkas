@@ -124,7 +124,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(400);
 
-        Assert::assertJsonPathCount(1, 'children.name.errors.*', $response);
+        Assert::assertJsonPathCount(1, 'errors.children.name.errors.*', $response);
     }
 
     public function testPostProductActionEmptyPost()
@@ -250,7 +250,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(400);
 
-        Assert::assertJsonPathContains('Заполните это поле', 'children.name.errors.0', $response);
+        Assert::assertJsonPathContains('Заполните это поле', 'errors.children.name.errors.0', $response);
     }
 
     /**
@@ -288,7 +288,11 @@ class ProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(400);
-        Assert::assertJsonPathContains('Эта форма не должна содержать дополнительных полей', 'errors.0', $response);
+        Assert::assertJsonPathContains(
+            'Эта форма не должна содержать дополнительных полей',
+            'errors.errors.0',
+            $response
+        );
 
         $this->clientJsonRequest(
             $accessToken,
@@ -584,7 +588,7 @@ class ProductControllerTest extends WebTestCase
                 400,
                 array('name' => ''),
                 array(
-                    'children.name.errors.0'
+                    'errors.children.name.errors.0'
                     =>
                     'Заполните это поле',
                 ),
@@ -593,7 +597,7 @@ class ProductControllerTest extends WebTestCase
                 400,
                 array('name' => str_repeat("z", 305)),
                 array(
-                    'children.name.errors.0'
+                    'errors.children.name.errors.0'
                     =>
                     'Не более 300 символов',
                 ),
@@ -625,7 +629,7 @@ class ProductControllerTest extends WebTestCase
                 400,
                 array('purchasePrice' => '10,898'),
                 array(
-                    'children.purchasePrice.errors.0'
+                    'errors.children.purchasePrice.errors.0'
                     =>
                     'Цена не должна содержать больше 2 цифр после запятой'
                 ),
@@ -634,7 +638,7 @@ class ProductControllerTest extends WebTestCase
                 400,
                 array('purchasePrice' => '10.898'),
                 array(
-                    'children.purchasePrice.errors.0'
+                    'errors.children.purchasePrice.errors.0'
                     =>
                     'Цена не должна содержать больше 2 цифр после запятой'
                 ),
@@ -647,45 +651,35 @@ class ProductControllerTest extends WebTestCase
                 400,
                 array('purchasePrice' => 'not a number'),
                 array(
-                    'children.purchasePrice.errors.0'
-                    =>
-                    'Значение должно быть числом',
+                    'errors.children.purchasePrice.errors.0' => 'Значение должно быть числом',
                 ),
             ),
             'not valid price zero' => array(
                 400,
                 array('purchasePrice' => 0),
                 array(
-                    'children.purchasePrice.errors.0'
-                    =>
-                    'Цена не должна быть меньше или равна нулю'
+                    'errors.children.purchasePrice.errors.0' => 'Цена не должна быть меньше или равна нулю'
                 ),
             ),
             'not valid price negative' => array(
                 400,
                 array('purchasePrice' => -10),
                 array(
-                    'children.purchasePrice.errors.0'
-                    =>
-                    'Цена не должна быть меньше или равна нулю'
+                    'errors.children.purchasePrice.errors.0' => 'Цена не должна быть меньше или равна нулю'
                 )
             ),
             'not valid price too big 2 000 000 001' => array(
                 400,
                 array('purchasePrice' => 2000000001),
                 array(
-                    'children.purchasePrice.errors.0'
-                    =>
-                    'Цена не должна быть больше 10000000'
+                    'errors.children.purchasePrice.errors.0' => 'Цена не должна быть больше 10000000'
                 ),
             ),
             'not valid price too big 100 000 000' => array(
                 400,
                 array('purchasePrice' => '100000000'),
                 array(
-                    'children.purchasePrice.errors.0'
-                    =>
-                    'Цена не должна быть больше 10000000'
+                    'errors.children.purchasePrice.errors.0' => 'Цена не должна быть больше 10000000'
                 ),
             ),
             'valid price too big 10 000 000' => array(
@@ -696,9 +690,7 @@ class ProductControllerTest extends WebTestCase
                 400,
                 array('purchasePrice' => '10000001'),
                 array(
-                    'children.purchasePrice.errors.0'
-                    =>
-                    'Цена не должна быть больше 10000000'
+                    'errors.children.purchasePrice.errors.0' => 'Цена не должна быть больше 10000000'
                 ),
             ),
             /***********************************************************************************************
@@ -716,27 +708,21 @@ class ProductControllerTest extends WebTestCase
                 400,
                 array('vat' => 'not a number'),
                 array(
-                    'children.vat.errors.0'
-                    =>
-                    'Значение должно быть числом.',
+                    'errors.children.vat.errors.0' => 'Значение должно быть числом.',
                 ),
             ),
             'not valid vat negative' => array(
                 400,
                 array('vat' => -30),
                 array(
-                    'children.vat.errors.0'
-                    =>
-                    'Значение должно быть 0 или больше.',
+                    'errors.children.vat.errors.0' => 'Значение должно быть 0 или больше.',
                 ),
             ),
             'not valid vat empty' => array(
                 400,
                 array('vat' => ''),
                 array(
-                    'children.vat.errors.0'
-                    =>
-                    'Выберите ставку НДС',
+                    'errors.children.vat.errors.0' => 'Выберите ставку НДС',
                 ),
             ),
             /***********************************************************************************************
@@ -758,9 +744,7 @@ class ProductControllerTest extends WebTestCase
                 400,
                 array('barcode' => str_repeat("z", 201)),
                 array(
-                    'children.barcode.errors.0'
-                    =>
-                    'Не более 200 символов',
+                    'errors.children.barcode.errors.0' => 'Не более 200 символов',
                 ),
             ),
             /***********************************************************************************************
@@ -782,9 +766,7 @@ class ProductControllerTest extends WebTestCase
                 400,
                 array('vendor' => str_repeat("z", 301)),
                 array(
-                    'children.vendor.errors.0'
-                    =>
-                    'Не более 300 символов',
+                    'errors.children.vendor.errors.0' => 'Не более 300 символов',
                 ),
             ),
             /***********************************************************************************************
@@ -806,9 +788,7 @@ class ProductControllerTest extends WebTestCase
                 400,
                 array('vendorCountry' => str_repeat("z", 101)),
                 array(
-                    'children.vendorCountry.errors.0'
-                    =>
-                    'Не более 100 символов',
+                    'errors.children.vendorCountry.errors.0' => 'Не более 100 символов',
                 ),
             ),
             /***********************************************************************************************
@@ -830,9 +810,7 @@ class ProductControllerTest extends WebTestCase
                 400,
                 array('info' => str_repeat("z", 2001)),
                 array(
-                    'children.info.errors.0'
-                    =>
-                    'Не более 2000 символов',
+                    'errors.children.info.errors.0' => 'Не более 2000 символов',
                 ),
             ),
             /***********************************************************************************************
@@ -841,7 +819,7 @@ class ProductControllerTest extends WebTestCase
             'sku should not be present' => array(
                 400,
                 array('sku' => 'qwe223sdw'),
-                array('errors.0' => 'Эта форма не должна содержать дополнительных полей: "sku"'),
+                array('errors.errors.0' => 'Эта форма не должна содержать дополнительных полей: "sku"'),
             ),
             /***********************************************************************************************
              * 'subCategory'
@@ -850,18 +828,14 @@ class ProductControllerTest extends WebTestCase
                 400,
                 array('subCategory' => 'not_exist_subCategory'),
                 array(
-                    'children.subCategory.errors.0'
-                    =>
-                    'Такой подкатегории не существует'
+                    'errors.children.subCategory.errors.0' => 'Такой подкатегории не существует'
                 ),
             ),
             'not valid subCategory empty' => array(
                 400,
                 array('subCategory' => ''),
                 array(
-                    'children.subCategory.errors.0'
-                    =>
-                    'Заполните это поле'
+                    'errors.children.subCategory.errors.0' => 'Заполните это поле'
                 ),
             ),
             /***********************************************************************************************
@@ -879,8 +853,8 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'children.type.errors.0' => 'Выбранное Вами значение недопустимо.',
-                    'errors.0' => 'Эта форма не должна содержать дополнительных полей: "typeProperties"',
+                    'errors.children.type.errors.0' => 'Выбранное Вами значение недопустимо.',
+                    'errors.errors.0' => 'Эта форма не должна содержать дополнительных полей: "typeProperties"',
                 )
             ),
             'empty type' => array(
@@ -889,7 +863,7 @@ class ProductControllerTest extends WebTestCase
                     'type' => ''
                 ),
                 array(
-                    'children.type.errors.0' => 'Заполните это поле'
+                    'errors.children.type.errors.0' => 'Заполните это поле'
                 )
             ),
             /***********************************************************************************************
@@ -971,11 +945,11 @@ class ProductControllerTest extends WebTestCase
                 array(
                     'units' => null,
                     'type' => null,
-                    'children.typeProperties.children.nameOnScales.errors.0' => 'Не более 256 символов',
-                    'children.typeProperties.children.descriptionOnScales.errors.0' => 'Не более 256 символов',
-                    'children.typeProperties.children.shelfLife.errors' => null,
-                    'children.typeProperties.children.ingredients.errors.0' => 'Не более 1024 символов',
-                    'children.typeProperties.children.nutritionFacts.errors.0' => 'Не более 1024 символов'
+                    'errors.children.typeProperties.children.nameOnScales.errors.0' => 'Не более 256 символов',
+                    'errors.children.typeProperties.children.descriptionOnScales.errors.0' => 'Не более 256 символов',
+                    'errors.children.typeProperties.children.shelfLife.errors' => null,
+                    'errors.children.typeProperties.children.ingredients.errors.0' => 'Не более 1024 символов',
+                    'errors.children.typeProperties.children.nutritionFacts.errors.0' => 'Не более 1024 символов'
                 )
             ),
             'weight type invalid shelLife not a number' => array(
@@ -989,7 +963,7 @@ class ProductControllerTest extends WebTestCase
                 array(
                     'units' => null,
                     'type' => null,
-                    'children.typeProperties.children.shelfLife.errors.0' => 'Значение должно быть числом',
+                    'errors.children.typeProperties.children.shelfLife.errors.0' => 'Значение должно быть числом',
                 )
             ),
             'weight type invalid shelLife float' => array(
@@ -1003,7 +977,7 @@ class ProductControllerTest extends WebTestCase
                 array(
                     'units' => null,
                     'type' => null,
-                    'children.typeProperties.children.shelfLife.errors.0' => 'Значение должно быть числом',
+                    'errors.children.typeProperties.children.shelfLife.errors.0' => 'Значение должно быть числом',
                 )
             ),
             'weight type invalid shelLife too big' => array(
@@ -1017,7 +991,7 @@ class ProductControllerTest extends WebTestCase
                 array(
                     'units' => null,
                     'type' => null,
-                    'children.typeProperties.children.shelfLife.errors.0'
+                    'errors.children.typeProperties.children.shelfLife.errors.0'
                     =>
                     'Значение должно быть меньше или равно 1000',
                 )
@@ -1034,7 +1008,7 @@ class ProductControllerTest extends WebTestCase
                 array(
                     'units' => null,
                     'type' => null,
-                    'errors.0' => 'Эта форма не должна содержать дополнительных полей: "bestBefore"',
+                    'errors.errors.0' => 'Эта форма не должна содержать дополнительных полей: "bestBefore"',
                 )
             ),
             /***********************************************************************************************
@@ -1064,7 +1038,7 @@ class ProductControllerTest extends WebTestCase
                 array(
                     'units' => null,
                     'type' => null,
-                    'errors.0' => 'Эта форма не должна содержать дополнительных полей: "field"',
+                    'errors.errors.0' => 'Эта форма не должна содержать дополнительных полей: "field"',
                 )
             ),
             /***********************************************************************************************
@@ -1128,7 +1102,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'children.typeProperties.children.alcoholByVolume.errors.0' => 'Значение должно быть числом',
+                    'errors.children.typeProperties.children.alcoholByVolume.errors.0' => 'Значение должно быть числом',
                 )
             ),
             'alcohol type alcoholByVolume equals 0' => array(
@@ -1152,7 +1126,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'children.typeProperties.children.alcoholByVolume.errors.0'
+                    'errors.children.typeProperties.children.alcoholByVolume.errors.0'
                     =>
                     'Значение должно быть больше или равно 0',
                 )
@@ -1178,7 +1152,9 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'children.typeProperties.children.alcoholByVolume.errors.0' => 'Значение должно быть меньше 100',
+                    'errors.children.typeProperties.children.alcoholByVolume.errors.0'
+                    =>
+                    'Значение должно быть меньше 100',
                 )
             ),
             'alcohol type alcoholByVolume precision 1' => array(
@@ -1202,7 +1178,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'children.typeProperties.children.alcoholByVolume.errors.0'
+                    'errors.children.typeProperties.children.alcoholByVolume.errors.0'
                     =>
                     'Значение не должно содержать больше 1 цифр после запятой',
                 )
@@ -1216,7 +1192,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'children.typeProperties.children.volume.errors.0' => 'Значение должно быть числом',
+                    'errors.children.typeProperties.children.volume.errors.0' => 'Значение должно быть числом',
                 )
             ),
             'alcohol type volume equals 0' => array(
@@ -1228,7 +1204,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'children.typeProperties.children.volume.errors.0' => 'Значение должно быть больше 0',
+                    'errors.children.typeProperties.children.volume.errors.0' => 'Значение должно быть больше 0',
                 )
             ),
             'alcohol type volume less than 0' => array(
@@ -1240,7 +1216,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'children.typeProperties.children.volume.errors.0' => 'Значение должно быть больше 0',
+                    'errors.children.typeProperties.children.volume.errors.0' => 'Значение должно быть больше 0',
                 )
             ),
             'alcohol type volume precision 3' => array(
@@ -1264,7 +1240,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'children.typeProperties.children.volume.errors.0'
+                    'errors.children.typeProperties.children.volume.errors.0'
                     =>
                     'Значение не должно содержать больше 3 цифр после запятой',
                 )
@@ -1280,7 +1256,7 @@ class ProductControllerTest extends WebTestCase
                 array(
                     'units' => null,
                     'type' => null,
-                    'errors.0' => 'Эта форма не должна содержать дополнительных полей: "field"',
+                    'errors.errors.0' => 'Эта форма не должна содержать дополнительных полей: "field"',
                 )
             ),
         );
@@ -1664,7 +1640,7 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPriceMax.errors.0' => 'Цена не должна содержать больше 2 цифр после запятой',
+                    'errors.children.retailPriceMax.errors.0' => 'Цена не должна содержать больше 2 цифр после запятой',
                 )
             ),
             'prefer price, markup valid, invalid price lower than purchase price' => array(
@@ -1677,8 +1653,8 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPriceMin.errors.0' => 'Цена продажи должна быть больше или равна цене закупки',
-                    'children.retailMarkupMin.errors' => null
+                    'errors.children.retailPriceMin.errors.0' => 'Цена продажи должна быть больше или равна цене закупки',
+                    'errors.children.retailMarkupMin.errors' => null
                 ),
             ),
             'prefer price, markup valid, invalid price: -10.12' => array(
@@ -1690,7 +1666,7 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPriceMin.errors.0' => 'Цена не должна быть меньше или равна нулю',
+                    'errors.children.retailPriceMin.errors.0' => 'Цена не должна быть меньше или равна нулю',
                 ),
             ),
             'prefer price, markup valid, min price more than max price' => array(
@@ -1702,8 +1678,8 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPriceMin.errors.0' => 'Минимальная цена продажи не должна быть больше максимальной',
-                    'children.retailPriceMax.errors' => null,
+                    'errors.children.retailPriceMin.errors.0' => 'Минимальная цена продажи не должна быть больше максимальной',
+                    'errors.children.retailPriceMax.errors' => null,
                 ),
             ),
             'prefer markup, price valid, invalid markup: -105' => array(
@@ -1715,9 +1691,9 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkupMin.errors.0' => 'Наценка должна быть равна или больше 0%',
-                    'children.retailMarkupMin.errors.1' => null,
-                    'children.retailMarkupMax.errors' => null,
+                    'errors.children.retailMarkupMin.errors.0' => 'Наценка должна быть равна или больше 0%',
+                    'errors.children.retailMarkupMin.errors.1' => null,
+                    'errors.children.retailMarkupMax.errors' => null,
                 ),
             ),
             'prefer markup, price valid, invalid markup: -0.1' => array(
@@ -1729,9 +1705,9 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkupMin.errors.0' => 'Наценка должна быть равна или больше 0%',
-                    'children.retailMarkupMin.errors.1' => null,
-                    'children.retailMarkupMax.errors' => null,
+                    'errors.children.retailMarkupMin.errors.0' => 'Наценка должна быть равна или больше 0%',
+                    'errors.children.retailMarkupMin.errors.1' => null,
+                    'errors.children.retailMarkupMax.errors' => null,
                 ),
             ),
             'prefer markup, price valid, invalid markup: aaaa' => array(
@@ -1743,9 +1719,9 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkupMin.errors.0' => 'Значение должно быть числом',
-                    'children.retailMarkupMin.errors.1' => null,
-                    'children.retailMarkupMax.errors' => null,
+                    'errors.children.retailMarkupMin.errors.0' => 'Значение должно быть числом',
+                    'errors.children.retailMarkupMin.errors.1' => null,
+                    'errors.children.retailMarkupMax.errors' => null,
                 ),
             ),
             'prefer markup, invalid markup: 3 digits after coma' => array(
@@ -1757,7 +1733,7 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkupMin.errors.0' => 'Значение не должно содержать больше 2 цифр после запятой',
+                    'errors.children.retailMarkupMin.errors.0' => 'Значение не должно содержать больше 2 цифр после запятой',
                 ),
             ),
             'prefer price, empty markup, invalid price' => array(
@@ -1768,8 +1744,8 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPriceMin.errors.0' => 'Значение должно быть числом',
-                    'children.retailPriceMin.errors.1' => null,
+                    'errors.children.retailPriceMin.errors.0' => 'Значение должно быть числом',
+                    'errors.children.retailPriceMin.errors.1' => null,
                 ),
             ),
             'prefer price, empty markup, invalid price, empty purchasePrice' => array(
@@ -1780,8 +1756,8 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPriceMin.errors.0' => 'Значение должно быть числом',
-                    'children.purchasePrice.errors.0' => null,
+                    'errors.children.retailPriceMin.errors.0' => 'Значение должно быть числом',
+                    'errors.children.purchasePrice.errors.0' => null,
                 ),
             ),
             'prefer price, empty markup, prices with space' => array(
@@ -1794,8 +1770,8 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice'
                 ),
                 array(
-                    'children.retailPriceMin.errors.0' => 'Значение должно быть числом',
-                    'children.retailPriceMax.errors.0' => 'Значение должно быть числом',
+                    'errors.children.retailPriceMin.errors.0' => 'Значение должно быть числом',
+                    'errors.children.retailPriceMax.errors.0' => 'Значение должно быть числом',
                 ),
             ),
             'prefer markup, empty price, invalid markup' => array(
@@ -1806,9 +1782,9 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkupMin.errors.0' => 'Значение должно быть числом',
-                    'children.retailPriceMin.errors' => null,
-                    'children.purchasePrice.errors' => null
+                    'errors.children.retailMarkupMin.errors.0' => 'Значение должно быть числом',
+                    'errors.children.retailPriceMin.errors' => null,
+                    'errors.children.purchasePrice.errors' => null
                 ),
             ),
             // Min > Max
@@ -1821,11 +1797,11 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkupMin.errors.0' => 'Минимальная наценка не должна быть больше максимальной',
-                    'children.retailPriceMin.errors' => null,
-                    'children.retailMarkupMax.errors' => null,
-                    'children.retailPriceMax.errors' => null,
-                    'children.purchasePrice.errors' => null
+                    'errors.children.retailMarkupMin.errors.0' => 'Минимальная наценка не должна быть больше максимальной',
+                    'errors.children.retailPriceMin.errors' => null,
+                    'errors.children.retailMarkupMax.errors' => null,
+                    'errors.children.retailPriceMax.errors' => null,
+                    'errors.children.purchasePrice.errors' => null
                 ),
             ),
             'prefer price, min price more than max price' => array(
@@ -1837,11 +1813,11 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPriceMin.errors.0' => 'Минимальная цена продажи не должна быть больше максимальной',
-                    'children.retailMarkupMin.errors' => null,
-                    'children.retailMarkupMax.errors' => null,
-                    'children.retailPriceMax.errors' => null,
-                    'children.purchasePrice.errors' => null
+                    'errors.children.retailPriceMin.errors.0' => 'Минимальная цена продажи не должна быть больше максимальной',
+                    'errors.children.retailMarkupMin.errors' => null,
+                    'errors.children.retailMarkupMax.errors' => null,
+                    'errors.children.retailPriceMax.errors' => null,
+                    'errors.children.purchasePrice.errors' => null
                 ),
             ),
             // Missing min or max field
@@ -1854,7 +1830,7 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPriceMax.errors.0' => 'Заполните это поле',
+                    'errors.children.retailPriceMax.errors.0' => 'Заполните это поле',
                 ),
             ),
             'prefer price, max price valid, min price empty' => array(
@@ -1866,7 +1842,7 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPriceMin.errors.0' => 'Заполните это поле',
+                    'errors.children.retailPriceMin.errors.0' => 'Заполните это поле',
                 ),
             ),
             'prefer markup, min markup valid, max markup empty' => array(
@@ -1878,9 +1854,9 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkupMax.errors.0' => 'Заполните это поле',
-                    'children.retailMarkupMax.errors.1' => null,
-                    'children.retailMarkupMin.errors' => null,
+                    'errors.children.retailMarkupMax.errors.0' => 'Заполните это поле',
+                    'errors.children.retailMarkupMax.errors.1' => null,
+                    'errors.children.retailMarkupMin.errors' => null,
                 ),
             ),
             'prefer markup, max markup valid, min markup empty' => array(
@@ -1892,9 +1868,9 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkupMin.errors.0' => 'Заполните это поле',
-                    'children.retailMarkupMin.errors.1' => null,
-                    'children.retailMarkupMax.errors' => null,
+                    'errors.children.retailMarkupMin.errors.0' => 'Заполните это поле',
+                    'errors.children.retailMarkupMin.errors.1' => null,
+                    'errors.children.retailMarkupMax.errors' => null,
                 ),
             ),
             // No Purchase Price
@@ -1906,10 +1882,10 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPriceMin.errors.0' => 'Нельзя ввести цену продажи при отсутствии закупочной цены',
-                    'children.retailPriceMin.errors.1' => null,
-                    'children.retailPriceMax.errors.0' => 'Нельзя ввести цену продажи при отсутствии закупочной цены',
-                    'children.retailPriceMax.errors.1' => null,
+                    'errors.children.retailPriceMin.errors.0' => 'Нельзя ввести цену продажи при отсутствии закупочной цены',
+                    'errors.children.retailPriceMin.errors.1' => null,
+                    'errors.children.retailPriceMax.errors.0' => 'Нельзя ввести цену продажи при отсутствии закупочной цены',
+                    'errors.children.retailPriceMax.errors.1' => null,
                 ),
             ),
             'no purchasePrice, retailMarkup given' => array(
@@ -1920,10 +1896,10 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkupMin.errors.0' => 'Нельзя ввести наценку при отсутствии закупочной цены',
-                    'children.retailMarkupMin.errors.1' => null,
-                    'children.retailMarkupMax.errors.0' => 'Нельзя ввести наценку при отсутствии закупочной цены',
-                    'children.retailMarkupMax.errors.1' => null,
+                    'errors.children.retailMarkupMin.errors.0' => 'Нельзя ввести наценку при отсутствии закупочной цены',
+                    'errors.children.retailMarkupMin.errors.1' => null,
+                    'errors.children.retailMarkupMax.errors.0' => 'Нельзя ввести наценку при отсутствии закупочной цены',
+                    'errors.children.retailMarkupMax.errors.1' => null,
                 ),
             ),
             'purchasePrice invalid, retailPrice given' => array(
@@ -1934,10 +1910,10 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.purchasePrice.errors.0' => 'Цена не должна содержать больше 2 цифр после запятой',
-                    'children.purchasePrice.errors.1' => null,
-                    'children.retailPriceMin.errors.0' => null,
-                    'children.retailPriceMax.errors.0' => null,
+                    'errors.children.purchasePrice.errors.0' => 'Цена не должна содержать больше 2 цифр после запятой',
+                    'errors.children.purchasePrice.errors.1' => null,
+                    'errors.children.retailPriceMin.errors.0' => null,
+                    'errors.children.retailPriceMax.errors.0' => null,
                 ),
             ),
             'purchasePrice invalid, retailMarkup given' => array(
@@ -1948,10 +1924,10 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.purchasePrice.errors.0' => 'Цена не должна содержать больше 2 цифр после запятой',
-                    'children.purchasePrice.errors.1' => null,
-                    'children.retailMarkupMin.errors.0' => null,
-                    'children.retailMarkupMax.errors.0' => null,
+                    'errors.children.purchasePrice.errors.0' => 'Цена не должна содержать больше 2 цифр после запятой',
+                    'errors.children.purchasePrice.errors.1' => null,
+                    'errors.children.retailMarkupMin.errors.0' => null,
+                    'errors.children.retailMarkupMax.errors.0' => null,
                 ),
             )
         );
@@ -2053,7 +2029,7 @@ class ProductControllerTest extends WebTestCase
                     'rounding' => 'invalid10',
                 ),
                 array(
-                    'children.rounding.errors.0' => 'Значение недопустимо.',
+                    'errors.children.rounding.errors.0' => 'Значение недопустимо.',
                 )
             ),
             'invalid 0 rounding' => array(
@@ -2062,7 +2038,7 @@ class ProductControllerTest extends WebTestCase
                     'rounding' => 0,
                 ),
                 array(
-                    'children.rounding.errors.0' => 'Значение недопустимо.',
+                    'errors.children.rounding.errors.0' => 'Значение недопустимо.',
                 )
             ),
             'null rounding becomes default nearest1' => array(
@@ -2392,7 +2368,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
-        Assert::assertJsonPathEquals('Такой артикул уже есть', 'errors.0', $response);
+        Assert::assertJsonPathEquals('Такой артикул уже есть', 'errors.errors.0', $response);
     }
 
     public function testPostActionToSubCategoryWithMarkup()

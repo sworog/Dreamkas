@@ -120,7 +120,7 @@ class WriteOffControllerTest extends WebTestCase
                 400,
                 array('date' => ''),
                 array(
-                    'children.date.errors.0'
+                    'errors.children.date.errors.0'
                     =>
                     'Заполните это поле'
                 )
@@ -133,7 +133,7 @@ class WriteOffControllerTest extends WebTestCase
                 400,
                 array('date' => '2013-2sd-31'),
                 array(
-                    'children.date.errors.0'
+                    'errors.children.date.errors.0'
                     =>
                     'Вы ввели неверную дату 2013-2sd-31, формат должен быть следующий дд.мм.гггг'
                 )
@@ -142,7 +142,7 @@ class WriteOffControllerTest extends WebTestCase
                 400,
                 array('number' => ''),
                 array(
-                    'children.number.errors.0'
+                    'errors.children.number.errors.0'
                     =>
                     'Заполните это поле'
                 )
@@ -151,7 +151,7 @@ class WriteOffControllerTest extends WebTestCase
                 400,
                 array('number' => str_repeat('z', 101)),
                 array(
-                    'children.number.errors.0'
+                    'errors.children.number.errors.0'
                     =>
                     'Не более 100 символов'
                 )

@@ -60,7 +60,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('quantity' => ''),
                 array(
-                    'children.quantity.errors.0'
+                    'errors.children.quantity.errors.0'
                     =>
                     'Заполните это поле'
                 )
@@ -69,7 +69,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('quantity' => -10),
                 array(
-                    'children.quantity.errors.0'
+                    'errors.children.quantity.errors.0'
                     =>
                     'Значение должно быть больше 0'
                 )
@@ -78,7 +78,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('quantity' => -1),
                 array(
-                    'children.quantity.errors.0'
+                    'errors.children.quantity.errors.0'
                     =>
                     'Значение должно быть больше 0'
                 )
@@ -87,7 +87,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('quantity' => 0),
                 array(
-                    'children.quantity.errors.0'
+                    'errors.children.quantity.errors.0'
                     =>
                     'Значение должно быть больше 0'
                 )
@@ -100,7 +100,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('quantity' => 2.5555),
                 array(
-                    'children.quantity.errors.0'
+                    'errors.children.quantity.errors.0'
                     =>
                     'Значение не должно содержать больше 3 цифр после запятой'
                 )
@@ -113,7 +113,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('quantity' => '2,5555'),
                 array(
-                    'children.quantity.errors.0'
+                    'errors.children.quantity.errors.0'
                     =>
                     'Значение не должно содержать больше 3 цифр после запятой'
                 )
@@ -122,10 +122,10 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('quantity' => '2,5555'),
                 array(
-                    'children.quantity.errors.0'
+                    'errors.children.quantity.errors.0'
                     =>
                     'Значение не должно содержать больше 3 цифр после запятой',
-                    'children.quantity.errors.1'
+                    'errors.children.quantity.errors.1'
                     =>
                     null
                 )
@@ -134,7 +134,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('quantity' => 'abc'),
                 array(
-                    'children.quantity.errors.0'
+                    'errors.children.quantity.errors.0'
                     =>
                     'Значение должно быть числом'
                 )
@@ -158,7 +158,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('price' => ''),
                 array(
-                    'children.price.errors.0'
+                    'errors.children.price.errors.0'
                     =>
                     'Заполните это поле'
                 )
@@ -167,7 +167,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('price' => '10,898'),
                 array(
-                    'children.price.errors.0'
+                    'errors.children.price.errors.0'
                     =>
                     'Цена не должна содержать больше 2 цифр после запятой'
                 ),
@@ -176,7 +176,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('price' => '10.898'),
                 array(
-                    'children.price.errors.0'
+                    'errors.children.price.errors.0'
                     =>
                     'Цена не должна содержать больше 2 цифр после запятой'
                 ),
@@ -189,7 +189,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('price' => 'not a number'),
                 array(
-                    'children.price.errors.0'
+                    'errors.children.price.errors.0'
                     =>
                     'Значение должно быть числом',
                 ),
@@ -202,7 +202,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('price' => -10),
                 array(
-                    'children.price.errors.0'
+                    'errors.children.price.errors.0'
                     =>
                     'Цена не должна быть меньше или равна нулю'
                 )
@@ -211,7 +211,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('price' => 2000000001),
                 array(
-                    'children.price.errors.0'
+                    'errors.children.price.errors.0'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
@@ -220,7 +220,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('price' => '100000000'),
                 array(
-                    'children.price.errors.0'
+                    'errors.children.price.errors.0'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
@@ -233,7 +233,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('price' => '10000001'),
                 array(
-                    'children.price.errors.0'
+                    'errors.children.price.errors.0'
                     =>
                     'Цена не должна быть больше 10000000'
                 ),
@@ -245,7 +245,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('product' => 'not_valid_product_id'),
                 array(
-                    'children.product.errors.0'
+                    'errors.children.product.errors.0'
                     =>
                     'Такого товара не существует'
                 ),
@@ -254,7 +254,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('product' => ''),
                 array(
-                    'children.product.errors.0'
+                    'errors.children.product.errors.0'
                     =>
                     'Заполните это поле'
                 ),
@@ -266,7 +266,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('cause' => ''),
                 array(
-                    'children.cause.errors.0'
+                    'errors.children.cause.errors.0'
                     =>
                     'Заполните это поле'
                 ),
@@ -275,7 +275,7 @@ class WriteOffProductControllerTest extends WebTestCase
                 400,
                 array('cause' => str_repeat('z', 1001)),
                 array(
-                    'children.cause.errors.0'
+                    'errors.children.cause.errors.0'
                     =>
                     'Не более 1000 символов'
                 ),
@@ -1048,7 +1048,7 @@ class WriteOffProductControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(400);
-        Assert::assertJsonPathEquals('Заполните это поле', 'children.quantity.errors.0', $response);
+        Assert::assertJsonPathEquals('Заполните это поле', 'errors.children.quantity.errors.0', $response);
     }
 
     public function testProductsActionCategoryIsNotExposed()

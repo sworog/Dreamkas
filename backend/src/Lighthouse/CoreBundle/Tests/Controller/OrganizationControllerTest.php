@@ -97,7 +97,7 @@ class OrganizationControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.name.errors.0' => 'Заполните это поле',
+                    'errors.children.name.errors.0' => 'Заполните это поле',
                 )
             ),
             'length validation valid' => array(
@@ -125,13 +125,13 @@ class OrganizationControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.name.errors.0' => 'Не более 300 символов',
-                    'children.phone.errors.0' => 'Не более 300 символов',
-                    'children.fax.errors.0' => 'Не более 300 символов',
-                    'children.email.errors.0' => 'Не более 300 символов',
-                    'children.director.errors.0' => 'Не более 300 символов',
-                    'children.chiefAccountant.errors.0' => 'Не более 300 символов',
-                    'children.address.errors.0' => 'Не более 300 символов',
+                    'errors.children.name.errors.0' => 'Не более 300 символов',
+                    'errors.children.phone.errors.0' => 'Не более 300 символов',
+                    'errors.children.fax.errors.0' => 'Не более 300 символов',
+                    'errors.children.email.errors.0' => 'Не более 300 символов',
+                    'errors.children.director.errors.0' => 'Не более 300 символов',
+                    'errors.children.chiefAccountant.errors.0' => 'Не более 300 символов',
+                    'errors.children.address.errors.0' => 'Не более 300 символов',
                 )
             ),
         );
@@ -323,7 +323,7 @@ class OrganizationControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.legalDetails.children.type.errors.0' => 'Выбранное Вами значение недопустимо.'
+                    'errors.children.legalDetails.children.type.errors.0' => 'Выбранное Вами значение недопустимо.'
                 )
             ),
             // Legal Entity
@@ -356,8 +356,8 @@ class OrganizationControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.legalDetails.children.fullName.errors.0' => 'Не более 300 символов',
-                    'children.legalDetails.children.legalAddress.errors.0' => 'Не более 300 символов',
+                    'errors.children.legalDetails.children.fullName.errors.0' => 'Не более 300 символов',
+                    'errors.children.legalDetails.children.legalAddress.errors.0' => 'Не более 300 символов',
                 )
             ),
             'legal entity invalid min length' => array(
@@ -371,16 +371,16 @@ class OrganizationControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.legalDetails.children.okpo.errors.0'
+                    'errors.children.legalDetails.children.okpo.errors.0'
                     =>
                     'ОКПО юридического лица должен состоять из 8 цифр',
-                    'children.legalDetails.children.inn.errors.0'
+                    'errors.children.legalDetails.children.inn.errors.0'
                     =>
                     'ИНН юридического лица должен состоять из 10 цифр',
-                    'children.legalDetails.children.kpp.errors.0'
+                    'errors.children.legalDetails.children.kpp.errors.0'
                     =>
                     'КПП должен состоять из 9 цифр',
-                    'children.legalDetails.children.ogrn.errors.0'
+                    'errors.children.legalDetails.children.ogrn.errors.0'
                     =>
                     'ОГРН должен состоять из 13 цифр',
                 )
@@ -396,16 +396,16 @@ class OrganizationControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.legalDetails.children.okpo.errors.0'
+                    'errors.children.legalDetails.children.okpo.errors.0'
                     =>
                     'ОКПО юридического лица должен состоять из 8 цифр',
-                    'children.legalDetails.children.inn.errors.0'
+                    'errors.children.legalDetails.children.inn.errors.0'
                     =>
                     'ИНН юридического лица должен состоять из 10 цифр',
-                    'children.legalDetails.children.kpp.errors.0'
+                    'errors.children.legalDetails.children.kpp.errors.0'
                     =>
                     'КПП должен состоять из 9 цифр',
-                    'children.legalDetails.children.ogrn.errors.0'
+                    'errors.children.legalDetails.children.ogrn.errors.0'
                     =>
                     'ОГРН должен состоять из 13 цифр',
                 )
@@ -421,16 +421,16 @@ class OrganizationControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.legalDetails.children.okpo.errors.0'
+                    'errors.children.legalDetails.children.okpo.errors.0'
                     =>
                     'ОКПО юридического лица должен состоять из 8 цифр',
-                    'children.legalDetails.children.inn.errors.0'
+                    'errors.children.legalDetails.children.inn.errors.0'
                     =>
                     'ИНН юридического лица должен состоять из 10 цифр',
-                    'children.legalDetails.children.kpp.errors.0'
+                    'errors.children.legalDetails.children.kpp.errors.0'
                     =>
                     'КПП должен состоять из 9 цифр',
-                    'children.legalDetails.children.ogrn.errors.0'
+                    'errors.children.legalDetails.children.ogrn.errors.0'
                     =>
                     'ОГРН должен состоять из 13 цифр',
                 )
@@ -468,9 +468,9 @@ class OrganizationControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.legalDetails.children.fullName.errors.0' => 'Не более 300 символов',
-                    'children.legalDetails.children.legalAddress.errors.0' => 'Не более 300 символов',
-                    'children.legalDetails.children.certificateNumber.errors.0' => 'Не более 25 символов',
+                    'errors.children.legalDetails.children.fullName.errors.0' => 'Не более 300 символов',
+                    'errors.children.legalDetails.children.legalAddress.errors.0' => 'Не более 300 символов',
+                    'errors.children.legalDetails.children.certificateNumber.errors.0' => 'Не более 25 символов',
                 )
             ),
             'entrepreneur invalid min length' => array(
@@ -483,13 +483,13 @@ class OrganizationControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.legalDetails.children.okpo.errors.0'
+                    'errors.children.legalDetails.children.okpo.errors.0'
                     =>
                     'ОКПО индивидуально предпринимателя должен состоять из 10 цифр',
-                    'children.legalDetails.children.inn.errors.0'
+                    'errors.children.legalDetails.children.inn.errors.0'
                     =>
                     'ИНН индивидуально предпринимателя должен состоять из 12 цифр',
-                    'children.legalDetails.children.ogrnip.errors.0'
+                    'errors.children.legalDetails.children.ogrnip.errors.0'
                     =>
                     'ОГРНИП должен состоять из 15 цифр',
                 )
@@ -505,16 +505,16 @@ class OrganizationControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.legalDetails.children.okpo.errors.0'
+                    'errors.children.legalDetails.children.okpo.errors.0'
                     =>
                     'ОКПО индивидуально предпринимателя должен состоять из 10 цифр',
-                    'children.legalDetails.children.inn.errors.0'
+                    'errors.children.legalDetails.children.inn.errors.0'
                     =>
                     'ИНН индивидуально предпринимателя должен состоять из 12 цифр',
-                    'children.legalDetails.children.ogrnip.errors.0'
+                    'errors.children.legalDetails.children.ogrnip.errors.0'
                     =>
                     'ОГРНИП должен состоять из 15 цифр',
-                    'children.legalDetails.children.certificateNumber.errors.0'
+                    'errors.children.legalDetails.children.certificateNumber.errors.0'
                     =>
                     'Не более 25 символов',
                 )
@@ -529,13 +529,13 @@ class OrganizationControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.legalDetails.children.okpo.errors.0'
+                    'errors.children.legalDetails.children.okpo.errors.0'
                     =>
                     'ОКПО индивидуально предпринимателя должен состоять из 10 цифр',
-                    'children.legalDetails.children.inn.errors.0'
+                    'errors.children.legalDetails.children.inn.errors.0'
                     =>
                     'ИНН индивидуально предпринимателя должен состоять из 12 цифр',
-                    'children.legalDetails.children.ogrnip.errors.0'
+                    'errors.children.legalDetails.children.ogrnip.errors.0'
                     =>
                     'ОГРНИП должен состоять из 15 цифр',
                 )
@@ -549,7 +549,7 @@ class OrganizationControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.legalDetails.children.certificateDate.errors.0' => 'Значение недопустимо.',
+                    'errors.children.legalDetails.children.certificateDate.errors.0' => 'Значение недопустимо.',
                 )
             ),
             'entrepreneur invalid certificate date with time' => array(
@@ -561,7 +561,7 @@ class OrganizationControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.legalDetails.children.certificateDate.errors.0' => 'Значение недопустимо.',
+                    'errors.children.legalDetails.children.certificateDate.errors.0' => 'Значение недопустимо.',
                 )
             ),
         );

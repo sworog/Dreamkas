@@ -66,7 +66,7 @@ class CatalogGroupControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals(
             'Группа с таким названием уже существует',
-            'children.name.errors.0',
+            'errors.children.name.errors.0',
             $postResponse
         );
     }

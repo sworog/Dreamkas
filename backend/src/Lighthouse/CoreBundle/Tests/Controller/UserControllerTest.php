@@ -49,7 +49,7 @@ class UserControllerTest extends WebTestCase
 
         Assert::assertJsonPathContains(
             'Пользователь с таким email уже существует',
-            'children.email.errors.0',
+            'errors.children.email.errors.0',
             $response
         );
     }
@@ -196,23 +196,23 @@ class UserControllerTest extends WebTestCase
             'duplicate email' => array(
                 array('email' => 'superuser@lh.com'),
                 400,
-                array('children.email.errors.0' => 'Пользователь с таким email уже существует')
+                array('errors.children.email.errors.0' => 'Пользователь с таким email уже существует')
             ),
             'empty password' => array(
                 array('password' => ''),
                 400,
-                array('children.password.errors.0' => 'Заполните это поле')
+                array('errors.children.password.errors.0' => 'Заполните это поле')
             ),
             'same password as email' => array(
                 array('email' => 'user@lh.com', 'password' => 'user@lh.com'),
                 400,
-                array('children.password.errors.0' => 'E-mail и пароль не должны совпадать')
+                array('errors.children.password.errors.0' => 'E-mail и пароль не должны совпадать')
             ),
             'too short password' => array(
                 array('password' => 'loser'),
                 400,
                 array(
-                    'children.password.errors.0'
+                    'errors.children.password.errors.0'
                     =>
                     'Значение слишком короткое. Должно быть равно 6 символам или больше.'
                 )
@@ -323,7 +323,7 @@ class UserControllerTest extends WebTestCase
                 400,
                 array('password' => str_repeat('z', 5)),
                 array(
-                    'children.password.errors.0'
+                    'errors.children.password.errors.0'
                     =>
                     'Значение слишком короткое. Должно быть равно 6 символам или больше.'
                 )
@@ -336,7 +336,7 @@ class UserControllerTest extends WebTestCase
                 400,
                 array('password' => 'password@test.com', 'email' => 'password@test.com'),
                 array(
-                    'children.password.errors.0' => 'E-mail и пароль не должны совпадать'
+                    'errors.children.password.errors.0' => 'E-mail и пароль не должны совпадать'
                 )
             ),
         );
@@ -364,14 +364,14 @@ class UserControllerTest extends WebTestCase
                 400,
                 array('name' => str_repeat('z', 101)),
                 array(
-                    'children.name.errors.0' => 'Не более 100 символов'
+                    'errors.children.name.errors.0' => 'Не более 100 символов'
                 )
             ),
             'empty name' => array(
                 400,
                 array('name' => ''),
                 array(
-                    'children.name.errors.0' => 'Заполните это поле',
+                    'errors.children.name.errors.0' => 'Заполните это поле',
                 ),
             ),
             /***********************************************************************************************
@@ -393,14 +393,14 @@ class UserControllerTest extends WebTestCase
                 400,
                 array('position' => str_repeat('z', 101)),
                 array(
-                    'children.position.errors.0' => 'Не более 100 символов'
+                    'errors.children.position.errors.0' => 'Не более 100 символов'
                 )
             ),
             'empty position' => array(
                 400,
                 array('position' => ''),
                 array(
-                    'children.position.errors.0' => 'Заполните это поле',
+                    'errors.children.position.errors.0' => 'Заполните это поле',
                 ),
             ),
             /***********************************************************************************************
@@ -426,14 +426,14 @@ class UserControllerTest extends WebTestCase
                 400,
                 array('roles' => array('GOD')),
                 array(
-                    'children.roles.errors.0' => 'Значение недопустимо.'
+                    'errors.children.roles.errors.0' => 'Значение недопустимо.'
                 )
             ),
             'empty role' => array(
                 400,
                 array('roles' => ''),
                 array(
-                    'children.roles.errors.0' => 'Заполните это поле',
+                    'errors.children.roles.errors.0' => 'Заполните это поле',
                 ),
             ),
         );
@@ -464,35 +464,35 @@ class UserControllerTest extends WebTestCase
                 400,
                 array('email' => 'test@test'),
                 array(
-                    'children.email.errors.0' => 'Значение адреса электронной почты недопустимо.'
+                    'errors.children.email.errors.0' => 'Значение адреса электронной почты недопустимо.'
                 ),
             ),
             'not valid email without at' => array(
                 400,
                 array('email' => 'test.test.com'),
                 array(
-                    'children.email.errors.0' => 'Значение адреса электронной почты недопустимо.'
+                    'errors.children.email.errors.0' => 'Значение адреса электронной почты недопустимо.'
                 ),
             ),
             'not valid email wrong symbols' => array(
                 400,
                 array('email' => 'test[]@test.com'),
                 array(
-                    'children.email.errors.0' => 'Значение адреса электронной почты недопустимо.'
+                    'errors.children.email.errors.0' => 'Значение адреса электронной почты недопустимо.'
                 )
             ),
             'not valid email !#$%&`*+\/=?^`{|}~@lighthouse.pro' => array(
                 400,
                 array('email' => '!#$%&`*+\/=?^`{|}~@lighthouse.pro'),
                 array(
-                    'children.email.errors.0' => 'Значение адреса электронной почты недопустимо.'
+                    'errors.children.email.errors.0' => 'Значение адреса электронной почты недопустимо.'
                 )
             ),
             'empty email' => array(
                 400,
                 array('email' => ''),
                 array(
-                    'children.email.errors.0' => 'Заполните это поле',
+                    'errors.children.email.errors.0' => 'Заполните это поле',
                 ),
             ),
         );
@@ -520,7 +520,7 @@ class UserControllerTest extends WebTestCase
                 400,
                 array('password' => str_repeat('z', 5)),
                 array(
-                    'children.password.errors.0'
+                    'errors.children.password.errors.0'
                     =>
                     'Значение слишком короткое. Должно быть равно 6 символам или больше.'
                 )
@@ -529,7 +529,7 @@ class UserControllerTest extends WebTestCase
                 400,
                 array('password' => ''),
                 array(
-                    'children.password.errors.0' => 'Заполните это поле',
+                    'errors.children.password.errors.0' => 'Заполните это поле',
                 ),
             ),
             'not valid password equals email' => array(
@@ -539,7 +539,7 @@ class UserControllerTest extends WebTestCase
                     'email' => 'password@test.com'
                 ),
                 array(
-                    'children.password.errors.0' => 'E-mail и пароль не должны совпадать'
+                    'errors.children.password.errors.0' => 'E-mail и пароль не должны совпадать'
                 )
             ),
         );
@@ -1024,7 +1024,7 @@ class UserControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
         Assert::assertJsonPathEquals(
             'Пользователь с таким email уже существует',
-            'children.email.errors.0',
+            'errors.children.email.errors.0',
             $response
         );
     }
@@ -1102,7 +1102,7 @@ class UserControllerTest extends WebTestCase
 
         Assert::assertJsonPathContains(
             'Пользователь с таким email уже существует',
-            'children.email.errors.0',
+            'errors.children.email.errors.0',
             $response
         );
     }
@@ -1276,15 +1276,15 @@ class UserControllerTest extends WebTestCase
         return array(
             'not registered' => array(
                 'invalid@lh.com',
-                array('children.email.errors.0' => 'Пользователь с таким e-mail не зарегистрирован в системе'),
+                array('errors.children.email.errors.0' => 'Пользователь с таким e-mail не зарегистрирован в системе'),
             ),
             'invalid email' => array(
                 'invalid_lh.com',
-                array('children.email.errors.0' => 'Пользователь с таким e-mail не зарегистрирован в системе'),
+                array('errors.children.email.errors.0' => 'Пользователь с таким e-mail не зарегистрирован в системе'),
             ),
             'empty' => array(
                 '',
-                array('children.email.errors.0' => 'Заполните это поле'),
+                array('errors.children.email.errors.0' => 'Заполните это поле'),
             ),
         );
     }

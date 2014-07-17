@@ -177,9 +177,9 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPrice.errors.0' => 'Цена должна быть больше или равна 31.00',
-                    'children.retailPrice.errors.1' => null,
-                    'children.retailMarkup.errors' => null,
+                    'errors.children.retailPrice.errors.0' => 'Цена должна быть больше или равна 31.00',
+                    'errors.children.retailPrice.errors.1' => null,
+                    'errors.children.retailMarkup.errors' => null,
                 )
             ),
             'invalid price less than min and purchasePrice' => array(
@@ -189,9 +189,9 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPrice.errors.0' => 'Цена должна быть больше или равна 31.00',
-                    'children.retailPrice.errors.1' => null,
-                    'children.retailMarkup.errors' => null,
+                    'errors.children.retailPrice.errors.0' => 'Цена должна быть больше или равна 31.00',
+                    'errors.children.retailPrice.errors.1' => null,
+                    'errors.children.retailMarkup.errors' => null,
                 ),
             ),
             'invalid price more than max' => array(
@@ -201,9 +201,9 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPrice.errors.0' => 'Цена должна быть меньше или равна 40.00',
-                    'children.retailPrice.errors.1' => null,
-                    'children.retailMarkup.errors' => null,
+                    'errors.children.retailPrice.errors.0' => 'Цена должна быть меньше или равна 40.00',
+                    'errors.children.retailPrice.errors.1' => null,
+                    'errors.children.retailMarkup.errors' => null,
                 )
             ),
             'valid markup' => array(
@@ -249,9 +249,9 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkup.errors.0' => 'Наценка должна быть больше или равна 1.71%',
-                    'children.retailMarkup.errors.1' => null,
-                    'children.retailPrice.errors' => null,
+                    'errors.children.retailMarkup.errors.0' => 'Наценка должна быть больше или равна 1.71%',
+                    'errors.children.retailMarkup.errors.1' => null,
+                    'errors.children.retailPrice.errors' => null,
                 )
             ),
             'invalid markup mare than max' => array(
@@ -261,9 +261,9 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkup.errors.0' => 'Наценка должна быть меньше или равна 31.23%',
-                    'children.retailMarkup.errors.1' => null,
-                    'children.retailPrice.errors' => null,
+                    'errors.children.retailMarkup.errors.0' => 'Наценка должна быть меньше или равна 31.23%',
+                    'errors.children.retailMarkup.errors.1' => null,
+                    'errors.children.retailPrice.errors' => null,
                 )
             ),
             'invalid markup less than min just a little' => array(
@@ -273,9 +273,9 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkup.errors.0' => 'Наценка должна быть больше или равна 1.71%',
-                    'children.retailMarkup.errors.1' => null,
-                    'children.retailPrice.errors' => null,
+                    'errors.children.retailMarkup.errors.0' => 'Наценка должна быть больше или равна 1.71%',
+                    'errors.children.retailMarkup.errors.1' => null,
+                    'errors.children.retailPrice.errors' => null,
                 )
             ),
             'invalid markup more than max just a little' => array(
@@ -285,9 +285,9 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkup.errors.0' => 'Наценка должна быть меньше или равна 31.23%',
-                    'children.retailMarkup.errors.1' => null,
-                    'children.retailPrice.errors' => null,
+                    'errors.children.retailMarkup.errors.0' => 'Наценка должна быть меньше или равна 31.23%',
+                    'errors.children.retailMarkup.errors.1' => null,
+                    'errors.children.retailPrice.errors' => null,
                 )
             ),
             'invalid price string' => array(
@@ -297,9 +297,9 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPrice.errors.0' => 'Значение должно быть числом',
-                    'children.retailMarkup.errors.1' => null,
-                    'children.retailMarkup.errors' => null,
+                    'errors.children.retailPrice.errors.0' => 'Значение должно быть числом',
+                    'errors.children.retailMarkup.errors.1' => null,
+                    'errors.children.retailMarkup.errors' => null,
                 )
             ),
             'invalid price 3 digits after comma' => array(
@@ -309,9 +309,9 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPrice.errors.0' => 'Цена не должна содержать больше 2 цифр после запятой',
-                    'children.retailMarkup.errors.1' => null,
-                    'children.retailMarkup.errors' => null,
+                    'errors.children.retailPrice.errors.0' => 'Цена не должна содержать больше 2 цифр после запятой',
+                    'errors.children.retailMarkup.errors.1' => null,
+                    'errors.children.retailMarkup.errors' => null,
                 )
             ),
             'invalid markup string' => array(
@@ -321,9 +321,9 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkup.errors.0' => 'Наценка должна быть числом',
-                    'children.retailMarkup.errors.1' => null,
-                    'children.retailPrice.errors' => null,
+                    'errors.children.retailMarkup.errors.0' => 'Наценка должна быть числом',
+                    'errors.children.retailMarkup.errors.1' => null,
+                    'errors.children.retailPrice.errors' => null,
                 )
             ),
             'invalid markup 3 digits after comma' => array(
@@ -333,9 +333,9 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkup.errors.0' => 'Наценка не должна содержать больше 2 цифр после запятой',
-                    'children.retailMarkup.errors.1' => null,
-                    'children.retailPrice.errors' => null,
+                    'errors.children.retailMarkup.errors.0' => 'Наценка не должна содержать больше 2 цифр после запятой',
+                    'errors.children.retailMarkup.errors.1' => null,
+                    'errors.children.retailPrice.errors' => null,
                 )
             ),
             'valid subcategory is not exposed' => array(
@@ -354,11 +354,11 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'children.retailPrice.errors.0'
+                    'errors.children.retailPrice.errors.0'
                     =>
                     'Нельзя установить цену продажи, если не установлен диапозон цены продажи',
-                    'children.retailPrice.errors.1' => null,
-                    'children.retailMarkup.errors'  => null,
+                    'errors.children.retailPrice.errors.1' => null,
+                    'errors.children.retailMarkup.errors'  => null,
                 ),
                 array(
                     'purchasePrice' => 30.48,
@@ -376,11 +376,11 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'children.retailMarkup.errors.0'
+                    'errors.children.retailMarkup.errors.0'
                     =>
                     'Нельзя установить наценку, если не установлен диапозон наценки',
-                    'children.retailMarkup.errors.1' => null,
-                    'children.retailPrice.errors' => null,
+                    'errors.children.retailMarkup.errors.1' => null,
+                    'errors.children.retailPrice.errors' => null,
                 ),
                 array(
                     'purchasePrice' => 30.48,
@@ -398,11 +398,11 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => null,
                 ),
                 array(
-                    'children.retailMarkup.errors.0'
+                    'errors.children.retailMarkup.errors.0'
                     =>
                     'Нельзя установить наценку, если не установлен диапозон наценки',
-                    'children.retailMarkup.errors.1' => null,
-                    'children.retailPrice.errors' => null,
+                    'errors.children.retailMarkup.errors.1' => null,
+                    'errors.children.retailPrice.errors' => null,
                 ),
                 array(
                     'purchasePrice' => 30.48,
@@ -685,7 +685,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPrice' => 0.04,
                 ),
                 array(
-                    'children.retailPrice.errors.0' => 'Цена после округления должна быть больше 0',
+                    'errors.children.retailPrice.errors.0' => 'Цена после округления должна быть больше 0',
                 ),
                 array(
                     'purchasePrice' => 0.02,
@@ -699,7 +699,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPrice' => 0.24,
                 ),
                 array(
-                    'children.retailPrice.errors.0' => 'Цена после округления должна быть больше 0',
+                    'errors.children.retailPrice.errors.0' => 'Цена после округления должна быть больше 0',
                 ),
                 array(
                     'purchasePrice' => 0.20,
@@ -713,7 +713,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPrice' => 0.44,
                 ),
                 array(
-                    'children.retailPrice.errors.0' => 'Цена после округления должна быть больше 0',
+                    'errors.children.retailPrice.errors.0' => 'Цена после округления должна быть больше 0',
                 ),
                 array(
                     'purchasePrice' => 0.40,
@@ -727,7 +727,7 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPrice' => 0.44,
                 ),
                 array(
-                    'children.retailPrice.errors.0' => 'Цена после округления должна быть больше 0',
+                    'errors.children.retailPrice.errors.0' => 'Цена после округления должна быть больше 0',
                 ),
                 array(
                     'purchasePrice' => 0.40,

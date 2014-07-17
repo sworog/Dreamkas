@@ -75,7 +75,7 @@ class ConfigControllerTest extends WebTestCase
 
         $this->assertResponseCode(400);
 
-        Assert::assertJsonPathContains('Это значение уже используется.', 'children.name.errors.*', $postResponse);
+        Assert::assertJsonPathContains('Это значение уже используется.', 'errors.children.name.errors.*', $postResponse);
     }
 
     public function testGetConfigAction()

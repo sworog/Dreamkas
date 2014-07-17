@@ -87,7 +87,7 @@ class OrderControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(400);
-        Assert::assertJsonPathEquals('Нужно добавить минимум один товар', 'errors.0', $response);
+        Assert::assertJsonPathEquals('Нужно добавить минимум один товар', 'errors.errors.0', $response);
     }
 
     /**
@@ -150,7 +150,7 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('products' => array(array('quantity' => ''))),
                 array(
-                    'children.products.children.0.children.quantity.errors.0'
+                    'errors.children.products.children.0.children.quantity.errors.0'
                     =>
                     'Заполните это поле'
                 )
@@ -159,7 +159,7 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('products' => array(array('quantity' => -10))),
                 array(
-                    'children.products.children.0.children.quantity.errors.0'
+                    'errors.children.products.children.0.children.quantity.errors.0'
                     =>
                     'Значение должно быть больше 0'
                 )
@@ -168,7 +168,7 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('products' => array(array('quantity' => -1))),
                 array(
-                    'children.products.children.0.children.quantity.errors.0'
+                    'errors.children.products.children.0.children.quantity.errors.0'
                     =>
                     'Значение должно быть больше 0'
                 )
@@ -177,7 +177,7 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('products' => array(array('quantity' => 0))),
                 array(
-                    'children.products.children.0.children.quantity.errors.0'
+                    'errors.children.products.children.0.children.quantity.errors.0'
                     =>
                     'Значение должно быть больше 0'
                 )
@@ -194,7 +194,7 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('products' => array(array('quantity' => 2.5555))),
                 array(
-                    'children.products.children.0.children.quantity.errors.0'
+                    'errors.children.products.children.0.children.quantity.errors.0'
                     =>
                     'Значение не должно содержать больше 3 цифр после запятой'
                 )
@@ -203,7 +203,7 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('products' => array(array('quantity' => '2,5555'))),
                 array(
-                    'children.products.children.0.children.quantity.errors.0'
+                    'errors.children.products.children.0.children.quantity.errors.0'
                     =>
                     'Значение не должно содержать больше 3 цифр после запятой',
                 )
@@ -212,10 +212,10 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('products' => array(array('quantity' => '2,5555'))),
                 array(
-                    'children.products.children.0.children.quantity.errors.0'
+                    'errors.children.products.children.0.children.quantity.errors.0'
                     =>
                     'Значение не должно содержать больше 3 цифр после запятой',
-                    'children.products.children.0.children.quantity.errors.1'
+                    'errors.children.products.children.0.children.quantity.errors.1'
                     =>
                     null
                 )
@@ -224,7 +224,7 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('products' => array(array('quantity' => 'abc'))),
                 array(
-                    'children.products.children.0.children.quantity.errors.0'
+                    'errors.children.products.children.0.children.quantity.errors.0'
                     =>
                     'Значение должно быть числом'
                 )
@@ -236,7 +236,7 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('products' => array(array('product' => 'not_valid_product_id'))),
                 array(
-                    'children.products.children.0.children.product.errors.0'
+                    'errors.children.products.children.0.children.product.errors.0'
                     =>
                     'Такого товара не существует'
                 ),
@@ -245,7 +245,7 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('products' => array(array('product' => ''))),
                 array(
-                    'children.products.children.0.children.product.errors.0'
+                    'errors.children.products.children.0.children.product.errors.0'
                     =>
                     'Заполните это поле'
                 ),
@@ -257,7 +257,7 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('supplier' => 'notExists'),
                 array(
-                    'children.supplier.errors.0'
+                    'errors.children.supplier.errors.0'
                     =>
                     'Такого поставщика не существует'
                 ),
@@ -266,7 +266,7 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('supplier' => ''),
                 array(
-                    'children.supplier.errors.0'
+                    'errors.children.supplier.errors.0'
                     =>
                     'Выберите поставщика'
                 ),
@@ -449,7 +449,7 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('quantity' => ''),
                 array(
-                    'children.quantity.errors.0'
+                    'errors.children.quantity.errors.0'
                     =>
                     'Заполните это поле'
                 )
@@ -458,7 +458,7 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('quantity' => -10),
                 array(
-                    'children.quantity.errors.0'
+                    'errors.children.quantity.errors.0'
                     =>
                     'Значение должно быть больше 0'
                 )
@@ -467,7 +467,7 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('quantity' => -1),
                 array(
-                    'children.quantity.errors.0'
+                    'errors.children.quantity.errors.0'
                     =>
                     'Значение должно быть больше 0'
                 )
@@ -476,7 +476,7 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('quantity' => 0),
                 array(
-                    'children.quantity.errors.0'
+                    'errors.children.quantity.errors.0'
                     =>
                     'Значение должно быть больше 0'
                 )
@@ -493,7 +493,7 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('quantity' => 2.5555),
                 array(
-                    'children.quantity.errors.0'
+                    'errors.children.quantity.errors.0'
                     =>
                     'Значение не должно содержать больше 3 цифр после запятой'
                 )
@@ -502,7 +502,7 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('quantity' => '2,5555'),
                 array(
-                    'children.quantity.errors.0'
+                    'errors.children.quantity.errors.0'
                     =>
                     'Значение не должно содержать больше 3 цифр после запятой',
                 )
@@ -511,15 +511,15 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('quantity' => '2,5555'),
                 array(
-                    'children.quantity.errors.0' => 'Значение не должно содержать больше 3 цифр после запятой',
-                    'children.quantity.errors.1' => null
+                    'errors.children.quantity.errors.0' => 'Значение не должно содержать больше 3 цифр после запятой',
+                    'errors.children.quantity.errors.1' => null
                 )
             ),
             'not numeric quantity' => array(
                 400,
                 array('quantity' => 'abc'),
                 array(
-                    'children.quantity.errors.0'
+                    'errors.children.quantity.errors.0'
                     =>
                     'Значение должно быть числом'
                 )
@@ -531,7 +531,7 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('product' => 'not_valid_product_id'),
                 array(
-                    'children.product.errors.0'
+                    'errors.children.product.errors.0'
                     =>
                         'Такого товара не существует'
                 ),
@@ -540,7 +540,7 @@ class OrderControllerTest extends WebTestCase
                 400,
                 array('product' => ''),
                 array(
-                    'children.product.errors.0'
+                    'errors.children.product.errors.0'
                     =>
                         'Заполните это поле'
                 ),

@@ -59,7 +59,7 @@ class StoreControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(400);
-        Assert::assertJsonPathEquals('Такой магазин уже есть', 'children.number.errors.0', $response);
+        Assert::assertJsonPathEquals('Такой магазин уже есть', 'errors.children.number.errors.0', $response);
     }
 
     /**
@@ -138,7 +138,7 @@ class StoreControllerTest extends WebTestCase
                 400,
                 array('number' => ''),
                 array(
-                    'children.number.errors.0'
+                    'errors.children.number.errors.0'
                     =>
                     'Заполните это поле'
                 )
@@ -147,7 +147,7 @@ class StoreControllerTest extends WebTestCase
                 400,
                 array('number' => str_repeat('z', 51)),
                 array(
-                    'children.number.errors.0'
+                    'errors.children.number.errors.0'
                     =>
                     'Не более 50 символов'
                 )
@@ -164,7 +164,7 @@ class StoreControllerTest extends WebTestCase
                 400,
                 array('number' => 'Abc123466!@#$%^&*(;"'),
                 array(
-                    'children.number.errors.0'
+                    'errors.children.number.errors.0'
                     =>
                     'Значение недопустимо'
                 )
@@ -181,7 +181,7 @@ class StoreControllerTest extends WebTestCase
                 400,
                 array('address' => str_repeat('z', 301)),
                 array(
-                    'children.address.errors.0'
+                    'errors.children.address.errors.0'
                     =>
                     'Не более 300 символов'
                 ),
@@ -194,7 +194,7 @@ class StoreControllerTest extends WebTestCase
                 400,
                 array('address' => ''),
                 array(
-                    'children.address.errors.0'
+                    'errors.children.address.errors.0'
                     =>
                     'Заполните это поле'
                 )
@@ -211,7 +211,7 @@ class StoreControllerTest extends WebTestCase
                 400,
                 array('contacts' => str_repeat('z', 101)),
                 array(
-                    'children.contacts.errors.0'
+                    'errors.children.contacts.errors.0'
                     =>
                     'Не более 100 символов'
                 ),
@@ -224,7 +224,7 @@ class StoreControllerTest extends WebTestCase
                 400,
                 array('contacts' => ''),
                 array(
-                    'children.contacts.errors.0'
+                    'errors.children.contacts.errors.0'
                     =>
                     'Заполните это поле'
                 )
@@ -614,7 +614,7 @@ class StoreControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
         Assert::assertJsonPathEquals(
             'Такой магазин уже есть',
-            'children.number.errors.0',
+            'errors.children.number.errors.0',
             $response
         );
     }

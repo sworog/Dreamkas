@@ -89,7 +89,6 @@ fos_rest:
             json: true
         templating_formats:
             html: false
-        exception_wrapper_handler: Lighthouse\CoreBundle\Util\Rest\ExceptionWrapperHandler
     exception:
         codes:
             'Lighthouse\CoreBundle\Exception\NotEmptyException': 409

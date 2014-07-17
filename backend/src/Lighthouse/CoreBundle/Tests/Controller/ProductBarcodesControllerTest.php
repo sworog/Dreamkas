@@ -215,7 +215,7 @@ class ProductBarcodesControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.barcodes.children.0.children.barcode.errors.0' => 'Заполните это поле',
+                    'errors.children.barcodes.children.0.children.barcode.errors.0' => 'Заполните это поле',
                 ),
             ),
             'invalid barcode length 201' => array(
@@ -230,7 +230,7 @@ class ProductBarcodesControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.barcodes.children.0.children.barcode.errors.0' => 'Не более 200 символов',
+                    'errors.children.barcodes.children.0.children.barcode.errors.0' => 'Не более 200 символов',
                 ),
             ),
             // Quantity
@@ -246,7 +246,7 @@ class ProductBarcodesControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.barcodes.children.0.children.quantity.errors.0'
+                    'errors.children.barcodes.children.0.children.quantity.errors.0'
                     =>
                     'Заполните это поле',
                 ),
@@ -263,7 +263,7 @@ class ProductBarcodesControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.barcodes.children.0.children.quantity.errors.0'
+                    'errors.children.barcodes.children.0.children.quantity.errors.0'
                     =>
                     'Значение не должно содержать больше 3 цифр после запятой',
                 ),
@@ -280,7 +280,7 @@ class ProductBarcodesControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.barcodes.children.0.children.quantity.errors.0'
+                    'errors.children.barcodes.children.0.children.quantity.errors.0'
                     =>
                     'Значение не должно содержать больше 3 цифр после запятой',
                 ),
@@ -297,7 +297,7 @@ class ProductBarcodesControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.barcodes.children.0.children.quantity.errors.0'
+                    'errors.children.barcodes.children.0.children.quantity.errors.0'
                     =>
                     'Значение должно быть числом',
                 ),
@@ -314,7 +314,7 @@ class ProductBarcodesControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.barcodes.children.0.children.quantity.errors.0'
+                    'errors.children.barcodes.children.0.children.quantity.errors.0'
                     =>
                     'Значение должно быть больше 0',
                 ),
@@ -331,7 +331,7 @@ class ProductBarcodesControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.barcodes.children.0.children.quantity.errors.0'
+                    'errors.children.barcodes.children.0.children.quantity.errors.0'
                     =>
                     'Значение должно быть больше 0',
                 ),
@@ -349,7 +349,7 @@ class ProductBarcodesControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.barcodes.children.0.children.price.errors.0'
+                    'errors.children.barcodes.children.0.children.price.errors.0'
                     =>
                     'Цена не должна содержать больше 2 цифр после запятой',
                 ),
@@ -366,10 +366,10 @@ class ProductBarcodesControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.barcodes.children.0.children.price.errors.0'
+                    'errors.children.barcodes.children.0.children.price.errors.0'
                     =>
                     'Цена не должна быть меньше или равна нулю',
-                    'children.barcodes.children.0.children.price.errors.1'
+                    'errors.children.barcodes.children.0.children.price.errors.1'
                     =>
                     'Цена не должна содержать больше 2 цифр после запятой',
                 ),
@@ -386,7 +386,7 @@ class ProductBarcodesControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.barcodes.children.0.children.price.errors.0'
+                    'errors.children.barcodes.children.0.children.price.errors.0'
                     =>
                     'Значение должно быть числом',
                 ),
@@ -403,7 +403,7 @@ class ProductBarcodesControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.barcodes.children.0.children.price.errors.0'
+                    'errors.children.barcodes.children.0.children.price.errors.0'
                     =>
                     'Цена не должна быть меньше или равна нулю',
                 ),
@@ -420,7 +420,7 @@ class ProductBarcodesControllerTest extends WebTestCase
                 ),
                 400,
                 array(
-                    'children.barcodes.children.0.children.price.errors.0'
+                    'errors.children.barcodes.children.0.children.price.errors.0'
                     =>
                     'Цена не должна быть меньше или равна нулю',
                 ),
@@ -475,7 +475,7 @@ class ProductBarcodesControllerTest extends WebTestCase
                     array('barcode' => '54492653', 'quantity' => '1')
                 ),
                 array(
-                    'children.barcodes.children.0.children.barcode.errors.0'
+                    'errors.children.barcodes.children.0.children.barcode.errors.0'
                     =>
                     'Штрихкод уже используется в продукте [10001] "Кефир"'
                 )
@@ -485,7 +485,7 @@ class ProductBarcodesControllerTest extends WebTestCase
                     array('barcode' => '11111', 'quantity' => '1')
                 ),
                 array(
-                    'children.barcodes.children.0.children.barcode.errors.0'
+                    'errors.children.barcodes.children.0.children.barcode.errors.0'
                     =>
                     'Штрихкод уже используется в продукте [10001] "Кефир"'
                 )
@@ -497,13 +497,13 @@ class ProductBarcodesControllerTest extends WebTestCase
                     array('barcode' => '54492654', 'quantity' => '1'),
                 ),
                 array(
-                    'children.barcodes.children.0.children.barcode.errors.0'
+                    'errors.children.barcodes.children.0.children.barcode.errors.0'
                     =>
                     'Штрихкод уже используется в продукте [10001] "Кефир"',
-                    'children.barcodes.children.1.children.barcode.errors.0'
+                    'errors.children.barcodes.children.1.children.barcode.errors.0'
                     =>
                     'Штрихкод уже используется в продукте [10001] "Кефир"',
-                    'children.barcodes.children.2.children.barcode.errors.0'
+                    'errors.children.barcodes.children.2.children.barcode.errors.0'
                     =>
                     'Штрихкод уже используется в продукте [10001] "Кефир"',
                 )
@@ -513,7 +513,7 @@ class ProductBarcodesControllerTest extends WebTestCase
                     array('barcode' => '11112', 'quantity' => '1')
                 ),
                 array(
-                    'children.barcodes.children.0.children.barcode.errors.0'
+                    'errors.children.barcodes.children.0.children.barcode.errors.0'
                     =>
                     'Штрихкод уже используется в этом продукте'
                 )
@@ -524,10 +524,10 @@ class ProductBarcodesControllerTest extends WebTestCase
                     array('barcode' => '666', 'quantity' => '1'),
                 ),
                 array(
-                    'children.barcodes.children.0.children.barcode.errors.0'
+                    'errors.children.barcodes.children.0.children.barcode.errors.0'
                     =>
                     null,
-                    'children.barcodes.children.1.children.barcode.errors.0'
+                    'errors.children.barcodes.children.1.children.barcode.errors.0'
                     =>
                     'Штрихкод уже используется в этом продукте'
                 )
