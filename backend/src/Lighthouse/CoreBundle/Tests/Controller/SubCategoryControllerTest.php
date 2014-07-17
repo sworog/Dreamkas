@@ -191,7 +191,11 @@ class SubCategoryControllerTest extends WebTestCase
             'not valid markup min is more than max' => array(
                 400,
                 array('retailMarkupMin' => 10, 'retailMarkupMax' => 0),
-                array('errors.children.retailMarkupMin.errors.0' => 'Минимальная наценка не может быть больше максимальной')
+                array(
+                    'errors.children.retailMarkupMin.errors.0'
+                    =>
+                    'Минимальная наценка не может быть больше максимальной'
+                )
             ),
             'not valid markup not float' => array(
                 400,

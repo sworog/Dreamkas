@@ -247,7 +247,11 @@ class InvoiceControllerTest extends WebTestCase
 
         $this->assertResponseCode(400);
 
-        Assert::assertJsonPathContains('Вы ввели неверную дату', 'errors.children.acceptanceDate.errors.0', $postResponse);
+        Assert::assertJsonPathContains(
+            'Вы ввели неверную дату',
+            'errors.children.acceptanceDate.errors.0',
+            $postResponse
+        );
         Assert::assertNotJsonHasPath('errors.children.supplierInvoiceDate.errors.0', $postResponse);
     }
 
@@ -1557,7 +1561,11 @@ class InvoiceControllerTest extends WebTestCase
             $invoiceData
         );
         $this->assertResponseCode(400);
-        Assert::assertJsonPathEquals('Накладная по этому заказу уже существует', 'errors.children.order.errors.0', $response);
+        Assert::assertJsonPathEquals(
+            'Накладная по этому заказу уже существует',
+            'errors.children.order.errors.0',
+            $response
+        );
     }
 
     public function testInvoiceIsExposedInOrder()

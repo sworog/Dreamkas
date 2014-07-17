@@ -333,7 +333,9 @@ class StoreProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'errors.children.retailMarkup.errors.0' => 'Наценка не должна содержать больше 2 цифр после запятой',
+                    'errors.children.retailMarkup.errors.0'
+                    =>
+                    'Наценка не должна содержать больше 2 цифр после запятой',
                     'errors.children.retailMarkup.errors.1' => null,
                     'errors.children.retailPrice.errors' => null,
                 )

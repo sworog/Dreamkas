@@ -1653,8 +1653,12 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'errors.children.retailPriceMin.errors.0' => 'Цена продажи должна быть больше или равна цене закупки',
-                    'errors.children.retailMarkupMin.errors' => null
+                    'errors.children.retailPriceMin.errors.0'
+                    =>
+                    'Цена продажи должна быть больше или равна цене закупки',
+                    'errors.children.retailMarkupMin.errors'
+                    =>
+                    null
                 ),
             ),
             'prefer price, markup valid, invalid price: -10.12' => array(
@@ -1678,8 +1682,12 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'errors.children.retailPriceMin.errors.0' => 'Минимальная цена продажи не должна быть больше максимальной',
-                    'errors.children.retailPriceMax.errors' => null,
+                    'errors.children.retailPriceMin.errors.0'
+                    =>
+                    'Минимальная цена продажи не должна быть больше максимальной',
+                    'errors.children.retailPriceMax.errors'
+                    =>
+                    null,
                 ),
             ),
             'prefer markup, price valid, invalid markup: -105' => array(
@@ -1733,7 +1741,9 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'errors.children.retailMarkupMin.errors.0' => 'Значение не должно содержать больше 2 цифр после запятой',
+                    'errors.children.retailMarkupMin.errors.0'
+                    =>
+                    'Значение не должно содержать больше 2 цифр после запятой',
                 ),
             ),
             'prefer price, empty markup, invalid price' => array(
@@ -1797,7 +1807,9 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'errors.children.retailMarkupMin.errors.0' => 'Минимальная наценка не должна быть больше максимальной',
+                    'errors.children.retailMarkupMin.errors.0'
+                    =>
+                    'Минимальная наценка не должна быть больше максимальной',
                     'errors.children.retailPriceMin.errors' => null,
                     'errors.children.retailMarkupMax.errors' => null,
                     'errors.children.retailPriceMax.errors' => null,
@@ -1813,7 +1825,9 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'errors.children.retailPriceMin.errors.0' => 'Минимальная цена продажи не должна быть больше максимальной',
+                    'errors.children.retailPriceMin.errors.0'
+                    =>
+                    'Минимальная цена продажи не должна быть больше максимальной',
                     'errors.children.retailMarkupMin.errors' => null,
                     'errors.children.retailMarkupMax.errors' => null,
                     'errors.children.retailPriceMax.errors' => null,
@@ -1882,10 +1896,18 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailPrice',
                 ),
                 array(
-                    'errors.children.retailPriceMin.errors.0' => 'Нельзя ввести цену продажи при отсутствии закупочной цены',
-                    'errors.children.retailPriceMin.errors.1' => null,
-                    'errors.children.retailPriceMax.errors.0' => 'Нельзя ввести цену продажи при отсутствии закупочной цены',
-                    'errors.children.retailPriceMax.errors.1' => null,
+                    'errors.children.retailPriceMin.errors.0'
+                    =>
+                    'Нельзя ввести цену продажи при отсутствии закупочной цены',
+                    'errors.children.retailPriceMin.errors.1'
+                    =>
+                    null,
+                    'errors.children.retailPriceMax.errors.0'
+                    =>
+                    'Нельзя ввести цену продажи при отсутствии закупочной цены',
+                    'errors.children.retailPriceMax.errors.1'
+                    =>
+                    null,
                 ),
             ),
             'no purchasePrice, retailMarkup given' => array(
@@ -1896,10 +1918,18 @@ class ProductControllerTest extends WebTestCase
                     'retailPricePreference' => 'retailMarkup',
                 ),
                 array(
-                    'errors.children.retailMarkupMin.errors.0' => 'Нельзя ввести наценку при отсутствии закупочной цены',
-                    'errors.children.retailMarkupMin.errors.1' => null,
-                    'errors.children.retailMarkupMax.errors.0' => 'Нельзя ввести наценку при отсутствии закупочной цены',
-                    'errors.children.retailMarkupMax.errors.1' => null,
+                    'errors.children.retailMarkupMin.errors.0'
+                    =>
+                    'Нельзя ввести наценку при отсутствии закупочной цены',
+                    'errors.children.retailMarkupMin.errors.1'
+                    =>
+                    null,
+                    'errors.children.retailMarkupMax.errors.0'
+                    =>
+                    'Нельзя ввести наценку при отсутствии закупочной цены',
+                    'errors.children.retailMarkupMax.errors.1'
+                    =>
+                    null,
                 ),
             ),
             'purchasePrice invalid, retailPrice given' => array(
