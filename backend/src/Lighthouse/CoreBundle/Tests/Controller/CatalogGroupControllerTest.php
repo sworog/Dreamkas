@@ -27,9 +27,8 @@ class CatalogGroupControllerTest extends WebTestCase
         $this->assertResponseCode(201);
 
         Assert::assertJsonPathEquals('Скобянные изделия', 'name', $postResponse);
-        Assert::assertJsonPathEquals('default', 'category.name', $postResponse);
-        Assert::assertJsonPathEquals('default', 'category.group.name', $postResponse);
         Assert::assertJsonPathEquals('nearest1', 'rounding.name', $postResponse);
+        Assert::assertNotJsonHasPath('category', $postResponse);
 
         Assert::assertJsonHasPath('id', $postResponse);
         $id = $postResponse['id'];
@@ -91,6 +90,7 @@ class CatalogGroupControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($catalogGroupId1, '0.id', $getResponse, 1);
         Assert::assertJsonPathEquals($catalogGroupId2, '1.id', $getResponse, 1);
         Assert::assertJsonPathEquals($catalogGroupId3, '2.id', $getResponse, 1);
+        Assert::assertNotJsonHasPath('*.category', $getResponse);
     }
 
     public function testPutAction()

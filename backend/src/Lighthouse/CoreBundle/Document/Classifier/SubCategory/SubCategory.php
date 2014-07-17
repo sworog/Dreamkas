@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 use Gedmo\Mapping\Annotation\SoftDeleteable;
+use JMS\Serializer\Annotation as Serialize;
 
 /**
  * @property Category $category
@@ -29,6 +30,7 @@ class SubCategory extends AbstractNode
      *     cascade="persist",
      *     inversedBy="subCategories"
      * )
+     * @Serialize\Groups({"Default"})
      * @var Category
      */
     protected $category;

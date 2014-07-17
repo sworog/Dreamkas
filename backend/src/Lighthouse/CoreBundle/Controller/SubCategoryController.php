@@ -151,7 +151,7 @@ class SubCategoryController extends AbstractRestController
      * @param Request $request
      * @return Form|SubCategory
      *
-     * @Rest\View(statusCode=201)
+     * @Rest\View(statusCode=201, serializerGroups={"Catalog"})
      * @Rest\Route("catalog/groups")
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
@@ -169,12 +169,41 @@ class SubCategoryController extends AbstractRestController
      * @return Form|SubCategory
      *
      * @Rest\Route("catalog/groups/{catalogGroup}")
+     * @Rest\View(serializerGroups={"Catalog"})
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
     public function putCatalogGroupsAction(Request $request, SubCategory $catalogGroup)
     {
         return $this->processCatalogGroupForm($request, $catalogGroup);
+    }
+
+    /**
+     * @param SubCategory $catalogGroup
+     * @return SubCategory
+     *
+     * @Rest\Route("catalog/groups/{catalogGroup}")
+     * @Rest\View(serializerGroups={"Catalog"})
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function getCatalogGroupAction(SubCategory $catalogGroup)
+    {
+        return $catalogGroup;
+    }
+
+    /**
+     * @return Cursor|SubCategory[]
+     *
+     * @Rest\Route("catalog/groups")
+     * @Rest\View(serializerGroups={"Catalog"})
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function getCatalogGroupsAction()
+    {
+        $defaultCategory = $this->catalogManager->getDefaultCategory();
+        return $this->documentRepository->findByParent($defaultCategory->id);
     }
 
     /**
@@ -195,31 +224,5 @@ class SubCategoryController extends AbstractRestController
         } else {
             return $form;
         }
-    }
-
-    /**
-     * @param SubCategory $catalogGroup
-     * @return SubCategory
-     *
-     * @Rest\Route("catalog/groups/{catalogGroup}")
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc
-     */
-    public function getCatalogGroupAction(SubCategory $catalogGroup)
-    {
-        return $catalogGroup;
-    }
-
-    /**
-     * @return Cursor|SubCategory[]
-     *
-     * @Rest\Route("catalog/groups")
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc
-     */
-    public function getCatalogGroupsAction()
-    {
-        $defaultCategory = $this->catalogManager->getDefaultCategory();
-        return $this->documentRepository->findByParent($defaultCategory->id);
     }
 }

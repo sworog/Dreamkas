@@ -3,13 +3,13 @@
 namespace Lighthouse\CoreBundle\Document\Classifier;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Rounding\AbstractRounding;
-use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints\Compare\NumbersCompare as AssertMarkupCompare;
 use Lighthouse\CoreBundle\Validator\Constraints\NotBlankFields as AssertNotBlankFields;
-use JMS\Serializer\Annotation\Exclude;
 use Lighthouse\CoreBundle\Validator\Constraints\Range\Range as AssertRange;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use JMS\Serializer\Annotation as Serialize;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @property string $id
@@ -31,6 +31,7 @@ use Lighthouse\CoreBundle\Validator\Constraints\Range\Range as AssertRange;
 abstract class AbstractNode extends AbstractDocument
 {
     /**
+     * @Serialize\Groups({"Default", "Catalog"})
      * @MongoDB\Id
      * @var string
      */
@@ -39,6 +40,7 @@ abstract class AbstractNode extends AbstractDocument
     /**
      * Наименование
      *
+     * @Serialize\Groups({"Default", "Catalog"})
      * @MongoDB\String
      * @Assert\NotBlank
      * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
@@ -47,6 +49,7 @@ abstract class AbstractNode extends AbstractDocument
     protected $name;
 
     /**
+     * @Serialize\Groups({"Default", "Catalog"})
      * @MongoDB\Float
      * @AssertRange(gte=0)
      * @var float
@@ -54,6 +57,7 @@ abstract class AbstractNode extends AbstractDocument
     protected $retailMarkupMin;
 
     /**
+     * @Serialize\Groups({"Default", "Catalog"})
      * @MongoDB\Float
      * @AssertRange(gte=0)
      * @var float
@@ -61,12 +65,14 @@ abstract class AbstractNode extends AbstractDocument
     protected $retailMarkupMax;
 
     /**
+     * @Serialize\Exclude
      * @MongoDB\Date
      * @var \DateTime
      */
     protected $deletedAt;
 
     /**
+     * @Serialize\Groups({"Default", "Catalog"})
      * @var AbstractRounding
      */
     protected $rounding;
@@ -86,7 +92,7 @@ abstract class AbstractNode extends AbstractDocument
     }
 
     /**
-     * @Exclude
+     * @Serialize\Exclude
      * @MongoDB\String
      * @var string
      */
