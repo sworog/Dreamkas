@@ -24,6 +24,9 @@ define(function(require, exports, module) {
         initialize: function() {
             var page = this;
 
+            page.setStatus('starting');
+            page.setStatus('loading');
+
             page.collections = _.transform(page.collections, function(result, collectionInitializer, key) {
                 result[key] = page.get('collections.' + key);
             });
@@ -42,8 +45,7 @@ define(function(require, exports, module) {
             Promise.resolve(page.fetch()).then(function() {
                 try {
                     page.render();
-                    page.trigger('loaded');
-                    page.el.setAttribute('status', 'loaded');
+                    page.setStatus('loaded');
                 } catch (error) {
                     page.throw(error);
                 }
@@ -107,6 +109,20 @@ define(function(require, exports, module) {
             new Error({
                 jsError: error
             });
+        },
+
+        setStatus: function(status){
+            var page = this;
+
+            page.trigger('status:' + status);
+
+            if (status === 'loading' && Page.current){
+                page.el.removeAttribute('status');
+            }
+
+            setTimeout(function(){
+                page.el.setAttribute('status', status);
+            }, 0);
         },
 
         _initBlocks: function(){

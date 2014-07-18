@@ -19,12 +19,16 @@ define(function(require, exports, module) {
         events: {
             'click .groupList__link': function(e){
 
+                var page = this;
+
                 if (e.target.classList.contains('loading') || $(e.target).closest('li.active').length){
                     return false;
                 } else {
                     e.target.classList.add('loading');
-                }
 
+                    page.models.group = page.collections.groups.get(e.target.dataset.groupid);
+                    page.render();
+                }
             }
         },
         models: {

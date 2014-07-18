@@ -5,14 +5,21 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,700,300,800,400&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,300italic,300,700,700italic&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/main.css" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,700,300,800,400&subset=latin,cyrillic'
+          rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,400italic,300italic,300,700,700italic&subset=latin,cyrillic'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/main.css"/>
     <link rel="shortcut icon" href="/madmin/images/favicon.ico">
 </head>
 
-<body class="page" status="loading">
-</body>
+<body class="page">
+
+<script>
+    setTimeout(function() {
+        document.body.setAttribute('status', 'loading');
+    }, 0);
+</script>
 
 <script src="/madmin/js/jquery-1.10.2.min.js"></script>
 <script src="/madmin/js/jquery-migrate-1.2.1.min.js"></script>
@@ -20,5 +27,7 @@
 <script src="/madmin/js/respond.min.js"></script>
 
 <script data-main="/main.js" src="/bower_components/requirejs/require.js"></script>
+
+</body>
 
 </html>

@@ -66,7 +66,10 @@ define(function(require) {
         if (e.currentTarget.dataset.navigate !== '0') {
             e.preventDefault();
 
-            router.navigate(e.currentTarget.getAttribute('href'));
+            router.navigate(e.currentTarget.getAttribute('href'), {
+                trigger: e.currentTarget.dataset.trigger !== '0',
+                replace: e.currentTarget.dataset.replace !== '0'
+            });
         }
     });
 

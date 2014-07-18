@@ -12,7 +12,10 @@
                     <% collections.groups.forEach(function(group) { %>
 
                     <li class="<%- group.id === models.group.id ? 'active' : '' %>">
-                        <a class="groupList__link" href="/catalog/groups/<%- group.id %>">
+                        <a data-groupid="<%- group.id %>"
+                           data-trigger="0"
+                           class="groupList__link"
+                           href="/catalog/groups/<%- group.id %>">
                             <%= group.element('name') %>
                         </a>
                     </li>
