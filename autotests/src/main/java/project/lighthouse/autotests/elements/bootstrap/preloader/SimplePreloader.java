@@ -14,6 +14,6 @@ public class SimplePreloader extends AbstractPreLoader {
 
     @Override
     public String getXpath() {
-        return null;
+        return "//*[contains(@class, 'loading')]";
     }
 }
