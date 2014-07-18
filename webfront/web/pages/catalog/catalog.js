@@ -20,7 +20,7 @@ define(function(require, exports, module) {
             'click .groupList__link': function(e){
 
                 if (e.target.classList.contains('loading') || $(e.target).closest('li.active').length){
-                    e.stopPropagation();
+                    return false;
                 } else {
                     e.target.classList.add('loading');
                 }

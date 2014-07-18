@@ -5,7 +5,6 @@
 @import "/madmin/vendors/iCheck/skins/all.css";
 @import "/madmin/css/blue-grey.css";
 @import "/madmin/css/style-responsive.css";
-
 @import "/blocks/confirmLink/confirmLink.css";
 
 #topbar {
@@ -60,5 +59,9 @@ input + .form__errorMessage {
 
 input.invalid {
     border-color: #db4c4a;
+}
+
+.active .groupList__link {
+    cursor: default;
 }
 
