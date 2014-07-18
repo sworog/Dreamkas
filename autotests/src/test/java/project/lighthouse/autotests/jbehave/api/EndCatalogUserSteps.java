@@ -29,6 +29,11 @@ public class EndCatalogUserSteps {
         catalogApiSteps.createGroupThroughPost(groupName);
     }
 
+    @Given("the user with email '$email' creates group with name '$groupName'")
+    public void givenTheUserWithEmailCreatesGroupWithName(String email, String groupName) throws IOException, JSONException {
+        catalogApiSteps.createGroupThroughPostByUserWithEmail(groupName, email);
+    }
+
     @Given("there is the category with name '$categoryName' related to group named '$groupName'")
     public void givenThereIsTheCategoryWithNameRelatedToGroup(String categoryName, String groupName) throws IOException, JSONException {
         catalogApiSteps.createCategoryThroughPost(categoryName, groupName);

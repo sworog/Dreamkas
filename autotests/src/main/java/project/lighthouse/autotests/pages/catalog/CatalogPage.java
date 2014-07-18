@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.pages.catalog;
 
 import net.thucydides.core.annotations.DefaultUrl;
-import net.thucydides.core.annotations.NotImplementedException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
@@ -27,11 +26,11 @@ public class CatalogPage extends CommonPageObject {
     }
 
     public GroupObjectCollection getGroupObjectCollection() {
-        return new GroupObjectCollection(getDriver(), By.name("group"));
+        return new GroupObjectCollection(getDriver(), By.className("groupList__link"));
     }
 
     public String getGroupTitle() {
-        return findVisibleElement(By.name("groupHeading")).getText();
+        return findVisibleElement(By.xpath("//*[@class='panel-heading']/*")).getText();
     }
 
     public String getTitle() {
@@ -39,6 +38,6 @@ public class CatalogPage extends CommonPageObject {
     }
 
     public void editGroupIconClick() {
-        throw new NotImplementedException("Not implemented yet");
+        findVisibleElement(By.xpath("//*[@class='fa fa-edit']")).click();
     }
 }

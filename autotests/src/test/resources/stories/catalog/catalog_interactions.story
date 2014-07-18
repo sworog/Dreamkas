@@ -49,7 +49,7 @@ Meta:
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
-Given there is the group with name 'Группа до редактирования'
+Given the user with email 's28u100@lighthouse.pro' creates group with name 'Группа до редактирования'
 
 Given the user opens catalog page
 And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
@@ -70,7 +70,7 @@ Meta:
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
-Given there is the group with name 'Группа до редактирования1'
+Given the user with email 's28u100@lighthouse.pro' creates group with name 'Группа до редактирования1'
 
 Given the user opens catalog page
 And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
@@ -91,7 +91,7 @@ Meta:
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
-Given there is the group with name 'Группа для удаления'
+Given the user with email 's28u100@lighthouse.pro' creates group with name 'Группа для удаления'
 
 Given the user opens catalog page
 And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
@@ -111,7 +111,7 @@ Meta:
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
-Given there is the group with name 'Группа для удаления1'
+Given the user with email 's28u100@lighthouse.pro' creates group with name 'Группа для удаления1'
 
 Given the user opens catalog page
 And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
@@ -157,7 +157,7 @@ Meta:
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
-Given there is the group with name 'Группа для выбора'
+Given the user with email 's28u100@lighthouse.pro' creates group with name 'Группа для выбора'
 
 Given the user opens catalog page
 And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
@@ -178,7 +178,7 @@ And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' pa
 
 When the user clicks on the add new group button on the catalog page
 
-Then the user asserts the create group modal window title is 'Добавление группы'
+Then the user asserts the create group modal window title is 'Добавить группу'
 
 Scenario: Edit group modal window title assert
 
@@ -187,7 +187,7 @@ Meta:
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
-Given there is the group with name 'Тест группа'
+Given the user with email 's28u100@lighthouse.pro' creates group with name 'Тест группа'
 
 Given the user opens catalog page
 And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
@@ -204,7 +204,7 @@ Meta:
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
-Given there is the group with name 'Тест группа'
+Given the user with email 's28u100@lighthouse.pro' creates group with name 'Тест группа'
 
 Given the user opens catalog page
 And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
@@ -215,7 +215,7 @@ And the user clicks on delete group button in edit group modal window
 
 Then the user asserts the create group modal window title is 'Удаление группы'
 
-Scenario: No groups title assert
+Scenario: No groups message assert
 
 Meta:
 @id_
@@ -227,3 +227,51 @@ Given the user opens catalog page
 And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
 
 Then the user checks page contains text 'У вас пока нет ни групп, ни товаров!'
+
+Scenario: When adding new group and navigation to it
+
+Meta:
+@id_
+
+GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
+
+Given the user opens catalog page
+And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+
+When the user clicks on the add new group button on the catalog page
+And the user inputs 'New group' in group name field in create new group modal window
+And the user confirms OK in create new group modal window
+!--confirmation
+
+Then the user asserts choosen group title is 'New group'
+
+Scenario: Deleting the group with name, which had the already deleted group
+
+Meta:
+@smoke
+@id_
+
+GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
+
+Given the user with email 's28u100@lighthouse.pro' creates group with name 'GroupDeletion'
+
+Given the user opens catalog page
+And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
+
+When the user clicks on the group with name 'GroupDeletion'
+And the user clicks on the edit group icon
+And the user clicks on delete group button in edit group modal window
+And the user confirms OK in delete group modal window
+!--confirmation
+
+Then the user asserts the groups list not contain group with name 'GroupDeletion'
+
+When the user clicks on the add new group button on the catalog page
+And the user inputs 'GroupDeletion' in group name field in create new group modal window
+And the user confirms OK in create new group modal window
+!--confirmation
+
+Then the user asserts the groups list contain group with name 'GroupDeletion'
+
+
+

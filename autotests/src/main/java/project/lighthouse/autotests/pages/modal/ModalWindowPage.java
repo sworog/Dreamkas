@@ -21,7 +21,7 @@ public class ModalWindowPage extends CommonPageObject {
     }
 
     public String getTitleText() {
-        return findVisibleElement(By.name("title")).getText();
+        return findVisibleElement(By.className("modal-title")).getText();
     }
 
     public void confirmationOkClick() {

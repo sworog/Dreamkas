@@ -11,8 +11,8 @@ public class AbstractClassifierNode extends AbstractObject {
 
     public AbstractClassifierNode(String name) throws JSONException {
         super();
-        jsonObject.put("name", name)
-                .put("rounding", "nearest1");
+        jsonObject.put("name", name);
+//                .put("rounding", "nearest1");
     }
 
     @Override

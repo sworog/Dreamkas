@@ -11,7 +11,7 @@ public abstract class AbstractBtnFacade extends AbstractFacade {
 
     @Override
     public String getXpathPattern() {
-        return "//button[contains(@class, 'btn btn-" + btnClassName() + "') and contains(text(), '%s')]";
+        return "//*[contains(@class, 'btn btn-" + btnClassName() + "') and contains(text(), '%s')]";
     }
 
     public abstract String btnClassName();

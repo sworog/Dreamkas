@@ -55,7 +55,16 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void groupCollectionNotContainGroupWithName(String groupName) {
-        catalogPage.getGroupObjectCollection().notContains(groupName);
+        GroupObjectCollection orderObjectCollection = null;
+        try {
+            orderObjectCollection = catalogPage.getGroupObjectCollection();
+        } catch (TimeoutException e) {
+            catalogPage.containsText("У вас пока нет ни групп, ни товаров!");
+        } finally {
+            if (orderObjectCollection != null) {
+                orderObjectCollection.notContains(groupName);
+            }
+        }
     }
 
     @Step

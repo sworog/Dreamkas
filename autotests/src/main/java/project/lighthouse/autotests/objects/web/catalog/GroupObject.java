@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.objects.web.catalog;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.abstractObjects.objectInterfaces.ObjectClickable;
@@ -23,7 +22,7 @@ public class GroupObject extends AbstractObject implements ObjectClickable, Resu
 
     @Override
     public void setProperties() {
-        name = getElement().findElement(By.name("name")).getText();
+        name = getElement().getText();
     }
 
     @Override

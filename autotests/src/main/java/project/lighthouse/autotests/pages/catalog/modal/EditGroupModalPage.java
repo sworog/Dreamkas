@@ -1,7 +1,8 @@
 package project.lighthouse.autotests.pages.catalog.modal;
 
+import net.thucydides.core.annotations.findby.By;
 import org.openqa.selenium.WebDriver;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import project.lighthouse.autotests.elements.items.InputOnlyVisible;
 
 /**
  * Edit group modal page object
@@ -12,7 +13,12 @@ public class EditGroupModalPage extends CreateGroupModalPage {
         super(driver);
     }
 
+    @Override
+    public void createElements() {
+        put("name", new InputOnlyVisible(this, "name"));
+    }
+
     public void deleteButtonClick() {
-        throw new NotImplementedException();
+        findVisibleElement(By.className("form__groupRemoveLink")).click();
     }
 }

@@ -1,5 +1,6 @@
 Meta:
 @sprint_38
+@us_100
 
 Scenario: A scenario that clears all data
 
