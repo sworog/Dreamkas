@@ -2,6 +2,7 @@ package project.lighthouse.autotests.pages.catalog.modal;
 
 import net.thucydides.core.annotations.findby.By;
 import org.openqa.selenium.WebDriver;
+import project.lighthouse.autotests.elements.bootstrap.buttons.DefaultBtnFacade;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
@@ -30,5 +31,10 @@ public class EditGroupModalPage extends ModalWindowPage {
     @Override
     public String getTitleText() {
         return findVisibleElement(By.xpath("//*[@id='modal-groupEdit']//*[@class='modal-title']")).getText();
+    }
+
+    @Override
+    public void confirmationCancelClick() {
+        new DefaultBtnFacade(this, org.openqa.selenium.By.xpath("//*[@id='modal-groupEdit']//*[contains(@class, 'btn btn-default') and contains(text(), 'Отменить')]")).click();
     }
 }

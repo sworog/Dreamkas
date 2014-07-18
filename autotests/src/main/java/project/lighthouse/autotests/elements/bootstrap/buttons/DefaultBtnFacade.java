@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.elements.bootstrap.buttons;
 
+import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.bootstrap.buttons.abstraction.AbstractBtnFacade;
 
@@ -10,6 +11,10 @@ public class DefaultBtnFacade extends AbstractBtnFacade {
 
     public DefaultBtnFacade(CommonPageObject pageObject, String facadeText) {
         super(pageObject, facadeText);
+    }
+
+    public DefaultBtnFacade(CommonPageObject pageObject, By customFindBy) {
+        super(pageObject, customFindBy);
     }
 
     @Override

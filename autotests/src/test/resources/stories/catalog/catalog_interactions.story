@@ -101,25 +101,6 @@ And the user clicks on delete group confirm button in edit group modal window
 
 Then the user asserts the groups list not contain group with name 'Группа для удаления'
 
-Scenario: Group deletion confirmation cancel
-
-Meta:
-@id_
-
-GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
-
-Given the user with email 's28u100@lighthouse.pro' creates group with name 'Группа для удаления1'
-
-Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
-
-When the user clicks on the group with name 'Группа для удаления1'
-And the user clicks on the edit group icon
-And the user clicks on delete group button in edit group modal window
-And the user clicks on delete group confirm button in edit group modal window
-
-Then the user asserts the groups list contain group with name 'Группа для удаления1'
-
 Scenario: Catalog menu navigation bar link navigation assert to proper page
 
 Meta:
