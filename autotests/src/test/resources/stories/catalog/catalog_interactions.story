@@ -21,7 +21,6 @@ And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' pa
 When the user clicks on the add new group button on the catalog page
 And the user inputs 'Новая группа' in group name field in create new group modal window
 And the user confirms OK in create new group modal window
-!--confirmation
 
 Then the user asserts the groups list contain group with name 'Новая группа'
 
@@ -36,10 +35,10 @@ Given the user opens catalog page
 And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
 
 When the user clicks on the add new group button on the catalog page
-And the user inputs 'Новая группа' in group name field in create new group modal window
+And the user inputs 'Новая группа1' in group name field in create new group modal window
 And the user confirms Cancel in create new group modal window
 
-Then the user asserts the groups list not contain group with name 'Новая группа'
+Then the user asserts the groups list not contain group with name 'Новая группа1'
 
 Scenario: Group edition confirmation ok
 
@@ -58,7 +57,6 @@ When the user clicks on the group with name 'Группа до редактир�
 And the user clicks on the edit group icon
 And the user inputs 'Группа после редактирования' in group name field in edit group modal window
 And the user confirms OK in edit group modal window
-!--confirmation
 
 Then the user asserts the groups list contain group with name 'Группа после редактирования'
 Then the user asserts the groups list not contain group with name 'Группа до редактирования'
@@ -99,8 +97,7 @@ And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' pa
 When the user clicks on the group with name 'Группа для удаления'
 And the user clicks on the edit group icon
 And the user clicks on delete group button in edit group modal window
-And the user confirms OK in delete group modal window
-!--confirmation
+And the user clicks on delete group confirm button in edit group modal window
 
 Then the user asserts the groups list not contain group with name 'Группа для удаления'
 
@@ -119,7 +116,7 @@ And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' pa
 When the user clicks on the group with name 'Группа для удаления1'
 And the user clicks on the edit group icon
 And the user clicks on delete group button in edit group modal window
-And the user confirms Cancel in delete group modal window
+And the user clicks on delete group confirm button in edit group modal window
 
 Then the user asserts the groups list contain group with name 'Группа для удаления1'
 
@@ -195,25 +192,7 @@ And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' pa
 When the user clicks on the group with name 'Тест группа'
 And the user clicks on the edit group icon
 
-Then the user asserts the create group modal window title is 'Редактирование группы'
-
-Scenario: Delete group modal window title assert
-
-Meta:
-@id_
-
-GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
-
-Given the user with email 's28u100@lighthouse.pro' creates group with name 'Тест группа'
-
-Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
-
-When the user clicks on the group with name 'Тест группа'
-And the user clicks on the edit group icon
-And the user clicks on delete group button in edit group modal window
-
-Then the user asserts the create group modal window title is 'Удаление группы'
+Then the user asserts the edit group modal window title is 'Редактирование группы'
 
 Scenario: No groups message assert
 
@@ -241,7 +220,6 @@ And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' pa
 When the user clicks on the add new group button on the catalog page
 And the user inputs 'New group' in group name field in create new group modal window
 And the user confirms OK in create new group modal window
-!--confirmation
 
 Then the user asserts choosen group title is 'New group'
 
@@ -261,15 +239,13 @@ And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' pa
 When the user clicks on the group with name 'GroupDeletion'
 And the user clicks on the edit group icon
 And the user clicks on delete group button in edit group modal window
-And the user confirms OK in delete group modal window
-!--confirmation
+And the user clicks on delete group confirm button in edit group modal window
 
 Then the user asserts the groups list not contain group with name 'GroupDeletion'
 
 When the user clicks on the add new group button on the catalog page
 And the user inputs 'GroupDeletion' in group name field in create new group modal window
 And the user confirms OK in create new group modal window
-!--confirmation
 
 Then the user asserts the groups list contain group with name 'GroupDeletion'
 

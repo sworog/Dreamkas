@@ -2,12 +2,12 @@ package project.lighthouse.autotests.steps.catalog;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.catalog.GroupObjectCollection;
 import project.lighthouse.autotests.pages.catalog.CatalogPage;
 import project.lighthouse.autotests.pages.catalog.modal.CreateGroupModalPage;
-import project.lighthouse.autotests.pages.catalog.modal.DeleteGroupModalPage;
 import project.lighthouse.autotests.pages.catalog.modal.EditGroupModalPage;
 
 import static org.hamcrest.Matchers.is;
@@ -18,7 +18,6 @@ public class CatalogSteps extends ScenarioSteps {
     CatalogPage catalogPage;
     CreateGroupModalPage createGroupModalPage;
     EditGroupModalPage editGroupModalPage;
-    DeleteGroupModalPage deleteGroupModalPage;
 
     private String storedName;
 
@@ -49,6 +48,8 @@ public class CatalogSteps extends ScenarioSteps {
             orderObjectCollection = catalogPage.getGroupObjectCollection();
         } catch (TimeoutException e) {
             catalogPage.containsText("У вас пока нет ни групп, ни товаров!");
+        } catch (StaleElementReferenceException e) {
+            orderObjectCollection = catalogPage.getGroupObjectCollection();
         } finally {
             if (orderObjectCollection != null) {
                 orderObjectCollection.contains(groupName);
@@ -68,6 +69,8 @@ public class CatalogSteps extends ScenarioSteps {
             orderObjectCollection = catalogPage.getGroupObjectCollection();
         } catch (TimeoutException e) {
             catalogPage.containsText("У вас пока нет ни групп, ни товаров!");
+        } catch (StaleElementReferenceException e) {
+            orderObjectCollection = catalogPage.getGroupObjectCollection();
         } finally {
             if (orderObjectCollection != null) {
                 orderObjectCollection.notContains(groupName);
@@ -107,6 +110,7 @@ public class CatalogSteps extends ScenarioSteps {
     @Step
     public void createGroupModalPageConfirmOk() {
         createGroupModalPage.confirmationOkClick();
+        new project.lighthouse.autotests.elements.bootstrap.preLoader.SimplePreloader(getDriver()).await();
     }
 
     @Step
@@ -127,6 +131,7 @@ public class CatalogSteps extends ScenarioSteps {
     @Step
     public void editGroupModalPageConfirmOk() {
         editGroupModalPage.confirmationOkClick();
+        new project.lighthouse.autotests.elements.bootstrap.preLoader.SimplePreloader(getDriver()).await();
     }
 
     @Step
@@ -140,18 +145,9 @@ public class CatalogSteps extends ScenarioSteps {
     }
 
     @Step
-    public void assertDeleteGroupModalPageTitle(String title) {
-        assertThat(deleteGroupModalPage.getTitleText(), is(title));
-    }
-
-    @Step
-    public void deleteGroupModalPageConfirmOk() {
-        deleteGroupModalPage.confirmationOkClick();
-    }
-
-    @Step
-    public void deleteGroupModalPageConfirmCancel() {
-        deleteGroupModalPage.confirmationCancelClick();
+    public void editGroupModalPageDeleteGroupConfirmButtonClick() {
+        editGroupModalPage.deleteButtonConfirmClick();
+        new project.lighthouse.autotests.elements.bootstrap.preLoader.SimplePreloader(getDriver()).await();
     }
 
     @Step

@@ -22,4 +22,13 @@ public class EditGroupModalPage extends ModalWindowPage {
     public void deleteButtonClick() {
         findVisibleElement(By.className("form__groupRemoveLink")).click();
     }
+
+    public void deleteButtonConfirmClick() {
+        findVisibleElement(By.xpath("//*[@class='confirmLink__confirmation']/*[@class='form__groupRemoveLink']")).click();
+    }
+
+    @Override
+    public String getTitleText() {
+        return findVisibleElement(By.xpath("//*[@id='modal-groupEdit']//*[@class='modal-title']")).getText();
+    }
 }

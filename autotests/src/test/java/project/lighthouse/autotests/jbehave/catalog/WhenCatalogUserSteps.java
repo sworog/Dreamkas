@@ -64,14 +64,9 @@ public class WhenCatalogUserSteps {
         catalogSteps.editGroupModalPageDeleteGroupButtonClick();
     }
 
-    @When("the user confirms OK in delete group modal window")
-    public void whenTheUserConfirmsOKInDeleteNewGroupModalWindow() {
-        catalogSteps.deleteGroupModalPageConfirmOk();
-    }
-
-    @When("the user confirms Cancel in delete group modal window")
-    public void whenTheUserConfirmsCancelInDeleteNewGroupModalWindow() {
-        catalogSteps.deleteGroupModalPageConfirmCancel();
+    @When("the user clicks on delete group confirm button in edit group modal window")
+    public void whenTheUserClicksOnDeleteGroupConfirmButtonInEditGroupModalWindow() {
+        catalogSteps.editGroupModalPageDeleteGroupConfirmButtonClick();
     }
 
     @When("the user clicks on the edit group icon")

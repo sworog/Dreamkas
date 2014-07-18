@@ -44,11 +44,6 @@ public class ThenCatalogUserSteps {
         catalogSteps.assertEditGroupModalPageTitle(title);
     }
 
-    @Then("the user asserts the delete group modal window title is '$title'")
-    public void thenTheUserAssertsTheDeleteGroupModalWindowTitle(String title) {
-        catalogSteps.assertDeleteGroupModalPageTitle(title);
-    }
-
     @Then("the user checks the create group modal windows name field has error message with text '$errorMessage'")
     public void thenTheUserChecksTheCreateGroupModalWindowNameFieldHasErrorMessageWithText(String errorMessage) {
         catalogSteps.createGroupModalPageCheckFieldError(errorMessage);
