@@ -19,8 +19,8 @@
             </div>
             <div class="modal-body">
 
-                <form id="<%- group.id ? 'form_groupEdit' : 'form_groupAdd' %>" style="padding: 100px 30px;" class="form form_group">
-                    <div class="form-group">
+                <form id="<%- group.id ? 'form_groupEdit' : 'form_groupAdd' %>" class="form form_group">
+                    <div style="padding: 100px 30px;" class="form-group">
 
                         <label for="inputSubject" class="control-label">Наименование</label>
 
@@ -33,27 +33,29 @@
                                     value="<%- group.get('name') %>">
                         </div>
                     </div>
-                </form>
 
-                <% if (group.id) { %>
-                <div class="confirmLink">
+                    <% if (group.id) { %>
+                    <div class="confirmLink">
 
-                    <div class="confirmLink__trigger">
+                        <div class="confirmLink__trigger">
                         <span class="form__groupRemoveLink">
                             <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
                             Удалить группу
                         </span>
-                    </div>
+                        </div>
 
-                    <div class="confirmLink__confirmation">
+                        <div class="confirmLink__confirmation">
                         <span class="form__groupRemoveLink">
                             <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
                             Подтвердить удаление
                         </span>
-                    </div>
+                        </div>
 
-                </div>
-                <% } %>
+                    </div>
+                    <% } %>
+                </form>
+
+
 
             </div>
             <div class="modal-footer">

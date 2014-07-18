@@ -79,8 +79,6 @@ define(function(require) {
     });
 
     $(document).on('click', function(e) {
-        e.stopPropagation();
-
         var confirmLink_active = $('.confirmLink_active').not($(e.target).closest('.confirmLink_active'));
 
         confirmLink_active.removeClass('confirmLink_active');

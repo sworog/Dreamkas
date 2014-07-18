@@ -51,6 +51,10 @@ define(function(require) {
 
             Block.prototype.initialize.apply(block, arguments);
 
+            block.$el.closest('.modal').on('hidden.bs.modal', function(){
+                block.reset();
+            });
+
             block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' + block.el.id + '"]');
             block.__model = block.model = block.get('model');
             block.redirectUrl = block.get('redirectUrl');
@@ -150,6 +154,16 @@ define(function(require) {
             var block = this;
 
             block.$submitButton.removeAttr('disabled');
+        },
+        reset: function(){
+
+            var block = this;
+
+            block.$('[name]').each(function(){
+                $(this).val(block.model.get(this.getAttribute('name')));
+            });
+
+            block.removeErrors();
         }
     })
 });
