@@ -19,15 +19,16 @@ define(function(require, exports, module) {
         events: {
             'click .groupList__link': function(e){
 
+                e.preventDefault();
+                e.stopPropagation();
+
                 var page = this;
 
-                if (e.target.classList.contains('loading') || $(e.target).closest('li.active').length){
-                    return false;
-                } else {
+                if (!(e.target.classList.contains('loading') || $(e.target).closest('li.active').length)){
+
                     e.target.classList.add('loading');
 
-                    page.models.group = page.collections.groups.get(e.target.dataset.groupid);
-                    page.render();
+                    page.setGroupById(e.target.dataset.groupid);
                 }
             }
         },
@@ -91,6 +92,17 @@ define(function(require, exports, module) {
             return Page.prototype.fetch.apply(page, arguments).then(function(){
                 page.models.group = page.collections.groups.get(page.params.groupId) || page.collections.groups.at(0) || new GroupModel();
             });
+        },
+        setGroupById: function(groupId) {
+            var page = this;
+
+            page.models.group = page.collections.groups.get(groupId);
+
+            router.navigate('/catalog/groups/' + groupId, {
+                trigger: false
+            });
+
+            page.render();
         }
     });
 });
