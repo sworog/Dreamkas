@@ -168,6 +168,32 @@ class CatalogGroupControllerTest extends WebTestCase
         $this->assertCount(1, $subCategories);
     }
 
+    public function testDeleteWithDuplicateName()
+    {
+        $catalogGroupId1 = $this->createCatalogGroup('Хомячки');
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/catalog/groups/' . $catalogGroupId1
+        );
+
+        $this->assertResponseCode(204);
+
+        $this->createCatalogGroup('Хомячки');
+
+        $this
+            ->getSubCategoryRepository()
+            ->getDocumentManager()
+            ->getFilterCollection()
+            ->disable('softdeleteable');
+
+        $deletedSubcategory = $this->getSubCategoryRepository()->find($catalogGroupId1);
+        $this->assertContains('Хомячки (Удалено', $deletedSubcategory->name);
+    }
+
     /**
      * @return SubCategoryRepository
      */

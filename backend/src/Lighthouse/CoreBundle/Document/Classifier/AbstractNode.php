@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Validator\Constraints\Range\Range as AssertRange;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serialize;
 use Symfony\Component\Validator\Constraints as Assert;
+use DateTime;
 
 /**
  * @property string $id
@@ -17,6 +18,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @property float  $retailMarkupMin
  * @property float  $retailMarkupMax
  * @property AbstractRounding $rounding
+ * @property DateTime $deletedAt
  *
  * @MongoDB\MappedSuperclass
  * @AssertMarkupCompare(
@@ -65,7 +67,6 @@ abstract class AbstractNode extends AbstractDocument
     protected $retailMarkupMax;
 
     /**
-     * @Serialize\Exclude
      * @MongoDB\Date
      * @var \DateTime
      */
