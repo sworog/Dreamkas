@@ -58,3 +58,7 @@ input + .form__errorMessage {
     color: #fff;
 }
 
+input.invalid {
+    border-color: #db4c4a;
+}
+

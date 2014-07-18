@@ -60,7 +60,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" data-dismiss="modal" class="btn btn-default">Отменить</button>
-                <button form="<%- group.id ? 'form_groupEdit' : 'form_groupAdd' %>" type="submit" class="btn btn-primary">Сохранить</button>
+                <button form="<%- group.id ? 'form_groupEdit' : 'form_groupAdd' %>" type="submit" class="btn btn-primary">
+                    <%- group.id ? 'Сохранить' : 'Добавить' %>
+                </button>
             </div>
         </div>
     </div>
