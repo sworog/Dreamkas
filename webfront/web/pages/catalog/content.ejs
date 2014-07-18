@@ -1,6 +1,5 @@
 <% var partials = {
-    modal_groupForm: require('ejs!blocks/modal/modal_groupForm/modal_groupForm.ejs'),
-    group: require('ejs!./group.ejs')
+    modal_groupForm: require('ejs!blocks/modal/modal_groupForm/modal_groupForm.ejs')
 } %>
 
 <div class="row group">
@@ -79,7 +78,7 @@
 
 <%= partials.modal_groupForm() %>
 
-<% if (models.group) { %>
+<% if (collections.groups.length) { %>
 <%= partials.modal_groupForm({
     group: models.group
 }) %>

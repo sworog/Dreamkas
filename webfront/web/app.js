@@ -70,6 +70,22 @@ define(function(require) {
         }
     });
 
+    $(document).on('click', '.confirmLink__trigger', function(e) {
+        e.stopPropagation();
+
+        var confirmLink = $(this).closest('.confirmLink');
+
+        confirmLink.addClass('confirmLink_active');
+    });
+
+    $(document).on('click', function(e) {
+        e.stopPropagation();
+
+        var confirmLink_active = $('.confirmLink_active').not($(e.target).closest('.confirmLink_active'));
+
+        confirmLink_active.removeClass('confirmLink_active');
+    });
+
     loading = currentUserModel.fetch();
 
     loading.done(function() {

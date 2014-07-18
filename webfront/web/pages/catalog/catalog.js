@@ -17,13 +17,6 @@ define(function(require, exports, module) {
             }
         },
         events: {
-            'click .form__groupRemoveLink': function(e){
-                var page = this;
-
-                e.target.classList.add('loading');
-
-                page.models.group.destroy();
-            },
             'click .groupList__link': function(e){
 
                 if (e.target.classList.contains('loading') || $(e.target).closest('li.active').length){
@@ -41,10 +34,9 @@ define(function(require, exports, module) {
             form_groupAdd: function(){
                 var page = this;
 
-
                 return new Form_group({
                     collection: page.collections.groups,
-                    el: '#form_groupAdd'
+                    el: document.getElementById('form_groupAdd')
                 });
             },
             form_groupEdit: function(){
@@ -66,11 +58,14 @@ define(function(require, exports, module) {
 
                     page.models.group = groupModel;
 
-                    router.navigate('/catalog/' + groupModel.id, {
+                    router.navigate('/catalog/groups/' + groupModel.id, {
                         trigger: false
                     });
 
-                    page.render();
+                    $('#modal-groupAdd').once('hidden.bs.modal', function (e) {
+                        page.render();
+                    });
+
                 },
                 remove: function(){
 
@@ -80,7 +75,9 @@ define(function(require, exports, module) {
                         trigger: false
                     });
 
-                    page.render();
+                    $('#modal-groupEdit').once('hidden.bs.modal', function (e) {
+                        page.render();
+                    });
                 }
             });
         },

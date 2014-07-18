@@ -9,6 +9,17 @@ define(function(require, exports, module) {
             return new GroupModel();
         },
         collection: null,
+        events: {
+            'click .confirmLink__confirmation .form__groupRemoveLink': function(e){
+                var block = this;
+
+                e.target.classList.add('loading');
+
+                block.model.destroy().then(function(){
+                    block.$el.closest('.modal').modal('hide');
+                });
+            }
+        },
         initialize: function(){
 
             var block = this;
@@ -17,6 +28,10 @@ define(function(require, exports, module) {
 
             block.on('submit:success', function(){
                 block.$el.closest('.modal').modal('hide');
+
+                if (!block.__model.id){
+                    block.model = new GroupModel();
+                }
             });
 
         }

@@ -52,7 +52,7 @@ define(function(require) {
             Block.prototype.initialize.apply(block, arguments);
 
             block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' + block.el.id + '"]');
-            block.model = block.get('model');
+            block.__model = block.model = block.get('model');
             block.redirectUrl = block.get('redirectUrl');
         },
         getData: function() {

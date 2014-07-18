@@ -36,10 +36,23 @@
                 </form>
 
                 <% if (group.id) { %>
-                    <a style="cursor: pointer;" class="form__groupRemoveLink">
-                        <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
-                        Удалить группу
-                    </a>
+                <div class="confirmLink">
+
+                    <div class="confirmLink__trigger">
+                        <span class="form__groupRemoveLink">
+                            <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                            Удалить группу
+                        </span>
+                    </div>
+
+                    <div class="confirmLink__confirmation">
+                        <span class="form__groupRemoveLink">
+                            <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                            Подтвердить удаление
+                        </span>
+                    </div>
+
+                </div>
                 <% } %>
 
             </div>
