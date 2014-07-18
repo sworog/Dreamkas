@@ -955,12 +955,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/crystalservice/FOSRestBundle.git",
-                "reference": "5bbf8f5b0ada2ec2206ad48acefa1043fb0c79d1"
+                "reference": "497b8951c9369d408a669c714d651e31810f7bac"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/crystalservice/FOSRestBundle/zipball/5bbf8f5b0ada2ec2206ad48acefa1043fb0c79d1",
-                "reference": "5bbf8f5b0ada2ec2206ad48acefa1043fb0c79d1",
+                "url": "https://api.github.com/repos/crystalservice/FOSRestBundle/zipball/497b8951c9369d408a669c714d651e31810f7bac",
+                "reference": "497b8951c9369d408a669c714d651e31810f7bac",
                 "shasum": ""
             },
             "require": {
@@ -1026,7 +1026,7 @@
             "support": {
                 "source": "https://github.com/crystalservice/FOSRestBundle/tree/exceptional-wrapper-serialize"
             },
-            "time": "2014-07-18 12:03:43"
+            "time": "2014-07-18 13:04:14"
         },
         {
             "name": "gedmo/doctrine-extensions",
