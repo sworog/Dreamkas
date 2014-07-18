@@ -27,6 +27,7 @@ define(function(require, exports, module) {
             Form.prototype.initialize.apply(block, arguments);
 
             block.on('submit:success', function(){
+
                 block.$el.closest('.modal').modal('hide');
 
                 if (!block.__model.id){

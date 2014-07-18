@@ -4,13 +4,14 @@ define(function(require, exports, module) {
         get = require('kit/get/get'),
         set = require('kit/set/set'),
         deepExtend = require('kit/deepExtend/deepExtend'),
+        makeClass = require('kit/makeClass/makeClass'),
         _ = require('lodash');
 
     var View = Backbone.View;
 
-    return View.extend({
+    return makeClass(View, {
 
-        constructor: function(params){
+        constructor: function(params) {
             var block = this;
 
             deepExtend(block, params);
@@ -24,7 +25,7 @@ define(function(require, exports, module) {
             return '<div></div>';
         },
 
-        el: function(){
+        el: function() {
             var block = this;
 
             return block.template(block);
@@ -45,13 +46,13 @@ define(function(require, exports, module) {
             block._initBlocks();
         },
 
-        get: function(){
+        get: function() {
             var args = [this].concat([].slice.call(arguments));
 
             return get.apply(null, args);
         },
 
-        set: function(){
+        set: function() {
             var args = [this].concat([].slice.call(arguments));
 
             return set.apply(null, args);
@@ -75,7 +76,7 @@ define(function(require, exports, module) {
             return View.prototype.remove.apply(block, arguments);
         },
 
-        removeBlocks: function(){
+        removeBlocks: function() {
             var block = this;
 
             _.forEach(block.blocks, function(blockToRemove, blockName) {

@@ -62,10 +62,6 @@ define(function(require, exports, module) {
                         trigger: false
                     });
 
-                    $('#modal-groupAdd').once('hidden.bs.modal', function (e) {
-                        page.render();
-                    });
-
                 },
                 remove: function(){
 
@@ -73,10 +69,6 @@ define(function(require, exports, module) {
 
                     router.navigate('/catalog', {
                         trigger: false
-                    });
-
-                    $('#modal-groupEdit').once('hidden.bs.modal', function (e) {
-                        page.render();
                     });
                 }
             });
