@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
+import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.catalog.GroupObjectCollection;
 import project.lighthouse.autotests.pages.catalog.CatalogPage;
@@ -81,6 +82,7 @@ public class CatalogSteps extends ScenarioSteps {
     @Step
     public void groupWithNameClick(String groupName) {
         catalogPage.getGroupObjectCollection().clickByLocator(groupName);
+        new SimplePreloader(getDriver()).await();
     }
 
     @Step
@@ -110,7 +112,7 @@ public class CatalogSteps extends ScenarioSteps {
     @Step
     public void createGroupModalPageConfirmOk() {
         createGroupModalPage.confirmationOkClick();
-        new project.lighthouse.autotests.elements.bootstrap.preLoader.SimplePreloader(getDriver()).await();
+        new SimplePreloader(getDriver()).await();
     }
 
     @Step
@@ -131,7 +133,7 @@ public class CatalogSteps extends ScenarioSteps {
     @Step
     public void editGroupModalPageConfirmOk() {
         editGroupModalPage.confirmationOkClick();
-        new project.lighthouse.autotests.elements.bootstrap.preLoader.SimplePreloader(getDriver()).await();
+        new SimplePreloader(getDriver()).await();
     }
 
     @Step
@@ -147,7 +149,7 @@ public class CatalogSteps extends ScenarioSteps {
     @Step
     public void editGroupModalPageDeleteGroupConfirmButtonClick() {
         editGroupModalPage.deleteButtonConfirmClick();
-        new project.lighthouse.autotests.elements.bootstrap.preLoader.SimplePreloader(getDriver()).await();
+        new SimplePreloader(getDriver()).await();
     }
 
     @Step
