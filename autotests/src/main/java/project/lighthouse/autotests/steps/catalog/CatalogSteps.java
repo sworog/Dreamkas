@@ -3,6 +3,7 @@ package project.lighthouse.autotests.steps.catalog;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.openqa.selenium.TimeoutException;
+import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.catalog.GroupObjectCollection;
 import project.lighthouse.autotests.pages.catalog.CatalogPage;
 import project.lighthouse.autotests.pages.catalog.modal.CreateGroupModalPage;
@@ -18,6 +19,8 @@ public class CatalogSteps extends ScenarioSteps {
     CreateGroupModalPage createGroupModalPage;
     EditGroupModalPage editGroupModalPage;
     DeleteGroupModalPage deleteGroupModalPage;
+
+    private String storedName;
 
     @Step
     public void openCatalogPage() {
@@ -54,6 +57,11 @@ public class CatalogSteps extends ScenarioSteps {
     }
 
     @Step
+    public void groupCollectionContainsGroupWithStoredName() {
+        groupCollectionContainsGroupWithName(storedName);
+    }
+
+    @Step
     public void groupCollectionNotContainGroupWithName(String groupName) {
         GroupObjectCollection orderObjectCollection = null;
         try {
@@ -75,6 +83,20 @@ public class CatalogSteps extends ScenarioSteps {
     @Step
     public void createGroupModalPageNameInput(String name) {
         createGroupModalPage.input("name", name);
+    }
+
+    @Step
+    public void createGroupModalPageNameInputGenerate(int count) {
+        String generatedString = new StringGenerator(count).generateTestData();
+        createGroupModalPage.input("name", generatedString);
+        storedName = generatedString;
+    }
+
+    @Step
+    public void editGroupModalPageNameInputGenerate(int count) {
+        String generatedString = new StringGenerator(count).generateString("b");
+        editGroupModalPage.input("name", generatedString);
+        storedName = generatedString;
     }
 
     @Step
@@ -135,5 +157,15 @@ public class CatalogSteps extends ScenarioSteps {
     @Step
     public void editGroupIconClick() {
         catalogPage.editGroupIconClick();
+    }
+
+    @Step
+    public void createGroupModalPageCheckFieldError(String errorMessage) {
+        createGroupModalPage.getItems().get("name").getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+    }
+
+    @Step
+    public void editGroupModalPageCheckFieldError(String errorMessage) {
+        editGroupModalPage.getItems().get("name").getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
     }
 }

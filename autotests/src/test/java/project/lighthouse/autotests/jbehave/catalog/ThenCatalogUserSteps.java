@@ -24,6 +24,11 @@ public class ThenCatalogUserSteps {
         catalogSteps.groupCollectionContainsGroupWithName(name);
     }
 
+    @Then("the user asserts the groups list contain group with stored name")
+    public void thenTheUserAssertsTheGroupListContainGroupWithName() {
+        catalogSteps.groupCollectionContainsGroupWithStoredName();
+    }
+
     @Then("the user asserts the groups list not contain group with name '$name'")
     public void thenTheUserAssertsTheGroupListNotContainGroupWithName(String name) {
         catalogSteps.groupCollectionNotContainGroupWithName(name);
@@ -42,5 +47,15 @@ public class ThenCatalogUserSteps {
     @Then("the user asserts the delete group modal window title is '$title'")
     public void thenTheUserAssertsTheDeleteGroupModalWindowTitle(String title) {
         catalogSteps.assertDeleteGroupModalPageTitle(title);
+    }
+
+    @Then("the user checks the create group modal windows name field has error message with text '$errorMessage'")
+    public void thenTheUserChecksTheCreateGroupModalWindowNameFieldHasErrorMessageWithText(String errorMessage) {
+        catalogSteps.createGroupModalPageCheckFieldError(errorMessage);
+    }
+
+    @Then("the user checks the edit group modal windows name field has error message with text '$errorMessage'")
+    public void thenTheUserChecksTheEditGroupModalWindowNameFieldHasErrorMessageWithText(String errorMessage) {
+        catalogSteps.editGroupModalPageCheckFieldError(errorMessage);
     }
 }

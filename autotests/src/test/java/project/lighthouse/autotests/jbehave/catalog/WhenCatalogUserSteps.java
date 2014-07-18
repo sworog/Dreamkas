@@ -24,6 +24,16 @@ public class WhenCatalogUserSteps {
         catalogSteps.createGroupModalPageNameInput(name);
     }
 
+    @When("the user generates symbols with count '$count' in the create group modal window name field")
+    public void whenTheUserGeneratesSymbolsWithCountInNameField(int count) {
+        catalogSteps.createGroupModalPageNameInputGenerate(count);
+    }
+
+    @When("the user generates symbols with count '$count' in the edit group modal window name field")
+    public void whenTheUserGeneratesSymbolsWithCountInTheEditGroupNameField(int count) {
+        catalogSteps.editGroupModalPageNameInputGenerate(count);
+    }
+
     @When("the user confirms OK in create new group modal window")
     public void whenTheUserConfirmsOKInCreateNewGroupModalWindow() {
         catalogSteps.createGroupModalPageConfirmOk();
