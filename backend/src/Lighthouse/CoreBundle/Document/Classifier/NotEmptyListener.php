@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Document\Classifier;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use JMS\DiExtraBundle\Annotation as DI;
-use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Exception\NotEmptyException;
 
 /**
@@ -14,41 +13,25 @@ use Lighthouse\CoreBundle\Exception\NotEmptyException;
 class NotEmptyListener
 {
     /**
-     * @var DocumentManager
-     */
-    protected $documentManager;
-
-    /**
-     * @DI\InjectParams({
-     *      "documentManager" = @DI\Inject("doctrine.odm.mongodb.document_manager")
-     * })
-     * @param DocumentManager $documentManager
-     */
-    public function __construct(DocumentManager $documentManager)
-    {
-        $this->documentManager = $documentManager;
-    }
-
-    /**
      * @param LifecycleEventArgs $eventArgs
      */
     public function preRemove(LifecycleEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();
         if ($document instanceof AbstractNode) {
-            $this->checkNodeHasChildrenIsEmpty($document);
+            $this->checkNodeHasChildrenIsEmpty($document, $eventArgs->getDocumentManager());
         }
     }
 
     /**
      * @param AbstractNode $node
-     * @throws NotEmptyException
+     * @param DocumentManager $documentManager
      */
-    protected function checkNodeHasChildrenIsEmpty(AbstractNode $node)
+    protected function checkNodeHasChildrenIsEmpty(AbstractNode $node, DocumentManager $documentManager)
     {
         /* @var ParentableRepository $repository */
-        $repository = $this->documentManager->getRepository($node->getChildClass());
-        $shortName = $this->documentManager->getClassMetadata(get_class($node))->getReflectionClass()->getShortName();
+        $repository = $documentManager->getRepository($node->getChildClass());
+        $shortName = $documentManager->getClassMetadata(get_class($node))->getReflectionClass()->getShortName();
         if ($repository->countByParent($node->id) > 0) {
             throw new NotEmptyException(sprintf('%s is not empty', $shortName));
         }
