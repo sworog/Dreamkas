@@ -4,7 +4,6 @@ import net.thucydides.core.annotations.WhenPageOpens;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.elements.bootstrap.buttons.DefaultBtnFacade;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 
 /**
@@ -28,13 +27,13 @@ public class ModalWindowPage extends CommonPageObject {
         new PrimaryBtnFacade(this, "Сохранить").click();
     }
 
-    public void confirmationCancelClick() {
-        new DefaultBtnFacade(this, "Отменить").click();
-    }
-
     @WhenPageOpens
     public void whenPageOpens() {
         //Check that modal window is open
         findVisibleElement(By.id("modal-group"));
+    }
+
+    public void closeIconClick() {
+        findVisibleElement(By.xpath("//*[contains(@class, 'close')]")).click();
     }
 }

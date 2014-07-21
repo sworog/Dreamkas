@@ -36,9 +36,10 @@ And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' pa
 
 When the user clicks on the add new group button on the catalog page
 And the user inputs 'Новая группа1' in group name field in create new group modal window
-And the user confirms Cancel in create new group modal window
+And the user clicks on close icon in create new group modal window
 
-Then the user asserts the groups list not contain group with name 'Новая группа1'
+Then the user asserts catalog title is 'Ассортимент'
+And the user asserts the groups list not contain group with name 'Новая группа1'
 
 Scenario: Group edition confirmation ok
 
@@ -58,6 +59,10 @@ And the user clicks on the edit group icon
 And the user inputs 'Группа после редактирования' in group name field in edit group modal window
 And the user confirms OK in edit group modal window
 
+Then the user asserts group title is 'Группа после редактирования'
+
+When the user clicks on the back link long arrow icon on the group page
+
 Then the user asserts the groups list contain group with name 'Группа после редактирования'
 Then the user asserts the groups list not contain group with name 'Группа до редактирования'
 
@@ -76,7 +81,11 @@ And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' pa
 When the user clicks on the group with name 'Группа до редактирования1'
 And the user clicks on the edit group icon
 And the user inputs 'Группа после редактирования1' in group name field in edit group modal window
-And the user confirms Cancel in edit group modal window
+And the user clicks on close icon in edit group modal window
+
+Then the user asserts group title is 'Группа до редактирования1'
+
+When the user clicks on the back link long arrow icon on the group page
 
 Then the user asserts the groups list contain group with name 'Группа до редактирования1'
 Then the user asserts the groups list not contain group with name 'Группа после редактирования1'
@@ -99,7 +108,8 @@ And the user clicks on the edit group icon
 And the user clicks on delete group button in edit group modal window
 And the user clicks on delete group confirm button in edit group modal window
 
-Then the user asserts the groups list not contain group with name 'Группа для удаления'
+Then the user asserts catalog title is 'Ассортимент'
+And the user asserts the groups list not contain group with name 'Группа для удаления'
 
 Scenario: Catalog menu navigation bar link navigation assert to proper page
 
@@ -142,7 +152,7 @@ And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' pa
 
 When the user clicks on the group with name 'Группа для выбора'
 
-Then the user asserts choosen group title is 'Группа для выбора'
+Then the user asserts group title is 'Группа для выбора'
 
 Scenario: Create group modal window title assert
 
@@ -186,23 +196,7 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
 Given the user opens catalog page
 And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
 
-Then the user checks page contains text 'У вас пока нет ни групп, ни товаров!'
-
-Scenario: When adding new group and navigation to it
-
-Meta:
-@id_
-
-GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
-
-Given the user opens catalog page
-And the user logs in using 's28u100@lighthouse.pro' userName and 'lighthouse' password
-
-When the user clicks on the add new group button on the catalog page
-And the user inputs 'New group' in group name field in create new group modal window
-And the user confirms OK in create new group modal window
-
-Then the user asserts choosen group title is 'New group'
+Then the user checks page contains text 'У вас пока нет ни одной группы товаров.'
 
 Scenario: Deleting the group with name, which had the already deleted group
 
@@ -229,6 +223,3 @@ And the user inputs 'GroupDeletion' in group name field in create new group moda
 And the user confirms OK in create new group modal window
 
 Then the user asserts the groups list contain group with name 'GroupDeletion'
-
-
-
