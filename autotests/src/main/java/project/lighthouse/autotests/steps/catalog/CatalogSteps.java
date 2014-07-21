@@ -5,6 +5,8 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
+import project.lighthouse.autotests.elements.bootstrap.WaitForModalWindowClose;
+import project.lighthouse.autotests.elements.preLoader.BodyPreLoader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.catalog.GroupObjectCollection;
 import project.lighthouse.autotests.pages.catalog.CatalogPage;
@@ -84,7 +86,7 @@ public class CatalogSteps extends ScenarioSteps {
     @Step
     public void groupWithNameClick(String groupName) {
         catalogPage.getGroupObjectCollection().clickByLocator(groupName);
-        new SimplePreloader(getDriver()).await();
+        new BodyPreLoader(getDriver()).await();
     }
 
     @Step
@@ -115,11 +117,13 @@ public class CatalogSteps extends ScenarioSteps {
     public void createGroupModalPageConfirmOk() {
         createGroupModalPage.confirmationOkClick();
         new SimplePreloader(getDriver()).await();
+        new WaitForModalWindowClose(getDriver()).await();
     }
 
     @Step
     public void createGroupModalPageCloseIconClick() {
         createGroupModalPage.closeIconClick();
+        new WaitForModalWindowClose(getDriver()).await();
     }
 
     @Step
@@ -136,11 +140,13 @@ public class CatalogSteps extends ScenarioSteps {
     public void editGroupModalPageConfirmOk() {
         editGroupModalPage.confirmationOkClick();
         new SimplePreloader(getDriver()).await();
+        new WaitForModalWindowClose(getDriver()).await();
     }
 
     @Step
     public void editGroupModalPageCloseIconClick() {
         editGroupModalPage.closeIconClick();
+        new WaitForModalWindowClose(getDriver()).await();
     }
 
     @Step
@@ -152,6 +158,7 @@ public class CatalogSteps extends ScenarioSteps {
     public void editGroupModalPageDeleteGroupConfirmButtonClick() {
         editGroupModalPage.deleteButtonConfirmClick();
         new SimplePreloader(getDriver()).await();
+        new WaitForModalWindowClose(getDriver()).await();
     }
 
     @Step
