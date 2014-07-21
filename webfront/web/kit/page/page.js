@@ -8,7 +8,7 @@ define(function(require, exports, module) {
 
     var Page = Block.extend({
 
-        el: '#page',
+        el: '.page',
         template: require('ejs!./template.ejs'),
 
         collections: {},
