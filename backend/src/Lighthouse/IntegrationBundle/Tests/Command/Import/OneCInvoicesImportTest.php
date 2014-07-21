@@ -1,9 +1,9 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Command\Import;
+namespace Lighthouse\IntegrationBundle\Tests\Command\Import;
 
-use Lighthouse\CoreBundle\Command\Import\OneCInvoicesImport;
-use Lighthouse\CoreBundle\Integration\OneC\Import\Invoices\InvoicesImporter;
+use Lighthouse\IntegrationBundle\Command\Import\OneCInvoicesImport;
+use Lighthouse\IntegrationBundle\OneC\Import\Invoices\InvoicesImporter;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -13,7 +13,7 @@ class OneCInvoicesImportTest extends ContainerAwareTestCase
     {
         /* @var InvoicesImporter|\PHPUnit_Framework_MockObject_MockObject $importerMock */
         $importerMock = $this->getMock(
-            'Lighthouse\\CoreBundle\\Integration\\OneC\\Import\\Invoices\\InvoicesImporter',
+            'Lighthouse\\IntegrationBundle\\OneC\\Import\\Invoices\\InvoicesImporter',
             array(),
             array(),
             '',
@@ -45,7 +45,7 @@ class OneCInvoicesImportTest extends ContainerAwareTestCase
     {
         /* @var InvoicesImporter|\PHPUnit_Framework_MockObject_MockObject $importerMock */
         $importerMock = $this->getMock(
-            'Lighthouse\\CoreBundle\\Integration\\OneC\\Import\\Invoices\\InvoicesImporter',
+            'Lighthouse\\IntegrationBundle\\OneC\\Import\\Invoices\\InvoicesImporter',
             array(),
             array(),
             '',

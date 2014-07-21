@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Integration\OneC\Import\Invoices;
+namespace Lighthouse\IntegrationBundle\OneC\Import\Invoices;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Console\DotHelper;

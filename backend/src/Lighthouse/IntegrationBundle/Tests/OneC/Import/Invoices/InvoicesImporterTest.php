@@ -1,12 +1,12 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Integration\OneC\Import\Invoices;
+namespace Lighthouse\IntegrationBundle\Tests\OneC\Import\Invoices;
 
 use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
-use Lighthouse\CoreBundle\Integration\OneC\Import\Invoices\InvoicesImporter;
 use Lighthouse\CoreBundle\Test\TestOutput;
-use Lighthouse\CoreBundle\Test\WebTestCase;
+use Lighthouse\IntegrationBundle\OneC\Import\Invoices\InvoicesImporter;
+use Lighthouse\IntegrationBundle\Test\WebTestCase;
 
 class InvoicesImporterTest extends WebTestCase
 {
@@ -62,7 +62,7 @@ class InvoicesImporterTest extends WebTestCase
      */
     public function testImportStoreNotFound()
     {
-        $filePath = $this->getFixtureFilePath('Integration/OneC/Import/Invoices/amn.csv');
+        $filePath = $this->getFixtureFilePath('OneC/Import/Invoices/amn.csv');
 
         $this->authenticateProject();
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Command\Import;
+namespace Lighthouse\IntegrationBundle\Command\Import;
 
 use JMS\DiExtraBundle\Annotation as DI;
-use Lighthouse\CoreBundle\Integration\OneC\Import\Invoices\InvoicesImporter;
+use Lighthouse\IntegrationBundle\OneC\Import\Invoices\InvoicesImporter;
 use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
