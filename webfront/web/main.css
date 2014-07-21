@@ -5,7 +5,9 @@
 @import "/madmin/vendors/iCheck/skins/all.css";
 @import "/madmin/css/blue-grey.css";
 @import "/madmin/css/style-responsive.css";
+
 @import "/blocks/confirmLink/confirmLink.css";
+@import "/blocks/groupList/groupList.css";
 
 body:before {
     content: "";
@@ -82,16 +84,7 @@ input + .form__errorMessage {
     color: #fff;
 }
 
-.groupList__link.loading {
-    background-color: #5bc0de !important;
-    color: #fff;
-}
-
 input.invalid {
     border-color: #db4c4a;
-}
-
-.active .groupList__link {
-    cursor: default;
 }
 
