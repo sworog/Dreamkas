@@ -22,7 +22,7 @@ define(function(require, exports, module) {
                     });
 
                 groupModel.on({
-                    change: function(){
+                    sync: function(){
                         var modal = $('.modal:visible');
 
                         modal.one('hidden.bs.modal', function(e) {
