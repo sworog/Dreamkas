@@ -10,7 +10,7 @@ use Lighthouse\CoreBundle\Job\Worker\WorkerInterface;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
- * @DI\Service("lighthouse.core.integration.set10.export.products.worker")
+ * @DI\Service("lighthouse.integration.set10.export.products.worker")
  * @DI\Tag("job.worker")
  */
 class ExportProductsWorker implements WorkerInterface
@@ -36,7 +36,7 @@ class ExportProductsWorker implements WorkerInterface
 
     /**
      * @DI\InjectParams({
-     *      "converter" = @DI\Inject("lighthouse.core.integration.set10.export.products.converter"),
+     *      "converter" = @DI\Inject("lighthouse.integration.set10.export.products.converter"),
      *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product"),
      *      "configRepository" = @DI\Inject("lighthouse.core.document.repository.config"),
      * })

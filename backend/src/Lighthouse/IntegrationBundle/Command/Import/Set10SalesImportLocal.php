@@ -46,7 +46,7 @@ class Set10SalesImportLocal extends Command implements ProjectableCommand
 
     /**
      * @DI\InjectParams({
-     *      "importer" = @DI\Inject("lighthouse.core.integration.set10.import.sales.importer"),
+     *      "importer" = @DI\Inject("lighthouse.integration.set10.import.sales.importer"),
      *      "logRepository" = @DI\Inject("lighthouse.core.document.repository.log"),
      *      "profiler" = @DI\Inject("data_collector.xhprof"),
      * })

@@ -401,7 +401,7 @@ class SalesImporterTest extends WebTestCase
         DatePeriod $datePeriod = null
     ) {
         /* @var SalesImporter $importer */
-        $importer = $this->getContainer()->get('lighthouse.core.integration.set10.import.sales.importer');
+        $importer = $this->getContainer()->get('lighthouse.integration.set10.import.sales.importer');
         $xmlFile = $this->getFixtureFilePath('Set10/Import/Sales/' . $xmlFile);
         $parser = new SalesXmlParser($xmlFile);
         $output = ($output) ? : new TestOutput();

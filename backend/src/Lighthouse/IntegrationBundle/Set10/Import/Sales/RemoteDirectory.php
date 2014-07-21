@@ -11,7 +11,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 use SplFileInfo;
 
 /**
- * @DI\Service("lighthouse.core.integration.set10.import_sales.remote_directory")
+ * @DI\Service("lighthouse.integration.set10.import_sales.remote_directory")
  */
 class RemoteDirectory
 {

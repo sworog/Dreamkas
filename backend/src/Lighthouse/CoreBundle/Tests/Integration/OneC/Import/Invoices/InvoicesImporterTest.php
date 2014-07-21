@@ -125,7 +125,7 @@ class InvoicesImporterTest extends WebTestCase
             )
         );
 
-        $filePath = $this->getFixtureFilePath('Integration/OneC/Import/Invoices/food.csv');
+        $filePath = $this->getIntegrationFixtureFilePath('Integration/OneC/Import/Invoices/food.csv');
 
         $this->import($filePath, 100);
 

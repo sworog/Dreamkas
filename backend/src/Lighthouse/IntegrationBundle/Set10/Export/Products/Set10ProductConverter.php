@@ -16,7 +16,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 use Lighthouse\IntegrationBundle\Set10\Import\Products\GoodElement;
 
 /**
- * @DI\Service("lighthouse.core.integration.set10.export.products.converter")
+ * @DI\Service("lighthouse.integration.set10.export.products.converter")
  */
 class Set10ProductConverter
 {

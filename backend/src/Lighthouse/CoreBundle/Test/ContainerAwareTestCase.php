@@ -136,6 +136,15 @@ class ContainerAwareTestCase extends SymfonyWebTestCase
         return __DIR__ . '/../Tests/Fixtures/' . $filePath;
     }
 
+    /**
+     * @param string $filePath
+     * @return string
+     */
+    protected function getIntegrationFixtureFilePath($filePath)
+    {
+        return __DIR__ . '/../../IntegrationBundle/Tests/Fixtures/' . $filePath;
+    }
+
     protected function markTestBroken()
     {
         $this->markTestSkipped('Broken');

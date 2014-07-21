@@ -32,7 +32,7 @@ use DateTime;
 use Exception;
 
 /**
- * @DI\Service("lighthouse.core.integration.set10.import.sales.importer")
+ * @DI\Service("lighthouse.integration.set10.import.sales.importer")
  */
 class SalesImporter
 {

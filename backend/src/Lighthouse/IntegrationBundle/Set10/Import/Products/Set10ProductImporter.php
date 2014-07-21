@@ -29,7 +29,7 @@ use Symfony\Component\Stopwatch\Stopwatch;
 use Symfony\Component\Validator\ValidatorInterface;
 
 /**
- * @DI\Service("lighthouse.core.integration.set10.import.products.importer")
+ * @DI\Service("lighthouse.integration.set10.import.products.importer")
  */
 class Set10ProductImporter
 {

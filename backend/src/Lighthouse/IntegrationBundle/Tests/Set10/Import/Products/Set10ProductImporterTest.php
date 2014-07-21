@@ -44,7 +44,7 @@ class Set10ProductImporterTest extends ContainerAwareTestCase
     public function import(Set10ProductImportXmlParser $parser, $batchSize = null, $update = false)
     {
         /* @var Set10ProductImporter $importer */
-        $importer = $this->getContainer()->get('lighthouse.core.integration.set10.import.products.importer');
+        $importer = $this->getContainer()->get('lighthouse.integration.set10.import.products.importer');
         $output = new TestOutput();
         $importer->import($parser, $output, $batchSize, $update);
         return $output;

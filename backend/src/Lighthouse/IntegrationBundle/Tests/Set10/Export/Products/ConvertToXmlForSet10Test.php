@@ -47,7 +47,7 @@ class ConvertToXmlForSet10Test extends WebTestCase
      */
     public function getConverter()
     {
-        return $this->getContainer()->get('lighthouse.core.integration.set10.export.products.converter');
+        return $this->getContainer()->get('lighthouse.integration.set10.export.products.converter');
     }
 
     /**
@@ -834,6 +834,6 @@ EOF;
      */
     protected function getExportProductsWorker()
     {
-        return $this->getContainer()->get('lighthouse.core.integration.set10.export.products.worker');
+        return $this->getContainer()->get('lighthouse.integration.set10.export.products.worker');
     }
 }

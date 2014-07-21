@@ -28,7 +28,7 @@ class Set10ProductsImport extends Command implements ProjectableCommand
 
     /**
      * @DI\InjectParams({
-     *      "importer" = @DI\Inject("lighthouse.core.integration.set10.import.products.importer")
+     *      "importer" = @DI\Inject("lighthouse.integration.set10.import.products.importer")
      * })
      * @param Set10ProductImporter $importer
      */

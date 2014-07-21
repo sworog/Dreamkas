@@ -1,0 +1,3 @@
+lighthouse.integration:
+    resource: Lighthouse\CoreBundle\Controller\IntegrationController
+    type:     rest
