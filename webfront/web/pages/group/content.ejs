@@ -9,11 +9,14 @@
         <span data-target="#modal-groupAdd"
               data-toggle="modal"
               role="button"
-              class="btn btn-primary btn-md">Добавить группу</span>
+              class="btn btn-primary btn-md">Добавить товар</span>
     </div>
 
     <div class="page-header pull-left">
-        <div class="page-title">Ассортимент</div>
+        <div class="page-title">
+            Ассортимент
+            <a class="fa fa-edit"></a>
+        </div>
     </div>
 
     <div class="clearfix"></div>
@@ -22,25 +25,25 @@
 
 <!--BEGIN CONTENT-->
 <div class="page-content">
-    <div class="row">
+    <div class="row group">
         <% if (collections.groups.length) { %>
+
         <div class="col-md-12">
             <div class="panel">
-                <div class="panel-body">
-                    <ul class="groupList">
+                <div class="panel-body pan">
+                    <ul class="groupList nav nav-pills nav-stacked">
 
                         <% collections.groups.forEach(function(group) { %>
 
-                        <li>
-                            <a class="groupList__link"
+                        <li class="<%- group.id === models.group.id ? 'active' : '' %>">
+                            <a data-groupid="<%- group.id %>"
+                               class="groupList__link"
                                href="/catalog/groups/<%- group.id %>">
-                                <i class="fa fa-angle-right pull-right"></i>
                                 <%= group.get('name') %>
                             </a>
                         </li>
 
                         <% }) %>
-
                     </ul>
                 </div>
             </div>

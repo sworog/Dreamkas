@@ -14,7 +14,6 @@ define(function(require, exports, module) {
         collections: {},
         models: {},
 
-        title: 'Title',
         activeNavigationItem: 'main',
 
         content: function() {
