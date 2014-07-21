@@ -5,32 +5,29 @@ define(function(require, exports, module) {
 
     return Form.extend({
         el: '.form_group',
-        model: function(){
+        model: function() {
             return new GroupModel();
         },
         collection: null,
         events: {
-            'click .confirmLink__confirmation .form__groupRemoveLink': function(e){
+            'click .confirmLink__confirmation .form__groupRemoveLink': function(e) {
                 var block = this;
 
                 e.target.classList.add('loading');
 
-                block.model.destroy().then(function(){
-                    block.$el.closest('.modal').modal('hide');
+                block.model.destroy().then(function() {
+                    e.target.classList.remove('loading');
                 });
             }
         },
-        initialize: function(){
+        initialize: function() {
 
             var block = this;
 
             Form.prototype.initialize.apply(block, arguments);
 
-            block.on('submit:success', function(){
-
-                block.$el.closest('.modal').modal('hide');
-
-                if (!block.__model.id){
+            block.on('submit:success', function() {
+                if (!block.__model.id) {
                     block.model = new GroupModel();
                 }
             });

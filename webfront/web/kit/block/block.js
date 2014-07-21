@@ -5,7 +5,6 @@ define(function(require, exports, module) {
         set = require('kit/set/set'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         makeClass = require('kit/makeClass/makeClass'),
-        rivets = require('bower_components/rivets/dist/rivets'),
         _ = require('lodash');
 
     var View = Backbone.View;
@@ -35,10 +34,6 @@ define(function(require, exports, module) {
         render: function() {
             var block = this,
                 $newElement = $(block.template(block));
-
-            block.__rivets && block.__rivets.unbind();
-
-            block.__rivets = rivets.bind($newElement, block);
 
             block.removeBlocks();
 

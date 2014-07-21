@@ -11,24 +11,64 @@ define(function(require, exports, module) {
         activeNavigationItem: 'catalog',
         collections: {
             groups: function() {
-                var GroupsCollection = require('collections/groups/groups');
+                var page = this,
+                    GroupsCollection = require('collections/groups/groups'),
+                    groupsCollection = new GroupsCollection();
 
-                return new GroupsCollection();
+                groupsCollection.on({
+                    change: function() {
+
+                        var modal = $('.modal:visible');
+
+                        modal.modal('hide');
+
+                        modal.one('hidden.bs.modal', function(e) {
+                            page.render();
+                        });
+
+                    },
+                    add: function(groupModel) {
+
+                        var modal = $('.modal:visible');
+
+                        modal.modal('hide');
+
+                        modal.one('hidden.bs.modal', function(e) {
+                            page.setGroup(groupModel);
+                        });
+
+                    },
+                    remove: function() {
+
+                        var modal = $('.modal:visible');
+
+                        modal.modal('hide');
+
+                        modal.one('hidden.bs.modal', function(e) {
+                            page.setGroup(page.collections.groups.at(0));
+                        });
+                    }
+                });
+
+                return groupsCollection;
             }
         },
         events: {
-            'click .groupList__link': function(e){
+            'click .groupList__link': function(e) {
 
                 e.preventDefault();
                 e.stopPropagation();
 
-                var page = this;
+                var page = this,
+                    groupModel;
 
-                if (!(e.target.classList.contains('loading') || $(e.target).closest('li.active').length)){
+                if (!(e.target.classList.contains('loading') || $(e.target).closest('li.active').length)) {
 
                     e.target.classList.add('loading');
 
-                    page.setGroupById(e.target.dataset.groupid);
+                    groupModel = page.collections.groups.get(e.target.dataset.groupid);
+
+                    page.setGroup(groupModel);
                 }
             }
         },
@@ -36,7 +76,7 @@ define(function(require, exports, module) {
             group: null
         },
         blocks: {
-            form_groupAdd: function(){
+            form_groupAdd: function() {
                 var page = this;
 
                 return new Form_group({
@@ -44,7 +84,7 @@ define(function(require, exports, module) {
                     el: document.getElementById('form_groupAdd')
                 });
             },
-            form_groupEdit: function(){
+            form_groupEdit: function() {
                 var page = this;
 
                 return new Form_group({
@@ -53,52 +93,19 @@ define(function(require, exports, module) {
                 });
             }
         },
-        initialize: function(){
+        fetch: function() {
             var page = this;
 
-            Page.prototype.initialize.apply(page, arguments);
-
-            page.collections.groups.on({
-                add: function(groupModel){
-
-                    page.models.group = groupModel;
-
-                    router.navigate('/catalog/groups/' + groupModel.id, {
-                        trigger: false
-                    });
-
-                    $('#modal-groupAdd').one('hidden.bs.modal', function (e) {
-                        page.render();
-                    });
-
-                },
-                remove: function(){
-
-                    page.models.group = page.collections.groups.at(0) || new GroupModel();
-
-                    router.navigate('/catalog', {
-                        trigger: false
-                    });
-
-                    $('#modal-groupEdit').one('hidden.bs.modal', function (e) {
-                        page.render();
-                    });
-                }
-            });
-        },
-        fetch: function(){
-            var page = this;
-
-            return Page.prototype.fetch.apply(page, arguments).then(function(){
+            return Page.prototype.fetch.apply(page, arguments).then(function() {
                 page.models.group = page.collections.groups.get(page.params.groupId) || page.collections.groups.at(0) || new GroupModel();
             });
         },
-        setGroupById: function(groupId) {
+        setGroup: function(groupModel) {
             var page = this;
 
-            page.models.group = page.collections.groups.get(groupId);
+            page.models.group = groupModel || new GroupModel();
 
-            router.navigate('/catalog/groups/' + groupId, {
+            router.navigate(page.models.group.id ? '/catalog/groups/' + page.models.group.id : '/catalog', {
                 trigger: false
             });
 
