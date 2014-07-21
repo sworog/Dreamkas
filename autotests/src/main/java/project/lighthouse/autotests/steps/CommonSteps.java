@@ -5,6 +5,7 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.common.CommonPage;
+import project.lighthouse.autotests.elements.bootstrap.WaitForModalWindowClose;
 import project.lighthouse.autotests.objects.web.error.ValidationErrorsCollection;
 
 public class CommonSteps extends ScenarioSteps {
@@ -76,5 +77,10 @@ public class CommonSteps extends ScenarioSteps {
     @Step
     public void pageContainsText(String text) {
         commonPage.pageContainsText(text);
+    }
+
+    @Step
+    public void waitForModalPageClose() {
+        new WaitForModalWindowClose(getDriver()).await();
     }
 }

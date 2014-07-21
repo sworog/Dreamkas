@@ -96,4 +96,9 @@ public class CommonUserSteps {
     public void givenTheUserNavigatesToTheStoredUrl() {
         commonSteps.getDriver().navigate().to(storedUrl);
     }
+
+    @Then("the user waits for modal window closing")
+    public void thenTheUserWaitsForModalWindowClosing() {
+        commonSteps.waitForModalPageClose();
+    }
 }

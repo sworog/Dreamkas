@@ -117,7 +117,6 @@ public class CatalogSteps extends ScenarioSteps {
     public void createGroupModalPageConfirmOk() {
         createGroupModalPage.confirmationOkClick();
         new SimplePreloader(getDriver()).await();
-        new WaitForModalWindowClose(getDriver()).await();
     }
 
     @Step
@@ -140,7 +139,6 @@ public class CatalogSteps extends ScenarioSteps {
     public void editGroupModalPageConfirmOk() {
         editGroupModalPage.confirmationOkClick();
         new SimplePreloader(getDriver()).await();
-        new WaitForModalWindowClose(getDriver()).await();
     }
 
     @Step

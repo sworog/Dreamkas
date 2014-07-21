@@ -22,7 +22,8 @@ When the user clicks on the add new group button on the catalog page
 And the user inputs 'Новая группа' in group name field in create new group modal window
 And the user confirms OK in create new group modal window
 
-Then the user asserts the groups list contain group with name 'Новая группа'
+Then the user waits for modal window closing
+And the user asserts the groups list contain group with name 'Новая группа'
 
 Scenario: Group creation confirmation cancel
 
@@ -59,7 +60,8 @@ And the user clicks on the edit group icon
 And the user inputs 'Группа после редактирования' in group name field in edit group modal window
 And the user confirms OK in edit group modal window
 
-Then the user asserts group title is 'Группа после редактирования'
+Then the user waits for modal window closing
+And the user asserts group title is 'Группа после редактирования'
 
 When the user clicks on the back link long arrow icon on the group page
 
@@ -222,4 +224,5 @@ When the user clicks on the add new group button on the catalog page
 And the user inputs 'GroupDeletion' in group name field in create new group modal window
 And the user confirms OK in create new group modal window
 
-Then the user asserts the groups list contain group with name 'GroupDeletion'
+Then the user waits for modal window closing
+And the user asserts the groups list contain group with name 'GroupDeletion'
