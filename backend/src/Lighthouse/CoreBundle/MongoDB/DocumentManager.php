@@ -11,6 +11,9 @@ use Lighthouse\CoreBundle\Security\Project\ProjectContext;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
+/**
+ * @method ClassMetadata getClassMetadata($className)
+ */
 class DocumentManager extends BaseDocumentManager implements ContainerAwareInterface
 {
     /**
@@ -51,15 +54,6 @@ class DocumentManager extends BaseDocumentManager implements ContainerAwareInter
     protected function getProjectContext()
     {
         return $this->container->get('project.context');
-    }
-
-    /**
-     * @param string $className
-     * @return ClassMetadata
-     */
-    public function getClassMetadata($className)
-    {
-        return parent::getClassMetadata($className);
     }
 
     /**

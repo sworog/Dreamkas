@@ -9,7 +9,7 @@ use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Exception\NotEmptyException;
 
 /**
- * @DI\DoctrineMongoDBListener(events={"preRemove", "postSoftDelete"})
+ * @DI\DoctrineMongoDBListener(events={"preRemove"})
  */
 class NotEmptyListener
 {
@@ -51,29 +51,6 @@ class NotEmptyListener
         $shortName = $this->documentManager->getClassMetadata(get_class($node))->getReflectionClass()->getShortName();
         if ($repository->countByParent($node->id) > 0) {
             throw new NotEmptyException(sprintf('%s is not empty', $shortName));
-        }
-    }
-
-    /**
-     * @param LifecycleEventArgs $eventArgs
-     */
-    public function postSoftDelete(LifecycleEventArgs $eventArgs)
-    {
-        $document = $eventArgs->getDocument();
-
-        if ($document instanceof SubCategory) {
-
-            $oldValue = $document->name;
-            $document->name .= sprintf(' (Удалено %s)', $document->deletedAt->format('Y-m-d H:i:s'));
-
-            $uow = $eventArgs->getDocumentManager()->getUnitOfWork();
-            $uow->propertyChanged($document, 'name', $oldValue, $document->name);
-            $uow->scheduleExtraUpdate(
-                $document,
-                array(
-                    'name' => array($oldValue, $document->name)
-                )
-            );
         }
     }
 }

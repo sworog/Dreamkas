@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\MongoDB\Mapping\Driver;
 
 use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver as BaseAnnotationDriver;
+use Gedmo\Mapping\Annotation\SoftDeleteable;
 use Lighthouse\CoreBundle\MongoDB\Mapping\Annotations\GlobalDb;
 
 class AnnotationDriver extends BaseAnnotationDriver
@@ -24,6 +25,9 @@ class AnnotationDriver extends BaseAnnotationDriver
         foreach ($classAnnotations as $annotation) {
             if ($annotation instanceof GlobalDb) {
                 $class->globalDb = $annotation->value;
+            }
+            if ($annotation instanceof SoftDeleteable) {
+                $class->softDeleteable = true;
             }
         }
     }

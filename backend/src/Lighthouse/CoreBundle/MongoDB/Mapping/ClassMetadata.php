@@ -7,9 +7,14 @@ use Doctrine\ODM\MongoDB\Mapping\ClassMetadata as BaseClassMetadata;
 class ClassMetadata extends BaseClassMetadata
 {
     /**
-     * @var
+     * @var bool
      */
     public $globalDb = false;
+
+    /**
+     * @var bool
+     */
+    public $softDeleteable = false;
 
     /**
      * @return array
@@ -17,7 +22,12 @@ class ClassMetadata extends BaseClassMetadata
     public function __sleep()
     {
         $serialized  = parent::__sleep();
-        $serialized[] = 'globalDb';
+        if ($this->globalDb) {
+            $serialized[] = 'globalDb';
+        }
+        if ($this->softDeleteable) {
+            $serialized[] = 'softDeleteable';
+        }
         return $serialized;
     }
 }
