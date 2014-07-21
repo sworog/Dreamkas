@@ -22,7 +22,7 @@ define(function(require, exports, module) {
                     });
 
                 groupModel.on({
-                    sync: function(){
+                    change: function(){
                         var modal = $('.modal:visible');
 
                         modal.one('hidden.bs.modal', function(e) {
@@ -48,12 +48,17 @@ define(function(require, exports, module) {
         blocks: {
             form_groupEdit: function() {
                 var page = this,
-                    Form_group = require('blocks/form/form_group/form_group');
+                    Form_group = require('blocks/form/form_group/form_group'),
+                    form_group = new Form_group({
+                        model: page.models.group,
+                        el: document.getElementById('form_groupEdit')
+                    });
 
-                return new Form_group({
-                    model: page.models.group,
-                    el: document.getElementById('form_groupEdit')
+                form_group.on('submit:success', function(){
+                    page.models.group.trigger('change');
                 });
+
+                return form_group;
             }
         }
     });
