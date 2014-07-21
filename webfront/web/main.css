@@ -39,6 +39,11 @@ body[status="loaded"]:before {
     -webkit-transition: -webkit-transform 1s, opacity 1s;
 }
 
+#signin-page, #signup-page{
+    height: 100%;
+    overflow: hidden;
+}
+
 #topbar {
     height: 55px;
 }
@@ -86,5 +91,30 @@ input + .form__errorMessage {
 
 input.invalid {
     border-color: #db4c4a;
+}
+
+.modal-header{
+    padding: 10px 20px;
+}
+
+.modal-header .close {
+    cursor: pointer;
+    height: 55px;
+    width: 55px;
+    margin: -10px 10px -10px -20px;
+    text-align: center;
+    line-height: 55px;
+}
+
+.modal-header .close:hover {
+    background-color: #f4f4f4;
+}
+
+.modal-title {
+    line-height: 34px;
+}
+
+.modal-body {
+    padding: 20px 65px;
 }
 

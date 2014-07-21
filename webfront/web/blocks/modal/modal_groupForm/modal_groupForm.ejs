@@ -12,15 +12,27 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                <a type="button"
+                   data-dismiss="modal"
+                   aria-hidden="true"
+                   class="close pull-left fa fa-times"></a>
+
+                <button form="<%- group.id ? 'form_groupEdit' : 'form_groupAdd' %>"
+                        type="submit"
+                        class="btn btn-primary pull-right">
+                    <%- group.id ? 'Сохранить' : 'Добавить' %>
+                </button>
+
                 <h4 id="modal-default-label" class="modal-title">
                     <%- group.id ? 'Редактирование группы' : 'Добавить группу' %>
                 </h4>
+
+                <span class="clearfix"></span>
             </div>
             <div class="modal-body">
 
                 <form id="<%- group.id ? 'form_groupEdit' : 'form_groupAdd' %>" class="form form_group">
-                    <div style="padding: 100px 30px;" class="form-group">
+                    <div class="form-group">
 
                         <label for="inputSubject" class="control-label">Наименование</label>
 
@@ -55,12 +67,6 @@
                     <% } %>
                 </form>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" data-dismiss="modal" class="btn btn-default">Отменить</button>
-                <button form="<%- group.id ? 'form_groupEdit' : 'form_groupAdd' %>" type="submit" class="btn btn-primary">
-                    <%- group.id ? 'Сохранить' : 'Добавить' %>
-                </button>
             </div>
         </div>
     </div>
