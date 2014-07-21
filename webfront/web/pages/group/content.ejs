@@ -6,7 +6,7 @@
 <div class="page-title-breadcrumb">
 
     <div class="pull-right">
-        <span data-target="#modal-groupAdd"
+        <span data-target="#modal-groupEdit"
               data-toggle="modal"
               role="button"
               class="btn btn-primary btn-md">Добавить товар</span>
@@ -14,8 +14,17 @@
 
     <div class="page-header pull-left">
         <div class="page-title">
-            Ассортимент
-            <a class="fa fa-edit"></a>
+
+            <a href="/catalog"
+               class="fa fa-long-arrow-left"
+               style="font-size: 25px; margin-right: 10px;"></a>
+
+            <%= models.group.get('name') %>
+
+            <a data-target="#modal-groupEdit"
+               data-toggle="modal"
+               class="fa fa-edit"
+               style="cursor:pointer; font-size: 20px; margin-left: 10px;"></a>
         </div>
     </div>
 
@@ -25,40 +34,40 @@
 
 <!--BEGIN CONTENT-->
 <div class="page-content">
-    <div class="row group">
-        <% if (collections.groups.length) { %>
-
+    <div class="row">
         <div class="col-md-12">
             <div class="panel">
-                <div class="panel-body pan">
-                    <ul class="groupList nav nav-pills nav-stacked">
-
-                        <% collections.groups.forEach(function(group) { %>
-
-                        <li class="<%- group.id === models.group.id ? 'active' : '' %>">
-                            <a data-groupid="<%- group.id %>"
-                               class="groupList__link"
-                               href="/catalog/groups/<%- group.id %>">
-                                <%= group.get('name') %>
-                            </a>
-                        </li>
-
-                        <% }) %>
-                    </ul>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th>Цена продажи, <i class="fa fa-rub"></i></th>
+                            <th>Артикул</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Хорошие</td>
+                            <td>23,43</td>
+                            <td>10001</td>
+                        </tr>
+                        <tr>
+                            <td>Плохие</td>
+                            <td>45,00</td>
+                            <td>10002</td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-        <% } else { %>
-        <div class="col-lg-12">
-            <div class="alert alert-info">
-                У вас пока нет ни одной группы товаров.
-            </div>
-        </div>
-        <% } %>
     </div>
 </div>
 <!--END CONTENT-->
 
 <!--MODALS-->
-<%= partials.modal_groupForm() %>
+<%= partials.modal_groupForm({
+    group: models.group
+}) %>
 <!--END MODALS-->

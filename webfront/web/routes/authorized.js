@@ -12,6 +12,6 @@ define(function(require) {
 
         //catalog
         'catalog(/)': require('pages/catalog/catalog'),
-        'catalog/groups/:groupId(/)': require('pages/catalog/catalog')
+        'catalog/groups/:groupId(/)': require('pages/group/group')
     };
 });
