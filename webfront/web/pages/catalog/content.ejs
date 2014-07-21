@@ -15,7 +15,7 @@
                         <a data-groupid="<%- group.id %>"
                            class="groupList__link"
                            href="/catalog/groups/<%- group.id %>">
-                            <%= group.element('name') %>
+                            <%= group.get('name') %>
                         </a>
                     </li>
 
@@ -31,7 +31,7 @@
     <div class="col-sm- col-md-9">
         <div class="panel panel-white">
             <div class="panel-heading">
-                <%= models.group.element('name') %>
+                <%= models.group.get('name') %>
                 <span class="pull-right">
                     <a style="cursor: pointer;"
                           data-target="#modal-groupEdit"

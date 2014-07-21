@@ -5,6 +5,7 @@ define(function(require, exports, module) {
         set = require('kit/set/set'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         makeClass = require('kit/makeClass/makeClass'),
+        rivets = require('bower_components/rivets/dist/rivets'),
         _ = require('lodash');
 
     var View = Backbone.View;
@@ -33,17 +34,17 @@ define(function(require, exports, module) {
 
         render: function() {
             var block = this,
-                $newEl = $(block.template(block));
+                $newElement = $(block.template(block));
+
+            block.__rivets && block.__rivets.unbind();
+
+            block.__rivets = rivets.bind($newElement, block);
 
             block.removeBlocks();
 
-            block.el.innerHTML = $newEl.html();
+            block.setElement($newElement.replaceAll(block.el));
 
-            _.forEach($newEl[0].attributes, function(attribute) {
-                block.el.setAttribute(attribute.name, attribute.value);
-            });
-
-            block._initBlocks();
+            block.initBlocks();
         },
 
         get: function() {
@@ -58,7 +59,7 @@ define(function(require, exports, module) {
             return set.apply(null, args);
         },
 
-        _initBlocks: function() {
+        initBlocks: function() {
             var block = this;
 
             block.__blocks = block.__blocks || block.blocks;

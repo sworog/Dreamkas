@@ -8,7 +8,7 @@ define(function(require, exports, module) {
 
     var Page = Block.extend({
 
-        el: document.body,
+        el: '#page',
         template: require('ejs!./template.ejs'),
 
         collections: {},
@@ -117,11 +117,11 @@ define(function(require, exports, module) {
             page.trigger('status:' + status);
 
             if (status === 'loading' && Page.current){
-                page.el.removeAttribute('status');
+                document.body.removeAttribute('status');
             }
 
             setTimeout(function(){
-                page.el.setAttribute('status', status);
+                document.body.setAttribute('status', status);
             }, 0);
         },
 
