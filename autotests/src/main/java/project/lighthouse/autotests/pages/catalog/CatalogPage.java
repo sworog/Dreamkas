@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.elements.bootstrap.buttons.DefaultBtnFacade;
+import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 import project.lighthouse.autotests.objects.web.catalog.GroupObjectCollection;
 
 /**
@@ -22,22 +22,14 @@ public class CatalogPage extends CommonPageObject {
     }
 
     public void addGroupButtonClick() {
-        new DefaultBtnFacade(this, "Добавить группу").click();
+        new PrimaryBtnFacade(this, "Добавить группу").click();
     }
 
     public GroupObjectCollection getGroupObjectCollection() {
         return new GroupObjectCollection(getDriver(), By.className("groupList__link"));
     }
 
-    public String getGroupTitle() {
-        return findVisibleElement(By.xpath("//*[@class='panel-heading']/*")).getText();
-    }
-
     public String getTitle() {
         return findVisibleElement(By.className("page-title")).getText();
-    }
-
-    public void editGroupIconClick() {
-        findVisibleElement(By.xpath("//*[@class='fa fa-edit']")).click();
     }
 }

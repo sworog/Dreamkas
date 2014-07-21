@@ -14,7 +14,7 @@ public class ThenCatalogUserSteps {
         catalogSteps.assertCatalogTitle(title);
     }
 
-    @Then("the user asserts choosen group title is '$title'")
+    @Then("the user asserts group title is '$title'")
     public void thenTheUserAssertsChoosenGroupTitle(String title) {
         catalogSteps.assertGroupTitle(title);
     }

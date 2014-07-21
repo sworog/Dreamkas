@@ -8,6 +8,7 @@ import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.catalog.GroupObjectCollection;
 import project.lighthouse.autotests.pages.catalog.CatalogPage;
+import project.lighthouse.autotests.pages.catalog.GroupPage;
 import project.lighthouse.autotests.pages.catalog.modal.CreateGroupModalPage;
 import project.lighthouse.autotests.pages.catalog.modal.EditGroupModalPage;
 
@@ -19,6 +20,7 @@ public class CatalogSteps extends ScenarioSteps {
     CatalogPage catalogPage;
     CreateGroupModalPage createGroupModalPage;
     EditGroupModalPage editGroupModalPage;
+    GroupPage groupPage;
 
     private String storedName;
 
@@ -39,7 +41,7 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void assertGroupTitle(String groupTitle) {
-        assertThat(catalogPage.getGroupTitle(), is(groupTitle));
+        assertThat(groupPage.getGroupTitle(), is(groupTitle));
     }
 
     @Step
@@ -48,7 +50,7 @@ public class CatalogSteps extends ScenarioSteps {
         try {
             orderObjectCollection = catalogPage.getGroupObjectCollection();
         } catch (TimeoutException e) {
-            catalogPage.containsText("У вас пока нет ни групп, ни товаров!");
+            catalogPage.containsText("У вас пока нет ни одной группы товаров.");
         } catch (StaleElementReferenceException e) {
             orderObjectCollection = catalogPage.getGroupObjectCollection();
         } finally {
@@ -69,7 +71,7 @@ public class CatalogSteps extends ScenarioSteps {
         try {
             orderObjectCollection = catalogPage.getGroupObjectCollection();
         } catch (TimeoutException e) {
-            catalogPage.containsText("У вас пока нет ни групп, ни товаров!");
+            catalogPage.containsText("У вас пока нет ни одной группы товаров.");
         } catch (StaleElementReferenceException e) {
             orderObjectCollection = catalogPage.getGroupObjectCollection();
         } finally {
@@ -116,8 +118,8 @@ public class CatalogSteps extends ScenarioSteps {
     }
 
     @Step
-    public void createGroupModalPageConfirmCancel() {
-        createGroupModalPage.confirmationCancelClick();
+    public void createGroupModalPageCloseIconClick() {
+        createGroupModalPage.closeIconClick();
     }
 
     @Step
@@ -137,8 +139,8 @@ public class CatalogSteps extends ScenarioSteps {
     }
 
     @Step
-    public void editGroupModalPageConfirmCancel() {
-        editGroupModalPage.confirmationCancelClick();
+    public void editGroupModalPageCloseIconClick() {
+        editGroupModalPage.closeIconClick();
     }
 
     @Step
@@ -154,7 +156,12 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void editGroupIconClick() {
-        catalogPage.editGroupIconClick();
+        groupPage.editGroupIconClick();
+    }
+
+    @Step
+    public void backArrowButtonClick() {
+        groupPage.longArrowBackLinkClick();
     }
 
     @Step

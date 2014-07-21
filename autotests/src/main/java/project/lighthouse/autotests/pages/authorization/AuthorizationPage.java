@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.pages.authorization;
 
 import net.thucydides.core.annotations.DefaultUrl;
+import net.thucydides.core.annotations.findby.By;
 import net.thucydides.core.annotations.findby.FindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -31,7 +32,7 @@ public class AuthorizationPage extends CommonPageObject {
     }
 
     public void loginButtonClick() {
-        new SuccessBtnFacade(this, "Войти").click();
+        new SuccessBtnFacade(this, By.xpath("//*[contains(@class, 'btn btn-success') and contains(text(), 'Войти')]")).click();
     }
 
     public WebElement getLoginFormWebElement() {

@@ -39,9 +39,9 @@ public class WhenCatalogUserSteps {
         catalogSteps.createGroupModalPageConfirmOk();
     }
 
-    @When("the user confirms Cancel in create new group modal window")
+    @When("the user clicks on close icon in create new group modal window")
     public void whenTheUserConfirmsCancelInCreateNewGroupModalWindow() {
-        catalogSteps.createGroupModalPageConfirmCancel();
+        catalogSteps.createGroupModalPageCloseIconClick();
     }
 
     @When("the user inputs '$name' in group name field in edit group modal window")
@@ -54,9 +54,9 @@ public class WhenCatalogUserSteps {
         catalogSteps.editGroupModalPageConfirmOk();
     }
 
-    @When("the user confirms Cancel in edit group modal window")
+    @When("the user clicks on close icon in edit group modal window")
     public void whenTheUserConfirmsCancelInEditNewGroupModalWindow() {
-        catalogSteps.editGroupModalPageConfirmCancel();
+        catalogSteps.editGroupModalPageCloseIconClick();
     }
 
     @When("the user clicks on delete group button in edit group modal window")
@@ -72,5 +72,10 @@ public class WhenCatalogUserSteps {
     @When("the user clicks on the edit group icon")
     public void whenTheUserClicksOnTheEditGroupIcon() {
         catalogSteps.editGroupIconClick();
+    }
+
+    @When("the user clicks on the back link long arrow icon on the group page")
+    public void whenTheUserClicksOnTheBackLinkLongArrowIconOnTheGroupPage() {
+        catalogSteps.backArrowButtonClick();
     }
 }
