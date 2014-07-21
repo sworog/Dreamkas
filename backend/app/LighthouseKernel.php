@@ -35,6 +35,7 @@ class LighthouseKernel extends Kernel
             new Clamidity\ProfilerBundle\ClamidityProfilerBundle(),
             new Lighthouse\CoreBundle\LighthouseCoreBundle(),
             new Lighthouse\ReportsBundle\LighthouseReportsBundle(),
+            new Lighthouse\IntegrationBundle\LighthouseIntegrationBundle(),
             new Liuggio\ExcelBundle\LiuggioExcelBundle(),
             new Ornicar\ApcBundle\OrnicarApcBundle(),
             new Hackzilla\Bundle\PasswordGeneratorBundle\HackzillaPasswordGeneratorBundle(),

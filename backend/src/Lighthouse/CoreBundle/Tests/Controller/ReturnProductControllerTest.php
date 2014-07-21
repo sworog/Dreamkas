@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesImporter;
-use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesXmlParser;
+use Lighthouse\IntegrationBundle\Set10\Import\Sales\SalesImporter;
+use Lighthouse\IntegrationBundle\Set10\Import\Sales\SalesXmlParser;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\TestOutput;
 use Lighthouse\CoreBundle\Test\WebTestCase;
