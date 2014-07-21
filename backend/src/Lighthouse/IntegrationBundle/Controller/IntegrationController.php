@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Controller;
+namespace Lighthouse\IntegrationBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use JMS\DiExtraBundle\Annotation as DI;
