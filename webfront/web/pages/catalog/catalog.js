@@ -1,8 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/page/page'),
-        Form_group = require('blocks/form/form_group/form_group'),
-        router = require('router');
+    var Page = require('kit/page/page');
 
     return Page.extend({
         content: require('ejs!./content.ejs'),
@@ -33,7 +31,8 @@ define(function(require, exports, module) {
         },
         blocks: {
             form_groupAdd: function() {
-                var page = this;
+                var page = this,
+                    Form_group = require('blocks/form/form_group/form_group');
 
                 return new Form_group({
                     collection: page.collections.groups,
