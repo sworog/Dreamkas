@@ -80,10 +80,18 @@ class Product extends AbstractDocument implements VersionableInterface
      * @MongoDB\String
      * @Assert\NotBlank
      * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
-     * @var string
      * @Serializer\Groups({"Default", "Collection"})
+     * @var string
      */
     protected $name;
+
+    /**
+     * @MongoDB\String
+     * @Assert\Length(max="50", maxMessage="lighthouse.validation.errors.length")
+     * @Serializer\Groups({"Default", "Collection"})
+     * @var string
+     */
+    protected $units;
 
     /**
      * @MongoDB\EmbedOne(
@@ -263,11 +271,11 @@ class Product extends AbstractDocument implements VersionableInterface
 
     /**
      * @Serializer\VirtualProperty
-     * @Serializer\SerializedName("units")
+     * @Serializer\SerializedName("typeUnits")
      * @Serializer\Groups({"Default", "Collection"})
      * @return string
      */
-    public function getUnits()
+    public function getTypeUnits()
     {
         return $this->typeProperties->getUnits();
     }

@@ -27,6 +27,7 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name', 'text')
+            ->add('units', 'text')
             ->add('vat', 'text')
             ->add('purchasePrice', 'money')
             ->add('barcode', 'text')

@@ -840,6 +840,45 @@ class ProductControllerTest extends WebTestCase
                 ),
             ),
             /***********************************************************************************************
+             * 'unit'
+             ***********************************************************************************************/
+            'valid units' => array(
+                201,
+                array(
+                    'units' => 'Штуки',
+                ),
+                array(
+                    'units' => 'Штуки'
+                )
+            ),
+            'empty units' => array(
+                201,
+                array(
+                    'units' => '',
+                ),
+                array(
+                    'units' => null
+                )
+            ),
+            'valid units length 50' => array(
+                201,
+                array(
+                    'units' => str_repeat('z', 50),
+                ),
+                array(
+                    'units' => str_repeat('z', 50),
+                )
+            ),
+            'invalid units max length 50' => array(
+                400,
+                array(
+                    'units' => str_repeat('z', 51),
+                ),
+                array(
+                    'errors.children.units.errors.0' => 'Не более 50 символов'
+                )
+            ),
+            /***********************************************************************************************
              * 'type'
              ***********************************************************************************************/
             'invalid type' => array(
@@ -882,7 +921,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => WeightType::UNITS,
+                    'typeUnits' => WeightType::UNITS,
                     'type' => WeightType::TYPE,
                     'typeProperties' => array()
                 )
@@ -900,7 +939,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => WeightType::UNITS,
+                    'typeUnits' => WeightType::UNITS,
                     'type' => WeightType::TYPE,
                     'typeProperties.nameOnScales' => 'Наименование на весах',
                     'typeProperties.descriptionOnScales' => 'Описание на весах',
@@ -922,7 +961,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => WeightType::UNITS,
+                    'typeUnits' => WeightType::UNITS,
                     'type' => WeightType::TYPE,
                     'typeProperties.nameOnScales' => str_repeat('z', 256),
                     'typeProperties.descriptionOnScales' => str_repeat('z', 256),
@@ -944,7 +983,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => null,
+                    'typeUnits' => null,
                     'type' => null,
                     'errors.children.typeProperties.children.nameOnScales.errors.0' => 'Не более 256 символов',
                     'errors.children.typeProperties.children.descriptionOnScales.errors.0' => 'Не более 256 символов',
@@ -962,7 +1001,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => null,
+                    'typeUnits' => null,
                     'type' => null,
                     'errors.children.typeProperties.children.shelfLife.errors.0' => 'Значение должно быть числом',
                 )
@@ -976,7 +1015,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => null,
+                    'typeUnits' => null,
                     'type' => null,
                     'errors.children.typeProperties.children.shelfLife.errors.0' => 'Значение должно быть числом',
                 )
@@ -990,7 +1029,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => null,
+                    'typeUnits' => null,
                     'type' => null,
                     'errors.children.typeProperties.children.shelfLife.errors.0'
                     =>
@@ -1007,7 +1046,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => null,
+                    'typeUnits' => null,
                     'type' => null,
                     'errors.errors.0' => 'Эта форма не должна содержать дополнительных полей: "bestBefore"',
                 )
@@ -1023,7 +1062,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => UnitType::UNITS,
+                    'typeUnits' => UnitType::UNITS,
                     'type' => UnitType::TYPE,
                     'typeProperties' => array()
                 )
@@ -1037,7 +1076,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => null,
+                    'typeUnits' => null,
                     'type' => null,
                     'errors.errors.0' => 'Эта форма не должна содержать дополнительных полей: "field"',
                 )
@@ -1053,7 +1092,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => AlcoholType::UNITS,
+                    'typeUnits' => AlcoholType::UNITS,
                     'type' => AlcoholType::TYPE,
                     'typeProperties' => array()
                 )
@@ -1068,7 +1107,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => AlcoholType::UNITS,
+                    'typeUnits' => AlcoholType::UNITS,
                     'type' => AlcoholType::TYPE,
                     'typeProperties' => array(
                         'alcoholByVolume' => '38.5',
@@ -1086,7 +1125,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => AlcoholType::UNITS,
+                    'typeUnits' => AlcoholType::UNITS,
                     'type' => AlcoholType::TYPE,
                     'typeProperties' => array(
                         'alcoholByVolume' => '38.5',
@@ -1255,7 +1294,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => null,
+                    'typeUnits' => null,
                     'type' => null,
                     'errors.errors.0' => 'Эта форма не должна содержать дополнительных полей: "field"',
                 )
