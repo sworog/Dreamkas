@@ -157,6 +157,7 @@ public class CatalogSteps extends ScenarioSteps {
         editGroupModalPage.deleteButtonConfirmClick();
         new SimplePreloader(getDriver()).await();
         new WaitForModalWindowClose(getDriver()).await();
+        new BodyPreLoader(getDriver()).await();
     }
 
     @Step

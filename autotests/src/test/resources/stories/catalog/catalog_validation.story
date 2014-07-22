@@ -10,7 +10,7 @@ Narrative:
 Scenario: Create group validation name positive - 100 symbols
 
 Meta:
-@id_
+@id_s38u100s13
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
@@ -26,7 +26,7 @@ Then the user asserts the groups list contain group with stored name
 Scenario: Create group validation name negative - 101 symbols
 
 Meta:
-@id_
+@id_s38u100s14
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
@@ -42,7 +42,7 @@ Then the user checks the create group modal windows name field has error message
 Scenario: Create group validation name is required
 
 Meta:
-@id_
+@id_s38u100s15
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
@@ -57,7 +57,7 @@ Then the user checks the create group modal windows name field has error message
 Scenario: Create group validation name is unique
 
 Meta:
-@id_
+@id_s38u100s16
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
@@ -75,7 +75,7 @@ Then the user checks the create group modal windows name field has error message
 Scenario: Edit group validation name positive - 100 symbols
 
 Meta:
-@id_
+@id_s38u100s17
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
@@ -94,7 +94,7 @@ Then the user asserts the groups list contain group with stored name
 Scenario: Edit group validation name negative - 101 symbols
 
 Meta:
-@id_
+@id_s38u100s18
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
@@ -113,7 +113,7 @@ Then the user checks the edit group modal windows name field has error message w
 Scenario: Edit group validation name is required
 
 Meta:
-@id_
+@id_s38u100s19
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
@@ -132,7 +132,7 @@ Then the user checks the edit group modal windows name field has error message w
 Scenario: Edit group validation name is unique
 
 Meta:
-@id_
+@id_s38u100s20
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 

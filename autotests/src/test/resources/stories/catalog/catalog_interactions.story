@@ -11,7 +11,7 @@ Scenario: Group creation confirmation ok
 
 Meta:
 @smoke
-@id_
+@id_s38u100s1
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
@@ -28,7 +28,7 @@ And the user asserts the groups list contain group with name 'Новая гру�
 Scenario: Group creation confirmation cancel
 
 Meta:
-@id_
+@id_s38u100s2
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
@@ -46,7 +46,7 @@ Scenario: Group edition confirmation ok
 
 Meta:
 @smoke
-@id_
+@id_s38u100s3
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
@@ -71,7 +71,7 @@ Then the user asserts the groups list not contain group with name 'Группа 
 Scenario: Group edition confirmation cancel
 
 Meta:
-@id_
+@id_s38u100s4
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
@@ -96,7 +96,7 @@ Scenario: Group deletion confirmation ok
 
 Meta:
 @smoke
-@id_
+@id_s38u100s5
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
@@ -117,7 +117,7 @@ Scenario: Catalog menu navigation bar link navigation assert to proper page
 
 Meta:
 @smoke
-@id_
+@id_s38u100s6
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
@@ -131,7 +131,7 @@ Then the user asserts catalog title is 'Ассортимент'
 Scenario: Catalog title assert
 
 Meta:
-@id_
+@id_s38u100s7
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
@@ -143,7 +143,7 @@ Then the user asserts catalog title is 'Ассортимент'
 Scenario: Choosen group title assert
 
 Meta:
-@id_
+@id_s38u100s8
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
@@ -159,7 +159,7 @@ Then the user asserts group title is 'Группа для выбора'
 Scenario: Create group modal window title assert
 
 Meta:
-@id_
+@id_s38u100s9
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
@@ -173,7 +173,7 @@ Then the user asserts the create group modal window title is 'Добавить �
 Scenario: Edit group modal window title assert
 
 Meta:
-@id_
+@id_s38u100s10
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
@@ -190,7 +190,7 @@ Then the user asserts the edit group modal window title is 'Редактиров
 Scenario: No groups message assert
 
 Meta:
-@id_
+@id_s38u100s11
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/sprint-38/us-100/aPreconditionToUserCreation.story
@@ -204,7 +204,7 @@ Scenario: Deleting the group with name, which had the already deleted group
 
 Meta:
 @smoke
-@id_
+@id_s38u100s12
 
 GivenStories: precondition/sprint-38/us-100/aPreconditionToUserCreation.story
 
