@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "75b6f28b420f076c05bdad58dc52e1cc",
+    "hash": "3274c53af5ddd5f47c945f08bce0dd76",
     "packages": [
         {
             "name": "clamidity/profiler-bundle",
@@ -57,7 +57,7 @@
         },
         {
             "name": "crystalservice/samba",
-            "version": "dev-master",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/crystalservice/samba.git",
@@ -4324,7 +4324,6 @@
         "doctrine/data-fixtures": 20,
         "munkie/karzer": 20,
         "clamidity/profiler-bundle": 20,
-        "crystalservice/samba": 20,
         "munkie/phpunit-teamcity-testlistener": 20
     },
     "platform": {
