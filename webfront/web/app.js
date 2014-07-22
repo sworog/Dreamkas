@@ -87,6 +87,10 @@ define(function(require) {
         confirmLink_active.removeClass('confirmLink_active');
     });
 
+    $(document).on('shown.bs.modal', '.modal', function(){
+        $(this).find('[autofocus]').focus();
+    });
+
     loading = currentUserModel.fetch();
 
     loading.done(function() {

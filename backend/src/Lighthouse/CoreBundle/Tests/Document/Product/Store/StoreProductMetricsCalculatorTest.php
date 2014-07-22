@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Document\Product\Store;
 
-use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesXmlParser;
+use Lighthouse\IntegrationBundle\Set10\Import\Sales\SalesXmlParser;
 use Lighthouse\CoreBundle\Test\TestOutput;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
@@ -14,7 +14,7 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
      */
     protected function createXmlBody()
     {
-        $templateFile = $this->getFixtureFilePath('Integration/Set10/Import/Sales/purchases.xml.tmpl');
+        $templateFile = $this->getIntegrationFixtureFilePath('Set10/Import/Sales/purchases.xml.tmpl');
         $template = file_get_contents($templateFile);
         $processedTemplate  = preg_replace_callback(
             '/{{\s*(.+?)\s*}}/',
@@ -45,7 +45,7 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
     protected function importSales()
     {
         $filePath = $this->createPurchasesXml();
-        $importer = $this->getContainer()->get('lighthouse.core.integration.set10.import.sales.importer');
+        $importer = $this->getContainer()->get('lighthouse.integration.set10.import.sales.importer');
         $parser = new SalesXmlParser($filePath);
         $output = new TestOutput();
         $importer->import($parser, $output);

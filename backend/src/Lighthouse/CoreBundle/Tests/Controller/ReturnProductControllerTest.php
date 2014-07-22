@@ -2,8 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesImporter;
-use Lighthouse\CoreBundle\Integration\Set10\Import\Sales\SalesXmlParser;
+use Lighthouse\IntegrationBundle\Set10\Import\Sales\SalesImporter;
+use Lighthouse\IntegrationBundle\Set10\Import\Sales\SalesXmlParser;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\TestOutput;
 use Lighthouse\CoreBundle\Test\WebTestCase;
@@ -17,8 +17,8 @@ class ReturnProductControllerTest extends WebTestCase
     protected function importSales($xmlFile)
     {
         /* @var SalesImporter $importer */
-        $importer = $this->getContainer()->get('lighthouse.core.integration.set10.import.sales.importer');
-        $xmlFilePath = $this->getFixtureFilePath($xmlFile);
+        $importer = $this->getContainer()->get('lighthouse.integration.set10.import.sales.importer');
+        $xmlFilePath = $this->getIntegrationFixtureFilePath($xmlFile);
         $xmlParser = new SalesXmlParser($xmlFilePath);
         $output = new TestOutput();
         $importer->import($xmlParser, $output);
@@ -32,7 +32,7 @@ class ReturnProductControllerTest extends WebTestCase
 
         $products = $this->createProductsByNames(array('1', '2', '3', '4'));
 
-        $importer = $this->importSales('Integration/Set10/Import/Sales/purchases-with-returns.xml');
+        $importer = $this->importSales('Set10/Import/Sales/purchases-with-returns.xml');
         $this->assertCount(0, $importer->getErrors(), 'Failed asserting no import errors');
 
         $accessToken = $this->factory()->oauth()->auth($departmentManager);

@@ -73,6 +73,19 @@ class ProductController extends AbstractRestController
         return $this->processForm($request, $product);
     }
 
+
+    /**
+     * @param Product $product
+     *
+     * @Rest\View(statusCode=204)
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function deleteProductsAction(Product $product)
+    {
+        $this->processDelete($product);
+    }
+
     /**
      * @param Product $product
      * @return Product

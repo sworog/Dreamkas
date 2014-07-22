@@ -19,6 +19,8 @@ use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Versionable\VersionableInterface;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
+use Gedmo\Mapping\Annotation\SoftDeleteable;
+use DateTime;
 
 /**
  *
@@ -50,6 +52,7 @@ use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
  *
  * @LighthouseAssert\Product\RetailPrice
  * @LighthouseAssert\Product\BarcodeUnique
+ * @SoftDeleteable
  */
 class Product extends AbstractDocument implements VersionableInterface
 {
@@ -211,6 +214,12 @@ class Product extends AbstractDocument implements VersionableInterface
      * @var array|Barcode[]
      */
     protected $barcodes = array();
+
+    /**
+     * @MongoDB\Date
+     * @var DateTime
+     */
+    protected $deletedAt;
 
     public function __construct()
     {

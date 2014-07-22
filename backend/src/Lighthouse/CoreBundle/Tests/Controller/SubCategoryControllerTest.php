@@ -550,7 +550,7 @@ class SubCategoryControllerTest extends WebTestCase
     {
         $subCategoryId = $this->createSubCategory();
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $this->clientJsonRequest(
             $accessToken,

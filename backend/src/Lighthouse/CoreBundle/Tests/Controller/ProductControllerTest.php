@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Type\AlcoholType;
 use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
@@ -2426,5 +2427,82 @@ class ProductControllerTest extends WebTestCase
         foreach ($productData as $prop => $value) {
             Assert::assertJsonPathEquals($value, $prop, $response);
         }
+    }
+
+    public function testDeleteAction()
+    {
+        $productId = $this->createProduct(array('name' => 'Продукт'));
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/products/' . $productId
+        );
+
+        $this->assertResponseCode(204);
+
+        $this->assertNull($deleteResponse);
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/products/' . $productId
+        );
+
+        $this->assertResponseCode(404);
+
+        $product = $this->getProductRepository()->find($productId);
+        $this->assertNull($product);
+
+        $products = $this->getProductRepository()->findAll();
+        $this->assertCount(0, $products);
+
+        $this
+            ->getProductRepository()
+            ->getDocumentManager()
+            ->getFilterCollection()
+            ->disable('softdeleteable');
+
+        $product = $this->getProductRepository()->find($productId);
+        $this->assertInstanceOf(Product::getClassName(), $product);
+
+        $products = $this->getProductRepository()->findAll();
+        $this->assertCount(1, $products);
+    }
+
+    public function testDeleteWithDuplicateName()
+    {
+        $productId = $this->createProduct(array('name' => 'Хомячок'));
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/products/' . $productId
+        );
+
+        $this->assertResponseCode(204);
+
+        $this->createProduct(array('name' => 'Хомячок'));
+
+        $this
+            ->getProductRepository()
+            ->getDocumentManager()
+            ->getFilterCollection()
+            ->disable('softdeleteable');
+
+        $deletedProduct = $this->getProductRepository()->find($productId);
+        $this->assertContains('Хомячок (Удалено', $deletedProduct->name);
+    }
+
+    /**
+     * @return ProductRepository
+     */
+    protected function getProductRepository()
+    {
+        return $this->getContainer()->get('lighthouse.core.document.repository.product');
     }
 }
