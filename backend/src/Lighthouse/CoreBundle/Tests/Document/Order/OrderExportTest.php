@@ -1,9 +1,9 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Tests\Integration\Excel\Export\Orders;
+namespace Lighthouse\CoreBundle\Tests\Document\Order;
 
 use Lighthouse\CoreBundle\Document\Order\Order;
-use Lighthouse\CoreBundle\Integration\Excel\Export\Orders\OrderGenerator;
+use Lighthouse\CoreBundle\Document\Order\OrderExcelGenerator;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Liuggio\ExcelBundle\Factory;
 
@@ -48,7 +48,7 @@ class OrderExportTest extends WebTestCase
             $postData
         );
 
-        /** @var OrderGenerator $orderExcelGenerator */
+        /** @var OrderExcelGenerator $orderExcelGenerator */
         $orderExcelGenerator = $this->getContainer()->get('lighthouse.core.integration.excel.export.orders.generator');
 
         /** @var Order $order */
@@ -56,9 +56,9 @@ class OrderExportTest extends WebTestCase
 
         $orderExcelGenerator->setOrder($order);
         $orderExcelGenerator->generate();
-        $writer = $orderExcelGenerator->getWriter();
-        $filename = '/tmp/' . __CLASS__ . '_' . __METHOD__ . '.xlsx';
-        $writer->save($filename);
+
+        $filename = '/tmp/' . uniqid('order-') . '.xlsx';
+        $orderExcelGenerator->getWriter()->save($filename);
 
         /** @var Factory $phpExcel */
         $phpExcel = $this->getContainer()->get('phpexcel');
@@ -69,18 +69,15 @@ class OrderExportTest extends WebTestCase
          */
         $this->assertEquals(
             'Заказ №' . $order->number . ' от ' . $order->createdDate->format('d.m.Y'),
-            $fileObject->getActiveSheet()
-                ->getCell('A1')->getValue()
+            $fileObject->getActiveSheet()->getCell('A1')->getValue()
         );
         $this->assertEquals(
             'Магазин №' . $order->store->number. '. ' . $order->store->address . '. ' . $order->store->contacts,
-            $fileObject->getActiveSheet()
-                ->getCell('A2')->getValue()
+            $fileObject->getActiveSheet()->getCell('A2')->getValue()
         );
         $this->assertEquals(
             'Поставщик "' . $order->supplier->name . '"',
-            $fileObject->getActiveSheet()
-                ->getCell('A3')->getValue()
+            $fileObject->getActiveSheet()->getCell('A3')->getValue()
         );
 
 
@@ -131,9 +128,8 @@ class OrderExportTest extends WebTestCase
         foreach ($cells as $cell) {
             $this->assertEquals(
                 $cell,
-                $object->getActiveSheet()
-                    ->getCell($startCell . $row)->getValue(),
-                "Cell " . $startCell . $row . " not equals"
+                $object->getActiveSheet()->getCell($startCell . $row)->getValue(),
+                sprintf('Cell %s%s not equals', $startCell, $row)
             );
 
             $startCell++;

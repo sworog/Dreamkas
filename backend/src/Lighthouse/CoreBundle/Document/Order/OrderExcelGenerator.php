@@ -1,17 +1,17 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Integration\Excel\Export\Orders;
+namespace Lighthouse\CoreBundle\Document\Order;
 
 use JMS\DiExtraBundle\Annotation as DI;
-use Lighthouse\CoreBundle\Document\Order\Order;
+use Symfony\Component\Translation\Translator;
 use Liuggio\ExcelBundle\Factory;
 use PHPExcel;
-use Symfony\Component\Translation\Translator;
+use PHPExcel_Writer_Abstract;
 
 /**
  * @DI\Service("lighthouse.core.integration.excel.export.orders.generator")
  */
-class OrderGenerator
+class OrderExcelGenerator
 {
     /**
      * @DI\Inject("translator")
@@ -25,22 +25,22 @@ class OrderGenerator
      *
      * @var Factory
      */
-    public $phpExcel;
+    public $phpExcelFactory;
 
     /**
      * @var Order
      */
-    protected $order = null;
+    protected $order;
 
     /**
      * @var PHPExcel
      */
-    protected $phpExcelObject = null;
+    protected $phpExcel;
 
     /**
-     * @var \PHPExcel_Writer_Abstract
+     * @var PHPExcel_Writer_Abstract
      */
-    protected $writer = null;
+    protected $writer;
 
     /**
      * @param Order $order
@@ -49,7 +49,7 @@ class OrderGenerator
     {
         $this->order = $order;
 
-        $this->phpExcelObject = $this->phpExcel->createPHPExcelObject();
+        $this->phpExcel = $this->phpExcelFactory->createPHPExcelObject();
     }
 
     /**
@@ -62,7 +62,7 @@ class OrderGenerator
             $this->generateBodyTitle();
             $this->generateBody();
 
-            $this->writer = $this->phpExcel->createWriter($this->phpExcelObject, 'Excel2007');
+            $this->writer = $this->phpExcelFactory->createWriter($this->phpExcel, 'Excel2007');
         }
     }
 
@@ -71,7 +71,7 @@ class OrderGenerator
      */
     protected function generateHead()
     {
-        $this->phpExcelObject->setActiveSheetIndex(0)
+        $this->phpExcel->setActiveSheetIndex(0)
             ->setCellValue(
                 'A1',
                 $this->translator->trans(
@@ -110,7 +110,7 @@ class OrderGenerator
      */
     protected function generateBodyTitle()
     {
-        $this->phpExcelObject->setActiveSheetIndex(0)
+        $this->phpExcel->setActiveSheetIndex(0)
             ->setCellValue(
                 'A5',
                 $this->translator->trans('lighthouse.order.export.generator.products.title.sku', array(), 'order')
@@ -128,25 +128,25 @@ class OrderGenerator
                 $this->translator->trans('lighthouse.order.export.generator.products.title.quantity', array(), 'order')
             );
 
-        $this->phpExcelObject->getActiveSheet()
+        $this->phpExcel->getActiveSheet()
             ->getColumnDimension('A')
             ->setWidth(15);
-        $this->phpExcelObject->getActiveSheet()
+        $this->phpExcel->getActiveSheet()
             ->getColumnDimension('B')
             ->setAutoSize(true);
         // Формат для штрихкодов, что бы выглядили как обычные числа
-        $this->phpExcelObject->getActiveSheet()
+        $this->phpExcel->getActiveSheet()
             ->getStyle('B')->getNumberFormat()->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_NUMBER);
-        $this->phpExcelObject->getActiveSheet()
+        $this->phpExcel->getActiveSheet()
             ->getColumnDimension('C')
             ->setWidth(25);
         // Формат ячеек текстовый для названия
-        $this->phpExcelObject->getActiveSheet()
+        $this->phpExcel->getActiveSheet()
             ->getStyle('C')->getNumberFormat()->setFormatCode(\PHPExcel_Style_NumberFormat::FORMAT_TEXT);
         // Перенос строк для названия
-        $this->phpExcelObject->getActiveSheet()
+        $this->phpExcel->getActiveSheet()
             ->getStyle('C')->getAlignment()->setWrapText(true);
-        $this->phpExcelObject->getActiveSheet()
+        $this->phpExcel->getActiveSheet()
             ->getColumnDimension('D')
             ->setAutoSize(true);
     }
@@ -158,12 +158,12 @@ class OrderGenerator
     {
         $stringNumber = 6;
         foreach ($this->order->products as $orderProduct) {
-            $this->phpExcelObject->setActiveSheetIndex(0)
+            $this->phpExcel->setActiveSheetIndex(0)
                 ->setCellValue('A' . $stringNumber, $orderProduct->product->sku)
                 ->setCellValue('B' . $stringNumber, $orderProduct->product->barcode)
                 ->setCellValue('C' . $stringNumber, $orderProduct->product->name)
                 ->setCellValue('D' . $stringNumber, $orderProduct->quantity->toString());
-            $this->phpExcelObject->getActiveSheet()
+            $this->phpExcel->getActiveSheet()
                 ->getStyle('A' . $stringNumber . ':D' . $stringNumber)
                 ->getBorders()->getAllBorders()->setBorderStyle(\PHPExcel_Style_Border::BORDER_THIN);
             $stringNumber++;

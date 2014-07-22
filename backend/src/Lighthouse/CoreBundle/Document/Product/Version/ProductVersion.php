@@ -9,6 +9,7 @@ use Lighthouse\CoreBundle\Versionable\VersionInterface;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 /**
+ * @property string $sku
  * @property string $version
  * @property DateTimestamp $createdDate
  *
