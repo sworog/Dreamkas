@@ -101,4 +101,9 @@ public class CommonUserSteps {
     public void thenTheUserWaitsForModalWindowClosing() {
         commonSteps.waitForModalPageClose();
     }
+
+    @Then("the user waits for page finishing loading")
+    public void thenTheUserWaitsForPageFinishingLoading() {
+        commonSteps.waitForPageFinishingLoading();
+    }
 }
