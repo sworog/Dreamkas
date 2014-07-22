@@ -2,9 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Test\Factory\Invoice;
 
-use Lighthouse\CoreBundle\Document\Invoice\Invoice;
-use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Test\Factory\Factory;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Symfony\Component\Validator\ValidatorInterface;
@@ -17,9 +17,9 @@ class InvoiceBuilder
     protected $factory;
 
     /**
-     * @var InvoiceRepository
+     * @var StockMovementRepository
      */
-    protected $invoiceRepository;
+    protected $stockMovementRepository;
 
     /**
      * @var ValidatorInterface
@@ -38,18 +38,18 @@ class InvoiceBuilder
 
     /**
      * @param Factory $factory
-     * @param InvoiceRepository $invoiceRepository
+     * @param StockMovementRepository $stockMovementRepository
      * @param ValidatorInterface $validator
      * @param NumericFactory $numericFactory
      */
     public function __construct(
         Factory $factory,
-        InvoiceRepository $invoiceRepository,
+        StockMovementRepository $stockMovementRepository,
         ValidatorInterface $validator,
         NumericFactory $numericFactory
     ) {
         $this->factory = $factory;
-        $this->invoiceRepository = $invoiceRepository;
+        $this->stockMovementRepository = $stockMovementRepository;
         $this->validator = $validator;
         $this->numericFactory = $numericFactory;
     }
@@ -64,7 +64,7 @@ class InvoiceBuilder
      */
     public function createInvoice(array $data, $storeId = null, $supplierId = null, $orderId = null)
     {
-        $this->invoice = $this->invoiceRepository->createNew();
+        $this->invoice = $this->stockMovementRepository->createNewInvoice();
 
         $invoiceData = $data + array(
             'acceptanceDate' => '2013-03-18 12:56',
@@ -188,7 +188,7 @@ class InvoiceBuilder
     public function deleteInvoiceProduct($index)
     {
         $invoiceProduct = $this->invoice->products->remove($index);
-        $this->invoiceRepository->getDocumentManager()->remove($invoiceProduct);
+        $this->stockMovementRepository->getDocumentManager()->remove($invoiceProduct);
         return $this;
     }
 
@@ -199,7 +199,7 @@ class InvoiceBuilder
     public function flush()
     {
         $this->persist();
-        $this->invoiceRepository->getDocumentManager()->flush();
+        $this->stockMovementRepository->getDocumentManager()->flush();
         return $this->invoice;
     }
 
@@ -210,7 +210,7 @@ class InvoiceBuilder
     public function persist()
     {
         $this->validator->validate($this->invoice);
-        $this->invoiceRepository->getDocumentManager()->persist($this->invoice);
+        $this->stockMovementRepository->getDocumentManager()->persist($this->invoice);
         return $this->factory->invoice();
     }
 }

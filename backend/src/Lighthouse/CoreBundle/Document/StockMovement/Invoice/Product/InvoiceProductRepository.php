@@ -1,10 +1,10 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Invoice\Product;
+namespace Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product;
 
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
-use Lighthouse\CoreBundle\Document\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 
 class InvoiceProductRepository extends DocumentRepository
 {

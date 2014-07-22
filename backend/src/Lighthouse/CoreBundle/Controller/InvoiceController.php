@@ -4,11 +4,11 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\Cursor;
-use Lighthouse\CoreBundle\Document\Invoice\Invoice;
-use Lighthouse\CoreBundle\Document\Invoice\InvoiceHighlightGenerator;
-use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
-use Lighthouse\CoreBundle\Document\Invoice\InvoicesFilter;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceHighlightGenerator;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoicesFilter;
 use Lighthouse\CoreBundle\Document\Order\Order;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\InvoiceType;
@@ -25,8 +25,8 @@ use MongoDuplicateKeyException;
 class InvoiceController extends AbstractRestController
 {
     /**
-     * @DI\Inject("lighthouse.core.document.repository.invoice")
-     * @var InvoiceRepository
+     * @DI\Inject("lighthouse.core.document.repository.stock_movement")
+     * @var StockMovementRepository
      */
     protected $documentRepository;
 
@@ -67,7 +67,7 @@ class InvoiceController extends AbstractRestController
      */
     public function postInvoicesAction(Store $store, Request $request)
     {
-        $invoice = $this->documentRepository->createNew();
+        $invoice = $this->documentRepository->createNewInvoice();
         $invoice->store = $store;
         return $this->processForm($request, $invoice);
     }
@@ -106,11 +106,12 @@ class InvoiceController extends AbstractRestController
      */
     public function getInvoicesAction(Store $store, InvoicesFilter $filter)
     {
-        $cursor = $this->documentRepository->findByStore($store->id, $filter);
+        $cursor = $this->documentRepository->findInvoicesByStore($store->id, $filter);
         if ($filter->hasNumberOrSupplierInvoiceNumber()) {
-            $highlightGenerator = new InvoiceHighlightGenerator($filter);
-            $collection = new MetaCollection($cursor);
-            $collection->addMetaGenerator($highlightGenerator);
+            $collection = new MetaCollection(
+                $cursor,
+                new InvoiceHighlightGenerator($filter)
+            );
         } else {
             $collection = $cursor;
         }
@@ -144,7 +145,7 @@ class InvoiceController extends AbstractRestController
         if ($order->store !== $store) {
             throw new NotFoundHttpException(sprintf("%s object not found", Order::getClassName()));
         }
-        $invoice = $this->documentRepository->createByOrder($order);
+        $invoice = $this->documentRepository->createInvoiceByOrder($order);
         return $invoice;
     }
 

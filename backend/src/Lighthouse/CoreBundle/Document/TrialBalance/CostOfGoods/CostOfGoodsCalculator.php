@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Console\DotHelper;
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;

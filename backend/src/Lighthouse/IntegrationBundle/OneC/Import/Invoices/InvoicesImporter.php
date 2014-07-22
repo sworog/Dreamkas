@@ -4,9 +4,8 @@ namespace Lighthouse\IntegrationBundle\OneC\Import\Invoices;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Console\DotHelper;
-use Lighthouse\CoreBundle\Document\Invoice\Invoice;
-use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Store\Store;
@@ -23,7 +22,7 @@ use SplFileObject;
 use DateTime;
 
 /**
- * @DI\Service("lighthouse.core.integration.onec.import.invoices.importer")
+ * @DI\Service("lighthouse.integration.onec.import.invoices.importer")
  */
 class InvoicesImporter
 {
@@ -31,11 +30,6 @@ class InvoicesImporter
      * @var StoreRepository
      */
     protected $storeRepository;
-
-    /**
-     * @var InvoiceRepository
-     */
-    protected $invoiceRepository;
 
     /**
      * @var ProductRepository
@@ -75,14 +69,12 @@ class InvoicesImporter
     /**
      * @DI\InjectParams({
      *      "storeRepository" = @DI\Inject("lighthouse.core.document.repository.store"),
-     *      "invoiceRepository" = @DI\Inject("lighthouse.core.document.repository.invoice"),
      *      "productRepository" = @DI\Inject("lighthouse.core.document.repository.product"),
      *      "versionFactory" = @DI\Inject("lighthouse.core.versionable.factory"),
      *      "validator" = @DI\Inject("lighthouse.core.validator"),
      *      "numericFactory" = @DI\Inject("lighthouse.core.types.numeric.factory")
      * })
      * @param StoreRepository $storeRepository
-     * @param InvoiceRepository $invoiceRepository
      * @param ProductRepository $productRepository
      * @param VersionFactory $versionFactory
      * @param ExceptionalValidator $validator
@@ -90,19 +82,17 @@ class InvoicesImporter
      */
     public function __construct(
         StoreRepository $storeRepository,
-        InvoiceRepository $invoiceRepository,
         ProductRepository $productRepository,
         VersionFactory $versionFactory,
         ExceptionalValidator $validator,
         NumericFactory $numericFactory
     ) {
         $this->storeRepository = $storeRepository;
-        $this->invoiceRepository = $invoiceRepository;
         $this->productRepository = $productRepository;
         $this->versionFactory = $versionFactory;
         $this->validator = $validator;
         $this->numericFactory = $numericFactory;
-        $this->documentManager = $invoiceRepository->getDocumentManager();
+        $this->documentManager = $productRepository->getDocumentManager();
     }
 
     /**

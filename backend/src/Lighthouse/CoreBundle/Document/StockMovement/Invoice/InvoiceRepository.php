@@ -1,11 +1,13 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Invoice;
+namespace Lighthouse\CoreBundle\Document\StockMovement\Invoice;
 
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoicesFilter;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Order\Order;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 
 class InvoiceRepository extends DocumentRepository

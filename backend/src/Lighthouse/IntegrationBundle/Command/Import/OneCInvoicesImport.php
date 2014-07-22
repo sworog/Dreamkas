@@ -24,7 +24,7 @@ class OneCInvoicesImport extends Command
 
     /**
      * @DI\InjectParams({
-     *      "importer" = @DI\Inject("lighthouse.core.integration.onec.import.invoices.importer")
+     *      "importer" = @DI\Inject("lighthouse.integration.onec.import.invoices.importer")
      * })
      * @param InvoicesImporter $importer
      */

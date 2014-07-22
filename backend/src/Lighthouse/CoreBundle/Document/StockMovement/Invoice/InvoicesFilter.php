@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Invoice;
+namespace Lighthouse\CoreBundle\Document\StockMovement\Invoice;
 
 use Lighthouse\CoreBundle\Request\ParamConverter\Filter\FilterInterface;
 

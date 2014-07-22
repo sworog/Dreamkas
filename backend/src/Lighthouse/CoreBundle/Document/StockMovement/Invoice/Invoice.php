@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Invoice;
+namespace Lighthouse\CoreBundle\Document\StockMovement\Invoice;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -8,8 +8,9 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\ODM\MongoDB\PersistentCollection;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Order\Order;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
@@ -21,8 +22,6 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints as AssertMongoDB;
 use DateTime;
 
 /**
- * @property string     $id
- * @property Store      $store
  * @property Supplier   $supplier
  * @property Order      $order
  * @property string     $number
@@ -37,29 +36,12 @@ use DateTime;
  * @property boolean    $includesVAT
  * @property Collection|InvoiceProduct[]|PersistentCollection $products
  *
- * @MongoDB\Document(
- *     repositoryClass="Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository"
- * )
+ * @MongoDB\Document()
  * @AssertMongoDB\Unique(message="lighthouse.validation.errors.invoice.order.unique", fields={"order"})
  */
-class Invoice extends AbstractDocument implements Storeable
+class Invoice extends StockMovement
 {
-    /**
-     * @MongoDB\Id
-     * @var string
-     */
-    protected $id;
-
-    /**
-     * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
-     *     simple=true
-     * )
-     * @Assert\NotBlank
-     * @Serializer\MaxDepth(2)
-     * @var Store
-     */
-    protected $store;
+    const TYPE = 'Invoice';
 
     /**
      * @MongoDB\ReferenceOne(
@@ -163,7 +145,7 @@ class Invoice extends AbstractDocument implements Storeable
 
     /**
      * @MongoDB\ReferenceMany(
-     *      targetDocument="Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct",
+     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct",
      *      simple=true,
      *      cascade={"persist","remove"},
      *      mappedBy="invoice"
@@ -185,14 +167,6 @@ class Invoice extends AbstractDocument implements Storeable
     public function __construct()
     {
         $this->products = new ArrayCollection();
-    }
-
-    /**
-     * @return Store
-     */
-    public function getStore()
-    {
-        return $this->store;
     }
 
     /**

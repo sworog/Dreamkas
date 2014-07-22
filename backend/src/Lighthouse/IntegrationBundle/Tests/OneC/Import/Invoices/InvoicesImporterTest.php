@@ -2,8 +2,8 @@
 
 namespace Lighthouse\IntegrationBundle\Tests\OneC\Import\Invoices;
 
-use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Test\TestOutput;
 use Lighthouse\IntegrationBundle\OneC\Import\Invoices\InvoicesImporter;
 use Lighthouse\IntegrationBundle\Test\WebTestCase;
@@ -24,7 +24,7 @@ class InvoicesImporterTest extends WebTestCase
     protected function import($filePath, $batchSize = 5)
     {
         /* @var InvoicesImporter $importer */
-        $importer = $this->getContainer()->get('lighthouse.core.integration.onec.import.invoices.importer');
+        $importer = $this->getContainer()->get('lighthouse.integration.onec.import.invoices.importer');
         $output = new TestOutput();
         $importer->import($filePath, $batchSize, $output);
 
@@ -36,10 +36,10 @@ class InvoicesImporterTest extends WebTestCase
      */
     protected function assertStoreInvoiceCount(array $storeInvoiceCount)
     {
-        /* @var InvoiceRepository $invoiceRepository */
-        $invoiceRepository = $this->getContainer()->get('lighthouse.core.document.repository.invoice');
+        /* @var StockMovementRepository $stockMovementRepository */
+        $stockMovementRepository = $this->getContainer()->get('lighthouse.core.document.repository.stock_movement');
         foreach ($storeInvoiceCount as $storeId => $count) {
-            $invoices = $invoiceRepository->findBy(array('store' => $storeId));
+            $invoices = $stockMovementRepository->findInvoicesByStore($storeId);
             $this->assertEquals($count, $invoices->count());
         }
     }

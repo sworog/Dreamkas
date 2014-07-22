@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Meta;
 
+use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentCollection;
 use ArrayIterator;
 
@@ -11,6 +12,18 @@ class MetaCollection extends DocumentCollection
      * @var MetaGeneratorInterface[]
      */
     protected $metaGenerators = array();
+
+    /**
+     * @param array|Cursor $elements
+     * @param MetaGeneratorInterface $metaGenerator
+     */
+    public function __construct($elements, MetaGeneratorInterface $metaGenerator = null)
+    {
+        parent::__construct($elements);
+        if ($metaGenerator) {
+            $this->addMetaGenerator($metaGenerator);
+        }
+    }
 
     /**
      * @param MetaGeneratorInterface $metaGenerator

@@ -1,7 +1,9 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Invoice;
+namespace Lighthouse\CoreBundle\Document\StockMovement\Invoice;
 
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoicesFilter;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Meta\MetaGeneratorInterface;
 
 class InvoiceHighlightGenerator implements MetaGeneratorInterface

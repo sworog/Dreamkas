@@ -57,19 +57,19 @@ services:
         arguments:
             - LighthouseCoreBundle:Product\Product
 
-    lighthouse.core.document.repository.invoice:
+    lighthouse.core.document.repository.stock_movement:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository
+        class: Lighthouse\CoreBundle\Document\StockMovement\StockMovementRepository
         arguments:
-            - LighthouseCoreBundle:Invoice\Invoice
+            - LighthouseCoreBundle:StockMovement\StockMovement
         calls:
             - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
 
     lighthouse.core.document.repository.invoice_product:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository
+        class: Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProductRepository
         arguments:
-            - LighthouseCoreBundle:Invoice\Product\InvoiceProduct
+            - LighthouseCoreBundle:StockMovement\Invoice\Product\InvoiceProduct
 
     lighthouse.core.document.repository.trial_balance:
         parent: doctrine_mongodb.odm.repository

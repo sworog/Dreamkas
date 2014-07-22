@@ -1,11 +1,11 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Invoice\Product;
+namespace Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Product\Product;
-use Lighthouse\CoreBundle\Document\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
@@ -29,12 +29,12 @@ use DateTime;
  * @property Money      $amountVAT
  * @property DateTime   $acceptanceDate
  * @property Money      $totalAmountVAT
- * @property Invoice    $invoice
+ * @property \Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice    $invoice
  * @property ProductVersion $product
  * @property Store      $store
  *
  * @MongoDB\Document(
- *     repositoryClass="Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository"
+ *     repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProductRepository"
  * )
  * @MongoDB\HasLifecycleCallbacks
  */
@@ -119,7 +119,7 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
 
     /**
      * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Invoice\Invoice",
+     *     targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice",
      *     simple=true,
      *     cascade="persist",
      *     inversedBy="products"
@@ -299,7 +299,7 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
 
     /**
      * Workaround to recalc price by VAT
-     * @param Invoice $invoice
+     * @param \Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice $invoice
      */
     public function setInvoice(Invoice $invoice = null)
     {
