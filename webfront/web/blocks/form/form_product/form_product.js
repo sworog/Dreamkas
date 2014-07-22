@@ -9,6 +9,18 @@ define(function(require) {
                     ProductModel = require('models/product/product');
                 
                 return new ProductModel();
+            },
+            submit: function() {
+                var block = this;
+
+                if (block.formData.newGroupName.length){
+
+                    block.formData.subCategory = {
+                        name: block.formData.newGroupName
+                    };
+
+                    return block.model.save(block.formData);
+                }
             }
         });
     }

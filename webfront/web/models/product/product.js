@@ -15,11 +15,12 @@ define(function(require) {
             return {
                 subCategory: model.get('subCategory'),
                 name: model.get('name'),
-                unit: model.get('unit'),
+                units: model.get('units'),
                 barcode: model.get('barcode'),
                 vat: model.get('vat'),
                 purchasePrice: model.get('purchasePrice'),
-                sellingPrice: model.get('sellingPrice')
+                sellingPrice: model.get('sellingPrice'),
+                type: 'unit'
             }
         }
     });
