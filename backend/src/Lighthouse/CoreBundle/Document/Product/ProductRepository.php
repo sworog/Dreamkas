@@ -121,6 +121,12 @@ class ProductRepository extends DocumentRepository implements ParentableReposito
      */
     public function updateRetails(Product $product)
     {
+        if (!Decimal::checkIsNull($product->sellingPrice)) {
+            $product->retailPricePreference = Product::RETAIL_PRICE_PREFERENCE_PRICE;
+            $product->retailPriceMin = clone $product->sellingPrice;
+            $product->retailPriceMax = clone $product->sellingPrice;
+        }
+
         switch ($product->retailPricePreference) {
             case Product::RETAIL_PRICE_PREFERENCE_PRICE:
                 $product->retailMarkupMin = $this->calcMarkup($product->retailPriceMin, $product->purchasePrice);
@@ -143,7 +149,10 @@ class ProductRepository extends DocumentRepository implements ParentableReposito
     protected function calcMarkup(Money $retailPrice = null, Money $purchasePrice = null)
     {
         $roundedMarkup = null;
-        if (null !== $retailPrice && !$retailPrice->isNull() && null !== $purchasePrice && !$purchasePrice->isNull()) {
+        if (!Decimal::checkIsNull($retailPrice)
+            && !Decimal::checkIsNull($purchasePrice)
+            && $purchasePrice->toNumber() > 0
+        ) {
             $markup = (($retailPrice->getCount() / $purchasePrice->getCount()) * 100) - 100;
             $roundedMarkup = Decimal::createFromNumeric($markup, 2)->toNumber();
         }
@@ -157,7 +166,7 @@ class ProductRepository extends DocumentRepository implements ParentableReposito
      */
     protected function calcRetailPrice($retailMarkup, Money $purchasePrice = null)
     {
-        if (null !== $retailMarkup && '' !== $retailMarkup && null !== $purchasePrice && !$purchasePrice->isNull()) {
+        if (null !== $retailMarkup && '' !== $retailMarkup && !Decimal::checkIsNull($purchasePrice)) {
             $percent = 1 + ($retailMarkup / 100);
             $retailPrice = $purchasePrice->mul($percent);
         } else {

@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Document\Product\Type\AlcoholType;
 use Lighthouse\CoreBundle\Document\Product\Type\Typeable;
 use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
+use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
@@ -35,6 +36,7 @@ use DateTime;
  * @property string $vendorCountry
  * @property string $vendor
  * @property string $info
+ * @property Money  $sellingPrice
  * @property Money  $retailPriceMin
  * @property Money  $retailPriceMax
  * @property float  $retailMarkupMin
@@ -50,7 +52,6 @@ use DateTime;
  * @MongoDB\InheritanceType("COLLECTION_PER_CLASS")
  * @MongoDBAssert\Unique(fields="sku", message="lighthouse.validation.errors.product.sku.unique")
  *
- * @LighthouseAssert\Product\RetailPrice
  * @LighthouseAssert\Product\BarcodeUnique
  * @SoftDeleteable
  */
@@ -103,13 +104,15 @@ class Product extends AbstractDocument implements VersionableInterface
      * @Assert\NotBlank(message="lighthouse.validation.errors.product.vat.blank")
      * @Assert\Range(min="0")
      * @Serializer\Groups({"Default", "Collection"})
+     * @var int
      */
     protected $vat;
 
     /**
      * @MongoDB\Field(type="money")
-     * @var Money
      * @Serializer\Groups({"Default", "Collection"})
+     * @LighthouseAssert\Money
+     * @var Money
      */
     protected $purchasePrice;
 
@@ -117,6 +120,7 @@ class Product extends AbstractDocument implements VersionableInterface
      * @MongoDB\String
      * @Assert\Length(max="200", maxMessage="lighthouse.validation.errors.length")
      * @Serializer\Groups({"Default", "Collection"})
+     * @var string
      */
     protected $barcode;
 
@@ -124,6 +128,7 @@ class Product extends AbstractDocument implements VersionableInterface
      * @Generated(startValue=10000)
      * @MongoDB\UniqueIndex
      * @Serializer\Groups({"Default", "Collection"})
+     * @var string
      */
     protected $sku;
 
@@ -131,6 +136,7 @@ class Product extends AbstractDocument implements VersionableInterface
      * @MongoDB\String
      * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      * @Serializer\Groups({"Default", "Collection"})
+     * @var string
      */
     protected $vendorCountry;
 
@@ -138,6 +144,7 @@ class Product extends AbstractDocument implements VersionableInterface
      * @MongoDB\String
      * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
      * @Serializer\Groups({"Default", "Collection"})
+     * @var string
      */
     protected $vendor;
 
@@ -145,47 +152,56 @@ class Product extends AbstractDocument implements VersionableInterface
      * @MongoDB\String
      * @Assert\Length(max="2000", maxMessage="lighthouse.validation.errors.length")
      * @Serializer\Groups({"Default", "Collection"})
+     * @var string
      */
     protected $info;
 
     /**
      * @MongoDB\Field(type="money")
-     * @var Money
      * @Serializer\Groups({"Default", "Collection"})
+     * @LighthouseAssert\Money
+     * @var Money
+     */
+    protected $sellingPrice;
+
+    /**
+     * @MongoDB\Field(type="money")
+     * @Serializer\Groups({"Default", "Collection"})
+     * @var Money
      */
     protected $retailPriceMin;
 
     /**
      * @MongoDB\Field(type="money")
-     * @var Money
      * @Serializer\Groups({"Default", "Collection"})
+     * @var Money
      */
     protected $retailPriceMax;
 
     /**
      * @MongoDB\Float
-     * @var float
      * @Serializer\Groups({"Default", "Collection"})
+     * @var float
      */
     protected $retailMarkupMin;
 
     /**
      * @MongoDB\Float
-     * @var float
      * @Serializer\Groups({"Default", "Collection"})
+     * @var float
      */
     protected $retailMarkupMax;
 
     /**
      * @MongoDB\String
-     * @var string
      * @Serializer\Groups({"Default", "Collection"})
+     * @var string
      */
     protected $retailPricePreference = self::RETAIL_PRICE_PREFERENCE_MARKUP;
 
     /**
-     * @var AbstractRounding
      * @Serializer\Groups({"Default", "Collection"})
+     * @var AbstractRounding
      */
     protected $rounding;
 
@@ -224,6 +240,25 @@ class Product extends AbstractDocument implements VersionableInterface
     public function __construct()
     {
         $this->typeProperties = new UnitType();
+    }
+
+    /**
+     * @Serializer\VirtualProperty
+     * @Serializer\SerializedName("sellingMarkup")
+     * @Serializer\Groups({"Default", "Collection"})
+     * @return float
+     */
+    public function getSellingMarkup()
+    {
+        if (!Money::checkIsNull($this->sellingPrice)
+            && !Money::checkIsNull($this->purchasePrice)
+            && $this->purchasePrice->toNumber() > 0
+        ) {
+            $markup = (($this->sellingPrice->toNumber() / $this->purchasePrice->toNumber()) * 100) - 100;
+            return Decimal::createFromNumeric($markup, 2)->toNumber();
+        } else {
+            return null;
+        }
     }
 
     /**

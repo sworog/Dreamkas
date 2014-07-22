@@ -33,6 +33,7 @@ class ProductType extends AbstractType
             ->add('vendorCountry', 'text')
             ->add('vendor', 'text')
             ->add('info', 'text')
+            ->add('sellingPrice', 'money')
             ->add('retailPriceMin', 'money')
             ->add('retailPriceMax', 'money')
             ->add('retailMarkupMin', 'markup')

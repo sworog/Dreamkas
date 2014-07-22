@@ -1293,6 +1293,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function testPostProductActionSetRetailsPriceInvalid(array $postData, array $assertions = array())
     {
+        $this->markTestSkipped('Min Max Retail Price is disabled');
         $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postData += $this->getProductData(true);
@@ -1361,6 +1362,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function testPutProductActionSetRetailPriceInvalid(array $putData, array $assertions = array())
     {
+        $this->markTestSkipped('Min Max Retail Price is disabled');
         $postData = $this->getProductData();
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
@@ -2496,6 +2498,190 @@ class ProductControllerTest extends WebTestCase
 
         $deletedProduct = $this->getProductRepository()->find($productId);
         $this->assertContains('Хомячок (Удалено', $deletedProduct->name);
+    }
+
+    /**
+     * @dataProvider setSellingPriceProvider
+     * @param array $postData
+     * @param int $expectedResponseCode
+     * @param array $assertions
+     */
+    public function testPostProductActionSetSellingPrice(
+        array $postData,
+        $expectedResponseCode,
+        array $assertions = array()
+    ) {
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $productData = $postData + $this->getProductData(true);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/products',
+            $productData
+        );
+
+        $this->assertResponseCode($expectedResponseCode);
+
+        $this->performJsonAssertions($response, $assertions);
+    }
+
+    /**
+     * @dataProvider setSellingPriceProvider
+     * @param array $putData
+     * @param int $expectedResponseCode
+     * @param array $assertions
+     */
+    public function testPutProductActionSetSellingPrice(
+        array $putData,
+        $expectedResponseCode,
+        array $assertions = array()
+    ) {
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $subCategoryId = $this->createSubCategory(null, 'Пиво');
+        $postData = array(
+            'name' => 'Продукт',
+            'sellingPrice' => '45.89',
+        );
+        $productId = $this->createProduct($postData, $subCategoryId);
+
+        $productData = $putData + $this->getProductData(true);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/products/' . $productId,
+            $productData
+        );
+
+        $expectedResponseCode = (201 == $expectedResponseCode) ? 200 : $expectedResponseCode;
+
+        $this->assertResponseCode($expectedResponseCode);
+
+        $this->performJsonAssertions($response, $assertions);
+    }
+
+    /**
+     * @return array
+     */
+    public function setSellingPriceProvider()
+    {
+        return array(
+            'sellingPrice and purchasePrice' => array(
+                array(
+                    'purchasePrice' => '30.48',
+                    'sellingPrice' => '35',
+                ),
+                201,
+                array(
+                    'purchasePrice' => '30.48',
+                    'sellingPrice' => '35.00',
+                    'sellingMarkup' => '14.83',
+                    'retailPricePreference' => Product::RETAIL_PRICE_PREFERENCE_PRICE,
+                    'retailPriceMin' => '35.00',
+                    'retailPriceMax' => '35.00',
+                    'retailMarkupMin' => '14.83',
+                    'retailMarkupMax' => '14.83',
+                )
+            ),
+            'sellingPrice and empty purchasePrice' => array(
+                array(
+                    'purchasePrice' => '',
+                    'sellingPrice' => '35',
+                ),
+                201,
+                array(
+                    'purchasePrice' => null,
+                    'sellingPrice' => '35.00',
+                    'sellingMarkup' => null,
+                    'retailPricePreference' => Product::RETAIL_PRICE_PREFERENCE_PRICE,
+                    'retailPriceMin' => '35.00',
+                    'retailPriceMax' => '35.00',
+                    'retailMarkupMin' => null,
+                    'retailMarkupMax' => null,
+                )
+            ),
+            'empty sellingPrice and empty purchasePrice' => array(
+                array(
+                    'purchasePrice' => '',
+                    'sellingPrice' => '',
+                ),
+                201,
+                array(
+                    'purchasePrice' => null,
+                    'sellingPrice' => null,
+                    'sellingMarkup' => null,
+                    'retailPricePreference' => Product::RETAIL_PRICE_PREFERENCE_MARKUP,
+                    'retailPriceMin' => null,
+                    'retailPriceMax' => null,
+                    'retailMarkupMin' => null,
+                    'retailMarkupMax' => null,
+                )
+            ),
+            'empty sellingPrice and purchasePrice' => array(
+                array(
+                    'purchasePrice' => '30.48',
+                    'sellingPrice' => '',
+                ),
+                201,
+                array(
+                    'purchasePrice' => '30.48',
+                    'sellingPrice' => null,
+                    'sellingMarkup' => null,
+                    'retailPricePreference' => Product::RETAIL_PRICE_PREFERENCE_MARKUP,
+                    'retailPriceMin' => null,
+                    'retailPriceMax' => null,
+                    'retailMarkupMin' => null,
+                    'retailMarkupMax' => null,
+                )
+            ),
+            'invalid sellingPrice and purchasePrice have more than 3 digits after coma' => array(
+                array(
+                    'purchasePrice' => '30.482',
+                    'sellingPrice' => '35.001',
+                ),
+                400,
+                array(
+                    'errors.children.purchasePrice.errors.0' => 'Цена не должна содержать больше 2 цифр после запятой',
+                    'errors.children.sellingPrice.errors.0' => 'Цена не должна содержать больше 2 цифр после запятой',
+                )
+            ),
+            'invalid sellingPrice and purchasePrice equals 0' => array(
+                array(
+                    'purchasePrice' => '0.000',
+                    'sellingPrice' => '0.0',
+                ),
+                400,
+                array(
+                    'errors.children.purchasePrice.errors.0' => 'Цена не должна быть меньше или равна нулю',
+                    'errors.children.sellingPrice.errors.0' => 'Цена не должна быть меньше или равна нулю',
+                )
+            ),
+            'invalid sellingPrice and purchasePrice less than 0' => array(
+                array(
+                    'purchasePrice' => '-0.01',
+                    'sellingPrice' => '-15',
+                ),
+                400,
+                array(
+                    'errors.children.purchasePrice.errors.0' => 'Цена не должна быть меньше или равна нулю',
+                    'errors.children.sellingPrice.errors.0' => 'Цена не должна быть меньше или равна нулю',
+                )
+            ),
+            'invalid sellingPrice and purchasePrice not a number' => array(
+                array(
+                    'purchasePrice' => '12.as',
+                    'sellingPrice' => '#90',
+                ),
+                400,
+                array(
+                    'errors.children.purchasePrice.errors.0' => 'Значение должно быть числом',
+                    'errors.children.sellingPrice.errors.0' => 'Значение должно быть числом',
+                )
+            )
+        );
     }
 
     /**
