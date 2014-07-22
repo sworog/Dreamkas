@@ -1,12 +1,13 @@
 <% var partials = {
-    modal_groupForm: require('ejs!blocks/modal/modal_groupForm/modal_groupForm.ejs')
+    modal_groupForm: require('ejs!blocks/modal/modal_groupForm/modal_groupForm.ejs'),
+    modal_productForm: require('ejs!blocks/modal/modal_productForm/modal_productForm.ejs')
 } %>
 
 <!--BEGIN TITLE PAGE-->
 <div class="page-title-breadcrumb">
 
     <div class="pull-right">
-        <span data-target="#modal-groupEdit"
+        <span data-target="#modal-productAdd"
               data-toggle="modal"
               role="button"
               class="btn btn-primary btn-md">Добавить товар</span>
@@ -67,7 +68,15 @@
 <!--END CONTENT-->
 
 <!--MODALS-->
+
 <%= partials.modal_groupForm({
     group: models.group
 }) %>
+
+<%= partials.modal_productForm({
+    collections: {
+        groups: collections.groups
+    }
+}) %>
+
 <!--END MODALS-->

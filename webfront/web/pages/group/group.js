@@ -14,7 +14,7 @@ define(function(require, exports, module) {
             }
         },
         models: {
-            group: function(){
+            group: function() {
                 var page = this,
                     GroupModel = require('models/group/group'),
                     groupModel = new GroupModel({
@@ -22,16 +22,7 @@ define(function(require, exports, module) {
                     });
 
                 groupModel.on({
-                    change: function(){
-                        var modal = $('.modal:visible');
-
-                        modal.one('hidden.bs.modal', function(e) {
-                            page.render();
-                        });
-
-                        modal.modal('hide');
-                    },
-                    destroy: function(){
+                    destroy: function() {
                         var modal = $('.modal:visible');
 
                         modal.one('hidden.bs.modal', function(e) {
@@ -54,11 +45,56 @@ define(function(require, exports, module) {
                         el: document.getElementById('form_groupEdit')
                     });
 
-                form_group.on('submit:success', function(){
-                    page.models.group.trigger('change');
+                form_group.on('submit:success', function() {
+                    var modal = $('.modal:visible');
+
+                    modal.one('hidden.bs.modal', function(e) {
+                        page.render();
+                    });
+
+                    modal.modal('hide');
                 });
 
                 return form_group;
+            },
+            form_productAdd: function() {
+                var page = this,
+                    Form_product = require('blocks/form/form_product/form_product');
+
+                return new Form_product({
+                    el: document.getElementById('form_productAdd')
+                });
+            },
+            select_group: function() {
+                var page = this;
+
+                $('.select_group').select2({
+                    minimumInputLength: 1,
+                    matcher: function (term, text, option) {
+                        if (option.attr('add-option') !== undefined && term != '') {
+                            return true;
+                        }
+
+                        return text.toUpperCase().indexOf(term.toUpperCase())>=0;
+                    },
+                    formatResult: function(item, container, query) {
+                        item.newGroupName = '';
+                        if ($(item.element[0]).attr('add-option') !== undefined) {
+                            item.newGroupName = query.term;
+                        }
+                        return item.text + item.newGroupName;
+                    },
+                    formatSelection: function(item, container) {
+                        page.$('[name="newGroupName"]').val(item.newGroupName || '');
+                        return item.text + (item.newGroupName || '');
+                    }
+                });
+
+                return {
+                    remove: function() {
+                        $('.select_group').select2('destroy').remove();
+                    }
+                };
             }
         }
     });

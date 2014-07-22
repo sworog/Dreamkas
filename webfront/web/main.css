@@ -6,6 +6,9 @@
 @import "/madmin/css/blue-grey.css";
 @import "/madmin/css/style-responsive.css";
 
+@import "/bower_components/select2/select2.css";
+@import "/bower_components/select2/select2-bootstrap.css";
+
 @import "/blocks/confirmLink/confirmLink.css";
 @import "/blocks/groupList/groupList.css";
 

@@ -1,0 +1,164 @@
+<% var ProductModel = require('models/product/product') %>
+<% var productModel = productModel || new ProductModel() %>
+
+<% var partials = {
+    select_vat: require('ejs!blocks/select/select_vat/select_vat.ejs'),
+    select_group: require('ejs!blocks/select/select_group/select_group.ejs')
+}%>
+
+<div id="<%- productModel.id ? 'modal-productEdit' : 'modal-productAdd' %>"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="modal-default-label"
+     aria-hidden="true"
+     class="modal fade"
+     style="display: none;">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a type="button"
+                   data-dismiss="modal"
+                   aria-hidden="true"
+                   class="close pull-left fa fa-times"></a>
+
+                <button form="<%- productModel.id ? 'form_productEdit' : 'form_productAdd' %>"
+                        type="submit"
+                        class="btn btn-primary pull-right">
+                    <%- productModel.id ? 'Сохранить' : 'Добавить' %>
+                </button>
+
+                <h4 class="modal-title">
+                    <%- productModel.id ? 'Редактирование группы' : 'Добавить группу' %>
+                </h4>
+
+                <span class="clearfix"></span>
+            </div>
+            <div class="modal-body">
+
+                <form id="<%- productModel.id ? 'form_productEdit' : 'form_productAdd' %>" class="form form_group">
+
+                    <div class="form-group">
+
+                        <label class="control-label">Группа *</label>
+
+                        <%= partials.select_group({
+                            selectedGroupId: productModel.get('group.id'),
+                            collections: {
+                                groups: collections.groups
+                            }
+                        }) %>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="control-label">Наименование *</label>
+
+                        <div class="input-icon right">
+                            <input
+                                    name="name"
+                                    type="text"
+                                    class="form-control"
+                                    value="<%- productModel.get('name') %>">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="control-label">Единица измерения</label>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input
+                                        name="unit"
+                                        type="text"
+                                        class="form-control"
+                                        value="<%- productModel.get('unit') %>">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="control-label">Штрих-код</label>
+
+                        <div class="input-icon right">
+                            <input
+                                    name="barcode"
+                                    type="text"
+                                    class="form-control"
+                                    value="<%- productModel.get('barcode') %>">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="control-label">НДС</label>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <%= partials.select_vat({
+                                    selected: productModel.get('vat')
+                                }) %>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="control-label">Цена закупки, <i class="fa fa-rub"></i></label>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input
+                                        name="purchasePrice"
+                                        type="text"
+                                        class="form-control"
+                                        value="<%- productModel.get('purchasePrice') %>">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label class="control-label">Цена продажи, <i class="fa fa-rub"></i></label>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input
+                                        name="sellingPrice"
+                                        type="text"
+                                        class="form-control"
+                                        value="<%- productModel.get('sellingPrice') %>">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <% if (productModel.id) { %>
+                    <div class="confirmLink">
+
+                        <div class="confirmLink__trigger">
+                            <span class="form__groupRemoveLink">
+                                <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                                Удалить продукт
+                            </span>
+                        </div>
+
+                        <div class="confirmLink__confirmation">
+                            <span class="form__groupRemoveLink">
+                                <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                                Подтвердить удаление
+                            </span>
+                        </div>
+
+                    </div>
+                    <% } %>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

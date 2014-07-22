@@ -1,0 +1,10 @@
+<select class="form-control select_group" name="subCategory">
+    <% collections.groups.forEach(function(groupModel){ %>
+    <option <%- groupModel.id === selectedGroupId ? 'checked' : '' %>
+            value="<%- groupModel.id %>">
+        <%- groupModel.get('name') %>
+    </option>
+    <% }) %>
+    <option add-option>Создать группу </option>
+</select>
+<input type="hidden" name="newGroupName">
