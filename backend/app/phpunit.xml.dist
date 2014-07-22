@@ -16,6 +16,9 @@
         <testsuite name="Core bundle">
             <directory>../src/Lighthouse/CoreBundle/Tests</directory>
         </testsuite>
+        <testsuite name="Integration bundle">
+            <directory>../src/Lighthouse/IntegrationBundle/Tests</directory>
+        </testsuite>
         <testsuite name="Reports bundle">
             <directory>../src/Lighthouse/ReportsBundle/Tests</directory>
         </testsuite>
@@ -27,6 +30,8 @@
             <exclude>
                 <directory>../src/Lighthouse/CoreBundle/Test</directory>
                 <directory>../src/Lighthouse/CoreBundle/Tests</directory>
+                <directory>../src/Lighthouse/IntegrationBundle/Test</directory>
+                <directory>../src/Lighthouse/IntegrationBundle/Tests</directory>
                 <directory>../src/Lighthouse/ReportsBundle/Tests</directory>
             </exclude>
         </whitelist>

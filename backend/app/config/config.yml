@@ -68,7 +68,10 @@ swiftmailer:
 jms_di_extra:
     locations:
         all_bundles: false
-        bundles: [LighthouseCoreBundle, LighthouseReportsBundle]
+        bundles:
+            - LighthouseCoreBundle
+            - LighthouseIntegrationBundle
+            - LighthouseReportsBundle
         directories: ["%kernel.root_dir%/../src"]
 
 fos_rest:
