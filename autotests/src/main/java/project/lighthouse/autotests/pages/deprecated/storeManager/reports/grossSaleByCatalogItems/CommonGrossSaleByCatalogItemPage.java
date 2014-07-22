@@ -2,7 +2,7 @@ package project.lighthouse.autotests.pages.deprecated.storeManager.reports.gross
 
 import net.thucydides.core.pages.PageObject;
 import org.openqa.selenium.By;
-import project.lighthouse.autotests.objects.web.grossSaleByTable.GrossSaleByTableObjectCollection;
+import project.lighthouse.autotests.objects.web.deprecated.grossSaleByTable.GrossSaleByTableObjectCollection;
 
 public class CommonGrossSaleByCatalogItemPage extends PageObject {
 

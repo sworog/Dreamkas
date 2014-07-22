@@ -10,7 +10,7 @@ import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Buttons.LinkFacade;
 import project.lighthouse.autotests.elements.items.NewAutoComplete;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
-import project.lighthouse.autotests.objects.web.order.orderProduct.OrderProductObjectCollection;
+import project.lighthouse.autotests.objects.web.deprecated.order.orderProduct.OrderProductObjectCollection;
 
 /**
  * Page object class representing create/edit/view order page

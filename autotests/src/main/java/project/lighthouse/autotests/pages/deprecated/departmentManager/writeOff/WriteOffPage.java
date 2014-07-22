@@ -12,7 +12,7 @@ import project.lighthouse.autotests.common.CommonView;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.items.*;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
-import project.lighthouse.autotests.objects.web.writeOff.WriteOffProductCollection;
+import project.lighthouse.autotests.objects.web.deprecated.writeOff.WriteOffProductCollection;
 
 import java.util.Map;
 

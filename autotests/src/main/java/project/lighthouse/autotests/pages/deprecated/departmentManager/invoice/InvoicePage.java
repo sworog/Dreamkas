@@ -11,7 +11,7 @@ import project.lighthouse.autotests.elements.items.DateTime;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.NewAutoComplete;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
-import project.lighthouse.autotests.objects.web.invoice.InvoiceProductsCollection;
+import project.lighthouse.autotests.objects.web.deprecated.invoice.InvoiceProductsCollection;
 
 /**
  * Page object representing invoice page

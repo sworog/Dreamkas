@@ -9,10 +9,9 @@ import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import project.lighthouse.autotests.elements.preLoader.AutocompletePreLoader;
-import project.lighthouse.autotests.objects.web.autocomplete.AutoCompleteResult;
-import project.lighthouse.autotests.objects.web.autocomplete.AutoCompleteResultCollection;
-import project.lighthouse.autotests.objects.web.compare.CompareResult;
 import project.lighthouse.autotests.objects.web.compare.CompareResults;
+import project.lighthouse.autotests.objects.web.deprecated.autocomplete.AutoCompleteResult;
+import project.lighthouse.autotests.objects.web.deprecated.autocomplete.AutoCompleteResultCollection;
 
 /**
  * Reusable steps for interacting with autocomplete results

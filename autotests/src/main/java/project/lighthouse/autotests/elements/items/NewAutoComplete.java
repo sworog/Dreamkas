@@ -3,8 +3,8 @@ package project.lighthouse.autotests.elements.items;
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.objects.web.autocomplete.AutoCompleteResult;
-import project.lighthouse.autotests.objects.web.autocomplete.AutoCompleteResultCollection;
+import project.lighthouse.autotests.objects.web.deprecated.autocomplete.AutoCompleteResult;
+import project.lighthouse.autotests.objects.web.deprecated.autocomplete.AutoCompleteResultCollection;
 
 /**
  * Common item for interactions with new autocomplete control
