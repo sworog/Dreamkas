@@ -91,8 +91,10 @@ define(function(require, exports, module) {
             var page = this;
 
             _.forEach(page.models, function(model){
-                model.off();
-                model.stopListening();
+                if (null !== model) {
+                    model.off();
+                    model.stopListening();
+                }
             });
 
             _.forEach(page.collections, function(collection){
