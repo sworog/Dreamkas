@@ -1,7 +1,10 @@
 <% var partials = {
     modal_groupForm: require('ejs!blocks/modal/modal_groupForm/modal_groupForm.ejs'),
     modal_productForm: require('ejs!blocks/modal/modal_productForm/modal_productForm.ejs')
-} %>
+};
+helpers = {
+    formatMoney: require('kit/formatMoney/formatMoney')
+}; %>
 
 <!--BEGIN TITLE PAGE-->
 <div class="page-title-breadcrumb">
@@ -53,7 +56,7 @@
                         <% collections.products.forEach(function(productModel){ %>
                         <tr class="product__link" data-product_id="<%- productModel.id %>">
                             <td name="name"><%- productModel.get('name') %></td>
-                            <td name="sellingPrice"><%- productModel.get('sellingPrice') %></td>
+                            <td name="sellingPrice"><%- productModel.get('sellingPrice')?helpers.formatMoney(productModel.get('sellingPrice')):'' %></td>
                             <td name="barcode"><%- productModel.get('barcode') %></td>
                         </tr>
                         <% }) %>
