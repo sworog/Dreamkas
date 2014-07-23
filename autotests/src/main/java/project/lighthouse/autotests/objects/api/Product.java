@@ -2,6 +2,8 @@ package project.lighthouse.autotests.objects.api;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.abstraction.AbstractObject;
 
 public class Product extends AbstractObject {
@@ -14,6 +16,7 @@ public class Product extends AbstractObject {
         this.jsonObject = jsonObject;
     }
 
+    @Deprecated
     public Product(String name,
                    String type,
                    String vat,
@@ -26,20 +29,21 @@ public class Product extends AbstractObject {
                    String retailMarkupMin,
                    String rounding) throws JSONException {
         this(new JSONObject()
-                .put("name", name)
-                .put("type", type)
-                .put("vat", vat)
-                .put("purchasePrice", purchasePrice)
-                .put("barcode", barcode)
-                .put("vendorCountry", vendorCountry)
-                .put("vendor", vendor)
-                .put("subCategory", subCategory)
-                .put("retailMarkupMax", retailMarkupMax)
-                .put("retailMarkupMin", retailMarkupMin)
-                .put("rounding", rounding)
+                        .put("name", name)
+                        .put("type", type)
+                        .put("vat", vat)
+                        .put("purchasePrice", purchasePrice)
+                        .put("barcode", barcode)
+                        .put("vendorCountry", vendorCountry)
+                        .put("vendor", vendor)
+                        .put("subCategory", subCategory)
+                        .put("retailMarkupMax", retailMarkupMax)
+                        .put("retailMarkupMin", retailMarkupMin)
+                        .put("rounding", rounding)
         );
     }
 
+    @Deprecated
     public Product(String name,
                    String type,
                    String vat,
@@ -57,27 +61,28 @@ public class Product extends AbstractObject {
                    String nutritionFacts,
                    String shelfLife) throws JSONException {
         this(new JSONObject()
-                .put("name", name)
-                .put("type", type)
-                .put("vat", vat)
-                .put("purchasePrice", purchasePrice)
-                .put("barcode", barcode)
-                .put("vendorCountry", vendorCountry)
-                .put("vendor", vendor)
-                .put("subCategory", subCategory)
-                .put("retailMarkupMax", retailMarkupMax)
-                .put("retailMarkupMin", retailMarkupMin)
-                .put("rounding", rounding)
-                .put("typeProperties", new JSONObject()
-                        .put("nameOnScales", nameOnScales)
-                        .put("descriptionOnScales", descriptionOnScales)
-                        .put("ingredients", ingredients)
-                        .put("nutritionFacts", nutritionFacts)
-                        .put("shelfLife", shelfLife)
-                )
+                        .put("name", name)
+                        .put("type", type)
+                        .put("vat", vat)
+                        .put("purchasePrice", purchasePrice)
+                        .put("barcode", barcode)
+                        .put("vendorCountry", vendorCountry)
+                        .put("vendor", vendor)
+                        .put("subCategory", subCategory)
+                        .put("retailMarkupMax", retailMarkupMax)
+                        .put("retailMarkupMin", retailMarkupMin)
+                        .put("rounding", rounding)
+                        .put("typeProperties", new JSONObject()
+                                        .put("nameOnScales", nameOnScales)
+                                        .put("descriptionOnScales", descriptionOnScales)
+                                        .put("ingredients", ingredients)
+                                        .put("nutritionFacts", nutritionFacts)
+                                        .put("shelfLife", shelfLife)
+                        )
         );
     }
 
+    @Deprecated
     public Product(String name,
                    String type,
                    String vat,
@@ -110,6 +115,24 @@ public class Product extends AbstractObject {
         );
     }
 
+    public Product(String name,
+                   String units,
+                   String barcode,
+                   String vat,
+                   String purchasePrice,
+                   String sellingPrice,
+                   String groupId) throws JSONException {
+        this(new JSONObject()
+                        .put("name", name)
+                        .put("units", units)
+                        .put("barcode", barcode)
+                        .put("vat", vat)
+                        .put("purchasePrice", purchasePrice)
+                        .put("sellingPrice", sellingPrice)
+                        .put("subCategoryId", groupId)
+        );
+    }
+
     @Override
     public String getApiUrl() {
         return API_URL;
@@ -121,5 +144,10 @@ public class Product extends AbstractObject {
 
     public String getBarCode() throws AssertionError {
         return getPropertyAsString("barcode");
+    }
+
+    public static String getPageUrl(String productName) throws JSONException {
+        String productId = StaticData.products.get(productName).getId();
+        return String.format("%s/products/%s", UrlHelper.getWebFrontUrl(), productId);
     }
 }

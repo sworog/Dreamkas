@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class SubCategory extends AbstractClassifierNode {
 
-    private static final String API_URL = "/subcategories";
+    private static final String API_URL = "/catalog/groups";
 
     static public String DEFAULT_NAME = "defaultSubCategory";
 
@@ -19,7 +19,7 @@ public class SubCategory extends AbstractClassifierNode {
 
     public SubCategory(String name) throws JSONException {
         super(name);
-        jsonObject.put("category", getCategory().getId());
+        //jsonObject.put("category", getCategory().getId());
     }
 
     public SubCategory(String name, String categoryId) throws JSONException {

@@ -16,4 +16,9 @@ public class GivenCatalogApiUserSteps {
     public void givenTheUserWithEmailCreatesGroupWithName(String email, String groupName) throws IOException, JSONException {
         catalogApiSteps.createGroupThroughPostByUserWithEmail(groupName, email);
     }
+
+    @Given("the user navigates to the group with name '$groupName'")
+    public void givenTheUserNavigatesToTheGroup(String groupName) throws JSONException {
+        catalogApiSteps.navigateToGroupPage(groupName);
+    }
 }

@@ -139,6 +139,16 @@ public class ApiConnect {
         }
     }
 
+    public SubCategory createSubCategoryThroughPost(SubCategory subCategory) throws JSONException, IOException {
+        if (!StaticData.hasSubCategory(subCategory.getName())) {
+            httpRequestable.executePostRequest(subCategory);
+            StaticData.subCategories.put(subCategory.getName(), subCategory);
+            return subCategory;
+        } else {
+            return StaticData.subCategories.get(subCategory.getName());
+        }
+    }
+
     public String getSubCategoryProductListPageUrl(String subCategoryName, String categoryName, String groupName) throws JSONException {
         String categoryPageUrl = getCategoryPageUrl(categoryName, groupName);
         String subCategoryId = StaticData.subCategories.get(subCategoryName).getId();

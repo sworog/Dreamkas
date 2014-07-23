@@ -47,12 +47,6 @@ public class CatalogApiSteps extends OwnerApi {
     }
 
     @Step
-    public void navigateToGroupPage(String groupName) throws JSONException {
-        String groupPageUrl = apiConnect.getGroupPageUrl(groupName);
-        getDriver().navigate().to(groupPageUrl);
-    }
-
-    @Step
     public void navigateToCategoryPage(String categoryName, String groupName) throws JSONException {
         String categoryPageUrl = apiConnect.getCategoryPageUrl(categoryName, groupName);
         getDriver().navigate().to(categoryPageUrl);

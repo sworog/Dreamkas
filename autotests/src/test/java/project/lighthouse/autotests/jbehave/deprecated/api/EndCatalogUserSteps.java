@@ -34,11 +34,6 @@ public class EndCatalogUserSteps {
         catalogApiSteps.createCategoryThroughPost(categoryName, groupName);
     }
 
-    @Given("the user navigates to the group with name '$groupName'")
-    public void givenTheUserNavigatesToTheGroup(String groupName) throws JSONException {
-        catalogApiSteps.navigateToGroupPage(groupName);
-    }
-
     @Given("the user navigates to the category with name '$categoryName' related to group named '$groupName'")
     public void givenTheUserNavigatesToTheCategoryPage(String categoryName, String groupName) throws JSONException {
         catalogApiSteps.navigateToCategoryPage(categoryName, groupName);
