@@ -29,7 +29,7 @@
                 </button>
 
                 <h4 class="modal-title">
-                    <%- productModel.id ? 'Редактирование группы' : 'Добавить группу' %>
+                    <%- productModel.id ? 'Редактирование продукта' : 'Добавление продукта' %>
                 </h4>
 
                 <span class="clearfix"></span>
@@ -74,7 +74,7 @@
                                         name="units"
                                         type="text"
                                         class="form-control"
-                                        value="<%- productModel.get('unit') %>">
+                                        value="<%- productModel.get('units') %>">
                             </div>
                         </div>
 

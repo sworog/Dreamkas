@@ -51,7 +51,7 @@
                         <tbody>
 
                         <% collections.products.forEach(function(productModel){ %>
-                        <tr>
+                        <tr class="product__link" data-product_id="<%- productModel.id %>">
                             <td><%- productModel.get('name') %></td>
                             <td><%- productModel.get('sellingPrice') %></td>
                             <td><%- productModel.get('barcode') %></td>
@@ -78,11 +78,18 @@
 <%= partials.modal_groupForm({
     group: models.group
 }) %>
-
 <%= partials.modal_productForm({
     collections: {
         groups: collections.groups
     }
 }) %>
+<% if (models.product) { %>
+<%= partials.modal_productForm({
+    collections: {
+        groups: collections.groups
+    },
+    productModel: models.product
+}) %>
+<% } %>
 
 <!--END MODALS-->

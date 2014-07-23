@@ -42,6 +42,21 @@ define(function(require, exports, module) {
                 });
 
                 return groupModel;
+            },
+            product: null
+        },
+        events: {
+            'click .product__link': function(e){
+                var page = this,
+                    productId = e.currentTarget.dataset.product_id;
+
+                if (!page.models.product || page.models.product.id !== productId){
+                    page.models.product = page.collections.products.get(productId);
+                    page.render();
+                }
+
+                $('#modal-productEdit').modal('show');
+
             }
         },
         blocks: {
@@ -70,6 +85,27 @@ define(function(require, exports, module) {
                     Form_product = require('blocks/form/form_product/form_product'),
                     form_product = new Form_product({
                         el: document.getElementById('form_productAdd'),
+                        collection: page.collections.products
+                    });
+
+                form_product.on('submit:success', function() {
+                    var modal = $('.modal:visible');
+
+                    modal.one('hidden.bs.modal', function(e) {
+                        page.render();
+                    });
+
+                    modal.modal('hide');
+                });
+
+                return form_product;
+            },
+            form_productEdit: function() {
+                var page = this,
+                    Form_product = require('blocks/form/form_product/form_product'),
+                    form_product = new Form_product({
+                        el: document.getElementById('form_productEdit'),
+                        model: page.models.product,
                         collection: page.collections.products
                     });
 
