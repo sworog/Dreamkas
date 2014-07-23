@@ -551,7 +551,7 @@ class ProductControllerTest extends WebTestCase
         }
     }
 
-    public function testGetSubCategoryProductsHaveNoSubcategoryField()
+    public function testGetSubCategoryProductsHaveCategoryField()
     {
         $subCategoryId = $this->createSubCategory();
         $this->createProductsByNames(array('1', '2', '3', '4', '5'));
@@ -564,7 +564,7 @@ class ProductControllerTest extends WebTestCase
         );
         $this->assertResponseCode(200);
         Assert::assertJsonPathCount(5, '*.id', $response);
-        Assert::assertJsonPathCount(0, '*.subCategory', $response);
+        Assert::assertJsonPathCount(0, '*.subCategory.category', $response);
     }
 
     /**
