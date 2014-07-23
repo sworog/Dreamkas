@@ -18,9 +18,9 @@ define(function(require) {
                     block.formData.subCategory = {
                         name: block.formData.newGroupName
                     };
-
-                    return block.model.save(block.formData);
                 }
+
+                return block.model.save(block.formData);
             }
         });
     }
