@@ -52,9 +52,9 @@
 
                         <% collections.products.forEach(function(productModel){ %>
                         <tr class="product__link" data-product_id="<%- productModel.id %>">
-                            <td><%- productModel.get('name') %></td>
-                            <td><%- productModel.get('sellingPrice') %></td>
-                            <td><%- productModel.get('barcode') %></td>
+                            <td name="name"><%- productModel.get('name') %></td>
+                            <td name="sellingPrice"><%- productModel.get('sellingPrice') %></td>
+                            <td name="barcode"><%- productModel.get('barcode') %></td>
                         </tr>
                         <% }) %>
                         </tbody>
