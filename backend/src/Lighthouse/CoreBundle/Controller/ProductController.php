@@ -26,11 +26,17 @@ class ProductController extends AbstractRestController
     protected $documentRepository;
 
     /**
+     * @DI\Inject("lighthouse.core.form.product_type");
+     * @var ProductType
+     */
+    protected $productType;
+
+    /**
      * @return ProductType
      */
     protected function getDocumentFormType()
     {
-        return new ProductType();
+        return $this->productType;
     }
 
     /**

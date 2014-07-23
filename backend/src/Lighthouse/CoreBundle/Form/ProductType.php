@@ -3,6 +3,7 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
+use Lighthouse\CoreBundle\Document\Classifier\CatalogManager;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Type;
@@ -17,9 +18,29 @@ use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use JMS\DiExtraBundle\Annotation as DI;
 
+/**
+ * @DI\Service("lighthouse.core.form.product_type")
+ */
 class ProductType extends AbstractType
 {
+    /**
+     * @var CatalogManager
+     */
+    protected $catalogManager;
+
+    /**
+     * @DI\InjectParams({
+     *      "catalogManager" = @DI\Inject("lighthouse.core.document.catalog.manager")
+     * })
+     * @param CatalogManager $catalogManager
+     */
+    public function __construct(CatalogManager $catalogManager)
+    {
+        $this->catalogManager = $catalogManager;
+    }
+
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -46,14 +67,6 @@ class ProductType extends AbstractType
                 array('choices' => Product::$retailPricePreferences)
             )
             ->add(
-                'subCategory',
-                'reference',
-                array(
-                    'class' => SubCategory::getClassName(),
-                    'invalid_message' => 'lighthouse.validation.errors.product.subCategory.does_not_exists'
-                )
-            )
-            ->add(
                 'rounding',
                 'custom_reference',
                 array('reference_provider_alias' => 'rounding')
@@ -78,7 +91,37 @@ class ProductType extends AbstractType
                 )
             );
 
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, array($this, 'setSubCategoryForm'));
         $builder->addEventListener(FormEvents::PRE_SUBMIT, array($this, 'setTypeForm'));
+    }
+
+    /**
+     * @param FormEvent $event
+     */
+    public function setSubCategoryForm(FormEvent $event)
+    {
+        $form = $event->getForm();
+        $data = $event->getData();
+        $subCategoryData = (isset($data['subCategory'])) ? $data['subCategory'] : null;
+        if (is_array($subCategoryData)) {
+            if (!isset($data['subCategory']['category'])) {
+                $data['subCategory']['category'] = $this->catalogManager->getDefaultCategory()->id;
+                $event->setData($data);
+            }
+            $form->add(
+                'subCategory',
+                new SubCategoryType()
+            );
+        } else {
+            $form->add(
+                'subCategory',
+                'reference',
+                array(
+                    'class' => SubCategory::getClassName(),
+                    'invalid_message' => 'lighthouse.validation.errors.product.subCategory.does_not_exists'
+                )
+            );
+        }
     }
 
     /**

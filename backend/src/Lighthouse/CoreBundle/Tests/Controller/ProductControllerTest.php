@@ -43,6 +43,72 @@ class ProductControllerTest extends WebTestCase
         Assert::assertJsonHasPath('subCategory', $postResponse);
     }
 
+    public function testPostProductWithSubCategory()
+    {
+        $postData = array(
+            'subCategory' => array(
+                'name' => 'Категория'
+            )
+        ) + $this->getProductData(false);
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/products',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonPathEquals('10001', 'sku', $postResponse);
+        Assert::assertJsonPathEquals(30.48, 'purchasePrice', $postResponse);
+        Assert::assertNotJsonHasPath('lastPurchasePrice', $postResponse);
+        Assert::assertJsonHasPath('subCategory.id', $postResponse);
+        Assert::assertJsonPathEquals('Категория', 'subCategory.name', $postResponse);
+        Assert::assertJsonHasPath('subCategory.category.id', $postResponse);
+    }
+
+    public function testPostProductWithDuplicateSubCategoryName()
+    {
+        $postData = array(
+                'subCategory' => array(
+                    'name' => 'Категория'
+                )
+            ) + $this->getProductData(false);
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/products',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('subCategory.id', $postResponse);
+        Assert::assertJsonPathEquals('Категория', 'subCategory.name', $postResponse);
+        Assert::assertJsonHasPath('subCategory.category.id', $postResponse);
+
+        $secondResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/products',
+            $postData
+        );
+
+        $this->assertResponseCode(400);
+
+        Assert::assertJsonPathEquals(
+            'Группа с таким названием уже существует',
+            'errors.children.subCategory.children.name.errors.0',
+            $secondResponse
+        );
+    }
+
     /**
      * Тест на проблему сохраниения пустой наценки и цены продажи
      */
