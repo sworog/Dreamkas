@@ -123,13 +123,14 @@ public class Product extends AbstractObject {
                    String sellingPrice,
                    String groupId) throws JSONException {
         this(new JSONObject()
+                        .put("type", "unit")
                         .put("name", name)
                         .put("units", units)
                         .put("barcode", barcode)
                         .put("vat", vat)
                         .put("purchasePrice", purchasePrice)
                         .put("sellingPrice", sellingPrice)
-                        .put("subCategoryId", groupId)
+                        .put("subCategory", groupId)
         );
     }
 

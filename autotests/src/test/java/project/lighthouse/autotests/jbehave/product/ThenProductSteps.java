@@ -13,7 +13,7 @@ public class ThenProductSteps {
 
     @Then("the user asserts the product list contain products with values $examplesTable")
     public void thenTheUserAssertsTheProductListContainProductsWithValues(ExamplesTable examplesTable) {
-        productSteps.productCollectionExactCompareWith(examplesTable);
+        productSteps.productCollectionCompareWithExampleTable(examplesTable);
     }
 
     @Then("the user checks stored values in edit product modal window")
@@ -34,5 +34,25 @@ public class ThenProductSteps {
     @Then("the user asserts the edit product modal window title is '$title'")
     public void thenTheUserAssertsTheEditProductModalWindowsTitle(String title) {
         productSteps.assertEditProductModalWindowTitle(title);
+    }
+
+    @Then("the user asserts markUp value is '$value' in create new product window")
+    public void thenTheUserAssertsMarkUpValueCreateNewProductWindow(String value) {
+        productSteps.assertCreateNewProductModalWindowMarkUpValue(value);
+    }
+
+    @Then("the user asserts markUp value is '$value' in edit product window")
+    public void thenTheUserAssertsMarkUpValueEditProductWindow(String value) {
+        productSteps.assertEditProductModalWindowMarkUpValue(value);
+    }
+
+    @Then("the user asserts markUp value is not visible in create new product window")
+    public void thenTheUserAssertsMarkUpValueIsNotVisibleInCreateNewProductWindow() {
+        productSteps.assertCreateNewProductModalWindowMarkUpIsNotVisible();
+    }
+
+    @Then("the user asserts markUp value is not visible in edit product window")
+    public void thenTheUserAssertsMarkUpValueIsNotVisibleInEditProductWindow() {
+        productSteps.assertEditProductModalWindowMarkUpIsNotVisible();
     }
 }

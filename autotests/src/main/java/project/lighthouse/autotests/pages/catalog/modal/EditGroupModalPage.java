@@ -20,10 +20,10 @@ public class EditGroupModalPage extends ModalWindowPage {
     }
 
     public void deleteButtonClick() {
-        findVisibleElement(By.className("form__groupRemoveLink")).click();
+        findVisibleElement(By.xpath("//*[@id='form_groupEdit']//*[@class='removeLink group__removeLink']")).click();
     }
 
     public void deleteButtonConfirmClick() {
-        findVisibleElement(By.xpath("//*[@class='confirmLink__confirmation']/*[@class='form__groupRemoveLink']")).click();
+        findVisibleElement(By.xpath("//*[@id='form_groupEdit']//*[@class='confirmLink__confirmation']/*[@class='removeLink group__removeLink']")).click();
     }
 }

@@ -20,9 +20,19 @@ public class WhenProductSteps {
         productSteps.createNewProductModalWindowInput(examplesTable);
     }
 
+    @When("the user inputs values in edit product modal window $examplesTable")
+    public void whenTheUserInputsValuesInEditProductModalWindow(ExamplesTable examplesTable) {
+        productSteps.editNewProductModalWindowInput(examplesTable);
+    }
+
     @When("the user confirms OK in create new product modal window")
     public void whenTheUserConfirmsOKInCreateNewProductModalWindow() {
         productSteps.createNewProductModalWindowConfirmOkClick();
+    }
+
+    @When("the user confirms OK in edit product modal window")
+    public void whenTheUserConfirmsOKInEditProductModalWindow() {
+        productSteps.editProductModalWindowConfirmOkClick();
     }
 
     @When("the user clicks on the product with name '$name'")
@@ -33,6 +43,11 @@ public class WhenProductSteps {
     @When("the user clicks on close icon in create new product modal window")
     public void whenTheUserClicksOnCloseIconInCreateNewProductModalWindow() {
         productSteps.createNewProductModalWindowCloseIconClick();
+    }
+
+    @When("the user clicks on close icon in edit product modal window")
+    public void whenTheUserClicksOnCloseIconInEditProductModalWindow() {
+        productSteps.editProductModalWindowCloseIconClick();
     }
 
     @When("the user clicks on delete product button in edit product modal window")

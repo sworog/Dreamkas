@@ -16,7 +16,7 @@ import java.util.Map;
 public class ProductObject extends AbstractObject implements ObjectLocatable, ObjectClickable, ResultComparable {
 
     private String name;
-    private String purchasePrice;
+    private String sellingPrice;
     private String barcode;
 
     public ProductObject(WebElement element) {
@@ -26,7 +26,7 @@ public class ProductObject extends AbstractObject implements ObjectLocatable, Ob
     @Override
     public void setProperties() {
         name = getElement().findElement(By.name("name")).getText();
-        purchasePrice = getElement().findElement(By.name("purchasePrice")).getText();
+        sellingPrice = getElement().findElement(By.name("sellingPrice")).getText();
         barcode = getElement().findElement(By.name("barcode")).getText();
     }
 
@@ -44,7 +44,7 @@ public class ProductObject extends AbstractObject implements ObjectLocatable, Ob
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("name", name, row.get("name"))
-                .compare("purchasePrice", purchasePrice, row.get("purchasePrice"))
+                .compare("sellingPrice", sellingPrice, row.get("sellingPrice"))
                 .compare("barcode", barcode, row.get("barcode"));
     }
 }

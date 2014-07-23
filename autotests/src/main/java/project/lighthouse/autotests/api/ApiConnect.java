@@ -29,7 +29,7 @@ public class ApiConnect {
 
     public Product createProductThroughPost(Product product, SubCategory subCategory) throws JSONException, IOException {
         if (!subCategory.hasProduct(product)) {
-            getSubCategoryMarkUp(subCategory);
+//            getSubCategoryMarkUp(subCategory);
             httpRequestable.executePostRequest(product);
             subCategory.addProduct(product);
             StaticData.products.put(product.getName(), product);

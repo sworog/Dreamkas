@@ -25,16 +25,16 @@ And the user inputs values in create new product modal window
 | name | Продукт1 |
 | unit | шт |
 | barcode | 12345678910 |
-| vat | 0 |
+| vat | Не облагается |
 | purchasePrice | 123,56 |
-| retailPrice | 123,56 |
+| sellingPrice | 123,56 |
 
 And the user confirms OK in create new product modal window
 
 Then the user waits for modal window closing
 
 Then the user asserts the product list contain products with values
-| name | purchasePrice | barcode |
+| name | sellingPrice | barcode |
 | Продукт1 | 123,56 | 12345678910|
 
 When the user clicks on the product with name 'Продукт1'
@@ -59,9 +59,9 @@ And the user inputs values in create new product modal window
 | name | Продукт2 |
 | unit | шт |
 | barcode | 12345678910 |
-| vat | 0 |
+| vat | Не облагается |
 | purchasePrice | 123,56 |
-| retailPrice | 123,56 |
+| sellingPrice | 123,56 |
 
 And the user clicks on close icon in create new product modal window
 
@@ -78,7 +78,7 @@ Meta:
 GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
-And the user with email 's28u101@lighthouse.pro' creates product with name 'Продукт3'
+And the user with email 's28u101@lighthouse.pro' creates the product with name 'Продукт3', units 'шт.', barcode '12345', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101'
 And the user navigates to the group with name 'groups30u101'
 And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
 
@@ -100,7 +100,8 @@ Meta:
 GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
-And the user with email 's28u101@lighthouse.pro' creates product with name 'Продукт3'
+And the user with email 's28u101@lighthouse.pro' creates the product with name 'Продукт4', units 'шт.', barcode '12345', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101'
+
 And the user navigates to the group with name 'groups30u101'
 And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
 
@@ -108,7 +109,10 @@ When the user clicks on the edit group icon
 And the user clicks on delete group button in edit group modal window
 And the user clicks on delete group confirm button in edit group modal window
 
-Then the user user sees errorMessage Типа нельзя так сделать, брат
+Then the user sees exact error messages
+| error message |
+| Нельзя удалить группу с товарами |
+
 
 Scenario: Create new product modal window title assert
 
@@ -135,13 +139,14 @@ Meta:
 GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
-And the user with email 's28u101@lighthouse.pro' creates product with name 'Продукт4'
+And the user with email 's28u101@lighthouse.pro' creates the product with name 'Продукт5', units 'шт.', barcode '123456', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101'
+
 And the user navigates to the group with name 'groups30u101'
 And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
 
 When the user clicks on the product with name 'Продукт4'
 
-Then the user asserts the edit product modal window title is 'Редактирование товара #100349'
+Then the user asserts the edit product modal window title is 'Редактирование товара'
 
 Scenario: Group contains no products message
 
@@ -156,7 +161,7 @@ Given the user with email 's28u101@lighthouse.pro' creates group with name 'grou
 And the user navigates to the group with name 'groups30u1011'
 And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
 
-Then the user checks page contains text 'Нет продуктов типа в группе, брат'
+Then the user checks page contains text 'В этой группе пока нет ни одного товара.'
 
 Scenario: Product edition confirmation ok
 
@@ -164,8 +169,36 @@ Meta:
 @smoke
 @id_s38u101s8
 
-!--not implemented yet
+GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
+Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
+And the user with email 's28u101@lighthouse.pro' creates the product with name 'Продукт41', units 'шт.', barcode '123451', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101'
+
+And the user navigates to the group with name 'groups30u101'
+And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+
+When the user clicks on the product with name 'Продукт41'
+
+And the user inputs values in edit product modal window
+| elementName | value |
+| name | Продукт101 |
+| unit | шт |
+| barcode | 123456789101 |
+| vat | Не облагается |
+| purchasePrice | 123,56 |
+| sellingPrice | 123,56 |
+
+And the user confirms OK in edit product modal window
+
+Then the user waits for modal window closing
+
+Then the user asserts the product list contain products with values
+| name | sellingPrice | barcode |
+| Продукт101 | 123,56 | 123456789101 |
+
+When the user clicks on the product with name 'Продукт101'
+
+Then the user checks stored values in edit product modal window
 
 Scenario: Product edition confirmation cancel
 
@@ -173,7 +206,32 @@ Meta:
 @smoke
 @id_s38u101s9
 
-!--not implemented yet
+GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
+
+Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
+And the user with email 's28u101@lighthouse.pro' creates the product with name 'Продукт411', units 'шт.', barcode '123452', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101'
+
+And the user navigates to the group with name 'groups30u101'
+And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+
+When the user clicks on the product with name 'Продукт411'
+
+And the user inputs values in edit product modal window
+| elementName | value |
+| name | Продукт101 |
+| unit | шт |
+| barcode | 123456789101 |
+| vat | Не облагается |
+| purchasePrice | 123,56 |
+| sellingPrice | 123,56 |
+
+And the user clicks on close icon in edit product modal window
+
+Then the user waits for modal window closing
+
+Then the user asserts the product list contain products with values
+| name | sellingPrice | barcode |
+| Продукт411 | 110,00 | 123452 |
 
 Scenario: Product markUp assert
 
@@ -181,7 +239,28 @@ Meta:
 @smoke
 @id_s38u101s10
 
-!--not implemented yet
+GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
+
+Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
+And the user navigates to the group with name 'groups30u101'
+And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+
+When the user clicks on create product button on group page
+And the user inputs values in create new product modal window
+| elementName | value |
+| name | s28u101name1 |
+| purchasePrice | 123,56 |
+| sellingPrice | 123,56 |
+
+Then the user asserts markUp value is 'Наценка: 0 %' in create new product window
+
+When the user confirms OK in create new product modal window
+
+Then the user waits for modal window closing
+
+When the user clicks on the product with name 's28u101name1'
+
+Then the user asserts markUp value is 'Наценка: 0 %' in edit product window
 
 Scenario: Product markUp assert no purhasePrice
 
@@ -189,7 +268,27 @@ Meta:
 @smoke
 @id_s38u101s11
 
-!--not implemented yet
+GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
+
+Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
+And the user navigates to the group with name 'groups30u101'
+And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+
+When the user clicks on create product button on group page
+And the user inputs values in create new product modal window
+| elementName | value |
+| name | s28u101name2 |
+| sellingPrice | 123,56 |
+
+Then the user asserts markUp value is not visible in create new product window
+
+When the user confirms OK in create new product modal window
+
+Then the user waits for modal window closing
+
+When the user clicks on the product with name 's28u101name2'
+
+Then the user asserts markUp value is not visible in edit product window
 
 Scenario: Product markUp assert no sellingPrice
 
@@ -197,7 +296,27 @@ Meta:
 @smoke
 @id_s38u101s12
 
-!--not implemented yet
+GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
+
+Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
+And the user navigates to the group with name 'groups30u101'
+And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+
+When the user clicks on create product button on group page
+And the user inputs values in create new product modal window
+| elementName | value |
+| name | s28u101name3 |
+| purchasePrice | 123,56 |
+
+Then the user asserts markUp value is not visible in create new product window
+
+When the user confirms OK in create new product modal window
+
+Then the user waits for modal window closing
+
+When the user clicks on the product with name 's28u101name3'
+
+Then the user asserts markUp value is not visible in edit product window
 
 Scenario: Product markUp assert no price values are entered
 
@@ -205,4 +324,164 @@ Meta:
 @smoke
 @id_s38u101s13
 
-!--not implemented yet
+GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
+
+Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
+And the user navigates to the group with name 'groups30u101'
+And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+
+When the user clicks on create product button on group page
+And the user inputs values in create new product modal window
+| elementName | value |
+| name | s28u101name4 |
+
+Then the user asserts markUp value is not visible in create new product window
+
+When the user confirms OK in create new product modal window
+
+Then the user waits for modal window closing
+
+When the user clicks on the product with name 's28u101name4'
+
+Then the user asserts markUp value is not visible in edit product window
+
+Scenario: Product vat 0 % field assert value
+
+Meta:
+@smoke
+@id_s38u101s14
+
+GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
+
+Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
+And the user navigates to the group with name 'groups30u101'
+And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+
+When the user clicks on create product button on group page
+And the user inputs values in create new product modal window
+| elementName | value |
+| name | Продукт0% |
+| vat | Не облагается |
+
+And the user confirms OK in create new product modal window
+
+Then the user waits for modal window closing
+
+When the user clicks on the product with name 'Продукт0%'
+
+Then the user checks stored values in edit product modal window
+
+
+Scenario: Product vat 10 % field assert value
+
+Meta:
+@smoke
+@id_s38u101s15
+
+GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
+
+Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
+And the user navigates to the group with name 'groups30u101'
+And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+
+When the user clicks on create product button on group page
+And the user inputs values in create new product modal window
+| elementName | value |
+| name | Продукт10% |
+| vat | 10% |
+
+And the user confirms OK in create new product modal window
+
+Then the user waits for modal window closing
+
+When the user clicks on the product with name 'Продукт10%'
+
+Then the user checks stored values in edit product modal window
+
+Scenario: Product vat 18 % field assert value
+
+Meta:
+@smoke
+@id_s38u101s16
+
+GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
+
+Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
+And the user navigates to the group with name 'groups30u101'
+And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+
+When the user clicks on create product button on group page
+And the user inputs values in create new product modal window
+| elementName | value |
+| name | Продукт18% |
+| vat | 18% |
+
+And the user confirms OK in create new product modal window
+
+Then the user waits for modal window closing
+
+When the user clicks on the product with name 'Продукт18%'
+
+Then the user checks stored values in edit product modal window
+
+Scenario: Product with no selling price has empty selling price value on product list
+
+Meta:
+@smoke
+@id_s38u101s17
+
+GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
+
+Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
+And the user navigates to the group with name 'groups30u101'
+And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+
+When the user clicks on create product button on group page
+And the user inputs values in create new product modal window
+| elementName | value |
+| name | Продукт11 |
+| sellingPrice | |
+| barcode | 11 |
+
+And the user confirms OK in create new product modal window
+
+Then the user waits for modal window closing
+
+Then the user asserts the product list contain products with values
+| name | sellingPrice | barcode |
+| Продукт11 | | 11 |
+
+When the user clicks on the product with name 'Продукт11'
+
+Then the user checks stored values in edit product modal window
+
+Scenario: Product with no barcode has empty barcode value on product list
+
+Meta:
+@smoke
+@id_s38u101s18
+
+GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
+
+Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
+And the user navigates to the group with name 'groups30u101'
+And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+
+When the user clicks on create product button on group page
+And the user inputs values in create new product modal window
+| elementName | value |
+| name | Продукт12 |
+| barcode | |
+| sellingPrice | 123,45 |
+
+And the user confirms OK in create new product modal window
+
+Then the user waits for modal window closing
+
+Then the user asserts the product list contain products with values
+| name | sellingPrice | barcode |
+| Продукт12 | 123,45 | |
+
+When the user clicks on the product with name 'Продукт12'
+
+Then the user checks stored values in edit product modal window

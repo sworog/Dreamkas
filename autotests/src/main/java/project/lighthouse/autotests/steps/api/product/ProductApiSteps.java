@@ -6,6 +6,7 @@ import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.api.ApiConnect;
 import project.lighthouse.autotests.objects.api.Product;
+import project.lighthouse.autotests.objects.api.SubCategory;
 import project.lighthouse.autotests.storage.Storage;
 import project.lighthouse.autotests.storage.containers.user.UserContainer;
 
@@ -21,6 +22,7 @@ public class ProductApiSteps extends ScenarioSteps {
                                                 String purchasePrice,
                                                 String sellingPrice,
                                                 String groupName, String email) throws JSONException, IOException {
+        SubCategory subCategory = StaticData.subCategories.get(groupName);
         Product product = new Product(
                 name,
                 units,
@@ -28,10 +30,10 @@ public class ProductApiSteps extends ScenarioSteps {
                 vat,
                 purchasePrice,
                 sellingPrice,
-                groupName);
+                subCategory.getId());
         UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email);
         ApiConnect userApiConnect = new ApiConnect(userContainer.getEmail(), userContainer.getPassword());
-        return userApiConnect.createProductThroughPost(product, StaticData.subCategories.get(groupName));
+        return userApiConnect.createProductThroughPost(product, subCategory);
     }
 
     @Step

@@ -4,7 +4,6 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
 import project.lighthouse.autotests.api.ApiConnect;
-import project.lighthouse.autotests.objects.api.Group;
 import project.lighthouse.autotests.objects.api.SubCategory;
 import project.lighthouse.autotests.storage.Storage;
 import project.lighthouse.autotests.storage.containers.user.UserContainer;
@@ -22,7 +21,7 @@ public class CatalogApiSteps extends ScenarioSteps {
 
     @Step
     public void navigateToGroupPage(String groupName) throws JSONException {
-        String groupPageUrl = Group.getPageUrl(groupName);
+        String groupPageUrl = SubCategory.getPageUrl(groupName);
         getDriver().navigate().to(groupPageUrl);
     }
 }

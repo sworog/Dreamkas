@@ -13,6 +13,7 @@ import project.lighthouse.autotests.pages.catalog.group.modal.EditProductModalWi
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 public class ProductSteps extends ScenarioSteps {
 
@@ -21,6 +22,8 @@ public class ProductSteps extends ScenarioSteps {
     EditProductModalWindow editProductModalWindow;
 
     private ExamplesTable examplesTable;
+
+    private static final String NO_PRODUCTS_MESSAGE = "В этой группе пока нет ни одного товара.";
 
     @Step
     public void createNewProductButtonClick() {
@@ -34,23 +37,59 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
+    public void editNewProductModalWindowInput(ExamplesTable examplesTable) {
+        editProductModalWindow.inputTable(examplesTable);
+        this.examplesTable = examplesTable;
+    }
+
+    @Step
     public void createNewProductModalWindowConfirmOkClick() {
         createNewProductModalWindow.confirmationOkClick();
         new SimplePreloader(getDriver()).await();
     }
 
     @Step
-    public void productCollectionExactCompareWith(ExamplesTable examplesTable) {
+    public void editProductModalWindowConfirmOkClick() {
+        editProductModalWindow.confirmationOkClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
+    public void assertCreateNewProductModalWindowMarkUpValue(String value) {
+        assertThat(createNewProductModalWindow.getMarkUpValueWebElement().getText(), is(value));
+    }
+
+    @Step
+    public void assertEditProductModalWindowMarkUpValue(String value) {
+        assertThat(editProductModalWindow.getMarkUpValueWebElement().getText(), is(value));
+    }
+
+    @Step
+    public void assertCreateNewProductModalWindowMarkUpIsNotVisible() {
+        if (!createNewProductModalWindow.invisibilityOfElementLocated(createNewProductModalWindow.getMarkUpValueWebElement())) {
+            fail("The markUp value is visible in create new product modal window");
+        }
+    }
+
+    @Step
+    public void assertEditProductModalWindowMarkUpIsNotVisible() {
+        if (!editProductModalWindow.invisibilityOfElementLocated(editProductModalWindow.getMarkUpValueWebElement())) {
+            fail("The markUp value is visible in create new product modal window");
+        }
+    }
+
+    @Step
+    public void productCollectionCompareWithExampleTable(ExamplesTable examplesTable) {
         ProductCollection productCollection = null;
         try {
             productCollection = groupPage.getProductCollection();
         } catch (TimeoutException e) {
-            groupPage.containsText("У вас пока продуктов.");
+            groupPage.containsText(NO_PRODUCTS_MESSAGE);
         } catch (StaleElementReferenceException e) {
             productCollection = groupPage.getProductCollection();
         } finally {
             if (productCollection != null) {
-                productCollection.exactCompareExampleTable(examplesTable);
+                productCollection.compareWithExampleTable(examplesTable);
             }
         }
     }
@@ -71,12 +110,17 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
+    public void editProductModalWindowCloseIconClick() {
+        editProductModalWindow.closeIconClick();
+    }
+
+    @Step
     public void productCollectionNotContainProductWithName(String name) {
         ProductCollection productCollection = null;
         try {
             productCollection = groupPage.getProductCollection();
         } catch (TimeoutException e) {
-            groupPage.containsText("У вас пока продуктов.");
+            groupPage.containsText(NO_PRODUCTS_MESSAGE);
         } catch (StaleElementReferenceException e) {
             productCollection = groupPage.getProductCollection();
         } finally {

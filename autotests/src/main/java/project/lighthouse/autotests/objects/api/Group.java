@@ -3,8 +3,6 @@ package project.lighthouse.autotests.objects.api;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import project.lighthouse.autotests.StaticData;
-import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.abstraction.AbstractClassifierNode;
 
 public class Group extends AbstractClassifierNode {
@@ -50,10 +48,5 @@ public class Group extends AbstractClassifierNode {
             }
         }
         return categoryToGet;
-    }
-
-    public static String getPageUrl(String groupName) throws JSONException {
-        String groupId = StaticData.groups.get(groupName).getId();
-        return String.format("%s/catalog/groups/%s", UrlHelper.getWebFrontUrl(), groupId);
     }
 }

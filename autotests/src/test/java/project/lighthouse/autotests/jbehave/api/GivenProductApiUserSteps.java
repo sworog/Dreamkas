@@ -22,6 +22,6 @@ public class GivenProductApiUserSteps {
             String purchasePrice,
             String sellingPrice,
             String groupName) throws IOException, JSONException {
-        productApiSteps.createProductByUserWithEmail(email, name, units, barcode, vat, purchasePrice, sellingPrice, groupName);
+        productApiSteps.createProductByUserWithEmail(name, units, barcode, vat, purchasePrice, sellingPrice, groupName, email);
     }
 }
