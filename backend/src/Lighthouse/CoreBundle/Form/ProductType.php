@@ -6,6 +6,7 @@ namespace Lighthouse\CoreBundle\Form;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Type;
+use Lighthouse\CoreBundle\Form\Classifier\SubCategoryType;
 use Lighthouse\CoreBundle\Form\Product\Type\AlcoholType;
 use Lighthouse\CoreBundle\Form\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Form\Product\Type\WeightType;
