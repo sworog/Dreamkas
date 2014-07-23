@@ -182,3 +182,27 @@ Meta:
 @id_s38u101s10
 
 !--not implemented yet
+
+Scenario: Product markUp assert no purhasePrice
+
+Meta:
+@smoke
+@id_s38u101s11
+
+!--not implemented yet
+
+Scenario: Product markUp assert no sellingPrice
+
+Meta:
+@smoke
+@id_s38u101s12
+
+!--not implemented yet
+
+Scenario: Product markUp assert no price values are entered
+
+Meta:
+@smoke
+@id_s38u101s13
+
+!--not implemented yet

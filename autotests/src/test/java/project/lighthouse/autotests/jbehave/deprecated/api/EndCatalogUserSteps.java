@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.jbehave.api;
+package project.lighthouse.autotests.jbehave.deprecated.api;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
@@ -6,10 +6,10 @@ import org.json.JSONException;
 import project.lighthouse.autotests.objects.api.Category;
 import project.lighthouse.autotests.objects.api.Group;
 import project.lighthouse.autotests.objects.api.SubCategory;
-import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
-import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
-import project.lighthouse.autotests.steps.api.commercialManager.StoreApiSteps;
-import project.lighthouse.autotests.steps.api.departmentManager.InvoiceApiSteps;
+import project.lighthouse.autotests.steps.deprecated.api.administrator.UserApiSteps;
+import project.lighthouse.autotests.steps.deprecated.api.commercialManager.CatalogApiSteps;
+import project.lighthouse.autotests.steps.deprecated.api.commercialManager.StoreApiSteps;
+import project.lighthouse.autotests.steps.deprecated.api.departmentManager.InvoiceApiSteps;
 
 import java.io.IOException;
 
@@ -27,11 +27,6 @@ public class EndCatalogUserSteps {
     @Given("there is the group with name '$groupName'")
     public void givenThereIsTheGroupWithName(String groupName) throws IOException, JSONException {
         catalogApiSteps.createGroupThroughPost(groupName);
-    }
-
-    @Given("the user with email '$email' creates group with name '$groupName'")
-    public void givenTheUserWithEmailCreatesGroupWithName(String email, String groupName) throws IOException, JSONException {
-        catalogApiSteps.createGroupThroughPostByUserWithEmail(groupName, email);
     }
 
     @Given("there is the category with name '$categoryName' related to group named '$groupName'")

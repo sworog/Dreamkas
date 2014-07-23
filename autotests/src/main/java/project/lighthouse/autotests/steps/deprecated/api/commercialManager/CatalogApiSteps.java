@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.steps.api.commercialManager;
+package project.lighthouse.autotests.steps.deprecated.api.commercialManager;
 
 import net.thucydides.core.annotations.Step;
 import org.json.JSONException;

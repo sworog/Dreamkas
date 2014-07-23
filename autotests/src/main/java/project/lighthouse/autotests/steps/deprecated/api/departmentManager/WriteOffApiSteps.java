@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.steps.api.departmentManager;
+package project.lighthouse.autotests.steps.deprecated.api.departmentManager;
 
 import net.thucydides.core.annotations.Step;
 import org.json.JSONException;

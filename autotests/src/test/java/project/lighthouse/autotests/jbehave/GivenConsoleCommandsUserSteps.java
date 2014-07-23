@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.jbehave.deprecated;
+package project.lighthouse.autotests.jbehave;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
@@ -13,7 +13,7 @@ import project.lighthouse.autotests.storage.containers.user.UserContainerList;
 
 import java.io.IOException;
 
-public class ConsoleCommandsUserSteps {
+public class GivenConsoleCommandsUserSteps {
 
     @Steps
     ConsoleCommandSteps consoleCommandSteps;

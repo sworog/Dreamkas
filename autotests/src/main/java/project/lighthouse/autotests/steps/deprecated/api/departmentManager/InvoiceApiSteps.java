@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.steps.api.departmentManager;
+package project.lighthouse.autotests.steps.deprecated.api.departmentManager;
 
 import net.thucydides.core.annotations.Step;
 import org.json.JSONException;
@@ -59,8 +59,8 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
 
     /**
      * The method depends on invoice object creating by
-     * First - {@link project.lighthouse.autotests.steps.api.objectBuilder.InvoiceBuilderSteps#build(String, String, String, String, String)}}
-     * Second {@link project.lighthouse.autotests.steps.api.objectBuilder.InvoiceBuilderSteps#addProduct(String, String, String)}
+     * First - {@link project.lighthouse.autotests.steps.deprecated.api.objectBuilder.InvoiceBuilderSteps#build(String, String, String, String, String)}}
+     * Second {@link project.lighthouse.autotests.steps.deprecated.api.objectBuilder.InvoiceBuilderSteps#addProduct(String, String, String)}
      *
      * @param userName
      * @return

@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.steps.api.administrator;
+package project.lighthouse.autotests.steps.deprecated.api.administrator;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;

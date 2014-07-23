@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.steps.api.objectBuilder;
+package project.lighthouse.autotests.steps.deprecated.api.objectBuilder;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
@@ -11,11 +11,11 @@ public class InvoiceBuilderSteps extends ScenarioSteps {
 
     @Step
     public void build(String supplierId,
-                         String acceptanceDate,
-                         String accepter,
-                         String legalEntity,
-                         String supplierInvoiceNumber) throws JSONException {
-        Invoice invoice =  new Invoice(supplierId, acceptanceDate, accepter, legalEntity, supplierInvoiceNumber);
+                      String acceptanceDate,
+                      String accepter,
+                      String legalEntity,
+                      String supplierInvoiceNumber) throws JSONException {
+        Invoice invoice = new Invoice(supplierId, acceptanceDate, accepter, legalEntity, supplierInvoiceNumber);
         Storage.getInvoiceVariableStorage().setInvoiceForInvoiceBuilderSteps(invoice);
     }
 

@@ -1,12 +1,12 @@
-package project.lighthouse.autotests.jbehave.api.objectBuilder;
+package project.lighthouse.autotests.jbehave.deprecated.api.objectBuilder;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.objects.api.Product;
-import project.lighthouse.autotests.steps.api.commercialManager.ProductApiSteps;
-import project.lighthouse.autotests.steps.api.objectBuilder.ExtraBarcodeBuilderSteps;
+import project.lighthouse.autotests.steps.deprecated.api.commercialManager.ProductApiSteps;
+import project.lighthouse.autotests.steps.deprecated.api.objectBuilder.ExtraBarcodeBuilderSteps;
 import project.lighthouse.autotests.storage.Storage;
 
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.steps.api.departmentManager;
+package project.lighthouse.autotests.steps.deprecated.api.departmentManager;
 
 import junit.framework.Assert;
 import net.thucydides.core.steps.ScenarioSteps;

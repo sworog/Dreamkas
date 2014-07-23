@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.jbehave.api;
+package project.lighthouse.autotests.jbehave.deprecated.api;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Alias;
@@ -11,8 +11,8 @@ import project.lighthouse.autotests.helper.UUIDGenerator;
 import project.lighthouse.autotests.objects.api.Group;
 import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.SubCategory;
-import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
-import project.lighthouse.autotests.steps.api.commercialManager.ProductApiSteps;
+import project.lighthouse.autotests.steps.deprecated.api.commercialManager.CatalogApiSteps;
+import project.lighthouse.autotests.steps.deprecated.api.commercialManager.ProductApiSteps;
 
 import java.io.IOException;
 import java.util.Map;

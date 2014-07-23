@@ -1,9 +1,9 @@
-package project.lighthouse.autotests.jbehave.api;
+package project.lighthouse.autotests.jbehave.deprecated.api;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
 import org.json.JSONException;
-import project.lighthouse.autotests.steps.api.commercialManager.SupplierApiSteps;
+import project.lighthouse.autotests.steps.deprecated.api.commercialManager.SupplierApiSteps;
 
 import java.io.IOException;
 

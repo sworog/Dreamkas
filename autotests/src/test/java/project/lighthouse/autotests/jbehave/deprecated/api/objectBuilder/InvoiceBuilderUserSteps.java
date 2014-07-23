@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.jbehave.api.objectBuilder;
+package project.lighthouse.autotests.jbehave.deprecated.api.objectBuilder;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
@@ -7,8 +7,8 @@ import org.json.JSONException;
 import org.junit.Assert;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.helper.DateTimeHelper;
-import project.lighthouse.autotests.steps.api.commercialManager.SupplierApiSteps;
-import project.lighthouse.autotests.steps.api.objectBuilder.InvoiceBuilderSteps;
+import project.lighthouse.autotests.steps.deprecated.api.commercialManager.SupplierApiSteps;
+import project.lighthouse.autotests.steps.deprecated.api.objectBuilder.InvoiceBuilderSteps;
 import project.lighthouse.autotests.storage.Storage;
 import project.lighthouse.autotests.storage.containers.user.UserContainer;
 
