@@ -228,7 +228,8 @@ class Product extends AbstractDocument implements VersionableInterface
      * )
      * @MongoDB\Index
      * @Assert\NotBlank
-     * @Serializer\Groups({"Default"})
+     * @Serializer\Groups({"Default", "Collection"})
+     * @Serializer\MaxDepth(2)
      * @var SubCategory
      */
     protected $subCategory;

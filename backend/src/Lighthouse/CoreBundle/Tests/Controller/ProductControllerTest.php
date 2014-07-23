@@ -442,6 +442,7 @@ class ProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('10003', '2.sku', $response);
         Assert::assertJsonPathEquals('10004', '3.sku', $response);
         Assert::assertJsonPathEquals('10005', '4.sku', $response);
+        Assert::assertJsonPathCount(5, '*.subCategory.id', $response);
     }
 
     public function testGetProductsWithEmptyTypePropertiesReturnsArray()
@@ -534,6 +535,8 @@ class ProductControllerTest extends WebTestCase
             Assert::assertJsonPathEquals($productId, '*.id', $jsonResponse);
         }
 
+        Assert::assertJsonPathEquals($subCategoryId1, '*.subCategory.id', $jsonResponse, 5);
+        Assert::assertNotJsonHasPath('*.subCategory.category.id', $jsonResponse);
 
         $jsonResponse = $this->clientJsonRequest(
             $accessToken,

@@ -132,7 +132,7 @@ class ProductController extends AbstractRestController
      * @param SubCategory $subCategory
      * @return Product[]|Cursor
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
-     * @Rest\View(serializerGroups={"Collection"})
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc
      */
     public function getSubcategoryProductsAction(SubCategory $subCategory)
