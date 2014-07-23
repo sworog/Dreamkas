@@ -39,6 +39,8 @@
         <div class="col-md-12">
             <div class="panel">
                 <div class="panel-body">
+
+                    <% if (collections.products.length) { %>
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -48,18 +50,24 @@
                         </tr>
                         </thead>
                         <tbody>
+
+                        <% collections.products.forEach(function(productModel){ %>
                         <tr>
-                            <td>Хорошие</td>
-                            <td>23,43</td>
-                            <td>10001</td>
+                            <td><%- productModel.get('name') %></td>
+                            <td><%- productModel.get('sellingPrice') %></td>
+                            <td><%- productModel.get('barcode') %></td>
                         </tr>
-                        <tr>
-                            <td>Плохие</td>
-                            <td>45,00</td>
-                            <td>10002</td>
-                        </tr>
+                        <% }) %>
                         </tbody>
                     </table>
+                    <% } else { %>
+                    <div class="col-md-12">
+                        <div class="alert alert-info">
+                            В этой группе пока нет ни одного товара.
+                        </div>
+                    </div>
+                    <% } %>
+
                 </div>
             </div>
         </div>

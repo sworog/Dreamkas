@@ -11,6 +11,14 @@ define(function(require, exports, module) {
                 var GroupsCollection = require('collections/groups/groups');
 
                 return new GroupsCollection();
+            },
+            products: function(){
+                var page = this,
+                    ProductsCollection = require('collections/products/products');
+
+                return new ProductsCollection([], {
+                    groupId: page.params.groupId
+                });
             }
         },
         models: {
@@ -61,7 +69,8 @@ define(function(require, exports, module) {
                 var page = this,
                     Form_product = require('blocks/form/form_product/form_product'),
                     form_product = new Form_product({
-                        el: document.getElementById('form_productAdd')
+                        el: document.getElementById('form_productAdd'),
+                        collection: page.collections.products
                     });
 
                 form_product.on('submit:success', function() {
