@@ -4,7 +4,10 @@
 <% var partials = {
     select_vat: require('ejs!blocks/select/select_vat/select_vat.ejs'),
     select_group: require('ejs!blocks/select/select_group/select_group.ejs')
-}%>
+};
+helpers = {
+    formatMoney: require('kit/formatMoney/formatMoney')
+}; %>
 
 <div id="<%- productModel.id ? 'modal-productEdit' : 'modal-productAdd' %>"
      tabindex="-1"
@@ -116,7 +119,7 @@
                                         name="purchasePrice"
                                         type="text"
                                         class="form-control"
-                                        value="<%- productModel.get('purchasePrice') %>">
+                                        value="<%- productModel.get('purchasePrice')?helpers.formatMoney(productModel.get('purchasePrice')):'' %>">
                             </div>
                         </div>
                     </div>
@@ -131,7 +134,7 @@
                                         name="sellingPrice"
                                         type="text"
                                         class="form-control"
-                                        value="<%- productModel.get('sellingPrice') %>">
+                                        value="<%- productModel.get('sellingPrice')?helpers.formatMoney(productModel.get('sellingPrice')):'' %>">
                             </div>
                             <div class="col-md-8 product__markup">
                                 Наценка: <span class="product__markupText"></span> %
