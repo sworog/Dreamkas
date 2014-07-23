@@ -14,11 +14,25 @@ define(function(require, exports, module) {
             },
             products: function(){
                 var page = this,
-                    ProductsCollection = require('collections/products/products');
+                    ProductsCollection = require('collections/products/products'),
+                    productCollection = new ProductsCollection([], {
+                        groupId: page.params.groupId
+                    });
 
-                return new ProductsCollection([], {
-                    groupId: page.params.groupId
+                productCollection.on({
+                    remove: function(){
+                        var modal = $('.modal:visible');
+
+                        modal.one('hidden.bs.modal', function(e) {
+                            page.render();
+                        });
+
+                        modal.modal('hide');
+
+                    }
                 });
+
+                return productCollection;
             }
         },
         models: {

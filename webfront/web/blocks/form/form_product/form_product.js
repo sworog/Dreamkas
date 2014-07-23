@@ -22,6 +22,15 @@ define(function(require) {
                     var block = this;
 
                     block.calculateMarkup();
+                },
+                'click .confirmLink__confirmation .product__removeLink': function(e) {
+                    var block = this;
+
+                    e.target.classList.add('loading');
+
+                    block.model.destroy().then(function() {
+                        e.target.classList.remove('loading');
+                    });
                 }
             },
             submit: function() {
