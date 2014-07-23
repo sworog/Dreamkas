@@ -103,7 +103,12 @@ class ProductType extends AbstractType
         $form = $event->getForm();
         $data = $event->getData();
         $subCategoryData = (isset($data['subCategory'])) ? $data['subCategory'] : null;
+        // Create new subCategory
         if (is_array($subCategoryData)) {
+            /* @var Product $product */
+            $product = $form->getData();
+            $product->subCategory = new SubCategory();
+
             if (!isset($data['subCategory']['category'])) {
                 $data['subCategory']['category'] = $this->catalogManager->getDefaultCategory()->id;
                 $event->setData($data);

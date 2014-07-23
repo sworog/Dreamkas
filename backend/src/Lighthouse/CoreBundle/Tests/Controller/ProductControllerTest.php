@@ -109,6 +109,51 @@ class ProductControllerTest extends WebTestCase
         );
     }
 
+    public function testPutProductWithSubCategoryName()
+    {
+        $postData = array(
+                'subCategory' => array(
+                    'name' => 'Категория'
+                )
+            ) + $this->getProductData(false);
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/products',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('id', $postResponse);
+        Assert::assertJsonHasPath('subCategory.id', $postResponse);
+        Assert::assertJsonPathEquals('Категория', 'subCategory.name', $postResponse);
+        Assert::assertJsonHasPath('subCategory.category.id', $postResponse);
+
+        $subCategoryId = $postResponse['subCategory']['id'];
+        $productId = $postResponse['id'];
+
+        $putData = $postData;
+        $putData['name'] = 'Товар';
+        $putData['subCategory']['name'] = 'Группа';
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/products/' . $productId,
+            $putData
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($productId, 'id', $putResponse);
+        Assert::assertNotJsonPathEquals($subCategoryId, 'subCategory.id', $putResponse);
+        Assert::assertJsonPathEquals('Группа', 'subCategory.name', $putResponse);
+    }
+
     /**
      * Тест на проблему сохраниения пустой наценки и цены продажи
      */
