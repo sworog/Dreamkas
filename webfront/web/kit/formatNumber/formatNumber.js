@@ -1,8 +1,8 @@
 define(function(require, exports, module) {
     //requirements
-    return function(number) {
-        return parseFloat((number || '').toString()
-            .replace(' ', '', 'gi')
-            .replace(',', '.', 'gi'));
+    var numeral = require('numeral');
+
+    return function(number){
+        return numeral(number || '').format('0,0.[000]');
     }
 });

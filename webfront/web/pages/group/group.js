@@ -59,11 +59,22 @@ define(function(require, exports, module) {
             },
             form_productAdd: function() {
                 var page = this,
-                    Form_product = require('blocks/form/form_product/form_product');
+                    Form_product = require('blocks/form/form_product/form_product'),
+                    form_product = new Form_product({
+                        el: document.getElementById('form_productAdd')
+                    });
 
-                return new Form_product({
-                    el: document.getElementById('form_productAdd')
+                form_product.on('submit:success', function() {
+                    var modal = $('.modal:visible');
+
+                    modal.one('hidden.bs.modal', function(e) {
+                        page.render();
+                    });
+
+                    modal.modal('hide');
                 });
+
+                return form_product;
             },
             select_group: function() {
                 var page = this;
