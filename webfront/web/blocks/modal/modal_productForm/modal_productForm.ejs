@@ -1,5 +1,6 @@
 <% var ProductModel = require('models/product/product') %>
 <% var productModel = productModel || new ProductModel() %>
+<% var selectedGroupId = selectedGroupId || productModel.get('subCategory.id') %>
 
 <% var partials = {
     select_vat: require('ejs!blocks/select/select_vat/select_vat.ejs'),
@@ -44,9 +45,9 @@ helpers = {
                     <div class="form-group">
 
                         <label class="control-label">Группа *</label>
-
+                        
                         <%= partials.select_group({
-                            selectedGroupId: productModel.get('group.id'),
+                            selectedGroupId: selectedGroupId,
                             collections: {
                                 groups: collections.groups
                             }

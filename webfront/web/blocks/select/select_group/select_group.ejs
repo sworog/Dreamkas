@@ -1,6 +1,6 @@
 <select class="form-control select_group" name="subCategory">
     <% collections.groups.forEach(function(groupModel){ %>
-    <option <%- groupModel.id === selectedGroupId ? 'checked' : '' %>
+    <option <%- groupModel.id === selectedGroupId ? 'selected' : '' %>
             value="<%- groupModel.id %>">
         <%- groupModel.get('name') %>
     </option>

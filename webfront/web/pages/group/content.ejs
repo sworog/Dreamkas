@@ -84,7 +84,8 @@ helpers = {
 <%= partials.modal_productForm({
     collections: {
         groups: collections.groups
-    }
+    },
+    selectedGroupId: models.group.id
 }) %>
 <% if (models.product) { %>
 <%= partials.modal_productForm({
