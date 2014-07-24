@@ -20,9 +20,11 @@ define(function(require) {
                 e.preventDefault();
 
                 var block = this,
-                    submitting = $.when(block.submit());
+                    submitting;
 
                 block.formData = block.getData();
+
+                submitting = block.submit();
 
                 block.submitStart();
                 block.trigger('submit:start');
@@ -152,15 +154,8 @@ define(function(require) {
 
             block.$submitButton.removeAttr('disabled');
         },
-        reset: function() {
-
-            var block = this;
-
-            block.$('[name]').each(function() {
-                $(this).val(block.model.get(this.getAttribute('name')));
-            });
-
-            block.removeErrors();
+        reset: function(){
+            PAGE.render();
         }
     })
 });

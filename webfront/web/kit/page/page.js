@@ -35,7 +35,7 @@ define(function(require, exports, module) {
             });
 
             Page.previous = Page.current;
-            Page.current = page;
+            window.PAGE = Page.current = page;
 
             if (Page.previous){
                 Page.previous.destroy();
