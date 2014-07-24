@@ -24,4 +24,9 @@ public class GivenProductApiUserSteps {
             String groupName) throws IOException, JSONException {
         productApiSteps.createProductByUserWithEmail(name, units, barcode, vat, purchasePrice, sellingPrice, groupName, email);
     }
+
+    @Given("the user with email '$email' creates the product with randomly generated name in the group with name '$groupName'")
+    public void givenTheUserWithEmailCreatesheProductWithRandomlyGeneratedNameInTheGroupWithName(String email, String groupName) throws IOException, JSONException {
+        productApiSteps.createProductByUserWithEmailWithRandomName(groupName, email);
+    }
 }

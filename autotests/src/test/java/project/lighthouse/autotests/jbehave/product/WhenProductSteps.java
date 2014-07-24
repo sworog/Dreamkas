@@ -40,6 +40,11 @@ public class WhenProductSteps {
         productSteps.productCollectionProductWithNameClick(name);
     }
 
+    @When("the user clicks on the product with stored name")
+    public void whenTheUserClicksOnTheProductWithStoredName() {
+        productSteps.productCollectionProductWithNameClickOnProductWithStoredName();
+    }
+
     @When("the user clicks on close icon in create new product modal window")
     public void whenTheUserClicksOnCloseIconInCreateNewProductModalWindow() {
         productSteps.createNewProductModalWindowCloseIconClick();
@@ -60,6 +65,11 @@ public class WhenProductSteps {
         productSteps.confirmDeleteButtonClick();
     }
 
+    @When("the user generates symbols with count '$count' in the edit product modal window '$elementName' field")
+    public void whenTheUserGeneratesSymbolsWithCountInEditProductModalWindowField(int count, String elementName) {
+        productSteps.editProductModalWindowFieldGenerateText(elementName, count);
+    }
+
     @When("the user generates symbols with count '$count' in the create new product modal window '$elementName' field")
     public void whenTheUserGeneratesSymbolsWithCountInCreateNewProductModalWindowField(int count, String elementName) {
         productSteps.createNewProductModalWindowFieldGenerateText(elementName, count);
@@ -68,5 +78,10 @@ public class WhenProductSteps {
     @When("the user inputs value in create new product modal windows '$elementName' field")
     public void whenTheUserImputsInCreateNewProductModelWindowField(String value, String elementName) {
         productSteps.createNewProductModalWindowInput(elementName, value);
+    }
+
+    @When("the user inputs value in edit product modal windows '$elementName' field")
+    public void whenTheUserImputsInEditProductModelWindowField(String value, String elementName) {
+        productSteps.editProductModalWindowInput(elementName, value);
     }
 }

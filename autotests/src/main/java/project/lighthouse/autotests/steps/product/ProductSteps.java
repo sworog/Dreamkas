@@ -11,6 +11,7 @@ import project.lighthouse.autotests.objects.web.product.ProductCollection;
 import project.lighthouse.autotests.pages.catalog.group.GroupPage;
 import project.lighthouse.autotests.pages.catalog.group.modal.CreateNewProductModalWindow;
 import project.lighthouse.autotests.pages.catalog.group.modal.EditProductModalWindow;
+import project.lighthouse.autotests.storage.Storage;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -99,6 +100,11 @@ public class ProductSteps extends ScenarioSteps {
     @Step
     public void productCollectionProductWithNameClick(String name) {
         groupPage.getProductCollection().clickByLocator(name);
+    }
+
+    @Step
+    public void productCollectionProductWithNameClickOnProductWithStoredName() {
+        groupPage.getProductCollection().clickByLocator(Storage.getCustomVariableStorage().getName());
     }
 
     @Step
@@ -195,10 +201,16 @@ public class ProductSteps extends ScenarioSteps {
     public void editProductModalWindowFieldGenerateText(String elementName, int number) {
         String generatedString = new StringGenerator(number).generateString("b");
         editProductModalWindow.input(elementName, generatedString);
+        this.name = generatedString;
     }
 
     @Step
     public void createNewProductModalWindowInput(String elementName, String value) {
         createNewProductModalWindow.input(elementName, value);
+    }
+
+    @Step
+    public void editProductModalWindowInput(String elementName, String value) {
+        editProductModalWindow.input(elementName, value);
     }
 }

@@ -74,6 +74,7 @@ public class ThenProductSteps {
     }
 
     @Then("the user checks the edit product modal window '$elementName' field has error message with text '$errorMessage'")
+    @Alias("the user checks the edit product modal window '$elementName' field has errorMessage")
     public void thenTheUserChecksTheEditProductModalWindowFieldHasErrorMessage(String elementName, String errorMessage) {
         productSteps.assertEditProductModalWindowFieldErrorMessage(elementName, errorMessage);
     }
