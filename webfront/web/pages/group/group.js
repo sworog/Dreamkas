@@ -98,15 +98,19 @@ define(function(require, exports, module) {
                 var page = this,
                     Form_product = require('blocks/form/form_product/form_product'),
                     form_product = new Form_product({
-                        el: document.getElementById('form_productAdd'),
-                        collection: page.collections.products
+                        el: document.getElementById('form_productAdd')
                     });
 
-                form_product.on('submit:success', function() {
+                form_product.on('submit:success', function(response) {
                     var modal = $('.modal:visible');
 
                     modal.one('hidden.bs.modal', function(e) {
-                        page.render();
+                        if (response.subCategory.id === page.models.group.id){
+                            page.collections.products.add(response);
+                            page.render();
+                        } else {
+                            router.navigate('/catalog/groups/' + response.subCategory.id);
+                        }
                     });
 
                     modal.modal('hide');
@@ -123,11 +127,15 @@ define(function(require, exports, module) {
                         collection: page.collections.products
                     });
 
-                form_product.on('submit:success', function() {
+                form_product.on('submit:success', function(response) {
                     var modal = $('.modal:visible');
 
                     modal.one('hidden.bs.modal', function(e) {
-                        page.render();
+                        if (response.subCategory.id === page.models.group.id){
+                            page.render();
+                        } else {
+                            router.navigate('/catalog/groups/' + response.subCategory.id);
+                        }
                     });
 
                     modal.modal('hide');

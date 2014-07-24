@@ -33,6 +33,22 @@ define(function(require) {
                     });
                 }
             },
+            showFieldError: function(data, field) {
+                var block = this;
+
+                if (field === 'subCategory'){
+
+                    data.errors = [];
+
+                    _.forEach(data.children, function(value, key){
+                        if (value.errors){
+                            data.errors = data.errors.concat(value.errors);
+                        }
+                    });
+                }
+
+                Form.prototype.showFieldError.call(block, data, field);
+            },
             submit: function() {
                 var block = this;
 

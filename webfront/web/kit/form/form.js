@@ -27,13 +27,13 @@ define(function(require) {
                 block.submitStart();
                 block.trigger('submit:start');
 
-                Promise.resolve(block.submit()).then(function() {
+                Promise.resolve(block.submit()).then(function(response) {
 
-                    block.submitSuccess();
-                    block.trigger('submit:success');
+                    block.submitSuccess(response);
+                    block.trigger('submit:success', response);
 
-                    block.submitComplete();
-                    block.trigger('submit:complete');
+                    block.submitComplete(response);
+                    block.trigger('submit:complete', response);
 
                 }, function(response) {
 
@@ -85,7 +85,7 @@ define(function(require) {
             var block = this;
 
             if (block.collection) {
-                block.collection.push(block.model);
+                block.collection.add(block.model);
             }
 
             if (block.redirectUrl) {
