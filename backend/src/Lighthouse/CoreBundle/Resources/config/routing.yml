@@ -11,6 +11,10 @@ lighthouse.core.product.barcode:
     parent:   lighthouse.core.product
     type:     rest
 
+lighthouse.core.stock_movement:
+    resource: Lighthouse\CoreBundle\Controller\StockMovementController
+    type:     rest
+
 lighthouse.core.invoice:
     resource: Lighthouse\CoreBundle\Controller\InvoiceController
     parent:   lighthouse.core.store
