@@ -107,12 +107,8 @@ And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' pa
 
 When the user clicks on the edit group icon
 And the user clicks on delete group button in edit group modal window
-And the user clicks on delete group confirm button in edit group modal window
 
-Then the user sees exact error messages
-| error message |
-| Нельзя удалить группу с товарами |
-
+Then the user asserts pop over content is 'Чтобы удалить группу, нужно сначала удалить все товары в ней.'
 
 Scenario: Create new product modal window title assert
 

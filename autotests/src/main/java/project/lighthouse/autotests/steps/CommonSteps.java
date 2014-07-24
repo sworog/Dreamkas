@@ -1,9 +1,11 @@
 package project.lighthouse.autotests.steps;
 
-import junit.framework.Assert;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
+import org.hamcrest.Matchers;
 import org.jbehave.core.model.ExamplesTable;
+import org.junit.Assert;
+import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.elements.bootstrap.WaitForModalWindowClose;
 import project.lighthouse.autotests.elements.preLoader.BodyPreLoader;
@@ -88,5 +90,11 @@ public class CommonSteps extends ScenarioSteps {
     @Step
     public void waitForPageFinishingLoading() {
         new BodyPreLoader(getDriver()).await();
+    }
+
+    @Step
+    public void assertPopOverContent(String expectedContent) {
+        String actualContent = commonPage.findVisibleElement(By.className("popover-content")).getText();
+        Assert.assertThat(actualContent, Matchers.is(expectedContent));
     }
 }

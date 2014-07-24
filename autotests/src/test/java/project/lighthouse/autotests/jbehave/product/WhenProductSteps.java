@@ -59,4 +59,14 @@ public class WhenProductSteps {
     public void whenTheUserClicksOnDeleteProductConfirmButtonInEditProductModalWindow() {
         productSteps.confirmDeleteButtonClick();
     }
+
+    @When("the user generates symbols with count '$count' in the create new product modal window '$elementName' field")
+    public void whenTheUserGeneratesSymbolsWithCountInCreateNewProductModalWindowField(int count, String elementName) {
+        productSteps.createNewProductModalWindowFieldGenerateText(elementName, count);
+    }
+
+    @When("the user inputs value in create new product modal windows '$elementName' field")
+    public void whenTheUserImputsInCreateNewProductModelWindowField(String value, String elementName) {
+        productSteps.createNewProductModalWindowInput(elementName, value);
+    }
 }
