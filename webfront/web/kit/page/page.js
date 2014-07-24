@@ -126,10 +126,12 @@ define(function(require, exports, module) {
             }, 0);
         },
 
-        _initBlocks: function(){
-            var block = this;
+        initBlocks: function(){
+            var page = this;
 
-            Block.prototype._initBlocks.apply(block, arguments);
+            page.$('[data-toggle="popover"]').popover();
+
+            Block.prototype.initBlocks.apply(page, arguments);
         }
     });
 

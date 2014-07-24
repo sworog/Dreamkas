@@ -79,7 +79,8 @@ helpers = {
 <!--MODALS-->
 
 <%= partials.modal_groupForm({
-    group: models.group
+    group: models.group,
+    productsCollection: collections.products
 }) %>
 <%= partials.modal_productForm({
     collections: {
