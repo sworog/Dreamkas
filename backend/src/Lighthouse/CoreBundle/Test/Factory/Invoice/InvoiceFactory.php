@@ -97,6 +97,6 @@ class InvoiceFactory extends AbstractFactory
      */
     protected function getInvoiceProductRepository()
     {
-        return $this->container->get('lighthouse.core.document.repository.invoice_product');
+        return $this->container->get('lighthouse.core.document.repository.stock_movement.invoice_product');
     }
 }

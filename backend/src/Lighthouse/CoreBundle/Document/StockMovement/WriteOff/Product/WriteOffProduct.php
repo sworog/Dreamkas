@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\WriteOff\Product;
+namespace Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
@@ -9,7 +9,7 @@ use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
-use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -19,7 +19,7 @@ use DateTime;
 
 /**
  * @MongoDB\Document(
- *      repositoryClass="Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProductRepository"
+ *      repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProductRepository"
  * )
  * @MongoDB\HasLifecycleCallbacks
  *
@@ -96,7 +96,7 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
 
     /**
      * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\WriteOff\WriteOff",
+     *     targetDocument="Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff",
      *     simple=true,
      *     cascade="persist",
      *     inversedBy="products"

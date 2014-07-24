@@ -1,15 +1,15 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\WriteOff;
+namespace Lighthouse\CoreBundle\Document\StockMovement\WriteOff;
 
-use Doctrine\Common\Collections\Collection;
-use Lighthouse\CoreBundle\Document\AbstractDocument;
+
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
-use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
+use Symfony\Component\Validator\Constraints as Assert;
 use DateTime;
 
 /**
@@ -21,27 +21,11 @@ use DateTime;
  * @property int $itemsCount
  * @property WriteOffProduct[]|Collection $products
  *
- * @MongoDB\Document(
- *     repositoryClass="Lighthouse\CoreBundle\Document\WriteOff\WriteOffRepository"
- * )
+ * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffRepository")
  */
-class WriteOff extends AbstractDocument implements Storeable
+class WriteOff extends StockMovement
 {
-    /**
-     * @MongoDB\Id
-     * @var string
-     */
-    protected $id;
-
-    /**
-     * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
-     *     simple=true
-     * )
-     * @Assert\NotBlank
-     * @var Store
-     */
-    protected $store;
+    const TYPE = 'WriteOff';
 
     /**
      * Номер
@@ -77,7 +61,7 @@ class WriteOff extends AbstractDocument implements Storeable
 
     /**
      * @MongoDB\ReferenceMany(
-     *      targetDocument="Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct",
+     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProduct",
      *      simple=true,
      *      cascade="persist",
      *      mappedBy="writeOff"
@@ -87,12 +71,4 @@ class WriteOff extends AbstractDocument implements Storeable
      * @var WriteOffProduct[]|Collection
      */
     protected $products;
-
-    /**
-     * @return Store
-     */
-    public function getStore()
-    {
-        return $this->store;
-    }
 }

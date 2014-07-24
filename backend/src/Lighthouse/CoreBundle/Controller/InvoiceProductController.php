@@ -16,7 +16,7 @@ use JMS\SecurityExtraBundle\Annotation\SecureParam;
 class InvoiceProductController extends FOSRestController
 {
     /**
-     * @DI\Inject("lighthouse.core.document.repository.invoice_product")
+     * @DI\Inject("lighthouse.core.document.repository.stock_movement.invoice_product")
      * @var InvoiceProductRepository
      */
     protected $documentRepository;

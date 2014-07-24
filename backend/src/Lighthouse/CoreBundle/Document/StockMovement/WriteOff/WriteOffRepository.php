@@ -1,18 +1,22 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\WriteOff;
+namespace Lighthouse\CoreBundle\Document\StockMovement\WriteOff;
 
 use Lighthouse\CoreBundle\Document\DocumentRepository;
+use Doctrine\ODM\MongoDB\LockMode;
 use Doctrine\ODM\MongoDB\Cursor;
 
+/**
+ * @method WriteOff find($id, $lockMode = LockMode::NONE, $lockVersion = null)
+ */
 class WriteOffRepository extends DocumentRepository
 {
     /**
      * @param $storeId
-     * @param WriteOffsFilter $filter
+     * @param WriteOffFilter $filter
      * @return WriteOff[]|Cursor
      */
-    public function findByStore($storeId, WriteOffsFilter $filter)
+    public function findByStore($storeId, WriteOffFilter $filter)
     {
         $criteria = array('store' => $storeId);
         $sort = array('date' => self::SORT_DESC);

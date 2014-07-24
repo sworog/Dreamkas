@@ -1,10 +1,10 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\WriteOff\Product;
+namespace Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product;
 
 use Doctrine\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
-use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff;
 
 class WriteOffProductRepository extends DocumentRepository
 {

@@ -1,17 +1,17 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\WriteOff;
+namespace Lighthouse\CoreBundle\Document\StockMovement\WriteOff;
 
 use Lighthouse\CoreBundle\Meta\MetaGeneratorInterface;
 
 class WriteOffHighlightGenerator implements MetaGeneratorInterface
 {
     /**
-     * @var WriteOffsFilter
+     * @var WriteOffFilter
      */
     protected $filter;
 
-    public function __construct(WriteOffsFilter $filter)
+    public function __construct(WriteOffFilter $filter)
     {
         $this->filter = $filter;
     }

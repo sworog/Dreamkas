@@ -26,6 +26,21 @@ class InvoiceProductRepository extends DocumentRepository
     }
 
     /**
+     * @param string $storeId
+     * @return Cursor|InvoiceProduct[]
+     */
+    public function findByStoreId($storeId)
+    {
+        $criteria = array(
+            'store' => $storeId,
+        );
+        $sort = array(
+            'acceptanceDate' => self::SORT_DESC,
+        );
+        return $this->findBy($criteria, $sort);
+    }
+
+    /**
      * @param Invoice $invoice
      * @return bool
      */

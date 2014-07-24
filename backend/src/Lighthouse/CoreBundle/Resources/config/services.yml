@@ -62,8 +62,6 @@ services:
         class: Lighthouse\CoreBundle\Document\StockMovement\StockMovementRepository
         arguments:
             - LighthouseCoreBundle:StockMovement\StockMovement
-        calls:
-            - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
 
     lighthouse.core.document.repository.stock_movement.invoice:
         parent: doctrine_mongodb.odm.repository
@@ -73,7 +71,7 @@ services:
         calls:
             - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
 
-    lighthouse.core.document.repository.invoice_product:
+    lighthouse.core.document.repository.stock_movement.invoice_product:
         parent: doctrine_mongodb.odm.repository
         class: Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProductRepository
         arguments:
@@ -96,17 +94,17 @@ services:
         arguments:
             - LighthouseCoreBundle:Returne\Product\ReturnProduct
 
-    lighthouse.core.document.repository.writeoff:
+    lighthouse.core.document.repository.stock_movement.writeoff:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\WriteOff\WriteOffRepository
+        class: Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffRepository
         arguments:
-            - LighthouseCoreBundle:WriteOff\WriteOff
+            - LighthouseCoreBundle:StockMovement\WriteOff\WriteOff
 
-    lighthouse.core.document.repository.writeoff.product:
+    lighthouse.core.document.repository.stock_movement.writeoff_product:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProductRepository
+        class: Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProductRepository
         arguments:
-            - LighthouseCoreBundle:WriteOff\Product\WriteOffProduct
+            - LighthouseCoreBundle:StockMovement\WriteOff\Product\WriteOffProduct
 
     lighthouse.core.document.repository.classifier.group:
         parent: doctrine_mongodb.odm.repository

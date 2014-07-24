@@ -1,10 +1,10 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\WriteOff;
+namespace Lighthouse\CoreBundle\Document\StockMovement\WriteOff;
 
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
-use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProduct;
 use JMS\DiExtraBundle\Annotation as DI;
 
 /**
@@ -19,7 +19,7 @@ class WriteOffTotalsListener extends AbstractMongoDBListener
 
     /**
      * @DI\InjectParams({
-     *     "writeOffRepository"=@DI\Inject("lighthouse.core.document.repository.writeoff")
+     *     "writeOffRepository"=@DI\Inject("lighthouse.core.document.repository.stock_movement.writeoff")
      * })
      *
      * @param WriteOffRepository $writeOffRepository

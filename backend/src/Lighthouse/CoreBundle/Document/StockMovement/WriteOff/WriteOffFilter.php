@@ -1,10 +1,10 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\WriteOff;
+namespace Lighthouse\CoreBundle\Document\StockMovement\WriteOff;
 
 use Lighthouse\CoreBundle\Request\ParamConverter\Filter\FilterInterface;
 
-class WriteOffsFilter implements FilterInterface
+class WriteOffFilter implements FilterInterface
 {
     /**
      * @var string

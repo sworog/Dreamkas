@@ -50,10 +50,8 @@ class InvoicesImporterTest extends WebTestCase
      */
     protected function assertStoreInvoiceProductCount(array $storeInvoiceProductCount)
     {
-        /* @var InvoiceProductRepository $invoiceProductRepository */
-        $invoiceProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.invoice_product');
         foreach ($storeInvoiceProductCount as $storeId => $count) {
-            $invoiceProducts = $invoiceProductRepository->findBy(array('store' => $storeId));
+            $invoiceProducts = $this->getInvoiceProductRepository()->findByStoreId($storeId);
             $this->assertEquals($count, $invoiceProducts->count());
         }
     }
@@ -143,5 +141,13 @@ class InvoicesImporterTest extends WebTestCase
             $storeId3 => 11,
         );
         $this->assertStoreInvoiceProductCount($storeInvoiceProductCount);
+    }
+
+    /**
+     * @return InvoiceProductRepository
+     */
+    protected function getInvoiceProductRepository()
+    {
+        return $this->getContainer()->get('lighthouse.core.document.repository.stock_movement.invoice_product');
     }
 }
