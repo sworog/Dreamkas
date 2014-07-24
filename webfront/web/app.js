@@ -10,6 +10,10 @@ define(function(require) {
         getText = require('kit/getText/getText'),
         numeral = require('numeral');
 
+    require('madmin/js/jquery-ui');
+    require('madmin/vendors/bootstrap/js/bootstrap');
+    require('madmin/vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown');
+
     getText.dictionary = require('i18n!nls/main');
 
     moment.lang('root', require('i18n!nls/moment'));

@@ -43,6 +43,7 @@ body[status="loaded"]:before {
 #signin-page, #signup-page {
     height: 100%;
     overflow: hidden;
+    background: url("/madmin/images/bg/3.jpg");
 }
 
 #topbar {
@@ -79,6 +80,9 @@ input + .form__errorMessage {
     display: inline-block;
     padding: 5px 10px;
     cursor: pointer;
+    border: none;
+    background: transparent;
+    outline: none;
 }
 
 .confirmLink__confirmation .removeLink {
@@ -127,4 +131,5 @@ input.invalid {
 .product__link {
     cursor: pointer;
 }
+
 

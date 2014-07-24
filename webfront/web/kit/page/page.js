@@ -129,7 +129,9 @@ define(function(require, exports, module) {
         initBlocks: function(){
             var page = this;
 
-            page.$('[data-toggle="popover"]').popover();
+            page.$('button[data-toggle="popover"]').popover({
+                trigger: 'focus'
+            });
 
             Block.prototype.initBlocks.apply(page, arguments);
         }

@@ -52,10 +52,10 @@
                     <% if (group.id) { %>
 
                     <% if (productsCollection.length) { %>
-                    <span class="removeLink group__removeLink" data-placement="top" data-toggle="popover" data-content="Чтобы удалить группу, нужно сначала удалить все товары в ней.">
+                    <button type="button" class="removeLink group__removeLink" data-placement="top" data-toggle="popover" data-content="Чтобы удалить группу, нужно сначала удалить все товары в ней.">
                         <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
                         Удалить группу
-                    </span>
+                    </button>
                     <% } else { %>
                     <div class="confirmLink">
 
