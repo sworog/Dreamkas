@@ -8,10 +8,10 @@ import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
-import project.lighthouse.autotests.steps.api.administrator.UserApiSteps;
-import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
-import project.lighthouse.autotests.steps.api.commercialManager.StoreApiSteps;
-import project.lighthouse.autotests.steps.api.departmentManager.InvoiceApiSteps;
+import project.lighthouse.autotests.steps.deprecated.api.administrator.UserApiSteps;
+import project.lighthouse.autotests.steps.deprecated.api.commercialManager.CatalogApiSteps;
+import project.lighthouse.autotests.steps.deprecated.api.commercialManager.StoreApiSteps;
+import project.lighthouse.autotests.steps.deprecated.api.departmentManager.InvoiceApiSteps;
 import project.lighthouse.autotests.steps.deprecated.departmentManager.WriteOffSteps;
 
 import java.io.IOException;

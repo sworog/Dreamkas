@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
-import project.lighthouse.autotests.objects.web.product.ProductObjectCollection;
+import project.lighthouse.autotests.objects.web.deprecated.product.ProductObjectCollection;
 
 @DefaultUrl("/products")
 public class ProductListPage extends CommonPageObject {

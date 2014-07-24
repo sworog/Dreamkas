@@ -5,7 +5,8 @@
 @import "/madmin/vendors/iCheck/skins/all.css";
 @import "/madmin/css/blue-grey.css";
 @import "/madmin/css/style-responsive.css";
-
+@import "/bower_components/select2/select2.css";
+@import "/bower_components/select2/select2-bootstrap.css";
 @import "/blocks/confirmLink/confirmLink.css";
 @import "/blocks/groupList/groupList.css";
 
@@ -13,19 +14,23 @@ body:before {
     content: "";
     position: fixed;
     top: 0;
-    -webkit-transform: translate3d(0, 0, 0);
     left: -100%;
     width: 100%;
     height: 5px;
     background-color: #d40000;
     z-index: 300;
     -webkit-transition: -webkit-transform 0, opacity 0;
+    -webkit-transform: translate3d(0, 0, 0);
+    transition: transform 0, opacity 0;
+    transform: translate3d(0, 0, 0);
     opacity: 1;
 }
 
 body[status="loading"]:before {
     -webkit-transform: translate3d(70%, 0, 0);
     -webkit-transition: -webkit-transform 4s, opacity 1s;
+    transform: translate3d(70%, 0, 0);
+    transition: transform 4s, opacity 1s;
     opacity: 1;
 }
 
@@ -37,11 +42,14 @@ body[status="loaded"]:before {
     opacity: 0;
     -webkit-transform: translate3d(100%, 0, 0);
     -webkit-transition: -webkit-transform 1s, opacity 1s;
+    transform: translate3d(100%, 0, 0);
+    transition: transform 1s, opacity 1s;
 }
 
-#signin-page, #signup-page{
+#signin-page, #signup-page {
     height: 100%;
     overflow: hidden;
+    background: url("/madmin/images/bg/3.jpg");
 }
 
 #topbar {
@@ -73,18 +81,21 @@ input + .form__errorMessage {
     background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent) !important;
 }
 
-.form__groupRemoveLink {
+.removeLink {
     color: #999;
     display: inline-block;
     padding: 5px 10px;
     cursor: pointer;
+    border: none;
+    background: transparent;
+    outline: none;
 }
 
-.confirmLink__confirmation .form__groupRemoveLink {
+.confirmLink__confirmation .removeLink {
     color: #d40000;
 }
 
-.form__groupRemoveLink.loading {
+.removeLink.loading {
     background-color: #5bc0de;
     color: #fff;
 }
@@ -93,7 +104,7 @@ input.invalid {
     border-color: #db4c4a;
 }
 
-.modal-header{
+.modal-header {
     padding: 10px 20px;
 }
 
@@ -117,4 +128,38 @@ input.invalid {
 .modal-body {
     padding: 20px 65px;
 }
+
+.product__markup {
+    height: 34px;
+    line-height: 34px;
+}
+
+.product__link {
+    cursor: pointer;
+}
+
+.select2-container .select2-choice {
+    background-image: none;
+    height: 32px;
+    line-height: 32px;
+}
+
+.select2-container .select2-choice .select2-arrow {
+    background-image: none;
+    background-color: #f4f4f4;
+    border-left-color: #e5e5e5;
+}
+
+.select2-container .select2-choice .select2-arrow b{
+    background-position: 0 4px;
+}
+
+.select2-dropdown-open .select2-choice{
+    background-color: #fafafa;
+}
+
+.select2-drop-active{
+    padding-top: 5px;
+}
+
 

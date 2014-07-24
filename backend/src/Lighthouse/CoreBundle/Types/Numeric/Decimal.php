@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Types\Numeric;
 
 use Lighthouse\CoreBundle\Document\ClassNameable;
+use Lighthouse\CoreBundle\Types\Nullable;
 use Lighthouse\CoreBundle\Types\RawValue;
 
 class Decimal implements Numeric, RawValue, ClassNameable
@@ -251,6 +252,15 @@ class Decimal implements Numeric, RawValue, ClassNameable
         $result = bcmul((string) $numeric, static::getDivider($precision), $precision + 1);
         $count = (int) static::round($result, 0, $roundMode);
         return new static($count, $precision);
+    }
+
+    /**
+     * @param Nullable $value
+     * @return bool
+     */
+    public static function checkIsNull(Nullable $value = null)
+    {
+        return null === $value || $value->isNull();
     }
 
     /**

@@ -11,15 +11,13 @@ import project.lighthouse.autotests.objects.web.compare.CompareResults;
 import java.util.Map;
 
 /**
- * Object to store product list object data
+ * Product object
  */
 public class ProductObject extends AbstractObject implements ObjectLocatable, ObjectClickable, ResultComparable {
 
     private String name;
-    private String vendor;
-    private String vendorCountry;
-    private String purchasePrice;
-    private String sku;
+    private String sellingPrice;
+    private String barcode;
 
     public ProductObject(WebElement element) {
         super(element);
@@ -28,10 +26,8 @@ public class ProductObject extends AbstractObject implements ObjectLocatable, Ob
     @Override
     public void setProperties() {
         name = getElement().findElement(By.name("name")).getText();
-        vendor = getElement().findElement(By.name("vendor")).getText();
-        vendorCountry = getElement().findElement(By.name("vendorCountry")).getText();
-        purchasePrice = getElement().findElement(By.name("purchasePrice")).getText();
-        sku = getElement().findElement(By.name("sku")).getText();
+        sellingPrice = getElement().findElement(By.name("sellingPrice")).getText();
+        barcode = getElement().findElement(By.name("barcode")).getText();
     }
 
     @Override
@@ -48,16 +44,7 @@ public class ProductObject extends AbstractObject implements ObjectLocatable, Ob
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("name", name, row.get("name"))
-                .compare("vendor", vendor, row.get("vendor"))
-                .compare("vendorCountry", vendorCountry, row.get("vendorCountry"))
-                .compare("purchasePrice", purchasePrice, row.get("purchasePrice"));
-    }
-
-    public String getPurchasePrice() {
-        return purchasePrice;
-    }
-
-    public String getSku() {
-        return sku;
+                .compare("sellingPrice", sellingPrice, row.get("sellingPrice"))
+                .compare("barcode", barcode, row.get("barcode"));
     }
 }

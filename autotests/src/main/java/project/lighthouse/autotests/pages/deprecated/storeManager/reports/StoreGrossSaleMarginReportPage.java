@@ -3,7 +3,7 @@ package project.lighthouse.autotests.pages.deprecated.storeManager.reports;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.objects.web.grossMargin.GrossMarginTableObjectCollection;
+import project.lighthouse.autotests.objects.web.deprecated.grossMargin.GrossMarginTableObjectCollection;
 
 public class StoreGrossSaleMarginReportPage extends CommonPageObject {
 

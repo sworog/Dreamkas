@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.objects.web.supplier.SupplierObjectCollection;
+import project.lighthouse.autotests.objects.web.deprecated.supplier.SupplierObjectCollection;
 
 /**
  * Page object class representing supplier list page

@@ -6,7 +6,7 @@ import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.Buttons.LinkFacade;
 import project.lighthouse.autotests.elements.items.Input;
-import project.lighthouse.autotests.objects.web.product.barcodes.BarcodeObjectCollection;
+import project.lighthouse.autotests.objects.web.deprecated.product.barcodes.BarcodeObjectCollection;
 
 public class ExtraBarcodesPage extends CommonPageObject {
 

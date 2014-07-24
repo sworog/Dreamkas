@@ -3,13 +3,14 @@ package project.lighthouse.autotests.objects.api;
 import org.json.JSONException;
 import org.json.JSONObject;
 import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.abstraction.AbstractClassifierNode;
 
 import java.util.ArrayList;
 
 public class SubCategory extends AbstractClassifierNode {
 
-    private static final String API_URL = "/subcategories";
+    private static final String API_URL = "/catalog/groups";
 
     static public String DEFAULT_NAME = "defaultSubCategory";
 
@@ -19,7 +20,7 @@ public class SubCategory extends AbstractClassifierNode {
 
     public SubCategory(String name) throws JSONException {
         super(name);
-        jsonObject.put("category", getCategory().getId());
+        //jsonObject.put("category", getCategory().getId());
     }
 
     public SubCategory(String name, String categoryId) throws JSONException {
@@ -72,5 +73,10 @@ public class SubCategory extends AbstractClassifierNode {
         }
         products.add(product);
         StaticData.subCategoryProducts.put(getId(), products);
+    }
+
+    public static String getPageUrl(String groupName) throws JSONException {
+        String groupId = StaticData.subCategories.get(groupName).getId();
+        return String.format("%s/catalog/groups/%s", UrlHelper.getWebFrontUrl(), groupId);
     }
 }

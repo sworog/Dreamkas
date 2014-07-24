@@ -110,6 +110,9 @@ And the user clicks on the edit group icon
 And the user clicks on delete group button in edit group modal window
 And the user clicks on delete group confirm button in edit group modal window
 
+Then the user waits for modal window closing
+And the user waits for page finishing loading
+
 Then the user asserts catalog title is 'Ассортимент'
 And the user asserts the groups list not contain group with name 'Группа для удаления'
 
@@ -217,6 +220,9 @@ When the user clicks on the group with name 'GroupDeletion'
 And the user clicks on the edit group icon
 And the user clicks on delete group button in edit group modal window
 And the user clicks on delete group confirm button in edit group modal window
+
+Then the user waits for modal window closing
+And the user waits for page finishing loading
 
 Then the user asserts the groups list not contain group with name 'GroupDeletion'
 
