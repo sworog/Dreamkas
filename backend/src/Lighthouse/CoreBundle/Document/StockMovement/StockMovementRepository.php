@@ -4,10 +4,8 @@ namespace Lighthouse\CoreBundle\Document\StockMovement;
 
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
-use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoicesFilter;
-use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 
 class StockMovementRepository extends DocumentRepository
@@ -35,33 +33,6 @@ class StockMovementRepository extends DocumentRepository
         $invoice->sumTotal = $this->numericFactory->createMoney();
         $invoice->totalAmountVAT = $this->numericFactory->createMoney();
         $invoice->sumTotalWithoutVAT = $this->numericFactory->createMoney();
-
-        return $invoice;
-    }
-
-    /**
-     * @param Order $order
-     * @return Invoice
-     */
-    public function createInvoiceByOrder(Order $order)
-    {
-        $invoice = $this->createNewInvoice();
-
-        $invoice->order = $order;
-        $invoice->store = $order->store;
-        $invoice->supplier = $order->supplier;
-
-        foreach ($order->products as $orderProduct) {
-            $invoiceProduct = new InvoiceProduct();
-            $invoiceProduct->quantity = $orderProduct->quantity;
-            $invoiceProduct->product = $orderProduct->product;
-            $invoiceProduct->priceEntered = $orderProduct->product->purchasePrice;
-            $invoiceProduct->invoice = $invoice;
-
-            $invoice->products->add($invoiceProduct);
-        }
-
-        $invoice->calculateTotals();
 
         return $invoice;
     }

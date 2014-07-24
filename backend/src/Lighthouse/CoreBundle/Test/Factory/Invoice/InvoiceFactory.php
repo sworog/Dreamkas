@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Test\Factory\Invoice;
 
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
-use Lighthouse\CoreBundle\Document\StockMovement\StockMovementRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Test\Factory\AbstractFactory;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
@@ -21,7 +21,7 @@ class InvoiceFactory extends AbstractFactory
     {
         $builder = new InvoiceBuilder(
             $this->factory,
-            $this->getStockMovementRepository(),
+            $this->getInvoiceRepository(),
             $this->factory->getValidator(),
             $this->factory->getNumericFactory()
         );
@@ -40,7 +40,7 @@ class InvoiceFactory extends AbstractFactory
     {
         $builder = new InvoiceBuilder(
             $this->factory,
-            $this->getStockMovementRepository(),
+            $this->getInvoiceRepository(),
             $this->factory->getValidator(),
             $this->factory->getNumericFactory()
         );
@@ -52,11 +52,11 @@ class InvoiceFactory extends AbstractFactory
      * @throws \RuntimeException
      * @throws \Doctrine\ODM\MongoDB\Mapping\MappingException
      * @throws \Doctrine\ODM\MongoDB\LockException
-     * @return \Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice
+     * @return Invoice
      */
     public function getInvoiceById($id)
     {
-        $invoice = $this->getStockMovementRepository()->find($id);
+        $invoice = $this->getInvoiceRepository()->find($id);
         if (null === $invoice) {
             throw new \RuntimeException(sprintf('Invoice id#%s not found', $id));
         }
@@ -85,11 +85,11 @@ class InvoiceFactory extends AbstractFactory
         return $this->container->get('lighthouse.core.types.numeric.factory');
     }
     /**
-     * @return StockMovementRepository
+     * @return InvoiceRepository
      */
-    public function getStockMovementRepository()
+    public function getInvoiceRepository()
     {
-        return $this->container->get('lighthouse.core.document.repository.stock_movement');
+        return $this->container->get('lighthouse.core.document.repository.stock_movement.invoice');
     }
 
     /**

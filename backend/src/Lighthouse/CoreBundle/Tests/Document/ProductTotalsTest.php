@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Tests\Document;
 use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
@@ -39,6 +40,14 @@ class ProductTotalsTest extends ContainerAwareTestCase
     protected function getNumericFactory()
     {
         return $this->getContainer()->get('lighthouse.core.types.numeric.factory');
+    }
+
+    /**
+     * @return InvoiceRepository
+     */
+    protected function getInvoiceRepository()
+    {
+        return $this->getContainer()->get('lighthouse.core.document.repository.stock_movement.invoice');
     }
 
     public function testShopProductAmountChangesOnInOutOperations()
@@ -76,7 +85,7 @@ class ProductTotalsTest extends ContainerAwareTestCase
             ->flush();
 
         // get invoice from right container
-        $invoice = $this->getContainer()->get('lighthouse.core.document.repository.invoice')->find($invoice->id);
+        $invoice = $this->getInvoiceRepository()->find($invoice->id);
 
         $invoiceProduct = $invoice->products[0];
 

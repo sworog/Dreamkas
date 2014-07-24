@@ -10,6 +10,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
+ * @property string $id
+ * @property Store $store
+ *
  * @MongoDB\MappedSuperclass(
  *      repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\StockMovementRepository"
  * )

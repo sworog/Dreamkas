@@ -7,12 +7,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\ODM\MongoDB\PersistentCollection;
 use JMS\Serializer\Annotation as Serializer;
-use Lighthouse\CoreBundle\Document\AbstractDocument;
+
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
-use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Document\Store\Storeable;
+
+
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
@@ -36,7 +36,7 @@ use DateTime;
  * @property boolean    $includesVAT
  * @property Collection|InvoiceProduct[]|PersistentCollection $products
  *
- * @MongoDB\Document()
+ * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository")
  * @AssertMongoDB\Unique(message="lighthouse.validation.errors.invoice.order.unique", fields={"order"})
  */
 class Invoice extends StockMovement

@@ -65,6 +65,14 @@ services:
         calls:
             - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
 
+    lighthouse.core.document.repository.stock_movement.invoice:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository
+        arguments:
+            - LighthouseCoreBundle:StockMovement\Invoice\Invoice
+        calls:
+            - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
+
     lighthouse.core.document.repository.invoice_product:
         parent: doctrine_mongodb.odm.repository
         class: Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProductRepository

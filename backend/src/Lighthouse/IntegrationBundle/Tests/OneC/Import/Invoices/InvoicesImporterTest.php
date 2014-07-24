@@ -2,7 +2,8 @@
 
 namespace Lighthouse\IntegrationBundle\Tests\OneC\Import\Invoices;
 
-use Lighthouse\CoreBundle\Document\StockMovement\StockMovementRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository;
+
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Test\TestOutput;
 use Lighthouse\IntegrationBundle\OneC\Import\Invoices\InvoicesImporter;
@@ -36,10 +37,10 @@ class InvoicesImporterTest extends WebTestCase
      */
     protected function assertStoreInvoiceCount(array $storeInvoiceCount)
     {
-        /* @var StockMovementRepository $stockMovementRepository */
-        $stockMovementRepository = $this->getContainer()->get('lighthouse.core.document.repository.stock_movement');
+        /* @var InvoiceRepository $invoiceRepository */
+        $invoiceRepository = $this->getContainer()->get('lighthouse.core.document.repository.stock_movement.invoice');
         foreach ($storeInvoiceCount as $storeId => $count) {
-            $invoices = $stockMovementRepository->findInvoicesByStore($storeId);
+            $invoices = $invoiceRepository->findByStore($storeId);
             $this->assertEquals($count, $invoices->count());
         }
     }

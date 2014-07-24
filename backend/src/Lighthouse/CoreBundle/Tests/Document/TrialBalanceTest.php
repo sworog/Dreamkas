@@ -160,8 +160,9 @@ class TrialBalanceTest extends ContainerAwareTestCase
                 ->createInvoiceProduct($product->id, 9, 0.99)
             ->flush();
 
+        $invoiceRepository = $this->getContainer()->get('lighthouse.core.document.repository.stock_movement.invoice');
         // get invoice from right container
-        $invoice = $this->getContainer()->get('lighthouse.core.document.repository.invoice')->find($invoice->id);
+        $invoice = $invoiceRepository->find($invoice->id);
 
         $endTrialBalanceCursor = $trialBalanceRepository->findByStoreProduct($storeProduct->id);
 

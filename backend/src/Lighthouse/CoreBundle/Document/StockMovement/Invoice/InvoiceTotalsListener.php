@@ -4,7 +4,7 @@ namespace Lighthouse\CoreBundle\Document\StockMovement\Invoice;
 
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
-use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
+
 use Symfony\Component\Validator\ObjectInitializerInterface;
 
 /**

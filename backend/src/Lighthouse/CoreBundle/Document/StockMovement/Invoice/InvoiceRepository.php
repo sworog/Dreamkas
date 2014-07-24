@@ -2,29 +2,14 @@
 
 namespace Lighthouse\CoreBundle\Document\StockMovement\Invoice;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\Cursor;
-use Lighthouse\CoreBundle\Document\DocumentRepository;
-use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoicesFilter;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Order\Order;
-use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
-use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementRepository;
 
-class InvoiceRepository extends DocumentRepository
+class InvoiceRepository extends StockMovementRepository
 {
-    /**
-     * @var NumericFactory
-     */
-    protected $numericFactory;
-
-    /**
-     * @param NumericFactory $numericFactory
-     */
-    public function setNumericFactory(NumericFactory $numericFactory)
-    {
-        $this->numericFactory = $numericFactory;
-    }
-
     /**
      * @return Invoice
      */
@@ -70,11 +55,13 @@ class InvoiceRepository extends DocumentRepository
      * @param InvoicesFilter $filter
      * @return Cursor|Invoice[]
      */
-    public function findByStore($storeId, InvoicesFilter $filter)
+    public function findByStore($storeId, InvoicesFilter $filter = null)
     {
-        $criteria = array('store' => $storeId);
+        $criteria = array(
+            'store' => $storeId,
+        );
         $sort = array('acceptanceDate' => self::SORT_DESC);
-        if ($filter->hasNumberOrSupplierInvoiceNumber()) {
+        if ($filter && $filter->hasNumberOrSupplierInvoiceNumber()) {
             $criteria['$or'] = array(
                 array('number' => $filter->getNumberOrSupplierInvoiceNumber()),
                 array('supplierInvoiceNumber' => $filter->getNumberOrSupplierInvoiceNumber()),
@@ -84,6 +71,8 @@ class InvoiceRepository extends DocumentRepository
     }
 
     /**
+     * @deprecated
+     *
      * @param Invoice $invoice
      * @param int $itemsCountDiff
      * @param int $sumTotalDiff
@@ -120,5 +109,17 @@ class InvoiceRepository extends DocumentRepository
         }
 
         $query->getQuery()->execute();
+    }
+
+    /**
+     * @param Invoice $invoice
+     */
+    public function resetInvoiceProducts(Invoice $invoice)
+    {
+        foreach ($invoice->products as $key => $invoiceProduct) {
+            unset($invoice->products[$key]);
+            $this->getDocumentManager()->remove($invoiceProduct);
+        }
+        $invoice->products = new ArrayCollection();
     }
 }
