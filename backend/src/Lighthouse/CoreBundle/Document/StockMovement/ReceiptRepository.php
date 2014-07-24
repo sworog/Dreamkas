@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Receipt;
+namespace Lighthouse\CoreBundle\Document\StockMovement;
 
 use Doctrine\ODM\MongoDB\Cursor;
 use Doctrine\ODM\MongoDB\Mapping;
@@ -20,7 +20,7 @@ class ReceiptRepository extends DocumentRepository
 
     /**
      * @param array $criteria
-     * @return Cursor
+     * @return Cursor|Receipt[]
      */
     public function findReceiptBy(array $criteria)
     {

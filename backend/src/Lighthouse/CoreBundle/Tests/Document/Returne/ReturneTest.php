@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Document\Returne;
 
-use Lighthouse\CoreBundle\Document\Returne\Returne;
+use Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 
 class ReturneTest extends ContainerAwareTestCase

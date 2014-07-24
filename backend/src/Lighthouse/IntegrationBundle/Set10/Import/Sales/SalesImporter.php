@@ -8,11 +8,12 @@ use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
-use Lighthouse\CoreBundle\Document\Returne\Product\ReturnProduct;
-use Lighthouse\CoreBundle\Document\Receipt\ReceiptRepository;
-use Lighthouse\CoreBundle\Document\Returne\Returne;
-use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
-use Lighthouse\CoreBundle\Document\Sale\Sale;
+use Lighthouse\CoreBundle\Document\StockMovement\Receipt;
+use Lighthouse\CoreBundle\Document\StockMovement\Returne\Product\ReturnProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
@@ -119,7 +120,7 @@ class SalesImporter
      * @param ProductRepository $productRepository
      * @param StoreRepository $storeRepository
      * @param VersionRepository $productVersionRepository
-     * @param ReceiptRepository $receiptRepository
+     * @param \Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository $receiptRepository
      * @param ValidatorInterface $validator
      * @param MoneyModelTransformer $moneyTransformer
      * @param NumericFactory $numericFactory
@@ -211,9 +212,9 @@ class SalesImporter
     }
 
     /**
-     * @param Sale|Returne $receipt
+     * @param Receipt $receipt
      */
-    protected function replaceReceipt($receipt)
+    protected function replaceReceipt(Receipt $receipt)
     {
         $this->receiptRepository->rollbackByHash($receipt->hash);
         $this->productRepository->getDocumentManager()->persist($receipt);
@@ -284,7 +285,7 @@ class SalesImporter
     /**
      * @param PurchaseElement $purchaseElement
      * @param DatePeriod $datePeriod
-     * @return Sale|Returne|null
+     * @return Sale|\Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne|null
      */
     public function createReceipt(PurchaseElement $purchaseElement, DatePeriod $datePeriod = null)
     {
@@ -301,7 +302,7 @@ class SalesImporter
      * @param PurchaseElement $purchaseElement
      * @param DatePeriod $datePeriod
      * @throws \Exception
-     * @return Sale
+     * @return \Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale
      */
     public function createSale(PurchaseElement $purchaseElement, DatePeriod $datePeriod = null)
     {
@@ -335,7 +336,7 @@ class SalesImporter
     /**
      * @param PurchaseElement $purchaseElement
      * @param DatePeriod $datePeriod
-     * @return Returne
+     * @return \Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne
      */
     public function createReturn(PurchaseElement $purchaseElement, DatePeriod $datePeriod = null)
     {
@@ -404,7 +405,7 @@ class SalesImporter
 
     /**
      * @param PositionElement $positionElement
-     * @return SaleProduct
+     * @return \Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct
      */
     public function createSaleProduct(PositionElement $positionElement)
     {
@@ -418,7 +419,7 @@ class SalesImporter
 
     /**
      * @param PositionElement $positionElement
-     * @return ReturnProduct
+     * @return \Lighthouse\CoreBundle\Document\StockMovement\Returne\Product\ReturnProduct
      */
     public function createReturnProduct(PositionElement $positionElement)
     {

@@ -7,7 +7,7 @@ use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
-use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;

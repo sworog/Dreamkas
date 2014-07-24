@@ -9,8 +9,8 @@ use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
-use Lighthouse\CoreBundle\Document\Sale\Sale;
-use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 

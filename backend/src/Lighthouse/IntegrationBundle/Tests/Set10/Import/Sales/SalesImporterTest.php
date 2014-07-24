@@ -2,8 +2,8 @@
 
 namespace Lighthouse\IntegrationBundle\Tests\Set10\Import\Sales;
 
-use Lighthouse\CoreBundle\Document\Receipt\ReceiptRepository;
-use Lighthouse\CoreBundle\Document\Sale\Sale;
+use Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\IntegrationBundle\Set10\Import\Sales\SalesImporter;
 use Lighthouse\IntegrationBundle\Set10\Import\Sales\SalesXmlParser;
 use Lighthouse\CoreBundle\Test\TestOutput;
@@ -316,12 +316,12 @@ class SalesImporterTest extends WebTestCase
 
         $utcDateTimeZone = new \DateTimeZone('UTC');
 
-        /* @var Sale $firstSale */
+        /* @var \Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale $firstSale */
         $firstSale = $receiptRepository->findBy(array('store' => $storeId), array('createdDate' => 1), 1)->getNext();
         $firstSaleCreatedDate = $firstSale->createdDate;
         $firstSaleCreatedDate->setTimezone($utcDateTimeZone);
 
-        /* @var Sale $lastSale */
+        /* @var \Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale $lastSale */
         $lastSale = $receiptRepository->findBy(array('store' => $storeId), array('createdDate' => -1), 1)->getNext();
         $lastSaleCreatedDate = $lastSale->createdDate;
         $lastSaleCreatedDate->setTimezone($utcDateTimeZone);

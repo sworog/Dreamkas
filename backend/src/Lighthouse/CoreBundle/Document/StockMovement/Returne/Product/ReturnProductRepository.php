@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\Returne\Product;
+namespace Lighthouse\CoreBundle\Document\StockMovement\Returne\Product;
 
 use Doctrine\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;

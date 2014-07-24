@@ -2,23 +2,19 @@
 
 namespace Lighthouse\CoreBundle\Document\StockMovement\Invoice;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Bundle\MongoDBBundle\Validator\Constraints as AssertMongoDB;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\ODM\MongoDB\PersistentCollection;
-use JMS\Serializer\Annotation as Serializer;
-
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
-
-
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as AssertLH;
-use Doctrine\Bundle\MongoDBBundle\Validator\Constraints as AssertMongoDB;
+use JMS\Serializer\Annotation as Serializer;
 use DateTime;
 
 /**
@@ -162,14 +158,6 @@ class Invoice extends StockMovement
     protected $products;
 
     /**
-     *
-     */
-    public function __construct()
-    {
-        $this->products = new ArrayCollection();
-    }
-
-    /**
      * @param Order $order
      */
     public function setOrder(Order $order = null)
@@ -186,7 +174,7 @@ class Invoice extends StockMovement
     public function setProducts($products)
     {
         foreach ($products as $product) {
-            $product->invoice = $this;
+            $product->setReasonParent($this);
         }
 
         $this->products = $products;

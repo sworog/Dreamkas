@@ -85,14 +85,15 @@ services:
 
     lighthouse.core.document.repository.receipt:
         parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository
         arguments:
-            - LighthouseCoreBundle:Receipt\Receipt
+            - LighthouseCoreBundle:StockMovement\Receipt
 
     lighthouse.core.document.repository.return.product:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\Returne\Product\ReturnProductRepository
+        class: Lighthouse\CoreBundle\Document\StockMovement\Returne\Product\ReturnProductRepository
         arguments:
-            - LighthouseCoreBundle:Returne\Product\ReturnProduct
+            - LighthouseCoreBundle:StockMovement\Returne\Product\ReturnProduct
 
     lighthouse.core.document.repository.stock_movement.writeoff:
         parent: doctrine_mongodb.odm.repository

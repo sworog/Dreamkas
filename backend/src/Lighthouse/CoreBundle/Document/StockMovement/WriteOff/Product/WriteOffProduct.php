@@ -205,6 +205,14 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
     }
 
     /**
+     * @param Storeable|WriteOff $parent
+     */
+    public function setReasonParent(Storeable $parent)
+    {
+        $this->writeOff = $parent;
+    }
+
+    /**
      * @param Quantity $quantity
      */
     public function setQuantity(Quantity $quantity = null)
