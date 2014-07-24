@@ -138,4 +138,28 @@ input.invalid {
     cursor: pointer;
 }
 
+.select2-container .select2-choice {
+    background-image: none;
+    height: 32px;
+    line-height: 32px;
+}
+
+.select2-container .select2-choice .select2-arrow {
+    background-image: none;
+    background-color: #f4f4f4;
+    border-left-color: #e5e5e5;
+}
+
+.select2-container .select2-choice .select2-arrow b{
+    background-position: 0 4px;
+}
+
+.select2-dropdown-open .select2-choice{
+    background-color: #fafafa;
+}
+
+.select2-drop-active{
+    padding-top: 5px;
+}
+
 
