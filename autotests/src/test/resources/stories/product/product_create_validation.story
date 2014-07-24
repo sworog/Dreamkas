@@ -10,7 +10,7 @@ Narrative:
 Scenario: Product create name is required
 
 Meta:
-@id
+@id_s38u101s19
 
 GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
@@ -27,7 +27,7 @@ Then the user checks the create new product modal window 'name' field has error 
 Scenario: Product create name max size validation good (300 symbols)
 
 Meta:
-@id
+@id_s38u101s20
 
 GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
@@ -46,7 +46,7 @@ Then the user asserts the groups list contain product with storedName
 Scenario: Product create name max size validation negative (301 symbols)
 
 Meta:
-@id
+@id_s38u101s21
 
 GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
@@ -63,7 +63,7 @@ Then the user checks the create new product modal window 'name' field has error 
 Scenario: Product create unit, barcode, vat, purhasePrice, sellingPrice field is not required
 
 Meta:
-@id
+@id_s38u101s22
 
 GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
@@ -85,7 +85,7 @@ Then the user asserts the groups list contain product with name 's38u101validati
 Scenario: Product create barcode max size validation good (200 symbols)
 
 Meta:
-@id
+@id_s38u101s23
 
 GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
@@ -108,7 +108,7 @@ Then the user asserts the groups list contain product with name 's38u101validati
 Scenario: Product create barcode max size validation negative (201 symbols)
 
 Meta:
-@id
+@id_s38u101s24
 
 GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
@@ -128,7 +128,7 @@ Then the user checks the create new product modal window 'barcode' field has err
 Scenario: Product create units max size validation good (50 symbols)
 
 Meta:
-@id
+@id_s38u101s25
 
 GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
@@ -150,7 +150,7 @@ Then the user asserts the groups list contain product with name 's38u101validati
 Scenario: Product create units max size validation negative (51 symbols)
 
 Meta:
-@id
+@id_s38u101s26
 
 GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
@@ -170,7 +170,7 @@ Then the user checks the create new product modal window 'unit' field has error 
 Scenario: Product create purchasePrice field length validation good
 
 Meta:
-@id
+@id_s38u101s27
 
 GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
@@ -192,7 +192,7 @@ Then the user asserts the groups list contain product with name 's38u101validati
 Scenario: Product create sellingPrice field length validation good
 
 Meta:
-@id
+@id_s38u101s28
 
 GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
@@ -214,7 +214,7 @@ Then the user asserts the groups list contain product with name 's38u101validati
 Scenario: Product create purchasePrice field validation negative
 
 Meta:
-@id
+@id_s38u101s29
 
 Given the user runs the symfony:user:create command with params: email 's28u101@lighthouse.pro' and password 'lighthouse'
 
@@ -244,7 +244,7 @@ Examples:
 Scenario: Product create sellingprice field validation negative
 
 Meta:
-@id
+@id_s38u101s30
 
 Given the user runs the symfony:user:create command with params: email 's28u101@lighthouse.pro' and password 'lighthouse'
 
