@@ -108,9 +108,9 @@ define(function(require) {
     loading.always(function() {
         requirejs([
             routes
-        ], function(routes) {
+        ], function(routesMap) {
             isStarted = true;
-            _.extend(router.routes, routes);
+            _.extend(router.routes, routesMap);
             router.start();
         });
     });

@@ -20,29 +20,26 @@ define(function(require) {
                 e.preventDefault();
 
                 var block = this,
-                    submit;
+                    submitting = $.when(block.submit());
 
                 block.formData = block.getData();
 
                 block.submitStart();
                 block.trigger('submit:start');
 
-                Promise.resolve(block.submit()).then(function(response) {
-
+                submitting.done(function(response) {
                     block.submitSuccess(response);
                     block.trigger('submit:success', response);
+                });
 
-                    block.submitComplete(response);
-                    block.trigger('submit:complete', response);
-
-                }, function(response) {
-
+                submitting.fail(function(response) {
                     block.submitError(response);
                     block.trigger('submit:error', response);
+                });
 
+                submitting.always(function(response) {
                     block.submitComplete(response);
                     block.trigger('submit:complete', response);
-
                 });
             }
         },
@@ -51,7 +48,7 @@ define(function(require) {
 
             Block.prototype.initialize.apply(block, arguments);
 
-            block.$el.closest('.modal').on('hidden.bs.modal', function(){
+            block.$el.closest('.modal').on('hidden.bs.modal', function() {
                 block.reset();
             });
 
@@ -155,11 +152,11 @@ define(function(require) {
 
             block.$submitButton.removeAttr('disabled');
         },
-        reset: function(){
+        reset: function() {
 
             var block = this;
 
-            block.$('[name]').each(function(){
+            block.$('[name]').each(function() {
                 $(this).val(block.model.get(this.getAttribute('name')));
             });
 

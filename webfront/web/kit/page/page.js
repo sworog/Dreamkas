@@ -41,7 +41,7 @@ define(function(require, exports, module) {
                 Page.previous.destroy();
             }
 
-            Promise.resolve(page.fetch()).then(function() {
+            $.when(page.fetch()).then(function() {
                 try {
                     page.render();
                     page.setStatus('loaded');
@@ -84,7 +84,7 @@ define(function(require, exports, module) {
                 return (data && typeof data.fetch === 'function') ? data.fetch() : data;
             });
 
-            return Promise.all(fetchList);
+            return $.when.apply($, fetchList);
         },
 
         destroy: function(){
