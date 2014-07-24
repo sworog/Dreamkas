@@ -19,7 +19,7 @@ class Returne extends Receipt
 {
     /**
      * @MongoDB\ReferenceMany(
-     *      targetDocument="Lighthouse\CoreBundle\Document\Returne\Product\ReturnProduct",
+     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Returne\Product\ReturnProduct",
      *      simple=true,
      *      cascade={"persist","remove"},
      *      mappedBy="return"
