@@ -68,7 +68,7 @@ define(function(require) {
 
             router.navigate(e.currentTarget.getAttribute('href'), {
                 trigger: e.currentTarget.dataset.trigger !== '0',
-                replace: e.currentTarget.dataset.replace !== '0'
+                replace: e.currentTarget.dataset.replace == '1'
             });
         }
     });
