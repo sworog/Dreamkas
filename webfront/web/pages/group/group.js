@@ -6,6 +6,10 @@ define(function(require, exports, module) {
     return Page.extend({
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'catalog',
+        params: {
+            productsSortBy: 'name',
+            productsSortDirection: 'descending'
+        },
         collections: {
             groups: function() {
                 var GroupsCollection = require('collections/groups/groups');
@@ -71,6 +75,14 @@ define(function(require, exports, module) {
 
                 $('#modal-productEdit').modal('show');
 
+            },
+            'click .table_products th': function(e) {
+                var page = this;
+
+                page.params.productsSortBy = e.target.dataset.productsSortBy;
+                page.params.productsSortDirection = e.target.dataset.sortedDirection || 'descending';
+
+                router.save(page.params);
             }
         },
         blocks: {
@@ -174,6 +186,17 @@ define(function(require, exports, module) {
                     }
                 };
             }
+        },
+        render: function(){
+            var page = this;
+
+            page.collections.sortedProducts = page.collections.products.sortBy(page.params.productsSortBy);
+
+            if (page.params.productsSortDirection === 'descending'){
+                page.collections.sortedProducts.reverse();
+            }
+
+            Page.prototype.render.apply(page, arguments);
         }
     });
 });

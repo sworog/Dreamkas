@@ -41,23 +41,36 @@ helpers = {
     <div class="row">
         <div class="col-md-12">
             <% if (collections.products.length) { %>
+
             <div class="panel">
                 <div class="panel-body">
-                    <table style="margin-bottom: 0" class="table table-hover">
+                    <table data-sortable style="margin-bottom: 0" class="table table_products table-hover">
                         <thead>
                         <tr>
-                            <th>Название</th>
-                            <th>Цена продажи, <i class="fa fa-rub"></i></th>
-                            <th>Штрих-код</th>
+                            <th data-products-sort-by="name"
+                                    <%- params.productsSortBy === 'name' ? 'data-sorted=true data-sorted-direction=' + params.productsSortDirection : '' %>>
+                                Название
+                            </th>
+                            <th data-products-sort-by="sellingPrice"
+                                    <%- params.productsSortBy === 'sellingPrice' ? 'data-sorted=true data-sorted-direction=' + params.productsSortDirection : '' %>>
+                                Цена продажи, <i class="fa fa-rub"></i>
+                            </th>
+                            <th data-products-sort-by="barcode"
+                                    <%- params.productsSortBy === 'barcode' ? 'data-sorted=true data-sorted-direction=' + params.productsSortDirection : '' %>>
+                                Штрих-код
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
 
-                        <% collections.products.forEach(function(productModel){ %>
+                        <% collections.sortedProducts.forEach(function(productModel){ %>
                         <tr class="product__link" data-product_id="<%- productModel.id %>">
-                            <td name="name"><%- productModel.get('name') %></td>
-                            <td name="sellingPrice"><%- productModel.get('sellingPrice')?helpers.formatMoney(productModel.get('sellingPrice')):'' %></td>
-                            <td name="barcode"><%- productModel.get('barcode') %></td>
+                            <td data-value="<%- productModel.get('name') %>"
+                                name="name"><%- productModel.get('name') %></td>
+                            <td data-value="<%- productModel.get('sellingPrice') %>"
+                                name="sellingPrice"><%- productModel.get('sellingPrice') ? helpers.formatMoney(productModel.get('sellingPrice')) : '' %></td>
+                            <td data-value="<%- productModel.get('barcode') %>"
+                                name="barcode"><%- productModel.get('barcode') %></td>
                         </tr>
                         <% }) %>
                         </tbody>
