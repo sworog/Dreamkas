@@ -24,7 +24,7 @@ public class CreateNewProductModalWindow extends ModalWindowPage {
 
     @Override
     public void createElements() {
-        put("group", new AutoComplete(this, By.xpath("//*[@id='modal-productAdd']//*[contains(@id, 's2id_autogen')]")));
+        put("group", new AutoComplete(this, By.xpath("//*[@id='modal-productAdd']//*[@class='select2-choice']")));
         put("name", new Input(this, By.xpath("//*[@id='modal-productAdd']//*[@name='name']")));
         put("unit", new Input(this, By.xpath("//*[@id='modal-productAdd']//*[@name='units']")));
         put("barcode", new Input(this, By.xpath("//*[@id='modal-productAdd']//*[@name='barcode']")));

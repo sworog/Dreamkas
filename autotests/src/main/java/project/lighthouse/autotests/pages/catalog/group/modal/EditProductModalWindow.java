@@ -22,7 +22,7 @@ public class EditProductModalWindow extends CreateNewProductModalWindow {
 
     @Override
     public void createElements() {
-        put("group", new AutoComplete(this, By.xpath("//*[@id='modal-productEdit']//*[contains(@id, 's2id_autogen')]")));
+        put("group", new AutoComplete(this, By.xpath("//*[@id='modal-productEdit']//*[@class='select2-choice']")));
         put("name", new Input(this, By.xpath("//*[@id='modal-productEdit']//*[@name='name']")));
         put("unit", new Input(this, By.xpath("//*[@id='modal-productEdit']//*[@name='units']")));
         put("barcode", new Input(this, By.xpath("//*[@id='modal-productEdit']//*[@name='barcode']")));

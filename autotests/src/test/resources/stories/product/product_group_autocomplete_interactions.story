@@ -1,6 +1,7 @@
 Meta:
 @sprint_38
 @us_101
+@test
 
 Narrative:
 Как владелец,
@@ -66,6 +67,7 @@ And the user inputs values in create new product modal window
 And the user confirms OK in create new product modal window
 
 Then the user waits for modal window closing
+And the user waits for page finishing loading
 
 Then the user asserts the groups list contain product with name 's38u101autocompleteName2'
 And the user asserts group title is 's38u101autoGroup1'
@@ -90,6 +92,7 @@ And the user inputs values in create new product modal window
 And the user confirms OK in create new product modal window
 
 Then the user waits for modal window closing
+And the user waits for page finishing loading
 
 Then the user asserts the groups list contain product with name 's38u101autocompleteName3'
 And the user asserts group title is 's38u101autoGroup2'

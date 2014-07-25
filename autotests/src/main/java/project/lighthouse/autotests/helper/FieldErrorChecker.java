@@ -21,7 +21,7 @@ public class FieldErrorChecker {
             String actualFieldErrorMessage;
             WebElement fieldWebElement = commonItem.getVisibleWebElement();
             if (commonItem instanceof AutoComplete) {
-                actualFieldErrorMessage = fieldWebElement.findElement(By.xpath("./../*[contains(@class, 'form__errorMessage')]")).getText();
+                actualFieldErrorMessage = fieldWebElement.findElement(By.xpath("./../../*[contains(@class, 'form__errorMessage')]")).getText();
             } else {
                 actualFieldErrorMessage = fieldWebElement.findElement(By.xpath("./..")).getText();
             }
