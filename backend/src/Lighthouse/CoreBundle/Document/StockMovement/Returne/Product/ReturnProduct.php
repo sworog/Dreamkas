@@ -19,7 +19,7 @@ use DateTime;
 
 /**
  * @MongoDB\Document(
- *      repositoryClass="Lighthouse\CoreBundle\Document\Returne\Product\ReturnProductRepository"
+ *      repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\Returne\Product\ReturnProductRepository"
  * )
  * @MongoDB\HasLifecycleCallbacks
  *
