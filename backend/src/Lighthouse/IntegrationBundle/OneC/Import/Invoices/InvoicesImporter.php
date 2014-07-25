@@ -127,13 +127,13 @@ class InvoicesImporter
 
                     $output->writeln(sprintf('Invoice <comment>%s</comment>', $invoice->number));
                     if ($datePeriod) {
-                        $originalDate = clone $invoice->acceptanceDate;
-                        $invoice->acceptanceDate->add($datePeriod->diff());
+                        $originalDate = clone $invoice->date;
+                        $invoice->date->add($datePeriod->diff());
                         $output->writeln(
                             sprintf(
                                 'Original date <comment>%s</comment> will be transformed to <comment>%s</comment>',
                                 $originalDate->format(DateTime::ISO8601),
-                                $invoice->acceptanceDate->format(DateTime::ISO8601)
+                                $invoice->date->format(DateTime::ISO8601)
                             )
                         );
                     }
@@ -207,7 +207,7 @@ class InvoicesImporter
             }
 
             $invoice = new Invoice();
-            $invoice->acceptanceDate = $date;
+            $invoice->date = $date;
             $invoice->number = $number;
             $invoice->store = $store;
             $invoice->accepter = 'Накладных Импорт';

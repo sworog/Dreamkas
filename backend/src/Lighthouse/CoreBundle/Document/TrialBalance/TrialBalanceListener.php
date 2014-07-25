@@ -201,11 +201,11 @@ class TrialBalanceListener extends AbstractMongoDBListener
     protected function processInvoiceOnAcceptanceDateUpdate(Invoice $invoice, DocumentManager $dm, UnitOfWork $uow)
     {
         $changeSet = $uow->getDocumentChangeSet($invoice);
-        if (!isset($changeSet['acceptanceDate'])) {
+        if (!isset($changeSet['date'])) {
             return;
         }
-        $oldAcceptanceDate = $changeSet['acceptanceDate'][0];
-        $newAcceptanceDate = $changeSet['acceptanceDate'][1];
+        $oldAcceptanceDate = $changeSet['date'][0];
+        $newAcceptanceDate = $changeSet['date'][1];
 
         /* @var InvoiceProduct[] $invoiceProducts */
         $invoiceProducts = $invoice->products;

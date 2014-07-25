@@ -309,7 +309,7 @@ class SalesImporter
         $this->dotHelper->writeQuestion('.');
         $e = $this->stopwatch->start('receipt');
         $sale = new Sale();
-        $sale->createdDate = $this->getReceiptDate($purchaseElement, $datePeriod);
+        $sale->date = $this->getReceiptDate($purchaseElement, $datePeriod);
         $sale->store = $this->getStore($purchaseElement->getShop());
         $sale->hash = $this->createReceiptHash($purchaseElement);
         $sale->sumTotal = $this->transformPrice($purchaseElement->getAmount());
@@ -343,7 +343,7 @@ class SalesImporter
         $this->dotHelper->writeQuestion('.');
         $e = $this->stopwatch->start('receipt');
         $return = new Returne();
-        $return->createdDate = $this->getReceiptDate($purchaseElement, $datePeriod);
+        $return->date = $this->getReceiptDate($purchaseElement, $datePeriod);
         $return->store = $this->getStore($purchaseElement->getShop());
         $return->hash = $this->createReceiptHash($purchaseElement);
         $return->sumTotal = $this->transformPrice($purchaseElement->getAmount());

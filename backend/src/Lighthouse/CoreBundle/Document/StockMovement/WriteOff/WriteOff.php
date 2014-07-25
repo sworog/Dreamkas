@@ -5,20 +5,12 @@ namespace Lighthouse\CoreBundle\Document\StockMovement\WriteOff;
 
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProduct;
-use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Symfony\Component\Validator\Constraints as Assert;
-use DateTime;
 
 /**
- * @property string $id
- * @property Store $store
  * @property string $number
- * @property DateTime $date
- * @property Money $sumTotal
- * @property int $itemsCount
  * @property WriteOffProduct[]|Collection $products
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffRepository")
@@ -35,29 +27,6 @@ class WriteOff extends StockMovement
      * @var string
      */
     protected $number;
-
-    /**
-     * Дата списания
-     * @MongoDB\Date
-     * @Assert\NotBlank
-     * @Assert\DateTime
-     * @var DateTime
-     */
-    protected $date;
-
-    /**
-     * @MongoDB\Field(type="money")
-     * @var Money
-     */
-    protected $sumTotal;
-
-    /**
-     * Количество позиций
-     *
-     * @MongoDB\Int
-     * @var int
-     */
-    protected $itemsCount;
 
     /**
      * @MongoDB\ReferenceMany(

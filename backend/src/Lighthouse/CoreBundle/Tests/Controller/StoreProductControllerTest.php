@@ -931,26 +931,26 @@ class StoreProductControllerTest extends WebTestCase
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => date('c', strtotime('-31 days'))), $store->id)
+                ->createInvoice(array('date' => date('c', strtotime('-31 days'))), $store->id)
                 ->createInvoiceProduct($productId1, 10, 23.33)
             ->flush();
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => date('c', strtotime('-3 days'))), $store->id)
+                ->createInvoice(array('date' => date('c', strtotime('-3 days'))), $store->id)
                 ->createInvoiceProduct($productId1, 10, 26)
                 ->createInvoiceProduct($productId2, 6, 34.67)
             ->flush();
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => date('c', strtotime('-2 days'))), $store->id)
+                ->createInvoice(array('date' => date('c', strtotime('-2 days'))), $store->id)
                 ->createInvoiceProduct($productId1, 5, 29)
             ->flush();
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => date('c', strtotime('-1 days'))), $store->id)
+                ->createInvoice(array('date' => date('c', strtotime('-1 days'))), $store->id)
                 ->createInvoiceProduct($productId1, 10, 31)
             ->flush();
 

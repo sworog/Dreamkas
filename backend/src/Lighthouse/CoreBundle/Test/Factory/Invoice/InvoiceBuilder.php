@@ -67,7 +67,7 @@ class InvoiceBuilder
         $this->invoice = $this->invoiceRepository->createNew();
 
         $invoiceData = $data + array(
-            'acceptanceDate' => '2013-03-18 12:56',
+            'date' => '2013-03-18 12:56',
             'accepter' => 'Приемных Н.П.',
             'legalEntity' => 'ООО "Магазин"',
             'supplierInvoiceNumber' => '1248373',
@@ -102,8 +102,8 @@ class InvoiceBuilder
      */
     protected function populateInvoice(Invoice $invoice, array $invoiceData)
     {
-        if (isset($invoiceData['acceptanceDate']) && !$invoiceData['acceptanceDate'] instanceof \DateTime) {
-            $invoiceData['acceptanceDate'] = new \DateTime($invoiceData['acceptanceDate']);
+        if (isset($invoiceData['date']) && !$invoiceData['date'] instanceof \DateTime) {
+            $invoiceData['date'] = new \DateTime($invoiceData['date']);
         }
 
         foreach ($invoiceData as $field => $value) {

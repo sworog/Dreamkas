@@ -74,7 +74,7 @@ class InvoiceRepository extends StockMovementRepository
         $criteria = array(
             'store' => $storeId,
         );
-        $sort = array('acceptanceDate' => self::SORT_DESC);
+        $sort = array('date' => self::SORT_DESC);
         if ($filter && $filter->hasNumberOrSupplierInvoiceNumber()) {
             $criteria['$or'] = array(
                 array('number' => $filter->getNumberOrSupplierInvoiceNumber()),

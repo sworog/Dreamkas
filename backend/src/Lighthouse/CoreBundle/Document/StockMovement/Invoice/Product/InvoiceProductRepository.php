@@ -20,7 +20,7 @@ class InvoiceProductRepository extends DocumentRepository
             'originalProduct' => $productId,
         );
         $sort = array(
-            'acceptanceDate' => self::SORT_DESC,
+            'date' => self::SORT_DESC,
         );
         return $this->findBy($criteria, $sort);
     }
@@ -35,7 +35,7 @@ class InvoiceProductRepository extends DocumentRepository
             'store' => $storeId,
         );
         $sort = array(
-            'acceptanceDate' => self::SORT_DESC,
+            'date' => self::SORT_DESC,
         );
         return $this->findBy($criteria, $sort);
     }

@@ -27,7 +27,7 @@ use DateTime;
  * @property Money      $totalPrice
  * @property Money      $totalPriceWithoutVAT
  * @property Money      $amountVAT
- * @property DateTime   $acceptanceDate
+ * @property DateTime   $date
  * @property Money      $totalAmountVAT
  * @property \Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice    $invoice
  * @property ProductVersion $product
@@ -115,7 +115,7 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
      * @MongoDB\Date
      * @var \DateTime
      */
-    protected $acceptanceDate;
+    protected $date;
 
     /**
      * @MongoDB\ReferenceOne(
@@ -171,7 +171,7 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     {
         $this->calculateTotals();
 
-        $this->acceptanceDate = $this->invoice->acceptanceDate;
+        $this->date = $this->invoice->date;
         $this->store = $this->invoice->store;
         $this->originalProduct = $this->product->getObject();
     }
@@ -236,7 +236,7 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
      */
     public function getReasonDate()
     {
-        return $this->invoice->acceptanceDate;
+        return $this->invoice->date;
     }
 
     /**

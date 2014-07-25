@@ -46,7 +46,7 @@ class InvoiceType extends DocumentType
                 )
             )
             ->add(
-                'acceptanceDate',
+                'date',
                 'datetime'
             )
             ->add(

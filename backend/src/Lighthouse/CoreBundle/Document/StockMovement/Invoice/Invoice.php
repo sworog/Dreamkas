@@ -15,20 +15,16 @@ use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as AssertLH;
 use JMS\Serializer\Annotation as Serializer;
-use DateTime;
 
 /**
  * @property Supplier   $supplier
  * @property Order      $order
  * @property string     $number
- * @property DateTime   $acceptanceDate
  * @property string     $accepter
  * @property string     $legalEntity
  * @property string     $supplierInvoiceNumber
- * @property Money      $sumTotal
  * @property Money      $sumTotalWithoutVAT
  * @property Money      $totalAmountVAT
- * @property int        $itemsCount
  * @property boolean    $includesVAT
  * @property Collection|InvoiceProduct[]|PersistentCollection $products
  *
@@ -72,15 +68,6 @@ class Invoice extends StockMovement
     protected $supplier;
 
     /**
-     * Дата приемки
-     * @MongoDB\Date
-     * @Assert\NotBlank
-     * @Assert\DateTime
-     * @var \DateTime
-     */
-    protected $acceptanceDate;
-
-    /**
      * Кто принял
      * @MongoDB\String
      * @Assert\NotBlank
@@ -111,12 +98,6 @@ class Invoice extends StockMovement
      * @MongoDB\Field(type="money")
      * @var Money
      */
-    protected $sumTotal;
-
-    /**
-     * @MongoDB\Field(type="money")
-     * @var Money
-     */
     protected $sumTotalWithoutVAT;
 
     /**
@@ -130,14 +111,6 @@ class Invoice extends StockMovement
      * @var bool
      */
     protected $includesVAT = true;
-
-    /**
-     * Количество позиций
-     *
-     * @MongoDB\Int
-     * @var int
-     */
-    protected $itemsCount;
 
     /**
      * @MongoDB\ReferenceMany(

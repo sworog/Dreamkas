@@ -28,7 +28,7 @@ class InvoiceControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals($supplier->id, 'supplier.id', $postResponse);
         Assert::assertJsonPathEquals('ООО "Поставщик"', 'supplier.name', $postResponse);
-        Assert::assertJsonPathEquals('2013-03-18T12:56:00+0400', 'acceptanceDate', $postResponse);
+        Assert::assertJsonPathEquals('2013-03-18T12:56:00+0400', 'date', $postResponse);
         Assert::assertJsonPathEquals('Приемных Н.П.', 'accepter', $postResponse);
         Assert::assertJsonPathEquals('ООО "Магазин"', 'legalEntity', $postResponse);
         Assert::assertJsonPathEquals('1248373', 'supplierInvoiceNumber', $postResponse);
@@ -129,7 +129,7 @@ class InvoiceControllerTest extends WebTestCase
         return array(
             'invoice' => array(
                 'data' => array(
-                    'acceptanceDate' => '2013-03-18 12:56',
+                    'date' => '2013-03-18 12:56',
                     'accepter' => 'Приемных Н.П.',
                     'legalEntity' => 'ООО "Магазин"',
                     'supplierInvoiceNumber' => '1248373',
@@ -137,7 +137,7 @@ class InvoiceControllerTest extends WebTestCase
                 // Assertions xpath
                 'assertions' => array(
                     'number' => '10001',
-                    'acceptanceDate' => '2013-03-18T12:56:00+0400',
+                    'date' => '2013-03-18T12:56:00+0400',
                     'accepter' => 'Приемных Н.П.',
                     'legalEntity' => 'ООО "Магазин"',
                     'supplierInvoiceNumber' => '1248373'
@@ -249,7 +249,7 @@ class InvoiceControllerTest extends WebTestCase
 
         Assert::assertJsonPathContains(
             'Вы ввели неверную дату',
-            'errors.children.acceptanceDate.errors.0',
+            'errors.children.date.errors.0',
             $postResponse
         );
         Assert::assertNotJsonHasPath('errors.children.supplierInvoiceDate.errors.0', $postResponse);
@@ -263,13 +263,13 @@ class InvoiceControllerTest extends WebTestCase
         return array(
             'supplierInvoiceDate in past' => array(
                 array(
-                    'acceptanceDate' => 'aaa',
+                    'date' => 'aaa',
                     'supplierInvoiceDate' => '2012-03-14'
                 ),
             ),
             'supplierInvoiceDate in future' => array(
                 array(
-                    'acceptanceDate' => 'aaa',
+                    'date' => 'aaa',
                     'supplierInvoiceDate' => '2015-03-14'
                 ),
             )
@@ -286,7 +286,7 @@ class InvoiceControllerTest extends WebTestCase
         $assertions = array(
             'number' => '10001',
             'supplier.name' => 'ООО "Поставщик"',
-            'acceptanceDate' => '2013-03-18T12:56:00+0400',
+            'date' => '2013-03-18T12:56:00+0400',
             'accepter' => 'Приемных Н.П.',
             'legalEntity' => 'ООО "Магазин"',
             'supplierInvoiceNumber' => '1248373',
@@ -438,52 +438,52 @@ class InvoiceControllerTest extends WebTestCase
                 array('errors.children.supplierInvoiceNumber.errors.0' => 'Не более 100 символов'),
             ),
             /***********************************************************************************************
-             * 'acceptanceDate'
+             * 'date'
              ***********************************************************************************************/
             'valid acceptanceDate 2013-03-26T12:34:56' => array(
                 201,
-                array('acceptanceDate' => '2013-03-26T12:34:56'),
+                array('date' => '2013-03-26T12:34:56'),
                 array("acceptanceDate" => '2013-03-26T12:34:56+0400')
             ),
             'valid acceptanceDate 2013-03-26' => array(
                 201,
-                array('acceptanceDate' => '2013-03-26'),
+                array('date' => '2013-03-26'),
                 array("acceptanceDate" => '2013-03-26T00:00:00+0400')
             ),
             'valid acceptanceDate 2013-03-26 12:34' => array(
                 201,
-                array('acceptanceDate' => '2013-03-26 12:34'),
+                array('date' => '2013-03-26 12:34'),
                 array("acceptanceDate" => '2013-03-26T12:34:00+0400')
             ),
             'valid acceptanceDate 2013-03-26 12:34:45' => array(
                 201,
-                array('acceptanceDate' => '2013-03-26 12:34:45'),
+                array('date' => '2013-03-26 12:34:45'),
                 array("acceptanceDate" => '2013-03-26T12:34:45+0400')
             ),
             'empty acceptanceDate' => array(
                 400,
-                array('acceptanceDate' => ''),
-                array('errors.children.acceptanceDate.errors.0' => 'Заполните это поле'),
+                array('date' => ''),
+                array('errors.children.date.errors.0' => 'Заполните это поле'),
             ),
             'not valid acceptanceDate 2013-02-31' => array(
                 400,
-                array('acceptanceDate' => '2013-02-31'),
-                array('errors.children.acceptanceDate.errors.0' => 'Вы ввели неверную дату'),
+                array('date' => '2013-02-31'),
+                array('errors.children.date.errors.0' => 'Вы ввели неверную дату'),
             ),
             'not valid acceptanceDate aaa' => array(
                 400,
-                array('acceptanceDate' => 'aaa'),
+                array('date' => 'aaa'),
                 array(
-                    'errors.children.acceptanceDate.errors.0'
+                    'errors.children.date.errors.0'
                     =>
                     'Вы ввели неверную дату',
                 ),
             ),
             'not valid acceptanceDate __.__.____ __:__' => array(
                 400,
-                array('acceptanceDate' => '__.__.____ __:__'),
+                array('date' => '__.__.____ __:__'),
                 array(
-                    'errors.children.acceptanceDate.errors.0'
+                    'errors.children.date.errors.0'
                     =>
                     'Вы ввели неверную дату',
                 ),
@@ -702,7 +702,7 @@ class InvoiceControllerTest extends WebTestCase
                 ->createInvoice(
                     array(
                         'supplierInvoiceNumber' => 'ФРГ-1945',
-                        'acceptanceDate' => '2013-03-17T16:12:33+0400',
+                        'date' => '2013-03-17T16:12:33+0400',
                     ),
                     $store->id
                 )
@@ -714,7 +714,7 @@ class InvoiceControllerTest extends WebTestCase
                 ->createInvoice(
                     array(
                         'supplierInvoiceNumber' => '10001',
-                        'acceptanceDate' => '2013-03-16T14:54:23+0400'
+                        'date' => '2013-03-16T14:54:23+0400'
                     ),
                     $store->id
                 )
@@ -740,7 +740,7 @@ class InvoiceControllerTest extends WebTestCase
                 ->createInvoice(
                     array(
                         'supplierInvoiceNumber' => 'ФРГ-1945',
-                        'acceptanceDate' => '2013-03-15T16:12:33+0400'
+                        'date' => '2013-03-15T16:12:33+0400'
                     ),
                     $store->id
                 )
@@ -752,7 +752,7 @@ class InvoiceControllerTest extends WebTestCase
                 ->createInvoice(
                     array(
                         'supplierInvoiceNumber' => '10003',
-                        'acceptanceDate' => '2013-03-16T14:54:23+0400'
+                        'date' => '2013-03-16T14:54:23+0400'
                     ),
                     $store->id
                 )
@@ -906,7 +906,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $invoiceData1 = array(
             'supplier' => $supplier->id,
-            'acceptanceDate' => '2013-03-18 12:56',
+            'date' => '2013-03-18 12:56',
             'accepter' => 'Приемных Н.П.',
             'legalEntity' => 'ООО "Магазин"',
             'supplierInvoiceNumber' => '1248373',
@@ -1003,7 +1003,7 @@ class InvoiceControllerTest extends WebTestCase
         $productId = $this->createProduct('1');
 
         $invoiceData = InvoiceProductControllerTest::getInvoiceData($supplier->id, $productId, 10, 5.99);
-        $invoiceData['acceptanceDate'] = '';
+        $invoiceData['date'] = '';
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
@@ -1015,7 +1015,7 @@ class InvoiceControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(400);
-        Assert::assertJsonPathEquals('Заполните это поле', 'errors.children.acceptanceDate.errors.0', $response);
+        Assert::assertJsonPathEquals('Заполните это поле', 'errors.children.date.errors.0', $response);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -1025,7 +1025,7 @@ class InvoiceControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(400);
-        Assert::assertJsonPathEquals('Заполните это поле', 'errors.children.acceptanceDate.errors.0', $response);
+        Assert::assertJsonPathEquals('Заполните это поле', 'errors.children.date.errors.0', $response);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -1035,7 +1035,7 @@ class InvoiceControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(201);
-        Assert::assertNotJsonHasPath('errors.children.acceptanceDate.errors.0', $response);
+        Assert::assertNotJsonHasPath('errors.children.date.errors.0', $response);
         Assert::assertNotJsonHasPath('acceptanceData', $response);
         Assert::assertNotJsonHasPath('id', $response);
         Assert::assertJsonPathEquals('59.90', 'sumTotal', $response);
@@ -1049,7 +1049,7 @@ class InvoiceControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(400);
-        Assert::assertNotJsonHasPath('errors.children.acceptanceDate.errors.0', $response);
+        Assert::assertNotJsonHasPath('errors.children.date.errors.0', $response);
         Assert::assertJsonPathEquals(
             'Заполните это поле',
             'errors.children.products.children.0.children.quantity.errors.0',
@@ -1146,17 +1146,17 @@ class InvoiceControllerTest extends WebTestCase
                 'supplier'
             ),
             'empty acceptance date' => array(
-                array('acceptanceDate' => ''),
-                'errors.children.acceptanceDate.errors.0',
+                array('date' => ''),
+                'errors.children.date.errors.0',
                 'Заполните это поле',
-                'acceptanceDate'
+                'date'
             ),
             /*
             'invalid acceptance date' => array(
-                array('acceptanceDate' => 'aaaa'),
-                'errors.children.acceptanceDate.errors.0',
+                array('date' => 'aaaa'),
+                'errors.children.date.errors.0',
                 'Заполните это поле',
-                'acceptanceDate'
+                'date'
             )
             */
         );
@@ -1391,7 +1391,7 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertJsonPathCount(1, 'products.*', $postResponse);
         $invoiceId = $postResponse['id'];
 
-        $invoiceData['acceptanceDate'] = '16.04.2014 15:09';
+        $invoiceData['date'] = '16.04.2014 15:09';
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
@@ -1455,7 +1455,7 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertNotJsonHasPath('number', $response);
         Assert::assertNotJsonHasPath('legalEntity', $response);
         Assert::assertNotJsonHasPath('accepter', $response);
-        Assert::assertNotJsonHasPath('acceptanceDate', $response);
+        Assert::assertNotJsonHasPath('date', $response);
         Assert::assertNotJsonHasPath('supplierInvoiceNumber', $response);
     }
 

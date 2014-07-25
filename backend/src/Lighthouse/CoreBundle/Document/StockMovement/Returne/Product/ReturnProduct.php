@@ -27,7 +27,7 @@ use DateTime;
  * @property Money          $price
  * @property Quantity       $quantity
  * @property Money          $totalPrice
- * @property DateTime       $createdDate
+ * @property DateTime       $date
  * @property ProductVersion $product
  * @property Returne        $return
  */
@@ -69,7 +69,7 @@ class ReturnProduct extends AbstractDocument implements Reasonable
      * @MongoDB\Date
      * @var DateTime
      */
-    protected $createdDate;
+    protected $date;
 
     /**
      * @MongoDB\ReferenceOne(
@@ -123,7 +123,7 @@ class ReturnProduct extends AbstractDocument implements Reasonable
     {
         $this->totalPrice = $this->price->mul($this->quantity);
 
-        $this->createdDate = $this->return->createdDate;
+        $this->date = $this->return->date;
         $this->store = $this->return->store;
         $this->originalProduct = $this->product->getObject();
     }
@@ -149,7 +149,7 @@ class ReturnProduct extends AbstractDocument implements Reasonable
      */
     public function getReasonDate()
     {
-        return $this->createdDate;
+        return $this->date;
     }
 
     /**

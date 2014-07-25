@@ -22,19 +22,19 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-12 12:23:13'), $store->id)
+                ->createInvoice(array('date' => '2014-01-12 12:23:13'), $store->id)
                 ->createInvoiceProduct($productIds['1'], 105.678, 16.36)
                 ->createInvoiceProduct($productIds['3'], 320, 178.34)
             ->persist()
-                ->createInvoice(array('acceptanceDate' => '2014-01-13 19:56:04'), $store->id)
+                ->createInvoice(array('date' => '2014-01-13 19:56:04'), $store->id)
                 ->createInvoiceProduct($productIds['2'], 45.04, 189.67)
                 ->createInvoiceProduct($productIds['3'], 115.12, 176.51)
             ->persist()
-                ->createInvoice(array('acceptanceDate' => '2014-01-13 20:03:14'), $store->id)
+                ->createInvoice(array('date' => '2014-01-13 20:03:14'), $store->id)
                 ->createInvoiceProduct($productIds['1'], 111.67, 201.15)
                 ->createInvoiceProduct($productIds['3'], 115, 176.51)
             ->persist()
-                ->createInvoice(array('acceptanceDate' => '2014-01-14 08:15:31'), $store->id)
+                ->createInvoice(array('date' => '2014-01-14 08:15:31'), $store->id)
                 ->createInvoiceProduct($productIds['1'], 300.01, 201.15)
             ->flush();
 
@@ -64,7 +64,7 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-10 12:23:13'), $store->id)
+                ->createInvoice(array('date' => '2014-01-10 12:23:13'), $store->id)
                 ->createInvoiceProduct($productIds['1'], 16.36, 10.09)
                 ->createInvoiceProduct($productIds['2'], 10.067, 29.56)
                 ->createInvoiceProduct($productIds['3'], 20, 30.05)
@@ -155,13 +155,13 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-12 12:23:12'), $store->id)
+                ->createInvoice(array('date' => '2014-01-12 12:23:12'), $store->id)
                 ->createInvoiceProduct($productId, 5, 10.09)
             ->persist()
-                ->createInvoice(array('acceptanceDate' => '2014-01-12 13:23:12'), $store->id)
+                ->createInvoice(array('date' => '2014-01-12 13:23:12'), $store->id)
                 ->createInvoiceProduct($productId, 3, 10.09)
             ->persist()
-                ->createInvoice(array('acceptanceDate' => '2014-01-12 14:23:12'), $store->id)
+                ->createInvoice(array('date' => '2014-01-12 14:23:12'), $store->id)
                 ->createInvoiceProduct($productId, 2, 10.09)
             ->flush();
 
@@ -275,13 +275,13 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-12 12:23:12'), $store->id)
+                ->createInvoice(array('date' => '2014-01-12 12:23:12'), $store->id)
                 ->createInvoiceProduct($productId, 5, 11.09)
             ->persist()
-                ->createInvoice(array('acceptanceDate' => '2014-01-12 13:23:12'), $store->id)
+                ->createInvoice(array('date' => '2014-01-12 13:23:12'), $store->id)
                 ->createInvoiceProduct($productId, 3, 12.13)
             ->persist()
-                ->createInvoice(array('acceptanceDate' => '2014-01-12 14:23:12'), $store->id)
+                ->createInvoice(array('date' => '2014-01-12 14:23:12'), $store->id)
                 ->createInvoiceProduct($productId, 2, 10.09)
             ->flush();
 
@@ -520,21 +520,21 @@ class CostOfGoodsTest extends WebTestCase
 
         $invoice1 = $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-01 12:56'), $store->id)
+                ->createInvoice(array('date' => '2014-01-01 12:56'), $store->id)
                 ->createInvoiceProduct($productId, 5, 100)
                 ->createInvoiceProduct($productOtherId, 1, 1)
             ->flush();
 
         $invoice2 = $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-02 12:56'), $store->id)
+                ->createInvoice(array('date' => '2014-01-02 12:56'), $store->id)
                 ->createInvoiceProduct($productId, 5, 150)
                 ->createInvoiceProduct($productOtherId, 1, 1)
             ->flush();
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-03 12:56'), $store->id)
+                ->createInvoice(array('date' => '2014-01-03 12:56'), $store->id)
                 ->createInvoiceProduct($productId, 10, 200)
             ->flush();
 
@@ -650,18 +650,18 @@ class CostOfGoodsTest extends WebTestCase
 
         $invoice1 = $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-01 12:56'), $store->id)
+                ->createInvoice(array('date' => '2014-01-01 12:56'), $store->id)
                 ->createInvoiceProduct($productId, 5, 100, $store->id)
             ->flush();
         $invoice2 = $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-02 12:56'), $store->id)
+                ->createInvoice(array('date' => '2014-01-02 12:56'), $store->id)
                 ->createInvoiceProduct($productId, 5, 150, $store->id)
             ->flush();
 
         $invoice3 = $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-03 12:56'), $store->id)
+                ->createInvoice(array('date' => '2014-01-03 12:56'), $store->id)
                 ->createInvoiceProduct($productId, 10, 200, $store->id)
             ->flush();
 
@@ -686,7 +686,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->factory()
             ->clear()
             ->invoice()
-                ->editInvoice($invoice2->id, array('acceptanceDate' => '2014-01-01 10:00'))
+                ->editInvoice($invoice2->id, array('date' => '2014-01-01 10:00'))
             ->flush();
 
         /*
@@ -719,7 +719,7 @@ class CostOfGoodsTest extends WebTestCase
         $this->factory()
             ->clear()
             ->invoice()
-                ->editInvoice($invoice2->id, array('acceptanceDate' => '2014-01-02 12:56'))
+                ->editInvoice($invoice2->id, array('date' => '2014-01-02 12:56'))
             ->flush();
 
         $this->assertStoreProductTrialBalance(
@@ -766,7 +766,7 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-01 12:56'), $store->id)
+                ->createInvoice(array('date' => '2014-01-01 12:56'), $store->id)
                 ->createInvoiceProduct($productId, 5, 150)
             ->flush();
 
@@ -776,7 +776,7 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-02 12:56'), $store->id)
+                ->createInvoice(array('date' => '2014-01-02 12:56'), $store->id)
                 ->createInvoiceProduct($productId, 1, 200)
             ->flush();
 

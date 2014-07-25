@@ -21,37 +21,37 @@ class DayGrossMarginTest extends WebTestCase
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-01 12:56'), $store1->id)
+                ->createInvoice(array('date' => '2014-01-01 12:56'), $store1->id)
                 ->createInvoiceProduct($productId, 5, 100)
             ->flush();
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-02 12:56'), $store1->id)
+                ->createInvoice(array('date' => '2014-01-02 12:56'), $store1->id)
                 ->createInvoiceProduct($productId, 5, 150)
             ->flush();
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-03 12:56'), $store1->id)
+                ->createInvoice(array('date' => '2014-01-03 12:56'), $store1->id)
                 ->createInvoiceProduct($productId, 10, 200)
             ->flush();
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-01 12:00'), $store2->id)
+                ->createInvoice(array('date' => '2014-01-01 12:00'), $store2->id)
                 ->createInvoiceProduct($productId, 5, 100)
             ->flush();
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-02 12:00'), $store2->id)
+                ->createInvoice(array('date' => '2014-01-02 12:00'), $store2->id)
                 ->createInvoiceProduct($productId, 5, 150)
             ->flush();
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-03 12:00'), $store2->id)
+                ->createInvoice(array('date' => '2014-01-03 12:00'), $store2->id)
                 ->createInvoiceProduct($productId, 10, 200)
             ->flush();
 
