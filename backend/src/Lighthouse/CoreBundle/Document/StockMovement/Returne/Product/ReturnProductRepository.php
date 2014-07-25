@@ -19,7 +19,7 @@ class ReturnProductRepository extends DocumentRepository
             'originalProduct' => $productId,
         );
         $sort = array(
-            'createdDate' => self::SORT_DESC,
+            'date' => self::SORT_DESC,
         );
         return $this->findBy($criteria, $sort);
     }

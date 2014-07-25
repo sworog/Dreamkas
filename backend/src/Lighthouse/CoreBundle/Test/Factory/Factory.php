@@ -176,7 +176,7 @@ class Factory extends ContainerAwareFactory
     public function createSale($storeId, $createdDate, $sumTotal)
     {
         $saleModel = new Sale();
-        $saleModel->createdDate = new DateTimestamp($createdDate);
+        $saleModel->date = new DateTimestamp($createdDate);
         $saleModel->store = $this->getDocumentManager()->getReference(Store::getClassName(), $storeId);
         $saleModel->hash = md5(rand() . $storeId);
         $saleModel->sumTotal = $this->getNumericFactory()->createMoney($sumTotal);

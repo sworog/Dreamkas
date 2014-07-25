@@ -54,8 +54,8 @@ class ReturnProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($products['1'], '0.product.id', $getResponse1);
         Assert::assertJsonPathEquals('10001', '0.product.sku', $getResponse1);
         Assert::assertJsonPathEquals($storeId, '0.return.store.id', $getResponse1);
-        Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.return.createdDate', $getResponse1);
-        Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.createdDate', $getResponse1);
+        Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.return.date', $getResponse1);
+        Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.date', $getResponse1);
         Assert::assertJsonPathEquals('513.00', '0.price', $getResponse1);
         Assert::assertJsonPathEquals('1', '0.quantity', $getResponse1);
         Assert::assertJsonPathEquals('513.00', '0.totalPrice', $getResponse1);
@@ -91,8 +91,8 @@ class ReturnProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($storeId, '0.return.store.id', $getResponse3);
         // check it same return as product '1'
         Assert::assertJsonPathEquals($getResponse1[0]['return']['id'], '0.return.id', $getResponse3);
-        Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.return.createdDate', $getResponse3);
-        Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.createdDate', $getResponse3);
+        Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.return.date', $getResponse3);
+        Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.date', $getResponse3);
         Assert::assertJsonPathEquals('180.00', '0.price', $getResponse3);
         Assert::assertJsonPathEquals('25', '0.quantity', $getResponse3);
         Assert::assertJsonPathEquals('4500.00', '0.totalPrice', $getResponse3);
@@ -120,8 +120,8 @@ class ReturnProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('38.00', '0.return.sumTotal', $getResponse4);
         Assert::assertJsonPathEquals(1, '1.return.itemsCount', $getResponse4);
         Assert::assertJsonPathEquals('36.00', '1.return.sumTotal', $getResponse4);
-        Assert::assertJsonPathEquals('2012-05-12T19:47:33+0400', '0.return.createdDate', $getResponse4);
-        Assert::assertJsonPathEquals('2012-05-12T19:46:32+0400', '1.return.createdDate', $getResponse4);
+        Assert::assertJsonPathEquals('2012-05-12T19:47:33+0400', '0.return.date', $getResponse4);
+        Assert::assertJsonPathEquals('2012-05-12T19:46:32+0400', '1.return.date', $getResponse4);
 
         Assert::assertJsonPathEquals('38.00', '0.price', $getResponse4);
         Assert::assertJsonPathEquals('1', '0.quantity', $getResponse4);

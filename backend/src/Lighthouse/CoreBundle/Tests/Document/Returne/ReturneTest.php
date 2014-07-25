@@ -16,14 +16,14 @@ class ReturneTest extends ContainerAwareTestCase
         $return = new Returne();
         $return->hash = 'hash';
 
-        $this->assertNull($return->createdDate);
+        $this->assertNull($return->date);
         $dm->persist($return);
 
         $expectedTime = time();
 
         $dm->flush();
 
-        $this->assertNotNull($return->createdDate);
-        $this->assertEquals($expectedTime, $return->createdDate->getTimestamp());
+        $this->assertNotNull($return->date);
+        $this->assertEquals($expectedTime, $return->date->getTimestamp());
     }
 }

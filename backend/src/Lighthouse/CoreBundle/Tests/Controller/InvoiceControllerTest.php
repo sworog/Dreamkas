@@ -443,22 +443,22 @@ class InvoiceControllerTest extends WebTestCase
             'valid acceptanceDate 2013-03-26T12:34:56' => array(
                 201,
                 array('date' => '2013-03-26T12:34:56'),
-                array("acceptanceDate" => '2013-03-26T12:34:56+0400')
+                array('date' => '2013-03-26T12:34:56+0400')
             ),
             'valid acceptanceDate 2013-03-26' => array(
                 201,
                 array('date' => '2013-03-26'),
-                array("acceptanceDate" => '2013-03-26T00:00:00+0400')
+                array('date' => '2013-03-26T00:00:00+0400')
             ),
             'valid acceptanceDate 2013-03-26 12:34' => array(
                 201,
                 array('date' => '2013-03-26 12:34'),
-                array("acceptanceDate" => '2013-03-26T12:34:00+0400')
+                array('date' => '2013-03-26T12:34:00+0400')
             ),
             'valid acceptanceDate 2013-03-26 12:34:45' => array(
                 201,
                 array('date' => '2013-03-26 12:34:45'),
-                array("acceptanceDate" => '2013-03-26T12:34:45+0400')
+                array('date' => '2013-03-26T12:34:45+0400')
             ),
             'empty acceptanceDate' => array(
                 400,
@@ -473,20 +473,12 @@ class InvoiceControllerTest extends WebTestCase
             'not valid acceptanceDate aaa' => array(
                 400,
                 array('date' => 'aaa'),
-                array(
-                    'errors.children.date.errors.0'
-                    =>
-                    'Вы ввели неверную дату',
-                ),
+                array('errors.children.date.errors.0' => 'Вы ввели неверную дату',),
             ),
             'not valid acceptanceDate __.__.____ __:__' => array(
                 400,
                 array('date' => '__.__.____ __:__'),
-                array(
-                    'errors.children.date.errors.0'
-                    =>
-                    'Вы ввели неверную дату',
-                ),
+                array('errors.children.date.errors.0' => 'Вы ввели неверную дату',),
             ),
             /***********************************************************************************************
              * 'supplierInvoiceDate'
