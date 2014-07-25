@@ -47,7 +47,13 @@ public class GivenConsoleCommandsUserSteps {
 
     private UserContainer getUserContainer(ConsoleCommandResult consoleCommandResult) throws JSONException {
         //WORKAROUND
-        return new UserContainer(new JSONObject(consoleCommandResult.getOutput().split("\n")[6]));
+        for (String resultRow : consoleCommandResult.getOutput().split("\n")) {
+            if (resultRow.startsWith("{")) {
+                return new UserContainer(new JSONObject(resultRow));
+            }
+        }
+
+        throw new AssertionError("No user json found in response");
 
         //FIXME this code don't work
 //        Pattern pattern = Pattern.compile("(\\{.*\\}\\})");
