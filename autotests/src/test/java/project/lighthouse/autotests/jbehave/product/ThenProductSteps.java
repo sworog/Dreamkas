@@ -22,6 +22,11 @@ public class ThenProductSteps {
         productSteps.editProductModalWindowCheckStoredValues();
     }
 
+    @Then("the user asserts the group field value is '$value'")
+    public void thenTheUserAssertsTheGroupFieldValue(String value) {
+        productSteps.assertCreateNewProductModalWindowGroupFieldValue(value);
+    }
+
     @Then("the user asserts the groups list not contain product with name '$name'")
     public void thenTheUserAssertsTheGroupsListNotContainProductWithName(String name) {
         productSteps.productCollectionNotContainProductWithName(name);

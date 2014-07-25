@@ -38,6 +38,12 @@ Meta:
 @id_s38u101s37
 @id_s38u101s38
 @id_s38u101s39
+@id_s38u101s40
+@id_s38u101s41
+@id_s38u101s42
+@id_s38u101s43
+@id_s38u101s44
+@id_s38u101s45
 
 Scenario: A scenario that prepares user created by console command
 
