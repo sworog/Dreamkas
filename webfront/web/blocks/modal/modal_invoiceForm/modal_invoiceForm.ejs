@@ -8,7 +8,7 @@
      aria-hidden="true"
      class="modal fade"
      style="display: none;">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-wide-width">
         <div class="modal-content">
             <div class="modal-header">
                 <a type="button"
@@ -61,7 +61,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
 
-                                <label class="control-label">Поставщик *</label>
+                                <label class="control-label">Поставщик</label>
 
                                 <div class="input-icon right">
                                     <input
@@ -73,6 +73,92 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input tabindex="5" type="checkbox" name="paid"/>&nbsp;
+                                Оплачено
+                            </label>
+                        </div>
+                    </div>
+                    <hr />
+                    <h3>Товары</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Наименование</th>
+                                <th>Цена, <i class="fa fa-rub"></i></th>
+                                <th>Кол-во</th>
+                                <th>Сумма, <i class="fa fa-rub"></i></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Молоко "Веселый Молочник", 3,5%</td>
+                                <td>38,50</td>
+                                <td>100 шт</td>
+                                <td>3 850,00</td>
+                                <td><a type="button" data-dismiss="modal" aria-hidden="true" class="close pull-left fa fa-times"></a></td>
+                            </tr>
+                            <tr>
+                                <td>Молоко "Веселый Молочник", 3,5%</td>
+                                <td>38,50</td>
+                                <td>100 шт</td>
+                                <td>3 850,00</td>
+                                <td>
+                                    <a type="button" data-dismiss="modal" aria-hidden="true" class="close pull-left fa fa-times"></a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Молоко "Веселый Молочник", 3,5%</td>
+                                <td>38,50</td>
+                                <td>100 шт</td>
+                                <td>3 850,00</td>
+                                <td><a type="button" data-dismiss="modal" aria-hidden="true" class="close pull-left fa fa-times"></a></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input
+                                                    name="date"
+                                                    type="text"
+                                                    class="form-control"
+                                                    value="<%- invoiceModel.get('date') %>">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-plus"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input
+                                                    name="date"
+                                                    type="text"
+                                                    class="form-control"
+                                                    value="<%- invoiceModel.get('date') %>">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <input
+                                                    name="date"
+                                                    type="text"
+                                                    class="form-control"
+                                                    value="<%- invoiceModel.get('date') %>">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>309,23</td>
+                                <td><a type="button"class="btn btn-default fa fa-check"></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </form>
             </div>
         </div>
