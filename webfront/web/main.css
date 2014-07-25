@@ -165,4 +165,7 @@ input.invalid {
     padding-top: 5px;
 }
 
+table[data-sortable] th:after {
+    float: none;
+}
 
