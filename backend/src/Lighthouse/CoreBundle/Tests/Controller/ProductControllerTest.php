@@ -314,6 +314,7 @@ class ProductControllerTest extends WebTestCase
 
         $putData['subCategory'] = $this->createSubCategory();
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'PUT',
@@ -406,6 +407,7 @@ class ProductControllerTest extends WebTestCase
             $response
         );
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -500,6 +502,7 @@ class ProductControllerTest extends WebTestCase
     {
         $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -2313,6 +2316,7 @@ class ProductControllerTest extends WebTestCase
         $accessToken = $this->factory()->oauth()->authAsRole($role);
         $requestData += $this->getProductData();
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             $method,
@@ -2522,6 +2526,7 @@ class ProductControllerTest extends WebTestCase
             }
         );
 
+        $this->client->setCatchException();
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -2600,6 +2605,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertNull($deleteResponse);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',

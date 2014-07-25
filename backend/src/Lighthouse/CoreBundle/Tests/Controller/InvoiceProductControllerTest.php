@@ -556,6 +556,7 @@ class InvoiceProductControllerTest extends WebTestCase
         $store = $this->factory()->store()->getStore();
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',

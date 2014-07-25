@@ -153,6 +153,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -178,6 +179,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->auth($departmentManager);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -539,6 +541,7 @@ class InvoiceControllerTest extends WebTestCase
                 ->createInvoiceProduct($productId)
             ->flush();
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken2,
             'GET',
@@ -547,6 +550,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $this->assertResponseCode(403);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken1,
             'GET',
@@ -1473,6 +1477,8 @@ class InvoiceControllerTest extends WebTestCase
             ->flush();
 
         $accessToken1 = $this->factory()->oauth()->authAsDepartmentManager($store1->id);
+
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken1,
             'GET',
@@ -1481,6 +1487,8 @@ class InvoiceControllerTest extends WebTestCase
         $this->assertResponseCode(404);
 
         $accessToken2 = $this->factory()->oauth()->authAsDepartmentManager($store2->id);
+
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken2,
             'GET',

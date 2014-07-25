@@ -65,6 +65,7 @@ class StoreProductControllerTest extends WebTestCase
     {
         $accessToken = $this->factory()->oauth()->auth($this->storeManager, 'password');
 
+        $this->client->setCatchException();
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -79,6 +80,7 @@ class StoreProductControllerTest extends WebTestCase
     {
         $accessToken = $this->factory()->oauth()->auth($this->storeManager, 'password');
 
+        $this->client->setCatchException();
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -422,6 +424,7 @@ class StoreProductControllerTest extends WebTestCase
     {
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_STORE_MANAGER);
 
+        $this->client->setCatchException();
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -450,6 +453,7 @@ class StoreProductControllerTest extends WebTestCase
     {
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
 
+        $this->client->setCatchException();
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
