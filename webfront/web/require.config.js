@@ -11,6 +11,7 @@ require.config({
         'router': 'kit/router/router',
         'templateCompiler': 'kit/templateCompiler/templateCompiler',
         'amd-loader': 'bower_components/amd-loader/amd-loader',
+        'sortable': 'bower_components/sortable/js/sortable',
 
         //plugins
         'i18n': 'bower_components/requirejs-i18n/i18n',

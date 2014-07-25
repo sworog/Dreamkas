@@ -6,6 +6,8 @@ define(function(require, exports, module) {
         deepExtend = require('kit/deepExtend/deepExtend'),
         _ = require('lodash');
 
+    require('sortable');
+
     var Page = Block.extend({
 
         el: '.page',
@@ -92,14 +94,14 @@ define(function(require, exports, module) {
 
             _.forEach(page.models, function(model){
                 if (null !== model) {
-                    model.off();
-                    model.stopListening();
+                    model.off && model.off();
+                    model.stopListening && model.stopListening();
                 }
             });
 
             _.forEach(page.collections, function(collection){
-                collection.off();
-                collection.stopListening();
+                collection.off && collection.off();
+                collection.stopListening && collection.stopListening();
             });
 
             page.undelegateEvents();
@@ -132,6 +134,8 @@ define(function(require, exports, module) {
             page.$('button[data-toggle="popover"]').popover({
                 trigger: 'focus'
             });
+
+            Sortable.init();
 
             Block.prototype.initBlocks.apply(page, arguments);
         }
