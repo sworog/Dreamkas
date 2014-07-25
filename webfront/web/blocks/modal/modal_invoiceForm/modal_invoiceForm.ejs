@@ -1,0 +1,80 @@
+<% var InvoiceModel = require('models/invoice/invoice') %>
+<% var invoiceModel = invoiceModel || new InvoiceModel() %>
+
+<div id="<%- invoiceModel.id ? 'modal-invoiceEdit' : 'modal-invoiceAdd' %>"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="modal-default-label"
+     aria-hidden="true"
+     class="modal fade"
+     style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a type="button"
+                   data-dismiss="modal"
+                   aria-hidden="true"
+                   class="close pull-left fa fa-times"></a>
+
+                <button form="<%- invoiceModel.id ? 'form_invoiceEdit' : 'form_invoiceAdd' %>"
+                        type="submit"
+                        class="btn btn-primary pull-right">
+                    <%- invoiceModel.id ? 'Сохранить' : 'Принять' %>
+                </button>
+
+                <h4 class="modal-title">
+                    <%- invoiceModel.id ? 'Редактирование приёски товаров от поставщика' : 'Приёмка товаров от поставщика' %>
+                </h4>
+
+                <span class="clearfix"></span>
+            </div>
+            <div class="modal-body">
+                <form id="<%- invoiceModel.id ? 'form_invoiceEdit' : 'form_invoiceAdd' %>" class="form form_group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label class="control-label">Дата *</label>
+
+                                <div class="input-group datetimepicker-default date">
+                                    <input type="text" class="form-control datepicker-default">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label class="control-label">Магазин *</label>
+
+                                <div class="input-icon right">
+                                    <input
+                                            name="date"
+                                            type="text"
+                                            class="form-control"
+                                            value="<%- invoiceModel.get('date') %>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label class="control-label">Поставщик *</label>
+
+                                <div class="input-icon right">
+                                    <input
+                                            name="date"
+                                            type="text"
+                                            class="form-control"
+                                            value="<%- invoiceModel.get('date') %>">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+ </div>

@@ -1,0 +1,33 @@
+<% var partials = {
+    modal_invoiceForm: require('ejs!blocks/modal/modal_invoiceForm/modal_invoiceForm.ejs')
+}; %>
+
+<!--BEGIN TITLE PAGE-->
+<div class="page-title-breadcrumb">
+
+    <div class="pull-right">
+        <span data-target="#modal-invoiceAdd"
+              data-toggle="modal"
+              role="button"
+              class="btn btn-primary btn-md">Принять от поставщика</span>
+    </div>
+
+    <div class="page-header pull-left">
+        <div class="page-title">Товародвижение</div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+<!--END TITLE PAGE-->
+
+<!--BEGIN CONTENT-->
+<div class="page-content">
+    <div class="row">
+
+    </div>
+</div>
+<!--END CONTENT-->
+
+<!--MODALS-->
+<%= partials.modal_invoiceForm() %>
+<!--END MODALS-->
