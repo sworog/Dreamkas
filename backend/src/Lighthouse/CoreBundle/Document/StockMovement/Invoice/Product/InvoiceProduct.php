@@ -284,7 +284,7 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
      */
     public function setReasonParent(Storeable $parent)
     {
-        $this->invoice = $parent;
+        $this->setInvoice($parent);
     }
 
     /**
