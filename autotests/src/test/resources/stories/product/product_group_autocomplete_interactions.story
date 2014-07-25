@@ -126,7 +126,7 @@ GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 Given the user with email 's28u101@lighthouse.pro' creates group with name 's38u101autoGroup'
 Given the user with email 's28u101@lighthouse.pro' creates group with name 's38u101autoGroup4'
 And the user navigates to the group with name 's38u101autoGroup'
-And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101autocompleteName5', units 'шт.', barcode 'editvalidation1', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 's38u101autoGroup'
+And the user with email 's28u101@lighthouse.pro' creates the product with name 's38u101autocompleteName5', units 'шт.', barcode 'autocompleteBar5', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 's38u101autoGroup'
 
 And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
 
