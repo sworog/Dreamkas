@@ -40,4 +40,16 @@ public class GroupPage extends CommonPageObject {
     public ProductCollection getProductCollection() {
         return new ProductCollection(getDriver(), By.className("product__link"));
     }
+
+    public void sortByNameClick() {
+        findVisibleElement(By.xpath("//*[@data-products-sort-by='name']")).click();
+    }
+
+    public void sortBySellingPriceClick() {
+        findVisibleElement(By.xpath("//*[@data-products-sort-by='name']")).click();
+    }
+
+    public void sortByBarcodeClick() {
+        findVisibleElement(By.xpath("//*[@data-products-sort-by='name']")).click();
+    }
 }

@@ -17,6 +17,11 @@ public class ThenProductSteps {
         productSteps.productCollectionCompareWithExampleTable(examplesTable);
     }
 
+    @Then("the user asserts the product list contain exact products with values $examplesTable")
+    public void thenTheUserAssertsTheProductListContainExactProductsWithValues(ExamplesTable examplesTable) {
+        productSteps.productCollectionExactCompareWithExampleTable(examplesTable);
+    }
+
     @Then("the user checks stored values in edit product modal window")
     public void thenTheUserChecksStoredValuesInEditProductModalWindow() {
         productSteps.editProductModalWindowCheckStoredValues();

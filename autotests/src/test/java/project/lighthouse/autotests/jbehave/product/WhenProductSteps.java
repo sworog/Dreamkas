@@ -84,4 +84,19 @@ public class WhenProductSteps {
     public void whenTheUserImputsInEditProductModelWindowField(String value, String elementName) {
         productSteps.editProductModalWindowInput(elementName, value);
     }
+
+    @When("the user sorts the product list by name")
+    public void whenTheUserSortsTheProductListByName() {
+        productSteps.sortByNameClick();
+    }
+
+    @When("the user sorts the product list by sellingPrice")
+    public void whenTheUserSortsTheProductListBySellingPrice() {
+        productSteps.sortBySellingPriceClick();
+    }
+
+    @When("the user sorts the product list by barcode")
+    public void whenTheUserSortsTheProductListByBarCode() {
+        productSteps.sortByBarcodeClick();
+    }
 }

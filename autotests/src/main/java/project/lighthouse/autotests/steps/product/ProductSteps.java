@@ -98,6 +98,22 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
+    public void productCollectionExactCompareWithExampleTable(ExamplesTable examplesTable) {
+        ProductCollection productCollection = null;
+        try {
+            productCollection = groupPage.getProductCollection();
+        } catch (TimeoutException e) {
+            groupPage.containsText(NO_PRODUCTS_MESSAGE);
+        } catch (StaleElementReferenceException e) {
+            productCollection = groupPage.getProductCollection();
+        } finally {
+            if (productCollection != null) {
+                productCollection.exactCompareExampleTable(examplesTable);
+            }
+        }
+    }
+
+    @Step
     public void productCollectionProductWithNameClick(String name) {
         groupPage.getProductCollection().clickByLocator(name);
     }
@@ -217,5 +233,20 @@ public class ProductSteps extends ScenarioSteps {
     @Step
     public void editProductModalWindowInput(String elementName, String value) {
         editProductModalWindow.input(elementName, value);
+    }
+
+    @Step
+    public void sortByNameClick() {
+        groupPage.sortByNameClick();
+    }
+
+    @Step
+    public void sortBySellingPriceClick() {
+        groupPage.sortBySellingPriceClick();
+    }
+
+    @Step
+    public void sortByBarcodeClick() {
+        groupPage.sortByBarcodeClick();
     }
 }
