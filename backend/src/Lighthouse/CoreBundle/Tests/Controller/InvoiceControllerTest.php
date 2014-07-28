@@ -3,12 +3,13 @@
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Order\Order;
+use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class InvoiceControllerTest extends WebTestCase
 {
-    public function testPostInvoiceAction()
+    public function testStorePostInvoiceAction()
     {
         $store = $this->factory()->store()->getStore();
         $productId = $this->createProduct();
@@ -33,6 +34,45 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('ООО "Магазин"', 'legalEntity', $postResponse);
         Assert::assertJsonPathEquals('1248373', 'supplierInvoiceNumber', $postResponse);
         Assert::assertJsonPathEquals(true, 'includesVAT', $postResponse);
+    }
+
+    public function testPostInvoiceAction()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+        $supplier = $this->factory()->supplier()->getSupplier('ООО "Поставщик"');
+        $invoiceData = InvoiceProductControllerTest::getInvoiceData($supplier->id, $productId, 10, 5.99);
+        $invoiceData['store'] = $store->id;
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/invoices',
+            $invoiceData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonPathEquals($supplier->id, 'supplier.id', $postResponse);
+        Assert::assertJsonPathEquals('ООО "Поставщик"', 'supplier.name', $postResponse);
+        Assert::assertJsonPathEquals('2013-03-18T12:56:00+0400', 'date', $postResponse);
+        Assert::assertJsonPathEquals('Приемных Н.П.', 'accepter', $postResponse);
+        Assert::assertJsonPathEquals('ООО "Магазин"', 'legalEntity', $postResponse);
+        Assert::assertJsonPathEquals('1248373', 'supplierInvoiceNumber', $postResponse);
+        Assert::assertJsonPathEquals(true, 'includesVAT', $postResponse);
+        Assert::assertJsonPathEquals($store->id, 'store.id', $postResponse);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/invoices/' . $postResponse['id']
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertEquals($postResponse, $getResponse);
     }
 
     public function testGetInvoicesAction()
@@ -278,7 +318,7 @@ class InvoiceControllerTest extends WebTestCase
         );
     }
 
-    public function testPutInvoiceAction()
+    public function testStorePutInvoiceAction()
     {
         $store = $this->factory()->store()->getStore();
         $productId = $this->createProduct();
@@ -318,6 +358,58 @@ class InvoiceControllerTest extends WebTestCase
             $accessToken,
             'PUT',
             '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId,
+            $postData
+        );
+
+        $assertions['supplier.name'] = 'ООО "Подставщик"';
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals($invoiceId, 'id', $postJson);
+        foreach ($assertions as $jsonPath => $expected) {
+            Assert::assertJsonPathContains($expected, $jsonPath, $putJson);
+        }
+    }
+
+    public function testPutInvoiceAction()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+        $supplier1 = $this->factory()->supplier()->getSupplier('ООО "Поставщик"');
+        $supplier2 = $this->factory()->supplier()->getSupplier('ООО "Подставщик"');
+
+        $assertions = array(
+            'number' => '10001',
+            'supplier.name' => 'ООО "Поставщик"',
+            'date' => '2013-03-18T12:56:00+0400',
+            'accepter' => 'Приемных Н.П.',
+            'legalEntity' => 'ООО "Магазин"',
+            'supplierInvoiceNumber' => '1248373',
+        );
+
+        $postData = InvoiceProductControllerTest::getInvoiceData($supplier1->id, $productId, 10, 5.99);
+        $postData['store'] = $store->id;
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $postJson = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/invoices',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+        Assert::assertJsonHasPath('id', $postJson);
+        $invoiceId = $postJson['id'];
+
+        foreach ($assertions as $jsonPath => $expected) {
+            Assert::assertJsonPathContains($expected, $jsonPath, $postJson);
+        }
+
+        $postData['supplier'] = $supplier2->id;
+        $putJson = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/invoices/' . $invoiceId,
             $postData
         );
 

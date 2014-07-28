@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductMetricsCalculator;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
+use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
@@ -272,7 +273,7 @@ class InvoiceProductControllerTest extends WebTestCase
      * @param array $data
      * @param array $assertions
      */
-    public function testPostActionValidation($expectedCode, array $data, array $assertions = array())
+    public function testStorePostActionValidation($expectedCode, array $data, array $assertions = array())
     {
         $store = $this->factory()->store()->getStore();
         $supplier = $this->factory()->supplier()->getSupplier();
@@ -287,6 +288,35 @@ class InvoiceProductControllerTest extends WebTestCase
             $accessToken,
             'POST',
             '/api/1/stores/' . $store->id . '/invoices',
+            $invoiceData
+        );
+
+        $this->assertResponseCode($expectedCode);
+        $this->performJsonAssertions($response, $assertions, true);
+    }
+
+    /**
+     * @dataProvider validationProvider
+     * @param int $expectedCode
+     * @param array $data
+     * @param array $assertions
+     */
+    public function testPostActionValidation($expectedCode, array $data, array $assertions = array())
+    {
+        $store = $this->factory()->store()->getStore();
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $productId = $this->createProduct();
+        $invoiceData = $this->getInvoiceData($supplier->id, $productId, 10, 17.68);
+        $invoiceData['store'] = $store->id;
+
+        $invoiceData['products'][0] = $data + $invoiceData['products'][0];
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/invoices',
             $invoiceData
         );
 

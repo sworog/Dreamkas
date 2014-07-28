@@ -88,6 +88,19 @@ class InvoiceController extends AbstractRestController
     }
 
     /**
+     * @param Invoice $invoice
+     * @return Invoice
+     *
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function getInvoiceAction(Invoice $invoice)
+    {
+        return $invoice;
+    }
+
+    /**
      * @param Store $store
      * @param Request $request
      * @return FormInterface|Invoice
