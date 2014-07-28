@@ -22,9 +22,7 @@ class ProjectCommandListener
      * List of command names to be executed in project context
      * @var array
      */
-    protected $projectableCommands = array(
-        'doctrine:mongodb:fixtures:load',
-    );
+    protected $projectableCommands = array();
 
     /**
      * @DI\InjectParams({
