@@ -30,7 +30,7 @@ class InvoiceProductController extends FOSRestController
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
-    public function getProductInvoiceProductsAction(Store $store, Product $product)
+    public function getStoreProductInvoiceProductsAction(Store $store, Product $product)
     {
         return $this->documentRepository->findByStoreAndProduct($store->id, $product->id);
     }

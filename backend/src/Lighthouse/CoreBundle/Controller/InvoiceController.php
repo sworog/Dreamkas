@@ -66,7 +66,7 @@ class InvoiceController extends AbstractRestController
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
-    public function postInvoicesAction(Store $store, Request $request)
+    public function postStoreInvoicesAction(Store $store, Request $request)
     {
         $invoice = $this->documentRepository->createNew();
         $invoice->store = $store;
@@ -83,7 +83,7 @@ class InvoiceController extends AbstractRestController
      * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc
      */
-    public function putInvoicesAction(Store $store, Invoice $invoice, Request $request)
+    public function putStoreInvoicesAction(Store $store, Invoice $invoice, Request $request)
     {
         $this->checkInvoiceStore($store, $invoice);
         $this->documentRepository->resetInvoiceProducts($invoice);
@@ -101,7 +101,7 @@ class InvoiceController extends AbstractRestController
      * @Rest\Route("stores/{store}/invoices")
      * @Rest\View(serializerEnableMaxDepthChecks=true)
      */
-    public function getInvoicesAction(Store $store, InvoicesFilter $filter)
+    public function getStoreInvoicesAction(Store $store, InvoicesFilter $filter)
     {
         $cursor = $this->documentRepository->findByStore($store->id, $filter);
         if ($filter->hasNumberOrSupplierInvoiceNumber()) {
@@ -123,7 +123,7 @@ class InvoiceController extends AbstractRestController
      * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc
      */
-    public function getInvoiceAction(Store $store, Invoice $invoice)
+    public function getStoreInvoiceAction(Store $store, Invoice $invoice)
     {
         $this->checkInvoiceStore($store, $invoice);
         return $invoice;
@@ -137,7 +137,7 @@ class InvoiceController extends AbstractRestController
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @Rest\View(serializerEnableMaxDepthChecks=true)
      */
-    public function getOrderInvoiceAction(Store $store, Order $order)
+    public function getStoreOrderInvoiceAction(Store $store, Order $order)
     {
         if ($order->store !== $store) {
             throw new NotFoundHttpException(sprintf("%s object not found", Order::getClassName()));

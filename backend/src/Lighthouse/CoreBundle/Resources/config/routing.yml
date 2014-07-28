@@ -17,12 +17,10 @@ lighthouse.core.stock_movement:
 
 lighthouse.core.invoice:
     resource: Lighthouse\CoreBundle\Controller\InvoiceController
-    parent:   lighthouse.core.store
     type:     rest
 
 lighthouse.core.invoice_product:
     resource: Lighthouse\CoreBundle\Controller\InvoiceProductController
-    parent:   lighthouse.core.invoice
     type:     rest
 
 lighthouse.core.write-off:
