@@ -83,14 +83,14 @@
                     </div>
                     <hr />
                     <h3>Товары</h3>
-                    <table class="table">
+                    <table class="table table-vcenter">
                         <thead>
                             <tr>
-                                <th>Наименование</th>
-                                <th>Цена, <i class="fa fa-rub"></i></th>
-                                <th>Кол-во</th>
-                                <th>Сумма, <i class="fa fa-rub"></i></th>
-                                <th></th>
+                                <th class="col-md-8">Наименование</th>
+                                <th class="col-md-1">Цена, <i class="fa fa-rub"></i></th>
+                                <th class="col-md-1">Кол-во</th>
+                                <th class="col-md-1">Сумма, <i class="fa fa-rub"></i></th>
+                                <th class="col-md-1"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -99,63 +99,55 @@
                                 <td>38,50</td>
                                 <td>100 шт</td>
                                 <td>3 850,00</td>
-                                <td><a type="button" data-dismiss="modal" aria-hidden="true" class="close pull-left fa fa-times"></a></td>
+                                <td><a type="button" class="btn fa fa-times"></a></td>
                             </tr>
                             <tr>
                                 <td>Молоко "Веселый Молочник", 3,5%</td>
                                 <td>38,50</td>
                                 <td>100 шт</td>
                                 <td>3 850,00</td>
-                                <td>
-                                    <a type="button" data-dismiss="modal" aria-hidden="true" class="close pull-left fa fa-times"></a>
-                                </td>
+                                <td><a type="button" class="btn fa fa-times"></a></td>
                             </tr>
                             <tr>
                                 <td>Молоко "Веселый Молочник", 3,5%</td>
                                 <td>38,50</td>
                                 <td>100 шт</td>
                                 <td>3 850,00</td>
-                                <td><a type="button" data-dismiss="modal" aria-hidden="true" class="close pull-left fa fa-times"></a></td>
+                                <td><a type="button" class="btn fa fa-times"></a></td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input
-                                                    name="date"
-                                                    type="text"
-                                                    class="form-control"
-                                                    value="<%- invoiceModel.get('date') %>">
-                                            <span class="input-group-addon">
-                                                <i class="fa fa-plus"></i>
-                                            </span>
-                                        </div>
+                                    <div class="input-group">
+                                        <input
+                                                name="date"
+                                                type="text"
+                                                class="form-control"
+                                                value="<%- invoiceModel.get('date') %>">
+                                        <a class="input-group-addon btn">
+                                            <i class="fa fa-plus"></i>
+                                        </a>
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input
-                                                    name="date"
-                                                    type="text"
-                                                    class="form-control"
-                                                    value="<%- invoiceModel.get('date') %>">
-                                        </div>
+                                    <div class="input-group">
+                                        <input
+                                                name="date"
+                                                type="text"
+                                                class="form-control"
+                                                value="<%- invoiceModel.get('date') %>">
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <input
-                                                    name="date"
-                                                    type="text"
-                                                    class="form-control"
-                                                    value="<%- invoiceModel.get('date') %>">
-                                        </div>
+                                    <div class="input-group">
+                                        <input
+                                                name="date"
+                                                type="text"
+                                                class="form-control"
+                                                value="<%- invoiceModel.get('date') %>">
                                     </div>
                                 </td>
                                 <td>309,23</td>
-                                <td><a type="button"class="btn btn-default fa fa-check"></a></td>
+                                <td><a type="button" class="btn btn-default fa fa-check"></a></td>
                             </tr>
                         </tbody>
                     </table>

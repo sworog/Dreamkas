@@ -167,3 +167,7 @@ input.invalid {
 }
 
 
+/* Tables */
+table.table-vcenter>tbody>tr>td {
+    vertical-align: middle;
+}
