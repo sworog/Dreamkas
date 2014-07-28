@@ -2,25 +2,24 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-
-use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceHighlightGenerator;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoicesFilter;
 use Lighthouse\CoreBundle\Document\Order\Order;
-
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\InvoiceType;
-use FOS\RestBundle\Controller\Annotations as Rest;
 use Lighthouse\CoreBundle\Meta\MetaCollection;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Doctrine\ODM\MongoDB\Cursor;
 use JMS\DiExtraBundle\Annotation as DI;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use MongoDuplicateKeyException;
 
 class InvoiceController extends AbstractRestController
@@ -55,6 +54,37 @@ class InvoiceController extends AbstractRestController
         } else {
             return parent::handleFlushFailedException($e);
         }
+    }
+
+    /**
+     * @param Request $request
+     * @return FormInterface|Invoice
+     *
+     * @Rest\View(statusCode=201, serializerEnableMaxDepthChecks=true)
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function postInvoicesAction(Request $request)
+    {
+        $invoice = $this->documentRepository->createNew();
+        $formType = new InvoiceType(true);
+        return $this->processForm($request, $invoice, $formType);
+    }
+
+    /**
+     * @param Invoice $invoice
+     * @param Request $request
+     * @return FormInterface|Invoice
+     *
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function putInvoicesAction(Invoice $invoice, Request $request)
+    {
+        $formType = new InvoiceType(true);
+        $this->documentRepository->resetInvoiceProducts($invoice);
+        return $this->processForm($request, $invoice, $formType);
     }
 
     /**

@@ -66,7 +66,7 @@ class OrganizationController extends AbstractRestController
      */
     public function patchOrganizationAction(Request $request, Organization $organization)
     {
-        return $this->processForm($request, $organization, true, false);
+        return $this->processForm($request, $organization, null, true, false);
     }
 
     /**

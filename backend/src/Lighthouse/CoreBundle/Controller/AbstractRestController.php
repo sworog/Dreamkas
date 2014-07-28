@@ -7,8 +7,10 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Validator\ViolationMapper\ViolationMapper;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolation;
 use Exception;
@@ -28,6 +30,7 @@ abstract class AbstractRestController extends FOSRestController
     /**
      * @param Request $request
      * @param AbstractDocument $document
+     * @param FormTypeInterface $formType
      * @param bool $save
      * @param bool $clearMissing
      * @return FormInterface|AbstractDocument
@@ -35,10 +38,11 @@ abstract class AbstractRestController extends FOSRestController
     protected function processForm(
         Request $request,
         AbstractDocument $document = null,
+        FormTypeInterface $formType = null,
         $save = true,
         $clearMissing = true
     ) {
-        $form = $this->submitForm($request, $document, $clearMissing);
+        $form = $this->submitForm($request, $document, $formType, $clearMissing);
 
         if ($form->isValid()) {
             $document = ($document) ?: $form->getData();
@@ -54,14 +58,19 @@ abstract class AbstractRestController extends FOSRestController
 
     /**
      * @param Request $request
+     * @param FormTypeInterface $type
      * @param mixed $document
      * @param bool $clearMissing
      * @return FormInterface
      */
-    protected function submitForm(Request $request, $document = null, $clearMissing = true)
-    {
+    protected function submitForm(
+        Request $request,
+        $document = null,
+        FormTypeInterface $type = null,
+        $clearMissing = true
+    ) {
         $options = $this->getFormOptions($request);
-        $type = $this->getDocumentFormType();
+        $type = ($type) ?: $this->getDocumentFormType();
         $form = $this->createForm($type, $document, $options);
         $form->submit($request, $clearMissing);
 
