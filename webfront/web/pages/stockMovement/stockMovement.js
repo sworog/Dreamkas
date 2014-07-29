@@ -44,6 +44,8 @@ define(function(require, exports, module) {
 
                     modal.one('hidden.bs.modal', function(e) {
                         page.collections.invoices.fetch().then(function() {
+                            form_invoice.model.get('products').reset();
+                            form_invoice.model.clear();
                             page.render();
                         });
                     });
