@@ -46,7 +46,6 @@ class StockMovementControllerTest extends WebTestCase
             ->flush();
 
         return array(
-            'productIds' => $productIds,
             'store1' => $store1->id,
             'store2' => $store2->id,
             'invoice1' => $invoice1->id,
@@ -58,15 +57,7 @@ class StockMovementControllerTest extends WebTestCase
 
     public function testGetAction()
     {
-        list(
-            ,
-            $storeId1,
-            $storeId2,
-            $invoiceId1,
-            $invoiceId2,
-            $writeOffId1,
-            $writeOffId2
-        ) = $this->createStockMovements();
+        $ids = $this->createStockMovements();
 
         $accessToken = $this->factory()->oauth()->authAsProjectUser();
 
@@ -83,15 +74,15 @@ class StockMovementControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('Invoice', '*.type', $response, 2);
         Assert::assertJsonPathEquals('WriteOff', '*.type', $response, 2);
 
-        Assert::assertJsonPathEquals($storeId1, '0.store.id', $response);
-        Assert::assertJsonPathEquals($storeId1, '1.store.id', $response);
-        Assert::assertJsonPathEquals($storeId2, '2.store.id', $response);
-        Assert::assertJsonPathEquals($storeId1, '3.store.id', $response);
+        Assert::assertJsonPathEquals($ids['store1'], '0.store.id', $response);
+        Assert::assertJsonPathEquals($ids['store1'], '1.store.id', $response);
+        Assert::assertJsonPathEquals($ids['store2'], '2.store.id', $response);
+        Assert::assertJsonPathEquals($ids['store1'], '3.store.id', $response);
 
-        Assert::assertJsonPathEquals($writeOffId1, '0.id', $response);
-        Assert::assertJsonPathEquals($invoiceId1, '1.id', $response);
-        Assert::assertJsonPathEquals($invoiceId2, '2.id', $response);
-        Assert::assertJsonPathEquals($writeOffId2, '3.id', $response);
+        Assert::assertJsonPathEquals($ids['writeOff1'], '0.id', $response);
+        Assert::assertJsonPathEquals($ids['invoice1'], '1.id', $response);
+        Assert::assertJsonPathEquals($ids['invoice2'], '2.id', $response);
+        Assert::assertJsonPathEquals($ids['writeOff2'], '3.id', $response);
     }
 
     /**
