@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Controller;
 use Doctrine\ODM\MongoDB\Cursor;
 use FOS\RestBundle\Controller\FOSRestController;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementFilter;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovementRepository;
 use JMS\DiExtraBundle\Annotation as DI;
 use JMS\SecurityExtraBundle\Annotation\Secure;
@@ -25,10 +26,11 @@ class StockMovementController extends FOSRestController
      * @Rest\Route("/stockMovements")
      * @Rest\View(serializerEnableMaxDepthChecks=true)
      *
+     * @param StockMovementFilter $filter
      * @return Cursor|StockMovement[]
      */
-    public function getStockMovementsAction()
+    public function getStockMovementsAction(StockMovementFilter $filter)
     {
-        return $this->documentRepository->findAll();
+        return $this->documentRepository->findByFilter($filter);
     }
 }
