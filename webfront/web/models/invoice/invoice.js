@@ -19,7 +19,7 @@ define(function(require) {
             supplierInvoiceNumber: null,
             products: new InvoiceProductsCollection(),
             order: null,
-            paid: null,
+            paid: false,
             store: null
         },
         saveData: function(){
@@ -42,7 +42,7 @@ define(function(require) {
                 products: this.get('products').map(function(productModel) {
                     return productModel.getData();
                 }),
-//                paid: this.get('paid'),
+                paid: this.get('paid'),
                 store: this.get('store')
             }
         },
