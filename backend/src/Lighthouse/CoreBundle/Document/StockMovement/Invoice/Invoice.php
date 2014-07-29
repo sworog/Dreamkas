@@ -61,7 +61,7 @@ class Invoice extends StockMovement
      *     targetDocument="Lighthouse\CoreBundle\Document\Supplier\Supplier",
      *     simple=true
      * )
-     * @Assert\NotBlank(message="lighthouse.validation.errors.invoice.supplier.empty")
+     * Assert\NotBlank(message="lighthouse.validation.errors.invoice.supplier.empty")
      * @AssertLH\Reference(message="lighthouse.validation.errors.invoice.supplier.does_not_exists")
      * @var Supplier
      */
@@ -70,7 +70,7 @@ class Invoice extends StockMovement
     /**
      * Кто принял
      * @MongoDB\String
-     * @Assert\NotBlank
+     * Assert\NotBlank
      * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
@@ -79,7 +79,7 @@ class Invoice extends StockMovement
     /**
      * Получатель (юр. лицо)
      * @MongoDB\String
-     * @Assert\NotBlank
+     * Assert\NotBlank
      * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
@@ -87,7 +87,7 @@ class Invoice extends StockMovement
 
     /**
      * Входящий номер накладной
-     * @Assert\NotBlank
+     * Assert\NotBlank
      * @MongoDB\String
      * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      * @var string

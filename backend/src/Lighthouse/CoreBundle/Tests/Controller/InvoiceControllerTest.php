@@ -453,11 +453,13 @@ class InvoiceControllerTest extends WebTestCase
             /***********************************************************************************************
              * 'supplier'
              ***********************************************************************************************/
+            /*
             'supplier is empty' => array(
                 400,
                 array('supplier' => ''),
                 array('errors.children.supplier.errors.0' => 'Выберите поставщика'),
             ),
+            */
             'supplier is invalid' => array(
                 400,
                 array('supplier' => 'aaaa'),
@@ -479,11 +481,13 @@ class InvoiceControllerTest extends WebTestCase
                 201,
                 array('accepter' => str_repeat('z', 100)),
             ),
+            /*
             'empty accepter' => array(
                 400,
                 array('accepter' => ''),
                 array('errors.children.accepter.errors.0' => 'Заполните это поле',),
             ),
+            */
             'not valid accepter too long' => array(
                 400,
                 array('accepter' => str_repeat("z", 105)),
@@ -500,11 +504,13 @@ class InvoiceControllerTest extends WebTestCase
                 201,
                 array('legalEntity' => str_repeat('z', 300)),
             ),
+            /*
             'empty legalEntity' => array(
                 400,
                 array('legalEntity' => ''),
                 array('errors.children.legalEntity.errors.0' => 'Заполните это поле'),
             ),
+            */
             'not valid legalEntity too long' => array(
                 400,
                 array('legalEntity' => str_repeat("z", 305)),
@@ -521,11 +527,13 @@ class InvoiceControllerTest extends WebTestCase
                 201,
                 array('supplierInvoiceNumber' => str_repeat('z', 100)),
             ),
+            /*
             'empty supplierInvoiceNumber' => array(
                 400,
                 array('supplierInvoiceNumber' => ''),
                 array('errors.children.supplierInvoiceNumber.errors.0' => 'Заполните это поле'),
             ),
+            */
             'not valid supplierInvoiceNumber too long' => array(
                 400,
                 array('supplierInvoiceNumber' => str_repeat("z", 105)),
@@ -1227,12 +1235,14 @@ class InvoiceControllerTest extends WebTestCase
                 'Такого поставщика не существует',
                 'supplier'
             ),
+            /*
             'empty supplier' => array(
                 array('supplier' => ''),
                 'errors.children.supplier.errors.0',
                 'Выберите поставщика',
                 'supplier'
             ),
+            */
             'empty acceptance date' => array(
                 array('date' => ''),
                 'errors.children.date.errors.0',
