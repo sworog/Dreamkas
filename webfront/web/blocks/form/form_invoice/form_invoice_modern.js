@@ -65,6 +65,15 @@ define(function(require) {
                 } else {
                     block.showSelectProductError();
                 }
+            },
+            'click .delInvoiceProduct': function(event) {
+                var block = this,
+                    modelCid = $(event.target).attr('model-cid'),
+                    products = block.model.get('products');
+
+                products.remove(modelCid);
+
+                block.renderInvoiceProductsTable();
             }
         },
         blocks: {

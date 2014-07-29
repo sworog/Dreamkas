@@ -9,6 +9,6 @@
         <td><%- helpers.formatMoney(invoiceProductModel.get('priceEntered')) %></td>
         <td><%- helpers.formatAmount(invoiceProductModel.get('quantity')) %> шт</td>
         <td><%- helpers.formatMoney(invoiceProductModel.get('totalPrice')) %></td>
-        <td><a type="button" class="btn fa fa-times"></a></td>
+        <td><a  model-cid="<%- invoiceProductModel.cid %>" type="button" class="delInvoiceProduct btn fa fa-times"></a></td>
     </tr>
 <% }); %>
