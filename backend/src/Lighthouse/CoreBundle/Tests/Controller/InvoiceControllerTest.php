@@ -263,7 +263,11 @@ class InvoiceControllerTest extends WebTestCase
         $this->assertResponseCode($expectedCode);
 
         foreach ($assertions as $path => $expected) {
-            Assert::assertJsonPathContains($expected, $path, $postResponse);
+            if (is_bool($expected)) {
+                Assert::assertJsonPathEquals($expected, $path, $postResponse);
+            } else {
+                Assert::assertJsonPathContains($expected, $path, $postResponse);
+            }
         }
     }
 
@@ -600,11 +604,7 @@ class InvoiceControllerTest extends WebTestCase
             'not valid createdDate' => array(
                 400,
                 array('createdDate' => '2013-03-26T12:34:56'),
-                array(
-                    'errors.errors.0'
-                    =>
-                    'Эта форма не должна содержать дополнительных полей',
-                ),
+                array('errors.errors.0' => 'Эта форма не должна содержать дополнительных полей'),
             ),
             /***********************************************************************************************
              * 'products'
@@ -612,11 +612,35 @@ class InvoiceControllerTest extends WebTestCase
             'empty products' => array(
                 400,
                 array('products' => array()),
-                array(
-                    'errors.errors.0'
-                    =>
-                    'Нужно добавить минимум один товар',
-                ),
+                array('errors.errors.0' => 'Нужно добавить минимум один товар'),
+            ),
+            /***********************************************************************************************
+             * 'paid'
+             ***********************************************************************************************/
+            'paid true' => array(
+                201,
+                array('paid' => true),
+                array('paid' => true),
+            ),
+            'paid false' => array(
+                201,
+                array('paid' => false),
+                array('paid' => false),
+            ),
+            'paid empty becomes true and it is weard' => array(
+                201,
+                array('paid' => ''),
+                array('paid' => true),
+            ),
+            'paid null' => array(
+                201,
+                array('paid' => null),
+                array('paid' => false),
+            ),
+            'paid aaa' => array(
+                201,
+                array('paid' => 'aaa'),
+                array('paid' => true),
             ),
         );
     }

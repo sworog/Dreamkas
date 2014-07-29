@@ -59,6 +59,10 @@ class InvoiceType extends DocumentType
                 'datetime'
             )
             ->add(
+                'paid',
+                'checkbox'
+            )
+            ->add(
                 'accepter',
                 'text'
             )

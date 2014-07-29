@@ -21,6 +21,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @property Order      $order
  * @property string     $number
  * @property string     $accepter
+ * @property bool       $paid
  * @property string     $legalEntity
  * @property string     $supplierInvoiceNumber
  * @property Money      $sumTotalWithoutVAT
@@ -66,6 +67,12 @@ class Invoice extends StockMovement
      * @var Supplier
      */
     protected $supplier;
+
+    /**
+     * @MongoDB\Boolean
+     * @var bool
+     */
+    protected $paid;
 
     /**
      * Кто принял
