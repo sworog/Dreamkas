@@ -1,12 +1,18 @@
 define(function(require, exports, module) {
     //requirements
     var Page = require('kit/page/page'),
+        SuppliersCollection = require('collections/suppliers'),
+        StoresCollection = require('collections/stores'),
+        InvoicesCollection = require('collections/invoices/invoices'),
         InvoiceModel = require('models/invoice/invoice');
 
     return Page.extend({
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'stockMovement',
         collections: {
+            suppliers: new SuppliersCollection(),
+            stores: new StoresCollection(),
+            invoices: new InvoicesCollection()
         },
         blocks: {
             inputDate: function() {
@@ -37,7 +43,9 @@ define(function(require, exports, module) {
                     var modal = page.$el.find('.modal:visible');
 
                     modal.one('hidden.bs.modal', function(e) {
-
+                        page.collections.invoices.fetch().then(function() {
+                            page.render();
+                        });
                     });
 
                     modal.modal('hide');

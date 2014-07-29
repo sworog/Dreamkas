@@ -1,8 +1,6 @@
 define(function(require) {
     var Form = require('kit/form/form'),
         InvoiceProductModel = require('models/invoiceProduct/invoiceProduct'),
-        SuppliersCollection = require('collections/suppliers'),
-        Autocomplete = require('blocks/autocomplete/autocomplete'),
         Select_suppliers = require('blocks/select/select_suppliers/select_suppliers'),
         router = require('router'),
         cookies = require('cookies'),
@@ -11,9 +9,6 @@ define(function(require) {
 
     return Form.extend({
         currentInvoiceProductTarget: null,
-        collections: {
-            suppliers: new SuppliersCollection()
-        },
         events: {
             'typeahead:selected': function(event, product, sugg) {
                 var block = this;

@@ -2,6 +2,11 @@
     modal_invoiceForm: require('ejs!blocks/modal/modal_invoiceForm/modal_invoiceForm.ejs')
 }; %>
 
+<% var helpers = {
+    formatMoney: require('kit/formatMoney/formatMoney'),
+    formatDate: require('kit/formatDate/formatDate')
+} %>
+
 <!--BEGIN TITLE PAGE-->
 <div class="page-title-breadcrumb">
 
@@ -23,11 +28,49 @@
 <!--BEGIN CONTENT-->
 <div class="page-content">
     <div class="row">
-
+        <div class="col-md-12">
+            <div class="panel">
+                <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Дата</th>
+                                <th>Операция</th>
+                                <th>Магазин</th>
+                                <th>На сумму, <i class="fa fa-rub"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% collections.invoices.forEach(function(invoice) { %>
+                                <tr>
+                                    <td>
+                                        <%- helpers.formatDate(invoice.get('date')) %>
+                                    </td>
+                                    <td>
+                                        Приёмка
+                                    </td>
+                                    <td>
+                                        <%- invoice.get('store.number') %>
+                                    </td>
+                                    <td>
+                                        <%- helpers.formatMoney(invoice.get('sumTotal')) %>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <!--END CONTENT-->
 
 <!--MODALS-->
-<%= partials.modal_invoiceForm() %>
+<%= partials.modal_invoiceForm({
+    collections: {
+        suppliers: collections.suppliers,
+        stores: collections.stores
+    }
+}) %>
 <!--END MODALS-->

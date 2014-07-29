@@ -18,7 +18,9 @@ define(function(require) {
             includesVAT: true,
             supplierInvoiceNumber: null,
             products: new InvoiceProductsCollection(),
-            order: null
+            order: null,
+            paid: null,
+            store: null
         },
         saveData: function(){
             var supplier = this.get('supplier');
@@ -32,14 +34,16 @@ define(function(require) {
             return {
                 order: order,
                 supplier: supplier,
-                date: this.get('acceptanceDate'),
+                date: this.get('date'),
                 accepter: this.get('accepter'),
                 legalEntity: this.get('legalEntity'),
                 includesVAT: this.get('includesVAT'),
                 supplierInvoiceNumber: this.get('supplierInvoiceNumber'),
                 products: this.get('products').map(function(productModel) {
                     return productModel.getData();
-                })
+                }),
+//                paid: this.get('paid'),
+                store: this.get('store')
             }
         },
         parse: function(data) {

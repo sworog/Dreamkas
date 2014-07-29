@@ -42,7 +42,11 @@
                                 <label class="control-label">Дата *</label>
 
                                 <div class="input-group datetimepicker-default date">
-                                    <input type="text" class="form-control datepicker-default">
+                                    <input
+                                            name="date"
+                                            type="text"
+                                            class="form-control datepicker-default"
+                                            value="<%- invoiceModel.get('date') %>">
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
@@ -55,11 +59,14 @@
                                 <label class="control-label">Магазин *</label>
 
                                 <div class="input-icon right">
-                                    <input
-                                            name="date"
-                                            type="text"
-                                            class="form-control"
-                                            value="<%- invoiceModel.get('date') %>">
+                                    <select class="form-control" name="store">
+                                        <option value="" selected disabled>Выберите магазин</option>
+                                        <% collections.stores.forEach(function(storeModel){ %>
+                                        <option <%- invoiceModel.get('store.id') === storeModel.id ? 'selected' : '' %>
+                                                value="<%- storeModel.id %>"><%- storeModel.get('number') %>
+                                        </option>
+                                        <% }) %>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -69,11 +76,17 @@
                                 <label class="control-label">Поставщик</label>
 
                                 <div class="input-icon right">
-                                    <input
-                                            name="date"
-                                            type="text"
-                                            class="form-control"
-                                            value="<%- invoiceModel.get('date') %>">
+                                    <select class="form-control" name="supplier">
+                                        <option value="" selected disabled>Выберите поставщика</option>
+                                        <% collections.suppliers.forEach(function(supplierModel){ %>
+                                        <option <%- invoiceModel.get('supplier.id') === supplierModel.id ? 'selected' : '' %>
+                                                value="<%- supplierModel.id %>"><%- supplierModel.get('name') %>
+                                        </option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                                <div class="select_suppliers">
+
                                 </div>
                             </div>
                         </div>
