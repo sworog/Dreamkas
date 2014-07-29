@@ -1,0 +1,18 @@
+.tt-dropdown-menu {
+    background: white;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+
+.tt-suggestions {
+
+}
+
+.tt-suggestion {
+    padding: 10px;
+    border-bottom: 1px #f1f1f1 solid;
+}
+
+.tt-cursor {
+    background-color: #f5f5f5;
+}
+

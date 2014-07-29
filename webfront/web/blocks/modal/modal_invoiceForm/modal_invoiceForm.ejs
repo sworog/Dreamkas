@@ -1,6 +1,11 @@
 <% var InvoiceModel = require('models/invoice/invoice') %>
 <% var invoiceModel = invoiceModel || new InvoiceModel() %>
 
+<% var helpers = {
+    formatMoney: require('kit/formatMoney/formatMoney'),
+    formatAmount: require('kit/formatAmount/formatAmount')
+} %>
+
 <div id="<%- invoiceModel.id ? 'modal-invoiceEdit' : 'modal-invoiceAdd' %>"
      tabindex="-1"
      role="dialog"
@@ -93,63 +98,56 @@
                                 <th class="col-md-1"></th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Молоко "Веселый Молочник", 3,5%</td>
-                                <td>38,50</td>
-                                <td>100 шт</td>
-                                <td>3 850,00</td>
-                                <td><a type="button" class="btn fa fa-times"></a></td>
-                            </tr>
-                            <tr>
-                                <td>Молоко "Веселый Молочник", 3,5%</td>
-                                <td>38,50</td>
-                                <td>100 шт</td>
-                                <td>3 850,00</td>
-                                <td><a type="button" class="btn fa fa-times"></a></td>
-                            </tr>
-                            <tr>
-                                <td>Молоко "Веселый Молочник", 3,5%</td>
-                                <td>38,50</td>
-                                <td>100 шт</td>
-                                <td>3 850,00</td>
-                                <td><a type="button" class="btn fa fa-times"></a></td>
-                            </tr>
-                            <tr>
+                        <tbody class="invoiceProducts">
+                                <!--<tr>-->
+                                    <!--<td>Молоко "Веселый Молочник", 3,5%</td>-->
+                                    <!--<td>38,50</td>-->
+                                    <!--<td>100 шт</td>-->
+                                    <!--<td>3 850,00</td>-->
+                                    <!--<td><a type="button" class="btn fa fa-times"></a></td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td>Молоко "Веселый Молочник", 3,5%</td>-->
+                                    <!--<td>38,50</td>-->
+                                    <!--<td>100 шт</td>-->
+                                    <!--<td>3 850,00</td>-->
+                                    <!--<td><a type="button" class="btn fa fa-times"></a></td>-->
+                                <!--</tr>-->
+                        </tbody>
+                        <tfoot>
+
+                            <tr class="invoiceProductForm">
                                 <td>
                                     <div class="input-group">
                                         <input
-                                                name="date"
+                                                name="product"
                                                 type="text"
-                                                class="form-control"
-                                                value="<%- invoiceModel.get('date') %>">
-                                        <a class="input-group-addon btn">
-                                            <i class="fa fa-plus"></i>
-                                        </a>
+                                                class="form-control autocomplete"
+                                                >
                                     </div>
                                 </td>
                                 <td>
                                     <div class="input-group">
                                         <input
-                                                name="date"
+                                                name="priceEntered"
                                                 type="text"
-                                                class="form-control"
-                                                value="<%- invoiceModel.get('date') %>">
+                                                class="form-control">
                                     </div>
                                 </td>
                                 <td>
                                     <div class="input-group">
                                         <input
-                                                name="date"
+                                                name="quantity"
                                                 type="text"
-                                                class="form-control"
-                                                value="<%- invoiceModel.get('date') %>">
+                                                class="form-control">
                                     </div>
                                 </td>
                                 <td>309,23</td>
-                                <td><a type="button" class="btn btn-default fa fa-check"></a></td>
+                                <td>
+                                    <a type="button" class="addInvoiceProduct btn btn-default fa fa-check"></a>
+                                </td>
                             </tr>
-                        </tbody>
+                        </tfoot>
                     </table>
                 </form>
             </div>

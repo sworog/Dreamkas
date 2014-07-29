@@ -8,16 +8,16 @@ define(function(require) {
         storeId: null,
         fromOrder: null,
         urlRoot: function() {
-            return Model.baseApiUrl + '/stores/' + this.storeId + '/invoices'
+            return Model.baseApiUrl + '/invoices'
         },
         defaults: {
             supplier: null,
-            acceptanceDate: null,
+            date: null,
             accepter: null,
             legalEntity: null,
             includesVAT: true,
             supplierInvoiceNumber: null,
-            products: null,
+            products: new InvoiceProductsCollection(),
             order: null
         },
         saveData: function(){
@@ -32,7 +32,7 @@ define(function(require) {
             return {
                 order: order,
                 supplier: supplier,
-                acceptanceDate: this.get('acceptanceDate'),
+                date: this.get('acceptanceDate'),
                 accepter: this.get('accepter'),
                 legalEntity: this.get('legalEntity'),
                 includesVAT: this.get('includesVAT'),

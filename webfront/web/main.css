@@ -13,6 +13,7 @@
 
 @import "/blocks/confirmLink/confirmLink.css";
 @import "/blocks/groupList/groupList.css";
+@import "/blocks/form/form_invoice/autocomplete/autocomplete.css";
 
 body:before {
     content: "";
