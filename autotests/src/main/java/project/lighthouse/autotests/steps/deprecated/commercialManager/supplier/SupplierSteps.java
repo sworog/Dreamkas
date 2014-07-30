@@ -13,8 +13,8 @@ import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.helper.file.FileCreator;
 import project.lighthouse.autotests.helper.file.FileDownloader;
 import project.lighthouse.autotests.helper.file.FilesCompare;
-import project.lighthouse.autotests.objects.web.supplier.SupplierObject;
-import project.lighthouse.autotests.objects.web.supplier.SupplierObjectCollection;
+import project.lighthouse.autotests.objects.web.deprecated.supplier.SupplierObject;
+import project.lighthouse.autotests.objects.web.deprecated.supplier.SupplierObjectCollection;
 import project.lighthouse.autotests.pages.deprecated.commercialManager.supplier.SupplierListPage;
 import project.lighthouse.autotests.pages.deprecated.commercialManager.supplier.SupplierPage;
 

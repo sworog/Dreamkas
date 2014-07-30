@@ -26,11 +26,17 @@ class ProductController extends AbstractRestController
     protected $documentRepository;
 
     /**
+     * @DI\Inject("lighthouse.core.form.product_type");
+     * @var ProductType
+     */
+    protected $productType;
+
+    /**
      * @return ProductType
      */
     protected function getDocumentFormType()
     {
-        return new ProductType();
+        return $this->productType;
     }
 
     /**
@@ -126,7 +132,7 @@ class ProductController extends AbstractRestController
      * @param SubCategory $subCategory
      * @return Product[]|Cursor
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
-     * @Rest\View(serializerGroups={"Collection"})
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc
      */
     public function getSubcategoryProductsAction(SubCategory $subCategory)

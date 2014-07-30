@@ -6,6 +6,8 @@ define(function(require, exports, module) {
         deepExtend = require('kit/deepExtend/deepExtend'),
         _ = require('lodash');
 
+    require('sortable');
+
     var Page = Block.extend({
 
         el: '.page',
@@ -35,13 +37,13 @@ define(function(require, exports, module) {
             });
 
             Page.previous = Page.current;
-            Page.current = page;
+            window.PAGE = Page.current = page;
 
             if (Page.previous){
                 Page.previous.destroy();
             }
 
-            Promise.resolve(page.fetch()).then(function() {
+            $.when(page.fetch()).then(function() {
                 try {
                     page.render();
                     page.setStatus('loaded');
@@ -84,20 +86,22 @@ define(function(require, exports, module) {
                 return (data && typeof data.fetch === 'function') ? data.fetch() : data;
             });
 
-            return Promise.all(fetchList);
+            return $.when.apply($, fetchList);
         },
 
         destroy: function(){
             var page = this;
 
             _.forEach(page.models, function(model){
-                model.off();
-                model.stopListening();
+                if (null !== model) {
+                    model.off && model.off();
+                    model.stopListening && model.stopListening();
+                }
             });
 
             _.forEach(page.collections, function(collection){
-                collection.off();
-                collection.stopListening();
+                collection.off && collection.off();
+                collection.stopListening && collection.stopListening();
             });
 
             page.undelegateEvents();
@@ -124,10 +128,16 @@ define(function(require, exports, module) {
             }, 0);
         },
 
-        _initBlocks: function(){
-            var block = this;
+        initBlocks: function(){
+            var page = this;
 
-            Block.prototype._initBlocks.apply(block, arguments);
+            page.$('button[data-toggle="popover"]').popover({
+                trigger: 'focus'
+            });
+
+            Sortable.init();
+
+            Block.prototype.initBlocks.apply(page, arguments);
         }
     });
 

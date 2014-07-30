@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Form\Types;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\DataTransformer\DocumentToIdTransformer;
 use Lighthouse\CoreBundle\Versionable\VersionFactory;
+use Lighthouse\CoreBundle\Versionable\VersionRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -28,8 +29,8 @@ class ReferenceType extends AbstractType
 
     /**
      * @DI\InjectParams({
-     *     "odm"=@DI\Inject("doctrine_mongodb.odm.document_manager"),
-     *     "versionFactory"=@DI\Inject("lighthouse.core.versionable.factory")
+     *     "odm" = @DI\Inject("doctrine_mongodb.odm.document_manager"),
+     *     "versionFactory" = @DI\Inject("lighthouse.core.versionable.factory")
      * })
      * @param DocumentManager $odm
      * @param VersionFactory $versionFactory
@@ -46,13 +47,26 @@ class ReferenceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $viewTransformer = new DocumentToIdTransformer(
-            $this->odm,
-            $options['class'],
-            $this->versionFactory,
-            $options['return_null_object_on_not_found']
+        $builder->addViewTransformer(
+            $this->createViewTransformer(
+                $options['class'],
+                $options['return_null_object_on_not_found']
+            )
         );
-        $builder->addViewTransformer($viewTransformer);
+    }
+
+    /**
+     * @param string $class
+     * @param bool $returnNullObjectOnNotFound
+     * @return DocumentToIdTransformer
+     */
+    protected function createViewTransformer($class, $returnNullObjectOnNotFound = false)
+    {
+        $repository = $this->odm->getRepository($class);
+        if ($repository instanceof VersionRepository) {
+            $repository->setVersionFactory($this->versionFactory);
+        }
+        return new DocumentToIdTransformer($repository, $returnNullObjectOnNotFound);
     }
 
     /**

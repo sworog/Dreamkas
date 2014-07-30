@@ -2,26 +2,15 @@
 
 namespace Lighthouse\CoreBundle\DataTransformer;
 
-use Doctrine\ODM\MongoDB\DocumentManager;
-use Doctrine\ODM\MongoDB\DocumentRepository;
+use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\NullObjectInterface;
-use Lighthouse\CoreBundle\Versionable\VersionFactory;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
 use Symfony\Component\Form\DataTransformerInterface;
-use JMS\DiExtraBundle\Annotation as DI;
 use Symfony\Component\Form\Exception\TransformationFailedException;
 
-/**
- * @DI\Service("lighthouse.core.data_transformer.document_to_id")
- */
 class DocumentToIdTransformer implements DataTransformerInterface
 {
-    /**
-     * @var DocumentManager
-     */
-    protected $documentManager;
-
     /**
      * @var DocumentRepository|VersionRepository
      */
@@ -35,22 +24,14 @@ class DocumentToIdTransformer implements DataTransformerInterface
     protected $returnNullObjectOnNotFound;
 
     /**
-     * @param DocumentManager $documentManager
-     * @param string $class
-     * @param VersionFactory $versionFactory
+     * @param DocumentRepository $documentRepository
      * @param bool $returnNullObjectOnNotFound
      */
     public function __construct(
-        DocumentManager $documentManager,
-        $class,
-        VersionFactory $versionFactory,
+        DocumentRepository $documentRepository,
         $returnNullObjectOnNotFound = false
     ) {
-        $this->documentManager = $documentManager;
-        $this->repository = $documentManager->getRepository($class);
-        if ($this->repository instanceof VersionRepository) {
-            $this->repository->setVersionFactory($versionFactory);
-        }
+        $this->repository = $documentRepository;
         $this->returnNullObjectOnNotFound = $returnNullObjectOnNotFound;
     }
 
@@ -66,7 +47,8 @@ class DocumentToIdTransformer implements DataTransformerInterface
             return $document->getNullObjectIdentifier();
         }
 
-        $metadata = $this->documentManager->getClassMetadata(get_class($document));
+        $dm = $this->repository->getDocumentManager();
+        $metadata = $dm->getDocumentMetadata($document);
         $id = $metadata->getIdentifierValue($document);
 
         return $id;

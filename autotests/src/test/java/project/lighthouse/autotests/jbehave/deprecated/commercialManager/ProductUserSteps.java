@@ -10,7 +10,7 @@ import org.json.JSONException;
 import project.lighthouse.autotests.objects.api.Category;
 import project.lighthouse.autotests.objects.api.Group;
 import project.lighthouse.autotests.objects.api.SubCategory;
-import project.lighthouse.autotests.steps.api.commercialManager.CatalogApiSteps;
+import project.lighthouse.autotests.steps.deprecated.api.commercialManager.CatalogApiSteps;
 import project.lighthouse.autotests.steps.deprecated.commercialManager.ProductSteps;
 
 import java.io.IOException;

@@ -1,12 +1,16 @@
 <% var partials = {
-    modal_groupForm: require('ejs!blocks/modal/modal_groupForm/modal_groupForm.ejs')
-} %>
+    modal_groupForm: require('ejs!blocks/modal/modal_groupForm/modal_groupForm.ejs'),
+    modal_productForm: require('ejs!blocks/modal/modal_productForm/modal_productForm.ejs')
+};
+helpers = {
+    formatMoney: require('kit/formatMoney/formatMoney')
+}; %>
 
 <!--BEGIN TITLE PAGE-->
 <div class="page-title-breadcrumb">
 
     <div class="pull-right">
-        <span data-target="#modal-groupEdit"
+        <span data-target="#modal-productAdd"
               data-toggle="modal"
               role="button"
               class="btn btn-primary btn-md">Добавить товар</span>
@@ -36,38 +40,74 @@
 <div class="page-content">
     <div class="row">
         <div class="col-md-12">
+            <% if (collections.products.length) { %>
+
             <div class="panel">
                 <div class="panel-body">
-                    <table class="table table-hover">
+                    <table data-sortable style="margin-bottom: 0" class="table table_products table-hover">
                         <thead>
                         <tr>
-                            <th>Название</th>
-                            <th>Цена продажи, <i class="fa fa-rub"></i></th>
-                            <th>Артикул</th>
+                            <th data-products-sort-by="name"
+                                    <%- params.productsSortBy === 'name' ? 'data-sorted=true data-sorted-direction=' + params.productsSortDirection : '' %>>
+                                Название
+                            </th>
+                            <th data-products-sort-by="sellingPrice"
+                                    <%- params.productsSortBy === 'sellingPrice' ? 'data-sorted=true data-sorted-direction=' + params.productsSortDirection : '' %>>
+                                Цена продажи, <i class="fa fa-rub"></i>
+                            </th>
+                            <th data-products-sort-by="barcode"
+                                    <%- params.productsSortBy === 'barcode' ? 'data-sorted=true data-sorted-direction=' + params.productsSortDirection : '' %>>
+                                Штрих-код
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Хорошие</td>
-                            <td>23,43</td>
-                            <td>10001</td>
+
+                        <% collections.sortedProducts.forEach(function(productModel){ %>
+                        <tr class="product__link" data-product_id="<%- productModel.id %>">
+                            <td data-value="<%- productModel.get('name') %>"
+                                name="name"><%- productModel.get('name') %></td>
+                            <td data-value="<%- productModel.get('sellingPrice') %>"
+                                name="sellingPrice"><%- productModel.get('sellingPrice') ? helpers.formatMoney(productModel.get('sellingPrice')) : '' %></td>
+                            <td data-value="<%- productModel.get('barcode') %>"
+                                name="barcode"><%- productModel.get('barcode') %></td>
                         </tr>
-                        <tr>
-                            <td>Плохие</td>
-                            <td>45,00</td>
-                            <td>10002</td>
-                        </tr>
+                        <% }) %>
                         </tbody>
                     </table>
                 </div>
             </div>
+            <% } else { %>
+            <div class="col-md-12">
+                <div class="alert alert-info">
+                    В этой группе пока нет ни одного товара.
+                </div>
+            </div>
+            <% } %>
         </div>
     </div>
 </div>
 <!--END CONTENT-->
 
 <!--MODALS-->
+
 <%= partials.modal_groupForm({
-    group: models.group
+    group: models.group,
+    productsCollection: collections.products
 }) %>
+<%= partials.modal_productForm({
+    collections: {
+        groups: collections.groups
+    },
+    selectedGroupId: models.group.id
+}) %>
+<% if (models.product) { %>
+<%= partials.modal_productForm({
+    collections: {
+        groups: collections.groups
+    },
+    productModel: models.product
+}) %>
+<% } %>
+
 <!--END MODALS-->

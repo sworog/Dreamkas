@@ -10,7 +10,7 @@ define(function(require, exports, module) {
         },
         collection: null,
         events: {
-            'click .confirmLink__confirmation .form__groupRemoveLink': function(e) {
+            'click .confirmLink__confirmation .group__removeLink': function(e) {
                 var block = this;
 
                 e.target.classList.add('loading');

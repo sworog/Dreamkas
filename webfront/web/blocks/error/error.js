@@ -4,7 +4,7 @@ define(function(require, exports, module) {
         _ = require('lodash');
 
     return Block.extend({
-        el: document.body,
+        el: '.page',
 
         template: require('ejs!./template.ejs'),
 

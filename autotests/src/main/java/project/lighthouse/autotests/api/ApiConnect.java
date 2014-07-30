@@ -29,7 +29,7 @@ public class ApiConnect {
 
     public Product createProductThroughPost(Product product, SubCategory subCategory) throws JSONException, IOException {
         if (!subCategory.hasProduct(product)) {
-            getSubCategoryMarkUp(subCategory);
+//            getSubCategoryMarkUp(subCategory);
             httpRequestable.executePostRequest(product);
             subCategory.addProduct(product);
             StaticData.products.put(product.getName(), product);
@@ -131,6 +131,16 @@ public class ApiConnect {
         if (!category.hasSubCategory(subCategory)) {
             group = createGroupThroughPost(group);
             createCategoryThroughPost(category, group);
+            httpRequestable.executePostRequest(subCategory);
+            StaticData.subCategories.put(subCategory.getName(), subCategory);
+            return subCategory;
+        } else {
+            return StaticData.subCategories.get(subCategory.getName());
+        }
+    }
+
+    public SubCategory createSubCategoryThroughPost(SubCategory subCategory) throws JSONException, IOException {
+        if (!StaticData.hasSubCategory(subCategory.getName())) {
             httpRequestable.executePostRequest(subCategory);
             StaticData.subCategories.put(subCategory.getName(), subCategory);
             return subCategory;

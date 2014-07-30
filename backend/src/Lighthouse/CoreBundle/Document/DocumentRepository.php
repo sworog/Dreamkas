@@ -10,12 +10,14 @@ use Doctrine\ODM\MongoDB\LockMode;
 use Doctrine\ODM\MongoDB\Proxy\Proxy;
 use Doctrine\MongoDB\Collection;
 use Doctrine\ODM\MongoDB\Types\Type;
+use Lighthouse\CoreBundle\MongoDB\DocumentManager;
 use MongoCollection;
 use MongoCursor;
 use MongoId;
 
 /**
- * @method Cursor findAll
+ * @method Cursor findAll()
+ * @method DocumentManager getDocumentManager()
  */
 class DocumentRepository extends BaseRepository
 {

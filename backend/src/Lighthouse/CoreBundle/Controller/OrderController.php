@@ -8,7 +8,7 @@ use Lighthouse\CoreBundle\Document\Order\OrderRepository;
 use Lighthouse\CoreBundle\Document\Order\OrdersFilter;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Form\OrderType;
-use Lighthouse\CoreBundle\Integration\Excel\Export\Orders\OrderGenerator;
+use Lighthouse\CoreBundle\Document\Order\OrderExcelGenerator;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -29,7 +29,7 @@ class OrderController extends AbstractRestController
     /**
      * @DI\Inject("lighthouse.core.integration.excel.export.orders.generator")
      *
-     * @var OrderGenerator
+     * @var OrderExcelGenerator
      */
     protected $orderGenerator;
 

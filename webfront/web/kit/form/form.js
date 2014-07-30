@@ -20,29 +20,28 @@ define(function(require) {
                 e.preventDefault();
 
                 var block = this,
-                    submit;
+                    submitting;
 
                 block.formData = block.getData();
+
+                submitting = block.submit();
 
                 block.submitStart();
                 block.trigger('submit:start');
 
-                Promise.resolve(block.submit()).then(function() {
+                submitting.done(function(response) {
+                    block.submitSuccess(response);
+                    block.trigger('submit:success', response);
+                });
 
-                    block.submitSuccess();
-                    block.trigger('submit:success');
-
-                    block.submitComplete();
-                    block.trigger('submit:complete');
-
-                }, function(response) {
-
+                submitting.fail(function(response) {
                     block.submitError(response);
                     block.trigger('submit:error', response);
+                });
 
+                submitting.always(function(response) {
                     block.submitComplete(response);
                     block.trigger('submit:complete', response);
-
                 });
             }
         },
@@ -51,7 +50,7 @@ define(function(require) {
 
             Block.prototype.initialize.apply(block, arguments);
 
-            block.$el.closest('.modal').on('hidden.bs.modal', function(){
+            block.$el.closest('.modal').on('hidden.bs.modal', function() {
                 block.reset();
             });
 
@@ -85,7 +84,7 @@ define(function(require) {
             var block = this;
 
             if (block.collection) {
-                block.collection.push(block.model);
+                block.collection.add(block.model);
             }
 
             if (block.redirectUrl) {
@@ -108,7 +107,7 @@ define(function(require) {
                 inputElement = block.el.querySelector('[name="' + field + '"]'),
                 errorElement = block.el.querySelector('.form__errorMessage[for="' + field + '"]') || $('<div for="' + field + '" class="form__errorMessage"></div>').insertAfter(inputElement)[0];
 
-            if (data.errors) {
+            if (data.errors && data.errors.length) {
                 inputElement.classList.add('invalid');
 
                 errorMessage = data.errors.map(getText).join('. ');
@@ -156,14 +155,7 @@ define(function(require) {
             block.$submitButton.removeAttr('disabled');
         },
         reset: function(){
-
-            var block = this;
-
-            block.$('[name]').each(function(){
-                $(this).val(block.model.get(this.getAttribute('name')));
-            });
-
-            block.removeErrors();
+            PAGE.render();
         }
     })
 });

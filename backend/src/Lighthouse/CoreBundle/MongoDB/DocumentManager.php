@@ -175,4 +175,13 @@ class DocumentManager extends BaseDocumentManager implements ContainerAwareInter
         }
         return $this->schemaManager;
     }
+
+    /**
+     * @param $document
+     * @return ClassMetadata
+     */
+    public function getDocumentMetadata($document)
+    {
+        return $this->getClassMetadata(get_class($document));
+    }
 }

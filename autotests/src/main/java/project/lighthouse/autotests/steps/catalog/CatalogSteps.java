@@ -10,7 +10,7 @@ import project.lighthouse.autotests.elements.preLoader.BodyPreLoader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.catalog.GroupObjectCollection;
 import project.lighthouse.autotests.pages.catalog.CatalogPage;
-import project.lighthouse.autotests.pages.catalog.GroupPage;
+import project.lighthouse.autotests.pages.catalog.group.GroupPage;
 import project.lighthouse.autotests.pages.catalog.modal.CreateGroupModalPage;
 import project.lighthouse.autotests.pages.catalog.modal.EditGroupModalPage;
 
@@ -156,8 +156,6 @@ public class CatalogSteps extends ScenarioSteps {
     public void editGroupModalPageDeleteGroupConfirmButtonClick() {
         editGroupModalPage.deleteButtonConfirmClick();
         new SimplePreloader(getDriver()).await();
-        new WaitForModalWindowClose(getDriver()).await();
-        new BodyPreLoader(getDriver()).await();
     }
 
     @Step

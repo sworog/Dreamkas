@@ -10,6 +10,10 @@ define(function(require) {
         getText = require('kit/getText/getText'),
         numeral = require('numeral');
 
+    require('madmin/js/jquery-ui');
+    require('madmin/vendors/bootstrap/js/bootstrap');
+    require('madmin/vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown');
+
     getText.dictionary = require('i18n!nls/main');
 
     moment.lang('root', require('i18n!nls/moment'));
@@ -68,7 +72,7 @@ define(function(require) {
 
             router.navigate(e.currentTarget.getAttribute('href'), {
                 trigger: e.currentTarget.dataset.trigger !== '0',
-                replace: e.currentTarget.dataset.replace !== '0'
+                replace: e.currentTarget.dataset.replace == '1'
             });
         }
     });
@@ -104,9 +108,9 @@ define(function(require) {
     loading.always(function() {
         requirejs([
             routes
-        ], function(routes) {
+        ], function(routesMap) {
             isStarted = true;
-            _.extend(router.routes, routes);
+            _.extend(router.routes, routesMap);
             router.start();
         });
     });

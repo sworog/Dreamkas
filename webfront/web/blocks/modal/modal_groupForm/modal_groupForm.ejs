@@ -1,5 +1,7 @@
 <% var GroupModel = require('models/group/group') %>
+<% var ProductsCollection = require('collections/products/products') %>
 <% var group = group || new GroupModel() %>
+<% var productsCollection = productsCollection || new ProductsCollection() %>
 
 <div id="<%- group.id ? 'modal-groupEdit' : 'modal-groupAdd' %>"
      tabindex="-1"
@@ -23,7 +25,7 @@
                     <%- group.id ? 'Сохранить' : 'Добавить' %>
                 </button>
 
-                <h4 id="modal-default-label" class="modal-title">
+                <h4 class="modal-title">
                     <%- group.id ? 'Редактирование группы' : 'Добавить группу' %>
                 </h4>
 
@@ -34,7 +36,7 @@
                 <form id="<%- group.id ? 'form_groupEdit' : 'form_groupAdd' %>" class="form form_group">
                     <div class="form-group">
 
-                        <label for="inputSubject" class="control-label">Наименование</label>
+                        <label class="control-label">Наименование</label>
 
                         <div class="input-icon right">
                             <input
@@ -48,23 +50,31 @@
                     </div>
 
                     <% if (group.id) { %>
+
+                    <% if (productsCollection.length) { %>
+                    <button type="button" class="removeLink group__removeLink" data-placement="top" data-toggle="popover" data-content="Чтобы удалить группу, нужно сначала удалить все товары в ней.">
+                        <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                        Удалить группу
+                    </button>
+                    <% } else { %>
                     <div class="confirmLink">
 
                         <div class="confirmLink__trigger">
-                        <span class="form__groupRemoveLink">
+                        <span class="removeLink group__removeLink">
                             <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
                             Удалить группу
                         </span>
                         </div>
 
                         <div class="confirmLink__confirmation">
-                        <span class="form__groupRemoveLink">
+                        <span class="removeLink group__removeLink">
                             <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
                             Подтвердить удаление
                         </span>
                         </div>
 
                     </div>
+                    <% } %>
                     <% } %>
                 </form>
 

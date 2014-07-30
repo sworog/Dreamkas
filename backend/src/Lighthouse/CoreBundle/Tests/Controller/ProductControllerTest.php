@@ -43,6 +43,117 @@ class ProductControllerTest extends WebTestCase
         Assert::assertJsonHasPath('subCategory', $postResponse);
     }
 
+    public function testPostProductWithSubCategory()
+    {
+        $postData = array(
+            'subCategory' => array(
+                'name' => 'Категория'
+            )
+        ) + $this->getProductData(false);
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/products',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonPathEquals('10001', 'sku', $postResponse);
+        Assert::assertJsonPathEquals(30.48, 'purchasePrice', $postResponse);
+        Assert::assertNotJsonHasPath('lastPurchasePrice', $postResponse);
+        Assert::assertJsonHasPath('subCategory.id', $postResponse);
+        Assert::assertJsonPathEquals('Категория', 'subCategory.name', $postResponse);
+        Assert::assertJsonHasPath('subCategory.category.id', $postResponse);
+    }
+
+    public function testPostProductWithDuplicateSubCategoryName()
+    {
+        $postData = array(
+                'subCategory' => array(
+                    'name' => 'Категория'
+                )
+            ) + $this->getProductData(false);
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/products',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('subCategory.id', $postResponse);
+        Assert::assertJsonPathEquals('Категория', 'subCategory.name', $postResponse);
+        Assert::assertJsonHasPath('subCategory.category.id', $postResponse);
+
+        $secondResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/products',
+            $postData
+        );
+
+        $this->assertResponseCode(400);
+
+        Assert::assertJsonPathEquals(
+            'Группа с таким названием уже существует',
+            'errors.children.subCategory.children.name.errors.0',
+            $secondResponse
+        );
+    }
+
+    public function testPutProductWithSubCategoryName()
+    {
+        $postData = array(
+                'subCategory' => array(
+                    'name' => 'Категория'
+                )
+            ) + $this->getProductData(false);
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/products',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('id', $postResponse);
+        Assert::assertJsonHasPath('subCategory.id', $postResponse);
+        Assert::assertJsonPathEquals('Категория', 'subCategory.name', $postResponse);
+        Assert::assertJsonHasPath('subCategory.category.id', $postResponse);
+
+        $subCategoryId = $postResponse['subCategory']['id'];
+        $productId = $postResponse['id'];
+
+        $putData = $postData;
+        $putData['name'] = 'Товар';
+        $putData['subCategory']['name'] = 'Группа';
+
+        $putResponse = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/products/' . $productId,
+            $putData
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals($productId, 'id', $putResponse);
+        Assert::assertNotJsonPathEquals($subCategoryId, 'subCategory.id', $putResponse);
+        Assert::assertJsonPathEquals('Группа', 'subCategory.name', $putResponse);
+    }
+
     /**
      * Тест на проблему сохраниения пустой наценки и цены продажи
      */
@@ -331,6 +442,7 @@ class ProductControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('10003', '2.sku', $response);
         Assert::assertJsonPathEquals('10004', '3.sku', $response);
         Assert::assertJsonPathEquals('10005', '4.sku', $response);
+        Assert::assertJsonPathCount(5, '*.subCategory.id', $response);
     }
 
     public function testGetProductsWithEmptyTypePropertiesReturnsArray()
@@ -423,6 +535,8 @@ class ProductControllerTest extends WebTestCase
             Assert::assertJsonPathEquals($productId, '*.id', $jsonResponse);
         }
 
+        Assert::assertJsonPathEquals($subCategoryId1, '*.subCategory.id', $jsonResponse, 5);
+        Assert::assertNotJsonHasPath('*.subCategory.category.id', $jsonResponse);
 
         $jsonResponse = $this->clientJsonRequest(
             $accessToken,
@@ -437,7 +551,7 @@ class ProductControllerTest extends WebTestCase
         }
     }
 
-    public function testGetSubCategoryProductsHaveNoSubcategoryField()
+    public function testGetSubCategoryProductsHaveCategoryField()
     {
         $subCategoryId = $this->createSubCategory();
         $this->createProductsByNames(array('1', '2', '3', '4', '5'));
@@ -450,7 +564,7 @@ class ProductControllerTest extends WebTestCase
         );
         $this->assertResponseCode(200);
         Assert::assertJsonPathCount(5, '*.id', $response);
-        Assert::assertJsonPathCount(0, '*.subCategory', $response);
+        Assert::assertJsonPathCount(0, '*.subCategory.category', $response);
     }
 
     /**
@@ -840,6 +954,45 @@ class ProductControllerTest extends WebTestCase
                 ),
             ),
             /***********************************************************************************************
+             * 'unit'
+             ***********************************************************************************************/
+            'valid units' => array(
+                201,
+                array(
+                    'units' => 'Штуки',
+                ),
+                array(
+                    'units' => 'Штуки'
+                )
+            ),
+            'empty units' => array(
+                201,
+                array(
+                    'units' => '',
+                ),
+                array(
+                    'units' => null
+                )
+            ),
+            'valid units length 50' => array(
+                201,
+                array(
+                    'units' => str_repeat('z', 50),
+                ),
+                array(
+                    'units' => str_repeat('z', 50),
+                )
+            ),
+            'invalid units max length 50' => array(
+                400,
+                array(
+                    'units' => str_repeat('z', 51),
+                ),
+                array(
+                    'errors.children.units.errors.0' => 'Не более 50 символов'
+                )
+            ),
+            /***********************************************************************************************
              * 'type'
              ***********************************************************************************************/
             'invalid type' => array(
@@ -882,7 +1035,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => WeightType::UNITS,
+                    'typeUnits' => WeightType::UNITS,
                     'type' => WeightType::TYPE,
                     'typeProperties' => array()
                 )
@@ -900,7 +1053,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => WeightType::UNITS,
+                    'typeUnits' => WeightType::UNITS,
                     'type' => WeightType::TYPE,
                     'typeProperties.nameOnScales' => 'Наименование на весах',
                     'typeProperties.descriptionOnScales' => 'Описание на весах',
@@ -922,7 +1075,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => WeightType::UNITS,
+                    'typeUnits' => WeightType::UNITS,
                     'type' => WeightType::TYPE,
                     'typeProperties.nameOnScales' => str_repeat('z', 256),
                     'typeProperties.descriptionOnScales' => str_repeat('z', 256),
@@ -944,7 +1097,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => null,
+                    'typeUnits' => null,
                     'type' => null,
                     'errors.children.typeProperties.children.nameOnScales.errors.0' => 'Не более 256 символов',
                     'errors.children.typeProperties.children.descriptionOnScales.errors.0' => 'Не более 256 символов',
@@ -962,7 +1115,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => null,
+                    'typeUnits' => null,
                     'type' => null,
                     'errors.children.typeProperties.children.shelfLife.errors.0' => 'Значение должно быть числом',
                 )
@@ -976,7 +1129,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => null,
+                    'typeUnits' => null,
                     'type' => null,
                     'errors.children.typeProperties.children.shelfLife.errors.0' => 'Значение должно быть числом',
                 )
@@ -990,7 +1143,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => null,
+                    'typeUnits' => null,
                     'type' => null,
                     'errors.children.typeProperties.children.shelfLife.errors.0'
                     =>
@@ -1007,7 +1160,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => null,
+                    'typeUnits' => null,
                     'type' => null,
                     'errors.errors.0' => 'Эта форма не должна содержать дополнительных полей: "bestBefore"',
                 )
@@ -1023,7 +1176,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => UnitType::UNITS,
+                    'typeUnits' => UnitType::UNITS,
                     'type' => UnitType::TYPE,
                     'typeProperties' => array()
                 )
@@ -1037,7 +1190,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => null,
+                    'typeUnits' => null,
                     'type' => null,
                     'errors.errors.0' => 'Эта форма не должна содержать дополнительных полей: "field"',
                 )
@@ -1053,7 +1206,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => AlcoholType::UNITS,
+                    'typeUnits' => AlcoholType::UNITS,
                     'type' => AlcoholType::TYPE,
                     'typeProperties' => array()
                 )
@@ -1068,7 +1221,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => AlcoholType::UNITS,
+                    'typeUnits' => AlcoholType::UNITS,
                     'type' => AlcoholType::TYPE,
                     'typeProperties' => array(
                         'alcoholByVolume' => '38.5',
@@ -1086,7 +1239,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => AlcoholType::UNITS,
+                    'typeUnits' => AlcoholType::UNITS,
                     'type' => AlcoholType::TYPE,
                     'typeProperties' => array(
                         'alcoholByVolume' => '38.5',
@@ -1255,7 +1408,7 @@ class ProductControllerTest extends WebTestCase
                     )
                 ),
                 array(
-                    'units' => null,
+                    'typeUnits' => null,
                     'type' => null,
                     'errors.errors.0' => 'Эта форма не должна содержать дополнительных полей: "field"',
                 )
@@ -1293,6 +1446,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function testPostProductActionSetRetailsPriceInvalid(array $postData, array $assertions = array())
     {
+        $this->markTestSkipped('Min Max Retail Price is disabled');
         $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
         $postData += $this->getProductData(true);
@@ -1361,6 +1515,7 @@ class ProductControllerTest extends WebTestCase
      */
     public function testPutProductActionSetRetailPriceInvalid(array $putData, array $assertions = array())
     {
+        $this->markTestSkipped('Min Max Retail Price is disabled');
         $postData = $this->getProductData();
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
@@ -2496,6 +2651,190 @@ class ProductControllerTest extends WebTestCase
 
         $deletedProduct = $this->getProductRepository()->find($productId);
         $this->assertContains('Хомячок (Удалено', $deletedProduct->name);
+    }
+
+    /**
+     * @dataProvider setSellingPriceProvider
+     * @param array $postData
+     * @param int $expectedResponseCode
+     * @param array $assertions
+     */
+    public function testPostProductActionSetSellingPrice(
+        array $postData,
+        $expectedResponseCode,
+        array $assertions = array()
+    ) {
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $productData = $postData + $this->getProductData(true);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/products',
+            $productData
+        );
+
+        $this->assertResponseCode($expectedResponseCode);
+
+        $this->performJsonAssertions($response, $assertions);
+    }
+
+    /**
+     * @dataProvider setSellingPriceProvider
+     * @param array $putData
+     * @param int $expectedResponseCode
+     * @param array $assertions
+     */
+    public function testPutProductActionSetSellingPrice(
+        array $putData,
+        $expectedResponseCode,
+        array $assertions = array()
+    ) {
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $subCategoryId = $this->createSubCategory(null, 'Пиво');
+        $postData = array(
+            'name' => 'Продукт',
+            'sellingPrice' => '45.89',
+        );
+        $productId = $this->createProduct($postData, $subCategoryId);
+
+        $productData = $putData + $this->getProductData(true);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/products/' . $productId,
+            $productData
+        );
+
+        $expectedResponseCode = (201 == $expectedResponseCode) ? 200 : $expectedResponseCode;
+
+        $this->assertResponseCode($expectedResponseCode);
+
+        $this->performJsonAssertions($response, $assertions);
+    }
+
+    /**
+     * @return array
+     */
+    public function setSellingPriceProvider()
+    {
+        return array(
+            'sellingPrice and purchasePrice' => array(
+                array(
+                    'purchasePrice' => '30.48',
+                    'sellingPrice' => '35',
+                ),
+                201,
+                array(
+                    'purchasePrice' => '30.48',
+                    'sellingPrice' => '35.00',
+                    'sellingMarkup' => '14.83',
+                    'retailPricePreference' => Product::RETAIL_PRICE_PREFERENCE_PRICE,
+                    'retailPriceMin' => '35.00',
+                    'retailPriceMax' => '35.00',
+                    'retailMarkupMin' => '14.83',
+                    'retailMarkupMax' => '14.83',
+                )
+            ),
+            'sellingPrice and empty purchasePrice' => array(
+                array(
+                    'purchasePrice' => '',
+                    'sellingPrice' => '35',
+                ),
+                201,
+                array(
+                    'purchasePrice' => null,
+                    'sellingPrice' => '35.00',
+                    'sellingMarkup' => null,
+                    'retailPricePreference' => Product::RETAIL_PRICE_PREFERENCE_PRICE,
+                    'retailPriceMin' => '35.00',
+                    'retailPriceMax' => '35.00',
+                    'retailMarkupMin' => null,
+                    'retailMarkupMax' => null,
+                )
+            ),
+            'empty sellingPrice and empty purchasePrice' => array(
+                array(
+                    'purchasePrice' => '',
+                    'sellingPrice' => '',
+                ),
+                201,
+                array(
+                    'purchasePrice' => null,
+                    'sellingPrice' => null,
+                    'sellingMarkup' => null,
+                    'retailPricePreference' => Product::RETAIL_PRICE_PREFERENCE_MARKUP,
+                    'retailPriceMin' => null,
+                    'retailPriceMax' => null,
+                    'retailMarkupMin' => null,
+                    'retailMarkupMax' => null,
+                )
+            ),
+            'empty sellingPrice and purchasePrice' => array(
+                array(
+                    'purchasePrice' => '30.48',
+                    'sellingPrice' => '',
+                ),
+                201,
+                array(
+                    'purchasePrice' => '30.48',
+                    'sellingPrice' => null,
+                    'sellingMarkup' => null,
+                    'retailPricePreference' => Product::RETAIL_PRICE_PREFERENCE_MARKUP,
+                    'retailPriceMin' => null,
+                    'retailPriceMax' => null,
+                    'retailMarkupMin' => null,
+                    'retailMarkupMax' => null,
+                )
+            ),
+            'invalid sellingPrice and purchasePrice have more than 3 digits after coma' => array(
+                array(
+                    'purchasePrice' => '30.482',
+                    'sellingPrice' => '35.001',
+                ),
+                400,
+                array(
+                    'errors.children.purchasePrice.errors.0' => 'Цена не должна содержать больше 2 цифр после запятой',
+                    'errors.children.sellingPrice.errors.0' => 'Цена не должна содержать больше 2 цифр после запятой',
+                )
+            ),
+            'invalid sellingPrice and purchasePrice equals 0' => array(
+                array(
+                    'purchasePrice' => '0.000',
+                    'sellingPrice' => '0.0',
+                ),
+                400,
+                array(
+                    'errors.children.purchasePrice.errors.0' => 'Цена не должна быть меньше или равна нулю',
+                    'errors.children.sellingPrice.errors.0' => 'Цена не должна быть меньше или равна нулю',
+                )
+            ),
+            'invalid sellingPrice and purchasePrice less than 0' => array(
+                array(
+                    'purchasePrice' => '-0.01',
+                    'sellingPrice' => '-15',
+                ),
+                400,
+                array(
+                    'errors.children.purchasePrice.errors.0' => 'Цена не должна быть меньше или равна нулю',
+                    'errors.children.sellingPrice.errors.0' => 'Цена не должна быть меньше или равна нулю',
+                )
+            ),
+            'invalid sellingPrice and purchasePrice not a number' => array(
+                array(
+                    'purchasePrice' => '12.as',
+                    'sellingPrice' => '#90',
+                ),
+                400,
+                array(
+                    'errors.children.purchasePrice.errors.0' => 'Значение должно быть числом',
+                    'errors.children.sellingPrice.errors.0' => 'Значение должно быть числом',
+                )
+            )
+        );
     }
 
     /**

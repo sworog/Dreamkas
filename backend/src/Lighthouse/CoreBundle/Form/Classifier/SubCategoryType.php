@@ -15,6 +15,7 @@ class SubCategoryType extends ClassifierNodeType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
+
         $builder
             ->add(
                 'category',
@@ -23,7 +24,8 @@ class SubCategoryType extends ClassifierNodeType
                     'class' => Category::getClassName(),
                     'invalid_message' => 'lighthouse.validation.errors.subCategory.category.does_not_exists'
                 )
-            );
+            )
+        ;
     }
 
     /**

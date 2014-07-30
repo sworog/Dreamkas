@@ -3,8 +3,8 @@
     "description": "Lighthouse",
     "license": "proprietary",
     "autoload": {
-        "psr-0": {
-            "": "src/"
+        "psr-4": {
+            "Lighthouse\\": "src/Lighthouse/"
         }
     },
     "config": {

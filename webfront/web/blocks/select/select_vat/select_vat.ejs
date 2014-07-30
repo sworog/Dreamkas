@@ -4,14 +4,11 @@
     '18': '18%'
 } %>
 
-<% var selected = selected || null %>
+<% var selected = selected || 0 %>
 
-<select class="select" name="vat">
-    <option value="" <%- selected ? '' : 'selected'%> disabled>
-        выберите ставку
-    </option>
+<select class="form-control" name="vat">
+    <% _.forEach(['0', '10', '18'], function(value, index){ %>
 
-    <% _.forEach([0, 10, 18], function(value, index){ %>
     <option <%- selected === value ? 'selected' : '' %> value="<%- value %>">
         <%- values[value] %>
     </option>
