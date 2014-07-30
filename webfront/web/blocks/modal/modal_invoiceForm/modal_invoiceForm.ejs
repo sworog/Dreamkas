@@ -3,7 +3,8 @@
 
 <% var helpers = {
     formatMoney: require('kit/formatMoney/formatMoney'),
-    formatAmount: require('kit/formatAmount/formatAmount')
+    formatAmount: require('kit/formatAmount/formatAmount'),
+    formatDate: require('kit/formatDate/formatDate')
 } %>
 
 <div id="<%- invoiceModel.id ? 'modal-invoiceEdit' : 'modal-invoiceAdd' %>"
@@ -46,7 +47,7 @@
                                             name="date"
                                             type="text"
                                             class="form-control datepicker-default"
-                                            value="<%- invoiceModel.get('date') %>">
+                                            value="<%- helpers.formatDate(invoiceModel.get('date')) %>">
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>

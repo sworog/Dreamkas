@@ -42,7 +42,8 @@
                         </thead>
                         <tbody>
                             <% collections.invoices.forEach(function(invoice) { %>
-                                <tr>
+                                <% console.log(invoice) %>
+                                <tr data-invoice_id="<%- invoice.id %>" class="invoice__link">
                                     <td>
                                         <%- helpers.formatDate(invoice.get('date')) %>
                                     </td>
@@ -73,4 +74,14 @@
         stores: collections.stores
     }
 }) %>
+
+<% if (models.invoice) { %>
+    <%= partials.modal_invoiceForm({
+        collections: {
+            suppliers: collections.suppliers,
+            stores: collections.stores
+        },
+        invoiceModel: models.invoice
+    }) %>
+<% } %>
 <!--END MODALS-->

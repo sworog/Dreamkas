@@ -90,7 +90,7 @@ define(function(require) {
 
                 engine.initialize();
 
-                $('.autocomplete').typeahead({
+                $(block.el).find('.autocomplete').typeahead({
                         highlight: true,
                         minLength: 3
                     },
@@ -129,8 +129,10 @@ define(function(require) {
 //                block.renderTotalSum();
 //            });
 
-            block.initBlocks();
-            block.renderInvoiceProductsTable();
+            if (block.model) {
+                block.initBlocks();
+                block.renderInvoiceProductsTable();
+            }
         },
         renderInvoiceProductsTable: function() {
             var form = this,

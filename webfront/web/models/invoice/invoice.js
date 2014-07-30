@@ -47,27 +47,17 @@ define(function(require) {
             }
         },
         parse: function(data) {
+            var products = new InvoiceProductsCollection();
+            products.reset(data.products);
 
-            if (!this.get('products')){
-                this.set('products', new InvoiceProductsCollection());
-            }
-
-            this.get('products').reset(data.products);
-
-            delete data.products;
+            data.products = products;
 
             return data;
         },
         fetch: function(options) {
             var model = this;
 
-            if (null != model.fromOrder) {
-                return Model.prototype.fetch.call(this, _.extend({
-                    url: LH.baseApiUrl + '/stores/' + this.storeId + '/orders/' + this.fromOrder + '/invoice'
-                }, options));
-            } else {
-                return Model.prototype.fetch.call(this, options);
-            }
+            return Model.prototype.fetch.call(this, options);
         },
         validateProducts: function(){
             var model = this;
