@@ -47,7 +47,7 @@
                                             name="date"
                                             type="text"
                                             class="form-control datepicker-default"
-                                            value="<%- helpers.formatDate(invoiceModel.get('date')) %>">
+                                            value="<%- invoiceModel.get('date') ? helpers.formatDate(invoiceModel.get('date')) : '' %>">
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
@@ -156,7 +156,7 @@
                                                 class="form-control">
                                     </div>
                                 </td>
-                                <td>309,23</td>
+                                <td class="totalSum"></td>
                                 <td>
                                     <a type="button" class="addInvoiceProduct btn btn-default fa fa-check"></a>
                                 </td>

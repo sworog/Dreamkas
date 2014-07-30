@@ -5,6 +5,8 @@ define(function(require) {
         router = require('router'),
         cookies = require('cookies'),
         form2js = require('form2js'),
+        normalizeNumber = require('kit/normalizeNumber/normalizeNumber'),
+        formatMoney = require('kit/formatMoney/formatMoney'),
         invoiceProductTable = require('ejs!blocks/form/form_invoice/invoiceProductTable.ejs');
 
     return Form.extend({
@@ -69,6 +71,16 @@ define(function(require) {
                 products.remove(modelCid);
 
                 block.renderInvoiceProductsTable();
+            },
+            'keyup [name="priceEntered"]': function(e){
+                var block = this;
+
+                block.calculateTotalSum();
+            },
+            'keyup [name="quantity"]': function(e){
+                var block = this;
+
+                block.calculateTotalSum();
             }
         },
         blocks: {
@@ -171,6 +183,19 @@ define(function(require) {
         removeSelectProductError: function() {
             this.$el.find('em.invalid').remove();
             this.$el.find('input[name=product]').parents('.input-group').removeClass('state-error');
+        },
+        calculateTotalSum: function() {
+            var block = this,
+                priceEntered = normalizeNumber(block.$('[name="priceEntered"]').val()),
+                quantity = normalizeNumber(block.$('[name="quantity"]').val()),
+                totalSum = quantity * priceEntered,
+                $product__totalSum = block.$('.totalSum');
+
+            if (_.isNaN(totalSum)) {
+                $product__totalSum.html('');
+            } else {
+                $product__totalSum.html(formatMoney(totalSum));
+            }
         }
     });
 });
