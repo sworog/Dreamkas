@@ -6,13 +6,13 @@ use Doctrine\Bundle\MongoDBBundle\ManagerRegistry;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
-use Lighthouse\CoreBundle\Document\Sale\Sale;
-use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
-use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
-use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
@@ -160,8 +160,9 @@ class TrialBalanceTest extends ContainerAwareTestCase
                 ->createInvoiceProduct($product->id, 9, 0.99)
             ->flush();
 
+        $invoiceRepository = $this->getContainer()->get('lighthouse.core.document.repository.stock_movement.invoice');
         // get invoice from right container
-        $invoice = $this->getContainer()->get('lighthouse.core.document.repository.invoice')->find($invoice->id);
+        $invoice = $invoiceRepository->find($invoice->id);
 
         $endTrialBalanceCursor = $trialBalanceRepository->findByStoreProduct($storeProduct->id);
 

@@ -5,12 +5,13 @@ namespace Lighthouse\CoreBundle\Test\Factory;
 use Lighthouse\CoreBundle\Document\File\File;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
-use Lighthouse\CoreBundle\Document\Receipt\ReceiptRepository;
-use Lighthouse\CoreBundle\Document\Sale\Product\SaleProduct;
-use Lighthouse\CoreBundle\Document\Sale\Sale;
+use Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\Factory\Invoice\InvoiceFactory;
 use Lighthouse\CoreBundle\Test\Factory\Order\OrderFactory;
+use Lighthouse\CoreBundle\Test\Factory\WriteOff\WriteOffFactory;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
@@ -25,6 +26,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @method StoreFactory store()
  * @method CatalogFactory catalog()
  * @method InvoiceFactory invoice()
+ * @method WriteOffFactory writeOff()
  * @method OrderFactory order()
  * @method SupplierFactory supplier()
  * @method OrganizationFactory organization()
@@ -63,6 +65,7 @@ class Factory extends ContainerAwareFactory
             'store' => StoreFactory::getClassName(),
             'catalog' => CatalogFactory::getClassName(),
             'invoice' => InvoiceFactory::getClassName(),
+            'writeOff' => WriteOffFactory::getClassName(),
             'order' => OrderFactory::getClassName(),
             'supplier' => SupplierFactory::getClassName(),
             'organization' => OrganizationFactory::getClassName(),
@@ -173,7 +176,7 @@ class Factory extends ContainerAwareFactory
     public function createSale($storeId, $createdDate, $sumTotal)
     {
         $saleModel = new Sale();
-        $saleModel->createdDate = new DateTimestamp($createdDate);
+        $saleModel->date = new DateTimestamp($createdDate);
         $saleModel->store = $this->getDocumentManager()->getReference(Store::getClassName(), $storeId);
         $saleModel->hash = md5(rand() . $storeId);
         $saleModel->sumTotal = $this->getNumericFactory()->createMoney($sumTotal);

@@ -93,6 +93,19 @@ class ProductController extends AbstractRestController
     }
 
     /**
+     * @param ProductFilter $filter
+     * @return Product[]|Cursor
+     * @ApiDoc
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
+     * @Rest\View(serializerGroups={"Collection"})
+     * @Rest\Route("products/search")
+     */
+    public function getProductsSearchAction(ProductFilter $filter)
+    {
+        return $this->documentRepository->search($filter);
+    }
+
+    /**
      * @param Product $product
      * @return Product
      * @ApiDoc
@@ -104,28 +117,13 @@ class ProductController extends AbstractRestController
     }
 
     /**
-     * @param string $property
-     * @param ProductFilter $filter
-     * @return Product[]|Cursor
-     * @ApiDoc
-     * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
-     * @Rest\View(serializerGroups={"Collection"})
-     * @Rest\Route("products/{property}/search")
-     */
-    public function getProductsSearchAction($property, ProductFilter $filter)
-    {
-        $filter->setProperties($property);
-        return $this->documentRepository->search($filter);
-    }
-
-    /**
      * @return Product[]|Cursor
      * @ApiDoc(resource=true)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER,ROLE_STORE_MANAGER,ROLE_DEPARTMENT_MANAGER")
      */
     public function getProductsAction()
     {
-        return $this->documentRepository->findBy(array());
+        return $this->documentRepository->findAll();
     }
 
     /**

@@ -314,6 +314,7 @@ class ProductControllerTest extends WebTestCase
 
         $putData['subCategory'] = $this->createSubCategory();
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'PUT',
@@ -406,6 +407,7 @@ class ProductControllerTest extends WebTestCase
             $response
         );
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -500,6 +502,7 @@ class ProductControllerTest extends WebTestCase
     {
         $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -569,14 +572,13 @@ class ProductControllerTest extends WebTestCase
 
     /**
      * @dataProvider searchProductsProvider
-     * @param string $property
-     * @param string $query
+     * @param array $query
      * @param array $expectedSkus
      * @throws \PHPUnit_Framework_ExpectationFailedException
      */
-    public function testSearchProductsAction($property, $query, array $expectedSkus)
+    public function testSearchProductsAction(array $query, array $expectedSkus)
     {
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $this->createProduct(array('name' => 'Кефир3', 'purchasePrice' => ''));
         $this->createProduct(array('name' => 'кефир веселый молочник'));
@@ -584,10 +586,11 @@ class ProductControllerTest extends WebTestCase
         $this->createProduct(array('name' => 'Кефир грустный дойщик'));
         $this->createProduct(array('name' => 'кефир5', 'barcode' => '00127463212'));
 
+
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/products/' . $property . '/search?' . $query
+            '/api/1/products/search?' . http_build_query($query)
         );
 
         Assert::assertJsonPathCount(count($expectedSkus), '*.sku', $response);
@@ -603,83 +606,116 @@ class ProductControllerTest extends WebTestCase
     {
         return array(
             'by sku' => array(
-                'sku',
-                'query=10002',
+                array(
+                    'properties' => array('sku'),
+                    'query' => '10002'
+                ),
                 array('10002')
             ),
             'by name' => array(
-                'name',
-                'query=Кефир3',
+                array(
+                    'properties' => array('name'),
+                    'query' => 'Кефир3'
+                ),
                 array('10001')
             ),
             'by barcode' => array(
-                'barcode',
-                'query=00127463212',
+                array(
+                    'properties' => array('barcode'),
+                    'query' => '00127463212'
+                ),
                 array('10005')
             ),
             'by name lowercase' => array(
-                'name',
-                'query=кефир3',
+                array(
+                    'properties' => array('name'),
+                    'query' => 'кефир3'
+                ),
                 array('10001')
             ),
             'by name two words' => array(
-                'name',
-                'query=молочник кефир',
+                array(
+                    'properties' => array('name'),
+                    'query' => 'молочник кефир'
+                ),
                 array('10002')
             ),
             'by name not exact match' => array(
-                'name',
-                'query=кефир',
+                array(
+                    'properties' => array('name'),
+                    'query' => 'кефир'
+                ),
                 array('10001', '10002', '10004', '10005')
             ),
             'by name regex char /' => array(
-                'name',
-                'query=/россия/',
+                array(
+                    'properties' => array('name'),
+                    'query' => '/россия/'
+                ),
                 array('10003')
             ),
             'by name regex char . does not match any char' => array(
-                'name',
-                'query=.ефир',
+                array(
+                    'properties' => array('name'),
+                    'query' => '.ефир'
+                ),
                 array()
             ),
             'by name with .' => array(
-                'name',
-                'query=.12',
+                array(
+                    'properties' => array('name'),
+                    'query' => '.12'
+                ),
                 array('10003')
             ),
             'field not intended for search but present in product' => array(
-                'vendor',
-                'query=Россия',
+                array(
+                    'properties' => array('vendor'),
+                    'query' => 'Россия'
+                ),
                 array()
             ),
             'invalid field' => array(
-                'invalid',
-                'query=Россия',
+                array(
+                    'properties' => array('invalid'),
+                    'query' => 'Россия'
+                ),
                 array()
             ),
             'not empty purchase price' => array(
-                'name',
-                'query=кефир&purchasePriceNotEmpty=1',
+                array(
+                    'properties' => array('name'),
+                    'query' => 'кефир',
+                    'purchasePriceNotEmpty' => 1
+                ),
                 array('10002', '10004', '10005')
             ),
             '1 letters' => array(
-                'name',
-                'query=к',
+                array(
+                    'properties' => array('name'),
+                    'query' => 'к',
+                ),
                 array()
             ),
             '2 letters' => array(
-                'name',
-                'query=ке',
+                array(
+                    'properties' => array('name'),
+                    'query' => 'ке',
+                ),
                 array()
             ),
             '3 letters' => array(
-                'name',
-                'query=дой',
+                array(
+                    'properties' => array('name'),
+                    'query' => 'дой',
+                ),
                 array('10004')
             ),
             'lot of spaces' => array(
-                'name',
-                'query=кеф               мол',
+                array(
+                    'properties' => array('name'),
+                    'query' => 'кеф               мол',
+                ),
                 array('10002')
             ),
         );
@@ -2313,6 +2349,7 @@ class ProductControllerTest extends WebTestCase
         $accessToken = $this->factory()->oauth()->authAsRole($role);
         $requestData += $this->getProductData();
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             $method,
@@ -2522,6 +2559,7 @@ class ProductControllerTest extends WebTestCase
             }
         );
 
+        $this->client->setCatchException();
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
@@ -2600,6 +2638,7 @@ class ProductControllerTest extends WebTestCase
 
         $this->assertNull($deleteResponse);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',

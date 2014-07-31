@@ -2,14 +2,11 @@
 
 namespace Lighthouse\CoreBundle\DataFixtures\MongoDB;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
-use Symfony\Component\DependencyInjection\ContainerAware;
 
-class LoadStoresData extends ContainerAware implements FixtureInterface, OrderedFixtureInterface
+class LoadStoresData extends AbstractFixture
 {
     /**
      * Load data fixtures with the passed EntityManager
@@ -37,9 +34,8 @@ class LoadStoresData extends ContainerAware implements FixtureInterface, Ordered
         $userProvider = $this->container->get('lighthouse.core.user.provider');
         $projectContext = $this->container->get('project.context');
 
-        $ownerUser = $userProvider->loadUserByUsername("owner@lighthouse.pro");
-        $project = $ownerUser->getProject();
-        $projectContext->authenticate($project);
+        $ownerUser = $userProvider->loadUserByUsername('owner@lighthouse.pro');
+        $projectContext->authenticateByUser($ownerUser);
 
         $store666->storeManagers->add($ownerUser);
         $store666->departmentManagers->add($ownerUser);

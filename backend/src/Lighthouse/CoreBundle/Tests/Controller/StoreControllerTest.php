@@ -362,6 +362,7 @@ class StoreControllerTest extends WebTestCase
             );
         }
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             $method,
@@ -580,6 +581,7 @@ class StoreControllerTest extends WebTestCase
             }
         );
 
+        $this->client->setCatchException();
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',

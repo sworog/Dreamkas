@@ -81,7 +81,7 @@ class SupplierController extends AbstractRestController
      */
     public function patchSupplierAction(Request $request, Supplier $supplier)
     {
-        return $this->processForm($request, $supplier, true, false);
+        return $this->processForm($request, $supplier, null, true, false);
     }
 
     /**

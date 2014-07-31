@@ -3,12 +3,13 @@
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Order\Order;
+use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class InvoiceControllerTest extends WebTestCase
 {
-    public function testPostInvoiceAction()
+    public function testStorePostInvoiceAction()
     {
         $store = $this->factory()->store()->getStore();
         $productId = $this->createProduct();
@@ -28,11 +29,50 @@ class InvoiceControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals($supplier->id, 'supplier.id', $postResponse);
         Assert::assertJsonPathEquals('ООО "Поставщик"', 'supplier.name', $postResponse);
-        Assert::assertJsonPathEquals('2013-03-18T12:56:00+0400', 'acceptanceDate', $postResponse);
+        Assert::assertJsonPathEquals('2013-03-18T12:56:00+0400', 'date', $postResponse);
         Assert::assertJsonPathEquals('Приемных Н.П.', 'accepter', $postResponse);
         Assert::assertJsonPathEquals('ООО "Магазин"', 'legalEntity', $postResponse);
         Assert::assertJsonPathEquals('1248373', 'supplierInvoiceNumber', $postResponse);
         Assert::assertJsonPathEquals(true, 'includesVAT', $postResponse);
+    }
+
+    public function testPostInvoiceAction()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+        $supplier = $this->factory()->supplier()->getSupplier('ООО "Поставщик"');
+        $invoiceData = InvoiceProductControllerTest::getInvoiceData($supplier->id, $productId, 10, 5.99);
+        $invoiceData['store'] = $store->id;
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/invoices',
+            $invoiceData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonPathEquals($supplier->id, 'supplier.id', $postResponse);
+        Assert::assertJsonPathEquals('ООО "Поставщик"', 'supplier.name', $postResponse);
+        Assert::assertJsonPathEquals('2013-03-18T12:56:00+0400', 'date', $postResponse);
+        Assert::assertJsonPathEquals('Приемных Н.П.', 'accepter', $postResponse);
+        Assert::assertJsonPathEquals('ООО "Магазин"', 'legalEntity', $postResponse);
+        Assert::assertJsonPathEquals('1248373', 'supplierInvoiceNumber', $postResponse);
+        Assert::assertJsonPathEquals(true, 'includesVAT', $postResponse);
+        Assert::assertJsonPathEquals($store->id, 'store.id', $postResponse);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/invoices/' . $postResponse['id']
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertEquals($postResponse, $getResponse);
     }
 
     public function testGetInvoicesAction()
@@ -129,7 +169,7 @@ class InvoiceControllerTest extends WebTestCase
         return array(
             'invoice' => array(
                 'data' => array(
-                    'acceptanceDate' => '2013-03-18 12:56',
+                    'date' => '2013-03-18 12:56',
                     'accepter' => 'Приемных Н.П.',
                     'legalEntity' => 'ООО "Магазин"',
                     'supplierInvoiceNumber' => '1248373',
@@ -137,7 +177,7 @@ class InvoiceControllerTest extends WebTestCase
                 // Assertions xpath
                 'assertions' => array(
                     'number' => '10001',
-                    'acceptanceDate' => '2013-03-18T12:56:00+0400',
+                    'date' => '2013-03-18T12:56:00+0400',
                     'accepter' => 'Приемных Н.П.',
                     'legalEntity' => 'ООО "Магазин"',
                     'supplierInvoiceNumber' => '1248373'
@@ -153,6 +193,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -178,6 +219,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->auth($departmentManager);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -221,7 +263,11 @@ class InvoiceControllerTest extends WebTestCase
         $this->assertResponseCode($expectedCode);
 
         foreach ($assertions as $path => $expected) {
-            Assert::assertJsonPathContains($expected, $path, $postResponse);
+            if (is_bool($expected)) {
+                Assert::assertJsonPathEquals($expected, $path, $postResponse);
+            } else {
+                Assert::assertJsonPathContains($expected, $path, $postResponse);
+            }
         }
     }
 
@@ -249,7 +295,7 @@ class InvoiceControllerTest extends WebTestCase
 
         Assert::assertJsonPathContains(
             'Вы ввели неверную дату',
-            'errors.children.acceptanceDate.errors.0',
+            'errors.children.date.errors.0',
             $postResponse
         );
         Assert::assertNotJsonHasPath('errors.children.supplierInvoiceDate.errors.0', $postResponse);
@@ -263,20 +309,20 @@ class InvoiceControllerTest extends WebTestCase
         return array(
             'supplierInvoiceDate in past' => array(
                 array(
-                    'acceptanceDate' => 'aaa',
+                    'date' => 'aaa',
                     'supplierInvoiceDate' => '2012-03-14'
                 ),
             ),
             'supplierInvoiceDate in future' => array(
                 array(
-                    'acceptanceDate' => 'aaa',
+                    'date' => 'aaa',
                     'supplierInvoiceDate' => '2015-03-14'
                 ),
             )
         );
     }
 
-    public function testPutInvoiceAction()
+    public function testStorePutInvoiceAction()
     {
         $store = $this->factory()->store()->getStore();
         $productId = $this->createProduct();
@@ -286,7 +332,7 @@ class InvoiceControllerTest extends WebTestCase
         $assertions = array(
             'number' => '10001',
             'supplier.name' => 'ООО "Поставщик"',
-            'acceptanceDate' => '2013-03-18T12:56:00+0400',
+            'date' => '2013-03-18T12:56:00+0400',
             'accepter' => 'Приемных Н.П.',
             'legalEntity' => 'ООО "Магазин"',
             'supplierInvoiceNumber' => '1248373',
@@ -316,6 +362,58 @@ class InvoiceControllerTest extends WebTestCase
             $accessToken,
             'PUT',
             '/api/1/stores/' . $store->id . '/invoices/' . $invoiceId,
+            $postData
+        );
+
+        $assertions['supplier.name'] = 'ООО "Подставщик"';
+        $this->assertResponseCode(200);
+        Assert::assertJsonPathEquals($invoiceId, 'id', $postJson);
+        foreach ($assertions as $jsonPath => $expected) {
+            Assert::assertJsonPathContains($expected, $jsonPath, $putJson);
+        }
+    }
+
+    public function testPutInvoiceAction()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+        $supplier1 = $this->factory()->supplier()->getSupplier('ООО "Поставщик"');
+        $supplier2 = $this->factory()->supplier()->getSupplier('ООО "Подставщик"');
+
+        $assertions = array(
+            'number' => '10001',
+            'supplier.name' => 'ООО "Поставщик"',
+            'date' => '2013-03-18T12:56:00+0400',
+            'accepter' => 'Приемных Н.П.',
+            'legalEntity' => 'ООО "Магазин"',
+            'supplierInvoiceNumber' => '1248373',
+        );
+
+        $postData = InvoiceProductControllerTest::getInvoiceData($supplier1->id, $productId, 10, 5.99);
+        $postData['store'] = $store->id;
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $postJson = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/invoices',
+            $postData
+        );
+
+        $this->assertResponseCode(201);
+        Assert::assertJsonHasPath('id', $postJson);
+        $invoiceId = $postJson['id'];
+
+        foreach ($assertions as $jsonPath => $expected) {
+            Assert::assertJsonPathContains($expected, $jsonPath, $postJson);
+        }
+
+        $postData['supplier'] = $supplier2->id;
+        $putJson = $this->clientJsonRequest(
+            $accessToken,
+            'PUT',
+            '/api/1/invoices/' . $invoiceId,
             $postData
         );
 
@@ -359,11 +457,13 @@ class InvoiceControllerTest extends WebTestCase
             /***********************************************************************************************
              * 'supplier'
              ***********************************************************************************************/
+            /*
             'supplier is empty' => array(
                 400,
                 array('supplier' => ''),
                 array('errors.children.supplier.errors.0' => 'Выберите поставщика'),
             ),
+            */
             'supplier is invalid' => array(
                 400,
                 array('supplier' => 'aaaa'),
@@ -385,11 +485,13 @@ class InvoiceControllerTest extends WebTestCase
                 201,
                 array('accepter' => str_repeat('z', 100)),
             ),
+            /*
             'empty accepter' => array(
                 400,
                 array('accepter' => ''),
                 array('errors.children.accepter.errors.0' => 'Заполните это поле',),
             ),
+            */
             'not valid accepter too long' => array(
                 400,
                 array('accepter' => str_repeat("z", 105)),
@@ -406,11 +508,13 @@ class InvoiceControllerTest extends WebTestCase
                 201,
                 array('legalEntity' => str_repeat('z', 300)),
             ),
+            /*
             'empty legalEntity' => array(
                 400,
                 array('legalEntity' => ''),
                 array('errors.children.legalEntity.errors.0' => 'Заполните это поле'),
             ),
+            */
             'not valid legalEntity too long' => array(
                 400,
                 array('legalEntity' => str_repeat("z", 305)),
@@ -427,66 +531,60 @@ class InvoiceControllerTest extends WebTestCase
                 201,
                 array('supplierInvoiceNumber' => str_repeat('z', 100)),
             ),
+            /*
             'empty supplierInvoiceNumber' => array(
                 400,
                 array('supplierInvoiceNumber' => ''),
                 array('errors.children.supplierInvoiceNumber.errors.0' => 'Заполните это поле'),
             ),
+            */
             'not valid supplierInvoiceNumber too long' => array(
                 400,
                 array('supplierInvoiceNumber' => str_repeat("z", 105)),
                 array('errors.children.supplierInvoiceNumber.errors.0' => 'Не более 100 символов'),
             ),
             /***********************************************************************************************
-             * 'acceptanceDate'
+             * 'date'
              ***********************************************************************************************/
             'valid acceptanceDate 2013-03-26T12:34:56' => array(
                 201,
-                array('acceptanceDate' => '2013-03-26T12:34:56'),
-                array("acceptanceDate" => '2013-03-26T12:34:56+0400')
+                array('date' => '2013-03-26T12:34:56'),
+                array('date' => '2013-03-26T12:34:56+0400')
             ),
             'valid acceptanceDate 2013-03-26' => array(
                 201,
-                array('acceptanceDate' => '2013-03-26'),
-                array("acceptanceDate" => '2013-03-26T00:00:00+0400')
+                array('date' => '2013-03-26'),
+                array('date' => '2013-03-26T00:00:00+0400')
             ),
             'valid acceptanceDate 2013-03-26 12:34' => array(
                 201,
-                array('acceptanceDate' => '2013-03-26 12:34'),
-                array("acceptanceDate" => '2013-03-26T12:34:00+0400')
+                array('date' => '2013-03-26 12:34'),
+                array('date' => '2013-03-26T12:34:00+0400')
             ),
             'valid acceptanceDate 2013-03-26 12:34:45' => array(
                 201,
-                array('acceptanceDate' => '2013-03-26 12:34:45'),
-                array("acceptanceDate" => '2013-03-26T12:34:45+0400')
+                array('date' => '2013-03-26 12:34:45'),
+                array('date' => '2013-03-26T12:34:45+0400')
             ),
             'empty acceptanceDate' => array(
                 400,
-                array('acceptanceDate' => ''),
-                array('errors.children.acceptanceDate.errors.0' => 'Заполните это поле'),
+                array('date' => ''),
+                array('errors.children.date.errors.0' => 'Заполните это поле'),
             ),
             'not valid acceptanceDate 2013-02-31' => array(
                 400,
-                array('acceptanceDate' => '2013-02-31'),
-                array('errors.children.acceptanceDate.errors.0' => 'Вы ввели неверную дату'),
+                array('date' => '2013-02-31'),
+                array('errors.children.date.errors.0' => 'Вы ввели неверную дату'),
             ),
             'not valid acceptanceDate aaa' => array(
                 400,
-                array('acceptanceDate' => 'aaa'),
-                array(
-                    'errors.children.acceptanceDate.errors.0'
-                    =>
-                    'Вы ввели неверную дату',
-                ),
+                array('date' => 'aaa'),
+                array('errors.children.date.errors.0' => 'Вы ввели неверную дату',),
             ),
             'not valid acceptanceDate __.__.____ __:__' => array(
                 400,
-                array('acceptanceDate' => '__.__.____ __:__'),
-                array(
-                    'errors.children.acceptanceDate.errors.0'
-                    =>
-                    'Вы ввели неверную дату',
-                ),
+                array('date' => '__.__.____ __:__'),
+                array('errors.children.date.errors.0' => 'Вы ввели неверную дату',),
             ),
             /***********************************************************************************************
              * 'supplierInvoiceDate'
@@ -506,11 +604,7 @@ class InvoiceControllerTest extends WebTestCase
             'not valid createdDate' => array(
                 400,
                 array('createdDate' => '2013-03-26T12:34:56'),
-                array(
-                    'errors.errors.0'
-                    =>
-                    'Эта форма не должна содержать дополнительных полей',
-                ),
+                array('errors.errors.0' => 'Эта форма не должна содержать дополнительных полей'),
             ),
             /***********************************************************************************************
              * 'products'
@@ -518,11 +612,35 @@ class InvoiceControllerTest extends WebTestCase
             'empty products' => array(
                 400,
                 array('products' => array()),
-                array(
-                    'errors.errors.0'
-                    =>
-                    'Нужно добавить минимум один товар',
-                ),
+                array('errors.errors.0' => 'Нужно добавить минимум один товар'),
+            ),
+            /***********************************************************************************************
+             * 'paid'
+             ***********************************************************************************************/
+            'paid true' => array(
+                201,
+                array('paid' => true),
+                array('paid' => true),
+            ),
+            'paid false' => array(
+                201,
+                array('paid' => false),
+                array('paid' => false),
+            ),
+            'paid empty becomes true and it is weard' => array(
+                201,
+                array('paid' => ''),
+                array('paid' => true),
+            ),
+            'paid null' => array(
+                201,
+                array('paid' => null),
+                array('paid' => false),
+            ),
+            'paid aaa' => array(
+                201,
+                array('paid' => 'aaa'),
+                array('paid' => true),
             ),
         );
     }
@@ -547,6 +665,7 @@ class InvoiceControllerTest extends WebTestCase
                 ->createInvoiceProduct($productId)
             ->flush();
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken2,
             'GET',
@@ -555,6 +674,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $this->assertResponseCode(403);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken1,
             'GET',
@@ -702,7 +822,7 @@ class InvoiceControllerTest extends WebTestCase
                 ->createInvoice(
                     array(
                         'supplierInvoiceNumber' => 'ФРГ-1945',
-                        'acceptanceDate' => '2013-03-17T16:12:33+0400',
+                        'date' => '2013-03-17T16:12:33+0400',
                     ),
                     $store->id
                 )
@@ -714,7 +834,7 @@ class InvoiceControllerTest extends WebTestCase
                 ->createInvoice(
                     array(
                         'supplierInvoiceNumber' => '10001',
-                        'acceptanceDate' => '2013-03-16T14:54:23+0400'
+                        'date' => '2013-03-16T14:54:23+0400'
                     ),
                     $store->id
                 )
@@ -740,7 +860,7 @@ class InvoiceControllerTest extends WebTestCase
                 ->createInvoice(
                     array(
                         'supplierInvoiceNumber' => 'ФРГ-1945',
-                        'acceptanceDate' => '2013-03-15T16:12:33+0400'
+                        'date' => '2013-03-15T16:12:33+0400'
                     ),
                     $store->id
                 )
@@ -752,7 +872,7 @@ class InvoiceControllerTest extends WebTestCase
                 ->createInvoice(
                     array(
                         'supplierInvoiceNumber' => '10003',
-                        'acceptanceDate' => '2013-03-16T14:54:23+0400'
+                        'date' => '2013-03-16T14:54:23+0400'
                     ),
                     $store->id
                 )
@@ -906,7 +1026,7 @@ class InvoiceControllerTest extends WebTestCase
 
         $invoiceData1 = array(
             'supplier' => $supplier->id,
-            'acceptanceDate' => '2013-03-18 12:56',
+            'date' => '2013-03-18 12:56',
             'accepter' => 'Приемных Н.П.',
             'legalEntity' => 'ООО "Магазин"',
             'supplierInvoiceNumber' => '1248373',
@@ -1003,7 +1123,7 @@ class InvoiceControllerTest extends WebTestCase
         $productId = $this->createProduct('1');
 
         $invoiceData = InvoiceProductControllerTest::getInvoiceData($supplier->id, $productId, 10, 5.99);
-        $invoiceData['acceptanceDate'] = '';
+        $invoiceData['date'] = '';
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
@@ -1015,7 +1135,7 @@ class InvoiceControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(400);
-        Assert::assertJsonPathEquals('Заполните это поле', 'errors.children.acceptanceDate.errors.0', $response);
+        Assert::assertJsonPathEquals('Заполните это поле', 'errors.children.date.errors.0', $response);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -1025,7 +1145,7 @@ class InvoiceControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(400);
-        Assert::assertJsonPathEquals('Заполните это поле', 'errors.children.acceptanceDate.errors.0', $response);
+        Assert::assertJsonPathEquals('Заполните это поле', 'errors.children.date.errors.0', $response);
 
         $response = $this->clientJsonRequest(
             $accessToken,
@@ -1035,7 +1155,7 @@ class InvoiceControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(201);
-        Assert::assertNotJsonHasPath('errors.children.acceptanceDate.errors.0', $response);
+        Assert::assertNotJsonHasPath('errors.children.date.errors.0', $response);
         Assert::assertNotJsonHasPath('acceptanceData', $response);
         Assert::assertNotJsonHasPath('id', $response);
         Assert::assertJsonPathEquals('59.90', 'sumTotal', $response);
@@ -1049,7 +1169,7 @@ class InvoiceControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(400);
-        Assert::assertNotJsonHasPath('errors.children.acceptanceDate.errors.0', $response);
+        Assert::assertNotJsonHasPath('errors.children.date.errors.0', $response);
         Assert::assertJsonPathEquals(
             'Заполните это поле',
             'errors.children.products.children.0.children.quantity.errors.0',
@@ -1139,24 +1259,26 @@ class InvoiceControllerTest extends WebTestCase
                 'Такого поставщика не существует',
                 'supplier'
             ),
+            /*
             'empty supplier' => array(
                 array('supplier' => ''),
                 'errors.children.supplier.errors.0',
                 'Выберите поставщика',
                 'supplier'
             ),
+            */
             'empty acceptance date' => array(
-                array('acceptanceDate' => ''),
-                'errors.children.acceptanceDate.errors.0',
+                array('date' => ''),
+                'errors.children.date.errors.0',
                 'Заполните это поле',
-                'acceptanceDate'
+                'date'
             ),
             /*
             'invalid acceptance date' => array(
-                array('acceptanceDate' => 'aaaa'),
-                'errors.children.acceptanceDate.errors.0',
+                array('date' => 'aaaa'),
+                'errors.children.date.errors.0',
                 'Заполните это поле',
-                'acceptanceDate'
+                'date'
             )
             */
         );
@@ -1391,7 +1513,7 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertJsonPathCount(1, 'products.*', $postResponse);
         $invoiceId = $postResponse['id'];
 
-        $invoiceData['acceptanceDate'] = '16.04.2014 15:09';
+        $invoiceData['date'] = '16.04.2014 15:09';
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
@@ -1455,7 +1577,7 @@ class InvoiceControllerTest extends WebTestCase
         Assert::assertNotJsonHasPath('number', $response);
         Assert::assertNotJsonHasPath('legalEntity', $response);
         Assert::assertNotJsonHasPath('accepter', $response);
-        Assert::assertNotJsonHasPath('acceptanceDate', $response);
+        Assert::assertNotJsonHasPath('date', $response);
         Assert::assertNotJsonHasPath('supplierInvoiceNumber', $response);
     }
 
@@ -1481,6 +1603,8 @@ class InvoiceControllerTest extends WebTestCase
             ->flush();
 
         $accessToken1 = $this->factory()->oauth()->authAsDepartmentManager($store1->id);
+
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken1,
             'GET',
@@ -1489,6 +1613,8 @@ class InvoiceControllerTest extends WebTestCase
         $this->assertResponseCode(404);
 
         $accessToken2 = $this->factory()->oauth()->authAsDepartmentManager($store2->id);
+
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken2,
             'GET',

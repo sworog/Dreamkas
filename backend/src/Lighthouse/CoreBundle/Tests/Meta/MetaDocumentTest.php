@@ -3,8 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Meta;
 
 use JMS\Serializer\SerializerInterface;
-use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
-use Lighthouse\CoreBundle\Document\WriteOff\WriteOffRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffRepository;
 use Lighthouse\CoreBundle\Meta\MetaDocument;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
@@ -17,6 +16,14 @@ class MetaDocumentTest extends WebTestCase
     protected function getSerializer()
     {
         return $this->getContainer()->get('serializer');
+    }
+
+    /**
+     * @return WriteOffRepository
+     */
+    protected function getWriteOffRepository()
+    {
+        return $this->getContainer()->get('lighthouse.core.document.repository.stock_movement.writeoff');
     }
 
     public function testInvoiceProductsReferenceManyIsSerialized()
@@ -51,10 +58,7 @@ class MetaDocumentTest extends WebTestCase
         $writeOffProductId1 = $this->createWriteOffProduct($writeOffId, $productId1, 10, 12.8, '*', $storeId);
         $writeOffProductId2 = $this->createWriteOffProduct($writeOffId, $productId2, 5, 18.7, '**', $storeId);
 
-        /* @var WriteOffRepository $writeOffRepository */
-        $writeOffRepository = $this->getContainer()->get('lighthouse.core.document.repository.write_off');
-        /* @var WriteOff $invoice */
-        $writeOff = $writeOffRepository->find($writeOffId);
+        $writeOff = $this->getWriteOffRepository()->find($writeOffId);
 
         $metaDocument = new MetaDocument($writeOff);
         $serializer = $this->getSerializer();

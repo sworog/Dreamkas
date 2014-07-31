@@ -274,6 +274,7 @@ class SupplierControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->authAsRole($role);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -325,6 +326,8 @@ class SupplierControllerTest extends WebTestCase
         $this->factory()->flush();
 
         $accessToken = $this->factory()->oauth()->authAsRole($role);
+
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -418,6 +421,7 @@ class SupplierControllerTest extends WebTestCase
             }
         );
 
+        $this->client->setCatchException();
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',

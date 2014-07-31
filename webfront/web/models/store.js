@@ -3,7 +3,7 @@ define(function(require) {
         var Model = require('kit/model/model');
 
         return Model.extend({
-            urlRoot: LH.baseApiUrl + '/stores',
+            urlRoot: Model.baseApiUrl + '/stores',
             saveData: [
                 'number',
                 'address',

@@ -5,9 +5,9 @@ namespace Lighthouse\CoreBundle\Controller;
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
-use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProductRepository;
-use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProductRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Form\WriteOffProductType;
 use Symfony\Component\Form\Test\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +20,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 class WriteOffProductController extends AbstractRestController
 {
     /**
-     * @DI\Inject("lighthouse.core.document.repository.writeoff.product")
+     * @DI\Inject("lighthouse.core.document.repository.stock_movement.writeoff_product")
      * @var WriteOffProductRepository
      */
     protected $documentRepository;

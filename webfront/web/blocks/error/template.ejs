@@ -35,7 +35,7 @@
         <% if (config.debugLevel === 2) { %>
         StackTrace:
         <div>
-            <pre><%- jsError.data.stack %></pre>
+            <pre><%- jsError.stack || jsError.data.stack %></pre>
         </div>
         <% } %>
     </div>

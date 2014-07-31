@@ -17,7 +17,7 @@ class SoftDeleteableListener
     public function postSoftDelete(LifecycleEventArgs $eventArgs)
     {
         $document = $eventArgs->getDocument();
-        /* @var DocumentManager $db */
+        /* @var DocumentManager $dm */
         $dm = $eventArgs->getDocumentManager();
         $metadata = $dm->getClassMetadata(get_class($document));
 

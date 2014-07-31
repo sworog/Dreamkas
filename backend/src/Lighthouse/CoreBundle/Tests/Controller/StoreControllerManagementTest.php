@@ -31,7 +31,7 @@ class StoreControllerManagementTest extends WebTestCase
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
         $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_STORE_MANAGERS);
 
-        $this->jsonRequest($request, $accessToken);
+        $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(204);
 
@@ -55,7 +55,7 @@ class StoreControllerManagementTest extends WebTestCase
         $request->parameters['_method'] = 'LINK';
         $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_STORE_MANAGERS);
 
-        $this->jsonRequest($request, $accessToken);
+        $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(204);
 
@@ -80,7 +80,7 @@ class StoreControllerManagementTest extends WebTestCase
         $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_STORE_MANAGERS);
         $request->addLinkHeader($this->getUserResourceUri($storeUser2->id), Store::REL_STORE_MANAGERS);
 
-        $this->jsonRequest($request, $accessToken);
+        $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(204);
 
@@ -104,7 +104,8 @@ class StoreControllerManagementTest extends WebTestCase
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
         $request->addLinkHeader($this->getUserResourceUri($depUser1->id), Store::REL_STORE_MANAGERS);
 
-        $linkResponse = $this->jsonRequest($request, $accessToken);
+        $this->client->setCatchException();
+        $linkResponse = $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(400);
 
@@ -122,7 +123,8 @@ class StoreControllerManagementTest extends WebTestCase
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
         $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), 'invalid');
 
-        $linkResponse = $this->jsonRequest($request, $accessToken);
+        $this->client->setCatchException();
+        $linkResponse = $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(400);
 
@@ -140,7 +142,8 @@ class StoreControllerManagementTest extends WebTestCase
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
         $request->addHttpHeader('Link', sprintf('<%s>', $this->getUserResourceUri($storeUser->id)));
 
-        $linkResponse = $this->jsonRequest($request, $accessToken);
+        $this->client->setCatchException();
+        $linkResponse = $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(400);
 
@@ -156,7 +159,8 @@ class StoreControllerManagementTest extends WebTestCase
 
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
 
-        $linkResponse = $this->jsonRequest($request, $accessToken);
+        $this->client->setCatchException();
+        $linkResponse = $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(400);
 
@@ -174,7 +178,8 @@ class StoreControllerManagementTest extends WebTestCase
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
         $request->addLinkHeader($this->getUserResourceUri('2143214235345345'), Store::REL_STORE_MANAGERS);
 
-        $linkResponse = $this->jsonRequest($request, $accessToken);
+        $this->client->setCatchException();
+        $linkResponse = $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(400);
 
@@ -193,7 +198,8 @@ class StoreControllerManagementTest extends WebTestCase
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
         $request->addLinkHeader('http://localhost/api/1/groups/' . $groupId, Store::REL_STORE_MANAGERS);
 
-        $linkResponse = $this->jsonRequest($request, $accessToken);
+        $this->client->setCatchException();
+        $linkResponse = $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(400);
 
@@ -211,11 +217,12 @@ class StoreControllerManagementTest extends WebTestCase
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
         $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_STORE_MANAGERS);
 
-        $this->jsonRequest($request, $accessToken);
+        $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(204);
 
-        $linkResponse = $this->jsonRequest($request, $accessToken);
+        $this->client->setCatchException();
+        $linkResponse = $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(409);
 
@@ -233,7 +240,8 @@ class StoreControllerManagementTest extends WebTestCase
         $request = new JsonRequest('/api/1/stores/not_found_store' . $storeId, 'LINK');
         $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_STORE_MANAGERS);
 
-        $linkResponse = $this->jsonRequest($request, $accessToken);
+        $this->client->setCatchException();
+        $linkResponse = $this->client->jsonRequest($request, $accessToken);
 
         Assert::assertJsonPathContains("object not found", 'message', $linkResponse);
     }
@@ -274,7 +282,12 @@ class StoreControllerManagementTest extends WebTestCase
     {
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
-        $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/not_found_store/storeManagers');
+        $this->client->setCatchException();
+        $managersJson = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/not_found_store/storeManagers'
+        );
 
         $this->assertResponseCode(404);
 
@@ -402,6 +415,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         $this->factory()->store()->linkStoreManagers($storeUser1->id, $storeId1);
 
+        $this->client->setCatchException();
         $managersJson = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -462,7 +476,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         $jsonRequest = new JsonRequest('/api/1/stores/' . $storeId1, 'UNLINK');
         $jsonRequest->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_STORE_MANAGERS);
-        $this->jsonRequest($jsonRequest, $accessToken);
+        $this->client->jsonRequest($jsonRequest, $accessToken);
 
         $this->assertResponseCode(204);
 
@@ -486,7 +500,9 @@ class StoreControllerManagementTest extends WebTestCase
 
         $jsonRequest = new JsonRequest('/api/1/stores/' . $storeId, 'UNLINK');
         $jsonRequest->addLinkHeader($this->getUserResourceUri($storeUser->id), Store::REL_STORE_MANAGERS);
-        $unlinkResponse = $this->jsonRequest($jsonRequest, $accessToken);
+
+        $this->client->setCatchException();
+        $unlinkResponse = $this->client->jsonRequest($jsonRequest, $accessToken);
 
         $this->assertResponseCode(409);
 
@@ -503,7 +519,7 @@ class StoreControllerManagementTest extends WebTestCase
         $request->addHttpHeader('Access-Control-Request-Headers', 'Authorization,Link');
         $request->addHttpHeader('Origin', 'http://webfront.localhost');
 
-        $this->jsonRequest($request, $accessToken);
+        $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(200);
 
@@ -566,6 +582,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->auth($storeUser1);
 
+        $this->client->setCatchException();
         $storesResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -589,6 +606,7 @@ class StoreControllerManagementTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->auth($storeUser1);
 
+        $this->client->setCatchException();
         $storesResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -611,7 +629,7 @@ class StoreControllerManagementTest extends WebTestCase
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'LINK');
         $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_DEPARTMENT_MANAGERS);
 
-        $this->jsonRequest($request, $accessToken);
+        $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(204);
 
@@ -635,7 +653,7 @@ class StoreControllerManagementTest extends WebTestCase
         $request = new JsonRequest('/api/1/stores/' . $storeId, 'UNLINK');
         $request->addLinkHeader($this->getUserResourceUri($storeUser1->id), Store::REL_DEPARTMENT_MANAGERS);
 
-        $this->jsonRequest($request, $accessToken);
+        $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(204);
 
@@ -690,7 +708,12 @@ class StoreControllerManagementTest extends WebTestCase
     {
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
-        $managersJson = $this->clientJsonRequest($accessToken, 'GET', '/api/1/stores/notFoundStore/departmentManagers');
+        $this->client->setCatchException();
+        $managersJson = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/notFoundStore/departmentManagers'
+        );
 
         $this->assertResponseCode(404);
 

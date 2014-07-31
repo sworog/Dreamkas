@@ -141,6 +141,7 @@ class CatalogGroupControllerTest extends WebTestCase
 
         $this->assertNull($deleteResponse);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
