@@ -5,8 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.elements.items.Input;
-import project.lighthouse.autotests.elements.items.NewAutoComplete;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
+import project.lighthouse.autotests.elements.items.autocomplete.AutoComplete;
 
 /**
  * Edit product modal window
@@ -22,7 +22,7 @@ public class EditProductModalWindow extends CreateNewProductModalWindow {
 
     @Override
     public void createElements() {
-        put("group", new NewAutoComplete(this, By.xpath("???")));
+        put("group", new AutoComplete(this, By.xpath("//*[@id='modal-productEdit']//*[@class='select2-choice']")));
         put("name", new Input(this, By.xpath("//*[@id='modal-productEdit']//*[@name='name']")));
         put("unit", new Input(this, By.xpath("//*[@id='modal-productEdit']//*[@name='units']")));
         put("barcode", new Input(this, By.xpath("//*[@id='modal-productEdit']//*[@name='barcode']")));

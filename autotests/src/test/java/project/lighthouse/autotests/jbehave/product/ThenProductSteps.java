@@ -17,9 +17,19 @@ public class ThenProductSteps {
         productSteps.productCollectionCompareWithExampleTable(examplesTable);
     }
 
+    @Then("the user asserts the product list contain exact products with values $examplesTable")
+    public void thenTheUserAssertsTheProductListContainExactProductsWithValues(ExamplesTable examplesTable) {
+        productSteps.productCollectionExactCompareWithExampleTable(examplesTable);
+    }
+
     @Then("the user checks stored values in edit product modal window")
     public void thenTheUserChecksStoredValuesInEditProductModalWindow() {
         productSteps.editProductModalWindowCheckStoredValues();
+    }
+
+    @Then("the user asserts the group field value is '$value'")
+    public void thenTheUserAssertsTheGroupFieldValue(String value) {
+        productSteps.assertCreateNewProductModalWindowGroupFieldValue(value);
     }
 
     @Then("the user asserts the groups list not contain product with name '$name'")

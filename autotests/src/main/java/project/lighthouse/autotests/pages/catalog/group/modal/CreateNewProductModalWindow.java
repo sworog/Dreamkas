@@ -6,8 +6,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 import project.lighthouse.autotests.elements.items.Input;
-import project.lighthouse.autotests.elements.items.NewAutoComplete;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
+import project.lighthouse.autotests.elements.items.autocomplete.AutoComplete;
 import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 /**
@@ -24,7 +24,7 @@ public class CreateNewProductModalWindow extends ModalWindowPage {
 
     @Override
     public void createElements() {
-        put("group", new NewAutoComplete(this, By.xpath("???")));
+        put("group", new AutoComplete(this, By.xpath("//*[@id='modal-productAdd']//*[@class='select2-choice']")));
         put("name", new Input(this, By.xpath("//*[@id='modal-productAdd']//*[@name='name']")));
         put("unit", new Input(this, By.xpath("//*[@id='modal-productAdd']//*[@name='units']")));
         put("barcode", new Input(this, By.xpath("//*[@id='modal-productAdd']//*[@name='barcode']")));

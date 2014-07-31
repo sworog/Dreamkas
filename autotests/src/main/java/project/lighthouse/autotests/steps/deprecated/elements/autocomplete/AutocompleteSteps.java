@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.steps.elements.autocomplete;
+package project.lighthouse.autotests.steps.deprecated.elements.autocomplete;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.findby.By;

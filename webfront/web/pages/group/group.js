@@ -98,7 +98,9 @@ define(function(require, exports, module) {
                     var modal = $('.modal:visible');
 
                     modal.one('hidden.bs.modal', function(e) {
-                        page.render();
+                        page.collections.groups.fetch().then(function() {
+                            page.render()
+                        });
                     });
 
                     modal.modal('hide');

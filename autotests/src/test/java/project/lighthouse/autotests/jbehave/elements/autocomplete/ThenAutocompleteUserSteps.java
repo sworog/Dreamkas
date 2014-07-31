@@ -4,7 +4,7 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.steps.elements.autocomplete.AutocompleteSteps;
+import project.lighthouse.autotests.steps.deprecated.elements.autocomplete.AutocompleteSteps;
 
 /**
  * Jbehave reusable THEN scenario steps for interacting with autocomplete results
