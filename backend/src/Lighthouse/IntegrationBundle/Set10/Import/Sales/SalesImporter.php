@@ -500,7 +500,7 @@ class SalesImporter
                 $store = $this->storeRepository->getReference($storeId);
             }
         } else {
-            $store = $this->storeRepository->findOneBy(array('number' => $storeName));
+            $store = $this->storeRepository->findOneByName($storeName);
             if (null === $store) {
                 $this->stores[$storeName] = false;
             } else {

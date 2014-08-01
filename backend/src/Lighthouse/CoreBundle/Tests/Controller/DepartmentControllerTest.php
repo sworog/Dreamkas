@@ -39,7 +39,7 @@ class DepartmentControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('42', 'number', $postResponse);
         Assert::assertJsonPathEquals('Винно-водочные изделия', 'name', $postResponse);
         Assert::assertJsonPathEquals($storeId, 'store.id', $postResponse);
-        Assert::assertJsonPathEquals('магазин_номер_42', 'store.number', $postResponse);
+        Assert::assertJsonPathEquals('магазин_номер_42', 'store.name', $postResponse);
     }
 
     public function testUniqueDepartmentNumber()
