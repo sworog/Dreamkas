@@ -1,0 +1,45 @@
+{
+    "run_list": [
+        "recipe[apt::default]",
+        "recipe[java]",
+        "recipe[lighthouse]",
+        "recipe[teamcity::agent]",
+        "recipe[lighthouse::agent]"
+    ],
+    "java": {
+        "oracle": {
+            "accept_oracle_download_terms": true
+        },
+        "jdk_version": 7,
+        "install_flavor": "oracle"
+    },
+    "teamcity": {
+        "agents": {
+            "default": {
+                "server_url": "http://teamcity.lighthouse.pro/",
+                "home": "/home/teamcity/agent1",
+                "own_port": 9091
+            },
+            "faro-2": {
+                "server_url": "http://teamcity.lighthouse.pro/",
+                "home": "/home/teamcity/agent2",
+                "own_port": 9092
+            },
+            "faro-3": {
+                "server_url": "http://teamcity.lighthouse.pro/",
+                "home": "/home/teamcity/agent3",
+                "own_port": 9093
+            },
+            "faro-4": {
+                "server_url": "http://teamcity.lighthouse.pro/",
+                "home": "/home/teamcity/agent4",
+                "own_port": 9094
+            },
+            "faro-5": {
+                "server_url": "http://teamcity.lighthouse.pro/",
+                "home": "/home/teamcity/agent5",
+                "own_port": 9095
+            }
+        }
+    }
+}
