@@ -1,19 +1,26 @@
-define(function(require) {
-        //requirements
-        var Form = require('kit/form/form');
+define(function(require, exports, module) {
+    //requirements
+    var Form = require('kit/form/form'),
+        StoreModel = require('models/store/store');
 
-        return Form.extend({
-            el: '.form_store',
-            redirectUrl: '/stores',
-            initialize: function(){
-                var block = this;
+    return Form.extend({
+        el: '.form_store',
+        model: function() {
+            return new StoreModel();
+        },
+        collection: null,
+        initialize: function() {
 
-                Form.prototype.initialize.apply(block, arguments);
+            var block = this;
 
-                if (block.model.id){
-                    block.redirectUrl += '/' + block.model.id;
+            Form.prototype.initialize.apply(block, arguments);
+
+            block.on('submit:success', function() {
+                if (!block.__model.id) {
+                    block.model = new StoreModel();
                 }
-            }
-        });
-    }
-);
+            });
+
+        }
+    });
+});

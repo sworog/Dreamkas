@@ -5,7 +5,7 @@ define(function(require) {
         return Model.extend({
             urlRoot: Model.baseApiUrl + '/stores',
             saveData: [
-                'number',
+                'name',
                 'address',
                 'contacts'
             ]

@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Page = require('kit/page/page'),
         SuppliersCollection = require('collections/suppliers'),
-        StoresCollection = require('collections/stores'),
+        StoresCollection = require('collections/stores/stores'),
         InvoicesCollection = require('collections/invoices/invoices'),
         InvoiceModel = require('models/invoice/invoice');
 

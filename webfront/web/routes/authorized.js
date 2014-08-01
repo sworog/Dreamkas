@@ -11,6 +11,9 @@ define(function(require) {
         'catalog/groups/:groupId(/)': require('pages/group/group'),
 
         //stockMovement
-        'stockMovement(/)': require('pages/stockMovement/stockMovement')
+        'stockMovement(/)': require('pages/stockMovement/stockMovement'),
+
+        //stores
+        'stores(/)': require('pages/stores/stores')
     };
 });
