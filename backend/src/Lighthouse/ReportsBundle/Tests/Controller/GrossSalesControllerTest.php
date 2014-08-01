@@ -1444,7 +1444,7 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
                 'store' => array(
                     'id' => $storeIds['1'],
-                    'number' => '1',
+                    'name' => '1',
                     'address' => '1',
                     'contacts' => '1',
                     'departments' => array(),
@@ -1467,7 +1467,7 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
                 'store' => array(
                     'id' => $storeIds['2'],
-                    'number' => '2',
+                    'name' => '2',
                     'address' => '1',
                     'contacts' => '1',
                     'departments' => array(),
@@ -1490,7 +1490,7 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
                 'store' => array(
                     'id' => $storeIds['3'],
-                    'number' => '3',
+                    'name' => '3',
                     'address' => '1',
                     'contacts' => '1',
                     'departments' => array(),
@@ -1538,7 +1538,7 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
                 'store' => array(
                     'id' => $storeIds['1'],
-                    'number' => '1',
+                    'name' => '1',
                     'address' => '1',
                     'contacts' => '1',
                     'departments' => array(),
@@ -1561,7 +1561,7 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
                 'store' => array(
                     'id' => $storeIds['2'],
-                    'number' => '2',
+                    'name' => '2',
                     'address' => '1',
                     'contacts' => '1',
                     'departments' => array(),
@@ -1584,7 +1584,7 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
                 'store' => array(
                     'id' => $storeIds['3'],
-                    'number' => '3',
+                    'name' => '3',
                     'address' => '1',
                     'contacts' => '1',
                     'departments' => array(),

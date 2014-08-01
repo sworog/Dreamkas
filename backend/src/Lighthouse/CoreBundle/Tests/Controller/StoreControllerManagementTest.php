@@ -840,7 +840,7 @@ class StoreControllerManagementTest extends WebTestCase
         $accessToken = $this->factory()->oauth()->auth($master);
 
         $storeData = array(
-            'number' => '1',
+            'name' => '1',
             'address' => 'HellRoad 666',
             'contacts' => '112'
         );
