@@ -3,7 +3,9 @@
         "recipe[apt::default]",
         "recipe[java]",
         "recipe[lighthouse]",
-        "recipe[teamcity::agent]"
+        "recipe[teamcity::agent]",
+        "recipe[ruby::1.9.1]",
+        "recipe[lighthouse::bundler]"
     ],
     "java": {
         "oracle": {
