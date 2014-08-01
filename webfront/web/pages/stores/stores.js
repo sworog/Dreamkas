@@ -7,8 +7,25 @@ define(function(require, exports, module) {
     return Page.extend({
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'stores',
+        models: {
+            store: null
+        },
         collections: {
             stores: new StoreCollection()
+        },
+        events: {
+            'click .store__link': function (e) {
+                var page = this,
+                    storeId = e.currentTarget.dataset.store_id;
+
+                if (!page.models.store || page.models.store.id !== storeId) {
+                    page.models.store = page.collections.stores.get(storeId);
+                    page.render();
+                }
+
+                $('#modal-storeEdit').modal('show');
+
+            }
         },
         blocks: {
             form_storeAdd: function() {

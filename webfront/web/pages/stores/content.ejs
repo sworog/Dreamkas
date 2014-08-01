@@ -44,15 +44,14 @@
                         </tr>
                         </thead>
                         <tbody>
-
-                        <% collections.stores.forEach(function(storeModel){ %>
-                        <tr class="product__link" data-product_id="<%- storeModel.id %>">
-                            <td data-value="<%- storeModel.get('name') %>"
-                                name="name"><%- storeModel.get('name') %></td>
-                            <td data-value="<%- storeModel.get('address') %>"
-                                name="address"><%- storeModel.get('address') %></td>
-                        </tr>
-                        <% }) %>
+                            <% collections.stores.forEach(function(storeModel){ %>
+                                <tr class="store__link" data-store_id="<%- storeModel.id %>">
+                                    <td data-value="<%- storeModel.get('name') %>"
+                                        name="name"><%- storeModel.get('name') %></td>
+                                    <td data-value="<%- storeModel.get('address') %>"
+                                        name="address"><%- storeModel.get('address') %></td>
+                                </tr>
+                            <% }) %>
                         </tbody>
                     </table>
                 </div>
@@ -75,7 +74,7 @@
 
 <% if (models.store) { %>
 <%= partials.modal_storeForm({
-    storeModel: models.store
+    store: models.store
 }) %>
 <% } %>
 
