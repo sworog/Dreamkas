@@ -88,7 +88,7 @@ lighthouse:
                 email.unique: Пользователь с таким email уже существует
                 email.not_exists: Пользователь с таким e-mail не зарегистрирован в системе
             store:
-                number.unique: Такой магазин уже есть
+                name.unique: Такой магазин уже есть
                 does_not_exist: Такого магазина не существует
             department:
                 number.unique: Отдел с таким названием уже существует в этом магазине

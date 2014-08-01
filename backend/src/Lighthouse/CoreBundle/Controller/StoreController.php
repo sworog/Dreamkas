@@ -47,7 +47,7 @@ class StoreController extends AbstractRestController
     protected function handleFlushFailedException(FlushFailedException $e)
     {
         if ($e->getCause() instanceof MongoDuplicateKeyException) {
-            return $this->addFormError($e->getForm(), 'number', 'lighthouse.validation.errors.store.number.unique');
+            return $this->addFormError($e->getForm(), 'name', 'lighthouse.validation.errors.store.name.unique');
         } else {
             return parent::handleFlushFailedException($e);
         }

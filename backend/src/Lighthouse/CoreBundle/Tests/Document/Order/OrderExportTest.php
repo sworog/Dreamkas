@@ -72,7 +72,7 @@ class OrderExportTest extends WebTestCase
             $fileObject->getActiveSheet()->getCell('A1')->getValue()
         );
         $this->assertEquals(
-            'Магазин №' . $order->store->number. '. ' . $order->store->address . '. ' . $order->store->contacts,
+            'Магазин №' . $order->store->name. '. ' . $order->store->address . '. ' . $order->store->contacts,
             $fileObject->getActiveSheet()->getCell('A2')->getValue()
         );
         $this->assertEquals(

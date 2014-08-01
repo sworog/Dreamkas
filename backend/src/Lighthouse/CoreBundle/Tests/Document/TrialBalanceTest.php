@@ -205,7 +205,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $productVersion = $this->getVersionFactory()->createDocumentVersion($product);
 
         $store = new Store();
-        $store->number = '42';
+        $store->name = '42';
         $store->address = '42';
         $store->contacts = '42';
         $manager->persist($store);
@@ -248,7 +248,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $productVersion = $this->getVersionFactory()->createDocumentVersion($product);
 
         $store = new Store();
-        $store->number = '42';
+        $store->name = '42';
         $store->address = '42';
         $store->contacts = '42';
         $manager->persist($store);
