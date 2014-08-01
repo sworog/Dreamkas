@@ -13,12 +13,26 @@ define(function(require, exports, module) {
         blocks: {
             form_storeAdd: function() {
                 var page = this,
-                    Form_store = require('blocks/form/form_store/form_store');
+                    Form_store = require('blocks/form/form_store/form_store'),
+                    form_store = new Form_store({
+                        collection: page.collections.stores,
+                        el: document.getElementById('form_storeAdd')
+                    });
 
-                return new Form_store({
-                    collection: page.collections.stores,
-                    el: document.getElementById('form_storeAdd')
+                form_store.on('submit:success', function() {
+                    var modal = $('.modal:visible');
+                    console.log(modal);
+
+                    modal.one('hidden.bs.modal', function(e) {
+                        page.collections.stores.fetch().then(function() {
+                            page.render()
+                        });
+                    });
+
+                    modal.modal('hide');
                 });
+
+                return form_store
             },
             form_storeEdit: function() {
                 var page = this,
