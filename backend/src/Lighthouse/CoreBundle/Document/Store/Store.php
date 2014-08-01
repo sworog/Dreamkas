@@ -58,7 +58,6 @@ class Store extends AbstractDocument
     /**
      * Адрес
      * @MongoDB\String
-     * @Assert\NotBlank
      * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
@@ -67,7 +66,6 @@ class Store extends AbstractDocument
     /**
      * Контакты
      * @MongoDB\String
-     * @Assert\NotBlank
      * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */

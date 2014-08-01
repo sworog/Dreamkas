@@ -188,6 +188,7 @@ class StoreControllerTest extends WebTestCase
                 201,
                 array('address' => 'Address123466!@#$%^&*(;"'),
             ),
+            /*
             'not valid empty address' => array(
                 400,
                 array('address' => ''),
@@ -197,6 +198,7 @@ class StoreControllerTest extends WebTestCase
                     'Заполните это поле'
                 )
             ),
+            */
 
             /****************************************
              * contacts
@@ -218,6 +220,7 @@ class StoreControllerTest extends WebTestCase
                 201,
                 array('contacts' => 'StoreМагазин123466!@#$%^&*(;"'),
             ),
+            /*
             'not valid empty contacts' => array(
                 400,
                 array('contacts' => ''),
@@ -227,6 +230,7 @@ class StoreControllerTest extends WebTestCase
                     'Заполните это поле'
                 )
             ),
+            */
         );
     }
 
