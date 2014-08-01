@@ -3,8 +3,7 @@
         "recipe[apt::default]",
         "recipe[java]",
         "recipe[lighthouse]",
-        "recipe[teamcity::agent]",
-        "recipe[lighthouse::agent]"
+        "recipe[teamcity::agent]"
     ],
     "java": {
         "oracle": {
@@ -17,27 +16,37 @@
         "agents": {
             "default": {
                 "server_url": "http://teamcity.lighthouse.pro/",
-                "home": "/home/teamcity/agent1",
+                "user": "teamcity-agent1",
+                "name": "faro-1",
+                "system_dir": "agent1",
                 "own_port": 9091
             },
             "faro-2": {
                 "server_url": "http://teamcity.lighthouse.pro/",
-                "home": "/home/teamcity/agent2",
+                "user": "teamcity-agent2",
+                "name": "faro-2",
+                "system_dir": "agent2",
                 "own_port": 9092
             },
             "faro-3": {
                 "server_url": "http://teamcity.lighthouse.pro/",
-                "home": "/home/teamcity/agent3",
+                "user": "teamcity-agent3",
+                "name": "faro-3",
+                "system_dir": "agent3",
                 "own_port": 9093
             },
             "faro-4": {
                 "server_url": "http://teamcity.lighthouse.pro/",
-                "home": "/home/teamcity/agent4",
+                "user": "teamcity-agent4",
+                "name": "faro-4",
+                "system_dir": "agent4",
                 "own_port": 9094
             },
             "faro-5": {
                 "server_url": "http://teamcity.lighthouse.pro/",
-                "home": "/home/teamcity/agent5",
+                "user": "teamcity-agent5",
+                "name": "faro-5",
+                "system_dir": "agent5",
                 "own_port": 9095
             }
         }
