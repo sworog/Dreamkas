@@ -28,6 +28,6 @@ public class EditGroupModalPage extends CreateGroupModalPage {
 
     @Override
     public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Сохранить", modalWindowXpath()).click();
+        new PrimaryBtnFacade(this, "Сохранить").click();
     }
 }
