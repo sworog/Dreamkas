@@ -107,7 +107,6 @@ And the user asserts the store list do not contain store with name 'Магази
 Scenario: Message assert if store list is empty
 
 Meta:
-@smoke
 @id_s39u107s5
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
