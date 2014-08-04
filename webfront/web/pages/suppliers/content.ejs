@@ -32,14 +32,16 @@
 
             <div class="panel">
                 <div class="panel-body">
-                    <table class="table table-hover">
+                    <table class="table table-hover table-striped">
                         <tbody>
                             <% collections.suppliers.forEach(function(supplierModel){ %>
-                                <tr class="store__link" data-supplier-id="<%- supplierModel.id %>">
+                                <tr class="supplier__link" data-supplier-id="<%- supplierModel.id %>">
                                     <td name="name"><%- supplierModel.get('name') %></td>
                                     <td name="info">
-                                        <%- supplierModel.get('address') %><br/>
-                                        <%- supplierModel.get('phone') %>,
+                                        <div>
+                                            <%- supplierModel.get('address') %>
+                                        </div>
+                                        <%- supplierModel.get('phone') ? supplierModel.get('phone') + ', ' : '' %>
                                         <%- supplierModel.get('contactPerson') || supplierModel.get('email') %>
                                     </td>
                                 </tr>
@@ -64,7 +66,7 @@
 
 <%= partials.modal_supplierForm() %>
 
-<% if (models.store) { %>
+<% if (models.supplier) { %>
 <%= partials.modal_supplierForm({
     supplierModel: models.supplier
 }) %>

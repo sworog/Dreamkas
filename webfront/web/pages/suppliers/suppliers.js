@@ -9,10 +9,23 @@ define(function(require, exports, module) {
             supplier: null
         },
         collections: {
-            suppliers: function(){
+            suppliers: function() {
                 var SupplierCollection = require('collections/suppliers/suppliers');
 
                 return new SupplierCollection();
+            }
+        },
+        events: {
+            'click .supplier__link': function(e) {
+                var page = this,
+                    supplierId = e.currentTarget.dataset.supplierId;
+
+                if (!page.models.supplier || page.models.supplier.id !== supplierId) {
+                    page.models.supplier = page.collections.suppliers.get(supplierId);
+                    page.render();
+                }
+
+                $('#modal-supplierEdit').modal('show');
             }
         },
         blocks: {
