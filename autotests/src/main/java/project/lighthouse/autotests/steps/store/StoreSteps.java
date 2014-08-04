@@ -6,6 +6,7 @@ import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
+import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.store.StoreObjectCollection;
 import project.lighthouse.autotests.pages.store.StoreListPage;
 import project.lighthouse.autotests.pages.store.modal.StoreCreateModalWindow;
@@ -19,6 +20,8 @@ public class StoreSteps extends ScenarioSteps {
     StoreListPage storeListPage;
     StoreCreateModalWindow storeCreateModalWindow;
     StoreEditModalWindow storeEditModalWindow;
+
+    private String generatedString;
 
     @Step
     public void storeListPageOpen() {
@@ -97,6 +100,22 @@ public class StoreSteps extends ScenarioSteps {
     }
 
     @Step
+    public void storeObjectCollectionContainStoreWithName(String name) {
+        StoreObjectCollection storeObjectCollection = null;
+        try {
+            storeObjectCollection = storeListPage.getStoreObjectCollection();
+        } catch (TimeoutException e) {
+            storeListPage.containsText("У вас ещё нет ни одного магазина ");
+        } catch (StaleElementReferenceException e) {
+            storeObjectCollection = storeListPage.getStoreObjectCollection();
+        } finally {
+            if (storeObjectCollection != null) {
+                storeObjectCollection.contains(name);
+            }
+        }
+    }
+
+    @Step
     public void storeObjectClickByName(String name) {
         storeListPage.getStoreObjectCollection().clickByLocator(name);
     }
@@ -114,5 +133,34 @@ public class StoreSteps extends ScenarioSteps {
     @Step
     public void assertStoresListPageTitle(String title) {
         assertThat(storeListPage.getTitle(), is(title));
+    }
+
+    @Step
+    public void assertStoreCreateModalWindowItemErrorMessage(String elementName, String message) {
+        storeCreateModalWindow.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(message);
+    }
+
+    @Step
+    public void assertStoreEditModalWindowItemErrorMessage(String elementName, String message) {
+        storeEditModalWindow.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(message);
+    }
+
+    @Step
+    public void storeCreateModalWindowGenerateString(String elementName, int count) {
+        String generatedString = new StringGenerator(count).generateString("a");
+        storeCreateModalWindow.input(elementName, generatedString);
+        this.generatedString = generatedString;
+    }
+
+    @Step
+    public void storeEditModalWindowGenerateString(String elementName, int count) {
+        String generatedString = new StringGenerator(count).generateString("b");
+        storeEditModalWindow.input(elementName, generatedString);
+        this.generatedString = generatedString;
+    }
+
+    @Step
+    public void storeObjectCollectionContainStoreWithStoredName() {
+        storeObjectCollectionContainStoreWithName(generatedString);
     }
 }

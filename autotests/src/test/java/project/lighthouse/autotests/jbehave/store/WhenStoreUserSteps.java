@@ -49,4 +49,14 @@ public class WhenStoreUserSteps {
     public void whenTheUserClicksOnTheStoreWithName(String name) {
         storeSteps.storeObjectClickByName(name);
     }
+
+    @When("the user generates symbols with count '$count' in the create store modal window field with name '$name'")
+    public void whenTheUserGeneratesSymbolsWithCountInTheCreateStoreModalWindowFieldWithName(int count, String name) {
+        storeSteps.storeCreateModalWindowGenerateString(name, count);
+    }
+
+    @When("the user generates symbols with count '$count' in the edit store modal window field with name '$name'")
+    public void whenTheUserGeneratesSymbolsWithCountInTheEditStoreModalWindowFieldWithName(int count, String name) {
+        storeSteps.storeEditModalWindowGenerateString(name, count);
+    }
 }
