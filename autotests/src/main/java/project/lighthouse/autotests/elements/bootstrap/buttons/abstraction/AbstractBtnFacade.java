@@ -7,8 +7,12 @@ import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 public abstract class AbstractBtnFacade extends AbstractFacade {
 
-    protected AbstractBtnFacade(ModalWindowPage modalWindowPage, String facadeText) {
+    public AbstractBtnFacade(ModalWindowPage modalWindowPage, String facadeText) {
         super(modalWindowPage, facadeText);
+    }
+
+    public AbstractBtnFacade(CommonPageObject pageObject, String facadeText) {
+        super(pageObject, facadeText);
     }
 
     public AbstractBtnFacade(CommonPageObject pageObject, By customFindBy) {
