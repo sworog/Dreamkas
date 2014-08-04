@@ -6,11 +6,9 @@
 @import "/madmin/vendors/bootstrap-datepicker/css/datepicker.css";
 @import "/madmin/css/blue-grey.css";
 @import "/madmin/css/style-responsive.css";
-
 @import "/bower_components/select2/select2.css";
 @import "/bower_components/select2/select2-bootstrap.css";
 @import "/bower_components/sortable/css/sortable-theme-bootstrap.css";
-
 @import "/blocks/confirmLink/confirmLink.css";
 @import "/blocks/groupList/groupList.css";
 @import "/blocks/form/form_invoice/autocomplete/autocomplete.css";
@@ -117,16 +115,17 @@ input.invalid {
     padding: 10px 20px;
 }
 
-.modal-header .close {
+.modal-header .close, .modal__backLink {
     cursor: pointer;
     height: 55px;
     width: 55px;
     margin: -10px 10px -10px -20px;
     text-align: center;
     line-height: 55px;
+    float: left;
 }
 
-.modal-header .close:hover {
+.modal-header .close:hover, .modal__backLink:hover {
     background-color: #f4f4f4;
 }
 
@@ -159,15 +158,15 @@ input.invalid {
     border-left-color: #e5e5e5;
 }
 
-.select2-container .select2-choice .select2-arrow b{
+.select2-container .select2-choice .select2-arrow b {
     background-position: 0 4px;
 }
 
-.select2-dropdown-open .select2-choice{
+.select2-dropdown-open .select2-choice {
     background-color: #fafafa;
 }
 
-.select2-drop-active{
+.select2-drop-active {
     padding-top: 5px;
 }
 
@@ -176,6 +175,10 @@ table[data-sortable] th:after {
 }
 
 /* Tables */
-table.table-vcenter>tbody>tr>td {
+table.table-vcenter > tbody > tr > td {
     vertical-align: middle;
+}
+
+.modal__dialog_hidden {
+    display: none;
 }

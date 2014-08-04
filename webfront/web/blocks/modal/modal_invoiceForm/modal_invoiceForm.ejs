@@ -1,6 +1,10 @@
 <% var InvoiceModel = require('models/invoice/invoice') %>
 <% var invoiceModel = invoiceModel || new InvoiceModel() %>
 
+<% var partials = {
+    form_supplier: require('ejs!blocks/form/form_supplier/template.ejs')
+} %>
+
 <% var helpers = {
     formatMoney: require('kit/formatMoney/formatMoney'),
     formatAmount: require('kit/formatAmount/formatAmount'),
@@ -14,7 +18,7 @@
      aria-hidden="true"
      class="modal fade"
      style="display: none;">
-    <div class="modal-dialog modal-wide-width">
+    <div class="modal__dialog_visible modal-dialog modal-wide-width">
         <div class="modal-content">
             <div class="modal-header">
                 <a type="button"
@@ -100,15 +104,15 @@
                             </label>
                         </div>
                     </div>
-                    <hr />
+                    <hr style="margin: 0 -65px;" />
                     <h3>Товары</h3>
-                    <table class="table table-vcenter">
+                    <table class="table table-vcenter" style="margin: 0 -10px;">
                         <thead>
                             <tr>
                                 <th class="col-md-8">Наименование</th>
                                 <th class="col-md-1">Цена, <i class="fa fa-rub"></i></th>
                                 <th class="col-md-1">Кол-во</th>
-                                <th class="col-md-1">Сумма, <i class="fa fa-rub"></i></th>
+                                <th style="white-space: nowrap" class="col-md-1">Сумма, <i class="fa fa-rub"></i></th>
                                 <th class="col-md-1"></th>
                             </tr>
                         </thead>
@@ -167,4 +171,30 @@
             </div>
         </div>
     </div>
- </div>
+
+    <div class="modal-dialog modal__dialog_hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="modal__backLink fa fa-long-arrow-left" style="font-size: 25px; margin-right: 10px;"></a>
+
+                <button form="form_supplierAdd"
+                        type="submit"
+                        class="btn btn-primary pull-right">
+                    Добавить
+                </button>
+
+                <h4 class="modal-title">
+                    Добавление поставщика
+                </h4>
+
+                <span class="clearfix"></span>
+            </div>
+            <div class="modal-body">
+
+                <%= partials.form_supplier() %>
+
+            </div>
+        </div>
+    </div>
+
+</div>
