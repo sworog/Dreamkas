@@ -71,6 +71,10 @@ body[status="loaded"]:before {
     display: none;
 }
 
+.form__errorMessage_global {
+    padding-bottom: 20px;
+}
+
 .form__errorMessage_visible {
     display: block;
 }

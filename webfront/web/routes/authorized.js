@@ -10,6 +10,9 @@ define(function(require) {
         'catalog(/)': require('pages/catalog/catalog'),
         'catalog/groups/:groupId(/)': require('pages/group/group'),
 
+        //suppliers
+        'suppliers(/)': require('pages/suppliers/suppliers'),
+
         //stockMovement
         'stockMovement(/)': require('pages/stockMovement/stockMovement'),
 
