@@ -47,6 +47,18 @@ public class StoreSteps extends ScenarioSteps {
     }
 
     @Step
+    public void storeCreateModalWindowCloseIconClick() {
+        storeCreateModalWindow.closeIconClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
+    public void storeEditModalWindowCloseIconClick() {
+        storeEditModalWindow.closeIconClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
     public void storeEditModalWindowConfirmButtonClick() {
         storeEditModalWindow.confirmationOkClick();
         new SimplePreloader(getDriver()).await();
@@ -64,6 +76,22 @@ public class StoreSteps extends ScenarioSteps {
         } finally {
             if (storeObjectCollection != null) {
                 storeObjectCollection.compareWithExampleTable(examplesTable);
+            }
+        }
+    }
+
+    @Step
+    public void storeObjectCollectionDoNotContainStoreWithName(String name) {
+        StoreObjectCollection storeObjectCollection = null;
+        try {
+            storeObjectCollection = storeListPage.getStoreObjectCollection();
+        } catch (TimeoutException e) {
+            storeListPage.containsText("У вас ещё нет ни одного магазина ");
+        } catch (StaleElementReferenceException e) {
+            storeObjectCollection = storeListPage.getStoreObjectCollection();
+        } finally {
+            if (storeObjectCollection != null) {
+                storeObjectCollection.notContains(name);
             }
         }
     }

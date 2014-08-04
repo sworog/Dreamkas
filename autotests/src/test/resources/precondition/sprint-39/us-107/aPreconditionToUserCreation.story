@@ -8,6 +8,8 @@ Meta:
 @id_s39u107s4
 @id_s39u107s5
 @id_s39u107s6
+@id_s39u107s7
+@id_s39u107s8
 
 Scenario: A scenario that prepares user created by console command
 

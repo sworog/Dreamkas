@@ -15,6 +15,11 @@ public class ThenStoreUserSteps {
         storeSteps.storeObjectCollectionCompareWithExampleTable(examplesTable);
     }
 
+    @Then("the user asserts the store list do not contain store with name '$name'")
+    public void thenTheUserAssertsTheStoreListContainStoreWithName(String name) {
+        storeSteps.storeObjectCollectionDoNotContainStoreWithName(name);
+    }
+
     @Then("the user asserts the create new store modal window title is '$title'")
     public void thenTheUserAssertsTheCreateNewStoreModalWindowTitle(String title) {
         storeSteps.assertStoreCreateModalWindowTitle(title);

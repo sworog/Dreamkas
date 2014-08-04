@@ -30,6 +30,16 @@ public class WhenStoreUserSteps {
         storeSteps.storeCreateModalWindowConfirmButtonClick();
     }
 
+    @When("the user clicks on the close icon on the create new store modal window")
+    public void whenTheUserClicksOnTheCloseIconOnTheCreateNewStoreModalWindow() {
+        storeSteps.storeCreateModalWindowCloseIconClick();
+    }
+
+    @When("the user clicks on the close icon on the edit store modal window")
+    public void whenTheUserClicksOnTheCloseIconOnTheEditStoreModalWindow() {
+        storeSteps.storeEditModalWindowCloseIconClick();
+    }
+
     @When("the user clicks on save button on the edit store modal window")
     public void whenTheUserClicksOnAddButtonOnTheEditStoreModalWindow() {
         storeSteps.storeEditModalWindowConfirmButtonClick();
