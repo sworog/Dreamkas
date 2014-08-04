@@ -33,7 +33,7 @@ public class EditProductModalWindow extends CreateNewProductModalWindow {
 
     @Override
     public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Сохранить", modalWindowXpath()).click();
+        new PrimaryBtnFacade(this, "Сохранить").click();
     }
 
     public WebElement getMarkUpValueWebElement() {

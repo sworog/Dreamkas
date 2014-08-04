@@ -3,15 +3,12 @@ package project.lighthouse.autotests.elements.bootstrap.buttons.abstraction;
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.abstraction.AbstractFacade;
+import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 public abstract class AbstractBtnFacade extends AbstractFacade {
 
-    public AbstractBtnFacade(CommonPageObject pageObject, String facadeText) {
-        super(pageObject, facadeText);
-    }
-
-    public AbstractBtnFacade(CommonPageObject pageObject, String facadeText, String modalWindowXpath) {
-        super(pageObject, facadeText, modalWindowXpath);
+    protected AbstractBtnFacade(ModalWindowPage modalWindowPage, String facadeText) {
+        super(modalWindowPage, facadeText);
     }
 
     public AbstractBtnFacade(CommonPageObject pageObject, By customFindBy) {
