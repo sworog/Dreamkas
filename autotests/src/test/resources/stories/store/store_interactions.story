@@ -25,6 +25,8 @@ And the user inputs values on the create new store modal window
 | address | Контакты магазины номер 1 |
 And the user clicks on add button on the create new store modal window
 
+Then the user waits for modal window closing
+
 Then the user asserts the store list contain store with values
 | name | address |
 | Магазин номер 1 | Контакты магазины номер 1 |
@@ -45,6 +47,8 @@ And the user inputs values on the create new store modal window
 | name | Магазин номер 2 |
 | address | Контакты магазины номер 2 |
 And the user clicks on the close icon on the create new store modal window
+
+Then the user waits for modal window closing
 
 Then the user asserts the store list do not contain store with name 'Магазин номер 2'
 
@@ -68,6 +72,8 @@ And the user inputs values on the edit store modal window
 | address | Контакты магазины номер 1 отредактированные |
 And the user clicks on save button on the edit store modal window
 
+Then the user waits for modal window closing
+
 Then the user asserts the store list contain store with values
 | name | address |
 | Магазин номер 1 отредактированный | Контакты магазины номер 1 отредактированные |
@@ -90,6 +96,8 @@ And the user inputs values on the edit store modal window
 | name | Магазин номер 2 отредактированный |
 | address | Контакты магазины номер 2 отредактированные |
 And the user clicks on the close icon on the edit store modal window
+
+Then the user waits for modal window closing
 
 Then the user asserts the store list contain store with values
 | name | address |
