@@ -33,7 +33,7 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void addGroupButtonClick() {
-        catalogPage.addGroupButtonClick();
+        catalogPage.addObjectButtonClick();
     }
 
     @Step
@@ -43,7 +43,7 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void assertGroupTitle(String groupTitle) {
-        assertThat(groupPage.getGroupTitle(), is(groupTitle));
+        assertThat(groupPage.getTitle(), is(groupTitle));
     }
 
     @Step

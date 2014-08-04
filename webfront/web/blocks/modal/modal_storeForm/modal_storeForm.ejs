@@ -1,0 +1,69 @@
+<% var StoreModel = require('models/store/store') %>
+<% var store = store || new StoreModel() %>
+
+<div id="<%- store.id ? 'modal-storeEdit' : 'modal-storeAdd' %>"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="modal-default-label"
+     aria-hidden="true"
+     class="modal fade"
+     style="display: none;">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a type="button"
+                   data-dismiss="modal"
+                   aria-hidden="true"
+                   class="close pull-left fa fa-times"></a>
+
+                <button form="<%- store.id ? 'form_storeEdit' : 'form_storeAdd' %>"
+                        type="submit"
+                        class="btn btn-primary pull-right">
+                    <%- store.id ? 'Сохранить' : 'Добавить' %>
+                </button>
+
+                <h4 class="modal-title">
+                    <%- store.id ? 'Редактирование магазина' : 'Добавить магазин' %>
+                </h4>
+
+                <span class="clearfix"></span>
+            </div>
+            <div class="modal-body">
+
+                <form id="<%- store.id ? 'form_storeEdit' : 'form_storeAdd' %>" class="form form_store">
+                    <div class="form-store">
+
+                        <div class="form-group">
+                            <label class="control-label">Название *</label>
+
+                            <div class="input-icon right">
+                                <input
+                                        name="name"
+                                        type="text"
+                                        placeholder="Название магазина"
+                                        class="form-control"
+                                        autofocus
+                                        value="<%- store.get('name') %>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label">Адрес</label>
+
+                            <div class="input-icon right">
+                                <input
+                                        name="address"
+                                        type="text"
+                                        placeholder="Адрес магазина"
+                                        class="form-control"
+                                        value="<%- store.get('address') %>">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

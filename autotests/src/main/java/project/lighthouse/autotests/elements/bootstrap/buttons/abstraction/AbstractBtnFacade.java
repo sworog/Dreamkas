@@ -10,6 +10,10 @@ public abstract class AbstractBtnFacade extends AbstractFacade {
         super(pageObject, facadeText);
     }
 
+    public AbstractBtnFacade(CommonPageObject pageObject, String facadeText, String modalWindowXpath) {
+        super(pageObject, facadeText, modalWindowXpath);
+    }
+
     public AbstractBtnFacade(CommonPageObject pageObject, By customFindBy) {
         super(pageObject, customFindBy);
     }

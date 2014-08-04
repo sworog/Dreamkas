@@ -12,6 +12,10 @@ public class PrimaryBtnFacade extends AbstractBtnFacade {
         super(pageObject, facadeText);
     }
 
+    public PrimaryBtnFacade(CommonPageObject pageObject, String buttonText, String modalWindowXpath) {
+        super(pageObject, buttonText, modalWindowXpath);
+    }
+
     @Override
     public String btnClassName() {
         return "primary";

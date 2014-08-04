@@ -486,30 +486,30 @@ class SalesImporter
     }
 
     /**
-     * @param string $storeNumber
+     * @param string $storeName
      * @return Store
      * @throws RuntimeException
      */
-    public function getStore($storeNumber)
+    public function getStore($storeName)
     {
-        if (isset($this->stores[$storeNumber])) {
-            $storeId = $this->stores[$storeNumber];
+        if (isset($this->stores[$storeName])) {
+            $storeId = $this->stores[$storeName];
             if (false === $storeId) {
                 $store = null;
             } else {
                 $store = $this->storeRepository->getReference($storeId);
             }
         } else {
-            $store = $this->storeRepository->findOneBy(array('number' => $storeNumber));
+            $store = $this->storeRepository->findOneByName($storeName);
             if (null === $store) {
-                $this->stores[$storeNumber] = false;
+                $this->stores[$storeName] = false;
             } else {
-                $this->stores[$storeNumber] = $store->id;
+                $this->stores[$storeName] = $store->id;
             }
         }
 
         if (!$store) {
-            throw new RuntimeException(sprintf('Store with number "%s" not found', $storeNumber));
+            throw new RuntimeException(sprintf('Store with number "%s" not found', $storeName));
         }
         return $store;
     }

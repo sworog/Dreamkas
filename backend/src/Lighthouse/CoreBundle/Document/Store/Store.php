@@ -15,7 +15,7 @@ use JMS\Serializer\Annotation\Exclude;
 
 /**
  * @property string $id
- * @property string $number
+ * @property string $name
  * @property string $address
  * @property string $contacts
  * @property ArrayCollection|Department[] $departments
@@ -23,7 +23,7 @@ use JMS\Serializer\Annotation\Exclude;
  * @property Collection|User[] $departmentManagers
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\Store\StoreRepository")
- * @Unique(fields="number", message="lighthouse.validation.errors.store.number.unique")
+ * @Unique(fields="name", message="lighthouse.validation.errors.store.name.unique")
  */
 class Store extends AbstractDocument
 {
@@ -50,16 +50,14 @@ class Store extends AbstractDocument
      * @MongoDB\String
      * @MongoDB\UniqueIndex
      * @Assert\NotBlank
-     * @Assert\Regex("/^[\w\d_\-]+$/u")
      * @Assert\Length(max="50", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
-    protected $number;
+    protected $name;
 
     /**
      * Адрес
      * @MongoDB\String
-     * @Assert\NotBlank
      * @Assert\Length(max="300", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */
@@ -68,7 +66,6 @@ class Store extends AbstractDocument
     /**
      * Контакты
      * @MongoDB\String
-     * @Assert\NotBlank
      * @Assert\Length(max="100", maxMessage="lighthouse.validation.errors.length")
      * @var string
      */

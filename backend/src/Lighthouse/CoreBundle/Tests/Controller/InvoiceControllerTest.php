@@ -627,7 +627,7 @@ class InvoiceControllerTest extends WebTestCase
                 array('paid' => false),
                 array('paid' => false),
             ),
-            'paid empty becomes true and it is weard' => array(
+            'paid empty becomes true and it is weird' => array(
                 201,
                 array('paid' => ''),
                 array('paid' => true),

@@ -22,8 +22,15 @@ public abstract class AbstractFacade implements Conditional {
 
     public AbstractFacade(CommonPageObject pageObject, String facadeText) {
         this.pageObject = pageObject;
-        findBy = By.xpath(getXpath(facadeText));
         this.facadeText = facadeText;
+        findBy = By.xpath(getXpathPatternWithFacadeText());
+
+    }
+
+    public AbstractFacade(CommonPageObject pageObject, String facadeText, String modalWindowXpath) {
+        this.pageObject = pageObject;
+        this.facadeText = facadeText;
+        findBy = By.xpath(modalWindowXpath + getXpathPatternWithFacadeText());
     }
 
     public CommonPageObject getPageObject() {
@@ -40,7 +47,7 @@ public abstract class AbstractFacade implements Conditional {
 
     public abstract String getXpathPattern();
 
-    private String getXpath(String facadeText) {
+    private String getXpathPatternWithFacadeText() {
         return String.format(getXpathPattern(), facadeText);
     }
 

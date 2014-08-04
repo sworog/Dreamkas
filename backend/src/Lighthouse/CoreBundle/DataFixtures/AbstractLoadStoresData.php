@@ -37,11 +37,11 @@ abstract class AbstractLoadStoresData extends ContainerAware implements Dependen
      */
     protected function loadStores(ObjectManager $manager, User $ownerUser)
     {
-        foreach ($this->getStoresData() as $storeNumber => $storeData) {
+        foreach ($this->getStoresData() as $storeName => $storeData) {
             $store = new Store();
-            $store->number = $storeNumber;
-            $store->address = (isset($storeData['address'])) ? $storeData['address'] : 'Ул. Кеско, д. ' . $storeNumber;
-            $store->contacts = (isset($storeData['contacts'])) ? $storeData['contacts'] : '911-888-7-' . $storeNumber;
+            $store->name = $storeName;
+            $store->address = (isset($storeData['address'])) ? $storeData['address'] : 'Ул. Кеско, д. ' . $storeName;
+            $store->contacts = (isset($storeData['contacts'])) ? $storeData['contacts'] : '911-888-7-' . $storeName;
 
             $store->storeManagers->add($ownerUser);
             $store->departmentManagers->add($ownerUser);

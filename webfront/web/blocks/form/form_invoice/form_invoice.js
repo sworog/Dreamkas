@@ -3,7 +3,7 @@ define(function(require) {
     var Form = require('blocks/form/form'),
         InvoiceProductModel = require('models/invoiceProduct'),
         currentUserModel = require('models/currentUser/currentUser.inst'),
-        SuppliersCollection = require('collections/suppliers'),
+        SuppliersCollection = require('collections/suppliers/suppliers'),
         InputDate = require('blocks/inputDate/inputDate'),
         Autocomplete = require('blocks/autocomplete/autocomplete'),
         Select_suppliers = require('blocks/select/select_suppliers/select_suppliers'),

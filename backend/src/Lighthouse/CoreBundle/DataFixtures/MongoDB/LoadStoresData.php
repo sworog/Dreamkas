@@ -16,17 +16,17 @@ class LoadStoresData extends AbstractFixture
     public function load(ObjectManager $manager)
     {
         $store666 = new Store();
-        $store666->number = '666';
+        $store666->name = '666';
         $store666->address = 'ул. Вязов, д.666';
         $store666->contacts = '+7 666 666-66-66';
 
         $store777 = new Store();
-        $store777->number = '777';
+        $store777->name = '777';
         $store777->address = 'ул. Гемблинга, д.777';
         $store777->contacts = '+7 777 777-77-77';
 
         $store888 = new Store();
-        $store888->number = '888';
+        $store888->name = '888';
         $store888->address = 'ул. Паблик Морозова, д.14 кв.88';
         $store888->contacts = '+7 888 888-88-88';
 

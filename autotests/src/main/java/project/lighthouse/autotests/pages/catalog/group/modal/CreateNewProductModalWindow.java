@@ -24,18 +24,18 @@ public class CreateNewProductModalWindow extends ModalWindowPage {
 
     @Override
     public void createElements() {
-        put("group", new AutoComplete(this, By.xpath("//*[@id='modal-productAdd']//*[@class='select2-choice']")));
-        put("name", new Input(this, By.xpath("//*[@id='modal-productAdd']//*[@name='name']")));
-        put("unit", new Input(this, By.xpath("//*[@id='modal-productAdd']//*[@name='units']")));
-        put("barcode", new Input(this, By.xpath("//*[@id='modal-productAdd']//*[@name='barcode']")));
-        put("vat", new SelectByVisibleText(this, By.xpath("//*[@id='modal-productAdd']//*[@name='vat']")));
-        put("purchasePrice", new Input(this, By.xpath("//*[@id='modal-productAdd']//*[@name='purchasePrice']")));
-        put("sellingPrice", new Input(this, By.xpath("//*[@id='modal-productAdd']//*[@name='sellingPrice']")));
+        put("group", new AutoComplete(this, By.xpath(modalWindowXpath() + "//*[@class='select2-choice']")));
+        put("name", new Input(this, By.xpath(modalWindowXpath() + "//*[@name='name']")));
+        put("unit", new Input(this, By.xpath(modalWindowXpath() + "//*[@name='units']")));
+        put("barcode", new Input(this, By.xpath(modalWindowXpath() + "//*[@name='barcode']")));
+        put("vat", new SelectByVisibleText(this, By.xpath(modalWindowXpath() + "//*[@name='vat']")));
+        put("purchasePrice", new Input(this, By.xpath(modalWindowXpath() + "//*[@name='purchasePrice']")));
+        put("sellingPrice", new Input(this, By.xpath(modalWindowXpath() + "//*[@name='sellingPrice']")));
     }
 
     @Override
     public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Добавить").click();
+        new PrimaryBtnFacade(this, "Добавить", modalWindowXpath()).click();
     }
 
     public WebElement getMarkUpValueWebElement() {
@@ -43,12 +43,7 @@ public class CreateNewProductModalWindow extends ModalWindowPage {
     }
 
     @Override
-    public String getTitleText() {
-        return findVisibleElement(By.xpath("//*[@id='modal-productAdd']//*[@class='modal-title']")).getText();
-    }
-
-    @Override
-    public void closeIconClick() {
-        findVisibleElement(By.xpath("//*[@id='modal-productAdd']//*[contains(@class, 'close')]")).click();
+    public String modalWindowXpath() {
+        return "//*[@id='modal-productAdd']";
     }
 }

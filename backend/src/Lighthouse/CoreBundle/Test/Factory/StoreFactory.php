@@ -10,7 +10,7 @@ use Lighthouse\CoreBundle\Document\User\User;
 
 class StoreFactory extends AbstractFactory
 {
-    const STORE_DEFAULT_NUMBER = '1';
+    const STORE_DEFAULT_NAME = '1';
 
     const DEFAULT_DEPARTMENT_NUMBER = '32';
     const DEFAULT_DEPARTMENT_NAME = '32';
@@ -41,58 +41,58 @@ class StoreFactory extends AbstractFactory
     protected $departments;
 
     /**
-     * @param string $number
+     * @param string $name
      * @param string $address
      * @param string $contacts
      * @return Store
      */
     public function createStore(
-        $number = self::STORE_DEFAULT_NUMBER,
-        $address = self::STORE_DEFAULT_NUMBER,
-        $contacts = self::STORE_DEFAULT_NUMBER
+        $name = self::STORE_DEFAULT_NAME,
+        $address = self::STORE_DEFAULT_NAME,
+        $contacts = self::STORE_DEFAULT_NAME
     ) {
         $store = new Store();
-        $store->number = $number;
+        $store->name = $name;
         $store->address = $address;
         $store->contacts = $contacts;
 
         $this->getDocumentManager()->persist($store);
         $this->getDocumentManager()->flush();
 
-        $this->storeNumbers[$number] = $store->id;
+        $this->storeNumbers[$name] = $store->id;
 
         return $store;
     }
 
     /**
-     * @param string $number
+     * @param string $name
      * @param string $address
      * @param string $contacts
      * @return string
      */
     public function getStoreId(
-        $number = self::STORE_DEFAULT_NUMBER,
-        $address = self::STORE_DEFAULT_NUMBER,
-        $contacts = self::STORE_DEFAULT_NUMBER
+        $name = self::STORE_DEFAULT_NAME,
+        $address = self::STORE_DEFAULT_NAME,
+        $contacts = self::STORE_DEFAULT_NAME
     ) {
-        return $this->getStore($number, $address, $contacts)->id;
+        return $this->getStore($name, $address, $contacts)->id;
     }
 
     /**
-     * @param string $number
+     * @param string $name
      * @param string $address
      * @param string $contacts
      * @return Store
      */
     public function getStore(
-        $number = self::STORE_DEFAULT_NUMBER,
-        $address = self::STORE_DEFAULT_NUMBER,
-        $contacts = self::STORE_DEFAULT_NUMBER
+        $name = self::STORE_DEFAULT_NAME,
+        $address = self::STORE_DEFAULT_NAME,
+        $contacts = self::STORE_DEFAULT_NAME
     ) {
-        if (!isset($this->storeNumbers[$number])) {
-            $this->createStore($number, $address, $contacts);
+        if (!isset($this->storeNumbers[$name])) {
+            $this->createStore($name, $address, $contacts);
         }
-        return $this->getStoreById($this->storeNumbers[$number]);
+        return $this->getStoreById($this->storeNumbers[$name]);
     }
 
     /**

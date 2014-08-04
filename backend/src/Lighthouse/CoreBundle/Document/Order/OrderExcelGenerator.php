@@ -88,7 +88,7 @@ class OrderExcelGenerator
                 $this->translator->trans(
                     'lighthouse.order.export.generator.title.contacts',
                     array(
-                        '{{ number }}' => $this->order->store->number,
+                        '{{ number }}' => $this->order->store->name,
                         '{{ address }}' => $this->order->store->address,
                         '{{ contacts }}' => $this->order->store->contacts,
                     ),

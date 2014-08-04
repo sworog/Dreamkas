@@ -7,6 +7,7 @@ use Lighthouse\CoreBundle\Document\DocumentRepository;
 
 /**
  * @method Store[]|Cursor findAll
+ * @method Store findOneBy(array $criteria, array $sort = array(), array $hints = array())
  */
 class StoreRepository extends DocumentRepository
 {
@@ -69,5 +70,14 @@ class StoreRepository extends DocumentRepository
     public function findOneByAddress($address)
     {
         return $this->findOneBy(array('address' => $address));
+    }
+
+    /**
+     * @param $name
+     * @return Store
+     */
+    public function findOneByName($name)
+    {
+        return $this->findOneBy(array('name' => $name));
     }
 }

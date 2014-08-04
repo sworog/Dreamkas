@@ -69,6 +69,7 @@ class SupplierControllerTest extends WebTestCase
             'name valid lengths' => array(
                 array(
                     'name' => str_repeat('z', 100),
+                    'address' => str_repeat('a', 300),
                     'phone' => str_repeat('p', 300),
                     'fax' => str_repeat('f', 300),
                     'email' => str_repeat('e', 300),
@@ -81,6 +82,7 @@ class SupplierControllerTest extends WebTestCase
             'name invalid lengths' => array(
                 array(
                     'name' => str_repeat('z', 101),
+                    'address' => str_repeat('a', 301),
                     'phone' => str_repeat('p', 301),
                     'fax' => str_repeat('f', 301),
                     'email' => str_repeat('e', 301),
@@ -90,6 +92,7 @@ class SupplierControllerTest extends WebTestCase
                 array(
                     'errors.children.name.errors.0' => 'Не более 100 символов',
                     'errors.children.name.errors.1' => null,
+                    'errors.children.address.errors.0' => 'Не более 300 символов',
                     'errors.children.phone.errors.0' => 'Не более 300 символов',
                     'errors.children.fax.errors.0' => 'Не более 300 символов',
                     'errors.children.email.errors.0' => 'Не более 300 символов',
