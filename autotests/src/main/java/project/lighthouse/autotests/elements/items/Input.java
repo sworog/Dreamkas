@@ -5,11 +5,16 @@ import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.interfaces.Conditional;
+import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 public class Input extends CommonItem implements Conditional {
 
     public Input(CommonPageObject pageObject, By findBy) {
         super(pageObject, findBy);
+    }
+
+    public Input(ModalWindowPage modalWindowPage, String xpath) {
+        super(modalWindowPage, xpath);
     }
 
     public Input(CommonPageObject pageObject, String name) {

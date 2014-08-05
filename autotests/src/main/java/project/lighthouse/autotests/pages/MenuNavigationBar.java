@@ -48,6 +48,10 @@ public class MenuNavigationBar extends CommonPageObject {
         return new NavigationBarLinkFacade(this, "Ассортимент");
     }
 
+    public NavigationBarLinkFacade getStoresMenuItem() {
+        return new NavigationBarLinkFacade(this, "Магазины");
+    }
+
     public NavigationBarLinkFacade getInvoicesMenuItem() {
         return new NavigationBarLinkFacade(this, "Накладные");
     }

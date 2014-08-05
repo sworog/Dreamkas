@@ -24,7 +24,7 @@ public abstract class ModalWindowPage extends CommonPageObject {
     }
 
     public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Сохранить", modalWindowXpath()).click();
+        new PrimaryBtnFacade(this, "Сохранить").click();
     }
 
     @WhenPageOpens

@@ -5,7 +5,8 @@
         "recipe[lighthouse]",
         "recipe[teamcity::agent]",
         "recipe[ruby::1.9.1]",
-        "recipe[lighthouse::bundler]"
+        "recipe[lighthouse::bundler]",
+        "recipe[lighthouse::agent_keys]"
     ],
     "java": {
         "oracle": {

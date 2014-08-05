@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.pages.catalog.group.modal;
 
 import net.thucydides.core.annotations.findby.FindBy;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
@@ -24,18 +23,18 @@ public class CreateNewProductModalWindow extends ModalWindowPage {
 
     @Override
     public void createElements() {
-        put("group", new AutoComplete(this, By.xpath(modalWindowXpath() + "//*[@class='select2-choice']")));
-        put("name", new Input(this, By.xpath(modalWindowXpath() + "//*[@name='name']")));
-        put("unit", new Input(this, By.xpath(modalWindowXpath() + "//*[@name='units']")));
-        put("barcode", new Input(this, By.xpath(modalWindowXpath() + "//*[@name='barcode']")));
-        put("vat", new SelectByVisibleText(this, By.xpath(modalWindowXpath() + "//*[@name='vat']")));
-        put("purchasePrice", new Input(this, By.xpath(modalWindowXpath() + "//*[@name='purchasePrice']")));
-        put("sellingPrice", new Input(this, By.xpath(modalWindowXpath() + "//*[@name='sellingPrice']")));
+        put("group", new AutoComplete(this, "//*[@class='select2-choice']"));
+        put("name", new Input(this, "//*[@name='name']"));
+        put("unit", new Input(this, "//*[@name='units']"));
+        put("barcode", new Input(this, "//*[@name='barcode']"));
+        put("vat", new SelectByVisibleText(this, "//*[@name='vat']"));
+        put("purchasePrice", new Input(this, "//*[@name='purchasePrice']"));
+        put("sellingPrice", new Input(this, "//*[@name='sellingPrice']"));
     }
 
     @Override
     public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Добавить", modalWindowXpath()).click();
+        new PrimaryBtnFacade(this, "Добавить").click();
     }
 
     public WebElement getMarkUpValueWebElement() {
