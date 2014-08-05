@@ -4,10 +4,10 @@ namespace Lighthouse\CoreBundle\Controller;
 
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
-use Lighthouse\CoreBundle\Document\WriteOff\WriteOffHighlightGenerator;
-use Lighthouse\CoreBundle\Document\WriteOff\WriteOffRepository;
-use Lighthouse\CoreBundle\Document\WriteOff\WriteOffsFilter;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffHighlightGenerator;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffFilter;
 use Lighthouse\CoreBundle\Form\WriteOffType;
 use Lighthouse\CoreBundle\Meta\MetaCollection;
 use Symfony\Component\Form\Test\FormInterface;
@@ -21,7 +21,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class WriteOffController extends AbstractRestController
 {
     /**
-     * @DI\Inject("lighthouse.core.document.repository.writeoff")
+     * @DI\Inject("lighthouse.core.document.repository.stock_movement.writeoff")
      * @var WriteOffRepository
      */
     protected $documentRepository;
@@ -81,13 +81,13 @@ class WriteOffController extends AbstractRestController
 
     /**
      * @param Store $store
-     * @param WriteOffsFilter $filter
+     * @param WriteOffFilter $filter
      * @return MetaCollection|WriteOff[]|Cursor
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc(resource=true)
      * @Rest\Route("stores/{store}/writeoffs")
      */
-    public function getWriteoffsAction(Store $store, WriteOffsFilter $filter)
+    public function getWriteoffsAction(Store $store, WriteOffFilter $filter)
     {
         $writeOffs = $this->documentRepository->findByStore($store->id, $filter);
         if ($filter->hasNumber()) {

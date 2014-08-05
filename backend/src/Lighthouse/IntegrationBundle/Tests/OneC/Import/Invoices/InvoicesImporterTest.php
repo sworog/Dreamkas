@@ -2,8 +2,9 @@
 
 namespace Lighthouse\IntegrationBundle\Tests\OneC\Import\Invoices;
 
-use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository;
+
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Test\TestOutput;
 use Lighthouse\IntegrationBundle\OneC\Import\Invoices\InvoicesImporter;
 use Lighthouse\IntegrationBundle\Test\WebTestCase;
@@ -24,7 +25,7 @@ class InvoicesImporterTest extends WebTestCase
     protected function import($filePath, $batchSize = 5)
     {
         /* @var InvoicesImporter $importer */
-        $importer = $this->getContainer()->get('lighthouse.core.integration.onec.import.invoices.importer');
+        $importer = $this->getContainer()->get('lighthouse.integration.onec.import.invoices.importer');
         $output = new TestOutput();
         $importer->import($filePath, $batchSize, $output);
 
@@ -37,9 +38,9 @@ class InvoicesImporterTest extends WebTestCase
     protected function assertStoreInvoiceCount(array $storeInvoiceCount)
     {
         /* @var InvoiceRepository $invoiceRepository */
-        $invoiceRepository = $this->getContainer()->get('lighthouse.core.document.repository.invoice');
+        $invoiceRepository = $this->getContainer()->get('lighthouse.core.document.repository.stock_movement.invoice');
         foreach ($storeInvoiceCount as $storeId => $count) {
-            $invoices = $invoiceRepository->findBy(array('store' => $storeId));
+            $invoices = $invoiceRepository->findByStore($storeId);
             $this->assertEquals($count, $invoices->count());
         }
     }
@@ -49,10 +50,8 @@ class InvoicesImporterTest extends WebTestCase
      */
     protected function assertStoreInvoiceProductCount(array $storeInvoiceProductCount)
     {
-        /* @var InvoiceProductRepository $invoiceProductRepository */
-        $invoiceProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.invoice_product');
         foreach ($storeInvoiceProductCount as $storeId => $count) {
-            $invoiceProducts = $invoiceProductRepository->findBy(array('store' => $storeId));
+            $invoiceProducts = $this->getInvoiceProductRepository()->findByStoreId($storeId);
             $this->assertEquals($count, $invoiceProducts->count());
         }
     }
@@ -142,5 +141,13 @@ class InvoicesImporterTest extends WebTestCase
             $storeId3 => 11,
         );
         $this->assertStoreInvoiceProductCount($storeInvoiceProductCount);
+    }
+
+    /**
+     * @return InvoiceProductRepository
+     */
+    protected function getInvoiceProductRepository()
+    {
+        return $this->getContainer()->get('lighthouse.core.document.repository.stock_movement.invoice_product');
     }
 }

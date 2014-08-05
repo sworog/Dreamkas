@@ -425,6 +425,7 @@ class SubCategoryControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -486,6 +487,7 @@ class SubCategoryControllerTest extends WebTestCase
     {
         $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -537,6 +539,7 @@ class SubCategoryControllerTest extends WebTestCase
 
         $this->assertResponseCode(204);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -571,6 +574,7 @@ class SubCategoryControllerTest extends WebTestCase
         $this->assertResponseCode(200);
         Assert::assertJsonPathEquals($productId, '0.id', $response);
 
+        $this->client->setCatchException();
         $response = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
@@ -616,6 +620,7 @@ class SubCategoryControllerTest extends WebTestCase
             'rounding' => 'nearest1',
         );
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             $method,
@@ -981,6 +986,7 @@ class SubCategoryControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->auth($storeManager, 'password');
 
+        $this->client->setCatchException();
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -1005,6 +1011,7 @@ class SubCategoryControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->auth($storeManager, 'password');
 
+        $this->client->setCatchException();
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -1234,6 +1241,7 @@ class SubCategoryControllerTest extends WebTestCase
             }
         );
 
+        $this->client->setCatchException();
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',

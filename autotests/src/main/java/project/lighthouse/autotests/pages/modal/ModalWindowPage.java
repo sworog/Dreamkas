@@ -9,7 +9,7 @@ import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 /**
  * Common page object representing modal window
  */
-public class ModalWindowPage extends CommonPageObject {
+public abstract class ModalWindowPage extends CommonPageObject {
 
     public ModalWindowPage(WebDriver driver) {
         super(driver);
@@ -20,7 +20,7 @@ public class ModalWindowPage extends CommonPageObject {
     }
 
     public String getTitleText() {
-        return findVisibleElement(By.className("modal-title")).getText();
+        return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='modal-title']")).getText();
     }
 
     public void confirmationOkClick() {
@@ -34,6 +34,8 @@ public class ModalWindowPage extends CommonPageObject {
     }
 
     public void closeIconClick() {
-        findVisibleElement(By.xpath("//*[contains(@class, 'close')]")).click();
+        findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'close')]")).click();
     }
+
+    public abstract String modalWindowXpath();
 }

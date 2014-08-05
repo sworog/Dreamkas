@@ -23,7 +23,7 @@ class GrossMarginControllerTest extends WebTestCase
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-01 12:23:12'), $store->id)
+                ->createInvoice(array('date' => '2014-01-01 12:23:12'), $store->id)
                 ->createInvoiceProduct($productId1, 5, 100)
                 ->createInvoiceProduct($productId2, 10, 201)
                 ->createInvoiceProduct($productId3, 5, 120)
@@ -31,7 +31,7 @@ class GrossMarginControllerTest extends WebTestCase
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-02 12:23:12'), $store->id)
+                ->createInvoice(array('date' => '2014-01-02 12:23:12'), $store->id)
                 ->createInvoiceProduct($productId1, 5, 101)
                 ->createInvoiceProduct($productId2, 5, 200)
                 ->createInvoiceProduct($productId3, 10, 130)
@@ -39,7 +39,7 @@ class GrossMarginControllerTest extends WebTestCase
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-03 12:23:12'), $store->id)
+                ->createInvoice(array('date' => '2014-01-03 12:23:12'), $store->id)
                 ->createInvoiceProduct($productId1, 5, 102)
                 ->createInvoiceProduct($productId2, 5, 205)
                 ->createInvoiceProduct($productId3, 10, 135)
@@ -47,7 +47,7 @@ class GrossMarginControllerTest extends WebTestCase
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-04 12:23:12'), $store->id)
+                ->createInvoice(array('date' => '2014-01-04 12:23:12'), $store->id)
                 ->createInvoiceProduct($productId1, 20, 101)
                 ->createInvoiceProduct($productId2, 5, 200)
                 ->createInvoiceProduct($productId3, 10, 130)
@@ -55,7 +55,7 @@ class GrossMarginControllerTest extends WebTestCase
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-05 12:23:12'), $store->id)
+                ->createInvoice(array('date' => '2014-01-05 12:23:12'), $store->id)
                 ->createInvoiceProduct($productId1, 5, 101)
                 ->createInvoiceProduct($productId2, 5, 200)
                 ->createInvoiceProduct($productId3, 10, 130)
@@ -63,7 +63,7 @@ class GrossMarginControllerTest extends WebTestCase
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-06 12:23:12'), $store->id)
+                ->createInvoice(array('date' => '2014-01-06 12:23:12'), $store->id)
                 ->createInvoiceProduct($productId1, 5, 101)
                 ->createInvoiceProduct($productId2, 5, 200)
                 ->createInvoiceProduct($productId3, 10, 130)
@@ -244,7 +244,7 @@ class GrossMarginControllerTest extends WebTestCase
         $this->factory()
             ->invoice()
                 ->createInvoice(
-                    array('acceptanceDate' => $date->copy()->modify('-2 days 08:00')->format(DateTime::ISO8601)),
+                    array('date' => $date->copy()->modify('-2 days 08:00')->format(DateTime::ISO8601)),
                     $store->id
                 )
                 ->createInvoiceProduct($product, 50, 90)
@@ -253,7 +253,7 @@ class GrossMarginControllerTest extends WebTestCase
         $this->factory()
             ->invoice()
                 ->createInvoice(
-                    array('acceptanceDate' => $date->copy()->modify('-1 day 08:00')->format(DateTime::ISO8601)),
+                    array('date' => $date->copy()->modify('-1 day 08:00')->format(DateTime::ISO8601)),
                     $store->id
                 )
                 ->createInvoiceProduct($product, 35, 100)
@@ -308,7 +308,7 @@ class GrossMarginControllerTest extends WebTestCase
         // Begin inventory
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-01 12:23:12'), $store->id)
+                ->createInvoice(array('date' => '2014-01-01 12:23:12'), $store->id)
                 ->createInvoiceProduct($product, 3, 100)
                 ->createInvoiceProduct($product, 1, 101)
                 ->createInvoiceProduct($product, 2, 102)
@@ -318,7 +318,7 @@ class GrossMarginControllerTest extends WebTestCase
         // Inventory purchase
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-02 12:23:12'), $store->id)
+                ->createInvoice(array('date' => '2014-01-02 12:23:12'), $store->id)
                 ->createInvoiceProduct($product, 1, 101)
                 ->createInvoiceProduct($product, 2, 102)
             ->flush();
@@ -365,7 +365,7 @@ class GrossMarginControllerTest extends WebTestCase
         // Begin inventory
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-01 12:23:12'), $store->id)
+                ->createInvoice(array('date' => '2014-01-01 12:23:12'), $store->id)
                 ->createInvoiceProduct($product, 3, 1)
                 ->createInvoiceProduct($product, 2, 2)
             ->flush();
@@ -373,7 +373,7 @@ class GrossMarginControllerTest extends WebTestCase
         // Day one
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-02 12:23:12'), $store->id)
+                ->createInvoice(array('date' => '2014-01-02 12:23:12'), $store->id)
                 ->createInvoiceProduct($product, 3, 3)
             ->flush();
 
@@ -384,7 +384,7 @@ class GrossMarginControllerTest extends WebTestCase
         // Day two
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-03 12:23:12'), $store->id)
+                ->createInvoice(array('date' => '2014-01-03 12:23:12'), $store->id)
                 ->createInvoiceProduct($product, 2, 2)
             ->flush();
 
@@ -517,37 +517,37 @@ class GrossMarginControllerTest extends WebTestCase
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-01 12:56'), $store1->id)
+                ->createInvoice(array('date' => '2014-01-01 12:56'), $store1->id)
                 ->createInvoiceProduct($productId, 5, 100)
             ->flush();
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-02 12:56'), $store1->id)
+                ->createInvoice(array('date' => '2014-01-02 12:56'), $store1->id)
                 ->createInvoiceProduct($productId, 5, 150)
             ->flush();
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-03 12:56'), $store1->id)
+                ->createInvoice(array('date' => '2014-01-03 12:56'), $store1->id)
                 ->createInvoiceProduct($productId, 10, 200)
             ->flush();
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-01 12:00'), $store2->id)
+                ->createInvoice(array('date' => '2014-01-01 12:00'), $store2->id)
                 ->createInvoiceProduct($productId, 5, 100)
             ->flush();
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-02 12:00'), $store2->id)
+                ->createInvoice(array('date' => '2014-01-02 12:00'), $store2->id)
                 ->createInvoiceProduct($productId, 5, 150)
             ->flush();
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-03 12:00'), $store2->id)
+                ->createInvoice(array('date' => '2014-01-03 12:00'), $store2->id)
                 ->createInvoiceProduct($productId, 10, 200)
             ->flush();
 

@@ -39,6 +39,11 @@ public class WhenMenuNavigationUserSteps {
         menuNavigationSteps.catalogMenuItemClick();
     }
 
+    @When("the user clicks the menu stores item")
+    public void whenTheUserClicksTheMenuStoresItem() {
+        menuNavigationSteps.storesMenuItemClick();
+    }
+
     @When("the user clicks the menu invoices item")
     public void whenTheUserClicksTheMenuInvoicesItem() {
         menuNavigationSteps.invoicesMenuItemClick();

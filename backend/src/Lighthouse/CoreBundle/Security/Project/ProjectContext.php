@@ -9,6 +9,7 @@ use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use JMS\DiExtraBundle\Annotation as DI;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 /**
  * @DI\Service("project.context")
@@ -26,20 +27,28 @@ class ProjectContext
     protected $projectRepository;
 
     /**
+     * @var UserProviderInterface
+     */
+    protected $userProvider;
+
+    /**
      * @DI\InjectParams({
      *      "securityContext" = @DI\Inject("security.context"),
-     *      "projectRepository" = @DI\Inject("lighthouse.core.document.repository.project")
-     *
+     *      "projectRepository" = @DI\Inject("lighthouse.core.document.repository.project"),
+     *      "userProvider" = @DI\Inject("lighthouse.core.user.provider")
      * })
      * @param SecurityContextInterface $securityContext
      * @param ProjectRepository $projectRepository
+     * @param UserProviderInterface $userProvider
      */
     public function __construct(
         SecurityContextInterface $securityContext,
-        ProjectRepository $projectRepository
+        ProjectRepository $projectRepository,
+        UserProviderInterface $userProvider
     ) {
         $this->securityContext = $securityContext;
         $this->projectRepository = $projectRepository;
+        $this->userProvider  = $userProvider;
     }
 
     /**
@@ -63,6 +72,24 @@ class ProjectContext
             throw new RuntimeException(sprintf('Project with name "%s" not found', $projectName));
         }
         $this->authenticate($project);
+    }
+
+    /**
+     * @param User $user
+     */
+    public function authenticateByUser(User $user)
+    {
+        $this->authenticate($user->getProject());
+    }
+
+    /**
+     * @param string $username
+     */
+    public function authenticateByUsername($username)
+    {
+        /* @var User $user */
+        $user = $this->userProvider->loadUserByUsername($username);
+        $this->authenticateByUser($user);
     }
 
     public function logout()

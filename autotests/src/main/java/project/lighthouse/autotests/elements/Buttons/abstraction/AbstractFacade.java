@@ -3,6 +3,7 @@ package project.lighthouse.autotests.elements.Buttons.abstraction;
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.interfaces.Conditional;
+import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 import static org.junit.Assert.fail;
 
@@ -20,10 +21,17 @@ public abstract class AbstractFacade implements Conditional {
         findBy = customFindBy;
     }
 
+    public AbstractFacade(ModalWindowPage modalWindowPage, String facadeText) {
+        this.pageObject = modalWindowPage;
+        this.facadeText = facadeText;
+        findBy = By.xpath(modalWindowPage.modalWindowXpath() + getXpathPatternWithFacadeText());
+
+    }
+
     public AbstractFacade(CommonPageObject pageObject, String facadeText) {
         this.pageObject = pageObject;
-        findBy = By.xpath(getXpath(facadeText));
         this.facadeText = facadeText;
+        findBy = By.xpath(getXpathPatternWithFacadeText());
     }
 
     public CommonPageObject getPageObject() {
@@ -40,7 +48,7 @@ public abstract class AbstractFacade implements Conditional {
 
     public abstract String getXpathPattern();
 
-    private String getXpath(String facadeText) {
+    private String getXpathPatternWithFacadeText() {
         return String.format(getXpathPattern(), facadeText);
     }
 

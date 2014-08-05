@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Test\Client;
 
 use Symfony\Bundle\FrameworkBundle\Client as BaseClient;
 use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -30,15 +31,28 @@ class Client extends BaseClient
     private $profiler = false;
 
     /**
+     * @var bool
+     */
+    protected $catchException = false;
+
+    /**
      * @var Closure[]
      */
     protected $tweakers = array();
 
     /**
+     * @param boolean $catchException
+     */
+    public function setCatchException($catchException = true)
+    {
+        $this->catchException = $catchException;
+    }
+
+    /**
      * @param string $uri
      * @param string $content
      * @param string $type
-     * @return null|\Symfony\Component\DomCrawler\Crawler
+     * @return null|Crawler
      */
     protected function createCrawlerFromContent($uri, $content, $type)
     {
@@ -128,11 +142,13 @@ class Client extends BaseClient
             $profiler->enable();
         }
 
-        $response = $this->kernel->handle($request, HttpKernelInterface::MASTER_REQUEST, true);
+        $response = $this->kernel->handle($request, HttpKernelInterface::MASTER_REQUEST, $this->catchException);
 
         if ($this->kernel instanceof TerminableInterface) {
             $this->kernel->terminate($request, $response);
         }
+
+        $this->catchException = false;
 
         return $response;
     }

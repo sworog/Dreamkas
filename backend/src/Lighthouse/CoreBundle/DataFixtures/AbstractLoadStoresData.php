@@ -6,7 +6,10 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Lighthouse\CoreBundle\DataFixtures\MongoDB\LoadApiClientData;
+use Lighthouse\CoreBundle\DataFixtures\MongoDB\LoadUserData;
 use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Document\User\User;
 use Symfony\Component\DependencyInjection\ContainerAware;
 
 abstract class AbstractLoadStoresData extends ContainerAware implements DependentFixtureInterface, FixtureInterface
@@ -23,11 +26,22 @@ abstract class AbstractLoadStoresData extends ContainerAware implements Dependen
         $project = $ownerUser->getProject();
         $projectContext->authenticate($project);
 
-        foreach ($this->getStoresData() as $storeNumber => $storeData) {
+        $this->loadStores($manager, $ownerUser);
+
+        $this->updateIndexes($manager);
+    }
+
+    /**
+     * @param ObjectManager $manager
+     * @param User $ownerUser
+     */
+    protected function loadStores(ObjectManager $manager, User $ownerUser)
+    {
+        foreach ($this->getStoresData() as $storeName => $storeData) {
             $store = new Store();
-            $store->number = $storeNumber;
-            $store->address = (isset($storeData['address'])) ? $storeData['address'] : 'Ул. Кеско, д. ' . $storeNumber;
-            $store->contacts = (isset($storeData['contacts'])) ? $storeData['contacts'] : '911-888-7-' . $storeNumber;
+            $store->name = $storeName;
+            $store->address = (isset($storeData['address'])) ? $storeData['address'] : 'Ул. Кеско, д. ' . $storeName;
+            $store->contacts = (isset($storeData['contacts'])) ? $storeData['contacts'] : '911-888-7-' . $storeName;
 
             $store->storeManagers->add($ownerUser);
             $store->departmentManagers->add($ownerUser);
@@ -35,8 +49,6 @@ abstract class AbstractLoadStoresData extends ContainerAware implements Dependen
         }
 
         $manager->flush();
-
-        $this->updateIndexes($manager);
     }
 
     /**
@@ -58,8 +70,8 @@ abstract class AbstractLoadStoresData extends ContainerAware implements Dependen
     public function getDependencies()
     {
         return array(
-            'Lighthouse\\CoreBundle\\DataFixtures\\MongoDB\\LoadApiClientData',
-            'Lighthouse\\CoreBundle\\DataFixtures\\MongoDB\\LoadUserData',
+            LoadApiClientData::getClassName(),
+            LoadUserData::getClassName(),
         );
     }
 }

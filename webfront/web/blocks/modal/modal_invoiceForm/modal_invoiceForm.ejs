@@ -1,0 +1,170 @@
+<% var InvoiceModel = require('models/invoice/invoice') %>
+<% var invoiceModel = invoiceModel || new InvoiceModel() %>
+
+<% var helpers = {
+    formatMoney: require('kit/formatMoney/formatMoney'),
+    formatAmount: require('kit/formatAmount/formatAmount'),
+    formatDate: require('kit/formatDate/formatDate')
+} %>
+
+<div id="<%- invoiceModel.id ? 'modal-invoiceEdit' : 'modal-invoiceAdd' %>"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="modal-default-label"
+     aria-hidden="true"
+     class="modal fade"
+     style="display: none;">
+    <div class="modal-dialog modal-wide-width">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a type="button"
+                   data-dismiss="modal"
+                   aria-hidden="true"
+                   class="close pull-left fa fa-times"></a>
+
+                <button form="<%- invoiceModel.id ? 'form_invoiceEdit' : 'form_invoiceAdd' %>"
+                        type="submit"
+                        class="btn btn-primary pull-right">
+                    <%- invoiceModel.id ? 'Сохранить' : 'Принять' %>
+                </button>
+
+                <h4 class="modal-title">
+                    <%- invoiceModel.id ? 'Редактирование приёски товаров от поставщика' : 'Приёмка товаров от поставщика' %>
+                </h4>
+
+                <span class="clearfix"></span>
+            </div>
+            <div class="modal-body">
+                <form id="<%- invoiceModel.id ? 'form_invoiceEdit' : 'form_invoiceAdd' %>" class="form form_group">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label class="control-label">Дата *</label>
+
+                                <div class="input-group datetimepicker-default date">
+                                    <input
+                                            name="date"
+                                            type="text"
+                                            class="form-control datepicker-default"
+                                            value="<%- invoiceModel.get('date') ? helpers.formatDate(invoiceModel.get('date')) : '' %>">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label class="control-label">Магазин *</label>
+
+                                <div class="input-icon right">
+                                    <select class="form-control" name="store">
+                                        <option value="" selected disabled>Выберите магазин</option>
+                                        <% collections.stores.forEach(function(storeModel){ %>
+                                        <option <%- invoiceModel.get('store.id') === storeModel.id ? 'selected' : '' %>
+                                                value="<%- storeModel.id %>"><%- storeModel.get('number') %>
+                                        </option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label class="control-label">Поставщик</label>
+
+                                <div class="input-icon right">
+                                    <select class="form-control" name="supplier">
+                                        <option value="" selected disabled>Выберите поставщика</option>
+                                        <% collections.suppliers.forEach(function(supplierModel){ %>
+                                        <option <%- invoiceModel.get('supplier.id') === supplierModel.id ? 'selected' : '' %>
+                                                value="<%- supplierModel.id %>"><%- supplierModel.get('name') %>
+                                        </option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                                <div class="select_suppliers">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input tabindex="5" type="checkbox" name="paid" value="true" <%- invoiceModel.get('paid') ? 'checked' : '' %>/>&nbsp;
+                                Оплачено
+                            </label>
+                        </div>
+                    </div>
+                    <hr />
+                    <h3>Товары</h3>
+                    <table class="table table-vcenter">
+                        <thead>
+                            <tr>
+                                <th class="col-md-8">Наименование</th>
+                                <th class="col-md-1">Цена, <i class="fa fa-rub"></i></th>
+                                <th class="col-md-1">Кол-во</th>
+                                <th class="col-md-1">Сумма, <i class="fa fa-rub"></i></th>
+                                <th class="col-md-1"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="invoiceProducts">
+                                <!--<tr>-->
+                                    <!--<td>Молоко "Веселый Молочник", 3,5%</td>-->
+                                    <!--<td>38,50</td>-->
+                                    <!--<td>100 шт</td>-->
+                                    <!--<td>3 850,00</td>-->
+                                    <!--<td><a type="button" class="btn fa fa-times"></a></td>-->
+                                <!--</tr>-->
+                                <!--<tr>-->
+                                    <!--<td>Молоко "Веселый Молочник", 3,5%</td>-->
+                                    <!--<td>38,50</td>-->
+                                    <!--<td>100 шт</td>-->
+                                    <!--<td>3 850,00</td>-->
+                                    <!--<td><a type="button" class="btn fa fa-times"></a></td>-->
+                                <!--</tr>-->
+                        </tbody>
+                        <tfoot>
+
+                            <tr class="invoiceProductForm">
+                                <td>
+                                    <div class="input-group autocomplete-container">
+                                        <input
+                                                name="product"
+                                                type="text"
+                                                class="form-control autocomplete"
+                                                >
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input
+                                                name="priceEntered"
+                                                type="text"
+                                                class="form-control">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input
+                                                name="quantity"
+                                                type="text"
+                                                class="form-control">
+                                    </div>
+                                </td>
+                                <td class="totalSum"></td>
+                                <td>
+                                    <a type="button" class="addInvoiceProduct btn btn-default fa fa-check"></a>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+ </div>

@@ -30,7 +30,7 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void createNewProductButtonClick() {
-        groupPage.createNewProductButtonClick();
+        groupPage.addObjectButtonClick();
     }
 
     @Step

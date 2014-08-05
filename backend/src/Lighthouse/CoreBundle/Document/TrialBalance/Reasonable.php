@@ -26,4 +26,9 @@ interface Reasonable extends Productable
      * @return Storeable
      */
     public function getReasonParent();
+
+    /**
+     * @param Storeable $parent
+     */
+    public function setReasonParent(Storeable $parent);
 }

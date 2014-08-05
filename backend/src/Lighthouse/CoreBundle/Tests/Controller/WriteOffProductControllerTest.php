@@ -36,7 +36,7 @@ class WriteOffProductControllerTest extends WebTestCase
             'POST',
             $writeOffProductData
         );
-        $postResponse = $this->jsonRequest($request, $accessToken);
+        $postResponse = $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode($expectedCode);
 
@@ -311,7 +311,7 @@ class WriteOffProductControllerTest extends WebTestCase
             'POST',
             $postData
         );
-        $this->jsonRequest($postRequest, $accessToken);
+        $this->client->jsonRequest($postRequest, $accessToken);
 
         $this->assertResponseCode(201);
 
@@ -320,7 +320,8 @@ class WriteOffProductControllerTest extends WebTestCase
             'POST',
             $postData
         );
-        $postResponse = $this->jsonRequest($invalidRequest, $accessToken);
+        $this->client->setCatchException();
+        $postResponse = $this->client->jsonRequest($invalidRequest, $accessToken);
 
         $this->assertResponseCode(404);
         // There is not message in debug=false mode
@@ -348,7 +349,7 @@ class WriteOffProductControllerTest extends WebTestCase
             'PUT',
             $putData
         );
-        $this->jsonRequest($putRequest, $accessToken);
+        $this->client->jsonRequest($putRequest, $accessToken);
 
         $this->assertResponseCode(200);
 
@@ -358,7 +359,8 @@ class WriteOffProductControllerTest extends WebTestCase
             $putData
         );
 
-        $putResponse = $this->jsonRequest($putRequest, $accessToken);
+        $this->client->setCatchException();
+        $putResponse = $this->client->jsonRequest($putRequest, $accessToken);
 
         $this->assertResponseCode(404);
         // There is not message in debug=false mode
@@ -369,7 +371,8 @@ class WriteOffProductControllerTest extends WebTestCase
             'PUT',
             $putData
         );
-        $putResponse = $this->jsonRequest($putRequest, $accessToken);
+        $this->client->setCatchException();
+        $putResponse = $this->client->jsonRequest($putRequest, $accessToken);
 
         $this->assertResponseCode(404);
         // There is not message in debug=false mode
@@ -383,7 +386,8 @@ class WriteOffProductControllerTest extends WebTestCase
             'PUT',
             $putData
         );
-        $putResponse = $this->jsonRequest($putRequest, $accessToken);
+        $this->client->setCatchException();
+        $putResponse = $this->client->jsonRequest($putRequest, $accessToken);
 
         $this->assertResponseCode(404);
         // There is not message in debug=false mode
@@ -394,7 +398,8 @@ class WriteOffProductControllerTest extends WebTestCase
             'PUT',
             $putData
         );
-        $putResponse = $this->jsonRequest($putRequest, $accessToken);
+        $this->client->setCatchException();
+        $putResponse = $this->client->jsonRequest($putRequest, $accessToken);
 
         $this->assertResponseCode(404);
         // There is not message in debug=false mode
@@ -414,7 +419,8 @@ class WriteOffProductControllerTest extends WebTestCase
             '/api/1/stores/' . $store->id . '/writeoffs/'. $writeOffId . '/products/invalidId',
             'DELETE'
         );
-        $this->jsonRequest($request, $accessToken);
+        $this->client->setCatchException();
+        $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(404);
 
@@ -422,7 +428,8 @@ class WriteOffProductControllerTest extends WebTestCase
             '/api/1/stores/' . $store->id . '/writeoffs/invalidWriteOffId/products/' . $writeOffProductId,
             'DELETE'
         );
-        $this->jsonRequest($request, $accessToken);
+        $this->client->setCatchException();
+        $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(404);
 
@@ -430,7 +437,7 @@ class WriteOffProductControllerTest extends WebTestCase
             '/api/1/stores/' . $store->id . '/writeoffs/'. $writeOffId . '/products/' . $writeOffProductId,
             'DELETE'
         );
-        $this->jsonRequest($request, $accessToken);
+        $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(204);
     }
@@ -447,7 +454,7 @@ class WriteOffProductControllerTest extends WebTestCase
         $request = new JsonRequest(
             '/api/1/stores/' . $store->id . '/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId
         );
-        $getResponse = $this->jsonRequest($request, $accessToken);
+        $getResponse = $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(200);
 
@@ -472,42 +479,48 @@ class WriteOffProductControllerTest extends WebTestCase
         $request = new JsonRequest(
             '/api/1/stores/' . $store->id . '/writeoffs/' . $writeOffId1 . '/products/' . $writeOffProductId2
         );
-        $this->jsonRequest($request, $accessToken);
+        $this->client->setCatchException();
+        $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(404);
 
         $request = new JsonRequest(
             '/api/1/stores/' . $store->id . '/writeoffs/' . $writeOffId2 . '/products/' . $writeOffProductId1
         );
-        $this->jsonRequest($request, $accessToken);
+        $this->client->setCatchException();
+        $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(404);
 
         $request = new JsonRequest(
             '/api/1/stores/' . $store->id . '/writeoffs/invalidId/products/' . $writeOffProductId1
         );
-        $this->jsonRequest($request, $accessToken);
+        $this->client->setCatchException();
+        $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(404);
 
         $request = new JsonRequest(
             '/api/1/stores/' . $store->id . '/writeoffs/invalidId/products/' . $writeOffProductId2
         );
-        $this->jsonRequest($request, $accessToken);
+        $this->client->setCatchException();
+        $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(404);
 
         $request = new JsonRequest(
             '/api/1/stores/' . $store->id . '/writeoffs/' . $writeOffId1 . '/products/invalidId'
         );
-        $this->jsonRequest($request, $accessToken);
+        $this->client->setCatchException();
+        $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(404);
 
         $request = new JsonRequest(
             '/api/1/stores/' . $store->id . '/writeoffs/' . $writeOffId2 . '/products/invalidId'
         );
-        $this->jsonRequest($request, $accessToken);
+        $this->client->setCatchException();
+        $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(404);
     }
@@ -572,7 +585,7 @@ class WriteOffProductControllerTest extends WebTestCase
             'PUT',
             $putData1
         );
-        $putResponse = $this->jsonRequest($request, $accessToken);
+        $putResponse = $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(200);
         Assert::assertJsonPathEquals($writeOffProductId1, 'id', $putResponse);
@@ -592,7 +605,7 @@ class WriteOffProductControllerTest extends WebTestCase
             'POST',
             $putData2
         );
-        $putResponse = $this->jsonRequest($request, $accessToken);
+        $putResponse = $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(201);
         Assert::assertJsonHasPath('id', $putResponse);
@@ -615,7 +628,7 @@ class WriteOffProductControllerTest extends WebTestCase
             'PUT',
             $putData2
         );
-        $putResponse = $this->jsonRequest($request, $accessToken);
+        $putResponse = $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(200);
         Assert::assertJsonPathEquals($productId1, 'product.id', $putResponse);
@@ -628,7 +641,7 @@ class WriteOffProductControllerTest extends WebTestCase
             '/api/1/stores/' . $storeId . '/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId2,
             'DELETE'
         );
-        $this->jsonRequest($request, $accessToken);
+        $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(204);
 
@@ -640,7 +653,7 @@ class WriteOffProductControllerTest extends WebTestCase
             '/api/1/stores/' . $storeId . '/writeoffs/' . $writeOffId . '/products/' . $writeOffProductId1,
             'DELETE'
         );
-        $this->jsonRequest($request, $accessToken);
+        $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(204);
 
@@ -669,7 +682,7 @@ class WriteOffProductControllerTest extends WebTestCase
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
         $request = new JsonRequest('/api/1/stores/' . $store->id . '/writeoffs/' . $writeOffId1 . '/products');
-        $getResponse = $this->jsonRequest($request, $accessToken);
+        $getResponse = $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(200);
 
@@ -681,7 +694,7 @@ class WriteOffProductControllerTest extends WebTestCase
         Assert::assertNotJsonPathEquals($writeOffProduct5, '*.id', $getResponse);
 
         $request = new JsonRequest('/api/1/stores/' . $store->id . '/writeoffs/' . $writeOffId2 . '/products');
-        $getResponse = $this->jsonRequest($request, $accessToken);
+        $getResponse = $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(200);
 
@@ -698,6 +711,7 @@ class WriteOffProductControllerTest extends WebTestCase
         $store = $this->factory()->store()->getStore();
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_DEPARTMENT_MANAGER);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -715,7 +729,7 @@ class WriteOffProductControllerTest extends WebTestCase
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
         $request = new JsonRequest('/api/1/stores/' . $store->id . '/writeoffs/' . $writeOffId . '/products');
-        $response = $this->jsonRequest($request, $accessToken);
+        $response = $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(200);
 
@@ -847,6 +861,7 @@ class WriteOffProductControllerTest extends WebTestCase
             )
         );
 
+        $this->client->setCatchException();
         $this->clientJsonRequest($accessToken2, $method, $url1, $data);
         $this->assertResponseCode(403);
 
@@ -862,6 +877,7 @@ class WriteOffProductControllerTest extends WebTestCase
             )
         );
 
+        $this->client->setCatchException();
         $this->clientJsonRequest($accessToken1, $method, $url2, $data);
         $this->assertResponseCode(403);
 
@@ -918,6 +934,7 @@ class WriteOffProductControllerTest extends WebTestCase
         $this->factory()->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
         $accessToken = $this->factory()->oauth()->auth($departmentManager);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',

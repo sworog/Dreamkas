@@ -233,6 +233,7 @@ class UserControllerTest extends WebTestCase
             'password' => 'qwerty',
         );
 
+        $this->client->setCatchException();
         $response = $this->clientJsonRequest(
             null,
             'PUT',
@@ -598,7 +599,12 @@ class UserControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->authAsRole($role);
 
-        $this->clientJsonRequest($accessToken, 'GET', '/api/1/users');
+        $this->client->setCatchException();
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/users'
+        );
 
         $this->assertResponseCode(403);
     }
@@ -656,7 +662,7 @@ class UserControllerTest extends WebTestCase
         $request = new JsonRequest('/api/1/users/current');
         $request->addHttpHeader('Authorization', 'Bearer ' . $token->access_token);
 
-        $getResponse = $this->jsonRequest($request);
+        $getResponse = $this->client->jsonRequest($request);
 
         $this->assertResponseCode(200);
 
@@ -990,6 +996,7 @@ class UserControllerTest extends WebTestCase
             }
         );
 
+        $this->client->setCatchException();
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',

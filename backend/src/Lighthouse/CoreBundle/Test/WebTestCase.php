@@ -64,17 +64,7 @@ class WebTestCase extends ContainerAwareTestCase
         $request->setJsonData($data);
         $request->setJsonHeaders();
 
-        return $this->jsonRequest($request);
-    }
-
-    /**
-     * @param JsonRequest $jsonRequest
-     * @param \stdClass|string $accessToken
-     * @return array
-     */
-    protected function jsonRequest(JsonRequest $jsonRequest, $accessToken = null)
-    {
-        return $this->client->jsonRequest($jsonRequest, $accessToken);
+        return $this->client->jsonRequest($request);
     }
 
     /**
@@ -112,7 +102,7 @@ class WebTestCase extends ContainerAwareTestCase
         $method = ($putProductId) ? 'PUT' : 'POST';
         $url = '/api/1/products' . (($putProductId) ? '/' . $putProductId : '');
         $request = new JsonRequest($url, $method, $productData);
-        $postResponse = $this->jsonRequest($request, $accessToken);
+        $postResponse = $this->client->jsonRequest($request, $accessToken);
 
         $responseCode = ($putProductId) ? 200 : 201;
         $this->assertResponseCode($responseCode);
@@ -240,7 +230,7 @@ class WebTestCase extends ContainerAwareTestCase
             'POST',
             $postData
         );
-        $postResponse = $this->jsonRequest($request, $accessToken);
+        $postResponse = $this->client->jsonRequest($request, $accessToken);
 
         $this->assertResponseCode(201);
 
@@ -300,7 +290,7 @@ class WebTestCase extends ContainerAwareTestCase
         $request = new JsonRequest('/api/1/products/' . $productId);
         $request->setAccessToken($accessToken);
 
-        $productJson = $this->jsonRequest($request);
+        $productJson = $this->client->jsonRequest($request);
 
         $this->assertResponseCode(200);
 

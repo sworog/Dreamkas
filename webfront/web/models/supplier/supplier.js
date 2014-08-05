@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Model = require('kit/model'),
+    var Model = require('kit/model/model'),
         moment = require('moment');
 
     return Model.extend({

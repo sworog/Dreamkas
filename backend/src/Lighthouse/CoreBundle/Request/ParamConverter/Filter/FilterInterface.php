@@ -6,7 +6,7 @@ interface FilterInterface
 {
     /**
      * @param array $data
-     * @return null
+     * @return void
      */
     public function populate(array $data);
 }

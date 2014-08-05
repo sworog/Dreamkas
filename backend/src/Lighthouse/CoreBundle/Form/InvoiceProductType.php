@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Symfony\Component\Form\FormBuilderInterface;
 

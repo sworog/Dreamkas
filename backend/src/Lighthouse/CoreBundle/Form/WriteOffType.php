@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Form;
 
-use Lighthouse\CoreBundle\Document\WriteOff\WriteOff;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class WriteOffType extends DocumentType

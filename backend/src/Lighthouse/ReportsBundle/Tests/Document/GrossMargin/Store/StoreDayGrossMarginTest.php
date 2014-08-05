@@ -15,13 +15,13 @@ class StoreDayGrossMarginTest extends WebTestCase
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-10 12:23:13'), $storeId)
+                ->createInvoice(array('date' => '2014-01-10 12:23:13'), $storeId)
                 ->createInvoiceProduct($productId, 16.36, 10.09, $storeId)
             ->flush();
 
         $this->factory()
             ->invoice()
-                ->createInvoice(array('acceptanceDate' => '2014-01-13 09:11:41'), $storeId)
+                ->createInvoice(array('date' => '2014-01-13 09:11:41'), $storeId)
                 ->createInvoiceProduct($productId, 20.501, 10.54, $storeId)
                 ->createInvoiceProduct($productId, 10, 10.54, $storeId)
             ->flush();

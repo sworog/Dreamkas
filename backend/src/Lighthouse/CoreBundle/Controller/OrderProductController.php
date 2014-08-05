@@ -48,7 +48,7 @@ class OrderProductController extends AbstractRestController
     public function postProductsAction(Store $store, Request $request)
     {
         $orderProduct = new OrderProduct();
-        $result = $this->processForm($request, $orderProduct, false);
+        $result = $this->processForm($request, $orderProduct, null, false);
         if ($result instanceof OrderProduct) {
             $result->storeProduct = $this
                 ->storeProductRepository

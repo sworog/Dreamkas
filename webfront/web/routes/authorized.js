@@ -8,6 +8,12 @@ define(function(require) {
 
         //catalog
         'catalog(/)': require('pages/catalog/catalog'),
-        'catalog/groups/:groupId(/)': require('pages/group/group')
+        'catalog/groups/:groupId(/)': require('pages/group/group'),
+
+        //stockMovement
+        'stockMovement(/)': require('pages/stockMovement/stockMovement'),
+
+        //stores
+        'stores(/)': require('pages/stores/stores')
     };
 });
