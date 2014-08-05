@@ -1,0 +1,13 @@
+define(function(require) {
+    //requirements
+    var Model = require('kit/model/model');
+
+    return Model.extend({
+        urlRoot: function() {
+            return Model.baseApiUrl + '/stores/' + this.get('storeId') + '/products/' + this.get('product.id') + '/invoiceProducts';
+        },
+        defaults: {
+            storeId: null
+        }
+    });
+});

@@ -20,8 +20,7 @@ define(function(require, exports, module) {
 
                 window.ERROR.render();
 
-                block.remove();
-
+                block.destroy();
                 return;
             }
 

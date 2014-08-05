@@ -1,0 +1,41 @@
+<!--
+    @storeModel
+-->
+
+<% if(LH.isAllow('stores', 'PUT::{store}')) { %>
+<div class="page__controls">
+    <a href="/stores/edit/<%- storeModel.id %>">
+        <%- 'Редактировать' %>
+    </a>
+</div>
+<% } %>
+
+<h1><%= LH.modelNode(storeModel, 'number') %></h1>
+<table class="table store__info">
+    <tr>
+        <th><%- 'Адрес' %></th>
+        <td>
+            <%= LH.modelNode(storeModel, 'address') %>
+        </td>
+    </tr>
+    <tr>
+        <th><%- 'Контактная информация' %></th>
+        <td>
+            <%= LH.modelNode(storeModel, 'contacts') %>
+        </td>
+    </tr>
+</table>
+<div class="store__storeManagers" id="store__storeManagers"></div>
+<div class="store__departmentManagers" id="store__departmentManagers"></div>
+<div class="store__departments">
+    <h4>
+        <span class="store__departmentsTitle"></span>
+        <% if(LH.isAllow('departments', 'POST')) { %>
+        <a lh-button style="margin-left: 10px;" class="button" href="/stores/<%- storeModel.id %>/departments/create">
+            <%- 'Создать отдел' %>
+        </a>
+        <% } %>
+    </h4>
+    <table class="table" id="table_departments"></table>
+</div>
+<div style="clear: both"></div>

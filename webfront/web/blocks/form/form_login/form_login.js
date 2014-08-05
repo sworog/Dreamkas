@@ -7,7 +7,7 @@ define(function(require) {
     return Form.extend({
         el: '.form_login',
         model: function() {
-            var LoginModel = require('models/login/login');
+            var LoginModel = require('models/login');
 
             return new LoginModel();
         },

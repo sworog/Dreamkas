@@ -1,0 +1,36 @@
+<% var currentUserModel = require('models/currentUser/currentUser.inst') %>
+
+<div class="globalNavigation globalNavigation_store">
+
+    <div class="globalNavigation__top">
+        <a title="Все магазины"
+           href="/stores"
+           class="globalNavigation__backLink fa fa-chevron-left"></a>
+        <a href="/stores/<%- models.store.id %>" class="globalNavigation_store__title">
+            магазин
+            <span class="globalNavigation_store__number">
+                № <%- models.store.get('number') %>
+            </span>
+        </a>
+    </div>
+
+    <a class="globalNavigation__link" name="globalNavigationLink" href="/stores/<%- models.store.id %>/catalog">Товары</a>
+    <!--<a class="globalNavigation__link" name="globalNavigationLink" href="/stores/<%- models.store.id %>/reports">Отчеты</a>-->
+    <a class="globalNavigation__link" name="globalNavigationLink" href="/stores/<%- models.store.id %>/orders">Заказы</a>
+    <a class="globalNavigation__link" name="globalNavigationLink" href="/stores/<%- models.store.id %>/invoices">Накладные</a>
+    <!--<a class="globalNavigation__link" name="globalNavigationLink" href="/stores/<%- models.store.id %>/writeOffs">Списания</a>-->
+    <a class="globalNavigation__link" name="globalNavigationLink" href="/stores/<%- models.store.id %>/settings">Настройки</a>
+
+    <div class="globalNavigation__bottom">
+
+        <div class="globalNavigation__userControls">
+            <a href="/users/current" name="userName" class="globalNavigation__userName">
+                <%- currentUserModel.get('name') || currentUserModel.get('email') %>
+            </a>
+        </div>
+
+        <a name="globalNavigationLink" href="/" class="globalNavigation__logo">
+            Lighthouse
+        </a>
+    </div>
+</div>

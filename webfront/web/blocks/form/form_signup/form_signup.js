@@ -6,7 +6,7 @@ define(function(require, exports, module) {
     return Form.extend({
         el: '.form_signup',
         model: function(){
-            var SignUpModel = require('models/signup/signup');
+            var SignUpModel = require('models/signup');
 
             return new SignUpModel();
         },

@@ -1,0 +1,41 @@
+<% if (LH.isAllow('categories', 'POST')) { %>
+<div class="page__controls">
+    <a class="page__controlsLink editor__on">Редактировать</a>
+    <a class="page__controlsLink editor__off">Завершить редактирование</a>
+</div>
+<% } %>
+
+<h1>
+    <span style="vertical-align: middle">
+        <%= LH.modelNode(catalogGroupModel, 'name') %>
+    </span>
+    <a class="editor__editLink catalog__editGroupLink"></a>
+    <a lh-button class="button catalog__addCategoryLink editor__control">
+        Добавить категорию
+    </a>
+</h1>
+<div class="page__tabs">
+    <a class="page__tabItem page__tabItem_active" rel="categoryList">
+        Категории
+    </a>
+    <% if(LH.isAllow('groups', 'PUT::{group}')) { %>
+    <a class="page__tabItem" rel="groupProperties">
+        Свойства
+    </a>
+    <% } %>
+</div>
+<div class="page__tabsContent">
+    <div class="page__tabContentItem page__tabContentItem_active" rel="categoryList">
+        <div id="catalog__categoryList" class="catalog__categoryList">
+            <%= templates.catalog__categoryList({
+                templates: templates,
+                catalogCategoriesCollection: catalogGroupModel.categories
+            }) %>
+        </div>
+    </div>
+    <% if(LH.isAllow('groups', 'PUT::{group}')) { %>
+    <div class="page__tabContentItem" rel="groupProperties">
+        <form id="form_catalogGroupProperties"></form>
+    </div>
+    <% } %>
+</div>

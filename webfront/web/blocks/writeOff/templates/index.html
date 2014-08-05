@@ -1,0 +1,27 @@
+<%
+/**
+ *
+ *  @writeOffModel
+ */
+%>
+
+<% var writeOff__head = require('ejs!blocks/writeOff/templates/head.html') %>
+<% var writeOff__footer = require('ejs!blocks/writeOff/templates/footer.html') %>
+
+<div class="writeOff__content">
+    <div class="writeOff__head">
+        <%= writeOff__head({
+            writeOffModel: writeOffModel
+        }) %>
+    </div>
+    <table class="writeOff__productsTable table"></table>
+    <div class="writeOff__footer">
+        <%= writeOff__footer({
+            writeOffModel: writeOffModel
+        }) %>
+    </div>
+
+</div>
+<div class="page__clear"></div>
+
+<form class="form writeOff__productForm"></form>

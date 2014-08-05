@@ -1,0 +1,21 @@
+<tr name="product" href="/products/<%- model.get('id') %>">
+    <td name="sku">
+        <%- model.get('sku') %>
+    </td>
+    <td name="name">
+        <%- model.get('name') %>
+    </td>
+    <td name="vendor">
+        <%- model.get('vendor') %>
+    </td>
+    <td name="vendorCountry">
+        <%- model.get('vendorCountry') %>
+    </td>
+    <td name="purchasePrice">
+        <% if(model.get('purchasePrice')){ %>
+        <%- LH.formatMoney(model.get('purchasePrice')) %> р.
+        <% } else { %>
+        &mdash;
+        <% } %>
+    </td>
+</tr>

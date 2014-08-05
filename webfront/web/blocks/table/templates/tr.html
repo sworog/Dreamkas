@@ -1,0 +1,7 @@
+<tr>
+    <% columns.each(function(column, index){ %>
+        <%= templates.td({
+            data: model.get(column.get('dataKey') || index)
+        }) %>
+    <% }) %>
+</tr>

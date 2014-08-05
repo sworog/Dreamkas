@@ -1,0 +1,21 @@
+<table class="table table_productInvoices">
+    <tbody>
+    <% collection.forEach(function(productInvoiceModel){ %>
+    <tr invoice-sku="<%- productInvoiceModel.get('invoice.sku') %>" name="invoice" href="/stores/<%- collection.storeId %>/invoices/<%- productInvoiceModel.get('invoice.id') %>">
+        <td>
+            <%= LH.modelNode(productInvoiceModel, 'acceptanceDateFormatted') %>
+        </td>
+        <td>
+            + <%= LH.modelNode(productInvoiceModel, 'quantityElement') %>
+            <%- LH.units(productInvoiceModel.get('product.units'), 'smallShort') %>
+        </td>
+        <td>
+            по <%= LH.modelNode(productInvoiceModel, 'priceFormatted') %> р.
+        </td>
+        <td>
+            = <%= LH.modelNode(productInvoiceModel, 'totalPriceFormatted') %> р.
+        </td>
+    </tr>
+    <% }) %>
+    </tbody>
+</table>
