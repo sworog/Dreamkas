@@ -5,9 +5,6 @@
  */
 %>
 <% var selected = selected || null %>
-<% var partials = {
-    agreementLink: require('ejs!blocks/select/select_suppliers/agreementLink.ejs')
-} %>
 
 <div class="select_suppliers">
 
@@ -20,9 +17,4 @@
         <% }) %>
     </select>
 
-    <% if (collections.suppliers.get(selected)){ %>
-    <%= partials.agreementLink({
-        supplierModel: collections.suppliers.get(selected)
-    }) %>
-    <% } %>
 </div>

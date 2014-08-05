@@ -1,4 +1,5 @@
 require.config({
+    baseUrl: '/',
     paths: {
         'backbone': 'bower_components/backbone/backbone',
         'moment': 'bower_components/momentjs/moment',

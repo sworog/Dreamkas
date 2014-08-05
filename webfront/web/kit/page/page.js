@@ -44,14 +44,8 @@ define(function(require, exports, module) {
             }
 
             $.when(page.fetch()).then(function() {
-                try {
-                    page.render();
-                    page.setStatus('loaded');
-                } catch (error) {
-                    page.throw(error);
-                }
-            }, function(error) {
-                page.throw(error);
+                page.render();
+                page.setStatus('loaded');
             });
         },
 
