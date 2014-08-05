@@ -16,6 +16,13 @@ public class Store extends AbstractObject {
         super(jsonObject);
     }
 
+    public Store(String name, String address) throws JSONException {
+        this(new JSONObject()
+                .put("name", name)
+                .put("address", address));
+    }
+
+    @Deprecated
     public Store(String number, String address, String contacts) throws JSONException {
         this(new JSONObject()
                         .put("number", number)
@@ -24,6 +31,7 @@ public class Store extends AbstractObject {
         );
     }
 
+    @Deprecated
     public Store() throws JSONException {
         this(DEFAULT_NUMBER, DEFAULT_ADDRESS, DEFAULT_CONTACTS);
     }

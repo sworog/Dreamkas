@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.pages.catalog.modal;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 import project.lighthouse.autotests.elements.items.Input;
@@ -17,12 +16,12 @@ public class CreateGroupModalPage extends ModalWindowPage {
 
     @Override
     public void createElements() {
-        put("name", new Input(this, By.xpath(modalWindowXpath() + "//*[@name='name']")));
+        put("name", new Input(this, "//*[@name='name']"));
     }
 
     @Override
     public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Добавить", modalWindowXpath()).click();
+        new PrimaryBtnFacade(this, "Добавить").click();
     }
 
     @Override

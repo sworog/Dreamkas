@@ -15,7 +15,7 @@ public class EditGroupModalPage extends CreateGroupModalPage {
 
     @Override
     public String modalWindowXpath() {
-        return "//*[@id='form_groupEdit']";
+        return "//*[@id='modal-groupEdit']";
     }
 
     public void deleteButtonClick() {
@@ -28,6 +28,6 @@ public class EditGroupModalPage extends CreateGroupModalPage {
 
     @Override
     public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Сохранить", modalWindowXpath()).click();
+        new PrimaryBtnFacade(this, "Сохранить").click();
     }
 }

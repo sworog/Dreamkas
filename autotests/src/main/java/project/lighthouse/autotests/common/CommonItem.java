@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.helper.FieldChecker;
 import project.lighthouse.autotests.helper.FieldErrorChecker;
+import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 /**
  * Abstract class representing single page element type (input and etc)
@@ -18,6 +19,11 @@ abstract public class CommonItem {
     public CommonItem(CommonPageObject pageObject, By findBy) {
         this.pageObject = pageObject;
         this.findBy = findBy;
+    }
+
+    public CommonItem(ModalWindowPage modalWindowPage, String xpath) {
+        this.pageObject = modalWindowPage;
+        this.findBy = By.xpath(modalWindowPage.modalWindowXpath() + xpath);
     }
 
     public CommonItem(CommonPageObject pageObject, String name) {

@@ -65,6 +65,13 @@ public class MenuNavigationSteps extends ScenarioSteps {
     }
 
     @Step
+    public void storesMenuItemClick() {
+        new BodyPreLoader(getDriver()).await();
+        menuNavigationBar.getStoresMenuItem().click();
+        new BodyPreLoader(getDriver()).await();
+    }
+
+    @Step
     public void catalogMenuItemIsVisible() {
         new BodyPreLoader(getDriver()).await();
         menuNavigationBar.getCatalogMenuItem().shouldBeVisible();
