@@ -25,6 +25,7 @@ public class MenuNavigationSteps extends ScenarioSteps {
     public void supplierMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
         menuNavigationBar.getSuppliersMenuItem().click();
+        new BodyPreLoader(getDriver()).await();
     }
 
     @Step

@@ -73,7 +73,7 @@ public class StoreSteps extends ScenarioSteps {
         try {
             storeObjectCollection = storeListPage.getStoreObjectCollection();
         } catch (TimeoutException e) {
-            storeListPage.containsText("У вас ещё нет ни одного магазина ");
+            storeListPage.containsText("У вас ещё нет ни одного магазина");
         } catch (StaleElementReferenceException e) {
             storeObjectCollection = storeListPage.getStoreObjectCollection();
         } finally {
@@ -89,7 +89,7 @@ public class StoreSteps extends ScenarioSteps {
         try {
             storeObjectCollection = storeListPage.getStoreObjectCollection();
         } catch (TimeoutException e) {
-            storeListPage.containsText("У вас ещё нет ни одного магазина ");
+            storeListPage.containsText("У вас ещё нет ни одного магазина");
         } catch (StaleElementReferenceException e) {
             storeObjectCollection = storeListPage.getStoreObjectCollection();
         } finally {
@@ -105,7 +105,7 @@ public class StoreSteps extends ScenarioSteps {
         try {
             storeObjectCollection = storeListPage.getStoreObjectCollection();
         } catch (TimeoutException e) {
-            storeListPage.containsText("У вас ещё нет ни одного магазина ");
+            storeListPage.containsText("У вас ещё нет ни одного магазина");
         } catch (StaleElementReferenceException e) {
             storeObjectCollection = storeListPage.getStoreObjectCollection();
         } finally {

@@ -13,4 +13,9 @@ public class SupplierEditModalPage extends SupplierCreateModalPage {
     public void confirmationOkClick() {
         new PrimaryBtnFacade(this, "Сохранить").click();
     }
+
+    @Override
+    public String modalWindowXpath() {
+        return "//*[@id='modal-supplierEdit']";
+    }
 }
