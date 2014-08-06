@@ -1,0 +1,24 @@
+<% var InvoiceProductsCollections = require('collections/invoiceProducts/invoiceProducts') %>
+
+<% var collections = _.extend({
+    invoiceProducts: new InvoiceProductsCollections()
+}, collections) %>
+
+<% var helpers = {
+    formatMoney: require('kit/formatMoney/formatMoney'),
+    formatAmount: require('kit/formatAmount/formatAmount')
+} %>
+
+<% collections.invoiceProducts.forEach(function(invoiceProductModel) { %>
+    <tr>
+        <td><%- invoiceProductModel.get('productName') %></td>
+        <td><%- helpers.formatMoney(invoiceProductModel.get('priceEntered')) %></td>
+        <td><%- helpers.formatAmount(invoiceProductModel.get('quantity')) %> шт</td>
+        <td><%- helpers.formatMoney(invoiceProductModel.get('totalPrice')) %></td>
+        <td>
+            <a style="font-size: 17px; position: relative; left: 4px; top: -2px;"
+               data-model-cid="<%- invoiceProductModel.cid %>"
+               class="delInvoiceProduct btn fa fa-times"></a>
+        </td>
+    </tr>
+<% }); %>

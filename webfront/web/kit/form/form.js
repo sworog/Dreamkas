@@ -55,7 +55,10 @@ define(function(require) {
             });
 
             block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' + block.el.id + '"]');
+
             block.__model = block.model = block.get('model');
+            block.__collection = block.collection = block.get('collection');
+
             block.redirectUrl = block.get('redirectUrl');
         },
         getData: function() {

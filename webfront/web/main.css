@@ -9,9 +9,12 @@
 @import "/bower_components/select2/select2.css";
 @import "/bower_components/select2/select2-bootstrap.css";
 @import "/bower_components/sortable/css/sortable-theme-bootstrap.css";
+
+/* blocks */
 @import "/blocks/confirmLink/confirmLink.css";
+@import "/blocks/checkbox/checkbox.css";
 @import "/blocks/groupList/groupList.css";
-@import "/blocks/form/form_invoice/autocomplete/autocomplete.css";
+@import "/blocks/autocomplete/autocomplete.css";
 
 body:before {
     content: "";
