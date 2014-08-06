@@ -70,17 +70,26 @@ public class SupplierSteps extends ScenarioSteps {
 
     @Step
     public void supplierCollectionCompareWithExampleTable(ExamplesTable examplesTable) {
-        getSupplierCollection().compareWithExampleTable(examplesTable);
+        SupplierCollection supplierCollection = getSupplierCollection();
+        if (supplierCollection != null) {
+            getSupplierCollection().compareWithExampleTable(examplesTable);
+        }
     }
 
     @Step
     public void clickOnTheSupplierWithName(String name) {
-        getSupplierCollection().clickByLocator(name);
+        SupplierCollection supplierCollection = getSupplierCollection();
+        if (supplierCollection != null) {
+            getSupplierCollection().clickByLocator(name);
+        }
     }
 
     @Step
     public void supplierCollectionNoContainSupplierWithName(String name) {
-        getSupplierCollection().notContains(name);
+        SupplierCollection supplierCollection = getSupplierCollection();
+        if (supplierCollection != null) {
+            getSupplierCollection().notContains(name);
+        }
     }
 
     private SupplierCollection getSupplierCollection() {

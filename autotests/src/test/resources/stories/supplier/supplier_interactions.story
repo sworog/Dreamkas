@@ -183,5 +183,3 @@ And the user logs in using 's39u108@lighthouse.pro' userName and 'lighthouse' pa
 When the user clicks the menu suppliers item
 
 Then the user asserts suppliers list page title is 'Поставщики'
-
-
