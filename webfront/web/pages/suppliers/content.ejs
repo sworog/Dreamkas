@@ -37,13 +37,15 @@
                             <% collections.suppliers.forEach(function(supplierModel){ %>
                                 <tr class="supplier__link" data-supplier-id="<%- supplierModel.id %>">
                                     <td name="name"><%- supplierModel.get('name') %></td>
-                                    <td name="info" style="font-size: 12px;">
-                                        <div style="padding-bottom: 5px;">
+                                    <td style="font-size: 12px;">
+                                        <div name="address" style="padding-bottom: 5px;">
                                             <%- supplierModel.get('address') %>
                                         </div>
-                                        <%- supplierModel.get('phone') ? supplierModel.get('phone') + ', ' : '' %>
-                                        <%- supplierModel.get('contactPerson') ? supplierModel.get('contactPerson') + ', ' : '' %>
-                                        <%- supplierModel.get('email') %>
+                                        <span name="info">
+                                            <%- supplierModel.get('phone') ? supplierModel.get('phone') + ', ' : '' %>
+                                            <%- supplierModel.get('contactPerson') ? supplierModel.get('contactPerson') + ', ' : '' %>
+                                            <%- supplierModel.get('email') %>
+                                        </span>
                                     </td>
                                 </tr>
                             <% }) %>
