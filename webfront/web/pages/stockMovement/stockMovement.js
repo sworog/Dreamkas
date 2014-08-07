@@ -16,10 +16,10 @@ define(function(require, exports, module) {
 
                 return new StoresCollection();
             },
-            invoices: function(){
-                var InvoicesCollection = require('collections/invoices/invoices');
+            stockMovements: function(){
+                var StockMovementsCollection = require('collections/stockMovements/stockMovements');
 
-                return new InvoicesCollection();
+                return new StockMovementsCollection();
             }
         },
         models: {
@@ -33,7 +33,7 @@ define(function(require, exports, module) {
                 return new Modal_invoice({
                     el: '#modal_invoiceAdd',
                     collections: {
-                        invoices: block.collections.invoices,
+                        invoices: block.collections.stockMovements,
                         suppliers: block.collections.suppliers
                     }
                 });

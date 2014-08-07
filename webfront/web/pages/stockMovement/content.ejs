@@ -41,19 +41,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% collections.invoices.forEach(function(invoice) { %>
-                                <tr data-invoice_id="<%- invoice.id %>" class="invoice__link">
+                            <% collections.stockMovements.forEach(function(stockMovementModel) { %>
+                                <tr data-invoice_id="<%- stockMovementModel.id %>" class="invoice__link">
                                     <td>
-                                        <%- helpers.formatDate(invoice.get('date')) %>
+                                        <%- helpers.formatDate(stockMovementModel.get('date')) %>
                                     </td>
                                     <td>
                                         Приёмка
                                     </td>
                                     <td>
-                                        <%- invoice.get('store.number') %>
+                                        <%- stockMovementModel.get('store.number') %>
                                     </td>
                                     <td>
-                                        <%- helpers.formatMoney(invoice.get('sumTotal')) %>
+                                        <%- helpers.formatMoney(stockMovementModel.get('sumTotal')) %>
                                     </td>
                                 </tr>
                             <% }) %>
@@ -69,7 +69,7 @@
 <!--MODALS-->
 <%= partials.modal_invoice({
     collections: {
-        invoices: collections.invoices,
+        invoices: collections.stockMovements,
         suppliers: collections.suppliers,
         stores: collections.stores
     }
