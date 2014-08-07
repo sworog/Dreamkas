@@ -185,3 +185,7 @@ table.table-vcenter > tbody > tr > td {
 .modal__dialog_hidden {
     display: none;
 }
+
+select.loading{
+    background-color: #eee;
+}

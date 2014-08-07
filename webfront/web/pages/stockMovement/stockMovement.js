@@ -35,6 +35,8 @@ define(function(require, exports, module) {
             'change select[name=filterTypes]': function(e) {
                 var page = this;
 
+                e.currentTarget.classList.add('loading');
+
                 page.params.filterTypes = e.target.value;
 
                 router.save(page.params);
