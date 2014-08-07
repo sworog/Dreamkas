@@ -49,4 +49,14 @@ public class WhenSupplierUserSteps {
     public void whenTheUserClicksOnTheSupplierWithName(String name) {
         supplierSteps.clickOnTheSupplierWithName(name);
     }
+
+    @When("the user generates symbols with count '$count' in the create supplier modal window field with name '$name'")
+    public void whrnTheUserGeneratesSymbolsWithCountInTheCreateStoreModalWindowFieldWithName(int count, String name) {
+        supplierSteps.supplierCreateModalPageInputGeneratedText(name, count);
+    }
+
+    @When("the user generates symbols with count '$count' in the edit supplier modal window field with name '$name'")
+    public void whrnTheUserGeneratesSymbolsWithCountInTheEditStoreModalWindowFieldWithName(int count, String name) {
+        supplierSteps.supplierEditModalPageInputGeneratedText(name, count);
+    }
 }

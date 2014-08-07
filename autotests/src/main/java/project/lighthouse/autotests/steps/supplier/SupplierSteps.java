@@ -5,6 +5,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
+import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.supplier.SupplierCollection;
 import project.lighthouse.autotests.pages.supplier.SupplierListPage;
 import project.lighthouse.autotests.pages.supplier.modal.SupplierCreateModalPage;
@@ -20,6 +21,7 @@ public class SupplierSteps extends ScenarioSteps {
     SupplierEditModalPage supplierEditModalPage;
 
     private ExamplesTable examplesTable;
+    private String name;
 
     @Step
     public void supplierListPageOpen() {
@@ -92,6 +94,22 @@ public class SupplierSteps extends ScenarioSteps {
         }
     }
 
+    @Step
+    public void supplierCollectionContainSupplierWithName() {
+        SupplierCollection supplierCollection = getSupplierCollection();
+        if (supplierCollection != null) {
+            getSupplierCollection().contains(name);
+        }
+    }
+
+    @Step
+    public void supplierCollectionContainSupplierWithName(String name) {
+        SupplierCollection supplierCollection = getSupplierCollection();
+        if (supplierCollection != null) {
+            getSupplierCollection().contains(name);
+        }
+    }
+
     private SupplierCollection getSupplierCollection() {
         SupplierCollection supplierCollection = null;
         try {
@@ -117,5 +135,29 @@ public class SupplierSteps extends ScenarioSteps {
     @Step
     public void assertSupplierListPageTitle(String title) {
         assertThat(supplierListPage.getTitle(), is(title));
+    }
+
+    @Step
+    public void supplierCreateModalPageCheckErrorMessage(String elementName, String errorMessage) {
+        supplierCreateModalPage.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+    }
+
+    @Step
+    public void supplierEditModalPageCheckErrorMessage(String elementName, String errorMessage) {
+        supplierEditModalPage.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+    }
+
+    @Step
+    public void supplierCreateModalPageInputGeneratedText(String elementName, int count) {
+        String generatedString = new StringGenerator(count).generateString("a");
+        supplierCreateModalPage.input(elementName, generatedString);
+        this.name = generatedString;
+    }
+
+    @Step
+    public void supplierEditModalPageInputGeneratedText(String elementName, int count) {
+        String generatedString = new StringGenerator(count).generateString("b");
+        supplierEditModalPage.input(elementName, generatedString);
+        this.name = generatedString;
     }
 }

@@ -25,6 +25,16 @@ public class ThenSupplierSteps {
         supplierSteps.supplierCollectionNoContainSupplierWithName(name);
     }
 
+    @Then("the user asserts that supplier list contain supplier with stored name")
+    public void thenTheUserAssertsThatSupplierListContainSupplierWithName() {
+        supplierSteps.supplierCollectionContainSupplierWithName();
+    }
+
+    @Then("the user asserts that supplier list contain supplier with name '$name'")
+    public void thenTheUserAssertsThatSupplierListContainSupplierWithName(String name) {
+        supplierSteps.supplierCollectionContainSupplierWithName(name);
+    }
+
     @Then("the user asserts the create new supplier modal window title is '$title'")
     public void thenTheUserAssertsTheCreateNewSupplierModalWindowTitle(String title) {
         supplierSteps.assertSupplierCreateSupplierModalWindowTitle(title);
@@ -38,5 +48,15 @@ public class ThenSupplierSteps {
     @Then("the user asserts suppliers list page title is '$title'")
     public void thenTheUserAssertsSupplierListPageTitle(String title) {
         supplierSteps.assertSupplierListPageTitle(title);
+    }
+
+    @Then("the user checks the create new supplier modal window '$elementName' field has error message with text '$message'")
+    public void thenTheUserChecksTheCreateNewSupplierModalWindowFieldHasErrorMessage(String elementName, String message) {
+        supplierSteps.supplierCreateModalPageCheckErrorMessage(elementName, message);
+    }
+
+    @Then("the user checks the edit supplier modal window '$elementName' field has error message with text '$message'")
+    public void thenTheUserChecksTheEditSupplierModalWindowFieldHasErrorMessage(String elementName, String message) {
+        supplierSteps.supplierEditModalPageCheckErrorMessage(elementName, message);
     }
 }
