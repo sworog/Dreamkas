@@ -4,9 +4,13 @@ define(function(require) {
         InvoiceModel = require('models/invoice/invoice');
 
     return Collection.extend({
-        storeId: null,
+        filterTypes: '',
         url: function(){
-            return Collection.baseApiUrl + '/stockMovements';
+            var filterTypesString = '';
+            if ('' != this.filterTypes) {
+                filterTypesString = 'types=' + this.filterTypes;
+            }
+            return Collection.baseApiUrl + '/stockMovements?' + filterTypesString;
         },
         parse: function(data) {
             var collection = this;

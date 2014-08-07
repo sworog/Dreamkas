@@ -31,6 +31,17 @@
         <div class="col-md-12">
             <div class="panel">
                 <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <select class="form-control" name="filterTypes">
+                                    <option value="">Все операции</option>
+                                    <option value="Invoice" <%- params.filterTypes == 'Invoice'?'selected':''%>>Приёмка</option>
+                                    <option value="WriteOff" <%- params.filterTypes == 'WriteOff'?'selected':''%>>Списание</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                     <table class="table table-striped">
                         <thead>
                             <tr>

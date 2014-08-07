@@ -1,10 +1,14 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/page/page');
+    var Page = require('kit/page/page'),
+        router = require('router');
 
     return Page.extend({
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'stockMovement',
+        params: {
+            filterTypes: ''
+        },
         collections: {
             suppliers: function(){
                 var SuppliersCollection = require('collections/suppliers/suppliers');
@@ -19,11 +23,27 @@ define(function(require, exports, module) {
             stockMovements: function(){
                 var StockMovementsCollection = require('collections/stockMovements/stockMovements');
 
-                return new StockMovementsCollection();
+                return new StockMovementsCollection({
+                    filterTypes: this.params.filterTypes
+                });
             }
         },
         models: {
             invoice: null
+        },
+        events: {
+            'change select[name=filterTypes]': function(e) {
+                var page = this;
+
+                page.params.filterTypes = e.target.value;
+
+                router.save(page.params);
+
+                page.collections.stockMovements.filterTypes = page.params.filterTypes;
+                page.collections.stockMovements.fetch().then(function() {
+                    page.render();
+                });
+            }
         },
         blocks: {
             modal_invoiceAdd: function(){
