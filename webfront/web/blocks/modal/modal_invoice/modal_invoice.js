@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
     //requirements
-    var Block = require('kit/block/block');
+    var Block = require('kit/block/block'),
+        SupplierModel = require('models/supplier/supplier');
 
     return Block.extend({
         el: '.modal_invoice',
@@ -50,6 +51,7 @@ define(function(require, exports, module) {
 
                 form_supplier.on('submit:success', function(){
                     block.showInvoiceModal();
+                    form_supplier.model = new SupplierModel();
                 });
 
                 return form_supplier;
@@ -84,9 +86,11 @@ define(function(require, exports, module) {
         },
         renderSupplierSelect: function(supplierModel){
             var block = this,
-                supplierTemplate = require('ejs!blocks/select/select_suppliers/template.ejs');
+                select_suppliers = require('ejs!blocks/select/select_suppliers/template.ejs');
 
-            block.$('.select_supplier').replaceWith(supplierTemplate({
+            console.log(block.collections.suppliers);
+
+            block.$('.select_suppliers').replaceWith(select_suppliers({
                 selected: supplierModel.id,
                 collections: {
                     suppliers: block.collections.suppliers
