@@ -178,6 +178,11 @@ define(function(require) {
         },
         reset: function(){
             PAGE.render();
+        },
+        clear: function(){
+            var block = this;
+
+            block.$('input').val('');
         }
     })
 });

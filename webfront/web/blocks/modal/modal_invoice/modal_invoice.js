@@ -52,6 +52,7 @@ define(function(require, exports, module) {
                 form_supplier.on('submit:success', function(){
                     block.showInvoiceModal();
                     form_supplier.model = new SupplierModel();
+                    form_supplier.clear();
                 });
 
                 return form_supplier;
