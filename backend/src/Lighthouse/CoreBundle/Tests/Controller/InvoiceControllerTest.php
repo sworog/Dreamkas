@@ -1794,6 +1794,7 @@ class InvoiceControllerTest extends WebTestCase
         $this->assertResponseCode(404);
 
         $this->assertInvoiceSoftDelete($invoice->id);
+        $this->assertInvoiceProductSoftDelete($invoice->products[0]->id);
     }
 
     /**
@@ -1804,14 +1805,32 @@ class InvoiceControllerTest extends WebTestCase
         $invoice = $this->getInvoiceRepository()->find($invoiceId);
         $this->assertNull($invoice);
 
-        $this
-            ->getInvoiceRepository()
-            ->getDocumentManager()
-            ->getFilterCollection()
-                ->disable('softdeleteable');
+        $filterCollection = $this->getInvoiceRepository()->getDocumentManager()->getFilterCollection();
+        $filterCollection->disable('softdeleteable');
 
         $invoice = $this->getInvoiceRepository()->find($invoiceId);
         $this->assertInstanceOf(Invoice::getClassName(), $invoice);
+
+        $filterCollection->enable('softdeleteable');
+    }
+
+    /**
+     * @param string $invoiceProductId
+     */
+    protected function assertInvoiceProductSoftDelete($invoiceProductId)
+    {
+        $invoiceProduct = $this->getInvoiceProductRepository()->find($invoiceProductId);
+        $this->assertNull($invoiceProduct);
+
+        $filterCollection = $this->getInvoiceProductRepository()->getDocumentManager()->getFilterCollection();
+
+        $filterCollection->disable('softdeleteable');
+
+        $invoiceProduct = $this->getInvoiceProductRepository()->find($invoiceProductId);
+        $this->assertInstanceOf(InvoiceProduct::getClassName(), $invoiceProduct);
+        $this->assertSame($invoiceProductId, $invoiceProduct->id);
+
+        $filterCollection->enable('softdeleteable');
     }
 
     /**

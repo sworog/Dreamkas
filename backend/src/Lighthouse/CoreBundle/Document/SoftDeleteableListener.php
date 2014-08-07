@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document;
 
+use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Lighthouse\CoreBundle\MongoDB\DocumentManager;
@@ -37,6 +38,8 @@ class SoftDeleteableListener
         $document = $eventArgs->getDocument();
         /* @var DocumentManager $dm */
         $dm = $eventArgs->getDocumentManager();
+        $uow = $dm->getUnitOfWork();
+
         $metadata = $dm->getClassMetadata(get_class($document));
 
         if ($metadata->softDeleteable && $document instanceof SoftDeleteableDocument) {
@@ -48,15 +51,26 @@ class SoftDeleteableListener
                 $newValue = $oldValue . sprintf(' (Удалено %s)', $document->getDeletedAt()->format('Y-m-d H:i:s'));
                 $this->accessor->setValue($document, $nameField, $newValue);
 
-                $uow = $eventArgs->getDocumentManager()->getUnitOfWork();
-                $uow->propertyChanged($document, $nameField, $oldValue, $newValue);
-                $uow->scheduleExtraUpdate(
-                    $document,
-                    array(
-                        $nameField => array($oldValue, $newValue)
-                    )
-                );
+                $this->schedulePropertyChange($uow, $document, $nameField, $oldValue, $newValue);
             }
         }
+    }
+
+    /**
+     * @param UnitOfWork $uow
+     * @param object $object
+     * @param string $field
+     * @param mixed $oldValue
+     * @param mixed $newValue
+     */
+    protected function schedulePropertyChange(UnitOfWork $uow, $object, $field, $oldValue, $newValue)
+    {
+        $uow->propertyChanged($object, $field, $oldValue, $newValue);
+        $uow->scheduleExtraUpdate(
+            $object,
+            array(
+                $field => array($oldValue, $newValue)
+            )
+        );
     }
 }
