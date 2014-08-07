@@ -31,7 +31,11 @@ define(function(require, exports, module) {
                     Modal_invoice = require('blocks/modal/modal_invoice/modal_invoice');
 
                 return new Modal_invoice({
-                    el: '#modal_invoiceAdd'
+                    el: '#modal_invoiceAdd',
+                    collections: {
+                        invoices: block.collections.invoices,
+                        suppliers: block.collections.suppliers
+                    }
                 });
             }
         }

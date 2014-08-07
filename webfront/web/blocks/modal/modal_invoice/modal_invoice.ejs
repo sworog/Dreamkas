@@ -1,7 +1,7 @@
 <% var InvoiceModel = require('models/invoice/invoice') %>
-<% var invoiceModel = invoiceModel || new InvoiceModel() %>
 <% var partials = {
     form_supplier: require('ejs!blocks/form/form_supplier/template.ejs'),
+    select_suppliers: require('ejs!blocks/select/select_suppliers/template.ejs'),
     invoiceProducts: require('ejs!blocks/form/form_invoiceProducts/invoiceProducts.ejs')
 } %>
 <% var helpers = {
@@ -9,8 +9,11 @@
     formatAmount: require('kit/formatAmount/formatAmount'),
     formatDate: require('kit/formatDate/formatDate')
 } %>
+<% var models = _.extend({
+    invoice: new InvoiceModel()
+}, models) %>
 
-<div id="<%- invoiceModel.id ? 'modal_invoiceEdit' : 'modal_invoiceAdd' %>"
+<div id="<%- models.invoice.id ? 'modal_invoiceEdit' : 'modal_invoiceAdd' %>"
      tabindex="-1"
      role="dialog"
      aria-labelledby="modal-default-label"
@@ -25,20 +28,20 @@
                    aria-hidden="true"
                    class="close pull-left fa fa-times"></a>
 
-                <button form="<%- invoiceModel.id ? 'form_invoiceEdit' : 'form_invoiceAdd' %>"
+                <button form="<%- models.invoice.id ? 'form_invoiceEdit' : 'form_invoiceAdd' %>"
                         type="submit"
                         class="btn btn-primary pull-right">
-                    <%- invoiceModel.id ? 'Сохранить' : 'Принять' %>
+                    <%- models.invoice.id ? 'Сохранить' : 'Принять' %>
                 </button>
 
                 <h4 class="modal-title">
-                    <%- invoiceModel.id ? 'Редактирование приёски товаров от поставщика' : 'Приёмка товаров от поставщика' %>
+                    <%- models.invoice.id ? 'Редактирование приёски товаров от поставщика' : 'Приёмка товаров от поставщика' %>
                 </h4>
 
                 <span class="clearfix"></span>
             </div>
             <div class="modal-body">
-                <form id="<%- invoiceModel.id ? 'form_invoiceEdit' : 'form_invoiceAdd' %>" class="form form_invoice">
+                <form id="<%- models.invoice.id ? 'form_invoiceEdit' : 'form_invoiceAdd' %>" class="form form_invoice">
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -49,7 +52,7 @@
                                     <input name="date"
                                            type="text"
                                            class="form-control datepicker-default inputDate"
-                                           value="<%- invoiceModel.get('date') ? helpers.formatDate(invoiceModel.get('date')) : '' %>">
+                                           value="<%- models.invoice.get('date') ? helpers.formatDate(models.invoice.get('date')) : '' %>">
                                 </div>
                             </div>
                         </div>
@@ -62,7 +65,7 @@
                                     <select class="form-control" name="store">
                                         <option value="" selected disabled>Выберите магазин</option>
                                         <% collections.stores.forEach(function(storeModel){ %>
-                                        <option <%- invoiceModel.get('store.id') === storeModel.id ? 'selected' : '' %>
+                                        <option <%- models.invoice.get('store.id') === storeModel.id ? 'selected' : '' %>
                                                 value="<%- storeModel.id %>"><%- storeModel.get('name') %>
                                         </option>
                                         <% }) %>
@@ -77,14 +80,12 @@
 
                                 <div class="row">
                                     <div class="col-md-10">
-                                        <select class="form-control" name="supplier">
-                                            <option value="" selected disabled>Выберите поставщика</option>
-                                            <% collections.suppliers.forEach(function(supplierModel){ %>
-                                            <option <%- invoiceModel.get('supplier.id') === supplierModel.id ? 'selected' : '' %>
-                                                    value="<%- supplierModel.id %>"><%- supplierModel.get('name') %>
-                                            </option>
-                                            <% }) %>
-                                        </select>
+                                        <%= partials.select_suppliers({
+                                            collections: {
+                                                suppliers: collections.suppliers
+                                            },
+                                            selected: models.invoice.get('supplier.id')
+                                        }) %>
                                     </div>
 
                                     <div class="col-md-2">
@@ -101,7 +102,7 @@
                             <input tabindex="5"
                                    type="checkbox"
                                    name="paid"
-                                   value="true" <%- invoiceModel.get('paid') ? 'checked' : '' %>/>
+                                   value="true" <%- models.invoice.get('paid') ? 'checked' : '' %>/>
                             <span class="checkbox__text">
                                 Оплачено
                             </span>

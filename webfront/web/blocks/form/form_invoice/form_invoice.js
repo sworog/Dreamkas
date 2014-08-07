@@ -19,16 +19,6 @@ define(function(require, exports, module) {
                 return new Form_invoiceProducts({
                     collection: block.model.get('products')
                 });
-            },
-            form_supplier: function(){
-                var block = this,
-
-                    Form_supplier = require('blocks/form/form_supplier/form_supplier'),
-                    form_supplier = new Form_supplier({
-                        el: block.$el.closest('.modal').find('.form_supplier')
-                    });
-
-
             }
         }
     });

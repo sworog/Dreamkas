@@ -42,7 +42,6 @@
                         </thead>
                         <tbody>
                             <% collections.invoices.forEach(function(invoice) { %>
-                                <% console.log(invoice) %>
                                 <tr data-invoice_id="<%- invoice.id %>" class="invoice__link">
                                     <td>
                                         <%- helpers.formatDate(invoice.get('date')) %>
@@ -70,6 +69,7 @@
 <!--MODALS-->
 <%= partials.modal_invoice({
     collections: {
+        invoices: collections.invoices,
         suppliers: collections.suppliers,
         stores: collections.stores
     }
