@@ -4,16 +4,12 @@ define(function(require) {
         normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
 
     return Model.extend({
-        urlRoot: function() {
-            return Model.baseApiUrl + '/stores/' + 'storeId' + '/invoices/products?validate=true';
-        },
         defaults: {
             product: null,
             priceEntered: null,
             quantity: 1
         },
         saveData: function() {
-
             return {
                 product: this.get('product.id'),
                 priceEntered: normalizeNumber(this.get('priceEntered')),

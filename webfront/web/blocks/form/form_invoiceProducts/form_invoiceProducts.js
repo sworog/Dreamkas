@@ -2,8 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Form = require('kit/form/form'),
         formatMoney = require('kit/formatMoney/formatMoney'),
-        normalizeNumber = require('kit/normalizeNumber/normalizeNumber'),
-        $ = require('jquery');
+        normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
 
     return Form.extend({
         el: '.form_invoiceProducts',
@@ -19,6 +18,15 @@ define(function(require, exports, module) {
 
                 block.renderTotalSum();
             },
+            'keyup [name="product.name"]': function(e){
+                var block = this;
+
+                if (e.currentTarget.value.length){
+                    block.el.querySelector('[name="product.id"]').value = 'xxx';
+                } else {
+                    block.el.querySelector('[name="product.id"]').value = null;
+                }
+            },
             'click .delInvoiceProduct': function(e){
                 var block = this,
                     modelCid = e.currentTarget.dataset.modelCid;
@@ -27,38 +35,69 @@ define(function(require, exports, module) {
             }
         },
 
-        collection: function(){
-            var block = this,
-                InvoiceProductCollection = require('collections/invoiceProducts/invoiceProducts'),
-                invoiceProductCollection = new InvoiceProductCollection();
+        initialize: function(){
+            var block = this;
 
-            invoiceProductCollection.on('add remove', function(){
+            Form.prototype.initialize.apply(block, arguments);
+
+            block.collection.on('add remove', function(){
                 block.renderInvoiceProducts();
             });
+        },
 
-            return invoiceProductCollection;
+        collection: function(){
+            var block = this,
+                InvoiceProductCollection = require('collections/invoiceProducts/invoiceProducts');
+
+            return new InvoiceProductCollection();
         },
 
         submit: function() {
-            return $.when();
-        },
-
-        submitSuccess: function() {
             var block = this;
 
-            block.collection.push(_.extend(block.formData, {
-                totalPrice: block.getTotalPrice()
-            }));
+            return block.collection.validateProduct(block.formData);
+        },
+
+        submitSuccess: function(invoice) {
+            var block = this;
+
+            block.collection.push(invoice.products[0]);
 
             block.clear();
-            block.el.querySelector('[name="productName"]').focus();
+            block.el.querySelector('[name="product.name"]').focus();
+        },
+
+        showErrors: function(error){
+            var block = this,
+                productErrors = error.errors.children.products.children[0].children;
+
+            var fields = [],
+                errorMessages = [];
+
+            _.forEach(productErrors, function(error, field){
+                if (error.errors){
+                    fields.push(field);
+                    errorMessages = _.union(errorMessages, error.errors);
+                }
+            });
+
+            block.showGlobalError(errorMessages);
+
+            _.forEach(fields, function(fieldName){
+
+                if (fieldName === 'product'){
+                    fieldName = 'product.name';
+                }
+
+                block.el.querySelector('[name="' + fieldName + '"]').classList.add('invalid');
+            });
         },
 
         clear: function(){
             var block = this;
 
-            block.$('input[type=text]').val('');
-            block.$('[name="productName"]').typeahead('val', '');
+            block.$('input').val('');
+            block.$('[name="product.name"]').typeahead('val', '');
             block.renderTotalSum();
         },
 
@@ -70,6 +109,8 @@ define(function(require, exports, module) {
 
                 autocomplete_products.$el.on('typeahead:selected', function(e, product){
                     block.el.querySelector('[name="priceEntered"]').focus();
+
+                    block.el.querySelector('[name="product.id"]').value = product.id;
 
                     block.renderPriceEntered(product);
                     block.renderQuantity(product);

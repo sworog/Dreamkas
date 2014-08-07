@@ -46,12 +46,6 @@ define(function(require, exports, module) {
                 return new Form_invoice({
                     el: '#form_invoiceAdd'
                 });
-            },
-            form_invoiceProducts: function(){
-                var block = this,
-                    Form_invoiceProducts = require('blocks/form/form_invoiceProducts/form_invoiceProducts');
-
-                return new Form_invoiceProducts();
             }
         }
     });

@@ -48,6 +48,9 @@ define(function(require) {
         initialize: function() {
             var block = this;
 
+            block.__model = block.model = block.get('model');
+            block.__collection = block.collection = block.get('collection');
+
             Block.prototype.initialize.apply(block, arguments);
 
             block.$el.closest('.modal').on('hidden.bs.modal', function() {
@@ -55,9 +58,6 @@ define(function(require) {
             });
 
             block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' + block.el.id + '"]');
-
-            block.__model = block.model = block.get('model');
-            block.__collection = block.collection = block.get('collection');
 
             block.redirectUrl = block.get('redirectUrl');
         },
@@ -131,11 +131,11 @@ define(function(require) {
                 });
             }
 
-            if (error.errors.errors.length) {
+            if (error.errors.errors && error.errors.errors.length) {
                 block.showGlobalError(error.errors.errors);
             }
         },
-        showGlobalError: function(errors){
+        showGlobalError: function(errorMessages){
             var block = this,
                 errorMessage,
                 $errorElement = block.$('.form__errorMessage_global');
@@ -144,7 +144,7 @@ define(function(require) {
                 $errorElement = $('<div class="form__errorMessage form__errorMessage_global"></div>').prependTo(block.el);
             }
 
-            errorMessage = errors.map(getText).join('. ');
+            errorMessage = errorMessages.map(getText).join('. ');
 
             $errorElement.addClass('form__errorMessage_visible');
             $errorElement.text(getText(errorMessage));

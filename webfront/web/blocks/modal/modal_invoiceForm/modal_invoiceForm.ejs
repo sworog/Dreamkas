@@ -45,14 +45,11 @@
 
                                 <label class="control-label">Дата *</label>
 
-                                <div class="input-group datetimepicker-default date">
+                                <div class="datetimepicker-default date">
                                     <input name="date"
                                            type="text"
                                            class="form-control datepicker-default inputDate"
                                            value="<%- invoiceModel.get('date') ? helpers.formatDate(invoiceModel.get('date')) : '' %>">
-                                    <span class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
-                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -130,9 +127,10 @@
 
                         <tr class="invoiceProductForm">
                             <td>
-                                <input name="productName"
+                                <input name="product.name"
                                        type="text"
                                        class="form-control autocomplete autocomplete_products">
+                                <input type="hidden" name="product.id" />
                             </td>
                             <td>
                                 <input name="priceEntered"
@@ -160,6 +158,7 @@
                         </tr>
                         </tfoot>
                     </table>
+                    <div class="form__errorMessage form__errorMessage_global"></div>
                 </form>
             </div>
         </div>
