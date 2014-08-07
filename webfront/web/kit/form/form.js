@@ -128,7 +128,7 @@ define(function(require) {
                 });
             }
 
-            if (error.errors.errors.length) {
+            if (error.errors.errors && error.errors.errors.length) {
                 block.showGlobalError(error.errors.errors);
             }
         },
