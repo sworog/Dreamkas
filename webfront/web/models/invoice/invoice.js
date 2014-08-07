@@ -7,18 +7,24 @@ define(function(require) {
     return Model.extend({
         storeId: null,
         fromOrder: null,
+        collections: {},
         urlRoot: function() {
             return Model.baseApiUrl + '/invoices'
         },
+        initialize: function(){
+            var model = this;
+
+            model.collections.products = new InvoiceProductsCollection(model.get('products'));
+
+        },
         defaults: {
-            paid: false,
-            products: new InvoiceProductsCollection()
+            paid: false
         },
         saveData: function() {
             return {
                 supplier: this.get('supplier'),
                 date: this.get('date'),
-                products: this.get('products').map(function(productModel) {
+                products: this.collections.products.map(function(productModel) {
                     return productModel.getData();
                 }),
                 paid: this.get('paid'),
@@ -33,10 +39,11 @@ define(function(require) {
             });
         },
         parse: function(data) {
-            var products = new InvoiceProductsCollection();
-            products.reset(data.products);
+            var model = this;
 
-            data.products = products;
+            model.collections.products = model.collections.products || new InvoiceProductsCollection();
+
+            model.collections.products.reset(data.products);
 
             return data;
         }

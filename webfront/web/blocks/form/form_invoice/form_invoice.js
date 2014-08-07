@@ -17,7 +17,7 @@ define(function(require, exports, module) {
                     Form_invoiceProducts = require('blocks/form/form_invoiceProducts/form_invoiceProducts');
 
                 return new Form_invoiceProducts({
-                    collection: block.model.get('products')
+                    collection: block.model.collections.products
                 });
             }
         }

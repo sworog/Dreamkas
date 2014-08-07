@@ -31,11 +31,6 @@ define(function(require, exports, module) {
                     });
 
                 form_invoice.on('submit:success', function(){
-
-                    block.$el.one('hidden.bs.modal', function(e) {
-                        PAGE.render();
-                    });
-
                     block.$el.modal('hide');
                 });
 
@@ -88,8 +83,6 @@ define(function(require, exports, module) {
         renderSupplierSelect: function(supplierModel){
             var block = this,
                 select_suppliers = require('ejs!blocks/select/select_suppliers/template.ejs');
-
-            console.log(block.collections.suppliers);
 
             block.$('.select_suppliers').replaceWith(select_suppliers({
                 selected: supplierModel.id,
