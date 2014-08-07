@@ -1332,6 +1332,30 @@ class InvoiceProductControllerTest extends WebTestCase
         $this->assertProduct($productId, array('name' => 'Кефир 5%', 'sku' => '10001'));
     }
 
+    public function testProductVersionFields()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct(array('name' => 'Кефир 1%', 'units' => 'л'));
+        $invoice = $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id)
+                ->createInvoiceProduct($productId, 10, 10.12)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stores/' . $store->id . '/invoices/' . $invoice->id
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathEquals('л', 'products.0.product.units', $response);
+        Assert::assertJsonPathEquals('л', 'products.0.product.object.units', $response);
+    }
+
     public function testTwoProductVersionsInInvoice()
     {
         $store = $this->factory()->store()->getStore();
