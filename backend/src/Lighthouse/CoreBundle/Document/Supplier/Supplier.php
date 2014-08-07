@@ -3,9 +3,9 @@
 namespace Lighthouse\CoreBundle\Document\Supplier;
 
 use Doctrine\Common\Collections\Collection;
-use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\BankAccount\BankAccount;
 use Lighthouse\CoreBundle\Document\File\File;
 use Lighthouse\CoreBundle\Document\LegalDetails\LegalDetails;
@@ -15,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @property string $id
  * @property string $name
+ * @property string $address
  * @property string $phone
  * @property string $fax
  * @property string $email
@@ -46,6 +47,13 @@ class Supplier extends AbstractDocument implements Organizationable
      * @var string
      */
     protected $name;
+
+    /**
+     * @MongoDB\String
+     * @Assert\Length(max=300, maxMessage="lighthouse.validation.errors.length")
+     * @var string
+     */
+    protected $address;
 
     /**
      * @MongoDB\String

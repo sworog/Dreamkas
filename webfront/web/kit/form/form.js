@@ -127,6 +127,25 @@ define(function(require) {
                     block.showFieldError(data, field);
                 });
             }
+
+            if (error.errors.errors && error.errors.errors.length) {
+                block.showGlobalError(error.errors.errors);
+            }
+        },
+        showGlobalError: function(errors){
+            var block = this,
+                errorMessage,
+                $errorElement = block.$('.form__errorMessage_global');
+
+            if ($errorElement.length === 0){
+                $errorElement = $('<div class="form__errorMessage form__errorMessage_global"></div>').prependTo(block.el);
+            }
+
+            errorMessage = errors.map(getText).join('. ');
+
+            $errorElement.addClass('form__errorMessage_visible');
+            $errorElement.text(getText(errorMessage));
+
         },
         removeErrors: function() {
             var block = this;
