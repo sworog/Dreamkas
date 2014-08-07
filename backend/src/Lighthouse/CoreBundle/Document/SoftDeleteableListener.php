@@ -5,12 +5,30 @@ namespace Lighthouse\CoreBundle\Document;
 use JMS\DiExtraBundle\Annotation as DI;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Lighthouse\CoreBundle\MongoDB\DocumentManager;
+use Symfony\Component\PropertyAccess\PropertyAccessorInterface;
 
 /**
+ * @DI\Service("lighthouse.core.document.softdeleteable.listener")
  * @DI\DoctrineMongoDBListener(events={"postSoftDelete"})
  */
 class SoftDeleteableListener
 {
+    /**
+     * @var PropertyAccessorInterface
+     */
+    protected $accessor;
+
+    /**
+     * @DI\InjectParams({
+     *      "accessor" = @DI\Inject("property_accessor")
+     * })
+     * @param PropertyAccessorInterface $accessor
+     */
+    public function __construct(PropertyAccessorInterface $accessor)
+    {
+        $this->accessor = $accessor;
+    }
+
     /**
      * @param LifecycleEventArgs $eventArgs
      */
@@ -21,19 +39,24 @@ class SoftDeleteableListener
         $dm = $eventArgs->getDocumentManager();
         $metadata = $dm->getClassMetadata(get_class($document));
 
-        if ($metadata->softDeleteable) {
+        if ($metadata->softDeleteable && $document instanceof SoftDeleteableDocument) {
 
-            $oldValue = $document->name;
-            $document->name .= sprintf(' (Удалено %s)', $document->deletedAt->format('Y-m-d H:i:s'));
+            $nameField = $document->getSoftDeleteableName();
 
-            $uow = $eventArgs->getDocumentManager()->getUnitOfWork();
-            $uow->propertyChanged($document, 'name', $oldValue, $document->name);
-            $uow->scheduleExtraUpdate(
-                $document,
-                array(
-                    'name' => array($oldValue, $document->name)
-                )
-            );
+            if (null !== $nameField) {
+                $oldValue = $this->accessor->getValue($document, $nameField);
+                $newValue = $oldValue . sprintf(' (Удалено %s)', $document->getDeletedAt()->format('Y-m-d H:i:s'));
+                $this->accessor->setValue($document, $nameField, $newValue);
+
+                $uow = $eventArgs->getDocumentManager()->getUnitOfWork();
+                $uow->propertyChanged($document, $nameField, $oldValue, $newValue);
+                $uow->scheduleExtraUpdate(
+                    $document,
+                    array(
+                        $nameField => array($oldValue, $newValue)
+                    )
+                );
+            }
         }
     }
 }
