@@ -101,6 +101,18 @@ class InvoiceController extends AbstractRestController
     }
 
     /**
+     * @param Invoice $invoice
+     * @return void
+     *
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function deleteInvoiceAction(Invoice $invoice)
+    {
+        $this->processDelete($invoice);
+    }
+
+    /**
      * @param Store $store
      * @param Request $request
      * @return FormInterface|Invoice

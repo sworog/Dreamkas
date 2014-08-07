@@ -6,6 +6,7 @@ use Doctrine\Bundle\MongoDBBundle\Validator\Constraints as AssertMongoDB;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\ODM\MongoDB\PersistentCollection;
+use Lighthouse\CoreBundle\Document\SoftDeleteableDocument;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
@@ -14,7 +15,9 @@ use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as AssertLH;
+use Gedmo\Mapping\Annotation\SoftDeleteable;
 use JMS\Serializer\Annotation as Serializer;
+use DateTime;
 
 /**
  * @property Supplier   $supplier
@@ -31,8 +34,9 @@ use JMS\Serializer\Annotation as Serializer;
  *
  * @MongoDB\Document(repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository")
  * @AssertMongoDB\Unique(message="lighthouse.validation.errors.invoice.order.unique", fields={"order"})
+ * @SoftDeleteable
  */
-class Invoice extends StockMovement
+class Invoice extends StockMovement implements SoftDeleteableDocument
 {
     const TYPE = 'Invoice';
 
@@ -136,6 +140,28 @@ class Invoice extends StockMovement
      * @var InvoiceProduct[]|Collection
      */
     protected $products;
+
+    /**
+     * @MongoDB\Date
+     * @var DateTime
+     */
+    protected $deletedAt;
+
+    /**
+     * @return DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSoftDeleteableName()
+    {
+        return null;
+    }
 
     /**
      * @param Order $order
