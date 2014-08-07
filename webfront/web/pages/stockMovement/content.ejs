@@ -1,5 +1,5 @@
 <% var partials = {
-    modal_invoiceForm: require('ejs!blocks/modal/modal_invoiceForm/modal_invoiceForm.ejs')
+    modal_invoice: require('ejs!blocks/modal/modal_invoice/modal_invoice.ejs')
 }; %>
 
 <% var helpers = {
@@ -11,7 +11,7 @@
 <div class="page-title-breadcrumb">
 
     <div class="pull-right">
-        <span data-target="#modal-invoiceAdd"
+        <span data-target="#modal_invoiceAdd"
               data-toggle="modal"
               role="button"
               class="btn btn-primary btn-md">Принять от поставщика</span>
@@ -68,20 +68,10 @@
 <!--END CONTENT-->
 
 <!--MODALS-->
-<%= partials.modal_invoiceForm({
+<%= partials.modal_invoice({
     collections: {
         suppliers: collections.suppliers,
         stores: collections.stores
     }
 }) %>
-
-<% if (models.invoice) { %>
-    <%= partials.modal_invoiceForm({
-        collections: {
-            suppliers: collections.suppliers,
-            stores: collections.stores
-        },
-        invoiceModel: models.invoice
-    }) %>
-<% } %>
 <!--END MODALS-->

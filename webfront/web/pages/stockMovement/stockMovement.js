@@ -25,26 +25,13 @@ define(function(require, exports, module) {
         models: {
             invoice: null
         },
-        events: {
-            'click .invoice__link': function(event) {
-                var page = this,
-                    invoiceId = event.currentTarget.dataset.invoice_id;
-
-                if (!page.models.invoice || page.models.invoice.id !== invoiceId){
-                    page.models.invoice = page.collections.invoices.get(invoiceId);
-                    page.render();
-                }
-
-                $('#modal-invoiceEdit').modal('show');
-            }
-        },
         blocks: {
-            form_invoiceAdd: function(){
+            modal_invoiceAdd: function(){
                 var block = this,
-                    Form_invoice = require('blocks/form/form_invoice/form_invoice');
+                    Modal_invoice = require('blocks/modal/modal_invoice/modal_invoice');
 
-                return new Form_invoice({
-                    el: '#form_invoiceAdd'
+                return new Modal_invoice({
+                    el: '#modal_invoiceAdd'
                 });
             }
         }
