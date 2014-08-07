@@ -5,6 +5,7 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
+import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.supplier.SupplierCollection;
 import project.lighthouse.autotests.pages.supplier.SupplierListPage;
@@ -53,11 +54,13 @@ public class SupplierSteps extends ScenarioSteps {
     @Step
     public void supplierCreateModalPageConfirmButtonClick() {
         supplierCreateModalPage.confirmationOkClick();
+        new SimplePreloader(getDriver()).await();
     }
 
     @Step
     public void supplierEditModalPageConfirmButtonClick() {
         supplierEditModalPage.confirmationOkClick();
+        new SimplePreloader(getDriver()).await();
     }
 
     @Step
