@@ -2,11 +2,18 @@ define(function(require, exports, module) {
     //requirements
     var config = require('config'),
         get = require('kit/get/get'),
-        _ = require('lodash');
-
-    require('backbone');
+        _ = require('lodash'),
+        Backbone = require('backbone');
 
     var Model = Backbone.Model.extend({
+        constructor: function(attributes, options){
+
+            options = _.extend({
+                parse: true
+            }, options);
+
+            Backbone.Model.call(this, attributes, options);
+        },
         toJSON: function(options) {
             options = options || {};
 
@@ -43,7 +50,7 @@ define(function(require, exports, module) {
         get: function(path) {
             return get(this, 'attributes.' + path);
         },
-        element: function(attr){
+        element: function(attr) {
             var model = this,
                 uniqueId = _.uniqueId('modelElement'),
                 nodeTemplate = '<span id="' + uniqueId + '">' + (_.escape(model.get(attr)) || '') + '</span>';
@@ -53,6 +60,33 @@ define(function(require, exports, module) {
             });
 
             return nodeTemplate;
+        },
+        parse: function(data) {
+            var model = this;
+
+            _.forEach(model.collections, function(collection, key) {
+
+                if (typeof collection === 'function'){
+                    model.collections[key] = collection.call(model);
+                }
+
+                if (model.collections[key] instanceof Backbone.Collection){
+                    model.collections[key].reset(data[key]);
+                }
+            });
+
+            _.forEach(model.models, function(model, key) {
+
+                if (typeof model === 'function'){
+                    model.models[key] = model.call(model);
+                }
+
+                if (model.models[key] instanceof Backbone.Collection){
+                    model.models[key].reset(data[key]);
+                }
+            });
+
+            return data;
         }
     }).extend();
 

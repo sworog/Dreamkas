@@ -8,7 +8,7 @@ define(function(require, exports, module) {
             var block = this,
                 InvoiceModel = require('models/invoice/invoice');
 
-            return new InvoiceModel();
+            return new InvoiceModel({});
         },
         blocks: {
             inputDate: require('blocks/inputDate/inputDate'),

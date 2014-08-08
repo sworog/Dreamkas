@@ -26,6 +26,11 @@ define(function(require, exports, module) {
                 return new StockMovementsCollection({
                     filterTypes: this.params.filterTypes
                 });
+            },
+            groups: function(){
+                var GroupsCollection = require('collections/groups/groups');
+
+                return new GroupsCollection();
             }
         },
         models: {

@@ -156,37 +156,6 @@ define(function(require, exports, module) {
                 });
 
                 return form_product;
-            },
-            select_group: function() {
-                var page = this;
-
-                $('.select_group').select2({
-                    minimumInputLength: 1,
-                    matcher: function (term, text, option) {
-                        if (option.attr('add-option') !== undefined && term != '') {
-                            return true;
-                        }
-
-                        return text.toUpperCase().indexOf(term.toUpperCase())>=0;
-                    },
-                    formatResult: function(item, container, query) {
-                        item.newGroupName = '';
-                        if ($(item.element[0]).attr('add-option') !== undefined) {
-                            item.newGroupName = query.term;
-                        }
-                        return item.text + item.newGroupName;
-                    },
-                    formatSelection: function(item, container) {
-                        page.$('[name="newGroupName"]').val(item.newGroupName || '');
-                        return item.text + (item.newGroupName || '');
-                    }
-                });
-
-                return {
-                    remove: function() {
-                        $('.select_group').select2('destroy').remove();
-                    }
-                };
             }
         },
         render: function(){

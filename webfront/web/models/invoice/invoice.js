@@ -1,21 +1,21 @@
 define(function(require) {
     //requirements
     var Model = require('kit/model/model'),
-        cookies = require('cookies'),
-        InvoiceProductsCollection = require('collections/invoiceProducts/invoiceProducts');
+        cookies = require('cookies');
 
     return Model.extend({
         storeId: null,
         fromOrder: null,
-        collections: {},
+        collections: {
+            products: function() {
+                var model = this,
+                    InvoiceProductsCollection = require('collections/invoiceProducts/invoiceProducts');
+
+                return new InvoiceProductsCollection();
+            }
+        },
         urlRoot: function() {
             return Model.baseApiUrl + '/invoices'
-        },
-        initialize: function(){
-            var model = this;
-
-            model.collections.products = new InvoiceProductsCollection(model.get('products'));
-
         },
         defaults: {
             paid: false
@@ -37,15 +37,6 @@ define(function(require) {
             return model.save(null, {
                 url: this.url() + '?validate=1&validationGroups=products'
             });
-        },
-        parse: function(data) {
-            var model = this;
-
-            model.collections.products = model.collections.products || new InvoiceProductsCollection();
-
-            model.collections.products.reset(data.products);
-
-            return data;
         }
     });
 });

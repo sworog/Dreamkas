@@ -1,7 +1,8 @@
 define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block'),
-        SupplierModel = require('models/supplier/supplier');
+        SupplierModel = require('models/supplier/supplier'),
+        ProductModel = require('models/product/product');
 
     return Block.extend({
         el: '.modal_invoice',
@@ -14,6 +15,11 @@ define(function(require, exports, module) {
                 var block = this;
 
                 block.showSupplierModal();
+            },
+            'click .addProductLink': function() {
+                var block = this;
+
+                block.showProductModal();
             },
             'click .invoiceModalLink': function() {
                 var block = this;
@@ -51,6 +57,21 @@ define(function(require, exports, module) {
                 });
 
                 return form_supplier;
+            },
+            form_product: function() {
+                var block = this,
+                    Form_product = require('blocks/form/form_product/form_product'),
+                    form_product = new Form_product({
+                        el: block.$('.form_product')
+                    });
+
+                form_product.on('submit:success', function(){
+                    block.showInvoiceModal();
+                    form_product.model = new ProductModel();
+                    form_product.clear();
+                });
+
+                return form_product;
             }
         },
         initialize: function(){
@@ -76,6 +97,14 @@ define(function(require, exports, module) {
             var block = this;
 
             block.$('.modal__dialog_invoice')
+                .removeClass('modal__dialog_hidden')
+                .siblings('.modal-dialog')
+                .addClass('modal__dialog_hidden');
+        },
+        showProductModal: function() {
+            var block = this;
+
+            block.$('.modal__dialog_product')
                 .removeClass('modal__dialog_hidden')
                 .siblings('.modal-dialog')
                 .addClass('modal__dialog_hidden');

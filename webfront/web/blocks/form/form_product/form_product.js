@@ -12,6 +12,16 @@ define(function(require) {
 
                 return new ProductModel();
             },
+            blocks: {
+                select_group: function() {
+                    var block = this,
+                        Select_group = require('blocks/select/select_group/select_group');
+
+                    return new Select_group({
+                        el: block.$('.select_group')
+                    });
+                }
+            },
             events: {
                 'keyup [name="purchasePrice"]': function(e){
                     var block = this;

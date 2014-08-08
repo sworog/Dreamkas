@@ -1,8 +1,10 @@
 <% var InvoiceModel = require('models/invoice/invoice') %>
+<% var GroupsCollection = require('collections/groups/groups') %>
 <% var partials = {
     form_supplier: require('ejs!blocks/form/form_supplier/template.ejs'),
     select_suppliers: require('ejs!blocks/select/select_suppliers/template.ejs'),
-    invoiceProducts: require('ejs!blocks/form/form_invoiceProducts/invoiceProducts.ejs')
+    invoiceProducts: require('ejs!blocks/form/form_invoiceProducts/invoiceProducts.ejs'),
+    form_product: require('ejs!blocks/form/form_product/form_product.ejs')
 } %>
 <% var helpers = {
     formatMoney: require('kit/formatMoney/formatMoney'),
@@ -12,6 +14,9 @@
 <% var models = _.extend({
     invoice: new InvoiceModel()
 }, models) %>
+<% var collections = _.extend({
+    groups: new GroupsCollection()
+}, collections) %>
 
 <div id="<%- models.invoice.id ? 'modal_invoiceEdit' : 'modal_invoiceAdd' %>"
      tabindex="-1"
@@ -133,10 +138,18 @@
 
                         <tr class="invoiceProductForm">
                             <td>
-                                <input name="product.name"
-                                       type="text"
-                                       class="form-control autocomplete autocomplete_products">
-                                <input type="hidden" name="product.id" />
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <input name="product.name"
+                                               type="text"
+                                               class="form-control autocomplete autocomplete_products">
+                                        <input type="hidden" name="product.id" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a style="font-size: 20px; position: relative; top: 10px; left: -10px; cursor: pointer;"
+                                           class="addProductLink fa fa-plus"></a>
+                                    </div>
+                                </div>
                             </td>
                             <td>
                                 <input name="priceEntered"
@@ -190,6 +203,31 @@
             <div class="modal-body">
 
                 <%= partials.form_supplier() %>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-dialog modal__dialog_product modal__dialog_hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="modal__backLink invoiceModalLink fa fa-long-arrow-left" style="font-size: 25px; margin-right: 10px;"></a>
+
+                <button form="form_supplierAdd"
+                        type="submit"
+                        class="btn btn-primary pull-right">
+                    Добавить
+                </button>
+
+                <h4 class="modal-title">
+                    Добавление продукта
+                </h4>
+
+                <span class="clearfix"></span>
+            </div>
+            <div class="modal-body">
+
+                <%= partials.form_product() %>
 
             </div>
         </div>

@@ -102,12 +102,6 @@ define(function(require, exports, module) {
             page.stopListening();
         },
 
-        throw: function(error){
-            new Error({
-                jsError: error
-            });
-        },
-
         setStatus: function(status){
             var page = this;
 
