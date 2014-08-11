@@ -62,7 +62,7 @@ class InvoiceController extends AbstractRestController
      *
      * @Rest\View(statusCode=201, serializerEnableMaxDepthChecks=true)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc
+     * @ApiDoc(resource=true)
      */
     public function postInvoicesAction(Request $request)
     {

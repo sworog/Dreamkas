@@ -947,14 +947,6 @@ class WriteOffControllerTest extends WebTestCase
                 200,
                 true
             ),
-            /* TODO uncomment when delete is done
-            'DELETE' => array(
-                'DELETE',
-                '/api/1/stores/{store}/writeoffs/{writeOff}',
-                204,
-                false
-            ),
-            */
         );
     }
 

@@ -106,18 +106,6 @@ class WriteOffController extends AbstractRestController
     }
 
     /**
-     * @param Store $store
-     * @param WriteOff $writeOff
-     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
-     * @ApiDoc
-     */
-    public function deleteStoreWriteoffsAction(Store $store, WriteOff $writeOff)
-    {
-        $this->checkWriteOffStore($store, $writeOff);
-        $this->processDelete($writeOff);
-    }
-
-    /**
      * @param WriteOff $writeOff
      * @return WriteOff
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
