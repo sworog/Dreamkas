@@ -41,7 +41,7 @@ class WriteOffController extends AbstractRestController
      * @param Request $request
      * @return FormInterface|WriteOff
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc
+     * @ApiDoc(resource=true)
      */
     public function postWriteoffsAction(Request $request)
     {
