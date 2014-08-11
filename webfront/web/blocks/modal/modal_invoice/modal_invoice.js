@@ -66,6 +66,7 @@ define(function(require, exports, module) {
                     });
 
                 form_product.on('submit:success', function(){
+                    block.blocks.form_invoice.blocks.form_invoiceProducts.renderSelectedProduct(form_product.model.toJSON());
                     block.showInvoiceModal();
                     form_product.model = new ProductModel();
                     form_product.clear();

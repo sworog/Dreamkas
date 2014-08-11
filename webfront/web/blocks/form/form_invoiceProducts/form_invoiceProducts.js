@@ -108,13 +108,7 @@ define(function(require, exports, module) {
                     autocomplete_products = new Autocomplete_products();
 
                 autocomplete_products.$el.on('typeahead:selected', function(e, product){
-                    block.el.querySelector('[name="priceEntered"]').focus();
-
-                    block.el.querySelector('[name="product.id"]').value = product.id;
-
-                    block.renderPriceEntered(product);
-                    block.renderQuantity(product);
-                    block.renderTotalSum();
+                    block.renderSelectedProduct(product);
                 });
             }
         },
@@ -128,18 +122,21 @@ define(function(require, exports, module) {
             return typeof totalPrice === 'number' ? totalPrice : null;
         },
 
-        renderPriceEntered: function(product) {
+        renderSelectedProduct: function(product){
             var block = this;
+
+            block.el.querySelector('[name="priceEntered"]').focus();
+            block.el.querySelector('[name="product.id"]').value = product.id;
+            block.el.querySelector('[name="product.name"]').value = product.name;
 
             if (product.purchasePrice){
                 block.el.querySelector('[name="priceEntered"]').value = formatMoney(product.purchasePrice);
             }
-        },
-        renderQuantity: function(product) {
-            var block = this;
 
             block.el.querySelector('[name="quantity"]').value = '1';
             block.$('.invoiceProductForm .product__units').html(product.units || 'шт.');
+
+            block.renderTotalSum();
         },
         renderTotalSum: function(){
             var block = this,
