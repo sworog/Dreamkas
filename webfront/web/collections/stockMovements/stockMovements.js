@@ -18,8 +18,6 @@ define(function(require) {
                     return value && value.length;
                 });
 
-            console.log(query);
-
             return uri(Collection.baseApiUrl + '/stockMovements').query(query);
         },
         parse: function(data) {

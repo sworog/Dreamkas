@@ -73,17 +73,17 @@
                         </thead>
                         <tbody>
                         <% collections.stockMovements.forEach(function(stockMovementModel) { %>
-                        <tr data-invoice_id="<%- stockMovementModel.id %>" class="invoice__link">
-                            <td>
+                        <tr data-invoice-number="<%- stockMovementModel.get('number') %>" data-invoice_id="<%- stockMovementModel.id %>" class="invoice__link">
+                            <td name="date">
                                 <%- helpers.formatDate(stockMovementModel.get('date')) %>
                             </td>
-                            <td>
+                            <td name="type">
                                 Приёмка
                             </td>
-                            <td>
-                                <%- stockMovementModel.get('store.number') %>
+                            <td name="store">
+                                <%- stockMovementModel.get('store.name') %>
                             </td>
-                            <td>
+                            <td name="sumTotal">
                                 <%- helpers.formatMoney(stockMovementModel.get('sumTotal')) %>
                             </td>
                         </tr>
