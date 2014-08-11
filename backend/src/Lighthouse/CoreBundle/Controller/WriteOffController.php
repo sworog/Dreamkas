@@ -97,8 +97,31 @@ class WriteOffController extends AbstractRestController
 
     /**
      * @param WriteOff $writeOff
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function deleteWriteoffsAction(WriteOff $writeOff)
+    {
+        $this->processDelete($writeOff);
+    }
+
+    /**
+     * @param Store $store
+     * @param WriteOff $writeOff
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @ApiDoc
+     */
+    public function deleteStoreWriteoffsAction(Store $store, WriteOff $writeOff)
+    {
+        $this->checkWriteOffStore($store, $writeOff);
+        $this->processDelete($writeOff);
+    }
+
+    /**
+     * @param WriteOff $writeOff
      * @return WriteOff
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc
      */
     public function getWriteoffAction(WriteOff $writeOff)
@@ -111,6 +134,7 @@ class WriteOffController extends AbstractRestController
      * @param WriteOff $writeOff
      * @return WriteOff
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc
      */
     public function getStoreWriteoffAction(Store $store, WriteOff $writeOff)

@@ -2,13 +2,13 @@
 
 namespace Lighthouse\CoreBundle\Document\StockMovement\WriteOff;
 
-
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProduct;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Symfony\Component\Validator\Constraints as Assert;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * @property string $number
@@ -38,6 +38,7 @@ class WriteOff extends StockMovement
      *      min=1,
      *      minMessage="lighthouse.validation.errors.writeoff.products.empty"
      * )
+     * @Serializer\MaxDepth(4)
      * @var WriteOffProduct[]|Collection
      */
     protected $products;
