@@ -34,8 +34,8 @@ class MetaDocumentTest extends WebTestCase
         $invoice = $this->factory()
             ->invoice()
                 ->createInvoice(array(), $store->id)
-                ->createInvoiceProduct($productId1, 10, 12.80, $store->id)
-                ->createInvoiceProduct($productId2, 15, 18.70, $store->id)
+                ->createInvoiceProduct($productId1, 10, 12.80)
+                ->createInvoiceProduct($productId2, 15, 18.70)
             ->flush();
 
         $metaDocument = new MetaDocument($invoice);
@@ -45,20 +45,22 @@ class MetaDocumentTest extends WebTestCase
         Assert::assertJsonHasPath('_meta', $json);
         Assert::assertJsonHasPath('products', $json);
         Assert::assertJsonPathCount(2, 'products.*.id', $json);
-        Assert::assertJsonPathEquals($invoice->products[0]->id, 'products.*.id', $json, 1);
-        Assert::assertJsonPathEquals($invoice->products[1]->id, 'products.*.id', $json, 1);
+        Assert::assertJsonPathEquals($invoice->products[0]->id, 'products.0.id', $json, 1);
+        Assert::assertJsonPathEquals($invoice->products[1]->id, 'products.1.id', $json, 1);
     }
 
     public function testWriteOffProductsReferenceManyIsSerialized()
     {
         $productId1 = $this->createProduct('1');
         $productId2 = $this->createProduct('2');
-        $storeId = $this->factory()->store()->getStoreId();
-        $writeOffId = $this->createWriteOff('431-789', null, $storeId);
-        $writeOffProductId1 = $this->createWriteOffProduct($writeOffId, $productId1, 10, 12.8, '*', $storeId);
-        $writeOffProductId2 = $this->createWriteOffProduct($writeOffId, $productId2, 5, 18.7, '**', $storeId);
+        $store = $this->factory()->store()->getStore();
 
-        $writeOff = $this->getWriteOffRepository()->find($writeOffId);
+        $writeOff = $this->factory()
+            ->writeOff()
+                ->createWriteOff($store)
+                ->createWriteOffProduct($productId1, 10, 12.8, '*')
+                ->createWriteOffProduct($productId2, 5, 18.7, '**')
+            ->flush();
 
         $metaDocument = new MetaDocument($writeOff);
         $serializer = $this->getSerializer();
@@ -67,7 +69,7 @@ class MetaDocumentTest extends WebTestCase
         Assert::assertJsonHasPath('_meta', $json);
         Assert::assertJsonHasPath('products', $json);
         Assert::assertJsonPathCount(2, 'products.*.id', $json);
-        Assert::assertJsonPathEquals($writeOffProductId1, 'products.*.id', $json, 1);
-        Assert::assertJsonPathEquals($writeOffProductId2, 'products.*.id', $json, 1);
+        Assert::assertJsonPathEquals($writeOff->products[0]->id, 'products.0.id', $json, 1);
+        Assert::assertJsonPathEquals($writeOff->products[1]->id, 'products.1.id', $json, 1);
     }
 }
