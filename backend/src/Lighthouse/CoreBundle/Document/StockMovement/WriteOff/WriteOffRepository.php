@@ -5,11 +5,13 @@ namespace Lighthouse\CoreBundle\Document\StockMovement\WriteOff;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Doctrine\ODM\MongoDB\LockMode;
 use Doctrine\ODM\MongoDB\Cursor;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementRepository;
 
 /**
  * @method WriteOff find($id, $lockMode = LockMode::NONE, $lockVersion = null)
+ * @method WriteOff createNew()
  */
-class WriteOffRepository extends DocumentRepository
+class WriteOffRepository extends StockMovementRepository
 {
     /**
      * @param $storeId

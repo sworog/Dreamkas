@@ -773,13 +773,6 @@ class UserControllerTest extends WebTestCase
                         'GET',
                         'POST'
                     ),
-                    'stores/{store}/writeoffs/{writeOff}/products.*' => array(
-                        'GET::{writeOffProduct}',
-                        'PUT::{writeOffProduct}',
-                        'DELETE::{writeOffProduct}',
-                        'GET',
-                        'POST'
-                    ),
                     'users.*' => array(
                         'GET::current',
                         'GET::permissions',
@@ -823,7 +816,6 @@ class UserControllerTest extends WebTestCase
                     ),
                     'stores/{store}/invoices.*' => array(),
                     'stores/{store}/writeoffs.*' => array(),
-                    'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
                     'users.*' => array(
                         'GET::current',
                         'GET::permissions',
@@ -856,7 +848,6 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/subcategories/{subCategory}.*' => array(),
                     'stores/{store}/invoices.*' => array(),
                     'stores/{store}/writeoffs.*' => array(),
-                    'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
                     'users.*' => array(
                         'GET::current',
                         'GET::permissions',
@@ -889,7 +880,6 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/subcategories/{subCategory}.*' => array(),
                     'stores/{store}/invoices.*' => array(),
                     'stores/{store}/writeoffs.*' => array(),
-                    'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
                     'users.*' => array(
                         'GET::current',
                         'GET::permissions',

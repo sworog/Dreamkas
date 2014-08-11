@@ -1,5 +1,6 @@
 <% var partials = {
-    modal_invoice: require('ejs!blocks/modal/modal_invoice/modal_invoice.ejs')
+    modal_invoice: require('ejs!blocks/modal/modal_invoice/modal_invoice.ejs'),
+    modal_writeOff: require('ejs!blocks/modal/modal_writeOff/modal_writeOff.ejs')
 }; %>
 <% var helpers = {
     formatMoney: require('kit/formatMoney/formatMoney'),
@@ -14,6 +15,10 @@
               data-toggle="modal"
               role="button"
               class="btn btn-primary btn-md">Принять от поставщика</span>
+        <span data-target="#modal_writeOffAdd"
+              data-toggle="modal"
+              role="button"
+              class="btn btn-primary btn-md">Списать</span>
     </div>
 
     <div class="page-header pull-left">
@@ -114,6 +119,12 @@
     collections: {
         invoices: collections.stockMovements,
         suppliers: collections.suppliers,
+        stores: collections.stores
+    }
+}) %>
+
+<%= partials.modal_writeOff({
+    collections: {
         stores: collections.stores
     }
 }) %>

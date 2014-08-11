@@ -83,7 +83,7 @@ class InvoiceController extends AbstractRestController
     public function putInvoicesAction(Invoice $invoice, Request $request)
     {
         $formType = new InvoiceType(true);
-        $this->documentRepository->resetInvoiceProducts($invoice);
+        $this->documentRepository->resetProducts($invoice);
         return $this->processForm($request, $invoice, $formType);
     }
 
@@ -141,7 +141,7 @@ class InvoiceController extends AbstractRestController
     public function putStoreInvoicesAction(Store $store, Invoice $invoice, Request $request)
     {
         $this->checkInvoiceStore($store, $invoice);
-        $this->documentRepository->resetInvoiceProducts($invoice);
+        $this->documentRepository->resetProducts($invoice);
         return $this->processForm($request, $invoice);
     }
 

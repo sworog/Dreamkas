@@ -115,7 +115,7 @@ define(function(require, exports, module) {
                     }
                 });
             },
-            modal_invoiceEdit: function(){
+            modal_invoiceEdit: function() {
                 var block = this,
                     Modal_invoice = require('blocks/modal/modal_invoice/modal_invoice');
 
@@ -131,6 +131,17 @@ define(function(require, exports, module) {
                         }
                     });
                 }
+            },
+            modal_writeOffAdd: function(){
+                var block = this,
+                    Modal_writeOff = require('blocks/modal/modal_writeOff/modal_writeOff');
+
+                return new Modal_writeOff({
+                    el: '#modal_writeOffAdd',
+                    collections: {
+                        stockMovements: block.collections.stockMovements
+                    }
+                });
             }
         }
     });
