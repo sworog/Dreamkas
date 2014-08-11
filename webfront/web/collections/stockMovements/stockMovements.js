@@ -1,7 +1,8 @@
 define(function(require) {
     //requirements
     var Collection = require('kit/collection/collection'),
-        InvoiceModel = require('models/invoice/invoice');
+        InvoiceModel = require('models/invoice/invoice'),
+        WriteOffModel = require('models/writeOff/writeOff');
 
     return Collection.extend({
         filterTypes: '',
@@ -18,6 +19,10 @@ define(function(require) {
                 switch (item.type) {
                     case "Invoice":
                         collection.add(new InvoiceModel(item));
+                        break;
+
+                    case "WriteOff":
+                        collection.add(new WriteOffModel(item));
                         break;
                 }
             });
