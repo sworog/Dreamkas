@@ -10,16 +10,8 @@ define(function(require, exports, module) {
             filterTypes: ''
         },
         collections: {
-            suppliers: function(){
-                var SuppliersCollection = require('collections/suppliers/suppliers');
-
-                return new SuppliersCollection();
-            },
-            stores: function(){
-                var StoresCollection = require('collections/stores/stores');
-
-                return new StoresCollection();
-            },
+            suppliers: require('collections/suppliers/suppliers'),
+            stores: require('collections/stores/stores'),
             stockMovements: function(){
                 var page = this,
                     StockMovementsCollection = require('collections/stockMovements/stockMovements');
@@ -30,11 +22,7 @@ define(function(require, exports, module) {
                     dateTo: page.params.dateTo
                 });
             },
-            groups: function(){
-                var GroupsCollection = require('collections/groups/groups');
-
-                return new GroupsCollection();
-            }
+            groups: require('collections/groups/groups')
         },
         models: {
             invoice: null

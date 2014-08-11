@@ -11,11 +11,7 @@ define(function(require, exports, module) {
             productsSortDirection: 'descending'
         },
         collections: {
-            groups: function() {
-                var GroupsCollection = require('collections/groups/groups');
-
-                return new GroupsCollection();
-            },
+            groups: require('collections/groups/groups'),
             products: function(){
                 var page = this,
                     ProductsCollection = require('collections/products/products'),

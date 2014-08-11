@@ -8,7 +8,7 @@ define(function(require, exports, module) {
             var block = this,
                 WriteOffModel = require('models/writeOff/writeOff');
 
-            return new WriteOffModel({});
+            return new WriteOffModel();
         },
         blocks: {
             form_writeOffProducts: function(){
@@ -16,6 +16,7 @@ define(function(require, exports, module) {
                     Form_writeOffProducts = require('blocks/form/form_writeOffProducts/form_writeOffProducts');
 
                 return new Form_writeOffProducts({
+                    el: block.$el.closest('.modal').find('.form_writeOffProducts'),
                     collection: block.model.collections.products
                 });
             }

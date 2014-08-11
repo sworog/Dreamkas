@@ -8,7 +8,7 @@ define(function(require, exports, module) {
             var block = this,
                 InvoiceModel = require('models/invoice/invoice');
 
-            return new InvoiceModel({});
+            return new InvoiceModel();
         },
         blocks: {
             form_invoiceProducts: function(){
@@ -16,6 +16,7 @@ define(function(require, exports, module) {
                     Form_invoiceProducts = require('blocks/form/form_invoiceProducts/form_invoiceProducts');
 
                 return new Form_invoiceProducts({
+                    el: block.$el.closest('.modal').find('.form_invoiceProducts'),
                     collection: block.model.collections.products
                 });
             }

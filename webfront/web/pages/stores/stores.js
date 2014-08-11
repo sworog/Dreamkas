@@ -1,7 +1,6 @@
 define(function(require, exports, module) {
     //requirements
     var Page = require('kit/page/page'),
-        StoreCollection = require('collections/stores/stores'),
         router = require('router');
 
     return Page.extend({
@@ -11,7 +10,7 @@ define(function(require, exports, module) {
             store: null
         },
         collections: {
-            stores: new StoreCollection()
+            stores: require('collections/stores/stores')
         },
         events: {
             'click .store__link': function (e) {
@@ -38,12 +37,9 @@ define(function(require, exports, module) {
 
                 form_store.on('submit:success', function() {
                     var modal = $('.modal:visible');
-                    console.log(modal);
 
                     modal.one('hidden.bs.modal', function(e) {
-                        page.collections.stores.fetch().then(function() {
-                            page.render()
-                        });
+                        page.render();
                     });
 
                     modal.modal('hide');

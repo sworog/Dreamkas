@@ -117,8 +117,8 @@ define(function(require, exports, module) {
 
         getTotalPrice: function(){
             var block = this,
-                quantity = normalizeNumber(block.el.querySelector('[name="quantity"]').value),
-                purchasePrice = normalizeNumber(block.el.querySelector('[name="priceEntered"]').value),
+                quantity = normalizeNumber(block.el.querySelector('input[name="quantity"]').value),
+                purchasePrice = normalizeNumber(block.el.querySelector('input[name="priceEntered"]').value),
                 totalPrice = quantity * purchasePrice;
 
             return typeof totalPrice === 'number' ? totalPrice : null;
@@ -127,15 +127,18 @@ define(function(require, exports, module) {
         renderSelectedProduct: function(product){
             var block = this;
 
-            block.el.querySelector('[name="priceEntered"]').focus();
-            block.el.querySelector('[name="product.id"]').value = product.id;
-            block.el.querySelector('[name="product.name"]').value = product.name;
+            setTimeout(function(){
+                block.el.querySelector('input[name="priceEntered"]').focus();
+            }, 0);
+
+            block.el.querySelector('input[name="product.id"]').value = product.id;
+            block.el.querySelector('input[name="product.name"]').value = product.name;
 
             if (product.purchasePrice){
-                block.el.querySelector('[name="priceEntered"]').value = formatMoney(product.purchasePrice);
+                block.el.querySelector('input[name="priceEntered"]').value = formatMoney(product.purchasePrice);
             }
 
-            block.el.querySelector('[name="quantity"]').value = '1';
+            block.el.querySelector('input[name="quantity"]').value = '1';
             block.$('.invoiceProductForm .product__units').html(product.units || 'шт.');
 
             block.renderTotalSum();
