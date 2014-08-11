@@ -62,7 +62,7 @@ class WriteOffController extends AbstractRestController
      */
     public function putWriteoffsAction(Store $store, WriteOff $writeOff, Request $request)
     {
-        $this->checkWriteoffStore($store, $writeOff);
+        $this->checkWriteOffStore($store, $writeOff);
         return $this->processForm($request, $writeOff);
     }
 
@@ -75,7 +75,7 @@ class WriteOffController extends AbstractRestController
      */
     public function getWriteoffAction(Store $store, WriteOff $writeOff)
     {
-        $this->checkWriteoffStore($store, $writeOff);
+        $this->checkWriteOffStore($store, $writeOff);
         return $writeOff;
     }
 
@@ -87,7 +87,7 @@ class WriteOffController extends AbstractRestController
      * @ApiDoc(resource=true)
      * @Rest\Route("stores/{store}/writeoffs")
      */
-    public function getWriteoffsAction(Store $store, WriteOffFilter $filter)
+    public function getWriteOffsAction(Store $store, WriteOffFilter $filter)
     {
         $writeOffs = $this->documentRepository->findByStore($store->id, $filter);
         if ($filter->hasNumber()) {
@@ -105,7 +105,7 @@ class WriteOffController extends AbstractRestController
      * @param WriteOff $writeoff
      * @throws NotFoundHttpException
      */
-    protected function checkWriteoffStore(Store $store, WriteOff $writeoff)
+    protected function checkWriteOffStore(Store $store, WriteOff $writeoff)
     {
         if ($writeoff->store !== $store) {
             throw new NotFoundHttpException(sprintf("%s object not found", get_class($writeoff)));

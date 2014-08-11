@@ -68,6 +68,13 @@ lighthouse:
                     does_not_exists: Такой заказ не существует
                 products:
                     empty: Нужно добавить минимум один товар
+
+            invoice_product:
+                product.does_not_exists: Такого товара не существует
+
+            writeoff:
+                products.empty: Нужно добавить минимум один товар
+
             sale:
                 product.empty: Должен присутствовать хотя бы один товар
                 hash.unique: Такая продажа уже зарегистрированна в системе
@@ -93,8 +100,7 @@ lighthouse:
             department:
                 number.unique: Отдел с таким названием уже существует в этом магазине
                 store.does_not_exists: Такого магазина не существует
-            invoice_product:
-                product.does_not_exists: Такого товара не существует
+
             store_product:
                 retail_markup:
                     min: Наценка должна быть больше или равна {{ limit }}%
