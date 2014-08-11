@@ -16,10 +16,14 @@ class WriteOffBuilder
 
     /**
      * @param string $date
+     * @param string $storeId
      */
-    public function __construct($date = null)
+    public function __construct($date = null, $storeId = null)
     {
         $this->setDate($date);
+        if ($storeId) {
+            $this->setStoreId($storeId);
+        }
     }
 
     /**
@@ -30,6 +34,14 @@ class WriteOffBuilder
     {
         $this->data['date'] = $date ?: date(DateTime::W3C);
         return $this;
+    }
+
+    /**
+     * @param string $storeId
+     */
+    public function setStoreId($storeId)
+    {
+        $this->data['store'] = $storeId;
     }
 
     /**
@@ -51,19 +63,21 @@ class WriteOffBuilder
     }
 
     /**
+     * @param array $mergeData
      * @return array
      */
-    public function toArray()
+    public function toArray($mergeData = array())
     {
-        return $this->data;
+        return $mergeData + $this->data;
     }
 
     /**
      * @param string $date
+     * @param string $storeId
      * @return WriteOffBuilder
      */
-    public static function create($date = null)
+    public static function create($date = null, $storeId = null)
     {
-        return new self($date);
+        return new self($date, $storeId);
     }
 }

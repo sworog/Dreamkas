@@ -8,6 +8,7 @@ use Doctrine\ODM\MongoDB\Cursor;
 
 /**
  * @method WriteOff find($id, $lockMode = LockMode::NONE, $lockVersion = null)
+ * @method WriteOff createNew()
  */
 class WriteOffRepository extends DocumentRepository
 {

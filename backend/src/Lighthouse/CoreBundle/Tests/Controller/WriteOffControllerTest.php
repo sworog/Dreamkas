@@ -14,28 +14,29 @@ class WriteOffControllerTest extends WebTestCase
     public function testPostAction()
     {
         $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
         $date = strtotime('-1 day');
 
-        $writeOffData = array(
-            'number' => '431-5678',
-            'date' => date('c', $date),
-        );
+        $writeOffData = WriteOffBuilder::create(date('c', $date), $store->id)
+            ->addProduct($productId)
+            ->toArray();
 
-        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $store->id . '/writeoffs',
+            '/api/1/writeoffs',
             $writeOffData
         );
 
         $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $postResponse);
-        Assert::assertNotJsonHasPath('products.*.product', $postResponse);
-        Assert::assertJsonPathEquals($writeOffData['number'], 'number', $postResponse);
+        Assert::assertJsonPathCount(1, 'products.*.product', $postResponse);
+        Assert::assertJsonPathEquals('10001', 'number', $postResponse);
         Assert::assertJsonPathContains(date('Y-m-d\TH:i', $date), 'date', $postResponse);
+        Assert::assertJsonPathEquals($store->id, 'store.id', $postResponse);
     }
 
     /**
@@ -48,17 +49,17 @@ class WriteOffControllerTest extends WebTestCase
     public function testPostWriteOffValidation($expectedCode, array $data, array $assertions = array())
     {
         $store = $this->factory()->store()->getStore();
-        $writeOffData = $data + array(
-            'date' => '11.07.2012',
-            'number' => '1234567',
-        );
+        $productId = $this->createProduct();
+        $writeOffData = WriteOffBuilder::create('2012-07-11', $store->id)
+            ->addProduct($productId)
+            ->toArray($data);
 
-        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $store->id . '/writeoffs',
+            '/api/1/writeoffs',
             $writeOffData
         );
 
@@ -117,6 +118,9 @@ class WriteOffControllerTest extends WebTestCase
         }
     }
 
+    /**
+     * @return array
+     */
     public function validationWriteOffProvider()
     {
         return array(
@@ -124,9 +128,7 @@ class WriteOffControllerTest extends WebTestCase
                 400,
                 array('date' => ''),
                 array(
-                    'errors.children.date.errors.0'
-                    =>
-                    'Заполните это поле'
+                    'errors.children.date.errors.0' => 'Заполните это поле'
                 )
             ),
             'valid date' => array(
@@ -142,27 +144,12 @@ class WriteOffControllerTest extends WebTestCase
                     'Вы ввели неверную дату 2013-2sd-31, формат должен быть следующий дд.мм.гггг'
                 )
             ),
-            'not valid empty number' => array(
+            'not valid number given' => array(
                 400,
-                array('number' => ''),
+                array('number' => '1111'),
                 array(
-                    'errors.children.number.errors.0'
-                    =>
-                    'Заполните это поле'
+                    'errors.errors.0' => 'Эта форма не должна содержать дополнительных полей: "number"'
                 )
-            ),
-            'not valid long 101 number' => array(
-                400,
-                array('number' => str_repeat('z', 101)),
-                array(
-                    'errors.children.number.errors.0'
-                    =>
-                    'Не более 100 символов'
-                )
-            ),
-            'valid long 100 number' => array(
-                201,
-                array('number' => str_repeat('z', 100)),
             ),
         );
     }
@@ -170,39 +157,45 @@ class WriteOffControllerTest extends WebTestCase
     public function testGetAction()
     {
         $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
 
-        $number = '431-1234';
-        $date = '2012-05-23T15:12:05+0400';
+        $writeOff = $this->factory()
+            ->writeOff()
+                ->createWriteOff($store, '2012-05-23T15:12:05+0400')
+                ->createWriteOffProduct($productId)
+            ->flush();
 
-        $writeOfId = $this->createWriteOff($number, $date, $store->id);
-
-        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $store->id . '/writeoffs/' . $writeOfId
+            '/api/1/writeoffs/' . $writeOff->id
         );
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals($writeOfId, 'id', $getResponse);
-        Assert::assertJsonPathEquals($number, 'number', $getResponse);
-        Assert::assertJsonPathEquals($date, 'date', $getResponse);
+        Assert::assertJsonPathEquals($writeOff->id, 'id', $getResponse);
+        Assert::assertJsonPathEquals('10001', 'number', $getResponse);
+        Assert::assertJsonPathEquals('2012-05-23T15:12:05+0400', 'date', $getResponse);
     }
 
     public function testGetActionNotFound()
     {
-        $store = $this->factory()->store()->getStore();
-        $this->createWriteOff('431', null, $store->id);
+        $productId = $this->createProduct();
+        $this->factory()
+            ->writeOff()
+                ->createWriteOff()
+                ->createWriteOffProduct($productId)
+            ->flush();
 
-        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $this->client->setCatchException();
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $store->id . '/writeoffs/invalidId'
+            '/api/1/writeoffs/invalidId'
         );
 
         $this->assertResponseCode(404);
@@ -1602,16 +1595,16 @@ class WriteOffControllerTest extends WebTestCase
                 ->createWriteOffProduct($productId, 1, 9.99, 'Порча')
             ->flush();
 
-        $putData = WriteOffBuilder::create()
+        $putData = WriteOffBuilder::create(null, $store->id)
             ->addProduct($productId, '', 9.99, 'Порча')
             ->toArray();
 
-        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 
         $response = $this->clientJsonRequest(
             $accessToken,
             'PUT',
-            "/api/1/stores/{$store->id}/writeoffs/{$writeOff->id}",
+            "/api/1/writeoffs/{$writeOff->id}",
             $putData
         );
 
