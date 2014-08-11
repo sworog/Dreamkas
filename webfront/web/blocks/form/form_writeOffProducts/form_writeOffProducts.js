@@ -5,7 +5,7 @@ define(function(require, exports, module) {
         normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
 
     return Form.extend({
-        el: '.form_invoiceProducts',
+        el: '.form_writeOffProducts',
 
         events: {
             'keyup [name="quantity"]': function(e){
@@ -13,7 +13,7 @@ define(function(require, exports, module) {
 
                 block.renderTotalSum();
             },
-            'keyup [name="priceEntered"]': function(e){
+            'keyup [name="price"]': function(e){
                 var block = this;
 
                 block.renderTotalSum();
@@ -27,7 +27,7 @@ define(function(require, exports, module) {
                     block.el.querySelector('[name="product.id"]').value = null;
                 }
             },
-            'click .delInvoiceProduct': function(e){
+            'click .delWriteOffProduct': function(e){
                 var block = this,
                     modelCid = e.currentTarget.dataset.modelCid;
 
@@ -41,15 +41,15 @@ define(function(require, exports, module) {
             Form.prototype.initialize.apply(block, arguments);
 
             block.collection.on('add remove', function(){
-                block.renderInvoiceProducts();
+                block.renderWriteOffProducts();
             });
         },
 
         collection: function(){
             var block = this,
-                InvoiceProductCollection = require('collections/invoiceProducts/invoiceProducts');
+                WriteOffProductCollection = require('collections/writeOffProducts/writeOffProducts');
 
-            return new InvoiceProductCollection();
+            return new WriteOffProductCollection();
         },
 
         submit: function() {
@@ -58,10 +58,10 @@ define(function(require, exports, module) {
             return block.collection.validateProduct(block.formData);
         },
 
-        submitSuccess: function(invoice) {
+        submitSuccess: function(writeOff) {
             var block = this;
 
-            block.collection.push(invoice.products[0]);
+            block.collection.push(writeOff.products[0]);
 
             block.clear();
             block.el.querySelector('[name="product.name"]').focus();
@@ -118,7 +118,7 @@ define(function(require, exports, module) {
         getTotalPrice: function(){
             var block = this,
                 quantity = normalizeNumber(block.el.querySelector('[name="quantity"]').value),
-                purchasePrice = normalizeNumber(block.el.querySelector('[name="priceEntered"]').value),
+                purchasePrice = normalizeNumber(block.el.querySelector('[name="price"]').value),
                 totalPrice = quantity * purchasePrice;
 
             return typeof totalPrice === 'number' ? totalPrice : null;
@@ -127,16 +127,16 @@ define(function(require, exports, module) {
         renderSelectedProduct: function(product){
             var block = this;
 
-            block.el.querySelector('[name="priceEntered"]').focus();
+            block.el.querySelector('[name="price"]').focus();
             block.el.querySelector('[name="product.id"]').value = product.id;
             block.el.querySelector('[name="product.name"]').value = product.name;
 
             if (product.purchasePrice){
-                block.el.querySelector('[name="priceEntered"]').value = formatMoney(product.purchasePrice);
+                block.el.querySelector('[name="price"]').value = formatMoney(product.purchasePrice);
             }
 
             block.el.querySelector('[name="quantity"]').value = '1';
-            block.$('.invoiceProductForm .product__units').html(product.units || 'шт.');
+            block.$('.writeOffProductForm .product__units').html(product.units || 'шт.');
 
             block.renderTotalSum();
         },
@@ -145,16 +145,16 @@ define(function(require, exports, module) {
                 totalPrice = block.getTotalPrice();
 
             if (typeof totalPrice === 'number'){
-                block.$('.invoiceProductForm .totalSum').html(totalPrice ? formatMoney(totalPrice) : '');
+                block.$('.writeOffProductForm .totalSum').html(totalPrice ? formatMoney(totalPrice) : '');
             }
         },
-        renderInvoiceProducts: function(){
+        renderWriteOffProducts: function(){
             var block = this,
-                template = require('ejs!blocks/form/form_invoiceProducts/invoiceProducts.ejs');
+                template = require('ejs!blocks/form/form_writeOffProducts/writeOffProducts.ejs');
 
-            block.$('.table_invoiceProducts tbody').html(template({
+            block.$('.table_writeOffProducts tbody').html(template({
                 collections: {
-                    invoiceProducts: block.collection
+                    writeOffProducts: block.collection
                 }
             }));
         }

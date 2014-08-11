@@ -64,6 +64,17 @@ define(function(require, exports, module) {
                         suppliers: block.collections.suppliers
                     }
                 });
+            },
+            modal_writeOffAdd: function(){
+                var block = this,
+                    Modal_writeOff = require('blocks/modal/modal_writeOff/modal_writeOff');
+
+                return new Modal_writeOff({
+                    el: '#modal_writeOffAdd',
+                    collections: {
+                        stockMovements: block.collections.stockMovements
+                    }
+                });
             }
         }
     });

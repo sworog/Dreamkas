@@ -7,13 +7,15 @@ define(function(require) {
         defaults: {
             product: null,
             price: null,
-            quantity: 1
+            quantity: 1,
+            cause: null
         },
         saveData: function() {
             return {
                 product: this.get('product.id'),
                 price: normalizeNumber(this.get('price')),
-                quantity: normalizeNumber(this.get('quantity'))
+                quantity: normalizeNumber(this.get('quantity')),
+                cause: this.get('cause')
             };
         }
     });
