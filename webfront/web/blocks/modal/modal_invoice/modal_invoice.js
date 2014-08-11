@@ -42,7 +42,7 @@ define(function(require, exports, module) {
                     form_invoice.model = block.models.invoice;
                 }
 
-                form_invoice.listenTo(block, 'submit:success', function(){
+                form_invoice.listenTo(form_invoice, 'submit:success', function(){
                     block.$el.modal('hide');
                 });
 
