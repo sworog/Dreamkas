@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Document\StockMovement;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 
@@ -32,5 +33,17 @@ class StockMovementRepository extends DocumentRepository
             $criteria['date']['$lte'] = $filter->dateTo;
         }
         return $this->findBy($criteria, array('date' => self::SORT_DESC));
+    }
+
+    /**
+     * @param StockMovement $stockMovement
+     */
+    public function resetProducts(StockMovement $stockMovement)
+    {
+        foreach ($stockMovement->products as $key => $invoiceProduct) {
+            unset($stockMovement->products[$key]);
+            $this->getDocumentManager()->remove($invoiceProduct);
+        }
+        $stockMovement->products = new ArrayCollection();
     }
 }

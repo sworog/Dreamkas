@@ -124,16 +124,4 @@ class InvoiceRepository extends StockMovementRepository
 
         $query->getQuery()->execute();
     }
-
-    /**
-     * @param Invoice $invoice
-     */
-    public function resetInvoiceProducts(Invoice $invoice)
-    {
-        foreach ($invoice->products as $key => $invoiceProduct) {
-            unset($invoice->products[$key]);
-            $this->getDocumentManager()->remove($invoiceProduct);
-        }
-        $invoice->products = new ArrayCollection();
-    }
 }

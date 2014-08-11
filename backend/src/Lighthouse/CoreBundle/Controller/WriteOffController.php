@@ -76,6 +76,7 @@ class WriteOffController extends AbstractRestController
     public function putWriteoffsAction(WriteOff $writeOff, Request $request)
     {
         $formType = new WriteOffType(true);
+        $this->documentRepository->resetProducts($writeOff);
         return $this->processForm($request, $writeOff, $formType);
     }
 
@@ -90,6 +91,7 @@ class WriteOffController extends AbstractRestController
     public function putStoreWriteoffsAction(Store $store, WriteOff $writeOff, Request $request)
     {
         $this->checkWriteOffStore($store, $writeOff);
+        $this->documentRepository->resetProducts($writeOff);
         return $this->processForm($request, $writeOff);
     }
 
