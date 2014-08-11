@@ -98,6 +98,18 @@
 <!--END CONTENT-->
 
 <!--MODALS-->
+<% if (models.invoice) { %>
+    <%= partials.modal_invoice({
+        collections: {
+            invoices: collections.stockMovements,
+            suppliers: collections.suppliers,
+            stores: collections.stores
+        },
+        models: {
+            invoice: models.invoice
+        }
+    }) %>
+<% } %>
 <%= partials.modal_invoice({
     collections: {
         invoices: collections.stockMovements,

@@ -132,7 +132,11 @@
                         </thead>
                         <tbody>
 
-                            <%= partials.invoiceProducts() %>
+                            <%= partials.invoiceProducts({
+                                collections: {
+                                    invoiceProducts: models.invoice.collections.products
+                                }
+                            }) %>
 
                         </tbody>
                         <tfoot>
