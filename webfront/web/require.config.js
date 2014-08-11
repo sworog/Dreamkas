@@ -21,6 +21,12 @@ require.config({
         'ejs': 'kit/templateLoader/templateLoader'
     },
 
+    map: {
+        '*': {
+            uri: 'bower_components/uri.js/src/URI'
+        }
+    },
+
     shim: {
         datepicker: ['jquery'],
         typehead: ['jquery']

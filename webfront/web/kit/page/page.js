@@ -51,7 +51,9 @@ define(function(require, exports, module) {
                 autofocus;
 
             if (Page.previous){
-                Page.previous.remove();
+                Page.previous.removeBlocks();
+                Page.previous.stopListening();
+                Page.previous.undelegateEvents();
             }
 
             Block.prototype.render.apply(page, arguments);

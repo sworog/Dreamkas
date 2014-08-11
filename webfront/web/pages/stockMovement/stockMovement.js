@@ -21,10 +21,13 @@ define(function(require, exports, module) {
                 return new StoresCollection();
             },
             stockMovements: function(){
-                var StockMovementsCollection = require('collections/stockMovements/stockMovements');
+                var page = this,
+                    StockMovementsCollection = require('collections/stockMovements/stockMovements');
 
-                return new StockMovementsCollection({
-                    filterTypes: this.params.filterTypes
+                return new StockMovementsCollection([], {
+                    filterTypes: page.params.filterTypes,
+                    dateFrom: page.params.dateFrom,
+                    dateTo: page.params.dateTo
                 });
             },
             groups: function(){
@@ -37,7 +40,7 @@ define(function(require, exports, module) {
             invoice: null
         },
         events: {
-            'change select[name=filterTypes]': function(e) {
+            'change [name="filterTypes"]': function(e) {
                 var page = this;
 
                 e.currentTarget.classList.add('loading');
@@ -47,6 +50,42 @@ define(function(require, exports, module) {
                 router.save(page.params);
 
                 page.collections.stockMovements.filterTypes = page.params.filterTypes;
+                page.collections.stockMovements.fetch().then(function() {
+                    page.render();
+                });
+            },
+            'change [name="dateFrom"]': function(e) {
+                var page = this;
+
+                if (e.currentTarget.classList.contains('loading')){
+                    return;
+                }
+
+                e.currentTarget.classList.add('loading');
+
+                page.params.dateFrom = e.target.value;
+
+                router.save(page.params);
+
+                page.collections.stockMovements.dateFrom = page.params.dateFrom;
+                page.collections.stockMovements.fetch().then(function() {
+                    page.render();
+                });
+            },
+            'change [name="dateTo"]': function(e) {
+                var page = this;
+
+                if (e.currentTarget.classList.contains('loading')){
+                    return;
+                }
+
+                e.currentTarget.classList.add('loading');
+
+                page.params.dateTo = e.target.value;
+
+                router.save(page.params);
+
+                page.collections.stockMovements.dateTo = page.params.dateTo;
                 page.collections.stockMovements.fetch().then(function() {
                     page.render();
                 });

@@ -186,7 +186,7 @@ table.table-vcenter > tbody > tr > td {
     display: none;
 }
 
-select.loading{
+select.loading, input.loading{
     background-color: #eee;
 }
 

@@ -1,7 +1,6 @@
 <% var partials = {
     modal_invoice: require('ejs!blocks/modal/modal_invoice/modal_invoice.ejs')
 }; %>
-
 <% var helpers = {
     formatMoney: require('kit/formatMoney/formatMoney'),
     formatDate: require('kit/formatDate/formatDate')
@@ -36,8 +35,12 @@
                             <div class="form-group">
                                 <select class="form-control" name="filterTypes">
                                     <option value="">Все операции</option>
-                                    <option value="Invoice" <%- params.filterTypes == 'Invoice'?'selected':''%>>Приёмка</option>
-                                    <option value="WriteOff" <%- params.filterTypes == 'WriteOff'?'selected':''%>>Списание</option>
+                                    <option value="Invoice" <%- params.filterTypes == 'Invoice' ? 'selected' : '' %>>
+                                        Приёмка
+                                    </option>
+                                    <option value="WriteOff" <%- params.filterTypes == 'WriteOff' ? 'selected' : '' %>>
+                                        Списание
+                                    </option>
                                 </select>
                             </div>
                         </div>
@@ -48,43 +51,43 @@
                                        type="text"
                                        class="form-control"
                                        data-end-date="<%- new Date() %>"
-                                       value="">
+                                       value="<%- params.dateFrom %>">
                                 <span style="border-left: none; border-right: none;" class="input-group-addon">по</span>
                                 <input name="dateTo"
                                        type="text"
                                        class="form-control"
                                        data-end-date="<%- new Date() %>"
-                                       value="<%- helpers.formatDate(new Date()) %>">
+                                       value="<%- params.dateTo %>">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div>
                         </div>
                     </div>
                     <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th>Дата</th>
-                                <th>Операция</th>
-                                <th>Магазин</th>
-                                <th>На сумму, <i class="fa fa-rub"></i></th>
-                            </tr>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Операция</th>
+                            <th>Магазин</th>
+                            <th>На сумму, <i class="fa fa-rub"></i></th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <% collections.stockMovements.forEach(function(stockMovementModel) { %>
-                                <tr data-invoice_id="<%- stockMovementModel.id %>" class="invoice__link">
-                                    <td>
-                                        <%- helpers.formatDate(stockMovementModel.get('date')) %>
-                                    </td>
-                                    <td>
-                                        Приёмка
-                                    </td>
-                                    <td>
-                                        <%- stockMovementModel.get('store.number') %>
-                                    </td>
-                                    <td>
-                                        <%- helpers.formatMoney(stockMovementModel.get('sumTotal')) %>
-                                    </td>
-                                </tr>
-                            <% }) %>
+                        <% collections.stockMovements.forEach(function(stockMovementModel) { %>
+                        <tr data-invoice_id="<%- stockMovementModel.id %>" class="invoice__link">
+                            <td>
+                                <%- helpers.formatDate(stockMovementModel.get('date')) %>
+                            </td>
+                            <td>
+                                Приёмка
+                            </td>
+                            <td>
+                                <%- stockMovementModel.get('store.number') %>
+                            </td>
+                            <td>
+                                <%- helpers.formatMoney(stockMovementModel.get('sumTotal')) %>
+                            </td>
+                        </tr>
+                        <% }) %>
                         </tbody>
                     </table>
                 </div>
