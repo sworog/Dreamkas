@@ -57,7 +57,7 @@ define(function(require) {
                 block.reset();
             });
 
-            block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' + block.el.id + '"]');
+            block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' +  (block.el && block.el.id) + '"]');
 
             block.redirectUrl = block.get('redirectUrl');
         },

@@ -1,12 +1,13 @@
 define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block'),
-        Error = require('blocks/error/error'),
         router = require('router'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         _ = require('lodash');
 
     require('sortable');
+    require('datepicker');
+    require('i18n!nls/datepicker');
 
     var Page = Block.extend({
 
@@ -39,10 +40,6 @@ define(function(require, exports, module) {
             Page.previous = Page.current;
             window.PAGE = Page.current = page;
 
-            if (Page.previous){
-                Page.previous.destroy();
-            }
-
             $.when(page.fetch()).then(function() {
                 page.render();
                 page.setStatus('loaded');
@@ -54,7 +51,7 @@ define(function(require, exports, module) {
                 autofocus;
 
             if (Page.previous){
-                Page.previous.removeBlocks();
+                Page.previous.remove();
             }
 
             Block.prototype.render.apply(page, arguments);
@@ -83,23 +80,12 @@ define(function(require, exports, module) {
             return $.when.apply($, fetchList);
         },
 
-        destroy: function(){
+        remove: function(){
             var page = this;
 
-            _.forEach(page.models, function(model){
-                if (null !== model) {
-                    model.off && model.off();
-                    model.stopListening && model.stopListening();
-                }
-            });
+            $('.inputDate, .input-daterange').datepicker('remove');
 
-            _.forEach(page.collections, function(collection){
-                collection.off && collection.off();
-                collection.stopListening && collection.stopListening();
-            });
-
-            page.undelegateEvents();
-            page.stopListening();
+            Block.prototype.remove.apply(page, arguments);
         },
 
         setStatus: function(status){
@@ -124,6 +110,16 @@ define(function(require, exports, module) {
             });
 
             Sortable.init();
+
+            $('.inputDate, .input-daterange').each(function(){
+                $(this).datepicker({
+                    language: 'ru',
+                    format: 'dd.mm.yyyy',
+                    autoclose: true,
+                    endDate: this.dataset.endDate && this.dataset.endDate.toString(),
+                    todayBtn: "linked"
+                });
+            });
 
             Block.prototype.initBlocks.apply(page, arguments);
         }

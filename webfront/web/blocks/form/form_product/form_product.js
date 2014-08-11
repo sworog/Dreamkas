@@ -79,7 +79,7 @@ define(function(require) {
 
                 block.calculateMarkup();
 
-                block.on('submit:success', function() {
+                block.listenTo(block, 'submit:success', function() {
                     if (!block.__model.id) {
                         block.model = new ProductModel();
                     }

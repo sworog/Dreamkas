@@ -41,6 +41,23 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="input-daterange input-group date">
+                                <span class="input-group-addon">с</span>
+                                <input name="dateFrom"
+                                       type="text"
+                                       class="form-control"
+                                       data-end-date="<%- new Date() %>"
+                                       value="">
+                                <span style="border-left: none; border-right: none;" class="input-group-addon">по</span>
+                                <input name="dateTo"
+                                       type="text"
+                                       class="form-control"
+                                       data-end-date="<%- new Date() %>"
+                                       value="<%- helpers.formatDate(new Date()) %>">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div>
+                        </div>
                     </div>
                     <table class="table table-striped">
                         <thead>

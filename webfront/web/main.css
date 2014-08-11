@@ -189,3 +189,7 @@ table.table-vcenter > tbody > tr > td {
 select.loading{
     background-color: #eee;
 }
+
+.datepicker.dropdown-menu{
+    margin-top: -1px;
+}

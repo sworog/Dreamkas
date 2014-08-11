@@ -40,7 +40,7 @@ define(function(require, exports, module) {
 
             Form.prototype.initialize.apply(block, arguments);
 
-            block.collection.on('add remove', function(){
+            block.listenTo(block.collection, 'add remove', function(){
                 block.renderInvoiceProducts();
             });
         },

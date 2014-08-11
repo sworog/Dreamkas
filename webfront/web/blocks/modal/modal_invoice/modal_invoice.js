@@ -36,7 +36,7 @@ define(function(require, exports, module) {
                         collection: block.collections.invoices
                     });
 
-                form_invoice.on('submit:success', function(){
+                form_invoice.listenTo(block, 'submit:success', function(){
                     block.$el.modal('hide');
                 });
 
