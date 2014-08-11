@@ -8,6 +8,18 @@ define(function(require) {
         filterTypes: '',
         dateFrom: '',
         dateTo: '',
+        model: function(attrs){
+            var collection = this,
+                model;
+
+            switch (attrs.type) {
+                case "Invoice":
+                    model = new InvoiceModel(attrs);
+                    break;
+            }
+
+            return model;
+        },
         url: function(){
             var collection = this,
                 query = _.pick({
@@ -19,16 +31,6 @@ define(function(require) {
                 });
 
             return uri(Collection.baseApiUrl + '/stockMovements').query(query);
-        },
-        parse: function(data) {
-            var collection = this;
-            data.forEach(function(item) {
-                switch (item.type) {
-                    case "Invoice":
-                        collection.add(new InvoiceModel(item));
-                        break;
-                }
-            });
         }
     });
 });
