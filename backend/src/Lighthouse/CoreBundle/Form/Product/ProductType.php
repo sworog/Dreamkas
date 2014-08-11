@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Lighthouse\CoreBundle\Form;
+namespace Lighthouse\CoreBundle\Form\Product;
 
 use Lighthouse\CoreBundle\Document\Classifier\CatalogManager;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
