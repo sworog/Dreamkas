@@ -11,7 +11,6 @@ define(function(require, exports, module) {
             return new WriteOffModel({});
         },
         blocks: {
-            inputDate: require('blocks/inputDate/inputDate'),
             form_writeOffProducts: function(){
                 var block = this,
                     Form_writeOffProducts = require('blocks/form/form_writeOffProducts/form_writeOffProducts');
