@@ -25,7 +25,8 @@ define(function(require, exports, module) {
             groups: require('collections/groups/groups')
         },
         models: {
-            invoice: null
+            invoice: null,
+            writeOff: null
         },
         events: {
             'change [name="filterTypes"]': function(e) {
@@ -88,6 +89,17 @@ define(function(require, exports, module) {
                 }
 
                 $('#modal_invoiceEdit').modal('show');
+            },
+            'click .writeOff__link': function(e) {
+                var block = this,
+                    writeOffId = e.currentTarget.dataset.writeoff_id;
+
+                if (!block.models.writeOff || block.models.writeOff.id !== writeOffId) {
+                    block.models.writeOff = block.collections.stockMovements.get(writeOffId);
+                    block.render();
+                }
+
+                $('#modal_writeOffEdit').modal('show');
             }
         },
         blocks: {
@@ -130,6 +142,22 @@ define(function(require, exports, module) {
                         stockMovements: block.collections.stockMovements
                     }
                 });
+            },
+            modal_writeOffEdit: function() {
+                var block = this,
+                    Modal_writeOff = require('blocks/modal/modal_writeOff/modal_writeOff');
+
+                if (block.models.writeOff) {
+                    return new Modal_writeOff({
+                        el: '#modal_writeOffEdit',
+                        collections: {
+                            writeOffs: block.collections.stockMovements
+                        },
+                        models: {
+                            writeOff: block.models.writeOff
+                        }
+                    });
+                }
             }
         }
     });

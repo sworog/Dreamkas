@@ -9,18 +9,6 @@ define(function(require) {
         filterTypes: '',
         dateFrom: '',
         dateTo: '',
-        model: function(attrs){
-            var collection = this,
-                model;
-
-            switch (attrs.type) {
-                case "Invoice":
-                    model = new InvoiceModel(attrs);
-                    break;
-            }
-
-            return model;
-        },
         url: function() {
             var collection = this,
                 query = _.pick({
