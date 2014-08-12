@@ -31,6 +31,12 @@ define(function(require, exports, module) {
             return block.template(block);
         },
 
+        initialize: function(){
+            var block = this;
+
+            block.initBlocks();
+        },
+
         render: function() {
             var block = this,
                 $newElement = $(block.template(block));

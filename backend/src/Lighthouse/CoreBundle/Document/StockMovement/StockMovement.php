@@ -7,12 +7,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\ODM\MongoDB\PersistentCollection;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Document\SoftDeleteableDocument;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
+use Gedmo\Mapping\Annotation\SoftDeleteable;
 use DateTime;
 
 /**
@@ -35,8 +37,9 @@ use DateTime;
  *      "Sale" = "Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale",
  *      "Return" = "Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne"
  * })
+ * @SoftDeleteable
  */
-abstract class StockMovement extends AbstractDocument implements Storeable
+abstract class StockMovement extends AbstractDocument implements Storeable, SoftDeleteableDocument
 {
     const TYPE = 'abstract';
 
@@ -82,6 +85,12 @@ abstract class StockMovement extends AbstractDocument implements Storeable
      */
     protected $products;
 
+    /**
+     * @MongoDB\Date
+     * @var DateTime
+     */
+    protected $deletedAt;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -118,5 +127,33 @@ abstract class StockMovement extends AbstractDocument implements Storeable
         foreach ($this->products as $product) {
             $product->setReasonParent($this);
         }
+    }
+
+    public function calculateTotals()
+    {
+        $this->itemsCount = count($this->products);
+
+        $this->sumTotal = $this->sumTotal->set(0);
+
+        foreach ($this->products as $product) {
+            $productSumTotal = $product->calculateTotals();
+            $this->sumTotal = $this->sumTotal->add($productSumTotal);
+        }
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSoftDeleteableName()
+    {
+        return null;
     }
 }

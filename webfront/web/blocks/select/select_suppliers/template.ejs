@@ -5,24 +5,12 @@
  */
 %>
 <% var selected = selected || null %>
-<% var partials = {
-    agreementLink: require('ejs!blocks/select/select_suppliers/agreementLink.ejs')
-} %>
 
-<div class="select_suppliers">
-
-    <select class="select" name="supplier">
-        <option value="" selected disabled>Выберите поставщика</option>
-        <% collections.suppliers.forEach(function(supplierModel){ %>
-        <option <%- selected === supplierModel.id ? 'selected' : '' %>
-                value="<%- supplierModel.id %>"><%- supplierModel.get('name') %>
-        </option>
-        <% }) %>
-    </select>
-
-    <% if (collections.suppliers.get(selected)){ %>
-    <%= partials.agreementLink({
-        supplierModel: collections.suppliers.get(selected)
-    }) %>
-    <% } %>
-</div>
+<select class="select select_suppliers form-control" name="supplier">
+    <option value="" selected disabled>Выберите поставщика</option>
+    <% collections.suppliers.forEach(function(supplierModel){ %>
+    <option <%- selected === supplierModel.id ? 'selected' : '' %>
+            value="<%- supplierModel.id %>"><%- supplierModel.get('name') %>
+    </option>
+    <% }) %>
+</select>

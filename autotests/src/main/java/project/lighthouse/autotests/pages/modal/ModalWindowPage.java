@@ -15,10 +15,6 @@ public abstract class ModalWindowPage extends CommonPageObject {
         super(driver);
     }
 
-    @Override
-    public void createElements() {
-    }
-
     public String getTitleText() {
         return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='modal-title']")).getText();
     }

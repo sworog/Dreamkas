@@ -3,6 +3,10 @@
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Order\Order;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
@@ -1754,5 +1758,94 @@ class InvoiceControllerTest extends WebTestCase
             );
         }
         return $invoiceData;
+    }
+
+    public function testDeleteInvoice()
+    {
+        $store = $this->factory()->store()->getStore();
+
+        $productId = $this->createProduct(array('name' => 'Продукт'));
+
+        $invoice = $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id)
+                ->createInvoiceProduct($productId, 10, 5.99)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/invoices/' . $invoice->id
+        );
+
+        $this->assertResponseCode(204);
+
+        $this->assertNull($deleteResponse);
+
+        $this->client->setCatchException();
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/invoices/' . $invoice->id
+        );
+
+        $this->assertResponseCode(404);
+
+        $this->assertInvoiceSoftDelete($invoice->id);
+        $this->assertInvoiceProductSoftDelete($invoice->products[0]->id);
+    }
+
+    /**
+     * @param string $invoiceId
+     */
+    protected function assertInvoiceSoftDelete($invoiceId)
+    {
+        $invoice = $this->getInvoiceRepository()->find($invoiceId);
+        $this->assertNull($invoice);
+
+        $filterCollection = $this->getInvoiceRepository()->getDocumentManager()->getFilterCollection();
+        $filterCollection->disable('softdeleteable');
+
+        $invoice = $this->getInvoiceRepository()->find($invoiceId);
+        $this->assertInstanceOf(Invoice::getClassName(), $invoice);
+
+        $filterCollection->enable('softdeleteable');
+    }
+
+    /**
+     * @param string $invoiceProductId
+     */
+    protected function assertInvoiceProductSoftDelete($invoiceProductId)
+    {
+        $invoiceProduct = $this->getInvoiceProductRepository()->find($invoiceProductId);
+        $this->assertNull($invoiceProduct);
+
+        $filterCollection = $this->getInvoiceProductRepository()->getDocumentManager()->getFilterCollection();
+
+        $filterCollection->disable('softdeleteable');
+
+        $invoiceProduct = $this->getInvoiceProductRepository()->find($invoiceProductId);
+        $this->assertInstanceOf(InvoiceProduct::getClassName(), $invoiceProduct);
+        $this->assertSame($invoiceProductId, $invoiceProduct->id);
+
+        $filterCollection->enable('softdeleteable');
+    }
+
+    /**
+     * @return InvoiceRepository
+     */
+    protected function getInvoiceRepository()
+    {
+        return $this->getContainer()->get('lighthouse.core.document.repository.stock_movement.invoice');
+    }
+
+    /**
+     * @return InvoiceProductRepository
+     */
+    protected function getInvoiceProductRepository()
+    {
+        return $this->getContainer()->get('lighthouse.core.document.repository.stock_movement.invoice_product');
     }
 }

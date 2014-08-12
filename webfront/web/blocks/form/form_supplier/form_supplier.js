@@ -14,7 +14,7 @@ define(function(require, exports, module) {
 
             Form.prototype.initialize.apply(block, arguments);
 
-            block.on('submit:success', function() {
+            block.listenTo(block, 'submit:success', function() {
                 if (!block.__model.id) {
                     block.model = new SupplierModel();
                 }

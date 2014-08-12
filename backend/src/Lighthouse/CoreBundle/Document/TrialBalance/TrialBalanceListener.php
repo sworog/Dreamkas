@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\TrialBalance;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
 use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
@@ -14,7 +15,7 @@ use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 
 /**
- * @DI\DoctrineMongoDBListener(events={"onFlush"}, priority=128)
+ * @DI\DoctrineMongoDBListener(events={"onFlush", "preSoftDelete"}, priority=128)
  */
 class TrialBalanceListener extends AbstractMongoDBListener
 {
@@ -81,6 +82,19 @@ class TrialBalanceListener extends AbstractMongoDBListener
             if ($document instanceof Reasonable) {
                 $this->onReasonableRemove($document, $dm);
             }
+        }
+    }
+
+    /**
+     * @param LifecycleEventArgs $eventArgs
+     */
+    public function preSoftDelete(LifecycleEventArgs $eventArgs)
+    {
+        $document = $eventArgs->getDocument();
+        $dm = $eventArgs->getDocumentManager();
+
+        if ($document instanceof Reasonable) {
+            $this->onReasonableRemove($document, $dm);
         }
     }
 

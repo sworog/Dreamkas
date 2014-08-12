@@ -12,10 +12,9 @@ class WriteOffFactory extends AbstractFactory
     /**
      * @param Store $store
      * @param string $date
-     * @param string $number
      * @return WriteOffBuilder
      */
-    public function createWriteOff(Store $store = null, $date = null, $number = null)
+    public function createWriteOff(Store $store = null, $date = null)
     {
         $builder = new WriteOffBuilder(
             $this->factory,
@@ -23,7 +22,7 @@ class WriteOffFactory extends AbstractFactory
             $this->factory->getValidator(),
             $this->factory->getNumericFactory()
         );
-        return $builder->createWriteOff($store, $date, $number);
+        return $builder->createWriteOff($store, $date);
     }
 
     /**
