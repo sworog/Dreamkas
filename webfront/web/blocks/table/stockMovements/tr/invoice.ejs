@@ -3,7 +3,7 @@
     formatDate: require('kit/formatDate/formatDate')
 } %>
 
-<tr data-invoice-number="<%- stockMovementModel.get('number') %>" data-invoice_id="<%- stockMovementModel.id %>" class="invoice__link">
+<tr data-invoice-date="<%- stockMovementModel.get('date') %>" data-invoice-number="<%- stockMovementModel.get('number') %>" data-invoice_id="<%- stockMovementModel.id %>" class="invoice__link">
 
     <% if (dateRowSpan) { %>
         <td name="date" rowspan="<%- dateRowSpan %>">
@@ -11,8 +11,8 @@
         </td>
     <% } %>
 
-    <td name="type">
-        Приёмка <span style="font-size: 11px; margin-left: 10px;" class="<%- stockMovementModel.get('paid') ? 'text-muted' : 'text-red' %>">/ <%- stockMovementModel.get('paid') ? 'оплачена' : 'не оплачена' %></span>
+    <td>
+        <span name="type">Приёмка</span> <span name="status" style="font-size: 11px; margin-left: 10px;" class="<%- stockMovementModel.get('paid') ? 'text-muted' : 'text-red' %>">/ <%- stockMovementModel.get('paid') ? 'оплачена' : 'не оплачена' %></span>
     </td>
     <td name="store">
         В <%- stockMovementModel.get('store.name') %>
