@@ -3,7 +3,7 @@
     formatDate: require('kit/formatDate/formatDate')
 } %>
 
-<tr data-writeoff-date="<%- stockMovementModel.get('date') %>"
+<tr data-writeoff-date="<%- helpers.formatDate(stockMovementModel.get('date')) %>"
     data-writeoff-number="<%- stockMovementModel.get('number') %>"
     data-writeoff_id="<%- stockMovementModel.id %>"
     class="writeOff__link">

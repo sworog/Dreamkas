@@ -3,7 +3,7 @@
     formatDate: require('kit/formatDate/formatDate')
 } %>
 
-<tr data-invoice-date="<%- stockMovementModel.get('date') %>"
+<tr data-invoice-date="<%- helpers.formatDate(stockMovementModel.get('date')) %>"
     data-invoice-number="<%- stockMovementModel.get('number') %>"
     data-invoice_id="<%- stockMovementModel.id %>"
     class="invoice__link">
