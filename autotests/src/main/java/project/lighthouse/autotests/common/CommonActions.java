@@ -46,7 +46,8 @@ public class CommonActions {
             } else if (isStrangeFirefoxBehaviour(e)) {
                 defaultInput(elementName, inputText);
             } else {
-                throw e;
+                String message = String.format("Failed with input in element with name '%s' with text '%s': %s", elementName, inputText, e.getMessage());
+                throw new AssertionError(message);
             }
         }
     }

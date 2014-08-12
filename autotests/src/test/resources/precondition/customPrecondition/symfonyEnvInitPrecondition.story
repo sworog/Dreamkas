@@ -8,7 +8,11 @@ Meta:
 @id_s39u107s5
 @us_108
 @id_s39u108s5
-@test
+@sprint_39
+@us_102
+@id_s39u102s7
+@id_s39u102s8
+@id_s39u102s9
 
 Scenario: A scenario that clears all data
 

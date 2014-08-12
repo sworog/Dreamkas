@@ -1,10 +1,13 @@
-package project.lighthouse.autotests.pages.invoice.modal;
+package project.lighthouse.autotests.pages.stockMovement.modal;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
+import project.lighthouse.autotests.elements.items.DateInput;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
+import project.lighthouse.autotests.elements.items.autocomplete.InvoiceProductAutoComplete;
+import project.lighthouse.autotests.objects.web.invoiceProduct.InvoiceProductCollection;
 import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 public class InvoiceCreateModalWindow extends ModalWindowPage {
@@ -20,12 +23,12 @@ public class InvoiceCreateModalWindow extends ModalWindowPage {
 
     @Override
     public void createElements() {
-        put("date", new Input(this, "//*[@name='date']"));
+        put("date", new DateInput(this, "//*[@name='date']"));
         put("store", new SelectByVisibleText(this, "//*[@name='store']"));
         put("supplier", new SelectByVisibleText(this, "//*[@name='supplier']"));
-        put("product.name", new SelectByVisibleText(this, "//*[@name='product.name']"));
-        put("priceEntered", new SelectByVisibleText(this, "//*[@name='priceEntered']"));
-        put("quantity", new SelectByVisibleText(this, "//*[@name='quantity']"));
+        put("product.name", new InvoiceProductAutoComplete(this, "//*[@name='product.name']"));
+        put("priceEntered", new Input(this, "//*[@name='priceEntered']"));
+        put("quantity", new Input(this, "//*[@name='quantity']"));
     }
 
     @Override
@@ -37,11 +40,23 @@ public class InvoiceCreateModalWindow extends ModalWindowPage {
         findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'addSupplierLink')]")).click();
     }
 
+    public void addProductButtonClick() {
+
+    }
+
     public void paidCheckBoxClick() {
         findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='checkbox']")).click();
     }
 
     public void addProductToInvoiceButtonClick() {
         findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'addInvoiceProduct')]")).click();
+    }
+
+    public InvoiceProductCollection getInvoiceProductCollection() {
+        return new InvoiceProductCollection(getDriver());
+    }
+
+    public String getTotalSum() {
+        return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='invoice__totalSum']")).getText();
     }
 }

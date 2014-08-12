@@ -1,16 +1,16 @@
-package project.lighthouse.autotests.pages.invoice;
+package project.lighthouse.autotests.pages.stockMovement;
 
 import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.BootstrapPageObject;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
-import project.lighthouse.autotests.objects.web.invoice.InvoiceObjectCollection;
+import project.lighthouse.autotests.objects.web.stockMovement.StockMovementObjectCollection;
 
 @DefaultUrl("/stockMovement")
-public class InvoiceListPage extends BootstrapPageObject {
+public class StockMovementPage extends BootstrapPageObject {
 
-    public InvoiceListPage(WebDriver driver) {
+    public StockMovementPage(WebDriver driver) {
         super(driver);
     }
 
@@ -24,7 +24,7 @@ public class InvoiceListPage extends BootstrapPageObject {
         put("filterTypes", new SelectByVisibleText(this, "filterTypes"));
     }
 
-    public InvoiceObjectCollection getInvoiceObjectCollection() {
-        return new InvoiceObjectCollection(getDriver());
+    public StockMovementObjectCollection getStockMovementObjectCollection() {
+        return new StockMovementObjectCollection(getDriver());
     }
 }

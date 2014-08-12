@@ -52,15 +52,15 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
     private void navigateToInvoicePage(Invoice invoice) {
         String invoicePageUrl = String.format("%s/stores/%s/invoices/%s",
                 UrlHelper.getWebFrontUrl(),
-                invoice.getStore().getId(),
+                //invoice.getStore().getId(),
                 invoice.getId());
         getDriver().navigate().to(invoicePageUrl);
     }
 
     /**
      * The method depends on invoice object creating by
-     * First - {@link project.lighthouse.autotests.steps.deprecated.api.objectBuilder.InvoiceBuilderSteps#build(String, String, String, String, String)}}
-     * Second {@link project.lighthouse.autotests.steps.deprecated.api.objectBuilder.InvoiceBuilderSteps#addProduct(String, String, String)}
+     * First - {@link project.lighthouse.autotests.steps.api.builder.InvoiceBuilderSteps(String, String, String, String, String)}}
+     * Second {@link project.lighthouse.autotests.steps.api.builder.InvoiceBuilderSteps#addProduct(String, String, String)}
      *
      * @param userName
      * @return
@@ -73,8 +73,8 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
         User user = StaticData.users.get(userName);
         Invoice invoice = new InvoicesFactory(userName, "lighthouse")
                 .create(
-                        Storage.getInvoiceVariableStorage().getInvoiceForInvoiceBuilderSteps(),
-                        user.getStore()
+                        Storage.getInvoiceVariableStorage().getInvoiceForInvoiceBuilderSteps()
+                        //user.getStore()
                 );
         invoiceList.add(invoice);
         Storage.getInvoiceVariableStorage().setInvoiceForInvoiceBuilderSteps(null);
@@ -86,8 +86,8 @@ public class InvoiceApiSteps extends DepartmentManagerApi {
         UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email);
         Invoice invoice = new InvoicesFactory(email, userContainer.getPassword())
                 .create(
-                        Storage.getInvoiceVariableStorage().getInvoiceForInvoiceBuilderSteps(),
-                        userContainer.getStore()
+                        Storage.getInvoiceVariableStorage().getInvoiceForInvoiceBuilderSteps()
+                        //userContainer.getStore()
                 );
         invoiceList.add(invoice);
         Storage.getInvoiceVariableStorage().setInvoiceForInvoiceBuilderSteps(null);

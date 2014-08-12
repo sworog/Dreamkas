@@ -127,12 +127,12 @@ public class SupplierSteps extends ScenarioSteps {
 
     @Step
     public void assertSupplierCreateSupplierModalWindowTitle(String title) {
-        assertThat(supplierCreateModalPage.getTitleText(), is(title));
+        assertThat(supplierCreateModalPage.getTitle(), is(title));
     }
 
     @Step
     public void assertSupplierEditSupplierModalWindowTitle(String title) {
-        assertThat(supplierEditModalPage.getTitleText(), is(title));
+        assertThat(supplierEditModalPage.getTitle(), is(title));
     }
 
     @Step
