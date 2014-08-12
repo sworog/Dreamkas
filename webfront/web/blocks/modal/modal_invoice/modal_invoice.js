@@ -28,6 +28,15 @@ define(function(require, exports, module) {
                 var block = this;
 
                 block.showInvoiceModal();
+            },
+            'click .invoice__removeLink': function(e){
+                var block = this;
+
+                e.target.classList.add('loading');
+
+                block.models.invoice.destroy().then(function() {
+                    e.target.classList.remove('loading');
+                });
             }
         },
         blocks: {
