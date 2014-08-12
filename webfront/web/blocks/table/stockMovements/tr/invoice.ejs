@@ -8,7 +8,7 @@
         <%- helpers.formatDate(stockMovementModel.get('date')) %>
     </td>
     <td name="type">
-        Приёмка <span class="<%- stockMovementModel.get('paid') ? 'text-muted' : 'text-red' %>">/ <%- stockMovementModel.get('paid') ? 'оплачена' : 'не оплачена' %></span>
+        Приёмка <span style="font-size: 11px; margin-left: 10px;" class="<%- stockMovementModel.get('paid') ? 'text-muted' : 'text-red' %>">/ <%- stockMovementModel.get('paid') ? 'оплачена' : 'не оплачена' %></span>
     </td>
     <td name="store">
         В <%- stockMovementModel.get('store.name') %>
