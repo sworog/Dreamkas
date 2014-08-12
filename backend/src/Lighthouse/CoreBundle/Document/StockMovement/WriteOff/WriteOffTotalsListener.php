@@ -19,7 +19,7 @@ class WriteOffTotalsListener extends AbstractMongoDBListener
 
     /**
      * @DI\InjectParams({
-     *     "writeOffRepository"=@DI\Inject("lighthouse.core.document.repository.stock_movement.writeoff")
+     *     "writeOffRepository" = @DI\Inject("lighthouse.core.document.repository.stock_movement.writeoff")
      * })
      *
      * @param WriteOffRepository $writeOffRepository

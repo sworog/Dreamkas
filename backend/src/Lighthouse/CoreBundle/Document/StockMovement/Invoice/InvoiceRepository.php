@@ -65,10 +65,10 @@ class InvoiceRepository extends StockMovementRepository
 
     /**
      * @param string $storeId
-     * @param InvoicesFilter $filter
+     * @param InvoiceFilter $filter
      * @return Cursor|Invoice[]
      */
-    public function findByStore($storeId, InvoicesFilter $filter = null)
+    public function findByStore($storeId, InvoiceFilter $filter = null)
     {
         $criteria = array(
             'store' => $storeId,

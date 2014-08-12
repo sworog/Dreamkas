@@ -7,7 +7,50 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class WriteOffProductsControllerTest extends WebTestCase
 {
-    public function testProductWriteOffProductsAction()
+    public function testGetProductWriteOffProducts()
+    {
+        $store = $this->factory()->store()->getStore();
+
+        $productId1 = $this->createProduct(array('name' => 'Кефир 1%', 'purchasePrice' => 35.24));
+        $productId2 = $this->createProduct(array('name' => 'Кефир 5%', 'purchasePrice' => 35.64));
+        $productId3 = $this->createProduct(array('name' => 'Кефир 0%', 'purchasePrice' => 42.15));
+
+        $writeOff1 = $this->factory()
+            ->writeOff()
+            ->createWriteOff($store, '2013-10-18T09:39:47+0400')
+            ->createWriteOffProduct($productId1, 100, 36.70, 'Бой')
+            ->createWriteOffProduct($productId2, 1, 12)
+            ->createWriteOffProduct($productId3, 20, 42.90, 'Бой')
+            ->flush();
+
+        $writeOff2 = $this->factory()
+            ->writeOff()
+            ->createWriteOff($store, '2013-10-18T12:22:00+0400')
+            ->createWriteOffProduct($productId1, 120, 37.20, 'Бой')
+            ->createWriteOffProduct($productId3, 200, 35.80, 'Бой')
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$store->id}/products/{$productId1}/writeOffProducts"
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount(2, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($writeOff1->products[2]->id, '*.id', $getResponse);
+        Assert::assertNotJsonPathEquals($writeOff2->products[1]->id, '*.id', $getResponse);
+        Assert::assertJsonPathEquals($writeOff1->products[0]->id, '1.id', $getResponse);
+        Assert::assertJsonPathEquals($writeOff2->products[0]->id, '0.id', $getResponse);
+        Assert::assertJsonPathEquals($writeOff1->id, '1.writeOff.id', $getResponse);
+        Assert::assertJsonPathEquals($writeOff2->id, '0.writeOff.id', $getResponse);
+        Assert::assertNotJsonHasPath('*.store', $getResponse);
+        Assert::assertNotJsonHasPath('*.originalProduct', $getResponse);
+    }
+
+    public function testTotalsCalculation()
     {
         $store = $this->factory()->store()->getStore();
 
