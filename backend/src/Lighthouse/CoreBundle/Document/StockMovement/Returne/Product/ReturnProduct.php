@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
+use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -121,11 +122,23 @@ class ReturnProduct extends AbstractDocument implements Reasonable
      */
     public function beforeSave()
     {
-        $this->totalPrice = $this->price->mul($this->quantity);
+        $this->calculateTotals();
 
         $this->date = $this->return->date;
         $this->store = $this->return->store;
         $this->originalProduct = $this->product->getObject();
+    }
+
+    /**
+     * @return Money|null
+     */
+    public function calculateTotals()
+    {
+        if ($this->price) {
+            $this->totalPrice = $this->price->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
+        }
+
+        return $this->totalPrice;
     }
 
     /**

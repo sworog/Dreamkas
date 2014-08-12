@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff;
+use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -144,6 +145,18 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
         $this->date = $this->writeOff->date;
         $this->store = $this->writeOff->store;
         $this->originalProduct = $this->product->getObject();
+    }
+
+    /**
+     * @return Money|null
+     */
+    public function calculateTotals()
+    {
+        if ($this->price) {
+            $this->totalPrice = $this->price->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
+        }
+
+        return $this->totalPrice;
     }
 
     /**

@@ -119,4 +119,16 @@ abstract class StockMovement extends AbstractDocument implements Storeable
             $product->setReasonParent($this);
         }
     }
+
+    public function calculateTotals()
+    {
+        $this->itemsCount = count($this->products);
+
+        $this->sumTotal = $this->sumTotal->set(0);
+
+        foreach ($this->products as $product) {
+            $productSumTotal = $product->calculateTotals();
+            $this->sumTotal = $this->sumTotal->add($productSumTotal);
+        }
+    }
 }

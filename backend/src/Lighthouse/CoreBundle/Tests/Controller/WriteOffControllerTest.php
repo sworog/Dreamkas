@@ -548,7 +548,7 @@ class WriteOffControllerTest extends WebTestCase
 
         $this->assertResponseCode($expectedCode);
 
-        $this->performJsonAssertions($postResponse, $assertions, true);
+        $this->performJsonAssertions($postResponse, $assertions);
 
         if (400 != $expectedCode) {
             Assert::assertNotJsonHasPath('id', $postResponse);
@@ -567,6 +567,7 @@ class WriteOffControllerTest extends WebTestCase
             'valid quantity 7' => array(
                 201,
                 array('quantity' => 7),
+                array('products.0.quantity' => 7)
             ),
             'empty quantity' => array(
                 400,
@@ -783,6 +784,14 @@ class WriteOffControllerTest extends WebTestCase
             'valid cause special symbols' => array(
                 201,
                 array('cause' => '!@#$%^&^&*QWERTY}{}":<></.,][;.,`~\=0=-\\'),
+            ),
+            /***********************************************************************************************
+             * 'totals'
+             ***********************************************************************************************/
+            'valid invoice totals recalc' => array(
+                201,
+                array('quantity' => 9, 'price' => 5.99),
+                array('sumTotal' => 53.91, 'itemsCount' => 1)
             ),
         );
     }
