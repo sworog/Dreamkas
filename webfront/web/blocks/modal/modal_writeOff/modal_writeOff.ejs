@@ -47,12 +47,14 @@
 
                             <label class="control-label">Дата *</label>
 
-                            <div class="datetimepicker-default date">
+                            <div class="input-group date">
                                 <input name="date"
                                        type="text"
-                                       class="form-control datepicker-default inputDate"
-                                       value="<%- models.writeOff.get('date') ? helpers.formatDate(models.writeOff.get('date')) : '' %>">
+                                       class="form-control inputDate"
+                                       value="<%- models.writeOff.get('date') ? helpers.formatDate(models.writeOff.get('date')) : helpers.formatDate(new Date()) %>">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div>
+
                         </div>
                     </div>
                     <div class="col-md-4">
