@@ -5,9 +5,35 @@ namespace Lighthouse\CoreBundle\Document\StockMovement;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 
 class StockMovementRepository extends DocumentRepository
 {
+    /**
+     * @var NumericFactory
+     */
+    protected $numericFactory;
+
+    /**
+     * @param NumericFactory $numericFactory
+     */
+    public function setNumericFactory(NumericFactory $numericFactory)
+    {
+        $this->numericFactory = $numericFactory;
+    }
+
+    /**
+     * @return StockMovement
+     */
+    public function createNew()
+    {
+        /* @var StockMovement $stockMovement */
+        $stockMovement = $this->getClassMetadata()->newInstance();
+        $stockMovement->sumTotal = $this->numericFactory->createMoney();
+
+        return $stockMovement;
+    }
+
     /**
      * @return Cursor|StockMovement[]
      */

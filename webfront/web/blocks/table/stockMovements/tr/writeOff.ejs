@@ -3,7 +3,10 @@
     formatDate: require('kit/formatDate/formatDate')
 } %>
 
-<tr data-writeOff-number="<%- stockMovementModel.get('number') %>" data-writeoff_id="<%- stockMovementModel.id %>" class="writeOff__link">
+<tr data-writeoff-date="<%- stockMovementModel.get('date') %>"
+    data-writeoff-number="<%- stockMovementModel.get('number') %>"
+    data-writeoff_id="<%- stockMovementModel.id %>"
+    class="writeOff__link">
 
     <% if (dateRowSpan) { %>
     <td name="date" rowspan="<%- dateRowSpan %>">
@@ -11,8 +14,8 @@
     </td>
     <% } %>
 
-    <td name="type">
-        Списание
+    <td>
+        <span name="type">Списание</span>
     </td>
     <td name="store">
         Из <%- stockMovementModel.get('store.name') %>

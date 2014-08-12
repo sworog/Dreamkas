@@ -792,7 +792,7 @@ class UserControllerTest extends WebTestCase
                         'GET',
                         'GET::products',
                     ),
-                    'stores/{store}/writeoffs' => array(
+                    'stores/{store}/writeOffs' => array(
                         'GET',
                         'GET::{writeOff}',
                         'POST',
@@ -815,7 +815,7 @@ class UserControllerTest extends WebTestCase
                     'users/signup' => array(
                         'POST'
                     ),
-                    'writeoffs' => array(),
+                    'writeOffs' => array(),
                     'others' => array()
                 )
             ),
@@ -878,7 +878,7 @@ class UserControllerTest extends WebTestCase
                         'GET::products',
                         'GET::reports/grossSalesByProducts',
                     ),
-                    'stores/{store}/writeoffs' => array(),
+                    'stores/{store}/writeOffs' => array(),
                     'subcategories' => array(
                         'GET::{subCategory}/products'
                     ),
@@ -896,7 +896,7 @@ class UserControllerTest extends WebTestCase
                     'users/signup' => array(
                         'POST'
                     ),
-                    'writeoffs' => array(),
+                    'writeOffs' => array(),
                     'others' => array()
                 )
             ),
@@ -998,7 +998,7 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/orders' => array(),
                     'stores/{store}/products/{product}' => array(),
                     'stores/{store}/subcategories/{subCategory}' => array(),
-                    'stores/{store}/writeoffs' => array(),
+                    'stores/{store}/writeOffs' => array(),
                     'subcategories' => array(
                         'DELETE::{subCategory}',
                         'GET::{subCategory}',
@@ -1028,7 +1028,7 @@ class UserControllerTest extends WebTestCase
                     'users/signup' => array(
                         'POST'
                     ),
-                    'writeoffs' => array(
+                    'writeOffs' => array(
                         'DELETE::{writeOff}',
                         'GET::{writeOff}',
                         'POST',
@@ -1081,7 +1081,7 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/orders' => array(),
                     'stores/{store}/products/{product}' => array(),
                     'stores/{store}/subcategories/{subCategory}' => array(),
-                    'stores/{store}/writeoffs' => array(),
+                    'stores/{store}/writeOffs' => array(),
                     'subcategories' => array(),
                     'suppliers' => array(),
                     'suppliers/{supplier}/bankAccounts' => array(),
@@ -1097,7 +1097,7 @@ class UserControllerTest extends WebTestCase
                     'users/signup' => array(
                         'POST'
                     ),
-                    'writeoffs' => array(),
+                    'writeOffs' => array(),
                     'others' => array()
                 )
             )

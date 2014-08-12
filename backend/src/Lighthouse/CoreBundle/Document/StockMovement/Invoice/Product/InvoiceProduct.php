@@ -186,6 +186,9 @@ class InvoiceProduct extends AbstractDocument implements Reasonable, SoftDeletea
         $this->originalProduct = $this->product->getObject();
     }
 
+    /**
+     * @return Money
+     */
     public function calculateTotals()
     {
         if ($this->price && $this->priceWithoutVAT && $this->amountVAT) {
@@ -193,6 +196,8 @@ class InvoiceProduct extends AbstractDocument implements Reasonable, SoftDeletea
             $this->setTotalPriceWithoutVAT($this->priceWithoutVAT->mul($this->quantity, Decimal::ROUND_HALF_EVEN));
             $this->setTotalAmountVAT($this->amountVAT->mul($this->quantity, Decimal::ROUND_HALF_EVEN));
         }
+
+        return $this->totalPrice;
     }
 
     /**

@@ -8,6 +8,17 @@ define(function(require, exports, module) {
         collections: {
             stockMovements: null
         },
+        events: {
+            'click .writeOff__removeLink': function(e){
+                var block = this;
+
+                e.target.classList.add('loading');
+
+                block.models.writeOff.destroy().then(function() {
+                    e.target.classList.remove('loading');
+                });
+            }
+        },
         blocks: {
             form_writeOff: function() {
                 var block = this,

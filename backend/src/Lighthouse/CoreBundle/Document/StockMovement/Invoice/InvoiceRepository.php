@@ -3,26 +3,17 @@
 namespace Lighthouse\CoreBundle\Document\StockMovement\Invoice;
 
 use Doctrine\ODM\MongoDB\Cursor;
+use Doctrine\ODM\MongoDB\LockMode;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovementRepository;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 
+/**
+ * @method Invoice find($id, $lockMode = LockMode::NONE, $lockVersion = null)
+ */
 class InvoiceRepository extends StockMovementRepository
 {
-    /**
-     * @var NumericFactory
-     */
-    protected $numericFactory;
-
-    /**
-     * @param NumericFactory $numericFactory
-     */
-    public function setNumericFactory(NumericFactory $numericFactory)
-    {
-        $this->numericFactory = $numericFactory;
-    }
-
     /**
      * @return Invoice
      */

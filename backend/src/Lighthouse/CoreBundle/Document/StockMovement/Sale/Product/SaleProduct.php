@@ -119,11 +119,23 @@ class SaleProduct extends AbstractDocument implements Reasonable
      */
     public function beforeSave()
     {
-        $this->totalPrice = $this->price->mul($this->quantity);
+        $this->calculateTotals();
 
         $this->date = $this->sale->date;
         $this->store = $this->sale->store;
         $this->originalProduct = $this->product->getObject();
+    }
+
+    /**
+     * @return Money|null
+     */
+    public function calculateTotals()
+    {
+        if ($this->price) {
+            $this->totalPrice = $this->price->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
+        }
+
+        return $this->totalPrice;
     }
 
     /**
