@@ -42,15 +42,11 @@ define(function(require, exports, module) {
 
             block.listenTo(block.collection, 'add remove', function(){
                 block.renderInvoiceProducts();
+                block.renderInvoiceTotalSum();
             });
         },
 
-        collection: function(){
-            var block = this,
-                InvoiceProductCollection = require('collections/invoiceProducts/invoiceProducts');
-
-            return new InvoiceProductCollection();
-        },
+        collection: require('collections/invoiceProducts/invoiceProducts'),
 
         submit: function() {
             var block = this;
@@ -160,6 +156,16 @@ define(function(require, exports, module) {
                     invoiceProducts: block.collection
                 }
             }));
+        },
+        renderInvoiceTotalSum: function(){
+            var block = this,
+                totalSum = 0;
+
+            block.collection.forEach(function(productModel){
+                totalSum += productModel.get('totalPrice');
+            });
+
+            block.$('.invoice__totalSum').html(formatMoney(totalSum));
         }
     });
 });

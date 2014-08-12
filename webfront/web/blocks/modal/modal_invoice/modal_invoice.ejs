@@ -180,6 +180,14 @@
                                    class="addInvoiceProduct btn btn-default fa fa-check btn-lg"></button>
                             </td>
                         </tr>
+                        <tr>
+                            <td colspan="3">
+                                Итого
+                            </td>
+                            <td class="invoice__totalSum" colspan="2">
+                                <%- helpers.formatMoney(models.invoice.get('sumTotal'))  %>
+                            </td>
+                        </tr>
                         </tfoot>
                     </table>
                     <div class="form__errorMessage form__errorMessage_global"></div>
