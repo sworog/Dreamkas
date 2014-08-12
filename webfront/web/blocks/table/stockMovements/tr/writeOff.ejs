@@ -4,9 +4,13 @@
 } %>
 
 <tr data-writeOff-number="<%- stockMovementModel.get('number') %>" data-writeoff_id="<%- stockMovementModel.id %>" class="writeOff__link">
-    <td name="date">
+
+    <% if (dateRowSpan) { %>
+    <td name="date" rowspan="<%- dateRowSpan %>">
         <%- helpers.formatDate(stockMovementModel.get('date')) %>
     </td>
+    <% } %>
+
     <td name="type">
         Списание
     </td>

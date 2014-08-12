@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <% if (collections.stockMovements.length) { %>
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover table_stockMovements">
                         <thead>
                         <tr>
                             <th>Дата</th>
@@ -82,17 +82,28 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <% collections.stockMovements.forEach(function(stockMovementModel) { %>
-                            <% switch (stockMovementModel.get('type')) {
-                                case 'Invoice':
-                                    %> <%= partials.tr.invoice({stockMovementModel: stockMovementModel}) %> <%
-                                    break;
 
-                                case 'WriteOff':
-                                    %> <%= partials.tr.writeOff({stockMovementModel: stockMovementModel}) %> <%
-                                    break;
-                            } %>
+                        <% _.forEach(collections.stockMovements.groupBy('date'), function(stockMovements, date){ %>
+
+                            <% _.forEach(stockMovements, function(stockMovementModel, index) { %>
+
+                                <% if (stockMovementModel.get('type') === 'Invoice'){ %>
+                                    <%= partials.tr.invoice({
+                                        dateRowSpan: index === 0 ? stockMovements.length : null,
+                                        stockMovementModel: stockMovementModel
+                                    }) %>
+                                <% } %>
+
+                                <% if (stockMovementModel.get('type') === 'WriteOff'){ %>
+                                    <%= partials.tr.writeOff({
+                                        dateRowSpan: index === 0 ? stockMovements.length : null,
+                                        stockMovementModel: stockMovementModel
+                                    }) %>
+                                <% } %>
+
+                            <% }) %>
                         <% }) %>
+
                         </tbody>
                     </table>
                     <% } else { %>
