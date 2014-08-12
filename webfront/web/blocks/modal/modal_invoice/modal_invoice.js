@@ -10,6 +10,9 @@ define(function(require, exports, module) {
             suppliers: null,
             invoices: null
         },
+        models: {
+            invoice: null
+        },
         events: {
             'click .addSupplierLink': function() {
                 var block = this;
@@ -30,13 +33,15 @@ define(function(require, exports, module) {
         blocks: {
             form_invoice: function() {
                 var block = this,
+                    InvoiceModel = require('models/invoice/invoice'),
                     Form_invoice = require('blocks/form/form_invoice/form_invoice'),
                     form_invoice = new Form_invoice({
                         el: block.$('.form_invoice'),
-                        collection: block.collections.invoices
+                        collection: block.collections.invoices,
+                        model: block.models.invoice || new InvoiceModel()
                     });
 
-                form_invoice.on('submit:success', function(){
+                form_invoice.listenTo(form_invoice, 'submit:success', function(){
                     block.$el.modal('hide');
                 });
 

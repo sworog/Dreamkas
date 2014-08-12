@@ -40,7 +40,7 @@
                 </button>
 
                 <h4 class="modal-title">
-                    <%- models.invoice.id ? 'Редактирование приёски товаров от поставщика' : 'Приёмка товаров от поставщика' %>
+                    <%- models.invoice.id ? 'Редактирование приёмки товаров от поставщика' : 'Приёмка товаров от поставщика' %>
                 </h4>
 
                 <span class="clearfix"></span>
@@ -53,11 +53,12 @@
 
                                 <label class="control-label">Дата *</label>
 
-                                <div class="datetimepicker-default date">
+                                <div class="input-group date">
                                     <input name="date"
                                            type="text"
-                                           class="form-control datepicker-default inputDate"
-                                           value="<%- models.invoice.get('date') ? helpers.formatDate(models.invoice.get('date')) : '' %>">
+                                           class="form-control inputDate"
+                                           value="<%- models.invoice.get('date') ? helpers.formatDate(models.invoice.get('date')) : helpers.formatDate(new Date()) %>">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>
                         </div>
@@ -131,7 +132,11 @@
                         </thead>
                         <tbody>
 
-                            <%= partials.invoiceProducts() %>
+                            <%= partials.invoiceProducts({
+                                collections: {
+                                    invoiceProducts: models.invoice.collections.products
+                                }
+                            }) %>
 
                         </tbody>
                         <tfoot>
@@ -173,6 +178,14 @@
                                 <button type="submit"
                                    style="margin-top: 0;"
                                    class="addInvoiceProduct btn btn-default fa fa-check btn-lg"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Итого
+                            </td>
+                            <td class="invoice__totalSum" colspan="2">
+                                <%- helpers.formatMoney(models.invoice.get('sumTotal'))  %>
                             </td>
                         </tr>
                         </tfoot>

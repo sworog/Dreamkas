@@ -9,11 +9,7 @@ define(function(require, exports, module) {
             supplier: null
         },
         collections: {
-            suppliers: function() {
-                var SupplierCollection = require('collections/suppliers/suppliers');
-
-                return new SupplierCollection();
-            }
+            suppliers: require('collections/suppliers/suppliers')
         },
         events: {
             'click .supplier__link': function(e) {

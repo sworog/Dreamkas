@@ -145,7 +145,7 @@ input.invalid {
     line-height: 34px;
 }
 
-.product__link, .supplier__link, .store__link {
+.product__link, .supplier__link, .store__link, .invoice__link, .writeOff__link {
     cursor: pointer;
 }
 
@@ -186,6 +186,10 @@ table.table-vcenter > tbody > tr > td {
     display: none;
 }
 
-select.loading{
+select.loading, input.loading{
     background-color: #eee;
+}
+
+.datepicker.dropdown-menu{
+    margin-top: -1px;
 }

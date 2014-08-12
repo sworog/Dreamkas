@@ -3,9 +3,10 @@ define(function(require, exports, module) {
     var config = require('config'),
         get = require('kit/get/get'),
         _ = require('lodash'),
+        makeClass = require('kit/makeClass/makeClass'),
         Backbone = require('backbone');
 
-    var Model = Backbone.Model.extend({
+    var Model = makeClass(Backbone.Model, {
         constructor: function(attributes, options){
 
             options = _.extend({
@@ -75,20 +76,9 @@ define(function(require, exports, module) {
                 }
             });
 
-            _.forEach(model.models, function(model, key) {
-
-                if (typeof model === 'function'){
-                    model.models[key] = model.call(model);
-                }
-
-                if (model.models[key] instanceof Backbone.Collection){
-                    model.models[key].reset(data[key]);
-                }
-            });
-
             return data;
         }
-    }).extend();
+    });
 
     Model.baseApiUrl = config.baseApiUrl;
     Model.mockApiUrl = config.mockApiUrl;
