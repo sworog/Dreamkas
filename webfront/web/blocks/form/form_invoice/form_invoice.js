@@ -4,12 +4,7 @@ define(function(require, exports, module) {
 
     return From.extend({
         el: '.form_invoice',
-        model: function(){
-            var block = this,
-                InvoiceModel = require('models/invoice/invoice');
-
-            return new InvoiceModel();
-        },
+        model: require('models/invoice/invoice'),
         blocks: {
             form_invoiceProducts: function(){
                 var block = this,

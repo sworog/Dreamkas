@@ -19,7 +19,7 @@ define(function(require, exports, module) {
                         groupId: page.params.groupId
                     });
 
-                productCollection.on({
+                page.listenTo(productCollection, {
                     remove: function(){
                         var modal = $('.modal:visible');
 

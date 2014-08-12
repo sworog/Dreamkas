@@ -14,13 +14,26 @@ define(function(require, exports, module) {
             stores: require('collections/stores/stores'),
             stockMovements: function(){
                 var page = this,
-                    StockMovementsCollection = require('collections/stockMovements/stockMovements');
+                    StockMovementsCollection = require('collections/stockMovements/stockMovements'),
+                    stockMovementsCollection = new StockMovementsCollection([], {
+                        filterTypes: page.params.filterTypes,
+                        dateFrom: page.params.dateFrom,
+                        dateTo: page.params.dateTo
+                    });
 
-                return new StockMovementsCollection([], {
-                    filterTypes: page.params.filterTypes,
-                    dateFrom: page.params.dateFrom,
-                    dateTo: page.params.dateTo
+                page.listenTo(stockMovementsCollection, {
+                    remove: function(){
+                        var modal = $('.modal:visible');
+
+                        modal.one('hidden.bs.modal', function(e) {
+                            page.render();
+                        });
+
+                        modal.modal('hide');
+                    }
                 });
+
+                return stockMovementsCollection;
             },
             groups: require('collections/groups/groups')
         },
