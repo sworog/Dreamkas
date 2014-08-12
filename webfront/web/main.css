@@ -78,9 +78,6 @@ body[status="loaded"]:before {
 
 .form__errorMessage_visible {
     display: block;
-}
-
-input + .form__errorMessage {
     padding-top: 5px;
 }
 

@@ -48,7 +48,7 @@ define(function(require) {
 
                 if (field === 'subCategory'){
 
-                    data.errors = [];
+                    data.errors = data.errors || [];
 
                     _.forEach(data.children, function(value, key){
                         if (value.errors){
