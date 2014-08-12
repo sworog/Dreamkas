@@ -518,6 +518,44 @@ class WriteOffControllerTest extends WebTestCase
     }
 
     /**
+     * @dataProvider validationWriteOffProductProvider
+     *
+     * @param $expectedCode
+     * @param array $data
+     * @param array $assertions
+     */
+    public function testPostWriteOffProductValidationGroups($expectedCode, array $data, array $assertions = array())
+    {
+        $store = $this->factory()->store()->getStore();
+
+        $productId = $this->createProduct();
+
+        $writeOffData = WriteOffBuilder::create(null, $store->id)
+            ->addProduct($productId, 7.99, 2, 'Сгнил товар')
+            ->toArray();
+
+        $writeOffData['products'][0] = $data + $writeOffData['products'][0];
+
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/writeoffs?validate=true&validationGroups=products',
+            $writeOffData
+        );
+
+        $this->assertResponseCode($expectedCode);
+
+        $this->performJsonAssertions($postResponse, $assertions, true);
+
+        if (400 != $expectedCode) {
+            Assert::assertNotJsonHasPath('id', $postResponse);
+        }
+    }
+
+    /**
      * @return array
      */
     public function validationWriteOffProductProvider()

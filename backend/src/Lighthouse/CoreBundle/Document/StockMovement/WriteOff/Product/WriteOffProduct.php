@@ -27,7 +27,7 @@ use DateTime;
  * @property Money      $price
  * @property Quantity   $quantity
  * @property Money      $totalPrice
- * @property DateTime   $createdDate
+ * @property DateTime   $date
  * @property string     $cause
  * @property ProductVersion    $product
  * @property WriteOff   $writeOff
@@ -43,10 +43,9 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
     protected $id;
 
     /**
-     * Цена
      * @MongoDB\Field(type="money")
-     * @Assert\NotBlank
-     * @LighthouseAssert\Money(notBlank=true)
+     * @Assert\NotBlank(groups={"Default", "products"})
+     * @LighthouseAssert\Money(notBlank=true, groups={"Default", "products"})
      * @var Money
      */
     protected $price;
@@ -61,29 +60,36 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
      * @MongoDB\Date
      * @var \DateTime
      */
-    protected $createdDate;
+    protected $date;
 
     /**
      * Количество
      * @MongoDB\Field(type="quantity")
-     * @Assert\NotBlank
-     * @LighthouseAssert\Chain({
-     *  @LighthouseAssert\Precision(3),
-     *  @LighthouseAssert\Range\Range(gt=0)
-     * })
+     * @Assert\NotBlank(groups={"Default", "products"})
+     * @LighthouseAssert\Chain(
+     *      constraints={
+     *          @LighthouseAssert\Precision(3),
+     *          @LighthouseAssert\Range\Range(gt=0)
+     *      },
+     *      groups={"Default", "products"}
+     * )
      * @var Quantity
      */
     protected $quantity;
 
     /**
      * @MongoDB\String
-     * @Assert\NotBlank
-     * @Assert\Length(max="1000", maxMessage="lighthouse.validation.errors.length")
+     * @Assert\NotBlank(groups={"Default", "products"})
+     * @Assert\Length(
+     *      max="1000",
+     *      maxMessage="lighthouse.validation.errors.length",
+     *      groups={"Default", "products"}
+     * )
      */
     protected $cause;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\NotBlank(groups={"Default", "products"})
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Product\Version\ProductVersion",
      *     simple=true,
@@ -135,7 +141,7 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
     public function beforeSave()
     {
         $this->totalPrice = $this->price->mul($this->quantity);
-        $this->createdDate = $this->writeOff->date;
+        $this->date = $this->writeOff->date;
         $this->store = $this->writeOff->store;
         $this->originalProduct = $this->product->getObject();
     }
@@ -161,7 +167,7 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
      */
     public function getReasonDate()
     {
-        return $this->createdDate;
+        return $this->date;
     }
 
     /**
