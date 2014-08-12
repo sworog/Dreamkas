@@ -4,9 +4,13 @@
 } %>
 
 <tr data-invoice-number="<%- stockMovementModel.get('number') %>" data-invoice_id="<%- stockMovementModel.id %>" class="invoice__link">
-    <td name="date">
-        <%- helpers.formatDate(stockMovementModel.get('date')) %>
-    </td>
+
+    <% if (dateRowSpan) { %>
+        <td name="date" rowspan="<%- dateRowSpan %>">
+            <%- helpers.formatDate(stockMovementModel.get('date')) %>
+        </td>
+    <% } %>
+
     <td name="type">
         Приёмка <span style="font-size: 11px; margin-left: 10px;" class="<%- stockMovementModel.get('paid') ? 'text-muted' : 'text-red' %>">/ <%- stockMovementModel.get('paid') ? 'оплачена' : 'не оплачена' %></span>
     </td>

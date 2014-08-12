@@ -190,3 +190,8 @@ select.loading, input.loading{
 .datepicker.dropdown-menu{
     margin-top: -1px;
 }
+
+.table_stockMovements td[name="date"]{
+    background-color: #fff !important;
+    border-right: 1px solid #efefef;
+}
