@@ -5,7 +5,7 @@ namespace Lighthouse\CoreBundle\Controller;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceHighlightGenerator;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository;
-use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoicesFilter;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceFilter;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
@@ -62,7 +62,7 @@ class InvoiceController extends AbstractRestController
      *
      * @Rest\View(statusCode=201, serializerEnableMaxDepthChecks=true)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc
+     * @ApiDoc(resource=true)
      */
     public function postInvoicesAction(Request $request)
     {
@@ -147,7 +147,7 @@ class InvoiceController extends AbstractRestController
 
     /**
      * @param Store $store
-     * @param InvoicesFilter $filter
+     * @param InvoiceFilter $filter
      * @return MetaCollection|Invoice[]|Cursor
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc(
@@ -156,7 +156,7 @@ class InvoiceController extends AbstractRestController
      * @Rest\Route("stores/{store}/invoices")
      * @Rest\View(serializerEnableMaxDepthChecks=true)
      */
-    public function getStoreInvoicesAction(Store $store, InvoicesFilter $filter)
+    public function getStoreInvoicesAction(Store $store, InvoiceFilter $filter)
     {
         $cursor = $this->documentRepository->findByStore($store->id, $filter);
         if ($filter->hasNumberOrSupplierInvoiceNumber()) {

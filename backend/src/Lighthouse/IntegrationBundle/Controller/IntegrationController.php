@@ -27,7 +27,7 @@ class IntegrationController extends FOSRestController
 
     /**
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc
+     * @ApiDoc(resource=true)
      */
     public function getIntegrationExportProductsAction()
     {

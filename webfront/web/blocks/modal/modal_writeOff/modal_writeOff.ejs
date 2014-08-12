@@ -92,7 +92,11 @@
                     </thead>
                     <tbody>
 
-                        <%= partials.writeOffProducts() %>
+                        <%= partials.writeOffProducts({
+                            collections: {
+                                writeOffProducts: models.writeOff.collections.products
+                            }
+                        }) %>
 
                     </tbody>
                     <tfoot>

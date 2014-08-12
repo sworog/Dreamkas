@@ -167,79 +167,6 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @param string $number
-     * @param string $date timestamp
-     * @param string $storeId
-     * @param User $departmentManager
-     * @return string
-     */
-    protected function createWriteOff($number, $date, $storeId, User $departmentManager = null)
-    {
-        $departmentManager = ($departmentManager) ?: $this->factory()->store()->getDepartmentManager($storeId);
-        $accessToken = $this->factory()->oauth()->auth($departmentManager);
-
-        $date = $date ? : date('c', strtotime('-1 day'));
-
-        $postData = array(
-            'number' => $number,
-            'date' => $date,
-        );
-
-        $postResponse = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/stores/' . $storeId . '/writeoffs',
-            $postData
-        );
-
-        $this->assertResponseCode(201);
-
-        Assert::assertJsonHasPath('id', $postResponse);
-
-        return $postResponse['id'];
-    }
-
-    /**
-     * @param string $writeOffId
-     * @param string $productId
-     * @param float $quantity
-     * @param float $price
-     * @param string $cause
-     * @param string $storeId
-     * @return string
-     */
-    protected function createWriteOffProduct(
-        $writeOffId,
-        $productId,
-        $quantity,
-        $price,
-        $cause,
-        $storeId
-    ) {
-        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($storeId);
-
-        $postData = array(
-            'product' => $productId,
-            'price' => $price,
-            'quantity' => $quantity,
-            'cause' => $cause,
-        );
-
-        $request = new JsonRequest(
-            '/api/1/stores/' . $storeId . '/writeoffs/' . $writeOffId . '/products',
-            'POST',
-            $postData
-        );
-        $postResponse = $this->client->jsonRequest($request, $accessToken);
-
-        $this->assertResponseCode(201);
-
-        Assert::assertJsonHasPath('id', $postResponse);
-
-        return $postResponse['id'];
-    }
-
-    /**
      * @param array $catalog
      * @return array
      */
@@ -396,15 +323,6 @@ class WebTestCase extends ContainerAwareTestCase
     }
 
     /**
-     * @param string $format
-     * @return string
-     */
-    protected function getNowDate($format = 'Y-m-d\\TH:')
-    {
-        return date($format);
-    }
-
-    /**
      * @param integer $expectedCode
      */
     public function assertResponseCode($expectedCode)
@@ -474,8 +392,6 @@ class WebTestCase extends ContainerAwareTestCase
 
         return $postResponse['id'];
     }
-
-
 
     /**
      * @param $accessToken

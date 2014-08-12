@@ -36,12 +36,13 @@ class WriteOffController extends AbstractRestController
     }
 
     /**
-     * @Rest\View(statusCode=201)
-     *
      * @param Request $request
      * @return FormInterface|WriteOff
+     *
+     * @Rest\Route("writeOffs")
+     * @Rest\View(statusCode=201)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc
+     * @ApiDoc(resource=true)
      */
     public function postWriteoffsAction(Request $request)
     {
@@ -51,11 +52,12 @@ class WriteOffController extends AbstractRestController
     }
 
     /**
-     * @Rest\View(statusCode=201)
-     *
      * @param Store $store
      * @param Request $request
      * @return FormInterface|WriteOff
+     *
+     * @Rest\Route("stores/{store}/writeOffs")
+     * @Rest\View(statusCode=201)
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
@@ -70,6 +72,8 @@ class WriteOffController extends AbstractRestController
      * @param WriteOff $writeOff
      * @param Request $request
      * @return FormInterface|WriteOff
+     *
+     * @Rest\Route("writeOffs/{writeOff}")
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -85,6 +89,8 @@ class WriteOffController extends AbstractRestController
      * @param WriteOff $writeOff
      * @param Request $request
      * @return FormInterface|WriteOff
+     *
+     * @Rest\Route("stores/{store}/writeOffs/{writeOff}")
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
@@ -97,7 +103,22 @@ class WriteOffController extends AbstractRestController
 
     /**
      * @param WriteOff $writeOff
+     *
+     * @Rest\Route("writeOffs/{writeOff}")
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function deleteWriteoffsAction(WriteOff $writeOff)
+    {
+        $this->processDelete($writeOff);
+    }
+
+    /**
+     * @param WriteOff $writeOff
      * @return WriteOff
+     *
+     * @Rest\Route("writeOffs/{writeOff}")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
@@ -110,6 +131,9 @@ class WriteOffController extends AbstractRestController
      * @param Store $store
      * @param WriteOff $writeOff
      * @return WriteOff
+     *
+     * @Rest\Route("stores/{store}/writeOffs/{writeOff}")
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
@@ -123,9 +147,10 @@ class WriteOffController extends AbstractRestController
      * @param Store $store
      * @param WriteOffFilter $filter
      * @return MetaCollection|WriteOff[]|Cursor
+     *
+     * @Rest\Route("stores/{store}/writeOffs")
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc(resource=true)
-     * @Rest\Route("stores/{store}/writeoffs")
      */
     public function getStoreWriteOffsAction(Store $store, WriteOffFilter $filter)
     {

@@ -1,6 +1,10 @@
 <% var partials = {
     modal_invoice: require('ejs!blocks/modal/modal_invoice/modal_invoice.ejs'),
-    modal_writeOff: require('ejs!blocks/modal/modal_writeOff/modal_writeOff.ejs')
+    modal_writeOff: require('ejs!blocks/modal/modal_writeOff/modal_writeOff.ejs'),
+    tr: {
+        invoice: require('ejs!blocks/table/stockMovements/tr/invoice.ejs'),
+        writeOff: require('ejs!blocks/table/stockMovements/tr/writeOff.ejs')
+    }
 }; %>
 <% var helpers = {
     formatMoney: require('kit/formatMoney/formatMoney'),
@@ -79,20 +83,15 @@
                         </thead>
                         <tbody>
                         <% collections.stockMovements.forEach(function(stockMovementModel) { %>
-                        <tr data-invoice-number="<%- stockMovementModel.get('number') %>" data-invoice_id="<%- stockMovementModel.id %>" class="invoice__link">
-                            <td name="date">
-                                <%- helpers.formatDate(stockMovementModel.get('date')) %>
-                            </td>
-                            <td name="type">
-                                Приёмка
-                            </td>
-                            <td name="store">
-                                <%- stockMovementModel.get('store.name') %>
-                            </td>
-                            <td name="sumTotal">
-                                <%- helpers.formatMoney(stockMovementModel.get('sumTotal')) %>
-                            </td>
-                        </tr>
+                            <% switch (stockMovementModel.get('type')) {
+                                case 'Invoice':
+                                    %> <%= partials.tr.invoice({stockMovementModel: stockMovementModel}) %> <%
+                                    break;
+
+                                case 'WriteOff':
+                                    %> <%= partials.tr.writeOff({stockMovementModel: stockMovementModel}) %> <%
+                                    break;
+                            } %>
                         <% }) %>
                         </tbody>
                     </table>
@@ -129,6 +128,16 @@
     }
 }) %>
 
+<% if (models.writeOff) { %>
+    <%= partials.modal_writeOff({
+        collections: {
+            stores: collections.stores
+        },
+        models: {
+            writeOff: models.writeOff
+        }
+    }) %>
+<% } %>
 <%= partials.modal_writeOff({
     collections: {
         stores: collections.stores

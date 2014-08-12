@@ -59,7 +59,6 @@ class WriteOffBuilder
     /**
      * @param Store $store
      * @param string $date
-     * @param string $number
      * @return WriteOffBuilder
      */
     public function createWriteOff(Store $store = null, $date = null)

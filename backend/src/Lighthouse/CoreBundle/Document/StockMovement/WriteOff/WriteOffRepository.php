@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Document\StockMovement\WriteOff;
 
-use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Doctrine\ODM\MongoDB\LockMode;
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovementRepository;
