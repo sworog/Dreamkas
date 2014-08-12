@@ -29,7 +29,7 @@ class DocumentRepository extends BaseRepository
      */
     public function createNew()
     {
-        return $this->getClassMetadata()->newInstance();
+        return $stockMovement = $this->getClassMetadata()->getReflectionClass()->newInstance();
     }
 
     /**

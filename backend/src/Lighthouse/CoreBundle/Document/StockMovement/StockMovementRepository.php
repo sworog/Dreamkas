@@ -28,7 +28,7 @@ class StockMovementRepository extends DocumentRepository
     public function createNew()
     {
         /* @var StockMovement $stockMovement */
-        $stockMovement = $this->getClassMetadata()->newInstance();
+        $stockMovement = parent::createNew();
         $stockMovement->sumTotal = $this->numericFactory->createMoney();
 
         return $stockMovement;
