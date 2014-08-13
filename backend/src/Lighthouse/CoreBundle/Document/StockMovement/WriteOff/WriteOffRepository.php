@@ -30,23 +30,4 @@ class WriteOffRepository extends StockMovementRepository
 
         return $this->findBy($criteria, $sort);
     }
-
-    /**
-     * @param WriteOff $writeOff
-     * @param int $itemsCountDiff
-     * @param int $sumTotalDiff
-     */
-    public function updateTotals(WriteOff $writeOff, $itemsCountDiff, $sumTotalDiff)
-    {
-        $query = $this
-            ->createQueryBuilder()
-            ->findAndUpdate()
-            ->field('id')->equals($writeOff->id)
-            ->returnNew();
-
-        $query->field('itemsCount')->inc($itemsCountDiff);
-        $query->field('sumTotal')->inc($sumTotalDiff);
-
-        $query->getQuery()->execute();
-    }
 }

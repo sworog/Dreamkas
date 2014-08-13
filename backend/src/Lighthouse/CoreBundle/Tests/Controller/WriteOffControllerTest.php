@@ -2,6 +2,10 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProductRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\Client\Request\WriteOffBuilder;
@@ -514,7 +518,7 @@ class WriteOffControllerTest extends WebTestCase
 
         $this->assertResponseCode($expectedCode);
 
-        $this->performJsonAssertions($postResponse, $assertions, true);
+        $this->performJsonAssertions($postResponse, $assertions);
     }
 
     /**
@@ -1064,6 +1068,95 @@ class WriteOffControllerTest extends WebTestCase
         );
 
         $this->assertSame($storeGetResponse, $getResponse);
+    }
+
+    public function testDeleteWriteOff()
+    {
+        $store = $this->factory()->store()->getStore();
+
+        $productId = $this->createProduct(array('name' => 'Продукт'));
+
+        $writeOff = $this->factory()
+            ->writeOff()
+                ->createWriteOff($store)
+                ->createWriteOffProduct($productId)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            "/api/1/writeOffs/{$writeOff->id}"
+        );
+
+        $this->assertResponseCode(204);
+
+        $this->assertNull($deleteResponse);
+
+        $this->client->setCatchException();
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/writeOffs/{$writeOff->id}"
+        );
+
+        $this->assertResponseCode(404);
+
+        $this->assertWriteOffSoftDelete($writeOff->id);
+        $this->assertWriteOffProductSoftDelete($writeOff->products[0]->id);
+    }
+
+    /**
+     * @param string $invoiceId
+     */
+    protected function assertWriteOffSoftDelete($invoiceId)
+    {
+        $invoice = $this->getWriteOffRepository()->find($invoiceId);
+        $this->assertNull($invoice);
+
+        $filterCollection = $this->getWriteOffRepository()->getDocumentManager()->getFilterCollection();
+        $filterCollection->disable('softdeleteable');
+
+        $invoice = $this->getWriteOffRepository()->find($invoiceId);
+        $this->assertInstanceOf(WriteOff::getClassName(), $invoice);
+
+        $filterCollection->enable('softdeleteable');
+    }
+
+    /**
+     * @param string $invoiceProductId
+     */
+    protected function assertWriteOffProductSoftDelete($invoiceProductId)
+    {
+        $invoiceProduct = $this->getWriteOffProductRepository()->find($invoiceProductId);
+        $this->assertNull($invoiceProduct);
+
+        $filterCollection = $this->getWriteOffProductRepository()->getDocumentManager()->getFilterCollection();
+
+        $filterCollection->disable('softdeleteable');
+
+        $invoiceProduct = $this->getWriteOffProductRepository()->find($invoiceProductId);
+        $this->assertInstanceOf(WriteOffProduct::getClassName(), $invoiceProduct);
+        $this->assertSame($invoiceProductId, $invoiceProduct->id);
+
+        $filterCollection->enable('softdeleteable');
+    }
+
+    /**
+     * @return WriteOffRepository
+     */
+    protected function getWriteOffRepository()
+    {
+        return $this->getContainer()->get('lighthouse.core.document.repository.stock_movement.writeoff');
+    }
+
+    /**
+     * @return WriteOffProductRepository
+     */
+    protected function getWriteOffProductRepository()
+    {
+        return $this->getContainer()->get('lighthouse.core.document.repository.stock_movement.writeoff_product');
     }
 
     /**

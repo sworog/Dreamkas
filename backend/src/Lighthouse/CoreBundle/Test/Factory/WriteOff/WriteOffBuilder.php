@@ -67,7 +67,7 @@ class WriteOffBuilder
 
         $store = ($store) ?: $this->factory->store()->getStore();
 
-        $this->writeOff = new WriteOff();
+        $this->writeOff = $this->repository->createNew();
         $this->writeOff->store = $store;
         $this->writeOff->date = new DateTimestamp($date);
 
