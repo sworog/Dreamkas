@@ -1,4 +1,5 @@
 Meta:
+@smoke
 @sprint_38
 @us_100
 @id_s38u100s11
