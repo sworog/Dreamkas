@@ -44,6 +44,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void invoiceEditModalWindowChecksValues(ExamplesTable examplesTable) {
+        invoiceEditModalWindow.checkValues(examplesTable);
+    }
+
+    @Step
     public void invoiceEditModalWindowWindowInput(ExamplesTable examplesTable) {
         invoiceEditModalWindow.fieldInput(examplesTable);
     }
@@ -142,9 +147,14 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void openLastCreatedInvoiceInStockMovementPage() throws JSONException {
+        openInvoiceByNumberInStockMovementPage(getLastCreatedInvoice().getNumber());
+    }
+
+    @Step
+    public void openInvoiceByNumberInStockMovementPage(String number) {
         StockMovementObjectCollection stockMovementObjectCollection = stockMovementPage.getStockMovementObjectCollection();
         if (stockMovementObjectCollection != null) {
-            stockMovementObjectCollection.clickByLocator(getLastCreatedInvoice().getNumber());
+            stockMovementObjectCollection.clickByLocator(number);
         }
     }
 

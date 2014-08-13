@@ -61,6 +61,11 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.openLastCreatedInvoiceInStockMovementPage();
     }
 
+    @When("the user clicks on the invoice with number '$number' on the stock movement page")
+    public void whenTheUserClicksOnTheInvoiceWithName(String number) throws JSONException {
+        stockMovementSteps.openInvoiceByNumberInStockMovementPage(number);
+    }
+
     @When("the user clicks on delete invoice button in edit invoice modal window")
     public void whenTheUserClicksOnDeleteInvoiceButtonInEditInvoiceModalWindow() {
         stockMovementSteps.deleteInvoiceLinkClick();

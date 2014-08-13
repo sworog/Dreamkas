@@ -13,7 +13,8 @@ Meta:
 @smoke
 @id_s39u102s1
 
-GivenStories: precondition/sprint-39/us-102/aPreconditionToUserCreation.story,
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
+              precondition/sprint-39/us-102/aPreconditionToUserCreation.story,
               precondition/sprint-39/us-102/aPreconditionToTestDataCreation.story
 
 Given the user opens the stock movement page
@@ -44,13 +45,26 @@ Then the user asserts stock movement operations on the stock movement page
 | date | type | status | store | sumTotal |
 | 08.11.2014 | Приёмка | / оплачена | В s39u102-store | 750,00 |
 
+When the user clicks on the invoice with number '10001' on the stock movement page
+
+Then the user checks values on the edit invoice modal window
+| elementName | value |
+| date | 08.11.2014 |
+| store | s39u102-store |
+| supplier | s39u102-supplier |
+And the user asserts the invoice product list contain product with values
+| name | priceEntered | quantity | totalPrice |
+| s39u102-product1 | 150,00  | 5,0 шт. | 750,00 |
+And the user asserts invoice total sum is '750,00' in edit invoice modal window
+
 Scenario: Invoice edition
 
 Meta:
 @smoke
 @id_s39u102s2
 
-GivenStories: precondition/sprint-39/us-102/aPreconditionToUserCreation.story,
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
+              precondition/sprint-39/us-102/aPreconditionToUserCreation.story,
               precondition/sprint-39/us-102/aPreconditionToTestDataCreation.story,
               precondition/sprint-39/us-102/aPreconditionToTestInvoiceCreation.story,
               precondition/sprint-39/us-102/aPreconditionForInvoiceEditionScenario.story
@@ -80,6 +94,19 @@ Then the user waits for modal window closing
 Then the user asserts stock movement operations on the stock movement page
 | date | type | status | store | sumTotal |
 | 08.11.2014 | Приёмка | / не оплачена | В s39u102-store1 | 875,50 |
+
+When the user clicks on the invoice with number '10001' on the stock movement page
+
+Then the user checks values on the edit invoice modal window
+| elementName | value |
+| date | 08.11.2014 |
+| store | s39u102-store1 |
+| supplier | s39u102-supplier1 |
+Then the user asserts the invoice product list contain product with values
+| name | priceEntered | quantity | totalPrice |
+| s39u102-product1 | 150,00  | 5,0 шт. | 750,00 |
+| s39u102-product2 | 125,50  | 1,0 Пятюня | 125,50 |
+And the user asserts invoice total sum is '875,50' in edit invoice modal window
 
 Scenario: Invoice deletion
 
@@ -273,5 +300,43 @@ Then the user asserts the invoice product list contain product with values
 | s39u102-product2 | 125,50  | 1,0 Пятюня | 125,50 |
 
 Scenario: Invoice creation with supplier create
+
+Meta:
+@id
+@smoke
+@test
+
 Scenario: Invoice creation with product create
+
+Meta:
+@id
+@smoke
+@test
+
 Scenario: Invoice creation with supplier and product create
+
+Meta:
+@id
+@smoke
+@test
+
+Scenario: Invoice edition with supplier create
+
+Meta:
+@id
+@smoke
+@test
+
+Scenario: Invoice edition with product create
+
+Meta:
+@id
+@smoke
+@test
+
+Scenario: Invoice edition with supplier and product create
+
+Meta:
+@id
+@smoke
+@test

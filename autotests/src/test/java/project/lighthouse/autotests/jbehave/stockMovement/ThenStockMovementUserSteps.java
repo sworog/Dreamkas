@@ -65,4 +65,9 @@ public class ThenStockMovementUserSteps {
     public void thenTheUserChecksTheElementWithNameHasValueInTheCreateNewInvoiceModalWindow(String name, String value) {
         stockMovementSteps.invoiceCreateModalWindowCheckValue(name, value);
     }
+
+    @Then("the user checks values on the edit invoice modal window $examplesTable")
+    public void thenTheUserChecksValuesOnTheEditInvoiceModalWindow(ExamplesTable examplesTable) {
+        stockMovementSteps.invoiceEditModalWindowChecksValues(examplesTable);
+    }
 }
