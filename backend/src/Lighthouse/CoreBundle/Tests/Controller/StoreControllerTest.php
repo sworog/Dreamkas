@@ -236,7 +236,7 @@ class StoreControllerTest extends WebTestCase
 
     public function testGetStores()
     {
-        $storesIds = $this->factory()->store()->getStores(array(0, 1, 2, 3, 4));
+        $storesIds = $this->factory()->store()->getStoreIds(array(0, 1, 2, 3, 4));
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
 

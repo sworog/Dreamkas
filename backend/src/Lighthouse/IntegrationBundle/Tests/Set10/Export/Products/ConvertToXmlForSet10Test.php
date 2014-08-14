@@ -454,7 +454,7 @@ EOF;
 
     public function testBarcodesExport()
     {
-        $this->factory()->store()->getStores(array('666', '777', '888'));
+        $this->factory()->store()->getStoreIds(array('666', '777', '888'));
         $productData = array(
             'name' => 'Продукт 1',
             'barcode' => '7770000000001',

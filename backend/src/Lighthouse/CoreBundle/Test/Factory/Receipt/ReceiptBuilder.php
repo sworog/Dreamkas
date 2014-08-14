@@ -135,7 +135,7 @@ class ReceiptBuilder
     {
         $this->validator->validate($this->receipt);
         $this->repository->getDocumentManager()->persist($this->receipt);
-        return $this->factory->writeOff();
+        return $this->factory->receipt();
     }
 
     /**
