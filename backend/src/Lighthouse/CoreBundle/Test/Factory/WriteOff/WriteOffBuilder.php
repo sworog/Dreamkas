@@ -59,20 +59,17 @@ class WriteOffBuilder
     /**
      * @param Store $store
      * @param string $date
-     * @param string $number
      * @return WriteOffBuilder
      */
-    public function createWriteOff(Store $store = null, $date = null, $number = null)
+    public function createWriteOff(Store $store = null, $date = null)
     {
         $date = ($date) ?: new \DateTime();
-        $number = ($number) ?: '10001';
 
         $store = ($store) ?: $this->factory->store()->getStore();
 
-        $this->writeOff = new WriteOff();
+        $this->writeOff = $this->repository->createNew();
         $this->writeOff->store = $store;
         $this->writeOff->date = new DateTimestamp($date);
-        $this->writeOff->number = $number;
 
         return $this;
     }
@@ -90,14 +87,14 @@ class WriteOffBuilder
         $price = ($price) ?: 5.99;
         $cause = ($cause) ?: 'Порча';
 
-        $orderProduct = new WriteOffProduct();
-        $orderProduct->writeOff = $this->writeOff;
-        $orderProduct->product = $this->factory->createProductVersion($productId);
-        $orderProduct->quantity = $this->numericFactory->createQuantity($quantity);
-        $orderProduct->price = $this->numericFactory->createMoney($price);
-        $orderProduct->cause = $cause;
+        $writeOffProduct = new WriteOffProduct();
+        $writeOffProduct->writeOff = $this->writeOff;
+        $writeOffProduct->product = $this->factory->createProductVersion($productId);
+        $writeOffProduct->quantity = $this->numericFactory->createQuantity($quantity);
+        $writeOffProduct->price = $this->numericFactory->createMoney($price);
+        $writeOffProduct->cause = $cause;
 
-        $this->writeOff->products->add($orderProduct);
+        $this->writeOff->products->add($writeOffProduct);
 
         return $this;
     }

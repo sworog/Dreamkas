@@ -1,0 +1,26 @@
+<% var helpers = {
+    formatMoney: require('kit/formatMoney/formatMoney'),
+    formatDate: require('kit/formatDate/formatDate')
+} %>
+
+<tr data-writeoff-date="<%- helpers.formatDate(stockMovementModel.get('date')) %>"
+    data-writeoff-number="<%- stockMovementModel.get('number') %>"
+    data-writeoff_id="<%- stockMovementModel.id %>"
+    class="writeOff__link">
+
+    <% if (dateRowSpan) { %>
+    <td name="date" rowspan="<%- dateRowSpan %>">
+        <%- helpers.formatDate(stockMovementModel.get('date')) %>
+    </td>
+    <% } %>
+
+    <td>
+        <span name="type">Списание</span>
+    </td>
+    <td name="store">
+        Из <%- stockMovementModel.get('store.name') %>
+    </td>
+    <td name="sumTotal">
+        <%- helpers.formatMoney(stockMovementModel.get('sumTotal')) %>
+    </td>
+</tr>

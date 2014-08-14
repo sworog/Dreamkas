@@ -17,6 +17,7 @@ public class InvoicesFactory extends AbstractApiFactory {
         super(userName, password);
     }
 
+    @Deprecated
     public Invoice create(String supplierId,
                           String acceptanceDate,
                           String accepter,
@@ -28,17 +29,17 @@ public class InvoicesFactory extends AbstractApiFactory {
         return create(invoice, store, invoiceProducts);
     }
 
+    @Deprecated
     public Invoice create(Invoice invoice,
                           Store store,
                           InvoiceProduct[] invoiceProducts) throws JSONException, IOException {
 
         invoice.putProducts(invoiceProducts);
-        create(invoice, store);
+        create(invoice);
         return invoice;
     }
 
-    public Invoice create(Invoice invoice, Store store) throws JSONException, IOException {
-        invoice.setStore(store);
+    public Invoice create(Invoice invoice) throws JSONException, IOException {
         createObject(invoice);
         return invoice;
     }

@@ -8,14 +8,14 @@ use Lighthouse\CoreBundle\Meta\MetaGeneratorInterface;
 class InvoiceHighlightGenerator implements MetaGeneratorInterface
 {
     /**
-     * @var InvoicesFilter
+     * @var InvoiceFilter
      */
     protected $filter;
 
     /**
-     * @param InvoicesFilter $filter
+     * @param InvoiceFilter $filter
      */
-    public function __construct(InvoicesFilter $filter)
+    public function __construct(InvoiceFilter $filter)
     {
         $this->filter = $filter;
     }

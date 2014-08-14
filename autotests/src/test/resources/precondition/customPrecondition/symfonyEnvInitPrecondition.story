@@ -1,4 +1,5 @@
 Meta:
+@smoke
 @sprint_38
 @us_100
 @id_s38u100s11
@@ -8,7 +9,13 @@ Meta:
 @id_s39u107s5
 @us_108
 @id_s39u108s5
-@test
+@sprint_39
+@us_102
+@id_s39u102s7
+@id_s39u102s8
+@id_s39u102s9
+@id_s39u102s1
+@id_s39u102s2
 
 Scenario: A scenario that clears all data
 

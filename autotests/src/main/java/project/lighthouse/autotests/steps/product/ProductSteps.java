@@ -188,12 +188,12 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void assertCreateNewProductModalWindowTitle(String title) {
-        assertThat(createNewProductModalWindow.getTitleText(), is(title));
+        assertThat(createNewProductModalWindow.getTitle(), is(title));
     }
 
     @Step
     public void assertEditProductModalWindowTitle(String title) {
-        assertThat(editProductModalWindow.getTitleText(), is(title));
+        assertThat(editProductModalWindow.getTitle(), is(title));
     }
 
     @Step

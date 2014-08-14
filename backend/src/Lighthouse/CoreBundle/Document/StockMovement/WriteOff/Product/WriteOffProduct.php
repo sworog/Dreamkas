@@ -6,33 +6,37 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
+use Lighthouse\CoreBundle\Document\SoftDeleteableDocument;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff;
+use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use JMS\Serializer\Annotation as Serializer;
+use Gedmo\Mapping\Annotation\SoftDeleteable;
 use DateTime;
 
 /**
- * @MongoDB\Document(
- *      repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProductRepository"
- * )
- * @MongoDB\HasLifecycleCallbacks
- *
  * @property string     $id
  * @property Money      $price
  * @property Quantity   $quantity
  * @property Money      $totalPrice
- * @property DateTime   $createdDate
+ * @property DateTime   $date
  * @property string     $cause
  * @property ProductVersion    $product
  * @property WriteOff   $writeOff
+ *
+ * @MongoDB\Document(
+ *      repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProductRepository"
+ * )
+ * @MongoDB\HasLifecycleCallbacks
+ * @SoftDeleteable
  */
-class WriteOffProduct extends AbstractDocument implements Reasonable
+class WriteOffProduct extends AbstractDocument implements Reasonable, SoftDeleteableDocument
 {
     const REASON_TYPE = 'WriteOffProduct';
 
@@ -43,10 +47,9 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
     protected $id;
 
     /**
-     * Цена
      * @MongoDB\Field(type="money")
-     * @Assert\NotBlank
-     * @LighthouseAssert\Money(notBlank=true)
+     * @Assert\NotBlank(groups={"Default", "products"})
+     * @LighthouseAssert\Money(notBlank=true, groups={"Default", "products"})
      * @var Money
      */
     protected $price;
@@ -61,29 +64,36 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
      * @MongoDB\Date
      * @var \DateTime
      */
-    protected $createdDate;
+    protected $date;
 
     /**
      * Количество
      * @MongoDB\Field(type="quantity")
-     * @Assert\NotBlank
-     * @LighthouseAssert\Chain({
-     *  @LighthouseAssert\Precision(3),
-     *  @LighthouseAssert\Range\Range(gt=0)
-     * })
+     * @Assert\NotBlank(groups={"Default", "products"})
+     * @LighthouseAssert\Chain(
+     *      constraints={
+     *          @LighthouseAssert\Precision(3),
+     *          @LighthouseAssert\Range\Range(gt=0)
+     *      },
+     *      groups={"Default", "products"}
+     * )
      * @var Quantity
      */
     protected $quantity;
 
     /**
      * @MongoDB\String
-     * @Assert\NotBlank
-     * @Assert\Length(max="1000", maxMessage="lighthouse.validation.errors.length")
+     * @Assert\NotBlank(groups={"Default", "products"})
+     * @Assert\Length(
+     *      max="1000",
+     *      maxMessage="lighthouse.validation.errors.length",
+     *      groups={"Default", "products"}
+     * )
      */
     protected $cause;
 
     /**
-     * @Assert\NotBlank
+     * @Assert\NotBlank(groups={"Default", "products"})
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Product\Version\ProductVersion",
      *     simple=true,
@@ -129,15 +139,33 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
     protected $store;
 
     /**
+     * @MongoDB\Date
+     * @var DateTime
+     */
+    protected $deletedAt;
+
+    /**
      * @MongoDB\PrePersist
      * @MongoDB\PreUpdate
      */
     public function beforeSave()
     {
         $this->totalPrice = $this->price->mul($this->quantity);
-        $this->createdDate = $this->writeOff->date;
+        $this->date = $this->writeOff->date;
         $this->store = $this->writeOff->store;
         $this->originalProduct = $this->product->getObject();
+    }
+
+    /**
+     * @return Money|null
+     */
+    public function calculateTotals()
+    {
+        if ($this->price) {
+            $this->totalPrice = $this->price->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
+        }
+
+        return $this->totalPrice;
     }
 
     /**
@@ -161,7 +189,7 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
      */
     public function getReasonDate()
     {
-        return $this->createdDate;
+        return $this->date;
     }
 
     /**
@@ -218,5 +246,21 @@ class WriteOffProduct extends AbstractDocument implements Reasonable
     public function setQuantity(Quantity $quantity = null)
     {
         $this->quantity = $quantity;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSoftDeleteableName()
+    {
+        return null;
     }
 }

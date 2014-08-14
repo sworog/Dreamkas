@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Document\Product\Type\AlcoholType;
 use Lighthouse\CoreBundle\Document\Product\Type\Typeable;
 use Lighthouse\CoreBundle\Document\Product\Type\UnitType;
 use Lighthouse\CoreBundle\Document\Product\Type\WeightType;
+use Lighthouse\CoreBundle\Document\SoftDeleteableDocument;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
@@ -55,7 +56,7 @@ use DateTime;
  * @LighthouseAssert\Product\BarcodeUnique
  * @SoftDeleteable
  */
-class Product extends AbstractDocument implements VersionableInterface
+class Product extends AbstractDocument implements VersionableInterface, SoftDeleteableDocument
 {
     const RETAIL_PRICE_PREFERENCE_PRICE = 'retailPrice';
     const RETAIL_PRICE_PREFERENCE_MARKUP = 'retailMarkup';
@@ -330,5 +331,21 @@ class Product extends AbstractDocument implements VersionableInterface
             }
         }
         return false;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSoftDeleteableName()
+    {
+        return 'name';
     }
 }

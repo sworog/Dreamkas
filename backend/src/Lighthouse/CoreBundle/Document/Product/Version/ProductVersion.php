@@ -105,6 +105,7 @@ class ProductVersion extends Product implements VersionInterface
             'barcode',
             'sku',
             'vendorCountry',
+            'units',
             'typeProperties',
             'info',
             'subCategory',

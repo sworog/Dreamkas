@@ -48,14 +48,17 @@ define(function(require) {
         initialize: function() {
             var block = this;
 
+            block.__model = block.model = block.get('model');
+            block.__collection = block.collection = block.get('collection');
+
             Block.prototype.initialize.apply(block, arguments);
 
             block.$el.closest('.modal').on('hidden.bs.modal', function() {
                 block.reset();
             });
 
-            block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' + block.el.id + '"]');
-            block.__model = block.model = block.get('model');
+            block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' +  (block.el && block.el.id) + '"]');
+
             block.redirectUrl = block.get('redirectUrl');
         },
         getData: function() {
@@ -132,7 +135,7 @@ define(function(require) {
                 block.showGlobalError(error.errors.errors);
             }
         },
-        showGlobalError: function(errors){
+        showGlobalError: function(errorMessages){
             var block = this,
                 errorMessage,
                 $errorElement = block.$('.form__errorMessage_global');
@@ -141,7 +144,7 @@ define(function(require) {
                 $errorElement = $('<div class="form__errorMessage form__errorMessage_global"></div>').prependTo(block.el);
             }
 
-            errorMessage = errors.map(getText).join('. ');
+            errorMessage = errorMessages.map(getText).join('. ');
 
             $errorElement.addClass('form__errorMessage_visible');
             $errorElement.text(getText(errorMessage));
@@ -175,6 +178,11 @@ define(function(require) {
         },
         reset: function(){
             PAGE.render();
+        },
+        clear: function(){
+            var block = this;
+
+            block.$('input').val('');
         }
     })
 });
