@@ -1103,14 +1103,14 @@ class WriteOffControllerTest extends WebTestCase
 
         $this->assertResponseCode(404);
 
-        $this->assertWriteOffSoftDelete($writeOff->id);
-        $this->assertWriteOffProductSoftDelete($writeOff->products[0]->id);
+        $this->assertWriteOffDelete($writeOff->id);
+        $this->assertWriteOffProductDelete($writeOff->products[0]->id);
     }
 
     /**
      * @param string $invoiceId
      */
-    protected function assertWriteOffSoftDelete($invoiceId)
+    protected function assertWriteOffDelete($invoiceId)
     {
         $invoice = $this->getWriteOffRepository()->find($invoiceId);
         $this->assertNull($invoice);
@@ -1119,7 +1119,7 @@ class WriteOffControllerTest extends WebTestCase
         $filterCollection->disable('softdeleteable');
 
         $invoice = $this->getWriteOffRepository()->find($invoiceId);
-        $this->assertInstanceOf(WriteOff::getClassName(), $invoice);
+        $this->assertNull($invoice);
 
         $filterCollection->enable('softdeleteable');
     }
@@ -1127,7 +1127,7 @@ class WriteOffControllerTest extends WebTestCase
     /**
      * @param string $invoiceProductId
      */
-    protected function assertWriteOffProductSoftDelete($invoiceProductId)
+    protected function assertWriteOffProductDelete($invoiceProductId)
     {
         $invoiceProduct = $this->getWriteOffProductRepository()->find($invoiceProductId);
         $this->assertNull($invoiceProduct);
@@ -1137,8 +1137,7 @@ class WriteOffControllerTest extends WebTestCase
         $filterCollection->disable('softdeleteable');
 
         $invoiceProduct = $this->getWriteOffProductRepository()->find($invoiceProductId);
-        $this->assertInstanceOf(WriteOffProduct::getClassName(), $invoiceProduct);
-        $this->assertSame($invoiceProductId, $invoiceProduct->id);
+        $this->assertNull($invoiceProduct);
 
         $filterCollection->enable('softdeleteable');
     }

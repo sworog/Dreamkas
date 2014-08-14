@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Product\Product;
-use Lighthouse\CoreBundle\Document\SoftDeleteableDocument;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Store\Store;
@@ -17,7 +16,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use JMS\Serializer\Annotation as Serializer;
-use Gedmo\Mapping\Annotation\SoftDeleteable;
 use DateTime;
 
 /**
@@ -31,7 +29,7 @@ use DateTime;
  * @property Money      $amountVAT
  * @property DateTime   $date
  * @property Money      $totalAmountVAT
- * @property \Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice    $invoice
+ * @property Invoice    $invoice
  * @property ProductVersion $product
  * @property Store      $store
  * @property DateTime   $deletedAt
@@ -40,9 +38,8 @@ use DateTime;
  *     repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProductRepository"
  * )
  * @MongoDB\HasLifecycleCallbacks
- * @SoftDeleteable
  */
-class InvoiceProduct extends AbstractDocument implements Reasonable, SoftDeleteableDocument
+class InvoiceProduct extends AbstractDocument implements Reasonable
 {
     const REASON_TYPE = 'InvoiceProduct';
 
@@ -167,12 +164,6 @@ class InvoiceProduct extends AbstractDocument implements Reasonable, SoftDeletea
      * @var Store
      */
     protected $store;
-
-    /**
-     * @MongoDB\Date
-     * @var DateTime
-     */
-    protected $deletedAt;
 
     /**
      * @MongoDB\PreFlush
@@ -350,21 +341,5 @@ class InvoiceProduct extends AbstractDocument implements Reasonable, SoftDeletea
             $this->price = $this->priceWithoutVAT->mul($decimalVAT->add(1), Decimal::ROUND_HALF_EVEN);
             $this->amountVAT = $this->priceWithoutVAT->mul($decimalVAT, Decimal::ROUND_HALF_EVEN);
         }
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getSoftDeleteableName()
-    {
-        return null;
     }
 }

@@ -6,7 +6,6 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
-use Lighthouse\CoreBundle\Document\SoftDeleteableDocument;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
@@ -17,7 +16,6 @@ use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use JMS\Serializer\Annotation as Serializer;
-use Gedmo\Mapping\Annotation\SoftDeleteable;
 use DateTime;
 
 /**
@@ -34,9 +32,8 @@ use DateTime;
  *      repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProductRepository"
  * )
  * @MongoDB\HasLifecycleCallbacks
- * @SoftDeleteable
  */
-class WriteOffProduct extends AbstractDocument implements Reasonable, SoftDeleteableDocument
+class WriteOffProduct extends AbstractDocument implements Reasonable
 {
     const REASON_TYPE = 'WriteOffProduct';
 
@@ -137,12 +134,6 @@ class WriteOffProduct extends AbstractDocument implements Reasonable, SoftDelete
      * @var Store
      */
     protected $store;
-
-    /**
-     * @MongoDB\Date
-     * @var DateTime
-     */
-    protected $deletedAt;
 
     /**
      * @MongoDB\PrePersist
@@ -246,21 +237,5 @@ class WriteOffProduct extends AbstractDocument implements Reasonable, SoftDelete
     public function setQuantity(Quantity $quantity = null)
     {
         $this->quantity = $quantity;
-    }
-
-    /**
-     * @return DateTime
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
-    }
-
-    /**
-     * @return string|null
-     */
-    public function getSoftDeleteableName()
-    {
-        return null;
     }
 }
