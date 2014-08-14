@@ -67,7 +67,7 @@ public class WhenStockMovementUserSteps {
     }
 
     @When("the user clicks on the last created invoice from builder steps on the stock movement page")
-    @Alias("пользователь нажимает на последнюю созданнаю накладную через builder steps на странице товароджвижения")
+    @Alias("пользователь нажимает на последнюю созданнаю накладную с помощью конструктора накладных на странице товародвижения")
     public void whenTheUserClicksOnTheLastCreatedInvoiceFromBuilderStepsOnTheStockMovementPage() throws JSONException {
         stockMovementSteps.openLastCreatedInvoiceInStockMovementPage();
     }
