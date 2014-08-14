@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 #^syntax detection
 
-site 'http://community.opscode.com/api/v1'
+site 'https://supermarket.getchef.com/api/v1'
 
 # cookbook 'chef-client'
 
@@ -21,13 +21,13 @@ cookbook 'php-fpm',
     :git => 'https://github.com/yevgenko/cookbook-php-fpm'
 
 cookbook 'teamcity',
-         :git => 'https://github.com/mswart/chef-teamcity'
+    :git => 'https://github.com/mswart/chef-teamcity'
 
 cookbook 'teamcity_server',
-         :git => 'https://github.com/rithis-chef/cookbook-teamcity-server'
+    :git => 'https://github.com/rithis-chef/cookbook-teamcity-server'
 
 cookbook 'postgresql',
-         :git => 'https://github.com/phlipper/chef-postgresql'
+    :git => 'https://github.com/phlipper/chef-postgresql'
 
 cookbook 'php'
 cookbook 'composer'
@@ -37,3 +37,5 @@ cookbook 'beanstalkd'
 cookbook 'java'
 cookbook 'iptables-ng'
 cookbook 'openssh'
+cookbook 'ruby'
+cookbook 'ssh-util'

@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Form;
 
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
-use Lighthouse\CoreBundle\Document\WriteOff\Product\WriteOffProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProduct;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class WriteOffProductType extends DocumentType

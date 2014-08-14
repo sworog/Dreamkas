@@ -2,30 +2,30 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ODM\MongoDB\Cursor;
-use Lighthouse\CoreBundle\Document\Invoice\Invoice;
-use Lighthouse\CoreBundle\Document\Invoice\InvoiceHighlightGenerator;
-use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
-use Lighthouse\CoreBundle\Document\Invoice\InvoicesFilter;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceHighlightGenerator;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoicesFilter;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
 use Lighthouse\CoreBundle\Form\InvoiceType;
-use FOS\RestBundle\Controller\Annotations as Rest;
 use Lighthouse\CoreBundle\Meta\MetaCollection;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Doctrine\ODM\MongoDB\Cursor;
 use JMS\DiExtraBundle\Annotation as DI;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
+use JMS\SecurityExtraBundle\Annotation\Secure;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use MongoDuplicateKeyException;
 
 class InvoiceController extends AbstractRestController
 {
     /**
-     * @DI\Inject("lighthouse.core.document.repository.invoice")
+     * @DI\Inject("lighthouse.core.document.repository.stock_movement.invoice")
      * @var InvoiceRepository
      */
     protected $documentRepository;
@@ -57,6 +57,50 @@ class InvoiceController extends AbstractRestController
     }
 
     /**
+     * @param Request $request
+     * @return FormInterface|Invoice
+     *
+     * @Rest\View(statusCode=201, serializerEnableMaxDepthChecks=true)
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function postInvoicesAction(Request $request)
+    {
+        $invoice = $this->documentRepository->createNew();
+        $formType = new InvoiceType(true);
+        return $this->processForm($request, $invoice, $formType);
+    }
+
+    /**
+     * @param Invoice $invoice
+     * @param Request $request
+     * @return FormInterface|Invoice
+     *
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function putInvoicesAction(Invoice $invoice, Request $request)
+    {
+        $formType = new InvoiceType(true);
+        $this->documentRepository->resetInvoiceProducts($invoice);
+        return $this->processForm($request, $invoice, $formType);
+    }
+
+    /**
+     * @param Invoice $invoice
+     * @return Invoice
+     *
+     * @Rest\View(serializerEnableMaxDepthChecks=true)
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @ApiDoc
+     */
+    public function getInvoiceAction(Invoice $invoice)
+    {
+        return $invoice;
+    }
+
+    /**
      * @param Store $store
      * @param Request $request
      * @return FormInterface|Invoice
@@ -65,7 +109,7 @@ class InvoiceController extends AbstractRestController
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
-    public function postInvoicesAction(Store $store, Request $request)
+    public function postStoreInvoicesAction(Store $store, Request $request)
     {
         $invoice = $this->documentRepository->createNew();
         $invoice->store = $store;
@@ -82,14 +126,10 @@ class InvoiceController extends AbstractRestController
      * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc
      */
-    public function putInvoicesAction(Store $store, Invoice $invoice, Request $request)
+    public function putStoreInvoicesAction(Store $store, Invoice $invoice, Request $request)
     {
         $this->checkInvoiceStore($store, $invoice);
-        foreach ($invoice->products as $key => $invoiceProduct) {
-            unset($invoice->products[$key]);
-            $this->documentRepository->getDocumentManager()->remove($invoiceProduct);
-        }
-        $invoice->products = new ArrayCollection();
+        $this->documentRepository->resetInvoiceProducts($invoice);
         return $this->processForm($request, $invoice);
     }
 
@@ -104,13 +144,14 @@ class InvoiceController extends AbstractRestController
      * @Rest\Route("stores/{store}/invoices")
      * @Rest\View(serializerEnableMaxDepthChecks=true)
      */
-    public function getInvoicesAction(Store $store, InvoicesFilter $filter)
+    public function getStoreInvoicesAction(Store $store, InvoicesFilter $filter)
     {
         $cursor = $this->documentRepository->findByStore($store->id, $filter);
         if ($filter->hasNumberOrSupplierInvoiceNumber()) {
-            $highlightGenerator = new InvoiceHighlightGenerator($filter);
-            $collection = new MetaCollection($cursor);
-            $collection->addMetaGenerator($highlightGenerator);
+            $collection = new MetaCollection(
+                $cursor,
+                new InvoiceHighlightGenerator($filter)
+            );
         } else {
             $collection = $cursor;
         }
@@ -125,7 +166,7 @@ class InvoiceController extends AbstractRestController
      * @Rest\View(serializerEnableMaxDepthChecks=true)
      * @ApiDoc
      */
-    public function getInvoiceAction(Store $store, Invoice $invoice)
+    public function getStoreInvoiceAction(Store $store, Invoice $invoice)
     {
         $this->checkInvoiceStore($store, $invoice);
         return $invoice;
@@ -139,7 +180,7 @@ class InvoiceController extends AbstractRestController
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @Rest\View(serializerEnableMaxDepthChecks=true)
      */
-    public function getOrderInvoiceAction(Store $store, Order $order)
+    public function getStoreOrderInvoiceAction(Store $store, Order $order)
     {
         if ($order->store !== $store) {
             throw new NotFoundHttpException(sprintf("%s object not found", Order::getClassName()));

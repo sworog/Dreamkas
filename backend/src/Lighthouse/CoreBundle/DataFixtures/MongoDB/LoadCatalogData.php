@@ -2,14 +2,12 @@
 
 namespace Lighthouse\CoreBundle\DataFixtures\MongoDB;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Classifier\Group\Group;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 
-class LoadCatalogData implements FixtureInterface, OrderedFixtureInterface
+class LoadCatalogData extends AbstractFixture
 {
     /**
      * Load data fixtures with the passed EntityManager

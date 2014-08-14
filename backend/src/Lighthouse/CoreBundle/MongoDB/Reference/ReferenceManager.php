@@ -134,6 +134,10 @@ class ReferenceManager
                 if (null !== $refObject) {
                     $refObjectId = $referenceProvider->getRefObjectId($refObject);
                     $metadata->setFieldValue($document, $identifier, $refObjectId);
+                } else {
+                    $refObjectId = $metadata->getFieldValue($document, $identifier);
+                    $refObject = $referenceProvider->getRefObject($refObjectId);
+                    $property->setValue($document, $refObject);
                 }
 
                 if ($recompute) {

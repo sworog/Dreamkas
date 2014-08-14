@@ -39,7 +39,7 @@ class DepartmentControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('42', 'number', $postResponse);
         Assert::assertJsonPathEquals('Винно-водочные изделия', 'name', $postResponse);
         Assert::assertJsonPathEquals($storeId, 'store.id', $postResponse);
-        Assert::assertJsonPathEquals('магазин_номер_42', 'store.number', $postResponse);
+        Assert::assertJsonPathEquals('магазин_номер_42', 'store.name', $postResponse);
     }
 
     public function testUniqueDepartmentNumber()
@@ -276,6 +276,8 @@ class DepartmentControllerTest extends WebTestCase
         $this->factory()->store()->createDepartment();
 
         $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -332,7 +334,9 @@ class DepartmentControllerTest extends WebTestCase
 
     public function testGetDepartmentsNotFound()
     {
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -392,6 +396,7 @@ class DepartmentControllerTest extends WebTestCase
             );
         }
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             $method,
@@ -617,6 +622,7 @@ class DepartmentControllerTest extends WebTestCase
             }
         );
 
+        $this->client->setCatchException();
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',

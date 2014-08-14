@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Validator\Constraints\InvoiceProduct;
 
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Validator\Constraints\ConstraintValidator;
 use Lighthouse\CoreBundle\Validator\Constraints\Money;
 use Symfony\Component\Validator\Constraints\NotBlank;

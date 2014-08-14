@@ -2,14 +2,11 @@
 
 namespace Lighthouse\CoreBundle\DataFixtures\MongoDB;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
-use Symfony\Component\DependencyInjection\ContainerAware;
 
-class LoadStoresData extends ContainerAware implements FixtureInterface, OrderedFixtureInterface
+class LoadStoresData extends AbstractFixture
 {
     /**
      * Load data fixtures with the passed EntityManager
@@ -19,17 +16,17 @@ class LoadStoresData extends ContainerAware implements FixtureInterface, Ordered
     public function load(ObjectManager $manager)
     {
         $store666 = new Store();
-        $store666->number = '666';
+        $store666->name = '666';
         $store666->address = 'ул. Вязов, д.666';
         $store666->contacts = '+7 666 666-66-66';
 
         $store777 = new Store();
-        $store777->number = '777';
+        $store777->name = '777';
         $store777->address = 'ул. Гемблинга, д.777';
         $store777->contacts = '+7 777 777-77-77';
 
         $store888 = new Store();
-        $store888->number = '888';
+        $store888->name = '888';
         $store888->address = 'ул. Паблик Морозова, д.14 кв.88';
         $store888->contacts = '+7 888 888-88-88';
 
@@ -37,9 +34,8 @@ class LoadStoresData extends ContainerAware implements FixtureInterface, Ordered
         $userProvider = $this->container->get('lighthouse.core.user.provider');
         $projectContext = $this->container->get('project.context');
 
-        $ownerUser = $userProvider->loadUserByUsername("owner@lighthouse.pro");
-        $project = $ownerUser->getProject();
-        $projectContext->authenticate($project);
+        $ownerUser = $userProvider->loadUserByUsername('owner@lighthouse.pro');
+        $projectContext->authenticateByUser($ownerUser);
 
         $store666->storeManagers->add($ownerUser);
         $store666->departmentManagers->add($ownerUser);

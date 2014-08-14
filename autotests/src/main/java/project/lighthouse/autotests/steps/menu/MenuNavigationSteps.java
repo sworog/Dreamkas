@@ -25,6 +25,7 @@ public class MenuNavigationSteps extends ScenarioSteps {
     public void supplierMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
         menuNavigationBar.getSuppliersMenuItem().click();
+        new BodyPreLoader(getDriver()).await();
     }
 
     @Step
@@ -61,6 +62,13 @@ public class MenuNavigationSteps extends ScenarioSteps {
     public void catalogMenuItemClick() {
         new BodyPreLoader(getDriver()).await();
         menuNavigationBar.getCatalogMenuItem().click();
+        new BodyPreLoader(getDriver()).await();
+    }
+
+    @Step
+    public void storesMenuItemClick() {
+        new BodyPreLoader(getDriver()).await();
+        menuNavigationBar.getStoresMenuItem().click();
         new BodyPreLoader(getDriver()).await();
     }
 

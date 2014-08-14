@@ -59,7 +59,7 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
     protected function acceptProducts(array $products, $storeId)
     {
         $invoiceData = array(
-            'acceptanceDate' => date('c', strtotime('-32 days')),
+            'date' => date('c', strtotime('-32 days')),
         );
         $builder = $this->factory()->invoice()->createInvoice($invoiceData, $storeId);
         foreach ($products as $product) {

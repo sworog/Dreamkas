@@ -7,8 +7,8 @@ use Doctrine\ODM\MongoDB\Event\OnFlushEventArgs;
 use Doctrine\ODM\MongoDB\UnitOfWork;
 use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
-use Lighthouse\CoreBundle\Document\Invoice\Invoice;
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
@@ -201,11 +201,11 @@ class TrialBalanceListener extends AbstractMongoDBListener
     protected function processInvoiceOnAcceptanceDateUpdate(Invoice $invoice, DocumentManager $dm, UnitOfWork $uow)
     {
         $changeSet = $uow->getDocumentChangeSet($invoice);
-        if (!isset($changeSet['acceptanceDate'])) {
+        if (!isset($changeSet['date'])) {
             return;
         }
-        $oldAcceptanceDate = $changeSet['acceptanceDate'][0];
-        $newAcceptanceDate = $changeSet['acceptanceDate'][1];
+        $oldAcceptanceDate = $changeSet['date'][0];
+        $newAcceptanceDate = $changeSet['date'][1];
 
         /* @var InvoiceProduct[] $invoiceProducts */
         $invoiceProducts = $invoice->products;

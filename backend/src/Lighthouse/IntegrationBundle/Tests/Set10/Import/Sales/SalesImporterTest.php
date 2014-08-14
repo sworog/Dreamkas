@@ -2,8 +2,8 @@
 
 namespace Lighthouse\IntegrationBundle\Tests\Set10\Import\Sales;
 
-use Lighthouse\CoreBundle\Document\Receipt\ReceiptRepository;
-use Lighthouse\CoreBundle\Document\Sale\Sale;
+use Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\IntegrationBundle\Set10\Import\Sales\SalesImporter;
 use Lighthouse\IntegrationBundle\Set10\Import\Sales\SalesXmlParser;
 use Lighthouse\CoreBundle\Test\TestOutput;
@@ -317,19 +317,19 @@ class SalesImporterTest extends WebTestCase
         $utcDateTimeZone = new \DateTimeZone('UTC');
 
         /* @var Sale $firstSale */
-        $firstSale = $receiptRepository->findBy(array('store' => $storeId), array('createdDate' => 1), 1)->getNext();
-        $firstSaleCreatedDate = $firstSale->createdDate;
-        $firstSaleCreatedDate->setTimezone($utcDateTimeZone);
+        $firstSale = $receiptRepository->findBy(array('store' => $storeId), array('date' => 1), 1)->getNext();
+        $firstSaleDate = $firstSale->date;
+        $firstSaleDate->setTimezone($utcDateTimeZone);
 
         /* @var Sale $lastSale */
-        $lastSale = $receiptRepository->findBy(array('store' => $storeId), array('createdDate' => -1), 1)->getNext();
-        $lastSaleCreatedDate = $lastSale->createdDate;
-        $lastSaleCreatedDate->setTimezone($utcDateTimeZone);
+        $lastSale = $receiptRepository->findBy(array('store' => $storeId), array('date' => -1), 1)->getNext();
+        $lastSaleDate = $lastSale->date;
+        $lastSaleDate->setTimezone($utcDateTimeZone);
 
         $expectedFirstSaleDate = $this->subDate($expectedFirstSaleDate);
         $expectedLastSaleDate = $this->subDate($expectedLastSaleDate);
-        $this->assertStringStartsWith($expectedFirstSaleDate, $firstSaleCreatedDate->format(\DateTime::ISO8601));
-        $this->assertStringStartsWith($expectedLastSaleDate, $lastSaleCreatedDate->format(\DateTime::ISO8601));
+        $this->assertStringStartsWith($expectedFirstSaleDate, $firstSaleDate->format(\DateTime::ISO8601));
+        $this->assertStringStartsWith($expectedLastSaleDate, $lastSaleDate->format(\DateTime::ISO8601));
     }
 
     /**

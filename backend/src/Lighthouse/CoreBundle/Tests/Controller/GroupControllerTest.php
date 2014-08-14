@@ -414,6 +414,7 @@ class GroupControllerTest extends WebTestCase
 
         $this->assertResponseCode(204);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -432,6 +433,7 @@ class GroupControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'DELETE',
@@ -486,6 +488,7 @@ class GroupControllerTest extends WebTestCase
             'rounding' => 'nearest1',
         );
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             $method,
@@ -685,6 +688,7 @@ class GroupControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->auth($manager, 'password');
 
+        $this->client->setCatchException();
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -709,6 +713,7 @@ class GroupControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->auth($manager, 'password');
 
+        $this->client->setCatchException();
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -844,6 +849,7 @@ class GroupControllerTest extends WebTestCase
             }
         );
 
+        $this->client->setCatchException();
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',

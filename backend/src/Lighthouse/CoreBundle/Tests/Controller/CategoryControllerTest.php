@@ -381,7 +381,9 @@ class CategoryControllerTest extends WebTestCase
         $groupId1 = $this->createGroup('1');
         $this->createCategory($groupId1, '1.1');
 
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -461,7 +463,9 @@ class CategoryControllerTest extends WebTestCase
 
     public function testGetCategoriesNotFound()
     {
-        $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -520,6 +524,7 @@ class CategoryControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->authAsRole('ROLE_COMMERCIAL_MANAGER');
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'DELETE',
@@ -532,7 +537,8 @@ class CategoryControllerTest extends WebTestCase
         $request->setAccessToken($accessToken);
         $request->addHttpHeader('Accept', 'application/json, text/javascript, */*; q=0.01');
 
-        $response = $this->jsonRequest($request);
+        $this->client->setCatchException();
+        $response = $this->client->jsonRequest($request);
 
         $this->assertResponseCode(409);
         Assert::assertJsonHasPath('message', $response);
@@ -572,6 +578,7 @@ class CategoryControllerTest extends WebTestCase
             'rounding' => 'nearest1',
         );
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             $method,
@@ -932,8 +939,9 @@ class CategoryControllerTest extends WebTestCase
 
         $this->factory()->store()->linkManagers($storeId1, $storeManager->id, $rel);
 
-        $accessToken = $this->factory()->oauth()->auth($storeManager, 'password');
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId1);
 
+        $this->client->setCatchException();
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -958,6 +966,7 @@ class CategoryControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->auth($storeManager, 'password');
 
+        $this->client->setCatchException();
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -1162,6 +1171,7 @@ class CategoryControllerTest extends WebTestCase
             }
         );
 
+        $this->client->setCatchException();
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',

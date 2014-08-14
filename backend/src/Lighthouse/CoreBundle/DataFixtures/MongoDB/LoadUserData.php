@@ -2,14 +2,11 @@
 
 namespace Lighthouse\CoreBundle\DataFixtures\MongoDB;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Security\User\UserProvider;
-use Symfony\Component\DependencyInjection\ContainerAware;
 
-class LoadUserData extends ContainerAware implements FixtureInterface, OrderedFixtureInterface
+class LoadUserData extends AbstractFixture
 {
     /**
      * @return UserProvider

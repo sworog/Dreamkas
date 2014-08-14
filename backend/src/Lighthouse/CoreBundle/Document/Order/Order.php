@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\Collection;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
-use Lighthouse\CoreBundle\Document\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Order\Product\OrderProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
@@ -69,7 +69,7 @@ class Order extends AbstractDocument implements Storeable
 
     /**
      * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Invoice\Invoice",
+     *     targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice",
      *     simple=true
      * )
      * @Serializer\MaxDepth(3)

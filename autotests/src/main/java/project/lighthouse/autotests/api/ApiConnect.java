@@ -192,12 +192,12 @@ public class ApiConnect {
     }
 
     public Store createStoreThroughPost(Store store) throws JSONException, IOException {
-        if (!StaticData.stores.containsKey(store.getNumber())) {
+        if (!StaticData.stores.containsKey(store.getName())) {
             httpRequestable.executePostRequest(store);
-            StaticData.stores.put(store.getNumber(), store);
+            StaticData.stores.put(store.getName(), store);
             return store;
         } else {
-            return StaticData.stores.get(store.getNumber());
+            return StaticData.stores.get(store.getName());
         }
     }
 
@@ -210,6 +210,7 @@ public class ApiConnect {
         return String.format("%s/users/%s", UrlHelper.getWebFrontUrl(), userId);
     }
 
+    @Deprecated
     public void setSubCategoryMarkUp(String retailMarkupMax, String retailMarkupMin, SubCategory subCategory) throws JSONException, IOException {
         String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/subcategories"), subCategory.getId());
         httpRequestable.executePutRequest(apiUrl, new JSONObject()
@@ -253,6 +254,7 @@ public class ApiConnect {
                 .put("value", value));
     }
 
+    @Deprecated
     public Supplier createSupplier(String name) throws JSONException, IOException {
         Supplier supplier = new Supplier(name);
         return createSupplier(supplier);

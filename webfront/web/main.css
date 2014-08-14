@@ -3,6 +3,7 @@
 @import "/madmin/vendors/bootstrap/css/bootstrap.min.css";
 @import "/madmin/vendors/animate.css/animate.css";
 @import "/madmin/vendors/iCheck/skins/all.css";
+@import "/madmin/vendors/bootstrap-datepicker/css/datepicker.css";
 @import "/madmin/css/blue-grey.css";
 @import "/madmin/css/style-responsive.css";
 
@@ -12,6 +13,7 @@
 
 @import "/blocks/confirmLink/confirmLink.css";
 @import "/blocks/groupList/groupList.css";
+@import "/blocks/form/form_invoice/autocomplete/autocomplete.css";
 
 body:before {
     content: "";
@@ -67,6 +69,10 @@ body[status="loaded"]:before {
     font-style: italic;
     color: #db4c4a;
     display: none;
+}
+
+.form__errorMessage_global {
+    padding-bottom: 20px;
 }
 
 .form__errorMessage_visible {
@@ -137,7 +143,7 @@ input.invalid {
     line-height: 34px;
 }
 
-.product__link {
+.product__link, .supplier__link, .store__link {
     cursor: pointer;
 }
 
@@ -169,3 +175,7 @@ table[data-sortable] th:after {
     float: none;
 }
 
+/* Tables */
+table.table-vcenter>tbody>tr>td {
+    vertical-align: middle;
+}

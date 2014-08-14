@@ -1,8 +1,8 @@
 define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block'),
-        SuppliersCollection = require('collections/suppliers'),
-        agreementLink = require('ejs!./agreementLink.html');
+        SuppliersCollection = require('collections/suppliers/suppliers'),
+        agreementLink = require('ejs!./agreementLink.ejs');
 
     return Block.extend({
         el: '.select_suppliers',

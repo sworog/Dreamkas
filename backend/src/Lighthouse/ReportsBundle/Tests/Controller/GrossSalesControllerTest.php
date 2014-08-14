@@ -373,6 +373,7 @@ class GrossSalesControllerTest extends WebTestCase
         );
         $this->assertResponseCode(200);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $departmentManagerToken,
             'GET',
@@ -380,6 +381,7 @@ class GrossSalesControllerTest extends WebTestCase
         );
         $this->assertResponseCode(403);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $storeManagerOtherStoreToken,
             'GET',
@@ -387,6 +389,7 @@ class GrossSalesControllerTest extends WebTestCase
         );
         $this->assertResponseCode(403);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $commercialManagerToken,
             'GET',
@@ -394,6 +397,7 @@ class GrossSalesControllerTest extends WebTestCase
         );
         $this->assertResponseCode(403);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $departmentManagerOtherStoreToken,
             'GET',
@@ -401,6 +405,7 @@ class GrossSalesControllerTest extends WebTestCase
         );
         $this->assertResponseCode(403);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $administratorToken,
             'GET',
@@ -982,6 +987,7 @@ class GrossSalesControllerTest extends WebTestCase
         );
         $this->assertResponseCode(200);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $departmentManagerToken,
             'GET',
@@ -989,6 +995,7 @@ class GrossSalesControllerTest extends WebTestCase
         );
         $this->assertResponseCode(403);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $storeManagerOtherStoreToken,
             'GET',
@@ -996,6 +1003,7 @@ class GrossSalesControllerTest extends WebTestCase
         );
         $this->assertResponseCode(403);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $commercialManagerToken,
             'GET',
@@ -1003,6 +1011,7 @@ class GrossSalesControllerTest extends WebTestCase
         );
         $this->assertResponseCode(403);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $departmentManagerOtherStoreToken,
             'GET',
@@ -1010,6 +1019,7 @@ class GrossSalesControllerTest extends WebTestCase
         );
         $this->assertResponseCode(403);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $administratorToken,
             'GET',
@@ -1434,7 +1444,7 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
                 'store' => array(
                     'id' => $storeIds['1'],
-                    'number' => '1',
+                    'name' => '1',
                     'address' => '1',
                     'contacts' => '1',
                     'departments' => array(),
@@ -1457,7 +1467,7 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
                 'store' => array(
                     'id' => $storeIds['2'],
-                    'number' => '2',
+                    'name' => '2',
                     'address' => '1',
                     'contacts' => '1',
                     'departments' => array(),
@@ -1480,7 +1490,7 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
                 'store' => array(
                     'id' => $storeIds['3'],
-                    'number' => '3',
+                    'name' => '3',
                     'address' => '1',
                     'contacts' => '1',
                     'departments' => array(),
@@ -1528,7 +1538,7 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
                 'store' => array(
                     'id' => $storeIds['1'],
-                    'number' => '1',
+                    'name' => '1',
                     'address' => '1',
                     'contacts' => '1',
                     'departments' => array(),
@@ -1551,7 +1561,7 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
                 'store' => array(
                     'id' => $storeIds['2'],
-                    'number' => '2',
+                    'name' => '2',
                     'address' => '1',
                     'contacts' => '1',
                     'departments' => array(),
@@ -1574,7 +1584,7 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
                 'store' => array(
                     'id' => $storeIds['3'],
-                    'number' => '3',
+                    'name' => '3',
                     'address' => '1',
                     'contacts' => '1',
                     'departments' => array(),
@@ -2313,6 +2323,7 @@ class GrossSalesControllerTest extends WebTestCase
         );
         $this->assertResponseCode(200);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $departmentManagerToken,
             'GET',
@@ -2320,6 +2331,7 @@ class GrossSalesControllerTest extends WebTestCase
         );
         $this->assertResponseCode(403);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $storeManagerOtherStoreToken,
             'GET',
@@ -2327,6 +2339,7 @@ class GrossSalesControllerTest extends WebTestCase
         );
         $this->assertResponseCode(403);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $commercialManagerToken,
             'GET',
@@ -2334,6 +2347,7 @@ class GrossSalesControllerTest extends WebTestCase
         );
         $this->assertResponseCode(403);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $departmentManagerOtherStoreToken,
             'GET',
@@ -2341,6 +2355,7 @@ class GrossSalesControllerTest extends WebTestCase
         );
         $this->assertResponseCode(403);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $administratorToken,
             'GET',

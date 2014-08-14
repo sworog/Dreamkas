@@ -2,14 +2,12 @@
 
 namespace Lighthouse\CoreBundle\DataFixtures\MongoDB;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
-use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
+use FOS\OAuthServerBundle\Document\ClientManager;
 use FOS\OAuthServerBundle\Model\ClientInterface;
 use Lighthouse\CoreBundle\Document\Auth\Client;
-use Symfony\Component\DependencyInjection\ContainerAware;
 
-class LoadApiClientData extends ContainerAware implements FixtureInterface, OrderedFixtureInterface
+class LoadApiClientData extends AbstractFixture
 {
     /**
      * Load data fixtures with the passed EntityManager
@@ -31,7 +29,7 @@ class LoadApiClientData extends ContainerAware implements FixtureInterface, Orde
     }
 
     /**
-     * @return \FOS\OAuthServerBundle\Document\ClientManager
+     * @return ClientManager
      */
     protected function getClientManager()
     {
@@ -39,21 +37,18 @@ class LoadApiClientData extends ContainerAware implements FixtureInterface, Orde
     }
 
     /**
-     * @param string $randomId
+     * @param string $publicId
      * @param string $secret
-     * @param string $id
      * @return ClientInterface
      */
-    protected function createClient($randomId, $secret, $id = null)
+    protected function createClient($publicId, $secret)
     {
-        $id = ($id) ?: $randomId;
-
         /* @var ClientInterface|Client $client */
         $client = $this->getClientManager()->createClient();
 
         $client->setSecret($secret);
-        $client->setRandomId($randomId);
-        $client->setId($id);
+        $client->setRandomId($publicId);
+        $client->setId($publicId);
 
         $this->getClientManager()->updateClient($client);
 

@@ -747,6 +747,8 @@ class OrderControllerTest extends WebTestCase
         $this->factory()->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
 
         $accessToken = $this->factory()->oauth()->auth($departmentManager);
+
+        $this->client->setCatchException();
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'PUT',
@@ -775,6 +777,8 @@ class OrderControllerTest extends WebTestCase
         $this->factory()->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
 
         $accessToken = $this->factory()->oauth()->auth($departmentManager);
+
+        $this->client->setCatchException();
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -804,6 +808,8 @@ class OrderControllerTest extends WebTestCase
         $this->factory()->store()->linkDepartmentManagers($departmentManager->id, $store2->id);
 
         $accessToken = $this->factory()->oauth()->auth($departmentManager);
+
+        $this->client->setCatchException();
         $putResponse = $this->clientJsonRequest(
             $accessToken,
             'DELETE',
@@ -861,6 +867,8 @@ class OrderControllerTest extends WebTestCase
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $this->client->setCatchException();
         $deleteResponse = $this->clientJsonRequest(
             $accessToken,
             'DELETE',

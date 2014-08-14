@@ -20,7 +20,7 @@ class StoreProductRepositoryTest extends ContainerAwareTestCase
         $product->id = '52a9c02a02af59f1158b456d';
 
         $store = new Store();
-        $store->number = '1';
+        $store->name = '1';
         $store->address = '1';
         $store->contacts = '1';
 
@@ -39,7 +39,7 @@ class StoreProductRepositoryTest extends ContainerAwareTestCase
 
         $store = new Store();
         $store->id = '52a9c02a02af59f1158b456d';
-        $store->number = '1';
+        $store->name = '1';
         $store->address = '1';
         $store->contacts = '1';
 

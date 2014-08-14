@@ -67,7 +67,7 @@ abstract class AbstractDocument implements ClassNameable
     {
         foreach ($data as $name => $value) {
             if (property_exists($this, $name)) {
-                $this->$name = $value;
+                $this->__set($name, $value);
             }
         }
 

@@ -81,7 +81,7 @@ class Set10ProductConverter
                     'storeNumbers' => array(),
                 );
             }
-            $versionProducts[$uniqueVersionString]['storeNumbers'][] = $storeProduct->store->number;
+            $versionProducts[$uniqueVersionString]['storeNumbers'][] = $storeProduct->store->name;
         }
         ksort($versionProducts);
 

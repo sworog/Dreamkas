@@ -194,6 +194,7 @@ class WriteOffControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
+        $this->client->setCatchException();
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
@@ -373,6 +374,7 @@ class WriteOffControllerTest extends WebTestCase
         $accessToken1 = $this->factory()->oauth()->authAsDepartmentManager($store1->id);
         $accessToken2 = $this->factory()->oauth()->authAsDepartmentManager($store2->id);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken2,
             'GET',
@@ -381,6 +383,7 @@ class WriteOffControllerTest extends WebTestCase
 
         $this->assertResponseCode(403);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken1,
             'GET',
@@ -417,6 +420,7 @@ class WriteOffControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store1->id);
 
+        $this->client->setCatchException();
         $this->clientJsonRequest(
             $accessToken,
             'GET',

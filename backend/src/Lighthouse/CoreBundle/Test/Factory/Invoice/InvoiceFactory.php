@@ -2,9 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Test\Factory\Invoice;
 
-use Lighthouse\CoreBundle\Document\Invoice\Invoice;
-use Lighthouse\CoreBundle\Document\Invoice\InvoiceRepository;
-use Lighthouse\CoreBundle\Document\Invoice\Product\InvoiceProductRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Test\Factory\AbstractFactory;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 
@@ -89,7 +89,7 @@ class InvoiceFactory extends AbstractFactory
      */
     public function getInvoiceRepository()
     {
-        return $this->container->get('lighthouse.core.document.repository.invoice');
+        return $this->container->get('lighthouse.core.document.repository.stock_movement.invoice');
     }
 
     /**
@@ -97,6 +97,6 @@ class InvoiceFactory extends AbstractFactory
      */
     protected function getInvoiceProductRepository()
     {
-        return $this->container->get('lighthouse.core.document.repository.invoice_product');
+        return $this->container->get('lighthouse.core.document.repository.stock_movement.invoice_product');
     }
 }

@@ -14,7 +14,7 @@ class StoreType extends DocumentType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('number', 'text')
+            ->add('name', 'text')
             ->add('address', 'text')
             ->add('contacts', 'text')
         ;
