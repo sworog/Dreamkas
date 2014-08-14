@@ -283,7 +283,8 @@ class TrialBalanceTest extends ContainerAwareTestCase
         // Edit
         $writeOffProduct->price = $numericFactory->createMoney(77.99);
         $writeOffProduct->quantity = $numericFactory->createQuantity(7);
-        $manager->flush($writeOff);
+        $manager->persist($writeOff);
+        $manager->flush();
 
         $afterEditTrialBalance = $trialBalanceRepository->findOneByStoreProduct($storeProduct);
 
