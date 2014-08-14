@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave.menuNavigation;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.When;
 import project.lighthouse.autotests.steps.menu.MenuNavigationSteps;
 
@@ -45,6 +46,7 @@ public class WhenMenuNavigationUserSteps {
     }
 
     @When("the user clicks the menu stock movement item")
+    @Alias("пользователь нажимает на пункт меню Товароджижение в боковом меню навигации")
     public void whenTheUserClicksTheMenuStockMovementItem() {
         menuNavigationSteps.stockMovementMenuItemClick();
     }

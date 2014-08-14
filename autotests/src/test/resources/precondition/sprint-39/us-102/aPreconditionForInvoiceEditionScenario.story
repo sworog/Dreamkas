@@ -5,9 +5,9 @@ Meta:
 @id_s39u102s2
 @id_s39u102s12
 
-Scenario: A scenario that prepares test data for invoice edition scenario
+Scenario: Сценарий, подготавливающий тестовые данные для сценария редактирования накладной
 
-Given the user with email 's39u102@lighthouse.pro' creates the store with name 's39u102-store1' and address 's39u102-store1'
-And the user with email 's39u102@lighthouse.pro' creates supplier with name 's39u102-supplier1', address 'address', phone 'phone', email 'email', contactPerson 'contactPerson'
-And the user with email 's39u102@lighthouse.pro' creates group with name 's39u102-group1'
-And the user with email 's39u102@lighthouse.pro' creates the product with name 's39u102-product2', units 'Пятюня', barcode 's39u102barcode2', vat '0', purchasePrice '125,5', sellingPrice '110' in the group with name 's39u102-group1'
+Given пользователь с адресом электронной почты 's39u102@lighthouse.pro' создает магазин с именем 's39u102-store1' и адресом 's39u102-store1'
+And пользователь с адресом электронной почты 's39u102@lighthouse.pro' создает поставщика с именем 's39u102-supplier1', адресом 'address', телефоном 'phone', почтой 'email' и контактным лицом 'contactPerson'
+And пользователь с адресом электронной почты 's39u102@lighthouse.pro' создает группу с именем 's39u102-group1'
+And пользователь с адресом электронной почты создает продукт с именем 's39u102-product2', еденицами измерения 'Пятюня', штрихкодом 's39u102barcode2', НДС '0', ценой закупки '125,5' и ценой продажи '110' в группе с именем 's39u102-group1'
