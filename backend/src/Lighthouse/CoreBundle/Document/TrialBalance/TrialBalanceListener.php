@@ -15,7 +15,7 @@ use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 
 /**
- * @DI\DoctrineMongoDBListener(events={"onFlush", "preSoftDelete"}, priority=128)
+ * @DI\DoctrineMongoDBListener(events={"onFlush"}, priority=128)
  */
 class TrialBalanceListener extends AbstractMongoDBListener
 {
@@ -86,19 +86,6 @@ class TrialBalanceListener extends AbstractMongoDBListener
     }
 
     /**
-     * @param LifecycleEventArgs $eventArgs
-     */
-    public function preSoftDelete(LifecycleEventArgs $eventArgs)
-    {
-        $document = $eventArgs->getDocument();
-        $dm = $eventArgs->getDocumentManager();
-
-        if ($document instanceof Reasonable) {
-            $this->onReasonableRemove($document, $dm);
-        }
-    }
-
-    /**
      * @param TrialBalance $trialBalance
      * @param DocumentManager $dm
      */
@@ -107,9 +94,16 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $nextProcessedTrialBalance = $this->trialBalanceRepository->findOneNext($trialBalance);
 
         if (null != $nextProcessedTrialBalance) {
+            $oldValue = $nextProcessedTrialBalance->processingStatus;
             $nextProcessedTrialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
-            $dm->persist($nextProcessedTrialBalance);
-            $this->computeChangeSet($dm, $nextProcessedTrialBalance);
+
+            $this->schedulePropertyChange(
+                $dm->getUnitOfWork(),
+                $nextProcessedTrialBalance,
+                'processingStatus',
+                $oldValue,
+                $nextProcessedTrialBalance->processingStatus
+            );
         }
     }
 

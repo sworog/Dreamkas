@@ -57,6 +57,15 @@ class ReceiptFactory extends AbstractFactory
     }
 
     /**
+     * @param Receipt $receipt
+     */
+    public function deleteReceipt(Receipt $receipt)
+    {
+        $this->getDocumentManager()->remove($receipt);
+        $this->getDocumentManager()->flush();
+    }
+
+    /**
      * @return ReceiptRepository
      */
     public function getReceiptRepository()
