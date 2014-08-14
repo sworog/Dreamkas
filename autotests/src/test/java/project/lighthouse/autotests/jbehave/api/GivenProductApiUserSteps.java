@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave.api;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.json.JSONException;
 import project.lighthouse.autotests.steps.api.product.ProductApiSteps;
@@ -13,6 +14,7 @@ public class GivenProductApiUserSteps {
     ProductApiSteps productApiSteps;
 
     @Given("the user with email '$email' creates the product with name '$name', units '$units', barcode '$barcode', vat '$vat', purchasePrice '$purchasePrice', sellingPrice '$sellingPrice' in the group with name '$groupName'")
+    @Alias("пользователь с адресом электронной почты '$email' создает продукт с именем '$name', еденицами измерения '$units', штрихкодом '$barcode', НДС '$vat', ценой закупки '$purchasePrice' и ценой продажи '$sellingPrice' в группе с именем '$groupName'")
     public void givenTheUserWithEmailCreatesTheProductInTheGroup(
             String email,
             String name,

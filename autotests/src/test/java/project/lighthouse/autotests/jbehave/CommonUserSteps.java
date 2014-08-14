@@ -77,6 +77,7 @@ public class CommonUserSteps {
     }
 
     @Then("the user checks page contains text '$text'")
+    @Alias("пользователь проверяет, что на странице присутствует текст '$text'")
     public void pageContainsText(String text) {
         commonSteps.pageContainsText(text);
     }
@@ -98,6 +99,7 @@ public class CommonUserSteps {
     }
 
     @Then("the user waits for modal window closing")
+    @Alias("пользователь ждет пока скроется модальное окно")
     public void thenTheUserWaitsForModalWindowClosing() {
         commonSteps.waitForModalPageClose();
     }

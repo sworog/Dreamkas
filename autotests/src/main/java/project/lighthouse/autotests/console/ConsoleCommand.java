@@ -7,6 +7,8 @@ import java.io.InputStreamReader;
 
 public class ConsoleCommand {
 
+    private static final String CONSOLE_COMMAND_TEMPLATE = "%s -S host=%s -S branch=qwerty";
+
     private String folder;
     private String host;
 
@@ -29,9 +31,9 @@ public class ConsoleCommand {
 
     private String cmd(String command, String host) {
         if (isUnix()) {
-            return String.format("%s -S host=%s", command, host);
+            return String.format(CONSOLE_COMMAND_TEMPLATE, command, host);
         } else {
-            return String.format("cmd /c %s -S host=%s", command, host);
+            return String.format("cmd /c " + CONSOLE_COMMAND_TEMPLATE, command, host);
         }
     }
 
@@ -53,26 +55,20 @@ public class ConsoleCommand {
     }
 
     public static boolean isWindows(){
-
         String os = System.getProperty("os.name").toLowerCase();
         //windows
         return (os.contains("win"));
-
     }
 
     public static boolean isMac(){
-
         String os = System.getProperty("os.name").toLowerCase();
         //Mac
         return (os.contains("mac"));
-
     }
 
     public static boolean isUnix (){
-
         String os = System.getProperty("os.name").toLowerCase();
         //linux or unix
         return (os.contains("nix") || os.contains("nux"));
-
     }
 }

@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave.api;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.json.JSONException;
 import project.lighthouse.autotests.steps.api.catalog.CatalogApiSteps;
@@ -13,6 +14,7 @@ public class GivenCatalogApiUserSteps {
     CatalogApiSteps catalogApiSteps;
 
     @Given("the user with email '$email' creates group with name '$groupName'")
+    @Alias("пользователь с адресом электронной почты '$email' создает группу с именем '$groupName'")
     public void givenTheUserWithEmailCreatesGroupWithName(String email, String groupName) throws IOException, JSONException {
         catalogApiSteps.createGroupThroughPostByUserWithEmail(groupName, email);
     }

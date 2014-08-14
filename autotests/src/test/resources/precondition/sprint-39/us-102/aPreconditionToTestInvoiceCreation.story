@@ -9,8 +9,8 @@ Meta:
 @id_s39u102s10
 @id_s39u102s12
 
-Scenario: A scenario that prepares invoice
+Scenario: Cценарий по созданию накладной
 
-Given the user creates invoice api object with date '28.07.2014', paid status 'false', store with name 's39u102-store', supplier with name 's39u102-supplier'
-And the user adds the product with name 's39u102-product1' with price '150' and quantity '5 'to invoice api object
-And the user with email 's39u102@lighthouse.pro 'creates invoice with builders steps
+Given пользователь создает апи объект накладной с датой '28.07.2014', статусом Оплачено 'false', магазином с именем 's39u102-store', поставщиком с именем 's39u102-supplier'
+And пользователь добавляет продукт с именем 's39u102-product1', ценой '150' и количеством '5' к апи объекту накладной
+And пользователь с адресом электронной почты 's39u102@lighthouse.pro' создает накладную через конструктор накладных

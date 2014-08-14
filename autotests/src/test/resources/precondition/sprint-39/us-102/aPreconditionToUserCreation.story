@@ -13,6 +13,6 @@ Meta:
 @id_s39u102s10
 @id_s39u102s12
 
-Scenario: A scenario that prepares user created by console command
+Scenario: Сценарий по созданию пользователя через консольную команду
 
-Given the user runs the symfony:user:create command with params: email 's39u102@lighthouse.pro' and password 'lighthouse'
+Given пользователь запускает консольную команду для создания пользователя с параметрами: адрес электронной почты 's39u102@lighthouse.pro' и пароль 'lighthouse'

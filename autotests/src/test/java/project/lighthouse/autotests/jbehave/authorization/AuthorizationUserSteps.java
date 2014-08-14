@@ -39,6 +39,7 @@ public class AuthorizationUserSteps {
     }
 
     @Given("the user opens the authorization page")
+    @Alias("пользователь открывает стартовую страницу авторизации")
     public void givenTheUserOpensAuthorizationPage() {
         authorizationSteps.openPage();
     }
@@ -49,6 +50,7 @@ public class AuthorizationUserSteps {
     }
 
     @Given("the user logs in using '$userName' userName and '$password' password")
+    @Alias("пользователь авторизуется в системе используя адрес электронной почты '$userName' и пароль '$password'")
     public void givenTheUserLogsInUsingCredentials(String userName, String password) {
         authorizationSteps.authorization(userName, password);
     }
