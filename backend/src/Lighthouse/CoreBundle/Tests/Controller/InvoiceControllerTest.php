@@ -3,9 +3,7 @@
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Order\Order;
-use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository;
-use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;

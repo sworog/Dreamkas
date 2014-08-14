@@ -2,9 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
-use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProductRepository;
-use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;

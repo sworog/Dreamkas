@@ -8,8 +8,6 @@ use Lighthouse\CoreBundle\Document\StockMovement\Returne\Product\ReturnProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
-use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProduct;
-use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\Factory\Factory;
@@ -86,6 +84,7 @@ class ReceiptBuilder
      * @param Receipt $receipt
      * @param Store $store
      * @param string $date
+     * @param string $hash
      * @return ReceiptBuilder
      */
     protected function populateReceipt(Receipt $receipt, Store $store = null, $date = null, $hash = null)
