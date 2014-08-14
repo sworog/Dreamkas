@@ -11,6 +11,7 @@ use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\Factory\Invoice\InvoiceFactory;
 use Lighthouse\CoreBundle\Test\Factory\Order\OrderFactory;
+use Lighthouse\CoreBundle\Test\Factory\Receipt\ReceiptFactory;
 use Lighthouse\CoreBundle\Test\Factory\WriteOff\WriteOffFactory;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
@@ -27,6 +28,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @method CatalogFactory catalog()
  * @method InvoiceFactory invoice()
  * @method WriteOffFactory writeOff()
+ * @method ReceiptFactory receipt()
  * @method OrderFactory order()
  * @method SupplierFactory supplier()
  * @method OrganizationFactory organization()
@@ -66,6 +68,7 @@ class Factory extends ContainerAwareFactory
             'catalog' => CatalogFactory::getClassName(),
             'invoice' => InvoiceFactory::getClassName(),
             'writeOff' => WriteOffFactory::getClassName(),
+            'receipt' => ReceiptFactory::getClassName(),
             'order' => OrderFactory::getClassName(),
             'supplier' => SupplierFactory::getClassName(),
             'organization' => OrganizationFactory::getClassName(),

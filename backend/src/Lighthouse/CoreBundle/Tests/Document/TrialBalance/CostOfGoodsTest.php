@@ -11,6 +11,7 @@ use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
 class CostOfGoodsTest extends WebTestCase
 {
@@ -48,7 +49,7 @@ class CostOfGoodsTest extends WebTestCase
                 InvoiceProduct::REASON_TYPE
             );
             foreach ($trailBalances as $trailBalance) {
-                $this->assertInstanceOf('Lighthouse\\CoreBundle\\Types\\Numeric\\Quantity', $trailBalance->startIndex);
+                $this->assertInstanceOf(Quantity::getClassName(), $trailBalance->startIndex);
                 $this->assertSame($prevEndIndex, $trailBalance->startIndex->toString());
                 $prevEndIndex = $trailBalance->endIndex->toString();
                 $this->assertNotSame('0.000', $prevEndIndex);

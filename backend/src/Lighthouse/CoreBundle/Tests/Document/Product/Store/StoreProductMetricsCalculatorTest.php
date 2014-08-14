@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Document\Product\Store;
 
+use Lighthouse\CoreBundle\Document\Product\Store\StoreProductMetricsCalculator;
 use Lighthouse\IntegrationBundle\Set10\Import\Sales\SalesXmlParser;
 use Lighthouse\CoreBundle\Test\TestOutput;
 use Lighthouse\CoreBundle\Test\WebTestCase;
@@ -181,7 +182,7 @@ class StoreProductMetricsCalculatorTest extends WebTestCase
             $this->assertStoreProduct($storeId, $product['id'], $assertions, $product['message']);
         }
 
-        /* @var \Lighthouse\CoreBundle\Document\Product\Store\StoreProductMetricsCalculator $metricsCalculator */
+        /* @var StoreProductMetricsCalculator $metricsCalculator */
         $metricsCalculator = $this->getContainer()->get('lighthouse.core.service.product.metrics_calculator');
         $metricsCalculator->recalculateDailyAverageSales();
 
