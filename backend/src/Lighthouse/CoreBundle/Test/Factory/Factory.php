@@ -190,14 +190,6 @@ class Factory extends ContainerAwareFactory
     }
 
     /**
-     * @param Sale $sale
-     */
-    public function deleteSale(Sale $sale)
-    {
-        $this->getReceiptRepository()->rollbackByHash($sale->hash);
-    }
-
-    /**
      * @param Money|string $price
      * @param Decimal|float $quantity
      * @param string $productId
