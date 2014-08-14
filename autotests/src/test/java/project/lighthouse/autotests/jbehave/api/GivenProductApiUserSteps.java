@@ -14,7 +14,7 @@ public class GivenProductApiUserSteps {
     ProductApiSteps productApiSteps;
 
     @Given("the user with email '$email' creates the product with name '$name', units '$units', barcode '$barcode', vat '$vat', purchasePrice '$purchasePrice', sellingPrice '$sellingPrice' in the group with name '$groupName'")
-    @Alias("пользователь с адресом электронной почты создает продукт с именем '$name', еденицами измерения '$units', штрихкодом '$barcode', НДС '$vat', ценой закупки '$purchasePrice' и ценой продажи '$sellingPrice' в группе с именем '$groupName'")
+    @Alias("пользователь с адресом электронной почты '$email' создает продукт с именем '$name', еденицами измерения '$units', штрихкодом '$barcode', НДС '$vat', ценой закупки '$purchasePrice' и ценой продажи '$sellingPrice' в группе с именем '$groupName'")
     public void givenTheUserWithEmailCreatesTheProductInTheGroup(
             String email,
             String name,
