@@ -18,6 +18,11 @@ public class ThenStockMovementUserSteps {
         stockMovementSteps.stockMovementPageContainInvoice(examplesTable);
     }
 
+    @Then("пользователь проверяет конкретные операции на странице товародвижения $examplesTable")
+    public void thenTheUserAssertsExactOperationOmTheStockMovementPage(ExamplesTable examplesTable) {
+        stockMovementSteps.stockMovementPageContainExactInvoice(examplesTable);
+    }
+
     @Then("the user asserts the invoice product list contain product with values $examplesTable")
     @Alias("пользователь проверяет, что список товаров содержит товары с данными $examplesTable")
     public void thenTheUserAssertsTheInvoiceProductListContainProductWithValues(ExamplesTable examplesTable) {

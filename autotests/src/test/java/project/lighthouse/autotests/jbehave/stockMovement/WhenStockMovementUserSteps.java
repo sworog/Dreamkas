@@ -135,4 +135,9 @@ public class WhenStockMovementUserSteps {
     public void whenTheUserClicksOnAddNewProductButtonInTheInvoiceCreateNewProductModalWindow() {
         stockMovementSteps.invoiceProductCreateModalWindowConfirmButtonClick();
     }
+
+    @When("пользователь вводит данные в поля на странице товародвижения $examplesTable")
+    public void whenTheUserFieldInputValuesOnTheStockMovementPage(ExamplesTable examplesTable) {
+        stockMovementSteps.stockMovementPageFieldInput(examplesTable);
+    }
 }

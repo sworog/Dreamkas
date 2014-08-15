@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.BootstrapPageObject;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
+import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
 import project.lighthouse.autotests.objects.web.stockMovement.StockMovementObjectCollection;
 
@@ -22,6 +23,8 @@ public class StockMovementPage extends BootstrapPageObject {
     @Override
     public void createElements() {
         put("filterTypes", new SelectByVisibleText(this, "filterTypes"));
+        put("dateFrom", new Input(this, "dateFrom"));
+        put("dateTo", new Input(this, "dateTo"));
     }
 
     public StockMovementObjectCollection getStockMovementObjectCollection() {

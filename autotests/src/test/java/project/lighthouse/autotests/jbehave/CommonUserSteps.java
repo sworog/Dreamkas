@@ -105,6 +105,11 @@ public class CommonUserSteps {
         commonSteps.waitForModalPageClose();
     }
 
+    @Then("пользователь ждет пока загрузится простой прелоадер")
+    public void thenTheUserWaitsForSimplePreloaderLoading() {
+        commonSteps.waitForSimplePreloaderLoading();
+    }
+
     @Then("the user waits for page finishing loading")
     public void thenTheUserWaitsForPageFinishingLoading() {
         commonSteps.waitForPageFinishingLoading();

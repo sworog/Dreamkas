@@ -33,6 +33,11 @@ public class StockMovementSteps extends ScenarioSteps {
     InvoiceProductCreateModalWindow invoiceProductCreateModalWindow;
 
     @Step
+    public void stockMovementPageFieldInput(ExamplesTable examplesTable) {
+        stockMovementPage.fieldInput(examplesTable);
+    }
+
+    @Step
     public void stockMovementPageOpen() {
         stockMovementPage.open();
     }
@@ -96,6 +101,14 @@ public class StockMovementSteps extends ScenarioSteps {
         StockMovementObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
         if (stockMovementObjectCollection != null) {
             stockMovementObjectCollection.compareWithExampleTable(examplesTable);
+        }
+    }
+
+    @Step
+    public void stockMovementPageContainExactInvoice(ExamplesTable examplesTable) {
+        StockMovementObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
+        if (stockMovementObjectCollection != null) {
+            stockMovementObjectCollection.exactCompareExampleTable(examplesTable);
         }
     }
 
