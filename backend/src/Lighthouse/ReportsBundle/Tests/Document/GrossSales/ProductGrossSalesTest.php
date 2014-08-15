@@ -26,163 +26,71 @@ class ProductGrossSalesTest extends WebTestCase
 
     public function testCalculateProductGrossSalesHourSumCalculate()
     {
-        $storeId = $this->factory()->store()->getStoreId('1');
-        $storeOtherId = $this->factory()->store()->getStoreId('Other');
-        $product1Id = $this->createProduct('1');
-        $product2Id = $this->createProduct('2');
-        $product3Id = $this->createProduct('3');
-        $storeProduct1Id = $this->factory()->getStoreProduct($storeId, $product1Id);
-        $storeProduct2Id = $this->factory()->getStoreProduct($storeId, $product2Id);
-        $storeProduct3Id = $this->factory()->getStoreProduct($storeId, $product3Id);
+        $store = $this->factory()->store()->getStore('1');
+        $otherStore = $this->factory()->store()->getStore('Other');
 
+        $productId1 = $this->createProduct('1');
+        $productId2 = $this->createProduct('2');
+        $productId3 = $this->createProduct('3');
 
-        $sales = array(
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-1 days 8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => "-1 days 9:01",
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
+        $storeProductId1 = $this->factory()->getStoreProduct($store->id, $productId1);
+        $storeProductId2 = $this->factory()->getStoreProduct($store->id, $productId2);
+        $storeProductId3 = $this->factory()->getStoreProduct($store->id, $productId3);
 
-            array(
-                'storeId' => $storeId,
-                'createdDate' => "-1 days 10:01",
-                'sumTotal' => 298.68,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                ),
-            ),
+        $this->factory()
+            ->receipt()
+                ->createSale($store, '-1 days 8:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+            ->persist()
+                ->createSale($store, '-1 days 9:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+            ->persist()
+                ->createSale($store, '-1 days 10:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+            ->persist()
+                ->createSale($otherStore, '-1 days 8:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+            ->flush();
 
-            array(
-                'storeId' => $storeOtherId,
-                'createdDate' => '-1 days 8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-        );
+        $this->getGrossSalesReportManager()->recalculateGrossSalesProductReport();
 
-        $this->factory()->createSales($sales);
+        // Product 1
+        $this->assertStoreProductGrossSalesHourSum($storeProductId1, '-1 day 07:00:00', 0);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId1, '-1 day 08:00:00', 104.31);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId1, '-1 day 09:00:00', 104.31);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId1, '-1 day 10:00:00', 104.31);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId1, '-1 day 11:00:00', 0);
 
-        $grossSalesReportManager = $this->getGrossSalesReportManager();
-        $grossSalesReportManager->recalculateGrossSalesProductReport();
+        // Product 2
+        $this->assertStoreProductGrossSalesHourSum($storeProductId2, '-1 day 07:00:00', 0);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId2, '-1 day 08:00:00', 194.37);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId2, '-1 day 09:00:00', 194.37);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId2, '-1 day 10:00:00', 194.37);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId2, '-1 day 11:00:00', 0);
 
-        $productGrossSalesRepository = $this->getProductGrossSalesRepository();
+        // Product 3
+        $this->assertStoreProductGrossSalesHourSum($storeProductId3, '-1 day 07:00:00', 0);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId3, '-1 day 08:00:00', 304.85);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId3, '-1 day 09:00:00', 304.85);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId3, '-1 day 10:00:00', 0);
+        $this->assertStoreProductGrossSalesHourSum($storeProductId3, '-1 day 11:00:00', 0);
+    }
 
-        /**
-         * Product 1
-         */
-        $report = $productGrossSalesRepository->findByStoreProductAndDayHour($storeProduct1Id, '-1 day 7:00:00');
-        $this->assertEquals(0, $report->hourSum->toString());
-
-        $report = $productGrossSalesRepository->findByStoreProductAndDayHour($storeProduct1Id, '-1 day 8:00:00');
-        $this->assertEquals(104.31, $report->hourSum->toString());
-
-        $report = $productGrossSalesRepository->findByStoreProductAndDayHour($storeProduct1Id, '-1 day 9:00:00');
-        $this->assertEquals(104.31, $report->hourSum->toString());
-
-        $report = $productGrossSalesRepository->findByStoreProductAndDayHour($storeProduct1Id, '-1 day 10:00:00');
-        $this->assertEquals(104.31, $report->hourSum->toString());
-
-        $report = $productGrossSalesRepository->findByStoreProductAndDayHour($storeProduct1Id, '-1 day 11:00:00');
-        $this->assertEquals(0, $report->hourSum->toString());
-
-        /**
-         * Product 2
-         */
-        $report = $productGrossSalesRepository->findByStoreProductAndDayHour($storeProduct2Id, '-1 day 7:00:00');
-        $this->assertEquals(0, $report->hourSum->toString());
-
-        $report = $productGrossSalesRepository->findByStoreProductAndDayHour($storeProduct2Id, '-1 day 8:00:00');
-        $this->assertEquals(194.37, $report->hourSum->toString());
-
-        $report = $productGrossSalesRepository->findByStoreProductAndDayHour($storeProduct2Id, '-1 day 9:00:00');
-        $this->assertEquals(194.37, $report->hourSum->toString());
-
-        $report = $productGrossSalesRepository->findByStoreProductAndDayHour($storeProduct2Id, '-1 day 10:00:00');
-        $this->assertEquals(194.37, $report->hourSum->toString());
-
-        $report = $productGrossSalesRepository->findByStoreProductAndDayHour($storeProduct2Id, '-1 day 11:00:00');
-        $this->assertEquals(0, $report->hourSum->toString());
-
-        /**
-         * Product 3
-         */
-        $report = $productGrossSalesRepository->findByStoreProductAndDayHour($storeProduct3Id, '-1 day 7:00:00');
-        $this->assertEquals(0, $report->hourSum->toString());
-
-        $report = $productGrossSalesRepository->findByStoreProductAndDayHour($storeProduct3Id, '-1 day 8:00:00');
-        $this->assertEquals(304.85, $report->hourSum->toString());
-
-        $report = $productGrossSalesRepository->findByStoreProductAndDayHour($storeProduct3Id, '-1 day 9:00:00');
-        $this->assertEquals(304.85, $report->hourSum->toString());
-
-        $report = $productGrossSalesRepository->findByStoreProductAndDayHour($storeProduct3Id, '-1 day 10:00:00');
-        $this->assertEquals(0, $report->hourSum->toString());
-
-        $report = $productGrossSalesRepository->findByStoreProductAndDayHour($storeProduct3Id, '-1 day 11:00:00');
-        $this->assertEquals(0, $report->hourSum->toString());
+    /**
+     * @param string $storeProductId
+     * @param string $dayHour
+     * @param float $expectedHourSum
+     */
+    public function assertStoreProductGrossSalesHourSum($storeProductId, $dayHour, $expectedHourSum)
+    {
+        $report = $this->getProductGrossSalesRepository()->findByStoreProductAndDayHour($storeProductId, $dayHour);
+        $this->assertEquals($expectedHourSum, $report->hourSum->toString());
     }
 }
