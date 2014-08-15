@@ -101,6 +101,11 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.invoiceCreateModalWindowAddNewSupplierIconClick();
     }
 
+    @When("пользователь нажимает на плюсик рядом с полем выбора поставщика в модальном окне редактирования накладной, чтобы создать нового поставщика")
+    public void whenTheUserClicksOnAddNewSupplierIconInOrderToCreateNewSupplierInTheInvoiceEditModalWindow() {
+        stockMovementSteps.invoiceEditModalWindowAddNewSupplierIconClick();
+    }
+
     @When("пользователь заполняет поля в модальном окне создания нового поставщика $examplesTable")
     public void whenTheUserInputsFieldsInTheSupplierCreateModalWindow(ExamplesTable examplesTable) {
         stockMovementSteps.invoiceSupplierCreateModalWindowInput(examplesTable);
@@ -114,6 +119,11 @@ public class WhenStockMovementUserSteps {
     @When("пользователь нажимает на плюсик рядом с автокомплитным полем выбора товара, чтобы создать новый товар")
     public void whenTheUserClicksOnPlusIconInOrderToCreateNewProductInTheInvoiceCreateModalWindow() {
         stockMovementSteps.invoiceCreateModalWindowNewProductCreateClick();
+    }
+
+    @When("пользователь нажимает на плюсик рядом с автокомплитным полем выбора товара в модальном окне редактирования накладной, чтобы создать новый товар")
+    public void whenTheUserClicksOnPlusIconInOrderToCreateNewProductInTheInvoiceУвшеModalWindow() {
+        stockMovementSteps.invoiceEditModalWindowNewProductCreateClick();
     }
 
     @When("пользователь заполняет поля в модальном окне создания нового товара $examplesTable")

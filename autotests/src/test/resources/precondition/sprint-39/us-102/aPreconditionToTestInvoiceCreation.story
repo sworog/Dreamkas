@@ -8,6 +8,9 @@ Meta:
 @id_s39u102s9
 @id_s39u102s10
 @id_s39u102s12
+@id_s39u102s16
+@id_s39u102s17
+@id_s39u102regress1
 
 Scenario: Cценарий для создания накладной
 

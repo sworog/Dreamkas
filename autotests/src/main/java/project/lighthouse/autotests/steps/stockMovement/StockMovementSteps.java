@@ -217,6 +217,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void invoiceEditModalWindowAddNewSupplierIconClick() {
+        invoiceEditModalWindow.addSupplierButtonClick();
+    }
+
+    @Step
     public void invoiceSupplierCreateModalWindowInput(ExamplesTable examplesTable) {
         invoiceSupplierCreateModalWindow.fieldInput(examplesTable);
     }
@@ -230,6 +235,11 @@ public class StockMovementSteps extends ScenarioSteps {
     @Step
     public void invoiceCreateModalWindowNewProductCreateClick() {
         invoiceCreateModalWindow.addProductButtonClick();
+    }
+
+    @Step
+    public void invoiceEditModalWindowNewProductCreateClick() {
+        invoiceEditModalWindow.addProductButtonClick();
     }
 
     @Step

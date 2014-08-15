@@ -72,6 +72,7 @@ public class CommonUserSteps {
 
     @When("the user refreshes the current page")
     @Given("the user refreshes the current page")
+    @Alias("пользователь перезагружает страницу")
     public void whenTheUserRefreshesTheCurrentPage() {
         commonSteps.pageRefresh();
     }

@@ -12,6 +12,9 @@ Meta:
 @id_s39u102s13
 @id_s39u102s14
 @id_s39u102s15
+@id_s39u102s16
+@id_s39u102s17
+@id_s39u102regress1
 
 Scenario: Сценарий для подготовки тестовых данных
 

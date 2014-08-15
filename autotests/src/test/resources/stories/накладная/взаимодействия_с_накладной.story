@@ -526,20 +526,117 @@ Then пользователь проверяет, что список поста
 Scenario: Добавление нового поставщика в редактируемую накладную
 
 Meta:
-@id
+@id_s39u102s16
 @smoke
-@test
+
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
+              precondition/sprint-39/us-102/aPreconditionToUserCreation.story,
+              precondition/sprint-39/us-102/aPreconditionToTestDataCreation.story,
+              precondition/sprint-39/us-102/aPreconditionToTestInvoiceCreation.story,
+              precondition/sprint-39/us-102/aPreconditionForInvoiceEditionScenario.story
+
+Given пользователь открывает страницу товародвижения
+And пользователь авторизуется в системе используя адрес электронной почты 's39u102@lighthouse.pro' и пароль 'lighthouse'
+
+When пользователь нажимает на последнюю созданнаю накладную с помощью конструктора накладных на странице товародвижения
+
+When пользователь нажимает на плюсик рядом с полем выбора поставщика в модальном окне редактирования накладной, чтобы создать нового поставщика
+And пользователь заполняет поля в модальном окне создания нового поставщика
+| elementName | value |
+| name | s39u108supplierInvoiceCreation |
+| address | address |
+| phone | phone |
+| email | email |
+| contactPerson | contactPerson |
+And пользователь нажимает на кнопку Добавить в окне создания нового поставщика
+
+Then пользователь проверяет, что поле с именем 'supplier' заполнено значением 's39u108supplierInvoiceCreation' в модальном окне редактирования накладной
+
+When пользователь нажимает на кнопку сохранения накладной в модальном окне редактирования накладной
+
+Then пользователь ждет пока скроется модальное окно
+
+Then пользователь проверяет операции на странице товародвижения
+| date | type | status | store | sumTotal |
+| 28.07.2014 | Приёмка | / не оплачена | В s39u102-store | 750,00 |
+
+When пользователь нажимает на накладную с номером '10001' на странице товародвижения
+
+Then пользователь проверяет, что поле с именем 'supplier' заполнено значением 's39u108supplierInvoiceCreation' в модальном окне редактирования накладной
+
+Given пользователь открывает страницу поставщиков
+
+Then пользователь проверяет, что список поставщиков содержит поставщика с данными
+| name | address | info |
+| s39u108supplierInvoiceCreation | address |  phone, contactPerson, email |
 
 Scenario: Добавление нового продукта в редактируемую накладную
 
 Meta:
-@id
+@id_s39u102s17
 @smoke
-@test
 
-Scenario: Добавление нового продукта и поставщика в редактируемую накладную
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
+              precondition/sprint-39/us-102/aPreconditionToUserCreation.story,
+              precondition/sprint-39/us-102/aPreconditionToTestDataCreation.story,
+              precondition/sprint-39/us-102/aPreconditionToTestInvoiceCreation.story,
+              precondition/sprint-39/us-102/aPreconditionForInvoiceEditionScenario.story
 
-Meta:
-@id
-@smoke
-@test
+Given пользователь открывает страницу товародвижения
+And пользователь авторизуется в системе используя адрес электронной почты 's39u102@lighthouse.pro' и пароль 'lighthouse'
+
+When пользователь нажимает на последнюю созданнаю накладную с помощью конструктора накладных на странице товародвижения
+
+When пользователь нажимает на плюсик рядом с автокомплитным полем выбора товара в модальном окне редактирования накладной, чтобы создать новый товар
+And пользователь заполняет поля в модальном окне создания нового товара
+| elementName | value |
+| name | s39u102InvoiceProductCreation |
+| unit | шт. |
+| barcode | 12345678910 |
+| vat | Не облагается |
+| purchasePrice | 100,56 |
+| sellingPrice | 123,56 |
+And пользователь нажимает на кнопку Добавить в окне создания нового товара
+
+Then пользователь проверяет, что поле с именем 'product.name' заполнено значением 's39u102InvoiceProductCreation' в модальном окне редактирования накладной
+
+When пользователь нажимает на кнопку добавления нового товара в накладную в модальном окне редактирования накладной
+
+Then пользователь проверяет, что список товаров содержит товары с данными
+| name | priceEntered | quantity | totalPrice |
+| s39u102-product1 | 150,00  | 5,0 шт. | 750,00 |
+| s39u102InvoiceProductCreation | 100,56  | 1,0 шт. | 100,56 |
+And пользователь проверяет, что сумма итого равна '850,56' в модальном окне редактирования накладной
+
+When пользователь нажимает на кнопку сохранения накладной в модальном окне редактирования накладной
+
+Then пользователь ждет пока скроется модальное окно
+
+Then пользователь проверяет операции на странице товародвижения
+| date | type | status | store | sumTotal |
+| 28.07.2014 | Приёмка | / не оплачена | В s39u102-store | 850,56 |
+
+When пользователь нажимает на накладную с номером '10001' на странице товародвижения
+
+Then пользователь проверяет, что список товаров содержит товары с данными
+| name | priceEntered | quantity | totalPrice |
+| s39u102-product1 | 150,00  | 5,0 шт. | 750,00 |
+| s39u102InvoiceProductCreation | 100,56  | 1,0 шт. | 100,56 |
+And пользователь проверяет, что сумма итого равна '850,56' в модальном окне редактирования накладной
+
+Given пользователь открывает страницу группы с названием 's39u102-group'
+
+Then пользователь проверяет, что список продуктов содержит продукты с данными
+| name | sellingPrice | barcode |
+| s39u102InvoiceProductCreation | 123,56 | 12345678910 |
+
+When пользователь нажимает на товар с названием 's39u102InvoiceProductCreation'
+
+Then пользователь проверяет заполненные поля в модальном окне редактирования товара
+| elementName | value |
+| name | s39u102InvoiceProductCreation |
+| unit | шт. |
+| barcode | 12345678910 |
+| vat | Не облагается |
+| purchasePrice | 100,56 |
+| sellingPrice | 123,56 |
