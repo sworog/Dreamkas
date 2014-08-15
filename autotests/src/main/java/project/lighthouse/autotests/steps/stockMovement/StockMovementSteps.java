@@ -15,6 +15,8 @@ import project.lighthouse.autotests.objects.web.stockMovement.StockMovementObjec
 import project.lighthouse.autotests.pages.stockMovement.StockMovementPage;
 import project.lighthouse.autotests.pages.stockMovement.modal.InvoiceCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.InvoiceEditModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.InvoiceProductCreateModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.InvoiceSupplierCreateModalWindow;
 import project.lighthouse.autotests.storage.Storage;
 
 import java.util.List;
@@ -27,6 +29,8 @@ public class StockMovementSteps extends ScenarioSteps {
     StockMovementPage stockMovementPage;
     InvoiceCreateModalWindow invoiceCreateModalWindow;
     InvoiceEditModalWindow invoiceEditModalWindow;
+    InvoiceSupplierCreateModalWindow invoiceSupplierCreateModalWindow;
+    InvoiceProductCreateModalWindow invoiceProductCreateModalWindow;
 
     @Step
     public void stockMovementPageOpen() {
@@ -205,5 +209,37 @@ public class StockMovementSteps extends ScenarioSteps {
     @Step
     public void invoiceCreateModalWindowCheckValue(String elementName, String value) {
         invoiceCreateModalWindow.checkValue(elementName, value);
+    }
+
+    @Step
+    public void invoiceCreateModalWindowAddNewSupplierIconClick() {
+        invoiceCreateModalWindow.addSupplierButtonClick();
+    }
+
+    @Step
+    public void invoiceSupplierCreateModalWindowInput(ExamplesTable examplesTable) {
+        invoiceSupplierCreateModalWindow.fieldInput(examplesTable);
+    }
+
+    @Step
+    public void invoiceSupplierCreateModalWindowConfirmOkClick() {
+        invoiceSupplierCreateModalWindow.confirmationOkClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
+    public void invoiceCreateModalWindowNewProductCreateClick() {
+        invoiceCreateModalWindow.addProductButtonClick();
+    }
+
+    @Step
+    public void invoiceProductCreateModalWindowInputValues(ExamplesTable examplesTable) {
+        invoiceProductCreateModalWindow.fieldInput(examplesTable);
+    }
+
+    @Step
+    public void invoiceProductCreateModalWindowConfirmButtonClick() {
+        invoiceProductCreateModalWindow.confirmationOkClick();
+        new SimplePreloader(getDriver()).await();
     }
 }

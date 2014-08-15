@@ -129,6 +129,11 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
+    public void editProductModalWindowCheckValues(ExamplesTable examplesTable) {
+        editProductModalWindow.checkValues(examplesTable);
+    }
+
+    @Step
     public void assertCreateNewProductModalWindowGroupFieldValue(String value) {
         createNewProductModalWindow.checkValue("group", value);
     }

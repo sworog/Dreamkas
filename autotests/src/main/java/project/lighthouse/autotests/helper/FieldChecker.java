@@ -5,6 +5,7 @@ import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.elements.items.DateTime;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
+import project.lighthouse.autotests.elements.items.autocomplete.InvoiceProductAutoComplete;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -37,7 +38,7 @@ public class FieldChecker {
 
         if (commonItem instanceof SelectByVisibleText) {
             actualValue = commonItem.getVisibleWebElementFacade().getSelectedVisibleTextValue().trim();
-        } else if (commonItem instanceof Input || commonItem instanceof DateTime) {
+        } else if (commonItem instanceof Input || commonItem instanceof DateTime || commonItem instanceof InvoiceProductAutoComplete) {
             actualValue = commonItem.getVisibleWebElementFacade().getValue();
         } else {
             actualValue = commonItem.getVisibleWebElementFacade().getText();

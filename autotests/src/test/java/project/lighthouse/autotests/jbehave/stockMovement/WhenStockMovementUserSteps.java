@@ -95,4 +95,34 @@ public class WhenStockMovementUserSteps {
     public void whenTheUserDeletesTheProductWithNameInTheEditInvoiceModalWindow(String name) {
         stockMovementSteps.invoiceProductWithNameDeleteIconClick(name);
     }
+
+    @When("пользователь нажимает на плюсик рядом с полем выбора поставщика, чтобы создать нового поставщика")
+    public void whenTheUserClicksOnAddNewSupplierIconInOrderToCreateNewSupplier() {
+        stockMovementSteps.invoiceCreateModalWindowAddNewSupplierIconClick();
+    }
+
+    @When("пользователь заполняет поля в модальном окне создания нового поставщика $examplesTable")
+    public void whenTheUserInputsFieldsInTheSupplierCreateModalWindow(ExamplesTable examplesTable) {
+        stockMovementSteps.invoiceSupplierCreateModalWindowInput(examplesTable);
+    }
+
+    @When("пользователь нажимает на кнопку Добавить в окне создания нового поставщика")
+    public void whenTheUserClicksOnAddNewSupplierButtonInTheCreateNewSupplierModalWindow() {
+        stockMovementSteps.invoiceSupplierCreateModalWindowConfirmOkClick();
+    }
+
+    @When("пользователь нажимает на плюсик рядом с автокомплитным полем выбора товара, чтобы создать новый товар")
+    public void whenTheUserClicksOnPlusIconInOrderToCreateNewProductInTheInvoiceCreateModalWindow() {
+        stockMovementSteps.invoiceCreateModalWindowNewProductCreateClick();
+    }
+
+    @When("пользователь заполняет поля в модальном окне создания нового товара $examplesTable")
+    public void whenTheUserInputsValuesInTheInvoiceProductCreateModalWindow(ExamplesTable examplesTable) {
+        stockMovementSteps.invoiceProductCreateModalWindowInputValues(examplesTable);
+    }
+
+    @When("пользователь нажимает на кнопку Добавить в окне создания нового товара")
+    public void whenTheUserClicksOnAddNewProductButtonInTheInvoiceCreateNewProductModalWindow() {
+        stockMovementSteps.invoiceProductCreateModalWindowConfirmButtonClick();
+    }
 }

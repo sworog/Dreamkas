@@ -20,6 +20,7 @@ public class GivenCatalogApiUserSteps {
     }
 
     @Given("the user navigates to the group with name '$groupName'")
+    @Alias("пользователь открывает страницу группы с названием '$groupName'")
     public void givenTheUserNavigatesToTheGroup(String groupName) throws JSONException {
         catalogApiSteps.navigateToGroupPage(groupName);
     }

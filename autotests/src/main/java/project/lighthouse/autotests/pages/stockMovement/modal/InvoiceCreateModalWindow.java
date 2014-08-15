@@ -41,7 +41,7 @@ public class InvoiceCreateModalWindow extends ModalWindowPage {
     }
 
     public void addProductButtonClick() {
-
+        findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'addProductLink')]")).click();
     }
 
     public void paidCheckBoxClick() {

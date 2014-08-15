@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave.supplier;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.supplier.SupplierSteps;
@@ -11,6 +12,7 @@ public class ThenSupplierSteps {
     SupplierSteps supplierSteps;
 
     @Then("the user asserts the supplier list contain supplier with values $examplesTable")
+    @Alias("пользователь проверяет, что список поставщиков содержит поставщика с данными $examplesTable")
     public void thenTheUserAssertsTheSupplierListContainSupplerWithValues(ExamplesTable examplesTable) {
         supplierSteps.supplierCollectionCompareWithExampleTable(examplesTable);
     }

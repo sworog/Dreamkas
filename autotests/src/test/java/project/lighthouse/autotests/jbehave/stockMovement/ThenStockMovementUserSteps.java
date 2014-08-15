@@ -67,6 +67,7 @@ public class ThenStockMovementUserSteps {
     }
 
     @Then("the user checks the element with name '$name' has value equals to '$value' in the edit invoice modal window")
+    @Alias("пользователь проверяет, что поле с именем '$name' заполнено значением '$value' в модальном окне редактирования накладной")
     public void thenTheUserChecksTheElementWithNameHasValue(String name, String value) {
         stockMovementSteps.invoiceEditModalWindowCheckValue(name, value);
     }
