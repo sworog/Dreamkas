@@ -140,4 +140,9 @@ public class WhenStockMovementUserSteps {
     public void whenTheUserFieldInputValuesOnTheStockMovementPage(ExamplesTable examplesTable) {
         stockMovementSteps.stockMovementPageFieldInput(examplesTable);
     }
+
+    @When("пользователь генерирует текст с кол-во символов '$count' в поле с именем '$name' в модальном окне создания поставщика в накладной")
+    public void whrnTheUserGeneratesSymbolsWithCountInTheCreateStoreModalWindowFieldWithName(int count, String name) {
+        stockMovementSteps.supplierCreateModalPageInputGeneratedText(name, count);
+    }
 }

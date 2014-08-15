@@ -8,6 +8,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.DateTimeHelper;
+import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.api.invoice.Invoice;
 import project.lighthouse.autotests.objects.web.invoiceProduct.InvoiceProductCollection;
 import project.lighthouse.autotests.objects.web.invoiceProduct.InvoiceProductObject;
@@ -31,6 +32,8 @@ public class StockMovementSteps extends ScenarioSteps {
     InvoiceEditModalWindow invoiceEditModalWindow;
     InvoiceSupplierCreateModalWindow invoiceSupplierCreateModalWindow;
     InvoiceProductCreateModalWindow invoiceProductCreateModalWindow;
+
+    private String name;
 
     @Step
     public void stockMovementPageFieldInput(ExamplesTable examplesTable) {
@@ -225,6 +228,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void invoiceCreateModalWindowCheckValue() {
+        invoiceCreateModalWindow.checkValue("supplier", name);
+    }
+
+    @Step
     public void invoiceCreateModalWindowAddNewSupplierIconClick() {
         invoiceCreateModalWindow.addSupplierButtonClick();
     }
@@ -264,5 +272,17 @@ public class StockMovementSteps extends ScenarioSteps {
     public void invoiceProductCreateModalWindowConfirmButtonClick() {
         invoiceProductCreateModalWindow.confirmationOkClick();
         new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
+    public void supplierCreateModalPageCheckErrorMessage(String elementName, String errorMessage) {
+        invoiceSupplierCreateModalWindow.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+    }
+
+    @Step
+    public void supplierCreateModalPageInputGeneratedText(String elementName, int count) {
+        String generatedString = new StringGenerator(count).generateString("a");
+        invoiceSupplierCreateModalWindow.input(elementName, generatedString);
+        this.name = generatedString;
     }
 }
