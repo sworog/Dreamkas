@@ -131,6 +131,11 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.invoiceProductCreateModalWindowInputValues(examplesTable);
     }
 
+    @When("пользователь вводит значение value в поле с именем '$elementName' в модальном окне создания товара")
+    public void whenTheUserInputsValuesInTheInvoiceProductCreateModalWindow(String value, String elementName) {
+        stockMovementSteps.invoiceProductCreateModalWindowInputValue(elementName, value);
+    }
+
     @When("пользователь нажимает на кнопку Добавить в окне создания нового товара")
     public void whenTheUserClicksOnAddNewProductButtonInTheInvoiceCreateNewProductModalWindow() {
         stockMovementSteps.invoiceProductCreateModalWindowConfirmButtonClick();
@@ -144,5 +149,10 @@ public class WhenStockMovementUserSteps {
     @When("пользователь генерирует текст с кол-во символов '$count' в поле с именем '$name' в модальном окне создания поставщика в накладной")
     public void whrnTheUserGeneratesSymbolsWithCountInTheCreateStoreModalWindowFieldWithName(int count, String name) {
         stockMovementSteps.supplierCreateModalPageInputGeneratedText(name, count);
+    }
+
+    @When("пользователь генерирует текст с кол-во символов '$count' в поле с именем '$name' в модальном окне создания товара в накладной")
+    public void whenTheUserGeneratesSymbolsWithCountInCreateNewProductModalWindowField(int count, String elementName) {
+        stockMovementSteps.createNewProductModalWindowFieldGenerateText(elementName, count);
     }
 }

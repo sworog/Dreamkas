@@ -228,6 +228,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void invoiceCreateModalWindowCheckValueProductName() {
+        invoiceCreateModalWindow.checkValue("product.name", name);
+    }
+
+    @Step
     public void invoiceCreateModalWindowCheckValue() {
         invoiceCreateModalWindow.checkValue("supplier", name);
     }
@@ -269,6 +274,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void invoiceProductCreateModalWindowInputValue(String elementValue, String text) {
+        invoiceProductCreateModalWindow.input(elementValue, text);
+    }
+
+    @Step
     public void invoiceProductCreateModalWindowConfirmButtonClick() {
         invoiceProductCreateModalWindow.confirmationOkClick();
         new SimplePreloader(getDriver()).await();
@@ -283,6 +293,18 @@ public class StockMovementSteps extends ScenarioSteps {
     public void supplierCreateModalPageInputGeneratedText(String elementName, int count) {
         String generatedString = new StringGenerator(count).generateString("a");
         invoiceSupplierCreateModalWindow.input(elementName, generatedString);
+        this.name = generatedString;
+    }
+
+    @Step
+    public void assertCreateNewProductModalWindowFieldErrorMessage(String elementName, String errorMessage) {
+        invoiceProductCreateModalWindow.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+    }
+
+    @Step
+    public void createNewProductModalWindowFieldGenerateText(String elementName, int number) {
+        String generatedString = new StringGenerator(number).generateString("f");
+        invoiceProductCreateModalWindow.input(elementName, generatedString);
         this.name = generatedString;
     }
 }

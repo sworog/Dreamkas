@@ -18,6 +18,15 @@ Meta:
 @id_s39u102s18
 @id_s39u102s19
 @id_s39u102s20
+@id_s39u102invoiceProductCreateValidation1
+@id_s39u102invoiceProductCreateValidation2
+@id_s39u102invoiceProductCreateValidation3
+@id_s39u102invoiceProductCreateValidation4
+@id_s39u102invoiceProductCreateValidation5
+@id_s39u102invoiceProductCreateValidation6
+@id_s39u102invoiceProductCreateValidation7
+@id_s39u102invoiceProductCreateValidation8
+@id_s39u102invoiceProductCreateValidation9
 
 Scenario: Сценарий для подготовки тестовых данных
 

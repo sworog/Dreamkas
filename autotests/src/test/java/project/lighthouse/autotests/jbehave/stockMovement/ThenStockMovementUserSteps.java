@@ -88,6 +88,11 @@ public class ThenStockMovementUserSteps {
         stockMovementSteps.invoiceCreateModalWindowCheckValue();
     }
 
+    @Then("пользователь проверяет, что поле с именем product.name заполнено сохраненным значением в модальном окне создания накладной")
+    public void thenTheUserChecksTheProductNameHasValueInTheCreateNewInvoiceModalWindow() {
+        stockMovementSteps.invoiceCreateModalWindowCheckValueProductName();
+    }
+
     @Then("the user checks values on the edit invoice modal window $examplesTable")
     @Alias("пользователь проверяет поля в модальном окне редактирования накладной $examplesTable")
     public void thenTheUserChecksValuesOnTheEditInvoiceModalWindow(ExamplesTable examplesTable) {
@@ -97,5 +102,11 @@ public class ThenStockMovementUserSteps {
     @Then("пользователь проверяет, что у поля с именем '$elementName' имеется сообщения об ошибке с сообщением '$message' в модальном окне создания поставщика в накладной")
     public void thenTheUserChecksTheCreateNewSupplierModalWindowFieldHasErrorMessage(String elementName, String message) {
         stockMovementSteps.supplierCreateModalPageCheckErrorMessage(elementName, message);
+    }
+
+    @Then("пользователь проверяет, что у поля с именем '$elementName' имеется сообщения об ошибке с сообщением '$errorMessage' в модальном окне создания товара в накладной")
+    @Alias("пользователь проверяет, что у поля с именем '$elementName' имеется сообщения об ошибке с сообщением errorMessage в модальном окне создания товара в накладной")
+    public void thenTheUserChecksTheCreateNewProductModalWindowFieldHasErrorMessage(String elementName, String errorMessage) {
+        stockMovementSteps.assertCreateNewProductModalWindowFieldErrorMessage(elementName, errorMessage);
     }
 }

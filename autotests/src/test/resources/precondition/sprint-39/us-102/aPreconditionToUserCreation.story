@@ -32,6 +32,15 @@ Meta:
 @id_s39u102invoiceSupplierCreateValidation9
 @id_s39u102invoiceSupplierCreateValidation10
 @id_s39u102invoiceSupplierCreateValidation11
+@id_s39u102invoiceProductCreateValidation1
+@id_s39u102invoiceProductCreateValidation2
+@id_s39u102invoiceProductCreateValidation3
+@id_s39u102invoiceProductCreateValidation4
+@id_s39u102invoiceProductCreateValidation5
+@id_s39u102invoiceProductCreateValidation6
+@id_s39u102invoiceProductCreateValidation7
+@id_s39u102invoiceProductCreateValidation8
+@id_s39u102invoiceProductCreateValidation9
 
 Scenario: Сценарий для создания пользователя через консольную команду
 
