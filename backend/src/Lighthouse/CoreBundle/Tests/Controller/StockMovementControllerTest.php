@@ -99,7 +99,9 @@ class StockMovementControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stockMovements?' . http_build_query($query)
+            '/api/1/stockMovements',
+            null,
+            $query
         );
 
         $this->assertResponseCode(200);
@@ -156,7 +158,87 @@ class StockMovementControllerTest extends WebTestCase
                     'dateFrom' => '2014-07-01',
                 ),
                 array('writeOff1', 'invoice1', 'invoice2')
-            )
+            ),
+            'custom dates format' => array(
+                array(
+                    'dateFrom' => '01.06.2014',
+                    'dateTo' => 'Fri, 15 Jun 2014 18:39:05 +0400'
+                ),
+                array('writeOff2')
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider filterValidationProvider
+     * @param array $query
+     * @param int $expectedResponseCode
+     * @param array $assertions
+     */
+    public function testFilterValidation(array $query, $expectedResponseCode, array $assertions)
+    {
+        $this->createStockMovements();
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $this->client->setCatchException();
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/stockMovements',
+            null,
+            $query
+        );
+
+        $this->assertResponseCode($expectedResponseCode);
+
+        $this->performJsonAssertions($response, $assertions);
+    }
+
+    /**
+     * @return array
+     */
+    public function filterValidationProvider()
+    {
+        return array(
+            'invalid dateFrom' => array(
+                array(
+                    'types' => 'Invoice',
+                    'dateFrom' => 'aaa',
+                    'dateTo' => '2014-07-25'
+                ),
+                400,
+                array(
+                    'errors.children.dateFrom.errors.0'
+                    =>
+                    'Вы ввели неверную дату aaa, формат должен быть следующий дд.мм.гггг чч:мм',
+                    'errors.children.dateTo.errors.0' => null,
+                )
+            ),
+            'invalid dateTo' => array(
+                array(
+                    'types' => 'Invoice',
+                    'dateFrom' => '2014-07-21',
+                    'dateTo' => 'aaa'
+                ),
+                400,
+                array(
+                    'errors.children.dateTo.errors.0'
+                    =>
+                    'Вы ввели неверную дату aaa, формат должен быть следующий дд.мм.гггг чч:мм',
+                    'errors.children.dateFrom.errors.0' => null,
+                )
+            ),
+            'valid extra field' => array(
+                array(
+                    'types' => 'Invoice,  WriteOff',
+                    'extra' => 'dummy'
+                ),
+                200,
+                array(
+                    '*.type' => 'Invoice'
+                )
+            ),
         );
     }
 }

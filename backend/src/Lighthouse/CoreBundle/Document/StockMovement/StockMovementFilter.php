@@ -3,8 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\StockMovement;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Lighthouse\CoreBundle\Request\ParamConverter\Filter\FilterInterface;
-use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
+use Symfony\Component\Validator\Constraints as Assert;
 use DateTime;
 
 /**
@@ -12,14 +11,16 @@ use DateTime;
  * @property DateTime $dateTo
  * @property array $types
  */
-class StockMovementFilter extends AbstractDocument implements FilterInterface
+class StockMovementFilter extends AbstractDocument
 {
     /**
+     * @Assert\DateTime
      * @var DateTime
      */
     protected $dateFrom;
 
     /**
+     * @Assert\DateTime
      * @var DateTime
      */
     protected $dateTo;
@@ -27,31 +28,13 @@ class StockMovementFilter extends AbstractDocument implements FilterInterface
     /**
      * @var array
      */
-    protected $types;
+    protected $types = array();
 
     /**
-     * @param string $types
+     * @return bool
      */
-    public function setTypes($types)
+    public function issetTypes()
     {
-        $types = explode(',', $types);
-        $types = array_map('trim', $types);
-        $this->types = $types;
-    }
-
-    /**
-     * @param DateTime $dateTo
-     */
-    public function setDateTo($dateTo)
-    {
-        $this->dateTo = new DateTimestamp($dateTo);
-    }
-
-    /**
-     * @param DateTime $dateFrom
-     */
-    public function setDateFrom($dateFrom)
-    {
-        $this->dateFrom = new DateTimestamp($dateFrom);
+        return is_array($this->types) && !empty($this->types);
     }
 }
