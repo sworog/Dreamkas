@@ -60,23 +60,8 @@ public class ProductSteps extends ScenarioSteps {
     }
 
     @Step
-    public void selectDropDown(String elementName, String value) {
-        productCreatePage.selectByValue(elementName, value);
-    }
-
-    @Step
     public void createButtonClick() {
         productCreatePage.createButtonClick();
-    }
-
-    @Step
-    public void checkCardValue(String elementName, String expectedValue) {
-        productCardView.checkCardValue(elementName, expectedValue);
-    }
-
-    @Step
-    public void checkCardValue(ExamplesTable checkValuesTable) {
-        productCardView.checkCardValue(checkValuesTable);
     }
 
     @Step

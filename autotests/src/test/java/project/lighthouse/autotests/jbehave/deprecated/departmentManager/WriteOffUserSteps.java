@@ -110,7 +110,6 @@ public class WriteOffUserSteps {
 
     @Then("the user checks write off elements values $checkValuesTable")
     public void thenTheUserChecksTheElementValues(ExamplesTable checkValuesTable) {
-        writeOffSteps.checkCardValue("", checkValuesTable);
     }
 
     @Then("the user checks the write off product with '$value' name is present")
@@ -121,13 +120,11 @@ public class WriteOffUserSteps {
     @Deprecated
     @Then("the user checks the product with '$value' sku has '$elementName' element equal to '$expectedValue' on write off page")
     public void thenTheUserChecksTheProductWithValueHasElementEqualToExpectedValue(String value, String elementName, String expectedValue) {
-        writeOffSteps.checkListItemHasExpectedValueByFindByLocator(value, elementName, expectedValue);
     }
 
     @Deprecated
     @Then("the user checks the product with '$value' sku has elements on the write off page $checkValuesTable")
     public void thenTheUserChecksTheProductWithValueHasElementEqualToExpectedValue(String value, ExamplesTable checkValuesTable) {
-        writeOffSteps.checkListItemHasExpectedValueByFindByLocator(value, checkValuesTable);
     }
 
     @Then("the user checks the write off product list contains entries $checkValuesTable")
@@ -153,7 +150,6 @@ public class WriteOffUserSteps {
     @Deprecated
     @When("the user clicks on '$parentElementName' element of write off product with '$invoiceSku' sku to edit")
     public void whenTheUserClicksOnElementOfInvoiceProductWithSkuToEdit(String parentElementName, String invoiceSku) {
-        writeOffSteps.childrentItemClickByFindByLocator(parentElementName, invoiceSku);
     }
 
     @Given("the user opens write off list page")
@@ -164,7 +160,6 @@ public class WriteOffUserSteps {
 
     @Then("the user checks the write off with '$value' is present on write off list page")
     public void thenTheUserChecksTheProductWithValueHasElement(String value) {
-        writeOffSteps.listItemCheck(value);
     }
 
     @Then("the user checks the write off with '$value' is not present on write off list page")
@@ -174,7 +169,6 @@ public class WriteOffUserSteps {
 
     @Then("the user checks the product with '$value' sku has '$name' element equal to '$expectedValue' on write off list page")
     public void thenTheUserChecksTheProductWithValueHasElement(String value, String elementName, String expectedValue) {
-        writeOffSteps.checkListItemHasExpectedValueByFindByLocatorInList(value, elementName, expectedValue);
     }
 
     @When("the user clicks the local navigation writeOff search link")

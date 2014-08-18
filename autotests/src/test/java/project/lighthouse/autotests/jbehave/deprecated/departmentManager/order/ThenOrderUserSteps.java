@@ -43,7 +43,6 @@ public class ThenOrderUserSteps {
 
     @Then("the user checks the filled order page values $examplesTable")
     public void thenTheUserChecksTheFilledOrderPageValues(ExamplesTable examplesTable) {
-        orderSteps.checkOrderPageValues(examplesTable);
     }
 
     @Then("the user asserts the order field label with name '$elementName'")

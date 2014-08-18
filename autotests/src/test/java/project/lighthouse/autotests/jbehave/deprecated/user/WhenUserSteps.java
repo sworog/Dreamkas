@@ -28,7 +28,6 @@ public class WhenUserSteps {
 
     @When("the user selects '$value' in the user page'$elementName' dropdown")
     public void whenTheUserSelectsValueInTheUserPageDropDown(String value, String elementName) {
-        userSteps.selectDropDown(elementName, value);
     }
 
     @When("the user clicks the create new user button")
@@ -43,7 +42,6 @@ public class WhenUserSteps {
 
     @When("the user opens the user card with '$login' username")
     public void whenTheUserOpensTheUserCard(String login) {
-        userSteps.listItemClick(login);
     }
 
     @When("the user clicks on the users list page link")

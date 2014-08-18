@@ -54,7 +54,6 @@ public class SettingUserSteps {
 
     @Then("the user checks the stored values on the setting page")
     public void thenTheUserChecksTheStoreValues() {
-        settingSteps.check(valuesTable);
     }
 
     private Boolean tableContainsSet10ImportUrl(ExamplesTable examplesTable) {

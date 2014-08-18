@@ -21,7 +21,6 @@ public class ProductDataDrivenSteps {
 
     @Then("the user checks the elements values matches input data")
     public void thenTheUserChecksTheElementValues() {
-        productSteps.checkCardValue(examplesTable);
     }
 
 }
