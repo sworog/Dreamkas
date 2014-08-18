@@ -51,9 +51,7 @@ define(function(require, exports, module) {
                 autofocus;
 
             if (Page.previous){
-                Page.previous.removeBlocks();
-                Page.previous.stopListening();
-                Page.previous.undelegateEvents();
+                Page.previous.remove();
             }
 
             Block.prototype.render.apply(page, arguments);
@@ -87,7 +85,10 @@ define(function(require, exports, module) {
 
             $('.inputDate, .input-daterange').datepicker('remove');
 
-            Block.prototype.remove.apply(page, arguments);
+            page.removeBlocks();
+            page.stopListening();
+            page.undelegateEvents();
+
         },
 
         setStatus: function(status){
