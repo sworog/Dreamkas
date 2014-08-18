@@ -9,8 +9,10 @@ Narrative:
 
 Scenario: Валидация обязательного поля магазин при создании накладной
 
-GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
-              precondition/sprint-39/us-102/aPreconditionToUserCreation.story,
+Meta:
+@id
+
+GivenStories: precondition/sprint-39/us-102/aPreconditionToUserCreation.story,
               precondition/sprint-39/us-102/aPreconditionToTestDataCreation.story
 
 Given пользователь открывает страницу товародвижения
@@ -28,8 +30,10 @@ And пользователь нажимает на кнопку добавлен
 And пользователь нажимает на кнопку Принять, чтобы принять накладную с товарами
 Then пользователь проверяет, что у поля с именем 'store' имеется сообщения об ошибке с сообщением 'Заполните это поле' в модальном окне создания накладной
 
-
 Scenario: Валидация поле поставщик не обязательное при создании накладной
+
+Meta:
+@id
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/sprint-39/us-102/aPreconditionToUserCreation.story,
@@ -56,8 +60,10 @@ Then пользователь проверяет операции на стра�
 
 Scenario: Валидация поле дата при создании накладной - пустое значение
 
-GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
-              precondition/sprint-39/us-102/aPreconditionToUserCreation.story,
+Meta:
+@id
+
+GivenStories: precondition/sprint-39/us-102/aPreconditionToUserCreation.story,
               precondition/sprint-39/us-102/aPreconditionToTestDataCreation.story
 
 Given пользователь открывает страницу товародвижения
@@ -77,8 +83,10 @@ Then пользователь проверяет, что у поля с имен
 
 Scenario: Валидация поле дата при создании накладной - неверное значение
 
-GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
-              precondition/sprint-39/us-102/aPreconditionToUserCreation.story,
+Meta:
+@id
+
+GivenStories: precondition/sprint-39/us-102/aPreconditionToUserCreation.story,
               precondition/sprint-39/us-102/aPreconditionToTestDataCreation.story
 
 Given пользователь открывает страницу товародвижения
