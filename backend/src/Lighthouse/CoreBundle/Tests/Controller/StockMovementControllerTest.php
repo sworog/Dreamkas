@@ -166,6 +166,10 @@ class StockMovementControllerTest extends WebTestCase
                 ),
                 array('writeOff2')
             ),
+            'empty query' => array(
+                array(),
+                array('writeOff1', 'invoice1', 'invoice2', 'writeOff2')
+            )
         );
     }
 
@@ -239,6 +243,22 @@ class StockMovementControllerTest extends WebTestCase
                     '*.type' => 'Invoice'
                 )
             ),
+            'types array' => array(
+                array(
+                    'types' => array('Invoice',  'WriteOff'),
+                ),
+                200,
+                array(
+                    '*.type' => 'Invoice'
+                )
+            ),
+            'no types' => array(
+                array(),
+                200,
+                array(
+                    '*.type' => 'Invoice'
+                )
+            )
         );
     }
 }

@@ -39,11 +39,13 @@ class EnumViewTransformer implements DataTransformerInterface
             return null;
         }
 
-        if (!is_string($value)) {
-            throw new TransformationFailedException('', 0, new UnexpectedTypeException($value, 'string'));
+        if (is_string($value)) {
+            return $this->splitValues($value);
+        } elseif (is_array($value)) {
+            return $this->filterValues($value);
+        } else {
+            throw new TransformationFailedException('', 0, new UnexpectedTypeException($value, 'string, array'));
         }
-
-        return $this->splitValues($value);
     }
 
     /**
@@ -53,6 +55,15 @@ class EnumViewTransformer implements DataTransformerInterface
     protected function splitValues($value)
     {
         $values = explode(',', $value);
+        return $this->filterValues($values);
+    }
+
+    /**
+     * @param array $values
+     * @return array
+     */
+    protected function filterValues(array $values)
+    {
         $values = array_map('trim', $values);
         $values = array_filter(
             $values,
