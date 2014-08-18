@@ -95,8 +95,6 @@ define(function(require, exports, module) {
 
                 e.currentTarget.classList.add('loading');
 
-                page.params.dateTo = 'qwe';
-
                 page.collections.stockMovements.dateTo = page.params.dateTo;
 
                 page.collections.stockMovements.fetch().then(function() {
