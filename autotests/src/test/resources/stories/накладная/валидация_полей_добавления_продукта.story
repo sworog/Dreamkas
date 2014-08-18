@@ -116,7 +116,6 @@ Scenario: Валидация полей добавления продукта в
 
 Meta:
 @id s40u102InvoiceProductValidations5
-@test
 
 Given пользователь запускает консольную команду для создания пользователя с параметрами: адрес электронной почты 's39u102@lighthouse.pro' и пароль 'lighthouse'
 
@@ -160,7 +159,6 @@ Scenario: Валидация полей добавления продукта в
 
 Meta:
 @id s40u102InvoiceProductValidations6
-@test
 
 Given пользователь запускает консольную команду для создания пользователя с параметрами: адрес электронной почты 's39u102@lighthouse.pro' и пароль 'lighthouse'
 
