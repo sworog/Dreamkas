@@ -13,13 +13,11 @@ class RecalculateReportsCommandTest extends TestCase
     public function testExecute()
     {
         /* @var GrossSalesReportManager|\PHPUnit_Framework_MockObject_MockObject $grossSalesManagerMock */
-        $grossSalesManagerMock = $this->getMock(
-            'Lighthouse\\ReportsBundle\\Reports\\GrossSales\\GrossSalesReportManager',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $grossSalesManagerMock = $this
+            ->getMockBuilder('Lighthouse\\ReportsBundle\\Reports\\GrossSales\\GrossSalesReportManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $grossSalesManagerMock
             ->expects($this->once())
             ->method('recalculateStoreGrossSalesReport');
@@ -28,13 +26,11 @@ class RecalculateReportsCommandTest extends TestCase
             ->method('recalculateGrossSalesProductReport');
 
         /* @var GrossMarginManager|\PHPUnit_Framework_MockObject_MockObject $grossMarginManagerMock */
-        $grossMarginManagerMock = $this->getMock(
-            'Lighthouse\\ReportsBundle\\Reports\\GrossMargin\\GrossMarginManager',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $grossMarginManagerMock = $this
+            ->getMockBuilder('Lighthouse\\ReportsBundle\\Reports\\GrossMargin\\GrossMarginManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $grossMarginManagerMock
             ->expects($this->exactly(3))
             ->method($this->anything());

@@ -1131,13 +1131,11 @@ class CategoryControllerTest extends WebTestCase
 
         $category = new Category();
 
-        $documentManagerMock = $this->getMock(
-            'Doctrine\\ODM\\MongoDB\\DocumentManager',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $documentManagerMock = $this
+            ->getMockBuilder('Doctrine\\ODM\\MongoDB\\DocumentManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $documentManagerMock
             ->expects($this->once())
             ->method('persist');
@@ -1148,13 +1146,10 @@ class CategoryControllerTest extends WebTestCase
             ->with($this->isEmpty())
             ->will($this->throwException($exception));
 
-        $categoryRepositoryMock = $this->getMock(
-            'Lighthouse\\CoreBundle\\Document\\Classifier\\Category\\CategoryRepository',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $categoryRepositoryMock = $this
+            ->getMockBuilder('Lighthouse\\CoreBundle\\Document\\Classifier\\Category\\CategoryRepository')
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $categoryRepositoryMock
             ->expects($this->once())

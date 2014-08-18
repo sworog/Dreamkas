@@ -582,13 +582,11 @@ class DepartmentControllerTest extends WebTestCase
 
         $department = new Department();
 
-        $documentManagerMock = $this->getMock(
-            'Doctrine\\ODM\\MongoDB\\DocumentManager',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $documentManagerMock = $this
+            ->getMockBuilder('Doctrine\\ODM\\MongoDB\\DocumentManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $documentManagerMock
             ->expects($this->once())
             ->method('persist');
@@ -599,13 +597,10 @@ class DepartmentControllerTest extends WebTestCase
             ->with($this->isEmpty())
             ->will($this->throwException($exception));
 
-        $storeRepoMock = $this->getMock(
-            'Lighthouse\\CoreBundle\\Document\\Department\\DepartmentRepository',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $storeRepoMock = $this
+            ->getMockBuilder('Lighthouse\\CoreBundle\\Document\\Department\\DepartmentRepository')
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $storeRepoMock
             ->expects($this->once())
