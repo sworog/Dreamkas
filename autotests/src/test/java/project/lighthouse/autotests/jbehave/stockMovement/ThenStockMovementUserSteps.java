@@ -110,9 +110,10 @@ public class ThenStockMovementUserSteps {
         stockMovementSteps.assertCreateNewProductModalWindowFieldErrorMessage(elementName, errorMessage);
     }
 
-    @Then("пользователь проверяет, что у поля с именем '$elementName' имеется сообщения об ошибке с сообщением '$message' в модальном окне создания накладной")
-    public void thenTheUserChecksTheCreateNewInvoiceModalWindowFieldHasErrorMessage(String elementName, String message) {
-        stockMovementSteps.invoiceCreateModalCheckErrorMessage(elementName, message);
+    @Then("пользователь проверяет, что у поля с именем '$elementName' имеется сообщения об ошибке с сообщением '$errorMessage' в модальном окне создания накладной")
+    @Alias("пользователь проверяет, что у поля с именем '$elementName' имеется сообщения об ошибке с сообщением errorMessage в модальном окне создания накладной")
+    public void thenTheUserChecksTheCreateNewInvoiceModalWindowFieldHasErrorMessage(String elementName, String errorMessage) {
+        stockMovementSteps.invoiceCreateModalCheckErrorMessage(elementName, errorMessage);
     }
 
     @Then("пользователь проверяет, что у поля с именем '$elementName' имеется сообщения об ошибке с сообщением '$message' в модальном окне редактирования накладной")

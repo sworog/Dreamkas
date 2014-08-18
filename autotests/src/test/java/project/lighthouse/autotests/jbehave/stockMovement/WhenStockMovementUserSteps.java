@@ -24,6 +24,11 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.invoiceCreateModalWindowInput(examplesTable);
     }
 
+    @When("пользователь вводит value в поле с именем '$elementName' в модальном окне создания накладной")
+    public void whenTheUserInputsOnTheCreateNewInvoiceModalWindow(String elementName, String value) {
+        stockMovementSteps.invoiceCreateModalWindowInput(elementName, value);
+    }
+
     @When("the user inputs values on the edit invoice modal window $examplesTable")
     @Alias("пользователь вводит данные в модальном окне редактирования накладной $examplesTable")
     public void whenTheUserInputsOnTheEditInvoiceModalWindow(ExamplesTable examplesTable) {
