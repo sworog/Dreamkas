@@ -94,6 +94,8 @@ define(function(require, exports, module) {
                 page.removeFilterErrors();
 
                 e.currentTarget.classList.add('loading');
+                
+                page.params.dateTo = e.target.value;
 
                 page.collections.stockMovements.dateTo = page.params.dateTo;
 
