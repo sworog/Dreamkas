@@ -1700,7 +1700,7 @@ class InvoiceControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider duplicateInvoiceOnOrderCreateMongoExceptionProvider
+     * @dataProvider exceptionOnInvoiceCreateProvider
      * @param \Exception $exception
      * @param $expectedResponseCode
      * @param array $assertions
