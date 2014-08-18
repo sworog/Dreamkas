@@ -1144,25 +1144,13 @@ class UserControllerTest extends WebTestCase
 
     protected function doPostActionFlushFailedException(\Exception $exception)
     {
-        $userData = array(
-            'email'     => 'test@test.com',
-            'name'      => 'Вася пупкин',
-            'position'  => 'Комерческий директор',
-            'roles'      => array(User::ROLE_COMMERCIAL_MANAGER),
-            'password'  => 'qwerty',
-        );
-
-        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
-
         $user = new User();
 
-        $documentManagerMock = $this->getMock(
-            'Doctrine\\ODM\\MongoDB\\DocumentManager',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $documentManagerMock = $this
+            ->getMockBuilder('Doctrine\\ODM\\MongoDB\\DocumentManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $documentManagerMock
             ->expects($this->once())
             ->method('persist');
@@ -1173,13 +1161,10 @@ class UserControllerTest extends WebTestCase
             ->with($this->isEmpty())
             ->will($this->throwException($exception));
 
-        $userRepoMock = $this->getMock(
-            'Lighthouse\\CoreBundle\\Document\\User\\UserRepository',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $userRepoMock = $this
+            ->getMockBuilder('Lighthouse\\CoreBundle\\Document\\User\\UserRepository')
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $userRepoMock
             ->expects($this->once())
@@ -1195,16 +1180,6 @@ class UserControllerTest extends WebTestCase
                 $container->set('lighthouse.core.document.repository.user', $userRepoMock);
             }
         );
-
-        $this->client->setCatchException();
-        $response = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/users',
-            $userData
-        );
-
-        return $response;
     }
 
     /**
@@ -1213,7 +1188,25 @@ class UserControllerTest extends WebTestCase
     public function testPostActionFlushFailedException()
     {
         $exception = new Exception('Unknown exception');
-        $response = $this->doPostActionFlushFailedException($exception);
+        $this->doPostActionFlushFailedException($exception);
+
+        $userData = array(
+            'email'     => 'test@test.com',
+            'name'      => 'Вася пупкин',
+            'position'  => 'Комерческий директор',
+            'roles'      => array(User::ROLE_COMMERCIAL_MANAGER),
+            'password'  => 'qwerty',
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
+
+        $this->client->setCatchException();
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/users',
+            $userData
+        );
 
         $this->assertResponseCode(500);
         Assert::assertJsonPathEquals('Unknown exception', 'message', $response);
@@ -1225,7 +1218,25 @@ class UserControllerTest extends WebTestCase
     public function testPostActionFlushFailedMongoDuplicateKeyException()
     {
         $exception = new MongoDuplicateKeyException();
-        $response = $this->doPostActionFlushFailedException($exception);
+        $this->doPostActionFlushFailedException($exception);
+
+        $userData = array(
+            'email'     => 'test@test.com',
+            'name'      => 'Вася пупкин',
+            'position'  => 'Комерческий директор',
+            'roles'      => array(User::ROLE_COMMERCIAL_MANAGER),
+            'password'  => 'qwerty',
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
+
+        $this->client->setCatchException();
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/users',
+            $userData
+        );
 
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
@@ -1366,6 +1377,57 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseCode(200);
         Assert::assertJsonHasPath('access_token', $jsonResponse);
         Assert::assertJsonHasPath('refresh_token', $jsonResponse);
+    }
+
+    /**
+     * @group unique
+     */
+    public function testPostSignupActionFlushFailedException()
+    {
+        $this->doPostActionFlushFailedException(new Exception('Unknown exception'));
+
+        $userData = array(
+            'email' => 'test@test.com',
+        );
+
+        $this->client->setCatchException();
+        $response = $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/signup',
+            $userData
+        );
+
+        $this->assertResponseCode(500);
+        Assert::assertJsonPathEquals('Unknown exception', 'message', $response);
+    }
+
+    /**
+     * @group unique
+     */
+    public function testPostSignupActionFlushFailedMongoDuplicateKeyException()
+    {
+        $this->doPostActionFlushFailedException(new MongoDuplicateKeyException());
+
+        $userData = array(
+            'email' => 'test@test.com',
+        );
+
+        $this->client->setCatchException();
+        $response = $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/signup',
+            $userData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
+        Assert::assertJsonPathEquals(
+            'Пользователь с таким email уже существует',
+            'errors.children.email.errors.0',
+            $response
+        );
     }
 
     public function testGetCurrentAfterSignupAction()
