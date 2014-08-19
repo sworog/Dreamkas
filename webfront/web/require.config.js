@@ -6,8 +6,6 @@ require.config({
         'jquery': 'bower_components/jquery/dist/jquery',
         'form2js': 'bower_components/form2js/src/form2js',
         'numeral': 'bower_components/numeral/numeral',
-        'lodash': 'kit/lodash/lodash',
-        'underscore': 'kit/underscore/underscore',
         'templateCompiler': 'kit/templateCompiler/templateCompiler',
         'amd-loader': 'bower_components/amd-loader/amd-loader',
         'sortable': 'bower_components/sortable/js/sortable',
@@ -22,7 +20,9 @@ require.config({
     map: {
         '*': {
             uri: 'bower_components/uri.js/src/URI',
-            router: 'kit/router/router'
+            router: 'kit/router/router',
+            lodash: 'bower_components/lodash/dist/lodash',
+            underscore: 'bower_components/lodash/dist/lodash'
         }
     },
 
