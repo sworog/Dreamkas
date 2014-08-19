@@ -20,6 +20,10 @@ public class StockMovementPage extends BootstrapPageObject {
         new PrimaryBtnFacade(this, "Принять от поставщика").click();
     }
 
+    public void writeOffCreateButtonClick() {
+        new PrimaryBtnFacade(this, "Списать").click();
+    }
+
     @Override
     public void createElements() {
         put("filterTypes", new SelectByVisibleText(this, "filterTypes"));
