@@ -98,6 +98,7 @@ class CreateUser extends Command
         $projectId = $input->getOption('project');
         $customProjectName = $input->getOption('customProjectName');
 
+        $project = null;
         if (true === $projectId) {
             /* @var Project $project */
             $project = $this->projectRepository->createNew();
@@ -109,9 +110,8 @@ class CreateUser extends Command
             if (!$project) {
                 throw new RuntimeException(sprintf('Project with id#%s not found', $projectId));
             }
-        } else {
-            $project = null;
         }
+
         $user->project = $project;
 
         $this->userProvider->updateUserWithPassword($user, $password, true);

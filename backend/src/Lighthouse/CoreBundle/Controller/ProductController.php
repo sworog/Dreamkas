@@ -10,7 +10,7 @@ use Lighthouse\CoreBundle\Document\Product\ProductFilter;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Classifier\SubCategory\SubCategory;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
-use Lighthouse\CoreBundle\Form\ProductType;
+use Lighthouse\CoreBundle\Form\Product\ProductType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use JMS\SecurityExtraBundle\Annotation\Secure;

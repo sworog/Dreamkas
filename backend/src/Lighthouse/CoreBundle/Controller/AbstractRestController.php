@@ -6,7 +6,6 @@ use FOS\RestBundle\Controller\FOSRestController;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Validator\ViolationMapper\ViolationMapper;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
@@ -22,7 +21,7 @@ abstract class AbstractRestController extends FOSRestController
     protected $documentRepository;
 
     /**
-     * @return AbstractType
+     * @return FormTypeInterface
      */
     abstract protected function getDocumentFormType();
 

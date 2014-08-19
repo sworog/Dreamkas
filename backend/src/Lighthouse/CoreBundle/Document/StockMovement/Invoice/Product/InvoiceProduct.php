@@ -29,9 +29,10 @@ use DateTime;
  * @property Money      $amountVAT
  * @property DateTime   $date
  * @property Money      $totalAmountVAT
- * @property \Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice    $invoice
+ * @property Invoice    $invoice
  * @property ProductVersion $product
  * @property Store      $store
+ * @property DateTime   $deletedAt
  *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProductRepository"
@@ -176,6 +177,9 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
         $this->originalProduct = $this->product->getObject();
     }
 
+    /**
+     * @return Money
+     */
     public function calculateTotals()
     {
         if ($this->price && $this->priceWithoutVAT && $this->amountVAT) {
@@ -183,6 +187,8 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
             $this->setTotalPriceWithoutVAT($this->priceWithoutVAT->mul($this->quantity, Decimal::ROUND_HALF_EVEN));
             $this->setTotalAmountVAT($this->amountVAT->mul($this->quantity, Decimal::ROUND_HALF_EVEN));
         }
+
+        return $this->totalPrice;
     }
 
     /**

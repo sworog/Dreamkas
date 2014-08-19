@@ -13,13 +13,10 @@ class ListClientTest extends TestCase
     public function testExecute()
     {
         /* @var ObjectRepository|\PHPUnit_Framework_MockObject_MockObject $clientRepositoryMock*/
-        $clientRepositoryMock = $this->getMock(
-            'Doctrine\\Common\\Persistence\\ObjectRepository',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $clientRepositoryMock = $this
+            ->getMockBuilder('Doctrine\\Common\\Persistence\\ObjectRepository')
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $clients = array();
         $client1 = new Client();

@@ -72,11 +72,13 @@ public class CommonUserSteps {
 
     @When("the user refreshes the current page")
     @Given("the user refreshes the current page")
+    @Alias("пользователь перезагружает страницу")
     public void whenTheUserRefreshesTheCurrentPage() {
         commonSteps.pageRefresh();
     }
 
     @Then("the user checks page contains text '$text'")
+    @Alias("пользователь проверяет, что на странице присутствует текст '$text'")
     public void pageContainsText(String text) {
         commonSteps.pageContainsText(text);
     }
@@ -98,8 +100,14 @@ public class CommonUserSteps {
     }
 
     @Then("the user waits for modal window closing")
+    @Alias("пользователь ждет пока скроется модальное окно")
     public void thenTheUserWaitsForModalWindowClosing() {
         commonSteps.waitForModalPageClose();
+    }
+
+    @Then("пользователь ждет пока загрузится простой прелоадер")
+    public void thenTheUserWaitsForSimplePreloaderLoading() {
+        commonSteps.waitForSimplePreloaderLoading();
     }
 
     @Then("the user waits for page finishing loading")

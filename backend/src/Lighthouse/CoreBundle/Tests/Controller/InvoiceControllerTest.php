@@ -3,9 +3,14 @@
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
 use Lighthouse\CoreBundle\Document\Order\Order;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProductRepository;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
+use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class InvoiceControllerTest extends WebTestCase
 {
@@ -1694,6 +1699,111 @@ class InvoiceControllerTest extends WebTestCase
         );
     }
 
+    /**
+     * @dataProvider exceptionOnInvoiceCreateProvider
+     * @param \Exception $exception
+     * @param $expectedResponseCode
+     * @param array $assertions
+     */
+    public function testExceptionOnInvoiceCreate(
+        \Exception $exception,
+        $expectedResponseCode,
+        array $assertions
+    ) {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+
+        $supplier = $this->factory()->supplier()->getSupplier();
+
+        $order = $this->factory()
+            ->order()
+            ->createOrder($store, $supplier, '2014-04-16 17:39')
+            ->createOrderProduct($productId, 11)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+        $invoiceData = $this->getInvoiceDataByOrder($order);
+
+        $this->mockExceptionOnCreateInvoice($exception);
+
+        $this->client->setCatchException();
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/invoices",
+            $invoiceData
+        );
+
+        $this->assertResponseCode($expectedResponseCode);
+
+        $this->performJsonAssertions($response, $assertions);
+    }
+
+    /**
+     * @return array
+     */
+    public function exceptionOnInvoiceCreateProvider()
+    {
+        return array(
+            'mongo duplicate exception' => array(
+                new \MongoDuplicateKeyException(),
+                400,
+                array('errors.children.order.errors.0' => 'Накладная по этому заказу уже существует')
+            ),
+            'unknown exception' => array(
+                new \Exception('Something went wrong'),
+                500,
+                array('message' => 'Something went wrong'),
+            )
+        );
+    }
+
+    /**
+     * @param \Exception $exception
+     */
+    protected function mockExceptionOnCreateInvoice(\Exception $exception)
+    {
+        $invoice = new Invoice();
+        $invoice->sumTotal = $this->getNumericFactory()->createMoney();
+        $invoice->sumTotalWithoutVAT = $this->getNumericFactory()->createMoney();
+        $invoice->totalAmountVAT = $this->getNumericFactory()->createMoney();
+
+        $documentManagerMock = $this
+            ->getMockBuilder('Doctrine\\ODM\\MongoDB\\DocumentManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $documentManagerMock
+            ->expects($this->once())
+            ->method('persist');
+
+        $documentManagerMock
+            ->expects($this->once())
+            ->method('flush')
+            ->with($this->isEmpty())
+            ->will($this->throwException($exception));
+
+        $invoiceRepoMock = $this
+            ->getMockBuilder('Lighthouse\\CoreBundle\\Document\\StockMovement\\Invoice\\InvoiceRepository')
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $invoiceRepoMock
+            ->expects($this->once())
+            ->method('createNew')
+            ->will($this->returnValue($invoice));
+        $invoiceRepoMock
+            ->expects($this->exactly(2))
+            ->method('getDocumentManager')
+            ->will($this->returnValue($documentManagerMock));
+
+        $this->client->addTweaker(
+            function (ContainerInterface $container) use ($invoiceRepoMock) {
+                $container->set('lighthouse.core.document.repository.stock_movement.invoice', $invoiceRepoMock);
+            }
+        );
+    }
+
     public function testInvoiceIsExposedInOrder()
     {
         $store = $this->factory()->store()->getStore();
@@ -1754,5 +1864,101 @@ class InvoiceControllerTest extends WebTestCase
             );
         }
         return $invoiceData;
+    }
+
+    public function testDeleteInvoice()
+    {
+        $store = $this->factory()->store()->getStore();
+
+        $productId = $this->createProduct(array('name' => 'Продукт'));
+
+        $invoice = $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id)
+                ->createInvoiceProduct($productId, 10, 5.99)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_COMMERCIAL_MANAGER);
+
+        $deleteResponse = $this->clientJsonRequest(
+            $accessToken,
+            'DELETE',
+            '/api/1/invoices/' . $invoice->id
+        );
+
+        $this->assertResponseCode(204);
+
+        $this->assertNull($deleteResponse);
+
+        $this->client->setCatchException();
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            '/api/1/invoices/' . $invoice->id
+        );
+
+        $this->assertResponseCode(404);
+
+        $this->assertInvoiceDelete($invoice->id);
+        $this->assertInvoiceProductDelete($invoice->products[0]->id);
+    }
+
+    /**
+     * @param string $invoiceId
+     */
+    protected function assertInvoiceDelete($invoiceId)
+    {
+        $invoice = $this->getInvoiceRepository()->find($invoiceId);
+        $this->assertNull($invoice);
+
+        $filterCollection = $this->getInvoiceRepository()->getDocumentManager()->getFilterCollection();
+        $filterCollection->disable('softdeleteable');
+
+        $invoice = $this->getInvoiceRepository()->find($invoiceId);
+        $this->assertNull($invoice);
+
+        $filterCollection->enable('softdeleteable');
+    }
+
+    /**
+     * @param string $invoiceProductId
+     */
+    protected function assertInvoiceProductDelete($invoiceProductId)
+    {
+        $invoiceProduct = $this->getInvoiceProductRepository()->find($invoiceProductId);
+        $this->assertNull($invoiceProduct);
+
+        $filterCollection = $this->getInvoiceProductRepository()->getDocumentManager()->getFilterCollection();
+
+        $filterCollection->disable('softdeleteable');
+
+        $invoiceProduct = $this->getInvoiceProductRepository()->find($invoiceProductId);
+        $this->assertNull($invoiceProduct);
+
+        $filterCollection->enable('softdeleteable');
+    }
+
+    /**
+     * @return InvoiceRepository
+     */
+    protected function getInvoiceRepository()
+    {
+        return $this->getContainer()->get('lighthouse.core.document.repository.stock_movement.invoice');
+    }
+
+    /**
+     * @return InvoiceProductRepository
+     */
+    protected function getInvoiceProductRepository()
+    {
+        return $this->getContainer()->get('lighthouse.core.document.repository.stock_movement.invoice_product');
+    }
+
+    /**
+     * @return NumericFactory
+     */
+    protected function getNumericFactory()
+    {
+        return $this->getContainer()->get('lighthouse.core.types.numeric.factory');
     }
 }

@@ -18,13 +18,11 @@ class CreateClientTest extends TestCase
     public function testExecute($secret, $publicId)
     {
         /* @var ClientManagerInterface|\PHPUnit_Framework_MockObject_MockObject $clientManagerMock */
-        $clientManagerMock = $this->getMock(
-            'FOS\\OAuthServerBundle\\Model\\ClientManagerInterface',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $clientManagerMock = $this
+            ->getMockBuilder('FOS\\OAuthServerBundle\\Model\\ClientManagerInterface')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $clientManagerMock->expects($this->once())
             ->method('createClient')
             ->will($this->returnValue(new Client()));

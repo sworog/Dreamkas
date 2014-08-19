@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave.product;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.product.ProductSteps;
@@ -36,6 +37,7 @@ public class WhenProductSteps {
     }
 
     @When("the user clicks on the product with name '$name'")
+    @Alias("пользователь нажимает на товар с названием '$name'")
     public void whenTheUserClicksOnTheProductWithName(String name) {
         productSteps.productCollectionProductWithNameClick(name);
     }

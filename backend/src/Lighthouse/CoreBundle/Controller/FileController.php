@@ -35,7 +35,7 @@ class FileController extends FOSRestController
      * @param Request $request
      * @return View|File
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc
+     * @ApiDoc(resource=true)
      */
     public function postFileAction(Request $request)
     {

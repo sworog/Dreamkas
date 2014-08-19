@@ -1,12 +1,12 @@
 define(function(require, exports, module) {
     //requirements
     var Form = require('kit/form/form'),
-        LoginModel = require('models/login');
+        LoginModel = require('models/login/login');
 
     return Form.extend({
         el: '.form_signup',
         model: function(){
-            var SignUpModel = require('models/signup');
+            var SignUpModel = require('models/signup/signup');
 
             return new SignUpModel();
         },

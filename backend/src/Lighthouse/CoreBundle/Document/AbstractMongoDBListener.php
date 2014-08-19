@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Document;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
+use Doctrine\ODM\MongoDB\UnitOfWork;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 
 abstract class AbstractMongoDBListener
@@ -73,5 +74,24 @@ abstract class AbstractMongoDBListener
         } else {
             $uow->computeChangeSet($class, $document);
         }
+    }
+
+
+    /**
+     * @param UnitOfWork $uow
+     * @param object $object
+     * @param string $field
+     * @param mixed $oldValue
+     * @param mixed $newValue
+     */
+    protected function schedulePropertyChange(UnitOfWork $uow, $object, $field, $oldValue, $newValue)
+    {
+        $uow->propertyChanged($object, $field, $oldValue, $newValue);
+        $uow->scheduleExtraUpdate(
+            $object,
+            array(
+                $field => array($oldValue, $newValue)
+            )
+        );
     }
 }

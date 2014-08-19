@@ -21,7 +21,7 @@ public class ValidationError extends AbstractObject implements ResultComparable 
 
     @Override
     public void setProperties() {
-        message = getElement().getAttribute("data-error");
+        message = getElement().getText();
     }
 
     @Override

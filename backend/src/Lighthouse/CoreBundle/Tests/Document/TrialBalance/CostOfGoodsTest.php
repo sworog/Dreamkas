@@ -11,6 +11,7 @@ use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalance;
 use Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
+use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
 class CostOfGoodsTest extends WebTestCase
 {
@@ -48,7 +49,7 @@ class CostOfGoodsTest extends WebTestCase
                 InvoiceProduct::REASON_TYPE
             );
             foreach ($trailBalances as $trailBalance) {
-                $this->assertInstanceOf('Lighthouse\\CoreBundle\\Types\\Numeric\\Quantity', $trailBalance->startIndex);
+                $this->assertInstanceOf(Quantity::getClassName(), $trailBalance->startIndex);
                 $this->assertSame($prevEndIndex, $trailBalance->startIndex->toString());
                 $prevEndIndex = $trailBalance->endIndex->toString();
                 $this->assertNotSame('0.000', $prevEndIndex);
@@ -70,21 +71,27 @@ class CostOfGoodsTest extends WebTestCase
                 ->createInvoiceProduct($productIds['3'], 20, 30.05)
             ->flush();
 
-        $sale1 = $this->factory()->createSale($store->id, '2014-01-11 13:45:09', 110.23);
-        $this->factory()->createSaleProduct(12.11, 9.102, $productIds['1'], $sale1);
-        $this->factory()->createSaleProduct(34.12, 7, $productIds['3'], $sale1);
-        $this->factory()->createSaleProduct(34.12, 1, $productIds['3'], $sale1);
-        $this->factory()->flush();
+        $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-01-11 13:45:09')
+                ->createReceiptProduct($productIds['1'], 9.102, 12.11)
+                ->createReceiptProduct($productIds['3'], 7, 34.12)
+                ->createReceiptProduct($productIds['3'], 1, 34.12)
+            ->flush();
 
-        $sale2 = $this->factory()->createSale($store->id, '2014-01-12 15:45:09', 110.23);
-        $this->factory()->createSaleProduct(34.99, 2.056, $productIds['2'], $sale2);
-        $this->factory()->createSaleProduct(35.15, 6, $productIds['3'], $sale2);
-        $this->factory()->flush();
+        $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-01-12 15:45:09')
+                ->createReceiptProduct($productIds['2'], 2.056, 34.99)
+                ->createReceiptProduct($productIds['3'], 6, 35.15)
+            ->flush();
 
-        $sale3 = $this->factory()->createSale($store->id, '2014-01-12 15:45:10', 110.23);
-        $this->factory()->createSaleProduct(11.49, 4.56, $productIds['1'], $sale3);
-        $this->factory()->createSaleProduct(35.15, 2, $productIds['3'], $sale3);
-        $this->factory()->flush();
+        $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-01-12 15:45:10', 110.23)
+                ->createReceiptProduct($productIds['1'], 4.56, 11.49)
+                ->createReceiptProduct($productIds['3'], 2, 35.15)
+            ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
@@ -103,7 +110,7 @@ class CostOfGoodsTest extends WebTestCase
             );
             $this->assertEquals($countAssertions[$productId], $trailBalances->count(true));
             foreach ($trailBalances as $trailBalance) {
-                $this->assertInstanceOf('Lighthouse\\CoreBundle\\Types\\Numeric\\Quantity', $trailBalance->startIndex);
+                $this->assertInstanceOf(Quantity::getClassName(), $trailBalance->startIndex);
                 $this->assertSame($prevEndIndex, $trailBalance->startIndex->toString());
                 $prevEndIndex = $trailBalance->endIndex->toString();
                 $this->assertNotSame('0.000', $prevEndIndex);
@@ -115,17 +122,19 @@ class CostOfGoodsTest extends WebTestCase
     {
         $productId = $this->createProduct('1');
 
-        $store = $this->factory()->store()->getStoreId('701');
+        $store = $this->factory()->store()->getStore('701');
 
-        $sale = $this->factory()->createSale($store, '2014-01-11 13:45:09', 110.23);
-        $this->factory()->createSaleProduct(34.12, 3, $productId, $sale);
-        $this->factory()->createSaleProduct(34.12, 7, $productId, $sale);
-        $this->factory()->createSaleProduct(34.12, 1, $productId, $sale);
-        $this->factory()->flush();
+        $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-01-11 13:45:09')
+                ->createReceiptProduct($productId, 3, 34.12)
+                ->createReceiptProduct($productId, 7, 34.12)
+                ->createReceiptProduct($productId, 1, 34.12)
+            ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store, $productId);
+        $storeProductId = $this->getStoreProductRepository()->getIdByStoreIdAndProductId($store->id, $productId);
         $prevEndIndex = '0.000';
         $trailBalances = $this->getTrialBalanceRepository()->findByStoreProductIdAndReasonType(
             $storeProductId,
@@ -133,7 +142,7 @@ class CostOfGoodsTest extends WebTestCase
         );
         $this->assertEquals(3, $trailBalances->count(true));
         foreach ($trailBalances as $trailBalance) {
-            $this->assertInstanceOf('Lighthouse\\CoreBundle\\Types\\Numeric\\Quantity', $trailBalance->startIndex);
+            $this->assertInstanceOf(Quantity::getClassName(), $trailBalance->startIndex);
             $this->assertSame($prevEndIndex, $trailBalance->startIndex->toString());
             $prevEndIndex = $trailBalance->endIndex->toString();
             $this->assertNotSame('0.000', $prevEndIndex);
@@ -390,14 +399,21 @@ class CostOfGoodsTest extends WebTestCase
             ->flush();
         // Total quantity = 16.607
 
-        $sale1 = $this->factory()->createSale($store->id, '-1 hour', 10.533495);
-        $saleProduct1 = $this->factory()->createSaleProduct(2.333, 2.435, $productId, $sale1);
-        $saleProduct2 = $this->factory()->createSaleProduct(2.333, 1.32, $productId, $sale1);
-        $saleProduct3 = $this->factory()->createSaleProduct(2.333, 0.76, $productId, $sale1);
+        $sale1 = $this->factory()
+            ->receipt()
+                ->createSale($store, '-1 hour')
+                ->createReceiptProduct($productId, 2.435, 2.33)
+                ->createReceiptProduct($productId, 1.32, 2.33)
+                ->createReceiptProduct($productId, 0.76, 2.33)
+            ->flush();
 
-        $sale2 = $this->factory()->createSale($store->id, 'now', 6.2991);
-        $saleProduct4 = $this->factory()->createSaleProduct(2.333, 1, $productId, $sale2);
-        $saleProduct5 = $this->factory()->createSaleProduct(2.333, 1.7, $productId, $sale2);
+        $sale2 = $this->factory()
+            ->receipt()
+                ->createSale($store, 'now')
+                ->createReceiptProduct($productId, 1, 2.33)
+                ->createReceiptProduct($productId, 1.7, 2.33)
+            ->flush();
+
         // Total quantity = 7.215
 
         $this->factory()->flush();
@@ -406,11 +422,11 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $this->assertCostOfGood($saleProduct1, '32.08');
-        $this->assertCostOfGood($saleProduct2, '1.16');
-        $this->assertCostOfGood($saleProduct3, '10.11');
-        $this->assertCostOfGood($saleProduct4, '13.30');
-        $this->assertCostOfGood($saleProduct5, '22.98');
+        $this->assertCostOfGood($sale1->products[0], '32.08');
+        $this->assertCostOfGood($sale1->products[1], '1.16');
+        $this->assertCostOfGood($sale1->products[2], '10.11');
+        $this->assertCostOfGood($sale2->products[0], '13.30');
+        $this->assertCostOfGood($sale2->products[1], '22.98');
     }
 
     public function testCostOfGoodsCalculateAfterInsertOldReceipts()
@@ -426,32 +442,38 @@ class CostOfGoodsTest extends WebTestCase
                 ->createInvoiceProduct($productId, 5, 200)
             ->flush();
 
-        $sale1 = $this->factory()->createSale($store->id, '2014-01-10 12:23:12', 1500);
-        $saleProduct1 = $this->factory()->createSaleProduct(250, 6, $productId, $sale1);
-        $this->factory()->flush();
+        $sale = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-01-10 12:23:12')
+                ->createReceiptProduct($productId, 6, 250)
+            ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $this->assertCostOfGood($saleProduct1, '650.00');
+        $this->assertCostOfGood($sale->products[0], '650.00');
 
-        $saleBehindhand = $this->factory()->createSale($store->id, '2014-01-09 12:23:12', 1750);
-        $saleProductBehindhand1 = $this->factory()->createSaleProduct(250, 7, $productId, $saleBehindhand);
-        $this->factory()->flush();
-
-        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
-
-        $this->assertCostOfGood($saleProductBehindhand1, '800.00');
-        $this->assertCostOfGood($saleProduct1, '1050.00');
-
-        $saleBehindhand2 = $this->factory()->createSale($store->id, '2014-01-09 16:23:12', 500);
-        $saleProductBehindhand2 = $this->factory()->createSaleProduct(250, 2, $productId, $saleBehindhand2);
-        $this->factory()->flush();
+        $saleBehindhand1 = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-01-09 12:23:12')
+                ->createReceiptProduct($productId, 7, 250)
+            ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $this->assertCostOfGood($saleProductBehindhand1, '800.00');
-        $this->assertCostOfGood($saleProductBehindhand2, '300.00');
-        $this->assertCostOfGood($saleProduct1, '1150.00');
+        $this->assertCostOfGood($saleBehindhand1->products[0], '800.00');
+        $this->assertCostOfGood($sale->products[0], '1050.00');
+
+        $saleBehindhand2 = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-01-09 16:23:12')
+                ->createReceiptProduct($productId, 2, 250)
+            ->flush();
+
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
+
+        $this->assertCostOfGood($saleBehindhand1->products[0], '800.00');
+        $this->assertCostOfGood($saleBehindhand2->products[0], '300.00');
+        $this->assertCostOfGood($sale->products[0], '1150.00');
     }
 
     public function testCostOfGoodsCalculateDuplicateReceipt()
@@ -468,48 +490,54 @@ class CostOfGoodsTest extends WebTestCase
             ->flush();
 
 
-        $sale1 = $this->factory()->createSale($store->id, '2014-01-09 12:23:12', 1750);
-        $saleProduct1 = $this->factory()->createSaleProduct(250, 7, $productId, $sale1);
-        $this->factory()->flush();
+        $sale1 = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-01-09 12:23:12')
+                ->createReceiptProduct($productId, 7, 250)
+            ->flush();
 
-        $sale2 = $this->factory()->createSale($store->id, '2014-01-09 16:23:12', 500);
-        $saleProduct2 = $this->factory()->createSaleProduct(250, 2, $productId, $sale2);
-        $this->factory()->flush();
+        $sale2 = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-01-09 16:23:12')
+                ->createReceiptProduct($productId, 2, 250)
+            ->flush();
 
-        $sale3 = $this->factory()->createSale($store->id, '2014-01-10 12:23:12', 1500);
-        $saleProduct3 = $this->factory()->createSaleProduct(250, 6, $productId, $sale3);
-        $this->factory()->flush();
-        $this->factory()->clear();
-
-        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
-
-        $this->assertCostOfGood($saleProduct1, '800.00');
-        $this->assertCostOfGood($saleProduct2, '300.00');
-        $this->assertCostOfGood($saleProduct3, '1150.00');
-
-
-        $this->factory()->deleteSale($sale1);
-        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
-
-        $this->assertCostOfGood($saleProduct2, '200.00');
-        $this->assertCostOfGood($saleProduct3, '750.00');
-
-
-        $sale4 = $this->factory()->createSale($store->id, '2014-01-09 12:23:12', 1000);
-        $saleProduct4 = $this->factory()->createSaleProduct(250, 4, $productId, $sale4);
-        $this->factory()->flush();
+        $sale3 = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-01-10 12:23:12')
+                ->createReceiptProduct($productId, 6, 250)
+            ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $this->assertCostOfGood($saleProduct4, '400.00');
-        $this->assertCostOfGood($saleProduct2, '250.00');
-        $this->assertCostOfGood($saleProduct3, '1000.00');
+        $this->assertCostOfGood($sale1->products[0], '800.00');
+        $this->assertCostOfGood($sale2->products[0], '300.00');
+        $this->assertCostOfGood($sale3->products[0], '1150.00');
 
-        $this->factory()->deleteSale($sale2);
+        $this->factory()->receipt()->deleteReceipt($sale1);
+
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $this->assertCostOfGood($saleProduct4, '400.00');
-        $this->assertCostOfGood($saleProduct3, '850.00');
+        $this->assertCostOfGood($sale2->products[0], '200.00');
+        $this->assertCostOfGood($sale3->products[0], '750.00');
+
+        $sale4 = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-01-09 12:23:12')
+                ->createReceiptProduct($productId, 4, 250)
+            ->flush();
+
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
+
+        $this->assertCostOfGood($sale4->products[0], '400.00');
+        $this->assertCostOfGood($sale2->products[0], '250.00');
+        $this->assertCostOfGood($sale3->products[0], '1000.00');
+
+        $this->factory()->receipt()->deleteReceipt($sale2);
+        $this->getCostOfGoodsCalculator()->calculateUnprocessed();
+
+        $this->assertCostOfGood($sale4->products[0], '400.00');
+        $this->assertCostOfGood($sale3->products[0], '850.00');
     }
 
     public function testCostOfGoodsCalculateEditInvoice()
@@ -538,23 +566,29 @@ class CostOfGoodsTest extends WebTestCase
                 ->createInvoiceProduct($productId, 10, 200)
             ->flush();
 
-        $sale1 = $this->factory()->createSale($store->id, '2014-01-09 12:23:12', 1750);
-        $saleProduct1 = $this->factory()->createSaleProduct(250, 7, $productId, $sale1);
-        $this->factory()->flush();
+        $sale1 = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-01-09 12:23:12')
+                ->createReceiptProduct($productId, 7, 250)
+            ->flush();
 
-        $sale2 = $this->factory()->createSale($store->id, '2014-01-09 16:23:12', 500);
-        $saleProduct2 = $this->factory()->createSaleProduct(250, 2, $productId, $sale2);
-        $this->factory()->flush();
+        $sale2 = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-01-09 16:23:12')
+                ->createReceiptProduct($productId, 2, 250)
+            ->flush();
 
-        $sale3 = $this->factory()->createSale($store->id, '2014-01-10 12:23:12', 1500);
-        $saleProduct3 = $this->factory()->createSaleProduct(250, 6, $productId, $sale3);
-        $this->factory()->flush();
+        $sale3 = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-01-10 12:23:12')
+                ->createReceiptProduct($productId, 6, 250)
+            ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $this->assertCostOfGood($saleProduct1, '800.00');
-        $this->assertCostOfGood($saleProduct2, '300.00');
-        $this->assertCostOfGood($saleProduct3, '1150.00');
+        $this->assertCostOfGood($sale1->products[0], '800.00');
+        $this->assertCostOfGood($sale2->products[0], '300.00');
+        $this->assertCostOfGood($sale3->products[0], '1150.00');
 
         // Edit invoice product price and quantity
         $this->factory()
@@ -565,9 +599,9 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $this->assertCostOfGood($saleProduct1, '450.00');
-        $this->assertCostOfGood($saleProduct2, '300.00');
-        $this->assertCostOfGood($saleProduct3, '1100.00');
+        $this->assertCostOfGood($sale1->products[0], '450.00');
+        $this->assertCostOfGood($sale2->products[0], '300.00');
+        $this->assertCostOfGood($sale3->products[0], '1100.00');
 
 
         // Edit invoice product change product
@@ -579,9 +613,9 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $this->assertCostOfGood($saleProduct1, '1150.00');
-        $this->assertCostOfGood($saleProduct2, '400.00');
-        $this->assertCostOfGood($saleProduct3, '1200.00');
+        $this->assertCostOfGood($sale1->products[0], '1150.00');
+        $this->assertCostOfGood($sale2->products[0], '400.00');
+        $this->assertCostOfGood($sale3->products[0], '1200.00');
 
 
         // Edit invoice product delete not first
@@ -594,9 +628,9 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $this->assertCostOfGood($saleProduct1, '800.00');
-        $this->assertCostOfGood($saleProduct2, '300.00');
-        $this->assertCostOfGood($saleProduct3, '1150.00');
+        $this->assertCostOfGood($sale1->products[0], '800.00');
+        $this->assertCostOfGood($sale2->products[0], '300.00');
+        $this->assertCostOfGood($sale3->products[0], '1150.00');
 
         $this->factory()
             ->clear()
@@ -607,9 +641,9 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $this->assertCostOfGood($saleProduct1, '900.00');
-        $this->assertCostOfGood($saleProduct2, '400.00');
-        $this->assertCostOfGood($saleProduct3, '1200.00');
+        $this->assertCostOfGood($sale1->products[0], '900.00');
+        $this->assertCostOfGood($sale2->products[0], '400.00');
+        $this->assertCostOfGood($sale3->products[0], '1200.00');
 
 
         // Edit invoice product delete first
@@ -622,9 +656,9 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $this->assertCostOfGood($saleProduct1, '800.00');
-        $this->assertCostOfGood($saleProduct2, '300.00');
-        $this->assertCostOfGood($saleProduct3, '1150.00');
+        $this->assertCostOfGood($sale1->products[0], '800.00');
+        $this->assertCostOfGood($sale2->products[0], '300.00');
+        $this->assertCostOfGood($sale3->products[0], '1150.00');
 
         $this->factory()
             ->clear()
@@ -635,9 +669,9 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $this->assertCostOfGood($saleProduct1, '1150.00');
-        $this->assertCostOfGood($saleProduct2, '400.00');
-        $this->assertCostOfGood($saleProduct3, '1200.00');
+        $this->assertCostOfGood($sale1->products[0], '1150.00');
+        $this->assertCostOfGood($sale2->products[0], '400.00');
+        $this->assertCostOfGood($sale3->products[0], '1200.00');
     }
 
     public function testCostOfGoodsCalculateEditInvoiceDate()
@@ -665,23 +699,29 @@ class CostOfGoodsTest extends WebTestCase
                 ->createInvoiceProduct($productId, 10, 200, $store->id)
             ->flush();
 
-        $sale1 = $this->factory()->createSale($store->id, '2014-01-09 12:23:12', 1750);
-        $saleProduct1 = $this->factory()->createSaleProduct(250, 7, $productId, $sale1);
-        $this->factory()->flush();
+        $sale1 = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-01-09 12:23:12')
+                ->createReceiptProduct($productId, 7, 250)
+            ->flush();
 
-        $sale2 = $this->factory()->createSale($store->id, '2014-01-09 16:23:12', 500);
-        $saleProduct2 = $this->factory()->createSaleProduct(250, 2, $productId, $sale2);
-        $this->factory()->flush();
+        $sale2 = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-01-09 16:23:12')
+                ->createReceiptProduct($productId, 2, 250)
+            ->flush();
 
-        $sale3 = $this->factory()->createSale($store->id, '2014-01-10 12:23:12', 1500);
-        $saleProduct3 = $this->factory()->createSaleProduct(250, 6, $productId, $sale3);
-        $this->factory()->flush();
+        $sale3 = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-01-10 12:23:12')
+                ->createReceiptProduct($productId, 6, 250)
+            ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $this->assertCostOfGood($saleProduct1, '800.00');
-        $this->assertCostOfGood($saleProduct2, '300.00');
-        $this->assertCostOfGood($saleProduct3, '1150.00');
+        $this->assertCostOfGood($sale1->products[0], '800.00');
+        $this->assertCostOfGood($sale2->products[0], '300.00');
+        $this->assertCostOfGood($sale3->products[0], '1150.00');
 
         $this->factory()
             ->clear()
@@ -712,9 +752,9 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $this->assertCostOfGood($saleProduct1, '950.00');
-        $this->assertCostOfGood($saleProduct2, '200.00');
-        $this->assertCostOfGood($saleProduct3, '1100.00');
+        $this->assertCostOfGood($sale1->products[0], '950.00');
+        $this->assertCostOfGood($sale2->products[0], '200.00');
+        $this->assertCostOfGood($sale3->products[0], '1100.00');
 
         $this->factory()
             ->clear()
@@ -743,9 +783,9 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $this->assertCostOfGood($saleProduct1, '800.00');
-        $this->assertCostOfGood($saleProduct2, '300.00');
-        $this->assertCostOfGood($saleProduct3, '1150.00');
+        $this->assertCostOfGood($sale1->products[0], '800.00');
+        $this->assertCostOfGood($sale2->products[0], '300.00');
+        $this->assertCostOfGood($sale3->products[0], '1150.00');
     }
 
     public function testCostOfGoodsCalculateOutOfStock()
@@ -754,14 +794,16 @@ class CostOfGoodsTest extends WebTestCase
         $productId = $this->createProduct(array('purchasePrice' => 100));
         $this->createProduct('Other');
 
-        $sale1 = $this->factory()->createSale($store->id, '2014-01-09 12:23:12', 1750);
-        $saleProduct1 = $this->factory()->createSaleProduct(250, 7, $productId, $sale1);
-        $this->factory()->flush();
+        $sale1 = $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-01-09 12:23:12')
+                ->createReceiptProduct($productId, 7, 250)
+            ->flush();
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
         $trialBalanceSaleProduct1 = $this->getTrialBalanceRepository()
-            ->findOneByReasonTypeReasonId($saleProduct1->id, SaleProduct::REASON_TYPE);
+            ->findOneByReasonTypeReasonId($sale1->products[0]->id, SaleProduct::REASON_TYPE);
         $this->assertEquals(700, $trialBalanceSaleProduct1->costOfGoods->toNumber());
 
         $this->factory()
@@ -772,7 +814,7 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $this->assertCostOfGood($saleProduct1, '1050.00');
+        $this->assertCostOfGood($sale1->products[0], '1050.00');
 
         $this->factory()
             ->invoice()
@@ -782,7 +824,7 @@ class CostOfGoodsTest extends WebTestCase
 
         $this->getCostOfGoodsCalculator()->calculateUnprocessed();
 
-        $this->assertCostOfGood($saleProduct1, '1150.00');
+        $this->assertCostOfGood($sale1->products[0], '1150.00');
     }
 
     /**

@@ -2,28 +2,17 @@
 
 namespace Lighthouse\CoreBundle\Document\StockMovement\Invoice;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ODM\MongoDB\Cursor;
+use Doctrine\ODM\MongoDB\LockMode;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovementRepository;
-use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 
+/**
+ * @method Invoice find($id, $lockMode = LockMode::NONE, $lockVersion = null)
+ */
 class InvoiceRepository extends StockMovementRepository
 {
-    /**
-     * @var NumericFactory
-     */
-    protected $numericFactory;
-
-    /**
-     * @param NumericFactory $numericFactory
-     */
-    public function setNumericFactory(NumericFactory $numericFactory)
-    {
-        $this->numericFactory = $numericFactory;
-    }
-
     /**
      * @return Invoice
      */
@@ -66,10 +55,10 @@ class InvoiceRepository extends StockMovementRepository
 
     /**
      * @param string $storeId
-     * @param InvoicesFilter $filter
+     * @param InvoiceFilter $filter
      * @return Cursor|Invoice[]
      */
-    public function findByStore($storeId, InvoicesFilter $filter = null)
+    public function findByStore($storeId, InvoiceFilter $filter = null)
     {
         $criteria = array(
             'store' => $storeId,
@@ -123,17 +112,5 @@ class InvoiceRepository extends StockMovementRepository
         }
 
         $query->getQuery()->execute();
-    }
-
-    /**
-     * @param Invoice $invoice
-     */
-    public function resetInvoiceProducts(Invoice $invoice)
-    {
-        foreach ($invoice->products as $key => $invoiceProduct) {
-            unset($invoice->products[$key]);
-            $this->getDocumentManager()->remove($invoiceProduct);
-        }
-        $invoice->products = new ArrayCollection();
     }
 }

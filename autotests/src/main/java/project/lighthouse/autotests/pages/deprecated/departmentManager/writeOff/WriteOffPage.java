@@ -1,20 +1,15 @@
 package project.lighthouse.autotests.pages.deprecated.departmentManager.writeOff;
 
 import net.thucydides.core.annotations.DefaultUrl;
-import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import project.lighthouse.autotests.CommonViewInterface;
 import project.lighthouse.autotests.common.CommonPageObject;
-import project.lighthouse.autotests.common.CommonView;
 import project.lighthouse.autotests.elements.Buttons.ButtonFacade;
 import project.lighthouse.autotests.elements.items.*;
 import project.lighthouse.autotests.elements.preLoader.PreLoader;
 import project.lighthouse.autotests.objects.web.deprecated.writeOff.WriteOffProductCollection;
-
-import java.util.Map;
 
 @DefaultUrl("/writeOffs/create")
 public class WriteOffPage extends CommonPageObject {
@@ -32,12 +27,9 @@ public class WriteOffPage extends CommonPageObject {
     public WebElement discardDeleteButton;
 
     public static final String ITEM_NAME = "writeOffProduct";
-    private static final String ITEM_SKU_NAME = "productSku";
 
     private static final String XPATH_PATTERN = "//*[@class='writeOff__dataInput']/*[@name='%s']";
     private static final String XPATH_AC_PATTERN = "//*[@class='writeOff__dataInput']/*[@lh_product_autocomplete='%s']";
-
-    CommonViewInterface commonViewInterface = new CommonView(getDriver(), ITEM_NAME, ITEM_SKU_NAME);
 
     public WriteOffPage(WebDriver driver) {
         super(driver);
@@ -95,34 +87,6 @@ public class WriteOffPage extends CommonPageObject {
         new PreLoader(getDriver()).await();
     }
 
-    public void itemCheck(String value) {
-        commonViewInterface.itemCheck(value);
-    }
-
-    public void itemCheckIsNotPresent(String value) {
-        commonViewInterface.itemCheckIsNotPresent(value);
-    }
-
-    @Deprecated
-    public void checkListItemHasExpectedValueByFindByLocator(String value, String elementName, String expectedValue) {
-        By findBy = getItems().get(elementName).getFindBy();
-        commonViewInterface.checkListItemHasExpectedValueByFindByLocator(value, elementName, findBy, expectedValue);
-    }
-
-    @Deprecated
-    public void checkListItemHasExpectedValueByFindByLocator(String value, ExamplesTable checkValuesTable) {
-        for (Map<String, String> row : checkValuesTable.getRows()) {
-            String elementName = row.get("elementName");
-            String expectedValue = row.get("value");
-            checkListItemHasExpectedValueByFindByLocator(value, elementName, expectedValue);
-        }
-    }
-
-    public void itemDelete(String value) {
-        String deleteButtonXpath = "//*[@class='writeOff__removeLink']";
-        commonViewInterface.childrenItemNavigateAndClickByFindByLocator(value, By.xpath(deleteButtonXpath));
-    }
-
     public void writeOffStopEditButtonClick() {
         String xpath = "//*[@class='button writeOff__stopEditButton']";
         findVisibleElement(By.xpath(xpath)).click();
@@ -140,11 +104,6 @@ public class WriteOffPage extends CommonPageObject {
 
     public void elementClick(String elementName) {
         itemClick(elementName);
-    }
-
-    public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
-        By findBy = getItems().get(parentElementName).getFindBy();
-        commonViewInterface.childrenItemClickByFindByLocator(elementName, findBy);
     }
 
     public WriteOffProductCollection getWriteOffProductCollection() {

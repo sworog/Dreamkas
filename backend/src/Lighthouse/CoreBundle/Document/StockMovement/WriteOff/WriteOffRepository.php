@@ -2,14 +2,17 @@
 
 namespace Lighthouse\CoreBundle\Document\StockMovement\WriteOff;
 
-use Lighthouse\CoreBundle\Document\DocumentRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\LockMode;
 use Doctrine\ODM\MongoDB\Cursor;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementRepository;
 
 /**
  * @method WriteOff find($id, $lockMode = LockMode::NONE, $lockVersion = null)
+ * @method WriteOff[]|Collection findAll()
+ * @method WriteOff createNew()
  */
-class WriteOffRepository extends DocumentRepository
+class WriteOffRepository extends StockMovementRepository
 {
     /**
      * @param $storeId
@@ -26,24 +29,5 @@ class WriteOffRepository extends DocumentRepository
         }
 
         return $this->findBy($criteria, $sort);
-    }
-
-    /**
-     * @param WriteOff $writeOff
-     * @param int $itemsCountDiff
-     * @param int $sumTotalDiff
-     */
-    public function updateTotals(WriteOff $writeOff, $itemsCountDiff, $sumTotalDiff)
-    {
-        $query = $this
-            ->createQueryBuilder()
-            ->findAndUpdate()
-            ->field('id')->equals($writeOff->id)
-            ->returnNew();
-
-        $query->field('itemsCount')->inc($itemsCountDiff);
-        $query->field('sumTotal')->inc($sumTotalDiff);
-
-        $query->getQuery()->execute();
     }
 }

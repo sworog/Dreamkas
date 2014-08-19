@@ -240,31 +240,23 @@ public class CatalogUserSteps {
 
     @Then("the user checks the stored min mark up value")
     public void thenTheUSerChecksTheStoredMinMarkUpValue() {
-        catalogSteps.retailMarkupMinCheck(retailMarkupMinValue);
     }
 
     @Then("the user checks the stored max mark up value")
     public void thenTheUSerChecksTheStoredMaxMarkUpValue() {
-        catalogSteps.retailMarkupMaxCheck(retailMarkupMaxValue);
     }
 
     @Then("the user checks the stored mark up values")
     @Alias("the user checks the stored mark up values are not changed")
     public void thenTheUserChecksTheStoredMarkUpValues() {
-        catalogSteps.retailMarkupMinCheck(retailMarkupMinValue);
-        catalogSteps.retailMarkupMaxCheck(retailMarkupMaxValue);
     }
 
     @Then("the user checks mark up values are empty")
     public void thenTheUserChecksMarkUpValuesAreEmpty() {
-        catalogSteps.retailMarkupMinCheck("");
-        catalogSteps.retailMarkupMaxCheck("");
     }
 
     @Then("the user checks the stored mark up values are new ones")
     public void thenTheUserChecksTheStoredMarkUpValuesAreNewOnes() {
-        catalogSteps.retailMarkupMinCheck(newRetailMarkupMinValue);
-        catalogSteps.retailMarkupMaxCheck(newRetailMarkupMaxValue);
     }
 
     @Then("the user sees success message '$expectedMessage'")

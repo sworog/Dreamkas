@@ -6,15 +6,10 @@ use Lighthouse\CoreBundle\Document\File\File;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository;
-use Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct;
-use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
-use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\Factory\Invoice\InvoiceFactory;
 use Lighthouse\CoreBundle\Test\Factory\Order\OrderFactory;
+use Lighthouse\CoreBundle\Test\Factory\Receipt\ReceiptFactory;
 use Lighthouse\CoreBundle\Test\Factory\WriteOff\WriteOffFactory;
-use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
-use Lighthouse\CoreBundle\Types\Numeric\Decimal;
-use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
 use Lighthouse\CoreBundle\Versionable\VersionRepository;
@@ -27,6 +22,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @method CatalogFactory catalog()
  * @method InvoiceFactory invoice()
  * @method WriteOffFactory writeOff()
+ * @method ReceiptFactory receipt()
  * @method OrderFactory order()
  * @method SupplierFactory supplier()
  * @method OrganizationFactory organization()
@@ -66,6 +62,7 @@ class Factory extends ContainerAwareFactory
             'catalog' => CatalogFactory::getClassName(),
             'invoice' => InvoiceFactory::getClassName(),
             'writeOff' => WriteOffFactory::getClassName(),
+            'receipt' => ReceiptFactory::getClassName(),
             'order' => OrderFactory::getClassName(),
             'supplier' => SupplierFactory::getClassName(),
             'organization' => OrganizationFactory::getClassName(),
@@ -134,87 +131,6 @@ class Factory extends ContainerAwareFactory
         }
 
         return $this->storeProducts[$storeId][$productId];
-    }
-
-    /**
-     * @param array $sales
-     * @return Sale[]
-     */
-    public function createSales(array $sales)
-    {
-        $self = $this;
-        $saleModels = array_map(
-            function ($sale) use ($self) {
-                $saleModel = $self->createSale($sale['storeId'], $sale['createdDate'], $sale['sumTotal']);
-                array_map(
-                    function ($position) use ($self, $saleModel) {
-                        $self->createSaleProduct(
-                            $position['price'],
-                            $position['quantity'],
-                            $position['productId'],
-                            $saleModel
-                        );
-                    },
-                    $sale['positions']
-                );
-                return $saleModel;
-            },
-            $sales
-        );
-
-        $this->flush();
-
-        return $saleModels;
-    }
-
-    /**
-     * @param string $storeId
-     * @param string $createdDate
-     * @param string $sumTotal
-     * @return Sale
-     */
-    public function createSale($storeId, $createdDate, $sumTotal)
-    {
-        $saleModel = new Sale();
-        $saleModel->date = new DateTimestamp($createdDate);
-        $saleModel->store = $this->getDocumentManager()->getReference(Store::getClassName(), $storeId);
-        $saleModel->hash = md5(rand() . $storeId);
-        $saleModel->sumTotal = $this->getNumericFactory()->createMoney($sumTotal);
-
-        $this->getDocumentManager()->persist($saleModel);
-
-        return $saleModel;
-    }
-
-    /**
-     * @param Sale $sale
-     */
-    public function deleteSale(Sale $sale)
-    {
-        $this->getReceiptRepository()->rollbackByHash($sale->hash);
-    }
-
-    /**
-     * @param Money|string $price
-     * @param Decimal|float $quantity
-     * @param string $productId
-     * @param Sale $sale
-     * @return SaleProduct
-     */
-    public function createSaleProduct($price, $quantity, $productId, Sale $sale = null)
-    {
-        $saleProduct = new SaleProduct();
-        $saleProduct->price = $this->getNumericFactory()->createMoney($price);
-        $saleProduct->quantity = $this->getNumericFactory()->createQuantity($quantity);
-        $saleProduct->product = $this->createProductVersion($productId);
-        if ($sale) {
-            $saleProduct->sale = $sale;
-            $sale->products->add($saleProduct);
-        }
-
-        $this->getDocumentManager()->persist($saleProduct);
-
-        return $saleProduct;
     }
 
     /**

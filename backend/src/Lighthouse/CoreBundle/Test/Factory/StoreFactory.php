@@ -99,13 +99,26 @@ class StoreFactory extends AbstractFactory
      * @param array $numbers
      * @return array number => storeId
      */
-    public function getStores(array $numbers)
+    public function getStoreIds(array $numbers)
     {
         $storeIds = array();
         foreach ($numbers as $number) {
             $storeIds[$number] = $this->getStoreId($number);
         }
         return $storeIds;
+    }
+
+    /**
+     * @param array $numbers
+     * @return Store[]
+     */
+    public function getStores(array $numbers)
+    {
+        $stores = array();
+        foreach ($numbers as $number) {
+            $stores[$number] = $this->getStore($number);
+        }
+        return $stores;
     }
 
     /**

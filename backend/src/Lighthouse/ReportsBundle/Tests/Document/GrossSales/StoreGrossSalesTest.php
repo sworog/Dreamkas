@@ -10,131 +10,73 @@ class StoreGrossSalesTest extends WebTestCase
 {
     public function testCalculateGrossSales()
     {
-        $storeId = $this->factory()->store()->getStoreId('1');
-        $product1Id = $this->createProduct('1');
-        $product2Id = $this->createProduct('2');
-        $product3Id = $this->createProduct('3');
+        $store = $this->factory()->store()->getStore('1');
 
-        $sales = array(
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-1 days 8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => "-1 days 9:01",
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
+        $productId1 = $this->createProduct('1');
+        $productId2 = $this->createProduct('2');
+        $productId3 = $this->createProduct('3');
 
-            array(
-                'storeId' => $storeId,
-                'createdDate' => "-1 days 10:01",
-                'sumTotal' => 298.68,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                ),
-            ),
-        );
+        $this->factory()
+            ->receipt()
+                ->createSale($store, '-1 days 8:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+            ->persist()
+                ->createSale($store, '-1 days 9:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+            ->persist()
+                ->createSale($store, '-1 days 10:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+            ->flush();
 
-        $this->factory()->createSales($sales);
+        $this->getGrossSalesReportService()->recalculateStoreGrossSalesReport();
 
-        $storeGrossSalesReportService = $this->getGrossSalesReportService();
+        $this->assertStoreGrossSalesDayHourReport($store->id, '-1 days 07:00', null);
+        $this->assertStoreGrossSalesDayHourReport($store->id, '-1 days 08:00', '603.53');
+        $this->assertStoreGrossSalesDayHourReport($store->id, '-1 days 09:00', '603.53');
+        $this->assertStoreGrossSalesDayHourReport($store->id, '-1 days 10:00', '298.68');
+        $this->assertStoreGrossSalesDayHourReport($store->id, '-1 days 11:00', null);
 
-        $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
+        $this->getGrossSalesReportService()->recalculateStoreGrossSalesReport();
 
-        $reportRepository = $this->getReportRepository();
+        $this->assertStoreGrossSalesDayHourReport($store->id, '-1 days 07:00', null);
+        $this->assertStoreGrossSalesDayHourReport($store->id, '-1 days 08:00', '603.53');
+        $this->assertStoreGrossSalesDayHourReport($store->id, '-1 days 09:00', '603.53');
+        $this->assertStoreGrossSalesDayHourReport($store->id, '-1 days 10:00', '298.68');
+        $this->assertStoreGrossSalesDayHourReport($store->id, '-1 days 11:00', null);
+    }
 
-        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 7:00');
-        $this->assertNull($reportForHour);
-
-        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 8:00');
-        $this->assertEquals("603.53", $reportForHour->hourSum->toString());
-
-        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 9:00');
-        $this->assertEquals("603.53", $reportForHour->hourSum->toString());
-
-        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 10:00');
-        $this->assertEquals("298.68", $reportForHour->hourSum->toString());
-
-        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 11:00');
-        $this->assertNull($reportForHour);
-
-
-
-        $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
-
-        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 7:00');
-        $this->assertNull($reportForHour);
-
-        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 8:00');
-        $this->assertEquals("603.53", $reportForHour->hourSum->toString());
-
-        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 9:00');
-        $this->assertEquals("603.53", $reportForHour->hourSum->toString());
-
-        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 10:00');
-        $this->assertEquals("298.68", $reportForHour->hourSum->toString());
-
-        $reportForHour = $reportRepository->findOneByStoreIdAndDayHour($storeId, '-1 days 11:00');
-        $this->assertNull($reportForHour);
+    /**
+     * @param string $storeId
+     * @param string  $dayHour
+     * @param float|string|null $expectedHourSum
+     */
+    public function assertStoreGrossSalesDayHourReport($storeId, $dayHour, $expectedHourSum)
+    {
+        $reportForHour = $this->getReportRepository()->findOneByStoreIdAndDayHour($storeId, $dayHour);
+        if (null === $expectedHourSum) {
+            $this->assertNull($reportForHour);
+        } else {
+            $this->assertEquals($expectedHourSum, $reportForHour->hourSum->toString());
+        }
     }
 
     /**
      * @return GrossSalesReportManager
      */
-    public function getGrossSalesReportService()
+    protected function getGrossSalesReportService()
     {
         return $this->getContainer()->get('lighthouse.reports.gross_sales.manager');
     }
 
     /**
-     * @return GrossSalesStoreRepository::
+     * @return GrossSalesStoreRepository
      */
-    public function getReportRepository()
+    protected function getReportRepository()
     {
         return $this->getContainer()->get('lighthouse.reports.document.gross_sales.store.repository');
     }

@@ -19,12 +19,6 @@ class ProjectCommandListener
     protected $projectContext;
 
     /**
-     * List of command names to be executed in project context
-     * @var array
-     */
-    protected $projectableCommands = array();
-
-    /**
      * @DI\InjectParams({
      *      "projectContext" = @DI\Inject("project.context")
      * })
@@ -65,8 +59,6 @@ class ProjectCommandListener
     public function supports(Command $command)
     {
         if ($command instanceof ProjectableCommand) {
-            return true;
-        } elseif (in_array($command->getName(), $this->projectableCommands)) {
             return true;
         } else {
             return false;

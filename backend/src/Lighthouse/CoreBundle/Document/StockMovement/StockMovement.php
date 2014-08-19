@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
+use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
@@ -117,6 +118,18 @@ abstract class StockMovement extends AbstractDocument implements Storeable
 
         foreach ($this->products as $product) {
             $product->setReasonParent($this);
+        }
+    }
+
+    public function calculateTotals()
+    {
+        $this->itemsCount = count($this->products);
+
+        $this->sumTotal = $this->sumTotal->set(0);
+
+        foreach ($this->products as $product) {
+            $productSumTotal = $product->calculateTotals();
+            $this->sumTotal = $this->sumTotal->add($productSumTotal, Decimal::ROUND_HALF_EVEN);
         }
     }
 }
