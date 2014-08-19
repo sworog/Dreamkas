@@ -20,7 +20,7 @@ define(function(require, exports, module) {
         },
 
         blocks: {},
-        __blocks: [],
+        __blocks: {},
 
         template: function() {
             return '<div></div>';
@@ -61,17 +61,20 @@ define(function(require, exports, module) {
                 blocksTagMap;
 
             _.each(block.blocks, function(blockConstructor, blockName){
-                blocksTagMap[blockName.toUpperCase()] = blockConstructor;
+                blocksTagMap[blockName.toUpperCase()] = blockName;
             });
 
             $blocks.each(function(){
                 var el = this,
                     $el = $(el),
-                    __block = blocksTagMap[el.tagName].call(block, _.clone(el.dataset));
+                    blockName = blocksTagMap[el.tagName],
+                    __block = block.blocks[blockName].call(block, _.clone(el.dataset));
 
                 $el.replaceWith(__block.el);
 
-                block.__blocks.push(__block);
+                block.__blocks[blockName] = block.__blocks[blockName] || [];
+
+                block.__blocks[blockName].push(__block);
             });
         },
 
@@ -86,15 +89,17 @@ define(function(require, exports, module) {
         removeBlocks: function() {
             var block = this;
 
-            _.each(block.__blocks, function(blockToRemove) {
+            _.each(block.__blocks, function(blockList, blockName) {
 
-                if (blockToRemove && typeof blockToRemove.remove === 'function') {
-                    blockToRemove.remove();
-                }
+                _.each(blockList, function(blockToRemove){
+                    if (blockToRemove && typeof blockToRemove.remove === 'function') {
+                        blockToRemove.remove();
+                    }
+                });
 
             });
 
-            block.__blocks = [];
+            block.__blocks = {};
         }
     });
 });
