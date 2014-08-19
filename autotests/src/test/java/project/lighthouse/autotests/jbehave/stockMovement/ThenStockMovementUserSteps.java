@@ -160,4 +160,9 @@ public class ThenStockMovementUserSteps {
     public void thenTheUserChecksTheEditInvoiceModalWindowFieldHasErrorMessage(String elementName, String message) {
         stockMovementSteps.invoiceEditModalCheckErrorMessage(elementName, message);
     }
+
+    @Then("пользователь проверяет, что у поля с именем '$elementName' имеется сообщения об ошибке с сообщением '$message' в модальном окне редактирования списания")
+    public void thenTheUserChecksTheEditWriteOffModalWindowFieldHasErrorMessage(String elementName, String message) {
+        stockMovementSteps.writeOffEditModalCheckErrorMessage(elementName, message);
+    }
 }

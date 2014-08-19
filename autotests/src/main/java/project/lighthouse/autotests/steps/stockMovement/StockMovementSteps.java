@@ -432,6 +432,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void writeOffEditModalCheckErrorMessage(String elementName, String errorMessage) {
+        writeOffEditModalWindow.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+    }
+
+    @Step
     public void supplierCreateModalPageInputGeneratedText(String elementName, int count) {
         String generatedString = new StringGenerator(count).generateString("a");
         invoiceSupplierCreateModalWindow.input(elementName, generatedString);

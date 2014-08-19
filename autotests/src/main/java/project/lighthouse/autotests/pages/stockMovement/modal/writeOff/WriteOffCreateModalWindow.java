@@ -33,7 +33,7 @@ public class WriteOffCreateModalWindow extends ModalWindowPage {
 
     @Override
     public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Принять").click();
+        new PrimaryBtnFacade(this, "Списать").click();
     }
 
     public void addProductToWriteOffButtonClick() {
