@@ -12,22 +12,18 @@ public class ThenUserSteps {
 
     @Then("the user checks the user with '$login' username is present")
     public void thenTheUSerChecksTheProductWithSkuIsPresent(String login) {
-        userSteps.listItemCheck(login);
     }
 
     @Then("the user checks the user with '$login' username has '$name' element equal to '$expectedValue' on users page")
     public void thenTheUserChecksTheProductWithValueHasElement(String login, String elementName, String expectedValue) {
-        userSteps.checkListItemHasExpectedValueByFindByLocator(login, elementName, expectedValue);
     }
 
     @Then("the user checks the user page '$elementName' value is '$expectedValue'")
     public void thenTheUserChecksValue(String elementName, String expectedValue) {
-        userSteps.checkCardValue(elementName, expectedValue);
     }
 
     @Then("the user checks the user page elements values $checkValuesTable")
     public void thenTheUserChecksTheElementValues(ExamplesTable checkValuesTable) {
-        userSteps.checkCardValue(checkValuesTable);
     }
 
     @Then("the user checks '$elementName' user page field contains only '$number' symbols")

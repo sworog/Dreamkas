@@ -21,11 +21,6 @@ public class SettingSteps extends ScenarioSteps {
     }
 
     @Step
-    public void check(ExamplesTable checkValuesTable) {
-        settingsPage.checkCardValue(checkValuesTable);
-    }
-
-    @Step
     public void saveSettingsButtonClick() {
         settingsPage.saveSettingButtonClick();
         new PreLoader(getDriver()).await();

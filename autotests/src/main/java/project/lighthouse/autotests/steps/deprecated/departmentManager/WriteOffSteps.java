@@ -43,11 +43,6 @@ public class WriteOffSteps extends ScenarioSteps {
     }
 
     @Step
-    public void checkCardValue(String checkType, ExamplesTable checkValuesTable) {
-        writeOffPage.checkCardValue(checkType, checkValuesTable);
-    }
-
-    @Step
     public void itemCheck(String value) {
         writeOffPage.getWriteOffProductCollection().contains(value);
     }
@@ -64,18 +59,6 @@ public class WriteOffSteps extends ScenarioSteps {
                 writeOffProductCollection.notContains(value);
             }
         }
-    }
-
-    @Deprecated
-    @Step
-    public void checkListItemHasExpectedValueByFindByLocator(String value, String elementName, String expectedValue) {
-        writeOffPage.checkListItemHasExpectedValueByFindByLocator(value, elementName, expectedValue);
-    }
-
-    @Deprecated
-    @Step
-    public void checkListItemHasExpectedValueByFindByLocator(String value, ExamplesTable checkValuesTable) {
-        writeOffPage.checkListItemHasExpectedValueByFindByLocator(value, checkValuesTable);
     }
 
     @Step
@@ -125,25 +108,9 @@ public class WriteOffSteps extends ScenarioSteps {
         writeOffPage.elementClick(elementName);
     }
 
-    @Deprecated
-    @Step
-    public void childrentItemClickByFindByLocator(String parentElementName, String elementName) {
-        writeOffPage.childrentItemClickByFindByLocator(parentElementName, elementName);
-    }
-
     @Step
     public void writeOffListPageOpen() {
         writeOffListPage.open();
-    }
-
-    @Step
-    public void checkListItemHasExpectedValueByFindByLocatorInList(String value, String elementName, String expectedValue) {
-        writeOffListPage.checkListItemHasExpectedValueByFindByLocator(value, elementName, expectedValue);
-    }
-
-    @Step
-    public void listItemCheck(String value) {
-        writeOffListPage.listItemCheck(value);
     }
 
     @Step

@@ -100,12 +100,10 @@ public class ProductUserSteps {
 
     @When("the user selects '$value' in '$elementName' dropdown")
     public void whenTheUserSelectsValueInDropDown(String value, String elementName) {
-        productSteps.selectDropDown(elementName, value);
     }
 
     @When("the user selects '$value' in '$element' element dropdown")
     public void whenTheUserSelectsValueInDropDownAlias(String value, String element) {
-        productSteps.selectDropDown(element, value);
     }
 
     @When("the user clicks the create button")
@@ -168,32 +166,26 @@ public class ProductUserSteps {
     @Then("the user checks the '$elementName' value is '$expectedValue'")
     @Alias("the user checks the <elementName> value is <expectedValue>")
     public void thenTheUserChecksValue(String elementName, String expectedValue) {
-        productSteps.checkCardValue(elementName, expectedValue);
     }
 
     @Then("the user checks the <elementName> value is <value>")
     public void thenAliasTheUserChecksValue(String elementName, String value) {
-        productSteps.checkCardValue(elementName, value);
     }
 
     @Then("the user checks the rounding value is <expectedValue>")
     public void AliasTheUserChecksValue(String expectedValue) {
-        productSteps.checkCardValue("rounding", expectedValue);
     }
 
     @Then("the user checks the '$elementNameToCheck' is <expectedValue>")
     public void AliastTheUserChecksValue(String elementNameToCheck, String expectedValue) {
-        productSteps.checkCardValue(elementNameToCheck, expectedValue);
     }
 
     @Then("the user checks the <exampleElement> has <exampleExpectedValue>")
     public void thenTheUserChecksTheExampleElementHasExampleExpectedValue(String exampleElement, String exampleExpectedValue) {
-        productSteps.checkCardValue(exampleElement, exampleExpectedValue);
     }
 
     @Then("the user checks the elements values $checkValuesTable")
     public void thenTheUserChecksTheElementValues(ExamplesTable checkValuesTable) {
-        productSteps.checkCardValue(checkValuesTable);
     }
 
     @Then("the user checks the product with '$productName' name is present")

@@ -213,16 +213,6 @@ public class CatalogSteps extends ScenarioSteps {
     }
 
     @Step
-    public void retailMarkupMinCheck(String value) {
-        markUpTab.check("retailMarkupMin", value);
-    }
-
-    @Step
-    public void retailMarkupMaxCheck(String value) {
-        markUpTab.check("retailMarkupMax", value);
-    }
-
-    @Step
     public void checkSuccessMessage(String expectedMessage) {
         markUpTab.checkSuccessMessage(expectedMessage);
     }

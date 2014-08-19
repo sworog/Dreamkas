@@ -73,26 +73,6 @@ abstract public class CommonPageObject extends PageObject {
         commonActions.input(elementName, inputText);
     }
 
-    public void check(String elementName, String expectedValue) {
-        commonActions.checkElementText(elementName, expectedValue);
-    }
-
-    public void checkCardValue(String checkType, String elementName, String expectedValue) {
-        commonActions.checkElementValue(checkType, elementName, expectedValue);
-    }
-
-    public void checkCardValue(String elementName, String expectedValue) {
-        commonActions.checkElementValue("", elementName, expectedValue);
-    }
-
-    public void checkCardValue(String checkType, ExamplesTable checkValuesTable) {
-        commonActions.checkElementValue(checkType, checkValuesTable);
-    }
-
-    public void checkCardValue(ExamplesTable checkValuesTable) {
-        commonActions.checkElementValue("", checkValuesTable);
-    }
-
     public void fieldInput(ExamplesTable fieldInputTable) {
         for (Map<String, String> row : fieldInputTable.getRows()) {
             String elementName = row.get("elementName");
@@ -117,10 +97,6 @@ abstract public class CommonPageObject extends PageObject {
         commonActions.inputTable(inputTable);
     }
 
-    public void selectByValue(String elementName, String value) {
-        items.get(elementName).setValue(value);
-    }
-
     public void checkFieldLength(String elementName, int fieldLength) {
         items.get(elementName).getFieldChecker().assertFieldLength(elementName, fieldLength);
     }
@@ -136,15 +112,6 @@ abstract public class CommonPageObject extends PageObject {
     public WebElement findModelFieldContaining(String modelName, String fieldName, String expectedValue) {
         By by = By.xpath(String.format("//span[@model='%s' and @model-attribute='%s' and contains(text(), '%s')]", modelName, fieldName, expectedValue));
         return findVisibleElement(by);
-    }
-
-    public void shouldContainsText(String elementName, String expectedValue) {
-        WebElement element = items.get(elementName).getWebElement();
-        commonActions.shouldContainsText(elementName, element, expectedValue);
-    }
-
-    public void elementShouldBeVisible(String value, CommonView commonView) {
-        commonActions.elementShouldBeVisible(value, commonView);
     }
 
     public void checkValue(String elementName, String value) {

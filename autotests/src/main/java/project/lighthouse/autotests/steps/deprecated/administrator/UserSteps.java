@@ -44,24 +44,9 @@ public class UserSteps extends ScenarioSteps {
     }
 
     @Step
-    public void selectDropDown(String elementName, String value) {
-        userCreatePage.selectByValue(elementName, value);
-    }
-
-    @Step
     public void userCreateButtonClick() {
         userCreatePage.userCreateButtonClick();
         new PreLoader(getDriver()).await();
-    }
-
-    @Step
-    public void checkCardValue(String elementName, String expectedValue) {
-        userCardPage.checkCardValue(elementName, expectedValue);
-    }
-
-    @Step
-    public void checkCardValue(ExamplesTable checkValuesTable) {
-        userCardPage.checkCardValue(checkValuesTable);
     }
 
     @Step
@@ -72,26 +57,6 @@ public class UserSteps extends ScenarioSteps {
     @Step
     public void createNewUserButtonClick() {
         usersListPage.createNewUserButtonClick();
-    }
-
-    @Step
-    public void listItemClick(String login) {
-        usersListPage.listItemClick(login);
-    }
-
-    @Step
-    public void listItemCheck(String login) {
-        usersListPage.listItemCheck(login);
-    }
-
-    @Step
-    public void listItemCheckIsNotPresent(String value) {
-        usersListPage.listItemCheckIsNotPresent(value);
-    }
-
-    @Step
-    public void checkListItemHasExpectedValueByFindByLocator(String value, String elementName, String expectedValue) {
-        usersListPage.checkListItemHasExpectedValueByFindByLocator(value, elementName, expectedValue);
     }
 
     @Step

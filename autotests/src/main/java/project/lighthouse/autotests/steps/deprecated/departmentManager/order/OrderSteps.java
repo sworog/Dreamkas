@@ -42,11 +42,6 @@ public class OrderSteps extends ScenarioSteps {
     }
 
     @Step
-    public void checkOrderPageValues(ExamplesTable examplesTable) {
-        orderPage.checkCardValue(examplesTable);
-    }
-
-    @Step
     public void productCollectionExactCompare(ExamplesTable examplesTable) throws JSONException {
         ExamplesTable updatedExampleTable = new OrderExampleTableUpdater(examplesTable).updateValues();
         orderPage.getOrderProductObjectCollection().exactCompareExampleTable(updatedExampleTable);
