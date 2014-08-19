@@ -77,6 +77,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void writeOffCreateModalWindowInput(String elementName, String value) {
+        writeOffCreateModalWindow.input(elementName, value);
+    }
+
+    @Step
     public void invoiceEditModalWindowChecksValues(ExamplesTable examplesTable) {
         invoiceEditModalWindow.checkValues(examplesTable);
     }
