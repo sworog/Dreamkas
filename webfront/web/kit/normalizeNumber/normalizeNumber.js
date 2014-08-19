@@ -4,12 +4,14 @@ define(function(require, exports, module) {
 
     return function(string) {
 
-        var normalizedString = (string || '').toString()
+        if (string.length === 0){
+            return '';
+        }
+
+        var normalizedString = string.toString()
             .replace(' ', '', 'gi')
             .replace(',', '.', 'gi');
-
-        var number = parseFloat(normalizedString);
-
-        return _.isNaN(number) ? '' : number;
+        
+        return parseFloat(normalizedString);
     }
 });
