@@ -2,6 +2,13 @@ Meta:
 @smoke
 @sprint_40
 @us_103
+@id_s40u103InvoiceProductValidations0
+@id_s40u103InvoiceProductValidations3
+@id_s40u103s1
+@id_s40u103s2
+@id_s40u103s3
+@id_s40u103s5
+@id_s40u103s7
 
 Scenario: Сценарий для подготовки тестовых данных
 

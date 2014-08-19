@@ -2,6 +2,9 @@ Meta:
 @smoke
 @sprint_40
 @us_103
+@id_s40u103s2
+@id_s40u103s5
+@id_s40u103s7
 
 Scenario: Cценарий для создания списания
 
