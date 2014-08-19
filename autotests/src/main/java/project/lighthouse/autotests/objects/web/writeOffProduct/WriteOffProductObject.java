@@ -52,6 +52,6 @@ public class WriteOffProductObject extends AbstractObject implements ObjectClick
     }
 
     public void deleteIconClick() {
-        getElement().findElement(org.openqa.selenium.By.xpath(".//*[@class='delInvoiceProduct btn fa fa-times']")).click();
+        getElement().findElement(org.openqa.selenium.By.xpath(".//*[@class='delWriteOffProduct btn fa fa-times']")).click();
     }
 }

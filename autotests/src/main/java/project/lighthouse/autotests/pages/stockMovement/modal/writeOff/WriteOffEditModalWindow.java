@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.pages.stockMovement.modal.writeOff;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class WriteOffEditModalWindow extends WriteOffCreateModalWindow {
@@ -11,5 +12,13 @@ public class WriteOffEditModalWindow extends WriteOffCreateModalWindow {
     @Override
     public String modalWindowXpath() {
         return "//*[@id='modal_writeOffEdit']";
+    }
+
+    public void deleteButtonClick() {
+        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='removeLink']")).click();
+    }
+
+    public void confirmDeleteButtonClick() {
+        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='confirmLink__confirmation']//*[@class='removeLink invoice__removeLink']")).click();
     }
 }

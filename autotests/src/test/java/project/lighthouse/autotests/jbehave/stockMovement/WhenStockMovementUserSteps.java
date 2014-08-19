@@ -133,16 +133,31 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.deleteInvoiceLinkClick();
     }
 
+    @When("пользователь нажимает на кнопку удаления списания в модальном окне редактирования списания")
+    public void whenTheUserClicksOnDeleteInvoiceButtonInEditWriteOffModalWindow() {
+        stockMovementSteps.deleteWriteOffLinkClick();
+    }
+
     @When("the user clicks on delete invoice confirm button in edit invoice modal window")
     @Alias("пользователь подтверждает удаление накладной в модальном окне редактирования накладной")
     public void whenTheUserClicksOnDeleteInvoiceConfirmButtonInEditInvoiceModalWindow() {
         stockMovementSteps.confirmDeleteInvoiceLinkClick();
     }
 
+    @When("пользователь подтверждает удаление списания в модальном окне редактирования списания")
+    public void whenTheUserClicksOnDeleteWriteOffConfirmButtonInEditInvoiceModalWindow() {
+        stockMovementSteps.confirmDeleteWriteOffLinkClick();
+    }
+
     @When("the user deletes the product with name '$name' in the edit invoice modal window")
     @Alias("пользователь удаляет товар с названием '$name' в модальном окне редактирования накладной")
     public void whenTheUserDeletesTheProductWithNameInTheEditInvoiceModalWindow(String name) {
         stockMovementSteps.invoiceProductWithNameDeleteIconClick(name);
+    }
+
+    @When("пользователь удаляет товар с названием '$name' в модальном окне редактирования списания")
+    public void whenTheUserDeletesTheProductWithNameInTheEditWriteOffModalWindow(String name) {
+        stockMovementSteps.writeOffProductWithNameDeleteIconClick(name);
     }
 
     @When("пользователь нажимает на плюсик рядом с полем выбора поставщика, чтобы создать нового поставщика")

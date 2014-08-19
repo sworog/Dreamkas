@@ -46,16 +46,31 @@ public class ThenStockMovementUserSteps {
         stockMovementSteps.assertInvoiceCreateModalWindowPageTitle(title);
     }
 
+    @Then("пользователь проверяет, что заголовок модального окна списания накладной равен '$title'")
+    public void thenTheUserAssertsCreateNewWriteOffModalWindowTitle(String title) {
+        stockMovementSteps.assertWriteOffCreateModalWindowPageTitle(title);
+    }
+
     @Then("the user asserts edit invoice modal window title is '$title'")
     @Alias("пользователь проверяет, что заголовок модального окна редактирования накладной равен '$title'")
     public void thenTheUserAssertsEditInvoiceModalWindowTitle(String title) {
         stockMovementSteps.assertInvoiceEditModalWindowPageTitle(title);
     }
 
+    @Then("пользователь проверяет, что заголовок модального окна редактирования списания равен '$title'")
+    public void thenTheUserAssertsEditWriteOffModalWindowTitle(String title) {
+        stockMovementSteps.assertWriteOffEditModalWindowPageTitle(title);
+    }
+
     @Then("the user asserts stock movement operations dont contain last created invoice")
     @Alias("пользователь проверяет, что в операциях товародвижения отсутствует последняя созданная накладная")
     public void thenTheUserAssertsStockMovementOperationsDontContainLastCreatedInvoice() throws JSONException {
         stockMovementSteps.stockMovementCollectionDontContainLastCreatedInvoice();
+    }
+
+    @Then("пользователь проверяет, что в операциях товародвижения отсутствует последнее созданное списание")
+    public void thenTheUserAssertsStockMovementOperationsDontContainLastCreatedWriteOff() throws JSONException {
+        stockMovementSteps.stockMovementCollectionDontContainLastCreatedWriteOff();
     }
 
     @Then("the user asserts invoice total sum is '$totalSum' in create new invoice modal window")
@@ -84,6 +99,11 @@ public class ThenStockMovementUserSteps {
     @Alias("пользователь проверяет, что поле дата заполнено сегодняшней датой")
     public void thenTheUserAssertsTheInvoiceDateIsSetAutomaticallyToNowDate() {
         stockMovementSteps.assertInvoiceDateIsNowDate();
+    }
+
+    @Then("пользователь проверяет, что поле дата заполнено сегодняшней датой в модальном окне создания списания")
+    public void thenTheUserAssertsTheWriteOffDateIsSetAutomaticallyToNowDate() {
+        stockMovementSteps.assertWriteOffDateIsNowDate();
     }
 
     @Then("the user checks the element with name '$name' has value equals to '$value' in the edit invoice modal window")

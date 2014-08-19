@@ -14,6 +14,7 @@ import project.lighthouse.autotests.objects.web.invoiceProduct.InvoiceProductCol
 import project.lighthouse.autotests.objects.web.invoiceProduct.InvoiceProductObject;
 import project.lighthouse.autotests.objects.web.stockMovement.StockMovementObjectCollection;
 import project.lighthouse.autotests.objects.web.writeOffProduct.WriteOffProductCollection;
+import project.lighthouse.autotests.objects.web.writeOffProduct.WriteOffProductObject;
 import project.lighthouse.autotests.pages.stockMovement.StockMovementPage;
 import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceEditModalWindow;
@@ -220,6 +221,14 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void writeOffProductWithNameDeleteIconClick(String name) {
+        WriteOffProductObject writeOffProduct =
+                (WriteOffProductObject) getWriteOffProductCollection().getAbstractObjectByLocator(name);
+        writeOffProduct.deleteIconClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
     public void assertStockMovementPageTitle(String title) {
         assertThat(stockMovementPage.getTitle(), is(title));
     }
@@ -230,8 +239,18 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void assertWriteOffCreateModalWindowPageTitle(String title) {
+        assertThat(writeOffCreateModalWindow.getTitle(), is(title));
+    }
+
+    @Step
     public void assertInvoiceEditModalWindowPageTitle(String title) {
         assertThat(invoiceEditModalWindow.getTitle(), is(title));
+    }
+
+    @Step
+    public void assertWriteOffEditModalWindowPageTitle(String title) {
+        assertThat(writeOffEditModalWindow.getTitle(), is(title));
     }
 
     @Step
@@ -260,6 +279,14 @@ public class StockMovementSteps extends ScenarioSteps {
         }
     }
 
+    @Step
+    public void stockMovementCollectionDontContainLastCreatedWriteOff() throws JSONException {
+        StockMovementObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
+        if (stockMovementObjectCollection != null) {
+            stockMovementObjectCollection.notContains(Storage.getStockMovementVariableStorage().getLastWriteOff().getNumber());
+        }
+    }
+
     private Invoice getLastCreatedInvoice() {
         List<Invoice> invoiceList = Storage.getInvoiceVariableStorage().getInvoiceList();
         return invoiceList.get(invoiceList.size() - 1);
@@ -271,8 +298,19 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void deleteWriteOffLinkClick() {
+        writeOffEditModalWindow.deleteButtonClick();
+    }
+
+    @Step
     public void confirmDeleteInvoiceLinkClick() {
         invoiceEditModalWindow.confirmDeleteButtonClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
+    public void confirmDeleteWriteOffLinkClick() {
+        writeOffEditModalWindow.confirmDeleteButtonClick();
         new SimplePreloader(getDriver()).await();
     }
 
@@ -302,6 +340,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void assertWriteOffDateIsNowDate() {
+        writeOffCreateModalWindowCheckValue("date", DateTimeHelper.getDate("todayDate"));
+    }
+
+    @Step
     public void invoiceEditModalWindowCheckValue(String elementName, String value) {
         invoiceEditModalWindow.checkValue(elementName, value);
     }
@@ -309,6 +352,11 @@ public class StockMovementSteps extends ScenarioSteps {
     @Step
     public void invoiceCreateModalWindowCheckValue(String elementName, String value) {
         invoiceCreateModalWindow.checkValue(elementName, value);
+    }
+
+    @Step
+    public void writeOffCreateModalWindowCheckValue(String elementName, String value) {
+        writeOffCreateModalWindow.checkValue(elementName, value);
     }
 
     @Step
