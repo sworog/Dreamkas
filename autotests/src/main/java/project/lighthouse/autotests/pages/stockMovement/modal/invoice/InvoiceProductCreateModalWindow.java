@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.pages.stockMovement.modal;
+package project.lighthouse.autotests.pages.stockMovement.modal.invoice;
 
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.pages.catalog.group.modal.CreateNewProductModalWindow;

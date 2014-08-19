@@ -14,10 +14,10 @@ import project.lighthouse.autotests.objects.web.invoiceProduct.InvoiceProductCol
 import project.lighthouse.autotests.objects.web.invoiceProduct.InvoiceProductObject;
 import project.lighthouse.autotests.objects.web.stockMovement.StockMovementObjectCollection;
 import project.lighthouse.autotests.pages.stockMovement.StockMovementPage;
-import project.lighthouse.autotests.pages.stockMovement.modal.InvoiceCreateModalWindow;
-import project.lighthouse.autotests.pages.stockMovement.modal.InvoiceEditModalWindow;
-import project.lighthouse.autotests.pages.stockMovement.modal.InvoiceProductCreateModalWindow;
-import project.lighthouse.autotests.pages.stockMovement.modal.InvoiceSupplierCreateModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceCreateModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceEditModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceProductCreateModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceSupplierCreateModalWindow;
 import project.lighthouse.autotests.storage.Storage;
 
 import java.util.List;
