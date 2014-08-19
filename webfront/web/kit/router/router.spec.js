@@ -2,7 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var router = require('./router');
 
-    describe(module.id, function() {
+    xdescribe(module.id, function() {
 
         afterEach(function() {
             router.routes = {};

@@ -1,3 +1,5 @@
-require(['/require.config.js'], function() {
+require({
+    baseUrl: '/'
+}, ['require.config'], function() {
     require(['app']);
 });

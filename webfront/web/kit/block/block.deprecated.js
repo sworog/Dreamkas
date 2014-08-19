@@ -20,16 +20,21 @@ define(function(require, exports, module) {
         },
 
         blocks: {},
-        __blocks: [],
 
         template: function() {
             return '<div></div>';
         },
 
+        el: function() {
+            var block = this;
+
+            return block.template(block);
+        },
+
         initialize: function(){
             var block = this;
 
-            block.render();
+            block.initBlocks();
         },
 
         render: function() {
@@ -56,22 +61,12 @@ define(function(require, exports, module) {
         },
 
         initBlocks: function() {
-            var block = this,
-                $blocks = block.$(_.keys(block.blocks).join(', ')),
-                blocksTagMap;
+            var block = this;
 
-            _.each(block.blocks, function(blockConstructor, blockName){
-                blocksTagMap[blockName.toUpperCase()] = blockConstructor;
-            });
+            block.__blocks = block.__blocks || block.blocks;
 
-            $blocks.each(function(){
-                var el = this,
-                    $el = $(el),
-                    __block = blocksTagMap[el.tagName].call(block, _.clone(el.dataset));
-
-                $el.replaceWith(__block.el);
-
-                block.__blocks.push(__block);
+            block.blocks = _.transform(block.__blocks, function(result, blockInitializer, key) {
+                result[key] = block.get('__blocks.' + key);
             });
         },
 
@@ -86,15 +81,14 @@ define(function(require, exports, module) {
         removeBlocks: function() {
             var block = this;
 
-            _.each(block.__blocks, function(blockToRemove) {
+            _.forEach(block.blocks, function(blockToRemove, blockName) {
 
                 if (blockToRemove && typeof blockToRemove.remove === 'function') {
                     blockToRemove.remove();
+                    delete block.blocks[blockName];
                 }
 
             });
-
-            block.__blocks = [];
         }
     });
 });

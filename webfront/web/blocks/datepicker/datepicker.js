@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Block = require('kit/block/block'),
+        var Block = require('kit/block/block.deprecated'),
             moment = require('moment');
 
         return Block.extend({

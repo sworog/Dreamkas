@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Block = require('kit/block/block');
+    var Block = require('kit/block/block.deprecated');
 
     return Block.extend({
         el: '.select_group',

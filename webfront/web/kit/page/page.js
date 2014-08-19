@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Block = require('kit/block/block'),
+    var Block = require('kit/block/block.deprecated'),
         router = require('router'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         _ = require('lodash');
@@ -37,9 +37,6 @@ define(function(require, exports, module) {
                 result[key] = page.get('models.' + key);
             });
 
-            Page.previous = Page.current;
-            window.PAGE = Page.current = page;
-
             $.when(page.fetch()).then(function() {
                 page.render();
                 page.setStatus('loaded');
@@ -50,9 +47,11 @@ define(function(require, exports, module) {
             var page = this,
                 autofocus;
 
-            if (Page.previous){
-                Page.previous.remove();
+            if (Page.current && Page.current !== page){
+                Page.current.remove();
             }
+
+            window.PAGE = Page.current = page;
 
             Block.prototype.render.apply(page, arguments);
 

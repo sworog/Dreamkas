@@ -1,5 +1,4 @@
 require.config({
-    baseUrl: '/',
     paths: {
         'backbone': 'bower_components/backbone/backbone',
         'moment': 'bower_components/momentjs/moment',
@@ -9,7 +8,6 @@ require.config({
         'numeral': 'bower_components/numeral/numeral',
         'lodash': 'kit/lodash/lodash',
         'underscore': 'kit/underscore/underscore',
-        'router': 'kit/router/router',
         'templateCompiler': 'kit/templateCompiler/templateCompiler',
         'amd-loader': 'bower_components/amd-loader/amd-loader',
         'sortable': 'bower_components/sortable/js/sortable',
@@ -23,7 +21,8 @@ require.config({
 
     map: {
         '*': {
-            uri: 'bower_components/uri.js/src/URI'
+            uri: 'bower_components/uri.js/src/URI',
+            router: 'kit/router/router'
         }
     },
 
