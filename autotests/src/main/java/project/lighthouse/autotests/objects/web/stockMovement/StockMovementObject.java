@@ -18,7 +18,7 @@ public class StockMovementObject extends AbstractObject implements ObjectClickab
     private String status;
     private String store;
     private String sumTotal;
-    private String invoiceNumber;
+    private String number;
 
     public StockMovementObject(WebElement element, WebDriver webDriver) {
         super(element, webDriver);
@@ -31,7 +31,17 @@ public class StockMovementObject extends AbstractObject implements ObjectClickab
         status = setProperty(By.name("status"));
         store = getElement().findElement(By.name("store")).getText();
         sumTotal = getElement().findElement(By.name("sumTotal")).getText();
-        invoiceNumber = getElement().getAttribute("data-invoice-number");
+        setNumber();
+    }
+
+    private void setNumber() {
+        String invoiceNumber = getElement().getAttribute("data-invoice-number");
+        String writeOffNumber = getElement().getAttribute("data-writeoff-number");
+        if (invoiceNumber != null && writeOffNumber == null) {
+            number = invoiceNumber;
+        } else if (writeOffNumber != null && invoiceNumber == null) {
+            number = writeOffNumber;
+        }
     }
 
     @Override
@@ -41,7 +51,7 @@ public class StockMovementObject extends AbstractObject implements ObjectClickab
 
     @Override
     public String getObjectLocator() {
-        return invoiceNumber;
+        return number;
     }
 
     @Override

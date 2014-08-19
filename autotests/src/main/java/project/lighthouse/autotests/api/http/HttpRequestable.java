@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.api;
+package project.lighthouse.autotests.api.http;
 
 import org.json.JSONException;
 import org.json.JSONObject;

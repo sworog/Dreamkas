@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.api;
+package project.lighthouse.autotests.api.http;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -13,6 +13,7 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import project.lighthouse.autotests.api.AccessToken;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.abstraction.AbstractObject;
 
@@ -22,7 +23,7 @@ import java.util.Iterator;
 
 import static junit.framework.Assert.fail;
 
-public class HttpExecutor implements SimpleHttpRequestable, HttpRequestable {
+public class HttpExecutor implements AnonymousHttpRequestable, HttpRequestable {
 
     private String userName;
     private String password;
@@ -32,7 +33,7 @@ public class HttpExecutor implements SimpleHttpRequestable, HttpRequestable {
         this.password = password;
     }
 
-    public static SimpleHttpRequestable getSimpleHttpRequestable() {
+    public static AnonymousHttpRequestable getSimpleHttpRequestable() {
         return new HttpExecutor(null, null);
     }
 

@@ -2,6 +2,7 @@ package project.lighthouse.autotests.jbehave.stockMovement;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Alias;
+import org.jbehave.core.annotations.Aliases;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
@@ -18,10 +19,20 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.acceptProductsButtonClick();
     }
 
+    @When("пользователь нажимает на кнопку Списать на странице товародвижения")
+    public void whenTheUserClicksOnTheCreateWriteOffButton() {
+        stockMovementSteps.writeOffCreateButtonClick();
+    }
+
     @When("the user inputs values on the create new invoice modal window $examplesTable")
     @Alias("пользователь вводит данные в модальном окне создания накладной $examplesTable")
     public void whenTheUserInputsOnTheCreateNewInvoiceModalWindow(ExamplesTable examplesTable) {
         stockMovementSteps.invoiceCreateModalWindowInput(examplesTable);
+    }
+
+    @When("пользователь вводит данные в модальном окне создания списания $examplesTable")
+    public void whenTheUserInputsOnTheCreateNewWriteOffModalWindow(ExamplesTable examplesTable) {
+        stockMovementSteps.writeOffCreateModalWindowInput(examplesTable);
     }
 
     @When("пользователь вводит value в поле с именем '$elementName' в модальном окне создания накладной")
@@ -53,10 +64,20 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.addProductToInvoiceButtonClick();
     }
 
+    @When("пользователь нажимает на кнопку добавления нового товара в списание")
+    public void whenTheUserClicksOnTheAddNewWriteOffProductButton() {
+        stockMovementSteps.addProductToWriteOffOffButtonClick();
+    }
+
     @When("the user clicks on the add new invoice product button in the edit invoice modal window")
     @Alias("пользователь нажимает на кнопку добавления нового товара в накладную в модальном окне редактирования накладной")
     public void whenTheUserClicksOnTheAddNewInvoiceProductButtonInTheEditModalWIndow() {
         stockMovementSteps.invoiceEditModalWindowAddProductToInvoiceButtonClick();
+    }
+
+    @When("пользователь нажимает на кнопку Списать, чтобы списать накладную с товарами")
+    public void whenTheUserClicksOnTheWriteOffAcceptButton() {
+        stockMovementSteps.acceptWriteOffButtonClick();
     }
 
     @When("the user clicks on the invoice accept button")
@@ -78,7 +99,10 @@ public class WhenStockMovementUserSteps {
     }
 
     @When("the user clicks on the invoice with number '$number' on the stock movement page")
-    @Alias("пользователь нажимает на накладную с номером '$number' на странице товародвижения")
+    @Aliases(values = {
+            "пользователь нажимает на накладную с номером '$number' на странице товародвижения",
+            "пользователь нажимает на списание с номером '$number' на странице товародвижения"
+    })
     public void whenTheUserClicksOnTheInvoiceWithName(String number) throws JSONException {
         stockMovementSteps.openInvoiceByNumberInStockMovementPage(number);
     }

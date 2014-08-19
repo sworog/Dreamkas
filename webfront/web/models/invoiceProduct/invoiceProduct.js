@@ -1,6 +1,7 @@
 define(function(require) {
     //requirements
     var Model = require('kit/model/model'),
+        _ = require('lodash'),
         normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
 
     return Model.extend({
@@ -10,10 +11,11 @@ define(function(require) {
             quantity: 1
         },
         saveData: function() {
+
             return {
                 product: this.get('product.id'),
-                priceEntered: normalizeNumber(this.get('priceEntered')),
-                quantity: normalizeNumber(this.get('quantity'))
+                priceEntered: this.get('priceEntered') ? normalizeNumber(this.get('priceEntered')) : '',
+                quantity: this.get('quantity') ? normalizeNumber(this.get('quantity')) : ''
             };
         }
     });

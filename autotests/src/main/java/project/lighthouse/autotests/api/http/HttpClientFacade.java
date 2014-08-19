@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.api;
+package project.lighthouse.autotests.api.http;
 
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;
