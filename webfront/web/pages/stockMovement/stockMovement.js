@@ -42,70 +42,70 @@ define(function(require, exports, module) {
             writeOff: null
         },
         events: {
-            'change [name="filterTypes"]': function(e) {
-                var page = this;
-
-                if (e.currentTarget.classList.contains('loading')){
-                    return;
-                }
-
-                page.removeFilterErrors();
-
-                e.currentTarget.classList.add('loading');
-
-                page.params.filterTypes = e.target.value;
-
-                page.collections.stockMovements.filterTypes = page.params.filterTypes;
-
-                page.collections.stockMovements.fetch().then(function() {
-                    router.save(page.params);
-                    page.render();
-                });
-            },
-            'change [name="dateFrom"]': function(e) {
-                var page = this;
-
-                if (e.currentTarget.classList.contains('loading')){
-                    return;
-                }
-
-                page.removeFilterErrors();
-
-                e.currentTarget.classList.add('loading');
-
-                page.params.dateFrom = e.target.value;
-
-                page.collections.stockMovements.dateFrom = page.params.dateFrom;
-
-                page.collections.stockMovements.fetch().then(function() {
-                    router.save(page.params);
-                    page.render();
-                }, function(res){
-                    page.showFilterErrors(res.responseJSON.errors);
-                });
-            },
-            'change [name="dateTo"]': function(e) {
-                var page = this;
-
-                if (e.currentTarget.classList.contains('loading')) {
-                    return;
-                }
-
-                page.removeFilterErrors();
-
-                e.currentTarget.classList.add('loading');
-                
-                page.params.dateTo = e.target.value;
-
-                page.collections.stockMovements.dateTo = page.params.dateTo;
-
-                page.collections.stockMovements.fetch().then(function() {
-                    router.save(page.params);
-                    page.render();
-                }, function(res){
-                    page.showFilterErrors(res.responseJSON.errors);
-                });
-            },
+            //'change [name="filterTypes"]': function(e) {
+            //    var page = this;
+            //
+            //    if (e.currentTarget.classList.contains('loading')){
+            //        return;
+            //    }
+            //
+            //    page.removeFilterErrors();
+            //
+            //    e.currentTarget.classList.add('loading');
+            //
+            //    page.params.filterTypes = e.target.value;
+            //
+            //    page.collections.stockMovements.filterTypes = page.params.filterTypes;
+            //
+            //    page.collections.stockMovements.fetch().then(function() {
+            //        router.save(page.params);
+            //        page.render();
+            //    });
+            //},
+            //'change [name="dateFrom"]': function(e) {
+            //    var page = this;
+            //
+            //    if (e.currentTarget.classList.contains('loading')){
+            //        return;
+            //    }
+            //
+            //    page.removeFilterErrors();
+            //
+            //    e.currentTarget.classList.add('loading');
+            //
+            //    page.params.dateFrom = e.target.value;
+            //
+            //    page.collections.stockMovements.dateFrom = page.params.dateFrom;
+            //
+            //    page.collections.stockMovements.fetch().then(function() {
+            //        router.save(page.params);
+            //        page.render();
+            //    }, function(res){
+            //        page.showFilterErrors(res.responseJSON.errors);
+            //    });
+            //},
+            //'change [name="dateTo"]': function(e) {
+            //    var page = this;
+            //
+            //    if (e.currentTarget.classList.contains('loading')) {
+            //        return;
+            //    }
+            //
+            //    page.removeFilterErrors();
+            //
+            //    e.currentTarget.classList.add('loading');
+            //
+            //    page.params.dateTo = e.target.value;
+            //
+            //    page.collections.stockMovements.dateTo = page.params.dateTo;
+            //
+            //    page.collections.stockMovements.fetch().then(function() {
+            //        router.save(page.params);
+            //        page.render();
+            //    }, function(res){
+            //        page.showFilterErrors(res.responseJSON.errors);
+            //    });
+            //},
             'click .invoice__link': function(e) {
                 var block = this,
                     invoiceId = e.currentTarget.dataset.invoice_id;
