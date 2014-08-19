@@ -46,6 +46,11 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.invoiceEditModalWindowWindowInput(examplesTable);
     }
 
+    @When("пользователь вводит данные в модальном окне редактирования списания $examplesTable")
+    public void whenTheUserInputsOnTheEditWriteOffModalWindow(ExamplesTable examplesTable) {
+        stockMovementSteps.writeOffEditModalWindowWindowInput(examplesTable);
+    }
+
     @When("the user clicks on the paid check box")
     @Alias("пользователь нажимает на галочку Оплачено")
     public void whenTheUserClicksOnThePaidCheckBox() {
@@ -75,6 +80,11 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.invoiceEditModalWindowAddProductToInvoiceButtonClick();
     }
 
+    @When("пользователь нажимает на кнопку добавления нового товара в списание в модальном окне редактирования списания")
+    public void whenTheUserClicksOnTheAddNewWriteOffProductButtonInTheEditModalWIndow() {
+        stockMovementSteps.writeOffEditModalWindowAddProductToInvoiceButtonClick();
+    }
+
     @When("пользователь нажимает на кнопку Списать, чтобы списать накладную с товарами")
     public void whenTheUserClicksOnTheWriteOffAcceptButton() {
         stockMovementSteps.acceptWriteOffButtonClick();
@@ -90,6 +100,11 @@ public class WhenStockMovementUserSteps {
     @Alias("пользователь нажимает на кнопку сохранения накладной в модальном окне редактирования накладной")
     public void whenTheUserClicksOnTheInvoiceSaveButton() {
         stockMovementSteps.saveInvoiceButtonClick();
+    }
+
+    @When("пользователь нажимает на кнопку сохранения списания в модальном окне редактирования списания")
+    public void whenTheUserClicksOnTheWriteOffSaveButton() {
+        stockMovementSteps.saveWriteOffButtonClick();
     }
 
     @When("the user clicks on the last created invoice from builder steps on the stock movement page")

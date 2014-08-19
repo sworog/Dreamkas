@@ -91,6 +91,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void writeOffEditModalWindowWindowInput(ExamplesTable examplesTable) {
+        writeOffEditModalWindow.fieldInput(examplesTable);
+    }
+
+    @Step
     public void paidCheckBoxClick() {
         invoiceCreateModalWindow.paidCheckBoxClick();
     }
@@ -119,6 +124,12 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void writeOffEditModalWindowAddProductToInvoiceButtonClick() {
+        writeOffEditModalWindow.addProductToWriteOffButtonClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
     public void acceptInvoiceButtonClick() {
         invoiceCreateModalWindow.confirmationOkClick();
         new SimplePreloader(getDriver()).await();
@@ -133,6 +144,12 @@ public class StockMovementSteps extends ScenarioSteps {
     @Step
     public void saveInvoiceButtonClick() {
         invoiceEditModalWindow.confirmationOkClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
+    public void saveWriteOffButtonClick() {
+        writeOffEditModalWindow.confirmationOkClick();
         new SimplePreloader(getDriver()).await();
     }
 
