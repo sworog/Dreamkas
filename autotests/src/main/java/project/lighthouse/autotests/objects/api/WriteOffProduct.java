@@ -3,6 +3,7 @@ package project.lighthouse.autotests.objects.api;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@Deprecated
 public class WriteOffProduct {
 
     public static JSONObject getJsonObject(String product, String quantity, String price, String cause) throws JSONException {

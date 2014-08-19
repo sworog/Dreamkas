@@ -1,17 +1,17 @@
-package project.lighthouse.autotests.api.abstractFactory;
+package project.lighthouse.autotests.api.factories;
 
 import org.json.JSONException;
-import project.lighthouse.autotests.api.HttpExecutor;
-import project.lighthouse.autotests.api.HttpRequestable;
+import project.lighthouse.autotests.api.http.HttpExecutor;
+import project.lighthouse.autotests.api.http.HttpRequestable;
 import project.lighthouse.autotests.objects.api.abstraction.AbstractObject;
 
 import java.io.IOException;
 
-public abstract class AbstractApiFactory {
+public class ApiFactory {
 
     private HttpRequestable httpRequestable;
 
-    public AbstractApiFactory(String email, String password) {
+    public ApiFactory(String email, String password) {
         httpRequestable = HttpExecutor.getHttpRequestable(email, password);
     }
 
