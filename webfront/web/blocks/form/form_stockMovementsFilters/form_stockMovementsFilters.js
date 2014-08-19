@@ -5,6 +5,27 @@ define(function(require, exports, module) {
 
     return Form.extend({
         el: '.form_stockMovementsFilters',
+        events: {
+            reset: function(){
+                var block = this,
+                    $resetButton = block.$('[type="reset"]'),
+                    filters = {
+                        types: '',
+                        dateFrom: '',
+                        dateTo: ''
+                    };
+
+                $resetButton.addClass('loading');
+
+                PAGE.collections.stockMovements.filters = filters;
+
+                PAGE.collections.stockMovements.fetch().then(function(){
+                    PAGE.setParams({
+                        filters: filters
+                    });
+                });
+            }
+        },
         submit: function(){
             var block = this;
 
@@ -15,11 +36,9 @@ define(function(require, exports, module) {
         submitSuccess: function(){
             var block = this;
 
-            router.save({
+            PAGE.setParams({
                 filters: block.formData
             });
-            
-            PAGE.render();
         },
         showErrors: function(error){
             var block = this,

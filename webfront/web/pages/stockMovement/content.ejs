@@ -45,10 +45,10 @@
                                 <div class="form-group">
                                     <select class="form-control" name="types">
                                         <option value="">Все операции</option>
-                                        <option value="Invoice" <%- params.filterTypes == 'Invoice' ? 'selected' : '' %>>
+                                        <option value="Invoice" <%- params.filters.types == 'Invoice' ? 'selected' : '' %>>
                                             Приёмка
                                         </option>
-                                        <option value="WriteOff" <%- params.filterTypes == 'WriteOff' ? 'selected' : '' %>>
+                                        <option value="WriteOff" <%- params.filters.types == 'WriteOff' ? 'selected' : '' %>>
                                             Списание
                                         </option>
                                     </select>
@@ -61,13 +61,13 @@
                                            type="text"
                                            class="form-control"
                                            data-end-date="<%- new Date() %>"
-                                           value="<%- params.dateFrom %>">
+                                           value="<%- params.filters.dateFrom %>">
                                     <span style="border-left: none; border-right: none;" class="input-group-addon">по</span>
                                     <input name="dateTo"
                                            type="text"
                                            class="form-control"
                                            data-end-date="<%- new Date() %>"
-                                           value="<%- params.dateTo %>">
+                                           value="<%- params.filters.dateTo %>">
                                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                 </div>
                             </div>

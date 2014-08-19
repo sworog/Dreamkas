@@ -105,6 +105,22 @@ define(function(require, exports, module) {
             }, 0);
         },
 
+        setParams: function(params){
+            var page = this;
+
+            deepExtend(page.params, params);
+
+            router.save(_.transform(page.params, function(result, value, key){
+                try {
+                    result[key] = JSON.stringify(value);
+                } catch(e) {
+                    result[key] = value;
+                }
+            }));
+
+            page.render();
+        },
+
         initBlocks: function(){
             var page = this;
 

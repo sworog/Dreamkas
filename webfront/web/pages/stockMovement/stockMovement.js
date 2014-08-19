@@ -7,7 +7,7 @@ define(function(require, exports, module) {
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'stockMovement',
         params: {
-            filterTypes: ''
+            filters: {}
         },
         collections: {
             suppliers: require('collections/suppliers/suppliers'),

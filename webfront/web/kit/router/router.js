@@ -224,11 +224,19 @@ define(function(require) {
         // extracted parameters.
         _extractParameters: function(route, routeRegExp, fragment) {
             var params = routeRegExp.exec(fragment.split('?')[0]).slice(1),
-                queryParams = new Uri(fragment).search(true),
+                queryParams = new Uri(fragment).query(true),
                 paramNames = _.map(route.match(namesPattern) || [], function(name) {
                     return name.substring(1);
                 }),
                 namedParams = {};
+
+            queryParams = _.transform(queryParams, function(result, value, key){
+                try {
+                    result[key] = JSON.parse(value);
+                } catch(e) {
+                    result[key] = value;
+                }
+            });
 
             _.forEach(params, function(param, i) {
                 namedParams[paramNames[i]] = param;
