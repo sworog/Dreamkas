@@ -7,6 +7,7 @@ import project.lighthouse.autotests.elements.items.DateInput;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
 import project.lighthouse.autotests.elements.items.autocomplete.InvoiceProductAutoComplete;
+import project.lighthouse.autotests.objects.web.writeOffProduct.WriteOffProductCollection;
 import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 public class WriteOffCreateModalWindow extends ModalWindowPage {
@@ -25,7 +26,7 @@ public class WriteOffCreateModalWindow extends ModalWindowPage {
         put("date", new DateInput(this, "//*[@name='date']"));
         put("store", new SelectByVisibleText(this, "//*[@name='store']"));
         put("product.name", new InvoiceProductAutoComplete(this, "//*[@name='product.name']"));
-        put("priceEntered", new Input(this, "//*[@name='priceEntered']"));
+        put("price", new Input(this, "//*[@name='price']"));
         put("quantity", new Input(this, "//*[@name='quantity']"));
         put("cause", new Input(this, "//*[@name='cause']"));
     }
@@ -37,5 +38,13 @@ public class WriteOffCreateModalWindow extends ModalWindowPage {
 
     public void addProductToWriteOffButtonClick() {
         findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'addWriteOffProduct')]")).click();
+    }
+
+    public WriteOffProductCollection getWriteOffProductCollection() {
+        return new WriteOffProductCollection(getDriver());
+    }
+
+    public String getTotalSum() {
+        return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='writeOff__totalSum']")).getText();
     }
 }

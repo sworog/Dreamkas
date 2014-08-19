@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.objects.web.invoiceProduct;
+package project.lighthouse.autotests.objects.web.writeOffProduct;
 
 import net.thucydides.core.annotations.findby.By;
 import org.openqa.selenium.WebElement;
@@ -10,23 +10,25 @@ import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.Map;
 
-public class InvoiceProductObject extends AbstractObject implements ObjectClickable, ObjectLocatable, ResultComparable {
+public class WriteOffProductObject extends AbstractObject implements ObjectClickable, ObjectLocatable, ResultComparable {
 
     private String name;
     private String priceEntered;
     private String quantity;
     private String totalPrice;
+    private String cause;
 
-    public InvoiceProductObject(WebElement element) {
+    public WriteOffProductObject(WebElement element) {
         super(element);
     }
 
     @Override
     public void setProperties() {
         name = getElement().findElement(By.name("name")).getText();
-        priceEntered = getElement().findElement(By.name("priceEntered")).getText();
+        priceEntered = getElement().findElement(By.name("price")).getText();
         quantity = getElement().findElement(By.name("quantity")).getText();
         totalPrice = getElement().findElement(By.name("totalPrice")).getText();
+        cause = getElement().findElement(By.name("cause")).getText();
     }
 
     @Override
@@ -43,8 +45,9 @@ public class InvoiceProductObject extends AbstractObject implements ObjectClicka
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("name", name, row.get("name"))
-                .compare("priceEntered", priceEntered, row.get("priceEntered"))
+                .compare("price", priceEntered, row.get("price"))
                 .compare("quantity", quantity, row.get("quantity"))
+                .compare("cause", cause, row.get("cause"))
                 .compare("totalPrice", totalPrice, row.get("totalPrice"));
     }
 

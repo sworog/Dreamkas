@@ -29,6 +29,11 @@ public class ThenStockMovementUserSteps {
         stockMovementSteps.invoiceProductCollectionExactCompare(examplesTable);
     }
 
+    @Then("пользователь проверяет, что список товаров в списании содержит товары с данными $examplesTable")
+    public void thenTheUserAssertsTheWriteOffProductListContainProductWithValues(ExamplesTable examplesTable) {
+        stockMovementSteps.invoiceWriteOffCollectionExactCompare(examplesTable);
+    }
+
     @Then("the user asserts stock movement page title is '$title'")
     @Alias("пользователь проверяет, что заголовок страницы товародвижения равен '$title'")
     public void thenTheUserAssertsStockMovementPageTitle(String title) {
@@ -59,10 +64,20 @@ public class ThenStockMovementUserSteps {
         stockMovementSteps.assertInvoiceCreateModalWindowTotalSum(totalSum);
     }
 
+    @Then("пользователь проверяет, что сумма итого равна '$totalSum' в модальном окне создания списания")
+    public void thenTheUserAssertsWriteOffTotalSumInCreateNewInvoiceModalWindow(String totalSum) {
+        stockMovementSteps.assertWriteOffCreateModalWindowTotalSum(totalSum);
+    }
+
     @Then("the user asserts invoice total sum is '$totalSum' in edit invoice modal window")
     @Alias("пользователь проверяет, что сумма итого равна '$totalSum' в модальном окне редактирования накладной")
     public void thenTheUserAssertsInvoiceTotalSumInEditInvoiceModalWindow(String totalSum) {
         stockMovementSteps.assertInvoiceEditModalWindowTotalSum(totalSum);
+    }
+
+    @Then("пользователь проверяет, что сумма итого равна '$totalSum' в модальном окне редактирования списания")
+    public void thenTheUserAssertsWriteOffTotalSumInEditInvoiceModalWindow(String totalSum) {
+        stockMovementSteps.assertWriteOffEditModalWindowTotalSum(totalSum);
     }
 
     @Then("the user asserts the invoice date is set automatically to now date")
@@ -97,6 +112,11 @@ public class ThenStockMovementUserSteps {
     @Alias("пользователь проверяет поля в модальном окне редактирования накладной $examplesTable")
     public void thenTheUserChecksValuesOnTheEditInvoiceModalWindow(ExamplesTable examplesTable) {
         stockMovementSteps.invoiceEditModalWindowChecksValues(examplesTable);
+    }
+
+    @Then("пользователь проверяет поля в модальном окне редактирования списания $examplesTable")
+    public void thenTheUserChecksValuesOnTheEditWriteOffModalWindow(ExamplesTable examplesTable) {
+        stockMovementSteps.WriteOffEditModalWindowChecksValues(examplesTable);
     }
 
     @Then("пользователь проверяет, что у поля с именем '$elementName' имеется сообщения об ошибке с сообщением '$message' в модальном окне создания поставщика в накладной")
