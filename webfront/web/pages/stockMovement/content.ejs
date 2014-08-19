@@ -39,11 +39,11 @@
         <div class="col-md-12">
             <div class="panel">
                 <div class="panel-body">
-                    <form class="form_stockMovementsFilters">
+                    <form class="form form_stockMovementsFilters">
                         <div class="row">
                             <div class="col-md-2">
                                 <div class="form-group">
-                                    <select class="form-control" name="filterTypes">
+                                    <select class="form-control" name="types">
                                         <option value="">Все операции</option>
                                         <option value="Invoice" <%- params.filterTypes == 'Invoice' ? 'selected' : '' %>>
                                             Приёмка
@@ -76,6 +76,7 @@
                                 <button type="reset" class="btn btn-default">Сбросить фильтры</button>
                             </div>
                         </div>
+                        <div class="form__errorMessage form__errorMessage_global"></div>
                     </form>
                     <% if (collections.stockMovements.length) { %>
                     <table class="table table-striped table-hover table_stockMovements">
