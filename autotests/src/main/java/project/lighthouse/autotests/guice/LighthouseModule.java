@@ -13,5 +13,6 @@ public class LighthouseModule extends AbstractModule {
         bind(StoreVariableStorage.class).in(Singleton.class);
         bind(InvoiceVariableStorage.class).in(Singleton.class);
         bind(CustomVariableStorage.class).in(Singleton.class);
+        bind(StockMovementVariableStorage.class).in(Singleton.class);
     }
 }

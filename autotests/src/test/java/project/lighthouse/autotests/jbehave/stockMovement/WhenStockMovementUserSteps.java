@@ -98,6 +98,11 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.openLastCreatedInvoiceInStockMovementPage();
     }
 
+    @When("пользователь нажимает на последнее созданное списание с помощью конструктора списаний на странице товародвижения")
+    public void whenTheUserClicksOnTheLastCreatedWriteOffFromBuilderStepsOnTheStockMovementPage() throws JSONException {
+        stockMovementSteps.openLastCreatedWriteOffInStockMovementPage();
+    }
+
     @When("the user clicks on the invoice with number '$number' on the stock movement page")
     @Aliases(values = {
             "пользователь нажимает на накладную с номером '$number' на странице товародвижения",

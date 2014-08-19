@@ -28,12 +28,8 @@ public class WriteOff extends AbstractProductableObject {
         return getPropertyAsString("number");
     }
 
-    public void putProduct(String productId, String quantity, String price, String cause)
+    public void putProduct(String productId, String quantity, String price, String cause) throws JSONException
     {
-        try {
-            putProduct(new WriteOffProduct(productId, quantity, price, cause));
-        } catch (JSONException e) {
-            throw new AssertionError(e);
-        }
+        putProduct(new WriteOffProduct(productId, quantity, price, cause));
     }
 }

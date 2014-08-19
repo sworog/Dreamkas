@@ -223,6 +223,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void openLastCreatedWriteOffInStockMovementPage() throws JSONException {
+        openInvoiceByNumberInStockMovementPage(Storage.getStockMovementVariableStorage().getLastWriteOff().getNumber());
+    }
+
+    @Step
     public void openInvoiceByNumberInStockMovementPage(String number) {
         StockMovementObjectCollection stockMovementObjectCollection = stockMovementPage.getStockMovementObjectCollection();
         if (stockMovementObjectCollection != null) {

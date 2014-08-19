@@ -5,8 +5,8 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
 import project.lighthouse.autotests.api.factories.ApiFactory;
 import project.lighthouse.autotests.objects.api.writeoff.WriteOff;
-import project.lighthouse.autotests.objects.api.writeoff.WriteOffProduct;
 import project.lighthouse.autotests.storage.Storage;
+
 import java.io.IOException;
 
 public class WriteOffBuilderSteps extends ScenarioSteps {
@@ -25,7 +25,6 @@ public class WriteOffBuilderSteps extends ScenarioSteps {
     @Step
     public void addProduct(String productId, String quantity, String price, String cause) {
         try {
-            WriteOffProduct writeOffProduct = new WriteOffProduct(productId, quantity, price, cause);
             writeOff.putProduct(productId, quantity, price, cause);
         } catch (JSONException e) {
             throw new AssertionError(e);
@@ -38,6 +37,7 @@ public class WriteOffBuilderSteps extends ScenarioSteps {
         ApiFactory factory = new ApiFactory(email, password);
         try {
             factory.createObject(writeOff);
+            Storage.getStockMovementVariableStorage().addWriteOff(writeOff);
         } catch (IOException | JSONException e) {
             throw new AssertionError(e);
         }
