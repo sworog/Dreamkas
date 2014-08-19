@@ -2,7 +2,6 @@ define(function(require, exports, module) {
     //requirements
     var Backbone = require('backbone'),
         get = require('kit/get/get'),
-        set = require('kit/set/set'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         makeClass = require('kit/makeClass/makeClass'),
         _ = require('lodash');
@@ -36,7 +35,7 @@ define(function(require, exports, module) {
             var block = this,
                 $newElement = $(block.template(block));
 
-            block.removeBlocks();
+            block.destroyBlocks();
 
             block.setElement($newElement.replaceAll(block.el));
 
@@ -49,28 +48,22 @@ define(function(require, exports, module) {
             return get.apply(null, args);
         },
 
-        set: function() {
-            var args = [this].concat([].slice.call(arguments));
-
-            return set.apply(null, args);
-        },
-
         initBlocks: function() {
             var block = this,
                 $blocks = block.$(_.keys(block.blocks).join(', ')),
-                blocksTagMap;
+                blocksTagMap = {};
 
             _.each(block.blocks, function(blockConstructor, blockName){
                 blocksTagMap[blockName.toUpperCase()] = blockName;
             });
 
             $blocks.each(function(){
-                var el = this,
-                    $el = $(el),
-                    blockName = blocksTagMap[el.tagName],
-                    __block = block.blocks[blockName].call(block, _.clone(el.dataset));
+                var placeholder = this,
+                    $placeholder = $(placeholder),
+                    blockName = blocksTagMap[placeholder.tagName],
+                    __block = block.blocks[blockName].call(block, _.clone(placeholder.dataset));
 
-                $el.replaceWith(__block.el);
+                $placeholder.replaceWith(__block.el);
 
                 block.__blocks[blockName] = block.__blocks[blockName] || [];
 
@@ -78,22 +71,31 @@ define(function(require, exports, module) {
             });
         },
 
+        destroy: function(){
+            var block = this;
+
+            block.destroyBlocks();
+
+            block.stopListening();
+            block.undelegateEvents();
+        },
+
         remove: function() {
             var block = this;
 
-            block.removeBlocks();
+            block.destroyBlocks();
 
             return View.prototype.remove.apply(block, arguments);
         },
 
-        removeBlocks: function() {
+        destroyBlocks: function() {
             var block = this;
 
             _.each(block.__blocks, function(blockList, blockName) {
 
                 _.each(blockList, function(blockToRemove){
-                    if (blockToRemove && typeof blockToRemove.remove === 'function') {
-                        blockToRemove.remove();
+                    if (blockToRemove && typeof blockToRemove.destroy === 'function') {
+                        blockToRemove.destroy();
                     }
                 });
 

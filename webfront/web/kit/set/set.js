@@ -20,8 +20,8 @@ define(function(require) {
             deepExtend(object, pathToObject(path, newData));
         }
 
-        if (typeof object['set:' + (path || '*')] === 'function') {
-            object['set:' + (path || '*')](newData, extra || {});
+        if (typeof object['set_' + (path || '*')] === 'function') {
+            object['set_' + (path || '*')](newData, extra || {});
         }
 
         newData = get(object, path);
