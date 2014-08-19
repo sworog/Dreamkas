@@ -1,6 +1,6 @@
 Meta:
 @sprint_40
-@us_102
+@us_103
 
 Narrative:
 Как владелец,
