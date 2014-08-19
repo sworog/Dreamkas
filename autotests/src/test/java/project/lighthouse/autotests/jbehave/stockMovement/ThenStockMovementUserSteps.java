@@ -165,4 +165,9 @@ public class ThenStockMovementUserSteps {
     public void thenTheUserChecksTheEditWriteOffModalWindowFieldHasErrorMessage(String elementName, String message) {
         stockMovementSteps.writeOffEditModalCheckErrorMessage(elementName, message);
     }
+
+    @Then("пользователь проверяет, что количество продуктов в модальном окне редактирования списания равно '$count'")
+    public void thenUserCheckProductRowsCountOnWriteOffModal(Integer count) {
+        stockMovementSteps.assertWriteOffEditModalWindowsProductRowsCount(count);;
+    }
 }

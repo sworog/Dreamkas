@@ -234,6 +234,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void assertWriteOffEditModalWindowsProductRowsCount(Integer expectedCount) {
+        assertThat(writeOffEditModalWindow.getProductRowsCount(), is(expectedCount));
+    }
+
+    @Step
     public void assertStockMovementPageTitle(String title) {
         assertThat(stockMovementPage.getTitle(), is(title));
     }
