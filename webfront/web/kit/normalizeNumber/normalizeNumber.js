@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 
     return function(string) {
 
-        if (string.length === 0){
+        if (!string){
             return '';
         }
 
