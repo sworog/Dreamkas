@@ -17,7 +17,6 @@ public class InvoiceProductObject extends AbstractObject implements ObjectClicka
     private String quantity;
     private String totalPrice;
 
-
     public InvoiceProductObject(WebElement element) {
         super(element);
     }

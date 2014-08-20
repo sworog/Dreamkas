@@ -2,7 +2,6 @@ define(function(require, exports, module) {
     //requirements
     var Backbone = require('backbone'),
         get = require('kit/get/get'),
-        set = require('kit/set/set'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         makeClass = require('kit/makeClass/makeClass'),
         _ = require('lodash');
@@ -20,28 +19,23 @@ define(function(require, exports, module) {
         },
 
         blocks: {},
+        __blocks: {},
 
         template: function() {
             return '<div></div>';
         },
 
-        el: function() {
-            var block = this;
-
-            return block.template(block);
-        },
-
         initialize: function(){
             var block = this;
 
-            block.initBlocks();
+            block.render();
         },
 
         render: function() {
             var block = this,
                 $newElement = $(block.template(block));
 
-            block.removeBlocks();
+            block.destroyBlocks();
 
             block.setElement($newElement.replaceAll(block.el));
 
@@ -54,41 +48,60 @@ define(function(require, exports, module) {
             return get.apply(null, args);
         },
 
-        set: function() {
-            var args = [this].concat([].slice.call(arguments));
+        initBlocks: function() {
+            var block = this,
+                $blocks = block.$(_.keys(block.blocks).join(', ')),
+                blocksTagMap = {};
 
-            return set.apply(null, args);
+            _.each(block.blocks, function(blockConstructor, blockName){
+                blocksTagMap[blockName.toUpperCase()] = blockName;
+            });
+
+            $blocks.each(function(){
+                var placeholder = this,
+                    $placeholder = $(placeholder),
+                    blockName = blocksTagMap[placeholder.tagName],
+                    __block = block.blocks[blockName].call(block, _.clone(placeholder.dataset));
+
+                $placeholder.replaceWith(__block.el);
+
+                block.__blocks[blockName] = block.__blocks[blockName] || [];
+
+                block.__blocks[blockName].push(__block);
+            });
         },
 
-        initBlocks: function() {
+        destroy: function(){
             var block = this;
 
-            block.__blocks = block.__blocks || block.blocks;
+            block.destroyBlocks();
 
-            block.blocks = _.transform(block.__blocks, function(result, blockInitializer, key) {
-                result[key] = block.get('__blocks.' + key);
-            });
+            block.stopListening();
+            block.undelegateEvents();
         },
 
         remove: function() {
             var block = this;
 
-            block.removeBlocks();
+            block.destroyBlocks();
 
             return View.prototype.remove.apply(block, arguments);
         },
 
-        removeBlocks: function() {
+        destroyBlocks: function() {
             var block = this;
 
-            _.forEach(block.blocks, function(blockToRemove, blockName) {
+            _.each(block.__blocks, function(blockList, blockName) {
 
-                if (blockToRemove && typeof blockToRemove.remove === 'function') {
-                    blockToRemove.remove();
-                    delete block.blocks[blockName];
-                }
+                _.each(blockList, function(blockToRemove){
+                    if (blockToRemove && typeof blockToRemove.destroy === 'function') {
+                        blockToRemove.destroy();
+                    }
+                });
 
             });
+
+            block.__blocks = {};
         }
     });
 });

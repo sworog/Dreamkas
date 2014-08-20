@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/page/page'),
+    var Page = require('kit/page/page.deprecated'),
         router = require('router');
 
     return Page.extend({

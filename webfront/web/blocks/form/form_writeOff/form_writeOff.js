@@ -4,12 +4,7 @@ define(function(require, exports, module) {
 
     return From.extend({
         el: '.form_writeOff',
-        model: function(){
-            var block = this,
-                WriteOffModel = require('models/writeOff/writeOff');
-
-            return new WriteOffModel();
-        },
+        model: require('models/writeOff/writeOff'),
         blocks: {
             form_writeOffProducts: function(){
                 var block = this,

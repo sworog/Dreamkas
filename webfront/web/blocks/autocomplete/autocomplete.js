@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block/block'),
+    var Block = require('kit/block/block.deprecated'),
         config = require('config'),
         cookies = require('cookies');
 

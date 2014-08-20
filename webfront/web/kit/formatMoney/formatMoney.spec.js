@@ -5,7 +5,7 @@ define(function(require, exports, module) {
 
     numeral.language('root', require('nls/root/numeral'));
 
-    describe('utils/formatMoney', function() {
+    describe(module.id, function() {
         describe('root locale format', function(){
 
             numeral.language('root');

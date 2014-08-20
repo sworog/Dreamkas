@@ -10,12 +10,12 @@
 } %>
 
 <% collections.writeOffProducts.forEach(function(writeOffProductModel) { %>
-<tr>
-    <td><%- writeOffProductModel.get('product.name') %></td>
-    <td><%- helpers.formatMoney(writeOffProductModel.get('price')) %></td>
-    <td><%- helpers.formatAmount(writeOffProductModel.get('quantity')) %> <%- writeOffProductModel.get('product.object.units') || 'шт.' %></td>
-    <td><%- helpers.formatMoney(writeOffProductModel.get('totalPrice')) %></td>
-    <td><%- writeOffProductModel.get('cause') %></td>
+<tr name="writeOffProduct">
+    <td name="name"><%- writeOffProductModel.get('product.name') %></td>
+    <td name="price"><%- helpers.formatMoney(writeOffProductModel.get('price')) %></td>
+    <td name="quantity"><%- helpers.formatAmount(writeOffProductModel.get('quantity')) %> <%- writeOffProductModel.get('product.object.units') || 'шт.' %></td>
+    <td name="totalPrice"><%- helpers.formatMoney(writeOffProductModel.get('totalPrice')) %></td>
+    <td name="cause"><%- writeOffProductModel.get('cause') %></td>
     <td>
         <a style="font-size: 17px; position: relative; left: 4px; top: -2px;"
            data-model-cid="<%- writeOffProductModel.cid %>"

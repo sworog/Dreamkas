@@ -3,6 +3,7 @@ package project.lighthouse.autotests.api;
 import org.json.JSONException;
 import org.json.JSONObject;
 import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.api.http.HttpExecutor;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.OauthAuthorizeData;
 

@@ -1,12 +1,15 @@
 define(function(require, exports, module) {
     //requirements
-    var Block = require('kit/block/block'),
+    var Block = require('kit/block/block.deprecated'),
         ProductModel = require('models/product/product');
 
     return Block.extend({
         el: '.modal_writeOff',
         collections: {
             stockMovements: null
+        },
+        models: {
+            writeOff: null
         },
         events: {
             'click .writeOff__removeLink': function(e){
@@ -22,10 +25,12 @@ define(function(require, exports, module) {
         blocks: {
             form_writeOff: function() {
                 var block = this,
+                    WriteOffModel = require('models/writeOff/writeOff'),
                     Form_writeOff = require('blocks/form/form_writeOff/form_writeOff'),
                     form_writeOff = new Form_writeOff({
                         el: block.$('.form_writeOff'),
-                        collection: block.collections.stockMovements
+                        collection: block.collections.stockMovements,
+                        model: block.models.writeOff || new WriteOffModel()
                     });
 
                 form_writeOff.on('submit:success', function(){

@@ -2,6 +2,7 @@ package project.lighthouse.autotests.jbehave.stockMovement;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Alias;
+import org.jbehave.core.annotations.Aliases;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
@@ -18,10 +19,20 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.acceptProductsButtonClick();
     }
 
+    @When("пользователь нажимает на кнопку Списать на странице товародвижения")
+    public void whenTheUserClicksOnTheCreateWriteOffButton() {
+        stockMovementSteps.writeOffCreateButtonClick();
+    }
+
     @When("the user inputs values on the create new invoice modal window $examplesTable")
     @Alias("пользователь вводит данные в модальном окне создания накладной $examplesTable")
     public void whenTheUserInputsOnTheCreateNewInvoiceModalWindow(ExamplesTable examplesTable) {
         stockMovementSteps.invoiceCreateModalWindowInput(examplesTable);
+    }
+
+    @When("пользователь вводит данные в модальном окне создания списания $examplesTable")
+    public void whenTheUserInputsOnTheCreateNewWriteOffModalWindow(ExamplesTable examplesTable) {
+        stockMovementSteps.writeOffCreateModalWindowInput(examplesTable);
     }
 
     @When("пользователь вводит value в поле с именем '$elementName' в модальном окне создания накладной")
@@ -29,10 +40,20 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.invoiceCreateModalWindowInput(elementName, value);
     }
 
+    @When("пользователь вводит value в поле с именем '$elementName' в модальном окне создания списания")
+    public void whenTheUserInputsOnTheCreateNewWriteOffModalWindow(String elementName, String value) {
+        stockMovementSteps.writeOffCreateModalWindowInput(elementName, value);
+    }
+
     @When("the user inputs values on the edit invoice modal window $examplesTable")
     @Alias("пользователь вводит данные в модальном окне редактирования накладной $examplesTable")
     public void whenTheUserInputsOnTheEditInvoiceModalWindow(ExamplesTable examplesTable) {
         stockMovementSteps.invoiceEditModalWindowWindowInput(examplesTable);
+    }
+
+    @When("пользователь вводит данные в модальном окне редактирования списания $examplesTable")
+    public void whenTheUserInputsOnTheEditWriteOffModalWindow(ExamplesTable examplesTable) {
+        stockMovementSteps.writeOffEditModalWindowWindowInput(examplesTable);
     }
 
     @When("the user clicks on the paid check box")
@@ -53,10 +74,25 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.addProductToInvoiceButtonClick();
     }
 
+    @When("пользователь нажимает на кнопку добавления нового товара в списание")
+    public void whenTheUserClicksOnTheAddNewWriteOffProductButton() {
+        stockMovementSteps.addProductToWriteOffOffButtonClick();
+    }
+
     @When("the user clicks on the add new invoice product button in the edit invoice modal window")
     @Alias("пользователь нажимает на кнопку добавления нового товара в накладную в модальном окне редактирования накладной")
     public void whenTheUserClicksOnTheAddNewInvoiceProductButtonInTheEditModalWIndow() {
         stockMovementSteps.invoiceEditModalWindowAddProductToInvoiceButtonClick();
+    }
+
+    @When("пользователь нажимает на кнопку добавления нового товара в списание в модальном окне редактирования списания")
+    public void whenTheUserClicksOnTheAddNewWriteOffProductButtonInTheEditModalWIndow() {
+        stockMovementSteps.writeOffEditModalWindowAddProductToWriteOffButtonClick();
+    }
+
+    @When("пользователь нажимает на кнопку Списать, чтобы списать накладную с товарами")
+    public void whenTheUserClicksOnTheWriteOffAcceptButton() {
+        stockMovementSteps.acceptWriteOffButtonClick();
     }
 
     @When("the user clicks on the invoice accept button")
@@ -71,14 +107,27 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.saveInvoiceButtonClick();
     }
 
+    @When("пользователь нажимает на кнопку сохранения списания в модальном окне редактирования списания")
+    public void whenTheUserClicksOnTheWriteOffSaveButton() {
+        stockMovementSteps.saveWriteOffButtonClick();
+    }
+
     @When("the user clicks on the last created invoice from builder steps on the stock movement page")
     @Alias("пользователь нажимает на последнюю созданнаю накладную с помощью конструктора накладных на странице товародвижения")
     public void whenTheUserClicksOnTheLastCreatedInvoiceFromBuilderStepsOnTheStockMovementPage() throws JSONException {
         stockMovementSteps.openLastCreatedInvoiceInStockMovementPage();
     }
 
+    @When("пользователь нажимает на последнее созданное списание с помощью конструктора списаний на странице товародвижения")
+    public void whenTheUserClicksOnTheLastCreatedWriteOffFromBuilderStepsOnTheStockMovementPage() throws JSONException {
+        stockMovementSteps.openLastCreatedWriteOffInStockMovementPage();
+    }
+
     @When("the user clicks on the invoice with number '$number' on the stock movement page")
-    @Alias("пользователь нажимает на накладную с номером '$number' на странице товародвижения")
+    @Aliases(values = {
+            "пользователь нажимает на накладную с номером '$number' на странице товародвижения",
+            "пользователь нажимает на списание с номером '$number' на странице товародвижения"
+    })
     public void whenTheUserClicksOnTheInvoiceWithName(String number) throws JSONException {
         stockMovementSteps.openInvoiceByNumberInStockMovementPage(number);
     }
@@ -89,16 +138,31 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.deleteInvoiceLinkClick();
     }
 
+    @When("пользователь нажимает на кнопку удаления списания в модальном окне редактирования списания")
+    public void whenTheUserClicksOnDeleteInvoiceButtonInEditWriteOffModalWindow() {
+        stockMovementSteps.deleteWriteOffLinkClick();
+    }
+
     @When("the user clicks on delete invoice confirm button in edit invoice modal window")
     @Alias("пользователь подтверждает удаление накладной в модальном окне редактирования накладной")
     public void whenTheUserClicksOnDeleteInvoiceConfirmButtonInEditInvoiceModalWindow() {
         stockMovementSteps.confirmDeleteInvoiceLinkClick();
     }
 
+    @When("пользователь подтверждает удаление списания в модальном окне редактирования списания")
+    public void whenTheUserClicksOnDeleteWriteOffConfirmButtonInEditInvoiceModalWindow() {
+        stockMovementSteps.confirmDeleteWriteOffLinkClick();
+    }
+
     @When("the user deletes the product with name '$name' in the edit invoice modal window")
     @Alias("пользователь удаляет товар с названием '$name' в модальном окне редактирования накладной")
     public void whenTheUserDeletesTheProductWithNameInTheEditInvoiceModalWindow(String name) {
         stockMovementSteps.invoiceProductWithNameDeleteIconClick(name);
+    }
+
+    @When("пользователь удаляет товар с названием '$name' в модальном окне редактирования списания")
+    public void whenTheUserDeletesTheProductWithNameInTheEditWriteOffModalWindow(String name) {
+        stockMovementSteps.writeOffProductWithNameDeleteIconClick(name);
     }
 
     @When("пользователь нажимает на плюсик рядом с полем выбора поставщика, чтобы создать нового поставщика")
@@ -159,5 +223,15 @@ public class WhenStockMovementUserSteps {
     @When("пользователь генерирует текст с кол-во символов '$count' в поле с именем '$name' в модальном окне создания товара в накладной")
     public void whenTheUserGeneratesSymbolsWithCountInCreateNewProductModalWindowField(int count, String elementName) {
         stockMovementSteps.createNewProductModalWindowFieldGenerateText(elementName, count);
+    }
+
+    @When("пользователь нажимает на кнопку Применить фильтры на странице товародвижения")
+    public void whenTheUserClicksOnAcceptFiltersButton() {
+        stockMovementSteps.acceptFiltersButtonClick();
+    }
+
+    @When("пользователь нажимает на кнопку Сбросить фильтры на странице товародвижения")
+    public void whenTheUserClicksOnResetFiltersButton() {
+        stockMovementSteps.resetFiltersButtonClick();
     }
 }

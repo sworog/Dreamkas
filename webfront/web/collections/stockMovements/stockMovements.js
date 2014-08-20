@@ -6,20 +6,15 @@ define(function(require) {
         WriteOffModel = require('models/writeOff/writeOff');
 
     return Collection.extend({
-        filterTypes: '',
-        dateFrom: '',
-        dateTo: '',
+        filters: {
+            types: null,
+            dateFrom: null,
+            dateTo: null
+        },
         url: function() {
-            var collection = this,
-                query = _.pick({
-                    types: collection.filterTypes,
-                    dateFrom: collection.dateFrom,
-                    dateTo: collection.dateTo
-                }, function (value, key) {
-                    return value && value.length;
-                });
+            var collection = this;
 
-            return uri(Collection.baseApiUrl + '/stockMovements').query(query);
+            return uri(Collection.baseApiUrl + '/stockMovements').query(collection.filters);
         },
         parse: function(data) {
             var collection = this;

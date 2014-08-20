@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.api.factories;
 
 import org.json.JSONException;
-import project.lighthouse.autotests.api.abstractFactory.AbstractApiFactory;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.product.ExtraBarcode;
@@ -13,7 +12,7 @@ import java.util.List;
 /**
  * Factory to create product extra barcodes
  */
-public class ExtraBarcodeFactory extends AbstractApiFactory {
+public class ExtraBarcodeFactory extends ApiFactory {
 
     public ExtraBarcodeFactory(String userName, String password) {
         super(userName, password);

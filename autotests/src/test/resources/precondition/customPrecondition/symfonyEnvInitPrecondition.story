@@ -25,6 +25,15 @@ Meta:
 @id_s39u102s19
 @id_s39u102s20
 @sprint_40
+@us_103
+@id_s40u103s1
+@id_s40u103s2
+@id_s40u103typeFilters1
+@id_s40u103typeFilters2
+@id_s40u103typeFilters3
+@id_s40u103filterDates1
+@id_s40u103filterDates2
+@id_s40u103filterDates3
 
 Scenario: Сценарий для очистки всех данных
 

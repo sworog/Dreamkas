@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.api.factories;
 
 import org.json.JSONException;
-import project.lighthouse.autotests.api.abstractFactory.AbstractApiFactory;
 import project.lighthouse.autotests.objects.api.order.Order;
 import project.lighthouse.autotests.objects.api.order.OrderProduct;
 
@@ -10,7 +9,7 @@ import java.io.IOException;
 /**
  * Factory to create orders
  */
-public class OrdersFactory extends AbstractApiFactory {
+public class OrdersFactory extends ApiFactory {
 
     public OrdersFactory(String userName, String password) {
         super(userName, password);

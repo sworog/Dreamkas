@@ -58,8 +58,12 @@ public class CommonUserSteps {
     }
 
     @Then("the user user sees <errorMessage>")
-    @Aliases(values = {"the user user sees errorMessage",
-            "the user sees '$errorMessage'"})
+    @Aliases(values = {
+            "the user user sees errorMessage",
+            "the user sees '$errorMessage'",
+            "пользователь видит сообщение об ошибке '$errorMessage'",
+            "пользователь видит сообщение об ошибке c текстом errorMessage"
+    })
     public void thenTheUserSeesErrorMessage(String errorMessage) {
         commonSteps.checkErrorMessage(errorMessage);
     }

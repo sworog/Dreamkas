@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block/block'),
+    var Block = require('kit/block/block.deprecated'),
         deepExtend = require('kit/deepExtend/deepExtend');
 
     return Block.extend({

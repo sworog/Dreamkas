@@ -9,7 +9,7 @@ define(function(require, exports, module) {
     require('datepicker');
     require('i18n!nls/datepicker');
 
-    var Page = Block.extend({
+    return Block.extend({
 
         el: '.page',
         template: require('ejs!./template.ejs'),
@@ -37,9 +37,6 @@ define(function(require, exports, module) {
                 result[key] = page.get('models.' + key);
             });
 
-            Page.previous = Page.current;
-            window.PAGE = Page.current = page;
-
             $.when(page.fetch()).then(function() {
                 page.render();
                 page.setStatus('loaded');
@@ -50,9 +47,11 @@ define(function(require, exports, module) {
             var page = this,
                 autofocus;
 
-            if (Page.previous){
-                Page.previous.remove();
+            if (PAGE && PAGE !== page){
+                PAGE.destroy();
             }
+
+            window.PAGE = page;
 
             Block.prototype.render.apply(page, arguments);
 
@@ -80,14 +79,12 @@ define(function(require, exports, module) {
             return $.when.apply($, fetchList);
         },
 
-        remove: function(){
+        destroy: function(){
             var page = this;
 
             $('.inputDate, .input-daterange').datepicker('remove');
 
-            page.removeBlocks();
-            page.stopListening();
-            page.undelegateEvents();
+            Block.prototype.destroy.apply(page, arguments);
 
         },
 
@@ -96,7 +93,7 @@ define(function(require, exports, module) {
 
             page.trigger('status:' + status);
 
-            if (status === 'loading' && Page.current){
+            if (status === 'loading' && PAGE){
                 document.body.removeAttribute('status');
             }
 
@@ -105,8 +102,24 @@ define(function(require, exports, module) {
             }, 0);
         },
 
+        setParams: function(params){
+            var page = this;
+
+            deepExtend(page.params, params);
+
+            router.save(_.transform(page.params, function(result, value, key){
+                try {
+                    result[key] = JSON.stringify(value);
+                } catch(e) {
+                    result[key] = value;
+                }
+            }));
+        },
+
         initBlocks: function(){
             var page = this;
+
+            Block.prototype.initBlocks.apply(page, arguments);
 
             page.$('button[data-toggle="popover"]').popover({
                 trigger: 'focus'
@@ -114,7 +127,7 @@ define(function(require, exports, module) {
 
             Sortable.init();
 
-            $('.inputDate, .input-daterange').each(function(){
+            page.$('.inputDate, .input-daterange').each(function(){
                 $(this).datepicker({
                     language: 'ru',
                     format: 'dd.mm.yyyy',
@@ -123,10 +136,6 @@ define(function(require, exports, module) {
                     todayBtn: "linked"
                 });
             });
-
-            Block.prototype.initBlocks.apply(page, arguments);
         }
     });
-
-    return Page;
 });

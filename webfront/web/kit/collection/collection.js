@@ -2,10 +2,9 @@ define(function(require, exports, module) {
     //requirements
     var config = require('config'),
         makeClass = require('kit/makeClass/makeClass'),
+        deepExtend = require('kit/deepExtend/deepExtend'),
         Backbone = require('backbone'),
         _ = require('lodash');
-
-    require('backbone');
 
     var Collection = makeClass(Backbone.Collection, {
         initialize: function(data, options){
