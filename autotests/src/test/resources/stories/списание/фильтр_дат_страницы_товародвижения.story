@@ -7,87 +7,78 @@ Narrative:
 Я хочу создавать, редактировать и удалять поступления товаров от поставщика в магазинах,
 Чтобы остатки себестоимости товаров в учетной системе соответствовали действительности
 
-Scenario: Накладная по дате выходит из фильтра дат
+Scenario: Операции по дате выходит из фильтра дат на странице товародвижения
 
 Meta:
-@id_s39u102s18
+@smoke
+@id_s40u103filterDates1
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
-              precondition/sprint-39/us-102/aPreconditionToUserCreation.story,
-              precondition/sprint-39/us-102/aPreconditionToTestDataCreation.story,
-              precondition/sprint-39/us-102/aPreconditionToTestInvoiceCreation.story
+              precondition/writeOff/aPreconditionToUserCreation.story,
+              precondition/writeOff/aPreconditionToTestDataCreation.story,
+              precondition/writeOff/aPreconditionForWriteOffEditionScenario.story,
+              precondition/writeOff/aPreconditionToTestWriteOffCreation.story,
+              precondition/writeOff/aPreconditionToTestInvoiceCreation.story
 
 Given пользователь открывает страницу товародвижения
-And пользователь авторизуется в системе используя адрес электронной почты 's39u102@lighthouse.pro' и пароль 'lighthouse'
-
-When пользователь вводит данные в поля на странице товародвижения
-| elementName | value |
-| dateFrom | 26.07.2014 |
-
-Then пользователь ждет пока загрузится простой прелоадер
+And пользователь авторизуется в системе используя адрес электронной почты 's40u103@lighthouse.pro' и пароль 'lighthouse'
 
 When пользователь вводит данные в поля на странице товародвижения
 | elementName | value |
 | dateTo | 27.07.2014 |
-
-Then пользователь ждет пока загрузится простой прелоадер
+| dateFrom | 01.07.2014 |
+And пользователь нажимает на кнопку Применить фильтры на странице товародвижения
 
 Then пользователь проверяет, что на странице присутствует текст 'Не найдено ни одной операции с товарами.'
 
-Scenario: Накладная по дате входит из фильтра дат
+Scenario: Операции по дате входит из фильтра дат на странице товародвижения
 
 Meta:
-@id_s39u102s19
+@smoke
+@id_s40u103filterDates2
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
-              precondition/sprint-39/us-102/aPreconditionToUserCreation.story,
-              precondition/sprint-39/us-102/aPreconditionToTestDataCreation.story,
-              precondition/sprint-39/us-102/aPreconditionToTestInvoiceCreation.story
+              precondition/writeOff/aPreconditionToUserCreation.story,
+              precondition/writeOff/aPreconditionToTestDataCreation.story,
+              precondition/writeOff/aPreconditionForWriteOffEditionScenario.story,
+              precondition/writeOff/aPreconditionToTestWriteOffCreation.story,
+              precondition/writeOff/aPreconditionToTestInvoiceCreation.story
 
 Given пользователь открывает страницу товародвижения
-And пользователь авторизуется в системе используя адрес электронной почты 's39u102@lighthouse.pro' и пароль 'lighthouse'
+And пользователь авторизуется в системе используя адрес электронной почты 's40u103@lighthouse.pro' и пароль 'lighthouse'
 
 When пользователь вводит данные в поля на странице товародвижения
 | elementName | value |
-| dateTo | 29.07.2014 |
-
-Then пользователь ждет пока загрузится простой прелоадер
-
-When пользователь вводит данные в поля на странице товародвижения
-| elementName | value |
-| dateFrom | 27.07.2014 |
-
-Then пользователь ждет пока загрузится простой прелоадер
+| dateTo | 20.08.2014 |
+| dateFrom | 29.07.2014 |
+And пользователь нажимает на кнопку Применить фильтры на странице товародвижения
 
 Then пользователь проверяет конкретные операции на странице товародвижения
 | date | type | status | store | sumTotal |
-| 28.07.2014 | Приёмка | / не оплачена | В s39u102-store | 750,50 |
+| 19.08.2014  | Списание | | Из s40u103-store | 23,98 |
 
-Scenario: Поля Фильтра дат равны дате накладной
+Scenario: Поля Фильтра дат равны дате операции на странице товародвижения
 
 Meta:
-@id_s39u102s20
+@smoke
+@id_s40u103filterDates3
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
-              precondition/sprint-39/us-102/aPreconditionToUserCreation.story,
-              precondition/sprint-39/us-102/aPreconditionToTestDataCreation.story,
-              precondition/sprint-39/us-102/aPreconditionToTestInvoiceCreation.story
+              precondition/writeOff/aPreconditionToUserCreation.story,
+              precondition/writeOff/aPreconditionToTestDataCreation.story,
+              precondition/writeOff/aPreconditionForWriteOffEditionScenario.story,
+              precondition/writeOff/aPreconditionToTestWriteOffCreation.story,
+              precondition/writeOff/aPreconditionToTestInvoiceCreation.story
 
 Given пользователь открывает страницу товародвижения
-And пользователь авторизуется в системе используя адрес электронной почты 's39u102@lighthouse.pro' и пароль 'lighthouse'
+And пользователь авторизуется в системе используя адрес электронной почты 's40u103@lighthouse.pro' и пароль 'lighthouse'
 
 When пользователь вводит данные в поля на странице товародвижения
 | elementName | value |
-| dateTo | 28.07.2014 |
-
-Then пользователь ждет пока загрузится простой прелоадер
-
-When пользователь вводит данные в поля на странице товародвижения
-| elementName | value |
-| dateFrom | 28.07.2014 |
-
-Then пользователь ждет пока загрузится простой прелоадер
+| dateTo | 19.08.2014 |
+| dateFrom | 19.08.2014 |
+And пользователь нажимает на кнопку Применить фильтры на странице товародвижения
 
 Then пользователь проверяет конкретные операции на странице товародвижения
 | date | type | status | store | sumTotal |
-| 28.07.2014 | Приёмка | / не оплачена | В s39u102-store | 750,50 |
+| 19.08.2014  | Списание | | Из s40u103-store | 23,98 |

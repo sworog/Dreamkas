@@ -12,6 +12,9 @@ Meta:
 @id_s40u103typeFilters1
 @id_s40u103typeFilters2
 @id_s40u103typeFilters3
+@id_s40u103filterDates1
+@id_s40u103filterDates2
+@id_s40u103filterDates3
 
 Scenario: Сценарий для подготовки тестовых данных
 
