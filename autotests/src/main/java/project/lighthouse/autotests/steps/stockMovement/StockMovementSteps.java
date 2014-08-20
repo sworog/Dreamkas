@@ -447,6 +447,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void writeOffCreateModalCheckErrorMessage(String elementName, String errorMessage) {
+        writeOffCreateModalWindow.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+    }
+
+    @Step
     public void writeOffEditModalCheckErrorMessage(String elementName, String errorMessage) {
         writeOffEditModalWindow.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
     }
