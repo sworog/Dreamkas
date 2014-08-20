@@ -13,7 +13,7 @@ public class GeneralSteps extends ScenarioSteps {
 
     private GeneralPageObject currentPageObject;
 
-    private Map<String,Class> pageObjectClasses = new HashMap<String,Class>(){{
+    private Map<String, Class> pageObjectClasses = new HashMap<String, Class>() {{
         put("stockMovementPage", StockMovementPage.class);
     }};
 
@@ -35,7 +35,6 @@ public class GeneralSteps extends ScenarioSteps {
     @Step
     public void checkValue(String element, String value) {
         currentPageObject.checkValue(element, value);
-        ;
     }
 
     @Step
