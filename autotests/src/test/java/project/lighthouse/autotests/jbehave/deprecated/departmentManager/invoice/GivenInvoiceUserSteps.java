@@ -8,7 +8,6 @@ import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.steps.deprecated.api.administrator.UserApiSteps;
 import project.lighthouse.autotests.steps.deprecated.api.commercialManager.CatalogApiSteps;
 import project.lighthouse.autotests.steps.deprecated.api.commercialManager.StoreApiSteps;
-import project.lighthouse.autotests.steps.deprecated.api.departmentManager.InvoiceApiSteps;
 import project.lighthouse.autotests.steps.deprecated.departmentManager.invoice.InvoiceSteps;
 
 import java.io.IOException;
@@ -41,8 +40,8 @@ public class GivenInvoiceUserSteps {
 
     @Given("before steps")
     public void beforeSteps() throws IOException, JSONException {
-        userApiSteps.getUser(InvoiceApiSteps.DEFAULT_USER_NAME);
-        catalogApiSteps.promoteDepartmentManager(storeApiSteps.createStoreThroughPost(), InvoiceApiSteps.DEFAULT_USER_NAME);
+//        userApiSteps.getUser(InvoiceApiSteps.DEFAULT_USER_NAME);
+//        catalogApiSteps.promoteDepartmentManager(storeApiSteps.createStoreThroughPost(), InvoiceApiSteps.DEFAULT_USER_NAME);
     }
 
     @Given("the user is on the invoice list page")
