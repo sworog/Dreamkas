@@ -42,7 +42,7 @@ public class SupplierSteps extends ScenarioSteps {
 
     @Step
     public void input(ExamplesTable examplesTable) {
-        supplierPage.inputTable(examplesTable);
+        supplierPage.input(examplesTable);
     }
 
     @Step

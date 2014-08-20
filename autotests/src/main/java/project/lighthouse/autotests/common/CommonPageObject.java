@@ -42,10 +42,7 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
     }
 
     /**
-     * put items to CommonItemMap {@link #items}
-     *
-     * @param elementName
-     * @param commonItem
+     * Put items to CommonItemMap {@link #items}
      */
     public void put(String elementName, CommonItem commonItem) {
         items.put(elementName, commonItem);
@@ -67,6 +64,10 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
 
     public WebElement findVisibleElement(WebElement element) {
         return getWaiter().getVisibleWebElement(element);
+    }
+
+    public WebElement findOnlyVisibleWebElementFromTheWebElementsList(By findBy) {
+        return getWaiter().getOnlyVisibleElementFromTheList(findBy);
     }
 
     public void input(String elementName, String value) {
@@ -93,25 +94,12 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
         return items.get(itemName).getVisibleWebElement().getAttribute(attribute);
     }
 
-    public void inputTable(ExamplesTable inputTable) {
-        commonActions.inputTable(inputTable);
-    }
-
     public void checkFieldLength(String elementName, int fieldLength) {
         items.get(elementName).getFieldChecker().assertFieldLength(elementName, fieldLength);
     }
 
     public void checkFieldLabel(String elementName) {
         items.get(elementName).getFieldChecker().assertLabelTitle();
-    }
-
-    public WebElement findOnlyVisibleWebElementFromTheWebElementsList(By findBy) {
-        return getWaiter().getOnlyVisibleElementFromTheList(findBy);
-    }
-
-    public WebElement findModelFieldContaining(String modelName, String fieldName, String expectedValue) {
-        By by = By.xpath(String.format("//span[@model='%s' and @model-attribute='%s' and contains(text(), '%s')]", modelName, fieldName, expectedValue));
-        return findVisibleElement(by);
     }
 
     public void checkValue(String elementName, String value) {
@@ -152,9 +140,5 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
             String message = String.format("Element with name '%s' is visible, but shouldnt not be visible", elementName);
             Assert.fail(message);
         }
-    }
-
-    public void clickByContainsTextLink(String linkText) {
-        click(By.xpath("//a[contains(text(), \"" + linkText + "\")]"));
     }
 }

@@ -6,12 +6,9 @@ import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.helper.UrlHelper;
-import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.pages.deprecated.commercialManager.store.StoreCardPage;
 import project.lighthouse.autotests.pages.deprecated.commercialManager.store.StoreCreatePage;
 import project.lighthouse.autotests.pages.deprecated.commercialManager.store.StoreListPage;
-
-import java.util.Map;
 
 public class StoreSteps extends ScenarioSteps {
 
@@ -46,31 +43,12 @@ public class StoreSteps extends ScenarioSteps {
 
     @Step
     public void fillStoreFormData(ExamplesTable formData) {
-        storeCreatePage.inputTable(formData);
-    }
-
-    @Step
-    public void checkStoreDataInList(ExamplesTable storeData) {
-        for (Map<String, String> column : storeData.getRows()) {
-            storeListPage.findModelFieldContaining(Store.NAME, column.get("elementName"), column.get("value"));
-        }
+        storeCreatePage.input(formData);
     }
 
     @Step
     public void clickOnStoreRowInList(String storeNumber) {
         storeListPage.findStoreRowInList(storeNumber).click();
-    }
-
-    @Step
-    public void checkStoreCardData(ExamplesTable storeData) {
-        for (Map<String, String> row : storeData.getRows()) {
-            String columnName = row.get("elementName");
-            String columnValue = row.get("value");
-            if (columnName.equals("number")) {
-                storeCardPage.checkStoreCardHeader(columnValue);
-            }
-            storeCardPage.checkStoreCardValue(columnName, columnValue);
-        }
     }
 
     @Step
