@@ -13,8 +13,8 @@ define(function(require) {
         saveData: function() {
             return {
                 product: this.get('product.id'),
-                price: normalizeNumber(this.get('price')),
-                quantity: normalizeNumber(this.get('quantity')),
+                price: this.get('price') ? normalizeNumber(this.get('price')) : '',
+                quantity: this.get('quantity') ? normalizeNumber(this.get('quantity')) : '',
                 cause: this.get('cause')
             };
         }
