@@ -144,6 +144,14 @@
                                         class="addWriteOffProduct btn btn-default fa fa-check btn-lg"></button>
                             </td>
                         </tr>
+                        <tr>
+                            <td colspan="3">
+                                Итого
+                            </td>
+                            <td class="writeOff__totalSum" colspan="2">
+                                <%- helpers.formatMoney(models.writeOff.get('sumTotal'))  %>
+                            </td>
+                        </tr>
                     </tfoot>
                 </table>
                 <div class="form__errorMessage form__errorMessage_global"></div>

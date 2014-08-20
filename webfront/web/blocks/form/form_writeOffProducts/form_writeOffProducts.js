@@ -42,6 +42,7 @@ define(function(require, exports, module) {
 
             block.collection.on('add remove', function(){
                 block.renderWriteOffProducts();
+                block.renderWriteIffTotalSum();
             });
         },
 
@@ -157,6 +158,16 @@ define(function(require, exports, module) {
                     writeOffProducts: block.collection
                 }
             }));
+        },
+        renderWriteIffTotalSum: function(){
+            var block = this,
+                totalSum = 0;
+
+            block.collection.forEach(function(productModel){
+                totalSum += productModel.get('totalPrice');
+            });
+
+            block.$('.writeOff__totalSum').html(formatMoney(totalSum));
         }
     });
 });
