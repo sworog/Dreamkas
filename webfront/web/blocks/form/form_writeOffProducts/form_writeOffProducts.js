@@ -8,23 +8,23 @@ define(function(require, exports, module) {
         el: '.form_writeOffProducts',
 
         events: {
-            'keyup [name="quantity"]': function(e){
+            'keyup input[name="quantity"]': function(e){
                 var block = this;
 
                 block.renderTotalSum();
             },
-            'keyup [name="price"]': function(e){
+            'keyup input[name="price"]': function(e){
                 var block = this;
 
                 block.renderTotalSum();
             },
-            'keyup [name="product.name"]': function(e){
+            'keyup input[name="product.name"]': function(e){
                 var block = this;
 
                 if (e.currentTarget.value.length){
-                    block.el.querySelector('[name="product.id"]').value = 'xxx';
+                    block.el.querySelector('input[name="product.id"]').value = 'xxx';
                 } else {
-                    block.el.querySelector('[name="product.id"]').value = null;
+                    block.el.querySelector('input[name="product.id"]').value = null;
                 }
             },
             'click .delWriteOffProduct': function(e){
@@ -65,7 +65,7 @@ define(function(require, exports, module) {
             block.collection.push(writeOff.products[0]);
 
             block.clear();
-            block.el.querySelector('[name="product.name"]').focus();
+            block.el.querySelector('input[name="product.name"]').focus();
         },
 
         showErrors: function(error){
@@ -90,7 +90,7 @@ define(function(require, exports, module) {
                     fieldName = 'product.name';
                 }
 
-                block.el.querySelector('[name="' + fieldName + '"]').classList.add('invalid');
+                block.el.querySelector('input[name="' + fieldName + '"]').classList.add('invalid');
             });
         },
 
@@ -98,7 +98,7 @@ define(function(require, exports, module) {
             var block = this;
 
             block.$('input').val('');
-            block.$('[name="product.name"]').typeahead('val', '');
+            block.$('input[name="product.name"]').typeahead('val', '');
             block.renderTotalSum();
         },
 
@@ -118,8 +118,8 @@ define(function(require, exports, module) {
 
         getTotalPrice: function(){
             var block = this,
-                quantity = normalizeNumber(block.el.querySelector('[name="quantity"]').value),
-                purchasePrice = normalizeNumber(block.el.querySelector('[name="price"]').value),
+                quantity = normalizeNumber(block.el.querySelector('input[name="quantity"]').value),
+                purchasePrice = normalizeNumber(block.el.querySelector('input[name="price"]').value),
                 totalPrice = quantity * purchasePrice;
 
             return typeof totalPrice === 'number' ? totalPrice : null;
@@ -128,15 +128,15 @@ define(function(require, exports, module) {
         renderSelectedProduct: function(product){
             var block = this;
 
-            block.el.querySelector('[name="price"]').focus();
-            block.el.querySelector('[name="product.id"]').value = product.id;
-            block.el.querySelector('[name="product.name"]').value = product.name;
+            block.el.querySelector('input[name="price"]').focus();
+            block.el.querySelector('input[name="product.id"]').value = product.id;
+            block.el.querySelector('input[name="product.name"]').value = product.name;
 
             if (product.purchasePrice){
-                block.el.querySelector('[name="price"]').value = formatMoney(product.purchasePrice);
+                block.el.querySelector('input[name="price"]').value = formatMoney(product.purchasePrice);
             }
 
-            block.el.querySelector('[name="quantity"]').value = '1';
+            block.el.querySelector('input[name="quantity"]').value = '1';
             block.$('.writeOffProductForm .product__units').html(product.units || 'шт.');
 
             block.renderTotalSum();

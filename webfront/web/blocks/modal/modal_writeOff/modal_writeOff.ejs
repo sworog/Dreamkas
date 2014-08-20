@@ -157,22 +157,24 @@
                 <div class="form__errorMessage form__errorMessage_global"></div>
             </form>
             <% if (models.writeOff.id) { %>
-            <div style="margin-top: 40px; margin-left: -10px;" class="confirmLink">
+            <div style="margin-top: 40px; margin-left: -10px;">
+                <span class="confirmLink">
 
-                <div class="confirmLink__trigger">
+                    <span class="confirmLink__trigger">
                         <span class="removeLink">
                             <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
                             Удалить списание
                         </span>
-                </div>
+                    </span>
 
-                <div class="confirmLink__confirmation">
+                    <span class="confirmLink__confirmation">
                         <span class="removeLink writeOff__removeLink">
                             <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
                             Подтвердить удаление
                         </span>
-                </div>
+                    </span>
 
+                </span>
             </div>
             <% } %>
         </div>
