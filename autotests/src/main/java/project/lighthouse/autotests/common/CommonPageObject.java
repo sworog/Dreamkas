@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Page object facade for page object pages
  */
-abstract public class CommonPageObject extends PageObject {
+abstract public class CommonPageObject extends PageObject implements GeneralPageObject {
 
     /**
      * Map to store common items user can interact with
