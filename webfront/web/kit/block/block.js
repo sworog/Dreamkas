@@ -22,10 +22,9 @@ define(function(require, exports, module) {
         __blocks: {},
 
         template: function() {
-            return '<div></div>';
         },
 
-        initialize: function(){
+        initialize: function() {
             var block = this;
 
             block.render();
@@ -37,7 +36,7 @@ define(function(require, exports, module) {
 
             block.destroyBlocks();
 
-            block.setElement($newElement.replaceAll(block.el));
+            $newElement.length && block.setElement($newElement.replaceAll(block.el));
 
             block.initBlocks();
         },
@@ -50,28 +49,27 @@ define(function(require, exports, module) {
 
         initBlocks: function() {
             var block = this,
-                $blocks = block.$(_.keys(block.blocks).join(', ')),
-                blocksTagMap = {};
+                $blocks = block.$('[block]');
 
-            _.each(block.blocks, function(blockConstructor, blockName){
-                blocksTagMap[blockName.toUpperCase()] = blockName;
-            });
-
-            $blocks.each(function(){
+            $blocks.each(function() {
                 var placeholder = this,
-                    $placeholder = $(placeholder),
-                    blockName = blocksTagMap[placeholder.tagName],
-                    __block = block.blocks[blockName].call(block, _.clone(placeholder.dataset));
+                    blockName = placeholder.getAttribute('block'),
+                    params = _.extend({}, placeholder.dataset, {el: placeholder}),
+                    __block;
 
-                $placeholder.replaceWith(__block.el);
+                if (typeof block.blocks[blockName] === 'function'){
 
-                block.__blocks[blockName] = block.__blocks[blockName] || [];
+                    __block = block.blocks[blockName].call(block, params);
 
-                block.__blocks[blockName].push(__block);
+                    __block.el.removeAttribute('block');
+
+                    block.__blocks[blockName] = block.__blocks[blockName] || [];
+                    block.__blocks[blockName].push(__block);
+                }
             });
         },
 
-        destroy: function(){
+        destroy: function() {
             var block = this;
 
             block.destroyBlocks();
@@ -93,7 +91,7 @@ define(function(require, exports, module) {
 
             _.each(block.__blocks, function(blockList, blockName) {
 
-                _.each(blockList, function(blockToRemove){
+                _.each(blockList, function(blockToRemove) {
                     if (blockToRemove && typeof blockToRemove.destroy === 'function') {
                         blockToRemove.destroy();
                     }
