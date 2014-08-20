@@ -87,7 +87,7 @@ public class WhenStockMovementUserSteps {
 
     @When("пользователь нажимает на кнопку добавления нового товара в списание в модальном окне редактирования списания")
     public void whenTheUserClicksOnTheAddNewWriteOffProductButtonInTheEditModalWIndow() {
-        stockMovementSteps.writeOffEditModalWindowAddProductToInvoiceButtonClick();
+        stockMovementSteps.writeOffEditModalWindowAddProductToWriteOffButtonClick();
     }
 
     @When("пользователь нажимает на кнопку Списать, чтобы списать накладную с товарами")

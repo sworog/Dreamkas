@@ -2,7 +2,6 @@ package project.lighthouse.autotests.pages.stockMovement.modal.writeOff;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 import project.lighthouse.autotests.elements.items.DateInput;
 import project.lighthouse.autotests.elements.items.Input;
@@ -26,10 +25,10 @@ public class WriteOffCreateModalWindow extends ModalWindowPage {
     public void createElements() {
         put("date", new DateInput(this, "//*[@name='date']"));
         put("store", new SelectByVisibleText(this, "//*[@name='store']"));
-        put("product.name", new InvoiceProductAutoComplete(this, "//*[@name='product.name']"));
-        put("price", new Input(this, "//*[@name='price']"));
-        put("quantity", new Input(this, "//*[@name='quantity']"));
-        put("cause", new Input(this, "//*[@name='cause']"));
+        put("product.name", new InvoiceProductAutoComplete(this, "//*[@class='writeOffProductForm']//*[@name='product.name']"));
+        put("price", new Input(this, "//*[@class='writeOffProductForm']//*[@name='price']"));
+        put("quantity", new Input(this, "//*[@class='writeOffProductForm']//*[@name='quantity']"));
+        put("cause", new Input(this, "//*[@class='writeOffProductForm']//*[@name='cause']"));
     }
 
     @Override

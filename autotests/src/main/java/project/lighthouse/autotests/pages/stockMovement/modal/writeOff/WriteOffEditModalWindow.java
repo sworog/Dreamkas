@@ -20,7 +20,7 @@ public class WriteOffEditModalWindow extends WriteOffCreateModalWindow {
     }
 
     public void confirmDeleteButtonClick() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='confirmLink__confirmation']//*[@class='removeLink invoice__removeLink']")).click();
+        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='confirmLink__confirmation']//*[@class='removeLink writeOff__removeLink']")).click();
     }
 
     @Override

@@ -93,7 +93,7 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void WriteOffEditModalWindowChecksValues(ExamplesTable examplesTable) {
-        invoiceEditModalWindow.checkValues(examplesTable);
+        writeOffEditModalWindow.checkValues(examplesTable);
     }
 
     @Step
@@ -135,7 +135,7 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
-    public void writeOffEditModalWindowAddProductToInvoiceButtonClick() {
+    public void writeOffEditModalWindowAddProductToWriteOffButtonClick() {
         writeOffEditModalWindow.addProductToWriteOffButtonClick();
         new SimplePreloader(getDriver()).await();
     }
