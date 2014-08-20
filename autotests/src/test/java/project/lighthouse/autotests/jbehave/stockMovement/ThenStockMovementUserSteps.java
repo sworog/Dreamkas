@@ -170,4 +170,9 @@ public class ThenStockMovementUserSteps {
     public void thenUserCheckProductRowsCountOnWriteOffModal(Integer count) {
         stockMovementSteps.assertWriteOffEditModalWindowsProductRowsCount(count);;
     }
+
+    @Then("пользователь проверяет поля на странице товародвижения $examplesTable")
+    public void whenTheUserCheckValuesOnTheStockMovementPage(ExamplesTable examplesTable) {
+        stockMovementSteps.stockMovementPageFieldsCheckValues(examplesTable);
+    }
 }

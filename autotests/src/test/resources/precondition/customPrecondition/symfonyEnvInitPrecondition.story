@@ -28,6 +28,9 @@ Meta:
 @us_103
 @id_s40u103s1
 @id_s40u103s2
+@id_s40u103typeFilters1
+@id_s40u103typeFilters2
+@id_s40u103typeFilters3
 
 Scenario: Сценарий для очистки всех данных
 

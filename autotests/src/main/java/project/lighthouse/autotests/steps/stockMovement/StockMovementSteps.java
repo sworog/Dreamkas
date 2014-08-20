@@ -47,6 +47,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void stockMovementPageFieldsCheckValues(ExamplesTable examplesTable) {
+        stockMovementPage.checkValues(examplesTable);
+    }
+
+    @Step
     public void stockMovementPageOpen() {
         stockMovementPage.open();
     }

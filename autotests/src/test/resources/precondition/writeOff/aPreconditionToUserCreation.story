@@ -13,6 +13,9 @@ Meta:
 @id_s40u103s5
 @id_s40u103s6
 @id_s40u103s7
+@id_s40u103typeFilters1
+@id_s40u103typeFilters2
+@id_s40u103typeFilters3
 
 Scenario: Сценарий для создания пользователя через консольную команду
 
