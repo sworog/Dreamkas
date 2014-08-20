@@ -69,12 +69,12 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
         return getWaiter().getVisibleWebElement(element);
     }
 
-    public void input(String elementName, String inputText) {
-        commonActions.input(elementName, inputText);
+    public void input(String elementName, String value) {
+        commonActions.input(elementName, value);
     }
 
-    public void fieldInput(ExamplesTable fieldInputTable) {
-        for (Map<String, String> row : fieldInputTable.getRows()) {
+    public void input(ExamplesTable examplesTable) {
+        for (Map<String, String> row : examplesTable.getRows()) {
             String elementName = row.get("elementName");
             String inputText = row.get("value");
             input(elementName, inputText);
@@ -124,6 +124,10 @@ abstract public class CommonPageObject extends PageObject implements GeneralPage
             String expectedValue = row.get("value");
             checkValue(elementName, expectedValue);
         }
+    }
+
+    public void checkItemErrorMessage(String elementName, String errorMessage) {
+        items.get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
     }
 
     public Boolean invisibilityOfElementLocated(WebElement element) {

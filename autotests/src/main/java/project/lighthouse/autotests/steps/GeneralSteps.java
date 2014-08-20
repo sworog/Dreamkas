@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.steps;
 
+import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.common.GeneralPageObject;
@@ -21,15 +22,29 @@ public class GeneralSteps extends ScenarioSteps {
         currentPageObject = (GeneralPageObject) getPages().get(pageObjectClass);
     }
 
-    private GeneralPageObject getCurrentPageObject() {
-        return currentPageObject;
+    @Step
+    public void input(String elementName, String value) {
+        currentPageObject.input(elementName, value);
     }
 
+    @Step
+    public void input(ExamplesTable fieldInputTable) {
+        currentPageObject.input(fieldInputTable);
+    }
+
+    @Step
     public void checkValue(String element, String value) {
-        getCurrentPageObject().checkValue(element, value);;
+        currentPageObject.checkValue(element, value);
+        ;
     }
 
-    public void fieldInput(ExamplesTable fieldInputTable) {
-        getCurrentPageObject().fieldInput(fieldInputTable);
+    @Step
+    public void checkValues(ExamplesTable examplesTable) {
+        currentPageObject.checkValues(examplesTable);
+    }
+
+    @Step
+    public void checkItemErrorMessage(String elementName, String errorMessage) {
+        currentPageObject.checkItemErrorMessage(elementName, errorMessage);
     }
 }

@@ -43,7 +43,7 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void stockMovementPageFieldInput(ExamplesTable examplesTable) {
-        stockMovementPage.fieldInput(examplesTable);
+        stockMovementPage.input(examplesTable);
     }
 
     @Step
@@ -68,12 +68,12 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void invoiceCreateModalWindowInput(ExamplesTable examplesTable) {
-        invoiceCreateModalWindow.fieldInput(examplesTable);
+        invoiceCreateModalWindow.input(examplesTable);
     }
 
     @Step
     public void writeOffCreateModalWindowInput(ExamplesTable examplesTable) {
-        writeOffCreateModalWindow.fieldInput(examplesTable);
+        writeOffCreateModalWindow.input(examplesTable);
     }
 
     @Step
@@ -98,12 +98,12 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void invoiceEditModalWindowWindowInput(ExamplesTable examplesTable) {
-        invoiceEditModalWindow.fieldInput(examplesTable);
+        invoiceEditModalWindow.input(examplesTable);
     }
 
     @Step
     public void writeOffEditModalWindowWindowInput(ExamplesTable examplesTable) {
-        writeOffEditModalWindow.fieldInput(examplesTable);
+        writeOffEditModalWindow.input(examplesTable);
     }
 
     @Step
@@ -396,7 +396,7 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void invoiceSupplierCreateModalWindowInput(ExamplesTable examplesTable) {
-        invoiceSupplierCreateModalWindow.fieldInput(examplesTable);
+        invoiceSupplierCreateModalWindow.input(examplesTable);
     }
 
     @Step
@@ -417,7 +417,7 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void invoiceProductCreateModalWindowInputValues(ExamplesTable examplesTable) {
-        invoiceProductCreateModalWindow.fieldInput(examplesTable);
+        invoiceProductCreateModalWindow.input(examplesTable);
     }
 
     @Step

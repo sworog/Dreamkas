@@ -33,7 +33,7 @@ public class OrderSteps extends ScenarioSteps {
 
     @Step
     public void input(ExamplesTable examplesTable) {
-        orderPage.fieldInput(examplesTable);
+        orderPage.input(examplesTable);
     }
 
     @Step

@@ -113,7 +113,7 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void fieldType(ExamplesTable fieldInputTable) {
-        productCreatePage.fieldInput(fieldInputTable);
+        productCreatePage.input(fieldInputTable);
     }
 
     @Step
@@ -303,7 +303,7 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void barcodePageInput(ExamplesTable examplesTable) {
-        extraBarcodesPage.fieldInput(examplesTable);
+        extraBarcodesPage.input(examplesTable);
     }
 
     @Step

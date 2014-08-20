@@ -17,7 +17,7 @@ public class SettingSteps extends ScenarioSteps {
 
     @Step
     public void input(ExamplesTable fieldInputTable) {
-        settingsPage.fieldInput(fieldInputTable);
+        settingsPage.input(fieldInputTable);
     }
 
     @Step
