@@ -15,12 +15,12 @@ public class ThenStockMovementUserSteps {
     @Then("the user asserts stock movement operations on the stock movement page $examplesTable")
     @Alias("пользователь проверяет операции на странице товародвижения $examplesTable")
     public void thenTheUserAssertsOperationOmTheStockMovementPage(ExamplesTable examplesTable) {
-        stockMovementSteps.stockMovementPageContainInvoice(examplesTable);
+        stockMovementSteps.stockMovementPageContainStockOperation(examplesTable);
     }
 
     @Then("пользователь проверяет конкретные операции на странице товародвижения $examplesTable")
     public void thenTheUserAssertsExactOperationOmTheStockMovementPage(ExamplesTable examplesTable) {
-        stockMovementSteps.stockMovementPageContainExactInvoice(examplesTable);
+        stockMovementSteps.stockMovementPageContainExactStockOperation(examplesTable);
     }
 
     @Then("the user asserts the invoice product list contain product with values $examplesTable")

@@ -160,7 +160,7 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
-    public void stockMovementPageContainInvoice(ExamplesTable examplesTable) {
+    public void stockMovementPageContainStockOperation(ExamplesTable examplesTable) {
         StockMovementObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
         if (stockMovementObjectCollection != null) {
             stockMovementObjectCollection.compareWithExampleTable(examplesTable);
@@ -168,7 +168,7 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
-    public void stockMovementPageContainExactInvoice(ExamplesTable examplesTable) {
+    public void stockMovementPageContainExactStockOperation(ExamplesTable examplesTable) {
         StockMovementObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
         if (stockMovementObjectCollection != null) {
             stockMovementObjectCollection.exactCompareExampleTable(examplesTable);
@@ -463,5 +463,17 @@ public class StockMovementSteps extends ScenarioSteps {
         String generatedString = new StringGenerator(number).generateString("f");
         invoiceProductCreateModalWindow.input(elementName, generatedString);
         this.name = generatedString;
+    }
+
+    @Step
+    public void acceptFiltersButtonClick() {
+        stockMovementPage.acceptFiltersButtonClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
+    public void resetFiltersButtonClick() {
+        stockMovementPage.resetFiltersButtonClick();
+        new SimplePreloader(getDriver()).await();
     }
 }
