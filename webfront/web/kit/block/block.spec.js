@@ -38,18 +38,17 @@ define(function(require, exports, module) {
         });
 
         it('init nested block', function(){
+
             var block = new Block({
                 template: function(){
-                    return '<div><nestedBlock></nestedBlock></div>';
+                    return '<div><div block="nestedBlock"></div></div>';
                 },
                 blocks: {
-                    nestedBlock: function(){
-                        return new Block({
-                            template: function(){
-                                return '<div id="nestedBlock" class="nestedBlock"></div>';
-                            }
-                        });
-                    }
+                    nestedBlock: Block.extend({
+                        template: function(){
+                            return '<div id="nestedBlock" class="nestedBlock"></div>';
+                        }
+                    })
                 }
             });
 
@@ -58,23 +57,39 @@ define(function(require, exports, module) {
 
         it('init nested block with params', function(){
 
-            var NestedBlock = Block.extend({
-                template: function(){
-                    return '<div class="' + this.className + '">' + this.text + '</div>';
-                }
-            });
-
             var block = new Block({
                 template: function(){
-                    return '<div><nestedBlock data-class-name="nestedBlock" data-text="nestedBlock"></nestedBlock></div>';
+                    return '<div><div block="nestedBlock" data-class-name="nestedBlock" data-text="nestedBlock"></div></div>';
                 },
                 blocks: {
-                    nestedBlock: NestedBlock
+                    nestedBlock: Block.extend({
+                        template: function(){
+                            return '<div class="' + this.className + '">' + this.text + '</div>';
+                        }
+                    })
                 }
             });
 
             expect(block.el.querySelector('.nestedBlock').innerText).toEqual('nestedBlock');
         });
+
+        it('init nested block without template', function(){
+            var block = new Block({
+                template: function(){
+                    return '<div><span block="nestedBlock">nestedBlock</span></div>';
+                },
+                blocks: {
+                    nestedBlock: Block.extend({
+                        initialize: function(){
+                            this.el.classList.add('nestedBlock');
+                        }
+                    })
+                }
+            });
+
+            expect(block.el.querySelector('.nestedBlock').innerText).toEqual('nestedBlock');
+        });
+
 
         it('destroy nested block', function(){
 
@@ -82,12 +97,10 @@ define(function(require, exports, module) {
 
             var block = new Block({
                 template: function(){
-                    return '<div><nestedBlock></nestedBlock></div>';
+                    return '<div><div block="nestedBlock"></div></div>';
                 },
                 blocks: {
-                    nestedBlock: function(){
-                        return new Block();
-                    }
+                    nestedBlock: Block.extend()
                 }
             });
 
