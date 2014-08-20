@@ -7,6 +7,7 @@ public interface GeneralPageObject {
     public void input(ExamplesTable examplesTable);
 
     public void input(String elementName, String value);
+
     public void checkValue(String elementName, String value);
 
     public void checkValues(ExamplesTable examplesTable);
