@@ -24,7 +24,7 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.writeOffCreateButtonClick();
     }
 
-    @When("пользователь нажимает на кнопку Оприходывать на странице товародвижения")
+    @When("пользователь нажимает на кнопку Оприходовать на странице товародвижения")
     public void whenTheUserClicksOnTheCreateStockInButton() {
         stockMovementSteps.stockInCreateButtonClick();
     }
@@ -84,12 +84,12 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.addProductToWriteOffOffButtonClick();
     }
 
-    @When("пользователь нажимает на кнопку добавления нового товара в оприходывание")
+    @When("пользователь нажимает на кнопку добавления нового товара в оприходование")
     public void whenTheUserClicksOnTheAddNewStockInProductButton() {
         stockMovementSteps.addProductToStockInButtonClick();
     }
 
-    @When("пользователь нажимает на кнопку добавления нового товара в оприходывание в модальном окне редактирования оприходывания")
+    @When("пользователь нажимает на кнопку добавления нового товара в оприходование в модальном окне редактирования оприходования")
     public void whenTheUserClicksOnTheAddNewStockInProductButtonInTheStockInEditModalWindow() {
         stockMovementSteps.stockInEditAddProductToStockInButtonClick();
     }
@@ -110,7 +110,7 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.acceptWriteOffButtonClick();
     }
 
-    @When("пользователь нажимает на кнопку Оприходывать, чтобы оприходывать товары")
+    @When("пользователь нажимает на кнопку Оприходовать, чтобы оприходовать товары")
     public void whenTheUserClicksOnTheStockInAcceptButton() {
         stockMovementSteps.acceptStockInButtonClick();
     }
@@ -132,7 +132,7 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.saveWriteOffButtonClick();
     }
 
-    @When("пользователь нажимает на кнопку сохранения оприходывания в модальном окне редактирования оприходывания")
+    @When("пользователь нажимает на кнопку сохранения оприходования в модальном окне редактирования оприходования")
     public void whenTheUserClicksOnTheStockInSaveButton() {
         stockMovementSteps.saveStockInButtonClick();
     }
@@ -148,7 +148,7 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.openLastCreatedWriteOffInStockMovementPage();
     }
 
-    @When("пользователь нажимает на последнее созданное оприходывание с помощью конструктора оприходываний на странице товародвижения")
+    @When("пользователь нажимает на последнее созданное оприходование с помощью конструктора оприходований на странице товародвижения")
     public void whenTheUserClicksOnTheLastCreatedStockInFromBuilderStepsOnTheStockMovementPage() throws JSONException {
         stockMovementSteps.openLastCreatedStockInInStockMovementPage();
     }
@@ -157,7 +157,7 @@ public class WhenStockMovementUserSteps {
     @Aliases(values = {
             "пользователь нажимает на накладную с номером '$number' на странице товародвижения",
             "пользователь нажимает на списание с номером '$number' на странице товародвижения",
-            "пользователь нажимает на оприходывание с номером '$number' на странице товародвижения"
+            "пользователь нажимает на оприходование с номером '$number' на странице товародвижения"
     })
     public void whenTheUserClicksOnTheInvoiceWithName(String number) throws JSONException {
         stockMovementSteps.openOperationByNumberInStockMovementPage(number);
@@ -174,7 +174,7 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.deleteWriteOffLinkClick();
     }
 
-    @When("пользователь нажимает на кнопку удаления оприходывания в модальном окне редактирования оприходывания")
+    @When("пользователь нажимает на кнопку удаления оприходования в модальном окне редактирования оприходования")
     public void whenTheUserClicksOnDeleteStockInButtonInEditWriteOffModalWindow() {
         stockMovementSteps.deleteStockInLinkClick();
     }
@@ -190,7 +190,7 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.confirmDeleteWriteOffLinkClick();
     }
 
-    @When("пользователь подтверждает удаление оприходывания в модальном окне редактирования оприходывания")
+    @When("пользователь подтверждает удаление оприходования в модальном окне редактирования оприходования")
     public void whenTheUserClicksOnDeleteStockInConfirmButtonInEditInvoiceModalWindow() {
         stockMovementSteps.confirmDeleteStockInLinkClick();
     }
@@ -206,7 +206,7 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.writeOffProductWithNameDeleteIconClick(name);
     }
 
-    @When("пользователь удаляет товар с названием '$name' в модальном окне редактирования оприходывания")
+    @When("пользователь удаляет товар с названием '$name' в модальном окне редактирования оприходования")
     public void whenTheUserDeletesTheProductWithNameInTheEditStockInModalWindow(String name) {
         stockMovementSteps.stockInProductWithNameDeleteIconClick(name);
     }

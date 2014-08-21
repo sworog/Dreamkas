@@ -34,7 +34,7 @@ public class ThenStockMovementUserSteps {
         stockMovementSteps.invoiceWriteOffCollectionExactCompare(examplesTable);
     }
 
-    @Then("пользователь проверяет, что список товаров в оприходывании содержит товары с данными $examplesTable")
+    @Then("пользователь проверяет, что список товаров в оприходовании содержит товары с данными $examplesTable")
     public void thenTheUserAssertsTheStockInProductListContainProductWithValues(ExamplesTable examplesTable) {
         stockMovementSteps.stockInCollectionExactCompare(examplesTable);
     }
@@ -78,7 +78,7 @@ public class ThenStockMovementUserSteps {
         stockMovementSteps.stockMovementCollectionDontContainLastCreatedWriteOff();
     }
 
-    @Then("пользователь проверяет, что в операциях товародвижения отсутствует последнее созданное оприходывание")
+    @Then("пользователь проверяет, что в операциях товародвижения отсутствует последнее созданное оприходование")
     public void thenTheUserAssertsStockMovementOperationsDontContainLastCreatedStockIn() throws JSONException {
         stockMovementSteps.stockMovementCollectionDontContainLastCreatedStockIn();
     }
@@ -94,7 +94,7 @@ public class ThenStockMovementUserSteps {
         stockMovementSteps.assertWriteOffCreateModalWindowTotalSum(totalSum);
     }
 
-    @Then("пользователь проверяет, что сумма итого равна '$totalSum' в модальном окне создания оприходывания")
+    @Then("пользователь проверяет, что сумма итого равна '$totalSum' в модальном окне создания оприходования")
     public void thenTheUserAssertsWriteOffTotalSumInCreateNewStockInModalWindow(String totalSum) {
         stockMovementSteps.assertStockInCreateModalWindowTotalSum(totalSum);
     }
@@ -110,7 +110,7 @@ public class ThenStockMovementUserSteps {
         stockMovementSteps.assertWriteOffEditModalWindowTotalSum(totalSum);
     }
 
-    @Then("пользователь проверяет, что сумма итого равна '$totalSum' в модальном окне редактирования оприходывания")
+    @Then("пользователь проверяет, что сумма итого равна '$totalSum' в модальном окне редактирования оприходования")
     public void thenTheUserAssertsStockInTotalSumInEditInvoiceModalWindow(String totalSum) {
         stockMovementSteps.assertStockInEditModalWindowTotalSum(totalSum);
     }
@@ -126,7 +126,7 @@ public class ThenStockMovementUserSteps {
         stockMovementSteps.assertWriteOffDateIsNowDate();
     }
 
-    @Then("пользователь проверяет, что поле дата заполнено сегодняшней датой в модальном окне создания оприходывания")
+    @Then("пользователь проверяет, что поле дата заполнено сегодняшней датой в модальном окне создания оприходования")
     public void thenTheUserAssertsTheStockInDateIsSetAutomaticallyToNowDate() {
         stockMovementSteps.assertStockInDateIsNowDate();
     }
