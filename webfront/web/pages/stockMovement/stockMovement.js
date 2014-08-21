@@ -64,6 +64,8 @@ define(function(require, exports, module) {
             }
         },
         blocks: {
+            modal_stockIn: require('blocks/modal/modal_stockIn/modal_stockIn'),
+
             modal_invoiceAdd: function(opt){
                 var page = this,
                     Modal_invoice = require('blocks/modal/modal_invoice/modal_invoice');

@@ -14,9 +14,7 @@ define(function(require) {
                 return new InvoiceProductsCollection();
             }
         },
-        urlRoot: function() {
-            return Model.baseApiUrl + '/invoices'
-        },
+        urlRoot: Model.baseApiUrl + '/invoices',
         defaults: {
             paid: false
         },

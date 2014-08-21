@@ -23,6 +23,7 @@
               data-toggle="modal"
               role="button"
               class="btn btn-primary btn-md">Списать</span>
+        <span class="page__addStockInLink btn btn-primary btn-md">Оприходовать</span>
     </div>
 
     <div class="page-header pull-left">
@@ -126,6 +127,9 @@
 <!--END CONTENT-->
 
 <!--MODALS-->
+
+<div block="modal_stockIn"></div>
+
 <% if (models.invoice) { %>
     <%= partials.modal_invoice({
         collections: {
