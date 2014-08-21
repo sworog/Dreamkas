@@ -19,7 +19,7 @@ public class StockInCreateModalWindow extends WriteOffCreateModalWindow {
 
     @Override
     public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Оприходывать").click();
+        new PrimaryBtnFacade(this, "Оприходовать").click();
     }
 
     public void addProductToStockInButtonClick() {

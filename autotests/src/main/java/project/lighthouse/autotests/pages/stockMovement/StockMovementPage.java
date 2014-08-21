@@ -26,7 +26,7 @@ public class StockMovementPage extends BootstrapPageObject {
     }
 
     public void stockInCreateButtonClick() {
-        new PrimaryBtnFacade(this, "Оприходывать").click();
+        new PrimaryBtnFacade(this, "Оприходовать").click();
     }
 
     @Override

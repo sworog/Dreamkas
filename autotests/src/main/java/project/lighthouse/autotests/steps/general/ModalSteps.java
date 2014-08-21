@@ -15,8 +15,8 @@ public class ModalSteps extends AbstractGeneralSteps<ModalWindowPageObject> {
     @Override
     Map<String, Class> getPageObjectClasses() {
         return new HashMap<String, Class>() {{
-            put("модальное окно создания оприходывания", StockInCreateModalWindow.class);
-            put("модальное окно редактирования оприходывания", StockInEditModalWindow.class);
+            put("модальное окно создания оприходования", StockInCreateModalWindow.class);
+            put("модальное окно редактирования оприходования", StockInEditModalWindow.class);
         }};
     }
 
