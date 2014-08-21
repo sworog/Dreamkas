@@ -42,6 +42,7 @@ define(function(require, exports, module) {
                 block.setElement($(block.template(block)).replaceAll(block.el));
             }
 
+            block.bindings = rivets.bind(block.el, block);
             block.el.block = this;
 
             block.initBlocks();
@@ -107,6 +108,8 @@ define(function(require, exports, module) {
             block.destroyBlocks();
             block.stopListening();
             block.undelegateEvents();
+
+            block.bindings.unbind();
         },
 
         remove: function() {
