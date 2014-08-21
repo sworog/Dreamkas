@@ -10,9 +10,8 @@ abstract public class AbstractProductableObject extends AbstractObject {
         super(jsonObject);
     }
 
-    @Override
-    public String getApiUrl() {
-        return null;
+    public AbstractProductableObject() {
+        super();
     }
 
     public void putProducts(AbstractProductObject[] abstractProductObjects) {

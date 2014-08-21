@@ -4,28 +4,29 @@ import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
 import project.lighthouse.autotests.api.factories.ApiFactory;
+import project.lighthouse.autotests.api.objects.stockmovement.stockin.StockIn;
 import project.lighthouse.autotests.api.objects.stockmovement.writeoff.WriteOff;
 import project.lighthouse.autotests.storage.Storage;
 
 import java.io.IOException;
 
-public class WriteOffBuilderSteps extends ScenarioSteps {
+public class StockInBuilderSteps extends ScenarioSteps {
 
-    WriteOff writeOff;
+    StockIn stockIn;
 
     @Step
     public void build(String storeId, String date) {
         try {
-            writeOff = new WriteOff(storeId, date);
+            stockIn = new StockIn(storeId, date);
         } catch (JSONException e) {
             throw new AssertionError(e);
         }
     }
 
     @Step
-    public void addProduct(String productId, String quantity, String price, String cause) {
+    public void addProduct(String productId, String quantity, String price) {
         try {
-            writeOff.putProduct(productId, quantity, price, cause);
+            stockIn.putProduct(productId, quantity, price);
         } catch (JSONException e) {
             throw new AssertionError(e);
         }
@@ -36,8 +37,8 @@ public class WriteOffBuilderSteps extends ScenarioSteps {
         String password = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email).getPassword();
         ApiFactory factory = new ApiFactory(email, password);
         try {
-            factory.createObject(writeOff);
-            Storage.getStockMovementVariableStorage().addWriteOff(writeOff);
+            factory.createObject(stockIn);
+            Storage.getStockMovementVariableStorage().addStockIn(stockIn);
         } catch (IOException | JSONException e) {
             throw new AssertionError(e);
         }
