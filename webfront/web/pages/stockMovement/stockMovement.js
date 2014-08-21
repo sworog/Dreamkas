@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/page/page.deprecated'),
+    var Page = require('kit/page/page'),
         router = require('router');
 
     return Page.extend({
@@ -12,13 +12,12 @@ define(function(require, exports, module) {
         collections: {
             suppliers: require('collections/suppliers/suppliers'),
             stores: require('collections/stores/stores'),
+            groups: require('collections/groups/groups'),
             stockMovements: function(){
                 var page = this,
                     StockMovementsCollection = require('collections/stockMovements/stockMovements'),
                     stockMovementsCollection = new StockMovementsCollection([], {
-                        filterTypes: page.params.filterTypes,
-                        dateFrom: page.params.dateFrom,
-                        dateTo: page.params.dateTo
+                        filters: page.params.filters
                     });
 
                 page.listenTo(stockMovementsCollection, {
@@ -34,8 +33,7 @@ define(function(require, exports, module) {
                 });
 
                 return stockMovementsCollection;
-            },
-            groups: require('collections/groups/groups')
+            }
         },
         models: {
             invoice: null,

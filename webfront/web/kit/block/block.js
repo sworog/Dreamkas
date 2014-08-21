@@ -19,6 +19,9 @@ define(function(require, exports, module) {
             View.apply(block, arguments);
         },
 
+        collections: {},
+        models: {},
+
         blocks: {},
         __blocks: {},
         bindings: null,
@@ -26,6 +29,7 @@ define(function(require, exports, module) {
         initialize: function() {
             var block = this;
 
+            block.initResources();
             block.render();
         },
 
@@ -36,7 +40,6 @@ define(function(require, exports, module) {
 
             if (typeof block.template === 'function') {
                 block.setElement($(block.template(block)).replaceAll(block.el));
-                block.bindings = rivets.bind(block.el, block);
             }
 
             block.el.block = this;
@@ -48,6 +51,18 @@ define(function(require, exports, module) {
             var args = [this].concat([].slice.call(arguments));
 
             return get.apply(null, args);
+        },
+
+        initResources: function(){
+            var block = this;
+
+            block.collections = _.transform(block.collections, function(result, collectionInitializer, key) {
+                result[key] = block.get('collections.' + key);
+            });
+
+            block.models = _.transform(block.models, function(result, modelInitializer, key) {
+                result[key] = block.get('models.' + key);
+            });
         },
 
         initBlocks: function() {
@@ -72,14 +87,26 @@ define(function(require, exports, module) {
             });
         },
 
+        fetch: function() {
+            var block = this;
+
+            var dataList =  _.values(block.collections).concat(_.filter(block.models, function(model) {
+                return model && model.id;
+            }));
+
+            var fetchList = _.map(dataList, function(data) {
+                return (data && typeof data.fetch === 'function') ? data.fetch() : data;
+            });
+
+            return $.when.apply($, fetchList);
+        },
+
         destroy: function() {
             var block = this;
 
             block.destroyBlocks();
             block.stopListening();
             block.undelegateEvents();
-
-            block.bindings && block.bindings.unbind();
         },
 
         remove: function() {

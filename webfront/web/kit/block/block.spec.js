@@ -130,5 +130,51 @@ define(function(require, exports, module) {
             expect(block.el.block instanceof Block);
         });
 
+        it('block init models properties', function(){
+            var block = new Block({
+                models: {
+                    a: 'a'
+                }
+            });
+
+            expect(block.models.a).toEqual('a');
+        });
+
+        it('block init models constructors', function(){
+            var block = new Block({
+                b: 'b',
+                models: {
+                    a: function(){
+                        return this.b;
+                    }
+                }
+            });
+
+            expect(block.models.a).toEqual('b');
+        });
+
+        it('block init collections properties', function(){
+            var block = new Block({
+                collections: {
+                    a: ['a', 'b', 'c']
+                }
+            });
+
+            expect(block.collections.a).toEqual(['a', 'b', 'c']);
+        });
+
+        it('block init collections constructors', function(){
+            var block = new Block({
+                b: ['a', 'b', 'c'],
+                collections: {
+                    a: function(){
+                        return this.b;
+                    }
+                }
+            });
+
+            expect(block.collections.a).toEqual(['a', 'b', 'c']);
+        });
+
     });
 });
