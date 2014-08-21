@@ -1,11 +1,11 @@
-package project.lighthouse.autotests.jbehave;
+package project.lighthouse.autotests.jbehave.general;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.steps.GeneralSteps;
+import project.lighthouse.autotests.steps.general.GeneralSteps;
 
 public class GeneralEndUserSteps {
 

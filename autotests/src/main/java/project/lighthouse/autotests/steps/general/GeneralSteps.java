@@ -1,14 +1,13 @@
-package project.lighthouse.autotests.steps;
+package project.lighthouse.autotests.steps.general;
 
 import net.thucydides.core.annotations.Step;
 import org.jbehave.core.model.ExamplesTable;
-import project.lighthouse.autotests.common.GeneralPageObject;
 import project.lighthouse.autotests.pages.stockMovement.StockMovementPage;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSteps {
+public class GeneralSteps extends AbstractGeneralSteps {
 
     @Override
     Map<String, Class> getPageObjectClasses() {

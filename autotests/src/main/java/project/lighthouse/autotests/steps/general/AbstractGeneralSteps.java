@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.steps;
+package project.lighthouse.autotests.steps.general;
 
 import net.thucydides.core.steps.ScenarioSteps;
 import project.lighthouse.autotests.common.GeneralPageObject;
@@ -14,15 +14,10 @@ public abstract class AbstractGeneralSteps<T extends GeneralPageObject> extends 
     @SuppressWarnings("unchecked")
     public void setCurrentPageObject(String pageObjectName) {
         Class pageObjectClass = getPageObjectClasses().get(pageObjectName);
-        T currentPageObject = (T) getPages().get(pageObjectClass);
-        setCurrentPageObject(currentPageObject);
+        currentPageObject = (T) getPages().get(pageObjectClass);
     }
 
-    public void setCurrentPageObject(T pageObject) {
-        currentPageObject = pageObject;
-    }
-
-    public T getCurrentPageObject() {
+    protected T getCurrentPageObject() {
         return currentPageObject;
     }
 }
