@@ -37,7 +37,7 @@ public class WriteOffBuilderSteps extends ScenarioSteps {
         ApiFactory factory = new ApiFactory(email, password);
         try {
             factory.createObject(writeOff);
-            Storage.getStockMovementVariableStorage().addWriteOff(writeOff);
+            Storage.getStockMovementVariableStorage().addStockMovement(writeOff);
         } catch (IOException | JSONException e) {
             throw new AssertionError(e);
         }

@@ -9,7 +9,7 @@ import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.helper.StringGenerator;
-import project.lighthouse.autotests.objects.api.invoice.Invoice;
+import project.lighthouse.autotests.api.objects.stockmovement.invoice.Invoice;
 import project.lighthouse.autotests.objects.web.invoiceProduct.InvoiceProductCollection;
 import project.lighthouse.autotests.objects.web.invoiceProduct.InvoiceProductObject;
 import project.lighthouse.autotests.objects.web.stockMovement.StockMovementObjectCollection;

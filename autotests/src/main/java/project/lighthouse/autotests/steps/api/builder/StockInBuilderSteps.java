@@ -38,7 +38,7 @@ public class StockInBuilderSteps extends ScenarioSteps {
         ApiFactory factory = new ApiFactory(email, password);
         try {
             factory.createObject(stockIn);
-            Storage.getStockMovementVariableStorage().addStockIn(stockIn);
+            Storage.getStockMovementVariableStorage().addStockMovement(stockIn);
         } catch (IOException | JSONException e) {
             throw new AssertionError(e);
         }
