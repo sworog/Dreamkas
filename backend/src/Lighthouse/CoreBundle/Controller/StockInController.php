@@ -44,7 +44,7 @@ class StockInController extends AbstractRestController
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc(resource=true)
      */
-    public function postWriteoffsAction(Request $request)
+    public function postStockInsAction(Request $request)
     {
         $stockIn = $this->documentRepository->createNew();
         $formType = new StockInType(true);
@@ -61,7 +61,7 @@ class StockInController extends AbstractRestController
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
-    public function postStoreWriteoffsAction(Store $store, Request $request)
+    public function postStoreStockInsAction(Store $store, Request $request)
     {
         $stockIn = $this->documentRepository->createNew();
         $stockIn->store = $store;
@@ -77,7 +77,7 @@ class StockInController extends AbstractRestController
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
-    public function putWriteoffsAction(StockIn $stockIn, Request $request)
+    public function putStockInsAction(StockIn $stockIn, Request $request)
     {
         $formType = new StockInType(true);
         $this->documentRepository->resetProducts($stockIn);
@@ -94,7 +94,7 @@ class StockInController extends AbstractRestController
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
-    public function putStoreWriteoffsAction(Store $store, StockIn $stockIn, Request $request)
+    public function putStoreStockInsAction(Store $store, StockIn $stockIn, Request $request)
     {
         $this->checkStockInStore($store, $stockIn);
         $this->documentRepository->resetProducts($stockIn);
@@ -108,7 +108,7 @@ class StockInController extends AbstractRestController
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
-    public function deleteWriteoffsAction(StockIn $stockIn)
+    public function deleteStockInsAction(StockIn $stockIn)
     {
         $this->processDelete($stockIn);
     }
@@ -122,7 +122,7 @@ class StockInController extends AbstractRestController
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @ApiDoc
      */
-    public function getWriteoffAction(StockIn $stockIn)
+    public function getStockInAction(StockIn $stockIn)
     {
         return $stockIn;
     }
@@ -137,7 +137,7 @@ class StockInController extends AbstractRestController
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc
      */
-    public function getStoreWriteoffAction(Store $store, StockIn $stockIn)
+    public function getStoreStockInAction(Store $store, StockIn $stockIn)
     {
         $this->checkStockInStore($store, $stockIn);
         return $stockIn;
