@@ -2,6 +2,10 @@ Meta:
 @smoke
 @sprint_40
 @us_104
+@id_s40u104s2
+@id_s40u104s3
+@id_s40u104s5
+@id_s40u104s7
 
 Scenario: Cценарий для создания оприходывания
 

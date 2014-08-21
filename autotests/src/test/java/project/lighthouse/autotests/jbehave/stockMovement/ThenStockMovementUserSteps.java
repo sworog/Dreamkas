@@ -34,6 +34,11 @@ public class ThenStockMovementUserSteps {
         stockMovementSteps.invoiceWriteOffCollectionExactCompare(examplesTable);
     }
 
+    @Then("пользователь проверяет, что список товаров в оприходывании содержит товары с данными $examplesTable")
+    public void thenTheUserAssertsTheStockInProductListContainProductWithValues(ExamplesTable examplesTable) {
+        stockMovementSteps.stockInCollectionExactCompare(examplesTable);
+    }
+
     @Then("the user asserts stock movement page title is '$title'")
     @Alias("пользователь проверяет, что заголовок страницы товародвижения равен '$title'")
     public void thenTheUserAssertsStockMovementPageTitle(String title) {
@@ -73,6 +78,11 @@ public class ThenStockMovementUserSteps {
         stockMovementSteps.stockMovementCollectionDontContainLastCreatedWriteOff();
     }
 
+    @Then("пользователь проверяет, что в операциях товародвижения отсутствует последнее созданное оприходывание")
+    public void thenTheUserAssertsStockMovementOperationsDontContainLastCreatedStockIn() throws JSONException {
+        stockMovementSteps.stockMovementCollectionDontContainLastCreatedStockIn();
+    }
+
     @Then("the user asserts invoice total sum is '$totalSum' in create new invoice modal window")
     @Alias("пользователь проверяет, что сумма итого равна '$totalSum' в модальном окне создания накладной")
     public void thenTheUserAssertsInvoiceTotalSumInCreateNewInvoiceModalWindow(String totalSum) {
@@ -82,6 +92,11 @@ public class ThenStockMovementUserSteps {
     @Then("пользователь проверяет, что сумма итого равна '$totalSum' в модальном окне создания списания")
     public void thenTheUserAssertsWriteOffTotalSumInCreateNewInvoiceModalWindow(String totalSum) {
         stockMovementSteps.assertWriteOffCreateModalWindowTotalSum(totalSum);
+    }
+
+    @Then("пользователь проверяет, что сумма итого равна '$totalSum' в модальном окне создания оприходывания")
+    public void thenTheUserAssertsWriteOffTotalSumInCreateNewStockInModalWindow(String totalSum) {
+        stockMovementSteps.assertStockInCreateModalWindowTotalSum(totalSum);
     }
 
     @Then("the user asserts invoice total sum is '$totalSum' in edit invoice modal window")
@@ -95,6 +110,11 @@ public class ThenStockMovementUserSteps {
         stockMovementSteps.assertWriteOffEditModalWindowTotalSum(totalSum);
     }
 
+    @Then("пользователь проверяет, что сумма итого равна '$totalSum' в модальном окне редактирования оприходывания")
+    public void thenTheUserAssertsStockInTotalSumInEditInvoiceModalWindow(String totalSum) {
+        stockMovementSteps.assertStockInEditModalWindowTotalSum(totalSum);
+    }
+
     @Then("the user asserts the invoice date is set automatically to now date")
     @Alias("пользователь проверяет, что поле дата заполнено сегодняшней датой")
     public void thenTheUserAssertsTheInvoiceDateIsSetAutomaticallyToNowDate() {
@@ -104,6 +124,11 @@ public class ThenStockMovementUserSteps {
     @Then("пользователь проверяет, что поле дата заполнено сегодняшней датой в модальном окне создания списания")
     public void thenTheUserAssertsTheWriteOffDateIsSetAutomaticallyToNowDate() {
         stockMovementSteps.assertWriteOffDateIsNowDate();
+    }
+
+    @Then("пользователь проверяет, что поле дата заполнено сегодняшней датой в модальном окне создания оприходывания")
+    public void thenTheUserAssertsTheStockInDateIsSetAutomaticallyToNowDate() {
+        stockMovementSteps.assertStockInDateIsNowDate();
     }
 
     @Then("the user checks the element with name '$name' has value equals to '$value' in the edit invoice modal window")

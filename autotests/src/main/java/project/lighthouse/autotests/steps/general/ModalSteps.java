@@ -22,6 +22,5 @@ public class ModalSteps extends AbstractGeneralSteps<ModalWindowPageObject> {
 
     public void assertTitle(String title) {
         assertThat(getCurrentPageObject().getTitle(), is(title));
-        getCurrentPageObject().getTitle();
     }
 }

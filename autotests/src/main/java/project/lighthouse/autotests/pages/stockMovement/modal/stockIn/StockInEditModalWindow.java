@@ -19,4 +19,8 @@ public class StockInEditModalWindow extends WriteOffEditModalWindow {
     public void confirmDeleteButtonClick() {
         findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='confirmLink__confirmation']//*[@class='removeLink stockIn__removeLink']")).click();
     }
+
+    public void addProductToStockInButtonClick() {
+        findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'addStockInProduct')]")).click();
+    }
 }

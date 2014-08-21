@@ -86,7 +86,12 @@ public class WhenStockMovementUserSteps {
 
     @When("пользователь нажимает на кнопку добавления нового товара в оприходывание")
     public void whenTheUserClicksOnTheAddNewStockInProductButton() {
-        stockMovementSteps.addProductToWriteOffOffButtonClick();
+        stockMovementSteps.addProductToStockInButtonClick();
+    }
+
+    @When("пользователь нажимает на кнопку добавления нового товара в оприходывание в модальном окне редактирования оприходывания")
+    public void whenTheUserClicksOnTheAddNewStockInProductButtonInTheStockInEditModalWindow() {
+        stockMovementSteps.stockInEditAddProductToStockInButtonClick();
     }
 
     @When("the user clicks on the add new invoice product button in the edit invoice modal window")
@@ -103,6 +108,11 @@ public class WhenStockMovementUserSteps {
     @When("пользователь нажимает на кнопку Списать, чтобы списать накладную с товарами")
     public void whenTheUserClicksOnTheWriteOffAcceptButton() {
         stockMovementSteps.acceptWriteOffButtonClick();
+    }
+
+    @When("пользователь нажимает на кнопку Оприходывать, чтобы оприходывать товары")
+    public void whenTheUserClicksOnTheStockInAcceptButton() {
+        stockMovementSteps.acceptStockInButtonClick();
     }
 
     @When("the user clicks on the invoice accept button")
@@ -122,6 +132,11 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.saveWriteOffButtonClick();
     }
 
+    @When("пользователь нажимает на кнопку сохранения оприходывания в модальном окне редактирования оприходывания")
+    public void whenTheUserClicksOnTheStockInSaveButton() {
+        stockMovementSteps.saveStockInButtonClick();
+    }
+
     @When("the user clicks on the last created invoice from builder steps on the stock movement page")
     @Alias("пользователь нажимает на последнюю созданнаю накладную с помощью конструктора накладных на странице товародвижения")
     public void whenTheUserClicksOnTheLastCreatedInvoiceFromBuilderStepsOnTheStockMovementPage() throws JSONException {
@@ -133,13 +148,19 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.openLastCreatedWriteOffInStockMovementPage();
     }
 
+    @When("пользователь нажимает на последнее созданное оприходывание с помощью конструктора оприходываний на странице товародвижения")
+    public void whenTheUserClicksOnTheLastCreatedStockInFromBuilderStepsOnTheStockMovementPage() throws JSONException {
+        stockMovementSteps.openLastCreatedStockInInStockMovementPage();
+    }
+
     @When("the user clicks on the invoice with number '$number' on the stock movement page")
     @Aliases(values = {
             "пользователь нажимает на накладную с номером '$number' на странице товародвижения",
-            "пользователь нажимает на списание с номером '$number' на странице товародвижения"
+            "пользователь нажимает на списание с номером '$number' на странице товародвижения",
+            "пользователь нажимает на оприходывание с номером '$number' на странице товародвижения"
     })
     public void whenTheUserClicksOnTheInvoiceWithName(String number) throws JSONException {
-        stockMovementSteps.openInvoiceByNumberInStockMovementPage(number);
+        stockMovementSteps.openOperationByNumberInStockMovementPage(number);
     }
 
     @When("the user clicks on delete invoice button in edit invoice modal window")
@@ -153,6 +174,11 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.deleteWriteOffLinkClick();
     }
 
+    @When("пользователь нажимает на кнопку удаления оприходывания в модальном окне редактирования оприходывания")
+    public void whenTheUserClicksOnDeleteStockInButtonInEditWriteOffModalWindow() {
+        stockMovementSteps.deleteStockInLinkClick();
+    }
+
     @When("the user clicks on delete invoice confirm button in edit invoice modal window")
     @Alias("пользователь подтверждает удаление накладной в модальном окне редактирования накладной")
     public void whenTheUserClicksOnDeleteInvoiceConfirmButtonInEditInvoiceModalWindow() {
@@ -164,6 +190,11 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.confirmDeleteWriteOffLinkClick();
     }
 
+    @When("пользователь подтверждает удаление списания в модальном окне редактирования списания")
+    public void whenTheUserClicksOnDeleteStockInConfirmButtonInEditInvoiceModalWindow() {
+        stockMovementSteps.confirmDeleteStockInLinkClick();
+    }
+
     @When("the user deletes the product with name '$name' in the edit invoice modal window")
     @Alias("пользователь удаляет товар с названием '$name' в модальном окне редактирования накладной")
     public void whenTheUserDeletesTheProductWithNameInTheEditInvoiceModalWindow(String name) {
@@ -173,6 +204,11 @@ public class WhenStockMovementUserSteps {
     @When("пользователь удаляет товар с названием '$name' в модальном окне редактирования списания")
     public void whenTheUserDeletesTheProductWithNameInTheEditWriteOffModalWindow(String name) {
         stockMovementSteps.writeOffProductWithNameDeleteIconClick(name);
+    }
+
+    @When("пользователь удаляет товар с названием '$name' в модальном окне редактирования оприходывания")
+    public void whenTheUserDeletesTheProductWithNameInTheEditStockInModalWindow(String name) {
+        stockMovementSteps.stockInProductWithNameDeleteIconClick(name);
     }
 
     @When("пользователь нажимает на плюсик рядом с полем выбора поставщика, чтобы создать нового поставщика")

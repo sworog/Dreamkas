@@ -37,20 +37,26 @@ public class StockMovementObject extends AbstractObject implements ObjectClickab
     private void setNumber() {
         String invoiceNumber = getElement().getAttribute("data-invoice-number");
         String writeOffNumber = getElement().getAttribute("data-writeoff-number");
+        String stockInNumber = getElement().getAttribute("data-stockin-number");
         if (invoiceNumber != null) {
             number = invoiceNumber;
         } else if (writeOffNumber != null) {
             number = writeOffNumber;
+        } else if (stockInNumber != null) {
+            number = stockInNumber;
         }
     }
 
     public void setDate() {
         String invoiceDate = getElement().getAttribute("data-invoice-date");
         String writeOffDate = getElement().getAttribute("data-writeoff-date");
+        String stockInDate = getElement().getAttribute("data-stockin-date");
         if (invoiceDate != null) {
             date = invoiceDate;
         } else if (writeOffDate != null) {
             date = writeOffDate;
+        } else if (stockInDate != null) {
+            date = stockInDate;
         }
     }
 

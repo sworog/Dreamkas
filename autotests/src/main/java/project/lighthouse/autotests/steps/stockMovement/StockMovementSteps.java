@@ -12,6 +12,8 @@ import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.api.objects.stockmovement.invoice.Invoice;
 import project.lighthouse.autotests.objects.web.invoiceProduct.InvoiceProductCollection;
 import project.lighthouse.autotests.objects.web.invoiceProduct.InvoiceProductObject;
+import project.lighthouse.autotests.objects.web.stockIn.StockInProduct;
+import project.lighthouse.autotests.objects.web.stockIn.StockInProductCollection;
 import project.lighthouse.autotests.objects.web.stockMovement.StockMovementObjectCollection;
 import project.lighthouse.autotests.objects.web.writeOffProduct.WriteOffProductCollection;
 import project.lighthouse.autotests.objects.web.writeOffProduct.WriteOffProductObject;
@@ -144,6 +146,12 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void stockInEditAddProductToStockInButtonClick() {
+        stockInEditModalWindow.addProductToStockInButtonClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
     public void invoiceEditModalWindowAddProductToInvoiceButtonClick() {
         invoiceEditModalWindow.addProductToInvoiceButtonClick();
         new SimplePreloader(getDriver()).await();
@@ -168,6 +176,12 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void acceptStockInButtonClick() {
+        stockInCreateModalWindow.confirmationOkClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
     public void saveInvoiceButtonClick() {
         invoiceEditModalWindow.confirmationOkClick();
         new SimplePreloader(getDriver()).await();
@@ -176,6 +190,12 @@ public class StockMovementSteps extends ScenarioSteps {
     @Step
     public void saveWriteOffButtonClick() {
         writeOffEditModalWindow.confirmationOkClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
+    public void saveStockInButtonClick() {
+        stockInEditModalWindow.confirmationOkClick();
         new SimplePreloader(getDriver()).await();
     }
 
@@ -227,6 +247,16 @@ public class StockMovementSteps extends ScenarioSteps {
         return writeOffProductCollection;
     }
 
+    private StockInProductCollection getStockInProductCollection() {
+        StockInProductCollection stockInProductCollection;
+        try {
+            stockInProductCollection = stockInCreateModalWindow.getStockInProductCollection();
+        } catch (StaleElementReferenceException e) {
+            stockInProductCollection = stockInCreateModalWindow.getStockInProductCollection();
+        }
+        return stockInProductCollection;
+    }
+
     @Step
     public void invoiceProductCollectionExactCompare(ExamplesTable examplesTable) {
         getInvoiceProductCollection().exactCompareExampleTable(examplesTable);
@@ -235,6 +265,11 @@ public class StockMovementSteps extends ScenarioSteps {
     @Step
     public void invoiceWriteOffCollectionExactCompare(ExamplesTable examplesTable) {
         getWriteOffProductCollection().exactCompareExampleTable(examplesTable);
+    }
+
+    @Step
+    public void stockInCollectionExactCompare(ExamplesTable examplesTable) {
+        getStockInProductCollection().exactCompareExampleTable(examplesTable);
     }
 
     @Step
@@ -250,6 +285,14 @@ public class StockMovementSteps extends ScenarioSteps {
         WriteOffProductObject writeOffProduct =
                 (WriteOffProductObject) getWriteOffProductCollection().getAbstractObjectByLocator(name);
         writeOffProduct.deleteIconClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
+    public void stockInProductWithNameDeleteIconClick(String name) {
+        StockInProduct stockInProduct =
+                (StockInProduct) getStockInProductCollection().getAbstractObjectByLocator(name);
+        stockInProduct.deleteIconClick();
         new SimplePreloader(getDriver()).await();
     }
 
@@ -285,16 +328,21 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void openLastCreatedInvoiceInStockMovementPage() throws JSONException {
-        openInvoiceByNumberInStockMovementPage(getLastCreatedInvoice().getNumber());
+        openOperationByNumberInStockMovementPage(getLastCreatedInvoice().getNumber());
     }
 
     @Step
     public void openLastCreatedWriteOffInStockMovementPage() throws JSONException {
-        openInvoiceByNumberInStockMovementPage(Storage.getStockMovementVariableStorage().getLastWriteOff().getNumber());
+        openOperationByNumberInStockMovementPage(Storage.getStockMovementVariableStorage().getLastWriteOff().getNumber());
     }
 
     @Step
-    public void openInvoiceByNumberInStockMovementPage(String number) {
+    public void openLastCreatedStockInInStockMovementPage() throws JSONException {
+        openOperationByNumberInStockMovementPage(Storage.getStockMovementVariableStorage().getLastStockIn().getNumber());
+    }
+
+    @Step
+    public void openOperationByNumberInStockMovementPage(String number) {
         StockMovementObjectCollection stockMovementObjectCollection = stockMovementPage.getStockMovementObjectCollection();
         if (stockMovementObjectCollection != null) {
             stockMovementObjectCollection.clickByLocator(number);
@@ -317,6 +365,14 @@ public class StockMovementSteps extends ScenarioSteps {
         }
     }
 
+    @Step
+    public void stockMovementCollectionDontContainLastCreatedStockIn() throws JSONException {
+        StockMovementObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
+        if (stockMovementObjectCollection != null) {
+            stockMovementObjectCollection.notContains(Storage.getStockMovementVariableStorage().getLastStockIn().getNumber());
+        }
+    }
+
     private Invoice getLastCreatedInvoice() {
         List<Invoice> invoiceList = Storage.getInvoiceVariableStorage().getInvoiceList();
         return invoiceList.get(invoiceList.size() - 1);
@@ -333,6 +389,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void deleteStockInLinkClick() {
+        stockInEditModalWindow.deleteButtonClick();
+    }
+
+    @Step
     public void confirmDeleteInvoiceLinkClick() {
         invoiceEditModalWindow.confirmDeleteButtonClick();
         new SimplePreloader(getDriver()).await();
@@ -341,6 +402,12 @@ public class StockMovementSteps extends ScenarioSteps {
     @Step
     public void confirmDeleteWriteOffLinkClick() {
         writeOffEditModalWindow.confirmDeleteButtonClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
+    public void confirmDeleteStockInLinkClick() {
+        stockInEditModalWindow.confirmDeleteButtonClick();
         new SimplePreloader(getDriver()).await();
     }
 
@@ -355,6 +422,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void assertStockInCreateModalWindowTotalSum(String totalSum) {
+        assertThat(stockInCreateModalWindow.getTotalSum(), is(totalSum));
+    }
+
+    @Step
     public void assertInvoiceEditModalWindowTotalSum(String totalSum) {
         assertThat(invoiceEditModalWindow.getTotalSum(), is(totalSum));
     }
@@ -365,6 +437,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void assertStockInEditModalWindowTotalSum(String totalSum) {
+        assertThat(stockInEditModalWindow.getTotalSum(), is(totalSum));
+    }
+
+    @Step
     public void assertInvoiceDateIsNowDate() {
         invoiceCreateModalWindowCheckValue("date", DateTimeHelper.getDate("todayDate"));
     }
@@ -372,6 +449,11 @@ public class StockMovementSteps extends ScenarioSteps {
     @Step
     public void assertWriteOffDateIsNowDate() {
         writeOffCreateModalWindowCheckValue("date", DateTimeHelper.getDate("todayDate"));
+    }
+
+    @Step
+    public void assertStockInDateIsNowDate() {
+        stockInCreateModalWindowCheckValue("date", DateTimeHelper.getDate("todayDate"));
     }
 
     @Step
@@ -387,6 +469,11 @@ public class StockMovementSteps extends ScenarioSteps {
     @Step
     public void writeOffCreateModalWindowCheckValue(String elementName, String value) {
         writeOffCreateModalWindow.checkValue(elementName, value);
+    }
+
+    @Step
+    public void stockInCreateModalWindowCheckValue(String elementName, String value) {
+        stockInCreateModalWindow.checkValue(elementName, value);
     }
 
     @Step
