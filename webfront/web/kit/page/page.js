@@ -14,9 +14,6 @@ define(function(require, exports, module) {
         el: '.page',
         template: require('ejs!./template.ejs'),
 
-        collections: {},
-        models: {},
-
         activeNavigationItem: 'main',
 
         content: function() {
@@ -29,13 +26,7 @@ define(function(require, exports, module) {
             page.setStatus('starting');
             page.setStatus('loading');
 
-            page.collections = _.transform(page.collections, function(result, collectionInitializer, key) {
-                result[key] = page.get('collections.' + key);
-            });
-
-            page.models = _.transform(page.models, function(result, modelInitializer, key) {
-                result[key] = page.get('models.' + key);
-            });
+            page.initResources();
 
             $.when(page.fetch()).then(function() {
                 page.render();
@@ -47,8 +38,8 @@ define(function(require, exports, module) {
             var page = this,
                 autofocus;
 
-            if (PAGE && PAGE !== page){
-                PAGE.destroy();
+            if (window.PAGE && window.PAGE !== page){
+                window.PAGE.destroy();
             }
 
             window.PAGE = page;
@@ -65,20 +56,6 @@ define(function(require, exports, module) {
 
         },
 
-        fetch: function(dataList) {
-            var page = this;
-
-            dataList = dataList || _.values(page.collections).concat(_.filter(page.models, function(model) {
-                return model && model.id;
-            }));
-
-            var fetchList = _.map(dataList, function(data) {
-                return (data && typeof data.fetch === 'function') ? data.fetch() : data;
-            });
-
-            return $.when.apply($, fetchList);
-        },
-
         destroy: function(){
             var page = this;
 
@@ -93,7 +70,7 @@ define(function(require, exports, module) {
 
             page.trigger('status:' + status);
 
-            if (status === 'loading' && PAGE){
+            if (status === 'loading' && window.PAGE){
                 document.body.removeAttribute('status');
             }
 
@@ -114,6 +91,8 @@ define(function(require, exports, module) {
                     result[key] = value;
                 }
             }));
+
+            page.render();
         },
 
         initBlocks: function(){
@@ -121,11 +100,11 @@ define(function(require, exports, module) {
 
             Block.prototype.initBlocks.apply(page, arguments);
 
+            Sortable.init();
+
             page.$('button[data-toggle="popover"]').popover({
                 trigger: 'focus'
             });
-
-            Sortable.init();
 
             page.$('.inputDate, .input-daterange').each(function(){
                 $(this).datepicker({
