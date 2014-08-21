@@ -190,7 +190,7 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.confirmDeleteWriteOffLinkClick();
     }
 
-    @When("пользователь подтверждает удаление списания в модальном окне редактирования списания")
+    @When("пользователь подтверждает удаление оприходывания в модальном окне редактирования оприходывания")
     public void whenTheUserClicksOnDeleteStockInConfirmButtonInEditInvoiceModalWindow() {
         stockMovementSteps.confirmDeleteStockInLinkClick();
     }
