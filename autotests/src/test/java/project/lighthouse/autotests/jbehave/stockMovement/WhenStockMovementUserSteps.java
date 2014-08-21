@@ -24,6 +24,11 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.writeOffCreateButtonClick();
     }
 
+    @When("пользователь нажимает на кнопку Оприходывать на странице товародвижения")
+    public void whenTheUserClicksOnTheCreateStockInButton() {
+        stockMovementSteps.stockInCreateButtonClick();
+    }
+
     @When("the user inputs values on the create new invoice modal window $examplesTable")
     @Alias("пользователь вводит данные в модальном окне создания накладной $examplesTable")
     public void whenTheUserInputsOnTheCreateNewInvoiceModalWindow(ExamplesTable examplesTable) {
@@ -76,6 +81,11 @@ public class WhenStockMovementUserSteps {
 
     @When("пользователь нажимает на кнопку добавления нового товара в списание")
     public void whenTheUserClicksOnTheAddNewWriteOffProductButton() {
+        stockMovementSteps.addProductToWriteOffOffButtonClick();
+    }
+
+    @When("пользователь нажимает на кнопку добавления нового товара в оприходывание")
+    public void whenTheUserClicksOnTheAddNewStockInProductButton() {
         stockMovementSteps.addProductToWriteOffOffButtonClick();
     }
 

@@ -20,6 +20,8 @@ import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceCre
 import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceEditModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceProductCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceSupplierCreateModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInEditModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.writeOff.WriteOffCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.writeOff.WriteOffEditModalWindow;
 import project.lighthouse.autotests.storage.Storage;
@@ -38,6 +40,8 @@ public class StockMovementSteps extends ScenarioSteps {
     InvoiceProductCreateModalWindow invoiceProductCreateModalWindow;
     WriteOffCreateModalWindow writeOffCreateModalWindow;
     WriteOffEditModalWindow writeOffEditModalWindow;
+    StockInCreateModalWindow stockInCreateModalWindow;
+    StockInEditModalWindow stockInEditModalWindow;
 
     private String name;
 
@@ -64,6 +68,11 @@ public class StockMovementSteps extends ScenarioSteps {
     @Step
     public void writeOffCreateButtonClick() {
         stockMovementPage.writeOffCreateButtonClick();
+    }
+
+    @Step
+    public void stockInCreateButtonClick() {
+        stockMovementPage.stockInCreateButtonClick();
     }
 
     @Step
@@ -125,6 +134,12 @@ public class StockMovementSteps extends ScenarioSteps {
     @Step
     public void addProductToWriteOffOffButtonClick() {
         writeOffCreateModalWindow.addProductToWriteOffButtonClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
+    public void addProductToStockInButtonClick() {
+        stockInCreateModalWindow.addProductToStockInButtonClick();
         new SimplePreloader(getDriver()).await();
     }
 

@@ -10,12 +10,12 @@ public class ModalEndUserSteps {
     @Steps
     ModalSteps modalSteps;
 
-    @Given("пользователь находится в модальном окне '$modalPageObjectName'")
+    @Given("пользователь* находится в модальном окне '$modalPageObjectName'")
     public void givenUserSetsModalWindowPageObjectWithName(String modalPageObjectName) {
         modalSteps.setCurrentPageObject(modalPageObjectName);
     }
 
-    @Then("пользователь проверяет, что заголовок модального окна равен '$title'")
+    @Then("пользователь* проверяет, что заголовок модального окна равен '$title'")
     public void thenUserAssertsTheModalWindowTitle(String title) {
         modalSteps.assertTitle(title);
     }
