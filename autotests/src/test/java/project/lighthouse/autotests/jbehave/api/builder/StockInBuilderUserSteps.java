@@ -20,7 +20,7 @@ public class StockInBuilderUserSteps {
     }
 
     @Given("пользователь добавляет к апи объекту оприходования продукт с именем '$name', ценой '$price', количеством '$quantity'")
-    public void givenTheUserAddsTheProductToWriteOffApiObject(String name, String price, String quantity, String cause) {
+    public void givenTheUserAddsTheProductToWriteOffApiObject(String name, String price, String quantity) {
         Product product = StaticData.products.get(name);
         stockInBuilderSteps.addProduct(
                 product.getId(),
