@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var From = require('kit/form/form');
+    var From = require('kit/form/form.deprecated');
 
     return From.extend({
         el: '.form_writeOff',

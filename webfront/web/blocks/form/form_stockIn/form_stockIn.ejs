@@ -1,0 +1,35 @@
+<form id="form_stockIn" class="form form_stockIn">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+
+                <label class="control-label">Дата *</label>
+
+                <div class="input-group date">
+                    <input name="date"
+                           type="text"
+                           class="form-control inputDate"
+                           value="<%- models.stockIn.get('date') ? helpers.formatDate(models.stockIn.get('date')) : helpers.formatDate(new Date()) %>">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+
+                <label class="control-label">Магазин *</label>
+
+                <div class="input-icon right">
+                    <select class="form-control" name="store">
+                        <option value="" selected disabled>Выберите магазин</option>
+                        <% collections.stores.forEach(function(storeModel){ %>
+                        <option <%- models.stockIn.get('store.id') === storeModel.id ? 'selected' : '' %>
+                                value="<%- storeModel.id %>"><%- storeModel.get('name') %>
+                        </option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

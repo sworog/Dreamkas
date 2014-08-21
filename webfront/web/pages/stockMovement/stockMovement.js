@@ -41,26 +41,36 @@ define(function(require, exports, module) {
         },
         events: {
             'click .invoice__link': function(e) {
-                var block = this,
+                var page = this,
                     invoiceId = e.currentTarget.dataset.invoice_id;
 
-                if (!block.models.invoice || block.models.invoice.id !== invoiceId) {
-                    block.models.invoice = block.collections.stockMovements.get(invoiceId);
-                    block.render();
+                if (!page.models.invoice || page.models.invoice.id !== invoiceId) {
+                    page.models.invoice = page.collections.stockMovements.get(invoiceId);
+                    page.render();
                 }
 
                 $('#modal_invoiceEdit').modal('show');
             },
             'click .writeOff__link': function(e) {
-                var block = this,
+                var page = this,
                     writeOffId = e.currentTarget.dataset.writeoff_id;
 
-                if (!block.models.writeOff || block.models.writeOff.id !== writeOffId) {
-                    block.models.writeOff = block.collections.stockMovements.get(writeOffId);
-                    block.render();
+                if (!page.models.writeOff || page.models.writeOff.id !== writeOffId) {
+                    page.models.writeOff = page.collections.stockMovements.get(writeOffId);
+                    page.render();
                 }
 
                 $('#modal_writeOffEdit').modal('show');
+            },
+            'click .page__addStockInLink': function(e){
+                var page = this,
+                    StockInModel = require('models/stockIn/stockIn');
+
+                page.el.querySelector('.modal_stockIn').block.show({
+                    models: {
+                        stockIn: new StockInModel
+                    }
+                });
             }
         },
         blocks: {

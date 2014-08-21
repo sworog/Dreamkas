@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Form = require('kit/form/form'),
+    var Form = require('kit/form/form.deprecated'),
         login = require('kit/login/login'),
         getText = require('kit/getText/getText');
 
