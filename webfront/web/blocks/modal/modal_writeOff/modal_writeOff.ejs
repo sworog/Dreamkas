@@ -12,7 +12,8 @@
     writeOff: new WriteOffModel()
 }, models) %>
 
-<div id="<%- models.writeOff.id ? 'modal_writeOffEdit' : 'modal_writeOffAdd' %>"
+<div block="<%- models.writeOff.id ? 'modal_writeOffEdit' : 'modal_writeOffAdd' %>"
+     id="<%- models.writeOff.id ? 'modal_writeOffEdit' : 'modal_writeOffAdd' %>"
      tabindex="-1"
      role="dialog"
      aria-labelledby="modal-default-label"

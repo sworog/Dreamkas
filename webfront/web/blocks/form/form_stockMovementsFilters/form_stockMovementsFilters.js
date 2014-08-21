@@ -4,7 +4,6 @@ define(function(require, exports, module) {
         router = require('router');
 
     return Form.extend({
-        el: '.form_stockMovementsFilters',
         events: {
             reset: function(){
                 var block = this,
