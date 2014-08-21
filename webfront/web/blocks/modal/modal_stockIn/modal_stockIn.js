@@ -7,9 +7,14 @@ define(function(require, exports, module) {
         models: {
             stockIn: require('models/stockIn/stockIn')
         },
-        collections: {
-            stores: function(){
-                return PAGE.collections.stores;
+        blocks: {
+            form_stockIn: function(opt){
+                var block = this,
+                    Form_stockIn = require('blocks/form/form_stockIn/form_stockIn');
+
+                return new Form_stockIn(_.extend(opt, {
+                    model: block.models.stockIn
+                }));
             }
         }
     });

@@ -176,5 +176,30 @@ define(function(require, exports, module) {
             expect(block.collections.a).toEqual(['a', 'b', 'c']);
         });
 
+        it('deep nested blocks', function(){
+            var block = new Block({
+                template: function(){
+                    return '<div><b block="nestedBlock_1"></b></div>';
+                },
+                blocks: {
+                    nestedBlock_1: Block.extend({
+                        template: function(){
+                            return '<div class="nestedBlock_1"><b block="nestedBlock_2"></b></div>';
+                        },
+                        blocks: {
+                            nestedBlock_2: Block.extend({
+                                template: function(){
+                                    return '<div class="nestedBlock_2">nestedBlock_2</div>';
+                                }
+                            })
+                        }
+                    })
+                }
+            });
+
+            expect(block.el.querySelector('.nestedBlock_2').innerText).toEqual('nestedBlock_2');
+        });
+
+
     });
 });

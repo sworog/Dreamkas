@@ -9,7 +9,7 @@
                     <input name="date"
                            type="text"
                            class="form-control inputDate"
-                           value="<%- models.stockIn.get('date') ? helpers.formatDate(models.stockIn.get('date')) : helpers.formatDate(new Date()) %>">
+                           value="<%- model.get('date') ? helpers.formatDate(model.get('date')) : helpers.formatDate(new Date()) %>">
                     <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                     <select class="form-control" name="store">
                         <option value="" selected disabled>Выберите магазин</option>
                         <% collections.stores.forEach(function(storeModel){ %>
-                        <option <%- models.stockIn.get('store.id') === storeModel.id ? 'selected' : '' %>
+                        <option <%- model.get('store.id') === storeModel.id ? 'selected' : '' %>
                                 value="<%- storeModel.id %>"><%- storeModel.get('name') %>
                         </option>
                         <% }) %>

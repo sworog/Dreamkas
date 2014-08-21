@@ -23,7 +23,7 @@ define(function(require) {
                 var block = this,
                     submitting;
 
-                block.data = block.getData();
+                block.serialize();
 
                 submitting = block.submit();
 
@@ -51,7 +51,6 @@ define(function(require) {
 
             block.model = block.get('model');
             block.collection = block.get('collection');
-            block.data = block.model.toJSON();
             block.redirectUrl = block.get('redirectUrl');
 
             Block.prototype.initialize.apply(block, arguments);
@@ -64,11 +63,17 @@ define(function(require) {
 
             block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' +  (block.el && block.el.id) + '"]');
         },
-        getData: function() {
-            return form2js(this.el, '.', false);
+        serialize: function() {
+            var block = this;
+
+            block.set('data', form2js(block.el, '.', false));
+
+            return block.data;
         },
         submit: function() {
             var block = this;
+
+            console.log(block.data);
 
             return block.model.save(block.data);
         },
