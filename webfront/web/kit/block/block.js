@@ -2,6 +2,7 @@ define(function(require, exports, module) {
     //requirements
     var Backbone = require('backbone'),
         get = require('kit/get/get'),
+        set = require('kit/set/set'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         makeClass = require('kit/makeClass/makeClass'),
         rivets = require('bower_components/rivets/dist/rivets'),
@@ -52,6 +53,12 @@ define(function(require, exports, module) {
             var args = [this].concat([].slice.call(arguments));
 
             return get.apply(null, args);
+        },
+
+        set: function() {
+            var args = [this].concat([].slice.call(arguments));
+
+            return set.apply(null, args);
         },
 
         initResources: function(){

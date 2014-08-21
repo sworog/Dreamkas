@@ -1,9 +1,9 @@
 define(function(require, exports, module) {
     //requirements
-    var Block = require('kit/block/block');
+    var Modal = require('blocks/modal/modal');
 
-    return Block.extend({
-        template: require('ejs!./template.ejs'),
+    return Modal.extend({
+        template: require('ejs!./modal_stockIn.ejs'),
         models: {
             stockIn: require('models/stockIn/stockIn')
         },
