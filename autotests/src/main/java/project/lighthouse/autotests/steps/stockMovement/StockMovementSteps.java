@@ -9,7 +9,6 @@ import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.helper.StringGenerator;
-import project.lighthouse.autotests.api.objects.stockmovement.invoice.Invoice;
 import project.lighthouse.autotests.objects.web.invoiceProduct.InvoiceProductCollection;
 import project.lighthouse.autotests.objects.web.invoiceProduct.InvoiceProductObject;
 import project.lighthouse.autotests.objects.web.stockIn.StockInProduct;
@@ -27,8 +26,6 @@ import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInEdi
 import project.lighthouse.autotests.pages.stockMovement.modal.writeOff.WriteOffCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.writeOff.WriteOffEditModalWindow;
 import project.lighthouse.autotests.storage.Storage;
-
-import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -328,7 +325,7 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void openLastCreatedInvoiceInStockMovementPage() throws JSONException {
-        openOperationByNumberInStockMovementPage(getLastCreatedInvoice().getNumber());
+        openOperationByNumberInStockMovementPage(Storage.getStockMovementVariableStorage().getLastInvoice().getNumber());
     }
 
     @Step
@@ -353,7 +350,7 @@ public class StockMovementSteps extends ScenarioSteps {
     public void stockMovementCollectionDontContainLastCreatedInvoice() throws JSONException {
         StockMovementObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
         if (stockMovementObjectCollection != null) {
-            stockMovementObjectCollection.notContains(getLastCreatedInvoice().getNumber());
+            stockMovementObjectCollection.notContains(Storage.getStockMovementVariableStorage().getLastInvoice().getNumber());
         }
     }
 
@@ -371,11 +368,6 @@ public class StockMovementSteps extends ScenarioSteps {
         if (stockMovementObjectCollection != null) {
             stockMovementObjectCollection.notContains(Storage.getStockMovementVariableStorage().getLastStockIn().getNumber());
         }
-    }
-
-    private Invoice getLastCreatedInvoice() {
-        List<Invoice> invoiceList = Storage.getInvoiceVariableStorage().getInvoiceList();
-        return invoiceList.get(invoiceList.size() - 1);
     }
 
     @Step
