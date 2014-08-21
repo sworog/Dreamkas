@@ -64,53 +64,53 @@ define(function(require, exports, module) {
             }
         },
         blocks: {
-            modal_invoiceAdd: function(){
-                var block = this,
+            modal_invoiceAdd: function(opt){
+                var page = this,
                     Modal_invoice = require('blocks/modal/modal_invoice/modal_invoice');
 
                 return new Modal_invoice({
-                    el: '#modal_invoiceAdd',
+                    el: opt.el,
                     collections: {
-                        invoices: block.collections.stockMovements,
-                        suppliers: block.collections.suppliers
+                        invoices: page.collections.stockMovements,
+                        suppliers: page.collections.suppliers
                     }
                 });
             },
-            modal_invoiceEdit: function() {
-                var block = this,
+            modal_invoiceEdit: function(opt) {
+                var page = this,
                     Modal_invoice = require('blocks/modal/modal_invoice/modal_invoice');
 
-                if (block.models.invoice) {
+                if (page.models.invoice) {
                     return new Modal_invoice({
-                        el: '#modal_invoiceEdit',
+                        el: opt.el,
                         collections: {
-                            invoices: block.collections.stockMovements,
-                            suppliers: block.collections.suppliers
+                            invoices: page.collections.stockMovements,
+                            suppliers: page.collections.suppliers
                         },
                         models: {
-                            invoice: block.models.invoice
+                            invoice: page.models.invoice
                         }
                     });
                 }
             },
-            modal_writeOffAdd: function(){
+            modal_writeOffAdd: function(opt){
                 var block = this,
                     Modal_writeOff = require('blocks/modal/modal_writeOff/modal_writeOff');
 
                 return new Modal_writeOff({
-                    el: '#modal_writeOffAdd',
+                    el: opt.el,
                     collections: {
                         stockMovements: block.collections.stockMovements
                     }
                 });
             },
-            modal_writeOffEdit: function() {
+            modal_writeOffEdit: function(opt) {
                 var block = this,
                     Modal_writeOff = require('blocks/modal/modal_writeOff/modal_writeOff');
 
                 if (block.models.writeOff) {
                     return new Modal_writeOff({
-                        el: '#modal_writeOffEdit',
+                        el: opt.el,
                         collections: {
                             writeOffs: block.collections.stockMovements
                         },
