@@ -36,7 +36,7 @@ class StockIn extends StockMovement
      * @Assert\Valid(traverse=true)
      * @Assert\Count(
      *      min=1,
-     *      minMessage="lighthouse.validation.errors.stockin.products.empty"
+     *      minMessage="lighthouse.validation.errors.stock_movement.products.empty"
      * )
      * @Serializer\MaxDepth(4)
      * @var StockInProduct[]|Collection

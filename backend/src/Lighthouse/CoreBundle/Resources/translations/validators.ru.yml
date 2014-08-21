@@ -58,6 +58,8 @@ lighthouse:
                     outer: Штрихкод уже используется в продукте [{{ product.sku }}] "{{ product.name }}"
                     inner: Штрихкод уже используется в этом продукте
 
+            stock_movement:
+                products.empty: Нужно добавить минимум один товар
             invoice:
                 dates_compare: Дата накладной не должна быть старше даты приемки
                 supplier:
@@ -66,14 +68,9 @@ lighthouse:
                 order:
                     unique: Накладная по этому заказу уже существует
                     does_not_exists: Такой заказ не существует
-                products:
-                    empty: Нужно добавить минимум один товар
 
             invoice_product:
                 product.does_not_exists: Такого товара не существует
-
-            writeoff:
-                products.empty: Нужно добавить минимум один товар
 
             sale:
                 product.empty: Должен присутствовать хотя бы один товар
