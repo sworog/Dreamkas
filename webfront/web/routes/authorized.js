@@ -14,7 +14,7 @@ define(function(require) {
         'suppliers(/)': require('pages/suppliers/suppliers'),
 
         //stockMovement
-        'stockMovement(/)': require('pages/stockMovement/stockMovement'),
+        'stockMovements(/)': require('pages/stockMovements/stockMovements'),
 
         //stores
         'stores(/)': require('pages/stores/stores')

@@ -5,15 +5,6 @@ define(function(require, exports, module) {
         _ = require('lodash');
 
     return Block.extend({
-        events: {
-            'hidden.bs.modal': function(){
-                var block = this;
-
-                _.each(block.el.querySelectorAll('form'), function(form){
-                    form.reset();
-                });
-            }
-        },
         render: function(){
             var block = this;
 

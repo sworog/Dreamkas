@@ -1,9 +1,13 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/form/form.deprecated'),
+    var Form = require('kit/form/form'),
         router = require('router');
 
     return Form.extend({
+        template: require('ejs!./form_stockMovementsFilters.ejs'),
+        data: function(){
+            return _.pick(PAGE.params, 'dateFrom', 'dateTo', 'types');
+        },
         events: {
             reset: function(){
                 var block = this,
@@ -19,25 +23,24 @@ define(function(require, exports, module) {
                 PAGE.collections.stockMovements.filters = filters;
 
                 PAGE.collections.stockMovements.fetch().then(function(){
-                    PAGE.setParams({
-                        filters: filters
-                    });
+                    PAGE.setParams(filters);
                 });
             }
+        },
+        blocks: {
+            inputDateRange: require('blocks/inputDateRange/inputDateRange')
         },
         submit: function(){
             var block = this;
 
-            PAGE.collections.stockMovements.filters = block.formData;
+            PAGE.collections.stockMovements.filters = block.data;
 
             return PAGE.collections.stockMovements.fetch();
         },
         submitSuccess: function(){
             var block = this;
 
-            PAGE.setParams({
-                filters: block.formData
-            });
+            PAGE.setParams(block.data);
         },
         showErrors: function(error){
             var block = this,

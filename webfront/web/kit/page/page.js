@@ -5,10 +5,6 @@ define(function(require, exports, module) {
         deepExtend = require('kit/deepExtend/deepExtend'),
         _ = require('lodash');
 
-    require('sortable');
-    require('datepicker');
-    require('i18n!nls/datepicker');
-
     return Block.extend({
 
         el: '.page',
@@ -56,15 +52,6 @@ define(function(require, exports, module) {
 
         },
 
-        destroy: function(){
-            var page = this;
-
-            $('.inputDate, .input-daterange').datepicker('remove');
-
-            Block.prototype.destroy.apply(page, arguments);
-
-        },
-
         setStatus: function(status){
             var page = this;
 
@@ -85,22 +72,10 @@ define(function(require, exports, module) {
             deepExtend(page.params, params);
 
             router.save(_.transform(page.params, function(result, value, key){
-                try {
-                    result[key] = JSON.stringify(value);
-                } catch(e) {
-                    result[key] = value;
-                }
+                result[key] = _.isPlainObject(value) ? JSON.stringify(value) : value;
             }));
 
             page.render();
-        },
-
-        initBlocks: function(){
-            var page = this;
-
-            Block.prototype.initBlocks.apply(page, arguments);
-
-            Sortable.init();
         }
     });
 });

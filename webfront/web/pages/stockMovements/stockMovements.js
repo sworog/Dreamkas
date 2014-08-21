@@ -7,7 +7,9 @@ define(function(require, exports, module) {
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'stockMovement',
         params: {
-            filters: {}
+            dateFrom: null,
+            dateTo: null,
+            types: null
         },
         collections: {
             suppliers: require('collections/suppliers/suppliers'),
@@ -17,7 +19,7 @@ define(function(require, exports, module) {
                 var page = this,
                     StockMovementsCollection = require('collections/stockMovements/stockMovements'),
                     stockMovementsCollection = new StockMovementsCollection([], {
-                        filters: page.params.filters
+                        filters: _.pick(page.params, 'dateFrom', 'dateTo', 'types')
                     });
 
                 page.listenTo(stockMovementsCollection, {
@@ -75,7 +77,7 @@ define(function(require, exports, module) {
         },
         blocks: {
             modal_stockIn: require('blocks/modal/modal_stockIn/modal_stockIn'),
-
+            form_stockMovementsFilters: require('blocks/form/form_stockMovementsFilters/form_stockMovementsFilters'),
             modal_invoiceAdd: function(opt){
                 var page = this,
                     Modal_invoice = require('blocks/modal/modal_invoice/modal_invoice');
@@ -131,8 +133,7 @@ define(function(require, exports, module) {
                         }
                     });
                 }
-            },
-            form_stockMovementsFilters: require('blocks/form/form_stockMovementsFilters/form_stockMovementsFilters')
+            }
         }
     });
 });
