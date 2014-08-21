@@ -1,9 +1,10 @@
 define(function(require, exports, module) {
     //requirements
     var set = require('./set'),
-        events = require('kit/events/events');
+        Backbone = require('backbone'),
+        _ = require('lodash');
 
-    require('lodash');
+    var events = Backbone.Events;
 
     describe(module.id, function() {
 
@@ -208,15 +209,15 @@ define(function(require, exports, module) {
             expect(object.a.b).toEqual(plainObject);
         });
 
-        it('set:callback by path', function() {
+        it('set_ callback by path', function() {
 
             var spyTestValue = jasmine.createSpy('testValue'),
                 spyAll = jasmine.createSpy('all');
 
 
             object = {
-                'set:testValue': spyTestValue,
-                'set:*': spyAll
+                'set_testValue': spyTestValue,
+                'set_*': spyAll
             };
 
             set(object, 'testValue', 1);
@@ -225,16 +226,16 @@ define(function(require, exports, module) {
             expect(spyAll).toHaveBeenCalledWith({ testValue : 1 }, {});
         });
 
-        it('set:callback by hash', function() {
+        it('set_ callback by hash', function() {
 
             var spyTestValue = jasmine.createSpy('testValue'),
                 spyAll = jasmine.createSpy('all');
 
 
             object = {
-                'set:testValue': spyTestValue,
-                'set:testValue1': spyTestValue,
-                'set:*': spyAll
+                'set_testValue': spyTestValue,
+                'set_testValue1': spyTestValue,
+                'set_*': spyAll
             };
 
             set(object, {
@@ -299,7 +300,7 @@ define(function(require, exports, module) {
 
             _.extend(object, {
                 testValue: 1,
-                'set:testValue': function(){
+                set_testValue: function(){
                     this.testValue = 1;
                 }
             }, events);

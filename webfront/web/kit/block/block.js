@@ -4,6 +4,7 @@ define(function(require, exports, module) {
         get = require('kit/get/get'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         makeClass = require('kit/makeClass/makeClass'),
+        rivets = require('bower_components/rivets/dist/rivets'),
         _ = require('lodash');
 
     var View = Backbone.View;
@@ -20,9 +21,7 @@ define(function(require, exports, module) {
 
         blocks: {},
         __blocks: {},
-
-        template: function() {
-        },
+        bindings: null,
 
         initialize: function() {
             var block = this;
@@ -31,12 +30,14 @@ define(function(require, exports, module) {
         },
 
         render: function() {
-            var block = this,
-                $newElement = $(block.template(block));
+            var block = this;
 
             block.destroyBlocks();
 
-            $newElement.length && block.setElement($newElement.replaceAll(block.el));
+            if (typeof block.template === 'function') {
+                block.setElement($(block.template(block)).replaceAll(block.el));
+                block.bindings = rivets.bind(block.el, block);
+            }
 
             block.initBlocks();
         },
@@ -57,7 +58,7 @@ define(function(require, exports, module) {
                     params = _.extend({}, placeholder.dataset, {el: placeholder}),
                     __block;
 
-                if (typeof block.blocks[blockName] === 'function'){
+                if (typeof block.blocks[blockName] === 'function') {
 
                     __block = block.blocks[blockName].call(block, params);
 
@@ -73,9 +74,10 @@ define(function(require, exports, module) {
             var block = this;
 
             block.destroyBlocks();
-
             block.stopListening();
             block.undelegateEvents();
+
+            block.bindings && block.bindings.unbind();
         },
 
         remove: function() {
