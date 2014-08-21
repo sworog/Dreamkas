@@ -124,5 +124,11 @@ define(function(require, exports, module) {
             expect(block.el.innerText).toEqual('updated text');
         });
 
+        it('block.el has instance reference', function(){
+            var block = new Block();
+
+            expect(block.el.block instanceof Block);
+        });
+
     });
 });

@@ -39,6 +39,8 @@ define(function(require, exports, module) {
                 block.bindings = rivets.bind(block.el, block);
             }
 
+            block.el.block = this;
+
             block.initBlocks();
         },
 
