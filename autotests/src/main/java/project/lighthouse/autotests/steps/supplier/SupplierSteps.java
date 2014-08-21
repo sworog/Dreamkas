@@ -36,13 +36,13 @@ public class SupplierSteps extends ScenarioSteps {
 
     @Step
     public void supplierCreateModalPageInput(ExamplesTable examplesTable) {
-        supplierCreateModalPage.fieldInput(examplesTable);
+        supplierCreateModalPage.input(examplesTable);
         this.examplesTable = examplesTable;
     }
 
     @Step
     public void supplierEditModalPageInput(ExamplesTable examplesTable) {
-        supplierEditModalPage.fieldInput(examplesTable);
+        supplierEditModalPage.input(examplesTable);
         this.examplesTable = examplesTable;
     }
 

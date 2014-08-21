@@ -205,6 +205,6 @@ public class AuthorizationSteps extends ScenarioSteps {
 
     @Step
     public void authFieldInput(ExamplesTable examplesTable) {
-        authorizationPage.fieldInput(examplesTable);
+        authorizationPage.input(examplesTable);
     }
 }

@@ -35,13 +35,13 @@ public class ProductSteps extends ScenarioSteps {
 
     @Step
     public void createNewProductModalWindowInput(ExamplesTable examplesTable) {
-        createNewProductModalWindow.inputTable(examplesTable);
+        createNewProductModalWindow.input(examplesTable);
         this.examplesTable = examplesTable;
     }
 
     @Step
     public void editNewProductModalWindowInput(ExamplesTable examplesTable) {
-        editProductModalWindow.inputTable(examplesTable);
+        editProductModalWindow.input(examplesTable);
         this.examplesTable = examplesTable;
     }
 

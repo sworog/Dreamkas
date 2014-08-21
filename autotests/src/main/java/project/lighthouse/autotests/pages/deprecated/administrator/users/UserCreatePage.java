@@ -34,8 +34,8 @@ public class UserCreatePage extends CommonPageObject {
     }
 
     @Override
-    public void fieldInput(ExamplesTable fieldInputTable) {
-        for (Map<String, String> row : fieldInputTable.getRows()) {
+    public void input(ExamplesTable examplesTable) {
+        for (Map<String, String> row : examplesTable.getRows()) {
             String elementName = row.get("elementName");
             String inputText = row.get("value");
             String updatedText = (elementName.equals("role")) ? RoleReplacer.replace(inputText) : inputText;

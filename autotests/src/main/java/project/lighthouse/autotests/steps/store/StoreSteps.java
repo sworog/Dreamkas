@@ -35,12 +35,12 @@ public class StoreSteps extends ScenarioSteps {
 
     @Step
     public void storeCreateModalWindowInputValues(ExamplesTable examplesTable) {
-        storeCreateModalWindow.fieldInput(examplesTable);
+        storeCreateModalWindow.input(examplesTable);
     }
 
     @Step
     public void storeEditModalWindowInputValues(ExamplesTable examplesTable) {
-        storeEditModalWindow.fieldInput(examplesTable);
+        storeEditModalWindow.input(examplesTable);
     }
 
     @Step

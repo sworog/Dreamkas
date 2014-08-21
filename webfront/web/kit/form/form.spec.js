@@ -14,7 +14,7 @@ define(function(require, exports, module) {
             '</form>';
 
     describe(module.id, function() {
-        it('getData method', function() {
+        it('serialize method', function() {
 
             var expectedData = {
                 textInput: 'textInputValue',
@@ -29,7 +29,7 @@ define(function(require, exports, module) {
                 }
             });
 
-            expect(form.getData()).toEqual(expectedData);
+            expect(form.serialize()).toEqual(expectedData);
         });
     });
 });

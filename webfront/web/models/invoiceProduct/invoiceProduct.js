@@ -1,7 +1,6 @@
 define(function(require) {
     //requirements
     var Model = require('kit/model/model'),
-        _ = require('lodash'),
         normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
 
     return Model.extend({

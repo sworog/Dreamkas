@@ -11,6 +11,10 @@ public class InvoiceProductCollection extends AbstractObjectCollection {
         super(webDriver, By.name("invoiceProduct"));
     }
 
+    public InvoiceProductCollection(WebDriver webDriver, By findBy) {
+        super(webDriver, findBy);
+    }
+
     @Override
     public InvoiceProductObject createNode(WebElement element) {
         return new InvoiceProductObject(element);

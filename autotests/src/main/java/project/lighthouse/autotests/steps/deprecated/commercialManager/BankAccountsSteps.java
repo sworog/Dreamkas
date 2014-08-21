@@ -17,7 +17,7 @@ public class BankAccountsSteps extends ScenarioSteps {
 
     @Step
     public void fillInputs(ExamplesTable data) {
-        bankAccountsFormPage.fieldInput(data);
+        bankAccountsFormPage.input(data);
     }
 
     @Step

@@ -1,7 +1,7 @@
 package project.lighthouse.autotests;
 
 import project.lighthouse.autotests.objects.api.*;
-import project.lighthouse.autotests.objects.api.invoice.Invoice;
+import project.lighthouse.autotests.api.objects.stockmovement.invoice.Invoice;
 import project.lighthouse.autotests.storage.Storage;
 
 import java.util.ArrayList;

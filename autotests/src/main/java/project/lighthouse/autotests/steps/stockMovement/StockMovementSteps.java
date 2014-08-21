@@ -9,9 +9,10 @@ import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.helper.StringGenerator;
-import project.lighthouse.autotests.objects.api.invoice.Invoice;
 import project.lighthouse.autotests.objects.web.invoiceProduct.InvoiceProductCollection;
 import project.lighthouse.autotests.objects.web.invoiceProduct.InvoiceProductObject;
+import project.lighthouse.autotests.objects.web.stockIn.StockInProduct;
+import project.lighthouse.autotests.objects.web.stockIn.StockInProductCollection;
 import project.lighthouse.autotests.objects.web.stockMovement.StockMovementObjectCollection;
 import project.lighthouse.autotests.objects.web.writeOffProduct.WriteOffProductCollection;
 import project.lighthouse.autotests.objects.web.writeOffProduct.WriteOffProductObject;
@@ -20,11 +21,11 @@ import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceCre
 import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceEditModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceProductCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceSupplierCreateModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInEditModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.writeOff.WriteOffCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.writeOff.WriteOffEditModalWindow;
 import project.lighthouse.autotests.storage.Storage;
-
-import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -38,12 +39,14 @@ public class StockMovementSteps extends ScenarioSteps {
     InvoiceProductCreateModalWindow invoiceProductCreateModalWindow;
     WriteOffCreateModalWindow writeOffCreateModalWindow;
     WriteOffEditModalWindow writeOffEditModalWindow;
+    StockInCreateModalWindow stockInCreateModalWindow;
+    StockInEditModalWindow stockInEditModalWindow;
 
     private String name;
 
     @Step
     public void stockMovementPageFieldInput(ExamplesTable examplesTable) {
-        stockMovementPage.fieldInput(examplesTable);
+        stockMovementPage.input(examplesTable);
     }
 
     @Step
@@ -67,13 +70,18 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void stockInCreateButtonClick() {
+        stockMovementPage.stockInCreateButtonClick();
+    }
+
+    @Step
     public void invoiceCreateModalWindowInput(ExamplesTable examplesTable) {
-        invoiceCreateModalWindow.fieldInput(examplesTable);
+        invoiceCreateModalWindow.input(examplesTable);
     }
 
     @Step
     public void writeOffCreateModalWindowInput(ExamplesTable examplesTable) {
-        writeOffCreateModalWindow.fieldInput(examplesTable);
+        writeOffCreateModalWindow.input(examplesTable);
     }
 
     @Step
@@ -98,12 +106,12 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void invoiceEditModalWindowWindowInput(ExamplesTable examplesTable) {
-        invoiceEditModalWindow.fieldInput(examplesTable);
+        invoiceEditModalWindow.input(examplesTable);
     }
 
     @Step
     public void writeOffEditModalWindowWindowInput(ExamplesTable examplesTable) {
-        writeOffEditModalWindow.fieldInput(examplesTable);
+        writeOffEditModalWindow.input(examplesTable);
     }
 
     @Step
@@ -125,6 +133,18 @@ public class StockMovementSteps extends ScenarioSteps {
     @Step
     public void addProductToWriteOffOffButtonClick() {
         writeOffCreateModalWindow.addProductToWriteOffButtonClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
+    public void addProductToStockInButtonClick() {
+        stockInCreateModalWindow.addProductToStockInButtonClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
+    public void stockInEditAddProductToStockInButtonClick() {
+        stockInEditModalWindow.addProductToStockInButtonClick();
         new SimplePreloader(getDriver()).await();
     }
 
@@ -153,6 +173,12 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void acceptStockInButtonClick() {
+        stockInCreateModalWindow.confirmationOkClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
     public void saveInvoiceButtonClick() {
         invoiceEditModalWindow.confirmationOkClick();
         new SimplePreloader(getDriver()).await();
@@ -161,6 +187,12 @@ public class StockMovementSteps extends ScenarioSteps {
     @Step
     public void saveWriteOffButtonClick() {
         writeOffEditModalWindow.confirmationOkClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
+    public void saveStockInButtonClick() {
+        stockInEditModalWindow.confirmationOkClick();
         new SimplePreloader(getDriver()).await();
     }
 
@@ -212,6 +244,16 @@ public class StockMovementSteps extends ScenarioSteps {
         return writeOffProductCollection;
     }
 
+    private StockInProductCollection getStockInProductCollection() {
+        StockInProductCollection stockInProductCollection;
+        try {
+            stockInProductCollection = stockInCreateModalWindow.getStockInProductCollection();
+        } catch (StaleElementReferenceException e) {
+            stockInProductCollection = stockInCreateModalWindow.getStockInProductCollection();
+        }
+        return stockInProductCollection;
+    }
+
     @Step
     public void invoiceProductCollectionExactCompare(ExamplesTable examplesTable) {
         getInvoiceProductCollection().exactCompareExampleTable(examplesTable);
@@ -220,6 +262,11 @@ public class StockMovementSteps extends ScenarioSteps {
     @Step
     public void invoiceWriteOffCollectionExactCompare(ExamplesTable examplesTable) {
         getWriteOffProductCollection().exactCompareExampleTable(examplesTable);
+    }
+
+    @Step
+    public void stockInCollectionExactCompare(ExamplesTable examplesTable) {
+        getStockInProductCollection().exactCompareExampleTable(examplesTable);
     }
 
     @Step
@@ -235,6 +282,14 @@ public class StockMovementSteps extends ScenarioSteps {
         WriteOffProductObject writeOffProduct =
                 (WriteOffProductObject) getWriteOffProductCollection().getAbstractObjectByLocator(name);
         writeOffProduct.deleteIconClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
+    public void stockInProductWithNameDeleteIconClick(String name) {
+        StockInProduct stockInProduct =
+                (StockInProduct) getStockInProductCollection().getAbstractObjectByLocator(name);
+        stockInProduct.deleteIconClick();
         new SimplePreloader(getDriver()).await();
     }
 
@@ -270,16 +325,21 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void openLastCreatedInvoiceInStockMovementPage() throws JSONException {
-        openInvoiceByNumberInStockMovementPage(getLastCreatedInvoice().getNumber());
+        openOperationByNumberInStockMovementPage(Storage.getStockMovementVariableStorage().getLastInvoice().getNumber());
     }
 
     @Step
     public void openLastCreatedWriteOffInStockMovementPage() throws JSONException {
-        openInvoiceByNumberInStockMovementPage(Storage.getStockMovementVariableStorage().getLastWriteOff().getNumber());
+        openOperationByNumberInStockMovementPage(Storage.getStockMovementVariableStorage().getLastWriteOff().getNumber());
     }
 
     @Step
-    public void openInvoiceByNumberInStockMovementPage(String number) {
+    public void openLastCreatedStockInInStockMovementPage() throws JSONException {
+        openOperationByNumberInStockMovementPage(Storage.getStockMovementVariableStorage().getLastStockIn().getNumber());
+    }
+
+    @Step
+    public void openOperationByNumberInStockMovementPage(String number) {
         StockMovementObjectCollection stockMovementObjectCollection = stockMovementPage.getStockMovementObjectCollection();
         if (stockMovementObjectCollection != null) {
             stockMovementObjectCollection.clickByLocator(number);
@@ -290,7 +350,7 @@ public class StockMovementSteps extends ScenarioSteps {
     public void stockMovementCollectionDontContainLastCreatedInvoice() throws JSONException {
         StockMovementObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
         if (stockMovementObjectCollection != null) {
-            stockMovementObjectCollection.notContains(getLastCreatedInvoice().getNumber());
+            stockMovementObjectCollection.notContains(Storage.getStockMovementVariableStorage().getLastInvoice().getNumber());
         }
     }
 
@@ -302,9 +362,12 @@ public class StockMovementSteps extends ScenarioSteps {
         }
     }
 
-    private Invoice getLastCreatedInvoice() {
-        List<Invoice> invoiceList = Storage.getInvoiceVariableStorage().getInvoiceList();
-        return invoiceList.get(invoiceList.size() - 1);
+    @Step
+    public void stockMovementCollectionDontContainLastCreatedStockIn() throws JSONException {
+        StockMovementObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
+        if (stockMovementObjectCollection != null) {
+            stockMovementObjectCollection.notContains(Storage.getStockMovementVariableStorage().getLastStockIn().getNumber());
+        }
     }
 
     @Step
@@ -315,6 +378,11 @@ public class StockMovementSteps extends ScenarioSteps {
     @Step
     public void deleteWriteOffLinkClick() {
         writeOffEditModalWindow.deleteButtonClick();
+    }
+
+    @Step
+    public void deleteStockInLinkClick() {
+        stockInEditModalWindow.deleteButtonClick();
     }
 
     @Step
@@ -330,6 +398,12 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void confirmDeleteStockInLinkClick() {
+        stockInEditModalWindow.confirmDeleteButtonClick();
+        new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
     public void assertInvoiceCreateModalWindowTotalSum(String totalSum) {
         assertThat(invoiceCreateModalWindow.getTotalSum(), is(totalSum));
     }
@@ -337,6 +411,11 @@ public class StockMovementSteps extends ScenarioSteps {
     @Step
     public void assertWriteOffCreateModalWindowTotalSum(String totalSum) {
         assertThat(writeOffCreateModalWindow.getTotalSum(), is(totalSum));
+    }
+
+    @Step
+    public void assertStockInCreateModalWindowTotalSum(String totalSum) {
+        assertThat(stockInCreateModalWindow.getTotalSum(), is(totalSum));
     }
 
     @Step
@@ -350,6 +429,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void assertStockInEditModalWindowTotalSum(String totalSum) {
+        assertThat(stockInEditModalWindow.getTotalSum(), is(totalSum));
+    }
+
+    @Step
     public void assertInvoiceDateIsNowDate() {
         invoiceCreateModalWindowCheckValue("date", DateTimeHelper.getDate("todayDate"));
     }
@@ -357,6 +441,11 @@ public class StockMovementSteps extends ScenarioSteps {
     @Step
     public void assertWriteOffDateIsNowDate() {
         writeOffCreateModalWindowCheckValue("date", DateTimeHelper.getDate("todayDate"));
+    }
+
+    @Step
+    public void assertStockInDateIsNowDate() {
+        stockInCreateModalWindowCheckValue("date", DateTimeHelper.getDate("todayDate"));
     }
 
     @Step
@@ -372,6 +461,11 @@ public class StockMovementSteps extends ScenarioSteps {
     @Step
     public void writeOffCreateModalWindowCheckValue(String elementName, String value) {
         writeOffCreateModalWindow.checkValue(elementName, value);
+    }
+
+    @Step
+    public void stockInCreateModalWindowCheckValue(String elementName, String value) {
+        stockInCreateModalWindow.checkValue(elementName, value);
     }
 
     @Step
@@ -396,7 +490,7 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void invoiceSupplierCreateModalWindowInput(ExamplesTable examplesTable) {
-        invoiceSupplierCreateModalWindow.fieldInput(examplesTable);
+        invoiceSupplierCreateModalWindow.input(examplesTable);
     }
 
     @Step
@@ -417,7 +511,7 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void invoiceProductCreateModalWindowInputValues(ExamplesTable examplesTable) {
-        invoiceProductCreateModalWindow.fieldInput(examplesTable);
+        invoiceProductCreateModalWindow.input(examplesTable);
     }
 
     @Step

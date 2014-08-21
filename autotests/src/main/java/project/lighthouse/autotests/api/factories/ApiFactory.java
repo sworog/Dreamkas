@@ -15,11 +15,8 @@ public class ApiFactory {
         httpRequestable = HttpExecutor.getHttpRequestable(email, password);
     }
 
-    public void createObject(AbstractObject object) throws IOException, JSONException {
+    public AbstractObject createObject(AbstractObject object) throws IOException, JSONException {
         httpRequestable.executePostRequest(object);
-    }
-
-    public HttpRequestable getHttpRequestable() {
-        return httpRequestable;
+        return object;
     }
 }

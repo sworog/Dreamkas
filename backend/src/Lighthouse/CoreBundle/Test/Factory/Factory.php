@@ -9,6 +9,7 @@ use Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository;
 use Lighthouse\CoreBundle\Test\Factory\Invoice\InvoiceFactory;
 use Lighthouse\CoreBundle\Test\Factory\Order\OrderFactory;
 use Lighthouse\CoreBundle\Test\Factory\Receipt\ReceiptFactory;
+use Lighthouse\CoreBundle\Test\Factory\StockIn\StockInFactory;
 use Lighthouse\CoreBundle\Test\Factory\WriteOff\WriteOffFactory;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Validator\ExceptionalValidator;
@@ -22,6 +23,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @method CatalogFactory catalog()
  * @method InvoiceFactory invoice()
  * @method WriteOffFactory writeOff()
+ * @method StockInFactory stockIn()
  * @method ReceiptFactory receipt()
  * @method OrderFactory order()
  * @method SupplierFactory supplier()
@@ -62,6 +64,7 @@ class Factory extends ContainerAwareFactory
             'catalog' => CatalogFactory::getClassName(),
             'invoice' => InvoiceFactory::getClassName(),
             'writeOff' => WriteOffFactory::getClassName(),
+            'stockIn' => StockInFactory::getClassName(),
             'receipt' => ReceiptFactory::getClassName(),
             'order' => OrderFactory::getClassName(),
             'supplier' => SupplierFactory::getClassName(),

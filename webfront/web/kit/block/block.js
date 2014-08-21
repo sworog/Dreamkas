@@ -34,6 +34,12 @@ define(function(require, exports, module) {
             block.render();
         },
 
+        helpers: {
+            formatMoney: require('kit/formatMoney/formatMoney'),
+            formatAmount: require('kit/formatAmount/formatAmount'),
+            formatDate: require('kit/formatDate/formatDate')
+        },
+
         render: function() {
             var block = this;
 
@@ -76,6 +82,20 @@ define(function(require, exports, module) {
         initBlocks: function() {
             var block = this,
                 $blocks = block.$('[block]');
+
+            block.$('button[data-toggle="popover"]').popover({
+                trigger: 'focus'
+            });
+
+            block.$('.inputDate, .input-daterange').each(function(){
+                $(this).datepicker({
+                    language: 'ru',
+                    format: 'dd.mm.yyyy',
+                    autoclose: true,
+                    endDate: this.dataset.endDate && this.dataset.endDate.toString(),
+                    todayBtn: "linked"
+                });
+            });
 
             $blocks.each(function() {
                 var placeholder = this,

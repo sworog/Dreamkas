@@ -4,7 +4,7 @@ import org.json.JSONException;
 import project.lighthouse.autotests.helper.ObjectsFactory;
 import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.Supplier;
-import project.lighthouse.autotests.objects.api.invoice.Invoice;
+import project.lighthouse.autotests.api.objects.stockmovement.invoice.Invoice;
 
 import java.util.ArrayList;
 import java.util.List;

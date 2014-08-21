@@ -11,7 +11,7 @@ import java.util.List;
 public class StockMovementObjectCollection extends AbstractObjectCollection {
 
     public StockMovementObjectCollection(WebDriver webDriver) {
-        super(webDriver, By.xpath("//*[@class='writeOff__link' or @class='invoice__link']"));
+        super(webDriver, By.xpath("//*[@class='writeOff__link' or @class='invoice__link' or @class='stockIn__link']"));
     }
 
     @Override

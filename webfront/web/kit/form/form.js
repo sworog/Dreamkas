@@ -23,7 +23,7 @@ define(function(require) {
                 var block = this,
                     submitting;
 
-                block.data = block.getData();
+                block.serialize();
 
                 submitting = block.submit();
 
@@ -64,8 +64,12 @@ define(function(require) {
 
             block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' +  (block.el && block.el.id) + '"]');
         },
-        getData: function() {
-            return form2js(this.el, '.', false);
+        serialize: function() {
+            var block = this;
+
+            block.set('data', form2js(block.el, '.', false));
+
+            return block.data;
         },
         submit: function() {
             var block = this;

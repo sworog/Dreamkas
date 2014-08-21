@@ -5,9 +5,12 @@ import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.api.Supplier;
 import project.lighthouse.autotests.steps.api.builder.InvoiceBuilderSteps;
+
+import java.io.IOException;
 
 public class InvoiceBuilderUserSteps {
 
@@ -25,9 +28,16 @@ public class InvoiceBuilderUserSteps {
     @Given("the user adds the product with name '$name' with price '$price' and quantity '$quantity 'to invoice api object")
     @Alias("пользователь добавляет продукт с именем '$name', ценой '$price' и количеством '$quantity' к апи объекту накладной")
     public void givenTheUserAddsTheProductToInvoiceApiObject(String name, String price, String quantity) throws JSONException {
+        Product product = StaticData.products.get(name);
         invoiceBuilderSteps.addProduct(
-                StaticData.products.get(name).getId(),
+                product.getId(),
                 quantity,
                 price);
+    }
+
+    @Given("the user with email '$email 'creates invoice with builders steps")
+    @Alias("пользователь с адресом электронной почты '$email' создает накладную через конструктор накладных")
+    public void givenTheUserWithEmailCreatesInvoiceWithBuilderSteps(String email) throws IOException, JSONException {
+        invoiceBuilderSteps.send(email);
     }
 }

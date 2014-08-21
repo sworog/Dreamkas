@@ -31,6 +31,10 @@ lighthouse.core.write-off_product:
     resource: Lighthouse\CoreBundle\Controller\WriteOffProductController
     type:     rest
 
+lighthouse.core.stock-in:
+    resource: Lighthouse\CoreBundle\Controller\StockInController
+    type:     rest
+
 lighthouse.core.return_product:
     resource: Lighthouse\CoreBundle\Controller\ReturnProductController
     type:     rest

@@ -33,6 +33,7 @@ use DateTime;
  * @MongoDB\DiscriminatorMap({
  *      "Invoice" = "Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice",
  *      "WriteOff" = "Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff",
+ *      "StockIn" = "Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockIn",
  *      "Sale" = "Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale",
  *      "Return" = "Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne"
  * })

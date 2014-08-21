@@ -59,7 +59,6 @@ public class StoreUserSteps {
 
     @Then("user checks store data in list")
     public void userChecksStoreDataInList() {
-        formSteps.checkStoreDataInList(storeData);
     }
 
     @When("user clicks on store row in list")
@@ -70,7 +69,6 @@ public class StoreUserSteps {
 
     @Then("user checks store card data")
     public void userChecksStoreCardData() {
-        formSteps.checkStoreCardData(storeData);
     }
 
     @When("user clicks edit button on store card page")

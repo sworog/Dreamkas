@@ -101,20 +101,6 @@ define(function(require, exports, module) {
             Block.prototype.initBlocks.apply(page, arguments);
 
             Sortable.init();
-
-            page.$('button[data-toggle="popover"]').popover({
-                trigger: 'focus'
-            });
-
-            page.$('.inputDate, .input-daterange').each(function(){
-                $(this).datepicker({
-                    language: 'ru',
-                    format: 'dd.mm.yyyy',
-                    autoclose: true,
-                    endDate: this.dataset.endDate && this.dataset.endDate.toString(),
-                    todayBtn: "linked"
-                });
-            });
         }
     });
 });

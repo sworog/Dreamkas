@@ -798,6 +798,12 @@ class UserControllerTest extends WebTestCase
                         'POST',
                         'PUT::{writeOff}',
                     ),
+                    'stores/{store}/stockIns' => array(
+                        'GET',
+                        'GET::{stockIn}',
+                        'POST',
+                        'PUT::{stockIn}',
+                    ),
                     'subcategories' => array(
                         'GET::{subCategory}/products'
                     ),
@@ -816,6 +822,7 @@ class UserControllerTest extends WebTestCase
                         'POST'
                     ),
                     'writeOffs' => array(),
+                    'stockIns' => array(),
                     'others' => array()
                 )
             ),
@@ -879,6 +886,7 @@ class UserControllerTest extends WebTestCase
                         'GET::reports/grossSalesByProducts',
                     ),
                     'stores/{store}/writeOffs' => array(),
+                    'stores/{store}/stockIns' => array(),
                     'subcategories' => array(
                         'GET::{subCategory}/products'
                     ),
@@ -897,6 +905,7 @@ class UserControllerTest extends WebTestCase
                         'POST'
                     ),
                     'writeOffs' => array(),
+                    'stockIns' => array(),
                     'others' => array()
                 )
             ),
@@ -999,6 +1008,7 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/products/{product}' => array(),
                     'stores/{store}/subcategories/{subCategory}' => array(),
                     'stores/{store}/writeOffs' => array(),
+                    'stores/{store}/stockIns' => array(),
                     'subcategories' => array(
                         'DELETE::{subCategory}',
                         'GET::{subCategory}',
@@ -1033,6 +1043,12 @@ class UserControllerTest extends WebTestCase
                         'GET::{writeOff}',
                         'POST',
                         'PUT::{writeOff}',
+                    ),
+                    'stockIns' => array(
+                        'DELETE::{stockIn}',
+                        'GET::{stockIn}',
+                        'POST',
+                        'PUT::{stockIn}',
                     ),
                     'others' => array(
                         'GET::api/1/reports/grossMargin',
@@ -1082,6 +1098,7 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/products/{product}' => array(),
                     'stores/{store}/subcategories/{subCategory}' => array(),
                     'stores/{store}/writeOffs' => array(),
+                    'stores/{store}/stockIns' => array(),
                     'subcategories' => array(),
                     'suppliers' => array(),
                     'suppliers/{supplier}/bankAccounts' => array(),
@@ -1098,6 +1115,7 @@ class UserControllerTest extends WebTestCase
                         'POST'
                     ),
                     'writeOffs' => array(),
+                    'stockIns' => array(),
                     'others' => array()
                 )
             )

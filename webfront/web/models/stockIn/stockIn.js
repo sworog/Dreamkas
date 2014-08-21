@@ -3,9 +3,18 @@ define(function(require, exports, module) {
     var Model = require('kit/model/model');
 
     return Model.extend({
-        urlRoot: Model.baseApiUrl + '/stockIn',
+        urlRoot: Model.baseApiUrl + '/stockIns',
         collections: {
-            products: require('collections/invoiceProducts/invoiceProducts')
+            products: require('collections/stockInProducts/stockInProducts')
+        },
+        saveData: function() {
+            return {
+                date: this.get('date'),
+                products: this.collections.products.map(function(productModel) {
+                    return productModel.getData();
+                }),
+                store: this.get('store')
+            }
         }
     });
 });

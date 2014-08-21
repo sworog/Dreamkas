@@ -40,7 +40,7 @@ public class UserSteps extends ScenarioSteps {
 
     @Step
     public void input(ExamplesTable examplesTable) {
-        userCreatePage.fieldInput(examplesTable);
+        userCreatePage.input(examplesTable);
     }
 
     @Step
@@ -128,7 +128,7 @@ public class UserSteps extends ScenarioSteps {
 
     @Step
     public void userEditPageInput(ExamplesTable examplesTable) {
-        userEditPage.fieldInput(examplesTable);
+        userEditPage.input(examplesTable);
         this.examplesTable = examplesTable;
     }
 
