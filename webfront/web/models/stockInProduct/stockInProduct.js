@@ -13,7 +13,7 @@ define(function(require) {
 
             return {
                 product: this.get('product.id'),
-                priceEntered: this.get('priceEntered') ? normalizeNumber(this.get('priceEntered')) : '',
+                price: this.get('price') ? normalizeNumber(this.get('price')) : '',
                 quantity: this.get('quantity') ? normalizeNumber(this.get('quantity')) : ''
             };
         }

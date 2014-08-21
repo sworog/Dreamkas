@@ -15,6 +15,16 @@ define(function(require, exports, module) {
                 return new Form_stockIn(_.extend(opt, {
                     model: block.models.stockIn
                 }));
+            },
+            form_stockInProducts: function(opt){
+                var block = this,
+                    Form_stockInProducts = require('blocks/form/form_stockInProducts/form_stockInProducts');
+
+                return new Form_stockInProducts(_.extend(opt, {
+                    models: {
+                        stockIn: block.models.stockIn
+                    }
+                }));
             }
         }
     });

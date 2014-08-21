@@ -51,6 +51,7 @@ define(function(require) {
 
             block.model = block.get('model');
             block.collection = block.get('collection');
+            block.data = block.model.toJSON();
             block.redirectUrl = block.get('redirectUrl');
 
             Block.prototype.initialize.apply(block, arguments);
@@ -72,8 +73,6 @@ define(function(require) {
         },
         submit: function() {
             var block = this;
-
-            console.log(block.data);
 
             return block.model.save(block.data);
         },
