@@ -91,7 +91,9 @@ define(function(require, exports, module) {
 
             block.renderTotalPrice();
 
-            block.el.querySelector('input[name="price"]').focus();
+            setTimeout(function(){
+                block.el.querySelector('input[name="price"]').focus();
+            }, 0);
         },
         renderTotalPrice: function() {
             var block = this,

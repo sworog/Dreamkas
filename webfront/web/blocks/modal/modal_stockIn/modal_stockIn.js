@@ -7,6 +7,21 @@ define(function(require, exports, module) {
         models: {
             stockIn: require('models/stockIn/stockIn')
         },
+        partials: {
+            form_product: require('ejs!blocks/form/form_product/form_product.ejs')
+        },
+        events: {
+            'click .addProductLink': function() {
+                var block = this;
+
+                block.showProductModal();
+            },
+            'click .stockInModalLink': function() {
+                var block = this;
+
+                block.showStockInModal();
+            }
+        },
         blocks: {
             form_stockIn: function(opt){
                 var block = this,
@@ -36,7 +51,40 @@ define(function(require, exports, module) {
                         stockIn: block.models.stockIn
                     }
                 }));
+            },
+            form_product: function(opt) {
+                var block = this,
+                    ProductModel = require('models/product/product'),
+                    Form_product = require('blocks/form/form_product/form_product'),
+                    form_product = new Form_product({
+                        el: opt.el
+                    });
+
+                form_product.on('submit:success', function(){
+                    block.el.querySelector('.form_stockInProducts').block.renderSelectedProduct(form_product.model.toJSON());
+                    block.showStockInModal();
+                    form_product.model = new ProductModel();
+                    form_product.clear();
+                });
+
+                return form_product;
             }
+        },
+        showStockInModal: function() {
+            var block = this;
+
+            block.$('.modal__dialog_stockIn')
+                .removeClass('modal__dialog_hidden')
+                .siblings('.modal-dialog')
+                .addClass('modal__dialog_hidden');
+        },
+        showProductModal: function() {
+            var block = this;
+
+            block.$('.modal__dialog_product')
+                .removeClass('modal__dialog_hidden')
+                .siblings('.modal-dialog')
+                .addClass('modal__dialog_hidden');
         }
     });
 });
