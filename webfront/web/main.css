@@ -142,7 +142,12 @@ input.invalid {
     line-height: 34px;
 }
 
-.product__link, .supplier__link, .store__link, .invoice__link, .writeOff__link {
+.product__link,
+.supplier__link,
+.store__link,
+.invoice__link,
+.writeOff__link,
+.stockIn__link {
     cursor: pointer;
 }
 

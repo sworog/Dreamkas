@@ -53,6 +53,16 @@ define(function(require, exports, module) {
 
                 $('#modal_invoiceEdit').modal('show');
             },
+            'click .stockIn__link': function(e) {
+                var page = this,
+                    stockinId = e.currentTarget.dataset.stockinId;
+
+                page.el.querySelector('.modal_stockIn').block.show({
+                    models: {
+                        stockIn: page.collections.stockMovements.get(stockinId)
+                    }
+                });
+            },
             'click .writeOff__link': function(e) {
                 var page = this,
                     writeOffId = e.currentTarget.dataset.writeoff_id;
