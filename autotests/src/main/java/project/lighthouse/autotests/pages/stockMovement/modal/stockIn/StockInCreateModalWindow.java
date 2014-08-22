@@ -1,12 +1,10 @@
 package project.lighthouse.autotests.pages.stockMovement.modal.stockIn;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 import project.lighthouse.autotests.objects.web.stockIn.StockInProductCollection;
-import project.lighthouse.autotests.pages.stockMovement.modal.writeOff.WriteOffCreateModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.StockMovementModalPage;
 
-public class StockInCreateModalWindow extends WriteOffCreateModalWindow {
+public class StockInCreateModalWindow extends StockMovementModalPage {
 
     public StockInCreateModalWindow(WebDriver driver) {
         super(driver);
@@ -19,14 +17,24 @@ public class StockInCreateModalWindow extends WriteOffCreateModalWindow {
 
     @Override
     public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Оприходовать").click();
+        confirmationOkClick("Оприходовать");
     }
 
-    public void addProductToStockInButtonClick() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'addStockInProduct')]")).click();
+    public void addProductButtonClick() {
+        addProductButtonClick("addStockInProduct");
     }
 
-    public StockInProductCollection getStockInProductCollection() {
+    public String getTotalSum() {
+        return getTotalSum("stockIn__totalSum");
+    }
+
+    @Override
+    public StockInProductCollection getProductCollection() {
         return new StockInProductCollection(getDriver());
+    }
+
+    @Override
+    public Integer getProductRowsCount() {
+        return getProductRowsCount("table_stockInProducts");
     }
 }

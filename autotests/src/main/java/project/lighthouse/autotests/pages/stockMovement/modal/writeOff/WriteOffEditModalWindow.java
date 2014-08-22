@@ -1,8 +1,6 @@
 package project.lighthouse.autotests.pages.stockMovement.modal.writeOff;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 
 public class WriteOffEditModalWindow extends WriteOffCreateModalWindow {
 
@@ -16,15 +14,15 @@ public class WriteOffEditModalWindow extends WriteOffCreateModalWindow {
     }
 
     public void deleteButtonClick() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='removeLink']")).click();
+        deleteButtonClick("writeOff__removeLink");
     }
 
     public void confirmDeleteButtonClick() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='confirmLink__confirmation']//*[@class='removeLink writeOff__removeLink']")).click();
+        confirmDeleteButtonClick("writeOff__removeLink");
     }
 
     @Override
     public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Сохранить").click();
+        confirmationOkClick("Сохранить");
     }
 }

@@ -126,37 +126,37 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void addProductToInvoiceButtonClick() {
-        invoiceCreateModalWindow.addProductToInvoiceButtonClick();
+        invoiceCreateModalWindow.addProductButtonClick();
         new SimplePreloader(getDriver()).await();
     }
 
     @Step
     public void addProductToWriteOffOffButtonClick() {
-        writeOffCreateModalWindow.addProductToWriteOffButtonClick();
+        writeOffCreateModalWindow.addProductButtonClick();
         new SimplePreloader(getDriver()).await();
     }
 
     @Step
     public void addProductToStockInButtonClick() {
-        stockInCreateModalWindow.addProductToStockInButtonClick();
+        stockInCreateModalWindow.addProductButtonClick();
         new SimplePreloader(getDriver()).await();
     }
 
     @Step
     public void stockInEditAddProductToStockInButtonClick() {
-        stockInEditModalWindow.addProductToStockInButtonClick();
+        stockInEditModalWindow.addProductButtonClick();
         new SimplePreloader(getDriver()).await();
     }
 
     @Step
     public void invoiceEditModalWindowAddProductToInvoiceButtonClick() {
-        invoiceEditModalWindow.addProductToInvoiceButtonClick();
+        invoiceEditModalWindow.addProductButtonClick();
         new SimplePreloader(getDriver()).await();
     }
 
     @Step
     public void writeOffEditModalWindowAddProductToWriteOffButtonClick() {
-        writeOffEditModalWindow.addProductToWriteOffButtonClick();
+        writeOffEditModalWindow.addProductButtonClick();
         new SimplePreloader(getDriver()).await();
     }
 
@@ -227,9 +227,9 @@ public class StockMovementSteps extends ScenarioSteps {
     private InvoiceProductCollection getInvoiceProductCollection() {
         InvoiceProductCollection invoiceProductCollection;
         try {
-            invoiceProductCollection = invoiceCreateModalWindow.getInvoiceProductCollection();
+            invoiceProductCollection = invoiceCreateModalWindow.getProductCollection();
         } catch (StaleElementReferenceException e) {
-            invoiceProductCollection = invoiceCreateModalWindow.getInvoiceProductCollection();
+            invoiceProductCollection = invoiceCreateModalWindow.getProductCollection();
         }
         return invoiceProductCollection;
     }
@@ -237,9 +237,9 @@ public class StockMovementSteps extends ScenarioSteps {
     private WriteOffProductCollection getWriteOffProductCollection() {
         WriteOffProductCollection writeOffProductCollection;
         try {
-            writeOffProductCollection = writeOffCreateModalWindow.getWriteOffProductCollection();
+            writeOffProductCollection = writeOffCreateModalWindow.getProductCollection();
         } catch (StaleElementReferenceException e) {
-            writeOffProductCollection = writeOffCreateModalWindow.getWriteOffProductCollection();
+            writeOffProductCollection = writeOffCreateModalWindow.getProductCollection();
         }
         return writeOffProductCollection;
     }
@@ -247,9 +247,9 @@ public class StockMovementSteps extends ScenarioSteps {
     private StockInProductCollection getStockInProductCollection() {
         StockInProductCollection stockInProductCollection;
         try {
-            stockInProductCollection = stockInCreateModalWindow.getStockInProductCollection();
+            stockInProductCollection = stockInCreateModalWindow.getProductCollection();
         } catch (StaleElementReferenceException e) {
-            stockInProductCollection = stockInCreateModalWindow.getStockInProductCollection();
+            stockInProductCollection = stockInCreateModalWindow.getProductCollection();
         }
         return stockInProductCollection;
     }
@@ -480,12 +480,12 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void invoiceCreateModalWindowAddNewSupplierIconClick() {
-        invoiceCreateModalWindow.addSupplierButtonClick();
+        invoiceCreateModalWindow.createSupplierButtonClick();
     }
 
     @Step
     public void invoiceEditModalWindowAddNewSupplierIconClick() {
-        invoiceEditModalWindow.addSupplierButtonClick();
+        invoiceEditModalWindow.createSupplierButtonClick();
     }
 
     @Step
@@ -501,12 +501,12 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void invoiceCreateModalWindowNewProductCreateClick() {
-        invoiceCreateModalWindow.addProductButtonClick();
+        invoiceCreateModalWindow.createProductButtonClick();
     }
 
     @Step
     public void invoiceEditModalWindowNewProductCreateClick() {
-        invoiceEditModalWindow.addProductButtonClick();
+        invoiceEditModalWindow.createProductButtonClick();
     }
 
     @Step
