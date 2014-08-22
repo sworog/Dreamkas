@@ -52,6 +52,15 @@ define(function(require, exports, module) {
 
         },
 
+        remove: function(){
+            var page = this;
+
+            page.stopListening();
+            page.undelegateEvents();
+
+            page.removeBlocks();
+        },
+
         setStatus: function(status){
             var page = this;
 

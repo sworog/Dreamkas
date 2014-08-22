@@ -40,7 +40,7 @@ define(function(require, exports, module) {
         render: function() {
             var block = this;
 
-            block.destroyBlocks();
+            block.removeBlocks();
 
             if (typeof block.template === 'function') {
                 block.setElement($(block.template(block)).replaceAll(block.el));
@@ -49,7 +49,6 @@ define(function(require, exports, module) {
             block.bindings = rivets.bind(block.el, block);
             block.el.block = this;
 
-            block.initPartials();
             block.initBlocks();
         },
 
@@ -79,23 +78,6 @@ define(function(require, exports, module) {
             block.collection = block.get('collection');
             block.model = block.get('model');
 
-        },
-
-        initPartials: function() {
-            var block = this,
-                $partials = block.$('[partial]');
-
-            block.__partials = {};
-
-            $partials.each(function() {
-                var placeholder = this,
-                    partialName = placeholder.getAttribute('partial'),
-                    __$partial = $(block.get('partials.' + partialName, [block]));
-
-                $(placeholder).replaceWith(__$partial);
-
-                block.__partials[partialName] = __$partial;
-            });
         },
 
         initBlocks: function() {
@@ -135,33 +117,24 @@ define(function(require, exports, module) {
             return $.when.apply($, fetchList);
         },
 
-        destroy: function() {
-            var block = this;
-
-            block.destroyBlocks();
-            block.stopListening();
-            block.off();
-            block.undelegateEvents();
-
-            block.bindings.unbind();
-        },
-
         remove: function() {
             var block = this;
 
-            block.destroyBlocks();
+            block.removeBlocks();
+
+            block.bindings.unbind();
 
             return View.prototype.remove.apply(block, arguments);
         },
 
-        destroyBlocks: function() {
+        removeBlocks: function() {
             var block = this;
 
             _.each(block.__blocks, function(blockList, blockName) {
 
                 _.each(blockList, function(blockToRemove) {
-                    if (blockToRemove && typeof blockToRemove.destroy === 'function') {
-                        blockToRemove.destroy();
+                    if (blockToRemove && typeof blockToRemove.remove === 'function') {
+                        blockToRemove.remove();
                     }
                 });
 
