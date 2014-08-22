@@ -10,7 +10,11 @@ define(function(require) {
         model: null,
         collection: null,
         redirectUrl: null,
-        data: null,
+        data: function(){
+            var block = this;
+
+            return block.model && block.model.toJSON();
+        },
         events: {
             'change :input': function() {
                 var block = this;
@@ -51,7 +55,7 @@ define(function(require) {
 
             block.model = block.get('model');
             block.collection = block.get('collection');
-            block.data = block.model.toJSON();
+            block.data = block.get('data');
             block.redirectUrl = block.get('redirectUrl');
 
             Block.prototype.initialize.apply(block, arguments);

@@ -14,7 +14,7 @@ define(function(require) {
         url: function() {
             var collection = this;
 
-            return uri(Collection.baseApiUrl + '/stockMovements').query(collection.filters);
+            return uri(Collection.baseApiUrl + '/stockMovements').query(collection.filters).toString();
         },
         parse: function(data) {
             var collection = this;

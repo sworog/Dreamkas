@@ -8,6 +8,8 @@ define(function(require, exports, module) {
         rivets = require('bower_components/rivets/dist/rivets'),
         _ = require('lodash');
 
+    require('sortable');
+
     var View = Backbone.View;
 
     return makeClass(View, {
@@ -23,7 +25,6 @@ define(function(require, exports, module) {
         collections: {},
         models: {},
 
-        blocks: {},
         __blocks: {},
         bindings: null,
 

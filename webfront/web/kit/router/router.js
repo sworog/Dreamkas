@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Uri = require('bower_components/uri.js/src/URI'),
+    var uri = require('bower_components/uri.js/src/URI'),
         _ = require('bower_components/lodash/dist/lodash');
 
     // Cached regex for stripping leading and trailing slashes.
@@ -123,7 +123,7 @@ define(function(require) {
                     return param;
                 });
 
-            fragment = new Uri(fragment).setQuery(params).toString();
+            fragment = uri(fragment).query(params).toString();
 
             router.navigate(fragment, options);
         },
@@ -224,7 +224,7 @@ define(function(require) {
         // extracted parameters.
         _extractParameters: function(route, routeRegExp, fragment) {
             var params = routeRegExp.exec(fragment.split('?')[0]).slice(1),
-                queryParams = new Uri(fragment).query(true),
+                queryParams = new uri(fragment).query(true),
                 paramNames = _.map(route.match(namesPattern) || [], function(name) {
                     return name.substring(1);
                 }),
