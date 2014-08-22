@@ -20,6 +20,16 @@ define(function(require, exports, module) {
                 var block = this;
 
                 block.showStockInModal();
+            },
+            'click .stockIn__removeLink': function(e){
+                var block = this;
+
+                e.target.classList.add('loading');
+
+                block.models.stockIn.destroy().then(function() {
+                    e.target.classList.remove('loading');
+                });
+
             }
         },
         blocks: {
