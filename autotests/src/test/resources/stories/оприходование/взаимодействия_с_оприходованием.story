@@ -18,7 +18,7 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/stockIn/aPreconditionToTestDataCreation.story
 
 Given пользователь открывает страницу товародвижения
-And пользователь авторизуется в системе используя адрес электронной почты 's40u103@lighthouse.pro' и пароль 'lighthouse'
+And пользователь авторизуется в системе используя адрес электронной почты 's40u104@lighthouse.pro' и пароль 'lighthouse'
 
 When пользователь нажимает на кнопку Оприходовать на странице товародвижения
 
@@ -73,7 +73,8 @@ GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
 Given пользователь открывает страницу товародвижения
 And пользователь авторизуется в системе используя адрес электронной почты 's40u104@lighthouse.pro' и пароль 'lighthouse'
 
-When пользователь* находится на странице 'редактирования оприходования'
+When пользователь нажимает на последнее созданное оприходование с помощью конструктора оприходований на странице товародвижения
+And пользователь* находится в модальном окне 'редактирования оприходования'
 And пользователь* в модальном окне вводит данные
 | elementName | value |
 | date | 08.11.2014 |
