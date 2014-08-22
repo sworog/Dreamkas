@@ -13,7 +13,7 @@ public class GeneralEndUserSteps {
     GeneralSteps generalSteps;
 
     @Given("пользователь* находится на странице '$pageObjectName'")
-    @When("пользователь находится на странице '$pageObjectName'")
+    @When("пользователь* находится на странице '$pageObjectName'")
     public void givenUserSetsPageObjectWihName(String pageObjectName) {
         generalSteps.setCurrentPageObject(pageObjectName);
     }

@@ -3,6 +3,8 @@ package project.lighthouse.autotests.steps.general;
 import net.thucydides.core.annotations.Step;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.pages.stockMovement.StockMovementPage;
+import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInEditModalWindow;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +15,8 @@ public class GeneralSteps extends AbstractGeneralSteps {
     Map<String, Class> getPageObjectClasses() {
         return new HashMap<String, Class>(){{
             put("товародвижение", StockMovementPage.class);
+            put("модальное окно создания оприходования", StockInCreateModalWindow.class);
+            put("модальное окно редактирования оприходования", StockInEditModalWindow.class);
         }};
     }
 
