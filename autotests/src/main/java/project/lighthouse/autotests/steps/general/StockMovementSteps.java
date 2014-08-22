@@ -31,14 +31,6 @@ public class StockMovementSteps extends AbstractGeneralSteps<StockMovementModalP
         }};
     }
 
-    protected StockMovementModalPage getCurrentPageObject() {
-        StockMovementModalPage page = super.getCurrentPageObject();
-        if (null == page) {
-            page = (StockMovementModalPage) Storage.getCurrentPageObjectStorage().getCurrentPageObject();
-        }
-        return page;
-    }
-
     protected AbstractObjectCollection getProductCollection() {
         AbstractObjectCollection productCollection;
         try {
@@ -83,5 +75,10 @@ public class StockMovementSteps extends AbstractGeneralSteps<StockMovementModalP
     public void clickStockMovementProductDeleteIcon(String name) {
         locateStockMovementObjectByName(name).clickDeleteIcon();
         new SimplePreloader(getDriver()).await();
+    }
+
+    @Step
+    public void assertProductRowsCount(Integer expectedCount) {
+        assertThat(getCurrentPageObject().getProductRowsCount(), is(expectedCount));
     }
 }

@@ -12,18 +12,30 @@ public abstract class AbstractGeneralSteps<T extends GeneralPageObject> extends 
 
     abstract Map<String, Class> getPageObjectClasses();
 
-    @SuppressWarnings("unchecked")
     public void setCurrentPageObject(String pageObjectName) {
         Class pageObjectClass = getPageObjectClasses().get(pageObjectName);
-        setCurrentPageObject((T) getPages().get(pageObjectClass));
-    }
-
-    protected void setCurrentPageObject(T pageObject) {
-        currentPageObject = pageObject;
-        Storage.getCurrentPageObjectStorage().setCurrentPageObject(pageObject);
+        currentPageObject = initPage(pageObjectClass);
+        setCurrentPageObjectToStorage(currentPageObject);
     }
 
     protected T getCurrentPageObject() {
+        if (null == currentPageObject) {
+            currentPageObject = getCurrentPageObjectFromStorage();
+        }
         return currentPageObject;
+    }
+
+    @SuppressWarnings("unchecked")
+    protected T initPage(Class pageObjectClass) {
+        return (T) getPages().get(pageObjectClass);
+    }
+
+    @SuppressWarnings("unchecked")
+    protected T getCurrentPageObjectFromStorage() {
+        return (T) Storage.getCurrentPageObjectStorage().getCurrentPageObject();
+    }
+
+    protected void setCurrentPageObjectToStorage(T pageObject) {
+        Storage.getCurrentPageObjectStorage().setCurrentPageObject(pageObject);
     }
 }
