@@ -78,6 +78,10 @@ define(function(require, exports, module) {
             block.models = _.transform(block.models, function(result, modelInitializer, key) {
                 result[key] = block.get('models.' + key);
             });
+
+            block.collection = block.get('collection');
+            block.model = block.get('model');
+
         },
 
         initBlocks: function() {

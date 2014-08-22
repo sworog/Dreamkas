@@ -53,16 +53,14 @@ define(function(require) {
         initialize: function() {
             var block = this;
 
-            block.model = block.get('model');
-            block.collection = block.get('collection');
-            block.data = block.get('data');
             block.redirectUrl = block.get('redirectUrl');
 
             Block.prototype.initialize.apply(block, arguments);
-
         },
         render: function(){
             var block = this;
+
+            block.data = block.get('data');
 
             Block.prototype.render.apply(block, arguments);
 
@@ -190,7 +188,9 @@ define(function(require) {
         reset: function(){
             var block = this;
 
-            block.reset();
+            block.el.reset();
+
+            block.serialize();
         },
         clear: function(){
             var block = this;

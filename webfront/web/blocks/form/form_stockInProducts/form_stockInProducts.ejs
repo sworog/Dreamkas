@@ -11,6 +11,7 @@
         </thead>
         <tbody>
 
+        <%= partials.productsList(obj) %>
 
         </tbody>
         <tfoot>
@@ -19,10 +20,12 @@
             <td>
                 <div class="row">
                     <div class="col-md-10">
-                        <input name="product.name"
+                        <input block="autocomplete_products"
+                               name="product.name"
                                type="text"
                                class="form-control autocomplete autocomplete_products">
-                        <input type="hidden" name="product.id"/>
+                        <input type="hidden"
+                               name="product.id">
                     </div>
                     <div class="col-md-2">
                         <a style="font-size: 20px; position: relative; top: 10px; left: -10px; cursor: pointer;"
@@ -42,25 +45,26 @@
                            type="text"
                            style="width: 80px; display: inline-block;"
                            class="form-control">
-                    <span style="position: relative; padding: 0 5px;" class="product__units">шт.</span>
+                    <span style="position: relative; padding: 0 5px;"
+                          class="product__units">шт.</span>
                 </div>
             </td>
             <td>
-                    <span style="white-space: nowrap; min-width: 100px; position: relative; top: 7px;"
-                          class="totalSum"></span>
+                <span style="white-space: nowrap; min-width: 100px; position: relative; top: 7px;"
+                      class="totalPrice"></span>
             </td>
             <td>
                 <button type="submit"
                         style="margin-top: 0;"
-                        class="addInvoiceProduct btn btn-default fa fa-check btn-lg"></button>
+                        class="addStockInProduct btn btn-default fa fa-check btn-lg"></button>
             </td>
         </tr>
         <tr>
             <td colspan="3">
                 Итого
             </td>
-            <td class="stockIn__totalSum" colspan="2">
-                <%- helpers.formatMoney(models.stockIn.get('sumTotal')) %>
+            <td class="totalSum" colspan="2">
+                <%- helpers.formatMoney(models.stockIn.get('sumTotal'))  %>
             </td>
         </tr>
         </tfoot>
