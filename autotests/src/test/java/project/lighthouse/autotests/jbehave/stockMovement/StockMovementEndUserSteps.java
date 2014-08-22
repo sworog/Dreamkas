@@ -36,4 +36,9 @@ public class StockMovementEndUserSteps {
     public void thenTheUserAssertsTheStockInDateIsSetAutomaticallyToNowDate() {
         stockMovementSteps.assertStockInDateIsNowDate();
     }
+
+    @When("пользователь* в модальном окне товародвижения удаляет товар с названием '$name'")
+    public void whenTheUserDeletesTheProductWithNameInTheEditStockInModalWindow(String name) {
+        stockMovementSteps.clickStockMovementProductDeleteIcon(name);
+    }
 }

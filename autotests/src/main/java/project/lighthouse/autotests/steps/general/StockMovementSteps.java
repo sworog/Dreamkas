@@ -6,6 +6,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
+import project.lighthouse.autotests.objects.web.stockMovement.StockMovementWebObject;
 import project.lighthouse.autotests.objects.web.stockMovement.stockIn.StockInProduct;
 import project.lighthouse.autotests.pages.stockMovement.modal.StockMovementModalPage;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
@@ -32,15 +33,10 @@ public class StockMovementSteps extends AbstractGeneralSteps<StockMovementModalP
 
     protected StockMovementModalPage getCurrentPageObject() {
         StockMovementModalPage page = super.getCurrentPageObject();
-        if (null == page && Storage.getCurrentPageObjectStorage().hasCurrentPageObject()) {
+        if (null == page) {
             page = (StockMovementModalPage) Storage.getCurrentPageObjectStorage().getCurrentPageObject();
         }
         return page;
-    }
-
-    @Step
-    public void clickAddProductButton() {
-        getCurrentPageObject().addProductButtonClick();
     }
 
     protected AbstractObjectCollection getProductCollection() {
@@ -51,6 +47,15 @@ public class StockMovementSteps extends AbstractGeneralSteps<StockMovementModalP
             productCollection = getCurrentPageObject().getProductCollection();
         }
         return productCollection;
+    }
+
+    protected StockMovementWebObject locateStockMovementObjectByName(String name) {
+        return (StockMovementWebObject) getProductCollection().getAbstractObjectByLocator(name);
+    }
+
+    @Step
+    public void clickAddProductButton() {
+        getCurrentPageObject().addProductButtonClick();
     }
 
     @Step
@@ -76,9 +81,7 @@ public class StockMovementSteps extends AbstractGeneralSteps<StockMovementModalP
 
     @Step
     public void clickStockMovementProductDeleteIcon(String name) {
-        StockInProduct stockInProduct =
-                (StockInProduct) getProductCollection().getAbstractObjectByLocator(name);
-        stockInProduct.clickDeleteIcon();
+        locateStockMovementObjectByName(name).clickDeleteIcon();
         new SimplePreloader(getDriver()).await();
     }
 }

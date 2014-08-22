@@ -2,6 +2,7 @@ package project.lighthouse.autotests.steps.general;
 
 import net.thucydides.core.steps.ScenarioSteps;
 import project.lighthouse.autotests.common.GeneralPageObject;
+import project.lighthouse.autotests.storage.Storage;
 
 import java.util.Map;
 
@@ -19,6 +20,7 @@ public abstract class AbstractGeneralSteps<T extends GeneralPageObject> extends 
 
     protected void setCurrentPageObject(T pageObject) {
         currentPageObject = pageObject;
+        Storage.getCurrentPageObjectStorage().setCurrentPageObject(pageObject);
     }
 
     protected T getCurrentPageObject() {
