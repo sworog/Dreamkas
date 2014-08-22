@@ -41,4 +41,9 @@ public class StockMovementEndUserSteps {
     public void whenTheUserDeletesTheProductWithNameInTheEditStockInModalWindow(String name) {
         stockMovementSteps.clickStockMovementProductDeleteIcon(name);
     }
+
+    @Then("пользователь* в модальном окне товародвижения проверяет, что количество продуктов равно '$count'")
+    public void thenUserCheckProductRowsCount(Integer count) {
+        stockMovementSteps.assertProductRowsCount(count);
+    }
 }
