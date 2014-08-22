@@ -47,4 +47,24 @@ public class ModalEndUserSteps {
     public void thenUserAssertsTheModalWindowTitle(String title) {
         modalSteps.assertTitle(title);
     }
+
+    @When("пользователь* в модальном окне нажимает на кнопку создания")
+    public void whenUserClicksOnCreateButton() {
+        modalSteps.createButtonClick();
+    }
+
+    @When("пользователь* в модальном окне нажимает на кнопку сохранения")
+    public void whenUserClicksOnSaveButton() {
+        modalSteps.saveButtonClick();
+    }
+
+    @When("пользователь* в модальном окне нажимает на кнопку удаления")
+    public void whenUserClicksOnDeleteButton() {
+        modalSteps.deleteButtonClick();
+    }
+
+    @When("пользователь* в модальном окне подтверждает удаление")
+    public void whenUserClicksOnConfirmDeleteButton() {
+        modalSteps.confirmDeleteButtonClick();
+    }
 }

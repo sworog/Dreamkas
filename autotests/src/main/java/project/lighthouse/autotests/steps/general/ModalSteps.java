@@ -51,4 +51,24 @@ public class ModalSteps extends AbstractGeneralSteps<ModalWindowPageObject> {
     public void checkItemErrorMessage(String elementName, String errorMessage) {
         getCurrentPageObject().checkItemErrorMessage(elementName, errorMessage);
     }
+
+    @Step
+    public void createButtonClick() {
+        getCurrentPageObject().confirmationOkClick();
+    }
+
+    @Step
+    public void saveButtonClick() {
+        getCurrentPageObject().confirmationOkClick();
+    }
+
+    @Step
+    public void deleteButtonClick() {
+        getCurrentPageObject().deleteButtonClick();
+    }
+
+    @Step
+    public void confirmDeleteButtonClick() {
+        getCurrentPageObject().confirmDeleteButtonClick();
+    }
 }

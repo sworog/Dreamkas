@@ -35,4 +35,14 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
     }
 
     public abstract String modalWindowXpath();
+
+    @Override
+    public void deleteButtonClick() {
+        throw new AssertionError("This modal window does not have delete button");
+    }
+
+    @Override
+    public void confirmDeleteButtonClick() {
+        throw new AssertionError("This modal window does not have delete button");
+    }
 }
