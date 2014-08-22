@@ -48,7 +48,7 @@ define(function(require, exports, module) {
                 autofocus;
 
             if (window.PAGE && window.PAGE !== page){
-                window.PAGE.destroy();
+                window.PAGE.remove();
             }
 
             window.PAGE = page;
@@ -79,7 +79,7 @@ define(function(require, exports, module) {
             return $.when.apply($, fetchList);
         },
 
-        destroy: function(){
+        remove: function(){
             var page = this;
 
             $('.inputDate, .input-daterange').datepicker('remove');

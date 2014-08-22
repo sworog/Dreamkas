@@ -35,7 +35,7 @@ define(function(require, exports, module) {
                 autofocus;
 
             if (window.PAGE && window.PAGE !== page){
-                window.PAGE.destroy();
+                window.PAGE.remove();
             }
 
             window.PAGE = page;
