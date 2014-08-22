@@ -9,7 +9,7 @@ import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
 import project.lighthouse.autotests.objects.web.stockMovement.StockMovementObjectCollection;
 
-@DefaultUrl("/stockMovement")
+@DefaultUrl("/stockMovements")
 public class StockMovementPage extends BootstrapPageObject {
 
     public StockMovementPage(WebDriver driver) {
