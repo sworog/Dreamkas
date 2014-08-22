@@ -5,13 +5,9 @@
 
                 <label class="control-label">Дата *</label>
 
-                <div class="input-group date">
-                    <input name="date"
-                           type="text"
-                           class="form-control inputDate"
-                           value="<%- model.get('date') ? helpers.formatDate(model.get('date')) : helpers.formatDate(new Date()) %>">
-                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                </div>
+                <b block="inputDate"
+                   data-value="<%- model.get('date') ? helpers.formatDate(model.get('date')) : helpers.formatDate(new Date()) %>"></b>
+
             </div>
         </div>
         <div class="col-md-4">

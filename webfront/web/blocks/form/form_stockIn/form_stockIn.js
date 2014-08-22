@@ -12,6 +12,9 @@ define(function(require, exports, module) {
             stores: function(){
                 return PAGE.collections.stores;
             }
+        },
+        blocks: {
+            inputDate: require('blocks/inputDate/inputDate')
         }
     });
 });

@@ -200,6 +200,21 @@ define(function(require, exports, module) {
             expect(block.el.querySelector('.nestedBlock_2').innerText).toEqual('nestedBlock_2');
         });
 
+        it('render partials', function(){
+            var block = new Block({
+                template: function(){
+                    return '<div><p partial="partial"></p></div>';
+                },
+                text: 'text',
+                partials: {
+                    partial: function(obj){
+                        return '<span class="partial">' + obj.text + '</span>'
+                    }
+                }
+            });
+
+            expect(block.el.querySelector('.partial').innerText).toEqual('text');
+        });
 
     });
 });

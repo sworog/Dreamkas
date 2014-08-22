@@ -22,10 +22,6 @@ define(function(require, exports, module) {
             View.apply(block, arguments);
         },
 
-        collections: {},
-        models: {},
-
-        __blocks: {},
         bindings: null,
 
         initialize: function() {
@@ -53,6 +49,7 @@ define(function(require, exports, module) {
             block.bindings = rivets.bind(block.el, block);
             block.el.block = this;
 
+            block.initPartials();
             block.initBlocks();
         },
 
@@ -84,37 +81,41 @@ define(function(require, exports, module) {
 
         },
 
+        initPartials: function() {
+            var block = this,
+                $partials = block.$('[partial]');
+
+            block.__partials = {};
+
+            $partials.each(function() {
+                var placeholder = this,
+                    partialName = placeholder.getAttribute('partial'),
+                    __$partial = $(block.get('partials.' + partialName, [block]));
+
+                $(placeholder).replaceWith(__$partial);
+
+                block.__partials[partialName] = __$partial;
+            });
+        },
+
         initBlocks: function() {
             var block = this,
                 $blocks = block.$('[block]');
 
-            block.$('button[data-toggle="popover"]').popover({
-                trigger: 'focus'
-            });
-
-            block.$('.inputDate, .input-daterange').each(function(){
-                $(this).datepicker({
-                    language: 'ru',
-                    format: 'dd.mm.yyyy',
-                    autoclose: true,
-                    endDate: this.dataset.endDate && this.dataset.endDate.toString(),
-                    todayBtn: "linked"
-                });
-            });
+            block.__blocks = {};
 
             $blocks.each(function() {
                 var placeholder = this,
                     blockName = placeholder.getAttribute('block'),
                     params = _.extend({}, placeholder.dataset, {el: placeholder}),
-                    __block;
+                    __block = block.get('blocks.' + blockName, [params]);
 
-                if (typeof block.blocks[blockName] === 'function') {
-
-                    __block = block.blocks[blockName].call(block, params);
+                if (__block && __block.el) {
 
                     __block.el.removeAttribute('block');
 
                     block.__blocks[blockName] = block.__blocks[blockName] || [];
+
                     block.__blocks[blockName].push(__block);
                 }
             });
