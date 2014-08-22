@@ -3,7 +3,8 @@
     modal_writeOff: require('ejs!blocks/modal/modal_writeOff/modal_writeOff.ejs'),
     tr: {
         invoice: require('ejs!blocks/table/stockMovements/tr/invoice.ejs'),
-        writeOff: require('ejs!blocks/table/stockMovements/tr/writeOff.ejs')
+        writeOff: require('ejs!blocks/table/stockMovements/tr/writeOff.ejs'),
+        stockIn: require('ejs!blocks/table/stockMovements/tr/stockIn.ejs')
     }
 }; %>
 <% var helpers = {
@@ -57,23 +58,30 @@
 
                         <% _.forEach(collections.stockMovements.groupBy('date'), function(stockMovements, date){ %>
 
-                        <% _.forEach(stockMovements, function(stockMovementModel, index) { %>
+                            <% _.forEach(stockMovements, function(stockMovementModel, index) { %>
 
-                        <% if (stockMovementModel.get('type') === 'Invoice'){ %>
-                        <%= partials.tr.invoice({
-                            dateRowSpan: index === 0 ? stockMovements.length : null,
-                            stockMovementModel: stockMovementModel
-                        }) %>
-                        <% } %>
+                                <% if (stockMovementModel.get('type') === 'Invoice'){ %>
+                                    <%= partials.tr.invoice({
+                                        dateRowSpan: index === 0 ? stockMovements.length : null,
+                                        stockMovementModel: stockMovementModel
+                                    }) %>
+                                <% } %>
 
-                        <% if (stockMovementModel.get('type') === 'WriteOff'){ %>
-                        <%= partials.tr.writeOff({
-                            dateRowSpan: index === 0 ? stockMovements.length : null,
-                            stockMovementModel: stockMovementModel
-                        }) %>
-                        <% } %>
+                                <% if (stockMovementModel.get('type') === 'WriteOff'){ %>
+                                    <%= partials.tr.writeOff({
+                                        dateRowSpan: index === 0 ? stockMovements.length : null,
+                                        stockMovementModel: stockMovementModel
+                                    }) %>
+                                <% } %>
 
-                        <% }) %>
+                                <% if (stockMovementModel.get('type') === 'StockIn'){ %>
+                                    <%= partials.tr.stockIn({
+                                        dateRowSpan: index === 0 ? stockMovements.length : null,
+                                        stockMovementModel: stockMovementModel
+                                    }) %>
+                                <% } %>
+
+                            <% }) %>
                         <% }) %>
 
                         </tbody>
