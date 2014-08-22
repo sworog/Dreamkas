@@ -9,11 +9,6 @@ public class StockInEditModalWindow extends StockInCreateModalWindow {
     }
 
     @Override
-    public void deleteButtonClick() {
-        deleteButtonClick("stockIn__removeLink");
-    }
-
-    @Override
     public void confirmDeleteButtonClick() {
         confirmDeleteButtonClick("stockIn__removeLink");
     }

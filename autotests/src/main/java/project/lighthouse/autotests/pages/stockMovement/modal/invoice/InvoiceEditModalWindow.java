@@ -19,11 +19,6 @@ public class InvoiceEditModalWindow extends InvoiceCreateModalWindow {
     }
 
     @Override
-    public void deleteButtonClick() {
-        deleteButtonClick("invoice__removeLink");
-    }
-
-    @Override
     public void confirmDeleteButtonClick() {
         confirmDeleteButtonClick("invoice__removeLink");
     }

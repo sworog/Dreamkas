@@ -8,6 +8,7 @@ import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
 import project.lighthouse.autotests.elements.items.autocomplete.InvoiceProductAutoComplete;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
+import project.lighthouse.autotests.objects.web.stockMovement.StockMovementWebObject;
 import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 public abstract class StockMovementModalPage extends ModalWindowPage {
@@ -27,15 +28,19 @@ public abstract class StockMovementModalPage extends ModalWindowPage {
 
     public abstract AbstractObjectCollection getProductCollection();
 
-    public abstract String getTotalSum();
+    public String getTotalSum() {
+        String xpath = String.format("%s//*[@class='totalSum']", modalWindowXpath());
+        return findVisibleElement(By.xpath(xpath)).getText();
+    };
 
     public abstract void addProductButtonClick();
 
     public abstract Integer getProductRowsCount();
 
-    protected String getTotalSum(String cssClass) {
-        String xpath = String.format("%s//*[@class='%s']", modalWindowXpath(), cssClass);
-        return findVisibleElement(By.xpath(xpath)).getText();
+    @Override
+    public void deleteButtonClick() {
+        String xpath = String.format("%s//*[@class='removeLink']", modalWindowXpath());
+        findVisibleElement(By.xpath(xpath)).click();
     }
 
     protected void confirmationOkClick(String buttonLabel) {

@@ -38,11 +38,6 @@ public class WriteOffCreateModalWindow extends StockMovementModalPage {
     }
 
     @Override
-    public String getTotalSum() {
-        return getTotalSum("writeOff__totalSum");
-    }
-
-    @Override
     public Integer getProductRowsCount() {
         return getProductRowsCount("table_writeOffProducts");
     }

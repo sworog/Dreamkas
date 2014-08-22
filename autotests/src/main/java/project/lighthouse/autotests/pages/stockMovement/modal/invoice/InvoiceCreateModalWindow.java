@@ -39,11 +39,6 @@ public class InvoiceCreateModalWindow extends StockMovementModalPage {
     }
 
     @Override
-    public String getTotalSum() {
-        return getTotalSum("invoice__totalSum");
-    }
-
-    @Override
     public Integer getProductRowsCount() {
         return getProductRowsCount("table_invoiceProducts");
     }

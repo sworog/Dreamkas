@@ -24,10 +24,6 @@ public class StockInCreateModalWindow extends StockMovementModalPage {
         addProductButtonClick("addStockInProduct");
     }
 
-    public String getTotalSum() {
-        return getTotalSum("stockIn__totalSum");
-    }
-
     @Override
     public StockInProductCollection getProductCollection() {
         return new StockInProductCollection(getDriver());

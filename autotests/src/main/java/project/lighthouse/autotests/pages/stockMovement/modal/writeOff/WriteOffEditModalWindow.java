@@ -12,11 +12,7 @@ public class WriteOffEditModalWindow extends WriteOffCreateModalWindow {
     public String modalWindowXpath() {
         return "//*[@id='modal_writeOffEdit']";
     }
-
-    public void deleteButtonClick() {
-        deleteButtonClick("writeOff__removeLink");
-    }
-
+    
     public void confirmDeleteButtonClick() {
         confirmDeleteButtonClick("writeOff__removeLink");
     }
