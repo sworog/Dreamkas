@@ -28,4 +28,8 @@ public class Storage {
     public static CustomVariableStorage getCustomVariableStorage() {
         return Injectors.getInjector().getInstance(CustomVariableStorage.class);
     }
+
+    public static CurrentPageObjectStorage getCurrentPageObjectStorage() {
+        return Injectors.getInjector().getInstance(CurrentPageObjectStorage.class);
+    }
 }
