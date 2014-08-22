@@ -11,7 +11,7 @@ import project.lighthouse.autotests.objects.web.deprecated.product.invoiceList.I
 import java.util.ArrayList;
 import java.util.List;
 
-public class JobLogObjectCollection extends AbstractObjectCollection {
+public class JobLogObjectCollection extends AbstractObjectCollection<JobLogObject> {
 
     public JobLogObjectCollection(WebDriver webDriver, By findBy) {
         super(webDriver, findBy);
@@ -27,7 +27,7 @@ public class JobLogObjectCollection extends AbstractObjectCollection {
     }
 
     @Override
-    public InvoiceListObject createNode(WebElement element) {
+    public JobLogObject createNode(WebElement element) {
         return null;
     }
 

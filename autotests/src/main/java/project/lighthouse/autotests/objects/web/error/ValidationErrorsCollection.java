@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ValidationErrorsCollection extends AbstractObjectCollection {
+public class ValidationErrorsCollection extends AbstractObjectCollection<ValidationError> {
 
     public ValidationErrorsCollection(WebDriver webDriver) {
         //TODO investigate with BO about empty data-error attribute in invoice validation
@@ -26,13 +26,13 @@ public class ValidationErrorsCollection extends AbstractObjectCollection {
         List<WebElement> webElementList =
                 new Waiter(webDriver, StaticData.DEFAULT_VALIDATION_ERROR_TIMEOUT).getVisibleWebElements(findBy);
         for (WebElement element : webElementList) {
-            AbstractObject abstractObject = createNode(element);
+            ValidationError abstractObject = createNode(element);
             add(abstractObject);
         }
     }
 
     @Override
-    public AbstractObject createNode(WebElement element) {
+    public ValidationError createNode(WebElement element) {
         return new ValidationError(element);
     }
 
