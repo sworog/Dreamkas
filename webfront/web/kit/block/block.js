@@ -139,6 +139,7 @@ define(function(require, exports, module) {
 
             block.destroyBlocks();
             block.stopListening();
+            block.off();
             block.undelegateEvents();
 
             block.bindings.unbind();

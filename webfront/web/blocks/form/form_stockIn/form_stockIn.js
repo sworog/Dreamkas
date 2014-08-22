@@ -5,6 +5,9 @@ define(function(require, exports, module) {
     return Form.extend({
         template: require('ejs!./form_stockIn.ejs'),
         model: require('models/stockIn/stockIn'),
+        collection: function(){
+            return PAGE.collections.stockMovements;
+        },
         collections: {
             stores: function(){
                 return PAGE.collections.stores;

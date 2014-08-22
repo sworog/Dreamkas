@@ -22,6 +22,11 @@ define(function(require, exports, module) {
             block.render();
 
             block.$el.modal('show');
+        },
+        hide: function(){
+            var block = this;
+
+            block.$el.modal('hide');
         }
     });
 });

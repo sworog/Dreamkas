@@ -12,9 +12,20 @@ define(function(require, exports, module) {
                 var block = this,
                     Form_stockIn = require('blocks/form/form_stockIn/form_stockIn');
 
-                return new Form_stockIn(_.extend(opt, {
+                var form_stockIn = new Form_stockIn({
+                    el: opt.el,
                     model: block.models.stockIn
-                }));
+                });
+
+                form_stockIn.on('submit:success', function(){
+                    block.$el.one('hidden.bs.modal', function(e) {
+                        PAGE.render();
+                    });
+
+                    block.hide();
+                });
+
+                return form_stockIn;
             },
             form_stockInProducts: function(opt){
                 var block = this,
