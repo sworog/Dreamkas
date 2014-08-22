@@ -3,7 +3,7 @@ package project.lighthouse.autotests.pages.stockMovement.modal.invoice;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.elements.items.Input;
-import project.lighthouse.autotests.objects.web.invoiceProduct.InvoiceProductCollection;
+import project.lighthouse.autotests.objects.web.stockMovement.invoiceProduct.InvoiceProductCollection;
 import project.lighthouse.autotests.pages.stockMovement.modal.StockMovementModalPage;
 
 public class InvoiceCreateModalWindow extends StockMovementModalPage {

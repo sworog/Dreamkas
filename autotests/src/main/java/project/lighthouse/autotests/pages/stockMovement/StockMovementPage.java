@@ -7,7 +7,7 @@ import project.lighthouse.autotests.elements.bootstrap.buttons.DefaultBtnFacade;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
-import project.lighthouse.autotests.objects.web.stockMovement.StockMovementObjectCollection;
+import project.lighthouse.autotests.objects.web.stockMovement.StockMovementListObjectCollection;
 
 @DefaultUrl("/stockMovements")
 public class StockMovementPage extends BootstrapPageObject {
@@ -36,8 +36,8 @@ public class StockMovementPage extends BootstrapPageObject {
         put("dateTo", new Input(this, "dateTo"));
     }
 
-    public StockMovementObjectCollection getStockMovementObjectCollection() {
-        return new StockMovementObjectCollection(getDriver());
+    public StockMovementListObjectCollection getStockMovementObjectCollection() {
+        return new StockMovementListObjectCollection(getDriver());
     }
 
     public void acceptFiltersButtonClick() {

@@ -1,18 +1,14 @@
-package project.lighthouse.autotests.objects.web.invoiceProduct;
+package project.lighthouse.autotests.objects.web.stockMovement.invoiceProduct;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
 
-public class InvoiceProductCollection extends AbstractObjectCollection {
+public class InvoiceProductCollection extends AbstractObjectCollection<InvoiceProductObject> {
 
     public InvoiceProductCollection(WebDriver webDriver) {
         super(webDriver, By.name("invoiceProduct"));
-    }
-
-    public InvoiceProductCollection(WebDriver webDriver, By findBy) {
-        super(webDriver, findBy);
     }
 
     @Override

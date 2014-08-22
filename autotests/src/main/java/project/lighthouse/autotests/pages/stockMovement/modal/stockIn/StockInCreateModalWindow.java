@@ -1,7 +1,7 @@
 package project.lighthouse.autotests.pages.stockMovement.modal.stockIn;
 
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.objects.web.stockIn.StockInProductCollection;
+import project.lighthouse.autotests.objects.web.stockMovement.stockIn.StockInProductCollection;
 import project.lighthouse.autotests.pages.stockMovement.modal.StockMovementModalPage;
 
 public class StockInCreateModalWindow extends StockMovementModalPage {

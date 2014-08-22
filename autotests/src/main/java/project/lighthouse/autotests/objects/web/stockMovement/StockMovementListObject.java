@@ -11,7 +11,7 @@ import project.lighthouse.autotests.objects.web.compare.CompareResults;
 
 import java.util.Map;
 
-public class StockMovementObject extends AbstractObject implements ObjectClickable, ObjectLocatable, ResultComparable {
+public class StockMovementListObject extends AbstractObject implements ObjectClickable, ObjectLocatable, ResultComparable {
 
     private String date;
     private String type;
@@ -20,7 +20,7 @@ public class StockMovementObject extends AbstractObject implements ObjectClickab
     private String sumTotal;
     private String number;
 
-    public StockMovementObject(WebElement element, WebDriver webDriver) {
+    public StockMovementListObject(WebElement element, WebDriver webDriver) {
         super(element, webDriver);
     }
 

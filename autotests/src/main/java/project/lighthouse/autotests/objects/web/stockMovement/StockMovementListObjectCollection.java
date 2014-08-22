@@ -8,14 +8,14 @@ import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCo
 
 import java.util.List;
 
-public class StockMovementObjectCollection extends AbstractObjectCollection {
+public class StockMovementListObjectCollection extends AbstractObjectCollection<StockMovementListObject> {
 
-    public StockMovementObjectCollection(WebDriver webDriver) {
+    public StockMovementListObjectCollection(WebDriver webDriver) {
         super(webDriver, By.xpath("//*[@class='writeOff__link' or @class='invoice__link' or @class='stockIn__link']"));
     }
 
     @Override
-    public StockMovementObject createNode(WebElement element) {
+    public StockMovementListObject createNode(WebElement element) {
         return null;
     }
 
@@ -23,8 +23,8 @@ public class StockMovementObjectCollection extends AbstractObjectCollection {
     public void init(WebDriver webDriver, By findBy) {
         List<WebElement> webElementList = new Waiter(webDriver).getVisibleWebElements(findBy);
         for (WebElement element : webElementList) {
-            StockMovementObject stockMovementObject = new StockMovementObject(element, webDriver);
-            add(stockMovementObject);
+            StockMovementListObject stockMovementListObject = new StockMovementListObject(element, webDriver);
+            add(stockMovementListObject);
         }
     }
 }

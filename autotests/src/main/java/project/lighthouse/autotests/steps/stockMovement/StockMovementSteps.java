@@ -9,11 +9,11 @@ import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.helper.StringGenerator;
-import project.lighthouse.autotests.objects.web.invoiceProduct.InvoiceProductCollection;
-import project.lighthouse.autotests.objects.web.invoiceProduct.InvoiceProductObject;
-import project.lighthouse.autotests.objects.web.stockIn.StockInProduct;
-import project.lighthouse.autotests.objects.web.stockIn.StockInProductCollection;
-import project.lighthouse.autotests.objects.web.stockMovement.StockMovementObjectCollection;
+import project.lighthouse.autotests.objects.web.stockMovement.invoiceProduct.InvoiceProductCollection;
+import project.lighthouse.autotests.objects.web.stockMovement.invoiceProduct.InvoiceProductObject;
+import project.lighthouse.autotests.objects.web.stockMovement.stockIn.StockInProduct;
+import project.lighthouse.autotests.objects.web.stockMovement.stockIn.StockInProductCollection;
+import project.lighthouse.autotests.objects.web.stockMovement.StockMovementListObjectCollection;
 import project.lighthouse.autotests.objects.web.writeOffProduct.WriteOffProductCollection;
 import project.lighthouse.autotests.objects.web.writeOffProduct.WriteOffProductObject;
 import project.lighthouse.autotests.pages.stockMovement.StockMovementPage;
@@ -198,7 +198,7 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void stockMovementPageContainStockOperation(ExamplesTable examplesTable) {
-        StockMovementObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
+        StockMovementListObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
         if (stockMovementObjectCollection != null) {
             stockMovementObjectCollection.compareWithExampleTable(examplesTable);
         }
@@ -206,14 +206,14 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void stockMovementPageContainExactStockOperation(ExamplesTable examplesTable) {
-        StockMovementObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
+        StockMovementListObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
         if (stockMovementObjectCollection != null) {
             stockMovementObjectCollection.exactCompareExampleTable(examplesTable);
         }
     }
 
-    private StockMovementObjectCollection getStockMovementObjectCollection() {
-        StockMovementObjectCollection stockMovementObjectCollection = null;
+    private StockMovementListObjectCollection getStockMovementObjectCollection() {
+        StockMovementListObjectCollection stockMovementObjectCollection = null;
         try {
             stockMovementObjectCollection = stockMovementPage.getStockMovementObjectCollection();
         } catch (TimeoutException e) {
@@ -273,7 +273,7 @@ public class StockMovementSteps extends ScenarioSteps {
     public void invoiceProductWithNameDeleteIconClick(String name) {
         InvoiceProductObject invoiceProductObject =
                 (InvoiceProductObject) getInvoiceProductCollection().getAbstractObjectByLocator(name);
-        invoiceProductObject.deleteIconClick();
+        invoiceProductObject.clickDeleteIcon();
         new SimplePreloader(getDriver()).await();
     }
 
@@ -289,7 +289,7 @@ public class StockMovementSteps extends ScenarioSteps {
     public void stockInProductWithNameDeleteIconClick(String name) {
         StockInProduct stockInProduct =
                 (StockInProduct) getStockInProductCollection().getAbstractObjectByLocator(name);
-        stockInProduct.deleteIconClick();
+        stockInProduct.clickDeleteIcon();
         new SimplePreloader(getDriver()).await();
     }
 
@@ -340,7 +340,7 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void openOperationByNumberInStockMovementPage(String number) {
-        StockMovementObjectCollection stockMovementObjectCollection = stockMovementPage.getStockMovementObjectCollection();
+        StockMovementListObjectCollection stockMovementObjectCollection = stockMovementPage.getStockMovementObjectCollection();
         if (stockMovementObjectCollection != null) {
             stockMovementObjectCollection.clickByLocator(number);
         }
@@ -348,7 +348,7 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void stockMovementCollectionDontContainLastCreatedInvoice() throws JSONException {
-        StockMovementObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
+        StockMovementListObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
         if (stockMovementObjectCollection != null) {
             stockMovementObjectCollection.notContains(Storage.getStockMovementVariableStorage().getLastInvoice().getNumber());
         }
@@ -356,7 +356,7 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void stockMovementCollectionDontContainLastCreatedWriteOff() throws JSONException {
-        StockMovementObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
+        StockMovementListObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
         if (stockMovementObjectCollection != null) {
             stockMovementObjectCollection.notContains(Storage.getStockMovementVariableStorage().getLastWriteOff().getNumber());
         }
@@ -364,7 +364,7 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void stockMovementCollectionDontContainLastCreatedStockIn() throws JSONException {
-        StockMovementObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
+        StockMovementListObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
         if (stockMovementObjectCollection != null) {
             stockMovementObjectCollection.notContains(Storage.getStockMovementVariableStorage().getLastStockIn().getNumber());
         }
