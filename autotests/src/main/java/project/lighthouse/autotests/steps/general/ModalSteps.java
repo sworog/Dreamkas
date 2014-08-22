@@ -1,5 +1,7 @@
 package project.lighthouse.autotests.steps.general;
 
+import net.thucydides.core.annotations.Step;
+import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.common.ModalWindowPageObject;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInEditModalWindow;
@@ -15,12 +17,38 @@ public class ModalSteps extends AbstractGeneralSteps<ModalWindowPageObject> {
     @Override
     Map<String, Class> getPageObjectClasses() {
         return new HashMap<String, Class>() {{
-            put("модальное окно создания оприходования", StockInCreateModalWindow.class);
-            put("модальное окно редактирования оприходования", StockInEditModalWindow.class);
+            put("создания оприходования", StockInCreateModalWindow.class);
+            put("редактирования оприходования", StockInEditModalWindow.class);
         }};
     }
 
+    @Step
     public void assertTitle(String title) {
         assertThat(getCurrentPageObject().getTitle(), is(title));
+    }
+
+    @Step
+    public void input(String elementName, String value) {
+        getCurrentPageObject().input(elementName, value);
+    }
+
+    @Step
+    public void input(ExamplesTable fieldInputTable) {
+        getCurrentPageObject().input(fieldInputTable);
+    }
+
+    @Step
+    public void checkValue(String element, String value) {
+        getCurrentPageObject().checkValue(element, value);
+    }
+
+    @Step
+    public void checkValues(ExamplesTable examplesTable) {
+        getCurrentPageObject().checkValues(examplesTable);
+    }
+
+    @Step
+    public void checkItemErrorMessage(String elementName, String errorMessage) {
+        getCurrentPageObject().checkItemErrorMessage(elementName, errorMessage);
     }
 }

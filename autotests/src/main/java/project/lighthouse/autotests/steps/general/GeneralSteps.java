@@ -2,6 +2,7 @@ package project.lighthouse.autotests.steps.general;
 
 import net.thucydides.core.annotations.Step;
 import org.jbehave.core.model.ExamplesTable;
+import project.lighthouse.autotests.common.GeneralPageObject;
 import project.lighthouse.autotests.pages.stockMovement.StockMovementPage;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInEditModalWindow;
@@ -9,7 +10,7 @@ import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInEdi
 import java.util.HashMap;
 import java.util.Map;
 
-public class GeneralSteps extends AbstractGeneralSteps {
+public class GeneralSteps extends AbstractGeneralSteps<GeneralPageObject> {
 
     @Override
     Map<String, Class> getPageObjectClasses() {

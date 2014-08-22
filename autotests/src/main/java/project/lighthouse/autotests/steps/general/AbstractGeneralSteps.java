@@ -14,7 +14,11 @@ public abstract class AbstractGeneralSteps<T extends GeneralPageObject> extends 
     @SuppressWarnings("unchecked")
     public void setCurrentPageObject(String pageObjectName) {
         Class pageObjectClass = getPageObjectClasses().get(pageObjectName);
-        currentPageObject = (T) getPages().get(pageObjectClass);
+        setCurrentPageObject((T) getPages().get(pageObjectClass));
+    }
+
+    protected void setCurrentPageObject(T pageObject) {
+        currentPageObject = pageObject;
     }
 
     protected T getCurrentPageObject() {
