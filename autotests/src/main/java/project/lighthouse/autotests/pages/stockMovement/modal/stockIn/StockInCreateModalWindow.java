@@ -14,7 +14,7 @@ public class StockInCreateModalWindow extends WriteOffCreateModalWindow {
 
     @Override
     public String modalWindowXpath() {
-        return "//*[@id='modal_stockInAdd']";
+        return "//*[contains(@class, 'modal_stockIn')]";
     }
 
     @Override
