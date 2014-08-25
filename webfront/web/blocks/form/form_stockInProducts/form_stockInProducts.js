@@ -8,23 +8,12 @@ define(function(require, exports, module) {
         template: require('ejs!./form_stockInProducts.ejs'),
         model: require('models/stockInProduct/stockInProduct'),
         collection: function() {
-            var block = this,
-                productsCollection = block.get('models.stockIn.collections.products');
+            var block = this;
 
-            block.listenTo(productsCollection, {
-                'add remove reset': function() {
-                    block.renderProductsList();
-                    block.renderTotalSum();
-                }
-            });
-
-            return productsCollection;
+            return block.get('models.stockIn.collections.products');
         },
         models: {
             stockIn: require('models/stockIn/stockIn')
-        },
-        partials: {
-            productsList: require('ejs!./productsList.ejs')
         },
         blocks: {
             autocomplete_products: function(opt) {

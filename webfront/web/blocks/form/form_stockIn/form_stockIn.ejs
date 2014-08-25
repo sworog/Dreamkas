@@ -16,14 +16,11 @@
                 <label class="control-label">Магазин *</label>
 
                 <div class="input-icon right">
-                    <select class="form-control" name="store">
-                        <option value="" selected disabled>Выберите магазин</option>
-                        <% collections.stores.forEach(function(storeModel){ %>
-                        <option <%- model.get('store.id') === storeModel.id ? 'selected' : '' %>
-                                value="<%- storeModel.id %>"><%- storeModel.get('name') %>
-                        </option>
-                        <% }) %>
-                    </select>
+
+                    <%= partials.select_stores({
+                        selected: model.get('store.id')
+                    })%>
+
                 </div>
             </div>
         </div>

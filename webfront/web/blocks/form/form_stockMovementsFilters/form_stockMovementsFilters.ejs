@@ -4,13 +4,13 @@
             <div class="form-group">
                 <select class="form-control" name="types">
                     <option value="">Все операции</option>
-                    <option value="Invoice" <%- data.types == 'Invoice' ? 'selected' : '' %>>
+                    <option value="Invoice" <%- data.types == 'Invoice' && 'selected' %>>
                         Приёмка
                     </option>
-                    <option value="WriteOff" <%- data.types == 'WriteOff' ? 'selected' : '' %>>
+                    <option value="WriteOff" <%- data.types == 'WriteOff' && 'selected' %>>
                         Списание
                     </option>
-                    <option value="StockIn" <%- data.types == 'StockIn' ? 'selected' : '' %>>
+                    <option value="StockIn" <%- data.types == 'StockIn' && 'selected' %>>
                         Оприходование
                     </option>
                 </select>

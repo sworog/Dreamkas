@@ -1,7 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/form/form'),
-        router = require('router');
+    var Form = require('kit/form/form');
 
     return Form.extend({
         template: require('ejs!./form_stockMovementsFilters.ejs'),

@@ -1,0 +1,60 @@
+<form id="form_invoice" class="form form_invoice">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+
+                <label class="control-label">Дата *</label>
+
+                <b block="inputDate"></b>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+
+                <label class="control-label">Магазин *</label>
+
+                <div class="input-icon right">
+
+                    <%= partials.select_stores({
+                        selected: model.get('store.id')
+                    }) %>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+
+                <label class="control-label">Поставщик</label>
+
+                <div class="row">
+                    <div class="col-md-10">
+
+                        <%= partials.select_suppliers({
+                            selected: model.get('supplier.id')
+                        }) %>
+
+                    </div>
+
+                    <div class="col-md-2">
+                        <a style="font-size: 20px; position: relative; top: 10px; left: -10px; cursor: pointer;"
+                           class="addSupplierLink fa fa-plus"></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="checkbox">
+            <input tabindex="5"
+                   type="checkbox"
+                   name="paid"
+                   value="true" <%- model.get('paid') && 'checked' %>/>
+                    <span class="checkbox__text">
+                        Оплачено
+                    </span>
+        </label>
+    </div>
+</form>

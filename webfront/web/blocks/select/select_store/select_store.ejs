@@ -1,0 +1,10 @@
+<select class="form-control" name="store">
+    <option value="" selected disabled>Выберите магазин</option>
+
+    <% PAGE.collections.stores.forEach(function(storeModel){ %>
+    <option <%- selected === storeModel.id && 'selected' %>
+            value="<%- storeModel.id %>"><%- storeModel.get('name') %>
+    </option>
+    <% }) %>
+
+</select>

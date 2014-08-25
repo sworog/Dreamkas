@@ -1,15 +1,4 @@
-<% var InvoiceProductsCollections = require('collections/invoiceProducts/invoiceProducts') %>
-
-<% var collections = _.extend({
-    invoiceProducts: new InvoiceProductsCollections()
-}, collections) %>
-
-<% var helpers = {
-    formatMoney: require('kit/formatMoney/formatMoney'),
-    formatAmount: require('kit/formatAmount/formatAmount')
-} %>
-
-<% collections.invoiceProducts.forEach(function(invoiceProductModel) { %>
+<% collection.forEach(function(invoiceProductModel) { %>
     <tr name="invoiceProduct">
         <td name="name"><%- invoiceProductModel.get('product.name') %></td>
         <td name="priceEntered"><%- helpers.formatMoney(invoiceProductModel.get('priceEntered')) %></td>

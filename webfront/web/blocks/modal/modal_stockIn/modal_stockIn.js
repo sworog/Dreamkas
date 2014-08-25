@@ -7,9 +7,6 @@ define(function(require, exports, module) {
         models: {
             stockIn: require('models/stockIn/stockIn')
         },
-        partials: {
-            form_product: require('ejs!blocks/form/form_product/form_product.ejs')
-        },
         events: {
             'click .addProductLink': function() {
                 var block = this;
@@ -43,24 +40,24 @@ define(function(require, exports, module) {
                 });
 
                 form_stockIn.on('submit:success', function(){
-                    block.$el.one('hidden.bs.modal', function(e) {
-                        PAGE.render();
-                    });
-
                     block.hide();
                 });
 
-                return form_stockIn;
+                return new Form_stockIn({
+                    el: opt.el,
+                    model: block.models.stockIn
+                });
             },
             form_stockInProducts: function(opt){
                 var block = this,
                     Form_stockInProducts = require('blocks/form/form_stockInProducts/form_stockInProducts');
 
-                return new Form_stockInProducts(_.extend(opt, {
+                return new Form_stockInProducts({
+                    el: opt.el,
                     models: {
                         stockIn: block.models.stockIn
                     }
-                }));
+                });
             },
             form_product: function(opt) {
                 var block = this,
@@ -73,8 +70,8 @@ define(function(require, exports, module) {
                 form_product.on('submit:success', function(){
                     block.el.querySelector('.form_stockInProducts').block.renderSelectedProduct(form_product.model.toJSON());
                     block.showStockInModal();
-                    form_product.model = new ProductModel();
-                    form_product.clear();
+                    form_product.model = new ProductModel;
+                    form_product.reset();
                 });
 
                 return form_product;

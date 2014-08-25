@@ -1,25 +1,4 @@
-<% var InvoiceModel = require('models/invoice/invoice') %>
-<% var GroupsCollection = require('collections/groups/groups') %>
-<% var partials = {
-    form_supplier: require('ejs!blocks/form/form_supplier/template.ejs'),
-    select_suppliers: require('ejs!blocks/select/select_suppliers/template.ejs'),
-    invoiceProducts: require('ejs!blocks/form/form_invoiceProducts/invoiceProducts.ejs'),
-    form_product: require('ejs!blocks/form/form_product/form_product.ejs')
-} %>
-<% var helpers = {
-    formatMoney: require('kit/formatMoney/formatMoney'),
-    formatAmount: require('kit/formatAmount/formatAmount'),
-    formatDate: require('kit/formatDate/formatDate')
-} %>
-<% var models = _.extend({
-    invoice: new InvoiceModel()
-}, models) %>
-<% var collections = _.extend({
-    groups: new GroupsCollection()
-}, collections) %>
-
-<div block="<%- models.invoice.id ? 'modal_invoiceEdit' : 'modal_invoiceAdd' %>" id="<%- models.invoice.id ? 'modal_invoiceEdit' : 'modal_invoiceAdd' %>"
-     tabindex="-1"
+<div tabindex="-1"
      role="dialog"
      aria-labelledby="modal-default-label"
      aria-hidden="true"
@@ -33,7 +12,7 @@
                    aria-hidden="true"
                    class="close pull-left fa fa-times"></a>
 
-                <button form="<%- models.invoice.id ? 'form_invoiceEdit' : 'form_invoiceAdd' %>"
+                <button form="form_invoice"
                         type="submit"
                         class="btn btn-primary pull-right">
                     <%- models.invoice.id ? 'Сохранить' : 'Принять' %>
@@ -46,75 +25,8 @@
                 <span class="clearfix"></span>
             </div>
             <div class="modal-body">
-                <form id="<%- models.invoice.id ? 'form_invoiceEdit' : 'form_invoiceAdd' %>" class="form form_invoice">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
 
-                                <label class="control-label">Дата *</label>
-
-                                <div class="input-group date">
-                                    <input name="date"
-                                           type="text"
-                                           class="form-control inputDate"
-                                           value="<%- models.invoice.get('date') ? helpers.formatDate(models.invoice.get('date')) : helpers.formatDate(new Date()) %>">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-
-                                <label class="control-label">Магазин *</label>
-
-                                <div class="input-icon right">
-                                    <select class="form-control" name="store">
-                                        <option value="" selected disabled>Выберите магазин</option>
-                                        <% collections.stores.forEach(function(storeModel){ %>
-                                        <option <%- models.invoice.get('store.id') === storeModel.id ? 'selected' : '' %>
-                                                value="<%- storeModel.id %>"><%- storeModel.get('name') %>
-                                        </option>
-                                        <% }) %>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-
-                                <label class="control-label">Поставщик</label>
-
-                                <div class="row">
-                                    <div class="col-md-10">
-                                        <%= partials.select_suppliers({
-                                            collections: {
-                                                suppliers: collections.suppliers
-                                            },
-                                            selected: models.invoice.get('supplier.id')
-                                        }) %>
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <a style="font-size: 20px; position: relative; top: 10px; left: -10px; cursor: pointer;"
-                                           class="addSupplierLink fa fa-plus"></a>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="checkbox">
-                            <input tabindex="5"
-                                   type="checkbox"
-                                   name="paid"
-                                   value="true" <%- models.invoice.get('paid') ? 'checked' : '' %>/>
-                            <span class="checkbox__text">
-                                Оплачено
-                            </span>
-                        </label>
-                    </div>
-                </form>
+                <b block="form_invoice"></b>
 
                 <hr style="margin: 0 -65px;"/>
                 <h3>Товары</h3>
@@ -132,54 +44,13 @@
                         </thead>
                         <tbody>
 
-                            <%= partials.invoiceProducts({
-                                collections: {
-                                    invoiceProducts: models.invoice.collections.products
-                                }
-                            }) %>
+                            <b block="invoiceProducts"></b>
 
                         </tbody>
                         <tfoot>
 
-                        <tr class="invoiceProductForm">
-                            <td>
-                                <div class="row">
-                                    <div class="col-md-10">
-                                        <input name="product.name"
-                                               type="text"
-                                               class="form-control autocomplete autocomplete_products">
-                                        <input type="hidden" name="product.id" />
-                                    </div>
-                                    <div class="col-md-2">
-                                        <a style="font-size: 20px; position: relative; top: 10px; left: -10px; cursor: pointer;"
-                                           class="addProductLink fa fa-plus"></a>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <input name="priceEntered"
-                                       type="text"
-                                       style="width: 100px;"
-                                       class="form-control">
-                            </td>
-                            <td>
-                                <div style="white-space: nowrap">
-                                    <input name="quantity"
-                                           type="text"
-                                           style="width: 80px; display: inline-block;"
-                                           class="form-control">
-                                    <span style="position: relative; padding: 0 5px;" class="product__units">шт.</span>
-                                </div>
-                            </td>
-                            <td>
-                                <span style="white-space: nowrap; min-width: 100px; position: relative; top: 7px;" class="totalSum"></span>
-                            </td>
-                            <td>
-                                <button type="submit"
-                                   style="margin-top: 0;"
-                                   class="addInvoiceProduct btn btn-default fa fa-check btn-lg"></button>
-                            </td>
-                        </tr>
+                            <b block="form_invoiceProduct"></b>
+
                         <tr>
                             <td colspan="3">
                                 Итого
