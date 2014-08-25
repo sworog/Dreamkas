@@ -12,7 +12,7 @@ import java.util.Map;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-public class ModalSteps extends AbstractGeneralSteps<ModalWindowPageObject> {
+public class ModalSteps<T extends ModalWindowPageObject> extends AbstractGeneralSteps<T> {
 
     @Override
     Map<String, Class> getPageObjectClasses() {

@@ -7,11 +7,9 @@ import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
 import project.lighthouse.autotests.objects.web.stockMovement.StockMovementWebObject;
-import project.lighthouse.autotests.objects.web.stockMovement.stockIn.StockInProduct;
 import project.lighthouse.autotests.pages.stockMovement.modal.StockMovementModalPage;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInEditModalWindow;
-import project.lighthouse.autotests.storage.Storage;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +17,7 @@ import java.util.Map;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
-public class StockMovementSteps extends AbstractGeneralSteps<StockMovementModalPage> {
+public class StockMovementSteps<T extends StockMovementModalPage> extends AbstractGeneralSteps<T> {
 
     @Override
     Map<String, Class> getPageObjectClasses() {

@@ -8,7 +8,7 @@ import project.lighthouse.autotests.pages.stockMovement.StockMovementPage;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GeneralSteps extends AbstractGeneralSteps<GeneralPageObject> {
+public class GeneralSteps<T extends GeneralPageObject> extends AbstractGeneralSteps<T> {
 
     @Override
     Map<String, Class> getPageObjectClasses() {
