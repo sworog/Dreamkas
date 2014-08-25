@@ -5,6 +5,8 @@ import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 public class DateInput extends Input {
 
+    By inputLabelBy = By.xpath("./../../label[@class='control-label']");
+
     public DateInput(ModalWindowPage modalWindowPage, String xpath) {
         super(modalWindowPage, xpath);
     }
@@ -12,7 +14,11 @@ public class DateInput extends Input {
     @Override
     public void setValue(String value) {
         getVisibleWebElementFacade().type(value);
-        // Workaround for datepicker closing
-        getVisibleWebElementFacade().findElement(By.xpath("./../*[@class='input-group-addon']")).click();
+        clickToCloseCalendar();
+    }
+
+    // Workaround for datepicker closing
+    protected void clickToCloseCalendar() {
+        getVisibleWebElementFacade().findElement(inputLabelBy).click();
     }
 }
