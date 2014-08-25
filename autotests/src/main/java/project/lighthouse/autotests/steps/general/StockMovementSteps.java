@@ -46,6 +46,7 @@ public class StockMovementSteps<T extends StockMovementModalPage> extends Abstra
     @Step
     public void clickAddProductButton() {
         getCurrentPageObject().addProductButtonClick();
+        new SimplePreloader(getDriver()).await();
     }
 
     @Step
@@ -61,6 +62,7 @@ public class StockMovementSteps<T extends StockMovementModalPage> extends Abstra
     @Step
     public void clickCreateButton() {
         getCurrentPageObject().confirmationOkClick();
+        new SimplePreloader(getDriver()).await();
     }
 
 

@@ -3,6 +3,7 @@ package project.lighthouse.autotests.steps.general;
 import net.thucydides.core.annotations.Step;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.common.ModalWindowPageObject;
+import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInEditModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.writeOff.WriteOffCreateModalWindow;
@@ -57,13 +58,9 @@ public class ModalSteps<T extends ModalWindowPageObject> extends AbstractGeneral
     }
 
     @Step
-    public void createButtonClick() {
+    public void confirmationClick() {
         getCurrentPageObject().confirmationOkClick();
-    }
-
-    @Step
-    public void saveButtonClick() {
-        getCurrentPageObject().confirmationOkClick();
+        new SimplePreloader(getDriver()).await();
     }
 
     @Step
@@ -74,5 +71,6 @@ public class ModalSteps<T extends ModalWindowPageObject> extends AbstractGeneral
     @Step
     public void confirmDeleteButtonClick() {
         getCurrentPageObject().confirmDeleteButtonClick();
+        new SimplePreloader(getDriver()).await();
     }
 }
