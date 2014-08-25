@@ -14,7 +14,7 @@ define(function(require, exports, module) {
 
             Block.prototype.render.apply(block, arguments);
 
-            block.$el.datepicker({
+            block.$('input').datepicker({
                 language: 'ru',
                 format: 'dd.mm.yyyy',
                 autoclose: true,
@@ -25,7 +25,7 @@ define(function(require, exports, module) {
         destroy: function(){
             var block = this;
 
-            block.$el.datepicker('remove');
+            block.$('input').datepicker('remove');
 
             Block.prototype.destroy.apply(block, arguments);
         }
