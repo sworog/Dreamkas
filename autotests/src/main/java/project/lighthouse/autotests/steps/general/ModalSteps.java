@@ -5,6 +5,8 @@ import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.common.ModalWindowPageObject;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInEditModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.writeOff.WriteOffCreateModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.writeOff.WriteOffEditModalWindow;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +19,8 @@ public class ModalSteps<T extends ModalWindowPageObject> extends AbstractGeneral
     @Override
     Map<String, Class> getPageObjectClasses() {
         return new HashMap<String, Class>() {{
+            put("создания списания", WriteOffCreateModalWindow.class);
+            put("редактирования списания", WriteOffEditModalWindow.class);
             put("создания оприходования", StockInCreateModalWindow.class);
             put("редактирования оприходования", StockInEditModalWindow.class);
         }};
