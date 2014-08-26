@@ -4,7 +4,8 @@
     tr: {
         invoice: require('ejs!blocks/table/stockMovements/tr/invoice.ejs'),
         writeOff: require('ejs!blocks/table/stockMovements/tr/writeOff.ejs'),
-        stockIn: require('ejs!blocks/table/stockMovements/tr/stockIn.ejs')
+        stockIn: require('ejs!blocks/table/stockMovements/tr/stockIn.ejs'),
+        supplierReturn: require('ejs!blocks/table/stockMovements/tr/supplierReturn.ejs')
     }
 }; %>
 <% var helpers = {
@@ -76,6 +77,13 @@
 
                                 <% if (stockMovementModel.get('type') === 'StockIn'){ %>
                                     <%= partials.tr.stockIn({
+                                        dateRowSpan: index === 0 ? stockMovements.length : null,
+                                        stockMovementModel: stockMovementModel
+                                    }) %>
+                                <% } %>
+
+                                <% if (stockMovementModel.get('type') === 'SupplierReturn'){ %>
+                                    <%= partials.tr.supplierReturn({
                                         dateRowSpan: index === 0 ? stockMovements.length : null,
                                         stockMovementModel: stockMovementModel
                                     }) %>
