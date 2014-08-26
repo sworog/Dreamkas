@@ -35,6 +35,10 @@ lighthouse.core.stock-in:
     resource: Lighthouse\CoreBundle\Controller\StockInController
     type:     rest
 
+lighthouse.core.return-supplier:
+    resource: Lighthouse\CoreBundle\Controller\SupplierReturnController
+    type:     rest
+
 lighthouse.core.return_product:
     resource: Lighthouse\CoreBundle\Controller\ReturnProductController
     type:     rest
