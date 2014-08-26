@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.jbehave.api.builder;
+package project.lighthouse.autotests.jbehave.api.builder.stockMovement;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Alias;
