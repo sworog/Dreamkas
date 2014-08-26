@@ -41,14 +41,15 @@ define(function(require, exports, module) {
         blocks: {
             form_supplier: function(opt) {
                 var block = this,
+                    SupplierModel = require('models/supplier/supplier'),
                     Form_supplier = require('blocks/form/form_supplier/form_supplier'),
                     form_supplier = new Form_supplier({
                         el: opt.el,
-                        collection: block.collections.suppliers
+                        collection: PAGE.collections.suppliers
                     });
 
                 form_supplier.on('submit:success', function(){
-                    block.showInvoiceModal();
+                    block.showSupplierReturnModal();
                     form_supplier.model = new SupplierModel();
                     form_supplier.clear();
                 });
@@ -99,6 +100,17 @@ define(function(require, exports, module) {
                 return form_product;
             }
         },
+        initialize: function(){
+            var block = this;
+
+            Modal.prototype.initialize.apply(block, arguments);
+
+            block.listenTo(PAGE.collections.suppliers, {
+                'add': function(supplierModel){
+                    block.renderSupplierSelect(supplierModel)
+                }
+            });
+        },
         showSupplierReturnModal: function() {
             var block = this;
 
@@ -122,6 +134,17 @@ define(function(require, exports, module) {
                 .removeClass('modal__dialog_hidden')
                 .siblings('.modal-dialog')
                 .addClass('modal__dialog_hidden');
+        },
+        renderSupplierSelect: function(supplierModel){
+            var block = this,
+                select_suppliers = require('ejs!blocks/select/select_suppliers/template.ejs');
+
+            block.$('.select_suppliers').replaceWith(select_suppliers({
+                selected: supplierModel.id,
+                collections: {
+                    suppliers: PAGE.collections.suppliers
+                }
+            }));
         }
     });
 });
