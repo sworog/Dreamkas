@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract public class AbstractSearchObjectCollection extends AbstractObjectCollection {
+abstract public class AbstractSearchObjectCollection extends AbstractObjectCollection<AbstractObject> {
 
     public AbstractSearchObjectCollection(WebDriver webDriver, By findBy) {
         super(webDriver, findBy);

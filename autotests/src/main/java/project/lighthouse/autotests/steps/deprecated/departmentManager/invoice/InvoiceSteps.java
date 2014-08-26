@@ -57,7 +57,7 @@ public class InvoiceSteps extends ScenarioSteps {
 
     @Step
     public void input(ExamplesTable examplesTable) {
-        invoicePage.fieldInput(examplesTable);
+        invoicePage.input(examplesTable);
         this.examplesTable = examplesTable;
     }
 

@@ -91,6 +91,20 @@ services:
         arguments:
             - LighthouseCoreBundle:StockMovement\WriteOff\Product\WriteOffProduct
 
+    lighthouse.core.document.repository.stock_movement.stockin:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockInRepository
+        arguments:
+            - LighthouseCoreBundle:StockMovement\StockIn\StockIn
+        calls:
+            - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
+
+    lighthouse.core.document.repository.stock_movement.stockin_product:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\StockMovement\StockIn\Product\StockInProductRepository
+        arguments:
+            - LighthouseCoreBundle:StockMovement\StockIn\Product\StockInProduct
+
     lighthouse.core.document.repository.receipt:
         parent: doctrine_mongodb.odm.repository
         class: Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository

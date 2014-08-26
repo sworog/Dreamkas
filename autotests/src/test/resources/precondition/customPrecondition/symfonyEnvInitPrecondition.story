@@ -34,6 +34,9 @@ Meta:
 @id_s40u103filterDates1
 @id_s40u103filterDates2
 @id_s40u103filterDates3
+@us_104
+@id_s40u104s1
+@id_s40u104s2
 
 Scenario: Сценарий для очистки всех данных
 

@@ -20,7 +20,7 @@
 
 <% var selectedGroupId = selectedGroupId || models.product.get('subCategory.id') %>
 
-<form id="<%- models.product.id ? 'form_productEdit' : 'form_productAdd' %>" class="form form_product">
+<form block="form_product" id="<%- models.product.id ? 'form_productEdit' : 'form_productAdd' %>" class="form form_product">
 
     <div class="form-group">
 

@@ -7,9 +7,9 @@ import project.lighthouse.autotests.elements.bootstrap.buttons.DefaultBtnFacade;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
-import project.lighthouse.autotests.objects.web.stockMovement.StockMovementObjectCollection;
+import project.lighthouse.autotests.objects.web.stockMovement.StockMovementListObjectCollection;
 
-@DefaultUrl("/stockMovement")
+@DefaultUrl("/stockMovements")
 public class StockMovementPage extends BootstrapPageObject {
 
     public StockMovementPage(WebDriver driver) {
@@ -25,6 +25,10 @@ public class StockMovementPage extends BootstrapPageObject {
         new PrimaryBtnFacade(this, "Списать").click();
     }
 
+    public void stockInCreateButtonClick() {
+        new PrimaryBtnFacade(this, "Оприходовать").click();
+    }
+
     @Override
     public void createElements() {
         put("types", new SelectByVisibleText(this, "types"));
@@ -32,8 +36,8 @@ public class StockMovementPage extends BootstrapPageObject {
         put("dateTo", new Input(this, "dateTo"));
     }
 
-    public StockMovementObjectCollection getStockMovementObjectCollection() {
-        return new StockMovementObjectCollection(getDriver());
+    public StockMovementListObjectCollection getStockMovementObjectCollection() {
+        return new StockMovementListObjectCollection(getDriver());
     }
 
     public void acceptFiltersButtonClick() {

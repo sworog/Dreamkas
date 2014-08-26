@@ -9,7 +9,6 @@ import project.lighthouse.autotests.objects.api.SubCategory;
 import project.lighthouse.autotests.steps.deprecated.api.administrator.UserApiSteps;
 import project.lighthouse.autotests.steps.deprecated.api.commercialManager.CatalogApiSteps;
 import project.lighthouse.autotests.steps.deprecated.api.commercialManager.StoreApiSteps;
-import project.lighthouse.autotests.steps.deprecated.api.departmentManager.InvoiceApiSteps;
 
 import java.io.IOException;
 
@@ -76,7 +75,7 @@ public class EndCatalogUserSteps {
     }
 
     public void before() throws IOException, JSONException {
-        userApiSteps.getUser(InvoiceApiSteps.DEFAULT_USER_NAME);
-        catalogApiSteps.promoteDepartmentManager(storeApiSteps.createStoreThroughPost(), InvoiceApiSteps.DEFAULT_USER_NAME);
+//        userApiSteps.getUser(InvoiceApiSteps.DEFAULT_USER_NAME);
+//        catalogApiSteps.promoteDepartmentManager(storeApiSteps.createStoreThroughPost(), InvoiceApiSteps.DEFAULT_USER_NAME);
     }
 }

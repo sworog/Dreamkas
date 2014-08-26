@@ -4,7 +4,7 @@ define(function(require) {
         config = require('config'),
         cookies = require('cookies');
 
-    require('typehead');
+    require('typeahead');
 
     return Block.extend({
         el: '.autocomplete',
@@ -15,7 +15,7 @@ define(function(require) {
             Block.prototype.initialize.apply(block, arguments);
 
             block.initEngine();
-            block.initTypehead();
+            block.initTypeahead();
         },
         initEngine: function() {
             var block = this;
@@ -37,7 +37,7 @@ define(function(require) {
             block.engine.initialize();
 
         },
-        initTypehead: function() {
+        initTypeahead: function() {
             var block = this;
 
             block.$el.typeahead({
@@ -52,7 +52,7 @@ define(function(require) {
         remove: function() {
             var block = this;
 
-            block.$el.typehead('destroy');
+            block.$el.typeahead('destroy');
 
             Block.prototype.remove.apply(block, arguments);
         }

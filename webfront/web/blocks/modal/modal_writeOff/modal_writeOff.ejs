@@ -12,7 +12,8 @@
     writeOff: new WriteOffModel()
 }, models) %>
 
-<div id="<%- models.writeOff.id ? 'modal_writeOffEdit' : 'modal_writeOffAdd' %>"
+<div block="<%- models.writeOff.id ? 'modal_writeOffEdit' : 'modal_writeOffAdd' %>"
+     id="<%- models.writeOff.id ? 'modal_writeOffEdit' : 'modal_writeOffAdd' %>"
      tabindex="-1"
      role="dialog"
      aria-labelledby="modal-default-label"
@@ -148,7 +149,7 @@
                             <td colspan="3">
                                 Итого
                             </td>
-                            <td class="writeOff__totalSum" colspan="2">
+                            <td class="writeOff__totalSum" colspan="3">
                                 <%- helpers.formatMoney(models.writeOff.get('sumTotal'))  %>
                             </td>
                         </tr>

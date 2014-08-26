@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * Page object facade for page object pages
  */
-abstract public class CommonPageObject extends PageObject {
+abstract public class CommonPageObject extends PageObject implements GeneralPageObject {
 
     /**
      * Map to store common items user can interact with
@@ -42,10 +42,7 @@ abstract public class CommonPageObject extends PageObject {
     }
 
     /**
-     * put items to CommonItemMap {@link #items}
-     *
-     * @param elementName
-     * @param commonItem
+     * Put items to CommonItemMap {@link #items}
      */
     public void put(String elementName, CommonItem commonItem) {
         items.put(elementName, commonItem);
@@ -69,12 +66,16 @@ abstract public class CommonPageObject extends PageObject {
         return getWaiter().getVisibleWebElement(element);
     }
 
-    public void input(String elementName, String inputText) {
-        commonActions.input(elementName, inputText);
+    public WebElement findOnlyVisibleWebElementFromTheWebElementsList(By findBy) {
+        return getWaiter().getOnlyVisibleElementFromTheList(findBy);
     }
 
-    public void fieldInput(ExamplesTable fieldInputTable) {
-        for (Map<String, String> row : fieldInputTable.getRows()) {
+    public void input(String elementName, String value) {
+        commonActions.input(elementName, value);
+    }
+
+    public void input(ExamplesTable examplesTable) {
+        for (Map<String, String> row : examplesTable.getRows()) {
             String elementName = row.get("elementName");
             String inputText = row.get("value");
             input(elementName, inputText);
@@ -93,25 +94,12 @@ abstract public class CommonPageObject extends PageObject {
         return items.get(itemName).getVisibleWebElement().getAttribute(attribute);
     }
 
-    public void inputTable(ExamplesTable inputTable) {
-        commonActions.inputTable(inputTable);
-    }
-
     public void checkFieldLength(String elementName, int fieldLength) {
         items.get(elementName).getFieldChecker().assertFieldLength(elementName, fieldLength);
     }
 
     public void checkFieldLabel(String elementName) {
         items.get(elementName).getFieldChecker().assertLabelTitle();
-    }
-
-    public WebElement findOnlyVisibleWebElementFromTheWebElementsList(By findBy) {
-        return getWaiter().getOnlyVisibleElementFromTheList(findBy);
-    }
-
-    public WebElement findModelFieldContaining(String modelName, String fieldName, String expectedValue) {
-        By by = By.xpath(String.format("//span[@model='%s' and @model-attribute='%s' and contains(text(), '%s')]", modelName, fieldName, expectedValue));
-        return findVisibleElement(by);
     }
 
     public void checkValue(String elementName, String value) {
@@ -124,6 +112,10 @@ abstract public class CommonPageObject extends PageObject {
             String expectedValue = row.get("value");
             checkValue(elementName, expectedValue);
         }
+    }
+
+    public void checkItemErrorMessage(String elementName, String errorMessage) {
+        items.get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
     }
 
     public Boolean invisibilityOfElementLocated(WebElement element) {
@@ -148,9 +140,5 @@ abstract public class CommonPageObject extends PageObject {
             String message = String.format("Element with name '%s' is visible, but shouldnt not be visible", elementName);
             Assert.fail(message);
         }
-    }
-
-    public void clickByContainsTextLink(String linkText) {
-        click(By.xpath("//a[contains(text(), \"" + linkText + "\")]"));
     }
 }

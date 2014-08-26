@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return Autocomplete.extend({
         el: '.autocomplete_products',
         remoteUrl: '/products/search?properties[]=name&properties[]=sku&query=%QUERY',
-        initTypehead: function() {
+        initTypeahead: function() {
             var block = this;
 
             block.$el.typeahead({

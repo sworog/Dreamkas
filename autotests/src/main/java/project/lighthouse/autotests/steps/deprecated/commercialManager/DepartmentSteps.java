@@ -7,8 +7,6 @@ import project.lighthouse.autotests.pages.deprecated.commercialManager.departmen
 import project.lighthouse.autotests.pages.deprecated.commercialManager.department.DepartmentCreatePage;
 import project.lighthouse.autotests.pages.deprecated.commercialManager.store.StoreCardPage;
 
-import java.util.Map;
-
 public class DepartmentSteps extends ScenarioSteps {
     StoreCardPage storeCardPage;
     DepartmentCreatePage departmentCreatePage;
@@ -26,26 +24,7 @@ public class DepartmentSteps extends ScenarioSteps {
 
     @Step
     public void fillStoreFormData(ExamplesTable formData) {
-        departmentCreatePage.inputTable(formData);
-    }
-
-    @Step
-    public void checkDepartmentDataInList(ExamplesTable departmentData) {
-        for (Map<String, String> column : departmentData.getRows()) {
-            storeCardPage.findModelFieldContaining("department", column.get("elementName"), column.get("value"));
-        }
-    }
-
-    @Step
-    public void checkDepartmentDataInCard(ExamplesTable departmentData) {
-        for (Map<String, String> column : departmentData.getRows()) {
-            departmentCardPage.findModelFieldContaining("department", column.get("elementName"), column.get("value"));
-        }
-    }
-
-    @Step
-    public void clickDepartmentRow(String departmentNumber) {
-        storeCardPage.findRowByDepartmentNumber(departmentNumber).click();
+        departmentCreatePage.input(formData);
     }
 
     @Step

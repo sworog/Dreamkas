@@ -1,6 +1,6 @@
 define(function(require) {
     //requirements
-    var Block = require('kit/block/block.deprecated'),
+    var Block = require('kit/block/block'),
         getText = require('kit/getText/getText'),
         form2js = require('form2js'),
         router = require('router'),
@@ -10,8 +10,13 @@ define(function(require) {
         model: null,
         collection: null,
         redirectUrl: null,
+        data: function(){
+            var block = this;
+
+            return block.model && block.model.toJSON();
+        },
         events: {
-            'change input, checkbox, textarea': function() {
+            'change :input': function() {
                 var block = this;
 
                 block.removeSuccessMessage();
@@ -22,7 +27,7 @@ define(function(require) {
                 var block = this,
                     submitting;
 
-                block.formData = block.getData();
+                block.serialize();
 
                 submitting = block.submit();
 
@@ -48,26 +53,30 @@ define(function(require) {
         initialize: function() {
             var block = this;
 
-            block.__model = block.model = block.get('model');
-            block.__collection = block.collection = block.get('collection');
+            block.redirectUrl = block.get('redirectUrl');
 
             Block.prototype.initialize.apply(block, arguments);
+        },
+        render: function(){
+            var block = this;
 
-            block.$el.closest('.modal').on('hidden.bs.modal', function() {
-                block.reset();
-            });
+            block.data = block.get('data');
+
+            Block.prototype.render.apply(block, arguments);
 
             block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' +  (block.el && block.el.id) + '"]');
-
-            block.redirectUrl = block.get('redirectUrl');
         },
-        getData: function() {
-            return form2js(this.el, '.', false);
+        serialize: function() {
+            var block = this;
+
+            block.set('data', form2js(block.el, '.', false));
+
+            return block.data;
         },
         submit: function() {
             var block = this;
 
-            return block.model.save(block.formData);
+            return block.model.save(block.data);
         },
         submitStart: function() {
             var block = this;
@@ -177,12 +186,16 @@ define(function(require) {
             block.$submitButton.removeAttr('disabled');
         },
         reset: function(){
-            PAGE.render();
+            var block = this;
+
+            block.el.reset();
+
+            block.serialize();
         },
         clear: function(){
             var block = this;
 
-            block.$('input').val('');
+            block.$(':input').val('');
         }
     })
 });

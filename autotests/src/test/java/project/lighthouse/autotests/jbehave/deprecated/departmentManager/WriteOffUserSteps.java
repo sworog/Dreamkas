@@ -11,7 +11,6 @@ import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.steps.deprecated.api.administrator.UserApiSteps;
 import project.lighthouse.autotests.steps.deprecated.api.commercialManager.CatalogApiSteps;
 import project.lighthouse.autotests.steps.deprecated.api.commercialManager.StoreApiSteps;
-import project.lighthouse.autotests.steps.deprecated.api.departmentManager.InvoiceApiSteps;
 import project.lighthouse.autotests.steps.deprecated.departmentManager.WriteOffSteps;
 
 import java.io.IOException;
@@ -37,8 +36,8 @@ public class WriteOffUserSteps {
     }
 
     public void beforeSteps() throws IOException, JSONException {
-        userApiSteps.getUser(InvoiceApiSteps.DEFAULT_USER_NAME);
-        catalogApiSteps.promoteDepartmentManager(storeApiSteps.createStoreThroughPost(), InvoiceApiSteps.DEFAULT_USER_NAME);
+//        userApiSteps.getUser(InvoiceApiSteps.DEFAULT_USER_NAME);
+//        catalogApiSteps.promoteDepartmentManager(storeApiSteps.createStoreThroughPost(), InvoiceApiSteps.DEFAULT_USER_NAME);
     }
 
     @When("the user inputs '$inputValue' in the '$elementName' field on the write off page")

@@ -40,7 +40,7 @@ public class OrganizationSteps extends ScenarioSteps {
 
     @Step
     public void fillInputs(ExamplesTable data) {
-        organizationFormPage.fieldInput(data);
+        organizationFormPage.input(data);
     }
 
     @Step

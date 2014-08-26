@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/form/form'),
+    var Form = require('kit/form/form.deprecated'),
         SupplierModel = require('models/supplier/supplier');
 
     return Form.extend({

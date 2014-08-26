@@ -16,7 +16,7 @@ public class LegalDetailsSteps extends ScenarioSteps {
 
     @Step
     public void fillInputs(ExamplesTable data) {
-        legalDetailsFormPage.fieldInput(data);
+        legalDetailsFormPage.input(data);
     }
 
     @Step

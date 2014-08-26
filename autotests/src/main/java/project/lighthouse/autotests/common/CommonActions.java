@@ -2,16 +2,12 @@ package project.lighthouse.autotests.common;
 
 import net.thucydides.core.webdriver.WebDriverFacade;
 import org.hamcrest.Matchers;
-import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import project.lighthouse.autotests.Waiter;
-import project.lighthouse.autotests.helper.StringGenerator;
-
-import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
@@ -52,18 +48,6 @@ public class CommonActions {
 
     private void defaultInput(String elementName, String inputText) {
         pageObject.getItems().get(elementName).setValue(inputText);
-    }
-
-    public void inputTable(ExamplesTable fieldInputTable) {
-        for (Map<String, String> row : fieldInputTable.getRows()) {
-            String elementName = row.get("elementName");
-            String inputText = row.get("value");
-            if (row.containsKey("repeat")) {
-                Integer count = Integer.parseInt(row.get("repeat"));
-                inputText = new StringGenerator(count).generateString(inputText);
-            }
-            input(elementName, inputText);
-        }
     }
 
     public Capabilities getCapabilities() {

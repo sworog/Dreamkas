@@ -2,15 +2,12 @@ package project.lighthouse.autotests.pages.stockMovement.modal.invoice;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
-import project.lighthouse.autotests.elements.items.DateInput;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
-import project.lighthouse.autotests.elements.items.autocomplete.InvoiceProductAutoComplete;
-import project.lighthouse.autotests.objects.web.invoiceProduct.InvoiceProductCollection;
-import project.lighthouse.autotests.pages.modal.ModalWindowPage;
+import project.lighthouse.autotests.objects.web.stockMovement.invoiceProduct.InvoiceProductCollection;
+import project.lighthouse.autotests.pages.stockMovement.modal.StockMovementModalPage;
 
-public class InvoiceCreateModalWindow extends ModalWindowPage {
+public class InvoiceCreateModalWindow extends StockMovementModalPage {
 
     public InvoiceCreateModalWindow(WebDriver driver) {
         super(driver);
@@ -23,40 +20,40 @@ public class InvoiceCreateModalWindow extends ModalWindowPage {
 
     @Override
     public void createElements() {
-        put("date", new DateInput(this, "//*[@name='date']"));
-        put("store", new SelectByVisibleText(this, "//*[@name='store']"));
+        super.createElements();
         put("supplier", new SelectByVisibleText(this, "//*[@name='supplier']"));
-        put("product.name", new InvoiceProductAutoComplete(this, "//*[@name='product.name']"));
         put("priceEntered", new Input(this, "//*[@name='priceEntered']"));
-        put("quantity", new Input(this, "//*[@name='quantity']"));
     }
 
     @Override
     public void confirmationOkClick() {
-        new PrimaryBtnFacade(this, "Принять").click();
+        confirmationOkClick("Принять");
     }
 
-    public void addSupplierButtonClick() {
+    @Override
+    public void addProductButtonClick() {
+        addProductButtonClick("addInvoiceProduct");
+    }
+
+    @Override
+    public InvoiceProductCollection getProductCollection() {
+        return new InvoiceProductCollection(getDriver());
+    }
+
+    @Override
+    public Integer getProductRowsCount() {
+        return getProductRowsCount("table_invoiceProducts");
+    }
+
+    public void createSupplierButtonClick() {
         findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'addSupplierLink')]")).click();
     }
 
-    public void addProductButtonClick() {
+    public void createProductButtonClick() {
         findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'addProductLink')]")).click();
     }
 
     public void paidCheckBoxClick() {
         findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='checkbox']")).click();
-    }
-
-    public void addProductToInvoiceButtonClick() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'addInvoiceProduct')]")).click();
-    }
-
-    public InvoiceProductCollection getInvoiceProductCollection() {
-        return new InvoiceProductCollection(getDriver());
-    }
-
-    public String getTotalSum() {
-        return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='invoice__totalSum']")).getText();
     }
 }

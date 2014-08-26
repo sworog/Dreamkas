@@ -87,7 +87,6 @@ define(function(require, exports, module) {
             page.removeBlocks();
             page.stopListening();
             page.undelegateEvents();
-
         },
 
         setStatus: function(status){

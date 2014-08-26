@@ -18,7 +18,7 @@
     groups: new GroupsCollection()
 }, collections) %>
 
-<div id="<%- models.invoice.id ? 'modal_invoiceEdit' : 'modal_invoiceAdd' %>"
+<div block="<%- models.invoice.id ? 'modal_invoiceEdit' : 'modal_invoiceAdd' %>" id="<%- models.invoice.id ? 'modal_invoiceEdit' : 'modal_invoiceAdd' %>"
      tabindex="-1"
      role="dialog"
      aria-labelledby="modal-default-label"
