@@ -1,0 +1,86 @@
+<div tabindex="-1"
+     role="dialog"
+     aria-labelledby="modal-default-label"
+     aria-hidden="true"
+     class="modal modal_stockIn fade"
+     style="display: none;">
+    <div class="modal__dialog_visible modal__dialog_stockIn modal-dialog modal-wide-width">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a type="button"
+                   data-dismiss="modal"
+                   aria-hidden="true"
+                   class="close pull-left fa fa-times"></a>
+
+                <button form="form_stockIn"
+                        type="submit"
+                        class="btn btn-primary pull-right">
+                    <%- models.supplierReturn.id ? 'Сохранить' : 'Вернуть' %>
+                </button>
+
+                <h4 class="modal-title">
+                    <%- models.supplierReturn.id ? 'Редактирование возврата' : 'Возврат поставщику' %>
+                </h4>
+
+                <span class="clearfix"></span>
+            </div>
+            <div class="modal-body">
+
+                <b block="form_supplierReturn"></b>
+
+                <hr style="margin: 0 -65px;"/>
+
+                <h3>Товары</h3>
+
+                <b block="form_supplierReturnProducts"></b>
+
+                <% if (models.supplierReturn.id) { %>
+                <div style="margin-top: 40px; margin-left: -10px;" class="confirmLink">
+
+                    <div class="confirmLink__trigger">
+                        <span class="removeLink">
+                            <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                            Удалить возврат
+                        </span>
+                    </div>
+
+                    <div class="confirmLink__confirmation">
+                        <span class="removeLink supplierReturn__removeLink">
+                            <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                            Подтвердить удаление
+                        </span>
+                    </div>
+
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-dialog modal__dialog_product modal__dialog_hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="modal__backLink stockInModalLink fa fa-long-arrow-left"
+                   style="font-size: 25px; margin-right: 10px;"></a>
+
+                <button form="form_productAdd"
+                        type="submit"
+                        class="btn btn-primary pull-right">
+                    Добавить
+                </button>
+
+                <h4 class="modal-title">
+                    Добавление продукта
+                </h4>
+
+                <span class="clearfix"></span>
+            </div>
+            <div class="modal-body">
+
+                <%= partials.form_product() %>
+
+            </div>
+        </div>
+    </div>
+
+</div>

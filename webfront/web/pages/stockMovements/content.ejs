@@ -26,6 +26,7 @@
               role="button"
               class="btn btn-primary btn-md">Списать</span>
         <span class="page__addStockInLink btn btn-primary btn-md">Оприходовать</span>
+        <span class="supplierReturn__link btn btn-primary btn-md">Вернуть поставщику</span>
     </div>
 
     <div class="page-header pull-left">
@@ -109,6 +110,7 @@
 <!--MODALS-->
 
 <b block="modal_stockIn"></b>
+<b block="modal_supplierReturn"></b>
 
 <% if (models.invoice) { %>
 <%= partials.modal_invoice({

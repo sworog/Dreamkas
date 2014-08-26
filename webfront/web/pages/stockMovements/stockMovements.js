@@ -63,6 +63,16 @@ define(function(require, exports, module) {
                     }
                 });
             },
+            'click .supplierReturn__link': function(e) {
+                var page = this,
+                    supplierReturnId = e.currentTarget.dataset.supplierReturnId;
+
+                page.el.querySelector('.modal_supplierReturn').block.show({
+                    models: {
+                        stockIn: page.collections.stockMovements.get(supplierReturnId)
+                    }
+                });
+            },
             'click .writeOff__link': function(e) {
                 var page = this,
                     writeOffId = e.currentTarget.dataset.writeoff_id;
