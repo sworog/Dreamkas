@@ -1,24 +1,56 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/form/form.deprecated'),
+    var Form = require('kit/form/form'),
         formatMoney = require('kit/formatMoney/formatMoney'),
         normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
 
     return Form.extend({
-        el: '.form_invoiceProducts',
+        template: require('ejs!./form_invoiceProducts.ejs'),
+        model: require('models/invoiceProduct/invoiceProduct'),
+        collection: function() {
+            var block = this;
+            
+            return block.get('models.invoice.collections.products');
+        },
+        models: {
+            invoice: require('models/invoice/invoice')
+        },
+        blocks: {
+            invoiceProducts: function(opt){
+                var block = this,
+                    InvoiceProducts = require('blocks/invoiceProducts/invoiceProducts');
 
+                return new InvoiceProducts({
+                    el: opt.el,
+                    collection: block.collection
+                });
+            },
+            autocomplete_products: function(opt) {
+                var block = this,
+                    Autocomplete_products = require('blocks/autocomplete/autocomplete_products/autocomplete_products'),
+                    autocomplete_products = new Autocomplete_products({
+                        el: opt.el
+                    });
+
+                autocomplete_products.$el.on('typeahead:selected', function(e, product) {
+                    block.renderSelectedProduct(product);
+                });
+
+                return autocomplete_products;
+            }
+        },
         events: {
-            'keyup [name="quantity"]': function(e){
+            'keyup input[name="quantity"]': function(e){
                 var block = this;
 
-                block.renderTotalSum();
+                block.renderTotalPrice();
             },
-            'keyup [name="priceEntered"]': function(e){
+            'keyup input[name="priceEntered"]': function(e){
                 var block = this;
 
-                block.renderTotalSum();
+                block.renderTotalPrice();
             },
-            'keyup [name="product.name"]': function(e){
+            'keyup input[name="product.name"]': function(e){
                 var block = this;
 
                 if (e.currentTarget.value.length){
@@ -27,91 +59,14 @@ define(function(require, exports, module) {
                     block.el.querySelector('[name="product.id"]').value = null;
                 }
             },
-            'click .delInvoiceProduct': function(e){
+            'click .delStockInProduct': function(e){
                 var block = this,
                     modelCid = e.currentTarget.dataset.modelCid;
 
                 block.collection.remove(block.collection.get(modelCid));
             }
         },
-
-        initialize: function(){
-            var block = this;
-
-            Form.prototype.initialize.apply(block, arguments);
-
-            block.listenTo(block.collection, 'add remove', function(){
-                block.renderInvoiceProducts();
-                block.renderInvoiceTotalSum();
-            });
-        },
-
-        collection: require('collections/invoiceProducts/invoiceProducts'),
-
-        submit: function() {
-            var block = this;
-
-            return block.collection.validateProduct(block.formData);
-        },
-
-        submitSuccess: function(invoice) {
-            var block = this;
-
-            block.collection.push(invoice.products[0]);
-
-            block.clear();
-            block.el.querySelector('[name="product.name"]').focus();
-        },
-
-        showErrors: function(error){
-            var block = this,
-                productErrors = error.errors.children.products.children[0].children;
-
-            var fields = [],
-                errorMessages = [];
-
-            _.forEach(productErrors, function(error, field){
-                if (error.errors){
-                    fields.push(field);
-                    errorMessages = _.union(errorMessages, error.errors);
-                }
-            });
-
-            block.showGlobalError(errorMessages);
-
-            _.forEach(fields, function(fieldName){
-
-                if (fieldName === 'product'){
-                    fieldName = 'product.name';
-                }
-
-                block.el.querySelector('[name="' + fieldName + '"]').classList.add('invalid');
-            });
-        },
-
-        clear: function(){
-            var block = this;
-
-            block.$('input').val('');
-            block.$('[name="product.name"]').typeahead('val', '');
-            block.renderTotalSum();
-        },
-
-        blocks: {
-            autocomplete_products: function(){
-                var block = this,
-                    Autocomplete_products = require('blocks/autocomplete/autocomplete_products/autocomplete_products'),
-                    autocomplete_products = new Autocomplete_products({
-                        el: block.$('.autocomplete_products')
-                    });
-
-                autocomplete_products.$el.on('typeahead:selected', function(e, product){
-                    block.renderSelectedProduct(product);
-                });
-            }
-        },
-
-        getTotalPrice: function(){
+        getTotalPrice: function() {
             var block = this,
                 quantity = normalizeNumber(block.el.querySelector('input[name="quantity"]').value),
                 purchasePrice = normalizeNumber(block.el.querySelector('input[name="priceEntered"]').value),
@@ -119,13 +74,8 @@ define(function(require, exports, module) {
 
             return typeof totalPrice === 'number' ? totalPrice : null;
         },
-
         renderSelectedProduct: function(product){
             var block = this;
-
-            setTimeout(function(){
-                block.el.querySelector('input[name="priceEntered"]').focus();
-            }, 0);
 
             block.el.querySelector('input[name="product.id"]').value = product.id;
             block.el.querySelector('input[name="product.name"]').value = product.name;
@@ -135,29 +85,21 @@ define(function(require, exports, module) {
             }
 
             block.el.querySelector('input[name="quantity"]').value = '1';
-            block.$('.invoiceProductForm .product__units').html(product.units || 'шт.');
+            block.$('.product__units').html(product.units || 'шт.');
 
-            block.renderTotalSum();
+            block.renderTotalPrice();
+
+            setTimeout(function(){
+                block.el.querySelector('input[name="priceEntered"]').focus();
+            }, 0);
         },
-        renderTotalSum: function(){
+        renderTotalPrice: function() {
             var block = this,
                 totalPrice = block.getTotalPrice();
 
-            if (typeof totalPrice === 'number'){
-                block.$('.invoiceProductForm .totalSum').html(totalPrice ? formatMoney(totalPrice) : '');
-            }
+            block.$('.totalPrice').html(totalPrice ? formatMoney(totalPrice) : '');
         },
-        renderInvoiceProducts: function(){
-            var block = this,
-                template = require('ejs!blocks/form/form_invoiceProducts/invoiceProducts.ejs');
-
-            block.$('.table_invoiceProducts tbody').html(template({
-                collections: {
-                    invoiceProducts: block.collection
-                }
-            }));
-        },
-        renderInvoiceTotalSum: function(){
+        renderTotalSum: function(){
             var block = this,
                 totalSum = 0;
 
@@ -165,7 +107,55 @@ define(function(require, exports, module) {
                 totalSum += productModel.get('totalPrice');
             });
 
-            block.$('.invoice__totalSum').html(formatMoney(totalSum));
+            block.$('.totalSum').html(formatMoney(totalSum));
+        },
+        submit: function() {
+            var block = this;
+
+            return block.collection.validateProduct(block.data);
+        },
+        submitSuccess: function(invoice) {
+            var block = this;
+
+            block.collection.push(invoice.products[0]);
+
+            block.reset();
+        },
+
+        showErrors: function(error) {
+            var block = this,
+                productErrors = error.errors.children.products.children[0].children;
+
+            var fields = [],
+                errorMessages = [];
+
+            _.forEach(productErrors, function(error, field) {
+                if (error.errors) {
+                    fields.push(field);
+                    errorMessages = _.union(errorMessages, error.errors);
+                }
+            });
+
+            block.showGlobalError(errorMessages);
+
+            _.forEach(fields, function(fieldName) {
+
+                if (fieldName === 'product') {
+                    fieldName = 'product.name';
+                }
+
+                block.el.querySelector('[name="' + fieldName + '"]').classList.add('invalid');
+            });
+        },
+        reset: function(){
+            var block = this;
+
+            Form.prototype.reset.apply(block, arguments);
+
+            block.$('[name="product.name"]').typeahead('val', '');
+            block.renderTotalPrice();
+            block.el.querySelector('[name="product.name"]').focus();
+
         }
     });
 });

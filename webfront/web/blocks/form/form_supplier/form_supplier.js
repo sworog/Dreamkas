@@ -1,24 +1,12 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/form/form.deprecated'),
-        SupplierModel = require('models/supplier/supplier');
+    var Form = require('kit/form/form');
 
     return Form.extend({
-        el: '.form_supplier',
-        model: function(){
-            return new SupplierModel();
+        template: require('ejs!./form_supplier.ejs'),
+        collection: function(){
+            return PAGE.collections.suppliers;
         },
-        initialize: function() {
-
-            var block = this;
-
-            Form.prototype.initialize.apply(block, arguments);
-
-            block.listenTo(block, 'submit:success', function() {
-                if (!block.__model.id) {
-                    block.model = new SupplierModel();
-                }
-            });
-        }
+        model: require('models/supplier/supplier')
     });
 });

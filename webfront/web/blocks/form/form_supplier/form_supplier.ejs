@@ -1,7 +1,4 @@
-<% var SupplierModel = require('models/supplier/supplier') %>
-<% var supplierModel = supplierModel || new SupplierModel() %>
-
-<form id="<%- supplierModel.id ? 'form_supplierEdit' : 'form_supplierAdd' %>" class="form form_supplier">
+<form id="form_supplier" class="form form_supplier">
     <div class="form-store">
 
         <div class="form-group">
@@ -13,7 +10,7 @@
                         type="text"
                         class="form-control"
                         autofocus
-                        value="<%- supplierModel.get('name') %>">
+                        value="<%- model.get('name') %>">
             </div>
         </div>
 
@@ -25,7 +22,7 @@
                         name="address"
                         type="text"
                         class="form-control"
-                        value="<%- supplierModel.get('address') %>">
+                        value="<%- model.get('address') %>">
             </div>
         </div>
 
@@ -37,7 +34,7 @@
                         name="phone"
                         type="text"
                         class="form-control"
-                        value="<%- supplierModel.get('phone') %>">
+                        value="<%- model.get('phone') %>">
             </div>
         </div>
 
@@ -49,7 +46,7 @@
                         name="email"
                         type="text"
                         class="form-control"
-                        value="<%- supplierModel.get('email') %>">
+                        value="<%- model.get('email') %>">
             </div>
         </div>
 
@@ -61,7 +58,7 @@
                         name="contactPerson"
                         type="text"
                         class="form-control"
-                        value="<%- supplierModel.get('contactPerson') %>">
+                        value="<%- model.get('contactPerson') %>">
             </div>
         </div>
 

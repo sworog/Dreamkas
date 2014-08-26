@@ -5,7 +5,8 @@
 
                 <label class="control-label">Дата *</label>
 
-                <b block="inputDate"></b>
+                <b block="inputDate"
+                   data-value="<%- model.get('date') ? formatDate(model.get('date')) : formatDate(new Date()) %>"></b>
 
             </div>
         </div>
@@ -31,9 +32,8 @@
                 <div class="row">
                     <div class="col-md-10">
 
-                        <%= partials.select_suppliers({
-                            selected: model.get('supplier.id')
-                        }) %>
+                        <b block="select_suppliers"
+                           data-selected="<%- model.get('supplier.id') %>"></b>
 
                     </div>
 

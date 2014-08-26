@@ -31,38 +31,7 @@
                 <hr style="margin: 0 -65px;"/>
                 <h3>Товары</h3>
 
-                <form class="form_invoiceProducts">
-                    <table class="table_invoiceProducts table table-vcenter" style="margin: 0 -10px;">
-                        <thead>
-                        <tr>
-                            <th>Наименование</th>
-                            <th style="white-space: nowrap; width: 1px;">Цена, <i class="fa fa-rub"></i></th>
-                            <th style="width: 1px;">Кол-во</th>
-                            <th style="white-space: nowrap; width: 1px;">Сумма, <i class="fa fa-rub"></i></th>
-                            <th style="width: 1px;"></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-
-                            <b block="invoiceProducts"></b>
-
-                        </tbody>
-                        <tfoot>
-
-                            <b block="form_invoiceProduct"></b>
-
-                        <tr>
-                            <td colspan="3">
-                                Итого
-                            </td>
-                            <td class="invoice__totalSum" colspan="2">
-                                <%- helpers.formatMoney(models.invoice.get('sumTotal'))  %>
-                            </td>
-                        </tr>
-                        </tfoot>
-                    </table>
-                    <div class="form__errorMessage form__errorMessage_global"></div>
-                </form>
+                <b block="form_invoiceProducts"></b>
 
                 <% if (models.invoice.id) { %>
                 <div style="margin-top: 40px; margin-left: -10px;" class="confirmLink">
@@ -106,7 +75,7 @@
             </div>
             <div class="modal-body">
 
-                <%= partials.form_supplier() %>
+                <b block="form_supplier"></b>
 
             </div>
         </div>
@@ -131,7 +100,7 @@
             </div>
             <div class="modal-body">
 
-                <%= partials.form_product() %>
+                <b block="form_product"></b>
 
             </div>
         </div>

@@ -18,8 +18,8 @@ define(function(require, exports, module) {
         },
         blocks: {
             form_stockMovementsFilters: require('blocks/form/form_stockMovementsFilters/form_stockMovementsFilters'),
-            modal_stockIn: require('blocks/modal/modal_stockIn/modal_stockIn')
-            //modal_invoice: require('blocks/modal/modal_invoice/modal_invoice'),
+            modal_stockIn: require('blocks/modal/modal_stockIn/modal_stockIn'),
+            modal_invoice: require('blocks/modal/modal_invoice/modal_invoice')
             //modal_writeOff: require('blocks/modal/modal_writeOff/modal_writeOff')
         },
         events: {
