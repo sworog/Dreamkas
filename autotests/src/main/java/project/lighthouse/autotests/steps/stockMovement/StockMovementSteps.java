@@ -75,6 +75,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void supplierReturnCreateButtonClick() {
+        stockMovementPage.supplierReturnButtonClick();
+    }
+
+    @Step
     public void invoiceCreateModalWindowInput(ExamplesTable examplesTable) {
         invoiceCreateModalWindow.input(examplesTable);
     }
@@ -339,6 +344,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void openLastCreatedSupplierReturnMovementPage() throws JSONException {
+        openOperationByNumberInStockMovementPage(Storage.getStockMovementVariableStorage().getLastSupplierReturn().getNumber());
+    }
+
+    @Step
     public void openOperationByNumberInStockMovementPage(String number) {
         StockMovementListObjectCollection stockMovementObjectCollection = stockMovementPage.getStockMovementObjectCollection();
         if (stockMovementObjectCollection != null) {
@@ -348,25 +358,32 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void stockMovementCollectionDontContainLastCreatedInvoice() throws JSONException {
-        StockMovementListObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
-        if (stockMovementObjectCollection != null) {
-            stockMovementObjectCollection.notContains(Storage.getStockMovementVariableStorage().getLastInvoice().getNumber());
-        }
+        String number = Storage.getStockMovementVariableStorage().getLastInvoice().getNumber();
+        stockMovementCollectionDoesNotContainNumber(number);
     }
 
     @Step
     public void stockMovementCollectionDontContainLastCreatedWriteOff() throws JSONException {
-        StockMovementListObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
-        if (stockMovementObjectCollection != null) {
-            stockMovementObjectCollection.notContains(Storage.getStockMovementVariableStorage().getLastWriteOff().getNumber());
-        }
+        String number = Storage.getStockMovementVariableStorage().getLastWriteOff().getNumber();
+        stockMovementCollectionDoesNotContainNumber(number);
     }
 
     @Step
     public void stockMovementCollectionDontContainLastCreatedStockIn() throws JSONException {
+        String number = Storage.getStockMovementVariableStorage().getLastStockIn().getNumber();
+        stockMovementCollectionDoesNotContainNumber(number);
+    }
+
+    @Step
+    public void stockMovementCollectionDontContainLastCreatedSupplierReturn() throws JSONException {
+        String number = Storage.getStockMovementVariableStorage().getLastSupplierReturn().getNumber();
+        stockMovementCollectionDoesNotContainNumber(number);
+    }
+
+    protected void stockMovementCollectionDoesNotContainNumber(String number) throws JSONException {
         StockMovementListObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
         if (stockMovementObjectCollection != null) {
-            stockMovementObjectCollection.notContains(Storage.getStockMovementVariableStorage().getLastStockIn().getNumber());
+            stockMovementObjectCollection.notContains(number);
         }
     }
 

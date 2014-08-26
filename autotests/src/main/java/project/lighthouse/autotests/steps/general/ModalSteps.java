@@ -6,6 +6,8 @@ import project.lighthouse.autotests.common.ModalWindowPageObject;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInEditModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.supplierReturn.SupplierReturnCreateModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.supplierReturn.SupplierReturnEditModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.writeOff.WriteOffCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.writeOff.WriteOffEditModalWindow;
 
@@ -24,6 +26,8 @@ public class ModalSteps<T extends ModalWindowPageObject> extends AbstractGeneral
             put("редактирования списания", WriteOffEditModalWindow.class);
             put("создания оприходования", StockInCreateModalWindow.class);
             put("редактирования оприходования", StockInEditModalWindow.class);
+            put("создания возврата поставщику", SupplierReturnCreateModalWindow.class);
+            put("редактирования возврата поставщику", SupplierReturnEditModalWindow.class);
         }};
     }
 

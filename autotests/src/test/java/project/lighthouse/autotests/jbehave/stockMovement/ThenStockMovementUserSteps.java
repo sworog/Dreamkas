@@ -83,6 +83,11 @@ public class ThenStockMovementUserSteps {
         stockMovementSteps.stockMovementCollectionDontContainLastCreatedStockIn();
     }
 
+    @Then("пользователь проверяет, что в операциях товародвижения отсутствует последний созданный возврат поставщику")
+    public void thenUserAssertsStockMovementOperationsDoesNotContainLastCreatedSupplierReturn() throws JSONException {
+        stockMovementSteps.stockMovementCollectionDontContainLastCreatedSupplierReturn();
+    }
+
     @Then("the user asserts invoice total sum is '$totalSum' in create new invoice modal window")
     @Alias("пользователь проверяет, что сумма итого равна '$totalSum' в модальном окне создания накладной")
     public void thenTheUserAssertsInvoiceTotalSumInCreateNewInvoiceModalWindow(String totalSum) {

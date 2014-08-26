@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.storage.variable;
 
+import project.lighthouse.autotests.api.objects.stockmovement.StockMovement;
 import project.lighthouse.autotests.api.objects.stockmovement.invoice.Invoice;
 import project.lighthouse.autotests.api.objects.stockmovement.stockin.StockIn;
 import project.lighthouse.autotests.api.objects.stockmovement.supplierReturn.SupplierReturn;

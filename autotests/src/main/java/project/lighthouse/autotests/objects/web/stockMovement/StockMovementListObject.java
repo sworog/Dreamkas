@@ -38,12 +38,15 @@ public class StockMovementListObject extends AbstractObject implements ObjectCli
         String invoiceNumber = getElement().getAttribute("data-invoice-number");
         String writeOffNumber = getElement().getAttribute("data-writeoff-number");
         String stockInNumber = getElement().getAttribute("data-stockin-number");
+        String supplierReturnNumber = getElement().getAttribute("data-supplierreturn-number");
         if (invoiceNumber != null) {
             number = invoiceNumber;
         } else if (writeOffNumber != null) {
             number = writeOffNumber;
         } else if (stockInNumber != null) {
             number = stockInNumber;
+        } else if (supplierReturnNumber != null) {
+            number = supplierReturnNumber;
         }
     }
 
@@ -51,12 +54,15 @@ public class StockMovementListObject extends AbstractObject implements ObjectCli
         String invoiceDate = getElement().getAttribute("data-invoice-date");
         String writeOffDate = getElement().getAttribute("data-writeoff-date");
         String stockInDate = getElement().getAttribute("data-stockin-date");
+        String supplierReturnDate = getElement().getAttribute("data-supplierreturn-date");
         if (invoiceDate != null) {
             date = invoiceDate;
         } else if (writeOffDate != null) {
             date = writeOffDate;
         } else if (stockInDate != null) {
             date = stockInDate;
+        } else if (supplierReturnDate != null) {
+            date = supplierReturnDate;
         }
     }
 

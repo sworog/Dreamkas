@@ -20,7 +20,7 @@ public class SupplierReturnBuilderSteps extends ScenarioSteps {
                       Boolean paid,
                       String supplierId) {
         try {
-            supplier = new SupplierReturn(date, storeId, paid, supplierId);
+            supplier = new SupplierReturn(storeId, date, paid, supplierId);
         } catch (JSONException e) {
             throw new AssertionError(e);
         }

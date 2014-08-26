@@ -10,6 +10,8 @@ import project.lighthouse.autotests.objects.web.stockMovement.StockMovementProdu
 import project.lighthouse.autotests.pages.stockMovement.modal.StockMovementModalPage;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInEditModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.supplierReturn.SupplierReturnCreateModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.supplierReturn.SupplierReturnEditModalWindow;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +28,8 @@ public class StockMovementSteps<T extends StockMovementModalPage> extends Abstra
             put("редактирования оприходования", StockInEditModalWindow.class);
             put("создания оприходования", StockInCreateModalWindow.class);
             put("редактирования оприходования", StockInEditModalWindow.class);
+            put("создания возврата поставщику", SupplierReturnCreateModalWindow.class);
+            put("редактирования возврата поставщику", SupplierReturnEditModalWindow.class);
         }};
     }
 

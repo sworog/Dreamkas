@@ -32,7 +32,7 @@ public class SupplierReturnBuilderUserSteps {
                 price);
     }
 
-    @Given("пользователь с адресом электронной почты '$email' создает возврат поставщику через конструктор накладных")
+    @Given("пользователь с адресом электронной почты '$email' создает апи объект возврата поставщику")
     public void givenTheUserWithEmailCreatesInvoiceWithBuilderSteps(String email) throws IOException, JSONException {
         supplierReturnBuilderSteps.send(email);
     }
