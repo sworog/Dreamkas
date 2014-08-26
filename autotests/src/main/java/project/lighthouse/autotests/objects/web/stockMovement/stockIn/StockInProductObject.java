@@ -1,11 +1,11 @@
 package project.lighthouse.autotests.objects.web.stockMovement.stockIn;
 
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.objects.web.stockMovement.StockMovementWebObject;
+import project.lighthouse.autotests.objects.web.stockMovement.StockMovementProductObject;
 
-public class StockInProduct extends StockMovementWebObject {
+public class StockInProductObject extends StockMovementProductObject {
 
-    public StockInProduct(WebElement element) {
+    public StockInProductObject(WebElement element) {
         super(element);
     }
 

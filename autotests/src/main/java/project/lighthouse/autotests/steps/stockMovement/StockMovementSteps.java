@@ -11,7 +11,7 @@ import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.stockMovement.invoiceProduct.InvoiceProductCollection;
 import project.lighthouse.autotests.objects.web.stockMovement.invoiceProduct.InvoiceProductObject;
-import project.lighthouse.autotests.objects.web.stockMovement.stockIn.StockInProduct;
+import project.lighthouse.autotests.objects.web.stockMovement.stockIn.StockInProductObject;
 import project.lighthouse.autotests.objects.web.stockMovement.stockIn.StockInProductCollection;
 import project.lighthouse.autotests.objects.web.stockMovement.StockMovementListObjectCollection;
 import project.lighthouse.autotests.objects.web.writeOffProduct.WriteOffProductCollection;
@@ -287,8 +287,8 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void stockInProductWithNameDeleteIconClick(String name) {
-        StockInProduct stockInProduct =
-                (StockInProduct) getStockInProductCollection().getAbstractObjectByLocator(name);
+        StockInProductObject stockInProduct =
+                (StockInProductObject) getStockInProductCollection().getAbstractObjectByLocator(name);
         stockInProduct.clickDeleteIcon();
         new SimplePreloader(getDriver()).await();
     }

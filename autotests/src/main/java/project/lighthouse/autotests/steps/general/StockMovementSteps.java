@@ -6,7 +6,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
-import project.lighthouse.autotests.objects.web.stockMovement.StockMovementWebObject;
+import project.lighthouse.autotests.objects.web.stockMovement.StockMovementProductObject;
 import project.lighthouse.autotests.pages.stockMovement.modal.StockMovementModalPage;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInEditModalWindow;
@@ -39,8 +39,8 @@ public class StockMovementSteps<T extends StockMovementModalPage> extends Abstra
         return productCollection;
     }
 
-    protected StockMovementWebObject locateStockMovementObjectByName(String name) {
-        return (StockMovementWebObject) getProductCollection().getAbstractObjectByLocator(name);
+    protected StockMovementProductObject locateStockMovementObjectByName(String name) {
+        return (StockMovementProductObject) getProductCollection().getAbstractObjectByLocator(name);
     }
 
     @Step

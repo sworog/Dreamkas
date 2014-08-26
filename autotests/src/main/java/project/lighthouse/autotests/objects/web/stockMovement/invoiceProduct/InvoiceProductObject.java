@@ -3,11 +3,11 @@ package project.lighthouse.autotests.objects.web.stockMovement.invoiceProduct;
 import net.thucydides.core.annotations.findby.By;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.compare.CompareResults;
-import project.lighthouse.autotests.objects.web.stockMovement.StockMovementWebObject;
+import project.lighthouse.autotests.objects.web.stockMovement.StockMovementProductObject;
 
 import java.util.Map;
 
-public class InvoiceProductObject extends StockMovementWebObject {
+public class InvoiceProductObject extends StockMovementProductObject {
 
     private String priceEntered;
 

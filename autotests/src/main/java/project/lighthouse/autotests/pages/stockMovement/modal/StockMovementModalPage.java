@@ -8,7 +8,6 @@ import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
 import project.lighthouse.autotests.elements.items.autocomplete.InvoiceProductAutoComplete;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
-import project.lighthouse.autotests.objects.web.stockMovement.StockMovementWebObject;
 import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 public abstract class StockMovementModalPage extends ModalWindowPage {
