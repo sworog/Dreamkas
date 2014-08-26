@@ -2,9 +2,9 @@
      role="dialog"
      aria-labelledby="modal-default-label"
      aria-hidden="true"
-     class="modal modal_stockIn fade"
+     class="modal modal_supplierReturn fade"
      style="display: none;">
-    <div class="modal__dialog_visible modal__dialog_stockIn modal-dialog modal-wide-width">
+    <div class="modal__dialog_visible modal__dialog_supplierReturn modal-dialog modal-wide-width">
         <div class="modal-content">
             <div class="modal-header">
                 <a type="button"
@@ -12,7 +12,7 @@
                    aria-hidden="true"
                    class="close pull-left fa fa-times"></a>
 
-                <button form="form_stockIn"
+                <button form="form_supplierReturn"
                         type="submit"
                         class="btn btn-primary pull-right">
                     <%- models.supplierReturn.id ? 'Сохранить' : 'Вернуть' %>
@@ -57,10 +57,35 @@
         </div>
     </div>
 
+    <div class="modal-dialog modal__dialog_supplier modal__dialog_hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="modal__backLink supplierReturnModalLink fa fa-long-arrow-left" style="font-size: 25px; margin-right: 10px;"></a>
+
+                <button form="form_supplierAdd"
+                        type="submit"
+                        class="btn btn-primary pull-right">
+                    Добавить
+                </button>
+
+                <h4 class="modal-title">
+                    Добавление поставщика
+                </h4>
+
+                <span class="clearfix"></span>
+            </div>
+            <div class="modal-body">
+
+                <%= partials.form_supplier() %>
+
+            </div>
+        </div>
+    </div>
+
     <div class="modal-dialog modal__dialog_product modal__dialog_hidden">
         <div class="modal-content">
             <div class="modal-header">
-                <a class="modal__backLink stockInModalLink fa fa-long-arrow-left"
+                <a class="modal__backLink supplierReturnModalLink fa fa-long-arrow-left"
                    style="font-size: 25px; margin-right: 10px;"></a>
 
                 <button form="form_productAdd"

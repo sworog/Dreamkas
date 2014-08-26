@@ -5,12 +5,18 @@ define(function(require, exports, module) {
     return Modal.extend({
         template: require('ejs!./modal_supplierReturn.ejs'),
         models: {
-            supplierReturn: require('models/stockIn/stockIn')
+            supplierReturn: require('models/supplierReturn/supplierReturn')
         },
         partials: {
-            form_product: require('ejs!blocks/form/form_product/form_product.ejs')
+            form_product: require('ejs!blocks/form/form_product/form_product.ejs'),
+            form_supplier: require('ejs!blocks/form/form_supplier/template.ejs')
         },
         events: {
+            'click .addSupplierLink': function() {
+                var block = this;
+
+                block.showSupplierModal();
+            },
             'click .addProductLink': function() {
                 var block = this;
 
@@ -33,6 +39,22 @@ define(function(require, exports, module) {
             }
         },
         blocks: {
+            form_supplier: function(opt) {
+                var block = this,
+                    Form_supplier = require('blocks/form/form_supplier/form_supplier'),
+                    form_supplier = new Form_supplier({
+                        el: opt.el,
+                        collection: block.collections.suppliers
+                    });
+
+                form_supplier.on('submit:success', function(){
+                    block.showInvoiceModal();
+                    form_supplier.model = new SupplierModel();
+                    form_supplier.clear();
+                });
+
+                return form_supplier;
+            },
             form_supplierReturn: function(opt) {
                 var block = this,
                     Form_supplierReturn = require('blocks/form/form_supplierReturn/form_supplierReturn');
@@ -80,7 +102,7 @@ define(function(require, exports, module) {
         showSupplierReturnModal: function() {
             var block = this;
 
-            block.$('.modal__dialog_stockIn')
+            block.$('.modal__dialog_supplierReturn')
                 .removeClass('modal__dialog_hidden')
                 .siblings('.modal-dialog')
                 .addClass('modal__dialog_hidden');
@@ -89,6 +111,14 @@ define(function(require, exports, module) {
             var block = this;
 
             block.$('.modal__dialog_product')
+                .removeClass('modal__dialog_hidden')
+                .siblings('.modal-dialog')
+                .addClass('modal__dialog_hidden');
+        },
+        showSupplierModal: function() {
+            var block = this;
+
+            block.$('.modal__dialog_supplier')
                 .removeClass('modal__dialog_hidden')
                 .siblings('.modal-dialog')
                 .addClass('modal__dialog_hidden');

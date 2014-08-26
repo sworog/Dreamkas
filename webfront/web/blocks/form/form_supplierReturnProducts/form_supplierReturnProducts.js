@@ -6,10 +6,10 @@ define(function(require, exports, module) {
 
     return Form.extend({
         template: require('ejs!./form_supplierReturnProducts.ejs'),
-        model: require('models/stockInProduct/stockInProduct'),
+        model: require('models/supplierReturnProduct/supplierReturnProduct'),
         collection: function() {
             var block = this,
-                productsCollection = block.get('models.stockIn.collections.products');
+                productsCollection = block.get('models.supplierReturn.collections.products');
 
             block.listenTo(productsCollection, {
                 'add remove reset': function() {
@@ -21,7 +21,7 @@ define(function(require, exports, module) {
             return productsCollection;
         },
         models: {
-            stockIn: require('models/stockIn/stockIn')
+            stockIn: require('models/supplierReturn/supplierReturn')
         },
         partials: {
             productsList: require('ejs!./productsList.ejs')
@@ -61,7 +61,7 @@ define(function(require, exports, module) {
                     block.el.querySelector('[name="product.id"]').value = null;
                 }
             },
-            'click .delStockInProduct': function(e){
+            'click .delSupplierReturnProduct': function(e){
                 var block = this,
                     modelCid = e.currentTarget.dataset.modelCid;
 

@@ -1,4 +1,4 @@
-<form id="form_stockIn" class="form form_stockIn">
+<form id="form_supplierReturn" class="form form_supplierReturn">
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
@@ -38,7 +38,7 @@
                             collections: {
                                 suppliers: collections.suppliers
                             },
-                            selected: models.invoice.get('supplier.id')
+                            selected: model.get('supplier.id')
                         }) %>
                     </div>
 

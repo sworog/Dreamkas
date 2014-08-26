@@ -15,7 +15,7 @@ define(function(require, exports, module) {
             suppliers: require('collections/suppliers/suppliers'),
             stores: require('collections/stores/stores'),
             groups: require('collections/groups/groups'),
-            stockMovements: function(){
+            stockMovements: function() {
                 var page = this,
                     StockMovementsCollection = require('collections/stockMovements/stockMovements'),
                     stockMovementsCollection = new StockMovementsCollection([], {
@@ -23,7 +23,7 @@ define(function(require, exports, module) {
                     });
 
                 page.listenTo(stockMovementsCollection, {
-                    remove: function(){
+                    remove: function() {
                         var modal = $('.modal:visible');
 
                         modal.one('hidden.bs.modal', function(e) {
@@ -69,7 +69,7 @@ define(function(require, exports, module) {
 
                 page.el.querySelector('.modal_supplierReturn').block.show({
                     models: {
-                        stockIn: page.collections.stockMovements.get(supplierReturnId)
+                        stockIn: page.collections.stockMovements.get(supplierReturnId) || require('models/supplierReturn/supplierReturn')
                     }
                 });
             },
@@ -84,7 +84,7 @@ define(function(require, exports, module) {
 
                 $('#modal_writeOffEdit').modal('show');
             },
-            'click .page__addStockInLink': function(e){
+            'click .page__addStockInLink': function(e) {
                 var page = this,
                     StockInModel = require('models/stockIn/stockIn');
 
@@ -97,8 +97,9 @@ define(function(require, exports, module) {
         },
         blocks: {
             modal_stockIn: require('blocks/modal/modal_stockIn/modal_stockIn'),
+            modal_supplierReturn: require('blocks/modal/modal_supplierReturn/modal_supplierReturn'),
             form_stockMovementsFilters: require('blocks/form/form_stockMovementsFilters/form_stockMovementsFilters'),
-            modal_invoiceAdd: function(opt){
+            modal_invoiceAdd: function(opt) {
                 var page = this,
                     Modal_invoice = require('blocks/modal/modal_invoice/modal_invoice');
 
@@ -127,7 +128,7 @@ define(function(require, exports, module) {
                     });
                 }
             },
-            modal_writeOffAdd: function(opt){
+            modal_writeOffAdd: function(opt) {
                 var block = this,
                     Modal_writeOff = require('blocks/modal/modal_writeOff/modal_writeOff');
 
