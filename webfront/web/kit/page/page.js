@@ -5,6 +5,8 @@ define(function(require, exports, module) {
         deepExtend = require('kit/deepExtend/deepExtend'),
         _ = require('lodash');
 
+    var previousPage;
+
     return Block.extend({
 
         el: '.page',
@@ -22,6 +24,9 @@ define(function(require, exports, module) {
             page.setStatus('starting');
             page.setStatus('loading');
 
+            previousPage = window.PAGE;
+            window.PAGE = page;
+
             page.initResources();
 
             $.when(page.fetch()).then(function() {
@@ -34,11 +39,10 @@ define(function(require, exports, module) {
             var page = this,
                 autofocus;
 
-            if (window.PAGE && window.PAGE !== page){
-                window.PAGE.remove();
+            if (previousPage){
+                previousPage.remove();
+                previousPage = null;
             }
-
-            window.PAGE = page;
 
             Block.prototype.render.apply(page, arguments);
 

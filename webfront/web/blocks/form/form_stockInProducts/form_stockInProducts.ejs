@@ -9,11 +9,9 @@
             <th style="width: 1px;"></th>
         </tr>
         </thead>
-        <tbody>
 
-        <b block="stockInProducts"></b>
+        <tbody block="stockInProducts"></tbody>
 
-        </tbody>
         <tfoot>
 
         <tr class="form_stockInProducts__inputs">
@@ -64,7 +62,7 @@
                 Итого
             </td>
             <td class="totalSum" colspan="2">
-                <%- helpers.formatMoney(models.stockIn.get('sumTotal'))  %>
+                <%- formatMoney(models.stockIn.get('sumTotal'))  %>
             </td>
         </tr>
         </tfoot>

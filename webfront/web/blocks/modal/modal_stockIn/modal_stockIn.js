@@ -43,10 +43,7 @@ define(function(require, exports, module) {
                     block.hide();
                 });
 
-                return new Form_stockIn({
-                    el: opt.el,
-                    model: block.models.stockIn
-                });
+                return form_stockIn;
             },
             form_stockInProducts: function(opt){
                 var block = this,

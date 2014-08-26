@@ -16,6 +16,15 @@ define(function(require, exports, module) {
             stockIn: require('models/stockIn/stockIn')
         },
         blocks: {
+            stockInProducts: function(opt){
+                var block = this,
+                    StockInProducts = require('blocks/stockInProducts/stockInProducts');
+
+                return new StockInProducts({
+                    el: opt.el,
+                    collection: block.collection
+                });
+            },
             autocomplete_products: function(opt) {
                 var block = this,
                     Autocomplete_products = require('blocks/autocomplete/autocomplete_products/autocomplete_products'),
@@ -99,11 +108,6 @@ define(function(require, exports, module) {
             });
 
             block.$('.totalSum').html(formatMoney(totalSum));
-        },
-        renderProductsList: function(){
-            var block = this;
-
-            block.$('.table_stockInProducts tbody').html(block.partials.productsList(block));
         },
         submit: function() {
             var block = this;

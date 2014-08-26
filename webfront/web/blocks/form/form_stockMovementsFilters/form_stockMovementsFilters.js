@@ -7,6 +7,9 @@ define(function(require, exports, module) {
         data: function(){
             return _.pick(PAGE.params, 'dateFrom', 'dateTo', 'types');
         },
+        blocks: {
+            inputDateRange: require('blocks/inputDateRange/inputDateRange')
+        },
         events: {
             reset: function(){
                 var block = this,
@@ -25,9 +28,6 @@ define(function(require, exports, module) {
                     PAGE.setParams(filters);
                 });
             }
-        },
-        blocks: {
-            inputDateRange: require('blocks/inputDateRange/inputDateRange')
         },
         submit: function(){
             var block = this;

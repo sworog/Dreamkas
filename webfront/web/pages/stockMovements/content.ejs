@@ -46,30 +46,30 @@
 
                         <% _.forEach(collections.stockMovements.groupBy('date'), function(stockMovements, date){ %>
 
-                            <% _.forEach(stockMovements, function(stockMovementModel, index) { %>
+                        <% _.forEach(stockMovements, function(stockMovementModel, index) { %>
 
-                                <% if (stockMovementModel.get('type') === 'Invoice'){ %>
-                                    <%= partials.tr.invoice({
-                                        dateRowSpan: index === 0 ? stockMovements.length : null,
-                                        stockMovementModel: stockMovementModel
-                                    }) %>
-                                <% } %>
+                        <% if (stockMovementModel.get('type') === 'Invoice'){ %>
+                        <%= partials.tr.invoice({
+                            dateRowSpan: index === 0 ? stockMovements.length : null,
+                            stockMovementModel: stockMovementModel
+                        }) %>
+                        <% } %>
 
-                                <% if (stockMovementModel.get('type') === 'WriteOff'){ %>
-                                    <%= partials.tr.writeOff({
-                                        dateRowSpan: index === 0 ? stockMovements.length : null,
-                                        stockMovementModel: stockMovementModel
-                                    }) %>
-                                <% } %>
+                        <% if (stockMovementModel.get('type') === 'WriteOff'){ %>
+                        <%= partials.tr.writeOff({
+                            dateRowSpan: index === 0 ? stockMovements.length : null,
+                            stockMovementModel: stockMovementModel
+                        }) %>
+                        <% } %>
 
-                                <% if (stockMovementModel.get('type') === 'StockIn'){ %>
-                                    <%= partials.tr.stockIn({
-                                        dateRowSpan: index === 0 ? stockMovements.length : null,
-                                        stockMovementModel: stockMovementModel
-                                    }) %>
-                                <% } %>
+                        <% if (stockMovementModel.get('type') === 'StockIn'){ %>
+                        <%= partials.tr.stockIn({
+                            dateRowSpan: index === 0 ? stockMovements.length : null,
+                            stockMovementModel: stockMovementModel
+                        }) %>
+                        <% } %>
 
-                            <% }) %>
+                        <% }) %>
                         <% }) %>
 
                         </tbody>

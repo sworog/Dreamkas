@@ -31,11 +31,13 @@ define(function(require, exports, module) {
             block.render();
         },
 
-        helpers: {
-            formatMoney: require('kit/formatMoney/formatMoney'),
-            formatAmount: require('kit/formatAmount/formatAmount'),
-            formatDate: require('kit/formatDate/formatDate')
+        partials: {
+            select_stores: require('ejs!blocks/select/select_stores/select_stores.ejs')
         },
+
+        formatMoney: require('kit/formatMoney/formatMoney'),
+        formatAmount: require('kit/formatAmount/formatAmount'),
+        formatDate: require('kit/formatDate/formatDate'),
 
         render: function() {
             var block = this;
