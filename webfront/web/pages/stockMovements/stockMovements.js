@@ -69,7 +69,7 @@ define(function(require, exports, module) {
 
                 page.el.querySelector('.modal_supplierReturn').block.show({
                     models: {
-                        stockIn: page.collections.stockMovements.get(supplierReturnId) || require('models/supplierReturn/supplierReturn')
+                        supplierReturn: page.collections.stockMovements.get(supplierReturnId) || require('models/supplierReturn/supplierReturn')
                     }
                 });
             },

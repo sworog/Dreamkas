@@ -3,9 +3,9 @@
     formatDate: require('kit/formatDate/formatDate')
 } %>
 
-<tr data-supplierReturn-date="<%- helpers.formatDate(stockMovementModel.get('date')) %>"
-    data-supplierReturn-number="<%- stockMovementModel.get('number') %>"
-    data-supplierReturn_id="<%- stockMovementModel.id %>"
+<tr data-supplier-return-date="<%- helpers.formatDate(stockMovementModel.get('date')) %>"
+    data-supplier-return-number="<%- stockMovementModel.get('number') %>"
+    data-supplier-return-id="<%- stockMovementModel.id %>"
     class="supplierReturn__link">
 
     <% if (dateRowSpan) { %>
