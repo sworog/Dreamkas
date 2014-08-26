@@ -18,7 +18,7 @@
         <span name="type">Возврат поставщику</span> <span name="status" style="font-size: 11px; margin-left: 10px;" class="<%- stockMovementModel.get('paid') ? 'text-muted' : 'text-red' %>">/ <%- stockMovementModel.get('paid') ? 'погашен' : 'не погашен' %></span>
     </td>
     <td name="store">
-        В <%- stockMovementModel.get('store.name') %>
+        Из <%- stockMovementModel.get('store.name') %>
     </td>
     <td name="sumTotal">
         <%- helpers.formatMoney(stockMovementModel.get('sumTotal')) %>
