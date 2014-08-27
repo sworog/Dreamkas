@@ -18,6 +18,11 @@ public class SupplierReturnCreateModalWindow extends StockMovementModalPage {
     }
 
     @Override
+    public void confirmationOkClick() {
+        confirmationOkClick("Вернуть");
+    }
+
+    @Override
     public String modalWindowXpath() {
         return "//*[contains(@class, 'modal_supplierReturn')]";
     }
