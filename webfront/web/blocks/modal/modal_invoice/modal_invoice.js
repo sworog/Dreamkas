@@ -8,21 +8,6 @@ define(function(require, exports, module) {
             invoice: require('models/invoice/invoice')
         },
         events: {
-            'click .addSupplierLink': function() {
-                var block = this;
-
-                block.showSupplierModal();
-            },
-            'click .addProductLink': function() {
-                var block = this;
-
-                block.showProductModal();
-            },
-            'click .invoiceModalLink': function() {
-                var block = this;
-
-                block.showInvoiceModal();
-            },
             'click .invoice__removeLink': function(e){
                 var block = this;
 
@@ -59,64 +44,7 @@ define(function(require, exports, module) {
                         invoice: block.models.invoice
                     }
                 });
-            },
-            form_supplier: function(opt) {
-                var block = this,
-                    SupplierModel = require('models/supplier/supplier'),
-                    Form_supplier = require('blocks/form/form_supplier/form_supplier'),
-                    form_supplier = new Form_supplier({
-                        el: opt.el
-                    });
-
-                form_supplier.on('submit:success', function(){
-                    block.showInvoiceModal();
-                    form_supplier.model = new SupplierModel();
-                    form_supplier.reset();
-                });
-
-                return form_supplier;
-            },
-            form_product: function(opt) {
-                var block = this,
-                    ProductModel = require('models/product/product'),
-                    Form_product = require('blocks/form/form_product/form_product'),
-                    form_product = new Form_product({
-                        el: opt.el
-                    });
-
-                form_product.on('submit:success', function(){
-                    block.blocks.form_invoice.blocks.form_invoiceProducts.renderSelectedProduct(form_product.model.toJSON());
-                    block.showInvoiceModal();
-                    form_product.model = new ProductModel();
-                    form_product.reset();
-                });
-
-                return form_product;
             }
-        },
-        showSupplierModal: function() {
-            var block = this;
-
-            block.$('.modal__dialog_supplier')
-                .removeClass('modal__dialog_hidden')
-                .siblings('.modal-dialog')
-                .addClass('modal__dialog_hidden');
-        },
-        showInvoiceModal: function() {
-            var block = this;
-
-            block.$('.modal__dialog_invoice')
-                .removeClass('modal__dialog_hidden')
-                .siblings('.modal-dialog')
-                .addClass('modal__dialog_hidden');
-        },
-        showProductModal: function() {
-            var block = this;
-
-            block.$('.modal__dialog_product')
-                .removeClass('modal__dialog_hidden')
-                .siblings('.modal-dialog')
-                .addClass('modal__dialog_hidden');
         }
     });
 });

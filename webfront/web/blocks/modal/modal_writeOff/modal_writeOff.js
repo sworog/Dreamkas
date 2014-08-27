@@ -1,15 +1,11 @@
 define(function(require, exports, module) {
     //requirements
-    var Block = require('kit/block/block.deprecated'),
-        ProductModel = require('models/product/product');
+    var Modal = require('blocks/modal/modal');
 
-    return Block.extend({
-        el: '.modal_writeOff',
-        collections: {
-            stockMovements: null
-        },
+    return Modal.extend({
+        template: require('ejs!./modal_writeOff.ejs'),
         models: {
-            writeOff: null
+            writeOff: require('models/writeOff/writeOff')
         },
         events: {
             'click .writeOff__removeLink': function(e){
@@ -20,30 +16,36 @@ define(function(require, exports, module) {
                 block.models.writeOff.destroy().then(function() {
                     e.target.classList.remove('loading');
                 });
+
             }
         },
         blocks: {
-            form_writeOff: function() {
+            form_writeOff: function(opt){
                 var block = this,
-                    WriteOffModel = require('models/writeOff/writeOff'),
-                    Form_writeOff = require('blocks/form/form_writeOff/form_writeOff'),
-                    form_writeOff = new Form_writeOff({
-                        el: block.$('.form_writeOff'),
-                        collection: block.collections.stockMovements,
-                        model: block.models.writeOff || new WriteOffModel()
-                    });
+                    Form_writeOff = require('blocks/form/form_writeOff/form_writeOff');
+
+                var form_writeOff = new Form_writeOff({
+                    el: opt.el,
+                    model: block.models.writeOff
+                });
 
                 form_writeOff.on('submit:success', function(){
-                    block.$el.modal('hide');
+                    block.hide();
                 });
 
                 return form_writeOff;
-            }
-        },
-        initialize: function(){
-            var block = this;
+            },
+            form_writeOffProducts: function(opt){
+                var block = this,
+                    Form_writeOffProducts = require('blocks/form/form_writeOffProducts/form_writeOffProducts');
 
-            Block.prototype.initialize.apply(block, arguments);
+                return new Form_writeOffProducts({
+                    el: opt.el,
+                    models: {
+                        writeOff: block.models.writeOff
+                    }
+                });
+            }
         }
     });
 });

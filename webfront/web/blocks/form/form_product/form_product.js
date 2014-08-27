@@ -7,9 +7,6 @@ define(function(require) {
         return Form.extend({
             template: require('ejs!./form_product.ejs'),
             model: require('models/product/product'),
-            blocks: {
-                select_group: require('blocks/select/select_group/select_group')
-            },
             events: {
                 'keyup input[name="purchasePrice"]': function(e){
                     var block = this;
@@ -50,14 +47,14 @@ define(function(require) {
             submit: function() {
                 var block = this;
 
-                if (block.formData.newGroupName.length){
+                if (block.data.newGroupName.length){
 
-                    block.formData.subCategory = {
+                    block.data.subCategory = {
                         name: block.formData.newGroupName
                     };
                 }
 
-                return block.model.save(block.formData);
+                return block.model.save(block.data);
             },
             initialize: function() {
 

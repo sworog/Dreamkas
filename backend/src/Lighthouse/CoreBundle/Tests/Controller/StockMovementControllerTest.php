@@ -57,6 +57,18 @@ class StockMovementControllerTest extends WebTestCase
                 ->createStockInProduct($productIds['3'], 7, 12.6)
             ->flush();
 
+        $supplierReturn1 = $this->factory()
+            ->supplierReturn()
+            ->createSupplierReturn($store1, '2014-05-07 23:45:12')
+                ->createSupplierReturnProduct($productIds['1'], 2.12, 10)
+            ->flush();
+
+        $supplierReturn2 = $this->factory()
+            ->supplierReturn()
+            ->createSupplierReturn($store2, '2014-05-06 3:43:12')
+                ->createSupplierReturnProduct($productIds['2'], 2.4, 17)
+            ->flush();
+
         return array(
             'store1' => $store1->id,
             'store2' => $store2->id,
@@ -66,6 +78,8 @@ class StockMovementControllerTest extends WebTestCase
             'writeOff2' => $writeOff2->id,
             'stockIn1' => $stockIn1->id,
             'stockIn2' => $stockIn2->id,
+            'supplierReturn1' => $supplierReturn1->id,
+            'supplierReturn2' => $supplierReturn2->id,
         );
     }
 
@@ -83,7 +97,7 @@ class StockMovementControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathCount(6, '*.id', $response);
+        Assert::assertJsonPathCount(8, '*.id', $response);
 
         Assert::assertJsonPathEquals('Invoice', '*.type', $response, 2);
         Assert::assertJsonPathEquals('WriteOff', '*.type', $response, 2);
@@ -95,6 +109,8 @@ class StockMovementControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($ids['store1'], '3.store.id', $response);
         Assert::assertJsonPathEquals($ids['store1'], '4.store.id', $response);
         Assert::assertJsonPathEquals($ids['store1'], '5.store.id', $response);
+        Assert::assertJsonPathEquals($ids['store1'], '6.store.id', $response);
+        Assert::assertJsonPathEquals($ids['store2'], '7.store.id', $response);
 
         Assert::assertJsonPathEquals($ids['writeOff1'], '0.id', $response);
         Assert::assertJsonPathEquals($ids['invoice1'], '1.id', $response);
@@ -102,6 +118,8 @@ class StockMovementControllerTest extends WebTestCase
         Assert::assertJsonPathEquals($ids['stockIn2'], '3.id', $response);
         Assert::assertJsonPathEquals($ids['stockIn1'], '4.id', $response);
         Assert::assertJsonPathEquals($ids['writeOff2'], '5.id', $response);
+        Assert::assertJsonPathEquals($ids['supplierReturn1'], '6.id', $response);
+        Assert::assertJsonPathEquals($ids['supplierReturn2'], '7.id', $response);
     }
 
     /**
@@ -170,7 +188,7 @@ class StockMovementControllerTest extends WebTestCase
                 array(
                     'dateTo' => '2014-07-01',
                 ),
-                array('writeOff2')
+                array('writeOff2', 'supplierReturn1', 'supplierReturn2')
             ),
             'dateFrom' => array(
                 array(
@@ -187,7 +205,16 @@ class StockMovementControllerTest extends WebTestCase
             ),
             'empty query' => array(
                 array(),
-                array('writeOff1', 'invoice1', 'invoice2', 'stockIn2', 'stockIn1', 'writeOff2')
+                array(
+                    'writeOff1',
+                    'invoice1',
+                    'invoice2',
+                    'stockIn2',
+                    'stockIn1',
+                    'writeOff2',
+                    'supplierReturn1',
+                    'supplierReturn2'
+                )
             )
         );
     }

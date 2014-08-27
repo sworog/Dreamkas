@@ -14,12 +14,10 @@ define(function(require, exports, module) {
                 show: false
             });
         },
-        show: function(opt){
+        show: function(data){
             var block = this;
 
-            block.set(opt);
-
-            block.render();
+            block.render(data);
 
             block.$el.modal('show');
         },

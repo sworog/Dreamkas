@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave.general;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
@@ -23,7 +24,9 @@ public class GeneralEndUserSteps {
         generalSteps.input(exampleTable);
     }
 
+
     @When("пользователь* вводит значение '$value' в поле с именем '$elementName'")
+    @Alias("пользователь* вводит значение value в поле с именем '$elementName'")
     public void whenUserInputsValueInFieldWithName(String value, String elementName) {
         generalSteps.input(elementName, value);
     }

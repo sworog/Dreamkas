@@ -754,10 +754,14 @@ class UserControllerTest extends WebTestCase
                         'GET::{name}',
                         'POST::{name}/round',
                     ),
+                    'stockIns' => array(),
                     'stockMovements' => array(),
                     'stores' => array(
                         'GET::{store}/products',
                         'GET::{store}/search/products',
+                        'GET::{store}/supplierReturns/{supplierReturn}',
+                        'POST::{store}/supplierReturns',
+                        'PUT::{store}/supplierReturns/{supplierReturn}',
                     ),
                     'stores/{store}/categories/{category}' => array(
                         'GET',
@@ -788,6 +792,12 @@ class UserControllerTest extends WebTestCase
                         'GET::returnProducts',
                         'GET::writeOffProducts',
                     ),
+                    'stores/{store}/stockIns' => array(
+                        'GET',
+                        'GET::{stockIn}',
+                        'POST',
+                        'PUT::{stockIn}',
+                    ),
                     'stores/{store}/subcategories/{subCategory}' => array(
                         'GET',
                         'GET::products',
@@ -798,15 +808,10 @@ class UserControllerTest extends WebTestCase
                         'POST',
                         'PUT::{writeOff}',
                     ),
-                    'stores/{store}/stockIns' => array(
-                        'GET',
-                        'GET::{stockIn}',
-                        'POST',
-                        'PUT::{stockIn}',
-                    ),
                     'subcategories' => array(
                         'GET::{subCategory}/products'
                     ),
+                    'supplierReturns' => array(),
                     'suppliers' => array(
                         'GET',
                         'GET::{supplier}',
@@ -822,7 +827,6 @@ class UserControllerTest extends WebTestCase
                         'POST'
                     ),
                     'writeOffs' => array(),
-                    'stockIns' => array(),
                     'others' => array()
                 )
             ),
@@ -834,10 +838,10 @@ class UserControllerTest extends WebTestCase
                     'categories/{category}/subcategories' => array(),
                     'configs' => array(),
                     'departments' => array(),
+                    'files' => array(),
                     'groups' => array(),
                     'integration/export/products' => array(),
                     'invoices' => array(),
-                    'files' => array(),
                     'jobs' => array(
                         'GET'
                     ),
@@ -856,6 +860,7 @@ class UserControllerTest extends WebTestCase
                         'GET::{name}',
                         'POST::{name}/round',
                     ),
+                    'stockIns' => array(),
                     'stockMovements' => array(),
                     'stores' => array(
                         'GET::{store}/products',
@@ -880,16 +885,18 @@ class UserControllerTest extends WebTestCase
                         'GET',
                         'PUT',
                     ),
+                    'supplierReturns' => array(),
                     'stores/{store}/subcategories/{subCategory}' => array(
                         'GET',
                         'GET::products',
                         'GET::reports/grossSalesByProducts',
                     ),
                     'stores/{store}/writeOffs' => array(),
-                    'stores/{store}/stockIns' => array(),
                     'subcategories' => array(
                         'GET::{subCategory}/products'
                     ),
+                    'stores/{store}/stockIns' => array(),
+                    'supplierReturns' => array(),
                     'suppliers' => array(
                         'GET',
                         'GET::{supplier}',
@@ -905,7 +912,6 @@ class UserControllerTest extends WebTestCase
                         'POST'
                     ),
                     'writeOffs' => array(),
-                    'stockIns' => array(),
                     'others' => array()
                 )
             ),
@@ -987,6 +993,12 @@ class UserControllerTest extends WebTestCase
                         'GET::{name}',
                         'POST::{name}/round',
                     ),
+                    'stockIns' => array(
+                        'DELETE::{stockIn}',
+                        'GET::{stockIn}',
+                        'POST',
+                        'PUT::{stockIn}',
+                    ),
                     'stockMovements' => array(
                         'GET'
                     ),
@@ -1006,15 +1018,21 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/invoices' => array(),
                     'stores/{store}/orders' => array(),
                     'stores/{store}/products/{product}' => array(),
+                    'stores/{store}/stockIns' => array(),
                     'stores/{store}/subcategories/{subCategory}' => array(),
                     'stores/{store}/writeOffs' => array(),
-                    'stores/{store}/stockIns' => array(),
                     'subcategories' => array(
                         'DELETE::{subCategory}',
                         'GET::{subCategory}',
                         'GET::{subCategory}/products',
                         'POST',
                         'PUT::{subCategory}',
+                    ),
+                    'supplierReturns' => array(
+                        'DELETE::{supplierReturn}',
+                        'GET::{supplierReturn}',
+                        'POST',
+                        'PUT::{supplierReturn}',
                     ),
                     'suppliers' => array(
                         'GET',
@@ -1043,12 +1061,6 @@ class UserControllerTest extends WebTestCase
                         'GET::{writeOff}',
                         'POST',
                         'PUT::{writeOff}',
-                    ),
-                    'stockIns' => array(
-                        'DELETE::{stockIn}',
-                        'GET::{stockIn}',
-                        'POST',
-                        'PUT::{stockIn}',
                     ),
                     'others' => array(
                         'GET::api/1/reports/grossMargin',
@@ -1089,6 +1101,7 @@ class UserControllerTest extends WebTestCase
                         'GET::{name}',
                         'POST::{name}/round',
                     ),
+                    'stockIns' => array(),
                     'stockMovements' => array(),
                     'stores' => array(),
                     'stores/{store}/categories/{category}' => array(),
@@ -1096,10 +1109,11 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/invoices' => array(),
                     'stores/{store}/orders' => array(),
                     'stores/{store}/products/{product}' => array(),
+                    'stores/{store}/stockIns' => array(),
                     'stores/{store}/subcategories/{subCategory}' => array(),
                     'stores/{store}/writeOffs' => array(),
-                    'stores/{store}/stockIns' => array(),
                     'subcategories' => array(),
+                    'supplierReturns' => array(),
                     'suppliers' => array(),
                     'suppliers/{supplier}/bankAccounts' => array(),
                     'users' => array(
@@ -1115,7 +1129,7 @@ class UserControllerTest extends WebTestCase
                         'POST'
                     ),
                     'writeOffs' => array(),
-                    'stockIns' => array(),
+                    'supplierReturns' => array(),
                     'others' => array()
                 )
             )

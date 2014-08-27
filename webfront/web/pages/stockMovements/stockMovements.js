@@ -19,8 +19,9 @@ define(function(require, exports, module) {
         blocks: {
             form_stockMovementsFilters: require('blocks/form/form_stockMovementsFilters/form_stockMovementsFilters'),
             modal_stockIn: require('blocks/modal/modal_stockIn/modal_stockIn'),
-            modal_invoice: require('blocks/modal/modal_invoice/modal_invoice')
-            //modal_writeOff: require('blocks/modal/modal_writeOff/modal_writeOff')
+            modal_supplierReturn: require('blocks/modal/modal_supplierReturn/modal_supplierReturn'),
+            modal_invoice: require('blocks/modal/modal_invoice/modal_invoice'),
+            modal_writeOff: require('blocks/modal/modal_writeOff/modal_writeOff')
         },
         events: {
             'click .invoice__link': function(e) {
@@ -53,6 +54,17 @@ define(function(require, exports, module) {
                 page.el.querySelector('.modal_writeOff').block.show({
                     models: {
                         writeOff: page.collections.stockMovements.get(writeOffId) || new WriteOffModel
+                    }
+                });
+            },
+            'click .supplierReturn__link': function(e) {
+                var page = this,
+                    supplierReturnId = e.currentTarget.dataset.supplierReturnId,
+                    SupplierReturnModel = require('models/supplierReturn/supplierReturn');
+
+                page.el.querySelector('.modal_supplierReturn').block.show({
+                    models: {
+                        supplierReturn: page.collections.stockMovements.get(supplierReturnId) || new SupplierReturnModel
                     }
                 });
             }

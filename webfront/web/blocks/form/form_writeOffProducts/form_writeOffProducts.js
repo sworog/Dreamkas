@@ -1,11 +1,51 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/form/form.deprecated'),
+    var Form = require('kit/form/form'),
         formatMoney = require('kit/formatMoney/formatMoney'),
         normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
 
     return Form.extend({
-        el: '.form_writeOffProducts',
+        template: require('ejs!./template.ejs'),
+        model: require('models/writeOffProduct/writeOffProduct'),
+        collection: function() {
+            var block = this,
+                productsCollection = block.get('models.writeOff.collections.products');
+
+            block.listenTo(productsCollection, {
+                'add remove reset': function() {
+                    block.renderTotalSum();
+                }
+            });
+
+            return productsCollection;
+        },
+        models: {
+            writeOff: require('models/writeOff/writeOff')
+        },
+        blocks: {
+            writeOffProducts: function(opt){
+                var block = this,
+                    WriteOffProducts = require('blocks/writeOffProducts/writeOffProducts');
+
+                return new WriteOffProducts({
+                    el: opt.el,
+                    collection: block.collection
+                });
+            },
+            autocomplete_products: function(opt) {
+                var block = this,
+                    Autocomplete_products = require('blocks/autocomplete/autocomplete_products/autocomplete_products'),
+                    autocomplete_products = new Autocomplete_products({
+                        el: opt.el
+                    });
+
+                autocomplete_products.$el.on('typeahead:selected', function(e, product) {
+                    block.renderSelectedProduct(product);
+                });
+
+                return autocomplete_products;
+            }
+        },
 
         events: {
             'keyup input[name="quantity"]': function(e){
@@ -41,22 +81,15 @@ define(function(require, exports, module) {
             Form.prototype.initialize.apply(block, arguments);
 
             block.collection.on('add remove', function(){
-                block.renderWriteOffProducts();
                 block.renderWriteIffTotalSum();
             });
         },
 
-        collection: function(){
-            var block = this,
-                WriteOffProductCollection = require('collections/writeOffProducts/writeOffProducts');
-
-            return new WriteOffProductCollection();
-        },
 
         submit: function() {
             var block = this;
 
-            return block.collection.validateProduct(block.formData);
+            return block.collection.validateProduct(block.data);
         },
 
         submitSuccess: function(writeOff) {
@@ -102,20 +135,6 @@ define(function(require, exports, module) {
             block.renderTotalSum();
         },
 
-        blocks: {
-            autocomplete_products: function(){
-                var block = this,
-                    Autocomplete_products = require('blocks/autocomplete/autocomplete_products/autocomplete_products'),
-                    autocomplete_products = new Autocomplete_products({
-                        el: block.$('.autocomplete_products')
-                    });
-
-                autocomplete_products.$el.on('typeahead:selected', function(e, product){
-                    block.renderSelectedProduct(product);
-                });
-            }
-        },
-
         getTotalPrice: function(){
             var block = this,
                 quantity = normalizeNumber(block.el.querySelector('input[name="quantity"]').value),
@@ -148,16 +167,6 @@ define(function(require, exports, module) {
             if (typeof totalPrice === 'number'){
                 block.$('.writeOffProductForm .totalSum').html(totalPrice ? formatMoney(totalPrice) : '');
             }
-        },
-        renderWriteOffProducts: function(){
-            var block = this,
-                template = require('ejs!blocks/form/form_writeOffProducts/writeOffProducts.ejs');
-
-            block.$('.table_writeOffProducts tbody').html(template({
-                collections: {
-                    writeOffProducts: block.collection
-                }
-            }));
         },
         renderWriteIffTotalSum: function(){
             var block = this,

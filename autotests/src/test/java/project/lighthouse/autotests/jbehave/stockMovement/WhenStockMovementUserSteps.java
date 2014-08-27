@@ -25,8 +25,13 @@ public class WhenStockMovementUserSteps {
     }
 
     @When("пользователь нажимает на кнопку Оприходовать на странице товародвижения")
-    public void whenTheUserClicksOnTheCreateStockInButton() {
+    public void whenUserClicksOnTheCreateSupplierReturnButton() {
         stockMovementSteps.stockInCreateButtonClick();
+    }
+
+    @When("пользователь нажимает на кнопку Вернуть поставщику на странице товародвижения")
+    public void whenTheUserClicksOnTheCreateStockInButton() {
+        stockMovementSteps.supplierReturnCreateButtonClick();
     }
 
     @When("the user inputs values on the create new invoice modal window $examplesTable")
@@ -153,11 +158,17 @@ public class WhenStockMovementUserSteps {
         stockMovementSteps.openLastCreatedStockInInStockMovementPage();
     }
 
+    @When("пользователь нажимает на последнее созданный возврат поставщику с помощью конструктора оприходований на странице товародвижения")
+    public void whenUserClicksOnTheLastCreatedSupplierReturnFromBuilderStepsOnTheStockMovementPage() throws JSONException {
+        stockMovementSteps.openLastCreatedSupplierReturnMovementPage();
+    }
+
     @When("the user clicks on the invoice with number '$number' on the stock movement page")
     @Aliases(values = {
             "пользователь нажимает на накладную с номером '$number' на странице товародвижения",
             "пользователь нажимает на списание с номером '$number' на странице товародвижения",
-            "пользователь нажимает на оприходование с номером '$number' на странице товародвижения"
+            "пользователь нажимает на оприходование с номером '$number' на странице товародвижения",
+            "пользователь нажимает на возврат поставщику с номером '$number' на странице товародвижения"
     })
     public void whenTheUserClicksOnTheInvoiceWithName(String number) throws JSONException {
         stockMovementSteps.openOperationByNumberInStockMovementPage(number);

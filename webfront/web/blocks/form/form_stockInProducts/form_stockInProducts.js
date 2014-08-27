@@ -8,9 +8,16 @@ define(function(require, exports, module) {
         template: require('ejs!./form_stockInProducts.ejs'),
         model: require('models/stockInProduct/stockInProduct'),
         collection: function() {
-            var block = this;
+            var block = this,
+                productsCollection = block.get('models.stockIn.collections.products');
 
-            return block.get('models.stockIn.collections.products');
+            block.listenTo(productsCollection, {
+                'add remove reset': function() {
+                    block.renderTotalSum();
+                }
+            });
+
+            return productsCollection;
         },
         models: {
             stockIn: require('models/stockIn/stockIn')

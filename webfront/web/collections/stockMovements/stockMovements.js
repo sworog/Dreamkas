@@ -2,6 +2,7 @@ define(function(require) {
     //requirements
     var Collection = require('kit/collection/collection'),
         _ = require('lodash'),
+        get = require('kit/get/get'),
         uri = require('uri');
 
     return Collection.extend({
@@ -11,7 +12,7 @@ define(function(require) {
         url: function() {
             var collection = this;
 
-            return uri(Collection.baseApiUrl + '/stockMovements').query(collection.filters()).toString();
+            return uri(Collection.baseApiUrl + '/stockMovements').query(get(collection, 'filters')).toString();
         },
         model: function(attrs, opt) {
             var model;
@@ -27,6 +28,10 @@ define(function(require) {
 
                 case 'StockIn':
                     model = require('models/stockIn/stockIn');
+                    break;
+
+                case "SupplierReturn":
+                    model = require('models/supplierReturn/supplierReturn');
                     break;
             }
 

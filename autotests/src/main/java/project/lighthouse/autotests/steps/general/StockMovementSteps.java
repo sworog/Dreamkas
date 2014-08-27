@@ -6,10 +6,12 @@ import org.openqa.selenium.StaleElementReferenceException;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
-import project.lighthouse.autotests.objects.web.stockMovement.StockMovementWebObject;
+import project.lighthouse.autotests.objects.web.stockMovement.StockMovementProductObject;
 import project.lighthouse.autotests.pages.stockMovement.modal.StockMovementModalPage;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInEditModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.supplierReturn.SupplierReturnCreateModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.supplierReturn.SupplierReturnEditModalWindow;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +28,8 @@ public class StockMovementSteps<T extends StockMovementModalPage> extends Abstra
             put("редактирования оприходования", StockInEditModalWindow.class);
             put("создания оприходования", StockInCreateModalWindow.class);
             put("редактирования оприходования", StockInEditModalWindow.class);
+            put("создания возврата поставщику", SupplierReturnCreateModalWindow.class);
+            put("редактирования возврата поставщику", SupplierReturnEditModalWindow.class);
         }};
     }
 
@@ -39,13 +43,14 @@ public class StockMovementSteps<T extends StockMovementModalPage> extends Abstra
         return productCollection;
     }
 
-    protected StockMovementWebObject locateStockMovementObjectByName(String name) {
-        return (StockMovementWebObject) getProductCollection().getAbstractObjectByLocator(name);
+    protected StockMovementProductObject locateStockMovementObjectByName(String name) {
+        return (StockMovementProductObject) getProductCollection().getAbstractObjectByLocator(name);
     }
 
     @Step
     public void clickAddProductButton() {
         getCurrentPageObject().addProductButtonClick();
+        new SimplePreloader(getDriver()).await();
     }
 
     @Step
@@ -61,6 +66,7 @@ public class StockMovementSteps<T extends StockMovementModalPage> extends Abstra
     @Step
     public void clickCreateButton() {
         getCurrentPageObject().confirmationOkClick();
+        new SimplePreloader(getDriver()).await();
     }
 
 

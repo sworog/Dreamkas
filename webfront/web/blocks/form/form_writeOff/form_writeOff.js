@@ -1,24 +1,12 @@
 define(function(require, exports, module) {
     //requirements
-    var From = require('kit/form/form.deprecated');
+    var From = require('kit/form/form');
 
     return From.extend({
-        el: '.form_writeOff',
+        template: require('ejs!./template.ejs'),
         model: require('models/writeOff/writeOff'),
         blocks: {
-            datepicker: function(){
-                var block = this;
-
-                block.$('.inputDate, .input-daterange').each(function(){
-                    $(this).datepicker({
-                        language: 'ru',
-                        format: 'dd.mm.yyyy',
-                        autoclose: true,
-                        endDate: this.dataset.endDate && this.dataset.endDate.toString(),
-                        todayBtn: "linked"
-                    });
-                });
-            },
+            inputDate: require('blocks/inputDate/inputDate'),
             form_writeOffProducts: function(){
                 var block = this,
                     Form_writeOffProducts = require('blocks/form/form_writeOffProducts/form_writeOffProducts');

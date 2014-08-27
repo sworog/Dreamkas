@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave.general;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
@@ -49,13 +50,9 @@ public class ModalEndUserSteps {
     }
 
     @When("пользователь* в модальном окне нажимает на кнопку создания")
-    public void whenUserClicksOnCreateButton() {
-        modalSteps.createButtonClick();
-    }
-
-    @When("пользователь* в модальном окне нажимает на кнопку сохранения")
-    public void whenUserClicksOnSaveButton() {
-        modalSteps.saveButtonClick();
+    @Alias("пользователь* в модальном окне нажимает на кнопку сохранения")
+    public void whenUserClicksOnConfirmationButton() {
+        modalSteps.confirmationClick();
     }
 
     @When("пользователь* в модальном окне нажимает на кнопку удаления")

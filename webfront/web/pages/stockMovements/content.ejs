@@ -2,7 +2,8 @@
     tr: {
         invoice: require('ejs!blocks/table/stockMovements/tr/invoice.ejs'),
         writeOff: require('ejs!blocks/table/stockMovements/tr/writeOff.ejs'),
-        stockIn: require('ejs!blocks/table/stockMovements/tr/stockIn.ejs')
+        stockIn: require('ejs!blocks/table/stockMovements/tr/stockIn.ejs'),
+        supplierReturn: require('ejs!blocks/table/stockMovements/tr/supplierReturn.ejs')
     }
 }; %>
 
@@ -13,6 +14,7 @@
         <span class="invoice__link btn btn-primary btn-md">Принять от поставщика</span>
         <span class="writeOff__link btn btn-primary btn-md">Списать</span>
         <span class="stockIn__link btn btn-primary btn-md">Оприходовать</span>
+        <span class="supplierReturn__link btn btn-primary btn-md">Вернуть поставщику</span>
     </div>
 
     <div class="page-header pull-left">
@@ -46,30 +48,38 @@
 
                         <% _.forEach(collections.stockMovements.groupBy('date'), function(stockMovements, date){ %>
 
-                        <% _.forEach(stockMovements, function(stockMovementModel, index) { %>
+                            <% _.forEach(stockMovements, function(stockMovementModel, index) { %>
 
-                        <% if (stockMovementModel.get('type') === 'Invoice'){ %>
-                        <%= partials.tr.invoice({
-                            dateRowSpan: index === 0 ? stockMovements.length : null,
-                            stockMovementModel: stockMovementModel
-                        }) %>
-                        <% } %>
+                                <% if (stockMovementModel.get('type') === 'Invoice'){ %>
+                                <%= partials.tr.invoice({
+                                    dateRowSpan: index === 0 ? stockMovements.length : null,
+                                    stockMovementModel: stockMovementModel
+                                }) %>
+                                <% } %>
 
-                        <% if (stockMovementModel.get('type') === 'WriteOff'){ %>
-                        <%= partials.tr.writeOff({
-                            dateRowSpan: index === 0 ? stockMovements.length : null,
-                            stockMovementModel: stockMovementModel
-                        }) %>
-                        <% } %>
+                                <% if (stockMovementModel.get('type') === 'WriteOff'){ %>
+                                <%= partials.tr.writeOff({
+                                    dateRowSpan: index === 0 ? stockMovements.length : null,
+                                    stockMovementModel: stockMovementModel
+                                }) %>
+                                <% } %>
 
-                        <% if (stockMovementModel.get('type') === 'StockIn'){ %>
-                        <%= partials.tr.stockIn({
-                            dateRowSpan: index === 0 ? stockMovements.length : null,
-                            stockMovementModel: stockMovementModel
-                        }) %>
-                        <% } %>
+                                <% if (stockMovementModel.get('type') === 'StockIn'){ %>
+                                <%= partials.tr.stockIn({
+                                    dateRowSpan: index === 0 ? stockMovements.length : null,
+                                    stockMovementModel: stockMovementModel
+                                }) %>
+                                <% } %>
 
-                        <% }) %>
+                                <% if (stockMovementModel.get('type') === 'SupplierReturn'){ %>
+                                    <%= partials.tr.supplierReturn({
+                                        dateRowSpan: index === 0 ? stockMovements.length : null,
+                                        stockMovementModel: stockMovementModel
+                                    }) %>
+                                <% } %>
+
+                            <% }) %>
+
                         <% }) %>
 
                         </tbody>
@@ -91,5 +101,6 @@
 <b block="modal_stockIn"></b>
 <b block="modal_invoice"></b>
 <b block="modal_writeOff"></b>
+<b block="modal_supplierReturn"></b>
 
 <!--END MODALS-->

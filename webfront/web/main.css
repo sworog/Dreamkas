@@ -147,7 +147,8 @@ input.invalid {
 .store__link,
 .invoice__link,
 .writeOff__link,
-.stockIn__link {
+.stockIn__link,
+.supplierReturn__link {
     cursor: pointer;
 }
 

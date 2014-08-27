@@ -1,0 +1,28 @@
+<form id="form_writeOff" class="form form_writeOff">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+
+                <label class="control-label">Дата *</label>
+
+                <b block="inputDate"
+                   data-value="<%- model.get('date') ? formatDate(model.get('date')) : formatDate(new Date()) %>"></b>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+
+                <label class="control-label">Магазин *</label>
+
+                <div class="input-icon right">
+
+                    <%= partials.select_stores({
+                        selected: model.get('store.id')
+                    })%>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

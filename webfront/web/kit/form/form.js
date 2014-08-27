@@ -57,10 +57,15 @@ define(function(require) {
 
             Block.prototype.initialize.apply(block, arguments);
         },
-        render: function(){
+        initData: function(){
             var block = this;
 
+            Block.prototype.initData.apply(block, arguments);
+
             block.data = block.get('data');
+        },
+        render: function(){
+            var block = this;
 
             Block.prototype.render.apply(block, arguments);
 

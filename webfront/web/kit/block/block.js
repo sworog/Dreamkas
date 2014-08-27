@@ -27,7 +27,6 @@ define(function(require, exports, module) {
         initialize: function() {
             var block = this;
 
-            block.initResources();
             block.render();
         },
 
@@ -39,10 +38,15 @@ define(function(require, exports, module) {
         formatAmount: require('kit/formatAmount/formatAmount'),
         formatDate: require('kit/formatDate/formatDate'),
 
-        render: function() {
+        render: function(data) {
             var block = this;
 
+            data && block.set(data);
+
+            block.unbind();
             block.removeBlocks();
+
+            block.initData();
 
             if (typeof block.template === 'function') {
                 block.setElement($(block.template(block)).replaceAll(block.el));
@@ -66,7 +70,7 @@ define(function(require, exports, module) {
             return set.apply(null, args);
         },
 
-        initResources: function(){
+        initData: function(){
             var block = this;
 
             block.collections = _.transform(block.collections, function(result, collectionInitializer, key) {
@@ -119,12 +123,19 @@ define(function(require, exports, module) {
             return $.when.apply($, fetchList);
         },
 
+        unbind: function(){
+            var block = this;
+
+            block.stopListening();
+            block.undelegateEvents();
+            block.bindings && block.bindings.unbind();
+        },
+
         remove: function() {
             var block = this;
 
+            block.unbind();
             block.removeBlocks();
-
-            block.bindings.unbind();
 
             return View.prototype.remove.apply(block, arguments);
         },

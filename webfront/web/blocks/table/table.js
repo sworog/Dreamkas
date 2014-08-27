@@ -4,10 +4,10 @@ define(function(require, exports, module) {
 
     return Block.extend({
         collection: null,
-        initResources: function(){
+        initData: function(){
             var block = this;
 
-            Block.prototype.initResources.apply(block, arguments);
+            Block.prototype.initData.apply(block, arguments);
 
             block.listenTo(block.collection, {
                 'add remove reset': function(){

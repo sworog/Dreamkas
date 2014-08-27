@@ -27,7 +27,7 @@ define(function(require, exports, module) {
             previousPage = window.PAGE;
             window.PAGE = page;
 
-            page.initResources();
+            page.initData();
 
             $.when(page.fetch()).then(function() {
                 page.render();
@@ -59,9 +59,7 @@ define(function(require, exports, module) {
         remove: function(){
             var page = this;
 
-            page.stopListening();
-            page.undelegateEvents();
-
+            page.unbind();
             page.removeBlocks();
         },
 
