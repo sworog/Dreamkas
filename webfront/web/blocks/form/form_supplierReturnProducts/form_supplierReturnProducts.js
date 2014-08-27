@@ -123,7 +123,7 @@ define(function(require, exports, module) {
         },
         submitSuccess: function(supplierReturn) {
             var block = this;
-            
+
             block.collection.push(supplierReturn.products[0]);
 
             block.reset();
