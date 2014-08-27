@@ -61,6 +61,7 @@ Scenario: Редактирование возврата поставщику
 
 Meta:
 @smoke
+@s40u105edit
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/товародвижение/возврат_поставщику/создать_магазин_с_ассортиментом.story,
