@@ -11,7 +11,7 @@ import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.stockMovement.invoiceProduct.InvoiceProductCollection;
 import project.lighthouse.autotests.objects.web.stockMovement.invoiceProduct.InvoiceProductObject;
-import project.lighthouse.autotests.objects.web.stockMovement.stockIn.StockInProduct;
+import project.lighthouse.autotests.objects.web.stockMovement.stockIn.StockInProductObject;
 import project.lighthouse.autotests.objects.web.stockMovement.stockIn.StockInProductCollection;
 import project.lighthouse.autotests.objects.web.stockMovement.StockMovementListObjectCollection;
 import project.lighthouse.autotests.objects.web.writeOffProduct.WriteOffProductCollection;
@@ -75,6 +75,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void supplierReturnCreateButtonClick() {
+        stockMovementPage.supplierReturnButtonClick();
+    }
+
+    @Step
     public void invoiceCreateModalWindowInput(ExamplesTable examplesTable) {
         invoiceCreateModalWindow.input(examplesTable);
     }
@@ -115,13 +120,13 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
-    public void paidCheckBoxClick() {
-        invoiceCreateModalWindow.paidCheckBoxClick();
+    public void clickInvoicePaidCheckBox() {
+        invoiceCreateModalWindow.clickPaidCheckBox();
     }
 
     @Step
     public void invoiceEditModalWindowPaidCheckBoxClick() {
-        invoiceEditModalWindow.paidCheckBoxClick();
+        invoiceEditModalWindow.clickPaidCheckBox();
     }
 
     @Step
@@ -287,8 +292,8 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void stockInProductWithNameDeleteIconClick(String name) {
-        StockInProduct stockInProduct =
-                (StockInProduct) getStockInProductCollection().getAbstractObjectByLocator(name);
+        StockInProductObject stockInProduct =
+                (StockInProductObject) getStockInProductCollection().getAbstractObjectByLocator(name);
         stockInProduct.clickDeleteIcon();
         new SimplePreloader(getDriver()).await();
     }
@@ -339,6 +344,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void openLastCreatedSupplierReturnMovementPage() throws JSONException {
+        openOperationByNumberInStockMovementPage(Storage.getStockMovementVariableStorage().getLastSupplierReturn().getNumber());
+    }
+
+    @Step
     public void openOperationByNumberInStockMovementPage(String number) {
         StockMovementListObjectCollection stockMovementObjectCollection = stockMovementPage.getStockMovementObjectCollection();
         if (stockMovementObjectCollection != null) {
@@ -348,25 +358,32 @@ public class StockMovementSteps extends ScenarioSteps {
 
     @Step
     public void stockMovementCollectionDontContainLastCreatedInvoice() throws JSONException {
-        StockMovementListObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
-        if (stockMovementObjectCollection != null) {
-            stockMovementObjectCollection.notContains(Storage.getStockMovementVariableStorage().getLastInvoice().getNumber());
-        }
+        String number = Storage.getStockMovementVariableStorage().getLastInvoice().getNumber();
+        stockMovementCollectionDoesNotContainNumber(number);
     }
 
     @Step
     public void stockMovementCollectionDontContainLastCreatedWriteOff() throws JSONException {
-        StockMovementListObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
-        if (stockMovementObjectCollection != null) {
-            stockMovementObjectCollection.notContains(Storage.getStockMovementVariableStorage().getLastWriteOff().getNumber());
-        }
+        String number = Storage.getStockMovementVariableStorage().getLastWriteOff().getNumber();
+        stockMovementCollectionDoesNotContainNumber(number);
     }
 
     @Step
     public void stockMovementCollectionDontContainLastCreatedStockIn() throws JSONException {
+        String number = Storage.getStockMovementVariableStorage().getLastStockIn().getNumber();
+        stockMovementCollectionDoesNotContainNumber(number);
+    }
+
+    @Step
+    public void stockMovementCollectionDontContainLastCreatedSupplierReturn() throws JSONException {
+        String number = Storage.getStockMovementVariableStorage().getLastSupplierReturn().getNumber();
+        stockMovementCollectionDoesNotContainNumber(number);
+    }
+
+    protected void stockMovementCollectionDoesNotContainNumber(String number) throws JSONException {
         StockMovementListObjectCollection stockMovementObjectCollection = getStockMovementObjectCollection();
         if (stockMovementObjectCollection != null) {
-            stockMovementObjectCollection.notContains(Storage.getStockMovementVariableStorage().getLastStockIn().getNumber());
+            stockMovementObjectCollection.notContains(number);
         }
     }
 

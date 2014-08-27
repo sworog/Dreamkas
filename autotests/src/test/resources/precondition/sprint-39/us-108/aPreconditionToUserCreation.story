@@ -1,5 +1,6 @@
 Meta:
 @smoke
+@precondition
 @sprint_39
 @us_108
 @id_s39u108s1

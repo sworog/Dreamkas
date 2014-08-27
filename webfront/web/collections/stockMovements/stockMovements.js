@@ -4,7 +4,8 @@ define(function(require) {
         InvoiceModel = require('models/invoice/invoice'),
         uri = require('uri'),
         WriteOffModel = require('models/writeOff/writeOff'),
-        StockInModel = require('models/stockIn/stockIn');
+        StockInModel = require('models/stockIn/stockIn'),
+        SupplierReturnModel = require('models/supplierReturn/supplierReturn');
 
     return Collection.extend({
         filters: {
@@ -31,6 +32,10 @@ define(function(require) {
 
                     case "StockIn":
                         collection.add(new StockInModel(item));
+                        break;
+
+                    case "SupplierReturn":
+                        collection.add(new SupplierReturnModel(item));
                         break;
                 }
             });

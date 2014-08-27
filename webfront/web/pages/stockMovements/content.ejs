@@ -4,7 +4,8 @@
     tr: {
         invoice: require('ejs!blocks/table/stockMovements/tr/invoice.ejs'),
         writeOff: require('ejs!blocks/table/stockMovements/tr/writeOff.ejs'),
-        stockIn: require('ejs!blocks/table/stockMovements/tr/stockIn.ejs')
+        stockIn: require('ejs!blocks/table/stockMovements/tr/stockIn.ejs'),
+        supplierReturn: require('ejs!blocks/table/stockMovements/tr/supplierReturn.ejs')
     }
 }; %>
 <% var helpers = {
@@ -25,6 +26,7 @@
               role="button"
               class="btn btn-primary btn-md">Списать</span>
         <span class="page__addStockInLink btn btn-primary btn-md">Оприходовать</span>
+        <span class="supplierReturn__link btn btn-primary btn-md">Вернуть поставщику</span>
     </div>
 
     <div class="page-header pull-left">
@@ -81,6 +83,13 @@
                                     }) %>
                                 <% } %>
 
+                                <% if (stockMovementModel.get('type') === 'SupplierReturn'){ %>
+                                    <%= partials.tr.supplierReturn({
+                                        dateRowSpan: index === 0 ? stockMovements.length : null,
+                                        stockMovementModel: stockMovementModel
+                                    }) %>
+                                <% } %>
+
                             <% }) %>
                         <% }) %>
 
@@ -101,6 +110,7 @@
 <!--MODALS-->
 
 <b block="modal_stockIn"></b>
+<b block="modal_supplierReturn"></b>
 
 <% if (models.invoice) { %>
 <%= partials.modal_invoice({

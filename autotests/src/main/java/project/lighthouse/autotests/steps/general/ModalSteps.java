@@ -4,8 +4,12 @@ import net.thucydides.core.annotations.Step;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.common.ModalWindowPageObject;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
+import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceCreateModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.invoice.InvoiceEditModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInEditModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.supplierReturn.SupplierReturnCreateModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.supplierReturn.SupplierReturnEditModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.writeOff.WriteOffCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.writeOff.WriteOffEditModalWindow;
 
@@ -20,10 +24,14 @@ public class ModalSteps<T extends ModalWindowPageObject> extends AbstractGeneral
     @Override
     Map<String, Class> getPageObjectClasses() {
         return new HashMap<String, Class>() {{
+            put("создания приемки", InvoiceCreateModalWindow.class);
+            put("редактирования приемки", InvoiceEditModalWindow.class);
             put("создания списания", WriteOffCreateModalWindow.class);
             put("редактирования списания", WriteOffEditModalWindow.class);
             put("создания оприходования", StockInCreateModalWindow.class);
             put("редактирования оприходования", StockInEditModalWindow.class);
+            put("создания возврата поставщику", SupplierReturnCreateModalWindow.class);
+            put("редактирования возврата поставщику", SupplierReturnEditModalWindow.class);
         }};
     }
 

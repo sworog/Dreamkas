@@ -6,10 +6,13 @@ import org.openqa.selenium.StaleElementReferenceException;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
-import project.lighthouse.autotests.objects.web.stockMovement.StockMovementWebObject;
+import project.lighthouse.autotests.objects.web.stockMovement.StockMovementProductObject;
+import project.lighthouse.autotests.pages.stockMovement.modal.PayableStockMovementModalPage;
 import project.lighthouse.autotests.pages.stockMovement.modal.StockMovementModalPage;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInCreateModalWindow;
 import project.lighthouse.autotests.pages.stockMovement.modal.stockIn.StockInEditModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.supplierReturn.SupplierReturnCreateModalWindow;
+import project.lighthouse.autotests.pages.stockMovement.modal.supplierReturn.SupplierReturnEditModalWindow;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,10 +29,12 @@ public class StockMovementSteps<T extends StockMovementModalPage> extends Abstra
             put("редактирования оприходования", StockInEditModalWindow.class);
             put("создания оприходования", StockInCreateModalWindow.class);
             put("редактирования оприходования", StockInEditModalWindow.class);
+            put("создания возврата поставщику", SupplierReturnCreateModalWindow.class);
+            put("редактирования возврата поставщику", SupplierReturnEditModalWindow.class);
         }};
     }
 
-    protected AbstractObjectCollection getProductCollection() {
+    public AbstractObjectCollection getProductCollection() {
         AbstractObjectCollection productCollection;
         try {
             productCollection = getCurrentPageObject().getProductCollection();
@@ -39,8 +44,8 @@ public class StockMovementSteps<T extends StockMovementModalPage> extends Abstra
         return productCollection;
     }
 
-    protected StockMovementWebObject locateStockMovementObjectByName(String name) {
-        return (StockMovementWebObject) getProductCollection().getAbstractObjectByLocator(name);
+    protected StockMovementProductObject locateStockMovementObjectByName(String name) {
+        return (StockMovementProductObject) getProductCollection().getAbstractObjectByLocator(name);
     }
 
     @Step
@@ -80,5 +85,14 @@ public class StockMovementSteps<T extends StockMovementModalPage> extends Abstra
     @Step
     public void assertProductRowsCount(Integer expectedCount) {
         assertThat(getCurrentPageObject().getProductRowsCount(), is(expectedCount));
+    }
+
+    @Step
+    public void clickPaidCheckBox() {
+        if (getCurrentPageObject() instanceof PayableStockMovementModalPage) {
+            ((PayableStockMovementModalPage) getCurrentPageObject()).clickPaidCheckBox();
+        } else {
+            throw new AssertionError("This modal window does not have paid checkbox");
+        }
     }
 }

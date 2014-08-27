@@ -1,7 +1,7 @@
 <% var SupplierModel = require('models/supplier/supplier') %>
 <% var supplierModel = supplierModel || new SupplierModel() %>
 
-<form id="<%- supplierModel.id ? 'form_supplierEdit' : 'form_supplierAdd' %>" class="form form_supplier">
+<form block="form_supplier" id="<%- supplierModel.id ? 'form_supplierEdit' : 'form_supplierAdd' %>" class="form form_supplier">
     <div class="form-store">
 
         <div class="form-group">

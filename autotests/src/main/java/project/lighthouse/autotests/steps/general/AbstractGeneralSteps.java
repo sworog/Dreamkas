@@ -8,21 +8,19 @@ import java.util.Map;
 
 public abstract class AbstractGeneralSteps<T extends GeneralPageObject> extends ScenarioSteps {
 
-    private T currentPageObject;
-
     abstract Map<String, Class> getPageObjectClasses();
 
-    public void setCurrentPageObject(String pageObjectName) {
+    public void setCurrentPageObject(String pageObjectName) throws AssertionError {
         Class pageObjectClass = getPageObjectClasses().get(pageObjectName);
-        currentPageObject = initPage(pageObjectClass);
+        if (null == pageObjectClass) {
+            throw new AssertionError(String.format("PageObject class not found by name '%s'", pageObjectName));
+        }
+        T currentPageObject = initPage(pageObjectClass);
         setCurrentPageObjectToStorage(currentPageObject);
     }
 
     protected T getCurrentPageObject() {
-        if (null == currentPageObject) {
-            currentPageObject = getCurrentPageObjectFromStorage();
-        }
-        return currentPageObject;
+        return getCurrentPageObjectFromStorage();
     }
 
     @SuppressWarnings("unchecked")

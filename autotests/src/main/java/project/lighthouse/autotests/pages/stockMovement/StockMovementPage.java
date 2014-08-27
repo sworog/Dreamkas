@@ -29,6 +29,10 @@ public class StockMovementPage extends BootstrapPageObject {
         new PrimaryBtnFacade(this, "Оприходовать").click();
     }
 
+    public void supplierReturnButtonClick() {
+        new PrimaryBtnFacade(this, "Вернуть поставщику").click();
+    }
+
     @Override
     public void createElements() {
         put("types", new SelectByVisibleText(this, "types"));

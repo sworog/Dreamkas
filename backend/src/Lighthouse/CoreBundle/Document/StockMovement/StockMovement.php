@@ -35,7 +35,8 @@ use DateTime;
  *      "WriteOff" = "Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff",
  *      "StockIn" = "Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockIn",
  *      "Sale" = "Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale",
- *      "Return" = "Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne"
+ *      "Return" = "Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne",
+ *      "SupplierReturn" = "Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturn"
  * })
  */
 abstract class StockMovement extends AbstractDocument implements Storeable

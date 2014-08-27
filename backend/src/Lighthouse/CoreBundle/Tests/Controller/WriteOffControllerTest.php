@@ -151,6 +151,13 @@ class WriteOffControllerTest extends WebTestCase
                     'errors.errors.0' => 'Эта форма не должна содержать дополнительных полей: "number"'
                 )
             ),
+            'not valid empty products' => array(
+                400,
+                array('products' => array()),
+                array(
+                    'errors.errors.0' => 'Нужно добавить минимум один товар'
+                )
+            ),
         );
     }
 

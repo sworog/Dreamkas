@@ -5,9 +5,10 @@ import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
 import project.lighthouse.autotests.objects.web.stockMovement.invoiceProduct.InvoiceProductCollection;
+import project.lighthouse.autotests.pages.stockMovement.modal.PayableStockMovementModalPage;
 import project.lighthouse.autotests.pages.stockMovement.modal.StockMovementModalPage;
 
-public class InvoiceCreateModalWindow extends StockMovementModalPage {
+public class InvoiceCreateModalWindow extends StockMovementModalPage implements PayableStockMovementModalPage {
 
     public InvoiceCreateModalWindow(WebDriver driver) {
         super(driver);
@@ -45,6 +46,12 @@ public class InvoiceCreateModalWindow extends StockMovementModalPage {
         return getProductRowsCount("table_invoiceProducts");
     }
 
+    @Override
+    public String getTotalSum() {
+        String xpath = String.format("%s//*[@class='invoice__totalSum']", modalWindowXpath());
+        return findVisibleElement(By.xpath(xpath)).getText();
+    }
+
     public void createSupplierButtonClick() {
         findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'addSupplierLink')]")).click();
     }
@@ -53,7 +60,7 @@ public class InvoiceCreateModalWindow extends StockMovementModalPage {
         findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'addProductLink')]")).click();
     }
 
-    public void paidCheckBoxClick() {
+    public void clickPaidCheckBox() {
         findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='checkbox']")).click();
     }
 }
