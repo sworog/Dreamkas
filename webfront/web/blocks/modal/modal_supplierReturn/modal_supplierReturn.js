@@ -39,23 +39,6 @@ define(function(require, exports, module) {
             }
         },
         blocks: {
-            form_supplier: function(opt) {
-                var block = this,
-                    SupplierModel = require('models/supplier/supplier'),
-                    Form_supplier = require('blocks/form/form_supplier/form_supplier'),
-                    form_supplier = new Form_supplier({
-                        el: opt.el,
-                        collection: PAGE.collections.suppliers
-                    });
-
-                form_supplier.on('submit:success', function(){
-                    block.showSupplierReturnModal();
-                    form_supplier.model = new SupplierModel();
-                    form_supplier.clear();
-                });
-
-                return form_supplier;
-            },
             form_supplierReturn: function(opt) {
                 var block = this,
                     Form_supplierReturn = require('blocks/form/form_supplierReturn/form_supplierReturn');
@@ -66,6 +49,11 @@ define(function(require, exports, module) {
                 });
 
                 form_supplierReturn.on('submit:success', function() {
+
+                    block.$el.one('hidden.bs.modal', function(e) {
+                        PAGE.render();
+                    });
+                    
                     block.hide();
                 });
 
@@ -81,35 +69,7 @@ define(function(require, exports, module) {
                         supplierReturn: block.models.supplierReturn
                     }
                 });
-            },
-            form_product: function(opt) {
-                var block = this,
-                    ProductModel = require('models/product/product'),
-                    Form_product = require('blocks/form/form_product/form_product'),
-                    form_product = new Form_product({
-                        el: opt.el
-                    });
-
-                form_product.on('submit:success', function() {
-                    block.el.querySelector('.form_stockInProducts').block.renderSelectedProduct(form_product.model.toJSON());
-                    block.showSupplierReturnModal();
-                    form_product.model = new ProductModel();
-                    form_product.clear();
-                });
-
-                return form_product;
             }
-        },
-        initialize: function(){
-            var block = this;
-
-            Modal.prototype.initialize.apply(block, arguments);
-
-            block.listenTo(PAGE.collections.suppliers, {
-                'add': function(supplierModel){
-                    block.renderSupplierSelect(supplierModel)
-                }
-            });
         },
         showSupplierReturnModal: function() {
             var block = this;
