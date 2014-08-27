@@ -1,5 +1,5 @@
-<form class="form_stockInProducts">
-    <table class="table_stockInProducts table table-vcenter" style="margin: 0 -10px;">
+<form class="form_supplierReturnProducts">
+    <table class="table_supplierReturnProducts table table-vcenter" style="margin: 0 -10px;">
         <thead>
         <tr>
             <th>Наименование</th>
@@ -16,7 +16,7 @@
         </tbody>
         <tfoot>
 
-        <tr class="form_stockInProducts__inputs">
+        <tr class="form_supplierReturnProducts__inputs">
             <td>
                 <div class="row">
                     <div class="col-md-10">
@@ -64,7 +64,7 @@
                 Итого
             </td>
             <td class="totalSum" colspan="2">
-                <%- helpers.formatMoney(models.stockIn.get('sumTotal'))  %>
+                <%- helpers.formatMoney(models.supplierReturn.get('sumTotal'))  %>
             </td>
         </tr>
         </tfoot>

@@ -6,18 +6,14 @@ define(function(require) {
     return Model.extend({
         storeId: null,
         collections: {
-            products: function() {
-                var model = this,
-                    SupplierReturnProductsCollection = require('collections/supplierReturnProducts/supplierReturnProducts');
-
-                return new SupplierReturnProductsCollection();
-            }
+            products: require('collections/supplierReturnProducts/supplierReturnProducts')
         },
         urlRoot: Model.baseApiUrl + '/supplierReturns',
         defaults: {
             paid: false
         },
         saveData: function() {
+
             return {
                 supplier: this.get('supplier'),
                 date: this.get('date'),

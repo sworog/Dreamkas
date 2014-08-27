@@ -65,11 +65,12 @@ define(function(require, exports, module) {
             },
             'click .supplierReturn__link': function(e) {
                 var page = this,
-                    supplierReturnId = e.currentTarget.dataset.supplierReturnId;
+                    supplierReturnId = e.currentTarget.dataset.supplierReturnId,
+                    SupplierReturnModel = require('models/supplierReturn/supplierReturn');
 
                 page.el.querySelector('.modal_supplierReturn').block.show({
                     models: {
-                        supplierReturn: page.collections.stockMovements.get(supplierReturnId) || require('models/supplierReturn/supplierReturn')
+                        supplierReturn: page.collections.stockMovements.get(supplierReturnId) || new SupplierReturnModel()
                     }
                 });
             },

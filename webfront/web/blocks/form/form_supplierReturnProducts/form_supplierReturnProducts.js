@@ -21,7 +21,7 @@ define(function(require, exports, module) {
             return productsCollection;
         },
         models: {
-            stockIn: require('models/supplierReturn/supplierReturn')
+            supplierReturn: require('models/supplierReturn/supplierReturn')
         },
         partials: {
             productsList: require('ejs!./productsList.ejs')
@@ -114,17 +114,19 @@ define(function(require, exports, module) {
         renderProductsList: function(){
             var block = this;
 
-            block.$('.table_stockInProducts tbody').html(block.partials.productsList(block));
+            block.$('.table_supplierReturnProducts tbody').html(block.partials.productsList(block));
         },
         submit: function() {
             var block = this;
 
             return block.collection.validateProduct(block.data);
         },
-        submitSuccess: function(invoice) {
+        submitSuccess: function(supplierReturn) {
             var block = this;
 
-            block.collection.push(invoice.products[0]);
+            console.log(block.collection);
+
+            block.collection.push(supplierReturn.products[0]);
 
             block.reset();
         },
