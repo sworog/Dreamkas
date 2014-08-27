@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.pages.stockMovement.modal.writeOff;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.objects.web.writeOffProduct.WriteOffProductCollection;
@@ -40,5 +41,11 @@ public class WriteOffCreateModalWindow extends StockMovementModalPage {
     @Override
     public Integer getProductRowsCount() {
         return getProductRowsCount("table_writeOffProducts");
+    }
+
+    @Override
+    public String getTotalSum() {
+        String xpath = String.format("%s//*[@class='writeOff__totalSum']", modalWindowXpath());
+        return findVisibleElement(By.xpath(xpath)).getText();
     }
 }
