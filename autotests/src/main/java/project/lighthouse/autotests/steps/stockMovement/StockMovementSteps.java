@@ -120,13 +120,13 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
-    public void paidCheckBoxClick() {
-        invoiceCreateModalWindow.paidCheckBoxClick();
+    public void clickInvoicePaidCheckBox() {
+        invoiceCreateModalWindow.clickPaidCheckBox();
     }
 
     @Step
     public void invoiceEditModalWindowPaidCheckBoxClick() {
-        invoiceEditModalWindow.paidCheckBoxClick();
+        invoiceEditModalWindow.clickPaidCheckBox();
     }
 
     @Step

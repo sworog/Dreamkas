@@ -68,8 +68,13 @@ public class WhenStockMovementUserSteps {
 
     @When("the user clicks on the paid check box")
     @Alias("пользователь нажимает на галочку Оплачено")
-    public void whenTheUserClicksOnThePaidCheckBox() {
-        stockMovementSteps.paidCheckBoxClick();
+    public void whenUserClicksOnInvoicePaidCheckBox() {
+        stockMovementSteps.clickInvoicePaidCheckBox();
+    }
+
+    @Alias("пользователь нажимает на галочку Оплачено в возврате поставщику")
+    public void whenUserClicksOnSupplerReturnPaidCheckBox() {
+        stockMovementSteps.clickInvoicePaidCheckBox();
     }
 
     @When("the user clicks on the paid check box in the edit invoice modal window")
