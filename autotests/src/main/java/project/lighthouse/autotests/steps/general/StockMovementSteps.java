@@ -34,7 +34,7 @@ public class StockMovementSteps<T extends StockMovementModalPage> extends Abstra
         }};
     }
 
-    protected AbstractObjectCollection getProductCollection() {
+    public AbstractObjectCollection getProductCollection() {
         AbstractObjectCollection productCollection;
         try {
             productCollection = getCurrentPageObject().getProductCollection();

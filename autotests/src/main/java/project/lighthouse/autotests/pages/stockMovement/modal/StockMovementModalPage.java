@@ -30,7 +30,7 @@ public abstract class StockMovementModalPage extends ModalWindowPage {
     public String getTotalSum() {
         String xpath = String.format("%s//*[@class='totalSum']", modalWindowXpath());
         return findVisibleElement(By.xpath(xpath)).getText();
-    };
+    }
 
     public abstract void addProductButtonClick();
 

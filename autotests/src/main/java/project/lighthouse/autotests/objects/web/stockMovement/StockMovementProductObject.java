@@ -12,10 +12,10 @@ import java.util.Map;
 
 public abstract class StockMovementProductObject extends AbstractObject implements ObjectClickable, ObjectLocatable, ResultComparable {
 
-    private String name;
-    private String price;
-    private String quantity;
-    private String totalPrice;
+    protected String name;
+    protected String price;
+    protected String quantity;
+    protected String totalPrice;
 
     public StockMovementProductObject(WebElement element) {
         super(element);

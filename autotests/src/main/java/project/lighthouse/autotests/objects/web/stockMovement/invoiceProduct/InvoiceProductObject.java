@@ -17,14 +17,19 @@ public class InvoiceProductObject extends StockMovementProductObject {
 
     @Override
     public void setProperties() {
-        super.setProperties();
+        name = getElement().findElement(By.name("name")).getText();
         priceEntered = getElement().findElement(By.name("priceEntered")).getText();
+        quantity = getElement().findElement(By.name("quantity")).getText();
+        totalPrice = getElement().findElement(By.name("totalPrice")).getText();
     }
 
     @Override
     public CompareResults getCompareResults(Map<String, String> row) {
-        return super.getCompareResults(row)
-                .compare("priceEntered", priceEntered, row.get("priceEntered"));
+        return new CompareResults()
+                .compare("name", name, row.get("name"))
+                .compare("priceEntered", priceEntered, row.get("priceEntered"))
+                .compare("quantity", quantity, row.get("quantity"))
+                .compare("totalPrice", totalPrice, row.get("totalPrice"));
     }
 
     public void clickDeleteIcon() {

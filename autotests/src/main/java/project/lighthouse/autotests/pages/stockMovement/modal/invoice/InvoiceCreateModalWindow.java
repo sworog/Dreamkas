@@ -46,6 +46,12 @@ public class InvoiceCreateModalWindow extends StockMovementModalPage implements 
         return getProductRowsCount("table_invoiceProducts");
     }
 
+    @Override
+    public String getTotalSum() {
+        String xpath = String.format("%s//*[@class='invoice__totalSum']", modalWindowXpath());
+        return findVisibleElement(By.xpath(xpath)).getText();
+    }
+
     public void createSupplierButtonClick() {
         findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'addSupplierLink')]")).click();
     }
