@@ -60,8 +60,6 @@ define(function(require, exports, module) {
                 var block = this,
                     Form_supplierReturn = require('blocks/form/form_supplierReturn/form_supplierReturn');
 
-                console.log(block.models.supplierReturn);
-
                 var form_supplierReturn = new Form_supplierReturn({
                     el: opt.el,
                     model: block.models.supplierReturn
@@ -76,8 +74,6 @@ define(function(require, exports, module) {
             form_supplierReturnProducts: function(opt) {
                 var block = this,
                     Form_stockInProducts = require('blocks/form/form_supplierReturnProducts/form_supplierReturnProducts');
-
-                console.log(block.models.supplierReturn);
 
                 return new Form_stockInProducts({
                     el: opt.el,

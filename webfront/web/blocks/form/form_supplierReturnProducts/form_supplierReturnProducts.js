@@ -123,9 +123,7 @@ define(function(require, exports, module) {
         },
         submitSuccess: function(supplierReturn) {
             var block = this;
-
-            console.log(block.collection);
-
+            
             block.collection.push(supplierReturn.products[0]);
 
             block.reset();
