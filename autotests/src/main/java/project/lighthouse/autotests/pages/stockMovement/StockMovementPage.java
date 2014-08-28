@@ -27,7 +27,7 @@ public class StockMovementPage extends BootstrapPageObject {
     }
 
     public void stockInCreateButtonClick() {
-        clickCreateDropdownButton("Оприходвать");
+        clickCreateDropdownButton("Оприходовать");
     }
 
     public void supplierReturnButtonClick() {
