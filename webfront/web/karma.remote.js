@@ -3,11 +3,6 @@
 
 module.exports = function(config) {
 
-    var webDriverConfig = {
-        hostname: 'selenium.lighthouse.pro/wd/hub',
-        port: 80
-    };
-
     config.set({
 
         // base path, that will be used to resolve files and exclude
@@ -19,7 +14,6 @@ module.exports = function(config) {
         // list of files / patterns to load in the browser
         files: [
             'karma.main.js',
-            'karma.remote.js',
             {pattern: '**/*.js', included: false},
             {pattern: '**/*.ejs', included: false}
         ],
@@ -27,6 +21,7 @@ module.exports = function(config) {
         // list of files to exclude
         exclude: [
             'karma.conf.js',
+            'karma.remote.js',
             'node_modules/**/*.spec.js',
             'bower_components/**/*.spec.js'
         ],
@@ -35,40 +30,17 @@ module.exports = function(config) {
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
         reporters: ['dots'],
 
-        preprocessors: {
-            // source files, that you wanna generate coverage for
-            // do not include tests or libraries
-            // (these files will be instrumented by Istanbul),
-            //'requireDom.js': 'coverage'
-        },
-
-        // web server port
-        port: 9876,
-
-
         // enable / disable colors in the output (reporters and logs)
         colors: true,
-
 
         // level of logging
         // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
         logLevel: config.LOG_INFO,
 
-
         // enable / disable watching file and executing tests whenever any file changes
         autoWatch: false,
 
         customLaunchers: {
-            'RemoteChrome': {
-                base: 'WebDriver',
-                config: webDriverConfig,
-                browserName: 'chrome'
-            },
-            'RemoteFirefox': {
-                base: 'WebDriver',
-                config: webDriverConfig,
-                browserName: 'firefox'
-            },
             'Remote-Firefox': {
                 base: 'WebdriverJS',
                 config: {
@@ -76,6 +48,16 @@ module.exports = function(config) {
                     port: 80,
                     desiredCapabilities: {
                         browserName: 'firefox'
+                    }
+                }
+            },
+            'Remote-Chrome': {
+                base: 'WebdriverJS',
+                config: {
+                    host: 'selenium.lighthouse.pro',
+                    port: 80,
+                    desiredCapabilities: {
+                        browserName: 'chrome'
                     }
                 }
             }
@@ -89,12 +71,10 @@ module.exports = function(config) {
         // - Safari (only Mac)
         // - PhantomJS
         // - IE (only Windows)
-        browsers: ['Remote-Firefox'],
-
+        browsers: ['Remote-Firefox', 'Remote-Chrome'],
 
         // If browser does not capture in given timeout [ms], kill it
         captureTimeout: 60000,
-
 
         // Continuous Integration mode
         // if true, it capture browsers, run tests and exit

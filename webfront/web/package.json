@@ -7,7 +7,6 @@
         "karma-teamcity-reporter": "~0.1",
         "karma-requirejs": "~0.2",
         "karma-coverage": "~0.1",
-        "karma-webdriver-launcher": "~0.1",
         "karma-webdriverjs-launcher": "git://github.com/tatablack/karma-webdriverjs-launcher.git"
     },
     "scripts": {
