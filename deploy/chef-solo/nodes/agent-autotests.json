@@ -5,6 +5,8 @@
         "recipe[lighthouse]",
         "recipe[teamcity::agent]",
         "recipe[ruby::1.9.1]",
+        "recipe[nodejs]",
+        "recipe[nodejs::npm]",
         "recipe[lighthouse::bundler]",
         "recipe[lighthouse::agent_keys]"
     ],
