@@ -61,6 +61,7 @@ Scenario: Создание возврата поставщику c галочк�
 
 Meta:
 @smoke
+@tech_41
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/товародвижение/возврат_поставщику/создать_магазин_с_ассортиментом.story
