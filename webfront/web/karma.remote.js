@@ -30,6 +30,10 @@ module.exports = function(config) {
         // possible values: 'dots', 'progress', 'junit', 'growl', 'coverage'
         reporters: ['dots'],
 
+        allureReport: {
+            reportDir: 'build/allure-report'
+        },
+
         // enable / disable colors in the output (reporters and logs)
         colors: true,
 
