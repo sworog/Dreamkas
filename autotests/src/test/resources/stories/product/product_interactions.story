@@ -126,23 +126,43 @@ When the user clicks on create product button on group page
 
 Then the user asserts the create product modal window title is 'Добавление товара'
 
-Scenario: Edit product modal window title assert
+Scenario: Product edit modal title contains sku
 
 Meta:
 @smoke
-@id_s38u101s6
+@regression
+@sprint_41
+@tech_41
+
+GivenStories:
+        precondition/customPrecondition/symfonyEnvInitPrecondition.story,
+        precondition/sprint-38/us-101/aPreconditionToUserCreation.story
+
+Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
+And the user with email 's28u101@lighthouse.pro' creates the product with name 'Продукт3', units 'шт.', barcode '12345', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101'
+And the user navigates to the group with name 'groups30u101'
+And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
+
+When the user clicks on the product with name 'Продукт3'
+When пользователь* находится в модальном окне 'редактирования товара'
+Then пользователь* в модальном окне проверяет, что заголовок равен 'Редактирование товара #10001'
+
+Scenario: Product delete button label
+
+Meta:
+@regression
+@sprint_41
+@tech_41
 
 GivenStories: precondition/sprint-38/us-101/aPreconditionToUserCreation.story
 
 Given the user with email 's28u101@lighthouse.pro' creates group with name 'groups30u101'
-And the user with email 's28u101@lighthouse.pro' creates the product with name 'Продукт5', units 'шт.', barcode '123456', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101'
-
+And the user with email 's28u101@lighthouse.pro' creates the product with name 'Продукт3', units 'шт.', barcode '12345', vat '0', purchasePrice '100', sellingPrice '110' in the group with name 'groups30u101'
 And the user navigates to the group with name 'groups30u101'
 And the user logs in using 's28u101@lighthouse.pro' userName and 'lighthouse' password
 
-When the user clicks on the product with name 'Продукт4'
-
-Then the user asserts the edit product modal window title is 'Редактирование товара'
+When the user clicks on the product with name 'Продукт3'
+Then user checks delete button label 'Удалить товар'
 
 Scenario: Group contains no products message
 
