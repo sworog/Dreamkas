@@ -1,0 +1,35 @@
+<div tabindex="-1"
+     role="dialog"
+     aria-labelledby="modal-default-label"
+     aria-hidden="true"
+     class="modal modal_group fade"
+     style="display: none;">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a type="button"
+                   data-dismiss="modal"
+                   aria-hidden="true"
+                   class="close pull-left fa fa-times"></a>
+
+                <button form="form_group"
+                        type="submit"
+                        class="btn btn-primary pull-right">
+                    <%- models.group.id ? 'Сохранить' : 'Добавить' %>
+                </button>
+
+                <h4 class="modal-title">
+                    <%- models.group.id ? 'Редактирование группы' : 'Добавить группу' %>
+                </h4>
+
+                <span class="clearfix"></span>
+            </div>
+            <div class="modal-body">
+
+                <b block="form_group"></b>
+
+            </div>
+        </div>
+    </div>
+</div>

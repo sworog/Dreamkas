@@ -74,7 +74,7 @@ define(function(require) {
         serialize: function() {
             var block = this;
 
-            block.set('data', form2js(block.el, '.', false));
+            block.data = form2js(block.el, '.', false);
 
             return block.data;
         },
@@ -194,8 +194,13 @@ define(function(require) {
             var block = this;
 
             block.el.reset();
-
             block.serialize();
+
+            if (block.model){
+                block.model.clear({
+                    silent: true
+                });
+            }
         },
         clear: function(){
             var block = this;

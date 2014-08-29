@@ -1,14 +1,14 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('blocks/form/form.deprecated'),
+    var Form = require('blocks/form/form'),
         GroupModel = require('models/group/group');
 
     return Form.extend({
-        el: '.form_group',
-        model: function() {
-            return new GroupModel();
+        template: require('ejs!./template.ejs'),
+        model: GroupModel,
+        collection: function(){
+            return PAGE.collections.groups;
         },
-        collection: null,
         events: {
             'click .confirmLink__confirmation .group__removeLink': function(e) {
                 var block = this;
@@ -26,9 +26,11 @@ define(function(require, exports, module) {
 
             Form.prototype.initialize.apply(block, arguments);
 
+            var isNew = block.model.isNew();
+
             block.listenTo(block, 'submit:success', function() {
-                if (!block.__model.id) {
-                    block.model = new GroupModel();
+                if (isNew) {
+                    block.reset();
                 }
             });
 

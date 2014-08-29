@@ -1,44 +1,16 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/page/page.deprecated');
+    var Page = require('kit/page/page');
 
     return Page.extend({
         content: require('ejs!./content.ejs'),
         activeNavigationItem: 'catalog',
         collections: {
-            groups: function() {
-                var page = this,
-                    GroupsCollection = require('collections/groups/groups'),
-                    groupsCollection = new GroupsCollection();
-
-                groupsCollection.on({
-                    add: function(groupModel) {
-
-                        var modal = $('.modal:visible');
-
-                        page.models.group = groupModel;
-
-                        modal.one('hidden.bs.modal', function(e) {
-                            page.render();
-                        });
-
-                        modal.modal('hide');
-                    }
-                });
-
-                return groupsCollection;
-            }
+            groups: require('collections/groups/groups')
         },
         blocks: {
-            form_groupAdd: function() {
-                var page = this,
-                    Form_group = require('blocks/form/group/group');
-
-                return new Form_group({
-                    collection: page.collections.groups,
-                    el: document.getElementById('form_groupAdd')
-                });
-            }
+            modal_group: require('blocks/modal/group/group'),
+            groupList: require('blocks/groupList/groupList')
         }
     });
 });
