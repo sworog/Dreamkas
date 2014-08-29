@@ -3,7 +3,7 @@ define(function(require, exports, module) {
     var Form = require('kit/form/form');
 
     return Form.extend({
-        template: require('ejs!./form_stockIn.ejs'),
+        template: require('ejs!./template.ejs'),
         model: require('models/stockIn/stockIn'),
         collection: function(){
             return PAGE.collections.stockMovements;
@@ -12,6 +12,9 @@ define(function(require, exports, module) {
             stores: function(){
                 return PAGE.collections.stores;
             }
+        },
+        partials: {
+            select_stores: require('ejs!blocks/select/select_stores/select_stores.ejs')
         },
         blocks: {
             inputDate: require('blocks/inputDate/inputDate')

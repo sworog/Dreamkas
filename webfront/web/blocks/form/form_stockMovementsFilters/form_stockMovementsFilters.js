@@ -3,7 +3,7 @@ define(function(require, exports, module) {
     var Form = require('kit/form/form');
 
     return Form.extend({
-        template: require('ejs!./form_stockMovementsFilters.ejs'),
+        template: require('ejs!./template.ejs'),
         data: function(){
             return _.pick(PAGE.params, 'dateFrom', 'dateTo', 'types');
         },

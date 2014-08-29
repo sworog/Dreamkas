@@ -3,6 +3,6 @@ define(function(require, exports, module) {
     var CollectionBlock = require('kit/collectionBlock/collectionBlock');
 
     return CollectionBlock.extend({
-        template: require('ejs!./stockInProducts.ejs')
+        template: require('ejs!./template.ejs')
     });
 });

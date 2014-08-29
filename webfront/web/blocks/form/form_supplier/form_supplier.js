@@ -3,7 +3,7 @@ define(function(require, exports, module) {
     var Form = require('kit/form/form');
 
     return Form.extend({
-        template: require('ejs!./form_supplier.ejs'),
+        template: require('ejs!./template.ejs'),
         collection: function(){
             return PAGE.collections.suppliers;
         },

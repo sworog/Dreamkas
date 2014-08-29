@@ -5,6 +5,9 @@ define(function(require, exports, module) {
     return From.extend({
         template: require('ejs!./template.ejs'),
         model: require('models/writeOff/writeOff'),
+        partials: {
+            select_stores: require('ejs!blocks/select/select_stores/select_stores.ejs')
+        },
         blocks: {
             inputDate: require('blocks/inputDate/inputDate'),
             form_writeOffProducts: function(){

@@ -5,7 +5,7 @@ define(function(require) {
             formatNumber = require('kit/formatNumber/formatNumber');
 
         return Form.extend({
-            template: require('ejs!./form_product.ejs'),
+            template: require('ejs!./template.ejs'),
             model: require('models/product/product'),
             events: {
                 'keyup input[name="purchasePrice"]': function(e){

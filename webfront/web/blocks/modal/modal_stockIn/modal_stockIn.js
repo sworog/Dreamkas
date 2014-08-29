@@ -3,7 +3,7 @@ define(function(require, exports, module) {
     var Modal = require('blocks/modal/modal');
 
     return Modal.extend({
-        template: require('ejs!./modal_stockIn.ejs'),
+        template: require('ejs!./template.ejs'),
         models: {
             stockIn: require('models/stockIn/stockIn')
         },

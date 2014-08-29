@@ -3,6 +3,7 @@ define(function(require, exports, module) {
     var CollectionBlock = require('kit/collectionBlock/collectionBlock');
 
     return CollectionBlock.extend({
+        selected: null,
         select: function(value){
             var block = this;
 

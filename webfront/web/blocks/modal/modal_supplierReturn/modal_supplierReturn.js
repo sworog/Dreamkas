@@ -3,7 +3,7 @@ define(function(require, exports, module) {
     var Modal = require('blocks/modal/modal');
 
     return Modal.extend({
-        template: require('ejs!./modal_supplierReturn.ejs'),
+        template: require('ejs!./template.ejs'),
         models: {
             supplierReturn: require('models/supplierReturn/supplierReturn')
         },

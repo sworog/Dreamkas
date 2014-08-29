@@ -6,6 +6,6 @@ define(function(require, exports, module) {
         collection: function(){
             return PAGE.collections.suppliers
         },
-        template: require('ejs!./select_suppliers.ejs')
+        template: require('ejs!./template.ejs')
     });
 });

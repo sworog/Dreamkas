@@ -5,7 +5,7 @@ define(function(require, exports, module) {
         normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
 
     return Form.extend({
-        template: require('ejs!./form_stockInProducts.ejs'),
+        template: require('ejs!./template.ejs'),
         model: require('models/stockInProduct/stockInProduct'),
         collection: function() {
             var block = this,
