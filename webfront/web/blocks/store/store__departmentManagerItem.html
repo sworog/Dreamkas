@@ -1,6 +1,0 @@
-<div href="/users/<%- departmentManagerModel.id %>" class="store__departmentManagerItem">
-    <% if (LH.isAllow('stores', 'UNLINK::{store}')) { %>
-        <i class="icon-remove-sign store__departmentManagerRemoveLink" data-user_id="<%- departmentManagerModel.id %>"></i>
-    <% } %>
-    <%= LH.modelNode(departmentManagerModel, 'name') %>
-</div>

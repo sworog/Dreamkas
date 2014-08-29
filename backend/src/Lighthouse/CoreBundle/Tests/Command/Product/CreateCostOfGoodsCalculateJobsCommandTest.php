@@ -12,13 +12,11 @@ class CreateCostOfGoodsCalculateJobsCommandTest extends TestCase
     public function testExecute()
     {
         /* @var CostOfGoodsManager|\PHPUnit_Framework_MockObject_MockObject $mock */
-        $mock = $this->getMock(
-            'Lighthouse\\CoreBundle\\Document\\TrialBalance\\CostOfGoods\\CostOfGoodsManager',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $mock = $this
+            ->getMockBuilder('Lighthouse\\CoreBundle\\Document\\TrialBalance\\CostOfGoods\\CostOfGoodsManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $mock
             ->expects($this->once())
             ->method('createCalculateJobsForUnprocessed')

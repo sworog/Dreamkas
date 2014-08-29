@@ -1,0 +1,143 @@
+<% var ProductModel = require('models/product/product') %>
+<% var GroupsCollection = require('collections/groups/groups') %>
+
+<% var partials = {
+    select_vat: require('ejs!blocks/select/select_vat/select_vat.ejs'),
+    select_group: require('ejs!blocks/select/select_group/select_group.ejs')
+}; %>
+
+<% var helpers = {
+    formatMoney: require('kit/formatMoney/formatMoney')
+}; %>
+
+<% var models = _.extend({
+    product: new ProductModel()
+}, models) %>
+
+<% var collections = _.extend({
+    groups: new GroupsCollection()
+}, collections) %>
+
+<% var selectedGroupId = selectedGroupId || models.product.get('subCategory.id') %>
+
+<form block="form_product" id="<%- models.product.id ? 'form_productEdit' : 'form_productAdd' %>" class="form form_product">
+
+    <div class="form-group">
+
+        <label class="control-label">Группа *</label>
+
+        <%= partials.select_group({
+            selectedGroupId: selectedGroupId
+        }) %>
+
+    </div>
+
+    <div class="form-group">
+
+        <label class="control-label">Наименование *</label>
+
+        <div class="input-icon right">
+            <input
+                    name="name"
+                    type="text"
+                    class="form-control"
+                    value="<%- models.product.get('name') %>">
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        <label class="control-label">Единица измерения</label>
+
+        <div class="row">
+            <div class="col-md-5">
+                <input
+                        name="units"
+                        type="text"
+                        class="form-control"
+                        value="<%- models.product.get('units') %>">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+
+        <label class="control-label">Штрих-код</label>
+
+        <div class="input-icon right">
+            <input
+                    name="barcode"
+                    type="text"
+                    class="form-control"
+                    value="<%- models.product.get('barcode') %>">
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        <label class="control-label">НДС</label>
+
+        <div class="row">
+            <div class="col-md-5">
+                <%= partials.select_vat({
+                    selected: models.product.get('vat')
+                }) %>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        <label class="control-label">Цена закупки, <i class="fa fa-rub"></i></label>
+
+        <div class="row">
+            <div class="col-md-5">
+                <input
+                        name="purchasePrice"
+                        type="text"
+                        class="form-control"
+                        value="<%- models.product.get('purchasePrice') ? helpers.formatMoney(models.product.get('purchasePrice')) : '' %>">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        <label class="control-label">Цена продажи, <i class="fa fa-rub"></i></label>
+
+        <div class="row">
+            <div class="col-md-5">
+                <input
+                        name="sellingPrice"
+                        type="text"
+                        class="form-control"
+                        value="<%- models.product.get('sellingPrice') ? helpers.formatMoney(models.product.get('sellingPrice')) : '' %>">
+            </div>
+            <div class="col-md-7 product__markup">
+                Наценка: <span class="product__markupText"></span> %
+            </div>
+        </div>
+
+    </div>
+
+    <% if (models.product.id) { %>
+    <div class="confirmLink">
+
+        <div class="confirmLink__trigger">
+                            <span class="removeLink product__removeLink">
+                                <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                                Удалить продукт
+                            </span>
+        </div>
+
+        <div class="confirmLink__confirmation">
+                            <span class="removeLink product__removeLink">
+                                <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                                Подтвердить удаление
+                            </span>
+        </div>
+
+    </div>
+    <% } %>
+</form>

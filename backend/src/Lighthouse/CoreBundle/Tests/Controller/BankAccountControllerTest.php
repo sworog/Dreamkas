@@ -344,4 +344,42 @@ class BankAccountControllerTest extends WebTestCase
 
         Assert::assertJsonPathCount(5, '*.id', $getResponse);
     }
+
+    public function testGetBankAccountFromAnotherSupplier()
+    {
+        $supplier = $this->factory()->supplier()->getSupplier();
+        $otherSupplier = $this->factory()->supplier()->getSupplier('other');
+
+        $accessToken = $this->factory()->oauth()->authAsProjectUser();
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/suppliers/{$supplier->id}/bankAccounts",
+            array(
+                'account' => '1234567'
+            )
+        );
+
+        $this->assertResponseCode(201);
+        Assert::assertJsonHasPath('id', $response);
+        $bankAccountId = $response['id'];
+
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/suppliers/{$supplier->id}/bankAccounts/{$bankAccountId}"
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->client->setCatchException();
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/suppliers/{$otherSupplier->id}/bankAccounts/{$bankAccountId}"
+        );
+
+        $this->assertResponseCode(404);
+    }
 }

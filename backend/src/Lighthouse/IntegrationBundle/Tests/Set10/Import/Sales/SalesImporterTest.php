@@ -99,7 +99,7 @@ class SalesImporterTest extends WebTestCase
 
     public function testImportDoubleSales()
     {
-        $storeIds = $this->factory()->store()->getStores(array('777', '666'));
+        $storeIds = $this->factory()->store()->getStoreIds(array('777', '666'));
         $productIds = $this->createProductsByNames(
             array(
                 'Кит-Кат-343424',
@@ -126,7 +126,7 @@ class SalesImporterTest extends WebTestCase
 
     public function testImportDoubleSalesWithDifferentAmount()
     {
-        $storeIds = $this->factory()->store()->getStores(array('777', '666'));
+        $storeIds = $this->factory()->store()->getStoreIds(array('777', '666'));
         $productIds = $this->createProductsByNames(
             array(
                 'Кит-Кат-343424',
@@ -185,7 +185,7 @@ class SalesImporterTest extends WebTestCase
 
     public function testImportSamePurchaseWithDifferentStoreNumber()
     {
-        $this->factory()->store()->getStores(array('25573', '255731'));
+        $this->factory()->store()->getStoreIds(array('25573', '255731'));
         $this->createProductsByNames(array('10001', '10002'));
 
         $output = new TestOutput();

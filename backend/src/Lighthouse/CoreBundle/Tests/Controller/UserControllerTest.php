@@ -701,10 +701,10 @@ class UserControllerTest extends WebTestCase
 
     /**
      * @dataProvider rolePermissionsProvider
-     * @param $role
-     * @param array $assertions
+     * @param string $role
+     * @param array $expectedPermissions
      */
-    public function testRolePermissions($role, array $assertions)
+    public function testRolePermissions($role, array $expectedPermissions)
     {
         $accessToken = $this->factory()->oauth()->authAsRole($role);
 
@@ -715,10 +715,7 @@ class UserControllerTest extends WebTestCase
         );
 
         $this->assertResponseCode(200);
-
-        foreach ($assertions as $path => $expected) {
-            Assert::assertJsonPathEqualsArray($expected, $path, $getResponse);
-        }
+        $this->assertEquals($expectedPermissions, $getResponse);
     }
 
     /**
@@ -730,11 +727,57 @@ class UserControllerTest extends WebTestCase
             User::ROLE_DEPARTMENT_MANAGER => array(
                 User::ROLE_DEPARTMENT_MANAGER,
                 array(
-                    'stores.*' => array(
+                    'catalog/groups' => array(),
+                    'categories' => array(),
+                    'categories/{category}/subcategories' => array(),
+                    'configs' => array(),
+                    'departments' => array(),
+                    'files' => array(),
+                    'groups' => array(),
+                    'integration/export/products' => array(),
+                    'invoices' => array(),
+                    'jobs' => array(
+                        'GET'
+                    ),
+                    'logs' => array(
+                        'GET'
+                    ),
+                    'organizations' => array(),
+                    'organizations/{organization}/bankAccounts' => array(),
+                    'products' => array(
+                        'GET',
+                        'GET::search',
+                        'GET::{product}',
+                    ),
+                    'roundings' => array(
+                        'GET',
+                        'GET::{name}',
+                        'POST::{name}/round',
+                    ),
+                    'stockIns' => array(),
+                    'stockMovements' => array(),
+                    'stores' => array(
                         'GET::{store}/products',
                         'GET::{store}/search/products',
+                        'GET::{store}/supplierReturns/{supplierReturn}',
+                        'POST::{store}/supplierReturns',
+                        'PUT::{store}/supplierReturns/{supplierReturn}',
                     ),
-                    'stores/{store}/orders.*' => array(
+                    'stores/{store}/categories/{category}' => array(
+                        'GET',
+                        'GET::subcategories',
+                    ),
+                    'stores/{store}/groups' => array(
+                        'GET',
+                        'GET::{group}/categories',
+                    ),
+                    'stores/{store}/invoices' => array(
+                        'GET',
+                        'GET::{invoice}',
+                        'POST',
+                        'PUT::{invoice}',
+                    ),
+                    'stores/{store}/orders' => array(
                         'DELETE::{order}',
                         'GET',
                         'GET::{order}',
@@ -743,103 +786,223 @@ class UserControllerTest extends WebTestCase
                         'POST::products',
                         'PUT::{order}',
                     ),
-                    'stores/{store}/products/{product}.*' => array(
+                    'stores/{store}/products/{product}' => array(
                         'GET',
                         'GET::invoiceProducts',
                         'GET::returnProducts',
-                        'GET::writeOffProducts'
+                        'GET::writeOffProducts',
                     ),
-                    'stores/{store}/groups.*' => array(
-                        'GET::{group}/categories',
-                        'GET'
+                    'stores/{store}/stockIns' => array(
+                        'GET',
+                        'GET::{stockIn}',
+                        'POST',
+                        'PUT::{stockIn}',
                     ),
-                    'stores/{store}/categories/{category}.*' => array(
-                        'GET::subcategories',
-                        'GET'
-                    ),
-                    'stores/{store}/subcategories/{subCategory}.*' => array(
+                    'stores/{store}/subcategories/{subCategory}' => array(
                         'GET',
                         'GET::products',
                     ),
-                    'stores/{store}/invoices.*' => array(
-                        'GET::{invoice}',
-                        'PUT::{invoice}',
+                    'stores/{store}/writeOffs' => array(
                         'GET',
-                        'POST'
-                    ),
-                    'stores/{store}/writeoffs.*' => array(
                         'GET::{writeOff}',
+                        'POST',
                         'PUT::{writeOff}',
-                        'GET',
-                        'POST'
                     ),
-                    'stores/{store}/writeoffs/{writeOff}/products.*' => array(
-                        'GET::{writeOffProduct}',
-                        'PUT::{writeOffProduct}',
-                        'DELETE::{writeOffProduct}',
-                        'GET',
-                        'POST'
+                    'subcategories' => array(
+                        'GET::{subCategory}/products'
                     ),
-                    'users.*' => array(
+                    'supplierReturns' => array(),
+                    'suppliers' => array(
+                        'GET',
+                        'GET::{supplier}',
+                    ),
+                    'suppliers/{supplier}/bankAccounts' => array(),
+                    'users' => array(
                         'GET::current',
                         'GET::permissions',
                         'GET::{user}/stores',
-                        'PUT::current'
+                        'PUT::current',
                     ),
-                    'suppliers.*' => array(
-                        'GET',
-                        'GET::{supplier}',
-                    )
+                    'users/signup' => array(
+                        'POST'
+                    ),
+                    'writeOffs' => array(),
+                    'others' => array()
                 )
             ),
             User::ROLE_STORE_MANAGER => array(
                 User::ROLE_STORE_MANAGER,
                 array(
-                    'stores.*' => array(
+                    'catalog/groups' => array(),
+                    'categories' => array(),
+                    'categories/{category}/subcategories' => array(),
+                    'configs' => array(),
+                    'departments' => array(),
+                    'files' => array(),
+                    'groups' => array(),
+                    'integration/export/products' => array(),
+                    'invoices' => array(),
+                    'jobs' => array(
+                        'GET'
+                    ),
+                    'logs' => array(
+                        'GET'
+                    ),
+                    'organizations' => array(),
+                    'organizations/{organization}/bankAccounts' => array(),
+                    'products' => array(
+                        'GET',
+                        'GET::search',
+                        'GET::{product}',
+                    ),
+                    'roundings' => array(
+                        'GET',
+                        'GET::{name}',
+                        'POST::{name}/round',
+                    ),
+                    'stockIns' => array(),
+                    'stockMovements' => array(),
+                    'stores' => array(
                         'GET::{store}/products',
                         'GET::{store}/reports/grossMargin',
                         'GET::{store}/reports/grossSales',
-                        'GET::{store}/reports/grossSalesByHours',
                         'GET::{store}/reports/grossSalesByGroups',
+                        'GET::{store}/reports/grossSalesByHours'
                     ),
-                    'stores/{store}/products/{product}.*' => array(
-                        'GET',
-                        'PUT'
-                    ),
-                    'stores/{store}/groups.*' => array(
-                        'GET::{group}/categories',
-                        'GET',
-                        'GET::{group}/reports/grossSalesByCategories',
-                    ),
-                    'stores/{store}/categories/{category}.*' => array(
-                        'GET::subcategories',
+                    'stores/{store}/categories/{category}' => array(
                         'GET',
                         'GET::reports/grossSalesBySubCategories',
+                        'GET::subcategories',
                     ),
-                    'stores/{store}/subcategories/{subCategory}.*' => array(
+                    'stores/{store}/groups' => array(
+                        'GET',
+                        'GET::{group}/categories',
+                        'GET::{group}/reports/grossSalesByCategories',
+                    ),
+                    'stores/{store}/invoices' => array(),
+                    'stores/{store}/orders' => array(),
+                    'stores/{store}/products/{product}' => array(
+                        'GET',
+                        'PUT',
+                    ),
+                    'supplierReturns' => array(),
+                    'stores/{store}/subcategories/{subCategory}' => array(
                         'GET',
                         'GET::products',
                         'GET::reports/grossSalesByProducts',
                     ),
-                    'stores/{store}/invoices.*' => array(),
-                    'stores/{store}/writeoffs.*' => array(),
-                    'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
-                    'users.*' => array(
+                    'stores/{store}/writeOffs' => array(),
+                    'subcategories' => array(
+                        'GET::{subCategory}/products'
+                    ),
+                    'stores/{store}/stockIns' => array(),
+                    'supplierReturns' => array(),
+                    'suppliers' => array(
+                        'GET',
+                        'GET::{supplier}',
+                    ),
+                    'suppliers/{supplier}/bankAccounts' => array(),
+                    'users' => array(
                         'GET::current',
                         'GET::permissions',
                         'GET::{user}/stores',
-                        'PUT::current'
+                        'PUT::current',
                     ),
-                    'suppliers.*' => array(
-                        'GET',
-                        'GET::{supplier}',
-                    )
+                    'users/signup' => array(
+                        'POST'
+                    ),
+                    'writeOffs' => array(),
+                    'others' => array()
                 )
             ),
             User::ROLE_COMMERCIAL_MANAGER => array(
                 User::ROLE_COMMERCIAL_MANAGER,
                 array(
-                    'stores.*' => array(
+                    'catalog/groups' => array(
+                        'DELETE::{catalogGroup}',
+                        'GET',
+                        'GET::{catalogGroup}',
+                        'POST',
+                        'PUT::{catalogGroup}',
+                    ),
+                    'categories' => array(
+                        'DELETE::{category}',
+                        'GET::{category}',
+                        'POST',
+                        'PUT::{category}',
+                    ),
+                    'categories/{category}/subcategories' => array(
+                        'GET'
+                    ),
+                    'configs' => array(),
+                    'departments' => array(
+                        'GET::{department}',
+                        'POST',
+                        'PUT::{department}',
+                    ),
+                    'files' => array(
+                        'POST',
+                    ),
+                    'groups' => array(
+                        'DELETE::{group}',
+                        'GET',
+                        'GET::{group}',
+                        'GET::{group}/categories',
+                        'POST',
+                        'PUT::{group}',
+                    ),
+                    'integration/export/products' => array(
+                        'GET'
+                    ),
+                    'invoices' => array(
+                        'DELETE::{invoice}',
+                        'GET::{invoice}',
+                        'POST',
+                        'PUT::{invoice}',
+                    ),
+                    'jobs' => array(
+                        'GET'
+                    ),
+                    'logs' => array(
+                        'GET'
+                    ),
+                    'organizations' => array(
+                        'GET',
+                        'GET::{organization}',
+                        'PATCH::{organization}',
+                        'POST',
+                        'PUT::{organization}',
+                    ),
+                    'organizations/{organization}/bankAccounts' => array(
+                        'GET',
+                        'GET::{bankAccount}',
+                        'POST',
+                        'PUT::{bankAccount}',
+                    ),
+                    'products' => array(
+                        'DELETE::{product}',
+                        'GET',
+                        'GET::search',
+                        'GET::{product}',
+                        'POST',
+                        'PUT::{product}',
+                        'PUT::{product}/barcodes',
+                    ),
+                    'roundings' => array(
+                        'GET',
+                        'GET::{name}',
+                        'POST::{name}/round',
+                    ),
+                    'stockIns' => array(
+                        'DELETE::{stockIn}',
+                        'GET::{stockIn}',
+                        'POST',
+                        'PUT::{stockIn}',
+                    ),
+                    'stockMovements' => array(
+                        'GET'
+                    ),
+                    'stores' => array(
                         'GET',
                         'GET::{store}',
                         'GET::{store}/departmentManagers',
@@ -848,57 +1011,126 @@ class UserControllerTest extends WebTestCase
                         'LINK::{store}',
                         'POST',
                         'PUT::{store}',
-                        'UNLINK::{store}'
+                        'UNLINK::{store}',
                     ),
-                    'stores/{store}/products/{product}.*' => array(),
-                    'stores/{store}/groups.*' => array(),
-                    'stores/{store}/categories/{category}.*' => array(),
-                    'stores/{store}/subcategories/{subCategory}.*' => array(),
-                    'stores/{store}/invoices.*' => array(),
-                    'stores/{store}/writeoffs.*' => array(),
-                    'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
-                    'users.*' => array(
-                        'GET::current',
-                        'GET::permissions',
-                        'GET::{user}',
-                        'PUT::current'
+                    'stores/{store}/categories/{category}' => array(),
+                    'stores/{store}/groups' => array(),
+                    'stores/{store}/invoices' => array(),
+                    'stores/{store}/orders' => array(),
+                    'stores/{store}/products/{product}' => array(),
+                    'stores/{store}/stockIns' => array(),
+                    'stores/{store}/subcategories/{subCategory}' => array(),
+                    'stores/{store}/writeOffs' => array(),
+                    'subcategories' => array(
+                        'DELETE::{subCategory}',
+                        'GET::{subCategory}',
+                        'GET::{subCategory}/products',
+                        'POST',
+                        'PUT::{subCategory}',
                     ),
-                    'suppliers.*' => array(
+                    'supplierReturns' => array(
+                        'DELETE::{supplierReturn}',
+                        'GET::{supplierReturn}',
+                        'POST',
+                        'PUT::{supplierReturn}',
+                    ),
+                    'suppliers' => array(
                         'GET',
                         'GET::{supplier}',
                         'PATCH::{supplier}',
                         'POST',
                         'PUT::{supplier}',
                     ),
-                    'organizations.*' => array(
+                    'suppliers/{supplier}/bankAccounts' => array(
                         'GET',
-                        'GET::{organization}',
-                        'PATCH::{organization}',
+                        'GET::{bankAccount}',
                         'POST',
-                        'PUT::{organization}',
+                        'PUT::{bankAccount}',
+                    ),
+                    'users' => array(
+                        'GET::current',
+                        'GET::permissions',
+                        'GET::{user}',
+                        'PUT::current',
+                    ),
+                    'users/signup' => array(
+                        'POST'
+                    ),
+                    'writeOffs' => array(
+                        'DELETE::{writeOff}',
+                        'GET::{writeOff}',
+                        'POST',
+                        'PUT::{writeOff}',
+                    ),
+                    'others' => array(
+                        'GET::api/1/reports/grossMargin',
+                        'GET::api/1/reports/grossSales',
+                        'GET::api/1/reports/grossSalesByStores'
                     )
                 )
             ),
             User::ROLE_ADMINISTRATOR => array(
                 User::ROLE_ADMINISTRATOR,
                 array(
-                    'stores.*' => array(),
-                    'stores/{store}/products/{product}.*' => array(),
-                    'stores/{store}/groups.*' => array(),
-                    'stores/{store}/categories/{category}.*' => array(),
-                    'stores/{store}/subcategories/{subCategory}.*' => array(),
-                    'stores/{store}/invoices.*' => array(),
-                    'stores/{store}/writeoffs.*' => array(),
-                    'stores/{store}/writeoffs/{writeOff}/products.*' => array(),
-                    'users.*' => array(
+                    'catalog/groups' => array(),
+                    'categories' => array(),
+                    'categories/{category}/subcategories' => array(),
+                    'configs' => array(
+                        'GET',
+                        'GET::by/name',
+                        'GET::{config}',
+                        'POST',
+                        'PUT::{config}'
+                    ),
+                    'departments' => array(),
+                    'files' => array(),
+                    'groups' => array(),
+                    'integration/export/products' => array(),
+                    'invoices' => array(),
+                    'jobs' => array(
+                        'GET'
+                    ),
+                    'logs' => array(
+                        'GET'
+                    ),
+                    'organizations' => array(),
+                    'organizations/{organization}/bankAccounts' => array(),
+                    'products' => array(),
+                    'roundings' => array(
+                        'GET',
+                        'GET::{name}',
+                        'POST::{name}/round',
+                    ),
+                    'stockIns' => array(),
+                    'stockMovements' => array(),
+                    'stores' => array(),
+                    'stores/{store}/categories/{category}' => array(),
+                    'stores/{store}/groups' => array(),
+                    'stores/{store}/invoices' => array(),
+                    'stores/{store}/orders' => array(),
+                    'stores/{store}/products/{product}' => array(),
+                    'stores/{store}/stockIns' => array(),
+                    'stores/{store}/subcategories/{subCategory}' => array(),
+                    'stores/{store}/writeOffs' => array(),
+                    'subcategories' => array(),
+                    'supplierReturns' => array(),
+                    'suppliers' => array(),
+                    'suppliers/{supplier}/bankAccounts' => array(),
+                    'users' => array(
+                        'GET',
                         'GET::current',
                         'GET::permissions',
-                        'GET',
                         'GET::{user}',
                         'POST',
                         'PUT::current',
-                        'PUT::{user}'
-                    )
+                        'PUT::{user}',
+                    ),
+                    'users/signup' => array(
+                        'POST'
+                    ),
+                    'writeOffs' => array(),
+                    'supplierReturns' => array(),
+                    'others' => array()
                 )
             )
         );
@@ -944,25 +1176,13 @@ class UserControllerTest extends WebTestCase
 
     protected function doPostActionFlushFailedException(\Exception $exception)
     {
-        $userData = array(
-            'email'     => 'test@test.com',
-            'name'      => 'Вася пупкин',
-            'position'  => 'Комерческий директор',
-            'roles'      => array(User::ROLE_COMMERCIAL_MANAGER),
-            'password'  => 'qwerty',
-        );
-
-        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
-
         $user = new User();
 
-        $documentManagerMock = $this->getMock(
-            'Doctrine\\ODM\\MongoDB\\DocumentManager',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $documentManagerMock = $this
+            ->getMockBuilder('Doctrine\\ODM\\MongoDB\\DocumentManager')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $documentManagerMock
             ->expects($this->once())
             ->method('persist');
@@ -973,13 +1193,10 @@ class UserControllerTest extends WebTestCase
             ->with($this->isEmpty())
             ->will($this->throwException($exception));
 
-        $userRepoMock = $this->getMock(
-            'Lighthouse\\CoreBundle\\Document\\User\\UserRepository',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $userRepoMock = $this
+            ->getMockBuilder('Lighthouse\\CoreBundle\\Document\\User\\UserRepository')
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $userRepoMock
             ->expects($this->once())
@@ -995,16 +1212,6 @@ class UserControllerTest extends WebTestCase
                 $container->set('lighthouse.core.document.repository.user', $userRepoMock);
             }
         );
-
-        $this->client->setCatchException();
-        $response = $this->clientJsonRequest(
-            $accessToken,
-            'POST',
-            '/api/1/users',
-            $userData
-        );
-
-        return $response;
     }
 
     /**
@@ -1013,7 +1220,25 @@ class UserControllerTest extends WebTestCase
     public function testPostActionFlushFailedException()
     {
         $exception = new Exception('Unknown exception');
-        $response = $this->doPostActionFlushFailedException($exception);
+        $this->doPostActionFlushFailedException($exception);
+
+        $userData = array(
+            'email'     => 'test@test.com',
+            'name'      => 'Вася пупкин',
+            'position'  => 'Комерческий директор',
+            'roles'      => array(User::ROLE_COMMERCIAL_MANAGER),
+            'password'  => 'qwerty',
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
+
+        $this->client->setCatchException();
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/users',
+            $userData
+        );
 
         $this->assertResponseCode(500);
         Assert::assertJsonPathEquals('Unknown exception', 'message', $response);
@@ -1025,7 +1250,25 @@ class UserControllerTest extends WebTestCase
     public function testPostActionFlushFailedMongoDuplicateKeyException()
     {
         $exception = new MongoDuplicateKeyException();
-        $response = $this->doPostActionFlushFailedException($exception);
+        $this->doPostActionFlushFailedException($exception);
+
+        $userData = array(
+            'email'     => 'test@test.com',
+            'name'      => 'Вася пупкин',
+            'position'  => 'Комерческий директор',
+            'roles'      => array(User::ROLE_COMMERCIAL_MANAGER),
+            'password'  => 'qwerty',
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsRole(User::ROLE_ADMINISTRATOR);
+
+        $this->client->setCatchException();
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            '/api/1/users',
+            $userData
+        );
 
         $this->assertResponseCode(400);
         Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
@@ -1166,6 +1409,57 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseCode(200);
         Assert::assertJsonHasPath('access_token', $jsonResponse);
         Assert::assertJsonHasPath('refresh_token', $jsonResponse);
+    }
+
+    /**
+     * @group unique
+     */
+    public function testPostSignupActionFlushFailedException()
+    {
+        $this->doPostActionFlushFailedException(new Exception('Unknown exception'));
+
+        $userData = array(
+            'email' => 'test@test.com',
+        );
+
+        $this->client->setCatchException();
+        $response = $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/signup',
+            $userData
+        );
+
+        $this->assertResponseCode(500);
+        Assert::assertJsonPathEquals('Unknown exception', 'message', $response);
+    }
+
+    /**
+     * @group unique
+     */
+    public function testPostSignupActionFlushFailedMongoDuplicateKeyException()
+    {
+        $this->doPostActionFlushFailedException(new MongoDuplicateKeyException());
+
+        $userData = array(
+            'email' => 'test@test.com',
+        );
+
+        $this->client->setCatchException();
+        $response = $this->clientJsonRequest(
+            null,
+            'POST',
+            '/api/1/users/signup',
+            $userData
+        );
+
+        $this->assertResponseCode(400);
+        Assert::assertJsonPathEquals('Validation Failed', 'message', $response);
+        Assert::assertJsonPathEquals(
+            'Пользователь с таким email уже существует',
+            'errors.children.email.errors.0',
+            $response
+        );
     }
 
     public function testGetCurrentAfterSignupAction()

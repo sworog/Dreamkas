@@ -110,7 +110,7 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void assertCreateGroupModalPageTitle(String title) {
-        assertThat(createGroupModalPage.getTitleText(), is(title));
+        assertThat(createGroupModalPage.getTitle(), is(title));
     }
 
     @Step
@@ -132,7 +132,7 @@ public class CatalogSteps extends ScenarioSteps {
 
     @Step
     public void assertEditGroupModalPageTitle(String title) {
-        assertThat(editGroupModalPage.getTitleText(), is(title));
+        assertThat(editGroupModalPage.getTitle(), is(title));
     }
 
     @Step

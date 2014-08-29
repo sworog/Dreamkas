@@ -2,20 +2,14 @@ package project.lighthouse.autotests.common;
 
 import net.thucydides.core.webdriver.WebDriverFacade;
 import org.hamcrest.Matchers;
-import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import project.lighthouse.autotests.Waiter;
-import project.lighthouse.autotests.helper.StringGenerator;
-
-import java.util.List;
-import java.util.Map;
 
 import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertTrue;
 import static org.junit.Assert.assertThat;
 
 public class CommonActions {
@@ -46,100 +40,14 @@ public class CommonActions {
             } else if (isStrangeFirefoxBehaviour(e)) {
                 defaultInput(elementName, inputText);
             } else {
-                throw e;
+                String message = String.format("Failed with input in element with name '%s' with text '%s': %s", elementName, inputText, e.getMessage());
+                throw new AssertionError(message);
             }
         }
     }
 
     private void defaultInput(String elementName, String inputText) {
         pageObject.getItems().get(elementName).setValue(inputText);
-    }
-
-    public void inputTable(ExamplesTable fieldInputTable) {
-        for (Map<String, String> row : fieldInputTable.getRows()) {
-            String elementName = row.get("elementName");
-            String inputText = row.get("value");
-            if (row.containsKey("repeat")) {
-                Integer count = Integer.parseInt(row.get("repeat"));
-                inputText = new StringGenerator(count).generateString(inputText);
-            }
-            input(elementName, inputText);
-        }
-    }
-
-    public void checkElementValue(String elementName, String expectedValue) {
-        checkElementValue("", elementName, expectedValue);
-    }
-
-    public void checkElementValue(String checkType, String elementName, String expectedValue) {
-        try {
-            defaultCheckElementValue(checkType, elementName, expectedValue);
-        } catch (Exception e) {
-            if (isSkippableException(e, false)) {
-                checkElementValue(checkType, elementName, expectedValue);
-            } else if (isStrangeFirefoxBehaviour(e)) {
-                defaultCheckElementValue(checkType, elementName, expectedValue);
-            } else {
-                throw e;
-            }
-        }
-    }
-
-    private void defaultCheckElementValue(String checkType, String elementName, String expectedValue) {
-        WebElement element;
-        By findBy;
-        if (checkType.isEmpty()) {
-            findBy = pageObject.getItems().get(elementName).getFindBy();
-            element = waiter.getVisibleWebElement(findBy);
-        } else {
-            By parentFindBy = pageObject.getItems().get(checkType).getFindBy();
-            WebElement parent = waiter.getVisibleWebElement(parentFindBy);
-            element = pageObject.getItems().get(elementName).getWebElement(parent);
-        }
-        shouldContainsText(elementName, element, expectedValue);
-    }
-
-    public void checkElementText(String elementName, String expectedValue) {
-        try {
-            WebElement element = pageObject.getItems().get(elementName).getOnlyVisibleWebElement();
-            shouldContainsText(elementName, element, expectedValue);
-        } catch (Exception e) {
-            if (isSkippableException(e, false)) {
-                checkElementText(elementName, expectedValue);
-            } else {
-                throw e;
-            }
-        }
-    }
-
-    public void checkElementValue(String checkType, List<Map<String, String>> checkValuesList) {
-        for (Map<String, String> row : checkValuesList) {
-            String elementName = row.get("elementName");
-            String expectedValue = row.get("value");
-            checkElementValue(checkType, elementName, expectedValue);
-        }
-    }
-
-    public void checkElementValue(String checkType, ExamplesTable examplesTable) {
-        checkElementValue(checkType, examplesTable.getRows());
-    }
-
-    public void elementShouldBeVisible(String value, CommonView commonView) {
-        WebElement element = commonView.getWebElementItem(value);
-        try {
-            waiter.getVisibleWebElement(element);
-        } catch (Exception e) {
-            if (isSkippableException(e)) {
-                elementShouldBeVisible(value, commonView);
-            } else {
-                throw e;
-            }
-        }
-    }
-
-    public void elementClick(String elementName) {
-        By findBy = pageObject.getItems().get(elementName).getFindBy();
-        elementClick(findBy);
     }
 
     public Capabilities getCapabilities() {
@@ -255,22 +163,6 @@ public class CommonActions {
 
     public Boolean webElementHasTagName(By findBy, String expectedTagName) {
         return waiter.getOnlyVisibleElementFromTheList(findBy).getTagName().equals(expectedTagName);
-    }
-
-    public void shouldContainsText(String elementName, WebElement element, String expectedValue) {
-        String actualValue;
-        switch (element.getTagName()) {
-            case "input":
-                actualValue = pageObject.$(element).getValue();
-                break;
-            default:
-                actualValue = pageObject.$(element).getText();
-                break;
-        }
-        assertTrue(
-                String.format("Element '%s' doesnt contain '%s'. It contains '%s'", elementName, expectedValue, actualValue),
-                actualValue.contains(expectedValue)
-        );
     }
 
     public void checkDropDownDefaultValue(WebElement dropDownElement, String expectedValue) {

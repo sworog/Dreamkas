@@ -35,7 +35,9 @@ abstract class AbstractDocument implements ClassNameable
      */
     public function __isset($name)
     {
-        if (property_exists($this, $name) && null !== $this->$name) {
+        if (method_exists($this, 'isset' . $name)) {
+            return $this->{'isset' . $name}();
+        } elseif (property_exists($this, $name) && null !== $this->$name) {
             return true;
         } else {
             return false;

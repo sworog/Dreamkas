@@ -21,7 +21,15 @@ public class Storage {
         return Injectors.getInjector().getInstance(InvoiceVariableStorage.class);
     }
 
+    public static StockMovementVariableStorage getStockMovementVariableStorage() {
+        return Injectors.getInjector().getInstance(StockMovementVariableStorage.class);
+    }
+
     public static CustomVariableStorage getCustomVariableStorage() {
         return Injectors.getInjector().getInstance(CustomVariableStorage.class);
+    }
+
+    public static CurrentPageObjectStorage getCurrentPageObjectStorage() {
+        return Injectors.getInjector().getInstance(CurrentPageObjectStorage.class);
     }
 }

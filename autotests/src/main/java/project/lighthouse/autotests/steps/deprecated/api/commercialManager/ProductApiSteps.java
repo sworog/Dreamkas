@@ -4,15 +4,12 @@ import net.thucydides.core.annotations.Step;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.api.ApiConnect;
-import project.lighthouse.autotests.api.factories.ExtraBarcodeFactory;
 import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.SubCategory;
-import project.lighthouse.autotests.objects.api.product.ExtraBarcode;
 import project.lighthouse.autotests.storage.Storage;
 import project.lighthouse.autotests.storage.containers.user.UserContainer;
 
 import java.io.IOException;
-import java.util.List;
 
 public class ProductApiSteps extends OwnerApi {
 
@@ -219,11 +216,5 @@ public class ProductApiSteps extends OwnerApi {
     public void navigateToTheProductPage(String productName) throws JSONException {
         String productPageUrl = apiConnect.getProductPageUrl(productName);
         getDriver().navigate().to(productPageUrl);
-    }
-
-    @Step
-    public void addProductExtraBarcodes(Product product, List<ExtraBarcode> extraBarcodes) throws IOException, JSONException {
-        new ExtraBarcodeFactory("commercialManager", "lighthouse").addProductExtraBarcodes(product, extraBarcodes);
-        Storage.getCustomVariableStorage().getExtraBarcodes().clear();
     }
 }

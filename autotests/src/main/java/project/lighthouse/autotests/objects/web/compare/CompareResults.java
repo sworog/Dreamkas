@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.objects.web.compare;
 
-import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ public class CompareResults extends ArrayList<CompareResult> {
         String normalizedExpectedValue = normalizeExpectedValue(expectedValue);
         if (!actualValue.equals(normalizedExpectedValue)) {
             this.add(
-                new CompareResult(rowName, actualValue, normalizedExpectedValue)
+                    new CompareResult(rowName, actualValue, normalizedExpectedValue)
             );
         }
         return this;

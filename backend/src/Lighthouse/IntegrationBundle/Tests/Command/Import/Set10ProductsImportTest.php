@@ -158,13 +158,10 @@ class Set10ProductsImportTest extends ContainerAwareTestCase
         $file = $expectedFile = $this->getFixtureFilePath('Set10/Import/Products/goods.xml');
 
         /* @var $importer Set10ProductImporter|\PHPUnit_Framework_MockObject_MockObject */
-        $importer = $this->getMock(
-            'Lighthouse\\IntegrationBundle\\Set10\\Import\\Products\\Set10ProductImporter',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $importer = $this
+            ->getMockBuilder('Lighthouse\\IntegrationBundle\\Set10\\Import\\Products\\Set10ProductImporter')
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $importer
             ->expects($this->once())

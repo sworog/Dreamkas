@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonItem;
+import project.lighthouse.autotests.elements.items.SelectByVisibleText;
 import project.lighthouse.autotests.elements.items.autocomplete.AutoComplete;
 
 public class FieldErrorChecker {
@@ -22,6 +23,8 @@ public class FieldErrorChecker {
             WebElement fieldWebElement = commonItem.getVisibleWebElement();
             if (commonItem instanceof AutoComplete) {
                 actualFieldErrorMessage = fieldWebElement.findElement(By.xpath("./../../*[contains(@class, 'form__errorMessage')]")).getText();
+            } else if (commonItem instanceof SelectByVisibleText) {
+                actualFieldErrorMessage = fieldWebElement.findElement(By.xpath("./../div[contains(@class, 'form__errorMessage')]")).getText();
             } else {
                 actualFieldErrorMessage = fieldWebElement.findElement(By.xpath("./..")).getText();
             }

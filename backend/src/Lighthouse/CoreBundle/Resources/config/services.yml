@@ -77,17 +77,55 @@ services:
         arguments:
             - LighthouseCoreBundle:StockMovement\Invoice\Product\InvoiceProduct
 
-    lighthouse.core.document.repository.trial_balance:
+    lighthouse.core.document.repository.stock_movement.writeoff:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository
+        class: Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffRepository
         arguments:
-            - LighthouseCoreBundle:TrialBalance\TrialBalance
+            - LighthouseCoreBundle:StockMovement\WriteOff\WriteOff
+        calls:
+            - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
+
+    lighthouse.core.document.repository.stock_movement.writeoff_product:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProductRepository
+        arguments:
+            - LighthouseCoreBundle:StockMovement\WriteOff\Product\WriteOffProduct
+
+    lighthouse.core.document.repository.stock_movement.stockin:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockInRepository
+        arguments:
+            - LighthouseCoreBundle:StockMovement\StockIn\StockIn
+        calls:
+            - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
+
+    lighthouse.core.document.repository.stock_movement.stockin_product:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\StockMovement\StockIn\Product\StockInProductRepository
+        arguments:
+            - LighthouseCoreBundle:StockMovement\StockIn\Product\StockInProduct
+            
+    lighthouse.core.document.repository.stock_movement.supplierreturn:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturnRepository
+        arguments:
+            - LighthouseCoreBundle:StockMovement\SupplierReturn\SupplierReturn
+        calls:
+            - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
+    
+    lighthouse.core.document.repository.stock_movement.supplierreturn_product:
+        parent: doctrine_mongodb.odm.repository
+        class: Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\Product\SupplierReturnProductRepository
+        arguments:
+            - LighthouseCoreBundle:StockMovement\SupplierReturn\Product\SupplierReturnProduct
 
     lighthouse.core.document.repository.receipt:
         parent: doctrine_mongodb.odm.repository
         class: Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository
         arguments:
             - LighthouseCoreBundle:StockMovement\Receipt
+        calls:
+            - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
 
     lighthouse.core.document.repository.return.product:
         parent: doctrine_mongodb.odm.repository
@@ -95,17 +133,11 @@ services:
         arguments:
             - LighthouseCoreBundle:StockMovement\Returne\Product\ReturnProduct
 
-    lighthouse.core.document.repository.stock_movement.writeoff:
+    lighthouse.core.document.repository.trial_balance:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffRepository
+        class: Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository
         arguments:
-            - LighthouseCoreBundle:StockMovement\WriteOff\WriteOff
-
-    lighthouse.core.document.repository.stock_movement.writeoff_product:
-        parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProductRepository
-        arguments:
-            - LighthouseCoreBundle:StockMovement\WriteOff\Product\WriteOffProduct
+            - LighthouseCoreBundle:TrialBalance\TrialBalance
 
     lighthouse.core.document.repository.classifier.group:
         parent: doctrine_mongodb.odm.repository

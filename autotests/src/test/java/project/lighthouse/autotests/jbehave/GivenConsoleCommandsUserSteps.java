@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.jbehave;
 
 import net.thucydides.core.annotations.Steps;
+import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +25,7 @@ public class GivenConsoleCommandsUserSteps {
     }
 
     @Given("the user runs the symfony:env:init command")
+    @Alias("пользователь запускает консольную команду для очищения всех данных")
     public void givenTheUserRunsTheSymfonyEnvInitCommand() throws IOException, InterruptedException {
         consoleCommandSteps.runCapAutoTestSymfonyEnvInitCommand();
         StaticData.clear();
@@ -35,6 +37,7 @@ public class GivenConsoleCommandsUserSteps {
     }
 
     @Given("the user runs the symfony:user:create command with params: email '$email' and password '$password'")
+    @Alias("пользователь запускает консольную команду для создания пользователя с параметрами: адрес электронной почты '$email' и пароль '$password'")
     public void givenTheUserRunsTheSymfonyUserCreateCommandWithParams(String email, String password) throws IOException, InterruptedException, JSONException {
         UserContainerList userContainers = Storage.getUserVariableStorage().getUserContainers();
         if (!userContainers.hasContainerWithEmail(email)) {

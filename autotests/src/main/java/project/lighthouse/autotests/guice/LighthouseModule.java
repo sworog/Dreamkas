@@ -2,6 +2,7 @@ package project.lighthouse.autotests.guice;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
+import project.lighthouse.autotests.storage.CurrentPageObjectStorage;
 import project.lighthouse.autotests.storage.variable.*;
 
 public class LighthouseModule extends AbstractModule {
@@ -13,5 +14,7 @@ public class LighthouseModule extends AbstractModule {
         bind(StoreVariableStorage.class).in(Singleton.class);
         bind(InvoiceVariableStorage.class).in(Singleton.class);
         bind(CustomVariableStorage.class).in(Singleton.class);
+        bind(StockMovementVariableStorage.class).in(Singleton.class);
+        bind(CurrentPageObjectStorage.class).in(Singleton.class);
     }
 }

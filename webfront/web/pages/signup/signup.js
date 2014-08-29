@@ -1,15 +1,11 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/page/page');
+    var Page = require('kit/page/page.deprecated');
 
     return Page.extend({
         template: require('ejs!./template.ejs'),
         blocks: {
-            form_signup: function(){
-                var Block = require('blocks/form/form_signup/form_signup');
-
-                return new Block();
-            }
+            form_signup: require('blocks/form/form_signup/form_signup')
         }
     });
 });

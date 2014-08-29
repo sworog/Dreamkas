@@ -1,20 +1,14 @@
 define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block'),
-        Error = require('blocks/error/error'),
         router = require('router'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         _ = require('lodash');
 
-    require('sortable');
-
-    var Page = Block.extend({
+    return Block.extend({
 
         el: '.page',
         template: require('ejs!./template.ejs'),
-
-        collections: {},
-        models: {},
 
         activeNavigationItem: 'main',
 
@@ -28,30 +22,11 @@ define(function(require, exports, module) {
             page.setStatus('starting');
             page.setStatus('loading');
 
-            page.collections = _.transform(page.collections, function(result, collectionInitializer, key) {
-                result[key] = page.get('collections.' + key);
-            });
-
-            page.models = _.transform(page.models, function(result, modelInitializer, key) {
-                result[key] = page.get('models.' + key);
-            });
-
-            Page.previous = Page.current;
-            window.PAGE = Page.current = page;
-
-            if (Page.previous){
-                Page.previous.destroy();
-            }
+            page.initResources();
 
             $.when(page.fetch()).then(function() {
-                try {
-                    page.render();
-                    page.setStatus('loaded');
-                } catch (error) {
-                    page.throw(error);
-                }
-            }, function(error) {
-                page.throw(error);
+                page.render();
+                page.setStatus('loaded');
             });
         },
 
@@ -59,9 +34,11 @@ define(function(require, exports, module) {
             var page = this,
                 autofocus;
 
-            if (Page.previous){
-                Page.previous.removeBlocks();
+            if (window.PAGE && window.PAGE !== page){
+                window.PAGE.remove();
             }
+
+            window.PAGE = page;
 
             Block.prototype.render.apply(page, arguments);
 
@@ -75,43 +52,13 @@ define(function(require, exports, module) {
 
         },
 
-        fetch: function(dataList) {
+        remove: function(){
             var page = this;
 
-            dataList = dataList || _.values(page.collections).concat(_.filter(page.models, function(model) {
-                return model && model.id;
-            }));
-
-            var fetchList = _.map(dataList, function(data) {
-                return (data && typeof data.fetch === 'function') ? data.fetch() : data;
-            });
-
-            return $.when.apply($, fetchList);
-        },
-
-        destroy: function(){
-            var page = this;
-
-            _.forEach(page.models, function(model){
-                if (null !== model) {
-                    model.off && model.off();
-                    model.stopListening && model.stopListening();
-                }
-            });
-
-            _.forEach(page.collections, function(collection){
-                collection.off && collection.off();
-                collection.stopListening && collection.stopListening();
-            });
-
-            page.undelegateEvents();
             page.stopListening();
-        },
+            page.undelegateEvents();
 
-        throw: function(error){
-            new Error({
-                jsError: error
-            });
+            page.removeBlocks();
         },
 
         setStatus: function(status){
@@ -119,7 +66,7 @@ define(function(require, exports, module) {
 
             page.trigger('status:' + status);
 
-            if (status === 'loading' && Page.current){
+            if (status === 'loading' && window.PAGE){
                 document.body.removeAttribute('status');
             }
 
@@ -128,18 +75,16 @@ define(function(require, exports, module) {
             }, 0);
         },
 
-        initBlocks: function(){
+        setParams: function(params){
             var page = this;
 
-            page.$('button[data-toggle="popover"]').popover({
-                trigger: 'focus'
-            });
+            deepExtend(page.params, params);
 
-            Sortable.init();
+            router.save(_.transform(page.params, function(result, value, key){
+                result[key] = _.isPlainObject(value) ? JSON.stringify(value) : value;
+            }));
 
-            Block.prototype.initBlocks.apply(page, arguments);
+            page.render();
         }
     });
-
-    return Page;
 });

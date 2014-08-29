@@ -12,13 +12,11 @@ class OneCInvoicesImportTest extends ContainerAwareTestCase
     public function testExecute()
     {
         /* @var InvoicesImporter|\PHPUnit_Framework_MockObject_MockObject $importerMock */
-        $importerMock = $this->getMock(
-            'Lighthouse\\IntegrationBundle\\OneC\\Import\\Invoices\\InvoicesImporter',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $importerMock = $this
+            ->getMockBuilder('Lighthouse\\IntegrationBundle\\OneC\\Import\\Invoices\\InvoicesImporter')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $importerMock
             ->expects($this->once())
             ->method('import')
@@ -44,13 +42,11 @@ class OneCInvoicesImportTest extends ContainerAwareTestCase
     public function testExecuteWithDates()
     {
         /* @var InvoicesImporter|\PHPUnit_Framework_MockObject_MockObject $importerMock */
-        $importerMock = $this->getMock(
-            'Lighthouse\\IntegrationBundle\\OneC\\Import\\Invoices\\InvoicesImporter',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $importerMock = $this
+            ->getMockBuilder('Lighthouse\\IntegrationBundle\\OneC\\Import\\Invoices\\InvoicesImporter')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $importerMock
             ->expects($this->once())
             ->method('import')

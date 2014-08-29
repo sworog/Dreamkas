@@ -4,7 +4,10 @@ import org.json.JSONException;
 import project.lighthouse.autotests.helper.ObjectsFactory;
 import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.Supplier;
-import project.lighthouse.autotests.objects.api.invoice.Invoice;
+import project.lighthouse.autotests.api.objects.stockmovement.invoice.Invoice;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class InvoiceVariableStorage {
 
@@ -20,6 +23,8 @@ public class InvoiceVariableStorage {
     private Invoice invoice;
 
     private Integer number = 10000;
+
+    private List<Invoice> invoiceList = new ArrayList<>();
 
     public InvoiceVariableStorage() throws JSONException {
         supplier = ObjectsFactory.getSupplierObject();
@@ -120,5 +125,9 @@ public class InvoiceVariableStorage {
 
     public Invoice getInvoiceForInvoiceBuilderSteps() {
         return invoice;
+    }
+
+    public List<Invoice> getInvoiceList() {
+        return invoiceList;
     }
 }

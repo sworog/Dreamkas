@@ -1,0 +1,269 @@
+<% var InvoiceModel = require('models/invoice/invoice') %>
+<% var GroupsCollection = require('collections/groups/groups') %>
+<% var partials = {
+    form_supplier: require('ejs!blocks/form/form_supplier/template.ejs'),
+    select_suppliers: require('ejs!blocks/select/select_suppliers/template.ejs'),
+    invoiceProducts: require('ejs!blocks/form/form_invoiceProducts/invoiceProducts.ejs'),
+    form_product: require('ejs!blocks/form/form_product/form_product.ejs')
+} %>
+<% var helpers = {
+    formatMoney: require('kit/formatMoney/formatMoney'),
+    formatAmount: require('kit/formatAmount/formatAmount'),
+    formatDate: require('kit/formatDate/formatDate')
+} %>
+<% var models = _.extend({
+    invoice: new InvoiceModel()
+}, models) %>
+<% var collections = _.extend({
+    groups: new GroupsCollection()
+}, collections) %>
+
+<div block="<%- models.invoice.id ? 'modal_invoiceEdit' : 'modal_invoiceAdd' %>" id="<%- models.invoice.id ? 'modal_invoiceEdit' : 'modal_invoiceAdd' %>"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="modal-default-label"
+     aria-hidden="true"
+     class="modal modal_invoice fade"
+     style="display: none;">
+    <div class="modal__dialog_visible modal__dialog_invoice modal-dialog modal-wide-width">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a type="button"
+                   data-dismiss="modal"
+                   aria-hidden="true"
+                   class="close pull-left fa fa-times"></a>
+
+                <button form="<%- models.invoice.id ? 'form_invoiceEdit' : 'form_invoiceAdd' %>"
+                        type="submit"
+                        class="btn btn-primary pull-right">
+                    <%- models.invoice.id ? 'Сохранить' : 'Принять' %>
+                </button>
+
+                <h4 class="modal-title">
+                    <%- models.invoice.id ? 'Редактирование приёмки товаров от поставщика' : 'Приёмка товаров от поставщика' %>
+                </h4>
+
+                <span class="clearfix"></span>
+            </div>
+            <div class="modal-body">
+                <form id="<%- models.invoice.id ? 'form_invoiceEdit' : 'form_invoiceAdd' %>" class="form form_invoice">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label class="control-label">Дата *</label>
+
+                                <div class="input-group date">
+                                    <input name="date"
+                                           type="text"
+                                           class="form-control inputDate"
+                                           value="<%- models.invoice.get('date') ? helpers.formatDate(models.invoice.get('date')) : helpers.formatDate(new Date()) %>">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label class="control-label">Магазин *</label>
+
+                                <div class="input-icon right">
+                                    <select class="form-control" name="store">
+                                        <option value="" selected disabled>Выберите магазин</option>
+                                        <% collections.stores.forEach(function(storeModel){ %>
+                                        <option <%- models.invoice.get('store.id') === storeModel.id ? 'selected' : '' %>
+                                                value="<%- storeModel.id %>"><%- storeModel.get('name') %>
+                                        </option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label class="control-label">Поставщик</label>
+
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <%= partials.select_suppliers({
+                                            collections: {
+                                                suppliers: collections.suppliers
+                                            },
+                                            selected: models.invoice.get('supplier.id')
+                                        }) %>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <a style="font-size: 20px; position: relative; top: 10px; left: -10px; cursor: pointer;"
+                                           class="addSupplierLink fa fa-plus"></a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox">
+                            <input tabindex="5"
+                                   type="checkbox"
+                                   name="paid"
+                                   value="true" <%- models.invoice.get('paid') ? 'checked' : '' %>/>
+                            <span class="checkbox__text">
+                                Оплачено
+                            </span>
+                        </label>
+                    </div>
+                </form>
+
+                <hr style="margin: 0 -65px;"/>
+                <h3>Товары</h3>
+
+                <form class="form_invoiceProducts">
+                    <table class="table_invoiceProducts table table-vcenter" style="margin: 0 -10px;">
+                        <thead>
+                        <tr>
+                            <th>Наименование</th>
+                            <th style="white-space: nowrap; width: 1px;">Цена, <i class="fa fa-rub"></i></th>
+                            <th style="width: 1px;">Кол-во</th>
+                            <th style="white-space: nowrap; width: 1px;">Сумма, <i class="fa fa-rub"></i></th>
+                            <th style="width: 1px;"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                            <%= partials.invoiceProducts({
+                                collections: {
+                                    invoiceProducts: models.invoice.collections.products
+                                }
+                            }) %>
+
+                        </tbody>
+                        <tfoot>
+
+                        <tr class="invoiceProductForm">
+                            <td>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <input name="product.name"
+                                               type="text"
+                                               class="form-control autocomplete autocomplete_products">
+                                        <input type="hidden" name="product.id" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <a style="font-size: 20px; position: relative; top: 10px; left: -10px; cursor: pointer;"
+                                           class="addProductLink fa fa-plus"></a>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <input name="priceEntered"
+                                       type="text"
+                                       style="width: 100px;"
+                                       class="form-control">
+                            </td>
+                            <td>
+                                <div style="white-space: nowrap">
+                                    <input name="quantity"
+                                           type="text"
+                                           style="width: 80px; display: inline-block;"
+                                           class="form-control">
+                                    <span style="position: relative; padding: 0 5px;" class="product__units">шт.</span>
+                                </div>
+                            </td>
+                            <td>
+                                <span style="white-space: nowrap; min-width: 100px; position: relative; top: 7px;" class="totalSum"></span>
+                            </td>
+                            <td>
+                                <button type="submit"
+                                   style="margin-top: 0;"
+                                   class="addInvoiceProduct btn btn-default fa fa-check btn-lg"></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                Итого
+                            </td>
+                            <td class="invoice__totalSum" colspan="2">
+                                <%- helpers.formatMoney(models.invoice.get('sumTotal'))  %>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                    <div class="form__errorMessage form__errorMessage_global"></div>
+                </form>
+
+                <% if (models.invoice.id) { %>
+                <div style="margin-top: 40px; margin-left: -10px;" class="confirmLink">
+
+                    <div class="confirmLink__trigger">
+                        <span class="removeLink">
+                            <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                            Удалить приемку
+                        </span>
+                    </div>
+
+                    <div class="confirmLink__confirmation">
+                        <span class="removeLink invoice__removeLink">
+                            <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                            Подтвердить удаление
+                        </span>
+                    </div>
+
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-dialog modal__dialog_supplier modal__dialog_hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="modal__backLink invoiceModalLink fa fa-long-arrow-left" style="font-size: 25px; margin-right: 10px;"></a>
+
+                <button form="form_supplierAdd"
+                        type="submit"
+                        class="btn btn-primary pull-right">
+                    Добавить
+                </button>
+
+                <h4 class="modal-title">
+                    Добавление поставщика
+                </h4>
+
+                <span class="clearfix"></span>
+            </div>
+            <div class="modal-body">
+
+                <%= partials.form_supplier() %>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-dialog modal__dialog_product modal__dialog_hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a class="modal__backLink invoiceModalLink fa fa-long-arrow-left" style="font-size: 25px; margin-right: 10px;"></a>
+
+                <button form="form_productAdd"
+                        type="submit"
+                        class="btn btn-primary pull-right">
+                    Добавить
+                </button>
+
+                <h4 class="modal-title">
+                    Добавление продукта
+                </h4>
+
+                <span class="clearfix"></span>
+            </div>
+            <div class="modal-body">
+
+                <%= partials.form_product() %>
+
+            </div>
+        </div>
+    </div>
+
+</div>

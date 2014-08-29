@@ -1,7 +1,6 @@
 define(function(require) {
         //requirements
-        var deepExtend = require('kit/deepExtend/deepExtend'),
-            extendClass = require('kit/extendClass/extendClass');
+        var deepExtend = require('kit/deepExtend/deepExtend');
 
         require('lodash');
 
@@ -17,6 +16,13 @@ define(function(require) {
                 if (this instanceof child) {
                     args = instance ? arguments : arguments[0];
                     instance = true;
+
+                    for (var prop in this){
+                        if (_.isPlainObject(this[prop])){
+                            this[prop] = _.cloneDeep(this[prop]);
+                        }
+                    }
+
                     if (protoProps && _.has(protoProps, 'constructor')) {
                         return protoProps.constructor.apply(this, args);
                     } else {

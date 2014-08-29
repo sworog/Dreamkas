@@ -1,6 +1,6 @@
 define(function(require) {
         //requirements
-        var Form = require('kit/form/form'),
+        var Form = require('kit/form/form.deprecated'),
             ProductModel = require('models/product/product'),
             normalizeNumber = require('kit/normalizeNumber/normalizeNumber'),
             formatNumber = require('kit/formatNumber/formatNumber');
@@ -11,6 +11,16 @@ define(function(require) {
                 var block = this;
 
                 return new ProductModel();
+            },
+            blocks: {
+                select_group: function() {
+                    var block = this,
+                        Select_group = require('blocks/select/select_group/select_group');
+
+                    return new Select_group({
+                        el: block.$('.select_group')
+                    });
+                }
             },
             events: {
                 'keyup [name="purchasePrice"]': function(e){
@@ -38,7 +48,7 @@ define(function(require) {
 
                 if (field === 'subCategory'){
 
-                    data.errors = [];
+                    data.errors = data.errors || [];
 
                     _.forEach(data.children, function(value, key){
                         if (value.errors){
@@ -69,7 +79,7 @@ define(function(require) {
 
                 block.calculateMarkup();
 
-                block.on('submit:success', function() {
+                block.listenTo(block, 'submit:success', function() {
                     if (!block.__model.id) {
                         block.model = new ProductModel();
                     }

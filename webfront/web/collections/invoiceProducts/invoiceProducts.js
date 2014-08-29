@@ -1,9 +1,28 @@
 define(function(require) {
         //requirements
-        var Collection = require('kit/collection/collection');
+        var Collection = require('kit/collection/collection'),
+            InvoiceProductModel = require('models/invoiceProduct/invoiceProduct'),
+            cookies = require('cookies');
 
         return Collection.extend({
-            model: require('models/invoiceProduct/invoiceProduct')
+            model: InvoiceProductModel,
+            validateProduct: function(product){
+                var url = Collection.baseApiUrl + '/invoices?validate=1&validationGroups=products';
+
+                var invoiceProductModel = new InvoiceProductModel(product);
+
+                return $.ajax({
+                    url: url,
+                    dataType: 'json',
+                    data: {
+                        products: [invoiceProductModel.getData()]
+                    },
+                    type: 'POST',
+                    headers: {
+                        Authorization: 'Bearer ' + cookies.get('token')
+                    }
+                })
+            }
         });
     }
 );

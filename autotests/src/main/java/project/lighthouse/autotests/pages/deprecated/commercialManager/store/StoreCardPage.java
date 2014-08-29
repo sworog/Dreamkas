@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
 import project.lighthouse.autotests.helper.UrlHelper;
-import project.lighthouse.autotests.objects.api.Store;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
@@ -23,10 +22,6 @@ public class StoreCardPage extends CommonPageObject {
     public void createElements() {
         put("store manager select", new SelectByVisibleText(this, By.id("select_storeManagers")));
         put("department manager select", new SelectByVisibleText(this, By.id("select_departmentManagers")));
-    }
-
-    public void checkStoreCardValue(String fieldName, String value) {
-        findModelFieldContaining(Store.NAME, fieldName, value);
     }
 
     public void checkStoreCardHeader(String header) {

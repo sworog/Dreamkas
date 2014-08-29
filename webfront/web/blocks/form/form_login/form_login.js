@@ -1,13 +1,13 @@
 define(function(require) {
     //requirements
-    var Form = require('kit/form/form'),
+    var Form = require('kit/form/form.deprecated'),
         login = require('kit/login/login'),
         getText = require('kit/getText/getText');
 
     return Form.extend({
         el: '.form_login',
         model: function() {
-            var LoginModel = require('models/login');
+            var LoginModel = require('models/login/login');
 
             return new LoginModel();
         },

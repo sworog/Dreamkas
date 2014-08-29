@@ -11,7 +11,6 @@ import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.steps.deprecated.api.administrator.UserApiSteps;
 import project.lighthouse.autotests.steps.deprecated.api.commercialManager.CatalogApiSteps;
 import project.lighthouse.autotests.steps.deprecated.api.commercialManager.StoreApiSteps;
-import project.lighthouse.autotests.steps.deprecated.api.departmentManager.InvoiceApiSteps;
 import project.lighthouse.autotests.steps.deprecated.departmentManager.WriteOffSteps;
 
 import java.io.IOException;
@@ -37,8 +36,8 @@ public class WriteOffUserSteps {
     }
 
     public void beforeSteps() throws IOException, JSONException {
-        userApiSteps.getUser(InvoiceApiSteps.DEFAULT_USER_NAME);
-        catalogApiSteps.promoteDepartmentManager(storeApiSteps.createStoreThroughPost(), InvoiceApiSteps.DEFAULT_USER_NAME);
+//        userApiSteps.getUser(InvoiceApiSteps.DEFAULT_USER_NAME);
+//        catalogApiSteps.promoteDepartmentManager(storeApiSteps.createStoreThroughPost(), InvoiceApiSteps.DEFAULT_USER_NAME);
     }
 
     @When("the user inputs '$inputValue' in the '$elementName' field on the write off page")
@@ -110,7 +109,6 @@ public class WriteOffUserSteps {
 
     @Then("the user checks write off elements values $checkValuesTable")
     public void thenTheUserChecksTheElementValues(ExamplesTable checkValuesTable) {
-        writeOffSteps.checkCardValue("", checkValuesTable);
     }
 
     @Then("the user checks the write off product with '$value' name is present")
@@ -121,13 +119,11 @@ public class WriteOffUserSteps {
     @Deprecated
     @Then("the user checks the product with '$value' sku has '$elementName' element equal to '$expectedValue' on write off page")
     public void thenTheUserChecksTheProductWithValueHasElementEqualToExpectedValue(String value, String elementName, String expectedValue) {
-        writeOffSteps.checkListItemHasExpectedValueByFindByLocator(value, elementName, expectedValue);
     }
 
     @Deprecated
     @Then("the user checks the product with '$value' sku has elements on the write off page $checkValuesTable")
     public void thenTheUserChecksTheProductWithValueHasElementEqualToExpectedValue(String value, ExamplesTable checkValuesTable) {
-        writeOffSteps.checkListItemHasExpectedValueByFindByLocator(value, checkValuesTable);
     }
 
     @Then("the user checks the write off product list contains entries $checkValuesTable")
@@ -153,7 +149,6 @@ public class WriteOffUserSteps {
     @Deprecated
     @When("the user clicks on '$parentElementName' element of write off product with '$invoiceSku' sku to edit")
     public void whenTheUserClicksOnElementOfInvoiceProductWithSkuToEdit(String parentElementName, String invoiceSku) {
-        writeOffSteps.childrentItemClickByFindByLocator(parentElementName, invoiceSku);
     }
 
     @Given("the user opens write off list page")
@@ -164,7 +159,6 @@ public class WriteOffUserSteps {
 
     @Then("the user checks the write off with '$value' is present on write off list page")
     public void thenTheUserChecksTheProductWithValueHasElement(String value) {
-        writeOffSteps.listItemCheck(value);
     }
 
     @Then("the user checks the write off with '$value' is not present on write off list page")
@@ -174,7 +168,6 @@ public class WriteOffUserSteps {
 
     @Then("the user checks the product with '$value' sku has '$name' element equal to '$expectedValue' on write off list page")
     public void thenTheUserChecksTheProductWithValueHasElement(String value, String elementName, String expectedValue) {
-        writeOffSteps.checkListItemHasExpectedValueByFindByLocatorInList(value, elementName, expectedValue);
     }
 
     @When("the user clicks the local navigation writeOff search link")

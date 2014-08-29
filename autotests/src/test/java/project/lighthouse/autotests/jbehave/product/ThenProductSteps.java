@@ -13,6 +13,7 @@ public class ThenProductSteps {
     ProductSteps productSteps;
 
     @Then("the user asserts the product list contain products with values $examplesTable")
+    @Alias("пользователь проверяет, что список продуктов содержит продукты с данными $examplesTable")
     public void thenTheUserAssertsTheProductListContainProductsWithValues(ExamplesTable examplesTable) {
         productSteps.productCollectionCompareWithExampleTable(examplesTable);
     }
@@ -25,6 +26,11 @@ public class ThenProductSteps {
     @Then("the user checks stored values in edit product modal window")
     public void thenTheUserChecksStoredValuesInEditProductModalWindow() {
         productSteps.editProductModalWindowCheckStoredValues();
+    }
+
+    @Then("пользователь проверяет заполненные поля в модальном окне редактирования товара $examplesTable")
+    public void thenTheUserChecksStoredValuesInEditProductModalWindow(ExamplesTable examplesTable) {
+        productSteps.editProductModalWindowCheckValues(examplesTable);
     }
 
     @Then("the user asserts the group field value is '$value'")

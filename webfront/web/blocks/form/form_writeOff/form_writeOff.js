@@ -1,14 +1,33 @@
-define(function(require) {
+define(function(require, exports, module) {
     //requirements
-    var Form = require('blocks/form/form');
+    var From = require('kit/form/form.deprecated');
 
-    return Form.extend({
-        __name__: 'form_writeOff',
-        template: require('ejs!blocks/form/form_writeOff/templates/index.html'),
-        redirectUrl: function(){
-            var block = this;
+    return From.extend({
+        el: '.form_writeOff',
+        model: require('models/writeOff/writeOff'),
+        blocks: {
+            datepicker: function(){
+                var block = this;
 
-            return '/writeOffs/' + block.model.id + '?editMode=true';
+                block.$('.inputDate, .input-daterange').each(function(){
+                    $(this).datepicker({
+                        language: 'ru',
+                        format: 'dd.mm.yyyy',
+                        autoclose: true,
+                        endDate: this.dataset.endDate && this.dataset.endDate.toString(),
+                        todayBtn: "linked"
+                    });
+                });
+            },
+            form_writeOffProducts: function(){
+                var block = this,
+                    Form_writeOffProducts = require('blocks/form/form_writeOffProducts/form_writeOffProducts');
+
+                return new Form_writeOffProducts({
+                    el: block.$el.closest('.modal').find('.form_writeOffProducts'),
+                    collection: block.model.collections.products
+                });
+            }
         }
     });
 });

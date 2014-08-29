@@ -2,9 +2,11 @@
 
 namespace Lighthouse\CoreBundle\Document\Classifier\SubCategory;
 
+use DateTime;
 use Lighthouse\CoreBundle\Document\Classifier\AbstractNode;
 use Lighthouse\CoreBundle\Document\Classifier\Category\Category;
 use Lighthouse\CoreBundle\Document\Product\Product;
+use Lighthouse\CoreBundle\Document\SoftDeleteableDocument;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Doctrine\Bundle\MongoDBBundle\Validator\Constraints\Unique;
@@ -21,7 +23,7 @@ use JMS\Serializer\Annotation as Serialize;
  * @Unique(fields={"name", "category"}, message="lighthouse.validation.errors.subCategory.name.unique")
  * @SoftDeleteable
  */
-class SubCategory extends AbstractNode
+class SubCategory extends AbstractNode implements SoftDeleteableDocument
 {
     /**
      * @MongoDB\ReferenceOne(
@@ -49,5 +51,21 @@ class SubCategory extends AbstractNode
     public function getChildClass()
     {
         return Product::getClassName();
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSoftDeleteableName()
+    {
+        return 'name';
     }
 }

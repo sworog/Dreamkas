@@ -16,7 +16,7 @@ public class BankAccountsListPage extends CommonPageObject {
     }
 
     public void createNewBankAccountLinkClick() {
-        clickByContainsTextLink("Добавить расчетный счет");
+        click(By.xpath("//a[contains(text(), Добавить расчетный счет)]"));
     }
 
     public void bankAccountListItemByBankAndAccountClick(String bankName, String account) {

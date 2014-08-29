@@ -36,13 +36,13 @@ public class SupplierSteps extends ScenarioSteps {
 
     @Step
     public void supplierCreateModalPageInput(ExamplesTable examplesTable) {
-        supplierCreateModalPage.fieldInput(examplesTable);
+        supplierCreateModalPage.input(examplesTable);
         this.examplesTable = examplesTable;
     }
 
     @Step
     public void supplierEditModalPageInput(ExamplesTable examplesTable) {
-        supplierEditModalPage.fieldInput(examplesTable);
+        supplierEditModalPage.input(examplesTable);
         this.examplesTable = examplesTable;
     }
 
@@ -127,12 +127,12 @@ public class SupplierSteps extends ScenarioSteps {
 
     @Step
     public void assertSupplierCreateSupplierModalWindowTitle(String title) {
-        assertThat(supplierCreateModalPage.getTitleText(), is(title));
+        assertThat(supplierCreateModalPage.getTitle(), is(title));
     }
 
     @Step
     public void assertSupplierEditSupplierModalWindowTitle(String title) {
-        assertThat(supplierEditModalPage.getTitleText(), is(title));
+        assertThat(supplierEditModalPage.getTitle(), is(title));
     }
 
     @Step

@@ -1,0 +1,26 @@
+<% var helpers = {
+    formatMoney: require('kit/formatMoney/formatMoney'),
+    formatDate: require('kit/formatDate/formatDate')
+} %>
+
+<tr data-stockin-date="<%- helpers.formatDate(stockMovementModel.get('date')) %>"
+    data-stockin-number="<%- stockMovementModel.get('number') %>"
+    data-stockin-id="<%- stockMovementModel.id %>"
+    class="stockIn__link">
+
+    <% if (dateRowSpan) { %>
+    <td name="date" rowspan="<%- dateRowSpan %>">
+        <%- helpers.formatDate(stockMovementModel.get('date')) %>
+    </td>
+    <% } %>
+
+    <td>
+        <span name="type">Оприходование</span>
+    </td>
+    <td name="store">
+        В <%- stockMovementModel.get('store.name') %>
+    </td>
+    <td name="sumTotal">
+        <%- helpers.formatMoney(stockMovementModel.get('sumTotal')) %>
+    </td>
+</tr>

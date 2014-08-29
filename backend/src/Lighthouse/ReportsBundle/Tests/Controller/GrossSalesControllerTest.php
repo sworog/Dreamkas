@@ -2,272 +2,102 @@
 
 namespace Lighthouse\ReportsBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\ReportsBundle\Reports\GrossSales\GrossSalesReportManager;
 use Lighthouse\CoreBundle\Document\User\User;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
-use DateTime;
 use Symfony\Component\Console\Output\NullOutput;
+use DateTime;
 
 class GrossSalesControllerTest extends WebTestCase
 {
     /**
      * @return GrossSalesReportManager
      */
-    public function getGrossSalesReportService()
+    protected function getGrossSalesReportService()
     {
         return $this->getContainer()->get('lighthouse.reports.gross_sales.manager');
     }
 
+    /**
+     * @return array
+     */
+    protected function createSalesForTodayYesterdayWeekAgo()
+    {
+        $store = $this->factory()->store()->getStore();
+
+        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+
+        $this->factory()
+            ->receipt()
+                ->createSale($store, '8:01')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 64.79)
+                ->createReceiptProduct($productIds['3'], 7, 43.55)
+            ->persist()
+                ->createSale($store, '9:01')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 64.79)
+                ->createReceiptProduct($productIds['3'], 7, 43.55)
+            ->persist()
+                ->createSale($store, '10:01')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 64.79)
+                ->createReceiptProduct($productIds['3'], 7, 43.55)
+            ->persist()
+                ->createSale($store, '11:01')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 64.79)
+                ->createReceiptProduct($productIds['3'], 7, 43.55)
+            ->persist()
+                ->createSale($store, '-1 days 8:01')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 64.79)
+                ->createReceiptProduct($productIds['3'], 7, 43.55)
+            ->persist()
+                ->createSale($store, '-1 days 9:01')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 64.79)
+                ->createReceiptProduct($productIds['3'], 7, 43.55)
+            ->persist()
+                ->createSale($store, '-1 days 10:01')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 64.79)
+                ->createReceiptProduct($productIds['3'], 7, 43.55)
+            ->persist()
+                ->createSale($store, '-7 days 8:01')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 64.79)
+                ->createReceiptProduct($productIds['3'], 7, 43.55)
+            ->persist()
+                ->createSale($store, '-7 days 9:01')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 64.79)
+                ->createReceiptProduct($productIds['3'], 7, 43.55)
+                ->createReceiptProduct($productIds['3'], 3, 34.00)
+            ->persist()
+                ->createSale($store, '-7 days 10:01')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 64.79)
+                ->createReceiptProduct($productIds['3'], 7, 43.55)
+            ->flush();
+
+        return array($store, $productIds);
+    }
+
     public function testGetStoreGrossSalesReportsByTime()
     {
-        $storeId = $this->factory()->store()->getStoreId();
-        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
+        list($store,) = $this->createSalesForTodayYesterdayWeekAgo();
 
-        $product1Id = $this->createProduct('1');
-        $product2Id = $this->createProduct('2');
-        $product3Id = $this->createProduct('3');
+        $this->getGrossSalesReportService()->recalculateStoreGrossSalesReport();
 
-        $sales = array(
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '9:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '10:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '11:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-1 days 8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-1 days 9:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-1 days 10:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-7 days 8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-7 days 9:01',
-                'sumTotal' => 705.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.00
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-7 days 10:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-        );
-
-        $this->factory()->createSales($sales);
-
-        $storeGrossSalesReportService = $this->getGrossSalesReportService();
-
-        $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($store->id);
 
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/reports/grossSales',
+            "/api/1/stores/{$store->id}/reports/grossSales",
             null,
             array('time' => date('c', strtotime('10:35:47')))
         );
@@ -415,102 +245,50 @@ class GrossSalesControllerTest extends WebTestCase
     }
 
     /**
-     * @return string
+     * @return Store
      */
     protected function prepareStoreGrossSalesReportData()
     {
-        $storeId = $this->factory()->store()->getStoreId();
+        $store = $this->factory()->store()->getStore();
 
-        $product1Id = $this->createProduct('1');
-        $product2Id = $this->createProduct('2');
-        $product3Id = $this->createProduct('3');
+        $productId1 = $this->createProduct('1');
+        $productId2 = $this->createProduct('2');
+        $productId3 = $this->createProduct('3');
 
-        $sales = array(
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '7:25',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-1 days 8:01',
-                'sumTotal' => 325.74,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 5,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 1,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 2,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-1 week 9:01',
-                'sumTotal' => 846.92,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 10,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-        );
-        $this->factory()->createSales($sales);
+        $this->factory()
+            ->receipt()
+                ->createSale($store, '7:25')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+            ->persist()
+                ->createSale($store, '-1 days 8:01')
+                ->createReceiptProduct($productId1, 5, 34.77)
+                ->createReceiptProduct($productId2, 1, 64.79)
+                ->createReceiptProduct($productId3, 2, 43.55)
+            ->persist()
+                ->createSale($store, '-1 week 9:01')
+                ->createReceiptProduct($productId1, 10, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+            ->flush();
 
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
 
         $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
 
-        return $storeId;
+        return $store;
     }
 
     public function testGetStoreGrossSalesReportsDiffs()
     {
-        $storeId = $this->prepareStoreGrossSalesReportData();
-        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
+        $store = $this->prepareStoreGrossSalesReportData();
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($store->id);
 
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/reports/grossSales',
+            "/api/1/stores/{$store->id}/reports/grossSales",
             null,
             array('time' => date('c', strtotime('10:35:47')))
         );
@@ -548,18 +326,18 @@ class GrossSalesControllerTest extends WebTestCase
             ),
         );
 
-        $this->assertSame($expected, $response);
+        $this->assertEquals($expected, $response);
     }
 
     public function testGetStoreGrossSalesReportsDiffsPreviousDateIsZero()
     {
-        $storeId = $this->prepareStoreGrossSalesReportData();
-        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
+        $store = $this->prepareStoreGrossSalesReportData();
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($store->id);
 
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/reports/grossSales',
+            "/api/1/stores/{$store->id}/reports/grossSales",
             null,
             array('time' => date('c', strtotime('-7 day 10:35:47')))
         );
@@ -602,284 +380,26 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByHour()
     {
-        $storeId = $this->factory()->store()->getStoreId();
-        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
+        list($store, $productIds) = $this->createSalesForTodayYesterdayWeekAgo();
 
-        $storeOtherId = $this->factory()->store()->getStoreId('other');
+        $storeOther = $this->factory()->store()->getStore('other');
 
-        $product1Id = $this->createProduct('1');
-        $product2Id = $this->createProduct('2');
-        $product3Id = $this->createProduct('3');
+        $this->factory()
+            ->receipt()
+                ->createSale($storeOther, '8:01')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 64.79)
+                ->createReceiptProduct($productIds['3'], 7, 43.55)
+            ->flush();
 
-        $sales = array(
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '9:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '10:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '11:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
+        $this->getGrossSalesReportService()->recalculateStoreGrossSalesReport();
 
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-1 days 8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-1 days 9:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-1 days 10:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-7 days 8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-7 days 9:01',
-                'sumTotal' => 705.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.00
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-7 days 10:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-        );
-
-        $this->factory()->createSales($sales);
-
-
-        $salesInOtherStore = array(
-            array(
-                'storeId' => $storeOtherId,
-                'createdDate' => '8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-        );
-
-        $this->factory()->createSales($salesInOtherStore);
-
-
-        $storeGrossSalesReportService = $this->getGrossSalesReportService();
-
-        $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($store->id);
 
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/reports/grossSalesByHours',
+            "/api/1/stores/{$store->id}/reports/grossSalesByHours",
             null,
             array('time' => date('c', strtotime('10:35:47')))
         );
@@ -1030,217 +550,67 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByHourEmptyYesterday()
     {
-        $storeId = $this->factory()->store()->getStoreId();
-        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
+        $store = $this->factory()->store()->getStore();
 
-        $storeOtherId = $this->factory()->store()->getStoreId('other');
+        $productIds = $this->createProductsByNames(array('1', '2', '3'));
 
-        $product1Id = $this->createProduct('1');
-        $product2Id = $this->createProduct('2');
-        $product3Id = $this->createProduct('3');
+        $this->factory()
+            ->receipt()
+                ->createSale($store, '8:01')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 64.79)
+                ->createReceiptProduct($productIds['3'], 7, 43.55)
+            ->persist()
+                ->createSale($store, '9:01')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 64.79)
+                ->createReceiptProduct($productIds['3'], 7, 43.55)
+            ->persist()
+                ->createSale($store, '10:01')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 64.79)
+                ->createReceiptProduct($productIds['3'], 7, 43.55)
+            ->persist()
+                ->createSale($store, '11:01')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 64.79)
+                ->createReceiptProduct($productIds['3'], 7, 43.55)
+            ->persist()
+                ->createSale($store, '-7 days 8:01')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 64.79)
+                ->createReceiptProduct($productIds['3'], 7, 43.55)
+            ->persist()
+                ->createSale($store, '-7 days 9:01')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 64.79)
+                ->createReceiptProduct($productIds['3'], 7, 43.55)
+                ->createReceiptProduct($productIds['3'], 3, 34.00)
+            ->persist()
+                ->createSale($store, '-7 days 10:01')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 64.79)
+                ->createReceiptProduct($productIds['3'], 7, 43.55)
+            ->flush();
 
-        $sales = array(
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '9:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '10:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '11:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
+        $otherStore = $this->factory()->store()->getStore('other');
 
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-7 days 8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-7 days 9:01',
-                'sumTotal' => 705.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.00
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-7 days 10:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-        );
+        $this->factory()
+            ->receipt()
+                ->createSale($otherStore, '8:01')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 64.79)
+                ->createReceiptProduct($productIds['3'], 7, 43.55)
+            ->flush();
 
-        $this->factory()->createSales($sales);
+        $this->getGrossSalesReportService()->recalculateStoreGrossSalesReport();
 
-
-        $salesInOtherStore = array(
-            array(
-                'storeId' => $storeOtherId,
-                'createdDate' => '8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-        );
-
-        $this->factory()->createSales($salesInOtherStore);
-
-
-        $storeGrossSalesReportService = $this->getGrossSalesReportService();
-
-        $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($store->id);
 
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/reports/grossSalesByHours',
+            "/api/1/stores/{$store->id}/reports/grossSalesByHours",
             null,
             array('time' => date('c', strtotime('10:35:47')))
         );
@@ -1332,52 +702,29 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByHourEmptyAll()
     {
-        $storeId = $this->factory()->store()->getStoreId();
-        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
+        $store = $this->factory()->store()->getStore();
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($store->id);
 
-        $storeOtherId = $this->factory()->store()->getStoreId('other');
+        $otherStore = $this->factory()->store()->getStore('other');
 
-        $product1Id = $this->createProduct('1');
-        $product2Id = $this->createProduct('2');
-        $product3Id = $this->createProduct('3');
+        $productId1 = $this->createProduct('1');
+        $productId2 = $this->createProduct('2');
+        $productId3 = $this->createProduct('3');
 
+        $this->factory()
+            ->receipt()
+                ->createSale($otherStore, '8:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+            ->flush();
 
-        $salesInOtherStore = array(
-            array(
-                'storeId' => $storeOtherId,
-                'createdDate' => '8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-        );
-
-        $this->factory()->createSales($salesInOtherStore);
-
-
-        $storeGrossSalesReportService = $this->getGrossSalesReportService();
-
-        $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
+        $this->getGrossSalesReportService()->recalculateStoreGrossSalesReport();
 
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/reports/grossSalesByHours',
+            "/api/1/stores/{$store->id}/reports/grossSalesByHours",
             null,
             array('time' => date('c', strtotime('10:35:47')))
         );
@@ -1412,7 +759,7 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByStore()
     {
-        list($storeIds,) = $this->createSales();
+        list($stores,) = $this->createSales();
 
         $storeGrossSalesReportService = $this->getGrossSalesReportService();
         $storeGrossSalesReportService->recalculateStoreGrossSalesReport();
@@ -1443,7 +790,7 @@ class GrossSalesControllerTest extends WebTestCase
                     'runningSum' => 360.86,
                 ),
                 'store' => array(
-                    'id' => $storeIds['1'],
+                    'id' => $stores['1']->id,
                     'name' => '1',
                     'address' => '1',
                     'contacts' => '1',
@@ -1466,7 +813,7 @@ class GrossSalesControllerTest extends WebTestCase
                     'runningSum' => 748.43,
                 ),
                 'store' => array(
-                    'id' => $storeIds['2'],
+                    'id' => $stores['2']->id,
                     'name' => '2',
                     'address' => '1',
                     'contacts' => '1',
@@ -1489,7 +836,7 @@ class GrossSalesControllerTest extends WebTestCase
                     'runningSum' => 965.58,
                 ),
                 'store' => array(
-                    'id' => $storeIds['3'],
+                    'id' => $stores['3']->id,
                     'name' => '3',
                     'address' => '1',
                     'contacts' => '1',
@@ -1506,7 +853,7 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGetStoreGrossSalesByStoreEmpty()
     {
-        $storeIds = $this->factory()->store()->getStores(array('1', '2', '3'));
+        $storeIds = $this->factory()->store()->getStoreIds(array('1', '2', '3'));
         // create store managers to be sure they would not get in serialization
         $this->factory()->store()->getStoreManager($storeIds['1']);
         $this->factory()->store()->getDepartmentManager($storeIds['1']);
@@ -1683,10 +1030,10 @@ class GrossSalesControllerTest extends WebTestCase
      */
     protected function createSalesProducts()
     {
-        $storeIds = $this->factory()->store()->getStores(array('1', '2', '3'));
+        $stores = $this->factory()->store()->getStores(array('1', '2', '3'));
         // create store managers to be sure they would not get in serialization
-        $this->factory()->store()->getStoreManager($storeIds['1']);
-        $this->factory()->store()->getDepartmentManager($storeIds['1']);
+        $this->factory()->store()->getStoreManager($stores['1']->id);
+        $this->factory()->store()->getDepartmentManager($stores['1']->id);
 
         $catalogIds = $this->createCatalog(
             array(
@@ -1714,7 +1061,7 @@ class GrossSalesControllerTest extends WebTestCase
         $productIds['4'] = $this->createProduct(array('name' => '4', 'barcode' => '4'), $catalogIds['2.1.1']);
         $productIds['5'] = $this->createProduct(array('name' => '5', 'barcode' => '5'), $catalogIds['1.2.1']);
 
-        return array($storeIds, $productIds, $catalogIds);
+        return array($stores, $productIds, $catalogIds);
     }
 
     /**
@@ -1722,386 +1069,192 @@ class GrossSalesControllerTest extends WebTestCase
      */
     protected function createSales()
     {
-        list($storeIds, $productIds, $catalogIds) = $this->createSalesProducts();
+        list($stores, $productIds, $catalogIds) = $this->createSalesProducts();
 
         // today, should not be counted
-        $sale = $this->factory()->createSale($storeIds['1'], '8:01', 408.09);
-        $this->factory()->createSaleProduct(34.77, 3, $productIds['1'], $sale);
-        $this->factory()->createSaleProduct(43.55, 4, $productIds['2'], $sale);
-        $this->factory()->createSaleProduct(64.79, 2, $productIds['3'], $sale);
-
-        $sale = $this->factory()->createSale($storeIds['2'], '8:12', 0);
-        $this->factory()->createSaleProduct(34.77, 3, $productIds['1'], $sale);
-        $this->factory()->createSaleProduct(43.55, 4, $productIds['2'], $sale);
-        $this->factory()->createSaleProduct(64.79, 2, $productIds['3'], $sale);
-
-        $sale = $this->factory()->createSale($storeIds['3'], '8:03', 0);
-        $this->factory()->createSaleProduct(34.77, 3, $productIds['1'], $sale);
-        $this->factory()->createSaleProduct(43.55, 4, $productIds['2'], $sale);
-        $this->factory()->createSaleProduct(64.79, 2, $productIds['3'], $sale);
-
-        // yesterday, 3rd store has no sales
-        $sale = $this->factory()->createSale($storeIds['1'], '-1 day 8:01', 708.91);
-        $this->factory()->createSaleProduct(34.77, 6, $productIds['1'], $sale);
-        $this->factory()->createSaleProduct(43.55, 10, $productIds['2'], $sale);
-        $this->factory()->createSaleProduct(64.79, 1, $productIds['3'], $sale);
-
-        $sale = $this->factory()->createSale($storeIds['2'], '-1 day 8:12', 1535.51);
-        $this->factory()->createSaleProduct(34.77, 5, $productIds['1'], $sale);
-        $this->factory()->createSaleProduct(43.55, 3, $productIds['2'], $sale);
-        $this->factory()->createSaleProduct(64.79, 19, $productIds['3'], $sale);
-
-        // 2 days ago,
-        $sale = $this->factory()->createSale($storeIds['1'], '- 2 days 8:01', 715.55);
-        $this->factory()->createSaleProduct(34.77, 5, $productIds['1'], $sale);
-        $this->factory()->createSaleProduct(43.55, 5, $productIds['2'], $sale);
-        $this->factory()->createSaleProduct(64.79, 5, $productIds['3'], $sale);
-
-        $sale = $this->factory()->createSale($storeIds['2'], '-2 days 8:12', 594.75);
-        $this->factory()->createSaleProduct(34.77, 4, $productIds['1'], $sale);
-        $this->factory()->createSaleProduct(43.55, 6, $productIds['2'], $sale);
-        $this->factory()->createSaleProduct(64.79, 3, $productIds['3'], $sale);
-
-        $sale = $this->factory()->createSale($storeIds['3'], '-2 days 8:03', 838.84);
-        $this->factory()->createSaleProduct(34.77, 1, $productIds['1'], $sale);
-        $this->factory()->createSaleProduct(43.55, 14, $productIds['2'], $sale);
-        $this->factory()->createSaleProduct(64.79, 3, $productIds['3'], $sale);
-
-        // 7 days ago, should not be counted
-        $sale = $this->factory()->createSale($storeIds['1'], '-7 days 8:01', 0);
-        $this->factory()->createSaleProduct(34.77, 4, $productIds['1'], $sale);
-        $this->factory()->createSaleProduct(43.55, 7, $productIds['2'], $sale);
-        $this->factory()->createSaleProduct(64.79, 13, $productIds['3'], $sale);
-
-        $sale = $this->factory()->createSale($storeIds['2'], '-7 days 8:12', 0);
-        $this->factory()->createSaleProduct(34.77, 23, $productIds['1'], $sale);
-        $this->factory()->createSaleProduct(43.55, 1, $productIds['2'], $sale);
-        $this->factory()->createSaleProduct(64.79, 12, $productIds['3'], $sale);
-
-        $sale = $this->factory()->createSale($storeIds['3'], '-7 days 8:03', 0);
-        $this->factory()->createSaleProduct(34.77, 7, $productIds['1'], $sale);
-        $this->factory()->createSaleProduct(43.55, 5, $productIds['2'], $sale);
-        $this->factory()->createSaleProduct(64.79, 3, $productIds['3'], $sale);
-
-        // 8 days ago
-        $sale = $this->factory()->createSale($storeIds['1'], '-8 days 8:01', 360.86);
-        $this->factory()->createSaleProduct(34.77, 1, $productIds['1'], $sale);
-        $this->factory()->createSaleProduct(43.55, 6, $productIds['2'], $sale);
-        $this->factory()->createSaleProduct(64.79, 1, $productIds['3'], $sale);
-
-        $sale = $this->factory()->createSale($storeIds['2'], '-8 days 8:12', 748.43);
-        $this->factory()->createSaleProduct(34.77, 8, $productIds['1'], $sale);
-        $this->factory()->createSaleProduct(43.55, 10, $productIds['2'], $sale);
-        $this->factory()->createSaleProduct(34.77, 1, $productIds['1'], $sale);
-
-        $sale = $this->factory()->createSale($storeIds['3'], '-8 days 8:03', 965.58);
-        $this->factory()->createSaleProduct(34.77, 11, $productIds['1'], $sale);
-        $this->factory()->createSaleProduct(64.79, 9, $productIds['3'], $sale);
-
+        $this->factory()
+            ->receipt()
+                ->createSale($stores['1'], '8:01')
+                ->createReceiptProduct($productIds['1'], 34.77, 3)
+                ->createReceiptProduct($productIds['2'], 4, 43.55)
+                ->createReceiptProduct($productIds['3'], 2, 64.79)
+            ->persist()
+                ->createSale($stores['2'], '8:12')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 4, 43.55)
+                ->createReceiptProduct($productIds['3'], 2, 64.79)
+            ->persist()
+                ->createSale($stores['3'], '8:03')
+                ->createReceiptProduct($productIds['1'], 3, 34.77)
+                ->createReceiptProduct($productIds['2'], 4, 43.55)
+                ->createReceiptProduct($productIds['3'], 2, 64.79)
+            ->persist()
+            // yesterday, 3rd store has no sales
+                ->createSale($stores['1'], '-1 day 8:01')
+                ->createReceiptProduct($productIds['1'], 6, 34.77)
+                ->createReceiptProduct($productIds['2'], 10, 43.55)
+                ->createReceiptProduct($productIds['3'], 1, 64.79)
+            ->persist()
+                ->createSale($stores['2'], '-1 day 8:12')
+                ->createReceiptProduct($productIds['1'], 5, 34.77)
+                ->createReceiptProduct($productIds['2'], 3, 43.55)
+                ->createReceiptProduct($productIds['3'], 19, 64.79)
+            ->persist()
+            // 2 days ago,
+                ->createSale($stores['1'], '-2 days 8:01')
+                ->createReceiptProduct($productIds['1'], 5, 34.77)
+                ->createReceiptProduct($productIds['2'], 5, 43.55)
+                ->createReceiptProduct($productIds['3'], 5, 64.79)
+            ->persist()
+                ->createSale($stores['2'], '-2 days 8:12')
+                ->createReceiptProduct($productIds['1'], 4, 34.77)
+                ->createReceiptProduct($productIds['2'], 6, 43.55)
+                ->createReceiptProduct($productIds['3'], 3, 64.79)
+            ->persist()
+                ->createSale($stores['3'], '-2 days 8:03')
+                ->createReceiptProduct($productIds['1'], 1, 34.77)
+                ->createReceiptProduct($productIds['2'], 14, 43.55)
+                ->createReceiptProduct($productIds['3'], 3, 64.79)
+            ->persist()
+            // 7 days ago, should not be counted
+                ->createSale($stores['1'], '-7 days 8:01')
+                ->createReceiptProduct($productIds['1'], 4, 34.77)
+                ->createReceiptProduct($productIds['2'], 7, 43.55)
+                ->createReceiptProduct($productIds['3'], 13, 64.79)
+            ->persist()
+                ->createSale($stores['2'], '-7 days 8:12')
+                ->createReceiptProduct($productIds['1'], 23, 34.77)
+                ->createReceiptProduct($productIds['2'], 1, 43.55)
+                ->createReceiptProduct($productIds['3'], 12, 64.79)
+            ->persist()
+                ->createSale($stores['3'], '-7 days 8:03')
+                ->createReceiptProduct($productIds['1'], 7, 34.77)
+                ->createReceiptProduct($productIds['2'], 5, 43.55)
+                ->createReceiptProduct($productIds['3'], 3, 64.79)
+            ->persist()
+            // 8 days ago
+                ->createSale($stores['1'], '-8 days 8:01')
+                ->createReceiptProduct($productIds['1'], 1, 34.77)
+                ->createReceiptProduct($productIds['2'], 6, 43.55)
+                ->createReceiptProduct($productIds['3'], 1, 64.79)
+            ->persist()
+                ->createSale($stores['2'], '-8 days 8:12')
+                ->createReceiptProduct($productIds['1'], 8, 34.77)
+                ->createReceiptProduct($productIds['2'], 10, 43.55)
+                ->createReceiptProduct($productIds['1'], 1, 34.77)
+            ->persist()
+                ->createSale($stores['3'], '-8 days 8:03')
+                ->createReceiptProduct($productIds['1'], 11, 34.77)
+                ->createReceiptProduct($productIds['3'], 9, 64.79)
+            ->persist()
         // 9 days ago, should not be counted
-        $sale = $this->factory()->createSale($storeIds['1'], '-9 days 10:01', 0);
-        $this->factory()->createSaleProduct(34.77, 1, $productIds['1'], $sale);
-        $this->factory()->createSaleProduct(43.55, 8, $productIds['2'], $sale);
-        $this->factory()->createSaleProduct(64.79, 3, $productIds['3'], $sale);
+                ->createSale($stores['1'], '-9 days 10:01')
+                ->createReceiptProduct($productIds['1'], 1, 34.77)
+                ->createReceiptProduct($productIds['2'], 8, 43.55)
+                ->createReceiptProduct($productIds['3'], 3, 64.79)
+            ->persist()
+                ->createSale($stores['2'], '-9 days 14:12')
+                ->createReceiptProduct($productIds['1'], 4, 34.77)
+                ->createReceiptProduct($productIds['2'], 5, 43.55)
+                ->createReceiptProduct($productIds['3'], 6, 64.79)
+            ->persist()
+                ->createSale($stores['3'], '-9 days 16:03')
+                ->createReceiptProduct($productIds['1'], 1, 34.77)
+                ->createReceiptProduct($productIds['2'], 1, 43.55)
+                ->createReceiptProduct($productIds['3'], 1, 64.79)
+            ->flush();
 
-        $sale = $this->factory()->createSale($storeIds['2'], '-9 days 14:12', 0);
-        $this->factory()->createSaleProduct(34.77, 4, $productIds['1'], $sale);
-        $this->factory()->createSaleProduct(43.55, 5, $productIds['2'], $sale);
-        $this->factory()->createSaleProduct(64.79, 6, $productIds['3'], $sale);
-
-        $sale = $this->factory()->createSale($storeIds['3'], '-9 days 16:03', 0);
-        $this->factory()->createSaleProduct(34.77, 1, $productIds['1'], $sale);
-        $this->factory()->createSaleProduct(43.55, 1, $productIds['2'], $sale);
-        $this->factory()->createSaleProduct(64.79, 1, $productIds['3'], $sale);
-
-        $this->factory()->flush();
-
-        return array($storeIds, $productIds, $catalogIds);
+        return array($stores, $productIds, $catalogIds);
     }
 
     public function testGrossSalesByProducts()
     {
-        $storeId = $this->factory()->store()->getStoreId('1');
-        $storeOtherId = $this->factory()->store()->getStoreId('Other');
+        $store = $this->factory()->store()->getStore('1');
+        $otherStore = $this->factory()->store()->getStore('Other');
         $subCategoryId = $this->factory()->catalog()->createSubCategory()->id;
         $subCategoryOtherId = $this->factory()->catalog()->createSubCategory(null, 'Other')->id;
-        $product1Id = $this->createProduct('1', $subCategoryId);
-        $product2Id = $this->createProduct('2', $subCategoryId);
-        $product3Id = $this->createProduct('3', $subCategoryOtherId);
+        $productId1 = $this->createProduct('1', $subCategoryId);
+        $productId2 = $this->createProduct('2', $subCategoryId);
+        $productId3 = $this->createProduct('3', $subCategoryOtherId);
 
-        $sales = array(
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '9:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '10:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '11:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
+        $this->factory()
+            ->receipt()
+                ->createSale($store, '8:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+            ->persist()
+                ->createSale($store, '9:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+            ->persist()
+                ->createSale($store, '10:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+            ->persist()
+                ->createSale($store, '11:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+            ->persist()
+                ->createSale($store, '-1 days 8:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+            ->persist()
+                ->createSale($store, '-1 days 9:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+            ->persist()
+                ->createSale($store, '-1 days 10:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+            ->persist()
+                ->createSale($store, '-7 days 8:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+            ->persist()
+                ->createSale($store, '-7 days 9:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+                ->createReceiptProduct($productId1, 3, 34)
+            ->persist()
+                ->createSale($store, '-7 days 10:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+            ->flush();
 
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-1 days 8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-1 days 9:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-1 days 10:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-7 days 8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-7 days 9:01',
-                'sumTotal' => 705.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.00
-                    ),
-                ),
-            ),
-            array(
-                'storeId' => $storeId,
-                'createdDate' => '-7 days 10:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-        );
-        $this->factory()->createSales($sales);
-
-        $salesInOtherStore = array(
-            array(
-                'storeId' => $storeOtherId,
-                'createdDate' => '8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-        );
-        $this->factory()->createSales($salesInOtherStore);
+        $this->factory()
+            ->receipt()
+                ->createSale($otherStore, '8:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+            ->flush();
 
         $grossSalesReportManager = $this->getGrossSalesReportService();
         $grossSalesReportManager->recalculateGrossSalesProductReport();
 
-        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/subcategories/' . $subCategoryId . '/reports/grossSalesByProducts',
+            "/api/1/stores/{$store->id}/subcategories/{$subCategoryId}/reports/grossSalesByProducts",
             null,
             array('time' => date('c', strtotime('11:35:47')))
         );
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals($product1Id, '0.storeProduct.product.id', $response);
-        Assert::assertJsonPathEquals($product2Id, '1.storeProduct.product.id', $response);
+        Assert::assertJsonPathEquals($productId1, '0.storeProduct.product.id', $response);
+        Assert::assertJsonPathEquals($productId2, '1.storeProduct.product.id', $response);
 
         $filteredResponse = $response;
         $filteredResponse[0]['storeProduct'] = array(
@@ -2131,7 +1284,7 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
                 'storeProduct' => array(
                     'product' => array(
-                        'id' => $product1Id,
+                        'id' => $productId1,
                     )
                 )
             ),
@@ -2150,7 +1303,7 @@ class GrossSalesControllerTest extends WebTestCase
                 ),
                 'storeProduct' => array(
                     'product' => array(
-                        'id' => $product2Id,
+                        'id' => $productId2,
                     )
                 )
             ),
@@ -2161,48 +1314,31 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesByProductsEmpty()
     {
-        $storeId = $this->factory()->store()->getStoreId('1');
-        $storeOtherId = $this->factory()->store()->getStoreId('Other');
+        $store = $this->factory()->store()->getStore('1');
+        $otherStore = $this->factory()->store()->getStore('Other');
+
         $subCategoryId = $this->factory()->catalog()->createSubCategory()->id;
         $subCategoryOtherId = $this->factory()->catalog()->createSubCategory(null, 'Other')->id;
-        $product1Id = $this->createProduct('1', $subCategoryId);
-        $product2Id = $this->createProduct('2', $subCategoryId);
-        $product3Id = $this->createProduct('3', $subCategoryOtherId);
 
-        $salesInOtherStore = array(
-            array(
-                'storeId' => $storeOtherId,
-                'createdDate' => '8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-        );
-        $this->factory()->createSales($salesInOtherStore);
+        $productId1 = $this->createProduct('1', $subCategoryId);
+        $productId2 = $this->createProduct('2', $subCategoryId);
+        $productId3 = $this->createProduct('3', $subCategoryOtherId);
 
-        $grossSalesReportManager = $this->getGrossSalesReportService();
-        $grossSalesReportManager->recalculateGrossSalesProductReport();
+        $this->factory()
+            ->receipt()
+                ->createSale($otherStore, '8:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 3, 43.55)
+            ->flush();
 
-        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
+        $this->getGrossSalesReportService()->recalculateGrossSalesProductReport();
+
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/subcategories/' . $subCategoryId . '/reports/grossSalesByProducts',
+            "/api/1/stores/{$store->id}/subcategories/{$subCategoryId}/reports/grossSalesByProducts",
             null,
             array('time' => date('c', strtotime('10:35:47')))
         );
@@ -2237,12 +1373,12 @@ class GrossSalesControllerTest extends WebTestCase
 
         $this->assertCount(2, $response);
 
-        Assert::assertJsonPathEquals($product1Id, '*.storeProduct.product.id', $response);
+        Assert::assertJsonPathEquals($productId1, '*.storeProduct.product.id', $response);
         Assert::assertJsonPathEquals($expectedProduct1Today, '*.today', $response);
         Assert::assertJsonPathEquals($expectedProduct1Yesterday, '*.yesterday', $response);
         Assert::assertJsonPathEquals($expectedProduct1WeekAgo, '*.weekAgo', $response);
 
-        Assert::assertJsonPathEquals($product2Id, '*.storeProduct.product.id', $response);
+        Assert::assertJsonPathEquals($productId2, '*.storeProduct.product.id', $response);
         Assert::assertJsonPathEquals($expectedProduct2Today, '*.today', $response);
         Assert::assertJsonPathEquals($expectedProduct2Yesterday, '*.yesterday', $response);
         Assert::assertJsonPathEquals($expectedProduct2WeekAgo, '*.weekAgo', $response);
@@ -2250,48 +1386,31 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesByProductsMaxDepth()
     {
-        $storeId = $this->factory()->store()->getStoreId('1');
-        $storeOtherId = $this->factory()->store()->getStoreId('Other');
+        $store = $this->factory()->store()->getStore('1');
+        $otherStore = $this->factory()->store()->getStore('Other');
+
         $subCategoryId = $this->factory()->catalog()->createSubCategory()->id;
         $subCategoryOtherId = $this->factory()->catalog()->createSubCategory(null, 'Other')->id;
-        $product1Id = $this->createProduct('1', $subCategoryId);
-        $product2Id = $this->createProduct('2', $subCategoryId);
-        $product3Id = $this->createProduct('3', $subCategoryOtherId);
 
-        $salesInOtherStore = array(
-            array(
-                'storeId' => $storeOtherId,
-                'createdDate' => '8:01',
-                'sumTotal' => 603.53,
-                'positions' => array(
-                    array(
-                        'productId' => $product1Id,
-                        'quantity' => 3,
-                        'price' => 34.77
-                    ),
-                    array(
-                        'productId' => $product2Id,
-                        'quantity' => 3,
-                        'price' => 64.79
-                    ),
-                    array(
-                        'productId' => $product3Id,
-                        'quantity' => 7,
-                        'price' => 43.55,
-                    ),
-                ),
-            ),
-        );
-        $this->factory()->createSales($salesInOtherStore);
+        $productId1 = $this->createProduct('1', $subCategoryId);
+        $productId2 = $this->createProduct('2', $subCategoryId);
+        $productId3 = $this->createProduct('3', $subCategoryOtherId);
 
-        $grossSalesReportManager = $this->getGrossSalesReportService();
-        $grossSalesReportManager->recalculateGrossSalesProductReport();
+        $this->factory()
+            ->receipt()
+                ->createSale($otherStore, '8:01')
+                ->createReceiptProduct($productId1, 3, 34.77)
+                ->createReceiptProduct($productId2, 3, 64.79)
+                ->createReceiptProduct($productId3, 7, 43.55)
+            ->flush();
 
-        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeId);
+        $this->getGrossSalesReportService()->recalculateGrossSalesProductReport();
+
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($store->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            '/api/1/stores/' . $storeId . '/subcategories/' . $subCategoryId . '/reports/grossSalesByProducts',
+            "/api/1/stores/{$store->id}/subcategories/{$subCategoryId}/reports/grossSalesByProducts",
             null,
             array('time' => date('c', strtotime('10:35:47')))
         );
@@ -2366,17 +1485,17 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesBySubCategoriesReport()
     {
-        list($storeIds,, $catalogIds) = $this->createSales();
+        list($stores,, $catalogIds) = $this->createSales();
 
         $output = new NullOutput();
         $this->getGrossSalesReportService()->recalculateGrossSalesProductReport(1);
         $this->getGrossSalesReportService()->recalculateGrossSalesBySubCategories($output);
 
-        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($stores['1']->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$storeIds['1']}/categories/{$catalogIds['1.1']}/reports/grossSalesBySubCategories",
+            "/api/1/stores/{$stores['1']->id}/categories/{$catalogIds['1.1']}/reports/grossSalesBySubCategories",
             null,
             array('time' => date('c', strtotime('10:35:47')))
         );
@@ -2432,13 +1551,13 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesBySubCategoriesEmpty()
     {
-        list($storeIds,, $catalogIds) = $this->createSalesProducts();
+        list($stores,, $catalogIds) = $this->createSalesProducts();
 
-        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($stores['1']->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$storeIds['1']}/categories/{$catalogIds['1.1']}/reports/grossSalesBySubCategories",
+            "/api/1/stores/{$stores['1']->id}/categories/{$catalogIds['1.1']}/reports/grossSalesBySubCategories",
             null,
             array('time' => date('c', strtotime('10:35:47')))
         );
@@ -2475,13 +1594,13 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesBySubCategoriesMaxDepth()
     {
-        list($storeIds,, $catalogIds) = $this->createSalesProducts();
+        list($stores,, $catalogIds) = $this->createSalesProducts();
 
-        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($stores['1']->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$storeIds['1']}/categories/{$catalogIds['1.1']}/reports/grossSalesBySubCategories",
+            "/api/1/stores/{$stores['1']->id}/categories/{$catalogIds['1.1']}/reports/grossSalesBySubCategories",
             null,
             array('time' => date('c', strtotime('10:35:47')))
         );
@@ -2497,7 +1616,7 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesByCategoriesReport()
     {
-        list($storeIds,, $catalogIds) = $this->createSales();
+        list($stores,, $catalogIds) = $this->createSales();
 
         $output = new NullOutput();
         $this->getGrossSalesReportService()->recalculateGrossSalesProductReport();
@@ -2505,11 +1624,11 @@ class GrossSalesControllerTest extends WebTestCase
         $this->getGrossSalesReportService()->recalculateGrossSalesByCategories($output);
         $this->getGrossSalesReportService()->recalculateGrossSalesByGroups($output);
 
-        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($stores['1']->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$storeIds['1']}/groups/{$catalogIds['1']}/reports/grossSalesByCategories",
+            "/api/1/stores/{$stores['1']->id}/groups/{$catalogIds['1']}/reports/grossSalesByCategories",
             null,
             array('time' => date('c', strtotime('10:35:47')))
         );
@@ -2561,13 +1680,13 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesByCategoriesCategoryMaxDepth()
     {
-        list($storeIds,, $catalogIds) = $this->createSalesProducts();
+        list($stores,, $catalogIds) = $this->createSalesProducts();
 
-        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($stores['1']->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$storeIds['1']}/groups/{$catalogIds['1']}/reports/grossSalesByCategories",
+            "/api/1/stores/{$stores['1']->id}/groups/{$catalogIds['1']}/reports/grossSalesByCategories",
             null,
             array('time' => date('c', strtotime('10:35:47')))
         );
@@ -2581,13 +1700,13 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesByCategoriesEmpty()
     {
-        list($storeIds,, $catalogIds) = $this->createSalesProducts();
+        list($stores,, $catalogIds) = $this->createSalesProducts();
 
-        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($stores['1']->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$storeIds['1']}/groups/{$catalogIds['1']}/reports/grossSalesByCategories",
+            "/api/1/stores/{$stores['1']->id}/groups/{$catalogIds['1']}/reports/grossSalesByCategories",
             null,
             array('time' => date('c', strtotime('10:35:47')))
         );
@@ -2624,7 +1743,7 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesByGroupsReport()
     {
-        list($storeIds,, $catalogIds) = $this->createSales();
+        list($stores,, $catalogIds) = $this->createSales();
 
         $output = new NullOutput();
         $this->getGrossSalesReportService()->recalculateGrossSalesProductReport();
@@ -2632,11 +1751,11 @@ class GrossSalesControllerTest extends WebTestCase
         $this->getGrossSalesReportService()->recalculateGrossSalesByCategories($output, 1);
         $this->getGrossSalesReportService()->recalculateGrossSalesByGroups($output, 1);
 
-        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($stores['1']->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$storeIds['1']}/reports/grossSalesByGroups",
+            "/api/1/stores/{$stores['1']->id}/reports/grossSalesByGroups",
             null,
             array('time' => date('c', strtotime('10:35:47')))
         );
@@ -2688,13 +1807,13 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesByGroupsEmpty()
     {
-        list($storeIds,, $catalogIds) = $this->createSalesProducts();
+        list($stores,, $catalogIds) = $this->createSalesProducts();
 
-        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($stores['1']->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$storeIds['1']}/reports/grossSalesByGroups",
+            "/api/1/stores/{$stores['1']->id}/reports/grossSalesByGroups",
             null,
             array('time' => date('c', strtotime('10:35:47')))
         );
@@ -2745,13 +1864,13 @@ class GrossSalesControllerTest extends WebTestCase
 
     public function testGrossSalesByGroupsMaxDepth()
     {
-        list($storeIds,, $catalogIds) = $this->createSalesProducts();
+        list($stores,, $catalogIds) = $this->createSalesProducts();
 
-        $accessToken = $this->factory()->oauth()->authAsStoreManager($storeIds['1']);
+        $accessToken = $this->factory()->oauth()->authAsStoreManager($stores['1']->id);
         $response = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$storeIds['1']}/reports/grossSalesByGroups",
+            "/api/1/stores/{$stores['1']->id}/reports/grossSalesByGroups",
             null,
             array('time' => date('c', strtotime('10:35:47')))
         );

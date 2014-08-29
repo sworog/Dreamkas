@@ -93,9 +93,16 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $nextProcessedTrialBalance = $this->trialBalanceRepository->findOneNext($trialBalance);
 
         if (null != $nextProcessedTrialBalance) {
+            $oldValue = $nextProcessedTrialBalance->processingStatus;
             $nextProcessedTrialBalance->processingStatus = TrialBalance::PROCESSING_STATUS_UNPROCESSED;
-            $dm->persist($nextProcessedTrialBalance);
-            $this->computeChangeSet($dm, $nextProcessedTrialBalance);
+
+            $this->schedulePropertyChange(
+                $dm->getUnitOfWork(),
+                $nextProcessedTrialBalance,
+                'processingStatus',
+                $oldValue,
+                $nextProcessedTrialBalance->processingStatus
+            );
         }
     }
 

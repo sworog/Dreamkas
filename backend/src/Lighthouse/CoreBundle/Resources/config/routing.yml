@@ -25,12 +25,18 @@ lighthouse.core.invoice_product:
 
 lighthouse.core.write-off:
     resource: Lighthouse\CoreBundle\Controller\WriteOffController
-    parent:   lighthouse.core.store
     type:     rest
 
 lighthouse.core.write-off_product:
     resource: Lighthouse\CoreBundle\Controller\WriteOffProductController
-    parent:   lighthouse.core.write-off
+    type:     rest
+
+lighthouse.core.stock-in:
+    resource: Lighthouse\CoreBundle\Controller\StockInController
+    type:     rest
+
+lighthouse.core.return-supplier:
+    resource: Lighthouse\CoreBundle\Controller\SupplierReturnController
     type:     rest
 
 lighthouse.core.return_product:

@@ -18,7 +18,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-abstract public class AbstractObjectCollection extends ArrayList<AbstractObject> {
+abstract public class AbstractObjectCollection<E extends AbstractObject> extends ArrayList<E> {
 
     public AbstractObjectCollection(WebDriver webDriver, By findBy) {
         init(webDriver, findBy);
@@ -27,18 +27,18 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
     public void init(WebDriver webDriver, By findBy) {
         List<WebElement> webElementList = new Waiter(webDriver).getVisibleWebElements(findBy);
         for (WebElement element : webElementList) {
-            AbstractObject abstractObject = createNode(element);
+            E abstractObject = createNode(element);
             add(abstractObject);
         }
     }
 
-    abstract public AbstractObject createNode(WebElement element);
+    abstract public E createNode(WebElement element);
 
     public void exactCompareExampleTable(ExamplesTable examplesTable) {
         CompareResultHashMap compareResultHashMap = new CompareResultHashMap();
 
         Iterator<Map<String, String>> mapIterator = examplesTable.getRows().iterator();
-        Iterator<AbstractObject> abstractObjectIterator = this.iterator();
+        Iterator<E> abstractObjectIterator = this.iterator();
 
         while (mapIterator.hasNext()) {
             Map<String, String> row = mapIterator.next();
@@ -65,7 +65,7 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
 
         while (mapIterator.hasNext()) {
             Map<String, String> row = mapIterator.next();
-            Iterator<AbstractObject> abstractObjectIterator = this.iterator();
+            Iterator<E> abstractObjectIterator = this.iterator();
             List<CompareResults> compareResultList = new ArrayList<>();
 
             while (abstractObjectIterator.hasNext()) {
@@ -128,12 +128,12 @@ abstract public class AbstractObjectCollection extends ArrayList<AbstractObject>
         }
     }
 
-    private Boolean locateObject(AbstractObject abstractObject, String objectLocator) {
+    private Boolean locateObject(E abstractObject, String objectLocator) {
         return ((ObjectLocatable) abstractObject).getObjectLocator().equals(objectLocator);
     }
 
-    public AbstractObject getAbstractObjectByLocator(String locator) {
-        for (AbstractObject abstractObject : this) {
+    public E getAbstractObjectByLocator(String locator) {
+        for (E abstractObject : this) {
             if (locateObject(abstractObject, locator)) {
                 return abstractObject;
             }

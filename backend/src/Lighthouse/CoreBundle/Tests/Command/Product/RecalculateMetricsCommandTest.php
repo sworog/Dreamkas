@@ -12,13 +12,11 @@ class RecalculateMetricsCommandTest extends TestCase
     public function testExecute()
     {
         /* @var StoreProductMetricsCalculator|\PHPUnit_Framework_MockObject_MockObject $mock */
-        $mock = $this->getMock(
-            'Lighthouse\\CoreBundle\\Document\\Product\\Store\\StoreProductMetricsCalculator',
-            array(),
-            array(),
-            '',
-            false
-        );
+        $mock = $this
+            ->getMockBuilder('Lighthouse\\CoreBundle\\Document\\Product\\Store\\StoreProductMetricsCalculator')
+            ->disableOriginalConstructor()
+            ->getMock();
+
         $mock
             ->expects($this->once())
             ->method('recalculateAveragePrice');

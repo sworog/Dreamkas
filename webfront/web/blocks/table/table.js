@@ -1,88 +1,19 @@
-// DEPRECATED
+define(function(require, exports, module) {
+    //requirements
+    var Block = require('kit/block/block');
 
-define(function(require) {
-        //requirements
-        var Block = require('kit/core/block.deprecated'),
-            DataCollection = require('./collections/data'),
-            columnsCollection = require('./collections/columns');
+    return Block.extend({
+        collection: null,
+        initResources: function(){
+            var block = this;
 
-        return Block.extend({
-            __name__: 'table',
-            loading: false,
-            columns: [],
-            collection: [],
-            tagName: 'table',
-            className: 'table',
-            template: require('ejs!blocks/table/templates/index.html'),
-            templates: {
-                index: require('ejs!blocks/table/templates/index.html'),
-                head: require('ejs!blocks/table/templates/head.html'),
-                body: require('ejs!blocks/table/templates/body.html'),
-                tr: require('ejs!blocks/table/templates/tr.html'),
-                td: require('ejs!blocks/table/templates/td.html')
-            },
-            listeners: {
-                collection: {
-                    request: function(){
-                        var block = this;
+            Block.prototype.initResources.apply(block, arguments);
 
-                        block.set('loading', true);
-                    },
-                    sync: function() {
-                        var block = this;
-
-                        block.set('loading', false);
-                    },
-                    change: function() {
-                        var block = this;
-
-                        block.renderBody();
-                    },
-                    reset: function() {
-                        var block = this;
-
-                        block.renderBody();
-                    },
-                    add: function(){
-                        var block = this;
-
-                        block.renderBody();
-                    },
-                    remove: function(){
-                        var block = this;
-
-                        block.renderBody();
-                    }
+            block.listenTo(block.collection, {
+                'add remove reset': function(){
+                    block.render();
                 }
-            },
-            initialize: function(){
-                var block = this;
-
-                if (_.isArray(block.columns)){
-                    block.columns = new columnsCollection(block.columns);
-                }
-
-                if (_.isArray(block.collection)){
-                    block.collection = new DataCollection(block.collection);
-                }
-            },
-            renderBody: function(){
-                var block = this;
-
-                block.$body.html(block.templates.body(block));
-            },
-            'set:loading': function(loading){
-                var block = this;
-                block.$head.toggleClass('preloader_rows', loading);
-            },
-            findElements: function(){
-                var block = this;
-
-                Block.prototype.findElements.apply(block, arguments);
-
-                block.$body = block.$('tbody');
-                block.$head = block.$('thead');
-            }
-        })
-    }
-);
+            });
+        }
+    });
+});

@@ -6,7 +6,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.openqa.selenium.By;
-import project.lighthouse.autotests.api.HttpExecutor;
+import project.lighthouse.autotests.api.http.HttpExecutor;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.helper.WorkBookHandler;
 import project.lighthouse.autotests.helper.file.FileDownloader;

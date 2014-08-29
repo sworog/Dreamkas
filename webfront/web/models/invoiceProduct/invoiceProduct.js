@@ -1,11 +1,9 @@
 define(function(require) {
     //requirements
-    var Model = require('kit/model/model');
+    var Model = require('kit/model/model'),
+        normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
 
     return Model.extend({
-        urlRoot: function() {
-            return Model.baseApiUrl + '/stores/' + 'storeId' + '/invoices/products?validate=true';
-        },
         defaults: {
             product: null,
             priceEntered: null,
@@ -15,12 +13,8 @@ define(function(require) {
 
             return {
                 product: this.get('product.id'),
-                priceEntered: this.get('priceEntered').toString()
-                    .replace(' ', '', 'gi')
-                    .replace(',', '.', 'gi'),
-                quantity: this.get('quantity').toString()
-                    .replace(' ', '', 'gi')
-                    .replace(',', '.', 'gi')
+                priceEntered: this.get('priceEntered') ? normalizeNumber(this.get('priceEntered')) : '',
+                quantity: this.get('quantity') ? normalizeNumber(this.get('quantity')) : ''
             };
         }
     });

@@ -139,12 +139,23 @@ class SubCategoryController extends AbstractRestController
      * @return void
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @Rest\Route("subcategories/{subCategory}", name="_subcategories")
-     * @Rest\Route("catalog/groups/{subCategory}", name="_catalog_groups")
      * @ApiDoc
      */
     public function deleteSubcategoriesAction(SubCategory $subCategory)
     {
         $this->processDelete($subCategory);
+    }
+
+    /**
+     * @param SubCategory $catalogGroup
+     * @return void
+     * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
+     * @Rest\Route("catalog/groups/{catalogGroup}", name="_catalog_groups")
+     * @ApiDoc
+     */
+    public function deleteCatalogGroupsAction(SubCategory $catalogGroup)
+    {
+        $this->processDelete($catalogGroup);
     }
 
     /**
@@ -154,7 +165,7 @@ class SubCategoryController extends AbstractRestController
      * @Rest\View(statusCode=201, serializerGroups={"Catalog"})
      * @Rest\Route("catalog/groups")
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
-     * @ApiDoc
+     * @ApiDoc(resource=true)
      */
     public function postCatalogGroupsAction(Request $request)
     {

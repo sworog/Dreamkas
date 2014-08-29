@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/form/form'),
+    var Form = require('kit/form/form.deprecated'),
         StoreModel = require('models/store/store');
 
     return Form.extend({
@@ -15,7 +15,7 @@ define(function(require, exports, module) {
 
             Form.prototype.initialize.apply(block, arguments);
 
-            block.on('submit:success', function() {
+            block.listenTo(block, 'submit:success', function() {
                 if (!block.__model.id) {
                     block.model = new StoreModel();
                 }

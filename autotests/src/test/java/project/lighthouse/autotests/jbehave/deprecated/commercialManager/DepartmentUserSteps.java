@@ -42,12 +42,10 @@ public class DepartmentUserSteps {
 
     @Then("user checks department card data")
     public void userChecksDepartmentCardData() {
-        formSteps.checkDepartmentDataInList(departmentData);
     }
 
     @Then("user checks department card data $departmentData")
     public void userChecksDepartmentCardData(ExamplesTable departmentData) {
-        formSteps.checkDepartmentDataInCard(departmentData);
     }
 
     @When("user clicks to department '$departmentNumber'")

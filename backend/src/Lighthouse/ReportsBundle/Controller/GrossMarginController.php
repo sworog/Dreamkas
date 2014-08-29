@@ -44,7 +44,7 @@ class GrossMarginController extends FOSRestController
      *
      * @Secure(roles="ROLE_COMMERCIAL_MANAGER")
      * @Rest\Route("reports/grossMargin")
-     * @ApiDoc
+     * @ApiDoc(section="reports")
      */
     public function getReportsGrossMarginAction(Request $request)
     {

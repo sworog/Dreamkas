@@ -1,0 +1,69 @@
+<% var SupplierModel = require('models/supplier/supplier') %>
+<% var supplierModel = supplierModel || new SupplierModel() %>
+
+<form block="form_supplier" id="<%- supplierModel.id ? 'form_supplierEdit' : 'form_supplierAdd' %>" class="form form_supplier">
+    <div class="form-store">
+
+        <div class="form-group">
+            <label class="control-label">Название *</label>
+
+            <div class="input-icon right">
+                <input
+                        name="name"
+                        type="text"
+                        class="form-control"
+                        autofocus
+                        value="<%- supplierModel.get('name') %>">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Адрес</label>
+
+            <div class="input-icon right">
+                <input
+                        name="address"
+                        type="text"
+                        class="form-control"
+                        value="<%- supplierModel.get('address') %>">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Телефон</label>
+
+            <div class="input-icon right">
+                <input
+                        name="phone"
+                        type="text"
+                        class="form-control"
+                        value="<%- supplierModel.get('phone') %>">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Email</label>
+
+            <div class="input-icon right">
+                <input
+                        name="email"
+                        type="text"
+                        class="form-control"
+                        value="<%- supplierModel.get('email') %>">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">Контактное лицо</label>
+
+            <div class="input-icon right">
+                <input
+                        name="contactPerson"
+                        type="text"
+                        class="form-control"
+                        value="<%- supplierModel.get('contactPerson') %>">
+            </div>
+        </div>
+
+    </div>
+</form>

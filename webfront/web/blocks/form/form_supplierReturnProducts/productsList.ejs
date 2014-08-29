@@ -1,0 +1,22 @@
+<% collection.forEach(function(supplierReturnProductModel){ %>
+<tr name="supplierReturnProduct">
+    <td name="name">
+        <%- supplierReturnProductModel.get('product.name') %>
+    </td>
+    <td name="price">
+        <%- helpers.formatMoney(supplierReturnProductModel.get('price')) %>
+    </td>
+    <td name="quantity">
+        <%- helpers.formatAmount(supplierReturnProductModel.get('quantity')) %>
+        <%- supplierReturnProductModel.get('product.object.units') || 'шт.' %>
+    </td>
+    <td name="totalPrice">
+        <%- helpers.formatMoney(supplierReturnProductModel.get('totalPrice')) %>
+    </td>
+    <td>
+        <a style="font-size: 17px; position: relative; left: 4px; top: -2px;"
+           data-model-cid="<%- supplierReturnProductModel.cid %>"
+           class="delSupplierReturnProduct btn fa fa-times"></a>
+    </td>
+</tr>
+<% }) %>

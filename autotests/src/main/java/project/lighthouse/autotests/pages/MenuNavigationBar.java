@@ -63,4 +63,8 @@ public class MenuNavigationBar extends CommonPageObject {
     public NavigationBarLinkFacade getSettingsMenuItem() {
         return new NavigationBarLinkFacade(this, "Настройки");
     }
+
+    public NavigationBarLinkFacade getStockMovementMenuItem() {
+        return new NavigationBarLinkFacade(this, "Товародвижение");
+    }
 }

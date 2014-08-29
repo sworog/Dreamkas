@@ -7,6 +7,7 @@ import org.jbehave.core.model.ExamplesTable;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonPage;
+import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.elements.bootstrap.WaitForModalWindowClose;
 import project.lighthouse.autotests.elements.preLoader.BodyPreLoader;
 import project.lighthouse.autotests.objects.web.error.ValidationErrorsCollection;
@@ -85,6 +86,11 @@ public class CommonSteps extends ScenarioSteps {
     @Step
     public void waitForModalPageClose() {
         new WaitForModalWindowClose(getDriver()).await();
+    }
+
+    @Step
+    public void waitForSimplePreloaderLoading() {
+        new SimplePreloader(getDriver()).await();
     }
 
     @Step

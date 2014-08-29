@@ -4,9 +4,8 @@ namespace Lighthouse\CoreBundle\Document\StockMovement;
 
 use Doctrine\ODM\MongoDB\Cursor;
 use Doctrine\ODM\MongoDB\Mapping;
-use Lighthouse\CoreBundle\Document\DocumentRepository;
 
-class ReceiptRepository extends DocumentRepository
+class ReceiptRepository extends StockMovementRepository
 {
     /**
      * @param string $hash

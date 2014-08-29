@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
+use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use JMS\Serializer\Annotation as Serializer;
@@ -32,8 +33,10 @@ use DateTime;
  * @MongoDB\DiscriminatorMap({
  *      "Invoice" = "Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice",
  *      "WriteOff" = "Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff",
+ *      "StockIn" = "Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockIn",
  *      "Sale" = "Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale",
- *      "Return" = "Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne"
+ *      "Return" = "Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne",
+ *      "SupplierReturn" = "Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturn"
  * })
  */
 abstract class StockMovement extends AbstractDocument implements Storeable
@@ -117,6 +120,18 @@ abstract class StockMovement extends AbstractDocument implements Storeable
 
         foreach ($this->products as $product) {
             $product->setReasonParent($this);
+        }
+    }
+
+    public function calculateTotals()
+    {
+        $this->itemsCount = count($this->products);
+
+        $this->sumTotal = $this->sumTotal->set(0);
+
+        foreach ($this->products as $product) {
+            $productSumTotal = $product->calculateTotals();
+            $this->sumTotal = $this->sumTotal->add($productSumTotal, Decimal::ROUND_HALF_EVEN);
         }
     }
 }

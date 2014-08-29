@@ -10,8 +10,13 @@ define(function(require) {
         model: null,
         collection: null,
         redirectUrl: null,
+        data: function(){
+            var block = this;
+
+            return block.model && block.model.toJSON();
+        },
         events: {
-            'change input, checkbox, textarea': function() {
+            'change :input': function() {
                 var block = this;
 
                 block.removeSuccessMessage();
@@ -22,7 +27,7 @@ define(function(require) {
                 var block = this,
                     submitting;
 
-                block.formData = block.getData();
+                block.serialize();
 
                 submitting = block.submit();
 
@@ -48,23 +53,30 @@ define(function(require) {
         initialize: function() {
             var block = this;
 
-            Block.prototype.initialize.apply(block, arguments);
-
-            block.$el.closest('.modal').on('hidden.bs.modal', function() {
-                block.reset();
-            });
-
-            block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' + block.el.id + '"]');
-            block.__model = block.model = block.get('model');
             block.redirectUrl = block.get('redirectUrl');
+
+            Block.prototype.initialize.apply(block, arguments);
         },
-        getData: function() {
-            return form2js(this.el, '.', false);
+        render: function(){
+            var block = this;
+
+            block.data = block.get('data');
+
+            Block.prototype.render.apply(block, arguments);
+
+            block.$submitButton = $(block.el).find('[type="submit"]').add('[form="' +  (block.el && block.el.id) + '"]');
+        },
+        serialize: function() {
+            var block = this;
+
+            block.set('data', form2js(block.el, '.', false));
+
+            return block.data;
         },
         submit: function() {
             var block = this;
 
-            return block.model.save(block.formData);
+            return block.model.save(block.data);
         },
         submitStart: function() {
             var block = this;
@@ -132,7 +144,7 @@ define(function(require) {
                 block.showGlobalError(error.errors.errors);
             }
         },
-        showGlobalError: function(errors){
+        showGlobalError: function(errorMessages){
             var block = this,
                 errorMessage,
                 $errorElement = block.$('.form__errorMessage_global');
@@ -141,7 +153,7 @@ define(function(require) {
                 $errorElement = $('<div class="form__errorMessage form__errorMessage_global"></div>').prependTo(block.el);
             }
 
-            errorMessage = errors.map(getText).join('. ');
+            errorMessage = errorMessages.map(getText).join('. ');
 
             $errorElement.addClass('form__errorMessage_visible');
             $errorElement.text(getText(errorMessage));
@@ -174,7 +186,16 @@ define(function(require) {
             block.$submitButton.removeAttr('disabled');
         },
         reset: function(){
-            PAGE.render();
+            var block = this;
+
+            block.el.reset();
+
+            block.serialize();
+        },
+        clear: function(){
+            var block = this;
+
+            block.$(':input').val('');
         }
     })
 });

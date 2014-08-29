@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import project.lighthouse.autotests.objects.api.abstraction.AbstractObject;
 
+@Deprecated
 public class WriteOff extends AbstractObject {
 
     private static final String API_URL = "/stores/%s/writeoffs";

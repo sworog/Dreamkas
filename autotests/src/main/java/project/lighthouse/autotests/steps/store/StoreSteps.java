@@ -35,12 +35,12 @@ public class StoreSteps extends ScenarioSteps {
 
     @Step
     public void storeCreateModalWindowInputValues(ExamplesTable examplesTable) {
-        storeCreateModalWindow.fieldInput(examplesTable);
+        storeCreateModalWindow.input(examplesTable);
     }
 
     @Step
     public void storeEditModalWindowInputValues(ExamplesTable examplesTable) {
-        storeEditModalWindow.fieldInput(examplesTable);
+        storeEditModalWindow.input(examplesTable);
     }
 
     @Step
@@ -122,12 +122,12 @@ public class StoreSteps extends ScenarioSteps {
 
     @Step
     public void assertStoreCreateModalWindowTitle(String title) {
-        assertThat(storeCreateModalWindow.getTitleText(), is(title));
+        assertThat(storeCreateModalWindow.getTitle(), is(title));
     }
 
     @Step
     public void assertStoreEditModalWindowTitle(String title) {
-        assertThat(storeEditModalWindow.getTitleText(), is(title));
+        assertThat(storeEditModalWindow.getTitle(), is(title));
     }
 
     @Step

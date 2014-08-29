@@ -58,7 +58,7 @@ define(function(require, exports, module) {
             expect(route).toHaveBeenCalledWith({
                 params: {
                     storeId: '0',
-                    productId: '2'
+                    productId: 2
                 },
                 route: 'stores/:storeId'
             });
@@ -78,7 +78,7 @@ define(function(require, exports, module) {
 
             expect(route).toHaveBeenCalledWith({
                 params: {
-                    test: '1'
+                    test: 1
                 },
                 route: 'stores(/)'
             });
