@@ -44,6 +44,8 @@ module.exports = function(config) {
         // enable / disable watching file and executing tests whenever any file changes
         autoWatch: false,
 
+        hostname: require("os").hostname(),
+
         customLaunchers: {
             'Remote-Firefox': {
                 base: 'WebdriverJS',
