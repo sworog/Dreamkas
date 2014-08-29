@@ -20,70 +20,71 @@
      aria-hidden="true"
      class="modal modal_writeOff fade"
      style="display: none;">
-<div class="modal__dialog_visible modal__dialog_writeOff modal-dialog modal-wide-width">
-    <div class="modal-content">
-        <div class="modal-header">
-            <a type="button"
-               data-dismiss="modal"
-               aria-hidden="true"
-               class="close pull-left fa fa-times"></a>
+    <div class="modal__dialog_visible modal__dialog_writeOff modal-dialog modal-wide-width">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a type="button"
+                   data-dismiss="modal"
+                   aria-hidden="true"
+                   class="close pull-left fa fa-times"></a>
 
-            <button form="<%- models.writeOff.id ? 'form_writeOffEdit' : 'form_writeOffAdd' %>"
-                    type="submit"
-                    class="btn btn-primary pull-right">
-                <%- models.writeOff.id ? 'Сохранить' : 'Списать' %>
-            </button>
+                <button form="<%- models.writeOff.id ? 'form_writeOffEdit' : 'form_writeOffAdd' %>"
+                        type="submit"
+                        class="btn btn-primary pull-right">
+                    <%- models.writeOff.id ? 'Сохранить' : 'Списать' %>
+                </button>
 
-            <h4 class="modal-title">
-                <%- models.writeOff.id ? 'Редактирование списания товаров' : 'Списание товаров' %>
-            </h4>
+                <h4 class="modal-title">
+                    <%- models.writeOff.id ? 'Редактирование списания товаров' : 'Списание товаров' %>
+                </h4>
 
-            <span class="clearfix"></span>
-        </div>
-        <div class="modal-body">
-            <form id="<%- models.writeOff.id ? 'form_writeOffEdit' : 'form_writeOffAdd' %>" class="form form_writeOff">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
+                <span class="clearfix"></span>
+            </div>
+            <div class="modal-body">
+                <form id="<%- models.writeOff.id ? 'form_writeOffEdit' : 'form_writeOffAdd' %>"
+                      class="form form_writeOff">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
 
-                            <label class="control-label">Дата *</label>
+                                <label class="control-label">Дата *</label>
 
-                            <div class="input-group date">
-                                <input name="date"
-                                       type="text"
-                                       class="form-control inputDate"
-                                       value="<%- models.writeOff.get('date') ? helpers.formatDate(models.writeOff.get('date')) : helpers.formatDate(new Date()) %>">
-                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                            </div>
+                                <div class="input-group date">
+                                    <input name="date"
+                                           type="text"
+                                           class="form-control inputDate"
+                                           value="<%- models.writeOff.get('date') ? helpers.formatDate(models.writeOff.get('date')) : helpers.formatDate(new Date()) %>">
+                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                                </div>
 
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-
-                            <label class="control-label">Магазин *</label>
-
-                            <div class="input-icon right">
-                                <select class="form-control" name="store">
-                                    <option value="" selected disabled>Выберите магазин</option>
-                                    <% collections.stores.forEach(function(storeModel){ %>
-                                    <option <%- models.writeOff.get('store.id') === storeModel.id ? 'selected' : '' %>
-                                            value="<%- storeModel.id %>"><%- storeModel.get('name') %>
-                                    </option>
-                                    <% }) %>
-                                </select>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+
+                                <label class="control-label">Магазин *</label>
+
+                                <div class="input-icon right">
+                                    <select class="form-control" name="store">
+                                        <option value="" selected disabled>Выберите магазин</option>
+                                        <% collections.stores.forEach(function(storeModel){ %>
+                                        <option <%- models.writeOff.get('store.id') === storeModel.id ? 'selected' : '' %>
+                                                value="<%- storeModel.id %>"><%- storeModel.get('name') %>
+                                        </option>
+                                        <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </form>
+                </form>
 
-            <hr style="margin: 0 -65px;"/>
-            <h3>Товары</h3>
+                <hr style="margin: 0 -65px;"/>
+                <h3>Товары</h3>
 
-            <form class="form_writeOffProducts">
-                <table class="table_writeOffProducts table table-vcenter" style="margin: 0 -10px;">
-                    <thead>
+                <form class="form_writeOffProducts">
+                    <table class="table_writeOffProducts table table-vcenter" style="margin: 0 -10px;">
+                        <thead>
                         <tr>
                             <th>Наименование</th>
                             <th style="white-space: nowrap; width: 1px;">Цена, <i class="fa fa-rub"></i></th>
@@ -92,8 +93,8 @@
                             <th style="width: 1px;"></th>
                             <th style="width: 1px;"></th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
 
                         <%= partials.writeOffProducts({
                             collections: {
@@ -101,8 +102,8 @@
                             }
                         }) %>
 
-                    </tbody>
-                    <tfoot>
+                        </tbody>
+                        <tfoot>
 
                         <tr class="writeOffProductForm">
                             <td>
@@ -111,7 +112,7 @@
                                         <input name="product.name"
                                                type="text"
                                                class="form-control autocomplete autocomplete_products">
-                                        <input type="hidden" name="product.id" />
+                                        <input type="hidden" name="product.id"/>
                                     </div>
                                 </div>
                             </td>
@@ -131,13 +132,15 @@
                                 </div>
                             </td>
                             <td>
-                                <span style="white-space: nowrap; min-width: 100px; position: relative; top: 7px;" class="totalSum"></span>
+                                <span style="white-space: nowrap; min-width: 100px; position: relative; top: 7px;"
+                                      class="totalSum"></span>
                             </td>
                             <td>
                                 <input name="cause"
                                        type="text"
                                        style="width: 100px;"
-                                       class="form-control">
+                                       class="form-control"
+                                       placeholder="Причина">
                             </td>
                             <td>
                                 <button type="submit"
@@ -150,15 +153,15 @@
                                 Итого
                             </td>
                             <td class="writeOff__totalSum" colspan="3">
-                                <%- helpers.formatMoney(models.writeOff.get('sumTotal'))  %>
+                                <%- helpers.formatMoney(models.writeOff.get('sumTotal')) %>
                             </td>
                         </tr>
-                    </tfoot>
-                </table>
-                <div class="form__errorMessage form__errorMessage_global"></div>
-            </form>
-            <% if (models.writeOff.id) { %>
-            <div style="margin-top: 40px; margin-left: -10px;">
+                        </tfoot>
+                    </table>
+                    <div class="form__errorMessage form__errorMessage_global"></div>
+                </form>
+                <% if (models.writeOff.id) { %>
+                <div style="margin-top: 40px; margin-left: -10px;">
                 <span class="confirmLink">
 
                     <span class="confirmLink__trigger">
@@ -176,10 +179,10 @@
                     </span>
 
                 </span>
+                </div>
+                <% } %>
             </div>
-            <% } %>
         </div>
     </div>
-</div>
 
 </div>
