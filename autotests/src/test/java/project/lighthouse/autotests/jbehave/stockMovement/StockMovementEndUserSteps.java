@@ -46,4 +46,11 @@ public class StockMovementEndUserSteps {
     public void thenUserCheckProductRowsCount(Integer count) {
         stockMovementSteps.assertProductRowsCount(count);
     }
+
+
+    @When("пользователь* нажимает галочку Оплачено")
+    @Then("пользователь* нажимает галочку Оплачено")
+    public void whenUserClicksOnPaidCheckBox() {
+        stockMovementSteps.clickPaidCheckBox();
+    }
 }

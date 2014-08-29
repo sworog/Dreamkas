@@ -48,7 +48,7 @@
 
                         <% _.forEach(collections.stockMovements.groupBy('date'), function(stockMovements, date){ %>
 
-                            <% _.forEach(stockMovements, function(stockMovementModel, index) { %>
+                        <% _.forEach(stockMovements, function(stockMovementModel, index) { %>
 
                                 <% if (stockMovementModel.get('type') === 'Invoice'){ %>
                                 <%= partials.tr.invoice({
@@ -71,12 +71,12 @@
                                 }) %>
                                 <% } %>
 
-                                <% if (stockMovementModel.get('type') === 'SupplierReturn'){ %>
-                                    <%= partials.tr.supplierReturn({
-                                        dateRowSpan: index === 0 ? stockMovements.length : null,
-                                        stockMovementModel: stockMovementModel
-                                    }) %>
-                                <% } %>
+                        <% if (stockMovementModel.get('type') === 'SupplierReturn'){ %>
+                        <%= partials.tr.supplierReturn({
+                            dateRowSpan: index === 0 ? stockMovements.length : null,
+                            stockMovementModel: stockMovementModel
+                        }) %>
+                        <% } %>
 
                             <% }) %>
 

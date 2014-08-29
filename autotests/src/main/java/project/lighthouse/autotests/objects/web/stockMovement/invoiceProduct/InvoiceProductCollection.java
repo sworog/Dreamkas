@@ -5,14 +5,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
 
-public class InvoiceProductCollection extends AbstractObjectCollection<InvoiceProductObject> {
+public class InvoiceProductCollection<E extends InvoiceProductObject> extends AbstractObjectCollection<E> {
 
     public InvoiceProductCollection(WebDriver webDriver) {
         super(webDriver, By.name("invoiceProduct"));
     }
 
     @Override
-    public InvoiceProductObject createNode(WebElement element) {
-        return new InvoiceProductObject(element);
+    @SuppressWarnings("unchecked")
+    public E createNode(WebElement element) {
+        return (E) new InvoiceProductObject(element);
     }
 }

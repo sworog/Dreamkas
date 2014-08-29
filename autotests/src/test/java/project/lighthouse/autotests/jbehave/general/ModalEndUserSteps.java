@@ -20,7 +20,7 @@ public class ModalEndUserSteps {
     }
 
     @When("пользователь* в модальном окне вводит данные $examplesTable")
-    public void whenTheUserInputsOnTheEditWriteOffModalWindow(ExamplesTable examplesTable) {
+    public void whenUserInputsValues(ExamplesTable examplesTable) {
         modalSteps.input(examplesTable);
     }
 

@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.DefaultUrl;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.common.BootstrapPageObject;
 import project.lighthouse.autotests.elements.bootstrap.buttons.DefaultBtnFacade;
+import project.lighthouse.autotests.elements.bootstrap.buttons.DropdownBtnFacade;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.SelectByVisibleText;
@@ -22,15 +23,19 @@ public class StockMovementPage extends BootstrapPageObject {
     }
 
     public void writeOffCreateButtonClick() {
-        new PrimaryBtnFacade(this, "Списать").click();
+        clickCreateDropdownButton("Списать");
     }
 
     public void stockInCreateButtonClick() {
-        new PrimaryBtnFacade(this, "Оприходовать").click();
+        clickCreateDropdownButton("Оприходовать");
     }
 
     public void supplierReturnButtonClick() {
-        new PrimaryBtnFacade(this, "Вернуть поставщику").click();
+        clickCreateDropdownButton("Вернуть поставщику");
+    }
+
+    public void clickCreateDropdownButton(String title) {
+        new DropdownBtnFacade(this, "Еще...").clickDropdownItem(title);
     }
 
     @Override

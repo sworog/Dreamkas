@@ -9,7 +9,6 @@
 @import "/bower_components/select2/select2.css";
 @import "/bower_components/select2/select2-bootstrap.css";
 @import "/bower_components/sortable/css/sortable-theme-bootstrap.css";
-
 /* blocks */
 @import "/blocks/confirmLink/confirmLink.css";
 @import "/blocks/checkbox/checkbox.css";
@@ -189,15 +188,29 @@ table.table-vcenter > tbody > tr > td {
     display: none;
 }
 
-select.loading, input.loading{
+select.loading, input.loading {
     background-color: #eee;
 }
 
-.datepicker.dropdown-menu{
+.datepicker.dropdown-menu {
     margin-top: -1px;
 }
 
-.table_stockMovements td[name="date"]{
+.table_stockMovements td[name="date"] {
     background-color: #fff !important;
     border-right: 1px solid #efefef;
+}
+
+.dropdown-menu {
+    padding: 5px 0;
+}
+
+.dropdown-menu-item {
+    cursor: pointer;
+    padding: 10px 20px;
+    white-space: nowrap;
+}
+
+.dropdown-menu-item:hover {
+    background-color: #f4f4f4;
 }
