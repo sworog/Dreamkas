@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.console.backend;
 
-import project.lighthouse.autotests.helper.UUIDGenerator;
-import project.lighthouse.autotests.storage.Storage;
+import org.apache.commons.codec.digest.UnixCrypt;
 
 /**
  * symfony:user:create cap command implementation
@@ -13,12 +12,10 @@ public class SymfonyUserCreateCommand extends BackendCommand {
     }
 
     public SymfonyUserCreateCommand(String email, String password) {
-        this(email, password, userProjectId());
+        this(email, password, userProjectId(email));
     }
 
-    private static String userProjectId() {
-        String projectUUID = UUIDGenerator.generateWithoutHyphens();
-        Storage.getUserVariableStorage().setUserProjectName(projectUUID);
-        return projectUUID;
+    private static String userProjectId(String email) {
+        return UnixCrypt.crypt(email).replace(".", "").replace("/", "");
     }
 }
