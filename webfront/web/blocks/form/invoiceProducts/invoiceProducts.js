@@ -1,33 +1,26 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/form/form'),
+    var Form = require('blocks/form/form'),
         formatMoney = require('kit/formatMoney/formatMoney'),
         normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
 
     return Form.extend({
         template: require('ejs!./template.ejs'),
-        model: require('models/supplierReturnProduct/supplierReturnProduct'),
+        model: require('models/invoiceProduct/invoiceProduct'),
         collection: function() {
-            var block = this,
-                productsCollection = block.get('models.supplierReturn.collections.products');
-
-            block.listenTo(productsCollection, {
-                'add remove reset': function() {
-                    block.renderTotalSum();
-                }
-            });
-
-            return productsCollection;
+            var block = this;
+            
+            return block.get('models.invoice.collections.products');
         },
         models: {
-            supplierReturn: require('models/supplierReturn/supplierReturn')
+            invoice: require('models/invoice/invoice')
         },
         blocks: {
-            supplierReturnProducts: function(opt){
+            invoiceProducts: function(opt){
                 var block = this,
-                    SupplierReturnProductsProducts = require('blocks/supplierReturnProducts/supplierReturnProducts');
+                    InvoiceProducts = require('blocks/invoiceProducts/invoiceProducts');
 
-                return new SupplierReturnProductsProducts({
+                return new InvoiceProducts({
                     el: opt.el,
                     collection: block.collection
                 });
@@ -52,7 +45,7 @@ define(function(require, exports, module) {
 
                 block.renderTotalPrice();
             },
-            'keyup input[name="price"]': function(e){
+            'keyup input[name="priceEntered"]': function(e){
                 var block = this;
 
                 block.renderTotalPrice();
@@ -66,7 +59,7 @@ define(function(require, exports, module) {
                     block.el.querySelector('[name="product.id"]').value = null;
                 }
             },
-            'click .delSupplierReturnProduct': function(e){
+            'click .delStockInProduct': function(e){
                 var block = this,
                     modelCid = e.currentTarget.dataset.modelCid;
 
@@ -76,7 +69,7 @@ define(function(require, exports, module) {
         getTotalPrice: function() {
             var block = this,
                 quantity = normalizeNumber(block.el.querySelector('input[name="quantity"]').value),
-                purchasePrice = normalizeNumber(block.el.querySelector('input[name="price"]').value),
+                purchasePrice = normalizeNumber(block.el.querySelector('input[name="priceEntered"]').value),
                 totalPrice = quantity * purchasePrice;
 
             return typeof totalPrice === 'number' ? totalPrice : null;
@@ -88,7 +81,7 @@ define(function(require, exports, module) {
             block.el.querySelector('input[name="product.name"]').value = product.name;
 
             if (product.purchasePrice){
-                block.el.querySelector('input[name="price"]').value = formatMoney(product.purchasePrice);
+                block.el.querySelector('input[name="priceEntered"]').value = formatMoney(product.purchasePrice);
             }
 
             block.el.querySelector('input[name="quantity"]').value = '1';
@@ -97,7 +90,7 @@ define(function(require, exports, module) {
             block.renderTotalPrice();
 
             setTimeout(function(){
-                block.el.querySelector('input[name="price"]').focus();
+                block.el.querySelector('input[name="priceEntered"]').focus();
             }, 0);
         },
         renderTotalPrice: function() {
@@ -121,10 +114,10 @@ define(function(require, exports, module) {
 
             return block.collection.validateProduct(block.data);
         },
-        submitSuccess: function(supplierReturn) {
+        submitSuccess: function(invoice) {
             var block = this;
 
-            block.collection.push(supplierReturn.products[0]);
+            block.collection.push(invoice.products[0]);
 
             block.reset();
         },

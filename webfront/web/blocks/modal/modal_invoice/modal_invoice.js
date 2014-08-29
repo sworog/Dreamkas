@@ -22,7 +22,7 @@ define(function(require, exports, module) {
             form_invoice: function(opt) {
                 var block = this,
                     InvoiceModel = require('models/invoice/invoice'),
-                    Form_invoice = require('blocks/form/form_invoice/form_invoice'),
+                    Form_invoice = require('blocks/form/invoice/invoice'),
                     form_invoice = new Form_invoice({
                         el: opt.el,
                         model: block.models.invoice || new InvoiceModel()
@@ -36,7 +36,7 @@ define(function(require, exports, module) {
             },
             form_invoiceProducts: function(opt){
                 var block = this,
-                    Form_invoiceProducts = require('blocks/form/form_invoiceProducts/form_invoiceProducts');
+                    Form_invoiceProducts = require('blocks/form/invoiceProducts/invoiceProducts');
 
                 return new Form_invoiceProducts({
                     el: opt.el,

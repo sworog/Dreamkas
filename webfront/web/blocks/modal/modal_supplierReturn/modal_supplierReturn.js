@@ -22,7 +22,7 @@ define(function(require, exports, module) {
         blocks: {
             form_supplierReturn: function(opt) {
                 var block = this,
-                    Form_supplierReturn = require('blocks/form/form_supplierReturn/form_supplierReturn');
+                    Form_supplierReturn = require('blocks/form/supplierReturn/supplierReturn');
 
                 var form_supplierReturn = new Form_supplierReturn({
                     el: opt.el,
@@ -37,7 +37,7 @@ define(function(require, exports, module) {
             },
             form_supplierReturnProducts: function(opt) {
                 var block = this,
-                    Form_stockInProducts = require('blocks/form/form_supplierReturnProducts/form_supplierReturnProducts');
+                    Form_stockInProducts = require('blocks/form/supplierReturnProducts/supplierReturnProducts');
 
                 return new Form_stockInProducts({
                     el: opt.el,

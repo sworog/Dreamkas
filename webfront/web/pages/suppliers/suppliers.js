@@ -27,7 +27,7 @@ define(function(require, exports, module) {
         blocks: {
             form_supplierAdd: function() {
                 var page = this,
-                    Form_supplier = require('blocks/form/form_supplier/form_supplier'),
+                    Form_supplier = require('blocks/form/supplier/supplier'),
                     form_supplier = new Form_supplier({
                         collection: page.collections.suppliers,
                         el: document.getElementById('form_supplierAdd')
@@ -47,7 +47,7 @@ define(function(require, exports, module) {
             },
             form_supplierEdit: function() {
                 var page = this,
-                    Form_store = require('blocks/form/form_supplier/form_supplier'),
+                    Form_store = require('blocks/form/supplier/supplier'),
                     form_store = new Form_store({
                         model: page.models.supplier,
                         el: document.getElementById('form_supplierEdit')

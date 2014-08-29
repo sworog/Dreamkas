@@ -1,22 +1,21 @@
 define(function(require, exports, module) {
     //requirements
-    var From = require('kit/form/form');
+    var From = require('blocks/form/form');
 
     return From.extend({
         template: require('ejs!./template.ejs'),
-        model: require('models/invoice/invoice'),
+        model: require('models/writeOff/writeOff'),
         partials: {
             select_stores: require('ejs!blocks/select/select_stores/select_stores.ejs')
         },
         blocks: {
-            select_suppliers: require('blocks/select/select_suppliers/select_suppliers'),
             inputDate: require('blocks/inputDate/inputDate'),
-            form_invoiceProducts: function(opt){
+            form_writeOffProducts: function(){
                 var block = this,
-                    Form_invoiceProducts = require('blocks/form/form_invoiceProducts/form_invoiceProducts');
+                    Form_writeOffProducts = require('blocks/form/writeOffProducts/writeOffProducts');
 
-                return new Form_invoiceProducts({
-                    el: opt.el,
+                return new Form_writeOffProducts({
+                    el: block.$el.closest('.modal').find('.form_writeOffProducts'),
                     collection: block.model.collections.products
                 });
             }

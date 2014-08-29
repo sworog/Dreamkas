@@ -84,7 +84,7 @@ define(function(require, exports, module) {
         blocks: {
             form_groupEdit: function() {
                 var page = this,
-                    Form_group = require('blocks/form/form_group/form_group'),
+                    Form_group = require('blocks/form/group/group'),
                     form_group = new Form_group({
                         model: page.models.group,
                         el: document.getElementById('form_groupEdit')
@@ -106,7 +106,7 @@ define(function(require, exports, module) {
             },
             form_productAdd: function() {
                 var page = this,
-                    Form_product = require('blocks/form/form_product/form_product'),
+                    Form_product = require('blocks/form/product/product'),
                     form_product = new Form_product({
                         el: document.getElementById('form_productAdd')
                     });
@@ -130,7 +130,7 @@ define(function(require, exports, module) {
             },
             form_productEdit: function() {
                 var page = this,
-                    Form_product = require('blocks/form/form_product/form_product'),
+                    Form_product = require('blocks/form/product/product'),
                     form_product = new Form_product({
                         el: document.getElementById('form_productEdit'),
                         model: page.models.product,

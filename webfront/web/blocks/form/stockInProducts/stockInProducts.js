@@ -1,26 +1,33 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/form/form'),
+    var Form = require('blocks/form/form'),
         formatMoney = require('kit/formatMoney/formatMoney'),
         normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
 
     return Form.extend({
         template: require('ejs!./template.ejs'),
-        model: require('models/invoiceProduct/invoiceProduct'),
+        model: require('models/stockInProduct/stockInProduct'),
         collection: function() {
-            var block = this;
-            
-            return block.get('models.invoice.collections.products');
+            var block = this,
+                productsCollection = block.get('models.stockIn.collections.products');
+
+            block.listenTo(productsCollection, {
+                'add remove reset': function() {
+                    block.renderTotalSum();
+                }
+            });
+
+            return productsCollection;
         },
         models: {
-            invoice: require('models/invoice/invoice')
+            stockIn: require('models/stockIn/stockIn')
         },
         blocks: {
-            invoiceProducts: function(opt){
+            stockInProducts: function(opt){
                 var block = this,
-                    InvoiceProducts = require('blocks/invoiceProducts/invoiceProducts');
+                    StockInProducts = require('blocks/stockInProducts/stockInProducts');
 
-                return new InvoiceProducts({
+                return new StockInProducts({
                     el: opt.el,
                     collection: block.collection
                 });
@@ -45,7 +52,7 @@ define(function(require, exports, module) {
 
                 block.renderTotalPrice();
             },
-            'keyup input[name="priceEntered"]': function(e){
+            'keyup input[name="price"]': function(e){
                 var block = this;
 
                 block.renderTotalPrice();
@@ -69,7 +76,7 @@ define(function(require, exports, module) {
         getTotalPrice: function() {
             var block = this,
                 quantity = normalizeNumber(block.el.querySelector('input[name="quantity"]').value),
-                purchasePrice = normalizeNumber(block.el.querySelector('input[name="priceEntered"]').value),
+                purchasePrice = normalizeNumber(block.el.querySelector('input[name="price"]').value),
                 totalPrice = quantity * purchasePrice;
 
             return typeof totalPrice === 'number' ? totalPrice : null;
@@ -81,7 +88,7 @@ define(function(require, exports, module) {
             block.el.querySelector('input[name="product.name"]').value = product.name;
 
             if (product.purchasePrice){
-                block.el.querySelector('input[name="priceEntered"]').value = formatMoney(product.purchasePrice);
+                block.el.querySelector('input[name="price"]').value = formatMoney(product.purchasePrice);
             }
 
             block.el.querySelector('input[name="quantity"]').value = '1';
@@ -90,7 +97,7 @@ define(function(require, exports, module) {
             block.renderTotalPrice();
 
             setTimeout(function(){
-                block.el.querySelector('input[name="priceEntered"]').focus();
+                block.el.querySelector('input[name="price"]').focus();
             }, 0);
         },
         renderTotalPrice: function() {

@@ -17,7 +17,7 @@ define(function(require, exports, module) {
             stockMovements: require('collections/stockMovements/stockMovements')
         },
         blocks: {
-            form_stockMovementsFilters: require('blocks/form/form_stockMovementsFilters/form_stockMovementsFilters'),
+            form_stockMovementsFilters: require('blocks/form/stockMovementsFilters/stockMovementsFilters'),
             modal_stockIn: require('blocks/modal/modal_stockIn/modal_stockIn'),
             modal_supplierReturn: require('blocks/modal/modal_supplierReturn/modal_supplierReturn'),
             modal_invoice: require('blocks/modal/modal_invoice/modal_invoice'),

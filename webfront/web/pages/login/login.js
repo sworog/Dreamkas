@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return Page.extend({
         template: require('ejs!./template.ejs'),
         blocks: {
-            form_login: require('blocks/form/form_login/form_login')
+            form_login: require('blocks/form/login/login')
         }
     });
 });

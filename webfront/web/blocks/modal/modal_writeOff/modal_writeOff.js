@@ -22,7 +22,7 @@ define(function(require, exports, module) {
         blocks: {
             form_writeOff: function(opt){
                 var block = this,
-                    Form_writeOff = require('blocks/form/form_writeOff/form_writeOff');
+                    Form_writeOff = require('blocks/form/writeOff/writeOff');
 
                 var form_writeOff = new Form_writeOff({
                     el: opt.el,
@@ -37,7 +37,7 @@ define(function(require, exports, module) {
             },
             form_writeOffProducts: function(opt){
                 var block = this,
-                    Form_writeOffProducts = require('blocks/form/form_writeOffProducts/form_writeOffProducts');
+                    Form_writeOffProducts = require('blocks/form/writeOffProducts/writeOffProducts');
 
                 return new Form_writeOffProducts({
                     el: opt.el,

@@ -32,7 +32,7 @@ define(function(require, exports, module) {
         blocks: {
             form_groupAdd: function() {
                 var page = this,
-                    Form_group = require('blocks/form/form_group/form_group');
+                    Form_group = require('blocks/form/group/group');
 
                 return new Form_group({
                     collection: page.collections.groups,

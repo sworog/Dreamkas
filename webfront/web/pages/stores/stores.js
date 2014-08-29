@@ -29,7 +29,7 @@ define(function(require, exports, module) {
         blocks: {
             form_storeAdd: function() {
                 var page = this,
-                    Form_store = require('blocks/form/form_store/form_store'),
+                    Form_store = require('blocks/form/store/store'),
                     form_store = new Form_store({
                         collection: page.collections.stores,
                         el: document.getElementById('form_storeAdd')

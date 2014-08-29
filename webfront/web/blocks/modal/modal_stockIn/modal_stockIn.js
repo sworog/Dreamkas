@@ -22,7 +22,7 @@ define(function(require, exports, module) {
         blocks: {
             form_stockIn: function(opt){
                 var block = this,
-                    Form_stockIn = require('blocks/form/form_stockIn/form_stockIn');
+                    Form_stockIn = require('blocks/form/stockIn/stockIn');
 
                 var form_stockIn = new Form_stockIn({
                     el: opt.el,
@@ -37,7 +37,7 @@ define(function(require, exports, module) {
             },
             form_stockInProducts: function(opt){
                 var block = this,
-                    Form_stockInProducts = require('blocks/form/form_stockInProducts/form_stockInProducts');
+                    Form_stockInProducts = require('blocks/form/stockInProducts/stockInProducts');
 
                 return new Form_stockInProducts({
                     el: opt.el,

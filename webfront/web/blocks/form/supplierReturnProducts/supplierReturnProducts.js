@@ -1,15 +1,15 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/form/form'),
+    var Form = require('blocks/form/form'),
         formatMoney = require('kit/formatMoney/formatMoney'),
         normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
 
     return Form.extend({
         template: require('ejs!./template.ejs'),
-        model: require('models/stockInProduct/stockInProduct'),
+        model: require('models/supplierReturnProduct/supplierReturnProduct'),
         collection: function() {
             var block = this,
-                productsCollection = block.get('models.stockIn.collections.products');
+                productsCollection = block.get('models.supplierReturn.collections.products');
 
             block.listenTo(productsCollection, {
                 'add remove reset': function() {
@@ -20,14 +20,14 @@ define(function(require, exports, module) {
             return productsCollection;
         },
         models: {
-            stockIn: require('models/stockIn/stockIn')
+            supplierReturn: require('models/supplierReturn/supplierReturn')
         },
         blocks: {
-            stockInProducts: function(opt){
+            supplierReturnProducts: function(opt){
                 var block = this,
-                    StockInProducts = require('blocks/stockInProducts/stockInProducts');
+                    SupplierReturnProductsProducts = require('blocks/supplierReturnProducts/supplierReturnProducts');
 
-                return new StockInProducts({
+                return new SupplierReturnProductsProducts({
                     el: opt.el,
                     collection: block.collection
                 });
@@ -66,7 +66,7 @@ define(function(require, exports, module) {
                     block.el.querySelector('[name="product.id"]').value = null;
                 }
             },
-            'click .delStockInProduct': function(e){
+            'click .delSupplierReturnProduct': function(e){
                 var block = this,
                     modelCid = e.currentTarget.dataset.modelCid;
 
@@ -121,10 +121,10 @@ define(function(require, exports, module) {
 
             return block.collection.validateProduct(block.data);
         },
-        submitSuccess: function(invoice) {
+        submitSuccess: function(supplierReturn) {
             var block = this;
 
-            block.collection.push(invoice.products[0]);
+            block.collection.push(supplierReturn.products[0]);
 
             block.reset();
         },
