@@ -70,7 +70,7 @@ define(function(require, exports, module) {
                 }
             });
 
-            expect(block.el.querySelector('.nestedBlock').innerText).toEqual('nestedBlock');
+            expect(block.el.querySelector('.nestedBlock').textContent).toEqual('nestedBlock');
         });
 
         it('init nested block without template', function(){
@@ -87,7 +87,7 @@ define(function(require, exports, module) {
                 }
             });
 
-            expect(block.el.querySelector('.nestedBlock').innerText).toEqual('nestedBlock');
+            expect(block.el.querySelector('.nestedBlock').textContent).toEqual('nestedBlock');
         });
 
 
@@ -121,7 +121,7 @@ define(function(require, exports, module) {
 
             block.render();
 
-            expect(block.el.innerText).toEqual('updated text');
+            expect(block.el.textContent).toEqual('updated text');
         });
 
         it('block.el has instance reference', function(){
@@ -197,7 +197,7 @@ define(function(require, exports, module) {
                 }
             });
 
-            expect(block.el.querySelector('.nestedBlock_2').innerText).toEqual('nestedBlock_2');
+            expect(block.el.querySelector('.nestedBlock_2').textContent).toEqual('nestedBlock_2');
         });
     });
 });
