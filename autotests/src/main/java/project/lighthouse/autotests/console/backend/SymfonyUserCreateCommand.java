@@ -8,7 +8,7 @@ import org.apache.commons.codec.digest.UnixCrypt;
 public class SymfonyUserCreateCommand extends BackendCommand {
 
     public SymfonyUserCreateCommand(String email, String password, String customProjectName) {
-        super(String.format("symfony:user:create -S email=%s -S userpass=%s -S customProjectName=%s", email, password, customProjectName));
+        super(String.format("symfony:user:create -S email=%s -S userpass=%s -S custom_project_name=%s", email, password, customProjectName));
     }
 
     public SymfonyUserCreateCommand(String email, String password) {
