@@ -18,10 +18,10 @@ define(function(require, exports, module) {
         },
         blocks: {
             form_stockMovementsFilters: require('blocks/form/stockMovementsFilters/stockMovementsFilters'),
-            modal_stockIn: require('blocks/modal/modal_stockIn/modal_stockIn'),
-            modal_supplierReturn: require('blocks/modal/modal_supplierReturn/modal_supplierReturn'),
-            modal_invoice: require('blocks/modal/modal_invoice/modal_invoice'),
-            modal_writeOff: require('blocks/modal/modal_writeOff/modal_writeOff')
+            modal_stockIn: require('blocks/modal/stockIn/stockIn'),
+            modal_supplierReturn: require('blocks/modal/supplierReturn/supplierReturn'),
+            modal_invoice: require('blocks/modal/invoice/invoice'),
+            modal_writeOff: require('blocks/modal/writeOff/writeOff')
         },
         events: {
             'click .invoice__link': function(e) {

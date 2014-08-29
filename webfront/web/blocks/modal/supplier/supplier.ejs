@@ -1,7 +1,7 @@
 <% var SupplierModel = require('models/supplier/supplier') %>
 <% var supplierModel = supplierModel || new SupplierModel() %>
 <% var partials = {
-    form_supplier: require('ejs!blocks/form/form_supplier/template.ejs')
+    form_supplier: require('ejs!blocks/form/supplier/template.ejs')
 } %>
 
 <div id="<%- supplierModel.id ? 'modal-supplierEdit' : 'modal-supplierAdd' %>"
