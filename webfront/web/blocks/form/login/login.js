@@ -1,18 +1,17 @@
 define(function(require) {
     //requirements
-    var Form = require('blocks/form/form.deprecated'),
+    var Form = require('blocks/form/form'),
         login = require('kit/login/login'),
         getText = require('kit/getText/getText');
 
     return Form.extend({
-        el: '.form_login',
-        model: function() {
-            var LoginModel = require('models/login/login');
-
-            return new LoginModel();
-        },
+        template: require('ejs!./template.ejs'),
+        LoginModel: require('models/login/login'),
+        model: require('models/login/login'),
         submitSuccess: function() {
-            login(this.model.get('access_token'));
+            var block = this;
+
+            login(block.model.get('access_token'));
         },
         showErrors: function(error) {
             var block = this,

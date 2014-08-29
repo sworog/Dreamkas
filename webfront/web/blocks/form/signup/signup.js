@@ -1,15 +1,11 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('blocks/form/form.deprecated'),
+    var Form = require('blocks/form/form'),
         LoginModel = require('models/login/login');
 
     return Form.extend({
-        el: '.form_signup',
-        model: function(){
-            var SignUpModel = require('models/signup/signup');
-
-            return new SignUpModel();
-        },
+        template: require('ejs!./template.ejs'),
+        model: require('models/signup/signup'),
         redirectUrl: '/login?signup=success',
         submitSuccess: function(res){
             var block = this;
