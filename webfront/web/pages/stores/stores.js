@@ -49,7 +49,7 @@ define(function(require, exports, module) {
             },
             form_storeEdit: function() {
                 var page = this,
-                    Form_store = require('blocks/form/form_store/form_store'),
+                    Form_store = require('blocks/form/store/store'),
                     form_store = new Form_store({
                         model: page.models.store,
                         el: document.getElementById('form_storeEdit')
