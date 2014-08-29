@@ -1,9 +1,13 @@
 package project.lighthouse.autotests.common;
 
+import net.thucydides.core.annotations.NamedUrl;
+import net.thucydides.core.annotations.NamedUrls;
+import net.thucydides.core.annotations.findby.FindBy;
 import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.elements.items.Autocomplete;
 
 import java.util.Map;
@@ -11,7 +15,13 @@ import java.util.Map;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.fail;
 
+@NamedUrls(
+    @NamedUrl(name="custom", url="{1}")
+)
 public class CommonPage extends CommonPageObject {
+
+    @FindBy(tagName = "h1")
+    WebElement h1;
 
     public static final String ERROR_MESSAGE = "No such option for '%s'";
 
@@ -64,5 +74,13 @@ public class CommonPage extends CommonPageObject {
                         String.format("//*[contains(normalize-space(text()), '%s')]", text)
                 )
         );
+    }
+
+    public void openCustomUrl(String url) {
+        open("custom", new String[]{url});
+    }
+
+    public String getH1Text() {
+        return h1.getText();
     }
 }

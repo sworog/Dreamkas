@@ -123,4 +123,15 @@ public class CommonUserSteps {
     public void thenTheUserAssertsPopOverContent(String content) {
         commonSteps.assertPopOverContent(content);
     }
+
+    @Given("user opens url '$url'")
+    @When("user opens url '$url'")
+    public void whenUserOpensUrl(String url) {
+        commonSteps.openUrl(url);
+    }
+
+    @Then("user checks h1 text is '$text'")
+    public void userChecksH1Text(String text) {
+        commonSteps.assertH1Text(text);
+    }
 }
