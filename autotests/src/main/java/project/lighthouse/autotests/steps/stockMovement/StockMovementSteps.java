@@ -299,6 +299,11 @@ public class StockMovementSteps extends ScenarioSteps {
     }
 
     @Step
+    public void assertWriteOffCreateModalWindowsCausePlaceholderText(String text) {
+        assertThat(writeOffCreateModalWindow.getItemAttribute("cause", "placeholder"), is(text));
+    }
+
+    @Step
     public void assertWriteOffEditModalWindowsProductRowsCount(Integer expectedCount) {
         assertThat(writeOffEditModalWindow.getProductRowsCount(), is(expectedCount));
     }
