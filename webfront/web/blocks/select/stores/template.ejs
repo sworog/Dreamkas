@@ -1,0 +1,9 @@
+<select class="form-control" name="store">
+
+    <% collection.forEach(function(storeModel){ %>
+        <option <%- storeModel.id === selected && 'selected' %> value="<%- storeModel.id %>">
+            <%- storeModel.get('name') %>
+        </option>
+    <% }) %>
+
+</select>

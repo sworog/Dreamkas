@@ -19,6 +19,9 @@ define(function(require) {
         //stores
         'stores(/)': require('pages/stores/stores'),
 
+        //pos
+        'pos(/)': require('pages/pos/pos'),
+
         //404
         '*path': require('pages/404/404')
     };

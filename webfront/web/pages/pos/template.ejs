@@ -1,0 +1,32 @@
+<div class="page">
+    <div class="page-title-breadcrumb">
+
+        <% if (collections.stores.length) { %>
+        <div class="pull-right">
+            <span class="supplierReturn__link btn btn-primary btn-md">Далее</span>
+        </div>
+        <% } %>
+
+        <div class="page-header pull-left">
+            <div class="page-title">Запуск кассы</div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+    <div class="page-content">
+
+        <div class="row" style="padding-top: 50px;">
+            <% if (collections.stores.length) { %>
+            <div class="col-md-4">
+                <b block="select_stores"></b>
+            </div>
+            <% } else { %>
+            <div class="col-md-12 alert alert-info">
+                У вас ещё нет ни одного магазина. Для начала работы с кассой добавьте хотя бы один магазин.
+            </div>
+            <% } %>
+        </div>
+        
+    </div>
+</div>
