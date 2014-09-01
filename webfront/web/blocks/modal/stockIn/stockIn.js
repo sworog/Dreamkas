@@ -20,32 +20,8 @@ define(function(require, exports, module) {
             }
         },
         blocks: {
-            form_stockIn: function(opt){
-                var block = this,
-                    Form_stockIn = require('blocks/form/stockIn/stockIn');
-
-                var form_stockIn = new Form_stockIn({
-                    el: opt.el,
-                    model: block.models.stockIn
-                });
-
-                form_stockIn.on('submit:success', function(){
-                    block.hide();
-                });
-
-                return form_stockIn;
-            },
-            form_stockInProducts: function(opt){
-                var block = this,
-                    Form_stockInProducts = require('blocks/form/stockInProducts/stockInProducts');
-
-                return new Form_stockInProducts({
-                    el: opt.el,
-                    models: {
-                        stockIn: block.models.stockIn
-                    }
-                });
-            }
+            form_stockIn: require('blocks/form/stockIn/stockIn'),
+            form_stockInProducts: require('blocks/form/stockInProducts/stockInProducts')
         }
     });
 });

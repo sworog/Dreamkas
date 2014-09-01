@@ -5,20 +5,14 @@ define(function(require, exports, module) {
     return Modal.extend({
         template: require('ejs!./template.ejs'),
         models: {
-            group: require('models/group/group')
+            group: function(){
+                var GroupModel = require('models/group/group');
+
+                return PAGE.get('models.group') || new GroupModel;
+            }
         },
         blocks: {
-            form_group: function(opt){
-                var block = this,
-                    Form_group = require('blocks/form/group/group'),
-                    form_group = new Form_group({
-                        el: opt.el
-                    });
-
-                form_group.on('submit:success', function(){
-                    block.hide();
-                });
-            }
+            form_group: require('blocks/form/group/group')
         }
     });
 });

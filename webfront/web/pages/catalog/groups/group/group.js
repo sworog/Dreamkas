@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('blocks/page/page.deprecated'),
+    var Page = require('blocks/page/page'),
         router = require('router');
 
     return Page.extend({
@@ -55,7 +55,8 @@ define(function(require, exports, module) {
         },
         blocks: {
             modal_product: require('blocks/modal/product/product'),
-            productsList: require('blocks/productList/productList')
+            modal_group: require('blocks/modal/group/group'),
+            productList: require('blocks/productList/productList')
         },
         render: function(){
             var page = this;

@@ -1,34 +1,8 @@
-<% var ProductModel = require('models/product/product') %>
-<% var GroupsCollection = require('collections/groups/groups') %>
-
-<% var partials = {
-    select_vat: require('ejs!blocks/select/select_vat/select_vat.ejs'),
-    select_group: require('ejs!blocks/select/select_group/select_group.ejs')
-}; %>
-
-<% var helpers = {
-    formatMoney: require('kit/formatMoney/formatMoney')
-}; %>
-
-<% var models = _.extend({
-    product: new ProductModel()
-}, models) %>
-
-<% var collections = _.extend({
-    groups: new GroupsCollection()
-}, collections) %>
-
-<% var selectedGroupId = selectedGroupId || models.product.get('subCategory.id') %>
-
-<form block="form_product" id="<%- models.product.id ? 'form_productEdit' : 'form_productAdd' %>" class="form form_product">
+<form id="form_product" class="form form_product">
 
     <div class="form-group">
 
         <label class="control-label">Группа *</label>
-
-        <%= partials.select_group({
-            selectedGroupId: selectedGroupId
-        }) %>
 
     </div>
 
@@ -41,7 +15,7 @@
                     name="name"
                     type="text"
                     class="form-control"
-                    value="<%- models.product.get('name') %>">
+                    value="<%- model.get('name') %>">
         </div>
     </div>
 
@@ -51,11 +25,10 @@
 
         <div class="row">
             <div class="col-md-5">
-                <input
-                        name="units"
-                        type="text"
-                        class="form-control"
-                        value="<%- models.product.get('units') %>">
+                <input name="units"
+                       type="text"
+                       class="form-control"
+                       value="<%- model.get('units') %>">
             </div>
         </div>
 
@@ -70,7 +43,7 @@
                     name="barcode"
                     type="text"
                     class="form-control"
-                    value="<%- models.product.get('barcode') %>">
+                    value="<%- model.get('barcode') %>">
         </div>
     </div>
 
@@ -80,9 +53,7 @@
 
         <div class="row">
             <div class="col-md-5">
-                <%= partials.select_vat({
-                    selected: models.product.get('vat')
-                }) %>
+
             </div>
         </div>
     </div>
@@ -97,7 +68,7 @@
                         name="purchasePrice"
                         type="text"
                         class="form-control"
-                        value="<%- models.product.get('purchasePrice') ? helpers.formatMoney(models.product.get('purchasePrice')) : '' %>">
+                        value="<%- model.get('purchasePrice') && formatMoney(model.get('purchasePrice')) %>">
             </div>
         </div>
     </div>
@@ -112,7 +83,7 @@
                         name="sellingPrice"
                         type="text"
                         class="form-control"
-                        value="<%- models.product.get('sellingPrice') ? helpers.formatMoney(models.product.get('sellingPrice')) : '' %>">
+                        value="<%- model.get('sellingPrice') && formatMoney(models.product.get('sellingPrice')) %>">
             </div>
             <div class="col-md-7 product__markup">
                 Наценка: <span class="product__markupText"></span> %
@@ -121,7 +92,7 @@
 
     </div>
 
-    <% if (models.product.id) { %>
+    <% if (model.id) { %>
     <div class="confirmLink">
 
         <div class="confirmLink__trigger">

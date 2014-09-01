@@ -4,7 +4,7 @@ define(function(require, exports, module) {
 
     return Select.extend({
         collection: function(){
-            return PAGE.collections.suppliers
+            return PAGE.get('collections.suppliers');
         },
         template: require('ejs!./template.ejs')
     });

@@ -1,12 +1,11 @@
 define(function(require, exports, module) {
     //requirements
-    var Block = require('kit/block/block');
+    var CollectionBlock = require('kit/collectionBlock/collectionBlock');
 
-    return Block.extend({
+    return CollectionBlock.extend({
         template: require('ejs!./template.ejs'),
-        selected: null,
         collection: function(){
-            return PAGE.get('collections.stores');
+            return PAGE.get('collections.products');
         }
     });
 });

@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return CollectionBlock.extend({
         template: require('ejs!./template.ejs'),
         collection: function(){
-            return PAGE.collections.groups;
+            return PAGE.get('collections.groups');
         }
     });
 });

@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return Form.extend({
         template: require('ejs!./template.ejs'),
         collection: function(){
-            return PAGE.collections.suppliers;
+            return PAGE.get('collections.suppliers');
         },
         model: require('models/supplier/supplier')
     });

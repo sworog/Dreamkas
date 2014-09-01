@@ -6,11 +6,11 @@ define(function(require, exports, module) {
         template: require('ejs!./template.ejs'),
         model: require('models/stockIn/stockIn'),
         collection: function(){
-            return PAGE.collections.stockMovements;
+            return PAGE.get('collections.stockMovements');
         },
         collections: {
             stores: function(){
-                return PAGE.collections.stores;
+                return PAGE.get('collections.stores');
             }
         },
         partials: {

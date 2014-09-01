@@ -20,32 +20,8 @@ define(function(require, exports, module) {
             }
         },
         blocks: {
-            form_supplierReturn: function(opt) {
-                var block = this,
-                    Form_supplierReturn = require('blocks/form/supplierReturn/supplierReturn');
-
-                var form_supplierReturn = new Form_supplierReturn({
-                    el: opt.el,
-                    model: block.models.supplierReturn
-                });
-
-                form_supplierReturn.on('submit:success', function() {
-                    block.hide();
-                });
-
-                return form_supplierReturn;
-            },
-            form_supplierReturnProducts: function(opt) {
-                var block = this,
-                    Form_stockInProducts = require('blocks/form/supplierReturnProducts/supplierReturnProducts');
-
-                return new Form_stockInProducts({
-                    el: opt.el,
-                    models: {
-                        supplierReturn: block.models.supplierReturn
-                    }
-                });
-            }
+            form_supplierReturn: require('blocks/form/supplierReturn/supplierReturn'),
+            form_supplierReturnProducts: require('blocks/form/supplierReturnProducts/supplierReturnProducts')
         }
     });
 });

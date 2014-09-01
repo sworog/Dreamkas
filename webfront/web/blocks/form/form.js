@@ -101,7 +101,8 @@ define(function(require) {
             block.enable();
         },
         submitSuccess: function() {
-            var block = this;
+            var block = this,
+                modal = block.$el.closest('.modal')[0];
 
             if (block.collection) {
                 block.collection.add(block.model);
@@ -114,6 +115,10 @@ define(function(require) {
 
             if (block.get('successMessage')) {
                 block.showSuccessMessage();
+            }
+
+            if (modal){
+                modal.block.hide();
             }
         },
         submitError: function(response) {

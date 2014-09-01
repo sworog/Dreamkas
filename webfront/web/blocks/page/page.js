@@ -23,6 +23,11 @@ define(function(require, exports, module) {
                 var page = this;
 
                 page.openPos();
+            },
+            'click .page__modalLink': function(e){
+                e.preventDefault();
+
+                document.getElementById(e.target.dataset.modal).block.show();
             }
         },
 

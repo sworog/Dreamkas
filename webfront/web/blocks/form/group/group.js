@@ -1,13 +1,16 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('blocks/form/form'),
-        GroupModel = require('models/group/group');
+    var Form = require('blocks/form/form');
 
     return Form.extend({
         template: require('ejs!./template.ejs'),
-        model: GroupModel,
+        model: function(){
+            var GroupModel = require('models/group/group');
+
+            return PAGE.get('models.group') || new GroupModel;
+        },
         collection: function(){
-            return PAGE.collections.groups;
+            return PAGE.get('collections.groups');
         },
         events: {
             'click .confirmLink__confirmation .group__removeLink': function(e) {

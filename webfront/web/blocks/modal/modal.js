@@ -25,7 +25,7 @@ define(function(require, exports, module) {
             var block = this;
 
             block.$el.one('hidden.bs.modal', function(e) {
-                callback.call(block, e);
+                callback && callback.call(block, e);
             });
 
             block.$el.modal('hide');
