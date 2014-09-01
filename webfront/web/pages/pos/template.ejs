@@ -1,0 +1,36 @@
+<div class="page">
+    <div class="page__head">
+
+        <% if (collections.stores.length) { %>
+        <div class="page__headControls">
+            <a href="/pos/stores/<%- collections.stores.at(0).id %>" class="btn btn-primary btn-md">Далее</a>
+        </div>
+        <% } %>
+
+        <div class="page__title">Запуск кассы</div>
+    </div>
+
+    <div class="page__content">
+
+        <div class="row" style="padding-top: 50px;">
+            <% if (collections.stores.length) { %>
+            <div class="col-md-4">
+
+                <div class="form-group">
+
+                    <label class="control-label">Магазин</label>
+
+                    <b block="select_stores" data-selected="<%- collections.stores.at(0).id %>"></b>
+
+                </div>
+
+            </div>
+            <% } else { %>
+            <div class="col-md-12 alert alert-info">
+                У вас ещё нет ни одного магазина. Для начала работы с кассой добавьте хотя бы один магазин.
+            </div>
+            <% } %>
+        </div>
+        
+    </div>
+</div>

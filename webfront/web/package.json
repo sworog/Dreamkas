@@ -6,9 +6,12 @@
         "karma-firefox-launcher": "~0.1",
         "karma-teamcity-reporter": "~0.1",
         "karma-requirejs": "~0.2",
-        "karma-coverage": "~0.1"
+        "karma-coverage": "~0.1",
+        "karma-allure-reporter": "~1.0.0",
+        "karma-webdriverjs-launcher": "git://github.com/tatablack/karma-webdriverjs-launcher.git"
     },
     "scripts": {
-        "test": "node ./node_modules/karma/bin/karma start --reporters teamcity --single-run"
+        "test": "node ./node_modules/karma/bin/karma start --reporters teamcity --single-run",
+        "test-remote": "node ./node_modules/karma/bin/karma start karma.remote.js --single-run --reporters=teamcity,allure"
     }
 }
