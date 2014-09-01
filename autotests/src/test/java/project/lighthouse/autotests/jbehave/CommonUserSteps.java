@@ -129,9 +129,4 @@ public class CommonUserSteps {
     public void whenUserOpensUrl(String url) {
         commonSteps.openUrl(url);
     }
-
-    @Then("user checks h1 text is '$text'")
-    public void userChecksH1Text(String text) {
-        commonSteps.assertH1Text(text);
-    }
 }

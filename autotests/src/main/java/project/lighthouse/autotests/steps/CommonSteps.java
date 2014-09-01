@@ -12,8 +12,6 @@ import project.lighthouse.autotests.elements.bootstrap.WaitForModalWindowClose;
 import project.lighthouse.autotests.elements.preLoader.BodyPreLoader;
 import project.lighthouse.autotests.objects.web.error.ValidationErrorsCollection;
 
-import java.util.ArrayList;
-
 public class CommonSteps extends ScenarioSteps {
 
     CommonPage commonPage;
@@ -108,11 +106,6 @@ public class CommonSteps extends ScenarioSteps {
 
     @Step
     public void openUrl(String url) {
-        commonPage.openCustomUrl(url);
-    }
-    
-    @Step
-    public void assertH1Text(String text) {
-        Assert.assertThat(commonPage.getH1Text(), Matchers.is(text));
+        commonPage.getDriver().navigate().to(url);
     }
 }
