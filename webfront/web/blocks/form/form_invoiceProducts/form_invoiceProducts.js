@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/form/form.deprecated'),
+    var Form = require('blocks/form/form.deprecated'),
         formatMoney = require('kit/formatMoney/formatMoney'),
         normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
 

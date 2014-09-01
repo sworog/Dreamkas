@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('kit/form/form'),
+    var Form = require('blocks/form/form'),
         formatMoney = require('kit/formatMoney/formatMoney'),
         normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
 

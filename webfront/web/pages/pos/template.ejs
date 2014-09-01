@@ -1,25 +1,29 @@
 <div class="page">
-    <div class="page-title-breadcrumb">
+    <div class="page__head">
 
         <% if (collections.stores.length) { %>
-        <div class="pull-right">
+        <div class="page__headControls">
             <span class="supplierReturn__link btn btn-primary btn-md">Далее</span>
         </div>
         <% } %>
 
-        <div class="page-header pull-left">
-            <div class="page-title">Запуск кассы</div>
-        </div>
-
-        <div class="clearfix"></div>
+        <div class="page__title">Запуск кассы</div>
     </div>
 
-    <div class="page-content">
+    <div class="page__content">
 
         <div class="row" style="padding-top: 50px;">
             <% if (collections.stores.length) { %>
             <div class="col-md-4">
-                <b block="select_stores"></b>
+
+                <div class="form-group">
+
+                    <label class="control-label">Магазин</label>
+
+                    <b block="select_stores"></b>
+
+                </div>
+
             </div>
             <% } else { %>
             <div class="col-md-12 alert alert-info">
