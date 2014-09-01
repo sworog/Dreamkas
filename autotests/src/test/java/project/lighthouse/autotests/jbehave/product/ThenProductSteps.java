@@ -94,4 +94,9 @@ public class ThenProductSteps {
     public void thenTheUserChecksTheEditProductModalWindowFieldHasErrorMessage(String elementName, String errorMessage) {
         productSteps.assertEditProductModalWindowFieldErrorMessage(elementName, errorMessage);
     }
+
+    @Then("user checks delete button label '$label'")
+    public void userChecksDeleteButtonLabel(String label) {
+        productSteps.assertDeleteButtonLabel(label);
+    }
 }

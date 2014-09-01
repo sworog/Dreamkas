@@ -1,9 +1,9 @@
 package project.lighthouse.autotests.pages.stockMovement.modal.invoice;
 
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.pages.catalog.group.modal.CreateNewProductModalWindow;
+import project.lighthouse.autotests.pages.catalog.group.modal.ProductCreateModalWindow;
 
-public class InvoiceProductCreateModalWindow extends CreateNewProductModalWindow {
+public class InvoiceProductCreateModalWindow extends ProductCreateModalWindow {
 
     public InvoiceProductCreateModalWindow(WebDriver driver) {
         super(driver);

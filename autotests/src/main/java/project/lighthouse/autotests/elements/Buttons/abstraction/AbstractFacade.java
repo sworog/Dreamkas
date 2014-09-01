@@ -48,7 +48,7 @@ public abstract class AbstractFacade implements Conditional {
 
     public abstract String getXpathPattern();
 
-    private String getXpathPatternWithFacadeText() {
+    protected String getXpathPatternWithFacadeText() {
         return String.format(getXpathPattern(), facadeText);
     }
 

@@ -46,9 +46,9 @@ public class SupplierReturnCreateModalWindow extends StockMovementModalPage impl
 
     public void clickPaidCheckBox() {
         String xpath = String.format(
-                "%s//*[@class='checkbox' and normalize-space(text())='%s']",
+                "%s//*[@name='paid']/../*[@class='checkbox__text' and normalize-space(text())='%s']",
                 modalWindowXpath(),
-                "Оплачено"
+                "Погашен"
         );
         findVisibleElement(By.xpath(xpath)).click();
     }
