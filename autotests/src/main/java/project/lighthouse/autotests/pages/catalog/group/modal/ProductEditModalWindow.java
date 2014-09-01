@@ -9,12 +9,12 @@ import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 /**
  * Edit product modal window
  */
-public class EditProductModalWindow extends CreateNewProductModalWindow {
+public class ProductEditModalWindow extends ProductCreateModalWindow {
 
     @FindBy(xpath = "//*[@id='modal-productEdit']//*[contains(@class, 'product__markup')]")
     private WebElement markUpValueWebElement;
 
-    public EditProductModalWindow(WebDriver driver) {
+    public ProductEditModalWindow(WebDriver driver) {
         super(driver);
     }
 
@@ -23,8 +23,15 @@ public class EditProductModalWindow extends CreateNewProductModalWindow {
         return "//*[@id='modal-productEdit']";
     }
 
+    protected WebElement findDeleteButton() {
+        return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='removeLink product__removeLink']"));
+    }
     public void deleteButtonClick() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='removeLink product__removeLink']")).click();
+        findDeleteButton().click();
+    }
+
+    public String getDeleteButtonText() {
+        return findDeleteButton().getText();
     }
 
     public void confirmDeleteButtonClick() {

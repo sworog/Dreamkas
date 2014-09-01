@@ -17,6 +17,9 @@ define(function(require) {
         'stockMovements(/)': require('pages/stockMovements/stockMovements'),
 
         //stores
-        'stores(/)': require('pages/stores/stores')
+        'stores(/)': require('pages/stores/stores'),
+
+        //404
+        '*path': require('pages/404/404')
     };
 });

@@ -97,6 +97,7 @@ define(function(require, exports, module) {
             }
         },
         blocks: {
+            dropdown: require('blocks/dropdown/dropdown'),
             modal_stockIn: require('blocks/modal/modal_stockIn/modal_stockIn'),
             modal_supplierReturn: require('blocks/modal/modal_supplierReturn/modal_supplierReturn'),
             form_stockMovementsFilters: require('blocks/form/form_stockMovementsFilters/form_stockMovementsFilters'),

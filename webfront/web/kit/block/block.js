@@ -122,7 +122,7 @@ define(function(require, exports, module) {
 
             block.removeBlocks();
 
-            block.bindings.unbind();
+            block.bindings && block.bindings.unbind();
 
             return View.prototype.remove.apply(block, arguments);
         },

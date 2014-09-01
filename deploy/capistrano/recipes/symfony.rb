@@ -70,7 +70,10 @@ namespace :symfony do
 
         desc "Rename database_name in app/config/parameters.yml. Application name will be used (%branch.stage.env%) unless -S database_name=%database_name% argument is provided"
         task :rename_database_name, :roles => :app, :except => { :no_release => true } do
-            set :database_name, "#{host}_#{stage[0..1]}".gsub(/\./, '_') unless exists?(:database_name)
+          unless exists?(:database_name)
+            database_name = "#{host}_#{stage[0..1]}".gsub(/\./, '_')
+            set :database_name, database_name
+          end
             puts "--> Database name in ".yellow + "parameters.yml".bold.yellow + " will be set to ".yellow + "#{database_name}".red
             run "sed -r -i 's/^(\\s+database_name:\\s+).+$/\\1#{database_name}/g' #{parameters_file}"
         end
@@ -168,7 +171,7 @@ namespace :symfony do
         namespace :client do
 
             def create_auth_client(secret, public_id)
-                capture console_command("lighthouse:auth:client:create #{secret} #{public_id}"), :once => true
+                capture console_command("lighthouse:auth:client:create #{secret} #{public_id}")
             end
 
             desc "Create API client, required: -S public_id=<..> -S secret=<..>"
@@ -183,23 +186,23 @@ namespace :symfony do
             task :create_default, :roles => :app, :except => { :no_release => true } do
                 puts "--> Creating default clients"
                 api_clients.each do |api_client|
-                    puts "--> Creating client " + api_client['public_id'].green
-                    puts create_auth_client(api_client['secret'], api_client['public_id'])
+                    puts "--> Creating client " + api_client[:public_id].green
+                    puts create_auth_client(api_client[:secret], api_client[:public_id])
                 end
             end
 
             desc "List API clients"
             task :list, :roles => :app, :except => { :no_release => true } do
                 puts "--> List auth clients"
-                puts capture console_command("lighthouse:auth:client:list"), :once => true
+                puts capture console_command("lighthouse:auth:client:list")
             end
         end
     end
 
     namespace :user do
 
-        def create_api_user(email, password, role, customProjectName)
-            capture console_command("lighthouse:user:create #{email} #{password} #{role} --customProjectName=#{customProjectName}")
+        def create_api_user(email, password, role, custom_project_name)
+            capture console_command("lighthouse:user:create #{email} #{password} #{role} --customProjectName=#{custom_project_name}")
         end
 
         desc "Create user, required: -S email=<..> -S userpass=<..>, optional: -S userrole=<..> (administrator by default) -S customProjectName=<..>"
@@ -209,20 +212,20 @@ namespace :symfony do
             raise "userpass should be provided by -S userpass=.." unless exists?(:userpass)
             set :userrole, "" unless exists?(:userrole)
             set :customProjectName, "" unless exists?(:customProjectName)
-            puts create_api_user(email, userpass, userrole, customProjectName)
+            puts create_api_user(email, userpass, userrole, custom_project_name)
             capifony_puts_ok
         end
 
         desc "Create default users"
         task :create_default, :roles => :app, :except => { :no_release => true } do
             transaction do
-            on_rollback do
-                puts "--> Failed to create user".red
-            end
-            api_users.each do |api_user|
-                puts "--> Creating user " + api_user['email'].green
-                puts create_api_user(api_user['email'], api_user['userpass'], api_user['userrole'], "")
-            end
+              on_rollback do
+                  puts "--> Failed to create user".red
+              end
+              api_users.each do |api_user|
+                  puts "--> Creating user " + api_user[:email].green
+                  puts create_api_user(api_user[:email], api_user[:userpass], api_user[:userrole], "")
+              end
             end
         end
     end
@@ -245,11 +248,7 @@ namespace :symfony do
             set :xml_file_path, file
             set :remote_temp_file_path, "/tmp/#{host}_#{stage}_xml_import.xml"
 
-            if File.exists?(remote_temp_file_path)
-                begin
-                    run "#{try_sudo} rm #{remote_temp_file_path}"
-                end
-            end
+            run "#{try_sudo} rm #{remote_temp_file_path}" if File.exists?(remote_temp_file_path)
 
             puts "--> Uploading xml file".yellow
             top.upload(xml_file_path, remote_temp_file_path)
@@ -268,11 +267,7 @@ namespace :symfony do
                 set :xml_file_path, file
                 set :remote_temp_file_path, "/tmp/#{host}_#{stage}_xml_import_sales.xml"
 
-                if File.exists?(remote_temp_file_path)
-                    begin
-                        run "#{try_sudo} rm #{remote_temp_file_path}"
-                    end
-                end
+                run "#{try_sudo} rm #{remote_temp_file_path}" if File.exists?(remote_temp_file_path)
 
                 puts "--> Uploading xml file".yellow
                 top.upload(xml_file_path, remote_temp_file_path)
@@ -326,7 +321,7 @@ namespace :symfony do
             before "deploy:remove:go" do
                 begin
                     symfony.openstack.container.delete
-                rescue Exception => error
+                rescue
                     puts "✘\n".red
                 end
             end

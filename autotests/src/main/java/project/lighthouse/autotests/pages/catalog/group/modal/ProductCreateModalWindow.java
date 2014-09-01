@@ -12,12 +12,12 @@ import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 /**
  * Create new product modal window
  */
-public class CreateNewProductModalWindow extends ModalWindowPage {
+public class ProductCreateModalWindow extends ModalWindowPage {
 
     @FindBy(xpath = "//*[@id='modal-productAdd']//*[contains(@class, 'product__markup')]")
     private WebElement markUpValueWebElement;
 
-    public CreateNewProductModalWindow(WebDriver driver) {
+    public ProductCreateModalWindow(WebDriver driver) {
         super(driver);
     }
 

@@ -1,6 +1,6 @@
 require 'capistrano/recipes/deploy/strategy/remote_cache'
 
-class Capistrano::Deploy::Strategy::RemoteCacheSubfolder < Capistrano::Deploy::Strategy::RemoteCache
+class Capistrano::Deploy::Strategy::RemoteCacheSubFolder < Capistrano::Deploy::Strategy::RemoteCache
 
     private
 
