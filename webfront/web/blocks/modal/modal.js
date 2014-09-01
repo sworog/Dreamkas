@@ -1,8 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block'),
-        deepExtend = require('kit/deepExtend/deepExtend'),
-        _ = require('lodash');
+        deepExtend = require('kit/deepExtend/deepExtend');
 
     return Block.extend({
         render: function(){
@@ -17,7 +16,8 @@ define(function(require, exports, module) {
         show: function(data){
             var block = this;
 
-            block.render(data);
+            block.initData(data);
+            block.render();
 
             block.$el.modal('show');
         },

@@ -27,22 +27,20 @@ define(function(require, exports, module) {
         initialize: function() {
             var block = this;
 
-            block.render();
+            $.when(block.initData()).then(function(){
+                block.render();
+            });
         },
         
         formatMoney: require('kit/formatMoney/formatMoney'),
         formatAmount: require('kit/formatAmount/formatAmount'),
         formatDate: require('kit/formatDate/formatDate'),
 
-        render: function(data) {
+        render: function() {
             var block = this;
-
-            data && block.set(data);
 
             block.unbind();
             block.removeBlocks();
-
-            block.initData();
 
             if (typeof block.template === 'function') {
                 block.setElement($(block.template(block)).replaceAll(block.el));
@@ -66,8 +64,10 @@ define(function(require, exports, module) {
             return set.apply(null, args);
         },
 
-        initData: function(){
+        initData: function(data){
             var block = this;
+
+            data && block.set(data);
 
             block.collections = _.transform(block.collections, function(result, collectionInitializer, key) {
                 result[key] = block.get('collections.' + key);

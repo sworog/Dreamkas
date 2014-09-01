@@ -27,19 +27,22 @@ define(function(require, exports, module) {
             previousPage = window.PAGE;
             window.PAGE = page;
 
-            page.initData();
+            Block.prototype.initialize.apply(page, arguments);
+        },
 
-            $.when(page.fetch()).then(function() {
-                page.render();
-                page.setStatus('loaded');
+        initData: function() {
+            var page = this;
+
+            return $.when(Block.prototype.initData.apply(page, arguments)).then(function() {
+                return page.fetch();
             });
         },
 
-        render: function(){
+        render: function() {
             var page = this,
                 autofocus;
 
-            if (previousPage){
+            if (previousPage) {
                 previousPage.remove();
                 previousPage = null;
             }
@@ -48,41 +51,43 @@ define(function(require, exports, module) {
 
             autofocus = page.el.querySelector('[autofocus]');
 
-            if (autofocus){
-                setTimeout(function(){
+            if (autofocus) {
+                setTimeout(function() {
                     autofocus.focus();
                 }, 0);
             }
 
+            page.setStatus('loaded');
+
         },
 
-        remove: function(){
+        remove: function() {
             var page = this;
 
             page.unbind();
             page.removeBlocks();
         },
 
-        setStatus: function(status){
+        setStatus: function(status) {
             var page = this;
 
             page.trigger('status:' + status);
 
-            if (status === 'loading' && window.PAGE){
+            if (status === 'loading' && window.PAGE) {
                 document.body.removeAttribute('status');
             }
 
-            setTimeout(function(){
+            setTimeout(function() {
                 document.body.setAttribute('status', status);
             }, 0);
         },
 
-        setParams: function(params){
+        setParams: function(params) {
             var page = this;
 
             deepExtend(page.params, params);
 
-            router.save(_.transform(page.params, function(result, value, key){
+            router.save(_.transform(page.params, function(result, value, key) {
                 result[key] = _.isPlainObject(value) ? JSON.stringify(value) : value;
             }));
 

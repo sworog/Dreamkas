@@ -60,6 +60,9 @@ define(function(require) {
         initData: function(){
             var block = this;
 
+            block.__data = block.data;
+            block.__model = block.model;
+
             Block.prototype.initData.apply(block, arguments);
 
             block.data = block.get('data');
@@ -194,13 +197,9 @@ define(function(require) {
             var block = this;
 
             block.el.reset();
-            block.serialize();
 
-            if (block.model){
-                block.model.clear({
-                    silent: true
-                });
-            }
+            block.model = block.get('__model');
+            block.data = block.get('__data');
         },
         clear: function(){
             var block = this;
