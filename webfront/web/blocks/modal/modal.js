@@ -21,8 +21,12 @@ define(function(require, exports, module) {
 
             block.$el.modal('show');
         },
-        hide: function(){
+        hide: function(callback){
             var block = this;
+
+            block.$el.one('hidden.bs.modal', function(e) {
+                callback.call(block, e);
+            });
 
             block.$el.modal('hide');
         }

@@ -1,11 +1,3 @@
-<% var partials = {
-    modal_groupForm: require('ejs!blocks/modal/group/group.ejs'),
-    modal_productForm: require('ejs!blocks/modal/product/product.ejs')
-};
-helpers = {
-    formatMoney: require('kit/formatMoney/formatMoney')
-}; %>
-
 <!--BEGIN TITLE PAGE-->
 <div class="page-title-breadcrumb">
 
@@ -48,15 +40,15 @@ helpers = {
                         <thead>
                         <tr>
                             <th data-products-sort-by="name"
-                                    <%- params.productsSortBy === 'name' ? 'data-sorted=true data-sorted-direction=' + params.productsSortDirection : '' %>>
+                                <%- params.productsSortBy === 'name' ? 'data-sorted=true data-sorted-direction=' + params.productsSortDirection : '' %>>
                                 Название
                             </th>
                             <th data-products-sort-by="sellingPrice"
-                                    <%- params.productsSortBy === 'sellingPrice' ? 'data-sorted=true data-sorted-direction=' + params.productsSortDirection : '' %>>
+                                <%- params.productsSortBy === 'sellingPrice' ? 'data-sorted=true data-sorted-direction=' + params.productsSortDirection : '' %>>
                                 Цена продажи, <i class="fa fa-rub"></i>
                             </th>
                             <th data-products-sort-by="barcode"
-                                    <%- params.productsSortBy === 'barcode' ? 'data-sorted=true data-sorted-direction=' + params.productsSortDirection : '' %>>
+                                <%- params.productsSortBy === 'barcode' ? 'data-sorted=true data-sorted-direction=' + params.productsSortDirection : '' %>>
                                 Штрих-код
                             </th>
                         </tr>
@@ -91,23 +83,6 @@ helpers = {
 
 <!--MODALS-->
 
-<%= partials.modal_groupForm({
-    group: models.group,
-    productsCollection: collections.products
-}) %>
-<%= partials.modal_productForm({
-    collections: {
-        groups: collections.groups
-    },
-    selectedGroupId: models.group.id
-}) %>
-<% if (models.product) { %>
-<%= partials.modal_productForm({
-    collections: {
-        groups: collections.groups
-    },
-    productModel: models.product
-}) %>
-<% } %>
+<b block="modal_product"></b>
 
 <!--END MODALS-->
