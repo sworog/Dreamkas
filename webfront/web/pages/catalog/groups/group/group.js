@@ -31,9 +31,12 @@ define(function(require, exports, module) {
 
                 groupModel.on({
                     destroy: function() {
-                        var modal = $('.modal:visible');
+                        var modal = $('.modal:visible')[0];
 
-                        router.navigate('/catalog');
+                        modal.block.hide(function(){
+                            router.navigate('/catalog');
+                        });
+
                     }
                 });
 
