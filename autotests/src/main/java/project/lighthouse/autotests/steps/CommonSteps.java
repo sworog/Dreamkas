@@ -103,9 +103,4 @@ public class CommonSteps extends ScenarioSteps {
         String actualContent = commonPage.findVisibleElement(By.className("popover-content")).getText();
         Assert.assertThat(actualContent, Matchers.is(expectedContent));
     }
-
-    @Step
-    public void openUrl(String url) {
-        commonPage.getDriver().navigate().to(url);
-    }
 }

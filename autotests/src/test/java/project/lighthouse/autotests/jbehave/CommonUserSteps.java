@@ -123,10 +123,4 @@ public class CommonUserSteps {
     public void thenTheUserAssertsPopOverContent(String content) {
         commonSteps.assertPopOverContent(content);
     }
-
-    @Given("user opens url '$url'")
-    @When("user opens url '$url'")
-    public void whenUserOpensUrl(String url) {
-        commonSteps.openUrl(url);
-    }
 }

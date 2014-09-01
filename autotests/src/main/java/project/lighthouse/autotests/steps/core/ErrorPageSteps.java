@@ -15,4 +15,9 @@ public class ErrorPageSteps extends ScenarioSteps {
     public void assertH1Text(String text) {
         assertThat(errorPage.getH1Text(), is(text));
     }
+
+    @Step
+    public void openUrl(String url) {
+        errorPage.openUrl(url);
+    }
 }
