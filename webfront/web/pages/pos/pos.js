@@ -4,6 +4,13 @@ define(function(require, exports, module) {
 
     return Page.extend({
         template: require('ejs!./template.ejs'),
+        events: {
+            'change select[name="store"]': function(e){
+                var page = this;
+
+                page.$('[href^="/pos/stores/"]').attr('href', '/pos/stores/' + e.target.value);
+            }
+        },
         collections: {
             stores: require('collections/stores/stores')
         },

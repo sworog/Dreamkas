@@ -3,7 +3,7 @@
 
         <% if (collections.stores.length) { %>
         <div class="page__headControls">
-            <span class="supplierReturn__link btn btn-primary btn-md">Далее</span>
+            <a href="/pos/stores/<%- collections.stores.at(0).id %>" class="btn btn-primary btn-md">Далее</a>
         </div>
         <% } %>
 
@@ -20,7 +20,7 @@
 
                     <label class="control-label">Магазин</label>
 
-                    <b block="select_stores"></b>
+                    <b block="select_stores" data-selected="<%- collections.stores.at(0).id %>"></b>
 
                 </div>
 
