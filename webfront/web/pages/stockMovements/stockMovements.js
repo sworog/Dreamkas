@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('kit/page/page'),
+    var Page = require('blocks/page/page'),
         router = require('router');
 
     return Page.extend({

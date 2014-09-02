@@ -5,12 +5,40 @@ define(function(require, exports, module) {
         deepExtend = require('kit/deepExtend/deepExtend'),
         _ = require('lodash');
 
+    var posWindowReference = null;
+
     return Block.extend({
 
         el: '.page',
         template: require('ejs!./template.ejs'),
 
         activeNavigationItem: 'main',
+
+        events: {
+            'click .posLink': function(e) {
+                e.preventDefault();
+
+                var page = this;
+
+                page.openPos();
+            }
+        },
+
+        openPos: function() {
+            if (posWindowReference == null || posWindowReference.closed) {
+                /* if the pointer to the window object in memory does not exist
+                 or if such pointer exists but the window was closed */
+                posWindowReference = window.open('/pos', 'pos', 'innerWidth=1000, innerHeight=800');
+                /* then create it. The new window will be created and
+                 will be brought on top of any other window. */
+            } else {
+                posWindowReference.focus();
+                /* else the window reference must exist and the window
+                 is not closed; therefore, we can bring it back on top of any other
+                 window with the focus() method. There would be no need to re-create
+                 the window or to reload the referenced resource. */
+            }
+        },
 
         content: function() {
             return '<h1>Добро пожаловать в Lighthouse!</h1>';
@@ -30,11 +58,11 @@ define(function(require, exports, module) {
             });
         },
 
-        render: function(){
+        render: function() {
             var page = this,
                 autofocus;
 
-            if (window.PAGE && window.PAGE !== page){
+            if (window.PAGE && window.PAGE !== page) {
                 window.PAGE.remove();
             }
 
@@ -44,15 +72,15 @@ define(function(require, exports, module) {
 
             autofocus = page.el.querySelector('[autofocus]');
 
-            if (autofocus){
-                setTimeout(function(){
+            if (autofocus) {
+                setTimeout(function() {
                     autofocus.focus();
                 }, 0);
             }
 
         },
 
-        remove: function(){
+        remove: function() {
             var page = this;
 
             page.stopListening();
@@ -61,26 +89,26 @@ define(function(require, exports, module) {
             page.removeBlocks();
         },
 
-        setStatus: function(status){
+        setStatus: function(status) {
             var page = this;
 
             page.trigger('status:' + status);
 
-            if (status === 'loading' && window.PAGE){
+            if (status === 'loading' && window.PAGE) {
                 document.body.removeAttribute('status');
             }
 
-            setTimeout(function(){
+            setTimeout(function() {
                 document.body.setAttribute('status', status);
             }, 0);
         },
 
-        setParams: function(params){
+        setParams: function(params) {
             var page = this;
 
             deepExtend(page.params, params);
 
-            router.save(_.transform(page.params, function(result, value, key){
+            router.save(_.transform(page.params, function(result, value, key) {
                 result[key] = _.isPlainObject(value) ? JSON.stringify(value) : value;
             }));
 

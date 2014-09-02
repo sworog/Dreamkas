@@ -45,4 +45,9 @@ public class GeneralEndUserSteps {
     public void thenUserChecksFieldWithNameHasErrorMessageWithText(String elementName, String errorMessage) {
         generalSteps.checkItemErrorMessage(elementName, errorMessage);
     }
+
+    @Then("пользователь* проверяет, что заголовок равен '$title'")
+    public void thenUserAssertsTheModalWindowTitle(String title) {
+        generalSteps.assertTitle(title);
+    }
 }

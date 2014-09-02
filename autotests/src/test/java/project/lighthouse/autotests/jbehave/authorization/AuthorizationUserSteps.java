@@ -25,7 +25,7 @@ public class AuthorizationUserSteps {
 
     @BeforeScenario()
     public void beforeScenario() {
-        authorizationSteps.beforeScenario();
+        authorizationSteps.beforeScenarioClearCookiesIfUserIsAuthorized();
     }
 
     @BeforeScenario(uponType = ScenarioType.EXAMPLE)

@@ -51,6 +51,11 @@ public class WhenMenuNavigationUserSteps {
         menuNavigationSteps.stockMovementMenuItemClick();
     }
 
+    @When("пользователь нажимает на кнопку Запустить кассу в боковом меню навигации")
+    public void whenTheUserClicksTheMenuPosLaunchItem() {
+        menuNavigationSteps.launchPostButtonClick();
+    }
+
     @When("the user clicks the menu invoices item")
     public void whenTheUserClicksTheMenuInvoicesItem() {
         menuNavigationSteps.invoicesMenuItemClick();

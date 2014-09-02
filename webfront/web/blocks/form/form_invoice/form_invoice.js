@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var From = require('kit/form/form.deprecated');
+    var From = require('blocks/form/form.deprecated');
 
     return From.extend({
         el: '.form_invoice',

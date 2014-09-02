@@ -13,6 +13,8 @@ public class CustomVariableStorage {
 
     private String name;
 
+    private String mainWindowHandle;
+
     public List<ExtraBarcode> getExtraBarcodes() {
         return extraBarcodes;
     }
@@ -31,5 +33,13 @@ public class CustomVariableStorage {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getMainWindowHandle() {
+        return mainWindowHandle;
+    }
+
+    public void setMainWindowHandle(String mainWindowHandle) {
+        this.mainWindowHandle = mainWindowHandle;
     }
 }
