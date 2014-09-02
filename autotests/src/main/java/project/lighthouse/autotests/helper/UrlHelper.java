@@ -1,6 +1,6 @@
 package project.lighthouse.autotests.helper;
 
-import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.storage.Storage;
 
 /**
  * The helper is used for getting required url for api mechanism
@@ -8,7 +8,7 @@ import project.lighthouse.autotests.StaticData;
 public class UrlHelper {
 
     public static String getApiUrl() {
-        return StaticData.WEB_DRIVER_BASE_URL.replace("webfront", "api");
+        return getWebFrontUrl().replace("webfront", "api");
     }
 
     public static String getApiUrl(String url) {
@@ -16,6 +16,6 @@ public class UrlHelper {
     }
 
     public static String getWebFrontUrl() {
-        return StaticData.WEB_DRIVER_BASE_URL;
+        return Storage.getConfigurationVariableStorage().getProperty("webdriver.base.url");
     }
 }

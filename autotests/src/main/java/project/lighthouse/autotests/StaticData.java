@@ -1,7 +1,7 @@
 package project.lighthouse.autotests;
 
-import project.lighthouse.autotests.objects.api.*;
 import project.lighthouse.autotests.api.objects.stockmovement.invoice.Invoice;
+import project.lighthouse.autotests.objects.api.*;
 import project.lighthouse.autotests.storage.Storage;
 
 import java.util.ArrayList;
@@ -22,17 +22,8 @@ public class StaticData {
     public static HashMap<String, ArrayList<Product>> subCategoryProducts = new HashMap<>();
     public static HashMap<String, Supplier> suppliers = new HashMap<>();
 
-    public static Integer DEFAULT_TIMEOUT = 15;
-    public static Integer DEFAULT_PRE_LOADER_TIMEOUT = 5;
-    public static Integer DEFAULT_VALIDATION_ERROR_TIMEOUT = 10;
-
-    public static String WEB_DRIVER_BASE_URL;
-
     public static String retailMarkupMax;
     public static String retailMarkupMin;
-
-    public static final String client_id = "autotests_autotests";
-    public static final String client_secret = "secret";
 
     static public Boolean demoMode = false;
     static public Boolean isPaused = true;
@@ -47,10 +38,6 @@ public class StaticData {
 
     public static Boolean hasStore(String storeNumber) {
         return stores.containsKey(storeNumber);
-    }
-
-    public static Boolean hasDepartment(String departmentNumber) {
-        return stores.containsKey(departmentNumber);
     }
 
     public static void clear() {
