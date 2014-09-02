@@ -1,7 +1,7 @@
 package project.lighthouse.autotests.console;
 
 import junit.framework.Assert;
-import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.storage.Storage;
 
 import java.io.IOException;
 
@@ -16,7 +16,8 @@ public class CommandExecutor {
     }
 
     public ConsoleCommandResult run() throws IOException, InterruptedException {
-        String host = StaticData.WEB_DRIVER_BASE_URL.replaceAll("http://(.*).autotests.webfront.lighthouse.pro", "$1");
+        String webDriverBaseUrl = Storage.getConfigurationVariableStorage().getProperty("webdriver.base.url");
+        String host = webDriverBaseUrl.replaceAll("http://(.*).autotests.webfront.lighthouse.pro", "$1");
         String commandToExecute = String.format("bundle exec cap autotests log:debug %s", command);
         ConsoleCommandResult consoleCommandResult = new ConsoleCommand(folder, host).exec(commandToExecute);
         if (!consoleCommandResult.isOk()) {
