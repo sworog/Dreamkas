@@ -1,6 +1,5 @@
 package project.lighthouse.autotests;
 
-import project.lighthouse.autotests.api.objects.stockmovement.invoice.Invoice;
 import project.lighthouse.autotests.objects.api.*;
 import project.lighthouse.autotests.storage.Storage;
 
@@ -10,8 +9,6 @@ import java.util.HashMap;
 public class StaticData {
 
     public static HashMap<String, Product> products = new HashMap<>();
-    public static HashMap<String, Invoice> invoices = new HashMap<>();
-    public static HashMap<String, WriteOff> writeOffs = new HashMap<>();
     public static HashMap<String, Group> groups = new HashMap<>();
     public static HashMap<String, Category> categories = new HashMap<>();
     public static HashMap<String, SubCategory> subCategories = new HashMap<>();
@@ -30,8 +27,6 @@ public class StaticData {
 
     public static void clear() {
         products.clear();
-        invoices.clear();
-        writeOffs.clear();
         groups.clear();
         categories.clear();
         subCategories.clear();

@@ -30,31 +30,6 @@ public class ApiConnect {
         }
     }
 
-    public WriteOff createWriteOffThroughPost(WriteOff writeOff) throws JSONException, IOException {
-        if (!StaticData.writeOffs.containsKey(writeOff.getNumber())) {
-            httpRequestable.executePostRequest(writeOff);
-            StaticData.writeOffs.put(writeOff.getNumber(), writeOff);
-            return writeOff;
-        } else {
-            return StaticData.writeOffs.get(writeOff.getNumber());
-        }
-    }
-
-    public void addProductToWriteOff(String writeOffNumber, String productName, String quantity, String price, String cause)
-            throws JSONException, IOException {
-        Product product = StaticData.products.get(productName);
-        WriteOff writeOff = StaticData.writeOffs.get(writeOffNumber);
-        String apiUrl = String.format("%s%s/%s/products.json", UrlHelper.getApiUrl(""), writeOff.getApiUrl(), writeOff.getId());
-
-        String productJsonData = WriteOffProduct.getJsonObject(product.getId(), quantity, price, cause).toString();
-        httpRequestable.executePostRequest(apiUrl, productJsonData);
-    }
-
-    public String getWriteOffPageUrl(String writeOffNumber) throws JSONException {
-        String writeOffId = StaticData.writeOffs.get(writeOffNumber).getId();
-        return String.format("%s/writeOffs/%s", UrlHelper.getWebFrontUrl(), writeOffId);
-    }
-
     public Group createGroupThroughPost(Group group) throws JSONException, IOException {
         if (!StaticData.isGroupCreated(group.getName())) {
             httpRequestable.executePostRequest(group);
