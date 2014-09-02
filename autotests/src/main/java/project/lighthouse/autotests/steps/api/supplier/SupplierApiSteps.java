@@ -20,10 +20,10 @@ public class SupplierApiSteps extends ScenarioSteps {
                                                   String email,
                                                   String contactPerson) throws IOException, JSONException {
         Supplier supplier = new Supplier(name, address, phone, email, contactPerson);
-        String password = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email).getPassword();
+        String password = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(userEmail).getPassword();
         CustomVariableStorage customVariableStorage = Storage.getCustomVariableStorage();
 
-        if (customVariableStorage.getSuppliers().containsKey(supplier.getName())) {
+        if (!customVariableStorage.getSuppliers().containsKey(supplier.getName())) {
             new ApiFactory(userEmail, password).createObject(supplier);
             customVariableStorage.getSuppliers().put(supplier.getName(), supplier);
             return supplier;
