@@ -117,11 +117,14 @@ public class CommonSteps extends ScenarioSteps {
     @Step
     public void beforeScenarioSwitchToMainWindowHandleIfNeeded() {
         String mainWindowHandle = Storage.getCustomVariableStorage().getMainWindowHandle();
-        String currentWindowHandle = commonPage.getDriver().getWindowHandle();
-        if (mainWindowHandle != null && !mainWindowHandle.equals(currentWindowHandle)) {
+        if (mainWindowHandle != null && containWindowHandle(mainWindowHandle)) {
             commonPage.getDriver().close();
             commonPage.getDriver().switchTo().window(mainWindowHandle);
             Storage.getCustomVariableStorage().setMainWindowHandle(null);
         }
+    }
+
+    private Boolean containWindowHandle(String windowHandle) {
+        return getDriver().getWindowHandles().contains(windowHandle);
     }
 }
