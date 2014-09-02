@@ -121,6 +121,7 @@ public class CommonSteps extends ScenarioSteps {
         if (mainWindowHandle != null && !mainWindowHandle.equals(currentWindowHandle)) {
             commonPage.getDriver().close();
             commonPage.getDriver().switchTo().window(mainWindowHandle);
+            Storage.getCustomVariableStorage().setMainWindowHandle(null);
         }
     }
 }
