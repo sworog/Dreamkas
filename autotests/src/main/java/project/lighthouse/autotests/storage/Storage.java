@@ -1,6 +1,7 @@
 package project.lighthouse.autotests.storage;
 
 import project.lighthouse.autotests.guice.Injectors;
+import project.lighthouse.autotests.storage.containers.user.DemoModeConfigurable;
 import project.lighthouse.autotests.storage.variable.*;
 
 public class Storage {
@@ -35,5 +36,9 @@ public class Storage {
 
     public static Configurable getConfigurationVariableStorage() {
         return Injectors.getInjector().getInstance(Configurable.class);
+    }
+
+    public static DemoModeConfigurable getDemoModeConfigurableStorage() {
+        return Injectors.getInjector().getInstance(DemoModeConfigurable.class);
     }
 }

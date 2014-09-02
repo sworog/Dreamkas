@@ -25,9 +25,6 @@ public class StaticData {
     public static String retailMarkupMax;
     public static String retailMarkupMin;
 
-    static public Boolean demoMode = false;
-    static public Boolean isPaused = true;
-
     public static Boolean isGroupCreated(String groupName) {
         return groups.containsKey(groupName);
     }

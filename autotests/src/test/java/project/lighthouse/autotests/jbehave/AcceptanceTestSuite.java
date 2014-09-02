@@ -3,7 +3,6 @@ package project.lighthouse.autotests.jbehave;
 import ch.lambdaj.Lambda;
 import net.thucydides.core.webdriver.WebdriverProxyFactory;
 import net.thucydides.jbehave.ThucydidesJUnitStories;
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.storage.Configurable;
 import project.lighthouse.autotests.storage.Storage;
 import project.lighthouse.autotests.thucydides.RemoteWebDriverEventListener;
@@ -24,7 +23,7 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
     private final Integer defaultPreLoaderTimeOut = getEnvironmentVariables().getPropertyAsInteger(PRE_LOADER_TIMEOUT, 5);
     private final Integer defaultValidationErrorTimeOut = getEnvironmentVariables().getPropertyAsInteger(VALIDATION_ERROR_TIMEOUT, 10);
 
-    Configurable configurationStorage = Storage.getConfigurationVariableStorage();
+    private Configurable configurationStorage = Storage.getConfigurationVariableStorage();
 
     public AcceptanceTestSuite() {
         setWaitTimeOuts();
@@ -74,8 +73,8 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
     }
 
     private void setDemoMode() {
-        StaticData.demoMode = getEnvironmentVariables()
-                .getPropertyAsBoolean(DEMO_MODE, false);
+        Boolean isDemoModeOn = getEnvironmentVariables().getPropertyAsBoolean(DEMO_MODE, false);
+        Storage.getDemoModeConfigurableStorage().setIsDemoModeOn(isDemoModeOn);
     }
 
     private void parallelExecutionStart() {
