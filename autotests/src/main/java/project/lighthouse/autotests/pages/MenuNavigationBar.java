@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.Buttons.navigationBar.NavigationBarLinkFacade;
+import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 
 public class MenuNavigationBar extends CommonPageObject {
 
@@ -66,5 +67,9 @@ public class MenuNavigationBar extends CommonPageObject {
 
     public NavigationBarLinkFacade getStockMovementMenuItem() {
         return new NavigationBarLinkFacade(this, "Товародвижение");
+    }
+
+    public void launchPostButtonClick() {
+        new PrimaryBtnFacade(this, "Запустить кассу").click();
     }
 }
