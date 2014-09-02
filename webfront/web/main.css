@@ -15,6 +15,7 @@
 @import "/blocks/groupList/groupList.css";
 @import "/blocks/autocomplete/autocomplete.css";
 @import "/blocks/page/page.css";
+@import "/blocks/productFinder/productFinder.css";
 
 body:before {
     content: "";

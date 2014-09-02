@@ -13,6 +13,9 @@ define(function(require, exports, module) {
                     id: page.params.storeId
                 });
             }
+        },
+        blocks: {
+            productFinder: require('blocks/productFinder/productFinder')
         }
     });
 });

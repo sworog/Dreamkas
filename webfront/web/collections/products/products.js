@@ -7,6 +7,25 @@ define(function(require) {
             groupId: null,
             url: function(){
                 return Collection.baseApiUrl + '/subcategories/' + this.groupId + '/products'
+            },
+            find: function(query){
+                var collection = this;
+
+                collection.query = query;
+
+                collection.searchRequest && collection.searchRequest.abort();
+
+                collection.searchRequest = $.ajax({
+                    url: Collection.baseApiUrl + '/products/search',
+                    data: {
+                        properties: ['name', 'sku'],
+                        query: collection.query
+                    }
+                });
+
+                return collection.searchRequest.then(function(data){
+                    collection.reset(data);
+                });
             }
         });
     }
