@@ -1,7 +1,7 @@
 package project.lighthouse.autotests.storage.variable;
 
 import project.lighthouse.autotests.storage.Configurable;
-import project.lighthouse.autotests.storage.containers.user.DemoModeConfigurable;
+import project.lighthouse.autotests.storage.DemoModeConfigurable;
 
 import java.util.HashMap;
 import java.util.Map;

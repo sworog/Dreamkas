@@ -6,8 +6,8 @@ import net.thucydides.core.model.TestOutcome;
 import net.thucydides.core.steps.ExecutedStepDescription;
 import net.thucydides.core.steps.StepFailure;
 import net.thucydides.core.steps.StepListener;
+import project.lighthouse.autotests.storage.DemoModeConfigurable;
 import project.lighthouse.autotests.storage.Storage;
-import project.lighthouse.autotests.storage.containers.user.DemoModeConfigurable;
 
 import java.util.Map;
 

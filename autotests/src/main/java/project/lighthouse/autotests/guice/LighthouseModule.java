@@ -4,7 +4,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import project.lighthouse.autotests.storage.Configurable;
 import project.lighthouse.autotests.storage.CurrentPageObjectStorage;
-import project.lighthouse.autotests.storage.containers.user.DemoModeConfigurable;
+import project.lighthouse.autotests.storage.DemoModeConfigurable;
 import project.lighthouse.autotests.storage.variable.*;
 
 public class LighthouseModule extends AbstractModule {

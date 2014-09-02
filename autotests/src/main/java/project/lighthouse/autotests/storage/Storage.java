@@ -1,7 +1,6 @@
 package project.lighthouse.autotests.storage;
 
 import project.lighthouse.autotests.guice.Injectors;
-import project.lighthouse.autotests.storage.containers.user.DemoModeConfigurable;
 import project.lighthouse.autotests.storage.variable.*;
 
 public class Storage {

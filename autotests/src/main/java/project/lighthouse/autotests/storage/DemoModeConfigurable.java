@@ -1,4 +1,4 @@
-package project.lighthouse.autotests.storage.containers.user;
+package project.lighthouse.autotests.storage;
 
 public interface DemoModeConfigurable {
 
