@@ -115,6 +115,7 @@ public class CommonUserSteps {
     }
 
     @Then("the user waits for page finishing loading")
+    @Alias("пользователь ждет пока загрузится страница")
     public void thenTheUserWaitsForPageFinishingLoading() {
         commonSteps.waitForPageFinishingLoading();
     }
