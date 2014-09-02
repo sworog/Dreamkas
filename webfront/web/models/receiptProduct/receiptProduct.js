@@ -4,6 +4,7 @@ define(function(require, exports, module) {
 
     return Model.extend({
         defaults: {
+            product: {},
             count: 1
         },
         saveData: function() {

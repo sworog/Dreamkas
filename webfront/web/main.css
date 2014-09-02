@@ -16,6 +16,7 @@
 @import "/blocks/autocomplete/autocomplete.css";
 @import "/blocks/page/page.css";
 @import "/blocks/productFinder/productFinder.css";
+@import "/blocks/form/receipt/receipt.css";
 
 body:before {
     content: "";

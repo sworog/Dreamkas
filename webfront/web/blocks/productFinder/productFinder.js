@@ -7,6 +7,9 @@ define(function(require, exports, module) {
         collections: {
             products: require('collections/products/products')
         },
+        models: {
+            receipt: require('models/receipt/receipt')
+        },
         events: {
             'keyup input[name="product"]': function(e){
                 var block = this;
@@ -26,6 +29,15 @@ define(function(require, exports, module) {
 
                 block.collections.products.searchQuery = null;
                 block.collections.products.reset([]);
+            },
+            'click .productFinder__resultLink': function(e){
+                e.preventDefault();
+
+                var block = this;
+
+                block.models.receipt.collections.products.add({
+                    product: block.collections.products.get(e.currentTarget.dataset.productId).toJSON()
+                });
             }
         },
         blocks: {

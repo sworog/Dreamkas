@@ -12,10 +12,30 @@ define(function(require, exports, module) {
                 return new StoreModel({
                     id: page.params.storeId
                 });
-            }
+            },
+            receipt: require('models/receipt/receipt')
         },
         blocks: {
-            productFinder: require('blocks/productFinder/productFinder')
+            productFinder: function(opt){
+                var block = this,
+                    ProductFinder = require('blocks/productFinder/productFinder');
+
+                return new ProductFinder({
+                    el: opt.el,
+                    models: {
+                        receipt: block.models.receipt
+                    }
+                });
+            },
+            form_receipt: function(opt){
+                var block = this,
+                    Form_receipt = require('blocks/form/receipt/receipt');
+
+                return new Form_receipt({
+                    el: opt.el,
+                    model: block.models.receipt
+                })
+            }
         }
     });
 });

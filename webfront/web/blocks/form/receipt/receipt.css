@@ -1,0 +1,34 @@
+.form_receipt {
+    background-color: #fff;
+}
+
+.form_receipt button[type="submit"] {
+    width: 100%;
+    font-weight: bold;
+    text-align: center;
+}
+
+.form_receipt button[type="submit"] .fa-rub {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.form_receipt .table {
+    margin-bottom: 0;
+}
+
+.form_receipt__itemCount, .form_receipt__itemPrice {
+    white-space: nowrap;
+    width: 1px;
+}
+
+.form_receipt__itemPrice .fa-rub{
+    font-size: 12px;
+}
+
+.form_receipt__itemName {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}

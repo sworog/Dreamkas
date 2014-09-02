@@ -4,12 +4,12 @@ define(function(require, exports, module) {
 
     return Model.extend({
         collections: {
-            receiptProducts: require('collections/receiptProducts/receiptProducts')
+            products: require('collections/receiptProducts/receiptProducts')
         },
         saveData: function(){
 
             return {
-                products: this.collections.receiptProducts.map(function(receiptProductModel) {
+                products: this.collections.products.map(function(receiptProductModel) {
                     return receiptProductModel.getData();
                 })
             }
