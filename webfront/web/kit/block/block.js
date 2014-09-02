@@ -39,17 +39,21 @@ define(function(require, exports, module) {
         render: function() {
             var block = this;
 
-            block.unbind();
-            block.removeBlocks();
-
-            if (typeof block.template === 'function') {
-                block.setElement($(block.template(block)).replaceAll(block.el));
+            if (typeof block.template !== 'function') {
+                return;
             }
 
-            block.bindings = rivets.bind(block.el, block);
-            block.el.block = this;
+            block.removeBlocks();
 
+            block.bindings && block.bindings.unbind();
+
+            block.setElement($(block.template(block)).replaceAll(block.el));
+
+            block.bindings = rivets.bind(block.el, block);
+            
             block.initBlocks();
+
+            block.el.block = this;
         },
 
         get: function() {
