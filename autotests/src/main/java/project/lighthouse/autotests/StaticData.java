@@ -13,7 +13,6 @@ public class StaticData {
     public static HashMap<String, Category> categories = new HashMap<>();
     public static HashMap<String, SubCategory> subCategories = new HashMap<>();
     public static HashMap<String, Store> stores = new HashMap<>();
-    public static HashMap<String, String> userTokens = new HashMap<>();
     public static HashMap<String, ArrayList<Product>> subCategoryProducts = new HashMap<>();
 
     public static Boolean isGroupCreated(String groupName) {
@@ -30,7 +29,6 @@ public class StaticData {
         categories.clear();
         subCategories.clear();
         stores.clear();
-        userTokens.clear();
         subCategoryProducts.clear();
         Storage.getOrderVariableStorage().resetNumber();
         Storage.getInvoiceVariableStorage().resetNumber();

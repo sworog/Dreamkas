@@ -2,12 +2,12 @@ package project.lighthouse.autotests.api;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.api.http.HttpExecutor;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.OauthAuthorizeData;
 import project.lighthouse.autotests.storage.Configurable;
 import project.lighthouse.autotests.storage.Storage;
+import project.lighthouse.autotests.storage.variable.UserVariableStorage;
 
 import java.io.IOException;
 
@@ -23,7 +23,9 @@ public class AccessToken {
 
     public String get() {
         Configurable configuration = Storage.getConfigurationVariableStorage();
-        if (!StaticData.userTokens.containsKey(userName)) {
+        UserVariableStorage userVariableStorage = Storage.getUserVariableStorage();
+
+        if (!userVariableStorage.getUserTokens().containsKey(userName)) {
             String accessToken;
             try {
                 String url = String.format("%s/oauth/v2/token", UrlHelper.getApiUrl());
@@ -38,10 +40,10 @@ public class AccessToken {
             } catch (JSONException | IOException e) {
                 throw new AssertionError(e.getMessage());
             }
-            StaticData.userTokens.put(userName, accessToken);
+            userVariableStorage.getUserTokens().put(userName, accessToken);
             return accessToken;
         } else {
-            return StaticData.userTokens.get(userName);
+            return userVariableStorage.getUserTokens().get(userName);
         }
     }
 }
