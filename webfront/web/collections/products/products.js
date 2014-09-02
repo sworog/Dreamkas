@@ -5,13 +5,14 @@ define(function(require) {
         return Collection.extend({
             model: require('models/product/product'),
             groupId: null,
+            searchQuery: null,
             url: function(){
                 return Collection.baseApiUrl + '/subcategories/' + this.groupId + '/products'
             },
             find: function(query){
                 var collection = this;
 
-                collection.query = query;
+                collection.searchQuery = query;
 
                 collection.searchRequest && collection.searchRequest.abort();
 
@@ -19,7 +20,7 @@ define(function(require) {
                     url: Collection.baseApiUrl + '/products/search',
                     data: {
                         properties: ['name', 'sku'],
-                        query: collection.query
+                        query: collection.searchQuery
                     }
                 });
 

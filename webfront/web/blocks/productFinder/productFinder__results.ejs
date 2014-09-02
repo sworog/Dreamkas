@@ -1,0 +1,28 @@
+<div class="productFinder__results">
+
+    <% if(collection.length) { %>
+
+        <div class="list-group">
+            <% collection.forEach(function(productModel){ %>
+
+            <a class="list-group-item">
+                <%- productModel.get('name') %>
+                <span class="productFinder__itemSku">
+                    / <%- productModel.get('sku') %>
+                </span>
+            </a>
+
+            <% }) %>
+        </div>
+
+    <% } else if(collection.searchQuery && collection.searchQuery.length >= 3) { %>
+        <div class="alert alert-info">
+            Продуктов не найдено.
+        </div>
+    <% } else { %>
+        <div class="alert alert-info">
+            Для поиска товара введите 3 или более символа.
+        </div>
+    <% } %>
+
+</div>

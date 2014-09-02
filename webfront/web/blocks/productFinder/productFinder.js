@@ -3,8 +3,6 @@ define(function(require, exports, module) {
     var Block = require('kit/block/block');
 
     return Block.extend({
-        query: null,
-        request: null,
         template: require('ejs!./template.ejs'),
         collections: {
             products: require('collections/products/products')
@@ -13,7 +11,7 @@ define(function(require, exports, module) {
             'keyup input[name="product"]': function(e){
                 var block = this;
 
-                e.target.classList.add('loading');
+                e.target.value.length >= 3 && e.target.classList.add('loading');
 
                 block.collections.products.find(e.target.value).then(function(){
                     e.target.classList.remove('loading');
@@ -26,7 +24,19 @@ define(function(require, exports, module) {
 
                 block.$('input[name="product"]').val('');
 
+                block.collections.products.searchQuery = null;
                 block.collections.products.reset([]);
+            }
+        },
+        blocks: {
+            productFinder__results: function(opt){
+                var block = this,
+                    ProductFinder__results = require('./productFinder__results');
+
+                return new ProductFinder__results({
+                    el: opt.el,
+                    collection: block.collections.products
+                });
             }
         }
     });

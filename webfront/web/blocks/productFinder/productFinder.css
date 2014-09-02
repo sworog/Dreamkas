@@ -1,3 +1,31 @@
+.productFinder__resetLink {
+    cursor: pointer;
+}
+
 .productFinder__resetLink:hover {
     color: #0a819c;
+}
+
+.productFinder__search {
+    padding-bottom: 20px;
+}
+
+.productFinder__results .alert {
+    margin-bottom: 0;
+}
+
+.productFinder__results .list-group-item {
+    cursor: pointer;
+    background-color: #fafafa;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.productFinder__itemSku{
+    font-size: 11px;
+    color: #bbb;
+}
+
+.productFinder__results .list-group {
+    margin-bottom: 0;
 }
