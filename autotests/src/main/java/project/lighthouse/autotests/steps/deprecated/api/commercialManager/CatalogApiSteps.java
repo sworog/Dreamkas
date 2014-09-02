@@ -2,7 +2,6 @@ package project.lighthouse.autotests.steps.deprecated.api.commercialManager;
 
 import net.thucydides.core.annotations.Step;
 import org.json.JSONException;
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.api.ApiConnect;
 import project.lighthouse.autotests.objects.api.Category;
 import project.lighthouse.autotests.objects.api.Group;
@@ -89,20 +88,5 @@ public class CatalogApiSteps extends OwnerApi {
     public void navigateToSubCategoryProductCreatePageUrl(String subCategoryName) throws JSONException {
         String subCategoryProductCreatePageUrl = apiConnect.getSubCategoryProductCreatePageUrl(subCategoryName);
         getDriver().navigate().to(subCategoryProductCreatePageUrl);
-    }
-
-    @Step
-    public void setSubCategoryMarkUp(String retailMarkupMax, String retailMarkupMin, String subCategoryName) throws IOException, JSONException {
-        apiConnect.setSubCategoryMarkUp(retailMarkupMax, retailMarkupMin, StaticData.subCategories.get(subCategoryName));
-    }
-
-    @Step
-    public void setSubCategoryMarkUpByUserWithEmail(String retailMarkupMax,
-                                                    String retailMarkupMin,
-                                                    String subCategoryName,
-                                                    String email) throws IOException, JSONException {
-        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email);
-        new ApiConnect(userContainer.getEmail(), userContainer.getPassword())
-                .setSubCategoryMarkUp(retailMarkupMax, retailMarkupMin, StaticData.subCategories.get(subCategoryName));
     }
 }

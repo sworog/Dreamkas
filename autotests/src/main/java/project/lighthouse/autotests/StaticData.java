@@ -15,7 +15,6 @@ public class StaticData {
     public static HashMap<String, Store> stores = new HashMap<>();
     public static HashMap<String, String> userTokens = new HashMap<>();
     public static HashMap<String, ArrayList<Product>> subCategoryProducts = new HashMap<>();
-    public static HashMap<String, Supplier> suppliers = new HashMap<>();
 
     public static Boolean isGroupCreated(String groupName) {
         return groups.containsKey(groupName);
@@ -33,7 +32,6 @@ public class StaticData {
         stores.clear();
         userTokens.clear();
         subCategoryProducts.clear();
-        suppliers.clear();
         Storage.getOrderVariableStorage().resetNumber();
         Storage.getInvoiceVariableStorage().resetNumber();
         Storage.getUserVariableStorage().getUserContainers().clear();

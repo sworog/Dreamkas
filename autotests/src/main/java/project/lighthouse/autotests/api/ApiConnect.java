@@ -20,7 +20,6 @@ public class ApiConnect {
 
     public Product createProductThroughPost(Product product, SubCategory subCategory) throws JSONException, IOException {
         if (!subCategory.hasProduct(product)) {
-//            getSubCategoryMarkUp(subCategory);
             httpRequestable.executePostRequest(product);
             subCategory.addProduct(product);
             StaticData.products.put(product.getName(), product);
@@ -123,43 +122,11 @@ public class ApiConnect {
         return StaticData.stores.get(storeNumber).getId();
     }
 
-    @Deprecated
-    public void setSubCategoryMarkUp(String retailMarkupMax, String retailMarkupMin, SubCategory subCategory) throws JSONException, IOException {
-        String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/subcategories"), subCategory.getId());
-        httpRequestable.executePutRequest(apiUrl, new JSONObject()
-                        .put("category", subCategory.getCategory().getId())
-                        .put("name", subCategory.getName())
-                        .put("retailMarkupMax", retailMarkupMax)
-                        .put("retailMarkupMin", retailMarkupMin)
-        );
-    }
-
     public String setSet10ImportUrl(String value) throws IOException, JSONException {
         JSONObject jsonObject = new JSONObject(httpRequestable.executeGetRequest(UrlHelper.getApiUrl("/configs/by/name?query=set10-import-url")));
         String targetUrl = UrlHelper.getApiUrl("/configs/" + jsonObject.getString("id"));
         return httpRequestable.executePutRequest(targetUrl, new JSONObject()
                 .put("name", "set10-import-url")
                 .put("value", value));
-    }
-
-    @Deprecated
-    public Supplier createSupplier(String name) throws JSONException, IOException {
-        Supplier supplier = new Supplier(name);
-        return createSupplier(supplier);
-    }
-
-    public Supplier createSupplier(Supplier supplier) throws IOException, JSONException {
-        if (!StaticData.suppliers.containsKey(supplier.getName())) {
-            httpRequestable.executePostRequest(supplier);
-            StaticData.suppliers.put(supplier.getName(), supplier);
-            return supplier;
-        } else {
-            return StaticData.suppliers.get(supplier.getName());
-        }
-    }
-
-    public String getSupplierPageUrl(String supplierName) throws JSONException {
-        String groupId = StaticData.suppliers.get(supplierName).getId();
-        return String.format("%s/suppliers/%s", UrlHelper.getWebFrontUrl(), groupId);
     }
 }

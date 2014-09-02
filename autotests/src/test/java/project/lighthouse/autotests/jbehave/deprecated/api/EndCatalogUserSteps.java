@@ -54,16 +54,6 @@ public class EndCatalogUserSteps {
         catalogApiSteps.navigateToSubCategoryProductListPageUrl(subCategoryName, categoryName, groupName);
     }
 
-    @Given("the user sets subCategory '$subCategoryName' mark up with max '$maxValue' and min '$minValue' values")
-    public void givenTheUSerSetsSubCategoryMarkUp(String subCategoryName, String maxValue, String minValue) throws IOException, JSONException {
-        catalogApiSteps.setSubCategoryMarkUp(maxValue, minValue, subCategoryName);
-    }
-
-    @Given("the user with email '$email' sets subCategory '$subCategoryName' mark up with max '$maxValue' and min '$minValue' values")
-    public void givenTheUSerSetsSubCategoryMarkUp(String email, String subCategoryName, String maxValue, String minValue) throws IOException, JSONException {
-        catalogApiSteps.setSubCategoryMarkUpByUserWithEmail(maxValue, minValue, subCategoryName, email);
-    }
-
     @Given("the user navigates to the default subCategory product list page")
     public void givenTheUserNavigatesToTheDefaultSubCategory() throws JSONException, IOException {
         before();

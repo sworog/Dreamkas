@@ -9,6 +9,7 @@ import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.api.Supplier;
 import project.lighthouse.autotests.steps.api.builder.InvoiceBuilderSteps;
+import project.lighthouse.autotests.storage.Storage;
 
 import java.io.IOException;
 
@@ -21,7 +22,7 @@ public class InvoiceBuilderUserSteps {
     @Alias("пользователь создает апи объект накладной с датой '$date', статусом Оплачено '$paid', магазином с именем '$storeName', поставщиком с именем '$supplierName'")
     public void givenTheUserWithEmailCreatesInvoiceApiObject(String date, Boolean paid, String storeName, String supplierName) throws JSONException {
         Store store = StaticData.stores.get(storeName);
-        Supplier supplier = StaticData.suppliers.get(supplierName);
+        Supplier supplier = Storage.getCustomVariableStorage().getSuppliers().get(supplierName);
         invoiceBuilderSteps.build(date, paid, store.getId(), supplier.getId());
     }
 
