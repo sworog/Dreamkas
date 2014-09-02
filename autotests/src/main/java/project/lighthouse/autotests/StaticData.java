@@ -33,10 +33,6 @@ public class StaticData {
         return subCategories.containsKey(subCategoryName);
     }
 
-    public static Boolean hasStore(String storeNumber) {
-        return stores.containsKey(storeNumber);
-    }
-
     public static void clear() {
         products.clear();
         invoices.clear();
