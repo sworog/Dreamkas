@@ -22,9 +22,6 @@ public class StaticData {
     public static HashMap<String, ArrayList<Product>> subCategoryProducts = new HashMap<>();
     public static HashMap<String, Supplier> suppliers = new HashMap<>();
 
-    public static String retailMarkupMax;
-    public static String retailMarkupMin;
-
     public static Boolean isGroupCreated(String groupName) {
         return groups.containsKey(groupName);
     }

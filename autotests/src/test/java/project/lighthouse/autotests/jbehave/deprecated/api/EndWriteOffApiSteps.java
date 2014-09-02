@@ -6,16 +6,12 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import org.junit.Assert;
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.elements.items.DateTime;
 import project.lighthouse.autotests.helper.DateTimeHelper;
-import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.Store;
-import project.lighthouse.autotests.objects.api.SubCategory;
 import project.lighthouse.autotests.objects.api.User;
 import project.lighthouse.autotests.steps.deprecated.api.administrator.UserApiSteps;
 import project.lighthouse.autotests.steps.deprecated.api.commercialManager.CatalogApiSteps;
-import project.lighthouse.autotests.steps.deprecated.api.commercialManager.ProductApiSteps;
 import project.lighthouse.autotests.steps.deprecated.api.commercialManager.StoreApiSteps;
 import project.lighthouse.autotests.steps.deprecated.api.departmentManager.WriteOffApiSteps;
 import project.lighthouse.autotests.steps.deprecated.departmentManager.WriteOffSteps;
@@ -27,9 +23,6 @@ public class EndWriteOffApiSteps {
 
     @Steps
     WriteOffApiSteps writeOffApiSteps;
-
-    @Steps
-    ProductApiSteps productApiSteps;
 
     @Steps
     StoreApiSteps storeApiSteps;
@@ -54,26 +47,9 @@ public class EndWriteOffApiSteps {
         writeOffApiSteps.createWriteOffThroughPost(writeOffNumber, DateTimeHelper.getTodayDate(DateTime.DATE_PATTERN), storeNumber, userName);
     }
 
-    @Given("there is the write off with '$writeOffNumber' number with product '$productSku' with quantity '$quantity', price '$price' and cause '$cause'")
-    public void givenThereIsTheWriteOffWithProduct(String writeOffNumber, String productSku, String quantity, String price, String cause)
-            throws IOException, JSONException {
-        catalogApiSteps.createDefaultSubCategoryThroughPost();
-        createProduct(productSku, productSku, Product.TYPE_WEIGHT, "15");
-        givenThereIsTheWriteOffWithNumber(writeOffNumber);
-        writeOffApiSteps.addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause, "departmentManager");
-    }
-
     @Given("the user adds the product to the write off with number '$writeOffNumber' with name '$productName', quantity '$quantity', price '$price', cause '$cause' in the store ruled by '$userName'")
     public void addProductToWriteOff(String writeOffNumber, String productName, String quantity, String price, String cause, String userName) throws IOException, JSONException {
         writeOffApiSteps.addProductToWriteOff(writeOffNumber, productName, quantity, price, cause, userName);
-    }
-
-    @Given("the user navigates to new write off with '$writeOffNumber' number with product '$productSku' with quantity '$quantity', price '$price' and cause '$cause'")
-    public void givenThereIsTheWriteOffWithProductWithNavigation(String writeOffNumber, String productSku, String quantity, String price, String cause)
-            throws IOException, JSONException {
-        createProduct(productSku, productSku, Product.TYPE_WEIGHT, "1");
-        givenThereIsTheWriteOffWithNumber(writeOffNumber);
-        writeOffApiSteps.addProductToWriteOff(writeOffNumber, productSku, quantity, price, cause, "departmentManager");
     }
 
     @Given("navigate to new write off with '$writeOffNumber' number")
@@ -107,11 +83,5 @@ public class EndWriteOffApiSteps {
         }
         writeOffApiSteps.createWriteOffThroughPost(writeOffNumber, date, number, userName);
         WriteOffSteps.examplesTable = examplesTable;
-    }
-
-    public void createProduct(String productName, String productBarCode, String productType, String purchasePrice) throws IOException, JSONException {
-        if (!StaticData.products.containsKey(productName)) {
-            productApiSteps.createProductThroughPost(productName, productBarCode, productType, purchasePrice, SubCategory.DEFAULT_NAME, null);
-        }
     }
 }

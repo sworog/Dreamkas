@@ -19,16 +19,6 @@ public class ApiConnect {
         httpRequestable = HttpExecutor.getHttpRequestable(userName, password);
     }
 
-    public Department createStoreDepartmentThroughPost(Department department) throws JSONException, IOException {
-        if (!StaticData.departments.containsKey(department.getNumber())) {
-            httpRequestable.executePostRequest(department);
-            StaticData.departments.put(department.getNumber(), department);
-            return department;
-        } else {
-            return StaticData.departments.get(department.getNumber());
-        }
-    }
-
     public Product createProductThroughPost(Product product, SubCategory subCategory) throws JSONException, IOException {
         if (!subCategory.hasProduct(product)) {
 //            getSubCategoryMarkUp(subCategory);
@@ -39,23 +29,6 @@ public class ApiConnect {
         } else {
             return subCategory.getProduct(product);
         }
-    }
-
-    public void getSubCategoryMarkUp(SubCategory subCategory) throws IOException, JSONException {
-        String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/subcategories"), subCategory.getId());
-        String response = httpRequestable.executeGetRequest(apiUrl);
-        JSONObject jsonObject = new JSONObject(response);
-        StaticData.retailMarkupMax = (!jsonObject.isNull("retailMarkupMax"))
-                ? jsonObject.getString("retailMarkupMax")
-                : null;
-        StaticData.retailMarkupMin = (!jsonObject.isNull("retailMarkupMin"))
-                ? jsonObject.getString("retailMarkupMin")
-                : null;
-    }
-
-    public String getProductPageUrl(String productName) throws JSONException {
-        String productId = StaticData.products.get(productName).getId();
-        return String.format("%s/products/%s", UrlHelper.getWebFrontUrl(), productId);
     }
 
     public WriteOff createWriteOffThroughPost(WriteOff writeOff) throws JSONException, IOException {
