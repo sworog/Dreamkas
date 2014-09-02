@@ -1,16 +1,20 @@
-<div class="productFinder__results">
+<div name="productList" class="productFinder__results">
 
     <% if(collection.length) { %>
 
         <div class="list-group">
             <% collection.forEach(function(productModel){ %>
 
-            <a class="list-group-item">
-                <%- productModel.get('name') %>
-                <span class="productFinder__itemSku">
-                    / <%- productModel.get('sku') %>
+            <span name="product" class="list-group-item">
+                <span name="name"><%= highlight(productModel.get('name')) %></span>
+                <span class="productFinder__itemInfo">
+                    / <span name="sku"><%= highlight(productModel.get('sku')) %></span>
+
+                    <% if(productModel.get('barcode')) { %>
+                        / <span name="barcode"><%= highlight(productModel.get('barcode')) %></span>
+                    <% } %>
                 </span>
-            </a>
+            </span>
 
             <% }) %>
         </div>

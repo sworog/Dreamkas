@@ -19,7 +19,7 @@ define(function(require) {
                 collection.searchRequest = $.ajax({
                     url: Collection.baseApiUrl + '/products/search',
                     data: {
-                        properties: ['name', 'sku'],
+                        properties: ['name', 'sku', 'barcode'],
                         query: collection.searchQuery
                     }
                 });
