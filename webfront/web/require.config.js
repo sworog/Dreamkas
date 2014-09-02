@@ -28,6 +28,8 @@ require.config({
 
     shim: {
         datepicker: ['jquery'],
+        'madmin/vendors/bootstrap/js/bootstrap': ['jquery'],
+        'madmin/vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown': ['jquery'],
         typehead: ['jquery']
     }
 

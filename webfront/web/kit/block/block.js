@@ -50,7 +50,7 @@ define(function(require, exports, module) {
             block.setElement($(block.template(block)).replaceAll(block.el));
 
             block.bindings = rivets.bind(block.el, block);
-            
+
             block.initBlocks();
 
             block.el.block = this;

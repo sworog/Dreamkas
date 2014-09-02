@@ -14,6 +14,9 @@ define(function(require) {
     require('madmin/vendors/bootstrap/js/bootstrap');
     require('madmin/vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown');
 
+
+    //modules setup
+
     getText.dictionary = require('i18n!nls/main');
 
     moment.lang('root', require('i18n!nls/moment'));
@@ -22,9 +25,29 @@ define(function(require) {
     numeral.language('root', require('i18n!nls/numeral'));
     numeral.language('root');
 
-    var isStarted,
+    var posWindowReference = null,
+        isStarted,
         loading,
-        routes;
+        routesUrl;
+
+    var openPos = function() {
+        if (posWindowReference == null || posWindowReference.closed) {
+            /* if the pointer to the window object in memory does not exist
+             or if such pointer exists but the window was closed */
+            posWindowReference = window.open('/pos', 'pos', 'innerWidth=1000, innerHeight=800');
+            /* then create it. The new window will be created and
+             will be brought on top of any other window. */
+        } else {
+            posWindowReference.focus();
+            /* else the window reference must exist and the window
+             is not closed; therefore, we can bring it back on top of any other
+             window with the focus() method. There would be no need to re-create
+             the window or to reload the referenced resource. */
+        }
+    };
+
+
+    //ajax setup
 
     $.ajaxSetup({
         headers: {
@@ -64,53 +87,66 @@ define(function(require) {
         });
     };
 
-    $(document).on('click', '[href]', function(e) {
-        e.stopPropagation();
 
-        if (e.currentTarget.dataset.navigate !== '0') {
+    //delegate document global events
+
+    $(document)
+        .on('click', '[href]', function(e) {
+            e.stopPropagation();
+
+            if (e.currentTarget.dataset.navigate !== '0') {
+                e.preventDefault();
+
+                router.navigate(e.currentTarget.getAttribute('href'), {
+                    trigger: e.currentTarget.dataset.trigger !== '0',
+                    replace: e.currentTarget.dataset.replace == '1'
+                });
+            }
+        })
+        .on('click', '.confirmLink__trigger', function(e) {
+            e.stopPropagation();
+
+            var confirmLink = $(this).closest('.confirmLink');
+
+            confirmLink.addClass('confirmLink_active');
+        })
+        .on('click', function(e) {
+            var confirmLink_active = $('.confirmLink_active').not($(e.target).closest('.confirmLink_active'));
+
+            confirmLink_active.removeClass('confirmLink_active');
+        })
+        .on('shown.bs.modal', '.modal', function() {
+            $(this).find('[autofocus]').focus();
+        })
+        .on('click', '.page__posLink', function(e) {
             e.preventDefault();
 
-            router.navigate(e.currentTarget.getAttribute('href'), {
-                trigger: e.currentTarget.dataset.trigger !== '0',
-                replace: e.currentTarget.dataset.replace == '1'
-            });
-        }
-    });
+            openPos();
+        })
+        .on('click', '.page__modalLink', function(e) {
+            e.preventDefault();
 
-    $(document).on('click', '.confirmLink__trigger', function(e) {
-        e.stopPropagation();
+            document.getElementById(e.target.dataset.modal).block.show();
+        });
 
-        var confirmLink = $(this).closest('.confirmLink');
 
-        confirmLink.addClass('confirmLink_active');
-    });
-
-    $(document).on('click', function(e) {
-        var confirmLink_active = $('.confirmLink_active').not($(e.target).closest('.confirmLink_active'));
-
-        confirmLink_active.removeClass('confirmLink_active');
-    });
-
-    $(document).on('shown.bs.modal', '.modal', function(){
-        $(this).find('[autofocus]').focus();
-    });
+    //start app
 
     loading = currentUserModel.fetch();
 
     loading.done(function() {
-        routes = 'routes/authorized';
+        routesUrl = 'routes/authorized';
     });
 
     loading.fail(function() {
-        routes = 'routes/unauthorized';
+        routesUrl = 'routes/unauthorized';
     });
 
     loading.always(function() {
-        requirejs([
-            routes
-        ], function(routesMap) {
+        requirejs([routesUrl], function(routes) {
+
             isStarted = true;
-            _.extend(router.routes, routesMap);
+            _.extend(router.routes, routes);
             router.start();
         });
     });
