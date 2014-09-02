@@ -5,9 +5,6 @@ import org.jbehave.core.annotations.Given;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.objects.api.Store;
-import project.lighthouse.autotests.steps.deprecated.api.administrator.UserApiSteps;
-import project.lighthouse.autotests.steps.deprecated.api.commercialManager.CatalogApiSteps;
-import project.lighthouse.autotests.steps.deprecated.api.commercialManager.StoreApiSteps;
 import project.lighthouse.autotests.steps.deprecated.departmentManager.invoice.InvoiceSteps;
 
 import java.io.IOException;
@@ -16,15 +13,6 @@ public class GivenInvoiceUserSteps {
 
     @Steps
     InvoiceSteps invoiceSteps;
-
-    @Steps
-    UserApiSteps userApiSteps;
-
-    @Steps
-    CatalogApiSteps catalogApiSteps;
-
-    @Steps
-    StoreApiSteps storeApiSteps;
 
     @Given("the user opens the store '$storeNumber' invoice create page")
     public void givenTheUserOpensTheStoreInvoiceCreatePage(String storeNumber) throws JSONException {

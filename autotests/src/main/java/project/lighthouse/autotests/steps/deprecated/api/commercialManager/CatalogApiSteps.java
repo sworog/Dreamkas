@@ -6,7 +6,6 @@ import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.api.ApiConnect;
 import project.lighthouse.autotests.objects.api.Category;
 import project.lighthouse.autotests.objects.api.Group;
-import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.api.SubCategory;
 import project.lighthouse.autotests.storage.Storage;
 import project.lighthouse.autotests.storage.containers.user.UserContainer;
@@ -14,9 +13,6 @@ import project.lighthouse.autotests.storage.containers.user.UserContainer;
 import java.io.IOException;
 
 public class CatalogApiSteps extends OwnerApi {
-
-    private static final String STORE_MANAGERS_REL_VALUE = "storeManagers";
-    private static final String DEPARTMENT_MANAGERS_REL_VALUE = "departmentManagers";
 
     @Step
     public Group createGroupThroughPost(String groupName) throws IOException, JSONException {
@@ -108,22 +104,5 @@ public class CatalogApiSteps extends OwnerApi {
         UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email);
         new ApiConnect(userContainer.getEmail(), userContainer.getPassword())
                 .setSubCategoryMarkUp(retailMarkupMax, retailMarkupMin, StaticData.subCategories.get(subCategoryName));
-    }
-
-    @Deprecated
-    @Step
-    public void promoteStoreManager(Store store, String userName) throws IOException, JSONException {
-        apiConnect.promoteUserToManager(store, StaticData.users.get(userName), STORE_MANAGERS_REL_VALUE);
-    }
-
-    @Deprecated
-    @Step
-    public void promoteDepartmentManager(Store store, String userName) throws IOException, JSONException {
-        apiConnect.promoteUserToManager(store, StaticData.users.get(userName), DEPARTMENT_MANAGERS_REL_VALUE);
-    }
-
-    @Step
-    public SubCategory createDefaultSubCategoryThroughPost() throws IOException, JSONException {
-        return createSubCategoryThroughPost(Group.DEFAULT_NAME, Category.DEFAULT_NAME, SubCategory.DEFAULT_NAME);
     }
 }

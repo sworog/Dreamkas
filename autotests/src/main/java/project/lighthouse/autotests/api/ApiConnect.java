@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.api;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import project.lighthouse.autotests.StaticData;
@@ -135,37 +134,6 @@ public class ApiConnect {
         return String.format("%s/products/create?subCategory=%s", UrlHelper.getWebFrontUrl(), subCategoryId);
     }
 
-    @Deprecated
-    private User createUserThroughPost(User user) throws JSONException, IOException {
-        if (!StaticData.users.containsKey(user.getUserName())) {
-            httpRequestable.executePostRequest(user);
-            StaticData.users.put(user.getUserName(), user);
-            return user;
-        } else {
-            return StaticData.users.get(user.getUserName());
-        }
-    }
-
-    @Deprecated
-    public User createUserThroughPost(String name, String position, String login, String password, String role) throws JSONException, IOException {
-        User user = new User(name, position, login, password, role);
-        return createUserThroughPost(user);
-    }
-
-    public User getUser(String userName) throws IOException, JSONException {
-        JSONArray jsonArray = new JSONArray(httpRequestable.executeGetRequest(UrlHelper.getApiUrl("/users")));
-        for (int i = 0; i < jsonArray.length(); i++) {
-            JSONObject jsonObject = jsonArray.getJSONObject(i);
-            if (jsonObject.getString("username").equals(userName)) {
-                User user = new User(new JSONObject());
-                user.setJsonObject(jsonObject);
-                StaticData.users.put(userName, user);
-                return user;
-            }
-        }
-        return null;
-    }
-
     public Store createStoreThroughPost(Store store) throws JSONException, IOException {
         if (!StaticData.stores.containsKey(store.getName())) {
             httpRequestable.executePostRequest(store);
@@ -180,11 +148,6 @@ public class ApiConnect {
         return StaticData.stores.get(storeNumber).getId();
     }
 
-    public String getUserPageUrl(String userName) throws JSONException {
-        String userId = StaticData.users.get(userName).getId();
-        return String.format("%s/users/%s", UrlHelper.getWebFrontUrl(), userId);
-    }
-
     @Deprecated
     public void setSubCategoryMarkUp(String retailMarkupMax, String retailMarkupMin, SubCategory subCategory) throws JSONException, IOException {
         String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/subcategories"), subCategory.getId());
@@ -194,31 +157,6 @@ public class ApiConnect {
                         .put("retailMarkupMax", retailMarkupMax)
                         .put("retailMarkupMin", retailMarkupMin)
         );
-    }
-
-    @Deprecated
-    public void promoteUserToManager(Store store, User user, String type) throws JSONException, IOException {
-        if (!hasStoreManager(store, user, type)) {
-            String apiUrl = String.format("%s/%s", UrlHelper.getApiUrl("/stores"), store.getId());
-            httpRequestable.executeLinkRequest(apiUrl, getLinkHeaderValue(user, type));
-            user.setStore(store);
-        }
-    }
-
-    private String getLinkHeaderValue(User user, String type) throws JSONException {
-        return String.format("<%s/%s>; rel=\"%s\"", UrlHelper.getApiUrl("/users"), user.getId(), type);
-    }
-
-    private Boolean hasStoreManager(Store store, User user, String type) throws JSONException, IOException {
-        String apiUrl = String.format("%s/%s/%s", UrlHelper.getApiUrl("/stores"), store.getId(), type);
-        String response = httpRequestable.executeGetRequest(apiUrl);
-        JSONArray jsonArray = new JSONArray(response);
-        for (int i = 0; i < jsonArray.length(); i++) {
-            if (jsonArray.getJSONObject(i).getString("id").equals(user.getId())) {
-                return true;
-            }
-        }
-        return false;
     }
 
     public String setSet10ImportUrl(String value) throws IOException, JSONException {

@@ -6,7 +6,6 @@ import org.json.JSONException;
 import project.lighthouse.autotests.objects.api.Category;
 import project.lighthouse.autotests.objects.api.Group;
 import project.lighthouse.autotests.objects.api.SubCategory;
-import project.lighthouse.autotests.steps.deprecated.api.administrator.UserApiSteps;
 import project.lighthouse.autotests.steps.deprecated.api.commercialManager.CatalogApiSteps;
 import project.lighthouse.autotests.steps.deprecated.api.commercialManager.StoreApiSteps;
 
@@ -16,9 +15,6 @@ public class EndCatalogUserSteps {
 
     @Steps
     CatalogApiSteps catalogApiSteps;
-
-    @Steps
-    UserApiSteps userApiSteps;
 
     @Steps
     StoreApiSteps storeApiSteps;

@@ -1,11 +1,9 @@
 package project.lighthouse.autotests.jbehave.deprecated.api;
 
 import net.thucydides.core.annotations.Steps;
-import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.json.JSONException;
 import project.lighthouse.autotests.objects.api.Store;
-import project.lighthouse.autotests.steps.deprecated.api.commercialManager.CatalogApiSteps;
 import project.lighthouse.autotests.steps.deprecated.api.commercialManager.StoreApiSteps;
 import project.lighthouse.autotests.steps.deprecated.commercialManager.StoreSteps;
 
@@ -19,9 +17,6 @@ public class EndStoreApiSteps {
     StoreApiSteps storeApiSteps;
 
     @Steps
-    CatalogApiSteps catalogApiSteps;
-
-    @Steps
     StoreSteps storeSteps;
 
     @Given("there is created store with number '$number', address '$address', contacts '$contacts'")
@@ -32,21 +27,6 @@ public class EndStoreApiSteps {
     @Given("there is the store with number '$storeNumber'")
     public void givenThereIsTheStoreWithNumber(String storeNumber) throws IOException, JSONException {
         createdStore = storeApiSteps.createStoreThroughPost(storeNumber, storeNumber, storeNumber);
-    }
-
-    @Deprecated
-    @Given("there is the store with number '$storeNumber' managed by '$userName'")
-    @Alias("there is the store with <storeNumber> managed by <userName>")
-    public void givenThereIsTheStoreManagedBy(String storeNumber, String userName) throws IOException, JSONException {
-        createdStore = storeApiSteps.createStoreThroughPost(storeNumber, storeNumber, storeNumber);
-        catalogApiSteps.promoteStoreManager(createdStore, userName);
-    }
-
-    @Deprecated
-    @Given("there is the store with number '$storeNumber' managed by department manager named '$userName'")
-    public void givenThereIsTheStoreManagedByDepartmentManager(String storeNumber, String userName) throws IOException, JSONException {
-        createdStore = storeApiSteps.createStoreThroughPost(storeNumber, storeNumber, storeNumber);
-        catalogApiSteps.promoteDepartmentManager(createdStore, userName);
     }
 
     @Given("user navigates to created store page")

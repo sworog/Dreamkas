@@ -8,9 +8,6 @@ import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
 import org.json.JSONException;
 import project.lighthouse.autotests.StaticData;
-import project.lighthouse.autotests.steps.deprecated.api.administrator.UserApiSteps;
-import project.lighthouse.autotests.steps.deprecated.api.commercialManager.CatalogApiSteps;
-import project.lighthouse.autotests.steps.deprecated.api.commercialManager.StoreApiSteps;
 import project.lighthouse.autotests.steps.deprecated.departmentManager.WriteOffSteps;
 
 import java.io.IOException;
@@ -19,15 +16,6 @@ public class WriteOffUserSteps {
 
     @Steps
     WriteOffSteps writeOffSteps;
-
-    @Steps
-    UserApiSteps userApiSteps;
-
-    @Steps
-    CatalogApiSteps catalogApiSteps;
-
-    @Steps
-    StoreApiSteps storeApiSteps;
 
     @Given("the user opens the write off create page")
     public void givenTheUserOpensTheWriteOffCreatePage() throws IOException, JSONException {
