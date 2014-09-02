@@ -11,6 +11,7 @@ import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.elements.bootstrap.WaitForModalWindowClose;
 import project.lighthouse.autotests.elements.preLoader.BodyPreLoader;
 import project.lighthouse.autotests.objects.web.error.ValidationErrorsCollection;
+import project.lighthouse.autotests.storage.Storage;
 
 public class CommonSteps extends ScenarioSteps {
 
@@ -102,5 +103,28 @@ public class CommonSteps extends ScenarioSteps {
     public void assertPopOverContent(String expectedContent) {
         String actualContent = commonPage.findVisibleElement(By.className("popover-content")).getText();
         Assert.assertThat(actualContent, Matchers.is(expectedContent));
+    }
+
+    @Step
+    public void switchToLastWindowHandle() {
+        String mainWindowHandle = commonPage.getDriver().getWindowHandle();
+        Storage.getCustomVariableStorage().setMainWindowHandle(mainWindowHandle);
+        for (String windowHandle : commonPage.getDriver().getWindowHandles()) {
+            commonPage.getDriver().switchTo().window(windowHandle);
+        }
+    }
+
+    @Step
+    public void beforeScenarioSwitchToMainWindowHandleIfNeeded() {
+        String mainWindowHandle = Storage.getCustomVariableStorage().getMainWindowHandle();
+        if (mainWindowHandle != null && containWindowHandle(mainWindowHandle)) {
+            commonPage.getDriver().close();
+            commonPage.getDriver().switchTo().window(mainWindowHandle);
+            Storage.getCustomVariableStorage().setMainWindowHandle(null);
+        }
+    }
+
+    private Boolean containWindowHandle(String windowHandle) {
+        return getDriver().getWindowHandles().contains(windowHandle);
     }
 }

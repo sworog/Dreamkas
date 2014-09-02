@@ -18,3 +18,8 @@
 .page__content {
     padding: 20px 30px 50px;
 }
+
+.page__panel {
+    background-color: #fff;
+    padding: 15px;
+}

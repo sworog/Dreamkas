@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>project.lighthouse</groupId>
     <artifactId>autotests</artifactId>
-    <version>0.41.111.1-SNAPSHOT</version>
+    <version>0.41.111.2-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Lighthouse autotests</name>
@@ -12,8 +12,8 @@
     <properties>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <thucydides.version>0.9.264</thucydides.version>
-        <thucydides.jbehave.version>0.9.264</thucydides.jbehave.version>
+        <thucydides.version>0.9.269</thucydides.version>
+        <thucydides.jbehave.version>0.9.268</thucydides.jbehave.version>
         <thucydides.maven.version>0.9.224</thucydides.maven.version>
         <thucydides.browser.width>1280</thucydides.browser.width>
         <thucydides.browser.height>1024</thucydides.browser.height>

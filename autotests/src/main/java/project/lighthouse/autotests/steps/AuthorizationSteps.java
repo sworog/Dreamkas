@@ -91,7 +91,7 @@ public class AuthorizationSteps extends ScenarioSteps {
     }
 
     @Step
-    public void beforeScenario() {
+    public void beforeScenarioClearCookiesIfUserIsAuthorized() {
         if (Storage.getUserVariableStorage().getIsAuthorized()) {
             Cookie token = getDriver().manage().getCookieNamed("token");
             if (token != null) {
