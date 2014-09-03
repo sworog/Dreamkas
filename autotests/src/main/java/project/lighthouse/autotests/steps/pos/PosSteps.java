@@ -7,10 +7,12 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.web.posAutoComplete.PosAutoCompleteCollection;
+import project.lighthouse.autotests.objects.web.receipt.ReceiptCollection;
 import project.lighthouse.autotests.pages.pos.PosLaunchPage;
 import project.lighthouse.autotests.pages.pos.PosPage;
 import project.lighthouse.autotests.storage.Storage;
 
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
@@ -43,24 +45,41 @@ public class PosSteps extends ScenarioSteps {
         return abstractObjectCollection;
     }
 
+    public ReceiptCollection ReceiptCollection() {
+        ReceiptCollection receiptCollection = null;
+        try {
+            receiptCollection = posPage.getReceiptCollection();
+        } catch (StaleElementReferenceException e) {
+            receiptCollection = posPage.getReceiptCollection();
+        } catch (TimeoutException e) {
+            posPage.containsText("Для продажи добавьте в чек хотя бы один продукт.");
+        }
+        return receiptCollection;
+    }
+
     @Step
     public void checkNoResults() {
         assertThat(getPosAutoCompleteCollection(), nullValue());
     }
 
     @Step
-    public void compareWithExamplesTable(ExamplesTable examplesTable) {
+    public void exactComparePosAutocompleteResultsCollectionWithExamplesTable(ExamplesTable examplesTable) {
         PosAutoCompleteCollection posAutoCompeteResults = getPosAutoCompleteCollection();
         if (posAutoCompeteResults != null) {
-            getPosAutoCompleteCollection().compareWithExampleTable(examplesTable);
+            posAutoCompeteResults.exactCompareExampleTable(examplesTable);
         }
     }
 
     @Step
-    public void exactCompareWithExamplesTable(ExamplesTable examplesTable) {
-        PosAutoCompleteCollection posAutoCompeteResults = getPosAutoCompleteCollection();
-        if (posAutoCompeteResults != null) {
-            getPosAutoCompleteCollection().exactCompareExampleTable(examplesTable);
+    public void exactCompareReceiptCollectionWithExamplesTable(ExamplesTable examplesTable) {
+        ReceiptCollection receiptCollection = ReceiptCollection();
+        if (receiptCollection != null) {
+            receiptCollection.exactCompareExampleTable(examplesTable);
         }
+    }
+
+    @Step
+    public void assertReceiptTotalSum(String totalSum) {
+        assertThat(posPage.getReceiptTotalSum(), is(totalSum));
     }
 }
