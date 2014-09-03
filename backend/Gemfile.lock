@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/crystalservice/capistrano.git
-  revision: e0c054a77e89ac8fb9913bf77968c2ba109ca576
+  revision: eb854149c7086326d7bd8cae19d526b12b5fe71e
   branch: fetch-pull-request
   specs:
     capistrano (2.15.4)
