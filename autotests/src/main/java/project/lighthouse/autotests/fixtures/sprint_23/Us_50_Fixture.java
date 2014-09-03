@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.fixtures.sprint_23;
 
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.fixtures.AbstractFixture;
 import project.lighthouse.autotests.helper.DateTimeHelper;
 import project.lighthouse.autotests.xml.PurchaseXmlBuilder;
@@ -19,9 +18,9 @@ public class Us_50_Fixture extends AbstractFixture {
     }
 
     public File createPositiveSalesXmlFile(int days) throws ParserConfigurationException, TransformerException, IOException, XPathExpressionException {
-        String productSku1 = StaticData.products.get("Балык свиной в/с в/об Матера").getSku();
-        String productSku2 = StaticData.products.get("Балык Ломберный с/к в/с ТД Рублевский").getSku();
-        String productSku3 = StaticData.products.get("Ассорти Читтерио мясное нар.140г").getSku();
+        String productSku1 = getProductSku("Балык свиной в/с в/об Матера");
+        String productSku2 = getProductSku("Балык Ломберный с/к в/с ТД Рублевский");
+        String productSku3 = getProductSku("Ассорти Читтерио мясное нар.140г");
 
         String date = new DateTimeHelper(days).convertDate();
         String dateSale = date.concat("T12:43:24.235+04:00");
@@ -36,7 +35,7 @@ public class Us_50_Fixture extends AbstractFixture {
     }
 
     public File createNegativeSalesXmlFile(int days, String productName) throws ParserConfigurationException, TransformerException, IOException, XPathExpressionException {
-        String productSku = StaticData.products.get(productName).getSku();
+        String productSku = getProductSku(productName);
         String date = new DateTimeHelper(days).convertDate();
         String dateSale = date.concat("T12:43:24.235+04:00");
         String operDay = date.concat("+04:00");

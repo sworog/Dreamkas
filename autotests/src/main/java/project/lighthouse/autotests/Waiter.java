@@ -5,6 +5,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import project.lighthouse.autotests.storage.Storage;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class Waiter {
     private WebDriverWait waiter;
 
     public Waiter(WebDriver driver) {
-        this(driver, StaticData.DEFAULT_TIMEOUT);
+        this(driver, Storage.getConfigurationVariableStorage().getTimeOutProperty("default.timeout"));
     }
 
     public Waiter(WebDriver driver, long timeout) {

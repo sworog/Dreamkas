@@ -2,8 +2,6 @@ package project.lighthouse.autotests.objects.api;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import project.lighthouse.autotests.StaticData;
-import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.abstraction.AbstractObject;
 
 public class Product extends AbstractObject {
@@ -145,10 +143,5 @@ public class Product extends AbstractObject {
 
     public String getBarCode() throws AssertionError {
         return getPropertyAsString("barcode");
-    }
-
-    public static String getPageUrl(String productName) throws JSONException {
-        String productId = StaticData.products.get(productName).getId();
-        return String.format("%s/products/%s", UrlHelper.getWebFrontUrl(), productId);
     }
 }

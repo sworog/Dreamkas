@@ -6,9 +6,7 @@ import org.json.JSONException;
 import project.lighthouse.autotests.objects.api.Category;
 import project.lighthouse.autotests.objects.api.Group;
 import project.lighthouse.autotests.objects.api.SubCategory;
-import project.lighthouse.autotests.steps.deprecated.api.administrator.UserApiSteps;
 import project.lighthouse.autotests.steps.deprecated.api.commercialManager.CatalogApiSteps;
-import project.lighthouse.autotests.steps.deprecated.api.commercialManager.StoreApiSteps;
 
 import java.io.IOException;
 
@@ -16,12 +14,6 @@ public class EndCatalogUserSteps {
 
     @Steps
     CatalogApiSteps catalogApiSteps;
-
-    @Steps
-    UserApiSteps userApiSteps;
-
-    @Steps
-    StoreApiSteps storeApiSteps;
 
     @Given("there is the group with name '$groupName'")
     public void givenThereIsTheGroupWithName(String groupName) throws IOException, JSONException {
@@ -56,16 +48,6 @@ public class EndCatalogUserSteps {
     @Given("the user navigates to the subCategory '$subCategoryName', category '$categoryName', group '$groupName' product list page")
     public void navigateToSubCategoryProductListPageUrl(String subCategoryName, String categoryName, String groupName) throws JSONException {
         catalogApiSteps.navigateToSubCategoryProductListPageUrl(subCategoryName, categoryName, groupName);
-    }
-
-    @Given("the user sets subCategory '$subCategoryName' mark up with max '$maxValue' and min '$minValue' values")
-    public void givenTheUSerSetsSubCategoryMarkUp(String subCategoryName, String maxValue, String minValue) throws IOException, JSONException {
-        catalogApiSteps.setSubCategoryMarkUp(maxValue, minValue, subCategoryName);
-    }
-
-    @Given("the user with email '$email' sets subCategory '$subCategoryName' mark up with max '$maxValue' and min '$minValue' values")
-    public void givenTheUSerSetsSubCategoryMarkUp(String email, String subCategoryName, String maxValue, String minValue) throws IOException, JSONException {
-        catalogApiSteps.setSubCategoryMarkUpByUserWithEmail(maxValue, minValue, subCategoryName, email);
     }
 
     @Given("the user navigates to the default subCategory product list page")

@@ -1,6 +1,6 @@
 package project.lighthouse.autotests.demo;
 
-import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.storage.Storage;
 
 import javax.swing.*;
 import java.awt.*;
@@ -49,11 +49,11 @@ public class ThucydidesControl extends JFrame {
             public void actionPerformed(ActionEvent event) {
                 switch (controlButton.getText()) {
                     case "Pause":
-                        StaticData.isPaused = true;
+                        Storage.getDemoModeConfigurableStorage().setIsDemoModePaused(true);
                         controlButton.setText("Start");
                         break;
                     case "Start":
-                        StaticData.isPaused = false;
+                        Storage.getDemoModeConfigurableStorage().setIsDemoModePaused(false);
                         controlButton.setText("Pause");
                         break;
                 }

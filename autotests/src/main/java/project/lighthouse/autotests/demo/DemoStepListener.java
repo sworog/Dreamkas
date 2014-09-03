@@ -6,16 +6,18 @@ import net.thucydides.core.model.TestOutcome;
 import net.thucydides.core.steps.ExecutedStepDescription;
 import net.thucydides.core.steps.StepFailure;
 import net.thucydides.core.steps.StepListener;
-import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.storage.DemoModeConfigurable;
+import project.lighthouse.autotests.storage.Storage;
 
 import java.util.Map;
 
 public class DemoStepListener implements StepListener {
 
-    ThucydidesControlThread thucydidesControlThread;
+    private ThucydidesControlThread thucydidesControlThread;
+    private DemoModeConfigurable demoModeConfiguration = Storage.getDemoModeConfigurableStorage();
 
     public DemoStepListener() {
-        if (StaticData.demoMode) {
+        if (demoModeConfiguration.isDemoModeOn()) {
             keyListenerThreadStart();
         }
     }
@@ -39,14 +41,14 @@ public class DemoStepListener implements StepListener {
 
     @Override
     public void testStarted(String description) {
-        if (StaticData.demoMode) {
+        if (demoModeConfiguration.isDemoModeOn()) {
             thucydidesControlThread.setScenarioName(description);
         }
     }
 
     @Override
     public void testFinished(TestOutcome result) {
-        if (!result.isDataDriven() && StaticData.demoMode) {
+        if (!result.isDataDriven() && demoModeConfiguration.isDemoModeOn()) {
             thucydidesControlThread.removeScenarioSteps();
         }
     }
@@ -57,9 +59,9 @@ public class DemoStepListener implements StepListener {
 
     @Override
     public void stepStarted(ExecutedStepDescription description) {
-        if (StaticData.demoMode) {
+        if (demoModeConfiguration.isDemoModeOn()) {
             thucydidesControlThread.setCurrentStepText(String.format("Current step: %s", description.getTitle()));
-            while (StaticData.isPaused) {
+            while (Storage.getDemoModeConfigurableStorage().isDemoModePaused()) {
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException ignored) {
@@ -132,7 +134,7 @@ public class DemoStepListener implements StepListener {
 
     @Override
     public void exampleFinished() {
-        if (StaticData.demoMode) {
+        if (demoModeConfiguration.isDemoModeOn()) {
             thucydidesControlThread.removeScenarioSteps();
         }
     }
