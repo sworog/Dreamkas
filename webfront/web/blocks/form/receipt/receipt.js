@@ -14,6 +14,7 @@ define(function(require, exports, module) {
             block.listenTo(block.model.collections.products, {
                 'add remove reset': function(){
                     block.render();
+                    block.$('.form_receipt__scrollContainer').scrollTop(block.$('.form_receipt__scrollContainer').height());
                 }
             });
         },
