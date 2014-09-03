@@ -40,4 +40,8 @@ public class Storage {
     public static DemoModeConfigurable getDemoModeConfigurableStorage() {
         return Injectors.getInjector().getInstance(DemoModeConfigurable.class);
     }
+
+    public static StorageClearable getStorageClearable() {
+        return Injectors.getInjector().getInstance(StorageClearable.class);
+    }
 }

@@ -2,15 +2,18 @@ package project.lighthouse.autotests.storage.variable;
 
 import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.Store;
+import project.lighthouse.autotests.objects.api.SubCategory;
 import project.lighthouse.autotests.objects.api.Supplier;
 import project.lighthouse.autotests.objects.api.product.ExtraBarcode;
+import project.lighthouse.autotests.storage.Storage;
+import project.lighthouse.autotests.storage.StorageClearable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CustomVariableStorage {
+public class CustomVariableStorage implements StorageClearable {
 
     private List<ExtraBarcode> extraBarcodes = new ArrayList<>();
 
@@ -64,5 +67,28 @@ public class CustomVariableStorage {
 
     public HashMap<String, Product> getProducts() {
         return products;
+    }
+
+    private HashMap<String, SubCategory> subCategories = new HashMap<>();
+    private HashMap<String, ArrayList<Product>> subCategoryProducts = new HashMap<>();
+
+    public HashMap<String, SubCategory> getSubCategories() {
+        return subCategories;
+    }
+
+    public HashMap<String, ArrayList<Product>> getSubCategoryProducts() {
+        return subCategoryProducts;
+    }
+
+    public void clear() {
+        Storage.getOrderVariableStorage().resetNumber();
+        Storage.getInvoiceVariableStorage().resetNumber();
+        Storage.getUserVariableStorage().getUserContainers().clear();
+        Storage.getUserVariableStorage().getUserTokens().clear();
+        getSuppliers().clear();
+        getStores().clear();
+        getProducts().clear();
+        getSubCategories().clear();
+        getSubCategoryProducts().clear();
     }
 }
