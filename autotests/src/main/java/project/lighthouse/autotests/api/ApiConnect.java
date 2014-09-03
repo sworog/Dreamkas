@@ -8,7 +8,6 @@ import project.lighthouse.autotests.api.http.HttpRequestable;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.Category;
 import project.lighthouse.autotests.objects.api.Group;
-import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.SubCategory;
 
 import java.io.IOException;
@@ -19,17 +18,6 @@ public class ApiConnect {
 
     public ApiConnect(String userName, String password) throws IOException, JSONException {
         httpRequestable = HttpExecutor.getHttpRequestable(userName, password);
-    }
-
-    public Product createProductThroughPost(Product product, SubCategory subCategory) throws JSONException, IOException {
-        if (!subCategory.hasProduct(product)) {
-            httpRequestable.executePostRequest(product);
-            subCategory.addProduct(product);
-            StaticData.products.put(product.getName(), product);
-            return product;
-        } else {
-            return subCategory.getProduct(product);
-        }
     }
 
     public Group createGroupThroughPost(Group group) throws JSONException, IOException {

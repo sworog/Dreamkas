@@ -3,7 +3,6 @@ package project.lighthouse.autotests.jbehave.api.builder.stockMovement;
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
 import org.json.JSONException;
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.api.Supplier;
@@ -26,7 +25,7 @@ public class SupplierReturnBuilderUserSteps {
 
     @Given("пользователь добавляет продукт с именем '$name', ценой '$price' и количеством '$quantity' к апи объекту возврата поставщику")
     public void givenTheUserAddsTheProductToInvoiceApiObject(String name, String price, String quantity) throws JSONException {
-        Product product = StaticData.products.get(name);
+        Product product = Storage.getCustomVariableStorage().getProducts().get(name);
         supplierReturnBuilderSteps.addProduct(
                 product.getId(),
                 quantity,

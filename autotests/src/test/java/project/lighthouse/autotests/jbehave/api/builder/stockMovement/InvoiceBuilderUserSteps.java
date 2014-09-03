@@ -4,7 +4,6 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.json.JSONException;
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.api.Supplier;
@@ -29,7 +28,7 @@ public class InvoiceBuilderUserSteps {
     @Given("the user adds the product with name '$name' with price '$price' and quantity '$quantity 'to invoice api object")
     @Alias("пользователь добавляет продукт с именем '$name', ценой '$price' и количеством '$quantity' к апи объекту накладной")
     public void givenTheUserAddsTheProductToInvoiceApiObject(String name, String price, String quantity) throws JSONException {
-        Product product = StaticData.products.get(name);
+        Product product = Storage.getCustomVariableStorage().getProducts().get(name);
         invoiceBuilderSteps.addProduct(
                 product.getId(),
                 quantity,

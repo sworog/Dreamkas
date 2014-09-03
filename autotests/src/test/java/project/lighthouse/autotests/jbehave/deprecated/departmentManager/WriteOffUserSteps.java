@@ -2,41 +2,20 @@ package project.lighthouse.autotests.jbehave.deprecated.departmentManager;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Alias;
-import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
-import org.json.JSONException;
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.steps.deprecated.departmentManager.WriteOffSteps;
-
-import java.io.IOException;
 
 public class WriteOffUserSteps {
 
     @Steps
     WriteOffSteps writeOffSteps;
 
-    @Given("the user opens the write off create page")
-    public void givenTheUserOpensTheWriteOffCreatePage() throws IOException, JSONException {
-        beforeSteps();
-        writeOffSteps.openPage();
-    }
-
-    public void beforeSteps() throws IOException, JSONException {
-//        userApiSteps.getUser(InvoiceApiSteps.DEFAULT_USER_NAME);
-//        catalogApiSteps.promoteDepartmentManager(storeApiSteps.createStoreThroughPost(), InvoiceApiSteps.DEFAULT_USER_NAME);
-    }
-
     @When("the user inputs '$inputValue' in the '$elementName' field on the write off page")
     @Alias("the user inputs '$inputValue' in the write off '$elementName' field")
     public void whenTheUserInputsTextInTheFieldOnTheWriteOffPage(String inputValue, String elementName) {
         writeOffSteps.input(elementName, inputValue);
-    }
-
-    @When("the user inputs the sku of product with name '$name' in the '$elementName' field on the write off page")
-    public void whenTheUserInputsTheSkuOfProductWithNameinTheElementNameField(String name, String elementName) {
-        whenTheUserInputsTextInTheFieldOnTheWriteOffPage(StaticData.products.get(name).getSku(), elementName);
     }
 
     @When("the user inputs <value> in the write off <elementName>")
@@ -137,12 +116,6 @@ public class WriteOffUserSteps {
     @Deprecated
     @When("the user clicks on '$parentElementName' element of write off product with '$invoiceSku' sku to edit")
     public void whenTheUserClicksOnElementOfInvoiceProductWithSkuToEdit(String parentElementName, String invoiceSku) {
-    }
-
-    @Given("the user opens write off list page")
-    public void givenTheUserOpensAmountListPage() throws IOException, JSONException {
-        beforeSteps();
-        writeOffSteps.writeOffListPageOpen();
     }
 
     @Then("the user checks the write off with '$value' is present on write off list page")

@@ -4,8 +4,8 @@ import org.apache.commons.io.FileUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.helper.DateTimeHelper;
+import project.lighthouse.autotests.storage.Storage;
 import project.lighthouse.autotests.xml.PurchaseXmlBuilder;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -24,7 +24,7 @@ public abstract class AbstractFixture {
     public final String weekAgoDate = new DateTimeHelper(7).convertDate();
 
     public String getProductSku(String name) {
-        return StaticData.products.get(name).getSku();
+        return Storage.getCustomVariableStorage().getProducts().get(name).getSku();
     }
 
     public Map<Integer, String> generateFormattedGrossSalesSumPerHour(Map<Integer, Double> fixtureMap) {

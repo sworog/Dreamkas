@@ -11,7 +11,6 @@ import java.util.HashMap;
 
 public class StaticData {
 
-    public static HashMap<String, Product> products = new HashMap<>();
     public static HashMap<String, Group> groups = new HashMap<>();
     public static HashMap<String, Category> categories = new HashMap<>();
     public static HashMap<String, SubCategory> subCategories = new HashMap<>();
@@ -26,7 +25,6 @@ public class StaticData {
     }
 
     public static void clear() {
-        products.clear();
         groups.clear();
         categories.clear();
         subCategories.clear();
@@ -37,5 +35,6 @@ public class StaticData {
         Storage.getCustomVariableStorage().getSuppliers().clear();
         Storage.getUserVariableStorage().getUserTokens().clear();
         Storage.getCustomVariableStorage().getStores().clear();
+        Storage.getCustomVariableStorage().getProducts().clear();
     }
 }

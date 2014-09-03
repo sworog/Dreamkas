@@ -2,7 +2,6 @@ package project.lighthouse.autotests.jbehave.api.builder.stockMovement;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.steps.api.builder.StockInBuilderSteps;
@@ -21,7 +20,7 @@ public class StockInBuilderUserSteps {
 
     @Given("пользователь добавляет к апи объекту оприходования продукт с именем '$name', ценой '$price', количеством '$quantity'")
     public void givenTheUserAddsTheProductToWriteOffApiObject(String name, String price, String quantity) {
-        Product product = StaticData.products.get(name);
+        Product product = Storage.getCustomVariableStorage().getProducts().get(name);
         stockInBuilderSteps.addProduct(
                 product.getId(),
                 quantity,

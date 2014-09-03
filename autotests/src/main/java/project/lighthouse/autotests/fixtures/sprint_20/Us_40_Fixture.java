@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.fixtures.sprint_20;
 
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.fixtures.AbstractFixture;
 import project.lighthouse.autotests.xml.PurchaseXmlBuilder;
 
@@ -16,7 +15,7 @@ public class Us_40_Fixture extends AbstractFixture {
     private static final String OPER_DAY = "2013-10-03+04:00";
 
     public void positiveXmlPurchasesDataCopyToCentrum() throws TransformerException, IOException, ParserConfigurationException, XPathExpressionException, InterruptedException {
-        String productSku = StaticData.products.get("Конф.жев.Фруттелла 4 вкуса 42.5г").getSku();
+        String productSku = getProductSku("Конф.жев.Фруттелла 4 вкуса 42.5г");
 
         PurchaseXmlBuilder purchaseXmlBuilder = PurchaseXmlBuilder.create("2")
                 .addXmlPurchase(DATE_SALE, OPER_DAY, "666", "25.99", "25.99", "12.0", productSku)

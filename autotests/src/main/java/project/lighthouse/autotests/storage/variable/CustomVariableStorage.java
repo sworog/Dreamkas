@@ -1,5 +1,6 @@
 package project.lighthouse.autotests.storage.variable;
 
+import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.objects.api.Supplier;
 import project.lighthouse.autotests.objects.api.product.ExtraBarcode;
@@ -57,5 +58,11 @@ public class CustomVariableStorage {
 
     public HashMap<String, Store> getStores() {
         return stores;
+    }
+
+    private HashMap<String, Product> products = new HashMap<>();
+
+    public HashMap<String, Product> getProducts() {
+        return products;
     }
 }
