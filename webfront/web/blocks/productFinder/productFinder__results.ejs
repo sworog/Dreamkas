@@ -3,7 +3,7 @@
     <div class="list-group">
         <% collection.forEach(function(productModel){ %>
 
-        <a data-product-id="<%- productModel.id %>"
+        <button data-product-id="<%- productModel.id %>"
            name="product"
            class="productFinder__resultLink list-group-item">
             <span name="name"><%= highlight(productModel.get('name')) %></span>
@@ -14,7 +14,7 @@
                     / <span name="barcode"><%= highlight(productModel.get('barcode')) %></span>
                     <% } %>
                 </span>
-        </a>
+        </button>
 
         <% }) %>
     </div>

@@ -14,13 +14,6 @@
     margin-bottom: 0;
 }
 
-.productFinder__results .list-group-item {
-    cursor: pointer;
-    background-color: #fafafa;
-    margin: 5px 0;
-    font-size: 14px;
-}
-
 .productFinder__itemInfo {
     font-size: 11px;
     color: #bbb;
@@ -28,4 +21,29 @@
 
 .productFinder__results .list-group {
     margin-bottom: 0;
+}
+
+.productFinder__results {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    padding: 0 15px;
+    bottom: 0;
+    top: 60px;
+    overflow: auto;
+}
+
+.productFinder__resultLink {
+    display: block;
+    width: 100%;
+    text-align: left;
+    outline: none;
+    cursor: pointer;
+    background-color: #fafafa;
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.productFinder__resultLink:focus, .productFinder__resultLink:hover {
+    background-color: #f4f4f4;
 }

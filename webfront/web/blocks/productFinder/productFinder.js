@@ -1,11 +1,7 @@
 define(function(require, exports, module) {
     //requirements
     var Block = require('kit/block/block'),
-        keymap = require('kit/keymap/keymap');
-
-    $(document).on('keyup', function(e){
-
-    });
+        checkKey = require('kit/checkKey/checkKey');
 
     return Block.extend({
         template: require('ejs!./template.ejs'),
@@ -16,37 +12,36 @@ define(function(require, exports, module) {
             receipt: require('models/receipt/receipt')
         },
         events: {
-            'keyup input[name="product"]': function(e){
+            'keyup input[name="product"]': function(e) {
                 var block = this;
+
+                if (checkKey(e.keyCode, ['UP', 'DOWN', 'LEFT', 'RIGHT', 'ESC'])) {
+                    return;
+                }
 
                 e.target.value.length >= 3 && e.target.classList.add('loading');
 
-                block.collections.products.find(e.target.value).then(function(){
+                block.collections.products.find(e.target.value).then(function() {
                     e.target.classList.remove('loading');
                 });
             },
-            'click .productFinder__resetLink': function(e){
+            'click .productFinder__resetLink': function(e) {
                 e.preventDefault();
 
                 var block = this;
 
-                block.$('input[name="product"]').val('');
-
-                block.collections.products.searchQuery = null;
-                block.collections.products.reset([]);
+                block.reset();
             },
-            'click .productFinder__resultLink': function(e){
+            'click .productFinder__resultLink': function(e) {
                 e.preventDefault();
 
                 var block = this;
 
-                block.models.receipt.collections.products.add({
-                    product: block.collections.products.get(e.currentTarget.dataset.productId).toJSON()
-                });
+                block.addProductToReceipt(e.currentTarget.dataset.productId);
             }
         },
         blocks: {
-            productFinder__results: function(opt){
+            productFinder__results: function(opt) {
                 var block = this,
                     ProductFinder__results = require('./productFinder__results');
 
@@ -54,6 +49,64 @@ define(function(require, exports, module) {
                     el: opt.el,
                     collection: block.collections.products
                 });
+            }
+        },
+        initialize: function(){
+            var block = this;
+
+            Block.prototype.initialize.apply(block, arguments);
+
+            $(document).on('keyup', function(e) {
+                if (checkKey(e.keyCode, ['ESC'])) {
+                    block.reset();
+                }
+
+                if (checkKey(e.keyCode, ['UP'])) {
+                    block.focusProduct(block.get('focusedProductIndex') - 1);
+                }
+
+                if (checkKey(e.keyCode, ['DOWN'])) {
+                    block.focusProduct(block.get('focusedProductIndex') + 1);
+                }
+            });
+        },
+
+        focusedProductIndex: function(){
+            var block = this;
+
+            return block.$('.productFinder__resultLink').index(document.activeElement);
+        },
+
+        addProductToReceipt: function(productId) {
+            var block = this;
+
+            block.models.receipt.collections.products.add({
+                product: block.collections.products.get(productId).toJSON()
+            });
+        },
+        reset: function(){
+            var block = this;
+
+            block.$('input[name="product"]').val('').focus();
+
+            block.collections.products.searchQuery = null;
+            block.collections.products.reset([]);
+        },
+        focusProduct: function(productIndex) {
+            var block = this;
+
+            var links = block.el.querySelectorAll('.productFinder__resultLink');
+
+            if (!links.length) {
+                return;
+            }
+
+            if (links[productIndex]) {
+                links[productIndex].focus();
+            } else if (productIndex < 0) {
+                block.focusProduct(0);
+            } else {
+                block.focusProduct(links.length - 1);
             }
         }
     });
