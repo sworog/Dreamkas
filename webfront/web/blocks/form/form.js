@@ -57,10 +57,18 @@ define(function(require) {
 
             Block.prototype.initialize.apply(block, arguments);
         },
-        render: function(){
+        initData: function(){
             var block = this;
 
+            block.__data = block.data;
+            block.__model = block.model;
+
+            Block.prototype.initData.apply(block, arguments);
+
             block.data = block.get('data');
+        },
+        render: function(){
+            var block = this;
 
             Block.prototype.render.apply(block, arguments);
 
@@ -69,7 +77,7 @@ define(function(require) {
         serialize: function() {
             var block = this;
 
-            block.set('data', form2js(block.el, '.', false));
+            block.data = form2js(block.el, '.', false);
 
             return block.data;
         },
@@ -93,7 +101,8 @@ define(function(require) {
             block.enable();
         },
         submitSuccess: function() {
-            var block = this;
+            var block = this,
+                modal = block.$el.closest('.modal')[0];
 
             if (block.collection) {
                 block.collection.add(block.model);
@@ -106,6 +115,10 @@ define(function(require) {
 
             if (block.get('successMessage')) {
                 block.showSuccessMessage();
+            }
+
+            if (modal){
+                modal.block.hide();
             }
         },
         submitError: function(response) {
@@ -190,7 +203,8 @@ define(function(require) {
 
             block.el.reset();
 
-            block.serialize();
+            block.model = block.get('__model');
+            block.data = block.get('__data');
         },
         clear: function(){
             var block = this;

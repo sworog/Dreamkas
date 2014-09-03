@@ -6,7 +6,7 @@ define(function(require, exports, module) {
     require('i18n!nls/datepicker');
 
     return Block.extend({
-        template: require('ejs!./inputDateRange.ejs'),
+        template: require('ejs!./template.ejs'),
         dateFrom: null,
         dateTo: null,
         endDate: null,

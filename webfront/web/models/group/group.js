@@ -4,6 +4,9 @@ define(function(require) {
 
         return Model.extend({
             urlRoot: Model.baseApiUrl + '/catalog/groups',
+            collections: {
+                products: require('collections/products/products')
+            },
             saveData: [
                 'name'
             ]

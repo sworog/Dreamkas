@@ -1,0 +1,67 @@
+<form class="form_supplierReturnProducts">
+    <table class="table_supplierReturnProducts table table-vcenter">
+        <thead>
+        <tr>
+            <th>Наименование</th>
+            <th style="white-space: nowrap; width: 1px;">Цена, <i class="fa fa-rub"></i></th>
+            <th style="width: 1px;">Кол-во</th>
+            <th style="white-space: nowrap; width: 1px;">Сумма, <i class="fa fa-rub"></i></th>
+            <th style="width: 1px;"></th>
+        </tr>
+        </thead>
+
+        <tbody block="supplierReturnProducts"></tbody>
+
+        <tfoot>
+
+        <tr class="form_supplierReturnProducts__inputs">
+            <td>
+                <div class="row">
+                    <div class="col-md-12">
+                        <input block="autocomplete_products"
+                               name="product.name"
+                               type="text"
+                               class="form-control autocomplete autocomplete_products">
+                        <input type="hidden"
+                               name="product.id">
+                    </div>
+                </div>
+            </td>
+            <td>
+                <input name="price"
+                       type="text"
+                       style="width: 100px;"
+                       class="form-control">
+            </td>
+            <td>
+                <div style="white-space: nowrap">
+                    <input name="quantity"
+                           type="text"
+                           style="width: 80px; display: inline-block;"
+                           class="form-control">
+                    <span style="position: relative; padding: 0 5px;"
+                          class="product__units">шт.</span>
+                </div>
+            </td>
+            <td>
+                <span style="white-space: nowrap; min-width: 100px; position: relative; top: 7px;"
+                      class="totalPrice"></span>
+            </td>
+            <td>
+                <button type="submit"
+                        style="margin-top: 0;"
+                        class="addSupplierReturnProduct btn btn-default fa fa-check btn-lg"></button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                Итого
+            </td>
+            <td class="totalSum" colspan="2">
+                <%- formatMoney(models.supplierReturn.get('sumTotal'))  %>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
+    <div class="form__errorMessage form__errorMessage_global"></div>
+</form>

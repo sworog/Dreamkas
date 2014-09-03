@@ -1,52 +1,9 @@
-<% var LoginModel = require('models/login/login') %>
-
 <div id="signin-page" class="page">
 
     <div class="page-form">
-        <form class="form form_login">
-            <div class="header-content"><h1>Вход</h1></div>
-            <div class="body-content">
 
-                <div class="form-group">
-                    <div class="input-icon right">
-                        <i class="fa fa-user"></i>
-                        <input type="text"
-                               placeholder="Email"
-                               name="username"
-                               value="<%- LoginModel.email %>"
-                                <%- LoginModel.email ? '' : 'autofocus' %>
-                               class="form-control">
-                    </div>
-                </div>
+        <b block="form_login"></b>
 
-                <div class="form-group">
-                    <div class="input-icon right">
-                        <i class="fa fa-key"></i>
-                        <input type="password"
-                               placeholder="Пароль"
-                               name="password"
-                                <%- LoginModel.email ? 'autofocus' : '' %>
-                               class="form-control">
-                    </div>
-                </div>
-
-                <div style="padding-bottom: 20px;" class="form__errorMessage form__errorMessage_global"></div>
-
-                <div class="form-group pull-right">
-                    <button type="submit" class="btn btn-success">
-                        Войти
-                        &nbsp;
-                        <i class="fa fa-chevron-circle-right"></i>
-                    </button>
-                </div>
-                <div class="forget-password" style="padding-top: 8px;">
-                    <a href='#' class='btn-forgot-pwd'>Забыли пароль?</a>
-                </div>
-                <div class="clearfix"></div>
-                <hr>
-                <p>Нет аккаунта? <a id="btn-register" href="/signup">Зарегистрируйтесь</a></p>
-            </div>
-        </form>
     </div>
 
 </div>

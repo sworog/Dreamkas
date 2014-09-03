@@ -1,0 +1,44 @@
+<% var SupplierModel = require('models/supplier/supplier') %>
+<% var supplierModel = supplierModel || new SupplierModel() %>
+<% var partials = {
+    form_supplier: require('ejs!blocks/form/supplier/template.ejs')
+} %>
+
+<div id="<%- supplierModel.id ? 'modal-supplierEdit' : 'modal-supplierAdd' %>"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="modal-default-label"
+     aria-hidden="true"
+     class="modal fade"
+     style="display: none;">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a type="button"
+                   data-dismiss="modal"
+                   aria-hidden="true"
+                   class="close pull-left fa fa-times"></a>
+
+                <button form="<%- supplierModel.id ? 'form_supplierEdit' : 'form_supplierAdd' %>"
+                        type="submit"
+                        class="btn btn-primary pull-right">
+                    <%- supplierModel.id ? 'Сохранить' : 'Добавить' %>
+                </button>
+
+                <h4 class="modal-title">
+                    <%- supplierModel.id ? 'Редактирование поставщика' : 'Добавление поставщика' %>
+                </h4>
+
+                <span class="clearfix"></span>
+            </div>
+            <div class="modal-body">
+
+                <%= partials.form_supplier({
+                    supplierModel: supplierModel
+                }) %>
+
+            </div>
+        </div>
+    </div>
+</div>

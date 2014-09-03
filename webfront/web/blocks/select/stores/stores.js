@@ -6,7 +6,7 @@ define(function(require, exports, module) {
         template: require('ejs!./template.ejs'),
         selected: null,
         collection: function(){
-            return PAGE.collections.stores;
+            return PAGE.get('collections.stores');
         }
     });
 });

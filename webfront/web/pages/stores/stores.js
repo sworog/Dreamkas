@@ -1,7 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('blocks/page/page.deprecated'),
-        router = require('router');
+    var Page = require('blocks/page/page.deprecated');
 
     return Page.extend({
         content: require('ejs!./content.ejs'),
@@ -29,7 +28,7 @@ define(function(require, exports, module) {
         blocks: {
             form_storeAdd: function() {
                 var page = this,
-                    Form_store = require('blocks/form/form_store/form_store'),
+                    Form_store = require('blocks/form/store/store'),
                     form_store = new Form_store({
                         collection: page.collections.stores,
                         el: document.getElementById('form_storeAdd')
@@ -49,7 +48,7 @@ define(function(require, exports, module) {
             },
             form_storeEdit: function() {
                 var page = this,
-                    Form_store = require('blocks/form/form_store/form_store'),
+                    Form_store = require('blocks/form/store/store'),
                     form_store = new Form_store({
                         model: page.models.store,
                         el: document.getElementById('form_storeEdit')

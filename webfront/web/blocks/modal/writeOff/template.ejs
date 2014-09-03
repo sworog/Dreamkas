@@ -1,0 +1,62 @@
+<div tabindex="-1"
+     role="dialog"
+     aria-labelledby="modal-default-label"
+     aria-hidden="true"
+     class="modal modal_writeOff fade"
+     style="display: none;">
+    <div class="modal__dialog_visible modal__dialog_writeOff modal-dialog modal-wide-width">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a type="button"
+                   data-dismiss="modal"
+                   aria-hidden="true"
+                   class="close pull-left fa fa-times"></a>
+
+            <button form="form_writeOff"
+                    type="submit"
+                    class="btn btn-primary pull-right">
+                <%- models.writeOff.id ? 'Сохранить' : 'Списать' %>
+            </button>
+
+            <h4 class="modal-title">
+                <%- models.writeOff.id ? 'Редактирование списания товаров' : 'Списание товаров' %>
+            </h4>
+
+            <span class="clearfix"></span>
+        </div>
+        <div class="modal-body">
+
+            <b block="form_writeOff"></b>
+
+            <hr style="margin: 0 -65px;"/>
+
+            <h3>Товары</h3>
+
+            <b block="form_writeOffProducts"></b>
+
+            <% if (models.writeOff.id) { %>
+            <div style="margin-top: 40px; margin-left: -10px;">
+                <span class="confirmLink">
+
+                    <span class="confirmLink__trigger">
+                        <span class="removeLink">
+                            <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                            Удалить списание
+                        </span>
+                    </span>
+
+                    <span class="confirmLink__confirmation">
+                        <span class="removeLink writeOff__removeLink">
+                            <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                            Подтвердить удаление
+                        </span>
+                    </span>
+
+                </span>
+                </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+</div>

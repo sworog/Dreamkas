@@ -18,3 +18,14 @@
 .page__content {
     padding: 20px 30px 50px;
 }
+
+.page__panel {
+    background-color: #fff;
+    padding: 15px;
+}
+
+.page__posLink {
+    font-size: 14px;
+    width: 200px;
+    margin: 0 auto;
+}

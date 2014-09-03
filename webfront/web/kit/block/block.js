@@ -27,29 +27,33 @@ define(function(require, exports, module) {
         initialize: function() {
             var block = this;
 
-            block.initResources();
-            block.render();
+            $.when(block.initData()).then(function(){
+                block.render();
+            });
         },
-
-        helpers: {
-            formatMoney: require('kit/formatMoney/formatMoney'),
-            formatAmount: require('kit/formatAmount/formatAmount'),
-            formatDate: require('kit/formatDate/formatDate')
-        },
+        
+        formatMoney: require('kit/formatMoney/formatMoney'),
+        formatAmount: require('kit/formatAmount/formatAmount'),
+        formatDate: require('kit/formatDate/formatDate'),
 
         render: function() {
             var block = this;
 
-            block.removeBlocks();
-
-            if (typeof block.template === 'function') {
-                block.setElement($(block.template(block)).replaceAll(block.el));
+            if (typeof block.template !== 'function') {
+                return;
             }
 
+            block.removeBlocks();
+
+            block.bindings && block.bindings.unbind();
+
+            block.setElement($(block.template(block)).replaceAll(block.el));
+
             block.bindings = rivets.bind(block.el, block);
-            block.el.block = this;
 
             block.initBlocks();
+
+            block.el.block = this;
         },
 
         get: function() {
@@ -64,8 +68,10 @@ define(function(require, exports, module) {
             return set.apply(null, args);
         },
 
-        initResources: function(){
+        initData: function(data){
             var block = this;
+
+            data && block.set(data);
 
             block.collections = _.transform(block.collections, function(result, collectionInitializer, key) {
                 result[key] = block.get('collections.' + key);
@@ -117,12 +123,19 @@ define(function(require, exports, module) {
             return $.when.apply($, fetchList);
         },
 
+        unbind: function(){
+            var block = this;
+
+            block.stopListening();
+            block.undelegateEvents();
+            block.bindings && block.bindings.unbind();
+        },
+
         remove: function() {
             var block = this;
 
+            block.unbind();
             block.removeBlocks();
-
-            block.bindings && block.bindings.unbind();
 
             return View.prototype.remove.apply(block, arguments);
         },

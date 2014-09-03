@@ -1,6 +1,4 @@
 <% var partials = {
-    modal_invoice: require('ejs!blocks/modal/modal_invoice/modal_invoice.ejs'),
-    modal_writeOff: require('ejs!blocks/modal/modal_writeOff/modal_writeOff.ejs'),
     tr: {
         invoice: require('ejs!blocks/table/stockMovements/tr/invoice.ejs'),
         writeOff: require('ejs!blocks/table/stockMovements/tr/writeOff.ejs'),
@@ -8,41 +6,15 @@
         supplierReturn: require('ejs!blocks/table/stockMovements/tr/supplierReturn.ejs')
     }
 }; %>
-<% var helpers = {
-    formatMoney: require('kit/formatMoney/formatMoney'),
-    formatDate: require('kit/formatDate/formatDate')
-} %>
 
 <!--BEGIN TITLE PAGE-->
 <div class="page-title-breadcrumb">
 
     <div class="pull-right">
-        <span data-target="#modal_invoiceAdd"
-              data-toggle="modal"
-              role="button"
-              class="btn btn-primary btn-md">Принять от поставщика</span>
-
-        <div class="dropdown" style="display: inline-block; position: relative">
-            <a block="dropdown"
-               href="#"
-               role="button"
-               class="btn btn-default btn-md dropdown-toggle"
-               data-toggle="dropdown">Еще...</a>
-
-            <ul style="right: 0; left: auto;" class="dropdown-menu" role="menu">
-                <li>
-                    <div class="dropdown-menu-item"
-                          data-target="#modal_writeOffAdd"
-                          data-toggle="modal">Списать</div>
-                </li>
-                <li>
-                    <div class="dropdown-menu-item page__addStockInLink">Оприходовать</div>
-                </li>
-                <li>
-                    <div class="dropdown-menu-item supplierReturn__link">Вернуть поставщику</div>
-                </li>
-            </ul>
-        </div>
+        <span class="invoice__link btn btn-primary btn-md">Принять от поставщика</span>
+        <span class="writeOff__link btn btn-primary btn-md">Списать</span>
+        <span class="stockIn__link btn btn-primary btn-md">Оприходовать</span>
+        <span class="supplierReturn__link btn btn-primary btn-md">Вернуть поставщику</span>
     </div>
 
     <div class="page-header pull-left">
@@ -78,26 +50,26 @@
 
                         <% _.forEach(stockMovements, function(stockMovementModel, index) { %>
 
-                        <% if (stockMovementModel.get('type') === 'Invoice'){ %>
-                        <%= partials.tr.invoice({
-                            dateRowSpan: index === 0 ? stockMovements.length : null,
-                            stockMovementModel: stockMovementModel
-                        }) %>
-                        <% } %>
+                                <% if (stockMovementModel.get('type') === 'Invoice'){ %>
+                                <%= partials.tr.invoice({
+                                    dateRowSpan: index === 0 ? stockMovements.length : null,
+                                    stockMovementModel: stockMovementModel
+                                }) %>
+                                <% } %>
 
-                        <% if (stockMovementModel.get('type') === 'WriteOff'){ %>
-                        <%= partials.tr.writeOff({
-                            dateRowSpan: index === 0 ? stockMovements.length : null,
-                            stockMovementModel: stockMovementModel
-                        }) %>
-                        <% } %>
+                                <% if (stockMovementModel.get('type') === 'WriteOff'){ %>
+                                <%= partials.tr.writeOff({
+                                    dateRowSpan: index === 0 ? stockMovements.length : null,
+                                    stockMovementModel: stockMovementModel
+                                }) %>
+                                <% } %>
 
-                        <% if (stockMovementModel.get('type') === 'StockIn'){ %>
-                        <%= partials.tr.stockIn({
-                            dateRowSpan: index === 0 ? stockMovements.length : null,
-                            stockMovementModel: stockMovementModel
-                        }) %>
-                        <% } %>
+                                <% if (stockMovementModel.get('type') === 'StockIn'){ %>
+                                <%= partials.tr.stockIn({
+                                    dateRowSpan: index === 0 ? stockMovements.length : null,
+                                    stockMovementModel: stockMovementModel
+                                }) %>
+                                <% } %>
 
                         <% if (stockMovementModel.get('type') === 'SupplierReturn'){ %>
                         <%= partials.tr.supplierReturn({
@@ -106,7 +78,8 @@
                         }) %>
                         <% } %>
 
-                        <% }) %>
+                            <% }) %>
+
                         <% }) %>
 
                         </tbody>
@@ -126,40 +99,8 @@
 <!--MODALS-->
 
 <b block="modal_stockIn"></b>
+<b block="modal_invoice"></b>
+<b block="modal_writeOff"></b>
 <b block="modal_supplierReturn"></b>
 
-<% if (models.invoice) { %>
-<%= partials.modal_invoice({
-    collections: {
-        invoices: collections.stockMovements,
-        suppliers: collections.suppliers,
-        stores: collections.stores
-    },
-    models: {
-        invoice: models.invoice
-    }
-}) %>
-<% } %>
-<%= partials.modal_invoice({
-    collections: {
-        invoices: collections.stockMovements,
-        suppliers: collections.suppliers,
-        stores: collections.stores
-    }
-}) %>
-<% if (models.writeOff) { %>
-<%= partials.modal_writeOff({
-    collections: {
-        stores: collections.stores
-    },
-    models: {
-        writeOff: models.writeOff
-    }
-}) %>
-<% } %>
-<%= partials.modal_writeOff({
-    collections: {
-        stores: collections.stores
-    }
-}) %>
 <!--END MODALS-->

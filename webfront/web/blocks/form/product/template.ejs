@@ -1,0 +1,114 @@
+<form id="form_product" class="form form_product">
+
+    <div class="form-group">
+
+        <label class="control-label">Группа *</label>
+
+    </div>
+
+    <div class="form-group">
+
+        <label class="control-label">Наименование *</label>
+
+        <div class="input-icon right">
+            <input
+                    name="name"
+                    type="text"
+                    class="form-control"
+                    value="<%- model.get('name') %>">
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        <label class="control-label">Единица измерения</label>
+
+        <div class="row">
+            <div class="col-md-5">
+                <input name="units"
+                       type="text"
+                       class="form-control"
+                       value="<%- model.get('units') %>">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+
+        <label class="control-label">Штрих-код</label>
+
+        <div class="input-icon right">
+            <input
+                    name="barcode"
+                    type="text"
+                    class="form-control"
+                    value="<%- model.get('barcode') %>">
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        <label class="control-label">НДС</label>
+
+        <div class="row">
+            <div class="col-md-5">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        <label class="control-label">Цена закупки, <i class="fa fa-rub"></i></label>
+
+        <div class="row">
+            <div class="col-md-5">
+                <input
+                        name="purchasePrice"
+                        type="text"
+                        class="form-control"
+                        value="<%- model.get('purchasePrice') && formatMoney(model.get('purchasePrice')) %>">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+
+        <label class="control-label">Цена продажи, <i class="fa fa-rub"></i></label>
+
+        <div class="row">
+            <div class="col-md-5">
+                <input
+                        name="sellingPrice"
+                        type="text"
+                        class="form-control"
+                        value="<%- model.get('sellingPrice') && formatMoney(models.product.get('sellingPrice')) %>">
+            </div>
+            <div class="col-md-7 product__markup">
+                Наценка: <span class="product__markupText"></span> %
+            </div>
+        </div>
+
+    </div>
+
+    <% if (model.id) { %>
+    <div class="confirmLink">
+
+        <div class="confirmLink__trigger">
+            <span class="removeLink product__removeLink">
+                <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                Удалить товар
+            </span>
+        </div>
+
+        <div class="confirmLink__confirmation">
+            <span class="removeLink product__removeLink">
+                <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                Подтвердить удаление
+            </span>
+        </div>
+
+    </div>
+    <% } %>
+</form>
