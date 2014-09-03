@@ -40,3 +40,5 @@ cookbook 'openssh'
 cookbook 'ruby'
 cookbook 'ssh-util'
 cookbook 'nodejs'
+cookbook 'android-sdk', '~> 0.1.1'
+
