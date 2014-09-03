@@ -1,6 +1,11 @@
 define(function(require, exports, module) {
     //requirements
-    var Block = require('kit/block/block');
+    var Block = require('kit/block/block'),
+        keymap = require('kit/keymap/keymap');
+
+    $(document).on('keyup', function(e){
+
+    });
 
     return Block.extend({
         template: require('ejs!./template.ejs'),
