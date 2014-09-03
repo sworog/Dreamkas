@@ -19,7 +19,7 @@ public class SupplierReturnBuilderUserSteps {
 
     @Given("пользователь создает апи объект возвратом поставщику с датой '$date', статусом Оплачено '$paid', магазином с именем '$storeName', поставщиком с именем '$supplierName'")
     public void givenTheUserWithEmailCreatesInvoiceApiObject(String date, Boolean paid, String storeName, String supplierName) throws JSONException {
-        Store store = StaticData.stores.get(storeName);
+        Store store = Storage.getCustomVariableStorage().getStores().get(storeName);
         Supplier supplier = Storage.getCustomVariableStorage().getSuppliers().get(supplierName);
         supplierReturnBuilderSteps.build(date, store.getId(), paid, supplier.getId());
     }

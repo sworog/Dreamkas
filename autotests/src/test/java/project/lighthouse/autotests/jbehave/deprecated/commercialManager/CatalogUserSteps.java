@@ -5,18 +5,13 @@ import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
-import org.json.JSONException;
 import org.junit.Assert;
 import project.lighthouse.autotests.steps.deprecated.commercialManager.CatalogSteps;
-import project.lighthouse.autotests.steps.deprecated.commercialManager.StoreSteps;
 
 public class CatalogUserSteps {
 
     @Steps
     CatalogSteps catalogSteps;
-
-    @Steps
-    StoreSteps storeSteps;
 
     String retailMarkupMinValue, retailMarkupMaxValue;
     String newRetailMarkupMinValue, newRetailMarkupMaxValue;
@@ -24,11 +19,6 @@ public class CatalogUserSteps {
     @Given("the user opens catalog page")
     public void givenTheUSerOpensCatalogPage() {
         catalogSteps.openPage();
-    }
-
-    @Given("the user navigates to the store '$storeName' catalog page")
-    public void givenTheUserNaviagtesToTheStoreCatalogPage(String storeName) throws JSONException {
-        storeSteps.navigatesToTheStoreCatalogPage(storeName);
     }
 
     @When("the user clicks on start edition link and starts the edition")

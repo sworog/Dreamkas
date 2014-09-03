@@ -7,7 +7,6 @@ import project.lighthouse.autotests.objects.api.Category;
 import project.lighthouse.autotests.objects.api.Group;
 import project.lighthouse.autotests.objects.api.SubCategory;
 import project.lighthouse.autotests.steps.deprecated.api.commercialManager.CatalogApiSteps;
-import project.lighthouse.autotests.steps.deprecated.api.commercialManager.StoreApiSteps;
 
 import java.io.IOException;
 
@@ -15,9 +14,6 @@ public class EndCatalogUserSteps {
 
     @Steps
     CatalogApiSteps catalogApiSteps;
-
-    @Steps
-    StoreApiSteps storeApiSteps;
 
     @Given("there is the group with name '$groupName'")
     public void givenThereIsTheGroupWithName(String groupName) throws IOException, JSONException {

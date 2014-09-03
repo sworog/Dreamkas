@@ -5,6 +5,7 @@ import org.jbehave.core.annotations.Given;
 import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.steps.api.builder.WriteOffBuilderSteps;
+import project.lighthouse.autotests.storage.Storage;
 
 public class WriteOffBuilderUserSteps {
 
@@ -13,7 +14,7 @@ public class WriteOffBuilderUserSteps {
 
     @Given("пользователь создает апи объект списания с датой '$date', магазином с именем '$storeName'")
     public void givenTheUserCreatesWriteOffApiObject(String date, String storeName) {
-        Store store = StaticData.stores.get(storeName);
+        Store store = Storage.getCustomVariableStorage().getStores().get(storeName);
         writeOffBuilderSteps.build(store.getId(), date);
     }
 

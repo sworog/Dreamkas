@@ -6,7 +6,10 @@ import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.api.http.HttpExecutor;
 import project.lighthouse.autotests.api.http.HttpRequestable;
 import project.lighthouse.autotests.helper.UrlHelper;
-import project.lighthouse.autotests.objects.api.*;
+import project.lighthouse.autotests.objects.api.Category;
+import project.lighthouse.autotests.objects.api.Group;
+import project.lighthouse.autotests.objects.api.Product;
+import project.lighthouse.autotests.objects.api.SubCategory;
 
 import java.io.IOException;
 
@@ -106,20 +109,6 @@ public class ApiConnect {
     public String getSubCategoryProductCreatePageUrl(String subCategoryName) throws JSONException {
         String subCategoryId = StaticData.subCategories.get(subCategoryName).getId();
         return String.format("%s/products/create?subCategory=%s", UrlHelper.getWebFrontUrl(), subCategoryId);
-    }
-
-    public Store createStoreThroughPost(Store store) throws JSONException, IOException {
-        if (!StaticData.stores.containsKey(store.getName())) {
-            httpRequestable.executePostRequest(store);
-            StaticData.stores.put(store.getName(), store);
-            return store;
-        } else {
-            return StaticData.stores.get(store.getName());
-        }
-    }
-
-    public String getStoreId(String storeNumber) throws JSONException {
-        return StaticData.stores.get(storeNumber).getId();
     }
 
     public String setSet10ImportUrl(String value) throws IOException, JSONException {

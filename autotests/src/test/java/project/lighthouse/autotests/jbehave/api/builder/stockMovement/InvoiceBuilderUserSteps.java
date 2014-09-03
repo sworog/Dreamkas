@@ -21,7 +21,7 @@ public class InvoiceBuilderUserSteps {
     @Given("the user creates invoice api object with date '$date', paid status '$paid', store with name '$storeName', supplier with name '$supplierName'")
     @Alias("пользователь создает апи объект накладной с датой '$date', статусом Оплачено '$paid', магазином с именем '$storeName', поставщиком с именем '$supplierName'")
     public void givenTheUserWithEmailCreatesInvoiceApiObject(String date, Boolean paid, String storeName, String supplierName) throws JSONException {
-        Store store = StaticData.stores.get(storeName);
+        Store store = Storage.getCustomVariableStorage().getStores().get(storeName);
         Supplier supplier = Storage.getCustomVariableStorage().getSuppliers().get(supplierName);
         invoiceBuilderSteps.build(date, paid, store.getId(), supplier.getId());
     }
