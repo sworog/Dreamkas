@@ -24,11 +24,21 @@ public class PosUserSteps {
 
     @Then("пользователь проверяет, что коллекция результатов поиска автокомплита содержит следующие конкретные данные $examplesTable")
     public void thenExactCompareWithExamplesTable(ExamplesTable examplesTable) {
-        posSteps.exactCompareWithExamplesTable(examplesTable);
+        posSteps.exactComparePosAutocompleteResultsCollectionWithExamplesTable(examplesTable);
+    }
+
+    @Then("пользователь проверяет, что коллекция добавленных продуктов в чек содержит следующие конкретные данные $examplesTable")
+    public void thenExactCompareReceiptCollectionWithExamplesTable(ExamplesTable examplesTable) {
+        posSteps.exactCompareReceiptCollectionWithExamplesTable(examplesTable);
     }
 
     @Then("пользователь проверяет, что коллекция результатов поиска автокомплита пуста")
     public void thenCheckNoResults() {
         posSteps.checkNoResults();
+    }
+
+    @Then("пользователь проверяет, что чек получился на сумму '$totalSum'")
+    public void thenUserAssertsReceiptTotalSum(String totalSum) {
+        posSteps.assertReceiptTotalSum(totalSum);
     }
 }
