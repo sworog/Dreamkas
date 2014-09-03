@@ -11,6 +11,7 @@ define(function(require) {
         numeral = require('numeral');
 
     require('madmin/js/jquery-ui');
+    require('blocks/confirmLink/confirmLink');
     require('madmin/vendors/bootstrap/js/bootstrap');
     require('madmin/vendors/bootstrap-hover-dropdown/bootstrap-hover-dropdown');
 
@@ -103,18 +104,6 @@ define(function(require) {
                 });
             }
         })
-        .on('click', '.confirmLink__trigger', function(e) {
-            e.stopPropagation();
-
-            var confirmLink = $(this).closest('.confirmLink');
-
-            confirmLink.addClass('confirmLink_active');
-        })
-        .on('click', function(e) {
-            var confirmLink_active = $('.confirmLink_active').not($(e.target).closest('.confirmLink_active'));
-
-            confirmLink_active.removeClass('confirmLink_active');
-        })
         .on('shown.bs.modal', '.modal', function() {
             $(this).find('[autofocus]').focus();
         })
@@ -122,11 +111,6 @@ define(function(require) {
             e.preventDefault();
 
             openPos();
-        })
-        .on('click', '.page__modalLink', function(e) {
-            e.preventDefault();
-
-            document.getElementById(e.target.dataset.modal).block.show();
         });
 
 

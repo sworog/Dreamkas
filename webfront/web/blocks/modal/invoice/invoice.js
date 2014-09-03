@@ -4,6 +4,9 @@ define(function(require, exports, module) {
 
     return Modal.extend({
         template: require('ejs!./template.ejs'),
+        models: {
+            invoice: require('models/invoice/invoice')
+        },
         events: {
             'click .invoice__removeLink': function(e){
                 var block = this;

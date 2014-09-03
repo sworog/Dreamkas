@@ -3,6 +3,12 @@ define(function(require, exports, module) {
     var Block = require('kit/block/block'),
         deepExtend = require('kit/deepExtend/deepExtend');
 
+    $(document).on('click', '[data-modal]', function(e) {
+        e.preventDefault();
+
+        document.getElementById(e.target.dataset.modal).block.show();
+    });
+
     return Block.extend({
         render: function(){
             var block = this;
