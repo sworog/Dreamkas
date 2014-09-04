@@ -885,7 +885,6 @@ class UserControllerTest extends WebTestCase
                         'GET',
                         'PUT',
                     ),
-                    'supplierReturns' => array(),
                     'stores/{store}/subcategories/{subCategory}' => array(
                         'GET',
                         'GET::products',
@@ -1113,7 +1112,6 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/subcategories/{subCategory}' => array(),
                     'stores/{store}/writeOffs' => array(),
                     'subcategories' => array(),
-                    'supplierReturns' => array(),
                     'suppliers' => array(),
                     'suppliers/{supplier}/bankAccounts' => array(),
                     'users' => array(

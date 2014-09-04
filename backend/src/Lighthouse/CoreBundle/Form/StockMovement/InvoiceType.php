@@ -7,7 +7,6 @@ use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Lighthouse\CoreBundle\Form\DocumentType;
-use Lighthouse\CoreBundle\Form\StockMovement\InvoiceProductType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class InvoiceType extends DocumentType

@@ -7,6 +7,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
@@ -203,9 +204,9 @@ class SaleProduct extends AbstractDocument implements Reasonable
     }
 
     /**
-     * @param Storeable|Sale $parent
+     * @param StockMovement|Sale $parent
      */
-    public function setReasonParent(Storeable $parent)
+    public function setReasonParent(StockMovement $parent)
     {
         $this->sale = $parent;
     }

@@ -88,7 +88,7 @@ class WriteOffBuilder
         $cause = ($cause) ?: 'Порча';
 
         $writeOffProduct = new WriteOffProduct();
-        $writeOffProduct->writeOff = $this->writeOff;
+        $writeOffProduct->parent = $this->writeOff;
         $writeOffProduct->product = $this->factory->createProductVersion($productId);
         $writeOffProduct->quantity = $this->numericFactory->createQuantity($quantity);
         $writeOffProduct->price = $this->numericFactory->createMoney($price);

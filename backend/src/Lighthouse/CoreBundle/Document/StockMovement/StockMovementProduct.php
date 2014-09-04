@@ -1,13 +1,11 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\StockMovement\Returne\Product;
+namespace Lighthouse\CoreBundle\Document\StockMovement;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
-use Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne;
 use Lighthouse\CoreBundle\Document\Product\Product;
-use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
@@ -19,9 +17,6 @@ use JMS\Serializer\Annotation as Serializer;
 use DateTime;
 
 /**
- * @MongoDB\Document(
- *      repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\Returne\Product\ReturnProductRepository"
- * )
  * @MongoDB\HasLifecycleCallbacks
  *
  * @property int            $id
@@ -30,11 +25,13 @@ use DateTime;
  * @property Money          $totalPrice
  * @property DateTime       $date
  * @property ProductVersion $product
- * @property Returne        $return
+ * @property Product        $originalProduct
+ * @property StockMovement  $parent
+ * @property Store          $store
  */
-class ReturnProduct extends AbstractDocument implements Reasonable
+abstract class StockMovementProduct extends AbstractDocument implements Reasonable
 {
-    const REASON_TYPE = 'ReturnProduct';
+    const REASON_TYPE = 'abstract';
 
     /**
      * @MongoDB\Id
@@ -43,19 +40,24 @@ class ReturnProduct extends AbstractDocument implements Reasonable
     protected $id;
 
     /**
-     * Цена продажи
+     * @Assert\NotBlank(groups={"Default", "products"})
+     * @LighthouseAssert\Money(notBlank=true,groups={"Default", "products"})
      * @MongoDB\Field(type="money")
-     * @Assert\NotBlank
-     * @LighthouseAssert\Money(notBlank=true, zero=true)
      * @var Money
      */
     protected $price;
 
     /**
      * Количество
+     * @Assert\NotBlank(groups={"Default", "products"})
+     * @LighthouseAssert\Chain(
+     *      groups={"Default", "products"},
+     *      constraints={
+     *          @LighthouseAssert\Precision(3),
+     *          @LighthouseAssert\Range\Range(gt=0)
+     *      }
+     * )
      * @MongoDB\Field(type="quantity")
-     * @Assert\NotBlank
-     * @LighthouseAssert\Range\Range(gt=0)
      * @var Quantity
      */
     protected $quantity;
@@ -73,25 +75,21 @@ class ReturnProduct extends AbstractDocument implements Reasonable
     protected $date;
 
     /**
+     * @Assert\NotBlank(groups={"Default", "products"})
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\Product\Version\ProductVersion",
      *     simple=true,
-     *     cascade="persist"
+     *     cascade={"persist"}
      * )
+     * @Serializer\MaxDepth(3)
      * @var ProductVersion
      */
     protected $product;
 
     /**
-     * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne",
-     *     simple=true,
-     *     cascade="persist",
-     *     inversedBy="products"
-     * )
-     * @var Returne
+     * @var StockMovement
      */
-    protected $return;
+    protected $parent;
 
     /**
      * @MongoDB\ReferenceOne(
@@ -103,7 +101,6 @@ class ReturnProduct extends AbstractDocument implements Reasonable
      * @Serializer\Exclude
      */
     protected $originalProduct;
-
 
     /**
      * @MongoDB\ReferenceOne(
@@ -124,8 +121,8 @@ class ReturnProduct extends AbstractDocument implements Reasonable
     {
         $this->calculateTotals();
 
-        $this->date = $this->return->date;
-        $this->store = $this->return->store;
+        $this->date = $this->parent->date;
+        $this->store = $this->parent->store;
         $this->originalProduct = $this->product->getObject();
     }
 
@@ -154,7 +151,7 @@ class ReturnProduct extends AbstractDocument implements Reasonable
      */
     public function getReasonType()
     {
-        return 'ReturnProduct';
+        return static::REASON_TYPE;
     }
 
     /**
@@ -190,27 +187,19 @@ class ReturnProduct extends AbstractDocument implements Reasonable
     }
 
     /**
-     * @return boolean
-     */
-    public function increaseAmount()
-    {
-        return true;
-    }
-
-    /**
-     * @return Returne
+     * @return StockMovement
      */
     public function getReasonParent()
     {
-        return $this->return;
+        return $this->parent;
     }
 
     /**
-     * @param StockMovement|Returne $parent
+     * @param StockMovement $parent
      */
     public function setReasonParent(StockMovement $parent)
     {
-        $this->return = $parent;
+        $this->parent = $parent;
     }
 
     /**
