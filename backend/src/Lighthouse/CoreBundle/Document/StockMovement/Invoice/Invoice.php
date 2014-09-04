@@ -124,7 +124,7 @@ class Invoice extends StockMovement
      *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct",
      *      simple=true,
      *      cascade={"persist","remove"},
-     *      mappedBy="invoice"
+     *      mappedBy="parent"
      * )
      *
      * @Assert\Valid(traverse=true)

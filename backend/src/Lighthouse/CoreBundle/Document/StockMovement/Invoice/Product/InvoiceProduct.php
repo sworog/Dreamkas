@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProduct;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -40,7 +41,6 @@ class InvoiceProduct extends StockMovementProduct
 
     /**
      * Закупочная цена
-     * @MongoDB\Field(type="money")
      * @var Money
      */
     protected $price;
@@ -85,18 +85,6 @@ class InvoiceProduct extends StockMovementProduct
      * @var Invoice
      */
     protected $parent;
-
-    /**
-     * @Assert\NotBlank(groups={"Default", "products"})
-     * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Version\ProductVersion",
-     *     simple=true,
-     *     cascade={"persist"}
-     * )
-     * @Serializer\MaxDepth(3)
-     * @var ProductVersion
-     */
-    protected $product;
 
     /**
      * @MongoDB\PreFlush
@@ -166,6 +154,14 @@ class InvoiceProduct extends StockMovementProduct
     {
         $this->priceEntered = $priceEntered;
         $this->calculatePrices();
+    }
+
+    /**
+     * @param StockMovement|Invoice $parent
+     */
+    public function setReasonParent(StockMovement $parent)
+    {
+        $this->setParent($parent);
     }
 
     /**
