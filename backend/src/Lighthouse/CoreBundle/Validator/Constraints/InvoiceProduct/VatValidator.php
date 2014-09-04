@@ -21,7 +21,7 @@ class VatValidator extends ConstraintValidator
             new Money(array('notBlank' => true)),
         );
 
-        if ($value->invoice->includesVAT) {
+        if ($value->parent->includesVAT) {
             $this->validateValue($value->price, $constraints, 'price');
         } else {
             $this->validateValue($value->priceWithoutVAT, $constraints, 'priceWithoutVAT');

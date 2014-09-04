@@ -154,7 +154,7 @@ class InvoiceBuilder
         $invoiceProduct->quantity = $this->numericFactory->createQuantity($quantity);
         $invoiceProduct->priceEntered = $this->numericFactory->createMoney($price);
         $invoiceProduct->product = $this->factory->createProductVersion($productId);
-        $invoiceProduct->invoice = $this->invoice;
+        $invoiceProduct->parent = $this->invoice;
 
         $this->invoice->products[] = $invoiceProduct;
 

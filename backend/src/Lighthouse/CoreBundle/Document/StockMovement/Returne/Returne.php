@@ -17,6 +17,8 @@ use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
  */
 class Returne extends Receipt
 {
+    const TYPE = 'Return';
+
     /**
      * @MongoDB\ReferenceMany(
      *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Returne\Product\ReturnProduct",
