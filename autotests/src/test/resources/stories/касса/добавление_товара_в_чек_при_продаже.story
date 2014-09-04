@@ -242,6 +242,8 @@ Scenario: Проверка, что последний добавленный т�
 
 Meta:
 @smoke
+@skip
+@ignore
 
 GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
               precondition/касса/создание_юзера.story,
