@@ -28,7 +28,7 @@ define(function(require, exports, module) {
                 totalPrice = 0;
 
             block.model.collections.products.forEach(function(receiptProductModel){
-                totalPrice += receiptProductModel.get('count') * receiptProductModel.get('product.sellingPrice');
+                totalPrice += receiptProductModel.get('count') * (receiptProductModel.get('product.sellingPrice') || 0);
             });
 
             return formatMoney(totalPrice);
