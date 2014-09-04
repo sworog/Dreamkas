@@ -43,7 +43,9 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
     }
 
     private void setWebDriverBaseUrl() {
-        configurationStorage.setProperty("webdriver.base.url", getSystemConfiguration().getBaseUrl());
+        String baseUrl = getSystemConfiguration().getBaseUrl().replace("/merge", "-merge");
+        getSystemConfiguration().setDefaultBaseUrl(baseUrl);
+        configurationStorage.setProperty("webdriver.base.url", baseUrl);
     }
 
     private void findStoriesByBranch() {
