@@ -89,8 +89,8 @@ class ProductTotalsTest extends ContainerAwareTestCase
 
         $invoiceProduct = $invoice->products[0];
 
-        $this->assertInstanceOf(Invoice::getClassName(), $invoiceProduct->invoice);
-        $this->assertEquals($invoiceProduct->invoice->id, $invoice->id);
+        $this->assertInstanceOf(Invoice::getClassName(), $invoiceProduct->parent);
+        $this->assertEquals($invoiceProduct->parent->id, $invoice->id);
 
         /* @var StoreProductRepository $storeProductRepository */
         $storeProductRepository = $this->getContainer()->get('lighthouse.core.document.repository.store_product');
@@ -120,13 +120,13 @@ class ProductTotalsTest extends ContainerAwareTestCase
         $this->assertEquals(0, $storeProduct->inventory->toNumber());
 
         $invoiceProduct1 = new InvoiceProduct();
-        $invoiceProduct1->invoice = $invoice;
+        $invoiceProduct1->parent = $invoice;
         $invoiceProduct1->product = $productVersion;
         $invoiceProduct1->priceEntered = $numericFactory->createMoney(11.11);
         $invoiceProduct1->quantity = $numericFactory->createQuantity(10);
 
         $invoiceProduct2 = new InvoiceProduct();
-        $invoiceProduct2->invoice = $invoice;
+        $invoiceProduct2->parent = $invoice;
         $invoiceProduct2->product = $productVersion;
         $invoiceProduct2->priceEntered = $numericFactory->createMoney(22.22);
         $invoiceProduct2->quantity = $numericFactory->createQuantity(5);

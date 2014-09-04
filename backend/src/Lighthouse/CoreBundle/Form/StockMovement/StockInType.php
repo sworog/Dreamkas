@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Form\StockMovement;
 use Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockIn;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Form\DocumentType;
-use Lighthouse\CoreBundle\Form\StockMovement\StockInProductType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class StockInType extends DocumentType

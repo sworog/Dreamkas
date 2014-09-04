@@ -263,7 +263,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $writeOff->store = $store;
 
         $writeOffProduct = new WriteOffProduct();
-        $writeOffProduct->writeOff = $writeOff;
+        $writeOffProduct->parent = $writeOff;
         $writeOffProduct->product = $productVersion;
         $writeOffProduct->quantity = $numericFactory->createQuantity(3);
         $writeOffProduct->price = $numericFactory->createMoney(79.99);

@@ -45,7 +45,7 @@ class VatValidatorTest extends ContainerAwareTestCase
         $invoice->includesVAT = $includesVat;
 
         $invoiceProduct = new InvoiceProduct();
-        $invoiceProduct->invoice = $invoice;
+        $invoiceProduct->parent = $invoice;
         $invoiceProduct->quantity = $numericFactory->createQuantity(12);
         $invoiceProduct->price = $numericFactory->createMoney($price);
         $invoiceProduct->priceWithoutVAT = $numericFactory->createMoney($priceWithoutVAT);

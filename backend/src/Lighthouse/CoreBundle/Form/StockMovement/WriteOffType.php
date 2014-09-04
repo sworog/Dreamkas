@@ -5,7 +5,6 @@ namespace Lighthouse\CoreBundle\Form\StockMovement;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Form\DocumentType;
-use Lighthouse\CoreBundle\Form\StockMovement\WriteOffProductType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class WriteOffType extends DocumentType

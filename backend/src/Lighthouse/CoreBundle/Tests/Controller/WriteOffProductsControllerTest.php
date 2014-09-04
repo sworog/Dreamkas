@@ -17,17 +17,17 @@ class WriteOffProductsControllerTest extends WebTestCase
 
         $writeOff1 = $this->factory()
             ->writeOff()
-            ->createWriteOff($store, '2013-10-18T09:39:47+0400')
-            ->createWriteOffProduct($productId1, 100, 36.70, 'Бой')
-            ->createWriteOffProduct($productId2, 1, 12)
-            ->createWriteOffProduct($productId3, 20, 42.90, 'Бой')
+                ->createWriteOff($store, '2013-10-18T09:39:47+0400')
+                ->createWriteOffProduct($productId1, 100, 36.70, 'Бой')
+                ->createWriteOffProduct($productId2, 1, 12)
+                ->createWriteOffProduct($productId3, 20, 42.90, 'Бой')
             ->flush();
 
         $writeOff2 = $this->factory()
             ->writeOff()
-            ->createWriteOff($store, '2013-10-18T12:22:00+0400')
-            ->createWriteOffProduct($productId1, 120, 37.20, 'Бой')
-            ->createWriteOffProduct($productId3, 200, 35.80, 'Бой')
+                ->createWriteOff($store, '2013-10-18T12:22:00+0400')
+                ->createWriteOffProduct($productId1, 120, 37.20, 'Бой')
+                ->createWriteOffProduct($productId3, 200, 35.80, 'Бой')
             ->flush();
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);

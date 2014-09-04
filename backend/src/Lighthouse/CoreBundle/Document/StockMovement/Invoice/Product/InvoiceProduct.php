@@ -3,69 +3,37 @@
 namespace Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
-use Lighthouse\CoreBundle\Document\AbstractDocument;
-use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
-use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Document\Store\Storeable;
-use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProduct;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
-use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use JMS\Serializer\Annotation as Serializer;
-use DateTime;
 
 /**
- * @property string     $id
- * @property Quantity   $quantity
  * @property Money      $priceEntered
- * @property Money      $price
  * @property Money      $priceWithoutVAT
- * @property Money      $totalPrice
  * @property Money      $totalPriceWithoutVAT
  * @property Money      $amountVAT
- * @property DateTime   $date
  * @property Money      $totalAmountVAT
- * @property Invoice    $invoice
- * @property ProductVersion $product
- * @property Store      $store
- * @property DateTime   $deletedAt
+ * @property Invoice    $parent
  *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProductRepository"
  * )
  * @MongoDB\HasLifecycleCallbacks
  */
-class InvoiceProduct extends AbstractDocument implements Reasonable
+class InvoiceProduct extends StockMovementProduct
 {
     const REASON_TYPE = 'InvoiceProduct';
 
     /**
-     * @MongoDB\Id
-     * @var string
-     */
-    protected $id;
-
-    /**
-     * Количество
-     * @MongoDB\Field(type="quantity")
-     * @Assert\NotBlank(groups={"Default", "products"})
-     * @LighthouseAssert\Chain(
-     *      constraints={@LighthouseAssert\Precision(3), @LighthouseAssert\Range\Range(gt=0)},
-     *      groups={"Default", "products"}
-     * )
-     * @var Quantity
-     */
-    protected $quantity;
-
-    /**
      * Введённая цена
-     * @MongoDB\Field(type="money")
      * @Assert\NotBlank(groups={"Default", "products"})
      * @LighthouseAssert\Money(notBlank=true, groups={"Default", "products"})
+     * @MongoDB\Field(type="money")
      * @var Money
      */
     protected $priceEntered;
@@ -83,13 +51,6 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
      * @var Money
      */
     protected $priceWithoutVAT;
-
-    /**
-     * Сумма
-     * @MongoDB\Field(type="money")
-     * @var Money
-     */
-    protected $totalPrice;
 
     /**
      * Сумма без НДС
@@ -113,12 +74,6 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     protected $totalAmountVAT;
 
     /**
-     * @MongoDB\Date
-     * @var \DateTime
-     */
-    protected $date;
-
-    /**
      * @MongoDB\ReferenceOne(
      *     targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice",
      *     simple=true,
@@ -129,7 +84,7 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
      * @Serializer\MaxDepth(2)
      * @var Invoice
      */
-    protected $invoice;
+    protected $parent;
 
     /**
      * @Assert\NotBlank(groups={"Default", "products"})
@@ -144,37 +99,11 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     protected $product;
 
     /**
-     * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Product",
-     *     simple=true,
-     *     cascade={"persist"}
-     * )
-     * @Serializer\Exclude
-     * @var Product
-     */
-    protected $originalProduct;
-
-    /**
-     * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
-     *     simple=true,
-     *     cascade={"persist"}
-     * )
-     * @Serializer\Exclude
-     * @var Store
-     */
-    protected $store;
-
-    /**
      * @MongoDB\PreFlush
      */
     public function beforeSave()
     {
-        $this->calculateTotals();
-
-        $this->date = $this->invoice->date;
-        $this->store = $this->invoice->store;
-        $this->originalProduct = $this->product->getObject();
+        parent::beforeSave();
     }
 
     /**
@@ -222,83 +151,11 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     }
 
     /**
-     * @return string
-     */
-    public function getReasonId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getReasonType()
-    {
-        return self::REASON_TYPE;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getReasonDate()
-    {
-        return $this->invoice->date;
-    }
-
-    /**
-     * @return Quantity
-     */
-    public function getProductQuantity()
-    {
-        return $this->quantity;
-    }
-
-    /**
-     * @return Product
-     */
-    public function getReasonProduct()
-    {
-        return $this->product->getObject();
-    }
-
-    /**
-     * @return Money
-     */
-    public function getProductPrice()
-    {
-        return $this->price;
-    }
-
-    /**
      * @return boolean
      */
     public function increaseAmount()
     {
         return true;
-    }
-
-    /**
-     * @return Storeable
-     */
-    public function getReasonParent()
-    {
-        return $this->invoice;
-    }
-
-    /**
-     * @param Storeable|Invoice $parent
-     */
-    public function setReasonParent(Storeable $parent)
-    {
-        $this->setInvoice($parent);
-    }
-
-    /**
-     * @param Quantity $quantity
-     */
-    public function setQuantity(Quantity $quantity = null)
-    {
-        $this->quantity = $quantity;
     }
 
     /**
@@ -313,11 +170,11 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
 
     /**
      * Workaround to recalc price by VAT
-     * @param \Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice $invoice
+     * @param Invoice $invoice
      */
-    public function setInvoice(Invoice $invoice = null)
+    public function setParent(Invoice $invoice = null)
     {
-        $this->invoice = $invoice;
+        $this->parent = $invoice;
         $this->calculatePrices();
     }
 
@@ -325,12 +182,12 @@ class InvoiceProduct extends AbstractDocument implements Reasonable
     {
         // Если продукт не найден, то не сичтаем ничего
         // TODO: Подумать над изменением
-        if (null === $this->product || null === $this->invoice || null === $this->priceEntered) {
+        if (null === $this->product || null === $this->parent || null === $this->priceEntered) {
             return;
         }
 
         $decimalVAT = Decimal::createFromNumeric($this->product->vat * 0.01, 2);
-        if ($this->invoice->includesVAT) {
+        if ($this->parent->includesVAT) {
             // Расчёт цены без НДС из цены с НДС
             $this->price = clone $this->priceEntered;
             $this->priceWithoutVAT = $this->price->div($decimalVAT->add(1), Decimal::ROUND_HALF_EVEN);
