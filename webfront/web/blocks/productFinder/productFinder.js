@@ -9,7 +9,9 @@ define(function(require, exports, module) {
             products: require('collections/products/products')
         },
         models: {
-            receipt: require('models/receipt/receipt')
+            receipt: function(){
+                return PAGE.models.receipt;
+            }
         },
         events: {
             'keyup input[name="product"]': function(e) {
