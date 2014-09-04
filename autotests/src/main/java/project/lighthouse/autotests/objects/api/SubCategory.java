@@ -2,9 +2,10 @@ package project.lighthouse.autotests.objects.api;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.abstraction.AbstractClassifierNode;
+import project.lighthouse.autotests.storage.Storage;
+import project.lighthouse.autotests.storage.variable.CustomVariableStorage;
 
 import java.util.ArrayList;
 
@@ -43,8 +44,9 @@ public class SubCategory extends AbstractClassifierNode {
     }
 
     public Boolean hasProduct(Product product) throws JSONException {
-        if (StaticData.subCategoryProducts.containsKey(getId())) {
-            ArrayList<Product> products = StaticData.subCategoryProducts.get(getId());
+        CustomVariableStorage customVariableStorage = Storage.getCustomVariableStorage();
+        if (customVariableStorage.getSubCategoryProducts().containsKey(getId())) {
+            ArrayList<Product> products = customVariableStorage.getSubCategoryProducts().get(getId());
             for (Product p : products) {
                 if (p.getName().equals(product.getName())) {
                     return true;
@@ -55,7 +57,7 @@ public class SubCategory extends AbstractClassifierNode {
     }
 
     public Product getProduct(Product product) throws JSONException {
-        ArrayList<Product> products = StaticData.subCategoryProducts.get(getId());
+        ArrayList<Product> products = Storage.getCustomVariableStorage().getSubCategoryProducts().get(getId());
         for (Product p : products) {
             if (p.getName().equals(product.getName())) {
                 return p;
@@ -65,18 +67,19 @@ public class SubCategory extends AbstractClassifierNode {
     }
 
     public void addProduct(Product product) throws JSONException {
+        CustomVariableStorage customVariableStorage = Storage.getCustomVariableStorage();
         ArrayList<Product> products;
-        if (!StaticData.subCategoryProducts.containsKey(getId())) {
+        if (!customVariableStorage.getSubCategoryProducts().containsKey(getId())) {
             products = new ArrayList<>();
         } else {
-            products = StaticData.subCategoryProducts.get(getId());
+            products = customVariableStorage.getSubCategoryProducts().get(getId());
         }
         products.add(product);
-        StaticData.subCategoryProducts.put(getId(), products);
+        customVariableStorage.getSubCategoryProducts().put(getId(), products);
     }
 
     public static String getPageUrl(String groupName) throws JSONException {
-        String groupId = StaticData.subCategories.get(groupName).getId();
+        String groupId = Storage.getCustomVariableStorage().getSubCategories().get(groupName).getId();
         return String.format("%s/catalog/groups/%s", UrlHelper.getWebFrontUrl(), groupId);
     }
 }

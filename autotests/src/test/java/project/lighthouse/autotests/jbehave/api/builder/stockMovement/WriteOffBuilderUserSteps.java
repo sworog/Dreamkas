@@ -2,9 +2,9 @@ package project.lighthouse.autotests.jbehave.api.builder.stockMovement;
 
 import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.Given;
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.steps.api.builder.WriteOffBuilderSteps;
+import project.lighthouse.autotests.storage.Storage;
 
 public class WriteOffBuilderUserSteps {
 
@@ -13,14 +13,14 @@ public class WriteOffBuilderUserSteps {
 
     @Given("пользователь создает апи объект списания с датой '$date', магазином с именем '$storeName'")
     public void givenTheUserCreatesWriteOffApiObject(String date, String storeName) {
-        Store store = StaticData.stores.get(storeName);
+        Store store = Storage.getCustomVariableStorage().getStores().get(storeName);
         writeOffBuilderSteps.build(store.getId(), date);
     }
 
     @Given("пользователь добавляет к апи объекту списания продукт с именем '$name', ценой '$price', количеством '$quantity' и причиной '$cause'")
     public void givenTheUserAddsTheProductToWriteOffApiObject(String name, String price, String quantity, String cause) {
         writeOffBuilderSteps.addProduct(
-                StaticData.products.get(name).getId(),
+                Storage.getCustomVariableStorage().getProducts().get(name).getId(),
                 quantity,
                 price,
                 cause

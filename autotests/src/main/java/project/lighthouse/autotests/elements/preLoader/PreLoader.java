@@ -2,8 +2,8 @@ package project.lighthouse.autotests.elements.preLoader;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.Waiter;
+import project.lighthouse.autotests.storage.Storage;
 
 public class PreLoader {
 
@@ -11,7 +11,9 @@ public class PreLoader {
     private static final String PRE_LOADER_XPATH = "//*[*[contains(@class, 'preloader_stripes')] and *[not(@status='loading')]]";
 
     public PreLoader(WebDriver driver) {
-        waiter = new Waiter(driver, StaticData.DEFAULT_PRE_LOADER_TIMEOUT);
+        Integer defaultPreloaderTimeOut =
+                Storage.getConfigurationVariableStorage().getTimeOutProperty("default.preloader.timeout");
+        waiter = new Waiter(driver, defaultPreloaderTimeOut);
     }
 
     public PreLoader(WebDriver driver, int seconds) {

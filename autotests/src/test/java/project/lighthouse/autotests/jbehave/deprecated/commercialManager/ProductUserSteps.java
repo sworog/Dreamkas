@@ -6,36 +6,14 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
-import org.json.JSONException;
-import project.lighthouse.autotests.objects.api.Category;
-import project.lighthouse.autotests.objects.api.Group;
-import project.lighthouse.autotests.objects.api.SubCategory;
-import project.lighthouse.autotests.steps.deprecated.api.commercialManager.CatalogApiSteps;
 import project.lighthouse.autotests.steps.deprecated.commercialManager.ProductSteps;
-
-import java.io.IOException;
 
 public class ProductUserSteps {
 
     @Steps
     ProductSteps productSteps;
 
-    @Steps
-    CatalogApiSteps catalogApiSteps;
-
     ExamplesTable fieldInputTable;
-
-    @Given("the user is on the product create page")
-    public void givenTheUserIsOnTheOrderCreatePage() throws JSONException, IOException {
-        catalogApiSteps.createSubCategoryThroughPost(Group.DEFAULT_NAME, Category.DEFAULT_NAME, SubCategory.DEFAULT_NAME);
-        catalogApiSteps.navigateToSubCategoryProductCreatePageUrl(SubCategory.DEFAULT_NAME);
-    }
-
-    @Given("the user is on the product list page")
-    public void givenTheUserIsOnTheProductListPage() throws IOException, JSONException {
-        catalogApiSteps.createSubCategoryThroughPost(Group.DEFAULT_NAME, Category.DEFAULT_NAME, SubCategory.DEFAULT_NAME);
-        catalogApiSteps.navigateToSubCategoryProductListPageUrlWihEditModeOn(SubCategory.DEFAULT_NAME, Category.DEFAULT_NAME, Group.DEFAULT_NAME);
-    }
 
     @Given("the user is on the product card")
     public void givenTheUserIsOnTheProductCard() {

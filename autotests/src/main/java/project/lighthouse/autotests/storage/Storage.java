@@ -32,4 +32,16 @@ public class Storage {
     public static CurrentPageObjectStorage getCurrentPageObjectStorage() {
         return Injectors.getInjector().getInstance(CurrentPageObjectStorage.class);
     }
+
+    public static Configurable getConfigurationVariableStorage() {
+        return Injectors.getInjector().getInstance(Configurable.class);
+    }
+
+    public static DemoModeConfigurable getDemoModeConfigurableStorage() {
+        return Injectors.getInjector().getInstance(DemoModeConfigurable.class);
+    }
+
+    public static StorageClearable getStorageClearable() {
+        return Injectors.getInjector().getInstance(StorageClearable.class);
+    }
 }
