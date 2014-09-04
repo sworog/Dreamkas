@@ -1,12 +1,13 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Form;
+namespace Lighthouse\CoreBundle\Form\StockMovement;
 
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
-use Lighthouse\CoreBundle\Document\StockMovement\StockIn\Product\StockInProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProduct;
+use Lighthouse\CoreBundle\Form\DocumentType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class StockInProductType extends DocumentType
+class WriteOffProductType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -25,6 +26,7 @@ class StockInProductType extends DocumentType
             )
             ->add('price', 'money')
             ->add('quantity', 'quantity')
+            ->add('cause', 'text')
         ;
     }
 
@@ -33,6 +35,6 @@ class StockInProductType extends DocumentType
      */
     protected function getDataClass()
     {
-        return StockInProduct::getClassName();
+        return WriteOffProduct::getClassName();
     }
 }
