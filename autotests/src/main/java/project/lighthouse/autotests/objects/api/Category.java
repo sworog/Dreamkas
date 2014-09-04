@@ -1,9 +1,7 @@
 package project.lighthouse.autotests.objects.api;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.objects.api.abstraction.AbstractClassifierNode;
 
 public class Category extends AbstractClassifierNode {
@@ -28,19 +26,6 @@ public class Category extends AbstractClassifierNode {
 
     public Group getGroup() throws JSONException {
         return new Group(jsonObject.getJSONObject("group"));
-    }
-
-    public Boolean hasSubCategory(SubCategory expectedSubCategory) throws JSONException {
-        JSONArray jsonArray = StaticData.categories.get(getName()).getJsonObject().getJSONArray("subCategories");
-        if (jsonArray.length() != 0) {
-            for (int i = 0; i < jsonArray.length(); i++) {
-                SubCategory subCategory = new SubCategory(jsonArray.getJSONObject(i));
-                if (subCategory.getName().equals(expectedSubCategory.getName())) {
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     @Override

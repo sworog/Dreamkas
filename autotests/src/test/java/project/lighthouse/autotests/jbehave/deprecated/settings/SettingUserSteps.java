@@ -1,16 +1,12 @@
 package project.lighthouse.autotests.jbehave.deprecated.settings;
 
 import net.thucydides.core.annotations.Steps;
-import org.jbehave.core.annotations.AfterStory;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
-import org.json.JSONException;
-import project.lighthouse.autotests.api.ApiConnect;
 import project.lighthouse.autotests.steps.deprecated.administrator.SettingSteps;
 
-import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -21,14 +17,6 @@ public class SettingUserSteps {
 
     ExamplesTable valuesTable;
     private Boolean isSet10ImportUrlSet = false;
-
-    @AfterStory
-    public void afterStory() throws IOException, JSONException {
-        if (isSet10ImportUrlSet) {
-            new ApiConnect("watchman", "lighthouse").setSet10ImportUrl("");
-            isSet10ImportUrlSet = false;
-        }
-    }
 
     @Given("the user opens the settings page")
     public void givenTheUserOpensTheSettingsPage() {
