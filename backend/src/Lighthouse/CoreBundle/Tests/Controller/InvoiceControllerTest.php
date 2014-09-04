@@ -26,7 +26,7 @@ class InvoiceControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            '/api/1/stores/' . $store->id . '/invoices',
+            "/api/1/stores/{$store->id}/invoices",
             $invoiceData
         );
 

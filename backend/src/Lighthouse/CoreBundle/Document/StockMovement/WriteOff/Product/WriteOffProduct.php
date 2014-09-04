@@ -5,6 +5,7 @@ namespace Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff;
+use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use JMS\Serializer\Annotation as Serializer;
@@ -32,6 +33,13 @@ class WriteOffProduct extends StockMovementProduct
      * )
      */
     protected $cause;
+
+    /**
+     * @Assert\NotBlank(groups={"Default", "products"})
+     * @LighthouseAssert\Money(notBlank=true,groups={"Default", "products"})
+     * @var Money
+     */
+    protected $price;
 
     /**
      * @MongoDB\ReferenceOne(

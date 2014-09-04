@@ -40,8 +40,6 @@ abstract class StockMovementProduct extends AbstractDocument implements Reasonab
     protected $id;
 
     /**
-     * @Assert\NotBlank(groups={"Default", "products"})
-     * @LighthouseAssert\Money(notBlank=true,groups={"Default", "products"})
      * @MongoDB\Field(type="money")
      * @var Money
      */
