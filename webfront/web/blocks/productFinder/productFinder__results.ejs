@@ -1,0 +1,31 @@
+<% if(collection.length) { %>
+<div name="productList" class="productFinder__results">
+    <div class="list-group">
+        <% collection.forEach(function(productModel){ %>
+
+        <button data-product-id="<%- productModel.id %>"
+           name="product"
+           class="productFinder__resultLink list-group-item">
+            <span name="name"><%= highlight(productModel.get('name')) %></span>
+                <span class="productFinder__itemInfo">
+                    / <span name="sku"><%= highlight(productModel.get('sku')) %></span>
+
+                    <% if(productModel.get('barcode')) { %>
+                    / <span name="barcode"><%= highlight(productModel.get('barcode')) %></span>
+                    <% } %>
+                </span>
+        </button>
+
+        <% }) %>
+    </div>
+</div>
+<% } else if(collection.searchQuery && collection.searchQuery.length >= 3) { %>
+<div class="alert alert-info">
+    Продуктов не найдено.
+</div>
+<% } else { %>
+<div class="alert alert-info">
+    Для поиска товара введите 3 или более символа.
+</div>
+<% } %>
+

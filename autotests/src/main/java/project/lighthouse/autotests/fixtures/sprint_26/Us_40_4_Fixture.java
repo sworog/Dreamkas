@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.fixtures.sprint_26;
 
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.fixtures.AbstractFixture;
 import project.lighthouse.autotests.xml.PurchaseXmlBuilder;
 

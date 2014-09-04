@@ -2,10 +2,12 @@ package project.lighthouse.autotests.api;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.api.http.HttpExecutor;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.api.OauthAuthorizeData;
+import project.lighthouse.autotests.storage.Configurable;
+import project.lighthouse.autotests.storage.Storage;
+import project.lighthouse.autotests.storage.variable.UserVariableStorage;
 
 import java.io.IOException;
 
@@ -20,7 +22,10 @@ public class AccessToken {
     }
 
     public String get() {
-        if (!StaticData.userTokens.containsKey(userName)) {
+        Configurable configuration = Storage.getConfigurationVariableStorage();
+        UserVariableStorage userVariableStorage = Storage.getUserVariableStorage();
+
+        if (!userVariableStorage.getUserTokens().containsKey(userName)) {
             String accessToken;
             try {
                 String url = String.format("%s/oauth/v2/token", UrlHelper.getApiUrl());
@@ -28,17 +33,17 @@ public class AccessToken {
                         .put("grant_type", "password")
                         .put("username", userName)
                         .put("password", password)
-                        .put("client_id", StaticData.client_id)
-                        .put("client_secret", StaticData.client_secret);
+                        .put("client_id", configuration.getClientId())
+                        .put("client_secret", configuration.getClientSecret());
                 String response = HttpExecutor.getSimpleHttpRequestable().executeSimplePostRequest(url, jsonObject.toString());
                 accessToken = new OauthAuthorizeData(new JSONObject(response)).getAccessToken();
             } catch (JSONException | IOException e) {
                 throw new AssertionError(e.getMessage());
             }
-            StaticData.userTokens.put(userName, accessToken);
+            userVariableStorage.getUserTokens().put(userName, accessToken);
             return accessToken;
         } else {
-            return StaticData.userTokens.get(userName);
+            return userVariableStorage.getUserTokens().get(userName);
         }
     }
 }

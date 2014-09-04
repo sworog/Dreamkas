@@ -18,3 +18,21 @@
 .page__content {
     padding: 20px 30px 50px;
 }
+
+.page__panel {
+    background-color: #fff;
+    padding: 15px;
+}
+
+.page_pos .page__content{
+    position: absolute;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.page_pos .col, .page_pos .productFinder, .page_pos .form_receipt {
+    height: 100%;
+    position: relative;
+}
