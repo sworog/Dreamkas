@@ -9,6 +9,8 @@ import project.lighthouse.autotests.thucydides.RemoteWebDriverEventListener;
 
 import java.util.List;
 
+import static net.thucydides.core.ThucydidesSystemProperty.WEBDRIVER_BASE_URL;
+
 public class AcceptanceTestSuite extends ThucydidesJUnitStories {
 
     private static final String STORIES = "lighthouse.autotests.stories";
@@ -44,7 +46,8 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
 
     private void setWebDriverBaseUrl() {
         String baseUrl = getSystemConfiguration().getBaseUrl().replace("/merge", "-merge");
-        getSystemConfiguration().setDefaultBaseUrl(baseUrl);
+        getEnvironmentVariables().setProperty(WEBDRIVER_BASE_URL.getPropertyName(), baseUrl);
+        getSystemConfiguration().getEnvironmentVariables().setProperty(WEBDRIVER_BASE_URL.getPropertyName(), baseUrl);
         configurationStorage.setProperty("webdriver.base.url", baseUrl);
     }
 
