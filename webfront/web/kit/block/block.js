@@ -5,7 +5,7 @@ define(function(require, exports, module) {
         set = require('kit/set/set'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         makeClass = require('kit/makeClass/makeClass'),
-        rivets = require('bower_components/rivets/dist/rivets'),
+        rivets = require('kit/rivets/rivets'),
         _ = require('lodash');
 
     require('sortable');
@@ -51,6 +51,7 @@ define(function(require, exports, module) {
             }
 
             block.bindings = rivets.bind(block.el, block);
+
             block.el.block = this;
 
             block.initBlocks();

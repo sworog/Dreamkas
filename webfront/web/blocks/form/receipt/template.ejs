@@ -10,7 +10,7 @@
                     <div class="form_receipt__itemName" name="name"><%- receiptProductModel.models.product.get('name') %></div>
                 </td>
                 <td name="count" class="form_receipt__itemCount">
-                    <%- receiptProductModel.get('count') %>
+                    <%- formatAmount(receiptProductModel.get('count')) %>
                     <%- receiptProductModel.models.product.get('units') %>
                 </td>
                 <td name="price" class="form_receipt__itemPrice">

@@ -1,20 +1,24 @@
 <form id="<%- id %>" class="form form_receiptProduct">
-    <h4>
-        <%- model.models.product.get('name') %>
-    </h4>
 
-    <div>
-        <%- model.models.product.get('barcode') %>
+    <div style="padding-bottom: 20px;">
+        <h4>
+            <%- model.models.product.get('name') %>
+        </h4>
+
+        <div style="font-size: 11px;">
+            <%- model.models.product.get('barcode') %>
+        </div>
     </div>
 
     <div class="row">
         <div class="col-md-4">
             <div class="form-group">
                 <label>Цена продажи, <i class="fa fa-rub"></i></label>
-                <input class="form-control"
+                <input autofocus
+                       class="form-control"
                        type="text"
                        name="sellingPrice"
-                       value="<%- formatMoney(data.sellingPrice) %>">
+                       rv-live-value="data.sellingPrice">
             </div>
         </div>
 
@@ -24,16 +28,18 @@
                 <input class="form-control"
                        type="text"
                        name="count"
-                       value="<%- data.count %>">
+                       rv-live-value="data.count">
             </div>
         </div>
 
         <div class="col-md-4">
             <div class="form-group">
                 <label>Стоимость, <i class="fa fa-rub"></i></label>
-                <div>
-                    <%- formatMoney(0) %>
+
+                <div style="padding-top: 7px;">
+                    {{calculateItemPrice < data.count data.sellingPrice}}
                 </div>
+
             </div>
         </div>
     </div>
