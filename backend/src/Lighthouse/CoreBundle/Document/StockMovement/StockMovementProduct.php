@@ -18,6 +18,7 @@ use DateTime;
 
 /**
  * @MongoDB\HasLifecycleCallbacks
+ * @MongoDB\MappedSuperclass
  *
  * @property int            $id
  * @property Money          $price

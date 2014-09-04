@@ -44,8 +44,8 @@ class WriteOffProductsControllerTest extends WebTestCase
         Assert::assertNotJsonPathEquals($writeOff2->products[1]->id, '*.id', $getResponse);
         Assert::assertJsonPathEquals($writeOff1->products[0]->id, '1.id', $getResponse);
         Assert::assertJsonPathEquals($writeOff2->products[0]->id, '0.id', $getResponse);
-        Assert::assertJsonPathEquals($writeOff1->id, '1.writeOff.id', $getResponse);
-        Assert::assertJsonPathEquals($writeOff2->id, '0.writeOff.id', $getResponse);
+        Assert::assertJsonPathEquals($writeOff1->id, '1.parent.id', $getResponse);
+        Assert::assertJsonPathEquals($writeOff2->id, '0.parent.id', $getResponse);
         Assert::assertNotJsonHasPath('*.store', $getResponse);
         Assert::assertNotJsonHasPath('*.originalProduct', $getResponse);
     }
@@ -78,7 +78,7 @@ class WriteOffProductsControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(3677.63, '*.totalPrice', $getResponse);
         Assert::assertJsonPathEquals(36.78, '*.price', $getResponse);
         Assert::assertJsonPathEquals(99.99, '*.quantity', $getResponse);
-        Assert::assertJsonPathEquals($writeOff1->id, '*.writeOff.id', $getResponse);
+        Assert::assertJsonPathEquals($writeOff1->id, '*.parent.id', $getResponse);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -91,7 +91,7 @@ class WriteOffProductsControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(8.71, '*.totalPrice', $getResponse);
         Assert::assertJsonPathEquals(0.4, '*.quantity', $getResponse);
         Assert::assertJsonPathEquals(21.77, '*.price', $getResponse);
-        Assert::assertJsonPathEquals($writeOff1->id, '*.writeOff.id', $getResponse);
+        Assert::assertJsonPathEquals($writeOff1->id, '*.parent.id', $getResponse);
 
         $getResponse = $this->clientJsonRequest(
             $accessToken,
@@ -104,6 +104,6 @@ class WriteOffProductsControllerTest extends WebTestCase
         Assert::assertJsonPathEquals(334.03, '*.totalPrice', $getResponse);
         Assert::assertJsonPathEquals(42.99, '*.price', $getResponse);
         Assert::assertJsonPathEquals(7.77, '*.quantity', $getResponse);
-        Assert::assertJsonPathEquals($writeOff1->id, '*.writeOff.id', $getResponse);
+        Assert::assertJsonPathEquals($writeOff1->id, '*.parent.id', $getResponse);
     }
 }
