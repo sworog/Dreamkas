@@ -41,6 +41,7 @@ class InvoiceProduct extends StockMovementProduct
 
     /**
      * Закупочная цена
+     * @MongoDB\Field(type="money")
      * @var Money
      */
     protected $price;
