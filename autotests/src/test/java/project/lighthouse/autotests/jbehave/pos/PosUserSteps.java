@@ -41,4 +41,9 @@ public class PosUserSteps {
     public void thenUserAssertsReceiptTotalSum(String totalSum) {
         posSteps.assertReceiptTotalSum(totalSum);
     }
+
+    @Then("пользователь проверяет, что последний добавленный продукт в чек прикреплен к концу чека")
+    public void thenTheUsercheckTheLastAddedProductIsPinned() {
+        posSteps.checkTheLastAddedProductIsPinned();
+    }
 }
