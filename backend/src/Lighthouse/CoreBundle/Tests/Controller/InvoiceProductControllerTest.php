@@ -1483,18 +1483,18 @@ class InvoiceProductControllerTest extends WebTestCase
         Assert::assertNotJsonPathEquals($invoice2->products[1]->id, '*.id', $getResponse);
         Assert::assertJsonPathEquals($invoice1->products[0]->id, '1.id', $getResponse);
         Assert::assertJsonPathEquals($invoice2->products[0]->id, '0.id', $getResponse);
-        Assert::assertJsonPathEquals($invoice1->id, '1.invoice.id', $getResponse);
-        Assert::assertJsonPathEquals($invoice2->id, '0.invoice.id', $getResponse);
+        Assert::assertJsonPathEquals($invoice1->id, '1.parent.id', $getResponse);
+        Assert::assertJsonPathEquals($invoice2->id, '0.parent.id', $getResponse);
         Assert::assertNotJsonHasPath('*.store', $getResponse);
         Assert::assertNotJsonHasPath('*.originalProduct', $getResponse);
 
         Assert::assertJsonHasPath('0.date', $getResponse);
-        Assert::assertJsonHasPath('0.invoice.date', $getResponse);
-        $this->assertEquals($getResponse[0]['date'], $getResponse[0]['invoice']['date']);
+        Assert::assertJsonHasPath('0.parent.date', $getResponse);
+        $this->assertEquals($getResponse[0]['date'], $getResponse[0]['parent']['date']);
 
         Assert::assertJsonHasPath('1.date', $getResponse);
-        Assert::assertJsonHasPath('1.invoice.date', $getResponse);
-        $this->assertEquals($getResponse[1]['date'], $getResponse[1]['invoice']['date']);
+        Assert::assertJsonHasPath('1.parent.date', $getResponse);
+        $this->assertEquals($getResponse[1]['date'], $getResponse[1]['parent']['date']);
     }
 
     public function testInvoiceProductTotalPriceWithFloatQuantity()
