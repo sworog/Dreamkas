@@ -14,6 +14,7 @@ set :deploy_subdir, "webfront/web"
 
 set :shared_children,   %w()
 
+set :git_enable_pull_requests, true
 set :repository,  "git@github.com:crystalservice/lighthouse.git"
 set :scm,         :git
 

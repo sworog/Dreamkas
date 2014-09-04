@@ -15,6 +15,7 @@ set :web_path,    "web"
 set :user,        "watchman"
 set :shared_files, [app_path + "/config/parameters.yml"]
 
+set :git_enable_pull_requests, true
 set :repository,  "git@github.com:crystalservice/lighthouse.git"
 set :scm,         :git
 

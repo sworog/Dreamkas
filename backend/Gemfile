@@ -1,7 +1,7 @@
 source "http://rubygems.org"
 
-gem "capifony"
-gem "capistrano"
-gem "capistrano-ext"
-gem "capistrano_colors"
-gem "time_diff"
+gem 'capifony'
+gem 'capistrano', :git => 'https://github.com/crystalservice/capistrano.git', :branch => 'fetch-pull-request'
+gem 'capistrano-ext'
+gem 'capistrano_colors'
+gem 'time_diff'
