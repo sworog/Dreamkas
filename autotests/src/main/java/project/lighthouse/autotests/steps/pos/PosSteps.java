@@ -62,8 +62,13 @@ public class PosSteps extends ScenarioSteps {
     }
 
     @Step
-    public void checkNoResults() {
+    public void checkPostAutoCompleteCollectionContainsNoResults() {
         assertThat(getPosAutoCompleteCollection(), nullValue());
+    }
+
+    @Step
+    public void checkReceiptCollectionContainsNoResults() {
+        assertThat(getReceiptCollection(), nullValue());
     }
 
     @Step

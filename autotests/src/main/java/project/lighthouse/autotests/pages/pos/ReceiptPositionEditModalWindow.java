@@ -1,6 +1,6 @@
 package project.lighthouse.autotests.pages.pos;
 
-import net.thucydides.core.annotations.findby.By;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.NonType;
@@ -32,5 +32,15 @@ public class ReceiptPositionEditModalWindow extends ModalWindowPage {
 
     public void clickOnMinusButton() {
         findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'form_receiptProduct__countMinusLink')]")).click();
+    }
+
+    @Override
+    public void deleteButtonClick() {
+        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='removeLink']")).click();
+    }
+
+    @Override
+    public void confirmDeleteButtonClick() {
+        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='confirmLink__confirmation']//*[@class='removeLink form_receiptProduct__removeLink']")).click();
     }
 }
