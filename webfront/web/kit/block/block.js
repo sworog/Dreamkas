@@ -104,10 +104,10 @@ define(function(require, exports, module) {
                     block.__blocks[blockName] = block.__blocks[blockName] || [];
 
                     block.__blocks[blockName].push(__block);
-                }
 
-                if (!block.$(__block.el).length){
-                    __block.$el.replaceAll(placeholder);
+                    if (!block.$(__block.el).length){
+                        __block.$el.replaceAll(placeholder);
+                    }
                 }
             });
         },
