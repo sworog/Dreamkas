@@ -18,7 +18,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class SupplierReturnController extends AbstractRestController
 {
     /**
-     * @DI\Inject("lighthouse.core.document.repository.stock_movement.supplierreturn")
+     * @DI\Inject("lighthouse.core.document.repository.stock_movement.supplier_return")
      * @var SupplierReturnRepository
      */
     protected $documentRepository;
