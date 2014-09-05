@@ -12,7 +12,9 @@ define(function(require, exports, module) {
         events: {
             'click .form_receipt__productLink': function(e){
                 document.getElementById('modal_receiptProduct').block.show({
-                    receiptProductCid: e.currentTarget.dataset.receiptProductCid
+                    models: {
+                        receiptProduct: PAGE.models.receipt.collections.products.get(e.currentTarget.dataset.receiptProductCid)
+                    }
                 });
             }
         },

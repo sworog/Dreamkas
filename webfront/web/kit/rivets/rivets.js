@@ -11,11 +11,13 @@ define(function(require, exports, module) {
     liveValue.bind = function(el) {
         this.handler = this.handler || this.publish.bind(this);
         el.addEventListener("keyup", this.handler);
+        el.addEventListener("change", this.handler);
     };
 
     liveValue.unbind = function(el) {
         if (this.handler) {
             el.removeEventListener("keyup", this.handler);
+            el.removeEventListener("change", this.handler);
         }
     };
 

@@ -4,9 +4,18 @@ define(function(require, exports, module) {
 
     return Modal.extend({
         template: require('ejs!./template.ejs'),
-        receiptProductCid: null,
+        models: {
+            receiptProduct: require('models/receiptProduct/receiptProduct')
+        },
         blocks: {
-            form_receiptProduct: require('blocks/form/receiptProduct/receiptProduct')
+            form_receiptProduct: function(){
+                var block = this,
+                    Form_receiptProduct = require('blocks/form/receiptProduct/receiptProduct');
+
+                return new Form_receiptProduct({
+                    model: block.models.receiptProduct
+                });
+            }
         }
     });
 });

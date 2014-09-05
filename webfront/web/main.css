@@ -54,6 +54,14 @@ body[status="loaded"]:before {
     transition: transform 1s, opacity 1s;
 }
 
+a {
+    cursor: pointer;
+}
+
+a:hover .fa {
+    color: #0a819c;
+}
+
 #signin-page, #signup-page {
     height: 100%;
     overflow: hidden;

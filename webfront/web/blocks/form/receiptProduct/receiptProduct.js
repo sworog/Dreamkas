@@ -1,11 +1,11 @@
 define(function(require, exports, module) {
     //requirements
     var Form = require('blocks/form/form'),
-        normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
+        normalizeNumber = require('kit/normalizeNumber/normalizeNumber'),
+        checkKey = require('kit/checkKey/checkKey');
 
     return Form.extend({
         template: require('ejs!./template.ejs'),
-        receiptProductCid: null,
         id: 'form_receiptProduct',
         data: function(){
             var block = this;
@@ -15,10 +15,35 @@ define(function(require, exports, module) {
                 count: block.formatAmount(block.model.get('count'))
             });
         },
-        model: function(){
-            var ReceiptProductModel = require('models/receiptProduct/receiptProduct');
+        model: require('models/receiptProduct/receiptProduct'),
+        events: {
+            'click .form_receiptProduct__countPlusLink': function(e){
+                e.preventDefault();
 
-            return this.receiptProductCid ? PAGE.models.receipt.collections.products.get(this.receiptProductCid) : new ReceiptProductModel;
+                var block = this;
+
+                block.changeCount(1);
+            },
+            'click .form_receiptProduct__countMinusLink': function(e){
+                e.preventDefault();
+
+                var block = this;
+
+                block.changeCount(-1);
+            },
+            'keyup [name="count"]': function(e){
+                e.stopPropagation();
+
+                var block = this;
+
+                if (checkKey(e.keyCode, ['UP'])){
+                    block.changeCount(1);
+                }
+
+                if (checkKey(e.keyCode, ['DOWN'])){
+                    block.changeCount(-1);
+                }
+            }
         },
         collection: function(){
             return PAGE.models.receipt.collections.products;
@@ -34,6 +59,11 @@ define(function(require, exports, module) {
             var block = this;
 
             return block.formatMoney(normalizeNumber(block.data.count) * normalizeNumber(block.data.sellingPrice));
+        },
+        changeCount: function(delta){
+            var block = this;
+
+            block.data.count = block.formatMoney(normalizeNumber(block.data.count) + delta);
         }
     });
 });

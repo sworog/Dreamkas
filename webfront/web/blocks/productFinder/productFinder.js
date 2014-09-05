@@ -80,11 +80,21 @@ define(function(require, exports, module) {
         },
 
         addProductToReceipt: function(productId) {
-            var block = this;
+            var block = this,
+                ReceiptProductModel = require('models/receiptProduct/receiptProduct'),
+                receiptProductModel = new ReceiptProductModel({
+                    product: block.collections.products.get(productId).toJSON()
+                });
 
-            block.models.receipt.collections.products.add({
-                product: block.collections.products.get(productId).toJSON()
-            });
+            if (receiptProductModel.get('sellingPrice')){
+                block.models.receipt.collections.products.add(receiptProductModel);
+            } else {
+                document.getElementById('modal_receiptProduct').block.show({
+                    models: {
+                        receiptProduct: receiptProductModel
+                    }
+                });
+            }
         },
         reset: function(){
             var block = this;

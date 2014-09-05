@@ -25,10 +25,25 @@
         <div class="col-md-4">
             <div class="form-group">
                 <label>Количество, <%- model.models.product.get('units') %> </label>
-                <input class="form-control"
-                       type="text"
-                       name="count"
-                       rv-live-value="data.count">
+
+                <div class="input-group">
+
+                    <a class="form_receiptProduct__countMinusLink input-group-addon">
+                        <i class="fa fa-minus"></i>
+                    </a>
+
+                    <input class="form-control"
+                           type="text"
+                           name="count"
+                           style="text-align: center"
+                           rv-live-value="data.count">
+
+                    <a class="form_receiptProduct__countPlusLink input-group-addon">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+
+
             </div>
         </div>
 
