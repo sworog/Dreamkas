@@ -27,7 +27,7 @@ class Returne extends Receipt
      *      mappedBy="return"
      * )
      *
-     * @Assert\NotBlank(message="lighthouse.validation.errors.return.product.empty")
+     * @Assert\NotBlank(message="lighthouse.validation.errors.stock_movement.products.empty")
      * @Assert\Valid(traverse=true)
      * @var ReturnProduct[]|Collection|PersistentCollection
      */
