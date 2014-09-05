@@ -7,29 +7,8 @@ use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProduc
 use Lighthouse\CoreBundle\Form\DocumentType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class WriteOffProductType extends DocumentType
+class WriteOffProductType extends StockMovementProductType
 {
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-            ->add(
-                'product',
-                'reference',
-                array(
-                    'class' => ProductVersion::getClassName(),
-                    'invalid_message' => 'lighthouse.validation.errors.invoice_product.product.does_not_exists'
-                )
-            )
-            ->add('price', 'money')
-            ->add('quantity', 'quantity')
-            ->add('cause', 'text')
-        ;
-    }
-
     /**
      * @return string
      */
