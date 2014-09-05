@@ -4,7 +4,6 @@ namespace Lighthouse\CoreBundle\Document\StockMovement\Sale\Product;
 
 use Doctrine\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
-use Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct;
 
 class SaleProductRepository extends DocumentRepository
 {
