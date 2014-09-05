@@ -11,7 +11,7 @@ lighthouse.core.product.barcode:
     parent:   lighthouse.core.product
     type:     rest
 
-lighthouse.core.stock_movement:
+lighthouse.core.stock-movement:
     resource: Lighthouse\CoreBundle\Controller\StockMovementController
     type:     rest
 
@@ -41,6 +41,10 @@ lighthouse.core.return-supplier:
 
 lighthouse.core.return_product:
     resource: Lighthouse\CoreBundle\Controller\ReturnProductController
+    type:     rest
+
+lighthouse.core.receipt:
+    resource: Lighthouse\CoreBundle\Controller\ReceiptController
     type:     rest
 
 lighthouse.core.group:
