@@ -98,6 +98,7 @@ namespace :deploy do
         set :app_end, 'api' unless exists?(:app_end)
         set :branch, `git rev-parse --abbrev-ref HEAD`.delete("\n") || "master" unless exists?(:branch)
         set :host, branch unless exists?(:host)
+        set :host, host.gsub('/', '-')
 
         set :force, exists?(:force) ? true : false
 

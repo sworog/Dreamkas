@@ -3,11 +3,13 @@ package project.lighthouse.autotests.steps.pos;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.web.posAutoComplete.PosAutoCompleteCollection;
 import project.lighthouse.autotests.objects.web.receipt.ReceiptCollection;
+import project.lighthouse.autotests.objects.web.receipt.ReceiptObject;
 import project.lighthouse.autotests.pages.pos.PosLaunchPage;
 import project.lighthouse.autotests.pages.pos.PosPage;
 import project.lighthouse.autotests.storage.Storage;
@@ -45,7 +47,7 @@ public class PosSteps extends ScenarioSteps {
         return abstractObjectCollection;
     }
 
-    public ReceiptCollection ReceiptCollection() {
+    public ReceiptCollection getReceiptCollection() {
         ReceiptCollection receiptCollection = null;
         try {
             receiptCollection = posPage.getReceiptCollection();
@@ -72,7 +74,7 @@ public class PosSteps extends ScenarioSteps {
 
     @Step
     public void exactCompareReceiptCollectionWithExamplesTable(ExamplesTable examplesTable) {
-        ReceiptCollection receiptCollection = ReceiptCollection();
+        ReceiptCollection receiptCollection = getReceiptCollection();
         if (receiptCollection != null) {
             receiptCollection.exactCompareExampleTable(examplesTable);
         }
@@ -81,5 +83,16 @@ public class PosSteps extends ScenarioSteps {
     @Step
     public void assertReceiptTotalSum(String totalSum) {
         assertThat(posPage.getReceiptTotalSum(), is(totalSum));
+    }
+
+    @Step
+    public void checkTheLastAddedProductIsPinned() {
+        // shitty
+        // get the total price text y location
+        Integer totalPriceY = posPage.findVisibleElement(By.name("totalPrice")).getLocation().getY();
+        // get the last added product y location in receipt
+        Integer receiptLastPinnedProductY = ((ReceiptObject) getReceiptCollection().get(19)).getElement().getLocation().getY();
+        // assert
+        assertThat(true, is(receiptLastPinnedProductY >= 802 && receiptLastPinnedProductY < totalPriceY));
     }
 }

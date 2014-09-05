@@ -238,10 +238,43 @@ Then пользователь проверяет, что коллекция до
 
 Then пользователь проверяет, что чек получился на сумму '220,00'
 
-Scenario: Добавление товара чек при скролле
+Scenario: Проверка, что последний добавленный товар в чек всегда прикреплен к низу чека, при заполнение чека
 
 Meta:
+@smoke
 @skip
 @ignore
 
-!--Not implemented yet
+GivenStories: precondition/customPrecondition/symfonyEnvInitPrecondition.story,
+              precondition/касса/создание_юзера.story,
+              precondition/касса/создание_магазина_с_товаром.story,
+              precondition/касса/создание_большого_количества_товаров.story
+
+Given пользователь открывает стартовую страницу авторизации
+And пользователь авторизуется в системе используя адрес электронной почты 's41u1111@lighthouse.pro' и пароль 'lighthouse'
+
+Given пользователь открывает страницу кассы магазина с названием 'store-s41u1111'
+
+When пользователь* находится на странице 'выбранной кассы'
+And пользователь* вводит значение 'pos-product1' в поле с именем 'autocomplete'
+And пользователь* вводит значение 'pos-product2' в поле с именем 'autocomplete'
+And пользователь* вводит значение 'pos-product3' в поле с именем 'autocomplete'
+And пользователь* вводит значение 'pos-product4' в поле с именем 'autocomplete'
+And пользователь* вводит значение 'pos-product5' в поле с именем 'autocomplete'
+And пользователь* вводит значение 'pos-product6' в поле с именем 'autocomplete'
+And пользователь* вводит значение 'pos-product7' в поле с именем 'autocomplete'
+And пользователь* вводит значение 'pos-product8' в поле с именем 'autocomplete'
+And пользователь* вводит значение 'pos-product9' в поле с именем 'autocomplete'
+And пользователь* вводит значение 'pos-product10' в поле с именем 'autocomplete'
+And пользователь* вводит значение 'pos-product11' в поле с именем 'autocomplete'
+And пользователь* вводит значение 'pos-product12' в поле с именем 'autocomplete'
+And пользователь* вводит значение 'pos-product13' в поле с именем 'autocomplete'
+And пользователь* вводит значение 'pos-product14' в поле с именем 'autocomplete'
+And пользователь* вводит значение 'pos-product15' в поле с именем 'autocomplete'
+And пользователь* вводит значение 'pos-product16' в поле с именем 'autocomplete'
+And пользователь* вводит значение 'pos-product17' в поле с именем 'autocomplete'
+And пользователь* вводит значение 'pos-product18' в поле с именем 'autocomplete'
+And пользователь* вводит значение 'pos-product19' в поле с именем 'autocomplete'
+And пользователь* вводит значение 'pos-product20' в поле с именем 'autocomplete'
+
+Then пользователь проверяет, что последний добавленный продукт в чек прикреплен к концу чека
