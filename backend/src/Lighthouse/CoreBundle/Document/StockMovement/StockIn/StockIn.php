@@ -31,7 +31,7 @@ class StockIn extends StockMovement
      *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\StockIn\Product\StockInProduct",
      *      simple=true,
      *      cascade={"persist","remove"},
-     *      mappedBy="stockIn"
+     *      mappedBy="parent"
      * )
      * @Assert\Valid(traverse=true)
      * @Assert\Count(
