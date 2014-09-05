@@ -24,7 +24,7 @@ class Returne extends Receipt
      *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Returne\Product\ReturnProduct",
      *      simple=true,
      *      cascade={"persist","remove"},
-     *      mappedBy="return"
+     *      mappedBy="parent"
      * )
      *
      * @Assert\NotBlank(message="lighthouse.validation.errors.stock_movement.products.empty")
