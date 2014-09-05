@@ -15,7 +15,7 @@ public class ReceiptPositionEditModalWindow extends ModalWindowPage {
     @Override
     public void createElements() {
         put("sellingPrice", new Input(this, "//*[@name='sellingPrice']"));
-        put("count", new Input(this, "//*[@name='count']"));
+        put("quantity", new Input(this, "//*[@name='quantity']"));
         put("itemPrice", new NonType(this, "//*[@name='itemPrice']"));
         put("name", new NonType(this, "//*[@name='name']"));
         put("barcode", new NonType(this, "//*[@name='barcode']"));
