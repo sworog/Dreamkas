@@ -29,7 +29,7 @@ class Sale extends Receipt
      *      mappedBy="sale"
      * )
      *
-     * @Assert\NotBlank(message="lighthouse.validation.errors.sale.product.empty")
+     * @Assert\NotBlank(message="lighthouse.validation.errors.stock_movement.products.empty")
      * @Assert\Valid(traverse=true)
      * @var SaleProduct[]|Collection
      */
