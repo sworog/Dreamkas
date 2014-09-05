@@ -11,37 +11,37 @@ define(function(require, exports, module) {
             var block = this;
 
             return _.extend(block.model.toJSON(), {
-                sellingPrice: block.model.get('sellingPrice') ? block.formatMoney(block.model.get('sellingPrice')) : '',
-                count: block.formatAmount(block.model.get('count'))
+                price: block.model.get('price') ? block.formatMoney(block.model.get('price')) : '',
+                quantity: block.formatAmount(block.model.get('quantity'))
             });
         },
         model: require('models/receiptProduct/receiptProduct'),
         events: {
-            'click .form_receiptProduct__countPlusLink': function(e){
+            'click .form_receiptProduct__quantityPlusLink': function(e){
                 e.preventDefault();
 
                 var block = this;
 
-                block.changeCount(1);
+                block.changeQuantity(1);
             },
-            'click .form_receiptProduct__countMinusLink': function(e){
+            'click .form_receiptProduct__quantityMinusLink': function(e){
                 e.preventDefault();
 
                 var block = this;
 
-                block.changeCount(-1);
+                block.changeQuantity(-1);
             },
-            'keyup [name="count"]': function(e){
+            'keyup [name="quantity"]': function(e){
                 e.stopPropagation();
 
                 var block = this;
 
                 if (checkKey(e.keyCode, ['UP'])){
-                    block.changeCount(1);
+                    block.changeQuantity(1);
                 }
 
                 if (checkKey(e.keyCode, ['DOWN'])){
-                    block.changeCount(-1);
+                    block.changeQuantity(-1);
                 }
             }
         },
@@ -58,12 +58,32 @@ define(function(require, exports, module) {
         calculateItemPrice: function(){
             var block = this;
 
-            return block.formatMoney(normalizeNumber(block.data.count) * normalizeNumber(block.data.sellingPrice));
+            return block.formatMoney(normalizeNumber(block.data.quantity) * normalizeNumber(block.data.price));
         },
-        changeCount: function(delta){
+        changeQuantity: function(delta){
             var block = this;
 
-            block.data.count = block.formatMoney(normalizeNumber(block.data.count) + delta);
+            block.data.quantity = block.formatMoney(normalizeNumber(block.data.quantity) + delta);
+        },
+        showErrors: function(error) {
+            var block = this,
+                productErrors = error.errors.children.products.children[0].children;
+
+            var fields = [],
+                errorMessages = [];
+
+            _.forEach(productErrors, function(error, field) {
+                if (error.errors) {
+                    fields.push(field);
+                    errorMessages = _.union(errorMessages, error.errors);
+                }
+            });
+
+            block.showGlobalError(errorMessages);
+
+            _.forEach(fields, function(fieldName) {
+                block.el.querySelector('[name="' + fieldName + '"]').classList.add('invalid');
+            });
         }
     });
 });

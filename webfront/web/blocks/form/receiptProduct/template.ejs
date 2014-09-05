@@ -17,8 +17,8 @@
                 <input autofocus
                        class="form-control"
                        type="text"
-                       name="sellingPrice"
-                       rv-live-value="data.sellingPrice">
+                       name="price"
+                       rv-live-value="data.price">
             </div>
         </div>
 
@@ -28,17 +28,17 @@
 
                 <div class="input-group">
 
-                    <a class="form_receiptProduct__countMinusLink input-group-addon">
+                    <a class="form_receiptProduct__quantityMinusLink input-group-addon">
                         <i class="fa fa-minus"></i>
                     </a>
 
                     <input class="form-control"
                            type="text"
-                           name="count"
+                           name="quantity"
                            style="text-align: center"
-                           rv-live-value="data.count">
+                           rv-live-value="data.quantity">
 
-                    <a class="form_receiptProduct__countPlusLink input-group-addon">
+                    <a class="form_receiptProduct__quantityPlusLink input-group-addon">
                         <i class="fa fa-plus"></i>
                     </a>
                 </div>
@@ -52,10 +52,12 @@
                 <label>Стоимость, <i class="fa fa-rub"></i></label>
 
                 <div name="itemPrice" style="padding-top: 7px;">
-                    {{calculateItemPrice < data.count data.sellingPrice}}
+                    {{calculateItemPrice < data.quantity data.price}}
                 </div>
 
             </div>
         </div>
     </div>
+
+    <div class="form__errorMessage form__errorMessage_global"></div>
 </form>

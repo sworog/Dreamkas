@@ -86,7 +86,7 @@ define(function(require, exports, module) {
                     product: block.collections.products.get(productId).toJSON()
                 });
 
-            if (receiptProductModel.get('sellingPrice')){
+            if (receiptProductModel.get('price')){
                 block.models.receipt.collections.products.add(receiptProductModel);
             } else {
                 document.getElementById('modal_receiptProduct').block.show({

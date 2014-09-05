@@ -31,7 +31,7 @@ define(function(require, exports, module) {
             });
         },
         calculateItemPrice: function(receiptProductModel){
-            return formatMoney(normalizeNumber(receiptProductModel.get('count')) * normalizeNumber(receiptProductModel.get('sellingPrice')));
+            return formatMoney(normalizeNumber(receiptProductModel.get('quantity')) * normalizeNumber(receiptProductModel.get('price')));
         },
         calculateTotalPrice: function(){
             var block = this,
