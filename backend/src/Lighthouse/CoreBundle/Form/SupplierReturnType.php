@@ -35,7 +35,7 @@ class SupplierReturnType extends DocumentType
                 array(
                     'class' => Supplier::getClassName(),
                     'return_null_object_on_not_found' => true,
-                    'invalid_message' => 'lighthouse.validation.errors.supplierreturn.supplier.does_not_exists'
+                    'invalid_message' => 'lighthouse.validation.errors.supplier-return.supplier.does_not_exists'
                 )
             )
             ->add(
