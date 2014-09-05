@@ -1,11 +1,11 @@
 <form id="<%- id %>" class="form form_receiptProduct">
 
     <div style="padding-bottom: 20px;">
-        <h4>
+        <h4 name="name">
             <%- model.models.product.get('name') %>
         </h4>
 
-        <div style="font-size: 11px;">
+        <div name="barcode" style="font-size: 11px;">
             <%- model.models.product.get('barcode') %>
         </div>
     </div>
@@ -51,7 +51,7 @@
             <div class="form-group">
                 <label>Стоимость, <i class="fa fa-rub"></i></label>
 
-                <div style="padding-top: 7px;">
+                <div name="itemPrice" style="padding-top: 7px;">
                     {{calculateItemPrice < data.count data.sellingPrice}}
                 </div>
 
