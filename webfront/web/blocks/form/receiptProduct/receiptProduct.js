@@ -31,6 +31,13 @@ define(function(require, exports, module) {
 
                 block.changeQuantity(-1);
             },
+            'click .form_receiptProduct__removeLink': function(e){
+                var block = this;
+
+                block.model.destroy();
+
+                document.getElementById('modal_receiptProduct').block.hide();
+            },
             'keyup [name="quantity"]': function(e){
                 e.stopPropagation();
 
