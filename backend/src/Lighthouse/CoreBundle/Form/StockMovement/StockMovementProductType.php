@@ -2,12 +2,11 @@
 
 namespace Lighthouse\CoreBundle\Form\StockMovement;
 
-use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Form\DocumentType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class InvoiceProductType extends DocumentType
+abstract class StockMovementProductType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -25,16 +24,8 @@ class InvoiceProductType extends DocumentType
                     'invalid_message' => 'lighthouse.validation.errors.stock_movement.product.does_not_exists'
                 )
             )
-            ->add('priceEntered', 'money')
+            ->add('price', 'money')
             ->add('quantity', 'quantity')
         ;
-    }
-
-    /**
-     * @return string
-     */
-    protected function getDataClass()
-    {
-        return InvoiceProduct::getClassName();
     }
 }
