@@ -22,6 +22,21 @@ public class PosUserSteps {
         posSteps.choosePosConfirmation();
     }
 
+    @When("пользователь нажимает на товарную позицию в чеке с названием '$name'")
+    public void whenUserClicksOnReceiptObjectWithName(String name) {
+        posSteps.receiptObjectClickByLocator(name);
+    }
+
+    @When("пользователь нажимает на кнопку плюсик чтобы увеличить количество товарной позиции на единицу")
+    public void whenUserClicksOnPlusButton() {
+        posSteps.clickOnPlusButton();
+    }
+
+    @When("пользователь нажимает на кнопку минус чтобы уменьшить количество товарной позиции на единицу")
+    public void whenUserClicksOnMinusButton() {
+        posSteps.clickOnMinusButton();
+    }
+
     @Then("пользователь проверяет, что коллекция результатов поиска автокомплита содержит следующие конкретные данные $examplesTable")
     public void thenExactCompareWithExamplesTable(ExamplesTable examplesTable) {
         posSteps.exactComparePosAutocompleteResultsCollectionWithExamplesTable(examplesTable);
