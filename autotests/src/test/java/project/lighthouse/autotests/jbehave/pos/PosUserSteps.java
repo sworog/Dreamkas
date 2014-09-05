@@ -48,8 +48,13 @@ public class PosUserSteps {
     }
 
     @Then("пользователь проверяет, что коллекция результатов поиска автокомплита пуста")
-    public void thenCheckNoResults() {
-        posSteps.checkNoResults();
+    public void thenUserChecksPostAutoCompleteCollectionContainsNoResults() {
+        posSteps.checkPostAutoCompleteCollectionContainsNoResults();
+    }
+
+    @Then("пользователь проверяет, что коллекция товарных позиций в чеке пуста")
+    public void thenUserCheckReceiptCollectionContainsNoResults() {
+        posSteps.checkReceiptCollectionContainsNoResults();
     }
 
     @Then("пользователь проверяет, что чек получился на сумму '$totalSum'")
