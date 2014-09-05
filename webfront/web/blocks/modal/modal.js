@@ -4,9 +4,11 @@ define(function(require, exports, module) {
         deepExtend = require('kit/deepExtend/deepExtend');
 
     $(document).on('click', '[data-modal]', function(e) {
+		var dataset = e.currentTarget.dataset;
+
         e.preventDefault();
 
-        document.getElementById(e.target.dataset.modal).block.show();
+        document.getElementById(dataset.modal).block.show(_.extend({}, dataset));
     });
 
     return Block.extend({

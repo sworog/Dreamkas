@@ -1,0 +1,36 @@
+<div id="modal-store"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="modal-default-label"
+     aria-hidden="true"
+     class="modal fade"
+     style="display: none;">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a type="button"
+                   data-dismiss="modal"
+                   aria-hidden="true"
+                   class="close pull-left fa fa-times"></a>
+
+                <button form="form-store"
+                        type="submit"
+                        class="btn btn-primary pull-right">
+                    <%- storeId != 0 ? 'Сохранить' : 'Добавить' %>
+                </button>
+
+                <h4 class="modal-title">
+                    <%- storeId != 0 ? 'Редактирование магазина' : 'Добавить магазин' %>
+                </h4>
+
+                <span class="clearfix"></span>
+            </div>
+            <div class="modal-body">
+
+				<b block="form_store" data-store-id="<%- storeId %>"></b>
+
+            </div>
+        </div>
+    </div>
+</div>

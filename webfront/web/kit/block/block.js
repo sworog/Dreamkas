@@ -95,7 +95,8 @@ define(function(require, exports, module) {
             $blocks.each(function() {
                 var placeholder = this,
                     blockName = placeholder.getAttribute('block'),
-                    params = _.extend({}, placeholder.dataset, {el: placeholder}),
+                    params = _.extend({}, placeholder.dataset, {el: placeholder});
+
                     __block = block.get('blocks.' + blockName, [params]);
 
                 if (__block && __block.el) {

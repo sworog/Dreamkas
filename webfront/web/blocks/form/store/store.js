@@ -1,26 +1,32 @@
 define(function(require, exports, module) {
     //requirements
-    var Form = require('blocks/form/form.deprecated'),
+    var Form = require('blocks/form/form'),
         StoreModel = require('models/store/store');
 
     return Form.extend({
-        el: '.form_store',
-        model: function() {
-            return new StoreModel();
-        },
-        collection: null,
-        initialize: function() {
+		template: require('ejs!./template.ejs'),
+		model: function() {
+			var StoreModel = require('models/store/store');
 
-            var block = this;
+			return PAGE.get('collections.stores').get(this.storeId) || new StoreModel;
+		},
+		collection: function() {
+			return PAGE.get('collections.stores');
+		},
+		initialize: function() {
 
-            Form.prototype.initialize.apply(block, arguments);
+			var block = this;
 
-            block.listenTo(block, 'submit:success', function() {
-                if (!block.__model.id) {
-                    block.model = new StoreModel();
-                }
-            });
+			Form.prototype.initialize.apply(block, arguments);
 
-        }
+			var isNew = block.model.isNew();
+
+			block.listenTo(block, 'submit:success', function() {
+				if (isNew) {
+					block.reset();
+				}
+			});
+
+		}
     });
 });

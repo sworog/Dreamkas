@@ -1,3 +1,4 @@
+
 define(function(require) {
     //requirements
     var Block = require('kit/block/block'),

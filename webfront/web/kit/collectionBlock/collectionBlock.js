@@ -10,7 +10,7 @@ define(function(require, exports, module) {
 
             if (block.collection){
                 block.collection.on({
-                    'add remove reset': function(){
+                    'change add remove reset': function(){
                         block.render();
                     }
                 });
