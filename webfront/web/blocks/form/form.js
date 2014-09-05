@@ -51,7 +51,8 @@ define(function(require) {
             }
         },
         initialize: function() {
-            var block = this;
+            var block = this,
+                modal = block.$el.closest('.modal')[0];
 
             block.redirectUrl = block.get('redirectUrl');
 

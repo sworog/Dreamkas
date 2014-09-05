@@ -60,4 +60,25 @@
     </div>
 
     <div class="form__errorMessage form__errorMessage_global"></div>
+
+
+    <% if (model.collection) { %>
+    <div style="margin-top: 40px;" class="confirmLink">
+
+        <div class="confirmLink__trigger">
+            <span class="removeLink">
+                <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                Удалить продукт из чека
+            </span>
+        </div>
+
+        <div class="confirmLink__confirmation">
+            <span class="removeLink form_receiptProduct__removeLink">
+                <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                Подтвердить удаление
+            </span>
+        </div>
+
+    </div>
+    <% } %>
 </form>
