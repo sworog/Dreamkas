@@ -24,8 +24,8 @@ class SaleProduct extends StockMovementProduct
 
     /**
      * Цена продажи
-     * @Assert\NotBlank
-     * @LighthouseAssert\Money(notBlank=true, zero=true)
+     * @Assert\NotBlank(groups={"Default","products"})
+     * @LighthouseAssert\Money(notBlank=true, zero=true,groups={"Default","products"})
      * @MongoDB\Field(type="money")
      * @var Money
      */

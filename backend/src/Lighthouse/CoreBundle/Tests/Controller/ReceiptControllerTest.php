@@ -8,12 +8,13 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 class ReceiptControllerTest extends WebTestCase
 {
     /**
-     * @dataProvider validationProvider
+     * @dataProvider typesValidationProvider
+     * @param string $type
      * @param int $expectedCode
      * @param array $data
      * @param array $assertions
      */
-    public function testPostWithValidationGroup($expectedCode, array $data, array $assertions = array())
+    public function testPostWithValidationGroup($type, $expectedCode, array $data, array $assertions = array())
     {
         $productIds = $this->createProductsByNames(array('1', '2', '3'));
 
@@ -35,7 +36,7 @@ class ReceiptControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            "/api/1/stores/{$store->id}/sales?validate=true&validationGroups=products",
+            "/api/1/stores/{$store->id}/{$type}?validate=true&validationGroups=products",
             $saleData
         );
 
@@ -52,18 +53,30 @@ class ReceiptControllerTest extends WebTestCase
     /**
      * @return array
      */
+    public function typesValidationProvider()
+    {
+        $return = array();
+        foreach (array('sales', 'returns') as $type) {
+            foreach ($this->validationProvider() as $key => $row) {
+                $return[$type . '::' . $key] = array_merge(array($type), $row);
+            }
+        }
+        return $return;
+    }
+
+    /**
+     * @return array
+     */
     public function validationProvider()
     {
         return array(
             /***********************************************************************************************
              * 'quantity'
              ***********************************************************************************************/
-            /*
             'valid quantity 7' => array(
                 201,
                 array('quantity' => 7),
             ),
-            */
             'empty quantity' => array(
                 400,
                 array('quantity' => ''),

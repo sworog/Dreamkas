@@ -8,6 +8,7 @@ use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
@@ -24,63 +25,20 @@ use DateTime;
  * )
  * @MongoDB\HasLifecycleCallbacks
  *
- * @property int            $id
- * @property Money          $price
- * @property Quantity       $quantity
- * @property Money          $totalPrice
- * @property DateTime       $date
- * @property ProductVersion $product
- * @property Returne        $return
+ * @property Returne $parent
  */
-class ReturnProduct extends AbstractDocument implements Reasonable
+class ReturnProduct extends StockMovementProduct
 {
     const REASON_TYPE = 'ReturnProduct';
 
     /**
-     * @MongoDB\Id
-     * @var string
-     */
-    protected $id;
-
-    /**
      * Цена продажи
      * @MongoDB\Field(type="money")
-     * @Assert\NotBlank
-     * @LighthouseAssert\Money(notBlank=true, zero=true)
+     * @Assert\NotBlank(groups={"Default","products"})
+     * @LighthouseAssert\Money(notBlank=true, groups={"Default","products"})
      * @var Money
      */
     protected $price;
-
-    /**
-     * Количество
-     * @MongoDB\Field(type="quantity")
-     * @Assert\NotBlank
-     * @LighthouseAssert\Range\Range(gt=0)
-     * @var Quantity
-     */
-    protected $quantity;
-
-    /**
-     * @MongoDB\Field(type="money")
-     * @var Money
-     */
-    protected $totalPrice;
-
-    /**
-     * @MongoDB\Date
-     * @var DateTime
-     */
-    protected $date;
-
-    /**
-     * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Version\ProductVersion",
-     *     simple=true,
-     *     cascade="persist"
-     * )
-     * @var ProductVersion
-     */
-    protected $product;
 
     /**
      * @MongoDB\ReferenceOne(
@@ -89,105 +47,11 @@ class ReturnProduct extends AbstractDocument implements Reasonable
      *     cascade="persist",
      *     inversedBy="products"
      * )
+     * @Assert\NotBlank
+     * @Serializer\MaxDepth(2)
      * @var Returne
      */
-    protected $return;
-
-    /**
-     * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Product\Product",
-     *     simple=true,
-     *     cascade="persist"
-     * )
-     * @var Product
-     * @Serializer\Exclude
-     */
-    protected $originalProduct;
-
-
-    /**
-     * @MongoDB\ReferenceOne(
-     *     targetDocument="Lighthouse\CoreBundle\Document\Store\Store",
-     *     simple=true,
-     *     cascade={"persist"}
-     * )
-     * @Serializer\Exclude
-     * @var Store
-     */
-    protected $store;
-
-    /**
-     * @MongoDB\PrePersist
-     * @MongoDB\PreUpdate
-     */
-    public function beforeSave()
-    {
-        $this->calculateTotals();
-
-        $this->date = $this->return->date;
-        $this->store = $this->return->store;
-        $this->originalProduct = $this->product->getObject();
-    }
-
-    /**
-     * @return Money|null
-     */
-    public function calculateTotals()
-    {
-        if ($this->price) {
-            $this->totalPrice = $this->price->mul($this->quantity, Decimal::ROUND_HALF_EVEN);
-        }
-
-        return $this->totalPrice;
-    }
-
-    /**
-     * @return string
-     */
-    public function getReasonId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
-    public function getReasonType()
-    {
-        return 'ReturnProduct';
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getReasonDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * @return Quantity
-     */
-    public function getProductQuantity()
-    {
-        return $this->quantity;
-    }
-
-    /**
-     * @return Product
-     */
-    public function getReasonProduct()
-    {
-        return $this->product->getObject();
-    }
-
-    /**
-     * @return Money
-     */
-    public function getProductPrice()
-    {
-        return $this->price;
-    }
+    protected $parent;
 
     /**
      * @return boolean
@@ -195,29 +59,5 @@ class ReturnProduct extends AbstractDocument implements Reasonable
     public function increaseAmount()
     {
         return true;
-    }
-
-    /**
-     * @return Returne
-     */
-    public function getReasonParent()
-    {
-        return $this->return;
-    }
-
-    /**
-     * @param StockMovement|Returne $parent
-     */
-    public function setReasonParent(StockMovement $parent)
-    {
-        $this->return = $parent;
-    }
-
-    /**
-     * @param Quantity $quantity
-     */
-    public function setQuantity(Quantity $quantity)
-    {
-        $this->quantity = $quantity;
     }
 }
