@@ -36,7 +36,8 @@ class ReceiptController extends AbstractRestController
      * @param string $type
      * @return FormInterface|Receipt
      *
-     * @Rest\Route("stores/{store}/sales", defaults={"type"="Sale"})
+     * @Rest\Route("stores/{store}/sales", defaults={"type"="Sale"}, name="receipt.sales.post")
+     * @Rest\Route("stores/{store}/returns", defaults={"type"="Return"}, name="receipt.returns.post")
      * @Rest\View(statusCode=201)
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc(resource=true)
