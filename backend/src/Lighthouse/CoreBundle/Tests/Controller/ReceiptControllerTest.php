@@ -55,13 +55,22 @@ class ReceiptControllerTest extends WebTestCase
      */
     public function typesValidationProvider()
     {
-        $return = array();
+        return $this->applyTypesToProvider($this->validationProvider());
+    }
+
+    /**
+     * @param array $providerData
+     * @return array
+     */
+    protected function applyTypesToProvider(array $providerData)
+    {
+        $typedData = array();
         foreach (array('sales', 'returns') as $type) {
-            foreach ($this->validationProvider() as $key => $row) {
-                $return[$type . '::' . $key] = array_merge(array($type), $row);
+            foreach ($providerData as $key => $row) {
+                $typedData[$type . '::' . $key] = array_merge(array($type), $row);
             }
         }
-        return $return;
+        return $typedData;
     }
 
     /**
@@ -178,9 +187,7 @@ class ReceiptControllerTest extends WebTestCase
             'empty price' => array(
                 400,
                 array('price' => ''),
-                array(
-                    'errors.children.products.children.0.children.price.errors.0' => 'Заполните это поле'
-                )
+                array('errors.children.products.children.0.children.price.errors.0' => 'Заполните это поле')
             ),
             'not valid price very float' => array(
                 400,
@@ -207,11 +214,7 @@ class ReceiptControllerTest extends WebTestCase
             'not valid price not a number' => array(
                 400,
                 array('price' => 'not a number'),
-                array(
-                    'errors.children.products.children.0.children.price.errors.0'
-                    =>
-                    'Значение должно быть числом',
-                ),
+                array('errors.children.products.children.0.children.price.errors.0' => 'Значение должно быть числом'),
             ),
             'not valid price zero' => array(
                 400,
@@ -268,17 +271,112 @@ class ReceiptControllerTest extends WebTestCase
             'not valid product' => array(
                 400,
                 array('product' => 'not_valid_product_id'),
-                array(
-                    'errors.children.products.children.0.children.product.errors.0' => 'Такого товара не существует'
-                ),
+                array('errors.children.products.children.0.children.product.errors.0' => 'Такого товара не существует'),
             ),
             'empty product' => array(
                 400,
                 array('product' => ''),
+                array('errors.children.products.children.0.children.product.errors.0' => 'Заполните это поле'),
+            ),
+        );
+    }
+
+    /**
+     * @dataProvider totalsCalculationWithValidationGroupDataProviderWithTypes
+     * @param string $type
+     * @param array $products
+     * @param array $assertions
+     */
+    public function testTotalsCalculationOnPostWithValidationGroupOnPost(
+        $type,
+        array $products,
+        array $assertions
+    ) {
+        $store = $this->factory()->store()->getStore();
+
+        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+
+        $receiptData = array(
+            'date' => '',
+            'products' => $products
+        );
+
+        foreach ($receiptData['products'] as &$product) {
+            $product['product'] = $productIds[$product['name']];
+            unset($product['name']);
+        }
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/{$type}?validate=true&validationGroups=products",
+            $receiptData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertNotJsonHasPath('id', $response);
+        Assert::assertNotJsonHasPath('name', $response);
+
+        $this->performJsonAssertions($response, $assertions);
+    }
+
+    /**
+     * @return array
+     */
+    public function totalsCalculationWithValidationGroupDataProviderWithTypes()
+    {
+        return $this->applyTypesToProvider($this->totalsCalculationWithValidationGroupDataProvider());
+    }
+
+    /**
+     * @return array
+     */
+    public function totalsCalculationWithValidationGroupDataProvider()
+    {
+        return array(
+            'one product' => array(
                 array(
-                    'errors.children.products.children.0.children.product.errors.0'
-                    =>
-                        'Заполните это поле'
+                    array('name' => '1', 'quantity' => 1, 'price' => 10.00),
+                ),
+                array(
+                    'sumTotal' => '10.00',
+                    'itemsCount' => '1',
+                    'products.0.totalPrice' => '10.00'
+                )
+            ),
+            'three different products' => array(
+                array(
+                    array('name' => '1', 'quantity' => 5.678, 'price' => 13.11),
+                    array('name' => '2', 'quantity' => 10, 'price' => 9.96),
+                    array('name' => '3', 'quantity' => 19.1, 'price' => 0.49),
+                ),
+                array(
+                    'products.0.totalPrice' => '74.44',
+                    'products.1.totalPrice' => '99.60',
+                    'products.2.totalPrice' => '9.36',
+                    'itemsCount' => '3',
+                    'sumTotal' => '183.40',
+                ),
+            ),
+            'five position with duplicates' => array(
+                array(
+                    array('name' => '1', 'quantity' => 5.678, 'price' => 13.11),
+                    array('name' => '2', 'quantity' => 10, 'price' => 9.96),
+                    array('name' => '3', 'quantity' => 19.1, 'price' => 0.49),
+                    array('name' => '3', 'quantity' => 6.888, 'price' => 0.49),
+                    array('name' => '2', 'quantity' => 1, 'price' => 9.99),
+                ),
+                array(
+                    'products.0.totalPrice' => '74.44',
+                    'products.1.totalPrice' => '99.60',
+                    'products.2.totalPrice' => '9.36',
+                    'products.3.totalPrice' => '3.38',
+                    'products.4.totalPrice' => '9.99',
+                    'itemsCount' => '5',
+                    'sumTotal' => '196.77',
                 ),
             ),
         );
