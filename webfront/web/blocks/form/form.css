@@ -50,3 +50,17 @@
 .form_receipt__productLink {
     cursor: pointer;
 }
+
+.form_receipt__clearLink {
+    cursor: pointer;
+}
+
+.form_receipt__clearLink td {
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    background-color: #fff !important;
+}
+
+.form_receipt__clearLink:hover td {
+    background-color: #fafafa !important;
+}
