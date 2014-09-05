@@ -62,6 +62,10 @@ a:hover .fa {
     color: #0a819c;
 }
 
+.navbar-static-side ul li a .fa{
+    color: #fff !important;
+}
+
 #signin-page, #signup-page {
     height: 100%;
     overflow: hidden;
