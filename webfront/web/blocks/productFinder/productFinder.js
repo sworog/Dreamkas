@@ -59,7 +59,7 @@ define(function(require, exports, module) {
             Block.prototype.initialize.apply(block, arguments);
 
             $(document).on('keyup', function(e) {
-                if (checkKey(e.keyCode, ['ESC'])) {
+                if (checkKey(e.keyCode, ['ESC']) && $('.modal:visible').length == 0) {
                     block.reset();
                 }
 
