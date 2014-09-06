@@ -17,7 +17,7 @@ define(function(require, exports, module) {
                     }
                 });
             },
-            'click .form_receipt__clearLink': function(e){
+            'click .form_receipt__clearLink .confirmLink__confirmation': function(e){
                 var block = this;
 
                 block.model.clear();

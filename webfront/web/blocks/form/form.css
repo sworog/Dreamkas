@@ -57,8 +57,13 @@
 
 .form_receipt__clearLink td {
     text-align: center;
+    padding: 0 !important;
     border-bottom: 1px solid #eee;
     background-color: #fff !important;
+}
+
+.form_receipt__clearLink .confirmLink__trigger, .form_receipt__clearLink .confirmLink__confirmation {
+    padding: 15px;
 }
 
 .form_receipt__clearLink:hover td {
