@@ -14,7 +14,7 @@ public class ReceiptPositionEditModalWindow extends ModalWindowPage {
 
     @Override
     public void createElements() {
-        put("sellingPrice", new Input(this, "//*[@name='sellingPrice']"));
+        put("sellingPrice", new Input(this, "//*[@name='price']"));
         put("quantity", new Input(this, "//*[@name='quantity']"));
         put("itemPrice", new NonType(this, "//*[@name='itemPrice']"));
         put("name", new NonType(this, "//*[@name='name']"));
@@ -27,11 +27,11 @@ public class ReceiptPositionEditModalWindow extends ModalWindowPage {
     }
 
     public void clickOnPlusButton() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'form_receiptProduct__countPlusLink')]")).click();
+        findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'form_receiptProduct__quantityPlusLink')]")).click();
     }
 
     public void clickOnMinusButton() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'form_receiptProduct__countMinusLink')]")).click();
+        findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'form_receiptProduct__quantityMinusLink')]")).click();
     }
 
     @Override
