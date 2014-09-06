@@ -64,3 +64,11 @@
 .form_receipt__clearLink:hover td {
     background-color: #fafafa !important;
 }
+
+.form_receiptProduct__countMinusLink, .form_receiptProduct__countPlusLink {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none
+}
