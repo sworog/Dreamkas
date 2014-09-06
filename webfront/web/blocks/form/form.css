@@ -70,7 +70,7 @@
     background-color: #fafafa !important;
 }
 
-.form_receiptProduct__countMinusLink, .form_receiptProduct__countPlusLink {
+.form_receiptProduct__quantityPlusLink, .form_receiptProduct__quantityMinusLink {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
