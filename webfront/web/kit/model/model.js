@@ -93,6 +93,10 @@ define(function(require, exports, module) {
 
             var model = this;
 
+            Backbone.Model.prototype.clear.apply(model, arguments);
+
+            model.set(model.defaults);
+
             _.forEach(model.collections, function(nestedCollection) {
                 nestedCollection.reset([]);
             });
@@ -101,7 +105,7 @@ define(function(require, exports, module) {
                 nestedModel.clear();
             });
 
-            return Backbone.Model.prototype.clear.apply(model, arguments);
+            return model;
         }
     });
 

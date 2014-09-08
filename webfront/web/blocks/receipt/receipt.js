@@ -22,7 +22,7 @@ define(function(require, exports, module) {
             'click .receipt__clearLink .confirmLink__confirmation': function(e) {
                 var block = this;
 
-                block.models.receipt.clear();
+                block.models.receipt.collections.products.reset([]);
             }
         },
         initialize: function() {
