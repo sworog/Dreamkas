@@ -2,11 +2,70 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
 class ReceiptControllerTest extends WebTestCase
 {
+    /**
+     * @dataProvider postProvider
+     * @param string $path
+     * @param string $expectedType
+     */
+    public function testPostAction($path, $expectedType)
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+
+        $saleData = array(
+            'date' => '2014-09-09T16:23:12+04:00',
+            'products' => array(
+                array(
+                    'product' => $productId,
+                    'quantity' => 10,
+                    'price' => 17.68
+                )
+            )
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/{$path}",
+            $saleData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('id', $response);
+        Assert::assertJsonPathEquals($expectedType, 'type', $response);
+        Assert::assertJsonPathEquals('2014-09-09T16:23:12+0400', 'date', $response);
+        Assert::assertJsonPathEquals($store->id, 'store.id', $response);
+
+        Assert::assertJsonPathCount(1, 'products.*.id', $response);
+        Assert::assertJsonPathEquals($productId, 'products.0.product.id', $response);
+        Assert::assertJsonPathEquals('10.000', 'products.0.quantity', $response);
+        Assert::assertJsonPathEquals('17.68', 'products.0.price', $response);
+        Assert::assertJsonPathEquals('176.80', 'products.0.totalPrice', $response);
+
+        Assert::assertJsonPathEquals('1', 'itemsCount', $response);
+        Assert::assertJsonPathEquals('176.80', 'sumTotal', $response);
+    }
+
+    /**
+     * @return array
+     */
+    public function postProvider()
+    {
+        return array(
+            'Sale' => array('sales', 'Sale'),
+            'Return' => array('returns', 'Return'),
+        );
+    }
+
     /**
      * @dataProvider typesValidationProvider
      * @param string $type
@@ -380,5 +439,103 @@ class ReceiptControllerTest extends WebTestCase
                 ),
             ),
         );
+    }
+
+    public function testProductInventoryChangeOnSale()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id)
+                ->createInvoiceProduct($productId, 100, 15.00)
+            ->flush();
+
+        $this->assertStoreProductTotals($store->id, $productId, 100, 15.00);
+
+        $this->postSaleWithOneProduct($store, '2014-09-09T08:23:12+04:00', $productId, 10, 17.68);
+
+        $this->assertStoreProductTotals($store->id, $productId, 90, 15.00);
+
+        $this->postSaleWithOneProduct($store, '2014-09-09T08:24:54+04:00', $productId, 4.555, 17.68);
+
+        $this->assertStoreProductTotals($store->id, $productId, 85.445, 15.00);
+
+        $this->postReturnWithOneProduct($store, '2014-09-10T08:23:12+04:00', $productId, 3, 15.00);
+
+        $this->assertStoreProductTotals($store->id, $productId, 88.445, 15.00);
+    }
+
+    /**
+     * @param Store $store
+     * @param string $date
+     * @param string $productId
+     * @param float $quantity
+     * @param float $price
+     * @return string Sale id
+     */
+    protected function postSaleWithOneProduct(Store $store, $date, $productId, $quantity, $price)
+    {
+        $products = array(
+            array(
+                'product' => $productId,
+                'quantity' => $quantity,
+                'price' => $price,
+            )
+        );
+
+        return $this->postReceipt('sales', $store, $date, $products);
+    }
+
+    /**
+     * @param Store $store
+     * @param string $date
+     * @param string $productId
+     * @param float $quantity
+     * @param float $price
+     * @return string Sale id
+     */
+    protected function postReturnWithOneProduct(Store $store, $date, $productId, $quantity, $price)
+    {
+        $products = array(
+            array(
+                'product' => $productId,
+                'quantity' => $quantity,
+                'price' => $price,
+            )
+        );
+
+        return $this->postReceipt('returns', $store, $date, $products);
+    }
+
+    /**
+     * @param string $type
+     * @param Store $store
+     * @param string $date
+     * @param array $products
+     * @return string
+     */
+    protected function postReceipt($type, Store $store, $date, array $products)
+    {
+        $saleData = array(
+            'date' => $date,
+            'products' => $products
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/{$type}",
+            $saleData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('id', $response);
+
+        return $response['id'];
     }
 }
