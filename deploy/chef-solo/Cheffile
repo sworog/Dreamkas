@@ -3,31 +3,23 @@
 
 site 'https://supermarket.getchef.com/api/v1'
 
-# cookbook 'chef-client'
-
-# cookbook 'apache2', '>= 1.0.0'
-
-# cookbook 'rvm',
-#   :git => 'https://github.com/fnichol/chef-rvm'
-
-# cookbook 'postgresql',
-#   :git => 'https://github.com/findsyou/cookbooks',
-#   :ref => 'postgresql-improvements'
-
 cookbook 'mongodb',
-    :git => 'https://github.com/edelight/chef-mongodb'
+    :github => 'edelight/chef-mongodb'
 
 cookbook 'php-fpm',
-    :git => 'https://github.com/yevgenko/cookbook-php-fpm'
+    :github => 'yevgenko/cookbook-php-fpm'
 
 cookbook 'teamcity',
-    :git => 'https://github.com/mswart/chef-teamcity'
+    :github => 'mswart/chef-teamcity'
 
 cookbook 'teamcity_server',
-    :git => 'https://github.com/rithis-chef/cookbook-teamcity-server'
+    :github => 'rithis-chef/cookbook-teamcity-server'
 
 cookbook 'postgresql',
-    :git => 'https://github.com/phlipper/chef-postgresql'
+    :github => 'phlipper/chef-postgresql'
+
+cookbook 'android-sdk',
+    :github => "gildegoma/chef-android-sdk"
 
 cookbook 'php'
 cookbook 'composer'
@@ -40,5 +32,5 @@ cookbook 'openssh'
 cookbook 'ruby'
 cookbook 'ssh-util'
 cookbook 'nodejs'
-cookbook 'android-sdk', '~> 0.1.1'
+
 

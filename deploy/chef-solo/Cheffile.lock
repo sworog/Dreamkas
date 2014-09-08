@@ -3,28 +3,25 @@ SITE
   specs:
     7-zip (1.0.2)
       windows (>= 1.2.2)
-    android-sdk (0.1.1)
-      ark (>= 0.0.0)
-      java (>= 0.0.0)
-    apt (2.4.0)
+    apt (2.5.3)
     ark (0.9.0)
       7-zip (>= 0.0.0)
       windows (>= 0.0.0)
-    beanstalkd (0.1.3)
+    beanstalkd (0.1.4)
     bluepill (2.3.1)
       rsyslog (>= 0.0.0)
-    build-essential (2.0.4)
-    chef-sugar (2.0.0)
+    build-essential (2.0.6)
+    chef-sugar (2.2.0)
     chef_handler (1.1.6)
-    composer (1.0.3)
+    composer (1.0.4)
       php (>= 0.0.0)
     cron (1.4.0)
     iis (2.1.2)
       windows (>= 1.2.6)
-    iptables (0.13.2)
+    iptables (0.14.0)
     iptables-ng (2.2.0)
-    java (1.27.0)
-    mysql (5.3.6)
+    java (1.28.0)
+    mysql (5.5.1)
       yum-mysql-community (>= 0.0.0)
     nginx (2.7.4)
       apt (~> 2.2)
@@ -63,8 +60,8 @@ SITE
     xml (1.2.6)
       build-essential (>= 0.0.0)
       chef-sugar (>= 0.0.0)
-    yum (3.2.2)
-    yum-epel (0.4.0)
+    yum (3.3.1)
+    yum-epel (0.5.1)
       yum (~> 3.0)
     yum-mysql-community (0.1.10)
       yum (>= 3.0)
@@ -72,13 +69,22 @@ SITE
 GIT
   remote: https://github.com/edelight/chef-mongodb
   ref: master
-  sha: 8c593917a228752d877b76b3c2995b6d6b1ffbdb
+  sha: b27564fc57bd87be775a00e26616973a3c0ced2c
   specs:
     mongodb (0.16.1)
       apt (>= 1.8.2)
       python (>= 0.0.0)
       runit (>= 1.5.0)
       yum (>= 3.0)
+
+GIT
+  remote: https://github.com/gildegoma/chef-android-sdk
+  ref: master
+  sha: 9bf11bb53ae6c6c7476b855bb86f7482173bb9a0
+  specs:
+    android-sdk (0.2.0)
+      ark (>= 0.0.0)
+      java (>= 0.0.0)
 
 GIT
   remote: https://github.com/mswart/chef-teamcity
@@ -90,7 +96,7 @@ GIT
 GIT
   remote: https://github.com/phlipper/chef-postgresql
   ref: master
-  sha: 8438360775ce239627878dddded9cfde72e2d3ff
+  sha: 4ed030dd3f6c770dd0f6a7a9bdc20f48ede448e0
   specs:
     postgresql (0.14.1)
       apt (>= 1.9.0)
@@ -113,7 +119,7 @@ GIT
       yum (>= 3.0)
 
 DEPENDENCIES
-  android-sdk (~> 0.1.1)
+  android-sdk (>= 0)
   beanstalkd (>= 0)
   composer (>= 0)
   cron (>= 0)
