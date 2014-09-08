@@ -46,6 +46,6 @@ class SupplierReturnFactory extends AbstractFactory
      */
     public function getSupplierReturnRepository()
     {
-        return $this->container->get('lighthouse.core.document.repository.stock_movement.supplierreturn');
+        return $this->container->get('lighthouse.core.document.repository.stock_movement.supplier_return');
     }
 }

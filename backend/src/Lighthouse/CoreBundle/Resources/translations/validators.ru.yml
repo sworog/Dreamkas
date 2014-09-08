@@ -60,6 +60,8 @@ lighthouse:
 
             stock_movement:
                 products.empty: Нужно добавить минимум один товар
+                product.does_not_exists: Такого товара не существует
+
             invoice:
                 dates_compare: Дата накладной не должна быть старше даты приемки
                 supplier:
@@ -69,15 +71,8 @@ lighthouse:
                     unique: Накладная по этому заказу уже существует
                     does_not_exists: Такой заказ не существует
 
-            invoice_product:
-                product.does_not_exists: Такого товара не существует
-
-            sale:
-                product.empty: Должен присутствовать хотя бы один товар
+            receipt:
                 hash.unique: Такая продажа уже зарегистрированна в системе
-            return:
-                product.empty: Должен присутствовать хотя бы один товар
-                hash.unique: Такой возврат уже зарегистрированна в системе
             group:
                 name.unique: Такая группа уже есть
             category:

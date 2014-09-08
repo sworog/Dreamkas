@@ -9,7 +9,7 @@ use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceFilter;
 use Lighthouse\CoreBundle\Document\Order\Order;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Exception\FlushFailedException;
-use Lighthouse\CoreBundle\Form\InvoiceType;
+use Lighthouse\CoreBundle\Form\StockMovement\InvoiceType;
 use Lighthouse\CoreBundle\Meta\MetaCollection;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use Symfony\Component\Form\FormInterface;

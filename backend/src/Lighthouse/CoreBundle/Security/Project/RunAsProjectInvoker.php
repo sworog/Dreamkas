@@ -4,6 +4,7 @@ namespace Lighthouse\CoreBundle\Security\Project;
 
 use Lighthouse\CoreBundle\Document\Project\Project;
 use JMS\DiExtraBundle\Annotation as DI;
+use Lighthouse\CoreBundle\MongoDB\SchemaManager;
 
 /**
  * @DI\Service("lighthouse.core.project.run_as_project_invoker")
@@ -29,7 +30,7 @@ class RunAsProjectInvoker
     /**
      * @param object $object
      * @param Project $project
-     * @return RunAsProjectInvokerProxy
+     * @return RunAsProjectInvokerProxy|SchemaManager
      */
     public function invoke($object, Project $project)
     {

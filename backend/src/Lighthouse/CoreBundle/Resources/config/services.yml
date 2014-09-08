@@ -105,7 +105,7 @@ services:
         arguments:
             - LighthouseCoreBundle:StockMovement\StockIn\Product\StockInProduct
             
-    lighthouse.core.document.repository.stock_movement.supplierreturn:
+    lighthouse.core.document.repository.stock_movement.supplier_return:
         parent: doctrine_mongodb.odm.repository
         class: Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturnRepository
         arguments:
@@ -113,7 +113,7 @@ services:
         calls:
             - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
     
-    lighthouse.core.document.repository.stock_movement.supplierreturn_product:
+    lighthouse.core.document.repository.stock_movement.supplier_return_product:
         parent: doctrine_mongodb.odm.repository
         class: Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\Product\SupplierReturnProductRepository
         arguments:

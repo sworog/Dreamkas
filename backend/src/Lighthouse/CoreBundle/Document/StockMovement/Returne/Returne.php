@@ -17,15 +17,17 @@ use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
  */
 class Returne extends Receipt
 {
+    const TYPE = 'Return';
+
     /**
      * @MongoDB\ReferenceMany(
      *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Returne\Product\ReturnProduct",
      *      simple=true,
      *      cascade={"persist","remove"},
-     *      mappedBy="return"
+     *      mappedBy="parent"
      * )
      *
-     * @Assert\NotBlank(message="lighthouse.validation.errors.return.product.empty")
+     * @Assert\NotBlank(message="lighthouse.validation.errors.stock_movement.products.empty")
      * @Assert\Valid(traverse=true)
      * @var ReturnProduct[]|Collection|PersistentCollection
      */

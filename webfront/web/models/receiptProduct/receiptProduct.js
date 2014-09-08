@@ -4,15 +4,33 @@ define(function(require, exports, module) {
 
     return Model.extend({
         defaults: {
-            product: {},
-            count: 1
+            quantity: 1,
+            price: null
+        },
+        models: {
+            product: require('models/product/product')
+        },
+        initialize: function(){
+            this.get('price') || this.set('price', this.models.product.get('sellingPrice') || 0)
         },
         saveData: function() {
 
             return {
-                product: this.get('product.id'),
-                count: this.get('count')
+                product: this.models.product.id,
+                quantity: this.get('quantity'),
+                price: this.get('price')
             };
+        },
+        validate: function(data){
+            var validateUrl = Model.baseApiUrl + '/stores/' + PAGE.params.storeId + '/sales?validate=1&validationGroups=products';
+
+            return $.ajax({
+                url: validateUrl,
+                type: 'POST',
+                data: {
+                    products: [data]
+                }
+            });
         }
     });
 });

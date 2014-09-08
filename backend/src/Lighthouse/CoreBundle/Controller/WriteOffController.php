@@ -8,7 +8,7 @@ use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffHighlightGenerator;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffFilter;
-use Lighthouse\CoreBundle\Form\WriteOffType;
+use Lighthouse\CoreBundle\Form\StockMovement\WriteOffType;
 use Lighthouse\CoreBundle\Meta\MetaCollection;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;

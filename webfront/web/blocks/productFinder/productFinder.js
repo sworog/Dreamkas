@@ -9,7 +9,9 @@ define(function(require, exports, module) {
             products: require('collections/products/products')
         },
         models: {
-            receipt: require('models/receipt/receipt')
+            receipt: function(){
+                return PAGE.models.receipt;
+            }
         },
         events: {
             'keyup input[name="product"]': function(e) {
@@ -57,7 +59,7 @@ define(function(require, exports, module) {
             Block.prototype.initialize.apply(block, arguments);
 
             $(document).on('keyup', function(e) {
-                if (checkKey(e.keyCode, ['ESC'])) {
+                if (checkKey(e.keyCode, ['ESC']) && $('.modal:visible').length == 0) {
                     block.reset();
                 }
 
@@ -78,11 +80,21 @@ define(function(require, exports, module) {
         },
 
         addProductToReceipt: function(productId) {
-            var block = this;
+            var block = this,
+                ReceiptProductModel = require('models/receiptProduct/receiptProduct'),
+                receiptProductModel = new ReceiptProductModel({
+                    product: block.collections.products.get(productId).toJSON()
+                });
 
-            block.models.receipt.collections.products.add({
-                product: block.collections.products.get(productId).toJSON()
-            });
+            if (receiptProductModel.get('price')){
+                block.models.receipt.collections.products.add(receiptProductModel);
+            } else {
+                document.getElementById('modal_receiptProduct').block.show({
+                    models: {
+                        receiptProduct: receiptProductModel
+                    }
+                });
+            }
         },
         reset: function(){
             var block = this;

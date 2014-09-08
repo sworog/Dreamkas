@@ -93,7 +93,7 @@ class SupplierReturnBuilder
         $price = ($price) ?: 5.99;
 
         $supplierReturnProduct = new SupplierReturnProduct();
-        $supplierReturnProduct->supplierReturn = $this->supplierReturn;
+        $supplierReturnProduct->parent = $this->supplierReturn;
         $supplierReturnProduct->product = $this->factory->createProductVersion($productId);
         $supplierReturnProduct->quantity = $this->numericFactory->createQuantity($quantity);
         $supplierReturnProduct->price = $this->numericFactory->createMoney($price);

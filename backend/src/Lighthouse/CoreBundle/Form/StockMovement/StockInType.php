@@ -1,12 +1,13 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Form;
+namespace Lighthouse\CoreBundle\Form\StockMovement;
 
-use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOff;
+use Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockIn;
 use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Form\DocumentType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class WriteOffType extends DocumentType
+class StockInType extends DocumentType
 {
     /**
      * @var bool
@@ -33,7 +34,7 @@ class WriteOffType extends DocumentType
                 'products',
                 'collection',
                 array(
-                    'type' => new WriteOffProductType(),
+                    'type' => new StockInProductType(),
                     'allow_add' => true,
                     'allow_delete' => true,
                     'by_reference' => false,
@@ -58,6 +59,6 @@ class WriteOffType extends DocumentType
      */
     protected function getDataClass()
     {
-        return WriteOff::getClassName();
+        return StockIn::getClassName();
     }
 }

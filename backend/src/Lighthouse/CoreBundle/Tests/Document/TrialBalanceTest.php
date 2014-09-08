@@ -218,7 +218,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $sale->store = $store;
 
         $saleProduct = new SaleProduct();
-        $saleProduct->sale = $sale;
+        $saleProduct->parent = $sale;
         $saleProduct->product = $productVersion;
         $saleProduct->quantity = $numericFactory->createQuantity(3);
         $saleProduct->price = $numericFactory->createMoney(79.99);
@@ -263,7 +263,7 @@ class TrialBalanceTest extends ContainerAwareTestCase
         $writeOff->store = $store;
 
         $writeOffProduct = new WriteOffProduct();
-        $writeOffProduct->writeOff = $writeOff;
+        $writeOffProduct->parent = $writeOff;
         $writeOffProduct->product = $productVersion;
         $writeOffProduct->quantity = $numericFactory->createQuantity(3);
         $writeOffProduct->price = $numericFactory->createMoney(79.99);

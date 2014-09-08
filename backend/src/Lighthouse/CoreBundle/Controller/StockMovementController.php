@@ -6,7 +6,7 @@ use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovementFilter;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovementRepository;
-use Lighthouse\CoreBundle\Form\StockMovementFilterType;
+use Lighthouse\CoreBundle\Form\StockMovement\StockMovementFilterType;
 use JMS\DiExtraBundle\Annotation as DI;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;

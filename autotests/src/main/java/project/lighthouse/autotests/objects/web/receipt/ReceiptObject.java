@@ -13,7 +13,7 @@ import java.util.Map;
 public class ReceiptObject extends AbstractObject implements ObjectClickable, ObjectLocatable, ResultComparable {
 
     private String name;
-    private String count;
+    private String quantity;
     private String price;
 
     public ReceiptObject(WebElement element) {
@@ -23,7 +23,7 @@ public class ReceiptObject extends AbstractObject implements ObjectClickable, Ob
     @Override
     public void setProperties() {
         name = getElement().findElement(By.name("name")).getText();
-        count = getElement().findElement(By.name("count")).getText();
+        quantity = getElement().findElement(By.name("quantity")).getText();
         price = getElement().findElement(By.name("price")).getText();
     }
 
@@ -42,7 +42,7 @@ public class ReceiptObject extends AbstractObject implements ObjectClickable, Ob
     public CompareResults getCompareResults(Map<String, String> row) {
         return new CompareResults()
                 .compare("name", name, row.get("name"))
-                .compare("count", count, row.get("count"))
+                .compare("quantity", quantity, row.get("quantity"))
                 .compare("price", price, row.get("price"));
     }
 }

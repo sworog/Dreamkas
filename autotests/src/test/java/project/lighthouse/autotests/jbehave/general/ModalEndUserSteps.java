@@ -25,6 +25,7 @@ public class ModalEndUserSteps {
     }
 
     @When("пользователь* в модальном окне вводит значение '$value' в поле с именем '$elementName'")
+    @Alias("пользователь* в модальном окне вводит значение value в поле с именем '$elementName'")
     public void whenUserInputsValueInFieldWithName(String value, String elementName) {
         modalSteps.input(elementName, value);
     }
@@ -40,6 +41,7 @@ public class ModalEndUserSteps {
     }
 
     @Then("пользователь* в модальном окне проверяет, что у поля с именем '$elementName' имеется сообщения об ошибке с сообщением '$errorMessage'")
+    @Alias("пользователь* в модальном окне проверяет, что у поля с именем '$elementName' имеется сообщения об ошибке с сообщением errorMessage")
     public void thenUserChecksFieldWithNameHasErrorMessageWithText(String elementName, String errorMessage) {
         modalSteps.checkItemErrorMessage(elementName, errorMessage);
     }

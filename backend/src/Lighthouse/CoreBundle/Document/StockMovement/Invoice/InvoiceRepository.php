@@ -43,7 +43,7 @@ class InvoiceRepository extends StockMovementRepository
             $invoiceProduct->quantity = $orderProduct->quantity;
             $invoiceProduct->product = $orderProduct->product;
             $invoiceProduct->priceEntered = $orderProduct->product->purchasePrice;
-            $invoiceProduct->invoice = $invoice;
+            $invoiceProduct->parent = $invoice;
 
             $invoice->products->add($invoiceProduct);
         }

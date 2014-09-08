@@ -16,26 +16,9 @@ define(function(require, exports, module) {
             receipt: require('models/receipt/receipt')
         },
         blocks: {
-            productFinder: function(opt){
-                var block = this,
-                    ProductFinder = require('blocks/productFinder/productFinder');
-
-                return new ProductFinder({
-                    el: opt.el,
-                    models: {
-                        receipt: block.models.receipt
-                    }
-                });
-            },
-            form_receipt: function(opt){
-                var block = this,
-                    Form_receipt = require('blocks/form/receipt/receipt');
-
-                return new Form_receipt({
-                    el: opt.el,
-                    model: block.models.receipt
-                })
-            }
+            productFinder: require('blocks/productFinder/productFinder'),
+            form_receipt: require('blocks/form/receipt/receipt'),
+            modal_receiptProduct: require('blocks/modal/receiptProduct/receiptProduct')
         }
     });
 });

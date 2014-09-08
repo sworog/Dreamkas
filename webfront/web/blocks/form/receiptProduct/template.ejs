@@ -1,0 +1,84 @@
+<form id="<%- id %>" class="form form_receiptProduct">
+
+    <div style="padding-bottom: 20px;">
+        <h4 name="name">
+            <%- model.models.product.get('name') %>
+        </h4>
+
+        <div name="barcode" style="font-size: 11px;">
+            <%- model.models.product.get('barcode') %>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Цена продажи, <i class="fa fa-rub"></i></label>
+                <input autofocus
+                       class="form-control"
+                       type="text"
+                       name="price"
+                       rv-live-value="data.price">
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Количество, <%- model.models.product.get('units') %> </label>
+
+                <div class="input-group">
+
+                    <a class="form_receiptProduct__quantityMinusLink input-group-addon">
+                        <i class="fa fa-minus"></i>
+                    </a>
+
+                    <input class="form-control"
+                           type="text"
+                           name="quantity"
+                           style="text-align: center"
+                           rv-live-value="data.quantity">
+
+                    <a class="form_receiptProduct__quantityPlusLink input-group-addon">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+
+
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Стоимость, <i class="fa fa-rub"></i></label>
+
+                <div name="itemPrice" style="padding-top: 7px;">
+                    {{calculateItemPrice < data.quantity data.price}}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="form__errorMessage form__errorMessage_global"></div>
+
+
+    <% if (model.collection) { %>
+    <div style="margin-top: 40px;" class="confirmLink">
+
+        <div class="confirmLink__trigger">
+            <span class="removeLink">
+                <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                Удалить продукт из чека
+            </span>
+        </div>
+
+        <div class="confirmLink__confirmation">
+            <span class="removeLink form_receiptProduct__removeLink">
+                <i style="margin-right: 5px;" class="fa fa-trash-o"></i>
+                Подтвердить удаление
+            </span>
+        </div>
+
+    </div>
+    <% } %>
+</form>

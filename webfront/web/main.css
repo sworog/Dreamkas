@@ -16,7 +16,7 @@
 @import "/blocks/autocomplete/autocomplete.css";
 @import "/blocks/page/page.css";
 @import "/blocks/productFinder/productFinder.css";
-@import "/blocks/form/receipt/receipt.css";
+@import "/blocks/form/form.css";
 
 body:before {
     content: "";
@@ -52,6 +52,18 @@ body[status="loaded"]:before {
     -webkit-transition: -webkit-transform 1s, opacity 1s;
     transform: translate3d(100%, 0, 0);
     transition: transform 1s, opacity 1s;
+}
+
+a {
+    cursor: pointer;
+}
+
+a:hover .fa {
+    color: #0a819c;
+}
+
+.navbar-static-side ul li a .fa{
+    color: #fff !important;
 }
 
 #signin-page, #signup-page {
