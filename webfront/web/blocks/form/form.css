@@ -6,12 +6,16 @@
     user-select: none
 }
 
-.form_receipt__totalPrice, .form_receipt__totalPrice .fa{
+.form_receipt__totalPrice, .form_receipt__totalPrice .fa {
     font-size: 28px;
     font-weight: bold;
     color: #0a819c;
 }
 
-.form_receipt__totalPrice .fa{
+.form_receipt__totalPrice .fa {
     font-size: 24px;
+}
+
+.form_receipt__change {
+    display: none;
 }

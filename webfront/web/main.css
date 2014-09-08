@@ -234,6 +234,6 @@ select.loading, input.loading {
 }
 
 .btn.disabled, .btn[disabled]{
-    background-color: #dddddd;
-    border-color: #dddddd;
+    background-color: #dadada;
+    border-color: #dadada;
 }

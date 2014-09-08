@@ -1,12 +1,23 @@
 <form class="form_receipt"
       id="<%- get('id') %>">
 
+    <div class="form-group form_receipt__change pull-right" style="padding-bottom: 20px;">
+        <label>
+            <b>Сдача</b>
+        </label>
+
+        <div name="change" class="form_receipt__totalPrice">
+            {calculateChange < data.cash} <i class="fa fa-rub"></i>
+        </div>
+
+    </div>
+
     <div class="form-group" style="padding-bottom: 20px;">
         <label>
             <b>Сумма к оплате</b>
         </label>
 
-        <div class="form_receipt__totalPrice">
+        <div name="totalPrice" class="form_receipt__totalPrice">
             <%- calculateTotalPrice() %> <i class="fa fa-rub"></i>
         </div>
 
@@ -43,6 +54,7 @@
 
         <input name="cash"
                type="text"
+               rv-live-value="data.cash"
                class="form-control"
                autofocus>
     </div>
