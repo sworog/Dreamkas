@@ -19,6 +19,7 @@ class ReceiptRepository extends StockMovementRepository
         switch ($type) {
             case Sale::TYPE:
                 $receipt = new Sale();
+                $receipt->amountTendered = $this->numericFactory->createMoney();
                 break;
             case Returne::TYPE:
                 $receipt = new Returne();

@@ -43,8 +43,8 @@ lighthouse.core.return_product:
     resource: Lighthouse\CoreBundle\Controller\ReturnProductController
     type:     rest
 
-lighthouse.core.receipt:
-    resource: Lighthouse\CoreBundle\Controller\ReceiptController
+lighthouse.core.sale:
+    resource: Lighthouse\CoreBundle\Controller\SaleController
     type:     rest
 
 lighthouse.core.group:

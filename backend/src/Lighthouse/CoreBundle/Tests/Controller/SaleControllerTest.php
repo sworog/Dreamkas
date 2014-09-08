@@ -2,18 +2,14 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
-class ReceiptControllerTest extends WebTestCase
+class SaleControllerTest extends WebTestCase
 {
-    /**
-     * @dataProvider typesProvider
-     * @param string $path
-     * @param string $expectedType
-     */
-    public function testPostAction($path, $expectedType)
+    public function testPostAction()
     {
         $store = $this->factory()->store()->getStore();
         $productId = $this->createProduct();
@@ -26,7 +22,9 @@ class ReceiptControllerTest extends WebTestCase
                     'quantity' => 10,
                     'price' => 17.68
                 )
-            )
+            ),
+            'paymentType' => Sale::PAYMENT_TYPE_CASH,
+            'amountTendered' => 200
         );
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -34,14 +32,14 @@ class ReceiptControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            "/api/1/stores/{$store->id}/{$path}",
+            "/api/1/stores/{$store->id}/sales",
             $saleData
         );
 
         $this->assertResponseCode(201);
 
         Assert::assertJsonHasPath('id', $response);
-        Assert::assertJsonPathEquals($expectedType, 'type', $response);
+        Assert::assertJsonPathEquals(Sale::TYPE, 'type', $response);
         Assert::assertJsonPathEquals('2014-09-09T16:23:12+0400', 'date', $response);
         Assert::assertJsonPathEquals($store->id, 'store.id', $response);
 
@@ -53,27 +51,18 @@ class ReceiptControllerTest extends WebTestCase
 
         Assert::assertJsonPathEquals('1', 'itemsCount', $response);
         Assert::assertJsonPathEquals('176.80', 'sumTotal', $response);
+
+        Assert::assertJsonPathEquals('200.00', 'amountTendered', $response);
+        Assert::assertJsonPathEquals('23.20', 'change', $response);
     }
 
     /**
-     * @return array
-     */
-    public function typesProvider()
-    {
-        return array(
-            'Sale' => array('sales', 'Sale'),
-            'Return' => array('returns', 'Return'),
-        );
-    }
-
-    /**
-     * @dataProvider typesValidationProvider
-     * @param string $type
+     * @dataProvider validationProvider
      * @param int $expectedCode
      * @param array $data
      * @param array $assertions
      */
-    public function testPostWithValidationGroup($type, $expectedCode, array $data, array $assertions = array())
+    public function testPostWithValidationGroup($expectedCode, array $data, array $assertions = array())
     {
         $productIds = $this->createProductsByNames(array('1', '2', '3'));
 
@@ -87,7 +76,9 @@ class ReceiptControllerTest extends WebTestCase
                     'quantity' => 10,
                     'price' => 17.68
                 )
-            )
+            ),
+            'paymentType' => Sale::PAYMENT_TYPE_CASH,
+            'amountTendered' => ''
         );
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -95,7 +86,7 @@ class ReceiptControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            "/api/1/stores/{$store->id}/{$type}?validate=true&validationGroups=products",
+            "/api/1/stores/{$store->id}/sales?validate=true&validationGroups=products",
             $saleData
         );
 
@@ -107,29 +98,6 @@ class ReceiptControllerTest extends WebTestCase
         } else {
             Assert::assertNotJsonHasPath('date', $response);
         }
-    }
-
-    /**
-     * @return array
-     */
-    public function typesValidationProvider()
-    {
-        return $this->applyTypesToProvider($this->validationProvider());
-    }
-
-    /**
-     * @param array $providerData
-     * @return array
-     */
-    protected function applyTypesToProvider(array $providerData)
-    {
-        $typedData = array();
-        foreach (array('sales', 'returns') as $type) {
-            foreach ($providerData as $key => $row) {
-                $typedData[$type . '::' . $key] = array_merge(array($type), $row);
-            }
-        }
-        return $typedData;
     }
 
     /**
@@ -341,23 +309,20 @@ class ReceiptControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider totalsCalculationWithValidationGroupDataProviderWithTypes
-     * @param string $type
+     * @dataProvider totalsCalculationWithValidationGroupDataProvider
      * @param array $products
      * @param array $assertions
      */
-    public function testTotalsCalculationOnPostWithValidationGroupOnPost(
-        $type,
-        array $products,
-        array $assertions
-    ) {
+    public function testTotalsCalculationOnPostWithValidationGroupOnPost(array $products, array $assertions)
+    {
         $store = $this->factory()->store()->getStore();
 
         $productIds = $this->createProductsByNames(array('1', '2', '3'));
 
         $receiptData = array(
             'date' => '',
-            'products' => $products
+            'products' => $products,
+            'amountTendered' => ''
         );
 
         foreach ($receiptData['products'] as &$product) {
@@ -370,7 +335,7 @@ class ReceiptControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            "/api/1/stores/{$store->id}/{$type}?validate=true&validationGroups=products",
+            "/api/1/stores/{$store->id}/sales?validate=true&validationGroups=products",
             $receiptData
         );
 
@@ -380,14 +345,6 @@ class ReceiptControllerTest extends WebTestCase
         Assert::assertNotJsonHasPath('name', $response);
 
         $this->performJsonAssertions($response, $assertions);
-    }
-
-    /**
-     * @return array
-     */
-    public function totalsCalculationWithValidationGroupDataProviderWithTypes()
-    {
-        return $this->applyTypesToProvider($this->totalsCalculationWithValidationGroupDataProvider());
     }
 
     /**
@@ -454,24 +411,16 @@ class ReceiptControllerTest extends WebTestCase
 
         $this->assertStoreProductTotals($store->id, $productId, 100, 15.00);
 
-        $this->postSaleWithOneProduct($store, '2014-09-09T08:23:12+04:00', $productId, 10, 17.68);
+        $this->postSaleWithOneProduct($store, '2014-09-09T08:23:12+04:00', $productId, 10, 17.68, 200);
 
         $this->assertStoreProductTotals($store->id, $productId, 90, 15.00);
 
-        $this->postSaleWithOneProduct($store, '2014-09-09T08:24:54+04:00', $productId, 4.555, 17.68);
+        $this->postSaleWithOneProduct($store, '2014-09-09T08:24:54+04:00', $productId, 4.555, 17.68, 100);
 
         $this->assertStoreProductTotals($store->id, $productId, 85.445, 15.00);
-
-        $this->postReturnWithOneProduct($store, '2014-09-10T08:23:12+04:00', $productId, 3, 15.00);
-
-        $this->assertStoreProductTotals($store->id, $productId, 88.445, 15.00);
     }
 
-    /**
-     * @dataProvider typesProvider
-     * @param string $path
-     */
-    public function testGetAction($path)
+    public function testGetAction()
     {
         $store = $this->factory()->store()->getStore();
         $productId = $this->createProduct();
@@ -484,7 +433,9 @@ class ReceiptControllerTest extends WebTestCase
                     'quantity' => 10,
                     'price' => 17.68
                 )
-            )
+            ),
+            'amountTendered' => 200,
+            'paymentType' => Sale::PAYMENT_TYPE_CASH
         );
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -492,7 +443,7 @@ class ReceiptControllerTest extends WebTestCase
         $postResponse = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            "/api/1/stores/{$store->id}/{$path}",
+            "/api/1/stores/{$store->id}/sales",
             $saleData
         );
 
@@ -504,7 +455,7 @@ class ReceiptControllerTest extends WebTestCase
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
-            "/api/1/stores/{$store->id}/{$path}/{$id}"
+            "/api/1/stores/{$store->id}/sales/{$id}"
         );
 
         $this->assertResponseCode(200);
@@ -513,80 +464,24 @@ class ReceiptControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider getReceiptByTypePathProvider
-     * @param $postType
-     * @param $getPath
-     * @param $expectedResponseCode
-     */
-    public function testGetReceiptByTypePath($postType, $getPath, $expectedResponseCode)
-    {
-        $store = $this->factory()->store()->getStore();
-        $productId = $this->createProduct();
-
-        $id = $this->postReceiptWithOneProduct($postType, $store, '2014-08-08T08:08:08+08:00', $productId, 9.78, 12.56);
-
-        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
-
-        $this->client->setCatchException();
-        $this->clientJsonRequest(
-            $accessToken,
-            'GET',
-            "/api/1/stores/{$store->id}/{$getPath}/{$id}"
-        );
-
-        $this->assertResponseCode($expectedResponseCode);
-    }
-
-    /**
-     * @return array
-     */
-    public function getReceiptByTypePathProvider()
-    {
-        return array(
-            'returns sales 404' => array('returns', 'sales', 404),
-            'returns returns 200' => array('returns', 'returns', 200),
-            'sales returns 404' => array('sales', 'returns', 404),
-            'sales sales 200' => array('sales', 'sales', 200),
-        );
-    }
-
-    /**
      * @param Store $store
      * @param string $date
      * @param string $productId
      * @param float $quantity
      * @param float $price
+     * @param float $amountTendered
+     * @param string $paymentType
      * @return string Sale id
      */
-    protected function postSaleWithOneProduct(Store $store, $date, $productId, $quantity, $price)
-    {
-        return $this->postReceiptWithOneProduct('sales', $store, $date, $productId, $quantity, $price);
-    }
-
-    /**
-     * @param Store $store
-     * @param string $date
-     * @param string $productId
-     * @param float $quantity
-     * @param float $price
-     * @return string Sale id
-     */
-    protected function postReturnWithOneProduct(Store $store, $date, $productId, $quantity, $price)
-    {
-        return $this->postReceiptWithOneProduct('returns', $store, $date, $productId, $quantity, $price);
-    }
-
-    /**
-     * @param string $type
-     * @param Store $store
-     * @param string $date
-     * @param string $productId
-     * @param float $quantity
-     * @param float $price
-     * @return string
-     */
-    protected function postReceiptWithOneProduct($type, Store $store, $date, $productId, $quantity, $price)
-    {
+    protected function postSaleWithOneProduct(
+        Store $store,
+        $date,
+        $productId,
+        $quantity,
+        $price,
+        $amountTendered,
+        $paymentType = null
+    ) {
         $products = array(
             array(
                 'product' => $productId,
@@ -595,21 +490,24 @@ class ReceiptControllerTest extends WebTestCase
             )
         );
 
-        return $this->postReceipt($type, $store, $date, $products);
+        return $this->postSale($store, $date, $products, $amountTendered, $paymentType);
     }
 
     /**
-     * @param string $type
      * @param Store $store
      * @param string $date
      * @param array $products
+     * @param float $amountTendered
+     * @param string $paymentType
      * @return string
      */
-    protected function postReceipt($type, Store $store, $date, array $products)
+    protected function postSale(Store $store, $date, array $products, $amountTendered, $paymentType = null)
     {
         $saleData = array(
             'date' => $date,
-            'products' => $products
+            'products' => $products,
+            'amountTendered' => $amountTendered,
+            'paymentType' => $paymentType ?: Sale::PAYMENT_TYPE_CASH
         );
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -617,7 +515,7 @@ class ReceiptControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            "/api/1/stores/{$store->id}/{$type}",
+            "/api/1/stores/{$store->id}/sales",
             $saleData
         );
 
