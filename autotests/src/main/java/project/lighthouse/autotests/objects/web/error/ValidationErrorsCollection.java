@@ -40,8 +40,6 @@ public class ValidationErrorsCollection extends AbstractObjectCollection<Validat
 
     /**
      * use {@link #compareWithExampleTable(org.jbehave.core.model.ExamplesTable)}}
-     *
-     * @param examplesTable
      */
     @Deprecated
     public void matchesWithExampleTable(ExamplesTable examplesTable) {

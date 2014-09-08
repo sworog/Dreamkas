@@ -79,8 +79,6 @@ public class AuthorizationSteps extends ScenarioSteps {
     /**
      * This is actually bad type workaround for failing logging in.
      * For some reasons the type method is disturbed and the userName is not typed fully.
-     *
-     * @param inputText
      */
     @Step
     public void workAroundTypeForUserName(String inputText) {
