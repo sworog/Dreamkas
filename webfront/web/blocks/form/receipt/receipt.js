@@ -36,7 +36,7 @@ define(function(require, exports, module) {
             var block = this,
                 $form_receipt__change = block.$('.form_receipt__change');
 
-            if (!block.el.querySelector('input[name="cash"]').value.length || block.normalizeNumber(block.data.change) < 0) {
+            if (!block.data.change || block.normalizeNumber(block.data.change) < 0) {
                 $form_receipt__change.hide();
                 block.disable();
             } else {
@@ -56,9 +56,10 @@ define(function(require, exports, module) {
         },
         calculateChange: function() {
             var block = this,
-                totalPrice = block.calculateTotalPrice();
+                totalPrice = block.calculateTotalPrice(),
+                change = block.normalizeNumber(block.data.cash) - block.normalizeNumber(totalPrice);
 
-            block.data.change = block.formatMoney(block.normalizeNumber(block.data.cash) - block.normalizeNumber(totalPrice));
+            block.data.change = _.isNaN(change) ? null : block.formatMoney(change);
 
             return block.data.change;
         }
