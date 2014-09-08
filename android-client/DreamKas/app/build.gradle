@@ -32,9 +32,11 @@ android
         testInstrumentationRunner 'com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner'
     }
 
+
+
     testOptions
     {
-        reportDir = "$project.buildDir/reports/androidTests/connected/"
+        reportDir = "$project.buildDir/reports/"
     }
 
     buildTypes
@@ -51,6 +53,7 @@ android
     }
     productFlavors
     {
+
     }
 }
 
@@ -76,3 +79,5 @@ dependencies
     compile 'com.fasterxml.jackson.core:jackson-databind:2.3.3'
     compile 'org.androidannotations:androidannotations-api:3.0'
 }
+
+
