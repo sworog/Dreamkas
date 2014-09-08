@@ -7,6 +7,13 @@ define(function(require, exports, module) {
         model: function(){
             return PAGE.models.receipt
         },
+        events: {
+            'change input[name="paymentType"]': function(e){
+                var block = this;
+                
+                block.$('.form_receipt__cashInput').toggle(e.target.value === 'cash');
+            }
+        },
         calculateTotalPrice: function() {
             var block = this,
                 totalPrice = 0;

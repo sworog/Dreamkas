@@ -1,24 +1,25 @@
 <form class="form_receipt"
       id="<%- get('id') %>">
 
-    <div class="form-group">
+    <div class="form-group" style="padding-bottom: 20px;">
         <label>
             <b>Сумма к оплате</b>
         </label>
 
         <div class="form_receipt__totalPrice">
-            <%- calculateTotalPrice() %>
+            <%- calculateTotalPrice() %> <i class="fa fa-rub"></i>
         </div>
 
     </div>
 
-    <div class="form-group">
+    <div class="form-group" style="padding-bottom: 30px;">
         <label>Оплата</label>
 
         <div>
             <div class="radioGroup">
                 <label>
-                    <input type="radio" name="type" value="cash" checked />
+                    <input type="radio" name="paymentType"
+                           value="cash" <%- data.paymentType === 'cash' && 'checked' %> />
 
                     <div class="radioGroup__text">
                         Наличными
@@ -26,7 +27,8 @@
                 </label>
 
                 <label>
-                    <input type="radio" name="type" value="card" />
+                    <input type="radio" name="paymentType"
+                           value="card" <%- data.paymentType === 'card' && 'checked' %> />
 
                     <div class="radioGroup__text">
                         Банковской картой
@@ -36,4 +38,12 @@
         </div>
     </div>
 
+    <div class="form-group form_receipt__cashInput">
+        <label><b>Внесенная сумма наличными</b></label>
+
+        <input name="cash"
+               type="text"
+               class="form-control"
+               autofocus>
+    </div>
 </form>

@@ -6,6 +6,9 @@ define(function(require, exports, module) {
         collections: {
             products: require('collections/receiptProducts/receiptProducts')
         },
+        defaults: {
+            paymentType: 'cash'
+        },
         saveData: function(){
 
             return {
