@@ -32,6 +32,11 @@ android
         testInstrumentationRunner 'com.google.android.apps.common.testing.testrunner.GoogleInstrumentationTestRunner'
     }
 
+    testOptions
+    {
+        reportDir = "$project.buildDir/reports/androidTests/connected/"
+    }
+
     buildTypes
     {
         release
