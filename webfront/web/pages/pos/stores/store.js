@@ -17,7 +17,7 @@ define(function(require, exports, module) {
         },
         blocks: {
             productFinder: require('blocks/productFinder/productFinder'),
-            form_receipt: require('blocks/form/receipt/receipt'),
+            receipt: require('blocks/receipt/receipt'),
             modal_receiptProduct: require('blocks/modal/receiptProduct/receiptProduct')
         }
     });

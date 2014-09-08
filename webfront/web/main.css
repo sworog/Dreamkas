@@ -17,6 +17,7 @@
 @import "/blocks/page/page.css";
 @import "/blocks/productFinder/productFinder.css";
 @import "/blocks/form/form.css";
+@import "/blocks/receipt/receipt.css";
 
 body:before {
     content: "";

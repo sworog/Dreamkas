@@ -5,7 +5,7 @@ define(function(require, exports, module) {
         _ = require('lodash');
 
     return Block.extend({
-        render: function(){
+        render: function() {
             var block = this;
 
             Block.prototype.render.apply(block, arguments);
@@ -14,7 +14,7 @@ define(function(require, exports, module) {
                 show: false
             });
         },
-        show: function(opt){
+        show: function(opt) {
             var block = this;
 
             block.set(opt);
@@ -23,7 +23,7 @@ define(function(require, exports, module) {
 
             block.$el.modal('show');
         },
-        hide: function(){
+        hide: function() {
             var block = this;
 
             block.$el.modal('hide');

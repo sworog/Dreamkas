@@ -32,7 +32,7 @@
     width: 100%;
 }
 
-.page_pos .col, .page_pos .productFinder, .page_pos .form_receipt {
+.page_pos .col, .page_pos .row, .page_pos .productFinder, .page_pos .receipt {
     height: 100%;
     position: relative;
 }
