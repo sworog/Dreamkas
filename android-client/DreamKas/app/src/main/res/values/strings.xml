@@ -2,8 +2,9 @@
 <resources>
 
     <string name="app_name">DreamKas</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="hello_world2">Hello world2!</string>
+    <string name="hello_world">Success</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_lighhouse_demo">LighhouseDemoActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
 
 </resources>
