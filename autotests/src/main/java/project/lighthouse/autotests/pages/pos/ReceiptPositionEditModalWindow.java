@@ -1,6 +1,5 @@
 package project.lighthouse.autotests.pages.pos;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import project.lighthouse.autotests.elements.items.Input;
 import project.lighthouse.autotests.elements.items.NonType;
@@ -27,20 +26,20 @@ public class ReceiptPositionEditModalWindow extends ModalWindowPage {
     }
 
     public void clickOnPlusButton() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'form_receiptProduct__quantityPlusLink')]")).click();
+        clickInTheModalWindowByXpath("//*[contains(@class, 'form_receiptProduct__quantityPlusLink')]");
     }
 
     public void clickOnMinusButton() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'form_receiptProduct__quantityMinusLink')]")).click();
+        clickInTheModalWindowByXpath("//*[contains(@class, 'form_receiptProduct__quantityMinusLink')]");
     }
 
     @Override
     public void deleteButtonClick() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='removeLink']")).click();
+        clickInTheModalWindowByXpath("//*[@class='removeLink']");
     }
 
     @Override
     public void confirmDeleteButtonClick() {
-        findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='confirmLink__confirmation']//*[@class='removeLink form_receiptProduct__removeLink']")).click();
+        clickInTheModalWindowByXpath("//*[@class='confirmLink__confirmation']//*[@class='removeLink form_receiptProduct__removeLink']");
     }
 }
