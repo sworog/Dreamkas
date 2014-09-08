@@ -17,7 +17,7 @@ define(function(require, exports, module) {
                 if (e.target.value === 'cash') {
                     $form_receipt__cashInput.show();
                     block.checkChange();
-                    block.el.querySelector('input[name="cash"]').focus();
+                    block.el.querySelector('input[name="amountTendered"]').focus();
 
                 } else {
                     $form_receipt__cashInput.hide();
@@ -26,7 +26,7 @@ define(function(require, exports, module) {
                 }
 
             },
-            'keyup input[name="cash"]': function() {
+            'keyup input[name="amountTendered"]': function() {
                 var block = this;
 
                 block.checkChange();
@@ -57,7 +57,7 @@ define(function(require, exports, module) {
         calculateChange: function() {
             var block = this,
                 totalPrice = block.calculateTotalPrice(),
-                change = block.normalizeNumber(block.data.cash) - block.normalizeNumber(totalPrice);
+                change = block.normalizeNumber(block.data.amountTendered) - block.normalizeNumber(totalPrice);
 
             block.data.change = _.isNaN(change) ? null : block.formatMoney(change);
 

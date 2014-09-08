@@ -7,7 +7,7 @@
         </label>
 
         <div name="change" class="form_receipt__totalPrice">
-            {calculateChange < data.cash} <i class="fa fa-rub"></i>
+            {calculateChange < data.amountTendered} <i class="fa fa-rub"></i>
         </div>
 
     </div>
@@ -52,9 +52,9 @@
     <div class="form-group form_receipt__cashInput">
         <label><b>Внесенная сумма наличными</b></label>
 
-        <input name="cash"
+        <input name="amountTendered"
                type="text"
-               rv-live-value="data.cash"
+               rv-live-value="data.amountTendered"
                class="form-control"
                autofocus>
     </div>
