@@ -9,8 +9,8 @@ import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.product.ProductCollection;
 import project.lighthouse.autotests.pages.catalog.group.GroupPage;
-import project.lighthouse.autotests.pages.catalog.group.modal.ProductEditModalWindow;
 import project.lighthouse.autotests.pages.catalog.group.modal.ProductCreateModalWindow;
+import project.lighthouse.autotests.pages.catalog.group.modal.ProductEditModalWindow;
 import project.lighthouse.autotests.storage.Storage;
 
 import static org.hamcrest.Matchers.is;

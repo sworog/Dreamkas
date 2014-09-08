@@ -6,7 +6,6 @@ import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
-import project.lighthouse.autotests.objects.web.deprecated.product.invoiceList.InvoiceListObject;
 
 import java.util.ArrayList;
 import java.util.List;
