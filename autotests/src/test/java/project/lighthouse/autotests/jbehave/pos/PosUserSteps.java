@@ -37,6 +37,16 @@ public class PosUserSteps {
         posSteps.clickOnMinusButton();
     }
 
+    @When("пользователь нажимает на кнопку очистки чека")
+    public void whenTheUserClicksOnReceiptClearButton() {
+        posSteps.clearReceipt();
+    }
+
+    @When("пользователь подтверждает очищение чека")
+    public void whrnTheUserConfirmsReceiptClear() {
+        posSteps.confirmClearReceipt();
+    }
+
     @Then("пользователь проверяет, что коллекция результатов поиска автокомплита содержит следующие конкретные данные $examplesTable")
     public void thenExactCompareWithExamplesTable(ExamplesTable examplesTable) {
         posSteps.exactComparePosAutocompleteResultsCollectionWithExamplesTable(examplesTable);

@@ -1,6 +1,7 @@
 define(function(require, exports, module) {
     //requirements
-    var Model = require('kit/model/model');
+    var Model = require('kit/model/model'),
+        normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
 
     return Model.extend({
         defaults: {
@@ -18,7 +19,7 @@ define(function(require, exports, module) {
             return {
                 product: this.models.product.id,
                 quantity: this.get('quantity'),
-                price: this.get('price')
+                price: normalizeNumber(this.get('price'))
             };
         },
         validate: function(data){

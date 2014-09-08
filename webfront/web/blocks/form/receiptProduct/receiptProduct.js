@@ -56,10 +56,14 @@ define(function(require, exports, module) {
             return PAGE.models.receipt.collections.products;
         },
         submit: function(){
-            var block = this;
+            var block = this,
+                data = _.extend({}, block.data, {
+                    price: block.data.price.length ? normalizeNumber(block.data.price) : null,
+                    quantity: block.data.quantity.length ? normalizeNumber(block.data.quantity) : null
+                });
 
-            return block.model.validate(block.data).then(function(){
-                block.model.set(block.data);
+            return block.model.validate(data).then(function(){
+                block.model.set(data);
             });
         },
         calculateItemPrice: function(){
