@@ -8,6 +8,7 @@
         "recipe[nodejs]",
         "recipe[nodejs::npm]",
         "recipe[android-sdk]",
+        "recipe[gradle]",
         "recipe[lighthouse::bundler]",
         "recipe[lighthouse::agent_keys]"
     ],

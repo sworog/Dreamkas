@@ -32,5 +32,6 @@ cookbook 'openssh'
 cookbook 'ruby'
 cookbook 'ssh-util'
 cookbook 'nodejs'
+cookbook 'gradle'
 
 
