@@ -50,3 +50,30 @@
 .form_receipt__productLink {
     cursor: pointer;
 }
+
+.form_receipt__clearLink {
+    cursor: pointer;
+}
+
+.form_receipt__clearLink td {
+    text-align: center;
+    padding: 0 !important;
+    border-bottom: 1px solid #eee;
+    background-color: #fff !important;
+}
+
+.form_receipt__clearLink .confirmLink__trigger, .form_receipt__clearLink .confirmLink__confirmation {
+    padding: 15px;
+}
+
+.form_receipt__clearLink:hover td {
+    background-color: #fafafa !important;
+}
+
+.form_receiptProduct__quantityPlusLink, .form_receiptProduct__quantityMinusLink {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none
+}

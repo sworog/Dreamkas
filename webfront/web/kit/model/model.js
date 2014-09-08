@@ -88,6 +88,20 @@ define(function(require, exports, module) {
             });
 
             return data;
+        },
+        clear: function(){
+
+            var model = this;
+
+            _.forEach(model.collections, function(nestedCollection) {
+                nestedCollection.reset([]);
+            });
+
+            _.forEach(model.models, function(nestedModel) {
+                nestedModel.clear();
+            });
+
+            return Backbone.Model.prototype.clear.apply(model, arguments);
         }
     });
 

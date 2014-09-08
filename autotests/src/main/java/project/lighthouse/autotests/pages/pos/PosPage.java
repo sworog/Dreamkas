@@ -44,4 +44,12 @@ public class PosPage extends BootstrapPageObject {
     public String getReceiptTotalSum() {
         return findVisibleElement(totalPriceWebElement).getText();
     }
+
+    public void clearReceipt() {
+        click(By.className("confirmLink__trigger"));
+    }
+
+    public void confirmClearReceipt() {
+        click(By.className("confirmLink__confirmation"));
+    }
 }

@@ -16,6 +16,11 @@ define(function(require, exports, module) {
                         receiptProduct: PAGE.models.receipt.collections.products.get(e.currentTarget.dataset.receiptProductCid)
                     }
                 });
+            },
+            'click .form_receipt__clearLink .confirmLink__confirmation': function(e){
+                var block = this;
+
+                block.model.clear();
             }
         },
         initialize: function(){
