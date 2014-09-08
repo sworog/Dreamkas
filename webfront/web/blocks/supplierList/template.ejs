@@ -1,0 +1,32 @@
+<% if (collection.length) { %>
+
+<div class="panel">
+	<div class="panel-body">
+		<table class="table table-hover table-striped">
+			<tbody>
+			<% collection.forEach(function(supplier){ %>
+			<tr class="supplier__link" data-supplier-id="<%- supplier.id %>" data-modal="modal-supplier">
+				<td name="name"><%- supplier.get('name') %></td>
+				<td style="font-size: 12px;">
+					<div name="address" style="padding-bottom: 5px;">
+						<%- supplier.get('address') %>
+					</div>
+					<span name="info">
+						<%- supplier.get('phone') ? supplier.get('phone') + ', ' : '' %>
+						<%- supplier.get('contactPerson') ? supplier.get('contactPerson') + ', ' : '' %>
+						<%- supplier.get('email') %>
+					</span>
+				</td>
+			</tr>
+			<% }) %>
+			</tbody>
+		</table>
+	</div>
+</div>
+<% } else { %>
+<div class="col-md-12">
+	<div class="alert alert-info">
+		У вас ещё нет ни одного поставщика
+	</div>
+</div>
+<% } %>

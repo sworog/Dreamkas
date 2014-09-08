@@ -4,8 +4,8 @@ define(function(require, exports, module) {
 
     return CollectionBlock.extend({
         template: require('ejs!./template.ejs'),
-        collection: function() {
-            return PAGE.get('collections.stores');
+        collection: function(){
+            return PAGE.get('collections.suppliers');
         }
     });
 });

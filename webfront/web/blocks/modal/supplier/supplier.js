@@ -3,10 +3,10 @@ define(function(require, exports, module) {
     var Modal = require('blocks/modal/modal');
 
     return Modal.extend({
-		storeId: 0,
+		supplierId: 0,
         template: require('ejs!./template.ejs'),
         blocks: {
-            storeForm: require('blocks/form/store/store')
+            supplierForm: require('blocks/form/supplier/supplier')
         }
     });
 });
