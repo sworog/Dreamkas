@@ -328,8 +328,12 @@ class SalesImporter
                 $this->dotHelper->writeComment('.');
             }
         }
-        $sale->itemsCount = count($sale->products);
+
+        $sale->paymentType = Sale::PAYMENT_TYPE_CASH;
+        $sale->amountTendered = $sale->sumTotal;
+
         $sale->prePersist();
+
         return $sale;
     }
 
