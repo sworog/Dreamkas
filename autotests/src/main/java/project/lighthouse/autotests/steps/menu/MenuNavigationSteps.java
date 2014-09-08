@@ -157,4 +157,10 @@ public class MenuNavigationSteps extends ScenarioSteps {
         new BodyPreLoader(getDriver()).await();
         menuNavigationBar.getSettingsMenuItem().shouldBeNotVisible();
     }
+
+
+    @Step
+    public void logOutButtonClick() {
+        menuNavigationBar.logOutButtonClick();
+    }
 }

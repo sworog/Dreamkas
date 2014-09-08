@@ -4,6 +4,7 @@ import net.thucydides.core.annotations.findby.FindBy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.elements.Buttons.localNavigation.NavigationLinkFacade;
 import project.lighthouse.autotests.elements.Buttons.navigationBar.NavigationBarLinkFacade;
 import project.lighthouse.autotests.elements.bootstrap.buttons.PrimaryBtnFacade;
 
@@ -71,5 +72,9 @@ public class MenuNavigationBar extends CommonPageObject {
 
     public void launchPostButtonClick() {
         new PrimaryBtnFacade(this, "Запустить кассу").click();
+    }
+
+    public void logOutButtonClick() {
+        new NavigationLinkFacade(this, "Выйти").click();
     }
 }

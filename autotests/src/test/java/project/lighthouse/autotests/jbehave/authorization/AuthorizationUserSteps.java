@@ -4,7 +4,6 @@ import net.thucydides.core.annotations.Steps;
 import org.jbehave.core.annotations.*;
 import org.jbehave.core.model.ExamplesTable;
 import project.lighthouse.autotests.steps.AuthorizationSteps;
-import project.lighthouse.autotests.steps.deprecated.administrator.UserSteps;
 import project.lighthouse.autotests.steps.deprecated.email.EmailSteps;
 import project.lighthouse.autotests.steps.menu.MenuNavigationSteps;
 import project.lighthouse.autotests.storage.Storage;
@@ -16,9 +15,6 @@ public class AuthorizationUserSteps {
 
     @Steps
     MenuNavigationSteps menuNavigationSteps;
-
-    @Steps
-    UserSteps userSteps;
 
     @Steps
     EmailSteps emailSteps;
@@ -80,7 +76,7 @@ public class AuthorizationUserSteps {
     @When("the user logs out")
     public void whenTheUserLogsOut() {
         menuNavigationSteps.userNameLinkClick();
-        userSteps.logOutButtonClick();
+        menuNavigationSteps.logOutButtonClick();
         Storage.getUserVariableStorage().setIsAuthorized(false);
     }
 
