@@ -1,0 +1,39 @@
+<form class="form_receipt"
+      id="<%- get('id') %>">
+
+    <div class="form-group">
+        <label>
+            <b>Сумма к оплате</b>
+        </label>
+
+        <div class="form_receipt__totalPrice">
+            <%- calculateTotalPrice() %>
+        </div>
+
+    </div>
+
+    <div class="form-group">
+        <label>Оплата</label>
+
+        <div>
+            <div class="radioGroup">
+                <label>
+                    <input type="radio" name="type" value="cash" checked />
+
+                    <div class="radioGroup__text">
+                        Наличными
+                    </div>
+                </label>
+
+                <label>
+                    <input type="radio" name="type" value="card" />
+
+                    <div class="radioGroup__text">
+                        Банковской картой
+                    </div>
+                </label>
+            </div>
+        </div>
+    </div>
+
+</form>

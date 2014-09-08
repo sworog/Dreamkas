@@ -24,6 +24,12 @@
     padding: 15px;
 }
 
+.page__posLink {
+    font-size: 14px;
+    width: 200px;
+    margin: 0 auto;
+}
+
 .page_pos .page__content{
     position: absolute;
     top: 60px;

@@ -40,6 +40,7 @@ define(function(require, exports, module) {
         formatMoney: require('kit/formatMoney/formatMoney'),
         formatAmount: require('kit/formatAmount/formatAmount'),
         formatDate: require('kit/formatDate/formatDate'),
+        normalizeNumber: require('kit/normalizeNumber/normalizeNumber'),
 
         render: function() {
             var block = this;

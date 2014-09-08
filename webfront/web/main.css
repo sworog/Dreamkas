@@ -18,6 +18,8 @@
 @import "/blocks/productFinder/productFinder.css";
 @import "/blocks/form/form.css";
 @import "/blocks/receipt/receipt.css";
+@import "/blocks/radioButton/radioButton.css";
+@import "/blocks/radioGroup/radioGroup.css";
 
 body:before {
     content: "";
@@ -229,4 +231,9 @@ select.loading, input.loading {
 
 .dropdown-menu-item:hover {
     background-color: #f4f4f4;
+}
+
+.btn.disabled, .btn[disabled]{
+    background-color: #dddddd;
+    border-color: #dddddd;
 }

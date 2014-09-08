@@ -4,6 +4,14 @@ define(function(require, exports, module) {
         deepExtend = require('kit/deepExtend/deepExtend'),
         _ = require('lodash');
 
+    $(document).on('click', '[data-modal]', function(e) {
+        var dataset = e.currentTarget.dataset;
+
+        e.preventDefault();
+
+        document.getElementById(dataset.modal).block.show(_.extend({}, dataset));
+    });
+
     return Block.extend({
         render: function() {
             var block = this;
