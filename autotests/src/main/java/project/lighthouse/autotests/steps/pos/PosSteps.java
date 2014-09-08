@@ -117,4 +117,14 @@ public class PosSteps extends ScenarioSteps {
     public void clickOnMinusButton() {
         receiptPositionEditModalWindow.clickOnMinusButton();
     }
+
+    @Step
+    public void clearReceipt() {
+        posPage.clearReceipt();
+    }
+
+    @Step
+    public void confirmClearReceipt() {
+        posPage.confirmClearReceipt();
+    }
 }
