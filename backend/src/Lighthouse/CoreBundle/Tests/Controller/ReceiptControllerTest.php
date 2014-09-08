@@ -9,7 +9,7 @@ use Lighthouse\CoreBundle\Test\WebTestCase;
 class ReceiptControllerTest extends WebTestCase
 {
     /**
-     * @dataProvider postProvider
+     * @dataProvider typesProvider
      * @param string $path
      * @param string $expectedType
      */
@@ -58,7 +58,7 @@ class ReceiptControllerTest extends WebTestCase
     /**
      * @return array
      */
-    public function postProvider()
+    public function typesProvider()
     {
         return array(
             'Sale' => array('sales', 'Sale'),
@@ -468,6 +468,89 @@ class ReceiptControllerTest extends WebTestCase
     }
 
     /**
+     * @dataProvider typesProvider
+     * @param string $path
+     */
+    public function testGetAction($path)
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+
+        $saleData = array(
+            'date' => '2014-09-09T16:23:12+04:00',
+            'products' => array(
+                array(
+                    'product' => $productId,
+                    'quantity' => 10,
+                    'price' => 17.68
+                )
+            )
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/{$path}",
+            $saleData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('id', $postResponse);
+        $id = $postResponse['id'];
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$store->id}/{$path}/{$id}"
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertEquals($postResponse, $getResponse);
+    }
+
+    /**
+     * @dataProvider getReceiptByTypePathProvider
+     * @param $postType
+     * @param $getPath
+     * @param $expectedResponseCode
+     */
+    public function testGetReceiptByTypePath($postType, $getPath, $expectedResponseCode)
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+
+        $id = $this->postReceiptWithOneProduct($postType, $store, '2014-08-08T08:08:08+08:00', $productId, 9.78, 12.56);
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $this->client->setCatchException();
+        $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$store->id}/{$getPath}/{$id}"
+        );
+
+        $this->assertResponseCode($expectedResponseCode);
+    }
+
+    /**
+     * @return array
+     */
+    public function getReceiptByTypePathProvider()
+    {
+        return array(
+            'returns sales 404' => array('returns', 'sales', 404),
+            'returns returns 200' => array('returns', 'returns', 200),
+            'sales returns 404' => array('sales', 'returns', 404),
+            'sales sales 200' => array('sales', 'sales', 200),
+        );
+    }
+
+    /**
      * @param Store $store
      * @param string $date
      * @param string $productId
@@ -477,15 +560,7 @@ class ReceiptControllerTest extends WebTestCase
      */
     protected function postSaleWithOneProduct(Store $store, $date, $productId, $quantity, $price)
     {
-        $products = array(
-            array(
-                'product' => $productId,
-                'quantity' => $quantity,
-                'price' => $price,
-            )
-        );
-
-        return $this->postReceipt('sales', $store, $date, $products);
+        return $this->postReceiptWithOneProduct('sales', $store, $date, $productId, $quantity, $price);
     }
 
     /**
@@ -498,6 +573,20 @@ class ReceiptControllerTest extends WebTestCase
      */
     protected function postReturnWithOneProduct(Store $store, $date, $productId, $quantity, $price)
     {
+        return $this->postReceiptWithOneProduct('returns', $store, $date, $productId, $quantity, $price);
+    }
+
+    /**
+     * @param string $type
+     * @param Store $store
+     * @param string $date
+     * @param string $productId
+     * @param float $quantity
+     * @param float $price
+     * @return string
+     */
+    protected function postReceiptWithOneProduct($type, Store $store, $date, $productId, $quantity, $price)
+    {
         $products = array(
             array(
                 'product' => $productId,
@@ -506,7 +595,7 @@ class ReceiptControllerTest extends WebTestCase
             )
         );
 
-        return $this->postReceipt('returns', $store, $date, $products);
+        return $this->postReceipt($type, $store, $date, $products);
     }
 
     /**

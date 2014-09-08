@@ -744,6 +744,7 @@ class UserControllerTest extends WebTestCase
                     ),
                     'organizations' => array(),
                     'organizations/{organization}/bankAccounts' => array(),
+                    'others' => array(),
                     'products' => array(
                         'GET',
                         'GET::search',
@@ -793,9 +794,11 @@ class UserControllerTest extends WebTestCase
                         'GET::writeOffProducts',
                     ),
                     'stores/{store}/returns' => array(
+                        'GET::{id}',
                         'POST'
                     ),
                     'stores/{store}/sales' => array(
+                        'GET::{id}',
                         'POST'
                     ),
                     'stores/{store}/stockIns' => array(
@@ -833,7 +836,6 @@ class UserControllerTest extends WebTestCase
                         'POST'
                     ),
                     'writeOffs' => array(),
-                    'others' => array()
                 )
             ),
             User::ROLE_STORE_MANAGER => array(
