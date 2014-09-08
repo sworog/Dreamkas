@@ -1134,15 +1134,15 @@ class WriteOffControllerTest extends WebTestCase
      */
     protected function assertWriteOffProductDelete($invoiceProductId)
     {
-        $invoiceProduct = $this->getWriteOffProductRepository()->find($invoiceProductId);
-        $this->assertNull($invoiceProduct);
+        $writeOffProduct = $this->getWriteOffProductRepository()->find($invoiceProductId);
+        $this->assertNull($writeOffProduct);
 
         $filterCollection = $this->getWriteOffProductRepository()->getDocumentManager()->getFilterCollection();
 
         $filterCollection->disable('softdeleteable');
 
-        $invoiceProduct = $this->getWriteOffProductRepository()->find($invoiceProductId);
-        $this->assertNull($invoiceProduct);
+        $writeOffProduct = $this->getWriteOffProductRepository()->find($invoiceProductId);
+        $this->assertNull($writeOffProduct);
 
         $filterCollection->enable('softdeleteable');
     }

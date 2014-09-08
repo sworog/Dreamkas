@@ -5,13 +5,13 @@
         <table name="productList" class="table table-striped table-hover">
 
             <% model.collections.products.forEach(function(receiptProductModel){ %>
-            <tr name="product">
+            <tr class="form_receipt__productLink" data-receipt-product-cid="<%- receiptProductModel.cid %>" name="product">
                 <td>
-                    <div class="form_receipt__itemName" name="name"><%- receiptProductModel.get('product.name') %></div>
+                    <div class="form_receipt__itemName" name="name"><%- receiptProductModel.models.product.get('name') %></div>
                 </td>
-                <td name="count" class="form_receipt__itemCount">
-                    <%- receiptProductModel.get('count') %>
-                    <%- receiptProductModel.get('product.units') %>
+                <td name="quantity" class="form_receipt__itemCount">
+                    <%- formatAmount(receiptProductModel.get('quantity')) %>
+                    <%- receiptProductModel.models.product.get('units') %>
                 </td>
                 <td name="price" class="form_receipt__itemPrice">
                     <%- calculateItemPrice(receiptProductModel) %> <i class="fa fa-rub"></i>

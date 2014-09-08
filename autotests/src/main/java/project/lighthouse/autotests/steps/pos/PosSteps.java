@@ -12,6 +12,7 @@ import project.lighthouse.autotests.objects.web.receipt.ReceiptCollection;
 import project.lighthouse.autotests.objects.web.receipt.ReceiptObject;
 import project.lighthouse.autotests.pages.pos.PosLaunchPage;
 import project.lighthouse.autotests.pages.pos.PosPage;
+import project.lighthouse.autotests.pages.pos.ReceiptPositionEditModalWindow;
 import project.lighthouse.autotests.storage.Storage;
 
 import static org.hamcrest.Matchers.is;
@@ -22,6 +23,7 @@ public class PosSteps extends ScenarioSteps {
 
     PosLaunchPage posLaunchPage;
     PosPage posPage;
+    ReceiptPositionEditModalWindow receiptPositionEditModalWindow;
 
     @Step
     public void choosePosConfirmation() {
@@ -60,8 +62,13 @@ public class PosSteps extends ScenarioSteps {
     }
 
     @Step
-    public void checkNoResults() {
+    public void checkPostAutoCompleteCollectionContainsNoResults() {
         assertThat(getPosAutoCompleteCollection(), nullValue());
+    }
+
+    @Step
+    public void checkReceiptCollectionContainsNoResults() {
+        assertThat(getReceiptCollection(), nullValue());
     }
 
     @Step
@@ -81,6 +88,11 @@ public class PosSteps extends ScenarioSteps {
     }
 
     @Step
+    public void receiptObjectClickByLocator(String name) {
+        getReceiptCollection().clickByLocator(name);
+    }
+
+    @Step
     public void assertReceiptTotalSum(String totalSum) {
         assertThat(posPage.getReceiptTotalSum(), is(totalSum));
     }
@@ -94,5 +106,15 @@ public class PosSteps extends ScenarioSteps {
         Integer receiptLastPinnedProductY = ((ReceiptObject) getReceiptCollection().get(19)).getElement().getLocation().getY();
         // assert
         assertThat(true, is(receiptLastPinnedProductY >= 802 && receiptLastPinnedProductY < totalPriceY));
+    }
+
+    @Step
+    public void clickOnPlusButton() {
+        receiptPositionEditModalWindow.clickOnPlusButton();
+    }
+
+    @Step
+    public void clickOnMinusButton() {
+        receiptPositionEditModalWindow.clickOnMinusButton();
     }
 }

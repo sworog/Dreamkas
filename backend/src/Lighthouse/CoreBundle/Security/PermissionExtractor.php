@@ -107,6 +107,7 @@ class PermissionExtractor
             }
             sort($userPermissions[$resourceName]);
         }
+        ksort($userPermissions);
         return $userPermissions;
     }
 

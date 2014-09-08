@@ -55,7 +55,7 @@ class SupplierReturn extends StockMovement
      *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\Product\SupplierReturnProduct",
      *      simple=true,
      *      cascade={"persist","remove"},
-     *      mappedBy="supplierReturn"
+     *      mappedBy="parent"
      * )
      * @Assert\Valid(traverse=true)
      * @Assert\Count(

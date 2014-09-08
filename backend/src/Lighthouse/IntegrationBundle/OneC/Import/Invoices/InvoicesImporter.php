@@ -284,7 +284,7 @@ class InvoicesImporter
             $price = $this->normalizeQuantity($row[4]);
 
             $invoiceProduct = new InvoiceProduct();
-            $invoiceProduct->invoice = $invoice;
+            $invoiceProduct->parent = $invoice;
             $invoiceProduct->product = $productVersion;
             $invoiceProduct->quantity = $this->numericFactory->createQuantity($quantity);
             $invoiceProduct->priceEntered = $this->numericFactory->createMoney($price);

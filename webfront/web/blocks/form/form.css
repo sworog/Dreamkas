@@ -28,7 +28,7 @@
 }
 
 .form_receipt .table td {
-    padding: 20px;
+    padding: 15px;
 }
 
 .form_receipt__itemCount, .form_receipt__itemPrice {
@@ -45,4 +45,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 200px;
+}
+
+.form_receipt__productLink {
+    cursor: pointer;
 }

@@ -274,7 +274,7 @@ class SupplierReturnControllerTest extends WebTestCase
         $productId2 = $this->createProduct('2');
         $productId3 = $this->createProduct('3');
 
-        // Create supplierreturn with product#1
+        // Create supplier return with product#1
         $supplierReturnData = SupplierReturnBuilder::create(null, $store->id)
             ->addProduct($productId1, 12, 5.99);
 
@@ -804,7 +804,7 @@ class SupplierReturnControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
-        $supplierreturnResponse1 = $this->clientJsonRequest(
+        $supplierReturnResponse1 = $this->clientJsonRequest(
             $accessToken,
             'GET',
             "/api/1/stores/{$store->id}/supplierReturns/{$supplierReturn->id}"
@@ -812,11 +812,11 @@ class SupplierReturnControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals('Кефир 1%', 'products.*.product.name', $supplierreturnResponse1, 1);
+        Assert::assertJsonPathEquals('Кефир 1%', 'products.*.product.name', $supplierReturnResponse1, 1);
 
         $this->updateProduct($productId, array('name' => 'Кефир 5%'));
 
-        $supplierreturnResponse2 = $this->clientJsonRequest(
+        $supplierReturnResponse2 = $this->clientJsonRequest(
             $accessToken,
             'GET',
             "/api/1/stores/{$store->id}/supplierReturns/{$supplierReturn->id}"
@@ -824,7 +824,7 @@ class SupplierReturnControllerTest extends WebTestCase
 
         $this->assertResponseCode(200);
 
-        Assert::assertJsonPathEquals('Кефир 1%', 'products.*.product.name', $supplierreturnResponse2, 1);
+        Assert::assertJsonPathEquals('Кефир 1%', 'products.*.product.name', $supplierReturnResponse2, 1);
 
         $this->assertProduct($productId, array('name' => 'Кефир 5%'));
     }
@@ -1073,7 +1073,7 @@ class SupplierReturnControllerTest extends WebTestCase
      */
     protected function getSupplierReturnRepository()
     {
-        return $this->getContainer()->get('lighthouse.core.document.repository.stock_movement.supplierreturn');
+        return $this->getContainer()->get('lighthouse.core.document.repository.stock_movement.supplier_return');
     }
 
     /**
@@ -1081,7 +1081,7 @@ class SupplierReturnControllerTest extends WebTestCase
      */
     protected function getSupplierReturnProductRepository()
     {
-        return $this->getContainer()->get('lighthouse.core.document.repository.stock_movement.supplierreturn_product');
+        return $this->getContainer()->get('lighthouse.core.document.repository.stock_movement.supplier_return_product');
     }
 
     /**

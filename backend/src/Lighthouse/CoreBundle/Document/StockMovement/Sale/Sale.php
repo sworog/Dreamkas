@@ -26,10 +26,10 @@ class Sale extends Receipt
      *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct",
      *      simple=true,
      *      cascade={"persist","remove"},
-     *      mappedBy="sale"
+     *      mappedBy="parent"
      * )
      *
-     * @Assert\NotBlank(message="lighthouse.validation.errors.sale.product.empty")
+     * @Assert\NotBlank(message="lighthouse.validation.errors.stock_movement.products.empty")
      * @Assert\Valid(traverse=true)
      * @var SaleProduct[]|Collection
      */

@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\TrialBalance;
 
 use Lighthouse\CoreBundle\Document\Product\Productable;
-use Lighthouse\CoreBundle\Document\Store\Storeable;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 
 interface Reasonable extends Productable
@@ -24,14 +24,14 @@ interface Reasonable extends Productable
     public function getReasonDate();
 
     /**
-     * @return Storeable
+     * @return StockMovement
      */
     public function getReasonParent();
 
     /**
-     * @param Storeable $parent
+     * @param StockMovement $parent
      */
-    public function setReasonParent(Storeable $parent);
+    public function setReasonParent(StockMovement $parent);
 
     /**
      * @return Money|null
