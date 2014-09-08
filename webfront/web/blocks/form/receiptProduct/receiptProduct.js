@@ -57,9 +57,9 @@ define(function(require, exports, module) {
         },
         submit: function(){
             var block = this,
-                data = _.extend(block.data, {
-                    price: normalizeNumber(block.data.price),
-                    quantity: normalizeNumber(block.data.quantity)
+                data = _.extend({}, block.data, {
+                    price: block.data.price.length ? normalizeNumber(block.data.price) : null,
+                    quantity: block.data.quantity.length ? normalizeNumber(block.data.quantity) : null
                 });
 
             return block.model.validate(data).then(function(){
