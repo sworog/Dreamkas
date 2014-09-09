@@ -4,7 +4,7 @@ import com.octo.android.robospice.persistence.exception.SpiceException;
 
 import ru.crystals.vaverjanov.dreamkas.model.Token;
 
-public interface AuthRequestActivity
+public interface AuthRequestHandler
 {
     void onAuthSuccessRequest(Token authResult);
     void onAuthFailureRequest(SpiceException spiceException);

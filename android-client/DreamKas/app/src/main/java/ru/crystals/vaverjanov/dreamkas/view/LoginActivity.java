@@ -8,7 +8,6 @@ import android.widget.Toast;
 import com.octo.android.robospice.SpiceManager;
 import com.octo.android.robospice.persistence.DurationInMillis;
 import com.octo.android.robospice.persistence.exception.SpiceException;
-import com.octo.android.robospice.request.listener.RequestListener;
 
 import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
@@ -19,13 +18,13 @@ import org.springframework.util.StringUtils;
 import ru.crystals.vaverjanov.dreamkas.R;
 import ru.crystals.vaverjanov.dreamkas.controller.AuthRequest;
 import ru.crystals.vaverjanov.dreamkas.controller.LighthouseSpiceService;
-import ru.crystals.vaverjanov.dreamkas.controller.listeners.AuthRequestActivity;
+import ru.crystals.vaverjanov.dreamkas.controller.listeners.AuthRequestHandler;
 import ru.crystals.vaverjanov.dreamkas.controller.listeners.AuthRequestListener;
 import ru.crystals.vaverjanov.dreamkas.model.AuthObject;
 import ru.crystals.vaverjanov.dreamkas.model.Token;
 
 @EActivity(R.layout.activity_login)
-public class LoginActivity extends Activity implements AuthRequestActivity {
+public class LoginActivity extends Activity implements AuthRequestHandler {
 
     @ViewById
     EditText txtPassword;

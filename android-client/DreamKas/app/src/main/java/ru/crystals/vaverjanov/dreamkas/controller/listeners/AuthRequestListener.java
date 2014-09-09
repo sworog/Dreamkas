@@ -8,9 +8,9 @@ import ru.crystals.vaverjanov.dreamkas.model.Token;
 
 public class AuthRequestListener implements RequestListener<Token>, IdlingResource {
 
-    private final AuthRequestActivity managedActivity;
+    private final AuthRequestHandler managedActivity;
 
-    public AuthRequestListener(AuthRequestActivity activity)
+    public AuthRequestListener(AuthRequestHandler activity)
     {
         managedActivity = activity;
     }
