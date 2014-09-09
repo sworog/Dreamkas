@@ -5,7 +5,8 @@
      aria-hidden="true"
      class="modal modal_receipt fade"
      style="display: none;">
-    <div class="modal-dialog modal-md">
+
+    <div class="modal-dialog modal-md <%- dialog !== 'receipt' && 'modal__dialog_hidden' %>">
         <div class="modal-content">
             <div class="modal-header">
                 <a type="button"
@@ -29,6 +30,20 @@
             <div class="modal-body">
 
                 <b block="form_receipt"></b>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-dialog modal-md <%- dialog !== 'success' && 'modal__dialog_hidden' %>">
+        <div class="modal-content">
+            <div class="modal-body">
+
+                <div class="modal_receipt__successTitle">
+                    Выдайте сдачу
+                </div>
+
+                <hr />
 
             </div>
         </div>

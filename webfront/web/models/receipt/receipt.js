@@ -3,6 +3,9 @@ define(function(require, exports, module) {
     var Model = require('kit/model/model');
 
     return Model.extend({
+        urlRoot: function(){
+            return Model.baseApiUrl + '/stores/' + PAGE.params.storeId + '/sales';
+        },
         collections: {
             products: require('collections/receiptProducts/receiptProducts')
         },

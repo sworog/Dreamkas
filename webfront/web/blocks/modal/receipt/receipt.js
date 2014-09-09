@@ -4,6 +4,7 @@ define(function(require, exports, module) {
 
     return Modal.extend({
         template: require('ejs!./template.ejs'),
+        dialog: 'receipt',
         blocks: {
             form_receipt: require('blocks/form/receipt/receipt')
         }
