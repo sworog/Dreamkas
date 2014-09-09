@@ -20,6 +20,7 @@
 @import "/blocks/receipt/receipt.css";
 @import "/blocks/radioButton/radioButton.css";
 @import "/blocks/radioGroup/radioGroup.css";
+@import "/blocks/modal/modal.css";
 
 body:before {
     content: "";
