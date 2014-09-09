@@ -793,12 +793,8 @@ class UserControllerTest extends WebTestCase
                         'GET::returnProducts',
                         'GET::writeOffProducts',
                     ),
-                    'stores/{store}/returns' => array(
-                        'GET::{id}',
-                        'POST'
-                    ),
                     'stores/{store}/sales' => array(
-                        'GET::{id}',
+                        'GET::{sale}',
                         'POST'
                     ),
                     'stores/{store}/stockIns' => array(
@@ -894,7 +890,6 @@ class UserControllerTest extends WebTestCase
                         'GET',
                         'PUT',
                     ),
-                    'stores/{store}/returns' => array(),
                     'stores/{store}/sales' => array(),
                     'stores/{store}/subcategories/{subCategory}' => array(
                         'GET',
@@ -1032,7 +1027,6 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/invoices' => array(),
                     'stores/{store}/orders' => array(),
                     'stores/{store}/products/{product}' => array(),
-                    'stores/{store}/returns' => array(),
                     'stores/{store}/sales' => array(),
                     'stores/{store}/stockIns' => array(),
                     'stores/{store}/subcategories/{subCategory}' => array(),
@@ -1121,7 +1115,6 @@ class UserControllerTest extends WebTestCase
                     'stores/{store}/invoices' => array(),
                     'stores/{store}/orders' => array(),
                     'stores/{store}/products/{product}' => array(),
-                    'stores/{store}/returns' => array(),
                     'stores/{store}/sales' => array(),
                     'stores/{store}/stockIns' => array(),
                     'stores/{store}/subcategories/{subCategory}' => array(),
