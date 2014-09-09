@@ -13,28 +13,26 @@ define(function(require, exports, module) {
     });
 
     return Block.extend({
-        render: function() {
-            var block = this;
+        events: {
+            'click .close': function(){
+                var block = this;
 
-            Block.prototype.render.apply(block, arguments);
-
-            block.$el.modal({
-                show: false
-            });
+                block.hide();
+            }
         },
-        show: function(opt) {
+        show: function(data) {
             var block = this;
 
-            block.set(opt);
+            block.render(data);
 
-            block.render();
-
-            block.$el.modal('show');
+            block.$el
+                .show()
+                .find('[autofocus]').focus();
         },
         hide: function() {
             var block = this;
 
-            block.$el.modal('hide');
+            block.$el.hide();
         }
     });
 });

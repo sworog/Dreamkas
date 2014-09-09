@@ -42,8 +42,10 @@ define(function(require, exports, module) {
         formatDate: require('kit/formatDate/formatDate'),
         normalizeNumber: require('kit/normalizeNumber/normalizeNumber'),
 
-        render: function() {
+        render: function(data) {
             var block = this;
+
+            data && block.set(data);
 
             block.removeBlocks();
 

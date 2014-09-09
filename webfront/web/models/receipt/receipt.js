@@ -17,7 +17,10 @@ define(function(require, exports, module) {
             return {
                 products: this.collections.products.map(function(receiptProductModel) {
                     return receiptProductModel.getData();
-                })
+                }),
+                amountTendered: this.get('amountTendered'),
+                paymentType: this.get('paymentType'),
+                date: new Date
             }
         }
     });

@@ -3,10 +3,9 @@
      role="dialog"
      aria-labelledby="modal-default-label"
      aria-hidden="true"
-     class="modal modal_receipt fade"
-     style="display: none;">
+     class="modal modal_receipt fade">
 
-    <div class="modal-dialog modal-md <%- dialog !== 'receipt' && 'modal__dialog_hidden' %>">
+    <div class="modal-dialog modal-md <%- dialog === 'receipt' ? '' : 'modal__dialog_hidden' %>">
         <div class="modal-content">
             <div class="modal-header">
                 <a type="button"
@@ -35,7 +34,7 @@
         </div>
     </div>
 
-    <div class="modal-dialog modal-md <%- dialog !== 'success' && 'modal__dialog_hidden' %>">
+    <div class="modal-dialog modal-md <%- dialog === 'success' ? '' : 'modal__dialog_hidden' %>">
         <div class="modal-content">
             <div class="modal-body">
 

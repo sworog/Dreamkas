@@ -192,8 +192,6 @@ define(function(require) {
         enable: function() {
             var block = this;
 
-            console.log(block.$submitButton);
-
             block.$submitButton.removeAttr('disabled');
         },
         reset: function(){

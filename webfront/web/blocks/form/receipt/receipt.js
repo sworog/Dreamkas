@@ -32,6 +32,11 @@ define(function(require, exports, module) {
                 block.checkChange();
             }
         },
+        submitSuccess: function(){
+            document.getElementById('modal_receipt').block.show({
+                dialog: 'success'
+            });
+        },
         checkChange: function(){
             var block = this,
                 $form_receipt__change = block.$('.form_receipt__change');

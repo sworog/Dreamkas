@@ -65,7 +65,7 @@ a:hover .fa {
     color: #0a819c;
 }
 
-.navbar-static-side ul li a .fa{
+.navbar-static-side ul li a .fa {
     color: #fff !important;
 }
 
@@ -233,7 +233,19 @@ select.loading, input.loading {
     background-color: #f4f4f4;
 }
 
-.btn.disabled, .btn[disabled]{
+.btn.disabled, .btn[disabled] {
     background-color: #dadada;
     border-color: #dadada;
+}
+
+.modal {
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal.fade {
+    opacity: 1;
+}
+
+.modal.fade .modal-dialog{
+    transform: none !important;
 }
