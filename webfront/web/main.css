@@ -17,6 +17,10 @@
 @import "/blocks/page/page.css";
 @import "/blocks/productFinder/productFinder.css";
 @import "/blocks/form/form.css";
+@import "/blocks/receipt/receipt.css";
+@import "/blocks/radioButton/radioButton.css";
+@import "/blocks/radioGroup/radioGroup.css";
+@import "/blocks/modal/modal.css";
 
 body:before {
     content: "";
@@ -62,7 +66,7 @@ a:hover .fa {
     color: #0a819c;
 }
 
-.navbar-static-side ul li a .fa{
+.navbar-static-side ul li a .fa {
     color: #fff !important;
 }
 
@@ -228,4 +232,21 @@ select.loading, input.loading {
 
 .dropdown-menu-item:hover {
     background-color: #f4f4f4;
+}
+
+.btn.disabled, .btn[disabled] {
+    background-color: #dadada;
+    border-color: #dadada;
+}
+
+.modal {
+    background-color: rgba(0,0,0,0.5);
+}
+
+.modal.fade {
+    opacity: 1;
+}
+
+.modal.fade .modal-dialog{
+    transform: none !important;
 }

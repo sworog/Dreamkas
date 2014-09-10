@@ -10,8 +10,10 @@ use Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
+use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Test\Factory\Factory;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
+use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Symfony\Component\Validator\ValidatorInterface;
 
@@ -67,7 +69,23 @@ class ReceiptBuilder
      */
     public function createSale(Store $store = null, $date = null)
     {
-        return $this->populateReceipt(new Sale(), $store, $date);
+        return $this->populateReceipt(Sale::TYPE, $store, $date);
+    }
+
+    /**
+     * @param string $paymentType
+     * @param float $amountTendered
+     * @return $this
+     */
+    public function setSalePayment($paymentType, $amountTendered)
+    {
+        if ($this->receipt instanceof Sale) {
+            $this->receipt->paymentType = $paymentType;
+            $this->receipt->amountTendered = $this->numericFactory->createMoney($amountTendered);
+        } else {
+            throw new RuntimeException('Only sale excepts paymentType');
+        }
+        return $this;
     }
 
     /**
@@ -77,27 +95,27 @@ class ReceiptBuilder
      */
     public function createReturn(Store $store = null, $date = null)
     {
-        return $this->populateReceipt(new Returne(), $store, $date);
+        return $this->populateReceipt(Returne::TYPE, $store, $date);
     }
 
     /**
-     * @param Receipt $receipt
+     * @param string $type
      * @param Store $store
      * @param string $date
      * @param string $hash
      * @return ReceiptBuilder
      */
-    protected function populateReceipt(Receipt $receipt, Store $store = null, $date = null, $hash = null)
+    protected function populateReceipt($type, Store $store = null, $date = null, $hash = null)
     {
+        $receipt = $this->repository->createNewByType($type);
+
         $date = ($date) ?: new \DateTime();
 
         $store = ($store) ?: $this->factory->store()->getStore();
 
-
         $this->receipt = $receipt;
         $this->receipt->store = $store;
         $this->receipt->date = new DateTimestamp($date);
-        $this->receipt->sumTotal = $this->numericFactory->createMoney();
 
         $this->receipt->hash = ($hash) ?: md5($store->id . ':' . $this->receipt->date->format(DateTimestamp::RFC3339));
 
@@ -133,9 +151,28 @@ class ReceiptBuilder
      */
     public function persist()
     {
+        $this->preValidate();
+
         $this->validator->validate($this->receipt);
         $this->repository->getDocumentManager()->persist($this->receipt);
         return $this->factory->receipt();
+    }
+
+    protected function preValidate()
+    {
+        $this->receipt->prePersist();
+        $this->receipt->calculateTotals();
+
+        if ($this->receipt instanceof Sale) {
+            if (!$this->receipt->paymentType) {
+                $this->receipt->paymentType = Sale::PAYMENT_TYPE_CASH;
+            }
+            if (Decimal::checkIsNull($this->receipt->amountTendered)) {
+                $this->receipt->amountTendered = clone $this->receipt->sumTotal->copy();
+            }
+
+            $this->receipt->calculateChange();
+        }
     }
 
     /**

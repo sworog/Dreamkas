@@ -10,6 +10,9 @@ define(function(require) {
         model: null,
         collection: null,
         redirectUrl: null,
+        id: function(){
+            return this.cid;
+        },
         data: function(){
             var block = this;
 

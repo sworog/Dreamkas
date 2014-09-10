@@ -15,7 +15,7 @@ define(function(require, exports, module) {
         activeNavigationItem: 'main',
 
         events: {
-            'click .posLink': function(e) {
+            'click .page__posLink': function(e) {
                 e.preventDefault();
 
                 var page = this;
