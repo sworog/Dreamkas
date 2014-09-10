@@ -329,7 +329,7 @@ class SalesImporter
             }
         }
         $sale->itemsCount = count($sale->products);
-
+        $sale->prePersist();
         return $sale;
     }
 
@@ -358,7 +358,7 @@ class SalesImporter
             }
         }
         $return->itemsCount = count($return->products);
-
+        $return->prePersist();
         return $return;
     }
 

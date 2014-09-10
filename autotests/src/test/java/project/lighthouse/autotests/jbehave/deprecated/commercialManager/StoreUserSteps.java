@@ -5,13 +5,8 @@ import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
-import org.json.JSONException;
-import project.lighthouse.autotests.objects.api.Store;
 import project.lighthouse.autotests.steps.AuthorizationSteps;
-import project.lighthouse.autotests.steps.deprecated.api.commercialManager.StoreApiSteps;
 import project.lighthouse.autotests.steps.deprecated.commercialManager.StoreSteps;
-
-import java.io.IOException;
 
 public class StoreUserSteps {
 
@@ -22,9 +17,6 @@ public class StoreUserSteps {
 
     @Steps
     AuthorizationSteps authorizationSteps;
-
-    @Steps
-    StoreApiSteps storeApiSteps;
 
     @Given("the user is on create store page")
     public void userIsOnCreateStorePage() {
@@ -74,16 +66,6 @@ public class StoreUserSteps {
     @When("user clicks edit button on store card page")
     public void userClicksEditButtonOnStoreCardPage() {
         formSteps.userClicksEditButtonOnStoreCardPage();
-    }
-
-    @Given("there is created store and user starts to edit it and fills form with $formData")
-    public void thereIsCreatedStoreAndUserStartsToEditIt(ExamplesTable formData) throws IOException, JSONException {
-        Store store = storeApiSteps.createStoreThroughPost();
-        formSteps.navigateToStorePage(store.getId());
-        authorizationSteps.authorization("commercialManager");
-        formSteps.userClicksEditButtonOnStoreCardPage();
-        formSteps.fillStoreFormData(formData);
-        formSteps.clickSaveStoreSubmitButton();
     }
 
     @When("user promotes store manager named '$storeManager'")

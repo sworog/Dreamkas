@@ -87,7 +87,7 @@ class StockInBuilder
         $price = ($price) ?: 5.99;
 
         $stockInProduct = new StockInProduct();
-        $stockInProduct->stockIn = $this->stockIn;
+        $stockInProduct->parent = $this->stockIn;
         $stockInProduct->product = $this->factory->createProductVersion($productId);
         $stockInProduct->quantity = $this->numericFactory->createQuantity($quantity);
         $stockInProduct->price = $this->numericFactory->createMoney($price);

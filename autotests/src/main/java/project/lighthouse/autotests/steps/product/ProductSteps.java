@@ -9,8 +9,8 @@ import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.helper.StringGenerator;
 import project.lighthouse.autotests.objects.web.product.ProductCollection;
 import project.lighthouse.autotests.pages.catalog.group.GroupPage;
-import project.lighthouse.autotests.pages.catalog.group.modal.CreateNewProductModalWindow;
-import project.lighthouse.autotests.pages.catalog.group.modal.EditProductModalWindow;
+import project.lighthouse.autotests.pages.catalog.group.modal.ProductEditModalWindow;
+import project.lighthouse.autotests.pages.catalog.group.modal.ProductCreateModalWindow;
 import project.lighthouse.autotests.storage.Storage;
 
 import static org.hamcrest.Matchers.is;
@@ -20,8 +20,8 @@ import static org.junit.Assert.fail;
 public class ProductSteps extends ScenarioSteps {
 
     GroupPage groupPage;
-    CreateNewProductModalWindow createNewProductModalWindow;
-    EditProductModalWindow editProductModalWindow;
+    ProductCreateModalWindow createNewProductModalWindow;
+    ProductEditModalWindow editProductModalWindow;
 
     private ExamplesTable examplesTable;
     private String name;
@@ -209,6 +209,11 @@ public class ProductSteps extends ScenarioSteps {
     @Step
     public void assertEditProductModalWindowFieldErrorMessage(String elementName, String errorMessage) {
         editProductModalWindow.getItems().get(elementName).getFieldErrorMessageChecker().assertFieldErrorMessage(errorMessage);
+    }
+
+    @Step
+    public void assertDeleteButtonLabel(String label) {
+        assertThat(editProductModalWindow.getDeleteButtonText(), is(label));
     }
 
     @Step

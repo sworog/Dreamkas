@@ -5,7 +5,6 @@ import org.jbehave.core.annotations.Alias;
 import org.jbehave.core.annotations.Given;
 import org.json.JSONException;
 import org.json.JSONObject;
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.console.ConsoleCommandResult;
 import project.lighthouse.autotests.steps.deprecated.ConsoleCommandSteps;
 import project.lighthouse.autotests.storage.Storage;
@@ -28,7 +27,7 @@ public class GivenConsoleCommandsUserSteps {
     @Alias("пользователь запускает консольную команду для очищения всех данных")
     public void givenTheUserRunsTheSymfonyEnvInitCommand() throws IOException, InterruptedException {
         consoleCommandSteps.runCapAutoTestSymfonyEnvInitCommand();
-        StaticData.clear();
+        Storage.getStorageClearable().clear();
     }
 
     @Given("the user runs the symfony:reports:recalculate command")

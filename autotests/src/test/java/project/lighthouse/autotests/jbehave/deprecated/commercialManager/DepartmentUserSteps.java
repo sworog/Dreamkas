@@ -1,17 +1,11 @@
 package project.lighthouse.autotests.jbehave.deprecated.commercialManager;
 
 import net.thucydides.core.annotations.Steps;
-import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 import org.jbehave.core.model.ExamplesTable;
-import org.json.JSONException;
-import project.lighthouse.autotests.objects.api.Department;
 import project.lighthouse.autotests.steps.AuthorizationSteps;
-import project.lighthouse.autotests.steps.deprecated.api.commercialManager.DepartmentApiSteps;
 import project.lighthouse.autotests.steps.deprecated.commercialManager.DepartmentSteps;
-
-import java.io.IOException;
 
 public class DepartmentUserSteps {
     ExamplesTable departmentData;
@@ -20,9 +14,6 @@ public class DepartmentUserSteps {
     DepartmentSteps formSteps;
     @Steps
     AuthorizationSteps authorizationSteps;
-
-    @Steps
-    DepartmentApiSteps departmentApiSteps;
 
     @When("user clicks create new department button")
     public void userClicksCreateNewDepartmentButton() {
@@ -53,26 +44,8 @@ public class DepartmentUserSteps {
 
     }
 
-    @Given("created default store with department '$departmentNumber', '$departmentName'")
-    public void createdDefaultStoreWithDepartment(String departmentNumber, String departmentName) throws IOException, JSONException {
-        Department department = departmentApiSteps.createStoreDepartmentThroughPost(departmentNumber, departmentName);
-        formSteps.navigateToDepartmentPage(department.getId(), department.getStoreID());
-        authorizationSteps.authorization("commercialManager");
-
-    }
-
     @When("user clicks edit department link")
     public void userClicksEditDepartmentLink() {
         formSteps.clicksEditDepartmentLink();
-    }
-
-    @Given("there is created department and user starts to edit it and fills form with $fieldsData")
-    public void thereIsCreatedDepartmentAndUserStartsToEditItAndFillsForm(ExamplesTable fieldsData) throws IOException, JSONException {
-        Department department = departmentApiSteps.createStoreDepartmentThroughPost(Department.DEFAULT_NUMBER, Department.DEFAULT_NAME);
-        formSteps.navigateToDepartmentPage(department.getId(), department.getStoreID());
-        authorizationSteps.authorization("commercialManager");
-        formSteps.clicksEditDepartmentLink();
-        formSteps.fillStoreFormData(fieldsData);
-        formSteps.clickCreateDepartmentSubmitButton();
     }
 }

@@ -1,0 +1,38 @@
+.page__head {
+    padding: 10px 30px;
+    background: #ffffff;
+    -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(0, 0, 0, 0.05);
+    clear: both;
+}
+
+.page__headControls {
+    float: right;
+}
+
+.page__title {
+    font-size: 25px;
+    font-weight: 300;
+}
+
+.page__content {
+    padding: 20px 30px 50px;
+}
+
+.page__panel {
+    background-color: #fff;
+    padding: 15px;
+}
+
+.page_pos .page__content{
+    position: absolute;
+    top: 60px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.page_pos .col, .page_pos .productFinder, .page_pos .form_receipt {
+    height: 100%;
+    position: relative;
+}

@@ -24,7 +24,7 @@ namespace :deploy do
     task :cleanup_if_needed, :roles => :app, :except => { :no_release => true } do
         count = fetch(:keep_releases, 5).to_i
         local_releases = capture("ls -xt #{releases_path}").split.reverse
-        if (local_releases.length > count)
+        if local_releases.length > count
             deploy.cleanup
             puts "--> Cleanup old releases"
         end
@@ -98,6 +98,7 @@ namespace :deploy do
         set :app_end, 'api' unless exists?(:app_end)
         set :branch, `git rev-parse --abbrev-ref HEAD`.delete("\n") || "master" unless exists?(:branch)
         set :host, branch unless exists?(:host)
+        set :host, host.gsub('/', '-')
 
         set :force, exists?(:force) ? true : false
 
@@ -115,10 +116,9 @@ namespace :deploy do
     task :list do
         hosts = capture("ls -x #{deploy_to_base}", :except => { :no_release => true }).split.select { |v| v =~ /\.#{app_end}$/ }.sort
         revisions = hosts.map do |host|
-            host_current_path = File.join(deploy_to_base, host, current_dir)
             host_releases_path = File.join(deploy_to_base, host, version_dir)
             releases = capture("if [ -d #{host_releases_path} ]; then ls -x #{host_releases_path}; fi", :except => { :no_release => true }).split.sort
-            last_release = releases.length > 0 ? Time.parse(releases.last.sub(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '\1-\2-\3 \4:\5:\6 UTC')).getlocal : nil;
+            last_release = releases.length > 0 ? Time.parse(releases.last.sub(/(\d{4})(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})/, '\1-\2-\3 \4:\5:\6 UTC')).getlocal : nil
             {
                 :host => host,
                 :last_release => last_release,
@@ -132,9 +132,9 @@ namespace :deploy do
         end
 
         revisions.sort do |x,y|
-            if (x[:last_release].nil?)
+            if x[:last_release].nil?
                 -1
-            elsif (y[:last_release].nil?)
+            elsif y[:last_release].nil?
                 1
             else
                 x[:last_release] <=> y[:last_release]
@@ -142,24 +142,24 @@ namespace :deploy do
         end .each do |revision|
             host = revision[:host].sub(/^(.+)\..+?\.#{app_end}$/, '\1')
             stage = revision[:host].sub(/^.+\.(.+)?\.#{app_end}$/, '\1')
-            unless force then
-                print "Host: " + revision[:host].yellow
-                print_shift(30, revision[:host].length)
-                print " *" + revision[:releases].to_s.green
-                print_shift(4, revision[:releases].to_s.length)
-
-                unless (revision[:last_release].nil?)
-                    time_diff = Time.diff(revision[:last_release], Time.new);
-                    print " " + revision[:last_release].to_s.yellow + " (" + time_diff[:diff].green + ")"
-                    print_shift(30, time_diff[:diff].length)
-                else
-                    print " never".red
-                    print_shift(58, 0)
-                end
-
-                puts "Remove command: " + "cap #{stage} deploy:remove -S host=#{host}".red
+            if force
+              puts "cap #{stage} deploy:remove -S host=#{host} -S force"
             else
-                puts "cap #{stage} deploy:remove -S host=#{host} -S force"
+              print "Host: " + revision[:host].yellow
+              print_shift(30, revision[:host].length)
+              print " *" + revision[:releases].to_s.green
+              print_shift(4, revision[:releases].to_s.length)
+
+              if revision[:last_release].nil?
+                print " never".red
+                print_shift(58, 0)
+              else
+                time_diff = Time.diff(revision[:last_release], Time.new)
+                print " " + revision[:last_release].to_s.yellow + " (" + time_diff[:diff].green + ")"
+                print_shift(30, time_diff[:diff].length)
+              end
+
+              puts "Remove command: " + "cap #{stage} deploy:remove -S host=#{host}".red
             end
         end
     end

@@ -13,4 +13,6 @@ public interface GeneralPageObject {
     public void checkValues(ExamplesTable examplesTable);
 
     public void checkItemErrorMessage(String elementName, String errorMessage);
+
+    public String getTitle();
 }

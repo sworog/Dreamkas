@@ -3,10 +3,13 @@ package project.lighthouse.autotests.jbehave;
 import ch.lambdaj.Lambda;
 import net.thucydides.core.webdriver.WebdriverProxyFactory;
 import net.thucydides.jbehave.ThucydidesJUnitStories;
-import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.storage.Configurable;
+import project.lighthouse.autotests.storage.Storage;
 import project.lighthouse.autotests.thucydides.RemoteWebDriverEventListener;
 
 import java.util.List;
+
+import static net.thucydides.core.ThucydidesSystemProperty.WEBDRIVER_BASE_URL;
 
 public class AcceptanceTestSuite extends ThucydidesJUnitStories {
 
@@ -17,6 +20,12 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
     private static final String TIMEOUT = "lighthouse.timeouts.implicitlywait";
     private static final String PRE_LOADER_TIMEOUT = "lighthouse.timeouts.preloaderwait";
     private static final String VALIDATION_ERROR_TIMEOUT = "lighthouse.timeouts.validationerrorwait";
+
+    private final Integer defaultTimeOut = getEnvironmentVariables().getPropertyAsInteger(TIMEOUT, 15);
+    private final Integer defaultPreLoaderTimeOut = getEnvironmentVariables().getPropertyAsInteger(PRE_LOADER_TIMEOUT, 5);
+    private final Integer defaultValidationErrorTimeOut = getEnvironmentVariables().getPropertyAsInteger(VALIDATION_ERROR_TIMEOUT, 10);
+
+    private Configurable configurationStorage = Storage.getConfigurationVariableStorage();
 
     public AcceptanceTestSuite() {
         setWaitTimeOuts();
@@ -30,16 +39,16 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
     }
 
     private void setWaitTimeOuts() {
-        StaticData.DEFAULT_TIMEOUT = getEnvironmentVariables()
-                .getPropertyAsInteger(TIMEOUT, StaticData.DEFAULT_TIMEOUT);
-        StaticData.DEFAULT_PRE_LOADER_TIMEOUT = getEnvironmentVariables()
-                .getPropertyAsInteger(PRE_LOADER_TIMEOUT, StaticData.DEFAULT_PRE_LOADER_TIMEOUT);
-        StaticData.DEFAULT_VALIDATION_ERROR_TIMEOUT = getEnvironmentVariables()
-                .getPropertyAsInteger(VALIDATION_ERROR_TIMEOUT, StaticData.DEFAULT_VALIDATION_ERROR_TIMEOUT);
+        configurationStorage.setTimeOutProperty("default.timeout", defaultTimeOut);
+        configurationStorage.setTimeOutProperty("default.preloader.timeout", defaultPreLoaderTimeOut);
+        configurationStorage.setTimeOutProperty("default.validation.error.timeout", defaultValidationErrorTimeOut);
     }
 
     private void setWebDriverBaseUrl() {
-        StaticData.WEB_DRIVER_BASE_URL = getSystemConfiguration().getBaseUrl();
+        String baseUrl = getSystemConfiguration().getBaseUrl().replace("/merge", "-merge");
+        getEnvironmentVariables().setProperty(WEBDRIVER_BASE_URL.getPropertyName(), baseUrl);
+        getSystemConfiguration().getEnvironmentVariables().setProperty(WEBDRIVER_BASE_URL.getPropertyName(), baseUrl);
+        configurationStorage.setProperty("webdriver.base.url", baseUrl);
     }
 
     private void findStoriesByBranch() {
@@ -69,15 +78,15 @@ public class AcceptanceTestSuite extends ThucydidesJUnitStories {
     }
 
     private void setDemoMode() {
-        StaticData.demoMode = getEnvironmentVariables()
-                .getPropertyAsBoolean(DEMO_MODE, false);
+        Boolean isDemoModeOn = getEnvironmentVariables().getPropertyAsBoolean(DEMO_MODE, false);
+        Storage.getDemoModeConfigurableStorage().setIsDemoModeOn(isDemoModeOn);
     }
 
     private void parallelExecutionStart() {
         Integer agentPosition
-                = Integer.parseInt(System.getProperty("parallel.agent.number"));
+                = getEnvironmentVariables().getPropertyAsInteger("parallel.agent.number", 1);
         Integer agentCount
-                = Integer.parseInt(System.getProperty("parallel.agent.total"));
+                = getEnvironmentVariables().getPropertyAsInteger("parallel.agent.total", 1);
 
         if (!(agentPosition == 1 && agentCount == 1)) {
             List<String> storyPaths = storyPaths();

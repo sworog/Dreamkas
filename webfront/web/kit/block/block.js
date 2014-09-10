@@ -5,7 +5,7 @@ define(function(require, exports, module) {
         set = require('kit/set/set'),
         deepExtend = require('kit/deepExtend/deepExtend'),
         makeClass = require('kit/makeClass/makeClass'),
-        rivets = require('bower_components/rivets/dist/rivets'),
+        rivets = require('kit/rivets/rivets'),
         _ = require('lodash');
 
     require('sortable');
@@ -37,6 +37,10 @@ define(function(require, exports, module) {
             formatDate: require('kit/formatDate/formatDate')
         },
 
+        formatMoney: require('kit/formatMoney/formatMoney'),
+        formatAmount: require('kit/formatAmount/formatAmount'),
+        formatDate: require('kit/formatDate/formatDate'),
+
         render: function() {
             var block = this;
 
@@ -47,6 +51,7 @@ define(function(require, exports, module) {
             }
 
             block.bindings = rivets.bind(block.el, block);
+
             block.el.block = this;
 
             block.initBlocks();
@@ -99,6 +104,10 @@ define(function(require, exports, module) {
                     block.__blocks[blockName] = block.__blocks[blockName] || [];
 
                     block.__blocks[blockName].push(__block);
+
+                    if (!block.$(__block.el).length){
+                        __block.$el.replaceAll(placeholder);
+                    }
                 }
             });
         },
@@ -122,7 +131,7 @@ define(function(require, exports, module) {
 
             block.removeBlocks();
 
-            block.bindings.unbind();
+            block.bindings && block.bindings.unbind();
 
             return View.prototype.remove.apply(block, arguments);
         },

@@ -31,7 +31,7 @@ class WriteOff extends StockMovement
      *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProduct",
      *      simple=true,
      *      cascade={"persist","remove"},
-     *      mappedBy="writeOff"
+     *      mappedBy="parent"
      * )
      * @Assert\Valid(traverse=true)
      * @Assert\Count(

@@ -60,8 +60,8 @@ class ReturnProductControllerTest extends WebTestCase
         Assert::assertNotJsonPathEquals($products['4'], '*.product.id', $getResponse1);
         Assert::assertJsonPathEquals($products['1'], '0.product.id', $getResponse1);
         Assert::assertJsonPathEquals('10001', '0.product.sku', $getResponse1);
-        Assert::assertJsonPathEquals($store->id, '0.return.store.id', $getResponse1);
-        Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.return.date', $getResponse1);
+        Assert::assertJsonPathEquals($store->id, '0.parent.store.id', $getResponse1);
+        Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.parent.date', $getResponse1);
         Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.date', $getResponse1);
         Assert::assertJsonPathEquals('513.00', '0.price', $getResponse1);
         Assert::assertJsonPathEquals('1', '0.quantity', $getResponse1);
@@ -95,10 +95,10 @@ class ReturnProductControllerTest extends WebTestCase
         Assert::assertNotJsonPathEquals($products['2'], '*.product.id', $getResponse3);
         Assert::assertNotJsonPathEquals($products['4'], '*.product.id', $getResponse3);
         Assert::assertJsonPathEquals($products['3'], '0.product.id', $getResponse3);
-        Assert::assertJsonPathEquals($store->id, '0.return.store.id', $getResponse3);
+        Assert::assertJsonPathEquals($store->id, '0.parent.store.id', $getResponse3);
         // check it same return as product '1'
-        Assert::assertJsonPathEquals($getResponse1[0]['return']['id'], '0.return.id', $getResponse3);
-        Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.return.date', $getResponse3);
+        Assert::assertJsonPathEquals($getResponse1[0]['parent']['id'], '0.parent.id', $getResponse3);
+        Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.parent.date', $getResponse3);
         Assert::assertJsonPathEquals('2012-05-12T19:31:44+0400', '0.date', $getResponse3);
         Assert::assertJsonPathEquals('180.00', '0.price', $getResponse3);
         Assert::assertJsonPathEquals('25', '0.quantity', $getResponse3);
@@ -122,13 +122,13 @@ class ReturnProductControllerTest extends WebTestCase
         Assert::assertNotJsonPathEquals($products['3'], '*.product.id', $getResponse4);
         Assert::assertJsonPathEquals($products['4'], '*.product.id', $getResponse4, 2);
 
-        Assert::assertJsonPathEquals($store->id, '0.return.store.id', $getResponse4);
-        Assert::assertJsonPathEquals(1, '0.return.itemsCount', $getResponse4);
-        Assert::assertJsonPathEquals('38.00', '0.return.sumTotal', $getResponse4);
-        Assert::assertJsonPathEquals(1, '1.return.itemsCount', $getResponse4);
-        Assert::assertJsonPathEquals('36.00', '1.return.sumTotal', $getResponse4);
-        Assert::assertJsonPathEquals('2012-05-12T19:47:33+0400', '0.return.date', $getResponse4);
-        Assert::assertJsonPathEquals('2012-05-12T19:46:32+0400', '1.return.date', $getResponse4);
+        Assert::assertJsonPathEquals($store->id, '0.parent.store.id', $getResponse4);
+        Assert::assertJsonPathEquals(1, '0.parent.itemsCount', $getResponse4);
+        Assert::assertJsonPathEquals('38.00', '0.parent.sumTotal', $getResponse4);
+        Assert::assertJsonPathEquals(1, '1.parent.itemsCount', $getResponse4);
+        Assert::assertJsonPathEquals('36.00', '1.parent.sumTotal', $getResponse4);
+        Assert::assertJsonPathEquals('2012-05-12T19:47:33+0400', '0.parent.date', $getResponse4);
+        Assert::assertJsonPathEquals('2012-05-12T19:46:32+0400', '1.parent.date', $getResponse4);
 
         Assert::assertJsonPathEquals('38.00', '0.price', $getResponse4);
         Assert::assertJsonPathEquals('1', '0.quantity', $getResponse4);
@@ -142,8 +142,8 @@ class ReturnProductControllerTest extends WebTestCase
         Assert::assertNotJsonHasPath('*.originalProduct', $getResponse4);
 
         // check return with product '1' and '3'
-        $return1 = $getResponse1[0]['return'];
-        $return3 = $getResponse3[0]['return'];
+        $return1 = $getResponse1[0]['parent'];
+        $return3 = $getResponse3[0]['parent'];
         // unset products because
         // return3 does not have product3 but have product1
         // return1 does not have product1 but have product3

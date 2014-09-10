@@ -65,10 +65,10 @@ define(function(require, exports, module) {
         parse: function(data) {
             var model = this;
 
-            _.forEach(model.collections, function(collection, key) {
+            _.forEach(model.collections, function(collectionConstructor, key) {
 
-                if (typeof collection === 'function'){
-                    model.collections[key] = collection.call(model);
+                if (typeof collectionConstructor === 'function'){
+                    model.collections[key] = collectionConstructor.call(model);
                 }
 
                 if (model.collections[key] instanceof Backbone.Collection){
@@ -76,7 +76,32 @@ define(function(require, exports, module) {
                 }
             });
 
+            _.forEach(model.models, function(modelConstructor, key) {
+
+                if (typeof modelConstructor === 'function'){
+                    model.models[key] = modelConstructor.call(modelConstructor);
+                }
+
+                if (model.models[key] instanceof Backbone.Model){
+                    model.models[key].set(data[key]);
+                }
+            });
+
             return data;
+        },
+        clear: function(){
+
+            var model = this;
+
+            _.forEach(model.collections, function(nestedCollection) {
+                nestedCollection.reset([]);
+            });
+
+            _.forEach(model.models, function(nestedModel) {
+                nestedModel.clear();
+            });
+
+            return Backbone.Model.prototype.clear.apply(model, arguments);
         }
     });
 

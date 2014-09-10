@@ -7,7 +7,8 @@ define(function(require) {
     return Model.extend({
         urlRoot: Model.baseApiUrl + '/products',
         defaults: {
-            vat: 0
+            vat: 0,
+            units: 'шт'
         },
         saveData: function() {
 

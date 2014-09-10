@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import project.lighthouse.autotests.common.CommonItem;
 import project.lighthouse.autotests.common.CommonPage;
 import project.lighthouse.autotests.common.CommonPageObject;
+import project.lighthouse.autotests.pages.modal.ModalWindowPage;
 
 import static junit.framework.Assert.fail;
 
@@ -18,8 +19,8 @@ public class NonType extends CommonItem {
         super(pageObject, name);
     }
 
-    public NonType(CommonPageObject pageObject, String name, String label) {
-        super(pageObject, name, label);
+    public NonType(ModalWindowPage modalWindowPage, String xpath) {
+        super(modalWindowPage, xpath);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package project.lighthouse.autotests.objects.web.compare;
 
-import project.lighthouse.autotests.StaticData;
+import project.lighthouse.autotests.storage.Storage;
 
 import java.util.ArrayList;
 import java.util.regex.Matcher;
@@ -23,11 +23,11 @@ public class CompareResults extends ArrayList<CompareResult> {
         Matcher matcher = pattern.matcher(expectedValue);
         if (matcher.matches()) {
             String name = matcher.group(2);
-            String sku = StaticData.products.get(name).getSku();
+            String sku = Storage.getCustomVariableStorage().getProducts().get(name).getSku();
             return matcher.group(1) + sku + matcher.group(3);
         } else if (expectedValue.startsWith("#sku:")) {
             String name = expectedValue.substring(5);
-            return StaticData.products.get(name).getSku();
+            return Storage.getCustomVariableStorage().getProducts().get(name).getSku();
         } else {
             return expectedValue;
         }

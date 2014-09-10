@@ -8,7 +8,7 @@ use Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockIn;
 use Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockInRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockInHighlightGenerator;
 use Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockInFilter;
-use Lighthouse\CoreBundle\Form\StockInType;
+use Lighthouse\CoreBundle\Form\StockMovement\StockInType;
 use Lighthouse\CoreBundle\Meta\MetaCollection;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;

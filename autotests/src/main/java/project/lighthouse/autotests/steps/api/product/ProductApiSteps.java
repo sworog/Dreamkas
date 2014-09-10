@@ -3,8 +3,7 @@ package project.lighthouse.autotests.steps.api.product;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.json.JSONException;
-import project.lighthouse.autotests.StaticData;
-import project.lighthouse.autotests.api.ApiConnect;
+import project.lighthouse.autotests.api.factories.ApiFactory;
 import project.lighthouse.autotests.helper.UUIDGenerator;
 import project.lighthouse.autotests.objects.api.Product;
 import project.lighthouse.autotests.objects.api.SubCategory;
@@ -23,7 +22,7 @@ public class ProductApiSteps extends ScenarioSteps {
                                                 String purchasePrice,
                                                 String sellingPrice,
                                                 String groupName, String email) throws JSONException, IOException {
-        SubCategory subCategory = StaticData.subCategories.get(groupName);
+        SubCategory subCategory = Storage.getCustomVariableStorage().getSubCategories().get(groupName);
         Product product = new Product(
                 name,
                 units,
@@ -32,9 +31,17 @@ public class ProductApiSteps extends ScenarioSteps {
                 purchasePrice,
                 sellingPrice,
                 subCategory.getId());
+
         UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email);
-        ApiConnect userApiConnect = new ApiConnect(userContainer.getEmail(), userContainer.getPassword());
-        return userApiConnect.createProductThroughPost(product, subCategory);
+
+        if (!subCategory.hasProduct(product)) {
+            new ApiFactory(userContainer.getEmail(), userContainer.getPassword()).createObject(product);
+            subCategory.addProduct(product);
+            Storage.getCustomVariableStorage().getProducts().put(product.getName(), product);
+            return product;
+        } else {
+            return subCategory.getProduct(product);
+        }
     }
 
     @Step
@@ -42,11 +49,5 @@ public class ProductApiSteps extends ScenarioSteps {
         String name = UUIDGenerator.generateWithoutHyphens();
         createProductByUserWithEmail(name, "", "", "0", "", "", groupName, email);
         Storage.getCustomVariableStorage().setName(name);
-    }
-
-    @Step
-    public void navigateToTheProductPage(String productName) throws JSONException {
-        String productPageUrl = Product.getPageUrl(productName);
-        getDriver().navigate().to(productPageUrl);
     }
 }

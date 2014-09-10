@@ -5,10 +5,10 @@ import org.jbehave.core.model.ExamplesTable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import project.lighthouse.autotests.StaticData;
 import project.lighthouse.autotests.Waiter;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObject;
 import project.lighthouse.autotests.objects.web.abstractObjects.AbstractObjectCollection;
+import project.lighthouse.autotests.storage.Storage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +23,10 @@ public class ValidationErrorsCollection extends AbstractObjectCollection<Validat
 
     @Override
     public void init(WebDriver webDriver, By findBy) {
+        Integer defaultValidationErrorTimeOut =
+                Storage.getConfigurationVariableStorage().getTimeOutProperty("default.validation.error.timeout");
         List<WebElement> webElementList =
-                new Waiter(webDriver, StaticData.DEFAULT_VALIDATION_ERROR_TIMEOUT).getVisibleWebElements(findBy);
+                new Waiter(webDriver, defaultValidationErrorTimeOut).getVisibleWebElements(findBy);
         for (WebElement element : webElementList) {
             ValidationError abstractObject = createNode(element);
             add(abstractObject);

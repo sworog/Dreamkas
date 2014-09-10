@@ -16,6 +16,8 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
         super(driver);
     }
 
+    public abstract String modalWindowXpath();
+
     public String getTitle() {
         return findVisibleElement(By.xpath(modalWindowXpath() + "//*[@class='modal-title']")).getText();
     }
@@ -34,8 +36,6 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
         findVisibleElement(By.xpath(modalWindowXpath() + "//*[contains(@class, 'close')]")).click();
     }
 
-    public abstract String modalWindowXpath();
-
     @Override
     public void deleteButtonClick() {
         throw new AssertionError("This modal window does not have delete button");
@@ -44,5 +44,13 @@ public abstract class ModalWindowPage extends CommonPageObject implements ModalW
     @Override
     public void confirmDeleteButtonClick() {
         throw new AssertionError("This modal window does not have delete button");
+    }
+
+    public void clickInTheModalWindowByXpath(String xpath) {
+        findVisibleElement(By.xpath(modalWindowXpath() + xpath)).click();
+    }
+
+    public void clickInTheModalWindowByFinBy(By findBy) {
+        findVisibleElement(By.xpath(modalWindowXpath())).findElement(findBy).click();
     }
 }

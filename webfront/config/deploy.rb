@@ -9,11 +9,12 @@ set :domain,      "coquille.lighthouse.pro" unless exists?(:domain)
 set :user,        "watchman"
 set :deploy_to_base,   "/var/www/"
 set :deploy_to,   "{#deploy_to_base}#{application}"
-set :deploy_via,  :remote_cache_subfolder
+set :deploy_via,  :remote_cache_sub_folder
 set :deploy_subdir, "webfront/web"
 
 set :shared_children,   %w()
 
+set :git_enable_pull_requests, true
 set :repository,  "git@github.com:crystalservice/lighthouse.git"
 set :scm,         :git
 

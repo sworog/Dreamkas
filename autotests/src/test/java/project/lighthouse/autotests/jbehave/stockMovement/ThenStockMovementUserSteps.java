@@ -210,4 +210,9 @@ public class ThenStockMovementUserSteps {
     public void whenTheUserCheckValuesOnTheStockMovementPage(ExamplesTable examplesTable) {
         stockMovementSteps.stockMovementPageFieldsCheckValues(examplesTable);
     }
+
+    @Then("пользователь проверяет, что плейсхолдер поля причина в модальном окне создания списания содержит '$text'")
+    public void thenUserCheckProductRowsCountOnWriteOffModal(String text) {
+        stockMovementSteps.assertWriteOffCreateModalWindowsCausePlaceholderText(text);
+    }
 }

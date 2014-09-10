@@ -115,6 +115,7 @@ public class CommonUserSteps {
     }
 
     @Then("the user waits for page finishing loading")
+    @Alias("пользователь ждет пока загрузится страница")
     public void thenTheUserWaitsForPageFinishingLoading() {
         commonSteps.waitForPageFinishingLoading();
     }
@@ -122,5 +123,16 @@ public class CommonUserSteps {
     @Then("the user asserts pop over content is '$content'")
     public void thenTheUserAssertsPopOverContent(String content) {
         commonSteps.assertPopOverContent(content);
+    }
+
+    @When("пользователь переключается на окно браузера с выбором кассы")
+    public void whenUserSwitchesToThePOSWindow() {
+        commonSteps.switchToLastWindowHandle();
+    }
+
+    @BeforeScenario
+    @Given("Пользователь переключается на главное окно браузера если это необходимо")
+    public void givenUserSwitchesToTheMainWindowHandle() {
+        commonSteps.beforeScenarioSwitchToMainWindowHandleIfNeeded();
     }
 }
