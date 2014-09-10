@@ -34,22 +34,19 @@ public class LoginActivityInstrumentationTest extends ActivityInstrumentationTes
     public LoginActivityInstrumentationTest()
     {
         super("ru.crystals.vaverjanov.dreamkas.view", LoginActivity_.class);
-        //super(BuildConfig.PACKAGE_NAME, LoginActivity_.class);
     }
 
     protected void setUp() throws Exception
     {
         super.setUp();
         mStartActivity = getActivity();
-
-
     }
 
     public void testLogin()
     {
         onView(withId(R.id.txtUsername)).perform(clearText()).perform(ViewActions.typeText("owner@lighthouse.pro"));
-        onView(withId(R.id.txtPassword)).perform(clearText()).perform(typeText("lighthouse"));
-        onView(withId(R.id.btnLogin)).perform(click());
+        onView(withId(R.id.txtPassword)).perform(clearText()).perform(scrollTo(), typeText("lighthouse"));
+        onView(withId(R.id.btnLogin)).perform(scrollTo(), click());
         Espresso.registerIdlingResources(mStartActivity.authRequestListener);
 
         onView(withId(R.id.lblWelcome)).check(matches(withText(("Success"))));
