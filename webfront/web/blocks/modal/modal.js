@@ -38,11 +38,15 @@ define(function(require, exports, module) {
             block.$el
                 .show()
                 .find('[autofocus]').focus();
+
+            block.$el.trigger('modal.shown');
         },
         hide: function() {
             var block = this;
 
             block.$el.hide();
+
+            block.$el.trigger('modal.hidden');
         }
     });
 });

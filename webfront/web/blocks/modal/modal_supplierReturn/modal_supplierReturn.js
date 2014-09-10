@@ -50,7 +50,7 @@ define(function(require, exports, module) {
 
                 form_supplierReturn.on('submit:success', function() {
 
-                    block.$el.one('hidden.bs.modal', function(e) {
+                    block.$el.one('modal.hidden', function(e) {
                         PAGE.render();
                     });
                     

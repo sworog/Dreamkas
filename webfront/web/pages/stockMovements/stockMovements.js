@@ -26,7 +26,7 @@ define(function(require, exports, module) {
                     remove: function() {
                         var modal = $('.modal:visible');
 
-                        modal.one('hidden.bs.modal', function(e) {
+                        modal.one('modal.hidden', function(e) {
                             page.render();
                         });
 
