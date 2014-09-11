@@ -12,7 +12,6 @@ use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\ConstraintViolation;
 use Exception;
-use Closure;
 
 abstract class AbstractRestController extends FOSRestController
 {
