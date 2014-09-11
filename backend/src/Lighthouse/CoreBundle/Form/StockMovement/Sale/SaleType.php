@@ -1,11 +1,12 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Form\StockMovement;
+namespace Lighthouse\CoreBundle\Form\StockMovement\Sale;
 
-use Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\CoreBundle\Form\DocumentType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class SaleType extends DocumentType
 {
@@ -13,8 +14,6 @@ class SaleType extends DocumentType
     {
         $builder
             ->add('date', 'datetime')
-            ->add('amountTendered', 'money')
-            ->add('paymentType', 'text')
             ->add(
                 'products',
                 'collection',
@@ -26,6 +25,21 @@ class SaleType extends DocumentType
                 )
             )
         ;
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, array(PaymentType::getClassName(), 'addPaymentType'));
+    }
+
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        parent::setDefaultOptions($resolver);
+        $resolver->setDefaults(
+            array(
+                'cascade_validation' => true
+            )
+        );
     }
 
     /**

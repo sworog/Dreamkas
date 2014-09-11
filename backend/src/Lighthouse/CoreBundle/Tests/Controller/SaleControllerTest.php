@@ -2,6 +2,8 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Payment\BankCardPayment;
+use Lighthouse\CoreBundle\Document\Payment\CashPayment;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\Assert;
@@ -23,8 +25,10 @@ class SaleControllerTest extends WebTestCase
                     'price' => 17.68
                 )
             ),
-            'paymentType' => Sale::PAYMENT_TYPE_CASH,
-            'amountTendered' => 200
+            'payment' => array(
+                'type' => CashPayment::TYPE,
+                'amountTendered' => 200
+            )
         );
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -52,8 +56,9 @@ class SaleControllerTest extends WebTestCase
         Assert::assertJsonPathEquals('1', 'itemsCount', $response);
         Assert::assertJsonPathEquals('176.80', 'sumTotal', $response);
 
-        Assert::assertJsonPathEquals('200.00', 'amountTendered', $response);
-        Assert::assertJsonPathEquals('23.20', 'change', $response);
+        Assert::assertJsonPathEquals(CashPayment::TYPE, 'payment.type', $response);
+        Assert::assertJsonPathEquals('200.00', 'payment.amountTendered', $response);
+        Assert::assertJsonPathEquals('23.20', 'payment.change', $response);
     }
 
     /**
@@ -77,8 +82,7 @@ class SaleControllerTest extends WebTestCase
                     'price' => 17.68
                 )
             ),
-            'paymentType' => Sale::PAYMENT_TYPE_CASH,
-            'amountTendered' => ''
+            'payment' => array()
         );
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -322,7 +326,6 @@ class SaleControllerTest extends WebTestCase
         $receiptData = array(
             'date' => '',
             'products' => $products,
-            'amountTendered' => ''
         );
 
         foreach ($receiptData['products'] as &$product) {
@@ -411,11 +414,11 @@ class SaleControllerTest extends WebTestCase
 
         $this->assertStoreProductTotals($store->id, $productId, 100, 15.00);
 
-        $this->postSaleWithOneProduct($store, '2014-09-09T08:23:12+04:00', $productId, 10, 17.68, 200);
+        $this->postSaleWithOneProduct($store, '2014-09-09T08:23:12+04:00', $productId, 10, 17.68);
 
         $this->assertStoreProductTotals($store->id, $productId, 90, 15.00);
 
-        $this->postSaleWithOneProduct($store, '2014-09-09T08:24:54+04:00', $productId, 4.555, 17.68, 100);
+        $this->postSaleWithOneProduct($store, '2014-09-09T08:24:54+04:00', $productId, 4.555, 17.68);
 
         $this->assertStoreProductTotals($store->id, $productId, 85.445, 15.00);
     }
@@ -434,8 +437,10 @@ class SaleControllerTest extends WebTestCase
                     'price' => 17.68
                 )
             ),
-            'amountTendered' => 200,
-            'paymentType' => Sale::PAYMENT_TYPE_CASH
+            'payment' => array(
+                'type' => CashPayment::TYPE,
+                'amountTendered' => 200
+            )
         );
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -469,8 +474,8 @@ class SaleControllerTest extends WebTestCase
      * @param string $productId
      * @param float $quantity
      * @param float $price
-     * @param float $amountTendered
      * @param string $paymentType
+     * @param float $amountTendered
      * @return string Sale id
      */
     protected function postSaleWithOneProduct(
@@ -479,8 +484,8 @@ class SaleControllerTest extends WebTestCase
         $productId,
         $quantity,
         $price,
-        $amountTendered,
-        $paymentType = null
+        $paymentType = null,
+        $amountTendered = null
     ) {
         $products = array(
             array(
@@ -490,7 +495,7 @@ class SaleControllerTest extends WebTestCase
             )
         );
 
-        return $this->postSale($store, $date, $products, $amountTendered, $paymentType);
+        return $this->postSale($store, $date, $products, $paymentType, $amountTendered);
     }
 
     /**
@@ -501,14 +506,19 @@ class SaleControllerTest extends WebTestCase
      * @param string $paymentType
      * @return string
      */
-    protected function postSale(Store $store, $date, array $products, $amountTendered, $paymentType = null)
+    protected function postSale(Store $store, $date, array $products, $paymentType = null, $amountTendered = null)
     {
         $saleData = array(
             'date' => $date,
             'products' => $products,
-            'amountTendered' => $amountTendered,
-            'paymentType' => $paymentType ?: Sale::PAYMENT_TYPE_CASH
+            'payment' => array(
+                'type' => $paymentType ?: BankCardPayment::TYPE
+            )
         );
+
+        if (null !== $amountTendered) {
+            $saleData['payment']['amountTendered'] = $amountTendered;
+        }
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
