@@ -7,6 +7,8 @@
         "recipe[ruby::1.9.1]",
         "recipe[nodejs]",
         "recipe[nodejs::npm]",
+        "recipe[android-sdk]",
+        "recipe[gradle]",
         "recipe[lighthouse::bundler]",
         "recipe[lighthouse::agent_keys]"
     ],
@@ -16,6 +18,11 @@
         },
         "jdk_version": 7,
         "install_flavor": "oracle"
+    },
+    "gradle": {
+        "version": "1.12",
+        "url": "http://services.gradle.org/distributions/gradle-1.12-bin.zip",
+        "checksum": "8734b13a401f4311ee418173ed6ca8662d2b0a535be8ff2a43ecb1c13cd406ea"
     },
     "teamcity": {
         "agents": {
