@@ -2059,7 +2059,7 @@
           $imageUrl.keyup(function () {
             toggleBtn($imageBtn, $imageUrl.val());
           }).val('').focus();
-        }).one('hidden.bs.modal', function () {
+        }).one('modal.hidden', function () {
           $editable.focus();
           $imageInput.off('change');
           $imageUrl.off('keyup');
@@ -2092,7 +2092,7 @@
             $videoDialog.modal('hide');
             deferred.resolve($videoUrl.val());
           });
-        }).one('hidden.bs.modal', function () {
+        }).one('modal.hidden', function () {
           $editable.focus();
           $videoUrl.off('keyup');
           $videoBtn.off('click');
@@ -2136,7 +2136,7 @@
             $linkDialog.modal('hide');
             deferred.resolve($linkUrl.val(), $openInNewWindow.is(':checked'));
           });
-        }).one('hidden.bs.modal', function () {
+        }).one('modal.hidden', function () {
           $editable.focus();
           $linkUrl.off('keyup');
         }).modal('show');
@@ -2151,7 +2151,7 @@
     this.showHelpDialog = function ($editable, $dialog) {
       var $helpDialog = $dialog.find('.note-help-dialog');
 
-      $helpDialog.one('hidden.bs.modal', function () {
+      $helpDialog.one('modal.hidden', function () {
         $editable.focus();
       }).modal('show');
     };

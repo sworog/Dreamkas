@@ -53,7 +53,7 @@ define(function(require) {
 
             Block.prototype.initialize.apply(block, arguments);
 
-            block.$el.closest('.modal').on('hidden.bs.modal', function() {
+            block.$el.closest('.modal').on('modal.hidden', function() {
                 block.reset();
             });
 

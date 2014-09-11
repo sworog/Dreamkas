@@ -19,12 +19,7 @@
 }, collections) %>
 
 <div block="<%- models.invoice.id ? 'modal_invoiceEdit' : 'modal_invoiceAdd' %>" id="<%- models.invoice.id ? 'modal_invoiceEdit' : 'modal_invoiceAdd' %>"
-     tabindex="-1"
-     role="dialog"
-     aria-labelledby="modal-default-label"
-     aria-hidden="true"
-     class="modal modal_invoice fade"
-     style="display: none;">
+     class="modal modal_invoice">
     <div class="modal__dialog_visible modal__dialog_invoice modal-dialog modal-wide-width">
         <div class="modal-content">
             <div class="modal-header">

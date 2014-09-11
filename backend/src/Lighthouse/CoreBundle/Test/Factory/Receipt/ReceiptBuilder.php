@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Test\Factory\Receipt;
 
+use Lighthouse\CoreBundle\Document\Payment\BankCardPayment;
 use Lighthouse\CoreBundle\Document\StockMovement\Receipt;
 use Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\Returne\Product\ReturnProduct;
@@ -67,7 +68,7 @@ class ReceiptBuilder
      */
     public function createSale(Store $store = null, $date = null)
     {
-        return $this->populateReceipt(new Sale(), $store, $date);
+        return $this->populateReceipt(Sale::TYPE, $store, $date);
     }
 
     /**
@@ -77,27 +78,27 @@ class ReceiptBuilder
      */
     public function createReturn(Store $store = null, $date = null)
     {
-        return $this->populateReceipt(new Returne(), $store, $date);
+        return $this->populateReceipt(Returne::TYPE, $store, $date);
     }
 
     /**
-     * @param Receipt $receipt
+     * @param string $type
      * @param Store $store
      * @param string $date
      * @param string $hash
      * @return ReceiptBuilder
      */
-    protected function populateReceipt(Receipt $receipt, Store $store = null, $date = null, $hash = null)
+    protected function populateReceipt($type, Store $store = null, $date = null, $hash = null)
     {
+        $receipt = $this->repository->createNewByType($type);
+
         $date = ($date) ?: new \DateTime();
 
         $store = ($store) ?: $this->factory->store()->getStore();
 
-
         $this->receipt = $receipt;
         $this->receipt->store = $store;
         $this->receipt->date = new DateTimestamp($date);
-        $this->receipt->sumTotal = $this->numericFactory->createMoney();
 
         $this->receipt->hash = ($hash) ?: md5($store->id . ':' . $this->receipt->date->format(DateTimestamp::RFC3339));
 
@@ -133,9 +134,21 @@ class ReceiptBuilder
      */
     public function persist()
     {
+        $this->preValidate();
+
         $this->validator->validate($this->receipt);
         $this->repository->getDocumentManager()->persist($this->receipt);
         return $this->factory->receipt();
+    }
+
+    protected function preValidate()
+    {
+        $this->receipt->prePersist();
+        $this->receipt->calculateTotals();
+
+        if ($this->receipt instanceof Sale && !$this->receipt->payment) {
+            $this->receipt->payment = new BankCardPayment();
+        }
     }
 
     /**

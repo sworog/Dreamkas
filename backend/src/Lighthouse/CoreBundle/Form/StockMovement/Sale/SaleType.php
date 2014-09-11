@@ -1,27 +1,15 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Form\StockMovement;
+namespace Lighthouse\CoreBundle\Form\StockMovement\Sale;
 
-use Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\CoreBundle\Form\DocumentType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ReceiptType extends DocumentType
+class SaleType extends DocumentType
 {
-    /**
-     * @var string
-     */
-    protected $type;
-
-    /**
-     * @param string $type
-     */
-    public function __construct($type)
-    {
-        $this->type = $type;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -30,21 +18,28 @@ class ReceiptType extends DocumentType
                 'products',
                 'collection',
                 array(
-                    'type' => $this->isSale() ? new SaleProductType() : new ReturnProductType(),
+                    'type' => new SaleProductType(),
                     'allow_add' => true,
                     'allow_delete' => true,
                     'by_reference' => false,
                 )
             )
         ;
+
+        $builder->addEventListener(FormEvents::PRE_SUBMIT, array(PaymentType::getClassName(), 'addPaymentType'));
     }
 
     /**
-     * @return bool
+     * @param OptionsResolverInterface $resolver
      */
-    protected function isSale()
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return Sale::TYPE === $this->type;
+        parent::setDefaultOptions($resolver);
+        $resolver->setDefaults(
+            array(
+                'cascade_validation' => true
+            )
+        );
     }
 
     /**
@@ -52,6 +47,6 @@ class ReceiptType extends DocumentType
      */
     protected function getDataClass()
     {
-        return $this->isSale() ? Sale::getClassName() : Returne::getClassName();
+        return Sale::getClassName();
     }
 }

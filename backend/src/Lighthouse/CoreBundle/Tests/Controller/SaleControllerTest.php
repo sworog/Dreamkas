@@ -2,19 +2,72 @@
 
 namespace Lighthouse\CoreBundle\Tests\Controller;
 
+use Lighthouse\CoreBundle\Document\Payment\BankCardPayment;
+use Lighthouse\CoreBundle\Document\Payment\CashPayment;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
+use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Test\Assert;
 use Lighthouse\CoreBundle\Test\WebTestCase;
 
-class ReceiptControllerTest extends WebTestCase
+class SaleControllerTest extends WebTestCase
 {
+    public function testPostAction()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+
+        $saleData = array(
+            'date' => '2014-09-09T16:23:12+04:00',
+            'products' => array(
+                array(
+                    'product' => $productId,
+                    'quantity' => 10,
+                    'price' => 17.68
+                )
+            ),
+            'payment' => array(
+                'type' => CashPayment::TYPE,
+                'amountTendered' => 200
+            )
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/sales",
+            $saleData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('id', $response);
+        Assert::assertJsonPathEquals(Sale::TYPE, 'type', $response);
+        Assert::assertJsonPathEquals('2014-09-09T16:23:12+0400', 'date', $response);
+        Assert::assertJsonPathEquals($store->id, 'store.id', $response);
+
+        Assert::assertJsonPathCount(1, 'products.*.id', $response);
+        Assert::assertJsonPathEquals($productId, 'products.0.product.id', $response);
+        Assert::assertJsonPathEquals('10.000', 'products.0.quantity', $response);
+        Assert::assertJsonPathEquals('17.68', 'products.0.price', $response);
+        Assert::assertJsonPathEquals('176.80', 'products.0.totalPrice', $response);
+
+        Assert::assertJsonPathEquals('1', 'itemsCount', $response);
+        Assert::assertJsonPathEquals('176.80', 'sumTotal', $response);
+
+        Assert::assertJsonPathEquals(CashPayment::TYPE, 'payment.type', $response);
+        Assert::assertJsonPathEquals('200.00', 'payment.amountTendered', $response);
+        Assert::assertJsonPathEquals('23.20', 'payment.change', $response);
+    }
+
     /**
-     * @dataProvider typesValidationProvider
-     * @param string $type
+     * @dataProvider validationProvider
      * @param int $expectedCode
      * @param array $data
      * @param array $assertions
      */
-    public function testPostWithValidationGroup($type, $expectedCode, array $data, array $assertions = array())
+    public function testPostWithValidationGroup($expectedCode, array $data, array $assertions = array())
     {
         $productIds = $this->createProductsByNames(array('1', '2', '3'));
 
@@ -28,7 +81,8 @@ class ReceiptControllerTest extends WebTestCase
                     'quantity' => 10,
                     'price' => 17.68
                 )
-            )
+            ),
+            'payment' => array()
         );
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
@@ -36,7 +90,7 @@ class ReceiptControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            "/api/1/stores/{$store->id}/{$type}?validate=true&validationGroups=products",
+            "/api/1/stores/{$store->id}/sales?validate=true&validationGroups=products",
             $saleData
         );
 
@@ -48,29 +102,6 @@ class ReceiptControllerTest extends WebTestCase
         } else {
             Assert::assertNotJsonHasPath('date', $response);
         }
-    }
-
-    /**
-     * @return array
-     */
-    public function typesValidationProvider()
-    {
-        return $this->applyTypesToProvider($this->validationProvider());
-    }
-
-    /**
-     * @param array $providerData
-     * @return array
-     */
-    protected function applyTypesToProvider(array $providerData)
-    {
-        $typedData = array();
-        foreach (array('sales', 'returns') as $type) {
-            foreach ($providerData as $key => $row) {
-                $typedData[$type . '::' . $key] = array_merge(array($type), $row);
-            }
-        }
-        return $typedData;
     }
 
     /**
@@ -282,23 +313,19 @@ class ReceiptControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider totalsCalculationWithValidationGroupDataProviderWithTypes
-     * @param string $type
+     * @dataProvider totalsCalculationWithValidationGroupDataProvider
      * @param array $products
      * @param array $assertions
      */
-    public function testTotalsCalculationOnPostWithValidationGroupOnPost(
-        $type,
-        array $products,
-        array $assertions
-    ) {
+    public function testTotalsCalculationOnPostWithValidationGroupOnPost(array $products, array $assertions)
+    {
         $store = $this->factory()->store()->getStore();
 
         $productIds = $this->createProductsByNames(array('1', '2', '3'));
 
         $receiptData = array(
             'date' => '',
-            'products' => $products
+            'products' => $products,
         );
 
         foreach ($receiptData['products'] as &$product) {
@@ -311,7 +338,7 @@ class ReceiptControllerTest extends WebTestCase
         $response = $this->clientJsonRequest(
             $accessToken,
             'POST',
-            "/api/1/stores/{$store->id}/{$type}?validate=true&validationGroups=products",
+            "/api/1/stores/{$store->id}/sales?validate=true&validationGroups=products",
             $receiptData
         );
 
@@ -321,14 +348,6 @@ class ReceiptControllerTest extends WebTestCase
         Assert::assertNotJsonHasPath('name', $response);
 
         $this->performJsonAssertions($response, $assertions);
-    }
-
-    /**
-     * @return array
-     */
-    public function totalsCalculationWithValidationGroupDataProviderWithTypes()
-    {
-        return $this->applyTypesToProvider($this->totalsCalculationWithValidationGroupDataProvider());
     }
 
     /**
@@ -380,5 +399,280 @@ class ReceiptControllerTest extends WebTestCase
                 ),
             ),
         );
+    }
+
+    public function testProductInventoryChangeOnSale()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+
+        $this->factory()
+            ->invoice()
+                ->createInvoice(array(), $store->id)
+                ->createInvoiceProduct($productId, 100, 15.00)
+            ->flush();
+
+        $this->assertStoreProductTotals($store->id, $productId, 100, 15.00);
+
+        $this->postSaleWithOneProduct($store, '2014-09-09T08:23:12+04:00', $productId, 10, 17.68);
+
+        $this->assertStoreProductTotals($store->id, $productId, 90, 15.00);
+
+        $this->postSaleWithOneProduct($store, '2014-09-09T08:24:54+04:00', $productId, 4.555, 17.68);
+
+        $this->assertStoreProductTotals($store->id, $productId, 85.445, 15.00);
+    }
+
+    public function testGetAction()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+
+        $saleData = array(
+            'date' => '2014-09-09T16:23:12+04:00',
+            'products' => array(
+                array(
+                    'product' => $productId,
+                    'quantity' => 10,
+                    'price' => 17.68
+                )
+            ),
+            'payment' => array(
+                'type' => CashPayment::TYPE,
+                'amountTendered' => 200
+            )
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/sales",
+            $saleData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('id', $postResponse);
+        $id = $postResponse['id'];
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$store->id}/sales/{$id}"
+        );
+
+        $this->assertResponseCode(200);
+
+        $this->assertEquals($postResponse, $getResponse);
+    }
+
+    /**
+     * @dataProvider cashChangeValidation
+     *
+     * @param $amountTendered
+     * @param $expectedResponseCode
+     * @param array $assertions
+     */
+    public function testCashChangeValidation($amountTendered, $expectedResponseCode, array $assertions = array())
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+
+        $saleData = array(
+            'date' => '2014-09-09T16:23:12+04:00',
+            'products' => array(
+                array(
+                    'product' => $productId,
+                    'quantity' => 10,
+                    'price' => 17.68
+                )
+            ),
+            'payment' => array(
+                'type' => CashPayment::TYPE,
+                'amountTendered' => $amountTendered
+            )
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/sales",
+            $saleData
+        );
+
+        $this->assertResponseCode($expectedResponseCode);
+
+        $this->performJsonAssertions($postResponse, $assertions);
+    }
+
+    /**
+     * @return array
+     */
+    public function cashChangeValidation()
+    {
+        return array(
+            'positive' => array(
+                200.00,
+                201,
+                array(
+                    'payment.change' => '23.20',
+                    'payment.amountTendered' => '200.00',
+                )
+            ),
+            'negative' => array(
+                170.00,
+                400,
+                array(
+                    'errors.children.payment.children.amountTendered.errors.0'
+                    =>
+                    'Внесенная сумма должна быть равна или больше 176.80'
+                )
+            ),
+            'exact' => array(
+                176.80,
+                201,
+                array(
+                    'payment.change' => '0.00',
+                    'payment.amountTendered' => '176.80',
+                )
+            ),
+            'empty' => array(
+                null,
+                400,
+                array(
+                    'errors.children.payment.children.amountTendered.errors.0' => 'Заполните это поле'
+                )
+            ),
+            'invalid' => array(
+                'aaa',
+                400,
+                array(
+                    'errors.children.payment.children.amountTendered.errors.0' => 'Значение должно быть числом'
+                )
+            ),
+            'invalid 1 000' => array(
+                '1 000',
+                400,
+                array(
+                    'errors.children.payment.children.amountTendered.errors.0' => 'Значение должно быть числом'
+                )
+            ),
+            'invalid 200.198' => array(
+                '200.198',
+                400,
+                array(
+                    'errors.children.payment.children.amountTendered.errors.0'
+                    =>
+                    'Цена не должна содержать больше 2 цифр после запятой'
+                )
+            ),
+        );
+    }
+
+    public function testPaymentBankCard()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+
+        $saleData = array(
+            'date' => '2014-09-09T16:23:12+04:00',
+            'products' => array(
+                array(
+                    'product' => $productId,
+                    'quantity' => 10,
+                    'price' => 17.68
+                )
+            ),
+            'payment' => array(
+                'type' => BankCardPayment::TYPE,
+            )
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/sales",
+            $saleData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonPathEquals(BankCardPayment::TYPE, 'payment.type', $postResponse);
+        Assert::assertNotJsonHasPath('payment.change', $postResponse);
+        Assert::assertNotJsonHasPath('payment.sale', $postResponse);
+    }
+
+    /**
+     * @param Store $store
+     * @param string $date
+     * @param string $productId
+     * @param float $quantity
+     * @param float $price
+     * @param string $paymentType
+     * @param float $amountTendered
+     * @return string Sale id
+     */
+    protected function postSaleWithOneProduct(
+        Store $store,
+        $date,
+        $productId,
+        $quantity,
+        $price,
+        $paymentType = null,
+        $amountTendered = null
+    ) {
+        $products = array(
+            array(
+                'product' => $productId,
+                'quantity' => $quantity,
+                'price' => $price,
+            )
+        );
+
+        return $this->postSale($store, $date, $products, $paymentType, $amountTendered);
+    }
+
+    /**
+     * @param Store $store
+     * @param string $date
+     * @param array $products
+     * @param float $amountTendered
+     * @param string $paymentType
+     * @return string
+     */
+    protected function postSale(Store $store, $date, array $products, $paymentType = null, $amountTendered = null)
+    {
+        $saleData = array(
+            'date' => $date,
+            'products' => $products,
+            'payment' => array(
+                'type' => $paymentType ?: BankCardPayment::TYPE
+            )
+        );
+
+        if (null !== $amountTendered) {
+            $saleData['payment']['amountTendered'] = $amountTendered;
+        }
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $response = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/sales",
+            $saleData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonHasPath('id', $response);
+
+        return $response['id'];
     }
 }

@@ -2,12 +2,11 @@
 
 namespace Lighthouse\CoreBundle\Form\Product\Type;
 
-use Symfony\Component\Form\AbstractType;
+use Lighthouse\CoreBundle\Form\DocumentType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Lighthouse\CoreBundle\Document\Product\Type;
 
-class AlcoholType extends AbstractType
+class AlcoholType extends DocumentType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -22,23 +21,10 @@ class AlcoholType extends AbstractType
     }
 
     /**
-     * @param OptionsResolverInterface $resolver
-     */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(
-            array(
-                'data_class' => Type\AlcoholType::getClassName(),
-                'csrf_protection' => false
-            )
-        );
-    }
-
-    /**
      * @return string
      */
-    public function getName()
+    protected function getDataClass()
     {
-        return '';
+        return Type\AlcoholType::getClassName();
     }
 }
