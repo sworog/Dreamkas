@@ -15,11 +15,13 @@ define(function(require, exports, module) {
         })
         .on('click', function(e){
             if (e.target.classList.contains('modal')){
-                e.target.block.hide();
+                e.target.block && e.target.block.hide();
             }
         })
         .on('keyup', function(e){
-            checkKey(e.keyCode, ['ESC']) && $('.modal:visible')[0].block.hide();
+            var modal = $('.modal:visible')[0].block;
+
+            checkKey(e.keyCode, ['ESC']) && modal && modal.hide();
         });
 
     return Block.extend({
