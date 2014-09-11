@@ -11,10 +11,8 @@ use Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\CoreBundle\Document\StockMovement\WriteOff\WriteOffRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Exception\RuntimeException;
 use Lighthouse\CoreBundle\Test\Factory\Factory;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
-use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Symfony\Component\Validator\ValidatorInterface;
 
@@ -71,22 +69,6 @@ class ReceiptBuilder
     public function createSale(Store $store = null, $date = null)
     {
         return $this->populateReceipt(Sale::TYPE, $store, $date);
-    }
-
-    /**
-     * @param string $paymentType
-     * @param float $amountTendered
-     * @return $this
-     */
-    public function setSalePayment($paymentType, $amountTendered)
-    {
-        if ($this->receipt instanceof Sale) {
-            $this->receipt->paymentType = $paymentType;
-            $this->receipt->amountTendered = $this->numericFactory->createMoney($amountTendered);
-        } else {
-            throw new RuntimeException('Only sale excepts paymentType');
-        }
-        return $this;
     }
 
     /**
