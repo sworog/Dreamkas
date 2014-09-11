@@ -57,6 +57,17 @@ class Sale extends Receipt
         $this->date = new DateTimestamp();
     }
 
+    /**
+     * @param Payment $payment
+     */
+    public function setPayment(Payment $payment = null)
+    {
+        $this->payment = $payment;
+        if ($this->payment) {
+            $this->payment->sale = $this;
+        }
+    }
+
     public function calculateTotals()
     {
         parent::calculateTotals();

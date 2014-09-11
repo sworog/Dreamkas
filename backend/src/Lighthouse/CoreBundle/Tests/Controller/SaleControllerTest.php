@@ -469,6 +469,146 @@ class SaleControllerTest extends WebTestCase
     }
 
     /**
+     * @dataProvider cashChangeValidation
+     *
+     * @param $amountTendered
+     * @param $expectedResponseCode
+     * @param array $assertions
+     */
+    public function testCashChangeValidation($amountTendered, $expectedResponseCode, array $assertions = array())
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+
+        $saleData = array(
+            'date' => '2014-09-09T16:23:12+04:00',
+            'products' => array(
+                array(
+                    'product' => $productId,
+                    'quantity' => 10,
+                    'price' => 17.68
+                )
+            ),
+            'payment' => array(
+                'type' => CashPayment::TYPE,
+                'amountTendered' => $amountTendered
+            )
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/sales",
+            $saleData
+        );
+
+        $this->assertResponseCode($expectedResponseCode);
+
+        $this->performJsonAssertions($postResponse, $assertions);
+    }
+
+    /**
+     * @return array
+     */
+    public function cashChangeValidation()
+    {
+        return array(
+            'positive' => array(
+                200.00,
+                201,
+                array(
+                    'payment.change' => '23.20',
+                    'payment.amountTendered' => '200.00',
+                )
+            ),
+            'negative' => array(
+                170.00,
+                400,
+                array(
+                    'errors.children.payment.children.amountTendered.errors.0'
+                    =>
+                    'Внесенная сумма должна быть равна или больше 176.80'
+                )
+            ),
+            'exact' => array(
+                176.80,
+                201,
+                array(
+                    'payment.change' => '0.00',
+                    'payment.amountTendered' => '176.80',
+                )
+            ),
+            'empty' => array(
+                null,
+                400,
+                array(
+                    'errors.children.payment.children.amountTendered.errors.0' => 'Заполните это поле'
+                )
+            ),
+            'invalid' => array(
+                'aaa',
+                400,
+                array(
+                    'errors.children.payment.children.amountTendered.errors.0' => 'Значение должно быть числом'
+                )
+            ),
+            'invalid 1 000' => array(
+                '1 000',
+                400,
+                array(
+                    'errors.children.payment.children.amountTendered.errors.0' => 'Значение должно быть числом'
+                )
+            ),
+            'invalid 200.198' => array(
+                '200.198',
+                400,
+                array(
+                    'errors.children.payment.children.amountTendered.errors.0'
+                    =>
+                    'Цена не должна содержать больше 2 цифр после запятой'
+                )
+            ),
+        );
+    }
+
+    public function testPaymentBankCard()
+    {
+        $store = $this->factory()->store()->getStore();
+        $productId = $this->createProduct();
+
+        $saleData = array(
+            'date' => '2014-09-09T16:23:12+04:00',
+            'products' => array(
+                array(
+                    'product' => $productId,
+                    'quantity' => 10,
+                    'price' => 17.68
+                )
+            ),
+            'payment' => array(
+                'type' => BankCardPayment::TYPE,
+            )
+        );
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $postResponse = $this->clientJsonRequest(
+            $accessToken,
+            'POST',
+            "/api/1/stores/{$store->id}/sales",
+            $saleData
+        );
+
+        $this->assertResponseCode(201);
+
+        Assert::assertJsonPathEquals(BankCardPayment::TYPE, 'payment.type', $postResponse);
+        Assert::assertNotJsonHasPath('payment.change', $postResponse);
+        Assert::assertNotJsonHasPath('payment.sale', $postResponse);
+    }
+
+    /**
      * @param Store $store
      * @param string $date
      * @param string $productId
