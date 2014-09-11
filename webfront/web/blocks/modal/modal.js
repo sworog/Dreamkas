@@ -19,9 +19,9 @@ define(function(require, exports, module) {
             }
         })
         .on('keyup', function(e){
-            var modal = $('.modal:visible')[0].block;
+            var modal = $('.modal:visible')[0];
 
-            checkKey(e.keyCode, ['ESC']) && modal && modal.hide();
+            checkKey(e.keyCode, ['ESC']) && modal && modal.block && modal.block.hide();
         });
 
     return Block.extend({
