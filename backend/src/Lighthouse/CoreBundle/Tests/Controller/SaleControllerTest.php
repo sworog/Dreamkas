@@ -609,6 +609,78 @@ class SaleControllerTest extends WebTestCase
     }
 
     /**
+     * @dataProvider getSalesByDatesProvider
+     * @param array $query
+     * @param int $expectedCount
+     * @param array $assertions
+     */
+    public function testGetSalesByDates(array $query, $expectedCount, array $assertions = array())
+    {
+        $store = $this->factory()->store()->getStore();
+        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+
+        $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-09-11T19:31:50+04:00')
+                ->createReceiptProduct($productIds['1'], 1, 49.79)
+                ->createReceiptProduct($productIds['2'], 2, 19.79)
+                ->createReceiptProduct($productIds['3'], 3, 9.79)
+            ->persist()
+                ->createSale($store, '2014-09-05T09:31:50+04:00')
+                ->createReceiptProduct($productIds['1'], 2, 49.79)
+            ->persist()
+                ->createSale($store, '2014-09-06T05:31:50+04:00')
+                ->createReceiptProduct($productIds['2'], 4, 19.79)
+            ->persist()
+                ->createSale($store, '2014-09-13T09:31:50+04:00')
+                ->createReceiptProduct($productIds['3'], 6, 9.79)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$store->id}/sales",
+            null,
+            $query
+        );
+
+        $this->assertResponseCode(200);
+
+        Assert::assertJsonPathCount($expectedCount, '*.id', $getResponse);
+
+        $this->performJsonAssertions($getResponse, $assertions);
+    }
+
+    /**
+     * @return array
+     */
+    public function getSalesByDatesProvider()
+    {
+        return array(
+            '2014-09-01 - 2014-09-30' => array(
+                array('dateFrom' => '2014-09-01', 'dateTo' => '2014-09-30'),
+                4,
+                array(
+                    '0.date' => '2014-09-13T09:31:50+0400',
+                    '1.date' => '2014-09-11T19:31:50+0400',
+                    '2.date' => '2014-09-06T05:31:50+0400',
+                    '3.date' => '2014-09-05T09:31:50+0400',
+                )
+            ),
+            '2014-09-05 - 2014-09-07' => array(
+                array('dateFrom' => '2014-09-05', 'dateTo' => '2014-09-07'),
+                2,
+                array(
+                    '0.date' => '2014-09-06T05:31:50+0400',
+                    '1.date' => '2014-09-05T09:31:50+0400',
+                )
+            ),
+        );
+    }
+
+    /**
      * @param Store $store
      * @param string $date
      * @param string $productId

@@ -6,7 +6,9 @@ use Doctrine\ODM\MongoDB\Cursor;
 use Doctrine\ODM\MongoDB\Mapping;
 use Lighthouse\CoreBundle\Document\StockMovement\Returne\Returne;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleFilter;
 use Lighthouse\CoreBundle\Exception\RuntimeException;
+use Symfony\Component\Validator\Constraints\Collection;
 
 class ReceiptRepository extends StockMovementRepository
 {
@@ -54,5 +56,26 @@ class ReceiptRepository extends StockMovementRepository
 
         $result = $queryBuilder->getQuery()->execute();
         return $result;
+    }
+
+    /**
+     * @param SaleFilter $filter
+     * @return Sale[]|Collection
+     * @throws \Doctrine\ODM\MongoDB\MongoDBException
+     */
+    public function findSalesByFilter(SaleFilter $filter)
+    {
+        $qb = $this->createQueryBuilder();
+        $qb->addAnd($qb->expr()->field('type')->equals(Sale::TYPE));
+        $qb->addAnd($qb->expr()->field('store')->equals($filter->store->id));
+        if (isset($filter->dateFrom)) {
+            $qb->addAnd($qb->expr()->field('date')->gte($filter->dateFrom));
+        }
+        if (isset($filter->dateTo)) {
+            $qb->addAnd($qb->expr()->field('date')->lte($filter->dateTo));
+        }
+        $qb->sort('date', self::SORT_DESC);
+
+        return $qb->getQuery()->execute();
     }
 }
