@@ -1,9 +1,17 @@
 define(function(require, exports, module) {
     //requirements
-    var Page = require('blocks/page/page');
+    var Page = require('blocks/page/page'),
+        cookies = require('cookies');
 
     return Page.extend({
         template: require('ejs!./template.ejs'),
+        initialize: function(){
+            var page = this;
+
+            cookies.set('posStoreId', page.params.storeId);
+
+            Page.prototype.initialize.apply(page, arguments);
+        },
         models: {
             store: function(){
                 var page = this,
