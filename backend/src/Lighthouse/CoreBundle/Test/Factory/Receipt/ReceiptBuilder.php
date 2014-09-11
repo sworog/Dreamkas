@@ -2,6 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Test\Factory\Receipt;
 
+use Lighthouse\CoreBundle\Document\Payment\BankCardPayment;
 use Lighthouse\CoreBundle\Document\StockMovement\Receipt;
 use Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\Returne\Product\ReturnProduct;
@@ -163,15 +164,8 @@ class ReceiptBuilder
         $this->receipt->prePersist();
         $this->receipt->calculateTotals();
 
-        if ($this->receipt instanceof Sale) {
-            if (!$this->receipt->paymentType) {
-                $this->receipt->paymentType = Sale::PAYMENT_TYPE_CASH;
-            }
-            if (Decimal::checkIsNull($this->receipt->amountTendered)) {
-                $this->receipt->amountTendered = clone $this->receipt->sumTotal->copy();
-            }
-
-            $this->receipt->calculateChange();
+        if ($this->receipt instanceof Sale && !$this->receipt->payment) {
+            $this->receipt->payment = new BankCardPayment();
         }
     }
 
