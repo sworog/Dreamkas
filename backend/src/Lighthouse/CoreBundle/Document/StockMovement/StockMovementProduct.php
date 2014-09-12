@@ -169,4 +169,9 @@ abstract class StockMovementProduct extends AbstractDocument
     {
         $this->quantity = $quantity;
     }
+
+    /**
+     * @return bool
+     */
+    abstract public function increaseAmount();
 }
