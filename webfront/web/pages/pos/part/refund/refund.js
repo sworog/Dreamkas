@@ -5,6 +5,12 @@ define(function(require, exports, module) {
     return PosPart.extend({
 		title: 'История продаж',
         content: require('ejs!./content.ejs'),
-		activeNavigationItem: 'refund'
+		activeNavigationItem: 'refund',
+		models: {
+			store: PosPart.prototype.models.store
+		},
+		blocks: {
+			receiptFinder: require('blocks/receiptFinder/receiptFinder')
+		}
     });
 });

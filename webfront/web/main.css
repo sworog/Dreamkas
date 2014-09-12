@@ -16,6 +16,8 @@
 @import "/blocks/autocomplete/autocomplete.css";
 @import "/blocks/page/page.css";
 @import "/blocks/productFinder/productFinder.css";
+@import "/blocks/receiptFinder/receiptFinder.css";
+@import "/blocks/modal/modal.css";
 @import "/blocks/form/form.css";
 @import "/blocks/receipt/receipt.css";
 @import "/blocks/radioButton/radioButton.css";
