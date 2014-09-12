@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Test\Factory\SupplierReturn;
 
-use Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\Product\SupplierReturnProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturnProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturn;
 use Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturnRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;

@@ -6,7 +6,7 @@ use Doctrine\ODM\MongoDB\Cursor;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Controller\FOSRestController;
 use Lighthouse\CoreBundle\Document\Product\Product;
-use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProductRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use JMS\DiExtraBundle\Annotation as DI;

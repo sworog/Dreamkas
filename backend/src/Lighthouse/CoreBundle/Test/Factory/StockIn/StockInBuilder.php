@@ -2,7 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Test\Factory\StockIn;
 
-use Lighthouse\CoreBundle\Document\StockMovement\StockIn\Product\StockInProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockInProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockIn;
 use Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockInRepository;
 use Lighthouse\CoreBundle\Document\Store\Store;

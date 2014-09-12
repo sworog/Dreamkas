@@ -3,7 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\StockMovement\StockIn;
 
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
-use Lighthouse\CoreBundle\Document\StockMovement\StockIn\Product\StockInProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockInProduct;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;

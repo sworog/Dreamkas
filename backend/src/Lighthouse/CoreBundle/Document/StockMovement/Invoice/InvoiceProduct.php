@@ -1,6 +1,6 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product;
+namespace Lighthouse\CoreBundle\Document\StockMovement\Invoice;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;

@@ -82,7 +82,7 @@ services:
         parent: doctrine_mongodb.odm.repository
         class: %lighthouse.core.document.repository.stock_movement_product%
         arguments:
-            - LighthouseCoreBundle:StockMovement\Invoice\Product\InvoiceProduct
+            - LighthouseCoreBundle:StockMovement\Invoice\InvoiceProduct
 
     lighthouse.core.document.repository.stock_movement.writeoff:
         parent: doctrine_mongodb.odm.repository
@@ -96,7 +96,7 @@ services:
         parent: doctrine_mongodb.odm.repository
         class: %lighthouse.core.document.repository.stock_movement_product%
         arguments:
-            - LighthouseCoreBundle:StockMovement\WriteOff\Product\WriteOffProduct
+            - LighthouseCoreBundle:StockMovement\WriteOff\WriteOffProduct
 
     lighthouse.core.document.repository.stock_movement.stockin:
         parent: doctrine_mongodb.odm.repository
@@ -108,9 +108,9 @@ services:
 
     lighthouse.core.document.repository.stock_movement.stockin_product:
         parent: doctrine_mongodb.odm.repository
-        class: %lighthouse.core.document.repository.stock_movement_product%
+        class: "%lighthouse.core.document.repository.stock_movement_product%"
         arguments:
-            - LighthouseCoreBundle:StockMovement\StockIn\Product\StockInProduct
+            - LighthouseCoreBundle:StockMovement\StockIn\StockInProduct
             
     lighthouse.core.document.repository.stock_movement.supplier_return:
         parent: doctrine_mongodb.odm.repository
@@ -124,7 +124,7 @@ services:
         parent: doctrine_mongodb.odm.repository
         class: %lighthouse.core.document.repository.stock_movement_product%
         arguments:
-            - LighthouseCoreBundle:StockMovement\SupplierReturn\Product\SupplierReturnProduct
+            - LighthouseCoreBundle:StockMovement\SupplierReturn\SupplierReturnProduct
 
     lighthouse.core.document.repository.receipt:
         parent: doctrine_mongodb.odm.repository
@@ -133,12 +133,19 @@ services:
             - LighthouseCoreBundle:StockMovement\Receipt
         calls:
             - [setNumericFactory, ["@lighthouse.core.types.numeric.factory"]]
+            - [setSaleProductRepository, ["@lighthouse.core.document.repository.sale_product"]]
+
+    lighthouse.core.document.repository.sale_product:
+        parent: doctrine_mongodb.odm.repository
+        class: %lighthouse.core.document.repository.stock_movement_product%
+        arguments:
+            - LighthouseCoreBundle:StockMovement\Sale\SaleProduct
 
     lighthouse.core.document.repository.return.product:
         parent: doctrine_mongodb.odm.repository
         class: %lighthouse.core.document.repository.stock_movement_product%
         arguments:
-            - LighthouseCoreBundle:StockMovement\Returne\Product\ReturnProduct
+            - LighthouseCoreBundle:StockMovement\Returne\ReturnProduct
 
     lighthouse.core.document.repository.trial_balance:
         parent: doctrine_mongodb.odm.repository
