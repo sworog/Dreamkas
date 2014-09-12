@@ -809,6 +809,13 @@ class SaleControllerTest extends WebTestCase
                     =>
                     'Вы ввели неверную дату bbb, формат должен быть следующий дд.мм.гггг чч:мм'
                 )
+            ),
+            'invalid product id' => array(
+                array('product' => 'aaaa'),
+                400,
+                array(
+                    'errors.children.product.errors.0' => 'Такого товара не существует',
+                )
             )
         );
     }
