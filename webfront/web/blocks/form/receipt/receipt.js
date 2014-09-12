@@ -33,6 +33,8 @@ define(function(require, exports, module) {
             }
         },
         submitSuccess: function(){
+            var block = this;
+
             document.getElementById('modal_receipt').block.show({
                 dialog: 'success'
             });
