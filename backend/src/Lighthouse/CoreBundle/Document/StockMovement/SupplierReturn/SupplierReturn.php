@@ -3,7 +3,6 @@
 namespace Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn;
 
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovement;
-use Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturnProduct;
 use Lighthouse\CoreBundle\Document\Supplier\Supplier;
 use Lighthouse\CoreBundle\MongoDB\Generated\Generated;
 use Doctrine\Common\Collections\Collection;

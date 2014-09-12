@@ -4,7 +4,6 @@ namespace Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProduct;
-use Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturn;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\Validator\Constraints as Assert;
 use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
