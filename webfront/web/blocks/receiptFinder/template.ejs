@@ -1,6 +1,6 @@
 <div class="receiptFinder page__panel">
 
-	<div class="receiptFinder__search">
+	<div class="receiptFinder__input">
 		<div class="input-group">
 
             <span class="input-group-addon">
@@ -12,12 +12,16 @@
 				   type="text"
 				   name="product"
 				   class="form-control">
-
             <span class="receiptFinder__resetLink input-group-addon">
                 <i class="fa fa-times"></i>
             </span>
 		</div>
 	</div>
+
+	<b block="inputDateRange"
+	   data-date-from="<%- dateRange.dateFrom %>"
+	   data-date-to="<%- dateRange.dateTo %>">
+	</b>
 
 	<b block="receiptFinder__results"></b>
 

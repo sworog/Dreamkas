@@ -7,7 +7,7 @@
     left: 0;
     width: 100%;
     bottom: 0;
-    top: 60px;
+    top: 120px;
     overflow: auto;
     border-top: 1px solid #ddd;
 }
@@ -42,4 +42,9 @@
 .receiptFinder__resultLinkTime {
     float: right;
     font-size: 14px;
+}
+
+.receiptFinder .receiptFinder__input,
+.receiptFinder .inputDateRange {
+    padding-bottom: 14px;
 }
