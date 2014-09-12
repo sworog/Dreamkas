@@ -1,72 +1,52 @@
 define(function(require, exports, module) {
-    //requirements
-    var Form = require('blocks/form/form');
+	//requirements
+	var Form = require('blocks/form/form'),
+		formatMoney = require('kit/formatMoney/formatMoney'),
+		normalizeNumber = require('kit/normalizeNumber/normalizeNumber');
 
-    return Form.extend({
-        template: require('ejs!./template.ejs'),
-        id: 'form_receipt',
-        model: function() {
-            return PAGE.models.receipt
-        },
-        events: {
-            'change input[name="paymentType"]': function(e) {
-                var block = this,
-                    $form_receipt__cashInput = block.$('.form_receipt__cashInput'),
-                    $form_receipt__change = block.$('.form_receipt__change');
+	return Form.extend({
+		model: function(){
+			return PAGE.models.receipt;
+		},
+		template: require('ejs!./template.ejs'),
+		events: {
+			'click .form_receipt__productLink': function(e){
+				document.getElementById('modal_receiptProduct').block.show({
+					models: {
+						receiptProduct: PAGE.models.receipt.collections.products.get(e.currentTarget.dataset.receiptProductCid)
+					}
+				});
+			},
+			'click .form_receipt__clearLink .confirmLink__confirmation': function(e){
+				var block = this;
 
-                if (e.target.value === 'cash') {
-                    $form_receipt__cashInput.show();
-                    block.checkChange();
-                    block.el.querySelector('input[name="amountTendered"]').focus();
+				block.model.clear();
+			}
+		},
+		initialize: function(){
+			var block = this;
 
-                } else {
-                    $form_receipt__cashInput.hide();
-                    $form_receipt__change.hide();
-                    block.enable();
-                }
+			Form.prototype.initialize.apply(block, arguments);
 
-            },
-            'keyup input[name="amountTendered"]': function() {
-                var block = this;
+			block.listenTo(block.model.collections.products, {
+				'add remove reset change': function(){
+					block.render();
+					block.$('.form_receipt__scrollContainer').scrollTop(block.$('.form_receipt__scrollContainer table').height());
+				}
+			});
+		},
+		calculateItemPrice: function(receiptProductModel){
+			return formatMoney(normalizeNumber(receiptProductModel.get('quantity')) * normalizeNumber(receiptProductModel.get('price')));
+		},
+		calculateTotalPrice: function(){
+			var block = this,
+				totalPrice = 0;
 
-                block.checkChange();
-            }
-        },
-        submitSuccess: function(){
-            document.getElementById('modal_receipt').block.show({
-                dialog: 'success'
-            });
-        },
-        checkChange: function(){
-            var block = this,
-                $form_receipt__change = block.$('.form_receipt__change');
+			block.model.collections.products.forEach(function(receiptProductModel){
+				totalPrice += normalizeNumber(block.calculateItemPrice(receiptProductModel));
+			});
 
-            if (!block.data.change || block.normalizeNumber(block.data.change) < 0) {
-                $form_receipt__change.hide();
-                block.disable();
-            } else {
-                $form_receipt__change.show();
-                block.enable();
-            }
-        },
-        calculateTotalPrice: function() {
-            var block = this,
-                totalPrice = 0;
-
-            block.model.collections.products.forEach(function(receiptProductModel) {
-                totalPrice += block.normalizeNumber(receiptProductModel.get('quantity')) * block.normalizeNumber(receiptProductModel.get('price'));
-            });
-
-            return block.formatMoney(totalPrice);
-        },
-        calculateChange: function() {
-            var block = this,
-                totalPrice = block.calculateTotalPrice(),
-                change = block.normalizeNumber(block.data.amountTendered) - block.normalizeNumber(totalPrice);
-
-            block.data.change = _.isNaN(change) ? null : block.formatMoney(change);
-
-            return block.data.change;
-        }
-    });
+			return formatMoney(totalPrice);
+		}
+	});
 });

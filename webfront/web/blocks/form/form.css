@@ -1,21 +1,79 @@
+.form_receipt {
+    background-color: #fff;
+    position: relative;
+    padding-bottom: 45px;
+}
+
+.form_receipt__scrollContainer {
+    max-height: 100%;
+    overflow: auto;
+}
+
+.form_receipt button[type="submit"] {
+    width: 100%;
+    font-weight: bold;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.form_receipt button[type="submit"] .fa-rub {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.form_receipt .table {
+    margin-bottom: 0;
+}
+
+.form_receipt .table td {
+    padding: 15px;
+}
+
+.form_receipt__itemCount, .form_receipt__itemPrice {
+    white-space: nowrap;
+    width: 1px;
+}
+
+.form_receipt__itemPrice .fa-rub {
+    font-size: 12px;
+}
+
+.form_receipt__itemName {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+}
+
+.form_receipt__productLink {
+    cursor: pointer;
+}
+
+.form_receipt__clearLink {
+    cursor: pointer;
+}
+
+.form_receipt__clearLink td {
+    text-align: center;
+    padding: 0 !important;
+    border-bottom: 1px solid #eee;
+    background-color: #fff !important;
+}
+
+.form_receipt__clearLink .confirmLink__trigger, .form_receipt__clearLink .confirmLink__confirmation {
+    padding: 15px;
+}
+
+.form_receipt__clearLink:hover td {
+    background-color: #fafafa !important;
+}
+
 .form_receiptProduct__quantityPlusLink, .form_receiptProduct__quantityMinusLink {
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none
-}
-
-.form_receipt__totalPrice, .form_receipt__totalPrice .fa {
-    font-size: 28px;
-    font-weight: bold;
-    color: #0a819c;
-}
-
-.form_receipt__totalPrice .fa {
-    font-size: 24px;
-}
-
-.form_receipt__change {
-    display: none;
 }

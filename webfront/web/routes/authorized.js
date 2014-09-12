@@ -21,7 +21,8 @@ define(function(require) {
 
         //pos
         'pos(/)': require('pages/pos/pos'),
-        'pos/stores/:storeId(/)': require('pages/pos/stores/store'),
+        'pos/store/:storeId(/)': require('pages/pos/part/store/store'),
+		'pos/refund/:storeId(/)': require('pages/pos/part/refund/refund'),
 
         //404
         '*path': require('pages/404/404')
