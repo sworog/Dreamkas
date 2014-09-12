@@ -638,12 +638,15 @@ class SaleControllerTest extends WebTestCase
 
         $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
 
+        $pairs = $this->createReplacePairs($productIds, 'product-');
+        $replacedQuery = $this->replaceValues($query, $pairs);
+
         $getResponse = $this->clientJsonRequest(
             $accessToken,
             'GET',
             "/api/1/stores/{$store->id}/sales",
             null,
-            $query
+            $replacedQuery
         );
 
         $this->assertResponseCode(200);
@@ -651,6 +654,35 @@ class SaleControllerTest extends WebTestCase
         Assert::assertJsonPathCount($expectedCount, '*.id', $getResponse);
 
         $this->performJsonAssertions($getResponse, $assertions);
+    }
+
+    /**
+     * @param array $values
+     * @param string $prefix
+     * @return array
+     */
+    protected function createReplacePairs(array $values, $prefix = '')
+    {
+        $pairs = array();
+        foreach ($values as $key => $value) {
+            $pairs["{{$prefix}{$key}}"] = $value;
+        }
+        return $pairs;
+    }
+
+    /**
+     * @param array $values
+     * @param array $pairs
+     * @return array
+     */
+    protected function replaceValues(array $values, array $pairs)
+    {
+        return array_map(
+            function ($value) use ($pairs) {
+                return strtr($value, $pairs);
+            },
+            $values
+        );
     }
 
     /**
@@ -677,6 +709,14 @@ class SaleControllerTest extends WebTestCase
                     '1.date' => '2014-09-05T09:31:50+0400',
                 )
             ),
+            'product 1' => array(
+                array('dateFrom' => '2014-09-01', 'dateTo' => '2014-09-30', 'product' => '{product-1}'),
+                2,
+                array(
+                    '0.date' => '2014-09-05T09:31:50+0400',
+                    '1.date' => '2014-09-11T19:31:50+0400',
+                )
+            )
         );
     }
 

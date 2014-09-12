@@ -20,9 +20,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @property Money      $totalAmountVAT
  * @property Invoice    $parent
  *
- * @MongoDB\Document(
- *     repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProductRepository"
- * )
+ * @MongoDB\Document
  * @MongoDB\HasLifecycleCallbacks
  */
 class InvoiceProduct extends StockMovementProduct

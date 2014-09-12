@@ -11,9 +11,7 @@ use Lighthouse\CoreBundle\Validator\Constraints as LighthouseAssert;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * @MongoDB\Document(
- *      repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\Returne\Product\ReturnProductRepository"
- * )
+ * @MongoDB\Document
  * @MongoDB\HasLifecycleCallbacks
  *
  * @property Returne $parent

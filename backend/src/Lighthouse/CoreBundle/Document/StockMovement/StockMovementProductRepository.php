@@ -1,17 +1,16 @@
 <?php
 
-namespace Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product;
+namespace Lighthouse\CoreBundle\Document\StockMovement;
 
 use Doctrine\ODM\MongoDB\Cursor;
 use Lighthouse\CoreBundle\Document\DocumentRepository;
-use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 
-class InvoiceProductRepository extends DocumentRepository
+class StockMovementProductRepository extends DocumentRepository
 {
     /**
      * @param string $storeId
      * @param string $productId
-     * @return Cursor|InvoiceProduct[]
+     * @return Cursor|StockMovementProduct[]
      */
     public function findByStoreAndProduct($storeId, $productId)
     {
@@ -27,7 +26,7 @@ class InvoiceProductRepository extends DocumentRepository
 
     /**
      * @param string $storeId
-     * @return Cursor|InvoiceProduct[]
+     * @return Cursor|StockMovementProduct[]
      */
     public function findByStoreId($storeId)
     {
@@ -38,22 +37,5 @@ class InvoiceProductRepository extends DocumentRepository
             'date' => self::SORT_DESC,
         );
         return $this->findBy($criteria, $sort);
-    }
-
-    /**
-     * @param Invoice $invoice
-     * @return bool
-     */
-    public function recalcVATByInvoice(Invoice $invoice)
-    {
-        $invoiceProducts = $invoice->products;
-        if ($invoiceProducts->count() > 0) {
-            foreach ($invoiceProducts as $invoiceProduct) {
-                $invoiceProduct->calculatePrices();
-                $this->getDocumentManager()->persist($invoiceProduct);
-            }
-            $this->getDocumentManager()->flush();
-        }
-        return true;
     }
 }

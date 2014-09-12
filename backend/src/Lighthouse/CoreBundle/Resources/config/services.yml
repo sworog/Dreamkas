@@ -7,6 +7,7 @@ parameters:
     openstack.selectel.storage.container.metadata:
         type: public
         domains: cdn.lighthouse.pro
+    lighthouse.core.document.repository.stock_movement_product: Lighthouse\CoreBundle\Document\StockMovement\StockMovementProductRepository
 
 services:
     jms_serializer.serialized_name_annotation_strategy:
@@ -63,6 +64,12 @@ services:
         arguments:
             - LighthouseCoreBundle:StockMovement\StockMovement
 
+    lighthouse.core.document.repository.stock_movement_product:
+        parent: doctrine_mongodb.odm.repository
+        class: %lighthouse.core.document.repository.stock_movement_product%
+        arguments:
+            - LighthouseCoreBundle:StockMovement\StockMovementProduct
+
     lighthouse.core.document.repository.stock_movement.invoice:
         parent: doctrine_mongodb.odm.repository
         class: Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceRepository
@@ -73,7 +80,7 @@ services:
 
     lighthouse.core.document.repository.stock_movement.invoice_product:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\StockMovement\Invoice\Product\InvoiceProductRepository
+        class: %lighthouse.core.document.repository.stock_movement_product%
         arguments:
             - LighthouseCoreBundle:StockMovement\Invoice\Product\InvoiceProduct
 
@@ -87,7 +94,7 @@ services:
 
     lighthouse.core.document.repository.stock_movement.writeoff_product:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\StockMovement\WriteOff\Product\WriteOffProductRepository
+        class: %lighthouse.core.document.repository.stock_movement_product%
         arguments:
             - LighthouseCoreBundle:StockMovement\WriteOff\Product\WriteOffProduct
 
@@ -101,7 +108,7 @@ services:
 
     lighthouse.core.document.repository.stock_movement.stockin_product:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\StockMovement\StockIn\Product\StockInProductRepository
+        class: %lighthouse.core.document.repository.stock_movement_product%
         arguments:
             - LighthouseCoreBundle:StockMovement\StockIn\Product\StockInProduct
             
@@ -115,7 +122,7 @@ services:
     
     lighthouse.core.document.repository.stock_movement.supplier_return_product:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\Product\SupplierReturnProductRepository
+        class: %lighthouse.core.document.repository.stock_movement_product%
         arguments:
             - LighthouseCoreBundle:StockMovement\SupplierReturn\Product\SupplierReturnProduct
 
@@ -129,7 +136,7 @@ services:
 
     lighthouse.core.document.repository.return.product:
         parent: doctrine_mongodb.odm.repository
-        class: Lighthouse\CoreBundle\Document\StockMovement\Returne\Product\ReturnProductRepository
+        class: %lighthouse.core.document.repository.stock_movement_product%
         arguments:
             - LighthouseCoreBundle:StockMovement\Returne\Product\ReturnProduct
 

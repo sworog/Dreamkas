@@ -3,6 +3,7 @@
 namespace Lighthouse\CoreBundle\Document\StockMovement\Sale;
 
 use Lighthouse\CoreBundle\Document\AbstractDocument;
+use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Symfony\Component\Validator\Constraints as Assert;
 use DateTime;
@@ -32,4 +33,9 @@ class SaleFilter extends AbstractDocument
      * @var Store
      */
     protected $store;
+
+    /**
+     * @var Product
+     */
+    protected $product;
 }

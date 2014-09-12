@@ -18,7 +18,9 @@ use DateTime;
 
 /**
  * @MongoDB\HasLifecycleCallbacks
- * @MongoDB\MappedSuperclass
+ * @MongoDB\MappedSuperclass(
+ *      repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\StockMovementProductRepository"
+ * )
  *
  * @property int            $id
  * @property Money          $price
