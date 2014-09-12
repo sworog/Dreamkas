@@ -174,10 +174,10 @@ class TrialBalanceListener extends AbstractMongoDBListener
             $this->processSupportsRangeIndexUpdate($trialBalance, $storeProduct, $dm);
         }
 
-        $trialBalance->price = $document->getProductPrice();
-        $trialBalance->quantity = $document->getProductQuantity();
+        $trialBalance->price = $document->price;
+        $trialBalance->quantity = $document->quantity;
         $trialBalance->storeProduct = $storeProduct;
-        $trialBalance->createdDate = clone $document->getReasonDate();
+        $trialBalance->createdDate = clone $document->date;
 
         $dm->persist($storeProduct);
         $dm->persist($trialBalance);

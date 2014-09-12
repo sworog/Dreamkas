@@ -36,16 +36,4 @@ class WriteOff extends StockMovement
      * @var WriteOffProduct[]|Collection
      */
     protected $products;
-
-    /**
-     * @param WriteOffProduct[] $products
-     */
-    public function setProducts($products)
-    {
-        foreach ($products as $product) {
-            $product->setReasonParent($this);
-        }
-
-        $this->products = $products;
-    }
 }

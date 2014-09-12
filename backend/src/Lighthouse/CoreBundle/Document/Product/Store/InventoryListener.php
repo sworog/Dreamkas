@@ -42,7 +42,7 @@ class InventoryListener extends AbstractMongoDBListener
 
         if ($document instanceof StockMovementProduct) {
             $storeProduct = $this->getStoreProduct($document);
-            $inventoryDiff = $document->getProductQuantity()->sign($document->increaseAmount());
+            $inventoryDiff = $document->quantity->sign($document->increaseAmount());
             $storeProduct->inventory = $storeProduct->inventory->add($inventoryDiff);
             $eventArgs->getDocumentManager()->persist($storeProduct);
         }
@@ -57,7 +57,7 @@ class InventoryListener extends AbstractMongoDBListener
 
         if ($document instanceof StockMovementProduct) {
             $storeProduct = $this->getStoreProduct($document);
-            $inventoryDiff = $document->getProductQuantity()->sign($document->increaseAmount());
+            $inventoryDiff = $document->quantity->sign($document->increaseAmount());
             $storeProduct->inventory = $storeProduct->inventory->sub($inventoryDiff);
             $eventArgs->getDocumentManager()->persist($storeProduct);
         }
@@ -93,8 +93,8 @@ class InventoryListener extends AbstractMongoDBListener
             $oldStoreProduct = $this->getStoreProduct($document, $changeSet['product'][0]);
             $newStoreProduct = $this->getStoreProduct($document, $changeSet['product'][1]);
 
-            $oldQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][0] : $document->getProductQuantity();
-            $newQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][1] : $document->getProductQuantity();
+            $oldQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][0] : $document->quantity;
+            $newQuantity = isset($changeSet['quantity']) ? $changeSet['quantity'][1] : $document->quantity;
 
             $oldInventoryDiff = $oldQuantity->sign(!$document->increaseAmount());
             $oldStoreProduct->inventory = $oldStoreProduct->inventory->add($oldInventoryDiff);
@@ -133,7 +133,7 @@ class InventoryListener extends AbstractMongoDBListener
         } elseif (null === $product) {
             $product = $stockMovementProduct->getOriginalProduct();
         }
-        $store = $stockMovementProduct->getReasonParent()->getStore();
+        $store = $stockMovementProduct->store;
         return $this->storeProductRepository->findOrCreateByStoreProduct($store, $product);
     }
 

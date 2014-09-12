@@ -41,15 +41,15 @@ class CostOfGoodsCalculator
      * @var array
      */
     protected $supportRangeIndex = array(
-        InvoiceProduct::REASON_TYPE,
-        SaleProduct::REASON_TYPE,
+        InvoiceProduct::TYPE,
+        SaleProduct::TYPE,
     );
 
     /**
      * @var array
      */
     protected $supportCostOfGoods = array(
-        SaleProduct::REASON_TYPE,
+        SaleProduct::TYPE,
     );
 
     /**
@@ -94,7 +94,7 @@ class CostOfGoodsCalculator
     public function calculateByIndexRange($storeProductId, Quantity $startIndex, Quantity $endIndex)
     {
         $invoiceProductTrials = $this->trialBalanceRepository->findByIndexRange(
-            InvoiceProduct::REASON_TYPE,
+            InvoiceProduct::TYPE,
             $storeProductId,
             $startIndex,
             $endIndex

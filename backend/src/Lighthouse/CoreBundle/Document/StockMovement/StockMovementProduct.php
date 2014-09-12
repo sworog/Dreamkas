@@ -33,7 +33,7 @@ use DateTime;
  */
 abstract class StockMovementProduct extends AbstractDocument
 {
-    const REASON_TYPE = 'abstract';
+    const TYPE = 'abstract';
 
     /**
      * @MongoDB\Id
@@ -141,33 +141,9 @@ abstract class StockMovementProduct extends AbstractDocument
     /**
      * @return string
      */
-    public function getReasonId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @return string
-     */
     public function getType()
     {
-        return static::REASON_TYPE;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getReasonDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * @return Quantity
-     */
-    public function getProductQuantity()
-    {
-        return $this->quantity;
+        return static::TYPE;
     }
 
     /**
@@ -176,22 +152,6 @@ abstract class StockMovementProduct extends AbstractDocument
     public function getOriginalProduct()
     {
         return $this->product->getObject();
-    }
-
-    /**
-     * @return Money
-     */
-    public function getProductPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * @return StockMovement
-     */
-    public function getReasonParent()
-    {
-        return $this->parent;
     }
 
     /**

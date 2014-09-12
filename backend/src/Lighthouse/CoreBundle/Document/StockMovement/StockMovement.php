@@ -123,7 +123,7 @@ abstract class StockMovement extends AbstractDocument implements Storeable
         }
 
         foreach ($this->products as $product) {
-            $product->setReasonParent($this);
+            $product->parent = $this;
         }
     }
 
@@ -145,7 +145,7 @@ abstract class StockMovement extends AbstractDocument implements Storeable
     public function setProducts($products)
     {
         foreach ($products as $product) {
-            $product->setReasonParent($this);
+            $product->parent = $this;
         }
 
         $this->products = $products;

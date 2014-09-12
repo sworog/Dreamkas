@@ -118,7 +118,7 @@ class ReceiptBuilder
         $quantity = ($quantity) ?: 1;
         $price = ($price) ?: 5.99;
 
-        $receiptProduct->setReasonParent($this->receipt);
+        $receiptProduct->parent = $this->receipt;
         $receiptProduct->product = $this->factory->createProductVersion($productId);
         $receiptProduct->quantity = $this->numericFactory->createQuantity($quantity);
         $receiptProduct->price = $this->numericFactory->createMoney($price);

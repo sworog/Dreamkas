@@ -177,7 +177,7 @@ class TrialBalanceRepository extends DocumentRepository
     public function findOneReasonInvoiceProductByProduct(StoreProduct $storeProduct)
     {
         $criteria = array('storeProduct' => $storeProduct->id);
-        $criteria['reason.$ref'] = InvoiceProduct::REASON_TYPE;
+        $criteria['reason.$ref'] = InvoiceProduct::TYPE;
         // Ugly hack to force document refresh
         $hints = array(Query::HINT_REFRESH => true);
         $sort = array(
@@ -216,7 +216,7 @@ class TrialBalanceRepository extends DocumentRepository
             ->createQueryBuilder()
             ->field('createdDate.date')->gte($datePeriod->getStartDate()->getMongoDate())
             ->field('createdDate.date')->lt($datePeriod->getEndDate()->getMongoDate())
-            ->field('reason.$ref')->equals(InvoiceProduct::REASON_TYPE)
+            ->field('reason.$ref')->equals(InvoiceProduct::TYPE)
             ->sort(array('storeProduct' => 1))
             ->map(
                 new MongoCode(
@@ -276,7 +276,7 @@ class TrialBalanceRepository extends DocumentRepository
                         '$gte' => $datePeriod->getStartDate()->getMongoDate(),
                         '$lt' => $datePeriod->getEndDate()->getMongoDate(),
                     ),
-                    'reason.$ref' => SaleProduct::REASON_TYPE
+                    'reason.$ref' => SaleProduct::TYPE
                 ),
             ),
             array(
@@ -321,7 +321,7 @@ class TrialBalanceRepository extends DocumentRepository
             ->createQueryBuilder()
             ->field('createdDate.date')->gt($datePeriod->getStartDate()->getMongoDate())
             ->field('createdDate.date')->lt($datePeriod->getEndDate()->getMongoDate())
-            ->field('reason.$ref')->equals(SaleProduct::REASON_TYPE)
+            ->field('reason.$ref')->equals(SaleProduct::TYPE)
             ->sort(array('storeProduct' => 1))
             ->map(
                 new MongoCode(
@@ -384,7 +384,7 @@ class TrialBalanceRepository extends DocumentRepository
                         '$gte' => $datePeriod->getStartDate()->getMongoDate(),
                         '$lt' => $datePeriod->getEndDate()->getMongoDate(),
                     ),
-                    'reason.$ref' => SaleProduct::REASON_TYPE,
+                    'reason.$ref' => SaleProduct::TYPE,
                 ),
             ),
             array(
@@ -502,7 +502,7 @@ class TrialBalanceRepository extends DocumentRepository
                         '$gte' => $startDate->getMongoDate(),
                         '$lt' => $endDate->getMongoDate(),
                     ),
-                    'reason.$ref' => SaleProduct::REASON_TYPE,
+                    'reason.$ref' => SaleProduct::TYPE,
                     'store' => new MongoId($store->id),
                 ),
             ),

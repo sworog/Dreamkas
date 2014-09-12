@@ -18,7 +18,7 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class WriteOffProduct extends StockMovementProduct
 {
-    const REASON_TYPE = 'WriteOffProduct';
+    const TYPE = 'WriteOffProduct';
 
     /**
      * @MongoDB\String

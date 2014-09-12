@@ -76,7 +76,7 @@ class DayGrossMarginRepository extends DocumentRepository
         $ops = array(
             array(
                 '$match' => array(
-                    'reason.$ref' => SaleProduct::REASON_TYPE,
+                    'reason.$ref' => SaleProduct::TYPE,
                 ),
             ),
             array(

@@ -24,7 +24,7 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class InvoiceProduct extends StockMovementProduct
 {
-    const REASON_TYPE = 'InvoiceProduct';
+    const TYPE = 'InvoiceProduct';
 
     /**
      * Введённая цена

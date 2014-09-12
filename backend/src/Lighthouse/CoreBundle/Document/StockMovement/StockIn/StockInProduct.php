@@ -17,7 +17,7 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class StockInProduct extends StockMovementProduct
 {
-    const REASON_TYPE = 'StockInProduct';
+    const TYPE = 'StockInProduct';
 
     /**
      * @MongoDB\Field(type="money")

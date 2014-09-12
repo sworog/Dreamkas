@@ -60,16 +60,4 @@ class SupplierReturn extends StockMovement
      * @var bool
      */
     protected $paid;
-
-    /**
-     * @param SupplierReturnProduct[] $products
-     */
-    public function setProducts($products)
-    {
-        foreach ($products as $product) {
-            $product->setReasonParent($this);
-        }
-
-        $this->products = $products;
-    }
 }

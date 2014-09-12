@@ -36,16 +36,4 @@ class StockIn extends StockMovement
      * @var StockInProduct[]|Collection
      */
     protected $products;
-
-    /**
-     * @param StockInProduct[] $products
-     */
-    public function setProducts($products)
-    {
-        foreach ($products as $product) {
-            $product->setReasonParent($this);
-        }
-
-        $this->products = $products;
-    }
 }

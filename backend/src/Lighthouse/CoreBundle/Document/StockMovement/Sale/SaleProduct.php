@@ -17,7 +17,7 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class SaleProduct extends StockMovementProduct
 {
-    const REASON_TYPE = 'SaleProduct';
+    const TYPE = 'SaleProduct';
 
     /**
      * Цена продажи
