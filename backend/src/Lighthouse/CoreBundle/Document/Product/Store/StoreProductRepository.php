@@ -9,9 +9,9 @@ use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductFilter;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\StoreRepository;
-use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Exception\InvalidArgumentException;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
@@ -68,13 +68,13 @@ class StoreProductRepository extends DocumentRepository
     }
 
     /**
-     * @param Reasonable $reason
+     * @param StockMovementProduct $stockMovementProduct
      * @return StoreProduct
      */
-    public function findOrCreateByReason(Reasonable $reason)
+    public function findOrCreateByStockMovementProduct(StockMovementProduct $stockMovementProduct)
     {
-        $store = $reason->getReasonParent()->getStore();
-        $product = $reason->getReasonProduct();
+        $store = $stockMovementProduct->store;
+        $product = $stockMovementProduct->getOriginalProduct();
         return $this->findOrCreateByStoreProduct($store, $product);
     }
 

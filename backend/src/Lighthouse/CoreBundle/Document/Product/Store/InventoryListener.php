@@ -9,7 +9,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
-use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProduct;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
 
 /**
@@ -40,7 +40,7 @@ class InventoryListener extends AbstractMongoDBListener
     {
         $document = $eventArgs->getDocument();
 
-        if ($document instanceof Reasonable) {
+        if ($document instanceof StockMovementProduct) {
             $storeProduct = $this->getStoreProduct($document);
             $inventoryDiff = $document->getProductQuantity()->sign($document->increaseAmount());
             $storeProduct->inventory = $storeProduct->inventory->add($inventoryDiff);
@@ -55,7 +55,7 @@ class InventoryListener extends AbstractMongoDBListener
     {
         $document = $eventArgs->getDocument();
 
-        if ($document instanceof Reasonable) {
+        if ($document instanceof StockMovementProduct) {
             $storeProduct = $this->getStoreProduct($document);
             $inventoryDiff = $document->getProductQuantity()->sign($document->increaseAmount());
             $storeProduct->inventory = $storeProduct->inventory->sub($inventoryDiff);
@@ -73,7 +73,7 @@ class InventoryListener extends AbstractMongoDBListener
         $uow = $dm->getUnitOfWork();
 
         foreach ($uow->getScheduledDocumentUpdates() as $document) {
-            if ($document instanceof Reasonable) {
+            if ($document instanceof StockMovementProduct) {
                 $this->updateProductOnFlush($dm, $document);
             }
         }
@@ -81,9 +81,9 @@ class InventoryListener extends AbstractMongoDBListener
 
     /**
      * @param DocumentManager $dm
-     * @param Reasonable $document
+     * @param StockMovementProduct $document
      */
-    public function updateProductOnFlush(DocumentManager $dm, Reasonable $document)
+    public function updateProductOnFlush(DocumentManager $dm, StockMovementProduct $document)
     {
         $uow = $dm->getUnitOfWork();
 
@@ -122,18 +122,18 @@ class InventoryListener extends AbstractMongoDBListener
     }
 
     /**
-     * @param Reasonable $reason
+     * @param StockMovementProduct $stockMovementProduct
      * @param Product $product
      * @return StoreProduct
      */
-    protected function getStoreProduct(Reasonable $reason, Product $product = null)
+    protected function getStoreProduct(StockMovementProduct $stockMovementProduct, Product $product = null)
     {
         if ($product instanceof ProductVersion) {
             $product = $product->getObject();
         } elseif (null === $product) {
-            $product = $reason->getReasonProduct();
+            $product = $stockMovementProduct->getOriginalProduct();
         }
-        $store = $reason->getReasonParent()->getStore();
+        $store = $stockMovementProduct->getReasonParent()->getStore();
         return $this->storeProductRepository->findOrCreateByStoreProduct($store, $product);
     }
 

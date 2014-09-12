@@ -6,6 +6,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use JMS\Serializer\Annotation as Serializer;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use DateTime;
@@ -28,7 +29,7 @@ use Lighthouse\CoreBundle\Types\Numeric\Quantity;
  * @property Money          $price
  * @property DateTime       $createdDate
  * @property StoreProduct   $storeProduct
- * @property Reasonable     $reason
+ * @property StockMovementProduct     $reason
  *
  * @MongoDB\Document(
  *     repositoryClass="Lighthouse\CoreBundle\Document\TrialBalance\TrialBalanceRepository"
@@ -162,7 +163,7 @@ class TrialBalance extends AbstractDocument
      *          "writeOffProduct"="Lighthouse\CoreBundle\Document\WriteOff\WriteOffProduct"
      *      }
      * )
-     * @var Reasonable
+     * @var StockMovementProduct
      */
     protected $reason;
 

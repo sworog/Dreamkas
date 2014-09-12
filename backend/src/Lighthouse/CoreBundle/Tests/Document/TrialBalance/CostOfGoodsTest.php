@@ -854,7 +854,7 @@ class CostOfGoodsTest extends WebTestCase
      */
     protected function assertCostOfGood(SaleProduct $saleProduct, $expectedCostOfGood)
     {
-        $trialBalance = $this->getTrialBalanceRepository()->findOneByReason($saleProduct);
+        $trialBalance = $this->getTrialBalanceRepository()->findOneByStockMovementProduct($saleProduct);
         $this->assertSame($expectedCostOfGood, $trialBalance->costOfGoods->toString());
     }
 

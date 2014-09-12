@@ -7,7 +7,6 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Lighthouse\CoreBundle\Types\Numeric\Quantity;
@@ -32,7 +31,7 @@ use DateTime;
  * @property StockMovement  $parent
  * @property Store          $store
  */
-abstract class StockMovementProduct extends AbstractDocument implements Reasonable
+abstract class StockMovementProduct extends AbstractDocument
 {
     const REASON_TYPE = 'abstract';
 
@@ -150,7 +149,7 @@ abstract class StockMovementProduct extends AbstractDocument implements Reasonab
     /**
      * @return string
      */
-    public function getReasonType()
+    public function getType()
     {
         return static::REASON_TYPE;
     }
@@ -174,7 +173,7 @@ abstract class StockMovementProduct extends AbstractDocument implements Reasonab
     /**
      * @return Product
      */
-    public function getReasonProduct()
+    public function getOriginalProduct()
     {
         return $this->product->getObject();
     }

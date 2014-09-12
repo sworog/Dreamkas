@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Document\DocumentRepository;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProduct;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use Lighthouse\CoreBundle\Types\Date\DateTimestamp;
@@ -52,12 +53,12 @@ class TrialBalanceRepository extends DocumentRepository
     }
 
     /**
-     * @param Reasonable $reason
+     * @param StockMovementProduct $reason
      * @return TrialBalance
      */
-    public function findOneByReason(Reasonable $reason)
+    public function findOneByStockMovementProduct(StockMovementProduct $reason)
     {
-        return $this->findOneByReasonTypeReasonId($reason->getReasonId(), $reason->getReasonType());
+        return $this->findOneByReasonTypeReasonId($reason->id, $reason->getType());
     }
 
     /**
@@ -67,7 +68,7 @@ class TrialBalanceRepository extends DocumentRepository
     public function findOneNext(TrialBalance $trialBalance)
     {
         $criteria = array(
-            'reason.$ref' => $trialBalance->reason->getReasonType(),
+            'reason.$ref' => $trialBalance->reason->getType(),
             'storeProduct' => $trialBalance->storeProduct->id,
             'createdDate.date' => array('$gte' => $trialBalance->createdDate),
             '_id' => array('$ne' => $trialBalance->id),
@@ -86,7 +87,7 @@ class TrialBalanceRepository extends DocumentRepository
     public function findOnePrevious(TrialBalance $trialBalance)
     {
         $criteria = array(
-            'reason.$ref' => $trialBalance->reason->getReasonType(),
+            'reason.$ref' => $trialBalance->reason->getType(),
             'storeProduct' => $trialBalance->storeProduct->id,
             'createdDate.date' => array('$lte' => $trialBalance->createdDate),
             '_id' => array('$ne' => $trialBalance->id),
@@ -105,7 +106,7 @@ class TrialBalanceRepository extends DocumentRepository
     public function findOnePreviousDate(TrialBalance $trialBalance)
     {
         $criteria = array(
-            'reason.$ref' => $trialBalance->reason->getReasonType(),
+            'reason.$ref' => $trialBalance->reason->getType(),
             'storeProduct' => $trialBalance->storeProduct->id,
             'createdDate.date' => array('$lt' => $trialBalance->createdDate),
         );
@@ -117,10 +118,10 @@ class TrialBalanceRepository extends DocumentRepository
     }
 
     /**
-     * @param Reasonable[] $reasons
+     * @param StockMovementProduct[] $reasons
      * @return TrialBalance[]|Cursor
      */
-    public function findByReasons($reasons)
+    public function findByStockMovementProducts($reasons)
     {
         if (0 == count($reasons)) {
             return array();
@@ -128,7 +129,7 @@ class TrialBalanceRepository extends DocumentRepository
 
         $reasonTypes = array();
         foreach ($reasons as $reason) {
-            $reasonTypes[$reason->getReasonType()][] = new MongoId($reason->getReasonId());
+            $reasonTypes[$reason->getType()][] = new MongoId($reason->id);
         }
 
         $query = $this->createQueryBuilder()->find();
@@ -686,7 +687,7 @@ class TrialBalanceRepository extends DocumentRepository
         return $this->findBy(
             array(
                 'createdDate.date' => array('$gte' => $trialBalance->createdDate),
-                'reason.$ref' => $trialBalance->reason->getReasonType(),
+                'reason.$ref' => $trialBalance->reason->getType(),
                 'storeProduct' => $trialBalance->storeProduct->id
             ),
             array(

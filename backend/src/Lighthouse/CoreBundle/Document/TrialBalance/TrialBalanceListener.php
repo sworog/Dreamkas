@@ -10,6 +10,7 @@ use Lighthouse\CoreBundle\Document\AbstractMongoDBListener;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProduct;
 use Lighthouse\CoreBundle\Document\Product\Store\StoreProductRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\StockMovementProduct;
 use Lighthouse\CoreBundle\Document\TrialBalance\CostOfGoods\CostOfGoodsCalculator;
 
 /**
@@ -61,14 +62,14 @@ class TrialBalanceListener extends AbstractMongoDBListener
         $uow = $dm->getUnitOfWork();
 
         foreach ($uow->getScheduledDocumentInsertions() as $document) {
-            if ($document instanceof Reasonable) {
-                $this->onReasonablePersist($document, $dm);
+            if ($document instanceof StockMovementProduct) {
+                $this->onStockMovementProductPersist($document, $dm);
             }
         }
 
         foreach ($uow->getScheduledDocumentUpdates() as $document) {
-            if ($document instanceof Reasonable) {
-                $this->onReasonableUpdate($document, $dm);
+            if ($document instanceof StockMovementProduct) {
+                $this->onStockMovementProductUpdate($document, $dm);
             }
 
             if ($document instanceof Invoice) {
@@ -77,8 +78,8 @@ class TrialBalanceListener extends AbstractMongoDBListener
         }
 
         foreach ($uow->getScheduledDocumentDeletions() as $document) {
-            if ($document instanceof Reasonable) {
-                $this->onReasonableRemove($document, $dm);
+            if ($document instanceof StockMovementProduct) {
+                $this->onStockMovementProductRemove($document, $dm);
             }
         }
     }
@@ -134,40 +135,40 @@ class TrialBalanceListener extends AbstractMongoDBListener
     }
 
     /**
-     * @param Reasonable $document
+     * @param StockMovementProduct $document
      * @param DocumentManager $dm
      */
-    protected function onReasonablePersist(Reasonable $document, DocumentManager $dm)
+    protected function onStockMovementProductPersist(StockMovementProduct $document, DocumentManager $dm)
     {
-        $storeProduct = $this->storeProductRepository->findOrCreateByReason($document);
+        $storeProduct = $this->storeProductRepository->findOrCreateByStockMovementProduct($document);
         $dm->persist($storeProduct);
         $this->computeChangeSet($dm, $storeProduct);
 
         $trialBalance = new TrialBalance();
-        $trialBalance->price = $document->getProductPrice();
-        $trialBalance->quantity = $document->getProductQuantity();
+        $trialBalance->price = $document->price;
+        $trialBalance->quantity = $document->quantity;
         $trialBalance->storeProduct = $storeProduct;
         $trialBalance->reason = $document;
-        $trialBalance->createdDate = $document->getReasonDate();
+        $trialBalance->createdDate = $document->date;
 
         $dm->persist($trialBalance);
         $this->computeChangeSet($dm, $trialBalance);
     }
     
     /**
-     * @param Reasonable $document
+     * @param StockMovementProduct $document
      * @param DocumentManager $dm
      */
-    protected function onReasonableUpdate(Reasonable $document, DocumentManager $dm)
+    protected function onStockMovementProductUpdate(StockMovementProduct $document, DocumentManager $dm)
     {
-        $trialBalance = $this->trialBalanceRepository->findOneByReason($document);
+        $trialBalance = $this->trialBalanceRepository->findOneByStockMovementProduct($document);
 
         // FIXME Something wrong here, TrialBalance should be found
         if (!$trialBalance) {
             return;
         }
 
-        $storeProduct = $this->storeProductRepository->findOrCreateByReason($document);
+        $storeProduct = $this->storeProductRepository->findOrCreateByStockMovementProduct($document);
 
         if ($this->costOfGoodsCalculator->supportsRangeIndex($document)) {
             $this->processSupportsRangeIndexUpdate($trialBalance, $storeProduct, $dm);
@@ -185,12 +186,12 @@ class TrialBalanceListener extends AbstractMongoDBListener
     }
 
     /**
-     * @param Reasonable $document
+     * @param StockMovementProduct $document
      * @param DocumentManager $dm
      */
-    protected function onReasonableRemove(Reasonable $document, DocumentManager $dm)
+    protected function onStockMovementProductRemove(StockMovementProduct $document, DocumentManager $dm)
     {
-        $trialBalance = $this->trialBalanceRepository->findOneByReason($document);
+        $trialBalance = $this->trialBalanceRepository->findOneByStockMovementProduct($document);
 
         if ($this->costOfGoodsCalculator->supportsRangeIndex($document)) {
             $this->processSupportsRangeIndexRemove($trialBalance, $dm);
@@ -215,7 +216,7 @@ class TrialBalanceListener extends AbstractMongoDBListener
 
         /* @var \Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct[] $invoiceProducts */
         $invoiceProducts = $invoice->products;
-        $trialBalances = $this->trialBalanceRepository->findByReasons($invoiceProducts);
+        $trialBalances = $this->trialBalanceRepository->findByStockMovementProducts($invoiceProducts);
 
         foreach ($invoiceProducts as $invoiceProduct) {
             $invoiceProduct->beforeSave();
