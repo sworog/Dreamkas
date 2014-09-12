@@ -12,7 +12,8 @@ define(function(require, exports, module) {
         },
         defaults: {
             payment: {
-                type: 'cash'
+                type: 'cash',
+                amountTendered: null
             }
         },
         saveData: function(){

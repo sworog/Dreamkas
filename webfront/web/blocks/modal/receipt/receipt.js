@@ -13,6 +13,8 @@ define(function(require, exports, module) {
 
                 block.models.receipt.clear();
 
+                console.log(block.models.receipt);
+
                 PAGE.render();
             }
         },
