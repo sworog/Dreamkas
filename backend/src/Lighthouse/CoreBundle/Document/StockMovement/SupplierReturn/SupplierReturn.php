@@ -27,6 +27,18 @@ class SupplierReturn extends StockMovement
     const TYPE = 'SupplierReturn';
 
     /**
+     * @MongoDB\ReferenceMany(
+     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\SupplierReturnProduct",
+     *      simple=true,
+     *      cascade={"persist","remove"},
+     *      mappedBy="parent"
+     * )
+     * @Serializer\MaxDepth(4)
+     * @var SupplierReturnProduct[]|Collection
+     */
+    protected $products;
+
+    /**
      * @Generated(startValue=10000)
      * @var int
      */
@@ -49,23 +61,6 @@ class SupplierReturn extends StockMovement
      * @var bool
      */
     protected $paid;
-
-    /**
-     * @MongoDB\ReferenceMany(
-     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\SupplierReturn\Product\SupplierReturnProduct",
-     *      simple=true,
-     *      cascade={"persist","remove"},
-     *      mappedBy="parent"
-     * )
-     * @Assert\Valid(traverse=true)
-     * @Assert\Count(
-     *      min=1,
-     *      minMessage="lighthouse.validation.errors.stock_movement.products.empty"
-     * )
-     * @Serializer\MaxDepth(4)
-     * @var SupplierReturnProduct[]|Collection
-     */
-    protected $products;
 
     /**
      * @param SupplierReturnProduct[] $products

@@ -80,6 +80,11 @@ abstract class StockMovement extends AbstractDocument implements Storeable
     protected $itemsCount;
 
     /**
+     * @Assert\Valid(traverse=true)
+     * @Assert\Count(
+     *      min=1,
+     *      minMessage="lighthouse.validation.errors.stock_movement.products.empty"
+     * )
      * @var Collection|PersistentCollection|StockMovementProduct[]
      */
     protected $products;

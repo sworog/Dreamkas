@@ -21,14 +21,11 @@ class Returne extends Receipt
 
     /**
      * @MongoDB\ReferenceMany(
-     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Returne\Product\ReturnProduct",
+     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Returne\ReturnProduct",
      *      simple=true,
      *      cascade={"persist","remove"},
      *      mappedBy="parent"
      * )
-     *
-     * @Assert\NotBlank(message="lighthouse.validation.errors.stock_movement.products.empty")
-     * @Assert\Valid(traverse=true)
      * @var ReturnProduct[]|Collection|PersistentCollection
      */
     protected $products;

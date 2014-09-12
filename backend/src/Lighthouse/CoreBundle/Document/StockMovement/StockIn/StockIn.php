@@ -28,15 +28,10 @@ class StockIn extends StockMovement
 
     /**
      * @MongoDB\ReferenceMany(
-     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\StockIn\Product\StockInProduct",
+     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\StockIn\StockInProduct",
      *      simple=true,
      *      cascade={"persist","remove"},
      *      mappedBy="parent"
-     * )
-     * @Assert\Valid(traverse=true)
-     * @Assert\Count(
-     *      min=1,
-     *      minMessage="lighthouse.validation.errors.stock_movement.products.empty"
      * )
      * @Serializer\MaxDepth(4)
      * @var StockInProduct[]|Collection

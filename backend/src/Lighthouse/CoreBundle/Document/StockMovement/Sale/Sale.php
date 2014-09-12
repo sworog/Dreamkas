@@ -26,14 +26,11 @@ class Sale extends Receipt
 
     /**
      * @MongoDB\ReferenceMany(
-     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Sale\Product\SaleProduct",
+     *      targetDocument="Lighthouse\CoreBundle\Document\StockMovement\Sale\SaleProduct",
      *      simple=true,
      *      cascade={"persist","remove"},
      *      mappedBy="parent"
      * )
-     *
-     * @Assert\NotBlank(message="lighthouse.validation.errors.stock_movement.products.empty")
-     * @Assert\Valid(traverse=true)
      * @var SaleProduct[]|Collection
      */
     protected $products;
