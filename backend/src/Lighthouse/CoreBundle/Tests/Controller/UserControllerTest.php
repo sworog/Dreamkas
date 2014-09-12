@@ -794,6 +794,7 @@ class UserControllerTest extends WebTestCase
                         'GET::writeOffProducts',
                     ),
                     'stores/{store}/sales' => array(
+                        'GET',
                         'GET::{sale}',
                         'POST'
                     ),
