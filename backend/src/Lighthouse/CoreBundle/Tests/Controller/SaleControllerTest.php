@@ -681,6 +681,88 @@ class SaleControllerTest extends WebTestCase
     }
 
     /**
+     * @dataProvider getSalesFilterValidationProvider
+     * @param array $query
+     * @param int $expectedResponseCode
+     * @param array $assertions
+     */
+    public function testGetSalesFilterValidation(array $query, $expectedResponseCode, array $assertions)
+    {
+        $store = $this->factory()->store()->getStore();
+        $productIds = $this->createProductsByNames(array('1', '2', '3'));
+
+        $this->factory()
+            ->receipt()
+                ->createSale($store, '2014-09-11T19:31:50+04:00')
+                ->createReceiptProduct($productIds['1'], 1, 49.79)
+                ->createReceiptProduct($productIds['2'], 2, 19.79)
+                ->createReceiptProduct($productIds['3'], 3, 9.79)
+            ->persist()
+                ->createSale($store, '2014-09-05T09:31:50+04:00')
+                ->createReceiptProduct($productIds['1'], 2, 49.79)
+            ->persist()
+                ->createSale($store, '2014-09-06T05:31:50+04:00')
+                ->createReceiptProduct($productIds['2'], 4, 19.79)
+            ->persist()
+                ->createSale($store, '2014-09-13T09:31:50+04:00')
+                ->createReceiptProduct($productIds['3'], 6, 9.79)
+            ->flush();
+
+        $accessToken = $this->factory()->oauth()->authAsDepartmentManager($store->id);
+
+        $getResponse = $this->clientJsonRequest(
+            $accessToken,
+            'GET',
+            "/api/1/stores/{$store->id}/sales",
+            null,
+            $query
+        );
+
+        $this->assertResponseCode($expectedResponseCode);
+
+        $this->performJsonAssertions($getResponse, $assertions);
+    }
+
+    /**
+     * @return array
+     */
+    public function getSalesFilterValidationProvider()
+    {
+        return array(
+            'missing dateTo' => array(
+                array('dateFrom' => '2014-09-01'),
+                400,
+                array('errors.children.dateTo.errors.0' => 'Заполните это поле')
+            ),
+            'missing dateFrom' => array(
+                array('dateTo' => '2014-09-01'),
+                400,
+                array('errors.children.dateFrom.errors.0' => 'Заполните это поле')
+            ),
+            'empty query' => array(
+                array(),
+                400,
+                array(
+                    'errors.children.dateFrom.errors.0' => 'Заполните это поле',
+                    'errors.children.dateTo.errors.0' => 'Заполните это поле'
+                )
+            ),
+            'invalid dates' => array(
+                array('dateFrom' => 'aaaa', 'dateTo' => 'bbb'),
+                400,
+                array(
+                    'errors.children.dateFrom.errors.0'
+                    =>
+                    'Вы ввели неверную дату aaaa, формат должен быть следующий дд.мм.гггг чч:мм',
+                    'errors.children.dateTo.errors.0'
+                    =>
+                    'Вы ввели неверную дату bbb, формат должен быть следующий дд.мм.гггг чч:мм'
+                )
+            )
+        );
+    }
+
+    /**
      * @param Store $store
      * @param string $date
      * @param string $productId
