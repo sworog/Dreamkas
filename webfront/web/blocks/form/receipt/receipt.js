@@ -9,7 +9,7 @@ define(function(require, exports, module) {
             return PAGE.models.receipt
         },
         events: {
-            'change input[name="paymentType"]': function(e) {
+            'change input[name="payment.type"]': function(e) {
                 var block = this,
                     $form_receipt__cashInput = block.$('.form_receipt__cashInput'),
                     $form_receipt__change = block.$('.form_receipt__change');
@@ -17,7 +17,7 @@ define(function(require, exports, module) {
                 if (e.target.value === 'cash') {
                     $form_receipt__cashInput.show();
                     block.checkChange();
-                    block.el.querySelector('input[name="amountTendered"]').focus();
+                    block.el.querySelector('input[name="payment.amountTendered"]').focus();
 
                 } else {
                     $form_receipt__cashInput.hide();
@@ -26,7 +26,7 @@ define(function(require, exports, module) {
                 }
 
             },
-            'keyup input[name="amountTendered"]': function() {
+            'keyup input[name="payment.amountTendered"]': function() {
                 var block = this;
 
                 block.checkChange();
@@ -62,7 +62,7 @@ define(function(require, exports, module) {
         calculateChange: function() {
             var block = this,
                 totalPrice = block.calculateTotalPrice(),
-                change = block.normalizeNumber(block.data.amountTendered) - block.normalizeNumber(totalPrice);
+                change = block.normalizeNumber(block.data.payment.amountTendered) - block.normalizeNumber(totalPrice);
 
             block.data.change = _.isNaN(change) ? null : block.formatMoney(change);
 

@@ -7,7 +7,7 @@
         </label>
 
         <div name="change" class="form_receipt__totalPrice">
-            {calculateChange < data.amountTendered} <i class="fa fa-rub"></i>
+            {calculateChange < data.payment.amountTendered} <i class="fa fa-rub"></i>
         </div>
 
     </div>
@@ -29,8 +29,8 @@
         <div>
             <div class="radioGroup">
                 <label>
-                    <input type="radio" name="paymentType"
-                           value="cash" <%- data.paymentType === 'cash' && 'checked' %> />
+                    <input type="radio" name="payment.type"
+                           value="cash" <%- data.payment.type === 'cash' && 'checked' %> />
 
                     <div class="radioGroup__text">
                         Наличными
@@ -38,8 +38,8 @@
                 </label>
 
                 <label>
-                    <input type="radio" name="paymentType"
-                           value="bankcard" <%- data.paymentType === 'bankcard' && 'checked' %> />
+                    <input type="radio" name="payment.type"
+                           value="bankcard" <%- data.payment.type === 'bankcard' && 'checked' %> />
 
                     <div class="radioGroup__text">
                         Банковской картой
@@ -52,9 +52,9 @@
     <div class="form-group form_receipt__cashInput">
         <label><b>Внесенная сумма наличными</b></label>
 
-        <input name="amountTendered"
+        <input name="payment.amountTendered"
                type="text"
-               rv-live-value="data.amountTendered"
+               rv-live-value="data.payment.amountTendered"
                class="form-control"
                autofocus>
     </div>
