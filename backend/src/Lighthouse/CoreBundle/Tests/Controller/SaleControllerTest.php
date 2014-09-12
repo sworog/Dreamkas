@@ -609,12 +609,12 @@ class SaleControllerTest extends WebTestCase
     }
 
     /**
-     * @dataProvider getSalesByDatesProvider
+     * @dataProvider getSalesByFilterProvider
      * @param array $query
      * @param int $expectedCount
      * @param array $assertions
      */
-    public function testGetSalesByDates(array $query, $expectedCount, array $assertions = array())
+    public function testGetSalesByFilter(array $query, $expectedCount, array $assertions = array())
     {
         $store = $this->factory()->store()->getStore();
         $productIds = $this->createProductsByNames(array('1', '2', '3'));
@@ -688,7 +688,7 @@ class SaleControllerTest extends WebTestCase
     /**
      * @return array
      */
-    public function getSalesByDatesProvider()
+    public function getSalesByFilterProvider()
     {
         return array(
             '2014-09-01 - 2014-09-30' => array(
@@ -713,9 +713,20 @@ class SaleControllerTest extends WebTestCase
                 array('dateFrom' => '2014-09-01', 'dateTo' => '2014-09-30', 'product' => '{product-1}'),
                 2,
                 array(
-                    '0.date' => '2014-09-05T09:31:50+0400',
-                    '1.date' => '2014-09-11T19:31:50+0400',
+                    '0.date' => '2014-09-11T19:31:50+0400',
+                    '1.date' => '2014-09-05T09:31:50+0400',
                 )
+            ),
+            'product 2 with dates' => array(
+                array('dateFrom' => '2014-09-01', 'dateTo' => '2014-09-07', 'product' => '{product-2}'),
+                1,
+                array(
+                    '0.date' => '2014-09-06T05:31:50+0400',
+                )
+            ),
+            'product 3 not in dates' => array(
+                array('dateFrom' => '2014-08-01', 'dateTo' => '2014-08-02', 'product' => '{product-3}'),
+                0
             )
         );
     }
