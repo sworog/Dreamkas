@@ -12,6 +12,7 @@ use DateTime;
  * @property DateTime $dateFrom
  * @property DateTime $dateTo
  * @property Store $store
+ * @property Product $product
  */
 class SaleFilter extends AbstractDocument
 {
