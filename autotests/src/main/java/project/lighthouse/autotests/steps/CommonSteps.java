@@ -12,6 +12,7 @@ import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.elements.bootstrap.WaitForModalWindowClose;
 import project.lighthouse.autotests.elements.preLoader.BodyPreLoader;
 import project.lighthouse.autotests.objects.web.error.ValidationErrorsCollection;
+import project.lighthouse.autotests.pages.authorization.AuthorizationPage;
 import project.lighthouse.autotests.storage.Storage;
 
 import static junit.framework.Assert.fail;
@@ -19,7 +20,7 @@ import static junit.framework.Assert.fail;
 public class CommonSteps extends ScenarioSteps {
 
     public CommonPageObject getCommonPageObject() {
-        return getPages().get(CommonPageObject.class);
+        return getPages().get(AuthorizationPage.class);
     }
 
     @Step
