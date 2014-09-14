@@ -9,7 +9,6 @@ use Doctrine\ODM\MongoDB\PersistentCollection;
 use Lighthouse\CoreBundle\Document\AbstractDocument;
 use Lighthouse\CoreBundle\Document\Store\Store;
 use Lighthouse\CoreBundle\Document\Store\Storeable;
-use Lighthouse\CoreBundle\Document\TrialBalance\Reasonable;
 use Lighthouse\CoreBundle\Types\Numeric\Decimal;
 use Lighthouse\CoreBundle\Types\Numeric\Money;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -22,7 +21,7 @@ use DateTime;
  * @property DateTime   $date
  * @property int        $itemsCount
  * @property Money      $sumTotal
- * @property Collection|PersistentCollection|Reasonable[] $products
+ * @property Collection|PersistentCollection|StockMovementProduct[] $products
  *
  * @MongoDB\MappedSuperclass(
  *      repositoryClass="Lighthouse\CoreBundle\Document\StockMovement\StockMovementRepository"
@@ -81,7 +80,7 @@ abstract class StockMovement extends AbstractDocument implements Storeable
     protected $itemsCount;
 
     /**
-     * @var Collection|PersistentCollection|Reasonable[]
+     * @var Collection|PersistentCollection|StockMovementProduct[]
      */
     protected $products;
 
@@ -133,5 +132,17 @@ abstract class StockMovement extends AbstractDocument implements Storeable
             $productSumTotal = $product->calculateTotals();
             $this->sumTotal = $this->sumTotal->add($productSumTotal, Decimal::ROUND_HALF_EVEN);
         }
+    }
+
+    /**
+     * @param StockMovementProduct[] $products
+     */
+    public function setProducts($products)
+    {
+        foreach ($products as $product) {
+            $product->setReasonParent($this);
+        }
+
+        $this->products = $products;
     }
 }

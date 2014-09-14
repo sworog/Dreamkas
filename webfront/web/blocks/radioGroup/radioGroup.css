@@ -2,47 +2,39 @@
     display: inline-block;
     vertical-align: middle;
     position: relative;
-    margin: 0 8px 0 0;
-    overflow: hidden;
+    margin: 0 10px 0 0;
     outline: none;
+    white-space: nowrap;
+}
+
+.radioGroup label{
+    margin-bottom: 0;
+    margin-right: -4px;
+    display: inline-block;
 }
 
 .radioGroup__text{
     padding: 0 16px;
-    height: 35px;
-    line-height: 34px;
-    color: #1FB18A;
+    height: 34px;
+    line-height: 32px;
     -webkit-box-sizing: border-box;
     -ms-box-sizing: border-box;
     -o-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    font-weight: bold;
-    font-size: 12px;
-    text-transform: uppercase;
     background-color: #fff;
-    border: 2px solid #1FB18A;
-    margin-right: -2px;
-    float: left;
+    border: 1px solid #ccc;
     cursor: pointer;
+    position: relative;
 }
 
 .radioGroup input{
     display: none;
 }
 
-.radioGroup label:first-child .radioGroup__text {
-    border-bottom-left-radius: 3px;
-    border-top-left-radius: 3px;
-}
-
-.radioGroup label:last-child .radioGroup__text {
-    border-bottom-right-radius: 3px;
-    border-top-right-radius: 3px;
-    margin-right: 0;
-}
-
 .radioGroup input:checked ~ .radioGroup__text{
-    background-color: #1FB18A;
+    background-color: #0a819c;
+    border-color: #0a819c;
+    z-index: 10;
     color: #fff;
 }

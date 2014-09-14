@@ -18,7 +18,7 @@ define(function(require, exports, module) {
 
                         page.models.group = groupModel;
 
-                        modal.one('hidden.bs.modal', function(e) {
+                        modal.one('modal.hidden', function(e) {
                             page.render();
                         });
 

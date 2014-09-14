@@ -94,7 +94,7 @@ public class PosSteps extends ScenarioSteps {
 
     @Step
     public void assertReceiptTotalSum(String totalSum) {
-        assertThat(posPage.getReceiptTotalSum(), is(totalSum));
+        posPage.checkValue("totalPrice", totalSum);
     }
 
     @Step

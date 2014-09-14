@@ -148,18 +148,6 @@ class Invoice extends StockMovement
         $this->order = $order;
     }
 
-    /**
-     * @param InvoiceProduct[] $products
-     */
-    public function setProducts($products)
-    {
-        foreach ($products as $product) {
-            $product->setReasonParent($this);
-        }
-
-        $this->products = $products;
-    }
-
     public function calculateTotals()
     {
         $this->itemsCount = count($this->products);

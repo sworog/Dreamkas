@@ -5,6 +5,7 @@ namespace Lighthouse\IntegrationBundle\Set10\Import\Sales;
 use Doctrine\ODM\MongoDB\DocumentManager;
 use Lighthouse\CoreBundle\Console\DotHelper;
 use Lighthouse\CoreBundle\DataTransformer\MoneyModelTransformer;
+use Lighthouse\CoreBundle\Document\Payment\BankCardPayment;
 use Lighthouse\CoreBundle\Document\Product\Product;
 use Lighthouse\CoreBundle\Document\Product\ProductRepository;
 use Lighthouse\CoreBundle\Document\Product\Version\ProductVersion;
@@ -328,8 +329,11 @@ class SalesImporter
                 $this->dotHelper->writeComment('.');
             }
         }
-        $sale->itemsCount = count($sale->products);
+
+        $sale->payment = new BankCardPayment();
+
         $sale->prePersist();
+
         return $sale;
     }
 

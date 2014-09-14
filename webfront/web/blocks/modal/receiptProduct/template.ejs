@@ -1,10 +1,6 @@
 <div id="modal_receiptProduct"
-     tabindex="-1"
-     role="dialog"
-     aria-labelledby="modal-default-label"
-     aria-hidden="true"
-     class="modal modal_receiptProduct fade"
-     style="display: none;">
+     class="modal modal_receiptProduct">
+
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
@@ -20,7 +16,7 @@
                 </button>
 
                 <h4 class="modal-title">
-                    Редактирование товара в чеке
+                    <%- models.receiptProduct.collection ? 'Редактирование позиции в чеке' : 'Добавление позиции в чек'%>
                 </h4>
 
                 <span class="clearfix"></span>

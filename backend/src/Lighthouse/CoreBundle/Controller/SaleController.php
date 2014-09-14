@@ -2,10 +2,11 @@
 
 namespace Lighthouse\CoreBundle\Controller;
 
-use Lighthouse\CoreBundle\Document\StockMovement\Receipt;
 use Lighthouse\CoreBundle\Document\StockMovement\ReceiptRepository;
+use Lighthouse\CoreBundle\Document\StockMovement\Sale\Sale;
 use Lighthouse\CoreBundle\Document\Store\Store;
-use Lighthouse\CoreBundle\Form\StockMovement\ReceiptType;
+use Lighthouse\CoreBundle\Form\StockMovement\Sale\SaleType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +15,7 @@ use JMS\DiExtraBundle\Annotation as DI;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use JMS\SecurityExtraBundle\Annotation\SecureParam;
 
-class ReceiptController extends AbstractRestController
+class SaleController extends AbstractRestController
 {
     /**
      * @DI\Inject("lighthouse.core.document.repository.receipt")
@@ -27,26 +28,37 @@ class ReceiptController extends AbstractRestController
      */
     protected function getDocumentFormType()
     {
-        return null;
+        return new SaleType();
     }
 
     /**
      * @param Request $request
      * @param Store $store
-     * @param string $type
-     * @return FormInterface|Receipt
+     * @return FormInterface|Sale
      *
-     * @Rest\Route("stores/{store}/sales", defaults={"type"="Sale"}, name="receipt.sales.post")
-     * @Rest\Route("stores/{store}/returns", defaults={"type"="Return"}, name="receipt.returns.post")
      * @Rest\View(statusCode=201)
      * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
      * @ApiDoc(resource=true)
      */
-    public function postStoreAction(Request $request, Store $store, $type)
+    public function postStoreSalesAction(Request $request, Store $store)
     {
-        $receipt = $this->documentRepository->createNewByType($type);
+        $receipt = $this->documentRepository->createNewByType(Sale::TYPE);
         $receipt->store = $store;
-        $receiptType = new ReceiptType($type);
-        return $this->processForm($request, $receipt, $receiptType);
+        return $this->processForm($request, $receipt);
+    }
+
+    /**
+     * @param Store $store
+     * @param Sale $sale
+     * @return Sale
+     *
+     * @SecureParam(name="store", permissions="ACL_DEPARTMENT_MANAGER")
+     * @ApiDoc
+     *
+     * @ParamConverter("sale", options={"mapping": {"store": "store", "id": "sale"}})
+     */
+    public function getStoreSaleAction(Store $store, Sale $sale)
+    {
+        return $sale;
     }
 }

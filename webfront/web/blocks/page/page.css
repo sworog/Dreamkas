@@ -24,6 +24,12 @@
     padding: 15px;
 }
 
+.page__posLink {
+    font-size: 14px;
+    width: 200px;
+    margin: 0 auto;
+}
+
 .page_pos .page__content{
     position: absolute;
     top: 60px;
@@ -32,7 +38,7 @@
     width: 100%;
 }
 
-.page_pos .col, .page_pos .productFinder, .page_pos .form_receipt {
+.page_pos .col, .page_pos .row, .page_pos .productFinder, .page_pos .receipt {
     height: 100%;
     position: relative;
 }
