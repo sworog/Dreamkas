@@ -143,7 +143,7 @@ public class MenuNavigationSteps extends ScenarioSteps {
     @Step
     public void userNameLinkClick() {
         new BodyPreLoader(getDriver()).await();
-        menuNavigationBar.getItems().get("userName").click();
+        menuNavigationBar.itemClick("userName");
     }
 
     @Step
