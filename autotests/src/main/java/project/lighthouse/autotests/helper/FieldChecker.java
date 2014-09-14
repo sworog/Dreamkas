@@ -34,6 +34,10 @@ public class FieldChecker {
         assertThat(commonItem.getText(), is(expectedValue));
     }
 
+    public void assertValueEqual(String message, String expectedValue) {
+        assertThat(message, commonItem.getText(), is(expectedValue));
+    }
+
     public void assertFieldLength(String elementName, int fieldLength) {
         int length;
         switch (commonItem.getOnlyVisibleWebElementFacade().getTagName()) {
