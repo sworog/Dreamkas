@@ -32,21 +32,6 @@ public class CommonUserSteps {
         commonSteps.checkNoErrorMessages(errorMessageTable);
     }
 
-    @Then("the users checks no autocomplete results")
-    public void thenTheUserChecksNoAutocompleteResults() {
-        commonSteps.checkAutoCompleteNoResults();
-    }
-
-    @Then("the users checks autocomplete results contains $checkValuesTable")
-    public void thenTheUSerChecksAutocompleteResultsContainsValuesTable(ExamplesTable checkValuesTable) {
-        commonSteps.checkAutoCompleteResults(checkValuesTable);
-    }
-
-    @Then("the user checks <autoCompleteResult>")
-    public void thenTheUserChecksAutoCompleteResult(String autoCompleteResult) {
-        commonSteps.checkAutoCompleteResult(autoCompleteResult);
-    }
-
     @Then("the user checks alert text is equal to '$expectedText'")
     public void thenTheUserChecksAlertTextIsEqualTo(String expectedText) {
         commonSteps.checkAlertText(expectedText);

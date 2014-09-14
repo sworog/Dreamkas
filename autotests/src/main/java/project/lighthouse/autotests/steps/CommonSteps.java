@@ -5,17 +5,22 @@ import net.thucydides.core.steps.ScenarioSteps;
 import org.hamcrest.Matchers;
 import org.jbehave.core.model.ExamplesTable;
 import org.junit.Assert;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import project.lighthouse.autotests.common.CommonPage;
+import project.lighthouse.autotests.common.CommonPageObject;
 import project.lighthouse.autotests.elements.bootstrap.SimplePreloader;
 import project.lighthouse.autotests.elements.bootstrap.WaitForModalWindowClose;
 import project.lighthouse.autotests.elements.preLoader.BodyPreLoader;
 import project.lighthouse.autotests.objects.web.error.ValidationErrorsCollection;
 import project.lighthouse.autotests.storage.Storage;
 
+import static junit.framework.Assert.fail;
+
 public class CommonSteps extends ScenarioSteps {
 
-    CommonPage commonPage;
+    public CommonPageObject getCommonPageObject() {
+        return getPages().get(CommonPageObject.class);
+    }
 
     @Step
     public void checkErrorMessages(ExamplesTable errorMessageTable) {
@@ -50,28 +55,19 @@ public class CommonSteps extends ScenarioSteps {
     }
 
     @Step
-    public void checkAutoCompleteNoResults() {
-        commonPage.checkAutoCompleteNoResults();
-    }
-
-    @Step
-    public void checkAutoCompleteResults(ExamplesTable checkValuesTable) {
-        commonPage.checkAutoCompleteResults(checkValuesTable);
-    }
-
-    @Step
-    public void checkAutoCompleteResult(String autoCompleteValue) {
-        commonPage.checkAutoCompleteResult(autoCompleteValue);
-    }
-
-    @Step
     public void checkAlertText(String expectedText) {
-        commonPage.getCommonActions().checkAlertText(expectedText);
+        getCommonPageObject().getCommonActions().checkAlertText(expectedText);
     }
 
     @Step
     public void NoAlertIsPresent() {
-        commonPage.NoAlertIsPresent();
+        try {
+            Alert alert = getCommonPageObject().getWaiter().getAlert();
+            fail(
+                    String.format("Alert is present! Alert text: '%s'", alert.getText())
+            );
+        } catch (Exception ignored) {
+        }
     }
 
     @Step
@@ -81,7 +77,11 @@ public class CommonSteps extends ScenarioSteps {
 
     @Step
     public void pageContainsText(String text) {
-        commonPage.pageContainsText(text);
+        getCommonPageObject().getWaiter().getVisibleWebElement(
+                By.xpath(
+                        String.format("//*[contains(normalize-space(text()), '%s')]", text)
+                )
+        );
     }
 
     @Step
@@ -101,16 +101,16 @@ public class CommonSteps extends ScenarioSteps {
 
     @Step
     public void assertPopOverContent(String expectedContent) {
-        String actualContent = commonPage.findVisibleElement(By.className("popover-content")).getText();
+        String actualContent = getCommonPageObject().findVisibleElement(By.className("popover-content")).getText();
         Assert.assertThat(actualContent, Matchers.is(expectedContent));
     }
 
     @Step
     public void switchToLastWindowHandle() {
-        String mainWindowHandle = commonPage.getDriver().getWindowHandle();
+        String mainWindowHandle = getCommonPageObject().getDriver().getWindowHandle();
         Storage.getCustomVariableStorage().setMainWindowHandle(mainWindowHandle);
-        for (String windowHandle : commonPage.getDriver().getWindowHandles()) {
-            commonPage.getDriver().switchTo().window(windowHandle);
+        for (String windowHandle : getCommonPageObject().getDriver().getWindowHandles()) {
+            getCommonPageObject().getDriver().switchTo().window(windowHandle);
         }
     }
 
@@ -118,8 +118,8 @@ public class CommonSteps extends ScenarioSteps {
     public void beforeScenarioSwitchToMainWindowHandleIfNeeded() {
         String mainWindowHandle = Storage.getCustomVariableStorage().getMainWindowHandle();
         if (mainWindowHandle != null && containWindowHandle(mainWindowHandle)) {
-            commonPage.getDriver().close();
-            commonPage.getDriver().switchTo().window(mainWindowHandle);
+            getCommonPageObject().getDriver().close();
+            getCommonPageObject().getDriver().switchTo().window(mainWindowHandle);
             Storage.getCustomVariableStorage().setMainWindowHandle(null);
         }
     }
