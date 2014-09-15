@@ -5,7 +5,7 @@ define(function(require, exports, module) {
     return PosPart.extend({
 		title: 'История продаж',
         content: require('ejs!./content.ejs'),
-		activeNavigationItem: 'refund',
+		activeNavigationItem: 'sales',
 		models: {
 			store: PosPart.prototype.models.store
 		},
