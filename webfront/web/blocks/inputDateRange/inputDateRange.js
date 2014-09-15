@@ -20,7 +20,7 @@ define(function(require, exports, module) {
                 format: 'dd.mm.yyyy',
                 autoclose: true,
                 endDate: block.endDate && block.endDate.toString(),
-                todayBtn: "linked"
+                todayBtn: 'linked'
             });
         },
         destroy: function(){

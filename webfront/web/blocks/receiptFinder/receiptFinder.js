@@ -1,25 +1,37 @@
 define(function(require, exports, module) {
 	//requirements
-	var Block = require('kit/block/block'),
-		moment = require('moment'),
-		formatDate = require('kit/formatDate/formatDate');
+	var Block = require('kit/block/block');
 
 	return Block.extend({
 		template: require('ejs!./template.ejs'),
+		events: {
+			'hide .inputDateRange input[name="dateFrom"]': function(e) {
+				this.changeDateRange();
+			},
+			'hide .inputDateRange input[name="dateTo"]': function() {
+				this.changeDateRange();
+			}
+		},
 		collections: {
-			receipts: require('collections/receipts/receipts')
+			receipts: function() {
+				return this.receipts;
+			}
 		},
 		blocks: {
 			inputDateRange: require('blocks/inputDateRange/inputDateRange'),
 			receiptFinder__results: require('./receiptFinder__results')
 		},
-		dateRange: function() {
-			var currentTime = Date.now();
+		changeDateRange: function() {
+			var dateFromInput = this.$el.find('.inputDateRange input[name="dateFrom"]'),
+				dateToInput = this.$el.find('.inputDateRange input[name="dateTo"]');
 
-			return {
-				dateFrom: moment(currentTime).subtract(1, 'week'),
-				dateTo: formatDate(currentTime)
-			}
+			dateFromInput.addClass('loading');
+			dateToInput.addClass('loading');
+
+			this.collections.receipts.find(dateFromInput.val(), dateToInput.val()).then(function() {
+				dateFromInput.removeClass('loading');
+				dateToInput.removeClass('loading');
+			});
 		}
 	});
 });

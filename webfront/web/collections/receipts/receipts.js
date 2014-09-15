@@ -4,30 +4,33 @@ define(function(require) {
 
         return Collection.extend({
             model: require('models/receipt/receipt'),
-			/*,
             url: function(){
-                return Collection.baseApiUrl + '/subcategories/' + this.groupId + '/products'
+                return Collection.baseApiUrl + '/store/' + this.storeId + '/sales';
             },
-            find: function(query){
+            find: function(dateFrom, dateTo){
                 var collection = this;
 
-                collection.searchQuery = query;
+                collection.dateFrom = dateFrom;
+				collection.dateTo = dateTo;
 
                 collection.searchRequest && collection.searchRequest.abort();
 
                 collection.searchRequest = $.ajax({
-                    url: Collection.baseApiUrl + '/products/search',
-                    data: {
-                        properties: ['name', 'sku', 'barcode'],
-                        query: collection.searchQuery
-                    }
+                    url: this.url(),
+					data: this.data()
                 });
 
                 return collection.searchRequest.then(function(data){
                     collection.reset(data);
                 });
-            }
-            */
+            },
+			data: function() {
+				return {
+					dateFrom: this.dateFrom,
+					dateTo: this.dateTo,
+					product: ''
+				};
+			}
         });
     }
 );
