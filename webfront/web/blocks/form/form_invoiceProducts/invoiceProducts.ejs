@@ -1,5 +1,10 @@
 <% var InvoiceProductsCollections = require('collections/invoiceProducts/invoiceProducts') %>
 
+<% var helpers = {
+    formatMoney: require('kit/formatMoney/formatMoney'),
+    formatAmount: require('kit/formatAmount/formatAmount')
+} %>
+
 <% var collections = _.extend({
     invoiceProducts: new InvoiceProductsCollections()
 }, collections) %>
