@@ -2,12 +2,9 @@
 
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints;
 
-use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Lighthouse\CoreBundle\Validator\Constraints\Chain;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Range;
-use Symfony\Component\Validator\Validator\LegacyValidator;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ChainValidatorTest extends ConstraintTestCase
 {

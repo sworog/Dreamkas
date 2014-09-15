@@ -2,10 +2,7 @@
 
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints;
 
-use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Validator\Constraints\NotFloat;
-use Lighthouse\CoreBundle\Validator\Constraints\NotFloatValidator;
-use Symfony\Component\Validator\ExecutionContextInterface;
 
 class NotFloatValidatorTest extends ConstraintTestCase
 {

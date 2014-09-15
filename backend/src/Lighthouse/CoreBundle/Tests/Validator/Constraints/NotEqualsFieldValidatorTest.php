@@ -2,7 +2,6 @@
 
 namespace Lighthouse\CoreBundle\Tests\Validator\Constraints;
 
-use Lighthouse\CoreBundle\Test\TestCase;
 use Lighthouse\CoreBundle\Validator\Constraints\NotEqualsField;
 
 class NotEqualsFieldValidatorTest extends ConstraintTestCase
