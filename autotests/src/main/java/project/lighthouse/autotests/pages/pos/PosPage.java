@@ -44,4 +44,8 @@ public class PosPage extends BootstrapPageObject {
     public void confirmClearReceipt() {
         click(By.className("confirmLink__confirmation"));
     }
+
+    public void clickOnRegisterSaleButton() {
+        click(By.xpath("//*[contains(@class, 'btn-primary') and contains(text(), 'Продать на сумму')]"));
+    }
 }

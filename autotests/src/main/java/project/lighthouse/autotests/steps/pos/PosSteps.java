@@ -3,17 +3,24 @@ package project.lighthouse.autotests.steps.pos;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 import org.jbehave.core.model.ExamplesTable;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
+import project.lighthouse.autotests.api.http.HttpExecutor;
 import project.lighthouse.autotests.helper.UrlHelper;
 import project.lighthouse.autotests.objects.web.posAutoComplete.PosAutoCompleteCollection;
 import project.lighthouse.autotests.objects.web.receipt.ReceiptCollection;
 import project.lighthouse.autotests.objects.web.receipt.ReceiptObject;
 import project.lighthouse.autotests.pages.pos.PosLaunchPage;
 import project.lighthouse.autotests.pages.pos.PosPage;
+import project.lighthouse.autotests.pages.pos.ReceiptModalPage;
 import project.lighthouse.autotests.pages.pos.ReceiptPositionEditModalWindow;
 import project.lighthouse.autotests.storage.Storage;
+import project.lighthouse.autotests.storage.containers.user.UserContainer;
+
+import java.io.IOException;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
@@ -24,6 +31,7 @@ public class PosSteps extends ScenarioSteps {
     PosLaunchPage posLaunchPage;
     PosPage posPage;
     ReceiptPositionEditModalWindow receiptPositionEditModalWindow;
+    ReceiptModalPage receiptModalPage;
 
     @Step
     public void choosePosConfirmation() {
@@ -126,5 +134,32 @@ public class PosSteps extends ScenarioSteps {
     @Step
     public void confirmClearReceipt() {
         posPage.confirmClearReceipt();
+    }
+
+    @Step
+    public void clickOnRegisterSaleButton() {
+        posPage.clickOnRegisterSaleButton();
+    }
+
+    @Step
+    public void clickOnContinueButton() {
+        receiptModalPage.clickOnContinueButton();
+    }
+
+    @Step
+    public void assertStoreProductInventory(String email, String storeName, String productName, String inventory) throws IOException, JSONException {
+        UserContainer userContainer = Storage.getUserVariableStorage().getUserContainers().getContainerWithEmail(email);
+        String storeId = Storage.getCustomVariableStorage().getStores().get(storeName).getId();
+        String productId = Storage.getCustomVariableStorage().getProducts().get(productName).getId();
+        String url = String.format("%s/api/1/stores/%s/products/%s", UrlHelper.getApiUrl(), storeId, productId);
+        String response = HttpExecutor.getHttpRequestable(userContainer.getEmail(), userContainer.getPassword()).executeGetRequest(url);
+        JSONObject jsonObject = new JSONObject(response);
+        assertThat(jsonObject.getString("inventory"), is(inventory));
+    }
+
+    @Step
+    public void assertSuccessTitle(String value) {
+        String expected = String.format("Выдайте сдачу\n%s", value);
+        receiptModalPage.checkValue("receiptSuccessTitle", expected);
     }
 }
