@@ -5,9 +5,18 @@ namespace Lighthouse\CoreBundle\Validator\Constraints;
 use Lighthouse\CoreBundle\Types\Nullable;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator as BaseConstraintValidator;
+use Symfony\Component\Validator\ConstraintViolation;
+use Symfony\Component\Validator\ConstraintViolationInterface;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 abstract class ConstraintValidator extends BaseConstraintValidator
 {
+    /**
+     * @var ExecutionContextInterface
+     */
+    protected $context;
+
     /**
      * @param mixed|Nullable $value
      * @return bool
@@ -35,17 +44,47 @@ abstract class ConstraintValidator extends BaseConstraintValidator
      */
     protected function validateValue($value, $constraints, $subPath = '', $groups = null)
     {
-        $violations = $this->context->getViolations();
-        $countViolations = count($violations);
 
-        $this->context->validateValue($value, $constraints, $subPath, $groups);
+        $validator = $this->context->getValidator();
+        $preViolations = $this->context->getViolations();
 
-        if (count($violations) == $countViolations) {
-            return true;
-        } else {
+        $validator
+            ->inContext($this->context)
+            ->atPath($subPath);
+        $violations = $validator->validate($value, $constraints, $groups);
+
+        if ($preViolations->count() <> $violations->count()) {
+            $this->addViolationsToContext($violations);
             return false;
+        } else {
+            return true;
         }
     }
+
+    /**
+     * @param ConstraintViolationListInterface $violations
+     */
+    protected function addViolationsToContext(ConstraintViolationListInterface $violations)
+    {
+        foreach ($violations as $violation) {
+            $this->addViolationToContext($violation);
+        }
+    }
+
+    /**
+     * @param ConstraintViolationInterface $violation
+     */
+    protected function addViolationToContext(ConstraintViolationInterface $violation)
+    {
+        $this->context
+            ->buildViolation($violation->getMessageTemplate())
+                ->setParameters($violation->getMessageParameters())
+                ->setPlural($violation->getMessagePluralization())
+                ->setInvalidValue($violation->getInvalidValue())
+                ->setCode($violation->getCode())
+            ->addViolation();
+    }
+
 
     /**
      * @param $value

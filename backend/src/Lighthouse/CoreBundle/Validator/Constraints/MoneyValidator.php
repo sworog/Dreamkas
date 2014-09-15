@@ -15,16 +15,16 @@ class MoneyValidator extends ConstraintValidator
     {
         if ($this->isEmpty($value)) {
             if ($constraint->notBlank) {
-                $this->context->addViolation(
-                    $constraint->messageNotBlank
-                );
+                $this->context
+                    ->buildViolation($constraint->messageNotBlank)
+                    ->addViolation()
+                ;
             }
-            return;
+        } else {
+            $this->validateNegative($value, $constraint);
+            $this->validateMax($value, $constraint);
+            $this->validatePrecision($value, $constraint);
         }
-
-        $this->validateNegative($value, $constraint);
-        $this->validateMax($value, $constraint);
-        $this->validatePrecision($value, $constraint);
     }
 
     /**
@@ -34,12 +34,11 @@ class MoneyValidator extends ConstraintValidator
     protected function validateNegative(MoneyType $value, Money $constraint)
     {
         if ($value->getCount() < 0 || ($value->getCount() == 0 && $constraint->zero === false)) {
-            $this->context->addViolation(
-                $constraint->messageNegative,
-                array(
-                    '{{ value }}' => $value->toString()
-                )
-            );
+            $this->context
+                ->buildViolation($constraint->messageNegative)
+                    ->setParameter('{{ value }}', $value->toString())
+                ->addViolation()
+            ;
         }
     }
 
@@ -50,13 +49,12 @@ class MoneyValidator extends ConstraintValidator
     protected function validateMax(MoneyType $value, Money $constraint)
     {
         if (null !== $constraint->max && $value->toNumber() > $constraint->max) {
-            $this->context->addViolation(
-                $constraint->messageMax,
-                array(
-                    '{{ value }}' => $value->toString(),
-                    '{{ limit }}' => $constraint->max,
-                )
-            );
+            $this->context
+                ->buildViolation($constraint->messageMax)
+                    ->setParameter('{{ value }}', $value->toString())
+                    ->setParameter('{{ limit }}', $constraint->max)
+                ->addViolation()
+            ;
         }
     }
 
@@ -73,6 +71,6 @@ class MoneyValidator extends ConstraintValidator
             )
         );
 
-        $this->context->validateValue($value, $precisionConstraint);
+        $this->validateValue($value, $precisionConstraint);
     }
 }
