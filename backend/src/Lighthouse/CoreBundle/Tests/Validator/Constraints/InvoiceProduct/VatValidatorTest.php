@@ -4,13 +4,12 @@ namespace Lighthouse\CoreBundle\Tests\Validator\Constraints\InvoiceProduct;
 
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\Invoice;
 use Lighthouse\CoreBundle\Document\StockMovement\Invoice\InvoiceProduct;
-use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
+use Lighthouse\CoreBundle\Tests\Validator\Constraints\ConstraintTestCase;
 use Lighthouse\CoreBundle\Types\Numeric\NumericFactory;
 use Lighthouse\CoreBundle\Validator\Constraints\InvoiceProduct\Vat;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class VatValidatorTest extends ContainerAwareTestCase
+class VatValidatorTest extends ConstraintTestCase
 {
     public function testConstraintTargets()
     {
@@ -34,23 +33,18 @@ class VatValidatorTest extends ContainerAwareTestCase
         $expectedViolationsCount,
         array $expectedMessages = array()
     ) {
-        /* @var ValidatorInterface $validator */
-        $validator = $this->getContainer()->get('validator');
         $constraint = new Vat();
-
-        /* @var NumericFactory $numericFactory */
-        $numericFactory = $this->getContainer()->get('lighthouse.core.types.numeric.factory');
 
         $invoice = new Invoice();
         $invoice->includesVAT = $includesVat;
 
         $invoiceProduct = new InvoiceProduct();
         $invoiceProduct->parent = $invoice;
-        $invoiceProduct->quantity = $numericFactory->createQuantity(12);
-        $invoiceProduct->price = $numericFactory->createMoney($price);
-        $invoiceProduct->priceWithoutVAT = $numericFactory->createMoney($priceWithoutVAT);
+        $invoiceProduct->quantity = $this->getNumericFactory()->createQuantity(12);
+        $invoiceProduct->price = $this->getNumericFactory()->createMoney($price);
+        $invoiceProduct->priceWithoutVAT = $this->getNumericFactory()->createMoney($priceWithoutVAT);
 
-        $violationList = $validator->validateValue($invoiceProduct, $constraint);
+        $violationList = $this->getValidator()->validate($invoiceProduct, $constraint, null);
 
         $this->assertCount($expectedViolationsCount, $violationList);
         foreach ($expectedMessages as $offset => $expectedMessage) {
@@ -138,5 +132,13 @@ class VatValidatorTest extends ContainerAwareTestCase
                 array('lighthouse.validation.errors.money.negative')
             ),
         );
+    }
+
+    /**
+     * @return NumericFactory
+     */
+    protected function getNumericFactory()
+    {
+        return $this->getContainer()->get('lighthouse.core.types.numeric.factory');
     }
 }
