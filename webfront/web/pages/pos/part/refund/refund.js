@@ -1,8 +1,6 @@
 define(function(require, exports, module) {
     //requirements
-    var PosPart = require('pages/pos/part/part'),
-		moment = require('moment'),
-		formatDate = require('kit/formatDate/formatDate');
+    var PosPart = require('pages/pos/part/part');
 
     return PosPart.extend({
 		title: 'История продаж',
@@ -13,14 +11,22 @@ define(function(require, exports, module) {
 		},
 		collections: {
 			receipts: function() {
-				var ReceiptsCollection = require('collections/receipts/receipts'),
-					dateRange = this.defaultDateRange(),
+				var page = this,
+					ReceiptsCollection = require('collections/receipts/receipts'),
+					filters,
 					receipts;
+
+				filters = _.pick(page.params, 'dateFrom', 'dateTo', 'product');
 
 				receipts = new ReceiptsCollection([], {
 					storeId: this.params.storeId,
-					dateFrom: dateRange.dateFrom,
-					dateTo: dateRange.dateTo
+					filters: filters
+				});
+
+				this.listenTo(receipts, {
+					reset: function() {
+						page.setParams(receipts.filters);
+					}
 				});
 
 				return receipts;
@@ -37,14 +43,6 @@ define(function(require, exports, module) {
 				receiptFinder = new ReceiptFinder(params);
 
 				return receiptFinder;
-			}
-		},
-		defaultDateRange: function() {
-			var currentTime = Date.now();
-
-			return {
-				dateFrom: formatDate(moment(currentTime).subtract(1, 'week')),
-				dateTo: formatDate(currentTime)
 			}
 		}
     });

@@ -15,8 +15,7 @@ define(function(require, exports, module) {
 			var collection = this;
 
             return Backbone.Collection.prototype.fetch.call(this, _.extend({
-                reset: true,
-				data: get(collection, 'data')
+                reset: true
             }, options));
         }
     });
