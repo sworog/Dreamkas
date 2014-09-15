@@ -4,13 +4,12 @@ namespace Lighthouse\CoreBundle\Tests\Validator\Constraints;
 
 use Lighthouse\CoreBundle\Test\ContainerAwareTestCase;
 use Symfony\Component\Validator\ConstraintViolationInterface;
-use Symfony\Component\Validator\Validator\LegacyValidator;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ConstraintTestCase extends ContainerAwareTestCase
 {
     /**
-     * @return ValidatorInterface|LegacyValidator
+     * @return ValidatorInterface
      */
     protected function getValidator()
     {

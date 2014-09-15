@@ -12,7 +12,8 @@ use Lighthouse\IntegrationBundle\Set10\Import\Sales\SalesImporter;
 use Lighthouse\CoreBundle\Types\Date\DatePeriod;
 use Lighthouse\IntegrationBundle\Util\SortableDirectoryIterator;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\TableHelper;
+use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Helper\TableStyle;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -141,19 +142,21 @@ class Set10SalesImportLocal extends Command implements ProjectableCommand
             return;
         }
 
-        /* @var TableHelper $tableHelper */
-        $tableHelper = $this->getHelper('table');
-        $tableHelper->setPadType(STR_PAD_LEFT);
-        $tableHelper->setHeaders(array('', 'count', 'ms', 'pos/ms', 'ms/pos', '%'));
+        $style = new TableStyle();
+        $style->setPadType(STR_PAD_LEFT);
 
-        $tableHelper->addRow($this->getEventStats('Parse', $events, 'parse'));
-        $tableHelper->addRow($this->getEventStats('Pos', $events, 'position'));
-        $tableHelper->addRow($this->getEventStats('Receipt', $events, 'receipt'));
-        $tableHelper->addRow($this->getEventStats('Persist', $events, 'persist'));
-        $tableHelper->addRow($this->getEventStats('Flush', $events, 'flush'));
-        $tableHelper->addRow($this->getEventStats('All', $events, 'all'));
+        $table = new Table($output);
+        $table->setStyle($style);
+        $table->setHeaders(array('', 'count', 'ms', 'pos/ms', 'ms/pos', '%'));
 
-        $tableHelper->render($output);
+        $table->addRow($this->getEventStats('Parse', $events, 'parse'));
+        $table->addRow($this->getEventStats('Pos', $events, 'position'));
+        $table->addRow($this->getEventStats('Receipt', $events, 'receipt'));
+        $table->addRow($this->getEventStats('Persist', $events, 'persist'));
+        $table->addRow($this->getEventStats('Flush', $events, 'flush'));
+        $table->addRow($this->getEventStats('All', $events, 'all'));
+
+        $table->render($output);
     }
 
     /**
